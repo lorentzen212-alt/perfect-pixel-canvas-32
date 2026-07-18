@@ -89,14 +89,16 @@ function Home() {
 
       <div className="relative z-20 w-full">
         {/* HEADER */}
-        <header className="flex h-[80px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
-          <a href="/" aria-label="HotelGroupBook" className="flex items-center pl-6 translate-y-3">
+        <header className="flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
+          <a href="/" aria-label="HotelGroupBook" className="flex items-center pl-[28px]">
             <img
               src={logoAsset.url}
               alt="HotelGroupBook"
-              className="h-[43px] sm:h-[53px] lg:h-[62px] w-auto"
+              className="h-[46px] sm:h-[56px] lg:h-[68px] w-auto"
             />
           </a>
+
+
 
 
           <button
