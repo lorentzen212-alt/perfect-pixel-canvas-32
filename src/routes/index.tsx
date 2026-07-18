@@ -228,7 +228,7 @@ function CTAButton({
       </span>
       <ArrowRight
         className="text-[#FFC400] transition-transform group-hover:translate-x-1 shrink-0"
-        size={26}
+        size={22}
         strokeWidth={2.25}
       />
     </button>
