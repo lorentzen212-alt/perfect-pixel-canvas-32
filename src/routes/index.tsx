@@ -198,15 +198,15 @@ function CTAButton({
       }`}
     >
       <span className="flex items-center gap-3">
-        <span className={light ? "text-[#F5AE00]" : "text-[#F5AE00]"}>{icon}</span>
+        <span className={light ? "text-[#F5AE00]" : "text-[#FFC400]">{icon}</span>
         <span
-          className={`text-[17px] font-semibold ${light ? "text-black" : "text-[#F7F7F5]"}`}
+          className={`text-[17px] font-semibold ${light ? "text-black" : "text-white"}`}
         >
           {label}
         </span>
       </span>
       <ArrowRight
-        className="text-[#F5AE00] transition-transform group-hover:translate-x-1"
+        className={`transition-transform group-hover:translate-x-1 ${light ? "text-[#F5AE00]" : "text-[#FFC400]"}`}
         size={22}
         strokeWidth={2.25}
       />
