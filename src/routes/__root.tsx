@@ -77,14 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "HotelGroupBook — Group hotel bookings made simple" },
+      { name: "description", content: "The easiest way to request hotel offers for groups. One request. Multiple hotels. The best choice for your group." },
+      { name: "author", content: "HotelGroupBook" },
+      { property: "og:title", content: "HotelGroupBook — Group hotel bookings made simple" },
+      { property: "og:description", content: "The easiest way to request hotel offers for groups." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
