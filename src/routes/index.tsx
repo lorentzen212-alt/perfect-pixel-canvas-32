@@ -192,7 +192,7 @@ function CTAButton({
   return (
     <button
       className={cn(
-        "group flex items-center justify-between rounded-[10px] h-[62px] px-5 border transition-all duration-200 ease-out hover:-translate-y-[2px]",
+        "group flex items-center justify-between rounded-[10px] h-[62px] px-5 border transition-all duration-200 ease-out hover:translate-y-[-2px]",
         light
           ? "bg-[#F7F5F2] border-[#F7F5F2] text-black hover:bg-[#FAF9F7] hover:border-white/40 hover:shadow-[0_10px_30px_rgba(0,0,0,0.18),0_0_18px_rgba(255,196,0,0.10)]"
           : "bg-gradient-to-b from-[#16385A] to-[#0F2A47] border-[rgba(255,255,255,0.16)] text-white shadow-[0_2px_4px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.1)] hover:from-[#174060] hover:to-[#11375A] hover:border-white/25 hover:shadow-[0_10px_30px_rgba(0,0,0,0.18),0_0_18px_rgba(255,196,0,0.10)]"
