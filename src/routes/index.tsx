@@ -89,12 +89,13 @@ function Home() {
 
       <div className="relative z-20 w-full">
         {/* HEADER */}
-        <header className="flex items-center justify-between pt-[2px] lg:pt-[10px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
+        <header className="flex h-[80px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
           <a href="/" aria-label="HotelGroupBook" className="flex items-center">
             <img
               src={logoAsset.url}
               alt="HotelGroupBook"
-              className="h-9 sm:h-11 lg:h-[52px] w-auto"
+              className="h-[43px] sm:h-[53px] lg:h-[62px] w-auto"
+              style={{ filter: 'brightness(0) saturate(100%) invert(1)' }}
             />
           </a>
 
@@ -107,7 +108,7 @@ function Home() {
             {mobileOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
-          <nav className="hidden lg:flex items-center gap-10 pt-[2px]">
+          <nav className="hidden lg:flex items-center gap-10">
             {NAV_LINKS.map((l) => (
               <a
                 key={l.label}
