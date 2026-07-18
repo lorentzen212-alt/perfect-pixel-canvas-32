@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -38,6 +39,15 @@ const TRUST = [
   { Icon: Headphones, label: "Expert support" },
   { Icon: Lock, label: "Secure & trusted" },
 ];
+
+function GoldLineWithDiamond({ className }: { className?: string }) {
+  return (
+    <div className={cn("flex items-center", className)}>
+      <div className="h-[2px] w-[150px] sm:w-[170px] lg:w-[190px] bg-[#FFC400]" />
+      <div className="h-[10px] w-[10px] rotate-45 bg-[#FFC400] -ml-[5px]" />
+    </div>
+  );
+}
 
 function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -109,21 +119,23 @@ function Home() {
         )}
 
         {/* HERO CONTENT */}
-        <section className="ml-5 sm:ml-8 lg:ml-[50px] xl:ml-[60px] pt-14 sm:pt-20 lg:pt-[110px] pb-16 lg:pb-24 max-w-[720px]">
+        <section className="ml-5 sm:ml-8 lg:ml-[50px] xl:ml-[60px] pt-[38px] sm:pt-[62px] lg:pt-[92px] pb-16 lg:pb-24 max-w-[720px]">
+          <GoldLineWithDiamond />
+
           <h2
-            className="font-normal text-[#F7F7F5] leading-[1.02] text-5xl sm:text-6xl lg:text-[86px]"
-            style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+            className="mt-4 font-medium text-white leading-[1.02] text-5xl sm:text-6xl lg:text-[86px]"
+            style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
           >
             Group hotel
             <br />
             bookings
             <br />
-            made simple
+            <span className="italic">made simple</span>
           </h2>
 
-          <div className="mt-6 h-[5px] w-[110px] bg-[#F5AE00]" />
+          <GoldLineWithDiamond className="mt-4" />
 
-          <p className="mt-7 text-[#F7F7F5] text-xl sm:text-2xl lg:text-[28px] leading-[1.25] font-light">
+          <p className="mt-[39px] text-white text-xl sm:text-2xl lg:text-[28px] leading-[1.25] font-normal font-sans">
             The easiest way to request
             <br />
             hotel offers for groups.
