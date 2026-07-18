@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   component: Home,
