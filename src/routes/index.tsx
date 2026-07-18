@@ -191,10 +191,10 @@ function CTAButton({
   const light = variant === "light";
   return (
     <button
-      className={`group flex items-center justify-between rounded-[10px] h-[62px] px-5 border transition-all duration-[180ms] ease-out ${
+      className={`group flex items-center justify-between rounded-[10px] h-[62px] px-5 border transition-all ${
         light
-          ? "bg-[#F7F5F2] border-[#F7F5F2] hover:brightness-[1.03] hover:border-[#FFFFFF] hover:shadow-[0_4px_24px_rgba(0,0,0,0.12)]"
-          : "bg-[#182632] border-[#3A4753] hover:brightness-[1.03] hover:border-[#4A5763] hover:shadow-[0_4px_24px_rgba(0,0,0,0.35)]"
+          ? "bg-[#F7F5F2] border-[#F7F5F2] hover:brightness-95"
+          : "bg-[#182632] border-[#3A4753] hover:bg-[#1f2f3d]"
       }`}
     >
       <span className="flex items-center gap-3">
