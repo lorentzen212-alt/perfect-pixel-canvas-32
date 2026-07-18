@@ -172,14 +172,14 @@ function CTAButton({
     <button
       className={`group flex items-center justify-between rounded-[10px] h-[62px] px-5 border transition-all ${
         light
-          ? "bg-[#F7F5EE] border-[#F7F5EE] hover:brightness-95"
-          : "bg-[rgba(2,18,29,0.55)] border-white/25 backdrop-blur-sm hover:bg-[rgba(2,18,29,0.75)]"
+          ? "bg-[#F7F5F2] border-[#F7F5F2] hover:brightness-95"
+          : "bg-[#182632] border-[#3A4753] hover:bg-[#1f2f3d]"
       }`}
     >
       <span className="flex items-center gap-3">
-        <span className={light ? "text-[#04111A]" : "text-[#F7F7F5]"}>{icon}</span>
+        <span className={light ? "text-[#F5AE00]" : "text-[#F5AE00]"}>{icon}</span>
         <span
-          className={`text-[17px] font-semibold ${light ? "text-[#04111A]" : "text-[#F7F7F5]"}`}
+          className={`text-[17px] font-semibold ${light ? "text-black" : "text-[#F7F7F5]"}`}
         >
           {label}
         </span>
