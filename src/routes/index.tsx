@@ -68,7 +68,13 @@ function Home() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-black/70 via-black/30 to-transparent" />
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-full lg:w-[65%]"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.12) 25%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0) 60%)",
+        }}
+      />
 
       <div className="relative z-20 w-full">
         {/* HEADER */}
