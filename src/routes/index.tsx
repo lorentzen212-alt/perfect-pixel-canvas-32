@@ -20,7 +20,7 @@ import {
   Linkedin,
   Facebook,
   Instagram,
-  Mountain,
+  
 } from "lucide-react";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
 import hgLogo from "@/assets/hg-logo.png.asset.json";
