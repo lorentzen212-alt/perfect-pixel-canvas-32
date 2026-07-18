@@ -506,15 +506,10 @@ function SiteFooter() {
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2">
-              <Mountain className="text-[#F5AE00]" size={26} strokeWidth={1.75} />
-              <span
-                className="text-white text-2xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
-              >
-                HotelGroupBook
-              </span>
-            </div>
+            <a href="/" aria-label="HotelGroupBook" className="inline-flex items-center">
+              <img src={logoAsset.url} alt="HotelGroupBook" className="h-10 w-auto" />
+            </a>
+
             <p className="mt-3 text-[#8A96A2] text-sm">
               Group hotel bookings made simple.
             </p>
