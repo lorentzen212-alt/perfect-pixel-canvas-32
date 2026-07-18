@@ -43,7 +43,7 @@ const TRUST = [
 function GoldLineWithDiamond({ className }: { className?: string }) {
   return (
     <div className={cn("flex items-center", className)}>
-      <div className="h-[2px] w-[180px] sm:w-[200px] lg:w-[240px] bg-[#FFC400]" />
+      <div className="h-[2px] w-[150px] sm:w-[170px] lg:w-[190px] bg-[#FFC400]" />
       <div className="h-[10px] w-[10px] rotate-45 bg-[#FFC400] -ml-[5px]" />
     </div>
   );
