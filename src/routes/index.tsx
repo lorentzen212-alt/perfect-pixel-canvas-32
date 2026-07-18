@@ -194,7 +194,7 @@ function CTAButton({
       className={`group flex items-center justify-between rounded-[10px] h-[62px] px-5 border transition-all ${
         light
           ? "bg-[#F7F5F2] border-[#F7F5F2] hover:brightness-95"
-          : "bg-[#182632] border-[#3A4753] hover:bg-[#1f2f3d]"
+          : "bg-gradient-to-b from-[#16385A] to-[#0F2A47] border-[rgba(255,255,255,0.16)] text-white shadow-[0_2px_4px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.1)] hover:from-[#143557] hover:to-[#143557]"
       }`}
     >
       <span className="flex items-center gap-3">
