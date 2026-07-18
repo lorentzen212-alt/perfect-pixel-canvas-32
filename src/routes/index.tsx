@@ -52,7 +52,9 @@ function Home() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="relative z-10 w-full">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-black/70 via-black/30 to-transparent" />
+
+      <div className="relative z-20 w-full">
         {/* HEADER */}
         <header className="flex items-start justify-between pt-8 lg:pt-10 px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
           <div>
@@ -91,6 +93,7 @@ function Home() {
             </button>
           </nav>
         </header>
+
 
         {mobileOpen && (
           <nav className="lg:hidden mt-4 mx-5 sm:mx-8 lg:mx-[50px] xl:mx-[60px] flex flex-col gap-3 rounded-xl bg-[rgba(2,18,29,0.9)] p-4">
