@@ -75,6 +75,7 @@ function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
+    <>
     <main
       className="relative min-h-screen w-full overflow-hidden bg-[#04111A]"
       style={{
