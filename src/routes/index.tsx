@@ -176,7 +176,7 @@ function Home() {
                   Bookings
                 </>
               }
-              variant="dark"
+              variant="deep"
             />
           </div>
 
