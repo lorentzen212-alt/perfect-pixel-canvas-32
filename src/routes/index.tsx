@@ -94,7 +94,7 @@ function Home() {
             {mobileOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
-          <nav className="hidden lg:flex items-center gap-10 pt-3">
+          <nav className="hidden lg:flex items-center gap-10 pt-[2px]">
             {NAV_LINKS.map((l) => (
               <a
                 key={l.label}
