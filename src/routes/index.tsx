@@ -40,10 +40,16 @@ const TRUST = [
   { Icon: Lock, label: "Secure & trusted" },
 ];
 
-function GoldLineWithDiamond({ className }: { className?: string }) {
+function GoldLineWithDiamond({
+  className,
+  lineWidth = "w-[260px] sm:w-[300px] lg:w-[330px]",
+}: {
+  className?: string;
+  lineWidth?: string;
+}) {
   return (
     <div className={cn("flex items-center", className)}>
-      <div className="h-[2px] w-[260px] sm:w-[300px] lg:w-[330px] bg-[#FFC400]" />
+      <div className={cn("h-[2px] bg-[#FFC400]", lineWidth)} />
       <div className="ml-5 h-[10px] w-[10px] rotate-45 bg-[#FFC400]" />
     </div>
   );
