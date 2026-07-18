@@ -119,21 +119,23 @@ function Home() {
         )}
 
         {/* HERO CONTENT */}
-        <section className="ml-5 sm:ml-8 lg:ml-[50px] xl:ml-[60px] pt-14 sm:pt-20 lg:pt-[110px] pb-16 lg:pb-24 max-w-[720px]">
+        <section className="ml-5 sm:ml-8 lg:ml-[50px] xl:ml-[60px] pt-[38px] sm:pt-[62px] lg:pt-[92px] pb-16 lg:pb-24 max-w-[720px]">
+          <GoldLineWithDiamond />
+
           <h2
-            className="font-normal text-[#F7F7F5] leading-[1.02] text-5xl sm:text-6xl lg:text-[86px]"
-            style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+            className="mt-4 font-medium text-white leading-[1.02] text-5xl sm:text-6xl lg:text-[86px]"
+            style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
           >
             Group hotel
             <br />
             bookings
             <br />
-            made simple
+            <span className="italic">made simple</span>
           </h2>
 
-          <div className="mt-6 h-[5px] w-[110px] bg-[#F5AE00]" />
+          <GoldLineWithDiamond className="mt-4" />
 
-          <p className="mt-7 text-[#F7F7F5] text-xl sm:text-2xl lg:text-[28px] leading-[1.25] font-light">
+          <p className="mt-[39px] text-white text-xl sm:text-2xl lg:text-[28px] leading-[1.25] font-normal font-sans">
             The easiest way to request
             <br />
             hotel offers for groups.
