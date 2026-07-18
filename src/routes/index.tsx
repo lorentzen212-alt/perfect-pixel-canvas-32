@@ -40,6 +40,15 @@ const TRUST = [
   { Icon: Lock, label: "Secure & trusted" },
 ];
 
+function GoldLineWithDiamond({ className }: { className?: string }) {
+  return (
+    <div className={cn("flex items-center", className)}>
+      <div className="h-[2px] w-[180px] sm:w-[200px] lg:w-[240px] bg-[#FFC400]" />
+      <div className="h-[10px] w-[10px] rotate-45 bg-[#FFC400] -ml-[5px]" />
+    </div>
+  );
+}
+
 function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
