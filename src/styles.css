@@ -77,3 +77,70 @@
     font-family: var(--font-sans);
   }
 }
+
+@keyframes logo-mist-drift {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 10%) scale(0.9);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.85;
+    transform: translate(-46%, -14%) scale(1.15);
+  }
+}
+
+.logo-hover-wrap {
+  transition: transform 1s ease-in-out;
+  transform-origin: left center;
+}
+.logo-hover-wrap:hover {
+  transform: scale(1.02);
+}
+
+.logo-mist {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 180%;
+  height: 260%;
+  transform: translate(-50%, 10%) scale(0.9);
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(45% 55% at 35% 60%, rgba(20, 20, 24, 0.15) 0%, rgba(20, 20, 24, 0) 70%),
+    radial-gradient(40% 50% at 60% 45%, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0) 72%),
+    radial-gradient(55% 45% at 50% 55%, rgba(35, 35, 40, 0.10) 0%, rgba(35, 35, 40, 0) 75%);
+  filter: blur(14px);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+.logo-hover-wrap:hover .logo-mist {
+  animation: logo-mist-drift 1s ease-in-out forwards;
+}
+
+@media (hover: none) {
+  .logo-hover-wrap:hover {
+    transform: none;
+  }
+  .logo-hover-wrap:hover .logo-mist {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-hover-wrap,
+  .logo-mist {
+    transition: none;
+  }
+  .logo-hover-wrap:hover {
+    transform: none;
+  }
+  .logo-hover-wrap:hover .logo-mist {
+    animation: none;
+    opacity: 0;
+  }
+}
+
