@@ -164,10 +164,10 @@ function Home() {
           </p>
 
           {/* CTA BUTTONS */}
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5">
-            <CTAButton icon={<Users size={22} strokeWidth={1.75} />} label="Book Leisure" variant="light" />
-            <CTAButton icon={<Briefcase size={22} strokeWidth={1.75} />} label="Book M&E" variant="dark" />
-            <CTAButton icon={<CalendarDays size={22} strokeWidth={1.75} />} label="Manage My Bookings" variant="dark" />
+          <div className="mt-10 flex flex-col sm:flex-row flex-wrap gap-4 lg:gap-5">
+            <CTAButton icon={<Users size={26} strokeWidth={1.9} />} label="Book Leisure" variant="light" width={228} />
+            <CTAButton icon={<Briefcase size={26} strokeWidth={1.9} />} label="Book M&E" variant="dark" width={228} />
+            <CTAButton icon={<CalendarDays size={26} strokeWidth={1.9} />} label="Manage My Bookings" variant="dark" width={270} />
           </div>
 
           {/* TRUST ROW */}
