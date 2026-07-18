@@ -100,11 +100,12 @@ function Home() {
       <div className="relative z-20 w-full">
         {/* HEADER */}
         <header className="flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
-          <a href="/" aria-label="HotelGroupBook" className="flex items-center">
+          <a href="/" aria-label="HotelGroupBook" className="logo-hover-wrap relative flex items-center">
+            <span className="logo-mist" aria-hidden="true" />
             <img
               src={logoAsset.url}
               alt="HotelGroupBook"
-              className="h-[46px] sm:h-[56px] lg:h-[68px] w-auto"
+              className="relative h-[46px] sm:h-[56px] lg:h-[68px] w-auto"
             />
           </a>
 
