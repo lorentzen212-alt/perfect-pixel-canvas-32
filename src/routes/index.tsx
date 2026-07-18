@@ -4,7 +4,7 @@ import {
   ArrowRight,
   Users,
   Briefcase,
-  ClipboardList,
+  CalendarDays,
   ShieldCheck,
   Clock,
   Headphones,
@@ -167,7 +167,7 @@ function Home() {
           <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5">
             <CTAButton icon={<Users size={22} strokeWidth={2} />} label="Book Leisure" variant="light" />
             <CTAButton icon={<Briefcase size={22} strokeWidth={2} />} label="Book M&E" variant="dark" />
-            <CTAButton icon={<ClipboardList size={22} strokeWidth={2} />} label="Manage My Bookings" variant="dark" />
+            <CTAButton icon={<CalendarDays size={22} strokeWidth={2} />} label="Manage My Bookings" variant="dark" />
           </div>
 
           {/* TRUST ROW */}
