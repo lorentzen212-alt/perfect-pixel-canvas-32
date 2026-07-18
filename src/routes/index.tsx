@@ -224,7 +224,7 @@ function CTAButton({
   const deep = variant === "deep";
   return (
     <button
-      style={{ flex: "0 0 268px", height: 64, borderRadius: deep ? 4 : 7 }}
+      style={{ flex: "0 0 268px", height: 64, borderRadius: 6 }}
       className={cn(
         "group flex items-center justify-between pl-6 pr-[22px] border transition-all duration-200 ease-out hover:translate-y-[-2px]",
         light
