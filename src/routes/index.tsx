@@ -23,6 +23,7 @@ import {
   Mountain,
 } from "lucide-react";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
+import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import lofotenImg from "@/assets/dest-lofoten.jpg";
 import tromsoImg from "@/assets/dest-tromso.jpg";
 import bergenImg from "@/assets/dest-bergen.jpg";
@@ -88,19 +89,15 @@ function Home() {
 
       <div className="relative z-20 w-full">
         {/* HEADER */}
-        <header className="flex items-start justify-between pt-[2px] lg:pt-[10px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
-          <div>
-            <h1
-              className="font-normal leading-none text-[#F7F7F5] text-3xl sm:text-4xl lg:text-[42px]"
-              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
-            >
-              HotelGroupBook
-            </h1>
-            <div className="mt-2 h-px w-full bg-white/70" />
-            <p className="mt-2 text-[#E8E8E4] text-sm sm:text-base lg:text-[16px] font-light">
-              Group hotel bookings made simple
-            </p>
-          </div>
+        <header className="flex items-center justify-between pt-[2px] lg:pt-[10px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
+          <a href="/" aria-label="HotelGroupBook" className="flex items-center">
+            <img
+              src={logoAsset.url}
+              alt="HotelGroupBook"
+              className="h-9 sm:h-11 lg:h-[52px] w-auto"
+            />
+          </a>
+
 
           <button
             onClick={() => setMobileOpen((v) => !v)}
@@ -509,15 +506,10 @@ function SiteFooter() {
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2">
-              <Mountain className="text-[#F5AE00]" size={26} strokeWidth={1.75} />
-              <span
-                className="text-white text-2xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
-              >
-                HotelGroupBook
-              </span>
-            </div>
+            <a href="/" aria-label="HotelGroupBook" className="inline-flex items-center">
+              <img src={logoAsset.url} alt="HotelGroupBook" className="h-10 w-auto" />
+            </a>
+
             <p className="mt-3 text-[#8A96A2] text-sm">
               Group hotel bookings made simple.
             </p>
