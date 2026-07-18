@@ -52,9 +52,9 @@ function Home() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="relative z-10 mx-auto w-full max-w-[1470px] px-5 sm:px-8 lg:px-[54px]">
+      <div className="relative z-10 w-full">
         {/* HEADER */}
-        <header className="flex items-start justify-between pt-8 lg:pt-10">
+        <header className="flex items-start justify-between pt-8 lg:pt-10 px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
           <div>
             <h1
               className="font-normal leading-none text-[#F7F7F5] text-3xl sm:text-4xl lg:text-[42px]"
@@ -93,7 +93,7 @@ function Home() {
         </header>
 
         {mobileOpen && (
-          <nav className="lg:hidden mt-4 flex flex-col gap-3 rounded-xl bg-[rgba(2,18,29,0.9)] p-4">
+          <nav className="lg:hidden mt-4 mx-5 sm:mx-8 lg:mx-[50px] xl:mx-[60px] flex flex-col gap-3 rounded-xl bg-[rgba(2,18,29,0.9)] p-4">
             {NAV_LINKS.map((l) => (
               <a key={l.label} href={l.href} className="text-white text-base">
                 {l.label}
@@ -106,7 +106,7 @@ function Home() {
         )}
 
         {/* HERO CONTENT */}
-        <section className="pt-14 sm:pt-20 lg:pt-[110px] pb-16 lg:pb-24 max-w-[720px]">
+        <section className="ml-5 sm:ml-8 lg:ml-[50px] xl:ml-[60px] pt-14 sm:pt-20 lg:pt-[110px] pb-16 lg:pb-24 max-w-[720px]">
           <h2
             className="font-normal text-[#F7F7F5] leading-[1.02] text-5xl sm:text-6xl lg:text-[86px]"
             style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
