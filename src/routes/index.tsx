@@ -89,19 +89,15 @@ function Home() {
 
       <div className="relative z-20 w-full">
         {/* HEADER */}
-        <header className="flex items-start justify-between pt-[2px] lg:pt-[10px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
-          <div>
-            <h1
-              className="font-normal leading-none text-[#F7F7F5] text-3xl sm:text-4xl lg:text-[42px]"
-              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
-            >
-              HotelGroupBook
-            </h1>
-            <div className="mt-2 h-px w-full bg-white/70" />
-            <p className="mt-2 text-[#E8E8E4] text-sm sm:text-base lg:text-[16px] font-light">
-              Group hotel bookings made simple
-            </p>
-          </div>
+        <header className="flex items-center justify-between pt-[2px] lg:pt-[10px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
+          <a href="/" aria-label="HotelGroupBook" className="flex items-center">
+            <img
+              src={logoAsset.url}
+              alt="HotelGroupBook"
+              className="h-9 sm:h-11 lg:h-[52px] w-auto"
+            />
+          </a>
+
 
           <button
             onClick={() => setMobileOpen((v) => !v)}
