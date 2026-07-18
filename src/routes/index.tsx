@@ -227,18 +227,23 @@ function CTAButton({
       className={cn(
         "group flex items-center justify-between pl-6 pr-[22px] border transition-all duration-200 ease-out hover:translate-y-[-2px]",
         light
-          ? "bg-white border-white text-[#071A2B] shadow-[0_8px_24px_rgba(0,0,0,0.16),0_0_18px_rgba(255,196,0,0.06)] hover:bg-[#FAFAFA] hover:shadow-[0_12px_30px_rgba(0,0,0,0.2),0_0_22px_rgba(255,196,0,0.12)]"
+          ? "bg-white border-white text-[#071A2B] shadow-[0_8px_24px_rgba(0,0,0,0.16)] hover:bg-[#FFFEFC] hover:border-[#FFFEFC] hover:shadow-[0_14px_34px_rgba(0,0,0,0.18),0_0_28px_rgba(255,196,0,0.18),0_0_56px_rgba(255,196,0,0.08)]"
           : "bg-[#0D1F33] border-[rgba(255,255,255,0.16)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#122840] hover:border-white/25 hover:shadow-[0_12px_30px_rgba(0,0,0,0.24),0_0_22px_rgba(255,196,0,0.12),inset_0_1px_0_rgba(255,255,255,0.08)]"
       )}
     >
       <span className="flex items-center" style={{ gap: 18 }}>
-        <span className="text-[#FFC400] flex items-center shrink-0">{icon}</span>
+        <span className={cn("flex items-center shrink-0 transition-all duration-200 ease-out", light ? "text-[#FFC400] group-hover:text-[#FFD966] group-hover:drop-shadow-[0_0_6px_rgba(255,196,0,0.55)]" : "text-[#FFC400]")}>
+          {icon}
+        </span>
         <span className={cn("text-[17px] font-semibold leading-none", light ? "text-[#071A2B]" : "text-white")}>
           {label}
         </span>
       </span>
       <ArrowRight
-        className="text-[#FFC400] transition-transform group-hover:translate-x-1 shrink-0"
+        className={cn(
+          "transition-transform duration-200 ease-out group-hover:translate-x-1 shrink-0",
+          light ? "text-[#FFC400] group-hover:text-[#FFD966] group-hover:drop-shadow-[0_0_6px_rgba(255,196,0,0.55)]" : "text-[#FFC400]"
+        )}
         size={24}
         strokeWidth={1.9}
       />
