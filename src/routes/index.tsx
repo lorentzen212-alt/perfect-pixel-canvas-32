@@ -165,9 +165,9 @@ function Home() {
 
           {/* CTA BUTTONS */}
           <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5">
-            <CTAButton icon={<Users size={26} strokeWidth={1.75} />} label="Book Leisure" variant="light" />
-            <CTAButton icon={<Briefcase size={26} strokeWidth={1.75} />} label="Book M&E" variant="dark" />
-            <CTAButton icon={<CalendarDays size={26} strokeWidth={1.75} />} label="Manage My Bookings" variant="dark" />
+            <CTAButton icon={<Users size={22} strokeWidth={1.75} />} label="Book Leisure" variant="light" />
+            <CTAButton icon={<Briefcase size={22} strokeWidth={1.75} />} label="Book M&E" variant="dark" />
+            <CTAButton icon={<CalendarDays size={22} strokeWidth={1.75} />} label="Manage My Bookings" variant="dark" />
           </div>
 
           {/* TRUST ROW */}
@@ -214,21 +214,21 @@ function CTAButton({
   return (
     <button
       className={cn(
-        "group flex items-center justify-between rounded-[14px] h-[74px] px-6 border transition-all duration-200 ease-out hover:translate-y-[-2px]",
+        "group flex items-center justify-between rounded-[10px] h-[64px] pl-5 pr-5 border transition-all duration-200 ease-out hover:translate-y-[-2px]",
         light
-          ? "bg-white border-white text-black shadow-[0_8px_24px_rgba(0,0,0,0.22)] hover:bg-[#FAFAFA] hover:shadow-[0_12px_32px_rgba(0,0,0,0.26),0_0_18px_rgba(255,196,0,0.12)]"
-          : "bg-[#0F2A47] border-[rgba(255,255,255,0.16)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#143557] hover:border-white/25 hover:shadow-[0_12px_32px_rgba(0,0,0,0.4),0_0_18px_rgba(255,196,0,0.12)]"
+          ? "bg-white border-white text-black shadow-[0_6px_18px_rgba(0,0,0,0.18)] hover:bg-[#FAFAFA] hover:shadow-[0_10px_26px_rgba(0,0,0,0.22),0_0_18px_rgba(255,196,0,0.12)]"
+          : "bg-[#0F2A47] border-[rgba(255,255,255,0.16)] text-white shadow-[0_6px_18px_rgba(0,0,0,0.32),inset_0_1px_0_rgba(255,255,255,0.05)] hover:bg-[#143557] hover:border-white/25 hover:shadow-[0_10px_26px_rgba(0,0,0,0.38),0_0_18px_rgba(255,196,0,0.12)]"
       )}
     >
-      <span className="flex items-center gap-4">
+      <span className="flex items-center gap-3">
         <span className="text-[#FFC400] flex items-center shrink-0">{icon}</span>
-        <span className={cn("text-[19px] font-semibold leading-none", light ? "text-black" : "text-white")}>
+        <span className={cn("text-[17px] font-semibold leading-none", light ? "text-black" : "text-white")}>
           {label}
         </span>
       </span>
       <ArrowRight
         className="text-[#FFC400] transition-transform group-hover:translate-x-1 shrink-0"
-        size={26}
+        size={22}
         strokeWidth={2.25}
       />
     </button>
