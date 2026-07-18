@@ -126,7 +126,7 @@ function Home() {
 
         {/* HERO CONTENT */}
         <section className="ml-5 sm:ml-8 lg:ml-[50px] xl:ml-[60px] pt-[38px] sm:pt-[62px] lg:pt-[92px] pb-16 lg:pb-24 max-w-[720px]">
-          <GoldLineWithDiamond />
+          <GoldLineWithDiamond lineWidth="w-[145px] sm:w-[150px] lg:w-[160px]" />
 
           <h2
             className="mt-4 font-medium text-white leading-[1.02] text-5xl sm:text-6xl lg:text-[86px]"
@@ -139,7 +139,7 @@ function Home() {
             <span className="italic">made simple</span>
           </h2>
 
-          <GoldLineWithDiamond className="mt-4" />
+          <GoldLineWithDiamond className="mt-4" lineWidth="w-[190px] sm:w-[200px] lg:w-[210px]" />
 
           <p className="mt-[39px] text-white text-xl sm:text-2xl lg:text-[28px] leading-[1.25] font-normal font-sans">
             The easiest way to request
