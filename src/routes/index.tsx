@@ -12,8 +12,23 @@ import {
   UsersRound,
   Menu,
   X,
+  FileText,
+  Building2,
+  CheckCircle2,
+  MapPin,
+  Gem,
+  Linkedin,
+  Facebook,
+  Instagram,
+  Mountain,
 } from "lucide-react";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
+import lofotenImg from "@/assets/dest-lofoten.jpg";
+import tromsoImg from "@/assets/dest-tromso.jpg";
+import bergenImg from "@/assets/dest-bergen.jpg";
+import geirangerImg from "@/assets/dest-geiranger.jpg";
+import stockholmImg from "@/assets/dest-stockholm.jpg";
+import copenhagenImg from "@/assets/dest-copenhagen.jpg";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
