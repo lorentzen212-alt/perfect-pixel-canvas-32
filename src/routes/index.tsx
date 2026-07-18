@@ -106,9 +106,9 @@ function Home() {
         )}
 
         {/* HERO CONTENT */}
-        <section className="pt-14 sm:pt-20 lg:pt-[110px] pb-16 lg:pb-24 max-w-[720px]">
+        <section className="pt-14 sm:pt-20 lg:pt-[110px] pb-16 lg:pb-24 max-w-[640px]">
           <h2
-            className="font-normal text-[#F7F7F5] leading-[1.02] text-5xl sm:text-6xl lg:text-[86px]"
+            className="font-normal text-[#F7F7F5] leading-[1.05] text-5xl sm:text-6xl lg:text-[76px]"
             style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
           >
             Group hotel
