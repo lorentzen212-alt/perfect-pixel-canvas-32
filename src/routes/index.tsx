@@ -72,7 +72,7 @@ function Home() {
 
       <div className="relative z-20 w-full">
         {/* HEADER */}
-        <header className="flex items-start justify-between pt-8 lg:pt-10 px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
+        <header className="flex items-start justify-between pt-[2px] lg:pt-[10px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
           <div>
             <h1
               className="font-normal leading-none text-[#F7F7F5] text-3xl sm:text-4xl lg:text-[42px]"
