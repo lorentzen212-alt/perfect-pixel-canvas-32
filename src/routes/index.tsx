@@ -23,6 +23,7 @@ import {
   Mountain,
 } from "lucide-react";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
+import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import lofotenImg from "@/assets/dest-lofoten.jpg";
 import tromsoImg from "@/assets/dest-tromso.jpg";
 import bergenImg from "@/assets/dest-bergen.jpg";
