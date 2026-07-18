@@ -223,12 +223,12 @@ function CTAButton({
   const light = variant === "light";
   return (
     <button
-      style={{ flex: "0 0 228px", height: 64 }}
+      style={{ flex: "0 0 268px", height: 64, borderRadius: 7 }}
       className={cn(
-        "group flex items-center justify-between rounded-[13px] pl-6 pr-[22px] border transition-all duration-200 ease-out hover:translate-y-[-2px]",
+        "group flex items-center justify-between pl-6 pr-[22px] border transition-all duration-200 ease-out hover:translate-y-[-2px]",
         light
           ? "bg-white border-white text-[#071A2B] shadow-[0_8px_24px_rgba(0,0,0,0.16),0_0_18px_rgba(255,196,0,0.06)] hover:bg-[#FAFAFA] hover:shadow-[0_12px_30px_rgba(0,0,0,0.2),0_0_22px_rgba(255,196,0,0.12)]"
-          : "bg-[#0F2A47] border-[rgba(255,255,255,0.18)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#143557] hover:border-white/25 hover:shadow-[0_12px_30px_rgba(0,0,0,0.24),0_0_22px_rgba(255,196,0,0.12),inset_0_1px_0_rgba(255,255,255,0.08)]"
+          : "bg-[#0D1F33] border-[rgba(255,255,255,0.16)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#122840] hover:border-white/25 hover:shadow-[0_12px_30px_rgba(0,0,0,0.24),0_0_22px_rgba(255,196,0,0.12),inset_0_1px_0_rgba(255,255,255,0.08)]"
       )}
     >
       <span className="flex items-center" style={{ gap: 18 }}>
@@ -245,6 +245,7 @@ function CTAButton({
     </button>
   );
 }
+
 
 /* --------------------------- HOW IT WORKS --------------------------- */
 
