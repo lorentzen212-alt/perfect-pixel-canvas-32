@@ -90,7 +90,7 @@ function Home() {
       <div className="relative z-20 w-full">
         {/* HEADER */}
         <header className="flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
-          <a href="/" aria-label="HotelGroupBook" className="flex items-center pl-[28px]">
+          <a href="/" aria-label="HotelGroupBook" className="flex items-center">
             <img
               src={logoAsset.url}
               alt="HotelGroupBook"
