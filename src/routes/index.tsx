@@ -164,7 +164,7 @@ function Home() {
           </p>
 
           {/* CTA BUTTONS */}
-          <div className="mt-10 flex flex-nowrap items-center gap-4">
+          <div className="mt-10 flex flex-nowrap items-center gap-4" style={{ gap: 16 }}>
             <CTAButton icon={<Users size={26} strokeWidth={1.9} />} label="Book Leisure" variant="light" />
             <CTAButton icon={<Briefcase size={26} strokeWidth={1.9} />} label="Book M&E" variant="dark" />
             <CTAButton
