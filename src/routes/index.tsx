@@ -192,6 +192,12 @@ function Home() {
         </section>
       </div>
     </main>
+    <HowItWorks />
+    <Destinations />
+    <WhyChoose />
+    <FinalCTA />
+    <SiteFooter />
+    </>
   );
 }
 
