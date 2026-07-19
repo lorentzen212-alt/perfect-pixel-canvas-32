@@ -161,9 +161,10 @@ function BookMeetingsEvents() {
   };
 
   const handleNext = () => {
-    if (step === 1 && !validateStep1()) return;
+    if (step === 6 && !validateStep1()) return;
     if (step < STEPS.length) go(step + 1);
   };
+
 
   return (
     <main
