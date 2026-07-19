@@ -32,6 +32,9 @@ import {
   Coffee,
   BedDouble,
   Bell,
+  User,
+  UsersRound,
+  BedSingle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
