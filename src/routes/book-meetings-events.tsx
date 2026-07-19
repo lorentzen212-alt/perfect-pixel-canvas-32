@@ -1589,7 +1589,7 @@ function StepThreeAccommodation({
                 </div>
                 <div className="flex flex-col gap-2.5">
                   <RoomCategoryRow
-                    icon={<User size={20} strokeWidth={1.5} stroke="url(#champagneGold)" />}
+                    icon={<User size={20} strokeWidth={1.9} stroke="url(#champagneGold)" />}
                     label="Single Room"
                     value={rooms.sgl}
                     onValue={(v) => setRooms({ ...rooms, sgl: v })}
@@ -1597,7 +1597,7 @@ function StepThreeAccommodation({
                     onCat={(c) => setCats({ ...cats, sgl: c })}
                   />
                   <RoomCategoryRow
-                    icon={<Users size={20} strokeWidth={1.5} stroke="url(#champagneGold)" />}
+                    icon={<Users size={20} strokeWidth={1.9} stroke="url(#champagneGold)" />}
                     label="Double Room"
                     value={rooms.dbl}
                     onValue={(v) => setRooms({ ...rooms, dbl: v })}
@@ -1613,7 +1613,7 @@ function StepThreeAccommodation({
                     onCat={(c) => setCats({ ...cats, twn: c })}
                   />
                   <RoomCategoryRow
-                    icon={<UsersRound size={20} strokeWidth={1.5} stroke="url(#champagneGold)" />}
+                    icon={<UsersRound size={20} strokeWidth={1.9} stroke="url(#champagneGold)" />}
                     label="Triple Room"
                     value={rooms.trp}
                     onValue={(v) => setRooms({ ...rooms, trp: v })}
@@ -1629,13 +1629,13 @@ function StepThreeAccommodation({
                 <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-3">Meal Plan</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <MealOption
-                    icon={<BedDouble size={18} strokeWidth={1.5} stroke="url(#champagneGold)" />}
+                    icon={<BedDouble size={18} strokeWidth={1.9} stroke="url(#champagneGold)" />}
                     label="Room Only"
                     selected={mealPlan === "room"}
                     onClick={() => setMealPlan("room")}
                   />
                   <MealOption
-                    icon={<Coffee size={18} strokeWidth={1.5} stroke="url(#champagneGold)" />}
+                    icon={<Coffee size={18} strokeWidth={1.9} stroke="url(#champagneGold)" />}
                     label="Breakfast Included"
                     selected={mealPlan === "breakfast"}
                     onClick={() => setMealPlan("breakfast")}
