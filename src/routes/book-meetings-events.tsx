@@ -351,7 +351,7 @@ function BookMeetingsEvents() {
                 }}
               >
                 <div
-                  className="rounded-[16px] p-6"
+                  className="rounded-[16px] p-6 w-full lg:w-[320px] lg:min-w-[320px]"
                   style={{
                     backgroundColor: "#FFFFFF",
                     border: "1px solid #EFEFEC",
