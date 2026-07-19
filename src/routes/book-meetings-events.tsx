@@ -2041,11 +2041,11 @@ function GuestCounter({
       <button
         type="button"
         onClick={() => onChange(Math.max(0, value - 1))}
-        className="inline-flex h-full w-10 shrink-0 items-center justify-center text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
-        style={{ borderRight: "1px solid #EEE7D6" }}
+        className="inline-flex h-full w-10 shrink-0 items-center justify-center hover:bg-[#F9F6F0] transition-colors duration-200"
+        style={{ borderRight: "1px solid #EEE7D6", color: "#A97816" }}
         aria-label="Decrease"
       >
-        <Minus size={15} stroke="url(#champagneGold)" strokeWidth={1.7} />
+        <Minus size={18} stroke="url(#champagneGold)" strokeWidth={2.4} strokeLinecap="round" />
       </button>
       <input
         type="text"
@@ -2064,11 +2064,11 @@ function GuestCounter({
       <button
         type="button"
         onClick={() => onChange(value + 1)}
-        className="inline-flex h-full w-10 shrink-0 items-center justify-center text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
-        style={{ borderLeft: "1px solid #EEE7D6" }}
+        className="inline-flex h-full w-10 shrink-0 items-center justify-center hover:bg-[#F9F6F0] transition-colors duration-200"
+        style={{ borderLeft: "1px solid #EEE7D6", color: "#A97816" }}
         aria-label="Increase"
       >
-        <Plus size={15} stroke="url(#champagneGold)" strokeWidth={1.7} />
+        <Plus size={18} stroke="url(#champagneGold)" strokeWidth={2.4} strokeLinecap="round" />
       </button>
     </div>
   );
