@@ -183,7 +183,7 @@ function BookLeisure() {
           <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr]">
             <Sidebar step={step} onGo={go} />
 
-            <div className="relative p-6 sm:p-10 lg:px-14 lg:py-12">
+            <div className="relative p-6 sm:p-10 lg:px-14 lg:py-12 xl:px-[15px]">
               {/* Header row */}
               <div className="flex items-start justify-between gap-6">
                 <div className="min-w-0">
