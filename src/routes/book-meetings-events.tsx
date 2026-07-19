@@ -1337,21 +1337,9 @@ function StepTwoLocation({
               </div>
             </div>
           </div>
-
-          {/* Inline HelpCard (right column on desktop, stacks on mobile) */}
-          <div
-            className="rounded-[12px] p-5 self-start"
-            style={{
-              backgroundColor: "#FFFFFF",
-              border: "1px solid #EFEFEC",
-              boxShadow:
-                "0 10px 26px -18px rgba(10,27,44,0.14), 0 2px 6px -2px rgba(10,27,44,0.04)",
-            }}
-          >
-            <HelpCard />
-          </div>
         </div>
       </div>
+
 
       {/* Navigation */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
