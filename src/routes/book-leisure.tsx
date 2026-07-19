@@ -1057,47 +1057,80 @@ function FlagFI() {
 /* ---------- Background particles ---------- */
 
 function GoldParticles() {
-  const particles = [
-    { top: "2%", left: "1%", size: 2, opacity: 0.4 },
-    { top: "5%", left: "4%", size: 1, opacity: 0.3 },
-    { top: "8%", left: "1.5%", size: 1.5, opacity: 0.35 },
-    { top: "14%", left: "3%", size: 1, opacity: 0.25 },
-    { top: "22%", left: "0.8%", size: 1.5, opacity: 0.3 },
-    { top: "36%", left: "2%", size: 2, opacity: 0.35 },
-    { top: "50%", left: "1%", size: 1, opacity: 0.25 },
-    { top: "64%", left: "3%", size: 1.5, opacity: 0.3 },
-    { top: "78%", left: "1.2%", size: 1, opacity: 0.25 },
-    { top: "90%", left: "2.5%", size: 2, opacity: 0.4 },
-    { top: "96%", left: "6%", size: 1, opacity: 0.25 },
-    { top: "2%", right: "2%", size: 1.5, opacity: 0.35 },
-    { top: "6%", right: "5%", size: 1, opacity: 0.25 },
-    { top: "12%", right: "1%", size: 2, opacity: 0.4 },
-    { top: "24%", right: "3%", size: 1, opacity: 0.25 },
-    { top: "38%", right: "1.5%", size: 1.5, opacity: 0.3 },
-    { top: "52%", right: "4%", size: 1, opacity: 0.25 },
-    { top: "68%", right: "1%", size: 2, opacity: 0.35 },
-    { top: "82%", right: "3%", size: 1, opacity: 0.25 },
-    { top: "94%", right: "2%", size: 1.5, opacity: 0.35 },
-    { top: "97%", right: "8%", size: 1, opacity: 0.25 },
+  // Deterministic pseudo-random for stable SSR/CSR output.
+  const rand = (seed: number) => {
+    const x = Math.sin(seed) * 43758.5453;
+    return x - Math.floor(x);
+  };
+
+  type P = { x: number; y: number; size: number; opacity: number };
+  const particles: P[] = [];
+
+  // Edge bands (left + right), fade horizontally toward center.
+  for (let i = 0; i < 90; i++) {
+    const r = rand(i + 1);
+    const side = i % 2 === 0 ? "left" : "right";
+    const edgeX = rand(i + 101) * 14; // 0-14% from edge
+    const x = side === "left" ? edgeX : 100 - edgeX;
+    const y = rand(i + 201) * 100;
+    const size = 0.6 + rand(i + 301) * 1.8;
+    const baseOp = 0.12 + rand(i + 401) * 0.35;
+    // Fade with distance from edge.
+    const fade = 1 - edgeX / 14;
+    particles.push({ x, y, size, opacity: baseOp * (0.35 + fade * 0.65) });
+    void r;
+  }
+
+  // Corner clusters (denser).
+  const corners = [
+    { cx: 3, cy: 3 },
+    { cx: 97, cy: 3 },
+    { cx: 3, cy: 97 },
+    { cx: 97, cy: 97 },
   ];
+  corners.forEach((c, ci) => {
+    for (let i = 0; i < 40; i++) {
+      const seed = ci * 1000 + i;
+      const dx = (rand(seed + 11) - 0.5) * 24;
+      const dy = (rand(seed + 31) - 0.5) * 24;
+      const size = 0.5 + rand(seed + 51) * 1.6;
+      const opacity = 0.15 + rand(seed + 71) * 0.4;
+      particles.push({
+        x: Math.max(0, Math.min(100, c.cx + dx)),
+        y: Math.max(0, Math.min(100, c.cy + dy)),
+        size,
+        opacity,
+      });
+    }
+  });
+
   return (
-    <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
       {particles.map((p, i) => (
         <span
           key={i}
           className="absolute rounded-full"
           style={{
-            top: p.top,
-            left: (p as { left?: string }).left,
-            right: (p as { right?: string }).right,
+            top: `${p.y}%`,
+            left: `${p.x}%`,
             width: `${p.size}px`,
             height: `${p.size}px`,
             backgroundColor: GOLD,
             opacity: p.opacity,
-            boxShadow: `0 0 6px rgba(245,194,90,${p.opacity * 0.8})`,
+            boxShadow: p.size > 1.4 ? `0 0 ${p.size * 2}px rgba(245,194,90,${p.opacity * 0.6})` : undefined,
+            filter: "blur(0.3px)",
           }}
         />
       ))}
+      {/* Center clarity mask — fade particles away from center. */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 55% 50% at 50% 50%, rgba(6,21,35,0.95) 0%, rgba(6,21,35,0.7) 35%, rgba(6,21,35,0) 75%)",
+        }}
+      />
     </div>
   );
 }
+
