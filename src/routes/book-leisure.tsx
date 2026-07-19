@@ -321,7 +321,7 @@ function Sidebar({ step, onGo }: { step: StepKey; onGo: (s: StepKey) => void }) 
     >
       <Link
         to="/"
-        className="inline-flex items-center gap-2 text-[14px] font-medium"
+        className="inline-flex items-center gap-2 text-[14px] font-medium transition-colors hover:text-[#F5C25A]"
         style={{ color: "#E4E7EC" }}
       >
         <ArrowLeft size={16} strokeWidth={2} />
@@ -329,50 +329,79 @@ function Sidebar({ step, onGo }: { step: StepKey; onGo: (s: StepKey) => void }) 
       </Link>
 
       <div className="relative mt-10">
-        {/* Dotted vertical line - centered through circles (circle w=44 -> center 22) */}
-        <div
-          className="absolute left-[22px] top-[44px] bottom-[44px] w-px -translate-x-1/2"
-          style={{
-            backgroundImage: `linear-gradient(to bottom, ${GOLD_SOFT} 50%, transparent 50%)`,
-            backgroundSize: "1px 6px",
-            backgroundRepeat: "repeat-y",
-            opacity: 0.55,
-          }}
-          aria-hidden="true"
-        />
+        {/* Vertical timeline segments - one per gap between steps */}
+        {[0, 1].map((i) => {
+          const completed = step > (i + 1);
+          return (
+            <div
+              key={i}
+              className="absolute left-[18px] w-px -translate-x-1/2 transition-all duration-500"
+              style={{
+                top: `calc(${i} * (100% / 3) + 36px)`,
+                height: `calc(100% / 3 - 20px)`,
+                background: completed
+                  ? `linear-gradient(to bottom, ${GOLD}, ${GOLD_SOFT})`
+                  : "transparent",
+                backgroundImage: completed
+                  ? undefined
+                  : `linear-gradient(to bottom, rgba(245,194,90,0.55) 50%, transparent 50%)`,
+                backgroundSize: completed ? undefined : "1px 5px",
+                backgroundRepeat: completed ? undefined : "repeat-y",
+                boxShadow: completed
+                  ? "0 0 8px rgba(245,194,90,0.45)"
+                  : "none",
+                opacity: completed ? 1 : 0.6,
+              }}
+              aria-hidden="true"
+            />
+          );
+        })}
 
         <div className="flex flex-col gap-5">
           {STEPS.map(({ n, title, sub, Icon }) => {
             const active = step === n;
+            const completed = step > n;
             return (
               <button
                 key={n}
                 type="button"
                 onClick={() => onGo(n)}
-                className="relative flex items-start gap-4 text-left"
+                className="group relative flex items-start gap-4 text-left"
               >
                 <span
-                  className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[15px] font-semibold transition-all"
+                  className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[13px] font-semibold transition-all duration-300"
                   style={{
-                    backgroundColor: active ? GOLD : NAVY_BG,
+                    backgroundColor: active
+                      ? GOLD
+                      : completed
+                        ? "rgba(245,194,90,0.08)"
+                        : "rgba(6, 21, 35, 0.9)",
                     color: active ? "#0A1626" : GOLD,
-                    border: `1.5px solid ${GOLD}`,
+                    border: `1px solid ${completed || active ? GOLD : "rgba(245,194,90,0.5)"}`,
                     boxShadow: active
-                      ? "0 0 0 4px rgba(245,194,90,0.12), 0 6px 20px -8px rgba(245,194,90,0.5)"
-                      : "none",
+                      ? "0 0 0 5px rgba(245,194,90,0.10), 0 0 22px -4px rgba(245,194,90,0.55)"
+                      : completed
+                        ? "0 0 12px -4px rgba(245,194,90,0.35)"
+                        : "none",
                   }}
                 >
-                  {n}
+                  {completed ? (
+                    <Check size={15} strokeWidth={2.4} style={{ color: GOLD }} />
+                  ) : (
+                    n
+                  )}
                 </span>
 
                 <div
-                  className="flex-1 min-w-0 rounded-2xl px-4 py-3 -my-1 transition-all"
+                  className="flex-1 min-w-0 rounded-2xl px-4 py-3 -my-1 transition-all duration-300 group-hover:border-[rgba(245,194,90,0.25)]"
                   style={
                     active
                       ? {
-                          backgroundColor: PANEL_ACTIVE,
+                          background:
+                            "linear-gradient(180deg, rgba(20,44,72,0.9) 0%, rgba(10,26,44,0.9) 100%)",
                           border: `1px solid ${BORDER}`,
-                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+                          boxShadow:
+                            "inset 0 1px 0 rgba(255,255,255,0.04), 0 0 26px -10px rgba(245,194,90,0.35)",
                         }
                       : {
                           border: "1px solid transparent",
@@ -380,18 +409,24 @@ function Sidebar({ step, onGo }: { step: StepKey; onGo: (s: StepKey) => void }) 
                   }
                 >
                   <div className="flex items-center justify-end">
-                    <Icon size={18} strokeWidth={1.6} style={{ color: GOLD }} />
+                    <Icon
+                      size={18}
+                      strokeWidth={1.6}
+                      style={{
+                        color: active || completed ? GOLD : "rgba(245,194,90,0.6)",
+                      }}
+                    />
                   </div>
                   <div
-                    className="mt-1 text-[18px] font-medium"
+                    className="mt-1 text-[18px] font-medium tracking-tight"
                     style={{
-                      color: active ? GOLD : "#E8E8E4",
+                      color: active ? GOLD : completed ? "#F0E7D2" : "#E8E8E4",
                       fontFamily: SERIF,
                     }}
                   >
                     {title}
                   </div>
-                  <div className="text-[13px]" style={{ color: "#8B96A3" }}>
+                  <div className="text-[12.5px] tracking-wide" style={{ color: "#8B96A3" }}>
                     {sub}
                   </div>
                 </div>
