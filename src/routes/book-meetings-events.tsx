@@ -109,13 +109,14 @@ const TRUST = [
 ];
 
 const STEPS = [
-  "Event Details",
   "Location",
   "Accommodation",
   "Meeting Spaces",
   "Catering",
   "Extras",
+  "Event Details",
   "Review & Submit",
+
 ];
 
 type FormState = {
