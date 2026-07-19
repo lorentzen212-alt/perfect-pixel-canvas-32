@@ -70,7 +70,7 @@ function GoldLineWithDiamond({
   return (
     <div className={cn("flex items-center", className)}>
       <div
-        className={cn("h-[5px]", lineWidth)}
+        className={cn("h-[4.5px]", lineWidth)}
         style={{
           backgroundImage: goldGradient,
           clipPath:
@@ -78,7 +78,7 @@ function GoldLineWithDiamond({
         }}
       />
       <div
-        className="ml-5 h-[8px] w-[8px] rotate-45"
+        className="ml-5 h-[6.5px] w-[6.5px] rotate-45"
         style={{ backgroundImage: diamondGradient }}
       />
     </div>
