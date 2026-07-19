@@ -49,11 +49,12 @@ const NAV_LINKS = [
   { label: "Support", href: "#support" },
 ];
 
-// Premium duotone gold icons — custom-drawn, uniform 1.1 stroke, subtle inner shading
-const GOLD = "#E6C56A";
-const GOLD_SOFT = "rgba(212,175,55,0.18)";
-const GOLD_HAIR = "rgba(230,197,106,0.55)";
-const STROKE = 1.1;
+// Premium metallic duotone gold icons
+const GOLD_HI = "#F4C95D";
+const GOLD_MID = "#D4A72C";
+const GOLD_LO = "#8F6A12";
+const GOLD_FILL = "rgba(212, 167, 44, 0.12)";
+const GOLD_INNER = "rgba(244, 201, 93, 0.35)";
 
 type IconProps = { size?: number; className?: string };
 
@@ -61,76 +62,107 @@ const svgBase = {
   fill: "none" as const,
   strokeLinecap: "round" as const,
   strokeLinejoin: "round" as const,
+  strokeWidth: 2,
 };
 
-function ShieldCheckIcon({ size = 26, className }: IconProps) {
+function IconDefs({ id }: { id: string }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 28 28" className={className} aria-hidden="true" {...svgBase}>
-      <path d="M14 3 5 5.6v7.1c0 5.05 3.65 9.4 9 10.9 5.35-1.5 9-5.85 9-10.9V5.6L14 3Z" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
-      <path d="M8 6.9 14 5.3l6 1.6v5.8c0 4-2.55 7.35-6 8.7-3.45-1.35-6-4.7-6-8.7V6.9Z" stroke={GOLD_HAIR} strokeWidth="0.7" />
-      <path d="m10.2 13.9 2.7 2.7 5.1-5.3" stroke={GOLD} strokeWidth={STROKE} />
+    <defs>
+      <linearGradient id={`${id}-stroke`} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor={GOLD_HI} />
+        <stop offset="55%" stopColor={GOLD_MID} />
+        <stop offset="100%" stopColor={GOLD_LO} />
+      </linearGradient>
+      <linearGradient id={`${id}-fill`} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="rgba(244,201,93,0.22)" />
+        <stop offset="100%" stopColor="rgba(143,106,18,0.10)" />
+      </linearGradient>
+    </defs>
+  );
+}
+
+function ShieldCheckIcon({ size = 40, className }: IconProps) {
+  const id = "ic-shield";
+  const s = `url(#${id}-stroke)`;
+  const f = `url(#${id}-fill)`;
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" className={className} aria-hidden="true" {...svgBase}>
+      <IconDefs id={id} />
+      <path d="M20 4 7 8v10.2C7 25.7 12.4 32.4 20 34.8 27.6 32.4 33 25.7 33 18.2V8L20 4Z" fill={f} stroke={s} />
+      <path d="M12 10.4 20 8l8 2.4v7.8c0 5.6-3.4 10.4-8 12.4-4.6-2-8-6.8-8-12.4v-7.8Z" stroke={GOLD_INNER} strokeWidth="1.1" />
+      <path d="m14.6 20 3.7 3.7 7.1-7.4" stroke={s} />
     </svg>
   );
 }
 
-function ClockIcon({ size = 26, className }: IconProps) {
+function ClockIcon({ size = 40, className }: IconProps) {
+  const id = "ic-clock";
+  const s = `url(#${id}-stroke)`;
+  const f = `url(#${id}-fill)`;
   return (
-    <svg width={size} height={size} viewBox="0 0 28 28" className={className} aria-hidden="true" {...svgBase}>
-      <circle cx="14" cy="14" r="10.5" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
-      <circle cx="14" cy="14" r="7.8" stroke={GOLD_HAIR} strokeWidth="0.7" />
-      {/* hour ticks */}
-      <path d="M14 5.2v1.4M14 21.4v1.4M5.2 14h1.4M21.4 14h1.4" stroke={GOLD} strokeWidth="0.9" />
-      {/* hands */}
-      <path d="M14 8.4V14l3.6 2.2" stroke={GOLD} strokeWidth={STROKE} />
-      <circle cx="14" cy="14" r="0.9" fill={GOLD} />
+    <svg width={size} height={size} viewBox="0 0 40 40" className={className} aria-hidden="true" {...svgBase}>
+      <IconDefs id={id} />
+      <circle cx="20" cy="20" r="15" fill={f} stroke={s} />
+      <circle cx="20" cy="20" r="11.2" stroke={GOLD_INNER} strokeWidth="1.1" />
+      <path d="M20 7.5V9.6M20 30.4v2.1M7.5 20H9.6M30.4 20h2.1" stroke={s} strokeWidth="1.6" />
+      <path d="M20 12v8l5.2 3.2" stroke={s} />
+      <circle cx="20" cy="20" r="1.4" fill={GOLD_HI} />
     </svg>
   );
 }
 
-function HeadsetIcon({ size = 26, className }: IconProps) {
+function HeadsetIcon({ size = 40, className }: IconProps) {
+  const id = "ic-head";
+  const s = `url(#${id}-stroke)`;
+  const f = `url(#${id}-fill)`;
   return (
-    <svg width={size} height={size} viewBox="0 0 28 28" className={className} aria-hidden="true" {...svgBase}>
+    <svg width={size} height={size} viewBox="0 0 40 40" className={className} aria-hidden="true" {...svgBase}>
+      <IconDefs id={id} />
       {/* headband */}
-      <path d="M5 15.4v-1.6a9 9 0 0 1 18 0v1.6" stroke={GOLD} strokeWidth={STROKE} />
+      <path d="M7 22.4v-2.2a13 13 0 0 1 26 0v2.2" stroke={s} />
       {/* ear cups */}
-      <path d="M4.4 15.6c0-.95.75-1.7 1.7-1.7h1.7v6.3H6.1a1.7 1.7 0 0 1-1.7-1.7v-2.9Z" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
-      <path d="M23.6 15.6c0-.95-.75-1.7-1.7-1.7h-1.7v6.3h1.7a1.7 1.7 0 0 0 1.7-1.7v-2.9Z" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
-      {/* subtle grille lines */}
-      <path d="M6 15.8v3.4M20.3 15.8v3.4" stroke={GOLD_HAIR} strokeWidth="0.7" />
-      {/* mic boom + mouthpiece */}
-      <path d="M20.3 20.2v.9a2.8 2.8 0 0 1-2.8 2.8h-2.7" stroke={GOLD} strokeWidth={STROKE} />
-      <circle cx="14" cy="23.9" r="1" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
+      <path d="M6.2 22.6c0-1.35 1.05-2.4 2.4-2.4h2.4v9H8.6a2.4 2.4 0 0 1-2.4-2.4v-4.2Z" fill={f} stroke={s} />
+      <path d="M33.8 22.6c0-1.35-1.05-2.4-2.4-2.4H29v9h2.4a2.4 2.4 0 0 0 2.4-2.4v-4.2Z" fill={f} stroke={s} />
+      {/* grille */}
+      <path d="M8.6 22.9v5.4M31.4 22.9v5.4" stroke={GOLD_INNER} strokeWidth="1.1" />
+      {/* mic boom */}
+      <path d="M29 29.2v1.4a4 4 0 0 1-4 4h-3.8" stroke={s} />
+      <circle cx="20" cy="34.6" r="1.5" fill={f} stroke={s} />
     </svg>
   );
 }
 
-function PadlockIcon({ size = 26, className }: IconProps) {
+function PadlockIcon({ size = 40, className }: IconProps) {
+  const id = "ic-lock";
+  const s = `url(#${id}-stroke)`;
+  const f = `url(#${id}-fill)`;
   return (
-    <svg width={size} height={size} viewBox="0 0 28 28" className={className} aria-hidden="true" {...svgBase}>
-      {/* shackle */}
-      <path d="M8.6 12.4V9.1a5.4 5.4 0 0 1 10.8 0v3.3" stroke={GOLD} strokeWidth={STROKE} />
-      {/* body */}
-      <rect x="5.8" y="12.4" width="16.4" height="12" rx="2.2" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
-      {/* inner hair line */}
-      <rect x="7.6" y="14" width="12.8" height="8.8" rx="1.4" stroke={GOLD_HAIR} strokeWidth="0.7" />
-      {/* keyhole */}
-      <circle cx="14" cy="17.4" r="1.25" stroke={GOLD} strokeWidth={STROKE} />
-      <path d="M14 18.5v2.6" stroke={GOLD} strokeWidth={STROKE} />
+    <svg width={size} height={size} viewBox="0 0 40 40" className={className} aria-hidden="true" {...svgBase}>
+      <IconDefs id={id} />
+      <path d="M12.4 17.8v-4.6a7.6 7.6 0 0 1 15.2 0v4.6" stroke={s} />
+      <rect x="8.4" y="17.8" width="23.2" height="17" rx="3" fill={f} stroke={s} />
+      <rect x="11" y="20" width="18" height="12.4" rx="2" stroke={GOLD_INNER} strokeWidth="1.1" />
+      <circle cx="20" cy="24.8" r="1.9" stroke={s} />
+      <path d="M20 26.4v3.6" stroke={s} />
     </svg>
   );
 }
 
-function GroupIcon({ size = 26, className }: IconProps) {
+function GroupIcon({ size = 40, className }: IconProps) {
+  const id = "ic-group";
+  const s = `url(#${id}-stroke)`;
+  const f = `url(#${id}-fill)`;
   return (
-    <svg width={size} height={size} viewBox="0 0 28 28" className={className} aria-hidden="true" {...svgBase}>
-      {/* left figure */}
-      <circle cx="8.4" cy="10" r="2.4" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
-      <path d="M3.4 19.4c0-2.5 2.25-4.5 5-4.5s5 2 5 4.5" stroke={GOLD} strokeWidth={STROKE} />
-      {/* right figure */}
-      <circle cx="18.6" cy="10" r="2.4" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
-      <path d="M14.6 19.4c0-2.5 2.25-4.5 5-4.5s5 2 5 4.5" stroke={GOLD} strokeWidth={STROKE} />
-      {/* subtle horizon */}
-      <path d="M3 22.8c3.3 1.4 7 2.1 11 2.1s7.7-.7 11-2.1" stroke={GOLD_HAIR} strokeWidth="0.7" />
+    <svg width={size} height={size} viewBox="0 0 40 40" className={className} aria-hidden="true" {...svgBase}>
+      <IconDefs id={id} />
+      {/* left */}
+      <circle cx="14" cy="15" r="3.6" fill={f} stroke={s} />
+      <path d="M6 29.2c0-3.6 3.2-6.5 8-6.5s8 2.9 8 6.5" stroke={s} />
+      {/* right */}
+      <circle cx="26" cy="15" r="3.6" fill={f} stroke={s} />
+      <path d="M18 29.2c0-3.6 3.2-6.5 8-6.5s8 2.9 8 6.5" stroke={s} />
+      {/* horizon */}
+      <path d="M4.5 33.2c4.6 1.6 9.9 2.4 15.5 2.4s10.9-.8 15.5-2.4" stroke={GOLD_INNER} strokeWidth="1.1" />
     </svg>
   );
 }
@@ -140,7 +172,7 @@ const TRUST = [
   { Icon: ClockIcon, label: "Fast and free" },
   { Icon: HeadsetIcon, label: "Expert support" },
   { Icon: PadlockIcon, label: "Secure & trusted" },
-  { Icon: GroupIcon, label: (<>Built by group booking<br className="hidden sm:block" /> professionals</>) },
+  { Icon: GroupIcon, label: (<>Built by group booking<br /> professionals</>) },
 ];
 
 function GoldLineWithDiamond({
@@ -273,18 +305,25 @@ function Home() {
           </div>
 
           {/* TRUST ROW — luxury feature strip */}
-          <div className="mt-12 flex flex-wrap items-center gap-x-12 lg:gap-x-14 gap-y-5">
+          <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 items-stretch">
             {TRUST.map(({ Icon, label }, i) => (
-              <div key={i} className="flex items-center" style={{ gap: 12 }}>
+              <div
+                key={i}
+                className={cn(
+                  "flex flex-col items-center justify-start text-center px-3 lg:px-4 py-1",
+                  i > 0 && "lg:border-l lg:border-[rgba(212,167,44,0.22)]"
+                )}
+              >
                 <span
-                  className="relative inline-flex shrink-0 items-center justify-center"
+                  className="inline-flex items-center justify-center"
                   style={{
-                    filter: "drop-shadow(0 0 6px rgba(212,175,55,0.28)) drop-shadow(0 1px 0 rgba(0,0,0,0.35))",
+                    filter:
+                      "drop-shadow(0 1px 0 rgba(0,0,0,0.45)) drop-shadow(0 6px 14px rgba(143,106,18,0.22))",
                   }}
                 >
-                  <Icon size={26} />
+                  <Icon size={40} />
                 </span>
-                <span className="text-[#DED8C9]/85 text-[15px] lg:text-[16px] leading-snug tracking-[0.01em]">
+                <span className="mt-3 text-[#EDE6D3] text-[13.5px] lg:text-[14px] leading-snug tracking-[0.01em]">
                   {label}
                 </span>
               </div>
