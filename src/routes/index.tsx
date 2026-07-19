@@ -64,17 +64,21 @@ function GoldLineWithDiamond({
   lineWidth?: string;
 }) {
   const goldGradient =
-    "linear-gradient(90deg, #7A5A24 0%, #B08A3E 20%, #D9B871 45%, #EBD292 55%, #C69B49 78%, #8A6528 100%)";
+    "linear-gradient(90deg, #7A5A24 0%, #B08A3E 18%, #D9B871 42%, #F3DFA1 52%, #EBD292 60%, #C69B49 80%, #8A6528 100%)";
   const diamondGradient =
     "linear-gradient(135deg, #8A6528 0%, #C69B49 35%, #EBD292 55%, #B08A3E 80%, #7A5A24 100%)";
   return (
     <div className={cn("flex items-center", className)}>
       <div
-        className={cn("h-[1.5px]", lineWidth)}
-        style={{ backgroundImage: goldGradient }}
+        className={cn("h-[5px]", lineWidth)}
+        style={{
+          backgroundImage: goldGradient,
+          clipPath:
+            "polygon(0% 50%, 6% 15%, 94% 15%, 100% 50%, 94% 85%, 6% 85%)",
+        }}
       />
       <div
-        className="ml-5 h-[10px] w-[10px] rotate-45"
+        className="ml-5 h-[8px] w-[8px] rotate-45"
         style={{ backgroundImage: diamondGradient }}
       />
     </div>
