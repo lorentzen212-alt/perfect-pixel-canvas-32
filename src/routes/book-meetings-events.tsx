@@ -2076,9 +2076,22 @@ function RoomRow({
           >
             <Minus size={15} />
           </button>
-          <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums w-8 text-center">
-            {value}
-          </span>
+          <input
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={value}
+            onChange={(e) => {
+              const raw = e.target.value.replace(/\D/g, "");
+              const n = raw === "" ? 0 : Math.max(0, Math.min(parseInt(raw, 10), 999));
+              onChange(n);
+            }}
+            onBlur={(e) => {
+              if (e.target.value === "") onChange(0);
+            }}
+            className="w-8 bg-transparent text-center text-[#0A1B2C] text-[15px] font-semibold tabular-nums outline-none"
+            aria-label={`${label} quantity`}
+          />
           <button
             type="button"
             onClick={() => onChange(value + 1)}
