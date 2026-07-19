@@ -1906,8 +1906,13 @@ function DateField({
     <label className="block">
       <span className="text-[#0A1B2C] text-[13.5px] font-semibold">{label}</span>
       <div
-        className="mt-2 flex items-center gap-2 rounded-[10px] px-3 h-[46px]"
-        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+        className="group mt-2 flex items-center gap-2 rounded-[10px] px-3 h-[46px] transition-all focus-within:border-[#D4AF37] focus-within:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
+        style={{
+          backgroundColor: "#FFFFFF",
+          border: "1px solid #E6E2D5",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
+        }}
       >
         <input
           type="date"
@@ -1915,7 +1920,7 @@ function DateField({
           onChange={(e) => onChange(e.target.value)}
           className="flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
         />
-        <CalendarIcon size={16} className="text-[#8A94A0]" />
+        <CalendarIcon size={16} style={{ color: "#B88917" }} />
       </div>
     </label>
   );
