@@ -2099,3 +2099,84 @@ function GoldDivider() {
   );
 }
 
+
+function TwinBedsIcon() {
+  return (
+    <span className="inline-flex items-center gap-[2px]" aria-hidden>
+      <BedSingle size={16} strokeWidth={1.7} style={{ color: "#B88A2E" }} />
+      <BedSingle size={16} strokeWidth={1.7} style={{ color: "#B88A2E" }} />
+    </span>
+  );
+}
+
+function RoomCategoryRow({
+  icon,
+  label,
+  value,
+  onValue,
+  cat,
+  onCat,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: number;
+  onValue: (v: number) => void;
+  cat: RoomCat;
+  onCat: (c: RoomCat) => void;
+}) {
+  return (
+    <div
+      className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-[12px] px-4 py-3"
+      style={{ backgroundColor: "#FFFFFF", border: "1px solid #EEEBE3" }}
+    >
+      <div className="flex items-center gap-3 flex-1 min-w-0">
+        <span
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md"
+          style={{ backgroundColor: "#FAF3E1" }}
+        >
+          {icon}
+        </span>
+        <span className="text-[#0A1B2C] text-[14.5px] font-medium truncate">{label}</span>
+      </div>
+      <div
+        className="flex items-center justify-between rounded-[10px] h-[40px] px-1 w-full sm:w-[132px]"
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+      >
+        <button
+          type="button"
+          onClick={() => onValue(Math.max(0, value - 1))}
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          aria-label={`Decrease ${label}`}
+        >
+          <Minus size={15} />
+        </button>
+        <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums">{value}</span>
+        <button
+          type="button"
+          onClick={() => onValue(value + 1)}
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          aria-label={`Increase ${label}`}
+        >
+          <Plus size={15} />
+        </button>
+      </div>
+      <div className="relative w-full sm:w-[180px]">
+        <select
+          value={cat}
+          onChange={(e) => onCat(e.target.value as RoomCat)}
+          className="w-full appearance-none rounded-[10px] h-[40px] pl-3 pr-9 text-[14px] text-[#0A1B2C] bg-white outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
+          style={{ border: "1px solid #E6E2D5" }}
+        >
+          <option value="Standard">Standard</option>
+          <option value="Superior">Superior</option>
+          <option value="Premium">Premium</option>
+          <option value="Suite">Suite</option>
+        </select>
+        <ChevronDown
+          size={16}
+          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#8A94A0]"
+        />
+      </div>
+    </div>
+  );
+}
