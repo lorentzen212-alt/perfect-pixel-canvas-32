@@ -1386,17 +1386,22 @@ function StepTwoLocation({
 
 /* --------- Step 3: Accommodation --------- */
 
-type RoomMix = { sgl: number; dbl: number; twn: number; trp: number; ste: number };
+type RoomKey = "sgl" | "dbl" | "twn" | "trp";
+type RoomCat = "Standard" | "Superior" | "Premium" | "Suite";
+type RoomMix = Record<RoomKey, number>;
+type RoomCats = Record<RoomKey, RoomCat>;
 type MealPlan = "room" | "breakfast";
 type Stay = {
   id: string;
   checkIn: string;
   checkOut: string;
   rooms: RoomMix;
+  cats: RoomCats;
   mealPlan: MealPlan;
 };
 
-const emptyRooms = (): RoomMix => ({ sgl: 0, dbl: 0, twn: 0, trp: 0, ste: 0 });
+const emptyRooms = (): RoomMix => ({ sgl: 0, dbl: 0, twn: 0, trp: 0 });
+const emptyCats = (): RoomCats => ({ sgl: "Standard", dbl: "Standard", twn: "Standard", trp: "Standard" });
 
 function fmtDate(iso: string) {
   if (!iso) return "";
@@ -1411,15 +1416,11 @@ function roomsSummary(r: RoomMix) {
   if (r.dbl) parts.push(`${r.dbl} DBL`);
   if (r.twn) parts.push(`${r.twn} TWN`);
   if (r.trp) parts.push(`${r.trp} TRP`);
-  if (r.ste) parts.push(`${r.ste} STE`);
   return parts.join(", ");
 }
 
 function roomsTotal(r: RoomMix) {
-  return r.sgl + r.dbl + r.twn + r.trp + r.ste;
-}
-function guestsCapacity(r: RoomMix) {
-  return r.sgl * 1 + r.dbl * 2 + r.twn * 2 + r.trp * 3 + r.ste * 2;
+  return r.sgl + r.dbl + r.twn + r.trp;
 }
 
 function StepThreeAccommodation({
