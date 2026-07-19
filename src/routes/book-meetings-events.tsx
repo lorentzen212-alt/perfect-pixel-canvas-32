@@ -116,7 +116,7 @@ function BookMeetingsEvents() {
   return (
     <main
       className="relative min-h-screen w-full"
-      style={{ backgroundColor: "#F5F3EE" }}
+      style={{ backgroundColor: "#F7F7F5" }}
     >
       {/* HERO */}
       <section
