@@ -546,9 +546,9 @@ function StepOne(props: {
           </StyledSelectTrigger>
           <StyledSelectContent>
             {guestOptions.map((n) => (
-              <SelectItem key={n} value={String(n)}>
+              <StyledSelectItem key={n} value={String(n)}>
                 {n}
-              </SelectItem>
+              </StyledSelectItem>
             ))}
           </StyledSelectContent>
         </Select>
