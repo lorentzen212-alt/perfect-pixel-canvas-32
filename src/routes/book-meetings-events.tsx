@@ -1778,12 +1778,9 @@ function StepThreeAccommodation({
 
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
-                <span
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-md"
-                  style={{ backgroundColor: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.25)" }}
-                >
-                  <Coffee size={15} style={{ color: GOLD }} />
-                </span>
+                <LuxIconBadge size={36} tone="onDark">
+                  <Coffee size={16} />
+                </LuxIconBadge>
                 <div>
                   <div className="text-white/70 text-[13px]">Meal Plan</div>
                   <div className="text-white text-[15px] font-medium">
@@ -1793,12 +1790,9 @@ function StepThreeAccommodation({
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-md"
-                    style={{ backgroundColor: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.25)" }}
-                  >
-                    <Bell size={15} style={{ color: GOLD }} />
-                  </span>
+                  <LuxIconBadge size={36} tone="onDark">
+                    <Bell size={16} />
+                  </LuxIconBadge>
                   <div className="text-white text-[15px]">Porter Service</div>
                 </div>
                 <div className="text-white/80 text-[14px]">{porter ? "Yes" : "No"}</div>
