@@ -36,15 +36,10 @@ const BORDER_SOFT = "rgba(245, 194, 90, 0.15)";
 
 type StepKey = 1 | 2 | 3;
 
-const STEPS: {
-  n: StepKey;
-  title: string;
-  sub: string;
-  Icon: React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>;
-}[] = [
-  { n: 1, title: "Your Trip", sub: "Where and when", Icon: MapPin },
-  { n: 2, title: "Requests", sub: "What you need", Icon: Building2 },
-  { n: 3, title: "Your Details", sub: "Who to contact", Icon: User },
+const STEPS = [
+  { n: 1 as StepKey, title: "Your Trip", sub: "Where and when", Icon: MapPin },
+  { n: 2 as StepKey, title: "Requests", sub: "What you need", Icon: Building2 },
+  { n: 3 as StepKey, title: "Your Details", sub: "Who to contact", Icon: User },
 ];
 
 function BookLeisure() {
