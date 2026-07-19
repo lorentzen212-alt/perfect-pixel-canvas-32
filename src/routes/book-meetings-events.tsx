@@ -31,6 +31,9 @@ import {
   Trash2,
   Coffee,
   BedDouble,
+  Bed,
+  User,
+  UsersRound,
   Bell,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
