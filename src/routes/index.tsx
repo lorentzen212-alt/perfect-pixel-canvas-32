@@ -49,71 +49,88 @@ const NAV_LINKS = [
   { label: "Support", href: "#support" },
 ];
 
-// Premium duotone gold icons — handcrafted, thin strokes, subtle inner shading
-const GOLD = "#D4AF37";
-const GOLD_SOFT = "rgba(212,175,55,0.28)";
+// Premium duotone gold icons — custom-drawn, uniform 1.1 stroke, subtle inner shading
+const GOLD = "#E6C56A";
+const GOLD_SOFT = "rgba(212,175,55,0.18)";
+const GOLD_HAIR = "rgba(230,197,106,0.55)";
+const STROKE = 1.1;
 
 type IconProps = { size?: number; className?: string };
 
-function ShieldCheckIcon({ size = 22, className }: IconProps) {
+const svgBase = {
+  fill: "none" as const,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+};
+
+function ShieldCheckIcon({ size = 26, className }: IconProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <path d="M12 2.75 4.5 5.25v6.1c0 4.55 3.15 8.5 7.5 9.9 4.35-1.4 7.5-5.35 7.5-9.9v-6.1L12 2.75Z" fill={GOLD_SOFT} />
-      <path d="M12 2.75 4.5 5.25v6.1c0 4.55 3.15 8.5 7.5 9.9 4.35-1.4 7.5-5.35 7.5-9.9v-6.1L12 2.75Z" stroke={GOLD} strokeWidth="1.15" strokeLinejoin="round" />
-      <path d="m8.6 12.1 2.3 2.3 4.5-4.6" stroke={GOLD} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width={size} height={size} viewBox="0 0 28 28" className={className} aria-hidden="true" {...svgBase}>
+      <path d="M14 3 5 5.6v7.1c0 5.05 3.65 9.4 9 10.9 5.35-1.5 9-5.85 9-10.9V5.6L14 3Z" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
+      <path d="M8 6.9 14 5.3l6 1.6v5.8c0 4-2.55 7.35-6 8.7-3.45-1.35-6-4.7-6-8.7V6.9Z" stroke={GOLD_HAIR} strokeWidth="0.7" />
+      <path d="m10.2 13.9 2.7 2.7 5.1-5.3" stroke={GOLD} strokeWidth={STROKE} />
     </svg>
   );
 }
 
-function ClockIcon({ size = 22, className }: IconProps) {
+function ClockIcon({ size = 26, className }: IconProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <circle cx="12" cy="12" r="9" fill={GOLD_SOFT} />
-      <circle cx="12" cy="12" r="9" stroke={GOLD} strokeWidth="1.15" />
-      <circle cx="12" cy="12" r="6.4" stroke={GOLD} strokeWidth="0.6" strokeOpacity="0.55" />
-      <path d="M12 7.2V12l3.1 1.9" stroke={GOLD} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width={size} height={size} viewBox="0 0 28 28" className={className} aria-hidden="true" {...svgBase}>
+      <circle cx="14" cy="14" r="10.5" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
+      <circle cx="14" cy="14" r="7.8" stroke={GOLD_HAIR} strokeWidth="0.7" />
+      {/* hour ticks */}
+      <path d="M14 5.2v1.4M14 21.4v1.4M5.2 14h1.4M21.4 14h1.4" stroke={GOLD} strokeWidth="0.9" />
+      {/* hands */}
+      <path d="M14 8.4V14l3.6 2.2" stroke={GOLD} strokeWidth={STROKE} />
+      <circle cx="14" cy="14" r="0.9" fill={GOLD} />
     </svg>
   );
 }
 
-function HeadsetIcon({ size = 22, className }: IconProps) {
+function HeadsetIcon({ size = 26, className }: IconProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <path d="M4 14v-2a8 8 0 0 1 16 0v2" stroke={GOLD} strokeWidth="1.15" strokeLinecap="round" />
-      <path d="M3.6 14.2c0-.9.7-1.6 1.6-1.6h1.3v5.2H5.2c-.9 0-1.6-.7-1.6-1.6v-2Z" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.15" strokeLinejoin="round" />
-      <path d="M20.4 14.2c0-.9-.7-1.6-1.6-1.6h-1.3v5.2h1.3c.9 0 1.6-.7 1.6-1.6v-2Z" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.15" strokeLinejoin="round" />
-      <path d="M17.5 17.8v.4a2.6 2.6 0 0 1-2.6 2.6H13" stroke={GOLD} strokeWidth="1.15" strokeLinecap="round" />
-      <circle cx="12" cy="20.8" r="0.9" fill={GOLD} />
+    <svg width={size} height={size} viewBox="0 0 28 28" className={className} aria-hidden="true" {...svgBase}>
+      {/* headband */}
+      <path d="M5 15.4v-1.6a9 9 0 0 1 18 0v1.6" stroke={GOLD} strokeWidth={STROKE} />
+      {/* ear cups */}
+      <path d="M4.4 15.6c0-.95.75-1.7 1.7-1.7h1.7v6.3H6.1a1.7 1.7 0 0 1-1.7-1.7v-2.9Z" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
+      <path d="M23.6 15.6c0-.95-.75-1.7-1.7-1.7h-1.7v6.3h1.7a1.7 1.7 0 0 0 1.7-1.7v-2.9Z" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
+      {/* subtle grille lines */}
+      <path d="M6 15.8v3.4M20.3 15.8v3.4" stroke={GOLD_HAIR} strokeWidth="0.7" />
+      {/* mic boom + mouthpiece */}
+      <path d="M20.3 20.2v.9a2.8 2.8 0 0 1-2.8 2.8h-2.7" stroke={GOLD} strokeWidth={STROKE} />
+      <circle cx="14" cy="23.9" r="1" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
     </svg>
   );
 }
 
-function PadlockIcon({ size = 22, className }: IconProps) {
+function PadlockIcon({ size = 26, className }: IconProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <path d="M7.5 10.5V7.75a4.5 4.5 0 0 1 9 0V10.5" stroke={GOLD} strokeWidth="1.15" strokeLinecap="round" />
-      <rect x="5" y="10.5" width="14" height="10.5" rx="2" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.15" />
-      <path d="M12 14.4v3" stroke={GOLD} strokeWidth="1.25" strokeLinecap="round" />
-      <circle cx="12" cy="14.2" r="1.05" fill={GOLD} />
+    <svg width={size} height={size} viewBox="0 0 28 28" className={className} aria-hidden="true" {...svgBase}>
+      {/* shackle */}
+      <path d="M8.6 12.4V9.1a5.4 5.4 0 0 1 10.8 0v3.3" stroke={GOLD} strokeWidth={STROKE} />
+      {/* body */}
+      <rect x="5.8" y="12.4" width="16.4" height="12" rx="2.2" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
+      {/* inner hair line */}
+      <rect x="7.6" y="14" width="12.8" height="8.8" rx="1.4" stroke={GOLD_HAIR} strokeWidth="0.7" />
+      {/* keyhole */}
+      <circle cx="14" cy="17.4" r="1.25" stroke={GOLD} strokeWidth={STROKE} />
+      <path d="M14 18.5v2.6" stroke={GOLD} strokeWidth={STROKE} />
     </svg>
   );
 }
 
-function GroupHorizonIcon({ size = 26, className }: IconProps) {
+function GroupIcon({ size = 26, className }: IconProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 28 28" fill="none" className={className} aria-hidden="true">
-      {/* center figure */}
-      <circle cx="14" cy="7.5" r="2.4" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.1" />
-      <path d="M9.8 15.5c.4-2.2 2.2-3.6 4.2-3.6s3.8 1.4 4.2 3.6" stroke={GOLD} strokeWidth="1.1" strokeLinecap="round" />
+    <svg width={size} height={size} viewBox="0 0 28 28" className={className} aria-hidden="true" {...svgBase}>
       {/* left figure */}
-      <circle cx="7.4" cy="9" r="1.9" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.1" />
-      <path d="M3.8 16c.3-1.8 1.8-3 3.6-3" stroke={GOLD} strokeWidth="1.1" strokeLinecap="round" />
+      <circle cx="8.4" cy="10" r="2.4" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
+      <path d="M3.4 19.4c0-2.5 2.25-4.5 5-4.5s5 2 5 4.5" stroke={GOLD} strokeWidth={STROKE} />
       {/* right figure */}
-      <circle cx="20.6" cy="9" r="1.9" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.1" />
-      <path d="M24.2 16c-.3-1.8-1.8-3-3.6-3" stroke={GOLD} strokeWidth="1.1" strokeLinecap="round" />
-      {/* curved horizon */}
-      <path d="M2.5 20c3.4 2.4 8 3.6 11.5 3.6S22.1 22.4 25.5 20" stroke={GOLD} strokeWidth="1.15" strokeLinecap="round" />
-      <path d="M5 22.2c2.8 1.4 6 2.1 9 2.1s6.2-.7 9-2.1" stroke={GOLD} strokeWidth="0.7" strokeOpacity="0.5" strokeLinecap="round" />
+      <circle cx="18.6" cy="10" r="2.4" fill={GOLD_SOFT} stroke={GOLD} strokeWidth={STROKE} />
+      <path d="M14.6 19.4c0-2.5 2.25-4.5 5-4.5s5 2 5 4.5" stroke={GOLD} strokeWidth={STROKE} />
+      {/* subtle horizon */}
+      <path d="M3 22.8c3.3 1.4 7 2.1 11 2.1s7.7-.7 11-2.1" stroke={GOLD_HAIR} strokeWidth="0.7" />
     </svg>
   );
 }
@@ -123,6 +140,7 @@ const TRUST = [
   { Icon: ClockIcon, label: "Fast and free" },
   { Icon: HeadsetIcon, label: "Expert support" },
   { Icon: PadlockIcon, label: "Secure & trusted" },
+  { Icon: GroupIcon, label: (<>Built by group booking<br className="hidden sm:block" /> professionals</>) },
 ];
 
 function GoldLineWithDiamond({
