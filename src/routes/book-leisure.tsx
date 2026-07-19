@@ -829,9 +829,34 @@ function DestinationSelectTrigger({ children }: { children: React.ReactNode }) {
 
 function StyledSelectContent({ children }: { children: React.ReactNode }) {
   return (
-    <SelectContent className="z-[100] max-h-[280px] bg-white">
+    <SelectContent
+      className="z-[100] max-h-[280px] overflow-hidden rounded-xl border border-[#E4DED2] bg-white p-1.5 shadow-xl"
+      position="popper"
+    >
       {children}
     </SelectContent>
+  );
+}
+
+function StyledSelectItem({
+  value,
+  children,
+}: {
+  value: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <SelectItem
+      value={value}
+      className={cn(
+        "relative cursor-pointer rounded-lg py-2.5 pl-3 pr-8 text-[15px] text-[#0A1626] outline-none transition-colors",
+        "data-[highlighted]:bg-[#F5EFE1] data-[highlighted]:text-[#0A1626]",
+        "data-[state=checked]:bg-[#EAE6DD] data-[state=checked]:font-medium",
+        "focus:bg-[#F5EFE1] focus:text-[#0A1626]",
+      )}
+    >
+      {children}
+    </SelectItem>
   );
 }
 
