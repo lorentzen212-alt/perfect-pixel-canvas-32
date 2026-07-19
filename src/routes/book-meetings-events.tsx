@@ -426,15 +426,14 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
       <div className="relative flex items-start justify-between gap-2">
         {/* Line behind circles */}
         <div
-          className="pointer-events-none absolute left-0 right-0"
-          style={{ top: 17 }}
+          className="pointer-events-none absolute z-0"
+          style={{ top: 18, left: 18, right: 18 }}
         >
-          <div className="mx-6 h-px" style={{ backgroundColor: "rgba(245,194,90,0.35)" }} />
+          <div className="h-px w-full" style={{ backgroundColor: "rgba(245,194,90,0.35)" }} />
           <div
-            className="absolute left-6 h-px transition-all duration-500"
+            className="absolute left-0 top-0 h-px transition-all duration-500"
             style={{
-              top: 0,
-              width: `calc((100% - 48px) * ${(step - 1) / (STEPS.length - 1)})`,
+              width: `calc(100% * ${(step - 1) / (STEPS.length - 1)})`,
               background: `linear-gradient(90deg, ${GOLD} 0%, #FFD97A 100%)`,
               boxShadow: `0 0 12px rgba(245,194,90,0.55)`,
             }}
