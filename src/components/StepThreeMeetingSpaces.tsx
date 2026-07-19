@@ -1087,28 +1087,77 @@ export function StepThreeMeetingSpaces({
                 title="Recommended for your event"
                 icon={<Sparkles size={14} style={{ color: GOLD_SOFT }} />}
               />
-              <p className="mt-1.5 text-[12px] text-[#96A0B0]">
-                Based on{" "}
-                {rooms[0]?.attendees || attendees || 0} attendees
-                {rooms.length ? " and conference type" : ""}
-              </p>
-              <ul className="mt-4 space-y-2.5">
-                {recommendations.map((rec) => (
-                  <li
-                    key={rec}
-                    className="flex items-start gap-2.5 text-[13px] text-[#DDE4EE]"
-                  >
-                    <Check
-                      size={14}
-                      strokeWidth={2.6}
-                      className="mt-[3px]"
-                      style={{ color: "#7EE7A0" }}
-                    />
-                    <span>{rec}</span>
-                  </li>
-                ))}
-              </ul>
+              {plan ? (
+                <>
+                  <p className="mt-1.5 text-[12px] text-[#96A0B0]">
+                    Based on {plan.attendees} attendees
+                    {plan.rooms.length > 1 ? " · conference format" : ""}
+                  </p>
+                  <ul className="mt-4 space-y-2.5">
+                    {plan.summary.map((rec) => (
+                      <li
+                        key={rec}
+                        className="flex items-start gap-2.5 text-[13px] text-[#DDE4EE]"
+                      >
+                        <Check
+                          size={14}
+                          strokeWidth={2.6}
+                          className="mt-[3px]"
+                          style={{ color: "#7EE7A0" }}
+                        />
+                        <span>{rec}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {applied ? (
+                    <>
+                      <div
+                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full h-[46px] text-[13.5px] font-semibold"
+                        style={{
+                          color: "#0F2A1D",
+                          background:
+                            "linear-gradient(180deg,#B7ECC7 0%, #7ED09A 100%)",
+                          border: "1px solid rgba(46,142,92,0.55)",
+                          boxShadow:
+                            "inset 0 1px 0 rgba(255,255,255,0.45), 0 10px 22px -14px rgba(46,142,92,0.45)",
+                        }}
+                      >
+                        <Check size={15} strokeWidth={3} />
+                        Recommendation Applied
+                      </div>
+                      <p className="mt-2.5 text-[12px] leading-relaxed text-[#96A0B0]">
+                        Your meeting setup has been created automatically.
+                        You can still edit everything manually.
+                      </p>
+                    </>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={applyRecommendation}
+                      className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full h-[46px] text-[13.5px] font-semibold transition-all hover:-translate-y-[1px]"
+                      style={{
+                        color: "#0A1B2C",
+                        background:
+                          "linear-gradient(180deg,#F7E4A6 0%, #E8C876 55%, #C9A34A 100%)",
+                        border: "1px solid rgba(184,137,23,0.65)",
+                        boxShadow:
+                          "inset 0 1px 0 rgba(255,255,255,0.5), 0 12px 26px -14px rgba(184,137,23,0.5)",
+                      }}
+                    >
+                      <Sparkles size={15} strokeWidth={2.2} />
+                      Apply Recommendation
+                    </button>
+                  )}
+                </>
+              ) : (
+                <p className="mt-3 text-[12.5px] leading-relaxed text-[#96A0B0]">
+                  Add attendees or a first meeting room and we'll build a
+                  tailored setup for you automatically.
+                </p>
+              )}
             </SidebarCard>
+
 
             {/* Comments */}
             <SidebarCard>
