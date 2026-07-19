@@ -834,7 +834,7 @@ function DateField({
       <PopoverTrigger asChild>
         <button
           type="button"
-          className="flex h-[46px] w-full items-center justify-between rounded-xl bg-white px-4 cursor-pointer transition-shadow hover:shadow-md text-left"
+          className="flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-5 pr-4 cursor-pointer transition-shadow hover:shadow-md text-left"
           style={{
             border: "1px solid #E4DED2",
             boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
@@ -846,11 +846,11 @@ function DateField({
           >
             {value ? format(value, "dd MMM yyyy") : placeholder}
           </span>
-          <span className="flex items-center gap-2 shrink-0">
+          <span className="flex items-center gap-3 shrink-0">
             <CalendarIcon size={18} strokeWidth={1.6} className="text-[#0A1626]" />
-            <ChevronDown size={16} strokeWidth={1.6} className="text-[#5B6472]" />
           </span>
         </button>
+
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 z-[100] bg-white" align="start">
         <Calendar
