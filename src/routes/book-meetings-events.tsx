@@ -1512,10 +1512,9 @@ function StepThreeAccommodation({
       <div
         className="overflow-hidden rounded-[20px]"
         style={{
-          backgroundColor: "#FCFCFC",
-          backgroundImage: "linear-gradient(180deg,#FFFFFF 0%,#FAFAF8 100%)",
+          backgroundColor: "#FFFFFF",
           boxShadow:
-            "0 40px 80px -50px rgba(10,27,44,0.12), 0 12px 32px -20px rgba(10,27,44,0.06), 0 2px 4px -2px rgba(10,27,44,0.03)",
+            "0 40px 80px -50px rgba(10,27,44,0.10), 0 8px 24px -18px rgba(10,27,44,0.05)",
           border: "1px solid #E8E2D8",
         }}
       >
