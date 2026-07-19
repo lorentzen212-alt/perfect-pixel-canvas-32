@@ -25,10 +25,17 @@ import {
   Globe,
   Star,
   Check,
+  Minus,
+  Plus,
+  Pencil,
+  Trash2,
+  Coffee,
+  BedDouble,
+  Bell,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
-import heroImg from "@/assets/me-hero.jpg";
+import heroImg from "@/assets/me-hero-suite.jpg";
 import osloImg from "@/assets/destinations/oslo.jpg";
 import bergenImg from "@/assets/destinations/bergen.jpg";
 import tromsoImg from "@/assets/destinations/tromso.jpg";
@@ -306,74 +313,82 @@ function BookMeetingsEvents() {
       {/* FORM SECTION */}
       <section className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14">
         <div className="mx-auto max-w-[1400px]">
-          <div
-            className="overflow-hidden rounded-[20px]"
-            style={{
-              backgroundColor: "#FCFCFC",
-              backgroundImage:
-                "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
-              boxShadow:
-                "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
-              border: "1px solid #ECECEC",
-            }}
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(392px,420px)]">
-              <div className="p-6 sm:p-10 lg:p-12">
-                <div
-                  key={step}
-                  className={
-                    direction === "forward"
-                      ? "animate-slide-in-right"
-                      : "animate-slide-in-left"
-                  }
-                >
-                  {step === 1 && (
-                    <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
-                  )}
-                  {step === 2 && (
-                    <StepTwoLocation
-                      onBack={() => go(1)}
-                      onNext={handleNext}
-                    />
-                  )}
-                  {step > 2 && (
-                    <StepPlaceholder
-                      step={step}
-                      title={STEPS[step - 1]}
-                      onBack={() => go(step - 1)}
-                      onNext={handleNext}
-                      isLast={step === STEPS.length}
-                    />
-                  )}
+          {step === 3 ? (
+            <StepThreeAccommodation
+              onBack={() => go(2)}
+              onNext={handleNext}
+              direction={direction}
+            />
+          ) : (
+            <div
+              className="overflow-hidden rounded-[20px]"
+              style={{
+                backgroundColor: "#FCFCFC",
+                backgroundImage:
+                  "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
+                boxShadow:
+                  "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
+                border: "1px solid #ECECEC",
+              }}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(392px,420px)]">
+                <div className="p-6 sm:p-10 lg:p-12">
+                  <div
+                    key={step}
+                    className={
+                      direction === "forward"
+                        ? "animate-slide-in-right"
+                        : "animate-slide-in-left"
+                    }
+                  >
+                    {step === 1 && (
+                      <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
+                    )}
+                    {step === 2 && (
+                      <StepTwoLocation
+                        onBack={() => go(1)}
+                        onNext={handleNext}
+                      />
+                    )}
+                    {step > 3 && (
+                      <StepPlaceholder
+                        step={step}
+                        title={STEPS[step - 1]}
+                        onBack={() => go(step - 1)}
+                        onNext={handleNext}
+                        isLast={step === STEPS.length}
+                      />
+                    )}
 
+                  </div>
                 </div>
-              </div>
 
-              {/* Help card */}
-              <div
-                className="p-8 lg:p-10 lg:pl-8"
-                style={{
-                  backgroundColor: "transparent",
-                  borderLeft: "1px solid #F1F1EE",
-                }}
-              >
+                {/* Help card */}
                 <div
-                  className="rounded-[16px] p-6 w-full lg:w-[320px] lg:min-w-[320px]"
+                  className="p-8 lg:p-10 lg:pl-8"
                   style={{
-                    backgroundColor: "#FFFFFF",
-                    border: "1px solid #EFEFEC",
-                    boxShadow:
-                      "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+                    backgroundColor: "transparent",
+                    borderLeft: "1px solid #F1F1EE",
                   }}
                 >
-                  <HelpCard />
+                  <div
+                    className="rounded-[16px] p-6 w-full lg:w-[320px] lg:min-w-[320px]"
+                    style={{
+                      backgroundColor: "#FFFFFF",
+                      border: "1px solid #EFEFEC",
+                      boxShadow:
+                        "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+                    }}
+                  >
+                    <HelpCard />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
+          )}
 
           {/* Credibility */}
+          {step !== 3 && (
           <div
             className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center px-8 md:px-12 py-8 md:py-10 rounded-[20px]"
             style={{
@@ -411,9 +426,11 @@ function BookMeetingsEvents() {
               </p>
             </div>
           </div>
+          )}
 
         </div>
       </section>
+
 
       <style>{`
         @keyframes slide-in-right { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
@@ -1366,4 +1383,691 @@ function StepTwoLocation({
   );
 }
 
+
+/* --------- Step 3: Accommodation --------- */
+
+type RoomMix = { sgl: number; dbl: number; twn: number; trp: number; ste: number };
+type MealPlan = "room" | "breakfast";
+type Stay = {
+  id: string;
+  checkIn: string;
+  checkOut: string;
+  rooms: RoomMix;
+  mealPlan: MealPlan;
+};
+
+const emptyRooms = (): RoomMix => ({ sgl: 0, dbl: 0, twn: 0, trp: 0, ste: 0 });
+
+function fmtDate(iso: string) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+}
+
+function roomsSummary(r: RoomMix) {
+  const parts: string[] = [];
+  if (r.sgl) parts.push(`${r.sgl} SGL`);
+  if (r.dbl) parts.push(`${r.dbl} DBL`);
+  if (r.twn) parts.push(`${r.twn} TWN`);
+  if (r.trp) parts.push(`${r.trp} TRP`);
+  if (r.ste) parts.push(`${r.ste} STE`);
+  return parts.join(", ");
+}
+
+function roomsTotal(r: RoomMix) {
+  return r.sgl + r.dbl + r.twn + r.trp + r.ste;
+}
+function guestsCapacity(r: RoomMix) {
+  return r.sgl * 1 + r.dbl * 2 + r.twn * 2 + r.trp * 3 + r.ste * 2;
+}
+
+function StepThreeAccommodation({
+  onBack,
+  onNext,
+  direction,
+}: {
+  onBack: () => void;
+  onNext: () => void;
+  direction: "forward" | "back";
+}) {
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [rooms, setRooms] = useState<RoomMix>(emptyRooms());
+  const [mealPlan, setMealPlan] = useState<MealPlan>("breakfast");
+  const [stays, setStays] = useState<Stay[]>([]);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [porter] = useState(false);
+  const [special, setSpecial] = useState("");
+
+  const totalRooms = stays.reduce((n, s) => n + roomsTotal(s.rooms), 0);
+  const totalGuests = stays.reduce((n, s) => n + guestsCapacity(s.rooms), 0);
+  const primaryMeal = stays[0]?.mealPlan ?? mealPlan;
+
+  const clearDraft = () => {
+    setCheckIn("");
+    setCheckOut("");
+    setRooms(emptyRooms());
+    setMealPlan("breakfast");
+    setEditingId(null);
+  };
+
+  const addStay = () => {
+    if (!checkIn || !checkOut) return;
+    const stay: Stay = {
+      id: editingId ?? crypto.randomUUID(),
+      checkIn,
+      checkOut,
+      rooms,
+      mealPlan,
+    };
+    setStays((prev) =>
+      editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
+    );
+    clearDraft();
+  };
+
+  const editStay = (id: string) => {
+    const s = stays.find((x) => x.id === id);
+    if (!s) return;
+    setEditingId(id);
+    setCheckIn(s.checkIn);
+    setCheckOut(s.checkOut);
+    setRooms(s.rooms);
+    setMealPlan(s.mealPlan);
+  };
+
+  const removeStay = (id: string) => {
+    setStays((prev) => prev.filter((s) => s.id !== id));
+    if (editingId === id) clearDraft();
+  };
+
+  return (
+    <div
+      className={
+        direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"
+      }
+    >
+      <div className="mb-6">
+        <h2
+          className="text-[#0A1B2C] text-3xl lg:text-[38px] leading-tight"
+          style={{ fontFamily: SERIF }}
+        >
+          Step 3 – Accommodation
+        </h2>
+        <div className="mt-3 h-[2px] w-16" style={{ background: "linear-gradient(90deg,#F7D97A,#B88917)" }} />
+        <p className="mt-4 text-[#4A5866] text-[15px] max-w-xl leading-relaxed">
+          Add the room mix for each stay period. You can add multiple stay periods if
+          guests are arriving or departing on different dates.
+        </p>
+      </div>
+
+      <div
+        className="overflow-hidden rounded-[20px]"
+        style={{
+          backgroundColor: "#FCFCFC",
+          backgroundImage: "linear-gradient(180deg,#FFFFFF 0%,#FAFAF8 100%)",
+          boxShadow:
+            "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
+          border: "1px solid #ECECEC",
+        }}
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px]">
+          {/* LEFT COLUMN */}
+          <div className="p-6 sm:p-9 lg:p-11 lg:pr-9">
+            {/* Accommodation Period card */}
+            <div
+              className="rounded-[16px] p-6 lg:p-7"
+              style={{
+                backgroundColor: "#FFFFFF",
+                border: "1px solid #EEEBE3",
+                boxShadow: "0 6px 18px -10px rgba(10,27,44,0.08)",
+              }}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-lg"
+                    style={{ backgroundColor: "#FAF3E1" }}
+                  >
+                    <CalendarIcon size={20} style={{ color: "#B88A2E" }} strokeWidth={1.8} />
+                  </span>
+                  <div>
+                    <h3
+                      className="text-[#0A1B2C] text-[20px] leading-tight"
+                      style={{ fontFamily: SERIF }}
+                    >
+                      Accommodation Period{" "}
+                      <span className="text-[#8A94A0] text-[15px]">
+                        ({editingId ? "Editing" : "Draft"})
+                      </span>
+                    </h3>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={clearDraft}
+                  className="inline-flex items-center gap-2 rounded-md border px-3 h-9 text-[13px] text-[#4A5866] hover:bg-[#F7F3E7]"
+                  style={{ borderColor: "#E3DFD3" }}
+                >
+                  <Trash2 size={14} />
+                  Clear
+                </button>
+              </div>
+
+              {/* Dates */}
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-end gap-4">
+                <DateField label="Check-in" value={checkIn} onChange={setCheckIn} />
+                <div className="hidden sm:flex items-center justify-center pb-3">
+                  <ArrowRight size={18} className="text-[#4A5866]" />
+                </div>
+                <DateField label="Check-out" value={checkOut} onChange={setCheckOut} />
+              </div>
+
+              {/* Room Breakdown */}
+              <div className="mt-8">
+                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Room Breakdown</h4>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <Counter label="Single Rooms (SGL)" value={rooms.sgl} onChange={(v) => setRooms({ ...rooms, sgl: v })} />
+                  <Counter label="Double Rooms (DBL)" value={rooms.dbl} onChange={(v) => setRooms({ ...rooms, dbl: v })} />
+                  <Counter label="Twin Rooms (TWN)" value={rooms.twn} onChange={(v) => setRooms({ ...rooms, twn: v })} />
+                  <Counter label="Triple Rooms (TRP)" value={rooms.trp} onChange={(v) => setRooms({ ...rooms, trp: v })} />
+                  <Counter label="Suites" value={rooms.ste} onChange={(v) => setRooms({ ...rooms, ste: v })} />
+                </div>
+              </div>
+
+              {/* Meal Plan */}
+              <div className="mt-8 border-t pt-6" style={{ borderColor: "#EEEBE3" }}>
+                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Meal Plan</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <MealOption
+                    icon={<BedDouble size={18} />}
+                    label="Room Only"
+                    selected={mealPlan === "room"}
+                    onClick={() => setMealPlan("room")}
+                  />
+                  <MealOption
+                    icon={<Coffee size={18} />}
+                    label="Breakfast Included"
+                    selected={mealPlan === "breakfast"}
+                    onClick={() => setMealPlan("breakfast")}
+                  />
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="mt-8 flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={clearDraft}
+                  className="inline-flex items-center justify-center rounded-md border px-6 h-[46px] text-[14px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F5EFE1]"
+                  style={{ borderColor: "#D9D3C4" }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={addStay}
+                  disabled={!checkIn || !checkOut}
+                  className="group inline-flex items-center justify-center gap-2 rounded-md px-6 h-[46px] text-[14px] font-semibold text-white disabled:opacity-50"
+                  style={{
+                    background: "linear-gradient(180deg,#16385A 0%,#0F2A47 100%)",
+                    boxShadow:
+                      "inset 0 1px 0 rgba(255,255,255,0.14), 0 8px 20px -10px rgba(10,27,44,0.5)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                  }}
+                >
+                  {editingId ? "Save changes" : "Add this stay"}
+                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Complete stay and continue (outlined gold) */}
+            <button
+              type="button"
+              onClick={addStay}
+              disabled={!checkIn || !checkOut}
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold disabled:opacity-40 transition-colors"
+              style={{
+                color: "#B88917",
+                background: "linear-gradient(180deg,#FFFDF6 0%,#FFF7E0 100%)",
+                border: "1px solid rgba(212,175,55,0.55)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), 0 4px 12px -6px rgba(184,137,23,0.25)",
+              }}
+            >
+              <Plus size={18} />
+              Complete stay and continue
+            </button>
+
+            {/* Added Stays */}
+            {stays.length > 0 && (
+              <div className="mt-9">
+                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Added Stays</h4>
+                <div className="flex flex-col gap-3">
+                  {stays.map((s) => (
+                    <div
+                      key={s.id}
+                      className="flex items-center justify-between gap-4 rounded-[12px] px-4 py-3"
+                      style={{
+                        backgroundColor: "#FFFFFF",
+                        border: "1px solid #EEEBE3",
+                      }}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span
+                          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+                          style={{ backgroundColor: "#FAF3E1" }}
+                        >
+                          <CalendarIcon size={16} style={{ color: "#B88A2E" }} strokeWidth={1.8} />
+                        </span>
+                        <div className="min-w-0">
+                          <div className="text-[#0A1B2C] text-[14px] font-semibold truncate">
+                            {fmtDate(s.checkIn)} – {fmtDate(s.checkOut)}
+                          </div>
+                          <div className="text-[#4A5866] text-[13px] truncate">
+                            {roomsSummary(s.rooms) || "No rooms"}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => editStay(s.id)}
+                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-[13px] text-[#0A1B2C] hover:bg-[#F5EFE1]"
+                        >
+                          <Pencil size={14} /> Edit
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => removeStay(s.id)}
+                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-[13px] text-[#B45B4A] hover:bg-[#FBECEA]"
+                        >
+                          <Trash2 size={14} /> Remove
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Add another stay */}
+            <button
+              type="button"
+              onClick={clearDraft}
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[54px] text-[15px] font-semibold text-white"
+              style={{
+                background: "linear-gradient(180deg,#16385A 0%,#0A1B2C 100%)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.14), 0 10px 24px -12px rgba(10,27,44,0.55)",
+                border: "1px solid rgba(255,255,255,0.14)",
+              }}
+            >
+              <Plus size={18} style={{ color: GOLD }} />
+              Add another stay
+            </button>
+
+            {/* Special Requests */}
+            <div className="mt-9">
+              <label className="block">
+                <span className="text-[#0A1B2C] text-[15px] font-semibold">
+                  Special Requests <span className="font-normal text-[#8A94A0]">(Optional)</span>
+                </span>
+                <span className="mt-1 block text-[#4A5866] text-[13px]">
+                  Tell us about any specific requirements.
+                </span>
+                <textarea
+                  value={special}
+                  onChange={(e) => setSpecial(e.target.value)}
+                  rows={3}
+                  placeholder="E.g. early check-in, late check-out, welcome gift, specific floor, etc."
+                  className="mt-3 w-full rounded-[10px] px-4 py-3 text-[14px] text-[#0A1B2C] placeholder:text-[#9BA4AE] outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
+                  style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+                />
+              </label>
+            </div>
+
+            {/* Back */}
+            <div className="mt-10 flex">
+              <button
+                type="button"
+                onClick={onBack}
+                className="inline-flex items-center justify-center gap-2 rounded-md border px-6 h-[46px] text-[14px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F5EFE1]"
+                style={{ borderColor: "#D9D3C4" }}
+              >
+                Back
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT SIDEBAR - premium navy */}
+          <aside
+            className="relative p-7 lg:p-8 text-white"
+            style={{
+              background:
+                "linear-gradient(180deg,#0B1E31 0%, #081827 55%, #050F1B 100%)",
+              boxShadow: "inset 1px 0 0 rgba(255,255,255,0.04)",
+            }}
+          >
+            {/* subtle vertical divider gradient */}
+            <div
+              className="pointer-events-none absolute left-0 top-6 bottom-6 w-px"
+              style={{
+                background:
+                  "linear-gradient(180deg, transparent, rgba(212,175,55,0.35), transparent)",
+              }}
+            />
+
+            {/* Summary */}
+            <h3
+              className="text-white text-[24px] leading-tight"
+              style={{ fontFamily: SERIF }}
+            >
+              Summary
+            </h3>
+            <div
+              className="mt-3 h-[2px] w-14"
+              style={{
+                background:
+                  "linear-gradient(90deg,#F7D97A 0%,#D4AF37 60%,rgba(212,175,55,0) 100%)",
+              }}
+            />
+
+            <div className="mt-6 flex flex-col gap-4">
+              <SummaryRow icon={<Users size={16} />} label="Total Guests" value={totalGuests} />
+              <SummaryRow icon={<CalendarIcon size={16} />} label="Stay Periods" value={stays.length} />
+              <SummaryRow icon={<BedDouble size={16} />} label="Total Rooms Requested" value={totalRooms} />
+            </div>
+
+            <GoldDivider />
+
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <span
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-md"
+                  style={{ backgroundColor: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.25)" }}
+                >
+                  <Coffee size={15} style={{ color: GOLD }} />
+                </span>
+                <div>
+                  <div className="text-white/70 text-[13px]">Meal Plan</div>
+                  <div className="text-white text-[15px] font-medium">
+                    {primaryMeal === "breakfast" ? "Breakfast Included" : "Room Only"}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md"
+                    style={{ backgroundColor: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.25)" }}
+                  >
+                    <Bell size={15} style={{ color: GOLD }} />
+                  </span>
+                  <div className="text-white text-[15px]">Porter Service</div>
+                </div>
+                <div className="text-white/80 text-[14px]">{porter ? "Yes" : "No"}</div>
+              </div>
+            </div>
+
+            {/* Need help card */}
+            <div
+              className="mt-7 rounded-[14px] p-5"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)",
+                border: "1px solid rgba(212,175,55,0.22)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+              }}
+            >
+              <h4 className="text-white text-[20px]" style={{ fontFamily: SERIF }}>
+                Need help?
+              </h4>
+              <div
+                className="mt-2 h-[2px] w-10"
+                style={{ background: "linear-gradient(90deg,#F7D97A,rgba(247,217,122,0))" }}
+              />
+              <p className="mt-3 text-white/75 text-[13.5px] leading-relaxed">
+                Our M&amp;E specialists are ready to assist you.
+              </p>
+              <div className="mt-4 flex flex-col gap-3">
+                <a
+                  href="tel:+4721002100"
+                  className="flex items-center gap-3 text-white/90 text-[13.5px] hover:text-[#F7D97A] transition-colors"
+                >
+                  <span
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full"
+                    style={{ border: "1px solid rgba(212,175,55,0.4)" }}
+                  >
+                    <Phone size={14} style={{ color: GOLD }} />
+                  </span>
+                  +47 21 00 21 00
+                </a>
+                <a
+                  href="mailto:meetings@hotelgroupbook.com"
+                  className="flex items-center gap-3 text-white/90 text-[13.5px] hover:text-[#F7D97A] transition-colors whitespace-nowrap"
+                >
+                  <span
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full"
+                    style={{ border: "1px solid rgba(212,175,55,0.4)" }}
+                  >
+                    <Mail size={14} style={{ color: GOLD }} />
+                  </span>
+                  meetings@hotelgroupbook.com
+                </a>
+              </div>
+            </div>
+
+            {/* Trust box */}
+            <div
+              className="mt-5 rounded-[14px] p-5 text-center"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)",
+                border: "1px solid rgba(212,175,55,0.22)",
+              }}
+            >
+              <span
+                className="mx-auto inline-flex h-11 w-11 items-center justify-center rounded-full"
+                style={{ border: "1px solid rgba(212,175,55,0.45)" }}
+              >
+                <Users size={20} style={{ color: GOLD }} />
+              </span>
+              <p
+                className="mt-3 text-white text-[15px] leading-snug"
+                style={{ fontFamily: SERIF }}
+              >
+                Built by group booking
+                <br />
+                professionals
+              </p>
+              <p className="mt-2 text-white/70 text-[12.5px] leading-relaxed">
+                with experience from{" "}
+                <span className="text-[#F7D97A] font-semibold">10,000+ groups.</span>
+              </p>
+            </div>
+
+            {/* Continue button */}
+            <button
+              type="button"
+              onClick={onNext}
+              className="group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-[10px] h-[56px] text-[16px] font-semibold"
+              style={{
+                color: "#0F1B2D",
+                background:
+                  "linear-gradient(180deg,#F9DE8A 0%,#EAC15C 40%,#D4AF37 75%,#B88917 100%)",
+                border: "1px solid rgba(184,137,23,0.85)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 0 rgba(122,84,10,0.35), 0 10px 24px -10px rgba(184,137,23,0.55), 0 0 26px rgba(212,175,55,0.28)",
+              }}
+            >
+              Continue
+              <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
+            </button>
+          </aside>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DateField({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="text-[#0A1B2C] text-[13.5px] font-semibold">{label}</span>
+      <div
+        className="mt-2 flex items-center gap-2 rounded-[10px] px-3 h-[46px]"
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+      >
+        <input
+          type="date"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
+        />
+        <CalendarIcon size={16} className="text-[#8A94A0]" />
+      </div>
+    </label>
+  );
+}
+
+function Counter({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+}) {
+  return (
+    <div>
+      <div className="text-[#0A1B2C] text-[13px] font-medium mb-2">{label}</div>
+      <div
+        className="flex items-center justify-between rounded-[10px] h-[46px] px-1.5"
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+      >
+        <button
+          type="button"
+          onClick={() => onChange(Math.max(0, value - 1))}
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          aria-label={`Decrease ${label}`}
+        >
+          <Minus size={15} />
+        </button>
+        <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums">{value}</span>
+        <button
+          type="button"
+          onClick={() => onChange(value + 1)}
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          aria-label={`Increase ${label}`}
+        >
+          <Plus size={15} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function MealOption({
+  icon,
+  label,
+  selected,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  selected: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex items-center justify-between rounded-[10px] px-4 h-[56px] text-left transition-all"
+      style={{
+        backgroundColor: selected ? "#FFFBEF" : "#FFFFFF",
+        border: `1px solid ${selected ? "rgba(212,175,55,0.55)" : "#E6E2D5"}`,
+        boxShadow: selected ? "0 0 0 3px rgba(212,175,55,0.10)" : undefined,
+      }}
+    >
+      <span className="flex items-center gap-3">
+        <span
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md"
+          style={{
+            color: selected ? "#B88917" : "#4A5866",
+            backgroundColor: selected ? "#FAF3E1" : "#F5F3EC",
+          }}
+        >
+          {icon}
+        </span>
+        <span className="text-[#0A1B2C] text-[14.5px] font-medium">{label}</span>
+      </span>
+      <span
+        className="inline-flex h-5 w-5 items-center justify-center rounded-full"
+        style={{
+          border: `2px solid ${selected ? "#D4AF37" : "#D9D3C4"}`,
+          backgroundColor: selected ? "#D4AF37" : "transparent",
+        }}
+      >
+        {selected && <span className="h-2 w-2 rounded-full bg-white" />}
+      </span>
+    </button>
+  );
+}
+
+function SummaryRow({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: number;
+}) {
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <span
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md"
+          style={{
+            backgroundColor: "rgba(212,175,55,0.10)",
+            border: "1px solid rgba(212,175,55,0.25)",
+            color: GOLD,
+          }}
+        >
+          {icon}
+        </span>
+        <span className="text-white/85 text-[14px]">{label}</span>
+      </div>
+      <span
+        className="text-white text-[16px] font-semibold tabular-nums"
+        style={{ fontFamily: SERIF }}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function GoldDivider() {
+  return (
+    <div
+      className="my-6 h-px w-full"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.55) 50%, rgba(212,175,55,0) 100%)",
+      }}
+    />
+  );
+}
 
