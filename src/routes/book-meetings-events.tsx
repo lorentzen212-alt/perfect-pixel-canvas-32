@@ -1298,9 +1298,9 @@ function StepTwoLocation({
                       type="button"
                       onClick={() => setSelectedHotelStyle(s.id)}
                       aria-pressed={selected}
-                      className="group flex flex-1 basis-[104px] flex-col items-center justify-center gap-2 rounded-md min-h-[86px] px-3 py-2 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+                      className="group inline-flex flex-1 basis-[160px] items-center justify-center gap-3 rounded-md h-[46px] px-5 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
                       style={{
-                        minWidth: 104,
+                        minWidth: 160,
                         background: selected
                           ? "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)"
                           : "#FFFFFF",
@@ -1324,18 +1324,19 @@ function StepTwoLocation({
                       }}
                     >
                       <s.Icon
-                        size={22}
+                        size={18}
                         strokeWidth={1.6}
-                        className="transition-transform duration-200 group-hover:scale-[1.04]"
-                        style={{ color: selected ? GOLD : "#0A1B2C" }}
+                        className="shrink-0 transition-transform duration-200 group-hover:scale-[1.04]"
+                        style={{ color: selected ? GOLD : "#4A5866" }}
                       />
-                      <span className="text-[12.5px] text-center leading-[1.25] break-words">
+                      <span className="text-[15px] leading-none whitespace-nowrap">
                         {s.label}
                       </span>
                     </button>
                   );
                 })}
               </div>
+
             </div>
           </div>
         </div>
