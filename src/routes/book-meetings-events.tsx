@@ -31,6 +31,9 @@ import {
   Trash2,
   Coffee,
   BedDouble,
+  Bed,
+  User,
+  UsersRound,
   Bell,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -1532,7 +1535,7 @@ function StepThreeAccommodation({
                   <div>
                     <h3
                       className="text-[#0A1B2C] text-[20px] leading-tight"
-                      style={{ fontFamily: SERIF }}
+                      style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
                     >
                       Accommodation Period{" "}
                       <span className="text-[#8A94A0] text-[15px]">
@@ -1563,19 +1566,29 @@ function StepThreeAccommodation({
 
               {/* Room Breakdown */}
               <div className="mt-8">
-                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Room Breakdown</h4>
+                <h4
+                  className="text-[#0A1B2C] text-[17px] mb-4"
+                  style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
+                >
+                  Room Categories
+                </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  <Counter label="Single Rooms (SGL)" value={rooms.sgl} onChange={(v) => setRooms({ ...rooms, sgl: v })} />
-                  <Counter label="Double Rooms (DBL)" value={rooms.dbl} onChange={(v) => setRooms({ ...rooms, dbl: v })} />
-                  <Counter label="Twin Rooms (TWN)" value={rooms.twn} onChange={(v) => setRooms({ ...rooms, twn: v })} />
-                  <Counter label="Triple Rooms (TRP)" value={rooms.trp} onChange={(v) => setRooms({ ...rooms, trp: v })} />
-                  <Counter label="Suites" value={rooms.ste} onChange={(v) => setRooms({ ...rooms, ste: v })} />
+                  <Counter icon={<User size={18} strokeWidth={1.8} />} label="Single Rooms (SGL)" value={rooms.sgl} onChange={(v) => setRooms({ ...rooms, sgl: v })} />
+                  <Counter icon={<Users size={18} strokeWidth={1.8} />} label="Double Rooms (DBL)" value={rooms.dbl} onChange={(v) => setRooms({ ...rooms, dbl: v })} />
+                  <Counter icon={<Bed size={18} strokeWidth={1.8} />} label="Twin Rooms (TWN)" value={rooms.twn} onChange={(v) => setRooms({ ...rooms, twn: v })} />
+                  <Counter icon={<UsersRound size={18} strokeWidth={1.8} />} label="Triple Rooms (TRP)" value={rooms.trp} onChange={(v) => setRooms({ ...rooms, trp: v })} />
+                  <Counter icon={<BedDouble size={18} strokeWidth={1.8} />} label="Suites" value={rooms.ste} onChange={(v) => setRooms({ ...rooms, ste: v })} />
                 </div>
               </div>
 
               {/* Meal Plan */}
               <div className="mt-8 border-t pt-6" style={{ borderColor: "#EEEBE3" }}>
-                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Meal Plan</h4>
+                <h4
+                  className="text-[#0A1B2C] text-[17px] mb-4"
+                  style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
+                >
+                  Meal Plan
+                </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
                     icon={<BedDouble size={18} />}
@@ -1936,14 +1949,19 @@ function Counter({
   label,
   value,
   onChange,
+  icon,
 }: {
   label: string;
   value: number;
   onChange: (v: number) => void;
+  icon?: React.ReactNode;
 }) {
   return (
     <div>
-      <div className="text-[#0A1B2C] text-[13px] font-medium mb-2">{label}</div>
+      <div className="text-[#0A1B2C] text-[13px] font-medium mb-2 flex items-center gap-2">
+        {icon ? <LuxIconBadge size={28}>{icon}</LuxIconBadge> : null}
+        <span>{label}</span>
+      </div>
       <div
         className="flex items-center justify-between rounded-[10px] h-[46px] px-1.5"
         style={{
@@ -1992,13 +2010,13 @@ function MealOption({
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center justify-between rounded-[10px] px-4 h-[56px] text-left transition-all"
+      className="flex items-center justify-between rounded-[14px] px-4 h-[56px] text-left transition-all"
       style={{
-        backgroundColor: selected ? "#FFFBEF" : "#FFFFFF",
-        border: `1px solid ${selected ? "rgba(212,175,55,0.55)" : "#E6E2D5"}`,
+        backgroundColor: selected ? "rgba(212,175,55,0.025)" : "#FFFFFF",
+        border: `1px solid ${selected ? "rgba(212,175,55,0.45)" : "#E8E2D8"}`,
         boxShadow: selected
-          ? "0 0 0 3px rgba(212,175,55,0.10), 0 6px 18px -10px rgba(184,137,23,0.35)"
-          : "0 1px 2px rgba(10,27,44,0.04)",
+          ? "0 6px 18px rgba(15,35,60,0.045), 0 0 0 3px rgba(212,175,55,0.08)"
+          : "0 6px 18px rgba(15,35,60,0.045)",
       }}
     >
       <span className="flex items-center gap-3">
@@ -2074,11 +2092,17 @@ function LuxIconBadge({
   size?: number;
   tone?: "onLight" | "onDark";
 }) {
-  const radius = Math.max(8, Math.round(size * 0.3));
+  const radius = size >= 40 ? 12 : Math.max(6, Math.round(size * 0.28));
   const shadow =
     tone === "onDark"
       ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.4)"
-      : "0 10px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.4)";
+      : "0 6px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.35)";
+  const bg =
+    tone === "onDark"
+      ? "linear-gradient(180deg,#1A1D24 0%, #101319 55%, #0B0D12 100%)"
+      : "linear-gradient(180deg,#262626 0%, #111111 100%)";
+  const borderColor =
+    tone === "onDark" ? "rgba(212,175,55,0.22)" : "rgba(212,175,55,0.28)";
   return (
     <span
       className="relative inline-flex shrink-0 items-center justify-center"
@@ -2086,9 +2110,8 @@ function LuxIconBadge({
         width: size,
         height: size,
         borderRadius: radius,
-        background:
-          "linear-gradient(180deg,#1A1D24 0%, #101319 55%, #0B0D12 100%)",
-        border: "1px solid rgba(212,175,55,0.22)",
+        background: bg,
+        border: `1px solid ${borderColor}`,
         boxShadow: shadow,
         color: "#E6C25A",
       }}
