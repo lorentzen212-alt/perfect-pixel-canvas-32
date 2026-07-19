@@ -305,18 +305,25 @@ function Home() {
           </div>
 
           {/* TRUST ROW — luxury feature strip */}
-          <div className="mt-12 flex flex-wrap items-center gap-x-12 lg:gap-x-14 gap-y-5">
+          <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 items-stretch">
             {TRUST.map(({ Icon, label }, i) => (
-              <div key={i} className="flex items-center" style={{ gap: 12 }}>
+              <div
+                key={i}
+                className={cn(
+                  "flex flex-col items-center justify-start text-center px-3 lg:px-4 py-1",
+                  i > 0 && "lg:border-l lg:border-[rgba(212,167,44,0.22)]"
+                )}
+              >
                 <span
-                  className="relative inline-flex shrink-0 items-center justify-center"
+                  className="inline-flex items-center justify-center"
                   style={{
-                    filter: "drop-shadow(0 0 6px rgba(212,175,55,0.28)) drop-shadow(0 1px 0 rgba(0,0,0,0.35))",
+                    filter:
+                      "drop-shadow(0 1px 0 rgba(0,0,0,0.45)) drop-shadow(0 6px 14px rgba(143,106,18,0.22))",
                   }}
                 >
-                  <Icon size={26} />
+                  <Icon size={40} />
                 </span>
-                <span className="text-[#DED8C9]/85 text-[15px] lg:text-[16px] leading-snug tracking-[0.01em]">
+                <span className="mt-3 text-[#EDE6D3] text-[13.5px] lg:text-[14px] leading-snug tracking-[0.01em]">
                   {label}
                 </span>
               </div>
