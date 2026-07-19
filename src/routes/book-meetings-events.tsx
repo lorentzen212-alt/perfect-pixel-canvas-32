@@ -1568,17 +1568,30 @@ function StepThreeAccommodation({
 
               {/* Room Categories — stacked full-width rows */}
               <div className="mt-8">
-                <div className="mb-4 flex items-baseline justify-between gap-4">
+                <div className="mb-4 sm:hidden">
                   <h4
                     className="text-[#0A1B2C] text-[17px] tracking-[0.14em] uppercase"
                     style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.16em" }}
                   >
                     Room Categories
                   </h4>
-                  <div className="hidden sm:flex items-center gap-10 pr-1 text-[10.5px] tracking-[0.18em] text-[#8A94A0] uppercase">
-                    <span>Guests</span>
-                    <span className="text-right leading-tight">Preferred Room<br/>Category</span>
-                  </div>
+                </div>
+                <div
+                  className="mb-4 hidden sm:grid items-baseline gap-3 sm:gap-6"
+                  style={{ gridTemplateColumns: "auto minmax(0,1fr) auto auto" }}
+                >
+                  <h4
+                    className="col-span-2 text-[#0A1B2C] text-[17px] tracking-[0.14em] uppercase"
+                    style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.16em" }}
+                  >
+                    Room Categories
+                  </h4>
+                  <span className="text-[10.5px] tracking-[0.18em] text-[#8A94A0] uppercase text-center sm:w-[132px]">
+                    Guests
+                  </span>
+                  <span className="text-[10.5px] tracking-[0.18em] text-[#8A94A0] uppercase text-right sm:w-[180px]">
+                    Preferred Room Category
+                  </span>
                 </div>
                 <div className="flex flex-col gap-3">
                   <RoomRow
