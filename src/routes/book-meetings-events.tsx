@@ -1864,18 +1864,12 @@ function StepThreeAccommodation({
             <button
               type="button"
               onClick={clearDraft}
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[54px] text-[15px] font-semibold text-white transition-transform active:translate-y-px"
-              style={{
-                background:
-                  "linear-gradient(180deg,#153353 0%,#0B2038 55%,#050F1B 100%)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.5), 0 14px 32px -14px rgba(10,27,44,0.7), 0 2px 6px -2px rgba(10,27,44,0.35)",
-                border: "1px solid rgba(255,255,255,0.12)",
-              }}
+              className="add-stay-btn mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[54px] text-[15px] font-semibold text-white"
             >
               <Plus size={18} style={{ color: "#F2C860" }} />
               Add another stay
             </button>
+
 
             {/* Special Requests */}
             <div className="mt-9">
