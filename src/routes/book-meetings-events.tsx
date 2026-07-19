@@ -301,7 +301,13 @@ function BookMeetingsEvents() {
                   {step === 1 && (
                     <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
                   )}
-                  {step > 1 && (
+                  {step === 2 && (
+                    <StepTwoLocation
+                      onBack={() => go(1)}
+                      onNext={handleNext}
+                    />
+                  )}
+                  {step > 2 && (
                     <StepPlaceholder
                       step={step}
                       title={STEPS[step - 1]}
@@ -310,6 +316,7 @@ function BookMeetingsEvents() {
                       isLast={step === STEPS.length}
                     />
                   )}
+
                 </div>
               </div>
 
