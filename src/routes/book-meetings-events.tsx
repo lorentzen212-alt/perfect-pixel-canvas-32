@@ -318,9 +318,9 @@ function BookMeetingsEvents() {
       {/* FORM SECTION */}
       <section className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14">
         <div className="mx-auto max-w-[1400px]">
-          {step === 3 ? (
+          {step === 2 ? (
             <StepThreeAccommodation
-              onBack={() => go(2)}
+              onBack={() => go(1)}
               onNext={handleNext}
               direction={direction}
             />
@@ -346,16 +346,16 @@ function BookMeetingsEvents() {
                         : "animate-slide-in-left"
                     }
                   >
-                    {step === 1 && (
+                    {step === 6 && (
                       <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
                     )}
-                    {step === 2 && (
+                    {step === 1 && (
                       <StepTwoLocation
                         onBack={() => go(1)}
                         onNext={handleNext}
                       />
                     )}
-                    {step > 3 && (
+                    {(step === 3 || step === 4 || step === 5 || step === 7) && (
                       <StepPlaceholder
                         step={step}
                         title={STEPS[step - 1]}
@@ -370,6 +370,7 @@ function BookMeetingsEvents() {
 
                 {/* Help card */}
                 <div
+
                   className="p-8 lg:p-10 lg:pl-8"
                   style={{
                     backgroundColor: "transparent",
