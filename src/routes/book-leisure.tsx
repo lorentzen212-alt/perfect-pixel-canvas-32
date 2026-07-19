@@ -621,7 +621,7 @@ function StepOne(props: {
         icon={<FileText size={18} strokeWidth={1.8} />}
         title="Additional Information"
         divider
-        rightPaddingClass="xl:pr-4"
+        rightPaddingClass="xl:pr-2"
       >
         <p className="text-[14px] text-[#6B7280]">
           Tell us more about your request...
