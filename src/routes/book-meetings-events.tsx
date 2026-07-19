@@ -1260,7 +1260,7 @@ function StepTwoLocation({
               <label className="block text-[14px] font-semibold text-[#0A1B2C]">
                 Hotel style
               </label>
-              <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
+              <div className="mt-2 flex flex-wrap gap-3">
                 {HOTEL_STYLES.map((s) => {
                   const selected = selectedHotelStyle === s.id;
                   return (
