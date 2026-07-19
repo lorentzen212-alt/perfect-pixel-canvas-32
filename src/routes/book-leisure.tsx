@@ -795,9 +795,8 @@ const styledSelectTriggerClass = cn(
   "flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-7",
   "cursor-pointer transition-shadow hover:shadow-md",
   "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
-  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0",
+  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0 [&>svg]:hidden",
 );
-
 
 function StyledSelectTrigger({ children }: { children: React.ReactNode }) {
   return (
@@ -805,7 +804,7 @@ function StyledSelectTrigger({ children }: { children: React.ReactNode }) {
       <SelectValue asChild>
         <span className="flex items-center gap-3 min-w-0">{children}</span>
       </SelectValue>
-      <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#5B6472]" />
+      <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#0A1626]" />
     </SelectTrigger>
   );
 }
@@ -814,7 +813,7 @@ const destinationSelectTriggerClass = cn(
   "flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-7",
   "cursor-pointer transition-shadow hover:shadow-md",
   "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
-  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0",
+  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0 [&>svg]:hidden",
 );
 
 function DestinationSelectTrigger({ children }: { children: React.ReactNode }) {
@@ -823,7 +822,7 @@ function DestinationSelectTrigger({ children }: { children: React.ReactNode }) {
       <SelectValue asChild>
         <span className="flex items-center gap-3 min-w-0">{children}</span>
       </SelectValue>
-      <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#5B6472]" />
+      <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#0A1626]" />
     </SelectTrigger>
   );
 }
