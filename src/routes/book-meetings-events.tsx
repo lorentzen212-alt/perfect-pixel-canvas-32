@@ -2122,8 +2122,7 @@ function RoomRow({
           <button
             type="button"
             onClick={() => onChange(Math.max(0, value - 1))}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115] hover:text-[#EBCB6A]"
-            style={{ color: "#B88917" }}
+            className="qty-btn inline-flex h-8 w-8 items-center justify-center"
             aria-label={`Decrease ${label}`}
           >
             <Minus size={15} />
@@ -2147,8 +2146,7 @@ function RoomRow({
           <button
             type="button"
             onClick={() => onChange(value + 1)}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115] hover:text-[#EBCB6A]"
-            style={{ color: "#B88917" }}
+            className="qty-btn inline-flex h-8 w-8 items-center justify-center"
             aria-label={`Increase ${label}`}
           >
             <Plus size={15} />
