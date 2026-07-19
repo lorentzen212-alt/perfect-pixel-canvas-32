@@ -1532,7 +1532,7 @@ function StepThreeAccommodation({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <LuxIconBadge size={44}>
-                    <CalendarIcon size={20} strokeWidth={1.8} />
+                    <CalendarIcon size={21} strokeWidth={1.8} />
                   </LuxIconBadge>
                   <div>
                   <h3
@@ -1582,7 +1582,7 @@ function StepThreeAccommodation({
                 </div>
                 <div className="flex flex-col gap-3">
                   <RoomRow
-                    icon={<User size={20} strokeWidth={1.7} />}
+                    icon={<User size={21} strokeWidth={1.7} />}
                     label="Single Room"
                     value={rooms.sgl}
                     onChange={(v) => setRooms({ ...rooms, sgl: v })}
@@ -1590,7 +1590,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, sgl: c })}
                   />
                   <RoomRow
-                    icon={<Users size={20} strokeWidth={1.7} />}
+                    icon={<Users size={21} strokeWidth={1.7} />}
                     label="Double Room"
                     value={rooms.dbl}
                     onChange={(v) => setRooms({ ...rooms, dbl: v })}
@@ -1598,7 +1598,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, dbl: c })}
                   />
                   <RoomRow
-                    icon={<TwinBedsIcon size={22} />}
+                    icon={<TwinBedsIcon size={23} />}
                     label="Twin Room"
                     value={rooms.twn}
                     onChange={(v) => setRooms({ ...rooms, twn: v })}
@@ -1606,7 +1606,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, twn: c })}
                   />
                   <RoomRow
-                    icon={<UsersRound size={20} strokeWidth={1.7} />}
+                    icon={<UsersRound size={21} strokeWidth={1.7} />}
                     label="Triple Room"
                     value={rooms.trp}
                     onChange={(v) => setRooms({ ...rooms, trp: v })}
@@ -1627,13 +1627,13 @@ function StepThreeAccommodation({
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
-                    icon={<BedDouble size={18} />}
+                    icon={<BedDouble size={19} />}
                     label="Room Only"
                     selected={mealPlan === "room"}
                     onClick={() => setMealPlan("room")}
                   />
                   <MealOption
-                    icon={<Coffee size={18} />}
+                    icon={<Coffee size={19} />}
                     label="Breakfast Included"
                     selected={mealPlan === "breakfast"}
                     onClick={() => setMealPlan("breakfast")}
