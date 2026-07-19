@@ -57,10 +57,10 @@ const NAV_LINKS = [
 ];
 
 const TRUST = [
-  { Icon: ShieldCheckPremium, label: "No commitment" },
-  { Icon: ClockPremium, label: "Fast and free" },
-  { Icon: HeadsetPremium, label: "Expert support" },
-  { Icon: LockPremium, label: "Secure & trusted" },
+  { Icon: ShieldCheckPremium, label: "No commitment", size: 22 },
+  { Icon: ClockPremium, label: "Fast and free", size: 22 },
+  { Icon: HeadsetPremium, label: "Expert support", size: 25 },
+  { Icon: LockPremium, label: "Secure & trusted", size: 22 },
 ];
 
 function GoldLineWithDiamond({
@@ -194,17 +194,17 @@ function Home() {
 
           {/* TRUST ROW */}
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
-            {TRUST.map(({ Icon, label }) => (
-              <div key={label} className="flex items-center gap-2">
-                <Icon className="text-[#F5AE00]" size={22} strokeWidth={2} />
-                <span className="text-[#F7F7F5] text-[16px] lg:text-[17px]">{label}</span>
-              </div>
-            ))}
+          {TRUST.map(({ Icon, label, size }) => (
+            <div key={label} className="flex items-center gap-2">
+              <Icon size={size} />
+              <span className="text-[#F7F7F5] text-[16px] lg:text-[17px]">{label}</span>
+            </div>
+          ))}
           </div>
 
           {/* BUILT BY */}
           <div className="mt-5 flex items-start gap-3">
-            <GroupPremium className="shrink-0 mt-0.5" size={26} />
+            <GroupPremium className="shrink-0 mt-0.5" size={23} />
             <p className="text-[#F7F7F5] text-[15px] lg:text-[16px] leading-snug">
               Built by group booking professionals
               <br className="hidden sm:block" />
