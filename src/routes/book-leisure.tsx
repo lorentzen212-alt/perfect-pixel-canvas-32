@@ -714,17 +714,17 @@ function ColumnBlock({
 }) {
   return (
     <div
-      className={cn("relative flex flex-col", divider && "xl:pl-8 xl:ml-0")}
+      className={cn("relative flex flex-col xl:pl-6", divider && "xl:ml-0")}
       style={{
         borderLeft: divider ? `1px solid ${DIVIDER}` : undefined,
       }}
     >
-      <div className="xl:px-2">
+      <div className="xl:pr-5">
         <div className="flex items-center gap-2 text-[#0A1626] mb-5">
           <span className="text-[#0A1626]">{icon}</span>
           <span className="text-[17px] font-semibold">{title}</span>
         </div>
-        <div className={cn("xl:pr-6", divider && "xl:pl-2")}>{children}</div>
+        {children}
       </div>
     </div>
   );
