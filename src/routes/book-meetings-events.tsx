@@ -1145,6 +1145,20 @@ function StepTwoLocation({
                     ? "0 18px 40px -20px rgba(200,154,58,0.55), 0 6px 14px -6px rgba(10,27,44,0.15)"
                     : "0 8px 22px -14px rgba(10,27,44,0.25)",
                 }}
+                onMouseEnter={(e) => {
+                  if (!selected) {
+                    e.currentTarget.style.border = "1px solid rgba(245,174,0,0.55)";
+                    e.currentTarget.style.boxShadow =
+                      "0 22px 44px -20px rgba(10,27,44,0.35), 0 8px 18px -10px rgba(200,154,58,0.25)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!selected) {
+                    e.currentTarget.style.border = "1px solid rgba(15,35,60,0.08)";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 22px -14px rgba(10,27,44,0.25)";
+                  }
+                }}
               >
                 {isAnywhere ? (
                   <div
