@@ -570,11 +570,11 @@ function StepOne(props: {
           className="mt-5 rounded-xl px-4 py-3"
           style={{ backgroundColor: "#F5EFE1" }}
         >
-          <div className="flex items-center justify-between text-[14px] text-[#0A1626]">
+          <div className="flex items-center justify-between gap-2 text-[13.5px] whitespace-nowrap text-[#0A1626]">
             <span>Total Rooms</span>
             <span className="font-semibold">{props.totalRooms}</span>
           </div>
-          <div className="mt-1 flex items-center justify-between text-[14px] text-[#0A1626]">
+          <div className="mt-1 flex items-center justify-between gap-2 text-[13.5px] whitespace-nowrap text-[#0A1626]">
             <span>Maximum Capacity</span>
             <span className="font-semibold">{props.maxCapacity} Guests</span>
           </div>
