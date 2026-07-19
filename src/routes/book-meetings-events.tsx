@@ -1751,17 +1751,10 @@ function StepThreeAccommodation({
             {/* Complete stay and continue (outlined gold) */}
             <button
               type="button"
-              onClick={addStay}
-              disabled={!checkIn || !checkOut}
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold disabled:opacity-40 transition-colors"
-              style={{
-                color: "#B88917",
-                background: "linear-gradient(180deg,#FFFDF6 0%,#FFF7E0 100%)",
-                border: "1px solid rgba(212,175,55,0.55)",
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), 0 4px 12px -6px rgba(184,137,23,0.25)",
-              }}
+              onClick={() => go(step + 1)}
+              className="complete-stay-btn mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold"
             >
-              <Plus size={18} />
+              <Plus size={18} className="complete-stay-plus" style={{ color: "#B88917", transition: "color 200ms ease" }} />
               Complete stay and continue
             </button>
 
