@@ -9,13 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as MeetingsEventsRouteImport } from './routes/meetings-events'
+import { Route as ManageBookingsRouteImport } from './routes/manage-bookings'
+import { Route as BookMeetingsEventsRouteImport } from './routes/book-meetings-events'
 import { Route as BookLeisureRouteImport } from './routes/book-leisure'
 import { Route as IndexRouteImport } from './routes/index'
 
-const MeetingsEventsRoute = MeetingsEventsRouteImport.update({
-  id: '/meetings-events',
-  path: '/meetings-events',
+const ManageBookingsRoute = ManageBookingsRouteImport.update({
+  id: '/manage-bookings',
+  path: '/manage-bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookMeetingsEventsRoute = BookMeetingsEventsRouteImport.update({
+  id: '/book-meetings-events',
+  path: '/book-meetings-events',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookLeisureRoute = BookLeisureRouteImport.update({
@@ -32,40 +38,60 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book-leisure': typeof BookLeisureRoute
-  '/meetings-events': typeof MeetingsEventsRoute
+  '/book-meetings-events': typeof BookMeetingsEventsRoute
+  '/manage-bookings': typeof ManageBookingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book-leisure': typeof BookLeisureRoute
-  '/meetings-events': typeof MeetingsEventsRoute
+  '/book-meetings-events': typeof BookMeetingsEventsRoute
+  '/manage-bookings': typeof ManageBookingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/book-leisure': typeof BookLeisureRoute
-  '/meetings-events': typeof MeetingsEventsRoute
+  '/book-meetings-events': typeof BookMeetingsEventsRoute
+  '/manage-bookings': typeof ManageBookingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/book-leisure' | '/meetings-events'
+  fullPaths:
+    | '/'
+    | '/book-leisure'
+    | '/book-meetings-events'
+    | '/manage-bookings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/book-leisure' | '/meetings-events'
-  id: '__root__' | '/' | '/book-leisure' | '/meetings-events'
+  to: '/' | '/book-leisure' | '/book-meetings-events' | '/manage-bookings'
+  id:
+    | '__root__'
+    | '/'
+    | '/book-leisure'
+    | '/book-meetings-events'
+    | '/manage-bookings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookLeisureRoute: typeof BookLeisureRoute
-  MeetingsEventsRoute: typeof MeetingsEventsRoute
+  BookMeetingsEventsRoute: typeof BookMeetingsEventsRoute
+  ManageBookingsRoute: typeof ManageBookingsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/meetings-events': {
-      id: '/meetings-events'
-      path: '/meetings-events'
-      fullPath: '/meetings-events'
-      preLoaderRoute: typeof MeetingsEventsRouteImport
+    '/manage-bookings': {
+      id: '/manage-bookings'
+      path: '/manage-bookings'
+      fullPath: '/manage-bookings'
+      preLoaderRoute: typeof ManageBookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book-meetings-events': {
+      id: '/book-meetings-events'
+      path: '/book-meetings-events'
+      fullPath: '/book-meetings-events'
+      preLoaderRoute: typeof BookMeetingsEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/book-leisure': {
@@ -88,7 +114,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookLeisureRoute: BookLeisureRoute,
-  MeetingsEventsRoute: MeetingsEventsRoute,
+  BookMeetingsEventsRoute: BookMeetingsEventsRoute,
+  ManageBookingsRoute: ManageBookingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,0 +1,687 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import {
+  Menu,
+  X,
+  ShieldCheck,
+  Clock,
+  Headphones,
+  Lock,
+  Calendar as CalendarIcon,
+  Phone,
+  Mail,
+  ArrowRight,
+  ChevronDown,
+  Users,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
+import heroImg from "@/assets/me-hero.jpg";
+
+export const Route = createFileRoute("/book-meetings-events")({
+  component: BookMeetingsEvents,
+  head: () => ({
+    meta: [
+      { title: "Book Meetings & Events — HotelGroupBook" },
+      {
+        name: "description",
+        content:
+          "Request offers for meetings, conferences and events. Our M&E specialists find the best hotels and handle all communication for you.",
+      },
+      { property: "og:title", content: "Book Meetings & Events — HotelGroupBook" },
+      {
+        property: "og:description",
+        content: "Premium group hotel booking for meetings, conferences and events.",
+      },
+    ],
+  }),
+});
+
+const SERIF = '"Cormorant Garamond", Georgia, serif';
+const GOLD = "#F5C25A";
+const NAVY = "#0A1B2C";
+const NAVY_DEEP = "#04111A";
+
+const NAV_LINKS = [
+  { label: "Home", to: "/" as const },
+  { label: "About us", href: "/#about" },
+  { label: "How it works", href: "/#how" },
+  { label: "Destinations", href: "/#destinations" },
+  { label: "Contact", href: "/#contact" },
+];
+
+const TRUST = [
+  { Icon: ShieldCheck, label: "No commitment" },
+  { Icon: Clock, label: "Fast and free" },
+  { Icon: Headphones, label: "Expert support" },
+  { Icon: Lock, label: "Secure & trusted" },
+];
+
+const STEPS = [
+  "Event Details",
+  "Location",
+  "Accommodation",
+  "Meeting Spaces",
+  "Catering",
+  "Extras",
+  "Review & Submit",
+];
+
+type FormState = {
+  eventName: string;
+  company: string;
+  contactPerson: string;
+  email: string;
+  phone: string;
+  countryCode: string;
+};
+
+function BookMeetingsEvents() {
+  const [step, setStep] = useState(1);
+  const [direction, setDirection] = useState<"forward" | "back">("forward");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [form, setForm] = useState<FormState>({
+    eventName: "",
+    company: "",
+    contactPerson: "",
+    email: "",
+    phone: "",
+    countryCode: "+47",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const go = (n: number) => {
+    setDirection(n > step ? "forward" : "back");
+    setStep(n);
+  };
+
+  const validateStep1 = () => {
+    const e: Record<string, string> = {};
+    if (!form.eventName.trim()) e.eventName = "Required";
+    if (!form.company.trim()) e.company = "Required";
+    if (!form.contactPerson.trim()) e.contactPerson = "Required";
+    if (!form.email.trim()) e.email = "Required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
+      e.email = "Invalid email";
+    if (!form.phone.trim()) e.phone = "Required";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleNext = () => {
+    if (step === 1 && !validateStep1()) return;
+    if (step < STEPS.length) go(step + 1);
+  };
+
+  return (
+    <main
+      className="relative min-h-screen w-full"
+      style={{ backgroundColor: "#F5F3EE" }}
+    >
+      {/* HERO */}
+      <section
+        className="relative w-full"
+        style={{
+          backgroundColor: NAVY_DEEP,
+          backgroundImage: `url(${heroImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center right",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        {/* Left dark gradient for text legibility */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(4,17,26,0.92) 0%, rgba(4,17,26,0.78) 35%, rgba(4,17,26,0.35) 60%, rgba(4,17,26,0.05) 100%)",
+          }}
+        />
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-black/60 to-transparent" />
+
+        <div className="relative z-20">
+          {/* HEADER */}
+          <header className="flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
+            <Link to="/" aria-label="HotelGroupBook" className="flex items-center">
+              <img
+                src={logoAsset.url}
+                alt="HotelGroupBook"
+                className="h-[46px] sm:h-[56px] lg:h-[68px] w-auto"
+              />
+            </Link>
+
+            <button
+              onClick={() => setMobileOpen((v) => !v)}
+              className="lg:hidden text-white p-2"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+
+            <nav className="hidden lg:flex items-center gap-9">
+              {NAV_LINKS.map((l) =>
+                "to" in l ? (
+                  <Link
+                    key={l.label}
+                    to={l.to}
+                    className="text-white text-[17px] transition-colors hover:text-[#F5C25A]"
+                  >
+                    {l.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    className="text-white text-[17px] transition-colors hover:text-[#F5C25A]"
+                  >
+                    {l.label}
+                  </a>
+                ),
+              )}
+              <Link
+                to="/manage-bookings"
+                className="inline-flex items-center gap-2 rounded-md border px-5 py-2.5 text-[16px] transition-colors"
+                style={{ borderColor: GOLD, color: GOLD }}
+              >
+                <CalendarIcon size={17} strokeWidth={1.8} />
+                Manage Bookings
+              </Link>
+            </nav>
+          </header>
+
+          {mobileOpen && (
+            <nav className="lg:hidden mx-5 sm:mx-8 flex flex-col gap-3 rounded-xl bg-[rgba(2,18,29,0.92)] p-4">
+              {NAV_LINKS.map((l) =>
+                "to" in l ? (
+                  <Link key={l.label} to={l.to} className="text-white text-base">
+                    {l.label}
+                  </Link>
+                ) : (
+                  <a key={l.label} href={l.href} className="text-white text-base">
+                    {l.label}
+                  </a>
+                ),
+              )}
+              <Link
+                to="/manage-bookings"
+                className="mt-1 rounded-md border px-4 py-2 text-white self-start"
+                style={{ borderColor: GOLD }}
+              >
+                Manage Bookings
+              </Link>
+            </nav>
+          )}
+
+          {/* HERO CONTENT */}
+          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-8 pb-14 lg:pt-12 lg:pb-20">
+            <div className="max-w-[720px]">
+              <h1
+                className="text-white text-5xl sm:text-6xl lg:text-[72px] leading-[1.03] font-medium"
+                style={{ fontFamily: SERIF }}
+              >
+                Book Meetings &amp; Events
+              </h1>
+              <p className="mt-6 text-white/90 text-lg lg:text-[19px] leading-[1.55] max-w-[560px]">
+                Request offers for meetings, conferences and events.
+                <br />
+                Our M&amp;E specialists will find the best hotels
+                <br className="hidden sm:block" />
+                and handle all communication for you.
+              </p>
+
+              {/* Trust row */}
+              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
+                {TRUST.map(({ Icon, label }) => (
+                  <div key={label} className="flex items-center gap-2">
+                    <span
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border"
+                      style={{ borderColor: "rgba(245,194,90,0.55)" }}
+                    >
+                      <Icon size={16} strokeWidth={1.8} style={{ color: GOLD }} />
+                    </span>
+                    <span className="text-white text-[15px]">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* PROGRESS BAR */}
+          <div
+            className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-10"
+          >
+            <StepProgress step={step} onGo={go} />
+          </div>
+        </div>
+      </section>
+
+      {/* FORM SECTION */}
+      <section className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14">
+        <div className="mx-auto max-w-[1400px]">
+          <div
+            className="overflow-hidden rounded-[14px] bg-white"
+            style={{
+              boxShadow:
+                "0 30px 80px -40px rgba(4,17,26,0.35), 0 8px 24px -12px rgba(4,17,26,0.15)",
+              border: "1px solid #ECE6DA",
+            }}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px]">
+              <div className="p-6 sm:p-10 lg:p-12">
+                <div
+                  key={step}
+                  className={
+                    direction === "forward"
+                      ? "animate-slide-in-right"
+                      : "animate-slide-in-left"
+                  }
+                >
+                  {step === 1 && (
+                    <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
+                  )}
+                  {step > 1 && (
+                    <StepPlaceholder
+                      step={step}
+                      title={STEPS[step - 1]}
+                      onBack={() => go(step - 1)}
+                      onNext={handleNext}
+                      isLast={step === STEPS.length}
+                    />
+                  )}
+                </div>
+              </div>
+
+              {/* Help card */}
+              <div
+                className="border-t lg:border-t-0 lg:border-l p-8 lg:p-10"
+                style={{ borderColor: "#ECE6DA", backgroundColor: "#FAF8F3" }}
+              >
+                <HelpCard />
+              </div>
+            </div>
+          </div>
+
+          {/* Credibility */}
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center py-8 md:py-10 border-t border-b" style={{ borderColor: "#E4DFD3" }}>
+            <div className="flex items-start gap-4">
+              <span
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
+                style={{ backgroundColor: "#F5EFE1" }}
+              >
+                <Users size={22} strokeWidth={1.75} style={{ color: "#B88A2E" }} />
+              </span>
+              <p className="text-[#1F2A36] text-[17px] leading-relaxed">
+                <span className="font-semibold" style={{ fontFamily: SERIF }}>
+                  Built by group booking professionals
+                </span>
+                <br />
+                with experience from{" "}
+                <span className="font-semibold" style={{ color: "#B88A2E" }}>
+                  10,000+ groups.
+                </span>
+              </p>
+            </div>
+            <div className="md:pl-10 md:border-l" style={{ borderColor: "#E4DFD3" }}>
+              <p className="text-[#3B4A56] text-[16px] leading-relaxed">
+                We know group travel – and we make
+                <br />
+                hotel bookings for groups simple.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <style>{`
+        @keyframes slide-in-right { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slide-in-left { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: translateX(0); } }
+        .animate-slide-in-right { animation: slide-in-right 300ms ease-out; }
+        .animate-slide-in-left { animation: slide-in-left 300ms ease-out; }
+      `}</style>
+    </main>
+  );
+}
+
+/* --------- Step Progress --------- */
+
+function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void }) {
+  return (
+    <div className="relative">
+      <div className="relative flex items-start justify-between gap-2">
+        {/* Line behind circles */}
+        <div
+          className="pointer-events-none absolute left-0 right-0"
+          style={{ top: 17 }}
+        >
+          <div className="mx-6 h-px" style={{ backgroundColor: "rgba(245,194,90,0.35)" }} />
+          <div
+            className="absolute left-6 h-px transition-all duration-500"
+            style={{
+              top: 0,
+              width: `calc((100% - 48px) * ${(step - 1) / (STEPS.length - 1)})`,
+              background: `linear-gradient(90deg, ${GOLD} 0%, #FFD97A 100%)`,
+              boxShadow: `0 0 12px rgba(245,194,90,0.55)`,
+            }}
+          />
+        </div>
+
+        {STEPS.map((label, i) => {
+          const n = i + 1;
+          const active = n === step;
+          const completed = n < step;
+          return (
+            <button
+              key={label}
+              type="button"
+              onClick={() => (completed ? onGo(n) : undefined)}
+              className="relative z-10 flex flex-col items-center gap-2 flex-1 min-w-0"
+            >
+              <span
+                className="flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold transition-all duration-[250ms]"
+                style={{
+                  backgroundColor: active
+                    ? GOLD
+                    : completed
+                      ? "rgba(245,194,90,0.15)"
+                      : "rgba(4,17,26,0.85)",
+                  color: active ? NAVY_DEEP : "#FFFFFF",
+                  border: `1px solid ${active || completed ? GOLD : "rgba(255,255,255,0.55)"}`,
+                  boxShadow: active
+                    ? "0 0 0 5px rgba(245,194,90,0.12), 0 0 20px rgba(245,194,90,0.45)"
+                    : "none",
+                }}
+              >
+                {n}
+              </span>
+              <span
+                className={cn(
+                  "text-[13px] lg:text-[14px] font-medium text-center whitespace-nowrap transition-colors duration-[250ms]",
+                )}
+                style={{
+                  color: active ? GOLD : "rgba(255,255,255,0.85)",
+                }}
+              >
+                {label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* --------- Step 1 --------- */
+
+function StepOne({
+  form,
+  setForm,
+  errors,
+  onNext,
+}: {
+  form: FormState;
+  setForm: React.Dispatch<React.SetStateAction<FormState>>;
+  errors: Record<string, string>;
+  onNext: () => void;
+}) {
+  return (
+    <div>
+      <div className="flex items-start gap-5">
+        <span
+          className="hidden sm:inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full"
+          style={{ backgroundColor: "#F5EFE1" }}
+        >
+          <CalendarIcon size={24} strokeWidth={1.75} style={{ color: "#B88A2E" }} />
+        </span>
+        <div>
+          <h2
+            className="text-[#0A1B2C] text-3xl lg:text-[34px] leading-tight"
+            style={{ fontFamily: SERIF }}
+          >
+            Step 1 – Event Details
+          </h2>
+          <div className="mt-2 h-[2px] w-16" style={{ backgroundColor: GOLD }} />
+          <p className="mt-4 text-[#4A5866] text-[15px] max-w-xs leading-relaxed">
+            Please provide basic information
+            <br />
+            about your event.
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
+        <Field
+          label="Event name"
+          required
+          value={form.eventName}
+          onChange={(v) => setForm((s) => ({ ...s, eventName: v }))}
+          placeholder="Enter event name"
+          error={errors.eventName}
+        />
+        <Field
+          label="Company / Organization"
+          required
+          value={form.company}
+          onChange={(v) => setForm((s) => ({ ...s, company: v }))}
+          placeholder="Enter company / organization"
+          error={errors.company}
+        />
+        <Field
+          label="Contact person"
+          required
+          value={form.contactPerson}
+          onChange={(v) => setForm((s) => ({ ...s, contactPerson: v }))}
+          placeholder="Enter contact person"
+          error={errors.contactPerson}
+        />
+        <Field
+          label="Email"
+          required
+          type="email"
+          value={form.email}
+          onChange={(v) => setForm((s) => ({ ...s, email: v }))}
+          placeholder="Enter email address"
+          error={errors.email}
+        />
+        <div>
+          <label className="block text-[14px] font-semibold text-[#0A1B2C]">
+            Phone <span style={{ color: "#D64545" }}>*</span>
+          </label>
+          <div className="mt-2 flex gap-2">
+            <div
+              className="flex items-center gap-2 rounded-md border px-3 h-[46px] bg-white"
+              style={{ borderColor: errors.phone ? "#D64545" : "#D9D3C4" }}
+            >
+              <FlagNO />
+              <span className="text-[15px] text-[#0A1B2C]">{form.countryCode}</span>
+              <ChevronDown size={16} className="text-[#4A5866]" />
+            </div>
+            <input
+              type="tel"
+              value={form.phone}
+              onChange={(e) => setForm((s) => ({ ...s, phone: e.target.value }))}
+              placeholder="123 45 678"
+              className="flex-1 rounded-md border px-4 h-[46px] text-[15px] text-[#0A1B2C] outline-none focus:border-[#B88A2E] bg-white"
+              style={{ borderColor: errors.phone ? "#D64545" : "#D9D3C4" }}
+            />
+          </div>
+          {errors.phone && (
+            <p className="mt-1 text-[12px]" style={{ color: "#D64545" }}>
+              {errors.phone}
+            </p>
+          )}
+        </div>
+
+        <div className="flex items-end justify-end">
+          <NextButton onClick={onNext} label="Next Step" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Field({
+  label,
+  required,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+  error,
+}: {
+  label: string;
+  required?: boolean;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  type?: string;
+  error?: string;
+}) {
+  return (
+    <div>
+      <label className="block text-[14px] font-semibold text-[#0A1B2C]">
+        {label} {required && <span style={{ color: "#D64545" }}>*</span>}
+      </label>
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className="mt-2 w-full rounded-md border px-4 h-[46px] text-[15px] text-[#0A1B2C] outline-none focus:border-[#B88A2E] bg-white transition-colors"
+        style={{ borderColor: error ? "#D64545" : "#D9D3C4" }}
+      />
+      {error && (
+        <p className="mt-1 text-[12px]" style={{ color: "#D64545" }}>
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function NextButton({ onClick, label }: { onClick: () => void; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="group inline-flex items-center justify-center gap-2 rounded-md text-[16px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 hover:-translate-y-[1px]"
+      style={{
+        height: 52,
+        minWidth: 220,
+        background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
+        boxShadow:
+          "0 12px 28px -10px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+        border: "1px solid rgba(184,138,46,0.5)",
+      }}
+    >
+      {label}
+      <ArrowRight size={18} strokeWidth={2.2} className="transition-transform group-hover:translate-x-0.5" />
+    </button>
+  );
+}
+
+/* --------- Placeholder for later steps --------- */
+
+function StepPlaceholder({
+  step,
+  title,
+  onBack,
+  onNext,
+  isLast,
+}: {
+  step: number;
+  title: string;
+  onBack: () => void;
+  onNext: () => void;
+  isLast: boolean;
+}) {
+  return (
+    <div>
+      <h2
+        className="text-[#0A1B2C] text-3xl lg:text-[34px] leading-tight"
+        style={{ fontFamily: SERIF }}
+      >
+        Step {step} – {title}
+      </h2>
+      <div className="mt-2 h-[2px] w-16" style={{ backgroundColor: GOLD }} />
+      <p className="mt-6 text-[#4A5866] text-[15px] max-w-lg leading-relaxed">
+        Your {title.toLowerCase()} details will be captured here. Continue to the
+        next step to complete your Meetings &amp; Events request.
+      </p>
+
+      <div className="mt-10 flex flex-wrap items-center gap-4">
+        <button
+          type="button"
+          onClick={onBack}
+          className="inline-flex items-center justify-center gap-2 rounded-md border px-6 h-[48px] text-[15px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F5EFE1] transition-colors"
+          style={{ borderColor: "#D9D3C4" }}
+        >
+          Back
+        </button>
+        {!isLast ? (
+          <NextButton onClick={onNext} label="Next Step" />
+        ) : (
+          <NextButton onClick={onNext} label="Submit Request" />
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* --------- Help Card --------- */
+
+function HelpCard() {
+  return (
+    <div>
+      <h3
+        className="text-[#0A1B2C] text-[26px] leading-tight"
+        style={{ fontFamily: SERIF }}
+      >
+        Need help?
+      </h3>
+      <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
+        Our M&amp;E specialists are ready
+        <br />
+        to assist you.
+      </p>
+      <div className="mt-6 flex flex-col gap-4">
+        <a
+          href="tel:+4721002100"
+          className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
+        >
+          <span
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border"
+            style={{ borderColor: "rgba(184,138,46,0.4)" }}
+          >
+            <Phone size={16} strokeWidth={1.8} style={{ color: "#B88A2E" }} />
+          </span>
+          +47 21 00 21 00
+        </a>
+        <a
+          href="mailto:meetings@hotelgroupbook.com"
+          className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
+        >
+          <span
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border"
+            style={{ borderColor: "rgba(184,138,46,0.4)" }}
+          >
+            <Mail size={16} strokeWidth={1.8} style={{ color: "#B88A2E" }} />
+          </span>
+          meetings@hotelgroupbook.com
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function FlagNO() {
+  return (
+    <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+      <rect width="20" height="14" fill="#BA0C2F" />
+      <rect x="6" width="2" height="14" fill="#FFF" />
+      <rect y="6" width="20" height="2" fill="#FFF" />
+      <rect x="6.5" width="1" height="14" fill="#00205B" />
+      <rect y="6.5" width="20" height="1" fill="#00205B" />
+    </svg>
+  );
+}
