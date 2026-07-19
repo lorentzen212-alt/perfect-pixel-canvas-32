@@ -59,9 +59,11 @@ const TRUST = [
 function GoldLineWithDiamond({
   className,
   lineWidth = "w-[260px] sm:w-[300px] lg:w-[330px]",
+  lineHeight = "h-[5px]",
 }: {
   className?: string;
   lineWidth?: string;
+  lineHeight?: string;
 }) {
   const goldGradient =
     "linear-gradient(90deg, #7A5A24 0%, #B08A3E 18%, #D9B871 42%, #F3DFA1 52%, #EBD292 60%, #C69B49 80%, #8A6528 100%)";
@@ -70,7 +72,7 @@ function GoldLineWithDiamond({
   return (
     <div className={cn("flex items-center", className)}>
       <div
-        className={cn("h-[5px]", lineWidth)}
+        className={cn(lineHeight, lineWidth)}
         style={{
           backgroundImage: goldGradient,
           clipPath:
@@ -78,7 +80,7 @@ function GoldLineWithDiamond({
         }}
       />
       <div
-        className="ml-5 h-[8px] w-[8px] rotate-45"
+        className="ml-5 h-[6px] w-[6px] rotate-45"
         style={{ backgroundImage: diamondGradient }}
       />
     </div>
