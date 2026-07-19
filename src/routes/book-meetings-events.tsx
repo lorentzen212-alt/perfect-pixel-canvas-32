@@ -1175,8 +1175,8 @@ function StepTwoLocation({
           })}
         </div>
 
-        {/* Lower two-column */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-10">
+        {/* Lower content (single column – HelpCard lives in outer sidebar) */}
+        <div className="mt-8">
           <div>
             {/* Search field */}
             <div ref={searchRef}>
