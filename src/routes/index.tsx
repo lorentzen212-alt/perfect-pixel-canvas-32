@@ -258,7 +258,7 @@ function Home() {
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
             {TRUST.map(({ Icon, label }) => (
               <div key={label} className="flex items-center gap-2">
-                <Icon className="text-[#F5AE00]" size={22} strokeWidth={2} />
+                <Icon size={22} />
                 <span className="text-[#F7F7F5] text-[16px] lg:text-[17px]">{label}</span>
               </div>
             ))}
@@ -266,7 +266,7 @@ function Home() {
 
           {/* BUILT BY */}
           <div className="mt-5 flex items-start gap-3">
-            <UsersRound className="text-[#F5AE00] shrink-0 mt-0.5" size={26} strokeWidth={2} />
+            <GroupHorizonIcon size={26} className="shrink-0 mt-0.5" />
             <p className="text-[#F7F7F5] text-[15px] lg:text-[16px] leading-snug">
               Built by group booking professionals
               <br className="hidden sm:block" />
