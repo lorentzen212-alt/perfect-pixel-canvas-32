@@ -117,7 +117,7 @@ function BookLeisure() {
 
   // Requests
   const [selectedRequests, setSelectedRequests] = useState<Set<string>>(
-    new Set(["Breakfast Box", "Dinner", "Meeting Room", "Porter Service"]),
+    new Set(["Dinner"]),
   );
   const [notes, setNotes] = useState(
     "",
@@ -304,6 +304,8 @@ function BookLeisure() {
         }
         .animate-slide-in-right { animation: slide-in-right 350ms ease-out; }
         .animate-slide-in-left { animation: slide-in-left 350ms ease-out; }
+        .scrollbar-hidden::-webkit-scrollbar { display: none; }
+        .scrollbar-hidden { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </main>
   );
@@ -469,7 +471,7 @@ function StepOne(props: {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr_1.2fr] gap-8 xl:gap-0">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[1.1fr_1fr_1.15fr_1.2fr] gap-8 xl:gap-0">
       {/* Column 1 - Destination */}
       <ColumnBlock icon={<MapPin size={18} strokeWidth={1.8} />} title="Destination">
         <FieldLabel>Country</FieldLabel>
@@ -626,9 +628,9 @@ function StepOne(props: {
         <textarea
           value={props.notes}
           onChange={(e) => props.setNotes(e.target.value)}
-          rows={9}
+          rows={12}
           placeholder="We would like a hotel near the city center. Please include options with dinner and meeting room."
-          className="mt-3 w-full rounded-xl bg-white px-4 py-3 text-[14.5px] text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none"
+          className="mt-3 min-h-[300px] w-full overflow-y-auto rounded-xl bg-white p-5 text-[14.5px] leading-relaxed text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none scrollbar-hidden"
           style={{
             border: "1px solid #E4DED2",
             boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
@@ -801,6 +803,7 @@ function StyledSelectTrigger({ children }: { children: React.ReactNode }) {
       <SelectValue asChild>
         <span className="flex items-center gap-2 min-w-0">{children}</span>
       </SelectValue>
+      <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#5B6472]" />
     </SelectTrigger>
   );
 }
