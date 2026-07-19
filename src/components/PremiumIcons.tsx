@@ -2,7 +2,8 @@ import { cn } from "@/lib/utils";
 
 /**
  * Premium black-and-gold SVG icons.
- * Satin gold finish over dark charcoal fill with subtle inner shadow.
+ * Charcoal fill with satin metallic gold outline, inner shadow and
+ * upper-left highlight. Designed for luxury hotel branding.
  */
 
 type IconProps = {
@@ -11,9 +12,10 @@ type IconProps = {
   strokeWidth?: number;
 };
 
-const CHARCOAL_FILL = "#1A1A1A";
-const GOLD_LIGHT = "#D4AF37";
-const GOLD_SHADOW = "#B8932F";
+const CHARCOAL_FILL = "#171717";
+const GOLD_MAIN = "#F2C14E";
+const GOLD_HIGHLIGHT = "#FFD978";
+const GOLD_SHADOW = "#B87912";
 
 function Base({
   size = 22,
@@ -42,9 +44,18 @@ function Base({
 function GoldGradient({ id }: { id: string }) {
   return (
     <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stopColor={GOLD_LIGHT} />
-      <stop offset="55%" stopColor="#C9A43B" />
+      <stop offset="0%" stopColor={GOLD_HIGHLIGHT} />
+      <stop offset="45%" stopColor={GOLD_MAIN} />
       <stop offset="100%" stopColor={GOLD_SHADOW} />
+    </linearGradient>
+  );
+}
+
+function EdgeHighlight({ id }: { id: string }) {
+  return (
+    <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.35" />
+      <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0" />
     </linearGradient>
   );
 }
@@ -52,10 +63,10 @@ function GoldGradient({ id }: { id: string }) {
 function InnerShadow({ id }: { id: string }) {
   return (
     <filter id={id} x="-30%" y="-30%" width="160%" height="160%">
-      <feOffset in="SourceAlpha" dx="1" dy="1" result="offset" />
-      <feGaussianBlur in="offset" stdDeviation="1.5" result="blurred" />
+      <feOffset in="SourceAlpha" dx="1.4" dy="1.6" result="offset" />
+      <feGaussianBlur in="offset" stdDeviation="1.8" result="blurred" />
       <feComposite in="SourceAlpha" in2="blurred" operator="out" result="shadow" />
-      <feFlood floodColor="#000000" floodOpacity="0.32" result="color" />
+      <feFlood floodColor="#000000" floodOpacity="0.55" result="color" />
       <feComposite in="color" in2="shadow" operator="in" result="innerShadow" />
       <feMerge>
         <feMergeNode in="SourceGraphic" />
@@ -65,25 +76,33 @@ function InnerShadow({ id }: { id: string }) {
   );
 }
 
+const STROKE = 5;
+
 export function ShieldCheckPremium({ size, className }: IconProps) {
   return (
     <Base size={size} className={className}>
       <defs>
-        <GoldGradient id="shieldGoldStroke" />
-        <InnerShadow id="shieldInnerShadow" />
+        <GoldGradient id="shieldGold" />
+        <EdgeHighlight id="shieldHi" />
+        <InnerShadow id="shieldIS" />
       </defs>
-      <g filter="url(#shieldInnerShadow)" strokeLinecap="round" strokeLinejoin="round">
+      <g filter="url(#shieldIS)" strokeLinecap="round" strokeLinejoin="round">
         <path
-          d="M64 18 L92 30 V54 C92 76 80 93 64 103 C48 93 36 76 36 54 V30 Z"
+          d="M64 16 L94 28 V54 C94 77 81 94 64 105 C47 94 34 77 34 54 V28 Z"
           fill={CHARCOAL_FILL}
-          stroke="url(#shieldGoldStroke)"
-          strokeWidth="3.5"
+          stroke="url(#shieldGold)"
+          strokeWidth={STROKE}
         />
         <path
-          d="M50 58 L59 67 L79 47"
+          d="M64 16 L94 28 V54 C94 77 81 94 64 105 C47 94 34 77 34 54 V28 Z"
+          fill="url(#shieldHi)"
+          stroke="none"
+        />
+        <path
+          d="M48 60 L59 71 L81 47"
           fill="none"
-          stroke="url(#shieldGoldStroke)"
-          strokeWidth="4.5"
+          stroke="url(#shieldGold)"
+          strokeWidth={STROKE + 0.5}
         />
       </g>
     </Base>
@@ -94,28 +113,21 @@ export function ClockPremium({ size, className }: IconProps) {
   return (
     <Base size={size} className={className}>
       <defs>
-        <GoldGradient id="clockGoldStroke" />
-        <InnerShadow id="clockInnerShadow" />
+        <GoldGradient id="clockGold" />
+        <EdgeHighlight id="clockHi" />
+        <InnerShadow id="clockIS" />
       </defs>
-      <g filter="url(#clockInnerShadow)" strokeLinecap="round" strokeLinejoin="round">
+      <g filter="url(#clockIS)" strokeLinecap="round" strokeLinejoin="round">
         <circle
           cx="64"
           cy="64"
-          r="42"
+          r="44"
           fill={CHARCOAL_FILL}
-          stroke="url(#clockGoldStroke)"
-          strokeWidth="3.5"
+          stroke="url(#clockGold)"
+          strokeWidth={STROKE}
         />
-        <circle
-          cx="64"
-          cy="64"
-          r="34"
-          fill="none"
-          stroke="#8C7328"
-          strokeOpacity="0.35"
-          strokeWidth="1.2"
-        />
-        <path d="M64 40 V64 L80 74" fill="none" stroke="url(#clockGoldStroke)" strokeWidth="4.5" />
+        <circle cx="64" cy="64" r="44" fill="url(#clockHi)" stroke="none" />
+        <path d="M64 38 V64 L82 74" fill="none" stroke="url(#clockGold)" strokeWidth={STROKE + 0.5} />
       </g>
     </Base>
   );
@@ -125,51 +137,54 @@ export function HeadsetPremium({ size, className }: IconProps) {
   return (
     <Base size={size} className={className}>
       <defs>
-        <GoldGradient id="headsetGoldStroke" />
-        <InnerShadow id="headsetInnerShadow" />
+        <GoldGradient id="headsetGold" />
+        <EdgeHighlight id="headsetHi" />
+        <InnerShadow id="headsetIS" />
       </defs>
-      <g filter="url(#headsetInnerShadow)" strokeLinecap="round" strokeLinejoin="round">
+      <g filter="url(#headsetIS)" strokeLinecap="round" strokeLinejoin="round">
         <path
-          d="M33 64 V56 C33 39 47 26 64 26 C81 26 95 39 95 56 V64"
+          d="M31 66 V56 C31 38 46 24 64 24 C82 24 97 38 97 56 V66"
           fill="none"
-          stroke="url(#headsetGoldStroke)"
-          strokeWidth="3.5"
+          stroke="url(#headsetGold)"
+          strokeWidth={STROKE}
         />
         <rect
-          x="26"
+          x="24"
           y="56"
-          width="14"
-          height="28"
-          rx="6"
+          width="16"
+          height="30"
+          rx="7"
           fill={CHARCOAL_FILL}
-          stroke="url(#headsetGoldStroke)"
-          strokeWidth="3"
+          stroke="url(#headsetGold)"
+          strokeWidth={STROKE - 0.5}
         />
+        <rect x="24" y="56" width="16" height="30" rx="7" fill="url(#headsetHi)" stroke="none" />
         <rect
           x="88"
           y="56"
-          width="14"
-          height="28"
-          rx="6"
+          width="16"
+          height="30"
+          rx="7"
           fill={CHARCOAL_FILL}
-          stroke="url(#headsetGoldStroke)"
-          strokeWidth="3"
+          stroke="url(#headsetGold)"
+          strokeWidth={STROKE - 0.5}
         />
+        <rect x="88" y="56" width="16" height="30" rx="7" fill="url(#headsetHi)" stroke="none" />
         <path
-          d="M95 80 C95 92 86 97 76 97 H70"
+          d="M97 82 C97 94 88 99 78 99 H72"
           fill="none"
-          stroke="url(#headsetGoldStroke)"
-          strokeWidth="3.5"
+          stroke="url(#headsetGold)"
+          strokeWidth={STROKE}
         />
         <rect
           x="62"
-          y="92"
+          y="94"
           width="16"
-          height="9"
-          rx="4"
+          height="10"
+          rx="5"
           fill={CHARCOAL_FILL}
-          stroke="url(#headsetGoldStroke)"
-          strokeWidth="2.5"
+          stroke="url(#headsetGold)"
+          strokeWidth={STROKE - 1}
         />
       </g>
     </Base>
@@ -180,28 +195,30 @@ export function LockPremium({ size, className }: IconProps) {
   return (
     <Base size={size} className={className}>
       <defs>
-        <GoldGradient id="lockGoldStroke" />
-        <InnerShadow id="lockInnerShadow" />
+        <GoldGradient id="lockGold" />
+        <EdgeHighlight id="lockHi" />
+        <InnerShadow id="lockIS" />
       </defs>
-      <g filter="url(#lockInnerShadow)" strokeLinecap="round" strokeLinejoin="round">
+      <g filter="url(#lockIS)" strokeLinecap="round" strokeLinejoin="round">
         <path
-          d="M45 52 V42 C45 31 53 22 64 22 C75 22 83 31 83 42 V52"
+          d="M44 52 V42 C44 30 53 20 64 20 C75 20 84 30 84 42 V52"
           fill="none"
-          stroke="url(#lockGoldStroke)"
-          strokeWidth="3.5"
+          stroke="url(#lockGold)"
+          strokeWidth={STROKE}
         />
         <rect
-          x="33"
+          x="31"
           y="50"
-          width="62"
-          height="50"
-          rx="7"
+          width="66"
+          height="54"
+          rx="8"
           fill={CHARCOAL_FILL}
-          stroke="url(#lockGoldStroke)"
-          strokeWidth="3.5"
+          stroke="url(#lockGold)"
+          strokeWidth={STROKE}
         />
-        <circle cx="64" cy="72" r="5" fill="url(#lockGoldStroke)" />
-        <path d="M64 77 V86" stroke="url(#lockGoldStroke)" strokeWidth="3.5" />
+        <rect x="31" y="50" width="66" height="54" rx="8" fill="url(#lockHi)" stroke="none" />
+        <circle cx="64" cy="72" r="6" fill="url(#lockGold)" />
+        <path d="M64 77 V88" stroke="url(#lockGold)" strokeWidth={STROKE} />
       </g>
     </Base>
   );
@@ -211,37 +228,50 @@ export function GroupPremium({ size, className }: IconProps) {
   return (
     <Base size={size} className={className}>
       <defs>
-        <GoldGradient id="groupGoldStroke" />
-        <InnerShadow id="groupInnerShadow" />
+        <GoldGradient id="groupGold" />
+        <EdgeHighlight id="groupHi" />
+        <InnerShadow id="groupIS" />
       </defs>
-      <g filter="url(#groupInnerShadow)" strokeLinecap="round" strokeLinejoin="round">
+      <g filter="url(#groupIS)" strokeLinecap="round" strokeLinejoin="round">
         <circle
           cx="48"
           cy="42"
-          r="13"
+          r="14"
           fill={CHARCOAL_FILL}
-          stroke="url(#groupGoldStroke)"
-          strokeWidth="3"
+          stroke="url(#groupGold)"
+          strokeWidth={STROKE - 0.5}
         />
+        <circle cx="48" cy="42" r="14" fill="url(#groupHi)" stroke="none" />
         <circle
-          cx="82"
+          cx="83"
           cy="45"
-          r="11"
+          r="12"
           fill={CHARCOAL_FILL}
-          stroke="url(#groupGoldStroke)"
-          strokeWidth="3"
+          stroke="url(#groupGold)"
+          strokeWidth={STROKE - 0.5}
+        />
+        <circle cx="83" cy="45" r="12" fill="url(#groupHi)" stroke="none" />
+        <path
+          d="M23 96 C23 76 34 65 48 65 C62 65 73 76 73 96 Z"
+          fill={CHARCOAL_FILL}
+          stroke="url(#groupGold)"
+          strokeWidth={STROKE - 0.5}
         />
         <path
-          d="M25 94 C25 75 35 65 48 65 C61 65 71 75 71 94 Z"
-          fill={CHARCOAL_FILL}
-          stroke="url(#groupGoldStroke)"
-          strokeWidth="3"
+          d="M23 96 C23 76 34 65 48 65 C62 65 73 76 73 96 Z"
+          fill="url(#groupHi)"
+          stroke="none"
         />
         <path
-          d="M66 94 C66 79 74 70 85 70 C96 70 104 79 104 94 Z"
+          d="M67 96 C67 80 75 70 86 70 C97 70 105 80 105 96 Z"
           fill={CHARCOAL_FILL}
-          stroke="url(#groupGoldStroke)"
-          strokeWidth="3"
+          stroke="url(#groupGold)"
+          strokeWidth={STROKE - 0.5}
+        />
+        <path
+          d="M67 96 C67 80 75 70 86 70 C97 70 105 80 105 96 Z"
+          fill="url(#groupHi)"
+          stroke="none"
         />
       </g>
     </Base>
