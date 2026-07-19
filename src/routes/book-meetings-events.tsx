@@ -1722,7 +1722,7 @@ function StepThreeAccommodation({
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
+                      <div className="flex items-center gap-1 shrink-0">
                         <button
                           type="button"
                           onClick={() => editStay(s.id)}
@@ -1730,12 +1730,13 @@ function StepThreeAccommodation({
                         >
                           <Pencil size={14} stroke="url(#champagneGold)" strokeWidth={1.7} /> Edit
                         </button>
+                        <span className="h-5 w-px bg-[#E8E2D8]" />
                         <button
                           type="button"
                           onClick={() => removeStay(s.id)}
-                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-[13px] text-[#B45B4A] hover:bg-[#FBECEA] transition-colors duration-200"
+                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-[13px] text-[#0A1B2C] hover:bg-[#F9F6F0] transition-colors duration-200"
                         >
-                          <Trash2 size={14} /> Remove
+                          <Trash2 size={14} stroke="url(#champagneGold)" strokeWidth={1.7} /> Remove
                         </button>
                       </div>
                     </div>
