@@ -1526,12 +1526,9 @@ function StepThreeAccommodation({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-lg"
-                    style={{ backgroundColor: "#FAF3E1" }}
-                  >
-                    <CalendarIcon size={20} style={{ color: "#B88A2E" }} strokeWidth={1.8} />
-                  </span>
+                  <LuxIconBadge size={44}>
+                    <CalendarIcon size={20} strokeWidth={1.8} />
+                  </LuxIconBadge>
                   <div>
                     <h3
                       className="text-[#0A1B2C] text-[20px] leading-tight"
@@ -1547,10 +1544,10 @@ function StepThreeAccommodation({
                 <button
                   type="button"
                   onClick={clearDraft}
-                  className="inline-flex items-center gap-2 rounded-md border px-3 h-9 text-[13px] text-[#4A5866] hover:bg-[#F7F3E7]"
-                  style={{ borderColor: "#E3DFD3" }}
+                  className="inline-flex items-center gap-2 rounded-md border px-3 h-9 text-[13px] text-[#4A5866] bg-white hover:bg-[#FBF7EA] transition-colors"
+                  style={{ borderColor: "#E3DFD3", boxShadow: "0 1px 2px rgba(10,27,44,0.04)" }}
                 >
-                  <Trash2 size={14} />
+                  <Trash2 size={14} style={{ color: "#B88917" }} />
                   Clear
                 </button>
               </div>
@@ -1609,16 +1606,17 @@ function StepThreeAccommodation({
                   type="button"
                   onClick={addStay}
                   disabled={!checkIn || !checkOut}
-                  className="group inline-flex items-center justify-center gap-2 rounded-md px-6 h-[46px] text-[14px] font-semibold text-white disabled:opacity-50"
+                  className="group inline-flex items-center justify-center gap-2 rounded-md px-6 h-[46px] text-[14px] font-semibold text-white disabled:opacity-50 transition-transform active:translate-y-px"
                   style={{
-                    background: "linear-gradient(180deg,#16385A 0%,#0F2A47 100%)",
+                    background:
+                      "linear-gradient(180deg,#153353 0%,#0C2440 55%,#081A30 100%)",
                     boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.14), 0 8px 20px -10px rgba(10,27,44,0.5)",
-                    border: "1px solid rgba(255,255,255,0.16)",
+                      "inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(0,0,0,0.4), 0 12px 28px -14px rgba(10,27,44,0.7), 0 2px 6px -2px rgba(10,27,44,0.35)",
+                    border: "1px solid rgba(255,255,255,0.12)",
                   }}
                 >
                   {editingId ? "Save changes" : "Add this stay"}
-                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight size={16} style={{ color: "#F2C860" }} className="transition-transform group-hover:translate-x-0.5" />
                 </button>
               </div>
             </div>
@@ -1655,12 +1653,9 @@ function StepThreeAccommodation({
                       }}
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <span
-                          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
-                          style={{ backgroundColor: "#FAF3E1" }}
-                        >
-                          <CalendarIcon size={16} style={{ color: "#B88A2E" }} strokeWidth={1.8} />
-                        </span>
+                        <LuxIconBadge size={36}>
+                          <CalendarIcon size={16} strokeWidth={1.8} />
+                        </LuxIconBadge>
                         <div className="min-w-0">
                           <div className="text-[#0A1B2C] text-[14px] font-semibold truncate">
                             {fmtDate(s.checkIn)} – {fmtDate(s.checkOut)}
@@ -1696,15 +1691,16 @@ function StepThreeAccommodation({
             <button
               type="button"
               onClick={clearDraft}
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[54px] text-[15px] font-semibold text-white"
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[54px] text-[15px] font-semibold text-white transition-transform active:translate-y-px"
               style={{
-                background: "linear-gradient(180deg,#16385A 0%,#0A1B2C 100%)",
+                background:
+                  "linear-gradient(180deg,#153353 0%,#0B2038 55%,#050F1B 100%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.14), 0 10px 24px -12px rgba(10,27,44,0.55)",
-                border: "1px solid rgba(255,255,255,0.14)",
+                  "inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.5), 0 14px 32px -14px rgba(10,27,44,0.7), 0 2px 6px -2px rgba(10,27,44,0.35)",
+                border: "1px solid rgba(255,255,255,0.12)",
               }}
             >
-              <Plus size={18} style={{ color: GOLD }} />
+              <Plus size={18} style={{ color: "#F2C860" }} />
               Add another stay
             </button>
 
@@ -1722,8 +1718,12 @@ function StepThreeAccommodation({
                   onChange={(e) => setSpecial(e.target.value)}
                   rows={3}
                   placeholder="E.g. early check-in, late check-out, welcome gift, specific floor, etc."
-                  className="mt-3 w-full rounded-[10px] px-4 py-3 text-[14px] text-[#0A1B2C] placeholder:text-[#9BA4AE] outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
-                  style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+                  className="mt-3 w-full rounded-[10px] px-4 py-3 text-[14px] text-[#0A1B2C] placeholder:text-[#9BA4AE] outline-none transition-all focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #E6E2D5",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
+                  }}
                 />
               </label>
             </div>
@@ -1784,12 +1784,9 @@ function StepThreeAccommodation({
 
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
-                <span
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-md"
-                  style={{ backgroundColor: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.25)" }}
-                >
-                  <Coffee size={15} style={{ color: GOLD }} />
-                </span>
+                <LuxIconBadge size={36} tone="onDark">
+                  <Coffee size={16} />
+                </LuxIconBadge>
                 <div>
                   <div className="text-white/70 text-[13px]">Meal Plan</div>
                   <div className="text-white text-[15px] font-medium">
@@ -1799,12 +1796,9 @@ function StepThreeAccommodation({
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-md"
-                    style={{ backgroundColor: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.25)" }}
-                  >
-                    <Bell size={15} style={{ color: GOLD }} />
-                  </span>
+                  <LuxIconBadge size={36} tone="onDark">
+                    <Bell size={16} />
+                  </LuxIconBadge>
                   <div className="text-white text-[15px]">Porter Service</div>
                 </div>
                 <div className="text-white/80 text-[14px]">{porter ? "Yes" : "No"}</div>
@@ -1836,24 +1830,18 @@ function StepThreeAccommodation({
                   href="tel:+4721002100"
                   className="flex items-center gap-3 text-white/90 text-[13.5px] hover:text-[#F7D97A] transition-colors"
                 >
-                  <span
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full"
-                    style={{ border: "1px solid rgba(212,175,55,0.4)" }}
-                  >
-                    <Phone size={14} style={{ color: GOLD }} />
-                  </span>
+                  <LuxIconBadge size={32} tone="onDark">
+                    <Phone size={14} />
+                  </LuxIconBadge>
                   +47 21 00 21 00
                 </a>
                 <a
                   href="mailto:meetings@hotelgroupbook.com"
                   className="flex items-center gap-3 text-white/90 text-[13.5px] hover:text-[#F7D97A] transition-colors whitespace-nowrap"
                 >
-                  <span
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full"
-                    style={{ border: "1px solid rgba(212,175,55,0.4)" }}
-                  >
-                    <Mail size={14} style={{ color: GOLD }} />
-                  </span>
+                  <LuxIconBadge size={32} tone="onDark">
+                    <Mail size={14} />
+                  </LuxIconBadge>
                   meetings@hotelgroupbook.com
                 </a>
               </div>
@@ -1868,12 +1856,11 @@ function StepThreeAccommodation({
                 border: "1px solid rgba(212,175,55,0.22)",
               }}
             >
-              <span
-                className="mx-auto inline-flex h-11 w-11 items-center justify-center rounded-full"
-                style={{ border: "1px solid rgba(212,175,55,0.45)" }}
-              >
-                <Users size={20} style={{ color: GOLD }} />
-              </span>
+              <div className="mx-auto flex items-center justify-center">
+                <LuxIconBadge size={44} tone="onDark">
+                  <Users size={20} />
+                </LuxIconBadge>
+              </div>
               <p
                 className="mt-3 text-white text-[15px] leading-snug"
                 style={{ fontFamily: SERIF }}
@@ -1925,8 +1912,13 @@ function DateField({
     <label className="block">
       <span className="text-[#0A1B2C] text-[13.5px] font-semibold">{label}</span>
       <div
-        className="mt-2 flex items-center gap-2 rounded-[10px] px-3 h-[46px]"
-        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+        className="group mt-2 flex items-center gap-2 rounded-[10px] px-3 h-[46px] transition-all focus-within:border-[#D4AF37] focus-within:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
+        style={{
+          backgroundColor: "#FFFFFF",
+          border: "1px solid #E6E2D5",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
+        }}
       >
         <input
           type="date"
@@ -1934,7 +1926,7 @@ function DateField({
           onChange={(e) => onChange(e.target.value)}
           className="flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
         />
-        <CalendarIcon size={16} className="text-[#8A94A0]" />
+        <CalendarIcon size={16} style={{ color: "#B88917" }} />
       </div>
     </label>
   );
@@ -1954,12 +1946,18 @@ function Counter({
       <div className="text-[#0A1B2C] text-[13px] font-medium mb-2">{label}</div>
       <div
         className="flex items-center justify-between rounded-[10px] h-[46px] px-1.5"
-        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+        style={{
+          backgroundColor: "#FFFFFF",
+          border: "1px solid #E6E2D5",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
+        }}
       >
         <button
           type="button"
           onClick={() => onChange(Math.max(0, value - 1))}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115]"
+          style={{ color: "#B88917" }}
           aria-label={`Decrease ${label}`}
         >
           <Minus size={15} />
@@ -1968,7 +1966,8 @@ function Counter({
         <button
           type="button"
           onClick={() => onChange(value + 1)}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115] hover:text-[#EBCB6A]"
+          style={{ color: "#B88917" }}
           aria-label={`Increase ${label}`}
         >
           <Plus size={15} />
@@ -1997,26 +1996,23 @@ function MealOption({
       style={{
         backgroundColor: selected ? "#FFFBEF" : "#FFFFFF",
         border: `1px solid ${selected ? "rgba(212,175,55,0.55)" : "#E6E2D5"}`,
-        boxShadow: selected ? "0 0 0 3px rgba(212,175,55,0.10)" : undefined,
+        boxShadow: selected
+          ? "0 0 0 3px rgba(212,175,55,0.10), 0 6px 18px -10px rgba(184,137,23,0.35)"
+          : "0 1px 2px rgba(10,27,44,0.04)",
       }}
     >
       <span className="flex items-center gap-3">
-        <span
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md"
-          style={{
-            color: selected ? "#B88917" : "#4A5866",
-            backgroundColor: selected ? "#FAF3E1" : "#F5F3EC",
-          }}
-        >
-          {icon}
-        </span>
+        <LuxIconBadge size={36}>{icon}</LuxIconBadge>
         <span className="text-[#0A1B2C] text-[14.5px] font-medium">{label}</span>
       </span>
       <span
         className="inline-flex h-5 w-5 items-center justify-center rounded-full"
         style={{
           border: `2px solid ${selected ? "#D4AF37" : "#D9D3C4"}`,
-          backgroundColor: selected ? "#D4AF37" : "transparent",
+          background: selected
+            ? "linear-gradient(180deg,#F7E7A6,#D4AF37 60%,#A97816)"
+            : "transparent",
+          boxShadow: selected ? "0 0 0 3px rgba(212,175,55,0.15)" : undefined,
         }}
       >
         {selected && <span className="h-2 w-2 rounded-full bg-white" />}
@@ -2037,16 +2033,9 @@ function SummaryRow({
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <span
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md"
-          style={{
-            backgroundColor: "rgba(212,175,55,0.10)",
-            border: "1px solid rgba(212,175,55,0.25)",
-            color: GOLD,
-          }}
-        >
+        <LuxIconBadge size={32} tone="onDark">
           {icon}
-        </span>
+        </LuxIconBadge>
         <span className="text-white/85 text-[14px]">{label}</span>
       </div>
       <span
@@ -2070,4 +2059,62 @@ function GoldDivider() {
     />
   );
 }
+
+/**
+ * LuxIconBadge — premium matte-black container with champagne-gold icon.
+ * Preserves size prop; icon inherits color via currentColor from the gradient
+ * stroke supplied here.
+ */
+function LuxIconBadge({
+  children,
+  size = 40,
+  tone = "onLight",
+}: {
+  children: React.ReactNode;
+  size?: number;
+  tone?: "onLight" | "onDark";
+}) {
+  const radius = Math.max(8, Math.round(size * 0.3));
+  const shadow =
+    tone === "onDark"
+      ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.4)"
+      : "0 10px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.4)";
+  return (
+    <span
+      className="relative inline-flex shrink-0 items-center justify-center"
+      style={{
+        width: size,
+        height: size,
+        borderRadius: radius,
+        background:
+          "linear-gradient(180deg,#1A1D24 0%, #101319 55%, #0B0D12 100%)",
+        border: "1px solid rgba(212,175,55,0.22)",
+        boxShadow: shadow,
+        color: "#E6C25A",
+      }}
+    >
+      {/* soft inner highlight */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          borderRadius: radius,
+          background:
+            "radial-gradient(120% 60% at 50% 0%, rgba(247,231,166,0.16) 0%, rgba(247,231,166,0) 55%)",
+        }}
+      />
+      <span
+        className="relative"
+        style={{
+          color: "#EBCB6A",
+          filter:
+            "drop-shadow(0 1px 0 rgba(255,255,255,0.10)) drop-shadow(0 1px 1px rgba(0,0,0,0.35))",
+        }}
+      >
+        {children}
+      </span>
+    </span>
+  );
+}
+
 
