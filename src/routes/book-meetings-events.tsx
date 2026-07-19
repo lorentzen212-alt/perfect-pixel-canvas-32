@@ -1325,18 +1325,21 @@ function StepTwoLocation({
               <label className="block text-[14px] font-semibold text-[#0A1B2C]">
                 Hotel style
               </label>
-              <div className="mt-2 flex flex-wrap gap-3">
+              <div className="mt-2 flex flex-nowrap gap-3 overflow-x-auto pb-1">
                 {HOTEL_STYLES.map((s) => {
                   const selected = selectedHotelStyle === s.id;
+                  const isNoPreference = s.id === "none";
                   return (
                     <button
                       key={s.id}
                       type="button"
                       onClick={() => setSelectedHotelStyle(s.id)}
                       aria-pressed={selected}
-                      className="group flex flex-1 basis-[120px] flex-col items-center justify-center gap-2 rounded-md min-h-[86px] px-3 py-2 transition-all duration-[220ms] hover:-translate-y-[2px] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+                      className={cn(
+                        "group flex flex-col items-center justify-center gap-2 rounded-md min-h-[86px] px-3 py-2 transition-all duration-[220ms] hover:-translate-y-[2px] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40 shrink-0",
+                        isNoPreference ? "w-[150px]" : "w-[120px]",
+                      )}
                       style={{
-                        minWidth: 120,
                         background: selected
                           ? "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)"
                           : "#FFFFFF",
