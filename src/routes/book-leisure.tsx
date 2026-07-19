@@ -479,14 +479,14 @@ function StepOne(props: {
           value={props.country}
           onValueChange={(v) => props.setCountry(v as CountryCode)}
         >
-          <StyledSelectTrigger>
+          <DestinationSelectTrigger>
             <span className="flex items-center gap-2 min-w-0">
               <activeCountry.Flag />
               <span className="text-[15px] text-[#0A1626] truncate">
                 {activeCountry.name}
               </span>
             </span>
-          </StyledSelectTrigger>
+          </DestinationSelectTrigger>
           <StyledSelectContent>
             {COUNTRIES.map(({ code, name, Flag }) => (
               <SelectItem key={code} value={code}>
