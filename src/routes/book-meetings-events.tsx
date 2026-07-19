@@ -1967,7 +1967,7 @@ function DateField({
           onChange={(e) => onChange(e.target.value)}
           className="date-input-clean flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
         />
-        <CalendarIcon size={16} stroke="url(#champagneGold)" strokeWidth={1.7} />
+        <CalendarIcon size={18} stroke="url(#champagneGold)" strokeWidth={2} />
       </div>
     </label>
   );
