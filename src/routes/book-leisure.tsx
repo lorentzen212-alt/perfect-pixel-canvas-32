@@ -1439,52 +1439,83 @@ function FlagFI() {
 /* ---------- Background particles ---------- */
 
 function GoldParticles() {
-  // Deterministic pseudo-random for stable SSR/CSR output.
   const rand = (seed: number) => {
-    const x = Math.sin(seed) * 43758.5453;
+    const x = Math.sin(seed * 12.9898) * 43758.5453;
     return x - Math.floor(x);
   };
 
-  type P = { x: number; y: number; size: number; opacity: number };
-  const particles: P[] = [];
+  const TONES = ["#D4AF37", "#E1B955", "#F5D98A", "#B8892E", "#F2C14E"];
 
-  // Edge bands (left + right), fade horizontally toward center.
-  for (let i = 0; i < 90; i++) {
-    const r = rand(i + 1);
+  type P = { x: number; y: number; size: number; opacity: number; color: string; blur: boolean; glow: boolean };
+  const particles: P[] = [];
+  let seed = 0;
+  const next = () => rand(++seed);
+
+  // Dense edge bands along left + right (fade horizontally toward center).
+  for (let i = 0; i < 260; i++) {
     const side = i % 2 === 0 ? "left" : "right";
-    const edgeX = rand(i + 101) * 14; // 0-14% from edge
-    const x = side === "left" ? edgeX : 100 - edgeX;
-    const y = rand(i + 201) * 100;
-    const size = 0.6 + rand(i + 301) * 1.8;
-    const baseOp = 0.12 + rand(i + 401) * 0.35;
-    // Fade with distance from edge.
-    const fade = 1 - edgeX / 14;
-    particles.push({ x, y, size, opacity: baseOp * (0.35 + fade * 0.65) });
-    void r;
+    const edgeDist = Math.pow(next(), 1.6) * 18; // 0-18% from edge, biased outward
+    const x = side === "left" ? edgeDist : 100 - edgeDist;
+    const y = next() * 100;
+    const size = 0.4 + Math.pow(next(), 2) * 2.4;
+    const fade = 1 - edgeDist / 18;
+    const opacity = (0.18 + next() * 0.55) * (0.35 + fade * 0.65);
+    particles.push({
+      x,
+      y,
+      size,
+      opacity,
+      color: TONES[Math.floor(next() * TONES.length)],
+      blur: next() > 0.9,
+      glow: size > 1.6 && next() > 0.7,
+    });
   }
 
   // Corner clusters (denser).
   const corners = [
-    { cx: 3, cy: 3 },
-    { cx: 97, cy: 3 },
-    { cx: 3, cy: 97 },
-    { cx: 97, cy: 97 },
+    { cx: 0, cy: 0 },
+    { cx: 100, cy: 0 },
+    { cx: 0, cy: 100 },
+    { cx: 100, cy: 100 },
   ];
-  corners.forEach((c, ci) => {
-    for (let i = 0; i < 40; i++) {
-      const seed = ci * 1000 + i;
-      const dx = (rand(seed + 11) - 0.5) * 24;
-      const dy = (rand(seed + 31) - 0.5) * 24;
-      const size = 0.5 + rand(seed + 51) * 1.6;
-      const opacity = 0.15 + rand(seed + 71) * 0.4;
+  corners.forEach((c) => {
+    for (let i = 0; i < 90; i++) {
+      const rx = Math.pow(next(), 1.4) * 26;
+      const ry = Math.pow(next(), 1.4) * 30;
+      const x = c.cx === 0 ? rx : 100 - rx;
+      const y = c.cy === 0 ? ry : 100 - ry;
+      const size = 0.4 + Math.pow(next(), 2) * 2.6;
+      const dist = Math.max(rx / 26, ry / 30);
+      const opacity = (0.22 + next() * 0.55) * (1 - dist * 0.55);
       particles.push({
-        x: Math.max(0, Math.min(100, c.cx + dx)),
-        y: Math.max(0, Math.min(100, c.cy + dy)),
+        x,
+        y,
         size,
         opacity,
+        color: TONES[Math.floor(next() * TONES.length)],
+        blur: next() > 0.88,
+        glow: size > 1.7 && next() > 0.65,
       });
     }
   });
+
+  // A few larger soft-blurred motes for depth (edges only).
+  for (let i = 0; i < 18; i++) {
+    const side = i % 2 === 0 ? "left" : "right";
+    const edge = next() * 10;
+    const x = side === "left" ? edge : 100 - edge;
+    const y = next() * 100;
+    const size = 2.2 + next() * 2;
+    particles.push({
+      x,
+      y,
+      size,
+      opacity: 0.18 + next() * 0.22,
+      color: TONES[Math.floor(next() * TONES.length)],
+      blur: true,
+      glow: true,
+    });
+  }
 
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
@@ -1497,19 +1528,21 @@ function GoldParticles() {
             left: `${p.x}%`,
             width: `${p.size}px`,
             height: `${p.size}px`,
-            backgroundColor: GOLD,
+            backgroundColor: p.color,
             opacity: p.opacity,
-            boxShadow: p.size > 1.4 ? `0 0 ${p.size * 2}px rgba(245,194,90,${p.opacity * 0.6})` : undefined,
-            filter: "blur(0.3px)",
+            boxShadow: p.glow
+              ? `0 0 ${p.size * 3}px rgba(245,194,90,${Math.min(0.6, p.opacity * 0.9)})`
+              : undefined,
+            filter: p.blur ? "blur(0.8px)" : "blur(0.25px)",
           }}
         />
       ))}
-      {/* Center clarity mask — fade particles away from center. */}
+      {/* Center clarity mask — keeps middle of the page dark and clean. */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 55% 50% at 50% 50%, rgba(6,21,35,0.95) 0%, rgba(6,21,35,0.7) 35%, rgba(6,21,35,0) 75%)",
+            "radial-gradient(ellipse 62% 58% at 50% 50%, rgba(6,21,35,1) 0%, rgba(6,21,35,0.92) 30%, rgba(6,21,35,0.55) 55%, rgba(6,21,35,0) 82%)",
         }}
       />
     </div>
