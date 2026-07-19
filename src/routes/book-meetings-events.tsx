@@ -2215,16 +2215,16 @@ function RoomCategoryRow({
 }) {
   return (
     <div
-      className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-[16px] px-4 py-3.5 transition-all duration-200 hover:shadow-[0_6px_18px_-10px_rgba(10,27,44,0.12)]"
+      className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-[16px] px-4 py-[10px] transition-all duration-200 hover:shadow-[0_6px_18px_-10px_rgba(10,27,44,0.12)]"
       style={{
         backgroundColor: "#FFFFFF",
         border: "1px solid #E8E2D8",
-        boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
+        boxShadow: "0 5px 16px rgba(15, 35, 60, 0.045)",
       }}
     >
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <span
-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px]"
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]"
           style={{
             background: "linear-gradient(180deg,#FBF6EB 0%,#F5ECD1 100%)",
             border: "1px solid #EBDDB0",
@@ -2237,13 +2237,13 @@ function RoomCategoryRow({
       <GuestCounter
         value={value}
         onChange={onValue}
-        containerClassName="h-[40px] w-full sm:w-[132px]"
+        containerClassName="h-[36px] w-full sm:w-[132px]"
       />
       <div className="relative w-full sm:w-[180px]">
         <select
           value={cat}
           onChange={(e) => onCat(e.target.value as RoomCat)}
-          className="w-full appearance-none rounded-[12px] h-[40px] pl-3 pr-9 text-[14px] text-[#0A1B2C] bg-white outline-none focus:border-[#DCC48A] focus:ring-2 focus:ring-[#D4AF37]/30 transition-all duration-200"
+          className="w-full appearance-none rounded-[12px] h-[36px] pl-3 pr-9 text-[14px] text-[#0A1B2C] bg-white outline-none focus:border-[#DCC48A] focus:ring-2 focus:ring-[#D4AF37]/30 transition-all duration-200"
           style={{ border: "1px solid #E8E2D8", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}
         >
           <option value="Standard">Standard</option>
