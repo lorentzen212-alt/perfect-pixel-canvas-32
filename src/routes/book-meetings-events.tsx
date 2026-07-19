@@ -1949,14 +1949,19 @@ function Counter({
   label,
   value,
   onChange,
+  icon,
 }: {
   label: string;
   value: number;
   onChange: (v: number) => void;
+  icon?: React.ReactNode;
 }) {
   return (
     <div>
-      <div className="text-[#0A1B2C] text-[13px] font-medium mb-2">{label}</div>
+      <div className="text-[#0A1B2C] text-[13px] font-medium mb-2 flex items-center gap-2">
+        {icon ? <LuxIconBadge size={28}>{icon}</LuxIconBadge> : null}
+        <span>{label}</span>
+      </div>
       <div
         className="flex items-center justify-between rounded-[10px] h-[46px] px-1.5"
         style={{
