@@ -2092,11 +2092,17 @@ function LuxIconBadge({
   size?: number;
   tone?: "onLight" | "onDark";
 }) {
-  const radius = Math.max(8, Math.round(size * 0.3));
+  const radius = size >= 40 ? 12 : Math.max(6, Math.round(size * 0.28));
   const shadow =
     tone === "onDark"
       ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.4)"
-      : "0 10px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.4)";
+      : "0 6px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.35)";
+  const bg =
+    tone === "onDark"
+      ? "linear-gradient(180deg,#1A1D24 0%, #101319 55%, #0B0D12 100%)"
+      : "linear-gradient(180deg,#262626 0%, #111111 100%)";
+  const borderColor =
+    tone === "onDark" ? "rgba(212,175,55,0.22)" : "rgba(212,175,55,0.28)";
   return (
     <span
       className="relative inline-flex shrink-0 items-center justify-center"
@@ -2104,9 +2110,8 @@ function LuxIconBadge({
         width: size,
         height: size,
         borderRadius: radius,
-        background:
-          "linear-gradient(180deg,#1A1D24 0%, #101319 55%, #0B0D12 100%)",
-        border: "1px solid rgba(212,175,55,0.22)",
+        background: bg,
+        border: `1px solid ${borderColor}`,
         boxShadow: shadow,
         color: "#E6C25A",
       }}
