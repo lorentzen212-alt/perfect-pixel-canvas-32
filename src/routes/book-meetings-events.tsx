@@ -482,56 +482,121 @@ function BookMeetingsEvents() {
 
         .complete-stay-btn {
           position: relative;
-          color: #2F2F2F;
-          background-color: #F5F2EC;
+          overflow: hidden;
+          isolation: isolate;
+          color: #1C1C1C;
           background-image:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 35%),
-            linear-gradient(180deg, #FCFBF8 0%, #F5F2EC 50%, #ECE7DF 100%);
-          border: 1px solid #6B6257;
+            linear-gradient(180deg, #FFFFFF 0%, #FAF7F0 55%, #F1EADB 100%);
+          border: 1px solid #D4AF37;
           border-radius: 16px;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.85),
-            inset 0 -1px 0 rgba(107, 98, 87, 0.18),
-            inset 0 0 10px rgba(255, 255, 255, 0.25),
-            0 14px 32px -12px rgba(0, 0, 0, 0.18),
-            0 4px 10px -4px rgba(0, 0, 0, 0.10);
+            inset 0 1px 0 rgba(255, 255, 255, 0.9),
+            inset 0 -1px 0 rgba(212, 175, 55, 0.20),
+            0 10px 26px -12px rgba(0, 0, 0, 0.18),
+            0 3px 8px -3px rgba(0, 0, 0, 0.08);
           cursor: pointer;
-          transition: transform 250ms ease-out, box-shadow 250ms ease-out, filter 250ms ease-out, background 250ms ease-out, color 250ms ease-out;
+          transition: transform 250ms ease-out, box-shadow 250ms ease-out, filter 250ms ease-out, background-image 250ms ease-out, color 250ms ease-out, border-color 250ms ease-out;
         }
         .complete-stay-plus {
-          color: #C9A34A;
-          transition: color 250ms ease-out;
+          color: #D4AF37;
+          transition: color 250ms ease-out, transform 250ms ease-out;
+          position: relative;
+          z-index: 2;
+        }
+        .complete-stay-btn > span,
+        .complete-stay-btn > svg {
+          position: relative;
+          z-index: 2;
+        }
+        /* Light sweep */
+        .complete-stay-btn::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -40%;
+          width: 40%;
+          height: 100%;
+          background: linear-gradient(
+            100deg,
+            transparent 0%,
+            rgba(255, 220, 130, 0) 20%,
+            rgba(255, 224, 150, 0.55) 50%,
+            rgba(255, 220, 130, 0) 80%,
+            transparent 100%
+          );
+          filter: blur(2px);
+          opacity: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+        /* Sparkles overlay */
+        .complete-stay-btn::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          opacity: 0;
+          background-image:
+            radial-gradient(1.5px 1.5px at 18% 55%, rgba(255, 232, 160, 0.95), transparent 60%),
+            radial-gradient(1px 1px at 32% 40%, rgba(255, 240, 190, 0.9), transparent 60%),
+            radial-gradient(2px 2px at 60% 68%, rgba(255, 220, 130, 0.85), transparent 60%),
+            radial-gradient(1.2px 1.2px at 75% 45%, rgba(255, 240, 190, 0.9), transparent 60%),
+            radial-gradient(1.6px 1.6px at 88% 60%, rgba(255, 224, 150, 0.9), transparent 60%),
+            radial-gradient(1px 1px at 45% 30%, rgba(255, 250, 210, 0.9), transparent 60%);
+          transition: opacity 250ms ease-out;
+          z-index: 1;
         }
         .complete-stay-btn:hover {
           transform: scale(1.02);
-          filter: brightness(1.03);
+          filter: brightness(1.04);
           color: #FFFFFF;
           background-image:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 25%),
-            linear-gradient(180deg, #2F8F5B 0%, #24734A 50%, #1B5E3A 100%);
-          border-color: #C9A34A;
+            linear-gradient(180deg,
+              rgba(46, 142, 92, 0.92) 0%,
+              rgba(33, 107, 67, 0.92) 50%,
+              rgba(20, 78, 49, 0.92) 100%);
+          border-color: #D4AF37;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.18),
-            inset 0 -8px 18px -8px rgba(0, 0, 0, 0.40),
-            0 0 10px rgba(47, 143, 91, 0.22),
-            0 0 20px rgba(47, 143, 91, 0.10),
-            0 14px 32px -12px rgba(0, 0, 0, 0.22),
-            0 4px 10px -4px rgba(0, 0, 0, 0.10);
+            inset 0 1px 0 rgba(255, 255, 255, 0.14),
+            inset 0 -10px 20px -10px rgba(0, 0, 0, 0.45),
+            0 0 12px rgba(46, 142, 92, 0.35),
+            0 0 26px rgba(46, 142, 92, 0.18),
+            0 14px 32px -12px rgba(0, 0, 0, 0.28);
+        }
+        .complete-stay-btn:hover::before {
+          animation: completeStaySweep 1200ms ease-out forwards;
+          opacity: 1;
+        }
+        .complete-stay-btn:hover::after {
+          animation: completeStaySparkle 1400ms ease-out forwards;
         }
         .complete-stay-btn:active {
           transform: scale(0.99);
-          filter: brightness(0.96);
+          filter: brightness(0.94);
           color: #FFFFFF;
           background-image:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 25%),
-            linear-gradient(180deg, #24734A 0%, #1B5E3A 50%, #134A2E 100%);
+            linear-gradient(180deg,
+              rgba(33, 107, 67, 0.95) 0%,
+              rgba(20, 78, 49, 0.95) 50%,
+              rgba(14, 58, 36, 0.95) 100%);
           border-color: #C9A34A;
           box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.10),
-            inset 0 -6px 14px -8px rgba(0, 0, 0, 0.45),
-            0 0 8px rgba(47, 143, 91, 0.18),
-            0 0 16px rgba(47, 143, 91, 0.08),
-            0 8px 18px rgba(0, 0, 0, 0.18);
+            inset 0 -8px 16px -10px rgba(0, 0, 0, 0.50),
+            0 0 8px rgba(46, 142, 92, 0.22),
+            0 0 16px rgba(46, 142, 92, 0.10),
+            0 8px 18px rgba(0, 0, 0, 0.22);
+        }
+        @keyframes completeStaySweep {
+          0%   { left: -40%; opacity: 0; }
+          15%  { opacity: 1; }
+          85%  { opacity: 1; }
+          100% { left: 110%; opacity: 0; }
+        }
+        @keyframes completeStaySparkle {
+          0%   { opacity: 0; transform: translateX(-10px); }
+          40%  { opacity: 1; }
+          100% { opacity: 0; transform: translateX(10px); }
         }
         .add-stay-btn {
           background: linear-gradient(180deg, #143253 0%, #0F2743 55%, #08182B 100%);
