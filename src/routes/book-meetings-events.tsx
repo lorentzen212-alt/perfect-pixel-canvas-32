@@ -481,14 +481,14 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                 className="flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold"
                 style={{
                   background: active
-                    ? "linear-gradient(180deg, #F4C95D 0%, #D9A520 100%)"
+                    ? "linear-gradient(180deg, #F7CF63 0%, #E4B52F 52%, #D9A520 100%)"
                     : completed
                       ? NAVY_DEEP
                       : "rgba(4,17,26,0.85)",
                   color: active ? "#FFFFFF" : completed ? GOLD : "#FFFFFF",
-                  border: `1px solid ${active ? "rgba(255,215,120,0.9)" : completed ? GOLD : "rgba(255,255,255,0.55)"}`,
+                  border: `1px solid ${active ? "rgba(255,223,130,0.95)" : completed ? GOLD : "rgba(255,255,255,0.55)"}`,
                   boxShadow: active
-                    ? "0 0 18px rgba(226,177,59,0.30), 0 0 36px rgba(226,177,59,0.12), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    ? "0 0 14px rgba(226,177,59,0.35), 0 0 30px rgba(226,177,59,0.14), 0 8px 18px rgba(217,165,32,0.18), inset 0 1px 0 rgba(255,255,255,0.45)"
                     : completed
                       ? "0 2px 6px rgba(0,0,0,0.25)"
                       : "none",
