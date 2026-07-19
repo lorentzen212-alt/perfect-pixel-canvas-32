@@ -706,11 +706,13 @@ function ColumnBlock({
   title,
   children,
   divider = false,
+  rightPaddingClass = "xl:pr-5",
 }: {
   icon: React.ReactNode;
   title: string;
   children: React.ReactNode;
   divider?: boolean;
+  rightPaddingClass?: string;
 }) {
   return (
     <div
@@ -719,7 +721,7 @@ function ColumnBlock({
         borderLeft: divider ? `1px solid ${DIVIDER}` : undefined,
       }}
     >
-      <div className="xl:pr-5">
+      <div className={rightPaddingClass}>
         <div className="flex items-center gap-2 text-[#0A1626] mb-5">
           <span className="text-[#0A1626]">{icon}</span>
           <span className="text-[17px] font-semibold">{title}</span>
