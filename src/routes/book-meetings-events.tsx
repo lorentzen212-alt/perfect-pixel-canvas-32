@@ -1542,8 +1542,7 @@ function StepThreeAccommodation({
                     <CalendarIcon size={20} stroke="url(#champagneGold)" strokeWidth={1.8} />
                   </span>
                   <h3
-                    className="text-[#0A1B2C] text-[20px] leading-tight"
-                    style={{ fontFamily: SERIF }}
+                    className="text-[#0A1B2C] text-[18px] font-semibold leading-tight"
                   >
                     Accommodation Period{" "}
                     <span className="text-[#8A94A0] text-[15px]">
@@ -1965,7 +1964,7 @@ function DateField({
           type="date"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
+          className="date-input-clean flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
         />
         <CalendarIcon size={16} stroke="url(#champagneGold)" strokeWidth={1.7} />
       </div>
@@ -2033,7 +2032,7 @@ function GuestCounter({
   return (
     <div
       className={cn(
-        "flex items-center justify-between rounded-[14px] px-1",
+        "flex items-center rounded-[12px] overflow-hidden",
         containerClassName
       )}
       style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8E2D8", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}
@@ -2041,7 +2040,8 @@ function GuestCounter({
       <button
         type="button"
         onClick={() => onChange(Math.max(0, value - 1))}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-[10px] text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
+        className="inline-flex h-full w-10 shrink-0 items-center justify-center text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
+        style={{ borderRight: "1px solid #EEE7D6" }}
         aria-label="Decrease"
       >
         <Minus size={15} stroke="url(#champagneGold)" strokeWidth={1.7} />
@@ -2056,14 +2056,15 @@ function GuestCounter({
         onFocus={(e) => e.target.select()}
         onKeyDown={handleKeyDown}
         className={cn(
-          "flex-1 min-w-0 bg-transparent text-center outline-none text-[#0A1B2C] text-[15px] font-semibold tabular-nums",
+          "flex-1 min-w-0 h-full bg-transparent text-center outline-none text-[#0A1B2C] text-[15px] font-semibold tabular-nums",
           className
         )}
       />
       <button
         type="button"
         onClick={() => onChange(value + 1)}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-[10px] text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
+        className="inline-flex h-full w-10 shrink-0 items-center justify-center text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
+        style={{ borderLeft: "1px solid #EEE7D6" }}
         aria-label="Increase"
       >
         <Plus size={15} stroke="url(#champagneGold)" strokeWidth={1.7} />
@@ -2089,8 +2090,8 @@ function MealOption({
       onClick={onClick}
       className="flex items-center justify-between rounded-[14px] px-4 h-[56px] text-left transition-all duration-200 hover:-translate-y-[1px]"
       style={{
-        backgroundColor: selected ? "#FAF8F3" : "#FFFFFF",
-        border: `1px solid ${selected ? "rgba(212,175,55,0.45)" : "#E8E2D8"}`,
+        backgroundColor: selected ? "rgba(212,175,55,0.03)" : "#FFFFFF",
+        border: `1px solid ${selected ? "#D4AF37" : "#E8E2D8"}`,
         boxShadow: selected ? "0 4px 14px rgba(0,0,0,0.04)" : "0 2px 8px rgba(0,0,0,0.02)",
       }}
     >
@@ -2216,16 +2217,16 @@ function RoomCategoryRow({
 }) {
   return (
     <div
-      className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-[16px] px-4 py-3.5 transition-all duration-200 hover:shadow-[0_6px_18px_-10px_rgba(10,27,44,0.12)]"
+      className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-[16px] px-4 py-[10px] transition-all duration-200 hover:shadow-[0_6px_18px_-10px_rgba(10,27,44,0.12)]"
       style={{
         backgroundColor: "#FFFFFF",
         border: "1px solid #E8E2D8",
-        boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
+        boxShadow: "0 5px 16px rgba(15, 35, 60, 0.045)",
       }}
     >
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <span
-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px]"
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]"
           style={{
             background: "linear-gradient(180deg,#FBF6EB 0%,#F5ECD1 100%)",
             border: "1px solid #EBDDB0",
@@ -2238,13 +2239,13 @@ function RoomCategoryRow({
       <GuestCounter
         value={value}
         onChange={onValue}
-        containerClassName="h-[40px] w-full sm:w-[132px]"
+        containerClassName="h-[36px] w-full sm:w-[132px]"
       />
       <div className="relative w-full sm:w-[180px]">
         <select
           value={cat}
           onChange={(e) => onCat(e.target.value as RoomCat)}
-          className="w-full appearance-none rounded-[12px] h-[40px] pl-3 pr-9 text-[14px] text-[#0A1B2C] bg-white outline-none focus:border-[#DCC48A] focus:ring-2 focus:ring-[#D4AF37]/30 transition-all duration-200"
+          className="w-full appearance-none rounded-[12px] h-[36px] pl-3 pr-9 text-[14px] text-[#0A1B2C] bg-white outline-none focus:border-[#DCC48A] focus:ring-2 focus:ring-[#D4AF37]/30 transition-all duration-200"
           style={{ border: "1px solid #E8E2D8", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}
         >
           <option value="Standard">Standard</option>
