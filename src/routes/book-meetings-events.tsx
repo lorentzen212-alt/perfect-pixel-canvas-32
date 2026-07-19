@@ -1940,12 +1940,18 @@ function Counter({
       <div className="text-[#0A1B2C] text-[13px] font-medium mb-2">{label}</div>
       <div
         className="flex items-center justify-between rounded-[10px] h-[46px] px-1.5"
-        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+        style={{
+          backgroundColor: "#FFFFFF",
+          border: "1px solid #E6E2D5",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
+        }}
       >
         <button
           type="button"
           onClick={() => onChange(Math.max(0, value - 1))}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115]"
+          style={{ color: "#B88917" }}
           aria-label={`Decrease ${label}`}
         >
           <Minus size={15} />
@@ -1954,7 +1960,8 @@ function Counter({
         <button
           type="button"
           onClick={() => onChange(value + 1)}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115] hover:text-[#EBCB6A]"
+          style={{ color: "#B88917" }}
           aria-label={`Increase ${label}`}
         >
           <Plus size={15} />
