@@ -1526,12 +1526,9 @@ function StepThreeAccommodation({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-lg"
-                    style={{ backgroundColor: "#FAF3E1" }}
-                  >
-                    <CalendarIcon size={20} style={{ color: "#B88A2E" }} strokeWidth={1.8} />
-                  </span>
+                  <LuxIconBadge size={44}>
+                    <CalendarIcon size={20} strokeWidth={1.8} />
+                  </LuxIconBadge>
                   <div>
                     <h3
                       className="text-[#0A1B2C] text-[20px] leading-tight"
@@ -1547,10 +1544,10 @@ function StepThreeAccommodation({
                 <button
                   type="button"
                   onClick={clearDraft}
-                  className="inline-flex items-center gap-2 rounded-md border px-3 h-9 text-[13px] text-[#4A5866] hover:bg-[#F7F3E7]"
-                  style={{ borderColor: "#E3DFD3" }}
+                  className="inline-flex items-center gap-2 rounded-md border px-3 h-9 text-[13px] text-[#4A5866] bg-white hover:bg-[#FBF7EA] transition-colors"
+                  style={{ borderColor: "#E3DFD3", boxShadow: "0 1px 2px rgba(10,27,44,0.04)" }}
                 >
-                  <Trash2 size={14} />
+                  <Trash2 size={14} style={{ color: "#B88917" }} />
                   Clear
                 </button>
               </div>
