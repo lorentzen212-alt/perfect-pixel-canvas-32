@@ -1,9 +1,8 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Premium duotone metallic-gold icons.
- * Outline stroke in warm gold (#F5AE00) with subtle inner gold fill (~14% opacity)
- * to match the reference's refined luxury look.
+ * Premium black-and-gold SVG icons.
+ * Replaced with uploaded artwork; component API and layout remain unchanged.
  */
 
 type IconProps = {
@@ -11,9 +10,6 @@ type IconProps = {
   className?: string;
   strokeWidth?: number;
 };
-
-const STROKE = "#F5AE00";
-const FILL = "rgba(245, 174, 0, 0.14)";
 
 function Base({
   size = 22,
@@ -29,7 +25,7 @@ function Base({
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
-      viewBox="0 0 24 24"
+      viewBox="0 0 128 128"
       fill="none"
       className={cn(className)}
       aria-hidden="true"
@@ -39,139 +35,160 @@ function Base({
   );
 }
 
-export function ShieldCheckPremium({ size, className, strokeWidth = 1.6 }: IconProps) {
+export function ShieldCheckPremium({ size, className }: IconProps) {
   return (
     <Base size={size} className={className}>
-      <path
-        d="M12 2.75 4.5 5.25v6.1c0 4.6 3.2 8.4 7.5 9.9 4.3-1.5 7.5-5.3 7.5-9.9v-6.1L12 2.75Z"
-        fill={FILL}
-        stroke={STROKE}
-        strokeWidth={strokeWidth}
-        strokeLinejoin="round"
-      />
-      <path
-        d="m8.5 12.2 2.4 2.4 4.6-4.9"
-        stroke={STROKE}
-        strokeWidth={strokeWidth + 0.2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
+      <defs>
+        <linearGradient id="shieldGoldStroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F7C85B" />
+          <stop offset="100%" stopColor="#C98A12" />
+        </linearGradient>
+        <linearGradient id="shieldDarkFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#17191D" />
+          <stop offset="100%" stopColor="#0D0F12" />
+        </linearGradient>
+        <filter id="shieldSoftShadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#000000" floodOpacity="0.35" />
+        </filter>
+      </defs>
+      <g filter="url(#shieldSoftShadow)" strokeLinecap="round" strokeLinejoin="round">
+        <path
+          d="M64 15 L96 28 V55 C96 79 82 97 64 107 C46 97 32 79 32 55 V28 Z"
+          fill="url(#shieldDarkFill)"
+          stroke="url(#shieldGoldStroke)"
+          strokeWidth="5"
+        />
+        <path
+          d="M49 60 L59 70 L80 47"
+          fill="none"
+          stroke="url(#shieldGoldStroke)"
+          strokeWidth="6"
+        />
+      </g>
     </Base>
   );
 }
 
-export function ClockPremium({ size, className, strokeWidth = 1.6 }: IconProps) {
+export function ClockPremium({ size, className }: IconProps) {
   return (
     <Base size={size} className={className}>
-      <circle cx="12" cy="12" r="9" fill={FILL} stroke={STROKE} strokeWidth={strokeWidth} />
-      <circle cx="12" cy="12" r="6.2" fill="none" stroke={STROKE} strokeWidth={0.7} opacity="0.55" />
-      <path
-        d="M12 7.5V12l3.1 1.9"
-        stroke={STROKE}
-        strokeWidth={strokeWidth + 0.2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
-      <circle cx="12" cy="12" r="0.9" fill={STROKE} />
+      <defs>
+        <linearGradient id="clockGoldStroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F7C85B" />
+          <stop offset="100%" stopColor="#C98A12" />
+        </linearGradient>
+        <linearGradient id="clockDarkFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#17191D" />
+          <stop offset="100%" stopColor="#0D0F12" />
+        </linearGradient>
+        <filter id="clockSoftShadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#000000" floodOpacity="0.35" />
+        </filter>
+      </defs>
+      <g filter="url(#clockSoftShadow)" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="64" cy="64" r="42" fill="url(#clockDarkFill)" stroke="url(#clockGoldStroke)" strokeWidth="5" />
+        <circle cx="64" cy="64" r="34" fill="none" stroke="#7A5B1C" strokeOpacity="0.45" strokeWidth="1.5" />
+        <path d="M64 38 V64 L82 75" fill="none" stroke="url(#clockGoldStroke)" strokeWidth="6" />
+      </g>
     </Base>
   );
 }
 
-export function HeadsetPremium({ size, className, strokeWidth = 1.6 }: IconProps) {
+export function HeadsetPremium({ size, className }: IconProps) {
   return (
     <Base size={size} className={className}>
-      {/* headband */}
-      <path
-        d="M4 13v-1a8 8 0 0 1 16 0v1"
-        stroke={STROKE}
-        strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        fill="none"
-      />
-      {/* left cup */}
-      <path
-        d="M4 13h3v6H5.5A1.5 1.5 0 0 1 4 17.5V13Z"
-        fill={FILL}
-        stroke={STROKE}
-        strokeWidth={strokeWidth}
-        strokeLinejoin="round"
-      />
-      {/* right cup */}
-      <path
-        d="M20 13h-3v6h1.5A1.5 1.5 0 0 0 20 17.5V13Z"
-        fill={FILL}
-        stroke={STROKE}
-        strokeWidth={strokeWidth}
-        strokeLinejoin="round"
-      />
-      {/* mic boom */}
-      <path
-        d="M17 19v.6a1.9 1.9 0 0 1-1.9 1.9H13"
-        stroke={STROKE}
-        strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        fill="none"
-      />
-      <circle cx="12" cy="21.5" r="0.9" fill={STROKE} />
+      <defs>
+        <linearGradient id="headsetGoldStroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F7C85B" />
+          <stop offset="100%" stopColor="#C98A12" />
+        </linearGradient>
+        <linearGradient id="headsetDarkFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#17191D" />
+          <stop offset="100%" stopColor="#0D0F12" />
+        </linearGradient>
+        <filter id="headsetSoftShadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#000000" floodOpacity="0.35" />
+        </filter>
+      </defs>
+      <g filter="url(#headsetSoftShadow)" strokeLinecap="round" strokeLinejoin="round">
+        <path
+          d="M31 65 V56 C31 37 46 23 64 23 C82 23 97 37 97 56 V66"
+          fill="none"
+          stroke="url(#headsetGoldStroke)"
+          strokeWidth="5"
+        />
+        <rect x="24" y="57" width="14" height="30" rx="6" fill="url(#headsetDarkFill)" stroke="url(#headsetGoldStroke)" strokeWidth="4" />
+        <rect x="90" y="57" width="14" height="30" rx="6" fill="url(#headsetDarkFill)" stroke="url(#headsetGoldStroke)" strokeWidth="4" />
+        <path d="M97 83 C97 96 87 101 76 101 H69" fill="none" stroke="url(#headsetGoldStroke)" strokeWidth="5" />
+        <rect x="60" y="96" width="18" height="10" rx="5" fill="url(#headsetDarkFill)" stroke="url(#headsetGoldStroke)" strokeWidth="3" />
+      </g>
     </Base>
   );
 }
 
-export function LockPremium({ size, className, strokeWidth = 1.6 }: IconProps) {
+export function LockPremium({ size, className }: IconProps) {
   return (
     <Base size={size} className={className}>
-      <path
-        d="M7.5 10.5V8a4.5 4.5 0 0 1 9 0v2.5"
-        stroke={STROKE}
-        strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        fill="none"
-      />
-      <rect
-        x="4.75"
-        y="10.5"
-        width="14.5"
-        height="10"
-        rx="2.2"
-        fill={FILL}
-        stroke={STROKE}
-        strokeWidth={strokeWidth}
-      />
-      <path
-        d="M12 14v3.2"
-        stroke={STROKE}
-        strokeWidth={strokeWidth + 0.3}
-        strokeLinecap="round"
-      />
-      <circle cx="12" cy="14" r="1.15" fill={STROKE} />
+      <defs>
+        <linearGradient id="lockGoldStroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F7C85B" />
+          <stop offset="100%" stopColor="#C98A12" />
+        </linearGradient>
+        <linearGradient id="lockDarkFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#17191D" />
+          <stop offset="100%" stopColor="#0D0F12" />
+        </linearGradient>
+        <filter id="lockSoftShadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#000000" floodOpacity="0.35" />
+        </filter>
+      </defs>
+      <g filter="url(#lockSoftShadow)" strokeLinecap="round" strokeLinejoin="round">
+        <path
+          d="M43 53 V42 C43 29 52 20 64 20 C76 20 85 29 85 42 V53"
+          fill="none"
+          stroke="url(#lockGoldStroke)"
+          strokeWidth="5"
+        />
+        <rect x="31" y="51" width="66" height="52" rx="8" fill="url(#lockDarkFill)" stroke="url(#lockGoldStroke)" strokeWidth="5" />
+        <circle cx="64" cy="75" r="6" fill="url(#lockGoldStroke)" />
+        <path d="M64 81 V90" stroke="url(#lockGoldStroke)" strokeWidth="5" />
+      </g>
     </Base>
   );
 }
 
-export function GroupPremium({ size, className, strokeWidth = 1.6 }: IconProps) {
+export function GroupPremium({ size, className }: IconProps) {
   return (
     <Base size={size} className={className}>
-      {/* back person */}
-      <circle cx="16.5" cy="8.5" r="2.6" fill={FILL} stroke={STROKE} strokeWidth={strokeWidth} />
-      <path
-        d="M12.5 18.5c.4-2.6 2.3-4.2 4.5-4.2 2.4 0 4.3 1.8 4.6 4.2"
-        stroke={STROKE}
-        strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        fill="none"
-      />
-      {/* front person */}
-      <circle cx="9" cy="9.5" r="3" fill={FILL} stroke={STROKE} strokeWidth={strokeWidth} />
-      <path
-        d="M3 19.5c.4-2.9 2.7-4.8 6-4.8s5.6 1.9 6 4.8"
-        fill={FILL}
-        stroke={STROKE}
-        strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <defs>
+        <linearGradient id="groupGoldStroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F7C85B" />
+          <stop offset="100%" stopColor="#C98A12" />
+        </linearGradient>
+        <linearGradient id="groupDarkFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#17191D" />
+          <stop offset="100%" stopColor="#0D0F12" />
+        </linearGradient>
+        <filter id="groupSoftShadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#000000" floodOpacity="0.35" />
+        </filter>
+      </defs>
+      <g filter="url(#groupSoftShadow)" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="48" cy="43" r="14" fill="url(#groupDarkFill)" stroke="url(#groupGoldStroke)" strokeWidth="4" />
+        <circle cx="82" cy="46" r="12" fill="url(#groupDarkFill)" stroke="url(#groupGoldStroke)" strokeWidth="4" />
+        <path
+          d="M22 97 C22 75 33 64 48 64 C63 64 74 75 74 97 Z"
+          fill="url(#groupDarkFill)"
+          stroke="url(#groupGoldStroke)"
+          strokeWidth="4"
+        />
+        <path
+          d="M66 97 C66 80 74 70 86 70 C98 70 106 80 106 97 Z"
+          fill="url(#groupDarkFill)"
+          stroke="url(#groupGoldStroke)"
+          strokeWidth="4"
+        />
+      </g>
     </Base>
   );
 }
