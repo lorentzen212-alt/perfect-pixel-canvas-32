@@ -272,24 +272,23 @@ function Home() {
             />
           </div>
 
-          {/* TRUST ROW */}
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
-            {TRUST.map(({ Icon, label }) => (
-              <div key={label} className="flex items-center gap-2">
-                <Icon size={22} />
-                <span className="text-[#F7F7F5] text-[16px] lg:text-[17px]">{label}</span>
+          {/* TRUST ROW — luxury feature strip */}
+          <div className="mt-12 flex flex-wrap items-center gap-x-12 lg:gap-x-14 gap-y-5">
+            {TRUST.map(({ Icon, label }, i) => (
+              <div key={i} className="flex items-center" style={{ gap: 12 }}>
+                <span
+                  className="relative inline-flex shrink-0 items-center justify-center"
+                  style={{
+                    filter: "drop-shadow(0 0 6px rgba(212,175,55,0.28)) drop-shadow(0 1px 0 rgba(0,0,0,0.35))",
+                  }}
+                >
+                  <Icon size={26} />
+                </span>
+                <span className="text-[#DED8C9]/85 text-[15px] lg:text-[16px] leading-snug tracking-[0.01em]">
+                  {label}
+                </span>
               </div>
             ))}
-          </div>
-
-          {/* BUILT BY */}
-          <div className="mt-5 flex items-start gap-3">
-            <GroupHorizonIcon size={26} className="shrink-0 mt-0.5" />
-            <p className="text-[#F7F7F5] text-[15px] lg:text-[16px] leading-snug">
-              Built by group booking professionals
-              <br className="hidden sm:block" />
-              with experience from 10,000+ groups.
-            </p>
           </div>
         </section>
       </div>
