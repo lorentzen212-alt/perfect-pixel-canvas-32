@@ -890,6 +890,83 @@ function StepThree(props: {
   );
 }
 
+function CapacityCard({
+  totalRooms,
+  maxCapacity,
+  guests,
+  capacityShortfall,
+}: {
+  totalRooms: number;
+  maxCapacity: number;
+  guests: number;
+  capacityShortfall: boolean;
+}) {
+  const shortfall = Math.max(0, guests - maxCapacity);
+  const isExact = guests === maxCapacity;
+  return (
+    <div
+      className="mt-5 rounded-xl px-4 py-3 transition-all duration-[250ms]"
+      style={{
+        backgroundColor: capacityShortfall ? "#FDECEC" : "#EAF8EF",
+        border: `1px solid ${capacityShortfall ? "#FCA5A5" : "#86EFAC"}`,
+      }}
+    >
+      <div className="flex items-start gap-2.5">
+        <span className="mt-0.5 shrink-0 transition-opacity duration-[250ms]">
+          {capacityShortfall ? (
+            <AlertTriangle size={16} strokeWidth={2} style={{ color: "#DC2626" }} />
+          ) : (
+            <Check size={16} strokeWidth={2.4} style={{ color: "#16A34A" }} />
+          )}
+        </span>
+        <div className="min-w-0 flex-1 transition-opacity duration-[250ms]">
+          <p
+            className="text-[13.5px] font-medium leading-snug"
+            style={{ color: capacityShortfall ? "#991B1B" : "#166534" }}
+          >
+            {capacityShortfall
+              ? "Room allocation does not match the number of guests."
+              : isExact
+                ? "Room allocation is valid."
+                : "Room capacity matches the number of guests."}
+          </p>
+          {capacityShortfall && (
+            <p
+              className="mt-1 text-[12.5px] leading-snug"
+              style={{ color: "#B91C1C" }}
+            >
+              Missing {shortfall} guest {shortfall === 1 ? "place" : "places"}.
+              Please adjust the room breakdown.
+            </p>
+          )}
+        </div>
+      </div>
+      <div className="mt-3 flex items-center justify-between gap-2 text-[13.5px] whitespace-nowrap">
+        <span style={{ color: capacityShortfall ? "#991B1B" : "#166534" }}>
+          Total Rooms
+        </span>
+        <span
+          className="font-semibold"
+          style={{ color: capacityShortfall ? "#991B1B" : "#166534" }}
+        >
+          {totalRooms}
+        </span>
+      </div>
+      <div className="mt-1 flex items-center justify-between gap-2 text-[13.5px] whitespace-nowrap">
+        <span style={{ color: capacityShortfall ? "#991B1B" : "#166534" }}>
+          Maximum Capacity
+        </span>
+        <span
+          className="font-semibold"
+          style={{ color: capacityShortfall ? "#991B1B" : "#166534" }}
+        >
+          {maxCapacity} Guests
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function FieldError({ children }: { children: React.ReactNode }) {
   return (
     <p className="mt-1.5 text-[12.5px]" style={{ color: "#B4231F" }}>
