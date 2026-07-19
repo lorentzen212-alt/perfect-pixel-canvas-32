@@ -1175,8 +1175,8 @@ function StepTwoLocation({
           })}
         </div>
 
-        {/* Lower two-column */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-10">
+        {/* Lower content (single column – HelpCard lives in outer sidebar) */}
+        <div className="mt-8">
           <div>
             {/* Search field */}
             <div ref={searchRef}>
@@ -1251,6 +1251,7 @@ function StepTwoLocation({
                 Hotel category
               </label>
               <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-3">
+
                 {HOTEL_CATEGORIES.map((c) => {
                   const selected = selectedHotelCategory === c.id;
                   const isNone = c.id === "none";
@@ -1261,7 +1262,7 @@ function StepTwoLocation({
                       onClick={() => setSelectedHotelCategory(c.id)}
                       aria-pressed={selected}
                       className={cn(
-                        "inline-flex items-center justify-center gap-2 rounded-md h-[46px] text-[15px] text-[#0A1B2C] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
+                        "inline-flex items-center justify-center gap-3 rounded-md h-[46px] text-[15px] text-[#0A1B2C] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
                         selected
                           ? isNone
                             ? "border-[1.5px] border-[#F5AE00] bg-[#FBF6EA] shadow-[0_8px_20px_-14px_rgba(200,154,58,0.5)]"
@@ -1297,9 +1298,9 @@ function StepTwoLocation({
                       type="button"
                       onClick={() => setSelectedHotelStyle(s.id)}
                       aria-pressed={selected}
-                      className="group flex flex-1 basis-[104px] flex-col items-center justify-center gap-2 rounded-md min-h-[86px] px-3 py-2 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+                      className="group inline-flex flex-1 basis-[160px] items-center justify-center gap-3 rounded-md h-[46px] px-5 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
                       style={{
-                        minWidth: 104,
+                        minWidth: 160,
                         background: selected
                           ? "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)"
                           : "#FFFFFF",
@@ -1323,35 +1324,24 @@ function StepTwoLocation({
                       }}
                     >
                       <s.Icon
-                        size={22}
+                        size={18}
                         strokeWidth={1.6}
-                        className="transition-transform duration-200 group-hover:scale-[1.04]"
-                        style={{ color: selected ? GOLD : "#0A1B2C" }}
+                        className="shrink-0 transition-transform duration-200 group-hover:scale-[1.04]"
+                        style={{ color: selected ? GOLD : "#4A5866" }}
                       />
-                      <span className="text-[12.5px] text-center leading-[1.25] break-words">
+                      <span className="text-[15px] leading-none whitespace-nowrap">
                         {s.label}
                       </span>
                     </button>
                   );
                 })}
               </div>
-            </div>
-          </div>
 
-          {/* Inline HelpCard (right column on desktop, stacks on mobile) */}
-          <div
-            className="rounded-[12px] p-5 self-start"
-            style={{
-              backgroundColor: "#FFFFFF",
-              border: "1px solid #EFEFEC",
-              boxShadow:
-                "0 10px 26px -18px rgba(10,27,44,0.14), 0 2px 6px -2px rgba(10,27,44,0.04)",
-            }}
-          >
-            <HelpCard />
+            </div>
           </div>
         </div>
       </div>
+
 
       {/* Navigation */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
