@@ -193,11 +193,11 @@ function Home() {
           </div>
 
           {/* TRUST ROW */}
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 lg:flex-nowrap lg:justify-between lg:gap-x-6">
           {TRUST.map(({ Icon, label, size }) => (
-            <div key={label} className="flex items-center gap-2">
+            <div key={label} className="flex items-center gap-2 shrink-0">
               <Icon size={size} />
-              <span className="text-[#F7F7F5] text-[16px] lg:text-[17px]">{label}</span>
+              <span className="text-[#F7F7F5] text-[16px] lg:text-[17px] whitespace-nowrap">{label}</span>
             </div>
           ))}
           </div>
