@@ -1443,7 +1443,6 @@ function StepThreeAccommodation({
   const [mealPlan, setMealPlan] = useState<MealPlan>("breakfast");
   const [stays, setStays] = useState<Stay[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [porter] = useState(false);
   const [special, setSpecial] = useState("");
 
   const totalRooms = stays.reduce((n, s) => n + roomsTotal(s.rooms), 0);
