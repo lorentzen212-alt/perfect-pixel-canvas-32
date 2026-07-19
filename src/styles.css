@@ -78,6 +78,19 @@
   }
 }
 
+.date-input-clean::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.date-input-clean::-webkit-inner-spin-button,
+.date-input-clean::-webkit-clear-button {
+  display: none;
+}
+
 @keyframes logo-mist-drift {
   0% {
     opacity: 0;
