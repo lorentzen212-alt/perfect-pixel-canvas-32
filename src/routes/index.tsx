@@ -69,8 +69,8 @@ function GoldLineWithDiamond({
 }) {
   return (
     <div className={cn("flex items-center", className)}>
-      <div className={cn("bg-[#B8A97C]", lineThickness, lineWidth)} />
-      <div className={cn("ml-0.5 rotate-45 bg-[#B8A97C]", diamondSize)} />
+      <div className={cn("bg-[#C3B8A4]", lineThickness, lineWidth)} />
+      <div className={cn("ml-0.5 rotate-45 bg-[#C3B8A4]", diamondSize)} />
     </div>
   );
 }
