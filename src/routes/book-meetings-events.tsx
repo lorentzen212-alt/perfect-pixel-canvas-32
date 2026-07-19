@@ -1212,7 +1212,7 @@ function StepTwoLocation({
         </div>
 
         {/* Lower two-column */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-10">
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 lg:gap-10">
           <div>
             {/* Search field */}
             <div ref={searchRef}>
