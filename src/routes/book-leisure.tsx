@@ -368,22 +368,38 @@ function BookLeisure() {
                         setCompany={setCompany}
                         phone={phone}
                         setPhone={setPhone}
+                        terms={terms}
+                        setTerms={setTerms}
+                        errors={errors}
                       />
                     )}
 
                     <div className="mt-8">
                       <PrimaryButton
-                        onClick={() =>
-                          step < 3 && go((step + 1) as StepKey)
-                        }
+                        onClick={() => {
+                          if (step < 3) {
+                            go((step + 1) as StepKey);
+                          } else {
+                            handleSubmit();
+                          }
+                        }}
+                        loading={step === 3 && submitting}
                         label={
-                          step === 1
-                            ? "Continue"
-                            : step === 2
-                              ? "Continue"
+                          step === 3
+                            ? submitting
+                              ? "Submitting..."
                               : "Submit Request"
+                            : "Continue"
                         }
                       />
+                      {submitError && step === 3 && (
+                        <p
+                          className="mt-3 text-center text-[13.5px]"
+                          style={{ color: "#B4231F" }}
+                        >
+                          {submitError}
+                        </p>
+                      )}
                       <div
                         className="mt-5 flex items-center justify-center gap-2 text-[13px]"
                         style={{ color: "#6B7280" }}
@@ -399,6 +415,7 @@ function BookLeisure() {
           </div>
         </div>
       </div>
+
 
       <style>{`
         @keyframes slide-in-right {
