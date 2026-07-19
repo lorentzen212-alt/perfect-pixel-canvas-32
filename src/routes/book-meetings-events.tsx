@@ -259,11 +259,14 @@ function BookMeetingsEvents() {
       <section className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14">
         <div className="mx-auto max-w-[1400px]">
           <div
-            className="overflow-hidden rounded-[14px] bg-white"
+            className="overflow-hidden rounded-[20px]"
             style={{
+              backgroundColor: "#FCFCFC",
+              backgroundImage:
+                "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
               boxShadow:
-                "0 30px 80px -40px rgba(4,17,26,0.35), 0 8px 24px -12px rgba(4,17,26,0.15)",
-              border: "1px solid #ECE6DA",
+                "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
+              border: "1px solid #ECECEC",
             }}
           >
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px]">
@@ -293,13 +296,27 @@ function BookMeetingsEvents() {
 
               {/* Help card */}
               <div
-                className="border-t lg:border-t-0 lg:border-l p-8 lg:p-10"
-                style={{ borderColor: "#ECE6DA", backgroundColor: "#FAF8F3" }}
+                className="p-8 lg:p-10 lg:pl-8"
+                style={{
+                  backgroundColor: "transparent",
+                  borderLeft: "1px solid #F1F1EE",
+                }}
               >
-                <HelpCard />
+                <div
+                  className="rounded-[16px] p-6"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #EFEFEC",
+                    boxShadow:
+                      "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+                  }}
+                >
+                  <HelpCard />
+                </div>
               </div>
             </div>
           </div>
+
 
           {/* Credibility */}
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center py-8 md:py-10 border-t border-b" style={{ borderColor: "#E4DFD3" }}>
