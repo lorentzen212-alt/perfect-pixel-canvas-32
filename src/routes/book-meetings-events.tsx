@@ -1980,28 +1980,89 @@ function Counter({
   return (
     <div>
       <div className="text-[#0A1B2C] text-[13px] font-medium mb-2">{label}</div>
-      <div
-        className="flex items-center justify-between rounded-[10px] h-[46px] px-1.5"
-        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+      <GuestCounter
+        value={value}
+        onChange={onChange}
+        containerClassName="h-[46px] w-full"
+      />
+    </div>
+  );
+}
+
+function GuestCounter({
+  value,
+  onChange,
+  className,
+  containerClassName,
+}: {
+  value: number;
+  onChange: (v: number) => void;
+  className?: string;
+  containerClassName?: string;
+}) {
+  const [raw, setRaw] = useState(String(value));
+
+  useEffect(() => {
+    setRaw(String(value));
+  }, [value]);
+
+  const commit = () => {
+    const digits = raw.replace(/\D/g, "");
+    const n = Math.max(0, parseInt(digits || "0", 10));
+    onChange(n);
+    setRaw(String(n));
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const digits = e.target.value.replace(/\D/g, "");
+    setRaw(digits);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.currentTarget.blur();
+    }
+  };
+
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-between rounded-[10px] px-1",
+        containerClassName
+      )}
+      style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+    >
+      <button
+        type="button"
+        onClick={() => onChange(Math.max(0, value - 1))}
+        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+        aria-label="Decrease"
       >
-        <button
-          type="button"
-          onClick={() => onChange(Math.max(0, value - 1))}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
-          aria-label={`Decrease ${label}`}
-        >
-          <Minus size={15} />
-        </button>
-        <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums">{value}</span>
-        <button
-          type="button"
-          onClick={() => onChange(value + 1)}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
-          aria-label={`Increase ${label}`}
-        >
-          <Plus size={15} />
-        </button>
-      </div>
+        <Minus size={15} />
+      </button>
+      <input
+        type="text"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        value={raw}
+        onChange={handleChange}
+        onBlur={commit}
+        onFocus={(e) => e.target.select()}
+        onKeyDown={handleKeyDown}
+        className={cn(
+          "flex-1 min-w-0 bg-transparent text-center outline-none text-[#0A1B2C] text-[15px] font-semibold tabular-nums",
+          className
+        )}
+      />
+      <button
+        type="button"
+        onClick={() => onChange(value + 1)}
+        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+        aria-label="Increase"
+      >
+        <Plus size={15} />
+      </button>
     </div>
   );
 }
@@ -2138,28 +2199,11 @@ function RoomCategoryRow({
         </span>
         <span className="text-[#0A1B2C] text-[14.5px] font-medium truncate">{label}</span>
       </div>
-      <div
-        className="flex items-center justify-between rounded-[10px] h-[40px] px-1 w-full sm:w-[132px]"
-        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
-      >
-        <button
-          type="button"
-          onClick={() => onValue(Math.max(0, value - 1))}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
-          aria-label={`Decrease ${label}`}
-        >
-          <Minus size={15} />
-        </button>
-        <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums">{value}</span>
-        <button
-          type="button"
-          onClick={() => onValue(value + 1)}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
-          aria-label={`Increase ${label}`}
-        >
-          <Plus size={15} />
-        </button>
-      </div>
+      <GuestCounter
+        value={value}
+        onChange={onValue}
+        containerClassName="h-[40px] w-full sm:w-[132px]"
+      />
       <div className="relative w-full sm:w-[180px]">
         <select
           value={cat}
