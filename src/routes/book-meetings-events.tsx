@@ -598,8 +598,8 @@ function NextButton({ onClick, label }: { onClick: () => void; label: string }) 
         minWidth: 220,
         background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
         boxShadow:
-          "0 12px 28px -10px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
-        border: "1px solid rgba(184,138,46,0.5)",
+          "0 18px 40px -18px rgba(200,154,58,0.55), 0 4px 10px -4px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
+        border: "1px solid rgba(184,138,46,0.45)",
       }}
     >
       {label}
