@@ -68,9 +68,9 @@ function GoldLineWithDiamond({
   diamondSize?: string;
 }) {
   const goldGradient =
-    "linear-gradient(90deg, #7A5A24 0%, #B08A3E 18%, #D9B871 42%, #F3DFA1 52%, #EBD292 60%, #C69B49 80%, #8A6528 100%)";
+    "linear-gradient(90deg, rgba(180,168,138,0) 0%, #B8A97C 12%, #D9C89A 28%, #EFE3BC 46%, #F7EEC9 52%, #EFE3BC 58%, #D9C89A 74%, #B8A97C 88%, rgba(180,168,138,0) 100%)";
   const diamondGradient =
-    "linear-gradient(135deg, #8A6528 0%, #C69B49 35%, #EBD292 55%, #B08A3E 80%, #7A5A24 100%)";
+    "linear-gradient(135deg, #8F855F 0%, #B8A97C 25%, #E4D6A8 50%, #F5EAC4 60%, #C9B888 80%, #8F855F 100%)";
   return (
     <div className={cn("flex items-center", className)}>
       <div
@@ -78,16 +78,21 @@ function GoldLineWithDiamond({
         style={{
           backgroundImage: goldGradient,
           clipPath:
-            "polygon(0% 50%, 6% 15%, 94% 15%, 100% 50%, 94% 85%, 6% 85%)",
+            "polygon(0% 50%, 3% 46%, 50% 0%, 97% 46%, 100% 50%, 97% 54%, 50% 100%, 3% 54%)",
+          filter: "drop-shadow(0 0 0.4px rgba(255,240,200,0.35))",
         }}
       />
       <div
         className={cn("ml-5 rotate-45", diamondSize)}
-        style={{ backgroundImage: diamondGradient }}
+        style={{
+          backgroundImage: diamondGradient,
+          boxShadow: "0 0 0.5px rgba(255,240,200,0.4)",
+        }}
       />
     </div>
   );
 }
+
 
 function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
