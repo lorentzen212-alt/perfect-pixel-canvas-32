@@ -310,7 +310,7 @@ function BookMeetingsEvents() {
               border: "1px solid #ECECEC",
             }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px]">
               <div className="p-6 sm:p-10 lg:p-12">
                 <div
                   key={step}
