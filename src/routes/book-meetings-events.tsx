@@ -2088,8 +2088,8 @@ function MealOption({
       onClick={onClick}
       className="flex items-center justify-between rounded-[14px] px-4 h-[56px] text-left transition-all duration-200 hover:-translate-y-[1px]"
       style={{
-        backgroundColor: selected ? "#FAF8F3" : "#FFFFFF",
-        border: `1px solid ${selected ? "rgba(212,175,55,0.45)" : "#E8E2D8"}`,
+        backgroundColor: selected ? "rgba(212,175,55,0.03)" : "#FFFFFF",
+        border: `1px solid ${selected ? "#D4AF37" : "#E8E2D8"}`,
         boxShadow: selected ? "0 4px 14px rgba(0,0,0,0.04)" : "0 2px 8px rgba(0,0,0,0.02)",
       }}
     >
