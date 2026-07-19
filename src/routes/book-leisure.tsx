@@ -13,6 +13,7 @@ import {
   Star,
   FileText,
   Check,
+  AlertTriangle,
   Minus,
   Plus,
   Loader2,
@@ -718,24 +719,12 @@ function StepOne(props: {
         <FieldLabel className="mt-4">Triple Rooms (TRP)</FieldLabel>
         <Counter value={props.trp} onChange={props.setTrp} />
 
-        <div
-          className="mt-5 rounded-xl px-4 py-3"
-          style={{ backgroundColor: "#F5EFE1" }}
-        >
-          <div className="flex items-center justify-between gap-2 text-[13.5px] whitespace-nowrap text-[#0A1626]">
-            <span>Total Rooms</span>
-            <span className="font-semibold">{props.totalRooms}</span>
-          </div>
-          <div className="mt-1 flex items-center justify-between gap-2 text-[13.5px] whitespace-nowrap text-[#0A1626]">
-            <span>Maximum Capacity</span>
-            <span className="font-semibold">{props.maxCapacity} Guests</span>
-          </div>
-        </div>
-        {props.capacityShortfall && (
-          <p className="mt-2 text-[12.5px]" style={{ color: "#B4231F" }}>
-            The selected rooms do not have enough capacity for the number of guests.
-          </p>
-        )}
+        <CapacityCard
+          totalRooms={props.totalRooms}
+          maxCapacity={props.maxCapacity}
+          guests={props.guests}
+          capacityShortfall={props.capacityShortfall}
+        />
       </ColumnBlock>
 
       {/* Column 3 - Special Requests */}
