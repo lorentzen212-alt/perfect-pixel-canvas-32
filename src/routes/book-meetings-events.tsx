@@ -1702,7 +1702,7 @@ function StepThreeAccommodation({
                       }}
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <LuxIconBadge size={36}>
+                        <LuxIconBadge size={36} tone="onDark">
                           <CalendarIcon size={16} strokeWidth={1.8} />
                         </LuxIconBadge>
                         <div className="min-w-0">
