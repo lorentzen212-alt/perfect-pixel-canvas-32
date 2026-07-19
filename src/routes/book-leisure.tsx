@@ -211,7 +211,7 @@ function BookLeisure() {
                   }
                 >
                   <div
-                    className="rounded-[26px] p-6 sm:p-8 lg:p-10"
+                    className="rounded-[26px] p-6 sm:p-8 lg:p-10 xl:px-[15px]"
                     style={{
                       backgroundColor: CARD_BG,
                       boxShadow:
