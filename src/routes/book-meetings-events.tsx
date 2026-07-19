@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
-import heroImg from "@/assets/me-hero.jpg";
+import heroImg from "@/assets/me-hero-suite.jpg";
 import osloImg from "@/assets/destinations/oslo.jpg";
 import bergenImg from "@/assets/destinations/bergen.jpg";
 import tromsoImg from "@/assets/destinations/tromso.jpg";
