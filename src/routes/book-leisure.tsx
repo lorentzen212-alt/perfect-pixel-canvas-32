@@ -438,6 +438,8 @@ function BookLeisure() {
 /* ---------- Sidebar ---------- */
 
 function Sidebar({ step, onGo }: { step: StepKey; onGo: (s: StepKey) => void }) {
+  const CIRCLE = 36; // px
+  const ROW_GAP = 28; // px between rows
   return (
     <aside
       className="relative border-b lg:border-b-0 lg:border-r p-6 lg:px-7 lg:py-8"
@@ -452,106 +454,97 @@ function Sidebar({ step, onGo }: { step: StepKey; onGo: (s: StepKey) => void }) 
         Back
       </Link>
 
-      <div className="relative mt-10">
-        {/* Vertical timeline segments - one per gap between steps */}
-        {[0, 1].map((i) => {
-          const completed = step > (i + 1);
-          return (
-            <div
-              key={i}
-              className="absolute left-[18px] w-px -translate-x-1/2 transition-all duration-500"
-              style={{
-                top: `calc(${i} * (100% / 3) + 36px)`,
-                height: `calc(100% / 3 - 20px)`,
-                background: completed
-                  ? `linear-gradient(to bottom, ${GOLD}, ${GOLD_SOFT})`
-                  : "transparent",
-                backgroundImage: completed
-                  ? undefined
-                  : `linear-gradient(to bottom, rgba(245,194,90,0.55) 50%, transparent 50%)`,
-                backgroundSize: completed ? undefined : "1px 5px",
-                backgroundRepeat: completed ? undefined : "repeat-y",
-                boxShadow: completed
-                  ? "0 0 8px rgba(245,194,90,0.45)"
-                  : "none",
-                opacity: completed ? 1 : 0.6,
-              }}
-              aria-hidden="true"
-            />
-          );
-        })}
-
-        <div className="flex flex-col gap-5">
-          {STEPS.map(({ n, title, sub, Icon }) => {
+      <div className="relative mt-10" style={{ ["--circle" as string]: `${CIRCLE}px` }}>
+        <div className="flex flex-col" style={{ gap: `${ROW_GAP}px` }}>
+          {STEPS.map(({ n, title, sub, Icon }, idx) => {
             const active = step === n;
             const completed = step > n;
+            const isLast = idx === STEPS.length - 1;
             return (
               <button
                 key={n}
                 type="button"
                 onClick={() => onGo(n)}
-                className="group relative flex items-start gap-4 text-left"
+                className="group relative flex items-stretch gap-4 text-left"
               >
-                <span
-                  className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[13px] font-semibold transition-all duration-300"
-                  style={{
-                    backgroundColor: active
-                      ? GOLD
-                      : completed
-                        ? "rgba(245,194,90,0.08)"
-                        : "rgba(6, 21, 35, 0.9)",
-                    color: active ? "#0A1626" : GOLD,
-                    border: `1px solid ${completed || active ? GOLD : "rgba(245,194,90,0.5)"}`,
-                    boxShadow: active
-                      ? "0 0 0 5px rgba(245,194,90,0.10), 0 0 22px -4px rgba(245,194,90,0.55)"
-                      : completed
-                        ? "0 0 12px -4px rgba(245,194,90,0.35)"
+                {/* Circle + connecting line column */}
+                <div className="relative flex flex-col items-center" style={{ width: CIRCLE }}>
+                  <span
+                    className="relative z-10 flex shrink-0 items-center justify-center rounded-full text-[13px] font-semibold transition-all duration-[250ms]"
+                    style={{
+                      width: CIRCLE,
+                      height: CIRCLE,
+                      backgroundColor: active
+                        ? GOLD
+                        : completed
+                          ? "rgba(245,194,90,0.10)"
+                          : "rgba(6, 21, 35, 0.9)",
+                      color: active ? "#0A1626" : "#FFFFFF",
+                      border: `1px solid ${active || completed ? GOLD : "rgba(245,194,90,0.55)"}`,
+                      boxShadow: active
+                        ? "0 0 0 5px rgba(245,194,90,0.10), 0 0 22px -4px rgba(245,194,90,0.55)"
                         : "none",
-                  }}
-                >
-                  {completed ? (
-                    <Check size={15} strokeWidth={2.4} style={{ color: GOLD }} />
-                  ) : (
-                    n
-                  )}
-                </span>
+                    }}
+                  >
+                    {completed ? (
+                      <Check size={16} strokeWidth={2.4} style={{ color: GOLD }} />
+                    ) : (
+                      n
+                    )}
+                  </span>
 
+                  {!isLast && (
+                    <span
+                      aria-hidden="true"
+                      className="w-px flex-1 transition-all duration-[250ms]"
+                      style={{
+                        marginTop: 4,
+                        marginBottom: -ROW_GAP - 4,
+                        backgroundColor: completed ? GOLD : "rgba(245,194,90,0.45)",
+                        boxShadow: completed ? "0 0 6px rgba(245,194,90,0.55)" : "none",
+                      }}
+                    />
+                  )}
+                </div>
+
+                {/* Card */}
                 <div
-                  className="flex-1 min-w-0 rounded-2xl px-4 py-3 -my-1 transition-all duration-300 group-hover:border-[rgba(245,194,90,0.25)]"
+                  className="flex-1 min-w-0 rounded-2xl px-5 py-4 transition-all duration-[250ms]"
                   style={
                     active
                       ? {
                           background:
                             "linear-gradient(180deg, rgba(20,44,72,0.9) 0%, rgba(10,26,44,0.9) 100%)",
-                          border: `1px solid ${BORDER}`,
+                          border: `1px solid ${GOLD}`,
                           boxShadow:
-                            "inset 0 1px 0 rgba(255,255,255,0.04), 0 0 26px -10px rgba(245,194,90,0.35)",
+                            "inset 0 1px 0 rgba(255,255,255,0.04), 0 0 24px -10px rgba(245,194,90,0.45)",
                         }
-                      : {
-                          border: "1px solid transparent",
-                        }
+                      : { border: "1px solid transparent" }
                   }
                 >
-                  <div className="flex items-center justify-end">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <div
+                        className="text-[18px] font-medium tracking-tight leading-tight"
+                        style={{
+                          color: active ? GOLD : "#FFFFFF",
+                          fontFamily: SERIF,
+                        }}
+                      >
+                        {title}
+                      </div>
+                      <div className="mt-1 text-[12.5px] tracking-wide" style={{ color: "#8B96A3" }}>
+                        {sub}
+                      </div>
+                    </div>
                     <Icon
                       size={18}
                       strokeWidth={1.6}
                       style={{
-                        color: active || completed ? GOLD : "rgba(245,194,90,0.6)",
+                        color: active ? GOLD : "rgba(245,194,90,0.65)",
+                        flexShrink: 0,
                       }}
                     />
-                  </div>
-                  <div
-                    className="mt-1 text-[18px] font-medium tracking-tight"
-                    style={{
-                      color: active ? GOLD : completed ? "#F0E7D2" : "#E8E8E4",
-                      fontFamily: SERIF,
-                    }}
-                  >
-                    {title}
-                  </div>
-                  <div className="text-[12.5px] tracking-wide" style={{ color: "#8B96A3" }}>
-                    {sub}
                   </div>
                 </div>
               </button>
