@@ -326,6 +326,12 @@ function BookMeetingsEvents() {
               onNext={handleNext}
               direction={direction}
             />
+          ) : step === 3 ? (
+            <StepThreeMeetingSpaces
+              onBack={() => go(2)}
+              onNext={handleNext}
+              direction={direction}
+            />
           ) : (
             <div
               className="overflow-hidden rounded-[20px]"
@@ -357,7 +363,7 @@ function BookMeetingsEvents() {
                         onNext={handleNext}
                       />
                     )}
-                    {(step === 3 || step === 4 || step === 5 || step === 7) && (
+                    {(step === 4 || step === 5 || step === 7) && (
                       <StepPlaceholder
                         step={step}
                         title={STEPS[step - 1]}
@@ -369,6 +375,7 @@ function BookMeetingsEvents() {
 
                   </div>
                 </div>
+
 
                 {/* Help card */}
                 <div
