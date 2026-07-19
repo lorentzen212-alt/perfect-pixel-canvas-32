@@ -2032,7 +2032,7 @@ function GuestCounter({
   return (
     <div
       className={cn(
-        "flex items-center justify-between rounded-[14px] px-1",
+        "flex items-center rounded-[12px] overflow-hidden",
         containerClassName
       )}
       style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8E2D8", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}
@@ -2040,7 +2040,8 @@ function GuestCounter({
       <button
         type="button"
         onClick={() => onChange(Math.max(0, value - 1))}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-[10px] text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
+        className="inline-flex h-full w-10 shrink-0 items-center justify-center text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
+        style={{ borderRight: "1px solid #EEE7D6" }}
         aria-label="Decrease"
       >
         <Minus size={15} stroke="url(#champagneGold)" strokeWidth={1.7} />
@@ -2055,14 +2056,15 @@ function GuestCounter({
         onFocus={(e) => e.target.select()}
         onKeyDown={handleKeyDown}
         className={cn(
-          "flex-1 min-w-0 bg-transparent text-center outline-none text-[#0A1B2C] text-[15px] font-semibold tabular-nums",
+          "flex-1 min-w-0 h-full bg-transparent text-center outline-none text-[#0A1B2C] text-[15px] font-semibold tabular-nums",
           className
         )}
       />
       <button
         type="button"
         onClick={() => onChange(value + 1)}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-[10px] text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
+        className="inline-flex h-full w-10 shrink-0 items-center justify-center text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
+        style={{ borderLeft: "1px solid #EEE7D6" }}
         aria-label="Increase"
       >
         <Plus size={15} stroke="url(#champagneGold)" strokeWidth={1.7} />
