@@ -49,130 +49,11 @@ const NAV_LINKS = [
   { label: "Support", href: "#support" },
 ];
 
-// Premium metallic duotone gold icons
-const GOLD_HI = "#F4C95D";
-const GOLD_MID = "#D4A72C";
-const GOLD_LO = "#8F6A12";
-const GOLD_FILL = "rgba(212, 167, 44, 0.12)";
-const GOLD_INNER = "rgba(244, 201, 93, 0.35)";
-
-type IconProps = { size?: number; className?: string };
-
-const svgBase = {
-  fill: "none" as const,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-  strokeWidth: 2,
-};
-
-function IconDefs({ id }: { id: string }) {
-  return (
-    <defs>
-      <linearGradient id={`${id}-stroke`} x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor={GOLD_HI} />
-        <stop offset="55%" stopColor={GOLD_MID} />
-        <stop offset="100%" stopColor={GOLD_LO} />
-      </linearGradient>
-      <linearGradient id={`${id}-fill`} x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="rgba(244,201,93,0.22)" />
-        <stop offset="100%" stopColor="rgba(143,106,18,0.10)" />
-      </linearGradient>
-    </defs>
-  );
-}
-
-function ShieldCheckIcon({ size = 40, className }: IconProps) {
-  const id = "ic-shield";
-  const s = `url(#${id}-stroke)`;
-  const f = `url(#${id}-fill)`;
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" className={className} aria-hidden="true" {...svgBase}>
-      <IconDefs id={id} />
-      <path d="M20 4 7 8v10.2C7 25.7 12.4 32.4 20 34.8 27.6 32.4 33 25.7 33 18.2V8L20 4Z" fill={f} stroke={s} />
-      <path d="M12 10.4 20 8l8 2.4v7.8c0 5.6-3.4 10.4-8 12.4-4.6-2-8-6.8-8-12.4v-7.8Z" stroke={GOLD_INNER} strokeWidth="1.1" />
-      <path d="m14.6 20 3.7 3.7 7.1-7.4" stroke={s} />
-    </svg>
-  );
-}
-
-function ClockIcon({ size = 40, className }: IconProps) {
-  const id = "ic-clock";
-  const s = `url(#${id}-stroke)`;
-  const f = `url(#${id}-fill)`;
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" className={className} aria-hidden="true" {...svgBase}>
-      <IconDefs id={id} />
-      <circle cx="20" cy="20" r="15" fill={f} stroke={s} />
-      <circle cx="20" cy="20" r="11.2" stroke={GOLD_INNER} strokeWidth="1.1" />
-      <path d="M20 7.5V9.6M20 30.4v2.1M7.5 20H9.6M30.4 20h2.1" stroke={s} strokeWidth="1.6" />
-      <path d="M20 12v8l5.2 3.2" stroke={s} />
-      <circle cx="20" cy="20" r="1.4" fill={GOLD_HI} />
-    </svg>
-  );
-}
-
-function HeadsetIcon({ size = 40, className }: IconProps) {
-  const id = "ic-head";
-  const s = `url(#${id}-stroke)`;
-  const f = `url(#${id}-fill)`;
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" className={className} aria-hidden="true" {...svgBase}>
-      <IconDefs id={id} />
-      {/* headband */}
-      <path d="M7 22.4v-2.2a13 13 0 0 1 26 0v2.2" stroke={s} />
-      {/* ear cups */}
-      <path d="M6.2 22.6c0-1.35 1.05-2.4 2.4-2.4h2.4v9H8.6a2.4 2.4 0 0 1-2.4-2.4v-4.2Z" fill={f} stroke={s} />
-      <path d="M33.8 22.6c0-1.35-1.05-2.4-2.4-2.4H29v9h2.4a2.4 2.4 0 0 0 2.4-2.4v-4.2Z" fill={f} stroke={s} />
-      {/* grille */}
-      <path d="M8.6 22.9v5.4M31.4 22.9v5.4" stroke={GOLD_INNER} strokeWidth="1.1" />
-      {/* mic boom */}
-      <path d="M29 29.2v1.4a4 4 0 0 1-4 4h-3.8" stroke={s} />
-      <circle cx="20" cy="34.6" r="1.5" fill={f} stroke={s} />
-    </svg>
-  );
-}
-
-function PadlockIcon({ size = 40, className }: IconProps) {
-  const id = "ic-lock";
-  const s = `url(#${id}-stroke)`;
-  const f = `url(#${id}-fill)`;
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" className={className} aria-hidden="true" {...svgBase}>
-      <IconDefs id={id} />
-      <path d="M12.4 17.8v-4.6a7.6 7.6 0 0 1 15.2 0v4.6" stroke={s} />
-      <rect x="8.4" y="17.8" width="23.2" height="17" rx="3" fill={f} stroke={s} />
-      <rect x="11" y="20" width="18" height="12.4" rx="2" stroke={GOLD_INNER} strokeWidth="1.1" />
-      <circle cx="20" cy="24.8" r="1.9" stroke={s} />
-      <path d="M20 26.4v3.6" stroke={s} />
-    </svg>
-  );
-}
-
-function GroupIcon({ size = 40, className }: IconProps) {
-  const id = "ic-group";
-  const s = `url(#${id}-stroke)`;
-  const f = `url(#${id}-fill)`;
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" className={className} aria-hidden="true" {...svgBase}>
-      <IconDefs id={id} />
-      {/* left */}
-      <circle cx="14" cy="15" r="3.6" fill={f} stroke={s} />
-      <path d="M6 29.2c0-3.6 3.2-6.5 8-6.5s8 2.9 8 6.5" stroke={s} />
-      {/* right */}
-      <circle cx="26" cy="15" r="3.6" fill={f} stroke={s} />
-      <path d="M18 29.2c0-3.6 3.2-6.5 8-6.5s8 2.9 8 6.5" stroke={s} />
-      {/* horizon */}
-      <path d="M4.5 33.2c4.6 1.6 9.9 2.4 15.5 2.4s10.9-.8 15.5-2.4" stroke={GOLD_INNER} strokeWidth="1.1" />
-    </svg>
-  );
-}
-
 const TRUST = [
-  { Icon: ShieldCheckIcon, label: "No commitment" },
-  { Icon: ClockIcon, label: "Fast and free" },
-  { Icon: HeadsetIcon, label: "Expert support" },
-  { Icon: PadlockIcon, label: "Secure & trusted" },
-  { Icon: GroupIcon, label: (<>Built by group booking<br /> professionals</>) },
+  { Icon: ShieldCheck, label: "No commitment" },
+  { Icon: Clock, label: "Fast and free" },
+  { Icon: Headphones, label: "Expert support" },
+  { Icon: Lock, label: "Secure & trusted" },
 ];
 
 function GoldLineWithDiamond({
@@ -304,30 +185,24 @@ function Home() {
             />
           </div>
 
-          {/* TRUST ROW — luxury feature strip */}
-          <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 items-stretch">
-            {TRUST.map(({ Icon, label }, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "flex flex-col items-center justify-start text-center px-3 lg:px-4 py-1",
-                  i > 0 && "lg:border-l lg:border-[rgba(212,167,44,0.22)]"
-                )}
-              >
-                <span
-                  className="inline-flex items-center justify-center"
-                  style={{
-                    filter:
-                      "drop-shadow(0 1px 0 rgba(0,0,0,0.45)) drop-shadow(0 6px 14px rgba(143,106,18,0.22))",
-                  }}
-                >
-                  <Icon size={40} />
-                </span>
-                <span className="mt-3 text-[#EDE6D3] text-[13.5px] lg:text-[14px] leading-snug tracking-[0.01em]">
-                  {label}
-                </span>
+          {/* TRUST ROW */}
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
+            {TRUST.map(({ Icon, label }) => (
+              <div key={label} className="flex items-center gap-2">
+                <Icon className="text-[#F5AE00]" size={22} strokeWidth={2} />
+                <span className="text-[#F7F7F5] text-[16px] lg:text-[17px]">{label}</span>
               </div>
             ))}
+          </div>
+
+          {/* BUILT BY */}
+          <div className="mt-5 flex items-start gap-3">
+            <UsersRound className="text-[#F5AE00] shrink-0 mt-0.5" size={26} strokeWidth={2} />
+            <p className="text-[#F7F7F5] text-[15px] lg:text-[16px] leading-snug">
+              Built by group booking professionals
+              <br className="hidden sm:block" />
+              with experience from 10,000+ groups.
+            </p>
           </div>
         </section>
       </div>
