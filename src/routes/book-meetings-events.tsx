@@ -1679,20 +1679,15 @@ function StepThreeAccommodation({
               type="button"
               onClick={addStay}
               disabled={!checkIn || !checkOut}
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold disabled:opacity-40 transition-all duration-200 hover:-translate-y-[1px]"
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold disabled:opacity-40 transition-all duration-200 hover:-translate-y-[1px] hover:border-[#DCC48A]"
               style={{
-                color: "#0A1B2C",
-                background: "linear-gradient(180deg,#FFFFFF 0%,#FAF8F3 100%)",
+                color: "#B88917",
+                background: "#FFFFFF",
                 border: "1px solid #E8E2D8",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.04)",
+                boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
               }}
             >
-              <span
-                className="inline-flex items-center justify-center rounded-full"
-                style={{ background: "linear-gradient(180deg,#F5E7C0 0%,#E6CF8A 100%)" }}
-              >
-                <Plus size={16} stroke="#0A1B2C" strokeWidth={2} className="m-1" />
-              </span>
+              <Plus size={16} stroke="#B88917" strokeWidth={2} />
               Complete stay and continue
             </button>
 
