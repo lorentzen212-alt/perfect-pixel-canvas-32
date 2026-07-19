@@ -421,60 +421,111 @@ function BookMeetingsEvents() {
 /* --------- Step Progress --------- */
 
 function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void }) {
+  const total = STEPS.length;
+  // Circle centers are at (2k-1)/(2*total) of the container width (each button = flex-1).
+  const centerOffset = `calc(100% / ${2 * total})`;
+  const goldWidth = `calc((100% / ${total}) * ${step - 1})`;
+  // Active circle is 40px; inactive/completed 36px. Line sits at y=20 (active center).
+  const ROW_H = 40;
+  const LINE_TOP = ROW_H / 2; // 20
+
   return (
     <div className="relative">
       <div className="relative flex items-start justify-between gap-2">
-        {/* Line behind circles */}
+        {/* Grey base line spanning first→last circle center */}
         <div
-          className="pointer-events-none absolute left-0 right-0"
-          style={{ top: 17 }}
-        >
-          <div className="mx-6 h-px" style={{ backgroundColor: "rgba(245,194,90,0.35)" }} />
-          <div
-            className="absolute left-6 h-px transition-all duration-500"
-            style={{
-              top: 0,
-              width: `calc((100% - 48px) * ${(step - 1) / (STEPS.length - 1)})`,
-              background: `linear-gradient(90deg, ${GOLD} 0%, #FFD97A 100%)`,
-              boxShadow: `0 0 12px rgba(245,194,90,0.55)`,
-            }}
-          />
-        </div>
+          aria-hidden
+          className="pointer-events-none absolute h-px"
+          style={{
+            top: LINE_TOP,
+            left: centerOffset,
+            right: centerOffset,
+            backgroundColor: "rgba(255,255,255,0.18)",
+          }}
+        />
+        {/* Gold progress line from first circle center to active circle center */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute h-px transition-[width] duration-300 ease-out"
+          style={{
+            top: LINE_TOP,
+            left: centerOffset,
+            width: goldWidth,
+            background: `linear-gradient(90deg, ${GOLD} 0%, #FFD97A 100%)`,
+            boxShadow: `0 0 12px rgba(245,194,90,0.55)`,
+          }}
+        />
 
         {STEPS.map((label, i) => {
           const n = i + 1;
           const active = n === step;
           const completed = n < step;
+          const size = active ? 40 : 36;
           return (
             <button
               key={label}
               type="button"
               onClick={() => (completed ? onGo(n) : undefined)}
               className="relative z-10 flex flex-col items-center gap-2 flex-1 min-w-0"
+              style={{ cursor: completed ? "pointer" : "default" }}
             >
+              {/* Fixed-height slot centers every circle on the same y */}
               <span
-                className="flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold transition-all duration-[250ms]"
-                style={{
-                  backgroundColor: active
-                    ? GOLD
-                    : completed
-                      ? "rgba(245,194,90,0.15)"
-                      : "rgba(4,17,26,0.85)",
-                  color: active ? NAVY_DEEP : "#FFFFFF",
-                  border: `1px solid ${active || completed ? GOLD : "rgba(255,255,255,0.55)"}`,
-                  boxShadow: active
-                    ? "0 0 0 5px rgba(245,194,90,0.12), 0 0 20px rgba(245,194,90,0.45)"
-                    : "none",
-                }}
+                className="flex items-center justify-center"
+                style={{ height: ROW_H }}
               >
-                {n}
+                <span
+                  className="flex items-center justify-center rounded-full text-[13px] font-semibold transition-all duration-300 ease-out"
+                  style={{
+                    width: size,
+                    height: size,
+                    background: active
+                      ? "radial-gradient(circle at 30% 30%, #FFE29A 0%, #F5C24E 45%, #C89A3A 100%)"
+                      : completed
+                        ? "linear-gradient(180deg, #0F2A47 0%, #0A1B2C 100%)"
+                        : "rgba(4,17,26,0.85)",
+                    color: active ? "#FFFFFF" : "#FFFFFF",
+                    border: active
+                      ? "1px solid rgba(255,215,140,0.9)"
+                      : completed
+                        ? `1px solid ${GOLD}`
+                        : "1px solid rgba(255,255,255,0.55)",
+                    boxShadow: active
+                      ? "0 0 0 6px rgba(245,194,90,0.10), 0 0 22px rgba(245,194,90,0.55), 0 6px 14px -4px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,255,255,0.55)"
+                      : completed
+                        ? "0 6px 14px -8px rgba(10,27,44,0.55), inset 0 1px 0 rgba(255,255,255,0.06)"
+                        : "none",
+                  }}
+                >
+                  {completed ? (
+                    <Check
+                      size={16}
+                      strokeWidth={2.6}
+                      style={{ color: GOLD }}
+                      className="animate-scale-in"
+                    />
+                  ) : (
+                    <span
+                      className="transition-opacity duration-300"
+                      style={{
+                        textShadow: active
+                          ? "0 1px 2px rgba(120,80,10,0.35)"
+                          : undefined,
+                      }}
+                    >
+                      {n}
+                    </span>
+                  )}
+                </span>
               </span>
               <span
-                className={cn(
-                  "text-[13px] lg:text-[14px] font-medium text-center whitespace-nowrap transition-colors duration-[250ms]",
-                )}
+                className="text-[13px] lg:text-[14px] font-medium text-center whitespace-nowrap transition-colors duration-300"
                 style={{
-                  color: active ? GOLD : "rgba(255,255,255,0.85)",
+                  color: active
+                    ? GOLD
+                    : completed
+                      ? "rgba(255,255,255,0.95)"
+                      : "rgba(255,255,255,0.75)",
                 }}
               >
                 {label}
@@ -486,6 +537,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
     </div>
   );
 }
+
 
 /* --------- Step 1 --------- */
 
