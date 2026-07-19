@@ -1824,24 +1824,18 @@ function StepThreeAccommodation({
                   href="tel:+4721002100"
                   className="flex items-center gap-3 text-white/90 text-[13.5px] hover:text-[#F7D97A] transition-colors"
                 >
-                  <span
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full"
-                    style={{ border: "1px solid rgba(212,175,55,0.4)" }}
-                  >
-                    <Phone size={14} style={{ color: GOLD }} />
-                  </span>
+                  <LuxIconBadge size={32} tone="onDark">
+                    <Phone size={14} />
+                  </LuxIconBadge>
                   +47 21 00 21 00
                 </a>
                 <a
                   href="mailto:meetings@hotelgroupbook.com"
                   className="flex items-center gap-3 text-white/90 text-[13.5px] hover:text-[#F7D97A] transition-colors whitespace-nowrap"
                 >
-                  <span
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full"
-                    style={{ border: "1px solid rgba(212,175,55,0.4)" }}
-                  >
-                    <Mail size={14} style={{ color: GOLD }} />
-                  </span>
+                  <LuxIconBadge size={32} tone="onDark">
+                    <Mail size={14} />
+                  </LuxIconBadge>
                   meetings@hotelgroupbook.com
                 </a>
               </div>
@@ -1856,12 +1850,11 @@ function StepThreeAccommodation({
                 border: "1px solid rgba(212,175,55,0.22)",
               }}
             >
-              <span
-                className="mx-auto inline-flex h-11 w-11 items-center justify-center rounded-full"
-                style={{ border: "1px solid rgba(212,175,55,0.45)" }}
-              >
-                <Users size={20} style={{ color: GOLD }} />
-              </span>
+              <div className="mx-auto flex items-center justify-center">
+                <LuxIconBadge size={44} tone="onDark">
+                  <Users size={20} />
+                </LuxIconBadge>
+              </div>
               <p
                 className="mt-3 text-white text-[15px] leading-snug"
                 style={{ fontFamily: SERIF }}
