@@ -231,7 +231,7 @@ function BookMeetingsEvents() {
               )}
               <Link
                 to="/manage-bookings"
-                className="inline-flex items-center gap-[13px] rounded-[6px] px-[24px] h-[51px] text-[16px] font-medium transition-all duration-200 ease-out hover:-translate-y-[2px] hover:brightness-[1.04] active:translate-y-0 active:brightness-95"
+                className="inline-flex items-center gap-[13px] rounded-[6px] px-[18px] h-[51px] text-[16px] font-medium transition-all duration-200 ease-out hover:-translate-y-[2px] hover:brightness-[1.04] active:translate-y-0 active:brightness-95"
                 style={{
                   color: "#0F1B2D",
                   background:
@@ -2107,23 +2107,6 @@ function StepThreeAccommodation({
               </p>
             </div>
 
-            {/* Continue button */}
-            <button
-              type="button"
-              onClick={onNext}
-              className="group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-[10px] h-[56px] text-[16px] font-semibold"
-              style={{
-                color: "#0F1B2D",
-                background:
-                  "linear-gradient(180deg,#F9DE8A 0%,#EAC15C 40%,#D4AF37 75%,#B88917 100%)",
-                border: "1px solid rgba(184,137,23,0.85)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 0 rgba(122,84,10,0.35), 0 10px 24px -10px rgba(184,137,23,0.55), 0 0 26px rgba(212,175,55,0.28)",
-              }}
-            >
-              Continue
-              <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
-            </button>
           </aside>
         </div>
       </div>
