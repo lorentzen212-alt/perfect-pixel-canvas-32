@@ -423,11 +423,10 @@ function BookMeetingsEvents() {
 function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void }) {
   const total = STEPS.length;
   const progressPercentage = ((step - 1) / (total - 1)) * 100;
-  const [pulseKey, setPulseKey] = React.useState(step);
-  const prevStep = React.useRef(step);
-  React.useEffect(() => {
+  const [pulseKey, setPulseKey] = useState(step);
+  const prevStep = useRef(step);
+  useEffect(() => {
     if (prevStep.current !== step) {
-      // Delay pulse until the line finishes animating to the new step.
       const t = window.setTimeout(() => setPulseKey(step), 500);
       prevStep.current = step;
       return () => window.clearTimeout(t);
