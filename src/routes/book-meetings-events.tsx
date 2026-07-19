@@ -1538,9 +1538,15 @@ function StepThreeAccommodation({
                 <div className="flex items-center gap-3">
                   <span
                     className="inline-flex h-10 w-10 items-center justify-center rounded-[10px]"
-                    style={{ backgroundColor: "#FAF3E1" }}
+                    style={{
+                      background:
+                        "linear-gradient(145deg, rgba(255,251,238,1), rgba(249,241,214,0.72))",
+                      border: "1px solid rgba(212,175,55,0.32)",
+                      boxShadow:
+                        "inset 0 1px 0 rgba(255,255,255,0.9), 0 3px 10px rgba(166,120,22,0.06)",
+                    }}
                   >
-                    <CalendarIcon size={20} stroke="url(#champagneGold)" strokeWidth={1.8} />
+                    <CalendarIcon size={20} stroke="url(#champagneGold)" strokeWidth={2} />
                   </span>
                   <h3
                     className="text-[#0A1B2C] text-[18px] font-semibold leading-tight"
