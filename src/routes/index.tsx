@@ -49,11 +49,80 @@ const NAV_LINKS = [
   { label: "Support", href: "#support" },
 ];
 
+// Premium duotone gold icons — handcrafted, thin strokes, subtle inner shading
+const GOLD = "#D4AF37";
+const GOLD_SOFT = "rgba(212,175,55,0.28)";
+
+type IconProps = { size?: number; className?: string };
+
+function ShieldCheckIcon({ size = 22, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path d="M12 2.75 4.5 5.25v6.1c0 4.55 3.15 8.5 7.5 9.9 4.35-1.4 7.5-5.35 7.5-9.9v-6.1L12 2.75Z" fill={GOLD_SOFT} />
+      <path d="M12 2.75 4.5 5.25v6.1c0 4.55 3.15 8.5 7.5 9.9 4.35-1.4 7.5-5.35 7.5-9.9v-6.1L12 2.75Z" stroke={GOLD} strokeWidth="1.15" strokeLinejoin="round" />
+      <path d="m8.6 12.1 2.3 2.3 4.5-4.6" stroke={GOLD} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ClockIcon({ size = 22, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <circle cx="12" cy="12" r="9" fill={GOLD_SOFT} />
+      <circle cx="12" cy="12" r="9" stroke={GOLD} strokeWidth="1.15" />
+      <circle cx="12" cy="12" r="6.4" stroke={GOLD} strokeWidth="0.6" strokeOpacity="0.55" />
+      <path d="M12 7.2V12l3.1 1.9" stroke={GOLD} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function HeadsetIcon({ size = 22, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path d="M4 14v-2a8 8 0 0 1 16 0v2" stroke={GOLD} strokeWidth="1.15" strokeLinecap="round" />
+      <path d="M3.6 14.2c0-.9.7-1.6 1.6-1.6h1.3v5.2H5.2c-.9 0-1.6-.7-1.6-1.6v-2Z" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.15" strokeLinejoin="round" />
+      <path d="M20.4 14.2c0-.9-.7-1.6-1.6-1.6h-1.3v5.2h1.3c.9 0 1.6-.7 1.6-1.6v-2Z" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.15" strokeLinejoin="round" />
+      <path d="M17.5 17.8v.4a2.6 2.6 0 0 1-2.6 2.6H13" stroke={GOLD} strokeWidth="1.15" strokeLinecap="round" />
+      <circle cx="12" cy="20.8" r="0.9" fill={GOLD} />
+    </svg>
+  );
+}
+
+function PadlockIcon({ size = 22, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path d="M7.5 10.5V7.75a4.5 4.5 0 0 1 9 0V10.5" stroke={GOLD} strokeWidth="1.15" strokeLinecap="round" />
+      <rect x="5" y="10.5" width="14" height="10.5" rx="2" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.15" />
+      <path d="M12 14.4v3" stroke={GOLD} strokeWidth="1.25" strokeLinecap="round" />
+      <circle cx="12" cy="14.2" r="1.05" fill={GOLD} />
+    </svg>
+  );
+}
+
+function GroupHorizonIcon({ size = 26, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 28 28" fill="none" className={className} aria-hidden="true">
+      {/* center figure */}
+      <circle cx="14" cy="7.5" r="2.4" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.1" />
+      <path d="M9.8 15.5c.4-2.2 2.2-3.6 4.2-3.6s3.8 1.4 4.2 3.6" stroke={GOLD} strokeWidth="1.1" strokeLinecap="round" />
+      {/* left figure */}
+      <circle cx="7.4" cy="9" r="1.9" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.1" />
+      <path d="M3.8 16c.3-1.8 1.8-3 3.6-3" stroke={GOLD} strokeWidth="1.1" strokeLinecap="round" />
+      {/* right figure */}
+      <circle cx="20.6" cy="9" r="1.9" fill={GOLD_SOFT} stroke={GOLD} strokeWidth="1.1" />
+      <path d="M24.2 16c-.3-1.8-1.8-3-3.6-3" stroke={GOLD} strokeWidth="1.1" strokeLinecap="round" />
+      {/* curved horizon */}
+      <path d="M2.5 20c3.4 2.4 8 3.6 11.5 3.6S22.1 22.4 25.5 20" stroke={GOLD} strokeWidth="1.15" strokeLinecap="round" />
+      <path d="M5 22.2c2.8 1.4 6 2.1 9 2.1s6.2-.7 9-2.1" stroke={GOLD} strokeWidth="0.7" strokeOpacity="0.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 const TRUST = [
-  { Icon: ShieldCheck, label: "No commitment" },
-  { Icon: Clock, label: "Fast and free" },
-  { Icon: Headphones, label: "Expert support" },
-  { Icon: Lock, label: "Secure & trusted" },
+  { Icon: ShieldCheckIcon, label: "No commitment" },
+  { Icon: ClockIcon, label: "Fast and free" },
+  { Icon: HeadsetIcon, label: "Expert support" },
+  { Icon: PadlockIcon, label: "Secure & trusted" },
 ];
 
 function GoldLineWithDiamond({
