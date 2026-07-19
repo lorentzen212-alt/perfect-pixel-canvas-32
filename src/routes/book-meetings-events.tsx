@@ -344,14 +344,14 @@ function BookMeetingsEvents() {
 
               {/* Help card */}
               <div
-                className="p-8 lg:p-10 lg:pl-8"
+                className="p-6 lg:p-8 lg:pl-6"
                 style={{
                   backgroundColor: "transparent",
                   borderLeft: "1px solid #F1F1EE",
                 }}
               >
                 <div
-                  className="rounded-[16px] p-6"
+                  className="rounded-[16px] p-5"
                   style={{
                     backgroundColor: "#FFFFFF",
                     border: "1px solid #EFEFEC",
