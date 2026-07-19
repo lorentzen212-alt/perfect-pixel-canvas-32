@@ -471,7 +471,7 @@ function StepOne(props: {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(240px,1fr)_minmax(240px,1fr)_minmax(220px,0.9fr)_minmax(260px,1.45fr)] gap-8 xl:gap-0">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(260px,1fr)_minmax(260px,1fr)_minmax(220px,0.9fr)_minmax(280px,1.45fr)] gap-8 xl:gap-0">
       {/* Column 1 - Destination */}
       <ColumnBlock icon={<MapPin size={18} strokeWidth={1.8} />} title="Destination">
         <FieldLabel>Country</FieldLabel>
@@ -479,14 +479,14 @@ function StepOne(props: {
           value={props.country}
           onValueChange={(v) => props.setCountry(v as CountryCode)}
         >
-          <StyledSelectTrigger>
+          <DestinationSelectTrigger>
             <span className="flex items-center gap-2 min-w-0">
               <activeCountry.Flag />
               <span className="text-[15px] text-[#0A1626] truncate">
                 {activeCountry.name}
               </span>
             </span>
-          </StyledSelectTrigger>
+          </DestinationSelectTrigger>
           <StyledSelectContent>
             {COUNTRIES.map(({ code, name, Flag }) => (
               <SelectItem key={code} value={code}>
@@ -501,11 +501,11 @@ function StepOne(props: {
 
         <FieldLabel className="mt-5">City</FieldLabel>
         <Select value={props.city} onValueChange={props.setCity}>
-          <StyledSelectTrigger>
+          <DestinationSelectTrigger>
             <span className="text-[15px] truncate" style={{ color: props.city ? "#0A1626" : "#9AA3AF" }}>
               {props.city || "Select city"}
             </span>
-          </StyledSelectTrigger>
+          </DestinationSelectTrigger>
           <StyledSelectContent>
             {cities.map((c) => (
               <SelectItem key={c} value={c}>
@@ -630,7 +630,7 @@ function StepOne(props: {
           onChange={(e) => props.setNotes(e.target.value)}
           rows={10}
           placeholder="We would like a hotel near the city center. Please include options with dinner and meeting room."
-          className="mt-3 min-h-[280px] w-full overflow-y-auto rounded-2xl bg-white p-6 text-[14.5px] leading-relaxed text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none scrollbar-hidden"
+          className="mt-[33px] min-h-[340px] w-full overflow-y-auto rounded-2xl bg-white p-6 text-[14.5px] leading-relaxed text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none scrollbar-hidden"
           style={{
             border: "1px solid #E4DED2",
             boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
@@ -792,7 +792,7 @@ function Counter({
 }
 
 const styledSelectTriggerClass = cn(
-  "flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-5",
+  "flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-7",
   "cursor-pointer transition-shadow hover:shadow-md",
   "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
   "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0",
@@ -802,6 +802,24 @@ const styledSelectTriggerClass = cn(
 function StyledSelectTrigger({ children }: { children: React.ReactNode }) {
   return (
     <SelectTrigger className={styledSelectTriggerClass}>
+      <SelectValue asChild>
+        <span className="flex items-center gap-3 min-w-0">{children}</span>
+      </SelectValue>
+      <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#5B6472]" />
+    </SelectTrigger>
+  );
+}
+
+const destinationSelectTriggerClass = cn(
+  "flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-7",
+  "cursor-pointer transition-shadow hover:shadow-md",
+  "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
+  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0",
+);
+
+function DestinationSelectTrigger({ children }: { children: React.ReactNode }) {
+  return (
+    <SelectTrigger className={destinationSelectTriggerClass}>
       <SelectValue asChild>
         <span className="flex items-center gap-3 min-w-0">{children}</span>
       </SelectValue>
@@ -834,7 +852,7 @@ function DateField({
       <PopoverTrigger asChild>
         <button
           type="button"
-          className="flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-5 cursor-pointer transition-shadow hover:shadow-md text-left"
+          className="flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-7 cursor-pointer transition-shadow hover:shadow-md text-left"
           style={{
             border: "1px solid #E4DED2",
             boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
@@ -846,7 +864,7 @@ function DateField({
           >
             {value ? format(value, "dd MMM yyyy") : placeholder}
           </span>
-          <span className="flex items-center gap-4 shrink-0">
+          <span className="flex items-center gap-5 shrink-0">
             <CalendarIcon size={18} strokeWidth={1.6} className="text-[#0A1626]" />
             <ChevronDown size={16} strokeWidth={1.8} className="text-[#5B6472]" />
           </span>
