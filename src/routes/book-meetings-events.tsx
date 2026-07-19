@@ -440,6 +440,45 @@ function BookMeetingsEvents() {
         @keyframes slide-in-left { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: translateX(0); } }
         .animate-slide-in-right { animation: slide-in-right 300ms ease-out; }
         .animate-slide-in-left { animation: slide-in-left 300ms ease-out; }
+
+        .meal-card {
+          background: linear-gradient(145deg, #FFFFFF 0%, #FCFBF7 55%, #F5F2EA 100%);
+          border: 1px solid rgba(201, 156, 45, 0.28);
+          box-shadow: 0 8px 22px rgba(8, 20, 36, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 3px rgba(12, 26, 42, 0.06);
+          transition: all 180ms ease;
+        }
+        .meal-card:hover {
+          transform: translateY(-1px);
+          border-color: rgba(201, 156, 45, 0.60);
+          box-shadow: 0 10px 26px rgba(8, 20, 36, 0.14), 0 0 14px rgba(201, 156, 45, 0.16), inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+        .meal-card-selected {
+          border-color: rgba(201, 156, 45, 0.55);
+          box-shadow: 0 8px 22px rgba(8, 20, 36, 0.11), 0 0 18px rgba(201, 156, 45, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 3px rgba(12, 26, 42, 0.06);
+        }
+
+        .qty-btn {
+          color: #B88917;
+          background: transparent;
+          border: 1px solid transparent;
+          border-radius: 6px;
+          transition: all 150ms ease;
+        }
+        .qty-btn:hover {
+          color: #B88917;
+          background: rgba(212, 175, 55, 0.08);
+          border-color: rgba(184, 137, 23, 0.30);
+        }
+        .qty-btn:active {
+          background: linear-gradient(145deg, #F4D878 0%, #D7AD39 48%, #B8871E 100%);
+          color: #071A2D;
+          border-color: rgba(179, 132, 25, 0.75);
+          box-shadow: 0 2px 8px rgba(185, 137, 30, 0.24), inset 0 1px 0 rgba(255, 245, 191, 0.75);
+        }
+        .qty-btn:focus-visible {
+          outline: 2px solid rgba(215, 173, 57, 0.30);
+          outline-offset: 2px;
+        }
       `}</style>
     </main>
   );
