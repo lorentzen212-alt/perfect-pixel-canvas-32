@@ -1522,9 +1522,10 @@ function StepThreeAccommodation({
         <svg width="0" height="0" className="pointer-events-none absolute" aria-hidden="true">
           <defs>
             <linearGradient id="champagneGold" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#E7CB7A" />
-              <stop offset="50%" stopColor="#D4AF37" />
-              <stop offset="100%" stopColor="#B8892F" />
+              <stop offset="0%" stopColor="#F3D987" />
+              <stop offset="42%" stopColor="#D4AF37" />
+              <stop offset="72%" stopColor="#C5962D" />
+              <stop offset="100%" stopColor="#A97816" />
             </linearGradient>
           </defs>
         </svg>
@@ -1537,9 +1538,15 @@ function StepThreeAccommodation({
                 <div className="flex items-center gap-3">
                   <span
                     className="inline-flex h-10 w-10 items-center justify-center rounded-[10px]"
-                    style={{ backgroundColor: "#FAF3E1" }}
+                    style={{
+                      background:
+                        "linear-gradient(145deg, rgba(255,251,238,1), rgba(249,241,214,0.72))",
+                      border: "1px solid rgba(212,175,55,0.32)",
+                      boxShadow:
+                        "inset 0 1px 0 rgba(255,255,255,0.9), 0 3px 10px rgba(166,120,22,0.06)",
+                    }}
                   >
-                    <CalendarIcon size={20} stroke="url(#champagneGold)" strokeWidth={1.8} />
+                    <CalendarIcon size={20} stroke="url(#champagneGold)" strokeWidth={2} />
                   </span>
                   <h3
                     className="text-[#0A1B2C] text-[18px] font-semibold leading-tight"
@@ -1582,7 +1589,7 @@ function StepThreeAccommodation({
                 </div>
                 <div className="flex flex-col gap-2.5">
                   <RoomCategoryRow
-                    icon={<User size={20} strokeWidth={1.5} stroke="url(#champagneGold)" />}
+                    icon={<User size={20} strokeWidth={1.9} stroke="url(#champagneGold)" />}
                     label="Single Room"
                     value={rooms.sgl}
                     onValue={(v) => setRooms({ ...rooms, sgl: v })}
@@ -1590,7 +1597,7 @@ function StepThreeAccommodation({
                     onCat={(c) => setCats({ ...cats, sgl: c })}
                   />
                   <RoomCategoryRow
-                    icon={<Users size={20} strokeWidth={1.5} stroke="url(#champagneGold)" />}
+                    icon={<Users size={20} strokeWidth={1.9} stroke="url(#champagneGold)" />}
                     label="Double Room"
                     value={rooms.dbl}
                     onValue={(v) => setRooms({ ...rooms, dbl: v })}
@@ -1606,7 +1613,7 @@ function StepThreeAccommodation({
                     onCat={(c) => setCats({ ...cats, twn: c })}
                   />
                   <RoomCategoryRow
-                    icon={<UsersRound size={20} strokeWidth={1.5} stroke="url(#champagneGold)" />}
+                    icon={<UsersRound size={20} strokeWidth={1.9} stroke="url(#champagneGold)" />}
                     label="Triple Room"
                     value={rooms.trp}
                     onValue={(v) => setRooms({ ...rooms, trp: v })}
@@ -1622,13 +1629,13 @@ function StepThreeAccommodation({
                 <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-3">Meal Plan</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <MealOption
-                    icon={<BedDouble size={18} strokeWidth={1.5} stroke="url(#champagneGold)" />}
+                    icon={<BedDouble size={18} strokeWidth={1.9} stroke="url(#champagneGold)" />}
                     label="Room Only"
                     selected={mealPlan === "room"}
                     onClick={() => setMealPlan("room")}
                   />
                   <MealOption
-                    icon={<Coffee size={18} strokeWidth={1.5} stroke="url(#champagneGold)" />}
+                    icon={<Coffee size={18} strokeWidth={1.9} stroke="url(#champagneGold)" />}
                     label="Breakfast Included"
                     selected={mealPlan === "breakfast"}
                     onClick={() => setMealPlan("breakfast")}
@@ -1700,9 +1707,15 @@ function StepThreeAccommodation({
                       <div className="flex items-center gap-3 min-w-0">
                         <span
                           className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
-                          style={{ backgroundColor: "#FAF3E1" }}
+                          style={{
+                            background:
+                              "linear-gradient(145deg, rgba(255,251,238,1), rgba(249,241,214,0.72))",
+                            border: "1px solid rgba(212,175,55,0.32)",
+                            boxShadow:
+                              "inset 0 1px 0 rgba(255,255,255,0.9), 0 3px 10px rgba(166,120,22,0.06)",
+                          }}
                         >
-                          <CalendarIcon size={16} stroke="url(#champagneGold)" strokeWidth={1.8} />
+                          <CalendarIcon size={16} stroke="url(#champagneGold)" strokeWidth={2} />
                         </span>
                         <div className="min-w-0">
                           <div className="text-[#0A1B2C] text-[14px] font-semibold truncate">
@@ -1966,7 +1979,7 @@ function DateField({
           onChange={(e) => onChange(e.target.value)}
           className="date-input-clean flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
         />
-        <CalendarIcon size={16} stroke="url(#champagneGold)" strokeWidth={1.7} />
+        <CalendarIcon size={18} stroke="url(#champagneGold)" strokeWidth={2} />
       </div>
     </label>
   );
@@ -2040,11 +2053,11 @@ function GuestCounter({
       <button
         type="button"
         onClick={() => onChange(Math.max(0, value - 1))}
-        className="inline-flex h-full w-10 shrink-0 items-center justify-center text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
-        style={{ borderRight: "1px solid #EEE7D6" }}
+        className="inline-flex h-full w-10 shrink-0 items-center justify-center hover:bg-[#F9F6F0] transition-colors duration-200"
+        style={{ borderRight: "1px solid #EEE7D6", color: "#A97816" }}
         aria-label="Decrease"
       >
-        <Minus size={15} stroke="url(#champagneGold)" strokeWidth={1.7} />
+        <Minus size={18} stroke="url(#champagneGold)" strokeWidth={2.4} strokeLinecap="round" />
       </button>
       <input
         type="text"
@@ -2063,11 +2076,11 @@ function GuestCounter({
       <button
         type="button"
         onClick={() => onChange(value + 1)}
-        className="inline-flex h-full w-10 shrink-0 items-center justify-center text-[#4A5866] hover:bg-[#F9F6F0] transition-colors duration-200"
-        style={{ borderLeft: "1px solid #EEE7D6" }}
+        className="inline-flex h-full w-10 shrink-0 items-center justify-center hover:bg-[#F9F6F0] transition-colors duration-200"
+        style={{ borderLeft: "1px solid #EEE7D6", color: "#A97816" }}
         aria-label="Increase"
       >
-        <Plus size={15} stroke="url(#champagneGold)" strokeWidth={1.7} />
+        <Plus size={18} stroke="url(#champagneGold)" strokeWidth={2.4} strokeLinecap="round" />
       </button>
     </div>
   );
@@ -2228,8 +2241,11 @@ function RoomCategoryRow({
         <span
           className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]"
           style={{
-            background: "linear-gradient(180deg,#FBF6EB 0%,#F5ECD1 100%)",
-            border: "1px solid #EBDDB0",
+            background:
+              "linear-gradient(145deg, rgba(255,251,238,1), rgba(249,241,214,0.72))",
+            border: "1px solid rgba(212,175,55,0.32)",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.9), 0 3px 10px rgba(166,120,22,0.06)",
           }}
         >
           {icon}
