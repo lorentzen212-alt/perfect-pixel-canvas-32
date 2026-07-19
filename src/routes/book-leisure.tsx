@@ -302,8 +302,8 @@ function BookLeisure() {
           from { opacity: 0; transform: translateX(-28px); }
           to { opacity: 1; transform: translateX(0); }
         }
-        .animate-slide-in-right { animation: slide-in-right 350ms ease-out; }
-        .animate-slide-in-left { animation: slide-in-left 350ms ease-out; }
+        .animate-slide-in-right { animation: slide-in-right 300ms ease-out; }
+        .animate-slide-in-left { animation: slide-in-left 300ms ease-out; }
         .scrollbar-hidden::-webkit-scrollbar { display: none; }
         .scrollbar-hidden { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
