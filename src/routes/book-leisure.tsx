@@ -1,15 +1,26 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { format } from "date-fns";
 import {
   ArrowLeft,
   ArrowRight,
   MapPin,
   Building2,
   User,
-  Calendar,
+  Calendar as CalendarIcon,
   ChevronDown,
   Lock,
 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/book-leisure")({
   component: BookLeisure,
@@ -29,7 +40,6 @@ const SERIF = '"Cormorant Garamond", Georgia, serif';
 const GOLD = "#F5C25A";
 const GOLD_SOFT = "#E9B96A";
 const NAVY_BG = "#071321";
-const PANEL = "#0B1B2C";
 const PANEL_ACTIVE = "#122844";
 const BORDER = "rgba(245, 194, 90, 0.25)";
 const BORDER_SOFT = "rgba(245, 194, 90, 0.15)";
@@ -42,13 +52,88 @@ const STEPS = [
   { n: 3 as StepKey, title: "Your Details", sub: "Who to contact", Icon: User },
 ];
 
+type CountryCode = "NO" | "SE" | "DK" | "FI";
+
+const COUNTRIES: { code: CountryCode; name: string; Flag: () => JSX.Element }[] = [
+  { code: "NO", name: "Norway", Flag: FlagNO },
+  { code: "SE", name: "Sweden", Flag: FlagSE },
+  { code: "DK", name: "Denmark", Flag: FlagDK },
+  { code: "FI", name: "Finland", Flag: FlagFI },
+];
+
+const CITIES: Record<CountryCode, string[]> = {
+  NO: [
+    "Oslo", "Bergen", "Tromsø", "Trondheim", "Stavanger", "Kristiansand",
+    "Ålesund", "Bodø", "Lillehammer", "Fredrikstad", "Drammen", "Sandnes",
+    "Molde", "Haugesund", "Narvik", "Alta", "Hamar", "Larvik", "Tønsberg",
+  ],
+  SE: [
+    "Stockholm", "Gothenburg", "Malmö", "Uppsala", "Västerås", "Örebro",
+    "Linköping", "Helsingborg", "Jönköping", "Lund", "Umeå", "Kiruna",
+  ],
+  DK: [
+    "Copenhagen", "Aarhus", "Odense", "Aalborg", "Esbjerg", "Roskilde",
+    "Kolding", "Vejle", "Herning", "Helsingør",
+  ],
+  FI: [
+    "Helsinki", "Espoo", "Tampere", "Turku", "Oulu", "Rovaniemi",
+    "Jyväskylä", "Kuopio", "Lahti", "Vaasa",
+  ],
+};
+
+const ROOM_TYPES = ["Single Rooms", "Double Rooms", "Twin Rooms", "Suites", "Mixed"];
+const BOARDS = ["Room only", "Breakfast included", "Half board", "Full board", "All inclusive"];
+
 function BookLeisure() {
   const [step, setStep] = useState<StepKey>(1);
   const [direction, setDirection] = useState<"forward" | "back">("forward");
 
+  // Form state
+  const [country, setCountry] = useState<CountryCode>("NO");
+  const [city, setCity] = useState<string>("Bergen");
+  const [arrival, setArrival] = useState<Date | undefined>();
+  const [departure, setDeparture] = useState<Date | undefined>();
+  const [guests, setGuests] = useState<string>("25");
+  const [rooms, setRooms] = useState<string>("12");
+  const [roomType, setRoomType] = useState<string>("Double Rooms");
+  const [board, setBoard] = useState<string>("Breakfast included");
+  const [notes, setNotes] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const handleCountryChange = (val: CountryCode) => {
+    setCountry(val);
+    setCity(""); // reset city when country changes
+  };
+
+  const handleArrivalChange = (d: Date | undefined) => {
+    setArrival(d);
+    if (d && departure && departure < d) {
+      setDeparture(undefined);
+    }
+  };
+
   const go = (next: StepKey) => {
     setDirection(next > step ? "forward" : "back");
     setStep(next);
+  };
+
+  const today = useMemo(() => {
+    const t = new Date();
+    t.setHours(0, 0, 0, 0);
+    return t;
+  }, []);
+
+  const formState = {
+    country, city, arrival, departure, guests, rooms,
+    roomType, board, notes,
+    fullName, email, company, phone,
+    setCountry: handleCountryChange, setCity, setArrival: handleArrivalChange, setDeparture,
+    setGuests, setRooms, setRoomType, setBoard, setNotes,
+    setFullName, setEmail, setCompany, setPhone,
+    today,
   };
 
   return (
@@ -92,7 +177,11 @@ function BookLeisure() {
                     direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"
                   }
                 >
-                  <FormCard step={step} onContinue={() => step < 3 && go((step + 1) as StepKey)} />
+                  <FormCard
+                    step={step}
+                    state={formState}
+                    onContinue={() => step < 3 && go((step + 1) as StepKey)}
+                  />
                 </div>
               </div>
             </div>
@@ -134,7 +223,6 @@ function Sidebar({ step, onGo }: { step: StepKey; onGo: (s: StepKey) => void }) 
       </Link>
 
       <div className="relative mt-10">
-        {/* Dotted vertical gold line — positioned at circle center (x = 20px) */}
         <div
           className="absolute left-[20px] top-[40px] bottom-[40px] w-px -translate-x-1/2"
           style={{
@@ -157,7 +245,6 @@ function Sidebar({ step, onGo }: { step: StepKey; onGo: (s: StepKey) => void }) 
                 onClick={() => onGo(n)}
                 className="relative flex items-start gap-4 text-left group"
               >
-                {/* Circle — 40px, centered on x=20 */}
                 <span
                   className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[15px] font-semibold transition-all"
                   style={{
@@ -251,7 +338,49 @@ function TopBar({ step, onBack }: { step: StepKey; onBack: () => void }) {
 
 /* ---------- Form Card ---------- */
 
-function FormCard({ step, onContinue }: { step: StepKey; onContinue: () => void }) {
+type FormState = ReturnType<typeof useFormStateType>;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function useFormStateType() {
+  return {} as {
+    country: CountryCode;
+    city: string;
+    arrival: Date | undefined;
+    departure: Date | undefined;
+    guests: string;
+    rooms: string;
+    roomType: string;
+    board: string;
+    notes: string;
+    fullName: string;
+    email: string;
+    company: string;
+    phone: string;
+    today: Date;
+    setCountry: (c: CountryCode) => void;
+    setCity: (v: string) => void;
+    setArrival: (d: Date | undefined) => void;
+    setDeparture: (d: Date | undefined) => void;
+    setGuests: (v: string) => void;
+    setRooms: (v: string) => void;
+    setRoomType: (v: string) => void;
+    setBoard: (v: string) => void;
+    setNotes: (v: string) => void;
+    setFullName: (v: string) => void;
+    setEmail: (v: string) => void;
+    setCompany: (v: string) => void;
+    setPhone: (v: string) => void;
+  };
+}
+
+function FormCard({
+  step,
+  state,
+  onContinue,
+}: {
+  step: StepKey;
+  state: FormState;
+  onContinue: () => void;
+}) {
   return (
     <div
       className="rounded-[28px] p-6 sm:p-10 lg:p-12"
@@ -261,9 +390,9 @@ function FormCard({ step, onContinue }: { step: StepKey; onContinue: () => void 
           "0 30px 80px -30px rgba(0,0,0,0.55), 0 8px 30px -12px rgba(0,0,0,0.35)",
       }}
     >
-      {step === 1 && <StepTrip />}
-      {step === 2 && <StepRequests />}
-      {step === 3 && <StepDetails />}
+      {step === 1 && <StepTrip state={state} />}
+      {step === 2 && <StepRequests state={state} />}
+      {step === 3 && <StepDetails state={state} />}
 
       <div className="mt-10">
         <ContinueButton onClick={onContinue} label={step === 3 ? "Submit Request" : "Continue"} />
@@ -278,68 +407,137 @@ function FormCard({ step, onContinue }: { step: StepKey; onContinue: () => void 
 
 /* ---------- Steps ---------- */
 
-function StepTrip() {
+function StepTrip({ state }: { state: FormState }) {
+  const cities = CITIES[state.country];
+  const activeCountry = COUNTRIES.find((c) => c.code === state.country)!;
+
+  const guestOptions = useMemo(() => Array.from({ length: 500 }, (_, i) => i + 1), []);
+  const roomOptions = useMemo(() => Array.from({ length: 250 }, (_, i) => i + 1), []);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
       <Column title="Where are you going?">
         <Field label="Country">
-          <SelectBox>
-            <span className="flex items-center gap-2">
-              <FlagNO />
-              <span className="text-[15px] text-[#0A1626]">Norway</span>
-            </span>
-          </SelectBox>
+          <Select value={state.country} onValueChange={(v) => state.setCountry(v as CountryCode)}>
+            <StyledSelectTrigger>
+              <span className="flex items-center gap-2 min-w-0">
+                <activeCountry.Flag />
+                <span className="text-[15px] text-[#0A1626] truncate">{activeCountry.name}</span>
+              </span>
+            </StyledSelectTrigger>
+            <StyledSelectContent>
+              {COUNTRIES.map(({ code, name, Flag }) => (
+                <SelectItem key={code} value={code}>
+                  <span className="flex items-center gap-2">
+                    <Flag />
+                    <span>{name}</span>
+                  </span>
+                </SelectItem>
+              ))}
+            </StyledSelectContent>
+          </Select>
         </Field>
         <Field label="City">
-          <SelectBox>
-            <span className="text-[15px] text-[#0A1626]">Bergen</span>
-          </SelectBox>
+          <Select value={state.city} onValueChange={state.setCity}>
+            <StyledSelectTrigger>
+              <span className="text-[15px] text-[#0A1626] truncate">
+                {state.city || <span className="text-[#9AA3AF]">Select city</span>}
+              </span>
+            </StyledSelectTrigger>
+            <StyledSelectContent>
+              {cities.map((c) => (
+                <SelectItem key={c} value={c}>{c}</SelectItem>
+              ))}
+            </StyledSelectContent>
+          </Select>
         </Field>
       </Column>
 
       <Column title="When are you arriving?">
         <Field label="Arrival Date">
-          <SelectBox icon={<Calendar size={18} strokeWidth={1.6} className="text-[#0A1626]" />}>
-            <span className="text-[15px] text-[#0A1626]">15 May 2025</span>
-          </SelectBox>
+          <DateField
+            value={state.arrival}
+            onChange={state.setArrival}
+            disabled={(d) => d < state.today}
+            placeholder="Select date"
+          />
         </Field>
         <Field label="Departure Date">
-          <SelectBox icon={<Calendar size={18} strokeWidth={1.6} className="text-[#0A1626]" />}>
-            <span className="text-[15px] text-[#0A1626]">18 May 2025</span>
-          </SelectBox>
+          <DateField
+            value={state.departure}
+            onChange={state.setDeparture}
+            disabled={(d) =>
+              d < state.today || (state.arrival ? d <= state.arrival : false)
+            }
+            placeholder="Select date"
+          />
         </Field>
       </Column>
 
       <Column title="How many are you?">
         <Field label="Number of Guests">
-          <SelectBox>
-            <span className="text-[15px] text-[#0A1626]">25</span>
-          </SelectBox>
+          <Select value={state.guests} onValueChange={state.setGuests}>
+            <StyledSelectTrigger>
+              <span className="text-[15px] text-[#0A1626]">{state.guests}</span>
+            </StyledSelectTrigger>
+            <StyledSelectContent>
+              {guestOptions.map((n) => (
+                <SelectItem key={n} value={String(n)}>{n}</SelectItem>
+              ))}
+            </StyledSelectContent>
+          </Select>
         </Field>
         <Field label="Number of Rooms">
-          <SelectBox>
-            <span className="text-[15px] text-[#0A1626]">12</span>
-          </SelectBox>
+          <Select value={state.rooms} onValueChange={state.setRooms}>
+            <StyledSelectTrigger>
+              <span className="text-[15px] text-[#0A1626]">{state.rooms}</span>
+            </StyledSelectTrigger>
+            <StyledSelectContent>
+              {roomOptions.map((n) => (
+                <SelectItem key={n} value={String(n)}>{n}</SelectItem>
+              ))}
+            </StyledSelectContent>
+          </Select>
         </Field>
       </Column>
     </div>
   );
 }
 
-function StepRequests() {
+function StepRequests({ state }: { state: FormState }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       <Column title="What do you need?">
         <Field label="Room Type">
-          <SelectBox><span className="text-[15px] text-[#0A1626]">Double Rooms</span></SelectBox>
+          <Select value={state.roomType} onValueChange={state.setRoomType}>
+            <StyledSelectTrigger>
+              <span className="text-[15px] text-[#0A1626]">{state.roomType}</span>
+            </StyledSelectTrigger>
+            <StyledSelectContent>
+              {ROOM_TYPES.map((r) => (
+                <SelectItem key={r} value={r}>{r}</SelectItem>
+              ))}
+            </StyledSelectContent>
+          </Select>
         </Field>
         <Field label="Board">
-          <SelectBox><span className="text-[15px] text-[#0A1626]">Breakfast included</span></SelectBox>
+          <Select value={state.board} onValueChange={state.setBoard}>
+            <StyledSelectTrigger>
+              <span className="text-[15px] text-[#0A1626]">{state.board}</span>
+            </StyledSelectTrigger>
+            <StyledSelectContent>
+              {BOARDS.map((b) => (
+                <SelectItem key={b} value={b}>{b}</SelectItem>
+              ))}
+            </StyledSelectContent>
+          </Select>
         </Field>
       </Column>
       <Column title="Additional requests">
         <Field label="Notes">
           <textarea
+            value={state.notes}
+            onChange={(e) => state.setNotes(e.target.value)}
             className="w-full rounded-2xl bg-white px-4 py-3 text-[15px] text-[#0A1626] outline-none"
             style={{ border: "1px solid #E4DED2", boxShadow: "0 1px 2px rgba(0,0,0,0.03)" }}
             rows={4}
@@ -351,23 +549,23 @@ function StepRequests() {
   );
 }
 
-function StepDetails() {
+function StepDetails({ state }: { state: FormState }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       <Column title="Your Details">
         <Field label="Full Name">
-          <InputBox placeholder="Ola Nordmann" />
+          <InputBox value={state.fullName} onChange={state.setFullName} placeholder="Ola Nordmann" />
         </Field>
         <Field label="Email">
-          <InputBox placeholder="you@example.com" type="email" />
+          <InputBox value={state.email} onChange={state.setEmail} placeholder="you@example.com" type="email" />
         </Field>
       </Column>
       <Column title="Company">
         <Field label="Company Name">
-          <InputBox placeholder="Optional" />
+          <InputBox value={state.company} onChange={state.setCompany} placeholder="Optional" />
         </Field>
         <Field label="Phone">
-          <InputBox placeholder="+47 000 00 000" type="tel" />
+          <InputBox value={state.phone} onChange={state.setPhone} placeholder="+47 000 00 000" type="tel" />
         </Field>
       </Column>
     </div>
@@ -394,37 +592,89 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-function SelectBox({
-  children,
-  icon,
+const styledSelectTriggerClass = cn(
+  "flex h-[52px] w-full items-center justify-between rounded-2xl bg-white px-4",
+  "cursor-pointer transition-shadow hover:shadow-md",
+  "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
+  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0",
+);
+
+function StyledSelectTrigger({ children }: { children: React.ReactNode }) {
+  return (
+    <SelectTrigger className={styledSelectTriggerClass}>
+      <SelectValue asChild>
+        <span className="flex items-center gap-2 min-w-0">{children}</span>
+      </SelectValue>
+    </SelectTrigger>
+  );
+}
+
+function StyledSelectContent({ children }: { children: React.ReactNode }) {
+  return (
+    <SelectContent className="z-[100] max-h-[280px] bg-white">
+      {children}
+    </SelectContent>
+  );
+}
+
+function DateField({
+  value,
+  onChange,
+  disabled,
+  placeholder,
 }: {
-  children: React.ReactNode;
-  icon?: React.ReactNode;
+  value: Date | undefined;
+  onChange: (d: Date | undefined) => void;
+  disabled?: (d: Date) => boolean;
+  placeholder: string;
 }) {
   return (
-    <div
-      className="flex h-[52px] w-full items-center justify-between rounded-2xl bg-white px-4 cursor-pointer transition-shadow hover:shadow-md"
-      style={{ border: "1px solid #E4DED2", boxShadow: "0 1px 2px rgba(0,0,0,0.03)" }}
-    >
-      <span className="flex items-center gap-2 min-w-0">{children}</span>
-      <span className="flex items-center gap-2 shrink-0">
-        {icon}
-        <ChevronDown size={18} strokeWidth={1.6} className="text-[#5B6472]" />
-      </span>
-    </div>
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          className="flex h-[52px] w-full items-center justify-between rounded-2xl bg-white px-4 cursor-pointer transition-shadow hover:shadow-md text-left"
+          style={{ border: "1px solid #E4DED2", boxShadow: "0 1px 2px rgba(0,0,0,0.03)" }}
+        >
+          <span className="text-[15px] min-w-0 truncate" style={{ color: value ? "#0A1626" : "#9AA3AF" }}>
+            {value ? format(value, "dd MMMM yyyy") : placeholder}
+          </span>
+          <span className="flex items-center gap-2 shrink-0">
+            <CalendarIcon size={18} strokeWidth={1.6} className="text-[#0A1626]" />
+            <ChevronDown size={18} strokeWidth={1.6} className="text-[#5B6472]" />
+          </span>
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0 z-[100] bg-white" align="start">
+        <Calendar
+          mode="single"
+          selected={value}
+          onSelect={onChange}
+          disabled={disabled}
+          initialFocus
+          className={cn("p-3 pointer-events-auto")}
+        />
+      </PopoverContent>
+    </Popover>
   );
 }
 
 function InputBox({
+  value,
+  onChange,
   placeholder,
   type = "text",
 }: {
+  value: string;
+  onChange: (v: string) => void;
   placeholder?: string;
   type?: string;
 }) {
   return (
     <input
       type={type}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       className="h-[52px] w-full rounded-2xl bg-white px-4 text-[15px] text-[#0A1626] outline-none placeholder:text-[#9AA3AF]"
       style={{ border: "1px solid #E4DED2", boxShadow: "0 1px 2px rgba(0,0,0,0.03)" }}
@@ -432,19 +682,53 @@ function InputBox({
   );
 }
 
+/* ---------- Flags ---------- */
+
 function FlagNO() {
   return (
-    <span
-      className="inline-flex h-5 w-7 shrink-0 overflow-hidden rounded-[3px]"
-      aria-label="Norway"
-      style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06)" }}
-    >
+    <span className="inline-flex h-5 w-7 shrink-0 overflow-hidden rounded-[3px]" aria-label="Norway" style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06)" }}>
       <svg viewBox="0 0 28 20" width="28" height="20" xmlns="http://www.w3.org/2000/svg">
         <rect width="28" height="20" fill="#BA0C2F" />
         <rect x="8" width="4" height="20" fill="#FFFFFF" />
         <rect y="8" width="28" height="4" fill="#FFFFFF" />
         <rect x="9" width="2" height="20" fill="#00205B" />
         <rect y="9" width="28" height="2" fill="#00205B" />
+      </svg>
+    </span>
+  );
+}
+
+function FlagSE() {
+  return (
+    <span className="inline-flex h-5 w-7 shrink-0 overflow-hidden rounded-[3px]" aria-label="Sweden" style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06)" }}>
+      <svg viewBox="0 0 28 20" width="28" height="20" xmlns="http://www.w3.org/2000/svg">
+        <rect width="28" height="20" fill="#006AA7" />
+        <rect x="8" width="3" height="20" fill="#FECC00" />
+        <rect y="8.5" width="28" height="3" fill="#FECC00" />
+      </svg>
+    </span>
+  );
+}
+
+function FlagDK() {
+  return (
+    <span className="inline-flex h-5 w-7 shrink-0 overflow-hidden rounded-[3px]" aria-label="Denmark" style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06)" }}>
+      <svg viewBox="0 0 28 20" width="28" height="20" xmlns="http://www.w3.org/2000/svg">
+        <rect width="28" height="20" fill="#C8102E" />
+        <rect x="8" width="3" height="20" fill="#FFFFFF" />
+        <rect y="8.5" width="28" height="3" fill="#FFFFFF" />
+      </svg>
+    </span>
+  );
+}
+
+function FlagFI() {
+  return (
+    <span className="inline-flex h-5 w-7 shrink-0 overflow-hidden rounded-[3px]" aria-label="Finland" style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06)" }}>
+      <svg viewBox="0 0 28 20" width="28" height="20" xmlns="http://www.w3.org/2000/svg">
+        <rect width="28" height="20" fill="#FFFFFF" />
+        <rect x="8" width="3" height="20" fill="#003580" />
+        <rect y="8.5" width="28" height="3" fill="#003580" />
       </svg>
     </span>
   );
@@ -495,7 +779,6 @@ function ContinueButton({
 /* ---------- Background particles ---------- */
 
 function GoldParticles() {
-  // Deterministic sparse particles around edges only
   const particles = [
     { top: "4%", left: "3%", size: 2, opacity: 0.35 },
     { top: "8%", left: "9%", size: 1, opacity: 0.25 },
