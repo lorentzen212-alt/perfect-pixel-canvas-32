@@ -130,6 +130,17 @@ function BookLeisure() {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
+  const [terms, setTerms] = useState(false);
+
+  // Submission state
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [confirmation, setConfirmation] = useState<null | {
+    requestId: string;
+  }>(null);
+
+  const navigate = useNavigate();
 
   const totalRooms = sgl + dbl + trp;
   const maxCapacity = sgl * 1 + dbl * 2 + trp * 3;
@@ -164,6 +175,100 @@ function BookLeisure() {
     t.setHours(0, 0, 0, 0);
     return t;
   }, []);
+
+  const validateAll = () => {
+    const e: Record<string, string> = {};
+    if (!country) e.country = "Please select a country.";
+    if (!city) e.city = "Please select a city.";
+    if (!arrival) e.arrival = "Please select an arrival date.";
+    else if (arrival < today) e.arrival = "Arrival cannot be in the past.";
+    if (!departure) e.departure = "Please select a departure date.";
+    else if (arrival && departure <= arrival)
+      e.departure = "Departure must be after arrival.";
+    if (!guests || guests < 1) e.guests = "Please select number of guests.";
+    if (capacityShortfall)
+      e.capacity = "Selected rooms don't cover the number of guests.";
+    if (!fullName.trim()) e.fullName = "Please enter your full name.";
+    if (!email.trim()) e.email = "Please enter your email.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
+      e.email = "Please enter a valid email address.";
+    if (!phone.trim()) e.phone = "Please enter your phone number.";
+    else if (!/^[+()\d][\d\s()+-]{6,}$/.test(phone.trim()))
+      e.phone = "Please enter a valid phone number.";
+    if (!terms) e.terms = "Please accept the terms to continue.";
+    return e;
+  };
+
+  const handleSubmit = async () => {
+    if (submitting) return;
+    const e = validateAll();
+    setErrors(e);
+    setSubmitError(null);
+    if (Object.keys(e).length > 0) {
+      // If a step-1 field failed, jump back so user sees highlights
+      if (e.country || e.city || e.arrival || e.departure || e.guests || e.capacity) {
+        setDirection("back");
+        setStep(1);
+      }
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const year = new Date().getFullYear();
+      const seq = Math.floor(Math.random() * 90000) + 10000;
+      const requestId = `HGB-${year}-${String(seq).padStart(5, "0")}`;
+      const payload = {
+        requestId,
+        country,
+        city,
+        arrivalDate: arrival ? format(arrival, "yyyy-MM-dd") : null,
+        departureDate: departure ? format(departure, "yyyy-MM-dd") : null,
+        guests,
+        sgl,
+        dbl,
+        trp,
+        totalRooms,
+        maxCapacity,
+        specialRequests: Array.from(selectedRequests),
+        additionalInformation: notes,
+        contactName: fullName,
+        company,
+        email,
+        phone,
+        status: "Searching hotels",
+        submittedAt: new Date().toISOString(),
+      };
+      // Persist to localStorage under "My Requests"
+      if (typeof window !== "undefined") {
+        const existing = JSON.parse(
+          window.localStorage.getItem("hgb_requests") || "[]",
+        );
+        existing.unshift(payload);
+        window.localStorage.setItem("hgb_requests", JSON.stringify(existing));
+      }
+      // Small delay for premium loading feel
+      await new Promise((r) => setTimeout(r, 700));
+      setConfirmation({ requestId });
+    } catch (err) {
+      console.error(err);
+      setSubmitError(
+        "We couldn't submit your request. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (confirmation) {
+    return (
+      <ConfirmationScreen
+        requestId={confirmation.requestId}
+        onGoToRequests={() => navigate({ to: "/" })}
+        onGoHome={() => navigate({ to: "/" })}
+      />
+    );
+  }
+
 
   return (
     <main
