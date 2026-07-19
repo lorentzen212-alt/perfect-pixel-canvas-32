@@ -1621,7 +1621,7 @@ function StepThreeAccommodation({
                 >
                   <div aria-hidden />
                   <h4
-                    className="text-[#1F2937] text-[16.5px] ml-[-44px]"
+                    className="text-[#1F2937] text-[16.5px] ml-[-59px]"
                     style={{ fontFamily: SANS, fontWeight: 600, letterSpacing: "0.02em" }}
                   >
                     Room Categories
