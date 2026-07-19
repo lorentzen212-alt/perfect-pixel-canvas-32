@@ -204,7 +204,7 @@ function Home() {
 
           {/* BUILT BY */}
           <div className="mt-5 flex items-start gap-3">
-            <GroupPremium className="shrink-0 mt-0.5" size={42} />
+            <GroupPremium className="shrink-0 mt-0.5" size={39} />
             <p className="text-[#F7F7F5] text-[15px] lg:text-[16px] leading-snug">
               Built by group booking professionals
               <br className="hidden sm:block" />
