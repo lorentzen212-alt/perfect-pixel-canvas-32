@@ -59,9 +59,13 @@ const TRUST = [
 function GoldLineWithDiamond({
   className,
   lineWidth = "w-[260px] sm:w-[300px] lg:w-[330px]",
+  lineThickness = "h-[5px]",
+  diamondSize = "h-[8px] w-[8px]",
 }: {
   className?: string;
   lineWidth?: string;
+  lineThickness?: string;
+  diamondSize?: string;
 }) {
   const goldGradient =
     "linear-gradient(90deg, #7A5A24 0%, #B08A3E 18%, #D9B871 42%, #F3DFA1 52%, #EBD292 60%, #C69B49 80%, #8A6528 100%)";
