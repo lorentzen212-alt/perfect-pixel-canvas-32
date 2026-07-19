@@ -735,7 +735,7 @@ function HelpCard() {
         </a>
         <a
           href="mailto:meetings@hotelgroupbook.com"
-          className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
+          className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
         >
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-full border"
