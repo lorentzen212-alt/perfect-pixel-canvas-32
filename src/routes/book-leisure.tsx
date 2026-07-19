@@ -183,7 +183,7 @@ function BookLeisure() {
           <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr]">
             <Sidebar step={step} onGo={go} />
 
-            <div className="relative p-6 sm:p-10 lg:px-14 lg:py-12">
+            <div className="relative p-6 sm:p-10 lg:px-14 lg:py-12 xl:px-[15px]">
               {/* Header row */}
               <div className="flex items-start justify-between gap-6">
                 <div className="min-w-0">
@@ -211,7 +211,7 @@ function BookLeisure() {
                   }
                 >
                   <div
-                    className="rounded-[26px] p-6 sm:p-8 lg:p-10"
+                    className="rounded-[26px] p-6 sm:p-8 lg:p-10 xl:px-[15px]"
                     style={{
                       backgroundColor: CARD_BG,
                       boxShadow:
@@ -471,7 +471,7 @@ function StepOne(props: {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(260px,1fr)_minmax(260px,1fr)_minmax(220px,0.9fr)_minmax(280px,1.45fr)] gap-8 xl:gap-0">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(200px,1fr)_minmax(200px,1fr)_minmax(200px,0.9fr)_minmax(280px,1fr)] gap-8 xl:gap-0">
       {/* Column 1 - Destination */}
       <ColumnBlock icon={<MapPin size={18} strokeWidth={1.8} />} title="Destination">
         <FieldLabel>Country</FieldLabel>
@@ -621,6 +621,7 @@ function StepOne(props: {
         icon={<FileText size={18} strokeWidth={1.8} />}
         title="Additional Information"
         divider
+        rightPaddingClass="xl:pr-2"
       >
         <p className="text-[14px] text-[#6B7280]">
           Tell us more about your request...
@@ -630,7 +631,7 @@ function StepOne(props: {
           onChange={(e) => props.setNotes(e.target.value)}
           rows={10}
           placeholder="We would like a hotel near the city center. Please include options with dinner and meeting room."
-          className="mt-[33px] min-h-[340px] w-full overflow-y-auto rounded-2xl bg-white p-6 text-[14.5px] leading-relaxed text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none scrollbar-hidden"
+          className="mt-[33px] min-h-[340px] w-full overflow-y-auto rounded-2xl bg-white p-6 text-[14.5px] leading-relaxed text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none scrollbar-hidden xl:w-[235px] xl:max-w-full xl:mx-auto"
           style={{
             border: "1px solid #E4DED2",
             boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
@@ -706,11 +707,13 @@ function ColumnBlock({
   title,
   children,
   divider = false,
+  rightPaddingClass = "xl:pr-5",
 }: {
   icon: React.ReactNode;
   title: string;
   children: React.ReactNode;
   divider?: boolean;
+  rightPaddingClass?: string;
 }) {
   return (
     <div
@@ -719,7 +722,7 @@ function ColumnBlock({
         borderLeft: divider ? `1px solid ${DIVIDER}` : undefined,
       }}
     >
-      <div className="xl:pr-5">
+      <div className={rightPaddingClass}>
         <div className="flex items-center gap-2 text-[#0A1626] mb-5">
           <span className="text-[#0A1626]">{icon}</span>
           <span className="text-[17px] font-semibold">{title}</span>
