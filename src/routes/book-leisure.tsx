@@ -271,7 +271,7 @@ function BookLeisure() {
                         }
                         label={
                           step === 1
-                            ? "Get Hotel Offers"
+                            ? "Continue"
                             : step === 2
                               ? "Continue"
                               : "Submit Request"
