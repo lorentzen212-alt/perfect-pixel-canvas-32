@@ -1512,11 +1512,10 @@ function StepThreeAccommodation({
       <div
         className="overflow-hidden rounded-[20px]"
         style={{
-          backgroundColor: "#FCFCFC",
-          backgroundImage: "linear-gradient(180deg,#FFFFFF 0%,#FAFAF8 100%)",
+          backgroundColor: "#FFFFFF",
           boxShadow:
-            "0 40px 80px -50px rgba(10,27,44,0.12), 0 12px 32px -20px rgba(10,27,44,0.06), 0 2px 4px -2px rgba(10,27,44,0.03)",
-          border: "1px solid #E9E2D6",
+            "0 40px 80px -50px rgba(10,27,44,0.10), 0 8px 24px -18px rgba(10,27,44,0.05)",
+          border: "1px solid #E8E2D8",
         }}
       >
         {/* Champagne gold icon gradient */}
@@ -1537,7 +1536,7 @@ function StepThreeAccommodation({
               className="rounded-[16px] p-6 lg:p-7"
               style={{
                 backgroundColor: "#FFFFFF",
-                border: "1px solid #E9E2D6",
+                border: "1px solid #E8E2D8",
                 boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
               }}
             >
@@ -1565,7 +1564,7 @@ function StepThreeAccommodation({
                   type="button"
                   onClick={clearDraft}
                   className="inline-flex items-center gap-2 rounded-md border px-3 h-9 text-[13px] text-[#4A5866] bg-white hover:bg-[#F9F6F0] transition-colors duration-200"
-                  style={{ borderColor: "#E9E2D6" }}
+                  style={{ borderColor: "#E8E2D8" }}
                 >
                   <Trash2 size={14} stroke="url(#champagneGold)" strokeWidth={1.7} />
                   Clear
@@ -1653,7 +1652,7 @@ function StepThreeAccommodation({
                   type="button"
                   onClick={clearDraft}
                   className="inline-flex items-center justify-center rounded-md border px-6 h-[46px] text-[14px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F9F6F0] transition-colors duration-200"
-                  style={{ borderColor: "#E9E2D6" }}
+                  style={{ borderColor: "#E8E2D8" }}
                 >
                   Cancel
                 </button>
@@ -1680,20 +1679,15 @@ function StepThreeAccommodation({
               type="button"
               onClick={addStay}
               disabled={!checkIn || !checkOut}
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold disabled:opacity-40 transition-all duration-200 hover:-translate-y-[1px]"
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold disabled:opacity-40 transition-all duration-200 hover:-translate-y-[1px] hover:border-[#DCC48A]"
               style={{
-                color: "#0A1B2C",
-                background: "linear-gradient(180deg,#FFFFFF 0%,#FAF8F3 100%)",
-                border: "1px solid #E9E2D6",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.04)",
+                color: "#B88917",
+                background: "#FFFFFF",
+                border: "1px solid #E8E2D8",
+                boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
               }}
             >
-              <span
-                className="inline-flex items-center justify-center rounded-full"
-                style={{ background: "linear-gradient(180deg,#F5E7C0 0%,#E6CF8A 100%)" }}
-              >
-                <Plus size={16} stroke="#0A1B2C" strokeWidth={2} className="m-1" />
-              </span>
+              <Plus size={16} stroke="#B88917" strokeWidth={2} />
               Complete stay and continue
             </button>
 
@@ -1708,7 +1702,7 @@ function StepThreeAccommodation({
                       className="flex items-center justify-between gap-4 rounded-[14px] px-4 py-3"
                       style={{
                         backgroundColor: "#FFFFFF",
-                        border: "1px solid #E9E2D6",
+                        border: "1px solid #E8E2D8",
                         boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
                       }}
                     >
@@ -1728,7 +1722,7 @@ function StepThreeAccommodation({
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
+                      <div className="flex items-center gap-1 shrink-0">
                         <button
                           type="button"
                           onClick={() => editStay(s.id)}
@@ -1736,12 +1730,13 @@ function StepThreeAccommodation({
                         >
                           <Pencil size={14} stroke="url(#champagneGold)" strokeWidth={1.7} /> Edit
                         </button>
+                        <span className="h-5 w-px bg-[#E8E2D8]" />
                         <button
                           type="button"
                           onClick={() => removeStay(s.id)}
-                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-[13px] text-[#B45B4A] hover:bg-[#FBECEA] transition-colors duration-200"
+                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-[13px] text-[#0A1B2C] hover:bg-[#F9F6F0] transition-colors duration-200"
                         >
-                          <Trash2 size={14} /> Remove
+                          <Trash2 size={14} stroke="url(#champagneGold)" strokeWidth={1.7} /> Remove
                         </button>
                       </div>
                     </div>
@@ -1782,7 +1777,7 @@ function StepThreeAccommodation({
                   rows={3}
                   placeholder="E.g. early check-in, late check-out, welcome gift, specific floor, etc."
                   className="mt-3 w-full rounded-[14px] px-4 py-3 text-[14px] text-[#0A1B2C] placeholder:text-[#9BA4AE] outline-none focus:border-[#DCC48A] focus:ring-2 focus:ring-[#D4AF37]/30 transition-all duration-200"
-                  style={{ backgroundColor: "#FFFFFF", border: "1px solid #E9E2D6", boxShadow: "0 4px 14px rgba(0,0,0,0.03)" }}
+                  style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8E2D8", boxShadow: "0 4px 14px rgba(0,0,0,0.03)" }}
                 />
               </label>
             </div>
@@ -1793,7 +1788,7 @@ function StepThreeAccommodation({
                 type="button"
                 onClick={onBack}
                 className="inline-flex items-center justify-center gap-2 rounded-md border px-6 h-[46px] text-[14px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F9F6F0] transition-colors duration-200"
-                style={{ borderColor: "#E9E2D6" }}
+                style={{ borderColor: "#E8E2D8" }}
               >
                 Back
               </button>
@@ -1972,7 +1967,7 @@ function DateField({
     <label className="block">
       <span className="text-[#0A1B2C] text-[13.5px] font-semibold">{label}</span>
       <div
-        className="mt-2 flex items-center gap-2 rounded-[14px] px-3 h-[46px] bg-white border border-[#E9E2D6] shadow-[0_4px_14px_rgba(0,0,0,0.03)] hover:border-[#DCC48A] transition-colors duration-200"
+        className="mt-2 flex items-center gap-2 rounded-[14px] px-3 h-[46px] bg-white border border-[#E8E2D8] shadow-[0_4px_14px_rgba(0,0,0,0.03)] hover:border-[#DCC48A] transition-colors duration-200"
       >
         <input
           type="date"
@@ -2049,7 +2044,7 @@ function GuestCounter({
         "flex items-center justify-between rounded-[14px] px-1",
         containerClassName
       )}
-      style={{ backgroundColor: "#FFFFFF", border: "1px solid #E9E2D6", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}
+      style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8E2D8", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}
     >
       <button
         type="button"
@@ -2103,7 +2098,7 @@ function MealOption({
       className="flex items-center justify-between rounded-[14px] px-4 h-[56px] text-left transition-all duration-200 hover:-translate-y-[1px]"
       style={{
         backgroundColor: selected ? "#FAF8F3" : "#FFFFFF",
-        border: `1px solid ${selected ? "rgba(212,175,55,0.45)" : "#E9E2D6"}`,
+        border: `1px solid ${selected ? "rgba(212,175,55,0.45)" : "#E8E2D8"}`,
         boxShadow: selected ? "0 4px 14px rgba(0,0,0,0.04)" : "0 2px 8px rgba(0,0,0,0.02)",
       }}
     >
@@ -2232,7 +2227,7 @@ function RoomCategoryRow({
       className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-[16px] px-4 py-3.5 transition-all duration-200 hover:shadow-[0_6px_18px_-10px_rgba(10,27,44,0.12)]"
       style={{
         backgroundColor: "#FFFFFF",
-        border: "1px solid #E9E2D6",
+        border: "1px solid #E8E2D8",
         boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
       }}
     >
@@ -2258,7 +2253,7 @@ function RoomCategoryRow({
           value={cat}
           onChange={(e) => onCat(e.target.value as RoomCat)}
           className="w-full appearance-none rounded-[12px] h-[40px] pl-3 pr-9 text-[14px] text-[#0A1B2C] bg-white outline-none focus:border-[#DCC48A] focus:ring-2 focus:ring-[#D4AF37]/30 transition-all duration-200"
-          style={{ border: "1px solid #E9E2D6", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}
+          style={{ border: "1px solid #E8E2D8", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}
         >
           <option value="Standard">Standard</option>
           <option value="Superior">Superior</option>
