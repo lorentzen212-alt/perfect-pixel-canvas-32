@@ -394,19 +394,191 @@ export function StepThreeMeetingSpaces({
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
     );
 
-  /* Recommendations based on attendee count */
-  const recommendations = useMemo(() => {
-    const list: string[] = [];
+  /* ---------- Smart Recommendation Engine ----------
+     Dynamic plan built from event size (and, in future, event type,
+     duration, hotel type, VIP flags, budget, etc.). Everything the
+     engine returns is a *suggestion* — nothing is locked. */
+  type PlannedRoom = {
+    label: string;
+    setup: SetupId;
+    attendees: number;
+    kind: "plenary" | "breakout" | "meeting";
+    equipment: string[];
+  };
+  type Plan = {
+    tier: "boardroom" | "theater" | "conference" | "largeConference";
+    attendees: number;
+    rooms: PlannedRoom[];
+    equipment: string[];
+    catering: string[];
+    summary: string[];
+  } | null;
+
+  const plan: Plan = useMemo(() => {
     const primary = rooms[0]?.attendees || attendees;
-    if (primary >= 60) list.push(`1 plenary room (${primary} people)`);
-    else if (primary > 0) list.push(`1 meeting room (${primary} people)`);
-    if (primary >= 80) list.push("4 breakout rooms (20 – 30 people each)");
-    else if (primary >= 40) list.push("2 breakout rooms (15 – 20 people each)");
-    list.push("Projector & screen");
-    list.push("Microphones");
-    if (primary >= 40) list.push("Coffee break setup");
-    return list;
+    if (!primary || primary <= 0) return null;
+
+    if (primary <= 25) {
+      return {
+        tier: "boardroom",
+        attendees: primary,
+        rooms: [
+          {
+            label: "Meeting Room",
+            setup: "boardroom",
+            attendees: primary,
+            kind: "meeting",
+            equipment: ["screen", "wifi"],
+          },
+        ],
+        equipment: ["screen", "wifi"],
+        catering: ["Coffee Break"],
+        summary: ["1 Boardroom setup", "Large screen", "Coffee break"],
+      };
+    }
+    if (primary <= 75) {
+      return {
+        tier: "theater",
+        attendees: primary,
+        rooms: [
+          {
+            label: "Meeting Room",
+            setup: "theater",
+            attendees: primary,
+            kind: "plenary",
+            equipment: ["projector", "screen", "microphone", "wifi"],
+          },
+        ],
+        equipment: ["projector", "screen", "microphone", "wifi"],
+        catering: ["Coffee Break"],
+        summary: [
+          "1 Theater room",
+          "Projector & large screen",
+          "Microphones",
+          "Coffee break",
+        ],
+      };
+    }
+    if (primary <= 200) {
+      const breakouts = primary <= 120 ? 4 : 5;
+      const cap = 25;
+      return {
+        tier: "conference",
+        attendees: primary,
+        rooms: [
+          {
+            label: "Plenary Room",
+            setup: "theater",
+            attendees: primary,
+            kind: "plenary",
+            equipment: ["projector", "screen", "microphone", "wifi"],
+          },
+          ...Array.from({ length: breakouts }, () => ({
+            label: "Breakout Room",
+            setup: "breakout" as SetupId,
+            attendees: cap,
+            kind: "breakout" as const,
+            equipment: ["screen", "wifi"],
+          })),
+        ],
+        equipment: ["projector", "screen", "microphone", "wifi"],
+        catering: ["Coffee Break", "Lunch"],
+        summary: [
+          `1 Plenary Room (${primary} people, theater)`,
+          `${breakouts} Breakout Rooms (up to ${cap} each)`,
+          "Projector, Large Screen, Microphones",
+          "Coffee Break & Lunch",
+        ],
+      };
+    }
+    const breakouts = 10;
+    const cap = 30;
+    return {
+      tier: "largeConference",
+      attendees: primary,
+      rooms: [
+        {
+          label: "Large Plenary Room",
+          setup: "theater",
+          attendees: primary,
+          kind: "plenary",
+          equipment: [
+            "stage",
+            "podium",
+            "projector",
+            "screen",
+            "microphone",
+            "hybrid",
+            "wifi",
+          ],
+        },
+        ...Array.from({ length: breakouts }, () => ({
+          label: "Breakout Room",
+          setup: "breakout" as SetupId,
+          attendees: cap,
+          kind: "breakout" as const,
+          equipment: ["screen", "wifi"],
+        })),
+      ],
+      equipment: [
+        "stage",
+        "podium",
+        "projector",
+        "screen",
+        "microphone",
+        "hybrid",
+        "wifi",
+      ],
+      catering: ["Coffee Break", "Lunch", "Dinner"],
+      summary: [
+        `1 Large Plenary Room (${primary} people)`,
+        `${breakouts} Breakout Rooms`,
+        "Stage, Podium, Projector, Microphones",
+        "Hybrid meeting setup",
+        "Coffee Break, Lunch & Dinner",
+      ],
+    };
   }, [rooms, attendees]);
+
+  const [applied, setApplied] = useState(false);
+
+  const applyRecommendation = () => {
+    if (!plan) return;
+    const baseDate = date || rooms[0]?.date || "";
+    const baseStart = start || rooms[0]?.startTime || "09:00";
+    const baseEnd = end || rooms[0]?.endTime || "17:00";
+    let breakoutIdx = 0;
+    const created: MeetingRoom[] = plan.rooms.map((r, i) => {
+      const isBreakout = r.kind === "breakout";
+      if (isBreakout) breakoutIdx += 1;
+      const label = isBreakout ? `Breakout Room ${breakoutIdx}` : r.label;
+      return {
+        id: crypto.randomUUID(),
+        name: `Meeting Room ${i + 1} · ${label}`,
+        date: baseDate,
+        startTime: baseStart,
+        endTime: baseEnd,
+        attendees: r.attendees,
+        setup: r.setup,
+        equipment: r.equipment,
+        notes: "",
+      };
+    });
+    setRooms(created);
+    setEquipment(plan.rooms[0]?.equipment ?? ["wifi"]);
+    if (typeof window !== "undefined") {
+      try {
+        window.localStorage.setItem(
+          "hgb:catering-recommended",
+          JSON.stringify(plan.catering),
+        );
+      } catch {
+        /* non-fatal */
+      }
+    }
+    setEditingId(null);
+    setApplied(true);
+  };
 
   return (
     <div
