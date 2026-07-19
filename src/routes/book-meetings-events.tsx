@@ -306,74 +306,82 @@ function BookMeetingsEvents() {
       {/* FORM SECTION */}
       <section className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14">
         <div className="mx-auto max-w-[1400px]">
-          <div
-            className="overflow-hidden rounded-[20px]"
-            style={{
-              backgroundColor: "#FCFCFC",
-              backgroundImage:
-                "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
-              boxShadow:
-                "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
-              border: "1px solid #ECECEC",
-            }}
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(392px,420px)]">
-              <div className="p-6 sm:p-10 lg:p-12">
-                <div
-                  key={step}
-                  className={
-                    direction === "forward"
-                      ? "animate-slide-in-right"
-                      : "animate-slide-in-left"
-                  }
-                >
-                  {step === 1 && (
-                    <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
-                  )}
-                  {step === 2 && (
-                    <StepTwoLocation
-                      onBack={() => go(1)}
-                      onNext={handleNext}
-                    />
-                  )}
-                  {step > 2 && (
-                    <StepPlaceholder
-                      step={step}
-                      title={STEPS[step - 1]}
-                      onBack={() => go(step - 1)}
-                      onNext={handleNext}
-                      isLast={step === STEPS.length}
-                    />
-                  )}
+          {step === 3 ? (
+            <StepThreeAccommodation
+              onBack={() => go(2)}
+              onNext={handleNext}
+              direction={direction}
+            />
+          ) : (
+            <div
+              className="overflow-hidden rounded-[20px]"
+              style={{
+                backgroundColor: "#FCFCFC",
+                backgroundImage:
+                  "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
+                boxShadow:
+                  "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
+                border: "1px solid #ECECEC",
+              }}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(392px,420px)]">
+                <div className="p-6 sm:p-10 lg:p-12">
+                  <div
+                    key={step}
+                    className={
+                      direction === "forward"
+                        ? "animate-slide-in-right"
+                        : "animate-slide-in-left"
+                    }
+                  >
+                    {step === 1 && (
+                      <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
+                    )}
+                    {step === 2 && (
+                      <StepTwoLocation
+                        onBack={() => go(1)}
+                        onNext={handleNext}
+                      />
+                    )}
+                    {step > 3 && (
+                      <StepPlaceholder
+                        step={step}
+                        title={STEPS[step - 1]}
+                        onBack={() => go(step - 1)}
+                        onNext={handleNext}
+                        isLast={step === STEPS.length}
+                      />
+                    )}
 
+                  </div>
                 </div>
-              </div>
 
-              {/* Help card */}
-              <div
-                className="p-8 lg:p-10 lg:pl-8"
-                style={{
-                  backgroundColor: "transparent",
-                  borderLeft: "1px solid #F1F1EE",
-                }}
-              >
+                {/* Help card */}
                 <div
-                  className="rounded-[16px] p-6 w-full lg:w-[320px] lg:min-w-[320px]"
+                  className="p-8 lg:p-10 lg:pl-8"
                   style={{
-                    backgroundColor: "#FFFFFF",
-                    border: "1px solid #EFEFEC",
-                    boxShadow:
-                      "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+                    backgroundColor: "transparent",
+                    borderLeft: "1px solid #F1F1EE",
                   }}
                 >
-                  <HelpCard />
+                  <div
+                    className="rounded-[16px] p-6 w-full lg:w-[320px] lg:min-w-[320px]"
+                    style={{
+                      backgroundColor: "#FFFFFF",
+                      border: "1px solid #EFEFEC",
+                      boxShadow:
+                        "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+                    }}
+                  >
+                    <HelpCard />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
+          )}
 
           {/* Credibility */}
+          {step !== 3 && (
           <div
             className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center px-8 md:px-12 py-8 md:py-10 rounded-[20px]"
             style={{
@@ -411,9 +419,11 @@ function BookMeetingsEvents() {
               </p>
             </div>
           </div>
+          )}
 
         </div>
       </section>
+
 
       <style>{`
         @keyframes slide-in-right { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
