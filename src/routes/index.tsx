@@ -57,10 +57,10 @@ const NAV_LINKS = [
 ];
 
 const TRUST = [
-  { Icon: ShieldCheckPremium, label: "No commitment", size: 22 },
-  { Icon: ClockPremium, label: "Fast and free", size: 22 },
-  { Icon: HeadsetPremium, label: "Expert support", size: 25 },
-  { Icon: LockPremium, label: "Secure & trusted", size: 22 },
+  { Icon: ShieldCheckPremium, label: "No commitment", size: 40 },
+  { Icon: ClockPremium, label: "Fast and free", size: 40 },
+  { Icon: HeadsetPremium, label: "Expert support", size: 44 },
+  { Icon: LockPremium, label: "Secure & trusted", size: 40 },
 ];
 
 function GoldLineWithDiamond({
