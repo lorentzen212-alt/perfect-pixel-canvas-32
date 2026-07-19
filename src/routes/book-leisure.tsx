@@ -792,7 +792,7 @@ function Counter({
 }
 
 const styledSelectTriggerClass = cn(
-  "flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-5",
+  "flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-7",
   "cursor-pointer transition-shadow hover:shadow-md",
   "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
   "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0",
