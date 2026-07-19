@@ -489,12 +489,12 @@ function StepOne(props: {
           </DestinationSelectTrigger>
           <StyledSelectContent>
             {COUNTRIES.map(({ code, name, Flag }) => (
-              <SelectItem key={code} value={code}>
+              <StyledSelectItem key={code} value={code}>
                 <span className="flex items-center gap-2">
                   <Flag />
                   <span>{name}</span>
                 </span>
-              </SelectItem>
+              </StyledSelectItem>
             ))}
           </StyledSelectContent>
         </Select>
@@ -508,9 +508,9 @@ function StepOne(props: {
           </DestinationSelectTrigger>
           <StyledSelectContent>
             {cities.map((c) => (
-              <SelectItem key={c} value={c}>
+              <StyledSelectItem key={c} value={c}>
                 {c}
-              </SelectItem>
+              </StyledSelectItem>
             ))}
           </StyledSelectContent>
         </Select>
@@ -546,9 +546,9 @@ function StepOne(props: {
           </StyledSelectTrigger>
           <StyledSelectContent>
             {guestOptions.map((n) => (
-              <SelectItem key={n} value={String(n)}>
+              <StyledSelectItem key={n} value={String(n)}>
                 {n}
-              </SelectItem>
+              </StyledSelectItem>
             ))}
           </StyledSelectContent>
         </Select>
@@ -795,9 +795,8 @@ const styledSelectTriggerClass = cn(
   "flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-7",
   "cursor-pointer transition-shadow hover:shadow-md",
   "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
-  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0",
+  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0 [&>svg]:hidden",
 );
-
 
 function StyledSelectTrigger({ children }: { children: React.ReactNode }) {
   return (
@@ -805,7 +804,7 @@ function StyledSelectTrigger({ children }: { children: React.ReactNode }) {
       <SelectValue asChild>
         <span className="flex items-center gap-3 min-w-0">{children}</span>
       </SelectValue>
-      <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#5B6472]" />
+      <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#0A1626]" />
     </SelectTrigger>
   );
 }
@@ -814,7 +813,7 @@ const destinationSelectTriggerClass = cn(
   "flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-7",
   "cursor-pointer transition-shadow hover:shadow-md",
   "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
-  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0",
+  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0 [&>svg]:hidden",
 );
 
 function DestinationSelectTrigger({ children }: { children: React.ReactNode }) {
@@ -823,16 +822,41 @@ function DestinationSelectTrigger({ children }: { children: React.ReactNode }) {
       <SelectValue asChild>
         <span className="flex items-center gap-3 min-w-0">{children}</span>
       </SelectValue>
-      <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#5B6472]" />
+      <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#0A1626]" />
     </SelectTrigger>
   );
 }
 
 function StyledSelectContent({ children }: { children: React.ReactNode }) {
   return (
-    <SelectContent className="z-[100] max-h-[280px] bg-white">
+    <SelectContent
+      className="z-[100] max-h-[280px] overflow-hidden rounded-xl border border-[#E4DED2] bg-white p-1.5 shadow-xl"
+      position="popper"
+    >
       {children}
     </SelectContent>
+  );
+}
+
+function StyledSelectItem({
+  value,
+  children,
+}: {
+  value: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <SelectItem
+      value={value}
+      className={cn(
+        "relative cursor-pointer rounded-lg py-2.5 pl-3 pr-8 text-[15px] text-[#0A1626] outline-none transition-colors",
+        "data-[highlighted]:bg-[#F5EFE1] data-[highlighted]:text-[#0A1626]",
+        "data-[state=checked]:bg-[#EAE6DD] data-[state=checked]:font-medium",
+        "focus:bg-[#F5EFE1] focus:text-[#0A1626]",
+      )}
+    >
+      {children}
+    </SelectItem>
   );
 }
 
