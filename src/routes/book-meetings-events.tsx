@@ -1535,15 +1535,15 @@ function StepThreeAccommodation({
                     <CalendarIcon size={20} strokeWidth={1.8} />
                   </LuxIconBadge>
                   <div>
-                    <h3
-                      className="text-[#0A1B2C] text-[20px] leading-tight"
-                      style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
-                    >
-                      Accommodation Period{" "}
-                      <span className="text-[#8A94A0] text-[15px]">
-                        ({editingId ? "Editing" : "Draft"})
-                      </span>
-                    </h3>
+                  <h3
+                    className="text-[#1A1F24] text-[20px] leading-tight tracking-[0.04em]"
+                    style={{ fontFamily: SANS, fontWeight: 600 }}
+                  >
+                    Accommodation Period{" "}
+                    <span className="text-[#8A94A0] text-[15px] font-normal tracking-normal">
+                      ({editingId ? "Editing" : "Draft"})
+                    </span>
+                  </h3>
                   </div>
                 </div>
                 <button
