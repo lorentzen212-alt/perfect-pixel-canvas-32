@@ -483,43 +483,48 @@ function BookMeetingsEvents() {
         .complete-stay-btn {
           position: relative;
           color: #FFFFFF;
-          background-color: #3B2418;
+          background-color: #41281A;
           background-image:
-            linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.02) 32%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.28) 100%),
-            repeating-linear-gradient(92deg, rgba(255,240,215,0.035) 0px, rgba(255,240,215,0.035) 1px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 6px),
-            repeating-linear-gradient(88deg, rgba(0,0,0,0.10) 0px, rgba(0,0,0,0.10) 1px, rgba(0,0,0,0) 3px, rgba(0,0,0,0) 9px),
-            linear-gradient(135deg, #4A2C1C 0%, #3A2214 45%, #2B1810 100%);
+            linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 20%),
+            linear-gradient(180deg, #654128 0%, #53341F 50%, #41281A 100%);
           border: 1px solid #C9A34A;
           border-radius: 16px;
           box-shadow:
-            inset 0 1px 0 rgba(255, 220, 170, 0.18),
-            inset 0 -8px 18px -8px rgba(0, 0, 0, 0.55),
-            0 12px 28px -12px rgba(0, 0, 0, 0.55),
-            0 2px 6px -2px rgba(0, 0, 0, 0.35);
+            inset 0 1px 0 rgba(255, 230, 190, 0.18),
+            inset 0 -8px 18px -8px rgba(0, 0, 0, 0.45),
+            0 12px 28px -12px rgba(0, 0, 0, 0.45),
+            0 2px 6px -2px rgba(0, 0, 0, 0.30);
           cursor: pointer;
-          transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+          transition: transform 250ms ease-out, box-shadow 250ms ease-out, filter 250ms ease-out, background 250ms ease-out;
         }
         .complete-stay-plus {
           color: #C9A34A;
-          transition: color 220ms ease;
+          transition: color 250ms ease-out;
         }
         .complete-stay-btn:hover {
           transform: scale(1.02);
-          filter: brightness(1.08);
+          filter: brightness(1.05);
+          background-image:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 20%),
+            linear-gradient(180deg, #2F8F5B 0%, #24734A 50%, #1B5E3A 100%);
           box-shadow:
-            inset 0 1px 0 rgba(255, 220, 170, 0.22),
-            inset 0 -8px 18px -8px rgba(0, 0, 0, 0.5),
-            0 0 18px rgba(34, 197, 94, 0.45),
-            0 0 42px rgba(34, 197, 94, 0.22),
-            0 14px 32px rgba(0, 0, 0, 0.28);
+            inset 0 1px 0 rgba(255, 255, 255, 0.12),
+            inset 0 -8px 18px -8px rgba(0, 0, 0, 0.45),
+            0 0 12px rgba(47, 143, 91, 0.28),
+            0 0 24px rgba(47, 143, 91, 0.14),
+            0 14px 28px rgba(0, 0, 0, 0.28);
         }
         .complete-stay-btn:active {
           transform: scale(0.99);
+          filter: brightness(0.96);
+          background-image:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 20%),
+            linear-gradient(180deg, #24734A 0%, #1B5E3A 50%, #134A2E 100%);
           box-shadow:
-            inset 0 1px 0 rgba(255, 220, 170, 0.18),
-            inset 0 -6px 14px -8px rgba(0, 0, 0, 0.55),
-            0 0 12px rgba(34, 197, 94, 0.30),
-            0 0 24px rgba(34, 197, 94, 0.14),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08),
+            inset 0 -6px 14px -8px rgba(0, 0, 0, 0.50),
+            0 0 8px rgba(47, 143, 91, 0.22),
+            0 0 16px rgba(47, 143, 91, 0.10),
             0 8px 18px rgba(0, 0, 0, 0.25);
         }
         .add-stay-btn {
