@@ -25,6 +25,13 @@ import {
   Globe,
   Star,
   Check,
+  Minus,
+  Plus,
+  Pencil,
+  Trash2,
+  Coffee,
+  BedDouble,
+  Bell,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
