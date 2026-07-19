@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import {
   Menu,
   X,
@@ -35,6 +35,27 @@ import stavangerImg from "@/assets/destinations/stavanger.jpg";
 import trondheimImg from "@/assets/destinations/trondheim.jpg";
 import bodoImg from "@/assets/destinations/bodo.jpg";
 import lofotenImg from "@/assets/destinations/lofoten.jpg";
+import stockholmImg from "@/assets/destinations/stockholm.jpg";
+import gothenburgImg from "@/assets/destinations/gothenburg.jpg";
+import malmoImg from "@/assets/destinations/malmo.jpg";
+import uppsalaImg from "@/assets/destinations/uppsala.jpg";
+import kirunaImg from "@/assets/destinations/kiruna.jpg";
+import visbyImg from "@/assets/destinations/visby.jpg";
+import areImg from "@/assets/destinations/are.jpg";
+import copenhagenImg from "@/assets/destinations/copenhagen.jpg";
+import aarhusImg from "@/assets/destinations/aarhus.jpg";
+import odenseImg from "@/assets/destinations/odense.jpg";
+import aalborgImg from "@/assets/destinations/aalborg.jpg";
+import roskildeImg from "@/assets/destinations/roskilde.jpg";
+import skagenImg from "@/assets/destinations/skagen.jpg";
+import billundImg from "@/assets/destinations/billund.jpg";
+import helsinkiImg from "@/assets/destinations/helsinki.jpg";
+import tampereImg from "@/assets/destinations/tampere.jpg";
+import turkuImg from "@/assets/destinations/turku.jpg";
+import rovaniemiImg from "@/assets/destinations/rovaniemi.jpg";
+import ouluImg from "@/assets/destinations/oulu.jpg";
+import porvooImg from "@/assets/destinations/porvoo.jpg";
+import leviImg from "@/assets/destinations/levi.jpg";
 
 
 export const Route = createFileRoute("/book-meetings-events")({
