@@ -458,16 +458,16 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   backgroundColor: active
                     ? GOLD
                     : completed
-                      ? "rgba(245,194,90,0.15)"
+                      ? NAVY_DEEP
                       : "rgba(4,17,26,0.85)",
-                  color: active ? NAVY_DEEP : "#FFFFFF",
+                  color: active ? "#FFFFFF" : completed ? GOLD : "#FFFFFF",
                   border: `1px solid ${active || completed ? GOLD : "rgba(255,255,255,0.55)"}`,
                   boxShadow: active
                     ? "0 0 0 5px rgba(245,194,90,0.12), 0 0 20px rgba(245,194,90,0.45)"
                     : "none",
                 }}
               >
-                {n}
+                {completed ? <Check size={16} strokeWidth={2.5} style={{ color: GOLD }} /> : n}
               </span>
               <span
                 className={cn(
