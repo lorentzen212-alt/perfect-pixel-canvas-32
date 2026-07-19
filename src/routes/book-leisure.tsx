@@ -803,7 +803,7 @@ function StyledSelectTrigger({ children }: { children: React.ReactNode }) {
   return (
     <SelectTrigger className={styledSelectTriggerClass}>
       <SelectValue asChild>
-        <span className="flex items-center gap-2 min-w-0">{children}</span>
+        <span className="flex items-center gap-3 min-w-0">{children}</span>
       </SelectValue>
       <ChevronDown size={16} strokeWidth={1.8} className="shrink-0 text-[#5B6472]" />
     </SelectTrigger>
