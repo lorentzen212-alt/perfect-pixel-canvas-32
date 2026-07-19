@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useMemo } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState, useMemo, useEffect } from "react";
 import { format } from "date-fns";
 import {
   ArrowLeft,
@@ -15,6 +15,8 @@ import {
   Check,
   Minus,
   Plus,
+  Loader2,
+  ChevronRight,
 } from "lucide-react";
 import {
   Select,
@@ -128,6 +130,17 @@ function BookLeisure() {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
+  const [terms, setTerms] = useState(false);
+
+  // Submission state
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [confirmation, setConfirmation] = useState<null | {
+    requestId: string;
+  }>(null);
+
+  const navigate = useNavigate();
 
   const totalRooms = sgl + dbl + trp;
   const maxCapacity = sgl * 1 + dbl * 2 + trp * 3;
@@ -162,6 +175,100 @@ function BookLeisure() {
     t.setHours(0, 0, 0, 0);
     return t;
   }, []);
+
+  const validateAll = () => {
+    const e: Record<string, string> = {};
+    if (!country) e.country = "Please select a country.";
+    if (!city) e.city = "Please select a city.";
+    if (!arrival) e.arrival = "Please select an arrival date.";
+    else if (arrival < today) e.arrival = "Arrival cannot be in the past.";
+    if (!departure) e.departure = "Please select a departure date.";
+    else if (arrival && departure <= arrival)
+      e.departure = "Departure must be after arrival.";
+    if (!guests || guests < 1) e.guests = "Please select number of guests.";
+    if (capacityShortfall)
+      e.capacity = "Selected rooms don't cover the number of guests.";
+    if (!fullName.trim()) e.fullName = "Please enter your full name.";
+    if (!email.trim()) e.email = "Please enter your email.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
+      e.email = "Please enter a valid email address.";
+    if (!phone.trim()) e.phone = "Please enter your phone number.";
+    else if (!/^[+()\d][\d\s()+-]{6,}$/.test(phone.trim()))
+      e.phone = "Please enter a valid phone number.";
+    if (!terms) e.terms = "Please accept the terms to continue.";
+    return e;
+  };
+
+  const handleSubmit = async () => {
+    if (submitting) return;
+    const e = validateAll();
+    setErrors(e);
+    setSubmitError(null);
+    if (Object.keys(e).length > 0) {
+      // If a step-1 field failed, jump back so user sees highlights
+      if (e.country || e.city || e.arrival || e.departure || e.guests || e.capacity) {
+        setDirection("back");
+        setStep(1);
+      }
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const year = new Date().getFullYear();
+      const seq = Math.floor(Math.random() * 90000) + 10000;
+      const requestId = `HGB-${year}-${String(seq).padStart(5, "0")}`;
+      const payload = {
+        requestId,
+        country,
+        city,
+        arrivalDate: arrival ? format(arrival, "yyyy-MM-dd") : null,
+        departureDate: departure ? format(departure, "yyyy-MM-dd") : null,
+        guests,
+        sgl,
+        dbl,
+        trp,
+        totalRooms,
+        maxCapacity,
+        specialRequests: Array.from(selectedRequests),
+        additionalInformation: notes,
+        contactName: fullName,
+        company,
+        email,
+        phone,
+        status: "Searching hotels",
+        submittedAt: new Date().toISOString(),
+      };
+      // Persist to localStorage under "My Requests"
+      if (typeof window !== "undefined") {
+        const existing = JSON.parse(
+          window.localStorage.getItem("hgb_requests") || "[]",
+        );
+        existing.unshift(payload);
+        window.localStorage.setItem("hgb_requests", JSON.stringify(existing));
+      }
+      // Small delay for premium loading feel
+      await new Promise((r) => setTimeout(r, 700));
+      setConfirmation({ requestId });
+    } catch (err) {
+      console.error(err);
+      setSubmitError(
+        "We couldn't submit your request. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (confirmation) {
+    return (
+      <ConfirmationScreen
+        requestId={confirmation.requestId}
+        onGoToRequests={() => navigate({ to: "/" })}
+        onGoHome={() => navigate({ to: "/" })}
+      />
+    );
+  }
+
 
   return (
     <main
@@ -261,22 +368,38 @@ function BookLeisure() {
                         setCompany={setCompany}
                         phone={phone}
                         setPhone={setPhone}
+                        terms={terms}
+                        setTerms={setTerms}
+                        errors={errors}
                       />
                     )}
 
                     <div className="mt-8">
                       <PrimaryButton
-                        onClick={() =>
-                          step < 3 && go((step + 1) as StepKey)
-                        }
+                        onClick={() => {
+                          if (step < 3) {
+                            go((step + 1) as StepKey);
+                          } else {
+                            handleSubmit();
+                          }
+                        }}
+                        loading={step === 3 && submitting}
                         label={
-                          step === 1
-                            ? "Continue"
-                            : step === 2
-                              ? "Continue"
+                          step === 3
+                            ? submitting
+                              ? "Submitting..."
                               : "Submit Request"
+                            : "Continue"
                         }
                       />
+                      {submitError && step === 3 && (
+                        <p
+                          className="mt-3 text-center text-[13.5px]"
+                          style={{ color: "#B4231F" }}
+                        >
+                          {submitError}
+                        </p>
+                      )}
                       <div
                         className="mt-5 flex items-center justify-center gap-2 text-[13px]"
                         style={{ color: "#6B7280" }}
@@ -292,6 +415,7 @@ function BookLeisure() {
           </div>
         </div>
       </div>
+
 
       <style>{`
         @keyframes slide-in-right {
@@ -716,24 +840,82 @@ function StepThree(props: {
   setCompany: (v: string) => void;
   phone: string;
   setPhone: (v: string) => void;
+  terms: boolean;
+  setTerms: (b: boolean) => void;
+  errors: Record<string, string>;
 }) {
+  const { errors } = props;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 min-h-[300px]">
-      <div>
-        <FieldLabel>Full Name</FieldLabel>
-        <InputBox value={props.fullName} onChange={props.setFullName} placeholder="Ola Nordmann" />
-        <FieldLabel className="mt-5">Email</FieldLabel>
-        <InputBox value={props.email} onChange={props.setEmail} placeholder="you@example.com" type="email" />
+    <div className="min-h-[300px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <FieldLabel>Full Name</FieldLabel>
+          <InputBox
+            value={props.fullName}
+            onChange={props.setFullName}
+            placeholder="Ola Nordmann"
+            error={!!errors.fullName}
+          />
+          {errors.fullName && <FieldError>{errors.fullName}</FieldError>}
+          <FieldLabel className="mt-5">Email</FieldLabel>
+          <InputBox
+            value={props.email}
+            onChange={props.setEmail}
+            placeholder="you@example.com"
+            type="email"
+            error={!!errors.email}
+          />
+          {errors.email && <FieldError>{errors.email}</FieldError>}
+        </div>
+        <div>
+          <FieldLabel>Company</FieldLabel>
+          <InputBox
+            value={props.company}
+            onChange={props.setCompany}
+            placeholder="Optional"
+          />
+          <FieldLabel className="mt-5">Phone</FieldLabel>
+          <InputBox
+            value={props.phone}
+            onChange={props.setPhone}
+            placeholder="+47 000 00 000"
+            type="tel"
+            error={!!errors.phone}
+          />
+          {errors.phone && <FieldError>{errors.phone}</FieldError>}
+        </div>
       </div>
-      <div>
-        <FieldLabel>Company</FieldLabel>
-        <InputBox value={props.company} onChange={props.setCompany} placeholder="Optional" />
-        <FieldLabel className="mt-5">Phone</FieldLabel>
-        <InputBox value={props.phone} onChange={props.setPhone} placeholder="+47 000 00 000" type="tel" />
-      </div>
+
+      <label className="mt-6 flex items-start gap-3 cursor-pointer select-none">
+        <span
+          className="mt-[2px] flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-[6px] transition-colors"
+          style={{
+            backgroundColor: props.terms ? "#0A1626" : "#FFFFFF",
+            border: props.terms
+              ? "1px solid #0A1626"
+              : `1px solid ${errors.terms ? "#B4231F" : "#D9D3C4"}`,
+          }}
+          onClick={() => props.setTerms(!props.terms)}
+        >
+          {props.terms && <Check size={14} strokeWidth={3} className="text-white" />}
+        </span>
+        <span className="text-[14px] text-[#0A1626] leading-relaxed">
+          I agree to the terms and consent to being contacted about my request.
+        </span>
+      </label>
+      {errors.terms && <FieldError>{errors.terms}</FieldError>}
     </div>
   );
 }
+
+function FieldError({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mt-1.5 text-[12.5px]" style={{ color: "#B4231F" }}>
+      {children}
+    </p>
+  );
+}
+
 
 /* ---------- Primitives ---------- */
 
@@ -957,11 +1139,13 @@ function InputBox({
   onChange,
   placeholder,
   type = "text",
+  error = false,
 }: {
   value: string;
   onChange: (v: string) => void;
   placeholder?: string;
   type?: string;
+  error?: boolean;
 }) {
   return (
     <input
@@ -971,8 +1155,10 @@ function InputBox({
       placeholder={placeholder}
       className="h-[46px] w-full rounded-xl bg-white px-4 text-[15px] text-[#0A1626] outline-none placeholder:text-[#9AA3AF]"
       style={{
-        border: "1px solid #E4DED2",
-        boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
+        border: `1px solid ${error ? "#B4231F" : "#E4DED2"}`,
+        boxShadow: error
+          ? "0 0 0 3px rgba(180,35,31,0.10)"
+          : "0 1px 2px rgba(0,0,0,0.03)",
       }}
     />
   );
@@ -983,15 +1169,18 @@ function InputBox({
 function PrimaryButton({
   onClick,
   label = "Get Hotel Offers",
+  loading = false,
 }: {
   onClick: () => void;
   label?: string;
+  loading?: boolean;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="continue-btn group relative flex h-[64px] w-full items-center justify-center gap-4 rounded-[16px] px-8 text-[17px] font-semibold transition-all duration-[250ms] ease-out"
+      disabled={loading}
+      className="continue-btn group relative flex h-[64px] w-full items-center justify-center gap-4 rounded-[16px] px-8 text-[17px] font-semibold transition-all duration-[250ms] ease-out disabled:cursor-not-allowed disabled:opacity-90"
       style={{
         backgroundColor: "#081828",
         color: GOLD,
@@ -1001,13 +1190,17 @@ function PrimaryButton({
       }}
     >
       <span>{label}</span>
-      <ArrowRight
-        size={22}
-        strokeWidth={1.8}
-        className="transition-transform duration-[250ms] ease-out group-hover:translate-x-1"
-      />
+      {loading ? (
+        <Loader2 size={22} strokeWidth={1.8} className="animate-spin" />
+      ) : (
+        <ArrowRight
+          size={22}
+          strokeWidth={1.8}
+          className="transition-transform duration-[250ms] ease-out group-hover:translate-x-1"
+        />
+      )}
       <style>{`
-        .continue-btn:hover {
+        .continue-btn:hover:not(:disabled) {
           transform: translateY(-2px);
           border-color: #FFD57A;
           box-shadow:
@@ -1020,6 +1213,167 @@ function PrimaryButton({
     </button>
   );
 }
+
+/* ---------- Confirmation Screen ---------- */
+
+function ConfirmationScreen({
+  requestId,
+  onGoToRequests,
+  onGoHome,
+}: {
+  requestId: string;
+  onGoToRequests: () => void;
+  onGoHome: () => void;
+}) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 40);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <main
+      className="relative min-h-screen w-full overflow-hidden"
+      style={{ backgroundColor: NAVY_BG }}
+    >
+      <GoldParticles />
+      <div className="relative mx-auto max-w-[720px] px-4 py-10 sm:px-8 sm:py-16">
+        <div
+          className="relative overflow-hidden rounded-[24px] border px-6 py-14 sm:px-12 sm:py-16"
+          style={{
+            borderColor: BORDER,
+            backgroundColor: "rgba(6, 21, 35, 0.9)",
+            boxShadow:
+              "0 40px 120px -40px rgba(0,0,0,0.75), inset 0 1px 0 rgba(245,194,90,0.08)",
+          }}
+        >
+          {/* Flowing gold line texture */}
+          <svg
+            className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.18]"
+            viewBox="0 0 720 900"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            {Array.from({ length: 14 }).map((_, i) => (
+              <path
+                key={i}
+                d={`M -20 ${60 + i * 55} Q 180 ${20 + i * 55} 360 ${70 + i * 55} T 740 ${50 + i * 55}`}
+                fill="none"
+                stroke={GOLD}
+                strokeWidth="0.8"
+                strokeOpacity={0.55 - i * 0.02}
+              />
+            ))}
+          </svg>
+
+          <div className="relative flex flex-col items-center text-center">
+            {/* Checkmark circle */}
+            <div
+              className={cn(
+                "relative flex h-[132px] w-[132px] items-center justify-center rounded-full transition-all ease-out",
+                visible
+                  ? "opacity-100 scale-100"
+                  : "opacity-0 scale-90",
+              )}
+              style={{
+                transitionDuration: "600ms",
+                border: `2.5px solid ${GOLD}`,
+                boxShadow: visible
+                  ? `0 0 0 6px rgba(245,194,90,0.08), 0 0 40px 4px rgba(245,194,90,0.55), inset 0 0 24px rgba(245,194,90,0.25)`
+                  : "0 0 0 rgba(245,194,90,0)",
+              }}
+            >
+              <Check
+                size={68}
+                strokeWidth={2.2}
+                style={{
+                  color: GOLD,
+                  filter: "drop-shadow(0 0 8px rgba(245,194,90,0.7))",
+                }}
+              />
+            </div>
+
+            <h1
+              className="mt-9 text-[54px] leading-none font-medium"
+              style={{ fontFamily: SERIF, color: GOLD }}
+            >
+              Thank you!
+            </h1>
+            <p className="mt-5 text-[19px] text-white">
+              Your request has been received.
+            </p>
+            <p className="mt-4 max-w-[440px] text-[15.5px] leading-relaxed text-[#B9C2CC]">
+              We will contact suitable hotels and you will receive the best
+              hotel offers through your account.
+            </p>
+
+            {/* Info card */}
+            <div
+              className="mt-9 w-full max-w-[440px] rounded-2xl border px-6 py-5"
+              style={{
+                borderColor: BORDER_SOFT,
+                backgroundColor: "rgba(3, 10, 20, 0.55)",
+              }}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-[15px] text-[#B9C2CC]">Request ID</span>
+                <span className="flex items-center gap-2 text-[15px] font-medium text-white">
+                  {requestId}
+                  <ChevronRight size={16} strokeWidth={1.8} style={{ color: GOLD }} />
+                </span>
+              </div>
+              <div
+                className="my-4 h-px w-full"
+                style={{ backgroundColor: "rgba(245,194,90,0.15)" }}
+              />
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-[15px] text-[#B9C2CC]">Status</span>
+                <span className="flex items-center gap-2 text-[15px] text-white">
+                  Searching hotels
+                  <span
+                    className="inline-block h-[9px] w-[9px] rounded-full"
+                    style={{
+                      backgroundColor: GOLD,
+                      boxShadow: "0 0 10px rgba(245,194,90,0.7)",
+                    }}
+                  />
+                </span>
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <button
+              type="button"
+              onClick={onGoToRequests}
+              className="mt-8 w-full max-w-[440px] rounded-2xl px-6 py-4 text-[15.5px] font-medium transition-all hover:brightness-110"
+              style={{
+                color: GOLD,
+                backgroundColor: "transparent",
+                border: `1.5px solid ${GOLD}`,
+                boxShadow:
+                  "0 0 0 1px rgba(245,194,90,0.10), 0 0 24px -6px rgba(245,194,90,0.45)",
+              }}
+            >
+              Go to My Requests
+            </button>
+            <button
+              type="button"
+              onClick={onGoHome}
+              className="mt-3 w-full max-w-[440px] rounded-2xl px-6 py-4 text-[15.5px] font-medium text-white transition-all hover:brightness-110"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.10)",
+              }}
+            >
+              Back to Homepage
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
+
 
 /* ---------- Flags ---------- */
 
