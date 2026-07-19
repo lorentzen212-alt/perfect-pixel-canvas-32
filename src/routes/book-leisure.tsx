@@ -840,24 +840,82 @@ function StepThree(props: {
   setCompany: (v: string) => void;
   phone: string;
   setPhone: (v: string) => void;
+  terms: boolean;
+  setTerms: (b: boolean) => void;
+  errors: Record<string, string>;
 }) {
+  const { errors } = props;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 min-h-[300px]">
-      <div>
-        <FieldLabel>Full Name</FieldLabel>
-        <InputBox value={props.fullName} onChange={props.setFullName} placeholder="Ola Nordmann" />
-        <FieldLabel className="mt-5">Email</FieldLabel>
-        <InputBox value={props.email} onChange={props.setEmail} placeholder="you@example.com" type="email" />
+    <div className="min-h-[300px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <FieldLabel>Full Name</FieldLabel>
+          <InputBox
+            value={props.fullName}
+            onChange={props.setFullName}
+            placeholder="Ola Nordmann"
+            error={!!errors.fullName}
+          />
+          {errors.fullName && <FieldError>{errors.fullName}</FieldError>}
+          <FieldLabel className="mt-5">Email</FieldLabel>
+          <InputBox
+            value={props.email}
+            onChange={props.setEmail}
+            placeholder="you@example.com"
+            type="email"
+            error={!!errors.email}
+          />
+          {errors.email && <FieldError>{errors.email}</FieldError>}
+        </div>
+        <div>
+          <FieldLabel>Company</FieldLabel>
+          <InputBox
+            value={props.company}
+            onChange={props.setCompany}
+            placeholder="Optional"
+          />
+          <FieldLabel className="mt-5">Phone</FieldLabel>
+          <InputBox
+            value={props.phone}
+            onChange={props.setPhone}
+            placeholder="+47 000 00 000"
+            type="tel"
+            error={!!errors.phone}
+          />
+          {errors.phone && <FieldError>{errors.phone}</FieldError>}
+        </div>
       </div>
-      <div>
-        <FieldLabel>Company</FieldLabel>
-        <InputBox value={props.company} onChange={props.setCompany} placeholder="Optional" />
-        <FieldLabel className="mt-5">Phone</FieldLabel>
-        <InputBox value={props.phone} onChange={props.setPhone} placeholder="+47 000 00 000" type="tel" />
-      </div>
+
+      <label className="mt-6 flex items-start gap-3 cursor-pointer select-none">
+        <span
+          className="mt-[2px] flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-[6px] transition-colors"
+          style={{
+            backgroundColor: props.terms ? "#0A1626" : "#FFFFFF",
+            border: props.terms
+              ? "1px solid #0A1626"
+              : `1px solid ${errors.terms ? "#B4231F" : "#D9D3C4"}`,
+          }}
+          onClick={() => props.setTerms(!props.terms)}
+        >
+          {props.terms && <Check size={14} strokeWidth={3} className="text-white" />}
+        </span>
+        <span className="text-[14px] text-[#0A1626] leading-relaxed">
+          I agree to the terms and consent to being contacted about my request.
+        </span>
+      </label>
+      {errors.terms && <FieldError>{errors.terms}</FieldError>}
     </div>
   );
 }
+
+function FieldError({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mt-1.5 text-[12.5px]" style={{ color: "#B4231F" }}>
+      {children}
+    </p>
+  );
+}
+
 
 /* ---------- Primitives ---------- */
 
