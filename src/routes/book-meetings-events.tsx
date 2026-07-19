@@ -1535,7 +1535,7 @@ function StepThreeAccommodation({
                   <div>
                     <h3
                       className="text-[#0A1B2C] text-[20px] leading-tight"
-                      style={{ fontFamily: SERIF }}
+                      style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
                     >
                       Accommodation Period{" "}
                       <span className="text-[#8A94A0] text-[15px]">
