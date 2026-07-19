@@ -178,7 +178,7 @@ function Home() {
             <span className="italic">made simple</span>
           </h2>
 
-          <GoldLineWithDiamond className="mt-4" lineWidth="w-[170px] sm:w-[175px] lg:w-[180px]" lineThickness="h-[4.5px]" diamondSize="h-[6.5px] w-[6.5px]" />
+          <GoldLineWithDiamond className="mt-4" lineWidth="w-[190px] sm:w-[200px] lg:w-[210px]" lineThickness="h-[4.5px]" diamondSize="h-[5.2px] w-[5.2px]" />
 
           <p className="mt-[39px] text-white text-xl sm:text-2xl lg:text-[28px] leading-[1.25] font-normal font-sans">
             The easiest way to request
