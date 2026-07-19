@@ -1616,24 +1616,24 @@ function StepThreeAccommodation({
                   </h4>
                 </div>
                 <div
-                  className="mb-3 hidden sm:grid items-baseline gap-3 sm:gap-6 pb-2 border-b"
-                  style={{ gridTemplateColumns: "44px minmax(0,1fr) auto auto", borderColor: "#ECE7DC" }}
+                  className="mb-3 hidden sm:grid items-baseline gap-6 pb-2 border-b px-5"
+                  style={{ gridTemplateColumns: "44px minmax(0,1fr) 132px 180px", borderColor: "#ECE7DC" }}
                 >
                   <div aria-hidden />
                   <h4
-                    className="text-[#1F2937] text-[15px]"
-                    style={{ fontFamily: SANS, fontWeight: 600 }}
+                    className="text-[#1F2937] text-[17px]"
+                    style={{ fontFamily: SANS, fontWeight: 600, letterSpacing: "0.02em" }}
                   >
                     Room Categories
                   </h4>
                   <span
-                    className="text-[10.5px] tracking-[0.08em] text-[#8A94A0] uppercase text-center sm:w-[132px]"
+                    className="text-[11px] tracking-[0.05em] text-[#1F2937] uppercase text-center"
                     style={{ fontFamily: SANS, fontWeight: 600 }}
                   >
                     Guests
                   </span>
                   <span
-                    className="text-[10.5px] tracking-[0.08em] text-[#8A94A0] uppercase text-center sm:w-[180px]"
+                    className="text-[11px] tracking-[0.05em] text-[#1F2937] uppercase text-center"
                     style={{ fontFamily: SANS, fontWeight: 600 }}
                   >
                     Preferred Room Category
