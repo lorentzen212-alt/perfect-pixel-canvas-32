@@ -1262,7 +1262,7 @@ function StepTwoLocation({
                       onClick={() => setSelectedHotelCategory(c.id)}
                       aria-pressed={selected}
                       className={cn(
-                        "inline-flex items-center justify-center gap-2 rounded-md h-[46px] text-[15px] text-[#0A1B2C] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
+                        "inline-flex items-center justify-center gap-3 rounded-md h-[46px] text-[15px] text-[#0A1B2C] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
                         selected
                           ? isNone
                             ? "border-[1.5px] border-[#F5AE00] bg-[#FBF6EA] shadow-[0_8px_20px_-14px_rgba(200,154,58,0.5)]"
