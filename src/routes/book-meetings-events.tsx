@@ -1837,18 +1837,6 @@ function StepThreeAccommodation({
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <span
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-md"
-                    style={{ backgroundColor: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.25)" }}
-                  >
-                    <Bell size={15} style={{ color: GOLD }} />
-                  </span>
-                  <div className="text-white text-[15px]">Porter Service</div>
-                </div>
-                <div className="text-white/80 text-[14px]">{porter ? "Yes" : "No"}</div>
-              </div>
             </div>
 
             {/* Need help card */}
