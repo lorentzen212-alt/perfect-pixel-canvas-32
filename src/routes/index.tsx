@@ -22,6 +22,13 @@ import {
   Instagram,
   Mountain,
 } from "lucide-react";
+import {
+  ShieldCheckPremium,
+  ClockPremium,
+  HeadsetPremium,
+  LockPremium,
+  GroupPremium,
+} from "@/components/PremiumIcons";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import lofotenImg from "@/assets/dest-lofoten.jpg";
@@ -50,10 +57,10 @@ const NAV_LINKS = [
 ];
 
 const TRUST = [
-  { Icon: ShieldCheck, label: "No commitment" },
-  { Icon: Clock, label: "Fast and free" },
-  { Icon: Headphones, label: "Expert support" },
-  { Icon: Lock, label: "Secure & trusted" },
+  { Icon: ShieldCheckPremium, label: "No commitment" },
+  { Icon: ClockPremium, label: "Fast and free" },
+  { Icon: HeadsetPremium, label: "Expert support" },
+  { Icon: LockPremium, label: "Secure & trusted" },
 ];
 
 function GoldLineWithDiamond({
@@ -197,7 +204,7 @@ function Home() {
 
           {/* BUILT BY */}
           <div className="mt-5 flex items-start gap-3">
-            <UsersRound className="text-[#F5AE00] shrink-0 mt-0.5" size={26} strokeWidth={2} />
+            <GroupPremium className="shrink-0 mt-0.5" size={26} />
             <p className="text-[#F7F7F5] text-[15px] lg:text-[16px] leading-snug">
               Built by group booking professionals
               <br className="hidden sm:block" />
