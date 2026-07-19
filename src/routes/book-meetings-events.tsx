@@ -34,7 +34,6 @@ import {
   Bed,
   User,
   UsersRound,
-  Bell,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
@@ -89,6 +88,7 @@ export const Route = createFileRoute("/book-meetings-events")({
 });
 
 const SERIF = '"Cormorant Garamond", Georgia, serif';
+const SANS = '"Inter", ui-sans-serif, system-ui, sans-serif';
 const GOLD = "#F5C25A";
 const NAVY = "#0A1B2C";
 const NAVY_DEEP = "#04111A";
@@ -1443,7 +1443,6 @@ function StepThreeAccommodation({
   const [mealPlan, setMealPlan] = useState<MealPlan>("breakfast");
   const [stays, setStays] = useState<Stay[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [porter] = useState(false);
   const [special, setSpecial] = useState("");
 
   const totalRooms = stays.reduce((n, s) => n + roomsTotal(s.rooms), 0);
@@ -1536,15 +1535,15 @@ function StepThreeAccommodation({
                     <CalendarIcon size={20} strokeWidth={1.8} />
                   </LuxIconBadge>
                   <div>
-                    <h3
-                      className="text-[#0A1B2C] text-[20px] leading-tight"
-                      style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
-                    >
-                      Accommodation Period{" "}
-                      <span className="text-[#8A94A0] text-[15px]">
-                        ({editingId ? "Editing" : "Draft"})
-                      </span>
-                    </h3>
+                  <h3
+                    className="text-[#1A1F24] text-[20px] leading-tight tracking-[0.04em]"
+                    style={{ fontFamily: SANS, fontWeight: 600 }}
+                  >
+                    Accommodation Period{" "}
+                    <span className="text-[#8A94A0] text-[15px] font-normal tracking-normal">
+                      ({editingId ? "Editing" : "Draft"})
+                    </span>
+                  </h3>
                   </div>
                 </div>
                 <button
@@ -1703,7 +1702,7 @@ function StepThreeAccommodation({
                       }}
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <LuxIconBadge size={36}>
+                        <LuxIconBadge size={36} tone="onDark">
                           <CalendarIcon size={16} strokeWidth={1.8} />
                         </LuxIconBadge>
                         <div className="min-w-0">
@@ -1830,9 +1829,7 @@ function StepThreeAccommodation({
               <SummaryRow icon={<BedDouble size={16} />} label="Total Rooms Requested" value={totalRooms} />
             </div>
 
-            <GoldDivider />
-
-            <div className="flex flex-col gap-4">
+            <div className="mt-6 flex flex-col gap-4">
               <div className="flex items-center gap-3">
                 <LuxIconBadge size={36} tone="onDark">
                   <Coffee size={16} />
@@ -1843,15 +1840,6 @@ function StepThreeAccommodation({
                     {primaryMeal === "breakfast" ? "Breakfast Included" : "Room Only"}
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <LuxIconBadge size={36} tone="onDark">
-                    <Bell size={16} />
-                  </LuxIconBadge>
-                  <div className="text-white text-[15px]">Porter Service</div>
-                </div>
-                <div className="text-white/80 text-[14px]">{porter ? "Yes" : "No"}</div>
               </div>
             </div>
 
@@ -2088,9 +2076,22 @@ function RoomRow({
           >
             <Minus size={15} />
           </button>
-          <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums w-8 text-center">
-            {value}
-          </span>
+          <input
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={value}
+            onChange={(e) => {
+              const raw = e.target.value.replace(/\D/g, "");
+              const n = raw === "" ? 0 : Math.max(0, Math.min(parseInt(raw, 10), 999));
+              onChange(n);
+            }}
+            onBlur={(e) => {
+              if (e.target.value === "") onChange(0);
+            }}
+            className="w-8 bg-transparent text-center text-[#0A1B2C] text-[15px] font-semibold tabular-nums outline-none"
+            aria-label={`${label} quantity`}
+          />
           <button
             type="button"
             onClick={() => onChange(value + 1)}
