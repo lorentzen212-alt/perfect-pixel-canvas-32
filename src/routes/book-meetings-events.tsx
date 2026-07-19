@@ -1718,8 +1718,12 @@ function StepThreeAccommodation({
                   onChange={(e) => setSpecial(e.target.value)}
                   rows={3}
                   placeholder="E.g. early check-in, late check-out, welcome gift, specific floor, etc."
-                  className="mt-3 w-full rounded-[10px] px-4 py-3 text-[14px] text-[#0A1B2C] placeholder:text-[#9BA4AE] outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
-                  style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+                  className="mt-3 w-full rounded-[10px] px-4 py-3 text-[14px] text-[#0A1B2C] placeholder:text-[#9BA4AE] outline-none transition-all focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #E6E2D5",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
+                  }}
                 />
               </label>
             </div>
