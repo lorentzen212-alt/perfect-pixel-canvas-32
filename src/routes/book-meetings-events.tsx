@@ -672,11 +672,27 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
           className="pointer-events-none absolute"
           style={{ top: 18, left: edgeInset, right: edgeInset, zIndex: 0 }}
         >
-          {/* Inactive base line */}
-          <div
-            className="h-px w-full"
-            style={{ backgroundColor: "rgba(245,194,90,0.28)", position: "relative", zIndex: 0 }}
-          />
+          {/* Inactive base line: solid up to step 6, dashed from step 6 -> step 7 */}
+          <div className="relative h-px w-full">
+            <div
+              className="absolute left-0 top-0 h-px"
+              style={{
+                width: `${((total - 2) / (total - 1)) * 100}%`,
+                backgroundColor: "rgba(245,194,90,0.28)",
+              }}
+            />
+            <div
+              className="absolute top-0 h-px"
+              style={{
+                left: `${((total - 2) / (total - 1)) * 100}%`,
+                right: 0,
+                backgroundImage:
+                  "linear-gradient(90deg, rgba(255,255,255,0.35) 50%, transparent 50%)",
+                backgroundSize: "6px 1px",
+                backgroundRepeat: "repeat-x",
+              }}
+            />
+          </div>
           {/* Gold overlay */}
           <div
             className="absolute left-0 top-0 h-px"
@@ -694,42 +710,113 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
           const n = i + 1;
           const active = n === step;
           const completed = n < step;
+          const isLast = n === total;
+          const clickable = !isLast && !active;
           const pulse = active && pulseKey === step;
+
+          const bg = active
+            ? "linear-gradient(180deg, #F7CF63 0%, #E4B52F 52%, #D9A520 100%)"
+            : completed
+              ? NAVY_DEEP
+              : "transparent";
+          const borderColor = active
+            ? "rgba(255,223,130,0.95)"
+            : isLast
+              ? "rgba(255,255,255,0.28)"
+              : GOLD;
+          const numberColor = active
+            ? "#FFFFFF"
+            : completed
+              ? GOLD
+              : isLast
+                ? "rgba(255,255,255,0.4)"
+                : GOLD;
+
           return (
             <button
               key={label}
               type="button"
-              onClick={() => (completed ? onGo(n) : undefined)}
-              className="relative flex flex-col items-center gap-2 flex-1 min-w-0"
+              onClick={() => (clickable ? onGo(n) : undefined)}
+              disabled={!clickable}
+              aria-current={active ? "step" : undefined}
+              className={cn(
+                "relative flex flex-col items-center gap-2 flex-1 min-w-0",
+                clickable ? "cursor-pointer" : "cursor-default",
+              )}
               style={{ zIndex: 2 }}
             >
+              {active && (
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute"
+                  style={{
+                    top: -6,
+                    width: 72,
+                    height: 72,
+                    borderRadius: "9999px",
+                    background:
+                      "radial-gradient(circle, rgba(212,175,55,0.32) 0%, rgba(212,175,55,0.14) 35%, transparent 70%)",
+                    filter: "blur(2px)",
+                    animation: "step-glow 2600ms ease-in-out infinite",
+                    zIndex: 0,
+                  }}
+                />
+              )}
               <span
-                className="flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold"
+                className="relative flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold"
                 style={{
-                  background: active
-                    ? "linear-gradient(180deg, #F7CF63 0%, #E4B52F 52%, #D9A520 100%)"
-                    : completed
-                      ? NAVY_DEEP
-                      : "rgba(4,17,26,0.85)",
-                  color: active ? "#FFFFFF" : completed ? GOLD : "#FFFFFF",
-                  border: `1px solid ${active ? "rgba(255,223,130,0.95)" : completed ? GOLD : "rgba(255,255,255,0.55)"}`,
+                  background: bg,
+                  color: numberColor,
+                  border: `1px solid ${borderColor}`,
                   boxShadow: active
-                    ? "0 0 14px rgba(226,177,59,0.35), 0 0 30px rgba(226,177,59,0.14), 0 8px 18px rgba(217,165,32,0.18), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    ? "0 0 14px rgba(212,175,55,0.55), 0 0 30px rgba(212,175,55,0.22), 0 8px 18px rgba(217,165,32,0.20), inset 0 1px 0 rgba(255,255,255,0.45)"
                     : completed
                       ? "0 2px 6px rgba(0,0,0,0.25)"
                       : "none",
-                  transition: "background 250ms cubic-bezier(0.4,0,0.2,1), box-shadow 250ms cubic-bezier(0.4,0,0.2,1), border-color 250ms",
+                  transition:
+                    "background 250ms cubic-bezier(0.4,0,0.2,1), box-shadow 250ms cubic-bezier(0.4,0,0.2,1), border-color 250ms",
                   animation: pulse ? "step-pulse 260ms cubic-bezier(0.4,0,0.2,1) 1" : undefined,
+                  zIndex: 1,
                 }}
               >
+                {active && (
+                  <>
+                    <span
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        top: -3,
+                        right: 2,
+                        width: 3,
+                        height: 3,
+                        borderRadius: "9999px",
+                        background: "#FFE9A8",
+                        boxShadow: "0 0 6px #D4AF37",
+                        animation: "step-sparkle 1800ms ease-in-out infinite",
+                      }}
+                    />
+                    <span
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        bottom: -2,
+                        left: 0,
+                        width: 2,
+                        height: 2,
+                        borderRadius: "9999px",
+                        background: "#FFE9A8",
+                        boxShadow: "0 0 5px #D4AF37",
+                        animation: "step-sparkle 2200ms ease-in-out 600ms infinite",
+                      }}
+                    />
+                  </>
+                )}
                 {completed ? <Check size={16} strokeWidth={2.5} style={{ color: GOLD }} /> : n}
               </span>
               <span
-                className={cn(
-                  "text-[13px] lg:text-[14px] font-medium text-center whitespace-nowrap transition-colors duration-[250ms]",
-                )}
+                className="text-[13px] lg:text-[14px] font-medium text-center whitespace-nowrap transition-colors duration-[250ms]"
                 style={{
-                  color: active ? GOLD : "rgba(255,255,255,0.85)",
+                  color: active ? GOLD : isLast ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.85)",
                 }}
               >
                 {label}
