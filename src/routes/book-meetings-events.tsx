@@ -1449,6 +1449,7 @@ function StepThreeAccommodation({
     setCheckIn("");
     setCheckOut("");
     setRooms(emptyRooms());
+    setCats(emptyCats());
     setMealPlan("breakfast");
     setEditingId(null);
   };
@@ -1460,6 +1461,7 @@ function StepThreeAccommodation({
       checkIn,
       checkOut,
       rooms,
+      cats,
       mealPlan,
     };
     setStays((prev) =>
@@ -1475,6 +1477,7 @@ function StepThreeAccommodation({
     setCheckIn(s.checkIn);
     setCheckOut(s.checkOut);
     setRooms(s.rooms);
+    setCats(s.cats);
     setMealPlan(s.mealPlan);
   };
 
