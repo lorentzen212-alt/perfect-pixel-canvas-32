@@ -177,10 +177,10 @@ function Home() {
 
           {/* CTA BUTTONS */}
           <div className="mt-10 flex flex-nowrap items-center gap-4" style={{ gap: 16 }}>
-            <CTAButton icon={<Users size={26} strokeWidth={1.9} />} label="Book Leisure" variant="light" />
-            <CTAButton icon={<Briefcase size={26} strokeWidth={1.9} />} label="Book M&E" variant="deep" />
+            <CTAButton icon={<Users size={31} strokeWidth={1.9} />} label="Book Leisure" variant="light" />
+            <CTAButton icon={<MeetingTableIcon size={26} />} label="Book M&E" variant="deep" />
             <CTAButton
-              icon={<CalendarDays size={26} strokeWidth={1.9} />}
+              icon={<CalendarCheckBadgeIcon size={26} />}
               label={
                 <>
                   Manage My
@@ -190,6 +190,7 @@ function Home() {
               }
               variant="deep"
             />
+
           </div>
 
           {/* TRUST ROW */}
@@ -597,3 +598,41 @@ function SiteFooter() {
     </footer>
   );
 }
+
+function MeetingTableIcon({ size = 26 }: { size?: number }) {
+  const s = 1.9;
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth={s} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {/* Head figure (top) */}
+      <circle cx="16" cy="6.5" r="2.6" />
+      <path d="M12 13c0.6-1.8 2.1-2.8 4-2.8s3.4 1 4 2.8" />
+      {/* Left figure */}
+      <circle cx="6.5" cy="12" r="2.4" />
+      <path d="M3 19c0.4-2 1.8-3.2 3.5-3.2S9.6 17 10 19" />
+      {/* Right figure */}
+      <circle cx="25.5" cy="12" r="2.4" />
+      <path d="M22 19c0.4-2 1.8-3.2 3.5-3.2S29.6 17 30 19" />
+      {/* Table */}
+      <ellipse cx="16" cy="22.5" rx="10.5" ry="2.4" />
+      <path d="M8.5 24.2l-1.2 3.3M23.5 24.2l1.2 3.3" />
+    </svg>
+  );
+}
+
+function CalendarCheckBadgeIcon({ size = 26 }: { size?: number }) {
+  const s = 1.9;
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth={s} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {/* Calendar body */}
+      <rect x="4" y="6" width="22" height="20" rx="2.5" />
+      <path d="M4 12h22" />
+      <path d="M10 3.5v5M20 3.5v5" />
+      {/* Grid dots */}
+      <path d="M9 17h1.5M15 17h1.5M9 21h1.5" />
+      {/* Check badge (bottom-right) */}
+      <circle cx="24" cy="24" r="5" fill="var(--cta-badge-bg, #0A1426)" />
+      <path d="M21.5 24l1.8 1.8 3.2-3.4" />
+    </svg>
+  );
+}
+
