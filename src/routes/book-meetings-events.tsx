@@ -440,6 +440,45 @@ function BookMeetingsEvents() {
         @keyframes slide-in-left { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: translateX(0); } }
         .animate-slide-in-right { animation: slide-in-right 300ms ease-out; }
         .animate-slide-in-left { animation: slide-in-left 300ms ease-out; }
+
+        .meal-card {
+          background: linear-gradient(145deg, #FFFFFF 0%, #FCFBF7 55%, #F5F2EA 100%);
+          border: 1px solid rgba(201, 156, 45, 0.28);
+          box-shadow: 0 8px 22px rgba(8, 20, 36, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 3px rgba(12, 26, 42, 0.06);
+          transition: all 180ms ease;
+        }
+        .meal-card:hover {
+          transform: translateY(-1px);
+          border-color: rgba(201, 156, 45, 0.60);
+          box-shadow: 0 10px 26px rgba(8, 20, 36, 0.14), 0 0 14px rgba(201, 156, 45, 0.16), inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+        .meal-card-selected {
+          border-color: rgba(201, 156, 45, 0.55);
+          box-shadow: 0 8px 22px rgba(8, 20, 36, 0.11), 0 0 18px rgba(201, 156, 45, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 3px rgba(12, 26, 42, 0.06);
+        }
+
+        .qty-btn {
+          color: #B88917;
+          background: transparent;
+          border: 1px solid transparent;
+          border-radius: 6px;
+          transition: all 150ms ease;
+        }
+        .qty-btn:hover {
+          color: #B88917;
+          background: rgba(212, 175, 55, 0.08);
+          border-color: rgba(184, 137, 23, 0.30);
+        }
+        .qty-btn:active {
+          background: linear-gradient(145deg, #F4D878 0%, #D7AD39 48%, #B8871E 100%);
+          color: #071A2D;
+          border-color: rgba(179, 132, 25, 0.75);
+          box-shadow: 0 2px 8px rgba(185, 137, 30, 0.24), inset 0 1px 0 rgba(255, 245, 191, 0.75);
+        }
+        .qty-btn:focus-visible {
+          outline: 2px solid rgba(215, 173, 57, 0.30);
+          outline-offset: 2px;
+        }
       `}</style>
     </main>
   );
@@ -1532,7 +1571,7 @@ function StepThreeAccommodation({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <LuxIconBadge size={44}>
-                    <CalendarIcon size={20} strokeWidth={1.8} />
+                    <CalendarIcon size={21} strokeWidth={1.8} />
                   </LuxIconBadge>
                   <div>
                   <h3
@@ -1568,21 +1607,34 @@ function StepThreeAccommodation({
 
               {/* Room Categories — stacked full-width rows */}
               <div className="mt-8">
-                <div className="mb-4 flex items-baseline justify-between gap-4">
+                <div className="mb-4 sm:hidden">
                   <h4
                     className="text-[#0A1B2C] text-[17px] tracking-[0.14em] uppercase"
                     style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.16em" }}
                   >
                     Room Categories
                   </h4>
-                  <div className="hidden sm:flex items-center gap-10 pr-1 text-[10.5px] tracking-[0.18em] text-[#8A94A0] uppercase">
-                    <span>Guests</span>
-                    <span className="text-right leading-tight">Preferred Room<br/>Category</span>
-                  </div>
+                </div>
+                <div
+                  className="mb-4 hidden sm:grid items-baseline gap-3 sm:gap-6"
+                  style={{ gridTemplateColumns: "auto minmax(0,1fr) auto auto" }}
+                >
+                  <h4
+                    className="col-span-2 text-[#0A1B2C] text-[17px] tracking-[0.14em] uppercase"
+                    style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.16em" }}
+                  >
+                    Room Categories
+                  </h4>
+                  <span className="text-[10.5px] tracking-[0.18em] text-[#8A94A0] uppercase text-center sm:w-[132px]">
+                    Guests
+                  </span>
+                  <span className="text-[10.5px] tracking-[0.18em] text-[#8A94A0] uppercase text-right sm:w-[180px]">
+                    Preferred Room Category
+                  </span>
                 </div>
                 <div className="flex flex-col gap-3">
                   <RoomRow
-                    icon={<User size={20} strokeWidth={1.7} />}
+                    icon={<User size={21} strokeWidth={1.7} />}
                     label="Single Room"
                     value={rooms.sgl}
                     onChange={(v) => setRooms({ ...rooms, sgl: v })}
@@ -1590,7 +1642,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, sgl: c })}
                   />
                   <RoomRow
-                    icon={<Users size={20} strokeWidth={1.7} />}
+                    icon={<Users size={21} strokeWidth={1.7} />}
                     label="Double Room"
                     value={rooms.dbl}
                     onChange={(v) => setRooms({ ...rooms, dbl: v })}
@@ -1598,7 +1650,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, dbl: c })}
                   />
                   <RoomRow
-                    icon={<TwinBedsIcon size={22} />}
+                    icon={<TwinBedsIcon size={23} />}
                     label="Twin Room"
                     value={rooms.twn}
                     onChange={(v) => setRooms({ ...rooms, twn: v })}
@@ -1606,7 +1658,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, twn: c })}
                   />
                   <RoomRow
-                    icon={<UsersRound size={20} strokeWidth={1.7} />}
+                    icon={<UsersRound size={21} strokeWidth={1.7} />}
                     label="Triple Room"
                     value={rooms.trp}
                     onChange={(v) => setRooms({ ...rooms, trp: v })}
@@ -1627,13 +1679,13 @@ function StepThreeAccommodation({
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
-                    icon={<BedDouble size={18} />}
+                    icon={<BedDouble size={19} />}
                     label="Room Only"
                     selected={mealPlan === "room"}
                     onClick={() => setMealPlan("room")}
                   />
                   <MealOption
-                    icon={<Coffee size={18} />}
+                    icon={<Coffee size={19} />}
                     label="Breakfast Included"
                     selected={mealPlan === "breakfast"}
                     onClick={() => setMealPlan("breakfast")}
@@ -2070,8 +2122,7 @@ function RoomRow({
           <button
             type="button"
             onClick={() => onChange(Math.max(0, value - 1))}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115] hover:text-[#EBCB6A]"
-            style={{ color: "#B88917" }}
+            className="qty-btn inline-flex h-8 w-8 items-center justify-center"
             aria-label={`Decrease ${label}`}
           >
             <Minus size={15} />
@@ -2095,8 +2146,7 @@ function RoomRow({
           <button
             type="button"
             onClick={() => onChange(value + 1)}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115] hover:text-[#EBCB6A]"
-            style={{ color: "#B88917" }}
+            className="qty-btn inline-flex h-8 w-8 items-center justify-center"
             aria-label={`Increase ${label}`}
           >
             <Plus size={15} />
@@ -2175,14 +2225,10 @@ function MealOption({
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center justify-between rounded-[14px] px-4 h-[56px] text-left transition-all"
-      style={{
-        backgroundColor: selected ? "rgba(212,175,55,0.025)" : "#FFFFFF",
-        border: `1px solid ${selected ? "rgba(212,175,55,0.45)" : "#E8E2D8"}`,
-        boxShadow: selected
-          ? "0 6px 18px rgba(15,35,60,0.045), 0 0 0 3px rgba(212,175,55,0.08)"
-          : "0 6px 18px rgba(15,35,60,0.045)",
-      }}
+      className={cn(
+        "meal-card flex items-center justify-between rounded-[14px] px-4 h-[56px] text-left",
+        selected && "meal-card-selected"
+      )}
     >
       <span className="flex items-center gap-3">
         <LuxIconBadge size={36}>{icon}</LuxIconBadge>
