@@ -488,6 +488,10 @@ function BookMeetingsEvents() {
           cursor: pointer;
           transition: all 200ms ease;
         }
+        .complete-stay-plus {
+          color: #B88917;
+          transition: color 200ms ease;
+        }
         .complete-stay-btn:hover {
           background: linear-gradient(135deg, #F4FBF6 0%, #E8F5EC 100%);
           border-color: rgba(47, 125, 79, 0.65);
