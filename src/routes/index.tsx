@@ -194,12 +194,12 @@ function Home() {
 
           {/* TRUST ROW */}
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
-            {TRUST.map(({ Icon, label }) => (
-              <div key={label} className="flex items-center gap-2">
-                <Icon className="text-[#F5AE00]" size={22} strokeWidth={2} />
-                <span className="text-[#F7F7F5] text-[16px] lg:text-[17px]">{label}</span>
-              </div>
-            ))}
+          {TRUST.map(({ Icon, label, size }) => (
+            <div key={label} className="flex items-center gap-2">
+              <Icon size={size} />
+              <span className="text-[#F7F7F5] text-[16px] lg:text-[17px]">{label}</span>
+            </div>
+          ))}
           </div>
 
           {/* BUILT BY */}
