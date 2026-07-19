@@ -471,7 +471,7 @@ function StepOne(props: {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[1.1fr_1fr_1.15fr_1.2fr] gap-8 xl:gap-0">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[1fr_1fr_1.1fr_1.55fr] gap-8 xl:gap-0">
       {/* Column 1 - Destination */}
       <ColumnBlock icon={<MapPin size={18} strokeWidth={1.8} />} title="Destination">
         <FieldLabel>Country</FieldLabel>
@@ -628,14 +628,15 @@ function StepOne(props: {
         <textarea
           value={props.notes}
           onChange={(e) => props.setNotes(e.target.value)}
-          rows={12}
+          rows={22}
           placeholder="We would like a hotel near the city center. Please include options with dinner and meeting room."
-          className="mt-3 min-h-[300px] w-full overflow-y-auto rounded-xl bg-white p-5 text-[14.5px] leading-relaxed text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none scrollbar-hidden"
+          className="mt-3 min-h-[560px] w-full overflow-y-auto rounded-2xl bg-white p-6 text-[14.5px] leading-relaxed text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none scrollbar-hidden"
           style={{
             border: "1px solid #E4DED2",
             boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
           }}
         />
+
       </ColumnBlock>
     </div>
   );
@@ -791,11 +792,12 @@ function Counter({
 }
 
 const styledSelectTriggerClass = cn(
-  "flex h-[46px] w-full items-center justify-between rounded-xl bg-white px-4",
+  "flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-5 pr-4",
   "cursor-pointer transition-shadow hover:shadow-md",
   "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
   "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0",
 );
+
 
 function StyledSelectTrigger({ children }: { children: React.ReactNode }) {
   return (
@@ -832,7 +834,7 @@ function DateField({
       <PopoverTrigger asChild>
         <button
           type="button"
-          className="flex h-[46px] w-full items-center justify-between rounded-xl bg-white px-4 cursor-pointer transition-shadow hover:shadow-md text-left"
+          className="flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-5 pr-4 cursor-pointer transition-shadow hover:shadow-md text-left"
           style={{
             border: "1px solid #E4DED2",
             boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
@@ -844,11 +846,11 @@ function DateField({
           >
             {value ? format(value, "dd MMM yyyy") : placeholder}
           </span>
-          <span className="flex items-center gap-2 shrink-0">
+          <span className="flex items-center gap-3 shrink-0">
             <CalendarIcon size={18} strokeWidth={1.6} className="text-[#0A1626]" />
-            <ChevronDown size={16} strokeWidth={1.6} className="text-[#5B6472]" />
           </span>
         </button>
+
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 z-[100] bg-white" align="start">
         <Calendar
