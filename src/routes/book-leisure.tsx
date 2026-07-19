@@ -54,7 +54,7 @@ const STEPS = [
 
 type CountryCode = "NO" | "SE" | "DK" | "FI";
 
-const COUNTRIES: { code: CountryCode; name: string; Flag: () => JSX.Element }[] = [
+const COUNTRIES: { code: CountryCode; name: string; Flag: () => React.ReactElement }[] = [
   { code: "NO", name: "Norway", Flag: FlagNO },
   { code: "SE", name: "Sweden", Flag: FlagSE },
   { code: "DK", name: "Denmark", Flag: FlagDK },
