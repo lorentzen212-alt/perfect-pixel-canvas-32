@@ -116,7 +116,7 @@ function BookMeetingsEvents() {
   return (
     <main
       className="relative min-h-screen w-full"
-      style={{ backgroundColor: "#F5F3EE" }}
+      style={{ backgroundColor: "#F7F7F5" }}
     >
       {/* HERO */}
       <section
@@ -259,11 +259,14 @@ function BookMeetingsEvents() {
       <section className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14">
         <div className="mx-auto max-w-[1400px]">
           <div
-            className="overflow-hidden rounded-[14px] bg-white"
+            className="overflow-hidden rounded-[20px]"
             style={{
+              backgroundColor: "#FCFCFC",
+              backgroundImage:
+                "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
               boxShadow:
-                "0 30px 80px -40px rgba(4,17,26,0.35), 0 8px 24px -12px rgba(4,17,26,0.15)",
-              border: "1px solid #ECE6DA",
+                "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
+              border: "1px solid #ECECEC",
             }}
           >
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px]">
@@ -293,20 +296,44 @@ function BookMeetingsEvents() {
 
               {/* Help card */}
               <div
-                className="border-t lg:border-t-0 lg:border-l p-8 lg:p-10"
-                style={{ borderColor: "#ECE6DA", backgroundColor: "#FAF8F3" }}
+                className="p-8 lg:p-10 lg:pl-8"
+                style={{
+                  backgroundColor: "transparent",
+                  borderLeft: "1px solid #F1F1EE",
+                }}
               >
-                <HelpCard />
+                <div
+                  className="rounded-[16px] p-6"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #EFEFEC",
+                    boxShadow:
+                      "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+                  }}
+                >
+                  <HelpCard />
+                </div>
               </div>
             </div>
           </div>
 
+
           {/* Credibility */}
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center py-8 md:py-10 border-t border-b" style={{ borderColor: "#E4DFD3" }}>
+          <div
+            className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center px-8 md:px-12 py-8 md:py-10 rounded-[20px]"
+            style={{
+              backgroundColor: "#FCFCFC",
+              backgroundImage:
+                "linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 100%)",
+              border: "1px solid #EFEFEC",
+              boxShadow:
+                "0 20px 50px -30px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.03)",
+            }}
+          >
             <div className="flex items-start gap-4">
               <span
                 className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
-                style={{ backgroundColor: "#F5EFE1" }}
+                style={{ backgroundColor: "#FAF3E1" }}
               >
                 <Users size={22} strokeWidth={1.75} style={{ color: "#B88A2E" }} />
               </span>
@@ -321,7 +348,7 @@ function BookMeetingsEvents() {
                 </span>
               </p>
             </div>
-            <div className="md:pl-10 md:border-l" style={{ borderColor: "#E4DFD3" }}>
+            <div className="md:pl-10 md:border-l" style={{ borderColor: "#F1F1EE" }}>
               <p className="text-[#3B4A56] text-[16px] leading-relaxed">
                 We know group travel – and we make
                 <br />
@@ -329,6 +356,7 @@ function BookMeetingsEvents() {
               </p>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -570,8 +598,8 @@ function NextButton({ onClick, label }: { onClick: () => void; label: string }) 
         minWidth: 220,
         background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
         boxShadow:
-          "0 12px 28px -10px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
-        border: "1px solid rgba(184,138,46,0.5)",
+          "0 18px 40px -18px rgba(200,154,58,0.55), 0 4px 10px -4px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
+        border: "1px solid rgba(184,138,46,0.45)",
       }}
     >
       {label}
