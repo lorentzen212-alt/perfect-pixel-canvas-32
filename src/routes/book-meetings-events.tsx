@@ -1978,26 +1978,23 @@ function MealOption({
       style={{
         backgroundColor: selected ? "#FFFBEF" : "#FFFFFF",
         border: `1px solid ${selected ? "rgba(212,175,55,0.55)" : "#E6E2D5"}`,
-        boxShadow: selected ? "0 0 0 3px rgba(212,175,55,0.10)" : undefined,
+        boxShadow: selected
+          ? "0 0 0 3px rgba(212,175,55,0.10), 0 6px 18px -10px rgba(184,137,23,0.35)"
+          : "0 1px 2px rgba(10,27,44,0.04)",
       }}
     >
       <span className="flex items-center gap-3">
-        <span
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md"
-          style={{
-            color: selected ? "#B88917" : "#4A5866",
-            backgroundColor: selected ? "#FAF3E1" : "#F5F3EC",
-          }}
-        >
-          {icon}
-        </span>
+        <LuxIconBadge size={36}>{icon}</LuxIconBadge>
         <span className="text-[#0A1B2C] text-[14.5px] font-medium">{label}</span>
       </span>
       <span
         className="inline-flex h-5 w-5 items-center justify-center rounded-full"
         style={{
           border: `2px solid ${selected ? "#D4AF37" : "#D9D3C4"}`,
-          backgroundColor: selected ? "#D4AF37" : "transparent",
+          background: selected
+            ? "linear-gradient(180deg,#F7E7A6,#D4AF37 60%,#A97816)"
+            : "transparent",
+          boxShadow: selected ? "0 0 0 3px rgba(212,175,55,0.15)" : undefined,
         }}
       >
         {selected && <span className="h-2 w-2 rounded-full bg-white" />}
@@ -2018,16 +2015,9 @@ function SummaryRow({
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <span
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md"
-          style={{
-            backgroundColor: "rgba(212,175,55,0.10)",
-            border: "1px solid rgba(212,175,55,0.25)",
-            color: GOLD,
-          }}
-        >
+        <LuxIconBadge size={32} tone="onDark">
           {icon}
-        </span>
+        </LuxIconBadge>
         <span className="text-white/85 text-[14px]">{label}</span>
       </div>
       <span
@@ -2051,4 +2041,62 @@ function GoldDivider() {
     />
   );
 }
+
+/**
+ * LuxIconBadge — premium matte-black container with champagne-gold icon.
+ * Preserves size prop; icon inherits color via currentColor from the gradient
+ * stroke supplied here.
+ */
+function LuxIconBadge({
+  children,
+  size = 40,
+  tone = "onLight",
+}: {
+  children: React.ReactNode;
+  size?: number;
+  tone?: "onLight" | "onDark";
+}) {
+  const radius = Math.max(8, Math.round(size * 0.3));
+  const shadow =
+    tone === "onDark"
+      ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.4)"
+      : "0 10px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.4)";
+  return (
+    <span
+      className="relative inline-flex shrink-0 items-center justify-center"
+      style={{
+        width: size,
+        height: size,
+        borderRadius: radius,
+        background:
+          "linear-gradient(180deg,#1A1D24 0%, #101319 55%, #0B0D12 100%)",
+        border: "1px solid rgba(212,175,55,0.22)",
+        boxShadow: shadow,
+        color: "#E6C25A",
+      }}
+    >
+      {/* soft inner highlight */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          borderRadius: radius,
+          background:
+            "radial-gradient(120% 60% at 50% 0%, rgba(247,231,166,0.16) 0%, rgba(247,231,166,0) 55%)",
+        }}
+      />
+      <span
+        className="relative"
+        style={{
+          color: "#EBCB6A",
+          filter:
+            "drop-shadow(0 1px 0 rgba(255,255,255,0.10)) drop-shadow(0 1px 1px rgba(0,0,0,0.35))",
+        }}
+      >
+        {children}
+      </span>
+    </span>
+  );
+}
+
 
