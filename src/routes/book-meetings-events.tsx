@@ -481,27 +481,76 @@ function BookMeetingsEvents() {
         }
 
         .complete-stay-btn {
-          color: #0A1B2C;
-          background: linear-gradient(180deg, #FFFDF6 0%, #FFF7E0 100%);
-          border: 1px solid rgba(212, 175, 55, 0.55);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 4px 12px -6px rgba(184, 137, 23, 0.25);
+          position: relative;
+          color: #FFFFFF;
+          background-color: #3B2418;
+          background-image:
+            linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.02) 32%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.28) 100%),
+            repeating-linear-gradient(92deg, rgba(255,240,215,0.035) 0px, rgba(255,240,215,0.035) 1px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 6px),
+            repeating-linear-gradient(88deg, rgba(0,0,0,0.10) 0px, rgba(0,0,0,0.10) 1px, rgba(0,0,0,0) 3px, rgba(0,0,0,0) 9px),
+            linear-gradient(135deg, #4A2C1C 0%, #3A2214 45%, #2B1810 100%);
+          border: 1px solid #C9A34A;
+          border-radius: 16px;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 220, 170, 0.18),
+            inset 0 -8px 18px -8px rgba(0, 0, 0, 0.55),
+            0 12px 28px -12px rgba(0, 0, 0, 0.55),
+            0 2px 6px -2px rgba(0, 0, 0, 0.35);
           cursor: pointer;
-          transition: all 200ms ease;
+          transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
         }
         .complete-stay-plus {
-          color: #B88917;
-          transition: color 200ms ease;
+          color: #C9A34A;
+          transition: color 220ms ease;
         }
         .complete-stay-btn:hover {
-          background: linear-gradient(135deg, #F4FBF6 0%, #E8F5EC 100%);
-          border-color: rgba(47, 125, 79, 0.65);
-          color: #1F6B42;
-          box-shadow: 0 8px 20px rgba(39, 104, 68, 0.14), 0 0 12px rgba(73, 145, 95, 0.10);
-          transform: translateY(-1px);
+          transform: scale(1.02);
+          filter: brightness(1.08);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 220, 170, 0.22),
+            inset 0 -8px 18px -8px rgba(0, 0, 0, 0.5),
+            0 0 18px rgba(34, 197, 94, 0.45),
+            0 0 42px rgba(34, 197, 94, 0.22),
+            0 14px 32px rgba(0, 0, 0, 0.28);
         }
-        .complete-stay-btn:hover .complete-stay-plus {
-          color: #1F6B42;
+        .complete-stay-btn:active {
+          transform: scale(0.99);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 220, 170, 0.18),
+            inset 0 -6px 14px -8px rgba(0, 0, 0, 0.55),
+            0 0 12px rgba(34, 197, 94, 0.30),
+            0 0 24px rgba(34, 197, 94, 0.14),
+            0 8px 18px rgba(0, 0, 0, 0.25);
         }
+        .add-stay-btn {
+          background: linear-gradient(180deg, #143253 0%, #0F2743 55%, #08182B 100%);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.14),
+            inset 0 -1px 0 rgba(0,0,0,0.5),
+            0 14px 32px -14px rgba(10,27,44,0.7),
+            0 2px 6px -2px rgba(10,27,44,0.35);
+          transition: transform 220ms ease-out, box-shadow 220ms ease-out, filter 220ms ease-out;
+          cursor: pointer;
+        }
+        .add-stay-btn:hover {
+          transform: scale(1.015);
+          filter: brightness(1.1);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.18),
+            0 0 16px rgba(37, 99, 235, 0.30),
+            0 0 34px rgba(37, 99, 235, 0.18),
+            0 14px 28px rgba(0, 0, 0, 0.28);
+        }
+        .add-stay-btn:active {
+          transform: scale(0.99);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.14),
+            0 0 10px rgba(37, 99, 235, 0.22),
+            0 0 20px rgba(37, 99, 235, 0.12),
+            0 8px 18px rgba(0, 0, 0, 0.25);
+        }
+
       `}</style>
     </main>
   );
