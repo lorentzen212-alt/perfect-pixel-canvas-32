@@ -1251,6 +1251,7 @@ function StepTwoLocation({
                 Hotel category
               </label>
               <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-3">
+
                 {HOTEL_CATEGORIES.map((c) => {
                   const selected = selectedHotelCategory === c.id;
                   const isNone = c.id === "none";
