@@ -32,6 +32,9 @@ import {
   Coffee,
   BedDouble,
   Bell,
+  User,
+  UsersRound,
+  BedSingle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
@@ -1386,17 +1389,22 @@ function StepTwoLocation({
 
 /* --------- Step 3: Accommodation --------- */
 
-type RoomMix = { sgl: number; dbl: number; twn: number; trp: number; ste: number };
+type RoomKey = "sgl" | "dbl" | "twn" | "trp";
+type RoomCat = "Standard" | "Superior" | "Premium" | "Suite";
+type RoomMix = Record<RoomKey, number>;
+type RoomCats = Record<RoomKey, RoomCat>;
 type MealPlan = "room" | "breakfast";
 type Stay = {
   id: string;
   checkIn: string;
   checkOut: string;
   rooms: RoomMix;
+  cats: RoomCats;
   mealPlan: MealPlan;
 };
 
-const emptyRooms = (): RoomMix => ({ sgl: 0, dbl: 0, twn: 0, trp: 0, ste: 0 });
+const emptyRooms = (): RoomMix => ({ sgl: 0, dbl: 0, twn: 0, trp: 0 });
+const emptyCats = (): RoomCats => ({ sgl: "Standard", dbl: "Standard", twn: "Standard", trp: "Standard" });
 
 function fmtDate(iso: string) {
   if (!iso) return "";
@@ -1411,15 +1419,11 @@ function roomsSummary(r: RoomMix) {
   if (r.dbl) parts.push(`${r.dbl} DBL`);
   if (r.twn) parts.push(`${r.twn} TWN`);
   if (r.trp) parts.push(`${r.trp} TRP`);
-  if (r.ste) parts.push(`${r.ste} STE`);
   return parts.join(", ");
 }
 
 function roomsTotal(r: RoomMix) {
-  return r.sgl + r.dbl + r.twn + r.trp + r.ste;
-}
-function guestsCapacity(r: RoomMix) {
-  return r.sgl * 1 + r.dbl * 2 + r.twn * 2 + r.trp * 3 + r.ste * 2;
+  return r.sgl + r.dbl + r.twn + r.trp;
 }
 
 function StepThreeAccommodation({
@@ -1434,20 +1438,21 @@ function StepThreeAccommodation({
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [rooms, setRooms] = useState<RoomMix>(emptyRooms());
+  const [cats, setCats] = useState<RoomCats>(emptyCats());
   const [mealPlan, setMealPlan] = useState<MealPlan>("breakfast");
   const [stays, setStays] = useState<Stay[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [porter] = useState(false);
   const [special, setSpecial] = useState("");
 
   const totalRooms = stays.reduce((n, s) => n + roomsTotal(s.rooms), 0);
-  const totalGuests = stays.reduce((n, s) => n + guestsCapacity(s.rooms), 0);
+  const totalGuests = totalRooms;
   const primaryMeal = stays[0]?.mealPlan ?? mealPlan;
 
   const clearDraft = () => {
     setCheckIn("");
     setCheckOut("");
     setRooms(emptyRooms());
+    setCats(emptyCats());
     setMealPlan("breakfast");
     setEditingId(null);
   };
@@ -1459,6 +1464,7 @@ function StepThreeAccommodation({
       checkIn,
       checkOut,
       rooms,
+      cats,
       mealPlan,
     };
     setStays((prev) =>
@@ -1474,6 +1480,7 @@ function StepThreeAccommodation({
     setCheckIn(s.checkIn);
     setCheckOut(s.checkOut);
     setRooms(s.rooms);
+    setCats(s.cats);
     setMealPlan(s.mealPlan);
   };
 
@@ -1564,15 +1571,48 @@ function StepThreeAccommodation({
                 <DateField label="Check-out" value={checkOut} onChange={setCheckOut} />
               </div>
 
-              {/* Room Breakdown */}
+              {/* Room Categories */}
               <div className="mt-8">
-                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Room Breakdown</h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  <Counter label="Single Rooms (SGL)" value={rooms.sgl} onChange={(v) => setRooms({ ...rooms, sgl: v })} />
-                  <Counter label="Double Rooms (DBL)" value={rooms.dbl} onChange={(v) => setRooms({ ...rooms, dbl: v })} />
-                  <Counter label="Twin Rooms (TWN)" value={rooms.twn} onChange={(v) => setRooms({ ...rooms, twn: v })} />
-                  <Counter label="Triple Rooms (TRP)" value={rooms.trp} onChange={(v) => setRooms({ ...rooms, trp: v })} />
-                  <Counter label="Suites" value={rooms.ste} onChange={(v) => setRooms({ ...rooms, ste: v })} />
+                <div className="flex items-center justify-between gap-4 pb-3 mb-2">
+                  <h4 className="text-[#0A1B2C] text-[15px] font-semibold">Room Categories</h4>
+                  <div className="hidden sm:flex items-center gap-4 text-[12px] uppercase tracking-wide text-[#8A94A0]">
+                    <span className="w-[132px] text-center">Guests</span>
+                    <span className="w-[180px] text-center">Preferred Room Category</span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <RoomCategoryRow
+                    icon={<User size={18} strokeWidth={1.7} style={{ color: "#B88A2E" }} />}
+                    label="Single Rooms"
+                    value={rooms.sgl}
+                    onValue={(v) => setRooms({ ...rooms, sgl: v })}
+                    cat={cats.sgl}
+                    onCat={(c) => setCats({ ...cats, sgl: c })}
+                  />
+                  <RoomCategoryRow
+                    icon={<Users size={18} strokeWidth={1.7} style={{ color: "#B88A2E" }} />}
+                    label="Double Rooms"
+                    value={rooms.dbl}
+                    onValue={(v) => setRooms({ ...rooms, dbl: v })}
+                    cat={cats.dbl}
+                    onCat={(c) => setCats({ ...cats, dbl: c })}
+                  />
+                  <RoomCategoryRow
+                    icon={<TwinBedsIcon />}
+                    label="Twin Rooms"
+                    value={rooms.twn}
+                    onValue={(v) => setRooms({ ...rooms, twn: v })}
+                    cat={cats.twn}
+                    onCat={(c) => setCats({ ...cats, twn: c })}
+                  />
+                  <RoomCategoryRow
+                    icon={<UsersRound size={18} strokeWidth={1.7} style={{ color: "#B88A2E" }} />}
+                    label="Triple Rooms"
+                    value={rooms.trp}
+                    onValue={(v) => setRooms({ ...rooms, trp: v })}
+                    cat={cats.trp}
+                    onCat={(c) => setCats({ ...cats, trp: c })}
+                  />
                 </div>
               </div>
 
@@ -1796,18 +1836,6 @@ function StepThreeAccommodation({
                     {primaryMeal === "breakfast" ? "Breakfast Included" : "Room Only"}
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <span
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-md"
-                    style={{ backgroundColor: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.25)" }}
-                  >
-                    <Bell size={15} style={{ color: GOLD }} />
-                  </span>
-                  <div className="text-white text-[15px]">Porter Service</div>
-                </div>
-                <div className="text-white/80 text-[14px]">{porter ? "Yes" : "No"}</div>
               </div>
             </div>
 
@@ -2071,3 +2099,84 @@ function GoldDivider() {
   );
 }
 
+
+function TwinBedsIcon() {
+  return (
+    <span className="inline-flex items-center gap-[2px]" aria-hidden>
+      <BedSingle size={16} strokeWidth={1.7} style={{ color: "#B88A2E" }} />
+      <BedSingle size={16} strokeWidth={1.7} style={{ color: "#B88A2E" }} />
+    </span>
+  );
+}
+
+function RoomCategoryRow({
+  icon,
+  label,
+  value,
+  onValue,
+  cat,
+  onCat,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: number;
+  onValue: (v: number) => void;
+  cat: RoomCat;
+  onCat: (c: RoomCat) => void;
+}) {
+  return (
+    <div
+      className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-[12px] px-4 py-3"
+      style={{ backgroundColor: "#FFFFFF", border: "1px solid #EEEBE3" }}
+    >
+      <div className="flex items-center gap-3 flex-1 min-w-0">
+        <span
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md"
+          style={{ backgroundColor: "#FAF3E1" }}
+        >
+          {icon}
+        </span>
+        <span className="text-[#0A1B2C] text-[14.5px] font-medium truncate">{label}</span>
+      </div>
+      <div
+        className="flex items-center justify-between rounded-[10px] h-[40px] px-1 w-full sm:w-[132px]"
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
+      >
+        <button
+          type="button"
+          onClick={() => onValue(Math.max(0, value - 1))}
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          aria-label={`Decrease ${label}`}
+        >
+          <Minus size={15} />
+        </button>
+        <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums">{value}</span>
+        <button
+          type="button"
+          onClick={() => onValue(value + 1)}
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          aria-label={`Increase ${label}`}
+        >
+          <Plus size={15} />
+        </button>
+      </div>
+      <div className="relative w-full sm:w-[180px]">
+        <select
+          value={cat}
+          onChange={(e) => onCat(e.target.value as RoomCat)}
+          className="w-full appearance-none rounded-[10px] h-[40px] pl-3 pr-9 text-[14px] text-[#0A1B2C] bg-white outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
+          style={{ border: "1px solid #E6E2D5" }}
+        >
+          <option value="Standard">Standard</option>
+          <option value="Superior">Superior</option>
+          <option value="Premium">Premium</option>
+          <option value="Suite">Suite</option>
+        </select>
+        <ChevronDown
+          size={16}
+          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#8A94A0]"
+        />
+      </div>
+    </div>
+  );
+}
