@@ -89,6 +89,7 @@ export const Route = createFileRoute("/book-meetings-events")({
 });
 
 const SERIF = '"Cormorant Garamond", Georgia, serif';
+const SANS = '"Inter", ui-sans-serif, system-ui, sans-serif';
 const GOLD = "#F5C25A";
 const NAVY = "#0A1B2C";
 const NAVY_DEEP = "#04111A";
