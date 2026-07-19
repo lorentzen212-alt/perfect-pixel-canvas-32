@@ -165,7 +165,7 @@ function Home() {
 
         {/* HERO CONTENT */}
         <section className="ml-5 sm:ml-8 lg:ml-[50px] xl:ml-[60px] mt-[25px] pt-[38px] sm:pt-[62px] lg:pt-[92px] pb-16 lg:pb-24 max-w-[720px]">
-          <GoldLineWithDiamond lineWidth="w-[80px] sm:w-[85px] lg:w-[90px]" lineThickness="h-[4.5px]" diamondSize="h-[6.5px] w-[6.5px]" />
+          <GoldLineWithDiamond lineWidth="w-[100px] sm:w-[110px] lg:w-[120px]" lineThickness="h-[4.2px]" diamondSize="h-[5.2px] w-[5.2px]" />
 
           <h2
             className="mt-4 font-medium text-white leading-[1.02] text-5xl sm:text-6xl lg:text-[86px]"
