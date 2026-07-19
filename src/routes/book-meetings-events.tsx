@@ -1566,19 +1566,29 @@ function StepThreeAccommodation({
 
               {/* Room Breakdown */}
               <div className="mt-8">
-                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Room Breakdown</h4>
+                <h4
+                  className="text-[#0A1B2C] text-[17px] mb-4"
+                  style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
+                >
+                  Room Categories
+                </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  <Counter label="Single Rooms (SGL)" value={rooms.sgl} onChange={(v) => setRooms({ ...rooms, sgl: v })} />
-                  <Counter label="Double Rooms (DBL)" value={rooms.dbl} onChange={(v) => setRooms({ ...rooms, dbl: v })} />
-                  <Counter label="Twin Rooms (TWN)" value={rooms.twn} onChange={(v) => setRooms({ ...rooms, twn: v })} />
-                  <Counter label="Triple Rooms (TRP)" value={rooms.trp} onChange={(v) => setRooms({ ...rooms, trp: v })} />
-                  <Counter label="Suites" value={rooms.ste} onChange={(v) => setRooms({ ...rooms, ste: v })} />
+                  <Counter icon={<User size={18} strokeWidth={1.8} />} label="Single Rooms (SGL)" value={rooms.sgl} onChange={(v) => setRooms({ ...rooms, sgl: v })} />
+                  <Counter icon={<Users size={18} strokeWidth={1.8} />} label="Double Rooms (DBL)" value={rooms.dbl} onChange={(v) => setRooms({ ...rooms, dbl: v })} />
+                  <Counter icon={<Bed size={18} strokeWidth={1.8} />} label="Twin Rooms (TWN)" value={rooms.twn} onChange={(v) => setRooms({ ...rooms, twn: v })} />
+                  <Counter icon={<UsersRound size={18} strokeWidth={1.8} />} label="Triple Rooms (TRP)" value={rooms.trp} onChange={(v) => setRooms({ ...rooms, trp: v })} />
+                  <Counter icon={<BedDouble size={18} strokeWidth={1.8} />} label="Suites" value={rooms.ste} onChange={(v) => setRooms({ ...rooms, ste: v })} />
                 </div>
               </div>
 
               {/* Meal Plan */}
               <div className="mt-8 border-t pt-6" style={{ borderColor: "#EEEBE3" }}>
-                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Meal Plan</h4>
+                <h4
+                  className="text-[#0A1B2C] text-[17px] mb-4"
+                  style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
+                >
+                  Meal Plan
+                </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
                     icon={<BedDouble size={18} />}
