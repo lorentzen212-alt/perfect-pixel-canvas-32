@@ -12,8 +12,8 @@ type IconProps = {
   strokeWidth?: number;
 };
 
-const STROKE = "#F5AE00";
-const FILL = "rgba(245, 174, 0, 0.14)";
+const STROKE = "#E8C36A";
+const FILL = "#0B0F14";
 
 function Base({
   size = 22,
