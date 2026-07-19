@@ -310,7 +310,7 @@ function BookMeetingsEvents() {
               border: "1px solid #ECECEC",
             }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(392px,420px)]">
               <div className="p-6 sm:p-10 lg:p-12">
                 <div
                   key={step}
@@ -351,7 +351,7 @@ function BookMeetingsEvents() {
                 }}
               >
                 <div
-                  className="rounded-[16px] p-6"
+                  className="rounded-[16px] p-6 w-full lg:w-[320px] lg:min-w-[320px]"
                   style={{
                     backgroundColor: "#FFFFFF",
                     border: "1px solid #EFEFEC",
@@ -735,7 +735,7 @@ function HelpCard() {
         </a>
         <a
           href="mailto:meetings@hotelgroupbook.com"
-          className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
+          className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
         >
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-full border"
