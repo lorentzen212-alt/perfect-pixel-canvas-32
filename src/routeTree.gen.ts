@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as BookLeisureRouteImport } from './routes/book-leisure'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BookLeisureRequestRouteImport } from './routes/book-leisure.request'
 
 const BookLeisureRoute = BookLeisureRouteImport.update({
   id: '/book-leisure',
@@ -23,39 +22,31 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BookLeisureRequestRoute = BookLeisureRequestRouteImport.update({
-  id: '/request',
-  path: '/request',
-  getParentRoute: () => BookLeisureRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/book-leisure': typeof BookLeisureRouteWithChildren
-  '/book-leisure/request': typeof BookLeisureRequestRoute
+  '/book-leisure': typeof BookLeisureRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/book-leisure': typeof BookLeisureRouteWithChildren
-  '/book-leisure/request': typeof BookLeisureRequestRoute
+  '/book-leisure': typeof BookLeisureRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/book-leisure': typeof BookLeisureRouteWithChildren
-  '/book-leisure/request': typeof BookLeisureRequestRoute
+  '/book-leisure': typeof BookLeisureRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/book-leisure' | '/book-leisure/request'
+  fullPaths: '/' | '/book-leisure'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/book-leisure' | '/book-leisure/request'
-  id: '__root__' | '/' | '/book-leisure' | '/book-leisure/request'
+  to: '/' | '/book-leisure'
+  id: '__root__' | '/' | '/book-leisure'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BookLeisureRoute: typeof BookLeisureRouteWithChildren
+  BookLeisureRoute: typeof BookLeisureRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -74,31 +65,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/book-leisure/request': {
-      id: '/book-leisure/request'
-      path: '/request'
-      fullPath: '/book-leisure/request'
-      preLoaderRoute: typeof BookLeisureRequestRouteImport
-      parentRoute: typeof BookLeisureRoute
-    }
   }
 }
 
-interface BookLeisureRouteChildren {
-  BookLeisureRequestRoute: typeof BookLeisureRequestRoute
-}
-
-const BookLeisureRouteChildren: BookLeisureRouteChildren = {
-  BookLeisureRequestRoute: BookLeisureRequestRoute,
-}
-
-const BookLeisureRouteWithChildren = BookLeisureRoute._addFileChildren(
-  BookLeisureRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BookLeisureRoute: BookLeisureRouteWithChildren,
+  BookLeisureRoute: BookLeisureRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
