@@ -2163,10 +2163,30 @@ function GoldDivider() {
 
 function TwinBedsIcon() {
   return (
-    <span className="inline-flex items-center gap-[2px]" aria-hidden>
-      <BedSingle size={16} strokeWidth={1.7} style={{ color: "#B88A2E" }} />
-      <BedSingle size={16} strokeWidth={1.7} style={{ color: "#B88A2E" }} />
-    </span>
+    <svg
+      width="22"
+      height="20"
+      viewBox="0 0 24 20"
+      fill="none"
+      stroke="#C9A961"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      {/* Left bed */}
+      <path d="M1 15V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7" />
+      <path d="M1 13h10" />
+      <path d="M1 17v-2" />
+      <path d="M11 17v-2" />
+      <circle cx="4.5" cy="9.5" r="1" />
+      {/* Right bed */}
+      <path d="M13 15V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7" />
+      <path d="M13 13h10" />
+      <path d="M13 17v-2" />
+      <path d="M23 17v-2" />
+      <circle cx="16.5" cy="9.5" r="1" />
+    </svg>
   );
 }
 
@@ -2187,13 +2207,20 @@ function RoomCategoryRow({
 }) {
   return (
     <div
-      className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-[12px] px-4 py-3"
-      style={{ backgroundColor: "#FFFFFF", border: "1px solid #EEEBE3" }}
+      className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-[14px] px-4 py-3.5 transition-shadow hover:shadow-[0_6px_18px_-10px_rgba(10,27,44,0.18)]"
+      style={{
+        backgroundColor: "#FDFCF9",
+        border: "1px solid #ECE7DA",
+        boxShadow: "0 1px 2px rgba(10,27,44,0.04), 0 4px 12px -8px rgba(10,27,44,0.08)",
+      }}
     >
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <span
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md"
-          style={{ backgroundColor: "#FAF3E1" }}
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px]"
+          style={{
+            background: "linear-gradient(180deg,#FBF3DD 0%,#F4E7C1 100%)",
+            border: "1px solid #E8D9AE",
+          }}
         >
           {icon}
         </span>
@@ -2214,6 +2241,7 @@ function RoomCategoryRow({
           <option value="Standard">Standard</option>
           <option value="Superior">Superior</option>
           <option value="Premium">Premium</option>
+          <option value="Junior Suite">Junior Suite</option>
           <option value="Suite">Suite</option>
         </select>
         <ChevronDown
