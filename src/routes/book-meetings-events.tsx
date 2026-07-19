@@ -1522,9 +1522,10 @@ function StepThreeAccommodation({
         <svg width="0" height="0" className="pointer-events-none absolute" aria-hidden="true">
           <defs>
             <linearGradient id="champagneGold" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#E7CB7A" />
-              <stop offset="50%" stopColor="#D4AF37" />
-              <stop offset="100%" stopColor="#B8892F" />
+              <stop offset="0%" stopColor="#F3D987" />
+              <stop offset="42%" stopColor="#D4AF37" />
+              <stop offset="72%" stopColor="#C5962D" />
+              <stop offset="100%" stopColor="#A97816" />
             </linearGradient>
           </defs>
         </svg>
