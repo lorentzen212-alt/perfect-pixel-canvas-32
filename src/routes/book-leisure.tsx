@@ -501,11 +501,11 @@ function StepOne(props: {
 
         <FieldLabel className="mt-5">City</FieldLabel>
         <Select value={props.city} onValueChange={props.setCity}>
-          <StyledSelectTrigger>
+          <DestinationSelectTrigger>
             <span className="text-[15px] truncate" style={{ color: props.city ? "#0A1626" : "#9AA3AF" }}>
               {props.city || "Select city"}
             </span>
-          </StyledSelectTrigger>
+          </DestinationSelectTrigger>
           <StyledSelectContent>
             {cities.map((c) => (
               <SelectItem key={c} value={c}>
