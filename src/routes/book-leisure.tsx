@@ -621,6 +621,7 @@ function StepOne(props: {
         icon={<FileText size={18} strokeWidth={1.8} />}
         title="Additional Information"
         divider
+        rightPaddingClass="xl:pr-4"
       >
         <p className="text-[14px] text-[#6B7280]">
           Tell us more about your request...
@@ -630,7 +631,7 @@ function StepOne(props: {
           onChange={(e) => props.setNotes(e.target.value)}
           rows={10}
           placeholder="We would like a hotel near the city center. Please include options with dinner and meeting room."
-          className="mt-[33px] min-h-[340px] w-full overflow-y-auto rounded-2xl bg-white p-6 text-[14.5px] leading-relaxed text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none scrollbar-hidden"
+          className="mt-[33px] min-h-[340px] w-full overflow-y-auto rounded-2xl bg-white p-6 text-[14.5px] leading-relaxed text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none scrollbar-hidden xl:w-[235px] xl:max-w-full xl:mx-auto"
           style={{
             border: "1px solid #E4DED2",
             boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
