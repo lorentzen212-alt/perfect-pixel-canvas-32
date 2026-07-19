@@ -1830,9 +1830,7 @@ function StepThreeAccommodation({
               <SummaryRow icon={<BedDouble size={16} />} label="Total Rooms Requested" value={totalRooms} />
             </div>
 
-            <GoldDivider />
-
-            <div className="flex flex-col gap-4">
+            <div className="mt-6 flex flex-col gap-4">
               <div className="flex items-center gap-3">
                 <LuxIconBadge size={36} tone="onDark">
                   <Coffee size={16} />
@@ -1843,15 +1841,6 @@ function StepThreeAccommodation({
                     {primaryMeal === "breakfast" ? "Breakfast Included" : "Room Only"}
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <LuxIconBadge size={36} tone="onDark">
-                    <Bell size={16} />
-                  </LuxIconBadge>
-                  <div className="text-white text-[15px]">Porter Service</div>
-                </div>
-                <div className="text-white/80 text-[14px]">{porter ? "Yes" : "No"}</div>
               </div>
             </div>
 
