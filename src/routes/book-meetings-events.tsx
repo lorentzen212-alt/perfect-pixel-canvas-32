@@ -1320,9 +1320,9 @@ function StepTwoLocation({
                       type="button"
                       onClick={() => setSelectedHotelStyle(s.id)}
                       aria-pressed={selected}
-                      className="group flex flex-1 basis-[104px] flex-col items-center justify-center gap-2 rounded-md min-h-[86px] px-3 py-2 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+                      className="group flex flex-1 basis-[120px] flex-col items-center justify-center gap-2 rounded-md min-h-[86px] px-3 py-2 transition-all duration-[220ms] hover:-translate-y-[2px] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
                       style={{
-                        minWidth: 104,
+                        minWidth: 120,
                         background: selected
                           ? "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)"
                           : "#FFFFFF",
