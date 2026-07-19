@@ -13,10 +13,29 @@ import {
   ArrowRight,
   ChevronDown,
   Users,
+  Search,
+  Building2,
+  Waves,
+  Plane,
+  Palmtree,
+  Landmark,
+  Gem,
+  Ban,
+  Globe,
+  Star,
+  Check,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroImg from "@/assets/me-hero.jpg";
+import osloImg from "@/assets/destinations/oslo.jpg";
+import bergenImg from "@/assets/destinations/bergen.jpg";
+import tromsoImg from "@/assets/destinations/tromso.jpg";
+import stavangerImg from "@/assets/destinations/stavanger.jpg";
+import trondheimImg from "@/assets/destinations/trondheim.jpg";
+import bodoImg from "@/assets/destinations/bodo.jpg";
+import lofotenImg from "@/assets/destinations/lofoten.jpg";
+
 
 export const Route = createFileRoute("/book-meetings-events")({
   component: BookMeetingsEvents,
@@ -282,7 +301,13 @@ function BookMeetingsEvents() {
                   {step === 1 && (
                     <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
                   )}
-                  {step > 1 && (
+                  {step === 2 && (
+                    <StepTwoLocation
+                      onBack={() => go(1)}
+                      onNext={handleNext}
+                    />
+                  )}
+                  {step > 2 && (
                     <StepPlaceholder
                       step={step}
                       title={STEPS[step - 1]}
@@ -291,6 +316,7 @@ function BookMeetingsEvents() {
                       isLast={step === STEPS.length}
                     />
                   )}
+
                 </div>
               </div>
 
@@ -713,3 +739,365 @@ function FlagNO() {
     </svg>
   );
 }
+
+/* --------- Step 2: Location --------- */
+
+type Destination = {
+  id: string;
+  name: string;
+  image?: string;
+  Icon: typeof Building2;
+  anywhere?: boolean;
+};
+
+const DESTINATIONS_BY_COUNTRY: Record<string, Destination[]> = {
+  NO: [
+    { id: "oslo", name: "Oslo", image: osloImg, Icon: Building2 },
+    { id: "bergen", name: "Bergen", image: bergenImg, Icon: Landmark },
+    { id: "tromso", name: "Tromsø", image: tromsoImg, Icon: Plane },
+    { id: "stavanger", name: "Stavanger", image: stavangerImg, Icon: Building2 },
+    { id: "trondheim", name: "Trondheim", image: trondheimImg, Icon: Landmark },
+    { id: "bodo", name: "Bodø", image: bodoImg, Icon: Building2 },
+    { id: "lofoten", name: "Lofoten", image: lofotenImg, Icon: Plane },
+    { id: "anywhere", name: "Anywhere in Norway", Icon: Globe, anywhere: true },
+  ],
+};
+
+const COUNTRIES = [
+  { code: "NO", name: "Norway", Flag: FlagNO },
+];
+
+const HOTEL_CATEGORIES = [
+  { id: "3", label: "★★★" },
+  { id: "4", label: "★★★★" },
+  { id: "5", label: "★★★★★" },
+  { id: "none", label: "No preference" },
+];
+
+const HOTEL_STYLES = [
+  { id: "city", label: "City hotel", Icon: Building2 },
+  { id: "waterfront", label: "Waterfront", Icon: Waves },
+  { id: "airport", label: "Airport", Icon: Plane },
+  { id: "resort", label: "Resort", Icon: Palmtree },
+  { id: "historic", label: "Historic hotel", Icon: Landmark },
+  { id: "boutique", label: "Boutique", Icon: Gem },
+  { id: "none", label: "No preferences", Icon: Ban },
+];
+
+function StepTwoLocation({
+  onBack,
+  onNext,
+}: {
+  onBack: () => void;
+  onNext: () => void;
+}) {
+  const [country, setCountry] = useState<string>("NO");
+  const [countryOpen, setCountryOpen] = useState(false);
+  const [destination, setDestination] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [category, setCategory] = useState<string | null>(null);
+  const [styleId, setStyleId] = useState<string | null>(null);
+
+  const currentCountry = COUNTRIES.find((c) => c.code === country) ?? COUNTRIES[0];
+  const destinations = DESTINATIONS_BY_COUNTRY[country] ?? [];
+
+  return (
+    <div>
+      {/* Header row */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-10 items-start">
+        <div>
+          <h2
+            className="text-[#0A1B2C] text-3xl lg:text-[34px] leading-tight"
+            style={{ fontFamily: SERIF }}
+          >
+            Step 2 – Location
+          </h2>
+          <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
+            Where would you like to host your event?
+          </p>
+        </div>
+
+        {/* Country selector */}
+        <div className="lg:min-w-[280px]">
+          <label className="block text-[14px] font-semibold text-[#0A1B2C]">
+            Select country
+          </label>
+          <div className="relative mt-2">
+            <button
+              type="button"
+              onClick={() => setCountryOpen((v) => !v)}
+              aria-haspopup="listbox"
+              aria-expanded={countryOpen}
+              className="w-full flex items-center justify-between rounded-md border bg-white px-4 h-[46px] text-[15px] text-[#0A1B2C] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40 focus-visible:border-[#F5AE00] transition-colors"
+              style={{ borderColor: "#DFE4EB" }}
+            >
+              <span className="flex items-center gap-3">
+                <currentCountry.Flag />
+                {currentCountry.name}
+              </span>
+              <ChevronDown
+                size={18}
+                className={cn(
+                  "text-[#4A5866] transition-transform",
+                  countryOpen && "rotate-180",
+                )}
+              />
+            </button>
+            {countryOpen && (
+              <ul
+                role="listbox"
+                className="absolute z-30 mt-2 w-full rounded-md border bg-white py-1 shadow-lg"
+                style={{
+                  borderColor: "#DFE4EB",
+                  boxShadow: "0 12px 30px -12px rgba(10,27,44,0.18)",
+                }}
+              >
+                {COUNTRIES.map((c) => (
+                  <li key={c.code}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCountry(c.code);
+                        setDestination(null);
+                        setCountryOpen(false);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-2 text-left text-[15px] text-[#0A1B2C] hover:bg-[#F5EFE1]"
+                    >
+                      <c.Flag />
+                      {c.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Popular destinations panel */}
+      <div
+        className="mt-6 rounded-[10px] p-5 lg:p-6"
+        style={{
+          backgroundColor: "rgba(255,255,255,0.72)",
+          border: "1px solid #E7EAF0",
+        }}
+      >
+        <h3 className="text-[14px] font-semibold text-[#0A1B2C]">
+          Popular destinations in {currentCountry.name}
+        </h3>
+
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {destinations.map((d) => {
+            const selected = destination === d.id;
+            const isAnywhere = d.anywhere === true;
+            return (
+              <button
+                key={d.id}
+                type="button"
+                onClick={() => setDestination(d.id)}
+                aria-pressed={selected}
+                className={cn(
+                  "group relative overflow-hidden rounded-[10px] aspect-[4/3] text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/60",
+                  selected
+                    ? "-translate-y-0.5"
+                    : "hover:-translate-y-0.5",
+                )}
+                style={{
+                  border: selected
+                    ? "2px solid #F5AE00"
+                    : "1px solid rgba(15,35,60,0.08)",
+                  boxShadow: selected
+                    ? "0 18px 40px -20px rgba(200,154,58,0.55), 0 6px 14px -6px rgba(10,27,44,0.15)"
+                    : "0 8px 22px -14px rgba(10,27,44,0.25)",
+                }}
+              >
+                {isAnywhere ? (
+                  <div
+                    className="absolute inset-0 flex flex-col items-center justify-center gap-3"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)",
+                    }}
+                  >
+                    <d.Icon size={32} strokeWidth={1.6} className="text-white" />
+                    <span className="text-white text-[16px] font-medium px-3 text-center">
+                      {d.name}
+                    </span>
+                  </div>
+                ) : (
+                  <>
+                    <img
+                      src={d.image}
+                      alt={d.name}
+                      loading="lazy"
+                      width={800}
+                      height={600}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, rgba(4,17,26,0) 40%, rgba(4,17,26,0.72) 100%)",
+                      }}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 p-3">
+                      <d.Icon size={20} strokeWidth={1.6} className="text-white shrink-0" />
+                      <span className="text-white text-[16px] font-medium truncate">
+                        {d.name}
+                      </span>
+                    </div>
+                    {selected && (
+                      <span
+                        className="absolute top-2 right-2 inline-flex h-6 w-6 items-center justify-center rounded-full"
+                        style={{ backgroundColor: "#F5AE00" }}
+                      >
+                        <Check size={14} strokeWidth={3} className="text-[#0A1B2C]" />
+                      </span>
+                    )}
+                  </>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Lower two-column */}
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-10">
+          <div>
+            {/* Search field */}
+            <div>
+              <label className="block text-[14px] font-semibold text-[#0A1B2C]">
+                Or search for any destination
+              </label>
+              <div className="relative mt-2">
+                <Search
+                  size={18}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4A5866]"
+                />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Type city, region or venue"
+                  className="w-full rounded-md border bg-white pl-11 pr-4 h-[46px] text-[15px] text-[#0A1B2C] placeholder:text-[#8892A0] outline-none transition-colors focus:border-[#F5AE00] focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+                  style={{ borderColor: "#DFE4EB" }}
+                />
+              </div>
+            </div>
+
+            {/* Hotel category */}
+            <div className="mt-6">
+              <label className="block text-[14px] font-semibold text-[#0A1B2C]">
+                Hotel category
+              </label>
+              <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {HOTEL_CATEGORIES.map((c) => {
+                  const selected = category === c.id;
+                  const isNone = c.id === "none";
+                  return (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => setCategory(c.id)}
+                      aria-pressed={selected}
+                      className={cn(
+                        "inline-flex items-center justify-center gap-2 rounded-md h-[46px] text-[15px] bg-white transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
+                      )}
+                      style={{
+                        border:
+                          selected || isNone
+                            ? "1.5px solid #F5AE00"
+                            : "1px solid #DFE4EB",
+                        color: "#0A1B2C",
+                        boxShadow: selected
+                          ? "0 8px 20px -14px rgba(200,154,58,0.5)"
+                          : undefined,
+                      }}
+                    >
+                      {isNone && (
+                        <Ban size={16} strokeWidth={1.8} style={{ color: "#F5AE00" }} />
+                      )}
+                      <span className={cn(!isNone && "tracking-[0.15em]")}>
+                        {c.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Hotel style */}
+            <div className="mt-6">
+              <label className="block text-[14px] font-semibold text-[#0A1B2C]">
+                Hotel style
+              </label>
+              <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+                {HOTEL_STYLES.map((s) => {
+                  const selected = styleId === s.id;
+                  return (
+                    <button
+                      key={s.id}
+                      type="button"
+                      onClick={() => setStyleId(s.id)}
+                      aria-pressed={selected}
+                      className="group flex flex-col items-center justify-center gap-2 rounded-md h-[86px] px-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+                      style={{
+                        background: selected
+                          ? "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)"
+                          : "#FFFFFF",
+                        border: selected
+                          ? "1px solid rgba(255,255,255,0.16)"
+                          : "1px solid #DFE4EB",
+                        boxShadow: selected
+                          ? "0 14px 30px -18px rgba(10,27,44,0.55), inset 0 1px 0 rgba(255,255,255,0.06)"
+                          : undefined,
+                        color: selected ? "#FFFFFF" : "#0A1B2C",
+                      }}
+                    >
+                      <s.Icon
+                        size={22}
+                        strokeWidth={1.6}
+                        style={{ color: selected ? GOLD : "#0A1B2C" }}
+                      />
+                      <span className="text-[13px] text-center leading-tight">
+                        {s.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Inline HelpCard (right column on desktop, stacks on mobile) */}
+          <div
+            className="rounded-[12px] p-5 self-start"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #EFEFEC",
+              boxShadow:
+                "0 10px 26px -18px rgba(10,27,44,0.14), 0 2px 6px -2px rgba(10,27,44,0.04)",
+            }}
+          >
+            <HelpCard />
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+        <button
+          type="button"
+          onClick={onBack}
+          className="inline-flex items-center justify-center rounded-md border px-6 h-[48px] text-[15px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F5EFE1] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+          style={{ borderColor: "#DFE4EB" }}
+        >
+          Back
+        </button>
+        <NextButton onClick={onNext} label="Next Step" />
+      </div>
+    </div>
+  );
+}
+
