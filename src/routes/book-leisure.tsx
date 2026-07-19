@@ -489,12 +489,12 @@ function StepOne(props: {
           </DestinationSelectTrigger>
           <StyledSelectContent>
             {COUNTRIES.map(({ code, name, Flag }) => (
-              <SelectItem key={code} value={code}>
+              <StyledSelectItem key={code} value={code}>
                 <span className="flex items-center gap-2">
                   <Flag />
                   <span>{name}</span>
                 </span>
-              </SelectItem>
+              </StyledSelectItem>
             ))}
           </StyledSelectContent>
         </Select>
