@@ -1437,6 +1437,9 @@ function StepThreeAccommodation({
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [rooms, setRooms] = useState<RoomMix>(emptyRooms());
+  const [roomCategory, setRoomCategory] = useState<
+    Record<"sgl" | "dbl" | "twn" | "trp", string>
+  >({ sgl: "Standard", dbl: "Standard", twn: "Standard", trp: "Standard" });
   const [mealPlan, setMealPlan] = useState<MealPlan>("breakfast");
   const [stays, setStays] = useState<Stay[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -1564,22 +1567,56 @@ function StepThreeAccommodation({
                 <DateField label="Check-out" value={checkOut} onChange={setCheckOut} />
               </div>
 
-              {/* Room Breakdown */}
+              {/* Room Categories — stacked full-width rows */}
               <div className="mt-8">
-                <h4
-                  className="text-[#0A1B2C] text-[17px] mb-4"
-                  style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
-                >
-                  Room Categories
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  <Counter icon={<User size={18} strokeWidth={1.8} />} label="Single Rooms (SGL)" value={rooms.sgl} onChange={(v) => setRooms({ ...rooms, sgl: v })} />
-                  <Counter icon={<Users size={18} strokeWidth={1.8} />} label="Double Rooms (DBL)" value={rooms.dbl} onChange={(v) => setRooms({ ...rooms, dbl: v })} />
-                  <Counter icon={<Bed size={18} strokeWidth={1.8} />} label="Twin Rooms (TWN)" value={rooms.twn} onChange={(v) => setRooms({ ...rooms, twn: v })} />
-                  <Counter icon={<UsersRound size={18} strokeWidth={1.8} />} label="Triple Rooms (TRP)" value={rooms.trp} onChange={(v) => setRooms({ ...rooms, trp: v })} />
-                  <Counter icon={<BedDouble size={18} strokeWidth={1.8} />} label="Suites" value={rooms.ste} onChange={(v) => setRooms({ ...rooms, ste: v })} />
+                <div className="mb-4 flex items-baseline justify-between gap-4">
+                  <h4
+                    className="text-[#0A1B2C] text-[17px] tracking-[0.14em] uppercase"
+                    style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.16em" }}
+                  >
+                    Room Categories
+                  </h4>
+                  <div className="hidden sm:flex items-center gap-10 pr-1 text-[10.5px] tracking-[0.18em] text-[#8A94A0] uppercase">
+                    <span>Guests</span>
+                    <span className="text-right leading-tight">Preferred Room<br/>Category</span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <RoomRow
+                    icon={<User size={20} strokeWidth={1.7} />}
+                    label="Single Room"
+                    value={rooms.sgl}
+                    onChange={(v) => setRooms({ ...rooms, sgl: v })}
+                    category={roomCategory.sgl}
+                    onCategoryChange={(c) => setRoomCategory({ ...roomCategory, sgl: c })}
+                  />
+                  <RoomRow
+                    icon={<Users size={20} strokeWidth={1.7} />}
+                    label="Double Room"
+                    value={rooms.dbl}
+                    onChange={(v) => setRooms({ ...rooms, dbl: v })}
+                    category={roomCategory.dbl}
+                    onCategoryChange={(c) => setRoomCategory({ ...roomCategory, dbl: c })}
+                  />
+                  <RoomRow
+                    icon={<TwinBedsIcon size={22} />}
+                    label="Twin Room"
+                    value={rooms.twn}
+                    onChange={(v) => setRooms({ ...rooms, twn: v })}
+                    category={roomCategory.twn}
+                    onCategoryChange={(c) => setRoomCategory({ ...roomCategory, twn: c })}
+                  />
+                  <RoomRow
+                    icon={<UsersRound size={20} strokeWidth={1.7} />}
+                    label="Triple Room"
+                    value={rooms.trp}
+                    onChange={(v) => setRooms({ ...rooms, trp: v })}
+                    category={roomCategory.trp}
+                    onCategoryChange={(c) => setRoomCategory({ ...roomCategory, trp: c })}
+                  />
                 </div>
               </div>
+
 
               {/* Meal Plan */}
               <div className="mt-8 border-t pt-6" style={{ borderColor: "#EEEBE3" }}>
@@ -1994,6 +2031,133 @@ function Counter({
     </div>
   );
 }
+
+const ROOM_CATEGORY_OPTIONS = [
+  "Standard",
+  "Superior",
+  "Premium",
+  "Junior Suite",
+  "Suite",
+] as const;
+
+function RoomRow({
+  icon,
+  label,
+  value,
+  onChange,
+  category,
+  onCategoryChange,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  category: string;
+  onCategoryChange: (c: string) => void;
+}) {
+  return (
+    <div
+      className="rounded-[16px] px-4 sm:px-5 py-4 sm:py-4"
+      style={{
+        backgroundColor: "#FFFFFF",
+        border: "1px solid #ECE7DC",
+        boxShadow:
+          "0 6px 20px -14px rgba(10,27,44,0.20), 0 1px 2px rgba(10,27,44,0.03)",
+      }}
+    >
+      <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 sm:gap-6">
+        <LuxIconBadge size={44}>{icon}</LuxIconBadge>
+        <div className="min-w-0 text-[#0A1B2C] text-[15px] sm:text-[16px] font-medium truncate">
+          {label}
+        </div>
+        <div
+          className="col-span-3 sm:col-span-1 flex items-center justify-between sm:justify-center rounded-[10px] h-[44px] sm:w-[132px] px-1.5"
+          style={{
+            backgroundColor: "#FFFFFF",
+            border: "1px solid #E6E2D5",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => onChange(Math.max(0, value - 1))}
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115] hover:text-[#EBCB6A]"
+            style={{ color: "#B88917" }}
+            aria-label={`Decrease ${label}`}
+          >
+            <Minus size={15} />
+          </button>
+          <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums w-8 text-center">
+            {value}
+          </span>
+          <button
+            type="button"
+            onClick={() => onChange(value + 1)}
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115] hover:text-[#EBCB6A]"
+            style={{ color: "#B88917" }}
+            aria-label={`Increase ${label}`}
+          >
+            <Plus size={15} />
+          </button>
+        </div>
+        <div className="col-span-3 sm:col-span-1 relative sm:w-[180px]">
+          <select
+            value={category}
+            onChange={(e) => onCategoryChange(e.target.value)}
+            className="w-full appearance-none rounded-[10px] h-[44px] pl-3 pr-9 text-[14px] text-[#0A1B2C] outline-none focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #E6E2D5",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
+            }}
+            aria-label={`Preferred category for ${label}`}
+          >
+            {ROOM_CATEGORY_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+          <ChevronDown
+            size={16}
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+            style={{ color: "#B88917" }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TwinBedsIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.7}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      {/* left bed */}
+      <rect x="2" y="10" width="8.5" height="6" rx="1.2" />
+      <path d="M2 13.2h8.5" />
+      <rect x="3" y="8.5" width="2.2" height="1.5" rx="0.4" />
+      {/* right bed */}
+      <rect x="13.5" y="10" width="8.5" height="6" rx="1.2" />
+      <path d="M13.5 13.2H22" />
+      <rect x="14.5" y="8.5" width="2.2" height="1.5" rx="0.4" />
+      {/* floor */}
+      <path d="M2 17.5h20" />
+    </svg>
+  );
+}
+
 
 function MealOption({
   icon,
