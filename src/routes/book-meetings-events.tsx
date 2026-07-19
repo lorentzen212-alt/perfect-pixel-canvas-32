@@ -2010,13 +2010,13 @@ function MealOption({
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center justify-between rounded-[10px] px-4 h-[56px] text-left transition-all"
+      className="flex items-center justify-between rounded-[14px] px-4 h-[56px] text-left transition-all"
       style={{
-        backgroundColor: selected ? "#FFFBEF" : "#FFFFFF",
-        border: `1px solid ${selected ? "rgba(212,175,55,0.55)" : "#E6E2D5"}`,
+        backgroundColor: selected ? "rgba(212,175,55,0.025)" : "#FFFFFF",
+        border: `1px solid ${selected ? "rgba(212,175,55,0.45)" : "#E8E2D8"}`,
         boxShadow: selected
-          ? "0 0 0 3px rgba(212,175,55,0.10), 0 6px 18px -10px rgba(184,137,23,0.35)"
-          : "0 1px 2px rgba(10,27,44,0.04)",
+          ? "0 6px 18px rgba(15,35,60,0.045), 0 0 0 3px rgba(212,175,55,0.08)"
+          : "0 6px 18px rgba(15,35,60,0.045)",
       }}
     >
       <span className="flex items-center gap-3">
