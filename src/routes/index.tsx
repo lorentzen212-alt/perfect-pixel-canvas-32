@@ -22,6 +22,13 @@ import {
   Instagram,
   Mountain,
 } from "lucide-react";
+import {
+  ShieldCheckPremium,
+  ClockPremium,
+  HeadsetPremium,
+  LockPremium,
+  GroupPremium,
+} from "@/components/PremiumIcons";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import lofotenImg from "@/assets/dest-lofoten.jpg";
