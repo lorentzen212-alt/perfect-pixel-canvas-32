@@ -761,6 +761,36 @@ function FlagNO() {
   );
 }
 
+function FlagSE() {
+  return (
+    <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+      <rect width="20" height="14" fill="#005293" />
+      <rect x="6" width="2" height="14" fill="#FECB00" />
+      <rect y="6" width="20" height="2" fill="#FECB00" />
+    </svg>
+  );
+}
+
+function FlagDK() {
+  return (
+    <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+      <rect width="20" height="14" fill="#C8102E" />
+      <rect x="6" width="2" height="14" fill="#FFF" />
+      <rect y="6" width="20" height="2" fill="#FFF" />
+    </svg>
+  );
+}
+
+function FlagFI() {
+  return (
+    <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+      <rect width="20" height="14" fill="#FFF" />
+      <rect x="6" width="2" height="14" fill="#003580" />
+      <rect y="6" width="20" height="2" fill="#003580" />
+    </svg>
+  );
+}
+
 /* --------- Step 2: Location --------- */
 
 type Destination = {
@@ -771,7 +801,16 @@ type Destination = {
   anywhere?: boolean;
 };
 
-const DESTINATIONS_BY_COUNTRY: Record<string, Destination[]> = {
+type CountryCode = "NO" | "SE" | "DK" | "FI";
+
+const COUNTRIES: { code: CountryCode; name: string; Flag: () => JSX.Element }[] = [
+  { code: "NO", name: "Norway", Flag: FlagNO },
+  { code: "SE", name: "Sweden", Flag: FlagSE },
+  { code: "DK", name: "Denmark", Flag: FlagDK },
+  { code: "FI", name: "Finland", Flag: FlagFI },
+];
+
+const DESTINATIONS_BY_COUNTRY: Record<CountryCode, Destination[]> = {
   NO: [
     { id: "oslo", name: "Oslo", image: osloImg, Icon: Building2 },
     { id: "bergen", name: "Bergen", image: bergenImg, Icon: Landmark },
@@ -779,14 +818,61 @@ const DESTINATIONS_BY_COUNTRY: Record<string, Destination[]> = {
     { id: "stavanger", name: "Stavanger", image: stavangerImg, Icon: Building2 },
     { id: "trondheim", name: "Trondheim", image: trondheimImg, Icon: Landmark },
     { id: "bodo", name: "Bodø", image: bodoImg, Icon: Building2 },
-    { id: "lofoten", name: "Lofoten", image: lofotenImg, Icon: Plane },
-    { id: "anywhere", name: "Anywhere in Norway", Icon: Globe, anywhere: true },
+    { id: "lofoten", name: "Lofoten", image: lofotenImg, Icon: Waves },
+    { id: "anywhere-NO", name: "Anywhere in Norway", Icon: Globe, anywhere: true },
+  ],
+  SE: [
+    { id: "stockholm", name: "Stockholm", image: stockholmImg, Icon: Building2 },
+    { id: "gothenburg", name: "Gothenburg", image: gothenburgImg, Icon: Waves },
+    { id: "malmo", name: "Malmö", image: malmoImg, Icon: Building2 },
+    { id: "uppsala", name: "Uppsala", image: uppsalaImg, Icon: Landmark },
+    { id: "kiruna", name: "Kiruna", image: kirunaImg, Icon: Plane },
+    { id: "visby", name: "Visby", image: visbyImg, Icon: Landmark },
+    { id: "are", name: "Åre", image: areImg, Icon: Palmtree },
+    { id: "anywhere-SE", name: "Anywhere in Sweden", Icon: Globe, anywhere: true },
+  ],
+  DK: [
+    { id: "copenhagen", name: "Copenhagen", image: copenhagenImg, Icon: Building2 },
+    { id: "aarhus", name: "Aarhus", image: aarhusImg, Icon: Waves },
+    { id: "odense", name: "Odense", image: odenseImg, Icon: Landmark },
+    { id: "aalborg", name: "Aalborg", image: aalborgImg, Icon: Building2 },
+    { id: "roskilde", name: "Roskilde", image: roskildeImg, Icon: Landmark },
+    { id: "skagen", name: "Skagen", image: skagenImg, Icon: Waves },
+    { id: "billund", name: "Billund", image: billundImg, Icon: Plane },
+    { id: "anywhere-DK", name: "Anywhere in Denmark", Icon: Globe, anywhere: true },
+  ],
+  FI: [
+    { id: "helsinki", name: "Helsinki", image: helsinkiImg, Icon: Building2 },
+    { id: "tampere", name: "Tampere", image: tampereImg, Icon: Landmark },
+    { id: "turku", name: "Turku", image: turkuImg, Icon: Waves },
+    { id: "rovaniemi", name: "Rovaniemi", image: rovaniemiImg, Icon: Plane },
+    { id: "oulu", name: "Oulu", image: ouluImg, Icon: Building2 },
+    { id: "porvoo", name: "Porvoo", image: porvooImg, Icon: Landmark },
+    { id: "levi", name: "Levi", image: leviImg, Icon: Palmtree },
+    { id: "anywhere-FI", name: "Anywhere in Finland", Icon: Globe, anywhere: true },
   ],
 };
 
-const COUNTRIES = [
-  { code: "NO", name: "Norway", Flag: FlagNO },
-];
+type SearchableDestination = {
+  id: string;
+  name: string;
+  country: CountryCode;
+  countryName: string;
+};
+
+const ALL_SEARCHABLE_DESTINATIONS: SearchableDestination[] = (Object.keys(
+  DESTINATIONS_BY_COUNTRY,
+) as CountryCode[]).flatMap((code) => {
+  const country = COUNTRIES.find((c) => c.code === code)!;
+  return DESTINATIONS_BY_COUNTRY[code]
+    .filter((d) => !d.anywhere)
+    .map((d) => ({
+      id: d.id,
+      name: d.name,
+      country: code,
+      countryName: country.name,
+    }));
+});
 
 const HOTEL_CATEGORIES = [
   { id: "3", label: "★★★" },
@@ -812,15 +898,94 @@ function StepTwoLocation({
   onBack: () => void;
   onNext: () => void;
 }) {
-  const [country, setCountry] = useState<string>("NO");
-  const [countryOpen, setCountryOpen] = useState(false);
-  const [destination, setDestination] = useState<string | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>("NO");
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
+  const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [category, setCategory] = useState<string | null>(null);
-  const [styleId, setStyleId] = useState<string | null>(null);
+  const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
+  const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
+  const [selectedHotelCategory, setSelectedHotelCategory] = useState<string | null>(null);
+  const [selectedHotelStyle, setSelectedHotelStyle] = useState<string | null>(null);
 
-  const currentCountry = COUNTRIES.find((c) => c.code === country) ?? COUNTRIES[0];
-  const destinations = DESTINATIONS_BY_COUNTRY[country] ?? [];
+  const countryRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  const currentCountry = COUNTRIES.find((c) => c.code === selectedCountry) ?? COUNTRIES[0];
+  const destinations = DESTINATIONS_BY_COUNTRY[selectedCountry];
+
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return [];
+    return ALL_SEARCHABLE_DESTINATIONS.filter(
+      (d) =>
+        d.name.toLowerCase().includes(q) ||
+        d.countryName.toLowerCase().includes(q),
+    ).slice(0, 8);
+  }, [searchQuery]);
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    function onDown(e: MouseEvent) {
+      if (countryRef.current && !countryRef.current.contains(e.target as Node)) {
+        setIsCountryDropdownOpen(false);
+      }
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setIsSearchDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, []);
+
+  useEffect(() => {
+    setHighlightedSearchIndex(0);
+  }, [searchQuery]);
+
+  function changeCountry(code: CountryCode) {
+    setSelectedCountry(code);
+    setSelectedDestination(null);
+    setSearchQuery("");
+    setIsCountryDropdownOpen(false);
+    setIsSearchDropdownOpen(false);
+  }
+
+  function pickDestinationCard(d: Destination) {
+    setSelectedDestination(d.id);
+    setSearchQuery(d.name);
+    setIsSearchDropdownOpen(false);
+  }
+
+  function pickSearchResult(r: SearchableDestination) {
+    setSelectedCountry(r.country);
+    setSelectedDestination(r.id);
+    setSearchQuery(r.name);
+    setIsSearchDropdownOpen(false);
+  }
+
+  function onSearchKey(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (!isSearchDropdownOpen || searchResults.length === 0) {
+      if (e.key === "ArrowDown" && searchResults.length > 0) {
+        setIsSearchDropdownOpen(true);
+      }
+      if (e.key === "Escape") setIsSearchDropdownOpen(false);
+      return;
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightedSearchIndex((i) => (i + 1) % searchResults.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightedSearchIndex(
+        (i) => (i - 1 + searchResults.length) % searchResults.length,
+      );
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const r = searchResults[highlightedSearchIndex];
+      if (r) pickSearchResult(r);
+    } else if (e.key === "Escape") {
+      setIsSearchDropdownOpen(false);
+    }
+  }
 
   return (
     <div>
@@ -839,17 +1004,17 @@ function StepTwoLocation({
         </div>
 
         {/* Country selector */}
-        <div className="lg:min-w-[280px]">
+        <div className="w-full lg:min-w-[280px]" ref={countryRef}>
           <label className="block text-[14px] font-semibold text-[#0A1B2C]">
             Select country
           </label>
           <div className="relative mt-2">
             <button
               type="button"
-              onClick={() => setCountryOpen((v) => !v)}
+              onClick={() => setIsCountryDropdownOpen((v) => !v)}
               aria-haspopup="listbox"
-              aria-expanded={countryOpen}
-              className="w-full flex items-center justify-between rounded-md border bg-white px-4 h-[46px] text-[15px] text-[#0A1B2C] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40 focus-visible:border-[#F5AE00] transition-colors"
+              aria-expanded={isCountryDropdownOpen}
+              className="w-full flex items-center justify-between rounded-md border bg-white px-4 h-[46px] text-[15px] text-[#0A1B2C] outline-none transition-all duration-200 hover:border-[#B9C2CE] hover:shadow-sm focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40 focus-visible:border-[#F5AE00]"
               style={{ borderColor: "#DFE4EB" }}
             >
               <span className="flex items-center gap-3">
@@ -859,12 +1024,12 @@ function StepTwoLocation({
               <ChevronDown
                 size={18}
                 className={cn(
-                  "text-[#4A5866] transition-transform",
-                  countryOpen && "rotate-180",
+                  "text-[#4A5866] transition-transform duration-200",
+                  isCountryDropdownOpen && "rotate-180",
                 )}
               />
             </button>
-            {countryOpen && (
+            {isCountryDropdownOpen && (
               <ul
                 role="listbox"
                 className="absolute z-30 mt-2 w-full rounded-md border bg-white py-1 shadow-lg"
@@ -877,12 +1042,11 @@ function StepTwoLocation({
                   <li key={c.code}>
                     <button
                       type="button"
-                      onClick={() => {
-                        setCountry(c.code);
-                        setDestination(null);
-                        setCountryOpen(false);
-                      }}
-                      className="w-full flex items-center gap-3 px-4 py-2 text-left text-[15px] text-[#0A1B2C] hover:bg-[#F5EFE1]"
+                      onClick={() => changeCountry(c.code)}
+                      className={cn(
+                        "w-full flex items-center gap-3 px-4 py-2 text-left text-[15px] text-[#0A1B2C] transition-colors hover:bg-[#F5EFE1]",
+                        c.code === selectedCountry && "bg-[#FBF6EA]",
+                      )}
                     >
                       <c.Flag />
                       {c.name}
@@ -909,19 +1073,17 @@ function StepTwoLocation({
 
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {destinations.map((d) => {
-            const selected = destination === d.id;
+            const selected = selectedDestination === d.id;
             const isAnywhere = d.anywhere === true;
             return (
               <button
                 key={d.id}
                 type="button"
-                onClick={() => setDestination(d.id)}
+                onClick={() => pickDestinationCard(d)}
                 aria-pressed={selected}
                 className={cn(
-                  "group relative overflow-hidden rounded-[10px] aspect-[4/3] text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/60",
-                  selected
-                    ? "-translate-y-0.5"
-                    : "hover:-translate-y-0.5",
+                  "group relative overflow-hidden rounded-[10px] aspect-[4/3] text-left transition-all duration-[220ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/60",
+                  selected ? "-translate-y-[3px]" : "hover:-translate-y-[3px]",
                 )}
                 style={{
                   border: selected
@@ -953,7 +1115,7 @@ function StepTwoLocation({
                       loading="lazy"
                       width={800}
                       height={600}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[220ms] group-hover:scale-[1.03]"
                     />
                     <div
                       className="absolute inset-0"
@@ -987,7 +1149,7 @@ function StepTwoLocation({
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-10">
           <div>
             {/* Search field */}
-            <div>
+            <div ref={searchRef}>
               <label className="block text-[14px] font-semibold text-[#0A1B2C]">
                 Or search for any destination
               </label>
@@ -999,11 +1161,57 @@ function StepTwoLocation({
                 <input
                   type="text"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setIsSearchDropdownOpen(true);
+                  }}
+                  onFocus={() => {
+                    if (searchQuery.trim()) setIsSearchDropdownOpen(true);
+                  }}
+                  onKeyDown={onSearchKey}
                   placeholder="Type city, region or venue"
+                  autoComplete="off"
+                  aria-autocomplete="list"
+                  aria-expanded={isSearchDropdownOpen && searchResults.length > 0}
                   className="w-full rounded-md border bg-white pl-11 pr-4 h-[46px] text-[15px] text-[#0A1B2C] placeholder:text-[#8892A0] outline-none transition-colors focus:border-[#F5AE00] focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
                   style={{ borderColor: "#DFE4EB" }}
                 />
+
+                {isSearchDropdownOpen && searchResults.length > 0 && (
+                  <ul
+                    role="listbox"
+                    className="absolute left-0 right-0 top-[calc(100%+6px)] z-40 max-h-[280px] overflow-auto rounded-md border bg-white py-1"
+                    style={{
+                      borderColor: "#DFE4EB",
+                      boxShadow: "0 18px 40px -14px rgba(10,27,44,0.22)",
+                    }}
+                  >
+                    {searchResults.map((r, idx) => {
+                      const highlighted = idx === highlightedSearchIndex;
+                      return (
+                        <li key={`${r.country}-${r.id}`}>
+                          <button
+                            type="button"
+                            onMouseEnter={() => setHighlightedSearchIndex(idx)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              pickSearchResult(r);
+                            }}
+                            className={cn(
+                              "w-full flex items-center justify-between gap-3 px-4 py-2.5 text-left text-[15px] text-[#0A1B2C] transition-colors",
+                              highlighted ? "bg-[#FBF6EA]" : "hover:bg-[#F8F4E8]",
+                            )}
+                          >
+                            <span className="truncate">{r.name}</span>
+                            <span className="text-[13px] text-[#7C8794] shrink-0">
+                              {r.countryName}
+                            </span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </div>
             </div>
 
@@ -1014,17 +1222,15 @@ function StepTwoLocation({
               </label>
               <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {HOTEL_CATEGORIES.map((c) => {
-                  const selected = category === c.id;
+                  const selected = selectedHotelCategory === c.id;
                   const isNone = c.id === "none";
                   return (
                     <button
                       key={c.id}
                       type="button"
-                      onClick={() => setCategory(c.id)}
+                      onClick={() => setSelectedHotelCategory(c.id)}
                       aria-pressed={selected}
-                      className={cn(
-                        "inline-flex items-center justify-center gap-2 rounded-md h-[46px] text-[15px] bg-white transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
-                      )}
+                      className="inline-flex items-center justify-center gap-2 rounded-md h-[46px] text-[15px] bg-white transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm hover:border-[#B9C2CE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
                       style={{
                         border:
                           selected || isNone
@@ -1053,17 +1259,18 @@ function StepTwoLocation({
               <label className="block text-[14px] font-semibold text-[#0A1B2C]">
                 Hotel style
               </label>
-              <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+              <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
                 {HOTEL_STYLES.map((s) => {
-                  const selected = styleId === s.id;
+                  const selected = selectedHotelStyle === s.id;
                   return (
                     <button
                       key={s.id}
                       type="button"
-                      onClick={() => setStyleId(s.id)}
+                      onClick={() => setSelectedHotelStyle(s.id)}
                       aria-pressed={selected}
-                      className="group flex flex-col items-center justify-center gap-2 rounded-md h-[86px] px-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+                      className="group flex flex-col items-center justify-center gap-2 rounded-md min-h-[86px] px-3 py-2 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
                       style={{
+                        minWidth: 104,
                         background: selected
                           ? "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)"
                           : "#FFFFFF",
@@ -1075,13 +1282,24 @@ function StepTwoLocation({
                           : undefined,
                         color: selected ? "#FFFFFF" : "#0A1B2C",
                       }}
+                      onMouseEnter={(e) => {
+                        if (!selected) {
+                          e.currentTarget.style.borderColor = "#E9C77A";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!selected) {
+                          e.currentTarget.style.borderColor = "#DFE4EB";
+                        }
+                      }}
                     >
                       <s.Icon
                         size={22}
                         strokeWidth={1.6}
+                        className="transition-transform duration-200 group-hover:scale-[1.04]"
                         style={{ color: selected ? GOLD : "#0A1B2C" }}
                       />
-                      <span className="text-[13px] text-center leading-tight">
+                      <span className="text-[12.5px] text-center leading-[1.25] break-words">
                         {s.label}
                       </span>
                     </button>
@@ -1111,7 +1329,7 @@ function StepTwoLocation({
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center justify-center rounded-md border px-6 h-[48px] text-[15px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F5EFE1] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+          className="inline-flex items-center justify-center rounded-md border px-6 h-[48px] text-[15px] font-medium text-[#0A1B2C] bg-white transition-all duration-200 hover:-translate-y-[1px] hover:bg-[#F5EFE1] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
           style={{ borderColor: "#DFE4EB" }}
         >
           Back
@@ -1121,4 +1339,5 @@ function StepTwoLocation({
     </div>
   );
 }
+
 
