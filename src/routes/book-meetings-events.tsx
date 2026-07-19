@@ -1568,15 +1568,48 @@ function StepThreeAccommodation({
                 <DateField label="Check-out" value={checkOut} onChange={setCheckOut} />
               </div>
 
-              {/* Room Breakdown */}
+              {/* Room Categories */}
               <div className="mt-8">
-                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Room Breakdown</h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  <Counter label="Single Rooms (SGL)" value={rooms.sgl} onChange={(v) => setRooms({ ...rooms, sgl: v })} />
-                  <Counter label="Double Rooms (DBL)" value={rooms.dbl} onChange={(v) => setRooms({ ...rooms, dbl: v })} />
-                  <Counter label="Twin Rooms (TWN)" value={rooms.twn} onChange={(v) => setRooms({ ...rooms, twn: v })} />
-                  <Counter label="Triple Rooms (TRP)" value={rooms.trp} onChange={(v) => setRooms({ ...rooms, trp: v })} />
-                  <Counter label="Suites" value={rooms.ste} onChange={(v) => setRooms({ ...rooms, ste: v })} />
+                <div className="flex items-center justify-between gap-4 pb-3 mb-2">
+                  <h4 className="text-[#0A1B2C] text-[15px] font-semibold">Room Categories</h4>
+                  <div className="hidden sm:flex items-center gap-4 text-[12px] uppercase tracking-wide text-[#8A94A0]">
+                    <span className="w-[132px] text-center">Guests</span>
+                    <span className="w-[180px] text-center">Preferred Room Category</span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <RoomCategoryRow
+                    icon={<User size={18} strokeWidth={1.7} style={{ color: "#B88A2E" }} />}
+                    label="Single Rooms"
+                    value={rooms.sgl}
+                    onValue={(v) => setRooms({ ...rooms, sgl: v })}
+                    cat={cats.sgl}
+                    onCat={(c) => setCats({ ...cats, sgl: c })}
+                  />
+                  <RoomCategoryRow
+                    icon={<Users size={18} strokeWidth={1.7} style={{ color: "#B88A2E" }} />}
+                    label="Double Rooms"
+                    value={rooms.dbl}
+                    onValue={(v) => setRooms({ ...rooms, dbl: v })}
+                    cat={cats.dbl}
+                    onCat={(c) => setCats({ ...cats, dbl: c })}
+                  />
+                  <RoomCategoryRow
+                    icon={<TwinBedsIcon />}
+                    label="Twin Rooms"
+                    value={rooms.twn}
+                    onValue={(v) => setRooms({ ...rooms, twn: v })}
+                    cat={cats.twn}
+                    onCat={(c) => setCats({ ...cats, twn: c })}
+                  />
+                  <RoomCategoryRow
+                    icon={<UsersRound size={18} strokeWidth={1.7} style={{ color: "#B88A2E" }} />}
+                    label="Triple Rooms"
+                    value={rooms.trp}
+                    onValue={(v) => setRooms({ ...rooms, trp: v })}
+                    cat={cats.trp}
+                    onCat={(c) => setCats({ ...cats, trp: c })}
+                  />
                 </div>
               </div>
 
