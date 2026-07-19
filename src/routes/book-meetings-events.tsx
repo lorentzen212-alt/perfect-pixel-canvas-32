@@ -1437,6 +1437,9 @@ function StepThreeAccommodation({
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [rooms, setRooms] = useState<RoomMix>(emptyRooms());
+  const [roomCategory, setRoomCategory] = useState<
+    Record<"sgl" | "dbl" | "twn" | "trp", string>
+  >({ sgl: "Standard", dbl: "Standard", twn: "Standard", trp: "Standard" });
   const [mealPlan, setMealPlan] = useState<MealPlan>("breakfast");
   const [stays, setStays] = useState<Stay[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
