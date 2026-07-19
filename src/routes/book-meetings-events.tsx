@@ -1606,16 +1606,17 @@ function StepThreeAccommodation({
                   type="button"
                   onClick={addStay}
                   disabled={!checkIn || !checkOut}
-                  className="group inline-flex items-center justify-center gap-2 rounded-md px-6 h-[46px] text-[14px] font-semibold text-white disabled:opacity-50"
+                  className="group inline-flex items-center justify-center gap-2 rounded-md px-6 h-[46px] text-[14px] font-semibold text-white disabled:opacity-50 transition-transform active:translate-y-px"
                   style={{
-                    background: "linear-gradient(180deg,#16385A 0%,#0F2A47 100%)",
+                    background:
+                      "linear-gradient(180deg,#153353 0%,#0C2440 55%,#081A30 100%)",
                     boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.14), 0 8px 20px -10px rgba(10,27,44,0.5)",
-                    border: "1px solid rgba(255,255,255,0.16)",
+                      "inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(0,0,0,0.4), 0 12px 28px -14px rgba(10,27,44,0.7), 0 2px 6px -2px rgba(10,27,44,0.35)",
+                    border: "1px solid rgba(255,255,255,0.12)",
                   }}
                 >
                   {editingId ? "Save changes" : "Add this stay"}
-                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight size={16} style={{ color: "#F2C860" }} className="transition-transform group-hover:translate-x-0.5" />
                 </button>
               </div>
             </div>
