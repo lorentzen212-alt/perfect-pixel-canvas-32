@@ -182,11 +182,11 @@ function BookMEPage() {
 
   const goNext = () => {
     setDirection("forward");
-    setStep((s) => Math.min(7, (s + 1) as StepKey));
+    setStep((s) => (Math.min(7, s + 1) as StepKey));
   };
   const goBack = () => {
     setDirection("back");
-    setStep((s) => Math.max(1, (s - 1) as StepKey));
+    setStep((s) => (Math.max(1, s - 1) as StepKey));
   };
 
   const toggle = (
