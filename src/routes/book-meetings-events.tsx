@@ -1582,16 +1582,16 @@ function StepThreeAccommodation({
                 </div>
                 <div className="flex flex-col gap-3">
                   <RoomCategoryRow
-                    icon={<User size={18} strokeWidth={1.7} style={{ color: "#B88A2E" }} />}
-                    label="Single Rooms"
+                    icon={<User size={20} strokeWidth={1.5} style={{ color: "#C9A961" }} />}
+                    label="Single Room"
                     value={rooms.sgl}
                     onValue={(v) => setRooms({ ...rooms, sgl: v })}
                     cat={cats.sgl}
                     onCat={(c) => setCats({ ...cats, sgl: c })}
                   />
                   <RoomCategoryRow
-                    icon={<Users size={18} strokeWidth={1.7} style={{ color: "#B88A2E" }} />}
-                    label="Double Rooms"
+                    icon={<Users size={20} strokeWidth={1.5} style={{ color: "#C9A961" }} />}
+                    label="Double Room"
                     value={rooms.dbl}
                     onValue={(v) => setRooms({ ...rooms, dbl: v })}
                     cat={cats.dbl}
@@ -1599,15 +1599,15 @@ function StepThreeAccommodation({
                   />
                   <RoomCategoryRow
                     icon={<TwinBedsIcon />}
-                    label="Twin Rooms"
+                    label="Twin Room"
                     value={rooms.twn}
                     onValue={(v) => setRooms({ ...rooms, twn: v })}
                     cat={cats.twn}
                     onCat={(c) => setCats({ ...cats, twn: c })}
                   />
                   <RoomCategoryRow
-                    icon={<UsersRound size={18} strokeWidth={1.7} style={{ color: "#B88A2E" }} />}
-                    label="Triple Rooms"
+                    icon={<UsersRound size={20} strokeWidth={1.5} style={{ color: "#C9A961" }} />}
+                    label="Triple Room"
                     value={rooms.trp}
                     onValue={(v) => setRooms({ ...rooms, trp: v })}
                     cat={cats.trp}
