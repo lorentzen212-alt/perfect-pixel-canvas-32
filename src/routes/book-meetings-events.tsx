@@ -1609,26 +1609,33 @@ function StepThreeAccommodation({
               <div className="mt-8">
                 <div className="mb-4 sm:hidden">
                   <h4
-                    className="text-[#0A1B2C] text-[17px] tracking-[0.14em] uppercase"
-                    style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.16em" }}
+                    className="text-[#1F2937] text-[15px]"
+                    style={{ fontFamily: SANS, fontWeight: 600 }}
                   >
                     Room Categories
                   </h4>
                 </div>
                 <div
-                  className="mb-4 hidden sm:grid items-baseline gap-3 sm:gap-6"
-                  style={{ gridTemplateColumns: "auto minmax(0,1fr) auto auto" }}
+                  className="mb-3 hidden sm:grid items-baseline gap-3 sm:gap-6 pb-2 border-b"
+                  style={{ gridTemplateColumns: "44px minmax(0,1fr) auto auto", borderColor: "#ECE7DC" }}
                 >
+                  <div aria-hidden />
                   <h4
-                    className="col-span-2 text-[#0A1B2C] text-[17px] tracking-[0.14em] uppercase"
-                    style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.16em" }}
+                    className="text-[#1F2937] text-[15px]"
+                    style={{ fontFamily: SANS, fontWeight: 600 }}
                   >
                     Room Categories
                   </h4>
-                  <span className="text-[10.5px] tracking-[0.18em] text-[#8A94A0] uppercase text-center sm:w-[132px]">
+                  <span
+                    className="text-[10.5px] tracking-[0.08em] text-[#8A94A0] uppercase text-center sm:w-[132px]"
+                    style={{ fontFamily: SANS, fontWeight: 600 }}
+                  >
                     Guests
                   </span>
-                  <span className="text-[10.5px] tracking-[0.18em] text-[#8A94A0] uppercase text-right sm:w-[180px]">
+                  <span
+                    className="text-[10.5px] tracking-[0.08em] text-[#8A94A0] uppercase text-center sm:w-[180px]"
+                    style={{ fontFamily: SANS, fontWeight: 600 }}
+                  >
                     Preferred Room Category
                   </span>
                 </div>
