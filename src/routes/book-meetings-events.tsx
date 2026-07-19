@@ -482,20 +482,21 @@ function BookMeetingsEvents() {
 
         .complete-stay-btn {
           position: relative;
-          color: #FFFFFF;
-          background-color: #41281A;
+          color: #2F2F2F;
+          background-color: #F5F2EC;
           background-image:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 20%),
-            linear-gradient(180deg, #654128 0%, #53341F 50%, #41281A 100%);
-          border: 1px solid #C9A34A;
+            linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 35%),
+            linear-gradient(180deg, #FCFBF8 0%, #F5F2EC 50%, #ECE7DF 100%);
+          border: 1px solid #6B6257;
           border-radius: 16px;
           box-shadow:
-            inset 0 1px 0 rgba(255, 230, 190, 0.18),
-            inset 0 -8px 18px -8px rgba(0, 0, 0, 0.45),
-            0 12px 28px -12px rgba(0, 0, 0, 0.45),
-            0 2px 6px -2px rgba(0, 0, 0, 0.30);
+            inset 0 1px 0 rgba(255, 255, 255, 0.85),
+            inset 0 -1px 0 rgba(107, 98, 87, 0.18),
+            inset 0 0 10px rgba(255, 255, 255, 0.25),
+            0 14px 32px -12px rgba(0, 0, 0, 0.18),
+            0 4px 10px -4px rgba(0, 0, 0, 0.10);
           cursor: pointer;
-          transition: transform 250ms ease-out, box-shadow 250ms ease-out, filter 250ms ease-out, background 250ms ease-out;
+          transition: transform 250ms ease-out, box-shadow 250ms ease-out, filter 250ms ease-out, background 250ms ease-out, color 250ms ease-out;
         }
         .complete-stay-plus {
           color: #C9A34A;
@@ -503,29 +504,34 @@ function BookMeetingsEvents() {
         }
         .complete-stay-btn:hover {
           transform: scale(1.02);
-          filter: brightness(1.05);
+          filter: brightness(1.03);
+          color: #FFFFFF;
           background-image:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 20%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 25%),
             linear-gradient(180deg, #2F8F5B 0%, #24734A 50%, #1B5E3A 100%);
+          border-color: #C9A34A;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.12),
-            inset 0 -8px 18px -8px rgba(0, 0, 0, 0.45),
-            0 0 12px rgba(47, 143, 91, 0.28),
-            0 0 24px rgba(47, 143, 91, 0.14),
-            0 14px 28px rgba(0, 0, 0, 0.28);
+            inset 0 1px 0 rgba(255, 255, 255, 0.18),
+            inset 0 -8px 18px -8px rgba(0, 0, 0, 0.40),
+            0 0 10px rgba(47, 143, 91, 0.22),
+            0 0 20px rgba(47, 143, 91, 0.10),
+            0 14px 32px -12px rgba(0, 0, 0, 0.22),
+            0 4px 10px -4px rgba(0, 0, 0, 0.10);
         }
         .complete-stay-btn:active {
           transform: scale(0.99);
           filter: brightness(0.96);
+          color: #FFFFFF;
           background-image:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 20%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 25%),
             linear-gradient(180deg, #24734A 0%, #1B5E3A 50%, #134A2E 100%);
+          border-color: #C9A34A;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.08),
-            inset 0 -6px 14px -8px rgba(0, 0, 0, 0.50),
-            0 0 8px rgba(47, 143, 91, 0.22),
-            0 0 16px rgba(47, 143, 91, 0.10),
-            0 8px 18px rgba(0, 0, 0, 0.25);
+            inset 0 1px 0 rgba(255, 255, 255, 0.10),
+            inset 0 -6px 14px -8px rgba(0, 0, 0, 0.45),
+            0 0 8px rgba(47, 143, 91, 0.18),
+            0 0 16px rgba(47, 143, 91, 0.08),
+            0 8px 18px rgba(0, 0, 0, 0.18);
         }
         .add-stay-btn {
           background: linear-gradient(180deg, #143253 0%, #0F2743 55%, #08182B 100%);
