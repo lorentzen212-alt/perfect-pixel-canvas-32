@@ -32,9 +32,6 @@ import {
   Coffee,
   BedDouble,
   Bell,
-  User,
-  UsersRound,
-  BedSingle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
@@ -1389,22 +1386,17 @@ function StepTwoLocation({
 
 /* --------- Step 3: Accommodation --------- */
 
-type RoomKey = "sgl" | "dbl" | "twn" | "trp";
-type RoomCat = "Standard" | "Superior" | "Premium" | "Junior Suite" | "Suite";
-type RoomMix = Record<RoomKey, number>;
-type RoomCats = Record<RoomKey, RoomCat>;
+type RoomMix = { sgl: number; dbl: number; twn: number; trp: number; ste: number };
 type MealPlan = "room" | "breakfast";
 type Stay = {
   id: string;
   checkIn: string;
   checkOut: string;
   rooms: RoomMix;
-  cats: RoomCats;
   mealPlan: MealPlan;
 };
 
-const emptyRooms = (): RoomMix => ({ sgl: 0, dbl: 0, twn: 0, trp: 0 });
-const emptyCats = (): RoomCats => ({ sgl: "Standard", dbl: "Standard", twn: "Standard", trp: "Standard" });
+const emptyRooms = (): RoomMix => ({ sgl: 0, dbl: 0, twn: 0, trp: 0, ste: 0 });
 
 function fmtDate(iso: string) {
   if (!iso) return "";
@@ -1419,11 +1411,15 @@ function roomsSummary(r: RoomMix) {
   if (r.dbl) parts.push(`${r.dbl} DBL`);
   if (r.twn) parts.push(`${r.twn} TWN`);
   if (r.trp) parts.push(`${r.trp} TRP`);
+  if (r.ste) parts.push(`${r.ste} STE`);
   return parts.join(", ");
 }
 
 function roomsTotal(r: RoomMix) {
-  return r.sgl + r.dbl + r.twn + r.trp;
+  return r.sgl + r.dbl + r.twn + r.trp + r.ste;
+}
+function guestsCapacity(r: RoomMix) {
+  return r.sgl * 1 + r.dbl * 2 + r.twn * 2 + r.trp * 3 + r.ste * 2;
 }
 
 function StepThreeAccommodation({
@@ -1438,21 +1434,20 @@ function StepThreeAccommodation({
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [rooms, setRooms] = useState<RoomMix>(emptyRooms());
-  const [cats, setCats] = useState<RoomCats>(emptyCats());
   const [mealPlan, setMealPlan] = useState<MealPlan>("breakfast");
   const [stays, setStays] = useState<Stay[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [porter] = useState(false);
   const [special, setSpecial] = useState("");
 
   const totalRooms = stays.reduce((n, s) => n + roomsTotal(s.rooms), 0);
-  const totalGuests = totalRooms;
+  const totalGuests = stays.reduce((n, s) => n + guestsCapacity(s.rooms), 0);
   const primaryMeal = stays[0]?.mealPlan ?? mealPlan;
 
   const clearDraft = () => {
     setCheckIn("");
     setCheckOut("");
     setRooms(emptyRooms());
-    setCats(emptyCats());
     setMealPlan("breakfast");
     setEditingId(null);
   };
@@ -1464,7 +1459,6 @@ function StepThreeAccommodation({
       checkIn,
       checkOut,
       rooms,
-      cats,
       mealPlan,
     };
     setStays((prev) =>
@@ -1480,7 +1474,6 @@ function StepThreeAccommodation({
     setCheckIn(s.checkIn);
     setCheckOut(s.checkOut);
     setRooms(s.rooms);
-    setCats(s.cats);
     setMealPlan(s.mealPlan);
   };
 
@@ -1512,64 +1505,58 @@ function StepThreeAccommodation({
       <div
         className="overflow-hidden rounded-[20px]"
         style={{
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "#FCFCFC",
+          backgroundImage: "linear-gradient(180deg,#FFFFFF 0%,#FAFAF8 100%)",
           boxShadow:
-            "0 40px 80px -50px rgba(10,27,44,0.10), 0 8px 24px -18px rgba(10,27,44,0.05)",
-          border: "1px solid #E8E2D8",
+            "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
+          border: "1px solid #ECECEC",
         }}
       >
-        {/* Champagne gold icon gradient */}
-        <svg width="0" height="0" className="pointer-events-none absolute" aria-hidden="true">
-          <defs>
-            <linearGradient id="champagneGold" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#F3D987" />
-              <stop offset="42%" stopColor="#D4AF37" />
-              <stop offset="72%" stopColor="#C5962D" />
-              <stop offset="100%" stopColor="#A97816" />
-            </linearGradient>
-          </defs>
-        </svg>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px]">
           {/* LEFT COLUMN */}
-          <div className="p-6 sm:p-7 lg:p-8">
-            {/* Accommodation Period */}
-            <div>
-              <div className="flex items-center justify-between gap-4">
+          <div className="p-6 sm:p-9 lg:p-11 lg:pr-9">
+            {/* Accommodation Period card */}
+            <div
+              className="rounded-[16px] p-6 lg:p-7"
+              style={{
+                backgroundColor: "#FFFFFF",
+                border: "1px solid #EEEBE3",
+                boxShadow: "0 6px 18px -10px rgba(10,27,44,0.08)",
+              }}
+            >
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-[10px]"
-                    style={{
-                      background:
-                        "linear-gradient(145deg, rgba(255,251,238,1), rgba(249,241,214,0.72))",
-                      border: "1px solid rgba(212,175,55,0.32)",
-                      boxShadow:
-                        "inset 0 1px 0 rgba(255,255,255,0.9), 0 3px 10px rgba(166,120,22,0.06)",
-                    }}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-lg"
+                    style={{ backgroundColor: "#FAF3E1" }}
                   >
-                    <CalendarIcon size={20} stroke="url(#champagneGold)" strokeWidth={2} />
+                    <CalendarIcon size={20} style={{ color: "#B88A2E" }} strokeWidth={1.8} />
                   </span>
-                  <h3
-                    className="text-[#0A1B2C] text-[18px] font-semibold leading-tight"
-                  >
-                    Accommodation Period{" "}
-                    <span className="text-[#8A94A0] text-[15px]">
-                      ({editingId ? "Editing" : "Draft"})
-                    </span>
-                  </h3>
+                  <div>
+                    <h3
+                      className="text-[#0A1B2C] text-[20px] leading-tight"
+                      style={{ fontFamily: SERIF }}
+                    >
+                      Accommodation Period{" "}
+                      <span className="text-[#8A94A0] text-[15px]">
+                        ({editingId ? "Editing" : "Draft"})
+                      </span>
+                    </h3>
+                  </div>
                 </div>
                 <button
                   type="button"
                   onClick={clearDraft}
-                  className="inline-flex items-center gap-2 rounded-[10px] border px-3 h-9 text-[13px] text-[#4A5866] bg-white hover:bg-[#F9F6F0] transition-colors duration-200"
-                  style={{ borderColor: "#E8E2D8" }}
+                  className="inline-flex items-center gap-2 rounded-md border px-3 h-9 text-[13px] text-[#4A5866] hover:bg-[#F7F3E7]"
+                  style={{ borderColor: "#E3DFD3" }}
                 >
-                  <Trash2 size={14} stroke="url(#champagneGold)" strokeWidth={1.7} />
+                  <Trash2 size={14} />
                   Clear
                 </button>
               </div>
 
               {/* Dates */}
-              <div className="mt-5 grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-end gap-4">
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-end gap-4">
                 <DateField label="Check-in" value={checkIn} onChange={setCheckIn} />
                 <div className="hidden sm:flex items-center justify-center pb-3">
                   <ArrowRight size={18} className="text-[#4A5866]" />
@@ -1577,65 +1564,30 @@ function StepThreeAccommodation({
                 <DateField label="Check-out" value={checkOut} onChange={setCheckOut} />
               </div>
 
-              {/* Room Categories */}
-              <SectionDivider className="my-5" />
-              <div>
-                <div className="flex items-center justify-between gap-4 mb-3">
-                  <h4 className="text-[#0A1B2C] text-[15px] font-semibold">Room Categories</h4>
-                  <div className="hidden sm:flex items-center gap-4 text-[11px] uppercase tracking-[0.08em] text-[#8A94A0]">
-                    <span className="w-[132px] text-center">Guests</span>
-                    <span className="w-[180px] text-center">Preferred Room Category</span>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2.5">
-                  <RoomCategoryRow
-                    icon={<User size={20} strokeWidth={1.9} stroke="url(#champagneGold)" />}
-                    label="Single Room"
-                    value={rooms.sgl}
-                    onValue={(v) => setRooms({ ...rooms, sgl: v })}
-                    cat={cats.sgl}
-                    onCat={(c) => setCats({ ...cats, sgl: c })}
-                  />
-                  <RoomCategoryRow
-                    icon={<Users size={20} strokeWidth={1.9} stroke="url(#champagneGold)" />}
-                    label="Double Room"
-                    value={rooms.dbl}
-                    onValue={(v) => setRooms({ ...rooms, dbl: v })}
-                    cat={cats.dbl}
-                    onCat={(c) => setCats({ ...cats, dbl: c })}
-                  />
-                  <RoomCategoryRow
-                    icon={<TwinBedsIcon />}
-                    label="Twin Room"
-                    value={rooms.twn}
-                    onValue={(v) => setRooms({ ...rooms, twn: v })}
-                    cat={cats.twn}
-                    onCat={(c) => setCats({ ...cats, twn: c })}
-                  />
-                  <RoomCategoryRow
-                    icon={<UsersRound size={20} strokeWidth={1.9} stroke="url(#champagneGold)" />}
-                    label="Triple Room"
-                    value={rooms.trp}
-                    onValue={(v) => setRooms({ ...rooms, trp: v })}
-                    cat={cats.trp}
-                    onCat={(c) => setCats({ ...cats, trp: c })}
-                  />
+              {/* Room Breakdown */}
+              <div className="mt-8">
+                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Room Breakdown</h4>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <Counter label="Single Rooms (SGL)" value={rooms.sgl} onChange={(v) => setRooms({ ...rooms, sgl: v })} />
+                  <Counter label="Double Rooms (DBL)" value={rooms.dbl} onChange={(v) => setRooms({ ...rooms, dbl: v })} />
+                  <Counter label="Twin Rooms (TWN)" value={rooms.twn} onChange={(v) => setRooms({ ...rooms, twn: v })} />
+                  <Counter label="Triple Rooms (TRP)" value={rooms.trp} onChange={(v) => setRooms({ ...rooms, trp: v })} />
+                  <Counter label="Suites" value={rooms.ste} onChange={(v) => setRooms({ ...rooms, ste: v })} />
                 </div>
               </div>
 
               {/* Meal Plan */}
-              <SectionDivider className="my-5" />
-              <div>
-                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-3">Meal Plan</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="mt-8 border-t pt-6" style={{ borderColor: "#EEEBE3" }}>
+                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Meal Plan</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
-                    icon={<BedDouble size={18} strokeWidth={1.9} stroke="url(#champagneGold)" />}
+                    icon={<BedDouble size={18} />}
                     label="Room Only"
                     selected={mealPlan === "room"}
                     onClick={() => setMealPlan("room")}
                   />
                   <MealOption
-                    icon={<Coffee size={18} strokeWidth={1.9} stroke="url(#champagneGold)" />}
+                    icon={<Coffee size={18} />}
                     label="Breakfast Included"
                     selected={mealPlan === "breakfast"}
                     onClick={() => setMealPlan("breakfast")}
@@ -1644,12 +1596,12 @@ function StepThreeAccommodation({
               </div>
 
               {/* Actions */}
-              <div className="mt-6 grid grid-cols-[1fr_2fr] gap-3">
+              <div className="mt-8 flex justify-end gap-3">
                 <button
                   type="button"
                   onClick={clearDraft}
-                  className="inline-flex items-center justify-center rounded-[12px] border px-6 h-[52px] text-[14px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F9F6F0] transition-colors duration-200"
-                  style={{ borderColor: "#E8E2D8" }}
+                  className="inline-flex items-center justify-center rounded-md border px-6 h-[46px] text-[14px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F5EFE1]"
+                  style={{ borderColor: "#D9D3C4" }}
                 >
                   Cancel
                 </button>
@@ -1657,35 +1609,34 @@ function StepThreeAccommodation({
                   type="button"
                   onClick={addStay}
                   disabled={!checkIn || !checkOut}
-                  className="group inline-flex items-center justify-center gap-2 rounded-[12px] px-6 h-[52px] text-[14.5px] font-semibold text-white disabled:opacity-50 transition-all duration-200 hover:-translate-y-[1px]"
+                  className="group inline-flex items-center justify-center gap-2 rounded-md px-6 h-[46px] text-[14px] font-semibold text-white disabled:opacity-50"
                   style={{
-                    background: "linear-gradient(180deg,#16385A 0%,#0A1B2C 100%)",
+                    background: "linear-gradient(180deg,#16385A 0%,#0F2A47 100%)",
                     boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 24px -12px rgba(10,27,44,0.5)",
-                    border: "1px solid rgba(212,175,55,0.25)",
+                      "inset 0 1px 0 rgba(255,255,255,0.14), 0 8px 20px -10px rgba(10,27,44,0.5)",
+                    border: "1px solid rgba(255,255,255,0.16)",
                   }}
                 >
                   {editingId ? "Save changes" : "Add this stay"}
-                  <ArrowRight size={16} stroke={GOLD} className="transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
                 </button>
               </div>
             </div>
-
 
             {/* Complete stay and continue (outlined gold) */}
             <button
               type="button"
               onClick={addStay}
               disabled={!checkIn || !checkOut}
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold disabled:opacity-40 transition-all duration-200 hover:-translate-y-[1px] hover:border-[#DCC48A]"
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold disabled:opacity-40 transition-colors"
               style={{
                 color: "#B88917",
-                background: "#FFFFFF",
-                border: "1px solid #E8E2D8",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
+                background: "linear-gradient(180deg,#FFFDF6 0%,#FFF7E0 100%)",
+                border: "1px solid rgba(212,175,55,0.55)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), 0 4px 12px -6px rgba(184,137,23,0.25)",
               }}
             >
-              <Plus size={16} stroke="#B88917" strokeWidth={2} />
+              <Plus size={18} />
               Complete stay and continue
             </button>
 
@@ -1697,25 +1648,18 @@ function StepThreeAccommodation({
                   {stays.map((s) => (
                     <div
                       key={s.id}
-                      className="flex items-center justify-between gap-4 rounded-[14px] px-4 py-3"
+                      className="flex items-center justify-between gap-4 rounded-[12px] px-4 py-3"
                       style={{
                         backgroundColor: "#FFFFFF",
-                        border: "1px solid #E8E2D8",
-                        boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
+                        border: "1px solid #EEEBE3",
                       }}
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <span
                           className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
-                          style={{
-                            background:
-                              "linear-gradient(145deg, rgba(255,251,238,1), rgba(249,241,214,0.72))",
-                            border: "1px solid rgba(212,175,55,0.32)",
-                            boxShadow:
-                              "inset 0 1px 0 rgba(255,255,255,0.9), 0 3px 10px rgba(166,120,22,0.06)",
-                          }}
+                          style={{ backgroundColor: "#FAF3E1" }}
                         >
-                          <CalendarIcon size={16} stroke="url(#champagneGold)" strokeWidth={2} />
+                          <CalendarIcon size={16} style={{ color: "#B88A2E" }} strokeWidth={1.8} />
                         </span>
                         <div className="min-w-0">
                           <div className="text-[#0A1B2C] text-[14px] font-semibold truncate">
@@ -1726,21 +1670,20 @@ function StepThreeAccommodation({
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-1 shrink-0">
+                      <div className="flex items-center gap-2 shrink-0">
                         <button
                           type="button"
                           onClick={() => editStay(s.id)}
-                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-[13px] text-[#0A1B2C] hover:bg-[#F9F6F0] transition-colors duration-200"
+                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-[13px] text-[#0A1B2C] hover:bg-[#F5EFE1]"
                         >
-                          <Pencil size={14} stroke="url(#champagneGold)" strokeWidth={1.7} /> Edit
+                          <Pencil size={14} /> Edit
                         </button>
-                        <span className="h-5 w-px bg-[#E8E2D8]" />
                         <button
                           type="button"
                           onClick={() => removeStay(s.id)}
-                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-[13px] text-[#0A1B2C] hover:bg-[#F9F6F0] transition-colors duration-200"
+                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-[13px] text-[#B45B4A] hover:bg-[#FBECEA]"
                         >
-                          <Trash2 size={14} stroke="url(#champagneGold)" strokeWidth={1.7} /> Remove
+                          <Trash2 size={14} /> Remove
                         </button>
                       </div>
                     </div>
@@ -1753,21 +1696,20 @@ function StepThreeAccommodation({
             <button
               type="button"
               onClick={clearDraft}
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[54px] text-[15px] font-semibold text-white transition-all duration-200 hover:-translate-y-[1px]"
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[54px] text-[15px] font-semibold text-white"
               style={{
                 background: "linear-gradient(180deg,#16385A 0%,#0A1B2C 100%)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 24px -12px rgba(10,27,44,0.5)",
-                border: "1px solid rgba(212,175,55,0.25)",
+                  "inset 0 1px 0 rgba(255,255,255,0.14), 0 10px 24px -12px rgba(10,27,44,0.55)",
+                border: "1px solid rgba(255,255,255,0.14)",
               }}
             >
-              <Plus size={18} stroke={GOLD} strokeWidth={2} />
+              <Plus size={18} style={{ color: GOLD }} />
               Add another stay
             </button>
 
             {/* Special Requests */}
-            <SectionDivider className="my-6" />
-            <div>
+            <div className="mt-9">
               <label className="block">
                 <span className="text-[#0A1B2C] text-[15px] font-semibold">
                   Special Requests <span className="font-normal text-[#8A94A0]">(Optional)</span>
@@ -1780,8 +1722,8 @@ function StepThreeAccommodation({
                   onChange={(e) => setSpecial(e.target.value)}
                   rows={3}
                   placeholder="E.g. early check-in, late check-out, welcome gift, specific floor, etc."
-                  className="mt-3 w-full rounded-[14px] px-4 py-3 text-[14px] text-[#0A1B2C] placeholder:text-[#9BA4AE] outline-none focus:border-[#DCC48A] focus:ring-2 focus:ring-[#D4AF37]/30 transition-all duration-200"
-                  style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8E2D8", boxShadow: "0 4px 14px rgba(0,0,0,0.03)" }}
+                  className="mt-3 w-full rounded-[10px] px-4 py-3 text-[14px] text-[#0A1B2C] placeholder:text-[#9BA4AE] outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
+                  style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
                 />
               </label>
             </div>
@@ -1791,8 +1733,8 @@ function StepThreeAccommodation({
               <button
                 type="button"
                 onClick={onBack}
-                className="inline-flex items-center justify-center gap-2 rounded-md border px-6 h-[46px] text-[14px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F9F6F0] transition-colors duration-200"
-                style={{ borderColor: "#E8E2D8" }}
+                className="inline-flex items-center justify-center gap-2 rounded-md border px-6 h-[46px] text-[14px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F5EFE1]"
+                style={{ borderColor: "#D9D3C4" }}
               >
                 Back
               </button>
@@ -1854,6 +1796,18 @@ function StepThreeAccommodation({
                     {primaryMeal === "breakfast" ? "Breakfast Included" : "Room Only"}
                   </div>
                 </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md"
+                    style={{ backgroundColor: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.25)" }}
+                  >
+                    <Bell size={15} style={{ color: GOLD }} />
+                  </span>
+                  <div className="text-white text-[15px]">Porter Service</div>
+                </div>
+                <div className="text-white/80 text-[14px]">{porter ? "Yes" : "No"}</div>
               </div>
             </div>
 
@@ -1971,15 +1925,16 @@ function DateField({
     <label className="block">
       <span className="text-[#0A1B2C] text-[13.5px] font-semibold">{label}</span>
       <div
-        className="mt-2 flex items-center gap-2 rounded-[14px] px-3 h-[46px] bg-white border border-[#E8E2D8] shadow-[0_4px_14px_rgba(0,0,0,0.03)] hover:border-[#DCC48A] transition-colors duration-200"
+        className="mt-2 flex items-center gap-2 rounded-[10px] px-3 h-[46px]"
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
       >
         <input
           type="date"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="date-input-clean flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
+          className="flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
         />
-        <CalendarIcon size={18} stroke="url(#champagneGold)" strokeWidth={2} />
+        <CalendarIcon size={16} className="text-[#8A94A0]" />
       </div>
     </label>
   );
@@ -1997,91 +1952,28 @@ function Counter({
   return (
     <div>
       <div className="text-[#0A1B2C] text-[13px] font-medium mb-2">{label}</div>
-      <GuestCounter
-        value={value}
-        onChange={onChange}
-        containerClassName="h-[46px] w-full"
-      />
-    </div>
-  );
-}
-
-function GuestCounter({
-  value,
-  onChange,
-  className,
-  containerClassName,
-}: {
-  value: number;
-  onChange: (v: number) => void;
-  className?: string;
-  containerClassName?: string;
-}) {
-  const [raw, setRaw] = useState(String(value));
-
-  useEffect(() => {
-    setRaw(String(value));
-  }, [value]);
-
-  const commit = () => {
-    const digits = raw.replace(/\D/g, "");
-    const n = Math.max(0, parseInt(digits || "0", 10));
-    onChange(n);
-    setRaw(String(n));
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const digits = e.target.value.replace(/\D/g, "");
-    setRaw(digits);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      e.currentTarget.blur();
-    }
-  };
-
-  return (
-    <div
-      className={cn(
-        "flex items-center rounded-[12px] overflow-hidden",
-        containerClassName
-      )}
-      style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8E2D8", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}
-    >
-      <button
-        type="button"
-        onClick={() => onChange(Math.max(0, value - 1))}
-        className="inline-flex h-full w-10 shrink-0 items-center justify-center hover:bg-[#F9F6F0] transition-colors duration-200"
-        style={{ borderRight: "1px solid #EEE7D6", color: "#A97816" }}
-        aria-label="Decrease"
+      <div
+        className="flex items-center justify-between rounded-[10px] h-[46px] px-1.5"
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
       >
-        <Minus size={18} stroke="url(#champagneGold)" strokeWidth={2.4} strokeLinecap="round" />
-      </button>
-      <input
-        type="text"
-        inputMode="numeric"
-        pattern="[0-9]*"
-        value={raw}
-        onChange={handleChange}
-        onBlur={commit}
-        onFocus={(e) => e.target.select()}
-        onKeyDown={handleKeyDown}
-        className={cn(
-          "flex-1 min-w-0 h-full bg-transparent text-center outline-none text-[#0A1B2C] text-[15px] font-semibold tabular-nums",
-          className
-        )}
-      />
-      <button
-        type="button"
-        onClick={() => onChange(value + 1)}
-        className="inline-flex h-full w-10 shrink-0 items-center justify-center hover:bg-[#F9F6F0] transition-colors duration-200"
-        style={{ borderLeft: "1px solid #EEE7D6", color: "#A97816" }}
-        aria-label="Increase"
-      >
-        <Plus size={18} stroke="url(#champagneGold)" strokeWidth={2.4} strokeLinecap="round" />
-      </button>
+        <button
+          type="button"
+          onClick={() => onChange(Math.max(0, value - 1))}
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          aria-label={`Decrease ${label}`}
+        >
+          <Minus size={15} />
+        </button>
+        <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums">{value}</span>
+        <button
+          type="button"
+          onClick={() => onChange(value + 1)}
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
+          aria-label={`Increase ${label}`}
+        >
+          <Plus size={15} />
+        </button>
+      </div>
     </div>
   );
 }
@@ -2101,19 +1993,19 @@ function MealOption({
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center justify-between rounded-[14px] px-4 h-[56px] text-left transition-all duration-200 hover:-translate-y-[1px]"
+      className="flex items-center justify-between rounded-[10px] px-4 h-[56px] text-left transition-all"
       style={{
-        backgroundColor: selected ? "rgba(212,175,55,0.03)" : "#FFFFFF",
-        border: `1px solid ${selected ? "#D4AF37" : "#E8E2D8"}`,
-        boxShadow: selected ? "0 4px 14px rgba(0,0,0,0.04)" : "0 2px 8px rgba(0,0,0,0.02)",
+        backgroundColor: selected ? "#FFFBEF" : "#FFFFFF",
+        border: `1px solid ${selected ? "rgba(212,175,55,0.55)" : "#E6E2D5"}`,
+        boxShadow: selected ? "0 0 0 3px rgba(212,175,55,0.10)" : undefined,
       }}
     >
       <span className="flex items-center gap-3">
         <span
-          className="inline-flex h-8 w-8 items-center justify-center rounded-[10px]"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md"
           style={{
             color: selected ? "#B88917" : "#4A5866",
-            backgroundColor: selected ? "#FAF3E1" : "#F9F6F0",
+            backgroundColor: selected ? "#FAF3E1" : "#F5F3EC",
           }}
         >
           {icon}
@@ -2179,104 +2071,3 @@ function GoldDivider() {
   );
 }
 
-function SectionDivider({ className }: { className?: string }) {
-  return <div className={cn("h-px w-full bg-[rgba(212,175,55,0.18)]", className)} />;
-}
-
-
-function TwinBedsIcon() {
-  return (
-    <svg
-      width="22"
-      height="20"
-      viewBox="0 0 24 20"
-      fill="none"
-      stroke="#C9A961"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      {/* Left bed */}
-      <path d="M1 15V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7" />
-      <path d="M1 13h10" />
-      <path d="M1 17v-2" />
-      <path d="M11 17v-2" />
-      <circle cx="4.5" cy="9.5" r="1" />
-      {/* Right bed */}
-      <path d="M13 15V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7" />
-      <path d="M13 13h10" />
-      <path d="M13 17v-2" />
-      <path d="M23 17v-2" />
-      <circle cx="16.5" cy="9.5" r="1" />
-    </svg>
-  );
-}
-
-function RoomCategoryRow({
-  icon,
-  label,
-  value,
-  onValue,
-  cat,
-  onCat,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: number;
-  onValue: (v: number) => void;
-  cat: RoomCat;
-  onCat: (c: RoomCat) => void;
-}) {
-  return (
-    <div
-      className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-[16px] px-4 py-[10px] transition-all duration-200 hover:shadow-[0_6px_18px_-10px_rgba(10,27,44,0.12)]"
-      style={{
-        backgroundColor: "#FFFFFF",
-        border: "1px solid #E8E2D8",
-        boxShadow: "0 5px 16px rgba(15, 35, 60, 0.045)",
-      }}
-    >
-      <div className="flex items-center gap-3 flex-1 min-w-0">
-        <span
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]"
-          style={{
-            background:
-              "linear-gradient(145deg, rgba(255,251,238,1), rgba(249,241,214,0.72))",
-            border: "1px solid rgba(212,175,55,0.32)",
-            boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.9), 0 3px 10px rgba(166,120,22,0.06)",
-          }}
-        >
-          {icon}
-        </span>
-        <span className="text-[#0A1B2C] text-[14.5px] font-medium truncate">{label}</span>
-      </div>
-      <GuestCounter
-        value={value}
-        onChange={onValue}
-        containerClassName="h-[36px] w-full sm:w-[132px]"
-      />
-      <div className="relative w-full sm:w-[180px]">
-        <select
-          value={cat}
-          onChange={(e) => onCat(e.target.value as RoomCat)}
-          className="w-full appearance-none rounded-[12px] h-[36px] pl-3 pr-9 text-[14px] text-[#0A1B2C] bg-white outline-none focus:border-[#DCC48A] focus:ring-2 focus:ring-[#D4AF37]/30 transition-all duration-200"
-          style={{ border: "1px solid #E8E2D8", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}
-        >
-          <option value="Standard">Standard</option>
-          <option value="Superior">Superior</option>
-          <option value="Premium">Premium</option>
-          <option value="Junior Suite">Junior Suite</option>
-          <option value="Suite">Suite</option>
-        </select>
-        <ChevronDown
-          size={16}
-          stroke="url(#champagneGold)"
-          strokeWidth={1.7}
-          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
-        />
-      </div>
-    </div>
-  );
-}
