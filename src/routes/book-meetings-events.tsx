@@ -319,11 +319,21 @@ function BookMeetingsEvents() {
 
 
           {/* Credibility */}
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center py-8 md:py-10 border-t border-b" style={{ borderColor: "#E4DFD3" }}>
+          <div
+            className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center px-8 md:px-12 py-8 md:py-10 rounded-[20px]"
+            style={{
+              backgroundColor: "#FCFCFC",
+              backgroundImage:
+                "linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 100%)",
+              border: "1px solid #EFEFEC",
+              boxShadow:
+                "0 20px 50px -30px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.03)",
+            }}
+          >
             <div className="flex items-start gap-4">
               <span
                 className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
-                style={{ backgroundColor: "#F5EFE1" }}
+                style={{ backgroundColor: "#FAF3E1" }}
               >
                 <Users size={22} strokeWidth={1.75} style={{ color: "#B88A2E" }} />
               </span>
@@ -338,7 +348,7 @@ function BookMeetingsEvents() {
                 </span>
               </p>
             </div>
-            <div className="md:pl-10 md:border-l" style={{ borderColor: "#E4DFD3" }}>
+            <div className="md:pl-10 md:border-l" style={{ borderColor: "#F1F1EE" }}>
               <p className="text-[#3B4A56] text-[16px] leading-relaxed">
                 We know group travel – and we make
                 <br />
@@ -346,6 +356,7 @@ function BookMeetingsEvents() {
               </p>
             </div>
           </div>
+
         </div>
       </section>
 
