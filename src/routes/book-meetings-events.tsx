@@ -221,10 +221,17 @@ function BookMeetingsEvents() {
               )}
               <Link
                 to="/manage-bookings"
-                className="inline-flex items-center gap-2 rounded-md border px-5 py-2.5 text-[16px] transition-colors"
-                style={{ borderColor: GOLD, color: GOLD }}
+                className="inline-flex items-center gap-[13px] rounded-[15px] px-[26px] h-[54px] text-[16px] font-medium transition-all duration-200 ease-out hover:-translate-y-[2px] hover:brightness-[1.04] active:translate-y-0 active:brightness-95"
+                style={{
+                  color: "#0F1B2D",
+                  background:
+                    "linear-gradient(180deg, #F7D97A 0%, #D4AF37 55%, #B88917 100%)",
+                  border: "1px solid rgba(184,137,23,0.85)",
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.45), inset 0 0 0 1px rgba(247,217,122,0.25), 0 6px 18px rgba(184,137,23,0.28), 0 0 22px rgba(212,175,55,0.22)",
+                }}
               >
-                <CalendarIcon size={17} strokeWidth={1.8} />
+                <CalendarIcon size={19} strokeWidth={2} />
                 Manage Bookings
               </Link>
             </nav>
