@@ -1621,10 +1621,11 @@ function StepThreeAccommodation({
                 >
                   <div aria-hidden />
                   <h4
-                    className="text-[#1F2937] text-[16.5px] ml-[-14px]"
+                    className="text-[#1F2937] text-[16.5px] ml-[-44px]"
                     style={{ fontFamily: SANS, fontWeight: 600, letterSpacing: "0.02em" }}
                   >
                     Room Categories
+                  <parameter name="file_path">src/routes/book-meetings-events.tsx</parameter>
                   </h4>
                   <span
                     className="text-[11px] tracking-[0.05em] text-[#1F2937] uppercase text-center"
