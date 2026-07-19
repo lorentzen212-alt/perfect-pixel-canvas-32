@@ -1754,7 +1754,7 @@ function StepThreeAccommodation({
               onClick={onNext}
               className="complete-stay-btn mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold"
             >
-              <Plus size={18} className="complete-stay-plus" style={{ color: "#B88917", transition: "color 200ms ease" }} />
+              <Plus size={18} className="complete-stay-plus" />
               Complete stay and continue
             </button>
 
