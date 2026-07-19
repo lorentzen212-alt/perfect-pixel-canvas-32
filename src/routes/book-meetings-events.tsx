@@ -36,8 +36,10 @@ import {
   UsersRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroImg from "@/assets/me-hero-suite.jpg";
+
 import osloImg from "@/assets/destinations/oslo.jpg";
 import bergenImg from "@/assets/destinations/bergen.jpg";
 import tromsoImg from "@/assets/destinations/tromso.jpg";
@@ -324,6 +326,12 @@ function BookMeetingsEvents() {
               onNext={handleNext}
               direction={direction}
             />
+          ) : step === 3 ? (
+            <StepThreeMeetingSpaces
+              onBack={() => go(2)}
+              onNext={handleNext}
+              direction={direction}
+            />
           ) : (
             <div
               className="overflow-hidden rounded-[20px]"
@@ -355,7 +363,7 @@ function BookMeetingsEvents() {
                         onNext={handleNext}
                       />
                     )}
-                    {(step === 3 || step === 4 || step === 5 || step === 7) && (
+                    {(step === 4 || step === 5 || step === 7) && (
                       <StepPlaceholder
                         step={step}
                         title={STEPS[step - 1]}
@@ -367,6 +375,7 @@ function BookMeetingsEvents() {
 
                   </div>
                 </div>
+
 
                 {/* Help card */}
                 <div
@@ -394,7 +403,7 @@ function BookMeetingsEvents() {
           )}
 
           {/* Credibility */}
-          {step !== 3 && (
+          {step !== 2 && step !== 3 && (
           <div
             className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center px-8 md:px-12 py-8 md:py-10 rounded-[20px]"
             style={{
