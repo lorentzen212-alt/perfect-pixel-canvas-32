@@ -471,7 +471,7 @@ function StepOne(props: {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(240px,1fr)_minmax(240px,1fr)_minmax(180px,0.85fr)_minmax(280px,1.55fr)] gap-8 xl:gap-0">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(240px,1fr)_minmax(240px,1fr)_minmax(220px,0.9fr)_minmax(260px,1.45fr)] gap-8 xl:gap-0">
       {/* Column 1 - Destination */}
       <ColumnBlock icon={<MapPin size={18} strokeWidth={1.8} />} title="Destination">
         <FieldLabel>Country</FieldLabel>
