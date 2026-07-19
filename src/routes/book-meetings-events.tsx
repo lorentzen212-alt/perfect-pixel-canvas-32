@@ -479,6 +479,29 @@ function BookMeetingsEvents() {
           outline: 2px solid rgba(215, 173, 57, 0.30);
           outline-offset: 2px;
         }
+
+        .complete-stay-btn {
+          color: #0A1B2C;
+          background: linear-gradient(180deg, #FFFDF6 0%, #FFF7E0 100%);
+          border: 1px solid rgba(212, 175, 55, 0.55);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 4px 12px -6px rgba(184, 137, 23, 0.25);
+          cursor: pointer;
+          transition: all 200ms ease;
+        }
+        .complete-stay-plus {
+          color: #B88917;
+          transition: color 200ms ease;
+        }
+        .complete-stay-btn:hover {
+          background: linear-gradient(135deg, #F4FBF6 0%, #E8F5EC 100%);
+          border-color: rgba(47, 125, 79, 0.65);
+          color: #1F6B42;
+          box-shadow: 0 8px 20px rgba(39, 104, 68, 0.14), 0 0 12px rgba(73, 145, 95, 0.10);
+          transform: translateY(-1px);
+        }
+        .complete-stay-btn:hover .complete-stay-plus {
+          color: #1F6B42;
+        }
       `}</style>
     </main>
   );
@@ -1732,17 +1755,10 @@ function StepThreeAccommodation({
             {/* Complete stay and continue (outlined gold) */}
             <button
               type="button"
-              onClick={addStay}
-              disabled={!checkIn || !checkOut}
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold disabled:opacity-40 transition-colors"
-              style={{
-                color: "#B88917",
-                background: "linear-gradient(180deg,#FFFDF6 0%,#FFF7E0 100%)",
-                border: "1px solid rgba(212,175,55,0.55)",
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), 0 4px 12px -6px rgba(184,137,23,0.25)",
-              }}
+              onClick={onNext}
+              className="complete-stay-btn mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold"
             >
-              <Plus size={18} />
+              <Plus size={18} className="complete-stay-plus" />
               Complete stay and continue
             </button>
 
