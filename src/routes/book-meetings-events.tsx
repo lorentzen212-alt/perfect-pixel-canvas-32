@@ -1542,8 +1542,7 @@ function StepThreeAccommodation({
                     <CalendarIcon size={20} stroke="url(#champagneGold)" strokeWidth={1.8} />
                   </span>
                   <h3
-                    className="text-[#0A1B2C] text-[20px] leading-tight"
-                    style={{ fontFamily: SERIF }}
+                    className="text-[#0A1B2C] text-[18px] font-semibold leading-tight"
                   >
                     Accommodation Period{" "}
                     <span className="text-[#8A94A0] text-[15px]">
