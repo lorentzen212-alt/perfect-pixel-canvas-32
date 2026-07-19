@@ -1390,7 +1390,7 @@ function StepTwoLocation({
 /* --------- Step 3: Accommodation --------- */
 
 type RoomKey = "sgl" | "dbl" | "twn" | "trp";
-type RoomCat = "Standard" | "Superior" | "Premium" | "Suite";
+type RoomCat = "Standard" | "Superior" | "Premium" | "Junior Suite" | "Suite";
 type RoomMix = Record<RoomKey, number>;
 type RoomCats = Record<RoomKey, RoomCat>;
 type MealPlan = "room" | "breakfast";
