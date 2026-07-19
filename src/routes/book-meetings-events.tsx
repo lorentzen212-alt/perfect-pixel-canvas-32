@@ -2199,28 +2199,11 @@ function RoomCategoryRow({
         </span>
         <span className="text-[#0A1B2C] text-[14.5px] font-medium truncate">{label}</span>
       </div>
-      <div
-        className="flex items-center justify-between rounded-[10px] h-[40px] px-1 w-full sm:w-[132px]"
-        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E2D5" }}
-      >
-        <button
-          type="button"
-          onClick={() => onValue(Math.max(0, value - 1))}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
-          aria-label={`Decrease ${label}`}
-        >
-          <Minus size={15} />
-        </button>
-        <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums">{value}</span>
-        <button
-          type="button"
-          onClick={() => onValue(value + 1)}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-[#4A5866] hover:bg-[#F5EFE1]"
-          aria-label={`Increase ${label}`}
-        >
-          <Plus size={15} />
-        </button>
-      </div>
+      <GuestCounter
+        value={value}
+        onChange={onValue}
+        containerClassName="h-[40px] w-full sm:w-[132px]"
+      />
       <div className="relative w-full sm:w-[180px]">
         <select
           value={cat}
