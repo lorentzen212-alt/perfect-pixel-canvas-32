@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   ArrowRight,
@@ -177,7 +177,7 @@ function Home() {
 
           {/* CTA BUTTONS */}
           <div className="mt-10 flex flex-nowrap items-center gap-4" style={{ gap: 16 }}>
-            <CTAButton icon={<Users size={26} strokeWidth={1.9} />} label="Book Leisure" variant="light" />
+            <CTAButton icon={<Users size={26} strokeWidth={1.9} />} label="Book Leisure" variant="light" to="/book-leisure" />
             <CTAButton icon={<Briefcase size={26} strokeWidth={1.9} />} label="Book M&E" variant="deep" />
             <CTAButton
               icon={<CalendarDays size={26} strokeWidth={1.9} />}
@@ -227,25 +227,27 @@ function CTAButton({
   icon,
   label,
   variant,
+  to,
 }: {
   icon: React.ReactNode;
   label: React.ReactNode;
   variant: "light" | "dark" | "deep";
+  to?: string;
 }) {
   const light = variant === "light";
   const deep = variant === "deep";
-  return (
-    <button
-      style={{ flex: "0 0 268px", height: 64, borderRadius: 6 }}
-      className={cn(
-        "group flex items-center justify-between pl-6 pr-[22px] border transition-all duration-200 ease-out hover:translate-y-[-2px]",
-        light
-          ? "bg-white border-white text-[#071A2B] shadow-[0_8px_24px_rgba(0,0,0,0.16)] hover:bg-[#FFFEFC] hover:border-[#FFFEFC] hover:shadow-[0_14px_34px_rgba(0,0,0,0.18),0_0_28px_rgba(255,196,0,0.18),0_0_56px_rgba(255,196,0,0.08)]"
-          : deep
-            ? "bg-[#0A1426] border-[rgba(255,255,255,0.16)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#0F1E33] hover:border-white/25 hover:shadow-[0_12px_30px_rgba(0,0,0,0.24),0_0_22px_rgba(255,196,0,0.12),inset_0_1px_0_rgba(255,255,255,0.08)]"
-            : "bg-[#0D1F33] border-[rgba(255,255,255,0.16)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#122840] hover:border-white/25 hover:shadow-[0_12px_30px_rgba(0,0,0,0.24),0_0_22px_rgba(255,196,0,0.12),inset_0_1px_0_rgba(255,255,255,0.08)]"
-      )}
-    >
+  const className = cn(
+    "group flex items-center justify-between pl-6 pr-[22px] border transition-all duration-200 ease-out hover:translate-y-[-2px]",
+    to && "cursor-pointer",
+    light
+      ? "bg-white border-white text-[#071A2B] shadow-[0_8px_24px_rgba(0,0,0,0.16)] hover:bg-[#FFFEFC] hover:border-[#FFFEFC] hover:shadow-[0_14px_34px_rgba(0,0,0,0.18),0_0_28px_rgba(255,196,0,0.18),0_0_56px_rgba(255,196,0,0.08)]"
+      : deep
+        ? "bg-[#0A1426] border-[rgba(255,255,255,0.16)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#0F1E33] hover:border-white/25 hover:shadow-[0_12px_30px_rgba(0,0,0,0.24),0_0_22px_rgba(255,196,0,0.12),inset_0_1px_0_rgba(255,255,255,0.08)]"
+        : "bg-[#0D1F33] border-[rgba(255,255,255,0.16)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#122840] hover:border-white/25 hover:shadow-[0_12px_30px_rgba(0,0,0,0.24),0_0_22px_rgba(255,196,0,0.12),inset_0_1px_0_rgba(255,255,255,0.08)]"
+  );
+  const style = { flex: "0 0 268px", height: 64, borderRadius: 6 } as const;
+  const inner = (
+    <>
       <span className="flex items-center" style={{ gap: 18 }}>
         <span className={cn("flex items-center shrink-0 transition-all duration-200 ease-out", light ? "text-[#FFC400] group-hover:text-[#FFD966] group-hover:drop-shadow-[0_0_6px_rgba(255,196,0,0.55)]" : "text-[#FFC400]")}>
           {icon}
@@ -262,6 +264,18 @@ function CTAButton({
         size={24}
         strokeWidth={1.9}
       />
+    </>
+  );
+  if (to) {
+    return (
+      <Link to={to} style={style} className={className}>
+        {inner}
+      </Link>
+    );
+  }
+  return (
+    <button style={style} className={className}>
+      {inner}
     </button>
   );
 }
