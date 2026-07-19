@@ -1139,11 +1139,13 @@ function InputBox({
   onChange,
   placeholder,
   type = "text",
+  error = false,
 }: {
   value: string;
   onChange: (v: string) => void;
   placeholder?: string;
   type?: string;
+  error?: boolean;
 }) {
   return (
     <input
@@ -1153,8 +1155,10 @@ function InputBox({
       placeholder={placeholder}
       className="h-[46px] w-full rounded-xl bg-white px-4 text-[15px] text-[#0A1626] outline-none placeholder:text-[#9AA3AF]"
       style={{
-        border: "1px solid #E4DED2",
-        boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
+        border: `1px solid ${error ? "#B4231F" : "#E4DED2"}`,
+        boxShadow: error
+          ? "0 0 0 3px rgba(180,35,31,0.10)"
+          : "0 1px 2px rgba(0,0,0,0.03)",
       }}
     />
   );
@@ -1165,15 +1169,18 @@ function InputBox({
 function PrimaryButton({
   onClick,
   label = "Get Hotel Offers",
+  loading = false,
 }: {
   onClick: () => void;
   label?: string;
+  loading?: boolean;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="continue-btn group relative flex h-[64px] w-full items-center justify-center gap-4 rounded-[16px] px-8 text-[17px] font-semibold transition-all duration-[250ms] ease-out"
+      disabled={loading}
+      className="continue-btn group relative flex h-[64px] w-full items-center justify-center gap-4 rounded-[16px] px-8 text-[17px] font-semibold transition-all duration-[250ms] ease-out disabled:cursor-not-allowed disabled:opacity-90"
       style={{
         backgroundColor: "#081828",
         color: GOLD,
@@ -1183,13 +1190,17 @@ function PrimaryButton({
       }}
     >
       <span>{label}</span>
-      <ArrowRight
-        size={22}
-        strokeWidth={1.8}
-        className="transition-transform duration-[250ms] ease-out group-hover:translate-x-1"
-      />
+      {loading ? (
+        <Loader2 size={22} strokeWidth={1.8} className="animate-spin" />
+      ) : (
+        <ArrowRight
+          size={22}
+          strokeWidth={1.8}
+          className="transition-transform duration-[250ms] ease-out group-hover:translate-x-1"
+        />
+      )}
       <style>{`
-        .continue-btn:hover {
+        .continue-btn:hover:not(:disabled) {
           transform: translateY(-2px);
           border-color: #FFD57A;
           box-shadow:
@@ -1202,6 +1213,167 @@ function PrimaryButton({
     </button>
   );
 }
+
+/* ---------- Confirmation Screen ---------- */
+
+function ConfirmationScreen({
+  requestId,
+  onGoToRequests,
+  onGoHome,
+}: {
+  requestId: string;
+  onGoToRequests: () => void;
+  onGoHome: () => void;
+}) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 40);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <main
+      className="relative min-h-screen w-full overflow-hidden"
+      style={{ backgroundColor: NAVY_BG }}
+    >
+      <GoldParticles />
+      <div className="relative mx-auto max-w-[720px] px-4 py-10 sm:px-8 sm:py-16">
+        <div
+          className="relative overflow-hidden rounded-[24px] border px-6 py-14 sm:px-12 sm:py-16"
+          style={{
+            borderColor: BORDER,
+            backgroundColor: "rgba(6, 21, 35, 0.9)",
+            boxShadow:
+              "0 40px 120px -40px rgba(0,0,0,0.75), inset 0 1px 0 rgba(245,194,90,0.08)",
+          }}
+        >
+          {/* Flowing gold line texture */}
+          <svg
+            className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.18]"
+            viewBox="0 0 720 900"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            {Array.from({ length: 14 }).map((_, i) => (
+              <path
+                key={i}
+                d={`M -20 ${60 + i * 55} Q 180 ${20 + i * 55} 360 ${70 + i * 55} T 740 ${50 + i * 55}`}
+                fill="none"
+                stroke={GOLD}
+                strokeWidth="0.8"
+                strokeOpacity={0.55 - i * 0.02}
+              />
+            ))}
+          </svg>
+
+          <div className="relative flex flex-col items-center text-center">
+            {/* Checkmark circle */}
+            <div
+              className={cn(
+                "relative flex h-[132px] w-[132px] items-center justify-center rounded-full transition-all ease-out",
+                visible
+                  ? "opacity-100 scale-100"
+                  : "opacity-0 scale-90",
+              )}
+              style={{
+                transitionDuration: "600ms",
+                border: `2.5px solid ${GOLD}`,
+                boxShadow: visible
+                  ? `0 0 0 6px rgba(245,194,90,0.08), 0 0 40px 4px rgba(245,194,90,0.55), inset 0 0 24px rgba(245,194,90,0.25)`
+                  : "0 0 0 rgba(245,194,90,0)",
+              }}
+            >
+              <Check
+                size={68}
+                strokeWidth={2.2}
+                style={{
+                  color: GOLD,
+                  filter: "drop-shadow(0 0 8px rgba(245,194,90,0.7))",
+                }}
+              />
+            </div>
+
+            <h1
+              className="mt-9 text-[54px] leading-none font-medium"
+              style={{ fontFamily: SERIF, color: GOLD }}
+            >
+              Thank you!
+            </h1>
+            <p className="mt-5 text-[19px] text-white">
+              Your request has been received.
+            </p>
+            <p className="mt-4 max-w-[440px] text-[15.5px] leading-relaxed text-[#B9C2CC]">
+              We will contact suitable hotels and you will receive the best
+              hotel offers through your account.
+            </p>
+
+            {/* Info card */}
+            <div
+              className="mt-9 w-full max-w-[440px] rounded-2xl border px-6 py-5"
+              style={{
+                borderColor: BORDER_SOFT,
+                backgroundColor: "rgba(3, 10, 20, 0.55)",
+              }}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-[15px] text-[#B9C2CC]">Request ID</span>
+                <span className="flex items-center gap-2 text-[15px] font-medium text-white">
+                  {requestId}
+                  <ChevronRight size={16} strokeWidth={1.8} style={{ color: GOLD }} />
+                </span>
+              </div>
+              <div
+                className="my-4 h-px w-full"
+                style={{ backgroundColor: "rgba(245,194,90,0.15)" }}
+              />
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-[15px] text-[#B9C2CC]">Status</span>
+                <span className="flex items-center gap-2 text-[15px] text-white">
+                  Searching hotels
+                  <span
+                    className="inline-block h-[9px] w-[9px] rounded-full"
+                    style={{
+                      backgroundColor: GOLD,
+                      boxShadow: "0 0 10px rgba(245,194,90,0.7)",
+                    }}
+                  />
+                </span>
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <button
+              type="button"
+              onClick={onGoToRequests}
+              className="mt-8 w-full max-w-[440px] rounded-2xl px-6 py-4 text-[15.5px] font-medium transition-all hover:brightness-110"
+              style={{
+                color: GOLD,
+                backgroundColor: "transparent",
+                border: `1.5px solid ${GOLD}`,
+                boxShadow:
+                  "0 0 0 1px rgba(245,194,90,0.10), 0 0 24px -6px rgba(245,194,90,0.45)",
+              }}
+            >
+              Go to My Requests
+            </button>
+            <button
+              type="button"
+              onClick={onGoHome}
+              className="mt-3 w-full max-w-[440px] rounded-2xl px-6 py-4 text-[15.5px] font-medium text-white transition-all hover:brightness-110"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.10)",
+              }}
+            >
+              Back to Homepage
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
+
 
 /* ---------- Flags ---------- */
 
