@@ -1530,40 +1530,31 @@ function StepThreeAccommodation({
         </svg>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px]">
           {/* LEFT COLUMN */}
-          <div className="p-6 sm:p-9 lg:p-11 lg:pr-9">
-            {/* Accommodation Period card */}
-            <div
-              className="rounded-[16px] p-6 lg:p-7"
-              style={{
-                backgroundColor: "#FFFFFF",
-                border: "1px solid #E8E2D8",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
-              }}
-            >
-              <div className="flex items-center justify-between">
+          <div className="p-6 sm:p-7 lg:p-8">
+            {/* Accommodation Period */}
+            <div>
+              <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <span
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-lg"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-[10px]"
                     style={{ backgroundColor: "#FAF3E1" }}
                   >
                     <CalendarIcon size={20} stroke="url(#champagneGold)" strokeWidth={1.8} />
                   </span>
-                  <div>
-                    <h3
-                      className="text-[#0A1B2C] text-[20px] leading-tight"
-                      style={{ fontFamily: SERIF }}
-                    >
-                      Accommodation Period{" "}
-                      <span className="text-[#8A94A0] text-[15px]">
-                        ({editingId ? "Editing" : "Draft"})
-                      </span>
-                    </h3>
-                  </div>
+                  <h3
+                    className="text-[#0A1B2C] text-[20px] leading-tight"
+                    style={{ fontFamily: SERIF }}
+                  >
+                    Accommodation Period{" "}
+                    <span className="text-[#8A94A0] text-[15px]">
+                      ({editingId ? "Editing" : "Draft"})
+                    </span>
+                  </h3>
                 </div>
                 <button
                   type="button"
                   onClick={clearDraft}
-                  className="inline-flex items-center gap-2 rounded-md border px-3 h-9 text-[13px] text-[#4A5866] bg-white hover:bg-[#F9F6F0] transition-colors duration-200"
+                  className="inline-flex items-center gap-2 rounded-[10px] border px-3 h-9 text-[13px] text-[#4A5866] bg-white hover:bg-[#F9F6F0] transition-colors duration-200"
                   style={{ borderColor: "#E8E2D8" }}
                 >
                   <Trash2 size={14} stroke="url(#champagneGold)" strokeWidth={1.7} />
@@ -1572,7 +1563,7 @@ function StepThreeAccommodation({
               </div>
 
               {/* Dates */}
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-end gap-4">
+              <div className="mt-5 grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-end gap-4">
                 <DateField label="Check-in" value={checkIn} onChange={setCheckIn} />
                 <div className="hidden sm:flex items-center justify-center pb-3">
                   <ArrowRight size={18} className="text-[#4A5866]" />
@@ -1581,16 +1572,16 @@ function StepThreeAccommodation({
               </div>
 
               {/* Room Categories */}
-              <SectionDivider className="my-6" />
+              <SectionDivider className="my-5" />
               <div>
-                <div className="flex items-center justify-between gap-4 pb-3 mb-2">
+                <div className="flex items-center justify-between gap-4 mb-3">
                   <h4 className="text-[#0A1B2C] text-[15px] font-semibold">Room Categories</h4>
-                  <div className="hidden sm:flex items-center gap-4 text-[12px] uppercase tracking-wide text-[#8A94A0]">
+                  <div className="hidden sm:flex items-center gap-4 text-[11px] uppercase tracking-[0.08em] text-[#8A94A0]">
                     <span className="w-[132px] text-center">Guests</span>
                     <span className="w-[180px] text-center">Preferred Room Category</span>
                   </div>
                 </div>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-2.5">
                   <RoomCategoryRow
                     icon={<User size={20} strokeWidth={1.5} stroke="url(#champagneGold)" />}
                     label="Single Room"
@@ -1627,10 +1618,10 @@ function StepThreeAccommodation({
               </div>
 
               {/* Meal Plan */}
-              <SectionDivider className="my-6" />
+              <SectionDivider className="my-5" />
               <div>
-                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-4">Meal Plan</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <h4 className="text-[#0A1B2C] text-[15px] font-semibold mb-3">Meal Plan</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <MealOption
                     icon={<BedDouble size={18} strokeWidth={1.5} stroke="url(#champagneGold)" />}
                     label="Room Only"
@@ -1647,11 +1638,11 @@ function StepThreeAccommodation({
               </div>
 
               {/* Actions */}
-              <div className="mt-8 flex justify-end gap-3">
+              <div className="mt-6 grid grid-cols-[1fr_2fr] gap-3">
                 <button
                   type="button"
                   onClick={clearDraft}
-                  className="inline-flex items-center justify-center rounded-md border px-6 h-[46px] text-[14px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F9F6F0] transition-colors duration-200"
+                  className="inline-flex items-center justify-center rounded-[12px] border px-6 h-[52px] text-[14px] font-medium text-[#0A1B2C] bg-white hover:bg-[#F9F6F0] transition-colors duration-200"
                   style={{ borderColor: "#E8E2D8" }}
                 >
                   Cancel
@@ -1660,19 +1651,20 @@ function StepThreeAccommodation({
                   type="button"
                   onClick={addStay}
                   disabled={!checkIn || !checkOut}
-                  className="group inline-flex items-center justify-center gap-2 rounded-md px-6 h-[46px] text-[14px] font-semibold text-white disabled:opacity-50 transition-all duration-200 hover:-translate-y-[1px]"
+                  className="group inline-flex items-center justify-center gap-2 rounded-[12px] px-6 h-[52px] text-[14.5px] font-semibold text-white disabled:opacity-50 transition-all duration-200 hover:-translate-y-[1px]"
                   style={{
-                    background: "linear-gradient(180deg,#16385A 0%,#0F2A47 100%)",
+                    background: "linear-gradient(180deg,#16385A 0%,#0A1B2C 100%)",
                     boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 20px -10px rgba(10,27,44,0.45)",
+                      "inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 24px -12px rgba(10,27,44,0.5)",
                     border: "1px solid rgba(212,175,55,0.25)",
                   }}
                 >
                   {editingId ? "Save changes" : "Add this stay"}
-                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight size={16} stroke={GOLD} className="transition-transform group-hover:translate-x-0.5" />
                 </button>
               </div>
             </div>
+
 
             {/* Complete stay and continue (outlined gold) */}
             <button
