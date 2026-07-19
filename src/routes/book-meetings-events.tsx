@@ -13,10 +13,29 @@ import {
   ArrowRight,
   ChevronDown,
   Users,
+  Search,
+  Building2,
+  Waves,
+  Plane,
+  Palmtree,
+  Landmark,
+  Gem,
+  Ban,
+  Globe,
+  Star,
+  Check,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroImg from "@/assets/me-hero.jpg";
+import osloImg from "@/assets/destinations/oslo.jpg";
+import bergenImg from "@/assets/destinations/bergen.jpg";
+import tromsoImg from "@/assets/destinations/tromso.jpg";
+import stavangerImg from "@/assets/destinations/stavanger.jpg";
+import trondheimImg from "@/assets/destinations/trondheim.jpg";
+import bodoImg from "@/assets/destinations/bodo.jpg";
+import lofotenImg from "@/assets/destinations/lofoten.jpg";
+
 
 export const Route = createFileRoute("/book-meetings-events")({
   component: BookMeetingsEvents,
