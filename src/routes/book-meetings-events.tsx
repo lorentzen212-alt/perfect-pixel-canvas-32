@@ -2032,6 +2032,133 @@ function Counter({
   );
 }
 
+const ROOM_CATEGORY_OPTIONS = [
+  "Standard",
+  "Superior",
+  "Premium",
+  "Junior Suite",
+  "Suite",
+] as const;
+
+function RoomRow({
+  icon,
+  label,
+  value,
+  onChange,
+  category,
+  onCategoryChange,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  category: string;
+  onCategoryChange: (c: string) => void;
+}) {
+  return (
+    <div
+      className="rounded-[16px] px-4 sm:px-5 py-4 sm:py-4"
+      style={{
+        backgroundColor: "#FFFFFF",
+        border: "1px solid #ECE7DC",
+        boxShadow:
+          "0 6px 20px -14px rgba(10,27,44,0.20), 0 1px 2px rgba(10,27,44,0.03)",
+      }}
+    >
+      <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 sm:gap-6">
+        <LuxIconBadge size={44}>{icon}</LuxIconBadge>
+        <div className="min-w-0 text-[#0A1B2C] text-[15px] sm:text-[16px] font-medium truncate">
+          {label}
+        </div>
+        <div
+          className="col-span-3 sm:col-span-1 flex items-center justify-between sm:justify-center rounded-[10px] h-[44px] sm:w-[132px] px-1.5"
+          style={{
+            backgroundColor: "#FFFFFF",
+            border: "1px solid #E6E2D5",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => onChange(Math.max(0, value - 1))}
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115] hover:text-[#EBCB6A]"
+            style={{ color: "#B88917" }}
+            aria-label={`Decrease ${label}`}
+          >
+            <Minus size={15} />
+          </button>
+          <span className="text-[#0A1B2C] text-[15px] font-semibold tabular-nums w-8 text-center">
+            {value}
+          </span>
+          <button
+            type="button"
+            onClick={() => onChange(value + 1)}
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[#0F1115] hover:text-[#EBCB6A]"
+            style={{ color: "#B88917" }}
+            aria-label={`Increase ${label}`}
+          >
+            <Plus size={15} />
+          </button>
+        </div>
+        <div className="col-span-3 sm:col-span-1 relative sm:w-[180px]">
+          <select
+            value={category}
+            onChange={(e) => onCategoryChange(e.target.value)}
+            className="w-full appearance-none rounded-[10px] h-[44px] pl-3 pr-9 text-[14px] text-[#0A1B2C] outline-none focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #E6E2D5",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
+            }}
+            aria-label={`Preferred category for ${label}`}
+          >
+            {ROOM_CATEGORY_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+          <ChevronDown
+            size={16}
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+            style={{ color: "#B88917" }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TwinBedsIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.7}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      {/* left bed */}
+      <rect x="2" y="10" width="8.5" height="6" rx="1.2" />
+      <path d="M2 13.2h8.5" />
+      <rect x="3" y="8.5" width="2.2" height="1.5" rx="0.4" />
+      {/* right bed */}
+      <rect x="13.5" y="10" width="8.5" height="6" rx="1.2" />
+      <path d="M13.5 13.2H22" />
+      <rect x="14.5" y="8.5" width="2.2" height="1.5" rx="0.4" />
+      {/* floor */}
+      <path d="M2 17.5h20" />
+    </svg>
+  );
+}
+
+
 function MealOption({
   icon,
   label,
