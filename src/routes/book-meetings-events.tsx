@@ -421,21 +421,46 @@ function BookMeetingsEvents() {
 /* --------- Step Progress --------- */
 
 function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void }) {
+  const total = STEPS.length;
+  const progressPercentage = ((step - 1) / (total - 1)) * 100;
+  const [pulseKey, setPulseKey] = React.useState(step);
+  const prevStep = React.useRef(step);
+  React.useEffect(() => {
+    if (prevStep.current !== step) {
+      // Delay pulse until the line finishes animating to the new step.
+      const t = window.setTimeout(() => setPulseKey(step), 500);
+      prevStep.current = step;
+      return () => window.clearTimeout(t);
+    }
+  }, [step]);
+
+  // Track spans from center of first circle to center of last circle.
+  // Each button is flex-1 (equal width = 100%/total), so first/last centers
+  // sit at 100%/(2*total) from each edge.
+  const edgeInset = `${100 / (total * 2)}%`;
+
   return (
     <div className="relative">
       <div className="relative flex items-start justify-between gap-2">
-        {/* Line behind circles */}
+        {/* Continuous progress track behind circles */}
         <div
-          className="pointer-events-none absolute z-0"
-          style={{ top: 18, left: 18, right: 18 }}
+          className="pointer-events-none absolute"
+          style={{ top: 18, left: edgeInset, right: edgeInset, zIndex: 0 }}
         >
-          <div className="h-px w-full" style={{ backgroundColor: "rgba(245,194,90,0.35)" }} />
+          {/* Inactive base line */}
           <div
-            className="absolute left-0 top-0 h-px transition-all duration-500"
+            className="h-px w-full"
+            style={{ backgroundColor: "rgba(245,194,90,0.28)", position: "relative", zIndex: 0 }}
+          />
+          {/* Gold overlay */}
+          <div
+            className="absolute left-0 top-0 h-px"
             style={{
-              width: `calc(100% * ${(step - 1) / (STEPS.length - 1)})`,
+              width: `${progressPercentage}%`,
               background: `linear-gradient(90deg, ${GOLD} 0%, #FFD97A 100%)`,
-              boxShadow: `0 0 12px rgba(245,194,90,0.55)`,
+              boxShadow: `0 0 10px rgba(245,194,90,0.55)`,
+              transition: "width 500ms cubic-bezier(0.4, 0, 0.2, 1)",
+              zIndex: 1,
             }}
           />
         </div>
@@ -444,26 +469,32 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
           const n = i + 1;
           const active = n === step;
           const completed = n < step;
+          const pulse = active && pulseKey === step;
           return (
             <button
               key={label}
               type="button"
               onClick={() => (completed ? onGo(n) : undefined)}
-              className="relative z-10 flex flex-col items-center gap-2 flex-1 min-w-0"
+              className="relative flex flex-col items-center gap-2 flex-1 min-w-0"
+              style={{ zIndex: 2 }}
             >
               <span
-                className="flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold transition-all duration-[250ms]"
+                className="flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold"
                 style={{
-                  backgroundColor: active
-                    ? GOLD
+                  background: active
+                    ? "linear-gradient(180deg, #F4C95D 0%, #D9A520 100%)"
                     : completed
                       ? NAVY_DEEP
                       : "rgba(4,17,26,0.85)",
                   color: active ? "#FFFFFF" : completed ? GOLD : "#FFFFFF",
-                  border: `1px solid ${active || completed ? GOLD : "rgba(255,255,255,0.55)"}`,
+                  border: `1px solid ${active ? "rgba(255,215,120,0.9)" : completed ? GOLD : "rgba(255,255,255,0.55)"}`,
                   boxShadow: active
-                    ? "0 0 0 5px rgba(245,194,90,0.12), 0 0 20px rgba(245,194,90,0.45)"
-                    : "none",
+                    ? "0 0 18px rgba(226,177,59,0.30), 0 0 36px rgba(226,177,59,0.12), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    : completed
+                      ? "0 2px 6px rgba(0,0,0,0.25)"
+                      : "none",
+                  transition: "background 250ms cubic-bezier(0.4,0,0.2,1), box-shadow 250ms cubic-bezier(0.4,0,0.2,1), border-color 250ms",
+                  animation: pulse ? "step-pulse 260ms cubic-bezier(0.4,0,0.2,1) 1" : undefined,
                 }}
               >
                 {completed ? <Check size={16} strokeWidth={2.5} style={{ color: GOLD }} /> : n}
