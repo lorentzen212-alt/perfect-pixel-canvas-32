@@ -1621,7 +1621,7 @@ function StepThreeAccommodation({
                 >
                   <div aria-hidden />
                   <h4
-                    className="text-[#1F2937] text-[16.5px] ml-[-44px]"
+                    className="text-[#1F2937] text-[16.5px] ml-[-59px]"
                     style={{ fontFamily: SANS, fontWeight: 600, letterSpacing: "0.02em" }}
                   >
                     Room Categories
@@ -1679,7 +1679,7 @@ function StepThreeAccommodation({
               {/* Meal Plan */}
               <div className="mt-8 border-t pt-6" style={{ borderColor: "#EEEBE3" }}>
                 <h4
-                  className="text-[#0A1B2C] text-[17px] mb-4"
+                  className="text-[#0A1B2C] text-[17px] mb-4 pl-1"
                   style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
                 >
                   Meal Plan
