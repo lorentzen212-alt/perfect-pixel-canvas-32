@@ -1230,20 +1230,19 @@ function StepTwoLocation({
                       type="button"
                       onClick={() => setSelectedHotelCategory(c.id)}
                       aria-pressed={selected}
-                      className="inline-flex items-center justify-center gap-2 rounded-md h-[46px] text-[15px] bg-white transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm hover:border-[#B9C2CE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
-                      style={{
-                        border:
-                          selected || isNone
-                            ? "1.5px solid #F5AE00"
-                            : "1px solid #DFE4EB",
-                        color: "#0A1B2C",
-                        boxShadow: selected
-                          ? "0 8px 20px -14px rgba(200,154,58,0.5)"
-                          : undefined,
-                      }}
+                      className={cn(
+                        "inline-flex items-center justify-center gap-2 rounded-md h-[46px] text-[15px] text-[#0A1B2C] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
+                        selected
+                          ? isNone
+                            ? "border-[1.5px] border-[#F5AE00] bg-[#FBF6EA] shadow-[0_8px_20px_-14px_rgba(200,154,58,0.5)]"
+                            : "border-[1.5px] border-[#F5AE00] bg-white shadow-[0_8px_20px_-14px_rgba(200,154,58,0.5)]"
+                          : "bg-white border border-[#DFE4EB]",
+                        !selected && isNone && "hover:border-[#E9C77A]",
+                        !selected && !isNone && "hover:border-[#B9C2CE]",
+                      )}
                     >
                       {isNone && (
-                        <Ban size={16} strokeWidth={1.8} style={{ color: "#F5AE00" }} />
+                        <Ban size={16} strokeWidth={1.8} style={{ color: selected ? "#F5AE00" : "#4A5866" }} />
                       )}
                       <span className={cn(!isNone && "tracking-[0.15em]")}>
                         {c.label}
