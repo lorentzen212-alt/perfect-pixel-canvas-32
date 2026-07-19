@@ -508,9 +508,9 @@ function StepOne(props: {
           </DestinationSelectTrigger>
           <StyledSelectContent>
             {cities.map((c) => (
-              <SelectItem key={c} value={c}>
+              <StyledSelectItem key={c} value={c}>
                 {c}
-              </SelectItem>
+              </StyledSelectItem>
             ))}
           </StyledSelectContent>
         </Select>
