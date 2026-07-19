@@ -9,9 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ManageBookingsRouteImport } from './routes/manage-bookings'
+import { Route as BookMeetingsEventsRouteImport } from './routes/book-meetings-events'
 import { Route as BookLeisureRouteImport } from './routes/book-leisure'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ManageBookingsRoute = ManageBookingsRouteImport.update({
+  id: '/manage-bookings',
+  path: '/manage-bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookMeetingsEventsRoute = BookMeetingsEventsRouteImport.update({
+  id: '/book-meetings-events',
+  path: '/book-meetings-events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BookLeisureRoute = BookLeisureRouteImport.update({
   id: '/book-leisure',
   path: '/book-leisure',
@@ -26,31 +38,62 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book-leisure': typeof BookLeisureRoute
+  '/book-meetings-events': typeof BookMeetingsEventsRoute
+  '/manage-bookings': typeof ManageBookingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book-leisure': typeof BookLeisureRoute
+  '/book-meetings-events': typeof BookMeetingsEventsRoute
+  '/manage-bookings': typeof ManageBookingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/book-leisure': typeof BookLeisureRoute
+  '/book-meetings-events': typeof BookMeetingsEventsRoute
+  '/manage-bookings': typeof ManageBookingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/book-leisure'
+  fullPaths:
+    | '/'
+    | '/book-leisure'
+    | '/book-meetings-events'
+    | '/manage-bookings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/book-leisure'
-  id: '__root__' | '/' | '/book-leisure'
+  to: '/' | '/book-leisure' | '/book-meetings-events' | '/manage-bookings'
+  id:
+    | '__root__'
+    | '/'
+    | '/book-leisure'
+    | '/book-meetings-events'
+    | '/manage-bookings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookLeisureRoute: typeof BookLeisureRoute
+  BookMeetingsEventsRoute: typeof BookMeetingsEventsRoute
+  ManageBookingsRoute: typeof ManageBookingsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/manage-bookings': {
+      id: '/manage-bookings'
+      path: '/manage-bookings'
+      fullPath: '/manage-bookings'
+      preLoaderRoute: typeof ManageBookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book-meetings-events': {
+      id: '/book-meetings-events'
+      path: '/book-meetings-events'
+      fullPath: '/book-meetings-events'
+      preLoaderRoute: typeof BookMeetingsEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/book-leisure': {
       id: '/book-leisure'
       path: '/book-leisure'
@@ -71,7 +114,19 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookLeisureRoute: BookLeisureRoute,
+  BookMeetingsEventsRoute: BookMeetingsEventsRoute,
+  ManageBookingsRoute: ManageBookingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
