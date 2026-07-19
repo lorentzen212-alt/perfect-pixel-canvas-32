@@ -1652,12 +1652,9 @@ function StepThreeAccommodation({
                       }}
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <span
-                          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
-                          style={{ backgroundColor: "#FAF3E1" }}
-                        >
-                          <CalendarIcon size={16} style={{ color: "#B88A2E" }} strokeWidth={1.8} />
-                        </span>
+                        <LuxIconBadge size={36}>
+                          <CalendarIcon size={16} strokeWidth={1.8} />
+                        </LuxIconBadge>
                         <div className="min-w-0">
                           <div className="text-[#0A1B2C] text-[14px] font-semibold truncate">
                             {fmtDate(s.checkIn)} – {fmtDate(s.checkOut)}
