@@ -68,9 +68,9 @@ function GoldLineWithDiamond({
   diamondSize?: string;
 }) {
   const goldGradient =
-    "linear-gradient(90deg, #7A5A24 0%, #B08A3E 18%, #D9B871 42%, #F3DFA1 52%, #EBD292 60%, #C69B49 80%, #8A6528 100%)";
+    "linear-gradient(90deg, rgba(180,168,138,0) 0%, #B8A97C 12%, #D9C89A 28%, #EFE3BC 46%, #F7EEC9 52%, #EFE3BC 58%, #D9C89A 74%, #B8A97C 88%, rgba(180,168,138,0) 100%)";
   const diamondGradient =
-    "linear-gradient(135deg, #8A6528 0%, #C69B49 35%, #EBD292 55%, #B08A3E 80%, #7A5A24 100%)";
+    "linear-gradient(135deg, #8F855F 0%, #B8A97C 25%, #E4D6A8 50%, #F5EAC4 60%, #C9B888 80%, #8F855F 100%)";
   return (
     <div className={cn("flex items-center", className)}>
       <div
@@ -78,16 +78,21 @@ function GoldLineWithDiamond({
         style={{
           backgroundImage: goldGradient,
           clipPath:
-            "polygon(0% 50%, 6% 15%, 94% 15%, 100% 50%, 94% 85%, 6% 85%)",
+            "polygon(0% 50%, 3% 46%, 50% 0%, 97% 46%, 100% 50%, 97% 54%, 50% 100%, 3% 54%)",
+          filter: "drop-shadow(0 0 0.4px rgba(255,240,200,0.35))",
         }}
       />
       <div
         className={cn("ml-5 rotate-45", diamondSize)}
-        style={{ backgroundImage: diamondGradient }}
+        style={{
+          backgroundImage: diamondGradient,
+          boxShadow: "0 0 0.5px rgba(255,240,200,0.4)",
+        }}
       />
     </div>
   );
 }
+
 
 function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -160,7 +165,7 @@ function Home() {
 
         {/* HERO CONTENT */}
         <section className="ml-5 sm:ml-8 lg:ml-[50px] xl:ml-[60px] mt-[25px] pt-[38px] sm:pt-[62px] lg:pt-[92px] pb-16 lg:pb-24 max-w-[720px]">
-          <GoldLineWithDiamond lineWidth="w-[80px] sm:w-[85px] lg:w-[90px]" lineThickness="h-[4.5px]" diamondSize="h-[6.5px] w-[6.5px]" />
+          <GoldLineWithDiamond lineWidth="w-[100px] sm:w-[110px] lg:w-[120px]" lineThickness="h-[4.2px]" diamondSize="h-[5.2px] w-[5.2px]" />
 
           <h2
             className="mt-4 font-medium text-white leading-[1.02] text-5xl sm:text-6xl lg:text-[86px]"
@@ -173,7 +178,7 @@ function Home() {
             <span className="italic">made simple</span>
           </h2>
 
-          <GoldLineWithDiamond className="mt-4" lineWidth="w-[170px] sm:w-[175px] lg:w-[180px]" lineThickness="h-[4.5px]" diamondSize="h-[6.5px] w-[6.5px]" />
+          <GoldLineWithDiamond className="mt-4" lineWidth="w-[190px] sm:w-[200px] lg:w-[210px]" lineThickness="h-[4.5px]" diamondSize="h-[5.2px] w-[5.2px]" />
 
           <p className="mt-[39px] text-white text-xl sm:text-2xl lg:text-[28px] leading-[1.25] font-normal font-sans">
             The easiest way to request
