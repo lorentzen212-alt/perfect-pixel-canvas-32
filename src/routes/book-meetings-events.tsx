@@ -1435,14 +1435,14 @@ function StepThreeAccommodation({
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [rooms, setRooms] = useState<RoomMix>(emptyRooms());
+  const [cats, setCats] = useState<RoomCats>(emptyCats());
   const [mealPlan, setMealPlan] = useState<MealPlan>("breakfast");
   const [stays, setStays] = useState<Stay[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [porter] = useState(false);
   const [special, setSpecial] = useState("");
 
   const totalRooms = stays.reduce((n, s) => n + roomsTotal(s.rooms), 0);
-  const totalGuests = stays.reduce((n, s) => n + guestsCapacity(s.rooms), 0);
+  const totalGuests = totalRooms;
   const primaryMeal = stays[0]?.mealPlan ?? mealPlan;
 
   const clearDraft = () => {
