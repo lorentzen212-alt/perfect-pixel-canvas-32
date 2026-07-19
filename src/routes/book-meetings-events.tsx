@@ -1805,7 +1805,7 @@ function StepThreeAccommodation({
             <button
               type="button"
               onClick={onNext}
-              className="complete-stay-btn mt-5 w-full inline-flex items-center justify-center gap-2 rounded-[12px] h-[52px] text-[15px] font-semibold"
+              className="complete-stay-btn mt-5 w-full inline-flex items-center justify-center gap-2 h-[52px] text-[15px] font-semibold"
             >
               <Plus size={18} className="complete-stay-plus" />
               Complete stay and continue
