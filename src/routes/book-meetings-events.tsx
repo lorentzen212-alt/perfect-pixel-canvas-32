@@ -781,7 +781,7 @@ function HelpCard() {
           >
             <Phone size={16} strokeWidth={1.8} style={{ color: "#B88A2E" }} />
           </span>
-          <span className="min-w-0 break-all">+47 21 00 21 00</span>
+          <span className="min-w-0 [overflow-wrap:anywhere]">+47 21 00 21 00</span>
         </a>
         <a
           href="mailto:meetings@hotelgroupbook.com"
@@ -793,7 +793,7 @@ function HelpCard() {
           >
             <Mail size={16} strokeWidth={1.8} style={{ color: "#B88A2E" }} />
           </span>
-          <span className="min-w-0 break-all">meetings@hotelgroupbook.com</span>
+          <span className="min-w-0 [overflow-wrap:anywhere]">meetings@hotelgroupbook.com</span>
         </a>
       </div>
     </div>
