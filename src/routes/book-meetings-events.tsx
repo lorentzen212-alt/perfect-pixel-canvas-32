@@ -2249,7 +2249,7 @@ function StepThreeAccommodation({
                     onClick={() => setMealPlan("room")}
                   />
                   <MealOption
-                    icon={<Coffee size={19} />}
+                    icon={<LuxCoffeeIcon size={22} />}
                     label="Breakfast Included"
                     selected={mealPlan === "breakfast"}
                     onClick={() => setMealPlan("breakfast")}
