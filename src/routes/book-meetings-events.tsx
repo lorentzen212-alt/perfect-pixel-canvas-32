@@ -2627,6 +2627,181 @@ function TwinBedsIcon({ size = 22 }: { size?: number }) {
   );
 }
 
+type AccomIconName =
+  | "calendar"
+  | "user"
+  | "users"
+  | "usersRound"
+  | "twinBeds"
+  | "bedDouble"
+  | "coffee"
+  | "chevronDown"
+  | "plus"
+  | "minus";
+
+function AccomIcon({ name, size = 24 }: { name: AccomIconName; size?: number }) {
+  const id = useId().replace(/:/g, "");
+  const gradId = `accom-grad-${id}`;
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: `url(#${gradId})`,
+    strokeWidth: 2.2,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    style: {
+      filter:
+        "drop-shadow(-0.5px -0.5px 0.5px rgba(255,255,255,0.42)) drop-shadow(0 2px 2px rgba(0,0,0,0.35))",
+    },
+  };
+  const defs = (
+    <defs>
+      <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#F8E7A3" />
+        <stop offset="50%" stopColor="#D4AF37" />
+        <stop offset="100%" stopColor="#9A6E12" />
+      </linearGradient>
+    </defs>
+  );
+  switch (name) {
+    case "calendar":
+      return (
+        <svg {...common}>
+          {defs}
+          <rect x="3" y="4" width="18" height="18" rx="2.2" />
+          <path d="M3 10h18" />
+          <path d="M8 2v4" />
+          <path d="M16 2v4" />
+          <path d="M7 14h.01" />
+          <path d="M12 14h.01" />
+          <path d="M17 14h.01" />
+          <path d="M7 18h.01" />
+          <path d="M12 18h.01" />
+          <path d="M17 18h.01" />
+        </svg>
+      );
+    case "user":
+      return (
+        <svg {...common}>
+          {defs}
+          <circle cx="12" cy="8" r="3.5" />
+          <path d="M5 20c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+        </svg>
+      );
+    case "users":
+      return (
+        <svg {...common}>
+          {defs}
+          <circle cx="9" cy="8" r="3" />
+          <path d="M4 20c0-3.8 3-7 7-7" />
+          <circle cx="17" cy="8" r="2.6" />
+          <path d="M14 20c0-2.8 2-5.5 5-5.5" />
+        </svg>
+      );
+    case "usersRound":
+      return (
+        <svg {...common}>
+          {defs}
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+      );
+    case "twinBeds":
+      return (
+        <svg {...common}>
+          {defs}
+          <rect x="2" y="10" width="8.5" height="6" rx="1.2" />
+          <path d="M2 13.2h8.5" />
+          <rect x="3" y="8.5" width="2.2" height="1.5" rx="0.4" />
+          <rect x="13.5" y="10" width="8.5" height="6" rx="1.2" />
+          <path d="M13.5 13.2H22" />
+          <rect x="14.5" y="8.5" width="2.2" height="1.5" rx="0.4" />
+          <path d="M2 17.5h20" />
+        </svg>
+      );
+    case "bedDouble":
+      return (
+        <svg {...common}>
+          {defs}
+          <path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+          <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+          <path d="M6 10h.01" />
+          <path d="M18 10h.01" />
+          <path d="M6 14h12" />
+        </svg>
+      );
+    case "coffee":
+      return (
+        <svg {...common}>
+          {defs}
+          <path d="M18 8h1.8A2.2 2.2 0 0 1 22 10.2v0A2.2 2.2 0 0 1 19.8 12.4H18" />
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+          <path d="M6 1v3" />
+          <path d="M10 1v3" />
+          <path d="M14 1v3" />
+          <path d="M4 21h12" />
+        </svg>
+      );
+    case "chevronDown":
+      return (
+        <svg {...common}>
+          {defs}
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      );
+    case "plus":
+      return (
+        <svg {...common}>
+          {defs}
+          <path d="M12 5v14" />
+          <path d="M5 12h14" />
+        </svg>
+      );
+    case "minus":
+      return (
+        <svg {...common}>
+          {defs}
+          <path d="M5 12h14" />
+        </svg>
+      );
+  }
+}
+
+function AccomIconBadge({
+  name,
+  size = 44,
+}: {
+  name: AccomIconName;
+  size?: number;
+}) {
+  return (
+    <span
+      className="inline-flex items-center justify-center"
+      style={{
+        width: size,
+        height: size,
+        borderRadius: 17,
+        background: "linear-gradient(145deg, #1F1F1F 0%, #121212 55%, #0A0A0A 100%)",
+        border: "1px solid rgba(248,231,163,0.52)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 10px rgba(0,0,0,0.32), 0 0 0 1px rgba(0,0,0,0.18), 0 0 14px rgba(212,175,55,0.16)",
+      }}
+    >
+      <span
+        className="inline-flex"
+        style={{ transform: "scale(1.08)", transformOrigin: "center" }}
+      >
+        <AccomIcon name={name} size={Math.round(size * 0.48)} />
+      </span>
+    </span>
+  );
+}
+
+
 
 function MealOption({
   iconName,
