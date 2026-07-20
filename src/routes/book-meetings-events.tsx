@@ -2117,8 +2117,8 @@ function StepThreeAccommodation({
               {/* Meal Plan */}
               <div className="mt-8 border-t pt-6" style={{ borderColor: "#EEEBE3" }}>
                 <h4
-                  className="text-[#0A1B2C] text-[17px] mb-4 pl-[3px]"
-                  style={{ fontFamily: SERIF, fontWeight: 600, letterSpacing: "0.2px" }}
+                  className="text-[#1F2937] text-[16.5px] mb-4"
+                  style={{ fontFamily: SANS, fontWeight: 600, letterSpacing: "0.02em" }}
                 >
                   Meal Plan
                 </h4>
