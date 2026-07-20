@@ -2033,7 +2033,7 @@ function StepThreeAccommodation({
                       background:
                         "radial-gradient(120% 120% at 30% 15%, #2A2A2E 0%, #18181A 55%, #0F0F11 100%)",
                       boxShadow:
-                        "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35), 0 0 0 1.5px transparent, 0 0 18px rgba(212,168,83,0.28)",
+                        "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35), 0 0 0 1.5px transparent, 0 0 18px rgba(212,168,83,0.28), inset 0 0 0 0.6px rgba(184,142,62,0.35)",
                       backgroundClip: "padding-box",
                     }}
                   >
