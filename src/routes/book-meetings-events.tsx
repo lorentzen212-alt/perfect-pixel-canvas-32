@@ -1748,7 +1748,7 @@ function StepTwoLocation({
         style={{
           backgroundColor: "#FFFFFF",
           boxShadow:
-            "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
+            "0 60px 120px -60px rgba(10,27,44,0.20), 0 24px 60px -32px rgba(10,27,44,0.09), 0 4px 14px -6px rgba(10,27,44,0.04)",
           minHeight: 640,
         }}
       >
@@ -1761,16 +1761,17 @@ function StepTwoLocation({
             backgroundSize: "cover",
             backgroundPosition: "center bottom",
             backgroundRepeat: "no-repeat",
+            filter: "contrast(1.06) saturate(1.12) brightness(1.02)",
           }}
         />
-        {/* Seamless blend: fade the top of the image into the white card */}
+        {/* Seamless blend: fade the top of the image into the white card, pushed slightly lower */}
         <div
           aria-hidden="true"
           className="absolute inset-x-0 top-0"
           style={{
-            height: "62%",
+            height: "72%",
             background:
-              "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 42%, rgba(255,255,255,0.85) 62%, rgba(255,255,255,0.45) 82%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 48%, rgba(255,255,255,0.92) 66%, rgba(255,255,255,0.72) 80%, rgba(255,255,255,0.35) 92%, rgba(255,255,255,0) 100%)",
           }}
         />
         <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
@@ -1793,15 +1794,23 @@ function StepTwoLocation({
               className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors"
             >
               <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0 relative overflow-hidden"
                 style={{
                   background:
-                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
+                    "linear-gradient(155deg,#FBEEC1 0%, #EBCF7B 28%, #C79A32 62%, #A87516 100%)",
                   boxShadow:
-                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
+                    "0 4px 10px -6px rgba(168,117,22,0.5), inset 0 1px 0 rgba(255,248,220,0.85), inset 0 -1px 0 rgba(120,80,20,0.4), inset 0 0 6px rgba(255,236,180,0.25)",
                 }}
               >
-                <Phone size={16} strokeWidth={2} className="text-white" />
+                <span
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(255,250,225,0.35) 0%, rgba(255,250,225,0) 45%, rgba(120,80,20,0.10) 100%)",
+                  }}
+                />
+                <Phone size={16} strokeWidth={2} className="text-white relative" />
               </span>
               +47 21 00 21 00
             </a>
@@ -1810,15 +1819,23 @@ function StepTwoLocation({
               className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
             >
               <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0 relative overflow-hidden"
                 style={{
                   background:
-                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
+                    "linear-gradient(155deg,#FBEEC1 0%, #EBCF7B 28%, #C79A32 62%, #A87516 100%)",
                   boxShadow:
-                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
+                    "0 4px 10px -6px rgba(168,117,22,0.5), inset 0 1px 0 rgba(255,248,220,0.85), inset 0 -1px 0 rgba(120,80,20,0.4), inset 0 0 6px rgba(255,236,180,0.25)",
                 }}
               >
-                <Mail size={16} strokeWidth={2} className="text-white" />
+                <span
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(255,250,225,0.35) 0%, rgba(255,250,225,0) 45%, rgba(120,80,20,0.10) 100%)",
+                  }}
+                />
+                <Mail size={16} strokeWidth={2} className="text-white relative" />
               </span>
               meetings@hotelgroupbook.com
             </a>
