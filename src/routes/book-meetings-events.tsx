@@ -484,45 +484,42 @@ function BookMeetingsEvents() {
 
         /* Luxury metallic gold border for destination cards */
         .destination-card {
-          border: 1.5px solid transparent;
+          border: 1px solid transparent;
           background-clip: padding-box;
-          box-shadow:
-            0 0 0 1.5px rgba(0,0,0,0),
-            0 10px 26px -18px rgba(10,27,44,0.30);
-          transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+          box-shadow: 0 8px 22px -18px rgba(10,27,44,0.24);
+          transition: transform 260ms ease, box-shadow 260ms ease, filter 260ms ease;
           position: relative;
         }
         .destination-card::before {
           content: "";
           position: absolute;
-          inset: -1.5px;
+          inset: -1px;
           border-radius: inherit;
-          padding: 1.5px;
-          background: linear-gradient(180deg, #F5E4A6 0%, #D6B15A 42%, #C79A32 72%, #A87516 100%);
+          padding: 1px;
+          background: linear-gradient(180deg, #E8D48A 0%, #C9A24A 45%, #B48A2E 100%);
           -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
           -webkit-mask-composite: xor;
                   mask-composite: exclude;
           pointer-events: none;
-          transition: filter 220ms ease, opacity 220ms ease;
+          transition: filter 260ms ease, opacity 260ms ease;
           z-index: 3;
+          opacity: 0.85;
         }
         .destination-card:hover {
-          transform: scale(1.02);
-          box-shadow:
-            0 14px 30px -16px rgba(10,27,44,0.34),
-            0 0 12px -2px rgba(214,177,90,0.22);
+          transform: translateY(-2px);
+          box-shadow: 0 14px 30px -18px rgba(10,27,44,0.30);
         }
         .destination-card:hover::before {
-          filter: brightness(1.12);
+          opacity: 1;
         }
         .destination-card--selected::before {
-          filter: brightness(1.15);
+          opacity: 1;
+          filter: brightness(1.08);
         }
         .destination-card--selected {
-          box-shadow:
-            0 16px 32px -18px rgba(10,27,44,0.38),
-            0 0 14px -2px rgba(214,177,90,0.28);
+          box-shadow: 0 14px 30px -18px rgba(10,27,44,0.30);
         }
+
 
         /* Metallic country pill hover */
         .country-pill { transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease, border-color 220ms ease; }
@@ -1412,10 +1409,10 @@ function StepTwoLocation({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-5 lg:gap-6 items-start">
       {/* MAIN BOOKING CARD */}
       <div
-        className="relative overflow-hidden rounded-[26px] p-6 sm:p-10 lg:p-14"
+        className="relative overflow-hidden rounded-[26px] p-8 sm:p-12 lg:p-16"
         style={{
           background: "#FCFBF8",
           border: "1px solid #ECE6D6",
@@ -1425,24 +1422,24 @@ function StepTwoLocation({
       >
         {/* Title */}
         <h2
-          className="text-[42px] sm:text-[50px] leading-[1.05]"
+          className="text-[46px] sm:text-[56px] leading-[1.05]"
           style={{ fontFamily: SERIF, fontWeight: 400, color: "#1F1F1F", letterSpacing: "-0.015em", fontVariantNumeric: "lining-nums", fontFeatureSettings: '"lnum" 1' }}
         >
           Step{" "}
-          <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500, fontSize: "0.93em", display: "inline-block" }}>
+          <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500, fontSize: "0.94em", display: "inline-block" }}>
             1
           </span>
           {" "}– Location
         </h2>
 
 
-        <p className="mt-3 text-[15px] text-[#4A5866]">
+        <p className="mt-4 text-[15px] text-[#4A5866]">
           Where would you like to host your event?
         </p>
-        <div className="mt-6 h-px w-full" style={{ background: "#ECE6D6" }} />
+        <div className="mt-8 h-px w-full" style={{ background: "#ECE6D6" }} />
 
         {/* Country pills */}
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-10 flex flex-wrap gap-3">
           {COUNTRIES.map((c) => {
             const active = c.code === selectedCountry;
             return (
@@ -1452,25 +1449,25 @@ function StepTwoLocation({
                 onClick={() => changeCountry(c.code)}
                 aria-pressed={active}
                 className={cn(
-                  "country-pill group inline-flex items-center gap-3 rounded-full pl-4 pr-6 h-[48px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/30",
+                  "country-pill group inline-flex items-center gap-3 rounded-full pl-5 pr-7 h-[54px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/25",
                   active ? "country-pill--active -translate-y-[1px]" : "hover:-translate-y-[1px]",
                 )}
                 style={{
                   background: "#FFFFFF",
-                  border: active ? "1.5px solid transparent" : "1px solid #ECE6D6",
+                  border: active ? "1px solid transparent" : "1px solid #ECE6D6",
                   color: active ? "#7A5A1E" : "#4A5866",
                   fontWeight: active ? 600 : 500,
                   ...(active
                     ? {
                         backgroundImage:
-                          "linear-gradient(#FFFFFF,#FFFFFF), linear-gradient(180deg,#F5E4A6 0%, #D6B15A 45%, #C79A32 75%, #A87516 100%)",
+                          "linear-gradient(#FFFFFF,#FFFFFF), linear-gradient(180deg,#E8D48A 0%, #C9A24A 55%, #B48A2E 100%)",
                         backgroundOrigin: "border-box",
                         backgroundClip: "padding-box, border-box",
                         boxShadow:
-                          "0 2px 6px -2px rgba(168,117,22,0.18), inset 0 1px 0 rgba(245,228,166,0.35)",
+                          "0 2px 5px -3px rgba(168,117,22,0.14), inset 0 1px 0 rgba(245,228,166,0.28)",
                       }
                     : {
-                        boxShadow: "0 4px 14px -12px rgba(10,27,44,0.14)",
+                        boxShadow: "0 4px 14px -12px rgba(10,27,44,0.12)",
                       }),
                 }}
               >
@@ -1487,7 +1484,7 @@ function StepTwoLocation({
         </div>
 
         {/* Curated destinations */}
-        <div className="mt-10 flex items-center gap-3">
+        <div className="mt-12 flex items-center gap-3">
           <Sparkles size={18} className="text-[#D4AF37]" strokeWidth={1.6} />
           <h3
             className="text-[#0A1B2C] text-[18px]"
@@ -1497,8 +1494,10 @@ function StepTwoLocation({
           </h3>
         </div>
 
+
         {/* Destination grid: 4 per row × 2 rows */}
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div className="mt-7 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
+
           {destinations.map((d) => {
             const selected = selectedDestination === d.id;
             if (d.anywhere) {
@@ -1556,26 +1555,27 @@ function StepTwoLocation({
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(4,17,26,0) 45%, rgba(4,17,26,0.55) 78%, rgba(4,17,26,0.9) 100%)",
+                      "linear-gradient(180deg, rgba(4,17,26,0) 40%, rgba(4,17,26,0.65) 75%, rgba(4,17,26,0.96) 100%)",
                   }}
                 />
-                <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 px-4 pb-3">
+                <div className="absolute inset-x-0 bottom-0 flex items-center gap-2.5 px-4 pb-3.5">
                   <span
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-md"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md"
                     style={{
                       background: "rgba(255,255,255,0.08)",
-                      border: "1px solid rgba(240,215,140,0.55)",
+                      border: "1px solid rgba(240,215,140,0.6)",
                     }}
                   >
-                    <d.Icon size={14} strokeWidth={1.6} className="text-[#F0D78C]" />
+                    <d.Icon size={16} strokeWidth={1.6} className="text-[#F0D78C]" />
                   </span>
                   <span
-                    className="text-white text-[17px] tracking-[-0.005em]"
+                    className="text-white text-[18px] tracking-[-0.005em]"
                     style={{ fontFamily: SANS, fontWeight: 500 }}
                   >
                     {d.name}
                   </span>
                 </div>
+
                 {selected && (
                   <span
                     className="absolute top-3 right-3 inline-flex h-6 w-6 items-center justify-center rounded-full"
@@ -1590,11 +1590,12 @@ function StepTwoLocation({
         </div>
 
         {/* Search field */}
-        <div className="mt-10">
-          <p className="text-[14px] text-[#4A5866] mb-2">Or search for any destination</p>
+        <div className="mt-12">
+          <p className="text-[14px] text-[#4A5866] mb-2.5">Or search for any destination</p>
           <div ref={searchRef} className="relative">
             <div
-              className="flex items-center gap-3 rounded-[16px] px-5 h-[56px]"
+              className="flex items-center gap-3 rounded-[18px] px-6 h-[64px]"
+
               style={{
                 background: "#FFFFFF",
                 border: "1px solid #ECE6D6",
@@ -1674,13 +1675,14 @@ function StepTwoLocation({
 
         {/* Preferred venue field */}
         <div
-          className="mt-4 flex items-center gap-4 rounded-[16px] px-5 py-3"
+          className="mt-5 flex items-center gap-4 rounded-[18px] px-6 py-4"
           style={{
             background: "#FFFFFF",
             border: "1px solid #ECE6D6",
-            boxShadow: "0 4px 14px -10px rgba(10,27,44,0.10)",
+            boxShadow: "0 6px 18px -12px rgba(10,27,44,0.10)",
           }}
         >
+
           <svg
             width="22"
             height="22"
@@ -1751,15 +1753,16 @@ function StepTwoLocation({
           <path
             d="M170 -20 C 130 120, 90 220, 150 360 C 200 480, 130 580, 100 660"
             stroke="url(#gold1)"
-            strokeWidth="0.7"
+            strokeWidth="0.5"
             fill="none"
           />
           <path
             d="M180 40 C 150 180, 100 260, 165 400 C 210 520, 150 620, 130 700"
             stroke="url(#gold2)"
-            strokeWidth="0.5"
+            strokeWidth="0.35"
             fill="none"
           />
+
           <defs>
             <linearGradient id="gold1" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#D6B15A" stopOpacity="0" />
@@ -1774,20 +1777,21 @@ function StepTwoLocation({
           </defs>
         </svg>
 
-        <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
+        <div className="relative pt-12 lg:pt-14 px-9 lg:px-10 pb-6">
           <h3
-            className="text-[#0A1B2C] text-[28px] leading-tight"
+            className="text-[#0A1B2C] text-[30px] leading-tight"
             style={{ fontFamily: SERIF, fontWeight: 500 }}
           >
             Need help?
           </h3>
-          <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
+          <p className="mt-4 text-[#4A5866] text-[15px] leading-relaxed">
             Our M&amp;E specialists are
             <br />
             ready to assist you.
           </p>
 
-          <div className="mt-8 flex flex-col gap-5">
+          <div className="mt-10 flex flex-col gap-6">
+
             <a
               href="tel:+4721002100"
               className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
@@ -1826,8 +1830,8 @@ function StepTwoLocation({
         </div>
 
         {/* Luxury lounge illustration — anchored at bottom, wider */}
-        <div className="relative mt-4 px-0 pb-0 overflow-hidden">
-          <div className="relative w-full">
+        <div className="relative mt-10 px-0 pb-0 overflow-hidden">
+          <div className="relative w-[115%] -ml-[7.5%]">
             <img
               src={loungeImg}
               alt=""
@@ -1845,8 +1849,7 @@ function StepTwoLocation({
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(255,240,205,0.18) 0%, rgba(214,177,90,0.10) 55%, rgba(168,117,22,0.06) 100%)",
-                mixBlendMode: "soft-light",
+                  "linear-gradient(180deg, rgba(252,251,248,0.55) 0%, rgba(252,251,248,0) 22%, rgba(214,177,90,0.06) 70%, rgba(168,117,22,0.04) 100%)",
               }}
             />
             <div
@@ -1854,11 +1857,13 @@ function StepTwoLocation({
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(120% 80% at 30% 20%, rgba(255,245,210,0.22) 0%, rgba(255,245,210,0) 55%)",
+                  "radial-gradient(120% 80% at 30% 20%, rgba(255,245,210,0.20) 0%, rgba(255,245,210,0) 55%)",
               }}
             />
           </div>
         </div>
+
+
 
       </aside>
     </div>
