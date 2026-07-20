@@ -1941,7 +1941,7 @@ function StepThreeAccommodation({
           className="text-[#0A1B2C] text-3xl lg:text-[38px] leading-tight"
           style={{ fontFamily: SERIF }}
         >
-          Step 3 – Accommodation
+          Step&nbsp; – Accommodation
         </h2>
         <div className="mt-3 h-[2px] w-16" style={{ background: "linear-gradient(90deg,#F7D97A,#B88917)" }} />
         <p className="mt-4 text-[#4A5866] text-[15px] max-w-xl leading-relaxed">
