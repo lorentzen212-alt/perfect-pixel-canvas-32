@@ -93,7 +93,7 @@ export function ShieldCheckPremium({ size, className }: IconProps) {
           d="M64 16 L94 28 V54 C94 77 81 94 64 105 C47 94 34 77 34 54 V28 Z"
           fill={CHARCOAL_FILL}
           stroke="url(#shieldGold)"
-          strokeWidth={STROKE}
+          strokeWidth={TRUST_STROKE}
         />
         <path
           d="M64 16 L94 28 V54 C94 77 81 94 64 105 C47 94 34 77 34 54 V28 Z"
@@ -104,7 +104,7 @@ export function ShieldCheckPremium({ size, className }: IconProps) {
           d="M48 60 L59 71 L81 47"
           fill="none"
           stroke="url(#shieldGold)"
-          strokeWidth={STROKE + 0.5}
+          strokeWidth={TRUST_STROKE + 0.5}
         />
       </g>
     </Base>
@@ -126,10 +126,10 @@ export function ClockPremium({ size, className }: IconProps) {
           r="44"
           fill={CHARCOAL_FILL}
           stroke="url(#clockGold)"
-          strokeWidth={STROKE}
+          strokeWidth={TRUST_STROKE}
         />
         <circle cx="64" cy="64" r="44" fill="url(#clockHi)" stroke="none" />
-        <path d="M64 38 V64 L82 74" fill="none" stroke="url(#clockGold)" strokeWidth={STROKE + 0.5} />
+        <path d="M64 38 V64 L82 74" fill="none" stroke="url(#clockGold)" strokeWidth={TRUST_STROKE + 0.5} />
       </g>
     </Base>
   );
@@ -148,7 +148,7 @@ export function HeadsetPremium({ size, className }: IconProps) {
           d="M31 66 V56 C31 38 46 24 64 24 C82 24 97 38 97 56 V66"
           fill="none"
           stroke="url(#headsetGold)"
-          strokeWidth={STROKE}
+          strokeWidth={TRUST_STROKE}
         />
         <rect
           x="24"
@@ -158,7 +158,7 @@ export function HeadsetPremium({ size, className }: IconProps) {
           rx="7"
           fill={CHARCOAL_FILL}
           stroke="url(#headsetGold)"
-          strokeWidth={STROKE - 0.5}
+          strokeWidth={TRUST_STROKE - 0.5}
         />
         <rect x="24" y="56" width="16" height="30" rx="7" fill="url(#headsetHi)" stroke="none" />
         <rect
@@ -169,14 +169,14 @@ export function HeadsetPremium({ size, className }: IconProps) {
           rx="7"
           fill={CHARCOAL_FILL}
           stroke="url(#headsetGold)"
-          strokeWidth={STROKE - 0.5}
+          strokeWidth={TRUST_STROKE - 0.5}
         />
         <rect x="88" y="56" width="16" height="30" rx="7" fill="url(#headsetHi)" stroke="none" />
         <path
           d="M97 82 C97 94 88 99 78 99 H72"
           fill="none"
           stroke="url(#headsetGold)"
-          strokeWidth={STROKE}
+          strokeWidth={TRUST_STROKE}
         />
         <rect
           x="62"
@@ -186,7 +186,7 @@ export function HeadsetPremium({ size, className }: IconProps) {
           rx="5"
           fill={CHARCOAL_FILL}
           stroke="url(#headsetGold)"
-          strokeWidth={STROKE - 1}
+          strokeWidth={TRUST_STROKE - 1}
         />
       </g>
     </Base>
@@ -206,7 +206,7 @@ export function LockPremium({ size, className }: IconProps) {
           d="M44 52 V42 C44 30 53 20 64 20 C75 20 84 30 84 42 V52"
           fill="none"
           stroke="url(#lockGold)"
-          strokeWidth={STROKE}
+          strokeWidth={TRUST_STROKE}
         />
         <rect
           x="31"
@@ -216,11 +216,11 @@ export function LockPremium({ size, className }: IconProps) {
           rx="8"
           fill={CHARCOAL_FILL}
           stroke="url(#lockGold)"
-          strokeWidth={STROKE}
+          strokeWidth={TRUST_STROKE}
         />
         <rect x="31" y="50" width="66" height="54" rx="8" fill="url(#lockHi)" stroke="none" />
         <circle cx="64" cy="72" r="6" fill="url(#lockGold)" />
-        <path d="M64 77 V88" stroke="url(#lockGold)" strokeWidth={STROKE} />
+        <path d="M64 77 V88" stroke="url(#lockGold)" strokeWidth={TRUST_STROKE} />
       </g>
     </Base>
   );
