@@ -2538,7 +2538,9 @@ function RoomRow({
             className="qty-btn inline-flex h-8 w-8 items-center justify-center"
             aria-label={`Decrease ${label}`}
           >
-            <Minus size={15} />
+            <span className="inline-flex" style={{ transform: "scale(1.08)", filter: "drop-shadow(-0.5px -0.5px 0.5px rgba(255,255,255,0.35)) drop-shadow(0 2px 2px rgba(0,0,0,0.35))" }}>
+              <AccomIcon name="minus" size={15} />
+            </span>
           </button>
           <input
             type="text"
