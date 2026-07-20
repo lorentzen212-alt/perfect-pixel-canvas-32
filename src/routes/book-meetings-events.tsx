@@ -1772,30 +1772,30 @@ function StepTwoLocation({
           <path
             d="M170 -20 C 130 120, 90 220, 150 360 C 200 480, 130 580, 100 660"
             stroke="url(#gold1)"
-            strokeWidth="1.2"
+            strokeWidth="0.7"
             fill="none"
           />
           <path
             d="M180 40 C 150 180, 100 260, 165 400 C 210 520, 150 620, 130 700"
             stroke="url(#gold2)"
-            strokeWidth="0.8"
+            strokeWidth="0.5"
             fill="none"
           />
           <defs>
             <linearGradient id="gold1" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D4AF37" stopOpacity="0" />
-              <stop offset="40%" stopColor="#D4AF37" stopOpacity="0.55" />
-              <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
+              <stop offset="0%" stopColor="#D6B15A" stopOpacity="0" />
+              <stop offset="40%" stopColor="#D6B15A" stopOpacity="0.30" />
+              <stop offset="100%" stopColor="#D6B15A" stopOpacity="0" />
             </linearGradient>
             <linearGradient id="gold2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#F0D78C" stopOpacity="0" />
-              <stop offset="50%" stopColor="#F0D78C" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="#F0D78C" stopOpacity="0" />
+              <stop offset="0%" stopColor="#F5E4A6" stopOpacity="0" />
+              <stop offset="50%" stopColor="#F5E4A6" stopOpacity="0.28" />
+              <stop offset="100%" stopColor="#F5E4A6" stopOpacity="0" />
             </linearGradient>
           </defs>
         </svg>
 
-        <div className="relative p-8 lg:p-10">
+        <div className="relative pt-12 lg:pt-16 px-8 lg:px-10 pb-6">
           <h3
             className="text-[#0A1B2C] text-[28px] leading-tight"
             style={{ fontFamily: SERIF, fontWeight: 500 }}
@@ -1808,7 +1808,7 @@ function StepTwoLocation({
             ready to assist you.
           </p>
 
-          <div className="mt-8 flex flex-col gap-5">
+          <div className="mt-10 flex flex-col gap-5">
             <a
               href="tel:+4721002100"
               className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
@@ -1817,9 +1817,9 @@ function StepTwoLocation({
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full"
                 style={{
                   background:
-                    "linear-gradient(180deg,#E8C67A 0%, #C99A3A 100%)",
+                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
                   boxShadow:
-                    "0 6px 14px -6px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,236,183,0.7)",
+                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
                 }}
               >
                 <Phone size={16} strokeWidth={2} className="text-white" />
@@ -1834,9 +1834,9 @@ function StepTwoLocation({
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full"
                 style={{
                   background:
-                    "linear-gradient(180deg,#E8C67A 0%, #C99A3A 100%)",
+                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
                   boxShadow:
-                    "0 6px 14px -6px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,236,183,0.7)",
+                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
                 }}
               >
                 <Mail size={16} strokeWidth={2} className="text-white" />
@@ -1846,18 +1846,42 @@ function StepTwoLocation({
           </div>
         </div>
 
-        {/* Luxury lounge illustration */}
-        <div className="relative mt-4">
-          <img
-            src={loungeImg}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            width={768}
-            height={640}
-            className="w-full h-auto object-cover select-none"
-          />
+        {/* Luxury lounge illustration — softer, smaller, lower */}
+        <div className="relative mt-10 lg:mt-14 px-6 pb-6 flex justify-center">
+          <div className="relative w-[80%]">
+            <img
+              src={loungeImg}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              width={768}
+              height={640}
+              className="w-full h-auto object-cover select-none rounded-[14px]"
+              style={{
+                filter: "brightness(1.04) contrast(0.96) saturate(0.92)",
+              }}
+            />
+            {/* Warm champagne-gold tint + soft luxury lighting */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[14px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255,240,205,0.18) 0%, rgba(214,177,90,0.10) 55%, rgba(168,117,22,0.06) 100%)",
+                mixBlendMode: "soft-light",
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[14px]"
+              style={{
+                background:
+                  "radial-gradient(120% 80% at 30% 20%, rgba(255,245,210,0.22) 0%, rgba(255,245,210,0) 55%)",
+              }}
+            />
+          </div>
         </div>
+
       </aside>
     </div>
   );
