@@ -327,11 +327,11 @@ function BookMeetingsEvents() {
               </p>
 
               {/* Trust row */}
-              <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <div className="mt-7 flex flex-nowrap items-center gap-x-[52px] whitespace-nowrap">
                 {TRUST.map(({ Icon, label }) => (
-                  <div key={label} className="flex items-center gap-2">
+                  <div key={label} className="flex items-center gap-[30px]">
                     <Icon size={44} />
-                    <span className="text-[#0A1B2C] text-[15px] font-medium">{label}</span>
+                    <span className="text-[#0A1B2C] text-[15px] font-medium leading-none">{label}</span>
                   </div>
                 ))}
               </div>
