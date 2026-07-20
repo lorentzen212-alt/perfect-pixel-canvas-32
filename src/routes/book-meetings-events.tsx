@@ -1250,12 +1250,9 @@ function StepTwoLocation({
     ).slice(0, 8);
   }, [searchQuery]);
 
-  // Close dropdowns on outside click
+  // Close search dropdown on outside click
   useEffect(() => {
     function onDown(e: MouseEvent) {
-      if (countryRef.current && !countryRef.current.contains(e.target as Node)) {
-        setIsCountryDropdownOpen(false);
-      }
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
         setIsSearchDropdownOpen(false);
       }
@@ -1272,7 +1269,6 @@ function StepTwoLocation({
     setSelectedCountry(code);
     setSelectedDestination(null);
     setSearchQuery("");
-    setIsCountryDropdownOpen(false);
     setIsSearchDropdownOpen(false);
   }
 
