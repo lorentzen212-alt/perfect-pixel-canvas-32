@@ -634,18 +634,18 @@ function BookMeetingsEvents() {
           position: relative;
           overflow: hidden;
           isolation: isolate;
-          color: #1C1C1C;
-          background-image:
-            linear-gradient(180deg, #FFFFFF 0%, #FAF7F0 55%, #F1EADB 100%);
+          color: #1A1A1A;
+          background: #FFFFFF;
           border: 1px solid #D4AF37;
           border-radius: 16px;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.9),
-            inset 0 -1px 0 rgba(212, 175, 55, 0.20),
-            0 10px 26px -12px rgba(0, 0, 0, 0.18),
-            0 3px 8px -3px rgba(0, 0, 0, 0.08);
+            inset 0 1px 0 rgba(255, 245, 200, 0.55),
+            inset 0 -1px 0 rgba(143, 104, 24, 0.35),
+            0 0 18px rgba(212, 175, 55, 0.10),
+            0 10px 28px rgba(15, 23, 42, 0.08),
+            0 2px 8px rgba(212, 175, 55, 0.08);
           cursor: pointer;
-          transition: transform 250ms ease-out, box-shadow 250ms ease-out, filter 250ms ease-out, background-image 250ms ease-out, color 250ms ease-out, border-color 250ms ease-out;
+          transition: transform 250ms ease-out, box-shadow 250ms ease-out, filter 250ms ease-out, background 250ms ease-out, color 250ms ease-out, border-color 250ms ease-out;
         }
         .complete-stay-plus {
           color: #D4AF37;
@@ -2171,7 +2171,7 @@ function StepThreeAccommodation({
             <button
               type="button"
               onClick={onNext}
-              className="complete-stay-btn mt-5 w-full inline-flex items-center justify-center gap-2 h-[52px] text-[15px] font-semibold"
+              className="complete-stay-btn mt-5 w-full inline-flex items-center justify-center gap-2 h-[52px] text-[15px] font-medium"
             >
               <Plus size={18} className="complete-stay-plus" />
               Complete stay and continue
