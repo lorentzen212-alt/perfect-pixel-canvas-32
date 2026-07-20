@@ -592,7 +592,7 @@ function BookMeetingsEvents() {
 
 
         .meal-card {
-          background: linear-gradient(180deg, #FBF8F3 0%, #F7F3ED 100%);
+          background: linear-gradient(180deg, #F9FAFB 0%, #F1F2F4 100%);
           border: 1px solid #D8CFC0;
           box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
           transition: all 200ms ease;
@@ -605,7 +605,7 @@ function BookMeetingsEvents() {
 
         .meal-card-selected {
           background:
-            linear-gradient(145deg, #FBF8F3 0%, #F7F3ED 100%) padding-box,
+            linear-gradient(145deg, #FFFFFF 0%, #FDFAF4 100%) padding-box,
             linear-gradient(135deg, #E8CE86 0%, #C9A24A 35%, #F3DFA2 55%, #B08528 100%) border-box;
           border: 2px solid transparent;
           box-shadow:
@@ -2003,7 +2003,7 @@ function StepThreeAccommodation({
         className="overflow-hidden rounded-[20px]"
         style={{
           background:
-            "linear-gradient(180deg, #FBF8F3 0%, #F9F6F1 50%, #F7F3ED 100%)",
+            "linear-gradient(180deg, #FAF9F6 0%, #F7F6F2 50%, #F4F3EF 100%)",
           boxShadow:
             "inset 0 1px 0 rgba(255,255,255,0.75), 0 12px 34px rgba(15,23,42,0.06), 0 3px 10px rgba(15,23,42,0.03)",
           border: "1px solid #E8E6E1",
@@ -2016,7 +2016,7 @@ function StepThreeAccommodation({
             <div
               className="rounded-[16px] p-6 lg:p-7"
               style={{
-                background: "linear-gradient(180deg, #FBF8F3 0%, #F7F3ED 100%)",
+                backgroundColor: "#FFFFFF",
                 border: "1px solid #EEEBE3",
                 boxShadow: "0 6px 18px -10px rgba(10,27,44,0.08)",
               }}
@@ -2287,7 +2287,7 @@ function StepThreeAccommodation({
                       key={s.id}
                       className="flex items-center justify-between gap-4 rounded-[12px] px-4 py-3"
                       style={{
-                        background: "linear-gradient(180deg, #FBF8F3 0%, #F7F3ED 100%)",
+                        backgroundColor: "#FFFFFF",
                         border: "1px solid #EEEBE3",
                       }}
                     >
@@ -2353,7 +2353,7 @@ function StepThreeAccommodation({
                   placeholder="E.g. early check-in, late check-out, welcome gift, specific floor, etc."
                   className="mt-3 w-full rounded-[10px] px-4 py-3 text-[14px] text-[#0A1B2C] placeholder:text-[#9BA4AE] outline-none transition-all focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
                   style={{
-                    backgroundColor: "#F9F6F1",
+                    backgroundColor: "#FFFFFF",
                     border: "1px solid #E6E2D5",
                     boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
                   }}
@@ -2519,7 +2519,7 @@ function DateField({
       <div
         className="group mt-2 flex items-center gap-2 rounded-[10px] px-3 h-[46px] transition-all focus-within:border-[#D4AF37] focus-within:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
         style={{
-          backgroundColor: "#F9F6F1",
+          backgroundColor: "#FFFFFF",
           border: "1px solid #E6E2D5",
           boxShadow:
             "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
@@ -2557,7 +2557,7 @@ function Counter({
       <div
         className="flex items-center justify-between rounded-[10px] h-[46px] px-1.5"
         style={{
-          backgroundColor: "#F9F6F1",
+          backgroundColor: "#FFFFFF",
           border: "1px solid #E6E2D5",
           boxShadow:
             "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
@@ -2614,7 +2614,7 @@ function RoomRow({
     <div
       className="rounded-[16px] px-4 sm:px-5 py-4 sm:py-4"
       style={{
-        background: "linear-gradient(180deg, #FBF8F3 0%, #F7F3ED 100%)",
+        backgroundColor: "#FFFFFF",
         border: "1px solid #ECE7DC",
         boxShadow:
           "0 6px 20px -14px rgba(10,27,44,0.20), 0 1px 2px rgba(10,27,44,0.03)",
@@ -2628,7 +2628,7 @@ function RoomRow({
         <div
           className="col-span-3 sm:col-span-1 flex items-center justify-between sm:justify-center rounded-[10px] h-[44px] sm:w-[132px] px-1.5"
           style={{
-            backgroundColor: "#F9F6F1",
+            backgroundColor: "#FFFFFF",
             border: "1px solid #E6E2D5",
             boxShadow:
               "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
@@ -2673,7 +2673,7 @@ function RoomRow({
             onChange={(e) => onCategoryChange(e.target.value)}
             className="w-full appearance-none rounded-[10px] h-[44px] pl-3 pr-9 text-[14px] text-[#0A1B2C] outline-none focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
             style={{
-              backgroundColor: "#F9F6F1",
+              backgroundColor: "#FFFFFF",
               border: "1px solid #E6E2D5",
               boxShadow:
                 "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
