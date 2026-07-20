@@ -1830,8 +1830,8 @@ function StepTwoLocation({
         </div>
 
         {/* Luxury lounge illustration — anchored at bottom, wider */}
-        <div className="relative mt-4 px-0 pb-0 overflow-hidden">
-          <div className="relative w-full">
+        <div className="relative mt-10 px-0 pb-0 overflow-hidden">
+          <div className="relative w-[115%] -ml-[7.5%]">
             <img
               src={loungeImg}
               alt=""
@@ -1849,8 +1849,7 @@ function StepTwoLocation({
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(255,240,205,0.18) 0%, rgba(214,177,90,0.10) 55%, rgba(168,117,22,0.06) 100%)",
-                mixBlendMode: "soft-light",
+                  "linear-gradient(180deg, rgba(252,251,248,0.55) 0%, rgba(252,251,248,0) 22%, rgba(214,177,90,0.06) 70%, rgba(168,117,22,0.04) 100%)",
               }}
             />
             <div
@@ -1858,11 +1857,13 @@ function StepTwoLocation({
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(120% 80% at 30% 20%, rgba(255,245,210,0.22) 0%, rgba(255,245,210,0) 55%)",
+                  "radial-gradient(120% 80% at 30% 20%, rgba(255,245,210,0.20) 0%, rgba(255,245,210,0) 55%)",
               }}
             />
           </div>
         </div>
+
+
 
       </aside>
     </div>
