@@ -1527,7 +1527,9 @@ function StepTwoLocation({
                   )}
                   style={{
                     background:
-                      "linear-gradient(180deg,#0F2233 0%, #0A1B2C 100%)",
+                      "linear-gradient(180deg,#0F2233 0%, #0A1B2C 100%) padding-box, linear-gradient(180deg,#F5E4A6 0%, #D6B15A 45%, #C79A32 75%, #A87516 100%) border-box",
+                    border: "1.5px solid transparent",
+                    boxShadow: "0 6px 18px -12px rgba(10,27,44,0.35), inset 0 1px 0 rgba(245,228,166,0.18)",
                   }}
                 >
                   <Globe size={30} strokeWidth={1.4} className="text-[#F0D78C]" />
