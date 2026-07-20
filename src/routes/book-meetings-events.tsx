@@ -1434,18 +1434,12 @@ function StepTwoLocation({
                   onClick={() => pickDestinationCard(d)}
                   aria-pressed={selected}
                   className={cn(
-                    "group relative overflow-hidden rounded-[16px] aspect-[4/3] flex flex-col items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50",
-                    selected ? "-translate-y-[3px]" : "hover:-translate-y-[3px]",
+                    "destination-card group relative overflow-hidden rounded-[16px] aspect-[4/3] flex flex-col items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/35",
+                    selected && "destination-card--selected",
                   )}
                   style={{
                     background:
                       "linear-gradient(180deg,#0F2233 0%, #0A1B2C 100%)",
-                    border: selected
-                      ? "1.5px solid #D4AF37"
-                      : "1px solid rgba(212,175,55,0.55)",
-                    boxShadow: selected
-                      ? "0 22px 46px -22px rgba(200,154,58,0.55), inset 0 0 0 1px rgba(255,236,183,0.25)"
-                      : "0 14px 32px -20px rgba(10,27,44,0.35)",
                   }}
                 >
                   <Globe size={30} strokeWidth={1.4} className="text-[#F0D78C]" />
@@ -1467,19 +1461,14 @@ function StepTwoLocation({
                 onClick={() => pickDestinationCard(d)}
                 aria-pressed={selected}
                 className={cn(
-                  "group relative overflow-hidden rounded-[16px] aspect-[4/3] text-left transition-all duration-[280ms] ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50",
-                  selected ? "-translate-y-[3px]" : "hover:-translate-y-[3px]",
+                  "destination-card group relative overflow-hidden rounded-[16px] aspect-[4/3] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/35",
+                  selected && "destination-card--selected",
                 )}
                 style={{
-                  border: selected
-                    ? "1.5px solid #D4AF37"
-                    : "1px solid rgba(212,175,55,0.5)",
-                  boxShadow: selected
-                    ? "0 22px 46px -22px rgba(200,154,58,0.55), inset 0 0 0 1px rgba(255,236,183,0.28)"
-                    : "0 14px 32px -20px rgba(10,27,44,0.28)",
                   background: "#0A1B2C",
                 }}
               >
+
                 <img
                   src={d.image}
                   alt={d.name}
