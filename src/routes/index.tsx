@@ -198,19 +198,12 @@ function Home() {
           {TRUST.map(({ Icon, label, size }) => (
             <div key={label} className="flex items-center gap-2 shrink-0">
               <Icon size={size} />
-              {label === "Secure & trusted" ? (
-                <span className="relative inline-block text-white text-[16px] lg:text-[17px] whitespace-nowrap" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}>
-                  <span className="absolute -inset-x-2 -inset-y-1 rounded-md bg-gradient-to-r from-transparent via-white/12 to-transparent pointer-events-none" aria-hidden="true" />
-                  <span className="relative">{label}</span>
-                </span>
-              ) : (
-                <span
-                  className="text-white text-[16px] lg:text-[17px] whitespace-nowrap"
-                  style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
-                >
-                  {label}
-                </span>
-              )}
+              <span
+                className="text-white text-[16px] lg:text-[17px] whitespace-nowrap"
+                style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
+              >
+                {label}
+              </span>
             </div>
           ))}
           </div>
