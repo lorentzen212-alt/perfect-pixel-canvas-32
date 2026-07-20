@@ -923,19 +923,8 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   zIndex: 1,
                 }}
               >
-                {active && (
-                  <span
-                    aria-hidden
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%)",
-                      animation: "step-shimmer-sweep 5200ms ease-in-out infinite",
-                      pointerEvents: "none",
-                    }}
-                  />
-                )}
+                {/* shimmer sweep removed per spec — only sparkles animate */}
+
 
                 <span style={{ position: "relative", zIndex: 2 }}>
                   {completed ? <Check size={16} strokeWidth={2.5} style={{ color: GOLD }} /> : n}
