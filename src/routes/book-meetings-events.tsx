@@ -179,19 +179,21 @@ function BookMeetingsEvents() {
           backgroundColor: NAVY_DEEP,
           backgroundImage: `url(${heroImg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center right",
+          backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
         }}
       >
-        {/* Left dark gradient for text legibility */}
+        {/* Soft left-brighter / right-darker overlay for editorial legibility */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(4,17,26,0.92) 0%, rgba(4,17,26,0.78) 35%, rgba(4,17,26,0.35) 60%, rgba(4,17,26,0.05) 100%)",
+              "linear-gradient(90deg, rgba(8,18,28,0.55) 0%, rgba(8,18,28,0.35) 38%, rgba(8,18,28,0.20) 60%, rgba(8,18,28,0.45) 100%)",
           }}
         />
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-black/60 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-black/55 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-black/50 to-transparent" />
+
 
         <div className="relative z-20">
           {/* HEADER */}
