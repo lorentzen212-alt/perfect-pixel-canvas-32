@@ -484,45 +484,42 @@ function BookMeetingsEvents() {
 
         /* Luxury metallic gold border for destination cards */
         .destination-card {
-          border: 1.5px solid transparent;
+          border: 1px solid transparent;
           background-clip: padding-box;
-          box-shadow:
-            0 0 0 1.5px rgba(0,0,0,0),
-            0 10px 26px -18px rgba(10,27,44,0.30);
-          transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+          box-shadow: 0 8px 22px -18px rgba(10,27,44,0.24);
+          transition: transform 260ms ease, box-shadow 260ms ease, filter 260ms ease;
           position: relative;
         }
         .destination-card::before {
           content: "";
           position: absolute;
-          inset: -1.5px;
+          inset: -1px;
           border-radius: inherit;
-          padding: 1.5px;
-          background: linear-gradient(180deg, #F5E4A6 0%, #D6B15A 42%, #C79A32 72%, #A87516 100%);
+          padding: 1px;
+          background: linear-gradient(180deg, #E8D48A 0%, #C9A24A 45%, #B48A2E 100%);
           -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
           -webkit-mask-composite: xor;
                   mask-composite: exclude;
           pointer-events: none;
-          transition: filter 220ms ease, opacity 220ms ease;
+          transition: filter 260ms ease, opacity 260ms ease;
           z-index: 3;
+          opacity: 0.85;
         }
         .destination-card:hover {
-          transform: scale(1.02);
-          box-shadow:
-            0 14px 30px -16px rgba(10,27,44,0.34),
-            0 0 12px -2px rgba(214,177,90,0.22);
+          transform: translateY(-2px);
+          box-shadow: 0 14px 30px -18px rgba(10,27,44,0.30);
         }
         .destination-card:hover::before {
-          filter: brightness(1.12);
+          opacity: 1;
         }
         .destination-card--selected::before {
-          filter: brightness(1.15);
+          opacity: 1;
+          filter: brightness(1.08);
         }
         .destination-card--selected {
-          box-shadow:
-            0 16px 32px -18px rgba(10,27,44,0.38),
-            0 0 14px -2px rgba(214,177,90,0.28);
+          box-shadow: 0 14px 30px -18px rgba(10,27,44,0.30);
         }
+
 
         /* Metallic country pill hover */
         .country-pill { transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease, border-color 220ms ease; }
