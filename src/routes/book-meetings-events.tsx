@@ -245,7 +245,8 @@ function BookMeetingsEvents() {
                   <Link
                     key={l.label}
                     to={l.to}
-                    className="text-[#0A1B2C] text-[17px] transition-colors hover:text-[#B88917]"
+                    className="text-[17px] font-medium transition-colors hover:text-[#F2D477]"
+                    style={{ color: "#F5F5F0", textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
                   >
                     {l.label}
                   </Link>
@@ -253,7 +254,8 @@ function BookMeetingsEvents() {
                   <a
                     key={l.label}
                     href={l.href}
-                    className="text-[#0A1B2C] text-[17px] transition-colors hover:text-[#B88917]"
+                    className="text-[17px] font-medium transition-colors hover:text-[#F2D477]"
+                    style={{ color: "#F5F5F0", textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
                   >
                     {l.label}
                   </a>
@@ -261,20 +263,24 @@ function BookMeetingsEvents() {
               )}
               <Link
                 to="/manage-bookings"
-                className="inline-flex items-center gap-[13px] rounded-[6px] px-[18px] h-[51px] text-[16px] font-medium transition-all duration-200 ease-out hover:-translate-y-[2px] hover:brightness-[1.04] active:translate-y-0 active:brightness-95"
+                className="inline-flex items-center gap-[13px] rounded-[8px] px-[18px] h-[51px] text-[16px] font-medium transition-all duration-200 ease-out hover:-translate-y-[2px] hover:brightness-[1.08] active:translate-y-0 active:brightness-95"
                 style={{
-                  color: "#0F1B2D",
+                  color: "#E8C46A",
                   background:
-                    "linear-gradient(180deg, #F7D97A 0%, #D4AF37 55%, #B88917 100%)",
-                  border: "1px solid rgba(184,137,23,0.85)",
+                    "linear-gradient(135deg, #1A1A1A 0%, #0E0E10 55%, #050505 100%)",
+                  border: "1px solid",
+                  borderImage:
+                    "linear-gradient(135deg, #F2D477 0%, #D4AF37 45%, #8F6818 100%) 1",
+                  borderImageSlice: 1,
                   boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.45), inset 0 0 0 1px rgba(247,217,122,0.25), 0 6px 18px rgba(184,137,23,0.28), 0 0 22px rgba(212,175,55,0.22)",
+                    "inset 0 1px 0 rgba(242,212,119,0.28), inset 0 -1px 0 rgba(143,104,24,0.35), 0 4px 14px rgba(0,0,0,0.35), 0 0 18px rgba(212,175,55,0.14)",
                 }}
               >
-                <CalendarIcon size={19} strokeWidth={2} />
+                <CalendarIcon size={19} strokeWidth={2} style={{ color: "#E8C46A" }} />
                 Manage Bookings
               </Link>
             </nav>
+
           </header>
 
           {mobileOpen && (
