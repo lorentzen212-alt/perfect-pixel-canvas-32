@@ -482,6 +482,66 @@ function BookMeetingsEvents() {
         .animate-slide-in-right { animation: slide-in-right 300ms ease-out; }
         .animate-slide-in-left { animation: slide-in-left 300ms ease-out; }
 
+        /* Luxury metallic gold border for destination cards */
+        .destination-card {
+          border: 1.5px solid transparent;
+          background-clip: padding-box;
+          box-shadow:
+            0 0 0 1.5px rgba(0,0,0,0),
+            0 10px 26px -18px rgba(10,27,44,0.30);
+          transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+          position: relative;
+        }
+        .destination-card::before {
+          content: "";
+          position: absolute;
+          inset: -1.5px;
+          border-radius: inherit;
+          padding: 1.5px;
+          background: linear-gradient(180deg, #F5E4A6 0%, #D6B15A 42%, #C79A32 72%, #A87516 100%);
+          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          -webkit-mask-composite: xor;
+                  mask-composite: exclude;
+          pointer-events: none;
+          transition: filter 220ms ease, opacity 220ms ease;
+          z-index: 3;
+        }
+        .destination-card:hover {
+          transform: scale(1.02);
+          box-shadow:
+            0 14px 30px -16px rgba(10,27,44,0.34),
+            0 0 12px -2px rgba(214,177,90,0.22);
+        }
+        .destination-card:hover::before {
+          filter: brightness(1.12);
+        }
+        .destination-card--selected::before {
+          filter: brightness(1.15);
+        }
+        .destination-card--selected {
+          box-shadow:
+            0 16px 32px -18px rgba(10,27,44,0.38),
+            0 0 14px -2px rgba(214,177,90,0.28);
+        }
+
+        /* Metallic country pill hover */
+        .country-pill { transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease, border-color 220ms ease; }
+        .country-pill--active:hover { filter: brightness(1.06); box-shadow: 0 6px 14px -6px rgba(168,117,22,0.28), inset 0 1px 0 rgba(245,228,166,0.45); }
+
+        /* Active step: slow metallic shimmer + multiple sparkles */
+        @keyframes step-shimmer {
+          0%   { transform: translateX(-140%) rotate(20deg); opacity: 0; }
+          20%  { opacity: 0.85; }
+          80%  { opacity: 0.85; }
+          100% { transform: translateX(140%) rotate(20deg); opacity: 0; }
+        }
+        @keyframes step-spark {
+          0%, 100% { opacity: 0; transform: scale(0.4); }
+          50%      { opacity: 1; transform: scale(1); }
+        }
+
+
+
         .meal-card {
           background: linear-gradient(145deg, #FFFFFF 0%, #FCFBF7 55%, #F5F2EA 100%);
           border: 1px solid rgba(201, 156, 45, 0.28);
