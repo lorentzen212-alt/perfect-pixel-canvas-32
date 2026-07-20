@@ -326,10 +326,11 @@ function BookMeetingsEvents() {
 
           {/* PROGRESS BAR */}
           <div
-            className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-10"
+            className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-7 pt-2"
           >
             <StepProgress step={step} onGo={go} />
           </div>
+
         </div>
       </section>
 
