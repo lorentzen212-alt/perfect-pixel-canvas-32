@@ -330,7 +330,7 @@ function BookMeetingsEvents() {
               <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3">
                 {TRUST.map(({ Icon, label }) => (
                   <div key={label} className="flex items-center gap-2">
-                    <Icon size={30} />
+                    <Icon size={44} />
                     <span className="text-[#0A1B2C] text-[15px] font-medium">{label}</span>
                   </div>
                 ))}
