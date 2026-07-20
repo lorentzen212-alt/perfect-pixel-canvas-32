@@ -1430,7 +1430,7 @@ function StepTwoLocation({
         >
           Step{" "}
           <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500, fontSize: "0.93em", display: "inline-block" }}>
-            2
+            1
           </span>
           {" "}– Location
         </h2>
