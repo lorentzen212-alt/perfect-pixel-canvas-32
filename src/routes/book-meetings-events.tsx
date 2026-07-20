@@ -1753,15 +1753,16 @@ function StepTwoLocation({
           <path
             d="M170 -20 C 130 120, 90 220, 150 360 C 200 480, 130 580, 100 660"
             stroke="url(#gold1)"
-            strokeWidth="0.7"
+            strokeWidth="0.5"
             fill="none"
           />
           <path
             d="M180 40 C 150 180, 100 260, 165 400 C 210 520, 150 620, 130 700"
             stroke="url(#gold2)"
-            strokeWidth="0.5"
+            strokeWidth="0.35"
             fill="none"
           />
+
           <defs>
             <linearGradient id="gold1" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#D6B15A" stopOpacity="0" />
