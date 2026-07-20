@@ -808,8 +808,6 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
             }}
           />
           {/* progress line intentionally static — no sparkles */}
-          <div style={{ display: "none" }} aria-hidden>
-
         </div>
 
         {STEPS.map((label, i) => {
