@@ -1376,17 +1376,26 @@ function StepTwoLocation({
                 onClick={() => changeCountry(c.code)}
                 aria-pressed={active}
                 className={cn(
-                  "group inline-flex items-center gap-3 rounded-full pl-4 pr-6 h-[48px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
-                  active ? "-translate-y-[1px]" : "hover:-translate-y-[1px]",
+                  "country-pill group inline-flex items-center gap-3 rounded-full pl-4 pr-6 h-[48px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/30",
+                  active ? "country-pill--active -translate-y-[1px]" : "hover:-translate-y-[1px]",
                 )}
                 style={{
                   background: "#FFFFFF",
-                  border: active ? "1.5px solid #D4AF37" : "1px solid #ECE6D6",
+                  border: active ? "1.5px solid transparent" : "1px solid #ECE6D6",
                   color: active ? "#7A5A1E" : "#4A5866",
                   fontWeight: active ? 600 : 500,
-                  boxShadow: active
-                    ? "0 10px 24px -14px rgba(200,154,58,0.45), inset 0 0 0 1px rgba(255,236,183,0.35)"
-                    : "0 4px 14px -12px rgba(10,27,44,0.14)",
+                  ...(active
+                    ? {
+                        backgroundImage:
+                          "linear-gradient(#FFFFFF,#FFFFFF), linear-gradient(180deg,#F5E4A6 0%, #D6B15A 45%, #C79A32 75%, #A87516 100%)",
+                        backgroundOrigin: "border-box",
+                        backgroundClip: "padding-box, border-box",
+                        boxShadow:
+                          "0 2px 6px -2px rgba(168,117,22,0.18), inset 0 1px 0 rgba(245,228,166,0.35)",
+                      }
+                    : {
+                        boxShadow: "0 4px 14px -12px rgba(10,27,44,0.14)",
+                      }),
                 }}
               >
                 <span
@@ -1397,6 +1406,7 @@ function StepTwoLocation({
                 </span>
                 {c.name}
               </button>
+
             );
           })}
         </div>
