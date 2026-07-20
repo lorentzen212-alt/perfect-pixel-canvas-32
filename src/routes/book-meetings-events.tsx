@@ -2242,13 +2242,14 @@ function StepThreeAccommodation({
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
-                    icon={<BedDouble size={19} />}
+                    icon={<LuxBedIcon size={22} />}
                     label="Room Only"
+
                     selected={mealPlan === "room"}
                     onClick={() => setMealPlan("room")}
                   />
                   <MealOption
-                    icon={<Coffee size={19} />}
+                    icon={<LuxCoffeeIcon size={22} />}
                     label="Breakfast Included"
                     selected={mealPlan === "breakfast"}
                     onClick={() => setMealPlan("breakfast")}
@@ -2803,21 +2804,73 @@ function TwinBedsIcon({ size = 22 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden
       strokeLinecap="round" strokeLinejoin="round">
       <PremiumRoomIconDefs id={id} />
-      <g stroke={`url(#${id}-stroke)`} strokeWidth={1.55} filter={`url(#${id}-glow)`}>
-        {/* left bed */}
-        <path d="M2.2 16.5v-4.2a1.6 1.6 0 0 1 1.6-1.6h5.8a1.6 1.6 0 0 1 1.6 1.6v4.2" />
-        <rect x="3.2" y="8.6" width="2.4" height="2.1" rx="0.5" />
-        <path d="M2.2 14.4h8.8" />
-        {/* right bed */}
-        <path d="M12.8 16.5v-4.2a1.6 1.6 0 0 1 1.6-1.6h5.8a1.6 1.6 0 0 1 1.6 1.6v4.2" />
-        <rect x="13.8" y="8.6" width="2.4" height="2.1" rx="0.5" />
-        <path d="M12.8 14.4h8.8" />
-        {/* floor */}
-        <path d="M2 18.4h20" />
+      <g stroke={`url(#${id}-stroke)`} strokeWidth={1.5} filter={`url(#${id}-glow)`}>
+        {/* left bed - complete single bed */}
+        <path d="M2 18.4v-6.2" />
+        <path d="M2 12.6c0-1 .8-1.8 1.8-1.8h5.6c1 0 1.8.8 1.8 1.8" />
+        <path d="M11.2 12.6v5.8" />
+        <path d="M2 15.6h9.2" />
+        <rect x="3.3" y="7.6" width="4.6" height="3.4" rx="0.9" />
+        {/* right bed - complete single bed */}
+        <path d="M12.8 18.4v-6.2" />
+        <path d="M12.8 12.6c0-1 .8-1.8 1.8-1.8h5.6c1 0 1.8.8 1.8 1.8" />
+        <path d="M22 12.6v5.8" />
+        <path d="M12.8 15.6H22" />
+        <rect x="14.1" y="7.6" width="4.6" height="3.4" rx="0.9" />
       </g>
       <g stroke={`url(#${id}-hi)`} strokeWidth={0.55} fill="none">
-        <path d="M3.2 12.6c.4-.6 1-.9 1.7-.9" />
-        <path d="M13.8 12.6c.4-.6 1-.9 1.7-.9" />
+        <path d="M3.9 8.4c.4-.5 1-.7 1.6-.7" />
+        <path d="M14.7 8.4c.4-.5 1-.7 1.6-.7" />
+      </g>
+    </svg>
+  );
+}
+
+function LuxBedIcon({ size = 22 }: { size?: number }) {
+  const id = "lxbd";
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden
+      strokeLinecap="round" strokeLinejoin="round">
+      <PremiumRoomIconDefs id={id} />
+      <g stroke={`url(#${id}-stroke)`} strokeWidth={1.5} filter={`url(#${id}-glow)`}>
+        {/* headboard */}
+        <path d="M2.2 17.4v-6.8" />
+        <path d="M2.2 10.6c0-.9.7-1.6 1.6-1.6h1.4" />
+        {/* mattress + pillows */}
+        <path d="M2.2 14.2c0-1.2 1-2.2 2.2-2.2h13.6c1.9 0 3.4 1.5 3.4 3.4v2" />
+        <path d="M6.2 12v-1.8c0-.5.4-.9.9-.9h3.4c.5 0 .9.4.9.9V12" />
+        <path d="M12.6 12v-1.8c0-.5.4-.9.9-.9h3.4c.5 0 .9.4.9.9V12" />
+        {/* base line */}
+        <path d="M2.2 17.4h19.2" />
+      </g>
+      <g stroke={`url(#${id}-hi)`} strokeWidth={0.55} fill="none">
+        <path d="M6.8 10c.3-.3.7-.5 1.2-.5" />
+        <path d="M13.2 10c.3-.3.7-.5 1.2-.5" />
+      </g>
+    </svg>
+  );
+}
+
+function LuxCoffeeIcon({ size = 22 }: { size?: number }) {
+  const id = "lxcf";
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden
+      strokeLinecap="round" strokeLinejoin="round">
+      <PremiumRoomIconDefs id={id} />
+      <g stroke={`url(#${id}-stroke)`} strokeWidth={1.5} filter={`url(#${id}-glow)`} fill="none">
+        {/* steam */}
+        <path d="M8.4 3.4c-.6.8-.6 1.6 0 2.4s.6 1.6 0 2.4" />
+        <path d="M12 3.4c-.6.8-.6 1.6 0 2.4s.6 1.6 0 2.4" />
+        <path d="M15.6 3.4c-.6.8-.6 1.6 0 2.4s.6 1.6 0 2.4" />
+        {/* cup body */}
+        <path d="M4 10.4h14v3.6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-3.6z" />
+        {/* handle */}
+        <path d="M18 11.6h1.4a2.2 2.2 0 0 1 0 4.4H18" />
+        {/* saucer */}
+        <path d="M3 20.2h16" />
+      </g>
+      <g stroke={`url(#${id}-hi)`} strokeWidth={0.55} fill="none">
+        <path d="M5.4 11.5c.4-.4 1-.6 1.6-.6" />
       </g>
     </svg>
   );
