@@ -176,12 +176,12 @@ function BookMeetingsEvents() {
     >
       {/* HERO */}
       <section
-        className="relative w-full"
+        className="relative w-full min-h-[650px] lg:h-[650px]"
         style={{
           backgroundColor: NAVY_DEEP,
           backgroundImage: `url(${heroImg})`,
-          backgroundSize: "112% auto",
-          backgroundPosition: "center 30%",
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
         }}
       >
@@ -190,28 +190,37 @@ function BookMeetingsEvents() {
           className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[110px]"
           style={{
             background:
-              "linear-gradient(180deg, rgba(10,20,35,0.42) 0%, rgba(10,20,35,0.18) 55%, rgba(10,20,35,0) 100%)",
+              "linear-gradient(180deg, rgba(10,20,35,0.38) 0%, rgba(10,20,35,0.16) 55%, rgba(10,20,35,0) 100%)",
           }}
         />
         {/* LEFT: soft white/champagne wash behind headline */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[62%]"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[60%]"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,250,240,0.72) 0%, rgba(255,250,240,0.42) 35%, rgba(255,250,240,0.14) 70%, rgba(255,250,240,0) 100%)",
+              "linear-gradient(90deg, rgba(255,250,240,0.74) 0%, rgba(255,250,240,0.42) 35%, rgba(255,250,240,0.14) 70%, rgba(255,250,240,0) 100%)",
           }}
         />
         {/* BOTTOM: darker gradient behind progress navigation */}
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[220px]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[200px]"
           style={{
             background:
-              "linear-gradient(180deg, rgba(6,14,26,0) 0%, rgba(6,14,26,0.35) 40%, rgba(6,14,26,0.78) 100%)",
+              "linear-gradient(180deg, rgba(6,14,26,0) 0%, rgba(6,14,26,0.38) 45%, rgba(6,14,26,0.82) 100%)",
+          }}
+        />
+        {/* BOTTOM-RIGHT: slightly darker corner vignette */}
+        <div
+          className="pointer-events-none absolute inset-0 z-10"
+          style={{
+            background:
+              "radial-gradient(ellipse at 100% 100%, rgba(6,14,26,0.35) 0%, rgba(6,14,26,0) 45%)",
           }}
         />
 
 
-        <div className="relative z-20">
+        <div className="relative z-20 flex flex-col lg:h-[650px] min-h-[650px]">
+
           {/* HEADER */}
           <header className="flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
             <Link to="/" aria-label="HotelGroupBook" className="flex items-center">
@@ -292,10 +301,10 @@ function BookMeetingsEvents() {
           )}
 
           {/* HERO CONTENT */}
-          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-6 pb-10 lg:pt-8 lg:pb-14">
+          <div className="flex-1 px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-4 lg:pt-6">
             <div className="max-w-[720px]">
               <h1
-                className="text-[#0A1B2C] text-5xl sm:text-6xl lg:text-[88px] leading-[1.02] tracking-tight"
+                className="text-[#0A1B2C] text-5xl sm:text-6xl lg:text-[80px] leading-[1.0] tracking-tight"
                 style={{ fontFamily: SERIF, fontWeight: 300 }}
               >
                 Extraordinary
@@ -303,7 +312,7 @@ function BookMeetingsEvents() {
                 Meetings.
               </h1>
 
-              <p className="mt-8 text-[#26364A] text-lg lg:text-[19px] leading-[1.55] max-w-[560px]">
+              <p className="mt-6 text-[#26364A] text-lg lg:text-[18px] leading-[1.55] max-w-[560px]">
                 Request offers for meetings, conferences and events.
                 <br />
                 Our M&amp;E specialists will find the best hotels
@@ -312,10 +321,10 @@ function BookMeetingsEvents() {
               </p>
 
               {/* Trust row */}
-              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3">
                 {TRUST.map(({ Icon, label }) => (
                   <div key={label} className="flex items-center gap-2">
-                    <Icon size={32} />
+                    <Icon size={30} />
                     <span className="text-[#0A1B2C] text-[15px] font-medium">{label}</span>
                   </div>
                 ))}
@@ -326,10 +335,11 @@ function BookMeetingsEvents() {
 
           {/* PROGRESS BAR */}
           <div
-            className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-7 pt-2"
+            className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-7 pt-4 mt-auto"
           >
             <StepProgress step={step} onGo={go} />
           </div>
+
 
         </div>
       </section>
