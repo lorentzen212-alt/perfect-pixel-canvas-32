@@ -2037,14 +2037,14 @@ function StepThreeAccommodation({
                       backgroundClip: "padding-box",
                     }}
                   >
-                    {/* crisp 1.5px metallic champagne-gold outline */}
+                    {/* crisp ~1.95px metallic champagne-gold outline (primary icon, ~17% thicker than secondary icons) */}
                     <span
                       aria-hidden
                       style={{
                         position: "absolute",
                         inset: 0,
                         borderRadius: 11,
-                        padding: 1.5,
+                        padding: 1.95,
                         background:
                           "linear-gradient(145deg, #FFF8D9 0%, #F7D98A 18%, #E8C468 38%, #C99A3A 58%, #A67C2E 78%, #8B6A24 100%)",
                         WebkitMask:
@@ -2054,6 +2054,7 @@ function StepThreeAccommodation({
                         pointerEvents: "none",
                       }}
                     />
+
                     {/* subtle inner highlight for depth */}
                     <span
                       aria-hidden
@@ -3006,13 +3007,13 @@ function LuxIconBadge({
           color: "#E6C25A",
         }}
       >
-        {/* crisp 1.5px metallic champagne-gold outline */}
+        {/* crisp ~1.65px metallic champagne-gold outline (~10% thicker) */}
         <span
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             borderRadius: radius,
-            padding: 1.5,
+            padding: 1.65,
             background:
               "linear-gradient(145deg, #FFF8D9 0%, #F7D98A 18%, #E8C468 38%, #C99A3A 58%, #A67C2E 78%, #8B6A24 100%)",
             WebkitMask:
