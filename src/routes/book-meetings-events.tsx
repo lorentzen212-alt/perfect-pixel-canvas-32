@@ -2564,7 +2564,9 @@ function RoomRow({
             className="qty-btn inline-flex h-8 w-8 items-center justify-center"
             aria-label={`Increase ${label}`}
           >
-            <Plus size={15} />
+            <span className="inline-flex" style={{ transform: "scale(1.08)", filter: "drop-shadow(-0.5px -0.5px 0.5px rgba(255,255,255,0.35)) drop-shadow(0 2px 2px rgba(0,0,0,0.35))" }}>
+              <AccomIcon name="plus" size={15} />
+            </span>
           </button>
         </div>
         <div className="col-span-3 sm:col-span-1 relative sm:w-[180px]">
