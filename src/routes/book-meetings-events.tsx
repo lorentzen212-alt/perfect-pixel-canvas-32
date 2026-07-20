@@ -1757,17 +1757,34 @@ function StepTwoLocation({
         className="relative overflow-hidden rounded-[26px]"
         style={{
           backgroundColor: "#FFFFFF",
-          backgroundImage: `url(${helpCardBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center bottom",
-          backgroundRepeat: "no-repeat",
-          border: "1px solid #ECE6D6",
           boxShadow:
             "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
           minHeight: 640,
         }}
       >
+        {/* Lounge image layer (fills the card, same radius via parent overflow-hidden) */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${helpCardBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center bottom",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+        {/* Seamless blend: fade the top of the image into the white card */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0"
+          style={{
+            height: "62%",
+            background:
+              "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 42%, rgba(255,255,255,0.85) 62%, rgba(255,255,255,0.45) 82%, rgba(255,255,255,0) 100%)",
+          }}
+        />
         <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
+
           <h3
             className="text-[#0A1B2C] text-[28px] leading-tight"
             style={{ fontFamily: SERIF, fontWeight: 500 }}
