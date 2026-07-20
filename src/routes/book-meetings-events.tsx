@@ -36,7 +36,7 @@ import {
 import { cn } from "@/lib/utils";
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
-import heroImg from "@/assets/me-hero-suite.jpg";
+import heroImg from "@/assets/me-hero-meeting.jpg";
 import loungeImg from "@/assets/luxury-lounge.jpg";
 
 import osloImg from "@/assets/destinations/oslo.jpg";
@@ -179,19 +179,21 @@ function BookMeetingsEvents() {
           backgroundColor: NAVY_DEEP,
           backgroundImage: `url(${heroImg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center right",
+          backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
         }}
       >
-        {/* Left dark gradient for text legibility */}
+        {/* Soft left-brighter / right-darker overlay for editorial legibility */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(4,17,26,0.92) 0%, rgba(4,17,26,0.78) 35%, rgba(4,17,26,0.35) 60%, rgba(4,17,26,0.05) 100%)",
+              "linear-gradient(90deg, rgba(8,18,28,0.55) 0%, rgba(8,18,28,0.35) 38%, rgba(8,18,28,0.20) 60%, rgba(8,18,28,0.45) 100%)",
           }}
         />
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-black/60 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-black/55 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-black/50 to-transparent" />
+
 
         <div className="relative z-20">
           {/* HEADER */}
@@ -234,17 +236,17 @@ function BookMeetingsEvents() {
               )}
               <Link
                 to="/manage-bookings"
-                className="inline-flex items-center gap-[13px] rounded-[6px] px-[18px] h-[51px] text-[16px] font-medium transition-all duration-200 ease-out hover:-translate-y-[2px] hover:brightness-[1.04] active:translate-y-0 active:brightness-95"
+                className="inline-flex items-center gap-[12px] rounded-[6px] px-[18px] h-[48px] text-[15px] font-medium tracking-[0.01em] transition-all duration-200 ease-out hover:-translate-y-[1px] hover:brightness-[1.03] active:translate-y-0"
                 style={{
-                  color: "#0F1B2D",
+                  color: "#F5E9C7",
                   background:
-                    "linear-gradient(180deg, #F7D97A 0%, #D4AF37 55%, #B88917 100%)",
-                  border: "1px solid rgba(184,137,23,0.85)",
+                    "linear-gradient(180deg, rgba(245,225,170,0.10) 0%, rgba(212,175,80,0.06) 100%)",
+                  border: "1px solid rgba(230,198,120,0.55)",
                   boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.45), inset 0 0 0 1px rgba(247,217,122,0.25), 0 6px 18px rgba(184,137,23,0.28), 0 0 22px rgba(212,175,55,0.22)",
+                    "inset 0 1px 0 rgba(255,240,200,0.10), 0 0 18px rgba(212,175,80,0.10)",
                 }}
               >
-                <CalendarIcon size={19} strokeWidth={2} />
+                <CalendarIcon size={17} strokeWidth={1.6} style={{ color: "#E6C678" }} />
                 Manage Bookings
               </Link>
             </nav>
@@ -274,15 +276,17 @@ function BookMeetingsEvents() {
           )}
 
           {/* HERO CONTENT */}
-          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-8 pb-14 lg:pt-12 lg:pb-20">
-            <div className="max-w-[720px]">
+          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-16 lg:pt-24 pb-20 lg:pb-28">
+            <div className="max-w-[760px]">
               <h1
-                className="text-white text-5xl sm:text-6xl lg:text-[72px] leading-[1.03] font-medium"
-                style={{ fontFamily: SERIF }}
+                className="text-white text-6xl sm:text-7xl lg:text-[104px] leading-[1.02] font-light tracking-[-0.015em]"
+                style={{ fontFamily: SERIF, textShadow: "0 2px 24px rgba(0,0,0,0.35)" }}
               >
-                Book Meetings &amp; Events
+                Extraordinary
+                <br />
+                Meetings<span style={{ color: "#E6C678" }}>.</span>
               </h1>
-              <p className="mt-6 text-white/90 text-lg lg:text-[19px] leading-[1.55] max-w-[560px]">
+              <p className="mt-12 text-white/85 text-[17px] lg:text-[18px] leading-[1.7] max-w-[520px] font-light">
                 Request offers for meetings, conferences and events.
                 <br />
                 Our M&amp;E specialists will find the best hotels
@@ -291,21 +295,22 @@ function BookMeetingsEvents() {
               </p>
 
               {/* Trust row */}
-              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <div className="mt-14 flex flex-wrap items-center gap-x-10 gap-y-4">
                 {TRUST.map(({ Icon, label }) => (
-                  <div key={label} className="flex items-center gap-2">
+                  <div key={label} className="flex items-center gap-2.5">
                     <span
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(245,194,90,0.55)" }}
+                      className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-full"
+                      style={{ border: "1px solid rgba(230,198,120,0.45)" }}
                     >
-                      <Icon size={16} strokeWidth={1.8} style={{ color: GOLD }} />
+                      <Icon size={14} strokeWidth={1.25} style={{ color: "#E6C678" }} />
                     </span>
-                    <span className="text-white text-[15px]">{label}</span>
+                    <span className="text-white/85 text-[14px] tracking-[0.01em] font-light">{label}</span>
                   </div>
                 ))}
               </div>
             </div>
           </div>
+
 
           {/* PROGRESS BAR */}
           <div
@@ -665,15 +670,14 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
         {/* Continuous progress track behind circles */}
         <div
           className="pointer-events-none absolute"
-          style={{ top: 18, left: edgeInset, right: edgeInset, zIndex: 0 }}
+          style={{ top: 14, left: edgeInset, right: edgeInset, zIndex: 0 }}
         >
-          {/* Inactive base line: solid up to step 6, dashed from step 6 -> step 7 */}
           <div className="relative h-px w-full">
             <div
               className="absolute left-0 top-0 h-px"
               style={{
                 width: `${((total - 2) / (total - 1)) * 100}%`,
-                backgroundColor: "rgba(245,194,90,0.28)",
+                backgroundColor: "rgba(230,198,120,0.22)",
               }}
             />
             <div
@@ -682,8 +686,8 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                 left: `${((total - 2) / (total - 1)) * 100}%`,
                 right: 0,
                 backgroundImage:
-                  "linear-gradient(90deg, rgba(255,255,255,0.35) 50%, transparent 50%)",
-                backgroundSize: "6px 1px",
+                  "linear-gradient(90deg, rgba(255,255,255,0.22) 50%, transparent 50%)",
+                backgroundSize: "5px 1px",
                 backgroundRepeat: "repeat-x",
               }}
             />
@@ -693,8 +697,8 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
             className="absolute left-0 top-0 h-px"
             style={{
               width: `${progressPercentage}%`,
-              background: `linear-gradient(90deg, ${GOLD} 0%, #FFD97A 100%)`,
-              boxShadow: `0 0 10px rgba(245,194,90,0.55)`,
+              background: "linear-gradient(90deg, #C9A24B 0%, #E6C678 50%, #F2D98A 100%)",
+              boxShadow: "0 0 6px rgba(230,198,120,0.45)",
               transition: "width 500ms cubic-bezier(0.4, 0, 0.2, 1)",
               zIndex: 1,
             }}
@@ -710,22 +714,22 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
           const pulse = active && pulseKey === step;
 
           const bg = active
-            ? "linear-gradient(180deg, #F7CF63 0%, #E4B52F 52%, #D9A520 100%)"
+            ? "linear-gradient(180deg, #F2D98A 0%, #E6C678 55%, #C9A24B 100%)"
             : completed
-              ? NAVY_DEEP
+              ? "rgba(10,20,32,0.75)"
               : "transparent";
           const borderColor = active
-            ? "rgba(255,223,130,0.95)"
+            ? "rgba(242,217,138,0.9)"
             : isLast
-              ? "rgba(255,255,255,0.28)"
-              : GOLD;
+              ? "rgba(255,255,255,0.22)"
+              : "rgba(230,198,120,0.55)";
           const numberColor = active
             ? "#FFFFFF"
             : completed
-              ? GOLD
+              ? "#E6C678"
               : isLast
-                ? "rgba(255,255,255,0.4)"
-                : GOLD;
+                ? "rgba(255,255,255,0.35)"
+                : "#E6C678";
 
           return (
             <button
@@ -735,7 +739,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
               disabled={!clickable}
               aria-current={active ? "step" : undefined}
               className={cn(
-                "relative flex flex-col items-center gap-2 flex-1 min-w-0",
+                "relative flex flex-col items-center gap-[10px] flex-1 min-w-0",
                 clickable ? "cursor-pointer" : "cursor-default",
               )}
               style={{ zIndex: 2 }}
@@ -745,12 +749,12 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   aria-hidden
                   className="pointer-events-none absolute"
                   style={{
-                    top: -6,
-                    width: 72,
-                    height: 72,
+                    top: -8,
+                    width: 56,
+                    height: 56,
                     borderRadius: "9999px",
                     background:
-                      "radial-gradient(circle, rgba(212,175,55,0.32) 0%, rgba(212,175,55,0.14) 35%, transparent 70%)",
+                      "radial-gradient(circle, rgba(230,198,120,0.22) 0%, rgba(230,198,120,0.08) 40%, transparent 70%)",
                     filter: "blur(2px)",
                     animation: "step-glow 2600ms ease-in-out infinite",
                     zIndex: 0,
@@ -758,15 +762,15 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                 />
               )}
               <span
-                className="relative flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold"
+                className="relative flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-medium"
                 style={{
                   background: bg,
                   color: numberColor,
                   border: `1px solid ${borderColor}`,
                   boxShadow: active
-                    ? "0 0 14px rgba(212,175,55,0.55), 0 0 30px rgba(212,175,55,0.22), 0 8px 18px rgba(217,165,32,0.20), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    ? "0 0 10px rgba(230,198,120,0.45), 0 4px 10px rgba(201,162,75,0.20), inset 0 1px 0 rgba(255,255,255,0.55)"
                     : completed
-                      ? "0 2px 6px rgba(0,0,0,0.25)"
+                      ? "0 1px 3px rgba(0,0,0,0.30)"
                       : "none",
                   transition:
                     "background 250ms cubic-bezier(0.4,0,0.2,1), box-shadow 250ms cubic-bezier(0.4,0,0.2,1), border-color 250ms",
@@ -774,44 +778,17 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   zIndex: 1,
                 }}
               >
-                {active && (
-                  <>
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        top: -3,
-                        right: 2,
-                        width: 3,
-                        height: 3,
-                        borderRadius: "9999px",
-                        background: "#FFE9A8",
-                        boxShadow: "0 0 6px #D4AF37",
-                        animation: "step-sparkle 1800ms ease-in-out infinite",
-                      }}
-                    />
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        bottom: -2,
-                        left: 0,
-                        width: 2,
-                        height: 2,
-                        borderRadius: "9999px",
-                        background: "#FFE9A8",
-                        boxShadow: "0 0 5px #D4AF37",
-                        animation: "step-sparkle 2200ms ease-in-out 600ms infinite",
-                      }}
-                    />
-                  </>
-                )}
-                {completed ? <Check size={16} strokeWidth={2.5} style={{ color: GOLD }} /> : n}
+                {completed ? <Check size={12} strokeWidth={2.25} style={{ color: "#E6C678" }} /> : n}
               </span>
               <span
-                className="text-[13px] lg:text-[14px] font-medium text-center whitespace-nowrap transition-colors duration-[250ms]"
+                className="text-[12px] lg:text-[13px] font-light tracking-[0.02em] text-center whitespace-nowrap transition-colors duration-[250ms]"
                 style={{
-                  color: active ? GOLD : isLast ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.85)",
+                  fontFamily: SANS,
+                  color: active
+                    ? "#E6C678"
+                    : isLast
+                      ? "rgba(255,255,255,0.4)"
+                      : "rgba(255,255,255,0.78)",
                 }}
               >
                 {label}
@@ -823,6 +800,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
     </div>
   );
 }
+
 
 /* --------- Step 1 --------- */
 
