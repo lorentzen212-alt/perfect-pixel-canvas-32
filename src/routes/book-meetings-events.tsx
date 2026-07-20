@@ -1555,26 +1555,27 @@ function StepTwoLocation({
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(4,17,26,0) 45%, rgba(4,17,26,0.55) 78%, rgba(4,17,26,0.9) 100%)",
+                      "linear-gradient(180deg, rgba(4,17,26,0) 40%, rgba(4,17,26,0.65) 75%, rgba(4,17,26,0.96) 100%)",
                   }}
                 />
-                <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 px-4 pb-3">
+                <div className="absolute inset-x-0 bottom-0 flex items-center gap-2.5 px-4 pb-3.5">
                   <span
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-md"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md"
                     style={{
                       background: "rgba(255,255,255,0.08)",
-                      border: "1px solid rgba(240,215,140,0.55)",
+                      border: "1px solid rgba(240,215,140,0.6)",
                     }}
                   >
-                    <d.Icon size={14} strokeWidth={1.6} className="text-[#F0D78C]" />
+                    <d.Icon size={16} strokeWidth={1.6} className="text-[#F0D78C]" />
                   </span>
                   <span
-                    className="text-white text-[17px] tracking-[-0.005em]"
+                    className="text-white text-[18px] tracking-[-0.005em]"
                     style={{ fontFamily: SANS, fontWeight: 500 }}
                   >
                     {d.name}
                   </span>
                 </div>
+
                 {selected && (
                   <span
                     className="absolute top-3 right-3 inline-flex h-6 w-6 items-center justify-center rounded-full"
