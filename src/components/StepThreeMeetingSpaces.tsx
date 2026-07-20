@@ -476,10 +476,10 @@ export function StepThreeMeetingSpaces({
             setup: "boardroom",
             attendees: primary,
             kind: "meeting",
-            equipment: ["screen", "wifi"],
+            equipment: ["screen"],
           },
         ],
-        equipment: ["screen", "wifi"],
+        equipment: ["screen"],
         catering: ["Coffee Break"],
         summary: ["1 Boardroom setup", "Large screen", "Coffee break"],
       };
