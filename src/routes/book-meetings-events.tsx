@@ -2588,11 +2588,12 @@ function RoomRow({
               </option>
             ))}
           </select>
-          <ChevronDown
-            size={16}
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
-            style={{ color: "#B88917" }}
-          />
+          <span
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 inline-flex"
+            style={{ transform: "scale(1.08) translateY(-50%)", filter: "drop-shadow(-0.5px -0.5px 0.5px rgba(255,255,255,0.35)) drop-shadow(0 2px 2px rgba(0,0,0,0.35))" }}
+          >
+            <AccomIcon name="chevronDown" size={16} />
+          </span>
         </div>
       </div>
     </div>
