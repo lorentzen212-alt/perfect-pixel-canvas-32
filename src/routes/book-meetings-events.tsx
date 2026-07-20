@@ -2020,9 +2020,111 @@ function StepThreeAccommodation({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <LuxIconBadge size={44}>
-                    <CalendarIcon size={21} strokeWidth={1.8} />
-                  </LuxIconBadge>
+                  <div
+                    aria-hidden
+                    className="relative shrink-0"
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 11,
+                      background:
+                        "radial-gradient(120% 120% at 30% 15%, #2A2A2E 0%, #141416 55%, #0A0A0C 100%)",
+                      boxShadow:
+                        "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35), 0 0 0 1.5px transparent, 0 0 18px rgba(212,168,83,0.28)",
+                      backgroundClip: "padding-box",
+                    }}
+                  >
+                    {/* metallic gold border */}
+                    <span
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: 11,
+                        padding: 1.6,
+                        background:
+                          "linear-gradient(140deg,#F6D98A 0%,#D4A853 30%,#8C6A24 55%,#E5C271 80%,#F6D98A 100%)",
+                        WebkitMask:
+                          "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                        WebkitMaskComposite: "xor",
+                        maskComposite: "exclude",
+                        pointerEvents: "none",
+                      }}
+                    />
+                    {/* glossy top highlight */}
+                    <span
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        left: 3,
+                        right: 3,
+                        top: 2,
+                        height: 14,
+                        borderRadius: "9px 9px 20px 20px / 9px 9px 12px 12px",
+                        background:
+                          "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0) 100%)",
+                        pointerEvents: "none",
+                      }}
+                    />
+                    {/* calendar icon */}
+                    <svg
+                      viewBox="0 0 24 24"
+                      width={24}
+                      height={24}
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%,-50%)",
+                      }}
+                    >
+                      <defs>
+                        <linearGradient id="calGold" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#FBE4A0" />
+                          <stop offset="45%" stopColor="#E7BE6A" />
+                          <stop offset="100%" stopColor="#A87A2C" />
+                        </linearGradient>
+                        <linearGradient id="calHeader" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#F8D98A" />
+                          <stop offset="100%" stopColor="#C89A3E" />
+                        </linearGradient>
+                      </defs>
+                      {/* body */}
+                      <rect
+                        x="3.2"
+                        y="4.8"
+                        width="17.6"
+                        height="15.2"
+                        rx="2.4"
+                        fill="none"
+                        stroke="url(#calGold)"
+                        strokeWidth="1.5"
+                      />
+                      {/* gold header bar */}
+                      <path
+                        d="M3.2 8.6 h17.6 v-1.4 a2.4 2.4 0 0 0 -2.4 -2.4 h-12.8 a2.4 2.4 0 0 0 -2.4 2.4 z"
+                        fill="url(#calHeader)"
+                      />
+                      {/* rings */}
+                      <rect x="7.4" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
+                      <rect x="15" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
+                      {/* date squares */}
+                      {[0, 1, 2].map((c) =>
+                        [0, 1].map((r) => (
+                          <rect
+                            key={`${c}-${r}`}
+                            x={6 + c * 4}
+                            y={11 + r * 3.4}
+                            width="2.6"
+                            height="2.4"
+                            rx="0.5"
+                            fill="url(#calGold)"
+                            opacity={r === 0 && c === 1 ? 1 : 0.78}
+                          />
+                        ))
+                      )}
+                    </svg>
+                  </div>
                   <div>
                   <h3
                     className="text-[#1A1F24] text-[20px] leading-tight tracking-[0.04em]"
