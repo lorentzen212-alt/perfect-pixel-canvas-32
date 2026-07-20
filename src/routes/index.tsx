@@ -198,7 +198,12 @@ function Home() {
           {TRUST.map(({ Icon, label, size }) => (
             <div key={label} className="flex items-center gap-2 shrink-0">
               <Icon size={size} />
-              <span className="text-[#F7F7F5] text-[16px] lg:text-[17px] whitespace-nowrap">{label}</span>
+              <span
+                className="text-[#171717] text-[16px] lg:text-[17px] whitespace-nowrap"
+                style={{ textShadow: "0 1px 2px rgba(255,255,255,0.45)" }}
+              >
+                {label}
+              </span>
             </div>
           ))}
           </div>
