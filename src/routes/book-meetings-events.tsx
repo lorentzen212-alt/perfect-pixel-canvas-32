@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type React from "react";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, useId } from "react";
 import {
   Menu,
   X,
@@ -2008,9 +2008,7 @@ function StepThreeAccommodation({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <LuxIconBadge size={44}>
-                    <CalendarIcon size={21} strokeWidth={1.8} />
-                  </LuxIconBadge>
+                  <AccomIconBadge size={44} name="calendar" />
                   <div>
                   <h3
                     className="text-[#1A1F24] text-[20px] leading-tight tracking-[0.04em]"
@@ -2079,7 +2077,7 @@ function StepThreeAccommodation({
                 </div>
                 <div className="flex flex-col gap-3">
                   <RoomRow
-                    icon={<User size={21} strokeWidth={1.7} />}
+                    iconName="user"
                     label="Single Room"
                     value={rooms.sgl}
                     onChange={(v) => setRooms({ ...rooms, sgl: v })}
@@ -2087,7 +2085,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, sgl: c })}
                   />
                   <RoomRow
-                    icon={<Users size={21} strokeWidth={1.7} />}
+                    iconName="users"
                     label="Double Room"
                     value={rooms.dbl}
                     onChange={(v) => setRooms({ ...rooms, dbl: v })}
@@ -2095,7 +2093,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, dbl: c })}
                   />
                   <RoomRow
-                    icon={<TwinBedsIcon size={23} />}
+                    iconName="twinBeds"
                     label="Twin Room"
                     value={rooms.twn}
                     onChange={(v) => setRooms({ ...rooms, twn: v })}
@@ -2103,7 +2101,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, twn: c })}
                   />
                   <RoomRow
-                    icon={<UsersRound size={21} strokeWidth={1.7} />}
+                    iconName="usersRound"
                     label="Triple Room"
                     value={rooms.trp}
                     onChange={(v) => setRooms({ ...rooms, trp: v })}
@@ -2124,13 +2122,13 @@ function StepThreeAccommodation({
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
-                    icon={<BedDouble size={19} />}
+                    iconName="bedDouble"
                     label="Room Only"
                     selected={mealPlan === "room"}
                     onClick={() => setMealPlan("room")}
                   />
                   <MealOption
-                    icon={<Coffee size={19} />}
+                    iconName="coffee"
                     label="Breakfast Included"
                     selected={mealPlan === "breakfast"}
                     onClick={() => setMealPlan("breakfast")}
@@ -2431,7 +2429,7 @@ function DateField({
           onChange={(e) => onChange(e.target.value)}
           className="flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
         />
-        <CalendarIcon size={16} style={{ color: "#B88917" }} />
+        <AccomIconBadge size={28} name="calendar" />
       </div>
     </label>
   );
@@ -2496,14 +2494,14 @@ const ROOM_CATEGORY_OPTIONS = [
 ] as const;
 
 function RoomRow({
-  icon,
+  iconName,
   label,
   value,
   onChange,
   category,
   onCategoryChange,
 }: {
-  icon: React.ReactNode;
+  iconName: AccomIconName;
   label: string;
   value: number;
   onChange: (v: number) => void;
@@ -2521,7 +2519,7 @@ function RoomRow({
       }}
     >
       <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 sm:gap-6">
-        <LuxIconBadge size={44}>{icon}</LuxIconBadge>
+        <AccomIconBadge size={44} name={iconName} />
         <div className="min-w-0 text-[#0A1B2C] text-[15px] sm:text-[16px] font-medium truncate">
           {label}
         </div>
@@ -2540,7 +2538,9 @@ function RoomRow({
             className="qty-btn inline-flex h-8 w-8 items-center justify-center"
             aria-label={`Decrease ${label}`}
           >
-            <Minus size={15} />
+            <span className="inline-flex" style={{ transform: "scale(1.08)", filter: "drop-shadow(-0.5px -0.5px 0.5px rgba(255,255,255,0.35)) drop-shadow(0 2px 2px rgba(0,0,0,0.35))" }}>
+              <AccomIcon name="minus" size={15} />
+            </span>
           </button>
           <input
             type="text"
@@ -2564,7 +2564,9 @@ function RoomRow({
             className="qty-btn inline-flex h-8 w-8 items-center justify-center"
             aria-label={`Increase ${label}`}
           >
-            <Plus size={15} />
+            <span className="inline-flex" style={{ transform: "scale(1.08)", filter: "drop-shadow(-0.5px -0.5px 0.5px rgba(255,255,255,0.35)) drop-shadow(0 2px 2px rgba(0,0,0,0.35))" }}>
+              <AccomIcon name="plus" size={15} />
+            </span>
           </button>
         </div>
         <div className="col-span-3 sm:col-span-1 relative sm:w-[180px]">
@@ -2586,11 +2588,12 @@ function RoomRow({
               </option>
             ))}
           </select>
-          <ChevronDown
-            size={16}
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
-            style={{ color: "#B88917" }}
-          />
+          <span
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 inline-flex"
+            style={{ transform: "scale(1.08) translateY(-50%)", filter: "drop-shadow(-0.5px -0.5px 0.5px rgba(255,255,255,0.35)) drop-shadow(0 2px 2px rgba(0,0,0,0.35))" }}
+          >
+            <AccomIcon name="chevronDown" size={16} />
+          </span>
         </div>
       </div>
     </div>
@@ -2624,14 +2627,189 @@ function TwinBedsIcon({ size = 22 }: { size?: number }) {
   );
 }
 
+type AccomIconName =
+  | "calendar"
+  | "user"
+  | "users"
+  | "usersRound"
+  | "twinBeds"
+  | "bedDouble"
+  | "coffee"
+  | "chevronDown"
+  | "plus"
+  | "minus";
+
+function AccomIcon({ name, size = 24 }: { name: AccomIconName; size?: number }) {
+  const id = useId().replace(/:/g, "");
+  const gradId = `accom-grad-${id}`;
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: `url(#${gradId})`,
+    strokeWidth: 2.2,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    style: {
+      filter:
+        "drop-shadow(-0.5px -0.5px 0.5px rgba(255,255,255,0.42)) drop-shadow(0 2px 2px rgba(0,0,0,0.35))",
+    },
+  };
+  const defs = (
+    <defs>
+      <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#F8E7A3" />
+        <stop offset="50%" stopColor="#D4AF37" />
+        <stop offset="100%" stopColor="#9A6E12" />
+      </linearGradient>
+    </defs>
+  );
+  switch (name) {
+    case "calendar":
+      return (
+        <svg {...common}>
+          {defs}
+          <rect x="3" y="4" width="18" height="18" rx="2.2" />
+          <path d="M3 10h18" />
+          <path d="M8 2v4" />
+          <path d="M16 2v4" />
+          <path d="M7 14h.01" />
+          <path d="M12 14h.01" />
+          <path d="M17 14h.01" />
+          <path d="M7 18h.01" />
+          <path d="M12 18h.01" />
+          <path d="M17 18h.01" />
+        </svg>
+      );
+    case "user":
+      return (
+        <svg {...common}>
+          {defs}
+          <circle cx="12" cy="8" r="3.5" />
+          <path d="M5 20c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+        </svg>
+      );
+    case "users":
+      return (
+        <svg {...common}>
+          {defs}
+          <circle cx="9" cy="8" r="3" />
+          <path d="M4 20c0-3.8 3-7 7-7" />
+          <circle cx="17" cy="8" r="2.6" />
+          <path d="M14 20c0-2.8 2-5.5 5-5.5" />
+        </svg>
+      );
+    case "usersRound":
+      return (
+        <svg {...common}>
+          {defs}
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+      );
+    case "twinBeds":
+      return (
+        <svg {...common}>
+          {defs}
+          <rect x="2" y="10" width="8.5" height="6" rx="1.2" />
+          <path d="M2 13.2h8.5" />
+          <rect x="3" y="8.5" width="2.2" height="1.5" rx="0.4" />
+          <rect x="13.5" y="10" width="8.5" height="6" rx="1.2" />
+          <path d="M13.5 13.2H22" />
+          <rect x="14.5" y="8.5" width="2.2" height="1.5" rx="0.4" />
+          <path d="M2 17.5h20" />
+        </svg>
+      );
+    case "bedDouble":
+      return (
+        <svg {...common}>
+          {defs}
+          <path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+          <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+          <path d="M6 10h.01" />
+          <path d="M18 10h.01" />
+          <path d="M6 14h12" />
+        </svg>
+      );
+    case "coffee":
+      return (
+        <svg {...common}>
+          {defs}
+          <path d="M18 8h1.8A2.2 2.2 0 0 1 22 10.2v0A2.2 2.2 0 0 1 19.8 12.4H18" />
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+          <path d="M6 1v3" />
+          <path d="M10 1v3" />
+          <path d="M14 1v3" />
+          <path d="M4 21h12" />
+        </svg>
+      );
+    case "chevronDown":
+      return (
+        <svg {...common}>
+          {defs}
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      );
+    case "plus":
+      return (
+        <svg {...common}>
+          {defs}
+          <path d="M12 5v14" />
+          <path d="M5 12h14" />
+        </svg>
+      );
+    case "minus":
+      return (
+        <svg {...common}>
+          {defs}
+          <path d="M5 12h14" />
+        </svg>
+      );
+  }
+}
+
+function AccomIconBadge({
+  name,
+  size = 44,
+}: {
+  name: AccomIconName;
+  size?: number;
+}) {
+  return (
+    <span
+      className="inline-flex items-center justify-center"
+      style={{
+        width: size,
+        height: size,
+        borderRadius: 17,
+        background: "linear-gradient(145deg, #1F1F1F 0%, #121212 55%, #0A0A0A 100%)",
+        border: "1px solid rgba(248,231,163,0.52)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 10px rgba(0,0,0,0.32), 0 0 0 1px rgba(0,0,0,0.18), 0 0 14px rgba(212,175,55,0.16)",
+      }}
+    >
+      <span
+        className="inline-flex"
+        style={{ transform: "scale(1.08)", transformOrigin: "center" }}
+      >
+        <AccomIcon name={name} size={Math.round(size * 0.48)} />
+      </span>
+    </span>
+  );
+}
+
+
 
 function MealOption({
-  icon,
+  iconName,
   label,
   selected,
   onClick,
 }: {
-  icon: React.ReactNode;
+  iconName: AccomIconName;
   label: string;
   selected: boolean;
   onClick: () => void;
@@ -2646,7 +2824,7 @@ function MealOption({
       )}
     >
       <span className="flex items-center gap-3">
-        <LuxIconBadge size={36}>{icon}</LuxIconBadge>
+        <AccomIconBadge size={36} name={iconName} />
         <span className="text-[#0A1B2C] text-[14.5px] font-medium">{label}</span>
       </span>
       <span
