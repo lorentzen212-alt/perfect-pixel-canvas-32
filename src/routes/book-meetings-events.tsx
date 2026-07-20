@@ -1230,15 +1230,11 @@ function StepTwoLocation({
   onNext: () => void;
 }) {
   const [selectedCountry, setSelectedCountry] = useState<CountryCode>("NO");
-  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
-  const [selectedHotelCategory, setSelectedHotelCategory] = useState<string | null>(null);
-  const [selectedHotelStyle, setSelectedHotelStyle] = useState<string | null>(null);
 
-  const countryRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const currentCountry = COUNTRIES.find((c) => c.code === selectedCountry) ?? COUNTRIES[0];
