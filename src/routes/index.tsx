@@ -199,8 +199,8 @@ function Home() {
             <div key={label} className="flex items-center gap-2 shrink-0">
               <Icon size={size} />
               <span
-                className="text-[#171717] text-[16px] lg:text-[17px] whitespace-nowrap"
-                style={{ textShadow: "0 1px 2px rgba(255,255,255,0.45)" }}
+                className="text-white text-[16px] lg:text-[17px] whitespace-nowrap"
+                style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
               >
                 {label}
               </span>
