@@ -877,12 +877,12 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   }}
                 >
                   {[
-                    { x: -3, y: -3, size: 2.5, delay: 0,    dur: 2600, dx: 2,  dy: -3 },
-                    { x: 41, y: 6,  size: 2,   delay: 900,  dur: 3100, dx: 3,  dy: 2  },
-                    { x: 20, y: -4, size: 2.5, delay: 1600, dur: 2400, dx: -2, dy: -2 },
-                    { x: -4, y: 22, size: 2,   delay: 2200, dur: 2900, dx: -3, dy: 2  },
-                    { x: 43, y: 28, size: 2.5, delay: 3000, dur: 2700, dx: 2,  dy: 3  },
-                    { x: 18, y: 44, size: 2,   delay: 3700, dur: 3200, dx: 0,  dy: 3  },
+                    { x: -2, y: -2, size: 3,   delay: 0,    dur: 2600, dx: 2,  dy: -3 },
+                    { x: 42, y: 7,  size: 2.5, delay: 900,  dur: 3100, dx: 3,  dy: 2  },
+                    { x: 21, y: -3, size: 3,   delay: 1600, dur: 2400, dx: -2, dy: -2 },
+                    { x: -3, y: 23, size: 2.5, delay: 2200, dur: 2900, dx: -3, dy: 2  },
+                    { x: 44, y: 29, size: 3,   delay: 3000, dur: 2700, dx: 2,  dy: 3  },
+                    { x: 19, y: 45, size: 2.5, delay: 3700, dur: 3200, dx: 0,  dy: 3  },
                   ].map((s, si) => (
                     <span
                       key={si}
@@ -895,8 +895,9 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                         height: s.size,
                         borderRadius: "9999px",
                         background:
-                          "radial-gradient(circle, #FFF3C8 0%, rgba(245,228,166,0.95) 45%, rgba(245,228,166,0) 75%)",
-                        boxShadow: "0 0 4px rgba(255,243,200,0.85)",
+                          "radial-gradient(circle, #FFFBEA 0%, #FFE8A8 42%, rgba(245,215,140,0.85) 68%, rgba(245,215,140,0) 100%)",
+                        boxShadow:
+                          "0 0 3px rgba(255,232,168,0.98), 0 0 6px rgba(214,177,90,0.35)",
                         animation: `step-spark-drift ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
                         ["--dx" as never]: `${s.dx}px`,
                         ["--dy" as never]: `${s.dy}px`,
