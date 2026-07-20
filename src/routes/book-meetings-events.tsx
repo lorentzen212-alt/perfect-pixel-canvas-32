@@ -36,7 +36,8 @@ import {
 import { cn } from "@/lib/utils";
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
-import heroImg from "@/assets/me-hero-suite.jpg";
+import heroAsset from "@/assets/me-hero-conference.png.asset.json";
+const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
 
 import osloImg from "@/assets/destinations/oslo.jpg";
