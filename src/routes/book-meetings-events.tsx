@@ -180,20 +180,36 @@ function BookMeetingsEvents() {
         style={{
           backgroundColor: NAVY_DEEP,
           backgroundImage: `url(${heroImg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center right",
+          backgroundSize: "112% auto",
+          backgroundPosition: "center 30%",
           backgroundRepeat: "no-repeat",
         }}
       >
-        {/* Soft left-to-right lighting overlay for text legibility while keeping scene bright */}
+        {/* TOP: soft dark gradient only behind the navigation */}
         <div
-          className="pointer-events-none absolute inset-0"
+          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[110px]"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,250,240,0.55) 0%, rgba(255,250,240,0.30) 25%, rgba(255,250,240,0.10) 45%, rgba(255,250,240,0) 65%)",
+              "linear-gradient(180deg, rgba(10,20,35,0.42) 0%, rgba(10,20,35,0.18) 55%, rgba(10,20,35,0) 100%)",
           }}
         />
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-black/25 to-transparent" />
+        {/* LEFT: soft white/champagne wash behind headline */}
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[62%]"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,250,240,0.72) 0%, rgba(255,250,240,0.42) 35%, rgba(255,250,240,0.14) 70%, rgba(255,250,240,0) 100%)",
+          }}
+        />
+        {/* BOTTOM: darker gradient behind progress navigation */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[220px]"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(6,14,26,0) 0%, rgba(6,14,26,0.35) 40%, rgba(6,14,26,0.78) 100%)",
+          }}
+        />
+
 
         <div className="relative z-20">
           {/* HEADER */}
@@ -276,16 +292,17 @@ function BookMeetingsEvents() {
           )}
 
           {/* HERO CONTENT */}
-          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-10 pb-16 lg:pt-16 lg:pb-24">
+          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-6 pb-10 lg:pt-8 lg:pb-14">
             <div className="max-w-[720px]">
               <h1
-                className="text-[#0A1B2C] text-6xl sm:text-7xl lg:text-[104px] leading-[1.02] tracking-tight"
+                className="text-[#0A1B2C] text-5xl sm:text-6xl lg:text-[88px] leading-[1.02] tracking-tight"
                 style={{ fontFamily: SERIF, fontWeight: 300 }}
               >
                 Extraordinary
                 <br />
                 Meetings.
               </h1>
+
               <p className="mt-8 text-[#26364A] text-lg lg:text-[19px] leading-[1.55] max-w-[560px]">
                 Request offers for meetings, conferences and events.
                 <br />
@@ -309,10 +326,11 @@ function BookMeetingsEvents() {
 
           {/* PROGRESS BAR */}
           <div
-            className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-10"
+            className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-7 pt-2"
           >
             <StepProgress step={step} onGo={go} />
           </div>
+
         </div>
       </section>
 
@@ -1315,11 +1333,12 @@ function StepTwoLocation({
       >
         {/* Title */}
         <h2
-          className="text-[#0A1B2C] text-[38px] sm:text-[46px] leading-[1.05] tracking-[-0.01em]"
-          style={{ fontFamily: SERIF, fontWeight: 500 }}
+          className="text-[42px] sm:text-[50px] leading-[1.05]"
+          style={{ fontFamily: SERIF, fontWeight: 400, color: "#1F1F1F", letterSpacing: "-0.015em" }}
         >
           Step 1 – Location
         </h2>
+
         <p className="mt-3 text-[15px] text-[#4A5866]">
           Where would you like to host your event?
         </p>
