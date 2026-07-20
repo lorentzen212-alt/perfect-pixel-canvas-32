@@ -2397,16 +2397,16 @@ function StepThreeAccommodation({
             className="relative p-7 lg:p-8 text-white"
             style={{
               background:
-                "linear-gradient(180deg,#0B1E31 0%, #081827 55%, #050F1B 100%)",
+                "linear-gradient(180deg, #112842 0%, #0F2239 50%, #0D1D31 100%)",
               boxShadow: "inset 1px 0 0 rgba(255,255,255,0.04)",
             }}
           >
-            {/* subtle vertical divider gradient */}
+            {/* subtle vertical divider gradient with champagne reflection */}
             <div
               className="pointer-events-none absolute left-0 top-6 bottom-6 w-px"
               style={{
                 background:
-                  "linear-gradient(180deg, transparent, rgba(212,175,55,0.35), transparent)",
+                  "linear-gradient(180deg, transparent 0%, rgba(247,217,122,0.18) 22%, rgba(212,175,55,0.34) 50%, rgba(247,217,122,0.16) 78%, transparent 100%)",
               }}
             />
 
