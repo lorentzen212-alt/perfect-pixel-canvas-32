@@ -301,10 +301,10 @@ function BookMeetingsEvents() {
           )}
 
           {/* HERO CONTENT */}
-          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-6 pb-10 lg:pt-8 lg:pb-14">
+          <div className="flex-1 px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-4 lg:pt-6">
             <div className="max-w-[720px]">
               <h1
-                className="text-[#0A1B2C] text-5xl sm:text-6xl lg:text-[88px] leading-[1.02] tracking-tight"
+                className="text-[#0A1B2C] text-5xl sm:text-6xl lg:text-[80px] leading-[1.0] tracking-tight"
                 style={{ fontFamily: SERIF, fontWeight: 300 }}
               >
                 Extraordinary
@@ -312,7 +312,7 @@ function BookMeetingsEvents() {
                 Meetings.
               </h1>
 
-              <p className="mt-8 text-[#26364A] text-lg lg:text-[19px] leading-[1.55] max-w-[560px]">
+              <p className="mt-6 text-[#26364A] text-lg lg:text-[18px] leading-[1.55] max-w-[560px]">
                 Request offers for meetings, conferences and events.
                 <br />
                 Our M&amp;E specialists will find the best hotels
@@ -321,10 +321,10 @@ function BookMeetingsEvents() {
               </p>
 
               {/* Trust row */}
-              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3">
                 {TRUST.map(({ Icon, label }) => (
                   <div key={label} className="flex items-center gap-2">
-                    <Icon size={32} />
+                    <Icon size={30} />
                     <span className="text-[#0A1B2C] text-[15px] font-medium">{label}</span>
                   </div>
                 ))}
@@ -335,10 +335,11 @@ function BookMeetingsEvents() {
 
           {/* PROGRESS BAR */}
           <div
-            className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-7 pt-2"
+            className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-7 pt-4 mt-auto"
           >
             <StepProgress step={step} onGo={go} />
           </div>
+
 
         </div>
       </section>
