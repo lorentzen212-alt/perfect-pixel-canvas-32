@@ -180,20 +180,36 @@ function BookMeetingsEvents() {
         style={{
           backgroundColor: NAVY_DEEP,
           backgroundImage: `url(${heroImg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center right",
+          backgroundSize: "112% auto",
+          backgroundPosition: "center 30%",
           backgroundRepeat: "no-repeat",
         }}
       >
-        {/* Soft left-to-right lighting overlay for text legibility while keeping scene bright */}
+        {/* TOP: soft dark gradient only behind the navigation */}
         <div
-          className="pointer-events-none absolute inset-0"
+          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[110px]"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,250,240,0.55) 0%, rgba(255,250,240,0.30) 25%, rgba(255,250,240,0.10) 45%, rgba(255,250,240,0) 65%)",
+              "linear-gradient(180deg, rgba(10,20,35,0.42) 0%, rgba(10,20,35,0.18) 55%, rgba(10,20,35,0) 100%)",
           }}
         />
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-black/25 to-transparent" />
+        {/* LEFT: soft white/champagne wash behind headline */}
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[62%]"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,250,240,0.72) 0%, rgba(255,250,240,0.42) 35%, rgba(255,250,240,0.14) 70%, rgba(255,250,240,0) 100%)",
+          }}
+        />
+        {/* BOTTOM: darker gradient behind progress navigation */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[220px]"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(6,14,26,0) 0%, rgba(6,14,26,0.35) 40%, rgba(6,14,26,0.78) 100%)",
+          }}
+        />
+
 
         <div className="relative z-20">
           {/* HEADER */}
