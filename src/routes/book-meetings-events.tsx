@@ -2971,7 +2971,7 @@ function LuxIconBadge({
   tone?: "onLight" | "onDark";
   finish?: "standard" | "engraved";
 }) {
-  const radius = size >= 40 ? 12 : Math.max(6, Math.round(size * 0.28));
+  const radius = size >= 40 ? 10 : Math.max(5, Math.round(size * 0.224));
 
   if (finish === "engraved") {
     const shadow =
