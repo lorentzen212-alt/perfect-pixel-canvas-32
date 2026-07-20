@@ -327,11 +327,11 @@ function BookMeetingsEvents() {
               </p>
 
               {/* Trust row */}
-              <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <div className="mt-7 flex flex-nowrap items-center gap-x-[52px] whitespace-nowrap">
                 {TRUST.map(({ Icon, label }) => (
-                  <div key={label} className="flex items-center gap-2">
+                  <div key={label} className="flex items-center gap-[30px]">
                     <Icon size={44} />
-                    <span className="text-[#0A1B2C] text-[15px] font-medium">{label}</span>
+                    <span className="text-[#0A1B2C] text-[15px] font-medium leading-none">{label}</span>
                   </div>
                 ))}
               </div>
@@ -1350,9 +1350,13 @@ function StepTwoLocation({
         {/* Title */}
         <h2
           className="text-[42px] sm:text-[50px] leading-[1.05]"
-          style={{ fontFamily: SERIF, fontWeight: 400, color: "#1F1F1F", letterSpacing: "-0.015em" }}
+          style={{ fontFamily: SERIF, fontWeight: 400, color: "#1F1F1F", letterSpacing: "-0.015em", fontVariantNumeric: "lining-nums", fontFeatureSettings: '"lnum" 1' }}
         >
-          Step 1 – Location
+          Step{" "}
+          <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500 }}>
+            1
+          </span>
+          {" "}– Location
         </h2>
 
         <p className="mt-3 text-[15px] text-[#4A5866]">
