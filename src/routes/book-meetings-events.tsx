@@ -785,17 +785,54 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
               }}
             />
           </div>
-          {/* Gold overlay */}
+          {/* Gold overlay — polished metallic line with subtle reflections */}
           <div
-            className="absolute left-0 top-0 h-px"
+            className="absolute left-0 top-0"
             style={{
               width: `${progressPercentage}%`,
-              background: `linear-gradient(90deg, ${GOLD} 0%, #FFD97A 100%)`,
-              boxShadow: `0 0 10px rgba(245,194,90,0.55)`,
+              height: 1,
+              background:
+                "linear-gradient(90deg, #C79A32 0%, #E4C15E 22%, #F5E4A6 42%, #FFF3C8 50%, #F5E4A6 58%, #E4C15E 78%, #C79A32 100%)",
+              boxShadow:
+                "0 0 6px rgba(245,228,166,0.55), 0 0 14px rgba(214,177,90,0.28), 0 0 22px rgba(214,177,90,0.14)",
               transition: "width 500ms cubic-bezier(0.4, 0, 0.2, 1)",
               zIndex: 1,
             }}
-          />
+          >
+            {/* Tiny random sparkles distributed along the completed section */}
+            {progressPercentage > 2 &&
+              [
+                { left: 7,  top: -2, size: 5, delay: 200,  dur: 2600 },
+                { left: 18, top: 2,  size: 4, delay: 1100, dur: 3100 },
+                { left: 29, top: -3, size: 6, delay: 500,  dur: 2400 },
+                { left: 41, top: 3,  size: 4, delay: 1700, dur: 2900 },
+                { left: 53, top: -2, size: 5, delay: 300,  dur: 3300 },
+                { left: 66, top: 2,  size: 4, delay: 1400, dur: 2500 },
+                { left: 78, top: -3, size: 6, delay: 800,  dur: 3000 },
+                { left: 91, top: 2,  size: 4, delay: 1900, dur: 2700 },
+              ]
+                .filter((s) => s.left <= progressPercentage - 1)
+                .map((s, si) => (
+                  <span
+                    key={si}
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      left: `${(s.left / progressPercentage) * 100}%`,
+                      top: s.top,
+                      width: s.size,
+                      height: s.size,
+                      borderRadius: "9999px",
+                      background:
+                        "radial-gradient(circle, #FFF7D6 0%, rgba(245,228,166,0.9) 40%, rgba(245,228,166,0) 70%)",
+                      boxShadow: "0 0 6px rgba(255,243,200,0.85)",
+                      animation: `line-spark ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
+                      pointerEvents: "none",
+                    }}
+                  />
+                ))}
+          </div>
+
         </div>
 
         {STEPS.map((label, i) => {
