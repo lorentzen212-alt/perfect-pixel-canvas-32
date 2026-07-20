@@ -1353,11 +1353,12 @@ function StepTwoLocation({
           style={{ fontFamily: SERIF, fontWeight: 400, color: "#1F1F1F", letterSpacing: "-0.015em", fontVariantNumeric: "lining-nums", fontFeatureSettings: '"lnum" 1' }}
         >
           Step{" "}
-          <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500 }}>
+          <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500, fontSize: "0.93em", display: "inline-block" }}>
             1
           </span>
           {" "}– Location
         </h2>
+
 
         <p className="mt-3 text-[15px] text-[#4A5866]">
           Where would you like to host your event?
