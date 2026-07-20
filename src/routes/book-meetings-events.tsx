@@ -330,13 +330,27 @@ function BookMeetingsEvents() {
               </p>
 
               {/* Trust row */}
-              <div className="mt-7 flex flex-nowrap items-center gap-x-[52px] whitespace-nowrap">
-                {TRUST.map(({ Icon, label }) => (
-                  <div key={label} className="flex items-center gap-[30px]">
-                    <Icon size={44} />
-                    <span className="text-[#0A1B2C] text-[15px] font-medium leading-none">{label}</span>
-                  </div>
-                ))}
+              <div className="mt-7 relative -mx-5 sm:-mx-8 lg:-mx-[50px] xl:-mx-[60px]">
+                <div
+                  className="absolute inset-0 bg-white/[0.06] backdrop-blur-[3px]"
+                  style={{
+                    maskImage: "linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%)",
+                  }}
+                />
+                <div className="relative flex flex-nowrap items-center gap-x-[52px] whitespace-nowrap px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-3">
+                  {TRUST.map(({ Icon, label }) => (
+                    <div key={label} className="flex items-center gap-[30px]">
+                      <Icon size={44} />
+                      <span
+                        className="text-[#151515] text-[15px] font-medium leading-none"
+                        style={{ textShadow: "0 1px 2px rgba(255,255,255,0.35)" }}
+                      >
+                        {label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
