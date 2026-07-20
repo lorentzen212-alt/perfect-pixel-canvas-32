@@ -17,7 +17,6 @@ import {
   PenSquare,
   Presentation,
   Speaker,
-  Wifi,
   Video,
   Radio,
   Sparkles,
@@ -44,7 +43,8 @@ type SetupId =
   | "boardroom"
   | "cabaret"
   | "ushape"
-  | "breakout";
+  | "breakout"
+  | "other";
 
 type MeetingRoom = {
   id: string;
@@ -56,6 +56,7 @@ type MeetingRoom = {
   setup: SetupId;
   equipment: string[];
   notes: string;
+  customLayout?: string;
 };
 
 /* ---------- Setup data ---------- */
@@ -125,6 +126,14 @@ const SETUPS: {
     capacity: "8 – 30 attendees",
     bestFor: ["Group work", "Parallel sessions", "Discussions"],
   },
+  {
+    id: "other",
+    label: "Other",
+    tag: "Custom layout",
+    description: "Describe your preferred layout in the field below.",
+    capacity: "Custom",
+    bestFor: ["Bespoke arrangements", "Mixed setups", "Special requirements"],
+  },
 ];
 
 /* ---------- Equipment data ---------- */
@@ -139,7 +148,6 @@ const EQUIPMENT: { id: string; label: string; Icon: typeof Projector }[] = [
   { id: "podium", label: "Podium", Icon: Volume2 },
   { id: "hybrid", label: "Hybrid Meeting", Icon: Radio },
   { id: "video", label: "Video Conference", Icon: Video },
-  { id: "wifi", label: "High-Speed Wi-Fi", Icon: Wifi },
 ];
 
 /* ---------- Setup Illustration ---------- */
@@ -283,6 +291,42 @@ function SetupGlyph({ id, size = 44 }: { id: SetupId; size?: number }) {
           {dot(27, 26.5)}
         </>
       )}
+      {id === "other" && (
+        <>
+          <defs>
+            <linearGradient id="otherGold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor={GOLD_SOFT} />
+              <stop offset="50%" stopColor={GOLD} />
+              <stop offset="100%" stopColor="#B88A2E" />
+            </linearGradient>
+          </defs>
+          <rect
+            x="6"
+            y="6"
+            width="28"
+            height="28"
+            rx="6"
+            fill="none"
+            stroke="url(#otherGold)"
+            strokeWidth="1.6"
+          />
+          <path
+            d="M24 12 L27 15 L17 25 L14 25 L14 22 Z"
+            fill="none"
+            stroke="url(#otherGold)"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M22 14 L25 17"
+            fill="none"
+            stroke="url(#otherGold)"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          />
+        </>
+      )}
     </svg>
   );
 }
@@ -330,9 +374,10 @@ export function StepThreeMeetingSpaces({
   const [end, setEnd] = useState("17:00");
   const [attendees, setAttendees] = useState<number>(0);
   const [setup, setSetup] = useState<SetupId>("theater");
-  const [equipment, setEquipment] = useState<string[]>(["wifi"]);
+  const [equipment, setEquipment] = useState<string[]>([]);
   const [notes, setNotes] = useState("");
   const [comments, setComments] = useState("");
+  const [customLayout, setCustomLayout] = useState("");
 
   const roomIndex = rooms.length + 1;
   const activeSetup = SETUPS.find((s) => s.id === setup)!;
@@ -344,8 +389,9 @@ export function StepThreeMeetingSpaces({
     setEnd("17:00");
     setAttendees(0);
     setSetup("theater");
-    setEquipment(["wifi"]);
+    setEquipment([]);
     setNotes("");
+    setCustomLayout("");
     setEditingId(null);
   };
 
@@ -360,6 +406,7 @@ export function StepThreeMeetingSpaces({
       setup,
       equipment,
       notes,
+      customLayout: setup === "other" ? customLayout.trim() : undefined,
     };
     setRooms((prev) =>
       editingId ? prev.map((r) => (r.id === editingId ? room : r)) : [...prev, room],
@@ -379,6 +426,7 @@ export function StepThreeMeetingSpaces({
     setSetup(r.setup);
     setEquipment(r.equipment);
     setNotes(r.notes);
+    setCustomLayout(r.customLayout ?? "");
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -428,10 +476,10 @@ export function StepThreeMeetingSpaces({
             setup: "boardroom",
             attendees: primary,
             kind: "meeting",
-            equipment: ["screen", "wifi"],
+            equipment: ["screen"],
           },
         ],
-        equipment: ["screen", "wifi"],
+        equipment: ["screen"],
         catering: ["Coffee Break"],
         summary: ["1 Boardroom setup", "Large screen", "Coffee break"],
       };
@@ -446,10 +494,10 @@ export function StepThreeMeetingSpaces({
             setup: "theater",
             attendees: primary,
             kind: "plenary",
-            equipment: ["projector", "screen", "microphone", "wifi"],
+            equipment: ["projector", "screen", "microphone"],
           },
         ],
-        equipment: ["projector", "screen", "microphone", "wifi"],
+        equipment: ["projector", "screen", "microphone"],
         catering: ["Coffee Break"],
         summary: [
           "1 Theater room",
@@ -471,17 +519,17 @@ export function StepThreeMeetingSpaces({
             setup: "theater",
             attendees: primary,
             kind: "plenary",
-            equipment: ["projector", "screen", "microphone", "wifi"],
+            equipment: ["projector", "screen", "microphone"],
           },
           ...Array.from({ length: breakouts }, () => ({
             label: "Breakout Room",
             setup: "breakout" as SetupId,
             attendees: cap,
             kind: "breakout" as const,
-            equipment: ["screen", "wifi"],
+            equipment: ["screen"],
           })),
         ],
-        equipment: ["projector", "screen", "microphone", "wifi"],
+        equipment: ["projector", "screen", "microphone"],
         catering: ["Coffee Break", "Lunch"],
         summary: [
           `1 Plenary Room (${primary} people, theater)`,
@@ -496,39 +544,37 @@ export function StepThreeMeetingSpaces({
     return {
       tier: "largeConference",
       attendees: primary,
-      rooms: [
-        {
-          label: "Large Plenary Room",
-          setup: "theater",
-          attendees: primary,
-          kind: "plenary",
-          equipment: [
-            "stage",
-            "podium",
-            "projector",
-            "screen",
-            "microphone",
-            "hybrid",
-            "wifi",
-          ],
-        },
-        ...Array.from({ length: breakouts }, () => ({
-          label: "Breakout Room",
-          setup: "breakout" as SetupId,
-          attendees: cap,
-          kind: "breakout" as const,
-          equipment: ["screen", "wifi"],
-        })),
-      ],
-      equipment: [
-        "stage",
-        "podium",
-        "projector",
-        "screen",
-        "microphone",
-        "hybrid",
-        "wifi",
-      ],
+        rooms: [
+          {
+            label: "Large Plenary Room",
+            setup: "theater",
+            attendees: primary,
+            kind: "plenary",
+            equipment: [
+              "stage",
+              "podium",
+              "projector",
+              "screen",
+              "microphone",
+              "hybrid",
+            ],
+          },
+          ...Array.from({ length: breakouts }, () => ({
+            label: "Breakout Room",
+            setup: "breakout" as SetupId,
+            attendees: cap,
+            kind: "breakout" as const,
+            equipment: ["screen"],
+          })),
+        ],
+        equipment: [
+          "stage",
+          "podium",
+          "projector",
+          "screen",
+          "microphone",
+          "hybrid",
+        ],
       catering: ["Coffee Break", "Lunch", "Dinner"],
       summary: [
         `1 Large Plenary Room (${primary} people)`,
@@ -565,7 +611,7 @@ export function StepThreeMeetingSpaces({
       };
     });
     setRooms(created);
-    setEquipment(plan.rooms[0]?.equipment ?? ["wifi"]);
+    setEquipment(plan.rooms[0]?.equipment ?? []);
     if (typeof window !== "undefined") {
       try {
         window.localStorage.setItem(
@@ -761,7 +807,7 @@ export function StepThreeMeetingSpaces({
                       Room setup
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
-                      {SETUPS.filter((s) => s.id !== "breakout").map((s) => (
+                      {SETUPS.filter((s) => s.id !== "breakout" && s.id !== "other").map((s) => (
                         <SetupCard
                           key={s.id}
                           setup={s}
@@ -770,14 +816,63 @@ export function StepThreeMeetingSpaces({
                         />
                       ))}
                     </div>
-                    <div className="mt-3">
+                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <SetupCard
                         setup={SETUPS.find((s) => s.id === "breakout")!}
                         selected={setup === "breakout"}
                         onClick={() => setSetup("breakout")}
                         wide
                       />
+                      <SetupCard
+                        setup={SETUPS.find((s) => s.id === "other")!}
+                        selected={setup === "other"}
+                        onClick={() => setSetup("other")}
+                        wide
+                      />
                     </div>
+
+                    {setup === "other" && (
+                      <div className="mt-5">
+                        <div className="text-[13.5px] font-medium text-[#3B4757] mb-2">
+                          Describe your preferred layout{" "}
+                          <span className="text-[#8A8578] font-normal">
+                            (optional)
+                          </span>
+                        </div>
+                        <div
+                          className="rounded-[12px] p-3.5"
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #E6DEC9",
+                          }}
+                        >
+                          <textarea
+                            value={customLayout}
+                            onChange={(e) =>
+                              setCustomLayout(e.target.value.slice(0, 500))
+                            }
+                            placeholder="Example: One long table for 12 guests, mixed setup, stage facing the audience, or another custom arrangement."
+                            rows={3}
+                            className="w-full resize-none bg-transparent outline-none text-[14px] text-[#0A1B2C] placeholder:text-[#9AA3AF]"
+                            style={{
+                              transition: "border-color .15s ease, box-shadow .15s ease",
+                            }}
+                            onFocus={(e) => {
+                              e.currentTarget.parentElement!.style.borderColor = GOLD;
+                              e.currentTarget.parentElement!.style.boxShadow =
+                                "0 0 0 3px rgba(212,169,74,0.18)";
+                            }}
+                            onBlur={(e) => {
+                              e.currentTarget.parentElement!.style.borderColor = "#E6DEC9";
+                              e.currentTarget.parentElement!.style.boxShadow = "none";
+                            }}
+                          />
+                          <div className="mt-1 text-right text-[11.5px] text-[#9C9484]">
+                            {customLayout.length}/500
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Setup detail panel */}
