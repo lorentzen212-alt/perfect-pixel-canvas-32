@@ -45,7 +45,8 @@ function GoldGradient({ id }: { id: string }) {
   return (
     <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stopColor={GOLD_HIGHLIGHT} />
-      <stop offset="45%" stopColor={GOLD_MAIN} />
+      <stop offset="32%" stopColor="#FFF2C7" />
+      <stop offset="55%" stopColor={GOLD_MAIN} />
       <stop offset="100%" stopColor={GOLD_SHADOW} />
     </linearGradient>
   );
@@ -77,6 +78,7 @@ function InnerShadow({ id }: { id: string }) {
 }
 
 const STROKE = 5;
+const TRUST_STROKE = 5.25;
 
 export function ShieldCheckPremium({ size, className }: IconProps) {
   return (
