@@ -531,18 +531,23 @@ function BookMeetingsEvents() {
         .country-pill { transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease, border-color 220ms ease; }
         .country-pill--active:hover { filter: brightness(1.06); box-shadow: 0 6px 14px -6px rgba(168,117,22,0.28), inset 0 1px 0 rgba(245,228,166,0.45); }
 
-        /* Active step + progress line: tiny random sparkles + slow breathing glow */
-        @keyframes step-spark {
-          0%, 100% { opacity: 0; transform: scale(0.35); }
-          50%      { opacity: 1; transform: scale(1); }
+        /* Active step: tiny drifting sparkles + slow shimmer sweep on the circle */
+        @keyframes step-spark-drift {
+          0%   { opacity: 0; transform: translate(0, 0) scale(0.4); }
+          25%  { opacity: 1; }
+          75%  { opacity: 1; }
+          100% { opacity: 0; transform: translate(var(--dx,2px), var(--dy,-2px)) scale(1); }
         }
-        @keyframes line-spark {
-          0%, 100% { opacity: 0; transform: scale(0.3); }
-          45%, 55% { opacity: 0.95; transform: scale(1); }
+        @keyframes step-shimmer-sweep {
+          0%   { transform: translateX(-140%) rotate(20deg); opacity: 0; }
+          10%  { opacity: 0.85; }
+          50%  { opacity: 0.85; }
+          90%  { opacity: 0; }
+          100% { transform: translateX(160%) rotate(20deg); opacity: 0; }
         }
         @keyframes step-breathe {
-          0%, 100% { opacity: 0.55; transform: scale(0.98); }
-          50%      { opacity: 1; transform: scale(1.06); }
+          0%, 100% { opacity: 0.5; transform: scale(0.98); }
+          50%      { opacity: 0.9; transform: scale(1.04); }
         }
 
 
