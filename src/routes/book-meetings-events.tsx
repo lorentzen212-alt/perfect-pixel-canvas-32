@@ -500,21 +500,8 @@ function BookMeetingsEvents() {
           position: absolute;
           inset: -1.5px;
           border-radius: inherit;
-          padding: 1.75px;
-          background:
-            linear-gradient(180deg,
-              #FBEBBE 0%,
-              #EBD08A 16%,
-              #D9B663 38%,
-              #C79A32 62%,
-              #A2701C 84%,
-              #7A4E10 100%),
-            repeating-linear-gradient(90deg,
-              rgba(255,255,255,0.14) 0px,
-              rgba(255,255,255,0.14) 1px,
-              rgba(0,0,0,0.08) 1px,
-              rgba(0,0,0,0.08) 2px);
-          background-blend-mode: overlay;
+          padding: 1.5px;
+          background: linear-gradient(180deg, #F5E4A6 0%, #D6B15A 42%, #C79A32 72%, #A87516 100%);
           -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
           -webkit-mask-composite: xor;
                   mask-composite: exclude;
