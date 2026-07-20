@@ -2494,14 +2494,14 @@ const ROOM_CATEGORY_OPTIONS = [
 ] as const;
 
 function RoomRow({
-  icon,
+  iconName,
   label,
   value,
   onChange,
   category,
   onCategoryChange,
 }: {
-  icon: React.ReactNode;
+  iconName: AccomIconName;
   label: string;
   value: number;
   onChange: (v: number) => void;
@@ -2519,7 +2519,7 @@ function RoomRow({
       }}
     >
       <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 sm:gap-6">
-        <LuxIconBadge size={44}>{icon}</LuxIconBadge>
+        <AccomIconBadge size={44} name={iconName} />
         <div className="min-w-0 text-[#0A1B2C] text-[15px] sm:text-[16px] font-medium truncate">
           {label}
         </div>
