@@ -886,7 +886,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                     background:
                       "radial-gradient(circle, rgba(212,175,55,0.32) 0%, rgba(212,175,55,0.14) 35%, transparent 70%)",
                     filter: "blur(2px)",
-                    animation: "step-glow 2600ms ease-in-out infinite",
+                    animation: "step-breathe 4200ms ease-in-out infinite",
                     zIndex: 0,
                   }}
                 />
