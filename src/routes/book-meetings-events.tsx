@@ -670,15 +670,14 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
         {/* Continuous progress track behind circles */}
         <div
           className="pointer-events-none absolute"
-          style={{ top: 18, left: edgeInset, right: edgeInset, zIndex: 0 }}
+          style={{ top: 14, left: edgeInset, right: edgeInset, zIndex: 0 }}
         >
-          {/* Inactive base line: solid up to step 6, dashed from step 6 -> step 7 */}
           <div className="relative h-px w-full">
             <div
               className="absolute left-0 top-0 h-px"
               style={{
                 width: `${((total - 2) / (total - 1)) * 100}%`,
-                backgroundColor: "rgba(245,194,90,0.28)",
+                backgroundColor: "rgba(230,198,120,0.22)",
               }}
             />
             <div
@@ -687,8 +686,8 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                 left: `${((total - 2) / (total - 1)) * 100}%`,
                 right: 0,
                 backgroundImage:
-                  "linear-gradient(90deg, rgba(255,255,255,0.35) 50%, transparent 50%)",
-                backgroundSize: "6px 1px",
+                  "linear-gradient(90deg, rgba(255,255,255,0.22) 50%, transparent 50%)",
+                backgroundSize: "5px 1px",
                 backgroundRepeat: "repeat-x",
               }}
             />
@@ -698,8 +697,8 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
             className="absolute left-0 top-0 h-px"
             style={{
               width: `${progressPercentage}%`,
-              background: `linear-gradient(90deg, ${GOLD} 0%, #FFD97A 100%)`,
-              boxShadow: `0 0 10px rgba(245,194,90,0.55)`,
+              background: "linear-gradient(90deg, #C9A24B 0%, #E6C678 50%, #F2D98A 100%)",
+              boxShadow: "0 0 6px rgba(230,198,120,0.45)",
               transition: "width 500ms cubic-bezier(0.4, 0, 0.2, 1)",
               zIndex: 1,
             }}
@@ -715,22 +714,22 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
           const pulse = active && pulseKey === step;
 
           const bg = active
-            ? "linear-gradient(180deg, #F7CF63 0%, #E4B52F 52%, #D9A520 100%)"
+            ? "linear-gradient(180deg, #F2D98A 0%, #E6C678 55%, #C9A24B 100%)"
             : completed
-              ? NAVY_DEEP
+              ? "rgba(10,20,32,0.75)"
               : "transparent";
           const borderColor = active
-            ? "rgba(255,223,130,0.95)"
+            ? "rgba(242,217,138,0.9)"
             : isLast
-              ? "rgba(255,255,255,0.28)"
-              : GOLD;
+              ? "rgba(255,255,255,0.22)"
+              : "rgba(230,198,120,0.55)";
           const numberColor = active
             ? "#FFFFFF"
             : completed
-              ? GOLD
+              ? "#E6C678"
               : isLast
-                ? "rgba(255,255,255,0.4)"
-                : GOLD;
+                ? "rgba(255,255,255,0.35)"
+                : "#E6C678";
 
           return (
             <button
@@ -740,7 +739,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
               disabled={!clickable}
               aria-current={active ? "step" : undefined}
               className={cn(
-                "relative flex flex-col items-center gap-2 flex-1 min-w-0",
+                "relative flex flex-col items-center gap-[10px] flex-1 min-w-0",
                 clickable ? "cursor-pointer" : "cursor-default",
               )}
               style={{ zIndex: 2 }}
@@ -750,12 +749,12 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   aria-hidden
                   className="pointer-events-none absolute"
                   style={{
-                    top: -6,
-                    width: 72,
-                    height: 72,
+                    top: -8,
+                    width: 56,
+                    height: 56,
                     borderRadius: "9999px",
                     background:
-                      "radial-gradient(circle, rgba(212,175,55,0.32) 0%, rgba(212,175,55,0.14) 35%, transparent 70%)",
+                      "radial-gradient(circle, rgba(230,198,120,0.22) 0%, rgba(230,198,120,0.08) 40%, transparent 70%)",
                     filter: "blur(2px)",
                     animation: "step-glow 2600ms ease-in-out infinite",
                     zIndex: 0,
@@ -763,15 +762,15 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                 />
               )}
               <span
-                className="relative flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold"
+                className="relative flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-medium"
                 style={{
                   background: bg,
                   color: numberColor,
                   border: `1px solid ${borderColor}`,
                   boxShadow: active
-                    ? "0 0 14px rgba(212,175,55,0.55), 0 0 30px rgba(212,175,55,0.22), 0 8px 18px rgba(217,165,32,0.20), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    ? "0 0 10px rgba(230,198,120,0.45), 0 4px 10px rgba(201,162,75,0.20), inset 0 1px 0 rgba(255,255,255,0.55)"
                     : completed
-                      ? "0 2px 6px rgba(0,0,0,0.25)"
+                      ? "0 1px 3px rgba(0,0,0,0.30)"
                       : "none",
                   transition:
                     "background 250ms cubic-bezier(0.4,0,0.2,1), box-shadow 250ms cubic-bezier(0.4,0,0.2,1), border-color 250ms",
@@ -779,44 +778,17 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   zIndex: 1,
                 }}
               >
-                {active && (
-                  <>
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        top: -3,
-                        right: 2,
-                        width: 3,
-                        height: 3,
-                        borderRadius: "9999px",
-                        background: "#FFE9A8",
-                        boxShadow: "0 0 6px #D4AF37",
-                        animation: "step-sparkle 1800ms ease-in-out infinite",
-                      }}
-                    />
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        bottom: -2,
-                        left: 0,
-                        width: 2,
-                        height: 2,
-                        borderRadius: "9999px",
-                        background: "#FFE9A8",
-                        boxShadow: "0 0 5px #D4AF37",
-                        animation: "step-sparkle 2200ms ease-in-out 600ms infinite",
-                      }}
-                    />
-                  </>
-                )}
-                {completed ? <Check size={16} strokeWidth={2.5} style={{ color: GOLD }} /> : n}
+                {completed ? <Check size={12} strokeWidth={2.25} style={{ color: "#E6C678" }} /> : n}
               </span>
               <span
-                className="text-[13px] lg:text-[14px] font-medium text-center whitespace-nowrap transition-colors duration-[250ms]"
+                className="text-[12px] lg:text-[13px] font-light tracking-[0.02em] text-center whitespace-nowrap transition-colors duration-[250ms]"
                 style={{
-                  color: active ? GOLD : isLast ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.85)",
+                  fontFamily: SANS,
+                  color: active
+                    ? "#E6C678"
+                    : isLast
+                      ? "rgba(255,255,255,0.4)"
+                      : "rgba(255,255,255,0.78)",
                 }}
               >
                 {label}
@@ -828,6 +800,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
     </div>
   );
 }
+
 
 /* --------- Step 1 --------- */
 
