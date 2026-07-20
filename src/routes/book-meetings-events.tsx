@@ -870,19 +870,19 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   aria-hidden
                   className="pointer-events-none absolute"
                   style={{
-                    top: 12,
-                    width: 44,
-                    height: 44,
+                    top: 0,
+                    width: 36,
+                    height: 36,
                     zIndex: 3,
                   }}
                 >
                   {[
-                    { x: -3, y: -3, size: 2.5, delay: 0,    dur: 2600, dx: 2,  dy: -3 },
-                    { x: 41, y: 6,  size: 2,   delay: 900,  dur: 3100, dx: 3,  dy: 2  },
-                    { x: 20, y: -4, size: 2.5, delay: 1600, dur: 2400, dx: -2, dy: -2 },
-                    { x: -4, y: 22, size: 2,   delay: 2200, dur: 2900, dx: -3, dy: 2  },
-                    { x: 43, y: 28, size: 2.5, delay: 3000, dur: 2700, dx: 2,  dy: 3  },
-                    { x: 18, y: 44, size: 2,   delay: 3700, dur: 3200, dx: 0,  dy: 3  },
+                    { x: 35, y: 16, size: 2,   delay: 0,    dur: 2600, dx: 2,  dy: -1 },
+                    { x: 26, y: 32, size: 2.5, delay: 700,  dur: 3000, dx: 2,  dy: 2  },
+                    { x: 3,  y: 28, size: 2,   delay: 1400, dur: 2700, dx: -2, dy: 2  },
+                    { x: -2, y: 11, size: 2.5, delay: 2100, dur: 3200, dx: -2, dy: -1 },
+                    { x: 10, y: -2, size: 2,   delay: 2800, dur: 2500, dx: 1,  dy: -2 },
+                    { x: 29, y: 1,  size: 1.8, delay: 3500, dur: 2900, dx: 2,  dy: -2 },
                   ].map((s, si) => (
                     <span
                       key={si}
