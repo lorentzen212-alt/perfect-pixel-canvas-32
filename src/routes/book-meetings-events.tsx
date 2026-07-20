@@ -2662,16 +2662,31 @@ function MealOption({
         <span className="text-[#0A1B2C] text-[14.5px] font-medium">{label}</span>
       </span>
       <span
-        className="inline-flex h-5 w-5 items-center justify-center rounded-full"
+        className="relative inline-flex h-5 w-5 items-center justify-center rounded-full"
         style={{
-          border: `2px solid ${selected ? "#D4AF37" : "#D9D3C4"}`,
           background: selected
-            ? "linear-gradient(180deg,#F7E7A6,#D4AF37 60%,#A97816)"
-            : "transparent",
-          boxShadow: selected ? "0 0 0 3px rgba(212,175,55,0.15)" : undefined,
+            ? "conic-gradient(from 210deg, #F3DFA2, #C9A24A, #8A6318, #E8CE86, #F3DFA2)"
+            : "conic-gradient(from 210deg, #E8DFC7, #B7A578, #8F7E52, #DCCFA6, #E8DFC7)",
+          padding: selected ? "2px" : "1.5px",
+          boxShadow: selected
+            ? "0 0 0 1px rgba(212,175,55,0.20), 0 1px 2px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.55)"
+            : "0 1px 2px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.5)",
         }}
       >
-        {selected && <span className="h-2 w-2 rounded-full bg-white" />}
+        <span
+          className="flex h-full w-full items-center justify-center rounded-full"
+          style={{ background: "#FFFFFF" }}
+        >
+          {selected && (
+            <span
+              className="h-2 w-2 rounded-full"
+              style={{
+                background: "radial-gradient(circle at 30% 30%, #FBEAB0 0%, #D4AF37 55%, #9A6E14 100%)",
+                boxShadow: "inset 0 0.5px 0 rgba(255,255,255,0.7), 0 0 3px rgba(212,175,55,0.5)",
+              }}
+            />
+          )}
+        </span>
       </span>
     </button>
   );
