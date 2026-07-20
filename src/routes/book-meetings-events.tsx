@@ -2798,26 +2798,62 @@ function TripleRoomIcon({ size = 22 }: { size?: number }) {
 }
 
 function TwinBedsIcon({ size = 22 }: { size?: number }) {
-  const id = "twnp";
+  const id = "twinp";
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden
       strokeLinecap="round" strokeLinejoin="round">
       <PremiumRoomIconDefs id={id} />
-      <g stroke={`url(#${id}-stroke)`} strokeWidth={1.55} filter={`url(#${id}-glow)`}>
+      <defs>
+        <linearGradient id={`${id}-fill`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#FFF4D1" />
+          <stop offset="32%" stopColor="#F2C14E" />
+          <stop offset="70%" stopColor="#D4A03A" />
+          <stop offset="100%" stopColor="#A67416" />
+        </linearGradient>
+        <linearGradient id={`${id}-dark`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#E8B43F" />
+          <stop offset="100%" stopColor="#7A4E08" />
+        </linearGradient>
+        <linearGradient id={`${id}-hi2`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.75" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <g filter={`url(#${id}-glow)`}>
         {/* left bed */}
-        <path d="M2.2 16.5v-4.2a1.6 1.6 0 0 1 1.6-1.6h5.8a1.6 1.6 0 0 1 1.6 1.6v4.2" />
-        <rect x="3.2" y="8.6" width="2.4" height="2.1" rx="0.5" />
-        <path d="M2.2 14.4h8.8" />
+        <g>
+          <rect x="2.5" y="5.2" width="7" height="6" rx="1.8"
+            fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.45} />
+          <rect x="4" y="8.5" width="4" height="2.2" rx="0.6"
+            fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.4} />
+          <rect x="2.7" y="10.8" width="6.8" height="5.6" rx="0.55"
+            fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.45} />
+          <rect x="2.9" y="16.3" width="0.9" height="1.3" rx="0.25"
+            fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
+          <rect x="8.1" y="16.3" width="0.9" height="1.3" rx="0.25"
+            fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
+          <path d="M3.1 12H9.1" stroke="#8F5E0A" strokeWidth={0.35} strokeOpacity={0.55} strokeLinecap="round" />
+          <path d="M2.7 11.1Q6 10.2 9.5 11.1" stroke={`url(#${id}-hi2)`} strokeWidth={0.55} fill="none" />
+          <path d="M4.1 8.9Q6 8.5 7.9 8.9" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
+          <path d="M2.8 6Q6 5.3 9.2 6" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
+        </g>
         {/* right bed */}
-        <path d="M12.8 16.5v-4.2a1.6 1.6 0 0 1 1.6-1.6h5.8a1.6 1.6 0 0 1 1.6 1.6v4.2" />
-        <rect x="13.8" y="8.6" width="2.4" height="2.1" rx="0.5" />
-        <path d="M12.8 14.4h8.8" />
-        {/* floor */}
-        <path d="M2 18.4h20" />
-      </g>
-      <g stroke={`url(#${id}-hi)`} strokeWidth={0.55} fill="none">
-        <path d="M3.2 12.6c.4-.6 1-.9 1.7-.9" />
-        <path d="M13.8 12.6c.4-.6 1-.9 1.7-.9" />
+        <g>
+          <rect x="13.1" y="5.2" width="7" height="6" rx="1.8"
+            fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.45} />
+          <rect x="14.6" y="8.5" width="4" height="2.2" rx="0.6"
+            fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.4} />
+          <rect x="13.3" y="10.8" width="6.8" height="5.6" rx="0.55"
+            fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.45} />
+          <rect x="13.5" y="16.3" width="0.9" height="1.3" rx="0.25"
+            fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
+          <rect x="18.7" y="16.3" width="0.9" height="1.3" rx="0.25"
+            fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
+          <path d="M13.7 12H19.7" stroke="#8F5E0A" strokeWidth={0.35} strokeOpacity={0.55} strokeLinecap="round" />
+          <path d="M13.3 11.1Q16.6 10.2 20.1 11.1" stroke={`url(#${id}-hi2)`} strokeWidth={0.55} fill="none" />
+          <path d="M14.7 8.9Q16.6 8.5 18.5 8.9" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
+          <path d="M13.4 6Q16.6 5.3 19.8 6" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
+        </g>
       </g>
     </svg>
   );
