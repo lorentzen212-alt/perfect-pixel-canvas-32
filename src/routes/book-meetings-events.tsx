@@ -854,17 +854,57 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   aria-hidden
                   className="pointer-events-none absolute"
                   style={{
-                    top: -6,
-                    width: 72,
-                    height: 72,
+                    top: 6,
+                    width: 48,
+                    height: 48,
                     borderRadius: "9999px",
                     background:
-                      "radial-gradient(circle, rgba(212,175,55,0.32) 0%, rgba(212,175,55,0.14) 35%, transparent 70%)",
-                    filter: "blur(2px)",
-                    animation: "step-breathe 4200ms ease-in-out infinite",
+                      "radial-gradient(circle, rgba(212,175,55,0.28) 0%, rgba(212,175,55,0.10) 45%, transparent 75%)",
+                    animation: "step-breathe 4600ms ease-in-out infinite",
                     zIndex: 0,
                   }}
                 />
+              )}
+              {active && (
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute"
+                  style={{
+                    top: 12,
+                    width: 44,
+                    height: 44,
+                    zIndex: 3,
+                  }}
+                >
+                  {[
+                    { x: -3, y: -3, size: 2.5, delay: 0,    dur: 2600, dx: 2,  dy: -3 },
+                    { x: 41, y: 6,  size: 2,   delay: 900,  dur: 3100, dx: 3,  dy: 2  },
+                    { x: 20, y: -4, size: 2.5, delay: 1600, dur: 2400, dx: -2, dy: -2 },
+                    { x: -4, y: 22, size: 2,   delay: 2200, dur: 2900, dx: -3, dy: 2  },
+                    { x: 43, y: 28, size: 2.5, delay: 3000, dur: 2700, dx: 2,  dy: 3  },
+                    { x: 18, y: 44, size: 2,   delay: 3700, dur: 3200, dx: 0,  dy: 3  },
+                  ].map((s, si) => (
+                    <span
+                      key={si}
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        left: s.x,
+                        top: s.y,
+                        width: s.size,
+                        height: s.size,
+                        borderRadius: "9999px",
+                        background:
+                          "radial-gradient(circle, #FFF3C8 0%, rgba(245,228,166,0.95) 45%, rgba(245,228,166,0) 75%)",
+                        boxShadow: "0 0 4px rgba(255,243,200,0.85)",
+                        animation: `step-spark-drift ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
+                        ["--dx" as never]: `${s.dx}px`,
+                        ["--dy" as never]: `${s.dy}px`,
+                        pointerEvents: "none",
+                      }}
+                    />
+                  ))}
+                </span>
               )}
               <span
                 className="relative flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold overflow-hidden"
@@ -873,7 +913,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   color: numberColor,
                   border: `1px solid ${borderColor}`,
                   boxShadow: active
-                    ? "0 0 10px rgba(214,177,90,0.32), 0 6px 14px rgba(168,117,22,0.20), inset 0 1px 0 rgba(255,236,183,0.55), inset 0 -1px 0 rgba(120,80,20,0.35)"
+                    ? "0 0 6px rgba(214,177,90,0.35), inset 0 1px 0 rgba(255,236,183,0.55), inset 0 -1px 0 rgba(120,80,20,0.35)"
                     : completed
                       ? "0 2px 6px rgba(0,0,0,0.25)"
                       : "none",
@@ -884,36 +924,17 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                 }}
               >
                 {active && (
-                  <>
-                    {/* Tiny sparkle highlights around the edge — random positions, random timing */}
-                    {[
-                      { top: -2, right: 4,  size: 3,   delay: 0,    dur: 2400 },
-                      { bottom: -1, left: 3, size: 2.5, delay: 700,  dur: 2900 },
-                      { top: 6,  left: -2,  size: 2,   delay: 1300, dur: 2600 },
-                      { bottom: 6, right: -2, size: 2.5, delay: 1900, dur: 3100 },
-                      { top: 14, right: 12, size: 1.5, delay: 2300, dur: 2500 },
-                    ].map((s, si) => (
-                      <span
-                        key={si}
-                        aria-hidden
-                        style={{
-                          position: "absolute",
-                          top: s.top as number | undefined,
-                          right: s.right as number | undefined,
-                          bottom: s.bottom as number | undefined,
-                          left: s.left as number | undefined,
-                          width: s.size,
-                          height: s.size,
-                          borderRadius: "9999px",
-                          background:
-                            "radial-gradient(circle, #FFF7D6 0%, rgba(245,228,166,0.9) 40%, rgba(245,228,166,0) 70%)",
-                          boxShadow: "0 0 5px rgba(255,243,200,0.9)",
-                          animation: `step-spark ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
-                          pointerEvents: "none",
-                        }}
-                      />
-                    ))}
-                  </>
+                  <span
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background:
+                        "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%)",
+                      animation: "step-shimmer-sweep 5200ms ease-in-out infinite",
+                      pointerEvents: "none",
+                    }}
+                  />
                 )}
 
                 <span style={{ position: "relative", zIndex: 2 }}>
