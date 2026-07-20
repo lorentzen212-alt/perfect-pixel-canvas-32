@@ -1335,93 +1335,142 @@ function StepTwoLocation({
   }
 
   return (
-    <div>
-      {/* Header row */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-10 items-start">
-        <div>
-          <h2
-            className="text-[#0A1B2C] text-3xl lg:text-[34px] leading-tight"
-            style={{ fontFamily: SERIF }}
+    <div className="relative">
+      {/* Hero — heading + globe */}
+      <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] items-start gap-6 lg:gap-8">
+        <div className="relative z-10 max-w-[560px]">
+          <p
+            className="text-[13px] tracking-[0.18em] uppercase"
+            style={{ color: "#B88A2E", fontWeight: 500 }}
           >
-            Step 2 – Location
+            Step 2 — Location
+          </p>
+          <h2
+            className="mt-4 text-[#0A1B2C] text-[40px] sm:text-[52px] leading-[1.05] tracking-[-0.01em]"
+            style={{ fontFamily: SERIF, fontWeight: 500 }}
+          >
+            Every great event
+            <br />
+            starts with the
+            <br />
+            <span style={{ color: "#B88A2E" }}>right destination.</span>
           </h2>
-          <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
-            Where would you like to host your event?
+          <div
+            className="mt-6 h-px w-16"
+            style={{ background: "linear-gradient(90deg,#D9BC79,rgba(217,188,121,0))" }}
+          />
+          <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[15px] text-[#4A5866]">
+            <span>Explore</span>
+            <span style={{ color: "#D9BC79" }}>•</span>
+            <span>Select</span>
+            <span style={{ color: "#D9BC79" }}>•</span>
+            <span>Connect</span>
           </p>
         </div>
 
-        {/* Country selector */}
-        <div className="w-full lg:min-w-[280px]" ref={countryRef}>
-          <label className="block text-[14px] font-semibold text-[#0A1B2C]">
-            Select country
-          </label>
-          <div className="relative mt-2">
-            <button
-              type="button"
-              onClick={() => setIsCountryDropdownOpen((v) => !v)}
-              aria-haspopup="listbox"
-              aria-expanded={isCountryDropdownOpen}
-              className="w-full flex items-center justify-between rounded-md border bg-white px-4 h-[46px] text-[15px] text-[#0A1B2C] outline-none transition-all duration-200 hover:border-[#B9C2CE] hover:shadow-sm focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40 focus-visible:border-[#F5AE00]"
-              style={{ borderColor: "#DFE4EB" }}
-            >
-              <span className="flex items-center gap-3">
-                <currentCountry.Flag />
-                {currentCountry.name}
-              </span>
-              <ChevronDown
-                size={18}
-                className={cn(
-                  "text-[#4A5866] transition-transform duration-200",
-                  isCountryDropdownOpen && "rotate-180",
-                )}
-              />
-            </button>
-            {isCountryDropdownOpen && (
-              <ul
-                role="listbox"
-                className="absolute z-30 mt-2 w-full rounded-md border bg-white py-1 shadow-lg"
-                style={{
-                  borderColor: "#DFE4EB",
-                  boxShadow: "0 12px 30px -12px rgba(10,27,44,0.18)",
-                }}
-              >
-                {COUNTRIES.map((c) => (
-                  <li key={c.code}>
-                    <button
-                      type="button"
-                      onClick={() => changeCountry(c.code)}
-                      className={cn(
-                        "w-full flex items-center gap-3 px-4 py-2 text-left text-[15px] text-[#0A1B2C] transition-colors hover:bg-[#F5EFE1]",
-                        c.code === selectedCountry && "bg-[#FBF6EA]",
-                      )}
-                    >
-                      <c.Flag />
-                      {c.name}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+        {/* Globe */}
+        <div className="pointer-events-none relative -mt-4 lg:-mt-8 mx-auto lg:mx-0 w-[280px] sm:w-[360px] lg:w-[420px] aspect-square">
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 50%, rgba(245,203,120,0.35) 0%, rgba(245,203,120,0.12) 40%, rgba(245,203,120,0) 70%)",
+              filter: "blur(6px)",
+            }}
+          />
+          <img
+            src={globeImg}
+            alt=""
+            aria-hidden="true"
+            width={1024}
+            height={1024}
+            loading="lazy"
+            className="relative h-full w-full object-contain select-none animate-[globe-float_9s_ease-in-out_infinite]"
+            style={{
+              filter:
+                "drop-shadow(0 30px 60px rgba(184,138,46,0.25)) drop-shadow(0 0 40px rgba(245,203,120,0.25))",
+            }}
+          />
+          {/* sparkles */}
+          {[
+            { top: "8%", left: "62%", d: "0s", s: 3 },
+            { top: "22%", left: "88%", d: "1.4s", s: 4 },
+            { top: "48%", left: "96%", d: "0.8s", s: 3 },
+            { top: "72%", left: "82%", d: "2.1s", s: 3 },
+            { top: "18%", left: "40%", d: "1.9s", s: 2 },
+            { top: "62%", left: "8%", d: "0.5s", s: 3 },
+          ].map((sp, i) => (
+            <span
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                top: sp.top,
+                left: sp.left,
+                width: sp.s,
+                height: sp.s,
+                background: "#FFF7DA",
+                boxShadow:
+                  "0 0 6px 2px rgba(255,235,170,0.85), 0 0 14px 4px rgba(245,203,120,0.35)",
+                animation: `globe-sparkle 3.2s ease-in-out ${sp.d} infinite`,
+              }}
+            />
+          ))}
         </div>
       </div>
 
-      {/* Popular destinations panel */}
-      <div
-        className="mt-6 rounded-[10px] p-5 lg:p-6"
-        style={{
-          backgroundColor: "rgba(255,255,255,0.72)",
-          border: "1px solid #E7EAF0",
-        }}
-      >
-        <h3 className="text-[14px] font-semibold text-[#0A1B2C]">
-          Popular destinations in {currentCountry.name}
-        </h3>
+      {/* Country pills */}
+      <div className="mt-8 flex flex-wrap gap-3">
+        {COUNTRIES.map((c) => {
+          const active = c.code === selectedCountry;
+          return (
+            <button
+              key={c.code}
+              type="button"
+              onClick={() => changeCountry(c.code)}
+              aria-pressed={active}
+              className={cn(
+                "group inline-flex items-center gap-3 rounded-full pl-3 pr-6 h-[52px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
+                active ? "-translate-y-[1px]" : "hover:-translate-y-[1px]",
+              )}
+              style={{
+                background: "#FFFFFF",
+                border: active ? "1.5px solid #D4AF37" : "1px solid #EEE7D6",
+                color: active ? "#0A1B2C" : "#4A5866",
+                fontWeight: active ? 600 : 500,
+                boxShadow: active
+                  ? "0 14px 32px -18px rgba(200,154,58,0.55), 0 2px 6px -2px rgba(10,27,44,0.06), inset 0 0 0 1px rgba(255,236,183,0.35)"
+                  : "0 6px 18px -14px rgba(10,27,44,0.18), 0 1px 2px rgba(10,27,44,0.03)",
+              }}
+            >
+              <span
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full overflow-hidden"
+                style={{ background: "#F7F4EC" }}
+              >
+                <c.Flag />
+              </span>
+              {c.name}
+            </button>
+          );
+        })}
+      </div>
 
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {destinations.map((d) => {
+      {/* Curated destinations heading */}
+      <div className="mt-10 flex items-center gap-3">
+        <Sparkles size={18} className="text-[#D4AF37]" strokeWidth={1.6} />
+        <h3
+          className="text-[#0A1B2C] text-[22px] sm:text-[24px]"
+          style={{ fontFamily: SERIF, fontWeight: 500 }}
+        >
+          Curated destinations in {currentCountry.name}
+        </h3>
+      </div>
+
+      {/* Destination cards */}
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+        {destinations
+          .filter((d) => !d.anywhere)
+          .map((d) => {
             const selected = selectedDestination === d.id;
-            const isAnywhere = d.anywhere === true;
             return (
               <button
                 key={d.id}
@@ -1429,244 +1478,211 @@ function StepTwoLocation({
                 onClick={() => pickDestinationCard(d)}
                 aria-pressed={selected}
                 className={cn(
-                  "group relative overflow-hidden rounded-[10px] aspect-[4/3] text-left transition-all duration-[220ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/60",
-                  selected ? "-translate-y-[3px]" : "hover:-translate-y-[3px]",
+                  "group relative overflow-hidden rounded-[18px] aspect-[4/5] text-left transition-all duration-[280ms] ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50",
+                  selected ? "-translate-y-[4px]" : "hover:-translate-y-[4px]",
                 )}
                 style={{
                   border: selected
-                    ? "2px solid #F5AE00"
-                    : "1px solid rgba(15,35,60,0.08)",
+                    ? "1.5px solid #D4AF37"
+                    : "1px solid rgba(212,175,55,0.28)",
                   boxShadow: selected
-                    ? "0 18px 40px -20px rgba(200,154,58,0.55), 0 6px 14px -6px rgba(10,27,44,0.15)"
-                    : "0 8px 22px -14px rgba(10,27,44,0.25)",
+                    ? "0 26px 60px -24px rgba(200,154,58,0.55), 0 8px 22px -12px rgba(10,27,44,0.22), inset 0 0 0 1px rgba(255,236,183,0.35)"
+                    : "0 18px 40px -22px rgba(10,27,44,0.28), 0 4px 12px -8px rgba(184,138,46,0.15)",
+                  background: "#0A1B2C",
                 }}
               >
-                {isAnywhere ? (
-                  <div
-                    className="absolute inset-0 flex flex-col items-center justify-center gap-3"
+                <img
+                  src={d.image}
+                  alt={d.name}
+                  loading="lazy"
+                  width={800}
+                  height={1000}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.03]"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(4,17,26,0) 40%, rgba(4,17,26,0.55) 78%, rgba(4,17,26,0.85) 100%)",
+                  }}
+                />
+                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 p-4">
+                  <span
+                    className="text-white text-[17px] tracking-[-0.005em]"
+                    style={{ fontFamily: SERIF, fontWeight: 500 }}
+                  >
+                    {d.name}
+                  </span>
+                  <span
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-105"
                     style={{
-                      background:
-                        "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)",
+                      background: "rgba(10,27,44,0.55)",
+                      border: "1px solid rgba(212,175,55,0.7)",
+                      backdropFilter: "blur(4px)",
                     }}
                   >
-                    <d.Icon size={32} strokeWidth={1.6} className="text-white" />
-                    <span className="text-white text-[16px] font-medium px-3 text-center">
-                      {d.name}
-                    </span>
-                  </div>
-                ) : (
-                  <>
-                    <img
-                      src={d.image}
-                      alt={d.name}
-                      loading="lazy"
-                      width={800}
-                      height={600}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[220ms] group-hover:scale-[1.03]"
-                    />
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, rgba(4,17,26,0) 40%, rgba(4,17,26,0.72) 100%)",
-                      }}
-                    />
-                    <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 p-3">
-                      <d.Icon size={20} strokeWidth={1.6} className="text-white shrink-0" />
-                      <span className="text-white text-[16px] font-medium truncate">
-                        {d.name}
-                      </span>
-                    </div>
-                    {selected && (
-                      <span
-                        className="absolute top-2 right-2 inline-flex h-6 w-6 items-center justify-center rounded-full"
-                        style={{ backgroundColor: "#F5AE00" }}
-                      >
-                        <Check size={14} strokeWidth={3} className="text-[#0A1B2C]" />
-                      </span>
-                    )}
-                  </>
+                    <ArrowRight size={15} className="text-[#F0D78C]" strokeWidth={1.8} />
+                  </span>
+                </div>
+                {selected && (
+                  <span
+                    className="absolute top-3 right-3 inline-flex h-6 w-6 items-center justify-center rounded-full"
+                    style={{ backgroundColor: "#D4AF37" }}
+                  >
+                    <Check size={13} strokeWidth={3} className="text-[#0A1B2C]" />
+                  </span>
                 )}
               </button>
             );
           })}
+      </div>
+
+      {/* Floating search container */}
+      <div
+        ref={searchRef}
+        className="mt-10 relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto] items-center rounded-[30px]"
+        style={{
+          background: "#FFFFFF",
+          border: "1px solid #EEE7D6",
+          boxShadow:
+            "0 30px 60px -30px rgba(10,27,44,0.14), 0 8px 24px -16px rgba(184,138,46,0.12), inset 0 0 0 1px rgba(255,236,183,0.18)",
+          minHeight: 72,
+        }}
+      >
+        {/* Destination */}
+        <div className="relative flex items-center gap-3 px-6 py-3">
+          <MapPin size={20} className="text-[#B88A2E] shrink-0" strokeWidth={1.6} />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setIsSearchDropdownOpen(true);
+            }}
+            onFocus={() => {
+              if (searchQuery.trim()) setIsSearchDropdownOpen(true);
+            }}
+            onKeyDown={onSearchKey}
+            placeholder="Where do you want to go?"
+            autoComplete="off"
+            aria-label="Destination"
+            aria-autocomplete="list"
+            aria-expanded={isSearchDropdownOpen && searchResults.length > 0}
+            className="w-full bg-transparent text-[16px] text-[#0A1B2C] placeholder:text-[#9BA3AE] outline-none border-none"
+          />
+
+          {isSearchDropdownOpen && searchResults.length > 0 && (
+            <ul
+              role="listbox"
+              className="absolute left-4 right-0 top-[calc(100%+10px)] z-40 max-h-[280px] overflow-auto rounded-[16px] border bg-white py-1"
+              style={{
+                borderColor: "#EEE7D6",
+                boxShadow: "0 24px 50px -18px rgba(10,27,44,0.22)",
+              }}
+            >
+              {searchResults.map((r, idx) => {
+                const highlighted = idx === highlightedSearchIndex;
+                return (
+                  <li key={`${r.country}-${r.id}`}>
+                    <button
+                      type="button"
+                      onMouseEnter={() => setHighlightedSearchIndex(idx)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        pickSearchResult(r);
+                      }}
+                      className={cn(
+                        "w-full flex items-center justify-between gap-3 px-5 py-2.5 text-left text-[15px] text-[#0A1B2C] transition-colors",
+                        highlighted ? "bg-[#FBF6EA]" : "hover:bg-[#F8F4E8]",
+                      )}
+                    >
+                      <span className="truncate">{r.name}</span>
+                      <span className="text-[13px] text-[#7C8794] shrink-0">
+                        {r.countryName}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
 
-        {/* Lower content (single column – HelpCard lives in outer sidebar) */}
-        <div className="mt-8">
-          <div>
-            {/* Search field */}
-            <div ref={searchRef}>
-              <label className="block text-[14px] font-semibold text-[#0A1B2C]">
-                Or search for any destination
-              </label>
-              <div className="relative mt-2">
-                <Search
-                  size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4A5866]"
-                />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setIsSearchDropdownOpen(true);
-                  }}
-                  onFocus={() => {
-                    if (searchQuery.trim()) setIsSearchDropdownOpen(true);
-                  }}
-                  onKeyDown={onSearchKey}
-                  placeholder="Type city, region or venue"
-                  autoComplete="off"
-                  aria-autocomplete="list"
-                  aria-expanded={isSearchDropdownOpen && searchResults.length > 0}
-                  className="w-full rounded-md border bg-white pl-11 pr-4 h-[46px] text-[15px] text-[#0A1B2C] placeholder:text-[#8892A0] outline-none transition-colors focus:border-[#F5AE00] focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
-                  style={{ borderColor: "#DFE4EB" }}
-                />
+        {/* Divider */}
+        <div className="hidden md:block h-8 w-px" style={{ background: "#EEE7D6" }} />
 
-                {isSearchDropdownOpen && searchResults.length > 0 && (
-                  <ul
-                    role="listbox"
-                    className="absolute left-0 right-0 top-[calc(100%+6px)] z-40 max-h-[280px] overflow-auto rounded-md border bg-white py-1"
-                    style={{
-                      borderColor: "#DFE4EB",
-                      boxShadow: "0 18px 40px -14px rgba(10,27,44,0.22)",
-                    }}
-                  >
-                    {searchResults.map((r, idx) => {
-                      const highlighted = idx === highlightedSearchIndex;
-                      return (
-                        <li key={`${r.country}-${r.id}`}>
-                          <button
-                            type="button"
-                            onMouseEnter={() => setHighlightedSearchIndex(idx)}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              pickSearchResult(r);
-                            }}
-                            className={cn(
-                              "w-full flex items-center justify-between gap-3 px-4 py-2.5 text-left text-[15px] text-[#0A1B2C] transition-colors",
-                              highlighted ? "bg-[#FBF6EA]" : "hover:bg-[#F8F4E8]",
-                            )}
-                          >
-                            <span className="truncate">{r.name}</span>
-                            <span className="text-[13px] text-[#7C8794] shrink-0">
-                              {r.countryName}
-                            </span>
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
-            </div>
+        {/* Date */}
+        <label className="relative flex items-center gap-3 px-6 py-3 cursor-pointer">
+          <CalendarIcon size={20} className="text-[#B88A2E] shrink-0" strokeWidth={1.6} />
+          <input
+            type="date"
+            aria-label="Event date"
+            className="w-full bg-transparent text-[16px] text-[#0A1B2C] placeholder:text-[#9BA3AE] outline-none border-none"
+            style={{ colorScheme: "light" }}
+          />
+        </label>
 
-            {/* Hotel category */}
-            <div className="mt-6">
-              <label className="block text-[14px] font-semibold text-[#0A1B2C]">
-                Hotel category
-              </label>
-              <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-3">
-
-                {HOTEL_CATEGORIES.map((c) => {
-                  const selected = selectedHotelCategory === c.id;
-                  const isNone = c.id === "none";
-                  return (
-                    <button
-                      key={c.id}
-                      type="button"
-                      onClick={() => setSelectedHotelCategory(c.id)}
-                      aria-pressed={selected}
-                      className={cn(
-                        "inline-flex items-center justify-center gap-3 rounded-md h-[46px] text-[15px] text-[#0A1B2C] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
-                        selected
-                          ? isNone
-                            ? "border-[1.5px] border-[#F5AE00] bg-[#FBF6EA] shadow-[0_8px_20px_-14px_rgba(200,154,58,0.5)]"
-                            : "border-[1.5px] border-[#F5AE00] bg-white shadow-[0_8px_20px_-14px_rgba(200,154,58,0.5)]"
-                          : "bg-white border border-[#DFE4EB]",
-                        !selected && isNone && "hover:border-[#E9C77A]",
-                        !selected && !isNone && "hover:border-[#B9C2CE]",
-                      )}
-                    >
-                      {isNone && (
-                        <Ban size={16} strokeWidth={1.8} style={{ color: selected ? "#F5AE00" : "#4A5866" }} />
-                      )}
-                      <span className={cn(!isNone && "tracking-[0.15em]")}>
-                        {c.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Hotel style */}
-            <div className="mt-6">
-              <label className="block text-[14px] font-semibold text-[#0A1B2C]">
-                Hotel style
-              </label>
-              <div className="mt-2 flex flex-wrap gap-3">
-                {HOTEL_STYLES.map((s) => {
-                  const selected = selectedHotelStyle === s.id;
-                  return (
-                    <button
-                      key={s.id}
-                      type="button"
-                      onClick={() => setSelectedHotelStyle(s.id)}
-                      aria-pressed={selected}
-                      className="group inline-flex flex-1 basis-[160px] items-center justify-center gap-3 rounded-md h-[46px] px-5 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
-                      style={{
-                        minWidth: 160,
-                        background: selected
-                          ? "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)"
-                          : "#FFFFFF",
-                        border: selected
-                          ? "1px solid rgba(255,255,255,0.16)"
-                          : "1px solid #DFE4EB",
-                        boxShadow: selected
-                          ? "0 14px 30px -18px rgba(10,27,44,0.55), inset 0 1px 0 rgba(255,255,255,0.06)"
-                          : undefined,
-                        color: selected ? "#FFFFFF" : "#0A1B2C",
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!selected) {
-                          e.currentTarget.style.borderColor = "#E9C77A";
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!selected) {
-                          e.currentTarget.style.borderColor = "#DFE4EB";
-                        }
-                      }}
-                    >
-                      <s.Icon
-                        size={18}
-                        strokeWidth={1.6}
-                        className="shrink-0 transition-transform duration-200 group-hover:scale-[1.04]"
-                        style={{ color: selected ? GOLD : "#4A5866" }}
-                      />
-                      <span className="text-[15px] leading-none whitespace-nowrap">
-                        {s.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-            </div>
-          </div>
+        {/* Gold arrow button */}
+        <div className="flex items-center justify-end p-3">
+          <button
+            type="button"
+            onClick={onNext}
+            aria-label="Continue"
+            className="inline-flex h-[56px] w-[56px] items-center justify-center rounded-full transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
+            style={{
+              background:
+                "linear-gradient(180deg, #E8C67A 0%, #C99A3A 55%, #A87A22 100%)",
+              boxShadow:
+                "0 14px 30px -12px rgba(200,154,58,0.6), inset 0 1px 0 rgba(255,236,183,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
+            }}
+          >
+            <ArrowRight size={20} strokeWidth={2} className="text-white" />
+          </button>
         </div>
       </div>
 
+      {/* Preferred venue slim card */}
+      <div
+        className="mt-4 flex items-center gap-4 rounded-[22px] px-5"
+        style={{
+          minHeight: 60,
+          background: "#FFFFFF",
+          border: "1px solid #EEE7D6",
+          boxShadow:
+            "0 18px 40px -30px rgba(10,27,44,0.10), 0 2px 6px -3px rgba(184,138,46,0.08)",
+        }}
+      >
+        <span
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+          style={{ background: "#FBF4E1" }}
+        >
+          <Hotel size={18} className="text-[#B88A2E]" strokeWidth={1.6} />
+        </span>
+        <div className="flex flex-1 flex-wrap items-baseline gap-x-2">
+          <label
+            htmlFor="preferred-venue"
+            className="text-[14px] font-medium text-[#0A1B2C] shrink-0"
+          >
+            Preferred venue{" "}
+            <span className="text-[#9BA3AE] font-normal">(optional)</span>
+          </label>
+          <input
+            id="preferred-venue"
+            type="text"
+            placeholder="Specific hotel, venue or any special request…"
+            className="flex-1 min-w-[180px] bg-transparent text-[14px] text-[#0A1B2C] placeholder:text-[#9BA3AE] outline-none border-none py-3"
+          />
+        </div>
+        <Pencil size={16} className="text-[#B88A2E] shrink-0" strokeWidth={1.6} />
+      </div>
 
       {/* Navigation */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center justify-center rounded-md border px-6 h-[48px] text-[15px] font-medium text-[#0A1B2C] bg-white transition-all duration-200 hover:-translate-y-[1px] hover:bg-[#F5EFE1] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
-          style={{ borderColor: "#DFE4EB" }}
+          className="inline-flex items-center justify-center rounded-full border px-6 h-[48px] text-[15px] font-medium text-[#0A1B2C] bg-white transition-all duration-200 hover:-translate-y-[1px] hover:bg-[#FBF6EA] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+          style={{ borderColor: "#EEE7D6" }}
         >
           Back
         </button>
