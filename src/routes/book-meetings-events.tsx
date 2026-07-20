@@ -2711,32 +2711,114 @@ function RoomRow({
   );
 }
 
-function TwinBedsIcon({ size = 22 }: { size?: number }) {
+function PremiumRoomIconDefs({ id }: { id: string }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.7}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      {/* left bed */}
-      <rect x="2" y="10" width="8.5" height="6" rx="1.2" />
-      <path d="M2 13.2h8.5" />
-      <rect x="3" y="8.5" width="2.2" height="1.5" rx="0.4" />
-      {/* right bed */}
-      <rect x="13.5" y="10" width="8.5" height="6" rx="1.2" />
-      <path d="M13.5 13.2H22" />
-      <rect x="14.5" y="8.5" width="2.2" height="1.5" rx="0.4" />
-      {/* floor */}
-      <path d="M2 17.5h20" />
+    <defs>
+      <linearGradient id={`${id}-stroke`} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#FFE7A8" />
+        <stop offset="45%" stopColor="#F2C14E" />
+        <stop offset="100%" stopColor="#B87912" />
+      </linearGradient>
+      <linearGradient id={`${id}-hi`} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.55" />
+        <stop offset="55%" stopColor="#FFFFFF" stopOpacity="0" />
+      </linearGradient>
+      <filter id={`${id}-glow`} x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="0.35" result="b" />
+        <feMerge>
+          <feMergeNode in="b" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+  );
+}
+
+function SingleRoomIcon({ size = 22 }: { size?: number }) {
+  const id = "sglp";
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden
+      strokeLinecap="round" strokeLinejoin="round">
+      <PremiumRoomIconDefs id={id} />
+      <g stroke={`url(#${id}-stroke)`} strokeWidth={1.6} filter={`url(#${id}-glow)`}>
+        <circle cx="12" cy="8.2" r="3.4" />
+        <path d="M5.2 19.2c0-3.5 3-6 6.8-6s6.8 2.5 6.8 6" />
+      </g>
+      <g stroke={`url(#${id}-hi)`} strokeWidth={0.6} fill="none">
+        <path d="M9.6 6.4c.7-.9 1.6-1.3 2.6-1.3" />
+        <path d="M7.4 17.6c.9-1.8 2.6-2.8 4.6-2.9" />
+      </g>
     </svg>
   );
 }
+
+function DoubleRoomIcon({ size = 22 }: { size?: number }) {
+  const id = "dblp";
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden
+      strokeLinecap="round" strokeLinejoin="round">
+      <PremiumRoomIconDefs id={id} />
+      <g stroke={`url(#${id}-stroke)`} strokeWidth={1.55} filter={`url(#${id}-glow)`}>
+        <circle cx="8.4" cy="8.4" r="3.1" />
+        <circle cx="15.6" cy="8.4" r="3.1" />
+        <path d="M2.6 19.2c0-3.2 2.6-5.6 5.8-5.6s5.8 2.4 5.8 5.6" />
+        <path d="M9.8 19.2c0-3.2 2.6-5.6 5.8-5.6s5.8 2.4 5.8 5.6" />
+      </g>
+      <g stroke={`url(#${id}-hi)`} strokeWidth={0.6} fill="none">
+        <path d="M6.4 6.7c.5-.7 1.2-1.1 2-1.2" />
+        <path d="M13.6 6.7c.5-.7 1.2-1.1 2-1.2" />
+      </g>
+    </svg>
+  );
+}
+
+function TripleRoomIcon({ size = 22 }: { size?: number }) {
+  const id = "trpp";
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden
+      strokeLinecap="round" strokeLinejoin="round">
+      <PremiumRoomIconDefs id={id} />
+      <g stroke={`url(#${id}-stroke)`} strokeWidth={1.5} filter={`url(#${id}-glow)`}>
+        <circle cx="12" cy="7.6" r="2.7" />
+        <circle cx="5.4" cy="9" r="2.4" />
+        <circle cx="18.6" cy="9" r="2.4" />
+        <path d="M6.4 19.2c0-3 2.5-5.2 5.6-5.2s5.6 2.2 5.6 5.2" />
+        <path d="M1.6 19.2c0-2.4 1.8-4.2 4-4.4" />
+        <path d="M22.4 19.2c0-2.4-1.8-4.2-4-4.4" />
+      </g>
+      <g stroke={`url(#${id}-hi)`} strokeWidth={0.55} fill="none">
+        <path d="M10.3 6.3c.4-.6 1-1 1.7-1" />
+      </g>
+    </svg>
+  );
+}
+
+function TwinBedsIcon({ size = 22 }: { size?: number }) {
+  const id = "twnp";
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden
+      strokeLinecap="round" strokeLinejoin="round">
+      <PremiumRoomIconDefs id={id} />
+      <g stroke={`url(#${id}-stroke)`} strokeWidth={1.55} filter={`url(#${id}-glow)`}>
+        {/* left bed */}
+        <path d="M2.2 16.5v-4.2a1.6 1.6 0 0 1 1.6-1.6h5.8a1.6 1.6 0 0 1 1.6 1.6v4.2" />
+        <rect x="3.2" y="8.6" width="2.4" height="2.1" rx="0.5" />
+        <path d="M2.2 14.4h8.8" />
+        {/* right bed */}
+        <path d="M12.8 16.5v-4.2a1.6 1.6 0 0 1 1.6-1.6h5.8a1.6 1.6 0 0 1 1.6 1.6v4.2" />
+        <rect x="13.8" y="8.6" width="2.4" height="2.1" rx="0.5" />
+        <path d="M12.8 14.4h8.8" />
+        {/* floor */}
+        <path d="M2 18.4h20" />
+      </g>
+      <g stroke={`url(#${id}-hi)`} strokeWidth={0.55} fill="none">
+        <path d="M3.2 12.6c.4-.6 1-.9 1.7-.9" />
+        <path d="M13.8 12.6c.4-.6 1-.9 1.7-.9" />
+      </g>
+    </svg>
+  );
+}
+
 
 
 function MealOption({
