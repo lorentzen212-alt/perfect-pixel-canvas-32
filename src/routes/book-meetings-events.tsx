@@ -105,10 +105,10 @@ const NAV_LINKS = [
 ];
 
 const TRUST = [
-  { Icon: ShieldCheckPremium, label: "No commitment" },
-  { Icon: ClockPremium, label: "Fast and free" },
-  { Icon: HeadsetPremium, label: "Expert support" },
-  { Icon: LockPremium, label: "Secure & trusted" },
+  { Icon: TrustShield, label: "No commitment" },
+  { Icon: TrustClock, label: "Fast and free" },
+  { Icon: TrustHeadset, label: "Expert support" },
+  { Icon: TrustLock, label: "Secure & trusted" },
 ];
 
 const STEPS = [
