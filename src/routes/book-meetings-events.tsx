@@ -2002,11 +2002,11 @@ function StepThreeAccommodation({
       <div
         className="overflow-hidden rounded-[20px]"
         style={{
-          backgroundColor: "#FCFCFC",
-          backgroundImage: "linear-gradient(180deg,#FFFFFF 0%,#FAFAF8 100%)",
+          background:
+            "linear-gradient(180deg, #FAF9F6 0%, #F7F6F2 50%, #F4F3EF 100%)",
           boxShadow:
-            "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
-          border: "1px solid #ECECEC",
+            "inset 0 1px 0 rgba(255,255,255,0.75), 0 12px 34px rgba(15,23,42,0.06), 0 3px 10px rgba(15,23,42,0.03)",
+          border: "1px solid #E8E6E1",
         }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px]">
