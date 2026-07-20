@@ -40,6 +40,9 @@ import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
 const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
+import helpCardBgAsset from "@/assets/help-card-bg.png.asset.json";
+const helpCardBg = helpCardBgAsset.url;
+void loungeImg;
 
 import osloImg from "@/assets/destinations/oslo.jpg";
 import bergenImg from "@/assets/destinations/bergen.jpg";
@@ -528,18 +531,23 @@ function BookMeetingsEvents() {
         .country-pill { transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease, border-color 220ms ease; }
         .country-pill--active:hover { filter: brightness(1.06); box-shadow: 0 6px 14px -6px rgba(168,117,22,0.28), inset 0 1px 0 rgba(245,228,166,0.45); }
 
-        /* Active step + progress line: tiny random sparkles + slow breathing glow */
-        @keyframes step-spark {
-          0%, 100% { opacity: 0; transform: scale(0.35); }
-          50%      { opacity: 1; transform: scale(1); }
+        /* Active step: tiny drifting sparkles + slow shimmer sweep on the circle */
+        @keyframes step-spark-drift {
+          0%   { opacity: 0; transform: translate(0, 0) scale(0.4); }
+          25%  { opacity: 1; }
+          75%  { opacity: 1; }
+          100% { opacity: 0; transform: translate(var(--dx,2px), var(--dy,-2px)) scale(1); }
         }
-        @keyframes line-spark {
-          0%, 100% { opacity: 0; transform: scale(0.3); }
-          45%, 55% { opacity: 0.95; transform: scale(1); }
+        @keyframes step-shimmer-sweep {
+          0%   { transform: translateX(-140%) rotate(20deg); opacity: 0; }
+          10%  { opacity: 0.85; }
+          50%  { opacity: 0.85; }
+          90%  { opacity: 0; }
+          100% { transform: translateX(160%) rotate(20deg); opacity: 0; }
         }
         @keyframes step-breathe {
-          0%, 100% { opacity: 0.55; transform: scale(0.98); }
-          50%      { opacity: 1; transform: scale(1.06); }
+          0%, 100% { opacity: 0.5; transform: scale(0.98); }
+          50%      { opacity: 0.9; transform: scale(1.04); }
         }
 
 
@@ -798,41 +806,8 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
               transition: "width 500ms cubic-bezier(0.4, 0, 0.2, 1)",
               zIndex: 1,
             }}
-          >
-            {/* Tiny random sparkles distributed along the completed section */}
-            {progressPercentage > 2 &&
-              [
-                { left: 7,  top: -2, size: 5, delay: 200,  dur: 2600 },
-                { left: 18, top: 2,  size: 4, delay: 1100, dur: 3100 },
-                { left: 29, top: -3, size: 6, delay: 500,  dur: 2400 },
-                { left: 41, top: 3,  size: 4, delay: 1700, dur: 2900 },
-                { left: 53, top: -2, size: 5, delay: 300,  dur: 3300 },
-                { left: 66, top: 2,  size: 4, delay: 1400, dur: 2500 },
-                { left: 78, top: -3, size: 6, delay: 800,  dur: 3000 },
-                { left: 91, top: 2,  size: 4, delay: 1900, dur: 2700 },
-              ]
-                .filter((s) => s.left <= progressPercentage - 1)
-                .map((s, si) => (
-                  <span
-                    key={si}
-                    aria-hidden
-                    style={{
-                      position: "absolute",
-                      left: `${(s.left / progressPercentage) * 100}%`,
-                      top: s.top,
-                      width: s.size,
-                      height: s.size,
-                      borderRadius: "9999px",
-                      background:
-                        "radial-gradient(circle, #FFF7D6 0%, rgba(245,228,166,0.9) 40%, rgba(245,228,166,0) 70%)",
-                      boxShadow: "0 0 6px rgba(255,243,200,0.85)",
-                      animation: `line-spark ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
-                      pointerEvents: "none",
-                    }}
-                  />
-                ))}
-          </div>
-
+          />
+          {/* progress line intentionally static — no sparkles */}
         </div>
 
         {STEPS.map((label, i) => {
@@ -879,17 +854,57 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   aria-hidden
                   className="pointer-events-none absolute"
                   style={{
-                    top: -6,
-                    width: 72,
-                    height: 72,
+                    top: 6,
+                    width: 48,
+                    height: 48,
                     borderRadius: "9999px",
                     background:
-                      "radial-gradient(circle, rgba(212,175,55,0.32) 0%, rgba(212,175,55,0.14) 35%, transparent 70%)",
-                    filter: "blur(2px)",
-                    animation: "step-breathe 4200ms ease-in-out infinite",
+                      "radial-gradient(circle, rgba(212,175,55,0.28) 0%, rgba(212,175,55,0.10) 45%, transparent 75%)",
+                    animation: "step-breathe 4600ms ease-in-out infinite",
                     zIndex: 0,
                   }}
                 />
+              )}
+              {active && (
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute"
+                  style={{
+                    top: 12,
+                    width: 44,
+                    height: 44,
+                    zIndex: 3,
+                  }}
+                >
+                  {[
+                    { x: -3, y: -3, size: 2.5, delay: 0,    dur: 2600, dx: 2,  dy: -3 },
+                    { x: 41, y: 6,  size: 2,   delay: 900,  dur: 3100, dx: 3,  dy: 2  },
+                    { x: 20, y: -4, size: 2.5, delay: 1600, dur: 2400, dx: -2, dy: -2 },
+                    { x: -4, y: 22, size: 2,   delay: 2200, dur: 2900, dx: -3, dy: 2  },
+                    { x: 43, y: 28, size: 2.5, delay: 3000, dur: 2700, dx: 2,  dy: 3  },
+                    { x: 18, y: 44, size: 2,   delay: 3700, dur: 3200, dx: 0,  dy: 3  },
+                  ].map((s, si) => (
+                    <span
+                      key={si}
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        left: s.x,
+                        top: s.y,
+                        width: s.size,
+                        height: s.size,
+                        borderRadius: "9999px",
+                        background:
+                          "radial-gradient(circle, #FFF3C8 0%, rgba(245,228,166,0.95) 45%, rgba(245,228,166,0) 75%)",
+                        boxShadow: "0 0 4px rgba(255,243,200,0.85)",
+                        animation: `step-spark-drift ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
+                        ["--dx" as never]: `${s.dx}px`,
+                        ["--dy" as never]: `${s.dy}px`,
+                        pointerEvents: "none",
+                      }}
+                    />
+                  ))}
+                </span>
               )}
               <span
                 className="relative flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold overflow-hidden"
@@ -898,7 +913,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                   color: numberColor,
                   border: `1px solid ${borderColor}`,
                   boxShadow: active
-                    ? "0 0 10px rgba(214,177,90,0.32), 0 6px 14px rgba(168,117,22,0.20), inset 0 1px 0 rgba(255,236,183,0.55), inset 0 -1px 0 rgba(120,80,20,0.35)"
+                    ? "0 0 6px rgba(214,177,90,0.35), inset 0 1px 0 rgba(255,236,183,0.55), inset 0 -1px 0 rgba(120,80,20,0.35)"
                     : completed
                       ? "0 2px 6px rgba(0,0,0,0.25)"
                       : "none",
@@ -909,36 +924,17 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                 }}
               >
                 {active && (
-                  <>
-                    {/* Tiny sparkle highlights around the edge — random positions, random timing */}
-                    {[
-                      { top: -2, right: 4,  size: 3,   delay: 0,    dur: 2400 },
-                      { bottom: -1, left: 3, size: 2.5, delay: 700,  dur: 2900 },
-                      { top: 6,  left: -2,  size: 2,   delay: 1300, dur: 2600 },
-                      { bottom: 6, right: -2, size: 2.5, delay: 1900, dur: 3100 },
-                      { top: 14, right: 12, size: 1.5, delay: 2300, dur: 2500 },
-                    ].map((s, si) => (
-                      <span
-                        key={si}
-                        aria-hidden
-                        style={{
-                          position: "absolute",
-                          top: s.top as number | undefined,
-                          right: s.right as number | undefined,
-                          bottom: s.bottom as number | undefined,
-                          left: s.left as number | undefined,
-                          width: s.size,
-                          height: s.size,
-                          borderRadius: "9999px",
-                          background:
-                            "radial-gradient(circle, #FFF7D6 0%, rgba(245,228,166,0.9) 40%, rgba(245,228,166,0) 70%)",
-                          boxShadow: "0 0 5px rgba(255,243,200,0.9)",
-                          animation: `step-spark ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
-                          pointerEvents: "none",
-                        }}
-                      />
-                    ))}
-                  </>
+                  <span
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background:
+                        "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%)",
+                      animation: "step-shimmer-sweep 5200ms ease-in-out infinite",
+                      pointerEvents: "none",
+                    }}
+                  />
                 )}
 
                 <span style={{ position: "relative", zIndex: 2 }}>
@@ -1760,48 +1756,17 @@ function StepTwoLocation({
       <aside
         className="relative overflow-hidden rounded-[26px]"
         style={{
-          background: "#FCFBF8",
+          backgroundColor: "#FFFFFF",
+          backgroundImage: `url(${helpCardBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center bottom",
+          backgroundRepeat: "no-repeat",
           border: "1px solid #ECE6D6",
           boxShadow:
             "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
+          minHeight: 640,
         }}
       >
-        {/* Decorative gold curves */}
-        <svg
-          className="pointer-events-none absolute right-0 top-0 h-full"
-          width="180"
-          height="100%"
-          viewBox="0 0 180 640"
-          fill="none"
-          aria-hidden="true"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M170 -20 C 130 120, 90 220, 150 360 C 200 480, 130 580, 100 660"
-            stroke="url(#gold1)"
-            strokeWidth="0.7"
-            fill="none"
-          />
-          <path
-            d="M180 40 C 150 180, 100 260, 165 400 C 210 520, 150 620, 130 700"
-            stroke="url(#gold2)"
-            strokeWidth="0.5"
-            fill="none"
-          />
-          <defs>
-            <linearGradient id="gold1" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D6B15A" stopOpacity="0" />
-              <stop offset="40%" stopColor="#D6B15A" stopOpacity="0.30" />
-              <stop offset="100%" stopColor="#D6B15A" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="gold2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#F5E4A6" stopOpacity="0" />
-              <stop offset="50%" stopColor="#F5E4A6" stopOpacity="0.28" />
-              <stop offset="100%" stopColor="#F5E4A6" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
-
         <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
           <h3
             className="text-[#0A1B2C] text-[28px] leading-tight"
@@ -1818,7 +1783,7 @@ function StepTwoLocation({
           <div className="mt-8 flex flex-col gap-5">
             <a
               href="tel:+4721002100"
-              className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
+              className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors"
             >
               <span
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
@@ -1835,7 +1800,7 @@ function StepTwoLocation({
             </a>
             <a
               href="mailto:meetings@hotelgroupbook.com"
-              className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
+              className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
             >
               <span
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
@@ -1852,42 +1817,6 @@ function StepTwoLocation({
             </a>
           </div>
         </div>
-
-        {/* Luxury lounge illustration — anchored at bottom, wider */}
-        <div className="relative mt-4 px-0 pb-0 overflow-hidden">
-          <div className="relative w-full">
-            <img
-              src={loungeImg}
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              width={768}
-              height={640}
-              className="w-full h-auto object-cover select-none"
-              style={{
-                filter: "brightness(1.04) contrast(0.96) saturate(0.92)",
-              }}
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(255,240,205,0.18) 0%, rgba(214,177,90,0.10) 55%, rgba(168,117,22,0.06) 100%)",
-                mixBlendMode: "soft-light",
-              }}
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(120% 80% at 30% 20%, rgba(255,245,210,0.22) 0%, rgba(255,245,210,0) 55%)",
-              }}
-            />
-          </div>
-        </div>
-
       </aside>
     </div>
   );
