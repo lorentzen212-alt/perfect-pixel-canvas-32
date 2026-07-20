@@ -2033,11 +2033,11 @@ function StepThreeAccommodation({
                       background:
                         "radial-gradient(120% 120% at 30% 15%, #2A2A2E 0%, #18181A 55%, #0F0F11 100%)",
                       boxShadow:
-                        "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35), 0 0 0 1.5px transparent, 0 0 18px rgba(212,168,83,0.28), inset 0 0 0 0.6px rgba(184,142,62,0.35)",
+                        "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35)",
                       backgroundClip: "padding-box",
                     }}
                   >
-                    {/* crisp ~1.95px metallic champagne-gold outline (primary icon, ~17% thicker than secondary icons) */}
+                    {/* uniform ~1.95px champagne-gold frame (primary icon) */}
                     <span
                       aria-hidden
                       style={{
@@ -2045,8 +2045,7 @@ function StepThreeAccommodation({
                         inset: 0,
                         borderRadius: 11,
                         padding: 1.95,
-                        background:
-                          "linear-gradient(145deg, #FFF8D9 0%, #F7D98A 18%, #E8C468 38%, #C99A3A 58%, #A67C2E 78%, #8B6A24 100%)",
+                        background: "#D9B65A",
                         WebkitMask:
                           "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
                         WebkitMaskComposite: "xor",
@@ -2055,18 +2054,6 @@ function StepThreeAccommodation({
                       }}
                     />
 
-                    {/* subtle inner highlight for depth */}
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        borderRadius: 11,
-                        background:
-                          "radial-gradient(130% 70% at 28% 12%, rgba(247,231,166,0.13) 0%, rgba(247,231,166,0) 55%)",
-                        pointerEvents: "none",
-                      }}
-                    />
                     {/* soft glossy top sheen */}
                     <span
                       aria-hidden
