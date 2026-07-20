@@ -2008,9 +2008,7 @@ function StepThreeAccommodation({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <LuxIconBadge size={44}>
-                    <CalendarIcon size={21} strokeWidth={1.8} />
-                  </LuxIconBadge>
+                  <AccomIconBadge size={44} name="calendar" />
                   <div>
                   <h3
                     className="text-[#1A1F24] text-[20px] leading-tight tracking-[0.04em]"
