@@ -2077,7 +2077,7 @@ function StepThreeAccommodation({
                 </div>
                 <div className="flex flex-col gap-3">
                   <RoomRow
-                    icon={<User size={21} strokeWidth={1.7} />}
+                    iconName="user"
                     label="Single Room"
                     value={rooms.sgl}
                     onChange={(v) => setRooms({ ...rooms, sgl: v })}
@@ -2085,7 +2085,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, sgl: c })}
                   />
                   <RoomRow
-                    icon={<Users size={21} strokeWidth={1.7} />}
+                    iconName="users"
                     label="Double Room"
                     value={rooms.dbl}
                     onChange={(v) => setRooms({ ...rooms, dbl: v })}
@@ -2093,7 +2093,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, dbl: c })}
                   />
                   <RoomRow
-                    icon={<TwinBedsIcon size={23} />}
+                    iconName="twinBeds"
                     label="Twin Room"
                     value={rooms.twn}
                     onChange={(v) => setRooms({ ...rooms, twn: v })}
@@ -2101,7 +2101,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, twn: c })}
                   />
                   <RoomRow
-                    icon={<UsersRound size={21} strokeWidth={1.7} />}
+                    iconName="usersRound"
                     label="Triple Room"
                     value={rooms.trp}
                     onChange={(v) => setRooms({ ...rooms, trp: v })}
