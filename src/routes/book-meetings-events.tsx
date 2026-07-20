@@ -1475,8 +1475,7 @@ function StepTwoLocation({
                 }}
               >
                 <span
-                  className="inline-flex h-7 w-7 items-center justify-center rounded-full overflow-hidden"
-                  style={{ background: "#F7F4EC" }}
+                  className="inline-flex h-6 w-9 items-center justify-center overflow-hidden rounded-[3px] shrink-0"
                 >
                   <c.Flag />
                 </span>
