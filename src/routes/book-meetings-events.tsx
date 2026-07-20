@@ -1760,48 +1760,17 @@ function StepTwoLocation({
       <aside
         className="relative overflow-hidden rounded-[26px]"
         style={{
-          background: "#FCFBF8",
+          backgroundColor: "#FFFFFF",
+          backgroundImage: `url(${helpCardBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center bottom",
+          backgroundRepeat: "no-repeat",
           border: "1px solid #ECE6D6",
           boxShadow:
             "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
+          minHeight: 640,
         }}
       >
-        {/* Decorative gold curves */}
-        <svg
-          className="pointer-events-none absolute right-0 top-0 h-full"
-          width="180"
-          height="100%"
-          viewBox="0 0 180 640"
-          fill="none"
-          aria-hidden="true"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M170 -20 C 130 120, 90 220, 150 360 C 200 480, 130 580, 100 660"
-            stroke="url(#gold1)"
-            strokeWidth="0.7"
-            fill="none"
-          />
-          <path
-            d="M180 40 C 150 180, 100 260, 165 400 C 210 520, 150 620, 130 700"
-            stroke="url(#gold2)"
-            strokeWidth="0.5"
-            fill="none"
-          />
-          <defs>
-            <linearGradient id="gold1" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D6B15A" stopOpacity="0" />
-              <stop offset="40%" stopColor="#D6B15A" stopOpacity="0.30" />
-              <stop offset="100%" stopColor="#D6B15A" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="gold2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#F5E4A6" stopOpacity="0" />
-              <stop offset="50%" stopColor="#F5E4A6" stopOpacity="0.28" />
-              <stop offset="100%" stopColor="#F5E4A6" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
-
         <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
           <h3
             className="text-[#0A1B2C] text-[28px] leading-tight"
@@ -1818,7 +1787,7 @@ function StepTwoLocation({
           <div className="mt-8 flex flex-col gap-5">
             <a
               href="tel:+4721002100"
-              className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
+              className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors"
             >
               <span
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
@@ -1835,7 +1804,7 @@ function StepTwoLocation({
             </a>
             <a
               href="mailto:meetings@hotelgroupbook.com"
-              className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
+              className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
             >
               <span
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
@@ -1852,42 +1821,6 @@ function StepTwoLocation({
             </a>
           </div>
         </div>
-
-        {/* Luxury lounge illustration — anchored at bottom, wider */}
-        <div className="relative mt-4 px-0 pb-0 overflow-hidden">
-          <div className="relative w-full">
-            <img
-              src={loungeImg}
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              width={768}
-              height={640}
-              className="w-full h-auto object-cover select-none"
-              style={{
-                filter: "brightness(1.04) contrast(0.96) saturate(0.92)",
-              }}
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(255,240,205,0.18) 0%, rgba(214,177,90,0.10) 55%, rgba(168,117,22,0.06) 100%)",
-                mixBlendMode: "soft-light",
-              }}
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(120% 80% at 30% 20%, rgba(255,245,210,0.22) 0%, rgba(255,245,210,0) 55%)",
-              }}
-            />
-          </div>
-        </div>
-
       </aside>
     </div>
   );
