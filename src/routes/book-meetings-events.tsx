@@ -276,15 +276,17 @@ function BookMeetingsEvents() {
           )}
 
           {/* HERO CONTENT */}
-          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-8 pb-14 lg:pt-12 lg:pb-20">
-            <div className="max-w-[720px]">
+          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-16 lg:pt-24 pb-20 lg:pb-28">
+            <div className="max-w-[760px]">
               <h1
-                className="text-white text-5xl sm:text-6xl lg:text-[72px] leading-[1.03] font-medium"
-                style={{ fontFamily: SERIF }}
+                className="text-white text-6xl sm:text-7xl lg:text-[104px] leading-[1.02] font-light tracking-[-0.015em]"
+                style={{ fontFamily: SERIF, textShadow: "0 2px 24px rgba(0,0,0,0.35)" }}
               >
-                Book Meetings &amp; Events
+                Extraordinary
+                <br />
+                Meetings<span style={{ color: "#E6C678" }}>.</span>
               </h1>
-              <p className="mt-6 text-white/90 text-lg lg:text-[19px] leading-[1.55] max-w-[560px]">
+              <p className="mt-12 text-white/85 text-[17px] lg:text-[18px] leading-[1.7] max-w-[520px] font-light">
                 Request offers for meetings, conferences and events.
                 <br />
                 Our M&amp;E specialists will find the best hotels
@@ -293,21 +295,22 @@ function BookMeetingsEvents() {
               </p>
 
               {/* Trust row */}
-              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <div className="mt-14 flex flex-wrap items-center gap-x-10 gap-y-4">
                 {TRUST.map(({ Icon, label }) => (
-                  <div key={label} className="flex items-center gap-2">
+                  <div key={label} className="flex items-center gap-2.5">
                     <span
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(245,194,90,0.55)" }}
+                      className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-full"
+                      style={{ border: "1px solid rgba(230,198,120,0.45)" }}
                     >
-                      <Icon size={16} strokeWidth={1.8} style={{ color: GOLD }} />
+                      <Icon size={14} strokeWidth={1.25} style={{ color: "#E6C678" }} />
                     </span>
-                    <span className="text-white text-[15px]">{label}</span>
+                    <span className="text-white/85 text-[14px] tracking-[0.01em] font-light">{label}</span>
                   </div>
                 ))}
               </div>
             </div>
           </div>
+
 
           {/* PROGRESS BAR */}
           <div
