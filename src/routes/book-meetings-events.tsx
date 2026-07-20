@@ -2960,10 +2960,7 @@ function LuxIconBadge({
       tone === "onDark"
         ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.45)"
         : "0 6px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.40)";
-    const bg =
-      tone === "onDark"
-        ? "radial-gradient(120% 120% at 30% 15%, #1E2128 0%, #111317 55%, #0A0C10 100%)"
-        : "radial-gradient(120% 120% at 30% 15%, #2A2A2E 0%, #18181A 55%, #0F0F11 100%)";
+    const bg = tone === "onDark" ? "#111317" : "#18181A";
     return (
       <span
         className="relative inline-flex shrink-0 items-center justify-center"
@@ -2976,13 +2973,13 @@ function LuxIconBadge({
           color: "#E6C25A",
         }}
       >
-        {/* uniform ~1.65px champagne-gold frame */}
+        {/* uniform 1.5px champagne-gold frame */}
         <span
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             borderRadius: radius,
-            padding: 1.65,
+            padding: 1.5,
             background: "#D9B65A",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
