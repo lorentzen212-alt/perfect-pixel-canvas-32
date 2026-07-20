@@ -1350,9 +1350,13 @@ function StepTwoLocation({
         {/* Title */}
         <h2
           className="text-[42px] sm:text-[50px] leading-[1.05]"
-          style={{ fontFamily: SERIF, fontWeight: 400, color: "#1F1F1F", letterSpacing: "-0.015em" }}
+          style={{ fontFamily: SERIF, fontWeight: 400, color: "#1F1F1F", letterSpacing: "-0.015em", fontVariantNumeric: "lining-nums", fontFeatureSettings: '"lnum" 1' }}
         >
-          Step 1 – Location
+          Step{" "}
+          <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500 }}>
+            1
+          </span>
+          {" "}– Location
         </h2>
 
         <p className="mt-3 text-[15px] text-[#4A5866]">
