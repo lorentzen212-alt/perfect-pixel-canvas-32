@@ -1774,7 +1774,7 @@ function StepTwoLocation({
           </defs>
         </svg>
 
-        <div className="relative pt-12 lg:pt-16 px-8 lg:px-10 pb-6">
+        <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
           <h3
             className="text-[#0A1B2C] text-[28px] leading-tight"
             style={{ fontFamily: SERIF, fontWeight: 500 }}
@@ -1787,13 +1787,13 @@ function StepTwoLocation({
             ready to assist you.
           </p>
 
-          <div className="mt-10 flex flex-col gap-5">
+          <div className="mt-8 flex flex-col gap-5">
             <a
               href="tel:+4721002100"
               className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
             >
               <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
                 style={{
                   background:
                     "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
@@ -1810,7 +1810,7 @@ function StepTwoLocation({
               className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
             >
               <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
                 style={{
                   background:
                     "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
@@ -1825,9 +1825,9 @@ function StepTwoLocation({
           </div>
         </div>
 
-        {/* Luxury lounge illustration — softer, smaller, lower */}
-        <div className="relative mt-10 lg:mt-14 px-6 pb-6 flex justify-center">
-          <div className="relative w-[80%]">
+        {/* Luxury lounge illustration — anchored at bottom, wider */}
+        <div className="relative mt-4 px-0 pb-0 overflow-hidden">
+          <div className="relative w-full">
             <img
               src={loungeImg}
               alt=""
@@ -1835,15 +1835,14 @@ function StepTwoLocation({
               loading="lazy"
               width={768}
               height={640}
-              className="w-full h-auto object-cover select-none rounded-[14px]"
+              className="w-full h-auto object-cover select-none"
               style={{
                 filter: "brightness(1.04) contrast(0.96) saturate(0.92)",
               }}
             />
-            {/* Warm champagne-gold tint + soft luxury lighting */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[14px]"
+              className="pointer-events-none absolute inset-0"
               style={{
                 background:
                   "linear-gradient(180deg, rgba(255,240,205,0.18) 0%, rgba(214,177,90,0.10) 55%, rgba(168,117,22,0.06) 100%)",
@@ -1852,7 +1851,7 @@ function StepTwoLocation({
             />
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[14px]"
+              className="pointer-events-none absolute inset-0"
               style={{
                 background:
                   "radial-gradient(120% 80% at 30% 20%, rgba(255,245,210,0.22) 0%, rgba(255,245,210,0) 55%)",
