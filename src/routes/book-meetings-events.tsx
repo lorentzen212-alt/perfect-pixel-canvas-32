@@ -1675,13 +1675,14 @@ function StepTwoLocation({
 
         {/* Preferred venue field */}
         <div
-          className="mt-4 flex items-center gap-4 rounded-[16px] px-5 py-3"
+          className="mt-5 flex items-center gap-4 rounded-[18px] px-6 py-4"
           style={{
             background: "#FFFFFF",
             border: "1px solid #ECE6D6",
-            boxShadow: "0 4px 14px -10px rgba(10,27,44,0.10)",
+            boxShadow: "0 6px 18px -12px rgba(10,27,44,0.10)",
           }}
         >
+
           <svg
             width="22"
             height="22"
