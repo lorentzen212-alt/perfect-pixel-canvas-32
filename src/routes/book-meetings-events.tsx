@@ -2854,11 +2854,11 @@ function MealOption({
         style={{
           background: selected
             ? "conic-gradient(from 210deg, #F3DFA2, #C9A24A, #8A6318, #E8CE86, #F3DFA2)"
-            : "conic-gradient(from 210deg, #E8DFC7, #B7A578, #8F7E52, #DCCFA6, #E8DFC7)",
-          padding: selected ? "2px" : "1.5px",
+            : "#FFFFFF",
+          padding: selected ? "2px" : "1px",
           boxShadow: selected
-            ? "0 0 0 1px rgba(212,175,55,0.20), 0 1px 2px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.55)"
-            : "0 1px 2px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.5)",
+            ? "0 0 0 1px rgba(212,175,55,0.22), 0 1px 2px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.55)"
+            : "inset 0 0 0 1.5px #CFC4B4, 0 1px 2px rgba(0,0,0,0.04)",
         }}
       >
         <span
