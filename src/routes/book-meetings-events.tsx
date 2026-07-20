@@ -592,16 +592,17 @@ function BookMeetingsEvents() {
 
 
         .meal-card {
-          background: #FFFFFF;
-          border: 1px solid rgba(184, 149, 82, 0.28);
-          box-shadow: 0 4px 12px rgba(8, 20, 36, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+          background: linear-gradient(180deg, #F7F8FA 0%, #EDEFF2 100%);
+          border: 1px solid #E6D3B3;
+          box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
           transition: all 200ms ease;
         }
         .meal-card:hover {
           transform: translateY(-1px);
-          border-color: rgba(184, 149, 82, 0.45);
-          box-shadow: 0 6px 16px rgba(8, 20, 36, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
+          border-color: rgba(184, 149, 82, 0.55);
+          box-shadow: 0 12px 28px rgba(15, 23, 42, 0.10), 0 3px 8px rgba(15, 23, 42, 0.05);
         }
+
         .meal-card-selected {
           background:
             linear-gradient(145deg, #FFFFFF 0%, #FFFDF8 100%) padding-box,
