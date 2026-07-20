@@ -43,7 +43,8 @@ type SetupId =
   | "boardroom"
   | "cabaret"
   | "ushape"
-  | "breakout";
+  | "breakout"
+  | "other";
 
 type MeetingRoom = {
   id: string;
@@ -55,6 +56,7 @@ type MeetingRoom = {
   setup: SetupId;
   equipment: string[];
   notes: string;
+  customLayout?: string;
 };
 
 /* ---------- Setup data ---------- */
