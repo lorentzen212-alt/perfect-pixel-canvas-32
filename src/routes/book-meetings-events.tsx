@@ -2832,7 +2832,7 @@ function TwinBedsIcon({ size = 22 }: { size?: number }) {
             fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
           <rect x="8.1" y="16.3" width="0.9" height="1.3" rx="0.25"
             fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
-          <path d="M3.1 13.2H9.1" stroke="#8F5E0A" strokeWidth={0.35} strokeOpacity={0.55} strokeLinecap="round" />
+          <path d="M3.1 12H9.1" stroke="#8F5E0A" strokeWidth={0.35} strokeOpacity={0.55} strokeLinecap="round" />
           <path d="M2.7 11.1Q6 10.2 9.5 11.1" stroke={`url(#${id}-hi2)`} strokeWidth={0.55} fill="none" />
           <path d="M4.1 8.9Q6 8.5 7.9 8.9" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
           <path d="M2.8 6Q6 5.3 9.2 6" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
@@ -2849,7 +2849,7 @@ function TwinBedsIcon({ size = 22 }: { size?: number }) {
             fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
           <rect x="18.7" y="16.3" width="0.9" height="1.3" rx="0.25"
             fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
-          <path d="M13.7 13.2H19.7" stroke="#8F5E0A" strokeWidth={0.35} strokeOpacity={0.55} strokeLinecap="round" />
+          <path d="M13.7 12H19.7" stroke="#8F5E0A" strokeWidth={0.35} strokeOpacity={0.55} strokeLinecap="round" />
           <path d="M13.3 11.1Q16.6 10.2 20.1 11.1" stroke={`url(#${id}-hi2)`} strokeWidth={0.55} fill="none" />
           <path d="M14.7 8.9Q16.6 8.5 18.5 8.9" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
           <path d="M13.4 6Q16.6 5.3 19.8 6" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
