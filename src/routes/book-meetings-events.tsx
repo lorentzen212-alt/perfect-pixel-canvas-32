@@ -1496,7 +1496,8 @@ function StepTwoLocation({
 
 
         {/* Destination grid: 4 per row × 2 rows */}
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div className="mt-7 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
+
           {destinations.map((d) => {
             const selected = selectedDestination === d.id;
             if (d.anywhere) {
