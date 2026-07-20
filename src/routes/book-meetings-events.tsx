@@ -2822,37 +2822,37 @@ function TwinBedsIcon({ size = 22 }: { size?: number }) {
       <g filter={`url(#${id}-glow)`}>
         {/* left bed */}
         <g>
-          <rect x="2.8" y="5.2" width="6.4" height="5.6" rx="1.8"
+          <rect x="2.5" y="5.2" width="7" height="6" rx="1.8"
             fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.45} />
-          <rect x="4" y="9" width="3.6" height="2" rx="0.5"
+          <rect x="4" y="8.5" width="4" height="2.2" rx="0.6"
             fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.4} />
-          <rect x="2.6" y="11" width="6.8" height="5.8" rx="0.55"
+          <rect x="2.7" y="10.8" width="6.8" height="5.6" rx="0.55"
             fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.45} />
-          <rect x="2.8" y="16.6" width="1" height="1.2" rx="0.25"
+          <rect x="2.9" y="16.3" width="0.9" height="1.3" rx="0.25"
             fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
-          <rect x="8.2" y="16.6" width="1" height="1.2" rx="0.25"
+          <rect x="8.1" y="16.3" width="0.9" height="1.3" rx="0.25"
             fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
           <path d="M3.1 13.2H9.1" stroke="#8F5E0A" strokeWidth={0.35} strokeOpacity={0.55} strokeLinecap="round" />
-          <path d="M2.8 11.3Q6 10.4 9.4 11.3" stroke={`url(#${id}-hi2)`} strokeWidth={0.55} fill="none" />
-          <path d="M4.1 9.4Q5.8 9.1 7.5 9.4" stroke={`url(#${id}-hi2)`} strokeWidth={0.45} fill="none" />
-          <path d="M3 6Q6 5.3 9 6" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
+          <path d="M2.7 11.1Q6 10.2 9.5 11.1" stroke={`url(#${id}-hi2)`} strokeWidth={0.55} fill="none" />
+          <path d="M4.1 8.9Q6 8.5 7.9 8.9" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
+          <path d="M2.8 6Q6 5.3 9.2 6" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
         </g>
         {/* right bed */}
         <g>
-          <rect x="13.2" y="5.2" width="6.4" height="5.6" rx="1.8"
+          <rect x="13.1" y="5.2" width="7" height="6" rx="1.8"
             fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.45} />
-          <rect x="14.4" y="9" width="3.6" height="2" rx="0.5"
+          <rect x="14.6" y="8.5" width="4" height="2.2" rx="0.6"
             fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.4} />
-          <rect x="13" y="11" width="6.8" height="5.8" rx="0.55"
+          <rect x="13.3" y="10.8" width="6.8" height="5.6" rx="0.55"
             fill={`url(#${id}-fill)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.45} />
-          <rect x="13.2" y="16.6" width="1" height="1.2" rx="0.25"
+          <rect x="13.5" y="16.3" width="0.9" height="1.3" rx="0.25"
             fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
-          <rect x="18.6" y="16.6" width="1" height="1.2" rx="0.25"
+          <rect x="18.7" y="16.3" width="0.9" height="1.3" rx="0.25"
             fill={`url(#${id}-dark)`} stroke={`url(#${id}-stroke)`} strokeWidth={0.35} />
-          <path d="M13.5 13.2H19.5" stroke="#8F5E0A" strokeWidth={0.35} strokeOpacity={0.55} strokeLinecap="round" />
-          <path d="M13.2 11.3Q16.4 10.4 19.8 11.3" stroke={`url(#${id}-hi2)`} strokeWidth={0.55} fill="none" />
-          <path d="M14.5 9.4Q16.2 9.1 17.9 9.4" stroke={`url(#${id}-hi2)`} strokeWidth={0.45} fill="none" />
-          <path d="M13.4 6Q16.4 5.3 19.4 6" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
+          <path d="M13.7 13.2H19.7" stroke="#8F5E0A" strokeWidth={0.35} strokeOpacity={0.55} strokeLinecap="round" />
+          <path d="M13.3 11.1Q16.6 10.2 20.1 11.1" stroke={`url(#${id}-hi2)`} strokeWidth={0.55} fill="none" />
+          <path d="M14.7 8.9Q16.6 8.5 18.5 8.9" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
+          <path d="M13.4 6Q16.6 5.3 19.8 6" stroke={`url(#${id}-hi2)`} strokeWidth={0.5} fill="none" />
         </g>
       </g>
     </svg>
