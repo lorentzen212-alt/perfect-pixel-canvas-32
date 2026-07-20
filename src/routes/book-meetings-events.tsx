@@ -1590,11 +1590,12 @@ function StepTwoLocation({
         </div>
 
         {/* Search field */}
-        <div className="mt-10">
-          <p className="text-[14px] text-[#4A5866] mb-2">Or search for any destination</p>
+        <div className="mt-12">
+          <p className="text-[14px] text-[#4A5866] mb-2.5">Or search for any destination</p>
           <div ref={searchRef} className="relative">
             <div
-              className="flex items-center gap-3 rounded-[16px] px-5 h-[56px]"
+              className="flex items-center gap-3 rounded-[18px] px-6 h-[64px]"
+
               style={{
                 background: "#FFFFFF",
                 border: "1px solid #ECE6D6",
