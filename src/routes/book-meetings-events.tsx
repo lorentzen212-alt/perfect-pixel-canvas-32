@@ -2624,12 +2624,12 @@ function TwinBedsIcon({ size = 22 }: { size?: number }) {
 
 
 function MealOption({
-  icon,
+  iconName,
   label,
   selected,
   onClick,
 }: {
-  icon: React.ReactNode;
+  iconName: AccomIconName;
   label: string;
   selected: boolean;
   onClick: () => void;
@@ -2644,7 +2644,7 @@ function MealOption({
       )}
     >
       <span className="flex items-center gap-3">
-        <LuxIconBadge size={36}>{icon}</LuxIconBadge>
+        <AccomIconBadge size={36} name={iconName} />
         <span className="text-[#0A1B2C] text-[14.5px] font-medium">{label}</span>
       </span>
       <span
