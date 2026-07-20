@@ -2989,8 +2989,8 @@ function LuxIconBadge({
   if (finish === "engraved") {
     const shadow =
       tone === "onDark"
-        ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.45), inset 0 0 0 0.6px rgba(184,142,62,0.35)"
-        : "0 6px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.40), inset 0 0 0 0.6px rgba(184,142,62,0.35)";
+        ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.45)"
+        : "0 6px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.40)";
     const bg =
       tone === "onDark"
         ? "radial-gradient(120% 120% at 30% 15%, #1E2128 0%, #111317 55%, #0A0C10 100%)"
@@ -3007,31 +3007,21 @@ function LuxIconBadge({
           color: "#E6C25A",
         }}
       >
-        {/* crisp ~1.65px metallic champagne-gold outline (~10% thicker) */}
+        {/* uniform ~1.65px champagne-gold frame */}
         <span
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             borderRadius: radius,
             padding: 1.65,
-            background:
-              "linear-gradient(145deg, #FFF8D9 0%, #F7D98A 18%, #E8C468 38%, #C99A3A 58%, #A67C2E 78%, #8B6A24 100%)",
+            background: "#D9B65A",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
             maskComposite: "exclude",
           }}
         />
-        {/* subtle inner highlight for depth */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            borderRadius: radius,
-            background:
-              "radial-gradient(130% 70% at 28% 12%, rgba(247,231,166,0.13) 0%, rgba(247,231,166,0) 55%)",
-          }}
-        />
+
         <span
           className="relative"
           style={{
