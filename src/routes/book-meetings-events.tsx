@@ -528,17 +528,20 @@ function BookMeetingsEvents() {
         .country-pill { transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease, border-color 220ms ease; }
         .country-pill--active:hover { filter: brightness(1.06); box-shadow: 0 6px 14px -6px rgba(168,117,22,0.28), inset 0 1px 0 rgba(245,228,166,0.45); }
 
-        /* Active step: slow metallic shimmer + multiple sparkles */
-        @keyframes step-shimmer {
-          0%   { transform: translateX(-140%) rotate(20deg); opacity: 0; }
-          20%  { opacity: 0.85; }
-          80%  { opacity: 0.85; }
-          100% { transform: translateX(140%) rotate(20deg); opacity: 0; }
-        }
+        /* Active step + progress line: tiny random sparkles + slow breathing glow */
         @keyframes step-spark {
-          0%, 100% { opacity: 0; transform: scale(0.4); }
+          0%, 100% { opacity: 0; transform: scale(0.35); }
           50%      { opacity: 1; transform: scale(1); }
         }
+        @keyframes line-spark {
+          0%, 100% { opacity: 0; transform: scale(0.3); }
+          45%, 55% { opacity: 0.95; transform: scale(1); }
+        }
+        @keyframes step-breathe {
+          0%, 100% { opacity: 0.55; transform: scale(0.98); }
+          50%      { opacity: 1; transform: scale(1.06); }
+        }
+
 
 
 
@@ -782,17 +785,54 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
               }}
             />
           </div>
-          {/* Gold overlay */}
+          {/* Gold overlay — polished metallic line with subtle reflections */}
           <div
-            className="absolute left-0 top-0 h-px"
+            className="absolute left-0 top-0"
             style={{
               width: `${progressPercentage}%`,
-              background: `linear-gradient(90deg, ${GOLD} 0%, #FFD97A 100%)`,
-              boxShadow: `0 0 10px rgba(245,194,90,0.55)`,
+              height: 1,
+              background:
+                "linear-gradient(90deg, #C79A32 0%, #E4C15E 22%, #F5E4A6 42%, #FFF3C8 50%, #F5E4A6 58%, #E4C15E 78%, #C79A32 100%)",
+              boxShadow:
+                "0 0 6px rgba(245,228,166,0.55), 0 0 14px rgba(214,177,90,0.28), 0 0 22px rgba(214,177,90,0.14)",
               transition: "width 500ms cubic-bezier(0.4, 0, 0.2, 1)",
               zIndex: 1,
             }}
-          />
+          >
+            {/* Tiny random sparkles distributed along the completed section */}
+            {progressPercentage > 2 &&
+              [
+                { left: 7,  top: -2, size: 5, delay: 200,  dur: 2600 },
+                { left: 18, top: 2,  size: 4, delay: 1100, dur: 3100 },
+                { left: 29, top: -3, size: 6, delay: 500,  dur: 2400 },
+                { left: 41, top: 3,  size: 4, delay: 1700, dur: 2900 },
+                { left: 53, top: -2, size: 5, delay: 300,  dur: 3300 },
+                { left: 66, top: 2,  size: 4, delay: 1400, dur: 2500 },
+                { left: 78, top: -3, size: 6, delay: 800,  dur: 3000 },
+                { left: 91, top: 2,  size: 4, delay: 1900, dur: 2700 },
+              ]
+                .filter((s) => s.left <= progressPercentage - 1)
+                .map((s, si) => (
+                  <span
+                    key={si}
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      left: `${(s.left / progressPercentage) * 100}%`,
+                      top: s.top,
+                      width: s.size,
+                      height: s.size,
+                      borderRadius: "9999px",
+                      background:
+                        "radial-gradient(circle, #FFF7D6 0%, rgba(245,228,166,0.9) 40%, rgba(245,228,166,0) 70%)",
+                      boxShadow: "0 0 6px rgba(255,243,200,0.85)",
+                      animation: `line-spark ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
+                      pointerEvents: "none",
+                    }}
+                  />
+                ))}
+          </div>
+
         </div>
 
         {STEPS.map((label, i) => {
@@ -846,7 +886,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                     background:
                       "radial-gradient(circle, rgba(212,175,55,0.32) 0%, rgba(212,175,55,0.14) 35%, transparent 70%)",
                     filter: "blur(2px)",
-                    animation: "step-glow 2600ms ease-in-out infinite",
+                    animation: "step-breathe 4200ms ease-in-out infinite",
                     zIndex: 0,
                   }}
                 />
@@ -870,27 +910,13 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
               >
                 {active && (
                   <>
-                    {/* Slow metallic shimmer sweeping across the circle */}
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        borderRadius: "9999px",
-                        background:
-                          "linear-gradient(115deg, transparent 30%, rgba(255,245,210,0.55) 48%, rgba(255,255,255,0.85) 50%, rgba(255,245,210,0.55) 52%, transparent 70%)",
-                        mixBlendMode: "screen",
-                        animation: "step-shimmer 3200ms ease-in-out infinite",
-                        pointerEvents: "none",
-                      }}
-                    />
-                    {/* Sparkles: 5 tiny highlights at varied positions */}
+                    {/* Tiny sparkle highlights around the edge — random positions, random timing */}
                     {[
-                      { top: -2, right: 4, size: 3, delay: 0, dur: 1900 },
-                      { bottom: -1, left: 3, size: 2, delay: 500, dur: 2300 },
-                      { top: 6, left: -2, size: 2, delay: 900, dur: 2100 },
-                      { bottom: 6, right: -2, size: 2, delay: 1300, dur: 2500 },
-                      { top: 14, right: 12, size: 1.5, delay: 1700, dur: 2000 },
+                      { top: -2, right: 4,  size: 3,   delay: 0,    dur: 2400 },
+                      { bottom: -1, left: 3, size: 2.5, delay: 700,  dur: 2900 },
+                      { top: 6,  left: -2,  size: 2,   delay: 1300, dur: 2600 },
+                      { bottom: 6, right: -2, size: 2.5, delay: 1900, dur: 3100 },
+                      { top: 14, right: 12, size: 1.5, delay: 2300, dur: 2500 },
                     ].map((s, si) => (
                       <span
                         key={si}
@@ -904,8 +930,9 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                           width: s.size,
                           height: s.size,
                           borderRadius: "9999px",
-                          background: "#FFF3C8",
-                          boxShadow: "0 0 4px rgba(245,228,166,0.9)",
+                          background:
+                            "radial-gradient(circle, #FFF7D6 0%, rgba(245,228,166,0.9) 40%, rgba(245,228,166,0) 70%)",
+                          boxShadow: "0 0 5px rgba(255,243,200,0.9)",
                           animation: `step-spark ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
                           pointerEvents: "none",
                         }}
@@ -913,6 +940,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                     ))}
                   </>
                 )}
+
                 <span style={{ position: "relative", zIndex: 2 }}>
                   {completed ? <Check size={16} strokeWidth={2.5} style={{ color: GOLD }} /> : n}
                 </span>
