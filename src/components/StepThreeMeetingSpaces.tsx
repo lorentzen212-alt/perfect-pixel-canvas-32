@@ -611,7 +611,7 @@ export function StepThreeMeetingSpaces({
       };
     });
     setRooms(created);
-    setEquipment(plan.rooms[0]?.equipment ?? ["wifi"]);
+    setEquipment(plan.rooms[0]?.equipment ?? []);
     if (typeof window !== "undefined") {
       try {
         window.localStorage.setItem(
