@@ -406,6 +406,7 @@ export function StepThreeMeetingSpaces({
       setup,
       equipment,
       notes,
+      customLayout: setup === "other" ? customLayout.trim() : undefined,
     };
     setRooms((prev) =>
       editingId ? prev.map((r) => (r.id === editingId ? room : r)) : [...prev, room],
@@ -425,6 +426,7 @@ export function StepThreeMeetingSpaces({
     setSetup(r.setup);
     setEquipment(r.equipment);
     setNotes(r.notes);
+    setCustomLayout(r.customLayout ?? "");
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
