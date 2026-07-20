@@ -2030,42 +2030,24 @@ function StepThreeAccommodation({
                       width: 44,
                       height: 44,
                       borderRadius: 11,
-                      background:
-                        "radial-gradient(120% 120% at 30% 15%, #2A2A2E 0%, #18181A 55%, #0F0F11 100%)",
+                      background: "#111317",
                       boxShadow:
                         "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35)",
-                      backgroundClip: "padding-box",
                     }}
                   >
-                    {/* uniform ~1.95px champagne-gold frame (primary icon) */}
+                    {/* uniform 1.5px champagne-gold frame */}
                     <span
                       aria-hidden
                       style={{
                         position: "absolute",
                         inset: 0,
                         borderRadius: 11,
-                        padding: 1.95,
+                        padding: 1.5,
                         background: "#D9B65A",
                         WebkitMask:
                           "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
                         WebkitMaskComposite: "xor",
                         maskComposite: "exclude",
-                        pointerEvents: "none",
-                      }}
-                    />
-
-                    {/* soft glossy top sheen */}
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        left: 4,
-                        right: 4,
-                        top: 2,
-                        height: 12,
-                        borderRadius: "9px 9px 20px 20px / 9px 9px 12px 12px",
-                        background:
-                          "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 60%, rgba(255,255,255,0) 100%)",
                         pointerEvents: "none",
                       }}
                     />
