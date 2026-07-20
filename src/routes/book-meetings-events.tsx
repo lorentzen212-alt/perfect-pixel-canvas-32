@@ -1767,7 +1767,7 @@ function StepTwoLocation({
           backgroundColor: "#FFFFFF",
           boxShadow:
             "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
-          minHeight: 640,
+          minHeight: 480,
         }}
       >
         {/* Reference illustration: warm off-white bg + gold lines + lounge — used as full card background */}
