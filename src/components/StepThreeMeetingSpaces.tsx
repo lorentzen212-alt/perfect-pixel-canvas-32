@@ -17,7 +17,6 @@ import {
   PenSquare,
   Presentation,
   Speaker,
-  Wifi,
   Video,
   Radio,
   Sparkles,
