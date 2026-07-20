@@ -3006,15 +3006,15 @@ function LuxIconBadge({
           color: "#E6C25A",
         }}
       >
-        {/* ultra-thin metallic champagne-gold outline */}
+        {/* crisp 1.5px metallic champagne-gold outline */}
         <span
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             borderRadius: radius,
-            padding: 0.9,
+            padding: 1.5,
             background:
-              "linear-gradient(145deg, #F8E5A8 0%, #E8C468 25%, #B98A2F 50%, #D4A853 75%, #F6D98A 100%)",
+              "linear-gradient(145deg, #FFF8D9 0%, #F7D98A 18%, #E8C468 38%, #C99A3A 58%, #A67C2E 78%, #8B6A24 100%)",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
