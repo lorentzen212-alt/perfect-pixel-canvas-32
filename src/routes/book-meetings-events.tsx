@@ -1221,22 +1221,6 @@ const ALL_SEARCHABLE_DESTINATIONS: SearchableDestination[] = (Object.keys(
     }));
 });
 
-const HOTEL_CATEGORIES = [
-  { id: "3", label: "★★★" },
-  { id: "4", label: "★★★★" },
-  { id: "5", label: "★★★★★" },
-  { id: "none", label: "No preference" },
-];
-
-const HOTEL_STYLES = [
-  { id: "city", label: "City hotel", Icon: Building2 },
-  { id: "waterfront", label: "Waterfront", Icon: Waves },
-  { id: "airport", label: "Airport", Icon: Plane },
-  { id: "resort", label: "Resort", Icon: Palmtree },
-  { id: "historic", label: "Historic hotel", Icon: Landmark },
-  { id: "boutique", label: "Boutique", Icon: Gem },
-  { id: "none", label: "No preferences", Icon: Ban },
-];
 
 function StepTwoLocation({
   onBack,
