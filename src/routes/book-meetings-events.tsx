@@ -592,19 +592,31 @@ function BookMeetingsEvents() {
 
 
         .meal-card {
-          background: linear-gradient(145deg, #FFFFFF 0%, #FCFBF7 55%, #F5F2EA 100%);
-          border: 1px solid rgba(201, 156, 45, 0.28);
-          box-shadow: 0 8px 22px rgba(8, 20, 36, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 3px rgba(12, 26, 42, 0.06);
-          transition: all 180ms ease;
+          background: #FFFFFF;
+          border: 1px solid rgba(184, 149, 82, 0.28);
+          box-shadow: 0 4px 12px rgba(8, 20, 36, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+          transition: all 200ms ease;
         }
         .meal-card:hover {
           transform: translateY(-1px);
-          border-color: rgba(201, 156, 45, 0.60);
-          box-shadow: 0 10px 26px rgba(8, 20, 36, 0.14), 0 0 14px rgba(201, 156, 45, 0.16), inset 0 1px 0 rgba(255, 255, 255, 1);
+          border-color: rgba(184, 149, 82, 0.45);
+          box-shadow: 0 6px 16px rgba(8, 20, 36, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
         }
         .meal-card-selected {
-          border-color: rgba(201, 156, 45, 0.55);
-          box-shadow: 0 8px 22px rgba(8, 20, 36, 0.11), 0 0 18px rgba(201, 156, 45, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 3px rgba(12, 26, 42, 0.06);
+          background:
+            linear-gradient(145deg, #FFFFFF 0%, #FFFDF8 100%) padding-box,
+            linear-gradient(135deg, #E8CE86 0%, #C9A24A 35%, #F3DFA2 55%, #B08528 100%) border-box;
+          border: 2px solid transparent;
+          box-shadow:
+            0 10px 26px rgba(8, 20, 36, 0.10),
+            inset 0 0 10px rgba(212, 175, 55, 0.10),
+            inset 0 1px 0 rgba(255, 255, 255, 0.95);
+        }
+        .meal-card-selected:hover {
+          box-shadow:
+            0 12px 28px rgba(8, 20, 36, 0.12),
+            inset 0 0 12px rgba(212, 175, 55, 0.14),
+            inset 0 1px 0 rgba(255, 255, 255, 1);
         }
 
         .qty-btn {
@@ -2650,16 +2662,31 @@ function MealOption({
         <span className="text-[#0A1B2C] text-[14.5px] font-medium">{label}</span>
       </span>
       <span
-        className="inline-flex h-5 w-5 items-center justify-center rounded-full"
+        className="relative inline-flex h-5 w-5 items-center justify-center rounded-full"
         style={{
-          border: `2px solid ${selected ? "#D4AF37" : "#D9D3C4"}`,
           background: selected
-            ? "linear-gradient(180deg,#F7E7A6,#D4AF37 60%,#A97816)"
-            : "transparent",
-          boxShadow: selected ? "0 0 0 3px rgba(212,175,55,0.15)" : undefined,
+            ? "conic-gradient(from 210deg, #F3DFA2, #C9A24A, #8A6318, #E8CE86, #F3DFA2)"
+            : "conic-gradient(from 210deg, #E8DFC7, #B7A578, #8F7E52, #DCCFA6, #E8DFC7)",
+          padding: selected ? "2px" : "1.5px",
+          boxShadow: selected
+            ? "0 0 0 1px rgba(212,175,55,0.20), 0 1px 2px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.55)"
+            : "0 1px 2px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.5)",
         }}
       >
-        {selected && <span className="h-2 w-2 rounded-full bg-white" />}
+        <span
+          className="flex h-full w-full items-center justify-center rounded-full"
+          style={{ background: "#FFFFFF" }}
+        >
+          {selected && (
+            <span
+              className="h-2 w-2 rounded-full"
+              style={{
+                background: "radial-gradient(circle at 30% 30%, #FBEAB0 0%, #D4AF37 55%, #9A6E14 100%)",
+                boxShadow: "inset 0 0.5px 0 rgba(255,255,255,0.7), 0 0 3px rgba(212,175,55,0.5)",
+              }}
+            />
+          )}
+        </span>
       </span>
     </button>
   );
