@@ -13,8 +13,8 @@ type IconProps = {
 };
 
 const CHARCOAL_FILL = "#171717";
-const GOLD_MAIN = "#F2C14E";
-const GOLD_HIGHLIGHT = "#FFD978";
+const GOLD_MAIN = "#F3C75A";
+const GOLD_HIGHLIGHT = "#FFE49A";
 const GOLD_SHADOW = "#B87912";
 
 function Base({

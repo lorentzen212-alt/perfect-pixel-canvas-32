@@ -196,11 +196,11 @@ function Home() {
           {/* TRUST ROW */}
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 lg:flex-nowrap lg:justify-between lg:gap-x-6">
           {TRUST.map(({ Icon, label, size }) => (
-            <div key={label} className="flex items-center gap-2 shrink-0">
+            <div key={label} className="flex items-center gap-3 shrink-0">
               <Icon size={size} />
               <span
-                className="text-[#171717] text-[16px] lg:text-[17px] whitespace-nowrap"
-                style={{ textShadow: "0 1px 2px rgba(255,255,255,0.45)" }}
+                className="text-[#151515] text-[16px] lg:text-[17px] font-medium whitespace-nowrap"
+                style={{ textShadow: "0 1px 1px rgba(255,255,255,0.38)" }}
               >
                 {label}
               </span>
