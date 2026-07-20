@@ -494,10 +494,10 @@ export function StepThreeMeetingSpaces({
             setup: "theater",
             attendees: primary,
             kind: "plenary",
-            equipment: ["projector", "screen", "microphone", "wifi"],
+            equipment: ["projector", "screen", "microphone"],
           },
         ],
-        equipment: ["projector", "screen", "microphone", "wifi"],
+        equipment: ["projector", "screen", "microphone"],
         catering: ["Coffee Break"],
         summary: [
           "1 Theater room",
