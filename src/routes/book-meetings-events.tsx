@@ -1430,7 +1430,7 @@ function StepTwoLocation({
         >
           Step{" "}
           <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500, fontSize: "0.93em", display: "inline-block" }}>
-            1
+            2
           </span>
           {" "}– Location
         </h2>
@@ -1475,8 +1475,7 @@ function StepTwoLocation({
                 }}
               >
                 <span
-                  className="inline-flex h-7 w-7 items-center justify-center rounded-full overflow-hidden"
-                  style={{ background: "#F7F4EC" }}
+                  className="inline-flex h-6 w-9 items-center justify-center overflow-hidden rounded-[3px] shrink-0"
                 >
                   <c.Flag />
                 </span>
@@ -1675,7 +1674,7 @@ function StepTwoLocation({
 
         {/* Preferred venue field */}
         <div
-          className="mt-4 flex items-center gap-4 rounded-[16px] px-5 h-[64px]"
+          className="mt-4 flex items-center gap-4 rounded-[16px] px-5 py-3"
           style={{
             background: "#FFFFFF",
             border: "1px solid #ECE6D6",
@@ -1683,8 +1682,8 @@ function StepTwoLocation({
           }}
         >
           <svg
-            width="20"
-            height="20"
+            width="22"
+            height="22"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#B88A2E"
@@ -1698,54 +1697,34 @@ function StepTwoLocation({
             <path d="M14 3v5h5" />
             <path d="M8 13h6M8 17h4" />
           </svg>
-          <div className="flex flex-1 flex-wrap items-baseline gap-x-2 min-w-0">
+          <div className="flex flex-1 flex-col min-w-0">
             <label
               htmlFor="preferred-venue"
-              className="text-[14px] font-semibold text-[#0A1B2C] shrink-0"
+              className="text-[14px] text-[#0A1B2C]"
             >
-              Preferred venue{" "}
+              <span style={{ fontWeight: 600 }}>Preferred venue</span>{" "}
               <span className="text-[#9BA3AE] font-normal">(optional)</span>
             </label>
             <input
               id="preferred-venue"
               type="text"
               placeholder="Specific hotel, venue or any special request…"
-              className="flex-1 min-w-[160px] bg-transparent text-[14px] text-[#4A5866] placeholder:text-[#9BA3AE] outline-none border-none"
+              className="w-full bg-transparent text-[13.5px] text-[#4A5866] placeholder:text-[#9BA3AE] outline-none border-none mt-0.5"
             />
           </div>
           <button
             type="button"
             aria-label="Edit preferred venue"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:scale-105"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:scale-105 shrink-0"
           >
             <Pencil size={16} className="text-[#B88A2E]" strokeWidth={1.8} />
           </button>
         </div>
 
-        {/* Navigation */}
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-          <button
-            type="button"
-            onClick={onBack}
-            className="inline-flex items-center justify-center rounded-full border px-6 h-[44px] text-[14px] font-medium text-[#0A1B2C] bg-white transition-all duration-200 hover:-translate-y-[1px] hover:bg-[#FBF6EA] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
-            style={{ borderColor: "#ECE6D6" }}
-          >
-            Back
-          </button>
-          <button
-            type="button"
-            onClick={onNext}
-            className="inline-flex items-center gap-2 rounded-full px-8 h-[54px] text-[15px] font-semibold text-white transition-all duration-300 hover:-translate-y-[1px] hover:brightness-[1.03] active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
-            style={{
-              background:
-                "linear-gradient(180deg, #E8C67A 0%, #C99A3A 55%, #A87A22 100%)",
-              boxShadow:
-                "0 18px 34px -14px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,236,183,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
-            }}
-          >
-            Next Step
-            <ArrowRight size={18} strokeWidth={2} />
-          </button>
+        {/* Hidden navigation — Step 2 uses progress bar for navigation to match reference */}
+        <div className="sr-only" aria-hidden="true">
+          <button type="button" onClick={onBack}>Back</button>
+          <button type="button" onClick={onNext}>Next Step</button>
         </div>
       </div>
 
@@ -1795,7 +1774,7 @@ function StepTwoLocation({
           </defs>
         </svg>
 
-        <div className="relative pt-12 lg:pt-16 px-8 lg:px-10 pb-6">
+        <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
           <h3
             className="text-[#0A1B2C] text-[28px] leading-tight"
             style={{ fontFamily: SERIF, fontWeight: 500 }}
@@ -1808,13 +1787,13 @@ function StepTwoLocation({
             ready to assist you.
           </p>
 
-          <div className="mt-10 flex flex-col gap-5">
+          <div className="mt-8 flex flex-col gap-5">
             <a
               href="tel:+4721002100"
               className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
             >
               <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
                 style={{
                   background:
                     "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
@@ -1831,7 +1810,7 @@ function StepTwoLocation({
               className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
             >
               <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
                 style={{
                   background:
                     "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
@@ -1846,9 +1825,9 @@ function StepTwoLocation({
           </div>
         </div>
 
-        {/* Luxury lounge illustration — softer, smaller, lower */}
-        <div className="relative mt-10 lg:mt-14 px-6 pb-6 flex justify-center">
-          <div className="relative w-[80%]">
+        {/* Luxury lounge illustration — anchored at bottom, wider */}
+        <div className="relative mt-4 px-0 pb-0 overflow-hidden">
+          <div className="relative w-full">
             <img
               src={loungeImg}
               alt=""
@@ -1856,15 +1835,14 @@ function StepTwoLocation({
               loading="lazy"
               width={768}
               height={640}
-              className="w-full h-auto object-cover select-none rounded-[14px]"
+              className="w-full h-auto object-cover select-none"
               style={{
                 filter: "brightness(1.04) contrast(0.96) saturate(0.92)",
               }}
             />
-            {/* Warm champagne-gold tint + soft luxury lighting */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[14px]"
+              className="pointer-events-none absolute inset-0"
               style={{
                 background:
                   "linear-gradient(180deg, rgba(255,240,205,0.18) 0%, rgba(214,177,90,0.10) 55%, rgba(168,117,22,0.06) 100%)",
@@ -1873,7 +1851,7 @@ function StepTwoLocation({
             />
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[14px]"
+              className="pointer-events-none absolute inset-0"
               style={{
                 background:
                   "radial-gradient(120% 80% at 30% 20%, rgba(255,245,210,0.22) 0%, rgba(255,245,210,0) 55%)",
