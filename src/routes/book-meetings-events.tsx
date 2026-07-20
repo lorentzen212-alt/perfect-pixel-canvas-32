@@ -1777,20 +1777,21 @@ function StepTwoLocation({
           </defs>
         </svg>
 
-        <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
+        <div className="relative pt-12 lg:pt-14 px-9 lg:px-10 pb-6">
           <h3
-            className="text-[#0A1B2C] text-[28px] leading-tight"
+            className="text-[#0A1B2C] text-[30px] leading-tight"
             style={{ fontFamily: SERIF, fontWeight: 500 }}
           >
             Need help?
           </h3>
-          <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
+          <p className="mt-4 text-[#4A5866] text-[15px] leading-relaxed">
             Our M&amp;E specialists are
             <br />
             ready to assist you.
           </p>
 
-          <div className="mt-8 flex flex-col gap-5">
+          <div className="mt-10 flex flex-col gap-6">
+
             <a
               href="tel:+4721002100"
               className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
