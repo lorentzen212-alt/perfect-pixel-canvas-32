@@ -126,6 +126,14 @@ const SETUPS: {
     capacity: "8 – 30 attendees",
     bestFor: ["Group work", "Parallel sessions", "Discussions"],
   },
+  {
+    id: "other",
+    label: "Other",
+    tag: "Custom layout",
+    description: "Describe your preferred layout in the field below.",
+    capacity: "Custom",
+    bestFor: ["Bespoke arrangements", "Mixed setups", "Special requirements"],
+  },
 ];
 
 /* ---------- Equipment data ---------- */
@@ -140,7 +148,6 @@ const EQUIPMENT: { id: string; label: string; Icon: typeof Projector }[] = [
   { id: "podium", label: "Podium", Icon: Volume2 },
   { id: "hybrid", label: "Hybrid Meeting", Icon: Radio },
   { id: "video", label: "Video Conference", Icon: Video },
-  { id: "wifi", label: "High-Speed Wi-Fi", Icon: Wifi },
 ];
 
 /* ---------- Setup Illustration ---------- */
