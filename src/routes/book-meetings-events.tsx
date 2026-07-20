@@ -292,16 +292,17 @@ function BookMeetingsEvents() {
           )}
 
           {/* HERO CONTENT */}
-          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-10 pb-16 lg:pt-16 lg:pb-24">
+          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-6 pb-10 lg:pt-8 lg:pb-14">
             <div className="max-w-[720px]">
               <h1
-                className="text-[#0A1B2C] text-6xl sm:text-7xl lg:text-[104px] leading-[1.02] tracking-tight"
+                className="text-[#0A1B2C] text-5xl sm:text-6xl lg:text-[88px] leading-[1.02] tracking-tight"
                 style={{ fontFamily: SERIF, fontWeight: 300 }}
               >
                 Extraordinary
                 <br />
                 Meetings.
               </h1>
+
               <p className="mt-8 text-[#26364A] text-lg lg:text-[19px] leading-[1.55] max-w-[560px]">
                 Request offers for meetings, conferences and events.
                 <br />
