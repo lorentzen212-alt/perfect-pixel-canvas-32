@@ -1770,13 +1770,14 @@ function StepTwoLocation({
           minHeight: 640,
         }}
       >
-        {/* Lounge image layer (fills the card, same radius via parent overflow-hidden) */}
+        {/* Lounge image layer — enlarged, anchored to bottom edge */}
         <div
           aria-hidden="true"
-          className="absolute inset-0"
+          className="absolute inset-x-[-8%] bottom-0"
           style={{
+            height: "58%",
             backgroundImage: `url(${helpCardBg})`,
-            backgroundSize: "cover",
+            backgroundSize: "130% auto",
             backgroundPosition: "center bottom",
             backgroundRepeat: "no-repeat",
           }}
@@ -1788,13 +1789,39 @@ function StepTwoLocation({
           style={{
             height: "62%",
             background:
-              "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 42%, rgba(255,255,255,0.85) 62%, rgba(255,255,255,0.45) 82%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 55%, rgba(255,255,255,0.75) 78%, rgba(255,255,255,0) 100%)",
           }}
         />
-        <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
+        {/* Gold decorative curves — thin, elegant, upper right */}
+        <svg
+          aria-hidden="true"
+          className="absolute top-0 right-0 pointer-events-none"
+          width="180"
+          height="480"
+          viewBox="0 0 180 480"
+          fill="none"
+          style={{ opacity: 0.55 }}
+        >
+          <path
+            d="M158 8 C 150 90, 120 160, 96 240 S 70 380, 78 472"
+            stroke="#D4B26A"
+            strokeWidth="0.9"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M172 4 C 168 100, 150 200, 132 300 S 118 420, 128 476"
+            stroke="#C79A32"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            fill="none"
+          />
+        </svg>
+
+        <div className="relative pt-6 lg:pt-7 px-8 lg:px-9 pb-4">
 
           <h3
-            className="text-[#0A1B2C] text-[28px] leading-tight"
+            className="text-[#0A1B2C] text-[30px] leading-tight"
             style={{ fontFamily: SERIF, fontWeight: 500 }}
           >
             Need help?
@@ -1805,7 +1832,7 @@ function StepTwoLocation({
             ready to assist you.
           </p>
 
-          <div className="mt-8 flex flex-col gap-5">
+          <div className="mt-6 flex flex-col gap-7">
             <a
               href="tel:+4721002100"
               className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors"
@@ -1843,6 +1870,7 @@ function StepTwoLocation({
           </div>
         </div>
       </aside>
+
     </div>
   );
 }
