@@ -2429,7 +2429,7 @@ function DateField({
           onChange={(e) => onChange(e.target.value)}
           className="flex-1 bg-transparent outline-none text-[14px] text-[#0A1B2C]"
         />
-        <CalendarIcon size={16} style={{ color: "#B88917" }} />
+        <AccomIconBadge size={28} name="calendar" />
       </div>
     </label>
   );
