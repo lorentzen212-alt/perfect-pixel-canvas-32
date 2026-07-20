@@ -30,9 +30,8 @@ import {
   Bed,
   User,
   UsersRound,
-  MapPin,
   Sparkles,
-  Hotel,
+
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
