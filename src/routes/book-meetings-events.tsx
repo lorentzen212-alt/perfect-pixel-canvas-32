@@ -1333,11 +1333,12 @@ function StepTwoLocation({
       >
         {/* Title */}
         <h2
-          className="text-[#0A1B2C] text-[38px] sm:text-[46px] leading-[1.05] tracking-[-0.01em]"
-          style={{ fontFamily: SERIF, fontWeight: 500 }}
+          className="text-[42px] sm:text-[50px] leading-[1.05]"
+          style={{ fontFamily: SERIF, fontWeight: 400, color: "#1F1F1F", letterSpacing: "-0.015em" }}
         >
           Step 1 – Location
         </h2>
+
         <p className="mt-3 text-[15px] text-[#4A5866]">
           Where would you like to host your event?
         </p>
