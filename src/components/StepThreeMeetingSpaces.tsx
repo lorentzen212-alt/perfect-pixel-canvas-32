@@ -374,9 +374,10 @@ export function StepThreeMeetingSpaces({
   const [end, setEnd] = useState("17:00");
   const [attendees, setAttendees] = useState<number>(0);
   const [setup, setSetup] = useState<SetupId>("theater");
-  const [equipment, setEquipment] = useState<string[]>(["wifi"]);
+  const [equipment, setEquipment] = useState<string[]>([]);
   const [notes, setNotes] = useState("");
   const [comments, setComments] = useState("");
+  const [customLayout, setCustomLayout] = useState("");
 
   const roomIndex = rooms.length + 1;
   const activeSetup = SETUPS.find((s) => s.id === setup)!;
@@ -388,8 +389,9 @@ export function StepThreeMeetingSpaces({
     setEnd("17:00");
     setAttendees(0);
     setSetup("theater");
-    setEquipment(["wifi"]);
+    setEquipment([]);
     setNotes("");
+    setCustomLayout("");
     setEditingId(null);
   };
 
