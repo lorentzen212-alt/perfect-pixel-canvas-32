@@ -176,12 +176,12 @@ function BookMeetingsEvents() {
     >
       {/* HERO */}
       <section
-        className="relative w-full"
+        className="relative w-full min-h-[650px] lg:h-[650px]"
         style={{
           backgroundColor: NAVY_DEEP,
           backgroundImage: `url(${heroImg})`,
-          backgroundSize: "112% auto",
-          backgroundPosition: "center 30%",
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
         }}
       >
@@ -190,28 +190,37 @@ function BookMeetingsEvents() {
           className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[110px]"
           style={{
             background:
-              "linear-gradient(180deg, rgba(10,20,35,0.42) 0%, rgba(10,20,35,0.18) 55%, rgba(10,20,35,0) 100%)",
+              "linear-gradient(180deg, rgba(10,20,35,0.38) 0%, rgba(10,20,35,0.16) 55%, rgba(10,20,35,0) 100%)",
           }}
         />
         {/* LEFT: soft white/champagne wash behind headline */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[62%]"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[60%]"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,250,240,0.72) 0%, rgba(255,250,240,0.42) 35%, rgba(255,250,240,0.14) 70%, rgba(255,250,240,0) 100%)",
+              "linear-gradient(90deg, rgba(255,250,240,0.74) 0%, rgba(255,250,240,0.42) 35%, rgba(255,250,240,0.14) 70%, rgba(255,250,240,0) 100%)",
           }}
         />
         {/* BOTTOM: darker gradient behind progress navigation */}
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[220px]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[200px]"
           style={{
             background:
-              "linear-gradient(180deg, rgba(6,14,26,0) 0%, rgba(6,14,26,0.35) 40%, rgba(6,14,26,0.78) 100%)",
+              "linear-gradient(180deg, rgba(6,14,26,0) 0%, rgba(6,14,26,0.38) 45%, rgba(6,14,26,0.82) 100%)",
+          }}
+        />
+        {/* BOTTOM-RIGHT: slightly darker corner vignette */}
+        <div
+          className="pointer-events-none absolute inset-0 z-10"
+          style={{
+            background:
+              "radial-gradient(ellipse at 100% 100%, rgba(6,14,26,0.35) 0%, rgba(6,14,26,0) 45%)",
           }}
         />
 
 
-        <div className="relative z-20">
+        <div className="relative z-20 flex flex-col lg:h-[650px] min-h-[650px]">
+
           {/* HEADER */}
           <header className="flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
             <Link to="/" aria-label="HotelGroupBook" className="flex items-center">
