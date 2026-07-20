@@ -2242,8 +2242,9 @@ function StepThreeAccommodation({
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
-                    icon={<BedDouble size={19} />}
+                    icon={<LuxBedIcon size={22} />}
                     label="Room Only"
+
                     selected={mealPlan === "room"}
                     onClick={() => setMealPlan("room")}
                   />
