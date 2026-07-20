@@ -333,6 +333,8 @@ function BookMeetingsEvents() {
               onNext={handleNext}
               direction={direction}
             />
+          ) : step === 1 ? (
+            <StepTwoLocation onBack={() => go(1)} onNext={handleNext} />
           ) : (
             <div
               className="overflow-hidden rounded-[20px]"
@@ -357,12 +359,6 @@ function BookMeetingsEvents() {
                   >
                     {step === 6 && (
                       <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
-                    )}
-                    {step === 1 && (
-                      <StepTwoLocation
-                        onBack={() => go(1)}
-                        onNext={handleNext}
-                      />
                     )}
                     {(step === 4 || step === 5 || step === 7) && (
                       <StepPlaceholder
