@@ -592,19 +592,31 @@ function BookMeetingsEvents() {
 
 
         .meal-card {
-          background: linear-gradient(145deg, #FFFFFF 0%, #FCFBF7 55%, #F5F2EA 100%);
-          border: 1px solid rgba(201, 156, 45, 0.28);
-          box-shadow: 0 8px 22px rgba(8, 20, 36, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 3px rgba(12, 26, 42, 0.06);
-          transition: all 180ms ease;
+          background: #FFFFFF;
+          border: 1px solid rgba(184, 149, 82, 0.28);
+          box-shadow: 0 4px 12px rgba(8, 20, 36, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+          transition: all 200ms ease;
         }
         .meal-card:hover {
           transform: translateY(-1px);
-          border-color: rgba(201, 156, 45, 0.60);
-          box-shadow: 0 10px 26px rgba(8, 20, 36, 0.14), 0 0 14px rgba(201, 156, 45, 0.16), inset 0 1px 0 rgba(255, 255, 255, 1);
+          border-color: rgba(184, 149, 82, 0.45);
+          box-shadow: 0 6px 16px rgba(8, 20, 36, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
         }
         .meal-card-selected {
-          border-color: rgba(201, 156, 45, 0.55);
-          box-shadow: 0 8px 22px rgba(8, 20, 36, 0.11), 0 0 18px rgba(201, 156, 45, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 3px rgba(12, 26, 42, 0.06);
+          background:
+            linear-gradient(145deg, #FFFFFF 0%, #FFFDF8 100%) padding-box,
+            linear-gradient(135deg, #E8CE86 0%, #C9A24A 35%, #F3DFA2 55%, #B08528 100%) border-box;
+          border: 2px solid transparent;
+          box-shadow:
+            0 10px 26px rgba(8, 20, 36, 0.10),
+            inset 0 0 10px rgba(212, 175, 55, 0.10),
+            inset 0 1px 0 rgba(255, 255, 255, 0.95);
+        }
+        .meal-card-selected:hover {
+          box-shadow:
+            0 12px 28px rgba(8, 20, 36, 0.12),
+            inset 0 0 12px rgba(212, 175, 55, 0.14),
+            inset 0 1px 0 rgba(255, 255, 255, 1);
         }
 
         .qty-btn {
