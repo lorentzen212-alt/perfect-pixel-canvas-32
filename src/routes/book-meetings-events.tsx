@@ -2988,8 +2988,8 @@ function LuxIconBadge({
   if (finish === "engraved") {
     const shadow =
       tone === "onDark"
-        ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.45)"
-        : "0 6px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.40)";
+        ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.45), inset 0 0 0 0.6px rgba(184,142,62,0.35)"
+        : "0 6px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.40), inset 0 0 0 0.6px rgba(184,142,62,0.35)";
     const bg =
       tone === "onDark"
         ? "radial-gradient(120% 120% at 30% 15%, #1E2128 0%, #111317 55%, #0A0C10 100%)"
