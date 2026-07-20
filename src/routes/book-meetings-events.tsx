@@ -482,6 +482,66 @@ function BookMeetingsEvents() {
         .animate-slide-in-right { animation: slide-in-right 300ms ease-out; }
         .animate-slide-in-left { animation: slide-in-left 300ms ease-out; }
 
+        /* Luxury metallic gold border for destination cards */
+        .destination-card {
+          border: 1.5px solid transparent;
+          background-clip: padding-box;
+          box-shadow:
+            0 0 0 1.5px rgba(0,0,0,0),
+            0 10px 26px -18px rgba(10,27,44,0.30);
+          transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+          position: relative;
+        }
+        .destination-card::before {
+          content: "";
+          position: absolute;
+          inset: -1.5px;
+          border-radius: inherit;
+          padding: 1.5px;
+          background: linear-gradient(180deg, #F5E4A6 0%, #D6B15A 42%, #C79A32 72%, #A87516 100%);
+          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          -webkit-mask-composite: xor;
+                  mask-composite: exclude;
+          pointer-events: none;
+          transition: filter 220ms ease, opacity 220ms ease;
+          z-index: 3;
+        }
+        .destination-card:hover {
+          transform: scale(1.02);
+          box-shadow:
+            0 14px 30px -16px rgba(10,27,44,0.34),
+            0 0 12px -2px rgba(214,177,90,0.22);
+        }
+        .destination-card:hover::before {
+          filter: brightness(1.12);
+        }
+        .destination-card--selected::before {
+          filter: brightness(1.15);
+        }
+        .destination-card--selected {
+          box-shadow:
+            0 16px 32px -18px rgba(10,27,44,0.38),
+            0 0 14px -2px rgba(214,177,90,0.28);
+        }
+
+        /* Metallic country pill hover */
+        .country-pill { transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease, border-color 220ms ease; }
+        .country-pill--active:hover { filter: brightness(1.06); box-shadow: 0 6px 14px -6px rgba(168,117,22,0.28), inset 0 1px 0 rgba(245,228,166,0.45); }
+
+        /* Active step: slow metallic shimmer + multiple sparkles */
+        @keyframes step-shimmer {
+          0%   { transform: translateX(-140%) rotate(20deg); opacity: 0; }
+          20%  { opacity: 0.85; }
+          80%  { opacity: 0.85; }
+          100% { transform: translateX(140%) rotate(20deg); opacity: 0; }
+        }
+        @keyframes step-spark {
+          0%, 100% { opacity: 0; transform: scale(0.4); }
+          50%      { opacity: 1; transform: scale(1); }
+        }
+
+
+
         .meal-card {
           background: linear-gradient(145deg, #FFFFFF 0%, #FCFBF7 55%, #F5F2EA 100%);
           border: 1px solid rgba(201, 156, 45, 0.28);
@@ -792,13 +852,13 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                 />
               )}
               <span
-                className="relative flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold"
+                className="relative flex h-9 w-9 items-center justify-center rounded-full text-[13px] font-semibold overflow-hidden"
                 style={{
                   background: bg,
                   color: numberColor,
                   border: `1px solid ${borderColor}`,
                   boxShadow: active
-                    ? "0 0 14px rgba(212,175,55,0.55), 0 0 30px rgba(212,175,55,0.22), 0 8px 18px rgba(217,165,32,0.20), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    ? "0 0 10px rgba(214,177,90,0.32), 0 6px 14px rgba(168,117,22,0.20), inset 0 1px 0 rgba(255,236,183,0.55), inset 0 -1px 0 rgba(120,80,20,0.35)"
                     : completed
                       ? "0 2px 6px rgba(0,0,0,0.25)"
                       : "none",
@@ -810,38 +870,54 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
               >
                 {active && (
                   <>
+                    {/* Slow metallic shimmer sweeping across the circle */}
                     <span
                       aria-hidden
                       style={{
                         position: "absolute",
-                        top: -3,
-                        right: 2,
-                        width: 3,
-                        height: 3,
+                        inset: 0,
                         borderRadius: "9999px",
-                        background: "#FFE9A8",
-                        boxShadow: "0 0 6px #D4AF37",
-                        animation: "step-sparkle 1800ms ease-in-out infinite",
+                        background:
+                          "linear-gradient(115deg, transparent 30%, rgba(255,245,210,0.55) 48%, rgba(255,255,255,0.85) 50%, rgba(255,245,210,0.55) 52%, transparent 70%)",
+                        mixBlendMode: "screen",
+                        animation: "step-shimmer 3200ms ease-in-out infinite",
+                        pointerEvents: "none",
                       }}
                     />
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        bottom: -2,
-                        left: 0,
-                        width: 2,
-                        height: 2,
-                        borderRadius: "9999px",
-                        background: "#FFE9A8",
-                        boxShadow: "0 0 5px #D4AF37",
-                        animation: "step-sparkle 2200ms ease-in-out 600ms infinite",
-                      }}
-                    />
+                    {/* Sparkles: 5 tiny highlights at varied positions */}
+                    {[
+                      { top: -2, right: 4, size: 3, delay: 0, dur: 1900 },
+                      { bottom: -1, left: 3, size: 2, delay: 500, dur: 2300 },
+                      { top: 6, left: -2, size: 2, delay: 900, dur: 2100 },
+                      { bottom: 6, right: -2, size: 2, delay: 1300, dur: 2500 },
+                      { top: 14, right: 12, size: 1.5, delay: 1700, dur: 2000 },
+                    ].map((s, si) => (
+                      <span
+                        key={si}
+                        aria-hidden
+                        style={{
+                          position: "absolute",
+                          top: s.top as number | undefined,
+                          right: s.right as number | undefined,
+                          bottom: s.bottom as number | undefined,
+                          left: s.left as number | undefined,
+                          width: s.size,
+                          height: s.size,
+                          borderRadius: "9999px",
+                          background: "#FFF3C8",
+                          boxShadow: "0 0 4px rgba(245,228,166,0.9)",
+                          animation: `step-spark ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
+                          pointerEvents: "none",
+                        }}
+                      />
+                    ))}
                   </>
                 )}
-                {completed ? <Check size={16} strokeWidth={2.5} style={{ color: GOLD }} /> : n}
+                <span style={{ position: "relative", zIndex: 2 }}>
+                  {completed ? <Check size={16} strokeWidth={2.5} style={{ color: GOLD }} /> : n}
+                </span>
               </span>
+
               <span
                 className="text-[13px] lg:text-[14px] font-medium text-center whitespace-nowrap transition-colors duration-[250ms]"
                 style={{
@@ -1353,11 +1429,12 @@ function StepTwoLocation({
           style={{ fontFamily: SERIF, fontWeight: 400, color: "#1F1F1F", letterSpacing: "-0.015em", fontVariantNumeric: "lining-nums", fontFeatureSettings: '"lnum" 1' }}
         >
           Step{" "}
-          <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500 }}>
+          <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500, fontSize: "0.93em", display: "inline-block" }}>
             1
           </span>
           {" "}– Location
         </h2>
+
 
         <p className="mt-3 text-[15px] text-[#4A5866]">
           Where would you like to host your event?
@@ -1375,17 +1452,26 @@ function StepTwoLocation({
                 onClick={() => changeCountry(c.code)}
                 aria-pressed={active}
                 className={cn(
-                  "group inline-flex items-center gap-3 rounded-full pl-4 pr-6 h-[48px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
-                  active ? "-translate-y-[1px]" : "hover:-translate-y-[1px]",
+                  "country-pill group inline-flex items-center gap-3 rounded-full pl-4 pr-6 h-[48px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/30",
+                  active ? "country-pill--active -translate-y-[1px]" : "hover:-translate-y-[1px]",
                 )}
                 style={{
                   background: "#FFFFFF",
-                  border: active ? "1.5px solid #D4AF37" : "1px solid #ECE6D6",
+                  border: active ? "1.5px solid transparent" : "1px solid #ECE6D6",
                   color: active ? "#7A5A1E" : "#4A5866",
                   fontWeight: active ? 600 : 500,
-                  boxShadow: active
-                    ? "0 10px 24px -14px rgba(200,154,58,0.45), inset 0 0 0 1px rgba(255,236,183,0.35)"
-                    : "0 4px 14px -12px rgba(10,27,44,0.14)",
+                  ...(active
+                    ? {
+                        backgroundImage:
+                          "linear-gradient(#FFFFFF,#FFFFFF), linear-gradient(180deg,#F5E4A6 0%, #D6B15A 45%, #C79A32 75%, #A87516 100%)",
+                        backgroundOrigin: "border-box",
+                        backgroundClip: "padding-box, border-box",
+                        boxShadow:
+                          "0 2px 6px -2px rgba(168,117,22,0.18), inset 0 1px 0 rgba(245,228,166,0.35)",
+                      }
+                    : {
+                        boxShadow: "0 4px 14px -12px rgba(10,27,44,0.14)",
+                      }),
                 }}
               >
                 <span
@@ -1396,6 +1482,7 @@ function StepTwoLocation({
                 </span>
                 {c.name}
               </button>
+
             );
           })}
         </div>
@@ -1423,18 +1510,12 @@ function StepTwoLocation({
                   onClick={() => pickDestinationCard(d)}
                   aria-pressed={selected}
                   className={cn(
-                    "group relative overflow-hidden rounded-[16px] aspect-[4/3] flex flex-col items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50",
-                    selected ? "-translate-y-[3px]" : "hover:-translate-y-[3px]",
+                    "destination-card group relative overflow-hidden rounded-[16px] aspect-[4/3] flex flex-col items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/35",
+                    selected && "destination-card--selected",
                   )}
                   style={{
                     background:
                       "linear-gradient(180deg,#0F2233 0%, #0A1B2C 100%)",
-                    border: selected
-                      ? "1.5px solid #D4AF37"
-                      : "1px solid rgba(212,175,55,0.55)",
-                    boxShadow: selected
-                      ? "0 22px 46px -22px rgba(200,154,58,0.55), inset 0 0 0 1px rgba(255,236,183,0.25)"
-                      : "0 14px 32px -20px rgba(10,27,44,0.35)",
                   }}
                 >
                   <Globe size={30} strokeWidth={1.4} className="text-[#F0D78C]" />
@@ -1456,19 +1537,14 @@ function StepTwoLocation({
                 onClick={() => pickDestinationCard(d)}
                 aria-pressed={selected}
                 className={cn(
-                  "group relative overflow-hidden rounded-[16px] aspect-[4/3] text-left transition-all duration-[280ms] ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50",
-                  selected ? "-translate-y-[3px]" : "hover:-translate-y-[3px]",
+                  "destination-card group relative overflow-hidden rounded-[16px] aspect-[4/3] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/35",
+                  selected && "destination-card--selected",
                 )}
                 style={{
-                  border: selected
-                    ? "1.5px solid #D4AF37"
-                    : "1px solid rgba(212,175,55,0.5)",
-                  boxShadow: selected
-                    ? "0 22px 46px -22px rgba(200,154,58,0.55), inset 0 0 0 1px rgba(255,236,183,0.28)"
-                    : "0 14px 32px -20px rgba(10,27,44,0.28)",
                   background: "#0A1B2C",
                 }}
               >
+
                 <img
                   src={d.image}
                   alt={d.name}
@@ -1696,30 +1772,30 @@ function StepTwoLocation({
           <path
             d="M170 -20 C 130 120, 90 220, 150 360 C 200 480, 130 580, 100 660"
             stroke="url(#gold1)"
-            strokeWidth="1.2"
+            strokeWidth="0.7"
             fill="none"
           />
           <path
             d="M180 40 C 150 180, 100 260, 165 400 C 210 520, 150 620, 130 700"
             stroke="url(#gold2)"
-            strokeWidth="0.8"
+            strokeWidth="0.5"
             fill="none"
           />
           <defs>
             <linearGradient id="gold1" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D4AF37" stopOpacity="0" />
-              <stop offset="40%" stopColor="#D4AF37" stopOpacity="0.55" />
-              <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
+              <stop offset="0%" stopColor="#D6B15A" stopOpacity="0" />
+              <stop offset="40%" stopColor="#D6B15A" stopOpacity="0.30" />
+              <stop offset="100%" stopColor="#D6B15A" stopOpacity="0" />
             </linearGradient>
             <linearGradient id="gold2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#F0D78C" stopOpacity="0" />
-              <stop offset="50%" stopColor="#F0D78C" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="#F0D78C" stopOpacity="0" />
+              <stop offset="0%" stopColor="#F5E4A6" stopOpacity="0" />
+              <stop offset="50%" stopColor="#F5E4A6" stopOpacity="0.28" />
+              <stop offset="100%" stopColor="#F5E4A6" stopOpacity="0" />
             </linearGradient>
           </defs>
         </svg>
 
-        <div className="relative p-8 lg:p-10">
+        <div className="relative pt-12 lg:pt-16 px-8 lg:px-10 pb-6">
           <h3
             className="text-[#0A1B2C] text-[28px] leading-tight"
             style={{ fontFamily: SERIF, fontWeight: 500 }}
@@ -1732,7 +1808,7 @@ function StepTwoLocation({
             ready to assist you.
           </p>
 
-          <div className="mt-8 flex flex-col gap-5">
+          <div className="mt-10 flex flex-col gap-5">
             <a
               href="tel:+4721002100"
               className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
@@ -1741,9 +1817,9 @@ function StepTwoLocation({
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full"
                 style={{
                   background:
-                    "linear-gradient(180deg,#E8C67A 0%, #C99A3A 100%)",
+                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
                   boxShadow:
-                    "0 6px 14px -6px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,236,183,0.7)",
+                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
                 }}
               >
                 <Phone size={16} strokeWidth={2} className="text-white" />
@@ -1758,9 +1834,9 @@ function StepTwoLocation({
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full"
                 style={{
                   background:
-                    "linear-gradient(180deg,#E8C67A 0%, #C99A3A 100%)",
+                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
                   boxShadow:
-                    "0 6px 14px -6px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,236,183,0.7)",
+                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
                 }}
               >
                 <Mail size={16} strokeWidth={2} className="text-white" />
@@ -1770,18 +1846,42 @@ function StepTwoLocation({
           </div>
         </div>
 
-        {/* Luxury lounge illustration */}
-        <div className="relative mt-4">
-          <img
-            src={loungeImg}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            width={768}
-            height={640}
-            className="w-full h-auto object-cover select-none"
-          />
+        {/* Luxury lounge illustration — softer, smaller, lower */}
+        <div className="relative mt-10 lg:mt-14 px-6 pb-6 flex justify-center">
+          <div className="relative w-[80%]">
+            <img
+              src={loungeImg}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              width={768}
+              height={640}
+              className="w-full h-auto object-cover select-none rounded-[14px]"
+              style={{
+                filter: "brightness(1.04) contrast(0.96) saturate(0.92)",
+              }}
+            />
+            {/* Warm champagne-gold tint + soft luxury lighting */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[14px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255,240,205,0.18) 0%, rgba(214,177,90,0.10) 55%, rgba(168,117,22,0.06) 100%)",
+                mixBlendMode: "soft-light",
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[14px]"
+              style={{
+                background:
+                  "radial-gradient(120% 80% at 30% 20%, rgba(255,245,210,0.22) 0%, rgba(255,245,210,0) 55%)",
+              }}
+            />
+          </div>
         </div>
+
       </aside>
     </div>
   );
