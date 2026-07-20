@@ -1555,7 +1555,10 @@ function StepTwoLocation({
                   selected && "destination-card--selected",
                 )}
                 style={{
-                  background: "#0A1B2C",
+                  background:
+                    "#0A1B2C padding-box, linear-gradient(180deg,#F5E4A6 0%, #D6B15A 45%, #C79A32 75%, #A87516 100%) border-box",
+                  border: "1.5px solid transparent",
+                  boxShadow: "0 8px 22px -14px rgba(10,27,44,0.4), inset 0 1px 0 rgba(245,228,166,0.15)",
                 }}
               >
 
