@@ -185,15 +185,15 @@ function BookMeetingsEvents() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        {/* Left dark gradient for text legibility */}
+        {/* Soft left-to-right lighting overlay for text legibility while keeping scene bright */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(4,17,26,0.92) 0%, rgba(4,17,26,0.78) 35%, rgba(4,17,26,0.35) 60%, rgba(4,17,26,0.05) 100%)",
+              "linear-gradient(90deg, rgba(255,250,240,0.55) 0%, rgba(255,250,240,0.30) 25%, rgba(255,250,240,0.10) 45%, rgba(255,250,240,0) 65%)",
           }}
         />
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-black/60 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-black/25 to-transparent" />
 
         <div className="relative z-20">
           {/* HEADER */}
@@ -208,7 +208,7 @@ function BookMeetingsEvents() {
 
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="lg:hidden text-white p-2"
+              className="lg:hidden text-[#0A1B2C] p-2"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={28} /> : <Menu size={28} />}
@@ -220,7 +220,7 @@ function BookMeetingsEvents() {
                   <Link
                     key={l.label}
                     to={l.to}
-                    className="text-white text-[17px] transition-colors hover:text-[#F5C25A]"
+                    className="text-[#0A1B2C] text-[17px] transition-colors hover:text-[#B88917]"
                   >
                     {l.label}
                   </Link>
@@ -228,7 +228,7 @@ function BookMeetingsEvents() {
                   <a
                     key={l.label}
                     href={l.href}
-                    className="text-white text-[17px] transition-colors hover:text-[#F5C25A]"
+                    className="text-[#0A1B2C] text-[17px] transition-colors hover:text-[#B88917]"
                   >
                     {l.label}
                   </a>
@@ -253,21 +253,21 @@ function BookMeetingsEvents() {
           </header>
 
           {mobileOpen && (
-            <nav className="lg:hidden mx-5 sm:mx-8 flex flex-col gap-3 rounded-xl bg-[rgba(2,18,29,0.92)] p-4">
+            <nav className="lg:hidden mx-5 sm:mx-8 flex flex-col gap-3 rounded-xl bg-[rgba(255,255,255,0.92)] p-4">
               {NAV_LINKS.map((l) =>
                 "to" in l ? (
-                  <Link key={l.label} to={l.to} className="text-white text-base">
+                  <Link key={l.label} to={l.to} className="text-[#0A1B2C] text-base">
                     {l.label}
                   </Link>
                 ) : (
-                  <a key={l.label} href={l.href} className="text-white text-base">
+                  <a key={l.label} href={l.href} className="text-[#0A1B2C] text-base">
                     {l.label}
                   </a>
                 ),
               )}
               <Link
                 to="/manage-bookings"
-                className="mt-1 rounded-md border px-4 py-2 text-white self-start"
+                className="mt-1 rounded-md border px-4 py-2 text-[#0A1B2C] self-start"
                 style={{ borderColor: GOLD }}
               >
                 Manage Bookings
@@ -276,15 +276,17 @@ function BookMeetingsEvents() {
           )}
 
           {/* HERO CONTENT */}
-          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-8 pb-14 lg:pt-12 lg:pb-20">
+          <div className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-10 pb-16 lg:pt-16 lg:pb-24">
             <div className="max-w-[720px]">
               <h1
-                className="text-white text-5xl sm:text-6xl lg:text-[72px] leading-[1.03] font-medium"
-                style={{ fontFamily: SERIF }}
+                className="text-[#0A1B2C] text-6xl sm:text-7xl lg:text-[104px] leading-[1.02] tracking-tight"
+                style={{ fontFamily: SERIF, fontWeight: 300 }}
               >
-                Book Meetings &amp; Events
+                Extraordinary
+                <br />
+                Meetings.
               </h1>
-              <p className="mt-6 text-white/90 text-lg lg:text-[19px] leading-[1.55] max-w-[560px]">
+              <p className="mt-8 text-[#26364A] text-lg lg:text-[19px] leading-[1.55] max-w-[560px]">
                 Request offers for meetings, conferences and events.
                 <br />
                 Our M&amp;E specialists will find the best hotels
@@ -296,18 +298,14 @@ function BookMeetingsEvents() {
               <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
                 {TRUST.map(({ Icon, label }) => (
                   <div key={label} className="flex items-center gap-2">
-                    <span
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(245,194,90,0.55)" }}
-                    >
-                      <Icon size={16} strokeWidth={1.8} style={{ color: GOLD }} />
-                    </span>
-                    <span className="text-white text-[15px]">{label}</span>
+                    <Icon size={32} />
+                    <span className="text-[#0A1B2C] text-[15px] font-medium">{label}</span>
                   </div>
                 ))}
               </div>
             </div>
           </div>
+
 
           {/* PROGRESS BAR */}
           <div
