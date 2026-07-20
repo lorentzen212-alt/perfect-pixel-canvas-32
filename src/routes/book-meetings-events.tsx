@@ -2118,7 +2118,7 @@ function StepThreeAccommodation({
                   className="text-[#1F2937] text-[16.5px] mb-4"
                   style={{ fontFamily: SANS, fontWeight: 600, letterSpacing: "0.02em" }}
                 >
-                  Meal Plan
+                  &nbsp; Meal Plan
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
