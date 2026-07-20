@@ -2031,22 +2031,22 @@ function StepThreeAccommodation({
                       height: 44,
                       borderRadius: 11,
                       background:
-                        "radial-gradient(120% 120% at 30% 15%, #2A2A2E 0%, #141416 55%, #0A0A0C 100%)",
+                        "radial-gradient(120% 120% at 30% 15%, #2A2A2E 0%, #18181A 55%, #0F0F11 100%)",
                       boxShadow:
                         "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35), 0 0 0 1.5px transparent, 0 0 18px rgba(212,168,83,0.28)",
                       backgroundClip: "padding-box",
                     }}
                   >
-                    {/* metallic gold border */}
+                    {/* ultra-thin metallic champagne-gold outline */}
                     <span
                       aria-hidden
                       style={{
                         position: "absolute",
                         inset: 0,
                         borderRadius: 11,
-                        padding: 1.6,
+                        padding: 0.9,
                         background:
-                          "linear-gradient(140deg,#F6D98A 0%,#D4A853 30%,#8C6A24 55%,#E5C271 80%,#F6D98A 100%)",
+                          "linear-gradient(145deg, #F8E5A8 0%, #E8C468 25%, #B98A2F 50%, #D4A853 75%, #F6D98A 100%)",
                         WebkitMask:
                           "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
                         WebkitMaskComposite: "xor",
@@ -2054,18 +2054,30 @@ function StepThreeAccommodation({
                         pointerEvents: "none",
                       }}
                     />
-                    {/* glossy top highlight */}
+                    {/* subtle inner highlight for depth */}
                     <span
                       aria-hidden
                       style={{
                         position: "absolute",
-                        left: 3,
-                        right: 3,
+                        inset: 0,
+                        borderRadius: 11,
+                        background:
+                          "radial-gradient(130% 70% at 28% 12%, rgba(247,231,166,0.13) 0%, rgba(247,231,166,0) 55%)",
+                        pointerEvents: "none",
+                      }}
+                    />
+                    {/* soft glossy top sheen */}
+                    <span
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        left: 4,
+                        right: 4,
                         top: 2,
-                        height: 14,
+                        height: 12,
                         borderRadius: "9px 9px 20px 20px / 9px 9px 12px 12px",
                         background:
-                          "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0) 100%)",
+                          "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 60%, rgba(255,255,255,0) 100%)",
                         pointerEvents: "none",
                       }}
                     />
