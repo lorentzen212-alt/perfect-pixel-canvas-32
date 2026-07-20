@@ -14,16 +14,12 @@ import {
   ArrowRight,
   ChevronDown,
   Users,
-  Search,
   Building2,
   Waves,
   Plane,
   Palmtree,
   Landmark,
-  Gem,
-  Ban,
   Globe,
-  Star,
   Check,
   Minus,
   Plus,
@@ -34,11 +30,14 @@ import {
   Bed,
   User,
   UsersRound,
+  Sparkles,
+
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroImg from "@/assets/me-hero-suite.jpg";
+import loungeImg from "@/assets/luxury-lounge.jpg";
 
 import osloImg from "@/assets/destinations/oslo.jpg";
 import bergenImg from "@/assets/destinations/bergen.jpg";
@@ -332,6 +331,8 @@ function BookMeetingsEvents() {
               onNext={handleNext}
               direction={direction}
             />
+          ) : step === 1 ? (
+            <StepTwoLocation onBack={() => go(1)} onNext={handleNext} />
           ) : (
             <div
               className="overflow-hidden rounded-[20px]"
@@ -356,12 +357,6 @@ function BookMeetingsEvents() {
                   >
                     {step === 6 && (
                       <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
-                    )}
-                    {step === 1 && (
-                      <StepTwoLocation
-                        onBack={() => go(1)}
-                        onNext={handleNext}
-                      />
                     )}
                     {(step === 4 || step === 5 || step === 7) && (
                       <StepPlaceholder
@@ -1217,22 +1212,6 @@ const ALL_SEARCHABLE_DESTINATIONS: SearchableDestination[] = (Object.keys(
     }));
 });
 
-const HOTEL_CATEGORIES = [
-  { id: "3", label: "★★★" },
-  { id: "4", label: "★★★★" },
-  { id: "5", label: "★★★★★" },
-  { id: "none", label: "No preference" },
-];
-
-const HOTEL_STYLES = [
-  { id: "city", label: "City hotel", Icon: Building2 },
-  { id: "waterfront", label: "Waterfront", Icon: Waves },
-  { id: "airport", label: "Airport", Icon: Plane },
-  { id: "resort", label: "Resort", Icon: Palmtree },
-  { id: "historic", label: "Historic hotel", Icon: Landmark },
-  { id: "boutique", label: "Boutique", Icon: Gem },
-  { id: "none", label: "No preferences", Icon: Ban },
-];
 
 function StepTwoLocation({
   onBack,
@@ -1242,15 +1221,11 @@ function StepTwoLocation({
   onNext: () => void;
 }) {
   const [selectedCountry, setSelectedCountry] = useState<CountryCode>("NO");
-  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
-  const [selectedHotelCategory, setSelectedHotelCategory] = useState<string | null>(null);
-  const [selectedHotelStyle, setSelectedHotelStyle] = useState<string | null>(null);
 
-  const countryRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const currentCountry = COUNTRIES.find((c) => c.code === selectedCountry) ?? COUNTRIES[0];
@@ -1266,12 +1241,9 @@ function StepTwoLocation({
     ).slice(0, 8);
   }, [searchQuery]);
 
-  // Close dropdowns on outside click
+  // Close search dropdown on outside click
   useEffect(() => {
     function onDown(e: MouseEvent) {
-      if (countryRef.current && !countryRef.current.contains(e.target as Node)) {
-        setIsCountryDropdownOpen(false);
-      }
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
         setIsSearchDropdownOpen(false);
       }
@@ -1288,7 +1260,6 @@ function StepTwoLocation({
     setSelectedCountry(code);
     setSelectedDestination(null);
     setSearchQuery("");
-    setIsCountryDropdownOpen(false);
     setIsSearchDropdownOpen(false);
   }
 
@@ -1331,93 +1302,114 @@ function StepTwoLocation({
   }
 
   return (
-    <div>
-      {/* Header row */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-10 items-start">
-        <div>
-          <h2
-            className="text-[#0A1B2C] text-3xl lg:text-[34px] leading-tight"
-            style={{ fontFamily: SERIF }}
-          >
-            Step 2 – Location
-          </h2>
-          <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
-            Where would you like to host your event?
-          </p>
-        </div>
-
-        {/* Country selector */}
-        <div className="w-full lg:min-w-[280px]" ref={countryRef}>
-          <label className="block text-[14px] font-semibold text-[#0A1B2C]">
-            Select country
-          </label>
-          <div className="relative mt-2">
-            <button
-              type="button"
-              onClick={() => setIsCountryDropdownOpen((v) => !v)}
-              aria-haspopup="listbox"
-              aria-expanded={isCountryDropdownOpen}
-              className="w-full flex items-center justify-between rounded-md border bg-white px-4 h-[46px] text-[15px] text-[#0A1B2C] outline-none transition-all duration-200 hover:border-[#B9C2CE] hover:shadow-sm focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40 focus-visible:border-[#F5AE00]"
-              style={{ borderColor: "#DFE4EB" }}
-            >
-              <span className="flex items-center gap-3">
-                <currentCountry.Flag />
-                {currentCountry.name}
-              </span>
-              <ChevronDown
-                size={18}
-                className={cn(
-                  "text-[#4A5866] transition-transform duration-200",
-                  isCountryDropdownOpen && "rotate-180",
-                )}
-              />
-            </button>
-            {isCountryDropdownOpen && (
-              <ul
-                role="listbox"
-                className="absolute z-30 mt-2 w-full rounded-md border bg-white py-1 shadow-lg"
-                style={{
-                  borderColor: "#DFE4EB",
-                  boxShadow: "0 12px 30px -12px rgba(10,27,44,0.18)",
-                }}
-              >
-                {COUNTRIES.map((c) => (
-                  <li key={c.code}>
-                    <button
-                      type="button"
-                      onClick={() => changeCountry(c.code)}
-                      className={cn(
-                        "w-full flex items-center gap-3 px-4 py-2 text-left text-[15px] text-[#0A1B2C] transition-colors hover:bg-[#F5EFE1]",
-                        c.code === selectedCountry && "bg-[#FBF6EA]",
-                      )}
-                    >
-                      <c.Flag />
-                      {c.name}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Popular destinations panel */}
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8 items-start">
+      {/* MAIN BOOKING CARD */}
       <div
-        className="mt-6 rounded-[10px] p-5 lg:p-6"
+        className="relative overflow-hidden rounded-[26px] p-6 sm:p-10 lg:p-14"
         style={{
-          backgroundColor: "rgba(255,255,255,0.72)",
-          border: "1px solid #E7EAF0",
+          background: "#FCFBF8",
+          border: "1px solid #ECE6D6",
+          boxShadow:
+            "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
         }}
       >
-        <h3 className="text-[14px] font-semibold text-[#0A1B2C]">
-          Popular destinations in {currentCountry.name}
-        </h3>
+        {/* Title */}
+        <h2
+          className="text-[#0A1B2C] text-[38px] sm:text-[46px] leading-[1.05] tracking-[-0.01em]"
+          style={{ fontFamily: SERIF, fontWeight: 500 }}
+        >
+          Step 1 – Location
+        </h2>
+        <p className="mt-3 text-[15px] text-[#4A5866]">
+          Where would you like to host your event?
+        </p>
+        <div className="mt-6 h-px w-full" style={{ background: "#ECE6D6" }} />
 
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Country pills */}
+        <div className="mt-8 flex flex-wrap gap-3">
+          {COUNTRIES.map((c) => {
+            const active = c.code === selectedCountry;
+            return (
+              <button
+                key={c.code}
+                type="button"
+                onClick={() => changeCountry(c.code)}
+                aria-pressed={active}
+                className={cn(
+                  "group inline-flex items-center gap-3 rounded-full pl-4 pr-6 h-[48px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
+                  active ? "-translate-y-[1px]" : "hover:-translate-y-[1px]",
+                )}
+                style={{
+                  background: "#FFFFFF",
+                  border: active ? "1.5px solid #D4AF37" : "1px solid #ECE6D6",
+                  color: active ? "#7A5A1E" : "#4A5866",
+                  fontWeight: active ? 600 : 500,
+                  boxShadow: active
+                    ? "0 10px 24px -14px rgba(200,154,58,0.45), inset 0 0 0 1px rgba(255,236,183,0.35)"
+                    : "0 4px 14px -12px rgba(10,27,44,0.14)",
+                }}
+              >
+                <span
+                  className="inline-flex h-7 w-7 items-center justify-center rounded-full overflow-hidden"
+                  style={{ background: "#F7F4EC" }}
+                >
+                  <c.Flag />
+                </span>
+                {c.name}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Curated destinations */}
+        <div className="mt-10 flex items-center gap-3">
+          <Sparkles size={18} className="text-[#D4AF37]" strokeWidth={1.6} />
+          <h3
+            className="text-[#0A1B2C] text-[18px]"
+            style={{ fontFamily: SANS, fontWeight: 600 }}
+          >
+            Curated destinations in {currentCountry.name}
+          </h3>
+        </div>
+
+        {/* Destination grid: 4 per row × 2 rows */}
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
           {destinations.map((d) => {
             const selected = selectedDestination === d.id;
-            const isAnywhere = d.anywhere === true;
+            if (d.anywhere) {
+              return (
+                <button
+                  key={d.id}
+                  type="button"
+                  onClick={() => pickDestinationCard(d)}
+                  aria-pressed={selected}
+                  className={cn(
+                    "group relative overflow-hidden rounded-[16px] aspect-[4/3] flex flex-col items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50",
+                    selected ? "-translate-y-[3px]" : "hover:-translate-y-[3px]",
+                  )}
+                  style={{
+                    background:
+                      "linear-gradient(180deg,#0F2233 0%, #0A1B2C 100%)",
+                    border: selected
+                      ? "1.5px solid #D4AF37"
+                      : "1px solid rgba(212,175,55,0.55)",
+                    boxShadow: selected
+                      ? "0 22px 46px -22px rgba(200,154,58,0.55), inset 0 0 0 1px rgba(255,236,183,0.25)"
+                      : "0 14px 32px -20px rgba(10,27,44,0.35)",
+                  }}
+                >
+                  <Globe size={30} strokeWidth={1.4} className="text-[#F0D78C]" />
+                  <span
+                    className="text-white text-[16px] text-center leading-tight"
+                    style={{ fontFamily: SANS, fontWeight: 500 }}
+                  >
+                    Anywhere
+                    <br />
+                    <span className="text-[#F0D78C]">in {currentCountry.name}</span>
+                  </span>
+                </button>
+              );
+            }
             return (
               <button
                 key={d.id}
@@ -1425,252 +1417,337 @@ function StepTwoLocation({
                 onClick={() => pickDestinationCard(d)}
                 aria-pressed={selected}
                 className={cn(
-                  "group relative overflow-hidden rounded-[10px] aspect-[4/3] text-left transition-all duration-[220ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/60",
+                  "group relative overflow-hidden rounded-[16px] aspect-[4/3] text-left transition-all duration-[280ms] ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50",
                   selected ? "-translate-y-[3px]" : "hover:-translate-y-[3px]",
                 )}
                 style={{
                   border: selected
-                    ? "2px solid #F5AE00"
-                    : "1px solid rgba(15,35,60,0.08)",
+                    ? "1.5px solid #D4AF37"
+                    : "1px solid rgba(212,175,55,0.5)",
                   boxShadow: selected
-                    ? "0 18px 40px -20px rgba(200,154,58,0.55), 0 6px 14px -6px rgba(10,27,44,0.15)"
-                    : "0 8px 22px -14px rgba(10,27,44,0.25)",
+                    ? "0 22px 46px -22px rgba(200,154,58,0.55), inset 0 0 0 1px rgba(255,236,183,0.28)"
+                    : "0 14px 32px -20px rgba(10,27,44,0.28)",
+                  background: "#0A1B2C",
                 }}
               >
-                {isAnywhere ? (
-                  <div
-                    className="absolute inset-0 flex flex-col items-center justify-center gap-3"
+                <img
+                  src={d.image}
+                  alt={d.name}
+                  loading="lazy"
+                  width={600}
+                  height={450}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.04]"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(4,17,26,0) 45%, rgba(4,17,26,0.55) 78%, rgba(4,17,26,0.9) 100%)",
+                  }}
+                />
+                <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 px-4 pb-3">
+                  <span
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-md"
                     style={{
-                      background:
-                        "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)",
+                      background: "rgba(255,255,255,0.08)",
+                      border: "1px solid rgba(240,215,140,0.55)",
                     }}
                   >
-                    <d.Icon size={32} strokeWidth={1.6} className="text-white" />
-                    <span className="text-white text-[16px] font-medium px-3 text-center">
-                      {d.name}
-                    </span>
-                  </div>
-                ) : (
-                  <>
-                    <img
-                      src={d.image}
-                      alt={d.name}
-                      loading="lazy"
-                      width={800}
-                      height={600}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[220ms] group-hover:scale-[1.03]"
-                    />
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, rgba(4,17,26,0) 40%, rgba(4,17,26,0.72) 100%)",
-                      }}
-                    />
-                    <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 p-3">
-                      <d.Icon size={20} strokeWidth={1.6} className="text-white shrink-0" />
-                      <span className="text-white text-[16px] font-medium truncate">
-                        {d.name}
-                      </span>
-                    </div>
-                    {selected && (
-                      <span
-                        className="absolute top-2 right-2 inline-flex h-6 w-6 items-center justify-center rounded-full"
-                        style={{ backgroundColor: "#F5AE00" }}
-                      >
-                        <Check size={14} strokeWidth={3} className="text-[#0A1B2C]" />
-                      </span>
-                    )}
-                  </>
+                    <d.Icon size={14} strokeWidth={1.6} className="text-[#F0D78C]" />
+                  </span>
+                  <span
+                    className="text-white text-[17px] tracking-[-0.005em]"
+                    style={{ fontFamily: SANS, fontWeight: 500 }}
+                  >
+                    {d.name}
+                  </span>
+                </div>
+                {selected && (
+                  <span
+                    className="absolute top-3 right-3 inline-flex h-6 w-6 items-center justify-center rounded-full"
+                    style={{ backgroundColor: "#D4AF37" }}
+                  >
+                    <Check size={13} strokeWidth={3} className="text-[#0A1B2C]" />
+                  </span>
                 )}
               </button>
             );
           })}
         </div>
 
-        {/* Lower content (single column – HelpCard lives in outer sidebar) */}
-        <div className="mt-8">
-          <div>
-            {/* Search field */}
-            <div ref={searchRef}>
-              <label className="block text-[14px] font-semibold text-[#0A1B2C]">
-                Or search for any destination
-              </label>
-              <div className="relative mt-2">
-                <Search
-                  size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4A5866]"
-                />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setIsSearchDropdownOpen(true);
-                  }}
-                  onFocus={() => {
-                    if (searchQuery.trim()) setIsSearchDropdownOpen(true);
-                  }}
-                  onKeyDown={onSearchKey}
-                  placeholder="Type city, region or venue"
-                  autoComplete="off"
-                  aria-autocomplete="list"
-                  aria-expanded={isSearchDropdownOpen && searchResults.length > 0}
-                  className="w-full rounded-md border bg-white pl-11 pr-4 h-[46px] text-[15px] text-[#0A1B2C] placeholder:text-[#8892A0] outline-none transition-colors focus:border-[#F5AE00] focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
-                  style={{ borderColor: "#DFE4EB" }}
-                />
-
-                {isSearchDropdownOpen && searchResults.length > 0 && (
-                  <ul
-                    role="listbox"
-                    className="absolute left-0 right-0 top-[calc(100%+6px)] z-40 max-h-[280px] overflow-auto rounded-md border bg-white py-1"
-                    style={{
-                      borderColor: "#DFE4EB",
-                      boxShadow: "0 18px 40px -14px rgba(10,27,44,0.22)",
-                    }}
-                  >
-                    {searchResults.map((r, idx) => {
-                      const highlighted = idx === highlightedSearchIndex;
-                      return (
-                        <li key={`${r.country}-${r.id}`}>
-                          <button
-                            type="button"
-                            onMouseEnter={() => setHighlightedSearchIndex(idx)}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              pickSearchResult(r);
-                            }}
-                            className={cn(
-                              "w-full flex items-center justify-between gap-3 px-4 py-2.5 text-left text-[15px] text-[#0A1B2C] transition-colors",
-                              highlighted ? "bg-[#FBF6EA]" : "hover:bg-[#F8F4E8]",
-                            )}
-                          >
-                            <span className="truncate">{r.name}</span>
-                            <span className="text-[13px] text-[#7C8794] shrink-0">
-                              {r.countryName}
-                            </span>
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
+        {/* Search field */}
+        <div className="mt-10">
+          <p className="text-[14px] text-[#4A5866] mb-2">Or search for any destination</p>
+          <div ref={searchRef} className="relative">
+            <div
+              className="flex items-center gap-3 rounded-[16px] px-5 h-[56px]"
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid #ECE6D6",
+                boxShadow: "0 4px 14px -10px rgba(10,27,44,0.10)",
+              }}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#B88A2E"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="shrink-0"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" />
+              </svg>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setIsSearchDropdownOpen(true);
+                }}
+                onFocus={() => {
+                  if (searchQuery.trim()) setIsSearchDropdownOpen(true);
+                }}
+                onKeyDown={onSearchKey}
+                placeholder="Type city, region or venue"
+                autoComplete="off"
+                aria-label="Destination"
+                className="w-full bg-transparent text-[15px] text-[#0A1B2C] placeholder:text-[#9BA3AE] outline-none border-none"
+              />
             </div>
 
-            {/* Hotel category */}
-            <div className="mt-6">
-              <label className="block text-[14px] font-semibold text-[#0A1B2C]">
-                Hotel category
-              </label>
-              <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-3">
-
-                {HOTEL_CATEGORIES.map((c) => {
-                  const selected = selectedHotelCategory === c.id;
-                  const isNone = c.id === "none";
+            {isSearchDropdownOpen && searchResults.length > 0 && (
+              <ul
+                role="listbox"
+                className="absolute left-0 right-0 top-[calc(100%+6px)] z-40 max-h-[280px] overflow-auto rounded-[16px] border bg-white py-1"
+                style={{
+                  borderColor: "#ECE6D6",
+                  boxShadow: "0 24px 50px -18px rgba(10,27,44,0.22)",
+                }}
+              >
+                {searchResults.map((r, idx) => {
+                  const highlighted = idx === highlightedSearchIndex;
                   return (
-                    <button
-                      key={c.id}
-                      type="button"
-                      onClick={() => setSelectedHotelCategory(c.id)}
-                      aria-pressed={selected}
-                      className={cn(
-                        "inline-flex items-center justify-center gap-3 rounded-md h-[46px] text-[15px] text-[#0A1B2C] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40",
-                        selected
-                          ? isNone
-                            ? "border-[1.5px] border-[#F5AE00] bg-[#FBF6EA] shadow-[0_8px_20px_-14px_rgba(200,154,58,0.5)]"
-                            : "border-[1.5px] border-[#F5AE00] bg-white shadow-[0_8px_20px_-14px_rgba(200,154,58,0.5)]"
-                          : "bg-white border border-[#DFE4EB]",
-                        !selected && isNone && "hover:border-[#E9C77A]",
-                        !selected && !isNone && "hover:border-[#B9C2CE]",
-                      )}
-                    >
-                      {isNone && (
-                        <Ban size={16} strokeWidth={1.8} style={{ color: selected ? "#F5AE00" : "#4A5866" }} />
-                      )}
-                      <span className={cn(!isNone && "tracking-[0.15em]")}>
-                        {c.label}
-                      </span>
-                    </button>
+                    <li key={`${r.country}-${r.id}`}>
+                      <button
+                        type="button"
+                        onMouseEnter={() => setHighlightedSearchIndex(idx)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          pickSearchResult(r);
+                        }}
+                        className={cn(
+                          "w-full flex items-center justify-between gap-3 px-5 py-2.5 text-left text-[15px] text-[#0A1B2C] transition-colors",
+                          highlighted ? "bg-[#FBF6EA]" : "hover:bg-[#F8F4E8]",
+                        )}
+                      >
+                        <span className="truncate">{r.name}</span>
+                        <span className="text-[13px] text-[#7C8794] shrink-0">
+                          {r.countryName}
+                        </span>
+                      </button>
+                    </li>
                   );
                 })}
-              </div>
-            </div>
-
-            {/* Hotel style */}
-            <div className="mt-6">
-              <label className="block text-[14px] font-semibold text-[#0A1B2C]">
-                Hotel style
-              </label>
-              <div className="mt-2 flex flex-wrap gap-3">
-                {HOTEL_STYLES.map((s) => {
-                  const selected = selectedHotelStyle === s.id;
-                  return (
-                    <button
-                      key={s.id}
-                      type="button"
-                      onClick={() => setSelectedHotelStyle(s.id)}
-                      aria-pressed={selected}
-                      className="group inline-flex flex-1 basis-[160px] items-center justify-center gap-3 rounded-md h-[46px] px-5 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
-                      style={{
-                        minWidth: 160,
-                        background: selected
-                          ? "linear-gradient(180deg, #16385A 0%, #0F2A47 100%)"
-                          : "#FFFFFF",
-                        border: selected
-                          ? "1px solid rgba(255,255,255,0.16)"
-                          : "1px solid #DFE4EB",
-                        boxShadow: selected
-                          ? "0 14px 30px -18px rgba(10,27,44,0.55), inset 0 1px 0 rgba(255,255,255,0.06)"
-                          : undefined,
-                        color: selected ? "#FFFFFF" : "#0A1B2C",
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!selected) {
-                          e.currentTarget.style.borderColor = "#E9C77A";
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!selected) {
-                          e.currentTarget.style.borderColor = "#DFE4EB";
-                        }
-                      }}
-                    >
-                      <s.Icon
-                        size={18}
-                        strokeWidth={1.6}
-                        className="shrink-0 transition-transform duration-200 group-hover:scale-[1.04]"
-                        style={{ color: selected ? GOLD : "#4A5866" }}
-                      />
-                      <span className="text-[15px] leading-none whitespace-nowrap">
-                        {s.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-            </div>
+              </ul>
+            )}
           </div>
+        </div>
+
+        {/* Preferred venue field */}
+        <div
+          className="mt-4 flex items-center gap-4 rounded-[16px] px-5 h-[64px]"
+          style={{
+            background: "#FFFFFF",
+            border: "1px solid #ECE6D6",
+            boxShadow: "0 4px 14px -10px rgba(10,27,44,0.10)",
+          }}
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#B88A2E"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            className="shrink-0"
+          >
+            <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z" />
+            <path d="M14 3v5h5" />
+            <path d="M8 13h6M8 17h4" />
+          </svg>
+          <div className="flex flex-1 flex-wrap items-baseline gap-x-2 min-w-0">
+            <label
+              htmlFor="preferred-venue"
+              className="text-[14px] font-semibold text-[#0A1B2C] shrink-0"
+            >
+              Preferred venue{" "}
+              <span className="text-[#9BA3AE] font-normal">(optional)</span>
+            </label>
+            <input
+              id="preferred-venue"
+              type="text"
+              placeholder="Specific hotel, venue or any special request…"
+              className="flex-1 min-w-[160px] bg-transparent text-[14px] text-[#4A5866] placeholder:text-[#9BA3AE] outline-none border-none"
+            />
+          </div>
+          <button
+            type="button"
+            aria-label="Edit preferred venue"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:scale-105"
+          >
+            <Pencil size={16} className="text-[#B88A2E]" strokeWidth={1.8} />
+          </button>
+        </div>
+
+        {/* Navigation */}
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center justify-center rounded-full border px-6 h-[44px] text-[14px] font-medium text-[#0A1B2C] bg-white transition-all duration-200 hover:-translate-y-[1px] hover:bg-[#FBF6EA] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
+            style={{ borderColor: "#ECE6D6" }}
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            onClick={onNext}
+            className="inline-flex items-center gap-2 rounded-full px-8 h-[54px] text-[15px] font-semibold text-white transition-all duration-300 hover:-translate-y-[1px] hover:brightness-[1.03] active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
+            style={{
+              background:
+                "linear-gradient(180deg, #E8C67A 0%, #C99A3A 55%, #A87A22 100%)",
+              boxShadow:
+                "0 18px 34px -14px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,236,183,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
+            }}
+          >
+            Next Step
+            <ArrowRight size={18} strokeWidth={2} />
+          </button>
         </div>
       </div>
 
-
-      {/* Navigation */}
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-        <button
-          type="button"
-          onClick={onBack}
-          className="inline-flex items-center justify-center rounded-md border px-6 h-[48px] text-[15px] font-medium text-[#0A1B2C] bg-white transition-all duration-200 hover:-translate-y-[1px] hover:bg-[#F5EFE1] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/40"
-          style={{ borderColor: "#DFE4EB" }}
+      {/* NEED HELP CARD */}
+      <aside
+        className="relative overflow-hidden rounded-[26px]"
+        style={{
+          background: "#FCFBF8",
+          border: "1px solid #ECE6D6",
+          boxShadow:
+            "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
+        }}
+      >
+        {/* Decorative gold curves */}
+        <svg
+          className="pointer-events-none absolute right-0 top-0 h-full"
+          width="180"
+          height="100%"
+          viewBox="0 0 180 640"
+          fill="none"
+          aria-hidden="true"
+          preserveAspectRatio="none"
         >
-          Back
-        </button>
-        <NextButton onClick={onNext} label="Next Step" />
-      </div>
+          <path
+            d="M170 -20 C 130 120, 90 220, 150 360 C 200 480, 130 580, 100 660"
+            stroke="url(#gold1)"
+            strokeWidth="1.2"
+            fill="none"
+          />
+          <path
+            d="M180 40 C 150 180, 100 260, 165 400 C 210 520, 150 620, 130 700"
+            stroke="url(#gold2)"
+            strokeWidth="0.8"
+            fill="none"
+          />
+          <defs>
+            <linearGradient id="gold1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#D4AF37" stopOpacity="0" />
+              <stop offset="40%" stopColor="#D4AF37" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="gold2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#F0D78C" stopOpacity="0" />
+              <stop offset="50%" stopColor="#F0D78C" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#F0D78C" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div className="relative p-8 lg:p-10">
+          <h3
+            className="text-[#0A1B2C] text-[28px] leading-tight"
+            style={{ fontFamily: SERIF, fontWeight: 500 }}
+          >
+            Need help?
+          </h3>
+          <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
+            Our M&amp;E specialists are
+            <br />
+            ready to assist you.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-5">
+            <a
+              href="tel:+4721002100"
+              className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
+            >
+              <span
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full"
+                style={{
+                  background:
+                    "linear-gradient(180deg,#E8C67A 0%, #C99A3A 100%)",
+                  boxShadow:
+                    "0 6px 14px -6px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,236,183,0.7)",
+                }}
+              >
+                <Phone size={16} strokeWidth={2} className="text-white" />
+              </span>
+              +47 21 00 21 00
+            </a>
+            <a
+              href="mailto:meetings@hotelgroupbook.com"
+              className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
+            >
+              <span
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full"
+                style={{
+                  background:
+                    "linear-gradient(180deg,#E8C67A 0%, #C99A3A 100%)",
+                  boxShadow:
+                    "0 6px 14px -6px rgba(200,154,58,0.55), inset 0 1px 0 rgba(255,236,183,0.7)",
+                }}
+              >
+                <Mail size={16} strokeWidth={2} className="text-white" />
+              </span>
+              meetings@hotelgroupbook.com
+            </a>
+          </div>
+        </div>
+
+        {/* Luxury lounge illustration */}
+        <div className="relative mt-4">
+          <img
+            src={loungeImg}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            width={768}
+            height={640}
+            className="w-full h-auto object-cover select-none"
+          />
+        </div>
+      </aside>
     </div>
   );
 }
+
 
 
 /* --------- Step 3: Accommodation --------- */
