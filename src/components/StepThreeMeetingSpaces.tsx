@@ -291,6 +291,42 @@ function SetupGlyph({ id, size = 44 }: { id: SetupId; size?: number }) {
           {dot(27, 26.5)}
         </>
       )}
+      {id === "other" && (
+        <>
+          <defs>
+            <linearGradient id="otherGold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor={GOLD_SOFT} />
+              <stop offset="50%" stopColor={GOLD} />
+              <stop offset="100%" stopColor="#B88A2E" />
+            </linearGradient>
+          </defs>
+          <rect
+            x="6"
+            y="6"
+            width="28"
+            height="28"
+            rx="6"
+            fill="none"
+            stroke="url(#otherGold)"
+            strokeWidth="1.6"
+          />
+          <path
+            d="M24 12 L27 15 L17 25 L14 25 L14 22 Z"
+            fill="none"
+            stroke="url(#otherGold)"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M22 14 L25 17"
+            fill="none"
+            stroke="url(#otherGold)"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          />
+        </>
+      )}
     </svg>
   );
 }
