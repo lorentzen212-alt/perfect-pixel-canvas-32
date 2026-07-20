@@ -807,7 +807,7 @@ export function StepThreeMeetingSpaces({
                       Room setup
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
-                      {SETUPS.filter((s) => s.id !== "breakout").map((s) => (
+                      {SETUPS.filter((s) => s.id !== "breakout" && s.id !== "other").map((s) => (
                         <SetupCard
                           key={s.id}
                           setup={s}
@@ -816,14 +816,63 @@ export function StepThreeMeetingSpaces({
                         />
                       ))}
                     </div>
-                    <div className="mt-3">
+                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <SetupCard
                         setup={SETUPS.find((s) => s.id === "breakout")!}
                         selected={setup === "breakout"}
                         onClick={() => setSetup("breakout")}
                         wide
                       />
+                      <SetupCard
+                        setup={SETUPS.find((s) => s.id === "other")!}
+                        selected={setup === "other"}
+                        onClick={() => setSetup("other")}
+                        wide
+                      />
                     </div>
+
+                    {setup === "other" && (
+                      <div className="mt-5">
+                        <div className="text-[13.5px] font-medium text-[#3B4757] mb-2">
+                          Describe your preferred layout{" "}
+                          <span className="text-[#8A8578] font-normal">
+                            (optional)
+                          </span>
+                        </div>
+                        <div
+                          className="rounded-[12px] p-3.5"
+                          style={{
+                            background: "#FFFFFF",
+                            border: "1px solid #E6DEC9",
+                          }}
+                        >
+                          <textarea
+                            value={customLayout}
+                            onChange={(e) =>
+                              setCustomLayout(e.target.value.slice(0, 500))
+                            }
+                            placeholder="Example: One long table for 12 guests, mixed setup, stage facing the audience, or another custom arrangement."
+                            rows={3}
+                            className="w-full resize-none bg-transparent outline-none text-[14px] text-[#0A1B2C] placeholder:text-[#9AA3AF]"
+                            style={{
+                              transition: "border-color .15s ease, box-shadow .15s ease",
+                            }}
+                            onFocus={(e) => {
+                              e.currentTarget.parentElement!.style.borderColor = GOLD;
+                              e.currentTarget.parentElement!.style.boxShadow =
+                                "0 0 0 3px rgba(212,169,74,0.18)";
+                            }}
+                            onBlur={(e) => {
+                              e.currentTarget.parentElement!.style.borderColor = "#E6DEC9";
+                              e.currentTarget.parentElement!.style.boxShadow = "none";
+                            }}
+                          />
+                          <div className="mt-1 text-right text-[11.5px] text-[#9C9484]">
+                            {customLayout.length}/500
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Setup detail panel */}
