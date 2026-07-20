@@ -1409,10 +1409,10 @@ function StepTwoLocation({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-5 lg:gap-6 items-start">
       {/* MAIN BOOKING CARD */}
       <div
-        className="relative overflow-hidden rounded-[26px] p-6 sm:p-10 lg:p-14"
+        className="relative overflow-hidden rounded-[26px] p-8 sm:p-12 lg:p-16"
         style={{
           background: "#FCFBF8",
           border: "1px solid #ECE6D6",
@@ -1422,24 +1422,24 @@ function StepTwoLocation({
       >
         {/* Title */}
         <h2
-          className="text-[42px] sm:text-[50px] leading-[1.05]"
+          className="text-[46px] sm:text-[56px] leading-[1.05]"
           style={{ fontFamily: SERIF, fontWeight: 400, color: "#1F1F1F", letterSpacing: "-0.015em", fontVariantNumeric: "lining-nums", fontFeatureSettings: '"lnum" 1' }}
         >
           Step{" "}
-          <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500, fontSize: "0.93em", display: "inline-block" }}>
+          <span style={{ fontFamily: '"EB Garamond", "Cormorant Garamond", Georgia, "Times New Roman", serif', fontWeight: 500, fontSize: "0.94em", display: "inline-block" }}>
             1
           </span>
           {" "}– Location
         </h2>
 
 
-        <p className="mt-3 text-[15px] text-[#4A5866]">
+        <p className="mt-4 text-[15px] text-[#4A5866]">
           Where would you like to host your event?
         </p>
-        <div className="mt-6 h-px w-full" style={{ background: "#ECE6D6" }} />
+        <div className="mt-8 h-px w-full" style={{ background: "#ECE6D6" }} />
 
         {/* Country pills */}
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-10 flex flex-wrap gap-3">
           {COUNTRIES.map((c) => {
             const active = c.code === selectedCountry;
             return (
@@ -1449,25 +1449,25 @@ function StepTwoLocation({
                 onClick={() => changeCountry(c.code)}
                 aria-pressed={active}
                 className={cn(
-                  "country-pill group inline-flex items-center gap-3 rounded-full pl-4 pr-6 h-[48px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/30",
+                  "country-pill group inline-flex items-center gap-3 rounded-full pl-5 pr-7 h-[54px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/25",
                   active ? "country-pill--active -translate-y-[1px]" : "hover:-translate-y-[1px]",
                 )}
                 style={{
                   background: "#FFFFFF",
-                  border: active ? "1.5px solid transparent" : "1px solid #ECE6D6",
+                  border: active ? "1px solid transparent" : "1px solid #ECE6D6",
                   color: active ? "#7A5A1E" : "#4A5866",
                   fontWeight: active ? 600 : 500,
                   ...(active
                     ? {
                         backgroundImage:
-                          "linear-gradient(#FFFFFF,#FFFFFF), linear-gradient(180deg,#F5E4A6 0%, #D6B15A 45%, #C79A32 75%, #A87516 100%)",
+                          "linear-gradient(#FFFFFF,#FFFFFF), linear-gradient(180deg,#E8D48A 0%, #C9A24A 55%, #B48A2E 100%)",
                         backgroundOrigin: "border-box",
                         backgroundClip: "padding-box, border-box",
                         boxShadow:
-                          "0 2px 6px -2px rgba(168,117,22,0.18), inset 0 1px 0 rgba(245,228,166,0.35)",
+                          "0 2px 5px -3px rgba(168,117,22,0.14), inset 0 1px 0 rgba(245,228,166,0.28)",
                       }
                     : {
-                        boxShadow: "0 4px 14px -12px rgba(10,27,44,0.14)",
+                        boxShadow: "0 4px 14px -12px rgba(10,27,44,0.12)",
                       }),
                 }}
               >
@@ -1484,7 +1484,7 @@ function StepTwoLocation({
         </div>
 
         {/* Curated destinations */}
-        <div className="mt-10 flex items-center gap-3">
+        <div className="mt-12 flex items-center gap-3">
           <Sparkles size={18} className="text-[#D4AF37]" strokeWidth={1.6} />
           <h3
             className="text-[#0A1B2C] text-[18px]"
@@ -1493,6 +1493,7 @@ function StepTwoLocation({
             Curated destinations in {currentCountry.name}
           </h3>
         </div>
+
 
         {/* Destination grid: 4 per row × 2 rows */}
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
