@@ -910,27 +910,13 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
               >
                 {active && (
                   <>
-                    {/* Slow metallic shimmer sweeping across the circle */}
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        borderRadius: "9999px",
-                        background:
-                          "linear-gradient(115deg, transparent 30%, rgba(255,245,210,0.55) 48%, rgba(255,255,255,0.85) 50%, rgba(255,245,210,0.55) 52%, transparent 70%)",
-                        mixBlendMode: "screen",
-                        animation: "step-shimmer 3200ms ease-in-out infinite",
-                        pointerEvents: "none",
-                      }}
-                    />
-                    {/* Sparkles: 5 tiny highlights at varied positions */}
+                    {/* Tiny sparkle highlights around the edge — random positions, random timing */}
                     {[
-                      { top: -2, right: 4, size: 3, delay: 0, dur: 1900 },
-                      { bottom: -1, left: 3, size: 2, delay: 500, dur: 2300 },
-                      { top: 6, left: -2, size: 2, delay: 900, dur: 2100 },
-                      { bottom: 6, right: -2, size: 2, delay: 1300, dur: 2500 },
-                      { top: 14, right: 12, size: 1.5, delay: 1700, dur: 2000 },
+                      { top: -2, right: 4,  size: 3,   delay: 0,    dur: 2400 },
+                      { bottom: -1, left: 3, size: 2.5, delay: 700,  dur: 2900 },
+                      { top: 6,  left: -2,  size: 2,   delay: 1300, dur: 2600 },
+                      { bottom: 6, right: -2, size: 2.5, delay: 1900, dur: 3100 },
+                      { top: 14, right: 12, size: 1.5, delay: 2300, dur: 2500 },
                     ].map((s, si) => (
                       <span
                         key={si}
@@ -944,8 +930,9 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                           width: s.size,
                           height: s.size,
                           borderRadius: "9999px",
-                          background: "#FFF3C8",
-                          boxShadow: "0 0 4px rgba(245,228,166,0.9)",
+                          background:
+                            "radial-gradient(circle, #FFF7D6 0%, rgba(245,228,166,0.9) 40%, rgba(245,228,166,0) 70%)",
+                          boxShadow: "0 0 5px rgba(255,243,200,0.9)",
                           animation: `step-spark ${s.dur}ms ease-in-out ${s.delay}ms infinite`,
                           pointerEvents: "none",
                         }}
@@ -953,6 +940,7 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
                     ))}
                   </>
                 )}
+
                 <span style={{ position: "relative", zIndex: 2 }}>
                   {completed ? <Check size={16} strokeWidth={2.5} style={{ color: GOLD }} /> : n}
                 </span>
