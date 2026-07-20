@@ -236,17 +236,17 @@ function BookMeetingsEvents() {
               )}
               <Link
                 to="/manage-bookings"
-                className="inline-flex items-center gap-[13px] rounded-[6px] px-[18px] h-[51px] text-[16px] font-medium transition-all duration-200 ease-out hover:-translate-y-[2px] hover:brightness-[1.04] active:translate-y-0 active:brightness-95"
+                className="inline-flex items-center gap-[12px] rounded-[6px] px-[18px] h-[48px] text-[15px] font-medium tracking-[0.01em] transition-all duration-200 ease-out hover:-translate-y-[1px] hover:brightness-[1.03] active:translate-y-0"
                 style={{
-                  color: "#0F1B2D",
+                  color: "#F5E9C7",
                   background:
-                    "linear-gradient(180deg, #F7D97A 0%, #D4AF37 55%, #B88917 100%)",
-                  border: "1px solid rgba(184,137,23,0.85)",
+                    "linear-gradient(180deg, rgba(245,225,170,0.10) 0%, rgba(212,175,80,0.06) 100%)",
+                  border: "1px solid rgba(230,198,120,0.55)",
                   boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.45), inset 0 0 0 1px rgba(247,217,122,0.25), 0 6px 18px rgba(184,137,23,0.28), 0 0 22px rgba(212,175,55,0.22)",
+                    "inset 0 1px 0 rgba(255,240,200,0.10), 0 0 18px rgba(212,175,80,0.10)",
                 }}
               >
-                <CalendarIcon size={19} strokeWidth={2} />
+                <CalendarIcon size={17} strokeWidth={1.6} style={{ color: "#E6C678" }} />
                 Manage Bookings
               </Link>
             </nav>
