@@ -40,7 +40,7 @@ import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
 const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
-import helpCardBgAsset from "@/assets/help-card-bg.png.asset.json";
+import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
 const helpCardBg = helpCardBgAsset.url;
 void loungeImg;
 
@@ -1770,7 +1770,7 @@ function StepTwoLocation({
           minHeight: 640,
         }}
       >
-        {/* Lounge image layer (fills the card, same radius via parent overflow-hidden) */}
+        {/* Reference illustration: warm off-white bg + gold lines + lounge — used as full card background */}
         <div
           aria-hidden="true"
           className="absolute inset-0"
@@ -1781,16 +1781,7 @@ function StepTwoLocation({
             backgroundRepeat: "no-repeat",
           }}
         />
-        {/* Seamless blend: fade the top of the image into the white card */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 top-0"
-          style={{
-            height: "62%",
-            background:
-              "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 42%, rgba(255,255,255,0.85) 62%, rgba(255,255,255,0.45) 82%, rgba(255,255,255,0) 100%)",
-          }}
-        />
+
         <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
 
           <h3
