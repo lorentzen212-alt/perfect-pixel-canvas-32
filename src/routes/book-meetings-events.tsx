@@ -2964,12 +2964,75 @@ function LuxIconBadge({
   children,
   size = 40,
   tone = "onLight",
+  finish = "standard",
 }: {
   children: React.ReactNode;
   size?: number;
   tone?: "onLight" | "onDark";
+  finish?: "standard" | "engraved";
 }) {
   const radius = size >= 40 ? 12 : Math.max(6, Math.round(size * 0.28));
+
+  if (finish === "engraved") {
+    const shadow =
+      tone === "onDark"
+        ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.45)"
+        : "0 6px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.40)";
+    const bg =
+      tone === "onDark"
+        ? "radial-gradient(120% 120% at 30% 15%, #1E2128 0%, #111317 55%, #0A0C10 100%)"
+        : "radial-gradient(120% 120% at 30% 15%, #2A2A2E 0%, #18181A 55%, #0F0F11 100%)";
+    return (
+      <span
+        className="relative inline-flex shrink-0 items-center justify-center"
+        style={{
+          width: size,
+          height: size,
+          borderRadius: radius,
+          background: bg,
+          boxShadow: shadow,
+          color: "#E6C25A",
+        }}
+      >
+        {/* ultra-thin metallic champagne-gold outline */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            borderRadius: radius,
+            padding: 0.9,
+            background:
+              "linear-gradient(145deg, #F8E5A8 0%, #E8C468 25%, #B98A2F 50%, #D4A853 75%, #F6D98A 100%)",
+            WebkitMask:
+              "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
+        {/* subtle inner highlight for depth */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            borderRadius: radius,
+            background:
+              "radial-gradient(130% 70% at 28% 12%, rgba(247,231,166,0.13) 0%, rgba(247,231,166,0) 55%)",
+          }}
+        />
+        <span
+          className="relative"
+          style={{
+            color: "#EBCB6A",
+            filter:
+              "drop-shadow(0 1px 0 rgba(255,255,255,0.10)) drop-shadow(0 1px 1px rgba(0,0,0,0.35))",
+          }}
+        >
+          {children}
+        </span>
+      </span>
+    );
+  }
+
   const shadow =
     tone === "onDark"
       ? "0 8px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.4)"
