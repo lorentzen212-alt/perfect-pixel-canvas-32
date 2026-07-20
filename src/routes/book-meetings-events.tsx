@@ -2639,7 +2639,7 @@ function RoomRow({
       }}
     >
       <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 sm:gap-6">
-        <LuxIconBadge size={44}>{icon}</LuxIconBadge>
+        <LuxIconBadge size={44} finish="engraved">{icon}</LuxIconBadge>
         <div className="min-w-0 text-[#0A1B2C] text-[15px] sm:text-[16px] font-medium truncate">
           {label}
         </div>
@@ -2882,7 +2882,7 @@ function MealOption({
       )}
     >
       <span className="flex items-center gap-3">
-        <LuxIconBadge size={36}>{icon}</LuxIconBadge>
+        <LuxIconBadge size={36} finish="engraved">{icon}</LuxIconBadge>
         <span className="text-[#0A1B2C] text-[14.5px] font-medium">{label}</span>
       </span>
       <span
