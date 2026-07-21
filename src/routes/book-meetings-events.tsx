@@ -2539,8 +2539,11 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                 <Sparkles size={18} strokeWidth={1.6} style={{ color: GOLD_HI }} />
               </span>
               <div className="min-w-0 flex-1">
-                <div style={{ color: GOLD_HI, fontSize: "18px", letterSpacing: "0.15em" }}>
-                  ★★★★★
+                <div style={{ fontFamily: SERIF, fontSize: "22px", color: GOLD_HI, lineHeight: 1, fontWeight: 500 }}>
+                  Premium
+                </div>
+                <div style={{ color: GOLD_HI, fontSize: "14px", letterSpacing: "0.18em", marginTop: 4 }}>
+                  ★★★★
                 </div>
                 <div className="mt-1 text-[12px] text-white/70">Budget Level</div>
               </div>
