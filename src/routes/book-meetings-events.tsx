@@ -1227,6 +1227,52 @@ function NextButton({ onClick, label, disabled = false }: { onClick: () => void;
   );
 }
 
+function ContinueButton({ onClick, label, disabled = false }: { onClick: () => void; label: string; disabled?: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-disabled={disabled}
+      className={cn(
+        "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-md text-[16px] font-semibold text-[#1A1A1A] transition-all duration-200",
+        disabled
+          ? "opacity-50 cursor-not-allowed"
+          : "hover:brightness-105 hover:-translate-y-[1px]",
+      )}
+      style={{
+        height: 52,
+        minWidth: 220,
+        padding: "0 28px",
+        background: `
+          linear-gradient(180deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 16%),
+          linear-gradient(180deg, #FBEFC8 0%, #F5D88A 14%, #EAC064 40%, #D4A84B 70%, #B88A2E 100%)
+        `,
+        boxShadow: disabled
+          ? "none"
+          : "0 12px 30px -12px rgba(160,120,40,0.42), 0 5px 14px -5px rgba(160,120,40,0.26), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 0 rgba(90,65,22,0.18)",
+        border: "1px solid #C9A04A",
+        WebkitFontSmoothing: "antialiased",
+        textShadow: "0 1px 0 rgba(255,255,255,0.35)",
+      }}
+    >
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          backgroundSize: "110px 110px",
+          mixBlendMode: "overlay",
+        }}
+      />
+      <span aria-hidden="true" className="pointer-events-none absolute left-0 right-0 top-0 h-[1px] bg-white opacity-55" />
+      <span aria-hidden="true" className="pointer-events-none absolute bottom-0 left-0 right-0 h-[1px] bg-[#7A5A20] opacity-25" />
+      <span className="relative z-10 tracking-[-0.01em]">{label}</span>
+      <ArrowRight size={18} strokeWidth={2} className="relative z-10 transition-transform group-hover:translate-x-0.5" />
+    </button>
+  );
+}
+
 /* --------- Step 5 – Extras --------- */
 
 type ExtraId =
