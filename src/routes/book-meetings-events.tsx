@@ -2013,13 +2013,20 @@ function StepFiveExtras({
   const [notes, setNotes] = useState("");
 
   const handleCardClick = (id: ExtraId) => {
-    if (openId === id) {
-      setOpenId(null);
+    // If the card is already selected or saved, a single click clears it
+    // (deselects, closes accordion, resets its config) so users don't need
+    // to open the accordion and hit "Remove Service" just to undo a choice.
+    if (selected[id] || saved[id]) {
+      setSelected((prev) => ({ ...prev, [id]: false }));
+      setSaved((prev) => ({ ...prev, [id]: false }));
+      setConfigs((prev) => ({ ...prev, [id]: DEFAULT_CONFIGS[id] }));
+      setOpenId((cur) => (cur === id ? null : cur));
       return;
     }
     setSelected((prev) => ({ ...prev, [id]: true }));
     setOpenId(id);
   };
+
 
   const handleDone = (id: ExtraId) => {
     setSaved((prev) => ({ ...prev, [id]: true }));
