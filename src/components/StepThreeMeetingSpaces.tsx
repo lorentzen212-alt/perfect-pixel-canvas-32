@@ -719,7 +719,7 @@ export function StepThreeMeetingSpaces({
             "0 40px 90px -50px rgba(10,27,44,0.18), 0 12px 32px -24px rgba(10,27,44,0.08)",
         }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(360px,380px)] gap-8 lg:gap-14">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(340px,360px)] gap-8 lg:gap-8 items-start">
           {/* LEFT — CONTENT */}
           <div className="p-6 sm:p-10 lg:px-14 lg:py-12 min-w-0">
             {/* Title */}
