@@ -2358,11 +2358,14 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
 
             {/* Right inner: timeline */}
             <div className="relative">
-              {/* Timeline vertical line */}
+              {/* Timeline vertical line — thin gold */}
               <div
                 aria-hidden
                 className="absolute left-[7px] top-2 bottom-2 w-px"
-                style={{ backgroundColor: "#0B1620", opacity: 0.35 }}
+                style={{
+                  backgroundImage:
+                    "linear-gradient(180deg, rgba(201,162,74,0.15), rgba(201,162,74,0.6) 12%, rgba(201,162,74,0.6) 88%, rgba(201,162,74,0.15))",
+                }}
               />
               <ul className="space-y-0">
                 {rows.map((r, i) => {
@@ -2378,24 +2381,41 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                             : "none",
                       }}
                     >
+                      {/* Gold node */}
                       <span
                         aria-hidden
-                        className="absolute left-0 top-1/2 -translate-y-1/2 h-[15px] w-[15px] rounded-full"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 h-[13px] w-[13px] rounded-full"
                         style={{
-                          backgroundColor: "#0B1620",
-                          border: "2px solid #FCFAF6",
-                          boxShadow: "0 0 0 1px rgba(201,162,74,0.5)",
+                          background:
+                            "radial-gradient(circle at 35% 30%, #FBE39A 0%, #E4C267 35%, #B8892F 78%, #8A6A1F 100%)",
+                          border: "1px solid rgba(255,240,200,0.55)",
+                          boxShadow:
+                            "0 0 0 2px #FCFAF6, 0 0 10px rgba(201,162,74,0.55), inset 0 1px 1px rgba(255,255,255,0.6), inset 0 -1px 2px rgba(80,55,10,0.35)",
                         }}
                       />
                       <div className="flex items-center gap-4">
                         <span
-                          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+                          className="relative inline-flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full overflow-hidden"
                           style={{
-                            backgroundColor: "#FFFFFF",
-                            border: "1px solid rgba(201,162,74,0.35)",
+                            backgroundColor: "#FCFAF6",
+                            border: "1px solid rgba(201,162,74,0.28)",
+                            boxShadow:
+                              "inset 0 1px 2px rgba(120,90,40,0.10), inset 0 -1px 2px rgba(120,90,40,0.06)",
                           }}
                         >
-                          <Icon size={16} strokeWidth={1.75} style={{ color: GOLD_LO }} />
+                          <span
+                            aria-hidden
+                            className="pointer-events-none absolute inset-0 rounded-full"
+                            style={{
+                              backgroundImage:
+                                "radial-gradient(circle at 28% 22%, rgba(255,255,255,0.55), transparent 55%)",
+                            }}
+                          />
+                          <Icon
+                            size={19}
+                            strokeWidth={1.9}
+                            style={{ color: GOLD_LO, position: "relative" }}
+                          />
                         </span>
                         <div className="min-w-0 flex-1 grid grid-cols-[minmax(140px,180px)_1fr] gap-4 items-baseline">
                           <div
@@ -2405,7 +2425,14 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                             {r.label}
                           </div>
                           <div className="text-[15px] text-[#0B1620]">
-                            {r.value}
+                            {r.label === "Budget Level" ? (
+                              <span>
+                                Premium{" "}
+                                <span style={{ color: GOLD, letterSpacing: "0.12em" }}>★★★★</span>
+                              </span>
+                            ) : (
+                              r.value
+                            )}
                           </div>
                         </div>
                       </div>
