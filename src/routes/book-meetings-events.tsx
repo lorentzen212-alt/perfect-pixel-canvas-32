@@ -4019,7 +4019,7 @@ function StepThreeAccommodation({
           border: "1px solid #E8E6E1",
         }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,78fr)_minmax(0,22fr)] gap-3.5">
           {/* LEFT COLUMN */}
           <div className="p-6 sm:p-9 lg:p-11 lg:pr-9">
             {/* Accommodation Period card */}
