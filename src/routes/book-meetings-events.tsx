@@ -3612,7 +3612,7 @@ function RoomRow({
           <div
             className="overflow-hidden shrink-0"
             style={{
-              width: 66,
+              width: 112,
               height: 50,
               borderRadius: 10,
               border: "1px solid #D4AF37",
