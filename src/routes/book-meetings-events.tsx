@@ -3640,6 +3640,11 @@ function StepFourCatering({
     });
   };
 
+  const dismissRecommendation = () => {
+    setRecommendationVisible(false);
+    setTimeout(() => setRecommendationRendered(false), 300);
+  };
+
   const toggleFrom = (
     val: string,
     list: string[],
