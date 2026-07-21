@@ -1340,14 +1340,14 @@ function ContinueButton({ onClick, label, disabled = false }: { onClick: () => v
       disabled={disabled}
       aria-disabled={disabled}
       className={cn(
-        "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-md text-[16px] font-semibold text-[#1A1A1A] transition-all duration-200",
+        "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-md text-[16px] font-bold text-[#1A1A1A] transition-all duration-200",
         disabled
           ? "opacity-50 cursor-not-allowed"
           : "hover:brightness-105 hover:-translate-y-[1px]",
       )}
       style={{
-        height: 52,
-        minWidth: 220,
+        height: 54,
+        minWidth: 207,
         padding: "0 28px",
         background: `
           linear-gradient(180deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 16%),
