@@ -1325,7 +1325,7 @@ function CheckOption({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left transition-all"
+      className="flex w-full items-center gap-3 rounded-[10px] px-5 py-2.5 text-left transition-all"
       style={{
         background: selected ? "linear-gradient(180deg, #FFFDF3 0%, #FBF3DC 100%)" : "#FFFFFF",
         border: selected ? "1px solid #C79A32" : "1px solid #E4DDC8",
