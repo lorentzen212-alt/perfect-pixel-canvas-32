@@ -72,7 +72,9 @@ import { TrustShield, TrustClock, TrustHeadset, TrustLock } from "@/components/T
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
+import meBgAsset from "@/assets/me-bg.png.asset.json";
 const heroImg = heroAsset.url;
+const meBgImg = meBgAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
 import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
 const helpCardBg = helpCardBgAsset.url;
