@@ -2992,7 +2992,7 @@ function StepThreeAccommodation({
                 boxShadow: "0 6px 18px -10px rgba(10,27,44,0.08)",
               }}
             >
-              <div className="relative w-full" style={{ height: 126 }}>
+              <div className="relative w-full" style={{ height: 151 }}>
                 <img
                   src={planningBannerImg}
                   alt=""
