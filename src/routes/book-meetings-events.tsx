@@ -2867,34 +2867,27 @@ function BudgetPreference({
   ];
 
   return (
-    <section className="mt-8">
+    <section className="mt-6">
       <div className="flex items-start gap-3">
-        <div
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[13px] font-semibold text-white"
-          style={{ background: "#0A1B2C" }}
-          aria-hidden="true"
-        >
-          6
-        </div>
         <div>
           <h3
             className="text-[22px] leading-tight text-[#0A1B2C]"
             style={{ fontFamily: SERIF, fontWeight: 600 }}
           >
-            Budget preference{" "}
+            Budget Preference{" "}
             <span className="text-[15px] text-[#7C8794]" style={{ fontFamily: "inherit", fontWeight: 400 }}>
-              (optional)
+              (Optional)
             </span>
           </h3>
-          <p className="mt-1 text-[13.5px] text-[#5B6673]">
+          <p className="mt-0.5 text-[13.5px] text-[#5B6673]">
             Help us tailor the best options for your event.
           </p>
         </div>
       </div>
 
-      <div className="mt-5 flex justify-center">
+      <div className="mt-3 flex justify-center">
         <div
-          className="relative w-[90%] rounded-[18px] px-6 py-3"
+          className="relative w-[90%] rounded-[18px] px-6 py-2"
           style={{
             background:
               "linear-gradient(180deg, #1E4566 0%, #1A3C5B 35%, #16385A 70%, #0F2A47 100%)",
@@ -2916,11 +2909,11 @@ function BudgetPreference({
           <div className="relative flex items-center justify-between">
             {/* connecting line */}
             <div
-              className="absolute left-8 right-8 top-[18px] h-[1.5px]"
+              className="absolute left-8 right-8 top-[16px] h-[1.5px]"
               style={{
                 background:
-                  "linear-gradient(90deg, transparent 0%, rgba(200,168,100,0.35) 8%, rgba(245,213,138,0.95) 50%, rgba(200,168,100,0.35) 92%, transparent 100%)",
-                boxShadow: "0 0 8px rgba(245,213,138,0.18)",
+                  "linear-gradient(90deg, transparent 0%, rgba(215,180,110,0.42) 8%, rgba(250,220,155,0.98) 50%, rgba(215,180,110,0.42) 92%, transparent 100%)",
+                boxShadow: "0 0 10px rgba(250,220,155,0.22)",
               }}
               aria-hidden="true"
             />
@@ -2928,11 +2921,11 @@ function BudgetPreference({
               const selected = value === t.id;
               const Icon = t.Icon;
               return (
-                <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-2">
+                <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-1.5">
                   {/* midpoint dots between labels */}
                   {i > 0 && (
                     <span
-                      className="absolute -left-1/2 top-[14px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
+                      className="absolute -left-1/2 top-[12px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
                       style={{
                         border: "1.5px solid rgba(232,196,106,0.80)",
                         background: selected ? "#F5D78E" : "#16385A",
@@ -2947,20 +2940,20 @@ function BudgetPreference({
                     type="button"
                     onClick={() => onChange(selected ? null : t.id)}
                     aria-pressed={selected}
-                    className="relative flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
+                    className="relative flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
                     style={
                       selected
                         ? {
                             background:
                               "radial-gradient(circle at 50% 35%, #FFF4D6 0%, #F5D78E 30%, #D4A33C 65%, #A67A1F 100%)",
                             boxShadow:
-                              "0 0 0 5px rgba(212,163,60,0.16), 0 0 34px 7px rgba(212,163,60,0.34), inset 0 1px 2px rgba(255,255,255,0.50)",
+                              "0 0 0 4px rgba(212,163,60,0.14), 0 0 26px 5px rgba(212,163,60,0.27), inset 0 1px 2px rgba(255,255,255,0.50)",
                           }
                         : { background: "transparent" }
                     }
                   >
                     <Icon
-                      size={20}
+                      size={18}
                       strokeWidth={1.65}
                       style={{ color: selected ? "#FFFFFF" : "#E8C46A" }}
                       fill={selected && (t.id === "premium" || t.id === "luxury") ? "#FFFFFF" : "none"}
@@ -2980,20 +2973,20 @@ function BudgetPreference({
               );
             })}
           </div>
+
+          {value && (
+            <div className="absolute bottom-1.5 right-3">
+              <button
+                type="button"
+                onClick={() => onChange(null)}
+                className="text-[12px] font-medium text-[#B88A2E]/80 underline underline-offset-3 hover:text-[#8E6A20]"
+              >
+                Clear selection
+              </button>
+            </div>
+          )}
         </div>
       </div>
-
-      {value && (
-        <div className="mt-3 flex justify-end pr-[5%]">
-          <button
-            type="button"
-            onClick={() => onChange(null)}
-            className="text-[13px] font-medium text-[#B88A2E] underline underline-offset-4 hover:text-[#8E6A20]"
-          >
-            Clear selection
-          </button>
-        </div>
-      )}
     </section>
   );
 }
