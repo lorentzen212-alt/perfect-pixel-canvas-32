@@ -3361,7 +3361,7 @@ function StepTwoLocation({
 
         {/* Search field */}
         <div className="mt-10">
-          <p className="text-[15px] text-[#0F1B2D] mb-2" style={{ fontWeight: 600 }}>Or search for any destination</p>
+          <p className="text-[15px] mb-2" style={{ fontWeight: 700, color: "#0F1B2D" }}>Or search for any destination</p>
           <div ref={searchRef} className="relative">
             <div
               className="flex items-center gap-3 rounded-[16px] px-5 h-[56px]"
