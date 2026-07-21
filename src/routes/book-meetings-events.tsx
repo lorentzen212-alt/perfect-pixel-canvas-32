@@ -36,6 +36,7 @@ import {
   UtensilsCrossed,
   Croissant,
   Apple,
+  Nut,
   CakeSlice,
   Wine,
   GlassWater,
@@ -86,6 +87,7 @@ import leviImg from "@/assets/destinations/levi.jpg";
 
 import coffeeCateringImg from "@/assets/catering/coffee.jpg";
 import fruitCateringImg from "@/assets/catering/fruit.jpg";
+import snacksCateringImg from "@/assets/catering/snacks.jpg";
 import morningBreakImg from "@/assets/catering/morning-break.jpg";
 import lunchCateringImg from "@/assets/catering/lunch.jpg";
 import afternoonBreakImg from "@/assets/catering/afternoon-break.jpg";
@@ -3094,6 +3096,7 @@ function LuxIconBadge({
 type CateringId =
   | "coffee"
   | "fruit"
+  | "snacks"
   | "morning-break"
   | "lunch"
   | "afternoon-break"
@@ -3128,6 +3131,15 @@ const CATERING_DEFS: CateringDef[] = [
     defaultTime: "10:30",
     defaultLocation: "Main Conference Room",
   },
+  {
+    id: "snacks",
+    label: "Snacks",
+    image: snacksCateringImg,
+    icon: Nut,
+    defaultTime: "14:00",
+    defaultLocation: "Main Conference Room",
+  },
+
   {
     id: "morning-break",
     label: "Morning Break",
