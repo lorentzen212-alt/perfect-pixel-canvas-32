@@ -3134,11 +3134,11 @@ function StepThreeAccommodation({
                         pointerEvents: "none",
                       }}
                     />
-                    {/* calendar icon */}
+                    {/* premium calendar icon — hand-drawn */}
                     <svg
-                      viewBox="0 0 24 24"
-                      width={22}
-                      height={22}
+                      viewBox="0 0 32 32"
+                      width={24}
+                      height={24}
                       style={{
                         position: "absolute",
                         top: "50%",
@@ -3148,83 +3148,96 @@ function StepThreeAccommodation({
                       }}
                     >
                       <defs>
-                        <linearGradient id="calGoldLine" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#F6E1A1" />
-                          <stop offset="50%" stopColor="#DFB865" />
-                          <stop offset="100%" stopColor="#9C7328" />
+                        <linearGradient id="apCalStroke" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#FBEBB4" />
+                          <stop offset="45%" stopColor="#E4C578" />
+                          <stop offset="100%" stopColor="#9A7530" />
                         </linearGradient>
-                        <linearGradient id="calDot" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#F0D384" />
-                          <stop offset="100%" stopColor="#B4863A" />
+                        <linearGradient id="apCalHiLight" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stopColor="#FFF6D6" stopOpacity="0.9" />
+                          <stop offset="100%" stopColor="#FFF6D6" stopOpacity="0" />
                         </linearGradient>
-                        <linearGradient id="calSparkle" x1="0" y1="0" x2="1" y2="1">
-                          <stop offset="0%" stopColor="#FFF2C4" />
+                        <linearGradient id="apCalSpark" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stopColor="#FFF4C8" />
                           <stop offset="100%" stopColor="#D9B65A" />
                         </linearGradient>
+                        <radialGradient id="apCalSparkGlow" cx="50%" cy="50%" r="50%">
+                          <stop offset="0%" stopColor="#FFF0B8" stopOpacity="0.55" />
+                          <stop offset="100%" stopColor="#FFF0B8" stopOpacity="0" />
+                        </radialGradient>
                       </defs>
-                      {/* subtle emboss shadow */}
-                      <g transform="translate(0.35,0.5)" opacity="0.55">
+
+                      {/* emboss shadow */}
+                      <g transform="translate(0.5,0.7)" opacity="0.55">
                         <rect
-                          x="3.6"
-                          y="5.4"
-                          width="16.8"
-                          height="14.4"
-                          rx="2.2"
+                          x="6"
+                          y="8"
+                          width="20"
+                          height="18"
+                          rx="2.6"
                           fill="none"
                           stroke="#000"
-                          strokeOpacity="0.45"
+                          strokeOpacity="0.5"
                           strokeWidth="1.3"
                         />
+                        <line x1="6.4" y1="13" x2="25.6" y2="13" stroke="#000" strokeOpacity="0.5" strokeWidth="1.1" />
                       </g>
-                      {/* body */}
+
+                      {/* body outline */}
                       <rect
-                        x="3.6"
-                        y="5.4"
-                        width="16.8"
-                        height="14.4"
-                        rx="2.2"
+                        x="6"
+                        y="8"
+                        width="20"
+                        height="18"
+                        rx="2.6"
                         fill="none"
-                        stroke="url(#calGoldLine)"
-                        strokeWidth="1.3"
+                        stroke="url(#apCalStroke)"
+                        strokeWidth="1.4"
                       />
-                      {/* top divider */}
-                      <line
-                        x1="3.9"
-                        y1="9.3"
-                        x2="20.1"
-                        y2="9.3"
-                        stroke="url(#calGoldLine)"
-                        strokeWidth="1.1"
-                      />
-                      {/* rings */}
-                      <rect x="7.5" y="3.4" width="1.3" height="3.4" rx="0.6" fill="url(#calDot)" />
-                      <rect x="15.2" y="3.4" width="1.3" height="3.4" rx="0.6" fill="url(#calDot)" />
-                      {/* date squares — 4 cols x 3 rows, elegant */}
+                      {/* header divider */}
+                      <line x1="6.4" y1="13" x2="25.6" y2="13" stroke="url(#apCalStroke)" strokeWidth="1.2" />
+
+                      {/* binder rings */}
+                      <rect x="10.2" y="5.4" width="1.6" height="4.4" rx="0.7" fill="url(#apCalStroke)" />
+                      <rect x="20.2" y="5.4" width="1.6" height="4.4" rx="0.7" fill="url(#apCalStroke)" />
+
+                      {/* date dots — thin elegant grid */}
                       {[0, 1, 2].map((r) =>
                         [0, 1, 2, 3].map((c) => {
-                          // omit last row col 2,3 for asymmetric elegance
-                          if (r === 2 && c > 1) return null;
+                          if (r === 2 && c > 2) return null;
+                          const isToday = r === 1 && c === 1;
                           return (
                             <rect
                               key={`${r}-${c}`}
-                              x={5.6 + c * 3.2}
-                              y={11.2 + r * 2.8}
-                              width="1.7"
-                              height="1.7"
-                              rx="0.35"
-                              fill="url(#calDot)"
-                              opacity={r === 1 && c === 1 ? 1 : 0.85}
+                              x={9 + c * 3.4}
+                              y={15.4 + r * 3}
+                              width={isToday ? 2.1 : 1.6}
+                              height={isToday ? 2.1 : 1.6}
+                              rx="0.4"
+                              fill="url(#apCalStroke)"
+                              opacity={isToday ? 1 : 0.82}
                             />
                           );
                         })
                       )}
+
+                      {/* upper-left highlight sheen */}
+                      <path
+                        d="M6 10.6 Q6 8 8.6 8 L14 8"
+                        fill="none"
+                        stroke="url(#apCalHiLight)"
+                        strokeWidth="1"
+                        strokeLinecap="round"
+                      />
+
                       {/* luxury sparkle — lower right */}
-                      <g transform="translate(19.2,18.4)">
+                      <g transform="translate(25.4,24.6)">
+                        <circle r="3.4" fill="url(#apCalSparkGlow)" />
                         <path
-                          d="M0 -2.6 L0.55 -0.55 L2.6 0 L0.55 0.55 L0 2.6 L-0.55 0.55 L-2.6 0 L-0.55 -0.55 Z"
-                          fill="url(#calSparkle)"
+                          d="M0 -3 L0.7 -0.7 L3 0 L0.7 0.7 L0 3 L-0.7 0.7 L-3 0 L-0.7 -0.7 Z"
+                          fill="url(#apCalSpark)"
                         />
-                        <circle cx="0" cy="0" r="0.5" fill="#FFF6D8" />
+                        <circle cx="0" cy="0" r="0.55" fill="#FFF8DC" />
                       </g>
                     </svg>
                   </div>
