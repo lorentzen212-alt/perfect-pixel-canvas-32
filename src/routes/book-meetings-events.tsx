@@ -1198,49 +1198,23 @@ function Field({
   );
 }
 
-function NextButton({
-  onClick,
-  label,
-  disabled,
-}: {
-  onClick: () => void;
-  label: string;
-  disabled?: boolean;
-}) {
+function NextButton({ onClick, label }: { onClick: () => void; label: string }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      disabled={disabled}
-      className={cn(
-        "group inline-flex items-center justify-center gap-2 rounded-md text-[16px] font-semibold text-[#0A1B2C] transition-all duration-200",
-        disabled
-          ? "cursor-not-allowed opacity-70"
-          : "hover:brightness-105 hover:-translate-y-[1px]",
-      )}
+      className="group inline-flex items-center justify-center gap-2 rounded-md text-[16px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 hover:-translate-y-[1px]"
       style={{
         height: 52,
         minWidth: 220,
-        background: disabled
-          ? "linear-gradient(180deg, #E8E4DC 0%, #D5CFC4 55%, #C4BEB0 100%)"
-          : `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
-        boxShadow: disabled
-          ? "none"
-          : "0 18px 40px -18px rgba(200,154,58,0.55), 0 4px 10px -4px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
-        border: disabled
-          ? "1px solid rgba(120,120,120,0.2)"
-          : "1px solid rgba(184,138,46,0.45)",
+        background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
+        boxShadow:
+          "0 18px 40px -18px rgba(200,154,58,0.55), 0 4px 10px -4px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
+        border: "1px solid rgba(184,138,46,0.45)",
       }}
     >
       {label}
-      <ArrowRight
-        size={18}
-        strokeWidth={2.2}
-        className={cn(
-          "transition-transform",
-          !disabled && "group-hover:translate-x-0.5",
-        )}
-      />
+      <ArrowRight size={18} strokeWidth={2.2} className="transition-transform group-hover:translate-x-0.5" />
     </button>
   );
 }
@@ -2712,16 +2686,10 @@ function StepTwoLocation({
           </button>
         </div>
 
-        {/* Continue CTA */}
-        <div className="mt-8">
-          <NextButton
-            onClick={onNext}
-            label="Continue to Accommodation"
-            disabled={!selectedDestination}
-          />
-          <p className="mt-3 text-[13px] text-[#7C8794]">
-            Next you'll choose your room requirements and accommodation preferences.
-          </p>
+        {/* Hidden navigation — Step 2 uses progress bar for navigation to match reference */}
+        <div className="sr-only" aria-hidden="true">
+          <button type="button" onClick={onBack}>Back</button>
+          <button type="button" onClick={onNext}>Next Step</button>
         </div>
       </div>
 
