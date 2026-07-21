@@ -2921,7 +2921,7 @@ function BudgetPreference({
               const selected = value === t.id;
               const Icon = t.Icon;
               return (
-                <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-1.5">
+                <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-1 pb-1">
                   {/* midpoint dots between labels */}
                   {i > 0 && (
                     <span
