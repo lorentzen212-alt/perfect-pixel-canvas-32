@@ -2906,7 +2906,7 @@ function BudgetPreference({
             aria-hidden="true"
           />
 
-          <div className="relative flex items-start justify-between pb-4">
+          <div className="relative flex items-start justify-between pb-4 pr-20">
             {/* connecting line */}
             <div
               className="absolute left-8 right-8 top-[16px] h-[1.5px]"
