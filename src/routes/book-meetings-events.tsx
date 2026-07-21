@@ -1643,6 +1643,7 @@ function ExtraCard({
   saved,
   open,
   onCardClick,
+  onRemove,
   summaryLines,
 }: {
   def: ExtraDef;
@@ -1650,6 +1651,7 @@ function ExtraCard({
   saved: boolean;
   open: boolean;
   onCardClick: () => void;
+  onRemove: () => void;
   summaryLines: string[];
 }) {
   const { Icon } = def;
@@ -1708,7 +1710,7 @@ function ExtraCard({
           <p className="mt-2 text-[13px] leading-relaxed text-[#5A6472]">{def.description}</p>
 
           {/* Summary lines on card */}
-          {saved && !open && (
+          {saved && !open && summaryLines.length > 0 && (
             <div className="mt-3 flex flex-col items-center gap-1.5">
               {summaryLines.map((line) => (
                 <div key={line} className="inline-flex items-center gap-1.5 text-[12.5px] text-[#3C3222]">
@@ -1725,7 +1727,7 @@ function ExtraCard({
       <button
         type="button"
         onClick={onCardClick}
-        className="mx-5 mb-3 inline-flex items-center justify-center gap-1.5 text-[12px] font-semibold tracking-wide transition-colors"
+        className="mx-5 inline-flex items-center justify-center gap-1.5 text-[12px] font-semibold tracking-wide transition-colors"
         style={{ color: "#B88A2E" }}
       >
         {open ? (
@@ -1739,6 +1741,21 @@ function ExtraCard({
         )}
       </button>
 
+      {/* Remove Service link — visible only when card is selected */}
+      {selected ? (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove();
+          }}
+          className="mx-5 mt-1 mb-3 inline-flex items-center justify-center text-[11.5px] text-[#5A5A5A] hover:text-[#2B2B2B] transition-colors"
+        >
+          Remove Service
+        </button>
+      ) : (
+        <div className="mb-3" />
+      )}
     </div>
   );
 }
