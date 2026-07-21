@@ -1659,7 +1659,7 @@ function ExtraCard({
         boxShadow: selected
           ? "0 14px 30px -18px rgba(184,138,46,0.35), 0 2px 8px -4px rgba(10,27,44,0.06)"
           : "0 10px 24px -18px rgba(10,27,44,0.20), 0 2px 6px -3px rgba(10,27,44,0.05)",
-        alignSelf: "start",
+        height: "100%",
       }}
     >
       {/* Clickable card head */}
