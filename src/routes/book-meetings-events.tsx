@@ -61,7 +61,6 @@ import porterServiceImg from "@/assets/extras/porter-service.jpg";
 import cloakroomImg from "@/assets/extras/cloakroom.jpg";
 import welcomePackageImg from "@/assets/extras/welcome-package.jpg";
 import accommodationBannerImg from "@/assets/rooms/accommodation-banner.jpg";
-
 import singleRoomImg from "@/assets/rooms/single.jpg";
 import doubleRoomImg from "@/assets/rooms/double.jpg";
 import twinRoomImg from "@/assets/rooms/twin.jpg";
@@ -75,6 +74,8 @@ import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
 const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
+import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
+const helpCardBg = helpCardBgAsset.url;
 void loungeImg;
 
 import osloImg from "@/assets/destinations/oslo.jpg";
@@ -2535,7 +2536,7 @@ function StepTwoLocation({
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8 items-start">
       {/* MAIN BOOKING CARD */}
       <div
         className="relative overflow-hidden rounded-[26px] p-6 sm:p-10 lg:p-14"
@@ -2874,57 +2875,80 @@ function StepTwoLocation({
         </div>
       </div>
 
-      {/* PREMIUM DIVIDER SECTION */}
-      <div className="mt-12 lg:mt-16 flex flex-col items-center">
-        {/* Top line with diamond */}
-        <div className="flex w-full max-w-2xl items-center justify-center">
-          <div
-            className="h-px flex-1"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.9) 100%)",
-            }}
-          />
-          <svg
-            width="10"
-            height="10"
-            viewBox="0 0 10 10"
-            className="mx-3 shrink-0"
-            aria-hidden="true"
-          >
-            <path d="M5 0L10 5L5 10L0 5Z" fill="#D4AF37" />
-          </svg>
-          <div
-            className="h-px flex-1"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(212,175,55,0.9) 0%, rgba(212,175,55,0) 100%)",
-            }}
-          />
-        </div>
-
-        <p
-          className="my-5 text-lg sm:text-[22px]"
-          style={{
-            fontFamily: SERIF,
-            fontStyle: "italic",
-            color: "#2D2A26",
-            letterSpacing: "0.03em",
-            lineHeight: 1.5,
-          }}
-        >
-          Professional planning. Premium results.
-        </p>
-
-        {/* Bottom line */}
+      {/* NEED HELP CARD */}
+      <aside
+        className="relative overflow-hidden rounded-[26px]"
+        style={{
+          backgroundColor: "#FFFFFF",
+          boxShadow:
+            "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
+          minHeight: 480,
+        }}
+      >
+        {/* Reference illustration: warm off-white bg + gold lines + lounge — used as full card background */}
         <div
-          className="h-px w-full max-w-2xl"
+          aria-hidden="true"
+          className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.9) 20%, rgba(212,175,55,0.9) 80%, rgba(212,175,55,0) 100%)",
+            backgroundImage: `url(${helpCardBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center bottom",
+            backgroundRepeat: "no-repeat",
           }}
         />
-      </div>
+
+        <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
+
+          <h3
+            className="text-[#0A1B2C] text-[28px] leading-tight"
+            style={{ fontFamily: SERIF, fontWeight: 500 }}
+          >
+            Need help?
+          </h3>
+          <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
+            Our M&amp;E specialists are
+            <br />
+            ready to assist you.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-5">
+            <a
+              href="tel:+4721002100"
+              className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors"
+            >
+              <span
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
+                  boxShadow:
+                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
+                }}
+              >
+                <Phone size={16} strokeWidth={2} className="text-white" />
+              </span>
+              +47 21 00 21 00
+            </a>
+            <a
+              href="mailto:meetings@hotelgroupbook.com"
+              className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
+            >
+              <span
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
+                  boxShadow:
+                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
+                }}
+              >
+                <Mail size={16} strokeWidth={2} className="text-white" />
+              </span>
+              meetings@hotelgroupbook.com
+            </a>
+          </div>
+        </div>
+      </aside>
     </div>
   );
 }
@@ -3100,177 +3124,85 @@ function StepThreeAccommodation({
                     style={{
                       width: 44,
                       height: 44,
-                      borderRadius: 12,
-                      background: "#0B1624",
+                      borderRadius: 11,
+                      background: "#111317",
                       boxShadow:
-                        "0 0 0 6px rgba(217,182,90,0.06), 0 10px 22px -12px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.04), inset 0 -2px 4px rgba(0,0,0,0.45)",
+                        "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35)",
                     }}
                   >
-                    {/* Fully vector premium calendar plaque */}
-                    <svg
-                      viewBox="0 0 44 44"
-                      width={44}
-                      height={44}
+                    {/* uniform 1.5px champagne-gold frame */}
+                    <span
                       aria-hidden
                       style={{
                         position: "absolute",
                         inset: 0,
-                        display: "block",
-                        overflow: "visible",
+                        borderRadius: 11,
+                        padding: 1.5,
+                        background: "#D9B65A",
+                        WebkitMask:
+                          "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                        WebkitMaskComposite: "xor",
+                        maskComposite: "exclude",
+                        pointerEvents: "none",
+                      }}
+                    />
+                    {/* calendar icon */}
+                    <svg
+                      viewBox="0 0 24 24"
+                      width={24}
+                      height={24}
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%,-50%)",
                       }}
                     >
                       <defs>
-                        {/* navy body — layered gradient */}
-                        <linearGradient id="apPlaqueNavy" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#132338" />
-                          <stop offset="45%" stopColor="#0B1624" />
-                          <stop offset="100%" stopColor="#050C17" />
+                        <linearGradient id="calGold" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#FBE4A0" />
+                          <stop offset="45%" stopColor="#E7BE6A" />
+                          <stop offset="100%" stopColor="#A87A2C" />
                         </linearGradient>
-                        {/* inner navy vignette */}
-                        <radialGradient id="apPlaqueVignette" cx="30%" cy="22%" r="85%">
-                          <stop offset="0%" stopColor="#1B2E48" stopOpacity="0.55" />
-                          <stop offset="60%" stopColor="#0B1624" stopOpacity="0" />
-                        </radialGradient>
-                        {/* champagne-gold frame gradient */}
-                        <linearGradient id="apPlaqueGold" x1="0" y1="0" x2="1" y2="1">
-                          <stop offset="0%" stopColor="#FBEBB4" />
-                          <stop offset="28%" stopColor="#E7C878" />
-                          <stop offset="55%" stopColor="#B78A34" />
-                          <stop offset="78%" stopColor="#8C6A25" />
-                          <stop offset="100%" stopColor="#E4C67A" />
+                        <linearGradient id="calHeader" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#F8D98A" />
+                          <stop offset="100%" stopColor="#C89A3E" />
                         </linearGradient>
-                        {/* inner bevel highlight */}
-                        <linearGradient id="apPlaqueBevel" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#FFF3C8" stopOpacity="0.9" />
-                          <stop offset="55%" stopColor="#FFF3C8" stopOpacity="0" />
-                        </linearGradient>
-                        {/* upper-left reflection sheen */}
-                        <linearGradient id="apPlaqueSheen" x1="0" y1="0" x2="1" y2="1">
-                          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.28" />
-                          <stop offset="45%" stopColor="#FFFFFF" stopOpacity="0" />
-                        </linearGradient>
-                        {/* calendar stroke gold */}
-                        <linearGradient id="apCalGold" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#FCEDB6" />
-                          <stop offset="45%" stopColor="#E4C578" />
-                          <stop offset="100%" stopColor="#9A7530" />
-                        </linearGradient>
-                        {/* sparkle gradient */}
-                        <linearGradient id="apSparkGold" x1="0" y1="0" x2="1" y2="1">
-                          <stop offset="0%" stopColor="#FFF4C8" />
-                          <stop offset="100%" stopColor="#D9B65A" />
-                        </linearGradient>
-                        <radialGradient id="apSparkGlow" cx="50%" cy="50%" r="50%">
-                          <stop offset="0%" stopColor="#FFF0B8" stopOpacity="0.7" />
-                          <stop offset="100%" stopColor="#FFF0B8" stopOpacity="0" />
-                        </radialGradient>
-                        {/* soft inner shadow filter for emboss */}
-                        <filter id="apInnerShadow" x="-20%" y="-20%" width="140%" height="140%">
-                          <feGaussianBlur in="SourceAlpha" stdDeviation="0.6" />
-                          <feOffset dx="0" dy="0.6" result="off" />
-                          <feComposite in="off" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="inner" />
-                          <feColorMatrix in="inner" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0" />
-                          <feBlend in="SourceGraphic" in2="inner" mode="normal" />
-                        </filter>
                       </defs>
-
-                      {/* outer gold frame */}
-                      <rect x="0.5" y="0.5" width="43" height="43" rx="12" ry="12" fill="url(#apPlaqueGold)" />
-                      {/* navy body */}
-                      <rect x="2" y="2" width="40" height="40" rx="10.5" ry="10.5" fill="url(#apPlaqueNavy)" />
-                      {/* inner vignette */}
-                      <rect x="2" y="2" width="40" height="40" rx="10.5" ry="10.5" fill="url(#apPlaqueVignette)" />
-                      {/* inner bevel line */}
+                      {/* body */}
                       <rect
-                        x="2.6"
-                        y="2.6"
-                        width="38.8"
-                        height="38.8"
-                        rx="10"
-                        ry="10"
+                        x="3.2"
+                        y="4.8"
+                        width="17.6"
+                        height="15.2"
+                        rx="2.4"
                         fill="none"
-                        stroke="url(#apPlaqueBevel)"
-                        strokeWidth="0.55"
-                        opacity="0.6"
+                        stroke="url(#calGold)"
+                        strokeWidth="1.5"
                       />
-                      {/* subtle inner dark rim */}
-                      <rect
-                        x="2.2"
-                        y="2.2"
-                        width="39.6"
-                        height="39.6"
-                        rx="10.3"
-                        ry="10.3"
-                        fill="none"
-                        stroke="#000"
-                        strokeOpacity="0.55"
-                        strokeWidth="0.4"
-                      />
-                      {/* upper-left sheen */}
+                      {/* gold header bar */}
                       <path
-                        d="M2 12.5 Q2 2 12.5 2 L26 2 L26 4 Q12 5 5 15 Z"
-                        fill="url(#apPlaqueSheen)"
+                        d="M3.2 8.6 h17.6 v-1.4 a2.4 2.4 0 0 0 -2.4 -2.4 h-12.8 a2.4 2.4 0 0 0 -2.4 2.4 z"
+                        fill="url(#calHeader)"
                       />
-
-                      {/* ===== Calendar ===== */}
-                      <g filter="url(#apInnerShadow)">
-                        {/* body outline */}
-                        <rect
-                          x="11"
-                          y="14"
-                          width="22"
-                          height="20"
-                          rx="3"
-                          ry="3"
-                          fill="none"
-                          stroke="url(#apCalGold)"
-                          strokeWidth="1.5"
-                        />
-                        {/* header divider */}
-                        <line
-                          x1="11.6"
-                          y1="19.4"
-                          x2="32.4"
-                          y2="19.4"
-                          stroke="url(#apCalGold)"
-                          strokeWidth="1.3"
-                        />
-                        {/* binder rings */}
-                        <rect x="15.6" y="11" width="1.9" height="5" rx="0.85" fill="url(#apCalGold)" />
-                        <rect x="26.5" y="11" width="1.9" height="5" rx="0.85" fill="url(#apCalGold)" />
-                        {/* date dots */}
-                        {[0, 1, 2].map((r) =>
-                          [0, 1, 2, 3].map((c) => {
-                            if (r === 2 && c > 2) return null;
-                            const isToday = r === 1 && c === 1;
-                            const size = isToday ? 2.3 : 1.8;
-                            const x = 14.3 + c * 3.7 - (isToday ? 0.25 : 0);
-                            const y = 22 + r * 3.3 - (isToday ? 0.25 : 0);
-                            return (
-                              <rect
-                                key={`d-${r}-${c}`}
-                                x={x}
-                                y={y}
-                                width={size}
-                                height={size}
-                                rx="0.45"
-                                fill="url(#apCalGold)"
-                                opacity={isToday ? 1 : 0.86}
-                              />
-                            );
-                          })
-                        )}
-                      </g>
-
-                      {/* ===== Sparkle — lower right ===== */}
-                      <g transform="translate(33.6,32.4)">
-                        <circle r="3.8" fill="url(#apSparkGlow)" />
-                        <path
-                          d="M0 -3.4 L0.75 -0.75 L3.4 0 L0.75 0.75 L0 3.4 L-0.75 0.75 L-3.4 0 L-0.75 -0.75 Z"
-                          fill="url(#apSparkGold)"
-                        />
-                        <circle cx="0" cy="0" r="0.6" fill="#FFF8DC" />
-                      </g>
+                      {/* rings */}
+                      <rect x="7.4" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
+                      <rect x="15" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
+                      {/* date squares */}
+                      {[0, 1, 2].map((c) =>
+                        [0, 1].map((r) => (
+                          <rect
+                            key={`${c}-${r}`}
+                            x={6 + c * 4}
+                            y={11 + r * 3.4}
+                            width="2.6"
+                            height="2.4"
+                            rx="0.5"
+                            fill="url(#calGold)"
+                            opacity={r === 0 && c === 1 ? 1 : 0.78}
+                          />
+                        ))
+                      )}
                     </svg>
                   </div>
                   <div>
