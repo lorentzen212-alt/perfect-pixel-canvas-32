@@ -1528,7 +1528,7 @@ function ConfigPorter({ cfg, set }: { cfg: ExtraConfigs["porter-service"]; set: 
         <FieldLabel>Porter service required for</FieldLabel>
         <div className="grid grid-cols-3 gap-2">
           {opts.map((o) => (
-            <RadioOption key={o} label={o} selected={cfg.requiredFor === o} onClick={() => set({ ...cfg, requiredFor: o })} />
+            <RadioOption key={o} label={o} selected={cfg.requiredFor === o} onClick={() => set({ ...cfg, requiredFor: cfg.requiredFor === o ? "" : o })} />
           ))}
         </div>
       </div>
