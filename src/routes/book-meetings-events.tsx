@@ -1858,7 +1858,6 @@ function StepFiveExtras({
       return;
     }
     setOpenId(id);
-    setSelected((prev) => ({ ...prev, [id]: true }));
   };
 
   const handleDone = (id: ExtraId) => {
@@ -1874,7 +1873,7 @@ function StepFiveExtras({
     setOpenId((cur) => (cur === id ? null : cur));
   };
 
-  const selectedCount = Object.values(selected).filter(Boolean).length;
+  const selectedCount = Object.values(saved).filter(Boolean).length;
 
   const summaryItems: Array<{ label: string; value: string }> = [
     { label: "Location", value: "Oslo, Norway" },
