@@ -3177,8 +3177,8 @@ const CATERING_DEFS: CateringDef[] = [
     defaultTime: "19:00",
     defaultLocation: "Restaurant",
     variants: {
-      default: "3-Course",
-      options: ["Buffet", "2-Course", "3-Course", "Chef's Choice", "Other"],
+      default: "3-Course Dinner",
+      options: ["Buffet", "2-Course Dinner", "3-Course Dinner", "Chef's Choice"],
     },
   },
   {
