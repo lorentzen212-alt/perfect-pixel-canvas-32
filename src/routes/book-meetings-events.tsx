@@ -2258,7 +2258,7 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
     { label: "Extras", value: "Airport Transfer, Welcome Package", Icon: Gift },
     { label: "Special Requests", value: "Late Check-in, High Floor Preferred", Icon: ClipboardCheck },
     { label: "Event Duration", value: "2 Days, 1 Night", Icon: Clock },
-    { label: "Budget Level", value: "★★★★★", Icon: Sparkles },
+    { label: "Budget Level", value: "Premium  ★★★★", Icon: Sparkles },
   ];
 
   const stats: Array<{ n: string; label: string; Icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }> }> = [
