@@ -71,6 +71,8 @@ import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
 const helpCardBg = helpCardBgAsset.url;
 import accommodationPeriodAsset from "@/assets/accommodation-period.jpg.asset.json";
 const accommodationPeriodImg = accommodationPeriodAsset.url;
+import accommodationBannerAsset from "@/assets/accommodation-banner.jpg.asset.json";
+const accommodationBannerImg = accommodationBannerAsset.url;
 void loungeImg;
 
 import osloImg from "@/assets/destinations/oslo.jpg";
@@ -2989,6 +2991,51 @@ function StepThreeAccommodation({
                 boxShadow: "0 6px 18px -10px rgba(10,27,44,0.08)",
               }}
             >
+              {/* Panoramic banner */}
+              <div
+                className="relative -mx-6 -mt-6 lg:-mx-7 lg:-mt-7 mb-6 overflow-hidden"
+                style={{ height: 84, borderRadius: "16px 16px 0 0" }}
+              >
+                <img
+                  src={accommodationBannerImg}
+                  alt=""
+                  loading="lazy"
+                  width={1536}
+                  height={576}
+                  className="h-full w-full object-cover"
+                  style={{ filter: "saturate(0.92) sepia(0.04)" }}
+                />
+                {/* warm colour grading overlay */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(255,235,200,0.10) 0%, rgba(255,245,230,0.05) 50%, rgba(0,0,0,0) 100%)",
+                    mixBlendMode: "overlay",
+                  }}
+                />
+                {/* bottom dark gradient for natural transition */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 bottom-0"
+                  style={{
+                    height: "100%",
+                    background:
+                      "linear-gradient(180deg, rgba(10,20,30,0) 35%, rgba(10,20,30,0.28) 85%, rgba(10,20,30,0.38) 100%)",
+                  }}
+                />
+                {/* subtle vignette */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.16) 100%)",
+                  }}
+                />
+              </div>
+
               <div className="flex items-center justify-between">
                 <div className="flex items-start gap-4">
                   <div
