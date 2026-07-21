@@ -60,6 +60,7 @@ import packageHandlingImg from "@/assets/extras/package-handling.jpg";
 import porterServiceImg from "@/assets/extras/porter-service.jpg";
 import cloakroomImg from "@/assets/extras/cloakroom.jpg";
 import welcomePackageImg from "@/assets/extras/welcome-package.jpg";
+import planningBannerImg from "@/assets/rooms/planning-banner.jpg";
 import singleRoomImg from "@/assets/rooms/single.jpg";
 import doubleRoomImg from "@/assets/rooms/double.jpg";
 import twinRoomImg from "@/assets/rooms/twin.jpg";
@@ -2986,13 +2987,31 @@ function StepThreeAccommodation({
           <div className="p-6 sm:p-9 lg:p-11 lg:pr-9">
             {/* Accommodation Period card */}
             <div
-              className="rounded-[16px] p-6 lg:p-7"
+              className="rounded-[16px] overflow-hidden"
               style={{
                 backgroundColor: "#FFFFFF",
                 border: "1px solid #EEEBE3",
                 boxShadow: "0 6px 18px -10px rgba(10,27,44,0.08)",
               }}
             >
+              <div className="relative w-full" style={{ height: 78 }}>
+                <img
+                  src={planningBannerImg}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  draggable={false}
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(to bottom, rgba(10,27,44,0) 55%, rgba(10,27,44,0.28) 100%)",
+                  }}
+                />
+              </div>
+              <div className="p-6 lg:p-7">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div
@@ -3236,6 +3255,7 @@ function StepThreeAccommodation({
                   {editingId ? "Save changes" : "Add this stay"}
                   <ArrowRight size={16} style={{ color: "#F2C860" }} className="transition-transform group-hover:translate-x-0.5" />
                 </button>
+              </div>
               </div>
             </div>
 
@@ -3611,7 +3631,7 @@ function RoomRow({
           <div
             className="overflow-hidden shrink-0"
             style={{
-              width: 66,
+              width: 112,
               height: 50,
               borderRadius: 10,
               border: "1px solid #D4AF37",
