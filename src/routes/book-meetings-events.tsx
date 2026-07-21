@@ -464,34 +464,51 @@ function BookMeetingsEvents() {
       {/* FORM SECTION */}
       <section className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14">
         <div className="mx-auto max-w-[1400px]">
-          {step === 2 ? (
-            <StepThreeAccommodation
-              onBack={() => go(1)}
-              onNext={handleNext}
-              direction={direction}
-            />
-          ) : step === 3 ? (
-            <StepThreeMeetingSpaces
-              onBack={() => go(2)}
-              onNext={handleNext}
-              direction={direction}
-              onEditStep={(s) => go(s)}
-            />
-          ) : step === 4 ? (
-            <StepFourCatering
-              onBack={() => go(3)}
-              onNext={handleNext}
-              direction={direction}
-            />
-          ) : step === 5 ? (
-            <StepFiveExtras
-              onBack={() => go(4)}
-              onNext={handleNext}
-              direction={direction}
-            />
-          ) : step === 1 ? (
-            <StepTwoLocation onBack={() => go(1)} onNext={handleNext} />
-          ) : (
+          {/* Keep visited steps mounted so state persists across navigation. */}
+          <div style={{ display: step === 1 ? "block" : "none" }}>
+            {visited.has(1) && (
+              <StepTwoLocation onBack={() => go(1)} onNext={handleNext} />
+            )}
+          </div>
+          <div style={{ display: step === 2 ? "block" : "none" }}>
+            {visited.has(2) && (
+              <StepThreeAccommodation
+                onBack={() => go(1)}
+                onNext={handleNext}
+                direction={direction}
+              />
+            )}
+          </div>
+          <div style={{ display: step === 3 ? "block" : "none" }}>
+            {visited.has(3) && (
+              <StepThreeMeetingSpaces
+                onBack={() => go(2)}
+                onNext={handleNext}
+                direction={direction}
+                onEditStep={(s) => go(s)}
+              />
+            )}
+          </div>
+          <div style={{ display: step === 4 ? "block" : "none" }}>
+            {visited.has(4) && (
+              <StepFourCatering
+                onBack={() => go(3)}
+                onNext={handleNext}
+                direction={direction}
+              />
+            )}
+          </div>
+          <div style={{ display: step === 5 ? "block" : "none" }}>
+            {visited.has(5) && (
+              <StepFiveExtras
+                onBack={() => go(4)}
+                onNext={handleNext}
+                direction={direction}
+              />
+            )}
+          </div>
+          {(step === 6 || step === 7) && (
+
             <div
               className="overflow-hidden rounded-[20px]"
               style={{
