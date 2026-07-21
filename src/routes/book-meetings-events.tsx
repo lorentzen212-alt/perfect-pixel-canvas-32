@@ -1198,18 +1198,26 @@ function Field({
   );
 }
 
-function NextButton({ onClick, label }: { onClick: () => void; label: string }) {
+function NextButton({ onClick, label, disabled = false }: { onClick: () => void; label: string; disabled?: boolean }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="group inline-flex items-center justify-center gap-2 rounded-md text-[16px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 hover:-translate-y-[1px]"
+      disabled={disabled}
+      aria-disabled={disabled}
+      className={cn(
+        "group inline-flex items-center justify-center gap-2 rounded-md text-[16px] font-semibold text-[#0A1B2C] transition-all duration-200",
+        disabled
+          ? "opacity-50 cursor-not-allowed"
+          : "hover:brightness-105 hover:-translate-y-[1px]",
+      )}
       style={{
         height: 52,
         minWidth: 220,
         background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
-        boxShadow:
-          "0 18px 40px -18px rgba(200,154,58,0.55), 0 4px 10px -4px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
+        boxShadow: disabled
+          ? "none"
+          : "0 18px 40px -18px rgba(200,154,58,0.55), 0 4px 10px -4px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
         border: "1px solid rgba(184,138,46,0.45)",
       }}
     >
