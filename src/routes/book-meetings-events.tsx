@@ -69,6 +69,8 @@ const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
 import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
 const helpCardBg = helpCardBgAsset.url;
+import accommodationPeriodAsset from "@/assets/accommodation-period.jpg.asset.json";
+const accommodationPeriodImg = accommodationPeriodAsset.url;
 void loungeImg;
 
 import osloImg from "@/assets/destinations/oslo.jpg";
