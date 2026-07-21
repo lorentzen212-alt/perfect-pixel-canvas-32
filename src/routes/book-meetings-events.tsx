@@ -2258,7 +2258,7 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
     { label: "Extras", value: "Airport Transfer, Welcome Package", Icon: Gift },
     { label: "Special Requests", value: "Late Check-in, High Floor Preferred", Icon: ClipboardCheck },
     { label: "Event Duration", value: "2 Days, 1 Night", Icon: Clock },
-    { label: "Budget Level", value: "★★★★★", Icon: Sparkles },
+    { label: "Budget Level", value: "Premium  ★★★★", Icon: Sparkles },
   ];
 
   const stats: Array<{ n: string; label: string; Icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }> }> = [
@@ -2358,11 +2358,14 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
 
             {/* Right inner: timeline */}
             <div className="relative">
-              {/* Timeline vertical line */}
+              {/* Timeline vertical line — thin gold */}
               <div
                 aria-hidden
                 className="absolute left-[7px] top-2 bottom-2 w-px"
-                style={{ backgroundColor: "#0B1620", opacity: 0.35 }}
+                style={{
+                  backgroundImage:
+                    "linear-gradient(180deg, rgba(201,162,74,0.15), rgba(201,162,74,0.6) 12%, rgba(201,162,74,0.6) 88%, rgba(201,162,74,0.15))",
+                }}
               />
               <ul className="space-y-0">
                 {rows.map((r, i) => {
@@ -2378,24 +2381,41 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                             : "none",
                       }}
                     >
+                      {/* Gold node */}
                       <span
                         aria-hidden
-                        className="absolute left-0 top-1/2 -translate-y-1/2 h-[15px] w-[15px] rounded-full"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 h-[13px] w-[13px] rounded-full"
                         style={{
-                          backgroundColor: "#0B1620",
-                          border: "2px solid #FCFAF6",
-                          boxShadow: "0 0 0 1px rgba(201,162,74,0.5)",
+                          background:
+                            "radial-gradient(circle at 35% 30%, #FBE39A 0%, #E4C267 35%, #B8892F 78%, #8A6A1F 100%)",
+                          border: "1px solid rgba(255,240,200,0.55)",
+                          boxShadow:
+                            "0 0 0 2px #FCFAF6, 0 0 10px rgba(201,162,74,0.55), inset 0 1px 1px rgba(255,255,255,0.6), inset 0 -1px 2px rgba(80,55,10,0.35)",
                         }}
                       />
                       <div className="flex items-center gap-4">
                         <span
-                          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+                          className="relative inline-flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full overflow-hidden"
                           style={{
-                            backgroundColor: "#FFFFFF",
-                            border: "1px solid rgba(201,162,74,0.35)",
+                            backgroundColor: "#FCFAF6",
+                            border: "1px solid rgba(201,162,74,0.28)",
+                            boxShadow:
+                              "inset 0 1px 2px rgba(120,90,40,0.10), inset 0 -1px 2px rgba(120,90,40,0.06)",
                           }}
                         >
-                          <Icon size={16} strokeWidth={1.75} style={{ color: GOLD_LO }} />
+                          <span
+                            aria-hidden
+                            className="pointer-events-none absolute inset-0 rounded-full"
+                            style={{
+                              backgroundImage:
+                                "radial-gradient(circle at 28% 22%, rgba(255,255,255,0.55), transparent 55%)",
+                            }}
+                          />
+                          <Icon
+                            size={19}
+                            strokeWidth={1.9}
+                            style={{ color: GOLD_LO, position: "relative" }}
+                          />
                         </span>
                         <div className="min-w-0 flex-1 grid grid-cols-[minmax(140px,180px)_1fr] gap-4 items-baseline">
                           <div
@@ -2405,7 +2425,14 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                             {r.label}
                           </div>
                           <div className="text-[15px] text-[#0B1620]">
-                            {r.value}
+                            {r.label === "Budget Level" ? (
+                              <span>
+                                Premium{" "}
+                                <span style={{ color: GOLD, letterSpacing: "0.12em" }}>★★★★</span>
+                              </span>
+                            ) : (
+                              r.value
+                            )}
                           </div>
                         </div>
                       </div>
@@ -2512,8 +2539,11 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                 <Sparkles size={18} strokeWidth={1.6} style={{ color: GOLD_HI }} />
               </span>
               <div className="min-w-0 flex-1">
-                <div style={{ color: GOLD_HI, fontSize: "18px", letterSpacing: "0.15em" }}>
-                  ★★★★★
+                <div style={{ fontFamily: SERIF, fontSize: "22px", color: GOLD_HI, lineHeight: 1, fontWeight: 500 }}>
+                  Premium
+                </div>
+                <div style={{ color: GOLD_HI, fontSize: "14px", letterSpacing: "0.18em", marginTop: 4 }}>
+                  ★★★★
                 </div>
                 <div className="mt-1 text-[12px] text-white/70">Budget Level</div>
               </div>
@@ -2569,7 +2599,7 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
             { Icon: Users, title: "Dedicated Team", sub: "From start to finish" },
             { Icon: Building2, title: "Best Options", sub: "Handpicked for you" },
             { Icon: Clock, title: "Fast Response", sub: "Within 24 hours" },
-            { Icon: ShieldCheck, title: "Trusted by Companies", sub: "Visible security certificate" },
+            { Icon: Headphones, title: "Expert Support", sub: "Dedicated M&E specialists" },
           ].map((f, i, arr) => {
             const Icon = f.Icon;
             return (
