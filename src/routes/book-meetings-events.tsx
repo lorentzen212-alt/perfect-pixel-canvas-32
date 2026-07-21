@@ -3158,7 +3158,7 @@ const CATERING_DEFS: CateringDef[] = [
     defaultLocation: "Restaurant",
     variants: {
       default: "Buffet",
-      options: ["Buffet", "2-Course", "3-Course", "Sandwich Lunch", "Light Lunch", "Chef's Choice", "Other"],
+      options: ["Buffet", "2-Course Menu", "3-Course Menu", "Chef's Choice"],
     },
   },
   {
