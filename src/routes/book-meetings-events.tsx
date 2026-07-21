@@ -1294,11 +1294,17 @@ function RadioOption({
       <span
         className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
         style={{
-          background: selected ? GOLD : "#FFFFFF",
-          border: selected ? "1px solid #B88917" : "1.5px solid #D9D2BE",
-          boxShadow: selected ? "inset 0 0 0 2px #FFFDF3" : "none",
+          background: "#FFFFFF",
+          border: "1.5px solid #2B2B2B",
         }}
-      />
+      >
+        {selected && (
+          <span
+            className="block rounded-full"
+            style={{ width: 7, height: 7, background: "#2B2B2B" }}
+          />
+        )}
+      </span>
       <span className="text-[13px] text-[#0A1B2C] flex-1 whitespace-nowrap">{label}</span>
       {badge && (
         <span
