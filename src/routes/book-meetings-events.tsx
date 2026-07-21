@@ -3361,7 +3361,7 @@ function StepTwoLocation({
 
         {/* Search field */}
         <div className="mt-10">
-          <p className="text-[15px] mb-2" style={{ fontWeight: 700, color: "#0F1B2D" }}>Or search for any destination</p>
+          <p className="text-[15px] mb-2" style={{ fontWeight: 600, color: "#1A2233" }}>Or search for any destination</p>
           <div ref={searchRef} className="relative">
             <div
               className="flex items-center gap-3 rounded-[16px] px-5 h-[56px]"
@@ -3473,7 +3473,7 @@ function StepTwoLocation({
               htmlFor="preferred-venue"
               className="text-[14.5px]"
             >
-              <span style={{ fontWeight: 700, color: "#1A2233" }}>Preferred venue</span>{" "}
+              <span style={{ fontWeight: 650, color: "#2A3441" }}>Preferred venue</span>{" "}
               <span className="font-normal" style={{ color: "#6B778C" }}>(optional)</span>
             </label>
             <input
