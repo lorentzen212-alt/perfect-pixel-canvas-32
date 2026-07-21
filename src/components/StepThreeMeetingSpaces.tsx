@@ -1182,12 +1182,9 @@ export function StepThreeMeetingSpaces({
                 Back to Accommodation
               </button>
 
-              <div className="hidden md:flex flex-col justify-center items-center gap-1 w-[280px] lg:w-[320px] text-[12.5px] text-[#7B8290] text-center leading-snug">
-                <div className="flex items-center gap-2">
-                  <Sparkles size={13} style={{ color: GOLD }} />
-                  <span>Your information is secure and shared only with</span>
-                </div>
-                <span>selected hotels.</span>
+              <div className="hidden md:flex justify-center items-center gap-2 w-[280px] lg:w-[320px] text-[12.5px] text-[#7B8290] text-center leading-snug">
+                <Sparkles size={13} style={{ color: GOLD }} />
+                <span>Your information is secure and shared only with selected hotels.</span>
               </div>
 
               <button
