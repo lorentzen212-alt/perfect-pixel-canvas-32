@@ -12,6 +12,7 @@ import {
   Phone,
   Mail,
   ArrowRight,
+  ArrowLeft,
   ChevronDown,
   Users,
   Building2,
@@ -31,6 +32,16 @@ import {
   User,
   UsersRound,
   Sparkles,
+  Utensils,
+  UtensilsCrossed,
+  Croissant,
+  Apple,
+  CakeSlice,
+  Wine,
+  GlassWater,
+  MapPin,
+  Info,
+  ChefHat,
 
 } from "lucide-react";
 import { cn } from "@/lib/utils";
