@@ -2897,10 +2897,10 @@ function BudgetPreference({
           className="relative w-[90%] rounded-[18px] px-6 py-5"
           style={{
             background:
-              "linear-gradient(180deg, #1B3D5C 0%, #16385A 40%, #0F2A47 100%)",
-            border: "1px solid rgba(232, 196, 106, 0.38)",
+              "linear-gradient(180deg, #1E4566 0%, #1A3C5B 35%, #16385A 70%, #0F2A47 100%)",
+            border: "1px solid rgba(232, 196, 106, 0.42)",
             boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.08), 0 18px 38px -22px rgba(4,25,48,0.42), 0 0 0 1px rgba(232,196,106,0.06)",
+              "inset 0 1px 0 rgba(255,255,255,0.10), 0 20px 42px -24px rgba(4,25,48,0.40), 0 0 0 1px rgba(232,196,106,0.07)",
           }}
         >
           {/* subtle top highlight */}
@@ -2908,7 +2908,7 @@ function BudgetPreference({
             className="pointer-events-none absolute inset-x-0 top-0 h-[1px] rounded-t-[18px]"
             style={{
               background:
-                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%)",
+                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%)",
             }}
             aria-hidden="true"
           />
@@ -2916,10 +2916,11 @@ function BudgetPreference({
           <div className="relative flex items-center justify-between">
             {/* connecting line */}
             <div
-              className="absolute left-8 right-8 top-[21px] h-[1px]"
+              className="absolute left-8 right-8 top-[21px] h-[1.5px]"
               style={{
                 background:
-                  "linear-gradient(90deg, transparent 0%, rgba(232,196,106,0.28) 10%, rgba(245,213,138,0.9) 50%, rgba(232,196,106,0.28) 90%, transparent 100%)",
+                  "linear-gradient(90deg, transparent 0%, rgba(200,168,100,0.35) 8%, rgba(245,213,138,0.95) 50%, rgba(200,168,100,0.35) 92%, transparent 100%)",
+                boxShadow: "0 0 8px rgba(245,213,138,0.18)",
               }}
               aria-hidden="true"
             />
@@ -2931,13 +2932,13 @@ function BudgetPreference({
                   {/* midpoint dots between labels */}
                   {i > 0 && (
                     <span
-                      className="absolute -left-1/2 top-[17px] h-[8px] w-[8px] -translate-x-1/2 rounded-full"
+                      className="absolute -left-1/2 top-[17px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
                       style={{
-                        border: "1.5px solid rgba(232,196,106,0.75)",
-                        background: selected ? "#F5D78E" : "#0F2A47",
+                        border: "1.5px solid rgba(232,196,106,0.80)",
+                        background: selected ? "#F5D78E" : "#16385A",
                         boxShadow: selected
                           ? "0 0 8px 2px rgba(245,215,142,0.45)"
-                          : "inset 0 0 2px rgba(0,0,0,0.35)",
+                          : "inset 0 0 2px rgba(0,0,0,0.30)",
                       }}
                       aria-hidden="true"
                     />
@@ -2953,26 +2954,22 @@ function BudgetPreference({
                             background:
                               "radial-gradient(circle at 50% 35%, #FFF4D6 0%, #F5D78E 30%, #D4A33C 65%, #A67A1F 100%)",
                             boxShadow:
-                              "0 0 0 5px rgba(212,163,60,0.14), 0 0 30px 6px rgba(212,163,60,0.32), inset 0 1px 2px rgba(255,255,255,0.45)",
+                              "0 0 0 5px rgba(212,163,60,0.16), 0 0 34px 7px rgba(212,163,60,0.34), inset 0 1px 2px rgba(255,255,255,0.50)",
                           }
-                        : {
-                            background: "rgba(15,42,71,0.45)",
-                            boxShadow:
-                              "inset 0 1px 2px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,0.06)",
-                          }
+                        : { background: "transparent" }
                     }
                   >
                     <Icon
-                      size={21}
-                      strokeWidth={1.6}
-                      style={{ color: selected ? "#0A1B2C" : "#E8C46A" }}
-                      fill={selected && (t.id === "premium" || t.id === "luxury") ? "#0A1B2C" : "none"}
+                      size={22}
+                      strokeWidth={1.65}
+                      style={{ color: selected ? "#FFFFFF" : "#E8C46A" }}
+                      fill={selected && (t.id === "premium" || t.id === "luxury") ? "#FFFFFF" : "none"}
                     />
                   </button>
                   <span
                     className="text-[13px] tracking-[0.01em]"
                     style={{
-                      color: selected ? "#F2D477" : "rgba(255,250,240,0.92)",
+                      color: selected ? "#F2D477" : "rgba(255,250,240,0.94)",
                       fontWeight: selected ? 600 : 500,
                       textShadow: selected ? "0 0 12px rgba(242,212,119,0.35)" : "none",
                     }}
