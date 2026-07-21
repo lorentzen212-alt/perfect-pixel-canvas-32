@@ -60,7 +60,7 @@ import packageHandlingImg from "@/assets/extras/package-handling.jpg";
 import porterServiceImg from "@/assets/extras/porter-service.jpg";
 import cloakroomImg from "@/assets/extras/cloakroom.jpg";
 import welcomePackageImg from "@/assets/extras/welcome-package.jpg";
-import planningBannerImg from "@/assets/rooms/planning-banner.jpg";
+import accommodationBannerImg from "@/assets/rooms/accommodation-banner.jpg";
 import singleRoomImg from "@/assets/rooms/single.jpg";
 import doubleRoomImg from "@/assets/rooms/double.jpg";
 import twinRoomImg from "@/assets/rooms/twin.jpg";
@@ -2992,12 +2992,13 @@ function StepThreeAccommodation({
                 boxShadow: "0 6px 18px -10px rgba(10,27,44,0.08)",
               }}
             >
-              <div className="relative w-full" style={{ height: 151 }}>
+              <div className="relative w-full" style={{ height: 145 }}>
                 <img
-                  src={planningBannerImg}
+                  src={accommodationBannerImg}
                   alt=""
                   loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover"
+                  style={{ objectPosition: "center" }}
                   draggable={false}
                 />
                 <div
@@ -3005,11 +3006,11 @@ function StepThreeAccommodation({
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(to bottom, rgba(10,27,44,0) 55%, rgba(10,27,44,0.28) 100%)",
+                      "linear-gradient(to bottom, rgba(10,27,44,0) 60%, rgba(10,27,44,0.32) 100%)",
                   }}
                 />
               </div>
-              <div className="p-6 lg:p-7">
+              <div className="pt-4 pb-6 px-6 lg:pt-5 lg:pb-7 lg:px-7">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div
