@@ -3772,52 +3772,12 @@ function StepFourCatering({
           </div>
 
           {/* Catering cards */}
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-3">
-            {CATERING_DEFS.map((def) => {
-              const isOn = !!selected[def.id];
-              const Icon = def.icon;
-              return (
-                <button
-                  key={def.id}
-                  type="button"
-                  onClick={() => toggleCatering(def.id)}
-                  aria-pressed={isOn}
-                  className="group relative overflow-hidden rounded-[12px] text-left transition-all"
-                  style={{
-                    background: "#FCFAF3",
-                    border: isOn ? "1.5px solid #C79A32" : "1px solid #ECE6D6",
-                    boxShadow: isOn
-                      ? "0 10px 24px -14px rgba(184,138,46,0.45), 0 2px 6px -2px rgba(10,27,44,0.06)"
-                      : "0 6px 18px -14px rgba(10,27,44,0.10)",
-                  }}
-                >
-                  <div
-                    className="w-full h-[92px] bg-cover bg-center"
-                    style={{ backgroundImage: `url(${def.image})` }}
-                    aria-hidden
-                  />
-                  <div className="p-2.5 pt-2 flex flex-col items-center gap-1">
-                    <Icon size={18} strokeWidth={1.6} style={{ color: "#B88A2E" }} />
-                    <span className="text-[12.5px] font-medium text-[#0A1B2C] text-center leading-tight">
-                      {def.label}
-                    </span>
-                  </div>
-                  {isOn && (
-                    <span
-                      className="absolute top-2 right-2 inline-flex h-5 w-5 items-center justify-center rounded-full"
-                      style={{
-                        background:
-                          "linear-gradient(180deg,#F7D97A 0%, #D4AF37 55%, #B88917 100%)",
-                        boxShadow: "0 2px 6px -2px rgba(184,138,46,0.55)",
-                      }}
-                    >
-                      <Check size={12} strokeWidth={3} style={{ color: "#0A1B2C" }} />
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
+          <CateringCarousel
+            defs={CATERING_DEFS}
+            selected={selected}
+            onToggle={toggleCatering}
+          />
+
 
           {/* Plan & Choose Where to Serve */}
           <div
