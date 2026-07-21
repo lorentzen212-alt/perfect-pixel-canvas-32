@@ -1784,7 +1784,35 @@ function ExtraAccordion({
         </h4>
       </div>
       {body}
-      <div className="mt-5 flex justify-end">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={onHide}
+            className="inline-flex items-center gap-1.5 rounded-[10px] px-4 text-[13px] font-medium text-[#0A1B2C] transition-all hover:bg-[#F5EEDA]"
+            style={{
+              height: 40,
+              background: "#FFFFFF",
+              border: "1px solid #E3D2A1",
+            }}
+          >
+            Hide <ChevronUp size={14} strokeWidth={2.4} />
+          </button>
+          {saved && (
+            <button
+              type="button"
+              onClick={onRemove}
+              className="inline-flex items-center rounded-[10px] px-4 text-[12.5px] font-medium text-[#2B2B2B] transition-all hover:bg-[#FBF3DC]"
+              style={{
+                height: 40,
+                background: "transparent",
+                border: "1px solid #D9BE6C",
+              }}
+            >
+              Remove Service
+            </button>
+          )}
+        </div>
         <button
           type="button"
           onClick={onDone}
