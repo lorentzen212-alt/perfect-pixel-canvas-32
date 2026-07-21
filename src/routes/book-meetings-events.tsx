@@ -2958,15 +2958,15 @@ function BudgetPreference({
       <GoldStarDivider />
       <div className="mt-6">
         <h3
-          className="text-[22px] leading-tight text-[#0F1B2D]"
-          style={{ fontFamily: SERIF, fontWeight: 700 }}
+          className="text-[22px] leading-tight"
+          style={{ fontFamily: SERIF, fontWeight: 700, color: "#0F1B2D" }}
         >
           Budget Preference{" "}
-          <span className="text-[15px] text-[#0F1B2D]/60" style={{ fontFamily: "inherit", fontWeight: 400 }}>
+          <span className="text-[15px]" style={{ fontFamily: "inherit", fontWeight: 400, color: "#6B778C" }}>
             (Optional)
           </span>
         </h3>
-        <p className="mt-0.5 text-[14px] text-[#0F1B2D]/85" style={{ fontWeight: 500 }}>
+        <p className="mt-0.5 text-[14px]" style={{ fontWeight: 500, color: "#334155" }}>
           Help us tailor the best options for your event.
         </p>
       </div>
