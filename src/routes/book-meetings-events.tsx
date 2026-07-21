@@ -1284,7 +1284,7 @@ function RadioOption({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left transition-all"
+      className="flex w-full items-center gap-3 rounded-[10px] px-5 py-2.5 text-left transition-all"
       style={{
         background: selected ? "linear-gradient(180deg, #FFFDF3 0%, #FBF3DC 100%)" : "#FFFFFF",
         border: selected ? "1px solid #C79A32" : "1px solid #E4DDC8",
@@ -1299,10 +1299,10 @@ function RadioOption({
           boxShadow: selected ? "inset 0 0 0 2px #FFFDF3" : "none",
         }}
       />
-      <span className="text-[13px] text-[#0A1B2C] flex-1">{label}</span>
+      <span className="text-[13px] text-[#0A1B2C] flex-1 whitespace-nowrap">{label}</span>
       {badge && (
         <span
-          className="text-[10.5px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full"
+          className="text-[8.5px] font-semibold uppercase tracking-wide px-1.5 py-[1px] rounded-full whitespace-nowrap"
           style={{ color: "#8A6416", background: "#FBF0CE", border: "1px solid #E9D89A" }}
         >
           {badge}
@@ -1325,7 +1325,7 @@ function CheckOption({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left transition-all"
+      className="flex w-full items-center gap-3 rounded-[10px] px-5 py-2.5 text-left transition-all"
       style={{
         background: selected ? "linear-gradient(180deg, #FFFDF3 0%, #FBF3DC 100%)" : "#FFFFFF",
         border: selected ? "1px solid #C79A32" : "1px solid #E4DDC8",
@@ -1340,7 +1340,7 @@ function CheckOption({
       >
         {selected && <Check size={11} strokeWidth={3.5} style={{ color: "#FFFFFF" }} />}
       </span>
-      <span className="text-[13px] text-[#0A1B2C] flex-1">{label}</span>
+      <span className="text-[13px] text-[#0A1B2C] flex-1 whitespace-nowrap">{label}</span>
     </button>
   );
 }
@@ -1637,43 +1637,16 @@ function ExtraCard({
   saved,
   open,
   onCardClick,
-  onDone,
-  configs,
-  setConfigs,
+  summaryLines,
 }: {
   def: ExtraDef;
   selected: boolean;
   saved: boolean;
   open: boolean;
   onCardClick: () => void;
-  onDone: () => void;
-  configs: ExtraConfigs;
-  setConfigs: React.Dispatch<React.SetStateAction<ExtraConfigs>>;
+  summaryLines: string[];
 }) {
   const { Icon } = def;
-  const setCfg = <K extends ExtraId>(id: K, val: ExtraConfigs[K]) =>
-    setConfigs((prev) => ({ ...prev, [id]: val }));
-
-  const renderConfig = () => {
-    switch (def.id) {
-      case "airport-transfer":
-        return <ConfigAirportTransfer cfg={configs["airport-transfer"]} set={(v) => setCfg("airport-transfer", v)} />;
-      case "coach-parking":
-        return <ConfigCoachParking cfg={configs["coach-parking"]} set={(v) => setCfg("coach-parking", v)} />;
-      case "registration-desk":
-        return <ConfigRegistration cfg={configs["registration-desk"]} set={(v) => setCfg("registration-desk", v)} />;
-      case "package-handling":
-        return <ConfigPackage cfg={configs["package-handling"]} set={(v) => setCfg("package-handling", v)} />;
-      case "porter-service":
-        return <ConfigPorter cfg={configs["porter-service"]} set={(v) => setCfg("porter-service", v)} />;
-      case "cloakroom":
-        return <ConfigCloakroom cfg={configs["cloakroom"]} set={(v) => setCfg("cloakroom", v)} />;
-      case "welcome-package":
-        return <ConfigWelcome cfg={configs["welcome-package"]} set={(v) => setCfg("welcome-package", v)} />;
-    }
-  };
-
-  const summaryLines = saved ? summaryFor(def.id, configs[def.id]) : [];
 
   return (
     <div
@@ -1686,7 +1659,7 @@ function ExtraCard({
         boxShadow: selected
           ? "0 14px 30px -18px rgba(184,138,46,0.35), 0 2px 8px -4px rgba(10,27,44,0.06)"
           : "0 10px 24px -18px rgba(10,27,44,0.20), 0 2px 6px -3px rgba(10,27,44,0.05)",
-        alignSelf: "start",
+        height: "100%",
       }}
     >
       {/* Clickable card head */}
@@ -1760,21 +1733,76 @@ function ExtraCard({
         )}
       </button>
 
-      {/* Accordion */}
-      {open && (
-        <div
-          className="mx-3 mb-4 rounded-[12px] p-4"
+    </div>
+  );
+}
+
+function ExtraAccordion({
+  def,
+  onDone,
+  configs,
+  setConfigs,
+}: {
+  def: ExtraDef;
+  onDone: () => void;
+  configs: ExtraConfigs;
+  setConfigs: React.Dispatch<React.SetStateAction<ExtraConfigs>>;
+}) {
+  const setCfg = <K extends ExtraId>(id: K, val: ExtraConfigs[K]) =>
+    setConfigs((prev) => ({ ...prev, [id]: val }));
+
+  const body = (() => {
+    switch (def.id) {
+      case "airport-transfer":
+        return <ConfigAirportTransfer cfg={configs["airport-transfer"]} set={(v) => setCfg("airport-transfer", v)} />;
+      case "coach-parking":
+        return <ConfigCoachParking cfg={configs["coach-parking"]} set={(v) => setCfg("coach-parking", v)} />;
+      case "registration-desk":
+        return <ConfigRegistration cfg={configs["registration-desk"]} set={(v) => setCfg("registration-desk", v)} />;
+      case "package-handling":
+        return <ConfigPackage cfg={configs["package-handling"]} set={(v) => setCfg("package-handling", v)} />;
+      case "porter-service":
+        return <ConfigPorter cfg={configs["porter-service"]} set={(v) => setCfg("porter-service", v)} />;
+      case "cloakroom":
+        return <ConfigCloakroom cfg={configs["cloakroom"]} set={(v) => setCfg("cloakroom", v)} />;
+      case "welcome-package":
+        return <ConfigWelcome cfg={configs["welcome-package"]} set={(v) => setCfg("welcome-package", v)} />;
+    }
+  })();
+
+  return (
+    <div
+      className="col-span-full rounded-[16px] p-6 sm:p-7"
+      style={{
+        background: "linear-gradient(180deg, #FFFDF6 0%, #FBF6E7 100%)",
+        border: "1px solid #E3D2A1",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), 0 14px 30px -22px rgba(184,138,46,0.25)",
+        animation: "menuTypeExpand 260ms ease-out",
+      }}
+    >
+      <div className="flex items-center gap-2 mb-4">
+        <def.Icon size={16} strokeWidth={2} style={{ color: "#B88A2E" }} />
+        <h4 className="text-[17px] text-[#0A1B2C]" style={{ fontFamily: SERIF, fontWeight: 500 }}>
+          Configure {def.title}
+        </h4>
+      </div>
+      {body}
+      <div className="mt-5 flex justify-end">
+        <button
+          type="button"
+          onClick={onDone}
+          className="group inline-flex items-center justify-center gap-2 rounded-[10px] text-[13.5px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 hover:-translate-y-[1px] px-6"
           style={{
-            background: "linear-gradient(180deg, #FFFDF6 0%, #FBF6E7 100%)",
-            border: "1px solid #E3D2A1",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7)",
-            animation: "menuTypeExpand 260ms ease-out",
+            height: 42,
+            background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
+            boxShadow: "0 14px 28px -16px rgba(200,154,58,0.55), 0 3px 8px -3px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
+            border: "1px solid rgba(184,138,46,0.45)",
           }}
         >
-          {renderConfig()}
-          <DoneButton onClick={onDone} />
-        </div>
-      )}
+          Done
+          <Check size={15} strokeWidth={2.6} />
+        </button>
+      </div>
     </div>
   );
 }
@@ -1857,19 +1885,30 @@ function StepFiveExtras({
 
           {/* Cards grid — items-start so an open accordion only stretches its own card */}
           <div className="mt-8 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 items-start">
-            {EXTRAS_DEFS.map((def) => (
-              <ExtraCard
-                key={def.id}
-                def={def}
-                selected={selected[def.id]}
-                saved={saved[def.id]}
-                open={openId === def.id}
-                onCardClick={() => handleCardClick(def.id)}
-                onDone={() => handleDone(def.id)}
-                configs={configs}
-                setConfigs={setConfigs}
-              />
-            ))}
+            {EXTRAS_DEFS.map((def) => {
+              const isOpen = openId === def.id;
+              const lines = saved[def.id] ? summaryFor(def.id, configs[def.id]) : [];
+              return (
+                <div key={def.id} className="contents">
+                  <ExtraCard
+                    def={def}
+                    selected={selected[def.id]}
+                    saved={saved[def.id]}
+                    open={isOpen}
+                    onCardClick={() => handleCardClick(def.id)}
+                    summaryLines={lines}
+                  />
+                  {isOpen && (
+                    <ExtraAccordion
+                      def={def}
+                      onDone={() => handleDone(def.id)}
+                      configs={configs}
+                      setConfigs={setConfigs}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {/* Any other requests */}
