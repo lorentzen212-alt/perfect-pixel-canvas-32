@@ -1934,7 +1934,10 @@ function StepFiveExtras({
                   {isOpen && (
                     <ExtraAccordion
                       def={def}
+                      saved={saved[def.id]}
                       onDone={() => handleDone(def.id)}
+                      onHide={() => setOpenId(null)}
+                      onRemove={() => handleRemove(def.id)}
                       configs={configs}
                       setConfigs={setConfigs}
                     />
