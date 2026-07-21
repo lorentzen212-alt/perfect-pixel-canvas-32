@@ -2887,7 +2887,7 @@ function BudgetPreference({
 
       <div className="mt-3 flex justify-center">
         <div
-          className="relative w-[90%] rounded-[18px] px-6 pt-1.5 pb-3.5"
+          className="relative w-[90%] rounded-[18px] px-6 pt-0 pb-3"
           style={{
             background:
               "linear-gradient(180deg, #1E4566 0%, #1A3C5B 35%, #16385A 70%, #0F2A47 100%)",
@@ -2906,7 +2906,7 @@ function BudgetPreference({
             aria-hidden="true"
           />
 
-          <div className="relative flex items-start justify-between pb-2">
+          <div className="relative flex items-start justify-between pb-4">
             {/* connecting line */}
             <div
               className="absolute left-8 right-8 top-[16px] h-[1.5px]"
