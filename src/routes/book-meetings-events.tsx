@@ -2433,9 +2433,9 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                           </div>
                           <div className="text-[15px] text-[#0B1620]">
                             {r.label === "Budget Level" ? (
-                              <span>
-                                Premium{" "}
-                                <span style={{ color: GOLD, letterSpacing: "0.12em" }}>★★★★</span>
+                              <span className="inline-flex flex-col items-start gap-[3px]">
+                                <span style={{ color: GOLD, letterSpacing: "0.12em", lineHeight: 1 }}>★★★★</span>
+                                <span style={{ color: "#0B1620" }}>Premium</span>
                               </span>
                             ) : (
                               r.value
