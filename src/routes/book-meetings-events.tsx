@@ -3544,6 +3544,8 @@ function StepFourCatering({
   const [notes, setNotes] = useState("");
   const [openLocId, setOpenLocId] = useState<string | null>(null);
   const [openVariantId, setOpenVariantId] = useState<string | null>(null);
+  const [recommendationVisible, setRecommendationVisible] = useState(true);
+  const [recommendationRendered, setRecommendationRendered] = useState(true);
 
   // Persist state
   useEffect(() => {
@@ -3638,6 +3640,11 @@ function StepFourCatering({
     });
   };
 
+  const dismissRecommendation = () => {
+    setRecommendationVisible(false);
+    setTimeout(() => setRecommendationRendered(false), 300);
+  };
+
   const toggleFrom = (
     val: string,
     list: string[],
@@ -3719,51 +3726,72 @@ function StepFourCatering({
             </div>
 
             {/* Apply Recommendation card */}
-            <div
-              className="rounded-[14px] p-5 w-full lg:w-[380px]"
-              style={{
-                background:
-                  "linear-gradient(180deg, #FFFDF6 0%, #FBF6E7 100%)",
-                border: "1px solid #EBDDB4",
-                boxShadow: "0 10px 26px -18px rgba(184,138,46,0.35)",
-              }}
-            >
-              <div className="flex items-center gap-2">
-                <Sparkles size={16} style={{ color: "#B88A2E" }} />
-                <span
-                  className="text-[15px] font-semibold"
-                  style={{ color: "#7C5A16", fontFamily: SERIF }}
-                >
-                  Apply Recommendation
-                </span>
+            {recommendationRendered && (
+              <div
+                className={cn(
+                  "rounded-[14px] p-5 w-full lg:w-[380px] transition-all duration-300 ease-out origin-top",
+                  recommendationVisible
+                    ? "opacity-100 translate-y-0 scale-100"
+                    : "opacity-0 -translate-y-2 scale-[0.98] pointer-events-none"
+                )}
+                style={{
+                  background:
+                    "linear-gradient(180deg, #FFFDF6 0%, #FBF6E7 100%)",
+                  border: "1px solid #EBDDB4",
+                  boxShadow: "0 10px 26px -18px rgba(184,138,46,0.35)",
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <Sparkles size={16} style={{ color: "#B88A2E" }} />
+                  <span
+                    className="text-[15px] font-semibold"
+                    style={{ color: "#7C5A16", fontFamily: SERIF }}
+                  >
+                    Apply Recommendation
+                  </span>
+                </div>
+                <p className="mt-1.5 text-[12.5px] leading-relaxed text-[#6E5A2E]">
+                  Based on {effectiveGuests || "your"} guests and your selected
+                  rooms, we recommend:
+                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center rounded-full border px-3 h-8 text-[12px] font-medium text-[#0A1B2C] bg-white" style={{ borderColor: "#E3D2A1" }}>
+                    Morning Coffee Break
+                  </span>
+                  <span className="inline-flex items-center rounded-full border px-3 h-8 text-[12px] font-medium text-[#0A1B2C] bg-white" style={{ borderColor: "#E3D2A1" }}>
+                    Lunch (Buffet)
+                  </span>
+                </div>
+                <div className="mt-4 flex items-center justify-end gap-3">
+                  <button
+                    type="button"
+                    onClick={dismissRecommendation}
+                    className="inline-flex items-center justify-center rounded-full h-8 px-4 text-[12.5px] font-semibold text-[#3A3A3A] transition-all duration-200 hover:bg-[#F7F4EC] hover:shadow-md active:scale-[0.98]"
+                    style={{
+                      background: "#FDFBF6",
+                      border: "1px solid #D9C07A",
+                      boxShadow: "0 4px 10px -4px rgba(184,138,46,0.18), inset 0 1px 0 rgba(255,255,255,0.8)",
+                    }}
+                  >
+                    No, thanks
+                  </button>
+                  <button
+                    type="button"
+                    onClick={applyRecommendation}
+                    className="inline-flex items-center gap-1.5 rounded-full h-8 px-4 text-[12.5px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 active:scale-[0.98]"
+                    style={{
+                      background:
+                        "linear-gradient(180deg,#F7D97A 0%, #D4AF37 55%, #B88917 100%)",
+                      border: "1px solid rgba(184,137,23,0.85)",
+                      boxShadow:
+                        "inset 0 1px 0 rgba(255,255,255,0.45), 0 6px 14px -8px rgba(184,137,23,0.55)",
+                    }}
+                  >
+                    Apply
+                  </button>
+                </div>
               </div>
-              <p className="mt-1.5 text-[12.5px] leading-relaxed text-[#6E5A2E]">
-                Based on {effectiveGuests || "your"} guests and your selected
-                rooms, we recommend:
-              </p>
-              <div className="mt-3 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center rounded-full border px-3 h-8 text-[12px] font-medium text-[#0A1B2C] bg-white" style={{ borderColor: "#E3D2A1" }}>
-                  Morning Coffee Break
-                </span>
-                <span className="inline-flex items-center rounded-full border px-3 h-8 text-[12px] font-medium text-[#0A1B2C] bg-white" style={{ borderColor: "#E3D2A1" }}>
-                  Lunch (Buffet)
-                </span>
-                <button
-                  type="button"
-                  onClick={applyRecommendation}
-                  className="ml-auto inline-flex items-center gap-1.5 rounded-full h-8 px-4 text-[12.5px] font-semibold text-[#0A1B2C]"
-                  style={{
-                    background:
-                      "linear-gradient(180deg,#F7D97A 0%, #D4AF37 55%, #B88917 100%)",
-                    border: "1px solid rgba(184,137,23,0.85)",
-                    boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.45), 0 6px 14px -8px rgba(184,137,23,0.55)",
-                  }}
-                >
-                  Apply
-                </button>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Catering cards */}
