@@ -573,8 +573,10 @@ function BookMeetingsEvents() {
             </div>
           )}
 
-          {/* Credibility */}
-          {step !== 2 && step !== 3 && (
+          {/* Step 1 premium divider / other steps credibility banner */}
+          {step === 1 ? (
+            <PremiumDivider />
+          ) : step !== 2 && step !== 3 ? (
           <div
             className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center px-8 md:px-12 py-8 md:py-10 rounded-[20px]"
             style={{
@@ -645,7 +647,7 @@ function BookMeetingsEvents() {
             </div>
 
           </div>
-          )}
+          ) : null}
 
         </div>
       </section>
