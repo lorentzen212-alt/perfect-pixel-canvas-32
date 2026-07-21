@@ -1205,14 +1205,15 @@ export function StepThreeMeetingSpaces({
                 <ArrowRight size={16} />
               </button>
             </div>
+            </div>
           </div>
 
           {/* RIGHT — SIDEBAR */}
           <aside
-            className="p-5 lg:pt-[210px] lg:pr-8 lg:pb-6 lg:pl-0 flex flex-col gap-5 w-full max-w-[360px] min-w-0 box-border self-start lg:sticky lg:top-6"
-
+            className="flex flex-col gap-5 w-full min-w-0 box-border self-start lg:sticky lg:top-6"
             style={{ background: "transparent" }}
           >
+
             {/* Live Event Summary */}
             <SidebarCard>
               <SidebarHeader
