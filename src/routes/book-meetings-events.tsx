@@ -3811,13 +3811,16 @@ function StepFourCatering({
                   {servings.map((s) => {
                     const def = findDef(s.catering);
                     const Icon = def.icon;
+                    const isOpen = def.variants && openVariantId === s.id;
                     return (
+                      <div key={s.id} className="flex flex-col">
                       <div
-                        key={s.id}
                         className="grid grid-cols-1 md:grid-cols-[minmax(180px,1.2fr)_120px_1fr_44px_44px] gap-3 items-center rounded-[10px] px-3 py-2.5"
                         style={{
                           background: "#FFFFFF",
                           border: "1px solid #EFEAD8",
+                          borderBottomLeftRadius: isOpen ? 0 : 10,
+                          borderBottomRightRadius: isOpen ? 0 : 10,
                         }}
                       >
                         {/* Label + thumbnail */}
