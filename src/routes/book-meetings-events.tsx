@@ -2536,7 +2536,7 @@ function StepTwoLocation({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8 items-start">
+    <div className="flex flex-col">
       {/* MAIN BOOKING CARD */}
       <div
         className="relative overflow-hidden rounded-[26px] p-6 sm:p-10 lg:p-14"
