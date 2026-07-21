@@ -3256,6 +3256,7 @@ function StepThreeAccommodation({
                   <ArrowRight size={16} style={{ color: "#F2C860" }} className="transition-transform group-hover:translate-x-0.5" />
                 </button>
               </div>
+              </div>
             </div>
 
             {/* Complete stay and continue (outlined gold) */}
