@@ -2892,78 +2892,99 @@ function BudgetPreference({
         </div>
       </div>
 
-      <div
-        className="relative mt-5 rounded-[18px] px-6 py-6"
-        style={{
-          background: "linear-gradient(180deg,#0D1F33 0%,#081627 100%)",
-          border: "1px solid #F5C97533",
-          boxShadow: "0 20px 40px -30px rgba(4,25,48,0.5)",
-        }}
-      >
-        <div className="relative flex items-center justify-between">
-          {/* connecting line */}
+      <div className="mt-5 flex justify-center">
+        <div
+          className="relative w-[90%] rounded-[18px] px-6 py-5"
+          style={{
+            background:
+              "linear-gradient(180deg, #1E4566 0%, #1A3C5B 35%, #16385A 70%, #0F2A47 100%)",
+            border: "1px solid rgba(232, 196, 106, 0.42)",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.10), 0 20px 42px -24px rgba(4,25,48,0.40), 0 0 0 1px rgba(232,196,106,0.07)",
+          }}
+        >
+          {/* subtle top highlight */}
           <div
-            className="absolute left-6 right-6 top-[22px] h-px"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[1px] rounded-t-[18px]"
             style={{
               background:
-                "linear-gradient(90deg, transparent, #C89B3C 8%, #E7C67A 50%, #C89B3C 92%, transparent)",
-              opacity: 0.7,
+                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%)",
             }}
             aria-hidden="true"
           />
-          {tiers.map((t, i) => {
-            const selected = value === t.id;
-            const Icon = t.Icon;
-            return (
-              <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-2">
-                {/* midpoint dots between labels */}
-                {i > 0 && (
+
+          <div className="relative flex items-center justify-between">
+            {/* connecting line */}
+            <div
+              className="absolute left-8 right-8 top-[21px] h-[1.5px]"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent 0%, rgba(200,168,100,0.35) 8%, rgba(245,213,138,0.95) 50%, rgba(200,168,100,0.35) 92%, transparent 100%)",
+                boxShadow: "0 0 8px rgba(245,213,138,0.18)",
+              }}
+              aria-hidden="true"
+            />
+            {tiers.map((t, i) => {
+              const selected = value === t.id;
+              const Icon = t.Icon;
+              return (
+                <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-3">
+                  {/* midpoint dots between labels */}
+                  {i > 0 && (
+                    <span
+                      className="absolute -left-1/2 top-[17px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
+                      style={{
+                        border: "1.5px solid rgba(232,196,106,0.80)",
+                        background: selected ? "#F5D78E" : "#16385A",
+                        boxShadow: selected
+                          ? "0 0 8px 2px rgba(245,215,142,0.45)"
+                          : "inset 0 0 2px rgba(0,0,0,0.30)",
+                      }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => onChange(selected ? null : t.id)}
+                    aria-pressed={selected}
+                    className="relative flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
+                    style={
+                      selected
+                        ? {
+                            background:
+                              "radial-gradient(circle at 50% 35%, #FFF4D6 0%, #F5D78E 30%, #D4A33C 65%, #A67A1F 100%)",
+                            boxShadow:
+                              "0 0 0 5px rgba(212,163,60,0.16), 0 0 34px 7px rgba(212,163,60,0.34), inset 0 1px 2px rgba(255,255,255,0.50)",
+                          }
+                        : { background: "transparent" }
+                    }
+                  >
+                    <Icon
+                      size={22}
+                      strokeWidth={1.65}
+                      style={{ color: selected ? "#FFFFFF" : "#E8C46A" }}
+                      fill={selected && (t.id === "premium" || t.id === "luxury") ? "#FFFFFF" : "none"}
+                    />
+                  </button>
                   <span
-                    className="absolute -left-1/2 top-[18px] h-[9px] w-[9px] -translate-x-1/2 rounded-full"
-                    style={{ border: "1.5px solid #C89B3C", background: "#0A1B2C" }}
-                    aria-hidden="true"
-                  />
-                )}
-                <button
-                  type="button"
-                  onClick={() => onChange(selected ? null : t.id)}
-                  aria-pressed={selected}
-                  className="relative flex h-11 w-11 items-center justify-center rounded-full transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
-                  style={
-                    selected
-                      ? {
-                          background:
-                            "radial-gradient(circle at 50% 45%, #FFE39A 0%, #E7B958 55%, #B9812C 100%)",
-                          boxShadow:
-                            "0 0 0 6px rgba(231,185,88,0.18), 0 0 22px 4px rgba(231,185,88,0.55)",
-                        }
-                      : { background: "transparent" }
-                  }
-                >
-                  <Icon
-                    size={22}
-                    strokeWidth={1.7}
-                    style={{ color: selected ? "#FFFFFF" : "#E7C67A" }}
-                    fill={selected && (t.id === "premium" || t.id === "luxury") ? "#FFFFFF" : "none"}
-                  />
-                </button>
-                <span
-                  className="text-[13px]"
-                  style={{
-                    color: selected ? "#F2CB74" : "#FFFFFF",
-                    fontWeight: selected ? 600 : 500,
-                  }}
-                >
-                  {t.label}
-                </span>
-              </div>
-            );
-          })}
+                    className="text-[13px] tracking-[0.01em]"
+                    style={{
+                      color: selected ? "#F2D477" : "rgba(255,250,240,0.94)",
+                      fontWeight: selected ? 600 : 500,
+                      textShadow: selected ? "0 0 12px rgba(242,212,119,0.35)" : "none",
+                    }}
+                  >
+                    {t.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
       {value && (
-        <div className="mt-3 flex justify-end">
+        <div className="mt-3 flex justify-end pr-[5%]">
           <button
             type="button"
             onClick={() => onChange(null)}
