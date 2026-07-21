@@ -3471,16 +3471,17 @@ function StepTwoLocation({
           <div className="flex flex-1 flex-col min-w-0">
             <label
               htmlFor="preferred-venue"
-              className="text-[14.5px] text-[#0F1B2D]"
+              className="text-[14.5px]"
             >
-              <span style={{ fontWeight: 700 }}>Preferred venue</span>{" "}
-              <span className="text-[#0F1B2D]/60 font-normal">(optional)</span>
+              <span style={{ fontWeight: 700, color: "#1A2233" }}>Preferred venue</span>{" "}
+              <span className="font-normal" style={{ color: "#6B778C" }}>(optional)</span>
             </label>
             <input
               id="preferred-venue"
               type="text"
               placeholder="Specific hotel, venue or any special request…"
-              className="w-full bg-transparent text-[14px] text-[#0F1B2D] placeholder:text-[#0F1B2D]/60 outline-none border-none mt-0.5"
+              className="w-full bg-transparent text-[14px] outline-none border-none mt-0.5 placeholder:text-[#6B778C]"
+              style={{ color: "#0F1B2D" }}
             />
           </div>
           <button
