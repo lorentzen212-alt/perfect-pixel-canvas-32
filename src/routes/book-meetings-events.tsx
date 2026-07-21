@@ -464,8 +464,8 @@ function BookMeetingsEvents() {
       </section>
 
       {/* FORM SECTION */}
-      <section className="px-5 py-10 lg:py-14">
-        <div className="mx-auto max-w-[1180px]">
+      <section className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14">
+        <div className="mx-auto max-w-[1400px]">
           {/* Keep visited steps mounted so state persists across navigation. */}
           <div style={{ display: step === 1 ? "block" : "none" }}>
             {visited.has(1) && (
@@ -522,7 +522,7 @@ function BookMeetingsEvents() {
                 border: "1px solid #ECECEC",
               }}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,78fr)_minmax(0,22fr)] gap-3.5">
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(392px,420px)]">
                 <div className="p-6 sm:p-10 lg:p-12">
                   <div
                     key={step}
@@ -545,7 +545,7 @@ function BookMeetingsEvents() {
                   }}
                 >
                   <div
-                    className="rounded-[16px] p-6 w-full"
+                    className="rounded-[16px] p-6 w-full lg:w-[320px] lg:min-w-[320px]"
                     style={{
                       backgroundColor: "#FFFFFF",
                       border: "1px solid #EFEFEC",
@@ -576,7 +576,7 @@ function BookMeetingsEvents() {
 
           {/* Step 1 premium divider / other steps credibility banner */}
           {step === 1 ? (
-            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,78fr)_minmax(0,22fr)] gap-3.5">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8">
               <PremiumDivider />
               <div aria-hidden className="hidden lg:block" />
             </div>
@@ -2079,7 +2079,7 @@ function StepFiveExtras({
 
   return (
     <div className={direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"}>
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,78fr)_minmax(0,22fr)] gap-3.5">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6">
         {/* LEFT — main panel */}
         <div
           className="overflow-hidden rounded-[20px] p-6 sm:p-8 lg:p-10"
@@ -2285,7 +2285,7 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
   return (
     <div className="space-y-8">
       {/* Two-column premium layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,78fr)_minmax(0,22fr)] gap-3.5">
+      <div className="grid grid-cols-1 lg:grid-cols-[72fr_28fr] gap-6">
         {/* LEFT — Ivory paper card */}
         <div
           className="relative overflow-hidden rounded-[22px] p-8 sm:p-10 lg:p-12"
@@ -3286,7 +3286,7 @@ function StepTwoLocation({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,78fr)_minmax(0,22fr)] gap-3.5 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8 items-start">
       {/* MAIN BOOKING CARD */}
       <div
         className="relative overflow-hidden rounded-[26px] p-6 sm:p-10 lg:p-14"
@@ -4019,7 +4019,7 @@ function StepThreeAccommodation({
           border: "1px solid #E8E6E1",
         }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,78fr)_minmax(0,22fr)] gap-3.5">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px]">
           {/* LEFT COLUMN */}
           <div className="p-6 sm:p-9 lg:p-11 lg:pr-9">
             {/* Accommodation Period card */}
@@ -5650,7 +5650,7 @@ function StepFourCatering({
         direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"
       }
     >
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,78fr)_minmax(0,22fr)] gap-3.5">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         {/* LEFT — main panel */}
         <div
           className="overflow-hidden rounded-[20px] p-6 sm:p-8 lg:p-10"
