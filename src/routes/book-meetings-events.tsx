@@ -2887,7 +2887,7 @@ function BudgetPreference({
 
       <div className="mt-3 flex justify-center">
         <div
-          className="relative w-[90%] rounded-[18px] px-6 py-2"
+          className="relative w-[90%] rounded-[18px] px-6 pt-2 pb-3"
           style={{
             background:
               "linear-gradient(180deg, #1E4566 0%, #1A3C5B 35%, #16385A 70%, #0F2A47 100%)",
@@ -2975,11 +2975,11 @@ function BudgetPreference({
           </div>
 
           {value && (
-            <div className="absolute bottom-1.5 right-3">
+            <div className="absolute bottom-1 right-3">
               <button
                 type="button"
                 onClick={() => onChange(null)}
-                className="text-[12px] font-medium text-[#B88A2E]/80 underline underline-offset-3 hover:text-[#8E6A20]"
+                className="text-[11px] font-medium text-[#B88A2E]/70 underline underline-offset-3 hover:text-[#8E6A20]"
               >
                 Clear selection
               </button>
