@@ -710,18 +710,19 @@ export function StepThreeMeetingSpaces({
           : "animate-slide-in-left"
       }
     >
-      <div
-        className="overflow-hidden rounded-[22px]"
-        style={{
-          background: BEIGE,
-          border: "1px solid #EAE3D5",
-          boxShadow:
-            "0 40px 90px -50px rgba(10,27,44,0.18), 0 12px 32px -24px rgba(10,27,44,0.08)",
-        }}
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(340px,360px)] gap-8 lg:gap-8 items-start">
-          {/* LEFT — CONTENT */}
+      <div className="mx-auto max-w-[1480px] grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(380px,420px)] gap-6 lg:gap-8 items-start">
+        {/* LEFT — FORM CARD */}
+        <div
+          className="overflow-hidden rounded-[22px] min-w-0"
+          style={{
+            background: BEIGE,
+            border: "1px solid #EAE3D5",
+            boxShadow:
+              "0 40px 90px -50px rgba(10,27,44,0.18), 0 12px 32px -24px rgba(10,27,44,0.08)",
+          }}
+        >
           <div className="p-6 sm:p-10 lg:px-14 lg:py-12 min-w-0">
+
             {/* Title */}
             <div>
               <h2
