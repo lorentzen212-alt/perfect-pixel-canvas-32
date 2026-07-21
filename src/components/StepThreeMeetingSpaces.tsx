@@ -1402,7 +1402,7 @@ export function StepThreeMeetingSpaces({
                   onChange={(e) =>
                     setComments(e.target.value.slice(0, 500))
                   }
-                  placeholder="Anything else the hotels should know?"
+                  placeholder={"Tell us anything the hotel should know...\n\nExamples:\n• AV requirements\n• VIP guests\n• Exhibition space\n• Accessibility requests\n• Branding requirements"}
                   rows={5}
                   className="w-full resize-none bg-transparent outline-none text-[13.5px] text-white placeholder:text-[#7A8494]"
                 />
