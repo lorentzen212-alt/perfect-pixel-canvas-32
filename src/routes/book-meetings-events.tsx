@@ -2987,13 +2987,31 @@ function StepThreeAccommodation({
           <div className="p-6 sm:p-9 lg:p-11 lg:pr-9">
             {/* Accommodation Period card */}
             <div
-              className="rounded-[16px] p-6 lg:p-7"
+              className="rounded-[16px] overflow-hidden"
               style={{
                 backgroundColor: "#FFFFFF",
                 border: "1px solid #EEEBE3",
                 boxShadow: "0 6px 18px -10px rgba(10,27,44,0.08)",
               }}
             >
+              <div className="relative w-full" style={{ height: 78 }}>
+                <img
+                  src={planningBannerImg}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  draggable={false}
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(to bottom, rgba(10,27,44,0) 55%, rgba(10,27,44,0.28) 100%)",
+                  }}
+                />
+              </div>
+              <div className="p-6 lg:p-7">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div
