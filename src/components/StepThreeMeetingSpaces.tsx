@@ -711,7 +711,7 @@ export function StepThreeMeetingSpaces({
       }
     >
       <div
-        className="overflow-hidden rounded-[22px]"
+        className="overflow-hidden rounded-[22px] lg:mr-4"
         style={{
           background: BEIGE,
           border: "1px solid #EAE3D5",
