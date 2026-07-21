@@ -1723,39 +1723,7 @@ function ExtraCard({
         </div>
       </button>
 
-      {/* Configure / Hide toggle */}
-      <button
-        type="button"
-        onClick={onCardClick}
-        className="mx-5 inline-flex items-center justify-center gap-1.5 text-[12px] font-semibold tracking-wide transition-colors"
-        style={{ color: "#B88A2E" }}
-      >
-        {open ? (
-          <>
-            Hide <ChevronUp size={14} strokeWidth={2.4} />
-          </>
-        ) : (
-          <>
-            Configure <ChevronDown size={14} strokeWidth={2.4} />
-          </>
-        )}
-      </button>
-
-      {/* Remove Service link — visible only when card is selected */}
-      {selected ? (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onRemove();
-          }}
-          className="mx-5 mt-1 mb-3 inline-flex items-center justify-center text-[11.5px] text-[#5A5A5A] hover:text-[#2B2B2B] transition-colors"
-        >
-          Remove Service
-        </button>
-      ) : (
-        <div className="mb-3" />
-      )}
+      <div className="mb-4" />
     </div>
   );
 }
