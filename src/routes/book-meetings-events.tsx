@@ -52,6 +52,8 @@ import {
   Luggage,
   Shirt,
   Gift,
+  Star,
+  Gem,
 } from "lucide-react";
 import airportTransferImg from "@/assets/extras/airport-transfer.jpg";
 import coachParkingImg from "@/assets/extras/coach-parking.jpg";
@@ -2848,6 +2850,134 @@ const ALL_SEARCHABLE_DESTINATIONS: SearchableDestination[] = (Object.keys(
     }));
 });
 
+type BudgetTier = "economy" | "mid" | "premium" | "luxury";
+
+function BudgetPreference({
+  value,
+  onChange,
+}: {
+  value: BudgetTier | null;
+  onChange: (v: BudgetTier | null) => void;
+}) {
+  const tiers: { id: BudgetTier; label: string; Icon: typeof Building2 }[] = [
+    { id: "economy", label: "Economy", Icon: Building2 },
+    { id: "mid", label: "Mid-range", Icon: Sparkles },
+    { id: "premium", label: "Premium", Icon: Star },
+    { id: "luxury", label: "Luxury", Icon: Gem },
+  ];
+
+  return (
+    <section className="mt-8">
+      <div className="flex items-start gap-3">
+        <div
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[13px] font-semibold text-white"
+          style={{ background: "#0A1B2C" }}
+          aria-hidden="true"
+        >
+          6
+        </div>
+        <div>
+          <h3
+            className="text-[22px] leading-tight text-[#0A1B2C]"
+            style={{ fontFamily: SERIF, fontWeight: 600 }}
+          >
+            Budget preference{" "}
+            <span className="text-[15px] text-[#7C8794]" style={{ fontFamily: "inherit", fontWeight: 400 }}>
+              (optional)
+            </span>
+          </h3>
+          <p className="mt-1 text-[13.5px] text-[#5B6673]">
+            Help us tailor the best options for your event.
+          </p>
+        </div>
+      </div>
+
+      <div
+        className="relative mt-5 rounded-[18px] px-6 py-6"
+        style={{
+          background: "linear-gradient(180deg,#0D1F33 0%,#081627 100%)",
+          border: "1px solid #F5C97533",
+          boxShadow: "0 20px 40px -30px rgba(4,25,48,0.5)",
+        }}
+      >
+        <div className="relative flex items-center justify-between">
+          {/* connecting line */}
+          <div
+            className="absolute left-6 right-6 top-[22px] h-px"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, #C89B3C 8%, #E7C67A 50%, #C89B3C 92%, transparent)",
+              opacity: 0.7,
+            }}
+            aria-hidden="true"
+          />
+          {tiers.map((t, i) => {
+            const selected = value === t.id;
+            const Icon = t.Icon;
+            return (
+              <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-2">
+                {/* midpoint dots between labels */}
+                {i > 0 && (
+                  <span
+                    className="absolute -left-1/2 top-[18px] h-[9px] w-[9px] -translate-x-1/2 rounded-full"
+                    style={{ border: "1.5px solid #C89B3C", background: "#0A1B2C" }}
+                    aria-hidden="true"
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => onChange(selected ? null : t.id)}
+                  aria-pressed={selected}
+                  className="relative flex h-11 w-11 items-center justify-center rounded-full transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
+                  style={
+                    selected
+                      ? {
+                          background:
+                            "radial-gradient(circle at 50% 45%, #FFE39A 0%, #E7B958 55%, #B9812C 100%)",
+                          boxShadow:
+                            "0 0 0 6px rgba(231,185,88,0.18), 0 0 22px 4px rgba(231,185,88,0.55)",
+                        }
+                      : { background: "transparent" }
+                  }
+                >
+                  <Icon
+                    size={22}
+                    strokeWidth={1.7}
+                    style={{ color: selected ? "#FFFFFF" : "#E7C67A" }}
+                    fill={selected && (t.id === "premium" || t.id === "luxury") ? "#FFFFFF" : "none"}
+                  />
+                </button>
+                <span
+                  className="text-[13px]"
+                  style={{
+                    color: selected ? "#F2CB74" : "#FFFFFF",
+                    fontWeight: selected ? 600 : 500,
+                  }}
+                >
+                  {t.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {value && (
+        <div className="mt-3 flex justify-end">
+          <button
+            type="button"
+            onClick={() => onChange(null)}
+            className="text-[13px] font-medium text-[#B88A2E] underline underline-offset-4 hover:text-[#8E6A20]"
+          >
+            Clear selection
+          </button>
+        </div>
+      )}
+    </section>
+  );
+}
+
+
 
 function StepTwoLocation({
   onBack,
@@ -2859,6 +2989,7 @@ function StepTwoLocation({
   const [selectedCountry, setSelectedCountry] = useState<CountryCode>("NO");
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [budget, setBudget] = useState<"economy" | "mid" | "premium" | "luxury" | null>(null);
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
 
@@ -3259,6 +3390,10 @@ function StepTwoLocation({
             <Pencil size={16} className="text-[#B88A2E]" strokeWidth={1.8} />
           </button>
         </div>
+
+
+        {/* Budget preference */}
+        <BudgetPreference value={budget} onChange={setBudget} />
 
         {/* Continue to Accommodation */}
         <div className="mt-8 flex justify-end">
