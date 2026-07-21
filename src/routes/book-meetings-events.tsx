@@ -2358,13 +2358,14 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
 
             {/* Right inner: timeline */}
             <div className="relative">
-              {/* Timeline vertical line — thin gold */}
+              {/* Timeline vertical line — metallic gold gradient */}
               <div
                 aria-hidden
                 className="absolute left-[7px] top-2 bottom-2 w-px"
                 style={{
                   backgroundImage:
-                    "linear-gradient(180deg, rgba(201,162,74,0.15), rgba(201,162,74,0.6) 12%, rgba(201,162,74,0.6) 88%, rgba(201,162,74,0.15))",
+                    "linear-gradient(180deg, #D4AF37 0%, #F3E6B1 50%, #D4AF37 100%)",
+                  opacity: 0.9,
                 }}
               />
               <ul className="space-y-0">
@@ -2377,30 +2378,29 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                       style={{
                         borderBottom:
                           i < rows.length - 1
-                            ? "1px solid rgba(201,162,74,0.22)"
+                            ? "1px solid #E6D6A6"
                             : "none",
                       }}
                     >
-                      {/* Gold node */}
+                      {/* Gold node — ~15% smaller, softer glow */}
                       <span
                         aria-hidden
-                        className="absolute left-0 top-1/2 -translate-y-1/2 h-[13px] w-[13px] rounded-full"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 h-[11px] w-[11px] rounded-full"
                         style={{
                           background:
-                            "radial-gradient(circle at 35% 30%, #FBE39A 0%, #E4C267 35%, #B8892F 78%, #8A6A1F 100%)",
-                          border: "1px solid rgba(255,240,200,0.55)",
+                            "radial-gradient(circle at 35% 30%, #F3E6B1 0%, #E4C267 45%, #B8892F 100%)",
                           boxShadow:
-                            "0 0 0 2px #FCFAF6, 0 0 10px rgba(201,162,74,0.55), inset 0 1px 1px rgba(255,255,255,0.6), inset 0 -1px 2px rgba(80,55,10,0.35)",
+                            "0 0 0 2px #FCFAF6, 0 0 6px rgba(201,162,74,0.38), inset 0 1px 1px rgba(255,255,255,0.5)",
                         }}
                       />
                       <div className="flex items-center gap-4">
                         <span
-                          className="relative inline-flex h-[47px] w-[47px] shrink-0 items-center justify-center rounded-full overflow-hidden"
+                          className="relative inline-flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full overflow-hidden"
                           style={{
                             backgroundColor: "#FCFAF6",
-                            border: "0.85px solid rgba(201,162,74,0.24)",
+                            border: "0.72px solid rgba(201,162,74,0.24)",
                             boxShadow:
-                              "inset 0 1.5px 3px rgba(120,90,40,0.14), inset 0 -1px 2px rgba(120,90,40,0.07)",
+                              "inset 0 2px 4px rgba(120,90,40,0.18), inset 0 -1px 2px rgba(120,90,40,0.08)",
                           }}
                         >
                           <span
@@ -2408,20 +2408,25 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                             className="pointer-events-none absolute inset-0 rounded-full"
                             style={{
                               backgroundImage:
-                                "radial-gradient(circle at 26% 20%, rgba(255,255,255,0.6), transparent 58%)",
+                                "radial-gradient(circle at 24% 18%, rgba(255,255,255,0.55), transparent 55%)",
                             }}
                           />
                           <Icon
-                            size={19}
-                            strokeWidth={2.05}
-                            style={{ color: GOLD_LO, position: "relative" }}
+                            size={18}
+                            strokeWidth={2.25}
+                            style={{
+                              color: "#B8892F",
+                              position: "relative",
+                              filter:
+                                "drop-shadow(0 -0.5px 0 rgba(255,240,200,0.6)) drop-shadow(0 1px 0 rgba(120,90,40,0.25))",
+                            }}
                           />
                         </span>
 
                         <div className="min-w-0 flex-1 grid grid-cols-[minmax(140px,180px)_1fr] gap-4 items-baseline">
                           <div
                             className="text-[11px] tracking-[0.22em] uppercase"
-                            style={{ color: "#7A6A45" }}
+                            style={{ color: "#8A6D1F" }}
                           >
                             {r.label}
                           </div>
@@ -2442,6 +2447,7 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                 })}
               </ul>
             </div>
+
           </div>
 
           {/* Bottom architectural line illustration */}
@@ -2514,7 +2520,7 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                     <div
                       style={{
                         fontFamily: SERIF,
-                        fontSize: "28px",
+                        fontSize: "31px",
                         lineHeight: 1,
                         color: GOLD_HI,
                         fontWeight: 500,
@@ -2522,7 +2528,7 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                     >
                       {s.n}
                     </div>
-                    <div className="mt-1 text-[12px] text-white/70">
+                    <div className="mt-0.5 text-[12px] text-white/70">
                       {s.label}
                     </div>
                   </div>
@@ -2540,15 +2546,16 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                 <Sparkles size={18} strokeWidth={1.6} style={{ color: GOLD_HI }} />
               </span>
               <div className="min-w-0 flex-1">
-                <div style={{ fontFamily: SERIF, fontSize: "22px", color: GOLD_HI, lineHeight: 1, fontWeight: 500 }}>
-                  Premium
-                </div>
-                <div style={{ color: GOLD_HI, fontSize: "14px", letterSpacing: "0.18em", marginTop: 4 }}>
+                <div style={{ color: GOLD_HI, fontSize: "16px", letterSpacing: "0.18em", lineHeight: 1 }}>
                   ★★★★
                 </div>
-                <div className="mt-1 text-[12px] text-white/70">Budget Level</div>
+                <div style={{ fontFamily: SERIF, fontSize: "22px", color: GOLD_HI, lineHeight: 1, fontWeight: 500, marginTop: 4 }}>
+                  Premium
+                </div>
+                <div className="mt-0.5 text-[12px] text-white/70">Budget Level</div>
               </div>
             </li>
+
           </ul>
 
           <div
