@@ -1484,8 +1484,8 @@ function ConfigRegistration({ cfg, set }: { cfg: ExtraConfigs["registration-desk
       <div>
         <FieldLabel>Hotel staff required</FieldLabel>
         <div className="grid grid-cols-2 gap-2">
-          <RadioOption label="Yes" selected={cfg.staff === "yes"} onClick={() => set({ ...cfg, staff: "yes" })} />
-          <RadioOption label="No" selected={cfg.staff === "no"} onClick={() => set({ ...cfg, staff: "no" })} />
+          <RadioOption label="Yes" selected={cfg.staff === "yes"} onClick={() => set({ ...cfg, staff: cfg.staff === "yes" ? "" : "yes" })} />
+          <RadioOption label="No" selected={cfg.staff === "no"} onClick={() => set({ ...cfg, staff: cfg.staff === "no" ? "" : "no" })} />
         </div>
       </div>
       <div>
