@@ -2742,7 +2742,7 @@ function StepTwoLocation({
 
         {/* Continue to Accommodation */}
         <div className="mt-8 flex justify-end">
-          <NextButton
+          <ContinueButton
             onClick={() => {
               if (selectedDestination) onNext();
             }}
