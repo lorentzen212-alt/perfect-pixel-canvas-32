@@ -2861,6 +2861,7 @@ function StepTwoLocation({
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
+  const [budget, setBudget] = useState<"economy" | "mid" | "premium" | "luxury" | null>(null);
 
   const searchRef = useRef<HTMLDivElement>(null);
 
