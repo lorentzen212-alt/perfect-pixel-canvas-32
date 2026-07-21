@@ -2694,10 +2694,20 @@ function StepTwoLocation({
           </button>
         </div>
 
-        {/* Hidden navigation — Step 2 uses progress bar for navigation to match reference */}
+        {/* Continue to Accommodation */}
+        <div className="mt-8 flex justify-end">
+          <NextButton
+            onClick={() => {
+              if (selectedDestination) onNext();
+            }}
+            label="Continue to Accommodation"
+            disabled={!selectedDestination}
+          />
+        </div>
+
+        {/* Hidden back nav — progress bar handles previous-step navigation */}
         <div className="sr-only" aria-hidden="true">
           <button type="button" onClick={onBack}>Back</button>
-          <button type="button" onClick={onNext}>Next Step</button>
         </div>
       </div>
 
