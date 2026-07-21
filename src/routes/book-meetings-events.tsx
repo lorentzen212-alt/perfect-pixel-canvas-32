@@ -477,8 +477,17 @@ function BookMeetingsEvents() {
       </section>
 
       {/* FORM SECTION */}
-      <section className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14">
-        <div className="mx-auto max-w-[1400px]">
+      <section
+        className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14"
+        style={{
+          backgroundImage: `url(${meBgImg})`,
+          backgroundPosition: "center top",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        <div className="relative mx-auto max-w-[1400px]">
           {/* Keep visited steps mounted so state persists across navigation. */}
           <div style={{ display: step === 1 ? "block" : "none" }}>
             {visited.has(1) && (
