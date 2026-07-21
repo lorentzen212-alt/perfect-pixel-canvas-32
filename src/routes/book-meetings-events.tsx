@@ -1429,7 +1429,7 @@ function ConfigAirportTransfer({ cfg, set }: { cfg: ExtraConfigs["airport-transf
               key={t}
               label={t}
               selected={cfg.transferType === t}
-              onClick={() => set({ ...cfg, transferType: t })}
+              onClick={() => set({ ...cfg, transferType: cfg.transferType === t ? "" : t })}
               badge={t === "Private Executive Van" ? "Recommended" : undefined}
             />
           ))}
@@ -1439,7 +1439,7 @@ function ConfigAirportTransfer({ cfg, set }: { cfg: ExtraConfigs["airport-transf
         <FieldLabel>Transfer direction</FieldLabel>
         <div className="flex flex-col gap-2">
           {dirs.map((d) => (
-            <RadioOption key={d} label={d} selected={cfg.direction === d} onClick={() => set({ ...cfg, direction: d })} />
+            <RadioOption key={d} label={d} selected={cfg.direction === d} onClick={() => set({ ...cfg, direction: cfg.direction === d ? "" : d })} />
           ))}
         </div>
       </div>
