@@ -1167,10 +1167,10 @@ export function StepThreeMeetingSpaces({
             className="p-5 lg:p-6 lg:pl-0 flex flex-col gap-5"
             style={{ background: "transparent" }}
           >
-            {/* Live Event Progress */}
+            {/* Live Event Summary */}
             <SidebarCard>
               <SidebarHeader
-                title="Live Event Progress"
+                title="Live Event Summary"
                 right={
                   <span className="flex items-center gap-1.5 text-[11.5px] text-[#8CE0A6]">
                     <span
@@ -1182,129 +1182,120 @@ export function StepThreeMeetingSpaces({
                 }
               />
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-[#96A0B0]">
-                Your request is updated automatically as you complete each step.
+                Everything you've added so far.
               </p>
-              {(() => {
-                const items: {
-                  Icon: typeof Users;
-                  title: string;
-                  value: string;
-                  done: boolean;
-                  step?: number;
-                }[] = [
-                  {
-                    Icon: MapPin,
-                    title: "Location",
-                    value: request?.destination || "Not selected",
-                    done: Boolean(request?.destination),
-                    step: 1,
-                  },
-                  {
-                    Icon: Bed,
-                    title: "Accommodation",
-                    value:
-                      (request?.guestRooms ?? 0) > 0
-                        ? `${request?.guestRooms} rooms`
-                        : "Not configured",
-                    done: (request?.guestRooms ?? 0) > 0,
-                    step: 2,
-                  },
-                  {
-                    Icon: Users,
-                    title: "Attendees",
-                    value:
-                      (request?.attendees ?? 0) > 0
-                        ? `${request?.attendees} attendees`
-                        : "Not set",
-                    done: (request?.attendees ?? 0) > 0,
-                    step: 2,
-                  },
-                  {
-                    Icon: Armchair,
-                    title: "Meeting Spaces",
-                    value:
-                      rooms.length > 0
-                        ? `${rooms.length} meeting room${rooms.length === 1 ? "" : "s"}`
-                        : "Not configured",
-                    done: rooms.length > 0,
-                    step: 3,
-                  },
-                  {
-                    Icon: Coffee,
-                    title: "Catering",
-                    value: "Not configured",
-                    done: false,
-                    step: 4,
-                  },
-                  {
-                    Icon: Star,
-                    title: "Extras",
-                    value: "Not configured",
-                    done: false,
-                    step: 5,
-                  },
-                  {
-                    Icon: FileText,
-                    title: "Event Details",
-                    value: "Not completed",
-                    done: false,
-                    step: 6,
-                  },
-                ];
-                const completed = items.filter((i) => i.done).length;
-                const total = items.length;
-                const pct = Math.round((completed / total) * 100);
-                return (
-                  <>
-                    <div className="mt-4 text-[13px] text-[#DDE4EE]">
-                      <span
-                        style={{ color: GOLD_SOFT, fontWeight: 600 }}
-                      >
-                        {completed}
-                      </span>{" "}
-                      of{" "}
-                      <span
-                        style={{ color: GOLD_SOFT, fontWeight: 600 }}
-                      >
-                        {total}
-                      </span>{" "}
-                      steps completed
+
+              <div className="mt-5 space-y-5">
+                {/* Location */}
+                {request?.destination && (
+                  <SummarySection
+                    Icon={MapPin}
+                    title="Location"
+                    onEdit={onEditStep ? () => onEditStep(1) : undefined}
+                  >
+                    <SummaryLine>{request.destination}</SummaryLine>
+                  </SummarySection>
+                )}
+
+                {/* Accommodation */}
+                {((request?.guestRooms ?? 0) > 0 || request?.dates) && (
+                  <SummarySection
+                    Icon={Bed}
+                    title="Accommodation"
+                    onEdit={onEditStep ? () => onEditStep(2) : undefined}
+                  >
+                    {(request?.guestRooms ?? 0) > 0 && (
+                      <SummaryLine>{request!.guestRooms} rooms</SummaryLine>
+                    )}
+                    {request?.dates && <SummaryLine>{request.dates}</SummaryLine>}
+                  </SummarySection>
+                )}
+
+                {/* Attendees */}
+                {(request?.attendees ?? 0) > 0 && (
+                  <SummarySection
+                    Icon={Users}
+                    title="Guests"
+                    onEdit={onEditStep ? () => onEditStep(2) : undefined}
+                  >
+                    <SummaryLine>{request!.attendees} attendees</SummaryLine>
+                  </SummarySection>
+                )}
+
+                {/* Meeting Spaces */}
+                <SummarySection
+                  Icon={Armchair}
+                  title="Meeting Spaces"
+                  onEdit={
+                    rooms.length > 0 && onEditStep ? () => onEditStep(3) : undefined
+                  }
+                >
+                  {rooms.length === 0 ? (
+                    <EmptyLine>No meeting rooms added</EmptyLine>
+                  ) : (
+                    <div className="space-y-3">
+                      {rooms.map((r, idx) => {
+                        const setupLabel =
+                          SETUPS.find((s) => s.id === r.setup)?.label ?? r.setup;
+                        return (
+                          <div
+                            key={r.id}
+                            className="rounded-[10px] px-3 py-2.5"
+                            style={{
+                              background: "rgba(255,255,255,0.03)",
+                              border: "1px solid rgba(255,255,255,0.05)",
+                            }}
+                          >
+                            <div className="text-[13px] font-semibold text-white leading-tight">
+                              {r.name || `Meeting Room ${idx + 1}`}
+                            </div>
+                            <ul className="mt-1.5 space-y-0.5 text-[12px] text-[#B4BDCB]">
+                              <li>• {setupLabel}</li>
+                              {(r.startTime || r.endTime) && (
+                                <li>
+                                  • {r.startTime || "—"}–{r.endTime || "—"}
+                                </li>
+                              )}
+                              {r.attendees > 0 && (
+                                <li>• {r.attendees} attendees</li>
+                              )}
+                            </ul>
+                          </div>
+                        );
+                      })}
                     </div>
-                    <div
-                      className="mt-2 h-[6px] w-full overflow-hidden rounded-full"
-                      style={{ background: "rgba(255,255,255,0.08)" }}
-                    >
-                      <div
-                        className="h-full rounded-full transition-all duration-500 ease-out"
-                        style={{
-                          width: `${pct}%`,
-                          background:
-                            "linear-gradient(90deg,#F7D97A 0%, #D4AF37 60%, #B88917 100%)",
-                          boxShadow:
-                            "0 0 12px -2px rgba(212,175,55,0.6)",
-                        }}
-                      />
-                    </div>
-                    <ul className="mt-5 divide-y divide-white/[0.06]">
-                      {items.map((it) => (
-                        <ProgressRow
-                          key={it.title}
-                          Icon={it.Icon}
-                          title={it.title}
-                          value={it.value}
-                          done={it.done}
-                          onEdit={
-                            it.done && it.step && onEditStep
-                              ? () => onEditStep(it.step!)
-                              : undefined
-                          }
-                        />
-                      ))}
-                    </ul>
-                  </>
-                );
-              })()}
+                  )}
+                </SummarySection>
+
+                {/* Catering */}
+                <SummarySection
+                  Icon={Coffee}
+                  title="Catering"
+                  onEdit={onEditStep ? () => onEditStep(4) : undefined}
+                >
+                  <EmptyLine>Not added yet</EmptyLine>
+                </SummarySection>
+
+                {/* Extras */}
+                <SummarySection
+                  Icon={Star}
+                  title="Extras"
+                  onEdit={onEditStep ? () => onEditStep(5) : undefined}
+                >
+                  <EmptyLine>No extras selected</EmptyLine>
+                </SummarySection>
+
+                {/* Event Details */}
+                <SummarySection
+                  Icon={FileText}
+                  title="Event Details"
+                  onEdit={onEditStep ? () => onEditStep(6) : undefined}
+                >
+                  <EmptyLine>No notes added</EmptyLine>
+                </SummarySection>
+              </div>
             </SidebarCard>
+
 
             {/* Recommended */}
             <SidebarCard>
