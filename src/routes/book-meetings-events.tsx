@@ -1889,7 +1889,7 @@ function StepFiveExtras({
               const isOpen = openId === def.id;
               const lines = saved[def.id] ? summaryFor(def.id, configs[def.id]) : [];
               return (
-                <React.Fragment key={def.id}>
+                <div key={def.id} className="contents">
                   <ExtraCard
                     def={def}
                     selected={selected[def.id]}
@@ -1906,7 +1906,7 @@ function StepFiveExtras({
                       setConfigs={setConfigs}
                     />
                   )}
-                </React.Fragment>
+                </div>
               );
             })}
           </div>
