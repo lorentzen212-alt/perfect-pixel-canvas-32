@@ -170,3 +170,11 @@
   0%, 100% { opacity: 0; transform: scale(0.6); }
   50% { opacity: 1; transform: scale(1.15); }
 }
+
+.catering-scroller::-webkit-scrollbar { height: 6px; }
+.catering-scroller::-webkit-scrollbar-track { background: transparent; }
+.catering-scroller::-webkit-scrollbar-thumb {
+  background: #E3D2A1;
+  border-radius: 999px;
+}
+.catering-scroller::-webkit-scrollbar-thumb:hover { background: #C79A32; }
