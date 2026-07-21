@@ -14,6 +14,7 @@ import {
   ArrowRight,
   ArrowLeft,
   ChevronDown,
+  ChevronUp,
   Users,
   Building2,
   Waves,
