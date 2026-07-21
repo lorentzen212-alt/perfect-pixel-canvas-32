@@ -352,6 +352,23 @@ function SetupGlyph({ id, size = 44 }: { id: SetupId; size?: number }) {
   );
 }
 
+/* ---------- Compact setup preview thumbnail ---------- */
+function SetupPreview({ id }: { id: SetupId }) {
+  return (
+    <div
+      className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-[14px]"
+      style={{
+        background: "#FBF8F2",
+        border: "1px solid rgba(212,169,74,0.55)",
+        boxShadow: "0 4px 10px -6px rgba(10,27,44,0.10)",
+        color: NAVY,
+      }}
+    >
+      <SetupGlyph id={id} size={34} />
+    </div>
+  );
+}
+
 /* ---------- helpers ---------- */
 function fmtDate(iso: string) {
   if (!iso) return "";
@@ -1070,39 +1087,18 @@ export function StepThreeMeetingSpaces({
                               "0 6px 18px -14px rgba(10,27,44,0.10)",
                           }}
                         >
-                          <div className="flex items-center gap-3 min-w-[220px]">
-                            <div
-                              className="grid h-9 w-9 place-items-center rounded-[10px]"
-                              style={{
-                                background: NAVY,
-                                color: GOLD_SOFT,
-                              }}
-                            >
-                              <DoorOpen size={16} />
+                          <SetupPreview id={r.setup} />
+                          <div className="flex-1 min-w-[180px]">
+                            <div className="text-[15px] font-medium text-[#0A1B2C]">
+                              {r.name || `Meeting Room ${i + 1}`}
                             </div>
-                            <div>
-                              <div className="text-[15px] font-medium text-[#0A1B2C]">
-                                {r.name || `Meeting Room ${i + 1}`}
-                              </div>
-                              <div className="text-[12px] text-[#6E7A88]">
-                                {s.label}
-                                {s.tag ? ` · ${s.tag}` : ""}
-                              </div>
+                            <div className="text-[12px] text-[#6E7A88]">
+                              {s.label}
+                              {s.tag ? ` · ${s.tag}` : ""}
                             </div>
-                          </div>
-                          <div className="flex flex-wrap items-center gap-5 text-[13px] text-[#3B4757] flex-1">
-                            <span className="flex items-center gap-1.5">
-                              <CalendarIcon size={13} style={{ color: GOLD }} />
-                              {fmtDate(r.date) || "—"}
-                            </span>
-                            <span className="flex items-center gap-1.5">
-                              <Clock size={13} style={{ color: GOLD }} />
-                              {r.startTime} – {r.endTime}
-                            </span>
-                            <span className="flex items-center gap-1.5">
-                              <Users size={13} style={{ color: GOLD }} />
-                              {r.attendees || 0} attendees
-                            </span>
+                            <div className="mt-0.5 text-[13px] text-[#3B4757]">
+                              {fmtDate(r.date) || "—"} · {r.startTime} – {r.endTime} · {r.attendees || 0} attendees
+                            </div>
                           </div>
                           <div className="flex items-center gap-1">
                             <button
