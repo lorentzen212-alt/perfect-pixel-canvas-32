@@ -3198,7 +3198,7 @@ const CATERING_DEFS: CateringDef[] = [
     defaultLocation: "Restaurant",
     variants: {
       default: "3-Course Gala Dinner",
-      options: ["3-Course Gala Dinner", "Buffet Gala Dinner", "Chef's Choice", "Other"],
+      options: ["Gala Buffet", "3-Course Gala Dinner", "Chef's Choice"],
     },
   },
 ];
