@@ -3833,43 +3833,24 @@ function StepFourCatering({
                               {def.label}
                             </div>
                             {def.variants && (
-                              <div className="relative mt-0.5">
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    setOpenVariantId(openVariantId === s.id ? null : s.id)
-                                  }
-                                  className="inline-flex items-center gap-1 text-[11.5px] text-[#6E7A88] hover:text-[#B88A2E]"
-                                >
-                                  {s.variant ?? def.variants.default}
-                                  <ChevronDown size={11} />
-                                </button>
-                                {openVariantId === s.id && (
-                                  <div
-                                    className="absolute z-30 mt-1 min-w-[180px] rounded-md py-1 text-[13px]"
-                                    style={{
-                                      background: "#FFFFFF",
-                                      border: "1px solid #E7DEC4",
-                                      boxShadow:
-                                        "0 12px 28px -14px rgba(10,27,44,0.20)",
-                                    }}
-                                  >
-                                    {def.variants.options.map((v) => (
-                                      <button
-                                        key={v}
-                                        type="button"
-                                        onClick={() => {
-                                          updateServing(s.id, { variant: v });
-                                          setOpenVariantId(null);
-                                        }}
-                                        className="block w-full text-left px-3 py-1.5 hover:bg-[#FBF6E7] text-[#0A1B2C]"
-                                      >
-                                        {v}
-                                      </button>
-                                    ))}
-                                  </div>
-                                )}
-                              </div>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setOpenVariantId(openVariantId === s.id ? null : s.id)
+                                }
+                                className="mt-0.5 inline-flex items-center gap-1 text-[11.5px] text-[#6E7A88] hover:text-[#B88A2E]"
+                                aria-expanded={openVariantId === s.id}
+                              >
+                                {s.variant ?? def.variants.default}
+                                <ChevronDown
+                                  size={11}
+                                  style={{
+                                    transition: "transform 240ms ease",
+                                    transform:
+                                      openVariantId === s.id ? "rotate(180deg)" : "none",
+                                  }}
+                                />
+                              </button>
                             )}
                           </div>
                         </div>
