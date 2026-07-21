@@ -1730,12 +1730,18 @@ function ExtraCard({
 
 function ExtraAccordion({
   def,
+  saved,
   onDone,
+  onHide,
+  onRemove,
   configs,
   setConfigs,
 }: {
   def: ExtraDef;
+  saved: boolean;
   onDone: () => void;
+  onHide: () => void;
+  onRemove: () => void;
   configs: ExtraConfigs;
   setConfigs: React.Dispatch<React.SetStateAction<ExtraConfigs>>;
 }) {
