@@ -72,7 +72,9 @@ import { TrustShield, TrustClock, TrustHeadset, TrustLock } from "@/components/T
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
+import meBgAsset from "@/assets/me-bg.png.asset.json";
 const heroImg = heroAsset.url;
+const meBgImg = meBgAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
 import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
 const helpCardBg = helpCardBgAsset.url;
@@ -475,8 +477,17 @@ function BookMeetingsEvents() {
       </section>
 
       {/* FORM SECTION */}
-      <section className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14">
-        <div className="mx-auto max-w-[1400px]">
+      <section
+        className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14"
+        style={{
+          backgroundImage: `url(${meBgImg})`,
+          backgroundPosition: "center top",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        <div className="relative mx-auto max-w-[1400px]">
           {/* Keep visited steps mounted so state persists across navigation. */}
           <div style={{ display: step === 1 ? "block" : "none" }}>
             {visited.has(1) && (
