@@ -2520,7 +2520,7 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                     <div
                       style={{
                         fontFamily: SERIF,
-                        fontSize: "28px",
+                        fontSize: "31px",
                         lineHeight: 1,
                         color: GOLD_HI,
                         fontWeight: 500,
@@ -2528,7 +2528,7 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                     >
                       {s.n}
                     </div>
-                    <div className="mt-1 text-[12px] text-white/70">
+                    <div className="mt-0.5 text-[12px] text-white/70">
                       {s.label}
                     </div>
                   </div>
@@ -2546,15 +2546,16 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                 <Sparkles size={18} strokeWidth={1.6} style={{ color: GOLD_HI }} />
               </span>
               <div className="min-w-0 flex-1">
-                <div style={{ fontFamily: SERIF, fontSize: "22px", color: GOLD_HI, lineHeight: 1, fontWeight: 500 }}>
-                  Premium
-                </div>
-                <div style={{ color: GOLD_HI, fontSize: "14px", letterSpacing: "0.18em", marginTop: 4 }}>
+                <div style={{ color: GOLD_HI, fontSize: "16px", letterSpacing: "0.18em", lineHeight: 1 }}>
                   ★★★★
                 </div>
-                <div className="mt-1 text-[12px] text-white/70">Budget Level</div>
+                <div style={{ fontFamily: SERIF, fontSize: "22px", color: GOLD_HI, lineHeight: 1, fontWeight: 500, marginTop: 4 }}>
+                  Premium
+                </div>
+                <div className="mt-0.5 text-[12px] text-white/70">Budget Level</div>
               </div>
             </li>
+
           </ul>
 
           <div
