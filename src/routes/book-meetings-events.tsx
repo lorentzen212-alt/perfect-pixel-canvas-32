@@ -445,7 +445,7 @@ function BookMeetingsEvents() {
                     {step === 6 && (
                       <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
                     )}
-                    {(step === 4 || step === 5 || step === 7) && (
+                    {(step === 5 || step === 7) && (
                       <StepPlaceholder
                         step={step}
                         title={STEPS[step - 1]}
