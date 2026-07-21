@@ -1926,6 +1926,7 @@ function StepFiveExtras({
                     saved={saved[def.id]}
                     open={isOpen}
                     onCardClick={() => handleCardClick(def.id)}
+                    onRemove={() => handleRemove(def.id)}
                     summaryLines={lines}
                   />
                   {isOpen && (
