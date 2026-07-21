@@ -1623,92 +1623,63 @@ function RequestRow({
   );
 }
 
-function ProgressRow({
+function SummarySection({
   Icon,
   title,
-  value,
-  done,
   onEdit,
+  children,
 }: {
   Icon: typeof Users;
   title: string;
-  value: string;
-  done: boolean;
   onEdit?: () => void;
+  children: React.ReactNode;
 }) {
-  const clickable = Boolean(onEdit);
   return (
-    <li
-      onClick={onEdit}
-      className={`group relative flex items-center gap-3 px-2 py-3 -mx-2 rounded-[10px] transition-all duration-200 ${
-        clickable ? "cursor-pointer" : ""
-      }`}
-      style={{
-        borderLeft: "2px solid transparent",
-      }}
-      onMouseEnter={(e) => {
-        if (!clickable) return;
-        e.currentTarget.style.background = "rgba(245,236,214,0.05)";
-        e.currentTarget.style.borderLeftColor = GOLD;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = "transparent";
-        e.currentTarget.style.borderLeftColor = "transparent";
-      }}
+    <div
+      className="group relative border-t border-white/[0.06] pt-4 first:border-t-0 first:pt-0"
     >
-      <span
-        className="grid h-9 w-9 shrink-0 place-items-center rounded-full"
-        style={{
-          background: "rgba(232,200,118,0.08)",
-          border: "1px solid rgba(232,200,118,0.22)",
-          color: GOLD_SOFT,
-        }}
-      >
-        <Icon size={15} strokeWidth={1.8} />
-      </span>
-      <span
-        className="grid h-6 w-6 shrink-0 place-items-center rounded-full transition-all duration-200"
-        style={
-          done
-            ? {
-                background:
-                  "linear-gradient(180deg,#F7D97A 0%, #D4AF37 60%, #B88917 100%)",
-                border: "1px solid rgba(184,137,23,0.7)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.45), 0 0 8px -2px rgba(212,175,55,0.55)",
-                animation: "fade-in 240ms ease-out",
-              }
-            : {
-                background: "transparent",
-                border: "1.5px solid rgba(255,255,255,0.25)",
-              }
-        }
-      >
-        {done && (
-          <Check
-            size={12}
-            strokeWidth={3.2}
-            style={{ color: "#0A1B2C" }}
-          />
-        )}
-      </span>
-      <div className="flex-1 min-w-0">
-        <div className="text-[13.5px] font-semibold text-white leading-tight">
-          {title}
-        </div>
-        <div className="text-[12px] text-[#96A0B0] mt-0.5 truncate">
-          {value}
-        </div>
-      </div>
-      {clickable && (
+      <div className="mb-2 flex items-center gap-2.5">
         <span
-          className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center gap-1 text-[12px] font-medium"
-          style={{ color: GOLD_SOFT }}
+          className="grid h-7 w-7 shrink-0 place-items-center rounded-full"
+          style={{
+            background: "rgba(232,200,118,0.10)",
+            border: "1px solid rgba(232,200,118,0.24)",
+            color: GOLD_SOFT,
+          }}
         >
-          Edit
-          <ArrowRight size={12} />
+          <Icon size={13} strokeWidth={1.8} />
         </span>
-      )}
-    </li>
+        <span className="flex-1 text-[12.5px] font-semibold uppercase tracking-[0.08em] text-[#DDE4EE]">
+          {title}
+        </span>
+        {onEdit && (
+          <button
+            type="button"
+            onClick={onEdit}
+            className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center gap-1 text-[11.5px] font-medium"
+            style={{ color: GOLD_SOFT }}
+          >
+            Edit
+            <ArrowRight size={11} />
+          </button>
+        )}
+      </div>
+      <div className="pl-[38px]">{children}</div>
+    </div>
   );
 }
+
+function SummaryLine({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="text-[13px] text-[#E6EBF3] leading-relaxed">{children}</div>
+  );
+}
+
+function EmptyLine({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="text-[12.5px] italic text-[#6E7A88] leading-relaxed">
+      {children}
+    </div>
+  );
+}
+
