@@ -2327,9 +2327,9 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
 
           <div className="relative grid grid-cols-1 md:grid-cols-[minmax(220px,300px)_1fr] gap-10 lg:gap-14">
             {/* Left inner: title */}
-            <div>
+            <div className="relative flex flex-col items-center text-center md:-mt-6 md:-ml-5 md:min-h-[520px]">
               <div
-                className="inline-flex items-center gap-3 text-[10.5px] tracking-[0.32em] uppercase"
+                className="inline-flex items-center gap-3 text-[9.5px] tracking-[0.34em] uppercase"
                 style={{ color: GOLD_LO }}
               >
                 <span aria-hidden>✦</span>
@@ -2337,38 +2337,106 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                 <span aria-hidden>✦</span>
               </div>
               <h2
-                className="mt-6 text-[#0B1620] leading-[0.95]"
-                style={{ fontFamily: SERIF, fontSize: "56px", fontWeight: 500, letterSpacing: "0.01em" }}
+                className="mt-5 text-[#0B1620] leading-[0.88]"
+                style={{ fontFamily: SERIF, fontSize: "50px", fontWeight: 500, letterSpacing: "0.01em" }}
               >
-                &nbsp; &nbsp; &nbsp; &nbsp;M&amp;E
+                M&amp;E
                 <br />
-                &nbsp; &nbsp; &nbsp; Event
+                Event
                 <br />
-                &nbsp; &nbsp;Summary
+                Summary
               </h2>
               <div className="mt-5 flex items-center gap-3" aria-hidden>
-                <span className="h-px w-14" style={{ backgroundColor: "rgba(201,162,74,0.55)" }} />
-                <span style={{ color: GOLD }}>◆</span>
-                <span className="h-px w-14" style={{ backgroundColor: "rgba(201,162,74,0.55)" }} />
+                <span className="h-px w-14" style={{ backgroundColor: "rgba(201,162,74,0.72)" }} />
+                <span style={{ color: GOLD, fontSize: "10px" }}>◆</span>
+                <span className="h-px w-14" style={{ backgroundColor: "rgba(201,162,74,0.72)" }} />
               </div>
-              <p className="mt-6 text-[15px] leading-relaxed text-[#4A5560] max-w-[260px]">
+              <p className="mt-6 text-[15px] leading-relaxed text-[#3A4450] max-w-[240px]">
                 Review your details and submit your request with confidence.
               </p>
+
+              {/* Architectural line art — bottom-left decorative silhouette */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute left-0 right-0 bottom-0 hidden md:block"
+                style={{
+                  height: "30%",
+                  opacity: 0.15,
+                  WebkitMaskImage:
+                    "linear-gradient(to top right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0) 85%)",
+                  maskImage:
+                    "linear-gradient(to top right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0) 85%)",
+                }}
+              >
+                <svg
+                  viewBox="0 0 300 140"
+                  preserveAspectRatio="xMinYMax meet"
+                  className="w-full h-full"
+                  fill="none"
+                  stroke="#B8892F"
+                  strokeWidth="0.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  {/* Ground line */}
+                  <path d="M0 138 H300" />
+                  {/* Left tower with spire */}
+                  <path d="M12 138 V70 L26 70 V138" />
+                  <path d="M14 70 V56 H24 V70" />
+                  <path d="M19 56 L19 42" />
+                  <path d="M17 42 L19 34 L21 42 Z" />
+                  <path d="M15 84 H23 M15 96 H23 M15 108 H23 M15 120 H23" />
+                  {/* Main classical building with dome */}
+                  <path d="M38 138 V64 H92 V138" />
+                  <path d="M40 64 V54 H90 V64" />
+                  <path d="M45 54 V44 H85 V54" />
+                  <path d="M50 44 Q65 22 80 44" />
+                  <path d="M65 22 V14" />
+                  <path d="M63 14 L65 8 L67 14 Z" />
+                  {/* Columns */}
+                  <path d="M46 138 V70 M54 138 V70 M62 138 V70 M70 138 V70 M78 138 V70 M86 138 V70" />
+                  {/* Middle building */}
+                  <path d="M100 138 V80 H140 V138" />
+                  <path d="M102 80 V72 H138 V80" />
+                  <path d="M108 72 V60 H132 V72" />
+                  <path d="M120 60 V50" />
+                  {/* Windows */}
+                  <path d="M106 92 H112 M118 92 H124 M126 92 H132 M106 104 H112 M118 104 H124 M126 104 H132 M106 116 H112 M118 116 H124 M126 116 H132" />
+                  {/* Right cluster */}
+                  <path d="M150 138 V88 H176 V138" />
+                  <path d="M152 88 V78 H174 V88" />
+                  <path d="M163 78 V68" />
+                  <path d="M184 138 V76 H210 V138" />
+                  <path d="M186 76 V66 H208 V76" />
+                  <path d="M197 66 V54" />
+                  <path d="M195 54 L197 46 L199 54 Z" />
+                  {/* Far right small buildings */}
+                  <path d="M218 138 V96 H236 V138" />
+                  <path d="M244 138 V84 H262 V138" />
+                  <path d="M246 84 V74 H260 V84" />
+                  <path d="M270 138 V100 H288 V138" />
+                  {/* Detail bands */}
+                  <path d="M38 100 H92 M100 108 H140 M150 116 H176 M184 108 H210" />
+                </svg>
+              </div>
             </div>
 
             {/* Right inner: timeline */}
             <div className="relative">
-              {/* Timeline vertical line — metallic gold gradient */}
+              {/* Timeline vertical line — metallic gold gradient, aligned to first/last node centers */}
               <div
                 aria-hidden
-                className="absolute left-[7px] top-2 bottom-2 w-px"
+                className="absolute left-[7px] w-px"
                 style={{
+                  top: "36px",
+                  bottom: "36px",
                   backgroundImage:
                     "linear-gradient(180deg, #C9A03A 0%, #F5E9B8 50%, #C9A03A 100%)",
                   opacity: 1,
                   boxShadow: "0 0 3px rgba(201,162,74,0.22)",
                 }}
               />
+
               <ul className="space-y-0">
                 {rows.map((r, i) => {
                   const Icon = r.Icon;
