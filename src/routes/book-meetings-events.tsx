@@ -3295,7 +3295,7 @@ function StepFourCatering({
   const [servings, setServings] = useState<CateringServing[]>([]);
   const [dietary, setDietary] = useState<string[]>([]);
   const [dietaryOther, setDietaryOther] = useState("");
-  const [drinks, setDrinks] = useState<string[]>(["Coffee & Tea", "Mineral Water", "Wine"]);
+  const [drinks, setDrinks] = useState<string[]>(["Coffee & Tea", "Wine"]);
   const [notes, setNotes] = useState("");
   const [openLocId, setOpenLocId] = useState<string | null>(null);
   const [openVariantId, setOpenVariantId] = useState<string | null>(null);
