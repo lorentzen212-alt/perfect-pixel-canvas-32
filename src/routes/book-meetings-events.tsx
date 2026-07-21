@@ -3223,11 +3223,11 @@ const DIETARY_OPTIONS = [
 
 const DRINK_OPTIONS = [
   "Coffee & Tea",
-  "Mineral Water",
   "Soft Drinks",
-  "Wine",
   "Beer",
+  "Wine",
   "Private Bar",
+  "Welcome Drink",
 ];
 
 function StepFourCatering({
