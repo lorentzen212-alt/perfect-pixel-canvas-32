@@ -573,8 +573,10 @@ function BookMeetingsEvents() {
             </div>
           )}
 
-          {/* Credibility */}
-          {step !== 2 && step !== 3 && (
+          {/* Step 1 premium divider / other steps credibility banner */}
+          {step === 1 ? (
+            <PremiumDivider />
+          ) : step !== 2 && step !== 3 ? (
           <div
             className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center px-8 md:px-12 py-8 md:py-10 rounded-[20px]"
             style={{
@@ -645,7 +647,7 @@ function BookMeetingsEvents() {
             </div>
 
           </div>
-          )}
+          ) : null}
 
         </div>
       </section>
@@ -2949,6 +2951,43 @@ function StepTwoLocation({
           </div>
         </div>
       </aside>
+    </div>
+  );
+}
+
+function PremiumDivider() {
+  return (
+    <div className="py-14 lg:py-20">
+      <div className="relative flex items-center justify-center">
+        <div
+          className="absolute inset-x-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent 0%, rgba(199,154,50,0.22) 12%, rgba(199,154,50,0.85) 50%, rgba(199,154,50,0.22) 88%, transparent 100%)",
+          }}
+        />
+        <div
+          className="relative z-10 flex h-5 w-5 items-center justify-center"
+          style={{
+            background:
+              "linear-gradient(135deg, #F7E9B8 0%, #E4C77A 45%, #C79A32 100%)",
+            transform: "rotate(45deg)",
+            boxShadow:
+              "0 0 0 4px #F7F7F5, 0 0 10px rgba(199,154,50,0.35)",
+          }}
+        >
+          <div
+            className="h-1.5 w-1.5 rounded-full"
+            style={{ backgroundColor: "#F7F7F5" }}
+          />
+        </div>
+      </div>
+      <p
+        className="mt-5 text-center text-[17px] lg:text-[18px] italic tracking-[0.01em]"
+        style={{ fontFamily: SERIF, color: "#2A2A2A" }}
+      >
+        Professional planning. Premium results.
+      </p>
     </div>
   );
 }
