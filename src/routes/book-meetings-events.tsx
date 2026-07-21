@@ -2937,15 +2937,16 @@ function BudgetPreference({
     desc: string;
     Icon: (p: { active: boolean }) => React.ReactElement;
   }[] = [
-    { id: "economy", label: "Economy", desc: "Smart value stays", Icon: EconomyIcon },
+    { id: "economy", label: "Economy", desc: "Smart value", Icon: EconomyIcon },
     { id: "mid", label: "Mid-range", desc: "Balanced comfort", Icon: MidIcon },
-    { id: "premium", label: "Premium", desc: "Elevated experience", Icon: PremiumIcon },
-    { id: "luxury", label: "Luxury", desc: "Signature indulgence", Icon: LuxuryIcon },
+    { id: "premium", label: "Premium", desc: "Elevated stay", Icon: PremiumIcon },
+    { id: "luxury", label: "Luxury", desc: "Signature luxury", Icon: LuxuryIcon },
   ];
 
   return (
-    <section className="mt-6">
-      <div>
+    <section className="mt-8">
+      <GoldStarDivider />
+      <div className="mt-6">
         <h3
           className="text-[22px] leading-tight text-[#0A1B2C]"
           style={{ fontFamily: SERIF, fontWeight: 600 }}
@@ -2970,29 +2971,52 @@ function BudgetPreference({
               type="button"
               onClick={() => onChange(selected ? null : t.id)}
               aria-pressed={selected}
-              className="group relative flex flex-col items-center justify-center rounded-[14px] px-3 py-4 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E8C46A]/60"
+              className="group relative flex flex-col items-center justify-center rounded-[14px] px-3 py-3 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E8C46A]/60"
               style={{
+                minHeight: 118,
                 background: selected
-                  ? "linear-gradient(160deg, #FBF1D8 0%, #F7E7BE 55%, #F0D9A0 100%)"
+                  ? "linear-gradient(160deg, #142743 0%, #0F1B2D 55%, #0A1524 100%)"
                   : "#FFFDF8",
                 border: selected
-                  ? "1px solid rgba(200,160,80,0.55)"
+                  ? "1px solid rgba(212,175,55,0.85)"
                   : "1px solid rgba(60,72,90,0.10)",
                 boxShadow: selected
-                  ? "inset 0 1px 2px rgba(255,255,255,0.85), inset 0 -1px 3px rgba(184,138,46,0.10), 0 2px 10px -6px rgba(184,138,46,0.30)"
+                  ? "0 0 0 1px rgba(212,175,55,0.35), 0 10px 26px -10px rgba(212,175,55,0.55), 0 4px 14px -6px rgba(10,20,36,0.35), inset 0 1px 0 rgba(255,220,140,0.12)"
                   : "inset 0 1px 2px rgba(255,255,255,0.9), inset 0 -1px 3px rgba(20,30,45,0.04), 0 1px 2px rgba(20,30,45,0.03)",
               }}
             >
+              {selected && (
+                <span
+                  aria-hidden="true"
+                  className="absolute right-2 top-2 inline-flex h-[18px] w-[18px] items-center justify-center rounded-full"
+                  style={{
+                    background: "linear-gradient(160deg, #F7E3A8 0%, #E8C46A 55%, #B88A2E 100%)",
+                    boxShadow: "0 2px 6px -2px rgba(184,138,46,0.55)",
+                  }}
+                >
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2.5 6.2l2.3 2.3L9.5 3.8" stroke="#0F1B2D" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              )}
               <Icon active={selected} />
               <span
-                className="mt-2 text-[13.5px] text-[#0A1B2C]"
-                style={{ fontFamily: SERIF, fontWeight: selected ? 600 : 550, letterSpacing: "0.005em" }}
+                className="mt-2 text-[13.5px]"
+                style={{
+                  fontFamily: SERIF,
+                  fontWeight: selected ? 600 : 550,
+                  letterSpacing: "0.005em",
+                  color: selected ? "#F7E3A8" : "#0A1B2C",
+                }}
               >
                 {t.label}
               </span>
               <span
-                className="mt-0.5 text-[10.5px] font-normal tracking-[0.01em] text-[#8A8578]"
-                style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+                className="mt-0.5 text-[10.5px] font-normal tracking-[0.01em]"
+                style={{
+                  fontFamily: "Inter, system-ui, sans-serif",
+                  color: selected ? "rgba(255,255,255,0.72)" : "#8A8578",
+                }}
               >
                 {t.desc}
               </span>
@@ -3013,6 +3037,33 @@ function BudgetPreference({
         </div>
       )}
     </section>
+  );
+}
+
+function GoldStarDivider() {
+  return (
+    <div className="flex items-center gap-3" aria-hidden="true">
+      <span
+        className="h-px flex-1"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(200,160,80,0) 0%, rgba(200,160,80,0.55) 50%, rgba(200,160,80,0) 100%)",
+        }}
+      />
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path
+          d="M6 0.5l1.3 3.2 3.2 1.3-3.2 1.3L6 9.5 4.7 6.3 1.5 5l3.2-1.3z"
+          fill="#D4AF37"
+        />
+      </svg>
+      <span
+        className="h-px flex-1"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(200,160,80,0) 0%, rgba(200,160,80,0.55) 50%, rgba(200,160,80,0) 100%)",
+        }}
+      />
+    </div>
   );
 }
 
