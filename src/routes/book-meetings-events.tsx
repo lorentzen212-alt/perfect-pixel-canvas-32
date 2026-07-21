@@ -3106,53 +3106,172 @@ function StepThreeAccommodation({
                         "0 0 0 6px rgba(217,182,90,0.06), 0 10px 22px -12px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.04), inset 0 -2px 4px rgba(0,0,0,0.45)",
                     }}
                   >
-                    {/* premium champagne-gold gradient frame */}
-                    <span
+                    {/* Fully vector premium calendar plaque */}
+                    <svg
+                      viewBox="0 0 44 44"
+                      width={44}
+                      height={44}
                       aria-hidden
                       style={{
                         position: "absolute",
                         inset: 0,
-                        borderRadius: 12,
-                        padding: 1.4,
-                        background:
-                          "linear-gradient(135deg, #F6E1A1 0%, #D9B65A 35%, #8C6A25 65%, #E7C878 100%)",
-                        WebkitMask:
-                          "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-                        WebkitMaskComposite: "xor",
-                        maskComposite: "exclude",
-                        pointerEvents: "none",
+                        display: "block",
+                        overflow: "visible",
                       }}
-                    />
-                    {/* soft top-left reflection */}
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        borderRadius: 12,
-                        background:
-                          "linear-gradient(150deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 38%)",
-                        pointerEvents: "none",
-                      }}
-                    />
-                    {/* premium calendar icon — reference image */}
-                    <img
-                      src={accommodationCalendarIcon.url}
-                      alt=""
-                      aria-hidden
-                      draggable={false}
-                      style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        width: "110%",
-                        height: "110%",
-                        transform: "translate(-50%,-50%)",
-                        borderRadius: 12,
-                        objectFit: "cover",
-                        pointerEvents: "none",
-                      }}
-                    />
+                    >
+                      <defs>
+                        {/* navy body — layered gradient */}
+                        <linearGradient id="apPlaqueNavy" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#132338" />
+                          <stop offset="45%" stopColor="#0B1624" />
+                          <stop offset="100%" stopColor="#050C17" />
+                        </linearGradient>
+                        {/* inner navy vignette */}
+                        <radialGradient id="apPlaqueVignette" cx="30%" cy="22%" r="85%">
+                          <stop offset="0%" stopColor="#1B2E48" stopOpacity="0.55" />
+                          <stop offset="60%" stopColor="#0B1624" stopOpacity="0" />
+                        </radialGradient>
+                        {/* champagne-gold frame gradient */}
+                        <linearGradient id="apPlaqueGold" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stopColor="#FBEBB4" />
+                          <stop offset="28%" stopColor="#E7C878" />
+                          <stop offset="55%" stopColor="#B78A34" />
+                          <stop offset="78%" stopColor="#8C6A25" />
+                          <stop offset="100%" stopColor="#E4C67A" />
+                        </linearGradient>
+                        {/* inner bevel highlight */}
+                        <linearGradient id="apPlaqueBevel" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#FFF3C8" stopOpacity="0.9" />
+                          <stop offset="55%" stopColor="#FFF3C8" stopOpacity="0" />
+                        </linearGradient>
+                        {/* upper-left reflection sheen */}
+                        <linearGradient id="apPlaqueSheen" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.28" />
+                          <stop offset="45%" stopColor="#FFFFFF" stopOpacity="0" />
+                        </linearGradient>
+                        {/* calendar stroke gold */}
+                        <linearGradient id="apCalGold" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#FCEDB6" />
+                          <stop offset="45%" stopColor="#E4C578" />
+                          <stop offset="100%" stopColor="#9A7530" />
+                        </linearGradient>
+                        {/* sparkle gradient */}
+                        <linearGradient id="apSparkGold" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stopColor="#FFF4C8" />
+                          <stop offset="100%" stopColor="#D9B65A" />
+                        </linearGradient>
+                        <radialGradient id="apSparkGlow" cx="50%" cy="50%" r="50%">
+                          <stop offset="0%" stopColor="#FFF0B8" stopOpacity="0.7" />
+                          <stop offset="100%" stopColor="#FFF0B8" stopOpacity="0" />
+                        </radialGradient>
+                        {/* soft inner shadow filter for emboss */}
+                        <filter id="apInnerShadow" x="-20%" y="-20%" width="140%" height="140%">
+                          <feGaussianBlur in="SourceAlpha" stdDeviation="0.6" />
+                          <feOffset dx="0" dy="0.6" result="off" />
+                          <feComposite in="off" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="inner" />
+                          <feColorMatrix in="inner" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0" />
+                          <feBlend in="SourceGraphic" in2="inner" mode="normal" />
+                        </filter>
+                      </defs>
+
+                      {/* outer gold frame */}
+                      <rect x="0.5" y="0.5" width="43" height="43" rx="12" ry="12" fill="url(#apPlaqueGold)" />
+                      {/* navy body */}
+                      <rect x="2" y="2" width="40" height="40" rx="10.5" ry="10.5" fill="url(#apPlaqueNavy)" />
+                      {/* inner vignette */}
+                      <rect x="2" y="2" width="40" height="40" rx="10.5" ry="10.5" fill="url(#apPlaqueVignette)" />
+                      {/* inner bevel line */}
+                      <rect
+                        x="2.6"
+                        y="2.6"
+                        width="38.8"
+                        height="38.8"
+                        rx="10"
+                        ry="10"
+                        fill="none"
+                        stroke="url(#apPlaqueBevel)"
+                        strokeWidth="0.55"
+                        opacity="0.6"
+                      />
+                      {/* subtle inner dark rim */}
+                      <rect
+                        x="2.2"
+                        y="2.2"
+                        width="39.6"
+                        height="39.6"
+                        rx="10.3"
+                        ry="10.3"
+                        fill="none"
+                        stroke="#000"
+                        strokeOpacity="0.55"
+                        strokeWidth="0.4"
+                      />
+                      {/* upper-left sheen */}
+                      <path
+                        d="M2 12.5 Q2 2 12.5 2 L26 2 L26 4 Q12 5 5 15 Z"
+                        fill="url(#apPlaqueSheen)"
+                      />
+
+                      {/* ===== Calendar ===== */}
+                      <g filter="url(#apInnerShadow)">
+                        {/* body outline */}
+                        <rect
+                          x="11"
+                          y="14"
+                          width="22"
+                          height="20"
+                          rx="3"
+                          ry="3"
+                          fill="none"
+                          stroke="url(#apCalGold)"
+                          strokeWidth="1.5"
+                        />
+                        {/* header divider */}
+                        <line
+                          x1="11.6"
+                          y1="19.4"
+                          x2="32.4"
+                          y2="19.4"
+                          stroke="url(#apCalGold)"
+                          strokeWidth="1.3"
+                        />
+                        {/* binder rings */}
+                        <rect x="15.6" y="11" width="1.9" height="5" rx="0.85" fill="url(#apCalGold)" />
+                        <rect x="26.5" y="11" width="1.9" height="5" rx="0.85" fill="url(#apCalGold)" />
+                        {/* date dots */}
+                        {[0, 1, 2].map((r) =>
+                          [0, 1, 2, 3].map((c) => {
+                            if (r === 2 && c > 2) return null;
+                            const isToday = r === 1 && c === 1;
+                            const size = isToday ? 2.3 : 1.8;
+                            const x = 14.3 + c * 3.7 - (isToday ? 0.25 : 0);
+                            const y = 22 + r * 3.3 - (isToday ? 0.25 : 0);
+                            return (
+                              <rect
+                                key={`d-${r}-${c}`}
+                                x={x}
+                                y={y}
+                                width={size}
+                                height={size}
+                                rx="0.45"
+                                fill="url(#apCalGold)"
+                                opacity={isToday ? 1 : 0.86}
+                              />
+                            );
+                          })
+                        )}
+                      </g>
+
+                      {/* ===== Sparkle — lower right ===== */}
+                      <g transform="translate(33.6,32.4)">
+                        <circle r="3.8" fill="url(#apSparkGlow)" />
+                        <path
+                          d="M0 -3.4 L0.75 -0.75 L3.4 0 L0.75 0.75 L0 3.4 L-0.75 0.75 L-3.4 0 L-0.75 -0.75 Z"
+                          fill="url(#apSparkGold)"
+                        />
+                        <circle cx="0" cy="0" r="0.6" fill="#FFF8DC" />
+                      </g>
+                    </svg>
                   </div>
                   <div>
                   <h3
