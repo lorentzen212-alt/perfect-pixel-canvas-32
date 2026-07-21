@@ -719,9 +719,9 @@ export function StepThreeMeetingSpaces({
             "0 40px 90px -50px rgba(10,27,44,0.18), 0 12px 32px -24px rgba(10,27,44,0.08)",
         }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_336px] gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(360px,380px)] gap-8 lg:gap-14">
           {/* LEFT — CONTENT */}
-          <div className="p-6 sm:p-10 lg:p-12 min-w-0">
+          <div className="p-6 sm:p-10 lg:px-14 lg:py-12 min-w-0">
             {/* Title */}
             <div>
               <h2
@@ -1208,7 +1208,7 @@ export function StepThreeMeetingSpaces({
 
           {/* RIGHT — SIDEBAR */}
           <aside
-            className="p-5 lg:pt-[210px] lg:pr-12 lg:pb-6 lg:pl-0 flex flex-col gap-5 w-full max-w-[336px] min-w-0 box-border"
+            className="p-5 lg:pt-[210px] lg:pr-14 lg:pb-6 lg:pl-0 flex flex-col gap-5 w-full max-w-[380px] min-w-0 box-border"
             style={{ background: "transparent" }}
           >
             {/* Live Event Summary */}
