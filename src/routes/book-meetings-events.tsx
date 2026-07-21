@@ -178,7 +178,10 @@ type FormState = {
   countryCode: string;
 };
 
+const DRAFT_KEY = "hgb:me-draft-v1";
+
 function BookMeetingsEvents() {
+  const [hydrated, setHydrated] = useState(false);
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState<"forward" | "back">("forward");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -191,9 +194,47 @@ function BookMeetingsEvents() {
     countryCode: "+47",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [visited, setVisited] = useState<Set<number>>(() => new Set([1]));
+
+  // Restore draft on mount
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(DRAFT_KEY);
+      if (raw) {
+        const d = JSON.parse(raw);
+        if (typeof d.step === "number") setStep(d.step);
+        if (d.form) setForm((f) => ({ ...f, ...d.form }));
+        if (Array.isArray(d.visited)) {
+          setVisited(new Set<number>(d.visited));
+        } else if (typeof d.step === "number") {
+          const s = new Set<number>();
+          for (let i = 1; i <= d.step; i++) s.add(i);
+          setVisited(s);
+        }
+      }
+    } catch {}
+    setHydrated(true);
+  }, []);
+
+  // Persist draft on change
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      window.localStorage.setItem(
+        DRAFT_KEY,
+        JSON.stringify({ step, form, visited: Array.from(visited) }),
+      );
+    } catch {}
+  }, [hydrated, step, form, visited]);
 
   const go = (n: number) => {
     setDirection(n > step ? "forward" : "back");
+    setVisited((prev) => {
+      if (prev.has(n)) return prev;
+      const next = new Set(prev);
+      next.add(n);
+      return next;
+    });
     setStep(n);
   };
 
@@ -214,6 +255,7 @@ function BookMeetingsEvents() {
     if (step === 6 && !validateStep1()) return;
     if (step < STEPS.length) go(step + 1);
   };
+
 
 
   return (
