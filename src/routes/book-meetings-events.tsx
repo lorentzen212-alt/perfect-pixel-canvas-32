@@ -382,21 +382,19 @@ function BookMeetingsEvents() {
                     WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%)",
                   }}
                 />
-                <div className="relative flex flex-nowrap items-center gap-x-[52px] whitespace-nowrap px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-3">
+                <div className="relative flex flex-nowrap items-center justify-start gap-[38px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-3">
                   {TRUST.map(({ Icon, label }) => {
                     const isSecure = label === "Secure & trusted";
                     return (
-                      <div key={label} className="flex items-center gap-[30px]">
+                      <div key={label} className="inline-flex items-center gap-[10px] flex-shrink-0">
                         <Icon size={44} />
                         <span
                           className={cn(
-                            "text-[15px] font-medium leading-none",
+                            "text-[15px] font-medium leading-none whitespace-nowrap",
                             isSecure ? "text-[#1A1A1A]" : "text-[#151515]"
                           )}
                           style={{
-                            textShadow: isSecure
-                              ? "0 1px 3px rgba(255,255,255,0.55)"
-                              : "0 1px 2px rgba(255,255,255,0.35)",
+                            textShadow: "0 1px 3px rgba(255,255,255,0.35)",
                           }}
                         >
                           {label}
