@@ -69,10 +69,6 @@ const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
 import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
 const helpCardBg = helpCardBgAsset.url;
-import accommodationPeriodAsset from "@/assets/accommodation-period.jpg.asset.json";
-const accommodationPeriodImg = accommodationPeriodAsset.url;
-import accommodationBannerAsset from "@/assets/accommodation-banner.jpg.asset.json";
-const accommodationBannerImg = accommodationBannerAsset.url;
 void loungeImg;
 
 import osloImg from "@/assets/destinations/oslo.jpg";
@@ -2991,79 +2987,27 @@ function StepThreeAccommodation({
                 boxShadow: "0 6px 18px -10px rgba(10,27,44,0.08)",
               }}
             >
-              {/* Panoramic banner */}
-              <div
-                className="relative -mx-6 -mt-6 lg:-mx-7 lg:-mt-7 mb-6 overflow-hidden"
-                style={{ height: 84, borderRadius: "16px 16px 0 0" }}
-              >
-                <img
-                  src={accommodationBannerImg}
-                  alt=""
-                  loading="lazy"
-                  width={1536}
-                  height={576}
-                  className="h-full w-full object-cover"
-                  style={{ filter: "saturate(0.92) sepia(0.04)" }}
-                />
-                {/* warm colour grading overlay */}
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, rgba(255,235,200,0.10) 0%, rgba(255,245,230,0.05) 50%, rgba(0,0,0,0) 100%)",
-                    mixBlendMode: "overlay",
-                  }}
-                />
-                {/* bottom dark gradient for natural transition */}
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0"
-                  style={{
-                    height: "100%",
-                    background:
-                      "linear-gradient(180deg, rgba(10,20,30,0) 35%, rgba(10,20,30,0.28) 85%, rgba(10,20,30,0.38) 100%)",
-                  }}
-                />
-                {/* subtle vignette */}
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.16) 100%)",
-                  }}
-                />
-              </div>
-
               <div className="flex items-center justify-between">
-                <div className="flex items-start gap-4">
+                <div className="flex items-center gap-3">
                   <div
                     aria-hidden
-                    className="relative shrink-0 overflow-hidden"
+                    className="relative shrink-0"
                     style={{
-                      width: 120,
-                      height: 90,
-                      borderRadius: 12,
+                      width: 44,
+                      height: 44,
+                      borderRadius: 11,
+                      background: "#111317",
                       boxShadow:
-                        "0 10px 24px -12px rgba(0,0,0,0.22), 0 3px 8px rgba(0,0,0,0.08)",
+                        "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35)",
                     }}
                   >
-                    <img
-                      src={accommodationPeriodImg}
-                      alt=""
-                      loading="lazy"
-                      width={120}
-                      height={90}
-                      className="h-full w-full object-cover"
-                    />
                     {/* uniform 1.5px champagne-gold frame */}
                     <span
                       aria-hidden
                       style={{
                         position: "absolute",
                         inset: 0,
-                        borderRadius: 12,
+                        borderRadius: 11,
                         padding: 1.5,
                         background: "#D9B65A",
                         WebkitMask:
@@ -3073,8 +3017,66 @@ function StepThreeAccommodation({
                         pointerEvents: "none",
                       }}
                     />
+                    {/* calendar icon */}
+                    <svg
+                      viewBox="0 0 24 24"
+                      width={24}
+                      height={24}
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%,-50%)",
+                      }}
+                    >
+                      <defs>
+                        <linearGradient id="calGold" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#FBE4A0" />
+                          <stop offset="45%" stopColor="#E7BE6A" />
+                          <stop offset="100%" stopColor="#A87A2C" />
+                        </linearGradient>
+                        <linearGradient id="calHeader" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#F8D98A" />
+                          <stop offset="100%" stopColor="#C89A3E" />
+                        </linearGradient>
+                      </defs>
+                      {/* body */}
+                      <rect
+                        x="3.2"
+                        y="4.8"
+                        width="17.6"
+                        height="15.2"
+                        rx="2.4"
+                        fill="none"
+                        stroke="url(#calGold)"
+                        strokeWidth="1.5"
+                      />
+                      {/* gold header bar */}
+                      <path
+                        d="M3.2 8.6 h17.6 v-1.4 a2.4 2.4 0 0 0 -2.4 -2.4 h-12.8 a2.4 2.4 0 0 0 -2.4 2.4 z"
+                        fill="url(#calHeader)"
+                      />
+                      {/* rings */}
+                      <rect x="7.4" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
+                      <rect x="15" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
+                      {/* date squares */}
+                      {[0, 1, 2].map((c) =>
+                        [0, 1].map((r) => (
+                          <rect
+                            key={`${c}-${r}`}
+                            x={6 + c * 4}
+                            y={11 + r * 3.4}
+                            width="2.6"
+                            height="2.4"
+                            rx="0.5"
+                            fill="url(#calGold)"
+                            opacity={r === 0 && c === 1 ? 1 : 0.78}
+                          />
+                        ))
+                      )}
+                    </svg>
                   </div>
-                  <div className="pt-1.5">
+                  <div>
                   <h3
                     className="text-[#1A1F24] text-[20px] leading-tight tracking-[0.04em]"
                     style={{ fontFamily: SANS, fontWeight: 600 }}
