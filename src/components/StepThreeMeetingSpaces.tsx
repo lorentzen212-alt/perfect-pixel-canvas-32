@@ -486,6 +486,33 @@ export function StepThreeMeetingSpaces({
     if (editingId === id) resetDraft();
   };
 
+  const handleContinue = () => {
+    try {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(
+          "hgb:meeting-rooms",
+          JSON.stringify(
+            rooms.map((r) => ({
+              id: r.id,
+              name: r.name,
+              attendees: r.attendees,
+            })),
+          ),
+        );
+        const totalAtt = rooms.reduce(
+          (n, r) => n + (r.attendees || 0),
+          0,
+        );
+        if (totalAtt > 0) {
+          window.localStorage.setItem("hgb:attendees", String(totalAtt));
+        }
+      }
+    } catch {
+      /* non-fatal */
+    }
+    onNext();
+  };
+
   const toggleEquip = (id: string) =>
     setEquipment((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
@@ -1138,11 +1165,11 @@ export function StepThreeMeetingSpaces({
             )}
 
             {/* Footer nav */}
-            <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+            <div className="mt-10 flex flex-wrap items-center justify-between gap-4 px-6 md:px-8 lg:px-10 py-5">
               <button
                 type="button"
                 onClick={onBack}
-                className="inline-flex items-center gap-2 rounded-full px-5 h-[48px] text-[14px] font-medium text-white transition-all hover:-translate-y-[1px]"
+                className="inline-flex items-center gap-2 rounded-full px-5 h-[52px] text-[14px] font-medium text-white transition-all hover:-translate-y-[1px] whitespace-nowrap"
                 style={{
                   background:
                     "linear-gradient(180deg,#132639,#0B1624)",
@@ -1155,10 +1182,27 @@ export function StepThreeMeetingSpaces({
                 Back to Accommodation
               </button>
 
-              <div className="hidden md:flex items-center gap-2 text-[12.5px] text-[#7B8290]">
+              <div className="hidden md:flex justify-center items-center gap-2 w-[280px] lg:w-[320px] text-[12.5px] text-[#7B8290] text-center leading-snug">
                 <Sparkles size={13} style={{ color: GOLD }} />
-                Your information is secure and shared only with selected hotels.
+                <span>Your information is secure and shared only with selected hotels.</span>
               </div>
+
+              <button
+                type="button"
+                onClick={handleContinue}
+                className="inline-flex items-center justify-center gap-2 rounded-full h-[52px] px-6 text-[13px] lg:text-[14.5px] font-semibold transition-all hover:-translate-y-[1px] whitespace-nowrap"
+                style={{
+                  color: "#0A1B2C",
+                  background:
+                    "linear-gradient(180deg,#F7D97A 0%, #D4AF37 55%, #B88917 100%)",
+                  border: "1px solid rgba(184,137,23,0.85)",
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.45), 0 12px 26px -14px rgba(184,137,23,0.55)",
+                }}
+              >
+                Save Meeting Spaces & Continue to Catering
+                <ArrowRight size={16} />
+              </button>
             </div>
           </div>
 
@@ -1403,51 +1447,6 @@ export function StepThreeMeetingSpaces({
               </div>
             </SidebarCard>
 
-            {/* Continue CTA */}
-            <button
-              type="button"
-              onClick={() => {
-                try {
-                  if (typeof window !== "undefined") {
-                    window.localStorage.setItem(
-                      "hgb:meeting-rooms",
-                      JSON.stringify(
-                        rooms.map((r) => ({
-                          id: r.id,
-                          name: r.name,
-                          attendees: r.attendees,
-                        })),
-                      ),
-                    );
-                    const totalAtt = rooms.reduce(
-                      (n, r) => n + (r.attendees || 0),
-                      0,
-                    );
-                    if (totalAtt > 0) {
-                      window.localStorage.setItem(
-                        "hgb:attendees",
-                        String(totalAtt),
-                      );
-                    }
-                  }
-                } catch {
-                  /* non-fatal */
-                }
-                onNext();
-              }}
-              className="mt-auto inline-flex items-center justify-center gap-2 rounded-full h-[52px] text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
-              style={{
-                color: "#0A1B2C",
-                background:
-                  "linear-gradient(180deg,#F7D97A 0%, #D4AF37 55%, #B88917 100%)",
-                border: "1px solid rgba(184,137,23,0.85)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.45), 0 12px 26px -14px rgba(184,137,23,0.55)",
-              }}
-            >
-              Save Meeting Spaces & Continue to Catering
-              <ArrowRight size={16} />
-            </button>
           </aside>
         </div>
       </div>
