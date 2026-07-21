@@ -84,6 +84,15 @@ import ouluImg from "@/assets/destinations/oulu.jpg";
 import porvooImg from "@/assets/destinations/porvoo.jpg";
 import leviImg from "@/assets/destinations/levi.jpg";
 
+import coffeeCateringImg from "@/assets/catering/coffee.jpg";
+import fruitCateringImg from "@/assets/catering/fruit.jpg";
+import morningBreakImg from "@/assets/catering/morning-break.jpg";
+import lunchCateringImg from "@/assets/catering/lunch.jpg";
+import afternoonBreakImg from "@/assets/catering/afternoon-break.jpg";
+import dinnerCateringImg from "@/assets/catering/dinner.jpg";
+import barDrinksImg from "@/assets/catering/bar-drinks.jpg";
+import galaDinnerImg from "@/assets/catering/gala-dinner.jpg";
+
 
 export const Route = createFileRoute("/book-meetings-events")({
   component: BookMeetingsEvents,
