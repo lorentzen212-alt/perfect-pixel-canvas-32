@@ -1350,15 +1350,15 @@ function ContinueButton({ onClick, label, disabled = false }: { onClick: () => v
         minWidth: 207,
         padding: "0 28px",
         background: `
-          linear-gradient(180deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 16%),
-          linear-gradient(180deg, #FBEFC8 0%, #F5D88A 14%, #EAC064 40%, #D4A84B 70%, #B88A2E 100%)
+          linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 22%),
+          linear-gradient(180deg, #FFF3C4 0%, #FADF8A 12%, #E9BE55 38%, #C9992E 72%, #A7761E 100%)
         `,
         boxShadow: disabled
           ? "none"
-          : "0 18px 40px -14px rgba(140,100,30,0.55), 0 8px 18px -6px rgba(140,100,30,0.32), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(90,65,22,0.22)",
-        border: "1px solid #C9A04A",
+          : "0 26px 50px -16px rgba(120,80,20,0.65), 0 12px 22px -8px rgba(120,80,20,0.42), 0 3px 6px -2px rgba(90,60,10,0.35), inset 0 1.5px 0 rgba(255,255,255,0.85), inset 0 -1.5px 0 rgba(80,55,15,0.30)",
+        border: "1px solid #B88A2E",
         WebkitFontSmoothing: "antialiased",
-        textShadow: "0 1px 0 rgba(255,255,255,0.35)",
+        textShadow: "0 1px 0 rgba(255,255,255,0.45)",
       }}
     >
       <span
@@ -1370,8 +1370,8 @@ function ContinueButton({ onClick, label, disabled = false }: { onClick: () => v
           mixBlendMode: "overlay",
         }}
       />
-      <span aria-hidden="true" className="pointer-events-none absolute left-0 right-0 top-0 h-[1px] bg-white opacity-55" />
-      <span aria-hidden="true" className="pointer-events-none absolute bottom-0 left-0 right-0 h-[1px] bg-[#7A5A20] opacity-25" />
+      <span aria-hidden="true" className="pointer-events-none absolute left-3 right-3 top-0 h-[2px] rounded-full" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0) 100%)" }} />
+      <span aria-hidden="true" className="pointer-events-none absolute bottom-0 left-0 right-0 h-[1px] bg-[#6A4A18] opacity-35" />
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-y-0 left-0 w-[45%]"
