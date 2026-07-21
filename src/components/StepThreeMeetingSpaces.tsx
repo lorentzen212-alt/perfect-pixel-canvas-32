@@ -353,18 +353,6 @@ function SetupGlyph({ id, size = 44 }: { id: SetupId; size?: number }) {
 }
 
 /* ---------- Compact setup preview thumbnail ---------- */
-const SETUP_IMAGES: Record<SetupId, string> = {
-  theater: theaterImg,
-  cinema: cinemaImg,
-  classroom: classroomImg,
-  round: roundImg,
-  boardroom: boardroomImg,
-  cabaret: cabaretImg,
-  ushape: ushapeImg,
-  breakout: breakoutImg,
-  other: otherImg,
-};
-
 function SetupPreview({ id }: { id: SetupId }) {
   return (
     <div
