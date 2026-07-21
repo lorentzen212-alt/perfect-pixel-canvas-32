@@ -1165,11 +1165,11 @@ export function StepThreeMeetingSpaces({
             )}
 
             {/* Footer nav */}
-            <div className="mt-10 flex flex-wrap items-center justify-between gap-4 px-6 md:px-8 lg:px-10 py-5">
+            <div className="mt-10 flex flex-col md:grid md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-8 px-6 md:px-10 py-5 md:pt-8 md:pb-9">
               <button
                 type="button"
                 onClick={onBack}
-                className="inline-flex items-center gap-2 rounded-full px-5 h-[52px] text-[14px] font-medium text-white transition-all hover:-translate-y-[1px] whitespace-nowrap"
+                className="md:justify-self-start inline-flex items-center gap-2 rounded-full px-5 h-[52px] text-[14px] font-medium text-white transition-all hover:-translate-y-[1px] whitespace-nowrap"
                 style={{
                   background:
                     "linear-gradient(180deg,#132639,#0B1624)",
@@ -1182,7 +1182,7 @@ export function StepThreeMeetingSpaces({
                 Back to Accommodation
               </button>
 
-              <div className="hidden md:flex justify-center items-center gap-2 w-[280px] lg:w-[320px] text-[12.5px] text-[#7B8290] text-center leading-snug">
+              <div className="hidden md:flex md:justify-self-center justify-center items-center gap-2 w-[280px] lg:w-[320px] text-[12.5px] text-[#7B8290] text-center leading-snug">
                 <Sparkles size={13} style={{ color: GOLD }} />
                 <span>Your information is secure and shared only with selected hotels.</span>
               </div>
@@ -1190,7 +1190,7 @@ export function StepThreeMeetingSpaces({
               <button
                 type="button"
                 onClick={handleContinue}
-                className="inline-flex items-center justify-center gap-2 rounded-full h-[52px] px-6 text-[13px] lg:text-[14.5px] font-semibold transition-all hover:-translate-y-[1px] whitespace-nowrap"
+                className="md:justify-self-end inline-flex items-center justify-center gap-2 rounded-full h-[52px] px-6 text-[13px] lg:text-[14.5px] font-semibold transition-all hover:-translate-y-[1px] whitespace-nowrap"
                 style={{
                   color: "#0A1B2C",
                   background:
