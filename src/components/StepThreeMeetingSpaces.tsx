@@ -356,15 +356,19 @@ function SetupGlyph({ id, size = 44 }: { id: SetupId; size?: number }) {
 function SetupPreview({ id }: { id: SetupId }) {
   return (
     <div
-      className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-[14px]"
+      className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[14px]"
       style={{
-        background: "#FBF8F2",
         border: "1px solid rgba(212,169,74,0.55)",
         boxShadow: "0 4px 10px -6px rgba(10,27,44,0.10)",
-        color: NAVY,
       }}
     >
-      <SetupGlyph id={id} size={34} />
+      <img
+        src={SETUP_IMAGES[id]}
+        alt=""
+        loading="lazy"
+        draggable={false}
+        className="h-full w-full object-cover"
+      />
     </div>
   );
 }
