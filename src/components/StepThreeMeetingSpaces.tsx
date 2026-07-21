@@ -1452,28 +1452,29 @@ export function StepThreeMeetingSpaces({
 
           </aside>
         </div>
-      </div>
 
-      {/* local input styles */}
-      <style>{`
-        .input {
-          width: 100%;
-          height: 42px;
-          background: #FFFFFF;
-          border: 1px solid #E6DEC9;
-          border-radius: 10px;
-          padding: 0 12px;
-          font-size: 14px;
-          color: #0A1B2C;
-          outline: none;
-          transition: border-color .15s ease, box-shadow .15s ease;
-        }
-        .input:focus {
-          border-color: ${GOLD};
-          box-shadow: 0 0 0 3px rgba(212,169,74,0.18);
-        }
-      `}</style>
+        {/* local input styles */}
+        <style>{`
+          .input {
+            width: 100%;
+            height: 42px;
+            background: #FFFFFF;
+            border: 1px solid #E6DEC9;
+            border-radius: 10px;
+            padding: 0 12px;
+            font-size: 14px;
+            color: #0A1B2C;
+            outline: none;
+            transition: border-color .15s ease, box-shadow .15s ease;
+          }
+          .input:focus {
+            border-color: ${GOLD};
+            box-shadow: 0 0 0 3px rgba(212,169,74,0.18);
+          }
+        `}</style>
+    </div>
   );
+
 
 }
 
