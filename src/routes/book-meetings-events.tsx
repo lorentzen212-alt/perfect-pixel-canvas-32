@@ -3402,20 +3402,20 @@ function StepTwoLocation({
                     })}
                   </div>
                 </div>
+                {budget && (
+                  <div className="w-full max-w-[610px] mt-2 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setBudget(null)}
+                      className="text-[13px] underline underline-offset-4"
+                      style={{ fontFamily: SANS, color: "#B88A2E" }}
+                    >
+                      Clear selection
+                    </button>
+                  </div>
+                )}
               </div>
 
-              {budget && (
-                <div className="mt-3 flex justify-end">
-                  <button
-                    type="button"
-                    onClick={() => setBudget(null)}
-                    className="text-[13px] underline underline-offset-4"
-                    style={{ fontFamily: SANS, color: "#B88A2E" }}
-                  >
-                    Clear selection
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         </div>
