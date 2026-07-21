@@ -1167,10 +1167,10 @@ export function StepThreeMeetingSpaces({
             className="p-5 lg:p-6 lg:pl-0 flex flex-col gap-5"
             style={{ background: "transparent" }}
           >
-            {/* Your Request */}
+            {/* Live Event Progress */}
             <SidebarCard>
               <SidebarHeader
-                title="Your Request"
+                title="Live Event Progress"
                 right={
                   <span className="flex items-center gap-1.5 text-[11.5px] text-[#8CE0A6]">
                     <span
@@ -1181,42 +1181,129 @@ export function StepThreeMeetingSpaces({
                   </span>
                 }
               />
-              <ul className="mt-4 space-y-3.5">
-                <RequestRow
-                  Icon={MapPin}
-                  label={request?.destination ?? "Oslo, Norway"}
-                />
-                <RequestRow
-                  Icon={CalendarIcon}
-                  label={request?.dates ?? "Add dates"}
-                />
-                <RequestRow
-                  Icon={DoorOpen}
-                  label={`${request?.guestRooms ?? 0} Rooms`}
-                />
-                <RequestRow
-                  Icon={Users}
-                  label={`${request?.attendees ?? 0} Attendees`}
-                />
-                <RequestRow
-                  Icon={Presentation}
-                  label={`${rooms.length} Meeting Room${rooms.length === 1 ? "" : "s"}`}
-                  trailing={
-                    rooms.length > 0 ? (
+              <p className="mt-1.5 text-[12.5px] leading-relaxed text-[#96A0B0]">
+                Your request is updated automatically as you complete each step.
+              </p>
+              {(() => {
+                const items: {
+                  Icon: typeof Users;
+                  title: string;
+                  value: string;
+                  done: boolean;
+                  step?: number;
+                }[] = [
+                  {
+                    Icon: MapPin,
+                    title: "Location",
+                    value: request?.destination || "Not selected",
+                    done: Boolean(request?.destination),
+                    step: 1,
+                  },
+                  {
+                    Icon: Bed,
+                    title: "Accommodation",
+                    value:
+                      (request?.guestRooms ?? 0) > 0
+                        ? `${request?.guestRooms} rooms`
+                        : "Not configured",
+                    done: (request?.guestRooms ?? 0) > 0,
+                    step: 2,
+                  },
+                  {
+                    Icon: Users,
+                    title: "Attendees",
+                    value:
+                      (request?.attendees ?? 0) > 0
+                        ? `${request?.attendees} attendees`
+                        : "Not set",
+                    done: (request?.attendees ?? 0) > 0,
+                    step: 2,
+                  },
+                  {
+                    Icon: Armchair,
+                    title: "Meeting Spaces",
+                    value:
+                      rooms.length > 0
+                        ? `${rooms.length} meeting room${rooms.length === 1 ? "" : "s"}`
+                        : "Not configured",
+                    done: rooms.length > 0,
+                    step: 3,
+                  },
+                  {
+                    Icon: Coffee,
+                    title: "Catering",
+                    value: "Not configured",
+                    done: false,
+                    step: 4,
+                  },
+                  {
+                    Icon: Star,
+                    title: "Extras",
+                    value: "Not configured",
+                    done: false,
+                    step: 5,
+                  },
+                  {
+                    Icon: FileText,
+                    title: "Event Details",
+                    value: "Not completed",
+                    done: false,
+                    step: 6,
+                  },
+                ];
+                const completed = items.filter((i) => i.done).length;
+                const total = items.length;
+                const pct = Math.round((completed / total) * 100);
+                return (
+                  <>
+                    <div className="mt-4 text-[13px] text-[#DDE4EE]">
                       <span
-                        className="rounded-full px-2 py-[3px] text-[10.5px] font-medium"
-                        style={{
-                          background: "rgba(74,222,128,0.16)",
-                          color: "#7EE7A0",
-                          border: "1px solid rgba(74,222,128,0.28)",
-                        }}
+                        style={{ color: GOLD_SOFT, fontWeight: 600 }}
                       >
-                        Added
-                      </span>
-                    ) : null
-                  }
-                />
-              </ul>
+                        {completed}
+                      </span>{" "}
+                      of{" "}
+                      <span
+                        style={{ color: GOLD_SOFT, fontWeight: 600 }}
+                      >
+                        {total}
+                      </span>{" "}
+                      steps completed
+                    </div>
+                    <div
+                      className="mt-2 h-[6px] w-full overflow-hidden rounded-full"
+                      style={{ background: "rgba(255,255,255,0.08)" }}
+                    >
+                      <div
+                        className="h-full rounded-full transition-all duration-500 ease-out"
+                        style={{
+                          width: `${pct}%`,
+                          background:
+                            "linear-gradient(90deg,#F7D97A 0%, #D4AF37 60%, #B88917 100%)",
+                          boxShadow:
+                            "0 0 12px -2px rgba(212,175,55,0.6)",
+                        }}
+                      />
+                    </div>
+                    <ul className="mt-5 divide-y divide-white/[0.06]">
+                      {items.map((it) => (
+                        <ProgressRow
+                          key={it.title}
+                          Icon={it.Icon}
+                          title={it.title}
+                          value={it.value}
+                          done={it.done}
+                          onEdit={
+                            it.done && it.step && onEditStep
+                              ? () => onEditStep(it.step!)
+                              : undefined
+                          }
+                        />
+                      ))}
+                    </ul>
+                  </>
+                );
+              })()}
             </SidebarCard>
 
             {/* Recommended */}
