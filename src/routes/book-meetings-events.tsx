@@ -3263,7 +3263,7 @@ function StepTwoLocation({
 
         {/* Budget preference */}
         <div
-          className="mt-4 rounded-[18px] px-6 py-6"
+          className="mt-4 rounded-[18px] px-6 pt-4 pb-3"
           style={{
             background: "#F5F1E8",
             border: "1px solid #ECE6D6",
