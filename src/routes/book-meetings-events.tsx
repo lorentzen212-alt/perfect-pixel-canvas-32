@@ -3036,7 +3036,145 @@ function guestsCapacity(r: RoomMix) {
   return r.sgl * 1 + r.dbl * 2 + r.twn * 2 + r.trp * 3 + r.ste * 2;
 }
 
+function AccommodationIcon() {
+  return (
+    <svg
+      aria-hidden
+      width={44}
+      height={44}
+      viewBox="0 0 44 44"
+      style={{
+        flexShrink: 0,
+        display: "block",
+        filter: "drop-shadow(0 10px 14px rgba(0,0,0,0.35)) drop-shadow(0 2px 3px rgba(0,0,0,0.28))",
+      }}
+    >
+      <defs>
+        {/* Navy body — layered gradient */}
+        <linearGradient id="acmBody" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#1B2735" />
+          <stop offset="45%" stopColor="#0E1620" />
+          <stop offset="100%" stopColor="#070C13" />
+        </linearGradient>
+        {/* Inner glossy sheen */}
+        <linearGradient id="acmSheen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.22" />
+          <stop offset="35%" stopColor="#ffffff" stopOpacity="0.04" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        </linearGradient>
+        {/* Champagne gold border — beveled */}
+        <linearGradient id="acmFrame" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F9E4A2" />
+          <stop offset="18%" stopColor="#E9C879" />
+          <stop offset="42%" stopColor="#C89A3E" />
+          <stop offset="58%" stopColor="#F4D98A" />
+          <stop offset="82%" stopColor="#B0821E" />
+          <stop offset="100%" stopColor="#F7DE96" />
+        </linearGradient>
+        {/* Bright calendar gold */}
+        <linearGradient id="acmCal" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#FBE9AE" />
+          <stop offset="42%" stopColor="#E9C46A" />
+          <stop offset="100%" stopColor="#9E7422" />
+        </linearGradient>
+        {/* Header bar gold */}
+        <linearGradient id="acmHeader" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#F8D98A" />
+          <stop offset="100%" stopColor="#B78624" />
+        </linearGradient>
+        {/* Radial highlight on top-left */}
+        <radialGradient id="acmGlow" cx="30%" cy="22%" r="55%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.35" />
+          <stop offset="60%" stopColor="#ffffff" stopOpacity="0.04" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        </radialGradient>
+        {/* Sparkle gradient */}
+        <radialGradient id="acmSpark" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FFF6D2" />
+          <stop offset="45%" stopColor="#F5D682" />
+          <stop offset="100%" stopColor="#C89A3E" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* Outer frame */}
+      <rect x="0.5" y="0.5" width="43" height="43" rx="11" fill="url(#acmFrame)" />
+      {/* Navy body inset */}
+      <rect x="2" y="2" width="40" height="40" rx="9.5" fill="url(#acmBody)" />
+      {/* Glossy top sheen */}
+      <rect x="2" y="2" width="40" height="20" rx="9.5" fill="url(#acmSheen)" />
+      {/* Corner glow */}
+      <rect x="2" y="2" width="40" height="40" rx="9.5" fill="url(#acmGlow)" />
+      {/* Inner hairline */}
+      <rect
+        x="2.75"
+        y="2.75"
+        width="38.5"
+        height="38.5"
+        rx="8.75"
+        fill="none"
+        stroke="#ffffff"
+        strokeOpacity="0.06"
+      />
+
+      {/* Calendar — centered around (22,23) */}
+      <g transform="translate(11 10)">
+        {/* body */}
+        <rect
+          x="0.9"
+          y="3.4"
+          width="20.2"
+          height="18.2"
+          rx="2.6"
+          fill="none"
+          stroke="url(#acmCal)"
+          strokeWidth="1.7"
+        />
+        {/* header strip */}
+        <path
+          d="M0.9 8 h20.2 v-1.6 a2.6 2.6 0 0 0 -2.6 -2.6 h-15 a2.6 2.6 0 0 0 -2.6 2.6 z"
+          fill="url(#acmHeader)"
+        />
+        {/* rings */}
+        <rect x="5.4" y="0.6" width="1.9" height="4.4" rx="0.95" fill="url(#acmCal)" />
+        <rect x="14.7" y="0.6" width="1.9" height="4.4" rx="0.95" fill="url(#acmCal)" />
+        {/* ring highlights */}
+        <rect x="5.8" y="0.9" width="0.5" height="3.6" rx="0.25" fill="#FFF3C8" opacity="0.75" />
+        <rect x="15.1" y="0.9" width="0.5" height="3.6" rx="0.25" fill="#FFF3C8" opacity="0.75" />
+        {/* date squares — 4 cols x 3 rows */}
+        {[0, 1, 2, 3].map((c) =>
+          [0, 1, 2].map((r) => {
+            const isToday = c === 1 && r === 1;
+            return (
+              <rect
+                key={`${c}-${r}`}
+                x={2.7 + c * 4.2}
+                y={10.4 + r * 3.4}
+                width="2.6"
+                height="2.4"
+                rx="0.55"
+                fill="url(#acmCal)"
+                opacity={isToday ? 1 : 0.82}
+              />
+            );
+          })
+        )}
+      </g>
+
+      {/* Sparkle — bottom right */}
+      <g transform="translate(31 30)">
+        <circle r="4.2" fill="url(#acmSpark)" />
+        <path
+          d="M0 -4.2 L0.7 -0.7 L4.2 0 L0.7 0.7 L0 4.2 L-0.7 0.7 L-4.2 0 L-0.7 -0.7 Z"
+          fill="url(#acmCal)"
+        />
+        <circle r="0.55" fill="#FFF6D2" />
+      </g>
+    </svg>
+  );
+}
+
 function StepThreeAccommodation({
+
   onBack,
   onNext,
   direction,
