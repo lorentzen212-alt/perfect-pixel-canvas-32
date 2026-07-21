@@ -1504,7 +1504,7 @@ function ConfigPackage({ cfg, set }: { cfg: ExtraConfigs["package-handling"]; se
         <FieldLabel>Storage required</FieldLabel>
         <div className="flex flex-col gap-2">
           {opts.map((o) => (
-            <RadioOption key={o} label={o} selected={cfg.storage === o} onClick={() => set({ ...cfg, storage: o })} />
+            <RadioOption key={o} label={o} selected={cfg.storage === o} onClick={() => set({ ...cfg, storage: cfg.storage === o ? "" : o })} />
           ))}
         </div>
       </div>
