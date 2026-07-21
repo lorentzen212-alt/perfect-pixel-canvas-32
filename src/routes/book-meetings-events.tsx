@@ -3263,7 +3263,7 @@ function StepTwoLocation({
 
         {/* Budget preference */}
         <div
-          className="mt-4 rounded-[18px] px-6 py-6"
+          className="mt-4 rounded-[18px] px-6 pt-4 pb-3"
           style={{
             background: "#F5F1E8",
             border: "1px solid #ECE6D6",
@@ -3299,9 +3299,9 @@ function StepTwoLocation({
               </p>
 
               {/* Navy tier bar */}
-              <div className="mt-4 flex justify-center">
+              <div className="mt-3 flex flex-col items-center">
                 <div
-                  className="relative w-full max-w-[560px] rounded-[14px] px-6 py-4"
+                  className="relative w-full max-w-[610px] rounded-[14px] px-6 py-4"
                   style={{
                     background: "#0A1B2C",
                     boxShadow:
@@ -3402,26 +3402,26 @@ function StepTwoLocation({
                     })}
                   </div>
                 </div>
+                {budget && (
+                  <div className="w-full max-w-[610px] mt-2 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setBudget(null)}
+                      className="text-[13px] underline underline-offset-4"
+                      style={{ fontFamily: SANS, color: "#B88A2E" }}
+                    >
+                      Clear selection
+                    </button>
+                  </div>
+                )}
               </div>
 
-              {budget && (
-                <div className="mt-3 flex justify-end">
-                  <button
-                    type="button"
-                    onClick={() => setBudget(null)}
-                    className="text-[13px] underline underline-offset-4"
-                    style={{ fontFamily: SANS, color: "#B88A2E" }}
-                  >
-                    Clear selection
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         </div>
 
         {/* Continue to Accommodation */}
-        <div className="mt-8 flex justify-end">
+        <div className="mt-4 flex justify-end">
           <ContinueButton
             onClick={() => {
               if (selectedDestination) onNext();
