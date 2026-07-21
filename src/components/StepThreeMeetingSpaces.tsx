@@ -1447,51 +1447,6 @@ export function StepThreeMeetingSpaces({
               </div>
             </SidebarCard>
 
-            {/* Continue CTA */}
-            <button
-              type="button"
-              onClick={() => {
-                try {
-                  if (typeof window !== "undefined") {
-                    window.localStorage.setItem(
-                      "hgb:meeting-rooms",
-                      JSON.stringify(
-                        rooms.map((r) => ({
-                          id: r.id,
-                          name: r.name,
-                          attendees: r.attendees,
-                        })),
-                      ),
-                    );
-                    const totalAtt = rooms.reduce(
-                      (n, r) => n + (r.attendees || 0),
-                      0,
-                    );
-                    if (totalAtt > 0) {
-                      window.localStorage.setItem(
-                        "hgb:attendees",
-                        String(totalAtt),
-                      );
-                    }
-                  }
-                } catch {
-                  /* non-fatal */
-                }
-                onNext();
-              }}
-              className="mt-auto inline-flex items-center justify-center gap-2 rounded-full h-[52px] text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
-              style={{
-                color: "#0A1B2C",
-                background:
-                  "linear-gradient(180deg,#F7D97A 0%, #D4AF37 55%, #B88917 100%)",
-                border: "1px solid rgba(184,137,23,0.85)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.45), 0 12px 26px -14px rgba(184,137,23,0.55)",
-              }}
-            >
-              Save Meeting Spaces & Continue to Catering
-              <ArrowRight size={16} />
-            </button>
           </aside>
         </div>
       </div>
