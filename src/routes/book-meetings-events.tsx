@@ -275,7 +275,7 @@ function BookMeetingsEvents() {
           // Overall warm ivory gradient
           "linear-gradient(180deg, #F7F0E1 0%, #F4EAD6 45%, #F6EFE1 100%)",
         ].join(", "),
-        backgroundAttachment: "fixed",
+        backgroundAttachment: "scroll",
       }}
     >
       {/* HERO */}
