@@ -1552,7 +1552,7 @@ function ConfigCloakroom({ cfg, set }: { cfg: ExtraConfigs["cloakroom"]; set: (v
         <FieldLabel>Cloakroom type</FieldLabel>
         <div className="grid grid-cols-2 gap-2">
           {opts.map((o) => (
-            <RadioOption key={o} label={o} selected={cfg.type === o} onClick={() => set({ ...cfg, type: o })} />
+            <RadioOption key={o} label={o} selected={cfg.type === o} onClick={() => set({ ...cfg, type: cfg.type === o ? "" : o })} />
           ))}
         </div>
       </div>
