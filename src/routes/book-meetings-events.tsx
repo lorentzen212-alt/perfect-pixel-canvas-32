@@ -261,20 +261,7 @@ function BookMeetingsEvents() {
   return (
     <main
       className="relative min-h-screen w-full"
-      style={{
-        backgroundColor: "#F6EFE1",
-        backgroundImage: [
-          // Left edge champagne glow
-          "radial-gradient(60% 55% at 0% 42%, rgba(214,176,102,0.22) 0%, rgba(214,176,102,0.10) 28%, rgba(214,176,102,0) 62%)",
-          // Right edge champagne glow
-          "radial-gradient(60% 55% at 100% 48%, rgba(214,176,102,0.22) 0%, rgba(214,176,102,0.10) 28%, rgba(214,176,102,0) 62%)",
-          // Soft top warm wash
-          "radial-gradient(80% 40% at 50% 0%, rgba(240,214,160,0.18) 0%, rgba(240,214,160,0) 60%)",
-          // Overall warm ivory gradient
-          "linear-gradient(180deg, #F7F0E1 0%, #F4EAD6 45%, #F6EFE1 100%)",
-        ].join(", "),
-        backgroundAttachment: "fixed",
-      }}
+      style={{ backgroundColor: "#F7F7F5" }}
     >
       {/* HERO */}
       <section
