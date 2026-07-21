@@ -60,6 +60,7 @@ import packageHandlingImg from "@/assets/extras/package-handling.jpg";
 import porterServiceImg from "@/assets/extras/porter-service.jpg";
 import cloakroomImg from "@/assets/extras/cloakroom.jpg";
 import welcomePackageImg from "@/assets/extras/welcome-package.jpg";
+import planningBannerImg from "@/assets/rooms/planning-banner.jpg";
 import singleRoomImg from "@/assets/rooms/single.jpg";
 import doubleRoomImg from "@/assets/rooms/double.jpg";
 import twinRoomImg from "@/assets/rooms/twin.jpg";
