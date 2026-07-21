@@ -2927,7 +2927,7 @@ function BudgetPreference({
                     {/* midpoint dots between labels */}
                     {i > 0 && (
                       <span
-                        className="absolute -left-1/2 top-[10px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
+                        className="pointer-events-none absolute -left-1/2 top-[10px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
                         style={{
                           border: "1.5px solid rgba(232,196,106,0.80)",
                           background: selected ? "#F5D78E" : "#16385A",
