@@ -3853,11 +3853,13 @@ function TwinBedsIcon({ size = 22 }: { size?: number }) {
 
 function MealOption({
   icon,
+  image,
   label,
   selected,
   onClick,
 }: {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
+  image?: string;
   label: string;
   selected: boolean;
   onClick: () => void;
@@ -3872,7 +3874,23 @@ function MealOption({
       )}
     >
       <span className="flex items-center gap-3">
-        <LuxIconBadge size={36} finish="engraved">{icon}</LuxIconBadge>
+        {image ? (
+          <span
+            className="overflow-hidden shrink-0 block"
+            style={{
+              width: 54,
+              height: 40,
+              borderRadius: 8,
+              border: "1px solid #D4AF37",
+              boxShadow:
+                "0 3px 8px -5px rgba(10,27,44,0.25), 0 1px 2px rgba(10,27,44,0.06), inset 0 0 0 1px rgba(255,255,255,0.35)",
+            }}
+          >
+            <img src={image} alt="" loading="lazy" className="w-full h-full object-cover" draggable={false} />
+          </span>
+        ) : (
+          <LuxIconBadge size={36} finish="engraved">{icon}</LuxIconBadge>
+        )}
         <span className="text-[#0A1B2C] text-[14.5px] font-medium">{label}</span>
       </span>
       <span
