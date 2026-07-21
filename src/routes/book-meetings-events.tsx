@@ -1355,7 +1355,7 @@ function ContinueButton({ onClick, label, disabled = false }: { onClick: () => v
         `,
         boxShadow: disabled
           ? "none"
-          : "0 12px 30px -12px rgba(160,120,40,0.42), 0 5px 14px -5px rgba(160,120,40,0.26), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 0 rgba(90,65,22,0.18)",
+          : "0 18px 40px -14px rgba(140,100,30,0.55), 0 8px 18px -6px rgba(140,100,30,0.32), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(90,65,22,0.22)",
         border: "1px solid #C9A04A",
         WebkitFontSmoothing: "antialiased",
         textShadow: "0 1px 0 rgba(255,255,255,0.35)",
