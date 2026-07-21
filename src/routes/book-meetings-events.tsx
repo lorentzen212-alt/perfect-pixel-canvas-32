@@ -2957,7 +2957,7 @@ function StepTwoLocation({
 
 function PremiumDivider() {
   return (
-    <div className="py-14 lg:py-20">
+    <div className="pt-4 lg:pt-10 pb-6 lg:pb-8">
       <div className="relative flex items-center justify-center">
         <div
           className="absolute inset-x-0 h-px"
