@@ -352,6 +352,23 @@ function SetupGlyph({ id, size = 44 }: { id: SetupId; size?: number }) {
   );
 }
 
+/* ---------- Compact setup preview thumbnail ---------- */
+function SetupPreview({ id }: { id: SetupId }) {
+  return (
+    <div
+      className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-[14px]"
+      style={{
+        background: "#FBF8F2",
+        border: "1px solid #E8E0CE",
+        boxShadow: "0 4px 10px -6px rgba(10,27,44,0.10)",
+        color: NAVY,
+      }}
+    >
+      <SetupGlyph id={id} size={34} />
+    </div>
+  );
+}
+
 /* ---------- helpers ---------- */
 function fmtDate(iso: string) {
   if (!iso) return "";
