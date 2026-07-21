@@ -69,6 +69,8 @@ const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
 import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
 const helpCardBg = helpCardBgAsset.url;
+import accommodationPeriodAsset from "@/assets/accommodation-period.jpg.asset.json";
+const accommodationPeriodImg = accommodationPeriodAsset.url;
 void loungeImg;
 
 import osloImg from "@/assets/destinations/oslo.jpg";
@@ -2988,26 +2990,33 @@ function StepThreeAccommodation({
               }}
             >
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                <div className="flex items-start gap-4">
                   <div
                     aria-hidden
-                    className="relative shrink-0"
+                    className="relative shrink-0 overflow-hidden"
                     style={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: 11,
-                      background: "#111317",
+                      width: 120,
+                      height: 90,
+                      borderRadius: 12,
                       boxShadow:
-                        "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35)",
+                        "0 10px 24px -12px rgba(0,0,0,0.22), 0 3px 8px rgba(0,0,0,0.08)",
                     }}
                   >
+                    <img
+                      src={accommodationPeriodImg}
+                      alt=""
+                      loading="lazy"
+                      width={120}
+                      height={90}
+                      className="h-full w-full object-cover"
+                    />
                     {/* uniform 1.5px champagne-gold frame */}
                     <span
                       aria-hidden
                       style={{
                         position: "absolute",
                         inset: 0,
-                        borderRadius: 11,
+                        borderRadius: 12,
                         padding: 1.5,
                         background: "#D9B65A",
                         WebkitMask:
@@ -3017,66 +3026,8 @@ function StepThreeAccommodation({
                         pointerEvents: "none",
                       }}
                     />
-                    {/* calendar icon */}
-                    <svg
-                      viewBox="0 0 24 24"
-                      width={24}
-                      height={24}
-                      style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%,-50%)",
-                      }}
-                    >
-                      <defs>
-                        <linearGradient id="calGold" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#FBE4A0" />
-                          <stop offset="45%" stopColor="#E7BE6A" />
-                          <stop offset="100%" stopColor="#A87A2C" />
-                        </linearGradient>
-                        <linearGradient id="calHeader" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#F8D98A" />
-                          <stop offset="100%" stopColor="#C89A3E" />
-                        </linearGradient>
-                      </defs>
-                      {/* body */}
-                      <rect
-                        x="3.2"
-                        y="4.8"
-                        width="17.6"
-                        height="15.2"
-                        rx="2.4"
-                        fill="none"
-                        stroke="url(#calGold)"
-                        strokeWidth="1.5"
-                      />
-                      {/* gold header bar */}
-                      <path
-                        d="M3.2 8.6 h17.6 v-1.4 a2.4 2.4 0 0 0 -2.4 -2.4 h-12.8 a2.4 2.4 0 0 0 -2.4 2.4 z"
-                        fill="url(#calHeader)"
-                      />
-                      {/* rings */}
-                      <rect x="7.4" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
-                      <rect x="15" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
-                      {/* date squares */}
-                      {[0, 1, 2].map((c) =>
-                        [0, 1].map((r) => (
-                          <rect
-                            key={`${c}-${r}`}
-                            x={6 + c * 4}
-                            y={11 + r * 3.4}
-                            width="2.6"
-                            height="2.4"
-                            rx="0.5"
-                            fill="url(#calGold)"
-                            opacity={r === 0 && c === 1 ? 1 : 0.78}
-                          />
-                        ))
-                      )}
-                    </svg>
                   </div>
-                  <div>
+                  <div className="pt-1.5">
                   <h3
                     className="text-[#1A1F24] text-[20px] leading-tight tracking-[0.04em]"
                     style={{ fontFamily: SANS, fontWeight: 600 }}
