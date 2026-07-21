@@ -61,6 +61,7 @@ import porterServiceImg from "@/assets/extras/porter-service.jpg";
 import cloakroomImg from "@/assets/extras/cloakroom.jpg";
 import welcomePackageImg from "@/assets/extras/welcome-package.jpg";
 import accommodationBannerImg from "@/assets/rooms/accommodation-banner.jpg";
+import accommodationCalendarIcon from "@/assets/accommodation-calendar-icon.png.asset.json";
 import singleRoomImg from "@/assets/rooms/single.jpg";
 import doubleRoomImg from "@/assets/rooms/double.jpg";
 import twinRoomImg from "@/assets/rooms/twin.jpg";
@@ -3134,112 +3135,24 @@ function StepThreeAccommodation({
                         pointerEvents: "none",
                       }}
                     />
-                    {/* premium calendar icon — hand-drawn */}
-                    <svg
-                      viewBox="0 0 32 32"
-                      width={24}
-                      height={24}
+                    {/* premium calendar icon — reference image */}
+                    <img
+                      src={accommodationCalendarIcon.url}
+                      alt=""
+                      aria-hidden
+                      draggable={false}
                       style={{
                         position: "absolute",
                         top: "50%",
                         left: "50%",
+                        width: "110%",
+                        height: "110%",
                         transform: "translate(-50%,-50%)",
-                        overflow: "visible",
+                        borderRadius: 12,
+                        objectFit: "cover",
+                        pointerEvents: "none",
                       }}
-                    >
-                      <defs>
-                        <linearGradient id="apCalStroke" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#FBEBB4" />
-                          <stop offset="45%" stopColor="#E4C578" />
-                          <stop offset="100%" stopColor="#9A7530" />
-                        </linearGradient>
-                        <linearGradient id="apCalHiLight" x1="0" y1="0" x2="1" y2="1">
-                          <stop offset="0%" stopColor="#FFF6D6" stopOpacity="0.9" />
-                          <stop offset="100%" stopColor="#FFF6D6" stopOpacity="0" />
-                        </linearGradient>
-                        <linearGradient id="apCalSpark" x1="0" y1="0" x2="1" y2="1">
-                          <stop offset="0%" stopColor="#FFF4C8" />
-                          <stop offset="100%" stopColor="#D9B65A" />
-                        </linearGradient>
-                        <radialGradient id="apCalSparkGlow" cx="50%" cy="50%" r="50%">
-                          <stop offset="0%" stopColor="#FFF0B8" stopOpacity="0.55" />
-                          <stop offset="100%" stopColor="#FFF0B8" stopOpacity="0" />
-                        </radialGradient>
-                      </defs>
-
-                      {/* emboss shadow */}
-                      <g transform="translate(0.5,0.7)" opacity="0.55">
-                        <rect
-                          x="6"
-                          y="8"
-                          width="20"
-                          height="18"
-                          rx="2.6"
-                          fill="none"
-                          stroke="#000"
-                          strokeOpacity="0.5"
-                          strokeWidth="1.3"
-                        />
-                        <line x1="6.4" y1="13" x2="25.6" y2="13" stroke="#000" strokeOpacity="0.5" strokeWidth="1.1" />
-                      </g>
-
-                      {/* body outline */}
-                      <rect
-                        x="6"
-                        y="8"
-                        width="20"
-                        height="18"
-                        rx="2.6"
-                        fill="none"
-                        stroke="url(#apCalStroke)"
-                        strokeWidth="1.4"
-                      />
-                      {/* header divider */}
-                      <line x1="6.4" y1="13" x2="25.6" y2="13" stroke="url(#apCalStroke)" strokeWidth="1.2" />
-
-                      {/* binder rings */}
-                      <rect x="10.2" y="5.4" width="1.6" height="4.4" rx="0.7" fill="url(#apCalStroke)" />
-                      <rect x="20.2" y="5.4" width="1.6" height="4.4" rx="0.7" fill="url(#apCalStroke)" />
-
-                      {/* date dots — thin elegant grid */}
-                      {[0, 1, 2].map((r) =>
-                        [0, 1, 2, 3].map((c) => {
-                          if (r === 2 && c > 2) return null;
-                          const isToday = r === 1 && c === 1;
-                          return (
-                            <rect
-                              key={`${r}-${c}`}
-                              x={9 + c * 3.4}
-                              y={15.4 + r * 3}
-                              width={isToday ? 2.1 : 1.6}
-                              height={isToday ? 2.1 : 1.6}
-                              rx="0.4"
-                              fill="url(#apCalStroke)"
-                              opacity={isToday ? 1 : 0.82}
-                            />
-                          );
-                        })
-                      )}
-
-                      {/* upper-left highlight sheen */}
-                      <path
-                        d="M6 10.6 Q6 8 8.6 8 L14 8"
-                        fill="none"
-                        stroke="url(#apCalHiLight)"
-                        strokeWidth="1"
-                        strokeLinecap="round"
-                      />
-
-                      {/* luxury sparkle — lower right */}
-                      <g transform="translate(25.4,24.6)">
-                        <circle r="3.4" fill="url(#apCalSparkGlow)" />
-                        <path
-                          d="M0 -3 L0.7 -0.7 L3 0 L0.7 0.7 L0 3 L-0.7 0.7 L-3 0 L-0.7 -0.7 Z"
-                          fill="url(#apCalSpark)"
-                        />
-                        <circle cx="0" cy="0" r="0.55" fill="#FFF8DC" />
-                      </g>
-                    </svg>
+                    />
                   </div>
                   <div>
                   <h3
