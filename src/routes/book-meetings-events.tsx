@@ -1294,11 +1294,17 @@ function RadioOption({
       <span
         className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
         style={{
-          background: selected ? GOLD : "#FFFFFF",
-          border: selected ? "1px solid #B88917" : "1.5px solid #D9D2BE",
-          boxShadow: selected ? "inset 0 0 0 2px #FFFDF3" : "none",
+          background: "#FFFFFF",
+          border: "1.5px solid #2B2B2B",
         }}
-      />
+      >
+        {selected && (
+          <span
+            className="block rounded-full"
+            style={{ width: 7, height: 7, background: "#2B2B2B" }}
+          />
+        )}
+      </span>
       <span className="text-[13px] text-[#0A1B2C] flex-1 whitespace-nowrap">{label}</span>
       {badge && (
         <span
@@ -1423,7 +1429,7 @@ function ConfigAirportTransfer({ cfg, set }: { cfg: ExtraConfigs["airport-transf
               key={t}
               label={t}
               selected={cfg.transferType === t}
-              onClick={() => set({ ...cfg, transferType: t })}
+              onClick={() => set({ ...cfg, transferType: cfg.transferType === t ? "" : t })}
               badge={t === "Private Executive Van" ? "Recommended" : undefined}
             />
           ))}
@@ -1433,7 +1439,7 @@ function ConfigAirportTransfer({ cfg, set }: { cfg: ExtraConfigs["airport-transf
         <FieldLabel>Transfer direction</FieldLabel>
         <div className="flex flex-col gap-2">
           {dirs.map((d) => (
-            <RadioOption key={d} label={d} selected={cfg.direction === d} onClick={() => set({ ...cfg, direction: d })} />
+            <RadioOption key={d} label={d} selected={cfg.direction === d} onClick={() => set({ ...cfg, direction: cfg.direction === d ? "" : d })} />
           ))}
         </div>
       </div>
@@ -1478,8 +1484,8 @@ function ConfigRegistration({ cfg, set }: { cfg: ExtraConfigs["registration-desk
       <div>
         <FieldLabel>Hotel staff required</FieldLabel>
         <div className="grid grid-cols-2 gap-2">
-          <RadioOption label="Yes" selected={cfg.staff === "yes"} onClick={() => set({ ...cfg, staff: "yes" })} />
-          <RadioOption label="No" selected={cfg.staff === "no"} onClick={() => set({ ...cfg, staff: "no" })} />
+          <RadioOption label="Yes" selected={cfg.staff === "yes"} onClick={() => set({ ...cfg, staff: cfg.staff === "yes" ? "" : "yes" })} />
+          <RadioOption label="No" selected={cfg.staff === "no"} onClick={() => set({ ...cfg, staff: cfg.staff === "no" ? "" : "no" })} />
         </div>
       </div>
       <div>
@@ -1498,7 +1504,7 @@ function ConfigPackage({ cfg, set }: { cfg: ExtraConfigs["package-handling"]; se
         <FieldLabel>Storage required</FieldLabel>
         <div className="flex flex-col gap-2">
           {opts.map((o) => (
-            <RadioOption key={o} label={o} selected={cfg.storage === o} onClick={() => set({ ...cfg, storage: o })} />
+            <RadioOption key={o} label={o} selected={cfg.storage === o} onClick={() => set({ ...cfg, storage: cfg.storage === o ? "" : o })} />
           ))}
         </div>
       </div>
@@ -1522,7 +1528,7 @@ function ConfigPorter({ cfg, set }: { cfg: ExtraConfigs["porter-service"]; set: 
         <FieldLabel>Porter service required for</FieldLabel>
         <div className="grid grid-cols-3 gap-2">
           {opts.map((o) => (
-            <RadioOption key={o} label={o} selected={cfg.requiredFor === o} onClick={() => set({ ...cfg, requiredFor: o })} />
+            <RadioOption key={o} label={o} selected={cfg.requiredFor === o} onClick={() => set({ ...cfg, requiredFor: cfg.requiredFor === o ? "" : o })} />
           ))}
         </div>
       </div>
@@ -1546,7 +1552,7 @@ function ConfigCloakroom({ cfg, set }: { cfg: ExtraConfigs["cloakroom"]; set: (v
         <FieldLabel>Cloakroom type</FieldLabel>
         <div className="grid grid-cols-2 gap-2">
           {opts.map((o) => (
-            <RadioOption key={o} label={o} selected={cfg.type === o} onClick={() => set({ ...cfg, type: o })} />
+            <RadioOption key={o} label={o} selected={cfg.type === o} onClick={() => set({ ...cfg, type: cfg.type === o ? "" : o })} />
           ))}
         </div>
       </div>
@@ -1637,6 +1643,7 @@ function ExtraCard({
   saved,
   open,
   onCardClick,
+  onRemove,
   summaryLines,
 }: {
   def: ExtraDef;
@@ -1644,6 +1651,7 @@ function ExtraCard({
   saved: boolean;
   open: boolean;
   onCardClick: () => void;
+  onRemove: () => void;
   summaryLines: string[];
 }) {
   const { Icon } = def;
@@ -1702,7 +1710,7 @@ function ExtraCard({
           <p className="mt-2 text-[13px] leading-relaxed text-[#5A6472]">{def.description}</p>
 
           {/* Summary lines on card */}
-          {saved && !open && (
+          {saved && !open && summaryLines.length > 0 && (
             <div className="mt-3 flex flex-col items-center gap-1.5">
               {summaryLines.map((line) => (
                 <div key={line} className="inline-flex items-center gap-1.5 text-[12.5px] text-[#3C3222]">
@@ -1719,7 +1727,7 @@ function ExtraCard({
       <button
         type="button"
         onClick={onCardClick}
-        className="mx-5 mb-3 inline-flex items-center justify-center gap-1.5 text-[12px] font-semibold tracking-wide transition-colors"
+        className="mx-5 inline-flex items-center justify-center gap-1.5 text-[12px] font-semibold tracking-wide transition-colors"
         style={{ color: "#B88A2E" }}
       >
         {open ? (
@@ -1733,6 +1741,21 @@ function ExtraCard({
         )}
       </button>
 
+      {/* Remove Service link — visible only when card is selected */}
+      {selected ? (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove();
+          }}
+          className="mx-5 mt-1 mb-3 inline-flex items-center justify-center text-[11.5px] text-[#5A5A5A] hover:text-[#2B2B2B] transition-colors"
+        >
+          Remove Service
+        </button>
+      ) : (
+        <div className="mb-3" />
+      )}
     </div>
   );
 }
@@ -1841,6 +1864,13 @@ function StepFiveExtras({
     setOpenId(null);
   };
 
+  const handleRemove = (id: ExtraId) => {
+    setSelected((prev) => ({ ...prev, [id]: false }));
+    setSaved((prev) => ({ ...prev, [id]: false }));
+    setConfigs((prev) => ({ ...prev, [id]: DEFAULT_CONFIGS[id] }));
+    setOpenId((cur) => (cur === id ? null : cur));
+  };
+
   const selectedCount = Object.values(selected).filter(Boolean).length;
 
   const summaryItems: Array<{ label: string; value: string }> = [
@@ -1896,6 +1926,7 @@ function StepFiveExtras({
                     saved={saved[def.id]}
                     open={isOpen}
                     onCardClick={() => handleCardClick(def.id)}
+                    onRemove={() => handleRemove(def.id)}
                     summaryLines={lines}
                   />
                   {isOpen && (
