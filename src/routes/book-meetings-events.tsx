@@ -507,7 +507,7 @@ function BookMeetingsEvents() {
               />
             )}
           </div>
-          {(step === 6 || step === 7) && (
+          {step === 6 && (
 
             <div
               className="overflow-hidden rounded-[20px]"
@@ -530,27 +530,12 @@ function BookMeetingsEvents() {
                         : "animate-slide-in-left"
                     }
                   >
-                    {step === 6 && (
-                      <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
-                    )}
-                    {step === 7 && (
-                      <StepPlaceholder
-                        step={step}
-                        title={STEPS[step - 1]}
-                        onBack={() => go(step - 1)}
-                        onNext={handleNext}
-                        isLast={step === STEPS.length}
-                      />
-                    )}
-
+                    <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
                   </div>
                 </div>
 
-
                 {/* Help card */}
                 <div
-
-
                   className="p-8 lg:p-10 lg:pl-8"
                   style={{
                     backgroundColor: "transparent",
@@ -572,6 +557,20 @@ function BookMeetingsEvents() {
               </div>
             </div>
           )}
+
+          {step === 7 && (
+            <div
+              key={step}
+              className={
+                direction === "forward"
+                  ? "animate-slide-in-right"
+                  : "animate-slide-in-left"
+              }
+            >
+              <StepSevenReview onBack={() => go(6)} />
+            </div>
+          )}
+
 
           {/* Step 1 premium divider / other steps credibility banner */}
           {step === 1 ? (
