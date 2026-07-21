@@ -710,18 +710,19 @@ export function StepThreeMeetingSpaces({
           : "animate-slide-in-left"
       }
     >
-      <div
-        className="overflow-hidden rounded-[22px]"
-        style={{
-          background: BEIGE,
-          border: "1px solid #EAE3D5",
-          boxShadow:
-            "0 40px 90px -50px rgba(10,27,44,0.18), 0 12px 32px -24px rgba(10,27,44,0.08)",
-        }}
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(340px,360px)] gap-8 lg:gap-8 items-start">
-          {/* LEFT — CONTENT */}
+      <div className="mx-auto max-w-[1480px] grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(380px,420px)] gap-6 lg:gap-8 items-start">
+        {/* LEFT — FORM CARD */}
+        <div
+          className="overflow-hidden rounded-[22px] min-w-0"
+          style={{
+            background: BEIGE,
+            border: "1px solid #EAE3D5",
+            boxShadow:
+              "0 40px 90px -50px rgba(10,27,44,0.18), 0 12px 32px -24px rgba(10,27,44,0.08)",
+          }}
+        >
           <div className="p-6 sm:p-10 lg:px-14 lg:py-12 min-w-0">
+
             {/* Title */}
             <div>
               <h2
@@ -1204,14 +1205,15 @@ export function StepThreeMeetingSpaces({
                 <ArrowRight size={16} />
               </button>
             </div>
+            </div>
           </div>
 
           {/* RIGHT — SIDEBAR */}
           <aside
-            className="p-5 lg:pt-[210px] lg:pr-8 lg:pb-6 lg:pl-0 flex flex-col gap-5 w-full max-w-[360px] min-w-0 box-border self-start lg:sticky lg:top-6"
-
+            className="flex flex-col gap-5 w-full min-w-0 box-border self-start lg:sticky lg:top-6"
             style={{ background: "transparent" }}
           >
+
             {/* Live Event Summary */}
             <SidebarCard>
               <SidebarHeader
@@ -1450,29 +1452,30 @@ export function StepThreeMeetingSpaces({
 
           </aside>
         </div>
-      </div>
 
-      {/* local input styles */}
-      <style>{`
-        .input {
-          width: 100%;
-          height: 42px;
-          background: #FFFFFF;
-          border: 1px solid #E6DEC9;
-          border-radius: 10px;
-          padding: 0 12px;
-          font-size: 14px;
-          color: #0A1B2C;
-          outline: none;
-          transition: border-color .15s ease, box-shadow .15s ease;
-        }
-        .input:focus {
-          border-color: ${GOLD};
-          box-shadow: 0 0 0 3px rgba(212,169,74,0.18);
-        }
-      `}</style>
+        {/* local input styles */}
+        <style>{`
+          .input {
+            width: 100%;
+            height: 42px;
+            background: #FFFFFF;
+            border: 1px solid #E6DEC9;
+            border-radius: 10px;
+            padding: 0 12px;
+            font-size: 14px;
+            color: #0A1B2C;
+            outline: none;
+            transition: border-color .15s ease, box-shadow .15s ease;
+          }
+          .input:focus {
+            border-color: ${GOLD};
+            box-shadow: 0 0 0 3px rgba(212,169,74,0.18);
+          }
+        `}</style>
     </div>
   );
+
+
 }
 
 /* ---------- Small subcomponents ---------- */
