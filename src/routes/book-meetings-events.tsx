@@ -2712,10 +2712,16 @@ function StepTwoLocation({
           </button>
         </div>
 
-        {/* Hidden navigation — Step 2 uses progress bar for navigation to match reference */}
-        <div className="sr-only" aria-hidden="true">
-          <button type="button" onClick={onBack}>Back</button>
-          <button type="button" onClick={onNext}>Next Step</button>
+        {/* Continue CTA */}
+        <div className="mt-8">
+          <NextButton
+            onClick={onNext}
+            label="Continue to Accommodation"
+            disabled={!selectedDestination}
+          />
+          <p className="mt-3 text-[13px] text-[#7C8794]">
+            Next you'll choose your room requirements and accommodation preferences.
+          </p>
         </div>
       </div>
 
