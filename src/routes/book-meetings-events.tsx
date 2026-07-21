@@ -52,6 +52,8 @@ import {
   Luggage,
   Shirt,
   Gift,
+  Star,
+  Gem,
 } from "lucide-react";
 import airportTransferImg from "@/assets/extras/airport-transfer.jpg";
 import coachParkingImg from "@/assets/extras/coach-parking.jpg";
