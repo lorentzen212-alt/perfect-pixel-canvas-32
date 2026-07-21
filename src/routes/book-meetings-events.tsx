@@ -2542,6 +2542,14 @@ function StepTwoLocation({
                     <br />
                     <span className="text-[#F0D78C]">in {currentCountry.name}</span>
                   </span>
+                  {selected && (
+                    <span
+                      className="absolute top-3 right-3 inline-flex h-6 w-6 items-center justify-center rounded-full"
+                      style={{ backgroundColor: "#D4AF37" }}
+                    >
+                      <Check size={13} strokeWidth={3} className="text-[#0A1B2C]" />
+                    </span>
+                  )}
                 </button>
               );
             }
