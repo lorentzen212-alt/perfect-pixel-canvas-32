@@ -575,7 +575,11 @@ function BookMeetingsEvents() {
 
           {/* Step 1 premium divider / other steps credibility banner */}
           {step === 1 ? (
-            <PremiumDivider />
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8">
+              <PremiumDivider />
+              <div aria-hidden className="hidden lg:block" />
+            </div>
+
           ) : step !== 2 && step !== 3 ? (
           <div
             className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center px-8 md:px-12 py-8 md:py-10 rounded-[20px]"
