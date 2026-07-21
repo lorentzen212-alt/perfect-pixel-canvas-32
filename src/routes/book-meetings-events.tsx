@@ -2290,18 +2290,28 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
         <div
           className="relative overflow-hidden rounded-[22px] p-8 sm:p-10 lg:p-12"
           style={{
-            backgroundColor: "#FCFAF6",
             backgroundImage:
-              "radial-gradient(1200px 500px at 10% -10%, rgba(201,162,74,0.06), transparent 60%), radial-gradient(800px 400px at 100% 100%, rgba(201,162,74,0.05), transparent 55%)",
-            border: "1px solid rgba(201,162,74,0.28)",
+              "linear-gradient(180deg, #FFFBF4 0%, #FBF5EA 52%, #F8F1E4 100%), linear-gradient(135deg, #D4AF37 0%, #F5E6B1 30%, #C9A24A 65%, #B8962F 100%)",
+            backgroundClip: "padding-box, border-box",
+            border: "1px solid transparent",
             boxShadow:
               "0 30px 60px -40px rgba(10,27,44,0.20), 0 6px 20px -12px rgba(10,27,44,0.08)",
           }}
         >
-          {/* Subtle paper texture */}
+          {/* Warm champagne ambient glow */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-[0.35]"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background: "radial-gradient(circle 300px at 50% 45%, rgba(245,233,184,0.07), transparent 65%)",
+              filter: "blur(140px)",
+            }}
+          />
+
+          {/* Premium paper texture */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.025]"
             style={{
               backgroundImage:
                 "repeating-linear-gradient(0deg, rgba(120,90,40,0.025) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(120,90,40,0.02) 0 1px, transparent 1px 3px)",
