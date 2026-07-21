@@ -1372,6 +1372,16 @@ function ContinueButton({ onClick, label, disabled = false }: { onClick: () => v
       />
       <span aria-hidden="true" className="pointer-events-none absolute left-0 right-0 top-0 h-[1px] bg-white opacity-55" />
       <span aria-hidden="true" className="pointer-events-none absolute bottom-0 left-0 right-0 h-[1px] bg-[#7A5A20] opacity-25" />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 w-[45%]"
+        style={{
+          background:
+            "linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0) 100%)",
+          transform: "translateX(-30%) skewX(-18deg)",
+          opacity: 0.35,
+        }}
+      />
       <span className="relative z-10 tracking-[-0.01em]">{label}</span>
       <ArrowRight size={18} strokeWidth={2} className="relative z-10 transition-transform group-hover:translate-x-0.5" />
     </button>
