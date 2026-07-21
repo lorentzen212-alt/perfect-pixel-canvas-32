@@ -3581,13 +3581,15 @@ const ROOM_CATEGORY_OPTIONS = [
 
 function RoomRow({
   icon,
+  image,
   label,
   value,
   onChange,
   category,
   onCategoryChange,
 }: {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
+  image?: string;
   label: string;
   value: number;
   onChange: (v: number) => void;
@@ -3605,7 +3607,29 @@ function RoomRow({
       }}
     >
       <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 sm:gap-6">
-        <LuxIconBadge size={44} finish="engraved">{icon}</LuxIconBadge>
+        {image ? (
+          <div
+            className="overflow-hidden shrink-0"
+            style={{
+              width: 66,
+              height: 50,
+              borderRadius: 10,
+              border: "1px solid #D4AF37",
+              boxShadow:
+                "0 4px 10px -6px rgba(10,27,44,0.25), 0 1px 2px rgba(10,27,44,0.06), inset 0 0 0 1px rgba(255,255,255,0.35)",
+            }}
+          >
+            <img
+              src={image}
+              alt=""
+              loading="lazy"
+              className="w-full h-full object-cover"
+              draggable={false}
+            />
+          </div>
+        ) : (
+          <LuxIconBadge size={44} finish="engraved">{icon}</LuxIconBadge>
+        )}
         <div className="min-w-0 text-[#0A1B2C] text-[15px] sm:text-[16px] font-medium truncate">
           {label}
         </div>
