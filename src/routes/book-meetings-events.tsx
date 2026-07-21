@@ -43,7 +43,8 @@ import {
   MapPin,
   Info,
   ChefHat,
-
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TrustShield, TrustClock, TrustHeadset, TrustLock } from "@/components/TrustIcons";
