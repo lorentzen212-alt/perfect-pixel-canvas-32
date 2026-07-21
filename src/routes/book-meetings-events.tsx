@@ -45,7 +45,20 @@ import {
   ChefHat,
   ChevronLeft,
   ChevronRight,
+  Bus,
+  ClipboardCheck,
+  Package,
+  Luggage,
+  Shirt,
+  Gift,
 } from "lucide-react";
+import airportTransferImg from "@/assets/extras/airport-transfer.jpg";
+import coachParkingImg from "@/assets/extras/coach-parking.jpg";
+import registrationDeskImg from "@/assets/extras/registration-desk.jpg";
+import packageHandlingImg from "@/assets/extras/package-handling.jpg";
+import porterServiceImg from "@/assets/extras/porter-service.jpg";
+import cloakroomImg from "@/assets/extras/cloakroom.jpg";
+import welcomePackageImg from "@/assets/extras/welcome-package.jpg";
 import { cn } from "@/lib/utils";
 import { TrustShield, TrustClock, TrustHeadset, TrustLock } from "@/components/TrustIcons";
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
