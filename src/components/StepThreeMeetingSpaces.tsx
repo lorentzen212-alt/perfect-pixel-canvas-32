@@ -24,6 +24,27 @@ import {
   ArrowLeft,
   MessageSquare,
 } from "lucide-react";
+import theaterImg from "@/assets/setups/theater.jpg";
+import cinemaImg from "@/assets/setups/cinema.jpg";
+import classroomImg from "@/assets/setups/classroom.jpg";
+import roundImg from "@/assets/setups/round.jpg";
+import boardroomImg from "@/assets/setups/boardroom.jpg";
+import cabaretImg from "@/assets/setups/cabaret.jpg";
+import ushapeImg from "@/assets/setups/ushape.jpg";
+import breakoutImg from "@/assets/setups/breakout.jpg";
+import otherImg from "@/assets/setups/other.jpg";
+
+const SETUP_IMAGES: Record<string, string> = {
+  theater: theaterImg,
+  cinema: cinemaImg,
+  classroom: classroomImg,
+  round: roundImg,
+  boardroom: boardroomImg,
+  cabaret: cabaretImg,
+  ushape: ushapeImg,
+  breakout: breakoutImg,
+  other: otherImg,
+};
 
 /* Design tokens */
 const SERIF = '"Cormorant Garamond", Georgia, serif';
@@ -877,28 +898,35 @@ export function StepThreeMeetingSpaces({
 
                   {/* Setup detail panel */}
                   <div
-                    className="mt-6 rounded-[14px] p-5 lg:p-6 grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-6 items-start"
+                    className="mt-6 rounded-[14px] p-5 lg:p-6 grid grid-cols-1 md:grid-cols-[260px_1fr_auto] gap-6 items-stretch"
                     style={{
                       background: "#F1EADB",
                       border: "1px solid #E4DBC4",
                     }}
                   >
                     <div
-                      className="rounded-[12px] p-4 grid place-items-center"
+                      key={activeSetup.id + "-img"}
+                      className="relative overflow-hidden rounded-[12px] w-full h-[180px] md:h-full min-h-[180px]"
                       style={{
-                        background:
-                          "linear-gradient(180deg,#FBF7EC,#F1E7CE)",
                         border: "1px solid #E2D5B0",
-                        color: NAVY,
-                        width: 128,
-                        height: 96,
+                        boxShadow:
+                          "0 10px 24px -14px rgba(10,27,44,0.35), inset 0 0 0 1px rgba(255,255,255,0.4)",
+                        animation: "setup-fade 320ms ease-out",
                       }}
                     >
-                      <SetupGlyph id={activeSetup.id} size={64} />
+                      <img
+                        src={SETUP_IMAGES[activeSetup.id]}
+                        alt={`${activeSetup.label} room setup`}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
                     </div>
-                    <div>
+                    <div
+                      key={activeSetup.id + "-text"}
+                      style={{ animation: "setup-fade 260ms ease-out" }}
+                    >
                       <div
-                        className="text-[#0A1B2C] text-[20px] leading-tight"
+                        className="text-[#0A1B2C] text-[22px] leading-tight"
                         style={{ fontFamily: SERIF }}
                       >
                         {activeSetup.label} style
@@ -913,7 +941,14 @@ export function StepThreeMeetingSpaces({
                         {activeSetup.bestFor.join(" · ")}
                       </p>
                     </div>
-                    <div className="min-w-[160px]">
+                    <div
+                      key={activeSetup.id + "-cap"}
+                      className="min-w-[160px] md:border-l md:pl-6"
+                      style={{
+                        borderColor: "#E2D5B0",
+                        animation: "setup-fade 260ms ease-out",
+                      }}
+                    >
                       <div className="text-[11px] uppercase tracking-[0.14em] text-[#7A6A45] font-semibold">
                         Capacity
                       </div>
@@ -937,6 +972,7 @@ export function StepThreeMeetingSpaces({
                       </ul>
                     </div>
                   </div>
+
 
                   {/* Equipment */}
                   <div className="mt-8">
