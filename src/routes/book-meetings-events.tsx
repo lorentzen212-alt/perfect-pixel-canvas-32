@@ -3486,14 +3486,17 @@ function StepTwoLocation({
         <BudgetPreference value={budget} onChange={setBudget} />
 
         {/* Continue to Accommodation */}
-        <div className="mt-8 flex justify-end">
-          <ContinueButton
-            onClick={() => {
-              if (selectedDestination) onNext();
-            }}
-            label="Continue to Accommodation"
-            disabled={!selectedDestination}
-          />
+        <div className="mt-8">
+          <GoldStarDivider />
+          <div className="mt-6 flex justify-end">
+            <ContinueButton
+              onClick={() => {
+                if (selectedDestination) onNext();
+              }}
+              label="Continue to Accommodation"
+              disabled={!selectedDestination}
+            />
+          </div>
         </div>
 
         {/* Hidden back nav — progress bar handles previous-step navigation */}
