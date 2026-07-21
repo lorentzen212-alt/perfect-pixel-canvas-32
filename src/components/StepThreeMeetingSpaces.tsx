@@ -1200,7 +1200,7 @@ export function StepThreeMeetingSpaces({
                     "inset 0 1px 0 rgba(255,255,255,0.45), 0 12px 26px -14px rgba(184,137,23,0.55)",
                 }}
               >
-                Save Meeting Spaces & Continue to Catering
+                Save Meeting Spaces & Continue
                 <ArrowRight size={16} />
               </button>
             </div>
