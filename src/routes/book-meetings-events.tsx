@@ -1864,6 +1864,13 @@ function StepFiveExtras({
     setOpenId(null);
   };
 
+  const handleRemove = (id: ExtraId) => {
+    setSelected((prev) => ({ ...prev, [id]: false }));
+    setSaved((prev) => ({ ...prev, [id]: false }));
+    setConfigs((prev) => ({ ...prev, [id]: DEFAULT_CONFIGS[id] }));
+    setOpenId((cur) => (cur === id ? null : cur));
+  };
+
   const selectedCount = Object.values(selected).filter(Boolean).length;
 
   const summaryItems: Array<{ label: string; value: string }> = [
