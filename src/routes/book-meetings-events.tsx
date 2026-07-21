@@ -1218,7 +1218,369 @@ function NextButton({ onClick, label }: { onClick: () => void; label: string }) 
   );
 }
 
+/* --------- Step 5 – Extras --------- */
+
+type ExtraId =
+  | "airport-transfer"
+  | "coach-parking"
+  | "registration-desk"
+  | "package-handling"
+  | "porter-service"
+  | "cloakroom"
+  | "welcome-package";
+
+type ExtraDef = {
+  id: ExtraId;
+  title: string;
+  description: string;
+  image: string;
+  Icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }>;
+};
+
+const EXTRAS_DEFS: ExtraDef[] = [
+  {
+    id: "airport-transfer",
+    title: "Airport Transfer",
+    description: "Private transportation between the airport and the hotel.",
+    image: airportTransferImg,
+    Icon: Plane,
+  },
+  {
+    id: "coach-parking",
+    title: "Coach Parking",
+    description: "Secure coach parking and logistics on-site.",
+    image: coachParkingImg,
+    Icon: Bus,
+  },
+  {
+    id: "registration-desk",
+    title: "Registration Desk",
+    description: "Professional registration desk and guest check-in support.",
+    image: registrationDeskImg,
+    Icon: ClipboardCheck,
+  },
+  {
+    id: "package-handling",
+    title: "Package Handling",
+    description: "Receive, store and manage your event deliveries.",
+    image: packageHandlingImg,
+    Icon: Package,
+  },
+  {
+    id: "porter-service",
+    title: "Porter Service",
+    description: "Assistance with luggage and equipment on arrival and departure.",
+    image: porterServiceImg,
+    Icon: Luggage,
+  },
+  {
+    id: "cloakroom",
+    title: "Cloakroom",
+    description: "Secure cloakroom service for your guests during the event.",
+    image: cloakroomImg,
+    Icon: Shirt,
+  },
+  {
+    id: "welcome-package",
+    title: "Guest Welcome Package",
+    description:
+      "Welcome gifts, personalised amenities or VIP in-room arrangements for your guests.",
+    image: welcomePackageImg,
+    Icon: Gift,
+  },
+];
+
+function ExtraCard({
+  def,
+  selected,
+  onToggle,
+}: {
+  def: ExtraDef;
+  selected: boolean;
+  onToggle: () => void;
+}) {
+  const { Icon } = def;
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className="group relative flex flex-col overflow-hidden rounded-[16px] text-left transition-all duration-200 hover:-translate-y-[2px]"
+      style={{
+        background: selected
+          ? "linear-gradient(180deg, #FFFBEF 0%, #FBF3DC 100%)"
+          : "linear-gradient(180deg, #FFFFFF 0%, #FCFAF3 100%)",
+        border: selected
+          ? "1.5px solid #C79A32"
+          : "1px solid #ECE4CC",
+        boxShadow: selected
+          ? "0 14px 30px -18px rgba(184,138,46,0.35), 0 2px 8px -4px rgba(10,27,44,0.06)"
+          : "0 10px 24px -18px rgba(10,27,44,0.20), 0 2px 6px -3px rgba(10,27,44,0.05)",
+      }}
+    >
+      {/* Image */}
+      <div className="relative w-full" style={{ aspectRatio: "4 / 3" }}>
+        <img
+          src={def.image}
+          alt={def.title}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        {/* selection circle */}
+        <span
+          className="absolute right-3 top-3 inline-flex h-6 w-6 items-center justify-center rounded-full transition-all"
+          style={{
+            background: selected ? "#C79A32" : "rgba(255,255,255,0.9)",
+            border: selected ? "1.5px solid #B88917" : "1.5px solid rgba(255,255,255,0.95)",
+            boxShadow: "0 2px 6px rgba(10,27,44,0.25)",
+          }}
+        >
+          {selected && <Check size={14} strokeWidth={3} style={{ color: "#FFFFFF" }} />}
+        </span>
+      </div>
+
+      {/* Icon badge */}
+      <div className="relative -mt-6 flex justify-center">
+        <span
+          className="inline-flex h-12 w-12 items-center justify-center rounded-full"
+          style={{
+            background:
+              "linear-gradient(180deg, #FFFDF6 0%, #FBF3DC 100%)",
+            border: "1px solid #E3D2A1",
+            boxShadow:
+              "0 6px 14px -8px rgba(184,138,46,0.45), inset 0 1px 0 rgba(255,255,255,0.7)",
+          }}
+        >
+          <Icon size={20} strokeWidth={1.8} style={{ color: "#B88A2E" }} />
+        </span>
+      </div>
+
+      {/* Text */}
+      <div className="px-5 pt-2 pb-6 text-center">
+        <h4
+          className="text-[#0A1B2C] text-[19px] leading-tight"
+          style={{ fontFamily: SERIF, fontWeight: 500 }}
+        >
+          {def.title}
+        </h4>
+        <p className="mt-2 text-[13px] leading-relaxed text-[#5A6472]">
+          {def.description}
+        </p>
+      </div>
+    </button>
+  );
+}
+
+function StepFiveExtras({
+  onBack,
+  onNext,
+  direction,
+}: {
+  onBack: () => void;
+  onNext: () => void;
+  direction: "forward" | "back";
+}) {
+  const [selected, setSelected] = useState<Record<ExtraId, boolean>>(() =>
+    EXTRAS_DEFS.reduce((acc, d) => ({ ...acc, [d.id]: false }), {} as Record<ExtraId, boolean>),
+  );
+  const [notes, setNotes] = useState("");
+
+  const toggle = (id: ExtraId) =>
+    setSelected((prev) => ({ ...prev, [id]: !prev[id] }));
+
+  const selectedCount = Object.values(selected).filter(Boolean).length;
+
+  const summaryItems: Array<{ label: string; value: string }> = [
+    { label: "Location", value: "Oslo, Norway" },
+    { label: "Accommodation", value: "80 rooms · 2 nights" },
+    { label: "Meeting Spaces", value: "1 meeting room" },
+    { label: "Catering", value: "2 items selected" },
+    {
+      label: "Extras",
+      value: selectedCount > 0 ? `${selectedCount} service${selectedCount > 1 ? "s" : ""} selected` : "Not selected",
+    },
+    { label: "Event Details", value: "Not completed" },
+  ];
+
+  return (
+    <div
+      className={
+        direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"
+      }
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6">
+        {/* LEFT — main panel */}
+        <div
+          className="overflow-hidden rounded-[20px] p-6 sm:p-8 lg:p-10"
+          style={{
+            backgroundColor: "#FCFCFC",
+            backgroundImage:
+              "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
+            boxShadow:
+              "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
+            border: "1px solid #ECECEC",
+          }}
+        >
+          <button
+            type="button"
+            onClick={onBack}
+            className="mb-4 inline-flex items-center gap-2 text-[13px] font-medium text-[#0A1B2C] hover:text-[#B88A2E] transition-colors"
+          >
+            <ArrowLeft size={16} /> Back
+          </button>
+          <h2
+            className="text-[#0A1B2C] text-3xl lg:text-[34px] leading-tight"
+            style={{ fontFamily: SERIF }}
+          >
+            Step 5 – Extras
+          </h2>
+          <div className="mt-2 h-[2px] w-16" style={{ backgroundColor: GOLD }} />
+          <p className="mt-4 text-[#4A5866] text-[15px] max-w-xl leading-relaxed">
+            Select any additional services you would like us to arrange for your group.
+          </p>
+
+          {/* Cards grid */}
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
+            {EXTRAS_DEFS.map((def) => (
+              <ExtraCard
+                key={def.id}
+                def={def}
+                selected={selected[def.id]}
+                onToggle={() => toggle(def.id)}
+              />
+            ))}
+          </div>
+
+          {/* Any other requests */}
+          <div
+            className="mt-8 rounded-[16px] p-5 flex flex-col md:flex-row md:items-start gap-5"
+            style={{
+              background: "linear-gradient(180deg, #FFFDF6 0%, #FBF6E7 100%)",
+              border: "1px solid #EBDDB4",
+              boxShadow: "0 10px 26px -18px rgba(184,138,46,0.25)",
+            }}
+          >
+            <div className="flex items-start gap-3 md:w-[320px] shrink-0">
+              <span
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px]"
+                style={{
+                  background: "#FDF6E1",
+                  border: "1px solid #E3D2A1",
+                }}
+              >
+                <Pencil size={16} style={{ color: "#B88A2E" }} />
+              </span>
+              <div>
+                <h4
+                  className="text-[16px] font-semibold text-[#0A1B2C]"
+                  style={{ fontFamily: SERIF }}
+                >
+                  Any other requests?
+                </h4>
+                <p className="mt-1 text-[13px] text-[#6E5A2E] leading-relaxed">
+                  Tell us about any additional services you would like us to arrange.
+                </p>
+              </div>
+            </div>
+            <div className="flex-1">
+              <textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value.slice(0, 500))}
+                rows={3}
+                placeholder="Type your request here..."
+                className="w-full resize-none rounded-md p-3 text-[13.5px] text-[#0A1B2C] outline-none"
+                style={{ background: "#FFFFFF", border: "1px solid #E4DDC8" }}
+              />
+              <div className="mt-1 text-right text-[11px] text-[#9C9484]">
+                {notes.length} / 500
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT — Need help + Event Summary + Next */}
+        <aside className="lg:sticky lg:top-6 self-start flex flex-col gap-5">
+          {/* Need help card */}
+          <div
+            className="rounded-[16px] p-6"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #EFEFEC",
+              boxShadow:
+                "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+            }}
+          >
+            <HelpCard />
+          </div>
+
+          {/* Summary card */}
+          <div
+            className="rounded-[16px] p-6"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #EFEFEC",
+              boxShadow:
+                "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+            }}
+          >
+            <h3
+              className="text-[#0A1B2C] text-[22px] leading-tight"
+              style={{ fontFamily: SERIF }}
+            >
+              Your event summary
+            </h3>
+            <div className="mt-4 flex flex-col gap-4">
+              {summaryItems.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-start justify-between gap-3"
+                >
+                  <div className="min-w-0">
+                    <p className="text-[13px] font-semibold text-[#0A1B2C]">
+                      {item.label}
+                    </p>
+                    <p className="text-[13px] text-[#5A6472] mt-0.5">
+                      {item.value}
+                    </p>
+                  </div>
+                  {item.label !== "Extras" && item.label !== "Event Details" && (
+                    <button
+                      type="button"
+                      className="text-[13px] font-semibold underline decoration-1 underline-offset-2 transition-colors"
+                      style={{ color: "#B88A2E" }}
+                    >
+                      Edit
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="mt-6">
+              <button
+                type="button"
+                onClick={onNext}
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-md text-[15px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 hover:-translate-y-[1px]"
+                style={{
+                  height: 52,
+                  background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
+                  boxShadow:
+                    "0 18px 40px -18px rgba(200,154,58,0.55), 0 4px 10px -4px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
+                  border: "1px solid rgba(184,138,46,0.45)",
+                }}
+              >
+                Next Step
+                <ArrowRight size={18} strokeWidth={2.2} className="transition-transform group-hover:translate-x-0.5" />
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
 /* --------- Placeholder for later steps --------- */
+
+
 
 function StepPlaceholder({
   step,
