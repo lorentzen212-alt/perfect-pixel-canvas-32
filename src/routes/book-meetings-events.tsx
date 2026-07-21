@@ -434,6 +434,12 @@ function BookMeetingsEvents() {
               onNext={handleNext}
               direction={direction}
             />
+          ) : step === 5 ? (
+            <StepFiveExtras
+              onBack={() => go(4)}
+              onNext={handleNext}
+              direction={direction}
+            />
           ) : step === 1 ? (
             <StepTwoLocation onBack={() => go(1)} onNext={handleNext} />
           ) : (
@@ -461,7 +467,7 @@ function BookMeetingsEvents() {
                     {step === 6 && (
                       <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
                     )}
-                    {(step === 5 || step === 7) && (
+                    {step === 7 && (
                       <StepPlaceholder
                         step={step}
                         title={STEPS[step - 1]}
@@ -477,6 +483,7 @@ function BookMeetingsEvents() {
 
                 {/* Help card */}
                 <div
+
 
                   className="p-8 lg:p-10 lg:pl-8"
                   style={{
