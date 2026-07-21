@@ -1655,7 +1655,11 @@ function ExtraCard({
   summaryLines: string[];
 }) {
   const { Icon } = def;
-  const highlighted = saved || open;
+  const highlighted = selected || saved || open;
+  const showGreen = saved;
+  const showGold = !saved && (selected || open);
+  const EMERALD = "#1B6B4F";
+  const EMERALD_BORDER = "#155440";
 
   return (
     <div
@@ -1682,12 +1686,16 @@ function ExtraCard({
           <span
             className="absolute right-3 top-3 inline-flex h-6 w-6 items-center justify-center rounded-full transition-all"
             style={{
-              background: saved ? "#C79A32" : "rgba(255,255,255,0.9)",
-              border: saved ? "1.5px solid #B88917" : "1.5px solid rgba(255,255,255,0.95)",
+              background: showGreen ? EMERALD : showGold ? "#C79A32" : "rgba(255,255,255,0.9)",
+              border: showGreen
+                ? `1.5px solid ${EMERALD_BORDER}`
+                : showGold
+                  ? "1.5px solid #B88917"
+                  : "1.5px solid rgba(255,255,255,0.95)",
               boxShadow: "0 2px 6px rgba(10,27,44,0.25)",
             }}
           >
-            {saved && <Check size={14} strokeWidth={3} style={{ color: "#FFFFFF" }} />}
+            {(showGreen || showGold) && <Check size={14} strokeWidth={3} style={{ color: "#FFFFFF" }} />}
           </span>
         </div>
 
