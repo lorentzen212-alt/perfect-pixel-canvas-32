@@ -1350,15 +1350,15 @@ function ContinueButton({ onClick, label, disabled = false }: { onClick: () => v
         minWidth: 207,
         padding: "0 28px",
         background: `
-          linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 22%),
-          linear-gradient(180deg, #FFF3C4 0%, #FADF8A 12%, #E9BE55 38%, #C9992E 72%, #A7761E 100%)
+          linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 20%),
+          linear-gradient(180deg, #FFF1B8 0%, #F7D976 10%, #E6B840 32%, #C89726 58%, #9C6F16 88%, #7A5410 100%)
         `,
         boxShadow: disabled
           ? "none"
-          : "0 26px 50px -16px rgba(120,80,20,0.65), 0 12px 22px -8px rgba(120,80,20,0.42), 0 3px 6px -2px rgba(90,60,10,0.35), inset 0 1.5px 0 rgba(255,255,255,0.85), inset 0 -1.5px 0 rgba(80,55,15,0.30)",
-        border: "1px solid #B88A2E",
+          : "0 34px 60px -18px rgba(120,80,20,0.75), 0 16px 28px -10px rgba(120,80,20,0.55), 0 4px 8px -2px rgba(90,60,10,0.45), inset 0 2px 0 rgba(255,255,255,0.95), inset 0 -2px 0 rgba(80,55,15,0.38), inset 0 0 0 1px rgba(255,235,170,0.35)",
+        border: "1px solid #8F6314",
         WebkitFontSmoothing: "antialiased",
-        textShadow: "0 1px 0 rgba(255,255,255,0.45)",
+        textShadow: "0 1px 0 rgba(255,255,255,0.55)",
       }}
     >
       <span
