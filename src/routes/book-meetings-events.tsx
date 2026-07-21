@@ -3099,21 +3099,22 @@ function StepThreeAccommodation({
                     style={{
                       width: 44,
                       height: 44,
-                      borderRadius: 11,
-                      background: "#111317",
+                      borderRadius: 12,
+                      background: "#0B1624",
                       boxShadow:
-                        "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35)",
+                        "0 0 0 6px rgba(217,182,90,0.06), 0 10px 22px -12px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.04), inset 0 -2px 4px rgba(0,0,0,0.45)",
                     }}
                   >
-                    {/* uniform 1.5px champagne-gold frame */}
+                    {/* premium champagne-gold gradient frame */}
                     <span
                       aria-hidden
                       style={{
                         position: "absolute",
                         inset: 0,
-                        borderRadius: 11,
-                        padding: 1.5,
-                        background: "#D9B65A",
+                        borderRadius: 12,
+                        padding: 1.4,
+                        background:
+                          "linear-gradient(135deg, #F6E1A1 0%, #D9B65A 35%, #8C6A25 65%, #E7C878 100%)",
                         WebkitMask:
                           "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
                         WebkitMaskComposite: "xor",
@@ -3121,63 +3122,110 @@ function StepThreeAccommodation({
                         pointerEvents: "none",
                       }}
                     />
+                    {/* soft top-left reflection */}
+                    <span
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: 12,
+                        background:
+                          "linear-gradient(150deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 38%)",
+                        pointerEvents: "none",
+                      }}
+                    />
                     {/* calendar icon */}
                     <svg
                       viewBox="0 0 24 24"
-                      width={24}
-                      height={24}
+                      width={22}
+                      height={22}
                       style={{
                         position: "absolute",
                         top: "50%",
                         left: "50%",
                         transform: "translate(-50%,-50%)",
+                        overflow: "visible",
                       }}
                     >
                       <defs>
-                        <linearGradient id="calGold" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#FBE4A0" />
-                          <stop offset="45%" stopColor="#E7BE6A" />
-                          <stop offset="100%" stopColor="#A87A2C" />
+                        <linearGradient id="calGoldLine" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#F6E1A1" />
+                          <stop offset="50%" stopColor="#DFB865" />
+                          <stop offset="100%" stopColor="#9C7328" />
                         </linearGradient>
-                        <linearGradient id="calHeader" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#F8D98A" />
-                          <stop offset="100%" stopColor="#C89A3E" />
+                        <linearGradient id="calDot" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#F0D384" />
+                          <stop offset="100%" stopColor="#B4863A" />
+                        </linearGradient>
+                        <linearGradient id="calSparkle" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stopColor="#FFF2C4" />
+                          <stop offset="100%" stopColor="#D9B65A" />
                         </linearGradient>
                       </defs>
+                      {/* subtle emboss shadow */}
+                      <g transform="translate(0.35,0.5)" opacity="0.55">
+                        <rect
+                          x="3.6"
+                          y="5.4"
+                          width="16.8"
+                          height="14.4"
+                          rx="2.2"
+                          fill="none"
+                          stroke="#000"
+                          strokeOpacity="0.45"
+                          strokeWidth="1.3"
+                        />
+                      </g>
                       {/* body */}
                       <rect
-                        x="3.2"
-                        y="4.8"
-                        width="17.6"
-                        height="15.2"
-                        rx="2.4"
+                        x="3.6"
+                        y="5.4"
+                        width="16.8"
+                        height="14.4"
+                        rx="2.2"
                         fill="none"
-                        stroke="url(#calGold)"
-                        strokeWidth="1.5"
+                        stroke="url(#calGoldLine)"
+                        strokeWidth="1.3"
                       />
-                      {/* gold header bar */}
-                      <path
-                        d="M3.2 8.6 h17.6 v-1.4 a2.4 2.4 0 0 0 -2.4 -2.4 h-12.8 a2.4 2.4 0 0 0 -2.4 2.4 z"
-                        fill="url(#calHeader)"
+                      {/* top divider */}
+                      <line
+                        x1="3.9"
+                        y1="9.3"
+                        x2="20.1"
+                        y2="9.3"
+                        stroke="url(#calGoldLine)"
+                        strokeWidth="1.1"
                       />
                       {/* rings */}
-                      <rect x="7.4" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
-                      <rect x="15" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
-                      {/* date squares */}
-                      {[0, 1, 2].map((c) =>
-                        [0, 1].map((r) => (
-                          <rect
-                            key={`${c}-${r}`}
-                            x={6 + c * 4}
-                            y={11 + r * 3.4}
-                            width="2.6"
-                            height="2.4"
-                            rx="0.5"
-                            fill="url(#calGold)"
-                            opacity={r === 0 && c === 1 ? 1 : 0.78}
-                          />
-                        ))
+                      <rect x="7.5" y="3.4" width="1.3" height="3.4" rx="0.6" fill="url(#calDot)" />
+                      <rect x="15.2" y="3.4" width="1.3" height="3.4" rx="0.6" fill="url(#calDot)" />
+                      {/* date squares — 4 cols x 3 rows, elegant */}
+                      {[0, 1, 2].map((r) =>
+                        [0, 1, 2, 3].map((c) => {
+                          // omit last row col 2,3 for asymmetric elegance
+                          if (r === 2 && c > 1) return null;
+                          return (
+                            <rect
+                              key={`${r}-${c}`}
+                              x={5.6 + c * 3.2}
+                              y={11.2 + r * 2.8}
+                              width="1.7"
+                              height="1.7"
+                              rx="0.35"
+                              fill="url(#calDot)"
+                              opacity={r === 1 && c === 1 ? 1 : 0.85}
+                            />
+                          );
+                        })
                       )}
+                      {/* luxury sparkle — lower right */}
+                      <g transform="translate(19.2,18.4)">
+                        <path
+                          d="M0 -2.6 L0.55 -0.55 L2.6 0 L0.55 0.55 L0 2.6 L-0.55 0.55 L-2.6 0 L-0.55 -0.55 Z"
+                          fill="url(#calSparkle)"
+                        />
+                        <circle cx="0" cy="0" r="0.5" fill="#FFF6D8" />
+                      </g>
                     </svg>
                   </div>
                   <div>
