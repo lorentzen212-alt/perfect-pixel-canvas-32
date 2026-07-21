@@ -2861,6 +2861,7 @@ function StepTwoLocation({
   const [selectedCountry, setSelectedCountry] = useState<CountryCode>("NO");
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [budget, setBudget] = useState<"economy" | "mid" | "premium" | "luxury" | null>(null);
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
 
