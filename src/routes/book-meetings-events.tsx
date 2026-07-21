@@ -2395,12 +2395,12 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                       />
                       <div className="flex items-center gap-4">
                         <span
-                          className="relative inline-flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full overflow-hidden"
+                          className="relative inline-flex h-[47px] w-[47px] shrink-0 items-center justify-center rounded-full overflow-hidden"
                           style={{
                             backgroundColor: "#FCFAF6",
-                            border: "1px solid rgba(201,162,74,0.28)",
+                            border: "0.85px solid rgba(201,162,74,0.24)",
                             boxShadow:
-                              "inset 0 1px 2px rgba(120,90,40,0.10), inset 0 -1px 2px rgba(120,90,40,0.06)",
+                              "inset 0 1.5px 3px rgba(120,90,40,0.14), inset 0 -1px 2px rgba(120,90,40,0.07)",
                           }}
                         >
                           <span
@@ -2408,15 +2408,16 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                             className="pointer-events-none absolute inset-0 rounded-full"
                             style={{
                               backgroundImage:
-                                "radial-gradient(circle at 28% 22%, rgba(255,255,255,0.55), transparent 55%)",
+                                "radial-gradient(circle at 26% 20%, rgba(255,255,255,0.6), transparent 58%)",
                             }}
                           />
                           <Icon
                             size={19}
-                            strokeWidth={1.9}
+                            strokeWidth={2.05}
                             style={{ color: GOLD_LO, position: "relative" }}
                           />
                         </span>
+
                         <div className="min-w-0 flex-1 grid grid-cols-[minmax(140px,180px)_1fr] gap-4 items-baseline">
                           <div
                             className="text-[11px] tracking-[0.22em] uppercase"
