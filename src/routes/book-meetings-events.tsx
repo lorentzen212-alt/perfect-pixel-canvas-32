@@ -3096,6 +3096,7 @@ function LuxIconBadge({
 type CateringId =
   | "coffee"
   | "fruit"
+  | "snacks"
   | "morning-break"
   | "lunch"
   | "afternoon-break"
