@@ -486,6 +486,33 @@ export function StepThreeMeetingSpaces({
     if (editingId === id) resetDraft();
   };
 
+  const handleContinue = () => {
+    try {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(
+          "hgb:meeting-rooms",
+          JSON.stringify(
+            rooms.map((r) => ({
+              id: r.id,
+              name: r.name,
+              attendees: r.attendees,
+            })),
+          ),
+        );
+        const totalAtt = rooms.reduce(
+          (n, r) => n + (r.attendees || 0),
+          0,
+        );
+        if (totalAtt > 0) {
+          window.localStorage.setItem("hgb:attendees", String(totalAtt));
+        }
+      }
+    } catch {
+      /* non-fatal */
+    }
+    onNext();
+  };
+
   const toggleEquip = (id: string) =>
     setEquipment((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
