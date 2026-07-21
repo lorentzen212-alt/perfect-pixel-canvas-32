@@ -2694,13 +2694,13 @@ function StepTwoLocation({
           </button>
         </div>
 
-        {/* Continue to Accommodation */}
+        {/* Next Step */}
         <div className="mt-8 flex justify-end">
           <NextButton
             onClick={() => {
               if (selectedDestination) onNext();
             }}
-            label="Continue to Accommodation"
+            label="Next Step"
             disabled={!selectedDestination}
           />
         </div>
