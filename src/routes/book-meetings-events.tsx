@@ -60,6 +60,12 @@ import packageHandlingImg from "@/assets/extras/package-handling.jpg";
 import porterServiceImg from "@/assets/extras/porter-service.jpg";
 import cloakroomImg from "@/assets/extras/cloakroom.jpg";
 import welcomePackageImg from "@/assets/extras/welcome-package.jpg";
+import singleRoomImg from "@/assets/rooms/single.jpg";
+import doubleRoomImg from "@/assets/rooms/double.jpg";
+import twinRoomImg from "@/assets/rooms/twin.jpg";
+import tripleRoomImg from "@/assets/rooms/triple.jpg";
+import roomOnlyImg from "@/assets/rooms/room-only.jpg";
+import breakfastImg from "@/assets/rooms/breakfast.jpg";
 import { cn } from "@/lib/utils";
 import { TrustShield, TrustClock, TrustHeadset, TrustLock } from "@/components/TrustIcons";
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
@@ -3144,7 +3150,7 @@ function StepThreeAccommodation({
                 </div>
                 <div className="flex flex-col gap-3">
                   <RoomRow
-                    icon={<SingleRoomIcon size={22} />}
+                    image={singleRoomImg}
                     label="Single Room"
                     value={rooms.sgl}
                     onChange={(v) => setRooms({ ...rooms, sgl: v })}
@@ -3152,7 +3158,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, sgl: c })}
                   />
                   <RoomRow
-                    icon={<DoubleRoomIcon size={22} />}
+                    image={doubleRoomImg}
                     label="Double Room"
                     value={rooms.dbl}
                     onChange={(v) => setRooms({ ...rooms, dbl: v })}
@@ -3160,7 +3166,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, dbl: c })}
                   />
                   <RoomRow
-                    icon={<TwinBedsIcon size={23} />}
+                    image={twinRoomImg}
                     label="Twin Room"
                     value={rooms.twn}
                     onChange={(v) => setRooms({ ...rooms, twn: v })}
@@ -3168,7 +3174,7 @@ function StepThreeAccommodation({
                     onCategoryChange={(c) => setRoomCategory({ ...roomCategory, twn: c })}
                   />
                   <RoomRow
-                    icon={<TripleRoomIcon size={22} />}
+                    image={tripleRoomImg}
                     label="Triple Room"
                     value={rooms.trp}
                     onChange={(v) => setRooms({ ...rooms, trp: v })}
@@ -3190,13 +3196,13 @@ function StepThreeAccommodation({
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
-                    icon={<BedDouble size={19} />}
+                    image={roomOnlyImg}
                     label="Room Only"
                     selected={mealPlan === "room"}
                     onClick={() => setMealPlan("room")}
                   />
                   <MealOption
-                    icon={<Coffee size={19} />}
+                    image={breakfastImg}
                     label="Breakfast Included"
                     selected={mealPlan === "breakfast"}
                     onClick={() => setMealPlan("breakfast")}
@@ -3575,13 +3581,15 @@ const ROOM_CATEGORY_OPTIONS = [
 
 function RoomRow({
   icon,
+  image,
   label,
   value,
   onChange,
   category,
   onCategoryChange,
 }: {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
+  image?: string;
   label: string;
   value: number;
   onChange: (v: number) => void;
@@ -3599,7 +3607,29 @@ function RoomRow({
       }}
     >
       <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 sm:gap-6">
-        <LuxIconBadge size={44} finish="engraved">{icon}</LuxIconBadge>
+        {image ? (
+          <div
+            className="overflow-hidden shrink-0"
+            style={{
+              width: 66,
+              height: 50,
+              borderRadius: 10,
+              border: "1px solid #D4AF37",
+              boxShadow:
+                "0 4px 10px -6px rgba(10,27,44,0.25), 0 1px 2px rgba(10,27,44,0.06), inset 0 0 0 1px rgba(255,255,255,0.35)",
+            }}
+          >
+            <img
+              src={image}
+              alt=""
+              loading="lazy"
+              className="w-full h-full object-cover"
+              draggable={false}
+            />
+          </div>
+        ) : (
+          <LuxIconBadge size={44} finish="engraved">{icon}</LuxIconBadge>
+        )}
         <div className="min-w-0 text-[#0A1B2C] text-[15px] sm:text-[16px] font-medium truncate">
           {label}
         </div>
@@ -3823,11 +3853,13 @@ function TwinBedsIcon({ size = 22 }: { size?: number }) {
 
 function MealOption({
   icon,
+  image,
   label,
   selected,
   onClick,
 }: {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
+  image?: string;
   label: string;
   selected: boolean;
   onClick: () => void;
@@ -3842,7 +3874,23 @@ function MealOption({
       )}
     >
       <span className="flex items-center gap-3">
-        <LuxIconBadge size={36} finish="engraved">{icon}</LuxIconBadge>
+        {image ? (
+          <span
+            className="overflow-hidden shrink-0 block"
+            style={{
+              width: 54,
+              height: 40,
+              borderRadius: 8,
+              border: "1px solid #D4AF37",
+              boxShadow:
+                "0 3px 8px -5px rgba(10,27,44,0.25), 0 1px 2px rgba(10,27,44,0.06), inset 0 0 0 1px rgba(255,255,255,0.35)",
+            }}
+          >
+            <img src={image} alt="" loading="lazy" className="w-full h-full object-cover" draggable={false} />
+          </span>
+        ) : (
+          <LuxIconBadge size={36} finish="engraved">{icon}</LuxIconBadge>
+        )}
         <span className="text-[#0A1B2C] text-[14.5px] font-medium">{label}</span>
       </span>
       <span
