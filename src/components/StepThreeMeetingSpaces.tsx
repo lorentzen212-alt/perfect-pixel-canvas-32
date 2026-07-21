@@ -1285,7 +1285,35 @@ export function StepThreeMeetingSpaces({
             {/* Continue CTA */}
             <button
               type="button"
-              onClick={onNext}
+              onClick={() => {
+                try {
+                  if (typeof window !== "undefined") {
+                    window.localStorage.setItem(
+                      "hgb:meeting-rooms",
+                      JSON.stringify(
+                        rooms.map((r) => ({
+                          id: r.id,
+                          name: r.name,
+                          attendees: r.attendees,
+                        })),
+                      ),
+                    );
+                    const totalAtt = rooms.reduce(
+                      (n, r) => n + (r.attendees || 0),
+                      0,
+                    );
+                    if (totalAtt > 0) {
+                      window.localStorage.setItem(
+                        "hgb:attendees",
+                        String(totalAtt),
+                      );
+                    }
+                  }
+                } catch {
+                  /* non-fatal */
+                }
+                onNext();
+              }}
               className="mt-auto inline-flex items-center justify-center gap-2 rounded-full h-[52px] text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
               style={{
                 color: "#0A1B2C",
