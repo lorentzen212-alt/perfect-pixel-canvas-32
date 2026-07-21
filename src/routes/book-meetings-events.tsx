@@ -1723,51 +1723,25 @@ function ExtraCard({
         </div>
       </button>
 
-      {/* Configure / Hide toggle */}
-      <button
-        type="button"
-        onClick={onCardClick}
-        className="mx-5 inline-flex items-center justify-center gap-1.5 text-[12px] font-semibold tracking-wide transition-colors"
-        style={{ color: "#B88A2E" }}
-      >
-        {open ? (
-          <>
-            Hide <ChevronUp size={14} strokeWidth={2.4} />
-          </>
-        ) : (
-          <>
-            Configure <ChevronDown size={14} strokeWidth={2.4} />
-          </>
-        )}
-      </button>
-
-      {/* Remove Service link — visible only when card is selected */}
-      {selected ? (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onRemove();
-          }}
-          className="mx-5 mt-1 mb-3 inline-flex items-center justify-center text-[11.5px] text-[#5A5A5A] hover:text-[#2B2B2B] transition-colors"
-        >
-          Remove Service
-        </button>
-      ) : (
-        <div className="mb-3" />
-      )}
+      <div className="mb-4" />
     </div>
   );
 }
 
 function ExtraAccordion({
   def,
+  saved,
   onDone,
+  onHide,
+  onRemove,
   configs,
   setConfigs,
 }: {
   def: ExtraDef;
+  saved: boolean;
   onDone: () => void;
+  onHide: () => void;
+  onRemove: () => void;
   configs: ExtraConfigs;
   setConfigs: React.Dispatch<React.SetStateAction<ExtraConfigs>>;
 }) {
@@ -1810,7 +1784,35 @@ function ExtraAccordion({
         </h4>
       </div>
       {body}
-      <div className="mt-5 flex justify-end">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={onHide}
+            className="inline-flex items-center gap-1.5 rounded-[10px] px-4 text-[13px] font-medium text-[#0A1B2C] transition-all hover:bg-[#F5EEDA]"
+            style={{
+              height: 40,
+              background: "#FFFFFF",
+              border: "1px solid #E3D2A1",
+            }}
+          >
+            Hide <ChevronUp size={14} strokeWidth={2.4} />
+          </button>
+          {saved && (
+            <button
+              type="button"
+              onClick={onRemove}
+              className="inline-flex items-center rounded-[10px] px-4 text-[12.5px] font-medium text-[#2B2B2B] transition-all hover:bg-[#FBF3DC]"
+              style={{
+                height: 40,
+                background: "transparent",
+                border: "1px solid #D9BE6C",
+              }}
+            >
+              Remove Service
+            </button>
+          )}
+        </div>
         <button
           type="button"
           onClick={onDone}
@@ -1932,7 +1934,10 @@ function StepFiveExtras({
                   {isOpen && (
                     <ExtraAccordion
                       def={def}
+                      saved={saved[def.id]}
                       onDone={() => handleDone(def.id)}
+                      onHide={() => setOpenId(null)}
+                      onRemove={() => handleRemove(def.id)}
                       configs={configs}
                       setConfigs={setConfigs}
                     />
