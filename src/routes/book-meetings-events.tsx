@@ -1655,16 +1655,17 @@ function ExtraCard({
   summaryLines: string[];
 }) {
   const { Icon } = def;
+  const highlighted = saved || open;
 
   return (
     <div
       className="relative flex flex-col overflow-hidden rounded-[16px] transition-all duration-200"
       style={{
-        background: selected
+        background: highlighted
           ? "linear-gradient(180deg, #FFFBEF 0%, #FBF3DC 100%)"
           : "linear-gradient(180deg, #FFFFFF 0%, #FCFAF3 100%)",
-        border: selected ? "1.5px solid #C79A32" : "1px solid #ECE4CC",
-        boxShadow: selected
+        border: highlighted ? "1.5px solid #C79A32" : "1px solid #ECE4CC",
+        boxShadow: highlighted
           ? "0 14px 30px -18px rgba(184,138,46,0.35), 0 2px 8px -4px rgba(10,27,44,0.06)"
           : "0 10px 24px -18px rgba(10,27,44,0.20), 0 2px 6px -3px rgba(10,27,44,0.05)",
         height: "100%",
@@ -1681,12 +1682,12 @@ function ExtraCard({
           <span
             className="absolute right-3 top-3 inline-flex h-6 w-6 items-center justify-center rounded-full transition-all"
             style={{
-              background: selected ? "#C79A32" : "rgba(255,255,255,0.9)",
-              border: selected ? "1.5px solid #B88917" : "1.5px solid rgba(255,255,255,0.95)",
+              background: saved ? "#C79A32" : "rgba(255,255,255,0.9)",
+              border: saved ? "1.5px solid #B88917" : "1.5px solid rgba(255,255,255,0.95)",
               boxShadow: "0 2px 6px rgba(10,27,44,0.25)",
             }}
           >
-            {selected && <Check size={14} strokeWidth={3} style={{ color: "#FFFFFF" }} />}
+            {saved && <Check size={14} strokeWidth={3} style={{ color: "#FFFFFF" }} />}
           </span>
         </div>
 
