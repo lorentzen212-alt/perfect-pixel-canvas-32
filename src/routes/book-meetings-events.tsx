@@ -2861,6 +2861,7 @@ function StepTwoLocation({
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
+  const [budget, setBudget] = useState<"economy" | "mid" | "premium" | "luxury" | null>(null);
 
   const searchRef = useRef<HTMLDivElement>(null);
 
@@ -3258,6 +3259,165 @@ function StepTwoLocation({
           >
             <Pencil size={16} className="text-[#B88A2E]" strokeWidth={1.8} />
           </button>
+        </div>
+
+        {/* Budget preference */}
+        <div
+          className="mt-4 rounded-[18px] px-6 py-6"
+          style={{
+            background: "#F5F1E8",
+            border: "1px solid #ECE6D6",
+          }}
+        >
+          <div className="flex items-start gap-3">
+            <span
+              className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white text-[13px]"
+              style={{ background: "#0A1B2C", fontFamily: SANS, fontWeight: 600 }}
+            >
+              6
+            </span>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-baseline gap-2">
+                <h3
+                  className="text-[22px] leading-none text-[#0A1B2C]"
+                  style={{ fontFamily: SERIF, fontWeight: 600 }}
+                >
+                  Budget preference
+                </h3>
+                <span
+                  className="text-[15px] text-[#9BA3AE]"
+                  style={{ fontFamily: SANS }}
+                >
+                  (optional)
+                </span>
+              </div>
+              <p
+                className="mt-1.5 text-[13.5px] text-[#4A5866]"
+                style={{ fontFamily: SANS }}
+              >
+                Help us tailor the best options for your event.
+              </p>
+
+              {/* Navy tier bar */}
+              <div className="mt-4 flex justify-center">
+                <div
+                  className="relative w-full max-w-[560px] rounded-[14px] px-6 py-4"
+                  style={{
+                    background: "#0A1B2C",
+                    boxShadow:
+                      "0 20px 40px -28px rgba(10,27,44,0.55), inset 0 0 0 1px rgba(240,215,140,0.18)",
+                  }}
+                >
+                  {/* Connecting line */}
+                  <div
+                    className="pointer-events-none absolute left-[12%] right-[12%] top-[36px] h-px"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, rgba(240,215,140,0.15), rgba(240,215,140,0.75), rgba(240,215,140,0.15))",
+                    }}
+                  />
+                  <div className="relative flex items-center justify-between">
+                    {(
+                      [
+                        { id: "economy", label: "Economy", type: "building" },
+                        { id: "mid", label: "Mid-range", type: "dot" },
+                        { id: "premium", label: "Premium", type: "star" },
+                        { id: "luxury", label: "Luxury", type: "diamond" },
+                      ] as const
+                    ).map((t, idx) => {
+                      const active = budget === t.id;
+                      return (
+                        <button
+                          key={t.id}
+                          type="button"
+                          onClick={() =>
+                            setBudget(active ? null : (t.id as typeof budget))
+                          }
+                          className="relative z-10 flex flex-col items-center gap-2 focus:outline-none"
+                          style={{ width: 72 }}
+                        >
+                          <span
+                            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full"
+                            style={
+                              active
+                                ? {
+                                    background:
+                                      "radial-gradient(circle at 50% 45%, #FFE38C 0%, #F0C24A 55%, #B8862A 100%)",
+                                    boxShadow:
+                                      "0 0 22px 4px rgba(240,196,74,0.55), 0 0 0 1px rgba(255,255,255,0.35) inset",
+                                  }
+                                : { background: "transparent" }
+                            }
+                          >
+                            {t.type === "building" && (
+                              <Building2
+                                size={22}
+                                strokeWidth={1.7}
+                                style={{ color: active ? "#0A1B2C" : "#F0D78C" }}
+                              />
+                            )}
+                            {t.type === "dot" && (
+                              <Sparkles
+                                size={18}
+                                strokeWidth={1.8}
+                                style={{ color: active ? "#0A1B2C" : "#F0D78C" }}
+                                fill={active ? "#0A1B2C" : "none"}
+                              />
+                            )}
+                            {t.type === "star" && (
+                              <svg width="22" height="22" viewBox="0 0 24 24" fill={active ? "#0A1B2C" : "none"} stroke={active ? "#0A1B2C" : "#F0D78C"} strokeWidth="1.7" strokeLinejoin="round">
+                                <path d="M12 2.5 14.9 9l7 .6-5.3 4.6 1.6 6.9L12 17.6 5.8 21l1.6-6.9L2.1 9.6l7-.6L12 2.5Z" />
+                              </svg>
+                            )}
+                            {t.type === "diamond" && (
+                              <svg width="22" height="22" viewBox="0 0 24 24" fill={active ? "#0A1B2C" : "none"} stroke={active ? "#0A1B2C" : "#F0D78C"} strokeWidth="1.7" strokeLinejoin="round">
+                                <path d="M3 9h18l-9 12L3 9Z" />
+                                <path d="M7 3h10l4 6H3l4-6Z" />
+                                <path d="M12 3v18M3 9l9 12 9-12" />
+                              </svg>
+                            )}
+                          </span>
+                          <span
+                            className="text-[12.5px]"
+                            style={{
+                              fontFamily: SANS,
+                              fontWeight: active ? 600 : 500,
+                              color: active ? "#F0C24A" : "#FFFFFF",
+                            }}
+                          >
+                            {t.label}
+                          </span>
+                          {/* small connector dot between tiers */}
+                          {idx < 3 && (
+                            <span
+                              className="absolute top-[14px] -right-[calc(50%-8px)] inline-block h-2 w-2 rounded-full"
+                              style={{
+                                border: "1px solid rgba(240,215,140,0.7)",
+                                background: "#0A1B2C",
+                              }}
+                            />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {budget && (
+                <div className="mt-3 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setBudget(null)}
+                    className="text-[13px] underline underline-offset-4"
+                    style={{ fontFamily: SANS, color: "#B88A2E" }}
+                  >
+                    Clear selection
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Continue to Accommodation */}
