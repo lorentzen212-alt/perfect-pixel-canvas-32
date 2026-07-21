@@ -604,13 +604,46 @@ function BookMeetingsEvents() {
                 </span>
               </p>
             </div>
-            <div className="md:pl-10 md:border-l" style={{ borderColor: "#F1F1EE" }}>
+            <div className="md:pl-10 md:border-l flex items-center gap-8" style={{ borderColor: "#F1F1EE" }}>
+              <span
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full relative"
+                style={{ border: "1.5px solid #C79A32", backgroundColor: "#FFFFFF" }}
+                aria-hidden="true"
+              >
+                {/* Four gold stars above the building */}
+                <svg
+                  viewBox="0 0 44 44"
+                  className="absolute"
+                  style={{ top: 6, left: 0, right: 0, margin: "0 auto", width: 22, height: 6 }}
+                >
+                  {[3, 9, 15, 21].map((x) => (
+                    <polygon
+                      key={x}
+                      points={`${x},0 ${x + 1.2},2.2 ${x + 3.4},2.4 ${x + 1.7},3.9 ${x + 2.3},6 ${x},4.7 ${x - 2.3},6 ${x - 1.7},3.9 ${x - 3.4},2.4 ${x - 1.2},2.2`}
+                      fill="#C79A32"
+                    />
+                  ))}
+                </svg>
+                {/* Hotel building icon */}
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#B88A2E" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: 4 }}>
+                  <rect x="8" y="6" width="8" height="14" rx="0.5" />
+                  <line x1="10.5" y1="9" x2="10.5" y2="9.01" />
+                  <line x1="13.5" y1="9" x2="13.5" y2="9.01" />
+                  <line x1="10.5" y1="12" x2="10.5" y2="12.01" />
+                  <line x1="13.5" y1="12" x2="13.5" y2="12.01" />
+                  <line x1="10.5" y1="15" x2="10.5" y2="15.01" />
+                  <line x1="13.5" y1="15" x2="13.5" y2="15.01" />
+                  <path d="M5 20h3v-4a2 2 0 0 1 2-2" />
+                  <path d="M19 20h-3v-4a2 2 0 0 0-2-2" />
+                </svg>
+              </span>
               <p className="text-[#3B4A56] text-[16px] leading-relaxed">
-                We know group travel – and we make
+                Expert planning for meetings,
                 <br />
-                hotel bookings for groups simple.
+                conferences and group stays.
               </p>
             </div>
+
           </div>
           )}
 
