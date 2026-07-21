@@ -1350,15 +1350,15 @@ function ContinueButton({ onClick, label, disabled = false }: { onClick: () => v
         minWidth: 207,
         padding: "0 28px",
         background: `
-          linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 22%),
-          linear-gradient(180deg, #FFF3C4 0%, #FADF8A 12%, #E9BE55 38%, #C9992E 72%, #A7761E 100%)
+          linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 20%),
+          linear-gradient(180deg, #FFF1B8 0%, #F7D976 10%, #E6B840 32%, #C89726 58%, #9C6F16 88%, #7A5410 100%)
         `,
         boxShadow: disabled
           ? "none"
-          : "0 26px 50px -16px rgba(120,80,20,0.65), 0 12px 22px -8px rgba(120,80,20,0.42), 0 3px 6px -2px rgba(90,60,10,0.35), inset 0 1.5px 0 rgba(255,255,255,0.85), inset 0 -1.5px 0 rgba(80,55,15,0.30)",
-        border: "1px solid #B88A2E",
+          : "0 34px 60px -18px rgba(120,80,20,0.75), 0 16px 28px -10px rgba(120,80,20,0.55), 0 4px 8px -2px rgba(90,60,10,0.45), inset 0 2px 0 rgba(255,255,255,0.95), inset 0 -2px 0 rgba(80,55,15,0.38), inset 0 0 0 1px rgba(255,235,170,0.35)",
+        border: "1px solid #8F6314",
         WebkitFontSmoothing: "antialiased",
-        textShadow: "0 1px 0 rgba(255,255,255,0.45)",
+        textShadow: "0 1px 0 rgba(255,255,255,0.55)",
       }}
     >
       <span
@@ -2958,15 +2958,15 @@ function BudgetPreference({
       <GoldStarDivider />
       <div className="mt-6">
         <h3
-          className="text-[22px] leading-tight text-[#0F1B2D]"
-          style={{ fontFamily: SERIF, fontWeight: 700 }}
+          className="text-[22px] leading-tight"
+          style={{ fontFamily: SERIF, fontWeight: 700, color: "#0F1B2D" }}
         >
           Budget Preference{" "}
-          <span className="text-[15px] text-[#0F1B2D]/60" style={{ fontFamily: "inherit", fontWeight: 400 }}>
+          <span className="text-[15px]" style={{ fontFamily: "inherit", fontWeight: 400, color: "#6B778C" }}>
             (Optional)
           </span>
         </h3>
-        <p className="mt-0.5 text-[14px] text-[#0F1B2D]/85" style={{ fontWeight: 500 }}>
+        <p className="mt-0.5 text-[14px]" style={{ fontWeight: 500, color: "#334155" }}>
           Help us tailor the best options for your event.
         </p>
       </div>
@@ -3361,7 +3361,7 @@ function StepTwoLocation({
 
         {/* Search field */}
         <div className="mt-10">
-          <p className="text-[15px] text-[#0F1B2D] mb-2" style={{ fontWeight: 600 }}>Or search for any destination</p>
+          <p className="text-[15px] mb-2" style={{ fontWeight: 700, color: "#0F1B2D" }}>Or search for any destination</p>
           <div ref={searchRef} className="relative">
             <div
               className="flex items-center gap-3 rounded-[16px] px-5 h-[56px]"
@@ -3400,7 +3400,8 @@ function StepTwoLocation({
                 placeholder="Type city, region or venue"
                 autoComplete="off"
                 aria-label="Destination"
-                className="w-full bg-transparent text-[15px] text-[#0F1B2D] placeholder:text-[#0F1B2D]/70 outline-none border-none"
+                className="w-full bg-transparent text-[15px] outline-none border-none placeholder:text-[#6B778C]"
+                style={{ color: "#0F1B2D" }}
               />
             </div>
 
@@ -3470,16 +3471,17 @@ function StepTwoLocation({
           <div className="flex flex-1 flex-col min-w-0">
             <label
               htmlFor="preferred-venue"
-              className="text-[14.5px] text-[#0F1B2D]"
+              className="text-[14.5px]"
             >
-              <span style={{ fontWeight: 700 }}>Preferred venue</span>{" "}
-              <span className="text-[#0F1B2D]/60 font-normal">(optional)</span>
+              <span style={{ fontWeight: 700, color: "#1A2233" }}>Preferred venue</span>{" "}
+              <span className="font-normal" style={{ color: "#6B778C" }}>(optional)</span>
             </label>
             <input
               id="preferred-venue"
               type="text"
               placeholder="Specific hotel, venue or any special request…"
-              className="w-full bg-transparent text-[14px] text-[#0F1B2D] placeholder:text-[#0F1B2D]/60 outline-none border-none mt-0.5"
+              className="w-full bg-transparent text-[14px] outline-none border-none mt-0.5 placeholder:text-[#6B778C]"
+              style={{ color: "#0F1B2D" }}
             />
           </div>
           <button
