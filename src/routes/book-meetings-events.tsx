@@ -3196,13 +3196,13 @@ function StepThreeAccommodation({
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <MealOption
-                    icon={<BedDouble size={19} />}
+                    image={roomOnlyImg}
                     label="Room Only"
                     selected={mealPlan === "room"}
                     onClick={() => setMealPlan("room")}
                   />
                   <MealOption
-                    icon={<Coffee size={19} />}
+                    image={breakfastImg}
                     label="Breakfast Included"
                     selected={mealPlan === "breakfast"}
                     onClick={() => setMealPlan("breakfast")}
