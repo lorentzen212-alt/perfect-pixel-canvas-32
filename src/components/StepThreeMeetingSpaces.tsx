@@ -1487,9 +1487,15 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 flex items-center gap-1.5 text-[12.5px] font-medium text-[#3B4757]">
-        {icon && <span style={{ color: "#8A6B1F" }}>{icon}</span>}
-        {label}
+      <span className="mb-1.5 flex h-[18px] items-center gap-1.5 text-[12.5px] font-medium leading-none text-[#3B4757]">
+        <span
+          className="inline-flex h-[15px] w-[15px] shrink-0 items-center justify-center"
+          style={{ color: "#8A6B1F" }}
+          aria-hidden
+        >
+          {icon}
+        </span>
+        <span className="leading-none">{label}</span>
       </span>
       {children}
     </label>
