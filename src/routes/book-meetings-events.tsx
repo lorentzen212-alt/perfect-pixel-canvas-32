@@ -2859,136 +2859,159 @@ function BudgetPreference({
   value: BudgetTier | null;
   onChange: (v: BudgetTier | null) => void;
 }) {
-  const tiers: { id: BudgetTier; label: string; Icon: typeof Building2 }[] = [
-    { id: "economy", label: "Economy", Icon: Building2 },
-    { id: "mid", label: "Mid-range", Icon: Sparkles },
-    { id: "premium", label: "Premium", Icon: Star },
-    { id: "luxury", label: "Luxury", Icon: Gem },
+  const GOLD_GRAD = "linear-gradient(135deg, #F7E3A8 0%, #E8C46A 45%, #B88A2E 100%)";
+
+  const EconomyIcon = ({ active }: { active: boolean }) => (
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="econG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F7E3A8" />
+          <stop offset="50%" stopColor="#E8C46A" />
+          <stop offset="100%" stopColor="#B88A2E" />
+        </linearGradient>
+      </defs>
+      <g stroke="url(#econG)" strokeWidth={active ? 1.7 : 1.5} strokeLinejoin="round" strokeLinecap="round" fill="none">
+        <rect x="4" y="10" width="9" height="18" rx="1" />
+        <rect x="13" y="6" width="10" height="22" rx="1" />
+        <rect x="23" y="13" width="6" height="15" rx="1" />
+        <path d="M16 10h4M16 14h4M16 18h4M16 22h4M7 15h3M7 19h3M7 23h3M25 17h2M25 21h2" strokeWidth="1.1" />
+      </g>
+    </svg>
+  );
+
+  const MidIcon = ({ active }: { active: boolean }) => (
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="midG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F7E3A8" />
+          <stop offset="50%" stopColor="#E8C46A" />
+          <stop offset="100%" stopColor="#B88A2E" />
+        </linearGradient>
+      </defs>
+      <circle cx="16" cy="16" r="11" stroke="url(#midG)" strokeWidth={active ? 1.7 : 1.5} fill="none" />
+      <path
+        d="M16 10.5l1.5 3.2 3.5.5-2.5 2.4.6 3.5L16 18.5l-3.1 1.6.6-3.5-2.5-2.4 3.5-.5z"
+        fill="url(#midG)"
+      />
+    </svg>
+  );
+
+  const PremiumIcon = ({ active }: { active: boolean }) => (
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="premG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F7E3A8" />
+          <stop offset="50%" stopColor="#E8C46A" />
+          <stop offset="100%" stopColor="#B88A2E" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M16 4.5l3.4 7 7.6 1.1-5.5 5.4 1.3 7.6L16 22l-6.8 3.6 1.3-7.6L5 12.6l7.6-1.1z"
+        stroke="url(#premG)"
+        strokeWidth={active ? 1.7 : 1.5}
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </svg>
+  );
+
+  const LuxuryIcon = ({ active }: { active: boolean }) => (
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="luxG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F7E3A8" />
+          <stop offset="50%" stopColor="#E8C46A" />
+          <stop offset="100%" stopColor="#B88A2E" />
+        </linearGradient>
+      </defs>
+      <g stroke="url(#luxG)" strokeWidth={active ? 1.7 : 1.5} strokeLinejoin="round" strokeLinecap="round" fill="none">
+        <path d="M6 12l4-6h12l4 6-10 15z" />
+        <path d="M6 12h20M10 6l6 6 6-6M12 12l4 15M20 12l-4 15" strokeWidth="1.1" />
+      </g>
+    </svg>
+  );
+
+  const tiers: {
+    id: BudgetTier;
+    label: string;
+    desc: string;
+    Icon: (p: { active: boolean }) => JSX.Element;
+  }[] = [
+    { id: "economy", label: "Economy", desc: "Smart value stays", Icon: EconomyIcon },
+    { id: "mid", label: "Mid-range", desc: "Balanced comfort", Icon: MidIcon },
+    { id: "premium", label: "Premium", desc: "Elevated experience", Icon: PremiumIcon },
+    { id: "luxury", label: "Luxury", desc: "Signature indulgence", Icon: LuxuryIcon },
   ];
 
   return (
     <section className="mt-6">
-      <div className="flex items-start gap-3">
-        <div>
-          <h3
-            className="text-[22px] leading-tight text-[#0A1B2C]"
-            style={{ fontFamily: SERIF, fontWeight: 600 }}
-          >
-            Budget Preference{" "}
-            <span className="text-[15px] text-[#7C8794]" style={{ fontFamily: "inherit", fontWeight: 400 }}>
-              (Optional)
-            </span>
-          </h3>
-          <p className="mt-0.5 text-[13.5px] text-[#5B6673]">
-            Help us tailor the best options for your event.
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-3 flex justify-center">
-        <div
-          className="relative rounded-[18px] px-6 pt-0 pb-3"
-          style={{
-            width: "calc(90% - 24px)",
-            background:
-              "linear-gradient(180deg, #1E4566 0%, #1A3C5B 35%, #16385A 70%, #0F2A47 100%)",
-            border: "1px solid rgba(232, 196, 106, 0.42)",
-            boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.10), 0 20px 42px -24px rgba(4,25,48,0.40), 0 0 0 1px rgba(232,196,106,0.07)",
-          }}
+      <div>
+        <h3
+          className="text-[22px] leading-tight text-[#0A1B2C]"
+          style={{ fontFamily: SERIF, fontWeight: 600 }}
         >
-          {/* subtle top highlight */}
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-[1px] rounded-t-[18px]"
-            style={{
-              background:
-                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%)",
-            }}
-            aria-hidden="true"
-          />
-
-          <div className="flex flex-col">
-            <div className="relative flex items-start justify-between">
-              {/* connecting line */}
-              <div
-                className="absolute left-[52px] right-[52px] top-[13px] h-[1.5px]"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent 0%, rgba(215,180,110,0.42) 8%, rgba(250,220,155,0.98) 50%, rgba(215,180,110,0.42) 92%, transparent 100%)",
-                  boxShadow: "0 0 10px rgba(250,220,155,0.22)",
-                }}
-                aria-hidden="true"
-              />
-              {tiers.map((t, i) => {
-                const selected = value === t.id;
-                const Icon = t.Icon;
-                return (
-                  <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-[2px]">
-                    {/* midpoint dots between labels */}
-                    {i > 0 && (
-                      <span
-                        className="pointer-events-none absolute -left-1/2 top-[10px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
-                        style={{
-                          border: "1.5px solid rgba(232,196,106,0.80)",
-                          background: selected ? "#F5D78E" : "#16385A",
-                          boxShadow: selected
-                            ? "0 0 8px 2px rgba(245,215,142,0.45)"
-                            : "inset 0 0 2px rgba(0,0,0,0.30)",
-                        }}
-                        aria-hidden="true"
-                      />
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => onChange(selected ? null : t.id)}
-                      aria-pressed={selected}
-                      className="relative flex h-7 w-7 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
-                      style={
-                        selected
-                          ? {
-                              background:
-                                "radial-gradient(circle at 50% 35%, #FFF4D6 0%, #F5D78E 30%, #D4A33C 65%, #A67A1F 100%)",
-                              boxShadow:
-                                "0 0 0 3px rgba(212,163,60,0.10), 0 0 20px 4px rgba(212,163,60,0.20), inset 0 1px 0 rgba(255,255,255,0.50)",
-                            }
-                          : { background: "transparent" }
-                      }
-                    >
-                      <Icon
-                        size={18}
-                        strokeWidth={1.65}
-                        style={{ color: selected ? "#FFFFFF" : "#E8C46A" }}
-                        fill={selected && (t.id === "premium" || t.id === "luxury") ? "#FFFFFF" : "none"}
-                      />
-                    </button>
-                    <span
-                      className="text-[13px] tracking-[0.01em]"
-                      style={{
-                        color: selected ? "#F2D477" : "rgba(255,250,240,0.94)",
-                        fontWeight: selected ? 600 : 500,
-                        textShadow: selected ? "0 0 12px rgba(242,212,119,0.35)" : "none",
-                      }}
-                    >
-                      {t.label}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-            {value && (
-              <div className="-mt-px flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => onChange(null)}
-                  className="text-[9.5px] font-medium text-[#B88A2E]/70 underline underline-offset-3 hover:text-[#8E6A20]"
-                >
-                  Clear selection
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
+          Budget Preference{" "}
+          <span className="text-[15px] text-[#7C8794]" style={{ fontFamily: "inherit", fontWeight: 400 }}>
+            (Optional)
+          </span>
+        </h3>
+        <p className="mt-0.5 text-[13.5px] text-[#5B6673]">
+          Help us tailor the best options for your event.
+        </p>
       </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {tiers.map((t) => {
+          const selected = value === t.id;
+          const Icon = t.Icon;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => onChange(selected ? null : t.id)}
+              aria-pressed={selected}
+              className="group relative flex flex-col items-center justify-center rounded-[14px] px-3 py-4 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E8C46A]/60"
+              style={{
+                background: selected
+                  ? "linear-gradient(160deg, #FBF1D8 0%, #F7E7BE 55%, #F0D9A0 100%)"
+                  : "#FFFDF8",
+                border: selected
+                  ? "1px solid rgba(200,160,80,0.55)"
+                  : "1px solid rgba(60,72,90,0.10)",
+                boxShadow: selected
+                  ? "inset 0 1px 2px rgba(255,255,255,0.85), inset 0 -1px 3px rgba(184,138,46,0.10), 0 2px 10px -6px rgba(184,138,46,0.30)"
+                  : "inset 0 1px 2px rgba(255,255,255,0.9), inset 0 -1px 3px rgba(20,30,45,0.04), 0 1px 2px rgba(20,30,45,0.03)",
+              }}
+            >
+              <Icon active={selected} />
+              <span
+                className="mt-2 text-[13.5px] text-[#0A1B2C]"
+                style={{ fontFamily: SERIF, fontWeight: selected ? 600 : 550, letterSpacing: "0.005em" }}
+              >
+                {t.label}
+              </span>
+              <span
+                className="mt-0.5 text-[10.5px] font-normal tracking-[0.01em] text-[#8A8578]"
+                style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+              >
+                {t.desc}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {value && (
+        <div className="mt-2 flex justify-end">
+          <button
+            type="button"
+            onClick={() => onChange(null)}
+            className="text-[10.5px] font-medium text-[#B88A2E]/75 underline underline-offset-2 hover:text-[#8E6A20]"
+          >
+            Clear selection
+          </button>
+        </div>
+      )}
     </section>
   );
 }
