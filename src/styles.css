@@ -92,6 +92,21 @@
   }
 }
 
+/* Meeting Spaces decorative form background — scrolls with content */
+.me-decorative-bg {
+  background-color: #F6EFE1;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+@media (min-width: 1024px) {
+  .me-decorative-bg {
+    background-size: 100% auto;
+  }
+}
+
 .logo-hover-wrap {
   transition: transform 1s ease-in-out;
   transform-origin: left center;
