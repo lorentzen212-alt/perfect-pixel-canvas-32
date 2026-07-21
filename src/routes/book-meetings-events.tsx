@@ -412,6 +412,12 @@ function BookMeetingsEvents() {
               onNext={handleNext}
               direction={direction}
             />
+          ) : step === 4 ? (
+            <StepFourCatering
+              onBack={() => go(3)}
+              onNext={handleNext}
+              direction={direction}
+            />
           ) : step === 1 ? (
             <StepTwoLocation onBack={() => go(1)} onNext={handleNext} />
           ) : (
