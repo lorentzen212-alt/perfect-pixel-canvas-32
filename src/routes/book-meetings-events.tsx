@@ -1865,6 +1865,7 @@ function StepFiveExtras({
       setOpenId(null);
       return;
     }
+    setSelected((prev) => ({ ...prev, [id]: true }));
     setOpenId(id);
   };
 
