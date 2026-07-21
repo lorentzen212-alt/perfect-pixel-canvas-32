@@ -2270,7 +2270,19 @@ function StepThreeAccommodation({
             {/* Complete stay and continue (outlined gold) */}
             <button
               type="button"
-              onClick={onNext}
+              onClick={() => {
+                try {
+                  if (typeof window !== "undefined" && totalGuests > 0) {
+                    window.localStorage.setItem(
+                      "hgb:guest-count",
+                      String(totalGuests),
+                    );
+                  }
+                } catch {
+                  /* non-fatal */
+                }
+                onNext();
+              }}
               className="complete-stay-btn mt-5 w-full inline-flex items-center justify-center gap-2 h-[52px] text-[15px] font-medium"
             >
               <Plus size={18} className="complete-stay-plus" />
