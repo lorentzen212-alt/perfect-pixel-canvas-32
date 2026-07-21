@@ -3036,7 +3036,145 @@ function guestsCapacity(r: RoomMix) {
   return r.sgl * 1 + r.dbl * 2 + r.twn * 2 + r.trp * 3 + r.ste * 2;
 }
 
+function AccommodationIcon() {
+  return (
+    <svg
+      aria-hidden
+      width={44}
+      height={44}
+      viewBox="0 0 44 44"
+      style={{
+        flexShrink: 0,
+        display: "block",
+        filter: "drop-shadow(0 10px 14px rgba(0,0,0,0.35)) drop-shadow(0 2px 3px rgba(0,0,0,0.28))",
+      }}
+    >
+      <defs>
+        {/* Navy body — layered gradient */}
+        <linearGradient id="acmBody" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#1B2735" />
+          <stop offset="45%" stopColor="#0E1620" />
+          <stop offset="100%" stopColor="#070C13" />
+        </linearGradient>
+        {/* Inner glossy sheen */}
+        <linearGradient id="acmSheen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.22" />
+          <stop offset="35%" stopColor="#ffffff" stopOpacity="0.04" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        </linearGradient>
+        {/* Champagne gold border — beveled */}
+        <linearGradient id="acmFrame" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#F9E4A2" />
+          <stop offset="18%" stopColor="#E9C879" />
+          <stop offset="42%" stopColor="#C89A3E" />
+          <stop offset="58%" stopColor="#F4D98A" />
+          <stop offset="82%" stopColor="#B0821E" />
+          <stop offset="100%" stopColor="#F7DE96" />
+        </linearGradient>
+        {/* Bright calendar gold */}
+        <linearGradient id="acmCal" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#FBE9AE" />
+          <stop offset="42%" stopColor="#E9C46A" />
+          <stop offset="100%" stopColor="#9E7422" />
+        </linearGradient>
+        {/* Header bar gold */}
+        <linearGradient id="acmHeader" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#F8D98A" />
+          <stop offset="100%" stopColor="#B78624" />
+        </linearGradient>
+        {/* Radial highlight on top-left */}
+        <radialGradient id="acmGlow" cx="30%" cy="22%" r="55%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.35" />
+          <stop offset="60%" stopColor="#ffffff" stopOpacity="0.04" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        </radialGradient>
+        {/* Sparkle gradient */}
+        <radialGradient id="acmSpark" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FFF6D2" />
+          <stop offset="45%" stopColor="#F5D682" />
+          <stop offset="100%" stopColor="#C89A3E" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* Outer frame */}
+      <rect x="0.5" y="0.5" width="43" height="43" rx="11" fill="url(#acmFrame)" />
+      {/* Navy body inset */}
+      <rect x="2" y="2" width="40" height="40" rx="9.5" fill="url(#acmBody)" />
+      {/* Glossy top sheen */}
+      <rect x="2" y="2" width="40" height="20" rx="9.5" fill="url(#acmSheen)" />
+      {/* Corner glow */}
+      <rect x="2" y="2" width="40" height="40" rx="9.5" fill="url(#acmGlow)" />
+      {/* Inner hairline */}
+      <rect
+        x="2.75"
+        y="2.75"
+        width="38.5"
+        height="38.5"
+        rx="8.75"
+        fill="none"
+        stroke="#ffffff"
+        strokeOpacity="0.06"
+      />
+
+      {/* Calendar — centered around (22,23) */}
+      <g transform="translate(11 10)">
+        {/* body */}
+        <rect
+          x="0.9"
+          y="3.4"
+          width="20.2"
+          height="18.2"
+          rx="2.6"
+          fill="none"
+          stroke="url(#acmCal)"
+          strokeWidth="1.7"
+        />
+        {/* header strip */}
+        <path
+          d="M0.9 8 h20.2 v-1.6 a2.6 2.6 0 0 0 -2.6 -2.6 h-15 a2.6 2.6 0 0 0 -2.6 2.6 z"
+          fill="url(#acmHeader)"
+        />
+        {/* rings */}
+        <rect x="5.4" y="0.6" width="1.9" height="4.4" rx="0.95" fill="url(#acmCal)" />
+        <rect x="14.7" y="0.6" width="1.9" height="4.4" rx="0.95" fill="url(#acmCal)" />
+        {/* ring highlights */}
+        <rect x="5.8" y="0.9" width="0.5" height="3.6" rx="0.25" fill="#FFF3C8" opacity="0.75" />
+        <rect x="15.1" y="0.9" width="0.5" height="3.6" rx="0.25" fill="#FFF3C8" opacity="0.75" />
+        {/* date squares — 4 cols x 3 rows */}
+        {[0, 1, 2, 3].map((c) =>
+          [0, 1, 2].map((r) => {
+            const isToday = c === 1 && r === 1;
+            return (
+              <rect
+                key={`${c}-${r}`}
+                x={2.7 + c * 4.2}
+                y={10.4 + r * 3.4}
+                width="2.6"
+                height="2.4"
+                rx="0.55"
+                fill="url(#acmCal)"
+                opacity={isToday ? 1 : 0.82}
+              />
+            );
+          })
+        )}
+      </g>
+
+      {/* Sparkle — bottom right */}
+      <g transform="translate(31 30)">
+        <circle r="4.2" fill="url(#acmSpark)" />
+        <path
+          d="M0 -4.2 L0.7 -0.7 L4.2 0 L0.7 0.7 L0 4.2 L-0.7 0.7 L-4.2 0 L-0.7 -0.7 Z"
+          fill="url(#acmCal)"
+        />
+        <circle r="0.55" fill="#FFF6D2" />
+      </g>
+    </svg>
+  );
+}
+
 function StepThreeAccommodation({
+
   onBack,
   onNext,
   direction,
@@ -3161,93 +3299,8 @@ function StepThreeAccommodation({
               <div className="pt-4 pb-6 px-6 lg:pt-5 lg:pb-7 lg:px-7">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div
-                    aria-hidden
-                    className="relative shrink-0"
-                    style={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: 11,
-                      background: "#111317",
-                      boxShadow:
-                        "0 10px 22px -10px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35)",
-                    }}
-                  >
-                    {/* uniform 1.5px champagne-gold frame */}
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        borderRadius: 11,
-                        padding: 1.5,
-                        background: "#D9B65A",
-                        WebkitMask:
-                          "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-                        WebkitMaskComposite: "xor",
-                        maskComposite: "exclude",
-                        pointerEvents: "none",
-                      }}
-                    />
-                    {/* calendar icon */}
-                    <svg
-                      viewBox="0 0 24 24"
-                      width={24}
-                      height={24}
-                      style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%,-50%)",
-                      }}
-                    >
-                      <defs>
-                        <linearGradient id="calGold" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#FBE4A0" />
-                          <stop offset="45%" stopColor="#E7BE6A" />
-                          <stop offset="100%" stopColor="#A87A2C" />
-                        </linearGradient>
-                        <linearGradient id="calHeader" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#F8D98A" />
-                          <stop offset="100%" stopColor="#C89A3E" />
-                        </linearGradient>
-                      </defs>
-                      {/* body */}
-                      <rect
-                        x="3.2"
-                        y="4.8"
-                        width="17.6"
-                        height="15.2"
-                        rx="2.4"
-                        fill="none"
-                        stroke="url(#calGold)"
-                        strokeWidth="1.5"
-                      />
-                      {/* gold header bar */}
-                      <path
-                        d="M3.2 8.6 h17.6 v-1.4 a2.4 2.4 0 0 0 -2.4 -2.4 h-12.8 a2.4 2.4 0 0 0 -2.4 2.4 z"
-                        fill="url(#calHeader)"
-                      />
-                      {/* rings */}
-                      <rect x="7.4" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
-                      <rect x="15" y="2.8" width="1.6" height="3.6" rx="0.8" fill="#E7BE6A" />
-                      {/* date squares */}
-                      {[0, 1, 2].map((c) =>
-                        [0, 1].map((r) => (
-                          <rect
-                            key={`${c}-${r}`}
-                            x={6 + c * 4}
-                            y={11 + r * 3.4}
-                            width="2.6"
-                            height="2.4"
-                            rx="0.5"
-                            fill="url(#calGold)"
-                            opacity={r === 0 && c === 1 ? 1 : 0.78}
-                          />
-                        ))
-                      )}
-                    </svg>
-                  </div>
+                  <AccommodationIcon />
+
                   <div>
                   <h3
                     className="text-[#1A1F24] text-[20px] leading-tight tracking-[0.04em]"
