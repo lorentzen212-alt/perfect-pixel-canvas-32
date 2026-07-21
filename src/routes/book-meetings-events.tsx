@@ -3158,7 +3158,7 @@ const CATERING_DEFS: CateringDef[] = [
     defaultLocation: "Restaurant",
     variants: {
       default: "Buffet",
-      options: ["Buffet", "2-Course", "3-Course", "Sandwich Lunch", "Light Lunch", "Chef's Choice", "Other"],
+      options: ["Buffet", "2-Course Menu", "3-Course Menu", "Chef's Choice"],
     },
   },
   {
@@ -3177,8 +3177,8 @@ const CATERING_DEFS: CateringDef[] = [
     defaultTime: "19:00",
     defaultLocation: "Restaurant",
     variants: {
-      default: "3-Course",
-      options: ["Buffet", "2-Course", "3-Course", "Chef's Choice", "Other"],
+      default: "3-Course Dinner",
+      options: ["Buffet", "2-Course Dinner", "3-Course Dinner", "Chef's Choice"],
     },
   },
   {
@@ -3198,7 +3198,7 @@ const CATERING_DEFS: CateringDef[] = [
     defaultLocation: "Restaurant",
     variants: {
       default: "3-Course Gala Dinner",
-      options: ["3-Course Gala Dinner", "Buffet Gala Dinner", "Chef's Choice", "Other"],
+      options: ["Gala Buffet", "3-Course Gala Dinner", "Chef's Choice"],
     },
   },
 ];
@@ -3811,13 +3811,16 @@ function StepFourCatering({
                   {servings.map((s) => {
                     const def = findDef(s.catering);
                     const Icon = def.icon;
+                    const isOpen = def.variants && openVariantId === s.id;
                     return (
+                      <div key={s.id} className="flex flex-col">
                       <div
-                        key={s.id}
                         className="grid grid-cols-1 md:grid-cols-[minmax(180px,1.2fr)_120px_1fr_44px_44px] gap-3 items-center rounded-[10px] px-3 py-2.5"
                         style={{
                           background: "#FFFFFF",
                           border: "1px solid #EFEAD8",
+                          borderBottomLeftRadius: isOpen ? 0 : 10,
+                          borderBottomRightRadius: isOpen ? 0 : 10,
                         }}
                       >
                         {/* Label + thumbnail */}
@@ -3833,43 +3836,24 @@ function StepFourCatering({
                               {def.label}
                             </div>
                             {def.variants && (
-                              <div className="relative mt-0.5">
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    setOpenVariantId(openVariantId === s.id ? null : s.id)
-                                  }
-                                  className="inline-flex items-center gap-1 text-[11.5px] text-[#6E7A88] hover:text-[#B88A2E]"
-                                >
-                                  {s.variant ?? def.variants.default}
-                                  <ChevronDown size={11} />
-                                </button>
-                                {openVariantId === s.id && (
-                                  <div
-                                    className="absolute z-30 mt-1 min-w-[180px] rounded-md py-1 text-[13px]"
-                                    style={{
-                                      background: "#FFFFFF",
-                                      border: "1px solid #E7DEC4",
-                                      boxShadow:
-                                        "0 12px 28px -14px rgba(10,27,44,0.20)",
-                                    }}
-                                  >
-                                    {def.variants.options.map((v) => (
-                                      <button
-                                        key={v}
-                                        type="button"
-                                        onClick={() => {
-                                          updateServing(s.id, { variant: v });
-                                          setOpenVariantId(null);
-                                        }}
-                                        className="block w-full text-left px-3 py-1.5 hover:bg-[#FBF6E7] text-[#0A1B2C]"
-                                      >
-                                        {v}
-                                      </button>
-                                    ))}
-                                  </div>
-                                )}
-                              </div>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setOpenVariantId(openVariantId === s.id ? null : s.id)
+                                }
+                                className="mt-0.5 inline-flex items-center gap-1 text-[11.5px] text-[#6E7A88] hover:text-[#B88A2E]"
+                                aria-expanded={openVariantId === s.id}
+                              >
+                                {s.variant ?? def.variants.default}
+                                <ChevronDown
+                                  size={11}
+                                  style={{
+                                    transition: "transform 240ms ease",
+                                    transform:
+                                      openVariantId === s.id ? "rotate(180deg)" : "none",
+                                  }}
+                                />
+                              </button>
                             )}
                           </div>
                         </div>
@@ -3997,9 +3981,111 @@ function StepFourCatering({
                           <Trash2 size={14} />
                         </button>
                       </div>
+                      {isOpen && def.variants && (
+                        <div
+                          className="rounded-b-[10px] px-4 sm:px-5 pt-4 pb-5"
+                          style={{
+                            background: "#FBFAF6",
+                            borderLeft: "1px solid #EFEAD8",
+                            borderRight: "1px solid #EFEAD8",
+                            borderBottom: "1px solid #EFEAD8",
+                            animation: "menuTypeExpand 260ms ease",
+                          }}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span
+                              className="text-[13px] font-semibold text-[#0A1B2C]"
+                              style={{ fontFamily: SANS }}
+                            >
+                              Choose menu type
+                            </span>
+                            <span
+                              aria-hidden
+                              className="h-px flex-1"
+                              style={{
+                                background:
+                                  "linear-gradient(90deg, rgba(184,138,46,0.35), rgba(184,138,46,0))",
+                              }}
+                            />
+                          </div>
+                          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                            {def.variants.options.map((v) => {
+                              const selected = (s.variant ?? def.variants!.default) === v;
+                              return (
+                                <button
+                                  key={v}
+                                  type="button"
+                                  onClick={() => {
+                                    updateServing(s.id, { variant: v });
+                                    setOpenVariantId(null);
+                                  }}
+                                  className="group relative flex items-center gap-2.5 rounded-[10px] px-3 py-2.5 text-left transition"
+                                  style={{
+                                    background: "#FFFDF7",
+                                    border: selected
+                                      ? "1.5px solid #C9A24B"
+                                      : "1px solid #E7DEC4",
+                                    boxShadow: selected
+                                      ? "0 6px 18px -10px rgba(184,138,46,0.45), inset 0 0 0 1px rgba(255,255,255,0.6)"
+                                      : "0 1px 2px rgba(10,27,44,0.04)",
+                                  }}
+                                  aria-pressed={selected}
+                                >
+                                  <span
+                                    className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
+                                    style={{
+                                      border: selected
+                                        ? "1.5px solid #B88A2E"
+                                        : "1.5px solid #D9C79A",
+                                      background: "#FFFFFF",
+                                    }}
+                                  >
+                                    {selected && (
+                                      <span
+                                        className="h-2 w-2 rounded-full"
+                                        style={{
+                                          background:
+                                            "linear-gradient(180deg,#F7D97A 0%, #D4AF37 55%, #B88917 100%)",
+                                        }}
+                                      />
+                                    )}
+                                  </span>
+                                  <span
+                                    className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md"
+                                    style={{
+                                      background:
+                                        "linear-gradient(180deg,#FBF3DE 0%, #F3E4B8 100%)",
+                                      border: "1px solid #E6D3A0",
+                                    }}
+                                  >
+                                    {/Chef/i.test(v) ? (
+                                      <ChefHat size={12} style={{ color: "#8A6516" }} />
+                                    ) : /Buffet/i.test(v) ? (
+                                      <UtensilsCrossed
+                                        size={12}
+                                        style={{ color: "#8A6516" }}
+                                      />
+                                    ) : (
+                                      <Utensils size={12} style={{ color: "#8A6516" }} />
+                                    )}
+                                  </span>
+                                  <span
+                                    className="text-[13px] font-medium text-[#0A1B2C]"
+                                    style={{ fontFamily: SANS }}
+                                  >
+                                    {v}
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+                      </div>
                     );
                   })}
                 </div>
+
 
                 <button
                   type="button"
