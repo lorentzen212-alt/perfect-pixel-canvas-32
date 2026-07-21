@@ -4700,17 +4700,20 @@ function StepFourCatering({
   };
 
   const toggleCatering = (id: CateringId) => {
-    const def = findDef(id);
-    const existing = servings.find((s) => s.catering === id);
-    if (existing) {
-      // Already selected — for variant caterings, reopen accordion; otherwise no-op
-      if (def.variants) {
-        setOpenVariantId((cur) => (cur === existing.id ? cur : existing.id));
-      }
+    const existingList = servings.filter((s) => s.catering === id);
+    if (existingList.length > 0) {
+      // Already selected → clicking the card again deselects it entirely
+      // (removes all servings for this catering type and closes any open variant).
+      setServings((prev) => prev.filter((s) => s.catering !== id));
+      setSelected((sel) => ({ ...sel, [id]: false }));
+      setOpenVariantId((cur) =>
+        existingList.some((s) => s.id === cur) ? null : cur,
+      );
       return;
     }
     addServingForCatering(id);
   };
+
 
   const updateServing = (id: string, patch: Partial<CateringServing>) => {
     setServings((prev) => prev.map((s) => (s.id === id ? { ...s, ...patch } : s)));
