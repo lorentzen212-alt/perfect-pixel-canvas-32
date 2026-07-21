@@ -1340,7 +1340,7 @@ function CheckOption({
       >
         {selected && <Check size={11} strokeWidth={3.5} style={{ color: "#FFFFFF" }} />}
       </span>
-      <span className="text-[13px] text-[#0A1B2C] flex-1">{label}</span>
+      <span className="text-[13px] text-[#0A1B2C] flex-1 whitespace-nowrap">{label}</span>
     </button>
   );
 }
