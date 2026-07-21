@@ -74,8 +74,6 @@ import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
 const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
-import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
-const helpCardBg = helpCardBgAsset.url;
 void loungeImg;
 
 import osloImg from "@/assets/destinations/oslo.jpg";
@@ -2536,7 +2534,7 @@ function StepTwoLocation({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8 items-start">
+    <div className="flex flex-col">
       {/* MAIN BOOKING CARD */}
       <div
         className="relative overflow-hidden rounded-[26px] p-6 sm:p-10 lg:p-14"
@@ -2875,80 +2873,57 @@ function StepTwoLocation({
         </div>
       </div>
 
-      {/* NEED HELP CARD */}
-      <aside
-        className="relative overflow-hidden rounded-[26px]"
-        style={{
-          backgroundColor: "#FFFFFF",
-          boxShadow:
-            "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
-          minHeight: 480,
-        }}
-      >
-        {/* Reference illustration: warm off-white bg + gold lines + lounge — used as full card background */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0"
+      {/* PREMIUM DIVIDER SECTION */}
+      <div className="mt-12 lg:mt-16 flex flex-col items-center">
+        {/* Top line with diamond */}
+        <div className="flex w-full max-w-2xl items-center justify-center">
+          <div
+            className="h-px flex-1"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.9) 100%)",
+            }}
+          />
+          <svg
+            width="10"
+            height="10"
+            viewBox="0 0 10 10"
+            className="mx-3 shrink-0"
+            aria-hidden="true"
+          >
+            <path d="M5 0L10 5L5 10L0 5Z" fill="#D4AF37" />
+          </svg>
+          <div
+            className="h-px flex-1"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(212,175,55,0.9) 0%, rgba(212,175,55,0) 100%)",
+            }}
+          />
+        </div>
+
+        <p
+          className="my-5 text-lg sm:text-[22px]"
           style={{
-            backgroundImage: `url(${helpCardBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center bottom",
-            backgroundRepeat: "no-repeat",
+            fontFamily: SERIF,
+            fontStyle: "italic",
+            color: "#2D2A26",
+            letterSpacing: "0.03em",
+            lineHeight: 1.5,
+          }}
+        >
+          Professional planning. Premium results.
+        </p>
+
+        {/* Bottom line */}
+        <div
+          className="h-px w-full max-w-2xl"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.9) 20%, rgba(212,175,55,0.9) 80%, rgba(212,175,55,0) 100%)",
           }}
         />
-
-        <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
-
-          <h3
-            className="text-[#0A1B2C] text-[28px] leading-tight"
-            style={{ fontFamily: SERIF, fontWeight: 500 }}
-          >
-            Need help?
-          </h3>
-          <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
-            Our M&amp;E specialists are
-            <br />
-            ready to assist you.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-5">
-            <a
-              href="tel:+4721002100"
-              className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors"
-            >
-              <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
-                style={{
-                  background:
-                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
-                  boxShadow:
-                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
-                }}
-              >
-                <Phone size={16} strokeWidth={2} className="text-white" />
-              </span>
-              +47 21 00 21 00
-            </a>
-            <a
-              href="mailto:meetings@hotelgroupbook.com"
-              className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
-            >
-              <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
-                style={{
-                  background:
-                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
-                  boxShadow:
-                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
-                }}
-              >
-                <Mail size={16} strokeWidth={2} className="text-white" />
-              </span>
-              meetings@hotelgroupbook.com
-            </a>
-          </div>
-        </div>
-      </aside>
+      </div>
     </div>
   );
 }
