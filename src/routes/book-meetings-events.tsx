@@ -3567,30 +3567,38 @@ function StepFourCatering({
 
   const addServingForCatering = (id: CateringId) => {
     const def = findDef(id);
+    const newId =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `s_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
     setServings((prev) => [
       ...prev,
       {
-        id: crypto.randomUUID(),
+        id: newId,
         catering: id,
         time: def.defaultTime,
         location: def.defaultLocation,
-        variant: def.variants?.default,
+        variant: undefined,
         included: true,
       },
     ]);
+    setSelected((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
+    if (def.variants) setOpenVariantId(newId);
+    else setOpenVariantId(null);
+    return newId;
   };
 
   const toggleCatering = (id: CateringId) => {
-    setSelected((prev) => {
-      const next = { ...prev, [id]: !prev[id] };
-      if (!prev[id]) {
-        addServingForCatering(id);
-      } else {
-        // remove all servings of this catering
-        setServings((s) => s.filter((row) => row.catering !== id));
+    const def = findDef(id);
+    const existing = servings.find((s) => s.catering === id);
+    if (existing) {
+      // Already selected — for variant caterings, reopen accordion; otherwise no-op
+      if (def.variants) {
+        setOpenVariantId((cur) => (cur === existing.id ? cur : existing.id));
       }
-      return next;
-    });
+      return;
+    }
+    addServingForCatering(id);
   };
 
   const updateServing = (id: string, patch: Partial<CateringServing>) => {
@@ -3601,45 +3609,32 @@ function StepFourCatering({
     setServings((prev) => {
       const removed = prev.find((s) => s.id === id);
       const next = prev.filter((s) => s.id !== id);
-      // If no more servings for this catering, unselect card
       if (removed && !next.some((s) => s.catering === removed.catering)) {
         setSelected((sel) => ({ ...sel, [removed.catering]: false }));
       }
       return next;
     });
+    setOpenVariantId((cur) => (cur === id ? null : cur));
   };
 
   const addAnotherServing = () => {
-    // Add a duplicate of the last serving's catering, or Coffee if none
     const base = servings[servings.length - 1];
     const cid = base?.catering ?? "coffee";
     addServingForCatering(cid);
   };
 
   const applyRecommendation = () => {
-    // Recommendation: Morning Coffee Break + Lunch (Buffet)
     const wanted: CateringId[] = ["coffee", "lunch"];
-    setSelected((prev) => {
-      const next = { ...prev };
-      wanted.forEach((id) => (next[id] = true));
-      return next;
-    });
-    setServings((prev) => {
-      const kept = [...prev];
-      wanted.forEach((id) => {
-        if (!kept.some((s) => s.catering === id)) {
-          const def = findDef(id);
-          kept.push({
-            id: crypto.randomUUID(),
-            catering: id,
-            time: def.defaultTime,
-            location: def.defaultLocation,
-            variant: def.variants?.default,
-            included: true,
-          });
+    wanted.forEach((id) => {
+      const existing = servings.find((s) => s.catering === id);
+      if (!existing) {
+        addServingForCatering(id);
+      } else {
+        const def = findDef(id);
+        if (def.variants && !existing.variant) {
+          setOpenVariantId(existing.id);
         }
-      });
-      return kept;
+      }
     });
   };
 
