@@ -3299,9 +3299,9 @@ function StepTwoLocation({
               </p>
 
               {/* Navy tier bar */}
-              <div className="mt-4 flex justify-center">
+              <div className="mt-3 flex flex-col items-center">
                 <div
-                  className="relative w-full max-w-[560px] rounded-[14px] px-6 py-4"
+                  className="relative w-full max-w-[610px] rounded-[14px] px-6 py-4"
                   style={{
                     background: "#0A1B2C",
                     boxShadow:
