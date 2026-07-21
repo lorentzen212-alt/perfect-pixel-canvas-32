@@ -507,7 +507,7 @@ function BookMeetingsEvents() {
               />
             )}
           </div>
-          {(step === 6 || step === 7) && (
+          {step === 6 && (
 
             <div
               className="overflow-hidden rounded-[20px]"
@@ -530,27 +530,12 @@ function BookMeetingsEvents() {
                         : "animate-slide-in-left"
                     }
                   >
-                    {step === 6 && (
-                      <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
-                    )}
-                    {step === 7 && (
-                      <StepPlaceholder
-                        step={step}
-                        title={STEPS[step - 1]}
-                        onBack={() => go(step - 1)}
-                        onNext={handleNext}
-                        isLast={step === STEPS.length}
-                      />
-                    )}
-
+                    <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
                   </div>
                 </div>
 
-
                 {/* Help card */}
                 <div
-
-
                   className="p-8 lg:p-10 lg:pl-8"
                   style={{
                     backgroundColor: "transparent",
@@ -572,6 +557,20 @@ function BookMeetingsEvents() {
               </div>
             </div>
           )}
+
+          {step === 7 && (
+            <div
+              key={step}
+              className={
+                direction === "forward"
+                  ? "animate-slide-in-right"
+                  : "animate-slide-in-left"
+              }
+            >
+              <StepSevenReview onBack={() => go(6)} />
+            </div>
+          )}
+
 
           {/* Step 1 premium divider / other steps credibility banner */}
           {step === 1 ? (
@@ -2231,7 +2230,404 @@ function StepFiveExtras({
   );
 }
 
+/* --------- Step 7 – Review & Submit (premium luxury layout) --------- */
+
+function StepSevenReview({ onBack }: { onBack: () => void }) {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const rows: Array<{ label: string; value: string; Icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }> }> = [
+    { label: "Location", value: "Oslo, Norway", Icon: MapPin },
+    { label: "Dates", value: "9 – 10 September 2026", Icon: CalendarIcon },
+    { label: "Guests", value: "68 Guests", Icon: Users },
+    { label: "Accommodation", value: "34 Rooms, 2 Nights", Icon: BedDouble },
+    { label: "Meeting Spaces", value: "1 Meeting Room, 1 Day", Icon: Building2 },
+    { label: "Catering", value: "Welcome Drink, Lunch, Dinner", Icon: Utensils },
+    { label: "Extras", value: "Airport Transfer, Welcome Package", Icon: Gift },
+    { label: "Special Requests", value: "Late Check-in, High Floor Preferred", Icon: ClipboardCheck },
+    { label: "Event Duration", value: "2 Days, 1 Night", Icon: Clock },
+    { label: "Budget Level", value: "★★★★★", Icon: Sparkles },
+  ];
+
+  const stats: Array<{ n: string; label: string; Icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }> }> = [
+    { n: "68", label: "Guests", Icon: Users },
+    { n: "34", label: "Rooms", Icon: BedDouble },
+    { n: "2", label: "Nights", Icon: Clock },
+    { n: "1", label: "Meeting Room", Icon: Building2 },
+    { n: "3", label: "Catering Services", Icon: Utensils },
+    { n: "4", label: "Extras Included", Icon: Gift },
+  ];
+
+  const handleSubmit = () => {
+    setSubmitting(true);
+    setTimeout(() => {
+      setSubmitting(false);
+      setSubmitted(true);
+    }, 900);
+  };
+
+  const GOLD = "#C9A24A";
+  const GOLD_HI = "#F0D890";
+  const GOLD_LO = "#8A6A1F";
+
+  return (
+    <div className="space-y-8">
+      {/* Two-column premium layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-[72fr_28fr] gap-6">
+        {/* LEFT — Ivory paper card */}
+        <div
+          className="relative overflow-hidden rounded-[22px] p-8 sm:p-10 lg:p-12"
+          style={{
+            backgroundColor: "#FCFAF6",
+            backgroundImage:
+              "radial-gradient(1200px 500px at 10% -10%, rgba(201,162,74,0.06), transparent 60%), radial-gradient(800px 400px at 100% 100%, rgba(201,162,74,0.05), transparent 55%)",
+            border: "1px solid rgba(201,162,74,0.28)",
+            boxShadow:
+              "0 30px 60px -40px rgba(10,27,44,0.20), 0 6px 20px -12px rgba(10,27,44,0.08)",
+          }}
+        >
+          {/* Subtle paper texture */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.35]"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(0deg, rgba(120,90,40,0.025) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(120,90,40,0.02) 0 1px, transparent 1px 3px)",
+              mixBlendMode: "multiply",
+            }}
+          />
+
+          {/* Edit button top right */}
+          <button
+            type="button"
+            onClick={onBack}
+            className="absolute right-6 top-6 sm:right-8 sm:top-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] tracking-[0.05em]"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "1px solid rgba(201,162,74,0.45)",
+              color: "#6B5320",
+              boxShadow: "0 2px 8px -4px rgba(10,27,44,0.10)",
+            }}
+          >
+            <Pencil size={13} strokeWidth={2} />
+            Edit
+          </button>
+
+          <div className="relative grid grid-cols-1 md:grid-cols-[minmax(220px,300px)_1fr] gap-10 lg:gap-14">
+            {/* Left inner: title */}
+            <div>
+              <div
+                className="inline-flex items-center gap-3 text-[10.5px] tracking-[0.32em] uppercase"
+                style={{ color: GOLD_LO }}
+              >
+                <span aria-hidden>✦</span>
+                Prepared for review
+                <span aria-hidden>✦</span>
+              </div>
+              <h2
+                className="mt-6 text-[#0B1620] leading-[0.95]"
+                style={{ fontFamily: SERIF, fontSize: "56px", fontWeight: 500, letterSpacing: "0.01em" }}
+              >
+                M&amp;E
+                <br />
+                Event
+                <br />
+                Summary
+              </h2>
+              <div className="mt-5 flex items-center gap-3" aria-hidden>
+                <span className="h-px w-14" style={{ backgroundColor: "rgba(201,162,74,0.55)" }} />
+                <span style={{ color: GOLD }}>◆</span>
+                <span className="h-px w-14" style={{ backgroundColor: "rgba(201,162,74,0.55)" }} />
+              </div>
+              <p className="mt-6 text-[15px] leading-relaxed text-[#4A5560] max-w-[260px]">
+                Review your details and submit your request with confidence.
+              </p>
+            </div>
+
+            {/* Right inner: timeline */}
+            <div className="relative">
+              {/* Timeline vertical line */}
+              <div
+                aria-hidden
+                className="absolute left-[7px] top-2 bottom-2 w-px"
+                style={{ backgroundColor: "#0B1620", opacity: 0.35 }}
+              />
+              <ul className="space-y-0">
+                {rows.map((r, i) => {
+                  const Icon = r.Icon;
+                  return (
+                    <li
+                      key={r.label}
+                      className="relative pl-8 py-4"
+                      style={{
+                        borderBottom:
+                          i < rows.length - 1
+                            ? "1px solid rgba(201,162,74,0.22)"
+                            : "none",
+                      }}
+                    >
+                      <span
+                        aria-hidden
+                        className="absolute left-0 top-1/2 -translate-y-1/2 h-[15px] w-[15px] rounded-full"
+                        style={{
+                          backgroundColor: "#0B1620",
+                          border: "2px solid #FCFAF6",
+                          boxShadow: "0 0 0 1px rgba(201,162,74,0.5)",
+                        }}
+                      />
+                      <div className="flex items-center gap-4">
+                        <span
+                          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+                          style={{
+                            backgroundColor: "#FFFFFF",
+                            border: "1px solid rgba(201,162,74,0.35)",
+                          }}
+                        >
+                          <Icon size={16} strokeWidth={1.75} style={{ color: GOLD_LO }} />
+                        </span>
+                        <div className="min-w-0 flex-1 grid grid-cols-[minmax(140px,180px)_1fr] gap-4 items-baseline">
+                          <div
+                            className="text-[11px] tracking-[0.22em] uppercase"
+                            style={{ color: "#7A6A45" }}
+                          >
+                            {r.label}
+                          </div>
+                          <div className="text-[15px] text-[#0B1620]">
+                            {r.value}
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom architectural line illustration */}
+          <svg
+            aria-hidden
+            className="pointer-events-none absolute left-0 right-0 bottom-0"
+            viewBox="0 0 900 160"
+            preserveAspectRatio="xMidYMax slice"
+            style={{ opacity: 0.14, color: GOLD }}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+          >
+            <path d="M40 150 L40 90 L70 60 L100 90 L100 150 Z" />
+            <path d="M110 150 L110 70 L160 30 L210 70 L210 150 Z" />
+            <path d="M170 70 L170 40 M150 55 L190 55" />
+            <path d="M220 150 L220 80 L260 50 L300 80 L300 150 Z" />
+            <path d="M310 150 L310 100 L340 75 L370 100 L370 150 Z" />
+            <path d="M380 150 L380 60 L440 20 L500 60 L500 150 Z" />
+            <path d="M430 60 L430 30 M410 45 L450 45" />
+            <path d="M510 150 L510 95 L555 65 L600 95 L600 150 Z" />
+            <path d="M610 150 L610 80 L655 50 L700 80 L700 150 Z" />
+            <path d="M710 150 L710 100 L745 75 L780 100 L780 150 Z" />
+            <path d="M790 150 L790 85 L830 55 L870 85 L870 150 Z" />
+            <path d="M0 150 L900 150" strokeWidth="0.75" />
+          </svg>
+        </div>
+
+        {/* RIGHT — Navy summary sidebar */}
+        <div
+          className="relative overflow-hidden rounded-[22px] p-7 lg:p-8"
+          style={{
+            backgroundColor: "#07131F",
+            backgroundImage:
+              "radial-gradient(600px 300px at 100% 0%, rgba(201,162,74,0.10), transparent 60%), linear-gradient(180deg, #0A1826 0%, #07131F 100%)",
+            border: "1px solid rgba(201,162,74,0.35)",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.04), 0 30px 60px -40px rgba(0,0,0,0.6)",
+          }}
+        >
+          <h3
+            className="text-[12px] tracking-[0.32em] uppercase"
+            style={{ color: GOLD_HI, fontWeight: 500 }}
+          >
+            Your Event Summary
+          </h3>
+          <div
+            className="mt-4 h-px w-full"
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, transparent, rgba(201,162,74,0.55), transparent)",
+            }}
+          />
+
+          <ul className="mt-6 space-y-5">
+            {stats.map((s) => {
+              const Icon = s.Icon;
+              return (
+                <li key={s.label} className="flex items-center gap-4">
+                  <span
+                    className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px]"
+                    style={{
+                      backgroundColor: "rgba(255,255,255,0.02)",
+                      border: "1px solid rgba(201,162,74,0.30)",
+                    }}
+                  >
+                    <Icon size={18} strokeWidth={1.6} style={{ color: GOLD_HI }} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div
+                      style={{
+                        fontFamily: SERIF,
+                        fontSize: "28px",
+                        lineHeight: 1,
+                        color: GOLD_HI,
+                        fontWeight: 500,
+                      }}
+                    >
+                      {s.n}
+                    </div>
+                    <div className="mt-1 text-[12px] text-white/70">
+                      {s.label}
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+            <li className="flex items-center gap-4">
+              <span
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px]"
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(201,162,74,0.30)",
+                }}
+              >
+                <Sparkles size={18} strokeWidth={1.6} style={{ color: GOLD_HI }} />
+              </span>
+              <div className="min-w-0 flex-1">
+                <div style={{ color: GOLD_HI, fontSize: "18px", letterSpacing: "0.15em" }}>
+                  ★★★★★
+                </div>
+                <div className="mt-1 text-[12px] text-white/70">Budget Level</div>
+              </div>
+            </li>
+          </ul>
+
+          <div
+            className="mt-6 pt-5"
+            style={{ borderTop: "1px solid rgba(201,162,74,0.22)" }}
+          >
+            <div className="text-[11px] tracking-[0.22em] uppercase" style={{ color: GOLD_HI }}>
+              Estimated response
+            </div>
+            <div className="mt-1 text-[13px] text-white/80">Within 24 hours</div>
+          </div>
+
+          <div
+            className="mt-5 flex items-center gap-3 rounded-[12px] p-3"
+            style={{
+              backgroundColor: "rgba(46, 138, 96, 0.08)",
+              border: "1px solid rgba(46, 138, 96, 0.35)",
+              boxShadow: "0 0 24px -12px rgba(46,138,96,0.35)",
+            }}
+          >
+            <span
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full"
+              style={{
+                backgroundColor: "rgba(46,138,96,0.15)",
+                border: "1px solid rgba(120,200,150,0.55)",
+              }}
+            >
+              <Check size={16} strokeWidth={2.4} style={{ color: "#7BD5A3" }} />
+            </span>
+            <div className="min-w-0">
+              <div className="text-[13px] text-white">Everything completed</div>
+              <div className="text-[11px]" style={{ color: "#7BD5A3" }}>Ready to send</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Feature bar */}
+      <div
+        className="rounded-[18px]"
+        style={{
+          backgroundColor: "#07131F",
+          border: "1px solid rgba(201,162,74,0.30)",
+          boxShadow: "0 20px 40px -30px rgba(0,0,0,0.5)",
+        }}
+      >
+        <div className="grid grid-cols-2 md:grid-cols-4">
+          {[
+            { Icon: Users, title: "Dedicated Team", sub: "From start to finish" },
+            { Icon: Building2, title: "Best Options", sub: "Handpicked for you" },
+            { Icon: Clock, title: "Fast Response", sub: "Within 24 hours" },
+            { Icon: ShieldCheck, title: "Trusted by Companies", sub: "Visible security certificate" },
+          ].map((f, i, arr) => {
+            const Icon = f.Icon;
+            return (
+              <div
+                key={f.title}
+                className="px-6 py-7 text-center"
+                style={{
+                  borderRight:
+                    i < arr.length - 1
+                      ? "1px solid rgba(201,162,74,0.20)"
+                      : "none",
+                }}
+              >
+                <span
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full"
+                  style={{
+                    border: "1px solid rgba(201,162,74,0.45)",
+                    backgroundColor: "rgba(255,255,255,0.02)",
+                  }}
+                >
+                  <Icon size={20} strokeWidth={1.6} style={{ color: GOLD_HI }} />
+                </span>
+                <div
+                  className="mt-3 text-white"
+                  style={{ fontFamily: SERIF, fontSize: "17px" }}
+                >
+                  {f.title}
+                </div>
+                <div className="mt-1 text-[12px] text-white/60">{f.sub}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Submit button */}
+      <div className="flex flex-col items-center pt-2">
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={submitting || submitted}
+          className="group relative inline-flex items-center justify-center gap-3 rounded-[14px] px-14 transition-transform duration-300 hover:-translate-y-[1px] disabled:opacity-80"
+          style={{
+            height: "64px",
+            minWidth: "min(560px, 92vw)",
+            color: "#241703",
+            fontFamily: SERIF,
+            fontSize: "20px",
+            letterSpacing: "0.22em",
+            backgroundImage:
+              "linear-gradient(180deg, #F4DFA1 0%, #E6C56A 45%, #C9A24A 100%)",
+            border: "1px solid rgba(122,86,20,0.7)",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 0 rgba(122,86,20,0.35), 0 18px 40px -22px rgba(201,162,74,0.55), 0 4px 10px -6px rgba(10,27,44,0.25)",
+          }}
+        >
+          <span>{submitted ? "REQUEST SENT" : submitting ? "SENDING…" : "SUBMIT EVENT REQUEST"}</span>
+          {!submitted && <ArrowRight size={20} strokeWidth={2} />}
+        </button>
+        <div className="mt-4 flex items-center gap-2 text-[12px] text-white/60">
+          <Lock size={12} strokeWidth={2} />
+          Your request will be sent securely to our M&amp;E specialists.
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* --------- Placeholder for later steps --------- */
+
 
 
 
