@@ -1208,7 +1208,7 @@ export function StepThreeMeetingSpaces({
 
           {/* RIGHT — SIDEBAR */}
           <aside
-            className="p-5 lg:pt-[238px] lg:pr-8 lg:pb-6 lg:pl-0 flex flex-col gap-5 w-full max-w-[360px] min-w-0 box-border self-start lg:sticky lg:top-6 lg:-ml-[7px]"
+            className="p-5 lg:pt-[236px] lg:pr-8 lg:pb-6 lg:pl-0 flex flex-col gap-5 w-full max-w-[360px] min-w-0 box-border self-start lg:sticky lg:top-6 lg:-ml-[14px]"
 
             style={{ background: "transparent" }}
           >
