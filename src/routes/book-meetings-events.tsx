@@ -3400,7 +3400,7 @@ function StepTwoLocation({
                 placeholder="Type city, region or venue"
                 autoComplete="off"
                 aria-label="Destination"
-                className="w-full bg-transparent text-[15px] text-[#0A1B2C] placeholder:text-[#9BA3AE] outline-none border-none"
+                className="w-full bg-transparent text-[15px] text-[#0F1B2D] placeholder:text-[#0F1B2D]/70 outline-none border-none"
               />
             </div>
 
