@@ -3098,9 +3098,9 @@ function StepThreeAccommodation({
                     aria-hidden
                     className="relative shrink-0"
                     style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: 13,
+                      width: 44,
+                      height: 44,
+                      borderRadius: 12,
                       background: "#0B1624",
                       boxShadow:
                         "0 0 0 6px rgba(217,182,90,0.06), 0 10px 22px -12px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.04), inset 0 -2px 4px rgba(0,0,0,0.45)",
@@ -3109,8 +3109,8 @@ function StepThreeAccommodation({
                     {/* Fully vector premium calendar plaque */}
                     <svg
                       viewBox="0 0 44 44"
-                      width={48}
-                      height={48}
+                      width={44}
+                      height={44}
                       aria-hidden
                       style={{
                         position: "absolute",
