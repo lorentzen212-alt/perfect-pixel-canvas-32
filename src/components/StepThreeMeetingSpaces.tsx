@@ -1190,7 +1190,7 @@ export function StepThreeMeetingSpaces({
               <button
                 type="button"
                 onClick={handleContinue}
-                className="inline-flex items-center justify-center gap-2 rounded-full h-[52px] px-6 text-[13px] md:text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+                className="inline-flex items-center justify-center gap-2 rounded-full h-[52px] px-6 text-[13px] lg:text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
                 style={{
                   color: "#0A1B2C",
                   background:
