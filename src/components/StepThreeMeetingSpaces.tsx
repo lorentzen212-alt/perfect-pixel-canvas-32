@@ -1165,7 +1165,7 @@ export function StepThreeMeetingSpaces({
             )}
 
             {/* Footer nav */}
-            <div className="mt-10 flex flex-wrap items-center justify-between gap-4 md:grid md:grid-cols-[auto_1fr_auto] px-6 md:px-8 py-5">
+            <div className="mt-10 flex flex-wrap items-center justify-between gap-4 md:grid md:grid-cols-[auto_minmax(min-content,1fr)_auto] px-8 md:px-10 lg:px-12 py-5">
               <button
                 type="button"
                 onClick={onBack}
@@ -1182,7 +1182,7 @@ export function StepThreeMeetingSpaces({
                 Back to Accommodation
               </button>
 
-              <div className="hidden md:flex justify-center items-center gap-2 px-4 text-[12.5px] text-[#7B8290]">
+              <div className="hidden md:flex justify-center items-center gap-2 text-[12.5px] text-[#7B8290] whitespace-nowrap">
                 <Sparkles size={13} style={{ color: GOLD }} />
                 Your information is secure and shared only with selected hotels.
               </div>
