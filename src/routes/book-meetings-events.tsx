@@ -1637,43 +1637,16 @@ function ExtraCard({
   saved,
   open,
   onCardClick,
-  onDone,
-  configs,
-  setConfigs,
+  summaryLines,
 }: {
   def: ExtraDef;
   selected: boolean;
   saved: boolean;
   open: boolean;
   onCardClick: () => void;
-  onDone: () => void;
-  configs: ExtraConfigs;
-  setConfigs: React.Dispatch<React.SetStateAction<ExtraConfigs>>;
+  summaryLines: string[];
 }) {
   const { Icon } = def;
-  const setCfg = <K extends ExtraId>(id: K, val: ExtraConfigs[K]) =>
-    setConfigs((prev) => ({ ...prev, [id]: val }));
-
-  const renderConfig = () => {
-    switch (def.id) {
-      case "airport-transfer":
-        return <ConfigAirportTransfer cfg={configs["airport-transfer"]} set={(v) => setCfg("airport-transfer", v)} />;
-      case "coach-parking":
-        return <ConfigCoachParking cfg={configs["coach-parking"]} set={(v) => setCfg("coach-parking", v)} />;
-      case "registration-desk":
-        return <ConfigRegistration cfg={configs["registration-desk"]} set={(v) => setCfg("registration-desk", v)} />;
-      case "package-handling":
-        return <ConfigPackage cfg={configs["package-handling"]} set={(v) => setCfg("package-handling", v)} />;
-      case "porter-service":
-        return <ConfigPorter cfg={configs["porter-service"]} set={(v) => setCfg("porter-service", v)} />;
-      case "cloakroom":
-        return <ConfigCloakroom cfg={configs["cloakroom"]} set={(v) => setCfg("cloakroom", v)} />;
-      case "welcome-package":
-        return <ConfigWelcome cfg={configs["welcome-package"]} set={(v) => setCfg("welcome-package", v)} />;
-    }
-  };
-
-  const summaryLines = saved ? summaryFor(def.id, configs[def.id]) : [];
 
   return (
     <div
