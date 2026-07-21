@@ -2340,11 +2340,11 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                 className="mt-6 text-[#0B1620] leading-[0.95]"
                 style={{ fontFamily: SERIF, fontSize: "56px", fontWeight: 500, letterSpacing: "0.01em" }}
               >
-                M&amp;E
+                &nbsp; &nbsp; &nbsp; &nbsp;M&amp;E
                 <br />
-                Event
+                &nbsp; &nbsp; &nbsp; Event
                 <br />
-                Summary
+                &nbsp; &nbsp;Summary
               </h2>
               <div className="mt-5 flex items-center gap-3" aria-hidden>
                 <span className="h-px w-14" style={{ backgroundColor: "rgba(201,162,74,0.55)" }} />
