@@ -2599,7 +2599,7 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
             { Icon: Users, title: "Dedicated Team", sub: "From start to finish" },
             { Icon: Building2, title: "Best Options", sub: "Handpicked for you" },
             { Icon: Clock, title: "Fast Response", sub: "Within 24 hours" },
-            { Icon: ShieldCheck, title: "Trusted by Companies", sub: "Visible security certificate" },
+            { Icon: Headphones, title: "Expert Support", sub: "Dedicated M&E specialists" },
           ].map((f, i, arr) => {
             const Icon = f.Icon;
             return (
