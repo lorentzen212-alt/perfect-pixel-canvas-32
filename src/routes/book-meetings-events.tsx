@@ -3544,6 +3544,8 @@ function StepFourCatering({
   const [notes, setNotes] = useState("");
   const [openLocId, setOpenLocId] = useState<string | null>(null);
   const [openVariantId, setOpenVariantId] = useState<string | null>(null);
+  const [recommendationVisible, setRecommendationVisible] = useState(true);
+  const [recommendationRendered, setRecommendationRendered] = useState(true);
 
   // Persist state
   useEffect(() => {
