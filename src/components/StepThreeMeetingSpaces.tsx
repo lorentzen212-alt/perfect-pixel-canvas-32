@@ -1165,11 +1165,11 @@ export function StepThreeMeetingSpaces({
             )}
 
             {/* Footer nav */}
-            <div className="mt-10 flex flex-wrap items-center justify-between gap-4 md:grid md:grid-cols-[1fr_auto_1fr] px-6 md:px-8 py-5">
+            <div className="mt-10 flex flex-wrap items-center justify-between gap-4 px-6 md:px-8 lg:px-10 py-5">
               <button
                 type="button"
                 onClick={onBack}
-                className="inline-flex items-center gap-2 rounded-full px-5 h-[52px] text-[14px] font-medium text-white transition-all hover:-translate-y-[1px] whitespace-nowrap justify-self-start"
+                className="inline-flex items-center gap-2 rounded-full px-5 h-[52px] text-[14px] font-medium text-white transition-all hover:-translate-y-[1px] whitespace-nowrap"
                 style={{
                   background:
                     "linear-gradient(180deg,#132639,#0B1624)",
@@ -1182,15 +1182,18 @@ export function StepThreeMeetingSpaces({
                 Back to Accommodation
               </button>
 
-              <div className="hidden md:flex justify-center items-center gap-2 px-4 text-[12.5px] text-[#7B8290] text-center">
-                <Sparkles size={13} style={{ color: GOLD }} />
-                Your information is secure and shared only with selected hotels.
+              <div className="hidden md:flex flex-col justify-center items-center gap-1 w-[280px] lg:w-[320px] text-[12.5px] text-[#7B8290] text-center leading-snug">
+                <div className="flex items-center gap-2">
+                  <Sparkles size={13} style={{ color: GOLD }} />
+                  <span>Your information is secure and shared only with</span>
+                </div>
+                <span>selected hotels.</span>
               </div>
 
               <button
                 type="button"
                 onClick={handleContinue}
-                className="inline-flex items-center justify-center gap-2 rounded-full h-[52px] px-6 text-[13px] lg:text-[14.5px] font-semibold transition-all hover:-translate-y-[1px] whitespace-nowrap justify-self-end"
+                className="inline-flex items-center justify-center gap-2 rounded-full h-[52px] px-6 text-[13px] lg:text-[14.5px] font-semibold transition-all hover:-translate-y-[1px] whitespace-nowrap"
                 style={{
                   color: "#0A1B2C",
                   background:
