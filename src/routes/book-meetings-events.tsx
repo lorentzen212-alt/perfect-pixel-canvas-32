@@ -2906,85 +2906,86 @@ function BudgetPreference({
             aria-hidden="true"
           />
 
-          <div className="relative flex items-start justify-between pb-4 pr-20">
-            {/* connecting line */}
-            <div
-              className="absolute left-8 right-8 top-[16px] h-[1.5px]"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent 0%, rgba(215,180,110,0.42) 8%, rgba(250,220,155,0.98) 50%, rgba(215,180,110,0.42) 92%, transparent 100%)",
-                boxShadow: "0 0 10px rgba(250,220,155,0.22)",
-              }}
-              aria-hidden="true"
-            />
-            {tiers.map((t, i) => {
-              const selected = value === t.id;
-              const Icon = t.Icon;
-              return (
-                <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-1">
-                  {/* midpoint dots between labels */}
-                  {i > 0 && (
+          <div className="flex flex-col">
+            <div className="relative flex items-start justify-between">
+              {/* connecting line */}
+              <div
+                className="absolute left-8 right-8 top-[16px] h-[1.5px]"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent 0%, rgba(215,180,110,0.42) 8%, rgba(250,220,155,0.98) 50%, rgba(215,180,110,0.42) 92%, transparent 100%)",
+                  boxShadow: "0 0 10px rgba(250,220,155,0.22)",
+                }}
+                aria-hidden="true"
+              />
+              {tiers.map((t, i) => {
+                const selected = value === t.id;
+                const Icon = t.Icon;
+                return (
+                  <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-1">
+                    {/* midpoint dots between labels */}
+                    {i > 0 && (
+                      <span
+                        className="absolute -left-1/2 top-[12px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
+                        style={{
+                          border: "1.5px solid rgba(232,196,106,0.80)",
+                          background: selected ? "#F5D78E" : "#16385A",
+                          boxShadow: selected
+                            ? "0 0 8px 2px rgba(245,215,142,0.45)"
+                            : "inset 0 0 2px rgba(0,0,0,0.30)",
+                        }}
+                        aria-hidden="true"
+                      />
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => onChange(selected ? null : t.id)}
+                      aria-pressed={selected}
+                      className="relative flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
+                      style={
+                        selected
+                          ? {
+                              background:
+                                "radial-gradient(circle at 50% 35%, #FFF4D6 0%, #F5D78E 30%, #D4A33C 65%, #A67A1F 100%)",
+                              boxShadow:
+                                "0 0 0 4px rgba(212,163,60,0.14), 0 0 26px 5px rgba(212,163,60,0.27), inset 0 1px 0 rgba(255,255,255,0.50)",
+                            }
+                          : { background: "transparent" }
+                      }
+                    >
+                      <Icon
+                        size={18}
+                        strokeWidth={1.65}
+                        style={{ color: selected ? "#FFFFFF" : "#E8C46A" }}
+                        fill={selected && (t.id === "premium" || t.id === "luxury") ? "#FFFFFF" : "none"}
+                      />
+                    </button>
                     <span
-                      className="absolute -left-1/2 top-[12px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
+                      className="text-[13px] tracking-[0.01em]"
                       style={{
-                        border: "1.5px solid rgba(232,196,106,0.80)",
-                        background: selected ? "#F5D78E" : "#16385A",
-                        boxShadow: selected
-                          ? "0 0 8px 2px rgba(245,215,142,0.45)"
-                          : "inset 0 0 2px rgba(0,0,0,0.30)",
+                        color: selected ? "#F2D477" : "rgba(255,250,240,0.94)",
+                        fontWeight: selected ? 600 : 500,
+                        textShadow: selected ? "0 0 12px rgba(242,212,119,0.35)" : "none",
                       }}
-                      aria-hidden="true"
-                    />
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => onChange(selected ? null : t.id)}
-                    aria-pressed={selected}
-                    className="relative flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
-                    style={
-                      selected
-                        ? {
-                            background:
-                              "radial-gradient(circle at 50% 35%, #FFF4D6 0%, #F5D78E 30%, #D4A33C 65%, #A67A1F 100%)",
-                            boxShadow:
-                              "0 0 0 4px rgba(212,163,60,0.14), 0 0 26px 5px rgba(212,163,60,0.27), inset 0 1px 2px rgba(255,255,255,0.50)",
-                          }
-                        : { background: "transparent" }
-                    }
-                  >
-                    <Icon
-                      size={18}
-                      strokeWidth={1.65}
-                      style={{ color: selected ? "#FFFFFF" : "#E8C46A" }}
-                      fill={selected && (t.id === "premium" || t.id === "luxury") ? "#FFFFFF" : "none"}
-                    />
-                  </button>
-                  <span
-                    className="text-[13px] tracking-[0.01em]"
-                    style={{
-                      color: selected ? "#F2D477" : "rgba(255,250,240,0.94)",
-                      fontWeight: selected ? 600 : 500,
-                      textShadow: selected ? "0 0 12px rgba(242,212,119,0.35)" : "none",
-                    }}
-                  >
-                    {t.label}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-
-          {value && (
-            <div className="absolute bottom-1 right-3">
-              <button
-                type="button"
-                onClick={() => onChange(null)}
-                className="text-[11px] font-medium text-[#B88A2E]/70 underline underline-offset-3 hover:text-[#8E6A20]"
-              >
-                Clear selection
-              </button>
+                    >
+                      {t.label}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
-          )}
+            {value && (
+              <div className="mt-0.5 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => onChange(null)}
+                  className="text-[11px] font-medium text-[#B88A2E]/70 underline underline-offset-3 hover:text-[#8E6A20]"
+                >
+                  Clear selection
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>
