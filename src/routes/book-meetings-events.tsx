@@ -5650,7 +5650,7 @@ function StepFourCatering({
         direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"
       }
     >
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,78fr)_minmax(0,22fr)] gap-3.5">
         {/* LEFT — main panel */}
         <div
           className="overflow-hidden rounded-[20px] p-6 sm:p-8 lg:p-10"
