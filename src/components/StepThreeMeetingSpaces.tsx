@@ -1473,8 +1473,8 @@ export function StepThreeMeetingSpaces({
           box-shadow: 0 0 0 3px rgba(212,169,74,0.18);
         }
       `}</style>
-    </div>
   );
+
 }
 
 /* ---------- Small subcomponents ---------- */
