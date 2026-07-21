@@ -478,14 +478,8 @@ function BookMeetingsEvents() {
 
       {/* FORM SECTION */}
       <section
-        className="relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14"
-        style={{
-          backgroundImage: `url(${meBgImg})`,
-          backgroundPosition: "center top",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-        }}
+        className="me-decorative-bg relative px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14"
+        style={{ backgroundImage: `url(${meBgImg})` }}
       >
         <div className="relative mx-auto max-w-[1400px]">
           {/* Keep visited steps mounted so state persists across navigation. */}
