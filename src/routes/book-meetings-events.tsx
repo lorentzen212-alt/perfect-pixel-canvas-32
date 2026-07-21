@@ -2364,8 +2364,9 @@ function StepSevenReview({ onBack }: { onBack: () => void }) {
                 className="absolute left-[7px] top-2 bottom-2 w-px"
                 style={{
                   backgroundImage:
-                    "linear-gradient(180deg, #D4AF37 0%, #F3E6B1 50%, #D4AF37 100%)",
-                  opacity: 0.9,
+                    "linear-gradient(180deg, #C9A03A 0%, #F5E9B8 50%, #C9A03A 100%)",
+                  opacity: 1,
+                  boxShadow: "0 0 3px rgba(201,162,74,0.22)",
                 }}
               />
               <ul className="space-y-0">
