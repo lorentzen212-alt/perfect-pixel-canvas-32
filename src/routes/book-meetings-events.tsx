@@ -71,6 +71,8 @@ import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
 const helpCardBg = helpCardBgAsset.url;
 import accommodationPeriodAsset from "@/assets/accommodation-period.jpg.asset.json";
 const accommodationPeriodImg = accommodationPeriodAsset.url;
+import accommodationBannerAsset from "@/assets/accommodation-banner.jpg.asset.json";
+const accommodationBannerImg = accommodationBannerAsset.url;
 void loungeImg;
 
 import osloImg from "@/assets/destinations/oslo.jpg";
