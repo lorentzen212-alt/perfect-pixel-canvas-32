@@ -23,6 +23,11 @@ import {
   ArrowRight,
   ArrowLeft,
   MessageSquare,
+  Bed,
+  Armchair,
+  Coffee,
+  Star,
+  FileText,
 } from "lucide-react";
 import theaterImg from "@/assets/setups/theater.jpg";
 import cinemaImg from "@/assets/setups/cinema.jpg";
