@@ -2935,7 +2935,7 @@ function BudgetPreference({
     id: BudgetTier;
     label: string;
     desc: string;
-    Icon: (p: { active: boolean }) => JSX.Element;
+    Icon: (p: { active: boolean }) => React.ReactElement;
   }[] = [
     { id: "economy", label: "Economy", desc: "Smart value stays", Icon: EconomyIcon },
     { id: "mid", label: "Mid-range", desc: "Balanced comfort", Icon: MidIcon },
