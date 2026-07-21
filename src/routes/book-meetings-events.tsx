@@ -1885,19 +1885,30 @@ function StepFiveExtras({
 
           {/* Cards grid — items-start so an open accordion only stretches its own card */}
           <div className="mt-8 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 items-start">
-            {EXTRAS_DEFS.map((def) => (
-              <ExtraCard
-                key={def.id}
-                def={def}
-                selected={selected[def.id]}
-                saved={saved[def.id]}
-                open={openId === def.id}
-                onCardClick={() => handleCardClick(def.id)}
-                onDone={() => handleDone(def.id)}
-                configs={configs}
-                setConfigs={setConfigs}
-              />
-            ))}
+            {EXTRAS_DEFS.map((def) => {
+              const isOpen = openId === def.id;
+              const lines = saved[def.id] ? summaryFor(def.id, configs[def.id]) : [];
+              return (
+                <React.Fragment key={def.id}>
+                  <ExtraCard
+                    def={def}
+                    selected={selected[def.id]}
+                    saved={saved[def.id]}
+                    open={isOpen}
+                    onCardClick={() => handleCardClick(def.id)}
+                    summaryLines={lines}
+                  />
+                  {isOpen && (
+                    <ExtraAccordion
+                      def={def}
+                      onDone={() => handleDone(def.id)}
+                      configs={configs}
+                      setConfigs={setConfigs}
+                    />
+                  )}
+                </React.Fragment>
+              );
+            })}
           </div>
 
           {/* Any other requests */}
