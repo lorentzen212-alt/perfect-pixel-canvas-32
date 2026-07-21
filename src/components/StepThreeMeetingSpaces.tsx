@@ -710,6 +710,23 @@ export function StepThreeMeetingSpaces({
           : "animate-slide-in-left"
       }
     >
+      {/* Subtle decorative gold background — Step 3 only. Fixed, behind all content. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-0 hidden lg:block"
+        style={{
+          background: [
+            // Left edge soft gold streak, strongest at top, fades down
+            "radial-gradient(60% 55% at 0% 0%, rgba(184,140,54,0.22) 0%, rgba(184,140,54,0.10) 25%, rgba(184,140,54,0.03) 45%, rgba(184,140,54,0) 65%)",
+            // Right edge soft gold streak, strongest at top, fades down
+            "radial-gradient(60% 55% at 100% 0%, rgba(184,140,54,0.22) 0%, rgba(184,140,54,0.10) 25%, rgba(184,140,54,0.03) 45%, rgba(184,140,54,0) 65%)",
+            // Overall top warm gold wash fading to cream
+            "linear-gradient(180deg, rgba(199,158,72,0.10) 0%, rgba(199,158,72,0.04) 22%, rgba(199,158,72,0) 55%)",
+          ].join(","),
+        }}
+      />
+      <div className="relative z-10">
+
       <div
         className="overflow-hidden rounded-[22px] lg:mr-4"
         style={{
