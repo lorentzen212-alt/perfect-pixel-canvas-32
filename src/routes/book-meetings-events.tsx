@@ -1238,135 +1238,543 @@ type ExtraDef = {
 };
 
 const EXTRAS_DEFS: ExtraDef[] = [
-  {
-    id: "airport-transfer",
-    title: "Airport Transfer",
-    description: "Private transportation between the airport and the hotel.",
-    image: airportTransferImg,
-    Icon: Plane,
-  },
-  {
-    id: "coach-parking",
-    title: "Coach Parking",
-    description: "Secure coach parking and logistics on-site.",
-    image: coachParkingImg,
-    Icon: Bus,
-  },
-  {
-    id: "registration-desk",
-    title: "Registration Desk",
-    description: "Professional registration desk and guest check-in support.",
-    image: registrationDeskImg,
-    Icon: ClipboardCheck,
-  },
-  {
-    id: "package-handling",
-    title: "Package Handling",
-    description: "Receive, store and manage your event deliveries.",
-    image: packageHandlingImg,
-    Icon: Package,
-  },
-  {
-    id: "porter-service",
-    title: "Porter Service",
-    description: "Assistance with luggage and equipment on arrival and departure.",
-    image: porterServiceImg,
-    Icon: Luggage,
-  },
-  {
-    id: "cloakroom",
-    title: "Cloakroom",
-    description: "Secure cloakroom service for your guests during the event.",
-    image: cloakroomImg,
-    Icon: Shirt,
-  },
-  {
-    id: "welcome-package",
-    title: "Guest Welcome Package",
-    description:
-      "Welcome gifts, personalised amenities or VIP in-room arrangements for your guests.",
-    image: welcomePackageImg,
-    Icon: Gift,
-  },
+  { id: "airport-transfer", title: "Airport Transfer", description: "Private transportation between the airport and the hotel.", image: airportTransferImg, Icon: Plane },
+  { id: "coach-parking", title: "Coach Parking", description: "Secure coach parking and logistics on-site.", image: coachParkingImg, Icon: Bus },
+  { id: "registration-desk", title: "Registration Desk", description: "Professional registration desk and guest check-in support.", image: registrationDeskImg, Icon: ClipboardCheck },
+  { id: "package-handling", title: "Package Handling", description: "Receive, store and manage your event deliveries.", image: packageHandlingImg, Icon: Package },
+  { id: "porter-service", title: "Porter Service", description: "Assistance with luggage and equipment on arrival and departure.", image: porterServiceImg, Icon: Luggage },
+  { id: "cloakroom", title: "Cloakroom", description: "Secure cloakroom service for your guests during the event.", image: cloakroomImg, Icon: Shirt },
+  { id: "welcome-package", title: "Guest Welcome Package", description: "Welcome gifts, personalised amenities or VIP in-room arrangements for your guests.", image: welcomePackageImg, Icon: Gift },
 ];
+
+type ExtraConfigs = {
+  "airport-transfer": { transferType: string; direction: string };
+  "coach-parking": { coaches: number; arrival: string; departure: string; instructions: string };
+  "registration-desk": { start: string; end: string; staff: "yes" | "no" | ""; notes: string };
+  "package-handling": { storage: string; packages: number; instructions: string };
+  "porter-service": { requiredFor: string; guests: number; notes: string };
+  "cloakroom": { type: string; guests: number; notes: string };
+  "welcome-package": { items: string[]; otherText: string };
+};
+
+const DEFAULT_CONFIGS: ExtraConfigs = {
+  "airport-transfer": { transferType: "Private Executive Van", direction: "Both Directions" },
+  "coach-parking": { coaches: 2, arrival: "12:00", departure: "18:00", instructions: "" },
+  "registration-desk": { start: "08:00", end: "16:00", staff: "", notes: "" },
+  "package-handling": { storage: "", packages: 10, instructions: "" },
+  "porter-service": { requiredFor: "Both", guests: 80, notes: "" },
+  "cloakroom": { type: "Staffed Cloakroom", guests: 80, notes: "" },
+  "welcome-package": { items: [], otherText: "" },
+};
+
+/* Premium radio option pill (ivory card style) */
+function RadioOption({
+  label,
+  selected,
+  onClick,
+  badge,
+}: {
+  label: string;
+  selected: boolean;
+  onClick: () => void;
+  badge?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left transition-all"
+      style={{
+        background: selected ? "linear-gradient(180deg, #FFFDF3 0%, #FBF3DC 100%)" : "#FFFFFF",
+        border: selected ? "1px solid #C79A32" : "1px solid #E4DDC8",
+        boxShadow: selected ? "inset 0 1px 0 rgba(255,255,255,0.7), 0 2px 6px -3px rgba(184,138,46,0.25)" : "none",
+      }}
+    >
+      <span
+        className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
+        style={{
+          background: selected ? GOLD : "#FFFFFF",
+          border: selected ? "1px solid #B88917" : "1.5px solid #D9D2BE",
+          boxShadow: selected ? "inset 0 0 0 2px #FFFDF3" : "none",
+        }}
+      />
+      <span className="text-[13px] text-[#0A1B2C] flex-1">{label}</span>
+      {badge && (
+        <span
+          className="text-[10.5px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full"
+          style={{ color: "#8A6416", background: "#FBF0CE", border: "1px solid #E9D89A" }}
+        >
+          {badge}
+        </span>
+      )}
+    </button>
+  );
+}
+
+function CheckOption({
+  label,
+  selected,
+  onClick,
+}: {
+  label: string;
+  selected: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left transition-all"
+      style={{
+        background: selected ? "linear-gradient(180deg, #FFFDF3 0%, #FBF3DC 100%)" : "#FFFFFF",
+        border: selected ? "1px solid #C79A32" : "1px solid #E4DDC8",
+      }}
+    >
+      <span
+        className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-[4px]"
+        style={{
+          background: selected ? GOLD : "#FFFFFF",
+          border: selected ? "1px solid #B88917" : "1.5px solid #D9D2BE",
+        }}
+      >
+        {selected && <Check size={11} strokeWidth={3.5} style={{ color: "#FFFFFF" }} />}
+      </span>
+      <span className="text-[13px] text-[#0A1B2C] flex-1">{label}</span>
+    </button>
+  );
+}
+
+function FieldLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <label className="block text-[12px] font-semibold text-[#0A1B2C] mb-2 tracking-wide">
+      {children}
+    </label>
+  );
+}
+
+const inputStyle: React.CSSProperties = {
+  background: "#FFFFFF",
+  border: "1px solid #E4DDC8",
+  color: "#0A1B2C",
+};
+
+function NumberStepper({ value, onChange, min = 0 }: { value: number; onChange: (v: number) => void; min?: number }) {
+  return (
+    <div
+      className="inline-flex items-center rounded-[10px] overflow-hidden"
+      style={{ background: "#FFFFFF", border: "1px solid #E4DDC8" }}
+    >
+      <button
+        type="button"
+        onClick={() => onChange(Math.max(min, value - 1))}
+        className="h-9 w-9 grid place-items-center text-[#B88A2E] hover:bg-[#FBF3DC] transition-colors"
+      >
+        −
+      </button>
+      <input
+        type="number"
+        value={value}
+        onChange={(e) => onChange(Math.max(min, Number(e.target.value) || 0))}
+        className="h-9 w-14 text-center text-[13.5px] text-[#0A1B2C] outline-none"
+        style={{ background: "transparent" }}
+      />
+      <button
+        type="button"
+        onClick={() => onChange(value + 1)}
+        className="h-9 w-9 grid place-items-center text-[#B88A2E] hover:bg-[#FBF3DC] transition-colors"
+      >
+        +
+      </button>
+    </div>
+  );
+}
+
+function DoneButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-[10px] text-[13.5px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 hover:-translate-y-[1px]"
+      style={{
+        height: 42,
+        background: `linear-gradient(180deg, #FFFDF6 0%, #FBF3DC 100%)`,
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8), 0 6px 14px -10px rgba(184,138,46,0.35)",
+        border: "1px solid #C79A32",
+      }}
+    >
+      Done
+      <Check size={15} strokeWidth={2.6} style={{ color: "#B88A2E" }} />
+    </button>
+  );
+}
+
+/* Service-specific config panels */
+function ConfigAirportTransfer({ cfg, set }: { cfg: ExtraConfigs["airport-transfer"]; set: (v: ExtraConfigs["airport-transfer"]) => void }) {
+  const types = ["Private Executive Van", "Taxi", "Coach / Bus", "Private Chauffeur", "Other"];
+  const dirs = ["Both Directions", "Arrival Only", "Departure Only"];
+  return (
+    <div className="grid grid-cols-1 gap-5">
+      <div>
+        <FieldLabel>Choose transfer type</FieldLabel>
+        <div className="flex flex-col gap-2">
+          {types.map((t) => (
+            <RadioOption
+              key={t}
+              label={t}
+              selected={cfg.transferType === t}
+              onClick={() => set({ ...cfg, transferType: t })}
+              badge={t === "Private Executive Van" ? "Recommended" : undefined}
+            />
+          ))}
+        </div>
+      </div>
+      <div>
+        <FieldLabel>Transfer direction</FieldLabel>
+        <div className="flex flex-col gap-2">
+          {dirs.map((d) => (
+            <RadioOption key={d} label={d} selected={cfg.direction === d} onClick={() => set({ ...cfg, direction: d })} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ConfigCoachParking({ cfg, set }: { cfg: ExtraConfigs["coach-parking"]; set: (v: ExtraConfigs["coach-parking"]) => void }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        <FieldLabel>Number of coaches</FieldLabel>
+        <NumberStepper value={cfg.coaches} onChange={(v) => set({ ...cfg, coaches: v })} min={1} />
+      </div>
+      <div>
+        <FieldLabel>Coach arrival time</FieldLabel>
+        <input type="time" value={cfg.arrival} onChange={(e) => set({ ...cfg, arrival: e.target.value })} className="w-full rounded-[10px] px-3 h-10 text-[13.5px] outline-none" style={inputStyle} />
+      </div>
+      <div>
+        <FieldLabel>Coach departure time</FieldLabel>
+        <input type="time" value={cfg.departure} onChange={(e) => set({ ...cfg, departure: e.target.value })} className="w-full rounded-[10px] px-3 h-10 text-[13.5px] outline-none" style={inputStyle} />
+      </div>
+      <div>
+        <FieldLabel>Parking instructions</FieldLabel>
+        <input type="text" value={cfg.instructions} onChange={(e) => set({ ...cfg, instructions: e.target.value })} placeholder="Enter instructions..." className="w-full rounded-[10px] px-3 h-10 text-[13.5px] outline-none" style={inputStyle} />
+      </div>
+    </div>
+  );
+}
+
+function ConfigRegistration({ cfg, set }: { cfg: ExtraConfigs["registration-desk"]; set: (v: ExtraConfigs["registration-desk"]) => void }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        <FieldLabel>Registration start time</FieldLabel>
+        <input type="time" value={cfg.start} onChange={(e) => set({ ...cfg, start: e.target.value })} className="w-full rounded-[10px] px-3 h-10 text-[13.5px] outline-none" style={inputStyle} />
+      </div>
+      <div>
+        <FieldLabel>Registration end time</FieldLabel>
+        <input type="time" value={cfg.end} onChange={(e) => set({ ...cfg, end: e.target.value })} className="w-full rounded-[10px] px-3 h-10 text-[13.5px] outline-none" style={inputStyle} />
+      </div>
+      <div>
+        <FieldLabel>Hotel staff required</FieldLabel>
+        <div className="grid grid-cols-2 gap-2">
+          <RadioOption label="Yes" selected={cfg.staff === "yes"} onClick={() => set({ ...cfg, staff: "yes" })} />
+          <RadioOption label="No" selected={cfg.staff === "no"} onClick={() => set({ ...cfg, staff: "no" })} />
+        </div>
+      </div>
+      <div>
+        <FieldLabel>Additional notes</FieldLabel>
+        <input type="text" value={cfg.notes} onChange={(e) => set({ ...cfg, notes: e.target.value })} placeholder="Enter notes..." className="w-full rounded-[10px] px-3 h-10 text-[13.5px] outline-none" style={inputStyle} />
+      </div>
+    </div>
+  );
+}
+
+function ConfigPackage({ cfg, set }: { cfg: ExtraConfigs["package-handling"]; set: (v: ExtraConfigs["package-handling"]) => void }) {
+  const opts = ["Before Arrival", "During Event", "After Event"];
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        <FieldLabel>Storage required</FieldLabel>
+        <div className="flex flex-col gap-2">
+          {opts.map((o) => (
+            <RadioOption key={o} label={o} selected={cfg.storage === o} onClick={() => set({ ...cfg, storage: o })} />
+          ))}
+        </div>
+      </div>
+      <div>
+        <FieldLabel>Estimated number of packages</FieldLabel>
+        <NumberStepper value={cfg.packages} onChange={(v) => set({ ...cfg, packages: v })} />
+      </div>
+      <div>
+        <FieldLabel>Additional instructions</FieldLabel>
+        <input type="text" value={cfg.instructions} onChange={(e) => set({ ...cfg, instructions: e.target.value })} placeholder="Enter instructions..." className="w-full rounded-[10px] px-3 h-10 text-[13.5px] outline-none" style={inputStyle} />
+      </div>
+    </div>
+  );
+}
+
+function ConfigPorter({ cfg, set }: { cfg: ExtraConfigs["porter-service"]; set: (v: ExtraConfigs["porter-service"]) => void }) {
+  const opts = ["Arrival", "Departure", "Both"];
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        <FieldLabel>Porter service required for</FieldLabel>
+        <div className="grid grid-cols-3 gap-2">
+          {opts.map((o) => (
+            <RadioOption key={o} label={o} selected={cfg.requiredFor === o} onClick={() => set({ ...cfg, requiredFor: o })} />
+          ))}
+        </div>
+      </div>
+      <div>
+        <FieldLabel>Estimated number of guests</FieldLabel>
+        <NumberStepper value={cfg.guests} onChange={(v) => set({ ...cfg, guests: v })} />
+      </div>
+      <div>
+        <FieldLabel>Additional notes</FieldLabel>
+        <input type="text" value={cfg.notes} onChange={(e) => set({ ...cfg, notes: e.target.value })} placeholder="Enter notes..." className="w-full rounded-[10px] px-3 h-10 text-[13.5px] outline-none" style={inputStyle} />
+      </div>
+    </div>
+  );
+}
+
+function ConfigCloakroom({ cfg, set }: { cfg: ExtraConfigs["cloakroom"]; set: (v: ExtraConfigs["cloakroom"]) => void }) {
+  const opts = ["Staffed Cloakroom", "Self-Service"];
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        <FieldLabel>Cloakroom type</FieldLabel>
+        <div className="grid grid-cols-2 gap-2">
+          {opts.map((o) => (
+            <RadioOption key={o} label={o} selected={cfg.type === o} onClick={() => set({ ...cfg, type: o })} />
+          ))}
+        </div>
+      </div>
+      <div>
+        <FieldLabel>Estimated number of guests</FieldLabel>
+        <NumberStepper value={cfg.guests} onChange={(v) => set({ ...cfg, guests: v })} />
+      </div>
+      <div>
+        <FieldLabel>Additional notes</FieldLabel>
+        <input type="text" value={cfg.notes} onChange={(e) => set({ ...cfg, notes: e.target.value })} placeholder="Enter notes..." className="w-full rounded-[10px] px-3 h-10 text-[13.5px] outline-none" style={inputStyle} />
+      </div>
+    </div>
+  );
+}
+
+function ConfigWelcome({ cfg, set }: { cfg: ExtraConfigs["welcome-package"]; set: (v: ExtraConfigs["welcome-package"]) => void }) {
+  const opts = ["Welcome Letter", "Chocolate", "Local Gift", "Fruit Basket", "Wine", "VIP Amenities", "Hotel Surprise", "Other"];
+  const toggle = (o: string) => {
+    const has = cfg.items.includes(o);
+    set({ ...cfg, items: has ? cfg.items.filter((x) => x !== o) : [...cfg.items, o] });
+  };
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        <FieldLabel>Choose welcome package</FieldLabel>
+        <div className="grid grid-cols-2 gap-2">
+          {opts.map((o) => (
+            <CheckOption key={o} label={o} selected={cfg.items.includes(o)} onClick={() => toggle(o)} />
+          ))}
+        </div>
+      </div>
+      {cfg.items.includes("Other") && (
+        <div style={{ animation: "menuTypeExpand 220ms ease-out" }}>
+          <FieldLabel>Describe your welcome package</FieldLabel>
+          <input
+            type="text"
+            value={cfg.otherText}
+            onChange={(e) => set({ ...cfg, otherText: e.target.value })}
+            placeholder="Describe your welcome package..."
+            className="w-full rounded-[10px] px-3 h-10 text-[13.5px] outline-none"
+            style={inputStyle}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* Summary rows shown on the card after Done */
+function summaryFor(id: ExtraId, cfg: ExtraConfigs[ExtraId]): string[] {
+  switch (id) {
+    case "airport-transfer": {
+      const c = cfg as ExtraConfigs["airport-transfer"];
+      return [c.transferType, c.direction].filter(Boolean);
+    }
+    case "coach-parking": {
+      const c = cfg as ExtraConfigs["coach-parking"];
+      return [`${c.coaches} Coach${c.coaches === 1 ? "" : "es"}`, `${c.arrival} Arrival`];
+    }
+    case "registration-desk": {
+      const c = cfg as ExtraConfigs["registration-desk"];
+      return [c.staff === "yes" ? "Staff Required" : c.staff === "no" ? "No Staff" : "Staff", `${c.start}–${c.end}`];
+    }
+    case "package-handling": {
+      const c = cfg as ExtraConfigs["package-handling"];
+      return [c.storage || "Storage", `${c.packages} Packages`];
+    }
+    case "porter-service": {
+      const c = cfg as ExtraConfigs["porter-service"];
+      const label = c.requiredFor === "Both" ? "Arrival & Departure" : c.requiredFor;
+      return [label, `${c.guests} Guests`];
+    }
+    case "cloakroom": {
+      const c = cfg as ExtraConfigs["cloakroom"];
+      return [c.type, `${c.guests} Guests`];
+    }
+    case "welcome-package": {
+      const c = cfg as ExtraConfigs["welcome-package"];
+      const items = c.items.slice(0, 2);
+      return items.length ? items : ["Not configured"];
+    }
+  }
+}
 
 function ExtraCard({
   def,
   selected,
-  onToggle,
+  saved,
+  open,
+  onCardClick,
+  onDone,
+  configs,
+  setConfigs,
 }: {
   def: ExtraDef;
   selected: boolean;
-  onToggle: () => void;
+  saved: boolean;
+  open: boolean;
+  onCardClick: () => void;
+  onDone: () => void;
+  configs: ExtraConfigs;
+  setConfigs: React.Dispatch<React.SetStateAction<ExtraConfigs>>;
 }) {
   const { Icon } = def;
+  const setCfg = <K extends ExtraId>(id: K, val: ExtraConfigs[K]) =>
+    setConfigs((prev) => ({ ...prev, [id]: val }));
+
+  const renderConfig = () => {
+    switch (def.id) {
+      case "airport-transfer":
+        return <ConfigAirportTransfer cfg={configs["airport-transfer"]} set={(v) => setCfg("airport-transfer", v)} />;
+      case "coach-parking":
+        return <ConfigCoachParking cfg={configs["coach-parking"]} set={(v) => setCfg("coach-parking", v)} />;
+      case "registration-desk":
+        return <ConfigRegistration cfg={configs["registration-desk"]} set={(v) => setCfg("registration-desk", v)} />;
+      case "package-handling":
+        return <ConfigPackage cfg={configs["package-handling"]} set={(v) => setCfg("package-handling", v)} />;
+      case "porter-service":
+        return <ConfigPorter cfg={configs["porter-service"]} set={(v) => setCfg("porter-service", v)} />;
+      case "cloakroom":
+        return <ConfigCloakroom cfg={configs["cloakroom"]} set={(v) => setCfg("cloakroom", v)} />;
+      case "welcome-package":
+        return <ConfigWelcome cfg={configs["welcome-package"]} set={(v) => setCfg("welcome-package", v)} />;
+    }
+  };
+
+  const summaryLines = saved ? summaryFor(def.id, configs[def.id]) : [];
+
   return (
-    <button
-      type="button"
-      onClick={onToggle}
-      className="group relative flex flex-col overflow-hidden rounded-[16px] text-left transition-all duration-200 hover:-translate-y-[2px]"
+    <div
+      className="relative flex flex-col overflow-hidden rounded-[16px] transition-all duration-200"
       style={{
         background: selected
           ? "linear-gradient(180deg, #FFFBEF 0%, #FBF3DC 100%)"
           : "linear-gradient(180deg, #FFFFFF 0%, #FCFAF3 100%)",
-        border: selected
-          ? "1.5px solid #C79A32"
-          : "1px solid #ECE4CC",
+        border: selected ? "1.5px solid #C79A32" : "1px solid #ECE4CC",
         boxShadow: selected
           ? "0 14px 30px -18px rgba(184,138,46,0.35), 0 2px 8px -4px rgba(10,27,44,0.06)"
           : "0 10px 24px -18px rgba(10,27,44,0.20), 0 2px 6px -3px rgba(10,27,44,0.05)",
+        alignSelf: "start",
       }}
     >
-      {/* Image */}
-      <div className="relative w-full" style={{ aspectRatio: "4 / 3" }}>
-        <img
-          src={def.image}
-          alt={def.title}
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        {/* selection circle */}
-        <span
-          className="absolute right-3 top-3 inline-flex h-6 w-6 items-center justify-center rounded-full transition-all"
-          style={{
-            background: selected ? "#C79A32" : "rgba(255,255,255,0.9)",
-            border: selected ? "1.5px solid #B88917" : "1.5px solid rgba(255,255,255,0.95)",
-            boxShadow: "0 2px 6px rgba(10,27,44,0.25)",
-          }}
-        >
-          {selected && <Check size={14} strokeWidth={3} style={{ color: "#FFFFFF" }} />}
-        </span>
-      </div>
+      {/* Clickable card head */}
+      <button
+        type="button"
+        onClick={onCardClick}
+        className="group flex flex-col text-left transition-all hover:-translate-y-[1px]"
+      >
+        <div className="relative w-full" style={{ aspectRatio: "4 / 3" }}>
+          <img src={def.image} alt={def.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <span
+            className="absolute right-3 top-3 inline-flex h-6 w-6 items-center justify-center rounded-full transition-all"
+            style={{
+              background: selected ? "#C79A32" : "rgba(255,255,255,0.9)",
+              border: selected ? "1.5px solid #B88917" : "1.5px solid rgba(255,255,255,0.95)",
+              boxShadow: "0 2px 6px rgba(10,27,44,0.25)",
+            }}
+          >
+            {selected && <Check size={14} strokeWidth={3} style={{ color: "#FFFFFF" }} />}
+          </span>
+        </div>
 
-      {/* Icon badge */}
-      <div className="relative -mt-6 flex justify-center">
-        <span
-          className="inline-flex h-12 w-12 items-center justify-center rounded-full"
+        <div className="relative -mt-6 flex justify-center">
+          <span
+            className="inline-flex h-12 w-12 items-center justify-center rounded-full"
+            style={{
+              background: "linear-gradient(180deg, #FFFDF6 0%, #FBF3DC 100%)",
+              border: "1px solid #E3D2A1",
+              boxShadow: "0 6px 14px -8px rgba(184,138,46,0.45), inset 0 1px 0 rgba(255,255,255,0.7)",
+            }}
+          >
+            <Icon size={20} strokeWidth={1.8} style={{ color: "#B88A2E" }} />
+          </span>
+        </div>
+
+        <div className="px-5 pt-2 pb-4 text-center">
+          <h4 className="text-[#0A1B2C] text-[19px] leading-tight" style={{ fontFamily: SERIF, fontWeight: 500 }}>
+            {def.title}
+          </h4>
+          <p className="mt-2 text-[13px] leading-relaxed text-[#5A6472]">{def.description}</p>
+
+          {/* Summary lines on card */}
+          {saved && !open && (
+            <div className="mt-3 flex flex-col items-center gap-1.5">
+              {summaryLines.map((line) => (
+                <div key={line} className="inline-flex items-center gap-1.5 text-[12.5px] text-[#3C3222]">
+                  <Check size={12} strokeWidth={3} style={{ color: "#B88A2E" }} />
+                  <span>{line}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </button>
+
+      {/* Configure / Hide toggle */}
+      <button
+        type="button"
+        onClick={onCardClick}
+        className="mx-5 mb-3 inline-flex items-center justify-center gap-1.5 text-[12px] font-semibold tracking-wide transition-colors"
+        style={{ color: "#B88A2E" }}
+      >
+        {open ? (
+          <>
+            Hide <ChevronUp size={14} strokeWidth={2.4} />
+          </>
+        ) : (
+          <>
+            Configure <ChevronDown size={14} strokeWidth={2.4} />
+          </>
+        )}
+      </button>
+
+      {/* Accordion */}
+      {open && (
+        <div
+          className="mx-3 mb-4 rounded-[12px] p-4"
           style={{
-            background:
-              "linear-gradient(180deg, #FFFDF6 0%, #FBF3DC 100%)",
+            background: "linear-gradient(180deg, #FFFDF6 0%, #FBF6E7 100%)",
             border: "1px solid #E3D2A1",
-            boxShadow:
-              "0 6px 14px -8px rgba(184,138,46,0.45), inset 0 1px 0 rgba(255,255,255,0.7)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7)",
+            animation: "menuTypeExpand 260ms ease-out",
           }}
         >
-          <Icon size={20} strokeWidth={1.8} style={{ color: "#B88A2E" }} />
-        </span>
-      </div>
-
-      {/* Text */}
-      <div className="px-5 pt-2 pb-6 text-center">
-        <h4
-          className="text-[#0A1B2C] text-[19px] leading-tight"
-          style={{ fontFamily: SERIF, fontWeight: 500 }}
-        >
-          {def.title}
-        </h4>
-        <p className="mt-2 text-[13px] leading-relaxed text-[#5A6472]">
-          {def.description}
-        </p>
-      </div>
-    </button>
+          {renderConfig()}
+          <DoneButton onClick={onDone} />
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -1382,10 +1790,27 @@ function StepFiveExtras({
   const [selected, setSelected] = useState<Record<ExtraId, boolean>>(() =>
     EXTRAS_DEFS.reduce((acc, d) => ({ ...acc, [d.id]: false }), {} as Record<ExtraId, boolean>),
   );
+  const [saved, setSaved] = useState<Record<ExtraId, boolean>>(() =>
+    EXTRAS_DEFS.reduce((acc, d) => ({ ...acc, [d.id]: false }), {} as Record<ExtraId, boolean>),
+  );
+  const [configs, setConfigs] = useState<ExtraConfigs>(DEFAULT_CONFIGS);
+  const [openId, setOpenId] = useState<ExtraId | null>(null);
   const [notes, setNotes] = useState("");
 
-  const toggle = (id: ExtraId) =>
-    setSelected((prev) => ({ ...prev, [id]: !prev[id] }));
+  const handleCardClick = (id: ExtraId) => {
+    if (openId === id) {
+      setOpenId(null);
+      return;
+    }
+    setOpenId(id);
+    setSelected((prev) => ({ ...prev, [id]: true }));
+  };
+
+  const handleDone = (id: ExtraId) => {
+    setSaved((prev) => ({ ...prev, [id]: true }));
+    setSelected((prev) => ({ ...prev, [id]: true }));
+    setOpenId(null);
+  };
 
   const selectedCount = Object.values(selected).filter(Boolean).length;
 
@@ -1402,21 +1827,15 @@ function StepFiveExtras({
   ];
 
   return (
-    <div
-      className={
-        direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"
-      }
-    >
+    <div className={direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"}>
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6">
         {/* LEFT — main panel */}
         <div
           className="overflow-hidden rounded-[20px] p-6 sm:p-8 lg:p-10"
           style={{
             backgroundColor: "#FCFCFC",
-            backgroundImage:
-              "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
-            boxShadow:
-              "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
+            backgroundImage: "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
+            boxShadow: "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
             border: "1px solid #ECECEC",
           }}
         >
@@ -1427,10 +1846,7 @@ function StepFiveExtras({
           >
             <ArrowLeft size={16} /> Back
           </button>
-          <h2
-            className="text-[#0A1B2C] text-3xl lg:text-[34px] leading-tight"
-            style={{ fontFamily: SERIF }}
-          >
+          <h2 className="text-[#0A1B2C] text-3xl lg:text-[34px] leading-tight" style={{ fontFamily: SERIF }}>
             Step 5 – Extras
           </h2>
           <div className="mt-2 h-[2px] w-16" style={{ backgroundColor: GOLD }} />
@@ -1438,14 +1854,19 @@ function StepFiveExtras({
             Select any additional services you would like us to arrange for your group.
           </p>
 
-          {/* Cards grid */}
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
+          {/* Cards grid — items-start so an open accordion only stretches its own card */}
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 items-start">
             {EXTRAS_DEFS.map((def) => (
               <ExtraCard
                 key={def.id}
                 def={def}
                 selected={selected[def.id]}
-                onToggle={() => toggle(def.id)}
+                saved={saved[def.id]}
+                open={openId === def.id}
+                onCardClick={() => handleCardClick(def.id)}
+                onDone={() => handleDone(def.id)}
+                configs={configs}
+                setConfigs={setConfigs}
               />
             ))}
           </div>
@@ -1462,18 +1883,12 @@ function StepFiveExtras({
             <div className="flex items-start gap-3 md:w-[320px] shrink-0">
               <span
                 className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px]"
-                style={{
-                  background: "#FDF6E1",
-                  border: "1px solid #E3D2A1",
-                }}
+                style={{ background: "#FDF6E1", border: "1px solid #E3D2A1" }}
               >
                 <Pencil size={16} style={{ color: "#B88A2E" }} />
               </span>
               <div>
-                <h4
-                  className="text-[16px] font-semibold text-[#0A1B2C]"
-                  style={{ fontFamily: SERIF }}
-                >
+                <h4 className="text-[16px] font-semibold text-[#0A1B2C]" style={{ fontFamily: SERIF }}>
                   Any other requests?
                 </h4>
                 <p className="mt-1 text-[13px] text-[#6E5A2E] leading-relaxed">
@@ -1490,57 +1905,41 @@ function StepFiveExtras({
                 className="w-full resize-none rounded-md p-3 text-[13.5px] text-[#0A1B2C] outline-none"
                 style={{ background: "#FFFFFF", border: "1px solid #E4DDC8" }}
               />
-              <div className="mt-1 text-right text-[11px] text-[#9C9484]">
-                {notes.length} / 500
-              </div>
+              <div className="mt-1 text-right text-[11px] text-[#9C9484]">{notes.length} / 500</div>
             </div>
           </div>
         </div>
 
         {/* RIGHT — Need help + Event Summary + Next */}
         <aside className="lg:sticky lg:top-6 self-start flex flex-col gap-5">
-          {/* Need help card */}
           <div
             className="rounded-[16px] p-6"
             style={{
               backgroundColor: "#FFFFFF",
               border: "1px solid #EFEFEC",
-              boxShadow:
-                "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+              boxShadow: "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
             }}
           >
             <HelpCard />
           </div>
 
-          {/* Summary card */}
           <div
             className="rounded-[16px] p-6"
             style={{
               backgroundColor: "#FFFFFF",
               border: "1px solid #EFEFEC",
-              boxShadow:
-                "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+              boxShadow: "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
             }}
           >
-            <h3
-              className="text-[#0A1B2C] text-[22px] leading-tight"
-              style={{ fontFamily: SERIF }}
-            >
+            <h3 className="text-[#0A1B2C] text-[22px] leading-tight" style={{ fontFamily: SERIF }}>
               Your event summary
             </h3>
             <div className="mt-4 flex flex-col gap-4">
               {summaryItems.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-start justify-between gap-3"
-                >
+                <div key={item.label} className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-[13px] font-semibold text-[#0A1B2C]">
-                      {item.label}
-                    </p>
-                    <p className="text-[13px] text-[#5A6472] mt-0.5">
-                      {item.value}
-                    </p>
+                    <p className="text-[13px] font-semibold text-[#0A1B2C]">{item.label}</p>
+                    <p className="text-[13px] text-[#5A6472] mt-0.5">{item.value}</p>
                   </div>
                   {item.label !== "Extras" && item.label !== "Event Details" && (
                     <button
@@ -1562,8 +1961,7 @@ function StepFiveExtras({
                 style={{
                   height: 52,
                   background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
-                  boxShadow:
-                    "0 18px 40px -18px rgba(200,154,58,0.55), 0 4px 10px -4px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
+                  boxShadow: "0 18px 40px -18px rgba(200,154,58,0.55), 0 4px 10px -4px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
                   border: "1px solid rgba(184,138,46,0.45)",
                 }}
               >
