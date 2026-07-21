@@ -433,6 +433,7 @@ function BookMeetingsEvents() {
               onBack={() => go(2)}
               onNext={handleNext}
               direction={direction}
+              onEditStep={(s) => go(s)}
             />
           ) : step === 4 ? (
             <StepFourCatering
