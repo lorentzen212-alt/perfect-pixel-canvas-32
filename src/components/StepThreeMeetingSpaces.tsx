@@ -399,6 +399,7 @@ export function StepThreeMeetingSpaces({
   onNext,
   direction,
   request,
+  onEditStep,
 }: {
   onBack: () => void;
   onNext: () => void;
@@ -409,6 +410,7 @@ export function StepThreeMeetingSpaces({
     guestRooms?: number;
     attendees?: number;
   };
+  onEditStep?: (step: number) => void;
 }) {
   const [needsRooms, setNeedsRooms] = useState<boolean>(true);
   const [rooms, setRooms] = useState<MeetingRoom[]>([]);
