@@ -3263,6 +3263,10 @@ function StepTwoLocation({
           </button>
         </div>
 
+
+        {/* Budget preference */}
+        <BudgetPreference value={budget} onChange={setBudget} />
+
         {/* Continue to Accommodation */}
         <div className="mt-8 flex justify-end">
           <ContinueButton
