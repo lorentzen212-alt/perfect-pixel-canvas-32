@@ -2894,7 +2894,7 @@ function BudgetPreference({
 
       <div className="mt-5 flex justify-center">
         <div
-          className="relative w-[90%] rounded-[18px] px-6 py-5"
+          className="relative w-[90%] rounded-[18px] px-6 py-3"
           style={{
             background:
               "linear-gradient(180deg, #1E4566 0%, #1A3C5B 35%, #16385A 70%, #0F2A47 100%)",
@@ -2916,7 +2916,7 @@ function BudgetPreference({
           <div className="relative flex items-center justify-between">
             {/* connecting line */}
             <div
-              className="absolute left-8 right-8 top-[21px] h-[1.5px]"
+              className="absolute left-8 right-8 top-[18px] h-[1.5px]"
               style={{
                 background:
                   "linear-gradient(90deg, transparent 0%, rgba(200,168,100,0.35) 8%, rgba(245,213,138,0.95) 50%, rgba(200,168,100,0.35) 92%, transparent 100%)",
@@ -2928,11 +2928,11 @@ function BudgetPreference({
               const selected = value === t.id;
               const Icon = t.Icon;
               return (
-                <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-3">
+                <div key={t.id} className="relative z-10 flex flex-1 flex-col items-center gap-2">
                   {/* midpoint dots between labels */}
                   {i > 0 && (
                     <span
-                      className="absolute -left-1/2 top-[17px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
+                      className="absolute -left-1/2 top-[14px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
                       style={{
                         border: "1.5px solid rgba(232,196,106,0.80)",
                         background: selected ? "#F5D78E" : "#16385A",
@@ -2947,7 +2947,7 @@ function BudgetPreference({
                     type="button"
                     onClick={() => onChange(selected ? null : t.id)}
                     aria-pressed={selected}
-                    className="relative flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
+                    className="relative flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5AE00]/50"
                     style={
                       selected
                         ? {
@@ -2960,7 +2960,7 @@ function BudgetPreference({
                     }
                   >
                     <Icon
-                      size={22}
+                      size={20}
                       strokeWidth={1.65}
                       style={{ color: selected ? "#FFFFFF" : "#E8C46A" }}
                       fill={selected && (t.id === "premium" || t.id === "luxury") ? "#FFFFFF" : "none"}
