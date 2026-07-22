@@ -2529,17 +2529,17 @@ function StepSevenReview({
       className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen overflow-hidden pb-16"
       style={{ backgroundColor: "#061B2E", maxWidth: "none" }}
     >
-      {/* Full-width decorative background artwork */}
+      {/* Full-width decorative background artwork — top intro only */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-0 top-0 w-full"
         style={{
-          height: "680px",
+          height: "500px",
           zIndex: 0,
           backgroundImage: `url(${step7HeroBg.url})`,
           backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "54% -55px",
+          backgroundSize: "100% auto",
+          backgroundPosition: "center -30px",
         }}
       />
       {/* Fade into solid navy at bottom of artwork */}
@@ -2547,20 +2547,21 @@ function StepSevenReview({
         aria-hidden
         className="pointer-events-none absolute left-0 w-full"
         style={{
-          top: "440px",
-          height: "260px",
+          top: "320px",
+          height: "220px",
           zIndex: 0,
           background:
-            "linear-gradient(to bottom, rgba(6,27,46,0) 0%, rgba(6,27,46,0.6) 55%, #061B2E 100%)",
+            "linear-gradient(to bottom, rgba(6,27,46,0) 0%, rgba(6,27,46,0.7) 55%, #061B2E 100%)",
         }}
       />
 
-      <div className="relative z-[1] mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
-        <div className="pt-[55px]">
+      <div className="relative z-[1] mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-8">
+        <div className="pt-[38px]">
 
 
 
-          <div className="max-w-[720px]" style={{ paddingBottom: "40px" }}>
+          <div className="max-w-[720px]" style={{ paddingBottom: "30px" }}>
+
             <h1
               className="leading-[1.02] whitespace-nowrap"
               style={{
