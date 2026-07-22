@@ -2536,14 +2536,15 @@ function StepSevenReview({
         <div
           className="-mx-5 sm:-mx-8 lg:-mx-[50px] xl:-mx-[60px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-[55px]"
           style={{
-            backgroundImage: `linear-gradient(to bottom, rgba(6,27,46,0) 55%, rgba(6,27,46,0.85) 88%, #061B2E 100%), url(${step7HeroBg.url})`,
-            backgroundPosition: "top center, top center",
-            backgroundSize: "100% 100%, 100% auto",
-            backgroundRepeat: "no-repeat, no-repeat",
-            backgroundAttachment: "scroll, scroll",
+            backgroundImage: `url(${step7HeroBg.url})`,
+            backgroundPosition: "top center",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundAttachment: "scroll",
             backgroundColor: "#061B2E",
           }}
         >
+
           <div className="max-w-[720px]" style={{ paddingBottom: "40px" }}>
             <h1
               className="leading-[1.02] whitespace-nowrap"
