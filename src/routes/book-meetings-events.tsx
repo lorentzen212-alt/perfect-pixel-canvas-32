@@ -2862,6 +2862,7 @@ function StepSevenReview({
               });
             });
           })()}
+        </div>
 
         {/* RIGHT — sidebar */}
         <div className="space-y-5">
