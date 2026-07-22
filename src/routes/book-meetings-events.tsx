@@ -2527,78 +2527,60 @@ function StepSevenReview({
   ];
 
   return (
-    <div className="space-y-8">
-      {/* HERO — background image with the notebook baked in.
-          Breaks out of the section padding so it stretches edge-to-edge,
-          then transitions seamlessly into the surrounding navy. */}
-      <div
-        className="relative -mx-5 sm:-mx-8 lg:-mx-[50px] xl:-mx-[60px] -mt-10 lg:-mt-14 mb-2"
-        style={{
-          height: "800px",
-          backgroundImage: `url(${step7HeroBg.url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: "#061422",
-        }}
-      >
-        {/* Bottom fade into the page navy so the seam is invisible. */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
-          style={{
-            backgroundImage:
-              "linear-gradient(180deg, rgba(6,20,34,0) 0%, rgba(6,20,34,0.65) 55%, #061422 100%)",
-          }}
-        />
-        {/* Heading anchored to the left, well clear of the notebook. */}
-        <div className="relative h-full">
-          <div className="absolute inset-0 px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
-            <div className="mx-auto max-w-[1400px] h-full flex items-center">
-              <div className="max-w-[560px] pt-10 md:pt-16">
-                <h1
-                  className="leading-[1.02]"
-                  style={{
-                    fontFamily: SERIF,
-                    fontSize: "clamp(38px, 5vw, 64px)",
-                    fontWeight: 500,
-                    letterSpacing: "0.005em",
-                    color: "#FFF8EA",
-                    textShadow: "0 2px 24px rgba(245,220,150,0.18)",
-                  }}
-                >
-                  Executive Event Review
-                </h1>
-                <div className="relative mt-4 w-[320px] max-w-full">
-                  <div
-                    className="h-[2px] w-full"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(90deg, transparent, #B98F3D 18%, #F5E9B8 50%, #B98F3D 82%, transparent)",
-                      boxShadow: "0 0 12px rgba(245,220,150,0.55)",
-                    }}
-                  />
-                  <span
-                    aria-hidden
-                    className="absolute left-1/2 top-1/2 h-[8px] w-[80px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-                    style={{
-                      background:
-                        "radial-gradient(ellipse at center, rgba(255,235,180,0.85) 0%, rgba(255,215,130,0.35) 40%, rgba(255,215,130,0) 75%)",
-                      filter: "blur(2px)",
-                    }}
-                  />
-                </div>
-                <p
-                  className="mt-5 text-[16px] sm:text-[17px] leading-relaxed"
-                  style={{ color: "rgba(250,240,220,0.88)" }}
-                >
-                  You&apos;re all set! Please review your request before submitting it to our team.
-                </p>
-              </div>
-            </div>
+    <div
+      className="-mx-5 sm:-mx-8 lg:-mx-[50px] xl:-mx-[60px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-[55px] pb-16"
+      style={{
+        backgroundImage: `url(${step7HeroBg.url})`,
+        backgroundPosition: "top center",
+        backgroundSize: "100% auto",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "#061B2E",
+        backgroundAttachment: "scroll",
+      }}
+    >
+      <div className="space-y-8">
+        {/* Heading — sits atop the notebook background image, anchored left. */}
+        <div className="max-w-[720px]" style={{ marginBottom: "35px" }}>
+          <h1
+            className="leading-[1.02] whitespace-nowrap"
+            style={{
+              fontFamily: SERIF,
+              fontSize: "clamp(34px, 4.4vw, 58px)",
+              fontWeight: 500,
+              letterSpacing: "0.005em",
+              color: "#FFF8EA",
+              textShadow: "0 2px 24px rgba(245,220,150,0.18)",
+            }}
+          >
+            Executive Event Review
+          </h1>
+          <div className="relative mt-4 w-[320px] max-w-full">
+            <div
+              className="h-[2px] w-full"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, transparent, #B98F3D 18%, #F5E9B8 50%, #B98F3D 82%, transparent)",
+                boxShadow: "0 0 12px rgba(245,220,150,0.55)",
+              }}
+            />
+            <span
+              aria-hidden
+              className="absolute left-1/2 top-1/2 h-[8px] w-[80px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, rgba(255,235,180,0.85) 0%, rgba(255,215,130,0.35) 40%, rgba(255,215,130,0) 75%)",
+                filter: "blur(2px)",
+              }}
+            />
           </div>
+          <p
+            className="mt-5 text-[16px] sm:text-[17px] leading-relaxed"
+            style={{ color: "rgba(250,240,220,0.88)" }}
+          >
+            You&apos;re all set! Please review your request before submitting it to our team.
+          </p>
         </div>
-      </div>
+
 
       {/* MAIN GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-6">
