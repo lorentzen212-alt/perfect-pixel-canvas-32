@@ -235,6 +235,19 @@ function BookMeetingsEvents() {
     } catch {}
   }, [hydrated, step, form, visited]);
 
+  // Commit event details / contact info from Step 6 (StepOne) into the shared draft.
+  useEffect(() => {
+    if (!hydrated) return;
+    setMeSection("eventDetails", {
+      eventName: form.eventName.trim() || undefined,
+      company: form.company.trim() || undefined,
+      contactPerson: form.contactPerson.trim() || undefined,
+      email: form.email.trim() || undefined,
+      phone: form.phone.trim() || undefined,
+      countryCode: form.countryCode || undefined,
+    });
+  }, [hydrated, form]);
+
   const go = (n: number) => {
     setDirection(n > step ? "forward" : "back");
     setVisited((prev) => {
