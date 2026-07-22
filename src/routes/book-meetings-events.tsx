@@ -2531,96 +2531,180 @@ function StepSevenReview({
       style={{
         position: "relative",
         width: "100vw",
-        backgroundColor: "#08131F",
         maxWidth: "none",
         minHeight: "100%",
-        backgroundImage:
-          "linear-gradient(180deg, rgba(12,26,40,0) 0%, rgba(8,19,31,0) 35%, rgba(4,11,19,0.58) 100%), radial-gradient(ellipse at 50% 38%, rgba(8,19,31,0) 0%, rgba(4,10,17,0.62) 55%, rgba(2,7,13,0.97) 100%), radial-gradient(ellipse at 0% 0%, rgba(198,154,74,0.10) 0%, rgba(198,154,74,0) 28%), radial-gradient(ellipse at 100% 0%, rgba(212,168,83,0.09) 0%, rgba(212,168,83,0) 26%), radial-gradient(ellipse at 100% 100%, rgba(176,138,68,0.075) 0%, rgba(176,138,68,0) 30%), radial-gradient(ellipse at 0% 100%, rgba(188,146,70,0.07) 0%, rgba(188,146,70,0) 28%), radial-gradient(ellipse at 50% 0%, rgba(255,245,220,0.045) 0%, rgba(255,245,220,0) 50%), linear-gradient(180deg, #0A1824 0%, #08131F 48%, #051018 100%)",
+        backgroundColor: "#0B1C33",
+        backgroundImage: [
+          // Central soft top sheen
+          "radial-gradient(ellipse 70% 40% at 50% -5%, rgba(255,246,220,0.05) 0%, rgba(255,246,220,0) 60%)",
+          // Warm corner glow (top-right, matches trails)
+          "radial-gradient(ellipse 55% 45% at 100% 0%, rgba(214,168,84,0.14) 0%, rgba(214,168,84,0.05) 30%, rgba(214,168,84,0) 60%)",
+          // Subtle opposite-corner cool depth
+          "radial-gradient(ellipse 60% 50% at 0% 100%, rgba(9,20,36,0.9) 0%, rgba(9,20,36,0) 55%)",
+          // Deep vignette
+          "radial-gradient(ellipse 90% 75% at 50% 45%, rgba(11,28,51,0) 0%, rgba(6,15,28,0.55) 70%, rgba(3,9,18,0.95) 100%)",
+          // Base tonal wash
+          "linear-gradient(180deg, #0D2038 0%, #0B1C33 45%, #071427 100%)",
+        ].join(","),
         backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Fine grain texture overlay — adds material depth without pattern */}
+      {/* Gold dust along the outer edges — soft radial haze */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0"
         style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.82  0 0 0 0 0.75  0 0 0 0 0.52  0 0 0 0.035 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
-          backgroundSize: "280px 280px",
-          opacity: 0.55,
-          mixBlendMode: "overlay",
+          background: [
+            "radial-gradient(ellipse 40% 8% at 50% 0%, rgba(214,170,84,0.08) 0%, rgba(214,170,84,0) 70%)",
+            "radial-gradient(ellipse 40% 8% at 50% 100%, rgba(198,154,74,0.07) 0%, rgba(198,154,74,0) 70%)",
+            "radial-gradient(ellipse 8% 45% at 0% 50%, rgba(198,154,74,0.06) 0%, rgba(198,154,74,0) 70%)",
+            "radial-gradient(ellipse 8% 45% at 100% 50%, rgba(214,170,84,0.08) 0%, rgba(214,170,84,0) 70%)",
+          ].join(","),
         }}
       />
-      {/* Soft overhead sheen — cove lighting from above */}
-      <span
+
+      {/* Flowing golden light trails — top-right corner only */}
+      <svg
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0"
+        className="pointer-events-none absolute z-0 luxury-trail"
         style={{
-          background:
-            "radial-gradient(ellipse at 50% 0%, rgba(255,250,235,0.045) 0%, rgba(255,250,235,0) 60%)",
+          top: "-6%",
+          right: "-4%",
+          width: "58%",
+          height: "42%",
+          animation: "luxury-trail-shimmer 8s ease-in-out infinite",
+          opacity: 0.75,
+          filter: "blur(0.3px)",
         }}
-      />
-      {/* Floor reflection — warm light rising from below */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 100%, rgba(212,175,106,0.04) 0%, rgba(212,175,106,0) 35%)",
-        }}
-      />
-      {/* Refined edge light accents — distant luxury uplighting */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at 12% 88%, rgba(212,175,106,0.06) 0%, rgba(212,175,106,0) 24%), radial-gradient(ellipse at 88% 12%, rgba(212,175,106,0.055) 0%, rgba(212,175,106,0) 22%), radial-gradient(ellipse at 92% 92%, rgba(198,154,74,0.05) 0%, rgba(198,154,74,0) 20%), radial-gradient(ellipse at 8% 30%, rgba(198,154,74,0.035) 0%, rgba(198,154,74,0) 18%)",
-        }}
-      />
-      {/* Soft bokeh orbs — out-of-focus luxury lighting in the periphery */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          filter: "blur(70px)",
-          background:
-            "radial-gradient(circle at 8% 18%, rgba(198,154,74,0.055) 0%, rgba(198,154,74,0) 22%), radial-gradient(circle at 92% 15%, rgba(212,175,106,0.05) 0%, rgba(212,175,106,0) 20%), radial-gradient(circle at 85% 82%, rgba(176,138,68,0.045) 0%, rgba(176,138,68,0) 24%), radial-gradient(circle at 15% 75%, rgba(188,146,70,0.04) 0%, rgba(188,146,70,0) 20%)",
-        }}
-      />
-      {/* Sparse warm particles — like dust motes in a quiet lounge */}
+        viewBox="0 0 800 500"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="trailGold" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(214,170,84,0)" />
+            <stop offset="55%" stopColor="rgba(228,188,110,0.55)" />
+            <stop offset="88%" stopColor="rgba(245,215,140,0.9)" />
+            <stop offset="100%" stopColor="rgba(255,236,180,0)" />
+          </linearGradient>
+          <radialGradient id="trailBurst" cx="88%" cy="18%" r="18%">
+            <stop offset="0%" stopColor="rgba(255,236,180,0.55)" />
+            <stop offset="60%" stopColor="rgba(214,170,84,0.12)" />
+            <stop offset="100%" stopColor="rgba(214,170,84,0)" />
+          </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="800" height="500" fill="url(#trailBurst)" />
+        {[
+          "M-20 220 C 200 180, 420 150, 780 40",
+          "M-20 250 C 220 210, 460 180, 780 60",
+          "M-20 280 C 240 250, 500 210, 780 90",
+          "M-20 310 C 260 280, 520 240, 780 120",
+          "M-20 340 C 280 310, 540 270, 780 150",
+          "M-20 200 C 180 150, 400 120, 780 25",
+        ].map((d, i) => (
+          <path
+            key={i}
+            d={d}
+            fill="none"
+            stroke="url(#trailGold)"
+            strokeWidth={0.6 + (i % 3) * 0.25}
+            strokeLinecap="round"
+            opacity={0.55 - i * 0.06}
+          />
+        ))}
+      </svg>
+
+      {/* Star flares — a few cinematic sparkles */}
       {[
-        { top: "10%", left: "7%", size: 3, delay: "0s" },
-        { top: "19%", left: "94%", size: 2.5, delay: "1.7s" },
-        { top: "36%", left: "3%", size: 2.5, delay: "3.1s" },
-        { top: "54%", left: "97%", size: 3, delay: "0.9s" },
-        { top: "73%", left: "6%", size: 2.5, delay: "2.4s" },
-        { top: "86%", left: "95%", size: 2.5, delay: "4.2s" },
-        { top: "5%", left: "76%", size: 2.5, delay: "1.2s" },
-        { top: "64%", left: "16%", size: 2.5, delay: "3.6s" },
-        { top: "45%", left: "91%", size: 2, delay: "2s" },
-        { top: "92%", left: "22%", size: 2.5, delay: "5.1s" },
-        { top: "28%", left: "84%", size: 2, delay: "0.6s" },
-        { top: "81%", left: "12%", size: 2, delay: "2.8s" },
+        { top: "14%", left: "6%", size: 34, delay: "0s" },
+        { top: "58%", left: "94%", size: 26, delay: "2.4s" },
+        { top: "82%", left: "10%", size: 22, delay: "4.1s" },
+        { top: "8%", left: "42%", size: 18, delay: "1.6s" },
+      ].map((f, i) => (
+        <span
+          key={`flare-${i}`}
+          aria-hidden
+          className="pointer-events-none absolute z-0 luxury-flare"
+          style={{
+            top: f.top,
+            left: f.left,
+            width: f.size,
+            height: f.size,
+            animation: `luxury-flare 7s ease-in-out ${f.delay} infinite`,
+            background:
+              "radial-gradient(circle, rgba(255,240,200,0.9) 0%, rgba(245,215,140,0.35) 18%, rgba(214,170,84,0) 55%)",
+          }}
+        >
+          <span
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent 46%, rgba(255,236,180,0.85) 50%, transparent 54%), linear-gradient(0deg, transparent 46%, rgba(255,236,180,0.85) 50%, transparent 54%)",
+            }}
+          />
+        </span>
+      ))}
+
+      {/* Scattered sparkles — varying brightness, edges only */}
+      {[
+        { top: "5%",  left: "18%", s: 2,   b: 0.55, d: "0s"   },
+        { top: "9%",  left: "68%", s: 1.5, b: 0.4,  d: "1.2s" },
+        { top: "12%", left: "88%", s: 2.5, b: 0.85, d: "2.6s" },
+        { top: "22%", left: "4%",  s: 2,   b: 0.7,  d: "0.7s" },
+        { top: "28%", left: "96%", s: 1.5, b: 0.5,  d: "3.4s" },
+        { top: "36%", left: "9%",  s: 1.5, b: 0.4,  d: "1.9s" },
+        { top: "44%", left: "93%", s: 2,   b: 0.65, d: "4.1s" },
+        { top: "52%", left: "3%",  s: 2.5, b: 0.9,  d: "2.2s" },
+        { top: "62%", left: "97%", s: 1.5, b: 0.45, d: "0.4s" },
+        { top: "71%", left: "7%",  s: 2,   b: 0.7,  d: "3.6s" },
+        { top: "78%", left: "92%", s: 1.5, b: 0.5,  d: "1.5s" },
+        { top: "88%", left: "16%", s: 2,   b: 0.65, d: "2.9s" },
+        { top: "93%", left: "62%", s: 1.5, b: 0.45, d: "4.7s" },
+        { top: "96%", left: "88%", s: 2.5, b: 0.8,  d: "0.9s" },
+        { top: "3%",  left: "34%", s: 1.5, b: 0.4,  d: "3.2s" },
+        { top: "17%", left: "78%", s: 1.5, b: 0.5,  d: "2.1s" },
+        { top: "84%", left: "44%", s: 1.5, b: 0.45, d: "1.1s" },
       ].map((p, i) => (
         <span
-          key={i}
+          key={`sp-${i}`}
           aria-hidden
           className="pointer-events-none absolute z-0 rounded-full luxury-particle"
           style={{
             top: p.top,
             left: p.left,
-            width: p.size,
-            height: p.size,
-            backgroundColor: "rgba(250, 235, 190, 0.72)",
-            boxShadow: "0 0 5px rgba(245, 220, 150, 0.28)",
-            filter: "blur(0.4px)",
-            animation: `luxury-twinkle 6s ease-in-out ${p.delay} infinite`,
+            width: p.s,
+            height: p.s,
+            backgroundColor: `rgba(250,232,190,${p.b})`,
+            boxShadow: `0 0 ${4 + p.s}px rgba(245,215,145,${p.b * 0.55})`,
+            animation: `luxury-twinkle ${6 + (i % 4)}s ease-in-out ${p.d} infinite`,
           }}
         />
       ))}
+
+      {/* Slow floating drift motes — subtle movement */}
+      {[
+        { top: "24%", left: "12%", d: "0s" },
+        { top: "66%", left: "88%", d: "2.5s" },
+        { top: "48%", left: "6%",  d: "5.1s" },
+      ].map((m, i) => (
+        <span
+          key={`d-${i}`}
+          aria-hidden
+          className="pointer-events-none absolute z-0 rounded-full luxury-drift"
+          style={{
+            top: m.top,
+            left: m.left,
+            width: 3,
+            height: 3,
+            backgroundColor: "rgba(252,236,196,0.55)",
+            boxShadow: "0 0 8px rgba(245,215,145,0.45)",
+            animation: `luxury-drift 14s ease-in-out ${m.d} infinite`,
+          }}
+        />
+      ))}
+
+
 
 
       <div className="relative z-[1] mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-8">
