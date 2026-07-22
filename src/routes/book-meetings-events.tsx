@@ -2535,7 +2535,7 @@ function StepSevenReview({
         maxWidth: "none",
         minHeight: "100%",
         backgroundImage:
-          "linear-gradient(180deg, rgba(12,26,40,0) 0%, rgba(8,19,31,0) 45%, rgba(4,11,19,0.42) 100%), radial-gradient(ellipse at 50% 42%, rgba(8,19,31,0) 0%, rgba(4,10,17,0.48) 68%, rgba(2,7,13,0.9) 100%), radial-gradient(ellipse at 0% 0%, rgba(198,154,74,0.075) 0%, rgba(198,154,74,0) 26%), radial-gradient(ellipse at 100% 0%, rgba(212,168,83,0.065) 0%, rgba(212,168,83,0) 24%), radial-gradient(ellipse at 100% 100%, rgba(176,138,68,0.055) 0%, rgba(176,138,68,0) 28%), radial-gradient(ellipse at 0% 100%, rgba(188,146,70,0.05) 0%, rgba(188,146,70,0) 26%), radial-gradient(ellipse at 50% 0%, rgba(255,245,220,0.03) 0%, rgba(255,245,220,0) 48%), linear-gradient(180deg, #0A1824 0%, #08131F 48%, #051018 100%)",
+          "linear-gradient(180deg, rgba(12,26,40,0) 0%, rgba(8,19,31,0) 40%, rgba(4,11,19,0.52) 100%), radial-gradient(ellipse at 50% 40%, rgba(8,19,31,0) 0%, rgba(4,10,17,0.55) 60%, rgba(2,7,13,0.95) 100%), radial-gradient(ellipse at 0% 0%, rgba(198,154,74,0.10) 0%, rgba(198,154,74,0) 28%), radial-gradient(ellipse at 100% 0%, rgba(212,168,83,0.09) 0%, rgba(212,168,83,0) 26%), radial-gradient(ellipse at 100% 100%, rgba(176,138,68,0.075) 0%, rgba(176,138,68,0) 30%), radial-gradient(ellipse at 0% 100%, rgba(188,146,70,0.07) 0%, rgba(188,146,70,0) 28%), radial-gradient(ellipse at 50% 0%, rgba(255,245,220,0.04) 0%, rgba(255,245,220,0) 50%), linear-gradient(180deg, #0A1824 0%, #08131F 48%, #051018 100%)",
         backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -2549,17 +2549,26 @@ function StepSevenReview({
           backgroundImage:
             "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.82  0 0 0 0 0.75  0 0 0 0 0.52  0 0 0 0.035 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
           backgroundSize: "280px 280px",
-          opacity: 0.5,
+          opacity: 0.55,
           mixBlendMode: "overlay",
         }}
       />
-      {/* Soft overhead sheen */}
+      {/* Soft overhead sheen — cove lighting from above */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 0%, rgba(255,250,235,0.035) 0%, rgba(255,250,235,0) 55%)",
+            "radial-gradient(ellipse at 50% 0%, rgba(255,250,235,0.045) 0%, rgba(255,250,235,0) 60%)",
+        }}
+      />
+      {/* Floor reflection — warm light rising from below */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 100%, rgba(212,175,106,0.04) 0%, rgba(212,175,106,0) 35%)",
         }}
       />
       {/* Refined edge light accents — distant luxury uplighting */}
@@ -2568,21 +2577,23 @@ function StepSevenReview({
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse at 12% 88%, rgba(212,175,106,0.045) 0%, rgba(212,175,106,0) 22%), radial-gradient(ellipse at 88% 12%, rgba(212,175,106,0.04) 0%, rgba(212,175,106,0) 20%), radial-gradient(ellipse at 92% 92%, rgba(198,154,74,0.035) 0%, rgba(198,154,74,0) 18%)",
+            "radial-gradient(ellipse at 12% 88%, rgba(212,175,106,0.06) 0%, rgba(212,175,106,0) 24%), radial-gradient(ellipse at 88% 12%, rgba(212,175,106,0.055) 0%, rgba(212,175,106,0) 22%), radial-gradient(ellipse at 92% 92%, rgba(198,154,74,0.05) 0%, rgba(198,154,74,0) 20%), radial-gradient(ellipse at 8% 30%, rgba(198,154,74,0.035) 0%, rgba(198,154,74,0) 18%)",
         }}
       />
       {/* Sparse warm particles — like dust motes in a quiet lounge */}
       {[
-        { top: "10%", left: "7%", size: 2.5, delay: "0s" },
-        { top: "19%", left: "94%", size: 2, delay: "1.7s" },
-        { top: "36%", left: "3%", size: 2, delay: "3.1s" },
-        { top: "54%", left: "97%", size: 2.5, delay: "0.9s" },
-        { top: "73%", left: "6%", size: 2, delay: "2.4s" },
-        { top: "86%", left: "95%", size: 2, delay: "4.2s" },
-        { top: "5%", left: "76%", size: 2, delay: "1.2s" },
-        { top: "64%", left: "16%", size: 2, delay: "3.6s" },
-        { top: "45%", left: "91%", size: 1.5, delay: "2s" },
-        { top: "92%", left: "22%", size: 2, delay: "5.1s" },
+        { top: "10%", left: "7%", size: 3, delay: "0s" },
+        { top: "19%", left: "94%", size: 2.5, delay: "1.7s" },
+        { top: "36%", left: "3%", size: 2.5, delay: "3.1s" },
+        { top: "54%", left: "97%", size: 3, delay: "0.9s" },
+        { top: "73%", left: "6%", size: 2.5, delay: "2.4s" },
+        { top: "86%", left: "95%", size: 2.5, delay: "4.2s" },
+        { top: "5%", left: "76%", size: 2.5, delay: "1.2s" },
+        { top: "64%", left: "16%", size: 2.5, delay: "3.6s" },
+        { top: "45%", left: "91%", size: 2, delay: "2s" },
+        { top: "92%", left: "22%", size: 2.5, delay: "5.1s" },
+        { top: "28%", left: "84%", size: 2, delay: "0.6s" },
+        { top: "81%", left: "12%", size: 2, delay: "2.8s" },
       ].map((p, i) => (
         <span
           key={i}
@@ -2593,8 +2604,8 @@ function StepSevenReview({
             left: p.left,
             width: p.size,
             height: p.size,
-            backgroundColor: "rgba(245, 230, 180, 0.9)",
-            boxShadow: "0 0 5px rgba(245, 220, 150, 0.3)",
+            backgroundColor: "rgba(250, 235, 190, 0.95)",
+            boxShadow: "0 0 6px rgba(245, 220, 150, 0.35)",
             animation: `luxury-twinkle 6s ease-in-out ${p.delay} infinite`,
           }}
         />
