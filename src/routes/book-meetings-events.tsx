@@ -467,7 +467,7 @@ function BookMeetingsEvents() {
               )}
               <Link
                 to="/manage-bookings"
-                className="inline-flex items-center gap-[13px] rounded-[8px] px-[18px] h-[51px] text-[16px] font-medium transition-all duration-200 ease-out hover:-translate-y-[2px] hover:brightness-[1.08] active:translate-y-0 active:brightness-95"
+                className="inline-flex items-center gap-[13px] rounded-[8px] px-[18px] h-[51px] text-[16px] font-medium transition-all duration-200 ease-out hover:brightness-[1.08] active:brightness-95"
                 style={{
                   color: "#E8C46A",
                   background:
@@ -5850,7 +5850,7 @@ function CateringCarousel({
     const eLeft = target.offsetLeft;
     const eRight = eLeft + target.offsetWidth;
     if (eLeft < el.scrollLeft || eRight > el.scrollLeft + el.clientWidth) {
-      target.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      target.scrollIntoView({ block: "nearest", inline: "center" });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
@@ -5860,7 +5860,7 @@ function CateringCarousel({
     if (!el) return;
     const card = el.querySelector<HTMLElement>("[data-cid]");
     const cardW = card ? card.offsetWidth + 16 : 220;
-    el.scrollBy({ left: dir * cardW * 2.5, behavior: "smooth" });
+    el.scrollBy({ left: dir * cardW * 2.5 });
   };
 
   return (
