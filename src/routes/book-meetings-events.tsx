@@ -4794,7 +4794,7 @@ function StepThreeAccommodation({
                   type="button"
                   onClick={addStay}
                   disabled={!checkIn || !checkOut}
-                  className="group inline-flex items-center justify-center gap-2 rounded-md px-6 h-[46px] text-[14px] font-semibold text-white disabled:opacity-50 transition-transform active:translate-y-px"
+                  className="group inline-flex items-center justify-center gap-2 rounded-md px-6 h-[46px] text-[14px] font-semibold text-white disabled:opacity-50 transition-colors"
                   style={{
                     background:
                       "linear-gradient(180deg,#153353 0%,#0C2440 55%,#081A30 100%)",
@@ -5871,7 +5871,7 @@ function CateringCarousel({
           type="button"
           aria-label="Previous catering options"
           onClick={() => scrollByCards(-1)}
-          className="absolute left-1 top-1/2 -translate-y-1/2 z-20 inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:scale-105"
+          className="absolute left-1 top-1/2 -translate-y-1/2 z-20 inline-flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:brightness-105"
           style={{
             background: "rgba(252,250,243,0.96)",
             border: "1px solid #E3D2A1",
@@ -5887,7 +5887,7 @@ function CateringCarousel({
           type="button"
           aria-label="Next catering options"
           onClick={() => scrollByCards(1)}
-          className="absolute right-1 top-1/2 -translate-y-1/2 z-20 inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:scale-105"
+          className="absolute right-1 top-1/2 -translate-y-1/2 z-20 inline-flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:brightness-105"
           style={{
             background: "rgba(252,250,243,0.96)",
             border: "1px solid #E3D2A1",
@@ -6311,10 +6311,10 @@ function StepFourCatering({
             {recommendationRendered && (
               <div
                 className={cn(
-                  "rounded-[14px] p-5 w-full lg:w-[380px] transition-all duration-300 ease-out origin-top",
+                   "rounded-[14px] p-5 w-full lg:w-[380px] transition-opacity duration-300 ease-out origin-top",
                   recommendationVisible
-                    ? "opacity-100 translate-y-0 scale-100"
-                    : "opacity-0 -translate-y-2 scale-[0.98] pointer-events-none"
+                    ? "opacity-100"
+                    : "opacity-0 pointer-events-none"
                 )}
                 style={{
                   background:
