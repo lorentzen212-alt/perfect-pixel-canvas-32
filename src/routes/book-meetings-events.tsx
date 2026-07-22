@@ -5681,6 +5681,29 @@ function StepFourCatering({
     }
   }, [selected, servings, dietary, dietaryOther, drinks, notes]);
 
+  // Commit catering into shared draft.
+  useEffect(() => {
+    setMeSection(
+      "catering",
+      servings.map((s) => {
+        const def = CATERING_DEFS.find((d) => d.id === s.catering);
+        return {
+          servingId: s.id,
+          cateringId: s.catering,
+          label: def?.label ?? s.catering,
+          time: s.time,
+          location: s.location,
+          locationOther: s.locationOther,
+          variant: s.variant,
+        };
+      }),
+    );
+  }, [servings]);
+
+  useEffect(() => {
+    setMeSection("cateringExtras", { dietary, dietaryOther, drinks, notes });
+  }, [dietary, dietaryOther, drinks, notes]);
+
   const locationOptions = useMemo(
     () => [...effectiveRooms.map((r) => r.name), ...HOTEL_LOCATIONS],
     [effectiveRooms],
