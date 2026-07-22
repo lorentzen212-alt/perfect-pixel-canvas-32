@@ -2491,9 +2491,9 @@ function StepSevenReview({
           className="overflow-hidden rounded-[20px]"
           style={{
             backgroundColor: NAVY_2,
-            border: "1px solid rgba(212,175,106,0.28)",
+            border: "1px solid rgba(212,175,106,0.42)",
             boxShadow:
-              "0 30px 60px -35px rgba(0,0,0,0.6), 0 4px 12px -6px rgba(0,0,0,0.35)",
+              "0 50px 90px -40px rgba(0,0,0,0.75), 0 10px 24px -10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
           {/* Row 0 — Your Event Summary intro */}
