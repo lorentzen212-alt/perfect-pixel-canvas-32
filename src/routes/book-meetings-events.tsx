@@ -2418,7 +2418,7 @@ function StepSevenReview({
     <div
       className="grid grid-cols-[132px_1fr] sm:grid-cols-[188px_1fr]"
       style={{
-        borderTop: isFirst ? "none" : "1px solid rgba(212,175,106,0.18)",
+        borderTop: isFirst ? "none" : "1px solid rgba(212,175,106,0.23)",
       }}
     >
       {/* Left navy panel */}
