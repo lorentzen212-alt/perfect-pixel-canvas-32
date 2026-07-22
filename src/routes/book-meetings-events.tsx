@@ -2287,7 +2287,7 @@ function StepFiveExtras({
 /* --------- Step 7 – Review & Submit (pixel-target premium layout) --------- */
 
 import reviewNotebookImg from "@/assets/review-notebook.jpg";
-import step7HeroBg from "@/assets/step7-hero-bg-v3.png.asset.json";
+import step7HeroBg from "@/assets/step7-hero-bg-v4.png.asset.json";
 
 function StepSevenReview({
   onBack,
@@ -2534,7 +2534,7 @@ function StepSevenReview({
         aria-hidden
         className="pointer-events-none absolute left-0 top-0 w-full"
         style={{
-          height: "620px",
+          height: "700px",
           zIndex: 0,
           backgroundImage: `url(${step7HeroBg.url})`,
           backgroundRepeat: "no-repeat",
@@ -2543,12 +2543,12 @@ function StepSevenReview({
           backgroundAttachment: "scroll",
         }}
       />
-      {/* Fade into solid navy at bottom of artwork */}
+      {/* Fade into solid navy at bottom of artwork — delayed so artwork stays visible longer */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-0 w-full"
         style={{
-          top: "440px",
+          top: "640px",
           height: "180px",
           zIndex: 0,
           background:
