@@ -2535,12 +2535,92 @@ function StepSevenReview({
         maxWidth: "none",
         minHeight: "100%",
         backgroundImage:
-          "radial-gradient(ellipse at 50% 45%, rgba(8,19,31,0) 0%, rgba(6,14,24,0.45) 65%, rgba(4,10,18,0.88) 100%), radial-gradient(circle at 88% 12%, rgba(212,168,83,0.18) 0%, rgba(212,168,83,0) 1.1%), radial-gradient(circle at 12% 22%, rgba(198,154,74,0.13) 0%, rgba(198,154,74,0) 0.95%), radial-gradient(circle at 92% 78%, rgba(176,138,68,0.11) 0%, rgba(176,138,68,0) 1%), radial-gradient(circle at 8% 86%, rgba(188,146,70,0.10) 0%, rgba(188,146,70,0) 0.9%), radial-gradient(circle at 72% 6%, rgba(204,162,82,0.09) 0%, rgba(204,162,82,0) 0.8%)",
-        backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%",
+          "linear-gradient(180deg, rgba(12,26,40,0) 0%, rgba(8,19,31,0) 35%, rgba(4,11,19,0.58) 100%), radial-gradient(ellipse at 50% 38%, rgba(8,19,31,0) 0%, rgba(4,10,17,0.62) 55%, rgba(2,7,13,0.97) 100%), radial-gradient(ellipse at 0% 0%, rgba(198,154,74,0.10) 0%, rgba(198,154,74,0) 28%), radial-gradient(ellipse at 100% 0%, rgba(212,168,83,0.09) 0%, rgba(212,168,83,0) 26%), radial-gradient(ellipse at 100% 100%, rgba(176,138,68,0.075) 0%, rgba(176,138,68,0) 30%), radial-gradient(ellipse at 0% 100%, rgba(188,146,70,0.07) 0%, rgba(188,146,70,0) 28%), radial-gradient(ellipse at 50% 0%, rgba(255,245,220,0.045) 0%, rgba(255,245,220,0) 50%), linear-gradient(180deg, #0A1824 0%, #08131F 48%, #051018 100%)",
+        backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
     >
+      {/* Fine grain texture overlay — adds material depth without pattern */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.82  0 0 0 0 0.75  0 0 0 0 0.52  0 0 0 0.035 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
+          backgroundSize: "280px 280px",
+          opacity: 0.55,
+          mixBlendMode: "overlay",
+        }}
+      />
+      {/* Soft overhead sheen — cove lighting from above */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 0%, rgba(255,250,235,0.045) 0%, rgba(255,250,235,0) 60%)",
+        }}
+      />
+      {/* Floor reflection — warm light rising from below */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 100%, rgba(212,175,106,0.04) 0%, rgba(212,175,106,0) 35%)",
+        }}
+      />
+      {/* Refined edge light accents — distant luxury uplighting */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 12% 88%, rgba(212,175,106,0.06) 0%, rgba(212,175,106,0) 24%), radial-gradient(ellipse at 88% 12%, rgba(212,175,106,0.055) 0%, rgba(212,175,106,0) 22%), radial-gradient(ellipse at 92% 92%, rgba(198,154,74,0.05) 0%, rgba(198,154,74,0) 20%), radial-gradient(ellipse at 8% 30%, rgba(198,154,74,0.035) 0%, rgba(198,154,74,0) 18%)",
+        }}
+      />
+      {/* Soft bokeh orbs — out-of-focus luxury lighting in the periphery */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          filter: "blur(70px)",
+          background:
+            "radial-gradient(circle at 8% 18%, rgba(198,154,74,0.055) 0%, rgba(198,154,74,0) 22%), radial-gradient(circle at 92% 15%, rgba(212,175,106,0.05) 0%, rgba(212,175,106,0) 20%), radial-gradient(circle at 85% 82%, rgba(176,138,68,0.045) 0%, rgba(176,138,68,0) 24%), radial-gradient(circle at 15% 75%, rgba(188,146,70,0.04) 0%, rgba(188,146,70,0) 20%)",
+        }}
+      />
+      {/* Sparse warm particles — like dust motes in a quiet lounge */}
+      {[
+        { top: "10%", left: "7%", size: 3, delay: "0s" },
+        { top: "19%", left: "94%", size: 2.5, delay: "1.7s" },
+        { top: "36%", left: "3%", size: 2.5, delay: "3.1s" },
+        { top: "54%", left: "97%", size: 3, delay: "0.9s" },
+        { top: "73%", left: "6%", size: 2.5, delay: "2.4s" },
+        { top: "86%", left: "95%", size: 2.5, delay: "4.2s" },
+        { top: "5%", left: "76%", size: 2.5, delay: "1.2s" },
+        { top: "64%", left: "16%", size: 2.5, delay: "3.6s" },
+        { top: "45%", left: "91%", size: 2, delay: "2s" },
+        { top: "92%", left: "22%", size: 2.5, delay: "5.1s" },
+        { top: "28%", left: "84%", size: 2, delay: "0.6s" },
+        { top: "81%", left: "12%", size: 2, delay: "2.8s" },
+      ].map((p, i) => (
+        <span
+          key={i}
+          aria-hidden
+          className="pointer-events-none absolute z-0 rounded-full luxury-particle"
+          style={{
+            top: p.top,
+            left: p.left,
+            width: p.size,
+            height: p.size,
+            backgroundColor: "rgba(250, 235, 190, 0.72)",
+            boxShadow: "0 0 5px rgba(245, 220, 150, 0.28)",
+            filter: "blur(0.4px)",
+            animation: `luxury-twinkle 6s ease-in-out ${p.delay} infinite`,
+          }}
+        />
+      ))}
 
 
       <div className="relative z-[1] mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-8">
