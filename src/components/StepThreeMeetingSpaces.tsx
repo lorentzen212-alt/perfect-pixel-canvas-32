@@ -988,7 +988,6 @@ export function StepThreeMeetingSpaces({
                         border: "1px solid #E2D5B0",
                         boxShadow:
                           "0 10px 24px -14px rgba(10,27,44,0.35), inset 0 0 0 1px rgba(255,255,255,0.4)",
-                        animation: "setup-fade 320ms ease-out",
                       }}
                     >
                       <img
@@ -998,10 +997,7 @@ export function StepThreeMeetingSpaces({
                         className="absolute inset-0 w-full h-full object-cover"
                       />
                     </div>
-                    <div
-                      key={activeSetup.id + "-text"}
-                      style={{ animation: "setup-fade 260ms ease-out" }}
-                    >
+                    <div key={activeSetup.id + "-text"}>
                       <div
                         className="text-[#0A1B2C] text-[22px] leading-tight"
                         style={{ fontFamily: SERIF }}
@@ -1021,10 +1017,7 @@ export function StepThreeMeetingSpaces({
                     <div
                       key={activeSetup.id + "-cap"}
                       className="min-w-[160px] md:border-l md:pl-6"
-                      style={{
-                        borderColor: "#E2D5B0",
-                        animation: "setup-fade 260ms ease-out",
-                      }}
+                      style={{ borderColor: "#E2D5B0" }}
                     >
                       <div className="text-[11px] uppercase tracking-[0.14em] text-[#7A6A45] font-semibold">
                         Capacity
