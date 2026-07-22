@@ -946,7 +946,7 @@ export function StepThreeMeetingSpaces({
                         <div
                           className="rounded-[12px] p-3.5"
                           style={{
-                            background: "#FAF7F1",
+                            background: "#FAF8F4",
                             border: "1px solid #E6DEC9",
                           }}
                         >
@@ -1117,7 +1117,7 @@ export function StepThreeMeetingSpaces({
                     <div
                       className="rounded-[12px] p-3.5"
                       style={{
-                        background: "#FAF7F1",
+                        background: "#FAF8F4",
                         border: "1px solid #E6DEC9",
                       }}
                     >
@@ -1147,7 +1147,7 @@ export function StepThreeMeetingSpaces({
                           key={r.id}
                           className="flex flex-wrap items-center gap-3 rounded-[14px] px-5 py-3.5"
                           style={{
-                            background: "#FAF7F1",
+                            background: "#FAF8F4",
                             border: "1px solid #E8E0CE",
                             boxShadow:
                               "0 6px 18px -14px rgba(10,27,44,0.10)",
