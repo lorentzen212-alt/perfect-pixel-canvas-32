@@ -4011,7 +4011,7 @@ function StepTwoLocation({
                   loading="lazy"
                   width={600}
                   height={450}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.04]"
+                  className="absolute inset-0 h-full w-full object-cover"
                 />
                 <div
                   className="absolute inset-0"
@@ -4180,7 +4180,7 @@ function StepTwoLocation({
           <button
             type="button"
             aria-label="Edit preferred venue"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:scale-105 shrink-0"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-[#F7F3EA] shrink-0"
           >
             <Pencil size={16} className="text-[#B88A2E]" strokeWidth={1.8} />
           </button>
@@ -6347,7 +6347,7 @@ function StepFourCatering({
                   <button
                     type="button"
                     onClick={dismissRecommendation}
-                    className="inline-flex items-center justify-center rounded-full h-8 px-4 text-[12.5px] font-semibold text-[#3A3A3A] transition-all duration-200 hover:bg-[#F7F4EC] hover:shadow-md active:scale-[0.98]"
+                    className="inline-flex items-center justify-center rounded-full h-8 px-4 text-[12.5px] font-semibold text-[#3A3A3A] transition-all duration-200 hover:bg-[#F7F4EC] hover:shadow-md"
                     style={{
                       background: "#FDFBF6",
                       border: "1px solid #D9C07A",
@@ -6359,7 +6359,7 @@ function StepFourCatering({
                   <button
                     type="button"
                     onClick={applyRecommendation}
-                    className="inline-flex items-center gap-1.5 rounded-full h-8 px-4 text-[12.5px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 active:scale-[0.98]"
+                    className="inline-flex items-center gap-1.5 rounded-full h-8 px-4 text-[12.5px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105"
                     style={{
                       background:
                         "linear-gradient(180deg,#F7D97A 0%, #D4AF37 55%, #B88917 100%)",
