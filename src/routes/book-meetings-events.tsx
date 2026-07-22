@@ -281,10 +281,11 @@ function BookMeetingsEvents() {
 
   // Two subtle surface textures — very fine grain (fine paper) + a broader mottling (polished
   // plaster / limestone). Both blend as soft-light so they never read as pattern.
+  // Very muted textures — enough to give the surface material, never enough to shimmer while scrolling.
   const paperGrain =
-    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.34  0 0 0 0 0.28  0 0 0 0 0.20  0 0 0 0.09 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")";
+    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.34  0 0 0 0 0.28  0 0 0 0 0.20  0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")";
   const plasterTexture =
-    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='820' height='820'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.009' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.28  0 0 0 0 0.23  0 0 0 0 0.17  0 0 0 0.16 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>\")";
+    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='820' height='820'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.009' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.28  0 0 0 0 0.23  0 0 0 0 0.17  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>\")";
 
   return (
     <main
@@ -292,9 +293,8 @@ function BookMeetingsEvents() {
       style={{
         backgroundColor: "#EDE7DC",
         backgroundImage: step === 7 ? undefined : (() => {
-          // Atmospheric five-star hotel lighting.
-          // Each step: a distinct direction of daylight raking across a warm stone wall.
-          // Center stays lighter (~#F4F1EA) while edges deepen into taupe (~#D9D1C1 / #C9C0AE).
+          // Calm, architectural lighting. All layers are subtle and stay fixed to the viewport
+          // so the surface reads as one steady material as the content scrolls over it.
           type V = {
             sweep: string;
             warm: string;
@@ -304,59 +304,53 @@ function BookMeetingsEvents() {
             base: string;
           };
           const variants: Record<number, V> = {
-            // Step 1 — daylight raking from the upper-left, deep taupe shadow bottom-right.
             1: {
-              sweep: "linear-gradient(118deg, rgba(255,251,238,0.55) 0%, rgba(255,251,238,0.14) 30%, rgba(255,251,238,0) 55%)",
-              warm: "radial-gradient(1200px 720px at 18% 8%, rgba(240,214,168,0.30) 0%, rgba(240,214,168,0) 60%)",
-              shadow: "radial-gradient(1400px 900px at 100% 100%, rgba(120,108,88,0.34) 0%, rgba(150,138,116,0.18) 35%, rgba(150,138,116,0) 65%)",
-              accent: "radial-gradient(600px 520px at 92% 30%, rgba(226,204,164,0.16) 0%, rgba(226,204,164,0) 65%)",
-              vignette: "radial-gradient(1500px 1050px at 50% 46%, rgba(244,241,234,0) 45%, rgba(110,98,78,0.22) 100%)",
-              base: "linear-gradient(160deg, #F4F1EA 0%, #ECE5D8 55%, #DDD3BF 100%)",
+              sweep: "linear-gradient(118deg, rgba(255,251,238,0.28) 0%, rgba(255,251,238,0.06) 32%, rgba(255,251,238,0) 58%)",
+              warm: "radial-gradient(1200px 720px at 18% 8%, rgba(240,214,168,0.16) 0%, rgba(240,214,168,0) 62%)",
+              shadow: "radial-gradient(1400px 900px at 100% 100%, rgba(120,108,88,0.18) 0%, rgba(150,138,116,0.08) 40%, rgba(150,138,116,0) 70%)",
+              accent: "radial-gradient(600px 520px at 92% 30%, rgba(226,204,164,0.08) 0%, rgba(226,204,164,0) 68%)",
+              vignette: "radial-gradient(1500px 1050px at 50% 46%, rgba(244,241,234,0) 55%, rgba(110,98,78,0.12) 100%)",
+              base: "linear-gradient(160deg, #F2EEE5 0%, #ECE5D8 55%, #E1D8C6 100%)",
             },
-            // Step 2 — high overhead skylight, warm lamp pool low-left, cool shadow upper-right.
             2: {
-              sweep: "linear-gradient(180deg, rgba(255,250,238,0.45) 0%, rgba(255,250,238,0.10) 22%, rgba(255,250,238,0) 45%)",
-              warm: "radial-gradient(900px 700px at 6% 96%, rgba(232,196,140,0.32) 0%, rgba(232,196,140,0) 60%)",
-              shadow: "radial-gradient(1200px 820px at 100% 4%, rgba(126,116,96,0.30) 0%, rgba(146,134,112,0) 60%)",
-              accent: "radial-gradient(700px 600px at 88% 78%, rgba(200,188,166,0.22) 0%, rgba(200,188,166,0) 62%)",
-              vignette: "radial-gradient(1500px 1050px at 48% 44%, rgba(244,241,234,0) 46%, rgba(104,92,72,0.24) 100%)",
-              base: "linear-gradient(190deg, #F5F2EB 0%, #EBE5D8 55%, #DBD1BC 100%)",
+              sweep: "linear-gradient(180deg, rgba(255,250,238,0.22) 0%, rgba(255,250,238,0.05) 24%, rgba(255,250,238,0) 48%)",
+              warm: "radial-gradient(900px 700px at 6% 96%, rgba(232,196,140,0.16) 0%, rgba(232,196,140,0) 62%)",
+              shadow: "radial-gradient(1200px 820px at 100% 4%, rgba(126,116,96,0.15) 0%, rgba(146,134,112,0) 65%)",
+              accent: "radial-gradient(700px 600px at 88% 78%, rgba(200,188,166,0.11) 0%, rgba(200,188,166,0) 65%)",
+              vignette: "radial-gradient(1500px 1050px at 48% 44%, rgba(244,241,234,0) 55%, rgba(104,92,72,0.13) 100%)",
+              base: "linear-gradient(190deg, #F3EFE7 0%, #EBE5D8 55%, #DFD5C1 100%)",
             },
-            // Step 3 — quiet salon: soft light from both sides, deep taupe pooled at bottom.
             3: {
-              sweep: "linear-gradient(96deg, rgba(255,250,236,0.34) 0%, rgba(255,250,236,0) 28%, rgba(255,250,236,0) 72%, rgba(255,250,236,0.34) 100%)",
-              warm: "radial-gradient(820px 620px at 50% 20%, rgba(238,214,170,0.22) 0%, rgba(238,214,170,0) 62%)",
-              shadow: "radial-gradient(1300px 700px at 50% 110%, rgba(120,110,90,0.36) 0%, rgba(150,138,116,0.14) 40%, rgba(150,138,116,0) 65%)",
-              accent: "radial-gradient(520px 520px at 6% 92%, rgba(190,180,160,0.24) 0%, rgba(190,180,160,0) 66%)",
-              vignette: "radial-gradient(1600px 1080px at 50% 48%, rgba(244,241,234,0) 48%, rgba(108,96,76,0.22) 100%)",
-              base: "linear-gradient(180deg, #F5F2EB 0%, #ECE6D9 56%, #DED4C0 100%)",
+              sweep: "linear-gradient(96deg, rgba(255,250,236,0.18) 0%, rgba(255,250,236,0) 30%, rgba(255,250,236,0) 70%, rgba(255,250,236,0.18) 100%)",
+              warm: "radial-gradient(820px 620px at 50% 20%, rgba(238,214,170,0.11) 0%, rgba(238,214,170,0) 65%)",
+              shadow: "radial-gradient(1300px 700px at 50% 110%, rgba(120,110,90,0.18) 0%, rgba(150,138,116,0.06) 45%, rgba(150,138,116,0) 70%)",
+              accent: "radial-gradient(520px 520px at 6% 92%, rgba(190,180,160,0.12) 0%, rgba(190,180,160,0) 68%)",
+              vignette: "radial-gradient(1600px 1080px at 50% 48%, rgba(244,241,234,0) 55%, rgba(108,96,76,0.12) 100%)",
+              base: "linear-gradient(180deg, #F3EFE7 0%, #ECE6D9 56%, #E1D7C3 100%)",
             },
-            // Step 4 — warm champagne wash from the upper-right (afternoon sun through curtains).
             4: {
-              sweep: "linear-gradient(232deg, rgba(255,244,220,0.50) 0%, rgba(255,244,220,0.12) 32%, rgba(255,244,220,0) 58%)",
-              warm: "radial-gradient(1100px 780px at 96% 6%, rgba(232,198,140,0.36) 0%, rgba(232,198,140,0) 60%)",
-              shadow: "radial-gradient(1200px 820px at 0% 100%, rgba(112,100,80,0.34) 0%, rgba(146,132,108,0) 62%)",
-              accent: "radial-gradient(600px 520px at 24% 34%, rgba(255,246,222,0.24) 0%, rgba(255,246,222,0) 66%)",
-              vignette: "radial-gradient(1500px 1050px at 52% 46%, rgba(244,240,232,0) 44%, rgba(102,88,66,0.24) 100%)",
-              base: "linear-gradient(196deg, #F4F0E7 0%, #EBE3D3 55%, #DACFB6 100%)",
+              sweep: "linear-gradient(232deg, rgba(255,244,220,0.26) 0%, rgba(255,244,220,0.06) 34%, rgba(255,244,220,0) 60%)",
+              warm: "radial-gradient(1100px 780px at 96% 6%, rgba(232,198,140,0.18) 0%, rgba(232,198,140,0) 62%)",
+              shadow: "radial-gradient(1200px 820px at 0% 100%, rgba(112,100,80,0.17) 0%, rgba(146,132,108,0) 65%)",
+              accent: "radial-gradient(600px 520px at 24% 34%, rgba(255,246,222,0.12) 0%, rgba(255,246,222,0) 68%)",
+              vignette: "radial-gradient(1500px 1050px at 52% 46%, rgba(244,240,232,0) 55%, rgba(102,88,66,0.13) 100%)",
+              base: "linear-gradient(196deg, #F2EEE4 0%, #EBE3D3 55%, #DDD2BA 100%)",
             },
-            // Step 5 — bright reading room, tall window right, cool stone shoulders left.
             5: {
-              sweep: "linear-gradient(258deg, rgba(255,252,242,0.58) 0%, rgba(255,252,242,0.14) 30%, rgba(255,252,242,0) 55%)",
-              warm: "radial-gradient(900px 720px at 92% 40%, rgba(238,218,178,0.24) 0%, rgba(238,218,178,0) 62%)",
-              shadow: "radial-gradient(1200px 900px at 0% 60%, rgba(118,108,90,0.32) 0%, rgba(146,134,114,0) 62%)",
-              accent: "radial-gradient(700px 600px at 46% 96%, rgba(200,188,166,0.22) 0%, rgba(200,188,166,0) 62%)",
-              vignette: "radial-gradient(1600px 1050px at 52% 46%, rgba(244,241,234,0) 46%, rgba(104,94,74,0.22) 100%)",
-              base: "linear-gradient(200deg, #F5F2EB 0%, #ECE6D8 55%, #DDD3BE 100%)",
+              sweep: "linear-gradient(258deg, rgba(255,252,242,0.28) 0%, rgba(255,252,242,0.06) 32%, rgba(255,252,242,0) 58%)",
+              warm: "radial-gradient(900px 720px at 92% 40%, rgba(238,218,178,0.12) 0%, rgba(238,218,178,0) 65%)",
+              shadow: "radial-gradient(1200px 900px at 0% 60%, rgba(118,108,90,0.16) 0%, rgba(146,134,114,0) 65%)",
+              accent: "radial-gradient(700px 600px at 46% 96%, rgba(200,188,166,0.11) 0%, rgba(200,188,166,0) 65%)",
+              vignette: "radial-gradient(1600px 1050px at 52% 46%, rgba(244,241,234,0) 55%, rgba(104,94,74,0.12) 100%)",
+              base: "linear-gradient(200deg, #F3EFE7 0%, #ECE6D8 55%, #E0D6C2 100%)",
             },
-            // Step 6 — golden hour pooling low, cool ceiling shoulders above.
             6: {
-              sweep: "linear-gradient(6deg, rgba(255,242,214,0.44) 0%, rgba(255,242,214,0.10) 28%, rgba(255,242,214,0) 55%)",
-              warm: "radial-gradient(1300px 620px at 50% 108%, rgba(230,194,138,0.34) 0%, rgba(230,194,138,0) 60%)",
-              shadow: "radial-gradient(1400px 620px at 50% -8%, rgba(118,108,90,0.28) 0%, rgba(146,136,116,0) 60%)",
-              accent: "radial-gradient(680px 560px at 8% 46%, rgba(200,190,170,0.22) 0%, rgba(200,190,170,0) 66%)",
-              vignette: "radial-gradient(1600px 1050px at 50% 48%, rgba(244,240,232,0) 46%, rgba(102,90,70,0.24) 100%)",
-              base: "linear-gradient(190deg, #F4F0E7 0%, #EBE4D5 55%, #DBD0B9 100%)",
+              sweep: "linear-gradient(6deg, rgba(255,242,214,0.22) 0%, rgba(255,242,214,0.05) 30%, rgba(255,242,214,0) 58%)",
+              warm: "radial-gradient(1300px 620px at 50% 108%, rgba(230,194,138,0.17) 0%, rgba(230,194,138,0) 62%)",
+              shadow: "radial-gradient(1400px 620px at 50% -8%, rgba(118,108,90,0.14) 0%, rgba(146,136,116,0) 62%)",
+              accent: "radial-gradient(680px 560px at 8% 46%, rgba(200,190,170,0.11) 0%, rgba(200,190,170,0) 68%)",
+              vignette: "radial-gradient(1600px 1050px at 50% 48%, rgba(244,240,232,0) 55%, rgba(102,90,70,0.13) 100%)",
+              base: "linear-gradient(190deg, #F2EEE4 0%, #EBE4D5 55%, #DED3BD 100%)",
             },
           };
           const v = variants[step] ?? variants[1];
