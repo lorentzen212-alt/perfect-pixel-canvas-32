@@ -2580,6 +2580,16 @@ function StepSevenReview({
             "radial-gradient(ellipse at 12% 88%, rgba(212,175,106,0.06) 0%, rgba(212,175,106,0) 24%), radial-gradient(ellipse at 88% 12%, rgba(212,175,106,0.055) 0%, rgba(212,175,106,0) 22%), radial-gradient(ellipse at 92% 92%, rgba(198,154,74,0.05) 0%, rgba(198,154,74,0) 20%), radial-gradient(ellipse at 8% 30%, rgba(198,154,74,0.035) 0%, rgba(198,154,74,0) 18%)",
         }}
       />
+      {/* Soft bokeh orbs — out-of-focus luxury lighting in the periphery */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          filter: "blur(70px)",
+          background:
+            "radial-gradient(circle at 8% 18%, rgba(198,154,74,0.055) 0%, rgba(198,154,74,0) 22%), radial-gradient(circle at 92% 15%, rgba(212,175,106,0.05) 0%, rgba(212,175,106,0) 20%), radial-gradient(circle at 85% 82%, rgba(176,138,68,0.045) 0%, rgba(176,138,68,0) 24%), radial-gradient(circle at 15% 75%, rgba(188,146,70,0.04) 0%, rgba(188,146,70,0) 20%)",
+        }}
+      />
       {/* Sparse warm particles — like dust motes in a quiet lounge */}
       {[
         { top: "10%", left: "7%", size: 3, delay: "0s" },
