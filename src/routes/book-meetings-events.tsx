@@ -2529,31 +2529,30 @@ function StepSevenReview({
       className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen overflow-hidden pb-16"
       style={{ backgroundColor: "#061B2E", maxWidth: "none" }}
     >
-      {/* Full-width decorative background artwork — top intro only */}
+      {/* Full-width decorative background artwork — extended soft fade */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-0 top-0 w-full"
         style={{
-          height: "460px",
+          height: "1000px",
           zIndex: 0,
           backgroundImage: `url(${step7HeroBg.url})`,
           backgroundRepeat: "no-repeat",
-          backgroundSize: "100% auto",
+          backgroundSize: "cover",
           backgroundPosition: "center top",
           backgroundAttachment: "scroll",
         }}
       />
-      {/* Fade into solid navy at bottom of artwork */}
+      {/* Very long, soft fade into solid navy */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-0 w-full"
         style={{
-          top: "300px",
-          height: "160px",
+          top: "600px",
+          height: "400px",
           zIndex: 0,
           background:
-            "linear-gradient(to bottom, rgba(6,27,46,0) 0%, rgba(6,27,46,0.6) 45%, #061B2E 100%)",
-
+            "linear-gradient(to bottom, rgba(6,27,46,0) 0%, rgba(6,27,46,0.25) 35%, rgba(6,27,46,0.65) 70%, #061B2E 100%)",
         }}
       />
 
