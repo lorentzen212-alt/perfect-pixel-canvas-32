@@ -282,7 +282,27 @@ function BookMeetingsEvents() {
   return (
     <main
       className="relative min-h-screen w-full"
-      style={{ backgroundColor: "#F7F7F5" }}
+      style={{
+        backgroundColor: "#F6F1E7",
+        backgroundImage: step === 7
+          ? undefined
+          : [
+              // subtle top warm sheen (like morning light through sheer linen)
+              "radial-gradient(1200px 520px at 12% -8%, rgba(255,247,229,0.85) 0%, rgba(255,247,229,0) 60%)",
+              // champagne glow upper right
+              "radial-gradient(900px 480px at 92% 4%, rgba(233,209,164,0.32) 0%, rgba(233,209,164,0) 62%)",
+              // soft golden pool mid-left
+              "radial-gradient(700px 520px at 0% 45%, rgba(214,182,128,0.16) 0%, rgba(214,182,128,0) 65%)",
+              // warm floor reflection bottom
+              "radial-gradient(1100px 460px at 55% 108%, rgba(198,164,108,0.20) 0%, rgba(198,164,108,0) 60%)",
+              // gentle vignette to draw eye to content
+              "radial-gradient(1400px 900px at 50% 50%, rgba(246,241,231,0) 55%, rgba(80,60,32,0.09) 100%)",
+              // paper-warm base gradient
+              "linear-gradient(180deg, #FBF6EB 0%, #F5EFE1 45%, #EFE7D3 100%)",
+            ].join(", "),
+        backgroundAttachment: "fixed",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       {/* HERO */}
       <section
