@@ -2783,9 +2783,12 @@ function StepSevenReview({
       <div
         className="relative overflow-hidden rounded-[18px] px-6 sm:px-8 py-5"
         style={{
-          backgroundImage: "linear-gradient(180deg, #FFFBF0 0%, #FBF3DE 100%)",
-          border: "1px solid rgba(212,175,106,0.35)",
-          boxShadow: "0 20px 40px -30px rgba(0,0,0,0.4)",
+          backgroundImage:
+            "linear-gradient(180deg, #FBF6EB 0%, #F4EBD5 100%), url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.75  0 0 0 0 0.65  0 0 0 0 0.45  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          backgroundBlendMode: "multiply",
+          border: "1px solid rgba(212,175,106,0.5)",
+          boxShadow:
+            "0 30px 60px -35px rgba(0,0,0,0.6), 0 6px 14px -6px rgba(6,20,34,0.4), inset 0 1px 0 rgba(255,255,255,0.7)",
         }}
       >
         <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] items-center gap-4">
