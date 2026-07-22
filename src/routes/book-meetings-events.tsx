@@ -293,8 +293,8 @@ function BookMeetingsEvents() {
       style={{
         backgroundColor: "#EDE7DC",
         backgroundImage: step === 7 ? undefined : (() => {
-          // Calm, architectural lighting. All layers are subtle and stay fixed to the viewport
-          // so the surface reads as one steady material as the content scrolls over it.
+          // Calm, architectural lighting. All layers stay attached to the page surface
+          // so content and background move as one grounded material while scrolling.
           type V = {
             sweep: string;
             warm: string;
@@ -373,7 +373,7 @@ function BookMeetingsEvents() {
           step === 7
             ? undefined
             : "300px 300px, 820px 820px, auto, auto, auto, auto, auto, auto",
-        backgroundAttachment: "fixed",
+        backgroundAttachment: step === 7 ? undefined : "scroll",
         backgroundRepeat:
           "repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
       }}
@@ -646,14 +646,7 @@ function BookMeetingsEvents() {
             >
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(392px,420px)]">
                 <div className="p-6 sm:p-10 lg:p-12">
-                  <div
-                    key={step}
-                    className={
-                      direction === "forward"
-                        ? "animate-slide-in-right"
-                        : "animate-slide-in-left"
-                    }
-                  >
+                  <div key={step}>
                     <StepOne form={form} setForm={setForm} errors={errors} onNext={handleNext} />
                   </div>
                 </div>
@@ -683,14 +676,7 @@ function BookMeetingsEvents() {
           )}
 
           {step === 7 && (
-            <div
-              key={step}
-              className={
-                direction === "forward"
-                  ? "animate-slide-in-right"
-                  : "animate-slide-in-left"
-              }
-            >
+            <div key={step}>
               <StepSevenReview onBack={() => go(6)} onEdit={(s) => go(s)} />
             </div>
           )}
@@ -781,11 +767,6 @@ function BookMeetingsEvents() {
 
 
       <style>{`
-        @keyframes slide-in-right { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes slide-in-left { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: translateX(0); } }
-        .animate-slide-in-right { animation: slide-in-right 300ms ease-out; }
-        .animate-slide-in-left { animation: slide-in-left 300ms ease-out; }
-
         /* Luxury metallic gold border for destination cards */
         .destination-card {
           border: 1.5px solid transparent;
@@ -794,7 +775,7 @@ function BookMeetingsEvents() {
             0 0 0 1px rgba(199, 154, 50, 0.18),
             0 0 2px rgba(199, 154, 50, 0.28),
             0 10px 26px -18px rgba(10,27,44,0.30);
-          transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+          transition: box-shadow 220ms ease, filter 220ms ease;
           position: relative;
         }
         /* Subtle inner edge darkening so the metallic border reads on bright images */
@@ -822,7 +803,6 @@ function BookMeetingsEvents() {
           z-index: 3;
         }
         .destination-card:hover {
-          transform: scale(1.02);
           box-shadow:
             0 0 0 1px rgba(199, 154, 50, 0.22),
             0 0 2px rgba(199, 154, 50, 0.32),
@@ -843,7 +823,7 @@ function BookMeetingsEvents() {
 
 
         /* Metallic country pill hover */
-        .country-pill { transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease, border-color 220ms ease; }
+        .country-pill { transition: box-shadow 220ms ease, filter 220ms ease, border-color 220ms ease; }
         .country-pill--active:hover { filter: brightness(1.06); box-shadow: 0 6px 14px -6px rgba(168,117,22,0.28), inset 0 1px 0 rgba(245,228,166,0.45); }
 
         /* Active step: tiny drifting sparkles + slow shimmer sweep on the circle */
@@ -872,10 +852,9 @@ function BookMeetingsEvents() {
           background: linear-gradient(180deg, #F9FAFB 0%, #F1F2F4 100%);
           border: 1px solid #D8CFC0;
           box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
-          transition: all 200ms ease;
+          transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
         }
         .meal-card:hover {
-          transform: translateY(-0.5px);
           border-color: #CFC4B4;
           box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
         }
@@ -937,11 +916,11 @@ function BookMeetingsEvents() {
             0 10px 28px rgba(15, 23, 42, 0.08),
             0 2px 8px rgba(212, 175, 55, 0.08);
           cursor: pointer;
-          transition: transform 250ms ease-out, box-shadow 250ms ease-out, filter 250ms ease-out, background 250ms ease-out, color 250ms ease-out, border-color 250ms ease-out;
+          transition: box-shadow 250ms ease-out, filter 250ms ease-out, background 250ms ease-out, color 250ms ease-out, border-color 250ms ease-out;
         }
         .complete-stay-plus {
           color: #D4AF37;
-          transition: color 250ms ease-out, transform 250ms ease-out;
+          transition: color 250ms ease-out;
           position: relative;
           z-index: 2;
         }
@@ -989,7 +968,6 @@ function BookMeetingsEvents() {
           z-index: 1;
         }
         .complete-stay-btn:hover {
-          transform: scale(1.02);
           filter: brightness(1.04);
           color: #FFFFFF;
           background-image:
@@ -1013,7 +991,6 @@ function BookMeetingsEvents() {
           animation: completeStaySparkle 1400ms ease-out forwards;
         }
         .complete-stay-btn:active {
-          transform: scale(0.99);
           filter: brightness(0.94);
           color: #FFFFFF;
           background-image:
@@ -1048,11 +1025,10 @@ function BookMeetingsEvents() {
             inset 0 -1px 0 rgba(0,0,0,0.5),
             0 14px 32px -14px rgba(10,27,44,0.7),
             0 2px 6px -2px rgba(10,27,44,0.35);
-          transition: transform 220ms ease-out, box-shadow 220ms ease-out, filter 220ms ease-out;
+          transition: box-shadow 220ms ease-out, filter 220ms ease-out;
           cursor: pointer;
         }
         .add-stay-btn:hover {
-          transform: scale(1.015);
           filter: brightness(1.1);
           box-shadow:
             inset 0 1px 0 rgba(255,255,255,0.18),
@@ -1061,7 +1037,6 @@ function BookMeetingsEvents() {
             0 14px 28px rgba(0, 0, 0, 0.28);
         }
         .add-stay-btn:active {
-          transform: scale(0.99);
           box-shadow:
             inset 0 1px 0 rgba(255,255,255,0.14),
             0 0 10px rgba(37, 99, 235, 0.22),
@@ -1436,7 +1411,7 @@ function NextButton({ onClick, label, disabled = false }: { onClick: () => void;
         "group inline-flex items-center justify-center gap-2 rounded-md text-[16px] font-semibold text-[#0A1B2C] transition-all duration-200",
         disabled
           ? "opacity-50 cursor-not-allowed"
-          : "hover:brightness-105 hover:-translate-y-[1px]",
+          : "hover:brightness-105",
       )}
       style={{
         height: 52,
@@ -1449,7 +1424,7 @@ function NextButton({ onClick, label, disabled = false }: { onClick: () => void;
       }}
     >
       {label}
-      <ArrowRight size={18} strokeWidth={2.2} className="transition-transform group-hover:translate-x-0.5" />
+      <ArrowRight size={18} strokeWidth={2.2} />
     </button>
   );
 }
@@ -1465,7 +1440,7 @@ function ContinueButton({ onClick, label, disabled = false }: { onClick: () => v
         "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-md text-[16px] font-bold text-[#1A1A1A] transition-all duration-200",
         disabled
           ? "opacity-50 cursor-not-allowed"
-          : "hover:brightness-105 hover:-translate-y-[1px]",
+          : "hover:brightness-105",
       )}
       style={{
         height: 54,
@@ -1505,7 +1480,7 @@ function ContinueButton({ onClick, label, disabled = false }: { onClick: () => v
         }}
       />
       <span className="relative z-10 tracking-[-0.01em]">{label}</span>
-      <ArrowRight size={18} strokeWidth={2} className="relative z-10 transition-transform group-hover:translate-x-0.5" />
+      <ArrowRight size={18} strokeWidth={2} className="relative z-10" />
     </button>
   );
 }
@@ -1692,7 +1667,7 @@ function DoneButton({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-[10px] text-[13.5px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 hover:-translate-y-[1px]"
+      className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-[10px] text-[13.5px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105"
       style={{
         height: 42,
         background: `linear-gradient(180deg, #FFFDF6 0%, #FBF3DC 100%)`,
@@ -1970,7 +1945,7 @@ function ExtraCard({
       <button
         type="button"
         onClick={onCardClick}
-        className="group flex flex-col text-left transition-all hover:-translate-y-[1px]"
+        className="group flex flex-col text-left transition-all"
       >
         <div className="relative w-full" style={{ aspectRatio: "4 / 3" }}>
           <img src={def.image} alt={def.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
@@ -2116,7 +2091,7 @@ function ExtraAccordion({
         <button
           type="button"
           onClick={onDone}
-          className="group inline-flex items-center justify-center gap-2 rounded-[10px] text-[13.5px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 hover:-translate-y-[1px] px-6"
+          className="group inline-flex items-center justify-center gap-2 rounded-[10px] text-[13.5px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 px-6"
           style={{
             height: 42,
             background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
@@ -2214,7 +2189,7 @@ function StepFiveExtras({
   ];
 
   return (
-    <div className={direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"}>
+    <div>
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6">
         {/* LEFT — main panel */}
         <div
@@ -2359,7 +2334,7 @@ function StepFiveExtras({
               <button
                 type="button"
                 onClick={onNext}
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-md text-[15px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105 hover:-translate-y-[1px]"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-md text-[15px] font-semibold text-[#0A1B2C] transition-all duration-200 hover:brightness-105"
                 style={{
                   height: 52,
                   background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
@@ -2368,7 +2343,7 @@ function StepFiveExtras({
                 }}
               >
                 Next Step
-                <ArrowRight size={18} strokeWidth={2.2} className="transition-transform group-hover:translate-x-0.5" />
+                <ArrowRight size={18} strokeWidth={2.2} />
               </button>
             </div>
           </div>
@@ -3231,7 +3206,7 @@ function StepSevenReview({
               type="button"
               onClick={handleSubmit}
               disabled={submitting || submitted}
-              className="mt-4 w-full inline-flex items-center justify-center rounded-[10px] transition-transform hover:-translate-y-[1px] disabled:opacity-80"
+              className="mt-4 w-full inline-flex items-center justify-center rounded-[10px] transition-colors disabled:opacity-80"
               style={{
                 height: "50px",
                 color: "#241703",
@@ -3927,7 +3902,7 @@ function StepTwoLocation({
                 aria-pressed={active}
                 className={cn(
                   "country-pill group inline-flex items-center gap-3 rounded-full pl-4 pr-6 h-[48px] text-[15px] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B15A]/30",
-                  active ? "country-pill--active -translate-y-[1px]" : "hover:-translate-y-[1px]",
+                  active ? "country-pill--active" : "",
                 )}
                 style={{
                   background: "#FAF8F4",
@@ -4615,7 +4590,7 @@ function StepThreeAccommodation({
   return (
     <div
       className={
-        direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"
+        ""
       }
     >
       <div className="mb-6">
@@ -4829,7 +4804,7 @@ function StepThreeAccommodation({
                   }}
                 >
                   {editingId ? "Save changes" : "Add this stay"}
-                  <ArrowRight size={16} style={{ color: "#F2C860" }} className="transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight size={16} style={{ color: "#F2C860" }} />
                 </button>
               </div>
               </div>
@@ -6293,7 +6268,7 @@ function StepFourCatering({
   return (
     <div
       className={
-        direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"
+        ""
       }
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
