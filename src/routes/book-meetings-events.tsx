@@ -2614,8 +2614,9 @@ function StepSevenReview({
             left: p.left,
             width: p.size,
             height: p.size,
-            backgroundColor: "rgba(250, 235, 190, 0.95)",
-            boxShadow: "0 0 6px rgba(245, 220, 150, 0.35)",
+            backgroundColor: "rgba(250, 235, 190, 0.72)",
+            boxShadow: "0 0 5px rgba(245, 220, 150, 0.28)",
+            filter: "blur(0.4px)",
             animation: `luxury-twinkle 6s ease-in-out ${p.delay} infinite`,
           }}
         />
