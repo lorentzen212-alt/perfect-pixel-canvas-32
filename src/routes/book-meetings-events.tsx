@@ -2528,58 +2528,65 @@ function StepSevenReview({
 
   return (
     <div
-      className="-mx-5 sm:-mx-8 lg:-mx-[50px] xl:-mx-[60px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-[55px] pb-16"
-      style={{
-        backgroundImage: `url(${step7HeroBg.url})`,
-        backgroundPosition: "top center",
-        backgroundSize: "100% auto",
-        backgroundRepeat: "no-repeat",
-        backgroundColor: "#061B2E",
-        backgroundAttachment: "scroll",
-      }}
+      className="-mx-5 sm:-mx-8 lg:-mx-[50px] xl:-mx-[60px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-16"
+      style={{ backgroundColor: "#061B2E" }}
     >
-      <div className="space-y-8">
-        {/* Heading — sits atop the notebook background image, anchored left. */}
-        <div className="max-w-[720px]" style={{ marginBottom: "35px" }}>
-          <h1
-            className="leading-[1.02] whitespace-nowrap"
-            style={{
-              fontFamily: SERIF,
-              fontSize: "clamp(34px, 4.4vw, 58px)",
-              fontWeight: 500,
-              letterSpacing: "0.005em",
-              color: "#FFF8EA",
-              textShadow: "0 2px 24px rgba(245,220,150,0.18)",
-            }}
-          >
-            Executive Event Review
-          </h1>
-          <div className="relative mt-4 w-[320px] max-w-full">
-            <div
-              className="h-[2px] w-full"
+      <div>
+        {/* INTRO — notebook background lives here only, fades into the solid navy below. */}
+        <div
+          className="-mx-5 sm:-mx-8 lg:-mx-[50px] xl:-mx-[60px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-[55px]"
+          style={{
+            backgroundImage: `linear-gradient(to bottom, rgba(6,27,46,0) 55%, rgba(6,27,46,0.85) 88%, #061B2E 100%), url(${step7HeroBg.url})`,
+            backgroundPosition: "top center, top center",
+            backgroundSize: "100% 100%, 100% auto",
+            backgroundRepeat: "no-repeat, no-repeat",
+            backgroundAttachment: "scroll, scroll",
+            backgroundColor: "#061B2E",
+          }}
+        >
+          <div className="max-w-[720px]" style={{ paddingBottom: "40px" }}>
+            <h1
+              className="leading-[1.02] whitespace-nowrap"
               style={{
-                backgroundImage:
-                  "linear-gradient(90deg, transparent, #B98F3D 18%, #F5E9B8 50%, #B98F3D 82%, transparent)",
-                boxShadow: "0 0 12px rgba(245,220,150,0.55)",
+                fontFamily: SERIF,
+                fontSize: "clamp(34px, 4.4vw, 58px)",
+                fontWeight: 500,
+                letterSpacing: "0.005em",
+                color: "#FFF8EA",
+                textShadow: "0 2px 24px rgba(245,220,150,0.18)",
               }}
-            />
-            <span
-              aria-hidden
-              className="absolute left-1/2 top-1/2 h-[8px] w-[80px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, rgba(255,235,180,0.85) 0%, rgba(255,215,130,0.35) 40%, rgba(255,215,130,0) 75%)",
-                filter: "blur(2px)",
-              }}
-            />
+            >
+              Executive Event Review
+            </h1>
+            <div className="relative mt-5 w-[320px] max-w-full">
+              <div
+                className="h-[2px] w-full"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(90deg, transparent, #B98F3D 18%, #F5E9B8 50%, #B98F3D 82%, transparent)",
+                  boxShadow: "0 0 12px rgba(245,220,150,0.55)",
+                }}
+              />
+              <span
+                aria-hidden
+                className="absolute left-1/2 top-1/2 h-[8px] w-[80px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, rgba(255,235,180,0.85) 0%, rgba(255,215,130,0.35) 40%, rgba(255,215,130,0) 75%)",
+                  filter: "blur(2px)",
+                }}
+              />
+            </div>
+            <p
+              className="mt-5 text-[16px] sm:text-[17px] leading-relaxed"
+              style={{ color: "rgba(250,240,220,0.88)" }}
+            >
+              You&apos;re all set! Please review your request before submitting it to our team.
+            </p>
           </div>
-          <p
-            className="mt-5 text-[16px] sm:text-[17px] leading-relaxed"
-            style={{ color: "rgba(250,240,220,0.88)" }}
-          >
-            You&apos;re all set! Please review your request before submitting it to our team.
-          </p>
         </div>
+
+
 
 
       {/* MAIN GRID */}
