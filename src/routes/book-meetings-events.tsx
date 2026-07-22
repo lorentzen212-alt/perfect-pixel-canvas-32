@@ -2287,7 +2287,7 @@ function StepFiveExtras({
 /* --------- Step 7 – Review & Submit (pixel-target premium layout) --------- */
 
 import reviewNotebookImg from "@/assets/review-notebook.jpg";
-import step7HeroBg from "@/assets/step7-hero-bg-v7.png.asset.json";
+import step7HeroBg from "@/assets/step7-hero-bg-v8.png.asset.json";
 
 function StepSevenReview({
   onBack,
