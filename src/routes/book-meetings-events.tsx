@@ -2535,7 +2535,7 @@ function StepSevenReview({
         maxWidth: "none",
         minHeight: "100%",
         backgroundImage:
-          "linear-gradient(180deg, rgba(12,26,40,0) 0%, rgba(8,19,31,0) 40%, rgba(4,11,19,0.52) 100%), radial-gradient(ellipse at 50% 40%, rgba(8,19,31,0) 0%, rgba(4,10,17,0.55) 60%, rgba(2,7,13,0.95) 100%), radial-gradient(ellipse at 0% 0%, rgba(198,154,74,0.10) 0%, rgba(198,154,74,0) 28%), radial-gradient(ellipse at 100% 0%, rgba(212,168,83,0.09) 0%, rgba(212,168,83,0) 26%), radial-gradient(ellipse at 100% 100%, rgba(176,138,68,0.075) 0%, rgba(176,138,68,0) 30%), radial-gradient(ellipse at 0% 100%, rgba(188,146,70,0.07) 0%, rgba(188,146,70,0) 28%), radial-gradient(ellipse at 50% 0%, rgba(255,245,220,0.04) 0%, rgba(255,245,220,0) 50%), linear-gradient(180deg, #0A1824 0%, #08131F 48%, #051018 100%)",
+          "linear-gradient(180deg, rgba(12,26,40,0) 0%, rgba(8,19,31,0) 35%, rgba(4,11,19,0.58) 100%), radial-gradient(ellipse at 50% 38%, rgba(8,19,31,0) 0%, rgba(4,10,17,0.62) 55%, rgba(2,7,13,0.97) 100%), radial-gradient(ellipse at 0% 0%, rgba(198,154,74,0.10) 0%, rgba(198,154,74,0) 28%), radial-gradient(ellipse at 100% 0%, rgba(212,168,83,0.09) 0%, rgba(212,168,83,0) 26%), radial-gradient(ellipse at 100% 100%, rgba(176,138,68,0.075) 0%, rgba(176,138,68,0) 30%), radial-gradient(ellipse at 0% 100%, rgba(188,146,70,0.07) 0%, rgba(188,146,70,0) 28%), radial-gradient(ellipse at 50% 0%, rgba(255,245,220,0.045) 0%, rgba(255,245,220,0) 50%), linear-gradient(180deg, #0A1824 0%, #08131F 48%, #051018 100%)",
         backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
