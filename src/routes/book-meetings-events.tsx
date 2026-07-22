@@ -4093,6 +4093,27 @@ function StepThreeAccommodation({
   const totalGuests = stays.reduce((n, s) => n + guestsCapacity(s.rooms), 0);
   const primaryMeal = stays[0]?.mealPlan ?? mealPlan;
 
+  // Commit accommodation into shared draft.
+  useEffect(() => {
+    setMeSection(
+      "accommodationStays",
+      stays.map<MeAccommodationStay>((s) => ({
+        id: s.id,
+        checkIn: s.checkIn,
+        checkOut: s.checkOut,
+        rooms: s.rooms,
+        mealPlan: s.mealPlan,
+      })),
+    );
+  }, [stays]);
+
+  useEffect(() => {
+    setMeSection("accommodationExtras", {
+      special: special.trim() || undefined,
+      roomCategory,
+    });
+  }, [special, roomCategory]);
+
   const clearDraft = () => {
     setCheckIn("");
     setCheckOut("");
