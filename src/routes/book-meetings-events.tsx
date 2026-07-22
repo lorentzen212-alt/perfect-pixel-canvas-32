@@ -2403,6 +2403,7 @@ function StepSevenReview({
     isFirst?: boolean;
     isLast?: boolean;
     showEdit?: boolean;
+    labelStyle?: React.CSSProperties;
   };
   const SectionRow = ({
     step,
@@ -2412,6 +2413,7 @@ function StepSevenReview({
     isFirst,
     isLast,
     showEdit = true,
+    labelStyle,
   }: SectionProps) => (
     <div
       className="grid grid-cols-[132px_1fr] sm:grid-cols-[188px_1fr]"
@@ -2436,7 +2438,7 @@ function StepSevenReview({
         </span>
         <div
           className="text-[10.5px] sm:text-[11.5px] tracking-[0.20em] uppercase leading-[1.35]"
-          style={{ color: GOLD, fontWeight: 500 }}
+          style={{ color: GOLD, fontWeight: 500, whiteSpace: "normal", ...labelStyle }}
         >
           {label}
         </div>
