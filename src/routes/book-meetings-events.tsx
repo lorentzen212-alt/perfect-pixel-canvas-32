@@ -2334,7 +2334,9 @@ function StepSevenReview({
       <div
         className="relative p-5 sm:p-7"
         style={{
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "#FAF6EE",
+          backgroundImage:
+            "linear-gradient(180deg, #FBF6EB 0%, #F6EFDF 100%)",
           borderTopRightRadius: isFirst ? 18 : 0,
           borderBottomRightRadius: isLast ? 18 : 0,
         }}
