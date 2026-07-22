@@ -569,7 +569,7 @@ function BookMeetingsEvents() {
                   : "animate-slide-in-left"
               }
             >
-              <StepSevenReview onBack={() => go(6)} />
+              <StepSevenReview onBack={() => go(6)} onEdit={(s) => go(s)} />
             </div>
           )}
 
