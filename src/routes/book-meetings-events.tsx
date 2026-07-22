@@ -2534,12 +2534,12 @@ function StepSevenReview({
         aria-hidden
         className="pointer-events-none absolute left-0 top-0 w-full"
         style={{
-          height: "700px",
+          height: "1100px",
           zIndex: 0,
           backgroundImage: `url(${step7HeroBg.url})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% auto",
-          backgroundPosition: "center -30px",
+          backgroundPosition: "54% -55px",
           backgroundAttachment: "scroll",
         }}
       />
@@ -2548,11 +2548,11 @@ function StepSevenReview({
         aria-hidden
         className="pointer-events-none absolute left-0 w-full"
         style={{
-          top: "640px",
-          height: "180px",
+          top: "900px",
+          height: "360px",
           zIndex: 0,
           background:
-            "linear-gradient(to bottom, rgba(6,27,46,0) 0%, rgba(6,27,46,0.6) 45%, #061B2E 100%)",
+            "linear-gradient(to bottom, rgba(6,27,46,0) 0%, rgba(6,27,46,0.25) 35%, rgba(6,27,46,0.65) 70%, #061B2E 100%)",
         }}
       />
 
