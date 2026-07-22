@@ -2095,6 +2095,20 @@ function StepFiveExtras({
 
   const selectedCount = Object.values(saved).filter(Boolean).length;
 
+  // Commit extras into shared draft (only saved services).
+  useEffect(() => {
+    const items = EXTRAS_DEFS.filter((d) => saved[d.id]).map((d) => ({
+      id: d.id,
+      title: d.title,
+      summary: summaryFor(d.id, configs[d.id]),
+    }));
+    setMeSection("extras", items);
+  }, [saved, configs]);
+
+  useEffect(() => {
+    setMeSection("extrasNotes", notes);
+  }, [notes]);
+
   const summaryItems: Array<{ label: string; value: string }> = [
     { label: "Location", value: "Oslo, Norway" },
     { label: "Accommodation", value: "80 rooms · 2 nights" },
