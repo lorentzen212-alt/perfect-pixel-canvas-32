@@ -505,7 +505,7 @@ export function StepThreeMeetingSpaces({
     setNotes(r.notes);
     setCustomLayout(r.customLayout ?? "");
     if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0 });
     }
   };
 
@@ -731,13 +731,7 @@ export function StepThreeMeetingSpaces({
   };
 
   return (
-    <div
-      className={
-        direction === "forward"
-          ? "animate-slide-in-right"
-          : "animate-slide-in-left"
-      }
-    >
+    <div>
       <div
         className="overflow-hidden rounded-[22px] lg:mr-4"
         style={{
@@ -842,7 +836,7 @@ export function StepThreeMeetingSpaces({
                     <button
                       type="button"
                       onClick={saveRoom}
-                      className="inline-flex items-center gap-2 rounded-full px-4 h-[38px] text-[13.5px] font-medium transition-all hover:-translate-y-[1px]"
+                      className="inline-flex items-center gap-2 rounded-full px-4 h-[38px] text-[13.5px] font-medium transition-colors"
                       style={{
                         color: "#0A1B2C",
                         background:
@@ -994,7 +988,6 @@ export function StepThreeMeetingSpaces({
                         border: "1px solid #E2D5B0",
                         boxShadow:
                           "0 10px 24px -14px rgba(10,27,44,0.35), inset 0 0 0 1px rgba(255,255,255,0.4)",
-                        animation: "setup-fade 320ms ease-out",
                       }}
                     >
                       <img
@@ -1004,10 +997,7 @@ export function StepThreeMeetingSpaces({
                         className="absolute inset-0 w-full h-full object-cover"
                       />
                     </div>
-                    <div
-                      key={activeSetup.id + "-text"}
-                      style={{ animation: "setup-fade 260ms ease-out" }}
-                    >
+                    <div key={activeSetup.id + "-text"}>
                       <div
                         className="text-[#0A1B2C] text-[22px] leading-tight"
                         style={{ fontFamily: SERIF }}
@@ -1027,10 +1017,7 @@ export function StepThreeMeetingSpaces({
                     <div
                       key={activeSetup.id + "-cap"}
                       className="min-w-[160px] md:border-l md:pl-6"
-                      style={{
-                        borderColor: "#E2D5B0",
-                        animation: "setup-fade 260ms ease-out",
-                      }}
+                      style={{ borderColor: "#E2D5B0" }}
                     >
                       <div className="text-[11px] uppercase tracking-[0.14em] text-[#7A6A45] font-semibold">
                         Capacity
@@ -1197,7 +1184,7 @@ export function StepThreeMeetingSpaces({
               <button
                 type="button"
                 onClick={onBack}
-                className="md:justify-self-start inline-flex items-center gap-2 rounded-full px-5 h-[52px] text-[14px] font-medium text-white transition-all hover:-translate-y-[1px] whitespace-nowrap"
+                className="md:justify-self-start inline-flex items-center gap-2 rounded-full px-5 h-[52px] text-[14px] font-medium text-white transition-colors whitespace-nowrap"
                 style={{
                   background:
                     "linear-gradient(180deg,#132639,#0B1624)",
@@ -1218,7 +1205,7 @@ export function StepThreeMeetingSpaces({
               <button
                 type="button"
                 onClick={handleContinue}
-                className="md:justify-self-end inline-flex items-center justify-center gap-2 rounded-full h-[52px] px-6 text-[13px] lg:text-[14.5px] font-semibold transition-all hover:-translate-y-[1px] whitespace-nowrap"
+                className="md:justify-self-end inline-flex items-center justify-center gap-2 rounded-full h-[52px] px-6 text-[13px] lg:text-[14.5px] font-semibold transition-colors whitespace-nowrap"
                 style={{
                   color: "#0A1B2C",
                   background:
@@ -1424,7 +1411,7 @@ export function StepThreeMeetingSpaces({
                     <button
                       type="button"
                       onClick={applyRecommendation}
-                      className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full h-[46px] text-[13.5px] font-semibold transition-all hover:-translate-y-[1px]"
+                      className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full h-[46px] text-[13.5px] font-semibold transition-colors"
                       style={{
                         color: "#0A1B2C",
                         background:
