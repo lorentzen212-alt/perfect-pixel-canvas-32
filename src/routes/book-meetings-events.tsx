@@ -1851,7 +1851,7 @@ function ConfigWelcome({ cfg, set }: { cfg: ExtraConfigs["welcome-package"]; set
         </div>
       </div>
       {cfg.items.includes("Other") && (
-        <div style={{ animation: "menuTypeExpand 220ms ease-out" }}>
+        <div>
           <FieldLabel>Describe your welcome package</FieldLabel>
           <input
             type="text"
@@ -2049,7 +2049,6 @@ function ExtraAccordion({
         background: "linear-gradient(180deg, #FFFDF6 0%, #FBF6E7 100%)",
         border: "1px solid #E3D2A1",
         boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), 0 14px 30px -22px rgba(184,138,46,0.25)",
-        animation: "menuTypeExpand 260ms ease-out",
       }}
     >
       <div className="flex items-center gap-2 mb-4">
@@ -6594,7 +6593,6 @@ function StepFourCatering({
                             borderLeft: "1px solid #EFEAD8",
                             borderRight: "1px solid #EFEAD8",
                             borderBottom: "1px solid #EFEAD8",
-                            animation: "menuTypeExpand 260ms ease",
                           }}
                         >
                           <div className="flex items-center gap-2">
