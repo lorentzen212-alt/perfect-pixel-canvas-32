@@ -2287,7 +2287,6 @@ function StepFiveExtras({
 /* --------- Step 7 – Review & Submit (pixel-target premium layout) --------- */
 
 import reviewNotebookImg from "@/assets/review-notebook.jpg";
-import step7HeroBg from "@/assets/step7-hero-bg-v12.png.asset.json";
 
 function StepSevenReview({
   onBack,
@@ -2532,13 +2531,14 @@ function StepSevenReview({
       style={{
         position: "relative",
         width: "100vw",
-        backgroundColor: "#061B2E",
+        backgroundColor: "#08131F",
         maxWidth: "none",
         minHeight: "100%",
-        backgroundImage: `url(${step7HeroBg.url})`,
-        backgroundSize: "100% auto",
-        backgroundPosition: "top center",
-        backgroundRepeat: "repeat-y",
+        backgroundImage:
+          "radial-gradient(ellipse at 50% 45%, rgba(8,19,31,0) 0%, rgba(6,14,24,0.45) 65%, rgba(4,10,18,0.88) 100%), radial-gradient(circle at 88% 12%, rgba(212,168,83,0.18) 0%, rgba(212,168,83,0) 1.1%), radial-gradient(circle at 12% 22%, rgba(198,154,74,0.13) 0%, rgba(198,154,74,0) 0.95%), radial-gradient(circle at 92% 78%, rgba(176,138,68,0.11) 0%, rgba(176,138,68,0) 1%), radial-gradient(circle at 8% 86%, rgba(188,146,70,0.10) 0%, rgba(188,146,70,0) 0.9%), radial-gradient(circle at 72% 6%, rgba(204,162,82,0.09) 0%, rgba(204,162,82,0) 0.8%)",
+        backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
 
