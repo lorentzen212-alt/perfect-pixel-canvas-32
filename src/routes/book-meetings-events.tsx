@@ -2420,39 +2420,64 @@ function StepSevenReview({
         <div className="grid grid-cols-1 md:grid-cols-[1fr_minmax(260px,380px)] gap-6 md:gap-10 items-center">
           <div>
             <h1
-              className="text-white leading-[1.02]"
+              className="leading-[1.02]"
               style={{
                 fontFamily: SERIF,
                 fontSize: "clamp(38px, 5vw, 64px)",
                 fontWeight: 500,
                 letterSpacing: "0.005em",
+                color: "#FFF8EA",
+                textShadow: "0 2px 24px rgba(245,220,150,0.18)",
               }}
             >
               Executive Event Review
             </h1>
-            <div
-              className="mt-4 h-[2px] w-[260px] max-w-full"
-              style={{
-                backgroundImage:
-                  "linear-gradient(90deg, transparent, #D4AF6A 30%, #F5E9B8 55%, #D4AF6A 80%, transparent)",
-              }}
-            />
-            <p className="mt-5 text-white/85 text-[16px] sm:text-[17px] leading-relaxed max-w-[560px]">
+            <div className="relative mt-4 w-[320px] max-w-full">
+              <div
+                className="h-[2px] w-full"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(90deg, transparent, #B98F3D 18%, #F5E9B8 50%, #B98F3D 82%, transparent)",
+                  boxShadow: "0 0 12px rgba(245,220,150,0.55)",
+                }}
+              />
+              <span
+                aria-hidden
+                className="absolute left-1/2 top-1/2 h-[8px] w-[80px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, rgba(255,235,180,0.85) 0%, rgba(255,215,130,0.35) 40%, rgba(255,215,130,0) 75%)",
+                  filter: "blur(2px)",
+                }}
+              />
+            </div>
+            <p className="mt-5 text-[16px] sm:text-[17px] leading-relaxed max-w-[560px]" style={{ color: "rgba(250,240,220,0.88)" }}>
               You&apos;re all set! Please review your request before submitting it to our team.
             </p>
           </div>
-          <div className="hidden md:block">
+          <div className="relative hidden md:block">
+            {/* Warm golden ambient glow behind notebook */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -inset-10"
+              style={{
+                background:
+                  "radial-gradient(closest-side, rgba(245,200,110,0.45) 0%, rgba(245,180,80,0.22) 35%, rgba(245,180,80,0) 70%)",
+                filter: "blur(8px)",
+              }}
+            />
             <img
               src={reviewNotebookImg}
               alt=""
               width={1024}
               height={768}
               loading="lazy"
-              className="w-full h-auto rounded-[10px]"
+              className="relative w-full h-auto rounded-[10px]"
               style={{
                 objectFit: "cover",
                 maxHeight: "230px",
-                boxShadow: "0 30px 60px -30px rgba(0,0,0,0.55)",
+                boxShadow:
+                  "0 30px 60px -25px rgba(0,0,0,0.7), 0 0 60px -10px rgba(245,190,90,0.35)",
               }}
             />
           </div>
