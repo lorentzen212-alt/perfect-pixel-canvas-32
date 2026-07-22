@@ -279,87 +279,94 @@ function BookMeetingsEvents() {
 
 
 
-  // Whisper of paper grain — reused across all steps at very low opacity via soft-light blend
+  // Two subtle surface textures — very fine grain (fine paper) + a broader mottling (polished
+  // plaster / limestone). Both blend as soft-light so they never read as pattern.
   const paperGrain =
-    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.34  0 0 0 0 0.22  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.36  0 0 0 0 0.30  0 0 0 0 0.22  0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+  const plasterTexture =
+    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='620' height='620'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.30  0 0 0 0 0.26  0 0 0 0 0.20  0 0 0 0.10 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>\")";
 
   return (
     <main
       className="relative min-h-screen w-full"
       style={{
-        backgroundColor: "#F6F1E7",
+        backgroundColor: "#F5F3EF",
         backgroundImage: step === 7 ? undefined : (() => {
-          // Each step: its own base tone, light direction and accent — one family, six atmospheres.
-          // Inspired by Aman, Rosewood, Four Seasons and Ritz-Carlton interiors.
+          // Warm stone (#F5F3EF) core easing into cool grey (#EEE9E2) at the edges.
+          // Each step: a different direction of natural light moving across a hotel wall.
           const variants: Record<number, { layers: string[]; base: string }> = {
-            // Step 1 — Location. Morning light through tall windows onto limestone.
+            // Step 1 — soft morning light entering from the upper-left, cool shadow lower-right.
             1: {
               layers: [
-                "radial-gradient(1400px 620px at 8% -8%, rgba(255,248,231,0.95) 0%, rgba(255,248,231,0) 58%)",
-                "radial-gradient(900px 520px at 96% 18%, rgba(226,198,148,0.22) 0%, rgba(226,198,148,0) 62%)",
-                "radial-gradient(1200px 480px at 50% 112%, rgba(178,146,92,0.14) 0%, rgba(178,146,92,0) 60%)",
+                "radial-gradient(1500px 780px at 6% -6%, rgba(255,251,240,0.72) 0%, rgba(255,251,240,0) 58%)",
+                "radial-gradient(1100px 700px at 96% 104%, rgba(198,190,178,0.28) 0%, rgba(198,190,178,0) 62%)",
+                "radial-gradient(900px 620px at 88% 22%, rgba(226,206,168,0.14) 0%, rgba(226,206,168,0) 66%)",
               ],
-              base: "linear-gradient(178deg, #FCF7EC 0%, #F5EEDE 46%, #EDE4CE 100%)",
+              base: "linear-gradient(172deg, #F7F4EE 0%, #F2EFE8 55%, #ECE7DF 100%)",
             },
-            // Step 2 — Details. Late-afternoon amber on parchment, plan laid on a desk.
+            // Step 2 — light overhead, a slight amber pool low-left as if from a lamp.
             2: {
               layers: [
-                "radial-gradient(1000px 620px at 100% 6%, rgba(228,190,128,0.32) 0%, rgba(228,190,128,0) 60%)",
-                "radial-gradient(1100px 520px at 0% 52%, rgba(255,246,224,0.55) 0%, rgba(255,246,224,0) 62%)",
-                "radial-gradient(900px 440px at 40% 108%, rgba(180,142,82,0.18) 0%, rgba(180,142,82,0) 60%)",
+                "radial-gradient(1600px 620px at 50% -10%, rgba(255,250,238,0.58) 0%, rgba(255,250,238,0) 60%)",
+                "radial-gradient(900px 620px at 4% 92%, rgba(224,198,156,0.20) 0%, rgba(224,198,156,0) 62%)",
+                "radial-gradient(1000px 720px at 100% 40%, rgba(196,190,180,0.22) 0%, rgba(196,190,180,0) 64%)",
               ],
-              base: "linear-gradient(184deg, #F8F0DE 0%, #F1E8CF 52%, #E7DABD 100%)",
+              base: "linear-gradient(184deg, #F6F3ED 0%, #F1EDE6 55%, #EBE6DD 100%)",
             },
-            // Step 3 — Spaces. Quiet daylight in a private salon, near-neutral, tallest windows.
+            // Step 3 — quiet salon: light diffused from both sides, calmest of the six.
             3: {
               layers: [
-                "radial-gradient(1600px 560px at 50% -10%, rgba(255,251,238,0.90) 0%, rgba(255,251,238,0) 58%)",
-                "radial-gradient(640px 640px at -2% 60%, rgba(206,176,120,0.11) 0%, rgba(206,176,120,0) 66%)",
-                "radial-gradient(640px 640px at 102% 60%, rgba(206,176,120,0.11) 0%, rgba(206,176,120,0) 66%)",
+                "radial-gradient(720px 720px at -4% 44%, rgba(255,250,236,0.42) 0%, rgba(255,250,236,0) 66%)",
+                "radial-gradient(720px 720px at 104% 56%, rgba(255,250,236,0.38) 0%, rgba(255,250,236,0) 66%)",
+                "radial-gradient(1400px 720px at 50% 108%, rgba(200,192,178,0.20) 0%, rgba(200,192,178,0) 60%)",
               ],
-              base: "linear-gradient(180deg, #FDF9EF 0%, #F7F1E3 55%, #F0EAD8 100%)",
+              base: "linear-gradient(180deg, #F6F4EF 0%, #F1EEE7 58%, #EBE7DE 100%)",
             },
-            // Step 4 — Catering. Warmer champagne, candlelight from the corner, richer paper.
+            // Step 4 — warmer champagne wash across the top-right, deeper stone below.
             4: {
               layers: [
-                "radial-gradient(900px 560px at 10% 4%, rgba(244,216,158,0.38) 0%, rgba(244,216,158,0) 60%)",
-                "radial-gradient(820px 520px at 96% 40%, rgba(212,172,108,0.24) 0%, rgba(212,172,108,0) 62%)",
-                "radial-gradient(1200px 520px at 50% 110%, rgba(184,144,84,0.22) 0%, rgba(184,144,84,0) 60%)",
+                "radial-gradient(1200px 720px at 100% -4%, rgba(238,214,170,0.26) 0%, rgba(238,214,170,0) 62%)",
+                "radial-gradient(900px 620px at 6% 30%, rgba(255,250,238,0.42) 0%, rgba(255,250,238,0) 60%)",
+                "radial-gradient(1400px 680px at 50% 112%, rgba(190,180,164,0.28) 0%, rgba(190,180,164,0) 62%)",
               ],
-              base: "linear-gradient(182deg, #F9EFD8 0%, #F1E5C7 55%, #E8D9B4 100%)",
+              base: "linear-gradient(182deg, #F6F2EA 0%, #F0EBE1 55%, #E9E3D7 100%)",
             },
-            // Step 5 — Extras. Coolest, calmest cream — a bright reading room to decide in.
+            // Step 5 — cool bright reading room, light from a high window on the right.
             5: {
               layers: [
-                "radial-gradient(1300px 540px at 26% -6%, rgba(255,250,236,0.78) 0%, rgba(255,250,236,0) 60%)",
-                "radial-gradient(1000px 520px at 100% 100%, rgba(200,168,112,0.12) 0%, rgba(200,168,112,0) 62%)",
-                "radial-gradient(700px 700px at 74% 22%, rgba(255,252,240,0.35) 0%, rgba(255,252,240,0) 70%)",
+                "radial-gradient(1200px 680px at 94% -8%, rgba(255,252,242,0.62) 0%, rgba(255,252,242,0) 60%)",
+                "radial-gradient(1000px 620px at 6% 100%, rgba(196,192,182,0.22) 0%, rgba(196,192,182,0) 62%)",
+                "radial-gradient(760px 760px at 40% 48%, rgba(255,251,240,0.24) 0%, rgba(255,251,240,0) 70%)",
               ],
-              base: "linear-gradient(180deg, #FBF7EE 0%, #F4EFE1 60%, #EDE7D5 100%)",
+              base: "linear-gradient(178deg, #F6F4EF 0%, #F1EEE7 58%, #ECE8E0 100%)",
             },
-            // Step 6 — Contact. Welcoming close, warmth pooling at the foot of the page.
+            // Step 6 — warmth pooling at the foot of the page, cool shoulders above.
             6: {
               layers: [
-                "radial-gradient(1100px 500px at 50% -10%, rgba(255,247,229,0.72) 0%, rgba(255,247,229,0) 58%)",
-                "radial-gradient(1300px 700px at 50% 114%, rgba(200,162,100,0.28) 0%, rgba(200,162,100,0) 60%)",
-                "radial-gradient(720px 520px at 4% 48%, rgba(232,204,150,0.16) 0%, rgba(232,204,150,0) 66%)",
+                "radial-gradient(1300px 560px at 50% -12%, rgba(238,232,220,0.55) 0%, rgba(238,232,220,0) 58%)",
+                "radial-gradient(1400px 780px at 50% 116%, rgba(220,198,158,0.22) 0%, rgba(220,198,158,0) 60%)",
+                "radial-gradient(760px 620px at 2% 40%, rgba(200,194,184,0.22) 0%, rgba(200,194,184,0) 66%)",
               ],
-              base: "linear-gradient(184deg, #FBF5E7 0%, #F2EAD3 56%, #E9DCBB 100%)",
+              base: "linear-gradient(184deg, #F5F2EC 0%, #EFEBE3 56%, #E9E4DA 100%)",
             },
           };
           const v = variants[step] ?? variants[1];
+          // Architectural vignette — corners cool a touch toward #EEE9E2 without darkening the center.
           const vignette =
-            "radial-gradient(1500px 950px at 50% 46%, rgba(246,241,231,0) 55%, rgba(72,54,28,0.10) 100%)";
-          // Whisper of paper grain first — blended as soft-light over the lighting stack
-          return [paperGrain, ...v.layers, vignette, v.base].join(", ");
+            "radial-gradient(1600px 1050px at 50% 44%, rgba(245,243,239,0) 52%, rgba(120,110,92,0.10) 100%)";
+          return [paperGrain, plasterTexture, ...v.layers, vignette, v.base].join(", ");
         })(),
         backgroundBlendMode:
-          step === 7 ? undefined : "soft-light, normal, normal, normal, normal, normal",
+          step === 7
+            ? undefined
+            : "soft-light, soft-light, normal, normal, normal, normal, normal",
         backgroundSize:
-          step === 7 ? undefined : "240px 240px, auto, auto, auto, auto, auto, auto",
+          step === 7
+            ? undefined
+            : "260px 260px, 620px 620px, auto, auto, auto, auto, auto",
         backgroundAttachment: "fixed",
         backgroundRepeat:
-          "repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
+          "repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
       }}
     >
       {/* HERO */}
