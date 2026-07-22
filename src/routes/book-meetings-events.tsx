@@ -2334,6 +2334,7 @@ function StepFiveExtras({
           </div>
         </aside>
       </div>
+      </div>
     </div>
   );
 }
