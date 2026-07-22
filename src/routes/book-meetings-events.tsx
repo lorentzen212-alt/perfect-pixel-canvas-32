@@ -2425,7 +2425,7 @@ function StepSevenReview({
       <div
         className="flex flex-col items-start justify-start gap-3 p-5 sm:p-6"
         style={{
-          backgroundColor: NAVY,
+          backgroundColor: "#193649",
           borderTopLeftRadius: isFirst ? 18 : 0,
           borderBottomLeftRadius: isLast ? 18 : 0,
         }}
