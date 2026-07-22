@@ -2319,7 +2319,7 @@ function StepFiveExtras({
         </div>
 
         {/* RIGHT — Need help + Event Summary + Next */}
-        <aside className="lg:sticky lg:top-6 self-start flex flex-col gap-5">
+        <aside className="self-start flex flex-col gap-5">
           <div
             className="rounded-[16px] p-6"
             style={{
@@ -6844,7 +6844,7 @@ function StepFourCatering({
         </div>
 
         {/* RIGHT — Catering Overview */}
-        <aside className="lg:sticky lg:top-6 self-start">
+        <aside className="self-start">
           <div
             className="rounded-[16px] p-5 text-white"
             style={{
