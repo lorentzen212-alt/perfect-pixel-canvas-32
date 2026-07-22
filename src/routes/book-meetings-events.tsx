@@ -3736,6 +3736,8 @@ function StepTwoLocation({
             <input
               id="preferred-venue"
               type="text"
+              value={preferredVenue}
+              onChange={(e) => setPreferredVenue(e.target.value)}
               placeholder="Specific hotel, venue or any special request…"
               className="w-full bg-transparent text-[14px] outline-none border-none mt-0.5 placeholder:text-[#6B778C]"
               style={{ color: "#0F1B2D" }}
