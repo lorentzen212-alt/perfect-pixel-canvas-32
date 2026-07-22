@@ -2372,22 +2372,36 @@ function StepSevenReview({
     children: React.ReactNode;
   }) => (
     <div
-      className="rounded-[16px] p-6"
+      className="relative overflow-hidden rounded-[16px] p-6"
       style={{
         backgroundImage:
-          "linear-gradient(180deg, #FFFBF0 0%, #FBF3DE 100%)",
-        border: "1px solid rgba(212,175,106,0.35)",
+          "linear-gradient(180deg, #FBF6EB 0%, #F4EBD5 100%)",
+        border: "1px solid rgba(212,175,106,0.45)",
         boxShadow:
-          "0 20px 40px -28px rgba(0,0,0,0.35), 0 2px 6px -3px rgba(10,27,44,0.08)",
+          "0 30px 60px -30px rgba(0,0,0,0.55), 0 6px 14px -6px rgba(6,20,34,0.35), inset 0 1px 0 rgba(255,255,255,0.7)",
       }}
     >
-      <div
-        className="text-[12px] tracking-[0.22em] uppercase text-center"
-        style={{ color: GOLD, fontWeight: 600 }}
-      >
-        {title}
+      {/* Marble texture veil */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(ellipse at 20% 15%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 45%), radial-gradient(ellipse at 85% 90%, rgba(180,150,90,0.09) 0%, rgba(180,150,90,0) 50%), url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.75  0 0 0 0 0.65  0 0 0 0 0.45  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          backgroundSize: "auto, auto, 260px 260px",
+          mixBlendMode: "multiply",
+          opacity: 0.9,
+        }}
+      />
+      <div className="relative">
+        <div
+          className="text-[12px] tracking-[0.22em] uppercase text-center"
+          style={{ color: GOLD, fontWeight: 600 }}
+        >
+          {title}
+        </div>
+        <div className="mt-4">{children}</div>
       </div>
-      <div className="mt-4">{children}</div>
     </div>
   );
 
