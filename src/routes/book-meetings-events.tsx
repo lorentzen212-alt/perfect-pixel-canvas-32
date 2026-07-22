@@ -2287,7 +2287,7 @@ function StepFiveExtras({
 /* --------- Step 7 – Review & Submit (pixel-target premium layout) --------- */
 
 import reviewNotebookImg from "@/assets/review-notebook.jpg";
-import step7HeroBg from "@/assets/step7-hero-bg-v2.png.asset.json";
+import step7HeroBg from "@/assets/step7-hero-bg-v3.png.asset.json";
 
 function StepSevenReview({
   onBack,
@@ -2534,12 +2534,12 @@ function StepSevenReview({
         aria-hidden
         className="pointer-events-none absolute left-0 top-0 w-full"
         style={{
-          height: "460px",
+          height: "620px",
           zIndex: 0,
           backgroundImage: `url(${step7HeroBg.url})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% auto",
-          backgroundPosition: "center top",
+          backgroundPosition: "center -30px",
           backgroundAttachment: "scroll",
         }}
       />
@@ -2548,12 +2548,11 @@ function StepSevenReview({
         aria-hidden
         className="pointer-events-none absolute left-0 w-full"
         style={{
-          top: "300px",
-          height: "160px",
+          top: "440px",
+          height: "180px",
           zIndex: 0,
           background:
             "linear-gradient(to bottom, rgba(6,27,46,0) 0%, rgba(6,27,46,0.6) 45%, #061B2E 100%)",
-
         }}
       />
 
