@@ -2403,6 +2403,7 @@ function StepSevenReview({
     isFirst?: boolean;
     isLast?: boolean;
     showEdit?: boolean;
+    labelStyle?: React.CSSProperties;
   };
   const SectionRow = ({
     step,
@@ -2412,6 +2413,7 @@ function StepSevenReview({
     isFirst,
     isLast,
     showEdit = true,
+    labelStyle,
   }: SectionProps) => (
     <div
       className="grid grid-cols-[132px_1fr] sm:grid-cols-[188px_1fr]"
@@ -2436,7 +2438,7 @@ function StepSevenReview({
         </span>
         <div
           className="text-[10.5px] sm:text-[11.5px] tracking-[0.20em] uppercase leading-[1.35]"
-          style={{ color: GOLD, fontWeight: 500 }}
+          style={{ color: GOLD, fontWeight: 500, whiteSpace: "normal", ...labelStyle }}
         >
           {label}
         </div>
@@ -2810,7 +2812,8 @@ function StepSevenReview({
                   key="details"
                   step={6}
                   icon={<ClipboardCheck size={22} strokeWidth={1.8} />}
-                  label={"Additional\u00A0Information"}
+                  label="Additional Information"
+                  labelStyle={{ letterSpacing: "0.14em" }}
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-[13.5px] text-[#334155]">
                     {details.eventName && (
