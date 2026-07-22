@@ -644,7 +644,7 @@ function BookMeetingsEvents() {
               style={{
                 backgroundColor: "#FCFCFC",
                 backgroundImage:
-                  "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
+                  "linear-gradient(180deg, #FBF9F4 0%, #F9F6F0 55%, #F6F2EA 100%)",
                 boxShadow:
                   "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
                 border: "1px solid #ECECEC",
@@ -675,7 +675,7 @@ function BookMeetingsEvents() {
                   <div
                     className="rounded-[16px] p-6 w-full lg:w-[320px] lg:min-w-[320px]"
                     style={{
-                      backgroundColor: "#FFFFFF",
+                      backgroundColor: "#FAF7F1",
                       border: "1px solid #EFEFEC",
                       boxShadow:
                         "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
@@ -715,7 +715,7 @@ function BookMeetingsEvents() {
             style={{
               backgroundColor: "#FCFCFC",
               backgroundImage:
-                "linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 100%)",
+                "linear-gradient(180deg, #FBF9F4 0%, #F7F3EC 100%)",
               border: "1px solid #EFEFEC",
               boxShadow:
                 "0 20px 50px -30px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.03)",
@@ -742,7 +742,7 @@ function BookMeetingsEvents() {
             <div className="md:pl-10 md:border-l flex items-center gap-8" style={{ borderColor: "#F1F1EE" }}>
               <span
                 className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full relative"
-                style={{ border: "1.5px solid #C79A32", backgroundColor: "#FFFFFF" }}
+                style={{ border: "1.5px solid #C79A32", backgroundColor: "#FAF7F1" }}
                 aria-hidden="true"
               >
                 {/* Four gold stars above the building */}
@@ -888,7 +888,7 @@ function BookMeetingsEvents() {
 
         .meal-card-selected {
           background:
-            linear-gradient(145deg, #FFFFFF 0%, #FDFAF4 100%) padding-box,
+            linear-gradient(145deg, #FBF9F4 0%, #F6F0E1 100%) padding-box,
             linear-gradient(135deg, #E8CE86 0%, #C9A24A 35%, #F3DFA2 55%, #B08528 100%) border-box;
           border: 2px solid transparent;
           box-shadow:
@@ -1591,7 +1591,7 @@ function RadioOption({
       <span
         className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
         style={{
-          background: "#FFFFFF",
+          background: "#FAF7F1",
           border: "1.5px solid #2B2B2B",
         }}
       >
@@ -1657,8 +1657,8 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
 }
 
 const inputStyle: React.CSSProperties = {
-  background: "#FFFFFF",
-  border: "1px solid #E4DDC8",
+  background: "#FAF7F1",
+  border: "1px solid #E8E0D3",
   color: "#0A1B2C",
 };
 
@@ -1666,7 +1666,7 @@ function NumberStepper({ value, onChange, min = 0 }: { value: number; onChange: 
   return (
     <div
       className="inline-flex items-center rounded-[10px] overflow-hidden"
-      style={{ background: "#FFFFFF", border: "1px solid #E4DDC8" }}
+      style={{ background: "#FAF7F1", border: "1px solid #E8E0D3" }}
     >
       <button
         type="button"
@@ -1964,7 +1964,7 @@ function ExtraCard({
       style={{
         background: highlighted
           ? "linear-gradient(180deg, #FFFBEF 0%, #FBF3DC 100%)"
-          : "linear-gradient(180deg, #FFFFFF 0%, #FCFAF3 100%)",
+          : "linear-gradient(180deg, #FBF9F4 0%, #F5EEDC 100%)",
         border: highlighted ? "1.5px solid #C79A32" : "1px solid #ECE4CC",
         boxShadow: highlighted
           ? "0 14px 30px -18px rgba(184,138,46,0.35), 0 2px 8px -4px rgba(10,27,44,0.06)"
@@ -2098,7 +2098,7 @@ function ExtraAccordion({
             className="inline-flex items-center gap-1.5 rounded-[10px] px-4 text-[13px] font-medium text-[#0A1B2C] transition-all hover:bg-[#F5EEDA]"
             style={{
               height: 40,
-              background: "#FFFFFF",
+              background: "#FAF7F1",
               border: "1px solid #E3D2A1",
             }}
           >
@@ -2227,7 +2227,7 @@ function StepFiveExtras({
           className="overflow-hidden rounded-[20px] p-6 sm:p-8 lg:p-10"
           style={{
             backgroundColor: "#FCFCFC",
-            backgroundImage: "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
+            backgroundImage: "linear-gradient(180deg, #FBF9F4 0%, #F9F6F0 55%, #F6F2EA 100%)",
             boxShadow: "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
             border: "1px solid #ECECEC",
           }}
@@ -2311,7 +2311,7 @@ function StepFiveExtras({
                 rows={3}
                 placeholder="Type your request here..."
                 className="w-full resize-none rounded-md p-3 text-[13.5px] text-[#0A1B2C] outline-none"
-                style={{ background: "#FFFFFF", border: "1px solid #E4DDC8" }}
+                style={{ background: "#FAF7F1", border: "1px solid #E8E0D3" }}
               />
               <div className="mt-1 text-right text-[11px] text-[#9C9484]">{notes.length} / 500</div>
             </div>
@@ -2323,7 +2323,7 @@ function StepFiveExtras({
           <div
             className="rounded-[16px] p-6"
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "#FAF7F1",
               border: "1px solid #EFEFEC",
               boxShadow: "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
             }}
@@ -2334,7 +2334,7 @@ function StepFiveExtras({
           <div
             className="rounded-[16px] p-6"
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "#FAF7F1",
               border: "1px solid #EFEFEC",
               boxShadow: "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
             }}
@@ -2559,7 +2559,7 @@ function StepSevenReview({
             onClick={() => onEdit(step)}
             className="absolute right-4 top-4 sm:right-5 sm:top-5 inline-flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-[12.5px]"
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "#FAF7F1",
               border: "1px solid rgba(212,175,106,0.55)",
               color: "#7A5A1E",
               boxShadow: "0 1px 2px rgba(10,27,44,0.04)",
@@ -3936,7 +3936,7 @@ function StepTwoLocation({
                   active ? "country-pill--active -translate-y-[1px]" : "hover:-translate-y-[1px]",
                 )}
                 style={{
-                  background: "#FFFFFF",
+                  background: "#FAF7F1",
                   border: active ? "1.5px solid transparent" : "1px solid #ECE6D6",
                   color: active ? "#7A5A1E" : "#4A5866",
                   fontWeight: active ? 600 : 500,
@@ -4089,7 +4089,7 @@ function StepTwoLocation({
             <div
               className="flex items-center gap-3 rounded-[16px] px-5 h-[56px]"
               style={{
-                background: "#FFFFFF",
+                background: "#FAF7F1",
                 border: "1px solid #ECE6D6",
                 boxShadow: "0 4px 14px -10px rgba(10,27,44,0.10)",
               }}
@@ -4170,7 +4170,7 @@ function StepTwoLocation({
         <div
           className="mt-4 flex items-center gap-4 rounded-[16px] px-5 py-3"
           style={{
-            background: "#FFFFFF",
+            background: "#FAF7F1",
             border: "1px solid #ECE6D6",
             boxShadow: "0 4px 14px -10px rgba(10,27,44,0.10)",
           }}
@@ -4246,7 +4246,7 @@ function StepTwoLocation({
       <aside
         className="relative overflow-hidden rounded-[26px]"
         style={{
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "#FAF7F1",
           boxShadow:
             "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
           minHeight: 480,
@@ -4655,7 +4655,7 @@ function StepThreeAccommodation({
             <div
               className="rounded-[16px] overflow-hidden"
               style={{
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "#FAF7F1",
                 border: "1px solid #EEEBE3",
                 boxShadow: "0 6px 18px -10px rgba(10,27,44,0.08)",
               }}
@@ -4873,7 +4873,7 @@ function StepThreeAccommodation({
                       key={s.id}
                       className="flex items-center justify-between gap-4 rounded-[12px] px-4 py-3"
                       style={{
-                        backgroundColor: "#FFFFFF",
+                        backgroundColor: "#FAF7F1",
                         border: "1px solid #EEEBE3",
                       }}
                     >
@@ -4939,7 +4939,7 @@ function StepThreeAccommodation({
                   placeholder="E.g. early check-in, late check-out, welcome gift, specific floor, etc."
                   className="mt-3 w-full rounded-[10px] px-4 py-3 text-[14px] text-[#0A1B2C] placeholder:text-[#9BA4AE] outline-none transition-all focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
                   style={{
-                    backgroundColor: "#FFFFFF",
+                    backgroundColor: "#FAF7F1",
                     border: "1px solid #E6E2D5",
                     boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
                   }}
@@ -5105,7 +5105,7 @@ function DateField({
       <div
         className="group mt-2 flex items-center gap-2 rounded-[10px] px-3 h-[46px] transition-all focus-within:border-[#D4AF37] focus-within:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
         style={{
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "#FAF7F1",
           border: "1px solid #E6E2D5",
           boxShadow:
             "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
@@ -5143,7 +5143,7 @@ function Counter({
       <div
         className="flex items-center justify-between rounded-[10px] h-[46px] px-1.5"
         style={{
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "#FAF7F1",
           border: "1px solid #E6E2D5",
           boxShadow:
             "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
@@ -5202,7 +5202,7 @@ function RoomRow({
     <div
       className="rounded-[16px] px-4 sm:px-5 py-4 sm:py-4"
       style={{
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#FAF7F1",
         border: "1px solid #ECE7DC",
         boxShadow:
           "0 6px 20px -14px rgba(10,27,44,0.20), 0 1px 2px rgba(10,27,44,0.03)",
@@ -5238,7 +5238,7 @@ function RoomRow({
         <div
           className="col-span-3 sm:col-span-1 flex items-center justify-between sm:justify-center rounded-[10px] h-[44px] sm:w-[132px] px-1.5"
           style={{
-            backgroundColor: "#FFFFFF",
+            backgroundColor: "#FAF7F1",
             border: "1px solid #E6E2D5",
             boxShadow:
               "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
@@ -5283,7 +5283,7 @@ function RoomRow({
             onChange={(e) => onCategoryChange(e.target.value)}
             className="w-full appearance-none rounded-[10px] h-[44px] pl-3 pr-9 text-[14px] text-[#0A1B2C] outline-none focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.14)]"
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "#FAF7F1",
               border: "1px solid #E6E2D5",
               boxShadow:
                 "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,27,44,0.04)",
@@ -5509,7 +5509,7 @@ function MealOption({
       >
         <span
           className="flex h-full w-full items-center justify-center rounded-full"
-          style={{ background: "#FFFFFF" }}
+          style={{ background: "#FAF7F1" }}
         >
           {selected && (
             <span
@@ -6309,7 +6309,7 @@ function StepFourCatering({
           style={{
             backgroundColor: "#FCFCFC",
             backgroundImage:
-              "linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #FAFAF8 100%)",
+              "linear-gradient(180deg, #FBF9F4 0%, #F9F6F0 55%, #F6F2EA 100%)",
             boxShadow:
               "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
             border: "1px solid #ECECEC",
@@ -6453,8 +6453,8 @@ function StepFourCatering({
                       <div
                         className="grid grid-cols-1 md:grid-cols-[minmax(180px,1.2fr)_120px_1fr_44px_44px] gap-3 items-center rounded-[10px] px-3 py-2.5"
                         style={{
-                          background: "#FFFFFF",
-                          border: "1px solid #EFEAD8",
+                          background: "#FAF7F1",
+                          border: "1px solid #EDE6DA",
                           borderBottomLeftRadius: isOpen ? 0 : 10,
                           borderBottomRightRadius: isOpen ? 0 : 10,
                         }}
@@ -6506,7 +6506,7 @@ function StepFourCatering({
                             value={s.time}
                             onChange={(e) => updateServing(s.id, { time: e.target.value })}
                             className="w-full h-[38px] rounded-md text-[13px] text-[#0A1B2C] pl-8 pr-2 outline-none"
-                            style={{ background: "#FFFFFF", border: "1px solid #E4DDC8" }}
+                            style={{ background: "#FAF7F1", border: "1px solid #E8E0D3" }}
                           />
                         </div>
 
@@ -6519,8 +6519,8 @@ function StepFourCatering({
                             }
                             className="w-full h-[38px] rounded-md pl-8 pr-8 text-left text-[13px] text-[#0A1B2C] flex items-center"
                             style={{
-                              background: "#FFFFFF",
-                              border: "1px solid #E4DDC8",
+                              background: "#FAF7F1",
+                              border: "1px solid #E8E0D3",
                             }}
                           >
                             <MapPin
@@ -6542,7 +6542,7 @@ function StepFourCatering({
                             <div
                               className="absolute z-30 mt-1 w-full rounded-md py-1 text-[13px] max-h-[240px] overflow-auto"
                               style={{
-                                background: "#FFFFFF",
+                                background: "#FAF7F1",
                                 border: "1px solid #E7DEC4",
                                 boxShadow:
                                   "0 12px 28px -14px rgba(10,27,44,0.20)",
@@ -6574,8 +6574,8 @@ function StepFourCatering({
                               }
                               className="mt-1.5 w-full h-[32px] rounded-md px-2 text-[12.5px] text-[#0A1B2C] outline-none"
                               style={{
-                                background: "#FFFFFF",
-                                border: "1px solid #E4DDC8",
+                                background: "#FAF7F1",
+                                border: "1px solid #E8E0D3",
                               }}
                             />
                           )}
@@ -6673,7 +6673,7 @@ function StepFourCatering({
                                       border: selected
                                         ? "1.5px solid #B88A2E"
                                         : "1.5px solid #D9C79A",
-                                      background: "#FFFFFF",
+                                      background: "#FAF7F1",
                                     }}
                                   >
                                     {selected && (
@@ -6740,7 +6740,7 @@ function StepFourCatering({
             {/* Dietary Requirements */}
             <div
               className="rounded-[12px] p-4"
-              style={{ background: "#FFFFFF", border: "1px solid #EFEAD8" }}
+              style={{ background: "#FAF7F1", border: "1px solid #EDE6DA" }}
             >
               <div className="flex items-center gap-2">
                 <ShieldCheck size={15} style={{ color: "#B88A2E" }} />
@@ -6770,7 +6770,7 @@ function StepFourCatering({
                   onChange={(e) => setDietaryOther(e.target.value)}
                   placeholder="Please specify"
                   className="mt-2.5 w-full h-[34px] rounded-md px-2.5 text-[12.5px] text-[#0A1B2C] outline-none"
-                  style={{ background: "#FFFFFF", border: "1px solid #E4DDC8" }}
+                  style={{ background: "#FAF7F1", border: "1px solid #E8E0D3" }}
                 />
               )}
             </div>
@@ -6778,7 +6778,7 @@ function StepFourCatering({
             {/* Drinks */}
             <div
               className="rounded-[12px] p-4"
-              style={{ background: "#FFFFFF", border: "1px solid #EFEAD8" }}
+              style={{ background: "#FAF7F1", border: "1px solid #EDE6DA" }}
             >
               <div className="flex items-center gap-2">
                 <GlassWater size={15} style={{ color: "#B88A2E" }} />
@@ -6804,7 +6804,7 @@ function StepFourCatering({
             {/* Additional Requests */}
             <div
               className="rounded-[12px] p-4"
-              style={{ background: "#FFFFFF", border: "1px solid #EFEAD8" }}
+              style={{ background: "#FAF7F1", border: "1px solid #EDE6DA" }}
             >
               <div className="flex items-center gap-2">
                 <Pencil size={14} style={{ color: "#B88A2E" }} />
@@ -6821,7 +6821,7 @@ function StepFourCatering({
                 rows={5}
                 placeholder="Tell us about allergies, menu wishes, themed dinners, receptions or any other catering requests..."
                 className="mt-2 w-full resize-none rounded-md p-2.5 text-[12.5px] text-[#0A1B2C] outline-none"
-                style={{ background: "#FFFFFF", border: "1px solid #E4DDC8" }}
+                style={{ background: "#FAF7F1", border: "1px solid #E8E0D3" }}
               />
               <div className="mt-1 text-right text-[11px] text-[#9C9484]">
                 {notes.length} / 500
