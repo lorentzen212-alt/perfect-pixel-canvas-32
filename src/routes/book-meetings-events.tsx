@@ -2300,6 +2300,8 @@ function StepSevenReview({
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  const draft = useMeDraft();
+
   const GOLD = "#D4AF6A";
   const GOLD_HI = "#F0D890";
   const CREAM = "#FBF5EA";
@@ -2307,6 +2309,83 @@ function StepSevenReview({
   const NAVY = "#0A1B2C";
   const NAVY_2 = "#0E2236";
   const INK = "#0B1620";
+
+  // -------- Derived, humanised values (no fallbacks / demo data) --------
+  const loc = draft.location ?? {};
+  const locationTitle =
+    loc.destinationName && loc.countryName
+      ? loc.isAnywhere
+        ? loc.destinationName
+        : `${loc.destinationName}, ${loc.countryName}`
+      : loc.destinationName || loc.countryName || "";
+  const budgetLabel = loc.budget
+    ? { economy: "Economy", mid: "Mid-range", premium: "Premium", luxury: "Luxury" }[loc.budget]
+    : "";
+  const hasLocation = Boolean(locationTitle || loc.preferredVenue || budgetLabel);
+
+  const stays = draft.accommodationStays ?? [];
+  const roomsTotalAll = stays.reduce(
+    (n, s) =>
+      n + s.rooms.sgl + s.rooms.dbl + s.rooms.twn + s.rooms.trp + s.rooms.ste,
+    0,
+  );
+  const guestsTotalAll = stays.reduce(
+    (n, s) =>
+      n +
+      s.rooms.sgl +
+      s.rooms.dbl * 2 +
+      s.rooms.twn * 2 +
+      s.rooms.trp * 3 +
+      s.rooms.ste * 2,
+    0,
+  );
+  const hasAccommodation = stays.length > 0;
+
+  const meetings = draft.meetingSpaces ?? [];
+  const hasMeetings = meetings.length > 0;
+
+  const catering = draft.catering ?? [];
+  const cateringExtras = draft.cateringExtras ?? { dietary: [], dietaryOther: "", drinks: [], notes: "" };
+  const dietaryList = [
+    ...cateringExtras.dietary.filter((d) => d && d !== "Other"),
+    ...(cateringExtras.dietary.includes("Other") && cateringExtras.dietaryOther
+      ? [cateringExtras.dietaryOther]
+      : []),
+  ];
+  const hasCatering =
+    catering.length > 0 ||
+    dietaryList.length > 0 ||
+    (cateringExtras.drinks?.length ?? 0) > 0 ||
+    Boolean(cateringExtras.notes?.trim());
+
+  const extras = draft.extras ?? [];
+  const extrasNotes = draft.extrasNotes?.trim() ?? "";
+  const hasExtras = extras.length > 0 || Boolean(extrasNotes);
+
+  const details = draft.eventDetails ?? {};
+  const hasDetails = Boolean(
+    details.eventName ||
+      details.company ||
+      details.contactPerson ||
+      details.email ||
+      details.phone,
+  );
+
+  const fmt = (iso: string) => {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  };
+  const roomsBreakdown = (r: MeAccommodationStay["rooms"]) => {
+    const parts: string[] = [];
+    if (r.sgl) parts.push(`${r.sgl} Single`);
+    if (r.dbl) parts.push(`${r.dbl} Double`);
+    if (r.twn) parts.push(`${r.twn} Twin`);
+    if (r.trp) parts.push(`${r.trp} Triple`);
+    if (r.ste) parts.push(`${r.ste} Suite`);
+    return parts.join(", ");
+  };
 
   const handleSubmit = () => {
     setSubmitting(true);
