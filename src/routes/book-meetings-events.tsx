@@ -2622,139 +2622,246 @@ function StepSevenReview({
             </div>
           </SectionRow>
 
-          {/* Location */}
-          <SectionRow step={1} icon={<MapPin size={22} strokeWidth={1.8} />} label="Location">
-            <div style={{ fontFamily: SERIF, fontSize: "24px", color: INK, fontWeight: 500 }}>
-              Oslo, Norway
-            </div>
-            <div className="mt-2 text-[14px] text-[#334155]">
-              Preferred area: City center, Waterfront
-            </div>
-            <div className="mt-1 text-[14px] text-[#334155]">
-              Dates: 9 – 11 September 2026 (2 nights)
-            </div>
-          </SectionRow>
+          {(() => {
+            const sections: React.ReactNode[] = [];
 
-          {/* Accommodation */}
-          <SectionRow step={2} icon={<BedDouble size={22} strokeWidth={1.8} />} label="Accommodation">
-            <div style={{ fontFamily: SERIF, fontSize: "24px", color: INK, fontWeight: 500 }}>
-              68 Guests
-            </div>
-            <div className="mt-1 text-[14px] text-[#334155]">34 Rooms (Single)</div>
-            <div className="mt-3 space-y-1.5 text-[14px] text-[#334155]">
-              <div className="flex items-center gap-2">
-                <CalendarIcon size={14} strokeWidth={2} style={{ color: GOLD }} />
-                Check-in: 9 September 2026
-              </div>
-              <div className="flex items-center gap-2">
-                <CalendarIcon size={14} strokeWidth={2} style={{ color: GOLD }} />
-                Check-out: 11 September 2026
-              </div>
-            </div>
-          </SectionRow>
+            if (hasLocation) {
+              sections.push(
+                <SectionRow
+                  key="location"
+                  step={1}
+                  icon={<MapPin size={22} strokeWidth={1.8} />}
+                  label="Location"
+                >
+                  {locationTitle && (
+                    <div style={{ fontFamily: SERIF, fontSize: "24px", color: INK, fontWeight: 500 }}>
+                      {locationTitle}
+                    </div>
+                  )}
+                  {loc.preferredVenue && (
+                    <div className="mt-2 text-[14px] text-[#334155]">
+                      Preferred venue: {loc.preferredVenue}
+                    </div>
+                  )}
+                  {budgetLabel && (
+                    <div className="mt-1 text-[14px] text-[#334155]">
+                      Budget: {budgetLabel}
+                    </div>
+                  )}
+                </SectionRow>,
+              );
+            }
 
-          {/* Meeting & Space */}
-          <SectionRow
-            step={3}
-            icon={<Users size={22} strokeWidth={1.8} />}
-            label={"Meeting &\u00A0Space"}
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
-              {[
-                { name: "Main Ballroom", pax: "68 attendees", setup: "Theatre" },
-                { name: "Boardroom", pax: "12 attendees", setup: "Boardroom Setup" },
-                { name: "Breakout Room", pax: "20 attendees", setup: "Classroom Setup" },
-              ].map((m) => (
-                <div key={m.name}>
-                  <div className="text-[13.5px] font-semibold" style={{ color: INK }}>
-                    {m.name}
+            if (hasAccommodation) {
+              sections.push(
+                <SectionRow
+                  key="accommodation"
+                  step={2}
+                  icon={<BedDouble size={22} strokeWidth={1.8} />}
+                  label="Accommodation"
+                >
+                  <div style={{ fontFamily: SERIF, fontSize: "24px", color: INK, fontWeight: 500 }}>
+                    {guestsTotalAll} {guestsTotalAll === 1 ? "Guest" : "Guests"}
                   </div>
-                  <div className="text-[13px] text-[#334155] mt-1">{m.pax}</div>
-                  <div className="text-[13px] text-[#334155]">{m.setup}</div>
-                </div>
-              ))}
-            </div>
-          </SectionRow>
+                  <div className="mt-1 text-[14px] text-[#334155]">
+                    {roomsTotalAll} {roomsTotalAll === 1 ? "Room" : "Rooms"}
+                  </div>
+                  <div className="mt-3 space-y-3 text-[14px] text-[#334155]">
+                    {stays.map((s, i) => (
+                      <div key={s.id}>
+                        {stays.length > 1 && (
+                          <div className="text-[12px] uppercase tracking-[0.08em] text-[#64748B] mb-1">
+                            Stay {i + 1}
+                          </div>
+                        )}
+                        <div className="flex items-center gap-2">
+                          <CalendarIcon size={14} strokeWidth={2} style={{ color: GOLD }} />
+                          Check-in: {fmt(s.checkIn)}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <CalendarIcon size={14} strokeWidth={2} style={{ color: GOLD }} />
+                          Check-out: {fmt(s.checkOut)}
+                        </div>
+                        {roomsBreakdown(s.rooms) && (
+                          <div className="mt-1">{roomsBreakdown(s.rooms)}</div>
+                        )}
+                        <div className="mt-1">
+                          Meal plan: {s.mealPlan === "breakfast" ? "Breakfast included" : "Room only"}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </SectionRow>,
+              );
+            }
 
-          {/* Catering */}
-          <SectionRow step={4} icon={<Utensils size={22} strokeWidth={1.8} />} label="Catering">
-            <div style={{ fontFamily: SERIF, fontSize: "22px", color: INK, fontWeight: 500 }}>
-              Full Board
-            </div>
-            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[13.5px] text-[#334155]">
-              <span className="inline-flex items-center gap-2">
-                <Wine size={14} strokeWidth={2} style={{ color: GOLD }} />
-                Welcome dinner (Day 1)
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <UtensilsCrossed size={14} strokeWidth={2} style={{ color: GOLD }} />
-                Lunch &amp; dinner (Day 2)
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Coffee size={14} strokeWidth={2} style={{ color: GOLD }} />
-                Breakfast &amp; lunch (Day 3)
-              </span>
-            </div>
-            <div className="mt-3 text-[13.5px] text-[#334155]">
-              Dietary requirements: 2 vegetarian, 1 gluten-free
-            </div>
-          </SectionRow>
+            if (hasMeetings) {
+              sections.push(
+                <SectionRow
+                  key="meetings"
+                  step={3}
+                  icon={<Users size={22} strokeWidth={1.8} />}
+                  label={"Meeting &\u00A0Space"}
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+                    {meetings.map((m) => (
+                      <div key={m.id}>
+                        <div className="text-[13.5px] font-semibold" style={{ color: INK }}>
+                          {m.name || "Meeting Room"}
+                        </div>
+                        {m.attendees > 0 && (
+                          <div className="text-[13px] text-[#334155] mt-1">
+                            {m.attendees} {m.attendees === 1 ? "attendee" : "attendees"}
+                          </div>
+                        )}
+                        {m.setupLabel && (
+                          <div className="text-[13px] text-[#334155]">{m.setupLabel}</div>
+                        )}
+                        {(m.date || m.startTime || m.endTime) && (
+                          <div className="text-[13px] text-[#334155]">
+                            {[fmt(m.date), [m.startTime, m.endTime].filter(Boolean).join("–")]
+                              .filter(Boolean)
+                              .join(" · ")}
+                          </div>
+                        )}
+                        {m.equipmentLabels.length > 0 && (
+                          <div className="text-[13px] text-[#334155] mt-1">
+                            {m.equipmentLabels.join(", ")}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </SectionRow>,
+              );
+            }
 
-          {/* Extras & Activities */}
-          <SectionRow
-            step={5}
-            icon={<Star size={22} strokeWidth={1.8} />}
-            label={"Extras &\u00A0Activities"}
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <div className="inline-flex items-center gap-2 text-[13.5px] font-semibold" style={{ color: INK }}>
-                  <Wine size={15} strokeWidth={2} style={{ color: GOLD }} />
-                  Welcome Drink
-                </div>
-              </div>
-              <div>
-                <div className="inline-flex items-center gap-2 text-[13.5px] font-semibold" style={{ color: INK }}>
-                  <Sparkles size={15} strokeWidth={2} style={{ color: GOLD }} />
-                  Evening Activity
-                </div>
-                <div className="mt-1 text-[13px] text-[#334155]">Flamenco Show (20 pax)</div>
-              </div>
-              <div>
-                <div className="inline-flex items-center gap-2 text-[13.5px] font-semibold" style={{ color: INK }}>
-                  <Bus size={15} strokeWidth={2} style={{ color: GOLD }} />
-                  Airport Transfers
-                </div>
-                <div className="mt-1 text-[13px] text-[#334155]">2 Bus Transfers</div>
-              </div>
-            </div>
-          </SectionRow>
+            if (hasCatering) {
+              sections.push(
+                <SectionRow
+                  key="catering"
+                  step={4}
+                  icon={<Utensils size={22} strokeWidth={1.8} />}
+                  label="Catering"
+                >
+                  {catering.length > 0 && (
+                    <div className="flex flex-wrap gap-x-6 gap-y-2 text-[13.5px] text-[#334155]">
+                      {catering.map((c) => (
+                        <span key={c.servingId} className="inline-flex items-center gap-2">
+                          <Utensils size={14} strokeWidth={2} style={{ color: GOLD }} />
+                          {c.label}
+                          {c.variant ? ` — ${c.variant}` : ""}
+                          {c.time ? ` · ${c.time}` : ""}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {dietaryList.length > 0 && (
+                    <div className="mt-3 text-[13.5px] text-[#334155]">
+                      Dietary requirements: {dietaryList.join(", ")}
+                    </div>
+                  )}
+                  {(cateringExtras.drinks?.length ?? 0) > 0 && (
+                    <div className="mt-1 text-[13.5px] text-[#334155]">
+                      Drinks: {cateringExtras.drinks.join(", ")}
+                    </div>
+                  )}
+                  {cateringExtras.notes?.trim() && (
+                    <div className="mt-1 text-[13.5px] text-[#334155]">
+                      Notes: {cateringExtras.notes}
+                    </div>
+                  )}
+                </SectionRow>,
+              );
+            }
 
-          {/* Additional Information */}
-          <SectionRow
-            step={6}
-            icon={<ClipboardCheck size={22} strokeWidth={1.8} />}
-            label={"Additional\u00A0Information"}
-            isLast
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <div className="text-[13.5px] font-semibold" style={{ color: INK }}>
-                  Purpose of event
-                </div>
-                <div className="mt-1 text-[13.5px] text-[#334155]">Annual Sales Meeting</div>
-              </div>
-              <div>
-                <div className="text-[13.5px] font-semibold" style={{ color: INK }}>
-                  Additional notes
-                </div>
-                <div className="mt-1 text-[13.5px] text-[#334155]">
-                  We would like a quiet area for our evening dinner.
-                </div>
-              </div>
-            </div>
-          </SectionRow>
-        </div>
+            if (hasExtras) {
+              sections.push(
+                <SectionRow
+                  key="extras"
+                  step={5}
+                  icon={<Star size={22} strokeWidth={1.8} />}
+                  label={"Extras &\u00A0Activities"}
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {extras.map((x) => (
+                      <div key={x.id}>
+                        <div
+                          className="inline-flex items-center gap-2 text-[13.5px] font-semibold"
+                          style={{ color: INK }}
+                        >
+                          <Sparkles size={15} strokeWidth={2} style={{ color: GOLD }} />
+                          {x.title}
+                        </div>
+                        {x.summary.length > 0 && (
+                          <div className="mt-1 text-[13px] text-[#334155]">
+                            {x.summary.join(" · ")}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  {extrasNotes && (
+                    <div className="mt-3 text-[13.5px] text-[#334155]">Notes: {extrasNotes}</div>
+                  )}
+                </SectionRow>,
+              );
+            }
+
+            if (hasDetails) {
+              sections.push(
+                <SectionRow
+                  key="details"
+                  step={6}
+                  icon={<ClipboardCheck size={22} strokeWidth={1.8} />}
+                  label={"Additional\u00A0Information"}
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-[13.5px] text-[#334155]">
+                    {details.eventName && (
+                      <div>
+                        <div className="font-semibold" style={{ color: INK }}>Event name</div>
+                        <div className="mt-1">{details.eventName}</div>
+                      </div>
+                    )}
+                    {details.company && (
+                      <div>
+                        <div className="font-semibold" style={{ color: INK }}>Company</div>
+                        <div className="mt-1">{details.company}</div>
+                      </div>
+                    )}
+                    {details.contactPerson && (
+                      <div>
+                        <div className="font-semibold" style={{ color: INK }}>Contact</div>
+                        <div className="mt-1">{details.contactPerson}</div>
+                      </div>
+                    )}
+                    {details.email && (
+                      <div>
+                        <div className="font-semibold" style={{ color: INK }}>Email</div>
+                        <div className="mt-1">{details.email}</div>
+                      </div>
+                    )}
+                    {details.phone && (
+                      <div>
+                        <div className="font-semibold" style={{ color: INK }}>Phone</div>
+                        <div className="mt-1">
+                          {details.countryCode ? `${details.countryCode} ` : ""}{details.phone}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </SectionRow>,
+              );
+            }
+
+            // Mark the last rendered row as isLast so the timeline terminates correctly.
+            return sections.map((node, i) => {
+              if (!React.isValidElement(node)) return node;
+              return React.cloneElement(node as React.ReactElement<SectionProps>, {
+                isLast: i === sections.length - 1,
+              });
+            });
+          })()}
 
         {/* RIGHT — sidebar */}
         <div className="space-y-5">
