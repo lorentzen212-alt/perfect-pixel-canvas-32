@@ -2120,7 +2120,61 @@ function StepFiveExtras({
   ];
 
   return (
-    <div className={direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"}>
+    <div
+      className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen overflow-hidden ${direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"}`}
+      style={{
+        backgroundColor: "#F8F6F2",
+        backgroundImage: [
+          "radial-gradient(ellipse 60% 55% at 50% 42%, rgba(214,178,110,0.07) 0%, rgba(214,178,110,0.03) 45%, rgba(214,178,110,0) 75%)",
+          "radial-gradient(ellipse 80% 40% at 50% 0%, rgba(255,250,240,0.9) 0%, rgba(255,250,240,0) 70%)",
+          "radial-gradient(ellipse 50% 45% at 10% 100%, rgba(240,228,208,0.35) 0%, rgba(240,228,208,0) 70%)",
+          "radial-gradient(ellipse 50% 45% at 100% 90%, rgba(232,220,200,0.3) 0%, rgba(232,220,200,0) 70%)",
+          "linear-gradient(180deg, #FAF8F3 0%, #F8F6F2 50%, #F4F1EA 100%)",
+        ].join(","),
+      }}
+    >
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background: [
+            "radial-gradient(ellipse 45% 6% at 50% 0%, rgba(198,158,86,0.06) 0%, rgba(198,158,86,0) 75%)",
+            "radial-gradient(ellipse 45% 6% at 50% 100%, rgba(198,158,86,0.05) 0%, rgba(198,158,86,0) 75%)",
+            "radial-gradient(ellipse 6% 40% at 0% 50%, rgba(198,158,86,0.045) 0%, rgba(198,158,86,0) 75%)",
+            "radial-gradient(ellipse 6% 40% at 100% 50%, rgba(198,158,86,0.06) 0%, rgba(198,158,86,0) 75%)",
+          ].join(","),
+        }}
+      />
+      {[
+        { top: "8%",  left: "6%",  s: 2,   b: 0.09, d: "0s"   },
+        { top: "14%", left: "92%", s: 1.5, b: 0.08, d: "2.1s" },
+        { top: "28%", left: "4%",  s: 1.5, b: 0.07, d: "3.4s" },
+        { top: "36%", left: "96%", s: 2,   b: 0.09, d: "1.2s" },
+        { top: "52%", left: "3%",  s: 1.5, b: 0.06, d: "4.6s" },
+        { top: "60%", left: "95%", s: 2,   b: 0.08, d: "2.8s" },
+        { top: "74%", left: "7%",  s: 1.5, b: 0.07, d: "0.6s" },
+        { top: "82%", left: "93%", s: 2,   b: 0.09, d: "3.9s" },
+        { top: "92%", left: "22%", s: 1.5, b: 0.07, d: "1.8s" },
+        { top: "94%", left: "72%", s: 1.5, b: 0.08, d: "4.2s" },
+        { top: "4%",  left: "48%", s: 1.5, b: 0.06, d: "2.4s" },
+      ].map((p, i) => (
+        <span
+          key={`x5-${i}`}
+          aria-hidden
+          className="pointer-events-none absolute z-0 rounded-full luxury-particle"
+          style={{
+            top: p.top,
+            left: p.left,
+            width: p.s,
+            height: p.s,
+            backgroundColor: `rgba(180,140,72,${p.b})`,
+            boxShadow: `0 0 ${5 + p.s}px rgba(198,158,86,${p.b * 0.7})`,
+            animation: `luxury-twinkle ${7 + (i % 3)}s ease-in-out ${p.d} infinite`,
+          }}
+        />
+      ))}
+
+      <div className="relative z-10 px-4 sm:px-6 lg:px-10 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6">
         {/* LEFT — main panel */}
         <div
@@ -2279,6 +2333,7 @@ function StepFiveExtras({
             </div>
           </div>
         </aside>
+      </div>
       </div>
     </div>
   );
