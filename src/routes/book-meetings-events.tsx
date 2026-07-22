@@ -72,6 +72,12 @@ import breakfastImg from "@/assets/rooms/breakfast.jpg";
 import { cn } from "@/lib/utils";
 import { TrustShield, TrustClock, TrustHeadset, TrustLock } from "@/components/TrustIcons";
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
+import {
+  useMeDraft,
+  setMeSection,
+  type MeAccommodationStay,
+  type MeMeetingSpace,
+} from "@/lib/meDraftStore";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
 const heroImg = heroAsset.url;
