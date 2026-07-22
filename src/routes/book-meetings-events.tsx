@@ -484,13 +484,11 @@ function BookMeetingsEvents() {
 
       {/* FORM SECTION */}
       <section
-        className="px-5 sm:px-8 lg:px-[50px] xl:px-[60px] py-10 lg:py-14 relative"
+        className={`px-5 sm:px-8 lg:px-[50px] xl:px-[60px] relative ${step === 7 ? "py-0" : "py-10 lg:py-14"}`}
         style={
           step === 7
             ? {
-                backgroundColor: "#061422",
-                backgroundImage:
-                  "radial-gradient(1200px 600px at 50% 0%, rgba(212,175,106,0.10) 0%, rgba(6,20,34,0) 60%), radial-gradient(900px 500px at 85% 20%, rgba(245,194,90,0.09) 0%, rgba(6,20,34,0) 55%), linear-gradient(180deg, #07182A 0%, #05121F 45%, #030B15 100%)",
+                backgroundColor: "#061B2E",
               }
             : undefined
         }
