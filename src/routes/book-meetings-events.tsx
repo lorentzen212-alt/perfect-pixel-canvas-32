@@ -2535,7 +2535,6 @@ function StepSevenReview({
         maxWidth: "none",
         minHeight: "100%",
         backgroundImage:
-          "        backgroundImage:
           "linear-gradient(180deg, rgba(12,26,40,0) 0%, rgba(8,19,31,0) 45%, rgba(4,11,19,0.42) 100%), radial-gradient(ellipse at 50% 42%, rgba(8,19,31,0) 0%, rgba(4,10,17,0.48) 68%, rgba(2,7,13,0.9) 100%), radial-gradient(ellipse at 0% 0%, rgba(198,154,74,0.075) 0%, rgba(198,154,74,0) 26%), radial-gradient(ellipse at 100% 0%, rgba(212,168,83,0.065) 0%, rgba(212,168,83,0) 24%), radial-gradient(ellipse at 100% 100%, rgba(176,138,68,0.055) 0%, rgba(176,138,68,0) 28%), radial-gradient(ellipse at 0% 100%, rgba(188,146,70,0.05) 0%, rgba(188,146,70,0) 26%), radial-gradient(ellipse at 50% 0%, rgba(255,245,220,0.03) 0%, rgba(255,245,220,0) 48%), linear-gradient(180deg, #0A1824 0%, #08131F 48%, #051018 100%)",
         backgroundSize: "100% 100%",
         backgroundPosition: "center",
@@ -2600,7 +2599,6 @@ function StepSevenReview({
           }}
         />
       ))}
-    >
 
 
       <div className="relative z-[1] mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-8">
