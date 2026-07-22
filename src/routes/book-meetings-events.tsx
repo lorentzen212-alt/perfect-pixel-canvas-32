@@ -2287,7 +2287,7 @@ function StepFiveExtras({
 /* --------- Step 7 – Review & Submit (pixel-target premium layout) --------- */
 
 import reviewNotebookImg from "@/assets/review-notebook.jpg";
-import step7HeroBg from "@/assets/step7-hero-bg-v11.png.asset.json";
+import step7HeroBg from "@/assets/step7-hero-bg-v12.png.asset.json";
 
 function StepSevenReview({
   onBack,
@@ -2528,13 +2528,15 @@ function StepSevenReview({
     <div
       className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen overflow-hidden pb-16"
       style={{
+        position: "relative",
+        width: "100vw",
         backgroundColor: "#061B2E",
         maxWidth: "none",
         minHeight: "100%",
         backgroundImage: `url(${step7HeroBg.url})`,
-        backgroundRepeat: "repeat-y",
-        backgroundPosition: "top center",
         backgroundSize: "100% auto",
+        backgroundPosition: "top center",
+        backgroundRepeat: "repeat-y",
       }}
     >
 
