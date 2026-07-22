@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { setMeSection } from "@/lib/meDraftStore";
 import {
   Calendar as CalendarIcon,
   Clock,
@@ -415,6 +416,33 @@ export function StepThreeMeetingSpaces({
   const [needsRooms, setNeedsRooms] = useState<boolean>(true);
   const [rooms, setRooms] = useState<MeetingRoom[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
+
+  // Commit meeting spaces into shared draft.
+  useEffect(() => {
+    const items = needsRooms
+      ? rooms.map((r) => {
+          const s = SETUPS.find((x) => x.id === r.setup);
+          return {
+            id: r.id,
+            name: r.name,
+            date: r.date,
+            startTime: r.startTime,
+            endTime: r.endTime,
+            attendees: r.attendees,
+            setupId: r.setup,
+            setupLabel:
+              r.setup === "other" && r.customLayout
+                ? r.customLayout
+                : s?.label ?? r.setup,
+            equipmentLabels: r.equipment
+              .map((id) => EQUIPMENT.find((e) => e.id === id)?.label ?? id),
+            notes: r.notes,
+            customLayout: r.customLayout,
+          };
+        })
+      : [];
+    setMeSection("meetingSpaces", items);
+  }, [rooms, needsRooms]);
 
   // draft
   const [name, setName] = useState("");

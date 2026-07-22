@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type React from "react";
+import React from "react";
 import { useState, useEffect, useMemo, useRef } from "react";
 import {
   Menu,
@@ -72,6 +72,12 @@ import breakfastImg from "@/assets/rooms/breakfast.jpg";
 import { cn } from "@/lib/utils";
 import { TrustShield, TrustClock, TrustHeadset, TrustLock } from "@/components/TrustIcons";
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
+import {
+  useMeDraft,
+  setMeSection,
+  type MeAccommodationStay,
+  type MeMeetingSpace,
+} from "@/lib/meDraftStore";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
 const heroImg = heroAsset.url;
@@ -228,6 +234,19 @@ function BookMeetingsEvents() {
       );
     } catch {}
   }, [hydrated, step, form, visited]);
+
+  // Commit event details / contact info from Step 6 (StepOne) into the shared draft.
+  useEffect(() => {
+    if (!hydrated) return;
+    setMeSection("eventDetails", {
+      eventName: form.eventName.trim() || undefined,
+      company: form.company.trim() || undefined,
+      contactPerson: form.contactPerson.trim() || undefined,
+      email: form.email.trim() || undefined,
+      phone: form.phone.trim() || undefined,
+      countryCode: form.countryCode || undefined,
+    });
+  }, [hydrated, form]);
 
   const go = (n: number) => {
     setDirection(n > step ? "forward" : "back");
@@ -2076,6 +2095,20 @@ function StepFiveExtras({
 
   const selectedCount = Object.values(saved).filter(Boolean).length;
 
+  // Commit extras into shared draft (only saved services).
+  useEffect(() => {
+    const items = EXTRAS_DEFS.filter((d) => saved[d.id]).map((d) => ({
+      id: d.id,
+      title: d.title,
+      summary: summaryFor(d.id, configs[d.id]),
+    }));
+    setMeSection("extras", items);
+  }, [saved, configs]);
+
+  useEffect(() => {
+    setMeSection("extrasNotes", notes);
+  }, [notes]);
+
   const summaryItems: Array<{ label: string; value: string }> = [
     { label: "Location", value: "Oslo, Norway" },
     { label: "Accommodation", value: "80 rooms · 2 nights" },
@@ -2267,6 +2300,8 @@ function StepSevenReview({
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  const draft = useMeDraft();
+
   const GOLD = "#D4AF6A";
   const GOLD_HI = "#F0D890";
   const CREAM = "#FBF5EA";
@@ -2274,6 +2309,83 @@ function StepSevenReview({
   const NAVY = "#0A1B2C";
   const NAVY_2 = "#0E2236";
   const INK = "#0B1620";
+
+  // -------- Derived, humanised values (no fallbacks / demo data) --------
+  const loc = draft.location ?? {};
+  const locationTitle =
+    loc.destinationName && loc.countryName
+      ? loc.isAnywhere
+        ? loc.destinationName
+        : `${loc.destinationName}, ${loc.countryName}`
+      : loc.destinationName || loc.countryName || "";
+  const budgetLabel = loc.budget
+    ? { economy: "Economy", mid: "Mid-range", premium: "Premium", luxury: "Luxury" }[loc.budget]
+    : "";
+  const hasLocation = Boolean(locationTitle || loc.preferredVenue || budgetLabel);
+
+  const stays = draft.accommodationStays ?? [];
+  const roomsTotalAll = stays.reduce(
+    (n, s) =>
+      n + s.rooms.sgl + s.rooms.dbl + s.rooms.twn + s.rooms.trp + s.rooms.ste,
+    0,
+  );
+  const guestsTotalAll = stays.reduce(
+    (n, s) =>
+      n +
+      s.rooms.sgl +
+      s.rooms.dbl * 2 +
+      s.rooms.twn * 2 +
+      s.rooms.trp * 3 +
+      s.rooms.ste * 2,
+    0,
+  );
+  const hasAccommodation = stays.length > 0;
+
+  const meetings = draft.meetingSpaces ?? [];
+  const hasMeetings = meetings.length > 0;
+
+  const catering = draft.catering ?? [];
+  const cateringExtras = draft.cateringExtras ?? { dietary: [], dietaryOther: "", drinks: [], notes: "" };
+  const dietaryList = [
+    ...cateringExtras.dietary.filter((d) => d && d !== "Other"),
+    ...(cateringExtras.dietary.includes("Other") && cateringExtras.dietaryOther
+      ? [cateringExtras.dietaryOther]
+      : []),
+  ];
+  const hasCatering =
+    catering.length > 0 ||
+    dietaryList.length > 0 ||
+    (cateringExtras.drinks?.length ?? 0) > 0 ||
+    Boolean(cateringExtras.notes?.trim());
+
+  const extras = draft.extras ?? [];
+  const extrasNotes = draft.extrasNotes?.trim() ?? "";
+  const hasExtras = extras.length > 0 || Boolean(extrasNotes);
+
+  const details = draft.eventDetails ?? {};
+  const hasDetails = Boolean(
+    details.eventName ||
+      details.company ||
+      details.contactPerson ||
+      details.email ||
+      details.phone,
+  );
+
+  const fmt = (iso: string) => {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  };
+  const roomsBreakdown = (r: MeAccommodationStay["rooms"]) => {
+    const parts: string[] = [];
+    if (r.sgl) parts.push(`${r.sgl} Single`);
+    if (r.dbl) parts.push(`${r.dbl} Double`);
+    if (r.twn) parts.push(`${r.twn} Twin`);
+    if (r.trp) parts.push(`${r.trp} Triple`);
+    if (r.ste) parts.push(`${r.ste} Suite`);
+    return parts.join(", ");
+  };
 
   const handleSubmit = () => {
     setSubmitting(true);
@@ -2510,138 +2622,246 @@ function StepSevenReview({
             </div>
           </SectionRow>
 
-          {/* Location */}
-          <SectionRow step={1} icon={<MapPin size={22} strokeWidth={1.8} />} label="Location">
-            <div style={{ fontFamily: SERIF, fontSize: "24px", color: INK, fontWeight: 500 }}>
-              Oslo, Norway
-            </div>
-            <div className="mt-2 text-[14px] text-[#334155]">
-              Preferred area: City center, Waterfront
-            </div>
-            <div className="mt-1 text-[14px] text-[#334155]">
-              Dates: 9 – 11 September 2026 (2 nights)
-            </div>
-          </SectionRow>
+          {(() => {
+            const sections: React.ReactNode[] = [];
 
-          {/* Accommodation */}
-          <SectionRow step={2} icon={<BedDouble size={22} strokeWidth={1.8} />} label="Accommodation">
-            <div style={{ fontFamily: SERIF, fontSize: "24px", color: INK, fontWeight: 500 }}>
-              68 Guests
-            </div>
-            <div className="mt-1 text-[14px] text-[#334155]">34 Rooms (Single)</div>
-            <div className="mt-3 space-y-1.5 text-[14px] text-[#334155]">
-              <div className="flex items-center gap-2">
-                <CalendarIcon size={14} strokeWidth={2} style={{ color: GOLD }} />
-                Check-in: 9 September 2026
-              </div>
-              <div className="flex items-center gap-2">
-                <CalendarIcon size={14} strokeWidth={2} style={{ color: GOLD }} />
-                Check-out: 11 September 2026
-              </div>
-            </div>
-          </SectionRow>
+            if (hasLocation) {
+              sections.push(
+                <SectionRow
+                  key="location"
+                  step={1}
+                  icon={<MapPin size={22} strokeWidth={1.8} />}
+                  label="Location"
+                >
+                  {locationTitle && (
+                    <div style={{ fontFamily: SERIF, fontSize: "24px", color: INK, fontWeight: 500 }}>
+                      {locationTitle}
+                    </div>
+                  )}
+                  {loc.preferredVenue && (
+                    <div className="mt-2 text-[14px] text-[#334155]">
+                      Preferred venue: {loc.preferredVenue}
+                    </div>
+                  )}
+                  {budgetLabel && (
+                    <div className="mt-1 text-[14px] text-[#334155]">
+                      Budget: {budgetLabel}
+                    </div>
+                  )}
+                </SectionRow>,
+              );
+            }
 
-          {/* Meeting & Space */}
-          <SectionRow
-            step={3}
-            icon={<Users size={22} strokeWidth={1.8} />}
-            label={"Meeting &\u00A0Space"}
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
-              {[
-                { name: "Main Ballroom", pax: "68 attendees", setup: "Theatre" },
-                { name: "Boardroom", pax: "12 attendees", setup: "Boardroom Setup" },
-                { name: "Breakout Room", pax: "20 attendees", setup: "Classroom Setup" },
-              ].map((m) => (
-                <div key={m.name}>
-                  <div className="text-[13.5px] font-semibold" style={{ color: INK }}>
-                    {m.name}
+            if (hasAccommodation) {
+              sections.push(
+                <SectionRow
+                  key="accommodation"
+                  step={2}
+                  icon={<BedDouble size={22} strokeWidth={1.8} />}
+                  label="Accommodation"
+                >
+                  <div style={{ fontFamily: SERIF, fontSize: "24px", color: INK, fontWeight: 500 }}>
+                    {guestsTotalAll} {guestsTotalAll === 1 ? "Guest" : "Guests"}
                   </div>
-                  <div className="text-[13px] text-[#334155] mt-1">{m.pax}</div>
-                  <div className="text-[13px] text-[#334155]">{m.setup}</div>
-                </div>
-              ))}
-            </div>
-          </SectionRow>
+                  <div className="mt-1 text-[14px] text-[#334155]">
+                    {roomsTotalAll} {roomsTotalAll === 1 ? "Room" : "Rooms"}
+                  </div>
+                  <div className="mt-3 space-y-3 text-[14px] text-[#334155]">
+                    {stays.map((s, i) => (
+                      <div key={s.id}>
+                        {stays.length > 1 && (
+                          <div className="text-[12px] uppercase tracking-[0.08em] text-[#64748B] mb-1">
+                            Stay {i + 1}
+                          </div>
+                        )}
+                        <div className="flex items-center gap-2">
+                          <CalendarIcon size={14} strokeWidth={2} style={{ color: GOLD }} />
+                          Check-in: {fmt(s.checkIn)}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <CalendarIcon size={14} strokeWidth={2} style={{ color: GOLD }} />
+                          Check-out: {fmt(s.checkOut)}
+                        </div>
+                        {roomsBreakdown(s.rooms) && (
+                          <div className="mt-1">{roomsBreakdown(s.rooms)}</div>
+                        )}
+                        <div className="mt-1">
+                          Meal plan: {s.mealPlan === "breakfast" ? "Breakfast included" : "Room only"}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </SectionRow>,
+              );
+            }
 
-          {/* Catering */}
-          <SectionRow step={4} icon={<Utensils size={22} strokeWidth={1.8} />} label="Catering">
-            <div style={{ fontFamily: SERIF, fontSize: "22px", color: INK, fontWeight: 500 }}>
-              Full Board
-            </div>
-            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[13.5px] text-[#334155]">
-              <span className="inline-flex items-center gap-2">
-                <Wine size={14} strokeWidth={2} style={{ color: GOLD }} />
-                Welcome dinner (Day 1)
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <UtensilsCrossed size={14} strokeWidth={2} style={{ color: GOLD }} />
-                Lunch &amp; dinner (Day 2)
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Coffee size={14} strokeWidth={2} style={{ color: GOLD }} />
-                Breakfast &amp; lunch (Day 3)
-              </span>
-            </div>
-            <div className="mt-3 text-[13.5px] text-[#334155]">
-              Dietary requirements: 2 vegetarian, 1 gluten-free
-            </div>
-          </SectionRow>
+            if (hasMeetings) {
+              sections.push(
+                <SectionRow
+                  key="meetings"
+                  step={3}
+                  icon={<Users size={22} strokeWidth={1.8} />}
+                  label={"Meeting &\u00A0Space"}
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+                    {meetings.map((m) => (
+                      <div key={m.id}>
+                        <div className="text-[13.5px] font-semibold" style={{ color: INK }}>
+                          {m.name || "Meeting Room"}
+                        </div>
+                        {m.attendees > 0 && (
+                          <div className="text-[13px] text-[#334155] mt-1">
+                            {m.attendees} {m.attendees === 1 ? "attendee" : "attendees"}
+                          </div>
+                        )}
+                        {m.setupLabel && (
+                          <div className="text-[13px] text-[#334155]">{m.setupLabel}</div>
+                        )}
+                        {(m.date || m.startTime || m.endTime) && (
+                          <div className="text-[13px] text-[#334155]">
+                            {[fmt(m.date), [m.startTime, m.endTime].filter(Boolean).join("–")]
+                              .filter(Boolean)
+                              .join(" · ")}
+                          </div>
+                        )}
+                        {m.equipmentLabels.length > 0 && (
+                          <div className="text-[13px] text-[#334155] mt-1">
+                            {m.equipmentLabels.join(", ")}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </SectionRow>,
+              );
+            }
 
-          {/* Extras & Activities */}
-          <SectionRow
-            step={5}
-            icon={<Star size={22} strokeWidth={1.8} />}
-            label={"Extras &\u00A0Activities"}
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <div className="inline-flex items-center gap-2 text-[13.5px] font-semibold" style={{ color: INK }}>
-                  <Wine size={15} strokeWidth={2} style={{ color: GOLD }} />
-                  Welcome Drink
-                </div>
-              </div>
-              <div>
-                <div className="inline-flex items-center gap-2 text-[13.5px] font-semibold" style={{ color: INK }}>
-                  <Sparkles size={15} strokeWidth={2} style={{ color: GOLD }} />
-                  Evening Activity
-                </div>
-                <div className="mt-1 text-[13px] text-[#334155]">Flamenco Show (20 pax)</div>
-              </div>
-              <div>
-                <div className="inline-flex items-center gap-2 text-[13.5px] font-semibold" style={{ color: INK }}>
-                  <Bus size={15} strokeWidth={2} style={{ color: GOLD }} />
-                  Airport Transfers
-                </div>
-                <div className="mt-1 text-[13px] text-[#334155]">2 Bus Transfers</div>
-              </div>
-            </div>
-          </SectionRow>
+            if (hasCatering) {
+              sections.push(
+                <SectionRow
+                  key="catering"
+                  step={4}
+                  icon={<Utensils size={22} strokeWidth={1.8} />}
+                  label="Catering"
+                >
+                  {catering.length > 0 && (
+                    <div className="flex flex-wrap gap-x-6 gap-y-2 text-[13.5px] text-[#334155]">
+                      {catering.map((c) => (
+                        <span key={c.servingId} className="inline-flex items-center gap-2">
+                          <Utensils size={14} strokeWidth={2} style={{ color: GOLD }} />
+                          {c.label}
+                          {c.variant ? ` — ${c.variant}` : ""}
+                          {c.time ? ` · ${c.time}` : ""}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {dietaryList.length > 0 && (
+                    <div className="mt-3 text-[13.5px] text-[#334155]">
+                      Dietary requirements: {dietaryList.join(", ")}
+                    </div>
+                  )}
+                  {(cateringExtras.drinks?.length ?? 0) > 0 && (
+                    <div className="mt-1 text-[13.5px] text-[#334155]">
+                      Drinks: {cateringExtras.drinks.join(", ")}
+                    </div>
+                  )}
+                  {cateringExtras.notes?.trim() && (
+                    <div className="mt-1 text-[13.5px] text-[#334155]">
+                      Notes: {cateringExtras.notes}
+                    </div>
+                  )}
+                </SectionRow>,
+              );
+            }
 
-          {/* Additional Information */}
-          <SectionRow
-            step={6}
-            icon={<ClipboardCheck size={22} strokeWidth={1.8} />}
-            label={"Additional\u00A0Information"}
-            isLast
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <div className="text-[13.5px] font-semibold" style={{ color: INK }}>
-                  Purpose of event
-                </div>
-                <div className="mt-1 text-[13.5px] text-[#334155]">Annual Sales Meeting</div>
-              </div>
-              <div>
-                <div className="text-[13.5px] font-semibold" style={{ color: INK }}>
-                  Additional notes
-                </div>
-                <div className="mt-1 text-[13.5px] text-[#334155]">
-                  We would like a quiet area for our evening dinner.
-                </div>
-              </div>
-            </div>
-          </SectionRow>
+            if (hasExtras) {
+              sections.push(
+                <SectionRow
+                  key="extras"
+                  step={5}
+                  icon={<Star size={22} strokeWidth={1.8} />}
+                  label={"Extras &\u00A0Activities"}
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {extras.map((x) => (
+                      <div key={x.id}>
+                        <div
+                          className="inline-flex items-center gap-2 text-[13.5px] font-semibold"
+                          style={{ color: INK }}
+                        >
+                          <Sparkles size={15} strokeWidth={2} style={{ color: GOLD }} />
+                          {x.title}
+                        </div>
+                        {x.summary.length > 0 && (
+                          <div className="mt-1 text-[13px] text-[#334155]">
+                            {x.summary.join(" · ")}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  {extrasNotes && (
+                    <div className="mt-3 text-[13.5px] text-[#334155]">Notes: {extrasNotes}</div>
+                  )}
+                </SectionRow>,
+              );
+            }
+
+            if (hasDetails) {
+              sections.push(
+                <SectionRow
+                  key="details"
+                  step={6}
+                  icon={<ClipboardCheck size={22} strokeWidth={1.8} />}
+                  label={"Additional\u00A0Information"}
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-[13.5px] text-[#334155]">
+                    {details.eventName && (
+                      <div>
+                        <div className="font-semibold" style={{ color: INK }}>Event name</div>
+                        <div className="mt-1">{details.eventName}</div>
+                      </div>
+                    )}
+                    {details.company && (
+                      <div>
+                        <div className="font-semibold" style={{ color: INK }}>Company</div>
+                        <div className="mt-1">{details.company}</div>
+                      </div>
+                    )}
+                    {details.contactPerson && (
+                      <div>
+                        <div className="font-semibold" style={{ color: INK }}>Contact</div>
+                        <div className="mt-1">{details.contactPerson}</div>
+                      </div>
+                    )}
+                    {details.email && (
+                      <div>
+                        <div className="font-semibold" style={{ color: INK }}>Email</div>
+                        <div className="mt-1">{details.email}</div>
+                      </div>
+                    )}
+                    {details.phone && (
+                      <div>
+                        <div className="font-semibold" style={{ color: INK }}>Phone</div>
+                        <div className="mt-1">
+                          {details.countryCode ? `${details.countryCode} ` : ""}{details.phone}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </SectionRow>,
+              );
+            }
+
+            // Mark the last rendered row as isLast so the timeline terminates correctly.
+            return sections.map((node, i) => {
+              if (!React.isValidElement(node)) return node;
+              return React.cloneElement(node as React.ReactElement<SectionProps>, {
+                isLast: i === sections.length - 1,
+              });
+            });
+          })()}
         </div>
 
         {/* RIGHT — sidebar */}
@@ -3309,8 +3529,27 @@ function StepTwoLocation({
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [budget, setBudget] = useState<"economy" | "mid" | "premium" | "luxury" | null>(null);
+  const [preferredVenue, setPreferredVenue] = useState("");
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
+
+  // Commit location selection into shared draft.
+  useEffect(() => {
+    const country = COUNTRIES.find((c) => c.code === selectedCountry);
+    const dest = selectedDestination
+      ? DESTINATIONS_BY_COUNTRY[selectedCountry].find((d) => d.id === selectedDestination) ??
+        ALL_SEARCHABLE_DESTINATIONS.find((d) => d.id === selectedDestination)
+      : null;
+    setMeSection("location", {
+      countryCode: selectedCountry,
+      countryName: country?.name,
+      destinationId: selectedDestination ?? undefined,
+      destinationName: dest?.name,
+      isAnywhere: (dest as { anywhere?: boolean } | undefined)?.anywhere ?? false,
+      preferredVenue: preferredVenue.trim() || undefined,
+      budget: budget,
+    });
+  }, [selectedCountry, selectedDestination, budget, preferredVenue]);
 
   const searchRef = useRef<HTMLDivElement>(null);
 
@@ -3698,6 +3937,8 @@ function StepTwoLocation({
             <input
               id="preferred-venue"
               type="text"
+              value={preferredVenue}
+              onChange={(e) => setPreferredVenue(e.target.value)}
               placeholder="Specific hotel, venue or any special request…"
               className="w-full bg-transparent text-[14px] outline-none border-none mt-0.5 placeholder:text-[#6B778C]"
               style={{ color: "#0F1B2D" }}
@@ -4052,6 +4293,27 @@ function StepThreeAccommodation({
   const totalRooms = stays.reduce((n, s) => n + roomsTotal(s.rooms), 0);
   const totalGuests = stays.reduce((n, s) => n + guestsCapacity(s.rooms), 0);
   const primaryMeal = stays[0]?.mealPlan ?? mealPlan;
+
+  // Commit accommodation into shared draft.
+  useEffect(() => {
+    setMeSection(
+      "accommodationStays",
+      stays.map<MeAccommodationStay>((s) => ({
+        id: s.id,
+        checkIn: s.checkIn,
+        checkOut: s.checkOut,
+        rooms: s.rooms,
+        mealPlan: s.mealPlan,
+      })),
+    );
+  }, [stays]);
+
+  useEffect(() => {
+    setMeSection("accommodationExtras", {
+      special: special.trim() || undefined,
+      roomCategory,
+    });
+  }, [special, roomCategory]);
 
   const clearDraft = () => {
     setCheckIn("");
@@ -5619,6 +5881,29 @@ function StepFourCatering({
       /* non-fatal */
     }
   }, [selected, servings, dietary, dietaryOther, drinks, notes]);
+
+  // Commit catering into shared draft.
+  useEffect(() => {
+    setMeSection(
+      "catering",
+      servings.map((s) => {
+        const def = CATERING_DEFS.find((d) => d.id === s.catering);
+        return {
+          servingId: s.id,
+          cateringId: s.catering,
+          label: def?.label ?? s.catering,
+          time: s.time,
+          location: s.location,
+          locationOther: s.locationOther,
+          variant: s.variant,
+        };
+      }),
+    );
+  }, [servings]);
+
+  useEffect(() => {
+    setMeSection("cateringExtras", { dietary, dietaryOther, drinks, notes });
+  }, [dietary, dietaryOther, drinks, notes]);
 
   const locationOptions = useMemo(
     () => [...effectiveRooms.map((r) => r.name), ...HOTEL_LOCATIONS],
