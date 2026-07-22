@@ -2532,9 +2532,9 @@ function StepSevenReview({
         maxWidth: "none",
         minHeight: "100%",
         backgroundImage: `url(${step7HeroBg.url})`,
-        backgroundRepeat: "no-repeat",
+        backgroundRepeat: "repeat-y",
         backgroundPosition: "top center",
-        backgroundSize: "cover",
+        backgroundSize: "100% auto",
       }}
     >
 
