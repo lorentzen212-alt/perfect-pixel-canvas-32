@@ -2529,21 +2529,21 @@ function StepSevenReview({
   return (
     <div
       className="-mx-5 sm:-mx-8 lg:-mx-[50px] xl:-mx-[60px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pb-16"
-      style={{ backgroundColor: "#061B2E" }}
+      style={{
+        backgroundColor: "#061B2E",
+        backgroundImage: `url(${step7HeroBg.url})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "top center",
+        backgroundSize: "100% auto",
+        backgroundAttachment: "scroll",
+      }}
     >
       <div>
-        {/* INTRO — notebook background lives here only, fades into the solid navy below. */}
+        {/* INTRO — background lives on the outer wrapper; this stays transparent. */}
         <div
           className="-mx-5 sm:-mx-8 lg:-mx-[50px] xl:-mx-[60px] px-5 sm:px-8 lg:px-[50px] xl:px-[60px] pt-[55px]"
-          style={{
-            backgroundImage: `url(${step7HeroBg.url})`,
-            backgroundPosition: "top center",
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "scroll",
-            backgroundColor: "#061B2E",
-          }}
         >
+
 
           <div className="max-w-[720px]" style={{ paddingBottom: "40px" }}>
             <h1
