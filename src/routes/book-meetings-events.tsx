@@ -3328,8 +3328,27 @@ function StepTwoLocation({
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [budget, setBudget] = useState<"economy" | "mid" | "premium" | "luxury" | null>(null);
+  const [preferredVenue, setPreferredVenue] = useState("");
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
+
+  // Commit location selection into shared draft.
+  useEffect(() => {
+    const country = COUNTRIES.find((c) => c.code === selectedCountry);
+    const dest = selectedDestination
+      ? DESTINATIONS_BY_COUNTRY[selectedCountry].find((d) => d.id === selectedDestination) ??
+        ALL_SEARCHABLE_DESTINATIONS.find((d) => d.id === selectedDestination)
+      : null;
+    setMeSection("location", {
+      countryCode: selectedCountry,
+      countryName: country?.name,
+      destinationId: selectedDestination ?? undefined,
+      destinationName: dest?.name,
+      isAnywhere: (dest as { anywhere?: boolean } | undefined)?.anywhere ?? false,
+      preferredVenue: preferredVenue.trim() || undefined,
+      budget: budget,
+    });
+  }, [selectedCountry, selectedDestination, budget, preferredVenue]);
 
   const searchRef = useRef<HTMLDivElement>(null);
 
