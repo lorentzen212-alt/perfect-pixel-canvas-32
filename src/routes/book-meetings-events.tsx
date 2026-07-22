@@ -3058,9 +3058,11 @@ function StepSevenReview({
         </div>
         <span aria-hidden />
       </div>
+      </div>
     </div>
   );
 }
+
 
 
 /* --------- Placeholder for later steps --------- */
