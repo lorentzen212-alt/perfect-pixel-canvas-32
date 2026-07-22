@@ -2812,7 +2812,8 @@ function StepSevenReview({
                   key="details"
                   step={6}
                   icon={<ClipboardCheck size={22} strokeWidth={1.8} />}
-                  label={"Additional\u00A0Information"}
+                  label="Additional Information"
+                  labelStyle={{ letterSpacing: "0.14em" }}
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-[13.5px] text-[#334155]">
                     {details.eventName && (
