@@ -2541,7 +2541,7 @@ function StepSevenReview({
           backgroundImage: `url(${step7HeroBg.url})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          backgroundPosition: "55% top",
+          backgroundPosition: "54% -55px",
         }}
       />
       {/* Fade into solid navy at bottom of artwork */}
