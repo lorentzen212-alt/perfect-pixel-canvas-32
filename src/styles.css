@@ -191,8 +191,8 @@
 }
 
 @keyframes luxury-twinkle {
-  0%, 100% { opacity: 0.12; transform: scale(0.85); }
-  50% { opacity: 0.65; transform: scale(1.08); }
+  0%, 100% { opacity: 0.18; transform: scale(0.85); }
+  50% { opacity: 0.75; transform: scale(1.08); }
 }
 
 @media (prefers-reduced-motion: reduce) {
