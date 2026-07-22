@@ -282,91 +282,106 @@ function BookMeetingsEvents() {
   // Two subtle surface textures — very fine grain (fine paper) + a broader mottling (polished
   // plaster / limestone). Both blend as soft-light so they never read as pattern.
   const paperGrain =
-    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.36  0 0 0 0 0.30  0 0 0 0 0.22  0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.34  0 0 0 0 0.28  0 0 0 0 0.20  0 0 0 0.09 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")";
   const plasterTexture =
-    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='620' height='620'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.30  0 0 0 0 0.26  0 0 0 0 0.20  0 0 0 0.10 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>\")";
+    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='820' height='820'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.009' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.28  0 0 0 0 0.23  0 0 0 0 0.17  0 0 0 0.16 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>\")";
 
   return (
     <main
       className="relative min-h-screen w-full"
       style={{
-        backgroundColor: "#F5F3EF",
+        backgroundColor: "#EDE7DC",
         backgroundImage: step === 7 ? undefined : (() => {
-          // Warm stone (#F5F3EF) core easing into cool grey (#EEE9E2) at the edges.
-          // Each step: a different direction of natural light moving across a hotel wall.
-          const variants: Record<number, { layers: string[]; base: string }> = {
-            // Step 1 — soft morning light entering from the upper-left, cool shadow lower-right.
+          // Atmospheric five-star hotel lighting.
+          // Each step: a distinct direction of daylight raking across a warm stone wall.
+          // Center stays lighter (~#F4F1EA) while edges deepen into taupe (~#D9D1C1 / #C9C0AE).
+          type V = {
+            sweep: string;
+            warm: string;
+            shadow: string;
+            accent: string;
+            vignette: string;
+            base: string;
+          };
+          const variants: Record<number, V> = {
+            // Step 1 — daylight raking from the upper-left, deep taupe shadow bottom-right.
             1: {
-              layers: [
-                "radial-gradient(1500px 780px at 6% -6%, rgba(255,251,240,0.72) 0%, rgba(255,251,240,0) 58%)",
-                "radial-gradient(1100px 700px at 96% 104%, rgba(198,190,178,0.28) 0%, rgba(198,190,178,0) 62%)",
-                "radial-gradient(900px 620px at 88% 22%, rgba(226,206,168,0.14) 0%, rgba(226,206,168,0) 66%)",
-              ],
-              base: "linear-gradient(172deg, #F7F4EE 0%, #F2EFE8 55%, #ECE7DF 100%)",
+              sweep: "linear-gradient(118deg, rgba(255,251,238,0.55) 0%, rgba(255,251,238,0.14) 30%, rgba(255,251,238,0) 55%)",
+              warm: "radial-gradient(1200px 720px at 18% 8%, rgba(240,214,168,0.30) 0%, rgba(240,214,168,0) 60%)",
+              shadow: "radial-gradient(1400px 900px at 100% 100%, rgba(120,108,88,0.34) 0%, rgba(150,138,116,0.18) 35%, rgba(150,138,116,0) 65%)",
+              accent: "radial-gradient(600px 520px at 92% 30%, rgba(226,204,164,0.16) 0%, rgba(226,204,164,0) 65%)",
+              vignette: "radial-gradient(1500px 1050px at 50% 46%, rgba(244,241,234,0) 45%, rgba(110,98,78,0.22) 100%)",
+              base: "linear-gradient(160deg, #F4F1EA 0%, #ECE5D8 55%, #DDD3BF 100%)",
             },
-            // Step 2 — light overhead, a slight amber pool low-left as if from a lamp.
+            // Step 2 — high overhead skylight, warm lamp pool low-left, cool shadow upper-right.
             2: {
-              layers: [
-                "radial-gradient(1600px 620px at 50% -10%, rgba(255,250,238,0.58) 0%, rgba(255,250,238,0) 60%)",
-                "radial-gradient(900px 620px at 4% 92%, rgba(224,198,156,0.20) 0%, rgba(224,198,156,0) 62%)",
-                "radial-gradient(1000px 720px at 100% 40%, rgba(196,190,180,0.22) 0%, rgba(196,190,180,0) 64%)",
-              ],
-              base: "linear-gradient(184deg, #F6F3ED 0%, #F1EDE6 55%, #EBE6DD 100%)",
+              sweep: "linear-gradient(180deg, rgba(255,250,238,0.45) 0%, rgba(255,250,238,0.10) 22%, rgba(255,250,238,0) 45%)",
+              warm: "radial-gradient(900px 700px at 6% 96%, rgba(232,196,140,0.32) 0%, rgba(232,196,140,0) 60%)",
+              shadow: "radial-gradient(1200px 820px at 100% 4%, rgba(126,116,96,0.30) 0%, rgba(146,134,112,0) 60%)",
+              accent: "radial-gradient(700px 600px at 88% 78%, rgba(200,188,166,0.22) 0%, rgba(200,188,166,0) 62%)",
+              vignette: "radial-gradient(1500px 1050px at 48% 44%, rgba(244,241,234,0) 46%, rgba(104,92,72,0.24) 100%)",
+              base: "linear-gradient(190deg, #F5F2EB 0%, #EBE5D8 55%, #DBD1BC 100%)",
             },
-            // Step 3 — quiet salon: light diffused from both sides, calmest of the six.
+            // Step 3 — quiet salon: soft light from both sides, deep taupe pooled at bottom.
             3: {
-              layers: [
-                "radial-gradient(720px 720px at -4% 44%, rgba(255,250,236,0.42) 0%, rgba(255,250,236,0) 66%)",
-                "radial-gradient(720px 720px at 104% 56%, rgba(255,250,236,0.38) 0%, rgba(255,250,236,0) 66%)",
-                "radial-gradient(1400px 720px at 50% 108%, rgba(200,192,178,0.20) 0%, rgba(200,192,178,0) 60%)",
-              ],
-              base: "linear-gradient(180deg, #F6F4EF 0%, #F1EEE7 58%, #EBE7DE 100%)",
+              sweep: "linear-gradient(96deg, rgba(255,250,236,0.34) 0%, rgba(255,250,236,0) 28%, rgba(255,250,236,0) 72%, rgba(255,250,236,0.34) 100%)",
+              warm: "radial-gradient(820px 620px at 50% 20%, rgba(238,214,170,0.22) 0%, rgba(238,214,170,0) 62%)",
+              shadow: "radial-gradient(1300px 700px at 50% 110%, rgba(120,110,90,0.36) 0%, rgba(150,138,116,0.14) 40%, rgba(150,138,116,0) 65%)",
+              accent: "radial-gradient(520px 520px at 6% 92%, rgba(190,180,160,0.24) 0%, rgba(190,180,160,0) 66%)",
+              vignette: "radial-gradient(1600px 1080px at 50% 48%, rgba(244,241,234,0) 48%, rgba(108,96,76,0.22) 100%)",
+              base: "linear-gradient(180deg, #F5F2EB 0%, #ECE6D9 56%, #DED4C0 100%)",
             },
-            // Step 4 — warmer champagne wash across the top-right, deeper stone below.
+            // Step 4 — warm champagne wash from the upper-right (afternoon sun through curtains).
             4: {
-              layers: [
-                "radial-gradient(1200px 720px at 100% -4%, rgba(238,214,170,0.26) 0%, rgba(238,214,170,0) 62%)",
-                "radial-gradient(900px 620px at 6% 30%, rgba(255,250,238,0.42) 0%, rgba(255,250,238,0) 60%)",
-                "radial-gradient(1400px 680px at 50% 112%, rgba(190,180,164,0.28) 0%, rgba(190,180,164,0) 62%)",
-              ],
-              base: "linear-gradient(182deg, #F6F2EA 0%, #F0EBE1 55%, #E9E3D7 100%)",
+              sweep: "linear-gradient(232deg, rgba(255,244,220,0.50) 0%, rgba(255,244,220,0.12) 32%, rgba(255,244,220,0) 58%)",
+              warm: "radial-gradient(1100px 780px at 96% 6%, rgba(232,198,140,0.36) 0%, rgba(232,198,140,0) 60%)",
+              shadow: "radial-gradient(1200px 820px at 0% 100%, rgba(112,100,80,0.34) 0%, rgba(146,132,108,0) 62%)",
+              accent: "radial-gradient(600px 520px at 24% 34%, rgba(255,246,222,0.24) 0%, rgba(255,246,222,0) 66%)",
+              vignette: "radial-gradient(1500px 1050px at 52% 46%, rgba(244,240,232,0) 44%, rgba(102,88,66,0.24) 100%)",
+              base: "linear-gradient(196deg, #F4F0E7 0%, #EBE3D3 55%, #DACFB6 100%)",
             },
-            // Step 5 — cool bright reading room, light from a high window on the right.
+            // Step 5 — bright reading room, tall window right, cool stone shoulders left.
             5: {
-              layers: [
-                "radial-gradient(1200px 680px at 94% -8%, rgba(255,252,242,0.62) 0%, rgba(255,252,242,0) 60%)",
-                "radial-gradient(1000px 620px at 6% 100%, rgba(196,192,182,0.22) 0%, rgba(196,192,182,0) 62%)",
-                "radial-gradient(760px 760px at 40% 48%, rgba(255,251,240,0.24) 0%, rgba(255,251,240,0) 70%)",
-              ],
-              base: "linear-gradient(178deg, #F6F4EF 0%, #F1EEE7 58%, #ECE8E0 100%)",
+              sweep: "linear-gradient(258deg, rgba(255,252,242,0.58) 0%, rgba(255,252,242,0.14) 30%, rgba(255,252,242,0) 55%)",
+              warm: "radial-gradient(900px 720px at 92% 40%, rgba(238,218,178,0.24) 0%, rgba(238,218,178,0) 62%)",
+              shadow: "radial-gradient(1200px 900px at 0% 60%, rgba(118,108,90,0.32) 0%, rgba(146,134,114,0) 62%)",
+              accent: "radial-gradient(700px 600px at 46% 96%, rgba(200,188,166,0.22) 0%, rgba(200,188,166,0) 62%)",
+              vignette: "radial-gradient(1600px 1050px at 52% 46%, rgba(244,241,234,0) 46%, rgba(104,94,74,0.22) 100%)",
+              base: "linear-gradient(200deg, #F5F2EB 0%, #ECE6D8 55%, #DDD3BE 100%)",
             },
-            // Step 6 — warmth pooling at the foot of the page, cool shoulders above.
+            // Step 6 — golden hour pooling low, cool ceiling shoulders above.
             6: {
-              layers: [
-                "radial-gradient(1300px 560px at 50% -12%, rgba(238,232,220,0.55) 0%, rgba(238,232,220,0) 58%)",
-                "radial-gradient(1400px 780px at 50% 116%, rgba(220,198,158,0.22) 0%, rgba(220,198,158,0) 60%)",
-                "radial-gradient(760px 620px at 2% 40%, rgba(200,194,184,0.22) 0%, rgba(200,194,184,0) 66%)",
-              ],
-              base: "linear-gradient(184deg, #F5F2EC 0%, #EFEBE3 56%, #E9E4DA 100%)",
+              sweep: "linear-gradient(6deg, rgba(255,242,214,0.44) 0%, rgba(255,242,214,0.10) 28%, rgba(255,242,214,0) 55%)",
+              warm: "radial-gradient(1300px 620px at 50% 108%, rgba(230,194,138,0.34) 0%, rgba(230,194,138,0) 60%)",
+              shadow: "radial-gradient(1400px 620px at 50% -8%, rgba(118,108,90,0.28) 0%, rgba(146,136,116,0) 60%)",
+              accent: "radial-gradient(680px 560px at 8% 46%, rgba(200,190,170,0.22) 0%, rgba(200,190,170,0) 66%)",
+              vignette: "radial-gradient(1600px 1050px at 50% 48%, rgba(244,240,232,0) 46%, rgba(102,90,70,0.24) 100%)",
+              base: "linear-gradient(190deg, #F4F0E7 0%, #EBE4D5 55%, #DBD0B9 100%)",
             },
           };
           const v = variants[step] ?? variants[1];
-          // Architectural vignette — corners cool a touch toward #EEE9E2 without darkening the center.
-          const vignette =
-            "radial-gradient(1600px 1050px at 50% 44%, rgba(245,243,239,0) 52%, rgba(120,110,92,0.10) 100%)";
-          return [paperGrain, plasterTexture, ...v.layers, vignette, v.base].join(", ");
+          return [
+            paperGrain,
+            plasterTexture,
+            v.sweep,
+            v.warm,
+            v.shadow,
+            v.accent,
+            v.vignette,
+            v.base,
+          ].join(", ");
         })(),
         backgroundBlendMode:
           step === 7
             ? undefined
-            : "soft-light, soft-light, normal, normal, normal, normal, normal",
+            : "soft-light, soft-light, normal, normal, multiply, normal, normal, normal",
         backgroundSize:
           step === 7
             ? undefined
-            : "260px 260px, 620px 620px, auto, auto, auto, auto, auto",
+            : "300px 300px, 820px 820px, auto, auto, auto, auto, auto, auto",
         backgroundAttachment: "fixed",
         backgroundRepeat:
-          "repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
+          "repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
       }}
     >
       {/* HERO */}
