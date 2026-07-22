@@ -642,12 +642,12 @@ function BookMeetingsEvents() {
             <div
               className="overflow-hidden rounded-[20px]"
               style={{
-                backgroundColor: "#FCFCFC",
+                backgroundColor: "#FAF7F1",
                 backgroundImage:
                   "linear-gradient(180deg, #FBF9F4 0%, #F9F6F0 55%, #F6F2EA 100%)",
                 boxShadow:
-                  "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
-                border: "1px solid #ECECEC",
+                  "0 60px 120px -60px rgba(90,72,44,0.18), 0 24px 60px -30px rgba(90,72,44,0.10), 0 2px 6px -3px rgba(90,72,44,0.05), inset 0 1px 0 rgba(255,250,238,0.6)",
+                border: "1px solid #EDE6DA",
               }}
             >
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(392px,420px)]">
@@ -669,16 +669,16 @@ function BookMeetingsEvents() {
                   className="p-8 lg:p-10 lg:pl-8"
                   style={{
                     backgroundColor: "transparent",
-                    borderLeft: "1px solid #F1F1EE",
+                    borderLeft: "1px solid #EDE6DA",
                   }}
                 >
                   <div
                     className="rounded-[16px] p-6 w-full lg:w-[320px] lg:min-w-[320px]"
                     style={{
                       backgroundColor: "#FAF7F1",
-                      border: "1px solid #EFEFEC",
+                      border: "1px solid #ECE4D5",
                       boxShadow:
-                        "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+                        "0 28px 60px -40px rgba(90,72,44,0.14), 0 6px 18px -12px rgba(90,72,44,0.06), inset 0 1px 0 rgba(255,250,238,0.5)",
                     }}
                   >
                     <HelpCard />
@@ -713,12 +713,12 @@ function BookMeetingsEvents() {
           <div
             className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start md:items-center px-8 md:px-12 py-8 md:py-10 rounded-[20px]"
             style={{
-              backgroundColor: "#FCFCFC",
+              backgroundColor: "#FAF7F1",
               backgroundImage:
                 "linear-gradient(180deg, #FBF9F4 0%, #F7F3EC 100%)",
-              border: "1px solid #EFEFEC",
+              border: "1px solid #ECE4D5",
               boxShadow:
-                "0 20px 50px -30px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.03)",
+                "0 40px 90px -50px rgba(90,72,44,0.14), 0 10px 28px -18px rgba(90,72,44,0.07), inset 0 1px 0 rgba(255,250,238,0.55)",
             }}
           >
             <div className="flex items-start gap-4">
@@ -2226,10 +2226,10 @@ function StepFiveExtras({
         <div
           className="overflow-hidden rounded-[20px] p-6 sm:p-8 lg:p-10"
           style={{
-            backgroundColor: "#FCFCFC",
+            backgroundColor: "#FAF7F1",
             backgroundImage: "linear-gradient(180deg, #FBF9F4 0%, #F9F6F0 55%, #F6F2EA 100%)",
-            boxShadow: "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
-            border: "1px solid #ECECEC",
+            boxShadow: "0 60px 120px -60px rgba(90,72,44,0.18), 0 24px 60px -30px rgba(90,72,44,0.10), 0 2px 6px -3px rgba(90,72,44,0.05), inset 0 1px 0 rgba(255,250,238,0.6)",
+            border: "1px solid #EDE6DA",
           }}
         >
           <button
@@ -2324,8 +2324,8 @@ function StepFiveExtras({
             className="rounded-[16px] p-6"
             style={{
               backgroundColor: "#FAF7F1",
-              border: "1px solid #EFEFEC",
-              boxShadow: "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+              border: "1px solid #ECE4D5",
+              boxShadow: "0 28px 60px -40px rgba(90,72,44,0.14), 0 6px 18px -12px rgba(90,72,44,0.06), inset 0 1px 0 rgba(255,250,238,0.5)",
             }}
           >
             <HelpCard />
@@ -2335,8 +2335,8 @@ function StepFiveExtras({
             className="rounded-[16px] p-6"
             style={{
               backgroundColor: "#FAF7F1",
-              border: "1px solid #EFEFEC",
-              boxShadow: "0 12px 30px -20px rgba(10,27,44,0.10), 0 2px 6px -2px rgba(10,27,44,0.04)",
+              border: "1px solid #ECE4D5",
+              boxShadow: "0 28px 60px -40px rgba(90,72,44,0.14), 0 6px 18px -12px rgba(90,72,44,0.06), inset 0 1px 0 rgba(255,250,238,0.5)",
             }}
           >
             <h3 className="text-[#0A1B2C] text-[22px] leading-tight" style={{ fontFamily: SERIF }}>
@@ -3900,7 +3900,7 @@ function StepTwoLocation({
           background: "#FCFBF8",
           border: "1px solid #ECE6D6",
           boxShadow:
-            "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
+            "0 60px 120px -60px rgba(90,72,44,0.18), 0 24px 60px -30px rgba(90,72,44,0.10), 0 2px 6px -3px rgba(90,72,44,0.05), inset 0 1px 0 rgba(255,250,238,0.6)",
         }}
       >
         {/* Title */}
@@ -6307,12 +6307,12 @@ function StepFourCatering({
         <div
           className="overflow-hidden rounded-[20px] p-6 sm:p-8 lg:p-10"
           style={{
-            backgroundColor: "#FCFCFC",
+            backgroundColor: "#FAF7F1",
             backgroundImage:
               "linear-gradient(180deg, #FBF9F4 0%, #F9F6F0 55%, #F6F2EA 100%)",
             boxShadow:
-              "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08), 0 2px 4px -2px rgba(10,27,44,0.04)",
-            border: "1px solid #ECECEC",
+              "0 60px 120px -60px rgba(90,72,44,0.18), 0 24px 60px -30px rgba(90,72,44,0.10), 0 2px 6px -3px rgba(90,72,44,0.05), inset 0 1px 0 rgba(255,250,238,0.6)",
+            border: "1px solid #EDE6DA",
           }}
         >
           {/* Header row */}
