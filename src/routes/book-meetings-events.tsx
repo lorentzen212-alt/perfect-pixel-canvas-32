@@ -2123,40 +2123,91 @@ function StepFiveExtras({
     <div
       className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen overflow-hidden ${direction === "forward" ? "animate-slide-in-right" : "animate-slide-in-left"}`}
       style={{
-        backgroundColor: "#F8F6F2",
+        backgroundColor: "#F5F1E9",
         backgroundImage: [
-          "radial-gradient(ellipse 60% 55% at 50% 42%, rgba(214,178,110,0.07) 0%, rgba(214,178,110,0.03) 45%, rgba(214,178,110,0) 75%)",
-          "radial-gradient(ellipse 80% 40% at 50% 0%, rgba(255,250,240,0.9) 0%, rgba(255,250,240,0) 70%)",
-          "radial-gradient(ellipse 50% 45% at 10% 100%, rgba(240,228,208,0.35) 0%, rgba(240,228,208,0) 70%)",
-          "radial-gradient(ellipse 50% 45% at 100% 90%, rgba(232,220,200,0.3) 0%, rgba(232,220,200,0) 70%)",
-          "linear-gradient(180deg, #FAF8F3 0%, #F8F6F2 50%, #F4F1EA 100%)",
+          // Central champagne aura behind the content
+          "radial-gradient(ellipse 70% 55% at 50% 40%, rgba(220,184,118,0.10) 0%, rgba(220,184,118,0.04) 45%, rgba(220,184,118,0) 78%)",
+          // Warm top wash for a seamless blend out of the navy hero
+          "radial-gradient(ellipse 120% 24% at 50% 0%, rgba(255,248,232,0.95) 0%, rgba(250,242,224,0.55) 45%, rgba(248,240,220,0) 100%)",
+          // Corner ambient lighting — like distant lamps
+          "radial-gradient(circle 620px at 6% 12%, rgba(232,206,148,0.16) 0%, rgba(232,206,148,0) 70%)",
+          "radial-gradient(circle 720px at 96% 18%, rgba(224,196,138,0.13) 0%, rgba(224,196,138,0) 72%)",
+          "radial-gradient(circle 560px at 12% 96%, rgba(210,182,124,0.11) 0%, rgba(210,182,124,0) 72%)",
+          "radial-gradient(circle 640px at 92% 92%, rgba(216,188,130,0.10) 0%, rgba(216,188,130,0) 74%)",
+          // Base vertical warm-cream gradient
+          "linear-gradient(180deg, #FBF6EC 0%, #F7F2E6 42%, #F3EDDE 100%)",
         ].join(","),
       }}
     >
+      {/* Seamless hero → content blend: subtle navy shadow spill fading into cream */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[220px]"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(10,27,44,0.10) 0%, rgba(10,27,44,0.045) 22%, rgba(10,27,44,0) 62%), linear-gradient(180deg, rgba(232,206,148,0.14) 0%, rgba(232,206,148,0) 90%)",
+        }}
+      />
+      {/* Hairline gold rule marking the hero seam */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(198,158,86,0) 0%, rgba(198,158,86,0.35) 20%, rgba(198,158,86,0.55) 50%, rgba(198,158,86,0.35) 80%, rgba(198,158,86,0) 100%)",
+        }}
+      />
+
+      {/* Fine paper-grain texture — SVG fractal noise for tactile depth */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          opacity: 0.35,
+          mixBlendMode: "multiply",
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.72  0 0 0 0 0.58  0 0 0 0 0.32  0 0 0 0.055 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
+          backgroundSize: "320px 320px",
+        }}
+      />
+
+      {/* Soft vignette to guide the eye toward the content */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 95% 80% at 50% 50%, rgba(0,0,0,0) 55%, rgba(120,90,40,0.06) 85%, rgba(90,68,32,0.10) 100%)",
+        }}
+      />
+
+      {/* Edge gold-dust haze */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background: [
-            "radial-gradient(ellipse 45% 6% at 50% 0%, rgba(198,158,86,0.06) 0%, rgba(198,158,86,0) 75%)",
-            "radial-gradient(ellipse 45% 6% at 50% 100%, rgba(198,158,86,0.05) 0%, rgba(198,158,86,0) 75%)",
-            "radial-gradient(ellipse 6% 40% at 0% 50%, rgba(198,158,86,0.045) 0%, rgba(198,158,86,0) 75%)",
-            "radial-gradient(ellipse 6% 40% at 100% 50%, rgba(198,158,86,0.06) 0%, rgba(198,158,86,0) 75%)",
+            "radial-gradient(ellipse 55% 5% at 50% 0%, rgba(198,158,86,0.07) 0%, rgba(198,158,86,0) 80%)",
+            "radial-gradient(ellipse 55% 5% at 50% 100%, rgba(198,158,86,0.06) 0%, rgba(198,158,86,0) 80%)",
+            "radial-gradient(ellipse 5% 45% at 0% 50%, rgba(198,158,86,0.05) 0%, rgba(198,158,86,0) 80%)",
+            "radial-gradient(ellipse 5% 45% at 100% 50%, rgba(198,158,86,0.06) 0%, rgba(198,158,86,0) 80%)",
           ].join(","),
         }}
       />
+
+      {/* Floating champagne motes — sparse, off-content */}
       {[
-        { top: "8%",  left: "6%",  s: 2,   b: 0.09, d: "0s"   },
-        { top: "14%", left: "92%", s: 1.5, b: 0.08, d: "2.1s" },
-        { top: "28%", left: "4%",  s: 1.5, b: 0.07, d: "3.4s" },
-        { top: "36%", left: "96%", s: 2,   b: 0.09, d: "1.2s" },
-        { top: "52%", left: "3%",  s: 1.5, b: 0.06, d: "4.6s" },
-        { top: "60%", left: "95%", s: 2,   b: 0.08, d: "2.8s" },
-        { top: "74%", left: "7%",  s: 1.5, b: 0.07, d: "0.6s" },
-        { top: "82%", left: "93%", s: 2,   b: 0.09, d: "3.9s" },
-        { top: "92%", left: "22%", s: 1.5, b: 0.07, d: "1.8s" },
-        { top: "94%", left: "72%", s: 1.5, b: 0.08, d: "4.2s" },
-        { top: "4%",  left: "48%", s: 1.5, b: 0.06, d: "2.4s" },
+        { top: "10%", left: "5%",  s: 2,   b: 0.10, d: "0s"   },
+        { top: "16%", left: "94%", s: 1.5, b: 0.09, d: "2.1s" },
+        { top: "30%", left: "3%",  s: 1.5, b: 0.08, d: "3.4s" },
+        { top: "38%", left: "97%", s: 2,   b: 0.10, d: "1.2s" },
+        { top: "54%", left: "2.5%",s: 1.5, b: 0.07, d: "4.6s" },
+        { top: "62%", left: "96%", s: 2,   b: 0.09, d: "2.8s" },
+        { top: "76%", left: "6%",  s: 1.5, b: 0.08, d: "0.6s" },
+        { top: "84%", left: "94%", s: 2,   b: 0.10, d: "3.9s" },
+        { top: "93%", left: "24%", s: 1.5, b: 0.08, d: "1.8s" },
+        { top: "95%", left: "74%", s: 1.5, b: 0.09, d: "4.2s" },
+        { top: "5%",  left: "48%", s: 1.5, b: 0.07, d: "2.4s" },
       ].map((p, i) => (
         <span
           key={`x5-${i}`}
@@ -2167,8 +2218,8 @@ function StepFiveExtras({
             left: p.left,
             width: p.s,
             height: p.s,
-            backgroundColor: `rgba(180,140,72,${p.b})`,
-            boxShadow: `0 0 ${5 + p.s}px rgba(198,158,86,${p.b * 0.7})`,
+            backgroundColor: `rgba(184,142,74,${p.b})`,
+            boxShadow: `0 0 ${6 + p.s}px rgba(210,172,108,${p.b * 0.75})`,
             animation: `luxury-twinkle ${7 + (i % 3)}s ease-in-out ${p.d} infinite`,
           }}
         />
