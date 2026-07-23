@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "99af96fa-c727-4c0f-b697-e402ca19d17b",
+  "asset_id": "b96267c6-a9bb-453d-90b1-06e3c3e275bc",
   "project_id": "fb9669d6-b884-43e2-92bd-ec0fc9f2bf9c",
-  "url": "/__l5e/assets-v1/99af96fa-c727-4c0f-b697-e402ca19d17b/hero-lobby.jpg",
-  "r2_key": "a/v1/fb9669d6-b884-43e2-92bd-ec0fc9f2bf9c/99af96fa-c727-4c0f-b697-e402ca19d17b/hero-lobby.jpg",
+  "url": "/__l5e/assets-v1/b96267c6-a9bb-453d-90b1-06e3c3e275bc/hero-lobby.jpg",
+  "r2_key": "a/v1/fb9669d6-b884-43e2-92bd-ec0fc9f2bf9c/b96267c6-a9bb-453d-90b1-06e3c3e275bc/hero-lobby.jpg",
   "original_filename": "hero-lobby.jpg",
-  "size": 127299,
-  "content_type": "image/jpeg",
-  "created_at": "2026-07-23T01:29:57Z"
+  "size": 1577683,
+  "content_type": "image/png",
+  "created_at": "2026-07-23T01:40:44Z"
 }

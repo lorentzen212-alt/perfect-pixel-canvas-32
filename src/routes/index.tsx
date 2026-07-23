@@ -93,21 +93,18 @@ function Home() {
   return (
     <>
     <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
-      {/* Blurred luxury environment */}
+      {/* Hero background image */}
       <div
         aria-hidden
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: `url(${heroLobbyAsset.url})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "blur(42px) saturate(0.85) brightness(0.55)",
-          transform: "scale(1.15)",
+          backgroundPosition: "center center",
+          backgroundRepeat: "no-repeat",
         }}
       />
-      {/* Vignette + darkening */}
-      <div aria-hidden className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgba(10,11,13,0.35)_0%,rgba(6,7,9,0.85)_75%,rgba(4,5,7,0.96)_100%)]" />
-      <div aria-hidden className="absolute inset-0 z-[1] bg-gradient-to-b from-black/50 via-transparent to-black/70" />
+
 
       <div className="relative z-20 w-full">
         {/* HEADER */}
