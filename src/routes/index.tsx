@@ -278,57 +278,56 @@ function ExperienceCard({
   icon: React.ReactNode;
   centerAccent?: boolean;
 }) {
-  // Center (M&E) card gets ~20% stronger ambient light
-  const k = centerAccent ? 1.2 : 1;
-  const s = (v: number) => Math.min(1, v * k).toFixed(3);
-  // Polished-stone champagne-white tone (#F6F1E7)
-  const restShadow = `0 1px 0 rgba(246,241,231,${s(0.04)}), 0 0 4px rgba(246,241,231,${s(0.025)}), 18px 0 24px -22px rgba(246,241,231,${s(0.035)}), -18px 0 24px -22px rgba(246,241,231,${s(0.035)}), 0 14px 22px -10px rgba(0,0,0,0.45)`;
-  const hoverShadow = `0 1px 0 rgba(246,241,231,${s(0.05)}), 0 0 5px rgba(246,241,231,${s(0.035)}), 20px 0 26px -22px rgba(246,241,231,${s(0.045)}), -20px 0 26px -22px rgba(246,241,231,${s(0.045)}), 0 16px 26px -10px rgba(0,0,0,0.48)`;
+  // Centre (M&E) card is only 8–10% brighter than the side cards
+  const k = centerAccent ? 1.09 : 1;
+  const a = (v: number) => Math.min(1, v * k).toFixed(3);
+
+  const ambientGradient = `radial-gradient(
+    ellipse at center,
+    rgba(247, 241, 228, ${a(0.11)}) 0%,
+    rgba(244, 232, 207, ${a(0.065)}) 32%,
+    rgba(220, 190, 135, ${a(0.025)}) 56%,
+    transparent 76%
+  )`;
+
+  const restShadow = "0 10px 28px rgba(0,0,0,0.32), 0 2px 6px rgba(0,0,0,0.18)";
+  const hoverShadow = "0 14px 34px rgba(0,0,0,0.38), 0 4px 10px rgba(0,0,0,0.20)";
+
   return (
     <div className="relative">
-      {/* Extremely subtle ambient halo — reduced ~80% from previous version */}
+      {/* Atmospheric architectural light in the background behind the card */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -inset-[10px] z-[-1] rounded-[24px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[-2]"
         style={{
-          background: `radial-gradient(ellipse at 50% 70%, rgba(246,241,231,${s(0.035)}) 0%, transparent 55%)`,
-          filter: "blur(14px)",
-          opacity: 0.45,
+          width: "420px",
+          height: "520px",
+          borderRadius: "50%",
+          background: ambientGradient,
+          filter: "blur(90px)",
+          opacity: 1,
         }}
       />
 
-      {/* Thin architectural reflection: polished stone directly beneath card */}
+      {/* Faint floor reflection directly beneath the card */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-[5%] w-[90%] z-[-1]"
+        className="pointer-events-none absolute left-1/2 -translate-x-1/2 z-[-1]"
         style={{
-          height: "14px",
+          width: "65%",
+          height: "12px",
           bottom: "-10px",
-          background: `radial-gradient(ellipse at 50% 0%, rgba(246,241,231,${s(0.42)}) 0%, rgba(246,241,231,${s(0.16)}) 32%, rgba(246,241,231,${s(0.04)}) 68%, transparent 100%)`,
-          filter: "blur(5px)",
-          opacity: 0.9,
+          background: `radial-gradient(ellipse at center, rgba(246,241,231,${a(0.26)}) 0%, rgba(246,241,231,${a(0.08)}) 45%, transparent 80%)`,
+          filter: "blur(6px)",
+          opacity: 0.85,
         }}
       />
-
-      {/* Tight floor glow pool — kept within ~15px of the card */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-[14%] w-[72%] z-[-2]"
-        style={{
-          height: "22px",
-          bottom: "-14px",
-          background: `radial-gradient(ellipse at center, rgba(246,241,231,${s(0.14)}) 0%, rgba(246,241,231,${s(0.05)}) 45%, transparent 80%)`,
-          filter: "blur(8px)",
-          opacity: 0.75,
-        }}
-      />
-
 
       <Link
         to={to}
         className="group relative block overflow-hidden rounded-[20px] bg-[#0E1013] transition-all duration-500 ease-out hover:-translate-y-[3px]"
         style={{
-          border: `1px solid rgba(214,169,92,${Math.min(1, 0.72 * k).toFixed(3)})`,
+          border: "1px solid rgba(214,169,92,0.72)",
           boxShadow: restShadow,
         }}
         onMouseEnter={(e) => {
@@ -338,8 +337,6 @@ function ExperienceCard({
           e.currentTarget.style.boxShadow = restShadow;
         }}
       >
-
-
         {/* Full-height background image */}
         <div className="relative aspect-[12/13] overflow-hidden">
           <img
