@@ -283,22 +283,57 @@ function ExperienceCard({
 
   return (
     <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
-      {/* Single horizontal white-champagne light pool beneath the card */}
+      {/* Wide soft warm floor haze */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-7px",
+          bottom: "-46px",
           transform: "translateX(-50%)",
-          width: "82%",
-          height: "14px",
+          width: "118%",
+          height: "90px",
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse at center, rgba(250, 246, 238, 0.48) 0%, rgba(244, 232, 207, 0.24) 38%, rgba(220, 190, 135, 0.08) 62%, transparent 80%)",
-          filter: "blur(7px)",
-          opacity: 0.85,
+            "radial-gradient(ellipse at center, rgba(245, 200, 130, 0.42) 0%, rgba(230, 175, 100, 0.22) 35%, rgba(200, 140, 70, 0.08) 60%, transparent 78%)",
+          filter: "blur(22px)",
+          opacity: centerAccent ? 1 : 0.9,
+          zIndex: 0,
+        }}
+      />
+      {/* Bright concealed champagne light bar under card edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{
+          left: "50%",
+          bottom: "-4px",
+          transform: "translateX(-50%)",
+          width: "90%",
+          height: "10px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(ellipse at center, rgba(255, 240, 205, 0.95) 0%, rgba(250, 215, 150, 0.75) 30%, rgba(230, 175, 100, 0.35) 60%, transparent 82%)",
+          filter: "blur(4px)",
+          opacity: centerAccent ? 1 : 0.95,
           zIndex: 1,
+        }}
+      />
+      {/* Thin bright core streak */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{
+          left: "50%",
+          bottom: "-1px",
+          transform: "translateX(-50%)",
+          width: "70%",
+          height: "2px",
+          borderRadius: "2px",
+          background:
+            "linear-gradient(to right, transparent 0%, rgba(255, 240, 205, 0.9) 20%, rgba(255, 245, 220, 1) 50%, rgba(255, 240, 205, 0.9) 80%, transparent 100%)",
+          filter: "blur(1px)",
+          zIndex: 2,
         }}
       />
 
