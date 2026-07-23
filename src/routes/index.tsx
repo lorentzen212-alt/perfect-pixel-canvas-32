@@ -278,61 +278,26 @@ function ExperienceCard({
   icon: React.ReactNode;
   centerAccent?: boolean;
 }) {
-  // Centre (M&E) card is only 8–10% brighter than the side cards
-  const k = centerAccent ? 1.09 : 1;
-  const a = (v: number) => Math.min(1, v * k).toFixed(3);
-
-  const ambientGradient = `radial-gradient(
-    ellipse at center,
-    rgba(247, 241, 228, ${a(0.16)}) 0%,
-    rgba(244, 232, 207, ${a(0.09)}) 34%,
-    rgba(222, 196, 151, ${a(0.035)}) 58%,
-    transparent 76%
-  )`;
-
-  const floorGradient = `radial-gradient(
-    ellipse at center,
-    rgba(248, 242, 230, ${a(0.34)}) 0%,
-    rgba(238, 220, 188, ${a(0.15)}) 44%,
-    transparent 76%
-  )`;
-
   const cardShadow =
-    "0 10px 30px rgba(0, 0, 0, 0.42), 0 0 8px rgba(224, 190, 126, 0.08)";
+    "0 12px 28px rgba(0, 0, 0, 0.42), 0 0 6px rgba(244, 232, 207, 0.06)";
 
   return (
     <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
-      {/* Broad soft ambient oval behind the card */}
+      {/* Single horizontal white-champagne light pool beneath the card */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          top: "52%",
-          transform: "translate(-50%, -50%)",
-          width: "118%",
-          height: "112%",
-          borderRadius: "50%",
-          background: ambientGradient,
-          filter: "blur(42px)",
-          opacity: 0.95,
-          zIndex: 0,
-        }}
-      />
-
-      {/* Low wide horizontal pool of light directly beneath the card */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute"
-        style={{
-          left: "50%",
-          bottom: "-10px",
+          bottom: "-7px",
           transform: "translateX(-50%)",
-          width: "72%",
-          height: "18px",
-          background: floorGradient,
-          filter: "blur(8px)",
-          opacity: 0.8,
+          width: "82%",
+          height: "14px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(ellipse at center, rgba(250, 246, 238, 0.48) 0%, rgba(244, 232, 207, 0.24) 38%, rgba(220, 190, 135, 0.08) 62%, transparent 80%)",
+          filter: "blur(7px)",
+          opacity: 0.85,
           zIndex: 1,
         }}
       />
@@ -341,8 +306,9 @@ function ExperienceCard({
         to={to}
         className="group relative block overflow-hidden rounded-[20px] bg-[#0E1013] transition-transform duration-500 ease-out hover:-translate-y-[3px]"
         style={{
+          position: "relative",
           zIndex: 2,
-          border: "1px solid rgba(224, 190, 126, 0.55)",
+          border: "1px solid rgba(224, 190, 126, 0.48)",
           boxShadow: cardShadow,
         }}
       >
