@@ -105,7 +105,7 @@ function Home() {
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
-            filter: "blur(115px) brightness(0.30) saturate(0.24) contrast(0.64)",
+            filter: "blur(115px) brightness(0.34) saturate(0.24) contrast(0.64)",
             transform: "scale(1.5)",
           }}
         />
@@ -119,7 +119,7 @@ function Home() {
             backgroundRepeat: "no-repeat",
             filter: "blur(175px) brightness(0.38) saturate(0.18) contrast(0.58)",
             transform: "scale(1.28)",
-            opacity: 0.6,
+            opacity: 0.65,
             mixBlendMode: "screen",
           }}
         />
@@ -128,20 +128,20 @@ function Home() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(62% 48% at 30% 36%, rgba(185,162,132,0.10), transparent 76%), radial-gradient(52% 44% at 74% 64%, rgba(165,145,120,0.07), transparent 78%)",
+              "radial-gradient(62% 48% at 30% 36%, rgba(185,162,132,0.11), transparent 74%), radial-gradient(52% 44% at 74% 64%, rgba(165,145,120,0.08), transparent 76%)",
           }}
         />
         {/* Charcoal/graphite base wash */}
         <div
           className="absolute inset-0"
-          style={{ backgroundColor: "rgba(10,11,13,0.76)" }}
+          style={{ backgroundColor: "rgba(10,11,13,0.72)" }}
         />
         {/* Soft centre depth */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, rgba(34,36,40,0.22) 0%, transparent 55%)",
+              "radial-gradient(ellipse at center, rgba(34,36,40,0.24) 0%, transparent 55%)",
           }}
         />
         {/* Edge vignette */}
@@ -149,7 +149,7 @@ function Home() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,0.45) 90%, rgba(0,0,0,0.68) 100%)",
+              "radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,0.42) 90%, rgba(0,0,0,0.62) 100%)",
           }}
         />
       </div>
