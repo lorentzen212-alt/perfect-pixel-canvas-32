@@ -93,58 +93,27 @@ function Home() {
   return (
     <>
     <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
-      {/* Hero background image — abstract soft architectural lighting */}
+      {/* Hero section background — uploaded architectural image */}
       <div
         aria-hidden
-        className="absolute inset-0 z-0 overflow-hidden"
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${heroLobbyAsset.url})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-            backgroundRepeat: "no-repeat",
-            filter: "blur(85px) brightness(0.38) saturate(0.62) contrast(0.82)",
-            transform: "scale(1.3)",
-          }}
-        />
-        {/* Secondary softer blur layer for depth */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${heroLobbyAsset.url})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-            backgroundRepeat: "no-repeat",
-            filter: "blur(120px) brightness(0.45) saturate(0.5) contrast(0.75)",
-            transform: "scale(1.15)",
-            opacity: 0.6,
-            mixBlendMode: "screen",
-          }}
-        />
-        {/* Warm ambient light pools */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(70% 55% at 28% 42%, rgba(212,165,95,0.10), transparent 75%), radial-gradient(60% 50% at 74% 58%, rgba(195,148,80,0.07), transparent 78%)",
-          }}
-        />
-        {/* Dark overlay for depth */}
-        <div
-          className="absolute inset-0"
-          style={{ backgroundColor: "rgba(10,11,13,0.82)" }}
-        />
-        {/* Edge vignette */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.42) 90%, rgba(0,0,0,0.72) 100%)",
-          }}
-        />
-      </div>
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${heroLobbyAsset.url})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+      {/* Subtle dark overlay for text readability */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-10"
+        style={{
+          background:
+            "linear-gradient(rgba(5,7,9,0.50), rgba(5,7,9,0.68))",
+        }}
+      />
+
 
 
 
