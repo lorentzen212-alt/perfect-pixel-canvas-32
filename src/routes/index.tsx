@@ -241,7 +241,7 @@ function Home() {
           </div>
 
           {/* FEATURE BAR */}
-          <div className="mt-8 lg:mt-10 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm px-6 lg:px-10 py-6 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 text-left">
+          <div className="mt-6 lg:mt-8 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm px-6 lg:px-10 py-6 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 text-left">
             {[
               { Icon: Clock, title: "Save Time", desc: "We handle the time-consuming work for you." },
               { Icon: Gem, title: "Best Offers", desc: "Receive multiple offers from carefully selected hotels." },
