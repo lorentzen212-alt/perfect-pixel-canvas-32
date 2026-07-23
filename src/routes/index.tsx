@@ -243,6 +243,94 @@ function Home() {
   );
 }
 
+function ExperienceCard({
+  to,
+  image,
+  label,
+  tagline,
+  icon,
+}: {
+  to: string;
+  image: string;
+  label: string;
+  tagline: React.ReactNode;
+  icon: React.ReactNode;
+}) {
+  return (
+    <Link
+      to={to}
+      className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(230,200,138,0.25),0_0_40px_-10px_rgba(230,200,138,0.25)]"
+    >
+      {/* Image */}
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <img
+          src={image}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/45 to-black/75" />
+        {/* Icon centered */}
+        <div className="absolute inset-0 flex items-center justify-center text-[#E6C88A]">
+          {icon}
+        </div>
+      </div>
+      {/* Text block */}
+      <div className="px-6 pt-6 pb-8 text-center">
+        <p
+          className="text-[#E6C88A] text-[13px] tracking-[0.35em] uppercase font-light"
+        >
+          {label}
+        </p>
+        <p
+          className="mt-3 text-white/85 text-[17px] leading-snug font-light"
+          style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
+        >
+          {tagline}
+        </p>
+        <div className="mt-6 flex justify-center">
+          <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/60 text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/10">
+            <ArrowRight size={18} strokeWidth={1.5} />
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function LeisureIcon() {
+  return (
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="36" cy="30" r="7" />
+      <path d="M36 15v4M36 41v4M21 30h4M47 30h4M25.5 19.5l2.8 2.8M43.7 37.7l2.8 2.8M25.5 40.5l2.8-2.8M43.7 22.3l2.8-2.8" />
+      <path d="M12 52l8-10 6 6 8-12 10 10 8-6 8 12" />
+    </svg>
+  );
+}
+
+function MeIcon() {
+  return (
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="36" cy="20" r="6" />
+      <path d="M26 44c0-6 4.5-10 10-10s10 4 10 10" />
+      <circle cx="20" cy="28" r="5" />
+      <path d="M12 48c0-5 3.5-9 8-9" />
+      <circle cx="52" cy="28" r="5" />
+      <path d="M60 48c0-5-3.5-9-8-9" />
+    </svg>
+  );
+}
+
+function ManageIcon() {
+  return (
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="14" y="18" width="44" height="40" rx="3" />
+      <path d="M14 30h44M24 14v8M48 14v8" />
+      <text x="36" y="49" textAnchor="middle" fontSize="13" fontFamily="Georgia, serif" stroke="none" fill="currentColor">15</text>
+    </svg>
+  );
+}
+
+
 function CTAButton({
   icon,
   label,
