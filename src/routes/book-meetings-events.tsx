@@ -151,6 +151,37 @@ const GOLD = "#F5C25A";
 const NAVY = "#0A1B2C";
 const NAVY_DEEP = "#04111A";
 
+/* --------------------------------------------------------------------------
+ * MATERIAL SYSTEM — Direction 2 · "Vellum meets Marine Stone"
+ * Two premium materials meeting at a single hairline seam. Nothing else.
+ * Do not add gradients, glows, ornaments or textures here.
+ * -------------------------------------------------------------------------- */
+
+// The warm architectural vellum surface (the light workspace).
+const VELLUM_SURFACE = "#F5EFDF";                 // warm off-white, one flat tone
+const VELLUM_TEXT = "#0F1B2D";                    // ink for headings
+const VELLUM_MUTED = "#5A6472";                   // secondary copy
+
+// The deep Scandinavian marine stone surface (the hospitality panel).
+// A single quiet fall-off from top to bottom — no visible gradient, only
+// the reading of light on a dense mineral surface. Warm-adjacent so it
+// sits next to the vellum as a partner, not a contrast.
+const STONE_SURFACE =
+  "linear-gradient(180deg, #14293C 0%, #0E2033 55%, #0B1A2A 100%)";
+const STONE_TEXT = "#EDE6D6";                     // warm ivory — echoes vellum
+const STONE_MUTED = "#8A97A5";                    // cool marine mist
+
+// The seam — the single hairline where the two materials meet. One line,
+// one weight. Any decoration here would break the illusion of two solid
+// surfaces meeting each other.
+const SEAM_HAIRLINE = "1px solid rgba(255,251,240,0.06)";
+
+// The outer carved edge that holds both materials as one object.
+const CARVED_EDGE = "1px solid #E1D6BE";
+const CARVED_SHADOW =
+  "inset 0 1px 0 rgba(255,251,240,0.7), 0 1px 0 rgba(40,28,10,0.06), 0 26px 60px -38px rgba(24,18,8,0.24)";
+
+
 const NAV_LINKS = [
   { label: "Home", to: "/" as const },
   { label: "About us", href: "/#about" },
