@@ -204,6 +204,25 @@ function BookMeetingsEvents() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [visited, setVisited] = useState<Set<number>>(() => new Set([1]));
 
+  // ── Vellum material variants (design preview) ─────────────────────────────
+  // A: Pure Vellum · B: Scandinavian depth · C: Hotel lobby light
+  // D: Restrained marine · E: Signature   · "current": existing atmosphere
+  type VellumVariant = "A" | "B" | "C" | "D" | "E" | "current";
+  const [vellum, setVellum] = useState<VellumVariant>("A");
+  useEffect(() => {
+    try {
+      const v = window.localStorage.getItem("hgb:vellum-variant");
+      if (v && ["A", "B", "C", "D", "E", "current"].includes(v)) {
+        setVellum(v as VellumVariant);
+      }
+    } catch {}
+  }, []);
+  useEffect(() => {
+    try {
+      window.localStorage.setItem("hgb:vellum-variant", vellum);
+    } catch {}
+  }, [vellum]);
+
   // Restore draft on mount
   useEffect(() => {
     try {
