@@ -309,22 +309,6 @@ function BookMeetingsEvents() {
   return (
     <main
       className="relative min-h-screen w-full"
-      style={{
-        backgroundColor: "#EDE7DC",
-        backgroundImage: step === 7 ? undefined : (() => {
-          // Calm, architectural lighting. All layers stay attached to the page surface
-          // so content and background move as one grounded material while scrolling.
-          type V = {
-            sweep: string;
-            warm: string;
-            shadow: string;
-            accent: string;
-            vignette: string;
-            base: string;
-          };
-  return (
-    <main
-      className="relative min-h-screen w-full"
       style={(() => {
         if (step === 7) {
           return { backgroundColor: "#EDE7DC" } as const;
