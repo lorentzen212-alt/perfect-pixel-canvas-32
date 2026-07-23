@@ -4441,73 +4441,85 @@ function StepTwoLocation({
             className="pointer-events-none absolute inset-x-0 top-0 h-px"
             style={{ background: "rgba(255,251,240,0.10)" }}
           />
-          <div className="relative px-9 lg:px-10 pt-11 lg:pt-12 pb-10">
-            <div
-              className="text-[11px] tracking-[0.22em] uppercase"
-              style={{ color: GOLD, fontFamily: SANS, fontWeight: 500 }}
-            >
-              Concierge
-            </div>
-            <h3
-              className="mt-3 text-[30px] leading-[1.08]"
-              style={{ fontFamily: SERIF, fontWeight: 400, color: STONE_TEXT, letterSpacing: "-0.01em" }}
-            >
-              Need help?
-            </h3>
-            <p
-              className="mt-3 text-[14.5px] leading-[1.55]"
-              style={{ color: STONE_MUTED, fontFamily: SANS }}
-            >
-              Our M&amp;E specialists are ready to assist you — from first idea to signed contract.
-            </p>
 
+          {/* Previous HelpCard — restored exactly, now seated on marine stone */}
+          <div className="relative p-6 lg:p-8">
             <div
-              aria-hidden="true"
-              className="mt-8 h-px w-full"
-              style={{ background: "rgba(237,230,214,0.10)" }}
-            />
+              className="relative overflow-hidden rounded-[26px]"
+              style={{
+                backgroundColor: "#FAF8F4",
+                boxShadow:
+                  "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
+                minHeight: 480,
+              }}
+            >
+              {/* Reference illustration: warm off-white bg + gold lines + lounge — used as full card background */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `url(${helpCardBg})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center bottom",
+                  backgroundRepeat: "no-repeat",
+                }}
+              />
 
-            <div className="mt-8 flex flex-col gap-5">
-              <a
-                href="tel:+4721002100"
-                className="group flex items-center gap-4 text-[15px] transition-colors"
-                style={{ color: STONE_TEXT, fontFamily: SANS }}
-              >
-                <span
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
-                  style={{
-                    background:
-                      "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
-                    boxShadow:
-                      "0 6px 14px -8px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
-                  }}
+              <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
+                <h3
+                  className="text-[#0A1B2C] text-[28px] leading-tight"
+                  style={{ fontFamily: SERIF, fontWeight: 500 }}
                 >
-                  <Phone size={16} strokeWidth={2} className="text-[#0A1B2C]" />
-                </span>
-                <span className="group-hover:text-white transition-colors">+47 21 00 21 00</span>
-              </a>
-              <a
-                href="mailto:meetings@hotelgroupbook.com"
-                className="group flex items-center gap-4 text-[15px] transition-colors whitespace-nowrap"
-                style={{ color: STONE_TEXT, fontFamily: SANS }}
-              >
-                <span
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
-                  style={{
-                    background:
-                      "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
-                    boxShadow:
-                      "0 6px 14px -8px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
-                  }}
-                >
-                  <Mail size={16} strokeWidth={2} className="text-[#0A1B2C]" />
-                </span>
-                <span className="group-hover:text-white transition-colors">meetings@hotelgroupbook.com</span>
-              </a>
+                  Need help?
+                </h3>
+                <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
+                  Our M&amp;E specialists are
+                  <br />
+                  ready to assist you.
+                </p>
+
+                <div className="mt-8 flex flex-col gap-5">
+                  <a
+                    href="tel:+4721002100"
+                    className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors"
+                  >
+                    <span
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
+                        boxShadow:
+                          "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
+                      }}
+                    >
+                      <Phone size={16} strokeWidth={2} className="text-white" />
+                    </span>
+                    +47 21 00 21 00
+                  </a>
+                  <a
+                    href="mailto:meetings@hotelgroupbook.com"
+                    className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
+                  >
+                    <span
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
+                        boxShadow:
+                          "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
+                      }}
+                    >
+                      <Mail size={16} strokeWidth={2} className="text-white" />
+                    </span>
+                    meetings@hotelgroupbook.com
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </aside>
         {/* ─── /RIGHT · MARINE STONE ───────────────────────────────────── */}
+
       </div>
     </div>
   );
