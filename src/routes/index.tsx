@@ -110,7 +110,7 @@ function Home() {
         className="absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(rgba(5,7,9,0.50), rgba(5,7,9,0.68))",
+            "linear-gradient(rgba(5,7,9,0.58), rgba(5,7,9,0.76))",
         }}
       />
 
@@ -211,6 +211,7 @@ function Home() {
               to="/book-meetings-events"
               image={cardMeAsset.url}
               imagePosition="center 40%"
+              imageFilter="brightness(0.93)"
               label="M&E"
               tagline={<>Meetings &amp; events<br />made seamless</>}
               icon={<MeIcon />}
@@ -219,6 +220,7 @@ function Home() {
               to="/manage-bookings"
               image={cardManageAsset.url}
               imagePosition="55% center"
+              overlay="from-black/28 via-black/58 to-black/95"
               label="Manage"
               tagline={<>Manage bookings<br />with ease</>}
               icon={<ManageIcon />}
@@ -258,6 +260,8 @@ function ExperienceCard({
   to,
   image,
   imagePosition = "center center",
+  imageFilter,
+  overlay = "from-black/15 via-black/45 to-black/85",
   label,
   tagline,
   icon,
@@ -265,6 +269,8 @@ function ExperienceCard({
   to: string;
   image: string;
   imagePosition?: string;
+  imageFilter?: string;
+  overlay?: string;
   label: string;
   tagline: React.ReactNode;
   icon: React.ReactNode;
@@ -279,11 +285,11 @@ function ExperienceCard({
         <img
           src={image}
           alt=""
-          style={{ objectPosition: imagePosition }}
+          style={{ objectPosition: imagePosition, filter: imageFilter }}
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
         />
         {/* Cinematic gradient: lighter top, progressively darker bottom */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/45 to-black/85" />
+        <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
 
         {/* Content overlay */}
         <div className="absolute inset-0 flex flex-col items-center px-6 pt-8 pb-6 text-center">
