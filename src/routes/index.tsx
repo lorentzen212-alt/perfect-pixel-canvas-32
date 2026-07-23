@@ -291,20 +291,20 @@ function ExperienceCard({
 
   return (
     <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
-      {/* Tight soft haze — hugs the line, minimal spread */}
+      {/* Inner warm haze — pulled in tight, no side spill */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-6px",
+          bottom: "-4px",
           transform: "translateX(-50%)",
-          width: "94%",
-          height: "26px",
-          borderRadius: "40%",
+          width: "72%",
+          height: "18px",
+          borderRadius: "45%",
           background:
-            `radial-gradient(ellipse at center, rgba(255, 252, 245, ${clamp(0.75 * k)}) 0%, rgba(252, 240, 215, ${clamp(0.45 * k)}) 40%, transparent 78%)`,
-          filter: "blur(7px)",
+            `radial-gradient(ellipse at center, rgba(255, 254, 250, ${clamp(0.9 * k)}) 0%, rgba(255, 245, 220, ${clamp(0.65 * k)}) 45%, rgba(250, 220, 160, ${clamp(0.28 * k)}) 72%, transparent 92%)`,
+          filter: "blur(6px)",
           opacity: 1,
           zIndex: 0,
         }}
@@ -315,48 +315,50 @@ function ExperienceCard({
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-2px",
+          bottom: "-1px",
           transform: "translateX(-50%)",
-          width: "96%",
-          height: "14px",
-          borderRadius: "40%",
+          width: "74%",
+          height: "10px",
+          borderRadius: "45%",
           background:
-            `radial-gradient(ellipse at center, rgba(255, 253, 248, ${clamp(1 * k)}) 0%, rgba(255, 242, 215, ${clamp(0.9 * k)}) 40%, rgba(245, 210, 150, ${clamp(0.35 * k)}) 72%, transparent 90%)`,
-          filter: "blur(4px)",
+            `radial-gradient(ellipse at center, rgba(255, 254, 248, ${clamp(1 * k)}) 0%, rgba(255, 248, 225, ${clamp(0.95 * k)}) 40%, rgba(255, 235, 190, ${clamp(0.55 * k)}) 72%, transparent 92%)`,
+          filter: "blur(3px)",
           opacity: 1,
           zIndex: 1,
         }}
       />
-      {/* Bright white light bar along bottom edge */}
+      {/* Strong white light bar along bottom edge */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
-          left: "0%",
+          left: "50%",
           bottom: "0px",
-          width: "100%",
-          height: "6px",
+          transform: "translateX(-50%)",
+          width: "76%",
+          height: "5px",
           borderRadius: "6px",
           background:
-            `linear-gradient(to right, transparent 0%, rgba(255, 255, 250, ${clamp(0.95 * k)}) 10%, rgba(255, 252, 240, ${clamp(1 * k)}) 50%, rgba(255, 255, 250, ${clamp(0.95 * k)}) 90%, transparent 100%)`,
-          filter: "blur(1.5px)",
+            `linear-gradient(to right, transparent 0%, rgba(255, 255, 252, ${clamp(1 * k)}) 12%, rgba(255, 254, 245, ${clamp(1 * k)}) 50%, rgba(255, 255, 252, ${clamp(1 * k)}) 88%, transparent 100%)`,
+          filter: "blur(1px)",
           opacity: 1,
           zIndex: 1,
         }}
       />
-      {/* Hot white contact streak — the line itself */}
+      {/* Hot white contact streak — the light source itself */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
-          left: "0%",
+          left: "50%",
           bottom: "1px",
-          width: "100%",
+          transform: "translateX(-50%)",
+          width: "78%",
           height: "2.5px",
           borderRadius: "2px",
           background:
-            `linear-gradient(to right, transparent 0%, rgba(255, 255, 250, ${clamp(1 * k)}) 8%, rgba(255, 255, 255, ${clamp(1 * k)}) 50%, rgba(255, 255, 250, ${clamp(1 * k)}) 92%, transparent 100%)`,
-          filter: "blur(0.5px)",
+            `linear-gradient(to right, transparent 0%, rgba(255, 255, 255, ${clamp(1 * k)}) 10%, rgba(255, 255, 255, ${clamp(1 * k)}) 50%, rgba(255, 255, 255, ${clamp(1 * k)}) 90%, transparent 100%)`,
+          filter: "blur(0.4px)",
           zIndex: 2,
         }}
       />
