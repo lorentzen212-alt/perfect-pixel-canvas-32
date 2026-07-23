@@ -276,43 +276,96 @@ function ExperienceCard({
   icon: React.ReactNode;
 }) {
   return (
-    <Link
-      to={to}
-      className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(230,200,138,0.25),0_0_40px_-10px_rgba(230,200,138,0.25)]"
-    >
-      {/* Full-height background image */}
-      <div className="relative aspect-[12/13] overflow-hidden">
-        <img
-          src={image}
-          alt=""
-          style={{ objectPosition: imagePosition, filter: imageFilter }}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
-        />
-        {/* Cinematic gradient: lighter top, progressively darker bottom */}
-        <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
+    <div className="relative">
+      {/* Soft vertical architectural light behind the card */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[-10%] z-[-1] h-[120%] w-[60%] -translate-x-1/2"
+        style={{
+          background:
+            "radial-gradient(ellipse 45% 100% at 50% 50%, rgba(185,154,91,0.06), transparent 70%)",
+          filter: "blur(8px)",
+          mixBlendMode: "screen",
+        }}
+      />
+      {/* Warm floor reflection */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-8 left-1/2 z-[-1] h-24 w-[110%] -translate-x-1/2"
+        style={{
+          background:
+            "radial-gradient(ellipse 65% 35% at 50% 50%, rgba(185,154,91,0.09), transparent 75%)",
+          filter: "blur(10px)",
+          mixBlendMode: "screen",
+        }}
+      />
+      {/* Extremely soft outer halo following the champagne border */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-[-2px] z-[1] rounded-[22px]"
+        style={{
+          boxShadow:
+            "0 0 0 1px rgba(185,154,91,0.10), 0 0 8px 1px rgba(185,154,91,0.07), 0 0 18px 3px rgba(185,154,91,0.04)",
+        }}
+      />
+      {/* Subtle vertical light catch along left edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-[12%] z-[2] h-[76%] w-px"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent, rgba(230,200,138,0.08), transparent)",
+          filter: "blur(1px)",
+        }}
+      />
+      {/* Subtle vertical light catch along right edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-0 top-[12%] z-[2] h-[76%] w-px"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent, rgba(230,200,138,0.08), transparent)",
+          filter: "blur(1px)",
+        }}
+      />
+      <Link
+        to={to}
+        className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(230,200,138,0.25),0_0_40px_-10px_rgba(230,200,138,0.25)]"
+      >
+        {/* Full-height background image */}
+        <div className="relative aspect-[12/13] overflow-hidden">
+          <img
+            src={image}
+            alt=""
+            style={{ objectPosition: imagePosition, filter: imageFilter }}
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+          />
+          {/* Cinematic gradient: lighter top, progressively darker bottom */}
+          <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
 
-        {/* Content overlay */}
-        <div className="absolute inset-0 flex flex-col items-center px-6 pt-8 pb-6 text-center">
-          <div className="flex-1 flex items-center justify-center text-[#E6C88A]">
-            {icon}
-          </div>
-          <p className="text-[#E6C88A] text-[13px] tracking-[0.35em] uppercase font-light">
-            {label}
-          </p>
-          <p
-            className="mt-3 text-white/90 text-[17px] leading-snug font-light drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
-            style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
-          >
-            {tagline}
-          </p>
-          <div className="mt-5 flex justify-center">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15">
-              <ArrowRight size={18} strokeWidth={1.5} />
-            </span>
+          {/* Content overlay */}
+          <div className="absolute inset-0 flex flex-col items-center px-6 pt-8 pb-6 text-center">
+            <div className="flex-1 flex items-center justify-center text-[#E6C88A]">
+              {icon}
+            </div>
+            <p className="text-[#E6C88A] text-[13px] tracking-[0.35em] uppercase font-light">
+              {label}
+            </p>
+            <p
+              className="mt-3 text-white/90 text-[17px] leading-snug font-light drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+              style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
+            >
+              {tagline}
+            </p>
+            <div className="mt-5 flex justify-center">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15">
+                <ArrowRight size={18} strokeWidth={1.5} />
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 
