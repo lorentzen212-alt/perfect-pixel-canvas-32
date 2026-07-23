@@ -184,7 +184,7 @@ function Home() {
         )}
 
         {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10 pt-4 lg:pt-5 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start">
+        <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start">
           {/* Eyebrow */}
           <div className="flex items-center justify-center gap-3 text-[#C9A65E]">
             <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[#C9A65E]/70 text-[11px] font-light">5</span>
@@ -193,7 +193,7 @@ function Home() {
 
           {/* Headline */}
           <h1
-            className="mx-auto mt-3 lg:mt-4 max-w-[900px] font-normal text-white leading-[1.05] text-[44px] sm:text-[58px] lg:text-[68px]"
+            className="mx-auto mt-2 lg:mt-2 max-w-[900px] font-normal text-white leading-[1.05] text-[44px] sm:text-[58px] lg:text-[63px]"
             style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
           >
             Three ways
@@ -204,18 +204,18 @@ function Home() {
           </h1>
 
           {/* Gold divider */}
-          <div className="mt-4 lg:mt-5 flex items-center justify-center">
+          <div className="mt-2 lg:mt-3 flex items-center justify-center">
             <div className="h-px w-[90px] bg-gradient-to-r from-transparent via-[#C9A65E] to-transparent" />
             <div className="mx-2 h-[6px] w-[6px] rotate-45 bg-[#C9A65E]" />
             <div className="h-px w-[90px] bg-gradient-to-r from-transparent via-[#C9A65E] to-transparent" />
           </div>
 
-          <p className="mt-3 lg:mt-4 text-white/80 text-[16px] lg:text-[17px] font-light tracking-wide">
+          <p className="mt-2 lg:mt-2 text-white/80 text-[16px] lg:text-[17px] font-light tracking-wide">
             One request. Everything handled.
           </p>
 
           {/* EXPERIENCE CARDS */}
-          <div className="mt-6 lg:mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="mt-10 lg:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
 
             <ExperienceCard
               to="/book-leisure"
@@ -241,7 +241,7 @@ function Home() {
           </div>
 
           {/* FEATURE BAR */}
-          <div className="mt-8 lg:mt-10 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm px-6 lg:px-10 py-6 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 text-left">
+          <div className="mt-6 lg:mt-8 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm px-6 lg:px-10 py-6 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 text-left">
             {[
               { Icon: Clock, title: "Save Time", desc: "We handle the time-consuming work for you." },
               { Icon: Gem, title: "Best Offers", desc: "Receive multiple offers from carefully selected hotels." },
