@@ -184,7 +184,7 @@ function Home() {
         )}
 
         {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10 pt-4 lg:pt-5 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start">
+        <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start">
           {/* Eyebrow */}
           <div className="flex items-center justify-center gap-3 text-[#C9A65E]">
             <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[#C9A65E]/70 text-[11px] font-light">5</span>
