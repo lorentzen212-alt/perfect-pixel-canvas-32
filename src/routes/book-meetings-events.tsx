@@ -322,81 +322,145 @@ function BookMeetingsEvents() {
             vignette: string;
             base: string;
           };
-          const variants: Record<number, V> = {
-            1: {
-              sweep: "linear-gradient(118deg, rgba(255,251,238,0.28) 0%, rgba(255,251,238,0.06) 32%, rgba(255,251,238,0) 58%)",
-              warm: "radial-gradient(1200px 720px at 18% 8%, rgba(240,214,168,0.16) 0%, rgba(240,214,168,0) 62%)",
-              shadow: "radial-gradient(1400px 900px at 100% 100%, rgba(120,108,88,0.18) 0%, rgba(150,138,116,0.08) 40%, rgba(150,138,116,0) 70%)",
-              accent: "radial-gradient(600px 520px at 92% 30%, rgba(226,204,164,0.08) 0%, rgba(226,204,164,0) 68%)",
-              vignette: "radial-gradient(1500px 1050px at 50% 46%, rgba(244,241,234,0) 55%, rgba(110,98,78,0.12) 100%)",
-              base: "linear-gradient(160deg, #F2EEE5 0%, #ECE5D8 55%, #E1D8C6 100%)",
-            },
-            2: {
-              sweep: "linear-gradient(180deg, rgba(255,250,238,0.22) 0%, rgba(255,250,238,0.05) 24%, rgba(255,250,238,0) 48%)",
-              warm: "radial-gradient(900px 700px at 6% 96%, rgba(232,196,140,0.16) 0%, rgba(232,196,140,0) 62%)",
-              shadow: "radial-gradient(1200px 820px at 100% 4%, rgba(126,116,96,0.15) 0%, rgba(146,134,112,0) 65%)",
-              accent: "radial-gradient(700px 600px at 88% 78%, rgba(200,188,166,0.11) 0%, rgba(200,188,166,0) 65%)",
-              vignette: "radial-gradient(1500px 1050px at 48% 44%, rgba(244,241,234,0) 55%, rgba(104,92,72,0.13) 100%)",
-              base: "linear-gradient(190deg, #F3EFE7 0%, #EBE5D8 55%, #DFD5C1 100%)",
-            },
-            3: {
-              sweep: "linear-gradient(96deg, rgba(255,250,236,0.18) 0%, rgba(255,250,236,0) 30%, rgba(255,250,236,0) 70%, rgba(255,250,236,0.18) 100%)",
-              warm: "radial-gradient(820px 620px at 50% 20%, rgba(238,214,170,0.11) 0%, rgba(238,214,170,0) 65%)",
-              shadow: "radial-gradient(1300px 700px at 50% 110%, rgba(120,110,90,0.18) 0%, rgba(150,138,116,0.06) 45%, rgba(150,138,116,0) 70%)",
-              accent: "radial-gradient(520px 520px at 6% 92%, rgba(190,180,160,0.12) 0%, rgba(190,180,160,0) 68%)",
-              vignette: "radial-gradient(1600px 1080px at 50% 48%, rgba(244,241,234,0) 55%, rgba(108,96,76,0.12) 100%)",
-              base: "linear-gradient(180deg, #F3EFE7 0%, #ECE6D9 56%, #E1D7C3 100%)",
-            },
-            4: {
-              sweep: "linear-gradient(232deg, rgba(255,244,220,0.26) 0%, rgba(255,244,220,0.06) 34%, rgba(255,244,220,0) 60%)",
-              warm: "radial-gradient(1100px 780px at 96% 6%, rgba(232,198,140,0.18) 0%, rgba(232,198,140,0) 62%)",
-              shadow: "radial-gradient(1200px 820px at 0% 100%, rgba(112,100,80,0.17) 0%, rgba(146,132,108,0) 65%)",
-              accent: "radial-gradient(600px 520px at 24% 34%, rgba(255,246,222,0.12) 0%, rgba(255,246,222,0) 68%)",
-              vignette: "radial-gradient(1500px 1050px at 52% 46%, rgba(244,240,232,0) 55%, rgba(102,88,66,0.13) 100%)",
-              base: "linear-gradient(196deg, #F2EEE4 0%, #EBE3D3 55%, #DDD2BA 100%)",
-            },
-            5: {
-              sweep: "linear-gradient(258deg, rgba(255,252,242,0.28) 0%, rgba(255,252,242,0.06) 32%, rgba(255,252,242,0) 58%)",
-              warm: "radial-gradient(900px 720px at 92% 40%, rgba(238,218,178,0.12) 0%, rgba(238,218,178,0) 65%)",
-              shadow: "radial-gradient(1200px 900px at 0% 60%, rgba(118,108,90,0.16) 0%, rgba(146,134,114,0) 65%)",
-              accent: "radial-gradient(700px 600px at 46% 96%, rgba(200,188,166,0.11) 0%, rgba(200,188,166,0) 65%)",
-              vignette: "radial-gradient(1600px 1050px at 52% 46%, rgba(244,241,234,0) 55%, rgba(104,94,74,0.12) 100%)",
-              base: "linear-gradient(200deg, #F3EFE7 0%, #ECE6D8 55%, #E0D6C2 100%)",
-            },
-            6: {
-              sweep: "linear-gradient(6deg, rgba(255,242,214,0.22) 0%, rgba(255,242,214,0.05) 30%, rgba(255,242,214,0) 58%)",
-              warm: "radial-gradient(1300px 620px at 50% 108%, rgba(230,194,138,0.17) 0%, rgba(230,194,138,0) 62%)",
-              shadow: "radial-gradient(1400px 620px at 50% -8%, rgba(118,108,90,0.14) 0%, rgba(146,136,116,0) 62%)",
-              accent: "radial-gradient(680px 560px at 8% 46%, rgba(200,190,170,0.11) 0%, rgba(200,190,170,0) 68%)",
-              vignette: "radial-gradient(1600px 1050px at 50% 48%, rgba(244,240,232,0) 55%, rgba(102,90,70,0.13) 100%)",
-              base: "linear-gradient(190deg, #F2EEE4 0%, #EBE4D5 55%, #DED3BD 100%)",
-            },
-          };
-          const v = variants[step] ?? variants[1];
-          return [
-            paperGrain,
-            plasterTexture,
-            v.sweep,
-            v.warm,
-            v.shadow,
-            v.accent,
-            v.vignette,
-            v.base,
-          ].join(", ");
-        })(),
-        backgroundBlendMode:
-          step === 7
-            ? undefined
-            : "soft-light, soft-light, normal, normal, multiply, normal, normal, normal",
-        backgroundSize:
-          step === 7
-            ? undefined
-            : "300px 300px, 820px 820px, auto, auto, auto, auto, auto, auto",
-        backgroundAttachment: step === 7 ? undefined : "scroll",
-        backgroundRepeat:
-          "repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
-      }}
+  return (
+    <main
+      className="relative min-h-screen w-full"
+      style={(() => {
+        if (step === 7) {
+          return { backgroundColor: "#EDE7DC" } as const;
+        }
+
+        // ── Vellum variants ────────────────────────────────────────────────
+        // Each variant is a small, disciplined stack of light layers over a
+        // warm off-white base. No motion, no imagery, no pattern.
+        type Recipe = {
+          color: string;
+          layers: string[];   // painted top → bottom
+          blends: string[];   // one per layer
+          sizes?: string[];   // optional per-layer size
+        };
+
+        // Micro-grain (paper) — sub-perceptual, prevents banding only.
+        const grain =
+          "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.34  0 0 0 0 0.28  0 0 0 0 0.20  0 0 0 0.035 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")";
+
+        const recipes: Record<Exclude<VellumVariant, "current">, Recipe> = {
+          // A · Pure Vellum — near-flat warm off-white, one whisper of daylight,
+          // one whisper of edge containment. As invisible as it can be.
+          A: {
+            color: "#F0EADC",
+            layers: [
+              grain,
+              "radial-gradient(1700px 1150px at 16% 4%, rgba(255,249,232,0.16) 0%, rgba(255,249,232,0) 60%)",
+              "radial-gradient(1900px 1300px at 50% 55%, rgba(244,238,224,0) 62%, rgba(90,80,64,0.09) 100%)",
+              "linear-gradient(178deg, #F1EBDE 0%, #EDE6D4 100%)",
+            ],
+            blends: ["soft-light", "normal", "normal", "normal"],
+            sizes: ["300px 300px", "auto", "auto", "auto"],
+          },
+
+          // B · Vellum + Scandinavian depth — same skin, but two structural
+          // shadows suggest a tall room with volume; a hairline horizon
+          // reads as where a wall meets the floor.
+          B: {
+            color: "#EFE9DA",
+            layers: [
+              grain,
+              "radial-gradient(1500px 1000px at 12% 6%, rgba(255,248,230,0.15) 0%, rgba(255,248,230,0) 60%)",
+              "radial-gradient(1400px 1000px at 100% 100%, rgba(60,72,86,0.10) 0%, rgba(60,72,86,0) 62%)",
+              "radial-gradient(1100px 820px at 6% 96%, rgba(232,206,164,0.09) 0%, rgba(232,206,164,0) 66%)",
+              "linear-gradient(180deg, transparent 0%, transparent 62%, rgba(80,70,54,0.05) 62.4%, transparent 63%, transparent 100%)",
+              "radial-gradient(1900px 1300px at 50% 55%, rgba(244,238,224,0) 60%, rgba(80,72,58,0.11) 100%)",
+              "linear-gradient(180deg, #F1EBDD 0%, #ECE4D2 100%)",
+            ],
+            blends: ["soft-light", "normal", "multiply", "normal", "multiply", "normal", "normal"],
+            sizes: ["300px 300px", "auto", "auto", "auto", "auto", "auto", "auto"],
+          },
+
+          // C · Vellum + hotel lobby lighting — two soft sconces above,
+          // one warm floor-bounce below. Warmer overall temperature.
+          C: {
+            color: "#F1EAD8",
+            layers: [
+              grain,
+              "radial-gradient(900px 700px at 18% 8%, rgba(248,224,180,0.14) 0%, rgba(248,224,180,0) 66%)",
+              "radial-gradient(900px 700px at 84% 10%, rgba(248,224,180,0.12) 0%, rgba(248,224,180,0) 66%)",
+              "radial-gradient(1600px 520px at 50% 108%, rgba(226,196,148,0.14) 0%, rgba(226,196,148,0) 72%)",
+              "radial-gradient(1900px 1300px at 50% 52%, rgba(244,238,224,0) 62%, rgba(92,74,50,0.11) 100%)",
+              "linear-gradient(180deg, #F3ECDA 0%, #EFE6D0 100%)",
+            ],
+            blends: ["soft-light", "normal", "normal", "normal", "normal", "normal"],
+            sizes: ["300px 300px", "auto", "auto", "auto", "auto", "auto"],
+          },
+
+          // D · Vellum + restrained marine depth — Vellum stays dominant.
+          // The room's containment turns cool marine, as if the space
+          // overlooks water in overcast light.
+          D: {
+            color: "#EDE8DB",
+            layers: [
+              grain,
+              "radial-gradient(1500px 1000px at 14% 6%, rgba(255,248,232,0.14) 0%, rgba(255,248,232,0) 60%)",
+              "radial-gradient(1300px 900px at 94% 8%, rgba(178,196,212,0.10) 0%, rgba(178,196,212,0) 64%)",
+              "radial-gradient(900px 720px at 88% 94%, rgba(216,190,150,0.06) 0%, rgba(216,190,150,0) 70%)",
+              "radial-gradient(1950px 1350px at 50% 54%, rgba(244,240,228,0) 55%, rgba(28,52,72,0.12) 100%)",
+              "linear-gradient(178deg, #F0EADB 0%, #EAE3D1 100%)",
+            ],
+            blends: ["soft-light", "normal", "normal", "normal", "normal", "normal"],
+            sizes: ["300px 300px", "auto", "auto", "auto", "auto", "auto"],
+          },
+
+          // E · Signature Vellum — three deliberate layers of light and
+          // nothing else: one directional daylight, one cool containment,
+          // one warm reserve beneath the surface. My recommendation.
+          E: {
+            color: "#F0EADB",
+            layers: [
+              grain,
+              "radial-gradient(1700px 1150px at 14% 4%, rgba(255,248,230,0.20) 0%, rgba(255,248,230,0) 58%)",
+              "radial-gradient(1000px 780px at 88% 92%, rgba(226,198,154,0.08) 0%, rgba(226,198,154,0) 70%)",
+              "radial-gradient(2000px 1350px at 50% 52%, rgba(244,238,224,0) 62%, rgba(46,52,60,0.12) 100%)",
+              "linear-gradient(176deg, #F2ECDE 0%, #EDE5D3 100%)",
+            ],
+            blends: ["soft-light", "normal", "normal", "normal", "normal"],
+            sizes: ["300px 300px", "auto", "auto", "auto", "auto"],
+          },
+        };
+
+        if (vellum !== "current") {
+          const r = recipes[vellum];
+          return {
+            backgroundColor: r.color,
+            backgroundImage: r.layers.join(", "),
+            backgroundBlendMode: r.blends.join(", "),
+            backgroundSize: (r.sizes ?? r.layers.map(() => "auto")).join(", "),
+            backgroundRepeat: r.layers.map((_, i) => (i === 0 ? "repeat" : "no-repeat")).join(", "),
+            backgroundAttachment: "scroll",
+          } as const;
+        }
+
+        // "current" — keep the existing per-step atmospheric recipe for comparison.
+        type V = { sweep: string; warm: string; shadow: string; accent: string; vignette: string; base: string; };
+        const variants: Record<number, V> = {
+          1: { sweep: "linear-gradient(118deg, rgba(255,251,238,0.28) 0%, rgba(255,251,238,0.06) 32%, rgba(255,251,238,0) 58%)", warm: "radial-gradient(1200px 720px at 18% 8%, rgba(240,214,168,0.16) 0%, rgba(240,214,168,0) 62%)", shadow: "radial-gradient(1400px 900px at 100% 100%, rgba(120,108,88,0.18) 0%, rgba(150,138,116,0.08) 40%, rgba(150,138,116,0) 70%)", accent: "radial-gradient(600px 520px at 92% 30%, rgba(226,204,164,0.08) 0%, rgba(226,204,164,0) 68%)", vignette: "radial-gradient(1500px 1050px at 50% 46%, rgba(244,241,234,0) 55%, rgba(110,98,78,0.12) 100%)", base: "linear-gradient(160deg, #F2EEE5 0%, #ECE5D8 55%, #E1D8C6 100%)" },
+          2: { sweep: "linear-gradient(180deg, rgba(255,250,238,0.22) 0%, rgba(255,250,238,0.05) 24%, rgba(255,250,238,0) 48%)", warm: "radial-gradient(900px 700px at 6% 96%, rgba(232,196,140,0.16) 0%, rgba(232,196,140,0) 62%)", shadow: "radial-gradient(1200px 820px at 100% 4%, rgba(126,116,96,0.15) 0%, rgba(146,134,112,0) 65%)", accent: "radial-gradient(700px 600px at 88% 78%, rgba(200,188,166,0.11) 0%, rgba(200,188,166,0) 65%)", vignette: "radial-gradient(1500px 1050px at 48% 44%, rgba(244,241,234,0) 55%, rgba(104,92,72,0.13) 100%)", base: "linear-gradient(190deg, #F3EFE7 0%, #EBE5D8 55%, #DFD5C1 100%)" },
+          3: { sweep: "linear-gradient(96deg, rgba(255,250,236,0.18) 0%, rgba(255,250,236,0) 30%, rgba(255,250,236,0) 70%, rgba(255,250,236,0.18) 100%)", warm: "radial-gradient(820px 620px at 50% 20%, rgba(238,214,170,0.11) 0%, rgba(238,214,170,0) 65%)", shadow: "radial-gradient(1300px 700px at 50% 110%, rgba(120,110,90,0.18) 0%, rgba(150,138,116,0.06) 45%, rgba(150,138,116,0) 70%)", accent: "radial-gradient(520px 520px at 6% 92%, rgba(190,180,160,0.12) 0%, rgba(190,180,160,0) 68%)", vignette: "radial-gradient(1600px 1080px at 50% 48%, rgba(244,241,234,0) 55%, rgba(108,96,76,0.12) 100%)", base: "linear-gradient(180deg, #F3EFE7 0%, #ECE6D9 56%, #E1D7C3 100%)" },
+          4: { sweep: "linear-gradient(232deg, rgba(255,244,220,0.26) 0%, rgba(255,244,220,0.06) 34%, rgba(255,244,220,0) 60%)", warm: "radial-gradient(1100px 780px at 96% 6%, rgba(232,198,140,0.18) 0%, rgba(232,198,140,0) 62%)", shadow: "radial-gradient(1200px 820px at 0% 100%, rgba(112,100,80,0.17) 0%, rgba(146,132,108,0) 65%)", accent: "radial-gradient(600px 520px at 24% 34%, rgba(255,246,222,0.12) 0%, rgba(255,246,222,0) 68%)", vignette: "radial-gradient(1500px 1050px at 52% 46%, rgba(244,240,232,0) 55%, rgba(102,88,66,0.13) 100%)", base: "linear-gradient(196deg, #F2EEE4 0%, #EBE3D3 55%, #DDD2BA 100%)" },
+          5: { sweep: "linear-gradient(258deg, rgba(255,252,242,0.28) 0%, rgba(255,252,242,0.06) 32%, rgba(255,252,242,0) 58%)", warm: "radial-gradient(900px 720px at 92% 40%, rgba(238,218,178,0.12) 0%, rgba(238,218,178,0) 65%)", shadow: "radial-gradient(1200px 900px at 0% 60%, rgba(118,108,90,0.16) 0%, rgba(146,134,114,0) 65%)", accent: "radial-gradient(700px 600px at 46% 96%, rgba(200,188,166,0.11) 0%, rgba(200,188,166,0) 65%)", vignette: "radial-gradient(1600px 1050px at 52% 46%, rgba(244,241,234,0) 55%, rgba(104,94,74,0.12) 100%)", base: "linear-gradient(200deg, #F3EFE7 0%, #ECE6D8 55%, #E0D6C2 100%)" },
+          6: { sweep: "linear-gradient(6deg, rgba(255,242,214,0.22) 0%, rgba(255,242,214,0.05) 30%, rgba(255,242,214,0) 58%)", warm: "radial-gradient(1300px 620px at 50% 108%, rgba(230,194,138,0.17) 0%, rgba(230,194,138,0) 62%)", shadow: "radial-gradient(1400px 620px at 50% -8%, rgba(118,108,90,0.14) 0%, rgba(146,136,116,0) 62%)", accent: "radial-gradient(680px 560px at 8% 46%, rgba(200,190,170,0.11) 0%, rgba(200,190,170,0) 68%)", vignette: "radial-gradient(1600px 1050px at 50% 48%, rgba(244,240,232,0) 55%, rgba(102,90,70,0.13) 100%)", base: "linear-gradient(190deg, #F2EEE4 0%, #EBE4D5 55%, #DED3BD 100%)" },
+        };
+        const v = variants[step] ?? variants[1];
+        return {
+          backgroundColor: "#EDE7DC",
+          backgroundImage: [grain, plasterTexture, v.sweep, v.warm, v.shadow, v.accent, v.vignette, v.base].join(", "),
+          backgroundBlendMode: "soft-light, soft-light, normal, normal, multiply, normal, normal, normal",
+          backgroundSize: "300px 300px, 820px 820px, auto, auto, auto, auto, auto, auto",
+          backgroundAttachment: "scroll",
+          backgroundRepeat: "repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
+        } as const;
+      })()}
     >
+      <VellumSwitcher value={vellum} onChange={setVellum} />
       {/* HERO */}
       <section
         className="relative w-full min-h-[650px] lg:h-[650px]"
