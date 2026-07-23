@@ -291,60 +291,60 @@ function ExperienceCard({
 
   return (
     <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
-      {/* Soft contained under-card haze — full width along bottom */}
+      {/* Tight soft haze — hugs the line, minimal spread */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-22px",
+          bottom: "-6px",
           transform: "translateX(-50%)",
-          width: "100%",
-          height: "72px",
+          width: "94%",
+          height: "26px",
           borderRadius: "40%",
           background:
-            `radial-gradient(ellipse at center, rgba(255, 252, 245, ${clamp(0.85 * k)}) 0%, rgba(252, 240, 215, ${clamp(0.6 * k)}) 34%, rgba(240, 215, 170, ${clamp(0.26 * k)}) 64%, transparent 84%)`,
-          filter: "blur(14px)",
+            `radial-gradient(ellipse at center, rgba(255, 252, 245, ${clamp(0.75 * k)}) 0%, rgba(252, 240, 215, ${clamp(0.45 * k)}) 40%, transparent 78%)`,
+          filter: "blur(7px)",
           opacity: 1,
           zIndex: 0,
         }}
       />
-      {/* Concentrated warm-white bloom hugging card base — full width */}
+      {/* Bright warm-white bloom pressed to card base */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-8px",
+          bottom: "-2px",
           transform: "translateX(-50%)",
-          width: "98%",
-          height: "44px",
+          width: "96%",
+          height: "14px",
           borderRadius: "40%",
           background:
-            `radial-gradient(ellipse at center, rgba(255, 253, 248, ${clamp(1 * k)}) 0%, rgba(255, 242, 215, ${clamp(0.92 * k)}) 32%, rgba(245, 210, 150, ${clamp(0.45 * k)}) 64%, transparent 86%)`,
-          filter: "blur(9px)",
-          opacity: 1,
-          zIndex: 1,
-        }}
-      />
-      {/* Bright white light bar spanning full card width */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute"
-        style={{
-          left: "0%",
-          bottom: "-2px",
-          width: "100%",
-          height: "18px",
-          borderRadius: "10px",
-          background:
-            `linear-gradient(to right, transparent 0%, rgba(255, 255, 250, ${clamp(0.95 * k)}) 12%, rgba(255, 250, 232, ${clamp(1 * k)}) 50%, rgba(255, 255, 250, ${clamp(0.95 * k)}) 88%, transparent 100%)`,
+            `radial-gradient(ellipse at center, rgba(255, 253, 248, ${clamp(1 * k)}) 0%, rgba(255, 242, 215, ${clamp(0.9 * k)}) 40%, rgba(245, 210, 150, ${clamp(0.35 * k)}) 72%, transparent 90%)`,
           filter: "blur(4px)",
           opacity: 1,
           zIndex: 1,
         }}
       />
-      {/* Hot white contact streak — full bottom edge */}
+      {/* Bright white light bar along bottom edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{
+          left: "0%",
+          bottom: "0px",
+          width: "100%",
+          height: "6px",
+          borderRadius: "6px",
+          background:
+            `linear-gradient(to right, transparent 0%, rgba(255, 255, 250, ${clamp(0.95 * k)}) 10%, rgba(255, 252, 240, ${clamp(1 * k)}) 50%, rgba(255, 255, 250, ${clamp(0.95 * k)}) 90%, transparent 100%)`,
+          filter: "blur(1.5px)",
+          opacity: 1,
+          zIndex: 1,
+        }}
+      />
+      {/* Hot white contact streak — the line itself */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
@@ -352,14 +352,15 @@ function ExperienceCard({
           left: "0%",
           bottom: "1px",
           width: "100%",
-          height: "5px",
-          borderRadius: "3px",
+          height: "2.5px",
+          borderRadius: "2px",
           background:
-            `linear-gradient(to right, transparent 0%, rgba(255, 253, 245, ${clamp(1 * k)}) 10%, rgba(255, 255, 252, ${clamp(1 * k)}) 50%, rgba(255, 253, 245, ${clamp(1 * k)}) 90%, transparent 100%)`,
-          filter: "blur(0.9px)",
+            `linear-gradient(to right, transparent 0%, rgba(255, 255, 250, ${clamp(1 * k)}) 8%, rgba(255, 255, 255, ${clamp(1 * k)}) 50%, rgba(255, 255, 250, ${clamp(1 * k)}) 92%, transparent 100%)`,
+          filter: "blur(0.5px)",
           zIndex: 2,
         }}
       />
+
 
 
 
