@@ -283,61 +283,61 @@ function ExperienceCard({
 
   return (
     <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
-      {/* Wide outer haze — spreads warm light onto floor */}
+      {/* Soft contained under-card haze — no side spread */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-60px",
+          bottom: "-24px",
           transform: "translateX(-50%)",
-          width: "130%",
-          height: "150px",
+          width: "78%",
+          height: "70px",
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse at center, rgba(255, 210, 145, 0.65) 0%, rgba(245, 185, 110, 0.38) 32%, rgba(220, 155, 75, 0.16) 60%, transparent 80%)",
-          filter: "blur(28px)",
-          opacity: centerAccent ? 1 : 0.92,
+            "radial-gradient(ellipse at center, rgba(255, 250, 240, 0.85) 0%, rgba(252, 240, 215, 0.55) 32%, rgba(240, 215, 170, 0.22) 62%, transparent 82%)",
+          filter: "blur(14px)",
+          opacity: centerAccent ? 1 : 0.96,
           zIndex: 0,
         }}
       />
-      {/* Tight warm floor bloom — stays under card */}
+      {/* Concentrated warm-white bloom hugging the card base */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-28px",
+          bottom: "-10px",
           transform: "translateX(-50%)",
-          width: "108%",
-          height: "82px",
+          width: "72%",
+          height: "42px",
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse at center, rgba(255, 228, 175, 0.98) 0%, rgba(250, 200, 125, 0.72) 28%, rgba(225, 165, 85, 0.32) 58%, transparent 82%)",
-          filter: "blur(16px)",
-          opacity: 1,
-          zIndex: 0,
-        }}
-      />
-      {/* Bright concealed champagne light bar under card edge */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute"
-        style={{
-          left: "50%",
-          bottom: "-4px",
-          transform: "translateX(-50%)",
-          width: "94%",
-          height: "20px",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(ellipse at center, rgba(255, 250, 225, 1) 0%, rgba(255, 230, 175, 1) 34%, rgba(240, 190, 115, 0.7) 64%, transparent 88%)",
-          filter: "blur(4px)",
+            "radial-gradient(ellipse at center, rgba(255, 252, 245, 1) 0%, rgba(255, 240, 210, 0.9) 30%, rgba(245, 210, 150, 0.4) 62%, transparent 84%)",
+          filter: "blur(8px)",
           opacity: 1,
           zIndex: 1,
         }}
       />
-      {/* Thin bright core streak — hot contact line */}
+      {/* Bright white light bar under card edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{
+          left: "50%",
+          bottom: "-2px",
+          transform: "translateX(-50%)",
+          width: "68%",
+          height: "16px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(ellipse at center, rgba(255, 255, 250, 1) 0%, rgba(255, 248, 225, 1) 38%, rgba(250, 220, 165, 0.75) 68%, transparent 90%)",
+          filter: "blur(3px)",
+          opacity: 1,
+          zIndex: 1,
+        }}
+      />
+      {/* Hot white contact streak */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
@@ -345,15 +345,16 @@ function ExperienceCard({
           left: "50%",
           bottom: "1px",
           transform: "translateX(-50%)",
-          width: "84%",
+          width: "62%",
           height: "5px",
           borderRadius: "3px",
           background:
-            "linear-gradient(to right, transparent 0%, rgba(255, 248, 225, 1) 14%, rgba(255, 253, 240, 1) 50%, rgba(255, 248, 225, 1) 86%, transparent 100%)",
-          filter: "blur(1px)",
+            "linear-gradient(to right, transparent 0%, rgba(255, 253, 245, 1) 16%, rgba(255, 255, 252, 1) 50%, rgba(255, 253, 245, 1) 84%, transparent 100%)",
+          filter: "blur(0.8px)",
           zIndex: 2,
         }}
       />
+
 
 
       <Link
