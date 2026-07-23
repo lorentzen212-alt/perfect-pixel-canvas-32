@@ -93,7 +93,7 @@ function Home() {
   return (
     <>
     <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
-      {/* Hero background — pure abstract architectural atmosphere */}
+      {/* Hero background image — abstract soft architectural lighting */}
       <div
         aria-hidden
         className="absolute inset-0 z-0 overflow-hidden"
@@ -105,8 +105,8 @@ function Home() {
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
-            filter: "blur(115px) brightness(0.34) saturate(0.24) contrast(0.64)",
-            transform: "scale(1.5)",
+            filter: "blur(85px) brightness(0.38) saturate(0.62) contrast(0.82)",
+            transform: "scale(1.3)",
           }}
         />
         {/* Secondary softer blur layer for depth */}
@@ -117,39 +117,31 @@ function Home() {
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
-            filter: "blur(175px) brightness(0.38) saturate(0.18) contrast(0.58)",
-            transform: "scale(1.28)",
-            opacity: 0.65,
+            filter: "blur(120px) brightness(0.45) saturate(0.5) contrast(0.75)",
+            transform: "scale(1.15)",
+            opacity: 0.6,
             mixBlendMode: "screen",
           }}
         />
-        {/* Subtle warm light blooming through charcoal depth */}
+        {/* Warm ambient light pools */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(62% 48% at 30% 36%, rgba(185,162,132,0.11), transparent 74%), radial-gradient(52% 44% at 74% 64%, rgba(165,145,120,0.08), transparent 76%)",
+              "radial-gradient(70% 55% at 28% 42%, rgba(212,165,95,0.10), transparent 75%), radial-gradient(60% 50% at 74% 58%, rgba(195,148,80,0.07), transparent 78%)",
           }}
         />
-        {/* Charcoal/graphite base wash */}
+        {/* Dark overlay for depth */}
         <div
           className="absolute inset-0"
-          style={{ backgroundColor: "rgba(10,11,13,0.72)" }}
-        />
-        {/* Soft centre depth */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(34,36,40,0.24) 0%, transparent 55%)",
-          }}
+          style={{ backgroundColor: "rgba(10,11,13,0.82)" }}
         />
         {/* Edge vignette */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,0.42) 90%, rgba(0,0,0,0.62) 100%)",
+              "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.42) 90%, rgba(0,0,0,0.72) 100%)",
           }}
         />
       </div>
@@ -206,7 +198,7 @@ function Home() {
         )}
 
         {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start lg:-mt-10">
+        <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start lg:-mt-10">
           {/* Eyebrow */}
           <div className="flex items-center justify-center gap-3 text-[#C9A65E]">
             <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[#C9A65E]/70 text-[11px] font-light">5</span>
@@ -237,7 +229,7 @@ function Home() {
           </p>
 
           {/* EXPERIENCE CARDS */}
-          <div className="mt-5 lg:mt-7 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 lg:gap-5">
+          <div className="mt-10 lg:mt-12 grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
 
             <ExperienceCard
               to="/book-leisure"
@@ -305,61 +297,43 @@ function ExperienceCard({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="relative">
-      {/* Soft physical shadow behind card */}
-      <div className="absolute -inset-1 rounded-[24px] bg-black/55 blur-2xl opacity-60" />
-      {/* Subtle floor reflection */}
-      <div
-        className="absolute -bottom-5 left-[8%] right-[8%] h-10 rounded-[50%] opacity-30"
-        style={{
-          background: "radial-gradient(ellipse at center top, rgba(0,0,0,0.55), transparent 70%)",
-          filter: "blur(10px)",
-        }}
-      />
-      <Link
-        to={to}
-        className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_24px_70px_-28px_rgba(0,0,0,0.55)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_32px_80px_-28px_rgba(0,0,0,0.65)]"
-      >
-        {/* Top edge light */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-        {/* Bottom edge light */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-px bg-gradient-to-r from-transparent via-[#B99A5B]/15 to-transparent" />
-        {/* Faint glass reflection */}
-        <div className="pointer-events-none absolute inset-0 z-10 rounded-[20px] bg-gradient-to-br from-white/[0.05] via-transparent to-transparent opacity-50" />
-        {/* Image */}
-        <div className="relative aspect-[4/2.7] overflow-hidden">
-          <img
-            src={image}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/45 to-black/75" />
-          {/* Icon centered */}
-          <div className="absolute inset-0 flex items-center justify-center text-[#E6C88A]">
-            {icon}
-          </div>
+    <Link
+      to={to}
+      className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(230,200,138,0.25),0_0_40px_-10px_rgba(230,200,138,0.25)]"
+    >
+      {/* Image */}
+      <div className="relative aspect-[4/2.6] overflow-hidden">
+        <img
+          src={image}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/45 to-black/75" />
+        {/* Icon centered */}
+        <div className="absolute inset-0 flex items-center justify-center text-[#E6C88A]">
+          {icon}
         </div>
-        {/* Text block */}
-        <div className="px-6 pt-5 pb-6 text-center">
-          <p
-            className="text-[#E6C88A] text-[13px] tracking-[0.35em] uppercase font-light"
-          >
-            {label}
-          </p>
-          <p
-            className="mt-3 text-white/85 text-[17px] leading-snug font-light"
-            style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
-          >
-            {tagline}
-          </p>
-          <div className="mt-6 flex justify-center">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/60 text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/10">
-              <ArrowRight size={18} strokeWidth={1.5} />
-            </span>
-          </div>
+      </div>
+      {/* Text block */}
+      <div className="px-6 pt-5 pb-6 text-center">
+        <p
+          className="text-[#E6C88A] text-[13px] tracking-[0.35em] uppercase font-light"
+        >
+          {label}
+        </p>
+        <p
+          className="mt-3 text-white/85 text-[17px] leading-snug font-light"
+          style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
+        >
+          {tagline}
+        </p>
+        <div className="mt-6 flex justify-center">
+          <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/60 text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/10">
+            <ArrowRight size={18} strokeWidth={1.5} />
+          </span>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }
 
