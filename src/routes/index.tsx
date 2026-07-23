@@ -215,6 +215,7 @@ function Home() {
               label="M&E"
               tagline={<>Meetings &amp; events<br />made seamless</>}
               icon={<MeIcon />}
+              centerAccent
             />
             <ExperienceCard
               to="/manage-bookings"
