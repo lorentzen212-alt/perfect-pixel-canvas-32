@@ -204,7 +204,7 @@ function Home() {
           </h1>
 
           {/* Gold divider */}
-          <div className="mt-4 lg:mt-5 flex items-center justify-center">
+          <div className="mt-2 lg:mt-3 flex items-center justify-center">
             <div className="h-px w-[90px] bg-gradient-to-r from-transparent via-[#C9A65E] to-transparent" />
             <div className="mx-2 h-[6px] w-[6px] rotate-45 bg-[#C9A65E]" />
             <div className="h-px w-[90px] bg-gradient-to-r from-transparent via-[#C9A65E] to-transparent" />
