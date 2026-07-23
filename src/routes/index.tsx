@@ -301,7 +301,7 @@ function ExperienceCard({
         </div>
       </div>
       {/* Text block */}
-      <div className="px-6 pt-6 pb-8 text-center">
+      <div className="px-6 pt-5 pb-6 text-center">
         <p
           className="text-[#E6C88A] text-[13px] tracking-[0.35em] uppercase font-light"
         >
