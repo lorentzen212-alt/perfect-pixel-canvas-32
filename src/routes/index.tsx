@@ -128,13 +128,13 @@ function Home() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(62% 48% at 30% 36%, rgba(185,162,132,0.06), transparent 80%), radial-gradient(52% 44% at 74% 64%, rgba(165,145,120,0.04), transparent 82%)",
+              "radial-gradient(62% 48% at 30% 36%, rgba(185,162,132,0.09), transparent 78%), radial-gradient(52% 44% at 74% 64%, rgba(165,145,120,0.06), transparent 80%)",
           }}
         />
         {/* Charcoal/graphite base wash */}
         <div
           className="absolute inset-0"
-          style={{ backgroundColor: "rgba(10,11,13,0.88)" }}
+          style={{ backgroundColor: "rgba(10,11,13,0.84)" }}
         />
         {/* Soft centre depth */}
         <div
