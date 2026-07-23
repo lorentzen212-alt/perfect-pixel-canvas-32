@@ -283,21 +283,21 @@ function ExperienceCard({
 
   return (
     <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
-      {/* Wide soft warm floor haze */}
+      {/* Tight warm floor bloom — stays under card */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-46px",
+          bottom: "-22px",
           transform: "translateX(-50%)",
-          width: "118%",
-          height: "90px",
+          width: "96%",
+          height: "56px",
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse at center, rgba(245, 200, 130, 0.42) 0%, rgba(230, 175, 100, 0.22) 35%, rgba(200, 140, 70, 0.08) 60%, transparent 78%)",
-          filter: "blur(22px)",
-          opacity: centerAccent ? 1 : 0.9,
+            "radial-gradient(ellipse at center, rgba(255, 220, 160, 0.75) 0%, rgba(245, 190, 115, 0.45) 30%, rgba(220, 160, 80, 0.18) 58%, transparent 78%)",
+          filter: "blur(14px)",
+          opacity: centerAccent ? 1 : 0.95,
           zIndex: 0,
         }}
       />
@@ -307,15 +307,15 @@ function ExperienceCard({
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-4px",
+          bottom: "-3px",
           transform: "translateX(-50%)",
-          width: "90%",
-          height: "10px",
+          width: "88%",
+          height: "12px",
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse at center, rgba(255, 240, 205, 0.95) 0%, rgba(250, 215, 150, 0.75) 30%, rgba(230, 175, 100, 0.35) 60%, transparent 82%)",
-          filter: "blur(4px)",
-          opacity: centerAccent ? 1 : 0.95,
+            "radial-gradient(ellipse at center, rgba(255, 245, 215, 1) 0%, rgba(255, 220, 160, 0.9) 32%, rgba(235, 180, 105, 0.5) 62%, transparent 84%)",
+          filter: "blur(3px)",
+          opacity: 1,
           zIndex: 1,
         }}
       />
@@ -325,14 +325,14 @@ function ExperienceCard({
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-1px",
+          bottom: "0px",
           transform: "translateX(-50%)",
-          width: "70%",
-          height: "2px",
+          width: "78%",
+          height: "3px",
           borderRadius: "2px",
           background:
-            "linear-gradient(to right, transparent 0%, rgba(255, 240, 205, 0.9) 20%, rgba(255, 245, 220, 1) 50%, rgba(255, 240, 205, 0.9) 80%, transparent 100%)",
-          filter: "blur(1px)",
+            "linear-gradient(to right, transparent 0%, rgba(255, 245, 220, 1) 18%, rgba(255, 250, 235, 1) 50%, rgba(255, 245, 220, 1) 82%, transparent 100%)",
+          filter: "blur(0.8px)",
           zIndex: 2,
         }}
       />
