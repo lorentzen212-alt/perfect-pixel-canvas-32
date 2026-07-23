@@ -281,61 +281,48 @@ function ExperienceCard({
   // Center (M&E) card gets ~20% stronger ambient light
   const k = centerAccent ? 1.2 : 1;
   const s = (v: number) => Math.min(1, v * k).toFixed(3);
-  // Refined white-champagne tone (#F7F1E4 → rgb(247,241,228))
-  const restShadow = `0 1px 0 rgba(247,241,228,${s(0.05)}), 0 0 6px rgba(247,241,228,${s(0.035)}), 26px 0 32px -28px rgba(247,241,228,${s(0.05)}), -26px 0 32px -28px rgba(247,241,228,${s(0.05)}), 0 22px 30px -12px rgba(247,241,228,${s(0.28)}), 0 40px 60px -18px rgba(247,241,228,${s(0.18)}), 0 46px 80px -20px rgba(0,0,0,0.55)`;
-  const hoverShadow = `0 1px 0 rgba(247,241,228,${s(0.06)}), 0 0 7px rgba(247,241,228,${s(0.045)}), 28px 0 34px -28px rgba(247,241,228,${s(0.06)}), -28px 0 34px -28px rgba(247,241,228,${s(0.06)}), 0 24px 34px -12px rgba(247,241,228,${s(0.34)}), 0 46px 68px -18px rgba(247,241,228,${s(0.22)}), 0 50px 86px -20px rgba(0,0,0,0.58)`;
+  // Polished-stone champagne-white tone (#F6F1E7)
+  const restShadow = `0 1px 0 rgba(246,241,231,${s(0.04)}), 0 0 4px rgba(246,241,231,${s(0.025)}), 18px 0 24px -22px rgba(246,241,231,${s(0.035)}), -18px 0 24px -22px rgba(246,241,231,${s(0.035)}), 0 14px 22px -10px rgba(0,0,0,0.45)`;
+  const hoverShadow = `0 1px 0 rgba(246,241,231,${s(0.05)}), 0 0 5px rgba(246,241,231,${s(0.035)}), 20px 0 26px -22px rgba(246,241,231,${s(0.045)}), -20px 0 26px -22px rgba(246,241,231,${s(0.045)}), 0 16px 26px -10px rgba(0,0,0,0.48)`;
   return (
     <div className="relative">
-      {/* Ambient side/top halo — barely perceptible */}
+      {/* Extremely subtle ambient halo — reduced ~80% from previous version */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -inset-[18px] z-[-1] rounded-[28px]"
+        className="pointer-events-none absolute -inset-[10px] z-[-1] rounded-[24px]"
         style={{
-          background: `radial-gradient(ellipse at 50% 60%, rgba(247,241,228,${s(0.05)}) 0%, transparent 60%)`,
-          filter: "blur(18px)",
-          opacity: 0.6,
-        }}
-      />
-
-      {/* Concealed white-champagne LED pedestal — the primary light source */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-[6%] w-[88%] z-[-1]"
-        style={{
-          height: "60px",
-          bottom: "-24px",
-          background: `radial-gradient(ellipse at center, rgba(247,241,228,${s(0.55)}) 0%, rgba(247,241,228,${s(0.28)}) 28%, rgba(247,241,228,${s(0.10)}) 55%, transparent 78%)`,
+          background: `radial-gradient(ellipse at 50% 70%, rgba(246,241,231,${s(0.035)}) 0%, transparent 55%)`,
           filter: "blur(14px)",
-          opacity: 0.95,
+          opacity: 0.45,
         }}
       />
 
-      {/* Wider soft floor pool — spreads into the environment */}
+      {/* Thin architectural reflection: polished stone directly beneath card */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-[-8%] w-[116%] z-[-2]"
+        className="pointer-events-none absolute left-[5%] w-[90%] z-[-1]"
         style={{
-          height: "110px",
-          bottom: "-70px",
-          background: `radial-gradient(ellipse at center, rgba(247,241,228,${s(0.18)}) 0%, rgba(247,241,228,${s(0.08)}) 38%, transparent 74%)`,
-          filter: "blur(28px)",
-          opacity: 0.8,
+          height: "14px",
+          bottom: "-10px",
+          background: `radial-gradient(ellipse at 50% 0%, rgba(246,241,231,${s(0.42)}) 0%, rgba(246,241,231,${s(0.16)}) 32%, rgba(246,241,231,${s(0.04)}) 68%, transparent 100%)`,
+          filter: "blur(5px)",
+          opacity: 0.9,
         }}
       />
 
-      {/* Very subtle vertical floor reflection, only close to card */}
+      {/* Tight floor glow pool — kept within ~15px of the card */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-[14%] w-[72%] z-[-1]"
+        className="pointer-events-none absolute left-[14%] w-[72%] z-[-2]"
         style={{
-          height: "36px",
-          bottom: "-38px",
-          background:
-            "linear-gradient(to bottom, rgba(247,241,228,0.10), rgba(247,241,228,0.03) 55%, transparent 100%)",
-          filter: "blur(14px)",
-          opacity: 0.5,
+          height: "22px",
+          bottom: "-14px",
+          background: `radial-gradient(ellipse at center, rgba(246,241,231,${s(0.14)}) 0%, rgba(246,241,231,${s(0.05)}) 45%, transparent 80%)`,
+          filter: "blur(8px)",
+          opacity: 0.75,
         }}
       />
+
 
       <Link
         to={to}
