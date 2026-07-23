@@ -283,35 +283,55 @@ function ExperienceCard({
   const s = (v: number) => Math.min(1, v * k).toFixed(3);
   return (
     <div className="relative">
-      {/* Soft champagne bloom behind the card */}
+      {/* Soft champagne bloom behind the card (existing subtle halo) */}
       <div
         aria-hidden
         className="pointer-events-none absolute -inset-[28px] z-[-1] rounded-[28px]"
         style={{
-          background: `radial-gradient(ellipse at 50% 82%, rgba(214,169,92,${s(0.24)}) 0%, rgba(214,169,92,${s(0.10)}) 32%, transparent 70%)`,
+          background: `radial-gradient(ellipse at 50% 82%, rgba(214,169,92,${s(0.20)}) 0%, rgba(214,169,92,${s(0.08)}) 32%, transparent 70%)`,
           filter: "blur(22px)",
-          opacity: 0.9,
+          opacity: 0.85,
         }}
       />
-      {/* Faint floor reflection */}
+
+      {/* Floor bloom — soft elliptical champagne pool on the floor */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-[6%] w-[88%] h-[34px] -bottom-[26px] z-[-1]"
+        className="pointer-events-none absolute left-[4%] w-[92%] z-[-1]"
         style={{
+          height: "34px",
+          bottom: "-20px",
+          background: `radial-gradient(ellipse at center, rgba(235,193,116,${s(0.34)}) 0%, rgba(220,177,100,${s(0.16)}) 36%, rgba(220,177,100,${s(0.06)}) 58%, transparent 78%)`,
+          filter: "blur(10px)",
+          opacity: 0.95,
+        }}
+      />
+
+      {/* Faint vertical floor reflection */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-[16%] w-[68%] z-[-1]"
+        style={{
+          height: "42px",
+          bottom: "-42px",
           background:
-            "linear-gradient(to bottom, rgba(214,169,92,0.55), rgba(214,169,92,0.10) 55%, transparent 100%)",
-          filter: "blur(14px)",
-          opacity: 0.22,
+            "linear-gradient(to bottom, rgba(224,181,105,0.16), rgba(224,181,105,0.05) 42%, transparent 100%)",
+          filter: "blur(12px)",
+          opacity: 0.55,
         }}
       />
-      {/* Warm floor light directly under the card */}
+
+      {/* Concealed champagne light strip directly beneath the card */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-[14%] w-[72%] h-[18px] -bottom-2 z-[-1]"
+        className="pointer-events-none absolute left-[12%] w-[76%] z-[1]"
         style={{
-          background: `radial-gradient(ellipse, rgba(235,192,113,${s(0.52)}) 0%, rgba(214,169,92,${s(0.20)}) 42%, transparent 76%)`,
-          filter: "blur(9px)",
-          opacity: 0.9,
+          height: "4px",
+          bottom: "-2px",
+          borderRadius: "50%",
+          background: `rgba(238,199,126,${s(0.72)})`,
+          boxShadow: `0 0 10px rgba(238,199,126,${s(0.60)}), 0 0 24px rgba(220,177,100,${s(0.40)}), 0 0 42px rgba(220,177,100,${s(0.22)})`,
+          filter: "blur(1px)",
         }}
       />
 
@@ -320,15 +340,16 @@ function ExperienceCard({
         className="group relative block overflow-hidden rounded-[20px] bg-[#0E1013] transition-all duration-500 ease-out hover:-translate-y-[3px]"
         style={{
           border: `1px solid rgba(214,169,92,${Math.min(1, 0.72 * k).toFixed(3)})`,
-          boxShadow: `0 0 10px rgba(214,169,92,${s(0.18)}), 0 0 28px rgba(214,169,92,${s(0.14)}), 0 18px 38px rgba(0,0,0,0.48)`,
+          boxShadow: `0 0 10px rgba(220,177,100,${s(0.18)}), 0 0 24px rgba(220,177,100,${s(0.12)}), 0 12px 24px rgba(220,177,100,${s(0.24)}), 0 24px 46px rgba(220,177,100,${s(0.16)}), 0 28px 60px rgba(0,0,0,0.50)`,
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = `0 0 12px rgba(214,169,92,${s(0.22)}), 0 0 34px rgba(214,169,92,${s(0.17)}), 0 22px 44px rgba(0,0,0,0.52)`;
+          e.currentTarget.style.boxShadow = `0 0 12px rgba(220,177,100,${s(0.22)}), 0 0 28px rgba(220,177,100,${s(0.15)}), 0 14px 28px rgba(220,177,100,${s(0.29)}), 0 28px 52px rgba(220,177,100,${s(0.20)}), 0 30px 64px rgba(0,0,0,0.54)`;
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = `0 0 10px rgba(214,169,92,${s(0.18)}), 0 0 28px rgba(214,169,92,${s(0.14)}), 0 18px 38px rgba(0,0,0,0.48)`;
+          e.currentTarget.style.boxShadow = `0 0 10px rgba(220,177,100,${s(0.18)}), 0 0 24px rgba(220,177,100,${s(0.12)}), 0 12px 24px rgba(220,177,100,${s(0.24)}), 0 24px 46px rgba(220,177,100,${s(0.16)}), 0 28px 60px rgba(0,0,0,0.50)`;
         }}
       >
+
 
         {/* Full-height background image */}
         <div className="relative aspect-[12/13] overflow-hidden">
