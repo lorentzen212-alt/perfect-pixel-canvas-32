@@ -93,17 +93,45 @@ function Home() {
   return (
     <>
     <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
-      {/* Hero background image */}
+      {/* Hero background image — heavily blurred, abstract luxury atmosphere */}
       <div
         aria-hidden
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `url(${heroLobbyAsset.url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+        className="absolute inset-0 z-0 overflow-hidden"
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${heroLobbyAsset.url})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
+            filter: "blur(55px) brightness(0.45) saturate(0.9)",
+            transform: "scale(1.18)",
+          }}
+        />
+        {/* Warm ambient light pools */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(60% 45% at 30% 40%, rgba(214,168,90,0.14), transparent 70%), radial-gradient(55% 40% at 72% 55%, rgba(200,150,80,0.10), transparent 72%)",
+          }}
+        />
+        {/* Dark overlay for depth */}
+        <div
+          className="absolute inset-0"
+          style={{ backgroundColor: "rgba(10,11,13,0.78)" }}
+        />
+        {/* Edge vignette */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 85%, rgba(0,0,0,0.85) 100%)",
+          }}
+        />
+      </div>
+
 
 
       <div className="relative z-20 w-full">
