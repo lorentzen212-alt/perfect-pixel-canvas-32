@@ -233,6 +233,7 @@ function Home() {
             <ExperienceCard
               to="/book-leisure"
               image={cardLeisureAsset.url}
+              imagePosition="center 35%"
               label="Leisure"
               tagline={<>Unforgettable<br />getaways</>}
               icon={<LeisureIcon />}
@@ -240,6 +241,7 @@ function Home() {
             <ExperienceCard
               to="/book-meetings-events"
               image={cardMeAsset.url}
+              imagePosition="center 40%"
               label="M&E"
               tagline={<>Meetings &amp; events<br />made seamless</>}
               icon={<MeIcon />}
@@ -247,6 +249,7 @@ function Home() {
             <ExperienceCard
               to="/manage-bookings"
               image={cardManageAsset.url}
+              imagePosition="center center"
               label="Manage"
               tagline={<>Manage bookings<br />with ease</>}
               icon={<ManageIcon />}
@@ -285,12 +288,14 @@ function Home() {
 function ExperienceCard({
   to,
   image,
+  imagePosition = "center center",
   label,
   tagline,
   icon,
 }: {
   to: string;
   image: string;
+  imagePosition?: string;
   label: string;
   tagline: React.ReactNode;
   icon: React.ReactNode;
@@ -300,36 +305,36 @@ function ExperienceCard({
       to={to}
       className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(230,200,138,0.25),0_0_40px_-10px_rgba(230,200,138,0.25)]"
     >
-      {/* Image */}
-      <div className="relative aspect-[4/2.4] overflow-hidden">
+      {/* Full-height background image */}
+      <div className="relative aspect-[4/5] overflow-hidden">
         <img
           src={image}
           alt=""
+          style={{ objectPosition: imagePosition }}
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/45 to-black/75" />
-        {/* Icon centered */}
-        <div className="absolute inset-0 flex items-center justify-center text-[#E6C88A]">
-          {icon}
-        </div>
-      </div>
-      {/* Text block */}
-      <div className="px-6 pt-5 pb-6 text-center">
-        <p
-          className="text-[#E6C88A] text-[13px] tracking-[0.35em] uppercase font-light"
-        >
-          {label}
-        </p>
-        <p
-          className="mt-3 text-white/85 text-[17px] leading-snug font-light"
-          style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
-        >
-          {tagline}
-        </p>
-        <div className="mt-6 flex justify-center">
-          <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/60 text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/10">
-            <ArrowRight size={18} strokeWidth={1.5} />
-          </span>
+        {/* Cinematic gradient: lighter top, progressively darker bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/45 to-black/85" />
+
+        {/* Content overlay */}
+        <div className="absolute inset-0 flex flex-col items-center px-6 pt-8 pb-6 text-center">
+          <div className="flex-1 flex items-center justify-center text-[#E6C88A]">
+            {icon}
+          </div>
+          <p className="text-[#E6C88A] text-[13px] tracking-[0.35em] uppercase font-light">
+            {label}
+          </p>
+          <p
+            className="mt-3 text-white/90 text-[17px] leading-snug font-light drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+            style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
+          >
+            {tagline}
+          </p>
+          <div className="mt-5 flex justify-center">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15">
+              <ArrowRight size={18} strokeWidth={1.5} />
+            </span>
+          </div>
         </div>
       </div>
     </Link>
