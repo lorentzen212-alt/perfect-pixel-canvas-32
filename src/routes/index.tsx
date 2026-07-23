@@ -215,7 +215,7 @@ function Home() {
           </p>
 
           {/* EXPERIENCE CARDS */}
-          <div className="mt-7 lg:mt-9 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="mt-10 lg:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
 
             <ExperienceCard
               to="/book-leisure"
