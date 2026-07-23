@@ -151,6 +151,37 @@ const GOLD = "#F5C25A";
 const NAVY = "#0A1B2C";
 const NAVY_DEEP = "#04111A";
 
+/* --------------------------------------------------------------------------
+ * MATERIAL SYSTEM — Direction 2 · "Vellum meets Marine Stone"
+ * Two premium materials meeting at a single hairline seam. Nothing else.
+ * Do not add gradients, glows, ornaments or textures here.
+ * -------------------------------------------------------------------------- */
+
+// The warm architectural vellum surface (the light workspace).
+const VELLUM_SURFACE = "#F5EFDF";                 // warm off-white, one flat tone
+const VELLUM_TEXT = "#0F1B2D";                    // ink for headings
+const VELLUM_MUTED = "#5A6472";                   // secondary copy
+
+// The deep Scandinavian marine stone surface (the hospitality panel).
+// A single quiet fall-off from top to bottom — no visible gradient, only
+// the reading of light on a dense mineral surface. Warm-adjacent so it
+// sits next to the vellum as a partner, not a contrast.
+const STONE_SURFACE =
+  "linear-gradient(180deg, #14293C 0%, #0E2033 55%, #0B1A2A 100%)";
+const STONE_TEXT = "#EDE6D6";                     // warm ivory — echoes vellum
+const STONE_MUTED = "#8A97A5";                    // cool marine mist
+
+// The seam — the single hairline where the two materials meet. One line,
+// one weight. Any decoration here would break the illusion of two solid
+// surfaces meeting each other.
+const SEAM_HAIRLINE = "1px solid rgba(255,251,240,0.06)";
+
+// The outer carved edge that holds both materials as one object.
+const CARVED_EDGE = "1px solid #E1D6BE";
+const CARVED_SHADOW =
+  "inset 0 1px 0 rgba(255,251,240,0.7), 0 1px 0 rgba(40,28,10,0.06), 0 26px 60px -38px rgba(24,18,8,0.24)";
+
+
 const NAV_LINKS = [
   { label: "Home", to: "/" as const },
   { label: "About us", href: "/#about" },
@@ -4042,17 +4073,20 @@ function StepTwoLocation({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8 items-start">
-      {/* MAIN BOOKING CARD */}
-      <div
-        className="relative overflow-hidden rounded-[26px] p-6 sm:p-10 lg:p-14"
-        style={{
-          background: "#FCFBF8",
-          border: "1px solid #ECE6D6",
-          boxShadow:
-            "inset 0 1px 0 rgba(255,251,240,0.7), 0 1px 0 rgba(90,72,44,0.05), 0 20px 44px -34px rgba(60,48,28,0.14)",
-        }}
-      >
+    // ONE carved object holding two materials — vellum on the left,
+    // marine stone on the right, meeting at a single hairline seam.
+    <div
+      className="relative overflow-hidden rounded-[26px]"
+      style={{
+        background: VELLUM_SURFACE,
+        border: CARVED_EDGE,
+        boxShadow: CARVED_SHADOW,
+      }}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_384px] items-stretch">
+        {/* ─── LEFT · VELLUM WORKSPACE ─────────────────────────────────── */}
+        <div className="relative p-6 sm:p-10 lg:p-14 min-w-0">
+
         {/* Title */}
         <h2
           className="text-[42px] sm:text-[50px] leading-[1.05]"
@@ -4390,85 +4424,95 @@ function StepTwoLocation({
         <div className="sr-only" aria-hidden="true">
           <button type="button" onClick={onBack}>Back</button>
         </div>
-      </div>
-
-      {/* NEED HELP CARD */}
-      <aside
-        className="relative overflow-hidden rounded-[26px]"
-        style={{
-          backgroundColor: "#FAF8F4",
-          boxShadow:
-            "0 40px 80px -50px rgba(10,27,44,0.18), 0 12px 32px -20px rgba(10,27,44,0.08)",
-          minHeight: 480,
-        }}
-      >
-        {/* Reference illustration: warm off-white bg + gold lines + lounge — used as full card background */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${helpCardBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center bottom",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
-
-        <div className="relative pt-9 lg:pt-10 px-8 lg:px-9 pb-4">
-
-          <h3
-            className="text-[#0A1B2C] text-[28px] leading-tight"
-            style={{ fontFamily: SERIF, fontWeight: 500 }}
-          >
-            Need help?
-          </h3>
-          <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
-            Our M&amp;E specialists are
-            <br />
-            ready to assist you.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-5">
-            <a
-              href="tel:+4721002100"
-              className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors"
-            >
-              <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
-                style={{
-                  background:
-                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
-                  boxShadow:
-                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
-                }}
-              >
-                <Phone size={16} strokeWidth={2} className="text-white" />
-              </span>
-              +47 21 00 21 00
-            </a>
-            <a
-              href="mailto:meetings@hotelgroupbook.com"
-              className="flex items-center gap-3 text-[#2A2A2A] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
-            >
-              <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
-                style={{
-                  background:
-                    "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
-                  boxShadow:
-                    "0 4px 10px -6px rgba(168,117,22,0.45), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
-                }}
-              >
-                <Mail size={16} strokeWidth={2} className="text-white" />
-              </span>
-              meetings@hotelgroupbook.com
-            </a>
-          </div>
         </div>
-      </aside>
+        {/* ─── /LEFT · VELLUM WORKSPACE ────────────────────────────────── */}
+
+        {/* ─── RIGHT · MARINE STONE HOSPITALITY PANEL ─────────────────── */}
+        <aside
+          className="relative"
+          style={{
+            background: STONE_SURFACE,
+            borderLeft: SEAM_HAIRLINE,
+          }}
+        >
+          {/* faint top light-catch on the stone — reads as material, not as a gradient */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-px"
+            style={{ background: "rgba(255,251,240,0.10)" }}
+          />
+          <div className="relative px-9 lg:px-10 pt-11 lg:pt-12 pb-10">
+            <div
+              className="text-[11px] tracking-[0.22em] uppercase"
+              style={{ color: GOLD, fontFamily: SANS, fontWeight: 500 }}
+            >
+              Concierge
+            </div>
+            <h3
+              className="mt-3 text-[30px] leading-[1.08]"
+              style={{ fontFamily: SERIF, fontWeight: 400, color: STONE_TEXT, letterSpacing: "-0.01em" }}
+            >
+              Need help?
+            </h3>
+            <p
+              className="mt-3 text-[14.5px] leading-[1.55]"
+              style={{ color: STONE_MUTED, fontFamily: SANS }}
+            >
+              Our M&amp;E specialists are ready to assist you — from first idea to signed contract.
+            </p>
+
+            <div
+              aria-hidden="true"
+              className="mt-8 h-px w-full"
+              style={{ background: "rgba(237,230,214,0.10)" }}
+            />
+
+            <div className="mt-8 flex flex-col gap-5">
+              <a
+                href="tel:+4721002100"
+                className="group flex items-center gap-4 text-[15px] transition-colors"
+                style={{ color: STONE_TEXT, fontFamily: SANS }}
+              >
+                <span
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
+                    boxShadow:
+                      "0 6px 14px -8px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
+                  }}
+                >
+                  <Phone size={16} strokeWidth={2} className="text-[#0A1B2C]" />
+                </span>
+                <span className="group-hover:text-white transition-colors">+47 21 00 21 00</span>
+              </a>
+              <a
+                href="mailto:meetings@hotelgroupbook.com"
+                className="group flex items-center gap-4 text-[15px] transition-colors whitespace-nowrap"
+                style={{ color: STONE_TEXT, fontFamily: SANS }}
+              >
+                <span
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full shrink-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg,#F5E4A6 0%, #D6B15A 50%, #C79A32 100%)",
+                    boxShadow:
+                      "0 6px 14px -8px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,245,210,0.7), inset 0 -1px 0 rgba(120,80,20,0.35)",
+                  }}
+                >
+                  <Mail size={16} strokeWidth={2} className="text-[#0A1B2C]" />
+                </span>
+                <span className="group-hover:text-white transition-colors">meetings@hotelgroupbook.com</span>
+              </a>
+            </div>
+          </div>
+        </aside>
+        {/* ─── /RIGHT · MARINE STONE ───────────────────────────────────── */}
+      </div>
     </div>
   );
 }
+
 
 function PremiumDivider() {
   return (
