@@ -218,7 +218,7 @@ function Home() {
             <ExperienceCard
               to="/manage-bookings"
               image={cardManageAsset.url}
-              imagePosition="center center"
+              imagePosition="55% center"
               label="Manage"
               tagline={<>Manage bookings<br />with ease</>}
               icon={<ManageIcon />}
