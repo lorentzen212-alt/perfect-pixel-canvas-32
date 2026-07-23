@@ -233,6 +233,7 @@ function Home() {
             <ExperienceCard
               to="/book-leisure"
               image={cardLeisureAsset.url}
+              imagePosition="center 35%"
               label="Leisure"
               tagline={<>Unforgettable<br />getaways</>}
               icon={<LeisureIcon />}
@@ -240,6 +241,7 @@ function Home() {
             <ExperienceCard
               to="/book-meetings-events"
               image={cardMeAsset.url}
+              imagePosition="center 40%"
               label="M&E"
               tagline={<>Meetings &amp; events<br />made seamless</>}
               icon={<MeIcon />}
@@ -247,6 +249,7 @@ function Home() {
             <ExperienceCard
               to="/manage-bookings"
               image={cardManageAsset.url}
+              imagePosition="center center"
               label="Manage"
               tagline={<>Manage bookings<br />with ease</>}
               icon={<ManageIcon />}
