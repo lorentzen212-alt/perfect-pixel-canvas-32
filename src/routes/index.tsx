@@ -30,6 +30,10 @@ import {
   GroupPremium,
 } from "@/components/PremiumIcons";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
+import heroLobbyAsset from "@/assets/hero-lobby.jpg.asset.json";
+import cardLeisureAsset from "@/assets/card-leisure.jpg.asset.json";
+import cardMeAsset from "@/assets/card-me.jpg.asset.json";
+import cardManageAsset from "@/assets/card-manage.jpg.asset.json";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import lofotenImg from "@/assets/dest-lofoten.jpg";
 import tromsoImg from "@/assets/dest-tromso.jpg";
@@ -88,16 +92,22 @@ function Home() {
 
   return (
     <>
-    <main
-      className="relative min-h-screen w-full overflow-hidden bg-[#04111A]"
-      style={{
-        backgroundImage: `url(${heroAsset.url})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-black/70 via-black/30 to-transparent" />
+    <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
+      {/* Blurred luxury environment */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${heroLobbyAsset.url})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "blur(42px) saturate(0.85) brightness(0.55)",
+          transform: "scale(1.15)",
+        }}
+      />
+      {/* Vignette + darkening */}
+      <div aria-hidden className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgba(10,11,13,0.35)_0%,rgba(6,7,9,0.85)_75%,rgba(4,5,7,0.96)_100%)]" />
+      <div aria-hidden className="absolute inset-0 z-[1] bg-gradient-to-b from-black/50 via-transparent to-black/70" />
 
       <div className="relative z-20 w-full">
         {/* HEADER */}
@@ -110,9 +120,6 @@ function Home() {
               className="relative h-[46px] sm:h-[56px] lg:h-[68px] w-auto"
             />
           </a>
-
-
-
 
           <button
             onClick={() => setMobileOpen((v) => !v)}
@@ -127,17 +134,16 @@ function Home() {
               <a
                 key={l.label}
                 href={l.href}
-                className="text-white text-[18px] font-normal transition-colors hover:text-[#F5AE00]"
+                className="text-white/85 text-[16px] font-normal tracking-wide transition-colors hover:text-[#E6C88A]"
               >
                 {l.label}
               </a>
             ))}
-            <button className="rounded-md border border-[#F5AE00] px-7 py-2.5 text-[#F7F7F5] text-[18px] transition-colors hover:bg-[#F5AE00]/10">
-              Login
+            <button className="rounded-full border border-[#B99A5B]/60 px-6 py-2 text-white/90 text-[15px] tracking-wide transition-colors hover:border-[#E6C88A] hover:text-[#E6C88A]">
+              Menu
             </button>
           </nav>
         </header>
-
 
         {mobileOpen && (
           <nav className="lg:hidden mt-4 mx-5 sm:mx-8 lg:mx-[50px] xl:mx-[60px] flex flex-col gap-3 rounded-xl bg-[rgba(2,18,29,0.9)] p-4">
@@ -146,76 +152,84 @@ function Home() {
                 {l.label}
               </a>
             ))}
-            <button className="mt-1 rounded-md border border-[#F5AE00] px-5 py-2 text-white self-start">
-              Login
+            <button className="mt-1 rounded-md border border-[#B99A5B] px-5 py-2 text-white self-start">
+              Menu
             </button>
           </nav>
         )}
 
-        {/* HERO CONTENT */}
-        <section className="ml-5 sm:ml-8 lg:ml-[50px] xl:ml-[60px] mt-[25px] pt-[38px] sm:pt-[62px] lg:pt-[92px] pb-16 lg:pb-24 max-w-[720px]">
-          <GoldLineWithDiamond lineWidth="w-[100px] sm:w-[110px] lg:w-[120px]" lineThickness="h-[2px]" diamondSize="h-[5px] w-[5px]" />
+        {/* CENTERED HERO CONTENT */}
+        <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10 pt-8 lg:pt-10 pb-20 lg:pb-24 text-center">
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-3 text-[#C9A65E]">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[#C9A65E]/70 text-[11px] font-light">5</span>
+            <span className="text-[12px] tracking-[0.28em] uppercase font-light">The Experience</span>
+          </div>
 
-          <h2
-            className="mt-4 font-medium text-white leading-[1.02] text-5xl sm:text-6xl lg:text-[86px]"
+          {/* Headline */}
+          <h1
+            className="mx-auto mt-6 max-w-[900px] font-normal text-white leading-[1.05] text-[44px] sm:text-[64px] lg:text-[80px]"
             style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
           >
-            Group hotel
+            Three ways
             <br />
-            bookings
+            to exceptional
             <br />
-            <span className="italic">made simple</span>
-          </h2>
+            group stays
+          </h1>
 
-          <GoldLineWithDiamond className="mt-4" lineWidth="w-[190px] sm:w-[200px] lg:w-[210px]" lineThickness="h-[2px]" diamondSize="h-[5px] w-[5px]" />
+          {/* Gold divider */}
+          <div className="mt-8 flex items-center justify-center">
+            <div className="h-px w-[90px] bg-gradient-to-r from-transparent via-[#C9A65E] to-transparent" />
+            <div className="mx-2 h-[6px] w-[6px] rotate-45 bg-[#C9A65E]" />
+            <div className="h-px w-[90px] bg-gradient-to-r from-transparent via-[#C9A65E] to-transparent" />
+          </div>
 
-          <p className="mt-[39px] text-white text-xl sm:text-2xl lg:text-[28px] leading-[1.25] font-normal font-sans">
-            The easiest way to request
-            <br />
-            hotel offers for groups.
+          <p className="mt-6 text-white/80 text-[16px] lg:text-[17px] font-light tracking-wide">
+            One request. Everything handled.
           </p>
 
-          {/* CTA BUTTONS */}
-          <div className="mt-10 flex flex-nowrap items-center gap-4" style={{ gap: 16 }}>
-            <CTAButton icon={<Users size={26} strokeWidth={1.9} />} label="Book Leisure" variant="light" to="/book-leisure" />
-            <CTAButton icon={<Briefcase size={26} strokeWidth={1.9} />} label="Book M&E" variant="deep" to="/book-meetings-events" />
-            <CTAButton
-              icon={<CalendarDays size={26} strokeWidth={1.9} />}
-              label={
-                <>
-                  Manage My
-                  <br />
-                  Bookings
-                </>
-              }
-              variant="deep"
+          {/* EXPERIENCE CARDS */}
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            <ExperienceCard
+              to="/book-leisure"
+              image={cardLeisureAsset.url}
+              label="Leisure"
+              tagline={<>Unforgettable<br />getaways</>}
+              icon={<LeisureIcon />}
+            />
+            <ExperienceCard
+              to="/book-meetings-events"
+              image={cardMeAsset.url}
+              label="M&E"
+              tagline={<>Meetings &amp; events<br />made seamless</>}
+              icon={<MeIcon />}
+            />
+            <ExperienceCard
               to="/manage-bookings"
+              image={cardManageAsset.url}
+              label="Manage"
+              tagline={<>Manage bookings<br />with ease</>}
+              icon={<ManageIcon />}
             />
           </div>
 
-          {/* TRUST ROW */}
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 lg:flex-nowrap lg:justify-between lg:gap-x-6">
-          {TRUST.map(({ Icon, label, size }) => (
-            <div key={label} className="flex items-center gap-2 shrink-0">
-              <Icon size={size} />
-              <span
-                className="text-white text-[16px] lg:text-[17px] whitespace-nowrap"
-                style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
-              >
-                {label}
-              </span>
-            </div>
-          ))}
-          </div>
-
-          {/* BUILT BY */}
-          <div className="mt-5 flex items-start gap-3">
-            <GroupPremium className="shrink-0 mt-0.5" size={39} />
-            <p className="text-[#F7F7F5] text-[15px] lg:text-[16px] leading-snug">
-              Built by group booking professionals
-              <br className="hidden sm:block" />
-              with experience from 10,000+ groups.
-            </p>
+          {/* FEATURE BAR */}
+          <div className="mt-14 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm px-6 lg:px-10 py-6 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 text-left">
+            {[
+              { Icon: Clock, title: "Save Time", desc: "We handle the time-consuming work for you." },
+              { Icon: Gem, title: "Best Offers", desc: "Receive multiple offers from carefully selected hotels." },
+              { Icon: Headphones, title: "Expert Support", desc: "Dedicated M&E specialists ready to help." },
+              { Icon: ShieldCheck, title: "Trusted & Secure", desc: "Your data is safe with us, always." },
+            ].map(({ Icon, title, desc }) => (
+              <div key={title} className="flex items-start gap-3">
+                <Icon className="text-[#C9A65E] shrink-0 mt-0.5" size={26} strokeWidth={1.4} />
+                <div>
+                  <p className="text-white text-[12px] tracking-[0.18em] uppercase font-medium">{title}</p>
+                  <p className="mt-1 text-white/65 text-[13px] leading-snug font-light">{desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
       </div>
@@ -228,6 +242,94 @@ function Home() {
     </>
   );
 }
+
+function ExperienceCard({
+  to,
+  image,
+  label,
+  tagline,
+  icon,
+}: {
+  to: string;
+  image: string;
+  label: string;
+  tagline: React.ReactNode;
+  icon: React.ReactNode;
+}) {
+  return (
+    <Link
+      to={to}
+      className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(230,200,138,0.25),0_0_40px_-10px_rgba(230,200,138,0.25)]"
+    >
+      {/* Image */}
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <img
+          src={image}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/45 to-black/75" />
+        {/* Icon centered */}
+        <div className="absolute inset-0 flex items-center justify-center text-[#E6C88A]">
+          {icon}
+        </div>
+      </div>
+      {/* Text block */}
+      <div className="px-6 pt-6 pb-8 text-center">
+        <p
+          className="text-[#E6C88A] text-[13px] tracking-[0.35em] uppercase font-light"
+        >
+          {label}
+        </p>
+        <p
+          className="mt-3 text-white/85 text-[17px] leading-snug font-light"
+          style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
+        >
+          {tagline}
+        </p>
+        <div className="mt-6 flex justify-center">
+          <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/60 text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/10">
+            <ArrowRight size={18} strokeWidth={1.5} />
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function LeisureIcon() {
+  return (
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="36" cy="30" r="7" />
+      <path d="M36 15v4M36 41v4M21 30h4M47 30h4M25.5 19.5l2.8 2.8M43.7 37.7l2.8 2.8M25.5 40.5l2.8-2.8M43.7 22.3l2.8-2.8" />
+      <path d="M12 52l8-10 6 6 8-12 10 10 8-6 8 12" />
+    </svg>
+  );
+}
+
+function MeIcon() {
+  return (
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="36" cy="20" r="6" />
+      <path d="M26 44c0-6 4.5-10 10-10s10 4 10 10" />
+      <circle cx="20" cy="28" r="5" />
+      <path d="M12 48c0-5 3.5-9 8-9" />
+      <circle cx="52" cy="28" r="5" />
+      <path d="M60 48c0-5-3.5-9-8-9" />
+    </svg>
+  );
+}
+
+function ManageIcon() {
+  return (
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="14" y="18" width="44" height="40" rx="3" />
+      <path d="M14 30h44M24 14v8M48 14v8" />
+      <text x="36" y="49" textAnchor="middle" fontSize="13" fontFamily="Georgia, serif" stroke="none" fill="currentColor">15</text>
+    </svg>
+  );
+}
+
 
 function CTAButton({
   icon,
