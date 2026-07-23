@@ -394,20 +394,39 @@ function BookMeetingsEvents() {
             sizes: ["300px 300px", "auto", "auto", "auto", "auto", "auto"],
           },
 
-          // E · Signature Vellum — three deliberate layers of light and
-          // nothing else: one directional daylight, one cool containment,
-          // one warm reserve beneath the surface. My recommendation.
+          // E · Signature Vellum — the foundation, refined with almost
+          // imperceptible architectural depth. Nothing decorative: only the
+          // behaviour of light suggesting a real room around the interface.
+          //   1. broad directional daylight from the upper-left (window)
+          //   2. faint far-wall recession — a horizontal tonal seam ~58% down
+          //      that hints at the meeting of a distant wall and floor
+          //   3. cool containment along the left and right edges — the room
+          //      quietly closes around the page instead of dissolving
+          //   4. warm reserve pooling low-right — daylight bouncing back off
+          //      an unseen surface, giving the space an interior temperature
+          //   5. gentle overall vignette so the centre reads as inhabited
+          //   6. base Vellum with a whisper more vertical fall-off
           E: {
             color: "#F0EADB",
             layers: [
               grain,
-              "radial-gradient(1700px 1150px at 14% 4%, rgba(255,248,230,0.20) 0%, rgba(255,248,230,0) 58%)",
-              "radial-gradient(1000px 780px at 88% 92%, rgba(226,198,154,0.08) 0%, rgba(226,198,154,0) 70%)",
-              "radial-gradient(2000px 1350px at 50% 52%, rgba(244,238,224,0) 62%, rgba(46,52,60,0.12) 100%)",
-              "linear-gradient(176deg, #F2ECDE 0%, #EDE5D3 100%)",
+              // 1 · directional daylight, broader and softer
+              "radial-gradient(1900px 1250px at 12% 2%, rgba(255,248,230,0.22) 0%, rgba(255,248,230,0.05) 45%, rgba(255,248,230,0) 66%)",
+              // 2 · far-wall recession — extremely faint horizontal seam
+              "linear-gradient(180deg, rgba(0,0,0,0) 54%, rgba(60,54,44,0.05) 58%, rgba(0,0,0,0) 63%)",
+              // 3a · left edge containment (cool, very subtle)
+              "linear-gradient(90deg, rgba(46,54,64,0.07) 0%, rgba(46,54,64,0) 12%)",
+              // 3b · right edge containment
+              "linear-gradient(270deg, rgba(46,54,64,0.06) 0%, rgba(46,54,64,0) 12%)",
+              // 4 · warm reserve — daylight bouncing back from below-right
+              "radial-gradient(1100px 820px at 86% 94%, rgba(226,198,154,0.09) 0%, rgba(226,198,154,0) 70%)",
+              // 5 · inhabited-centre vignette
+              "radial-gradient(2100px 1400px at 50% 50%, rgba(244,238,224,0) 60%, rgba(42,46,52,0.13) 100%)",
+              // 6 · base with a whisper deeper vertical fall-off
+              "linear-gradient(176deg, #F3EDDF 0%, #EEE6D4 62%, #E9E1CE 100%)",
             ],
-            blends: ["soft-light", "normal", "normal", "normal", "normal"],
-            sizes: ["300px 300px", "auto", "auto", "auto", "auto"],
+            blends: ["soft-light", "normal", "multiply", "multiply", "multiply", "normal", "normal", "normal"],
+            sizes: ["300px 300px", "auto", "auto", "auto", "auto", "auto", "auto", "auto"],
           },
         };
 
