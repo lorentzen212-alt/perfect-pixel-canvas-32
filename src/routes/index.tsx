@@ -297,14 +297,14 @@ function ExperienceCard({
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-4px",
+          bottom: "-2px",
           transform: "translateX(-50%)",
           width: "86%",
-          height: "18px",
+          height: "10px",
           borderRadius: "45%",
           background:
             `radial-gradient(ellipse at center, rgba(255, 254, 250, ${clamp(0.92 * k)}) 0%, rgba(255, 245, 220, ${clamp(0.68 * k)}) 45%, rgba(250, 220, 160, ${clamp(0.3 * k)}) 72%, transparent 92%)`,
-          filter: "blur(6px)",
+          filter: "blur(4px)",
           opacity: 1,
           zIndex: 0,
         }}
@@ -315,14 +315,14 @@ function ExperienceCard({
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-1px",
+          bottom: "0px",
           transform: "translateX(-50%)",
           width: "88%",
-          height: "10px",
+          height: "6px",
           borderRadius: "45%",
           background:
             `radial-gradient(ellipse at center, rgba(255, 254, 248, ${clamp(1 * k)}) 0%, rgba(255, 248, 225, ${clamp(0.96 * k)}) 40%, rgba(255, 235, 190, ${clamp(0.58 * k)}) 72%, transparent 92%)`,
-          filter: "blur(3px)",
+          filter: "blur(2px)",
           opacity: 1,
           zIndex: 1,
         }}
@@ -336,11 +336,11 @@ function ExperienceCard({
           bottom: "0px",
           transform: "translateX(-50%)",
           width: "90%",
-          height: "5px",
+          height: "3px",
           borderRadius: "6px",
           background:
             `linear-gradient(to right, transparent 0%, rgba(255, 255, 252, ${clamp(1 * k)}) 12%, rgba(255, 254, 245, ${clamp(1 * k)}) 50%, rgba(255, 255, 252, ${clamp(1 * k)}) 88%, transparent 100%)`,
-          filter: "blur(1px)",
+          filter: "blur(0.6px)",
           opacity: 1,
           zIndex: 1,
         }}
@@ -354,11 +354,11 @@ function ExperienceCard({
           bottom: "1px",
           transform: "translateX(-50%)",
           width: "92%",
-          height: "2.5px",
+          height: "1.5px",
           borderRadius: "2px",
           background:
             `linear-gradient(to right, transparent 0%, rgba(255, 255, 255, ${clamp(1 * k)}) 10%, rgba(255, 255, 255, ${clamp(1 * k)}) 50%, rgba(255, 255, 255, ${clamp(1 * k)}) 90%, transparent 100%)`,
-          filter: "blur(0.4px)",
+          filter: "blur(0.2px)",
           zIndex: 2,
         }}
       />
