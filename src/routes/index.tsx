@@ -278,55 +278,58 @@ function ExperienceCard({
   icon: React.ReactNode;
   centerAccent?: boolean;
 }) {
-  // Center (M&E) card gets ~18% stronger ambient light
-  const k = centerAccent ? 1.18 : 1;
-  const a = (v: number) => Math.min(1, v * k).toFixed(3);
+  // Center (M&E) card gets ~20% stronger ambient light
+  const k = centerAccent ? 1.2 : 1;
+  const s = (v: number) => Math.min(1, v * k).toFixed(3);
   return (
     <div className="relative">
-      {/* Ambient champagne bloom — soft radial light behind the card, as if from the room */}
+      {/* Soft champagne bloom behind the card */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 z-[-2] h-[135%] w-[135%] -translate-x-1/2 -translate-y-1/2"
+        className="pointer-events-none absolute -inset-[28px] z-[-1] rounded-[28px]"
         style={{
-          background: `radial-gradient(ellipse 55% 55% at 50% 55%, rgba(198,163,96,${a(0.11)}), rgba(198,163,96,${a(0.045)}) 35%, transparent 68%)`,
-          filter: "blur(28px)",
-          mixBlendMode: "screen",
-        }}
-      />
-      {/* Lower bloom — stronger warmth where the card meets the floor */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 bottom-[-6%] z-[-2] h-[70%] w-[125%] -translate-x-1/2"
-        style={{
-          background: `radial-gradient(ellipse 55% 60% at 50% 40%, rgba(212,176,108,${a(0.16)}), rgba(198,163,96,${a(0.07)}) 40%, transparent 72%)`,
+          background: `radial-gradient(ellipse at 50% 82%, rgba(214,169,92,${s(0.24)}) 0%, rgba(214,169,92,${s(0.10)}) 32%, transparent 70%)`,
           filter: "blur(22px)",
-          mixBlendMode: "screen",
-        }}
-      />
-      {/* Floor reflection — warm smear directly beneath the card */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 -bottom-6 z-[-1] h-16 w-[92%] -translate-x-1/2"
-        style={{
-          background: `radial-gradient(ellipse 60% 100% at 50% 0%, rgba(220,184,116,${a(0.22)}), rgba(198,163,96,${a(0.08)}) 45%, transparent 78%)`,
-          filter: "blur(14px)",
-          mixBlendMode: "screen",
           opacity: 0.9,
         }}
       />
-      {/* Extremely soft outer halo — traces the border without thickening it */}
+      {/* Faint floor reflection */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-[-1px] z-[1] rounded-[22px]"
+        className="pointer-events-none absolute left-[6%] w-[88%] h-[34px] -bottom-[26px] z-[-1]"
         style={{
-          boxShadow: `0 0 10px 0 rgba(198,163,96,${a(0.05)}), 0 14px 40px -18px rgba(212,176,108,${a(0.18)})`,
+          background:
+            "linear-gradient(to bottom, rgba(214,169,92,0.55), rgba(214,169,92,0.10) 55%, transparent 100%)",
+          filter: "blur(14px)",
+          opacity: 0.22,
+        }}
+      />
+      {/* Warm floor light directly under the card */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-[14%] w-[72%] h-[18px] -bottom-2 z-[-1]"
+        style={{
+          background: `radial-gradient(ellipse, rgba(235,192,113,${s(0.52)}) 0%, rgba(214,169,92,${s(0.20)}) 42%, transparent 76%)`,
+          filter: "blur(9px)",
+          opacity: 0.9,
         }}
       />
 
       <Link
         to={to}
-        className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(230,200,138,0.25),0_0_40px_-10px_rgba(230,200,138,0.25)]"
+        className="group relative block overflow-hidden rounded-[20px] bg-[#0E1013] transition-all duration-500 ease-out hover:-translate-y-[3px]"
+        style={{
+          border: `1px solid rgba(214,169,92,${Math.min(1, 0.72 * k).toFixed(3)})`,
+          boxShadow: `0 0 10px rgba(214,169,92,${s(0.18)}), 0 0 28px rgba(214,169,92,${s(0.14)}), 0 18px 38px rgba(0,0,0,0.48)`,
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = `0 0 12px rgba(214,169,92,${s(0.22)}), 0 0 34px rgba(214,169,92,${s(0.17)}), 0 22px 44px rgba(0,0,0,0.52)`;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = `0 0 10px rgba(214,169,92,${s(0.18)}), 0 0 28px rgba(214,169,92,${s(0.14)}), 0 18px 38px rgba(0,0,0,0.48)`;
+        }}
       >
+
         {/* Full-height background image */}
         <div className="relative aspect-[12/13] overflow-hidden">
           <img
