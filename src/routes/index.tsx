@@ -198,7 +198,7 @@ function Home() {
         )}
 
         {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start">
+        <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start lg:-mt-10">
           {/* Eyebrow */}
           <div className="flex items-center justify-center gap-3 text-[#C9A65E]">
             <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[#C9A65E]/70 text-[11px] font-light">5</span>
@@ -229,7 +229,7 @@ function Home() {
           </p>
 
           {/* EXPERIENCE CARDS */}
-          <div className="mt-10 lg:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="mt-10 lg:mt-12 grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
 
             <ExperienceCard
               to="/book-leisure"
@@ -302,7 +302,7 @@ function ExperienceCard({
       className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(230,200,138,0.25),0_0_40px_-10px_rgba(230,200,138,0.25)]"
     >
       {/* Image */}
-      <div className="relative aspect-[4/2.7] overflow-hidden">
+      <div className="relative aspect-[4/2.6] overflow-hidden">
         <img
           src={image}
           alt=""
