@@ -30,6 +30,10 @@ import {
   GroupPremium,
 } from "@/components/PremiumIcons";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
+import heroLobbyAsset from "@/assets/hero-lobby.jpg.asset.json";
+import cardLeisureAsset from "@/assets/card-leisure.jpg.asset.json";
+import cardMeAsset from "@/assets/card-me.jpg.asset.json";
+import cardManageAsset from "@/assets/card-manage.jpg.asset.json";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import lofotenImg from "@/assets/dest-lofoten.jpg";
 import tromsoImg from "@/assets/dest-tromso.jpg";
