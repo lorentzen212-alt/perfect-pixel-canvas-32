@@ -4073,17 +4073,20 @@ function StepTwoLocation({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:gap-8 items-start">
-      {/* MAIN BOOKING CARD */}
-      <div
-        className="relative overflow-hidden rounded-[26px] p-6 sm:p-10 lg:p-14"
-        style={{
-          background: "#FCFBF8",
-          border: "1px solid #ECE6D6",
-          boxShadow:
-            "inset 0 1px 0 rgba(255,251,240,0.7), 0 1px 0 rgba(90,72,44,0.05), 0 20px 44px -34px rgba(60,48,28,0.14)",
-        }}
-      >
+    // ONE carved object holding two materials — vellum on the left,
+    // marine stone on the right, meeting at a single hairline seam.
+    <div
+      className="relative overflow-hidden rounded-[26px]"
+      style={{
+        background: VELLUM_SURFACE,
+        border: CARVED_EDGE,
+        boxShadow: CARVED_SHADOW,
+      }}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_384px] items-stretch">
+        {/* ─── LEFT · VELLUM WORKSPACE ─────────────────────────────────── */}
+        <div className="relative p-6 sm:p-10 lg:p-14 min-w-0">
+
         {/* Title */}
         <h2
           className="text-[42px] sm:text-[50px] leading-[1.05]"
