@@ -210,7 +210,7 @@ function Home() {
             <div className="h-px w-[90px] bg-gradient-to-r from-transparent via-[#C9A65E] to-transparent" />
           </div>
 
-          <p className="mt-3 lg:mt-4 text-white/80 text-[16px] lg:text-[17px] font-light tracking-wide">
+          <p className="mt-2 lg:mt-2 text-white/80 text-[16px] lg:text-[17px] font-light tracking-wide">
             One request. Everything handled.
           </p>
 
