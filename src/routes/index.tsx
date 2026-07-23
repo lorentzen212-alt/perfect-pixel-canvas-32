@@ -281,57 +281,59 @@ function ExperienceCard({
   // Center (M&E) card gets ~20% stronger ambient light
   const k = centerAccent ? 1.2 : 1;
   const s = (v: number) => Math.min(1, v * k).toFixed(3);
+  // Refined white-champagne tone (#F7F1E4 → rgb(247,241,228))
+  const restShadow = `0 1px 0 rgba(247,241,228,${s(0.05)}), 0 0 6px rgba(247,241,228,${s(0.035)}), 26px 0 32px -28px rgba(247,241,228,${s(0.05)}), -26px 0 32px -28px rgba(247,241,228,${s(0.05)}), 0 22px 30px -12px rgba(247,241,228,${s(0.28)}), 0 40px 60px -18px rgba(247,241,228,${s(0.18)}), 0 46px 80px -20px rgba(0,0,0,0.55)`;
+  const hoverShadow = `0 1px 0 rgba(247,241,228,${s(0.06)}), 0 0 7px rgba(247,241,228,${s(0.045)}), 28px 0 34px -28px rgba(247,241,228,${s(0.06)}), -28px 0 34px -28px rgba(247,241,228,${s(0.06)}), 0 24px 34px -12px rgba(247,241,228,${s(0.34)}), 0 46px 68px -18px rgba(247,241,228,${s(0.22)}), 0 50px 86px -20px rgba(0,0,0,0.58)`;
   return (
     <div className="relative">
-      {/* Soft champagne bloom behind the card (existing subtle halo) */}
+      {/* Ambient side/top halo — barely perceptible */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -inset-[28px] z-[-1] rounded-[28px]"
+        className="pointer-events-none absolute -inset-[18px] z-[-1] rounded-[28px]"
         style={{
-          background: `radial-gradient(ellipse at 50% 82%, rgba(214,169,92,${s(0.20)}) 0%, rgba(214,169,92,${s(0.08)}) 32%, transparent 70%)`,
-          filter: "blur(22px)",
-          opacity: 0.85,
+          background: `radial-gradient(ellipse at 50% 60%, rgba(247,241,228,${s(0.05)}) 0%, transparent 60%)`,
+          filter: "blur(18px)",
+          opacity: 0.6,
         }}
       />
 
-      {/* Floor bloom — soft elliptical champagne pool on the floor */}
+      {/* Concealed white-champagne LED pedestal — the primary light source */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-[4%] w-[92%] z-[-1]"
+        className="pointer-events-none absolute left-[6%] w-[88%] z-[-1]"
         style={{
-          height: "34px",
-          bottom: "-20px",
-          background: `radial-gradient(ellipse at center, rgba(235,193,116,${s(0.34)}) 0%, rgba(220,177,100,${s(0.16)}) 36%, rgba(220,177,100,${s(0.06)}) 58%, transparent 78%)`,
-          filter: "blur(10px)",
+          height: "60px",
+          bottom: "-24px",
+          background: `radial-gradient(ellipse at center, rgba(247,241,228,${s(0.55)}) 0%, rgba(247,241,228,${s(0.28)}) 28%, rgba(247,241,228,${s(0.10)}) 55%, transparent 78%)`,
+          filter: "blur(14px)",
           opacity: 0.95,
         }}
       />
 
-      {/* Faint vertical floor reflection */}
+      {/* Wider soft floor pool — spreads into the environment */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-[16%] w-[68%] z-[-1]"
+        className="pointer-events-none absolute left-[-8%] w-[116%] z-[-2]"
         style={{
-          height: "42px",
-          bottom: "-42px",
-          background:
-            "linear-gradient(to bottom, rgba(224,181,105,0.16), rgba(224,181,105,0.05) 42%, transparent 100%)",
-          filter: "blur(12px)",
-          opacity: 0.55,
+          height: "110px",
+          bottom: "-70px",
+          background: `radial-gradient(ellipse at center, rgba(247,241,228,${s(0.18)}) 0%, rgba(247,241,228,${s(0.08)}) 38%, transparent 74%)`,
+          filter: "blur(28px)",
+          opacity: 0.8,
         }}
       />
 
-      {/* Concealed champagne light strip directly beneath the card */}
+      {/* Very subtle vertical floor reflection, only close to card */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-[12%] w-[76%] z-[1]"
+        className="pointer-events-none absolute left-[14%] w-[72%] z-[-1]"
         style={{
-          height: "4px",
-          bottom: "-2px",
-          borderRadius: "50%",
-          background: `rgba(238,199,126,${s(0.72)})`,
-          boxShadow: `0 0 10px rgba(238,199,126,${s(0.60)}), 0 0 24px rgba(220,177,100,${s(0.40)}), 0 0 42px rgba(220,177,100,${s(0.22)})`,
-          filter: "blur(1px)",
+          height: "36px",
+          bottom: "-38px",
+          background:
+            "linear-gradient(to bottom, rgba(247,241,228,0.10), rgba(247,241,228,0.03) 55%, transparent 100%)",
+          filter: "blur(14px)",
+          opacity: 0.5,
         }}
       />
 
@@ -340,13 +342,13 @@ function ExperienceCard({
         className="group relative block overflow-hidden rounded-[20px] bg-[#0E1013] transition-all duration-500 ease-out hover:-translate-y-[3px]"
         style={{
           border: `1px solid rgba(214,169,92,${Math.min(1, 0.72 * k).toFixed(3)})`,
-          boxShadow: `0 0 10px rgba(220,177,100,${s(0.18)}), 0 0 24px rgba(220,177,100,${s(0.12)}), 0 12px 24px rgba(220,177,100,${s(0.24)}), 0 24px 46px rgba(220,177,100,${s(0.16)}), 0 28px 60px rgba(0,0,0,0.50)`,
+          boxShadow: restShadow,
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = `0 0 12px rgba(220,177,100,${s(0.22)}), 0 0 28px rgba(220,177,100,${s(0.15)}), 0 14px 28px rgba(220,177,100,${s(0.29)}), 0 28px 52px rgba(220,177,100,${s(0.20)}), 0 30px 64px rgba(0,0,0,0.54)`;
+          e.currentTarget.style.boxShadow = hoverShadow;
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = `0 0 10px rgba(220,177,100,${s(0.18)}), 0 0 24px rgba(220,177,100,${s(0.12)}), 0 12px 24px rgba(220,177,100,${s(0.24)}), 0 24px 46px rgba(220,177,100,${s(0.16)}), 0 28px 60px rgba(0,0,0,0.50)`;
+          e.currentTarget.style.boxShadow = restShadow;
         }}
       >
 
