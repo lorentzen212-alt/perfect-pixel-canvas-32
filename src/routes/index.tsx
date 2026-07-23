@@ -283,21 +283,39 @@ function ExperienceCard({
 
   return (
     <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
+      {/* Wide outer haze — spreads warm light onto floor */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{
+          left: "50%",
+          bottom: "-60px",
+          transform: "translateX(-50%)",
+          width: "130%",
+          height: "150px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(ellipse at center, rgba(255, 210, 145, 0.65) 0%, rgba(245, 185, 110, 0.38) 32%, rgba(220, 155, 75, 0.16) 60%, transparent 80%)",
+          filter: "blur(28px)",
+          opacity: centerAccent ? 1 : 0.92,
+          zIndex: 0,
+        }}
+      />
       {/* Tight warm floor bloom — stays under card */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-22px",
+          bottom: "-28px",
           transform: "translateX(-50%)",
-          width: "96%",
-          height: "56px",
+          width: "108%",
+          height: "82px",
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse at center, rgba(255, 220, 160, 0.75) 0%, rgba(245, 190, 115, 0.45) 30%, rgba(220, 160, 80, 0.18) 58%, transparent 78%)",
-          filter: "blur(14px)",
-          opacity: centerAccent ? 1 : 0.95,
+            "radial-gradient(ellipse at center, rgba(255, 228, 175, 0.98) 0%, rgba(250, 200, 125, 0.72) 28%, rgba(225, 165, 85, 0.32) 58%, transparent 82%)",
+          filter: "blur(16px)",
+          opacity: 1,
           zIndex: 0,
         }}
       />
@@ -307,35 +325,36 @@ function ExperienceCard({
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-3px",
+          bottom: "-4px",
           transform: "translateX(-50%)",
-          width: "88%",
-          height: "12px",
+          width: "94%",
+          height: "20px",
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse at center, rgba(255, 245, 215, 1) 0%, rgba(255, 220, 160, 0.9) 32%, rgba(235, 180, 105, 0.5) 62%, transparent 84%)",
-          filter: "blur(3px)",
+            "radial-gradient(ellipse at center, rgba(255, 250, 225, 1) 0%, rgba(255, 230, 175, 1) 34%, rgba(240, 190, 115, 0.7) 64%, transparent 88%)",
+          filter: "blur(4px)",
           opacity: 1,
           zIndex: 1,
         }}
       />
-      {/* Thin bright core streak */}
+      {/* Thin bright core streak — hot contact line */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "0px",
+          bottom: "1px",
           transform: "translateX(-50%)",
-          width: "78%",
-          height: "3px",
-          borderRadius: "2px",
+          width: "84%",
+          height: "5px",
+          borderRadius: "3px",
           background:
-            "linear-gradient(to right, transparent 0%, rgba(255, 245, 220, 1) 18%, rgba(255, 250, 235, 1) 50%, rgba(255, 245, 220, 1) 82%, transparent 100%)",
-          filter: "blur(0.8px)",
+            "linear-gradient(to right, transparent 0%, rgba(255, 248, 225, 1) 14%, rgba(255, 253, 240, 1) 50%, rgba(255, 248, 225, 1) 86%, transparent 100%)",
+          filter: "blur(1px)",
           zIndex: 2,
         }}
       />
+
 
       <Link
         to={to}
