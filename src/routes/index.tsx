@@ -193,7 +193,7 @@ function Home() {
 
           {/* Headline */}
           <h1
-            className="mx-auto mt-3 lg:mt-4 max-w-[900px] font-normal text-white leading-[1.05] text-[44px] sm:text-[58px] lg:text-[68px]"
+            className="mx-auto mt-2 lg:mt-2 max-w-[900px] font-normal text-white leading-[1.05] text-[44px] sm:text-[58px] lg:text-[63px]"
             style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
           >
             Three ways
