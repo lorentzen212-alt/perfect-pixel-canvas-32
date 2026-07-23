@@ -93,7 +93,7 @@ function Home() {
   return (
     <>
     <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
-      {/* Hero background image — heavily blurred, abstract luxury atmosphere */}
+      {/* Hero background image — abstract soft architectural lighting */}
       <div
         aria-hidden
         className="absolute inset-0 z-0 overflow-hidden"
@@ -105,8 +105,22 @@ function Home() {
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
-            filter: "blur(55px) brightness(0.45) saturate(0.9)",
-            transform: "scale(1.18)",
+            filter: "blur(85px) brightness(0.38) saturate(0.62) contrast(0.82)",
+            transform: "scale(1.3)",
+          }}
+        />
+        {/* Secondary softer blur layer for depth */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${heroLobbyAsset.url})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
+            filter: "blur(120px) brightness(0.45) saturate(0.5) contrast(0.75)",
+            transform: "scale(1.15)",
+            opacity: 0.6,
+            mixBlendMode: "screen",
           }}
         />
         {/* Warm ambient light pools */}
@@ -114,20 +128,20 @@ function Home() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(60% 45% at 30% 40%, rgba(214,168,90,0.14), transparent 70%), radial-gradient(55% 40% at 72% 55%, rgba(200,150,80,0.10), transparent 72%)",
+              "radial-gradient(70% 55% at 28% 42%, rgba(212,165,95,0.10), transparent 75%), radial-gradient(60% 50% at 74% 58%, rgba(195,148,80,0.07), transparent 78%)",
           }}
         />
         {/* Dark overlay for depth */}
         <div
           className="absolute inset-0"
-          style={{ backgroundColor: "rgba(10,11,13,0.78)" }}
+          style={{ backgroundColor: "rgba(10,11,13,0.82)" }}
         />
         {/* Edge vignette */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 85%, rgba(0,0,0,0.85) 100%)",
+              "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.42) 90%, rgba(0,0,0,0.72) 100%)",
           }}
         />
       </div>
@@ -184,7 +198,7 @@ function Home() {
         )}
 
         {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start">
+        <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start lg:-mt-10">
           {/* Eyebrow */}
           <div className="flex items-center justify-center gap-3 text-[#C9A65E]">
             <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[#C9A65E]/70 text-[11px] font-light">5</span>
@@ -215,7 +229,7 @@ function Home() {
           </p>
 
           {/* EXPERIENCE CARDS */}
-          <div className="mt-10 lg:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="mt-10 lg:mt-12 grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
 
             <ExperienceCard
               to="/book-leisure"
@@ -288,7 +302,7 @@ function ExperienceCard({
       className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(230,200,138,0.25),0_0_40px_-10px_rgba(230,200,138,0.25)]"
     >
       {/* Image */}
-      <div className="relative aspect-[4/2.7] overflow-hidden">
+      <div className="relative aspect-[4/2.6] overflow-hidden">
         <img
           src={image}
           alt=""
