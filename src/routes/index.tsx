@@ -266,6 +266,7 @@ function ExperienceCard({
   label,
   tagline,
   icon,
+  centerAccent = false,
 }: {
   to: string;
   image: string;
@@ -275,60 +276,53 @@ function ExperienceCard({
   label: string;
   tagline: React.ReactNode;
   icon: React.ReactNode;
+  centerAccent?: boolean;
 }) {
+  // Center (M&E) card gets ~18% stronger ambient light
+  const k = centerAccent ? 1.18 : 1;
+  const a = (v: number) => Math.min(1, v * k).toFixed(3);
   return (
     <div className="relative">
-      {/* Soft vertical architectural light behind the card */}
+      {/* Ambient champagne bloom — soft radial light behind the card, as if from the room */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-10%] z-[-1] h-[120%] w-[60%] -translate-x-1/2"
+        className="pointer-events-none absolute left-1/2 top-1/2 z-[-2] h-[135%] w-[135%] -translate-x-1/2 -translate-y-1/2"
         style={{
-          background:
-            "radial-gradient(ellipse 45% 100% at 50% 50%, rgba(185,154,91,0.06), transparent 70%)",
-          filter: "blur(8px)",
+          background: `radial-gradient(ellipse 55% 55% at 50% 55%, rgba(198,163,96,${a(0.11)}), rgba(198,163,96,${a(0.045)}) 35%, transparent 68%)`,
+          filter: "blur(28px)",
           mixBlendMode: "screen",
         }}
       />
-      {/* Warm floor reflection */}
+      {/* Lower bloom — stronger warmth where the card meets the floor */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-8 left-1/2 z-[-1] h-24 w-[110%] -translate-x-1/2"
+        className="pointer-events-none absolute left-1/2 bottom-[-6%] z-[-2] h-[70%] w-[125%] -translate-x-1/2"
         style={{
-          background:
-            "radial-gradient(ellipse 65% 35% at 50% 50%, rgba(185,154,91,0.09), transparent 75%)",
-          filter: "blur(10px)",
+          background: `radial-gradient(ellipse 55% 60% at 50% 40%, rgba(212,176,108,${a(0.16)}), rgba(198,163,96,${a(0.07)}) 40%, transparent 72%)`,
+          filter: "blur(22px)",
           mixBlendMode: "screen",
         }}
       />
-      {/* Extremely soft outer halo following the champagne border */}
+      {/* Floor reflection — warm smear directly beneath the card */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-[-2px] z-[1] rounded-[22px]"
+        className="pointer-events-none absolute left-1/2 -bottom-6 z-[-1] h-16 w-[92%] -translate-x-1/2"
         style={{
-          boxShadow:
-            "0 0 0 1px rgba(185,154,91,0.10), 0 0 8px 1px rgba(185,154,91,0.07), 0 0 18px 3px rgba(185,154,91,0.04)",
+          background: `radial-gradient(ellipse 60% 100% at 50% 0%, rgba(220,184,116,${a(0.22)}), rgba(198,163,96,${a(0.08)}) 45%, transparent 78%)`,
+          filter: "blur(14px)",
+          mixBlendMode: "screen",
+          opacity: 0.9,
         }}
       />
-      {/* Subtle vertical light catch along left edge */}
+      {/* Extremely soft outer halo — traces the border without thickening it */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-0 top-[12%] z-[2] h-[76%] w-px"
+        className="pointer-events-none absolute inset-[-1px] z-[1] rounded-[22px]"
         style={{
-          background:
-            "linear-gradient(to bottom, transparent, rgba(230,200,138,0.08), transparent)",
-          filter: "blur(1px)",
+          boxShadow: `0 0 10px 0 rgba(198,163,96,${a(0.05)}), 0 14px 40px -18px rgba(212,176,108,${a(0.18)})`,
         }}
       />
-      {/* Subtle vertical light catch along right edge */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute right-0 top-[12%] z-[2] h-[76%] w-px"
-        style={{
-          background:
-            "linear-gradient(to bottom, transparent, rgba(230,200,138,0.08), transparent)",
-          filter: "blur(1px)",
-        }}
-      />
+
       <Link
         to={to}
         className="group relative block overflow-hidden rounded-[20px] border border-[#B99A5B]/35 bg-[#0E1013] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out hover:-translate-y-[4px] hover:border-[#E6C88A]/70 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(230,200,138,0.25),0_0_40px_-10px_rgba(230,200,138,0.25)]"
