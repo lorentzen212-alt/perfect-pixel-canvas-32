@@ -271,6 +271,7 @@ function ExperienceCard({
   tagline,
   icon,
   centerAccent = false,
+  intensity = 1,
 }: {
   to: string;
   image: string;
@@ -281,83 +282,85 @@ function ExperienceCard({
   tagline: React.ReactNode;
   icon: React.ReactNode;
   centerAccent?: boolean;
+  intensity?: number;
 }) {
   const cardShadow =
     "0 12px 28px rgba(0, 0, 0, 0.42), 0 0 6px rgba(244, 232, 207, 0.06)";
+  const k = Math.min(intensity, 2.2);
+  const clamp = (v: number) => Math.min(v, 1);
 
   return (
     <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
-      {/* Soft contained under-card haze — no side spread */}
+      {/* Soft contained under-card haze — full width along bottom */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-24px",
+          bottom: "-22px",
           transform: "translateX(-50%)",
-          width: "78%",
-          height: "70px",
-          borderRadius: "50%",
+          width: "100%",
+          height: "72px",
+          borderRadius: "40%",
           background:
-            "radial-gradient(ellipse at center, rgba(255, 250, 240, 0.85) 0%, rgba(252, 240, 215, 0.55) 32%, rgba(240, 215, 170, 0.22) 62%, transparent 82%)",
+            `radial-gradient(ellipse at center, rgba(255, 252, 245, ${clamp(0.85 * k)}) 0%, rgba(252, 240, 215, ${clamp(0.6 * k)}) 34%, rgba(240, 215, 170, ${clamp(0.26 * k)}) 64%, transparent 84%)`,
           filter: "blur(14px)",
-          opacity: centerAccent ? 1 : 0.96,
+          opacity: 1,
           zIndex: 0,
         }}
       />
-      {/* Concentrated warm-white bloom hugging the card base */}
+      {/* Concentrated warm-white bloom hugging card base — full width */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
           left: "50%",
-          bottom: "-10px",
+          bottom: "-8px",
           transform: "translateX(-50%)",
-          width: "72%",
-          height: "42px",
-          borderRadius: "50%",
+          width: "98%",
+          height: "44px",
+          borderRadius: "40%",
           background:
-            "radial-gradient(ellipse at center, rgba(255, 252, 245, 1) 0%, rgba(255, 240, 210, 0.9) 30%, rgba(245, 210, 150, 0.4) 62%, transparent 84%)",
-          filter: "blur(8px)",
+            `radial-gradient(ellipse at center, rgba(255, 253, 248, ${clamp(1 * k)}) 0%, rgba(255, 242, 215, ${clamp(0.92 * k)}) 32%, rgba(245, 210, 150, ${clamp(0.45 * k)}) 64%, transparent 86%)`,
+          filter: "blur(9px)",
           opacity: 1,
           zIndex: 1,
         }}
       />
-      {/* Bright white light bar under card edge */}
+      {/* Bright white light bar spanning full card width */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
-          left: "50%",
+          left: "0%",
           bottom: "-2px",
-          transform: "translateX(-50%)",
-          width: "68%",
-          height: "16px",
-          borderRadius: "50%",
+          width: "100%",
+          height: "18px",
+          borderRadius: "10px",
           background:
-            "radial-gradient(ellipse at center, rgba(255, 255, 250, 1) 0%, rgba(255, 248, 225, 1) 38%, rgba(250, 220, 165, 0.75) 68%, transparent 90%)",
-          filter: "blur(3px)",
+            `linear-gradient(to right, transparent 0%, rgba(255, 255, 250, ${clamp(0.95 * k)}) 12%, rgba(255, 250, 232, ${clamp(1 * k)}) 50%, rgba(255, 255, 250, ${clamp(0.95 * k)}) 88%, transparent 100%)`,
+          filter: "blur(4px)",
           opacity: 1,
           zIndex: 1,
         }}
       />
-      {/* Hot white contact streak */}
+      {/* Hot white contact streak — full bottom edge */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
         style={{
-          left: "50%",
+          left: "0%",
           bottom: "1px",
-          transform: "translateX(-50%)",
-          width: "62%",
+          width: "100%",
           height: "5px",
           borderRadius: "3px",
           background:
-            "linear-gradient(to right, transparent 0%, rgba(255, 253, 245, 1) 16%, rgba(255, 255, 252, 1) 50%, rgba(255, 253, 245, 1) 84%, transparent 100%)",
-          filter: "blur(0.8px)",
+            `linear-gradient(to right, transparent 0%, rgba(255, 253, 245, ${clamp(1 * k)}) 10%, rgba(255, 255, 252, ${clamp(1 * k)}) 50%, rgba(255, 253, 245, ${clamp(1 * k)}) 90%, transparent 100%)`,
+          filter: "blur(0.9px)",
           zIndex: 2,
         }}
       />
+
 
 
 
