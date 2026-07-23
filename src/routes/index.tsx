@@ -284,57 +284,66 @@ function ExperienceCard({
 
   const ambientGradient = `radial-gradient(
     ellipse at center,
-    rgba(247, 241, 228, ${a(0.11)}) 0%,
-    rgba(244, 232, 207, ${a(0.065)}) 32%,
-    rgba(220, 190, 135, ${a(0.025)}) 56%,
+    rgba(247, 241, 228, ${a(0.16)}) 0%,
+    rgba(244, 232, 207, ${a(0.09)}) 34%,
+    rgba(222, 196, 151, ${a(0.035)}) 58%,
     transparent 76%
   )`;
 
-  const restShadow = "0 10px 28px rgba(0,0,0,0.32), 0 2px 6px rgba(0,0,0,0.18)";
-  const hoverShadow = "0 14px 34px rgba(0,0,0,0.38), 0 4px 10px rgba(0,0,0,0.20)";
+  const floorGradient = `radial-gradient(
+    ellipse at center,
+    rgba(248, 242, 230, ${a(0.34)}) 0%,
+    rgba(238, 220, 188, ${a(0.15)}) 44%,
+    transparent 76%
+  )`;
+
+  const cardShadow =
+    "0 10px 30px rgba(0, 0, 0, 0.42), 0 0 8px rgba(224, 190, 126, 0.08)";
 
   return (
-    <div className="relative">
-      {/* Atmospheric architectural light in the background behind the card */}
+    <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
+      {/* Broad soft ambient oval behind the card */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[-2]"
+        className="pointer-events-none absolute"
         style={{
-          width: "420px",
-          height: "520px",
+          left: "50%",
+          top: "52%",
+          transform: "translate(-50%, -50%)",
+          width: "118%",
+          height: "112%",
           borderRadius: "50%",
           background: ambientGradient,
-          filter: "blur(90px)",
-          opacity: 1,
+          filter: "blur(42px)",
+          opacity: 0.95,
+          zIndex: 0,
         }}
       />
 
-      {/* Faint floor reflection directly beneath the card */}
+      {/* Low wide horizontal pool of light directly beneath the card */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 -translate-x-1/2 z-[-1]"
+        className="pointer-events-none absolute"
         style={{
-          width: "65%",
-          height: "12px",
+          left: "50%",
           bottom: "-10px",
-          background: `radial-gradient(ellipse at center, rgba(246,241,231,${a(0.26)}) 0%, rgba(246,241,231,${a(0.08)}) 45%, transparent 80%)`,
-          filter: "blur(6px)",
-          opacity: 0.85,
+          transform: "translateX(-50%)",
+          width: "72%",
+          height: "18px",
+          background: floorGradient,
+          filter: "blur(8px)",
+          opacity: 0.8,
+          zIndex: 1,
         }}
       />
 
       <Link
         to={to}
-        className="group relative block overflow-hidden rounded-[20px] bg-[#0E1013] transition-all duration-500 ease-out hover:-translate-y-[3px]"
+        className="group relative block overflow-hidden rounded-[20px] bg-[#0E1013] transition-transform duration-500 ease-out hover:-translate-y-[3px]"
         style={{
-          border: "1px solid rgba(214,169,92,0.72)",
-          boxShadow: restShadow,
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = hoverShadow;
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = restShadow;
+          zIndex: 2,
+          border: "1px solid rgba(224, 190, 126, 0.55)",
+          boxShadow: cardShadow,
         }}
       >
         {/* Full-height background image */}
