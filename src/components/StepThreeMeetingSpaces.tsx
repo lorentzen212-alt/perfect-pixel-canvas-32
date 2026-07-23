@@ -736,9 +736,9 @@ export function StepThreeMeetingSpaces({
         className="overflow-hidden rounded-[22px] lg:mr-4"
         style={{
           background: BEIGE,
-          border: "1px solid #EAE3D5",
+          border: "1px solid #E7DFCE",
           boxShadow:
-            "0 40px 90px -50px rgba(10,27,44,0.18), 0 12px 32px -24px rgba(10,27,44,0.08)",
+            "inset 0 1px 0 rgba(255,251,240,0.7), 0 1px 0 rgba(90,72,44,0.05), 0 20px 44px -34px rgba(60,48,28,0.14)",
         }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(340px,360px)] gap-8 lg:gap-[13px] items-start">
@@ -806,9 +806,9 @@ export function StepThreeMeetingSpaces({
                   className="mt-8 rounded-[18px] p-6 lg:p-8"
                   style={{
                     background: CARD_BG,
-                    border: "1px solid #E8E0CE",
+                    border: "1px solid #E7DFCE",
                     boxShadow:
-                      "0 12px 30px -22px rgba(10,27,44,0.14), 0 2px 6px -3px rgba(10,27,44,0.05)",
+                      "inset 0 1px 0 rgba(255,251,240,0.6), 0 1px 0 rgba(90,72,44,0.04), 0 12px 26px -22px rgba(60,48,28,0.12)",
                   }}
                 >
                   <div className="flex flex-wrap items-center justify-between gap-4">
@@ -941,7 +941,7 @@ export function StepThreeMeetingSpaces({
                           className="rounded-[12px] p-3.5"
                           style={{
                             background: "#FAF8F4",
-                            border: "1px solid #E6DEC9",
+                            border: "1px solid #E7DFCE",
                           }}
                         >
                           <textarea
@@ -961,7 +961,7 @@ export function StepThreeMeetingSpaces({
                                 "0 0 0 3px rgba(212,169,74,0.18)";
                             }}
                             onBlur={(e) => {
-                              e.currentTarget.parentElement!.style.borderColor = "#E6DEC9";
+                              e.currentTarget.parentElement!.style.borderColor = "#E7DFCE";
                               e.currentTarget.parentElement!.style.boxShadow = "none";
                             }}
                           />
@@ -978,7 +978,7 @@ export function StepThreeMeetingSpaces({
                     className="mt-6 rounded-[14px] p-5 lg:p-6 grid grid-cols-1 md:grid-cols-[260px_1fr_auto] gap-6 items-stretch"
                     style={{
                       background: "#F1EADB",
-                      border: "1px solid #E4DBC4",
+                      border: "1px solid #E7DFCE",
                     }}
                   >
                     <div
@@ -1060,7 +1060,7 @@ export function StepThreeMeetingSpaces({
                             className="flex items-center gap-3 rounded-[12px] px-3.5 h-[46px] text-[13.5px] transition-all"
                             style={{
                               background: on ? "#FFF9EB" : "#FFFFFF",
-                              border: `1px solid ${on ? "rgba(212,169,74,0.65)" : "#E6DEC9"}`,
+                              border: `1px solid ${on ? "rgba(212,169,74,0.65)" : "#E7DFCE"}`,
                               boxShadow: on
                                 ? "0 4px 14px -8px rgba(212,169,74,0.45), inset 0 0 0 1px rgba(212,169,74,0.15)"
                                 : "0 1px 2px rgba(10,27,44,0.03)",
@@ -1105,7 +1105,7 @@ export function StepThreeMeetingSpaces({
                       className="rounded-[12px] p-3.5"
                       style={{
                         background: "#FAF8F4",
-                        border: "1px solid #E6DEC9",
+                        border: "1px solid #E7DFCE",
                       }}
                     >
                       <textarea
@@ -1135,7 +1135,7 @@ export function StepThreeMeetingSpaces({
                           className="flex flex-wrap items-center gap-3 rounded-[14px] px-5 py-3.5"
                           style={{
                             background: "#FAF8F4",
-                            border: "1px solid #E8E0CE",
+                            border: "1px solid #E7DFCE",
                             boxShadow:
                               "0 6px 18px -14px rgba(10,27,44,0.10)",
                           }}
@@ -1473,7 +1473,7 @@ export function StepThreeMeetingSpaces({
           width: 100%;
           height: 42px;
           background: #FFFFFF;
-          border: 1px solid #E6DEC9;
+          border: 1px solid #E7DFCE;
           border-radius: 10px;
           padding: 0 12px;
           font-size: 14px;
@@ -1538,7 +1538,7 @@ function SetupCard({
         background: selected
           ? "linear-gradient(180deg,#FBF3DD,#F5E6B8)"
           : "#FFFFFF",
-        border: `1px solid ${selected ? "rgba(184,137,23,0.55)" : "#E6DEC9"}`,
+        border: `1px solid ${selected ? "rgba(184,137,23,0.55)" : "#E7DFCE"}`,
         color: "#0A1B2C",
         boxShadow: selected
           ? "0 10px 24px -14px rgba(184,137,23,0.35), inset 0 1px 0 rgba(255,255,255,0.7)"
