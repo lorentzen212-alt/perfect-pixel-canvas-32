@@ -206,6 +206,7 @@ function Home() {
               label="Leisure"
               tagline={<>Unforgettable<br />getaways</>}
               icon={<LeisureIcon />}
+              intensity={1.8}
             />
             <ExperienceCard
               to="/book-meetings-events"
@@ -216,6 +217,7 @@ function Home() {
               tagline={<>Meetings &amp; events<br />made seamless</>}
               icon={<MeIcon />}
               centerAccent
+              intensity={2}
             />
             <ExperienceCard
               to="/manage-bookings"
@@ -225,7 +227,9 @@ function Home() {
               label="Manage"
               tagline={<>Manage bookings<br />with ease</>}
               icon={<ManageIcon />}
+              intensity={1.8}
             />
+
           </div>
 
           {/* FEATURE BAR */}
