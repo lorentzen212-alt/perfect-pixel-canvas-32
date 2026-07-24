@@ -2383,7 +2383,7 @@ function LeisureStep1Screen({
           className="text-[44px] leading-none tracking-[0.02em] sm:text-[64px] lg:text-[86px]"
           style={{
             fontFamily: SERIF,
-            color: "#F5F1E6",
+            color: "#FBF6E8",
             fontWeight: 500,
             letterSpacing: "0.04em",
           }}
