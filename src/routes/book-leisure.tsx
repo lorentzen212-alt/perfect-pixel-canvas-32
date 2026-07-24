@@ -2085,7 +2085,7 @@ function LeisureStep1Screen({
             >
               Popular destinations in {countryName}
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3 lg:grid-cols-4">
               {tiles.map((t) => {
                 const active =
                   t.name === city && !customDestination.trim();
@@ -2096,34 +2096,34 @@ function LeisureStep1Screen({
                       setCity(t.name);
                       setCustomDestination("");
                     }}
-                    className="group relative flex h-[180px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
+                    className="group relative flex h-[205px] flex-col overflow-hidden rounded-[16px] text-left transition-all duration-300 hover:-translate-y-[5px]"
                     style={{
-                      border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.28)"}`,
+                      border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.35)"}`,
                       boxShadow: active
-                        ? "0 16px 34px -18px rgba(212,166,74,0.55)"
+                        ? "0 18px 36px -18px rgba(212,166,74,0.6)"
                         : "0 10px 24px -16px rgba(0,0,0,0.55)",
                     }}
                   >
                     <img
                       src={t.img}
                       alt={t.name}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
                       onError={(e) => (e.currentTarget.style.opacity = "0")}
                     />
                     <div
                       className="absolute inset-0"
                       style={{
                         background:
-                          "linear-gradient(180deg, rgba(8,19,31,0.05) 40%, rgba(8,19,31,0.85) 100%)",
+                          "linear-gradient(180deg, rgba(8,19,31,0) 45%, rgba(8,19,31,0.72) 78%, rgba(8,19,31,0.95) 100%)",
                       }}
                     />
-                    <div className="relative z-10 mt-auto flex items-center gap-2 p-3.5">
+                    <div className="relative z-10 mt-auto flex items-center gap-2 p-4">
                       <MapPin
-                        size={14}
+                        size={16}
                         strokeWidth={2.2}
                         style={{ color: S1_GOLD_SOFT }}
                       />
-                      <span className="text-[14px] font-medium text-white">
+                      <span className="text-[16px] font-semibold tracking-[0.005em] text-white">
                         {t.name}
                       </span>
                     </div>
@@ -2138,25 +2138,25 @@ function LeisureStep1Screen({
                     setCity("Anywhere in Norway");
                     setCustomDestination("");
                   }}
-                  className="group flex h-[180px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
+                  className="group flex h-[205px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all duration-300 hover:-translate-y-[5px]"
                   style={{
                     background: S1_NAVY,
                     border: `1px solid ${
-                      city === "Anywhere in Norway" ? S1_GOLD : "rgba(212,166,74,0.45)"
+                      city === "Anywhere in Norway" ? S1_GOLD : "rgba(212,166,74,0.5)"
                     }`,
                     boxShadow:
                       city === "Anywhere in Norway"
-                        ? "0 16px 34px -18px rgba(212,166,74,0.55)"
+                        ? "0 18px 36px -18px rgba(212,166,74,0.6)"
                         : "0 10px 24px -16px rgba(0,0,0,0.55)",
                   }}
                 >
                   <MapPin
-                    size={28}
+                    size={30}
                     strokeWidth={1.8}
                     style={{ color: S1_GOLD_SOFT }}
                   />
                   <span
-                    className="text-[14px] font-medium leading-tight"
+                    className="text-[16px] font-semibold leading-tight"
                     style={{ color: S1_GOLD_SOFT }}
                   >
                     Anywhere
@@ -2166,6 +2166,7 @@ function LeisureStep1Screen({
                 </button>
               )}
             </div>
+
           </div>
 
           {/* Search */}
