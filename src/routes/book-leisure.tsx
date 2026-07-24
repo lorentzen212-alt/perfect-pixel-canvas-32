@@ -320,10 +320,23 @@ function BookLeisure() {
     return t;
   }, []);
 
+  // Aggregated room totals derived from stays (kept for review + payload compatibility)
+  const rooms = useMemo<Record<string, number>>(() => {
+    const agg: Record<string, number> = {
+      single: 0, double: 0, twin: 0, triple: 0, family: 0, accessible: 0,
+    };
+    for (const s of stays) {
+      for (const k of Object.keys(agg)) {
+        agg[k] += s.rooms[k] ?? 0;
+      }
+    }
+    return agg;
+  }, [stays]);
   const totalRooms = Object.values(rooms).reduce((a, b) => a + b, 0);
   const roomCount = (k: string) => rooms[k] ?? 0;
-  const setRoom = (k: string, v: number) =>
-    setRooms((r) => ({ ...r, [k]: Math.max(0, v) }));
+  const earlyCheckin = false;
+  const lateCheckout = false;
+  const connectingRooms = false;
 
   const toggleExtra = (label: string) =>
     setSelectedExtras((prev) => {
