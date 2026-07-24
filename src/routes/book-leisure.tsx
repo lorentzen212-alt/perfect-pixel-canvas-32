@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
 import { format } from "date-fns";
-import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v2.png.asset.json";
+import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
