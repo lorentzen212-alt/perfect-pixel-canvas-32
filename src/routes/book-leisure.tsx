@@ -2294,7 +2294,7 @@ function SearchSection({
       </div>
 
       {/* Bottom row */}
-      <div className="mt-2 flex flex-col-reverse items-center justify-between gap-6 sm:flex-row">
+      <div className="mt-5 flex flex-col-reverse items-center justify-between gap-6 sm:flex-row">
         <div className="flex items-center gap-2 text-[13.5px]">
           <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD }} />
           <span style={{ color: S1_GOLD }}>
