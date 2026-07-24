@@ -388,6 +388,7 @@ function BookLeisure() {
         guests,
         rooms,
         totalRooms,
+        stays,
         preferredHotel,
         earlyCheckin,
         lateCheckout,
