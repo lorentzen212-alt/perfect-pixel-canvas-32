@@ -1954,19 +1954,23 @@ function LeisureStep1Screen({
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
           style={{
             border: `1px solid ${S1_BORDER_SOFT}`,
-            boxShadow: "0 40px 80px -40px rgba(0,0,0,0.6)",
+            boxShadow: "inset 0 0 90px rgba(0,0,0,0.28), 0 40px 80px -40px rgba(0,0,0,0.6)",
           }}
         >
           <img
             src={S1_HERO}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
+            style={{
+              transform: "scale(1.10) translateY(3%)",
+              objectPosition: "center 12%",
+            }}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(3, 15, 28, 0.24) 0%, rgba(3, 15, 28, 0.14) 38%, rgba(3, 15, 28, 0.30) 68%, rgba(3, 15, 28, 0.58) 100%)",
+                "linear-gradient(to bottom, rgba(4,18,32,0.48) 0%, rgba(4,18,32,0.28) 28%, rgba(4,18,32,0.18) 55%, rgba(4,18,32,0.36) 78%, rgba(4,18,32,0.62) 100%)",
             }}
           />
           <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
@@ -1984,7 +1988,7 @@ function LeisureStep1Screen({
                 Where will<br />your group<br />adventure begin?
               </h1>
               <p
-                className="mt-6 max-w-[360px] text-[15.5px] leading-relaxed"
+                className="mt-8 max-w-[360px] text-[15.5px] leading-relaxed"
                 style={{ color: "rgba(255,255,255,0.82)" }}
               >
                 Tell us your destination<br />and hotel preferences.
