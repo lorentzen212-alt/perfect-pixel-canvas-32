@@ -1960,7 +1960,7 @@ function LeisureStep1Screen({
         <div
           className="relative w-full overflow-hidden rounded-[28px]"
           style={{
-            height: "clamp(360px, 52vh, 620px)",
+            height: "clamp(405px, 59vh, 705px)",
             border: `1px solid ${S1_BORDER_SOFT}`,
             boxShadow:
               "0 50px 90px -50px rgba(0,0,0,0.7), inset 0 0 90px rgba(0,0,0,0.25)",
@@ -1970,7 +1970,7 @@ function LeisureStep1Screen({
             src={S1_HERO}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "center center" }}
+            style={{ objectPosition: "center 58%" }}
           />
           {/* Directional overlay — darker over text on left, near-transparent over sunset */}
           <div
