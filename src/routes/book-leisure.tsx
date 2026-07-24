@@ -2074,7 +2074,8 @@ function LeisureStep1Screen({
           </div>
 
           {/* Popular destinations */}
-          <div className="mt-10">
+          <div className="mt-8">
+
             <div
               className="text-[14px] font-medium"
               style={{ color: "rgba(245,241,230,0.85)" }}
