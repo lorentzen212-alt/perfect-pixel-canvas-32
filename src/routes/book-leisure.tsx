@@ -1799,7 +1799,7 @@ const S1_GOLD_SOFT = "#E8C775";
 const S1_BORDER = "rgba(212,166,74,0.28)";
 const S1_BORDER_SOFT = "rgba(255,255,255,0.08)";
 
-import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v4.png.asset.json";
+import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-final.png.asset.json";
 const S1_HERO = leisureStep1HeroAsset.url;
 
 const NORWAY_TILES: { name: string; img: string }[] = [
@@ -1960,6 +1960,7 @@ function LeisureStep1Screen({
             src={S1_HERO}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: "54% center" }}
           />
           <div
             className="absolute inset-0"
