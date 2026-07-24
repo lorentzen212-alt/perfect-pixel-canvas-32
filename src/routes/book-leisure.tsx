@@ -2391,8 +2391,12 @@ function LeisureStepShell({
 
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,34fr)_minmax(0,66fr)] lg:gap-10 lg:px-10 lg:py-12">
         <aside
-          className="relative overflow-hidden min-h-[520px] lg:min-h-[820px] -mx-6 -mt-10 mb-[-40px] lg:mt-[-48px] lg:mb-[-48px] lg:mr-0 lg:ml-[calc(-40px+min(0px,(1600px-100vw)/2))]"
+          className="relative overflow-hidden min-h-[520px] lg:min-h-[820px] -mx-6 -mt-10 mb-[-40px] lg:mt-[-48px] lg:mb-[-48px] lg:mr-0"
+          style={{
+            marginLeft: "calc(-40px + min(0px, (1600px - 100vw) / 2))",
+          }}
         >
+
 
 
           <img src={hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
