@@ -1803,13 +1803,13 @@ const S1_BORDER_SOFT = "rgba(255,255,255,0.08)";
 const S1_HERO = leisureStep1HeroAsset.url;
 
 const NORWAY_TILES: { name: string; img: string }[] = [
-  { name: "Bergen", img: "https://images.unsplash.com/photo-1580977276076-ae4b8c219b8e?auto=format&fit=crop&w=900&q=80" },
-  { name: "Oslo", img: "https://images.unsplash.com/photo-1601979031925-424e53b6caaa?auto=format&fit=crop&w=900&q=80" },
-  { name: "Lofoten", img: "https://images.unsplash.com/photo-1520681279154-51b3fb4ea0f8?auto=format&fit=crop&w=900&q=80" },
-  { name: "Tromsø", img: "https://images.unsplash.com/photo-1531176175280-33e81422ee1a?auto=format&fit=crop&w=900&q=80" },
-  { name: "Stavanger", img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=900&q=80" },
-  { name: "Trondheim", img: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=900&q=80" },
-  { name: "Geiranger", img: "https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?auto=format&fit=crop&w=900&q=80" },
+  { name: "Bergen", img: "https://source.unsplash.com/900x600/?bryggen,bergen,norway" },
+  { name: "Oslo", img: "https://source.unsplash.com/900x600/?oslo,opera,norway" },
+  { name: "Lofoten", img: "https://source.unsplash.com/900x600/?lofoten,reine,norway" },
+  { name: "Tromsø", img: "https://source.unsplash.com/900x600/?tromso,arctic,norway" },
+  { name: "Stavanger", img: "https://source.unsplash.com/900x600/?stavanger,harbor,norway" },
+  { name: "Trondheim", img: "https://source.unsplash.com/900x600/?trondheim,nidaros,norway" },
+  { name: "Geiranger", img: "https://source.unsplash.com/900x600/?geirangerfjord,norway" },
 ];
 
 const COUNTRY_FLAG_EMOJI: Record<CountryCode, string> = {
