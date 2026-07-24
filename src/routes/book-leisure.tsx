@@ -1949,7 +1949,7 @@ function CountrySelector({
   const flagUrl = (code: CountryCode) =>
     `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
   return (
-    <div className="mx-auto mt-9 flex max-w-[1100px] items-center justify-center gap-0 px-6">
+    <div className="mx-auto mt-5 flex max-w-[1100px] items-center justify-center gap-0 px-6">
       {COUNTRIES.map((c, i) => {
         const active = c.code === country;
         return (
