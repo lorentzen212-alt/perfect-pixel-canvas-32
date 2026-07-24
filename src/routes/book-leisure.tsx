@@ -2551,8 +2551,9 @@ function LeisureStepShell({
         <div className="order-1 lg:order-none min-w-0">{children}</div>
 
         {rightSidebar && (
-          <div className="order-2 lg:order-none min-w-0">{rightSidebar}</div>
+          <div className="order-2 lg:order-none min-w-0 lg:sticky lg:top-6 lg:self-start">{rightSidebar}</div>
         )}
+
 
       </div>
     </main>
