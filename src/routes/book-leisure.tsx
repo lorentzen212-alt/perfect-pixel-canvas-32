@@ -465,6 +465,21 @@ function BookLeisure() {
       />
     );
   }
+  if (currentStep === 3) {
+    return (
+      <LeisureStep3Screen
+        selected={selectedExtras}
+        onToggle={toggleExtra}
+        comments={extrasComments}
+        setComments={setExtrasComments}
+        recommend={recommendExtras}
+        setRecommend={setRecommendExtras}
+        onNext={() => go(4)}
+        onBack={() => go(2)}
+        onStepGo={(s: StepKey) => go(s)}
+      />
+    );
+  }
 
   const meta = STEP_META[step];
 
