@@ -53,12 +53,19 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const NAV_LINKS = [
+import { SiteMenu, type SiteMenuItem } from "@/components/SiteMenu";
+
+const MENU_ITEMS: SiteMenuItem[] = [
+  { label: "Book Leisure", to: "/book-leisure" },
+  { label: "Book Meetings & Events", to: "/book-meetings-events" },
+  { label: "Manage Bookings", to: "/manage-bookings" },
   { label: "About Us", href: "#about" },
-  { label: "How It works", href: "#how" },
+  { label: "How It Works", href: "#how" },
   { label: "Become a Partner", href: "#partner" },
   { label: "Support", href: "#support" },
+  { label: "Contact", href: "#contact" },
 ];
+
 
 const TRUST = [
   { Icon: ShieldCheckPremium, label: "No commitment", size: 37 },
@@ -120,6 +127,7 @@ function Home() {
       <div className="relative z-20 w-full">
         {/* HEADER */}
         <header className="flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
+        <header className="flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
           <a href="/" aria-label="HotelGroupBook" className="logo-hover-wrap relative flex items-center">
             <span className="logo-mist" aria-hidden="true" />
             <img
@@ -129,42 +137,9 @@ function Home() {
             />
           </a>
 
-          <button
-            onClick={() => setMobileOpen((v) => !v)}
-            className="lg:hidden text-white p-2"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
-
-          <nav className="hidden lg:flex items-center gap-10">
-            {NAV_LINKS.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className="text-white/85 text-[16px] font-normal tracking-wide transition-colors hover:text-[#E6C88A]"
-              >
-                {l.label}
-              </a>
-            ))}
-            <button className="rounded-full border border-[#B99A5B]/60 px-6 py-2 text-white/90 text-[15px] tracking-wide transition-colors hover:border-[#E6C88A] hover:text-[#E6C88A]">
-              Menu
-            </button>
-          </nav>
+          <SiteMenu items={MENU_ITEMS} variant="outline" />
         </header>
 
-        {mobileOpen && (
-          <nav className="lg:hidden mt-4 mx-5 sm:mx-8 lg:mx-[50px] xl:mx-[60px] flex flex-col gap-3 rounded-xl bg-[rgba(2,18,29,0.9)] p-4">
-            {NAV_LINKS.map((l) => (
-              <a key={l.label} href={l.href} className="text-white text-base">
-                {l.label}
-              </a>
-            ))}
-            <button className="mt-1 rounded-md border border-[#B99A5B] px-5 py-2 text-white self-start">
-              Menu
-            </button>
-          </nav>
-        )}
 
         {/* CENTERED HERO CONTENT */}
         <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px+110px)] flex flex-col justify-start lg:-mt-[75px]">
