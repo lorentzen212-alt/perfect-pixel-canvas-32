@@ -2239,79 +2239,13 @@ function LeisureStepShell({
         color: "#F5F1E6",
       }}
     >
-      <header
-        className="w-full"
-        style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}
-      >
-        <div className="mx-auto flex max-w-[1600px] flex-col gap-6 px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-10 lg:py-7">
-          <Link to="/" className="flex items-center gap-3">
-            <div
-              className="grid h-11 w-11 place-items-center rounded-[10px]"
-              style={{
-                background: `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`,
-                color: S1_NAVY,
-                fontFamily: SERIF,
-              }}
-            >
-              <span className="text-[16px] font-semibold leading-none tracking-wide">HGB</span>
-            </div>
-            <div className="leading-tight">
-              <div style={{ fontFamily: SERIF, color: "#F5F1E6" }} className="text-[19px] font-medium">
-                HotelGroupBook
-              </div>
-              <div className="text-[11px] tracking-[0.14em]" style={{ color: "rgba(245,241,230,0.55)" }}>
-                Group journeys, made simple
-              </div>
-            </div>
-          </Link>
-
-          <ol className="flex flex-wrap items-center gap-x-2 gap-y-3 lg:gap-x-3">
-            {[1, 2, 3, 4, 5, 6].map((n, i) => {
-              const active = n === activeStep;
-              const done = n < activeStep;
-              return (
-                <li key={n} className="flex items-center gap-2 lg:gap-3">
-                  <button
-                    type="button"
-                    onClick={() => (done || active ? onStepGo(n as StepKey) : null)}
-                    className="flex flex-col items-center gap-1.5"
-                    style={{ cursor: done || active ? "pointer" : "default" }}
-                  >
-                    <span
-                      className="grid h-8 w-8 place-items-center rounded-full text-[13px] font-semibold transition-all"
-                      style={{
-                        background: active
-                          ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
-                          : "transparent",
-                        color: active ? S1_NAVY : done ? S1_GOLD_SOFT : "rgba(245,241,230,0.55)",
-                        border: `1px solid ${active || done ? S1_GOLD : "rgba(245,241,230,0.22)"}`,
-                        boxShadow: active ? "0 6px 18px -8px rgba(212,166,74,0.55)" : "none",
-                      }}
-                    >
-                      {done ? <Check size={14} strokeWidth={2.6} /> : n}
-                    </span>
-                    <span
-                      className="text-[11.5px] tracking-wide"
-                      style={{
-                        color: active ? S1_GOLD_SOFT : done ? "#F5F1E6" : "rgba(245,241,230,0.55)",
-                        fontWeight: active ? 600 : 500,
-                      }}
-                    >
-                      {STEP_META[n as StepKey].title}
-                    </span>
-                  </button>
-                  {i < 5 && (
-                    <span
-                      className="mt-[-14px] hidden h-px w-8 lg:block xl:w-14"
-                      style={{ backgroundColor: "rgba(245,241,230,0.18)" }}
-                    />
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-        </div>
-      </header>
+      <div style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}>
+        <BookingHeader
+          currentStep={activeStep}
+          onStepGo={(s) => onStepGo(s as StepKey)}
+          hideCurrentFlow="leisure"
+        />
+      </div>
 
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:gap-10 lg:px-10 lg:py-12">
         <aside
