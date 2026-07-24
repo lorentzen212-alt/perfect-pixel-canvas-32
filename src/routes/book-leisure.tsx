@@ -2177,12 +2177,31 @@ function SearchSection({
 
   return (
     <div className="mx-auto mt-12 w-full max-w-[1240px] px-6 lg:px-10">
-      <div
-        className="text-center text-[13px] tracking-[0.34em]"
-        style={{ color: S1_GOLD }}
-      >
-        OR
+      <div className="flex items-center justify-center gap-4">
+        <span
+          aria-hidden
+          className="h-px w-24 sm:w-32"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(212,166,74,0) 0%, rgba(212,166,74,0.55) 100%)",
+          }}
+        />
+        <div
+          className="text-[13px] tracking-[0.34em]"
+          style={{ color: S1_GOLD }}
+        >
+          OR
+        </div>
+        <span
+          aria-hidden
+          className="h-px w-24 sm:w-32"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(212,166,74,0.55) 0%, rgba(212,166,74,0) 100%)",
+          }}
+        />
       </div>
+
 
       {/* Search field with autocomplete */}
       <div className="relative mt-4">
