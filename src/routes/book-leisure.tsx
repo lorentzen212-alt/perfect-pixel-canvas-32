@@ -1802,14 +1802,22 @@ const S1_BORDER_SOFT = "rgba(255,255,255,0.08)";
 
 const S1_HERO = leisureStep1HeroAsset.url;
 
+import bergenImg from "@/assets/leisure/bergen.jpg.asset.json";
+import osloImg from "@/assets/leisure/oslo.jpg.asset.json";
+import lofotenImg from "@/assets/leisure/lofoten.jpg.asset.json";
+import tromsoImg from "@/assets/leisure/tromso.jpg.asset.json";
+import stavangerImg from "@/assets/leisure/stavanger.jpg.asset.json";
+import trondheimImg from "@/assets/leisure/trondheim.jpg.asset.json";
+import geirangerImg from "@/assets/leisure/geiranger.jpg.asset.json";
+
 const NORWAY_TILES: { name: string; img: string }[] = [
-  { name: "Bergen", img: "https://source.unsplash.com/900x600/?bryggen,bergen,norway" },
-  { name: "Oslo", img: "https://source.unsplash.com/900x600/?oslo,opera,norway" },
-  { name: "Lofoten", img: "https://source.unsplash.com/900x600/?lofoten,reine,norway" },
-  { name: "Tromsø", img: "https://source.unsplash.com/900x600/?tromso,arctic,norway" },
-  { name: "Stavanger", img: "https://source.unsplash.com/900x600/?stavanger,harbor,norway" },
-  { name: "Trondheim", img: "https://source.unsplash.com/900x600/?trondheim,nidaros,norway" },
-  { name: "Geiranger", img: "https://source.unsplash.com/900x600/?geirangerfjord,norway" },
+  { name: "Bergen", img: bergenImg.url },
+  { name: "Oslo", img: osloImg.url },
+  { name: "Lofoten", img: lofotenImg.url },
+  { name: "Tromsø", img: tromsoImg.url },
+  { name: "Stavanger", img: stavangerImg.url },
+  { name: "Trondheim", img: trondheimImg.url },
+  { name: "Geiranger", img: geirangerImg.url },
 ];
 
 const COUNTRY_FLAG_EMOJI: Record<CountryCode, string> = {
