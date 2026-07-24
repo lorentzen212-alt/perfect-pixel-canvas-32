@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
 import { format } from "date-fns";
+import leisureStep1HeroAsset from "@/assets/leisure-step1-hero.png.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
@@ -1799,8 +1800,7 @@ const S1_GOLD_SOFT = "#E8C775";
 const S1_BORDER = "rgba(212,166,74,0.28)";
 const S1_BORDER_SOFT = "rgba(255,255,255,0.08)";
 
-const S1_HERO =
-  "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80";
+const S1_HERO = leisureStep1HeroAsset.url;
 
 const NORWAY_TILES: { name: string; img: string }[] = [
   { name: "Bergen", img: "https://images.unsplash.com/photo-1601439678777-b2b3c56fa627?auto=format&fit=crop&w=800&q=80" },
@@ -1966,7 +1966,7 @@ function LeisureStep1Screen({
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
+                "linear-gradient(to bottom, rgba(3, 15, 28, 0.24) 0%, rgba(3, 15, 28, 0.14) 38%, rgba(3, 15, 28, 0.30) 68%, rgba(3, 15, 28, 0.58) 100%)",
             }}
           />
           <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
