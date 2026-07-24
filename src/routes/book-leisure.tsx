@@ -33,6 +33,9 @@ import {
   Camera,
   Flame,
   MapPin,
+  Star,
+  Bell,
+  BedDouble,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
