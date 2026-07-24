@@ -2472,8 +2472,9 @@ function LeisureStepShell({
   rightSidebar?: React.ReactNode;
 }) {
   const gridCols = rightSidebar
-    ? "lg:grid-cols-[minmax(0,22fr)_minmax(0,48fr)_minmax(0,30fr)]"
+    ? "lg:grid-cols-[minmax(240px,0.8fr)_minmax(620px,1.9fr)_minmax(300px,0.95fr)]"
     : "lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)]";
+
   return (
     <main
       className="min-h-screen w-full"
