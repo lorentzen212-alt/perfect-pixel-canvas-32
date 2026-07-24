@@ -1802,14 +1802,22 @@ const S1_BORDER_SOFT = "rgba(255,255,255,0.08)";
 
 const S1_HERO = leisureStep1HeroAsset.url;
 
+import bergenImg from "@/assets/leisure/bergen.jpg.asset.json";
+import osloImg from "@/assets/leisure/oslo.jpg.asset.json";
+import lofotenImg from "@/assets/leisure/lofoten.jpg.asset.json";
+import tromsoImg from "@/assets/leisure/tromso.jpg.asset.json";
+import stavangerImg from "@/assets/leisure/stavanger.jpg.asset.json";
+import trondheimImg from "@/assets/leisure/trondheim.jpg.asset.json";
+import geirangerImg from "@/assets/leisure/geiranger.jpg.asset.json";
+
 const NORWAY_TILES: { name: string; img: string }[] = [
-  { name: "Bergen", img: "https://images.unsplash.com/photo-1601439678777-b2b3c56fa627?auto=format&fit=crop&w=800&q=80" },
-  { name: "Oslo", img: "https://images.unsplash.com/photo-1601439678777-b2b3c56fa627?auto=format&fit=crop&w=800&q=80" },
-  { name: "Lofoten", img: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80" },
-  { name: "Tromsø", img: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=800&q=80" },
-  { name: "Stavanger", img: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80" },
-  { name: "Trondheim", img: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=800&q=80" },
-  { name: "Geiranger", img: "https://images.unsplash.com/photo-1502786129293-79981df4e689?auto=format&fit=crop&w=800&q=80" },
+  { name: "Bergen", img: bergenImg.url },
+  { name: "Oslo", img: osloImg.url },
+  { name: "Lofoten", img: lofotenImg.url },
+  { name: "Tromsø", img: tromsoImg.url },
+  { name: "Stavanger", img: stavangerImg.url },
+  { name: "Trondheim", img: trondheimImg.url },
+  { name: "Geiranger", img: geirangerImg.url },
 ];
 
 const COUNTRY_FLAG_EMOJI: Record<CountryCode, string> = {
@@ -1947,84 +1955,79 @@ function LeisureStep1Screen({
         </div>
       </header>
 
-      {/* Layout */}
-      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:gap-10 lg:px-10 lg:py-12">
-        {/* LEFT HERO */}
-        <aside
-          className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
+      {/* FULL-WIDTH CINEMATIC HERO */}
+      <div className="mx-auto w-full max-w-[1600px] px-6 pt-8 lg:px-10 lg:pt-10">
+        <div
+          className="relative w-full overflow-hidden rounded-[28px]"
           style={{
+            height: "clamp(360px, 52vh, 560px)",
             border: `1px solid ${S1_BORDER_SOFT}`,
-            boxShadow: "inset 0 0 90px rgba(0,0,0,0.28), 0 40px 80px -40px rgba(0,0,0,0.6)",
+            boxShadow:
+              "0 50px 90px -50px rgba(0,0,0,0.7), inset 0 0 90px rgba(0,0,0,0.25)",
           }}
         >
           <img
             src={S1_HERO}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: "center 45%" }}
+          />
+          {/* Left-side navy readability gradient only */}
+          <div
+            className="absolute inset-0"
             style={{
-              transform: "scale(1.10) translateY(3%)",
-              objectPosition: "center 12%",
+              background:
+                "linear-gradient(90deg, rgba(4,18,32,0.78) 0%, rgba(4,18,32,0.55) 28%, rgba(4,18,32,0.18) 55%, rgba(4,18,32,0) 78%)",
             }}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(4,18,32,0.48) 0%, rgba(4,18,32,0.28) 28%, rgba(4,18,32,0.18) 55%, rgba(4,18,32,0.36) 78%, rgba(4,18,32,0.62) 100%)",
+                "linear-gradient(180deg, rgba(4,18,32,0) 55%, rgba(4,18,32,0.55) 100%)",
             }}
           />
-          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
-            <div>
+          <div className="relative z-10 flex h-full items-center">
+            <div className="max-w-[560px] px-8 sm:px-12 lg:px-16">
               <div
-                className="text-[11px] font-medium tracking-[0.32em]"
+                className="text-[11px] font-medium tracking-[0.38em]"
                 style={{ color: S1_GOLD_SOFT }}
               >
                 CHAPTER I
               </div>
+              <div
+                className="mt-4 h-px w-14"
+                style={{ background: S1_GOLD_SOFT, opacity: 0.7 }}
+              />
               <h1
-                className="mt-6 text-[42px] sm:text-[52px] lg:text-[60px] leading-[1.02] font-medium text-white"
-                style={{ fontFamily: SERIF }}
+                className="mt-7 text-[38px] sm:text-[48px] lg:text-[58px] leading-[1.04] font-medium text-white"
+                style={{ fontFamily: SERIF, letterSpacing: "-0.01em" }}
               >
-                Where will<br />your group<br />adventure begin?
+                Where will your group<br />adventure begin?
               </h1>
               <p
-                className="mt-8 max-w-[360px] text-[15.5px] leading-relaxed"
-                style={{ color: "rgba(255,255,255,0.82)" }}
+                className="mt-6 max-w-[380px] text-[15.5px] leading-relaxed"
+                style={{ color: "rgba(255,255,255,0.86)" }}
               >
-                Tell us your destination<br />and hotel preferences.
+                Tell us your destination and hotel preferences.
               </p>
             </div>
-
-            <ul className="space-y-3.5 pt-8">
-              {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
-                <li
-                  key={t}
-                  className="flex items-center gap-3 text-[15px] text-white/95"
-                >
-                  <span
-                    className="grid h-6 w-6 place-items-center rounded-full"
-                    style={{
-                      backgroundColor: "rgba(212,166,74,0.14)",
-                      border: `1px solid ${S1_GOLD}`,
-                    }}
-                  >
-                    <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
-                  </span>
-                  {t}
-                </li>
-              ))}
-            </ul>
           </div>
-        </aside>
+        </div>
+      </div>
 
-        {/* RIGHT PANEL */}
+      {/* FLOATING BOOKING CARD — overlaps hero by ~50px */}
+      <div
+        className="mx-auto w-full max-w-[1280px] px-6 lg:px-10"
+        style={{ marginTop: "-50px" }}
+      >
         <section
-          className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+          className="relative rounded-[30px] p-6 sm:p-10 lg:p-12"
           style={{
             backgroundColor: S1_NAVY_SOFT,
             border: `1px solid ${S1_BORDER}`,
             boxShadow:
-              "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
+              "0 50px 110px -40px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
           <h2
@@ -2048,21 +2051,27 @@ function LeisureStep1Screen({
                 <button
                   key={c.code}
                   onClick={() => setCountry(c.code)}
-                  className="flex items-center justify-center gap-2.5 rounded-[14px] px-4 py-3.5 text-[14px] font-medium transition-all"
+                  className="flex items-center justify-center rounded-[14px] px-4 py-4 text-[14px] font-medium transition-all"
                   style={{
                     background: active
                       ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
-                      : S1_NAVY,
+                      : "transparent",
                     color: active ? S1_NAVY : "#F5F1E6",
-                    border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.14)"}`,
+                    border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.45)"}`,
                     boxShadow: active
                       ? "0 10px 26px -14px rgba(212,166,74,0.55)"
                       : "none",
+                    letterSpacing: "0.02em",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!active)
+                      e.currentTarget.style.boxShadow =
+                        "0 0 0 1px rgba(212,166,74,0.55), 0 10px 24px -18px rgba(212,166,74,0.35)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!active) e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  <span className="text-[18px] leading-none">
-                    {COUNTRY_FLAG_EMOJI[c.code]}
-                  </span>
                   {c.name}
                 </button>
               );
@@ -2070,7 +2079,7 @@ function LeisureStep1Screen({
           </div>
 
           {/* Popular destinations */}
-          <div className="mt-8">
+          <div className="mt-10">
             <div
               className="text-[14px] font-medium"
               style={{ color: "rgba(245,241,230,0.85)" }}
@@ -2088,9 +2097,9 @@ function LeisureStep1Screen({
                       setCity(t.name);
                       setCustomDestination("");
                     }}
-                    className="group relative flex h-[168px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
+                    className="group relative flex h-[180px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
                     style={{
-                      border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.10)"}`,
+                      border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.28)"}`,
                       boxShadow: active
                         ? "0 16px 34px -18px rgba(212,166,74,0.55)"
                         : "0 10px 24px -16px rgba(0,0,0,0.55)",
@@ -2130,11 +2139,11 @@ function LeisureStep1Screen({
                     setCity("Anywhere in Norway");
                     setCustomDestination("");
                   }}
-                  className="group flex h-[168px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
+                  className="group flex h-[180px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
                   style={{
                     background: S1_NAVY,
                     border: `1px solid ${
-                      city === "Anywhere in Norway" ? S1_GOLD : "rgba(212,166,74,0.35)"
+                      city === "Anywhere in Norway" ? S1_GOLD : "rgba(212,166,74,0.45)"
                     }`,
                     boxShadow:
                       city === "Anywhere in Norway"
@@ -2143,7 +2152,7 @@ function LeisureStep1Screen({
                   }}
                 >
                   <MapPin
-                    size={26}
+                    size={28}
                     strokeWidth={1.8}
                     style={{ color: S1_GOLD_SOFT }}
                   />
@@ -2161,7 +2170,7 @@ function LeisureStep1Screen({
           </div>
 
           {/* Search */}
-          <div className="mt-8">
+          <div className="mt-10">
             <div
               className="text-[14px] font-medium"
               style={{ color: "rgba(245,241,230,0.85)" }}
@@ -2169,10 +2178,10 @@ function LeisureStep1Screen({
               Or search for any destination
             </div>
             <div
-              className="mt-3 flex items-center gap-3 rounded-[14px] px-4 py-3.5"
+              className="mt-3 flex items-center gap-3 rounded-[14px] px-4 py-4"
               style={{
                 backgroundColor: S1_NAVY,
-                border: `1px solid rgba(245,241,230,0.12)`,
+                border: `1px solid rgba(212,166,74,0.22)`,
               }}
             >
               <Search size={16} style={{ color: S1_GOLD_SOFT }} />
@@ -2189,14 +2198,14 @@ function LeisureStep1Screen({
           {/* Preferred hotel */}
           <div className="mt-6">
             <div
-              className="rounded-[14px] p-4"
+              className="rounded-[14px] p-5"
               style={{
                 backgroundColor: S1_NAVY,
-                border: `1px solid rgba(245,241,230,0.12)`,
+                border: `1px solid rgba(212,166,74,0.22)`,
               }}
             >
               <div className="flex items-start justify-between gap-3">
-                <div>
+                <div className="flex-1">
                   <div
                     className="text-[14px] font-semibold"
                     style={{ color: "#F5F1E6" }}
@@ -2216,7 +2225,7 @@ function LeisureStep1Screen({
                     onChange={(e) => setPreferredHotel(e.target.value)}
                     placeholder="Tell us if you have a preferred hotel or anything important we should know…"
                     rows={2}
-                    className="mt-1.5 w-full resize-none bg-transparent text-[13.5px] outline-none"
+                    className="mt-2 w-full resize-none bg-transparent text-[13.5px] outline-none"
                     style={{ color: "rgba(245,241,230,0.85)" }}
                   />
                 </div>
@@ -2261,13 +2270,16 @@ function LeisureStep1Screen({
           </div>
 
           <p
-            className="mt-4 text-center text-[12.5px] sm:text-right"
+            className="mt-6 text-center text-[12.5px]"
             style={{ color: "rgba(245,241,230,0.5)" }}
           >
             We find the best options so you can choose what suits your group.
           </p>
         </section>
       </div>
+
+      <div className="h-16 lg:h-24" />
+
     </main>
   );
 }
