@@ -2016,13 +2016,13 @@ function LeisureStep1Screen({
         </div>
       </div>
 
-      {/* FLOATING BOOKING CARD — overlaps hero by ~50px */}
+      {/* FLOATING BOOKING CARD — overlaps hero by ~72px */}
       <div
         className="mx-auto w-full max-w-[1280px] px-6 lg:px-10"
-        style={{ marginTop: "-50px" }}
+        style={{ marginTop: "-72px" }}
       >
         <section
-          className="relative rounded-[30px] p-6 sm:p-10 lg:p-12"
+          className="relative rounded-[28px] p-6 sm:p-10 lg:p-12"
           style={{
             backgroundColor: S1_NAVY_SOFT,
             border: `1px solid ${S1_BORDER}`,
