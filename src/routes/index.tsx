@@ -30,7 +30,7 @@ import {
   GroupPremium,
 } from "@/components/PremiumIcons";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
-import heroLobbyAsset from "@/assets/hero-lobby.jpg.asset.json";
+import heroExperienceBgAsset from "@/assets/hero-experience-bg.png.asset.json";
 import cardLeisureAsset from "@/assets/card-leisure-new.png.asset.json";
 import cardMeAsset from "@/assets/card-me.png.asset.json";
 import cardManageAsset from "@/assets/card-manage.jpg.asset.json";
@@ -93,24 +93,24 @@ function Home() {
   return (
     <>
     <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
-      {/* Hero section background — uploaded architectural image */}
+      {/* Experience section background — uploaded luxury lobby image */}
       <div
         aria-hidden
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `url(${heroLobbyAsset.url})`,
+          backgroundImage: `url(${heroExperienceBgAsset.url})`,
           backgroundSize: "cover",
           backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
         }}
       />
-      {/* Subtle dark overlay for text readability */}
+      {/* Semi-transparent dark overlay so text and cards remain readable */}
       <div
         aria-hidden
         className="absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(rgba(5,7,9,0.58), rgba(5,7,9,0.76))",
+            "linear-gradient(rgba(5, 7, 9, 0.50), rgba(5, 7, 9, 0.68))",
         }}
       />
 
