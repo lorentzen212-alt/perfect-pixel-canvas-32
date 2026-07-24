@@ -1988,7 +1988,7 @@ function LeisureStep1Screen({
                 Where will<br />your group<br />adventure begin?
               </h1>
               <p
-                className="mt-6 max-w-[360px] text-[15.5px] leading-relaxed"
+                className="mt-8 max-w-[360px] text-[15.5px] leading-relaxed"
                 style={{ color: "rgba(255,255,255,0.82)" }}
               >
                 Tell us your destination<br />and hotel preferences.
