@@ -2024,7 +2024,7 @@ function DestinationCarousel({
   );
 
   return (
-    <div className="mx-auto mt-4 w-full max-w-[1500px] px-4 lg:px-10">
+    <div className="mx-auto mt-9 w-full max-w-[1500px] px-4 lg:px-10">
       <div className="relative">
         <button
           type="button"
