@@ -1960,7 +1960,7 @@ function LeisureStep1Screen({
         <div
           className="relative w-full overflow-hidden rounded-[28px]"
           style={{
-            height: "clamp(360px, 52vh, 560px)",
+            height: "clamp(280px, 40vh, 440px)",
             border: `1px solid ${S1_BORDER_SOFT}`,
             boxShadow:
               "0 50px 90px -50px rgba(0,0,0,0.7), inset 0 0 90px rgba(0,0,0,0.25)",
@@ -1970,25 +1970,24 @@ function LeisureStep1Screen({
             src={S1_HERO}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "center 45%" }}
+            style={{ objectPosition: "center 32%" }}
           />
-          {/* Left-side navy readability gradient only */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(4,18,32,0.78) 0%, rgba(4,18,32,0.55) 28%, rgba(4,18,32,0.18) 55%, rgba(4,18,32,0) 78%)",
+                "linear-gradient(90deg, rgba(4,18,32,0.88) 0%, rgba(4,18,32,0.72) 22%, rgba(4,18,32,0.32) 48%, rgba(4,18,32,0) 72%)",
             }}
           />
           <div
-            className="absolute inset-0"
+            className="absolute inset-x-0 bottom-0 h-2/3"
             style={{
               background:
-                "linear-gradient(180deg, rgba(4,18,32,0) 55%, rgba(4,18,32,0.55) 100%)",
+                "linear-gradient(180deg, rgba(4,18,32,0) 0%, rgba(4,18,32,0.35) 45%, rgba(10,22,36,0.85) 78%, rgba(10,22,36,0.98) 100%)",
             }}
           />
           <div className="relative z-10 flex h-full items-center">
-            <div className="max-w-[560px] px-8 sm:px-12 lg:px-16">
+            <div className="max-w-[520px] px-8 sm:px-12 lg:px-16">
               <div
                 className="text-[11px] font-medium tracking-[0.38em]"
                 style={{ color: S1_GOLD_SOFT }}
@@ -2000,13 +1999,13 @@ function LeisureStep1Screen({
                 style={{ background: S1_GOLD_SOFT, opacity: 0.7 }}
               />
               <h1
-                className="mt-7 text-[38px] sm:text-[48px] lg:text-[58px] leading-[1.04] font-medium text-white"
+                className="mt-6 text-[32px] sm:text-[40px] lg:text-[50px] leading-[1.04] font-medium text-white"
                 style={{ fontFamily: SERIF, letterSpacing: "-0.01em" }}
               >
                 Where will your group<br />adventure begin?
               </h1>
               <p
-                className="mt-6 max-w-[380px] text-[15.5px] leading-relaxed"
+                className="mt-5 max-w-[360px] text-[14.5px] leading-relaxed"
                 style={{ color: "rgba(255,255,255,0.86)" }}
               >
                 Tell us your destination and hotel preferences.
@@ -2016,10 +2015,10 @@ function LeisureStep1Screen({
         </div>
       </div>
 
-      {/* FLOATING BOOKING CARD — overlaps hero by ~50px */}
+      {/* BOOKING CARD — embedded into the hero, ~45% overlap */}
       <div
-        className="mx-auto w-full max-w-[1280px] px-6 lg:px-10"
-        style={{ marginTop: "-50px" }}
+        className="relative z-10 mx-auto w-full max-w-[1600px] px-6 lg:px-10"
+        style={{ marginTop: "clamp(-220px, -22vh, -140px)" }}
       >
         <section
           className="relative rounded-[30px] p-6 sm:p-10 lg:p-12"
