@@ -2096,7 +2096,7 @@ function LeisureStep1Screen({
                       setCity(t.name);
                       setCustomDestination("");
                     }}
-                    className="group relative flex h-[142px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
+                    className="group relative flex h-[114px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
                     style={{
                       border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.28)"}`,
                       boxShadow: active
