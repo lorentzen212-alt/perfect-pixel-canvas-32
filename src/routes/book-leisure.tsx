@@ -2051,29 +2051,24 @@ function LeisureStep1Screen({
                 <button
                   key={c.code}
                   onClick={() => setCountry(c.code)}
-                  className="flex items-center justify-center rounded-[14px] px-4 py-4 text-[14px] font-medium transition-all"
+                  className="flex items-center justify-center gap-2.5 rounded-[14px] px-4 py-3.5 text-[14px] font-medium transition-all"
                   style={{
                     background: active
                       ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
-                      : "transparent",
+                      : S1_NAVY,
                     color: active ? S1_NAVY : "#F5F1E6",
-                    border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.45)"}`,
+                    border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.14)"}`,
                     boxShadow: active
                       ? "0 10px 26px -14px rgba(212,166,74,0.55)"
                       : "none",
-                    letterSpacing: "0.02em",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!active)
-                      e.currentTarget.style.boxShadow =
-                        "0 0 0 1px rgba(212,166,74,0.55), 0 10px 24px -18px rgba(212,166,74,0.35)";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!active) e.currentTarget.style.boxShadow = "none";
                   }}
                 >
+                  <span className="text-[18px] leading-none">
+                    {COUNTRY_FLAG_EMOJI[c.code]}
+                  </span>
                   {c.name}
                 </button>
+
               );
             })}
           </div>
