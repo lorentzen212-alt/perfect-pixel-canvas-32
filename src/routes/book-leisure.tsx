@@ -3131,11 +3131,17 @@ function AccommodationSummary({
   totalStays,
   totalRooms,
   totalGuests,
+  onEdit,
+  onRemove,
+  editingId,
 }: {
   stays: LeisureStay[];
   totalStays: number;
   totalRooms: number;
   totalGuests: number;
+  onEdit: (id: string) => void;
+  onRemove: (id: string) => void;
+  editingId: string | null;
 }) {
   const hasStays = stays.length > 0;
   return (
@@ -3154,9 +3160,21 @@ function AccommodationSummary({
         </div>
 
         {!hasStays && (
-          <p className="mt-4 text-[13px]" style={{ color: "rgba(245,241,230,0.55)" }}>
-            Your completed stays will appear here as you build your itinerary.
-          </p>
+          <div
+            className="mt-4 rounded-[14px] px-4 py-6 text-center"
+            style={{
+              backgroundColor: S1_NAVY,
+              border: `1px dashed rgba(245,241,230,0.14)`,
+            }}
+          >
+            <div className="mx-auto grid h-10 w-10 place-items-center rounded-full" style={{ backgroundColor: "rgba(212,166,74,0.08)", border: `1px solid rgba(212,166,74,0.35)` }}>
+              <BedDouble size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+            </div>
+            <div className="mt-3 text-[13.5px] font-medium text-white">No stays added yet</div>
+            <div className="mt-1 text-[12px]" style={{ color: "rgba(245,241,230,0.55)" }}>
+              Your saved stays will appear here.
+            </div>
+          </div>
         )}
 
         <div className="mt-4 space-y-4">
