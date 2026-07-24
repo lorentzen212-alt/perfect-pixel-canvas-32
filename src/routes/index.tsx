@@ -93,7 +93,7 @@ function GoldLineWithDiamond({
 
 
 function Home() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+
 
   return (
     <>
