@@ -2403,7 +2403,8 @@ function LeisureStepShell({
             }}
           />
 
-          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
+          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:py-12 lg:pr-12 lg:pl-[max(88px,calc((100vw-1600px)/2+88px))]">
+
             <div>
               <div className="text-[11px] font-medium tracking-[0.32em]" style={{ color: S1_GOLD_SOFT }}>
                 {chapter}
