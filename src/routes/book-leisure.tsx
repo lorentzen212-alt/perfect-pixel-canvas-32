@@ -3654,3 +3654,445 @@ function LeisureStep5Screen({
     </LeisureStepShell>
   );
 }
+
+/* =========================================================
+   STEP 6 - Review (redesigned)
+   ========================================================= */
+
+const S6_HERO =
+  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80";
+
+const CITY_HERO_MAP: Record<string, string> = {
+  Bergen: "https://images.unsplash.com/photo-1601439678777-b2b3c56fa627?auto=format&fit=crop&w=900&q=80",
+  Oslo: "https://images.unsplash.com/photo-1601979031925-424e53b6caaa?auto=format&fit=crop&w=900&q=80",
+  Lofoten: "https://images.unsplash.com/photo-1520681279154-51b3fb4ea0f8?auto=format&fit=crop&w=900&q=80",
+  Tromsø: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=900&q=80",
+  Stavanger: "https://images.unsplash.com/photo-1580996378027-23090ffcf60e?auto=format&fit=crop&w=900&q=80",
+  Stockholm: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=900&q=80",
+  Copenhagen: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=900&q=80",
+  Helsinki: "https://images.unsplash.com/photo-1559060680-36cba6b95ca6?auto=format&fit=crop&w=900&q=80",
+};
+
+const ROOM_TITLE: Record<string, string> = {
+  single: "Single",
+  twin: "Twin",
+  double: "Double",
+  triple: "Triple",
+  family: "Family",
+  accessible: "Accessible",
+};
+
+function S6Panel({
+  icon,
+  title,
+  onEdit,
+  children,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  onEdit?: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex h-full flex-col">
+      <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <span style={{ color: S1_GOLD_SOFT }}>{icon}</span>
+          <span
+            className="text-[15px] font-semibold"
+            style={{ color: S1_GOLD_SOFT, fontFamily: SERIF }}
+          >
+            {title}
+          </span>
+        </div>
+        {onEdit && (
+          <button
+            type="button"
+            onClick={onEdit}
+            className="inline-flex items-center gap-1 text-[12px] font-medium transition-colors hover:opacity-80"
+            style={{ color: S1_GOLD_SOFT }}
+          >
+            Edit
+            <Pencil size={11} strokeWidth={2} />
+          </button>
+        )}
+      </div>
+      <div className="flex-1">{children}</div>
+    </div>
+  );
+}
+
+function S6Bullet({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-start gap-2 text-[14px] leading-relaxed" style={{ color: "#F5F1E6" }}>
+      <span
+        className="mt-[9px] inline-block h-[3px] w-[3px] flex-shrink-0 rounded-full"
+        style={{ backgroundColor: "rgba(245,241,230,0.75)" }}
+      />
+      <span>{children}</span>
+    </li>
+  );
+}
+
+function LeisureStep6Screen({
+  data,
+  onEdit,
+  onBack,
+  onSubmit,
+  submitting,
+  onStepGo,
+}: {
+  data: {
+    country: string;
+    city: string;
+    guests: number;
+    arrival?: Date;
+    departure?: Date;
+    rooms: Record<string, number>;
+    earlyCheckin: boolean;
+    lateCheckout: boolean;
+    connectingRooms: boolean;
+    extras: string[];
+    experiences: string[];
+    letUsRecommend: boolean;
+    contactName: string;
+    email: string;
+    phone: string;
+    organisation: string;
+    additionalComments: string;
+  };
+  onEdit: (s: StepKey) => void;
+  onBack: () => void;
+  onSubmit: () => void;
+  submitting: boolean;
+  onStepGo: (s: StepKey) => void;
+}) {
+  const cityImg =
+    CITY_HERO_MAP[data.city] ||
+    "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=900&q=80";
+
+  const dateRange =
+    data.arrival && data.departure
+      ? `${format(data.arrival, "d")} – ${format(data.departure, "d MMM yyyy")}`
+      : data.arrival
+      ? format(data.arrival, "d MMM yyyy")
+      : "Dates to confirm";
+
+  const roomLines = Object.entries(data.rooms)
+    .filter(([, v]) => v > 0)
+    .map(([k, v]) => `${v} ${ROOM_TITLE[k] ?? k} rooms`);
+
+  const extrasVisible = data.extras.slice(0, 6);
+  const extrasMore = Math.max(0, data.extras.length - extrasVisible.length);
+
+  const expsVisible = data.experiences.slice(0, 4);
+  const expsMore = Math.max(0, data.experiences.length - expsVisible.length);
+
+  const canSubmit =
+    !submitting &&
+    !!data.country &&
+    !!data.city &&
+    !!data.contactName &&
+    !!data.email &&
+    !!data.phone;
+
+  return (
+    <LeisureStepShell
+      activeStep={6}
+      onStepGo={onStepGo}
+      hero={S6_HERO}
+      chapter="CHAPTER VI"
+      headline={
+        <>
+          Your journey,<br />perfectly planned.
+        </>
+      }
+      subtext={
+        <>Review your details before we start finding the best hotel offers for your group.</>
+      }
+    >
+      <section
+        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+        style={{
+          backgroundColor: S1_NAVY_SOFT,
+          border: `1px solid ${S1_BORDER}`,
+          boxShadow:
+            "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
+        }}
+      >
+        {/* Header */}
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h2
+              className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
+              style={{ fontFamily: SERIF }}
+            >
+              Step 6 – Review
+            </h2>
+            <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
+              Please review your details before sending your request.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => onEdit(1)}
+            className="inline-flex items-center gap-2 rounded-[12px] px-5 py-2.5 text-[13.5px] font-medium transition-all hover:-translate-y-[1px]"
+            style={{
+              color: S1_GOLD_SOFT,
+              border: `1px solid ${S1_GOLD}`,
+              background: "transparent",
+              boxShadow: "0 8px 20px -14px rgba(212,166,74,0.45)",
+            }}
+          >
+            <Pencil size={13} strokeWidth={2.2} />
+            Edit all details
+          </button>
+        </div>
+
+        {/* Summary grid */}
+        <div
+          className="mt-8 grid grid-cols-1 gap-6 rounded-[18px] p-6 sm:p-7 md:grid-cols-2 lg:grid-cols-4"
+          style={{
+            backgroundColor: S1_NAVY,
+            border: `1px solid ${S1_BORDER}`,
+          }}
+        >
+          {/* Destination */}
+          <S6Panel
+            icon={<MapPin size={16} strokeWidth={2} />}
+            title="Destination"
+            onEdit={() => onEdit(1)}
+          >
+            <div className="text-[14.5px]" style={{ color: "#F5F1E6" }}>
+              {data.city}
+              {data.country && `, ${data.country}`}
+            </div>
+            <div
+              className="mt-4 flex items-center gap-2 text-[13.5px]"
+              style={{ color: S1_GOLD_SOFT }}
+            >
+              <CalendarDays size={14} strokeWidth={2} />
+              {dateRange}
+            </div>
+            <div
+              className="mt-3 flex items-center gap-2 text-[13.5px]"
+              style={{ color: S1_GOLD_SOFT }}
+            >
+              <Users2 size={14} strokeWidth={2} />
+              {data.guests} Guests
+            </div>
+            <div
+              className="relative mt-5 overflow-hidden rounded-[12px]"
+              style={{ border: `1px solid ${S1_BORDER}` }}
+            >
+              <img
+                src={cityImg}
+                alt={data.city}
+                className="h-[110px] w-full object-cover"
+              />
+            </div>
+          </S6Panel>
+
+          {/* Accommodation */}
+          <S6Panel
+            icon={<BedDouble size={16} strokeWidth={2} />}
+            title="Accommodation"
+            onEdit={() => onEdit(2)}
+          >
+            <ul className="space-y-1.5">
+              {(roomLines.length > 0 ? roomLines : ["No rooms selected"]).map((r) => (
+                <S6Bullet key={r}>{r}</S6Bullet>
+              ))}
+            </ul>
+            {(data.earlyCheckin || data.lateCheckout || data.connectingRooms) && (
+              <div className="mt-4 space-y-2">
+                {data.earlyCheckin && (
+                  <div className="flex items-center gap-2 text-[13.5px]" style={{ color: "#F5F1E6" }}>
+                    <Check size={13} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
+                    Early check-in
+                  </div>
+                )}
+                {data.lateCheckout && (
+                  <div className="flex items-center gap-2 text-[13.5px]" style={{ color: "#F5F1E6" }}>
+                    <Check size={13} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
+                    Late check-out
+                  </div>
+                )}
+                {data.connectingRooms && (
+                  <div className="flex items-center gap-2 text-[13.5px]" style={{ color: "#F5F1E6" }}>
+                    <Check size={13} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
+                    Connecting rooms
+                  </div>
+                )}
+              </div>
+            )}
+          </S6Panel>
+
+          {/* Extras */}
+          <S6Panel
+            icon={<Bell size={16} strokeWidth={2} />}
+            title="Extras"
+            onEdit={() => onEdit(3)}
+          >
+            {data.extras.length === 0 ? (
+              <div className="text-[14px]" style={{ color: "rgba(245,241,230,0.55)" }}>
+                No extras selected
+              </div>
+            ) : (
+              <ul className="space-y-1.5">
+                {extrasVisible.map((e) => (
+                  <S6Bullet key={e}>{e}</S6Bullet>
+                ))}
+                {extrasMore > 0 && (
+                  <S6Bullet>
+                    <span style={{ color: S1_GOLD_SOFT }}>+{extrasMore} more</span>
+                  </S6Bullet>
+                )}
+              </ul>
+            )}
+          </S6Panel>
+
+          {/* Experiences */}
+          <S6Panel
+            icon={<Camera size={16} strokeWidth={2} />}
+            title="Experiences"
+            onEdit={() => onEdit(4)}
+          >
+            {data.experiences.length === 0 && !data.letUsRecommend ? (
+              <div className="text-[14px]" style={{ color: "rgba(245,241,230,0.55)" }}>
+                No experiences selected
+              </div>
+            ) : (
+              <ul className="space-y-1.5">
+                {expsVisible.map((e) => (
+                  <S6Bullet key={e}>{e}</S6Bullet>
+                ))}
+                {expsMore > 0 && (
+                  <S6Bullet>
+                    <span style={{ color: S1_GOLD_SOFT }}>+{expsMore} more</span>
+                  </S6Bullet>
+                )}
+                {data.letUsRecommend && (
+                  <S6Bullet>
+                    <span style={{ color: S1_GOLD_SOFT }}>Surprise recommendations</span>
+                  </S6Bullet>
+                )}
+              </ul>
+            )}
+          </S6Panel>
+        </div>
+
+        {/* Second row */}
+        <div
+          className="mt-6 grid grid-cols-1 gap-6 rounded-[18px] p-6 sm:p-7 md:grid-cols-2 lg:grid-cols-4"
+          style={{
+            backgroundColor: S1_NAVY,
+            border: `1px solid ${S1_BORDER}`,
+          }}
+        >
+          <S6Panel
+            icon={<UserRound size={16} strokeWidth={2} />}
+            title="Contact"
+            onEdit={() => onEdit(5)}
+          >
+            <div className="space-y-1.5 text-[14px]" style={{ color: "#F5F1E6" }}>
+              <div>{data.contactName || "—"}</div>
+              <div style={{ color: "rgba(245,241,230,0.75)" }}>{data.email || "—"}</div>
+              <div style={{ color: "rgba(245,241,230,0.75)" }}>{data.phone || "—"}</div>
+            </div>
+          </S6Panel>
+
+          <S6Panel
+            icon={<Users size={16} strokeWidth={2} />}
+            title="Organisation"
+            onEdit={() => onEdit(5)}
+          >
+            <div className="space-y-1.5 text-[14px]" style={{ color: "#F5F1E6" }}>
+              <div>{data.organisation || "—"}</div>
+              <div style={{ color: "rgba(245,241,230,0.75)" }}>{data.country || "—"}</div>
+            </div>
+          </S6Panel>
+
+          <S6Panel
+            icon={<MessageSquare size={16} strokeWidth={2} />}
+            title="Additional comments"
+            onEdit={() => onEdit(5)}
+          >
+            <p className="text-[14px] leading-relaxed" style={{ color: "#F5F1E6" }}>
+              {data.additionalComments || (
+                <span style={{ color: "rgba(245,241,230,0.55)" }}>
+                  No additional comments.
+                </span>
+              )}
+            </p>
+          </S6Panel>
+
+          <S6Panel icon={<Tag size={16} strokeWidth={2} />} title="Request type">
+            <div className="text-[14px]" style={{ color: "#F5F1E6" }}>
+              Leisure Group Booking
+            </div>
+          </S6Panel>
+        </div>
+
+        {/* Bottom actions */}
+        <div className="mt-10 flex flex-col-reverse items-stretch justify-between gap-4 sm:flex-row sm:items-center">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
+            style={{ color: S1_GOLD_SOFT }}
+          >
+            <ArrowLeft size={16} strokeWidth={2.2} />
+            Back
+          </button>
+
+          <div className="flex flex-col items-end gap-2">
+            <button
+              type="button"
+              onClick={onSubmit}
+              disabled={!canSubmit}
+              className="inline-flex items-center gap-2.5 rounded-[14px] px-10 py-4 text-[15px] font-semibold transition-all hover:-translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+              style={{
+                background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+                color: S1_NAVY,
+                boxShadow:
+                  "0 22px 44px -18px rgba(212,166,74,0.65), inset 0 1px 0 rgba(255,255,255,0.4)",
+              }}
+            >
+              {submitting ? (
+                <>
+                  <Loader2 size={17} strokeWidth={2.4} className="animate-spin" />
+                  Sending…
+                </>
+              ) : (
+                <>
+                  Send request
+                  <Send size={17} strokeWidth={2.4} />
+                </>
+              )}
+            </button>
+            <div
+              className="flex items-center gap-1.5 text-[12.5px]"
+              style={{ color: "rgba(245,241,230,0.65)" }}
+            >
+              <Lock size={12} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+              Free and non-binding
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col items-center gap-1 text-center">
+          <div className="flex items-center gap-2 text-[13.5px]">
+            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+            <span style={{ color: S1_GOLD_SOFT }}>
+              Your request is free and non-binding
+            </span>
+          </div>
+          <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+            We find the best options so you can choose what suits your group.
+          </div>
+        </div>
+      </section>
+    </LeisureStepShell>
+  );
+}
