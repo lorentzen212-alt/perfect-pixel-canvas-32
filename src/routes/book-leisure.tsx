@@ -2050,7 +2050,7 @@ function LeisureStep1Screen({
                 <button
                   key={c.code}
                   onClick={() => setCountry(c.code)}
-                  className="flex items-center justify-center rounded-[14px] px-4 py-4 text-[14px] font-medium transition-all"
+                  className="flex h-[48px] items-center justify-center rounded-[14px] px-4 text-[14px] font-medium transition-all"
                   style={{
                     background: active
                       ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
@@ -2078,7 +2078,7 @@ function LeisureStep1Screen({
           </div>
 
           {/* Popular destinations */}
-          <div className="mt-10">
+          <div className="mt-14">
             <div
               className="text-[14px] font-medium"
               style={{ color: "rgba(245,241,230,0.85)" }}
@@ -2096,7 +2096,7 @@ function LeisureStep1Screen({
                       setCity(t.name);
                       setCustomDestination("");
                     }}
-                    className="group relative flex h-[180px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
+                    className="group relative flex h-[142px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
                     style={{
                       border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.28)"}`,
                       boxShadow: active
@@ -2138,7 +2138,7 @@ function LeisureStep1Screen({
                     setCity("Anywhere in Norway");
                     setCustomDestination("");
                   }}
-                  className="group flex h-[180px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
+                  className="group flex h-[142px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
                   style={{
                     background: S1_NAVY,
                     border: `1px solid ${
