@@ -150,11 +150,12 @@ const COUNTRIES: { code: CountryCode; name: string; flag: string }[] = [
 ];
 
 const CITIES: Record<CountryCode, string[]> = {
-  NO: ["Bergen", "Oslo", "Lofoten", "Tromsø", "Stavanger", "Trondheim", "Geiranger", "Ålesund"],
-  SE: ["Stockholm", "Gothenburg", "Malmö", "Uppsala", "Kiruna", "Umeå"],
-  DK: ["Copenhagen", "Aarhus", "Odense", "Aalborg"],
-  FI: ["Helsinki", "Tampere", "Rovaniemi", "Turku", "Oulu"],
+  NO: ["Oslo", "Bergen", "Tromsø", "Lofoten", "Stavanger", "Trondheim", "Bodø", "Ålesund"],
+  SE: ["Stockholm", "Gothenburg", "Malmö", "Uppsala", "Kiruna", "Umeå", "Visby", "Åre"],
+  DK: ["Copenhagen", "Aarhus", "Odense", "Aalborg", "Skagen", "Bornholm"],
+  FI: ["Helsinki", "Tampere", "Rovaniemi", "Turku", "Oulu", "Levi"],
 };
+
 
 const ROOMS = [
   { key: "single", title: "Single Room", desc: "1 person", img: ROOM_IMG.single },
