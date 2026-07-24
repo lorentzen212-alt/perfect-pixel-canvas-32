@@ -50,6 +50,7 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { BookingHeader } from "@/components/BookingHeader";
 
 export const Route = createFileRoute("/book-leisure")({
   component: BookLeisure,
