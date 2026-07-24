@@ -2050,7 +2050,7 @@ function LeisureStep1Screen({
                 <button
                   key={c.code}
                   onClick={() => setCountry(c.code)}
-                  className="flex h-[48px] items-center justify-center rounded-[14px] px-4 text-[14px] font-medium transition-all"
+                  className="flex h-[43px] items-center justify-center rounded-[14px] px-4 text-[14px] font-medium transition-all"
                   style={{
                     background: active
                       ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
