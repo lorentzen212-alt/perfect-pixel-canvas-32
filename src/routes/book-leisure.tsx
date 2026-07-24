@@ -36,6 +36,7 @@ import {
   Star,
   Bell,
   BedDouble,
+  ChevronDown,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
