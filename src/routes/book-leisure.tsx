@@ -288,7 +288,9 @@ function BookLeisure() {
   const [roomNotes, setRoomNotes] = useState("");
 
   // Step 3 - Extras
-  const [selectedExtras, setSelectedExtras] = useState<Set<string>>(new Set(["Breakfast", "Dinner"]));
+  const [selectedExtras, setSelectedExtras] = useState<Set<string>>(new Set());
+  const [extrasComments, setExtrasComments] = useState("");
+  const [recommendExtras, setRecommendExtras] = useState(true);
 
   // Step 4 - Experiences
   const [expCategory, setExpCategory] = useState("All");
