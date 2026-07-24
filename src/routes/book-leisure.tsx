@@ -1912,36 +1912,14 @@ function LeisureStep1Screen({
 }) {
   const countryName = COUNTRIES.find((c) => c.code === country)!.name;
 
-  // Per-country tiles. Norway has curated images; others fall back to unsplash.
-  const norwayImgMap: Record<string, string> = {
-    Oslo: osloImg.url,
-    Bergen: bergenImg.url,
-    Tromsø: tromsoImg.url,
-    Lofoten: lofotenImg.url,
-    Stavanger: stavangerImg.url,
-    Trondheim: trondheimImg.url,
-    Bodø: geirangerImg.url,
-    Ålesund: geirangerImg.url,
-  };
-
   const tiles: { name: string; img: string }[] = [
     ...CITIES[country].map((n) => ({
       name: n,
-      img:
-        country === "NO"
-          ? norwayImgMap[n] ?? geirangerImg.url
-          : `https://source.unsplash.com/featured/600x800/?${encodeURIComponent(
-              n + " " + countryName,
-            )}`,
+      img: DEST_IMG[n] ?? ANYWHERE_IMG[country],
     })),
     {
       name: `Anywhere in ${countryName}`,
-      img:
-        country === "NO"
-          ? geirangerImg.url
-          : `https://source.unsplash.com/featured/600x800/?${encodeURIComponent(
-              countryName + " landscape",
-            )}`,
+      img: ANYWHERE_IMG[country],
     },
   ];
 
