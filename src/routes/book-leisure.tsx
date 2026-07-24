@@ -1800,8 +1800,7 @@ const S1_GOLD_SOFT = "#E8C775";
 const S1_BORDER = "rgba(212,166,74,0.28)";
 const S1_BORDER_SOFT = "rgba(255,255,255,0.08)";
 
-const S1_HERO =
-  "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80";
+const S1_HERO = leisureStep1HeroAsset.url;
 
 const NORWAY_TILES: { name: string; img: string }[] = [
   { name: "Bergen", img: "https://images.unsplash.com/photo-1601439678777-b2b3c56fa627?auto=format&fit=crop&w=800&q=80" },
