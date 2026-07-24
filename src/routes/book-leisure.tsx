@@ -2913,8 +2913,79 @@ function LeisureStep2Screen({
           How many rooms will your group need?
         </p>
 
+        {/* Saved stay cards (centre column) */}
+        {stays.filter((s) => s.id !== editingId).length > 0 && (
+          <div className="mt-6 space-y-3">
+            {stays.map((s, idx) => {
+              if (s.id === editingId) return null;
+              const nights = stayNights(s.arrival, s.departure);
+              const roomsN = stayRoomsTotal(s.rooms);
+              const guestsN = stayGuestsTotal(s.rooms);
+              return (
+                <div
+                  key={s.id}
+                  className="rounded-[16px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+                  style={{
+                    backgroundColor: S1_NAVY,
+                    border: `1px solid rgba(245,241,230,0.10)`,
+                    boxShadow: "0 18px 40px -28px rgba(0,0,0,0.55)",
+                  }}
+                >
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[15.5px] font-semibold text-white" style={{ fontFamily: SERIF }}>
+                        Stay {idx + 1}
+                      </span>
+                      <span
+                        className="inline-grid h-[18px] w-[18px] place-items-center rounded-full"
+                        style={{ backgroundColor: "rgba(212,166,74,0.16)", border: `1px solid ${S1_GOLD_SOFT}` }}
+                      >
+                        <Check size={11} strokeWidth={3} style={{ color: S1_GOLD_SOFT }} />
+                      </span>
+                    </div>
+                    <div className="mt-1 text-[13px]" style={{ color: S1_GOLD_SOFT }}>
+                      {fmtStayRange(s.arrival, s.departure)} · {nights} {nights === 1 ? "night" : "nights"}
+                    </div>
+                    <div className="mt-0.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.6)" }}>
+                      {roomsN} {roomsN === 1 ? "room" : "rooms"} · {guestsN} {guestsN === 1 ? "guest" : "guests"}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => editStay(s.id)}
+                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors"
+                      style={{
+                        border: `1px solid rgba(212,166,74,0.4)`,
+                        color: S1_GOLD_SOFT,
+                        backgroundColor: "rgba(212,166,74,0.04)",
+                      }}
+                    >
+                      <Pencil size={13} strokeWidth={2.2} />
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => removeStay(s.id)}
+                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors"
+                      style={{
+                        border: `1px solid rgba(245,241,230,0.14)`,
+                        color: "rgba(245,241,230,0.7)",
+                      }}
+                    >
+                      <Trash2 size={13} strokeWidth={2.2} />
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
         {/* Editor */}
         {showEditor && (
+
           <div
             className="mt-6 rounded-[20px] p-5 sm:p-6"
             style={{
