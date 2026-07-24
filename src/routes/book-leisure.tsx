@@ -3182,13 +3182,14 @@ function AccommodationSummary({
             const nights = stayNights(s.arrival, s.departure);
             const roomsN = stayRoomsTotal(s.rooms);
             const guestsN = stayGuestsTotal(s.rooms);
+            const isEditing = editingId === s.id;
             return (
               <div
                 key={s.id}
                 className="rounded-[14px] p-4"
                 style={{
                   backgroundColor: S1_NAVY,
-                  border: `1px solid rgba(245,241,230,0.08)`,
+                  border: `1px solid ${isEditing ? "rgba(212,166,74,0.5)" : "rgba(245,241,230,0.08)"}`,
                 }}
               >
                 <div className="flex items-center gap-2">
@@ -3205,12 +3206,13 @@ function AccommodationSummary({
                 <ul className="mt-3 space-y-1.5">
                   {STEP2_ROOMS_ORDER.map((k) => {
                     const v = s.rooms[k] ?? 0;
+                    if (v === 0) return null;
                     return (
                       <li key={k} className="flex items-center justify-between text-[13px]">
                         <span className="flex items-center gap-2" style={{ color: "rgba(245,241,230,0.78)" }}>
                           <span
                             className="h-1.5 w-1.5 rounded-full"
-                            style={{ backgroundColor: v > 0 ? S1_GOLD : "rgba(245,241,230,0.2)" }}
+                            style={{ backgroundColor: S1_GOLD }}
                           />
                           {ROOM_LABELS[k]}
                         </span>
@@ -3229,6 +3231,33 @@ function AccommodationSummary({
                     <span style={{ color: "rgba(245,241,230,0.7)" }}>Total guests (est.)</span>
                     <span className="tabular-nums font-semibold text-white">{guestsN}</span>
                   </div>
+                </div>
+
+                <div className="mt-3 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => onEdit(s.id)}
+                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors hover:bg-white/5"
+                    style={{
+                      border: `1px solid rgba(245,241,230,0.18)`,
+                      color: "#F5F1E6",
+                    }}
+                  >
+                    <Pencil size={12} strokeWidth={2} />
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onRemove(s.id)}
+                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors hover:bg-white/5"
+                    style={{
+                      border: `1px solid rgba(245,241,230,0.18)`,
+                      color: "rgba(245,241,230,0.8)",
+                    }}
+                  >
+                    <Trash2 size={12} strokeWidth={2} />
+                    Remove
+                  </button>
                 </div>
               </div>
             );
