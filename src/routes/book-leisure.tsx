@@ -2024,7 +2024,7 @@ function DestinationCarousel({
   );
 
   return (
-    <div className="mx-auto mt-9 w-full max-w-[1500px] px-4 lg:px-10">
+    <div className="mx-auto mt-9 w-full max-w-[1420px] px-4 lg:px-10">
       <div className="relative">
         <button
           type="button"
@@ -2045,32 +2045,32 @@ function DestinationCarousel({
               <button
                 key={d.id}
                 onClick={() => onSelect(d)}
-                className="group relative flex aspect-[3/4] flex-col overflow-hidden rounded-[20px] text-left transition-all duration-300 hover:-translate-y-[4px]"
+                className="group relative flex aspect-[10/14.2] flex-col overflow-hidden rounded-[18px] text-left transition-all duration-300 hover:-translate-y-[4px]"
                 style={{
-                  border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.14)"}`,
+                  border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.10)"}`,
                   boxShadow: active
-                    ? "0 28px 56px -22px rgba(0,0,0,0.60), 0 18px 40px -18px rgba(212,166,74,0.36), 0 0 0 1px rgba(212,166,74,0.35) inset"
-                    : "0 24px 54px -24px rgba(0,0,0,0.52), 0 10px 24px -14px rgba(0,0,0,0.34)",
+                    ? "0 32px 64px -26px rgba(0,0,0,0.48), 0 14px 30px -16px rgba(212,166,74,0.28), 0 0 0 1px rgba(212,166,74,0.35) inset"
+                    : "0 28px 58px -26px rgba(0,0,0,0.42), 0 12px 28px -16px rgba(0,0,0,0.24)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(212,166,74,0.75)";
+                  e.currentTarget.style.borderColor = "rgba(212,166,74,0.55)";
                   e.currentTarget.style.boxShadow =
-                    "0 30px 62px -22px rgba(0,0,0,0.58), 0 0 0 1px rgba(212,166,74,0.45) inset, 0 16px 34px -18px rgba(212,166,74,0.24)";
+                    "0 34px 68px -26px rgba(0,0,0,0.46), 0 0 0 1px rgba(212,166,74,0.40) inset, 0 18px 38px -18px rgba(212,166,74,0.18)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = active
                     ? S1_GOLD
-                    : "rgba(212,166,74,0.14)";
+                    : "rgba(212,166,74,0.10)";
                   e.currentTarget.style.boxShadow = active
-                    ? "0 28px 56px -22px rgba(0,0,0,0.60), 0 18px 40px -18px rgba(212,166,74,0.36), 0 0 0 1px rgba(212,166,74,0.35) inset"
-                    : "0 24px 54px -24px rgba(0,0,0,0.52), 0 10px 24px -14px rgba(0,0,0,0.34)";
+                    ? "0 32px 64px -26px rgba(0,0,0,0.48), 0 14px 30px -16px rgba(212,166,74,0.28), 0 0 0 1px rgba(212,166,74,0.35) inset"
+                    : "0 28px 58px -26px rgba(0,0,0,0.42), 0 12px 28px -16px rgba(0,0,0,0.24)";
                 }}
               >
                 <img
                   src={d.image}
                   alt={d.alt}
                   className="absolute inset-0 h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.05]"
-                  style={{ filter: "saturate(1.05) contrast(1.05) brightness(0.98)" }}
+                  style={{ filter: "contrast(1.02) saturate(1.08) brightness(0.985)" }}
                   onError={(e) => {
                     // eslint-disable-next-line no-console
                     console.warn(`[destinations] Image failed for "${d.name}" — swapping to fallback.`);
@@ -2082,26 +2082,34 @@ function DestinationCarousel({
                   className="pointer-events-none absolute inset-x-0 top-0 h-1/3"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 100%)",
+                      "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%)",
                   }}
                 />
-                {/* Bottom dark overlay for depth behind text — smoother gradient */}
+                {/* Premium vignette for depth and colour grading */}
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 50% 40%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.18) 88%, rgba(0,0,0,0.28) 100%)",
+                  }}
+                />
+                {/* Bottom dark overlay — almost invisible, gradually deepens */}
                 <div
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(8,19,31,0) 38%, rgba(8,19,31,0.28) 62%, rgba(6,14,22,0.62) 82%, rgba(4,10,16,0.86) 100%)",
+                      "linear-gradient(180deg, rgba(8,19,31,0) 48%, rgba(8,19,31,0.14) 72%, rgba(6,14,22,0.38) 90%, rgba(4,10,16,0.62) 100%)",
                   }}
                 />
                 <div className="relative z-10 mt-auto px-5 pb-5">
                   <div
-                    className="text-[22px] leading-tight tracking-[0.04em] text-white"
-                    style={{ fontFamily: SERIF, fontWeight: 500 }}
+                    className="text-[24px] leading-tight tracking-[0.02em]"
+                    style={{ fontFamily: SERIF, fontWeight: 500, color: "#FBF7EE" }}
                   >
                     {d.name.toUpperCase()}
                   </div>
                   <div
-                    className="mt-1 text-[11.5px] tracking-[0.28em]"
+                    className="mt-1 text-[11px] tracking-[0.32em]"
                     style={{ color: S1_GOLD }}
                   >
                     {d.countryName.toUpperCase()}
