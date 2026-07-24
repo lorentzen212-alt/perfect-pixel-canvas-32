@@ -2019,7 +2019,7 @@ function LeisureStep1Screen({
       {/* FLOATING BOOKING CARD — same width as hero, deep overlap for one composition */}
       <div
         className="mx-auto w-full max-w-[1600px] px-6 lg:px-10"
-        style={{ marginTop: "-100px" }}
+        style={{ marginTop: "-130px" }}
       >
         <section
           className="relative rounded-[28px] p-6 sm:p-10 lg:p-12"
