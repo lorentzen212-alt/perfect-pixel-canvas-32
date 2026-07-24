@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
 import { format } from "date-fns";
-import leisureStep1HeroAsset from "@/assets/leisure-step1-hero.png.asset.json";
+import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v2.png.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
@@ -1970,25 +1970,25 @@ function LeisureStep1Screen({
             src={S1_HERO}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "center 45%" }}
+            style={{ objectPosition: "center center" }}
           />
-          {/* Left-side navy readability gradient only */}
+          {/* Directional overlay — darker over text on left, near-transparent over sunset */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(4,18,32,0.78) 0%, rgba(4,18,32,0.55) 28%, rgba(4,18,32,0.18) 55%, rgba(4,18,32,0) 78%)",
+                "linear-gradient(90deg, rgba(4,18,32,0.62) 0%, rgba(4,18,32,0.42) 25%, rgba(4,18,32,0.18) 50%, rgba(4,18,32,0.04) 75%, rgba(4,18,32,0) 100%)",
             }}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(4,18,32,0) 55%, rgba(4,18,32,0.55) 100%)",
+                "linear-gradient(180deg, rgba(4,18,32,0) 65%, rgba(4,18,32,0.38) 100%)",
             }}
           />
           <div className="relative z-10 flex h-full items-center">
-            <div className="max-w-[560px] px-8 sm:px-12 lg:px-16">
+            <div className="max-w-[520px] px-8 sm:px-12 lg:px-16">
               <div
                 className="text-[11px] font-medium tracking-[0.38em]"
                 style={{ color: S1_GOLD_SOFT }}
@@ -2000,14 +2000,14 @@ function LeisureStep1Screen({
                 style={{ background: S1_GOLD_SOFT, opacity: 0.7 }}
               />
               <h1
-                className="mt-7 text-[38px] sm:text-[48px] lg:text-[58px] leading-[1.04] font-medium text-white"
+                className="mt-7 text-[35px] sm:text-[44px] lg:text-[53px] leading-[1.05] font-medium text-white"
                 style={{ fontFamily: SERIF, letterSpacing: "-0.01em" }}
               >
                 Where will your group<br />adventure begin?
               </h1>
               <p
-                className="mt-6 max-w-[380px] text-[15.5px] leading-relaxed"
-                style={{ color: "rgba(255,255,255,0.86)" }}
+                className="mt-10 max-w-[360px] text-[15.5px] leading-relaxed"
+                style={{ color: "rgba(255,255,255,0.88)" }}
               >
                 Tell us your destination and hotel preferences.
               </p>
