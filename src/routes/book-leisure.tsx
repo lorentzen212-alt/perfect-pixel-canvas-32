@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
 import { format } from "date-fns";
-import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v2.png.asset.json";
+import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
@@ -1966,11 +1966,16 @@ function LeisureStep1Screen({
               "0 50px 90px -50px rgba(0,0,0,0.7), inset 0 0 90px rgba(0,0,0,0.25)",
           }}
         >
-          <img
-            src={S1_HERO}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "center 58%" }}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${S1_HERO})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPosition: "center 42%",
+              pointerEvents: "none",
+              zIndex: 0,
+            }}
           />
           {/* Directional overlay — darker over text on left, near-transparent over sunset */}
           <div
