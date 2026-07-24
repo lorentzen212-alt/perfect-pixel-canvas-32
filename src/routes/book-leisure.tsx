@@ -1799,7 +1799,7 @@ function PrimaryButton({
 
 const S1_NAVY = "#08131F";
 const S1_NAVY_SOFT = "#142638";
-const S1_BG = "#0D1824"; // softer page background: charcoal-grey navy, matte finish
+const S1_BG = "#131E2A"; // soft charcoal navy, muted grey-blue undertone, premium matte finish
 const S1_GOLD = "#D4A64A";
 const S1_GOLD_SOFT = "#E8C775";
 const S1_BORDER = "rgba(212,166,74,0.28)";
