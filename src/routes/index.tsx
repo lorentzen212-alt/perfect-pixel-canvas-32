@@ -10,8 +10,6 @@ import {
   Headphones,
   Lock,
   UsersRound,
-  Menu,
-  X,
   FileText,
   Building2,
   CheckCircle2,
