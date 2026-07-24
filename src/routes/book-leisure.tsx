@@ -2462,6 +2462,7 @@ function LeisureStepShell({
   chapter,
   headline,
   subtext,
+  rightSidebar,
 }: {
   activeStep: StepKey;
   onStepGo: (s: StepKey) => void;
@@ -2470,7 +2471,11 @@ function LeisureStepShell({
   chapter: string;
   headline: React.ReactNode;
   subtext: React.ReactNode;
+  rightSidebar?: React.ReactNode;
 }) {
+  const gridCols = rightSidebar
+    ? "lg:grid-cols-[minmax(0,22fr)_minmax(0,48fr)_minmax(0,30fr)]"
+    : "lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)]";
   return (
     <main
       className="min-h-screen w-full"
@@ -2488,7 +2493,7 @@ function LeisureStepShell({
         />
       </div>
 
-      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:gap-10 lg:px-10 lg:py-12">
+      <div className={`mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 ${gridCols} lg:gap-8 lg:px-10 lg:py-12`}>
         <aside
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
           style={{
@@ -2544,6 +2549,8 @@ function LeisureStepShell({
         </aside>
 
         {children}
+
+        {rightSidebar}
       </div>
     </main>
   );
