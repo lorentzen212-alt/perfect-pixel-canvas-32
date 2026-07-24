@@ -1960,7 +1960,7 @@ function LeisureStep1Screen({
         <div
           className="relative w-full overflow-hidden rounded-[28px]"
           style={{
-            height: "clamp(420px, 60vh, 620px)",
+            height: "clamp(360px, 52vh, 620px)",
             border: `1px solid ${S1_BORDER_SOFT}`,
             boxShadow:
               "0 50px 90px -50px rgba(0,0,0,0.7), inset 0 0 90px rgba(0,0,0,0.25)",
