@@ -480,6 +480,22 @@ function BookLeisure() {
       />
     );
   }
+  if (currentStep === 4) {
+    return (
+      <LeisureStep4Screen
+        category={expCategory}
+        setCategory={setExpCategory}
+        selected={selectedExps}
+        onToggle={toggleExp}
+        letUsRecommend={letUsRecommend}
+        setLetUsRecommend={setLetUsRecommend}
+        onNext={() => go(5)}
+        onBack={() => go(3)}
+        onStepGo={(s: StepKey) => go(s)}
+      />
+    );
+  }
+
 
   const meta = STEP_META[step];
 
