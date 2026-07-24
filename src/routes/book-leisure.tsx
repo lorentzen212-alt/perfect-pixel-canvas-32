@@ -464,15 +464,8 @@ function BookLeisure() {
   if (currentStep === 2) {
     return (
       <LeisureStep2Screen
-        rooms={rooms}
-        setRoom={setRoom}
-        totalRooms={totalRooms}
-        earlyCheckin={earlyCheckin}
-        setEarlyCheckin={setEarlyCheckin}
-        lateCheckout={lateCheckout}
-        setLateCheckout={setLateCheckout}
-        connectingRooms={connectingRooms}
-        setConnectingRooms={setConnectingRooms}
+        stays={stays}
+        setStays={setStays}
         roomNotes={roomNotes}
         setRoomNotes={setRoomNotes}
         canContinue={canContinue(2)}
