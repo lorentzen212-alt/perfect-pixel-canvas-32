@@ -518,6 +518,38 @@ function BookLeisure() {
       />
     );
   }
+  if (currentStep === 6) {
+    return (
+      <LeisureStep6Screen
+        onEdit={(s: StepKey) => go(s)}
+        onBack={() => go(5)}
+        onSubmit={handleSubmit}
+        submitting={submitting}
+        onStepGo={(s: StepKey) => go(s)}
+        data={{
+          country: COUNTRIES.find((c) => c.code === country)?.name ?? "",
+          city: customDestination.trim() || city,
+          guests,
+          arrival,
+          departure,
+          rooms,
+          earlyCheckin,
+          lateCheckout,
+          connectingRooms,
+          extras: Array.from(selectedExtras),
+          experiences: Array.from(selectedExps),
+          letUsRecommend,
+          contactName: `${firstName} ${lastName}`.trim(),
+          email,
+          phone,
+          organisation,
+          additionalComments,
+        }}
+      />
+    );
+  }
+
+
 
 
 
