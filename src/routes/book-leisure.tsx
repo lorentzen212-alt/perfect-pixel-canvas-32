@@ -37,6 +37,14 @@ import {
   Bell,
   BedDouble,
   ChevronDown,
+  Send,
+  Lock,
+  CalendarDays,
+  UserRound,
+  Users2,
+  MessageSquare,
+  Tag,
+  Camera as CameraIcon,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
