@@ -287,18 +287,8 @@ function BookLeisure() {
   const [departure, setDeparture] = useState<Date | undefined>();
   const [guests, setGuests] = useState<number>(25);
 
-  // Step 2 - Rooms
-  const [rooms, setRooms] = useState<Record<string, number>>({
-    single: 4,
-    twin: 10,
-    double: 8,
-    triple: 2,
-    family: 2,
-    accessible: 0,
-  });
-  const [earlyCheckin, setEarlyCheckin] = useState(false);
-  const [lateCheckout, setLateCheckout] = useState(false);
-  const [connectingRooms, setConnectingRooms] = useState(false);
+  // Step 2 - Multi-stay accommodation
+  const [stays, setStays] = useState<LeisureStay[]>([]);
   const [roomNotes, setRoomNotes] = useState("");
 
   // Step 3 - Extras
