@@ -603,7 +603,7 @@ function BookLeisure() {
       </div>
 
       {/* Layout: left hero, right panel */}
-      <div className="mx-auto grid max-w-[1600px] grid-cols-1 lg:grid-cols-[minmax(0,34fr)_minmax(0,66fr)]">
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)]">
         <HeroPanel step={step} />
 
         <section className="px-5 py-8 sm:px-8 sm:py-10 lg:px-14 lg:py-14">
@@ -1948,7 +1948,7 @@ function LeisureStep1Screen({
       </header>
 
       {/* Layout */}
-      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,34fr)_minmax(0,66fr)] lg:gap-10 lg:px-10 lg:py-12">
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:gap-10 lg:px-10 lg:py-12">
         {/* LEFT HERO */}
         <aside
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
@@ -2393,7 +2393,7 @@ function LeisureStepShell({
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,34fr)_minmax(0,66fr)] lg:gap-10 lg:px-10 lg:py-12">
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:gap-10 lg:px-10 lg:py-12">
         <aside
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
           style={{
