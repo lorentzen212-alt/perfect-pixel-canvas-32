@@ -2136,11 +2136,11 @@ function LeisureStep1Screen({
                     setCity("Anywhere in Norway");
                     setCustomDestination("");
                   }}
-                  className="group flex h-[180px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
+                  className="group flex h-[168px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
                   style={{
                     background: S1_NAVY,
                     border: `1px solid ${
-                      city === "Anywhere in Norway" ? S1_GOLD : "rgba(212,166,74,0.45)"
+                      city === "Anywhere in Norway" ? S1_GOLD : "rgba(212,166,74,0.35)"
                     }`,
                     boxShadow:
                       city === "Anywhere in Norway"
@@ -2149,10 +2149,11 @@ function LeisureStep1Screen({
                   }}
                 >
                   <MapPin
-                    size={28}
+                    size={26}
                     strokeWidth={1.8}
                     style={{ color: S1_GOLD_SOFT }}
                   />
+
                   <span
                     className="text-[14px] font-medium leading-tight"
                     style={{ color: S1_GOLD_SOFT }}
