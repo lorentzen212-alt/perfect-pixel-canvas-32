@@ -2181,10 +2181,10 @@ function SearchSection({
       <div className="flex items-center justify-center gap-4">
         <span
           aria-hidden
-          className="h-px w-24 sm:w-32"
+          className="h-px w-28 sm:w-36"
           style={{
             background:
-              "linear-gradient(90deg, rgba(212,166,74,0) 0%, rgba(212,166,74,0.55) 100%)",
+              "linear-gradient(90deg, rgba(212,166,74,0) 0%, rgba(212,166,74,0.45) 30%, rgba(212,166,74,0.75) 100%)",
           }}
         />
         <div
@@ -2195,10 +2195,10 @@ function SearchSection({
         </div>
         <span
           aria-hidden
-          className="h-px w-24 sm:w-32"
+          className="h-px w-28 sm:w-36"
           style={{
             background:
-              "linear-gradient(90deg, rgba(212,166,74,0.55) 0%, rgba(212,166,74,0) 100%)",
+              "linear-gradient(90deg, rgba(212,166,74,0.75) 0%, rgba(212,166,74,0.45) 70%, rgba(212,166,74,0) 100%)",
           }}
         />
       </div>
@@ -2295,7 +2295,7 @@ function SearchSection({
       </div>
 
       {/* Bottom row */}
-      <div className="mt-5 flex flex-col-reverse items-center justify-between gap-6 sm:flex-row">
+      <div className="mt-3 flex flex-col-reverse items-center justify-between gap-6 sm:flex-row">
         <div className="flex items-center gap-2 text-[13.5px]">
           <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD }} />
           <span style={{ color: S1_GOLD }}>
@@ -2370,7 +2370,7 @@ function LeisureStep1Screen({
     <main
       className="min-h-screen w-full"
       style={{
-        backgroundColor: S1_NAVY,
+        backgroundColor: S1_BG,
         fontFamily: "Inter, system-ui, sans-serif",
         color: "#F5F1E6",
       }}
