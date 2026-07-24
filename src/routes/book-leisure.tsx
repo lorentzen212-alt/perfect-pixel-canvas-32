@@ -1,175 +1,307 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { format } from "date-fns";
 import {
   ArrowLeft,
   ArrowRight,
-  MapPin,
-  Building2,
-  User,
-  Calendar as CalendarIcon,
-  ChevronDown,
-  Lock,
-  Star,
-  FileText,
   Check,
-  AlertTriangle,
+  ChevronRight,
   Minus,
   Plus,
   Loader2,
-  ChevronRight,
+  Search,
+  Sparkles,
+  Pencil,
+  Copy,
+  CheckCircle2,
+  Home as HomeIcon,
+  Utensils,
+  Coffee,
+  Bus,
+  Car,
+  DoorOpen,
+  Gift,
+  Briefcase,
+  ShieldCheck,
+  Mountain,
+  Snowflake,
+  Landmark,
+  Compass,
+  Wine,
+  Users,
+  Waves,
+  Camera,
+  Flame,
 } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/book-leisure")({
   component: BookLeisure,
   head: () => ({
     meta: [
-      { title: "Book Leisure — HotelGroupBook" },
+      { title: "Plan a Group Journey — HotelGroupBook" },
       {
         name: "description",
         content:
-          "Tell us about your group and we'll find the best hotel offers for you.",
+          "Plan an unforgettable Scandinavian group journey. One request, multiple offers, the perfect trip.",
       },
+      { property: "og:title", content: "Plan a Group Journey — HotelGroupBook" },
+      {
+        property: "og:description",
+        content:
+          "A calm, luxurious way to plan group travel across Norway, Sweden, Denmark and Finland.",
+      },
+      { property: "og:type", content: "website" },
     ],
   }),
 });
 
+/* =============================================================
+   Design tokens
+   ============================================================= */
+
 const SERIF = '"Cormorant Garamond", Georgia, serif';
-const GOLD = "#F5C25A";
-const GOLD_SOFT = "#E9B96A";
-const NAVY_BG = "#061523";
-const PANEL_ACTIVE = "#0F2437";
-const BORDER = "rgba(245, 194, 90, 0.35)";
-const BORDER_SOFT = "rgba(245, 194, 90, 0.18)";
-const CARD_BG = "#FCFAF6";
-const DIVIDER = "#ECE6DA";
+const IVORY = "#F7F2E7";
+const IVORY_SOFT = "#FBF7EE";
+const NAVY = "#0B1B2B";
+const NAVY_DEEP = "#061422";
+const INK = "#1B2A3A";
+const MUTED = "#6B7280";
+const GOLD = "#C9A24A";
+const GOLD_SOFT = "#E4C57E";
+const HAIR = "#E7DFCD";
 
-type StepKey = 1 | 2 | 3;
+/* =============================================================
+   Hero imagery (cinematic Scandinavian photography)
+   ============================================================= */
 
-const STEPS = [
-  { n: 1 as StepKey, title: "Your Trip", sub: "Where and when", Icon: MapPin },
-  { n: 2 as StepKey, title: "Requests", sub: "What you need", Icon: Building2 },
-  { n: 3 as StepKey, title: "Your Details", sub: "Who to contact", Icon: User },
-];
+const HERO = {
+  1: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80", // fjord sunrise
+  2: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1600&q=80", // luxury suite
+  3: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80", // long-table dinner
+  4: "https://images.unsplash.com/photo-1508766206392-8bd5cf550d1c?auto=format&fit=crop&w=1600&q=80", // waterfall
+  5: "https://images.unsplash.com/photo-1519974719765-e6559eac2575?auto=format&fit=crop&w=1600&q=80", // fireplace lounge
+  6: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1600&q=80", // aerial norway
+  confirm:
+    "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=1600&q=80", // sunrise mountains
+};
+
+const ROOM_IMG = {
+  single:
+    "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
+  twin: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
+  double:
+    "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80",
+  triple:
+    "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=80",
+  family:
+    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80",
+  accessible:
+    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+};
+
+const EXP_IMG: Record<string, string> = {
+  "Fjord Cruise":
+    "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=900&q=80",
+  "Northern Lights":
+    "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=80",
+  Kayaking:
+    "https://images.unsplash.com/photo-1526401485004-46910ecc8e51?auto=format&fit=crop&w=900&q=80",
+  "Whale Safari":
+    "https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=900&q=80",
+  "City Tour":
+    "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=900&q=80",
+  "Wine Tasting":
+    "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=900&q=80",
+  Museum:
+    "https://images.unsplash.com/photo-1565060169194-19fabf63012c?auto=format&fit=crop&w=900&q=80",
+  Hiking:
+    "https://images.unsplash.com/photo-1533240332313-0db49b459ad6?auto=format&fit=crop&w=900&q=80",
+  Ski: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&w=900&q=80",
+  "Local Food Experience":
+    "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=900&q=80",
+};
+
+/* =============================================================
+   Data
+   ============================================================= */
 
 type CountryCode = "NO" | "SE" | "DK" | "FI";
 
-const COUNTRIES: { code: CountryCode; name: string; Flag: () => React.ReactElement }[] = [
-  { code: "NO", name: "Norway", Flag: FlagNO },
-  { code: "SE", name: "Sweden", Flag: FlagSE },
-  { code: "DK", name: "Denmark", Flag: FlagDK },
-  { code: "FI", name: "Finland", Flag: FlagFI },
+const COUNTRIES: { code: CountryCode; name: string; flag: string }[] = [
+  { code: "NO", name: "Norway", flag: "🇳🇴" },
+  { code: "SE", name: "Sweden", flag: "🇸🇪" },
+  { code: "DK", name: "Denmark", flag: "🇩🇰" },
+  { code: "FI", name: "Finland", flag: "🇫🇮" },
 ];
 
 const CITIES: Record<CountryCode, string[]> = {
-  NO: [
-    "Oslo", "Bergen", "Tromsø", "Trondheim", "Stavanger", "Kristiansand",
-    "Ålesund", "Bodø", "Lillehammer", "Fredrikstad", "Drammen", "Sandnes",
-    "Molde", "Haugesund", "Narvik", "Alta", "Hamar", "Larvik", "Tønsberg",
-  ],
-  SE: [
-    "Stockholm", "Gothenburg", "Malmö", "Uppsala", "Västerås", "Örebro",
-    "Linköping", "Helsingborg", "Jönköping", "Lund", "Umeå", "Kiruna",
-  ],
-  DK: [
-    "Copenhagen", "Aarhus", "Odense", "Aalborg", "Esbjerg", "Roskilde",
-    "Kolding", "Vejle", "Herning", "Helsingør",
-  ],
-  FI: [
-    "Helsinki", "Espoo", "Tampere", "Turku", "Oulu", "Rovaniemi",
-    "Jyväskylä", "Kuopio", "Lahti", "Vaasa",
-  ],
+  NO: ["Bergen", "Oslo", "Lofoten", "Tromsø", "Stavanger", "Trondheim", "Geiranger", "Ålesund"],
+  SE: ["Stockholm", "Gothenburg", "Malmö", "Uppsala", "Kiruna", "Umeå"],
+  DK: ["Copenhagen", "Aarhus", "Odense", "Aalborg"],
+  FI: ["Helsinki", "Tampere", "Rovaniemi", "Turku", "Oulu"],
 };
 
-const SPECIAL_REQUESTS = [
-  "Breakfast Box",
-  "Lunch",
-  "Dinner",
-  "Meeting Room",
-  "Porter Service",
-  "Airport Transfer",
-  "Early Check-in",
-  "Late Check-out",
+const ROOMS = [
+  { key: "single", title: "Single Room", desc: "1 person", img: ROOM_IMG.single },
+  { key: "twin", title: "Twin Room", desc: "2 separate beds", img: ROOM_IMG.twin },
+  { key: "double", title: "Double Room", desc: "1 double bed", img: ROOM_IMG.double },
+  { key: "triple", title: "Triple Room", desc: "3 people", img: ROOM_IMG.triple },
+  { key: "family", title: "Family Room", desc: "4+ people", img: ROOM_IMG.family },
+  { key: "accessible", title: "Accessible Room", desc: "Wheelchair friendly", img: ROOM_IMG.accessible },
+] as const;
+
+type ExtraGroup = { title: string; items: { label: string; Icon: typeof Utensils }[] };
+
+const EXTRAS: ExtraGroup[] = [
+  {
+    title: "Dining",
+    items: [
+      { label: "Breakfast", Icon: Coffee },
+      { label: "Packed Breakfast", Icon: Coffee },
+      { label: "Lunch", Icon: Utensils },
+      { label: "Packed Lunch", Icon: Utensils },
+      { label: "Dinner", Icon: Utensils },
+      { label: "Gala Dinner", Icon: Wine },
+    ],
+  },
+  {
+    title: "Arrival",
+    items: [
+      { label: "Porter Service", Icon: Briefcase },
+      { label: "Private Check-in", Icon: DoorOpen },
+      { label: "Welcome Drink", Icon: Wine },
+      { label: "Gift Bags", Icon: Gift },
+    ],
+  },
+  {
+    title: "Transport",
+    items: [
+      { label: "Airport Transfer", Icon: Car },
+      { label: "Coach Transfer", Icon: Bus },
+      { label: "Parking", Icon: Car },
+    ],
+  },
+  {
+    title: "Hotel Services",
+    items: [
+      { label: "Meeting Room", Icon: Briefcase },
+      { label: "Laundry", Icon: ShieldCheck },
+      { label: "Late Check-out", Icon: HomeIcon },
+    ],
+  },
 ];
 
-function BookLeisure() {
-  const [step, setStep] = useState<StepKey>(1);
-  const [direction, setDirection] = useState<"forward" | "back">("forward");
+type ExpItem = { label: string; category: string; Icon: typeof Mountain };
+const EXPERIENCES: ExpItem[] = [
+  { label: "Fjord Cruise", category: "Nature", Icon: Waves },
+  { label: "Hiking", category: "Nature", Icon: Mountain },
+  { label: "Northern Lights", category: "Winter", Icon: Sparkles },
+  { label: "Ski", category: "Winter", Icon: Snowflake },
+  { label: "City Tour", category: "Culture", Icon: Landmark },
+  { label: "Museum", category: "Culture", Icon: Landmark },
+  { label: "Kayaking", category: "Adventure", Icon: Compass },
+  { label: "Whale Safari", category: "Adventure", Icon: Camera },
+  { label: "Local Food Experience", category: "Food", Icon: Flame },
+  { label: "Wine Tasting", category: "Food", Icon: Wine },
+];
 
-  // Trip
+const EXP_CATEGORIES = ["All", "Nature", "Winter", "Culture", "Adventure", "Food", "Group Activities"];
+
+/* =============================================================
+   Main Component
+   ============================================================= */
+
+type StepKey = 1 | 2 | 3 | 4 | 5 | 6;
+
+const STEP_META: Record<StepKey, { title: string; kicker: string; headline: string; sub: string }> = {
+  1: {
+    title: "Destination",
+    kicker: "Chapter I",
+    headline: "Where will your group\nadventure begin?",
+    sub: "Tell us your destination and hotel preferences.",
+  },
+  2: {
+    title: "Accommodation",
+    kicker: "Chapter II",
+    headline: "Choose where\nyour group will rest.",
+    sub: "Design the perfect room distribution for your group.",
+  },
+  3: {
+    title: "Extras",
+    kicker: "Chapter III",
+    headline: "The small\nmoments that matter.",
+    sub: "Add the details that turn a trip into a story.",
+  },
+  4: {
+    title: "Experiences",
+    kicker: "Chapter IV",
+    headline: "Unforgettable\nScandinavian moments.",
+    sub: "Curate the experiences your group will remember.",
+  },
+  5: {
+    title: "Contact",
+    kicker: "Chapter V",
+    headline: "Who should\nwe write to?",
+    sub: "We'll send tailored offers to this person.",
+  },
+  6: {
+    title: "Review",
+    kicker: "Chapter VI",
+    headline: "One last look\nbefore we begin.",
+    sub: "Review everything. It's free and non-binding.",
+  },
+};
+
+function BookLeisure() {
+  const navigate = useNavigate();
+  const [step, setStep] = useState<StepKey>(1);
+
+  // Step 1 - Destination
   const [country, setCountry] = useState<CountryCode>("NO");
   const [city, setCity] = useState<string>("Bergen");
+  const [customDestination, setCustomDestination] = useState("");
+  const [preferredHotel, setPreferredHotel] = useState("");
+
+  // Dates + guests (retained from previous flow)
   const [arrival, setArrival] = useState<Date | undefined>();
   const [departure, setDeparture] = useState<Date | undefined>();
-
-  // Group
   const [guests, setGuests] = useState<number>(25);
-  const [sgl, setSgl] = useState<number>(4);
-  const [dbl, setDbl] = useState<number>(8);
-  const [trp, setTrp] = useState<number>(2);
 
-  // Requests
-  const [selectedRequests, setSelectedRequests] = useState<Set<string>>(
-    new Set(["Dinner"]),
-  );
-  const [notes, setNotes] = useState(
-    "",
-  );
+  // Step 2 - Rooms
+  const [rooms, setRooms] = useState<Record<string, number>>({
+    single: 4,
+    twin: 10,
+    double: 8,
+    triple: 2,
+    family: 2,
+    accessible: 0,
+  });
+  const [earlyCheckin, setEarlyCheckin] = useState(false);
+  const [lateCheckout, setLateCheckout] = useState(false);
+  const [connectingRooms, setConnectingRooms] = useState(false);
+  const [roomNotes, setRoomNotes] = useState("");
 
-  // Details
-  const [fullName, setFullName] = useState("");
+  // Step 3 - Extras
+  const [selectedExtras, setSelectedExtras] = useState<Set<string>>(new Set(["Breakfast", "Dinner"]));
+
+  // Step 4 - Experiences
+  const [expCategory, setExpCategory] = useState("All");
+  const [selectedExps, setSelectedExps] = useState<Set<string>>(new Set());
+  const [letUsRecommend, setLetUsRecommend] = useState(false);
+
+  // Step 5 - Contact
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
-  const [terms, setTerms] = useState(false);
+  const [organisation, setOrganisation] = useState("");
+  const [additionalComments, setAdditionalComments] = useState("");
 
-  // Submission state
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  // Submission
   const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [confirmation, setConfirmation] = useState<null | {
-    requestId: string;
-  }>(null);
-
-  const navigate = useNavigate();
-
-  const totalRooms = sgl + dbl + trp;
-  const maxCapacity = sgl * 1 + dbl * 2 + trp * 3;
-  const capacityShortfall = guests > maxCapacity;
-
-  const handleCountryChange = (val: CountryCode) => {
-    setCountry(val);
-    setCity("");
-  };
-
-  const handleArrivalChange = (d: Date | undefined) => {
-    setArrival(d);
-    if (d && departure && departure <= d) setDeparture(undefined);
-  };
-
-  const toggleRequest = (r: string) => {
-    setSelectedRequests((prev) => {
-      const n = new Set(prev);
-      if (n.has(r)) n.delete(r);
-      else n.add(r);
-      return n;
-    });
-  };
-
-  const go = (next: StepKey) => {
-    setDirection(next > step ? "forward" : "back");
-    setStep(next);
-  };
+  const [confirmation, setConfirmation] = useState<null | { requestId: string }>(null);
+  const [copied, setCopied] = useState(false);
 
   const today = useMemo(() => {
     const t = new Date();
@@ -177,42 +309,47 @@ function BookLeisure() {
     return t;
   }, []);
 
-  const validateAll = () => {
-    const e: Record<string, string> = {};
-    if (!country) e.country = "Please select a country.";
-    if (!city) e.city = "Please select a city.";
-    if (!arrival) e.arrival = "Please select an arrival date.";
-    else if (arrival < today) e.arrival = "Arrival cannot be in the past.";
-    if (!departure) e.departure = "Please select a departure date.";
-    else if (arrival && departure <= arrival)
-      e.departure = "Departure must be after arrival.";
-    if (!guests || guests < 1) e.guests = "Please select number of guests.";
-    if (capacityShortfall)
-      e.capacity = "Selected rooms don't cover the number of guests.";
-    if (!fullName.trim()) e.fullName = "Please enter your full name.";
-    if (!email.trim()) e.email = "Please enter your email.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
-      e.email = "Please enter a valid email address.";
-    if (!phone.trim()) e.phone = "Please enter your phone number.";
-    else if (!/^[+()\d][\d\s()+-]{6,}$/.test(phone.trim()))
-      e.phone = "Please enter a valid phone number.";
-    if (!terms) e.terms = "Please accept the terms to continue.";
-    return e;
+  const totalRooms = Object.values(rooms).reduce((a, b) => a + b, 0);
+  const roomCount = (k: string) => rooms[k] ?? 0;
+  const setRoom = (k: string, v: number) =>
+    setRooms((r) => ({ ...r, [k]: Math.max(0, v) }));
+
+  const toggleExtra = (label: string) =>
+    setSelectedExtras((prev) => {
+      const n = new Set(prev);
+      if (n.has(label)) n.delete(label);
+      else n.add(label);
+      return n;
+    });
+
+  const toggleExp = (label: string) =>
+    setSelectedExps((prev) => {
+      const n = new Set(prev);
+      if (n.has(label)) n.delete(label);
+      else n.add(label);
+      return n;
+    });
+
+  const canContinue = (s: StepKey): boolean => {
+    if (s === 1) return !!(country && (city || customDestination.trim()));
+    if (s === 2) return totalRooms > 0;
+    if (s === 5)
+      return (
+        firstName.trim().length > 0 &&
+        lastName.trim().length > 0 &&
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) &&
+        phone.trim().length >= 6
+      );
+    return true;
+  };
+
+  const go = (n: StepKey) => {
+    setStep(n);
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleSubmit = async () => {
     if (submitting) return;
-    const e = validateAll();
-    setErrors(e);
-    setSubmitError(null);
-    if (Object.keys(e).length > 0) {
-      // If a step-1 field failed, jump back so user sees highlights
-      if (e.country || e.city || e.arrival || e.departure || e.guests || e.capacity) {
-        setDirection("back");
-        setStep(1);
-      }
-      return;
-    }
     setSubmitting(true);
     try {
       const year = new Date().getFullYear();
@@ -221,40 +358,41 @@ function BookLeisure() {
       const payload = {
         requestId,
         country,
-        city,
+        city: customDestination.trim() || city,
         arrivalDate: arrival ? format(arrival, "yyyy-MM-dd") : null,
         departureDate: departure ? format(departure, "yyyy-MM-dd") : null,
         guests,
-        sgl,
-        dbl,
-        trp,
+        rooms,
         totalRooms,
-        maxCapacity,
-        specialRequests: Array.from(selectedRequests),
-        additionalInformation: notes,
-        contactName: fullName,
-        company,
+        preferredHotel,
+        earlyCheckin,
+        lateCheckout,
+        connectingRooms,
+        roomNotes,
+        specialRequests: Array.from(selectedExtras),
+        experiences: Array.from(selectedExps),
+        letUsRecommend,
+        additionalInformation: additionalComments,
+        contactName: `${firstName} ${lastName}`.trim(),
+        firstName,
+        lastName,
+        company: organisation,
         email,
         phone,
-        status: "Searching hotels",
+        status: "Finding matching hotels",
         submittedAt: new Date().toISOString(),
+        type: "leisure",
       };
-      // Persist to localStorage under "My Requests"
       if (typeof window !== "undefined") {
-        const existing = JSON.parse(
-          window.localStorage.getItem("hgb_requests") || "[]",
-        );
+        const existing = JSON.parse(window.localStorage.getItem("hgb_requests") || "[]");
         existing.unshift(payload);
         window.localStorage.setItem("hgb_requests", JSON.stringify(existing));
       }
-      // Small delay for premium loading feel
-      await new Promise((r) => setTimeout(r, 700));
+      await new Promise((r) => setTimeout(r, 900));
       setConfirmation({ requestId });
+      if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       console.error(err);
-      setSubmitError(
-        "We couldn't submit your request. Please try again.",
-      );
     } finally {
       setSubmitting(false);
     }
@@ -264,1354 +402,1243 @@ function BookLeisure() {
     return (
       <ConfirmationScreen
         requestId={confirmation.requestId}
-        onGoToRequests={() => navigate({ to: "/" })}
-        onGoHome={() => navigate({ to: "/" })}
+        copied={copied}
+        onCopy={() => {
+          if (typeof navigator !== "undefined") {
+            navigator.clipboard?.writeText(confirmation.requestId);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1600);
+          }
+        }}
+        onGoToRequests={() => navigate({ to: "/manage-bookings" })}
+        onHome={() => navigate({ to: "/" })}
       />
     );
   }
 
+  const meta = STEP_META[step];
 
   return (
     <main
-      className="relative min-h-screen w-full overflow-hidden"
-      style={{ backgroundColor: NAVY_BG }}
+      className="min-h-screen w-full"
+      style={{ backgroundColor: IVORY, fontFamily: "Inter, system-ui, sans-serif", color: INK }}
     >
-      <GoldParticles />
-
-      <div className="relative mx-auto max-w-[1500px] px-4 py-6 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
-        <div
-          className="relative overflow-hidden rounded-[24px] border"
-          style={{
-            borderColor: BORDER_SOFT,
-            backgroundColor: "rgba(6, 21, 35, 0.85)",
-            boxShadow:
-              "0 40px 120px -40px rgba(0,0,0,0.75), inset 0 1px 0 rgba(245,194,90,0.06)",
-          }}
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr]">
-            <Sidebar step={step} onGo={go} />
-
-            <div className="relative p-6 sm:p-10 lg:px-14 lg:py-12 xl:px-[15px]">
-              {/* Header row */}
-              <div className="flex items-start justify-between gap-6">
-                <div className="min-w-0">
-                  <h1
-                    className="text-white text-4xl sm:text-5xl lg:text-[52px] leading-[1.05] font-medium tracking-tight"
-                    style={{ fontFamily: SERIF }}
-                  >
-                    Book Leisure
-                  </h1>
-                  <p className="mt-3 text-[15px] text-[#B9C2CC]">
-                    Tell us about your group and we'll find the best hotel offers for you.
-                  </p>
-                </div>
-                <TopProgress step={step} />
+      {/* Top slim bar */}
+      <div
+        className="w-full border-b"
+        style={{ borderColor: HAIR, backgroundColor: IVORY_SOFT }}
+      >
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-4 lg:px-10">
+          <Link to="/" className="flex items-center gap-3">
+            <div
+              className="grid h-9 w-9 place-items-center rounded-[8px]"
+              style={{ backgroundColor: NAVY, color: GOLD, fontFamily: SERIF }}
+            >
+              <span className="text-[15px] font-medium leading-none">HGB</span>
+            </div>
+            <div className="leading-tight">
+              <div style={{ fontFamily: SERIF }} className="text-[17px] font-medium text-[color:var(--ink)]">
+                HotelGroupBook
               </div>
-
-              {/* Slide container */}
-              <div className="relative mt-8">
-                <div
-                  key={step}
-                  className={
-                    direction === "forward"
-                      ? "animate-slide-in-right"
-                      : "animate-slide-in-left"
-                  }
-                >
-                  <div
-                    className="rounded-[26px] p-6 sm:p-8 lg:p-10 xl:px-[15px]"
-                    style={{
-                      backgroundColor: CARD_BG,
-                      boxShadow:
-                        "0 30px 80px -30px rgba(0,0,0,0.55), 0 8px 30px -12px rgba(0,0,0,0.35)",
-                    }}
-                  >
-                    {step === 1 && (
-                      <StepOne
-                        country={country}
-                        setCountry={handleCountryChange}
-                        city={city}
-                        setCity={setCity}
-                        arrival={arrival}
-                        setArrival={handleArrivalChange}
-                        departure={departure}
-                        setDeparture={setDeparture}
-                        today={today}
-                        guests={guests}
-                        setGuests={setGuests}
-                        sgl={sgl}
-                        setSgl={setSgl}
-                        dbl={dbl}
-                        setDbl={setDbl}
-                        trp={trp}
-                        setTrp={setTrp}
-                        totalRooms={totalRooms}
-                        maxCapacity={maxCapacity}
-                        capacityShortfall={capacityShortfall}
-                        selectedRequests={selectedRequests}
-                        toggleRequest={toggleRequest}
-                        notes={notes}
-                        setNotes={setNotes}
-                      />
-                    )}
-
-                    {step === 2 && (
-                      <StepTwo notes={notes} setNotes={setNotes} />
-                    )}
-
-                    {step === 3 && (
-                      <StepThree
-                        fullName={fullName}
-                        setFullName={setFullName}
-                        email={email}
-                        setEmail={setEmail}
-                        company={company}
-                        setCompany={setCompany}
-                        phone={phone}
-                        setPhone={setPhone}
-                        terms={terms}
-                        setTerms={setTerms}
-                        errors={errors}
-                      />
-                    )}
-
-                    <div className="mt-8">
-                      <PrimaryButton
-                        onClick={() => {
-                          if (step < 3) {
-                            go((step + 1) as StepKey);
-                          } else {
-                            handleSubmit();
-                          }
-                        }}
-                        loading={step === 3 && submitting}
-                        label={
-                          step === 3
-                            ? submitting
-                              ? "Submitting..."
-                              : "Submit Request"
-                            : "Continue"
-                        }
-                      />
-                      {submitError && step === 3 && (
-                        <p
-                          className="mt-3 text-center text-[13.5px]"
-                          style={{ color: "#B4231F" }}
-                        >
-                          {submitError}
-                        </p>
-                      )}
-                      <div
-                        className="mt-5 flex items-center justify-center gap-2 text-[13px]"
-                        style={{ color: "#6B7280" }}
-                      >
-                        <Lock size={14} strokeWidth={1.8} />
-                        <span>It's free and without obligation.</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="text-[11px] tracking-[0.14em] uppercase" style={{ color: MUTED }}>
+                Group journeys, made simple
               </div>
             </div>
-          </div>
+          </Link>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-[13px] font-medium transition-colors"
+            style={{ color: MUTED }}
+          >
+            <ArrowLeft size={14} />
+            Exit
+          </Link>
         </div>
       </div>
 
+      {/* Layout: left hero, right panel */}
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 lg:grid-cols-[minmax(0,34fr)_minmax(0,66fr)]">
+        <HeroPanel step={step} />
+
+        <section className="px-5 py-8 sm:px-8 sm:py-10 lg:px-14 lg:py-14">
+          <ChapterTrack step={step} onGo={go} />
+
+          <div
+            key={step}
+            className="mt-8 rounded-[28px] p-6 sm:p-10 lg:p-12 animate-panel-in"
+            style={{
+              backgroundColor: IVORY_SOFT,
+              boxShadow:
+                "0 30px 80px -40px rgba(11,27,43,0.20), 0 8px 30px -12px rgba(11,27,43,0.08)",
+              border: `1px solid ${HAIR}`,
+            }}
+          >
+            <div className="mb-8">
+              <div className="text-[11px] tracking-[0.24em] uppercase" style={{ color: GOLD }}>
+                {meta.kicker} · {meta.title}
+              </div>
+              <h2
+                className="mt-3 text-[34px] sm:text-[42px] leading-[1.05] font-medium"
+                style={{ fontFamily: SERIF, color: NAVY_DEEP }}
+              >
+                {meta.title === "Destination"
+                  ? "Tell us where the story begins."
+                  : meta.title === "Accommodation"
+                    ? "Where your group will rest."
+                    : meta.title === "Extras"
+                      ? "The small moments that matter."
+                      : meta.title === "Experiences"
+                        ? "Curate what they'll remember."
+                        : meta.title === "Contact"
+                          ? "Who should we write to?"
+                          : "One last look."}
+              </h2>
+              <p className="mt-3 max-w-[560px] text-[15px] leading-relaxed" style={{ color: MUTED }}>
+                {meta.sub}
+              </p>
+            </div>
+
+            {step === 1 && (
+              <StepDestination
+                country={country}
+                setCountry={(c) => {
+                  setCountry(c);
+                  setCity(CITIES[c][0]);
+                }}
+                city={city}
+                setCity={setCity}
+                customDestination={customDestination}
+                setCustomDestination={setCustomDestination}
+                preferredHotel={preferredHotel}
+                setPreferredHotel={setPreferredHotel}
+              />
+            )}
+            {step === 2 && (
+              <StepAccommodation
+                rooms={rooms}
+                roomCount={roomCount}
+                setRoom={setRoom}
+                totalRooms={totalRooms}
+                earlyCheckin={earlyCheckin}
+                setEarlyCheckin={setEarlyCheckin}
+                lateCheckout={lateCheckout}
+                setLateCheckout={setLateCheckout}
+                connectingRooms={connectingRooms}
+                setConnectingRooms={setConnectingRooms}
+                roomNotes={roomNotes}
+                setRoomNotes={setRoomNotes}
+              />
+            )}
+            {step === 3 && (
+              <StepExtras selected={selectedExtras} onToggle={toggleExtra} />
+            )}
+            {step === 4 && (
+              <StepExperiences
+                category={expCategory}
+                setCategory={setExpCategory}
+                selected={selectedExps}
+                onToggle={toggleExp}
+                letUsRecommend={letUsRecommend}
+                setLetUsRecommend={setLetUsRecommend}
+              />
+            )}
+            {step === 5 && (
+              <StepContact
+                firstName={firstName}
+                setFirstName={setFirstName}
+                lastName={lastName}
+                setLastName={setLastName}
+                email={email}
+                setEmail={setEmail}
+                phone={phone}
+                setPhone={setPhone}
+                organisation={organisation}
+                setOrganisation={setOrganisation}
+                additionalComments={additionalComments}
+                setAdditionalComments={setAdditionalComments}
+              />
+            )}
+            {step === 6 && (
+              <StepReview
+                onEdit={(s) => go(s)}
+                data={{
+                  country: COUNTRIES.find((c) => c.code === country)?.name ?? "",
+                  city: customDestination.trim() || city,
+                  guests,
+                  arrival,
+                  departure,
+                  rooms,
+                  earlyCheckin,
+                  lateCheckout,
+                  connectingRooms,
+                  preferredHotel,
+                  extras: Array.from(selectedExtras),
+                  experiences: Array.from(selectedExps),
+                  letUsRecommend,
+                  contactName: `${firstName} ${lastName}`.trim(),
+                  email,
+                  phone,
+                  organisation,
+                  additionalComments,
+                }}
+              />
+            )}
+
+            {/* Nav row */}
+            <div
+              className="mt-12 flex flex-col-reverse items-center justify-between gap-4 border-t pt-6 sm:flex-row"
+              style={{ borderColor: HAIR }}
+            >
+              <button
+                type="button"
+                onClick={() => step > 1 && go((step - 1) as StepKey)}
+                className={cn(
+                  "inline-flex items-center gap-2 text-[14px] font-medium transition-colors",
+                  step === 1 ? "opacity-40 pointer-events-none" : "hover:text-[color:var(--gold)]",
+                )}
+                style={{ color: MUTED }}
+              >
+                <ArrowLeft size={16} />
+                Back
+              </button>
+
+              {step < 6 ? (
+                <PrimaryButton
+                  disabled={!canContinue(step)}
+                  onClick={() => go((step + 1) as StepKey)}
+                  label="Continue"
+                  trailing={<ArrowRight size={16} strokeWidth={2.2} />}
+                />
+              ) : (
+                <PrimaryButton
+                  onClick={handleSubmit}
+                  label={submitting ? "Sending your request…" : "Send Request"}
+                  loading={submitting}
+                  trailing={submitting ? null : <ArrowRight size={16} strokeWidth={2.2} />}
+                />
+              )}
+            </div>
+            {step === 6 && (
+              <p className="mt-4 text-center text-[12.5px]" style={{ color: MUTED }}>
+                Free and non-binding · No credit card required
+              </p>
+            )}
+          </div>
+        </section>
+      </div>
 
       <style>{`
-        @keyframes slide-in-right {
-          from { opacity: 0; transform: translateX(28px); }
-          to { opacity: 1; transform: translateX(0); }
+        @keyframes panel-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
-        @keyframes slide-in-left {
-          from { opacity: 0; transform: translateX(-28px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        .animate-slide-in-right { animation: slide-in-right 300ms ease-out; }
-        .animate-slide-in-left { animation: slide-in-left 300ms ease-out; }
-        .scrollbar-hidden::-webkit-scrollbar { display: none; }
-        .scrollbar-hidden { -ms-overflow-style: none; scrollbar-width: none; }
+        .animate-panel-in { animation: panel-in 420ms cubic-bezier(.2,.7,.2,1); }
       `}</style>
     </main>
   );
 }
 
-/* ---------- Sidebar ---------- */
+/* =============================================================
+   Hero Panel (left)
+   ============================================================= */
 
-function Sidebar({ step, onGo }: { step: StepKey; onGo: (s: StepKey) => void }) {
-  const CIRCLE = 36; // px
-  const ROW_GAP = 28; // px between rows
+function HeroPanel({ step }: { step: StepKey }) {
+  const src = HERO[step];
+  const meta = STEP_META[step];
+  const [line1, line2] = meta.headline.split("\n");
   return (
-    <aside
-      className="relative border-b lg:border-b-0 lg:border-r p-6 lg:px-7 lg:py-8"
-      style={{ borderColor: BORDER_SOFT, backgroundColor: "rgba(3, 10, 20, 0.55)" }}
-    >
-      <Link
-        to="/"
-        className="inline-flex items-center gap-2 text-[14px] font-medium transition-colors hover:text-[#F5C25A]"
-        style={{ color: "#E4E7EC" }}
-      >
-        <ArrowLeft size={16} strokeWidth={2} />
-        Back
-      </Link>
-
-      <div className="relative mt-10" style={{ ["--circle" as string]: `${CIRCLE}px` }}>
-        <div className="flex flex-col" style={{ gap: `${ROW_GAP}px` }}>
-          {STEPS.map(({ n, title, sub, Icon }, idx) => {
-            const active = step === n;
-            const completed = step > n;
-            const isLast = idx === STEPS.length - 1;
-            return (
-              <button
-                key={n}
-                type="button"
-                onClick={() => onGo(n)}
-                className="group relative flex items-stretch gap-4 text-left"
-              >
-                {/* Circle + connecting line column */}
-                <div className="relative flex flex-col items-center" style={{ width: CIRCLE }}>
-                  <span
-                    className="relative z-10 flex shrink-0 items-center justify-center rounded-full text-[13px] font-semibold transition-all duration-[250ms]"
-                    style={{
-                      width: CIRCLE,
-                      height: CIRCLE,
-                      backgroundColor: active
-                        ? GOLD
-                        : completed
-                          ? "rgba(245,194,90,0.10)"
-                          : "rgba(6, 21, 35, 0.9)",
-                      color: active ? "#0A1626" : "#FFFFFF",
-                      border: `1px solid ${active || completed ? GOLD : "rgba(245,194,90,0.55)"}`,
-                      boxShadow: active
-                        ? "0 0 0 5px rgba(245,194,90,0.10), 0 0 22px -4px rgba(245,194,90,0.55)"
-                        : "none",
-                    }}
-                  >
-                    {completed ? (
-                      <Check size={16} strokeWidth={2.4} style={{ color: GOLD }} />
-                    ) : (
-                      n
-                    )}
-                  </span>
-
-                  {!isLast && (
-                    <span
-                      aria-hidden="true"
-                      className="w-px flex-1 transition-all duration-[250ms]"
-                      style={{
-                        marginTop: 4,
-                        marginBottom: -ROW_GAP - 4,
-                        backgroundColor: completed ? GOLD : "rgba(245,194,90,0.45)",
-                        boxShadow: completed ? "0 0 6px rgba(245,194,90,0.55)" : "none",
-                      }}
-                    />
-                  )}
-                </div>
-
-                {/* Card */}
-                <div
-                  className="flex-1 min-w-0 rounded-2xl px-5 py-4 transition-all duration-[250ms]"
-                  style={
-                    active
-                      ? {
-                          background:
-                            "linear-gradient(180deg, rgba(20,44,72,0.9) 0%, rgba(10,26,44,0.9) 100%)",
-                          border: `1px solid ${GOLD}`,
-                          boxShadow:
-                            "inset 0 1px 0 rgba(255,255,255,0.04), 0 0 24px -10px rgba(245,194,90,0.45)",
-                        }
-                      : { border: "1px solid transparent" }
-                  }
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="min-w-0">
-                      <div
-                        className="text-[18px] font-medium tracking-tight leading-tight"
-                        style={{
-                          color: active ? GOLD : "#FFFFFF",
-                          fontFamily: SERIF,
-                        }}
-                      >
-                        {title}
-                      </div>
-                      <div className="mt-1 text-[12.5px] tracking-wide" style={{ color: "#8B96A3" }}>
-                        {sub}
-                      </div>
-                    </div>
-                    <Icon
-                      size={18}
-                      strokeWidth={1.6}
-                      style={{
-                        color: active ? GOLD : "rgba(245,194,90,0.65)",
-                        flexShrink: 0,
-                      }}
-                    />
-                  </div>
-                </div>
-              </button>
-            );
-          })}
+    <aside className="relative min-h-[420px] lg:min-h-[calc(100vh-72px)] lg:sticky lg:top-0 overflow-hidden">
+      <img
+        src={src}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
+        style={{ opacity: 1 }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(6,20,34,0.35) 0%, rgba(6,20,34,0.55) 55%, rgba(6,20,34,0.85) 100%)",
+        }}
+      />
+      <div className="relative z-10 flex h-full min-h-[420px] lg:min-h-[calc(100vh-72px)] flex-col justify-between p-8 sm:p-12 lg:p-14 text-white">
+        <div>
+          <div
+            className="text-[11px] tracking-[0.24em] uppercase"
+            style={{ color: GOLD_SOFT }}
+          >
+            {meta.kicker}
+          </div>
+          <h1
+            className="mt-4 text-[38px] sm:text-[46px] lg:text-[52px] leading-[1.02] font-medium"
+            style={{ fontFamily: SERIF }}
+          >
+            {line1}
+            {line2 && (
+              <>
+                <br />
+                {line2}
+              </>
+            )}
+          </h1>
+          <p className="mt-5 max-w-[380px] text-[15px] leading-relaxed text-white/80">
+            {meta.sub}
+          </p>
         </div>
+
+        <ul className="space-y-3 pt-6">
+          {[
+            "One request.",
+            "Multiple offers.",
+            "The perfect trip.",
+          ].map((t) => (
+            <li key={t} className="flex items-center gap-3 text-[14px] text-white/90">
+              <span
+                className="grid h-6 w-6 place-items-center rounded-full"
+                style={{ backgroundColor: "rgba(201,162,74,0.18)", border: `1px solid ${GOLD}` }}
+              >
+                <Check size={12} strokeWidth={2.4} style={{ color: GOLD_SOFT }} />
+              </span>
+              {t}
+            </li>
+          ))}
+        </ul>
       </div>
     </aside>
   );
 }
 
-/* ---------- Top progress ---------- */
+/* =============================================================
+   Chapter track (top of right panel)
+   ============================================================= */
 
-function TopProgress({ step }: { step: StepKey }) {
+function ChapterTrack({ step, onGo }: { step: StepKey; onGo: (s: StepKey) => void }) {
+  const items: StepKey[] = [1, 2, 3, 4, 5, 6];
   return (
-    <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-      {[1, 2, 3].map((n, i) => (
-        <div key={n} className="flex items-center gap-2 sm:gap-3">
-          <span
-            className="flex h-9 w-9 items-center justify-center rounded-full text-[14px] font-semibold transition-all"
-            style={{
-              backgroundColor: step === n ? GOLD : "transparent",
-              color: step === n ? "#0A1626" : step > n ? GOLD : "#B9C2CC",
-              border: `1.5px solid ${step >= n ? GOLD : "rgba(245,194,90,0.4)"}`,
-            }}
-          >
-            {n}
+    <ol className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[12.5px]">
+      {items.map((n, i) => {
+        const active = n === step;
+        const done = n < step;
+        return (
+          <li key={n} className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => (done || active ? onGo(n) : null)}
+              className={cn("group flex items-center gap-2", done || active ? "cursor-pointer" : "cursor-default")}
+            >
+              <span
+                className="grid h-6 w-6 place-items-center rounded-full text-[11px] font-semibold transition-all"
+                style={{
+                  backgroundColor: active ? GOLD : done ? "rgba(201,162,74,0.15)" : "transparent",
+                  color: active ? NAVY_DEEP : done ? GOLD : MUTED,
+                  border: `1px solid ${active || done ? GOLD : HAIR}`,
+                }}
+              >
+                {done ? <Check size={12} strokeWidth={2.6} /> : n}
+              </span>
+              <span
+                className="uppercase tracking-[0.14em]"
+                style={{
+                  color: active ? NAVY_DEEP : done ? INK : MUTED,
+                  fontWeight: active ? 600 : 500,
+                }}
+              >
+                {STEP_META[n].title}
+              </span>
+            </button>
+            {i < items.length - 1 && (
+              <span className="h-px w-5" style={{ backgroundColor: HAIR }} />
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
+/* =============================================================
+   STEP 1 - Destination
+   ============================================================= */
+
+function StepDestination({
+  country,
+  setCountry,
+  city,
+  setCity,
+  customDestination,
+  setCustomDestination,
+  preferredHotel,
+  setPreferredHotel,
+}: {
+  country: CountryCode;
+  setCountry: (c: CountryCode) => void;
+  city: string;
+  setCity: (c: string) => void;
+  customDestination: string;
+  setCustomDestination: (v: string) => void;
+  preferredHotel: string;
+  setPreferredHotel: (v: string) => void;
+}) {
+  return (
+    <div className="space-y-10">
+      <div>
+        <Label>Choose your country</Label>
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {COUNTRIES.map((c) => {
+            const active = c.code === country;
+            return (
+              <button
+                key={c.code}
+                onClick={() => setCountry(c.code)}
+                className="group relative flex items-center justify-center gap-2 rounded-[14px] px-4 py-3.5 text-[14px] font-medium transition-all"
+                style={{
+                  backgroundColor: active ? NAVY_DEEP : "#FFFFFF",
+                  color: active ? "#FFF" : INK,
+                  border: `1px solid ${active ? NAVY_DEEP : HAIR}`,
+                  boxShadow: active
+                    ? "0 8px 24px -12px rgba(11,27,43,0.35)"
+                    : "0 1px 2px rgba(11,27,43,0.04)",
+                }}
+              >
+                <span className="text-[18px] leading-none">{c.flag}</span>
+                {c.name}
+                {active && (
+                  <span
+                    className="absolute -top-1.5 -right-1.5 grid h-5 w-5 place-items-center rounded-full"
+                    style={{ backgroundColor: GOLD, color: NAVY_DEEP }}
+                  >
+                    <Check size={12} strokeWidth={2.8} />
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div>
+        <Label>Popular destinations in {COUNTRIES.find((c) => c.code === country)!.name}</Label>
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {CITIES[country].map((c) => {
+            const active = c === city && !customDestination.trim();
+            return (
+              <button
+                key={c}
+                onClick={() => {
+                  setCity(c);
+                  setCustomDestination("");
+                }}
+                className="relative overflow-hidden rounded-[14px] text-left transition-all"
+                style={{
+                  border: `1px solid ${active ? GOLD : HAIR}`,
+                  backgroundColor: "#FFF",
+                  boxShadow: active
+                    ? "0 10px 26px -14px rgba(201,162,74,0.55)"
+                    : "0 1px 2px rgba(11,27,43,0.04)",
+                }}
+              >
+                <div className="h-24 w-full overflow-hidden">
+                  <img
+                    src={`https://source.unsplash.com/featured/400x300/?${encodeURIComponent(
+                      c + " scandinavia",
+                    )}`}
+                    alt={c}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => ((e.currentTarget.style.display = "none"))}
+                  />
+                </div>
+                <div className="flex items-center justify-between px-3.5 py-2.5">
+                  <span className="text-[14px] font-medium" style={{ color: INK }}>
+                    {c}
+                  </span>
+                  {active && <Check size={16} style={{ color: GOLD }} strokeWidth={2.4} />}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div>
+        <Label>Or search for any destination</Label>
+        <div
+          className="mt-3 flex items-center gap-3 rounded-[14px] bg-white px-4 py-3.5"
+          style={{ border: `1px solid ${HAIR}` }}
+        >
+          <Search size={16} style={{ color: MUTED }} />
+          <input
+            value={customDestination}
+            onChange={(e) => setCustomDestination(e.target.value)}
+            placeholder="Type city, region or venue"
+            className="w-full bg-transparent text-[14px] outline-none placeholder:text-[#9CA3AF]"
+          />
+        </div>
+      </div>
+
+      <div>
+        <Label>Preferred hotel or special requests <span style={{ color: MUTED, fontWeight: 400 }}>(optional)</span></Label>
+        <div className="mt-3 rounded-[14px] bg-white p-4" style={{ border: `1px solid ${HAIR}` }}>
+          <textarea
+            value={preferredHotel}
+            onChange={(e) => setPreferredHotel(e.target.value)}
+            placeholder="Tell us if you have a preferred hotel or anything important we should know…"
+            rows={3}
+            className="w-full resize-none bg-transparent text-[14px] outline-none placeholder:text-[#9CA3AF]"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =============================================================
+   STEP 2 - Accommodation
+   ============================================================= */
+
+function StepAccommodation(props: {
+  rooms: Record<string, number>;
+  roomCount: (k: string) => number;
+  setRoom: (k: string, v: number) => void;
+  totalRooms: number;
+  earlyCheckin: boolean;
+  setEarlyCheckin: (v: boolean) => void;
+  lateCheckout: boolean;
+  setLateCheckout: (v: boolean) => void;
+  connectingRooms: boolean;
+  setConnectingRooms: (v: boolean) => void;
+  roomNotes: string;
+  setRoomNotes: (v: string) => void;
+}) {
+  return (
+    <div className="space-y-10">
+      <div>
+        <Label>Choose your room distribution</Label>
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {ROOMS.map((r) => {
+            const n = props.roomCount(r.key);
+            const active = n > 0;
+            return (
+              <div
+                key={r.key}
+                className="overflow-hidden rounded-[16px] bg-white transition-all"
+                style={{
+                  border: `1px solid ${active ? GOLD : HAIR}`,
+                  boxShadow: active
+                    ? "0 12px 30px -18px rgba(201,162,74,0.55)"
+                    : "0 1px 2px rgba(11,27,43,0.04)",
+                }}
+              >
+                <div className="h-32 w-full overflow-hidden">
+                  <img src={r.img} alt={r.title} className="h-full w-full object-cover" />
+                </div>
+                <div className="flex items-center justify-between p-4">
+                  <div>
+                    <div className="text-[15px] font-medium" style={{ color: NAVY_DEEP }}>
+                      {r.title}
+                    </div>
+                    <div className="text-[12.5px]" style={{ color: MUTED }}>
+                      {r.desc}
+                    </div>
+                  </div>
+                  <Counter value={n} onChange={(v) => props.setRoom(r.key, v)} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div
+          className="mt-4 flex items-center justify-between rounded-[12px] px-4 py-3 text-[13px]"
+          style={{ backgroundColor: "rgba(201,162,74,0.10)", color: NAVY_DEEP }}
+        >
+          <span>Total rooms selected</span>
+          <span className="font-semibold" style={{ fontFamily: SERIF, fontSize: 20 }}>
+            {props.totalRooms}
           </span>
-          {i < 2 && (
-            <span
-              className="h-px w-6 sm:w-8"
-              style={{
-                backgroundColor: step > n ? GOLD : "rgba(245,194,90,0.4)",
-              }}
-            />
-          )}
+        </div>
+      </div>
+
+      <div>
+        <Label>Additional preferences <span style={{ color: MUTED, fontWeight: 400 }}>(optional)</span></Label>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Toggle label="Early check-in" checked={props.earlyCheckin} onChange={props.setEarlyCheckin} />
+          <Toggle label="Late check-out" checked={props.lateCheckout} onChange={props.setLateCheckout} />
+          <Toggle label="Connecting rooms" checked={props.connectingRooms} onChange={props.setConnectingRooms} />
+        </div>
+        <div className="mt-4 rounded-[14px] bg-white p-4" style={{ border: `1px solid ${HAIR}` }}>
+          <textarea
+            value={props.roomNotes}
+            onChange={(e) => props.setRoomNotes(e.target.value)}
+            placeholder="Tell us anything important about the room distribution…"
+            rows={3}
+            className="w-full resize-none bg-transparent text-[14px] outline-none placeholder:text-[#9CA3AF]"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =============================================================
+   STEP 3 - Extras
+   ============================================================= */
+
+function StepExtras({
+  selected,
+  onToggle,
+}: {
+  selected: Set<string>;
+  onToggle: (label: string) => void;
+}) {
+  return (
+    <div className="space-y-10">
+      {EXTRAS.map((group) => (
+        <div key={group.title}>
+          <div className="mb-3 flex items-baseline justify-between">
+            <div style={{ fontFamily: SERIF, color: NAVY_DEEP }} className="text-[22px] font-medium">
+              {group.title}
+            </div>
+            <div className="text-[12px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+              Select any
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {group.items.map(({ label, Icon }) => {
+              const active = selected.has(label);
+              return (
+                <button
+                  key={label}
+                  onClick={() => onToggle(label)}
+                  className="relative flex items-center gap-3 rounded-[14px] bg-white px-4 py-3.5 text-left transition-all"
+                  style={{
+                    border: `1px solid ${active ? GOLD : HAIR}`,
+                    boxShadow: active
+                      ? "0 8px 22px -14px rgba(201,162,74,0.55)"
+                      : "0 1px 2px rgba(11,27,43,0.04)",
+                  }}
+                >
+                  <span
+                    className="grid h-9 w-9 place-items-center rounded-[10px]"
+                    style={{
+                      backgroundColor: active ? "rgba(201,162,74,0.15)" : IVORY,
+                      color: active ? GOLD : NAVY_DEEP,
+                    }}
+                  >
+                    <Icon size={16} strokeWidth={1.8} />
+                  </span>
+                  <span className="text-[14px] font-medium" style={{ color: INK }}>
+                    {label}
+                  </span>
+                  {active && (
+                    <span
+                      className="absolute -top-1.5 -right-1.5 grid h-5 w-5 place-items-center rounded-full"
+                      style={{ backgroundColor: GOLD, color: NAVY_DEEP }}
+                    >
+                      <Check size={12} strokeWidth={2.8} />
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
       ))}
     </div>
   );
 }
 
-/* ---------- STEP 1: 4-column form ---------- */
+/* =============================================================
+   STEP 4 - Experiences
+   ============================================================= */
 
-function StepOne(props: {
-  country: CountryCode;
-  setCountry: (c: CountryCode) => void;
-  city: string;
-  setCity: (v: string) => void;
-  arrival: Date | undefined;
-  setArrival: (d: Date | undefined) => void;
-  departure: Date | undefined;
-  setDeparture: (d: Date | undefined) => void;
-  today: Date;
-  guests: number;
-  setGuests: (n: number) => void;
-  sgl: number;
-  setSgl: (n: number) => void;
-  dbl: number;
-  setDbl: (n: number) => void;
-  trp: number;
-  setTrp: (n: number) => void;
-  totalRooms: number;
-  maxCapacity: number;
-  capacityShortfall: boolean;
-  selectedRequests: Set<string>;
-  toggleRequest: (r: string) => void;
-  notes: string;
-  setNotes: (v: string) => void;
-}) {
-  const activeCountry = COUNTRIES.find((c) => c.code === props.country)!;
-  const cities = CITIES[props.country];
-  const guestOptions = useMemo(
-    () => Array.from({ length: 500 }, (_, i) => i + 1),
-    [],
-  );
-
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(200px,1fr)_minmax(200px,1fr)_minmax(200px,0.9fr)_minmax(280px,1fr)] gap-8 xl:gap-0">
-      {/* Column 1 - Destination */}
-      <ColumnBlock icon={<MapPin size={18} strokeWidth={1.8} />} title="Destination">
-        <FieldLabel>Country</FieldLabel>
-        <Select
-          value={props.country}
-          onValueChange={(v) => props.setCountry(v as CountryCode)}
-        >
-          <DestinationSelectTrigger>
-            <span className="flex items-center gap-2 min-w-0">
-              <activeCountry.Flag />
-              <span className="text-[15px] text-[#0A1626] truncate">
-                {activeCountry.name}
-              </span>
-            </span>
-          </DestinationSelectTrigger>
-          <StyledSelectContent>
-            {COUNTRIES.map(({ code, name, Flag }) => (
-              <StyledSelectItem key={code} value={code}>
-                <span className="flex items-center gap-2">
-                  <Flag />
-                  <span>{name}</span>
-                </span>
-              </StyledSelectItem>
-            ))}
-          </StyledSelectContent>
-        </Select>
-
-        <FieldLabel className="mt-5">City</FieldLabel>
-        <Select value={props.city} onValueChange={props.setCity}>
-          <DestinationSelectTrigger>
-            <span className="text-[15px] truncate" style={{ color: props.city ? "#0A1626" : "#9AA3AF" }}>
-              {props.city || "Select city"}
-            </span>
-          </DestinationSelectTrigger>
-          <StyledSelectContent>
-            {cities.map((c) => (
-              <StyledSelectItem key={c} value={c}>
-                {c}
-              </StyledSelectItem>
-            ))}
-          </StyledSelectContent>
-        </Select>
-
-        <FieldLabel className="mt-5">Arrival Date</FieldLabel>
-        <DateField
-          value={props.arrival}
-          onChange={props.setArrival}
-          disabled={(d) => d < props.today}
-          placeholder="Select date"
-        />
-
-        <FieldLabel className="mt-5">Departure Date</FieldLabel>
-        <DateField
-          value={props.departure}
-          onChange={props.setDeparture}
-          disabled={(d) =>
-            d < props.today || (props.arrival ? d <= props.arrival : false)
-          }
-          placeholder="Select date"
-        />
-      </ColumnBlock>
-
-      {/* Column 2 - Group Details */}
-      <ColumnBlock icon={<User size={18} strokeWidth={1.8} />} title="Group Details" divider>
-        <FieldLabel>Number of Guests</FieldLabel>
-        <Select
-          value={String(props.guests)}
-          onValueChange={(v) => props.setGuests(Number(v))}
-        >
-          <StyledSelectTrigger>
-            <span className="text-[15px] text-[#0A1626]">{props.guests}</span>
-          </StyledSelectTrigger>
-          <StyledSelectContent>
-            {guestOptions.map((n) => (
-              <StyledSelectItem key={n} value={String(n)}>
-                {n}
-              </StyledSelectItem>
-            ))}
-          </StyledSelectContent>
-        </Select>
-
-        <div className="mt-6 text-[15px] font-semibold text-[#0A1626]">
-          Room Breakdown
-        </div>
-
-        <FieldLabel className="mt-4">Single Rooms (SGL)</FieldLabel>
-        <Counter value={props.sgl} onChange={props.setSgl} />
-
-        <FieldLabel className="mt-4">Double Rooms (DBL)</FieldLabel>
-        <Counter value={props.dbl} onChange={props.setDbl} />
-
-        <FieldLabel className="mt-4">Triple Rooms (TRP)</FieldLabel>
-        <Counter value={props.trp} onChange={props.setTrp} />
-
-        <CapacityCard
-          totalRooms={props.totalRooms}
-          maxCapacity={props.maxCapacity}
-          guests={props.guests}
-          capacityShortfall={props.capacityShortfall}
-        />
-      </ColumnBlock>
-
-      {/* Column 3 - Special Requests */}
-      <ColumnBlock icon={<Star size={18} strokeWidth={1.8} />} title="Special Requests" divider>
-        <div className="flex flex-col gap-3">
-          {SPECIAL_REQUESTS.map((r) => {
-            const checked = props.selectedRequests.has(r);
-            return (
-              <button
-                type="button"
-                key={r}
-                onClick={() => props.toggleRequest(r)}
-                className="flex items-center gap-3 text-left"
-              >
-                <span
-                  className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-[6px] transition-colors"
-                  style={{
-                    backgroundColor: checked ? "#0A1626" : "#FFFFFF",
-                    border: checked ? "1px solid #0A1626" : "1px solid #D9D3C4",
-                  }}
-                >
-                  {checked && (
-                    <Check size={14} strokeWidth={3} className="text-white" />
-                  )}
-                </span>
-                <span className="text-[15px] text-[#0A1626]">{r}</span>
-              </button>
-            );
-          })}
-        </div>
-      </ColumnBlock>
-
-      {/* Column 4 - Additional Information */}
-      <ColumnBlock
-        icon={<FileText size={18} strokeWidth={1.8} />}
-        title="Additional Information"
-        divider
-        rightPaddingClass="xl:pr-2"
-      >
-        <p className="text-[14px] text-[#6B7280]">
-          Tell us more about your request...
-        </p>
-        <textarea
-          value={props.notes}
-          onChange={(e) => props.setNotes(e.target.value)}
-          rows={10}
-          placeholder="We would like a hotel near the city center. Please include options with dinner and meeting room."
-          className="mt-[33px] min-h-[340px] w-full overflow-y-auto rounded-2xl bg-white p-6 text-[14.5px] leading-relaxed text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none scrollbar-hidden xl:w-[235px] xl:max-w-full xl:mx-auto"
-          style={{
-            border: "1px solid #E4DED2",
-            boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
-          }}
-        />
-
-      </ColumnBlock>
-    </div>
-  );
-}
-
-/* ---------- STEP 2 & 3 (simple) ---------- */
-
-function StepTwo({
-  notes,
-  setNotes,
+function StepExperiences({
+  category,
+  setCategory,
+  selected,
+  onToggle,
+  letUsRecommend,
+  setLetUsRecommend,
 }: {
-  notes: string;
-  setNotes: (v: string) => void;
+  category: string;
+  setCategory: (c: string) => void;
+  selected: Set<string>;
+  onToggle: (label: string) => void;
+  letUsRecommend: boolean;
+  setLetUsRecommend: (v: boolean) => void;
 }) {
+  const filtered = EXPERIENCES.filter((e) => category === "All" || e.category === category);
   return (
-    <div className="min-h-[300px]">
-      <h3 className="text-[22px] font-medium text-[#0A1626]" style={{ fontFamily: SERIF }}>
-        Anything else we should know?
-      </h3>
-      <p className="mt-2 text-[14px] text-[#6B7280]">
-        Add any additional notes for our team.
-      </p>
-      <textarea
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-        rows={8}
-        placeholder="Add notes here..."
-        className="mt-5 w-full rounded-xl bg-white px-4 py-3 text-[14.5px] text-[#0A1626] outline-none placeholder:text-[#9AA3AF] resize-none"
-        style={{ border: "1px solid #E4DED2" }}
-      />
+    <div className="space-y-8">
+      <div className="flex flex-wrap gap-2">
+        {EXP_CATEGORIES.map((c) => {
+          const active = c === category;
+          return (
+            <button
+              key={c}
+              onClick={() => setCategory(c)}
+              className="rounded-full px-4 py-2 text-[13px] font-medium transition-all"
+              style={{
+                backgroundColor: active ? NAVY_DEEP : "#FFF",
+                color: active ? "#FFF" : INK,
+                border: `1px solid ${active ? NAVY_DEEP : HAIR}`,
+              }}
+            >
+              {c}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {filtered.map(({ label, Icon }) => {
+          const active = selected.has(label);
+          const img = EXP_IMG[label];
+          return (
+            <button
+              key={label}
+              onClick={() => onToggle(label)}
+              className="group relative overflow-hidden rounded-[16px] bg-white text-left transition-all"
+              style={{
+                border: `1px solid ${active ? GOLD : HAIR}`,
+                boxShadow: active
+                  ? "0 14px 34px -18px rgba(201,162,74,0.55)"
+                  : "0 1px 2px rgba(11,27,43,0.04)",
+              }}
+            >
+              <div className="relative h-40 w-full overflow-hidden">
+                <img
+                  src={img}
+                  alt={label}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(6,20,34,0) 40%, rgba(6,20,34,0.75) 100%)",
+                  }}
+                />
+                <div className="absolute bottom-3 left-3 flex items-center gap-2 text-white">
+                  <Icon size={16} strokeWidth={2} />
+                  <span className="text-[15px] font-medium" style={{ fontFamily: SERIF }}>
+                    {label}
+                  </span>
+                </div>
+                {active && (
+                  <span
+                    className="absolute top-3 right-3 grid h-7 w-7 place-items-center rounded-full"
+                    style={{ backgroundColor: GOLD, color: NAVY_DEEP }}
+                  >
+                    <Check size={14} strokeWidth={2.8} />
+                  </span>
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      <button
+        onClick={() => setLetUsRecommend(!letUsRecommend)}
+        className="flex w-full items-center justify-between rounded-[16px] p-5 text-left transition-all"
+        style={{
+          backgroundColor: letUsRecommend ? NAVY_DEEP : "#FFF",
+          color: letUsRecommend ? "#FFF" : INK,
+          border: `1px solid ${letUsRecommend ? NAVY_DEEP : HAIR}`,
+        }}
+      >
+        <div className="flex items-center gap-4">
+          <span
+            className="grid h-11 w-11 place-items-center rounded-[12px]"
+            style={{
+              backgroundColor: letUsRecommend ? "rgba(201,162,74,0.20)" : IVORY,
+              color: GOLD,
+            }}
+          >
+            <Sparkles size={18} strokeWidth={1.8} />
+          </span>
+          <div>
+            <div className="text-[15px] font-medium" style={{ fontFamily: SERIF, fontSize: 20 }}>
+              Let HotelGroupBook recommend experiences
+            </div>
+            <div className="text-[13px] opacity-80">
+              We'll suggest the best options for your group.
+            </div>
+          </div>
+        </div>
+        <span
+          className="grid h-6 w-6 place-items-center rounded-full"
+          style={{
+            backgroundColor: letUsRecommend ? GOLD : "transparent",
+            border: `1.5px solid ${letUsRecommend ? GOLD : HAIR}`,
+            color: NAVY_DEEP,
+          }}
+        >
+          {letUsRecommend && <Check size={13} strokeWidth={2.8} />}
+        </span>
+      </button>
     </div>
   );
 }
 
-function StepThree(props: {
-  fullName: string;
-  setFullName: (v: string) => void;
+/* =============================================================
+   STEP 5 - Contact
+   ============================================================= */
+
+function StepContact(props: {
+  firstName: string;
+  setFirstName: (v: string) => void;
+  lastName: string;
+  setLastName: (v: string) => void;
   email: string;
   setEmail: (v: string) => void;
-  company: string;
-  setCompany: (v: string) => void;
   phone: string;
   setPhone: (v: string) => void;
-  terms: boolean;
-  setTerms: (b: boolean) => void;
-  errors: Record<string, string>;
+  organisation: string;
+  setOrganisation: (v: string) => void;
+  additionalComments: string;
+  setAdditionalComments: (v: string) => void;
 }) {
-  const { errors } = props;
   return (
-    <div className="min-h-[300px]">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <FieldLabel>Full Name</FieldLabel>
-          <InputBox
-            value={props.fullName}
-            onChange={props.setFullName}
-            placeholder="Ola Nordmann"
-            error={!!errors.fullName}
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <Field label="First name" value={props.firstName} onChange={props.setFirstName} placeholder="Enter first name" />
+      <Field label="Last name" value={props.lastName} onChange={props.setLastName} placeholder="Enter last name" />
+      <Field label="Email" value={props.email} onChange={props.setEmail} placeholder="Enter email address" type="email" />
+      <Field label="Phone" value={props.phone} onChange={props.setPhone} placeholder="+47 000 00 000" type="tel" />
+      <div className="sm:col-span-2">
+        <Field
+          label="Organisation / Group name"
+          value={props.organisation}
+          onChange={props.setOrganisation}
+          placeholder="Enter organisation or group name"
+          optional
+        />
+      </div>
+      <div className="sm:col-span-2">
+        <Label>
+          Additional comments <span style={{ color: MUTED, fontWeight: 400 }}>(optional)</span>
+        </Label>
+        <div className="mt-3 rounded-[14px] bg-white p-4" style={{ border: `1px solid ${HAIR}` }}>
+          <textarea
+            value={props.additionalComments}
+            onChange={(e) => props.setAdditionalComments(e.target.value)}
+            placeholder="Tell us anything else we should know…"
+            rows={4}
+            className="w-full resize-none bg-transparent text-[14px] outline-none placeholder:text-[#9CA3AF]"
           />
-          {errors.fullName && <FieldError>{errors.fullName}</FieldError>}
-          <FieldLabel className="mt-5">Email</FieldLabel>
-          <InputBox
-            value={props.email}
-            onChange={props.setEmail}
-            placeholder="you@example.com"
-            type="email"
-            error={!!errors.email}
-          />
-          {errors.email && <FieldError>{errors.email}</FieldError>}
-        </div>
-        <div>
-          <FieldLabel>Company</FieldLabel>
-          <InputBox
-            value={props.company}
-            onChange={props.setCompany}
-            placeholder="Optional"
-          />
-          <FieldLabel className="mt-5">Phone</FieldLabel>
-          <InputBox
-            value={props.phone}
-            onChange={props.setPhone}
-            placeholder="+47 000 00 000"
-            type="tel"
-            error={!!errors.phone}
-          />
-          {errors.phone && <FieldError>{errors.phone}</FieldError>}
         </div>
       </div>
-
-      <label className="mt-6 flex items-start gap-3 cursor-pointer select-none">
-        <span
-          className="mt-[2px] flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-[6px] transition-colors"
-          style={{
-            backgroundColor: props.terms ? "#0A1626" : "#FFFFFF",
-            border: props.terms
-              ? "1px solid #0A1626"
-              : `1px solid ${errors.terms ? "#B4231F" : "#D9D3C4"}`,
-          }}
-          onClick={() => props.setTerms(!props.terms)}
-        >
-          {props.terms && <Check size={14} strokeWidth={3} className="text-white" />}
-        </span>
-        <span className="text-[14px] text-[#0A1626] leading-relaxed">
-          I agree to the terms and consent to being contacted about my request.
-        </span>
-      </label>
-      {errors.terms && <FieldError>{errors.terms}</FieldError>}
     </div>
   );
 }
 
-function CapacityCard({
-  totalRooms,
-  maxCapacity,
-  guests,
-  capacityShortfall,
+/* =============================================================
+   STEP 6 - Review
+   ============================================================= */
+
+function StepReview({
+  onEdit,
+  data,
 }: {
-  totalRooms: number;
-  maxCapacity: number;
-  guests: number;
-  capacityShortfall: boolean;
+  onEdit: (s: StepKey) => void;
+  data: {
+    country: string;
+    city: string;
+    guests: number;
+    arrival?: Date;
+    departure?: Date;
+    rooms: Record<string, number>;
+    earlyCheckin: boolean;
+    lateCheckout: boolean;
+    connectingRooms: boolean;
+    preferredHotel: string;
+    extras: string[];
+    experiences: string[];
+    letUsRecommend: boolean;
+    contactName: string;
+    email: string;
+    phone: string;
+    organisation: string;
+    additionalComments: string;
+  };
 }) {
-  const shortfall = Math.max(0, guests - maxCapacity);
-  const isExact = guests === maxCapacity;
+  const roomsSummary = Object.entries(data.rooms)
+    .filter(([, v]) => v > 0)
+    .map(([k, v]) => {
+      const r = ROOMS.find((x) => x.key === k);
+      return `${v} ${r?.title ?? k}`;
+    });
   return (
-    <div
-      className="mt-5 rounded-xl px-4 py-3 transition-all duration-[250ms]"
-      style={{
-        backgroundColor: capacityShortfall ? "#FDECEC" : "#EAF8EF",
-        border: `1px solid ${capacityShortfall ? "#FCA5A5" : "#86EFAC"}`,
-      }}
-    >
-      <div className="flex items-start gap-2.5">
-        <span className="mt-0.5 shrink-0 transition-opacity duration-[250ms]">
-          {capacityShortfall ? (
-            <AlertTriangle size={16} strokeWidth={2} style={{ color: "#DC2626" }} />
-          ) : (
-            <Check size={16} strokeWidth={2.4} style={{ color: "#16A34A" }} />
-          )}
-        </span>
-        <div className="min-w-0 flex-1 transition-opacity duration-[250ms]">
-          <p
-            className="text-[13.5px] font-medium leading-snug"
-            style={{ color: capacityShortfall ? "#991B1B" : "#166534" }}
-          >
-            {capacityShortfall
-              ? "Room allocation does not match the number of guests."
-              : isExact
-                ? "Room allocation is valid."
-                : "Room capacity matches the number of guests."}
-          </p>
-          {capacityShortfall && (
-            <p
-              className="mt-1 text-[12.5px] leading-snug"
-              style={{ color: "#B91C1C" }}
-            >
-              Missing {shortfall} guest {shortfall === 1 ? "place" : "places"}.
-              Please adjust the room breakdown.
-            </p>
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <ReviewCard title="Destination" onEdit={() => onEdit(1)}>
+        <Row label="Country" value={data.country} />
+        <Row label="City" value={data.city} />
+        {data.preferredHotel && <Row label="Preferences" value={data.preferredHotel} />}
+      </ReviewCard>
+      <ReviewCard title="Accommodation" onEdit={() => onEdit(2)}>
+        {roomsSummary.length === 0 ? (
+          <Row label="Rooms" value="None selected" />
+        ) : (
+          roomsSummary.map((r) => <Row key={r} label="" value={r} />)
+        )}
+        {(data.earlyCheckin || data.lateCheckout || data.connectingRooms) && (
+          <Row
+            label="Preferences"
+            value={[
+              data.earlyCheckin && "Early check-in",
+              data.lateCheckout && "Late check-out",
+              data.connectingRooms && "Connecting rooms",
+            ]
+              .filter(Boolean)
+              .join(", ")}
+          />
+        )}
+      </ReviewCard>
+      <ReviewCard title="Extras" onEdit={() => onEdit(3)}>
+        {data.extras.length === 0 ? (
+          <Row label="" value="No extras selected" />
+        ) : (
+          data.extras.map((e) => <Row key={e} label="" value={e} />)
+        )}
+      </ReviewCard>
+      <ReviewCard title="Experiences" onEdit={() => onEdit(4)}>
+        {data.experiences.length === 0 && !data.letUsRecommend ? (
+          <Row label="" value="No experiences selected" />
+        ) : (
+          <>
+            {data.experiences.map((e) => (
+              <Row key={e} label="" value={e} />
+            ))}
+            {data.letUsRecommend && (
+              <Row label="" value="Recommendations requested" />
+            )}
+          </>
+        )}
+      </ReviewCard>
+      <ReviewCard title="Contact" onEdit={() => onEdit(5)} full>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <Row label="Name" value={data.contactName || "—"} />
+          <Row label="Email" value={data.email || "—"} />
+          <Row label="Phone" value={data.phone || "—"} />
+          <Row label="Organisation" value={data.organisation || "—"} />
+          {data.additionalComments && (
+            <div className="sm:col-span-2">
+              <Row label="Comments" value={data.additionalComments} />
+            </div>
           )}
         </div>
-      </div>
-      <div className="mt-3 flex items-center justify-between gap-2 text-[13.5px] whitespace-nowrap">
-        <span style={{ color: capacityShortfall ? "#991B1B" : "#166534" }}>
-          Total Rooms
-        </span>
-        <span
-          className="font-semibold"
-          style={{ color: capacityShortfall ? "#991B1B" : "#166534" }}
-        >
-          {totalRooms}
-        </span>
-      </div>
-      <div className="mt-1 flex items-center justify-between gap-2 text-[13.5px] whitespace-nowrap">
-        <span style={{ color: capacityShortfall ? "#991B1B" : "#166534" }}>
-          Maximum Capacity
-        </span>
-        <span
-          className="font-semibold"
-          style={{ color: capacityShortfall ? "#991B1B" : "#166534" }}
-        >
-          {maxCapacity} Guests
-        </span>
-      </div>
+      </ReviewCard>
     </div>
   );
 }
 
-function FieldError({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="mt-1.5 text-[12.5px]" style={{ color: "#B4231F" }}>
-      {children}
-    </p>
-  );
-}
-
-
-/* ---------- Primitives ---------- */
-
-function ColumnBlock({
-  icon,
+function ReviewCard({
   title,
+  onEdit,
   children,
-  divider = false,
-  rightPaddingClass = "xl:pr-5",
+  full,
 }: {
-  icon: React.ReactNode;
   title: string;
+  onEdit: () => void;
   children: React.ReactNode;
-  divider?: boolean;
-  rightPaddingClass?: string;
+  full?: boolean;
 }) {
   return (
     <div
-      className={cn("relative flex flex-col xl:pl-6", divider && "xl:ml-0")}
-      style={{
-        borderLeft: divider ? `1px solid ${DIVIDER}` : undefined,
-      }}
-    >
-      <div className={rightPaddingClass}>
-        <div className="flex items-center gap-2 text-[#0A1626] mb-5">
-          <span className="text-[#0A1626]">{icon}</span>
-          <span className="text-[17px] font-semibold">{title}</span>
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function FieldLabel({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={cn("mb-2 text-[13.5px] text-[#5B6472]", className)}>
-      {children}
-    </div>
-  );
-}
-
-function Counter({
-  value,
-  onChange,
-  min = 0,
-  max = 250,
-}: {
-  value: number;
-  onChange: (n: number) => void;
-  min?: number;
-  max?: number;
-}) {
-  const clamp = (n: number) => Math.max(min, Math.min(max, n));
-  return (
-    <div
-      className="flex h-[46px] items-center rounded-xl bg-white"
-      style={{ border: "1px solid #E4DED2", boxShadow: "0 1px 2px rgba(0,0,0,0.03)" }}
-    >
-      <button
-        type="button"
-        onClick={() => onChange(clamp(value - 1))}
-        className="flex h-full w-12 items-center justify-center text-[#0A1626] hover:bg-black/5 rounded-l-xl transition-colors"
-        aria-label="Decrease"
-      >
-        <Minus size={16} strokeWidth={2} />
-      </button>
-      <input
-        type="number"
-        inputMode="numeric"
-        value={value}
-        onChange={(e) => {
-          const v = e.target.value === "" ? 0 : parseInt(e.target.value, 10);
-          if (!isNaN(v)) onChange(clamp(v));
-        }}
-        className="h-full flex-1 min-w-0 text-center text-[15px] font-medium text-[#0A1626] outline-none bg-transparent [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-      />
-      <button
-        type="button"
-        onClick={() => onChange(clamp(value + 1))}
-        className="flex h-full w-12 items-center justify-center text-[#0A1626] hover:bg-black/5 rounded-r-xl transition-colors"
-        aria-label="Increase"
-      >
-        <Plus size={16} strokeWidth={2} />
-      </button>
-    </div>
-  );
-}
-
-const styledSelectTriggerClass = cn(
-  "group flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-5",
-  "cursor-pointer transition-shadow hover:shadow-md",
-  "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
-  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0 [&>svg]:hidden",
-);
-
-function StyledSelectTrigger({ children }: { children: React.ReactNode }) {
-  return (
-    <SelectTrigger className={styledSelectTriggerClass}>
-      <SelectValue asChild>
-        <span className="flex items-center gap-3 min-w-0">{children}</span>
-      </SelectValue>
-      <span className="ml-3 flex shrink-0 items-center justify-center transition-transform duration-200 group-data-[state=open]:rotate-180">
-        <ChevronDown size={18} strokeWidth={2} className="text-[#0A1626]" />
-      </span>
-    </SelectTrigger>
-  );
-}
-
-const destinationSelectTriggerClass = cn(
-  "group flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-5",
-  "cursor-pointer transition-shadow hover:shadow-md",
-  "border border-[#E4DED2] shadow-[0_1px_2px_rgba(0,0,0,0.03)]",
-  "text-left [&>span]:line-clamp-1 focus:outline-none focus:ring-0 [&>svg]:hidden",
-);
-
-function DestinationSelectTrigger({ children }: { children: React.ReactNode }) {
-  return (
-    <SelectTrigger className={destinationSelectTriggerClass}>
-      <SelectValue asChild>
-        <span className="flex items-center gap-3 min-w-0">{children}</span>
-      </SelectValue>
-      <span className="ml-3 flex shrink-0 items-center justify-center transition-transform duration-200 group-data-[state=open]:rotate-180">
-        <ChevronDown size={18} strokeWidth={2} className="text-[#0A1626]" />
-      </span>
-    </SelectTrigger>
-  );
-}
-
-
-function StyledSelectContent({ children }: { children: React.ReactNode }) {
-  return (
-    <SelectContent
-      className="z-[100] max-h-[280px] overflow-hidden rounded-xl border border-[#E4DED2] bg-white p-1.5 shadow-xl"
-      position="popper"
-    >
-      {children}
-    </SelectContent>
-  );
-}
-
-function StyledSelectItem({
-  value,
-  children,
-}: {
-  value: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <SelectItem
-      value={value}
       className={cn(
-        "relative cursor-pointer rounded-lg py-2.5 pl-3 pr-8 text-[15px] text-[#0A1626] outline-none transition-colors",
-        "data-[highlighted]:bg-[#F5EFE1] data-[highlighted]:text-[#0A1626]",
-        "data-[state=checked]:bg-[#EAE6DD] data-[state=checked]:font-medium",
-        "focus:bg-[#F5EFE1] focus:text-[#0A1626]",
+        "rounded-[16px] bg-white p-5",
+        full && "md:col-span-2",
       )}
+      style={{ border: `1px solid ${HAIR}` }}
     >
-      {children}
-    </SelectItem>
-  );
-}
-
-function DateField({
-  value,
-  onChange,
-  disabled,
-  placeholder,
-}: {
-  value: Date | undefined;
-  onChange: (d: Date | undefined) => void;
-  disabled?: (d: Date) => boolean;
-  placeholder: string;
-}) {
-  return (
-    <Popover>
-      <PopoverTrigger asChild>
+      <div className="mb-3 flex items-center justify-between">
+        <div className="text-[11px] uppercase tracking-[0.18em]" style={{ color: GOLD }}>
+          {title}
+        </div>
         <button
-          type="button"
-          className="flex h-[50px] w-full items-center justify-between rounded-xl bg-white pl-6 pr-7 cursor-pointer transition-shadow hover:shadow-md text-left"
-          style={{
-            border: "1px solid #E4DED2",
-            boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
-          }}
+          onClick={onEdit}
+          className="inline-flex items-center gap-1.5 text-[12.5px]"
+          style={{ color: MUTED }}
         >
-          <span
-            className="text-[15px] min-w-0 truncate"
-            style={{ color: value ? "#0A1626" : "#9AA3AF" }}
-          >
-            {value ? format(value, "dd MMM yyyy") : placeholder}
-          </span>
-          <span className="flex items-center gap-5 shrink-0">
-            <CalendarIcon size={18} strokeWidth={1.6} className="text-[#0A1626]" />
-            <ChevronDown size={16} strokeWidth={1.8} className="text-[#5B6472]" />
-          </span>
+          <Pencil size={12} />
+          Edit
         </button>
-
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0 z-[100] bg-white" align="start">
-        <Calendar
-          mode="single"
-          selected={value}
-          onSelect={onChange}
-          disabled={disabled}
-          initialFocus
-          className={cn("p-3 pointer-events-auto")}
-        />
-      </PopoverContent>
-    </Popover>
+      </div>
+      <div className="space-y-1.5">{children}</div>
+    </div>
   );
 }
 
-function InputBox({
-  value,
-  onChange,
-  placeholder,
-  type = "text",
-  error = false,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  placeholder?: string;
-  type?: string;
-  error?: boolean;
-}) {
+function Row({ label, value }: { label: string; value: string }) {
   return (
-    <input
-      type={type}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      className="h-[46px] w-full rounded-xl bg-white px-4 text-[15px] text-[#0A1626] outline-none placeholder:text-[#9AA3AF]"
-      style={{
-        border: `1px solid ${error ? "#B4231F" : "#E4DED2"}`,
-        boxShadow: error
-          ? "0 0 0 3px rgba(180,35,31,0.10)"
-          : "0 1px 2px rgba(0,0,0,0.03)",
-      }}
-    />
+    <div className="flex items-start justify-between gap-4 text-[14px]">
+      {label && <span style={{ color: MUTED }}>{label}</span>}
+      <span className="text-right" style={{ color: INK }}>
+        {value}
+      </span>
+    </div>
   );
 }
 
-/* ---------- Primary Button ---------- */
-
-function PrimaryButton({
-  onClick,
-  label = "Get Hotel Offers",
-  loading = false,
-}: {
-  onClick: () => void;
-  label?: string;
-  loading?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={loading}
-      className="continue-btn group relative flex h-[64px] w-full items-center justify-center gap-4 rounded-[16px] px-8 text-[17px] font-semibold transition-all duration-[250ms] ease-out disabled:cursor-not-allowed disabled:opacity-90"
-      style={{
-        backgroundColor: "#081828",
-        color: GOLD,
-        border: `1px solid ${GOLD}`,
-        boxShadow:
-          "0 12px 40px -12px rgba(0,0,0,0.55), 0 0 0 1px rgba(245,194,90,0.10), 0 0 24px -8px rgba(245,194,90,0.35)",
-      }}
-    >
-      <span>{label}</span>
-      {loading ? (
-        <Loader2 size={22} strokeWidth={1.8} className="animate-spin" />
-      ) : (
-        <ArrowRight
-          size={22}
-          strokeWidth={1.8}
-          className="transition-transform duration-[250ms] ease-out group-hover:translate-x-1"
-        />
-      )}
-      <style>{`
-        .continue-btn:hover:not(:disabled) {
-          transform: translateY(-2px);
-          border-color: #FFD57A;
-          box-shadow:
-            0 18px 50px -14px rgba(0,0,0,0.6),
-            0 0 0 1px rgba(245,194,90,0.28),
-            0 0 40px -6px rgba(245,194,90,0.55);
-          background-color: #0A1E32;
-        }
-      `}</style>
-    </button>
-  );
-}
-
-/* ---------- Confirmation Screen ---------- */
+/* =============================================================
+   Confirmation Screen
+   ============================================================= */
 
 function ConfirmationScreen({
   requestId,
+  copied,
+  onCopy,
   onGoToRequests,
-  onGoHome,
+  onHome,
 }: {
   requestId: string;
+  copied: boolean;
+  onCopy: () => void;
   onGoToRequests: () => void;
-  onGoHome: () => void;
+  onHome: () => void;
 }) {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 40);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
     <main
       className="relative min-h-screen w-full overflow-hidden"
-      style={{ backgroundColor: NAVY_BG }}
+      style={{ backgroundColor: NAVY_DEEP, fontFamily: "Inter, system-ui, sans-serif" }}
     >
-      <GoldParticles />
-      <div className="relative mx-auto max-w-[720px] px-4 py-10 sm:px-8 sm:py-16">
+      <img
+        src={HERO.confirm}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(6,20,34,0.55) 0%, rgba(6,20,34,0.80) 60%, rgba(6,20,34,0.95) 100%)",
+        }}
+      />
+
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-[720px] flex-col items-center justify-center px-6 py-16 text-center text-white">
         <div
-          className="relative overflow-hidden rounded-[24px] border px-6 py-14 sm:px-12 sm:py-16"
+          className="grid h-16 w-16 place-items-center rounded-full"
           style={{
-            borderColor: BORDER,
-            backgroundColor: "rgba(6, 21, 35, 0.9)",
-            boxShadow:
-              "0 40px 120px -40px rgba(0,0,0,0.75), inset 0 1px 0 rgba(245,194,90,0.08)",
+            backgroundColor: "rgba(201,162,74,0.15)",
+            border: `1px solid ${GOLD}`,
           }}
         >
-          {/* Flowing gold line texture */}
-          <svg
-            className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.18]"
-            viewBox="0 0 720 900"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            {Array.from({ length: 14 }).map((_, i) => (
-              <path
-                key={i}
-                d={`M -20 ${60 + i * 55} Q 180 ${20 + i * 55} 360 ${70 + i * 55} T 740 ${50 + i * 55}`}
-                fill="none"
-                stroke={GOLD}
-                strokeWidth="0.8"
-                strokeOpacity={0.55 - i * 0.02}
-              />
-            ))}
-          </svg>
+          <Check size={28} strokeWidth={2.4} style={{ color: GOLD_SOFT }} />
+        </div>
+        <h1
+          className="mt-8 text-[44px] sm:text-[54px] leading-[1.05] font-medium"
+          style={{ fontFamily: SERIF }}
+        >
+          Your journey<br />starts here.
+        </h1>
+        <p className="mt-5 max-w-[460px] text-[15.5px] leading-relaxed text-white/85">
+          We're now finding the best hotel offers for your group. You'll receive tailored proposals shortly.
+        </p>
 
-          <div className="relative flex flex-col items-center text-center">
-            {/* Checkmark circle */}
-            <div
-              className={cn(
-                "relative flex h-[132px] w-[132px] items-center justify-center rounded-full transition-all ease-out",
-                visible
-                  ? "opacity-100 scale-100"
-                  : "opacity-0 scale-90",
-              )}
-              style={{
-                transitionDuration: "600ms",
-                border: `2.5px solid ${GOLD}`,
-                boxShadow: visible
-                  ? `0 0 0 6px rgba(245,194,90,0.08), 0 0 40px 4px rgba(245,194,90,0.55), inset 0 0 24px rgba(245,194,90,0.25)`
-                  : "0 0 0 rgba(245,194,90,0)",
-              }}
-            >
-              <Check
-                size={68}
-                strokeWidth={2.2}
-                style={{
-                  color: GOLD,
-                  filter: "drop-shadow(0 0 8px rgba(245,194,90,0.7))",
-                }}
-              />
-            </div>
-
-            <h1
-              className="mt-9 text-[54px] leading-none font-medium"
-              style={{ fontFamily: SERIF, color: GOLD }}
-            >
-              Thank you!
-            </h1>
-            <p className="mt-5 text-[19px] text-white">
-              Your request has been received.
-            </p>
-            <p className="mt-4 max-w-[440px] text-[15.5px] leading-relaxed text-[#B9C2CC]">
-              We will contact suitable hotels and you will receive the best
-              hotel offers through your account.
-            </p>
-
-            {/* Info card */}
-            <div
-              className="mt-9 w-full max-w-[440px] rounded-2xl border px-6 py-5"
-              style={{
-                borderColor: BORDER_SOFT,
-                backgroundColor: "rgba(3, 10, 20, 0.55)",
-              }}
-            >
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-[15px] text-[#B9C2CC]">Request ID</span>
-                <span className="flex items-center gap-2 text-[15px] font-medium text-white">
-                  {requestId}
-                  <ChevronRight size={16} strokeWidth={1.8} style={{ color: GOLD }} />
-                </span>
-              </div>
-              <div
-                className="my-4 h-px w-full"
-                style={{ backgroundColor: "rgba(245,194,90,0.15)" }}
-              />
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-[15px] text-[#B9C2CC]">Status</span>
-                <span className="flex items-center gap-2 text-[15px] text-white">
-                  Searching hotels
-                  <span
-                    className="inline-block h-[9px] w-[9px] rounded-full"
-                    style={{
-                      backgroundColor: GOLD,
-                      boxShadow: "0 0 10px rgba(245,194,90,0.7)",
-                    }}
-                  />
-                </span>
-              </div>
-            </div>
-
-            {/* Buttons */}
+        <div
+          className="mt-10 w-full max-w-[440px] rounded-[18px] p-6 text-left"
+          style={{
+            backgroundColor: "rgba(255,255,255,0.06)",
+            backdropFilter: "blur(12px)",
+            border: `1px solid rgba(201,162,74,0.30)`,
+          }}
+        >
+          <div className="flex items-center justify-between text-[13px] text-white/70">
+            <span>Request ID</span>
             <button
-              type="button"
-              onClick={onGoToRequests}
-              className="mt-8 w-full max-w-[440px] rounded-2xl px-6 py-4 text-[15.5px] font-medium transition-all hover:brightness-110"
-              style={{
-                color: GOLD,
-                backgroundColor: "transparent",
-                border: `1.5px solid ${GOLD}`,
-                boxShadow:
-                  "0 0 0 1px rgba(245,194,90,0.10), 0 0 24px -6px rgba(245,194,90,0.45)",
-              }}
+              onClick={onCopy}
+              className="inline-flex items-center gap-1.5 text-white/80 transition-colors hover:text-white"
             >
-              Go to My Requests
-            </button>
-            <button
-              type="button"
-              onClick={onGoHome}
-              className="mt-3 w-full max-w-[440px] rounded-2xl px-6 py-4 text-[15.5px] font-medium text-white transition-all hover:brightness-110"
-              style={{
-                backgroundColor: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.10)",
-              }}
-            >
-              Back to Homepage
+              {copied ? <CheckCircle2 size={14} /> : <Copy size={14} />}
+              {copied ? "Copied" : "Copy"}
             </button>
           </div>
+          <div className="mt-1 text-[20px] font-medium" style={{ color: GOLD_SOFT, fontFamily: SERIF }}>
+            {requestId}
+          </div>
+          <div className="my-4 h-px" style={{ backgroundColor: "rgba(255,255,255,0.10)" }} />
+          <div className="flex items-center justify-between text-[13px] text-white/70">
+            <span>Status</span>
+            <span className="inline-flex items-center gap-2 text-white">
+              <Loader2 size={14} className="animate-spin" style={{ color: GOLD_SOFT }} />
+              Finding matching hotels
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-8 flex w-full max-w-[440px] flex-col gap-3">
+          <button
+            onClick={onGoToRequests}
+            className="rounded-[12px] px-6 py-3.5 text-[14px] font-semibold transition-transform hover:-translate-y-[1px]"
+            style={{
+              background: `linear-gradient(135deg, ${GOLD_SOFT} 0%, ${GOLD} 100%)`,
+              color: NAVY_DEEP,
+              boxShadow: "0 14px 34px -12px rgba(201,162,74,0.45)",
+            }}
+          >
+            Go to My Requests
+          </button>
+          <button
+            onClick={onHome}
+            className="rounded-[12px] px-6 py-3.5 text-[14px] font-medium text-white transition-colors"
+            style={{ border: "1px solid rgba(255,255,255,0.20)" }}
+          >
+            Back to Homepage
+          </button>
         </div>
       </div>
     </main>
   );
 }
 
+/* =============================================================
+   Primitives
+   ============================================================= */
 
-/* ---------- Flags ---------- */
-
-function FlagNO() {
+function Label({ children }: { children: React.ReactNode }) {
   return (
-    <span
-      className="inline-flex h-5 w-7 shrink-0 overflow-hidden rounded-[3px]"
-      aria-label="Norway"
-      style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06)" }}
-    >
-      <svg viewBox="0 0 28 20" width="28" height="20" xmlns="http://www.w3.org/2000/svg">
-        <rect width="28" height="20" fill="#BA0C2F" />
-        <rect x="8" width="4" height="20" fill="#FFFFFF" />
-        <rect y="8" width="28" height="4" fill="#FFFFFF" />
-        <rect x="9" width="2" height="20" fill="#00205B" />
-        <rect y="9" width="28" height="2" fill="#00205B" />
-      </svg>
-    </span>
-  );
-}
-
-function FlagSE() {
-  return (
-    <span
-      className="inline-flex h-5 w-7 shrink-0 overflow-hidden rounded-[3px]"
-      aria-label="Sweden"
-      style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06)" }}
-    >
-      <svg viewBox="0 0 28 20" width="28" height="20" xmlns="http://www.w3.org/2000/svg">
-        <rect width="28" height="20" fill="#006AA7" />
-        <rect x="8" width="3" height="20" fill="#FECC00" />
-        <rect y="8.5" width="28" height="3" fill="#FECC00" />
-      </svg>
-    </span>
-  );
-}
-
-function FlagDK() {
-  return (
-    <span
-      className="inline-flex h-5 w-7 shrink-0 overflow-hidden rounded-[3px]"
-      aria-label="Denmark"
-      style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06)" }}
-    >
-      <svg viewBox="0 0 28 20" width="28" height="20" xmlns="http://www.w3.org/2000/svg">
-        <rect width="28" height="20" fill="#C8102E" />
-        <rect x="8" width="3" height="20" fill="#FFFFFF" />
-        <rect y="8.5" width="28" height="3" fill="#FFFFFF" />
-      </svg>
-    </span>
-  );
-}
-
-function FlagFI() {
-  return (
-    <span
-      className="inline-flex h-5 w-7 shrink-0 overflow-hidden rounded-[3px]"
-      aria-label="Finland"
-      style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.06)" }}
-    >
-      <svg viewBox="0 0 28 20" width="28" height="20" xmlns="http://www.w3.org/2000/svg">
-        <rect width="28" height="20" fill="#FFFFFF" />
-        <rect x="8" width="3" height="20" fill="#003580" />
-        <rect y="8.5" width="28" height="3" fill="#003580" />
-      </svg>
-    </span>
-  );
-}
-
-/* ---------- Background particles ---------- */
-
-function GoldParticles() {
-  const rand = (seed: number) => {
-    const x = Math.sin(seed * 12.9898) * 43758.5453;
-    return x - Math.floor(x);
-  };
-
-  const TONES = ["#D4AF37", "#E1B955", "#F5D98A", "#B8892E", "#F2C14E"];
-
-  type P = { x: number; y: number; size: number; opacity: number; color: string; blur: boolean; glow: boolean };
-  const particles: P[] = [];
-  let seed = 0;
-  const next = () => rand(++seed);
-
-  // Dense edge bands along left + right (fade horizontally toward center).
-  for (let i = 0; i < 260; i++) {
-    const side = i % 2 === 0 ? "left" : "right";
-    const edgeDist = Math.pow(next(), 1.6) * 18; // 0-18% from edge, biased outward
-    const x = side === "left" ? edgeDist : 100 - edgeDist;
-    const y = next() * 100;
-    const size = 0.4 + Math.pow(next(), 2) * 2.4;
-    const fade = 1 - edgeDist / 18;
-    const opacity = (0.18 + next() * 0.55) * (0.35 + fade * 0.65);
-    particles.push({
-      x,
-      y,
-      size,
-      opacity,
-      color: TONES[Math.floor(next() * TONES.length)],
-      blur: next() > 0.9,
-      glow: size > 1.6 && next() > 0.7,
-    });
-  }
-
-  // Corner clusters (denser).
-  const corners = [
-    { cx: 0, cy: 0 },
-    { cx: 100, cy: 0 },
-    { cx: 0, cy: 100 },
-    { cx: 100, cy: 100 },
-  ];
-  corners.forEach((c) => {
-    for (let i = 0; i < 90; i++) {
-      const rx = Math.pow(next(), 1.4) * 26;
-      const ry = Math.pow(next(), 1.4) * 30;
-      const x = c.cx === 0 ? rx : 100 - rx;
-      const y = c.cy === 0 ? ry : 100 - ry;
-      const size = 0.4 + Math.pow(next(), 2) * 2.6;
-      const dist = Math.max(rx / 26, ry / 30);
-      const opacity = (0.22 + next() * 0.55) * (1 - dist * 0.55);
-      particles.push({
-        x,
-        y,
-        size,
-        opacity,
-        color: TONES[Math.floor(next() * TONES.length)],
-        blur: next() > 0.88,
-        glow: size > 1.7 && next() > 0.65,
-      });
-    }
-  });
-
-  // A few larger soft-blurred motes for depth (edges only).
-  for (let i = 0; i < 18; i++) {
-    const side = i % 2 === 0 ? "left" : "right";
-    const edge = next() * 10;
-    const x = side === "left" ? edge : 100 - edge;
-    const y = next() * 100;
-    const size = 2.2 + next() * 2;
-    particles.push({
-      x,
-      y,
-      size,
-      opacity: 0.18 + next() * 0.22,
-      color: TONES[Math.floor(next() * TONES.length)],
-      blur: true,
-      glow: true,
-    });
-  }
-
-  return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-      {particles.map((p, i) => (
-        <span
-          key={i}
-          className="absolute rounded-full"
-          style={{
-            top: `${p.y}%`,
-            left: `${p.x}%`,
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            backgroundColor: p.color,
-            opacity: p.opacity,
-            boxShadow: p.glow
-              ? `0 0 ${p.size * 3}px rgba(245,194,90,${Math.min(0.6, p.opacity * 0.9)})`
-              : undefined,
-            filter: p.blur ? "blur(0.8px)" : "blur(0.25px)",
-          }}
-        />
-      ))}
-      {/* Center clarity mask — keeps middle of the page dark and clean. */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 62% 58% at 50% 50%, rgba(6,21,35,1) 0%, rgba(6,21,35,0.92) 30%, rgba(6,21,35,0.55) 55%, rgba(6,21,35,0) 82%)",
-        }}
-      />
+    <div className="text-[12.5px] font-semibold uppercase tracking-[0.14em]" style={{ color: NAVY_DEEP }}>
+      {children}
     </div>
   );
 }
 
+function Field({
+  label,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+  optional,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  type?: string;
+  optional?: boolean;
+}) {
+  return (
+    <div>
+      <Label>
+        {label}
+        {optional && <span style={{ color: MUTED, fontWeight: 400 }}> (optional)</span>}
+      </Label>
+      <div
+        className="mt-3 rounded-[14px] bg-white px-4 py-3.5"
+        style={{ border: `1px solid ${HAIR}` }}
+      >
+        <input
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          type={type}
+          className="w-full bg-transparent text-[14px] outline-none placeholder:text-[#9CA3AF]"
+        />
+      </div>
+    </div>
+  );
+}
+
+function Counter({ value, onChange }: { value: number; onChange: (v: number) => void }) {
+  return (
+    <div className="flex items-center gap-2">
+      <button
+        onClick={() => onChange(Math.max(0, value - 1))}
+        className="grid h-8 w-8 place-items-center rounded-full transition-colors"
+        style={{
+          border: `1px solid ${HAIR}`,
+          color: value === 0 ? "#C9CFD6" : NAVY_DEEP,
+          backgroundColor: "#FFF",
+        }}
+        disabled={value === 0}
+      >
+        <Minus size={14} strokeWidth={2.2} />
+      </button>
+      <span
+        className="min-w-[28px] text-center text-[16px] font-semibold"
+        style={{ color: NAVY_DEEP, fontFamily: SERIF }}
+      >
+        {value}
+      </span>
+      <button
+        onClick={() => onChange(value + 1)}
+        className="grid h-8 w-8 place-items-center rounded-full transition-colors"
+        style={{
+          border: `1px solid ${GOLD}`,
+          color: NAVY_DEEP,
+          backgroundColor: "rgba(201,162,74,0.12)",
+        }}
+      >
+        <Plus size={14} strokeWidth={2.2} />
+      </button>
+    </div>
+  );
+}
+
+function Toggle({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
+  return (
+    <button
+      onClick={() => onChange(!checked)}
+      className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium transition-all"
+      style={{
+        backgroundColor: checked ? "rgba(201,162,74,0.14)" : "#FFF",
+        color: checked ? NAVY_DEEP : INK,
+        border: `1px solid ${checked ? GOLD : HAIR}`,
+      }}
+    >
+      <span
+        className="grid h-4 w-4 place-items-center rounded-full"
+        style={{
+          backgroundColor: checked ? GOLD : "transparent",
+          border: `1.5px solid ${checked ? GOLD : HAIR}`,
+        }}
+      >
+        {checked && <Check size={10} strokeWidth={3} style={{ color: NAVY_DEEP }} />}
+      </span>
+      {label}
+    </button>
+  );
+}
+
+function PrimaryButton({
+  onClick,
+  label,
+  loading,
+  disabled,
+  trailing,
+}: {
+  onClick: () => void;
+  label: string;
+  loading?: boolean;
+  disabled?: boolean;
+  trailing?: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled || loading}
+      className={cn(
+        "inline-flex items-center gap-2.5 rounded-[12px] px-7 py-3.5 text-[14px] font-semibold tracking-wide transition-all",
+        (disabled || loading) && "opacity-60 cursor-not-allowed",
+      )}
+      style={{
+        background: `linear-gradient(135deg, ${GOLD_SOFT} 0%, ${GOLD} 100%)`,
+        color: NAVY_DEEP,
+        boxShadow: "0 14px 34px -14px rgba(201,162,74,0.55), inset 0 1px 0 rgba(255,255,255,0.35)",
+      }}
+    >
+      {loading && <Loader2 size={16} className="animate-spin" />}
+      {label}
+      {trailing}
+    </button>
+  );
+}
