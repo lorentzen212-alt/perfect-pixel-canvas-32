@@ -33,7 +33,7 @@ import heroAsset from "@/assets/hero-bg.png.asset.json";
 import heroExperienceBgAsset from "@/assets/hero-experience-bg-new.png.asset.json";
 import cardLeisureAsset from "@/assets/card-leisure-new.png.asset.json";
 import cardMeAsset from "@/assets/card-me.png.asset.json";
-import cardManageAsset from "@/assets/card-manage.jpg.asset.json";
+import cardManageAsset from "@/assets/card-manage.png.asset.json";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import lofotenImg from "@/assets/dest-lofoten.jpg";
 import tromsoImg from "@/assets/dest-tromso.jpg";
