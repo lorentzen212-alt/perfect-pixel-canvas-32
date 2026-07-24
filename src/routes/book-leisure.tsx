@@ -1960,7 +1960,7 @@ function LeisureStep1Screen({
         <div
           className="relative w-full overflow-hidden rounded-[28px]"
           style={{
-            height: "clamp(360px, 52vh, 560px)",
+            height: "clamp(360px, 52vh, 620px)",
             border: `1px solid ${S1_BORDER_SOFT}`,
             boxShadow:
               "0 50px 90px -50px rgba(0,0,0,0.7), inset 0 0 90px rgba(0,0,0,0.25)",
@@ -1984,7 +1984,7 @@ function LeisureStep1Screen({
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(4,18,32,0) 65%, rgba(4,18,32,0.38) 100%)",
+                "linear-gradient(180deg, rgba(4,18,32,0) 50%, rgba(4,18,32,0.68) 100%)",
             }}
           />
           <div className="relative z-10 flex h-full items-center">
@@ -2016,10 +2016,9 @@ function LeisureStep1Screen({
         </div>
       </div>
 
-      {/* FLOATING BOOKING CARD — overlaps hero by ~72px */}
+      {/* FLOATING BOOKING CARD — same width as hero, deep overlap for one composition */}
       <div
-        className="mx-auto w-full max-w-[1280px] px-6 lg:px-10"
-        style={{ marginTop: "-72px" }}
+        className="mx-auto -mt-12 w-full max-w-[1600px] px-6 sm:-mt-20 lg:-mt-32 lg:px-10"
       >
         <section
           className="relative rounded-[28px] p-6 sm:p-10 lg:p-12"
@@ -2027,7 +2026,7 @@ function LeisureStep1Screen({
             backgroundColor: S1_NAVY_SOFT,
             border: `1px solid ${S1_BORDER}`,
             boxShadow:
-              "0 50px 110px -40px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.04)",
+              "0 60px 120px -50px rgba(0,0,0,0.72), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
           <h2
