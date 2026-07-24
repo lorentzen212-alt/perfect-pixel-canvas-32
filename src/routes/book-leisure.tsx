@@ -1799,7 +1799,7 @@ function PrimaryButton({
 
 const S1_NAVY = "#08131F";
 const S1_NAVY_SOFT = "#142638";
-const S1_BG = "#0D1824"; // softer page background: charcoal-grey navy, matte finish
+const S1_BG = "#131E2A"; // soft charcoal navy, muted grey-blue undertone, premium matte finish
 const S1_GOLD = "#D4A64A";
 const S1_GOLD_SOFT = "#E8C775";
 const S1_BORDER = "rgba(212,166,74,0.28)";
@@ -1949,7 +1949,7 @@ function CountrySelector({
   const flagUrl = (code: CountryCode) =>
     `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
   return (
-    <div className="mx-auto mt-9 flex max-w-[1100px] items-center justify-center gap-0 px-6">
+    <div className="mx-auto mt-5 flex max-w-[1100px] items-center justify-center gap-0 px-6">
       {COUNTRIES.map((c, i) => {
         const active = c.code === country;
         return (
@@ -2024,7 +2024,7 @@ function DestinationCarousel({
   );
 
   return (
-    <div className="mx-auto mt-4 w-full max-w-[1500px] px-4 lg:px-10">
+    <div className="mx-auto mt-9 w-full max-w-[1500px] px-4 lg:px-10">
       <div className="relative">
         <button
           type="button"
@@ -2045,32 +2045,32 @@ function DestinationCarousel({
               <button
                 key={d.id}
                 onClick={() => onSelect(d)}
-                className="group relative flex aspect-[3/4] flex-col overflow-hidden rounded-[18px] text-left transition-all duration-300 hover:-translate-y-[4px]"
+                className="group relative flex aspect-[3/4] flex-col overflow-hidden rounded-[20px] text-left transition-all duration-300 hover:-translate-y-[4px]"
                 style={{
-                  border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.35)"}`,
+                  border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.14)"}`,
                   boxShadow: active
-                    ? "0 34px 68px -22px rgba(0,0,0,0.70), 0 24px 48px -18px rgba(212,166,74,0.50), 0 0 0 1px rgba(212,166,74,0.4) inset"
-                    : "0 32px 70px -24px rgba(0,0,0,0.64), 0 14px 30px -16px rgba(0,0,0,0.44)",
+                    ? "0 28px 56px -22px rgba(0,0,0,0.60), 0 18px 40px -18px rgba(212,166,74,0.36), 0 0 0 1px rgba(212,166,74,0.35) inset"
+                    : "0 24px 54px -24px rgba(0,0,0,0.52), 0 10px 24px -14px rgba(0,0,0,0.34)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = S1_GOLD;
+                  e.currentTarget.style.borderColor = "rgba(212,166,74,0.75)";
                   e.currentTarget.style.boxShadow =
-                    "0 36px 74px -24px rgba(0,0,0,0.68), 0 0 0 1px rgba(212,166,74,0.55) inset, 0 20px 42px -18px rgba(212,166,74,0.30)";
+                    "0 30px 62px -22px rgba(0,0,0,0.58), 0 0 0 1px rgba(212,166,74,0.45) inset, 0 16px 34px -18px rgba(212,166,74,0.24)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = active
                     ? S1_GOLD
-                    : "rgba(212,166,74,0.35)";
+                    : "rgba(212,166,74,0.14)";
                   e.currentTarget.style.boxShadow = active
-                    ? "0 34px 68px -22px rgba(0,0,0,0.70), 0 24px 48px -18px rgba(212,166,74,0.50), 0 0 0 1px rgba(212,166,74,0.4) inset"
-                    : "0 32px 70px -24px rgba(0,0,0,0.64), 0 14px 30px -16px rgba(0,0,0,0.44)";
+                    ? "0 28px 56px -22px rgba(0,0,0,0.60), 0 18px 40px -18px rgba(212,166,74,0.36), 0 0 0 1px rgba(212,166,74,0.35) inset"
+                    : "0 24px 54px -24px rgba(0,0,0,0.52), 0 10px 24px -14px rgba(0,0,0,0.34)";
                 }}
               >
                 <img
                   src={d.image}
                   alt={d.alt}
-                  className="absolute inset-0 h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.06]"
-                  style={{ filter: "saturate(1.14) contrast(1.12) brightness(1.02)" }}
+                  className="absolute inset-0 h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.05]"
+                  style={{ filter: "saturate(1.05) contrast(1.05) brightness(0.98)" }}
                   onError={(e) => {
                     // eslint-disable-next-line no-console
                     console.warn(`[destinations] Image failed for "${d.name}" — swapping to fallback.`);
@@ -2082,15 +2082,15 @@ function DestinationCarousel({
                   className="pointer-events-none absolute inset-x-0 top-0 h-1/3"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 100%)",
+                      "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 100%)",
                   }}
                 />
-                {/* Bottom dark overlay for depth behind text */}
+                {/* Bottom dark overlay for depth behind text — smoother gradient */}
                 <div
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(8,19,31,0) 45%, rgba(8,19,31,0.46) 74%, rgba(4,12,20,0.82) 100%)",
+                      "linear-gradient(180deg, rgba(8,19,31,0) 38%, rgba(8,19,31,0.28) 62%, rgba(6,14,22,0.62) 82%, rgba(4,10,16,0.86) 100%)",
                   }}
                 />
                 <div className="relative z-10 mt-auto px-5 pb-5">
@@ -2383,7 +2383,7 @@ function LeisureStep1Screen({
           className="text-[44px] leading-none tracking-[0.02em] sm:text-[64px] lg:text-[86px]"
           style={{
             fontFamily: SERIF,
-            color: "#F5F1E6",
+            color: "#FBF6E8",
             fontWeight: 500,
             letterSpacing: "0.04em",
           }}
