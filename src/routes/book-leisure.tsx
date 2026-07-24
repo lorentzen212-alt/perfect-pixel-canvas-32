@@ -2624,15 +2624,158 @@ function RoomCounter({
   );
 }
 
+/* ==== Leisure Step 2 — Multi-stay workflow ==== */
+
+type LeisureStay = {
+  id: string;
+  arrival: string; // ISO yyyy-MM-dd
+  departure: string;
+  rooms: Record<string, number>;
+};
+
+const GUESTS_PER_ROOM: Record<string, number> = {
+  single: 1,
+  double: 2,
+  twin: 2,
+  triple: 3,
+  family: 4,
+  accessible: 1,
+};
+
+const ROOM_LABELS: Record<string, string> = {
+  single: "Single rooms",
+  double: "Double rooms",
+  twin: "Twin rooms",
+  triple: "Triple rooms",
+  family: "Family rooms",
+  accessible: "Accessible rooms",
+};
+
+const STEP2_ROOMS_ORDER: string[] = [
+  "single",
+  "double",
+  "twin",
+  "triple",
+  "family",
+  "accessible",
+];
+
+const emptyDraftRooms = (): Record<string, number> => ({
+  single: 0,
+  double: 0,
+  twin: 0,
+  triple: 0,
+  family: 0,
+  accessible: 0,
+});
+
+function stayNights(a: string, d: string): number {
+  if (!a || !d) return 0;
+  const ad = new Date(a);
+  const dd = new Date(d);
+  const diff = Math.round((dd.getTime() - ad.getTime()) / (1000 * 60 * 60 * 24));
+  return diff > 0 ? diff : 0;
+}
+function stayRoomsTotal(r: Record<string, number>): number {
+  return Object.values(r).reduce((a, b) => a + b, 0);
+}
+function stayGuestsTotal(r: Record<string, number>): number {
+  return Object.entries(r).reduce(
+    (a, [k, v]) => a + v * (GUESTS_PER_ROOM[k] ?? 1),
+    0,
+  );
+}
+function fmtStayRange(a: string, d: string): string {
+  if (!a || !d) return "";
+  const ad = new Date(a);
+  const dd = new Date(d);
+  const sameMonth = ad.getMonth() === dd.getMonth() && ad.getFullYear() === dd.getFullYear();
+  if (sameMonth) {
+    return `${format(ad, "d")} – ${format(dd, "d MMMM yyyy")}`;
+  }
+  return `${format(ad, "d MMM")} – ${format(dd, "d MMM yyyy")}`;
+}
+
+function LeisureDateField({
+  label,
+  value,
+  onChange,
+  min,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  min?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="text-[12px] font-semibold uppercase tracking-[0.14em]" style={{ color: "rgba(245,241,230,0.6)" }}>
+        {label}
+      </span>
+      <div
+        className="mt-2 flex items-center gap-3 rounded-[12px] px-3.5 h-[52px] transition-all focus-within:border-[color:var(--gold)]"
+        style={{
+          backgroundColor: S1_NAVY,
+          border: `1px solid ${value ? "rgba(212,166,74,0.55)" : "rgba(245,241,230,0.12)"}`,
+          ["--gold" as never]: S1_GOLD,
+        }}
+      >
+        <CalendarDays size={17} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+        <input
+          type="date"
+          value={value}
+          min={min}
+          onChange={(e) => onChange(e.target.value)}
+          className="flex-1 bg-transparent outline-none text-[14.5px] text-white [color-scheme:dark]"
+          style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+        />
+      </div>
+    </label>
+  );
+}
+
+function StayRoomRow({
+  roomKey,
+  value,
+  onChange,
+}: {
+  roomKey: string;
+  value: number;
+  onChange: (v: number) => void;
+}) {
+  const meta = STEP2_ROOMS.find((r) => r.key === roomKey)!;
+  const active = value > 0;
+  return (
+    <div
+      className="group flex items-center gap-4 rounded-[16px] p-3 transition-all"
+      style={{
+        backgroundColor: S1_NAVY,
+        border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.10)"}`,
+        boxShadow: active
+          ? "0 14px 30px -18px rgba(212,166,74,0.35)"
+          : "0 10px 26px -18px rgba(0,0,0,0.55)",
+      }}
+    >
+      <div
+        className="h-[56px] w-[80px] flex-shrink-0 overflow-hidden rounded-[10px]"
+        style={{ border: `1px solid rgba(245,241,230,0.10)` }}
+      >
+        <img src={meta.img} alt={meta.title} className="h-full w-full object-cover" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="text-[14.5px] font-medium text-white">{meta.title}</div>
+        <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.55)" }}>
+          {meta.desc}
+        </div>
+      </div>
+      <RoomCounter value={value} onChange={onChange} />
+    </div>
+  );
+}
+
 function LeisureStep2Screen({
-  rooms,
-  setRoom,
-  earlyCheckin,
-  setEarlyCheckin,
-  lateCheckout,
-  setLateCheckout,
-  connectingRooms,
-  setConnectingRooms,
+  stays,
+  setStays,
   roomNotes,
   setRoomNotes,
   canContinue,
@@ -2640,15 +2783,8 @@ function LeisureStep2Screen({
   onBack,
   onStepGo,
 }: {
-  rooms: Record<string, number>;
-  setRoom: (k: string, v: number) => void;
-  totalRooms: number;
-  earlyCheckin: boolean;
-  setEarlyCheckin: (v: boolean) => void;
-  lateCheckout: boolean;
-  setLateCheckout: (v: boolean) => void;
-  connectingRooms: boolean;
-  setConnectingRooms: (v: boolean) => void;
+  stays: LeisureStay[];
+  setStays: React.Dispatch<React.SetStateAction<LeisureStay[]>>;
   roomNotes: string;
   setRoomNotes: (v: string) => void;
   canContinue: boolean;
@@ -2656,7 +2792,68 @@ function LeisureStep2Screen({
   onBack: () => void;
   onStepGo: (s: StepKey) => void;
 }) {
-  const [roomNearElevator, setRoomNearElevator] = useState(false);
+  const [draftArrival, setDraftArrival] = useState("");
+  const [draftDeparture, setDraftDeparture] = useState("");
+  const [draftRooms, setDraftRooms] = useState<Record<string, number>>(emptyDraftRooms());
+  const [editingId, setEditingId] = useState<string | null>(null);
+
+  const draftNights = stayNights(draftArrival, draftDeparture);
+  const draftRoomsCount = stayRoomsTotal(draftRooms);
+  const datesValid =
+    !!draftArrival &&
+    !!draftDeparture &&
+    new Date(draftDeparture).getTime() > new Date(draftArrival).getTime();
+  const canAddStay = datesValid && draftRoomsCount > 0;
+  const stayNumber = editingId
+    ? stays.findIndex((s) => s.id === editingId) + 1
+    : stays.length + 1;
+
+  const clearDraft = () => {
+    setDraftArrival("");
+    setDraftDeparture("");
+    setDraftRooms(emptyDraftRooms());
+    setEditingId(null);
+  };
+
+  const commitStay = () => {
+    if (!canAddStay) return;
+    const stay: LeisureStay = {
+      id: editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now())),
+      arrival: draftArrival,
+      departure: draftDeparture,
+      rooms: { ...draftRooms },
+    };
+    setStays((prev) =>
+      editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
+    );
+    clearDraft();
+  };
+
+  const editStay = (id: string) => {
+    const s = stays.find((x) => x.id === id);
+    if (!s) return;
+    setEditingId(id);
+    setDraftArrival(s.arrival);
+    setDraftDeparture(s.departure);
+    setDraftRooms({ ...emptyDraftRooms(), ...s.rooms });
+    if (typeof window !== "undefined")
+      window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const removeStay = (id: string) => {
+    setStays((prev) => prev.filter((s) => s.id !== id));
+    if (editingId === id) clearDraft();
+  };
+
+  const startNewStay = () => {
+    clearDraft();
+  };
+
+  const totalStays = stays.length;
+  const totalRoomsAll = stays.reduce((a, s) => a + stayRoomsTotal(s.rooms), 0);
+  const totalGuestsAll = stays.reduce((a, s) => a + stayGuestsTotal(s.rooms), 0);
+
+  const showDraft = editingId !== null || stays.length === 0 || (draftArrival || draftDeparture || draftRoomsCount > 0);
 
   return (
     <LeisureStepShell
@@ -2674,9 +2871,17 @@ function LeisureStep2Screen({
           Design the perfect room<br />distribution for your group.
         </>
       }
+      rightSidebar={
+        <AccommodationSummary
+          stays={stays}
+          totalStays={totalStays}
+          totalRooms={totalRoomsAll}
+          totalGuests={totalGuestsAll}
+        />
+      }
     >
       <section
-        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+        className="rounded-[24px] p-6 sm:p-8 lg:p-9"
         style={{
           backgroundColor: S1_NAVY_SOFT,
           border: `1px solid ${S1_BORDER}`,
@@ -2694,95 +2899,230 @@ function LeisureStep2Screen({
           How many rooms will your group need?
         </p>
 
-        <div
-          className="mt-8 text-[14px] font-medium"
-          style={{ color: "rgba(245,241,230,0.85)" }}
-        >
-          Choose your room distribution
-        </div>
+        {/* Draft Stay Card */}
+        {showDraft && (
+          <div
+            className="mt-6 rounded-[20px] p-5 sm:p-6"
+            style={{
+              backgroundColor: S1_NAVY,
+              border: `1px solid rgba(245,241,230,0.10)`,
+              boxShadow: "0 24px 50px -30px rgba(0,0,0,0.55)",
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <h3
+                className="text-[20px] sm:text-[22px] font-medium text-white"
+                style={{ fontFamily: SERIF }}
+              >
+                {editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
+              </h3>
+              {(draftArrival || draftDeparture || draftRoomsCount > 0) && (
+                <button
+                  type="button"
+                  onClick={clearDraft}
+                  aria-label="Clear draft stay"
+                  className="rounded-md p-1.5 transition-colors hover:bg-white/5"
+                  style={{ color: "rgba(245,241,230,0.55)" }}
+                >
+                  <Trash2 size={17} strokeWidth={2} />
+                </button>
+              )}
+            </div>
 
-        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {STEP2_ROOMS.map((r) => {
-            const value = rooms[r.key] ?? 0;
-            const active = value > 0;
-            return (
+            <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <LeisureDateField
+                label="Arrival"
+                value={draftArrival}
+                onChange={(v) => {
+                  setDraftArrival(v);
+                  if (draftDeparture && new Date(draftDeparture) <= new Date(v)) {
+                    setDraftDeparture("");
+                  }
+                }}
+              />
+              <LeisureDateField
+                label="Departure"
+                value={draftDeparture}
+                onChange={setDraftDeparture}
+                min={draftArrival || undefined}
+              />
+            </div>
+
+            {draftNights > 0 && (
               <div
-                key={r.key}
-                className="group flex items-center gap-4 rounded-[18px] p-3 transition-all hover:-translate-y-[1px]"
+                className="mt-3 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[12.5px]"
                 style={{
-                  backgroundColor: S1_NAVY,
-                  border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.10)"}`,
-                  boxShadow: active
-                    ? "0 16px 34px -18px rgba(212,166,74,0.35)"
-                    : "0 10px 26px -18px rgba(0,0,0,0.55)",
+                  backgroundColor: "rgba(212,166,74,0.10)",
+                  border: `1px solid rgba(212,166,74,0.35)`,
+                  color: S1_GOLD_SOFT,
                 }}
               >
+                <MoonIcon />
+                {draftNights} {draftNights === 1 ? "night" : "nights"}
+              </div>
+            )}
+
+            <div
+              className="mt-6 text-[13px] font-medium uppercase tracking-[0.14em]"
+              style={{ color: "rgba(245,241,230,0.7)" }}
+            >
+              Room distribution
+            </div>
+
+            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+              {STEP2_ROOMS_ORDER.map((key) => (
+                <StayRoomRow
+                  key={key}
+                  roomKey={key}
+                  value={draftRooms[key] ?? 0}
+                  onChange={(v) =>
+                    setDraftRooms((r) => ({ ...r, [key]: Math.max(0, v) }))
+                  }
+                />
+              ))}
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <button
+                type="button"
+                onClick={commitStay}
+                disabled={!canAddStay}
+                className="inline-flex items-center gap-2.5 rounded-[12px] px-6 py-3 text-[14px] font-semibold transition-all hover:-translate-y-[1px]"
+                style={{
+                  background: canAddStay
+                    ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`
+                    : "rgba(245,241,230,0.08)",
+                  color: canAddStay ? S1_NAVY : "rgba(245,241,230,0.4)",
+                  boxShadow: canAddStay
+                    ? "0 14px 30px -14px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)"
+                    : "none",
+                  cursor: canAddStay ? "pointer" : "not-allowed",
+                }}
+              >
+                {editingId ? "Save changes" : "Add this stay"}
+                <ArrowRight size={16} strokeWidth={2.4} />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Completed stays (collapsed) */}
+        {stays.length > 0 && (
+          <div className="mt-5 space-y-3">
+            {stays.map((s, idx) => {
+              const nights = stayNights(s.arrival, s.departure);
+              const roomsN = stayRoomsTotal(s.rooms);
+              const guestsN = stayGuestsTotal(s.rooms);
+              const isEditing = editingId === s.id;
+              return (
                 <div
-                  className="h-[68px] w-[92px] flex-shrink-0 overflow-hidden rounded-[12px]"
-                  style={{ border: `1px solid rgba(245,241,230,0.10)` }}
+                  key={s.id}
+                  className="rounded-[16px] p-4 sm:p-5"
+                  style={{
+                    backgroundColor: S1_NAVY,
+                    border: `1px solid ${isEditing ? "rgba(212,166,74,0.5)" : "rgba(245,241,230,0.10)"}`,
+                  }}
                 >
-                  <img
-                    src={r.img}
-                    alt={r.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-                  />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[15px] font-medium text-white">{r.title}</div>
-                  <div
-                    className="mt-0.5 text-[12.5px]"
-                    style={{ color: "rgba(245,241,230,0.55)" }}
-                  >
-                    {r.desc}
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="text-[17px] font-medium text-white"
+                          style={{ fontFamily: SERIF }}
+                        >
+                          Stay {idx + 1}
+                        </span>
+                        <Check size={15} strokeWidth={3} style={{ color: "#7EC98A" }} />
+                      </div>
+                      <div className="mt-1 text-[13px]" style={{ color: "rgba(245,241,230,0.72)" }}>
+                        {fmtStayRange(s.arrival, s.departure)} · {nights} {nights === 1 ? "night" : "nights"}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-5 text-[13.5px]" style={{ color: "rgba(245,241,230,0.85)" }}>
+                      <span>{roomsN} rooms</span>
+                      <span style={{ color: "rgba(245,241,230,0.3)" }}>·</span>
+                      <span>{guestsN} guests</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => editStay(s.id)}
+                        className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors"
+                        style={{
+                          border: `1px solid rgba(245,241,230,0.18)`,
+                          color: "#F5F1E6",
+                        }}
+                      >
+                        <Pencil size={13} strokeWidth={2} />
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => removeStay(s.id)}
+                        className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors"
+                        style={{
+                          border: `1px solid rgba(245,241,230,0.18)`,
+                          color: "rgba(245,241,230,0.8)",
+                        }}
+                      >
+                        <Trash2 size={13} strokeWidth={2} />
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <RoomCounter
-                  value={value}
-                  onChange={(v) => setRoom(r.key, v)}
-                />
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Additional preferences */}
-        <div className="mt-10">
-          <div className="text-[14px]" style={{ color: "#F5F1E6" }}>
-            <span className="font-semibold">Additional preferences</span>{" "}
-            <span style={{ color: "rgba(245,241,230,0.55)" }}>(optional)</span>
+              );
+            })}
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <DarkCheckbox label="Early check-in" checked={earlyCheckin} onChange={setEarlyCheckin} />
-            <DarkCheckbox label="Late check-out" checked={lateCheckout} onChange={setLateCheckout} />
-            <DarkCheckbox label="Connecting rooms" checked={connectingRooms} onChange={setConnectingRooms} />
-            <DarkCheckbox
-              label="Room near elevator"
-              checked={roomNearElevator}
-              onChange={setRoomNearElevator}
+        )}
+
+        {/* Add another stay */}
+        {stays.length > 0 && !showDraft && (
+          <button
+            type="button"
+            onClick={startNewStay}
+            className="mt-5 flex w-full items-center justify-center gap-2.5 rounded-[14px] py-4 text-[14px] font-medium transition-all hover:-translate-y-[1px]"
+            style={{
+              border: `1.5px dashed rgba(212,166,74,0.45)`,
+              color: S1_GOLD_SOFT,
+              backgroundColor: "rgba(212,166,74,0.04)",
+            }}
+          >
+            <Plus size={16} strokeWidth={2.4} />
+            Add another stay
+          </button>
+        )}
+        {stays.length > 0 && showDraft && !editingId && draftRoomsCount === 0 && !draftArrival && !draftDeparture && null}
+        {stays.length > 0 && !editingId && (draftArrival || draftDeparture || draftRoomsCount > 0) && null}
+
+        {/* Notes */}
+        <div className="mt-8">
+          <div className="text-[14px] font-medium" style={{ color: "#F5F1E6" }}>
+            Anything else we should know? <span style={{ color: "rgba(245,241,230,0.5)" }}>(optional)</span>
+          </div>
+          <div
+            className="mt-3 rounded-[14px] p-4"
+            style={{
+              backgroundColor: S1_NAVY,
+              border: `1px solid rgba(245,241,230,0.12)`,
+            }}
+          >
+            <textarea
+              value={roomNotes}
+              onChange={(e) => setRoomNotes(e.target.value.slice(0, 500))}
+              placeholder="Tell us anything important about your accommodation needs…"
+              rows={3}
+              className="w-full resize-none bg-transparent text-[14px] outline-none"
+              style={{ color: "#F5F1E6" }}
             />
+            <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.4)" }}>
+              {roomNotes.length} / 500
+            </div>
           </div>
-        </div>
-
-        {/* Comments */}
-        <div
-          className="mt-6 rounded-[14px] p-4"
-          style={{
-            backgroundColor: S1_NAVY,
-            border: `1px solid rgba(245,241,230,0.12)`,
-          }}
-        >
-          <textarea
-            value={roomNotes}
-            onChange={(e) => setRoomNotes(e.target.value)}
-            placeholder="Tell us anything important about the room distribution…"
-            rows={3}
-            className="w-full resize-none bg-transparent text-[14px] outline-none"
-            style={{ color: "#F5F1E6" }}
-          />
         </div>
 
         {/* Bottom nav */}
-        <div className="mt-10 flex items-center justify-between gap-4">
+        <div className="mt-8 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={onBack}
@@ -2803,7 +3143,7 @@ function LeisureStep2Screen({
               color: S1_NAVY,
               boxShadow:
                 "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
-              opacity: canContinue ? 1 : 0.55,
+              opacity: canContinue ? 1 : 0.45,
               cursor: canContinue ? "pointer" : "not-allowed",
             }}
           >
@@ -2812,7 +3152,7 @@ function LeisureStep2Screen({
           </button>
         </div>
 
-        <div className="mt-8 flex flex-col items-center gap-1 text-center">
+        <div className="mt-6 flex flex-col items-center gap-1 text-center">
           <div className="flex items-center gap-2 text-[13.5px]">
             <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
             <span style={{ color: S1_GOLD_SOFT }}>
@@ -2827,6 +3167,156 @@ function LeisureStep2Screen({
     </LeisureStepShell>
   );
 }
+
+function MoonIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  );
+}
+
+function AccommodationSummary({
+  stays,
+  totalStays,
+  totalRooms,
+  totalGuests,
+}: {
+  stays: LeisureStay[];
+  totalStays: number;
+  totalRooms: number;
+  totalGuests: number;
+}) {
+  const hasStays = stays.length > 0;
+  return (
+    <aside className="flex flex-col gap-4">
+      <div
+        className="rounded-[20px] p-5"
+        style={{
+          backgroundColor: S1_NAVY_SOFT,
+          border: `1px solid ${S1_BORDER}`,
+          boxShadow: "0 24px 60px -30px rgba(0,0,0,0.6)",
+        }}
+      >
+        <div className="flex items-center gap-2.5">
+          <BedDouble size={18} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+          <h3 className="text-[16px] font-semibold text-white">Accommodation Summary</h3>
+        </div>
+
+        {!hasStays && (
+          <p className="mt-4 text-[13px]" style={{ color: "rgba(245,241,230,0.55)" }}>
+            Your completed stays will appear here as you build your itinerary.
+          </p>
+        )}
+
+        <div className="mt-4 space-y-4">
+          {stays.map((s, idx) => {
+            const nights = stayNights(s.arrival, s.departure);
+            const roomsN = stayRoomsTotal(s.rooms);
+            const guestsN = stayGuestsTotal(s.rooms);
+            return (
+              <div
+                key={s.id}
+                className="rounded-[14px] p-4"
+                style={{
+                  backgroundColor: S1_NAVY,
+                  border: `1px solid rgba(245,241,230,0.08)`,
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-[15px] font-semibold text-white">Stay {idx + 1}</span>
+                  <Check size={14} strokeWidth={3} style={{ color: "#7EC98A" }} />
+                </div>
+                <div className="mt-1 text-[13px]" style={{ color: S1_GOLD_SOFT }}>
+                  {fmtStayRange(s.arrival, s.departure)}
+                </div>
+                <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.55)" }}>
+                  {nights} {nights === 1 ? "night" : "nights"}
+                </div>
+
+                <ul className="mt-3 space-y-1.5">
+                  {STEP2_ROOMS_ORDER.map((k) => {
+                    const v = s.rooms[k] ?? 0;
+                    return (
+                      <li key={k} className="flex items-center justify-between text-[13px]">
+                        <span className="flex items-center gap-2" style={{ color: "rgba(245,241,230,0.78)" }}>
+                          <span
+                            className="h-1.5 w-1.5 rounded-full"
+                            style={{ backgroundColor: v > 0 ? S1_GOLD : "rgba(245,241,230,0.2)" }}
+                          />
+                          {ROOM_LABELS[k]}
+                        </span>
+                        <span className="tabular-nums text-white">{v}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                <div className="mt-3 border-t pt-3" style={{ borderColor: "rgba(245,241,230,0.08)" }}>
+                  <div className="flex items-center justify-between text-[13px]">
+                    <span style={{ color: "rgba(245,241,230,0.7)" }}>Total rooms</span>
+                    <span className="tabular-nums font-semibold text-white">{roomsN}</span>
+                  </div>
+                  <div className="mt-1 flex items-center justify-between text-[13px]">
+                    <span style={{ color: "rgba(245,241,230,0.7)" }}>Total guests (est.)</span>
+                    <span className="tabular-nums font-semibold text-white">{guestsN}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {stays.length > 1 && (
+          <div
+            className="mt-4 rounded-[14px] p-4"
+            style={{
+              backgroundColor: S1_NAVY,
+              border: `1px solid rgba(212,166,74,0.28)`,
+            }}
+          >
+            <div className="text-[13.5px] font-semibold text-white">Overall total</div>
+            <div className="mt-2 space-y-1.5 text-[13px]">
+              <div className="flex items-center justify-between">
+                <span style={{ color: "rgba(245,241,230,0.7)" }}>Total stays</span>
+                <span className="tabular-nums font-semibold text-white">{totalStays}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span style={{ color: "rgba(245,241,230,0.7)" }}>Total rooms</span>
+                <span className="tabular-nums font-semibold text-white">{totalRooms}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span style={{ color: "rgba(245,241,230,0.7)" }}>Total guests (est.)</span>
+                <span className="tabular-nums font-semibold text-white">{totalGuests}</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {hasStays && (
+        <div
+          className="rounded-[16px] p-4"
+          style={{
+            backgroundColor: "rgba(212,166,74,0.08)",
+            border: `1px solid rgba(212,166,74,0.35)`,
+          }}
+        >
+          <div className="flex items-start gap-2.5">
+            <CheckCircle2 size={18} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+            <div>
+              <div className="text-[14px] font-semibold text-white">Ready for the next step</div>
+              <div className="mt-0.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.7)" }}>
+                You can continue when you're ready.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </aside>
+  );
+}
+
 
 /* =========================================================
    STEP 3 - Extras (redesigned)
