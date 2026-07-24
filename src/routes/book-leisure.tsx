@@ -1799,6 +1799,7 @@ function PrimaryButton({
 
 const S1_NAVY = "#08131F";
 const S1_NAVY_SOFT = "#142638";
+const S1_BG = "#0D1824"; // softer page background: charcoal-grey navy, matte finish
 const S1_GOLD = "#D4A64A";
 const S1_GOLD_SOFT = "#E8C775";
 const S1_BORDER = "rgba(212,166,74,0.28)";
@@ -2029,7 +2030,7 @@ function DestinationCarousel({
           type="button"
           onClick={() => setPage((p) => (p - 1 + pageCount) % pageCount)}
           aria-label="Previous"
-          className="absolute left-1 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:left-2"
+          className="absolute left-1 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:-left-3"
           style={{ color: S1_GOLD }}
         >
           <ChevronLeft size={38} strokeWidth={1.6} />
@@ -2048,28 +2049,28 @@ function DestinationCarousel({
                 style={{
                   border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.35)"}`,
                   boxShadow: active
-                    ? "0 30px 60px -20px rgba(0,0,0,0.75), 0 22px 44px -18px rgba(212,166,74,0.55), 0 0 0 1px rgba(212,166,74,0.4) inset"
-                    : "0 26px 54px -18px rgba(0,0,0,0.78), 0 10px 22px -14px rgba(0,0,0,0.55)",
+                    ? "0 34px 68px -22px rgba(0,0,0,0.70), 0 24px 48px -18px rgba(212,166,74,0.50), 0 0 0 1px rgba(212,166,74,0.4) inset"
+                    : "0 32px 70px -24px rgba(0,0,0,0.64), 0 14px 30px -16px rgba(0,0,0,0.44)",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = S1_GOLD;
                   e.currentTarget.style.boxShadow =
-                    "0 32px 64px -20px rgba(0,0,0,0.82), 0 0 0 1px rgba(212,166,74,0.55) inset, 0 18px 36px -18px rgba(212,166,74,0.35)";
+                    "0 36px 74px -24px rgba(0,0,0,0.68), 0 0 0 1px rgba(212,166,74,0.55) inset, 0 20px 42px -18px rgba(212,166,74,0.30)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = active
                     ? S1_GOLD
                     : "rgba(212,166,74,0.35)";
                   e.currentTarget.style.boxShadow = active
-                    ? "0 30px 60px -20px rgba(0,0,0,0.75), 0 22px 44px -18px rgba(212,166,74,0.55), 0 0 0 1px rgba(212,166,74,0.4) inset"
-                    : "0 26px 54px -18px rgba(0,0,0,0.78), 0 10px 22px -14px rgba(0,0,0,0.55)";
+                    ? "0 34px 68px -22px rgba(0,0,0,0.70), 0 24px 48px -18px rgba(212,166,74,0.50), 0 0 0 1px rgba(212,166,74,0.4) inset"
+                    : "0 32px 70px -24px rgba(0,0,0,0.64), 0 14px 30px -16px rgba(0,0,0,0.44)";
                 }}
               >
                 <img
                   src={d.image}
                   alt={d.alt}
                   className="absolute inset-0 h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.06]"
-                  style={{ filter: "saturate(1.08) contrast(1.06)" }}
+                  style={{ filter: "saturate(1.14) contrast(1.12) brightness(1.02)" }}
                   onError={(e) => {
                     // eslint-disable-next-line no-console
                     console.warn(`[destinations] Image failed for "${d.name}" — swapping to fallback.`);
@@ -2089,7 +2090,7 @@ function DestinationCarousel({
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(8,19,31,0) 38%, rgba(8,19,31,0.62) 70%, rgba(4,12,20,0.96) 100%)",
+                      "linear-gradient(180deg, rgba(8,19,31,0) 45%, rgba(8,19,31,0.46) 74%, rgba(4,12,20,0.82) 100%)",
                   }}
                 />
                 <div className="relative z-10 mt-auto px-5 pb-5">
@@ -2115,7 +2116,7 @@ function DestinationCarousel({
           type="button"
           onClick={() => setPage((p) => (p + 1) % pageCount)}
           aria-label="Next"
-          className="absolute right-1 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:right-2"
+          className="absolute right-1 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:-right-3"
           style={{ color: S1_GOLD }}
         >
           <ChevronRight size={38} strokeWidth={1.6} />
