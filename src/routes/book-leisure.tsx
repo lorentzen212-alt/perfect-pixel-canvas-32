@@ -1803,13 +1803,13 @@ const S1_BORDER_SOFT = "rgba(255,255,255,0.08)";
 const S1_HERO = leisureStep1HeroAsset.url;
 
 const NORWAY_TILES: { name: string; img: string }[] = [
-  { name: "Bergen", img: "https://images.unsplash.com/photo-1601439678777-b2b3c56fa627?auto=format&fit=crop&w=800&q=80" },
-  { name: "Oslo", img: "https://images.unsplash.com/photo-1601439678777-b2b3c56fa627?auto=format&fit=crop&w=800&q=80" },
-  { name: "Lofoten", img: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80" },
-  { name: "Tromsø", img: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=800&q=80" },
-  { name: "Stavanger", img: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80" },
-  { name: "Trondheim", img: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=800&q=80" },
-  { name: "Geiranger", img: "https://images.unsplash.com/photo-1502786129293-79981df4e689?auto=format&fit=crop&w=800&q=80" },
+  { name: "Bergen", img: "https://images.unsplash.com/photo-1580977276076-ae4b8c219b8e?auto=format&fit=crop&w=900&q=80" },
+  { name: "Oslo", img: "https://images.unsplash.com/photo-1601979031925-424e53b6caaa?auto=format&fit=crop&w=900&q=80" },
+  { name: "Lofoten", img: "https://images.unsplash.com/photo-1520681279154-51b3fb4ea0f8?auto=format&fit=crop&w=900&q=80" },
+  { name: "Tromsø", img: "https://images.unsplash.com/photo-1531176175280-33e81422ee1a?auto=format&fit=crop&w=900&q=80" },
+  { name: "Stavanger", img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=900&q=80" },
+  { name: "Trondheim", img: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=900&q=80" },
+  { name: "Geiranger", img: "https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?auto=format&fit=crop&w=900&q=80" },
 ];
 
 const COUNTRY_FLAG_EMOJI: Record<CountryCode, string> = {
