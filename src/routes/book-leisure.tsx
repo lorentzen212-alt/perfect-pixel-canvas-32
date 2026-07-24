@@ -439,6 +439,27 @@ function BookLeisure() {
       />
     );
   }
+  if (currentStep === 2) {
+    return (
+      <LeisureStep2Screen
+        rooms={rooms}
+        setRoom={setRoom}
+        totalRooms={totalRooms}
+        earlyCheckin={earlyCheckin}
+        setEarlyCheckin={setEarlyCheckin}
+        lateCheckout={lateCheckout}
+        setLateCheckout={setLateCheckout}
+        connectingRooms={connectingRooms}
+        setConnectingRooms={setConnectingRooms}
+        roomNotes={roomNotes}
+        setRoomNotes={setRoomNotes}
+        canContinue={canContinue(2)}
+        onNext={() => go(3)}
+        onBack={() => go(1)}
+        onStepGo={(s: StepKey) => go(s)}
+      />
+    );
+  }
 
   const meta = STEP_META[step];
 
@@ -2144,5 +2165,459 @@ function LeisureStep1Screen({
         </section>
       </div>
     </main>
+  );
+}
+
+/* =============================================================
+   LEISURE STEP 2 — Accommodation (dark navy premium)
+   ============================================================= */
+
+const S2_HERO =
+  "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1600&q=80";
+
+const STEP2_ROOMS: {
+  key: string;
+  title: string;
+  desc: string;
+  img: string;
+}[] = [
+  { key: "single", title: "Single rooms", desc: "1 person", img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=400&q=80" },
+  { key: "triple", title: "Triple rooms", desc: "3 people", img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=400&q=80" },
+  { key: "twin", title: "Twin rooms", desc: "2 separate beds", img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=400&q=80" },
+  { key: "family", title: "Family rooms", desc: "4+ people", img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=400&q=80" },
+  { key: "double", title: "Double rooms", desc: "1 double bed", img: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=400&q=80" },
+  { key: "accessible", title: "Accessible rooms", desc: "Wheelchair friendly", img: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80" },
+];
+
+function LeisureStepShell({
+  activeStep,
+  onStepGo,
+  children,
+  hero,
+  chapter,
+  headline,
+  subtext,
+}: {
+  activeStep: StepKey;
+  onStepGo: (s: StepKey) => void;
+  children: React.ReactNode;
+  hero: string;
+  chapter: string;
+  headline: React.ReactNode;
+  subtext: React.ReactNode;
+}) {
+  return (
+    <main
+      className="min-h-screen w-full"
+      style={{
+        backgroundColor: S1_NAVY,
+        fontFamily: "Inter, system-ui, sans-serif",
+        color: "#F5F1E6",
+      }}
+    >
+      <header
+        className="w-full"
+        style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}
+      >
+        <div className="mx-auto flex max-w-[1600px] flex-col gap-6 px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-10 lg:py-7">
+          <Link to="/" className="flex items-center gap-3">
+            <div
+              className="grid h-11 w-11 place-items-center rounded-[10px]"
+              style={{
+                background: `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`,
+                color: S1_NAVY,
+                fontFamily: SERIF,
+              }}
+            >
+              <span className="text-[16px] font-semibold leading-none tracking-wide">HGB</span>
+            </div>
+            <div className="leading-tight">
+              <div style={{ fontFamily: SERIF, color: "#F5F1E6" }} className="text-[19px] font-medium">
+                HotelGroupBook
+              </div>
+              <div className="text-[11px] tracking-[0.14em]" style={{ color: "rgba(245,241,230,0.55)" }}>
+                Group journeys, made simple
+              </div>
+            </div>
+          </Link>
+
+          <ol className="flex flex-wrap items-center gap-x-2 gap-y-3 lg:gap-x-3">
+            {[1, 2, 3, 4, 5, 6].map((n, i) => {
+              const active = n === activeStep;
+              const done = n < activeStep;
+              return (
+                <li key={n} className="flex items-center gap-2 lg:gap-3">
+                  <button
+                    type="button"
+                    onClick={() => (done || active ? onStepGo(n as StepKey) : null)}
+                    className="flex flex-col items-center gap-1.5"
+                    style={{ cursor: done || active ? "pointer" : "default" }}
+                  >
+                    <span
+                      className="grid h-8 w-8 place-items-center rounded-full text-[13px] font-semibold transition-all"
+                      style={{
+                        background: active
+                          ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
+                          : "transparent",
+                        color: active ? S1_NAVY : done ? S1_GOLD_SOFT : "rgba(245,241,230,0.55)",
+                        border: `1px solid ${active || done ? S1_GOLD : "rgba(245,241,230,0.22)"}`,
+                        boxShadow: active ? "0 6px 18px -8px rgba(212,166,74,0.55)" : "none",
+                      }}
+                    >
+                      {done ? <Check size={14} strokeWidth={2.6} /> : n}
+                    </span>
+                    <span
+                      className="text-[11.5px] tracking-wide"
+                      style={{
+                        color: active ? S1_GOLD_SOFT : done ? "#F5F1E6" : "rgba(245,241,230,0.55)",
+                        fontWeight: active ? 600 : 500,
+                      }}
+                    >
+                      {STEP_META[n as StepKey].title}
+                    </span>
+                  </button>
+                  {i < 5 && (
+                    <span
+                      className="mt-[-14px] hidden h-px w-8 lg:block xl:w-14"
+                      style={{ backgroundColor: "rgba(245,241,230,0.18)" }}
+                    />
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </header>
+
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,34fr)_minmax(0,66fr)] lg:gap-10 lg:px-10 lg:py-12">
+        <aside
+          className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
+          style={{
+            border: `1px solid ${S1_BORDER_SOFT}`,
+            boxShadow: "0 40px 80px -40px rgba(0,0,0,0.6)",
+          }}
+        >
+          <img src={hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
+            }}
+          />
+          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
+            <div>
+              <div className="text-[11px] font-medium tracking-[0.32em]" style={{ color: S1_GOLD_SOFT }}>
+                {chapter}
+              </div>
+              <h1
+                className="mt-6 text-[42px] sm:text-[52px] lg:text-[60px] leading-[1.02] font-medium text-white"
+                style={{ fontFamily: SERIF }}
+              >
+                {headline}
+              </h1>
+              <div
+                className="mt-6 h-[2px] w-[64px] rounded-full"
+                style={{ background: `linear-gradient(90deg, ${S1_GOLD}, ${S1_GOLD_SOFT})` }}
+              />
+              <p className="mt-6 max-w-[360px] text-[15.5px] leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>
+                {subtext}
+              </p>
+            </div>
+
+            <ul className="space-y-3.5 pt-8">
+              {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
+                <li key={t} className="flex items-center gap-3 text-[15px] text-white/95">
+                  <span
+                    className="grid h-6 w-6 place-items-center rounded-full"
+                    style={{
+                      backgroundColor: "rgba(212,166,74,0.14)",
+                      border: `1px solid ${S1_GOLD}`,
+                    }}
+                  >
+                    <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+
+        {children}
+      </div>
+    </main>
+  );
+}
+
+function DarkCheckbox({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onChange(!checked)}
+      className="inline-flex items-center gap-2.5 text-[14px] transition-colors"
+      style={{ color: "#F5F1E6" }}
+    >
+      <span
+        className="grid h-[22px] w-[22px] place-items-center rounded-[6px] transition-all"
+        style={{
+          background: checked ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})` : S1_NAVY,
+          border: `1.5px solid ${checked ? S1_GOLD : "rgba(245,241,230,0.28)"}`,
+          boxShadow: checked ? "0 6px 14px -8px rgba(212,166,74,0.55)" : "none",
+        }}
+      >
+        {checked && <Check size={13} strokeWidth={3} style={{ color: S1_NAVY }} />}
+      </span>
+      {label}
+    </button>
+  );
+}
+
+function RoomCounter({
+  value,
+  onChange,
+}: {
+  value: number;
+  onChange: (v: number) => void;
+}) {
+  const disabled = value === 0;
+  return (
+    <div className="flex items-center gap-3">
+      <button
+        type="button"
+        onClick={() => onChange(Math.max(0, value - 1))}
+        disabled={disabled}
+        className="grid h-8 w-8 place-items-center transition-opacity"
+        style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1 }}
+      >
+        <Minus size={18} strokeWidth={2.4} />
+      </button>
+      <span
+        className="min-w-[22px] text-center text-[20px] font-medium text-white"
+        style={{ fontFamily: SERIF }}
+      >
+        {value}
+      </span>
+      <button
+        type="button"
+        onClick={() => onChange(value + 1)}
+        className="grid h-8 w-8 place-items-center transition-transform hover:scale-110"
+        style={{ color: S1_GOLD_SOFT }}
+      >
+        <Plus size={18} strokeWidth={2.4} />
+      </button>
+    </div>
+  );
+}
+
+function LeisureStep2Screen({
+  rooms,
+  setRoom,
+  earlyCheckin,
+  setEarlyCheckin,
+  lateCheckout,
+  setLateCheckout,
+  connectingRooms,
+  setConnectingRooms,
+  roomNotes,
+  setRoomNotes,
+  canContinue,
+  onNext,
+  onBack,
+  onStepGo,
+}: {
+  rooms: Record<string, number>;
+  setRoom: (k: string, v: number) => void;
+  totalRooms: number;
+  earlyCheckin: boolean;
+  setEarlyCheckin: (v: boolean) => void;
+  lateCheckout: boolean;
+  setLateCheckout: (v: boolean) => void;
+  connectingRooms: boolean;
+  setConnectingRooms: (v: boolean) => void;
+  roomNotes: string;
+  setRoomNotes: (v: string) => void;
+  canContinue: boolean;
+  onNext: () => void;
+  onBack: () => void;
+  onStepGo: (s: StepKey) => void;
+}) {
+  const [roomNearElevator, setRoomNearElevator] = useState(false);
+
+  return (
+    <LeisureStepShell
+      activeStep={2}
+      onStepGo={onStepGo}
+      hero={S2_HERO}
+      chapter="CHAPTER II"
+      headline={
+        <>
+          Choose where<br />your group<br />will rest.
+        </>
+      }
+      subtext={
+        <>
+          Design the perfect room<br />distribution for your group.
+        </>
+      }
+    >
+      <section
+        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+        style={{
+          backgroundColor: S1_NAVY_SOFT,
+          border: `1px solid ${S1_BORDER}`,
+          boxShadow:
+            "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
+        }}
+      >
+        <h2
+          className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
+          style={{ fontFamily: SERIF }}
+        >
+          Step 2 – Accommodation
+        </h2>
+        <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
+          How many rooms will your group need?
+        </p>
+
+        <div
+          className="mt-8 text-[14px] font-medium"
+          style={{ color: "rgba(245,241,230,0.85)" }}
+        >
+          Choose your room distribution
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+          {STEP2_ROOMS.map((r) => {
+            const value = rooms[r.key] ?? 0;
+            const active = value > 0;
+            return (
+              <div
+                key={r.key}
+                className="group flex items-center gap-4 rounded-[18px] p-3 transition-all hover:-translate-y-[1px]"
+                style={{
+                  backgroundColor: S1_NAVY,
+                  border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.10)"}`,
+                  boxShadow: active
+                    ? "0 16px 34px -18px rgba(212,166,74,0.35)"
+                    : "0 10px 26px -18px rgba(0,0,0,0.55)",
+                }}
+              >
+                <div
+                  className="h-[68px] w-[92px] flex-shrink-0 overflow-hidden rounded-[12px]"
+                  style={{ border: `1px solid rgba(245,241,230,0.10)` }}
+                >
+                  <img
+                    src={r.img}
+                    alt={r.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[15px] font-medium text-white">{r.title}</div>
+                  <div
+                    className="mt-0.5 text-[12.5px]"
+                    style={{ color: "rgba(245,241,230,0.55)" }}
+                  >
+                    {r.desc}
+                  </div>
+                </div>
+                <RoomCounter
+                  value={value}
+                  onChange={(v) => setRoom(r.key, v)}
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Additional preferences */}
+        <div className="mt-10">
+          <div className="text-[14px]" style={{ color: "#F5F1E6" }}>
+            <span className="font-semibold">Additional preferences</span>{" "}
+            <span style={{ color: "rgba(245,241,230,0.55)" }}>(optional)</span>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <DarkCheckbox label="Early check-in" checked={earlyCheckin} onChange={setEarlyCheckin} />
+            <DarkCheckbox label="Late check-out" checked={lateCheckout} onChange={setLateCheckout} />
+            <DarkCheckbox label="Connecting rooms" checked={connectingRooms} onChange={setConnectingRooms} />
+            <DarkCheckbox
+              label="Room near elevator"
+              checked={roomNearElevator}
+              onChange={setRoomNearElevator}
+            />
+          </div>
+        </div>
+
+        {/* Comments */}
+        <div
+          className="mt-6 rounded-[14px] p-4"
+          style={{
+            backgroundColor: S1_NAVY,
+            border: `1px solid rgba(245,241,230,0.12)`,
+          }}
+        >
+          <textarea
+            value={roomNotes}
+            onChange={(e) => setRoomNotes(e.target.value)}
+            placeholder="Tell us anything important about the room distribution…"
+            rows={3}
+            className="w-full resize-none bg-transparent text-[14px] outline-none"
+            style={{ color: "#F5F1E6" }}
+          />
+        </div>
+
+        {/* Bottom nav */}
+        <div className="mt-10 flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
+            style={{ color: S1_GOLD_SOFT }}
+          >
+            <ArrowLeft size={16} strokeWidth={2.2} />
+            Back
+          </button>
+
+          <button
+            type="button"
+            onClick={onNext}
+            disabled={!canContinue}
+            className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+            style={{
+              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+              color: S1_NAVY,
+              boxShadow:
+                "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+              opacity: canContinue ? 1 : 0.55,
+              cursor: canContinue ? "pointer" : "not-allowed",
+            }}
+          >
+            Next step
+            <ArrowRight size={17} strokeWidth={2.4} />
+          </button>
+        </div>
+
+        <div className="mt-8 flex flex-col items-center gap-1 text-center">
+          <div className="flex items-center gap-2 text-[13.5px]">
+            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+            <span style={{ color: S1_GOLD_SOFT }}>
+              Your request is free and non-binding
+            </span>
+          </div>
+          <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+            We find the best options so you can choose what suits your group.
+          </div>
+        </div>
+      </section>
+    </LeisureStepShell>
   );
 }
