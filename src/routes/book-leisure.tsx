@@ -32,7 +32,9 @@ import {
   Waves,
   Camera,
   Flame,
+  MapPin,
 } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/book-leisure")({
