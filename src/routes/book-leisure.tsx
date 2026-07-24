@@ -1960,6 +1960,7 @@ function LeisureStep1Screen({
             src={S1_HERO}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: "54% center" }}
           />
           <div
             className="absolute inset-0"
