@@ -2021,14 +2021,15 @@ function LeisureStep1Screen({
         style={{ marginTop: "clamp(-220px, -22vh, -140px)" }}
       >
         <section
-          className="relative rounded-[30px] p-6 sm:p-10 lg:p-12"
+          className="relative rounded-[24px] p-6 sm:p-8 lg:p-10"
           style={{
             backgroundColor: S1_NAVY_SOFT,
             border: `1px solid ${S1_BORDER}`,
             boxShadow:
-              "0 50px 110px -40px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.04)",
+              "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
           }}
         >
+
           <h2
             className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
             style={{ fontFamily: SERIF }}
@@ -2050,35 +2051,31 @@ function LeisureStep1Screen({
                 <button
                   key={c.code}
                   onClick={() => setCountry(c.code)}
-                  className="flex items-center justify-center rounded-[14px] px-4 py-4 text-[14px] font-medium transition-all"
+                  className="flex items-center justify-center gap-2.5 rounded-[14px] px-4 py-3.5 text-[14px] font-medium transition-all"
                   style={{
                     background: active
                       ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
-                      : "transparent",
+                      : S1_NAVY,
                     color: active ? S1_NAVY : "#F5F1E6",
-                    border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.45)"}`,
+                    border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.14)"}`,
                     boxShadow: active
                       ? "0 10px 26px -14px rgba(212,166,74,0.55)"
                       : "none",
-                    letterSpacing: "0.02em",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!active)
-                      e.currentTarget.style.boxShadow =
-                        "0 0 0 1px rgba(212,166,74,0.55), 0 10px 24px -18px rgba(212,166,74,0.35)";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!active) e.currentTarget.style.boxShadow = "none";
                   }}
                 >
+                  <span className="text-[18px] leading-none">
+                    {COUNTRY_FLAG_EMOJI[c.code]}
+                  </span>
                   {c.name}
                 </button>
+
               );
             })}
           </div>
 
           {/* Popular destinations */}
-          <div className="mt-10">
+          <div className="mt-8">
+
             <div
               className="text-[14px] font-medium"
               style={{ color: "rgba(245,241,230,0.85)" }}
@@ -2096,13 +2093,14 @@ function LeisureStep1Screen({
                       setCity(t.name);
                       setCustomDestination("");
                     }}
-                    className="group relative flex h-[180px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
+                    className="group relative flex h-[168px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
                     style={{
-                      border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.28)"}`,
+                      border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.10)"}`,
                       boxShadow: active
                         ? "0 16px 34px -18px rgba(212,166,74,0.55)"
                         : "0 10px 24px -16px rgba(0,0,0,0.55)",
                     }}
+
                   >
                     <img
                       src={t.img}
@@ -2138,11 +2136,11 @@ function LeisureStep1Screen({
                     setCity("Anywhere in Norway");
                     setCustomDestination("");
                   }}
-                  className="group flex h-[180px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
+                  className="group flex h-[168px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
                   style={{
                     background: S1_NAVY,
                     border: `1px solid ${
-                      city === "Anywhere in Norway" ? S1_GOLD : "rgba(212,166,74,0.45)"
+                      city === "Anywhere in Norway" ? S1_GOLD : "rgba(212,166,74,0.35)"
                     }`,
                     boxShadow:
                       city === "Anywhere in Norway"
@@ -2151,10 +2149,11 @@ function LeisureStep1Screen({
                   }}
                 >
                   <MapPin
-                    size={28}
+                    size={26}
                     strokeWidth={1.8}
                     style={{ color: S1_GOLD_SOFT }}
                   />
+
                   <span
                     className="text-[14px] font-medium leading-tight"
                     style={{ color: S1_GOLD_SOFT }}
@@ -2169,7 +2168,7 @@ function LeisureStep1Screen({
           </div>
 
           {/* Search */}
-          <div className="mt-10">
+          <div className="mt-8">
             <div
               className="text-[14px] font-medium"
               style={{ color: "rgba(245,241,230,0.85)" }}
@@ -2177,12 +2176,13 @@ function LeisureStep1Screen({
               Or search for any destination
             </div>
             <div
-              className="mt-3 flex items-center gap-3 rounded-[14px] px-4 py-4"
+              className="mt-3 flex items-center gap-3 rounded-[14px] px-4 py-3.5"
               style={{
                 backgroundColor: S1_NAVY,
-                border: `1px solid rgba(212,166,74,0.22)`,
+                border: `1px solid rgba(245,241,230,0.12)`,
               }}
             >
+
               <Search size={16} style={{ color: S1_GOLD_SOFT }} />
               <input
                 value={customDestination}
@@ -2197,14 +2197,14 @@ function LeisureStep1Screen({
           {/* Preferred hotel */}
           <div className="mt-6">
             <div
-              className="rounded-[14px] p-5"
+              className="rounded-[14px] p-4"
               style={{
                 backgroundColor: S1_NAVY,
-                border: `1px solid rgba(212,166,74,0.22)`,
+                border: `1px solid rgba(245,241,230,0.12)`,
               }}
             >
               <div className="flex items-start justify-between gap-3">
-                <div className="flex-1">
+                <div>
                   <div
                     className="text-[14px] font-semibold"
                     style={{ color: "#F5F1E6" }}
@@ -2224,10 +2224,11 @@ function LeisureStep1Screen({
                     onChange={(e) => setPreferredHotel(e.target.value)}
                     placeholder="Tell us if you have a preferred hotel or anything important we should know…"
                     rows={2}
-                    className="mt-2 w-full resize-none bg-transparent text-[13.5px] outline-none"
+                    className="mt-1.5 w-full resize-none bg-transparent text-[13.5px] outline-none"
                     style={{ color: "rgba(245,241,230,0.85)" }}
                   />
                 </div>
+
                 <Pencil
                   size={16}
                   style={{ color: S1_GOLD_SOFT, flexShrink: 0 }}
@@ -2269,17 +2270,15 @@ function LeisureStep1Screen({
           </div>
 
           <p
-            className="mt-6 text-center text-[12.5px]"
+            className="mt-4 text-center text-[12.5px] sm:text-right"
             style={{ color: "rgba(245,241,230,0.5)" }}
           >
             We find the best options so you can choose what suits your group.
           </p>
         </section>
       </div>
-
-      <div className="h-16 lg:h-24" />
-
     </main>
+
   );
 }
 
