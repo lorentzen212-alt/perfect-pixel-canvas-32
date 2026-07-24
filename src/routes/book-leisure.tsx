@@ -1951,10 +1951,9 @@ function LeisureStep1Screen({
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,34fr)_minmax(0,66fr)] lg:gap-10 lg:px-10 lg:py-12">
         {/* LEFT HERO */}
         <aside
-          className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
+          className="relative overflow-hidden min-h-[520px] lg:min-h-[820px] -mx-6 -mt-10 mb-[-40px] lg:mt-[-48px] lg:mb-[-48px] lg:mr-0"
           style={{
-            border: `1px solid ${S1_BORDER_SOFT}`,
-            boxShadow: "0 40px 80px -40px rgba(0,0,0,0.6)",
+            marginLeft: "calc(-40px + min(0px, (1600px - 100vw) / 2))",
           }}
         >
           <img
@@ -1966,10 +1965,11 @@ function LeisureStep1Screen({
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
+                "linear-gradient(90deg, rgba(8,19,31,0) 50%, rgba(8,19,31,0.35) 78%, rgba(8,19,31,0.85) 100%)",
             }}
           />
-          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
+          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:py-12 lg:pr-12 lg:pl-[max(88px,calc((100vw-1600px)/2+88px))]">
+
             <div>
               <div
                 className="text-[11px] font-medium tracking-[0.32em]"
