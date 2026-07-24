@@ -495,6 +495,30 @@ function BookLeisure() {
       />
     );
   }
+  if (currentStep === 5) {
+    return (
+      <LeisureStep5Screen
+        firstName={firstName}
+        setFirstName={setFirstName}
+        lastName={lastName}
+        setLastName={setLastName}
+        email={email}
+        setEmail={setEmail}
+        phone={phone}
+        setPhone={setPhone}
+        organisation={organisation}
+        setOrganisation={setOrganisation}
+        additionalComments={additionalComments}
+        setAdditionalComments={setAdditionalComments}
+        canContinue={canContinue(5)}
+        onNext={() => go(6)}
+        onBack={() => go(4)}
+        onStepGo={(s: StepKey) => go(s)}
+      />
+    );
+  }
+
+
 
 
   const meta = STEP_META[step];
