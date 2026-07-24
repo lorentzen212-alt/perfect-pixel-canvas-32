@@ -32,7 +32,9 @@ import {
   Waves,
   Camera,
   Flame,
+  MapPin,
 } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/book-leisure")({
@@ -412,6 +414,28 @@ function BookLeisure() {
         }}
         onGoToRequests={() => navigate({ to: "/manage-bookings" })}
         onHome={() => navigate({ to: "/" })}
+      />
+    );
+  }
+
+  const currentStep: StepKey = step;
+  if (currentStep === 1) {
+    return (
+      <LeisureStep1Screen
+        country={country}
+        setCountry={(c: CountryCode) => {
+          setCountry(c);
+          setCity(CITIES[c][0]);
+        }}
+        city={city}
+        setCity={setCity}
+        customDestination={customDestination}
+        setCustomDestination={setCustomDestination}
+        preferredHotel={preferredHotel}
+        setPreferredHotel={setPreferredHotel}
+        canContinue={canContinue(1)}
+        onNext={() => go(2)}
+        onStepGo={(s: StepKey) => go(s)}
       />
     );
   }
@@ -1640,5 +1664,485 @@ function PrimaryButton({
       {label}
       {trailing}
     </button>
+  );
+}
+
+/* =============================================================
+   LEISURE STEP 1 — Dark navy premium screen (reference match)
+   ============================================================= */
+
+const S1_NAVY = "#08131F";
+const S1_NAVY_SOFT = "#0E1D2E";
+const S1_GOLD = "#D4A64A";
+const S1_GOLD_SOFT = "#E8C775";
+const S1_BORDER = "rgba(212,166,74,0.28)";
+const S1_BORDER_SOFT = "rgba(255,255,255,0.08)";
+
+const S1_HERO =
+  "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80";
+
+const NORWAY_TILES: { name: string; img: string }[] = [
+  { name: "Bergen", img: "https://images.unsplash.com/photo-1601439678777-b2b3c56fa627?auto=format&fit=crop&w=800&q=80" },
+  { name: "Oslo", img: "https://images.unsplash.com/photo-1601439678777-b2b3c56fa627?auto=format&fit=crop&w=800&q=80" },
+  { name: "Lofoten", img: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80" },
+  { name: "Tromsø", img: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=800&q=80" },
+  { name: "Stavanger", img: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80" },
+  { name: "Trondheim", img: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=800&q=80" },
+  { name: "Geiranger", img: "https://images.unsplash.com/photo-1502786129293-79981df4e689?auto=format&fit=crop&w=800&q=80" },
+];
+
+const COUNTRY_FLAG_EMOJI: Record<CountryCode, string> = {
+  NO: "🇳🇴",
+  SE: "🇸🇪",
+  DK: "🇩🇰",
+  FI: "🇫🇮",
+};
+
+function LeisureStep1Screen({
+  country,
+  setCountry,
+  city,
+  setCity,
+  customDestination,
+  setCustomDestination,
+  preferredHotel,
+  setPreferredHotel,
+  canContinue,
+  onNext,
+  onStepGo,
+}: {
+  country: CountryCode;
+  setCountry: (c: CountryCode) => void;
+  city: string;
+  setCity: (c: string) => void;
+  customDestination: string;
+  setCustomDestination: (v: string) => void;
+  preferredHotel: string;
+  setPreferredHotel: (v: string) => void;
+  canContinue: boolean;
+  onNext: () => void;
+  onStepGo: (s: StepKey) => void;
+}) {
+  const countryName = COUNTRIES.find((c) => c.code === country)!.name;
+  const tiles =
+    country === "NO"
+      ? NORWAY_TILES
+      : CITIES[country].slice(0, 7).map((n) => ({
+          name: n,
+          img: `https://source.unsplash.com/featured/600x400/?${encodeURIComponent(
+            n + " " + countryName,
+          )}`,
+        }));
+
+  return (
+    <main
+      className="min-h-screen w-full"
+      style={{
+        backgroundColor: S1_NAVY,
+        fontFamily: "Inter, system-ui, sans-serif",
+        color: "#F5F1E6",
+      }}
+    >
+      {/* Top bar: logo + step tracker */}
+      <header
+        className="w-full"
+        style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}
+      >
+        <div className="mx-auto flex max-w-[1600px] flex-col gap-6 px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-10 lg:py-7">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3">
+            <div
+              className="grid h-11 w-11 place-items-center rounded-[10px]"
+              style={{
+                background: `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`,
+                color: S1_NAVY,
+                fontFamily: SERIF,
+              }}
+            >
+              <span className="text-[16px] font-semibold leading-none tracking-wide">HGB</span>
+            </div>
+            <div className="leading-tight">
+              <div
+                style={{ fontFamily: SERIF, color: "#F5F1E6" }}
+                className="text-[19px] font-medium"
+              >
+                HotelGroupBook
+              </div>
+              <div
+                className="text-[11px] tracking-[0.14em]"
+                style={{ color: "rgba(245,241,230,0.55)" }}
+              >
+                Group journeys, made simple
+              </div>
+            </div>
+          </Link>
+
+          {/* Step tracker */}
+          <ol className="flex flex-wrap items-center gap-x-2 gap-y-3 lg:gap-x-3">
+            {[1, 2, 3, 4, 5, 6].map((n, i) => {
+              const active = n === 1;
+              return (
+                <li key={n} className="flex items-center gap-2 lg:gap-3">
+                  <button
+                    type="button"
+                    onClick={() => onStepGo(n as StepKey)}
+                    className="flex flex-col items-center gap-1.5"
+                  >
+                    <span
+                      className="grid h-8 w-8 place-items-center rounded-full text-[13px] font-semibold transition-all"
+                      style={{
+                        background: active
+                          ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
+                          : "transparent",
+                        color: active ? S1_NAVY : "rgba(245,241,230,0.55)",
+                        border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.22)"}`,
+                        boxShadow: active
+                          ? "0 6px 18px -8px rgba(212,166,74,0.55)"
+                          : "none",
+                      }}
+                    >
+                      {n}
+                    </span>
+                    <span
+                      className="text-[11.5px] tracking-wide"
+                      style={{
+                        color: active ? S1_GOLD_SOFT : "rgba(245,241,230,0.55)",
+                        fontWeight: active ? 600 : 500,
+                      }}
+                    >
+                      {STEP_META[n as StepKey].title}
+                    </span>
+                  </button>
+                  {i < 5 && (
+                    <span
+                      className="mt-[-14px] hidden h-px w-8 lg:block xl:w-14"
+                      style={{ backgroundColor: "rgba(245,241,230,0.18)" }}
+                    />
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </header>
+
+      {/* Layout */}
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,34fr)_minmax(0,66fr)] lg:gap-10 lg:px-10 lg:py-12">
+        {/* LEFT HERO */}
+        <aside
+          className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
+          style={{
+            border: `1px solid ${S1_BORDER_SOFT}`,
+            boxShadow: "0 40px 80px -40px rgba(0,0,0,0.6)",
+          }}
+        >
+          <img
+            src={S1_HERO}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
+            }}
+          />
+          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
+            <div>
+              <div
+                className="text-[11px] font-medium tracking-[0.32em]"
+                style={{ color: S1_GOLD_SOFT }}
+              >
+                CHAPTER I
+              </div>
+              <h1
+                className="mt-6 text-[42px] sm:text-[52px] lg:text-[60px] leading-[1.02] font-medium text-white"
+                style={{ fontFamily: SERIF }}
+              >
+                Where will<br />your group<br />adventure begin?
+              </h1>
+              <p
+                className="mt-6 max-w-[360px] text-[15.5px] leading-relaxed"
+                style={{ color: "rgba(255,255,255,0.82)" }}
+              >
+                Tell us your destination<br />and hotel preferences.
+              </p>
+            </div>
+
+            <ul className="space-y-3.5 pt-8">
+              {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
+                <li
+                  key={t}
+                  className="flex items-center gap-3 text-[15px] text-white/95"
+                >
+                  <span
+                    className="grid h-6 w-6 place-items-center rounded-full"
+                    style={{
+                      backgroundColor: "rgba(212,166,74,0.14)",
+                      border: `1px solid ${S1_GOLD}`,
+                    }}
+                  >
+                    <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+
+        {/* RIGHT PANEL */}
+        <section
+          className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+          style={{
+            backgroundColor: S1_NAVY_SOFT,
+            border: `1px solid ${S1_BORDER}`,
+            boxShadow:
+              "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
+          }}
+        >
+          <h2
+            className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
+            style={{ fontFamily: SERIF }}
+          >
+            Step 1 – Destination
+          </h2>
+          <p
+            className="mt-2 text-[14.5px]"
+            style={{ color: "rgba(245,241,230,0.62)" }}
+          >
+            Where would you like to host your group trip?
+          </p>
+
+          {/* Country selector */}
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {COUNTRIES.map((c) => {
+              const active = c.code === country;
+              return (
+                <button
+                  key={c.code}
+                  onClick={() => setCountry(c.code)}
+                  className="flex items-center justify-center gap-2.5 rounded-[14px] px-4 py-3.5 text-[14px] font-medium transition-all"
+                  style={{
+                    background: active
+                      ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
+                      : S1_NAVY,
+                    color: active ? S1_NAVY : "#F5F1E6",
+                    border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.14)"}`,
+                    boxShadow: active
+                      ? "0 10px 26px -14px rgba(212,166,74,0.55)"
+                      : "none",
+                  }}
+                >
+                  <span className="text-[18px] leading-none">
+                    {COUNTRY_FLAG_EMOJI[c.code]}
+                  </span>
+                  {c.name}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Popular destinations */}
+          <div className="mt-8">
+            <div
+              className="text-[14px] font-medium"
+              style={{ color: "rgba(245,241,230,0.85)" }}
+            >
+              Popular destinations in {countryName}
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {tiles.map((t) => {
+                const active =
+                  t.name === city && !customDestination.trim();
+                return (
+                  <button
+                    key={t.name}
+                    onClick={() => {
+                      setCity(t.name);
+                      setCustomDestination("");
+                    }}
+                    className="group relative flex h-[168px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
+                    style={{
+                      border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.10)"}`,
+                      boxShadow: active
+                        ? "0 16px 34px -18px rgba(212,166,74,0.55)"
+                        : "0 10px 24px -16px rgba(0,0,0,0.55)",
+                    }}
+                  >
+                    <img
+                      src={t.img}
+                      alt={t.name}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      onError={(e) => (e.currentTarget.style.opacity = "0")}
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, rgba(8,19,31,0.05) 40%, rgba(8,19,31,0.85) 100%)",
+                      }}
+                    />
+                    <div className="relative z-10 mt-auto flex items-center gap-2 p-3.5">
+                      <MapPin
+                        size={14}
+                        strokeWidth={2.2}
+                        style={{ color: S1_GOLD_SOFT }}
+                      />
+                      <span className="text-[14px] font-medium text-white">
+                        {t.name}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+
+              {/* Anywhere tile */}
+              {country === "NO" && (
+                <button
+                  onClick={() => {
+                    setCity("Anywhere in Norway");
+                    setCustomDestination("");
+                  }}
+                  className="group flex h-[168px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
+                  style={{
+                    background: S1_NAVY,
+                    border: `1px solid ${
+                      city === "Anywhere in Norway" ? S1_GOLD : "rgba(212,166,74,0.35)"
+                    }`,
+                    boxShadow:
+                      city === "Anywhere in Norway"
+                        ? "0 16px 34px -18px rgba(212,166,74,0.55)"
+                        : "0 10px 24px -16px rgba(0,0,0,0.55)",
+                  }}
+                >
+                  <MapPin
+                    size={26}
+                    strokeWidth={1.8}
+                    style={{ color: S1_GOLD_SOFT }}
+                  />
+                  <span
+                    className="text-[14px] font-medium leading-tight"
+                    style={{ color: S1_GOLD_SOFT }}
+                  >
+                    Anywhere
+                    <br />
+                    in Norway
+                  </span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Search */}
+          <div className="mt-8">
+            <div
+              className="text-[14px] font-medium"
+              style={{ color: "rgba(245,241,230,0.85)" }}
+            >
+              Or search for any destination
+            </div>
+            <div
+              className="mt-3 flex items-center gap-3 rounded-[14px] px-4 py-3.5"
+              style={{
+                backgroundColor: S1_NAVY,
+                border: `1px solid rgba(245,241,230,0.12)`,
+              }}
+            >
+              <Search size={16} style={{ color: S1_GOLD_SOFT }} />
+              <input
+                value={customDestination}
+                onChange={(e) => setCustomDestination(e.target.value)}
+                placeholder="Type city, region or venue"
+                className="w-full bg-transparent text-[14px] outline-none"
+                style={{ color: "#F5F1E6" }}
+              />
+            </div>
+          </div>
+
+          {/* Preferred hotel */}
+          <div className="mt-6">
+            <div
+              className="rounded-[14px] p-4"
+              style={{
+                backgroundColor: S1_NAVY,
+                border: `1px solid rgba(245,241,230,0.12)`,
+              }}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div
+                    className="text-[14px] font-semibold"
+                    style={{ color: "#F5F1E6" }}
+                  >
+                    Preferred hotel or special requests{" "}
+                    <span
+                      style={{
+                        color: "rgba(245,241,230,0.55)",
+                        fontWeight: 400,
+                      }}
+                    >
+                      (optional)
+                    </span>
+                  </div>
+                  <textarea
+                    value={preferredHotel}
+                    onChange={(e) => setPreferredHotel(e.target.value)}
+                    placeholder="Tell us if you have a preferred hotel or anything important we should know…"
+                    rows={2}
+                    className="mt-1.5 w-full resize-none bg-transparent text-[13.5px] outline-none"
+                    style={{ color: "rgba(245,241,230,0.85)" }}
+                  />
+                </div>
+                <Pencil
+                  size={16}
+                  style={{ color: S1_GOLD_SOFT, flexShrink: 0 }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom row */}
+          <div className="mt-10 flex flex-col-reverse items-center justify-between gap-6 sm:flex-row">
+            <div className="flex items-center gap-2 text-[13.5px]">
+              <ShieldCheck
+                size={16}
+                strokeWidth={2}
+                style={{ color: S1_GOLD_SOFT }}
+              />
+              <span style={{ color: S1_GOLD_SOFT }}>
+                Your request is free and non-binding
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={onNext}
+              disabled={!canContinue}
+              className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+              style={{
+                background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+                color: S1_NAVY,
+                boxShadow:
+                  "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+                opacity: canContinue ? 1 : 0.55,
+                cursor: canContinue ? "pointer" : "not-allowed",
+              }}
+            >
+              Next step
+              <ArrowRight size={17} strokeWidth={2.4} />
+            </button>
+          </div>
+
+          <p
+            className="mt-4 text-center text-[12.5px] sm:text-right"
+            style={{ color: "rgba(245,241,230,0.5)" }}
+          >
+            We find the best options so you can choose what suits your group.
+          </p>
+        </section>
+      </div>
+    </main>
   );
 }
