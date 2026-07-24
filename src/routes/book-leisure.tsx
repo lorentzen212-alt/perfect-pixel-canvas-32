@@ -2641,3 +2641,297 @@ function LeisureStep2Screen({
     </LeisureStepShell>
   );
 }
+
+/* =========================================================
+   STEP 3 - Extras (redesigned)
+   ========================================================= */
+
+const S3_HERO =
+  "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1600&q=80";
+
+type ExtraCard = {
+  key: string;
+  title: string;
+  img: string;
+  icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }>;
+  options: string[];
+};
+
+const STEP3_CARDS: ExtraCard[] = [
+  {
+    key: "dining",
+    title: "Dining",
+    img: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=800&q=80",
+    icon: Utensils,
+    options: ["Early Breakfast", "Breakfast Box", "Lunch", "Packed Lunch", "Dinner"],
+  },
+  {
+    key: "arrival",
+    title: "Arrival Services",
+    img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    icon: Bell,
+    options: ["Airport Transfer", "Porter In", "Porter Out", "Hospitality Desk", "Welcome Drink"],
+  },
+  {
+    key: "hotel",
+    title: "Hotel Services",
+    img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
+    icon: BedDouble,
+    options: [
+      "Early Check-in",
+      "Late Check-out",
+      "Preferred Room Upgrade",
+      "Connecting Rooms",
+      "Laundry Service",
+    ],
+  },
+  {
+    key: "special",
+    title: "Special Requests",
+    img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
+    icon: Gift,
+    options: [
+      "Gift Bags",
+      "Celebration Setup",
+      "Accessibility Requirements",
+      "VIP Amenities",
+      "Other Requests",
+    ],
+  },
+];
+
+function LeisureStep3Screen({
+  selected,
+  onToggle,
+  comments,
+  setComments,
+  recommend,
+  setRecommend,
+  onNext,
+  onBack,
+  onStepGo,
+}: {
+  selected: Set<string>;
+  onToggle: (label: string) => void;
+  comments: string;
+  setComments: (v: string) => void;
+  recommend: boolean;
+  setRecommend: (v: boolean) => void;
+  onNext: () => void;
+  onBack: () => void;
+  onStepGo: (s: StepKey) => void;
+}) {
+  return (
+    <LeisureStepShell
+      activeStep={3}
+      onStepGo={onStepGo}
+      hero={S3_HERO}
+      chapter="CHAPTER III"
+      headline={
+        <>
+          The small<br />moments that<br />matter.
+        </>
+      }
+      subtext={
+        <>
+          Add the details that turn<br />a trip into a story.
+        </>
+      }
+    >
+      <section
+        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+        style={{
+          backgroundColor: S1_NAVY_SOFT,
+          border: `1px solid ${S1_BORDER}`,
+          boxShadow:
+            "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
+        }}
+      >
+        <h2
+          className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
+          style={{ fontFamily: SERIF }}
+        >
+          Step 3 – Extras
+        </h2>
+        <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
+          Select the extras and services you need.
+        </p>
+
+        {/* Five service cards */}
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {STEP3_CARDS.map((card) => {
+            const Icon = card.icon;
+            return (
+              <div
+                key={card.key}
+                className="flex flex-col overflow-hidden rounded-[18px]"
+                style={{
+                  backgroundColor: S1_NAVY,
+                  border: `1px solid ${S1_BORDER}`,
+                  boxShadow: "0 18px 40px -24px rgba(0,0,0,0.55)",
+                }}
+              >
+                <div className="relative h-[140px] w-full overflow-hidden">
+                  <img
+                    src={card.img}
+                    alt={card.title}
+                    className="h-full w-full object-cover"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(8,19,31,0) 40%, rgba(8,19,31,0.85) 100%)",
+                    }}
+                  />
+                  <div
+                    className="absolute -bottom-6 left-4 grid h-12 w-12 place-items-center rounded-full"
+                    style={{
+                      background: `linear-gradient(135deg, ${S1_NAVY_SOFT}, ${S1_NAVY})`,
+                      border: `1px solid ${S1_GOLD}`,
+                      boxShadow: "0 10px 24px -10px rgba(212,166,74,0.55)",
+                    }}
+                  >
+                    <Icon size={20} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
+                  </div>
+                </div>
+
+                <div className="flex flex-1 flex-col px-4 pb-5 pt-8">
+                  <div
+                    className="text-[16px] font-medium text-white"
+                    style={{ fontFamily: SERIF, fontSize: 19 }}
+                  >
+                    {card.title}
+                  </div>
+                  <div className="mt-3 flex flex-col gap-2.5">
+                    {card.options.map((opt) => (
+                      <DarkCheckbox
+                        key={opt}
+                        label={opt}
+                        checked={selected.has(opt)}
+                        onChange={() => onToggle(opt)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+
+          {/* HGB Recommendations card */}
+          <div
+            className="flex flex-col items-center rounded-[18px] px-4 py-6 text-center"
+            style={{
+              backgroundColor: S1_NAVY,
+              border: `1px solid ${S1_BORDER}`,
+              boxShadow: "0 18px 40px -24px rgba(0,0,0,0.55)",
+            }}
+          >
+            <div
+              className="grid h-12 w-12 place-items-center rounded-full"
+              style={{
+                background: `linear-gradient(135deg, ${S1_NAVY_SOFT}, ${S1_NAVY})`,
+                border: `1px solid ${S1_GOLD}`,
+                boxShadow: "0 10px 24px -10px rgba(212,166,74,0.55)",
+              }}
+            >
+              <Star size={20} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
+            </div>
+            <div
+              className="mt-4 text-[16px] font-medium"
+              style={{ fontFamily: SERIF, fontSize: 18, color: S1_GOLD_SOFT, lineHeight: 1.25 }}
+            >
+              Let HotelGroupBook<br />recommend extras
+            </div>
+            <p
+              className="mt-3 text-[12.5px] leading-relaxed"
+              style={{ color: "rgba(245,241,230,0.65)" }}
+            >
+              We&apos;ll suggest the most suitable services based on your destination, hotel and group size.
+            </p>
+            <div className="mt-auto pt-5">
+              <DarkCheckbox
+                label="Recommend the best extras for my group"
+                checked={recommend}
+                onChange={setRecommend}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Additional comments */}
+        <div
+          className="mt-8 flex items-start gap-4 rounded-[16px] p-4"
+          style={{
+            backgroundColor: S1_NAVY,
+            border: `1px solid ${S1_BORDER}`,
+          }}
+        >
+          <div
+            className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full"
+            style={{
+              background: `linear-gradient(135deg, ${S1_NAVY_SOFT}, ${S1_NAVY})`,
+              border: `1px solid ${S1_GOLD}`,
+            }}
+          >
+            <Pencil size={16} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="text-[14.5px]" style={{ color: "#F5F1E6" }}>
+              <span className="font-semibold">Additional comments</span>{" "}
+              <span style={{ color: "rgba(245,241,230,0.55)" }}>(optional)</span>
+            </div>
+            <textarea
+              value={comments}
+              onChange={(e) => setComments(e.target.value)}
+              placeholder="Tell us anything else we should know..."
+              rows={2}
+              className="mt-1 w-full resize-none bg-transparent text-[13.5px] outline-none"
+              style={{ color: "#F5F1E6" }}
+            />
+          </div>
+        </div>
+
+        {/* Bottom nav */}
+        <div className="mt-10 flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
+            style={{ color: S1_GOLD_SOFT }}
+          >
+            <ArrowLeft size={16} strokeWidth={2.2} />
+            Back
+          </button>
+
+          <button
+            type="button"
+            onClick={onNext}
+            className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+            style={{
+              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+              color: S1_NAVY,
+              boxShadow:
+                "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+            }}
+          >
+            Next step
+            <ArrowRight size={17} strokeWidth={2.4} />
+          </button>
+        </div>
+
+        <div className="mt-8 flex flex-col items-center gap-1 text-center">
+          <div className="flex items-center gap-2 text-[13.5px]">
+            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+            <span style={{ color: S1_GOLD_SOFT }}>
+              Your request is free and non-binding
+            </span>
+          </div>
+          <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+            We find the best options so you can choose what suits your group.
+          </div>
+        </div>
+      </section>
+    </LeisureStepShell>
+  );
+}
