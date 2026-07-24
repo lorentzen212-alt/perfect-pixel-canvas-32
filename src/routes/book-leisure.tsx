@@ -2168,7 +2168,7 @@ function LeisureStep1Screen({
           </div>
 
           {/* Search */}
-          <div className="mt-10">
+          <div className="mt-8">
             <div
               className="text-[14px] font-medium"
               style={{ color: "rgba(245,241,230,0.85)" }}
@@ -2176,12 +2176,13 @@ function LeisureStep1Screen({
               Or search for any destination
             </div>
             <div
-              className="mt-3 flex items-center gap-3 rounded-[14px] px-4 py-4"
+              className="mt-3 flex items-center gap-3 rounded-[14px] px-4 py-3.5"
               style={{
                 backgroundColor: S1_NAVY,
-                border: `1px solid rgba(212,166,74,0.22)`,
+                border: `1px solid rgba(245,241,230,0.12)`,
               }}
             >
+
               <Search size={16} style={{ color: S1_GOLD_SOFT }} />
               <input
                 value={customDestination}
