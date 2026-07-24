@@ -2197,14 +2197,14 @@ function LeisureStep1Screen({
           {/* Preferred hotel */}
           <div className="mt-6">
             <div
-              className="rounded-[14px] p-5"
+              className="rounded-[14px] p-4"
               style={{
                 backgroundColor: S1_NAVY,
-                border: `1px solid rgba(212,166,74,0.22)`,
+                border: `1px solid rgba(245,241,230,0.12)`,
               }}
             >
               <div className="flex items-start justify-between gap-3">
-                <div className="flex-1">
+                <div>
                   <div
                     className="text-[14px] font-semibold"
                     style={{ color: "#F5F1E6" }}
@@ -2224,10 +2224,11 @@ function LeisureStep1Screen({
                     onChange={(e) => setPreferredHotel(e.target.value)}
                     placeholder="Tell us if you have a preferred hotel or anything important we should know…"
                     rows={2}
-                    className="mt-2 w-full resize-none bg-transparent text-[13.5px] outline-none"
+                    className="mt-1.5 w-full resize-none bg-transparent text-[13.5px] outline-none"
                     style={{ color: "rgba(245,241,230,0.85)" }}
                   />
                 </div>
+
                 <Pencil
                   size={16}
                   style={{ color: S1_GOLD_SOFT, flexShrink: 0 }}
