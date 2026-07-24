@@ -418,6 +418,27 @@ function BookLeisure() {
     );
   }
 
+  if (step === 1) {
+    return (
+      <LeisureStep1Screen
+        country={country}
+        setCountry={(c) => {
+          setCountry(c);
+          setCity(CITIES[c][0]);
+        }}
+        city={city}
+        setCity={setCity}
+        customDestination={customDestination}
+        setCustomDestination={setCustomDestination}
+        preferredHotel={preferredHotel}
+        setPreferredHotel={setPreferredHotel}
+        canContinue={canContinue(1)}
+        onNext={() => go(2)}
+        onStepGo={(s) => go(s)}
+      />
+    );
+  }
+
   const meta = STEP_META[step];
 
   return (
