@@ -1794,7 +1794,7 @@ function PrimaryButton({
    ============================================================= */
 
 const S1_NAVY = "#08131F";
-const S1_NAVY_SOFT = "#0E1D2E";
+const S1_NAVY_SOFT = "#142638";
 const S1_GOLD = "#D4A64A";
 const S1_GOLD_SOFT = "#E8C775";
 const S1_BORDER = "rgba(212,166,74,0.28)";
