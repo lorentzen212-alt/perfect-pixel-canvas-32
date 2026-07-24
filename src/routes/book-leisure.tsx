@@ -154,9 +154,9 @@ const COUNTRIES: { code: CountryCode; name: string; flag: string }[] = [
 
 const CITIES: Record<CountryCode, string[]> = {
   NO: ["Oslo", "Bergen", "Tromsø", "Lofoten", "Stavanger", "Trondheim", "Bodø", "Ålesund"],
-  SE: ["Stockholm", "Gothenburg", "Malmö", "Uppsala", "Kiruna", "Umeå", "Visby", "Åre"],
-  DK: ["Copenhagen", "Aarhus", "Odense", "Aalborg", "Skagen", "Bornholm"],
-  FI: ["Helsinki", "Tampere", "Rovaniemi", "Turku", "Oulu", "Levi"],
+  SE: ["Stockholm", "Gothenburg", "Malmö", "Uppsala", "Kiruna", "Åre", "Visby"],
+  DK: ["Copenhagen", "Aarhus", "Odense", "Aalborg", "Billund"],
+  FI: ["Helsinki", "Rovaniemi", "Tampere", "Turku", "Levi"],
 };
 
 
