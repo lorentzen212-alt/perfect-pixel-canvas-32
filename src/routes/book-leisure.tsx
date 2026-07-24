@@ -664,14 +664,14 @@ function BookLeisure() {
               <StepAccommodation
                 rooms={rooms}
                 roomCount={roomCount}
-                setRoom={setRoom}
+                setRoom={() => {}}
                 totalRooms={totalRooms}
                 earlyCheckin={earlyCheckin}
-                setEarlyCheckin={setEarlyCheckin}
+                setEarlyCheckin={() => {}}
                 lateCheckout={lateCheckout}
-                setLateCheckout={setLateCheckout}
+                setLateCheckout={() => {}}
                 connectingRooms={connectingRooms}
-                setConnectingRooms={setConnectingRooms}
+                setConnectingRooms={() => {}}
                 roomNotes={roomNotes}
                 setRoomNotes={setRoomNotes}
               />
