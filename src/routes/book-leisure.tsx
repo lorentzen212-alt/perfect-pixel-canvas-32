@@ -1885,6 +1885,403 @@ const COUNTRY_FLAG_EMOJI: Record<CountryCode, string> = {
   FI: "🇫🇮",
 };
 
+/* =============================================================
+   Step 1 — shared destination data model
+   ============================================================= */
+
+type Destination = {
+  id: string;
+  name: string;
+  country: CountryCode;
+  countryName: string;
+  image: string;
+  alt: string;
+};
+
+const FALLBACK_IMG = geirangerImg.url; // premium placeholder when a photo is missing
+
+function makeDest(
+  name: string,
+  code: CountryCode,
+  countryName: string,
+  image: string | undefined,
+): Destination {
+  if (!image) {
+    // eslint-disable-next-line no-console
+    console.warn(`[destinations] Missing image for "${name}" (${countryName}) — using fallback.`);
+  }
+  return {
+    id: `${code.toLowerCase()}-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+    name,
+    country: code,
+    countryName,
+    image: image || FALLBACK_IMG,
+    alt: `${name}, ${countryName}`,
+  };
+}
+
+const DESTINATIONS: Record<CountryCode, Destination[]> = (() => {
+  const build = (code: CountryCode): Destination[] => {
+    const countryName = COUNTRIES.find((c) => c.code === code)!.name;
+    const cities = CITIES[code].map((n) => makeDest(n, code, countryName, DEST_IMG[n]));
+    cities.push(
+      makeDest(`Anywhere in ${countryName}`, code, countryName, ANYWHERE_IMG[code]),
+    );
+    return cities;
+  };
+  return { NO: build("NO"), SE: build("SE"), DK: build("DK"), FI: build("FI") };
+})();
+
+const ALL_DESTINATIONS: Destination[] = Object.values(DESTINATIONS).flat();
+
+/* =============================================================
+   Step 1 — sub-components
+   ============================================================= */
+
+function CountrySelector({
+  country,
+  onChange,
+}: {
+  country: CountryCode;
+  onChange: (c: CountryCode) => void;
+}) {
+  const flagUrl = (code: CountryCode) =>
+    `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
+  return (
+    <div className="mx-auto mt-9 flex max-w-[1100px] items-center justify-center gap-0 px-6">
+      {COUNTRIES.map((c, i) => {
+        const active = c.code === country;
+        return (
+          <div key={c.code} className="flex items-center">
+            {i > 0 && (
+              <span
+                className="mx-6 h-5 w-px lg:mx-10"
+                style={{ background: "rgba(245,241,230,0.25)" }}
+              />
+            )}
+            <button
+              type="button"
+              onClick={() => onChange(c.code)}
+              className="group flex flex-col items-center gap-2 transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <img
+                  src={flagUrl(c.code)}
+                  alt={c.name}
+                  className="h-5 w-7 rounded-sm object-cover"
+                  style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.4)" }}
+                />
+                <span
+                  className="text-[15px] tracking-[0.16em] transition-colors"
+                  style={{
+                    color: active ? S1_GOLD : "rgba(245,241,230,0.72)",
+                    fontWeight: active ? 600 : 500,
+                  }}
+                >
+                  {c.name.toUpperCase()}
+                </span>
+              </div>
+              <div
+                className="h-[1.5px] w-full transition-all duration-300"
+                style={{
+                  background: active
+                    ? `linear-gradient(90deg, ${S1_GOLD_SOFT}, ${S1_GOLD}, ${S1_GOLD_SOFT})`
+                    : "transparent",
+                  opacity: active ? 1 : 0,
+                }}
+              />
+            </button>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function DestinationCarousel({
+  destinations,
+  selectedId,
+  onSelect,
+}: {
+  destinations: Destination[];
+  selectedId: string | null;
+  onSelect: (d: Destination) => void;
+}) {
+  const PAGE_SIZE = 4;
+  const pageCount = Math.max(1, Math.ceil(destinations.length / PAGE_SIZE));
+  const [page, setPage] = useState(0);
+
+  // Reset to first page whenever the destination list changes (i.e. country change).
+  useEffect(() => {
+    setPage(0);
+  }, [destinations]);
+
+  const safePage = Math.min(page, pageCount - 1);
+  const visible = destinations.slice(
+    safePage * PAGE_SIZE,
+    safePage * PAGE_SIZE + PAGE_SIZE,
+  );
+
+  return (
+    <div className="mx-auto mt-10 w-full max-w-[1500px] px-4 lg:px-10">
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setPage((p) => (p - 1 + pageCount) % pageCount)}
+          aria-label="Previous"
+          className="absolute -left-2 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:-left-4"
+          style={{ color: S1_GOLD }}
+        >
+          <ChevronLeft size={34} strokeWidth={1.6} />
+        </button>
+
+        <div className="grid grid-cols-2 gap-4 px-8 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6 lg:px-12">
+          {Array.from({ length: PAGE_SIZE }).map((_, idx) => {
+            const d = visible[idx];
+            if (!d) return <div key={`empty-${idx}`} aria-hidden />;
+            const active = d.id === selectedId;
+            return (
+              <button
+                key={d.id}
+                onClick={() => onSelect(d)}
+                className="group relative flex aspect-[3/4] flex-col overflow-hidden rounded-[18px] text-left transition-all duration-300 hover:-translate-y-[4px]"
+                style={{
+                  border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.35)"}`,
+                  boxShadow: active
+                    ? "0 22px 44px -18px rgba(212,166,74,0.55), 0 0 0 1px rgba(212,166,74,0.4) inset"
+                    : "0 18px 40px -22px rgba(0,0,0,0.7)",
+                }}
+              >
+                <img
+                  src={d.image}
+                  alt={d.alt}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+                  onError={(e) => {
+                    // eslint-disable-next-line no-console
+                    console.warn(`[destinations] Image failed for "${d.name}" — swapping to fallback.`);
+                    (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG;
+                  }}
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(8,19,31,0) 42%, rgba(8,19,31,0.55) 72%, rgba(8,19,31,0.92) 100%)",
+                  }}
+                />
+                <div className="relative z-10 mt-auto px-5 pb-5">
+                  <div
+                    className="text-[22px] leading-tight tracking-[0.04em] text-white"
+                    style={{ fontFamily: SERIF, fontWeight: 500 }}
+                  >
+                    {d.name.toUpperCase()}
+                  </div>
+                  <div
+                    className="mt-1 text-[11.5px] tracking-[0.28em]"
+                    style={{ color: S1_GOLD }}
+                  >
+                    {d.countryName.toUpperCase()}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setPage((p) => (p + 1) % pageCount)}
+          aria-label="Next"
+          className="absolute -right-2 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:-right-4"
+          style={{ color: S1_GOLD }}
+        >
+          <ChevronRight size={34} strokeWidth={1.6} />
+        </button>
+      </div>
+
+      <div className="mt-7 flex items-center justify-center gap-2.5">
+        {Array.from({ length: pageCount }).map((_, i) => {
+          const active = i === safePage;
+          return (
+            <button
+              key={i}
+              onClick={() => setPage(i)}
+              aria-label={`Page ${i + 1}`}
+              className="h-[3px] rounded-full transition-all duration-300"
+              style={{
+                width: active ? 28 : 18,
+                background: active
+                  ? `linear-gradient(90deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
+                  : "rgba(245,241,230,0.25)",
+                boxShadow: active ? "0 0 10px rgba(212,166,74,0.45)" : "none",
+              }}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function SearchSection({
+  query,
+  onQueryChange,
+  onPickSuggestion,
+  preferredHotel,
+  onPreferredHotelChange,
+  canContinue,
+  onNext,
+}: {
+  query: string;
+  onQueryChange: (v: string) => void;
+  onPickSuggestion: (d: Destination) => void;
+  preferredHotel: string;
+  onPreferredHotelChange: (v: string) => void;
+  canContinue: boolean;
+  onNext: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const suggestions = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    return ALL_DESTINATIONS.filter(
+      (d) =>
+        d.name.toLowerCase().includes(q) ||
+        d.countryName.toLowerCase().includes(q),
+    ).slice(0, 6);
+  }, [query]);
+
+  return (
+    <div className="mx-auto mt-12 w-full max-w-[1240px] px-6 lg:px-10">
+      <div
+        className="text-center text-[13px] tracking-[0.34em]"
+        style={{ color: S1_GOLD }}
+      >
+        OR
+      </div>
+
+      {/* Search field with autocomplete */}
+      <div className="relative mt-4">
+        <div
+          className="flex items-center gap-3 rounded-[14px] px-5 py-4"
+          style={{
+            backgroundColor: S1_NAVY_SOFT,
+            border: `1px solid rgba(212,166,74,0.28)`,
+          }}
+        >
+          <Search size={18} style={{ color: S1_GOLD }} strokeWidth={2} />
+          <input
+            value={query}
+            onChange={(e) => {
+              onQueryChange(e.target.value);
+              setOpen(true);
+            }}
+            onFocus={() => setOpen(true)}
+            onBlur={() => setTimeout(() => setOpen(false), 120)}
+            placeholder="Type city, region or venue"
+            className="w-full bg-transparent text-[14.5px] outline-none placeholder:text-[rgba(245,241,230,0.5)]"
+            style={{ color: "#F5F1E6" }}
+          />
+        </div>
+
+        {open && suggestions.length > 0 && (
+          <ul
+            className="absolute left-0 right-0 top-full z-20 mt-2 overflow-hidden rounded-[14px]"
+            style={{
+              backgroundColor: S1_NAVY_SOFT,
+              border: `1px solid rgba(212,166,74,0.28)`,
+              boxShadow: "0 22px 44px -18px rgba(0,0,0,0.7)",
+            }}
+          >
+            {suggestions.map((d) => (
+              <li key={d.id}>
+                <button
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    onPickSuggestion(d);
+                    setOpen(false);
+                  }}
+                  className="flex w-full items-center gap-3 px-5 py-3 text-left transition-colors hover:bg-white/5"
+                >
+                  <MapPin size={15} style={{ color: S1_GOLD }} />
+                  <span className="text-[14px]" style={{ color: "#F5F1E6" }}>
+                    {d.name}
+                  </span>
+                  <span
+                    className="ml-auto text-[11px] tracking-[0.2em]"
+                    style={{ color: "rgba(245,241,230,0.55)" }}
+                  >
+                    {d.countryName.toUpperCase()}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* Preferred hotel */}
+      <div
+        className="mt-4 rounded-[14px] px-5 py-4"
+        style={{
+          backgroundColor: S1_NAVY_SOFT,
+          border: `1px solid rgba(212,166,74,0.28)`,
+        }}
+      >
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1">
+            <div className="text-[14.5px] font-semibold" style={{ color: "#F5F1E6" }}>
+              Preferred hotel or special requests{" "}
+              <span style={{ color: "rgba(245,241,230,0.6)", fontWeight: 400 }}>
+                (optional)
+              </span>
+            </div>
+            <textarea
+              value={preferredHotel}
+              onChange={(e) => onPreferredHotelChange(e.target.value)}
+              placeholder="Tell us if you have a preferred hotel or anything important we should know…"
+              rows={1}
+              className="mt-1.5 w-full resize-none bg-transparent text-[13.5px] outline-none placeholder:text-[rgba(245,241,230,0.5)]"
+              style={{ color: "rgba(245,241,230,0.9)" }}
+            />
+          </div>
+          <Pencil size={16} style={{ color: S1_GOLD, flexShrink: 0, marginTop: 4 }} />
+        </div>
+      </div>
+
+      {/* Bottom row */}
+      <div className="mt-8 flex flex-col-reverse items-center justify-between gap-6 sm:flex-row">
+        <div className="flex items-center gap-2 text-[13.5px]">
+          <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD }} />
+          <span style={{ color: S1_GOLD }}>
+            Your request is free and non-binding
+          </span>
+        </div>
+
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={!canContinue}
+          className="inline-flex items-center gap-3 rounded-[14px] px-10 py-4 text-[15px] font-semibold transition-all hover:-translate-y-[1px]"
+          style={{
+            background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+            color: S1_NAVY,
+            boxShadow:
+              "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+            opacity: canContinue ? 1 : 0.55,
+            cursor: canContinue ? "pointer" : "not-allowed",
+            minWidth: 200,
+          }}
+        >
+          Next step
+          <ArrowRight size={17} strokeWidth={2.4} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function LeisureStep1Screen({
   country,
   setCountry,
@@ -1910,32 +2307,20 @@ function LeisureStep1Screen({
   onNext: () => void;
   onStepGo: (s: StepKey) => void;
 }) {
-  const countryName = COUNTRIES.find((c) => c.code === country)!.name;
+  const destinations = DESTINATIONS[country];
 
-  const tiles: { name: string; img: string }[] = [
-    ...CITIES[country].map((n) => ({
-      name: n,
-      img: DEST_IMG[n] ?? ANYWHERE_IMG[country],
-    })),
-    {
-      name: `Anywhere in ${countryName}`,
-      img: ANYWHERE_IMG[country],
-    },
-  ];
+  // Derived shared selection id — the same value whether picked via card or autocomplete.
+  const selectedId = useMemo(() => {
+    if (customDestination.trim()) return null;
+    const match = destinations.find((d) => d.name === city);
+    return match?.id ?? null;
+  }, [customDestination, city, destinations]);
 
-  const PAGE_SIZE = 4;
-  const pageCount = Math.max(1, Math.ceil(tiles.length / PAGE_SIZE));
-  const [page, setPage] = useState(0);
-  useEffect(() => {
-    setPage(0);
-  }, [country]);
-  const safePage = Math.min(page, pageCount - 1);
-  const visible = tiles.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
-  // Pad visible with empty slots to keep 4 columns stable
-  while (visible.length < PAGE_SIZE) visible.push({ name: "__empty__" + visible.length, img: "" });
-
-  const flagUrl = (code: CountryCode) =>
-    `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
+  const handleSelect = (d: Destination) => {
+    if (d.country !== country) setCountry(d.country);
+    setCity(d.name);
+    setCustomDestination("");
+  };
 
   return (
     <main
@@ -1946,10 +2331,9 @@ function LeisureStep1Screen({
         color: "#F5F1E6",
       }}
     >
-      {/* ── HEADER ─────────────────────────────────────────── */}
       <BookingHeader currentStep={1} onStepGo={onStepGo} hideCurrentFlow="leisure" />
 
-      {/* ── TITLE ─────────────────────────────────────────── */}
+      {/* Title */}
       <div className="mx-auto max-w-[1600px] px-6 pt-6 text-center lg:px-10 lg:pt-10">
         <h1
           className="text-[44px] leading-none tracking-[0.02em] sm:text-[64px] lg:text-[86px]"
@@ -1963,10 +2347,7 @@ function LeisureStep1Screen({
           BOOK LEISURE
         </h1>
         <div className="mt-5 flex flex-col items-center">
-          <div
-            className="text-[13px] tracking-[0.34em]"
-            style={{ color: S1_GOLD }}
-          >
+          <div className="text-[13px] tracking-[0.34em]" style={{ color: S1_GOLD }}>
             CHOOSE YOUR DESTINATION
           </div>
           <div
@@ -1976,247 +2357,23 @@ function LeisureStep1Screen({
         </div>
       </div>
 
-      {/* ── COUNTRY SELECTOR ──────────────────────────────── */}
-      <div className="mx-auto mt-9 flex max-w-[1100px] items-center justify-center gap-0 px-6">
-        {COUNTRIES.map((c, i) => {
-          const active = c.code === country;
-          return (
-            <div key={c.code} className="flex items-center">
-              {i > 0 && (
-                <span
-                  className="mx-6 h-5 w-px lg:mx-10"
-                  style={{ background: "rgba(245,241,230,0.25)" }}
-                />
-              )}
-              <button
-                type="button"
-                onClick={() => setCountry(c.code)}
-                className="group flex flex-col items-center gap-2 transition-all"
-              >
-                <div className="flex items-center gap-3">
-                  <img
-                    src={flagUrl(c.code)}
-                    alt={c.name}
-                    className="h-5 w-7 rounded-sm object-cover"
-                    style={{
-                      boxShadow: "0 1px 4px rgba(0,0,0,0.4)",
-                    }}
-                  />
-                  <span
-                    className="text-[15px] tracking-[0.16em] transition-colors"
-                    style={{
-                      color: active ? S1_GOLD : "rgba(245,241,230,0.72)",
-                      fontWeight: active ? 600 : 500,
-                    }}
-                  >
-                    {c.name.toUpperCase()}
-                  </span>
-                </div>
-                <div
-                  className="h-[1.5px] w-full transition-all duration-300"
-                  style={{
-                    background: active
-                      ? `linear-gradient(90deg, ${S1_GOLD_SOFT}, ${S1_GOLD}, ${S1_GOLD_SOFT})`
-                      : "transparent",
-                    opacity: active ? 1 : 0,
-                  }}
-                />
-              </button>
-            </div>
-          );
-        })}
-      </div>
+      <CountrySelector country={country} onChange={setCountry} />
 
-      {/* ── DESTINATION CAROUSEL ──────────────────────────── */}
-      <div className="mx-auto mt-10 w-full max-w-[1500px] px-4 lg:px-10">
-        <div className="relative">
-          {/* Left chevron */}
-          <button
-            type="button"
-            onClick={() => setPage((p) => (p - 1 + pageCount) % pageCount)}
-            aria-label="Previous"
-            className="absolute -left-2 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:-left-4"
-            style={{ color: S1_GOLD }}
-          >
-            <ChevronLeft size={34} strokeWidth={1.6} />
-          </button>
+      <DestinationCarousel
+        destinations={destinations}
+        selectedId={selectedId}
+        onSelect={handleSelect}
+      />
 
-          {/* Cards grid */}
-          <div className="grid grid-cols-2 gap-4 px-8 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6 lg:px-12">
-            {visible.map((t) => {
-              if (t.name.startsWith("__empty__")) {
-                return <div key={t.name} aria-hidden />;
-              }
-              const active = t.name === city && !customDestination.trim();
-              return (
-                <button
-                  key={t.name}
-                  onClick={() => {
-                    setCity(t.name);
-                    setCustomDestination("");
-                  }}
-                  className="group relative flex aspect-[3/4] flex-col overflow-hidden rounded-[18px] text-left transition-all duration-300 hover:-translate-y-[4px]"
-                  style={{
-                    border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.35)"}`,
-                    boxShadow: active
-                      ? "0 22px 44px -18px rgba(212,166,74,0.55), 0 0 0 1px rgba(212,166,74,0.4) inset"
-                      : "0 18px 40px -22px rgba(0,0,0,0.7)",
-                  }}
-                >
-                  <img
-                    src={t.img}
-                    alt={t.name}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
-                    onError={(e) => (e.currentTarget.style.opacity = "0")}
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, rgba(8,19,31,0) 42%, rgba(8,19,31,0.55) 72%, rgba(8,19,31,0.92) 100%)",
-                    }}
-                  />
-                  <div className="relative z-10 mt-auto px-5 pb-5">
-                    <div
-                      className="text-[22px] leading-tight tracking-[0.04em] text-white"
-                      style={{ fontFamily: SERIF, fontWeight: 500 }}
-                    >
-                      {t.name.toUpperCase()}
-                    </div>
-                    <div
-                      className="mt-1 text-[11.5px] tracking-[0.28em]"
-                      style={{ color: S1_GOLD }}
-                    >
-                      {countryName.toUpperCase()}
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Right chevron */}
-          <button
-            type="button"
-            onClick={() => setPage((p) => (p + 1) % pageCount)}
-            aria-label="Next"
-            className="absolute -right-2 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:-right-4"
-            style={{ color: S1_GOLD }}
-          >
-            <ChevronRight size={34} strokeWidth={1.6} />
-          </button>
-        </div>
-
-        {/* Carousel indicators */}
-        <div className="mt-7 flex items-center justify-center gap-2.5">
-          {Array.from({ length: pageCount }).map((_, i) => {
-            const active = i === safePage;
-            return (
-              <button
-                key={i}
-                onClick={() => setPage(i)}
-                aria-label={`Page ${i + 1}`}
-                className="h-[3px] rounded-full transition-all duration-300"
-                style={{
-                  width: active ? 28 : 18,
-                  background: active
-                    ? `linear-gradient(90deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
-                    : "rgba(245,241,230,0.25)",
-                  boxShadow: active
-                    ? "0 0 10px rgba(212,166,74,0.45)"
-                    : "none",
-                }}
-              />
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ── OR ────────────────────────────────────────────── */}
-      <div className="mx-auto mt-12 w-full max-w-[1240px] px-6 lg:px-10">
-        <div
-          className="text-center text-[13px] tracking-[0.34em]"
-          style={{ color: S1_GOLD }}
-        >
-          OR
-        </div>
-
-        {/* Search field */}
-        <div
-          className="mt-4 flex items-center gap-3 rounded-[14px] px-5 py-4"
-          style={{
-            backgroundColor: S1_NAVY_SOFT,
-            border: `1px solid rgba(212,166,74,0.28)`,
-          }}
-        >
-          <Search size={18} style={{ color: S1_GOLD }} strokeWidth={2} />
-          <input
-            value={customDestination}
-            onChange={(e) => setCustomDestination(e.target.value)}
-            placeholder="Type city, region or venue"
-            className="w-full bg-transparent text-[14.5px] outline-none placeholder:text-[rgba(245,241,230,0.5)]"
-            style={{ color: "#F5F1E6" }}
-          />
-        </div>
-
-        {/* Preferred hotel */}
-        <div
-          className="mt-4 rounded-[14px] px-5 py-4"
-          style={{
-            backgroundColor: S1_NAVY_SOFT,
-            border: `1px solid rgba(212,166,74,0.28)`,
-          }}
-        >
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex-1">
-              <div className="text-[14.5px] font-semibold" style={{ color: "#F5F1E6" }}>
-                Preferred hotel or special requests{" "}
-                <span style={{ color: "rgba(245,241,230,0.6)", fontWeight: 400 }}>
-                  (optional)
-                </span>
-              </div>
-              <textarea
-                value={preferredHotel}
-                onChange={(e) => setPreferredHotel(e.target.value)}
-                placeholder="Tell us if you have a preferred hotel or anything important we should know…"
-                rows={1}
-                className="mt-1.5 w-full resize-none bg-transparent text-[13.5px] outline-none placeholder:text-[rgba(245,241,230,0.5)]"
-                style={{ color: "rgba(245,241,230,0.9)" }}
-              />
-            </div>
-            <Pencil size={16} style={{ color: S1_GOLD, flexShrink: 0, marginTop: 4 }} />
-          </div>
-        </div>
-
-        {/* Bottom row */}
-        <div className="mt-8 flex flex-col-reverse items-center justify-between gap-6 sm:flex-row">
-          <div className="flex items-center gap-2 text-[13.5px]">
-            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD }} />
-            <span style={{ color: S1_GOLD }}>
-              Your request is free and non-binding
-            </span>
-          </div>
-
-          <button
-            type="button"
-            onClick={onNext}
-            disabled={!canContinue}
-            className="inline-flex items-center gap-3 rounded-[14px] px-10 py-4 text-[15px] font-semibold transition-all hover:-translate-y-[1px]"
-            style={{
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
-              color: S1_NAVY,
-              boxShadow:
-                "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
-              opacity: canContinue ? 1 : 0.55,
-              cursor: canContinue ? "pointer" : "not-allowed",
-              minWidth: 200,
-            }}
-          >
-            Next step
-            <ArrowRight size={17} strokeWidth={2.4} />
-          </button>
-        </div>
-      </div>
+      <SearchSection
+        query={customDestination}
+        onQueryChange={setCustomDestination}
+        onPickSuggestion={handleSelect}
+        preferredHotel={preferredHotel}
+        onPreferredHotelChange={setPreferredHotel}
+        canContinue={canContinue}
+        onNext={onNext}
+      />
 
       <div className="h-16 lg:h-24" />
     </main>
