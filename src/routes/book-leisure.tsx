@@ -1813,6 +1813,60 @@ import tromsoImg from "@/assets/leisure/tromso.jpg.asset.json";
 import stavangerImg from "@/assets/leisure/stavanger.jpg.asset.json";
 import trondheimImg from "@/assets/leisure/trondheim.jpg.asset.json";
 import geirangerImg from "@/assets/leisure/geiranger.jpg.asset.json";
+import bodoImg from "@/assets/leisure/bodo.jpg.asset.json";
+import alesundImg from "@/assets/leisure/alesund.jpg.asset.json";
+import stockholmImg from "@/assets/leisure/stockholm.jpg.asset.json";
+import gothenburgImg from "@/assets/leisure/gothenburg.jpg.asset.json";
+import malmoImg from "@/assets/leisure/malmo.jpg.asset.json";
+import uppsalaImg from "@/assets/leisure/uppsala.jpg.asset.json";
+import kirunaImg from "@/assets/leisure/kiruna.jpg.asset.json";
+import areImg from "@/assets/leisure/are.jpg.asset.json";
+import visbyImg from "@/assets/leisure/visby.jpg.asset.json";
+import copenhagenImg from "@/assets/leisure/copenhagen.jpg.asset.json";
+import aarhusImg from "@/assets/leisure/aarhus.jpg.asset.json";
+import odenseImg from "@/assets/leisure/odense.jpg.asset.json";
+import aalborgImg from "@/assets/leisure/aalborg.jpg.asset.json";
+import billundImg from "@/assets/leisure/billund.jpg.asset.json";
+import helsinkiImg from "@/assets/leisure/helsinki.jpg.asset.json";
+import rovaniemiImg from "@/assets/leisure/rovaniemi.jpg.asset.json";
+import tampereImg from "@/assets/leisure/tampere.jpg.asset.json";
+import turkuImg from "@/assets/leisure/turku.jpg.asset.json";
+import leviImg from "@/assets/leisure/levi.jpg.asset.json";
+
+const DEST_IMG: Record<string, string> = {
+  Oslo: osloImg.url,
+  Bergen: bergenImg.url,
+  Tromsø: tromsoImg.url,
+  Lofoten: lofotenImg.url,
+  Stavanger: stavangerImg.url,
+  Trondheim: trondheimImg.url,
+  Bodø: bodoImg.url,
+  Ålesund: alesundImg.url,
+  Stockholm: stockholmImg.url,
+  Gothenburg: gothenburgImg.url,
+  Malmö: malmoImg.url,
+  Uppsala: uppsalaImg.url,
+  Kiruna: kirunaImg.url,
+  Åre: areImg.url,
+  Visby: visbyImg.url,
+  Copenhagen: copenhagenImg.url,
+  Aarhus: aarhusImg.url,
+  Odense: odenseImg.url,
+  Aalborg: aalborgImg.url,
+  Billund: billundImg.url,
+  Helsinki: helsinkiImg.url,
+  Rovaniemi: rovaniemiImg.url,
+  Tampere: tampereImg.url,
+  Turku: turkuImg.url,
+  Levi: leviImg.url,
+};
+
+const ANYWHERE_IMG: Record<CountryCode, string> = {
+  NO: geirangerImg.url,
+  SE: kirunaImg.url,
+  DK: copenhagenImg.url,
+  FI: rovaniemiImg.url,
+};
 
 const NORWAY_TILES: { name: string; img: string }[] = [
   { name: "Bergen", img: bergenImg.url },
