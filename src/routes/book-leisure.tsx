@@ -2951,3 +2951,306 @@ function LeisureStep3Screen({
     </LeisureStepShell>
   );
 }
+
+/* =========================================================
+   STEP 4 - Experiences (redesigned)
+   ========================================================= */
+
+const S4_HERO =
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80";
+
+const STEP4_CATEGORIES = [
+  "All",
+  "Nature & Adventure",
+  "Winter",
+  "Culture & Sightseeing",
+  "Food & Drink",
+  "Group Activities",
+];
+
+type Step4Exp = { label: string; category: string; img: string };
+
+const STEP4_EXPERIENCES: Step4Exp[] = [
+  {
+    label: "Fjord Cruise",
+    category: "Nature & Adventure",
+    img: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    label: "Hiking Adventure",
+    category: "Nature & Adventure",
+    img: "https://images.unsplash.com/photo-1533240332313-0db49b459ad6?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    label: "Northern Lights",
+    category: "Winter",
+    img: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    label: "Ski Experience",
+    category: "Winter",
+    img: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    label: "City Walking Tour",
+    category: "Culture & Sightseeing",
+    img: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    label: "Local Food Experience",
+    category: "Food & Drink",
+    img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    label: "Whale Safari",
+    category: "Nature & Adventure",
+    img: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    label: "Brewery Tour",
+    category: "Food & Drink",
+    img: "https://images.unsplash.com/photo-1436076863939-06870fe779c2?auto=format&fit=crop&w=900&q=80",
+  },
+];
+
+function LeisureStep4Screen({
+  category,
+  setCategory,
+  selected,
+  onToggle,
+  letUsRecommend,
+  setLetUsRecommend,
+  onNext,
+  onBack,
+  onStepGo,
+}: {
+  category: string;
+  setCategory: (c: string) => void;
+  selected: Set<string>;
+  onToggle: (label: string) => void;
+  letUsRecommend: boolean;
+  setLetUsRecommend: (v: boolean) => void;
+  onNext: () => void;
+  onBack: () => void;
+  onStepGo: (s: StepKey) => void;
+}) {
+  const filtered = STEP4_EXPERIENCES.filter(
+    (e) => category === "All" || e.category === category,
+  );
+
+  return (
+    <LeisureStepShell
+      activeStep={4}
+      onStepGo={onStepGo}
+      hero={S4_HERO}
+      chapter="CHAPTER IV"
+      headline={
+        <>
+          Curate<br />unforgettable<br />experiences.
+        </>
+      }
+      subtext={
+        <>
+          Create memories your<br />group will talk about<br />for years to come.
+        </>
+      }
+    >
+      <section
+        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+        style={{
+          backgroundColor: S1_NAVY_SOFT,
+          border: `1px solid ${S1_BORDER}`,
+          boxShadow:
+            "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
+        }}
+      >
+        <h2
+          className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
+          style={{ fontFamily: SERIF }}
+        >
+          Step 4 – Experiences
+        </h2>
+        <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
+          What would your group like to experience?
+        </p>
+
+        {/* Category filters */}
+        <div className="mt-6 flex flex-wrap gap-2.5">
+          {STEP4_CATEGORIES.map((c) => {
+            const active = c === category;
+            return (
+              <button
+                key={c}
+                type="button"
+                onClick={() => setCategory(c)}
+                className="rounded-full px-4 py-2 text-[13px] font-medium transition-all"
+                style={{
+                  background: active
+                    ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
+                    : S1_NAVY,
+                  color: active ? S1_NAVY : "#F5F1E6",
+                  border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.18)"}`,
+                  boxShadow: active
+                    ? "0 10px 22px -14px rgba(212,166,74,0.55)"
+                    : "none",
+                }}
+              >
+                {c}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Experience grid */}
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {filtered.map((e) => {
+            const active = selected.has(e.label);
+            return (
+              <button
+                key={e.label}
+                type="button"
+                onClick={() => onToggle(e.label)}
+                className="group relative overflow-hidden rounded-[16px] text-left transition-all hover:-translate-y-[2px]"
+                style={{
+                  border: `1px solid ${active ? S1_GOLD : S1_BORDER}`,
+                  boxShadow: active
+                    ? "0 18px 40px -20px rgba(212,166,74,0.55)"
+                    : "0 14px 30px -22px rgba(0,0,0,0.6)",
+                }}
+              >
+                <div className="relative h-[170px] w-full overflow-hidden">
+                  <img
+                    src={e.img}
+                    alt={e.label}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(8,19,31,0) 45%, rgba(8,19,31,0.85) 100%)",
+                    }}
+                  />
+                  <div className="absolute bottom-3 left-3 right-14">
+                    <div
+                      className="text-[15px] font-medium text-white"
+                      style={{ fontFamily: SERIF, fontSize: 17 }}
+                    >
+                      {e.label}
+                    </div>
+                  </div>
+                  <span
+                    className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full transition-all"
+                    style={{
+                      background: active
+                        ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
+                        : "rgba(8,19,31,0.7)",
+                      border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.35)"}`,
+                      color: active ? S1_NAVY : "#F5F1E6",
+                      boxShadow: active
+                        ? "0 8px 18px -8px rgba(212,166,74,0.6)"
+                        : "none",
+                    }}
+                  >
+                    {active ? (
+                      <Check size={16} strokeWidth={2.8} />
+                    ) : (
+                      <Plus size={18} strokeWidth={2.2} />
+                    )}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Recommendation panel */}
+        <div
+          className="mt-8 flex flex-col gap-4 rounded-[16px] p-5 sm:flex-row sm:items-center sm:justify-between"
+          style={{
+            backgroundColor: S1_NAVY,
+            border: `1px solid ${S1_BORDER}`,
+          }}
+        >
+          <div className="flex items-center gap-4">
+            <span
+              className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full"
+              style={{
+                border: `1.5px solid rgba(245,241,230,0.6)`,
+                color: "#F5F1E6",
+              }}
+            >
+              <Check size={18} strokeWidth={2.2} />
+            </span>
+            <div>
+              <div
+                className="text-[15.5px] font-medium text-white"
+                style={{ fontFamily: SERIF, fontSize: 18 }}
+              >
+                Let HotelGroupBook recommend experiences
+              </div>
+              <div className="text-[13px]" style={{ color: "rgba(245,241,230,0.6)" }}>
+                We&apos;ll suggest the best options for your group.
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setLetUsRecommend(!letUsRecommend)}
+            className="inline-flex items-center gap-2 rounded-[12px] px-5 py-3 text-[14px] font-semibold transition-all hover:-translate-y-[1px]"
+            style={{
+              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+              color: S1_NAVY,
+              boxShadow: letUsRecommend
+                ? "0 22px 44px -18px rgba(212,166,74,0.75), inset 0 1px 0 rgba(255,255,255,0.4)"
+                : "0 14px 30px -16px rgba(212,166,74,0.5), inset 0 1px 0 rgba(255,255,255,0.4)",
+            }}
+          >
+            <Sparkles size={16} strokeWidth={2} />
+            {letUsRecommend ? "We'll surprise you" : "Surprise me"}
+          </button>
+        </div>
+
+        {/* Bottom nav */}
+        <div className="mt-10 flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
+            style={{ color: S1_GOLD_SOFT }}
+          >
+            <ArrowLeft size={16} strokeWidth={2.2} />
+            Back
+          </button>
+
+          <button
+            type="button"
+            onClick={onNext}
+            className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+            style={{
+              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+              color: S1_NAVY,
+              boxShadow:
+                "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+            }}
+          >
+            Next step
+            <ArrowRight size={17} strokeWidth={2.4} />
+          </button>
+        </div>
+
+        <div className="mt-8 flex flex-col items-center gap-1 text-center">
+          <div className="flex items-center gap-2 text-[13.5px]">
+            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+            <span style={{ color: S1_GOLD_SOFT }}>
+              Your request is free and non-binding
+            </span>
+          </div>
+          <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+            We find the best options so you can choose what suits your group.
+          </div>
+        </div>
+      </section>
+    </LeisureStepShell>
+  );
+}
