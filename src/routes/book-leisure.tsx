@@ -2270,17 +2270,15 @@ function LeisureStep1Screen({
           </div>
 
           <p
-            className="mt-6 text-center text-[12.5px]"
+            className="mt-4 text-center text-[12.5px] sm:text-right"
             style={{ color: "rgba(245,241,230,0.5)" }}
           >
             We find the best options so you can choose what suits your group.
           </p>
         </section>
       </div>
-
-      <div className="h-16 lg:h-24" />
-
     </main>
+
   );
 }
 
