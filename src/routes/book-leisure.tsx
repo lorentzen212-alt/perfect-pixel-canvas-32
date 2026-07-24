@@ -2093,13 +2093,14 @@ function LeisureStep1Screen({
                       setCity(t.name);
                       setCustomDestination("");
                     }}
-                    className="group relative flex h-[180px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
+                    className="group relative flex h-[168px] flex-col overflow-hidden rounded-[16px] text-left transition-all"
                     style={{
-                      border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.28)"}`,
+                      border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.10)"}`,
                       boxShadow: active
                         ? "0 16px 34px -18px rgba(212,166,74,0.55)"
                         : "0 10px 24px -16px rgba(0,0,0,0.55)",
                     }}
+
                   >
                     <img
                       src={t.img}
