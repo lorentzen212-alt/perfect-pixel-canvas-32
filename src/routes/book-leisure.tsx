@@ -2492,7 +2492,7 @@ function LeisureStepShell({
         />
       </div>
 
-      <div className={`mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 ${gridCols} lg:gap-8 lg:px-10 lg:py-12`}>
+      <div className={`mx-auto grid max-w-[1600px] grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-6 lg:px-6 lg:py-12`}>
         <aside
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
           style={{
