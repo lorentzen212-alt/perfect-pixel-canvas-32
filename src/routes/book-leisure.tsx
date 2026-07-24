@@ -418,11 +418,12 @@ function BookLeisure() {
     );
   }
 
-  if (step === 1) {
+  const currentStep: StepKey = step;
+  if (currentStep === 1) {
     return (
       <LeisureStep1Screen
         country={country}
-        setCountry={(c) => {
+        setCountry={(c: CountryCode) => {
           setCountry(c);
           setCity(CITIES[c][0]);
         }}
@@ -434,7 +435,7 @@ function BookLeisure() {
         setPreferredHotel={setPreferredHotel}
         canContinue={canContinue(1)}
         onNext={() => go(2)}
-        onStepGo={(s) => go(s)}
+        onStepGo={(s: StepKey) => go(s)}
       />
     );
   }
