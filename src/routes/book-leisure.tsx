@@ -2021,14 +2021,15 @@ function LeisureStep1Screen({
         style={{ marginTop: "clamp(-220px, -22vh, -140px)" }}
       >
         <section
-          className="relative rounded-[30px] p-6 sm:p-10 lg:p-12"
+          className="relative rounded-[24px] p-6 sm:p-8 lg:p-10"
           style={{
             backgroundColor: S1_NAVY_SOFT,
             border: `1px solid ${S1_BORDER}`,
             boxShadow:
-              "0 50px 110px -40px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.04)",
+              "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
           }}
         >
+
           <h2
             className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
             style={{ fontFamily: SERIF }}
