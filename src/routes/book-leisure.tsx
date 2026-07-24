@@ -3278,3 +3278,339 @@ function LeisureStep4Screen({
     </LeisureStepShell>
   );
 }
+
+/* =========================================================
+   STEP 5 - Contact (redesigned)
+   ========================================================= */
+
+const S5_HERO =
+  "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1600&q=80";
+
+const PHONE_COUNTRIES: { code: string; dial: string; flag: string; name: string }[] = [
+  { code: "NO", dial: "+47", flag: "🇳🇴", name: "Norway" },
+  { code: "SE", dial: "+46", flag: "🇸🇪", name: "Sweden" },
+  { code: "DK", dial: "+45", flag: "🇩🇰", name: "Denmark" },
+  { code: "FI", dial: "+358", flag: "🇫🇮", name: "Finland" },
+  { code: "IS", dial: "+354", flag: "🇮🇸", name: "Iceland" },
+  { code: "GB", dial: "+44", flag: "🇬🇧", name: "United Kingdom" },
+  { code: "DE", dial: "+49", flag: "🇩🇪", name: "Germany" },
+  { code: "NL", dial: "+31", flag: "🇳🇱", name: "Netherlands" },
+  { code: "FR", dial: "+33", flag: "🇫🇷", name: "France" },
+  { code: "ES", dial: "+34", flag: "🇪🇸", name: "Spain" },
+  { code: "IT", dial: "+39", flag: "🇮🇹", name: "Italy" },
+  { code: "US", dial: "+1", flag: "🇺🇸", name: "United States" },
+];
+
+const S5_COUNTRIES: { code: string; name: string; flag: string }[] = [
+  { code: "NO", name: "Norway", flag: "🇳🇴" },
+  { code: "SE", name: "Sweden", flag: "🇸🇪" },
+  { code: "DK", name: "Denmark", flag: "🇩🇰" },
+  { code: "FI", name: "Finland", flag: "🇫🇮" },
+  { code: "IS", name: "Iceland", flag: "🇮🇸" },
+  { code: "GB", name: "United Kingdom", flag: "🇬🇧" },
+  { code: "IE", name: "Ireland", flag: "🇮🇪" },
+  { code: "DE", name: "Germany", flag: "🇩🇪" },
+  { code: "NL", name: "Netherlands", flag: "🇳🇱" },
+  { code: "BE", name: "Belgium", flag: "🇧🇪" },
+  { code: "FR", name: "France", flag: "🇫🇷" },
+  { code: "ES", name: "Spain", flag: "🇪🇸" },
+  { code: "IT", name: "Italy", flag: "🇮🇹" },
+  { code: "CH", name: "Switzerland", flag: "🇨🇭" },
+  { code: "AT", name: "Austria", flag: "🇦🇹" },
+  { code: "US", name: "United States", flag: "🇺🇸" },
+  { code: "CA", name: "Canada", flag: "🇨🇦" },
+];
+
+function S5FieldLabel({ children, optional }: { children: React.ReactNode; optional?: boolean }) {
+  return (
+    <label
+      className="mb-2.5 block text-[11.5px] font-semibold uppercase tracking-[0.16em]"
+      style={{ color: "#F5F1E6" }}
+    >
+      {children}
+      {optional && (
+        <span className="ml-2 text-[10.5px] font-medium tracking-[0.14em]" style={{ color: "rgba(245,241,230,0.45)" }}>
+          (OPTIONAL)
+        </span>
+      )}
+    </label>
+  );
+}
+
+function S5Input({
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  type?: string;
+}) {
+  const [focused, setFocused] = useState(false);
+  return (
+    <input
+      type={type}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
+      placeholder={placeholder}
+      className="w-full rounded-[14px] px-5 py-4 text-[15px] outline-none transition-all duration-200"
+      style={{
+        backgroundColor: S1_NAVY,
+        color: "#F5F1E6",
+        border: `1px solid ${focused ? S1_GOLD : "rgba(212,166,74,0.28)"}`,
+        boxShadow: focused
+          ? "0 0 0 4px rgba(212,166,74,0.12), 0 10px 24px -18px rgba(212,166,74,0.55)"
+          : "inset 0 1px 0 rgba(255,255,255,0.02)",
+      }}
+    />
+  );
+}
+
+function LeisureStep5Screen({
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  email,
+  setEmail,
+  phone,
+  setPhone,
+  organisation,
+  setOrganisation,
+  additionalComments,
+  setAdditionalComments,
+  canContinue,
+  onNext,
+  onBack,
+  onStepGo,
+}: {
+  firstName: string;
+  setFirstName: (v: string) => void;
+  lastName: string;
+  setLastName: (v: string) => void;
+  email: string;
+  setEmail: (v: string) => void;
+  phone: string;
+  setPhone: (v: string) => void;
+  organisation: string;
+  setOrganisation: (v: string) => void;
+  additionalComments: string;
+  setAdditionalComments: (v: string) => void;
+  canContinue: boolean;
+  onNext: () => void;
+  onBack: () => void;
+  onStepGo: (s: StepKey) => void;
+}) {
+  const [dialCode, setDialCode] = useState("+47");
+  const [country, setCountry] = useState("");
+  const [commentsFocused, setCommentsFocused] = useState(false);
+
+  const dial = PHONE_COUNTRIES.find((p) => p.dial === dialCode) ?? PHONE_COUNTRIES[0];
+
+  return (
+    <LeisureStepShell
+      activeStep={5}
+      onStepGo={onStepGo}
+      hero={S5_HERO}
+      chapter="CHAPTER V"
+      headline={
+        <>
+          Who should<br />we write to?
+        </>
+      }
+      subtext={<>We'll send tailored offers to this person.</>}
+    >
+      <section
+        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+        style={{
+          backgroundColor: S1_NAVY_SOFT,
+          border: `1px solid ${S1_BORDER}`,
+          boxShadow:
+            "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
+        }}
+      >
+        <h2
+          className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
+          style={{ fontFamily: SERIF }}
+        >
+          Step 5 – Contact
+        </h2>
+        <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
+          Who should we contact?
+        </p>
+
+        {/* Row 1 */}
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
+          <div>
+            <S5FieldLabel>First Name</S5FieldLabel>
+            <S5Input value={firstName} onChange={setFirstName} placeholder="Enter first name" />
+          </div>
+          <div>
+            <S5FieldLabel>Last Name</S5FieldLabel>
+            <S5Input value={lastName} onChange={setLastName} placeholder="Enter last name" />
+          </div>
+        </div>
+
+        {/* Row 2 */}
+        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
+          <div>
+            <S5FieldLabel>Email</S5FieldLabel>
+            <S5Input value={email} onChange={setEmail} placeholder="Enter email address" type="email" />
+          </div>
+          <div>
+            <S5FieldLabel>Phone</S5FieldLabel>
+            <div
+              className="flex items-stretch overflow-hidden rounded-[14px] transition-all duration-200"
+              style={{
+                backgroundColor: S1_NAVY,
+                border: `1px solid rgba(212,166,74,0.28)`,
+              }}
+            >
+              <div
+                className="relative flex items-center gap-2 pl-4 pr-2"
+                style={{ borderRight: `1px solid rgba(212,166,74,0.22)` }}
+              >
+                <span className="text-[18px] leading-none">{dial.flag}</span>
+                <span className="text-[14px] font-medium" style={{ color: "#F5F1E6" }}>
+                  {dial.dial}
+                </span>
+                <ChevronDown size={14} style={{ color: S1_GOLD_SOFT }} />
+                <select
+                  value={dialCode}
+                  onChange={(e) => setDialCode(e.target.value)}
+                  className="absolute inset-0 cursor-pointer opacity-0"
+                  aria-label="Country code"
+                >
+                  {PHONE_COUNTRIES.map((p) => (
+                    <option key={p.code} value={p.dial} style={{ color: "#000" }}>
+                      {p.flag} {p.name} ({p.dial})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Enter phone number"
+                className="flex-1 bg-transparent px-4 py-4 text-[15px] outline-none"
+                style={{ color: "#F5F1E6" }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Row 3 */}
+        <div className="mt-6">
+          <S5FieldLabel optional>Organisation / Group Name</S5FieldLabel>
+          <S5Input
+            value={organisation}
+            onChange={setOrganisation}
+            placeholder="Enter organisation or group name"
+          />
+        </div>
+
+        {/* Row 4 - Country */}
+        <div className="mt-6">
+          <S5FieldLabel>Country</S5FieldLabel>
+          <div
+            className="relative rounded-[14px] transition-all duration-200"
+            style={{
+              backgroundColor: S1_NAVY,
+              border: `1px solid rgba(212,166,74,0.28)`,
+            }}
+          >
+            <select
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              className="w-full cursor-pointer appearance-none bg-transparent px-5 py-4 pr-12 text-[15px] outline-none"
+              style={{ color: country ? "#F5F1E6" : "rgba(245,241,230,0.55)" }}
+            >
+              <option value="" style={{ color: "#000" }}>
+                Select country
+              </option>
+              {S5_COUNTRIES.map((c) => (
+                <option key={c.code} value={c.code} style={{ color: "#000" }}>
+                  {c.flag}  {c.name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              size={18}
+              className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2"
+              style={{ color: S1_GOLD_SOFT }}
+            />
+          </div>
+        </div>
+
+        {/* Row 5 - Additional Comments */}
+        <div className="mt-6">
+          <S5FieldLabel optional>Additional Comments</S5FieldLabel>
+          <textarea
+            value={additionalComments}
+            onChange={(e) => setAdditionalComments(e.target.value)}
+            onFocus={() => setCommentsFocused(true)}
+            onBlur={() => setCommentsFocused(false)}
+            placeholder="Tell us anything else we should know…"
+            rows={4}
+            className="w-full resize-y rounded-[14px] px-5 py-4 text-[15px] outline-none transition-all duration-200"
+            style={{
+              backgroundColor: S1_NAVY,
+              color: "#F5F1E6",
+              border: `1px solid ${commentsFocused ? S1_GOLD : "rgba(212,166,74,0.28)"}`,
+              boxShadow: commentsFocused
+                ? "0 0 0 4px rgba(212,166,74,0.12), 0 10px 24px -18px rgba(212,166,74,0.55)"
+                : "inset 0 1px 0 rgba(255,255,255,0.02)",
+              minHeight: 120,
+            }}
+          />
+        </div>
+
+        {/* Bottom nav */}
+        <div className="mt-10 flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
+            style={{ color: S1_GOLD_SOFT }}
+          >
+            <ArrowLeft size={16} strokeWidth={2.2} />
+            Back
+          </button>
+
+          <button
+            type="button"
+            onClick={onNext}
+            disabled={!canContinue}
+            className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+            style={{
+              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+              color: S1_NAVY,
+              boxShadow:
+                "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+            }}
+          >
+            Next step
+            <ArrowRight size={17} strokeWidth={2.4} />
+          </button>
+        </div>
+
+        <div className="mt-8 flex flex-col items-center gap-1 text-center">
+          <div className="flex items-center gap-2 text-[13.5px]">
+            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+            <span style={{ color: S1_GOLD_SOFT }}>
+              Your request is free and non-binding
+            </span>
+          </div>
+          <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+            We find the best options so you can choose what suits your group.
+          </div>
+        </div>
+      </section>
+    </LeisureStepShell>
+  );
+}
