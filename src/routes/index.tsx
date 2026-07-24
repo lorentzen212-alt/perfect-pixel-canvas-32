@@ -110,7 +110,7 @@ function Home() {
         className="absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(rgba(5, 7, 9, 0.50), rgba(5, 7, 9, 0.68))",
+            "linear-gradient(rgba(5, 7, 9, 0.55), rgba(5, 7, 9, 0.73))",
         }}
       />
 
