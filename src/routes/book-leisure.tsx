@@ -2016,10 +2016,10 @@ function LeisureStep1Screen({
         </div>
       </div>
 
-      {/* FLOATING BOOKING CARD — overlaps hero by ~72px */}
+      {/* FLOATING BOOKING CARD — same width as hero, deep overlap for one composition */}
       <div
-        className="mx-auto w-full max-w-[1280px] px-6 lg:px-10"
-        style={{ marginTop: "-72px" }}
+        className="mx-auto w-full max-w-[1600px] px-6 lg:px-10"
+        style={{ marginTop: "-140px" }}
       >
         <section
           className="relative rounded-[28px] p-6 sm:p-10 lg:p-12"
@@ -2027,9 +2027,17 @@ function LeisureStep1Screen({
             backgroundColor: S1_NAVY_SOFT,
             border: `1px solid ${S1_BORDER}`,
             boxShadow:
-              "0 50px 110px -40px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.04)",
+              "0 60px 120px -50px rgba(0,0,0,0.72), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
+          {/* Soft top edge fade so the card feels grown from the hero */}
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-24 rounded-t-[28px]"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(20,38,56,0.35) 0%, rgba(20,38,56,0.92) 55%, rgba(20,38,56,1) 100%)",
+            }}
+          />
           <h2
             className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
             style={{ fontFamily: SERIF }}
