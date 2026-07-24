@@ -1799,8 +1799,8 @@ const S1_GOLD_SOFT = "#E8C775";
 const S1_BORDER = "rgba(212,166,74,0.28)";
 const S1_BORDER_SOFT = "rgba(255,255,255,0.08)";
 
-import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v5.png.asset.json";
-const S1_HERO = leisureStep1HeroAsset.url;
+const S1_HERO =
+  "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80";
 
 const NORWAY_TILES: { name: string; img: string }[] = [
   { name: "Bergen", img: "https://images.unsplash.com/photo-1601439678777-b2b3c56fa627?auto=format&fit=crop&w=800&q=80" },
@@ -1951,29 +1951,25 @@ function LeisureStep1Screen({
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,34fr)_minmax(0,66fr)] lg:gap-10 lg:px-10 lg:py-12">
         {/* LEFT HERO */}
         <aside
-          className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px] -mx-6 -mt-10 mb-[-40px] lg:mt-[-48px] lg:mb-[-48px] lg:mr-0"
+          className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
           style={{
-            marginLeft: "calc(-40px + min(0px, (1600px - 100vw) / 2))",
-            border: `1px solid ${S1_BORDER}`,
-            boxShadow:
-              "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03), inset 0 0 60px rgba(0,0,0,0.18)",
+            border: `1px solid ${S1_BORDER_SOFT}`,
+            boxShadow: "0 40px 80px -40px rgba(0,0,0,0.6)",
           }}
         >
           <img
             src={S1_HERO}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "54% center" }}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(8,19,31,0) 50%, rgba(8,19,31,0.35) 78%, rgba(8,19,31,0.85) 100%)",
+                "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
             }}
           />
-          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:py-12 lg:pr-12 lg:pl-[max(88px,calc((100vw-1600px)/2+88px))]">
-
+          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
             <div>
               <div
                 className="text-[11px] font-medium tracking-[0.32em]"
@@ -2410,8 +2406,6 @@ function LeisureStepShell({
             }}
           />
           <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
-
-
             <div>
               <div className="text-[11px] font-medium tracking-[0.32em]" style={{ color: S1_GOLD_SOFT }}>
                 {chapter}
