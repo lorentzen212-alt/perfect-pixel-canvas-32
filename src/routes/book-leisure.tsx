@@ -47,6 +47,7 @@ import {
   Users2,
   MessageSquare,
   Tag,
+  Trash2,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
