@@ -2794,6 +2794,7 @@ function LeisureStep2Screen({
   const [draftDeparture, setDraftDeparture] = useState("");
   const [draftRooms, setDraftRooms] = useState<Record<string, number>>(emptyDraftRooms());
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
 
   const draftNights = stayNights(draftArrival, draftDeparture);
   const draftRoomsCount = stayRoomsTotal(draftRooms);
@@ -2806,7 +2807,7 @@ function LeisureStep2Screen({
     ? stays.findIndex((s) => s.id === editingId) + 1
     : stays.length + 1;
 
-  const clearDraft = () => {
+  const resetDraft = () => {
     setDraftArrival("");
     setDraftDeparture("");
     setDraftRooms(emptyDraftRooms());
@@ -2824,7 +2825,8 @@ function LeisureStep2Screen({
     setStays((prev) =>
       editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
     );
-    clearDraft();
+    resetDraft();
+    setShowEditor(false);
   };
 
   const editStay = (id: string) => {
@@ -2834,24 +2836,35 @@ function LeisureStep2Screen({
     setDraftArrival(s.arrival);
     setDraftDeparture(s.departure);
     setDraftRooms({ ...emptyDraftRooms(), ...s.rooms });
+    setShowEditor(true);
     if (typeof window !== "undefined")
       window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const removeStay = (id: string) => {
     setStays((prev) => prev.filter((s) => s.id !== id));
-    if (editingId === id) clearDraft();
+    if (editingId === id) {
+      resetDraft();
+      setShowEditor(true);
+    }
   };
 
   const startNewStay = () => {
-    clearDraft();
+    resetDraft();
+    setShowEditor(true);
+  };
+
+  const cancelEditor = () => {
+    resetDraft();
+    setShowEditor(false);
   };
 
   const totalStays = stays.length;
   const totalRoomsAll = stays.reduce((a, s) => a + stayRoomsTotal(s.rooms), 0);
   const totalGuestsAll = stays.reduce((a, s) => a + stayGuestsTotal(s.rooms), 0);
 
-  const showDraft = editingId !== null || stays.length === 0 || (draftArrival || draftDeparture || draftRoomsCount > 0);
+  // Next step: enabled only when at least one stay saved AND editor is closed
+  const nextEnabled = canContinue && stays.length > 0 && !showEditor;
 
   return (
     <LeisureStepShell
@@ -2875,6 +2888,9 @@ function LeisureStep2Screen({
           totalStays={totalStays}
           totalRooms={totalRoomsAll}
           totalGuests={totalGuestsAll}
+          onEdit={editStay}
+          onRemove={removeStay}
+          editingId={editingId}
         />
       }
     >
@@ -2897,8 +2913,8 @@ function LeisureStep2Screen({
           How many rooms will your group need?
         </p>
 
-        {/* Draft Stay Card */}
-        {showDraft && (
+        {/* Editor */}
+        {showEditor && (
           <div
             className="mt-6 rounded-[20px] p-5 sm:p-6"
             style={{
@@ -2914,15 +2930,14 @@ function LeisureStep2Screen({
               >
                 {editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
               </h3>
-              {(draftArrival || draftDeparture || draftRoomsCount > 0) && (
+              {stays.length > 0 && (
                 <button
                   type="button"
-                  onClick={clearDraft}
-                  aria-label="Clear draft stay"
-                  className="rounded-md p-1.5 transition-colors hover:bg-white/5"
-                  style={{ color: "rgba(245,241,230,0.55)" }}
+                  onClick={cancelEditor}
+                  className="text-[12.5px] font-medium transition-colors hover:text-white"
+                  style={{ color: "rgba(245,241,230,0.6)" }}
                 >
-                  <Trash2 size={17} strokeWidth={2} />
+                  Cancel
                 </button>
               )}
             </div>
@@ -3004,82 +3019,12 @@ function LeisureStep2Screen({
           </div>
         )}
 
-        {/* Completed stays (collapsed) */}
-        {stays.length > 0 && (
-          <div className="mt-5 space-y-3">
-            {stays.map((s, idx) => {
-              const nights = stayNights(s.arrival, s.departure);
-              const roomsN = stayRoomsTotal(s.rooms);
-              const guestsN = stayGuestsTotal(s.rooms);
-              const isEditing = editingId === s.id;
-              return (
-                <div
-                  key={s.id}
-                  className="rounded-[16px] p-4 sm:p-5"
-                  style={{
-                    backgroundColor: S1_NAVY,
-                    border: `1px solid ${isEditing ? "rgba(212,166,74,0.5)" : "rgba(245,241,230,0.10)"}`,
-                  }}
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span
-                          className="text-[17px] font-medium text-white"
-                          style={{ fontFamily: SERIF }}
-                        >
-                          Stay {idx + 1}
-                        </span>
-                        <Check size={15} strokeWidth={3} style={{ color: "#7EC98A" }} />
-                      </div>
-                      <div className="mt-1 text-[13px]" style={{ color: "rgba(245,241,230,0.72)" }}>
-                        {fmtStayRange(s.arrival, s.departure)} · {nights} {nights === 1 ? "night" : "nights"}
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-5 text-[13.5px]" style={{ color: "rgba(245,241,230,0.85)" }}>
-                      <span>{roomsN} rooms</span>
-                      <span style={{ color: "rgba(245,241,230,0.3)" }}>·</span>
-                      <span>{guestsN} guests</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => editStay(s.id)}
-                        className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors"
-                        style={{
-                          border: `1px solid rgba(245,241,230,0.18)`,
-                          color: "#F5F1E6",
-                        }}
-                      >
-                        <Pencil size={13} strokeWidth={2} />
-                        Edit
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => removeStay(s.id)}
-                        className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors"
-                        style={{
-                          border: `1px solid rgba(245,241,230,0.18)`,
-                          color: "rgba(245,241,230,0.8)",
-                        }}
-                      >
-                        <Trash2 size={13} strokeWidth={2} />
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-
         {/* Add another stay */}
-        {stays.length > 0 && !showDraft && (
+        {!showEditor && stays.length > 0 && (
           <button
             type="button"
             onClick={startNewStay}
-            className="mt-5 flex w-full items-center justify-center gap-2.5 rounded-[14px] py-4 text-[14px] font-medium transition-all hover:-translate-y-[1px]"
+            className="mt-6 flex w-full items-center justify-center gap-2.5 rounded-[14px] py-4 text-[14px] font-medium transition-all hover:-translate-y-[1px]"
             style={{
               border: `1.5px dashed rgba(212,166,74,0.45)`,
               color: S1_GOLD_SOFT,
@@ -3090,8 +3035,6 @@ function LeisureStep2Screen({
             Add another stay
           </button>
         )}
-        {stays.length > 0 && showDraft && !editingId && draftRoomsCount === 0 && !draftArrival && !draftDeparture && null}
-        {stays.length > 0 && !editingId && (draftArrival || draftDeparture || draftRoomsCount > 0) && null}
 
         {/* Notes */}
         <div className="mt-8">
@@ -3131,23 +3074,32 @@ function LeisureStep2Screen({
             Back
           </button>
 
-          <button
-            type="button"
-            onClick={onNext}
-            disabled={!canContinue}
-            className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
-            style={{
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
-              color: S1_NAVY,
-              boxShadow:
-                "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
-              opacity: canContinue ? 1 : 0.45,
-              cursor: canContinue ? "pointer" : "not-allowed",
-            }}
-          >
-            Next step
-            <ArrowRight size={17} strokeWidth={2.4} />
-          </button>
+          <div className="flex flex-col items-end gap-1.5">
+            <button
+              type="button"
+              onClick={onNext}
+              disabled={!nextEnabled}
+              className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+              style={{
+                background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+                color: S1_NAVY,
+                boxShadow:
+                  "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+                opacity: nextEnabled ? 1 : 0.45,
+                cursor: nextEnabled ? "pointer" : "not-allowed",
+              }}
+            >
+              Next step
+              <ArrowRight size={17} strokeWidth={2.4} />
+            </button>
+            {!nextEnabled && (
+              <span className="text-[11.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+                {stays.length === 0
+                  ? "Add at least one stay to continue"
+                  : "Finish editing to continue"}
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="mt-6 flex flex-col items-center gap-1 text-center">
