@@ -2138,7 +2138,7 @@ function LeisureStep1Screen({
                     setCity("Anywhere in Norway");
                     setCustomDestination("");
                   }}
-                  className="group flex h-[142px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
+                  className="group flex h-[114px] flex-col items-center justify-center gap-3 rounded-[16px] text-center transition-all"
                   style={{
                     background: S1_NAVY,
                     border: `1px solid ${
