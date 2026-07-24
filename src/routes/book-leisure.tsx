@@ -1950,7 +1950,6 @@ function LeisureStep1Screen({
       {/* Layout */}
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[minmax(0,34fr)_minmax(0,66fr)] lg:gap-10 lg:px-10 lg:py-12">
         {/* LEFT HERO */}
-        <parameter
         <aside
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px]"
           style={{
