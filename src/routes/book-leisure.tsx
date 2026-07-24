@@ -1966,7 +1966,7 @@ function LeisureStep1Screen({
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
+                "linear-gradient(to bottom, rgba(3, 15, 28, 0.24) 0%, rgba(3, 15, 28, 0.14) 38%, rgba(3, 15, 28, 0.30) 68%, rgba(3, 15, 28, 0.58) 100%)",
             }}
           />
           <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
