@@ -2023,16 +2023,16 @@ function DestinationCarousel({
   );
 
   return (
-    <div className="mx-auto mt-10 w-full max-w-[1500px] px-4 lg:px-10">
+    <div className="mx-auto mt-4 w-full max-w-[1500px] px-4 lg:px-10">
       <div className="relative">
         <button
           type="button"
           onClick={() => setPage((p) => (p - 1 + pageCount) % pageCount)}
           aria-label="Previous"
-          className="absolute -left-2 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:-left-4"
+          className="absolute left-1 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:left-2"
           style={{ color: S1_GOLD }}
         >
-          <ChevronLeft size={34} strokeWidth={1.6} />
+          <ChevronLeft size={38} strokeWidth={1.6} />
         </button>
 
         <div className="grid grid-cols-2 gap-4 px-8 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6 lg:px-12">
@@ -2048,25 +2048,48 @@ function DestinationCarousel({
                 style={{
                   border: `1px solid ${active ? S1_GOLD : "rgba(212,166,74,0.35)"}`,
                   boxShadow: active
-                    ? "0 22px 44px -18px rgba(212,166,74,0.55), 0 0 0 1px rgba(212,166,74,0.4) inset"
-                    : "0 18px 40px -22px rgba(0,0,0,0.7)",
+                    ? "0 30px 60px -20px rgba(0,0,0,0.75), 0 22px 44px -18px rgba(212,166,74,0.55), 0 0 0 1px rgba(212,166,74,0.4) inset"
+                    : "0 26px 54px -18px rgba(0,0,0,0.78), 0 10px 22px -14px rgba(0,0,0,0.55)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = S1_GOLD;
+                  e.currentTarget.style.boxShadow =
+                    "0 32px 64px -20px rgba(0,0,0,0.82), 0 0 0 1px rgba(212,166,74,0.55) inset, 0 18px 36px -18px rgba(212,166,74,0.35)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = active
+                    ? S1_GOLD
+                    : "rgba(212,166,74,0.35)";
+                  e.currentTarget.style.boxShadow = active
+                    ? "0 30px 60px -20px rgba(0,0,0,0.75), 0 22px 44px -18px rgba(212,166,74,0.55), 0 0 0 1px rgba(212,166,74,0.4) inset"
+                    : "0 26px 54px -18px rgba(0,0,0,0.78), 0 10px 22px -14px rgba(0,0,0,0.55)";
                 }}
               >
                 <img
                   src={d.image}
                   alt={d.alt}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+                  className="absolute inset-0 h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.06]"
+                  style={{ filter: "saturate(1.08) contrast(1.06)" }}
                   onError={(e) => {
                     // eslint-disable-next-line no-console
                     console.warn(`[destinations] Image failed for "${d.name}" — swapping to fallback.`);
                     (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG;
                   }}
                 />
+                {/* Subtle top light sheen */}
+                <div
+                  className="pointer-events-none absolute inset-x-0 top-0 h-1/3"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 100%)",
+                  }}
+                />
+                {/* Bottom dark overlay for depth behind text */}
                 <div
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(8,19,31,0) 42%, rgba(8,19,31,0.55) 72%, rgba(8,19,31,0.92) 100%)",
+                      "linear-gradient(180deg, rgba(8,19,31,0) 38%, rgba(8,19,31,0.62) 70%, rgba(4,12,20,0.96) 100%)",
                   }}
                 />
                 <div className="relative z-10 mt-auto px-5 pb-5">
@@ -2092,11 +2115,12 @@ function DestinationCarousel({
           type="button"
           onClick={() => setPage((p) => (p + 1) % pageCount)}
           aria-label="Next"
-          className="absolute -right-2 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:-right-4"
+          className="absolute right-1 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full transition-all hover:scale-110 lg:right-2"
           style={{ color: S1_GOLD }}
         >
-          <ChevronRight size={34} strokeWidth={1.6} />
+          <ChevronRight size={38} strokeWidth={1.6} />
         </button>
+
       </div>
 
       <div className="mt-7 flex items-center justify-center gap-2.5">
