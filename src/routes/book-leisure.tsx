@@ -2624,8 +2624,8 @@ function RoomCounter({
 
   return (
     <div
-      className="flex items-center gap-2 shrink-0"
-      style={{ width: 148 }}
+      className="flex items-center shrink-0"
+      style={{ width: 158, gap: 10 }}
       onClick={onClickStop}
     >
       <button
@@ -2633,7 +2633,7 @@ function RoomCounter({
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
         <Minus size={20} strokeWidth={2.4} />
@@ -2667,17 +2667,20 @@ function RoomCounter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className="no-spin h-9 w-[62px] rounded-[10px] bg-transparent text-center text-[20px] font-medium text-white outline-none transition-all duration-200 focus:bg-white/5"
+        className="no-spin h-10 w-[58px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
         style={{
           fontFamily: SERIF,
+          backgroundColor: "rgba(6,16,26,0.85)",
           border: "1px solid rgba(245,241,230,0.10)",
+          boxShadow: "inset 0 1px 2px rgba(0,0,0,0.35)",
+          ["--gold" as never]: S1_GOLD,
         }}
       />
       <button
         type="button"
         aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
-        className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
         <Plus size={20} strokeWidth={2.4} />
@@ -2685,6 +2688,7 @@ function RoomCounter({
     </div>
   );
 }
+
 
 /* ==== Leisure Step 2 — Multi-stay workflow ==== */
 
