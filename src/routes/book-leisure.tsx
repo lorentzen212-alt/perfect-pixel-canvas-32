@@ -2597,34 +2597,88 @@ function RoomCounter({
   value,
   onChange,
   onClickStop,
+  ariaLabel,
 }: {
   value: number;
   onChange: (v: number) => void;
   onClickStop?: (e: React.MouseEvent) => void;
+  ariaLabel?: string;
 }) {
   const disabled = value === 0;
+  const [text, setText] = useState<string>(String(value));
+  React.useEffect(() => {
+    setText(String(value));
+  }, [value]);
+
+  const commit = (raw: string) => {
+    const cleaned = raw.replace(/[^\d]/g, "");
+    if (cleaned === "") {
+      onChange(0);
+      setText("0");
+      return;
+    }
+    const n = Math.max(0, parseInt(cleaned, 10) || 0);
+    onChange(n);
+    setText(String(n));
+  };
+
   return (
-    <div className="flex items-center gap-3.5" onClick={onClickStop}>
+    <div
+      className="flex items-center gap-2 shrink-0"
+      style={{ width: 148 }}
+      onClick={onClickStop}
+    >
       <button
         type="button"
+        aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-9 w-9 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95"
-        style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1 }}
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
         <Minus size={20} strokeWidth={2.4} />
       </button>
-      <span
-        className="min-w-[28px] text-center text-[22px] font-medium text-white transition-all duration-200"
-        style={{ fontFamily: SERIF }}
-      >
-        {value}
-      </span>
+      <input
+        type="text"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        aria-label={ariaLabel ? `${ariaLabel} quantity` : "Quantity"}
+        value={text}
+        onClick={(e) => {
+          e.stopPropagation();
+          (e.currentTarget as HTMLInputElement).select();
+        }}
+        onChange={(e) => {
+          const v = e.target.value.replace(/[^\d]/g, "");
+          setText(v);
+          if (v !== "") onChange(Math.max(0, parseInt(v, 10) || 0));
+        }}
+        onBlur={(e) => commit(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            commit((e.target as HTMLInputElement).value);
+            (e.target as HTMLInputElement).blur();
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            onChange(value + 1);
+          } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            onChange(Math.max(0, value - 1));
+          }
+        }}
+        className="no-spin h-9 w-[62px] rounded-[10px] bg-transparent text-center text-[20px] font-medium text-white outline-none transition-all duration-200 focus:bg-white/5"
+        style={{
+          fontFamily: SERIF,
+          border: "1px solid rgba(245,241,230,0.10)",
+        }}
+      />
       <button
         type="button"
+        aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
-        className="grid h-9 w-9 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95"
-        style={{ color: S1_GOLD_SOFT }}
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        style={{ color: S1_GOLD_SOFT, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
         <Plus size={20} strokeWidth={2.4} />
       </button>
