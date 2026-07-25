@@ -3066,13 +3066,13 @@ function LeisureStep2Screen({
             )}
 
             <div
-              className="mt-6 text-[13px] font-medium uppercase tracking-[0.14em]"
+              className="mt-6 text-[12.5px] font-medium uppercase tracking-[0.14em]"
               style={{ color: "rgba(245,241,230,0.7)" }}
             >
               Room distribution
             </div>
 
-            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div className="mt-4 grid grid-cols-1 gap-3.5 md:grid-cols-2">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <StayRoomRow
                   key={key}
