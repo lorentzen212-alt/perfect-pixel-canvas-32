@@ -2472,7 +2472,7 @@ function LeisureStepShell({
   rightSidebar?: React.ReactNode;
 }) {
   const gridCols = rightSidebar
-    ? "lg:grid-cols-[minmax(240px,0.8fr)_minmax(620px,1.9fr)_minmax(300px,0.95fr)]"
+    ? "lg:grid-cols-[minmax(220px,0.68fr)_minmax(640px,2.10fr)_minmax(290px,0.92fr)]"
     : "lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)]";
 
   return (
@@ -2492,7 +2492,7 @@ function LeisureStepShell({
         />
       </div>
 
-      <div className={`mx-auto grid max-w-[1600px] grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-6 lg:px-6 lg:py-12`}>
+      <div className={`mx-auto grid max-w-[1680px] grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-5 lg:px-5 lg:py-12`}>
         <aside
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px] order-3 lg:order-none"
 
