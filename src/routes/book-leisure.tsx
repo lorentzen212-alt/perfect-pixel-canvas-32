@@ -2535,7 +2535,11 @@ function LeisureStepShell({
             boxShadow: "0 40px 80px -40px rgba(0,0,0,0.6)",
           }}
         >
-          <img src={hero} alt="" className={`absolute inset-0 h-full w-full object-cover ${enhancedHero ? "s4-hero-img" : ""}`} />
+          {enhancedHero ? (
+            <ParallaxHeroImage src={hero} />
+          ) : (
+            <img src={hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          )}
           {enhancedHero && (
             <>
               <div className="pointer-events-none absolute inset-0 s4-hero-vignette" />
