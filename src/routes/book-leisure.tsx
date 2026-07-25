@@ -2587,12 +2587,12 @@ function LeisureStepShell({
                     boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14)",
                   }}
                 >
-                  <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-0">
+                  <div className="flex flex-col items-start gap-2.5 sm:flex-row sm:items-center sm:justify-center sm:gap-4">
                     {["One request.", "Multiple offers.", "The perfect trip."].map((t, i) => (
-                      <div key={t} className="flex items-center sm:flex-1 sm:justify-center">
+                      <div key={t} className="flex items-center gap-4">
                         {i > 0 && (
                           <span
-                            className="mr-3 hidden h-[5px] w-[5px] flex-shrink-0 rounded-full sm:block"
+                            className="hidden h-[5px] w-[5px] flex-shrink-0 rounded-full sm:block"
                             style={{
                               background: `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`,
                             }}
@@ -2602,6 +2602,7 @@ function LeisureStepShell({
                       </div>
                     ))}
                   </div>
+
                 </div>
               ) : (
                 <ul className="space-y-3.5 pt-8">
