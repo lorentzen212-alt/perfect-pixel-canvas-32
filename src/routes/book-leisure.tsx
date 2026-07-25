@@ -4713,6 +4713,7 @@ function LeisureStep4Screen({
   const filtered = STEP4_EXPERIENCES.filter(
     (e) => category === "All" || e.category === category,
   );
+  const dateInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <LeisureStepShell
