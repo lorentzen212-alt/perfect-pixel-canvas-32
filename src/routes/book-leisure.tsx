@@ -3129,15 +3129,16 @@ function LeisureStep2Screen({
         )}
 
         {/* Notes */}
-        <div className="mt-8">
+        <div className="mt-10">
           <div className="text-[14px] font-medium" style={{ color: "#F5F1E6" }}>
             Anything else we should know? <span style={{ color: "rgba(245,241,230,0.5)" }}>(optional)</span>
           </div>
           <div
-            className="mt-3 rounded-[14px] p-4"
+            className="mt-3 rounded-[14px] p-4 transition-all duration-200 focus-within:border-[color:var(--gold)]"
             style={{
               backgroundColor: S1_NAVY,
               border: `1px solid rgba(245,241,230,0.12)`,
+              ["--gold" as never]: S1_GOLD,
             }}
           >
             <textarea
