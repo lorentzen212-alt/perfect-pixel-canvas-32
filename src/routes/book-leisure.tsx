@@ -3561,6 +3561,12 @@ const S3_GOLD_SOFT = "#E1C089";
 const S3_GOLD_DEEP = "#8E6E3C";
 const S3_GOLD_GRADIENT = `linear-gradient(135deg, ${S3_GOLD_SOFT} 0%, ${S3_GOLD} 45%, ${S3_GOLD_DEEP} 100%)`;
 
+type ConciergeOption = {
+  label: string;
+  displayLabel?: string;
+  icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }>;
+};
+
 type ConciergeCategory = {
   key: string;
   title: string;
@@ -3569,7 +3575,7 @@ type ConciergeCategory = {
   icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }>;
   configTitle: string;
   configPrompt: string;
-  options: { label: string; icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }> }[];
+  options: ConciergeOption[];
 };
 
 const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
@@ -3582,27 +3588,23 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
     configTitle: "Arrival Experience",
     configPrompt: "How should your group be welcomed on arrival?",
     options: [
-      { label: "Airport Transfer", icon: Plane },
-      { label: "Taxi", icon: Car },
-      { label: "Coach", icon: Bus },
-      { label: "Private Chauffeur", icon: UserRound },
-      { label: "Porter Service", icon: Bell },
+      { label: "Arrival Transport", displayLabel: "Transport", icon: Car },
+      { label: "Hospitality Desk", icon: Users2 },
+      { label: "Arrival Porter Service", displayLabel: "Porter Service", icon: Bell },
       { label: "No arrival services required", icon: Check },
     ],
   },
   {
     key: "welcome",
     title: "Welcome",
-    description: "Drinks & personalised touches",
+    description: "Personalised touches on arrival",
     img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
     icon: Gift,
     configTitle: "Welcome Touches",
     configPrompt: "How would you like to greet your guests?",
     options: [
-      { label: "Welcome Drink on Arrival", icon: Wine },
       { label: "VIP Welcome Amenities", icon: Gift },
-      { label: "Personalised Welcome Card", icon: Pencil },
-      { label: "Floral Arrangements", icon: PartyPopper },
+      { label: "Welcome Letter", icon: Pencil },
       { label: "No welcome services required", icon: Check },
     ],
   },
@@ -3632,12 +3634,12 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
     configTitle: "Dining Arrangements",
     configPrompt: "Where and when should your group dine?",
     options: [
-      { label: "Early Breakfast", icon: Coffee },
-      { label: "Breakfast Box", icon: Coffee },
       { label: "Group Lunch", icon: Utensils },
-      { label: "Packed Lunch", icon: Briefcase },
       { label: "Group Dinner", icon: Utensils },
-      { label: "Private Dining Room", icon: Wine },
+      { label: "Packed Lunch", icon: Briefcase },
+      { label: "Private Dining", icon: Wine },
+      { label: "Breakfast Box", icon: Coffee },
+      { label: "Early Breakfast", icon: Coffee },
       { label: "No dining services required", icon: Check },
     ],
   },
@@ -3650,10 +3652,8 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
     configTitle: "Meeting Space",
     configPrompt: "A quiet room for your group briefing.",
     options: [
-      { label: "Welcome Briefing Room", icon: Users2 },
-      { label: "Information Meeting", icon: MessageSquare },
-      { label: "AV Equipment", icon: Camera },
-      { label: "Coffee & Refreshments", icon: Coffee },
+      { label: "Meeting Room", icon: Users2 },
+      { label: "Information Desk", icon: MessageSquare },
       { label: "No meeting services required", icon: Check },
     ],
   },
@@ -3666,10 +3666,8 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
     configTitle: "Departure Experience",
     configPrompt: "How should your group leave?",
     options: [
-      { label: "Airport Transfer Out", icon: Plane },
-      { label: "Porter Service Out", icon: Briefcase },
-      { label: "Late Check-out Departure", icon: DoorOpen },
-      { label: "Farewell Gift", icon: Gift },
+      { label: "Departure Transport", displayLabel: "Transport", icon: Car },
+      { label: "Porter Service Out", displayLabel: "Porter Service", icon: Briefcase },
       { label: "No departure services required", icon: Check },
     ],
   },
@@ -3677,15 +3675,8 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
 
 /* ---- Smart configuration metadata for expandable service panels ---- */
 
-const TRANSPORT_SERVICES = new Set([
-  "Airport Transfer",
-  "Airport Transfer Out",
-  "Taxi",
-  "Private Chauffeur",
-  "Coach",
-  "Porter Service",
-  "Porter Service Out",
-]);
+const TRANSPORT_SERVICES = new Set(["Arrival Transport", "Departure Transport"]);
+const PORTER_SERVICES = new Set(["Arrival Porter Service", "Porter Service Out"]);
 
 const CITY_AIRPORT: Record<string, string> = {
   Oslo: "Oslo Airport (OSL)",
@@ -3727,8 +3718,11 @@ const SMART_SERVICES = new Set<string>([
   "Early Check-in",
   "Late Check-out",
   "VIP Welcome Amenities",
+  "Hospitality Desk",
   ...Array.from(TRANSPORT_SERVICES),
+  ...Array.from(PORTER_SERVICES),
 ]);
+
 
 /* -------- Smart configuration panel components -------- */
 
