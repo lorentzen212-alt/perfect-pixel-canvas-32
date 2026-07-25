@@ -3323,6 +3323,10 @@ function LeisureStep2Screen({
                   onChange={(v) =>
                     setDraftRooms((r) => ({ ...r, [key]: Math.max(0, v) }))
                   }
+                  category={draftCategories[key]}
+                  onCategoryChange={(v) =>
+                    setDraftCategories((c) => ({ ...c, [key]: v }))
+                  }
                 />
               ))}
             </div>
