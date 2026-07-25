@@ -2483,6 +2483,13 @@ const STEP2_ROOMS: {
   { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: roomAccessibleImg.url },
 ];
 
+/* Room categories – only offered for single / double / twin */
+const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
+  single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
+  double: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
+  twin: ["Standard", "Superior", "Premium", "Junior Suite"],
+};
+
 function LeisureStepShell({
   activeStep,
   onStepGo,
