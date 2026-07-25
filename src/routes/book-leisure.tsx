@@ -3744,6 +3744,7 @@ function LeisureStep3Screen({
                 label="Recommend the best extras for my group"
                 checked={recommend}
                 onChange={setRecommend}
+                align="center"
               />
             </div>
           </div>
