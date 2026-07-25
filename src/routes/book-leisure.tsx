@@ -2592,13 +2592,13 @@ function LeisureStepShell({
                       <div key={t} className="flex items-center sm:flex-1 sm:justify-center">
                         {i > 0 && (
                           <span
-                            className="mr-4 hidden h-[5px] w-[5px] flex-shrink-0 rounded-full sm:block"
+                            className="mr-3 hidden h-[5px] w-[5px] flex-shrink-0 rounded-full sm:block"
                             style={{
                               background: `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`,
                             }}
                           />
                         )}
-                        <span className="text-[14px] leading-none text-white/95 sm:text-[14.5px]">{t}</span>
+                        <span className="whitespace-nowrap text-[13px] leading-none text-white/95 lg:text-[13.5px]">{t}</span>
                       </div>
                     ))}
                   </div>
