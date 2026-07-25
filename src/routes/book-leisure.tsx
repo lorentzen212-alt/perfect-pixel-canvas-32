@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { format } from "date-fns";
 import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
 import roomSingleImg from "@/assets/room-single.jpg.asset.json";
@@ -50,6 +50,7 @@ import {
   Send,
   Lock,
   CalendarDays,
+  Info,
   UserRound,
   Users2,
   MessageSquare,
@@ -312,6 +313,9 @@ function BookLeisure() {
   const [expCategory, setExpCategory] = useState("All");
   const [selectedExps, setSelectedExps] = useState<Set<string>>(new Set());
   const [letUsRecommend, setLetUsRecommend] = useState(false);
+  const [preferredExpDate, setPreferredExpDate] = useState<Date | undefined>(undefined);
+  const [expDateFlexible, setExpDateFlexible] = useState(false);
+  const [additionalExpRequests, setAdditionalExpRequests] = useState("");
 
   // Step 5 - Contact
   const [firstName, setFirstName] = useState("");
@@ -409,6 +413,9 @@ function BookLeisure() {
         specialRequests: Array.from(selectedExtras),
         experiences: Array.from(selectedExps),
         letUsRecommend,
+        preferredExperienceDate: preferredExpDate ? format(preferredExpDate, "yyyy-MM-dd") : null,
+        experienceDateFlexible: expDateFlexible,
+        additionalExperienceRequests: additionalExpRequests,
         additionalInformation: additionalComments,
         contactName: `${firstName} ${lastName}`.trim(),
         firstName,
@@ -518,6 +525,12 @@ function BookLeisure() {
         onToggle={toggleExp}
         letUsRecommend={letUsRecommend}
         setLetUsRecommend={setLetUsRecommend}
+        preferredDate={preferredExpDate}
+        setPreferredDate={setPreferredExpDate}
+        dateFlexible={expDateFlexible}
+        setDateFlexible={setExpDateFlexible}
+        additionalRequests={additionalExpRequests}
+        setAdditionalRequests={setAdditionalExpRequests}
         onNext={() => go(5)}
         onBack={() => go(3)}
         onStepGo={(s: StepKey) => go(s)}
@@ -4671,6 +4684,12 @@ function LeisureStep4Screen({
   onToggle,
   letUsRecommend,
   setLetUsRecommend,
+  preferredDate,
+  setPreferredDate,
+  dateFlexible,
+  setDateFlexible,
+  additionalRequests,
+  setAdditionalRequests,
   onNext,
   onBack,
   onStepGo,
@@ -4681,6 +4700,12 @@ function LeisureStep4Screen({
   onToggle: (label: string) => void;
   letUsRecommend: boolean;
   setLetUsRecommend: (v: boolean) => void;
+  preferredDate: Date | undefined;
+  setPreferredDate: (d: Date | undefined) => void;
+  dateFlexible: boolean;
+  setDateFlexible: (v: boolean) => void;
+  additionalRequests: string;
+  setAdditionalRequests: (v: string) => void;
   onNext: () => void;
   onBack: () => void;
   onStepGo: (s: StepKey) => void;
@@ -4688,6 +4713,7 @@ function LeisureStep4Screen({
   const filtered = STEP4_EXPERIENCES.filter(
     (e) => category === "All" || e.category === category,
   );
+  const dateInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <LeisureStepShell
@@ -4815,6 +4841,152 @@ function LeisureStep4Screen({
           })}
         </div>
 
+        {/* Preferred Experience Date */}
+        <div
+          className="mt-8 rounded-[16px] p-5 sm:p-6"
+          style={{
+            backgroundColor: S1_NAVY,
+            border: `1px solid ${S1_BORDER}`,
+          }}
+        >
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <h3
+                className="text-[18px] font-medium text-white"
+                style={{ fontFamily: SERIF }}
+              >
+                Preferred Experience Date
+              </h3>
+              <p
+                className="mt-1.5 text-[13.5px]"
+                style={{ color: "rgba(245,241,230,0.62)" }}
+              >
+                When would you ideally like to enjoy your selected experience?
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={() => dateInputRef.current?.showPicker?.()}
+                className="inline-flex items-center gap-3 rounded-[12px] px-4 py-3 text-left transition-all hover:-translate-y-[1px]"
+                style={{
+                  backgroundColor: S1_NAVY_SOFT,
+                  border: `1px solid ${S1_BORDER}`,
+                  color: preferredDate ? "#F5F1E6" : "rgba(245,241,230,0.55)",
+                  minWidth: 220,
+                }}
+              >
+                <CalendarDays size={18} style={{ color: S1_GOLD_SOFT }} />
+                <span className="text-[14.5px] font-medium">
+                  {preferredDate ? format(preferredDate, "PPP") : "Select a date"}
+                </span>
+              </button>
+              <input
+                ref={dateInputRef}
+                type="date"
+                className="sr-only"
+                value={preferredDate ? format(preferredDate, "yyyy-MM-dd") : ""}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  setPreferredDate(v ? new Date(v) : undefined);
+                }}
+              />
+              <label
+                className="inline-flex cursor-pointer items-center gap-2.5 text-[13.5px]"
+                style={{ color: "rgba(245,241,230,0.8)" }}
+              >
+                <span
+                  className="grid h-5 w-5 place-items-center rounded-[5px] transition-colors"
+                  style={{
+                    backgroundColor: dateFlexible ? S1_GOLD : "transparent",
+                    border: `1.5px solid ${dateFlexible ? S1_GOLD : "rgba(245,241,230,0.45)"}`,
+                  }}
+                >
+                  {dateFlexible && (
+                    <Check size={12} strokeWidth={3} style={{ color: S1_NAVY }} />
+                  )}
+                </span>
+                <input
+                  type="checkbox"
+                  className="sr-only"
+                  checked={dateFlexible}
+                  onChange={(e) => setDateFlexible(e.target.checked)}
+                />
+                We are flexible with dates
+              </label>
+            </div>
+          </div>
+          <p
+            className="mt-4 text-[12.5px]"
+            style={{ color: "rgba(245,241,230,0.5)" }}
+          >
+            If no date is selected, our hotel partners will recommend the best available option during your stay.
+          </p>
+        </div>
+
+        {/* Additional Experience Requests */}
+        <div
+          className="mt-8 rounded-[16px] p-5 sm:p-6"
+          style={{
+            backgroundColor: S1_NAVY,
+            border: `1px solid ${S1_BORDER}`,
+          }}
+        >
+          <h3
+            className="text-[18px] font-medium text-white"
+            style={{ fontFamily: SERIF }}
+          >
+            Additional Experience Requests
+          </h3>
+          <p
+            className="mt-1.5 text-[13.5px]"
+            style={{ color: "rgba(245,241,230,0.62)" }}
+          >
+            Tell us if you&apos;re looking for an experience that isn&apos;t listed above, or if you have any special wishes for your group.
+          </p>
+          <textarea
+            value={additionalRequests}
+            onChange={(e) => setAdditionalRequests(e.target.value)}
+            placeholder={`Examples:\n\n• Private boat charter\n• Hike\n• Local food tasting\n• Photography tour\n• Dog sledding\n• Wine tasting\n• Brewery visit`}
+            rows={5}
+            className="mt-4 w-full resize-y rounded-[14px] px-5 py-4 text-[14.5px] outline-none transition-all duration-200 focus:border-[#D4A64A] focus:ring-4 focus:ring-[rgba(212,166,74,0.12)]"
+            style={{
+              backgroundColor: S1_NAVY_SOFT,
+              color: "#F5F1E6",
+              border: `1px solid ${S1_BORDER}`,
+              minHeight: 130,
+            }}
+          />
+        </div>
+
+        {/* Experience Availability */}
+        <div
+          className="mt-8 flex items-start gap-3 rounded-[14px] p-4"
+          style={{
+            backgroundColor: "rgba(8,19,31,0.55)",
+            border: `1px solid ${S1_BORDER_SOFT}`,
+          }}
+        >
+          <Info
+            size={18}
+            style={{ color: S1_GOLD_SOFT, flexShrink: 0, marginTop: 2 }}
+          />
+          <div>
+            <div
+              className="text-[14px] font-medium text-white"
+              style={{ fontFamily: SERIF }}
+            >
+              Experience Availability
+            </div>
+            <p
+              className="mt-1 text-[13px]"
+              style={{ color: "rgba(245,241,230,0.6)" }}
+            >
+              Experiences vary by destination, season and local availability. If one of your selected experiences isn&apos;t available, our team will recommend the closest premium alternative.
+            </p>
+          </div>
+        </div>
+
         {/* Recommendation panel */}
         <div
           className="mt-8 flex flex-col gap-4 rounded-[16px] p-5 sm:flex-row sm:items-center sm:justify-between"
@@ -4838,10 +5010,10 @@ function LeisureStep4Screen({
                 className="text-[15.5px] font-medium text-white"
                 style={{ fontFamily: SERIF, fontSize: 18 }}
               >
-                Let HotelGroupBook recommend experiences
+                Let HotelGroupBook curate the perfect experience package for your group.
               </div>
               <div className="text-[13px]" style={{ color: "rgba(245,241,230,0.6)" }}>
-                We&apos;ll suggest the best options for your group.
+                We&apos;ll recommend the best experiences based on your destination, travel dates and group profile.
               </div>
             </div>
           </div>
