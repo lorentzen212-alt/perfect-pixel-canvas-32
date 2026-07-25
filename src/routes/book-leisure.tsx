@@ -2483,6 +2483,13 @@ const STEP2_ROOMS: {
   { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: roomAccessibleImg.url },
 ];
 
+/* Room categories – only offered for single / double / twin */
+const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
+  single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
+  double: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
+  twin: ["Standard", "Superior", "Premium", "Junior Suite"],
+};
+
 function LeisureStepShell({
   activeStep,
   onStepGo,
@@ -2781,6 +2788,7 @@ type LeisureStay = {
   arrival: string; // ISO yyyy-MM-dd
   departure: string;
   rooms: Record<string, number>;
+  roomCategories?: Record<string, string>;
 };
 
 const GUESTS_PER_ROOM: Record<string, number> = {
@@ -2889,13 +2897,18 @@ function StayRoomRow({
   roomKey,
   value,
   onChange,
+  category,
+  onCategoryChange,
 }: {
   roomKey: string;
   value: number;
   onChange: (v: number) => void;
+  category?: string;
+  onCategoryChange?: (v: string) => void;
 }) {
   const meta = STEP2_ROOMS.find((r) => r.key === roomKey)!;
   const active = value > 0;
+  const categoryOptions = ROOM_CATEGORY_OPTIONS[roomKey];
   const handleCardClick = () => onChange(value + 1);
   const stopPropagation = (e: React.MouseEvent) => e.stopPropagation();
 
@@ -2946,6 +2959,44 @@ function StayRoomRow({
         <div className="mt-1.5 line-clamp-2 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.6)" }}>
           {meta.desc}
         </div>
+
+        {categoryOptions && (
+          <div
+            className="relative mt-2 flex items-center rounded-[10px] pl-3 pr-7 h-[34px] transition-all duration-[220ms] ease-out"
+            onClick={stopPropagation}
+            style={{
+              backgroundColor: S1_NAVY,
+              border: `1px solid ${active && category ? "rgba(212,166,74,0.42)" : "rgba(245,241,230,0.12)"}`,
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 10px 24px -18px rgba(0,0,0,0.35)",
+              opacity: active ? 1 : 0.45,
+              pointerEvents: active ? "auto" : "none",
+            }}
+          >
+            <select
+              value={category ?? ""}
+              disabled={!active}
+              aria-label={`${meta.title} category`}
+              onChange={(e) => onCategoryChange?.(e.target.value)}
+              className="w-full cursor-pointer appearance-none bg-transparent text-[12.5px] text-white outline-none disabled:cursor-not-allowed"
+              style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+            >
+              <option value="" style={{ backgroundColor: S1_NAVY }}>
+                Room category
+              </option>
+              {categoryOptions.map((o) => (
+                <option key={o} value={o} style={{ backgroundColor: S1_NAVY }}>
+                  {o}
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              size={14}
+              strokeWidth={2}
+              className="pointer-events-none absolute right-2.5"
+              style={{ color: S1_GOLD_SOFT }}
+            />
+          </div>
+        )}
       </div>
       <RoomCounter value={value} onChange={onChange} onClickStop={stopPropagation} ariaLabel={meta.title} />
     </div>
@@ -2975,6 +3026,7 @@ function LeisureStep2Screen({
   const [draftArrival, setDraftArrival] = useState("");
   const [draftDeparture, setDraftDeparture] = useState("");
   const [draftRooms, setDraftRooms] = useState<Record<string, number>>(emptyDraftRooms());
+  const [draftCategories, setDraftCategories] = useState<Record<string, string>>({});
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
@@ -2995,6 +3047,7 @@ function LeisureStep2Screen({
     setDraftArrival("");
     setDraftDeparture("");
     setDraftRooms(emptyDraftRooms());
+    setDraftCategories({});
     setEditingId(null);
   };
 
@@ -3006,6 +3059,9 @@ function LeisureStep2Screen({
       arrival: draftArrival,
       departure: draftDeparture,
       rooms: { ...draftRooms },
+      roomCategories: Object.fromEntries(
+        Object.entries(draftCategories).filter(([k, v]) => v && (draftRooms[k] ?? 0) > 0),
+      ),
     };
     setStays((prev) =>
       editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
@@ -3025,6 +3081,7 @@ function LeisureStep2Screen({
     setDraftArrival(s.arrival);
     setDraftDeparture(s.departure);
     setDraftRooms({ ...emptyDraftRooms(), ...s.rooms });
+    setDraftCategories({ ...(s.roomCategories ?? {}) });
     setShowEditor(true);
     if (typeof window !== "undefined")
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -3266,6 +3323,10 @@ function LeisureStep2Screen({
                   onChange={(v) =>
                     setDraftRooms((r) => ({ ...r, [key]: Math.max(0, v) }))
                   }
+                  category={draftCategories[key]}
+                  onCategoryChange={(v) =>
+                    setDraftCategories((c) => ({ ...c, [key]: v }))
+                  }
                 />
               ))}
             </div>
@@ -3495,8 +3556,9 @@ function AccommodationSummary({
                   {STEP2_ROOMS_ORDER.map((k) => {
                     const v = s.rooms[k] ?? 0;
                     if (v === 0) return null;
+                    const cat = s.roomCategories?.[k];
                     return (
-                      <li key={k} className="flex items-center justify-between text-[13px]">
+                      <li key={k} className="flex items-start justify-between text-[13px]">
                         <span className="flex items-center gap-2" style={{ color: "rgba(245,241,230,0.78)" }}>
                           <span
                             className="h-1.5 w-1.5 rounded-full"
@@ -3504,7 +3566,14 @@ function AccommodationSummary({
                           />
                           {ROOM_LABELS[k]}
                         </span>
-                        <span className="tabular-nums text-white">{v}</span>
+                        <span className="text-right">
+                          <span className="tabular-nums text-white">{v}</span>
+                          {cat && (
+                            <span className="block text-[11.5px]" style={{ color: S1_GOLD_SOFT }}>
+                              {v} × {cat}
+                            </span>
+                          )}
+                        </span>
                       </li>
                     );
                   })}
