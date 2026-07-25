@@ -3648,7 +3648,7 @@ function LeisureStep3Screen({
         </p>
 
         {/* Five service cards */}
-        <div className="mt-8 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 sm:gap-3 lg:grid-cols-5 lg:gap-1">
+        <div className="mt-8 grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5 lg:gap-4">
           {STEP3_CARDS.map((card) => {
             const Icon = card.icon;
             return (
@@ -3661,7 +3661,7 @@ function LeisureStep3Screen({
                   boxShadow: "0 18px 40px -24px rgba(0,0,0,0.55)",
                 }}
               >
-                <div className="relative h-[132px] w-full overflow-hidden">
+                <div className="relative h-[180px] w-full overflow-hidden">
                   <img
                     src={card.img}
                     alt={card.title}
@@ -3671,16 +3671,17 @@ function LeisureStep3Screen({
                     className="pointer-events-none absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(8,19,31,0) 55%, rgba(8,19,31,0.55) 100%)",
+                        "linear-gradient(180deg, rgba(8,19,31,0) 55%, rgba(8,19,31,0.6) 100%)",
                     }}
                   />
                 </div>
 
-                <div className="flex flex-1 flex-col px-4 pb-4 pt-4">
+                <div className="relative flex flex-1 flex-col px-5 pb-5 pt-0">
                   <div
-                    className="grid h-11 w-11 place-items-center rounded-full"
+                    className="grid h-12 w-12 place-items-center rounded-full"
                     style={{
-                      background: `linear-gradient(135deg, ${S1_NAVY_SOFT}, ${S1_NAVY})`,
+                      marginTop: -24,
+                      background: S1_NAVY,
                       border: `1px solid ${S1_GOLD}`,
                       boxShadow: "0 10px 24px -10px rgba(212,166,74,0.55)",
                     }}
@@ -3688,12 +3689,12 @@ function LeisureStep3Screen({
                     <Icon size={18} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
                   </div>
                   <div
-                    className="mt-3 text-[16px] font-medium text-white"
-                    style={{ fontFamily: SERIF, fontSize: 19 }}
+                    className="mt-4 font-medium text-white"
+                    style={{ fontFamily: SERIF, fontSize: 20, lineHeight: 1.2 }}
                   >
                     {card.title}
                   </div>
-                  <div className="mt-4 flex flex-col gap-3">
+                  <div className="mt-5 flex flex-col gap-3.5">
                     {card.options.map((opt) => (
                       <DarkCheckbox
                         key={opt}
@@ -3710,7 +3711,7 @@ function LeisureStep3Screen({
 
           {/* HGB Recommendations card */}
           <div
-            className="flex flex-col items-center rounded-[18px] px-5 py-8 text-center"
+            className="flex flex-col items-center rounded-[18px] px-5 pb-6 pt-8 text-center"
             style={{
               backgroundColor: S1_NAVY,
               border: `1px solid ${S1_BORDER}`,
@@ -3720,26 +3721,30 @@ function LeisureStep3Screen({
             <div
               className="grid h-12 w-12 place-items-center rounded-full"
               style={{
-                background: `linear-gradient(135deg, ${S1_NAVY_SOFT}, ${S1_NAVY})`,
+                background: S1_NAVY,
                 border: `1px solid ${S1_GOLD}`,
-                boxShadow: "0 10px 24px -10px rgba(212,166,74,0.55)",
+                boxShadow: "0 0 0 6px rgba(212,166,74,0.08), 0 10px 24px -10px rgba(212,166,74,0.55)",
               }}
             >
               <Star size={20} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
             </div>
             <div
-              className="mt-6 text-[16px] font-medium"
+              className="mt-5 font-medium"
               style={{ fontFamily: SERIF, fontSize: 20, color: S1_GOLD_SOFT, lineHeight: 1.2 }}
             >
               Need help<br />choosing?
             </div>
             <p
-              className="mt-4 text-[12.5px] leading-relaxed"
+              className="mt-3 text-[12.5px] leading-relaxed"
               style={{ color: "rgba(245,241,230,0.65)" }}
             >
-              HotelGroupBook can recommend the best services for your group.
+              HotelGroupBook can<br />recommend the best<br />extras for your group.
             </p>
-            <div className="mt-auto pt-8">
+            <div
+              className="my-5 h-px w-10"
+              style={{ backgroundColor: "rgba(212,166,74,0.35)" }}
+            />
+            <div className="mt-auto">
               <DarkCheckbox
                 label="Recommend the best extras for my group"
                 checked={recommend}
@@ -3752,16 +3757,16 @@ function LeisureStep3Screen({
 
         {/* Additional comments */}
         <div
-          className="mt-8 flex items-start gap-4 rounded-[16px] p-5"
+          className="mt-8 flex items-start gap-4 rounded-[16px] px-6 py-5"
           style={{
-            backgroundColor: S1_NAVY,
+            backgroundColor: "transparent",
             border: `1px solid ${S1_BORDER}`,
           }}
         >
           <div
             className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full"
             style={{
-              background: `linear-gradient(135deg, ${S1_NAVY_SOFT}, ${S1_NAVY})`,
+              background: S1_NAVY,
               border: `1px solid ${S1_GOLD}`,
             }}
           >
@@ -3776,8 +3781,8 @@ function LeisureStep3Screen({
               value={comments}
               onChange={(e) => setComments(e.target.value)}
               placeholder="Tell us anything else we should know..."
-              rows={3}
-              className="mt-3 w-full resize-none bg-transparent text-[13.5px] outline-none"
+              rows={2}
+              className="mt-2 w-full resize-none bg-transparent text-[13.5px] outline-none"
               style={{ color: "#F5F1E6" }}
             />
           </div>
@@ -3798,8 +3803,9 @@ function LeisureStep3Screen({
           <button
             type="button"
             onClick={onNext}
-            className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+            className="inline-flex items-center justify-center gap-3 rounded-[16px] px-14 py-5 text-[15px] font-semibold transition-all hover:-translate-y-[1px]"
             style={{
+              minWidth: 240,
               background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
               color: S1_NAVY,
               boxShadow:
@@ -3807,9 +3813,10 @@ function LeisureStep3Screen({
             }}
           >
             Next step
-            <ArrowRight size={17} strokeWidth={2.4} />
+            <ArrowRight size={18} strokeWidth={2.4} />
           </button>
         </div>
+
 
         <div className="mt-8 flex flex-col items-center gap-1 text-center">
           <div className="flex items-center gap-2 text-[13.5px]">
