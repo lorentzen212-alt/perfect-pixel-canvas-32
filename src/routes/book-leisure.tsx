@@ -2826,7 +2826,7 @@ function StayRoomRow({
           handleCardClick();
         }
       }}
-      className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-7 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
+      className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-8 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
       style={{
         gridTemplateColumns: "41% 35% 24%",
         columnGap: 16,
