@@ -281,13 +281,23 @@
 .s4-card:hover .s4-card-overlay { opacity: 1.08; }
 
 /* Hero premium overlays for Step 4 */
-.s4-hero-img { filter: saturate(1.1) contrast(1.07) brightness(1.02); }
+.s4-hero-img { filter: saturate(1.08) contrast(1.05) brightness(1.02); }
 .s4-hero-vignette {
   background:
-    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0,0,0,0.55) 100%),
-    radial-gradient(80% 45% at 65% 18%, rgba(255,196,120,0.20), transparent 65%);
+    radial-gradient(120% 90% at 50% 40%, transparent 62%, rgba(0,0,0,0.32) 100%),
+    radial-gradient(80% 45% at 65% 18%, rgba(255,196,120,0.16), transparent 65%);
   mix-blend-mode: multiply;
 }
+/* Soft, extended edge fade blending into the navy panel (~150px) */
 .s4-hero-edgefade {
-  background: linear-gradient(90deg, transparent 55%, rgba(8,19,31,0.35) 82%, rgba(8,19,31,0.85) 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(8,19,31,0.04) 35%,
+    rgba(8,19,31,0.12) 60%,
+    rgba(8,19,31,0.22) 82%,
+    rgba(8,19,31,0.32) 100%
+  );
 }
+.s4-card.s4-selected .s4-card-img { filter: saturate(1.16) contrast(1.08) brightness(1.05); }
+
