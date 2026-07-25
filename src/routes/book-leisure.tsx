@@ -2492,6 +2492,7 @@ function LeisureStepShell({
   headline,
   subtext,
   rightSidebar,
+  enhancedHero = false,
 }: {
   activeStep: StepKey;
   onStepGo: (s: StepKey) => void;
@@ -2501,6 +2502,8 @@ function LeisureStepShell({
   headline: React.ReactNode;
   subtext: React.ReactNode;
   rightSidebar?: React.ReactNode;
+  enhancedHero?: boolean;
+
 }) {
   const gridCols = rightSidebar
     ? "lg:grid-cols-[minmax(220px,0.68fr)_minmax(640px,2.10fr)_minmax(290px,0.92fr)]"
@@ -2532,14 +2535,22 @@ function LeisureStepShell({
             boxShadow: "0 40px 80px -40px rgba(0,0,0,0.6)",
           }}
         >
-          <img src={hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          <img src={hero} alt="" className={`absolute inset-0 h-full w-full object-cover ${enhancedHero ? "s4-hero-img" : ""}`} />
+          {enhancedHero && (
+            <>
+              <div className="pointer-events-none absolute inset-0 s4-hero-vignette" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-[38%] s4-hero-edgefade" />
+            </>
+          )}
           <div
             className="absolute inset-0"
             style={{
-              background:
-                "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
+              background: enhancedHero
+                ? "linear-gradient(180deg, rgba(8,19,31,0.28) 0%, rgba(8,19,31,0.42) 50%, rgba(8,19,31,0.92) 100%)"
+                : "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
             }}
           />
+
           <div className="relative z-10 h-full min-h-[520px] p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
             <div className="flex h-full flex-col justify-between lg:ml-[15px] lg:mt-[10px]">
               <div>
@@ -4731,7 +4742,9 @@ function LeisureStep4Screen({
           Create memories your<br />group will talk about<br />for years to come.
         </>
       }
+      enhancedHero
     >
+
       <section
         className="rounded-[24px] p-6 sm:p-8 lg:p-10"
         style={{
@@ -4779,67 +4792,95 @@ function LeisureStep4Screen({
         </div>
 
         {/* Experience grid */}
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {filtered.map((e) => {
-            const active = selected.has(e.label);
-            return (
-              <button
-                key={e.label}
-                type="button"
-                onClick={() => onToggle(e.label)}
-                className="group relative overflow-hidden rounded-[16px] text-left transition-all hover:-translate-y-[2px]"
-                style={{
-                  border: `1px solid ${active ? S1_GOLD : S1_BORDER}`,
-                  boxShadow: active
-                    ? "0 18px 40px -20px rgba(212,166,74,0.55)"
-                    : "0 14px 30px -22px rgba(0,0,0,0.6)",
-                }}
-              >
-                <div className="relative h-[170px] w-full overflow-hidden">
-                  <img
-                    src={e.img}
-                    alt={e.label}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, rgba(8,19,31,0) 45%, rgba(8,19,31,0.85) 100%)",
-                    }}
-                  />
-                  <div className="absolute bottom-3 left-3 right-14">
+        <div className="relative mt-7">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-8 -z-10"
+            style={{
+              background:
+                "radial-gradient(70% 55% at 50% 40%, rgba(212,166,74,0.08), transparent 70%)",
+              filter: "blur(6px)",
+            }}
+          />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {filtered.map((e) => {
+              const active = selected.has(e.label);
+              const isSignature = e.label === "Northern Lights";
+              return (
+                <button
+                  key={e.label}
+                  type="button"
+                  onClick={() => onToggle(e.label)}
+                  className={`s4-card group relative overflow-hidden rounded-[18px] text-left ${active ? "s4-selected-glow" : ""}`}
+                  style={{
+                    border: `1px solid ${active ? S1_GOLD : S1_BORDER}`,
+                    boxShadow: active
+                      ? "0 22px 46px -20px rgba(212,166,74,0.55), 0 2px 0 rgba(255,255,255,0.03) inset"
+                      : "0 16px 34px -22px rgba(0,0,0,0.65), 0 1px 0 rgba(255,255,255,0.03) inset",
+                  }}
+                >
+                  <div className="relative h-[170px] w-full overflow-hidden">
+                    <img
+                      src={e.img}
+                      alt={e.label}
+                      className="s4-card-img h-full w-full object-cover"
+                    />
                     <div
-                      className="text-[15px] font-medium text-white"
-                      style={{ fontFamily: SERIF, fontSize: 17 }}
-                    >
-                      {e.label}
-                    </div>
-                  </div>
-                  <span
-                    className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full transition-all"
-                    style={{
-                      background: active
-                        ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
-                        : "rgba(8,19,31,0.7)",
-                      border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.35)"}`,
-                      color: active ? S1_NAVY : "#F5F1E6",
-                      boxShadow: active
-                        ? "0 8px 18px -8px rgba(212,166,74,0.6)"
-                        : "none",
-                    }}
-                  >
-                    {active ? (
-                      <Check size={16} strokeWidth={2.8} />
-                    ) : (
-                      <Plus size={18} strokeWidth={2.2} />
+                      className="s4-card-overlay pointer-events-none absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, rgba(8,19,31,0) 40%, rgba(8,19,31,0.92) 100%), radial-gradient(120% 80% at 50% 45%, transparent 55%, rgba(0,0,0,0.35) 100%)",
+                      }}
+                    />
+                    {isSignature && (
+                      <span
+                        className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-[5px] text-[10px] font-semibold tracking-[0.18em]"
+                        style={{
+                          background: "rgba(8,19,31,0.55)",
+                          border: `1px solid ${S1_GOLD}`,
+                          color: S1_GOLD_SOFT,
+                          backdropFilter: "blur(6px)",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        <Sparkles size={10} strokeWidth={2.4} />
+                        Signature
+                      </span>
                     )}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
+                    <div className="absolute bottom-3 left-3.5 right-14">
+                      <div
+                        className="text-white"
+                        style={{ fontFamily: SERIF, fontSize: 17.5, lineHeight: 1.15 }}
+                      >
+                        {e.label}
+                      </div>
+                    </div>
+                    <span
+                      className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full transition-all"
+                      style={{
+                        background: active
+                          ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 60%, #B88C2F 100%)`
+                          : "rgba(8,19,31,0.72)",
+                        border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.35)"}`,
+                        color: active ? S1_NAVY : "#F5F1E6",
+                        boxShadow: active
+                          ? "0 10px 20px -8px rgba(212,166,74,0.7), inset 0 1px 0 rgba(255,255,255,0.5)"
+                          : "none",
+                      }}
+                    >
+                      {active ? (
+                        <Check size={16} strokeWidth={2.8} />
+                      ) : (
+                        <Plus size={18} strokeWidth={2.2} />
+                      )}
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
+
 
         {/* Preferred Experience Date */}
         <div
@@ -4961,29 +5002,46 @@ function LeisureStep4Screen({
 
         {/* Experience Availability */}
         <div
-          className="mt-8 flex items-start gap-3 rounded-[14px] p-4"
+          className="mt-8 rounded-[16px] p-5"
           style={{
-            backgroundColor: "rgba(8,19,31,0.55)",
+            background:
+              "linear-gradient(180deg, rgba(8,19,31,0.72) 0%, rgba(8,19,31,0.55) 100%)",
             border: `1px solid ${S1_BORDER_SOFT}`,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
           }}
         >
-          <Info
-            size={18}
-            style={{ color: S1_GOLD_SOFT, flexShrink: 0, marginTop: 2 }}
-          />
-          <div>
-            <div
-              className="text-[14px] font-medium text-white"
-              style={{ fontFamily: SERIF }}
+          <div className="flex items-start gap-4">
+            <span
+              className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-full"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(232,199,117,0.14), rgba(212,166,74,0.08))",
+                border: `1px solid ${S1_BORDER}`,
+                color: S1_GOLD_SOFT,
+              }}
             >
-              Experience Availability
+              <Info size={17} strokeWidth={2} />
+            </span>
+            <div className="flex-1">
+              <div
+                className="text-[14.5px] font-medium text-white"
+                style={{ fontFamily: SERIF, fontSize: 16 }}
+              >
+                Experience Availability
+              </div>
+              <div
+                className="mt-2 h-px w-14"
+                style={{
+                  background: `linear-gradient(90deg, ${S1_GOLD}, ${S1_GOLD_SOFT}, transparent)`,
+                }}
+              />
+              <p
+                className="mt-3 text-[13.5px] leading-relaxed"
+                style={{ color: "rgba(245,241,230,0.66)" }}
+              >
+                Experiences vary by destination, season and local availability. If one of your selected experiences isn&apos;t available, our team will recommend the closest premium alternative.
+              </p>
             </div>
-            <p
-              className="mt-1 text-[13px]"
-              style={{ color: "rgba(245,241,230,0.6)" }}
-            >
-              Experiences vary by destination, season and local availability. If one of your selected experiences isn&apos;t available, our team will recommend the closest premium alternative.
-            </p>
           </div>
         </div>
 
@@ -5020,22 +5078,108 @@ function LeisureStep4Screen({
           <button
             type="button"
             onClick={() => setLetUsRecommend(!letUsRecommend)}
-            className="inline-flex items-center gap-2 rounded-[12px] px-5 py-3 text-[14px] font-semibold transition-all hover:-translate-y-[1px]"
+            className="s4-shimmer s4-surprise inline-flex items-center gap-2 rounded-[12px] px-5 py-3 text-[14px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
             style={{
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B88C2F 100%)`,
               color: S1_NAVY,
+              border: `1px solid ${S1_GOLD}`,
               boxShadow: letUsRecommend
-                ? "0 22px 44px -18px rgba(212,166,74,0.75), inset 0 1px 0 rgba(255,255,255,0.4)"
-                : "0 14px 30px -16px rgba(212,166,74,0.5), inset 0 1px 0 rgba(255,255,255,0.4)",
+                ? "0 26px 48px -18px rgba(212,166,74,0.8), inset 0 1px 0 rgba(255,255,255,0.5)"
+                : "0 18px 34px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.5)",
             }}
           >
-            <Sparkles size={16} strokeWidth={2} />
+            <Sparkles size={16} strokeWidth={2} className="s4-surprise-icon" />
             {letUsRecommend ? "We'll surprise you" : "Surprise me"}
           </button>
         </div>
 
+        {/* Experience Summary */}
+        {(selected.size > 0 || preferredDate || dateFlexible || additionalRequests.trim().length > 0) && (
+          <div
+            className="mt-8 rounded-[16px] p-5"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(20,38,56,0.9) 0%, rgba(8,19,31,0.9) 100%)",
+              border: `1px solid ${S1_BORDER}`,
+              boxShadow:
+                "0 20px 40px -24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
+            }}
+          >
+            <div className="flex items-center gap-2.5">
+              <span
+                className="h-px flex-1"
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${S1_GOLD}, transparent)`,
+                }}
+              />
+              <span
+                className="text-[10.5px] font-semibold tracking-[0.28em]"
+                style={{ color: S1_GOLD_SOFT, textTransform: "uppercase" }}
+              >
+                Your experience
+              </span>
+              <span
+                className="h-px flex-1"
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${S1_GOLD}, transparent)`,
+                }}
+              />
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {selected.size > 0 && (
+                <div className="flex items-start gap-2.5">
+                  <Check size={14} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
+                  <div>
+                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
+                      Selected ({selected.size})
+                    </div>
+                    <div className="mt-1 text-[13.5px] text-white" style={{ lineHeight: 1.5 }}>
+                      {Array.from(selected).join(" · ")}
+                    </div>
+                  </div>
+                </div>
+              )}
+              {preferredDate && (
+                <div className="flex items-start gap-2.5">
+                  <CalendarDays size={14} strokeWidth={2.2} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
+                  <div>
+                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
+                      Preferred date
+                    </div>
+                    <div className="mt-1 text-[13.5px] text-white">{format(preferredDate, "PPP")}</div>
+                  </div>
+                </div>
+              )}
+              {dateFlexible && (
+                <div className="flex items-start gap-2.5">
+                  <Sparkles size={14} strokeWidth={2.2} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
+                  <div>
+                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
+                      Flexibility
+                    </div>
+                    <div className="mt-1 text-[13.5px] text-white">Open to alternative dates</div>
+                  </div>
+                </div>
+              )}
+              {additionalRequests.trim().length > 0 && (
+                <div className="flex items-start gap-2.5 sm:col-span-2">
+                  <Info size={14} strokeWidth={2.2} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
+                  <div className="min-w-0">
+                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
+                      Concierge notes
+                    </div>
+                    <div className="mt-1 line-clamp-2 text-[13.5px] text-white" style={{ lineHeight: 1.5 }}>
+                      {additionalRequests.trim()}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Bottom nav */}
-        <div className="mt-10 flex items-center justify-between gap-4">
+        <div className="mt-8 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={onBack}
@@ -5049,18 +5193,20 @@ function LeisureStep4Screen({
           <button
             type="button"
             onClick={onNext}
-            className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+            className="s4-shimmer inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
             style={{
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B88C2F 100%)`,
               color: S1_NAVY,
+              border: `1px solid ${S1_GOLD}`,
               boxShadow:
-                "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+                "0 20px 42px -16px rgba(212,166,74,0.6), inset 0 1px 0 rgba(255,255,255,0.45)",
             }}
           >
             Next step
             <ArrowRight size={17} strokeWidth={2.4} />
           </button>
         </div>
+
 
         <div className="mt-8 flex flex-col items-center gap-1 text-center">
           <div className="flex items-center gap-2 text-[13.5px]">
