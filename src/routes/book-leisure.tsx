@@ -3538,59 +3538,136 @@ function AccommodationSummary({
 
 
 /* =========================================================
-   STEP 3 - Extras (redesigned)
+   STEP 3 - Concierge Collection (redesigned)
    ========================================================= */
 
-const S3_HERO =
-  "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1600&q=80";
+const S3_GRAPHITE = "#1F262E";
+const S3_GRAPHITE_SOFT = "#252D36";
+const S3_PANEL = "#1A2027";
+const S3_PANEL_SOFT = "#212831";
+const S3_BORDER = "rgba(255,255,255,0.07)";
+const S3_BORDER_STRONG = "rgba(255,255,255,0.11)";
+const S3_TEXT = "#EDE7DA";
+const S3_TEXT_MUTED = "rgba(237,231,218,0.60)";
+const S3_TEXT_FAINT = "rgba(237,231,218,0.42)";
+const S3_GOLD = "#C9A46A";
+const S3_GOLD_SOFT = "#E1C089";
+const S3_GOLD_DEEP = "#8E6E3C";
+const S3_GOLD_GRADIENT = `linear-gradient(135deg, ${S3_GOLD_SOFT} 0%, ${S3_GOLD} 45%, ${S3_GOLD_DEEP} 100%)`;
 
-type ExtraCard = {
+type ConciergeCategory = {
   key: string;
   title: string;
+  description: string;
   img: string;
   icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }>;
-  options: string[];
+  configTitle: string;
+  configPrompt: string;
+  options: { label: string; icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }> }[];
 };
 
-const STEP3_CARDS: ExtraCard[] = [
-  {
-    key: "dining",
-    title: "Dining",
-    img: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=800&q=80",
-    icon: Utensils,
-    options: ["Early Breakfast", "Breakfast Box", "Lunch", "Packed Lunch", "Dinner"],
-  },
+const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
   {
     key: "arrival",
-    title: "Arrival Services",
-    img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
-    icon: Bell,
-    options: ["Airport Transfer", "Porter In", "Porter Out", "Hospitality Desk", "Welcome Drink"],
-  },
-  {
-    key: "hotel",
-    title: "Hotel Services",
-    img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
-    icon: BedDouble,
+    title: "Arrival",
+    description: "Transfers, porter & first impressions",
+    img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=80",
+    icon: Car,
+    configTitle: "Arrival Experience",
+    configPrompt: "How should your group be welcomed on arrival?",
     options: [
-      "Early Check-in",
-      "Late Check-out",
-      "Preferred Room Upgrade",
-      "Connecting Rooms",
-      "Laundry Service",
+      { label: "Taxi", icon: Car },
+      { label: "Minibus", icon: Bus },
+      { label: "Coach", icon: Bus },
+      { label: "Private Chauffeur", icon: UserRound },
+      { label: "Helicopter Transfer", icon: PlaneLanding },
+      { label: "Porter Service", icon: Bell },
+      { label: "No arrival services required", icon: Check },
     ],
   },
   {
-    key: "special",
-    title: "Special Requests",
-    img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
+    key: "welcome",
+    title: "Welcome",
+    description: "Drinks, gifts & personalised touches",
+    img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
     icon: Gift,
+    configTitle: "Welcome Touches",
+    configPrompt: "How would you like to greet your guests?",
     options: [
-      "Gift Bags",
-      "Celebration Setup",
-      "Accessibility Requirements",
-      "VIP Amenities",
-      "Other Requests",
+      { label: "Welcome Drink on Arrival", icon: Wine },
+      { label: "Champagne Reception", icon: Wine },
+      { label: "Gift Bags in Rooms", icon: Gift },
+      { label: "Personalised Welcome Card", icon: Pencil },
+      { label: "Floral Arrangements", icon: PartyPopper },
+      { label: "No welcome services required", icon: Check },
+    ],
+  },
+  {
+    key: "stay",
+    title: "Stay",
+    description: "Enhance their hotel experience",
+    img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=80",
+    icon: BedDouble,
+    configTitle: "In-Stay Enhancements",
+    configPrompt: "Refinements to elevate the hotel experience.",
+    options: [
+      { label: "Early Check-in", icon: DoorOpen },
+      { label: "Late Check-out", icon: DoorOpen },
+      { label: "Room Upgrades", icon: Star },
+      { label: "Connecting Rooms", icon: HomeIcon },
+      { label: "Turndown Service", icon: BedDouble },
+      { label: "Laundry Service", icon: Briefcase },
+      { label: "No stay services required", icon: Check },
+    ],
+  },
+  {
+    key: "dining",
+    title: "Dining",
+    description: "Breakfast, lunch & dinner",
+    img: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=900&q=80",
+    icon: Utensils,
+    configTitle: "Dining Arrangements",
+    configPrompt: "Where and when should your group dine?",
+    options: [
+      { label: "Early Breakfast", icon: Coffee },
+      { label: "Breakfast Box", icon: Coffee },
+      { label: "Group Lunch", icon: Utensils },
+      { label: "Packed Lunch", icon: Briefcase },
+      { label: "Group Dinner", icon: Utensils },
+      { label: "Private Dining Room", icon: Wine },
+      { label: "No dining services required", icon: Check },
+    ],
+  },
+  {
+    key: "meeting",
+    title: "Meeting",
+    description: "Welcome or information meeting",
+    img: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=900&q=80",
+    icon: Users,
+    configTitle: "Meeting Space",
+    configPrompt: "A quiet room for your group briefing.",
+    options: [
+      { label: "Welcome Briefing Room", icon: Users2 },
+      { label: "Information Meeting", icon: MessageSquare },
+      { label: "AV Equipment", icon: Camera },
+      { label: "Coffee & Refreshments", icon: Coffee },
+      { label: "No meeting services required", icon: Check },
+    ],
+  },
+  {
+    key: "departure",
+    title: "Departure",
+    description: "Luggage, transfers & onward travel",
+    img: "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?auto=format&fit=crop&w=900&q=80",
+    icon: Plane,
+    configTitle: "Departure Experience",
+    configPrompt: "How should your group leave?",
+    options: [
+      { label: "Airport Transfer Out", icon: Plane },
+      { label: "Luggage Assistance", icon: Briefcase },
+      { label: "Late Check-out Departure", icon: DoorOpen },
+      { label: "Farewell Gift", icon: Gift },
+      { label: "No departure services required", icon: Check },
     ],
   },
 ];
@@ -3600,8 +3677,8 @@ function LeisureStep3Screen({
   onToggle,
   comments,
   setComments,
-  recommend,
-  setRecommend,
+  recommend: _recommend,
+  setRecommend: _setRecommend,
   onNext,
   onBack,
   onStepGo,
@@ -3616,228 +3693,305 @@ function LeisureStep3Screen({
   onBack: () => void;
   onStepGo: (s: StepKey) => void;
 }) {
-  return (
-    <LeisureStepShell
-      activeStep={3}
-      onStepGo={onStepGo}
-      hero={S3_HERO}
-      chapter="CHAPTER III"
-      headline={
-        <>
-          The small<br />moments that<br />matter.
-        </>
-      }
-      subtext={
-        <>
-          Add the details that turn<br />a trip into a story.
-        </>
-      }
-    >
-      <section
-        className="rounded-[24px] p-6 sm:p-8 lg:p-7"
-        style={{
-          backgroundColor: S1_NAVY_SOFT,
-          border: `1px solid ${S1_BORDER}`,
-          boxShadow:
-            "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
-        }}
-      >
-        <h2
-          className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
-          style={{ fontFamily: SERIF }}
-        >
-          Step 3 – Extras
-        </h2>
-        <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
-          Select the extras and services you need.
-        </p>
+  const [expanded, setExpanded] = useState<string>("arrival");
+  const active = CONCIERGE_CATEGORIES.find((c) => c.key === expanded) ?? CONCIERGE_CATEGORIES[0];
 
-        {/* Five service cards */}
-        <div className="mt-8 grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5 lg:gap-4">
-          {STEP3_CARDS.map((card) => {
-            const Icon = card.icon;
+  const countFor = (cat: ConciergeCategory) =>
+    cat.options.filter(
+      (o) => selected.has(o.label) && !o.label.toLowerCase().startsWith("no "),
+    ).length;
+
+  return (
+    <main
+      className="min-h-screen w-full"
+      style={{
+        background: `radial-gradient(1200px 800px at 50% -10%, ${S3_GRAPHITE_SOFT} 0%, ${S3_GRAPHITE} 45%, #171C22 100%)`,
+        fontFamily: "Inter, system-ui, sans-serif",
+        color: S3_TEXT,
+      }}
+    >
+      <div style={{ borderBottom: `1px solid ${S3_BORDER}` }}>
+        <BookingHeader
+          currentStep={3}
+          onStepGo={(s) => onStepGo(s as StepKey)}
+          hideCurrentFlow="leisure"
+        />
+      </div>
+
+      <div className="mx-auto w-full max-w-[1360px] px-6 pb-24 pt-10 sm:px-10 lg:px-14 lg:pt-14">
+        {/* Header row */}
+        <div className="flex items-start justify-between gap-6">
+          <div>
+            <div
+              className="text-[11px] font-medium tracking-[0.34em]"
+              style={{ color: S3_GOLD }}
+            >
+              STEP 3
+            </div>
+            <h1
+              className="mt-4 text-[40px] leading-[1.05] font-medium sm:text-[52px]"
+              style={{ fontFamily: SERIF, color: S3_TEXT }}
+            >
+              Concierge Collection
+            </h1>
+            <p
+              className="mt-4 max-w-[560px] text-[15.5px] leading-relaxed"
+              style={{ color: S3_TEXT_MUTED }}
+            >
+              Handpicked services to complete your group experience.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            className="hidden sm:inline-flex items-center gap-2.5 rounded-full px-5 py-3 text-[13px] font-medium transition-colors"
+            style={{
+              background: "transparent",
+              border: `1px solid ${S3_BORDER_STRONG}`,
+              color: S3_TEXT,
+            }}
+          >
+            <Headphones size={15} strokeWidth={1.8} style={{ color: S3_GOLD }} />
+            Need Help?
+          </button>
+        </div>
+
+        {/* Category cards */}
+        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6 lg:gap-5">
+          {CONCIERGE_CATEGORIES.map((cat) => {
+            const Icon = cat.icon;
+            const count = countFor(cat);
+            const isSelected = count > 0;
+            const isOpen = expanded === cat.key;
+
             return (
-              <div
-                key={card.key}
-                className="flex flex-col self-stretch overflow-hidden rounded-[18px]"
+              <button
+                key={cat.key}
+                type="button"
+                onClick={() => setExpanded(cat.key)}
+                className="group relative flex flex-col overflow-hidden rounded-[18px] text-left transition-all duration-300"
                 style={{
-                  backgroundColor: S1_NAVY,
-                  border: `1px solid ${S1_BORDER}`,
-                  boxShadow: "0 18px 40px -24px rgba(0,0,0,0.55)",
+                  background: S3_PANEL,
+                  border: `1px solid ${isOpen || isSelected ? S3_GOLD : S3_BORDER}`,
+                  boxShadow: isSelected
+                    ? "0 20px 50px -28px rgba(201,164,106,0.45), inset 0 1px 0 rgba(255,255,255,0.04)"
+                    : isOpen
+                    ? "0 18px 40px -28px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04)"
+                    : "0 10px 24px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03)",
                 }}
               >
-                <div className="relative h-[180px] w-full overflow-hidden">
+                <div className="relative h-[170px] w-full overflow-hidden">
                   <img
-                    src={card.img}
-                    alt={card.title}
-                    className="h-full w-full object-cover"
+                    src={cat.img}
+                    alt={cat.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    style={{ filter: "brightness(0.78) saturate(0.85)" }}
                   />
                   <div
                     className="pointer-events-none absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(8,19,31,0) 55%, rgba(8,19,31,0.6) 100%)",
+                        "linear-gradient(180deg, rgba(23,28,34,0) 40%, rgba(23,28,34,0.85) 100%)",
                     }}
                   />
-                </div>
-
-                <div className="relative flex flex-1 flex-col px-5 pb-5 pt-0">
+                  {isSelected && (
+                    <span
+                      className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full"
+                      style={{
+                        background: S3_GOLD_GRADIENT,
+                        boxShadow: "0 6px 18px -8px rgba(201,164,106,0.7)",
+                      }}
+                    >
+                      <Check size={14} strokeWidth={3} style={{ color: "#1A1207" }} />
+                    </span>
+                  )}
                   <div
-                    className="grid h-12 w-12 place-items-center rounded-full"
+                    className="absolute left-1/2 bottom-[-22px] grid h-[44px] w-[44px] -translate-x-1/2 place-items-center rounded-full"
                     style={{
-                      marginTop: -24,
-                      background: S1_NAVY,
-                      border: `1px solid ${S1_GOLD}`,
-                      boxShadow: "0 10px 24px -10px rgba(212,166,74,0.55)",
+                      background: S3_PANEL,
+                      border: `1px solid ${S3_GOLD}`,
                     }}
                   >
-                    <Icon size={18} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
-                  </div>
-                  <div
-                    className="mt-4 font-medium text-white"
-                    style={{ fontFamily: SERIF, fontSize: 20, lineHeight: 1.2 }}
-                  >
-                    {card.title}
-                  </div>
-                  <div className="mt-5 flex flex-col gap-3.5">
-                    {card.options.map((opt) => (
-                      <DarkCheckbox
-                        key={opt}
-                        label={opt}
-                        checked={selected.has(opt)}
-                        onChange={() => onToggle(opt)}
-                      />
-                    ))}
+                    <Icon size={18} strokeWidth={1.6} style={{ color: S3_GOLD_SOFT }} />
                   </div>
                 </div>
-              </div>
+
+                <div className="flex flex-1 flex-col items-center px-4 pb-5 pt-8 text-center">
+                  <div
+                    className="text-[15px] font-medium tracking-[0.16em]"
+                    style={{ color: S3_TEXT }}
+                  >
+                    {cat.title.toUpperCase()}
+                  </div>
+                  <p
+                    className="mt-2 text-[12.5px] leading-snug"
+                    style={{ color: S3_TEXT_MUTED }}
+                  >
+                    {cat.description}
+                  </p>
+                  <div
+                    className="mt-4 text-[11.5px] font-medium tracking-[0.12em]"
+                    style={{
+                      color: isSelected ? S3_GOLD_SOFT : S3_TEXT_FAINT,
+                    }}
+                  >
+                    {isSelected
+                      ? `${count} service${count === 1 ? "" : "s"} selected`
+                      : "No services selected"}
+                  </div>
+                </div>
+              </button>
             );
           })}
-
-          {/* HGB Recommendations card */}
-          <div
-            className="flex flex-col items-center rounded-[18px] px-5 pb-6 pt-8 text-center"
-            style={{
-              backgroundColor: S1_NAVY,
-              border: `1px solid ${S1_BORDER}`,
-              boxShadow: "0 18px 40px -24px rgba(0,0,0,0.55)",
-            }}
-          >
-            <div
-              className="grid h-12 w-12 place-items-center rounded-full"
-              style={{
-                background: S1_NAVY,
-                border: `1px solid ${S1_GOLD}`,
-                boxShadow: "0 0 0 6px rgba(212,166,74,0.08), 0 10px 24px -10px rgba(212,166,74,0.55)",
-              }}
-            >
-              <Star size={20} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
-            </div>
-            <div
-              className="mt-5 font-medium"
-              style={{ fontFamily: SERIF, fontSize: 20, color: S1_GOLD_SOFT, lineHeight: 1.2 }}
-            >
-              Need help<br />choosing?
-            </div>
-            <p
-              className="mt-3 text-[12.5px] leading-relaxed"
-              style={{ color: "rgba(245,241,230,0.65)" }}
-            >
-              HotelGroupBook can<br />recommend the best<br />extras for your group.
-            </p>
-            <div
-              className="my-5 h-px w-10"
-              style={{ backgroundColor: "rgba(212,166,74,0.35)" }}
-            />
-            <div className="mt-auto">
-              <DarkCheckbox
-                label="Recommend the best extras for my group"
-                checked={recommend}
-                onChange={setRecommend}
-                align="center"
-              />
-            </div>
-          </div>
         </div>
 
-        {/* Additional comments */}
-        <div
-          className="mt-8 flex items-start gap-4 rounded-[16px] px-6 py-5"
+        {/* Configuration area */}
+        <section
+          className="mt-10 rounded-[20px] p-7 sm:p-9"
           style={{
-            backgroundColor: "transparent",
-            border: `1px solid ${S1_BORDER}`,
+            background: S3_PANEL_SOFT,
+            border: `1px solid ${S3_BORDER}`,
+            boxShadow:
+              "0 30px 80px -50px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
           }}
         >
-          <div
-            className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full"
-            style={{
-              background: S1_NAVY,
-              border: `1px solid ${S1_GOLD}`,
-            }}
-          >
-            <Pencil size={16} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="text-[14.5px]" style={{ color: "#F5F1E6" }}>
-              <span className="font-semibold">Additional comments</span>{" "}
-              <span style={{ color: "rgba(245,241,230,0.55)" }}>(optional)</span>
+          <div className="flex items-center gap-4">
+            <div
+              className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full"
+              style={{
+                background: S3_PANEL,
+                border: `1px solid ${S3_GOLD}`,
+              }}
+            >
+              <active.icon size={18} strokeWidth={1.6} style={{ color: S3_GOLD_SOFT }} />
             </div>
-            <textarea
-              value={comments}
-              onChange={(e) => setComments(e.target.value)}
-              placeholder="Tell us anything else we should know..."
-              rows={2}
-              className="mt-2 w-full resize-none bg-transparent text-[13.5px] outline-none"
-              style={{ color: "#F5F1E6" }}
-            />
+            <div>
+              <div
+                className="text-[19px] font-medium tracking-[0.14em]"
+                style={{ color: S3_TEXT }}
+              >
+                {active.configTitle.toUpperCase()}
+              </div>
+              <div className="mt-1 text-[13.5px]" style={{ color: S3_TEXT_MUTED }}>
+                {active.configPrompt}
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Bottom nav */}
-        <div className="mt-10 flex items-center justify-between gap-4">
+          <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+            {active.options.map((opt) => {
+              const OptIcon = opt.icon;
+              const isOn = selected.has(opt.label);
+              return (
+                <button
+                  key={opt.label}
+                  type="button"
+                  onClick={() => onToggle(opt.label)}
+                  className="group relative flex h-[132px] flex-col items-center justify-center rounded-[14px] px-3 text-center transition-all duration-200"
+                  style={{
+                    background: "transparent",
+                    border: `1px solid ${isOn ? S3_GOLD : S3_BORDER_STRONG}`,
+                    boxShadow: isOn
+                      ? "0 12px 28px -18px rgba(201,164,106,0.55), inset 0 1px 0 rgba(255,255,255,0.04)"
+                      : "inset 0 1px 0 rgba(255,255,255,0.02)",
+                  }}
+                >
+                  {isOn && (
+                    <span
+                      className="absolute right-2 top-2 grid h-5 w-5 place-items-center rounded-full"
+                      style={{ background: S3_GOLD_GRADIENT }}
+                    >
+                      <Check size={11} strokeWidth={3} style={{ color: "#1A1207" }} />
+                    </span>
+                  )}
+                  <OptIcon
+                    size={26}
+                    strokeWidth={1.5}
+                    style={{ color: isOn ? S3_GOLD_SOFT : "rgba(237,231,218,0.72)" }}
+                  />
+                  <div
+                    className="mt-3 text-[12.5px] leading-tight"
+                    style={{ color: S3_TEXT }}
+                  >
+                    {opt.label}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Additional requests */}
+        <section className="mt-10">
+          <div
+            className="text-[17px] font-medium tracking-[0.12em]"
+            style={{ color: S3_TEXT }}
+          >
+            ANYTHING ELSE OUR CONCIERGE TEAM SHOULD PREPARE?
+          </div>
+          <div className="mt-2 text-[13.5px]" style={{ color: S3_TEXT_MUTED }}>
+            Share any requirements that are not covered above.
+          </div>
+          <textarea
+            value={comments}
+            onChange={(e) => setComments(e.target.value)}
+            placeholder="Write your request here…"
+            rows={4}
+            className="mt-5 w-full resize-none rounded-[14px] px-5 py-4 text-[14px] outline-none transition-colors"
+            style={{
+              background: "transparent",
+              border: `1px solid ${S3_BORDER_STRONG}`,
+              color: S3_TEXT,
+            }}
+          />
+        </section>
+
+        {/* Bottom actions */}
+        <div className="mt-12 flex flex-col-reverse items-stretch justify-between gap-6 sm:flex-row sm:items-center">
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
-            style={{ color: S1_GOLD_SOFT }}
+            className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-medium transition-colors"
+            style={{
+              background: "transparent",
+              border: `1px solid ${S3_BORDER_STRONG}`,
+              color: S3_TEXT,
+            }}
           >
-            <ArrowLeft size={16} strokeWidth={2.2} />
+            <ArrowLeft size={16} strokeWidth={2} />
             Back
           </button>
 
-          <button
-            type="button"
-            onClick={onNext}
-            className="inline-flex items-center justify-center gap-3 rounded-[16px] px-14 py-5 text-[15px] font-semibold transition-all hover:-translate-y-[1px]"
-            style={{
-              minWidth: 240,
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
-              color: S1_NAVY,
-              boxShadow:
-                "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
-            }}
-          >
-            Next step
-            <ArrowRight size={18} strokeWidth={2.4} />
-          </button>
-        </div>
-
-
-        <div className="mt-8 flex flex-col items-center gap-1 text-center">
-          <div className="flex items-center gap-2 text-[13.5px]">
-            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
-            <span style={{ color: S1_GOLD_SOFT }}>
-              Your request is free and non-binding
-            </span>
-          </div>
-          <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
-            We find the best options so you can choose what suits your group.
+          <div className="flex flex-col items-end gap-2">
+            <button
+              type="button"
+              onClick={onNext}
+              className="inline-flex items-center justify-center gap-3 rounded-full px-10 py-4 text-[14px] font-semibold tracking-[0.1em] transition-all hover:-translate-y-[1px]"
+              style={{
+                background: S3_GOLD_GRADIENT,
+                color: "#1A1207",
+                boxShadow:
+                  "0 18px 40px -18px rgba(201,164,106,0.55), inset 0 1px 0 rgba(255,255,255,0.35)",
+              }}
+            >
+              SAVE & CONTINUE
+              <ArrowRight size={16} strokeWidth={2.2} />
+            </button>
+            <div
+              className="inline-flex items-center gap-1.5 text-[12px]"
+              style={{ color: S3_TEXT_FAINT }}
+            >
+              <Lock size={11} strokeWidth={2} />
+              Your selections are saved automatically.
+            </div>
           </div>
         </div>
-      </section>
-    </LeisureStepShell>
+      </div>
+    </main>
   );
 }
+
+
 
 /* =========================================================
    STEP 4 - Experiences (redesigned)
