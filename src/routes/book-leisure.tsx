@@ -2854,11 +2854,12 @@ function StayRoomRow({
       </div>
       <div className="min-w-0 -mt-2.5 pr-1">
         <div
-          className="text-[15.5px] font-medium text-white"
+          className="truncate whitespace-nowrap text-[15.5px] font-medium text-white"
           style={{ letterSpacing: "-0.005em" }}
         >
           {meta.title}
         </div>
+
         <div className="mt-1.5 line-clamp-2 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.6)" }}>
           {meta.desc}
         </div>
