@@ -2624,10 +2624,11 @@ function RoomCounter({
 
   return (
     <div
-      className="flex items-center shrink-0"
-      style={{ width: 158, gap: 10 }}
+      className="flex items-center justify-end shrink-0 w-full"
+      style={{ gap: 10 }}
       onClick={onClickStop}
     >
+
       <button
         type="button"
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
@@ -2667,7 +2668,7 @@ function RoomCounter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className="no-spin h-10 w-[58px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
+        className="no-spin h-10 w-[48px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
         style={{
           fontFamily: SERIF,
           backgroundColor: "rgba(6,16,26,0.85)",
@@ -2826,8 +2827,10 @@ function StayRoomRow({
           handleCardClick();
         }
       }}
-      className="group flex cursor-pointer items-center gap-5 rounded-[20px] p-3.5 pr-5 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
+      className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-5 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
       style={{
+        gridTemplateColumns: "34% 42% 24%",
+        columnGap: 20,
         backgroundColor: active ? "rgba(19,36,54,1)" : S1_NAVY,
         border: `1px solid ${active ? "rgba(212,166,74,0.62)" : "rgba(245,241,230,0.06)"}`,
         boxShadow: active
@@ -2836,7 +2839,7 @@ function StayRoomRow({
       }}
     >
       <div
-        className="aspect-[4/3] w-[34%] max-w-[172px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
+        className="aspect-[4/3] w-full max-w-[172px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
         style={{
           border: `1px solid ${active ? "rgba(212,166,74,0.4)" : "rgba(245,241,230,0.1)"}`,
           boxShadow: "0 14px 30px -12px rgba(0,0,0,0.55)",
@@ -2849,9 +2852,9 @@ function StayRoomRow({
           style={{ filter: "saturate(1.10) contrast(1.10) brightness(1.03) hue-rotate(-2deg)" }}
         />
       </div>
-      <div className="min-w-0 flex-1 -mt-1.5">
+      <div className="min-w-0 -mt-1.5 pr-2">
         <div
-          className="whitespace-nowrap text-[15.5px] font-medium text-white"
+          className="whitespace-nowrap overflow-hidden text-ellipsis text-[15.5px] font-medium text-white"
           style={{ letterSpacing: "-0.005em" }}
         >
           {meta.title}
@@ -2861,6 +2864,7 @@ function StayRoomRow({
         </div>
       </div>
       <RoomCounter value={value} onChange={onChange} onClickStop={stopPropagation} ariaLabel={meta.title} />
+
     </div>
   );
 }
