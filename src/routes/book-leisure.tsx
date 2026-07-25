@@ -3686,14 +3686,14 @@ function LeisureStep3Screen({
                   </div>
                 </div>
 
-                <div className="flex flex-1 flex-col px-4 pb-4 pt-9">
+                <div className="flex flex-1 flex-col px-4 pb-3 pt-8">
                   <div
                     className="text-[16px] font-medium text-white"
                     style={{ fontFamily: SERIF, fontSize: 19 }}
                   >
                     {card.title}
                   </div>
-                  <div className="mt-5 flex flex-col gap-4">
+                  <div className="mt-4 flex flex-col gap-3.5">
                     {card.options.map((opt) => (
                       <DarkCheckbox
                         key={opt}
