@@ -3930,7 +3930,7 @@ function LeisureStep3Screen({
 
         {/* Additional requests */}
         <section
-          className="mt-6 rounded-[18px] p-6 sm:p-7"
+          className="mt-6 rounded-[18px] px-6 py-5 sm:px-7 sm:py-6"
           style={{
             background: S3_PANEL_SOFT,
             border: `1px solid ${S3_BORDER}`,
@@ -3984,39 +3984,48 @@ function LeisureStep3Screen({
           </div>
         </section>
 
+        {/* Subtle divider */}
+        <div
+          aria-hidden
+          className="mt-4 h-px w-full"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0) 100%)",
+          }}
+        />
 
         {/* Bottom actions */}
-        <div className="mt-6 flex flex-col-reverse items-stretch justify-between gap-6 sm:flex-row sm:items-center">
+        <div className="mt-3 flex flex-col-reverse items-stretch justify-between gap-6 sm:flex-row sm:items-center">
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-medium transition-colors hover:bg-white"
+            className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full px-8 text-[14px] font-medium transition-colors hover:bg-white/5"
             style={{
-              background: "#F5F1EA",
-              border: `1px solid rgba(0,0,0,0.08)`,
-              color: "#1A1207",
-              boxShadow: "0 6px 18px -10px rgba(0,0,0,0.55)",
+              background: "transparent",
+              border: "1px solid rgba(255,255,255,0.18)",
+              color: "#FFFFFF",
             }}
           >
-            <ArrowLeft size={16} strokeWidth={2} />
+            <ArrowLeft size={16} strokeWidth={2} style={{ color: "#FFFFFF" }} />
             Back
           </button>
 
 
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col items-end gap-[9px]">
             <button
               type="button"
               onClick={onNext}
-              className="inline-flex items-center justify-center gap-3 rounded-full px-10 py-4 text-[14px] font-semibold tracking-[0.1em] transition-all hover:-translate-y-[1px]"
+              className="inline-flex h-[52px] items-center justify-center gap-3 rounded-[26px] px-12 text-[14px] font-semibold tracking-[0.1em] transition-all hover:-translate-y-[1px]"
               style={{
-                background: S3_GOLD_GRADIENT,
-                color: "#1A1207",
+                background:
+                  "linear-gradient(180deg, #F0D28A 0%, #D9B36A 45%, #B8894A 100%)",
+                color: "#1C1C1C",
                 boxShadow:
-                  "0 18px 40px -18px rgba(201,164,106,0.55), inset 0 1px 0 rgba(255,255,255,0.35)",
+                  "0 14px 30px -12px rgba(0,0,0,0.55), 0 4px 12px -4px rgba(184,137,74,0.5), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 6px rgba(90,60,20,0.35)",
               }}
             >
               SAVE & CONTINUE
-              <ArrowRight size={16} strokeWidth={2.2} />
+              <ArrowRight size={18} strokeWidth={2.2} />
             </button>
             <div
               className="inline-flex items-center gap-1.5 text-[12px]"
