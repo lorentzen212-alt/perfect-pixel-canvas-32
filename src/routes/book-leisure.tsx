@@ -3588,7 +3588,6 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
     configTitle: "Arrival Experience",
     configPrompt: "How should your group be welcomed on arrival?",
     options: [
-      { label: "Arrival Transport", displayLabel: "Transport", icon: Car },
       { label: "Hospitality Desk", icon: Users2 },
       { label: "Arrival Porter Service", displayLabel: "Porter Service", icon: Bell },
       { label: "No arrival services required", icon: Check },
