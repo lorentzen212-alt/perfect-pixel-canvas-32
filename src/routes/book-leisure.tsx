@@ -2683,7 +2683,7 @@ function RoomCounter({
         aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
         className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
-        style={{ color: S1_GOLD_SOFT, ["--gold-soft" as never]: S1_GOLD_SOFT }}
+        style={{ color: S1_GOLD_SOFT, opacity: 0.86, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
         <Plus size={20} strokeWidth={2.4} />
       </button>
