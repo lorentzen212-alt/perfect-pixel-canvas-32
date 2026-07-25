@@ -4040,7 +4040,7 @@ function SmartConfigPanel({
                 name={`${label}-mode`}
                 value={cfg.mode}
                 onChange={(v) => onChange({ mode: v })}
-                options={["Airport Transfer", "Taxi", "Private Chauffeur", "Coach"]}
+                options={["Taxi", "Private Chauffeur", "Coach", "Airport Shuttle"]}
               />
             </SCField>
             <SCField label="Direction">
