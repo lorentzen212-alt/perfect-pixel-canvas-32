@@ -30,12 +30,16 @@ interface BookingHeaderProps {
   currentStep: BookingStepKey;
   onStepGo?: (s: BookingStepKey) => void;
   hideCurrentFlow?: "leisure" | "me" | "manage";
+  surfaceColor?: string;
+  bottomDividerOpacity?: number;
 }
 
 export function BookingHeader({
   currentStep,
   onStepGo,
   hideCurrentFlow = "leisure",
+  surfaceColor,
+  bottomDividerOpacity,
 }: BookingHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -77,7 +81,16 @@ export function BookingHeader({
 
   return (
     <>
-      <header className="w-full" style={{ backgroundColor: NAVY }}>
+      <header
+        className="w-full"
+        style={{
+          backgroundColor: surfaceColor ?? NAVY,
+          boxShadow:
+            bottomDividerOpacity !== undefined
+              ? `inset 0 -1px 0 rgba(245,241,230,${bottomDividerOpacity})`
+              : undefined,
+        }}
+      >
         <div className="relative mx-auto flex max-w-[1600px] items-center px-6 py-6 lg:px-10 lg:py-7">
           {/* Logo (left) */}
           <Link to="/" className="flex shrink-0 items-center" aria-label="HotelGroupBook home">
