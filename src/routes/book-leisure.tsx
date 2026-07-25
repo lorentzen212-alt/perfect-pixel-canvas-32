@@ -2854,8 +2854,8 @@ function StayRoomRow({
       </div>
       <div className="min-w-0 -mt-4">
         <div
-          className="whitespace-nowrap overflow-hidden text-ellipsis text-[14px] font-medium text-white"
-          style={{ letterSpacing: "-0.01em" }}
+          className="whitespace-nowrap overflow-hidden text-ellipsis text-[13.5px] font-medium text-white"
+          style={{ letterSpacing: "-0.015em" }}
         >
           {meta.title}
         </div>
