@@ -3661,7 +3661,7 @@ function LeisureStep3Screen({
                   boxShadow: "0 18px 40px -24px rgba(0,0,0,0.55)",
                 }}
               >
-                <div className="relative h-[154px] w-full overflow-hidden">
+                <div className="relative h-[132px] w-full overflow-hidden">
                   <img
                     src={card.img}
                     alt={card.title}
@@ -3671,24 +3671,24 @@ function LeisureStep3Screen({
                     className="pointer-events-none absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(8,19,31,0) 40%, rgba(8,19,31,0.85) 100%)",
+                        "linear-gradient(180deg, rgba(8,19,31,0) 55%, rgba(8,19,31,0.55) 100%)",
                     }}
                   />
+                </div>
+
+                <div className="flex flex-1 flex-col px-4 pb-4 pt-4">
                   <div
-                    className="absolute -bottom-6 left-4 grid h-12 w-12 place-items-center rounded-full"
+                    className="grid h-11 w-11 place-items-center rounded-full"
                     style={{
                       background: `linear-gradient(135deg, ${S1_NAVY_SOFT}, ${S1_NAVY})`,
                       border: `1px solid ${S1_GOLD}`,
                       boxShadow: "0 10px 24px -10px rgba(212,166,74,0.55)",
                     }}
                   >
-                    <Icon size={20} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
+                    <Icon size={18} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
                   </div>
-                </div>
-
-                <div className="flex flex-1 flex-col px-4 pb-2 pt-8">
                   <div
-                    className="text-[16px] font-medium text-white"
+                    className="mt-3 text-[16px] font-medium text-white"
                     style={{ fontFamily: SERIF, fontSize: 19 }}
                   >
                     {card.title}
@@ -3729,15 +3729,15 @@ function LeisureStep3Screen({
             </div>
             <div
               className="mt-6 text-[16px] font-medium"
-              style={{ fontFamily: SERIF, fontSize: 18, color: S1_GOLD_SOFT, lineHeight: 1.25 }}
+              style={{ fontFamily: SERIF, fontSize: 20, color: S1_GOLD_SOFT, lineHeight: 1.2 }}
             >
-              Let HotelGroupBook<br />recommend extras
+              Need help<br />choosing?
             </div>
             <p
               className="mt-4 text-[12.5px] leading-relaxed"
               style={{ color: "rgba(245,241,230,0.65)" }}
             >
-              We&apos;ll suggest the most suitable services based on your destination, hotel and group size.
+              HotelGroupBook can recommend the best services for your group.
             </p>
             <div className="mt-auto pt-8">
               <DarkCheckbox
