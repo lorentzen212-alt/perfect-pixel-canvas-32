@@ -3849,7 +3849,7 @@ function LeisureStep3Screen({
 
         {/* Configuration area */}
         <section
-          className="mt-10 rounded-[20px] p-7 sm:p-9"
+          className="mt-10 rounded-[18px] p-6 sm:p-7"
           style={{
             background: S3_PANEL_SOFT,
             border: `1px solid ${S3_BORDER}`,
@@ -3857,7 +3857,7 @@ function LeisureStep3Screen({
               "0 30px 80px -50px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
           }}
         >
-          <div className="flex items-center gap-4">
+          <div className="flex items-start gap-4">
             <div
               className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full"
               style={{
@@ -3867,20 +3867,25 @@ function LeisureStep3Screen({
             >
               <active.icon size={18} strokeWidth={1.6} style={{ color: S3_GOLD_SOFT }} />
             </div>
-            <div>
+            <div className="pt-0.5">
               <div
-                className="text-[19px] font-medium tracking-[0.14em]"
+                className="text-[15px] font-medium tracking-[0.22em]"
                 style={{ color: S3_TEXT }}
               >
                 {active.configTitle.toUpperCase()}
               </div>
-              <div className="mt-1 text-[13.5px]" style={{ color: S3_TEXT_MUTED }}>
+              <div className="mt-1 text-[12.5px]" style={{ color: S3_TEXT_MUTED }}>
                 {active.configPrompt}
               </div>
             </div>
           </div>
 
-          <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+          <div
+            className="mt-6 grid gap-2.5"
+            style={{
+              gridTemplateColumns: `repeat(${active.options.length}, minmax(0, 1fr))`,
+            }}
+          >
             {active.options.map((opt) => {
               const OptIcon = opt.icon;
               const isOn = selected.has(opt.label);
@@ -3889,30 +3894,30 @@ function LeisureStep3Screen({
                   key={opt.label}
                   type="button"
                   onClick={() => onToggle(opt.label)}
-                  className="group relative flex h-[132px] flex-col items-center justify-center rounded-[14px] px-3 text-center transition-all duration-200"
+                  className="group relative flex h-[104px] flex-col items-center justify-center rounded-[12px] px-2.5 text-center transition-all duration-200"
                   style={{
-                    background: "transparent",
+                    background: isOn ? "rgba(201,164,106,0.08)" : "transparent",
                     border: `1px solid ${isOn ? S3_GOLD : S3_BORDER_STRONG}`,
                     boxShadow: isOn
-                      ? "0 12px 28px -18px rgba(201,164,106,0.55), inset 0 1px 0 rgba(255,255,255,0.04)"
+                      ? "0 10px 26px -18px rgba(201,164,106,0.55), inset 0 1px 0 rgba(255,255,255,0.04)"
                       : "inset 0 1px 0 rgba(255,255,255,0.02)",
                   }}
                 >
                   {isOn && (
                     <span
-                      className="absolute right-2 top-2 grid h-5 w-5 place-items-center rounded-full"
+                      className="absolute right-1.5 top-1.5 grid h-[18px] w-[18px] place-items-center rounded-full"
                       style={{ background: S3_GOLD_GRADIENT }}
                     >
-                      <Check size={11} strokeWidth={3} style={{ color: "#1A1207" }} />
+                      <Check size={10} strokeWidth={3} style={{ color: "#1A1207" }} />
                     </span>
                   )}
                   <OptIcon
-                    size={26}
+                    size={22}
                     strokeWidth={1.5}
                     style={{ color: isOn ? S3_GOLD_SOFT : "rgba(237,231,218,0.72)" }}
                   />
                   <div
-                    className="mt-3 text-[12.5px] leading-tight"
+                    className="mt-2.5 text-[11.5px] leading-[1.25]"
                     style={{ color: S3_TEXT }}
                   >
                     {opt.label}
@@ -3924,29 +3929,61 @@ function LeisureStep3Screen({
         </section>
 
         {/* Additional requests */}
-        <section className="mt-10">
-          <div
-            className="text-[17px] font-medium tracking-[0.12em]"
-            style={{ color: S3_TEXT }}
-          >
-            ANYTHING ELSE OUR CONCIERGE TEAM SHOULD PREPARE?
+        <section
+          className="mt-6 rounded-[18px] p-6 sm:p-7"
+          style={{
+            background: S3_PANEL_SOFT,
+            border: `1px solid ${S3_BORDER}`,
+            boxShadow:
+              "0 30px 80px -50px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+          }}
+        >
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:items-start">
+            <div className="flex items-start gap-4">
+              <div
+                className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full"
+                style={{
+                  background: S3_PANEL,
+                  border: `1px solid ${S3_GOLD}`,
+                }}
+              >
+                <Pencil size={16} strokeWidth={1.6} style={{ color: S3_GOLD_SOFT }} />
+              </div>
+              <div className="pt-0.5">
+                <div
+                  className="text-[13px] font-medium tracking-[0.2em]"
+                  style={{ color: S3_TEXT }}
+                >
+                  ANYTHING ELSE OUR CONCIERGE<br />TEAM SHOULD PREPARE?
+                </div>
+                <div className="mt-1.5 text-[11.5px]" style={{ color: S3_TEXT_MUTED }}>
+                  Share any requirements that are not covered above.
+                </div>
+              </div>
+            </div>
+            <div className="relative">
+              <textarea
+                value={comments}
+                onChange={(e) => setComments(e.target.value)}
+                placeholder="Write your request here…"
+                rows={3}
+                className="w-full resize-none rounded-[12px] px-5 py-4 pr-12 text-[13.5px] outline-none transition-colors"
+                style={{
+                  background: "transparent",
+                  border: `1px solid ${S3_BORDER_STRONG}`,
+                  color: S3_TEXT,
+                }}
+              />
+              <Pencil
+                size={15}
+                strokeWidth={1.6}
+                className="pointer-events-none absolute right-4 top-4"
+                style={{ color: S3_GOLD_SOFT }}
+              />
+            </div>
           </div>
-          <div className="mt-2 text-[13.5px]" style={{ color: S3_TEXT_MUTED }}>
-            Share any requirements that are not covered above.
-          </div>
-          <textarea
-            value={comments}
-            onChange={(e) => setComments(e.target.value)}
-            placeholder="Write your request here…"
-            rows={4}
-            className="mt-5 w-full resize-none rounded-[14px] px-5 py-4 text-[14px] outline-none transition-colors"
-            style={{
-              background: "transparent",
-              border: `1px solid ${S3_BORDER_STRONG}`,
-              color: S3_TEXT,
-            }}
-          />
         </section>
+
 
         {/* Bottom actions */}
         <div className="mt-12 flex flex-col-reverse items-stretch justify-between gap-6 sm:flex-row sm:items-center">
