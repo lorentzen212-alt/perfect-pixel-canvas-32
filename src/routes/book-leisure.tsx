@@ -3986,7 +3986,7 @@ function LeisureStep3Screen({
 
 
         {/* Bottom actions */}
-        <div className="mt-12 flex flex-col-reverse items-stretch justify-between gap-6 sm:flex-row sm:items-center">
+        <div className="mt-20 flex flex-col-reverse items-stretch justify-between gap-6 sm:flex-row sm:items-center">
           <button
             type="button"
             onClick={onBack}
