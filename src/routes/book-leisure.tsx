@@ -2540,16 +2540,18 @@ function LeisureStepShell({
             <>
               <div className="pointer-events-none absolute inset-0 s4-hero-vignette" />
               <div className="pointer-events-none absolute inset-y-0 right-0 w-[160px] s4-hero-edgefade" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] s4-hero-baselift" />
             </>
           )}
           <div
             className="absolute inset-0"
             style={{
               background: enhancedHero
-                ? "linear-gradient(180deg, rgba(8,19,31,0.18) 0%, rgba(8,19,31,0.30) 55%, rgba(8,19,31,0.78) 100%)"
+                ? "linear-gradient(180deg, rgba(8,19,31,0.18) 0%, rgba(8,19,31,0.28) 55%, rgba(8,19,31,0.62) 100%)"
                 : "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
             }}
           />
+
 
           <div className="relative z-10 h-full min-h-[520px] p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
             <div className="flex h-full flex-col justify-between lg:ml-[15px] lg:mt-[10px]">
@@ -2572,22 +2574,55 @@ function LeisureStepShell({
                 </p>
               </div>
 
-              <ul className="space-y-3.5 pt-8">
-                {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
-                  <li key={t} className="flex items-center gap-3 text-[15px] text-white/95">
-                    <span
-                      className="grid h-6 w-6 place-items-center rounded-full"
-                      style={{
-                        backgroundColor: "rgba(212,166,74,0.14)",
-                        border: `1px solid ${S1_GOLD}`,
-                      }}
-                    >
-                      <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
-                    </span>
-                    {t}
-                  </li>
-                ))}
-              </ul>
+              {enhancedHero ? (
+                <div
+                  className="mt-8 rounded-[16px] px-5 py-4 sm:px-6"
+                  style={{
+                    background: "linear-gradient(180deg, rgba(18,34,52,0.46) 0%, rgba(8,19,31,0.56) 100%)",
+                    backdropFilter: "blur(10px) saturate(120%)",
+                    borderTop: `1px solid rgba(232,199,117,0.55)`,
+                    borderLeft: "1px solid rgba(255,255,255,0.08)",
+                    borderRight: "1px solid rgba(255,255,255,0.08)",
+                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14)",
+                  }}
+                >
+                  <div className="flex flex-col items-start gap-2.5 sm:flex-row sm:items-center sm:justify-center sm:gap-4">
+                    {["One request.", "Multiple offers.", "The perfect trip."].map((t, i) => (
+                      <div key={t} className="flex items-center gap-4">
+                        {i > 0 && (
+                          <span
+                            className="hidden h-[5px] w-[5px] flex-shrink-0 rounded-full sm:block"
+                            style={{
+                              background: `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`,
+                            }}
+                          />
+                        )}
+                        <span className="whitespace-nowrap text-[13px] leading-none text-white/95 lg:text-[13.5px]">{t}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
+              ) : (
+                <ul className="space-y-3.5 pt-8">
+                  {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
+                    <li key={t} className="flex items-center gap-3 text-[15px] text-white/95">
+                      <span
+                        className="grid h-6 w-6 place-items-center rounded-full"
+                        style={{
+                          backgroundColor: "rgba(212,166,74,0.14)",
+                          border: `1px solid ${S1_GOLD}`,
+                        }}
+                      >
+                        <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
+                      </span>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
             </div>
           </div>
         </aside>
@@ -4983,21 +5018,21 @@ function LeisureStep4Screen({
 
         {/* Additional Experience Requests */}
         <div
-          className="mt-8 rounded-[16px] p-5 sm:p-6"
+          className="mt-8 rounded-[16px] px-5 py-4 sm:px-6 sm:py-5"
           style={{
-            backgroundColor: S1_NAVY,
+            background: "linear-gradient(180deg, rgba(9,21,34,0.96) 0%, rgba(6,16,26,0.96) 100%)",
             border: `1px solid ${S1_BORDER}`,
           }}
         >
           <h3
-            className="text-[18px] font-medium text-white"
+            className="text-[17.5px] font-medium text-white"
             style={{ fontFamily: SERIF }}
           >
             Additional Experience Requests
           </h3>
           <p
-            className="mt-1.5 text-[13.5px]"
-            style={{ color: "rgba(245,241,230,0.62)" }}
+            className="mt-1 text-[13px] leading-relaxed"
+            style={{ color: "rgba(245,241,230,0.6)" }}
           >
             Tell us if you&apos;re looking for an experience that isn&apos;t listed above, or if you have any special wishes for your group.
           </p>
@@ -5005,38 +5040,39 @@ function LeisureStep4Screen({
             value={additionalRequests}
             onChange={(e) => setAdditionalRequests(e.target.value)}
             placeholder={`Looking for something unique?\n\nPrivate boat charter · Hike · Photography tour\nDog sledding · Wine tasting · Brewery visit`}
-            rows={5}
-            className="mt-4 w-full resize-y rounded-[14px] px-5 py-4 text-[14.5px] outline-none transition-all duration-200 focus:border-[#D4A64A] focus:ring-4 focus:ring-[rgba(212,166,74,0.12)]"
+            rows={4}
+            className="mt-3.5 w-full resize-y rounded-[13px] px-4 py-3.5 text-[14px] outline-none transition-all duration-200 focus:border-[#D4A64A] focus:ring-4 focus:ring-[rgba(212,166,74,0.12)]"
             style={{
-              backgroundColor: S1_NAVY_SOFT,
+              background: "linear-gradient(180deg, rgba(24,42,62,0.72) 0%, rgba(18,33,50,0.72) 100%)",
               color: "#F5F1E6",
-              border: `1px solid ${S1_BORDER}`,
-              minHeight: 130,
+              border: `1px solid rgba(255,255,255,0.09)`,
+              boxShadow: "inset 0 2px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
+              minHeight: 104,
             }}
           />
+
         </div>
 
         {/* Experience Availability */}
         <div
-          className="mt-10 rounded-[16px] p-6 sm:p-7"
+          className="mt-6 rounded-[14px] px-5 py-4 sm:px-6"
           style={{
             background:
-              "linear-gradient(180deg, rgba(14,28,44,0.85) 0%, rgba(8,19,31,0.65) 100%)",
-            border: `1px solid ${S1_BORDER_SOFT}`,
-            boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 48px -30px rgba(0,0,0,0.55)",
+              "linear-gradient(180deg, rgba(22,40,60,0.78) 0%, rgba(16,31,48,0.72) 100%)",
+            border: `1px solid rgba(255,255,255,0.09)`,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
           <div
             className="h-px w-full"
             style={{
-              background: `linear-gradient(90deg, transparent 0%, rgba(232,199,117,0.55) 20%, rgba(212,166,74,0.85) 50%, rgba(232,199,117,0.55) 80%, transparent 100%)`,
-              marginBottom: 18,
+              background: `linear-gradient(90deg, transparent 0%, rgba(232,199,117,0.5) 18%, rgba(212,166,74,0.8) 50%, rgba(232,199,117,0.5) 82%, transparent 100%)`,
+              marginBottom: 14,
             }}
           />
-          <div className="flex items-start gap-5">
+          <div className="flex items-center gap-4">
             <span
-              className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-full"
+              className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-full"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(232,199,117,0.18), rgba(212,166,74,0.10))",
@@ -5045,23 +5081,24 @@ function LeisureStep4Screen({
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
               }}
             >
-              <Info size={20} strokeWidth={1.9} />
+              <Info size={16} strokeWidth={2} />
             </span>
             <div className="flex-1">
               <div
                 className="font-medium text-white"
-                style={{ fontFamily: SERIF, fontSize: 17 }}
+                style={{ fontFamily: SERIF, fontSize: 15.5, letterSpacing: "0.01em" }}
               >
                 Experience Availability
               </div>
               <p
-                className="mt-2.5 text-[13.5px] leading-relaxed"
-                style={{ color: "rgba(245,241,230,0.68)" }}
+                className="mt-1 text-[12.5px] leading-[1.55]"
+                style={{ color: "rgba(245,241,230,0.62)" }}
               >
                 Experiences vary by destination, season and local availability. If one of your selected experiences isn&apos;t available, our team will recommend the closest premium alternative.
               </p>
             </div>
           </div>
+
         </div>
 
         {/* Experience Wishlist Summary */}
@@ -5164,13 +5201,21 @@ function LeisureStep4Screen({
 
         {/* Recommendation panel */}
         <div
-          className="mt-6 flex flex-col gap-4 rounded-[16px] p-5 sm:flex-row sm:items-center sm:justify-between"
+          className="relative mt-6 flex flex-col gap-5 overflow-hidden rounded-[16px] px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-7"
           style={{
-            backgroundColor: S1_NAVY,
-            border: `1px solid ${S1_BORDER}`,
+            background: "linear-gradient(180deg, rgba(26,46,68,0.96) 0%, rgba(15,30,47,0.96) 100%)",
+            border: `1px solid rgba(255,255,255,0.11)`,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
           }}
         >
-          <div className="flex items-center gap-4">
+          <div
+            className="pointer-events-none absolute right-0 top-1/2 h-[280px] w-[380px] -translate-y-1/2"
+            style={{
+              background: "radial-gradient(50% 50% at 70% 50%, rgba(212,166,74,0.16), transparent 72%)",
+              filter: "blur(6px)",
+            }}
+          />
+          <div className="relative flex items-center gap-4">
             <span
               className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full"
               style={{
@@ -5182,12 +5227,12 @@ function LeisureStep4Screen({
             </span>
             <div>
               <div
-                className="text-[15.5px] font-medium text-white"
-                style={{ fontFamily: SERIF, fontSize: 18 }}
+                className="font-medium text-white"
+                style={{ fontFamily: SERIF, fontSize: 18, lineHeight: 1.28 }}
               >
                 Let HotelGroupBook curate the perfect experience package for your group.
               </div>
-              <div className="text-[13px]" style={{ color: "rgba(245,241,230,0.6)" }}>
+              <div className="mt-1.5 text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.6)" }}>
                 We&apos;ll recommend the best experiences based on your destination, travel dates and group profile.
               </div>
             </div>
@@ -5195,11 +5240,12 @@ function LeisureStep4Screen({
           <button
             type="button"
             onClick={() => setLetUsRecommend(!letUsRecommend)}
-            className="s4-shimmer s4-surprise inline-flex items-center gap-2.5 rounded-[13px] px-6 py-[14px] text-[14.5px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
+            className="s4-shimmer s4-surprise relative inline-flex flex-shrink-0 items-center justify-center gap-2.5 whitespace-nowrap rounded-[13px] px-7 py-[14px] text-[14.5px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
             style={{
               background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B88C2F 100%)`,
               color: S1_NAVY,
               border: `1px solid ${S1_GOLD}`,
+              minWidth: 196,
               boxShadow: letUsRecommend
                 ? "0 32px 56px -18px rgba(212,166,74,0.85), 0 8px 18px -8px rgba(212,166,74,0.5), inset 0 1px 0 rgba(255,255,255,0.55)"
                 : "0 22px 40px -14px rgba(212,166,74,0.6), 0 6px 14px -6px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
@@ -5211,7 +5257,7 @@ function LeisureStep4Screen({
         </div>
 
         {/* Bottom nav */}
-        <div className="mt-10 flex items-center justify-between gap-4">
+        <div className="mt-6 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={onBack}
@@ -5239,8 +5285,7 @@ function LeisureStep4Screen({
           </button>
         </div>
 
-
-        <div className="mt-8 flex flex-col items-center gap-1 text-center">
+        <div className="mt-5 flex flex-col items-center gap-1 text-center">
           <div className="flex items-center gap-2 text-[13.5px]">
             <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
             <span style={{ color: S1_GOLD_SOFT }}>
@@ -5251,6 +5296,7 @@ function LeisureStep4Screen({
             We find the best options so you can choose what suits your group.
           </div>
         </div>
+
       </section>
     </LeisureStepShell>
   );

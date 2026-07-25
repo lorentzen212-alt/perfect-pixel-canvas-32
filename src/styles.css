@@ -301,3 +301,14 @@
 }
 .s4-card.s4-selected .s4-card-img { filter: saturate(1.16) contrast(1.08) brightness(1.05); }
 
+
+/* Step 4 – subtle tonal lift in the lower hero area (behind the glass panel) */
+.s4-hero-baselift {
+  background: linear-gradient(
+    0deg,
+    rgba(255, 245, 228, 0.10) 0%,
+    rgba(255, 245, 228, 0.05) 45%,
+    rgba(255, 245, 228, 0) 100%
+  );
+  mix-blend-mode: soft-light;
+}
