@@ -3582,7 +3582,7 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
   {
     key: "arrival",
     title: "Arrival",
-    description: "Transfers, porter & first impressions",
+    description: "Welcome, porter & first impressions",
     img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=80",
     icon: Car,
     configTitle: "Arrival Experience",
@@ -3657,7 +3657,7 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
   {
     key: "departure",
     title: "Departure",
-    description: "Transfers & onward travel",
+    description: "Farewell assistance & departure services",
     img: "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?auto=format&fit=crop&w=900&q=80",
     icon: Plane,
     configTitle: "Departure Experience",
