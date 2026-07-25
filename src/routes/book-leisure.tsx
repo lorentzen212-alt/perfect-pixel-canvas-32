@@ -3059,6 +3059,9 @@ function LeisureStep2Screen({
       arrival: draftArrival,
       departure: draftDeparture,
       rooms: { ...draftRooms },
+      roomCategories: Object.fromEntries(
+        Object.entries(draftCategories).filter(([k, v]) => v && (draftRooms[k] ?? 0) > 0),
+      ),
     };
     setStays((prev) =>
       editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
