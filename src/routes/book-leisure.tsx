@@ -3642,7 +3642,7 @@ function LeisureStep3Screen({
         </p>
 
         {/* Five service cards */}
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-8 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 sm:gap-3 lg:grid-cols-5 lg:gap-1.5">
           {STEP3_CARDS.map((card) => {
             const Icon = card.icon;
             return (
