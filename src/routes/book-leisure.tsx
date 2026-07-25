@@ -2635,10 +2635,16 @@ function RoomCounter({
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
-        style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1, ["--gold-soft" as never]: S1_GOLD_SOFT }}
+        className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] transition-all duration-200 hover:bg-[color:var(--gold-soft)]/10 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        style={{
+          color: S1_GOLD_SOFT,
+          opacity: disabled ? 0.35 : 1,
+          border: `1px solid ${S1_GOLD_SOFT}`,
+          backgroundColor: "rgba(6,16,26,0.55)",
+          ["--gold-soft" as never]: S1_GOLD_SOFT,
+        }}
       >
-        <Minus size={20} strokeWidth={2.4} />
+        <Minus size={18} strokeWidth={2.4} />
       </button>
       <input
         type="text"
@@ -2669,11 +2675,11 @@ function RoomCounter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className="no-spin h-10 w-[48px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
+        className="no-spin h-11 w-[58px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
         style={{
           fontFamily: SERIF,
-          backgroundColor: "rgba(6,16,26,0.85)",
-          border: "1px solid rgba(245,241,230,0.10)",
+          backgroundColor: "rgba(6,16,26,0.55)",
+          border: `1px solid ${S1_GOLD_SOFT}`,
           boxShadow: "inset 0 1px 2px rgba(0,0,0,0.35)",
           ["--gold" as never]: S1_GOLD,
         }}
@@ -2682,11 +2688,17 @@ function RoomCounter({
         type="button"
         aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
-        className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
-        style={{ color: S1_GOLD_SOFT, opacity: 0.86, ["--gold-soft" as never]: S1_GOLD_SOFT }}
+        className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] transition-all duration-200 hover:bg-[color:var(--gold-soft)]/10 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        style={{
+          color: S1_GOLD_SOFT,
+          border: `1px solid ${S1_GOLD_SOFT}`,
+          backgroundColor: "rgba(6,16,26,0.55)",
+          ["--gold-soft" as never]: S1_GOLD_SOFT,
+        }}
       >
-        <Plus size={20} strokeWidth={2.4} />
+        <Plus size={18} strokeWidth={2.4} />
       </button>
+
     </div>
   );
 }
