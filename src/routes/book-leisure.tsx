@@ -2851,9 +2851,9 @@ function StayRoomRow({
           style={{ filter: "saturate(1.10) contrast(1.10) brightness(1.03) hue-rotate(-2deg)" }}
         />
       </div>
-      <div className="min-w-0 -mt-2.5 pr-2">
+      <div className="min-w-0 -mt-2.5 pr-4">
         <div
-          className="whitespace-nowrap overflow-hidden text-ellipsis text-[15.5px] font-medium text-white"
+          className="text-[15.5px] font-medium text-white"
           style={{ letterSpacing: "-0.005em" }}
         >
           {meta.title}
