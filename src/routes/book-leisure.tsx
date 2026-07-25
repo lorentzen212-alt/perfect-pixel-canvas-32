@@ -4811,7 +4811,7 @@ function LeisureStep4Screen({
                   key={e.label}
                   type="button"
                   onClick={() => onToggle(e.label)}
-                  className={`s4-card group relative overflow-hidden rounded-[18px] text-left ${active ? "s4-selected-glow" : ""}`}
+                  className={`s4-card group relative overflow-hidden rounded-[18px] text-left ${active ? "s4-selected s4-selected-glow" : ""}`}
                   style={{
                     border: `1px solid ${active ? S1_GOLD : S1_BORDER}`,
                     boxShadow: active
