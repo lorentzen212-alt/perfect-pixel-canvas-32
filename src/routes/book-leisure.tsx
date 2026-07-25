@@ -5002,29 +5002,46 @@ function LeisureStep4Screen({
 
         {/* Experience Availability */}
         <div
-          className="mt-8 flex items-start gap-3 rounded-[14px] p-4"
+          className="mt-8 rounded-[16px] p-5"
           style={{
-            backgroundColor: "rgba(8,19,31,0.55)",
+            background:
+              "linear-gradient(180deg, rgba(8,19,31,0.72) 0%, rgba(8,19,31,0.55) 100%)",
             border: `1px solid ${S1_BORDER_SOFT}`,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
           }}
         >
-          <Info
-            size={18}
-            style={{ color: S1_GOLD_SOFT, flexShrink: 0, marginTop: 2 }}
-          />
-          <div>
-            <div
-              className="text-[14px] font-medium text-white"
-              style={{ fontFamily: SERIF }}
+          <div className="flex items-start gap-4">
+            <span
+              className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-full"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(232,199,117,0.14), rgba(212,166,74,0.08))",
+                border: `1px solid ${S1_BORDER}`,
+                color: S1_GOLD_SOFT,
+              }}
             >
-              Experience Availability
+              <Info size={17} strokeWidth={2} />
+            </span>
+            <div className="flex-1">
+              <div
+                className="text-[14.5px] font-medium text-white"
+                style={{ fontFamily: SERIF, fontSize: 16 }}
+              >
+                Experience Availability
+              </div>
+              <div
+                className="mt-2 h-px w-14"
+                style={{
+                  background: `linear-gradient(90deg, ${S1_GOLD}, ${S1_GOLD_SOFT}, transparent)`,
+                }}
+              />
+              <p
+                className="mt-3 text-[13.5px] leading-relaxed"
+                style={{ color: "rgba(245,241,230,0.66)" }}
+              >
+                Experiences vary by destination, season and local availability. If one of your selected experiences isn&apos;t available, our team will recommend the closest premium alternative.
+              </p>
             </div>
-            <p
-              className="mt-1 text-[13px]"
-              style={{ color: "rgba(245,241,230,0.6)" }}
-            >
-              Experiences vary by destination, season and local availability. If one of your selected experiences isn&apos;t available, our team will recommend the closest premium alternative.
-            </p>
           </div>
         </div>
 
@@ -5061,22 +5078,108 @@ function LeisureStep4Screen({
           <button
             type="button"
             onClick={() => setLetUsRecommend(!letUsRecommend)}
-            className="inline-flex items-center gap-2 rounded-[12px] px-5 py-3 text-[14px] font-semibold transition-all hover:-translate-y-[1px]"
+            className="s4-shimmer s4-surprise inline-flex items-center gap-2 rounded-[12px] px-5 py-3 text-[14px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
             style={{
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B88C2F 100%)`,
               color: S1_NAVY,
+              border: `1px solid ${S1_GOLD}`,
               boxShadow: letUsRecommend
-                ? "0 22px 44px -18px rgba(212,166,74,0.75), inset 0 1px 0 rgba(255,255,255,0.4)"
-                : "0 14px 30px -16px rgba(212,166,74,0.5), inset 0 1px 0 rgba(255,255,255,0.4)",
+                ? "0 26px 48px -18px rgba(212,166,74,0.8), inset 0 1px 0 rgba(255,255,255,0.5)"
+                : "0 18px 34px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.5)",
             }}
           >
-            <Sparkles size={16} strokeWidth={2} />
+            <Sparkles size={16} strokeWidth={2} className="s4-surprise-icon" />
             {letUsRecommend ? "We'll surprise you" : "Surprise me"}
           </button>
         </div>
 
+        {/* Experience Summary */}
+        {(selected.size > 0 || preferredDate || dateFlexible || additionalRequests.trim().length > 0) && (
+          <div
+            className="mt-8 rounded-[16px] p-5"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(20,38,56,0.9) 0%, rgba(8,19,31,0.9) 100%)",
+              border: `1px solid ${S1_BORDER}`,
+              boxShadow:
+                "0 20px 40px -24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
+            }}
+          >
+            <div className="flex items-center gap-2.5">
+              <span
+                className="h-px flex-1"
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${S1_GOLD}, transparent)`,
+                }}
+              />
+              <span
+                className="text-[10.5px] font-semibold tracking-[0.28em]"
+                style={{ color: S1_GOLD_SOFT, textTransform: "uppercase" }}
+              >
+                Your experience
+              </span>
+              <span
+                className="h-px flex-1"
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${S1_GOLD}, transparent)`,
+                }}
+              />
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {selected.size > 0 && (
+                <div className="flex items-start gap-2.5">
+                  <Check size={14} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
+                  <div>
+                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
+                      Selected ({selected.size})
+                    </div>
+                    <div className="mt-1 text-[13.5px] text-white" style={{ lineHeight: 1.5 }}>
+                      {Array.from(selected).join(" · ")}
+                    </div>
+                  </div>
+                </div>
+              )}
+              {preferredDate && (
+                <div className="flex items-start gap-2.5">
+                  <CalendarDays size={14} strokeWidth={2.2} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
+                  <div>
+                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
+                      Preferred date
+                    </div>
+                    <div className="mt-1 text-[13.5px] text-white">{format(preferredDate, "PPP")}</div>
+                  </div>
+                </div>
+              )}
+              {dateFlexible && (
+                <div className="flex items-start gap-2.5">
+                  <Sparkles size={14} strokeWidth={2.2} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
+                  <div>
+                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
+                      Flexibility
+                    </div>
+                    <div className="mt-1 text-[13.5px] text-white">Open to alternative dates</div>
+                  </div>
+                </div>
+              )}
+              {additionalRequests.trim().length > 0 && (
+                <div className="flex items-start gap-2.5 sm:col-span-2">
+                  <Info size={14} strokeWidth={2.2} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
+                  <div className="min-w-0">
+                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
+                      Concierge notes
+                    </div>
+                    <div className="mt-1 line-clamp-2 text-[13.5px] text-white" style={{ lineHeight: 1.5 }}>
+                      {additionalRequests.trim()}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Bottom nav */}
-        <div className="mt-10 flex items-center justify-between gap-4">
+        <div className="mt-8 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={onBack}
@@ -5090,18 +5193,20 @@ function LeisureStep4Screen({
           <button
             type="button"
             onClick={onNext}
-            className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+            className="s4-shimmer inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
             style={{
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B88C2F 100%)`,
               color: S1_NAVY,
+              border: `1px solid ${S1_GOLD}`,
               boxShadow:
-                "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+                "0 20px 42px -16px rgba(212,166,74,0.6), inset 0 1px 0 rgba(255,255,255,0.45)",
             }}
           >
             Next step
             <ArrowRight size={17} strokeWidth={2.4} />
           </button>
         </div>
+
 
         <div className="mt-8 flex flex-col items-center gap-1 text-center">
           <div className="flex items-center gap-2 text-[13.5px]">
