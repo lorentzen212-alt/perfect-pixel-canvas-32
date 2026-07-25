@@ -3745,7 +3745,7 @@ function LeisureStep3Screen({
 
         {/* Additional comments */}
         <div
-          className="mt-8 flex items-start gap-4 rounded-[16px] p-4"
+          className="mt-8 flex items-start gap-4 rounded-[16px] p-5"
           style={{
             backgroundColor: S1_NAVY,
             border: `1px solid ${S1_BORDER}`,
@@ -3769,8 +3769,8 @@ function LeisureStep3Screen({
               value={comments}
               onChange={(e) => setComments(e.target.value)}
               placeholder="Tell us anything else we should know..."
-              rows={2}
-              className="mt-1 w-full resize-none bg-transparent text-[13.5px] outline-none"
+              rows={3}
+              className="mt-3 w-full resize-none bg-transparent text-[13.5px] outline-none"
               style={{ color: "#F5F1E6" }}
             />
           </div>
