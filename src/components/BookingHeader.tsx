@@ -30,12 +30,16 @@ interface BookingHeaderProps {
   currentStep: BookingStepKey;
   onStepGo?: (s: BookingStepKey) => void;
   hideCurrentFlow?: "leisure" | "me" | "manage";
+  surfaceColor?: string;
+  bottomDividerOpacity?: number;
 }
 
 export function BookingHeader({
   currentStep,
   onStepGo,
   hideCurrentFlow = "leisure",
+  surfaceColor,
+  bottomDividerOpacity,
 }: BookingHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
