@@ -3663,7 +3663,6 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
     configTitle: "Departure Experience",
     configPrompt: "How should your group leave?",
     options: [
-      { label: "Departure Transport", displayLabel: "Transport", icon: Car },
       { label: "Porter Service Out", displayLabel: "Porter Service", icon: Briefcase },
       { label: "No departure services required", icon: Check },
     ],
