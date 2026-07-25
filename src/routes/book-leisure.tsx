@@ -4087,12 +4087,14 @@ function SmartConfigPanel({
               name={`${label}-scope`}
               value={cfg.scope}
               onChange={(v) => onChange({ scope: v })}
-              options={["Entire Group", "Group Leader", "Selected Guests"]}
+              options={["Entire Group", "Group Leader", "Number of Guests"]}
             />
-            {cfg.scope === "Selected Guests" && (
+            {cfg.scope === "Number of Guests" && (
               <div className="mt-2">
                 <SCInput
-                  placeholder="Guest names or room numbers"
+                  type="number"
+                  min={1}
+                  placeholder="Number of guests"
                   value={cfg.scopeDetail ?? ""}
                   onChange={(e) => onChange({ scopeDetail: e.target.value })}
                 />
