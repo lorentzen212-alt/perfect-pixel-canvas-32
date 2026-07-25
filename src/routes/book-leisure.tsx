@@ -5010,10 +5010,10 @@ function LeisureStep4Screen({
                 className="text-[15.5px] font-medium text-white"
                 style={{ fontFamily: SERIF, fontSize: 18 }}
               >
-                Let HotelGroupBook recommend experiences
+                Let HotelGroupBook curate the perfect experience package for your group.
               </div>
               <div className="text-[13px]" style={{ color: "rgba(245,241,230,0.6)" }}>
-                We&apos;ll suggest the best options for your group.
+                We&apos;ll recommend the best experiences based on your destination, travel dates and group profile.
               </div>
             </div>
           </div>
