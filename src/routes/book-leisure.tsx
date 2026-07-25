@@ -3081,6 +3081,7 @@ function LeisureStep2Screen({
     setDraftArrival(s.arrival);
     setDraftDeparture(s.departure);
     setDraftRooms({ ...emptyDraftRooms(), ...s.rooms });
+    setDraftCategories({ ...(s.roomCategories ?? {}) });
     setShowEditor(true);
     if (typeof window !== "undefined")
       window.scrollTo({ top: 0, behavior: "smooth" });
