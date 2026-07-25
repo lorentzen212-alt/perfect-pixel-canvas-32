@@ -2492,6 +2492,7 @@ function LeisureStepShell({
   headline,
   subtext,
   rightSidebar,
+  enhancedHero = false,
 }: {
   activeStep: StepKey;
   onStepGo: (s: StepKey) => void;
@@ -2501,6 +2502,8 @@ function LeisureStepShell({
   headline: React.ReactNode;
   subtext: React.ReactNode;
   rightSidebar?: React.ReactNode;
+  enhancedHero?: boolean;
+
 }) {
   const gridCols = rightSidebar
     ? "lg:grid-cols-[minmax(220px,0.68fr)_minmax(640px,2.10fr)_minmax(290px,0.92fr)]"
