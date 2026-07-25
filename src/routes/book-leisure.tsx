@@ -3627,7 +3627,7 @@ function LeisureStep3Screen({
       }
     >
       <section
-        className="rounded-[24px] p-6 sm:p-8 lg:p-8"
+        className="rounded-[24px] p-6 sm:p-8 lg:p-7"
         style={{
           backgroundColor: S1_NAVY_SOFT,
           border: `1px solid ${S1_BORDER}`,
