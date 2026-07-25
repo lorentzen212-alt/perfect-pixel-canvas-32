@@ -4834,17 +4834,33 @@ function LeisureStep4Screen({
                     />
                     {isSignature && (
                       <span
-                        className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-[5px] text-[10px] font-semibold tracking-[0.18em]"
+                        className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full px-3 py-[3px] text-[9.5px] font-semibold tracking-[0.22em]"
                         style={{
-                          background: "rgba(8,19,31,0.55)",
-                          border: `1px solid ${S1_GOLD}`,
-                          color: S1_GOLD_SOFT,
-                          backdropFilter: "blur(6px)",
+                          background:
+                            "linear-gradient(135deg, rgba(8,19,31,0.78) 0%, rgba(8,19,31,0.62) 100%)",
+                          border: `1px solid rgba(232,199,117,0.75)`,
+                          boxShadow:
+                            "inset 0 0 0 1px rgba(255,235,180,0.18), 0 6px 14px -6px rgba(212,166,74,0.45)",
+                          color: "transparent",
+                          backgroundImage:
+                            "linear-gradient(135deg, rgba(8,19,31,0.78) 0%, rgba(8,19,31,0.62) 100%)",
+                          backdropFilter: "blur(8px)",
                           textTransform: "uppercase",
+                          lineHeight: 1.4,
                         }}
                       >
-                        <Sparkles size={10} strokeWidth={2.4} />
-                        Signature
+                        <Sparkles size={9.5} strokeWidth={2.5} style={{ color: "#EBCB7A" }} />
+                        <span
+                          style={{
+                            background:
+                              "linear-gradient(135deg, #F4DB94 0%, #E8C775 45%, #C99A44 100%)",
+                            WebkitBackgroundClip: "text",
+                            backgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                          }}
+                        >
+                          Signature
+                        </span>
                       </span>
                     )}
                     <div className="absolute bottom-3 left-3.5 right-14">
