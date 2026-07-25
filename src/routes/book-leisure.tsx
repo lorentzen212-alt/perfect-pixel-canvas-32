@@ -27,7 +27,7 @@ import {
   Utensils,
   Coffee,
   Bus,
-  Car,
+  ConciergeBell,
   DoorOpen,
   Gift,
   Briefcase,
@@ -3584,7 +3584,7 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
     title: "Arrival",
     description: "Welcome, porter & first impressions",
     img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=80",
-    icon: Car,
+    icon: ConciergeBell,
     configTitle: "Arrival Experience",
     configPrompt: "How should your group be welcomed on arrival?",
     options: [
