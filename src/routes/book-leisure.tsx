@@ -5054,25 +5054,24 @@ function LeisureStep4Screen({
 
         {/* Experience Availability */}
         <div
-          className="mt-10 rounded-[16px] p-6 sm:p-7"
+          className="mt-6 rounded-[14px] px-5 py-4 sm:px-6"
           style={{
             background:
-              "linear-gradient(180deg, rgba(14,28,44,0.85) 0%, rgba(8,19,31,0.65) 100%)",
-            border: `1px solid ${S1_BORDER_SOFT}`,
-            boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 48px -30px rgba(0,0,0,0.55)",
+              "linear-gradient(180deg, rgba(22,40,60,0.78) 0%, rgba(16,31,48,0.72) 100%)",
+            border: `1px solid rgba(255,255,255,0.09)`,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
           <div
             className="h-px w-full"
             style={{
-              background: `linear-gradient(90deg, transparent 0%, rgba(232,199,117,0.55) 20%, rgba(212,166,74,0.85) 50%, rgba(232,199,117,0.55) 80%, transparent 100%)`,
-              marginBottom: 18,
+              background: `linear-gradient(90deg, transparent 0%, rgba(232,199,117,0.5) 18%, rgba(212,166,74,0.8) 50%, rgba(232,199,117,0.5) 82%, transparent 100%)`,
+              marginBottom: 14,
             }}
           />
-          <div className="flex items-start gap-5">
+          <div className="flex items-center gap-4">
             <span
-              className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-full"
+              className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-full"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(232,199,117,0.18), rgba(212,166,74,0.10))",
@@ -5081,23 +5080,24 @@ function LeisureStep4Screen({
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
               }}
             >
-              <Info size={20} strokeWidth={1.9} />
+              <Info size={16} strokeWidth={2} />
             </span>
             <div className="flex-1">
               <div
                 className="font-medium text-white"
-                style={{ fontFamily: SERIF, fontSize: 17 }}
+                style={{ fontFamily: SERIF, fontSize: 15.5, letterSpacing: "0.01em" }}
               >
                 Experience Availability
               </div>
               <p
-                className="mt-2.5 text-[13.5px] leading-relaxed"
-                style={{ color: "rgba(245,241,230,0.68)" }}
+                className="mt-1 text-[12.5px] leading-[1.55]"
+                style={{ color: "rgba(245,241,230,0.62)" }}
               >
                 Experiences vary by destination, season and local availability. If one of your selected experiences isn&apos;t available, our team will recommend the closest premium alternative.
               </p>
             </div>
           </div>
+
         </div>
 
         {/* Experience Wishlist Summary */}
