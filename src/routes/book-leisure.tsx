@@ -2625,9 +2625,10 @@ function RoomCounter({
   return (
     <div
       className="flex items-center justify-end shrink-0 w-full"
-      style={{ gap: 10 }}
+      style={{ gap: 12, paddingRight: 12 }}
       onClick={onClickStop}
     >
+
 
       <button
         type="button"
