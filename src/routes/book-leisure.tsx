@@ -525,6 +525,12 @@ function BookLeisure() {
         onToggle={toggleExp}
         letUsRecommend={letUsRecommend}
         setLetUsRecommend={setLetUsRecommend}
+        preferredDate={preferredExpDate}
+        setPreferredDate={setPreferredExpDate}
+        dateFlexible={expDateFlexible}
+        setDateFlexible={setExpDateFlexible}
+        additionalRequests={additionalExpRequests}
+        setAdditionalRequests={setAdditionalExpRequests}
         onNext={() => go(5)}
         onBack={() => go(3)}
         onStepGo={(s: StepKey) => go(s)}
