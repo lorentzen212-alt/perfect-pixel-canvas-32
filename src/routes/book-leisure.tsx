@@ -3116,7 +3116,7 @@ function LeisureStep2Screen({
           <button
             type="button"
             onClick={startNewStay}
-            className="mt-6 flex w-full items-center justify-center gap-2.5 rounded-[14px] py-4 text-[14px] font-medium transition-all hover:-translate-y-[1px]"
+            className="mt-8 flex w-full items-center justify-center gap-2.5 rounded-[14px] py-4 text-[14px] font-medium transition-all duration-200 hover:-translate-y-[2px] active:translate-y-0"
             style={{
               border: `1.5px dashed rgba(212,166,74,0.45)`,
               color: S1_GOLD_SOFT,
