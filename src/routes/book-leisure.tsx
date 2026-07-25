@@ -4792,67 +4792,95 @@ function LeisureStep4Screen({
         </div>
 
         {/* Experience grid */}
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {filtered.map((e) => {
-            const active = selected.has(e.label);
-            return (
-              <button
-                key={e.label}
-                type="button"
-                onClick={() => onToggle(e.label)}
-                className="group relative overflow-hidden rounded-[16px] text-left transition-all hover:-translate-y-[2px]"
-                style={{
-                  border: `1px solid ${active ? S1_GOLD : S1_BORDER}`,
-                  boxShadow: active
-                    ? "0 18px 40px -20px rgba(212,166,74,0.55)"
-                    : "0 14px 30px -22px rgba(0,0,0,0.6)",
-                }}
-              >
-                <div className="relative h-[170px] w-full overflow-hidden">
-                  <img
-                    src={e.img}
-                    alt={e.label}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, rgba(8,19,31,0) 45%, rgba(8,19,31,0.85) 100%)",
-                    }}
-                  />
-                  <div className="absolute bottom-3 left-3 right-14">
+        <div className="relative mt-7">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-8 -z-10"
+            style={{
+              background:
+                "radial-gradient(70% 55% at 50% 40%, rgba(212,166,74,0.08), transparent 70%)",
+              filter: "blur(6px)",
+            }}
+          />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {filtered.map((e) => {
+              const active = selected.has(e.label);
+              const isSignature = e.label === "Northern Lights";
+              return (
+                <button
+                  key={e.label}
+                  type="button"
+                  onClick={() => onToggle(e.label)}
+                  className={`s4-card group relative overflow-hidden rounded-[18px] text-left ${active ? "s4-selected-glow" : ""}`}
+                  style={{
+                    border: `1px solid ${active ? S1_GOLD : S1_BORDER}`,
+                    boxShadow: active
+                      ? "0 22px 46px -20px rgba(212,166,74,0.55), 0 2px 0 rgba(255,255,255,0.03) inset"
+                      : "0 16px 34px -22px rgba(0,0,0,0.65), 0 1px 0 rgba(255,255,255,0.03) inset",
+                  }}
+                >
+                  <div className="relative h-[170px] w-full overflow-hidden">
+                    <img
+                      src={e.img}
+                      alt={e.label}
+                      className="s4-card-img h-full w-full object-cover"
+                    />
                     <div
-                      className="text-[15px] font-medium text-white"
-                      style={{ fontFamily: SERIF, fontSize: 17 }}
-                    >
-                      {e.label}
-                    </div>
-                  </div>
-                  <span
-                    className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full transition-all"
-                    style={{
-                      background: active
-                        ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
-                        : "rgba(8,19,31,0.7)",
-                      border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.35)"}`,
-                      color: active ? S1_NAVY : "#F5F1E6",
-                      boxShadow: active
-                        ? "0 8px 18px -8px rgba(212,166,74,0.6)"
-                        : "none",
-                    }}
-                  >
-                    {active ? (
-                      <Check size={16} strokeWidth={2.8} />
-                    ) : (
-                      <Plus size={18} strokeWidth={2.2} />
+                      className="s4-card-overlay pointer-events-none absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, rgba(8,19,31,0) 40%, rgba(8,19,31,0.92) 100%), radial-gradient(120% 80% at 50% 45%, transparent 55%, rgba(0,0,0,0.35) 100%)",
+                      }}
+                    />
+                    {isSignature && (
+                      <span
+                        className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-[5px] text-[10px] font-semibold tracking-[0.18em]"
+                        style={{
+                          background: "rgba(8,19,31,0.55)",
+                          border: `1px solid ${S1_GOLD}`,
+                          color: S1_GOLD_SOFT,
+                          backdropFilter: "blur(6px)",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        <Sparkles size={10} strokeWidth={2.4} />
+                        Signature
+                      </span>
                     )}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
+                    <div className="absolute bottom-3 left-3.5 right-14">
+                      <div
+                        className="text-white"
+                        style={{ fontFamily: SERIF, fontSize: 17.5, lineHeight: 1.15 }}
+                      >
+                        {e.label}
+                      </div>
+                    </div>
+                    <span
+                      className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full transition-all"
+                      style={{
+                        background: active
+                          ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 60%, #B88C2F 100%)`
+                          : "rgba(8,19,31,0.72)",
+                        border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.35)"}`,
+                        color: active ? S1_NAVY : "#F5F1E6",
+                        boxShadow: active
+                          ? "0 10px 20px -8px rgba(212,166,74,0.7), inset 0 1px 0 rgba(255,255,255,0.5)"
+                          : "none",
+                      }}
+                    >
+                      {active ? (
+                        <Check size={16} strokeWidth={2.8} />
+                      ) : (
+                        <Plus size={18} strokeWidth={2.2} />
+                      )}
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
+
 
         {/* Preferred Experience Date */}
         <div
