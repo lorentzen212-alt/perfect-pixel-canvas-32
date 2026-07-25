@@ -3704,7 +3704,7 @@ function LeisureStep3Screen({
 
           {/* HGB Recommendations card */}
           <div
-            className="flex flex-col items-center rounded-[18px] px-4 py-6 text-center"
+            className="flex flex-col items-center rounded-[18px] px-5 py-8 text-center"
             style={{
               backgroundColor: S1_NAVY,
               border: `1px solid ${S1_BORDER}`,
@@ -3722,18 +3722,18 @@ function LeisureStep3Screen({
               <Star size={20} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
             </div>
             <div
-              className="mt-4 text-[16px] font-medium"
+              className="mt-6 text-[16px] font-medium"
               style={{ fontFamily: SERIF, fontSize: 18, color: S1_GOLD_SOFT, lineHeight: 1.25 }}
             >
               Let HotelGroupBook<br />recommend extras
             </div>
             <p
-              className="mt-3 text-[12.5px] leading-relaxed"
+              className="mt-4 text-[12.5px] leading-relaxed"
               style={{ color: "rgba(245,241,230,0.65)" }}
             >
               We&apos;ll suggest the most suitable services based on your destination, hotel and group size.
             </p>
-            <div className="mt-auto pt-5">
+            <div className="mt-auto pt-8">
               <DarkCheckbox
                 label="Recommend the best extras for my group"
                 checked={recommend}
