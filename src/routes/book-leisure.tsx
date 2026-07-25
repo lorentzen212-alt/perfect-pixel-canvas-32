@@ -4110,6 +4110,42 @@ function SmartConfigPanel({
           </SCField>
         </div>
       )}
+
+      {label === "Room Location Preferences" && (
+        <div className="grid gap-4">
+          <SCField label="Room Preference">
+            <SCRadioRow
+              name="room-location-pref"
+              value={cfg.preference}
+              onChange={(v) => onChange({ preference: v })}
+              options={[
+                "Connecting Rooms",
+                "Adjacent Rooms",
+                "Same Floor",
+                "Near Elevator",
+                "Quiet Area",
+                "High Floor",
+              ]}
+            />
+          </SCField>
+          <SCField label="Number of Rooms">
+            <SCInput
+              type="number"
+              min={1}
+              placeholder="e.g. 4"
+              value={cfg.rooms ?? ""}
+              onChange={(e) => onChange({ rooms: e.target.value })}
+            />
+          </SCField>
+          <SCField label="Optional Notes">
+            <SCTextarea
+              placeholder="Preferences will be shared with the hotel. Requests are subject to availability."
+              value={cfg.notes ?? ""}
+              onChange={(e) => onChange({ notes: e.target.value })}
+            />
+          </SCField>
+        </div>
+      )}
     </div>
   );
 }
