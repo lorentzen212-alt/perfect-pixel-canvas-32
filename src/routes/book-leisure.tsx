@@ -3718,7 +3718,7 @@ function LeisureStep3Screen({
         />
       </div>
 
-      <div className="mx-auto w-full max-w-[1360px] px-6 pb-14 pt-10 sm:px-10 lg:px-14 lg:pt-14">
+      <div className="mx-auto w-full max-w-[1360px] px-6 pb-8 pt-10 sm:px-10 lg:px-14 lg:pt-14">
         {/* Header row */}
         <div className="flex items-start justify-between gap-6">
           <div>
@@ -3986,7 +3986,7 @@ function LeisureStep3Screen({
 
 
         {/* Bottom actions */}
-        <div className="mt-10 flex flex-col-reverse items-stretch justify-between gap-6 sm:flex-row sm:items-center">
+        <div className="mt-6 flex flex-col-reverse items-stretch justify-between gap-6 sm:flex-row sm:items-center">
           <button
             type="button"
             onClick={onBack}
