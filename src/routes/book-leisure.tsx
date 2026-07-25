@@ -2651,12 +2651,12 @@ const GUESTS_PER_ROOM: Record<string, number> = {
 };
 
 const ROOM_LABELS: Record<string, string> = {
-  single: "Single rooms",
-  double: "Double rooms",
-  twin: "Twin rooms",
-  triple: "Triple rooms",
-  family: "Family rooms",
-  accessible: "Accessible rooms",
+  single: "Single Rooms",
+  double: "Double Rooms",
+  twin: "Twin Rooms",
+  triple: "Triple Rooms",
+  family: "Family Rooms",
+  accessible: "Accessible Rooms",
 };
 
 const STEP2_ROOMS_ORDER: string[] = [
