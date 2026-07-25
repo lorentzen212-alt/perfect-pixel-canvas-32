@@ -3757,7 +3757,7 @@ function LeisureStep3Screen({
         </div>
 
         {/* Category cards */}
-        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6 lg:gap-5">
+        <div className="mt-12 grid grid-cols-2 gap-3.5 md:grid-cols-3 lg:grid-cols-6 lg:gap-4">
           {CONCIERGE_CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const count = countFor(cat);
@@ -3769,68 +3769,69 @@ function LeisureStep3Screen({
                 key={cat.key}
                 type="button"
                 onClick={() => setExpanded(cat.key)}
-                className="group relative flex flex-col overflow-hidden rounded-[18px] text-left transition-all duration-300"
+                className="group relative flex flex-col overflow-hidden rounded-[14px] text-left transition-all duration-300"
                 style={{
                   background: S3_PANEL,
-                  border: `1px solid ${isOpen || isSelected ? S3_GOLD : S3_BORDER}`,
+                  border: `1px solid ${isSelected ? S3_GOLD : isOpen ? "rgba(201,164,106,0.55)" : S3_BORDER}`,
                   boxShadow: isSelected
-                    ? "0 20px 50px -28px rgba(201,164,106,0.45), inset 0 1px 0 rgba(255,255,255,0.04)"
+                    ? "0 24px 60px -30px rgba(201,164,106,0.55), 0 0 0 1px rgba(201,164,106,0.25), inset 0 1px 0 rgba(255,255,255,0.04)"
                     : isOpen
                     ? "0 18px 40px -28px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04)"
                     : "0 10px 24px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03)",
                 }}
               >
-                <div className="relative h-[170px] w-full overflow-hidden">
+                <div className="relative h-[210px] w-full overflow-hidden">
                   <img
                     src={cat.img}
                     alt={cat.title}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                    style={{ filter: "brightness(0.78) saturate(0.85)" }}
+                    style={{ filter: "brightness(0.72) saturate(0.85)" }}
                   />
                   <div
                     className="pointer-events-none absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(23,28,34,0) 40%, rgba(23,28,34,0.85) 100%)",
+                        "linear-gradient(180deg, rgba(23,28,34,0) 45%, rgba(23,28,34,0.95) 100%)",
                     }}
                   />
                   {isSelected && (
                     <span
-                      className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full"
+                      className="absolute right-2.5 top-2.5 grid h-6 w-6 place-items-center rounded-full"
                       style={{
                         background: S3_GOLD_GRADIENT,
                         boxShadow: "0 6px 18px -8px rgba(201,164,106,0.7)",
                       }}
                     >
-                      <Check size={14} strokeWidth={3} style={{ color: "#1A1207" }} />
+                      <Check size={12} strokeWidth={3} style={{ color: "#1A1207" }} />
                     </span>
                   )}
                   <div
-                    className="absolute left-1/2 bottom-[-22px] grid h-[44px] w-[44px] -translate-x-1/2 place-items-center rounded-full"
+                    className="absolute left-1/2 bottom-4 grid h-[46px] w-[46px] -translate-x-1/2 place-items-center rounded-full"
                     style={{
-                      background: S3_PANEL,
+                      background: "rgba(23,28,34,0.55)",
                       border: `1px solid ${S3_GOLD}`,
+                      backdropFilter: "blur(4px)",
                     }}
                   >
                     <Icon size={18} strokeWidth={1.6} style={{ color: S3_GOLD_SOFT }} />
                   </div>
                 </div>
 
-                <div className="flex flex-1 flex-col items-center px-4 pb-5 pt-8 text-center">
+                <div className="flex flex-1 flex-col items-center px-3 pb-4 pt-4 text-center">
                   <div
-                    className="text-[15px] font-medium tracking-[0.16em]"
+                    className="text-[13px] font-medium tracking-[0.22em]"
                     style={{ color: S3_TEXT }}
                   >
                     {cat.title.toUpperCase()}
                   </div>
                   <p
-                    className="mt-2 text-[12.5px] leading-snug"
+                    className="mt-2 text-[11.5px] leading-[1.45]"
                     style={{ color: S3_TEXT_MUTED }}
                   >
                     {cat.description}
                   </p>
                   <div
-                    className="mt-4 text-[11.5px] font-medium tracking-[0.12em]"
+                    className="mt-3 text-[10.5px] font-medium tracking-[0.14em]"
                     style={{
                       color: isSelected ? S3_GOLD_SOFT : S3_TEXT_FAINT,
                     }}
@@ -3844,6 +3845,7 @@ function LeisureStep3Screen({
             );
           })}
         </div>
+
 
         {/* Configuration area */}
         <section
