@@ -3718,7 +3718,7 @@ function LeisureStep3Screen({
         />
       </div>
 
-      <div className="mx-auto w-full max-w-[1360px] px-6 pb-24 pt-10 sm:px-10 lg:px-14 lg:pt-14">
+      <div className="mx-auto w-full max-w-[1360px] px-6 pb-40 pt-10 sm:px-10 lg:px-14 lg:pt-14">
         {/* Header row */}
         <div className="flex items-start justify-between gap-6">
           <div>
