@@ -3619,9 +3619,7 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
     options: [
       { label: "Early Check-in", icon: DoorOpen },
       { label: "Late Check-out", icon: DoorOpen },
-      { label: "Room Upgrades", icon: Star },
-      { label: "Connecting Rooms", icon: HomeIcon },
-      { label: "Laundry Service", icon: Briefcase },
+      { label: "Room Location Preferences", icon: HomeIcon },
       { label: "No stay services required", icon: Check },
     ],
   },
@@ -4042,7 +4040,7 @@ function SmartConfigPanel({
                 name={`${label}-mode`}
                 value={cfg.mode}
                 onChange={(v) => onChange({ mode: v })}
-                options={["Airport Transfer", "Taxi", "Private Chauffeur", "Coach"]}
+                options={["Taxi", "Private Chauffeur", "Coach", "Airport Shuttle"]}
               />
             </SCField>
             <SCField label="Direction">
@@ -4089,12 +4087,14 @@ function SmartConfigPanel({
               name={`${label}-scope`}
               value={cfg.scope}
               onChange={(v) => onChange({ scope: v })}
-              options={["Entire Group", "Group Leader", "Selected Guests"]}
+              options={["Entire Group", "Group Leader", "Number of Guests"]}
             />
-            {cfg.scope === "Selected Guests" && (
+            {cfg.scope === "Number of Guests" && (
               <div className="mt-2">
                 <SCInput
-                  placeholder="Guest names or room numbers"
+                  type="number"
+                  min={1}
+                  placeholder="Number of guests"
                   value={cfg.scopeDetail ?? ""}
                   onChange={(e) => onChange({ scopeDetail: e.target.value })}
                 />
@@ -4104,6 +4104,42 @@ function SmartConfigPanel({
           <SCField label="Special Instructions (optional)">
             <SCTextarea
               placeholder="Flight number, luggage, signage…"
+              value={cfg.notes ?? ""}
+              onChange={(e) => onChange({ notes: e.target.value })}
+            />
+          </SCField>
+        </div>
+      )}
+
+      {label === "Room Location Preferences" && (
+        <div className="grid gap-4">
+          <SCField label="Room Preference">
+            <SCRadioRow
+              name="room-location-pref"
+              value={cfg.preference}
+              onChange={(v) => onChange({ preference: v })}
+              options={[
+                "Connecting Rooms",
+                "Adjacent Rooms",
+                "Same Floor",
+                "Near Elevator",
+                "Quiet Area",
+                "High Floor",
+              ]}
+            />
+          </SCField>
+          <SCField label="Number of Rooms">
+            <SCInput
+              type="number"
+              min={1}
+              placeholder="e.g. 4"
+              value={cfg.rooms ?? ""}
+              onChange={(e) => onChange({ rooms: e.target.value })}
+            />
+          </SCField>
+          <SCField label="Optional Notes">
+            <SCTextarea
+              placeholder="Preferences will be shared with the hotel. Requests are subject to availability."
               value={cfg.notes ?? ""}
               onChange={(e) => onChange({ notes: e.target.value })}
             />
