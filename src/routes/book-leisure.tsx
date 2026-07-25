@@ -2754,40 +2754,55 @@ function StayRoomRow({
 }) {
   const meta = STEP2_ROOMS.find((r) => r.key === roomKey)!;
   const active = value > 0;
+  const handleCardClick = () => onChange(value + 1);
+  const stopPropagation = (e: React.MouseEvent) => e.stopPropagation();
+
   return (
     <div
-      className="group flex items-center gap-5 rounded-[20px] p-3.5 transition-all duration-200 hover:-translate-y-[2px]"
+      role="button"
+      tabIndex={0}
+      onClick={handleCardClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleCardClick();
+        }
+      }}
+      className="group flex cursor-pointer items-center gap-6 rounded-[20px] p-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] active:-translate-y-[1px]"
       style={{
         backgroundColor: S1_NAVY,
-        border: `1px solid ${active ? "rgba(212,166,74,0.75)" : "rgba(245,241,230,0.08)"}`,
+        border: `1px solid ${active ? "rgba(212,166,74,0.55)" : "rgba(245,241,230,0.06)"}`,
         boxShadow: active
-          ? "0 18px 36px -18px rgba(212,166,74,0.22), inset 0 1px 0 rgba(255,255,230,0.04), inset 0 -1px 0 rgba(0,0,0,0.18)"
-          : "0 16px 34px -20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,230,0.03), inset 0 -1px 0 rgba(0,0,0,0.15)",
+          ? "0 22px 46px -22px rgba(212,166,74,0.14), 0 0 28px -14px rgba(212,166,74,0.08), inset 0 1px 0 rgba(255,255,230,0.04), inset 0 -1px 0 rgba(0,0,0,0.16)"
+          : "0 18px 38px -22px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,230,0.03), inset 0 -1px 0 rgba(0,0,0,0.12)",
       }}
     >
       <div
-        className="h-[60px] w-[86px] flex-shrink-0 overflow-hidden rounded-[12px]"
-        style={{ border: `1px solid rgba(245,241,230,0.10)` }}
+        className="h-[84px] w-[118px] flex-shrink-0 overflow-hidden rounded-[14px] transition-all duration-[200ms]"
+        style={{
+          border: `1px solid ${active ? "rgba(212,166,74,0.35)" : "rgba(245,241,230,0.10)"}`,
+          boxShadow: "0 10px 24px -10px rgba(0,0,0,0.45)",
+        }}
       >
         <img
           src={meta.img}
           alt={meta.title}
-          className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
-          style={{ filter: "saturate(1.05) contrast(1.02)" }}
+          className="h-full w-full object-cover transition-transform duration-[220ms] ease-out group-hover:scale-105"
+          style={{ filter: "saturate(1.08) contrast(1.06) brightness(1.01)" }}
         />
       </div>
       <div
-        className="min-w-0 flex-1 rounded-[12px] px-1 py-0.5"
+        className="min-w-0 flex-1 rounded-[12px] px-1 py-1"
         style={{
           background: "linear-gradient(90deg, rgba(8,19,31,0.55) 0%, rgba(8,19,31,0) 85%)",
         }}
       >
-        <div className="text-[15px] font-medium text-white">{meta.title}</div>
-        <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.55)" }}>
+        <div className="text-[16px] font-medium text-white">{meta.title}</div>
+        <div className="mt-1 text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.55)" }}>
           {meta.desc}
         </div>
       </div>
-      <RoomCounter value={value} onChange={onChange} />
+      <RoomCounter value={value} onChange={onChange} onClickStop={stopPropagation} />
     </div>
   );
 }
