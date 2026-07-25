@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { format } from "date-fns";
 import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
 import {
@@ -2444,12 +2444,12 @@ const STEP2_ROOMS: {
   desc: string;
   img: string;
 }[] = [
-  { key: "single", title: "Single rooms", desc: "1 person", img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=400&q=80" },
-  { key: "triple", title: "Triple rooms", desc: "3 people", img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=400&q=80" },
-  { key: "twin", title: "Twin rooms", desc: "2 separate beds", img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=400&q=80" },
-  { key: "family", title: "Family rooms", desc: "4+ people", img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=400&q=80" },
-  { key: "double", title: "Double rooms", desc: "1 double bed", img: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=400&q=80" },
-  { key: "accessible", title: "Accessible rooms", desc: "Wheelchair friendly", img: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80" },
+  { key: "single", title: "Single Rooms", desc: "1 person", img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=400&q=80" },
+  { key: "triple", title: "Triple Rooms", desc: "3 people", img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=400&q=80" },
+  { key: "twin", title: "Twin Rooms", desc: "2 separate beds", img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=400&q=80" },
+  { key: "family", title: "Family Rooms", desc: "4+ people", img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=400&q=80" },
+  { key: "double", title: "Double Rooms", desc: "1 double bed", img: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=400&q=80" },
+  { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80" },
 ];
 
 function LeisureStepShell({
@@ -2597,34 +2597,88 @@ function RoomCounter({
   value,
   onChange,
   onClickStop,
+  ariaLabel,
 }: {
   value: number;
   onChange: (v: number) => void;
   onClickStop?: (e: React.MouseEvent) => void;
+  ariaLabel?: string;
 }) {
   const disabled = value === 0;
+  const [text, setText] = useState<string>(String(value));
+  React.useEffect(() => {
+    setText(String(value));
+  }, [value]);
+
+  const commit = (raw: string) => {
+    const cleaned = raw.replace(/[^\d]/g, "");
+    if (cleaned === "") {
+      onChange(0);
+      setText("0");
+      return;
+    }
+    const n = Math.max(0, parseInt(cleaned, 10) || 0);
+    onChange(n);
+    setText(String(n));
+  };
+
   return (
-    <div className="flex items-center gap-3.5" onClick={onClickStop}>
+    <div
+      className="flex items-center gap-2 shrink-0"
+      style={{ width: 148 }}
+      onClick={onClickStop}
+    >
       <button
         type="button"
+        aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-9 w-9 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95"
-        style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1 }}
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
         <Minus size={20} strokeWidth={2.4} />
       </button>
-      <span
-        className="min-w-[28px] text-center text-[22px] font-medium text-white transition-all duration-200"
-        style={{ fontFamily: SERIF }}
-      >
-        {value}
-      </span>
+      <input
+        type="text"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        aria-label={ariaLabel ? `${ariaLabel} quantity` : "Quantity"}
+        value={text}
+        onClick={(e) => {
+          e.stopPropagation();
+          (e.currentTarget as HTMLInputElement).select();
+        }}
+        onChange={(e) => {
+          const v = e.target.value.replace(/[^\d]/g, "");
+          setText(v);
+          if (v !== "") onChange(Math.max(0, parseInt(v, 10) || 0));
+        }}
+        onBlur={(e) => commit(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            commit((e.target as HTMLInputElement).value);
+            (e.target as HTMLInputElement).blur();
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            onChange(value + 1);
+          } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            onChange(Math.max(0, value - 1));
+          }
+        }}
+        className="no-spin h-9 w-[62px] rounded-[10px] bg-transparent text-center text-[20px] font-medium text-white outline-none transition-all duration-200 focus:bg-white/5"
+        style={{
+          fontFamily: SERIF,
+          border: "1px solid rgba(245,241,230,0.10)",
+        }}
+      />
       <button
         type="button"
+        aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
-        className="grid h-9 w-9 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95"
-        style={{ color: S1_GOLD_SOFT }}
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        style={{ color: S1_GOLD_SOFT, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
         <Plus size={20} strokeWidth={2.4} />
       </button>
@@ -2651,12 +2705,12 @@ const GUESTS_PER_ROOM: Record<string, number> = {
 };
 
 const ROOM_LABELS: Record<string, string> = {
-  single: "Single rooms",
-  double: "Double rooms",
-  twin: "Twin rooms",
-  triple: "Triple rooms",
-  family: "Family rooms",
-  accessible: "Accessible rooms",
+  single: "Single Rooms",
+  double: "Double Rooms",
+  twin: "Twin Rooms",
+  triple: "Triple Rooms",
+  family: "Family Rooms",
+  accessible: "Accessible Rooms",
 };
 
 const STEP2_ROOMS_ORDER: string[] = [
@@ -2768,20 +2822,20 @@ function StayRoomRow({
           handleCardClick();
         }
       }}
-      className="group flex cursor-pointer items-center gap-6 rounded-[20px] p-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] active:-translate-y-[1px]"
+      className="group flex cursor-pointer items-center gap-4 rounded-[20px] p-3 pr-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] active:-translate-y-[1px]"
       style={{
-        backgroundColor: S1_NAVY,
+        backgroundColor: active ? "rgba(15,32,49,0.98)" : S1_NAVY,
         border: `1px solid ${active ? "rgba(212,166,74,0.55)" : "rgba(245,241,230,0.06)"}`,
         boxShadow: active
-          ? "0 22px 46px -22px rgba(212,166,74,0.14), 0 0 28px -14px rgba(212,166,74,0.08), inset 0 1px 0 rgba(255,255,230,0.04), inset 0 -1px 0 rgba(0,0,0,0.16)"
+          ? "0 22px 46px -22px rgba(212,166,74,0.16), 0 0 32px -14px rgba(212,166,74,0.10), inset 0 1px 0 rgba(255,255,230,0.05), inset 0 -1px 0 rgba(0,0,0,0.16)"
           : "0 18px 38px -22px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,230,0.03), inset 0 -1px 0 rgba(0,0,0,0.12)",
       }}
     >
       <div
-        className="h-[84px] w-[118px] flex-shrink-0 overflow-hidden rounded-[14px] transition-all duration-[200ms]"
+        className="aspect-[4/3] w-[30%] max-w-[150px] flex-shrink-0 overflow-hidden rounded-[16px] transition-all duration-[200ms]"
         style={{
           border: `1px solid ${active ? "rgba(212,166,74,0.35)" : "rgba(245,241,230,0.10)"}`,
-          boxShadow: "0 10px 24px -10px rgba(0,0,0,0.45)",
+          boxShadow: "0 12px 26px -12px rgba(0,0,0,0.5)",
         }}
       >
         <img
@@ -2791,18 +2845,18 @@ function StayRoomRow({
           style={{ filter: "saturate(1.08) contrast(1.06) brightness(1.01)" }}
         />
       </div>
-      <div
-        className="min-w-0 flex-1 rounded-[12px] px-1 py-1"
-        style={{
-          background: "linear-gradient(90deg, rgba(8,19,31,0.55) 0%, rgba(8,19,31,0) 85%)",
-        }}
-      >
-        <div className="text-[16px] font-medium text-white">{meta.title}</div>
-        <div className="mt-1 text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.55)" }}>
+      <div className="min-w-0 flex-1">
+        <div
+          className="whitespace-nowrap text-[15.5px] font-medium text-white"
+          style={{ letterSpacing: "-0.005em" }}
+        >
+          {meta.title}
+        </div>
+        <div className="mt-1 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.55)" }}>
           {meta.desc}
         </div>
       </div>
-      <RoomCounter value={value} onChange={onChange} onClickStop={stopPropagation} />
+      <RoomCounter value={value} onChange={onChange} onClickStop={stopPropagation} ariaLabel={meta.title} />
     </div>
   );
 }
@@ -2831,6 +2885,8 @@ function LeisureStep2Screen({
   const [draftRooms, setDraftRooms] = useState<Record<string, number>>(emptyDraftRooms());
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
+  const [lastAddedId, setLastAddedId] = useState<string | null>(null);
+  const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
 
   const draftNights = stayNights(draftArrival, draftDeparture);
   const draftRoomsCount = stayRoomsTotal(draftRooms);
@@ -2852,8 +2908,9 @@ function LeisureStep2Screen({
 
   const commitStay = () => {
     if (!canAddStay) return;
+    const id = editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now()));
     const stay: LeisureStay = {
-      id: editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now())),
+      id,
       arrival: draftArrival,
       departure: draftDeparture,
       rooms: { ...draftRooms },
@@ -2861,6 +2918,10 @@ function LeisureStep2Screen({
     setStays((prev) =>
       editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
     );
+    setLastAddedId(id);
+    window.setTimeout(() => {
+      setLastAddedId((cur) => (cur === id ? null : cur));
+    }, 320);
     resetDraft();
     setShowEditor(false);
   };
@@ -2878,12 +2939,25 @@ function LeisureStep2Screen({
   };
 
   const removeStay = (id: string) => {
-    setStays((prev) => prev.filter((s) => s.id !== id));
-    if (editingId === id) {
-      resetDraft();
-      setShowEditor(true);
-    }
+    setRemovingIds((prev) => {
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
+    window.setTimeout(() => {
+      setStays((prev) => prev.filter((s) => s.id !== id));
+      setRemovingIds((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
+      if (editingId === id) {
+        resetDraft();
+        setShowEditor(true);
+      }
+    }, 220);
   };
+
 
   const startNewStay = () => {
     resetDraft();
@@ -2927,6 +3001,8 @@ function LeisureStep2Screen({
           onEdit={editStay}
           onRemove={removeStay}
           editingId={editingId}
+          lastAddedId={lastAddedId}
+          removingIds={removingIds}
         />
       }
     >
@@ -2960,7 +3036,7 @@ function LeisureStep2Screen({
               return (
                 <div
                   key={s.id}
-                  className="rounded-[16px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 transition-all duration-200 hover:-translate-y-[2px]"
+                  className={`rounded-[16px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 transition-all duration-200 hover:-translate-y-[2px] ${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
                   style={{
                     backgroundColor: S1_NAVY,
                     border: `1px solid rgba(245,241,230,0.10)`,
@@ -3244,6 +3320,8 @@ function AccommodationSummary({
   onEdit,
   onRemove,
   editingId,
+  lastAddedId,
+  removingIds,
 }: {
   stays: LeisureStay[];
   totalStays: number;
@@ -3252,6 +3330,8 @@ function AccommodationSummary({
   onEdit: (id: string) => void;
   onRemove: (id: string) => void;
   editingId: string | null;
+  lastAddedId?: string | null;
+  removingIds?: Set<string>;
 }) {
   const hasStays = stays.length > 0;
   return (
@@ -3301,7 +3381,7 @@ function AccommodationSummary({
             return (
               <div
                 key={s.id}
-                className="rounded-[14px] p-4 transition-all duration-200"
+                className={`rounded-[14px] p-4 transition-all duration-200 ${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds?.has(s.id) ? "stay-removing" : ""}`}
                 style={{
                   backgroundColor: S1_NAVY,
                   border: `1px solid ${isEditing ? "rgba(212,166,74,0.5)" : "rgba(245,241,230,0.08)"}`,

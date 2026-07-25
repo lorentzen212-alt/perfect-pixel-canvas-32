@@ -211,6 +211,29 @@
   50%      { opacity: 0.95; }
 }
 
+@keyframes stay-slide-in {
+  0%   { opacity: 0; transform: translateY(-12px); max-height: 0; }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0); max-height: 800px; }
+}
+.stay-slide-in { animation: stay-slide-in 260ms ease-out both; overflow: hidden; }
+
+.stay-removing {
+  animation: stay-remove 220ms ease-in forwards;
+  overflow: hidden;
+  pointer-events: none;
+}
+@keyframes stay-remove {
+  0%   { opacity: 1; transform: translateY(0); max-height: 800px; }
+  100% { opacity: 0; transform: translateY(-6px); max-height: 0; margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0; }
+}
+
+/* Hide number input spinners */
+.no-spin::-webkit-outer-spin-button,
+.no-spin::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.no-spin { -moz-appearance: textfield; }
+
+
 @media (prefers-reduced-motion: reduce) {
   .luxury-particle,
   .luxury-flare,
