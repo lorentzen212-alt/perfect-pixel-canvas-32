@@ -3254,18 +3254,23 @@ function AccommodationSummary({
 
         {!hasStays && (
           <div
-            className="mt-4 rounded-[14px] px-4 py-6 text-center"
+            className="mt-5 rounded-[16px] px-5 py-8 text-center"
             style={{
               backgroundColor: S1_NAVY,
               border: `1px dashed rgba(245,241,230,0.14)`,
             }}
           >
-            <div className="mx-auto grid h-10 w-10 place-items-center rounded-full" style={{ backgroundColor: "rgba(212,166,74,0.08)", border: `1px solid rgba(212,166,74,0.35)` }}>
-              <BedDouble size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+            <div className="mx-auto grid h-12 w-12 place-items-center rounded-full" style={{ backgroundColor: "rgba(212,166,74,0.08)", border: `1px solid rgba(212,166,74,0.35)` }}>
+              <BedDouble size={19} strokeWidth={1.9} style={{ color: S1_GOLD_SOFT }} />
             </div>
-            <div className="mt-3 text-[13.5px] font-medium text-white">No stays added yet</div>
-            <div className="mt-1 text-[12px]" style={{ color: "rgba(245,241,230,0.55)" }}>
-              Your saved stays will appear here.
+            <div className="mt-4 text-[15px] font-medium text-white" style={{ fontFamily: SERIF }}>
+              No stays added yet
+            </div>
+            <div className="mt-2 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.55)" }}>
+              Choose your dates and room types.
+            </div>
+            <div className="mt-4 text-[12px] leading-relaxed" style={{ color: "rgba(245,241,230,0.45)" }}>
+              Press <span className="font-medium" style={{ color: S1_GOLD_SOFT }}>Add this stay</span> to save your first stay.
             </div>
           </div>
         )}
