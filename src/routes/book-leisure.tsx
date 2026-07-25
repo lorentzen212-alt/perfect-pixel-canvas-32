@@ -3026,6 +3026,7 @@ function LeisureStep2Screen({
   const [draftArrival, setDraftArrival] = useState("");
   const [draftDeparture, setDraftDeparture] = useState("");
   const [draftRooms, setDraftRooms] = useState<Record<string, number>>(emptyDraftRooms());
+  const [draftCategories, setDraftCategories] = useState<Record<string, string>>({});
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
