@@ -2958,6 +2958,44 @@ function StayRoomRow({
         <div className="mt-1.5 line-clamp-2 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.6)" }}>
           {meta.desc}
         </div>
+
+        {categoryOptions && (
+          <div
+            className="relative mt-2 flex items-center rounded-[10px] pl-3 pr-7 h-[34px] transition-all duration-[220ms] ease-out"
+            onClick={stopPropagation}
+            style={{
+              backgroundColor: S1_NAVY,
+              border: `1px solid ${active && category ? "rgba(212,166,74,0.42)" : "rgba(245,241,230,0.12)"}`,
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 10px 24px -18px rgba(0,0,0,0.35)",
+              opacity: active ? 1 : 0.45,
+              pointerEvents: active ? "auto" : "none",
+            }}
+          >
+            <select
+              value={category ?? ""}
+              disabled={!active}
+              aria-label={`${meta.title} category`}
+              onChange={(e) => onCategoryChange?.(e.target.value)}
+              className="w-full cursor-pointer appearance-none bg-transparent text-[12.5px] text-white outline-none disabled:cursor-not-allowed"
+              style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+            >
+              <option value="" style={{ backgroundColor: S1_NAVY }}>
+                Room category
+              </option>
+              {categoryOptions.map((o) => (
+                <option key={o} value={o} style={{ backgroundColor: S1_NAVY }}>
+                  {o}
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              size={14}
+              strokeWidth={2}
+              className="pointer-events-none absolute right-2.5"
+              style={{ color: S1_GOLD_SOFT }}
+            />
+          </div>
+        )}
       </div>
       <RoomCounter value={value} onChange={onChange} onClickStop={stopPropagation} ariaLabel={meta.title} />
     </div>
