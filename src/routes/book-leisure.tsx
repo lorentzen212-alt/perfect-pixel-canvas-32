@@ -2835,7 +2835,7 @@ function StayRoomRow({
       }}
       className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
       style={{
-        gridTemplateColumns: "minmax(121px, 35%) 1fr auto",
+        gridTemplateColumns: "minmax(108px, 30%) 1fr auto",
         columnGap: 14,
         backgroundColor: active ? "rgba(19,36,54,1)" : S1_NAVY,
         border: `1px solid ${active ? "rgba(212,166,74,0.62)" : "rgba(245,241,230,0.06)"}`,
@@ -2845,7 +2845,7 @@ function StayRoomRow({
       }}
     >
       <div
-        className="aspect-[4/3] w-full max-w-[207px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
+        className="aspect-[4/3] w-full max-w-[180px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
         style={{
           border: `1px solid ${active ? "rgba(212,166,74,0.4)" : "rgba(245,241,230,0.1)"}`,
           boxShadow: "0 14px 30px -12px rgba(0,0,0,0.55)",
