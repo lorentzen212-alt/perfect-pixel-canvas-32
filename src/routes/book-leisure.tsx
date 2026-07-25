@@ -3732,7 +3732,7 @@ function LeisureStep3Screen({
               className="mt-4 text-[40px] leading-[1.05] font-medium sm:text-[52px]"
               style={{ fontFamily: SERIF, color: S3_TEXT }}
             >
-              Concierge Collection
+              Extras
             </h1>
             <p
               className="mt-4 max-w-[560px] text-[15.5px] leading-relaxed"
