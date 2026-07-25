@@ -2624,10 +2624,12 @@ function RoomCounter({
 
   return (
     <div
-      className="flex items-center justify-center shrink-0 w-full"
-      style={{ gap: 18 }}
+      className="flex items-center justify-end shrink-0 w-full"
+      style={{ gap: 12, paddingRight: 12 }}
       onClick={onClickStop}
     >
+
+
       <button
         type="button"
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
@@ -2667,7 +2669,7 @@ function RoomCounter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className="no-spin h-10 w-[54px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
+        className="no-spin h-10 w-[48px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
         style={{
           fontFamily: SERIF,
           backgroundColor: "rgba(6,16,26,0.85)",
