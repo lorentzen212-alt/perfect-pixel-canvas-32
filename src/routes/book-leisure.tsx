@@ -4841,6 +4841,152 @@ function LeisureStep4Screen({
           })}
         </div>
 
+        {/* Preferred Experience Date */}
+        <div
+          className="mt-8 rounded-[16px] p-5 sm:p-6"
+          style={{
+            backgroundColor: S1_NAVY,
+            border: `1px solid ${S1_BORDER}`,
+          }}
+        >
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <h3
+                className="text-[18px] font-medium text-white"
+                style={{ fontFamily: SERIF }}
+              >
+                Preferred Experience Date
+              </h3>
+              <p
+                className="mt-1.5 text-[13.5px]"
+                style={{ color: "rgba(245,241,230,0.62)" }}
+              >
+                When would you ideally like to enjoy your selected experience?
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={() => dateInputRef.current?.showPicker?.()}
+                className="inline-flex items-center gap-3 rounded-[12px] px-4 py-3 text-left transition-all hover:-translate-y-[1px]"
+                style={{
+                  backgroundColor: S1_NAVY_SOFT,
+                  border: `1px solid ${S1_BORDER}`,
+                  color: preferredDate ? "#F5F1E6" : "rgba(245,241,230,0.55)",
+                  minWidth: 220,
+                }}
+              >
+                <CalendarDays size={18} style={{ color: S1_GOLD_SOFT }} />
+                <span className="text-[14.5px] font-medium">
+                  {preferredDate ? format(preferredDate, "PPP") : "Select a date"}
+                </span>
+              </button>
+              <input
+                ref={dateInputRef}
+                type="date"
+                className="sr-only"
+                value={preferredDate ? format(preferredDate, "yyyy-MM-dd") : ""}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  setPreferredDate(v ? new Date(v) : undefined);
+                }}
+              />
+              <label
+                className="inline-flex cursor-pointer items-center gap-2.5 text-[13.5px]"
+                style={{ color: "rgba(245,241,230,0.8)" }}
+              >
+                <span
+                  className="grid h-5 w-5 place-items-center rounded-[5px] transition-colors"
+                  style={{
+                    backgroundColor: dateFlexible ? S1_GOLD : "transparent",
+                    border: `1.5px solid ${dateFlexible ? S1_GOLD : "rgba(245,241,230,0.45)"}`,
+                  }}
+                >
+                  {dateFlexible && (
+                    <Check size={12} strokeWidth={3} style={{ color: S1_NAVY }} />
+                  )}
+                </span>
+                <input
+                  type="checkbox"
+                  className="sr-only"
+                  checked={dateFlexible}
+                  onChange={(e) => setDateFlexible(e.target.checked)}
+                />
+                We are flexible with dates
+              </label>
+            </div>
+          </div>
+          <p
+            className="mt-4 text-[12.5px]"
+            style={{ color: "rgba(245,241,230,0.5)" }}
+          >
+            If no date is selected, our hotel partners will recommend the best available option during your stay.
+          </p>
+        </div>
+
+        {/* Additional Experience Requests */}
+        <div
+          className="mt-8 rounded-[16px] p-5 sm:p-6"
+          style={{
+            backgroundColor: S1_NAVY,
+            border: `1px solid ${S1_BORDER}`,
+          }}
+        >
+          <h3
+            className="text-[18px] font-medium text-white"
+            style={{ fontFamily: SERIF }}
+          >
+            Additional Experience Requests
+          </h3>
+          <p
+            className="mt-1.5 text-[13.5px]"
+            style={{ color: "rgba(245,241,230,0.62)" }}
+          >
+            Tell us if you&apos;re looking for an experience that isn&apos;t listed above, or if you have any special wishes for your group.
+          </p>
+          <textarea
+            value={additionalRequests}
+            onChange={(e) => setAdditionalRequests(e.target.value)}
+            placeholder={`Examples:\n\n• Private boat charter\n• Hike\n• Local food tasting\n• Photography tour\n• Dog sledding\n• Wine tasting\n• Brewery visit`}
+            rows={5}
+            className="mt-4 w-full resize-y rounded-[14px] px-5 py-4 text-[14.5px] outline-none transition-all duration-200 focus:border-[#D4A64A] focus:ring-4 focus:ring-[rgba(212,166,74,0.12)]"
+            style={{
+              backgroundColor: S1_NAVY_SOFT,
+              color: "#F5F1E6",
+              border: `1px solid ${S1_BORDER}`,
+              minHeight: 130,
+            }}
+          />
+        </div>
+
+        {/* Experience Availability */}
+        <div
+          className="mt-8 flex items-start gap-3 rounded-[14px] p-4"
+          style={{
+            backgroundColor: "rgba(8,19,31,0.55)",
+            border: `1px solid ${S1_BORDER_SOFT}`,
+          }}
+        >
+          <Info
+            size={18}
+            style={{ color: S1_GOLD_SOFT, flexShrink: 0, marginTop: 2 }}
+          />
+          <div>
+            <div
+              className="text-[14px] font-medium text-white"
+              style={{ fontFamily: SERIF }}
+            >
+              Experience Availability
+            </div>
+            <p
+              className="mt-1 text-[13px]"
+              style={{ color: "rgba(245,241,230,0.6)" }}
+            >
+              Experiences vary by destination, season and local availability. If one of your selected experiences isn&apos;t available, our team will recommend the closest premium alternative.
+            </p>
+          </div>
+        </div>
+
         {/* Recommendation panel */}
         <div
           className="mt-8 flex flex-col gap-4 rounded-[16px] p-5 sm:flex-row sm:items-center sm:justify-between"
