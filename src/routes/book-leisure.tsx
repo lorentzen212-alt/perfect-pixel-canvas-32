@@ -3655,7 +3655,7 @@ function LeisureStep3Screen({
                   boxShadow: "0 18px 40px -24px rgba(0,0,0,0.55)",
                 }}
               >
-                <div className="relative h-[140px] w-full overflow-hidden">
+                <div className="relative h-[154px] w-full overflow-hidden">
                   <img
                     src={card.img}
                     alt={card.title}
@@ -3680,7 +3680,7 @@ function LeisureStep3Screen({
                   </div>
                 </div>
 
-                <div className="flex flex-1 flex-col px-4 pb-5 pt-8">
+                <div className="flex flex-1 flex-col px-4 pb-4 pt-9">
                   <div
                     className="text-[16px] font-medium text-white"
                     style={{ fontFamily: SERIF, fontSize: 19 }}
