@@ -2535,14 +2535,22 @@ function LeisureStepShell({
             boxShadow: "0 40px 80px -40px rgba(0,0,0,0.6)",
           }}
         >
-          <img src={hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          <img src={hero} alt="" className={`absolute inset-0 h-full w-full object-cover ${enhancedHero ? "s4-hero-img" : ""}`} />
+          {enhancedHero && (
+            <>
+              <div className="pointer-events-none absolute inset-0 s4-hero-vignette" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-[38%] s4-hero-edgefade" />
+            </>
+          )}
           <div
             className="absolute inset-0"
             style={{
-              background:
-                "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
+              background: enhancedHero
+                ? "linear-gradient(180deg, rgba(8,19,31,0.28) 0%, rgba(8,19,31,0.42) 50%, rgba(8,19,31,0.92) 100%)"
+                : "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
             }}
           />
+
           <div className="relative z-10 h-full min-h-[520px] p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
             <div className="flex h-full flex-col justify-between lg:ml-[15px] lg:mt-[10px]">
               <div>
