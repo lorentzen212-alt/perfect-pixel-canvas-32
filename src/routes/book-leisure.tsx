@@ -2,12 +2,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import React, { useState, useMemo, useEffect } from "react";
 import { format } from "date-fns";
 import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
-import roomSingleImg from "@/assets/room-single.jpg";
-import roomDoubleImg from "@/assets/room-double.jpg";
-import roomTwinImg from "@/assets/room-twin.jpg";
-import roomTripleImg from "@/assets/room-triple.jpg";
-import roomFamilyImg from "@/assets/room-family.jpg";
-import roomAccessibleImg from "@/assets/room-accessible.jpg";
 import {
   ArrowLeft,
   ArrowRight,
@@ -2387,13 +2381,7 @@ function LeisureStep1Screen({
         color: "#F5F1E6",
       }}
     >
-      <BookingHeader
-        currentStep={1}
-        onStepGo={onStepGo}
-        hideCurrentFlow="leisure"
-        surfaceColor={S1_BG}
-        bottomDividerOpacity={0.08}
-      />
+      <BookingHeader currentStep={1} onStepGo={onStepGo} hideCurrentFlow="leisure" />
 
       {/* Title */}
       <div className="mx-auto max-w-[1600px] px-6 pt-6 text-center lg:px-10 lg:pt-10">
@@ -2456,12 +2444,12 @@ const STEP2_ROOMS: {
   desc: string;
   img: string;
 }[] = [
-  { key: "single", title: "Single Rooms", desc: "1 person", img: roomSingleImg },
-  { key: "triple", title: "Triple Rooms", desc: "3 people", img: roomTripleImg },
-  { key: "twin", title: "Twin Rooms", desc: "2 separate beds", img: roomTwinImg },
-  { key: "family", title: "Family Rooms", desc: "4+ people", img: roomFamilyImg },
-  { key: "double", title: "Double Rooms", desc: "1 double bed", img: roomDoubleImg },
-  { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: roomAccessibleImg },
+  { key: "single", title: "Single Rooms", desc: "1 person", img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=400&q=80" },
+  { key: "triple", title: "Triple Rooms", desc: "3 people", img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=400&q=80" },
+  { key: "twin", title: "Twin Rooms", desc: "2 separate beds", img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=400&q=80" },
+  { key: "family", title: "Family Rooms", desc: "4+ people", img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=400&q=80" },
+  { key: "double", title: "Double Rooms", desc: "1 double bed", img: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=400&q=80" },
+  { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80" },
 ];
 
 function LeisureStepShell({
@@ -2636,19 +2624,21 @@ function RoomCounter({
 
   return (
     <div
-      className="flex items-center justify-between shrink-0"
-      style={{ width: 118, marginRight: 8 }}
+      className="flex items-center justify-end shrink-0 w-full"
+      style={{ gap: 12, paddingRight: 12 }}
       onClick={onClickStop}
     >
+
+
       <button
         type="button"
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-8 w-8 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
-        <Minus size={14} strokeWidth={2.4} />
+        <Minus size={20} strokeWidth={2.4} />
       </button>
       <input
         type="text"
@@ -2679,10 +2669,9 @@ function RoomCounter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className="no-spin h-6 rounded-[10px] text-center text-[15px] font-medium text-white outline-none transition-[border-color,box-shadow] duration-[180ms] ease-out focus:border-[color:var(--gold)] focus:shadow-[0_0_0_1px_var(--gold),0_0_10px_-2px_var(--gold)]"
+        className="no-spin h-10 w-[48px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
         style={{
           fontFamily: SERIF,
-          width: 38,
           backgroundColor: "rgba(6,16,26,0.85)",
           border: "1px solid rgba(245,241,230,0.10)",
           boxShadow: "inset 0 1px 2px rgba(0,0,0,0.35)",
@@ -2693,10 +2682,10 @@ function RoomCounter({
         type="button"
         aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
-        className="grid h-8 w-8 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, opacity: 0.86, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
-        <Plus size={14} strokeWidth={2.4} />
+        <Plus size={20} strokeWidth={2.4} />
       </button>
     </div>
   );
@@ -2841,9 +2830,9 @@ function StayRoomRow({
       }}
       className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-5 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
       style={{
-        gridTemplateColumns: "41% 35% 24%",
+        gridTemplateColumns: "37% 39% 24%",
         columnGap: 16,
-        backgroundColor: active ? "rgba(18,34,51,1)" : S1_NAVY,
+        backgroundColor: active ? "rgba(19,36,54,1)" : S1_NAVY,
         border: `1px solid ${active ? "rgba(212,166,74,0.62)" : "rgba(245,241,230,0.06)"}`,
         boxShadow: active
           ? "0 20px 42px -24px rgba(212,166,74,0.14), 0 0 26px -14px rgba(212,166,74,0.09), inset 0 1px 0 rgba(255,255,230,0.06), inset 0 -1px 0 rgba(0,0,0,0.22), inset 0 0 22px -14px rgba(0,0,0,0.5)"
@@ -2851,9 +2840,8 @@ function StayRoomRow({
       }}
     >
       <div
-        className="w-full max-w-[210px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
+        className="aspect-[4/3] w-full max-w-[188px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
         style={{
-          aspectRatio: "4 / 2.95",
           border: `1px solid ${active ? "rgba(212,166,74,0.4)" : "rgba(245,241,230,0.1)"}`,
           boxShadow: "0 14px 30px -12px rgba(0,0,0,0.55)",
         }}
@@ -2865,18 +2853,19 @@ function StayRoomRow({
           style={{ filter: "saturate(1.10) contrast(1.10) brightness(1.03) hue-rotate(-2deg)" }}
         />
       </div>
-      <div className="min-w-0 -mt-4">
+      <div className="min-w-0 -mt-2.5 pr-2">
         <div
-          className="whitespace-nowrap overflow-hidden text-ellipsis text-[13.5px] font-medium text-white"
-          style={{ letterSpacing: "-0.015em" }}
+          className="whitespace-nowrap overflow-hidden text-ellipsis text-[15.5px] font-medium text-white"
+          style={{ letterSpacing: "-0.005em" }}
         >
           {meta.title}
         </div>
-        <div className="mt-2.5 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.68)" }}>
+        <div className="mt-1.5 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.6)" }}>
           {meta.desc}
         </div>
       </div>
       <RoomCounter value={value} onChange={onChange} onClickStop={stopPropagation} ariaLabel={meta.title} />
+
     </div>
   );
 }
@@ -3186,7 +3175,7 @@ function LeisureStep2Screen({
               Room distribution
             </div>
 
-            <div className="room-distribution-grid mt-4">
+            <div className="mt-4 grid grid-cols-1 gap-3.5 md:grid-cols-2">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <StayRoomRow
                   key={key}
