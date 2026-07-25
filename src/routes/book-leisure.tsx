@@ -2583,7 +2583,7 @@ function DarkCheckbox({
     <button
       type="button"
       onClick={() => onChange(!checked)}
-      className="group inline-flex items-center gap-3 text-[12.5px] transition-colors"
+      className="group inline-flex items-center gap-3 text-[13px] transition-colors"
       style={{ color: "#F5F1E6", textAlign: align, lineHeight: 1.35 }}
     >
       <span
