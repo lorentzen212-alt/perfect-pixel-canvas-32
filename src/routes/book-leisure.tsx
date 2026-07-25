@@ -3990,16 +3990,18 @@ function LeisureStep3Screen({
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-medium transition-colors"
+            className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-medium transition-colors hover:bg-white"
             style={{
-              background: "transparent",
-              border: `1px solid ${S3_BORDER_STRONG}`,
-              color: S3_TEXT,
+              background: "#F5F1EA",
+              border: `1px solid rgba(0,0,0,0.08)`,
+              color: "#1A1207",
+              boxShadow: "0 6px 18px -10px rgba(0,0,0,0.55)",
             }}
           >
             <ArrowLeft size={16} strokeWidth={2} />
             Back
           </button>
+
 
           <div className="flex flex-col items-end gap-2">
             <button
