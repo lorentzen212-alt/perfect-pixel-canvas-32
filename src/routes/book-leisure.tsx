@@ -54,7 +54,12 @@ import {
   MessageSquare,
   Tag,
   Trash2,
+  Headphones,
+  PartyPopper,
+  PlaneLanding,
+  PlaneTakeaway,
 } from "lucide-react";
+
 
 import { cn } from "@/lib/utils";
 import { BookingHeader } from "@/components/BookingHeader";
