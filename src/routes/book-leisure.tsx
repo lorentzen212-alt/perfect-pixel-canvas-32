@@ -3619,9 +3619,7 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
     options: [
       { label: "Early Check-in", icon: DoorOpen },
       { label: "Late Check-out", icon: DoorOpen },
-      { label: "Room Upgrades", icon: Star },
-      { label: "Connecting Rooms", icon: HomeIcon },
-      { label: "Laundry Service", icon: Briefcase },
+      { label: "Room Location Preferences", icon: HomeIcon },
       { label: "No stay services required", icon: Check },
     ],
   },
