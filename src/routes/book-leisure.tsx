@@ -3730,6 +3730,308 @@ const SMART_SERVICES = new Set<string>([
   ...Array.from(TRANSPORT_SERVICES),
 ]);
 
+/* -------- Smart configuration panel components -------- */
+
+const SC_LABEL_CLS = "text-[10.5px] font-medium tracking-[0.18em] uppercase";
+const SC_INPUT_STYLE: React.CSSProperties = {
+  background: "rgba(255,255,255,0.03)",
+  border: `1px solid ${S3_BORDER_STRONG}`,
+  color: S3_TEXT,
+};
+
+function SCField({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="flex flex-col gap-1.5">
+      <span className={SC_LABEL_CLS} style={{ color: S3_TEXT_MUTED }}>
+        {label}
+      </span>
+      {children}
+    </label>
+  );
+}
+
+function SCInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input
+      {...props}
+      className="h-10 rounded-[10px] px-3 text-[13px] outline-none transition-colors focus:border-[rgba(201,164,106,0.6)]"
+      style={SC_INPUT_STYLE}
+    />
+  );
+}
+
+function SCTextarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return (
+    <textarea
+      {...props}
+      rows={2}
+      className="resize-none rounded-[10px] px-3 py-2.5 text-[13px] outline-none transition-colors focus:border-[rgba(201,164,106,0.6)]"
+      style={SC_INPUT_STYLE}
+    />
+  );
+}
+
+function SCRadioRow({
+  name,
+  value,
+  onChange,
+  options,
+}: {
+  name: string;
+  value: string | undefined;
+  onChange: (v: string) => void;
+  options: string[];
+}) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {options.map((opt) => {
+        const on = value === opt;
+        return (
+          <button
+            key={opt}
+            type="button"
+            onClick={() => onChange(opt)}
+            className="rounded-full px-3.5 py-2 text-[12px] transition-colors"
+            style={{
+              background: on ? "rgba(201,164,106,0.14)" : "transparent",
+              border: `1px solid ${on ? S3_GOLD : S3_BORDER_STRONG}`,
+              color: on ? S3_GOLD_SOFT : S3_TEXT,
+            }}
+            aria-pressed={on}
+            data-name={name}
+          >
+            {opt}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function SmartConfigPanel({
+  label,
+  cfg,
+  onChange,
+  context,
+}: {
+  label: string;
+  cfg: Record<string, string>;
+  onChange: (patch: Record<string, string>) => void;
+  context: Step3Context;
+}) {
+  const isTransport = TRANSPORT_SERVICES.has(label);
+  const isOutbound = label.endsWith(" Out") || label === "Airport Transfer Out";
+  const dateSuggestion = isOutbound
+    ? contextDepartureISO(context)
+    : contextArrivalISO(context);
+  const airport = nearestAirportFor(context.city);
+  const hotelName = context.city ? `Hotel in ${context.city}` : "";
+
+  const pickupSuggestion = isOutbound ? hotelName : airport;
+  const destinationSuggestion = isOutbound ? airport : hotelName;
+
+  return (
+    <div
+      className="overflow-hidden rounded-[14px] p-5"
+      style={{
+        background: S3_PANEL,
+        border: `1px solid ${S3_BORDER_STRONG}`,
+        animation: "s3-slide-fade 240ms ease-out both",
+      }}
+    >
+      <style>{`
+        @keyframes s3-slide-fade {
+          from { opacity: 0; transform: translateY(-6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+      <div className="flex items-center gap-2.5 pb-3.5">
+        <span
+          className="grid h-6 w-6 place-items-center rounded-full"
+          style={{ background: S3_GOLD_GRADIENT }}
+        >
+          <Check size={12} strokeWidth={3} style={{ color: "#1A1207" }} />
+        </span>
+        <div className="text-[12.5px] font-medium tracking-[0.18em]" style={{ color: S3_TEXT }}>
+          {label.toUpperCase()}
+        </div>
+        <div className="text-[10.5px] tracking-[0.16em]" style={{ color: S3_TEXT_FAINT }}>
+          · CONFIGURE
+        </div>
+      </div>
+
+      {(label === "Group Lunch" || label === "Group Dinner") && (
+        <div className="grid gap-4">
+          <SCField label={label === "Group Lunch" ? "Lunch Style" : "Dinner Style"}>
+            <SCRadioRow
+              name={`${label}-style`}
+              value={cfg.style}
+              onChange={(v) => onChange({ style: v })}
+              options={["2-course menu", "3-course menu", "Buffet"]}
+            />
+          </SCField>
+          <SCField label="Optional Notes">
+            <SCTextarea
+              placeholder="Dietary preferences, timings, seating…"
+              value={cfg.notes ?? ""}
+              onChange={(e) => onChange({ notes: e.target.value })}
+            />
+          </SCField>
+        </div>
+      )}
+
+      {label === "Early Check-in" && (
+        <div className="grid gap-4 sm:grid-cols-2">
+          <SCField label="Arrival Date (recommended)">
+            <SCInput
+              type="date"
+              value={cfg.date ?? dateSuggestion}
+              onChange={(e) => onChange({ date: e.target.value })}
+            />
+          </SCField>
+          <SCField label="Preferred Check-in Time (optional)">
+            <SCInput
+              type="time"
+              value={cfg.time ?? ""}
+              onChange={(e) => onChange({ time: e.target.value })}
+            />
+          </SCField>
+        </div>
+      )}
+
+      {label === "Late Check-out" && (
+        <div className="grid gap-4 sm:grid-cols-2">
+          <SCField label="Departure Date (recommended)">
+            <SCInput
+              type="date"
+              value={cfg.date ?? dateSuggestion}
+              onChange={(e) => onChange({ date: e.target.value })}
+            />
+          </SCField>
+          <SCField label="Preferred Check-out Time (optional)">
+            <SCInput
+              type="time"
+              value={cfg.time ?? ""}
+              onChange={(e) => onChange({ time: e.target.value })}
+            />
+          </SCField>
+        </div>
+      )}
+
+      {label === "VIP Welcome Amenities" && (
+        <div className="grid gap-4">
+          <SCField label="Amenity Type">
+            <SCRadioRow
+              name="vip-amenity"
+              value={cfg.amenity}
+              onChange={(v) => onChange({ amenity: v })}
+              options={[
+                "Fruit Platter",
+                "Chocolate Selection",
+                "Wine",
+                "Champagne",
+                "Local Speciality",
+                "Custom Request",
+              ]}
+            />
+          </SCField>
+          <SCField label="Deliver To">
+            <SCRadioRow
+              name="vip-deliver"
+              value={cfg.deliverTo}
+              onChange={(v) => onChange({ deliverTo: v })}
+              options={["All Rooms", "Selected Rooms"]}
+            />
+          </SCField>
+          {cfg.deliverTo === "Selected Rooms" && (
+            <SCField label="Room Numbers">
+              <SCInput
+                placeholder="e.g. 204, 208, 312"
+                value={cfg.rooms ?? ""}
+                onChange={(e) => onChange({ rooms: e.target.value })}
+              />
+            </SCField>
+          )}
+          <SCField label="Optional Notes">
+            <SCTextarea
+              placeholder="Delivery timing, personalisation…"
+              value={cfg.notes ?? ""}
+              onChange={(e) => onChange({ notes: e.target.value })}
+            />
+          </SCField>
+        </div>
+      )}
+
+      {isTransport && (
+        <div className="grid gap-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <SCField label="Pickup Date (recommended)">
+              <SCInput
+                type="date"
+                value={cfg.date ?? dateSuggestion}
+                onChange={(e) => onChange({ date: e.target.value })}
+              />
+            </SCField>
+            <SCField label="Pickup Time (optional)">
+              <SCInput
+                type="time"
+                value={cfg.time ?? ""}
+                onChange={(e) => onChange({ time: e.target.value })}
+              />
+            </SCField>
+            <SCField label={`Pickup Location${pickupSuggestion ? " (recommended)" : ""}`}>
+              <SCInput
+                placeholder={pickupSuggestion || "Enter pickup location"}
+                value={cfg.pickup ?? pickupSuggestion}
+                onChange={(e) => onChange({ pickup: e.target.value })}
+              />
+            </SCField>
+            <SCField label={`Destination${destinationSuggestion ? " (recommended)" : ""}`}>
+              <SCInput
+                placeholder={destinationSuggestion || "Enter destination"}
+                value={cfg.destination ?? destinationSuggestion}
+                onChange={(e) => onChange({ destination: e.target.value })}
+              />
+            </SCField>
+          </div>
+          {(label === "Taxi" || label === "Private Chauffeur") && (
+            <SCField label="Service Applies To">
+              <SCRadioRow
+                name={`${label}-scope`}
+                value={cfg.scope}
+                onChange={(v) => onChange({ scope: v })}
+                options={["Entire Group", "Group Leader Only", "Selected Guests"]}
+              />
+              {cfg.scope === "Selected Guests" && (
+                <div className="mt-2">
+                  <SCInput
+                    placeholder="Guest names or room numbers"
+                    value={cfg.scopeDetail ?? ""}
+                    onChange={(e) => onChange({ scopeDetail: e.target.value })}
+                  />
+                </div>
+              )}
+            </SCField>
+          )}
+          <SCField label="Special Instructions (optional)">
+            <SCTextarea
+              placeholder="Flight number, luggage, signage…"
+              value={cfg.notes ?? ""}
+              onChange={(e) => onChange({ notes: e.target.value })}
+            />
+          </SCField>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function LeisureStep3Screen({
   selected,
   onToggle,
