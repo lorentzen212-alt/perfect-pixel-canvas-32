@@ -4684,6 +4684,12 @@ function LeisureStep4Screen({
   onToggle,
   letUsRecommend,
   setLetUsRecommend,
+  preferredDate,
+  setPreferredDate,
+  dateFlexible,
+  setDateFlexible,
+  additionalRequests,
+  setAdditionalRequests,
   onNext,
   onBack,
   onStepGo,
@@ -4694,6 +4700,12 @@ function LeisureStep4Screen({
   onToggle: (label: string) => void;
   letUsRecommend: boolean;
   setLetUsRecommend: (v: boolean) => void;
+  preferredDate: Date | undefined;
+  setPreferredDate: (d: Date | undefined) => void;
+  dateFlexible: boolean;
+  setDateFlexible: (v: boolean) => void;
+  additionalRequests: string;
+  setAdditionalRequests: (v: string) => void;
   onNext: () => void;
   onBack: () => void;
   onStepGo: (s: StepKey) => void;
