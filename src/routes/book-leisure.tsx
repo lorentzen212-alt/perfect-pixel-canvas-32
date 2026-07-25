@@ -50,6 +50,7 @@ import {
   Send,
   Lock,
   CalendarDays,
+  Info,
   UserRound,
   Users2,
   MessageSquare,
