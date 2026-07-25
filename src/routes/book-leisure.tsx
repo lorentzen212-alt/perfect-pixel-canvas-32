@@ -2943,7 +2943,7 @@ function LeisureStep2Screen({
               return (
                 <div
                   key={s.id}
-                  className="rounded-[16px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+                  className="rounded-[16px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 transition-all duration-200 hover:-translate-y-[2px]"
                   style={{
                     backgroundColor: S1_NAVY,
                     border: `1px solid rgba(245,241,230,0.10)`,
