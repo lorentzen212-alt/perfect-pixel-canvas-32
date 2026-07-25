@@ -2607,13 +2607,13 @@ function RoomCounter({
         type="button"
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-8 w-8 place-items-center transition-opacity"
+        className="grid h-8 w-8 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95"
         style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1 }}
       >
         <Minus size={18} strokeWidth={2.4} />
       </button>
       <span
-        className="min-w-[22px] text-center text-[20px] font-medium text-white"
+        className="min-w-[26px] text-center text-[20px] font-medium text-white transition-all duration-200"
         style={{ fontFamily: SERIF }}
       >
         {value}
@@ -2621,7 +2621,7 @@ function RoomCounter({
       <button
         type="button"
         onClick={() => onChange(value + 1)}
-        className="grid h-8 w-8 place-items-center transition-transform hover:scale-110"
+        className="grid h-8 w-8 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95"
         style={{ color: S1_GOLD_SOFT }}
       >
         <Plus size={18} strokeWidth={2.4} />
