@@ -3173,7 +3173,7 @@ function LeisureStep2Screen({
               Room distribution
             </div>
 
-            <div className="mt-4 grid grid-cols-1 gap-3.5 md:grid-cols-2">
+            <div className="room-distribution-grid mt-4">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <StayRoomRow
                   key={key}
