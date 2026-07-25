@@ -2788,6 +2788,7 @@ type LeisureStay = {
   arrival: string; // ISO yyyy-MM-dd
   departure: string;
   rooms: Record<string, number>;
+  roomCategories?: Record<string, string>;
 };
 
 const GUESTS_PER_ROOM: Record<string, number> = {
