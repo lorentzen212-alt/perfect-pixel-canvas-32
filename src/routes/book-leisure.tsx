@@ -4742,7 +4742,9 @@ function LeisureStep4Screen({
           Create memories your<br />group will talk about<br />for years to come.
         </>
       }
+      enhancedHero
     >
+
       <section
         className="rounded-[24px] p-6 sm:p-8 lg:p-10"
         style={{
