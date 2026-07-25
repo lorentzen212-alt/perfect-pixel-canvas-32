@@ -3036,7 +3036,7 @@ function LeisureStep2Screen({
               return (
                 <div
                   key={s.id}
-                  className="rounded-[16px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 transition-all duration-200 hover:-translate-y-[2px]"
+                  className={`rounded-[16px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 transition-all duration-200 hover:-translate-y-[2px] ${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
                   style={{
                     backgroundColor: S1_NAVY,
                     border: `1px solid rgba(245,241,230,0.10)`,
