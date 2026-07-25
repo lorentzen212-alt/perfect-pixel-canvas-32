@@ -2630,8 +2630,8 @@ function RoomCounter({
 
   return (
     <div
-      className="flex items-center justify-end shrink-0 w-full"
-      style={{ gap: 3, paddingRight: 4 }}
+      className="flex items-center justify-between shrink-0"
+      style={{ width: 118, marginRight: 8 }}
       onClick={onClickStop}
     >
       <button
@@ -2639,7 +2639,7 @@ function RoomCounter({
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-6 w-6 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-8 w-8 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
         <Minus size={14} strokeWidth={2.4} />
@@ -2673,9 +2673,10 @@ function RoomCounter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className="no-spin h-6 w-[26px] rounded-[10px] text-center text-[15px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
+        className="no-spin h-6 rounded-[10px] text-center text-[15px] font-medium text-white outline-none transition-[border-color,box-shadow] duration-[180ms] ease-out focus:border-[color:var(--gold)] focus:shadow-[0_0_0_1px_var(--gold),0_0_10px_-2px_var(--gold)]"
         style={{
           fontFamily: SERIF,
+          width: 38,
           backgroundColor: "rgba(6,16,26,0.85)",
           border: "1px solid rgba(245,241,230,0.10)",
           boxShadow: "inset 0 1px 2px rgba(0,0,0,0.35)",
@@ -2686,7 +2687,7 @@ function RoomCounter({
         type="button"
         aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
-        className="grid h-6 w-6 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-8 w-8 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, opacity: 0.86, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
         <Plus size={14} strokeWidth={2.4} />
