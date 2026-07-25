@@ -3757,7 +3757,7 @@ function LeisureStep3Screen({
         </div>
 
         {/* Category cards */}
-        <div className="mt-12 grid grid-cols-2 gap-3.5 md:grid-cols-3 lg:grid-cols-6 lg:gap-4">
+        <div className="mt-10 grid grid-cols-2 gap-3.5 md:grid-cols-3 lg:grid-cols-6 lg:gap-4">
           {CONCIERGE_CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const count = countFor(cat);
