@@ -57,7 +57,7 @@ import {
   Headphones,
   PartyPopper,
   PlaneLanding,
-  PlaneTakeaway,
+  Plane,
 } from "lucide-react";
 
 
