@@ -2639,10 +2639,10 @@ function RoomCounter({
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-7 w-7 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-[26.5px] w-[26.5px] shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
-        <Minus size={14} strokeWidth={2.2} />
+        <Minus size={13} strokeWidth={2.2} />
       </button>
       <input
         type="text"
@@ -2673,7 +2673,7 @@ function RoomCounter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className="no-spin h-8 w-[36px] rounded-[10px] text-center text-[15px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
+        className="no-spin h-[30.5px] w-[34.5px] rounded-[9px] text-center text-[14px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
         style={{
           fontFamily: SERIF,
           backgroundColor: "rgba(6,16,26,0.85)",
@@ -2686,10 +2686,10 @@ function RoomCounter({
         type="button"
         aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
-        className="grid h-7 w-7 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-[26.5px] w-[26.5px] shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, opacity: 0.9, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
-        <Plus size={14} strokeWidth={2.2} />
+        <Plus size={13} strokeWidth={2.2} />
       </button>
     </div>
   );
