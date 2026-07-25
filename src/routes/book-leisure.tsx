@@ -4243,43 +4243,59 @@ function LeisureStep3Screen({
         </div>
 
         {/* Category cards */}
-        <div className="mt-10 grid grid-cols-2 gap-3.5 md:grid-cols-3 lg:grid-cols-6 lg:gap-4">
+        <div className="mt-14 grid grid-cols-2 gap-2.5 md:grid-cols-3 lg:grid-cols-6 lg:gap-2.5">
           {CONCIERGE_CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const count = countFor(cat);
             const isSelected = count > 0;
             const isOpen = expanded === cat.key;
+            const isElevated = isOpen || isSelected;
 
             return (
               <button
                 key={cat.key}
                 type="button"
                 onClick={() => setExpanded(cat.key)}
-                className="group relative flex flex-col overflow-hidden rounded-[14px] text-left transition-all duration-300"
+                className="group relative flex flex-col overflow-hidden rounded-[14px] text-left transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px]"
                 style={{
                   background: S3_PANEL,
-                  border: `1px solid ${isSelected ? S3_GOLD : isOpen ? "rgba(201,164,106,0.55)" : S3_BORDER}`,
-                  boxShadow: isSelected
-                    ? "0 24px 60px -30px rgba(201,164,106,0.55), 0 0 0 1px rgba(201,164,106,0.25), inset 0 1px 0 rgba(255,255,255,0.04)"
-                    : isOpen
-                    ? "0 18px 40px -28px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04)"
-                    : "0 10px 24px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03)",
+                  border: `1px solid ${isOpen ? S3_GOLD : isSelected ? "rgba(201,164,106,0.65)" : "rgba(255,255,255,0.08)"}`,
+                  transform: isOpen ? "translateY(-7px)" : undefined,
+                  boxShadow: isOpen
+                    ? "0 30px 60px -28px rgba(201,164,106,0.42), 0 18px 38px -22px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 0 0 1px rgba(201,164,106,0.18)"
+                    : isSelected
+                    ? "0 22px 46px -30px rgba(201,164,106,0.35), 0 14px 30px -22px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05)"
+                    : "0 14px 32px -24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
                 }}
               >
                 <div className="relative h-[210px] w-full overflow-hidden">
                   <img
                     src={cat.img}
                     alt={cat.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                    style={{ filter: "brightness(0.72) saturate(0.85)" }}
+                    className="h-full w-full object-cover transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.045]"
+                    style={{
+                      filter: isElevated
+                        ? "brightness(0.82) contrast(1.05) saturate(0.92) sepia(0.06)"
+                        : "brightness(0.72) contrast(1.05) saturate(0.88) sepia(0.06)",
+                    }}
                   />
                   <div
                     className="pointer-events-none absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(23,28,34,0) 45%, rgba(23,28,34,0.95) 100%)",
+                        "radial-gradient(120% 90% at 50% 30%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.35) 100%), linear-gradient(180deg, rgba(23,28,34,0) 45%, rgba(23,28,34,0.95) 100%)",
                     }}
                   />
+                  {isOpen && (
+                    <div
+                      className="pointer-events-none absolute inset-x-6 -bottom-8 h-10 rounded-full"
+                      style={{
+                        background:
+                          "radial-gradient(60% 100% at 50% 0%, rgba(201,164,106,0.35) 0%, rgba(201,164,106,0) 70%)",
+                        filter: "blur(6px)",
+                      }}
+                    />
+                  )}
                   {isSelected && (
                     <span
                       className="absolute right-2.5 top-2.5 grid h-6 w-6 place-items-center rounded-full"
@@ -4292,11 +4308,14 @@ function LeisureStep3Screen({
                     </span>
                   )}
                   <div
-                    className="absolute left-1/2 bottom-4 grid h-[46px] w-[46px] -translate-x-1/2 place-items-center rounded-full"
+                    className="absolute left-1/2 bottom-4 grid h-[46px] w-[46px] -translate-x-1/2 place-items-center rounded-full transition-all duration-500"
                     style={{
                       background: "rgba(23,28,34,0.55)",
                       border: `1px solid ${S3_GOLD}`,
-                      backdropFilter: "blur(4px)",
+                      backdropFilter: "blur(6px)",
+                      boxShadow: isOpen
+                        ? "0 8px 24px -10px rgba(201,164,106,0.55), inset 0 0 0 1px rgba(255,255,255,0.05)"
+                        : "0 6px 18px -12px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.04)",
                     }}
                   >
                     <Icon size={18} strokeWidth={1.6} style={{ color: S3_GOLD_SOFT }} />
@@ -4305,8 +4324,8 @@ function LeisureStep3Screen({
 
                 <div className="flex flex-1 flex-col items-center px-3 pb-4 pt-4 text-center">
                   <div
-                    className="text-[13px] font-medium tracking-[0.22em]"
-                    style={{ color: S3_TEXT }}
+                    className="text-[13px] font-medium tracking-[0.22em] transition-colors duration-300"
+                    style={{ color: isOpen ? "#F6EFDF" : S3_TEXT }}
                   >
                     {cat.title.toUpperCase()}
                   </div>
@@ -4331,6 +4350,7 @@ function LeisureStep3Screen({
             );
           })}
         </div>
+
 
 
         {/* Configuration area */}
