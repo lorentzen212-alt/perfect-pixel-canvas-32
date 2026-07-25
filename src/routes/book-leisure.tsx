@@ -2,6 +2,12 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import React, { useState, useMemo, useEffect } from "react";
 import { format } from "date-fns";
 import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
+import roomSingleImg from "@/assets/room-single.jpg.asset.json";
+import roomDoubleImg from "@/assets/room-double.jpg.asset.json";
+import roomTwinImg from "@/assets/room-twin.jpg.asset.json";
+import roomTripleImg from "@/assets/room-triple.jpg.asset.json";
+import roomFamilyImg from "@/assets/room-family.jpg.asset.json";
+import roomAccessibleImg from "@/assets/room-accessible.jpg.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
