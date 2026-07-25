@@ -2572,22 +2572,54 @@ function LeisureStepShell({
                 </p>
               </div>
 
-              <ul className="space-y-3.5 pt-8">
-                {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
-                  <li key={t} className="flex items-center gap-3 text-[15px] text-white/95">
-                    <span
-                      className="grid h-6 w-6 place-items-center rounded-full"
-                      style={{
-                        backgroundColor: "rgba(212,166,74,0.14)",
-                        border: `1px solid ${S1_GOLD}`,
-                      }}
-                    >
-                      <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
-                    </span>
-                    {t}
-                  </li>
-                ))}
-              </ul>
+              {enhancedHero ? (
+                <div
+                  className="mt-8 rounded-[16px] px-5 py-4 sm:px-6"
+                  style={{
+                    background: "linear-gradient(180deg, rgba(18,34,52,0.46) 0%, rgba(8,19,31,0.56) 100%)",
+                    backdropFilter: "blur(10px) saturate(120%)",
+                    borderTop: `1px solid rgba(232,199,117,0.55)`,
+                    borderLeft: "1px solid rgba(255,255,255,0.08)",
+                    borderRight: "1px solid rgba(255,255,255,0.08)",
+                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14)",
+                  }}
+                >
+                  <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-0">
+                    {["One request.", "Multiple offers.", "The perfect trip."].map((t, i) => (
+                      <div key={t} className="flex items-center sm:flex-1 sm:justify-center">
+                        {i > 0 && (
+                          <span
+                            className="mr-4 hidden h-[5px] w-[5px] flex-shrink-0 rounded-full sm:block"
+                            style={{
+                              background: `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`,
+                            }}
+                          />
+                        )}
+                        <span className="text-[14px] leading-none text-white/95 sm:text-[14.5px]">{t}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <ul className="space-y-3.5 pt-8">
+                  {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
+                    <li key={t} className="flex items-center gap-3 text-[15px] text-white/95">
+                      <span
+                        className="grid h-6 w-6 place-items-center rounded-full"
+                        style={{
+                          backgroundColor: "rgba(212,166,74,0.14)",
+                          border: `1px solid ${S1_GOLD}`,
+                        }}
+                      >
+                        <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
+                      </span>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
             </div>
           </div>
         </aside>
