@@ -2450,12 +2450,12 @@ const STEP2_ROOMS: {
   desc: string;
   img: string;
 }[] = [
-  { key: "single", title: "Single Rooms", desc: "1 person", img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=400&q=80" },
-  { key: "triple", title: "Triple Rooms", desc: "3 people", img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=400&q=80" },
-  { key: "twin", title: "Twin Rooms", desc: "2 separate beds", img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=400&q=80" },
-  { key: "family", title: "Family Rooms", desc: "4+ people", img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=400&q=80" },
-  { key: "double", title: "Double Rooms", desc: "1 double bed", img: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=400&q=80" },
-  { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80" },
+  { key: "single", title: "Single Rooms", desc: "1 person", img: roomSingleImg },
+  { key: "triple", title: "Triple Rooms", desc: "3 people", img: roomTripleImg },
+  { key: "twin", title: "Twin Rooms", desc: "2 separate beds", img: roomTwinImg },
+  { key: "family", title: "Family Rooms", desc: "4+ people", img: roomFamilyImg },
+  { key: "double", title: "Double Rooms", desc: "1 double bed", img: roomDoubleImg },
+  { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: roomAccessibleImg },
 ];
 
 function LeisureStepShell({
