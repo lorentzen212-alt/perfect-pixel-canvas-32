@@ -2896,13 +2896,18 @@ function StayRoomRow({
   roomKey,
   value,
   onChange,
+  category,
+  onCategoryChange,
 }: {
   roomKey: string;
   value: number;
   onChange: (v: number) => void;
+  category?: string;
+  onCategoryChange?: (v: string) => void;
 }) {
   const meta = STEP2_ROOMS.find((r) => r.key === roomKey)!;
   const active = value > 0;
+  const categoryOptions = ROOM_CATEGORY_OPTIONS[roomKey];
   const handleCardClick = () => onChange(value + 1);
   const stopPropagation = (e: React.MouseEvent) => e.stopPropagation();
 
