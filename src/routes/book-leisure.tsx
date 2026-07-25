@@ -3576,11 +3576,10 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
     configTitle: "Arrival Experience",
     configPrompt: "How should your group be welcomed on arrival?",
     options: [
+      { label: "Airport Transfer", icon: Plane },
       { label: "Taxi", icon: Car },
-      { label: "Minibus", icon: Bus },
       { label: "Coach", icon: Bus },
       { label: "Private Chauffeur", icon: UserRound },
-      { label: "Helicopter Transfer", icon: PlaneLanding },
       { label: "Porter Service", icon: Bell },
       { label: "No arrival services required", icon: Check },
     ],
@@ -3588,15 +3587,14 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
   {
     key: "welcome",
     title: "Welcome",
-    description: "Drinks, gifts & personalised touches",
+    description: "Drinks & personalised touches",
     img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
     icon: Gift,
     configTitle: "Welcome Touches",
     configPrompt: "How would you like to greet your guests?",
     options: [
       { label: "Welcome Drink on Arrival", icon: Wine },
-      { label: "Champagne Reception", icon: Wine },
-      { label: "Gift Bags in Rooms", icon: Gift },
+      { label: "VIP Welcome Amenities", icon: Gift },
       { label: "Personalised Welcome Card", icon: Pencil },
       { label: "Floral Arrangements", icon: PartyPopper },
       { label: "No welcome services required", icon: Check },
@@ -3615,7 +3613,6 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
       { label: "Late Check-out", icon: DoorOpen },
       { label: "Room Upgrades", icon: Star },
       { label: "Connecting Rooms", icon: HomeIcon },
-      { label: "Turndown Service", icon: BedDouble },
       { label: "Laundry Service", icon: Briefcase },
       { label: "No stay services required", icon: Check },
     ],
@@ -3657,20 +3654,75 @@ const CONCIERGE_CATEGORIES: ConciergeCategory[] = [
   {
     key: "departure",
     title: "Departure",
-    description: "Luggage, transfers & onward travel",
+    description: "Transfers & onward travel",
     img: "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?auto=format&fit=crop&w=900&q=80",
     icon: Plane,
     configTitle: "Departure Experience",
     configPrompt: "How should your group leave?",
     options: [
       { label: "Airport Transfer Out", icon: Plane },
-      { label: "Luggage Assistance", icon: Briefcase },
+      { label: "Porter Service Out", icon: Briefcase },
       { label: "Late Check-out Departure", icon: DoorOpen },
       { label: "Farewell Gift", icon: Gift },
       { label: "No departure services required", icon: Check },
     ],
   },
 ];
+
+/* ---- Smart configuration metadata for expandable service panels ---- */
+
+const TRANSPORT_SERVICES = new Set([
+  "Airport Transfer",
+  "Airport Transfer Out",
+  "Taxi",
+  "Private Chauffeur",
+  "Coach",
+  "Porter Service",
+  "Porter Service Out",
+]);
+
+const CITY_AIRPORT: Record<string, string> = {
+  Oslo: "Oslo Airport (OSL)",
+  Bergen: "Bergen Airport (BGO)",
+  Tromsø: "Tromsø Airport (TOS)",
+  Tromso: "Tromsø Airport (TOS)",
+  Stavanger: "Stavanger Airport (SVG)",
+  Trondheim: "Trondheim Airport (TRD)",
+  Bodø: "Bodø Airport (BOO)",
+  Bodo: "Bodø Airport (BOO)",
+  Ålesund: "Ålesund Airport (AES)",
+  Alesund: "Ålesund Airport (AES)",
+};
+
+function nearestAirportFor(city: string | undefined): string {
+  if (!city) return "";
+  return CITY_AIRPORT[city] ?? "";
+}
+
+type Step3Context = {
+  city: string;
+  arrival?: Date;
+  departure?: Date;
+  stays: LeisureStay[];
+};
+
+function contextArrivalISO(ctx: Step3Context): string {
+  if (ctx.stays[0]?.arrival) return ctx.stays[0].arrival;
+  return ctx.arrival ? format(ctx.arrival, "yyyy-MM-dd") : "";
+}
+function contextDepartureISO(ctx: Step3Context): string {
+  if (ctx.stays.length) return ctx.stays[ctx.stays.length - 1]!.departure;
+  return ctx.departure ? format(ctx.departure, "yyyy-MM-dd") : "";
+}
+
+const SMART_SERVICES = new Set<string>([
+  "Group Lunch",
+  "Group Dinner",
+  "Early Check-in",
+  "Late Check-out",
+  "VIP Welcome Amenities",
+  ...Array.from(TRANSPORT_SERVICES),
+]);
 
 function LeisureStep3Screen({
   selected,
