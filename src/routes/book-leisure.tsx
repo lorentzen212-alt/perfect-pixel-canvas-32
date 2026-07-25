@@ -5017,21 +5017,21 @@ function LeisureStep4Screen({
 
         {/* Additional Experience Requests */}
         <div
-          className="mt-8 rounded-[16px] p-5 sm:p-6"
+          className="mt-8 rounded-[16px] px-5 py-4 sm:px-6 sm:py-5"
           style={{
-            backgroundColor: S1_NAVY,
+            background: "linear-gradient(180deg, rgba(9,21,34,0.96) 0%, rgba(6,16,26,0.96) 100%)",
             border: `1px solid ${S1_BORDER}`,
           }}
         >
           <h3
-            className="text-[18px] font-medium text-white"
+            className="text-[17.5px] font-medium text-white"
             style={{ fontFamily: SERIF }}
           >
             Additional Experience Requests
           </h3>
           <p
-            className="mt-1.5 text-[13.5px]"
-            style={{ color: "rgba(245,241,230,0.62)" }}
+            className="mt-1 text-[13px] leading-relaxed"
+            style={{ color: "rgba(245,241,230,0.6)" }}
           >
             Tell us if you&apos;re looking for an experience that isn&apos;t listed above, or if you have any special wishes for your group.
           </p>
@@ -5039,15 +5039,17 @@ function LeisureStep4Screen({
             value={additionalRequests}
             onChange={(e) => setAdditionalRequests(e.target.value)}
             placeholder={`Looking for something unique?\n\nPrivate boat charter · Hike · Photography tour\nDog sledding · Wine tasting · Brewery visit`}
-            rows={5}
-            className="mt-4 w-full resize-y rounded-[14px] px-5 py-4 text-[14.5px] outline-none transition-all duration-200 focus:border-[#D4A64A] focus:ring-4 focus:ring-[rgba(212,166,74,0.12)]"
+            rows={4}
+            className="mt-3.5 w-full resize-y rounded-[13px] px-4 py-3.5 text-[14px] outline-none transition-all duration-200 focus:border-[#D4A64A] focus:ring-4 focus:ring-[rgba(212,166,74,0.12)]"
             style={{
-              backgroundColor: S1_NAVY_SOFT,
+              background: "linear-gradient(180deg, rgba(24,42,62,0.72) 0%, rgba(18,33,50,0.72) 100%)",
               color: "#F5F1E6",
-              border: `1px solid ${S1_BORDER}`,
-              minHeight: 130,
+              border: `1px solid rgba(255,255,255,0.09)`,
+              boxShadow: "inset 0 2px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
+              minHeight: 104,
             }}
           />
+
         </div>
 
         {/* Experience Availability */}
