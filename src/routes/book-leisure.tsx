@@ -2822,20 +2822,20 @@ function StayRoomRow({
           handleCardClick();
         }
       }}
-      className="group flex cursor-pointer items-center gap-6 rounded-[20px] p-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] active:-translate-y-[1px]"
+      className="group flex cursor-pointer items-center gap-4 rounded-[20px] p-3 pr-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] active:-translate-y-[1px]"
       style={{
-        backgroundColor: S1_NAVY,
+        backgroundColor: active ? "rgba(15,32,49,0.98)" : S1_NAVY,
         border: `1px solid ${active ? "rgba(212,166,74,0.55)" : "rgba(245,241,230,0.06)"}`,
         boxShadow: active
-          ? "0 22px 46px -22px rgba(212,166,74,0.14), 0 0 28px -14px rgba(212,166,74,0.08), inset 0 1px 0 rgba(255,255,230,0.04), inset 0 -1px 0 rgba(0,0,0,0.16)"
+          ? "0 22px 46px -22px rgba(212,166,74,0.16), 0 0 32px -14px rgba(212,166,74,0.10), inset 0 1px 0 rgba(255,255,230,0.05), inset 0 -1px 0 rgba(0,0,0,0.16)"
           : "0 18px 38px -22px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,230,0.03), inset 0 -1px 0 rgba(0,0,0,0.12)",
       }}
     >
       <div
-        className="h-[84px] w-[118px] flex-shrink-0 overflow-hidden rounded-[14px] transition-all duration-[200ms]"
+        className="aspect-[4/3] w-[30%] max-w-[150px] flex-shrink-0 overflow-hidden rounded-[16px] transition-all duration-[200ms]"
         style={{
           border: `1px solid ${active ? "rgba(212,166,74,0.35)" : "rgba(245,241,230,0.10)"}`,
-          boxShadow: "0 10px 24px -10px rgba(0,0,0,0.45)",
+          boxShadow: "0 12px 26px -12px rgba(0,0,0,0.5)",
         }}
       >
         <img
@@ -2845,18 +2845,18 @@ function StayRoomRow({
           style={{ filter: "saturate(1.08) contrast(1.06) brightness(1.01)" }}
         />
       </div>
-      <div
-        className="min-w-0 flex-1 rounded-[12px] px-1 py-1"
-        style={{
-          background: "linear-gradient(90deg, rgba(8,19,31,0.55) 0%, rgba(8,19,31,0) 85%)",
-        }}
-      >
-        <div className="text-[16px] font-medium text-white">{meta.title}</div>
-        <div className="mt-1 text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.55)" }}>
+      <div className="min-w-0 flex-1">
+        <div
+          className="whitespace-nowrap text-[15.5px] font-medium text-white"
+          style={{ letterSpacing: "-0.005em" }}
+        >
+          {meta.title}
+        </div>
+        <div className="mt-1 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.55)" }}>
           {meta.desc}
         </div>
       </div>
-      <RoomCounter value={value} onChange={onChange} onClickStop={stopPropagation} />
+      <RoomCounter value={value} onChange={onChange} onClickStop={stopPropagation} ariaLabel={meta.title} />
     </div>
   );
 }
