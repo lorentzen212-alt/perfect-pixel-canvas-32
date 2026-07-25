@@ -2625,7 +2625,7 @@ function RoomCounter({
   return (
     <div
       className="flex items-center justify-end shrink-0"
-      style={{ gap: 6, paddingRight: 4 }}
+      style={{ gap: 4, paddingRight: 2 }}
       onClick={onClickStop}
     >
       <button
@@ -2633,10 +2633,10 @@ function RoomCounter({
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-7 w-7 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
-        <Minus size={17} strokeWidth={2.4} />
+        <Minus size={14} strokeWidth={2.2} />
       </button>
       <input
         type="text"
@@ -2667,11 +2667,11 @@ function RoomCounter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className="no-spin h-10 w-[42px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
+        className="no-spin h-8 w-[36px] rounded-[10px] text-center text-[15px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
         style={{
           fontFamily: SERIF,
           backgroundColor: "rgba(6,16,26,0.85)",
-          border: "1px solid rgba(245,241,230,0.10)",
+          border: "1px solid rgba(212,166,74,0.32)",
           boxShadow: "inset 0 1px 2px rgba(0,0,0,0.35)",
           ["--gold" as never]: S1_GOLD,
         }}
@@ -2680,14 +2680,15 @@ function RoomCounter({
         type="button"
         aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
-        className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
-        style={{ color: S1_GOLD_SOFT, opacity: 0.86, ["--gold-soft" as never]: S1_GOLD_SOFT }}
+        className="grid h-7 w-7 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        style={{ color: S1_GOLD_SOFT, opacity: 0.9, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
-        <Plus size={17} strokeWidth={2.4} />
+        <Plus size={14} strokeWidth={2.2} />
       </button>
     </div>
   );
 }
+
 
 
 /* ==== Leisure Step 2 — Multi-stay workflow ==== */
