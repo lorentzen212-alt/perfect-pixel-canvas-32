@@ -2828,7 +2828,7 @@ function StayRoomRow({
       }}
       className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
       style={{
-        gridTemplateColumns: "minmax(100px, 30%) 1fr auto",
+        gridTemplateColumns: "minmax(110px, 32%) 1fr auto",
         columnGap: 14,
         backgroundColor: active ? "rgba(19,36,54,1)" : S1_NAVY,
         border: `1px solid ${active ? "rgba(212,166,74,0.62)" : "rgba(245,241,230,0.06)"}`,
