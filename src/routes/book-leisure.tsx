@@ -2719,20 +2719,21 @@ function LeisureDateField({
         {label}
       </span>
       <div
-        className="mt-2 flex items-center gap-3 rounded-[12px] px-3.5 h-[52px] transition-all focus-within:border-[color:var(--gold)]"
+        className="mt-1.5 flex items-center gap-4 rounded-[14px] px-5 h-[62px] transition-all duration-200 focus-within:border-[color:var(--gold)]"
         style={{
           backgroundColor: S1_NAVY,
-          border: `1px solid ${value ? "rgba(212,166,74,0.55)" : "rgba(245,241,230,0.12)"}`,
+          border: `1px solid ${value ? "rgba(212,166,74,0.42)" : "rgba(245,241,230,0.12)"}`,
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 10px 24px -16px rgba(0,0,0,0.35)",
           ["--gold" as never]: S1_GOLD,
         }}
       >
-        <CalendarDays size={17} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+        <CalendarDays size={19} strokeWidth={1.9} style={{ color: S1_GOLD_SOFT }} />
         <input
           type="date"
           value={value}
           min={min}
           onChange={(e) => onChange(e.target.value)}
-          className="flex-1 bg-transparent outline-none text-[14.5px] text-white [color-scheme:dark]"
+          className="flex-1 bg-transparent outline-none text-[15px] text-white [color-scheme:dark]"
           style={{ fontFamily: "Inter, system-ui, sans-serif" }}
         />
       </div>
