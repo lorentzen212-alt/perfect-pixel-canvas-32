@@ -3001,6 +3001,8 @@ function LeisureStep2Screen({
           onEdit={editStay}
           onRemove={removeStay}
           editingId={editingId}
+          lastAddedId={lastAddedId}
+          removingIds={removingIds}
         />
       }
     >
