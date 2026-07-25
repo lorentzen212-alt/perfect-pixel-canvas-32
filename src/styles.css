@@ -240,3 +240,54 @@
   .luxury-drift,
   .luxury-trail { animation: none !important; opacity: 0.4; }
 }
+
+/* Step 4 – luxury refinements */
+@keyframes s4-shimmer-sweep {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(220%); }
+}
+.s4-shimmer { position: relative; overflow: hidden; }
+.s4-shimmer::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+.s4-shimmer:hover::after { animation: s4-shimmer-sweep 1100ms ease-out; }
+.s4-surprise:hover .s4-surprise-icon { transform: rotate(14deg) scale(1.05); }
+.s4-surprise-icon { transition: transform 380ms cubic-bezier(.22,1,.36,1); }
+
+@keyframes s4-selected-breathe {
+  0%,100% { opacity: 0.45; }
+  50%     { opacity: 0.85; }
+}
+.s4-selected-glow::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 22px;
+  background: radial-gradient(60% 60% at 50% 60%, rgba(212,166,74,0.28), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: -1;
+  animation: s4-selected-breathe 5.5s ease-in-out infinite;
+}
+.s4-card { transition: transform 480ms cubic-bezier(.22,1,.36,1), box-shadow 480ms cubic-bezier(.22,1,.36,1), border-color 380ms ease; }
+.s4-card:hover { transform: translateY(-5px); }
+.s4-card .s4-card-img { transition: transform 900ms cubic-bezier(.22,1,.36,1), filter 500ms ease; filter: saturate(1.08) contrast(1.05); }
+.s4-card:hover .s4-card-img { transform: scale(1.03); filter: saturate(1.14) contrast(1.09) brightness(1.02); }
+.s4-card .s4-card-overlay { transition: opacity 500ms ease; }
+.s4-card:hover .s4-card-overlay { opacity: 1.08; }
+
+/* Hero premium overlays for Step 4 */
+.s4-hero-img { filter: saturate(1.1) contrast(1.07) brightness(1.02); }
+.s4-hero-vignette {
+  background:
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0,0,0,0.55) 100%),
+    radial-gradient(80% 45% at 65% 18%, rgba(255,196,120,0.20), transparent 65%);
+  mix-blend-mode: multiply;
+}
+.s4-hero-edgefade {
+  background: linear-gradient(90deg, transparent 55%, rgba(8,19,31,0.35) 82%, rgba(8,19,31,0.85) 100%);
+}
