@@ -3381,7 +3381,7 @@ function AccommodationSummary({
             return (
               <div
                 key={s.id}
-                className="rounded-[14px] p-4 transition-all duration-200"
+                className={`rounded-[14px] p-4 transition-all duration-200 ${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds?.has(s.id) ? "stay-removing" : ""}`}
                 style={{
                   backgroundColor: S1_NAVY,
                   border: `1px solid ${isEditing ? "rgba(212,166,74,0.5)" : "rgba(245,241,230,0.08)"}`,
