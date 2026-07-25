@@ -2860,7 +2860,7 @@ function StayRoomRow({
       </div>
       <div className="min-w-0 -mt-2.5 pr-1">
         <div
-          className="text-[15px] font-medium leading-tight text-white"
+          className="whitespace-nowrap text-[14.5px] font-medium leading-tight text-white"
           style={{ letterSpacing: "-0.005em" }}
         >
           {meta.title}
