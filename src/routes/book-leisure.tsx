@@ -2540,16 +2540,18 @@ function LeisureStepShell({
             <>
               <div className="pointer-events-none absolute inset-0 s4-hero-vignette" />
               <div className="pointer-events-none absolute inset-y-0 right-0 w-[160px] s4-hero-edgefade" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] s4-hero-baselift" />
             </>
           )}
           <div
             className="absolute inset-0"
             style={{
               background: enhancedHero
-                ? "linear-gradient(180deg, rgba(8,19,31,0.18) 0%, rgba(8,19,31,0.30) 55%, rgba(8,19,31,0.78) 100%)"
+                ? "linear-gradient(180deg, rgba(8,19,31,0.18) 0%, rgba(8,19,31,0.28) 55%, rgba(8,19,31,0.62) 100%)"
                 : "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
             }}
           />
+
 
           <div className="relative z-10 h-full min-h-[520px] p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
             <div className="flex h-full flex-col justify-between lg:ml-[15px] lg:mt-[10px]">
