@@ -2624,10 +2624,11 @@ function RoomCounter({
 
   return (
     <div
-      className="flex items-center shrink-0"
-      style={{ width: 158, gap: 10 }}
+      className="flex items-center justify-end shrink-0 w-full"
+      style={{ gap: 10 }}
       onClick={onClickStop}
     >
+
       <button
         type="button"
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
