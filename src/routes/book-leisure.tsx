@@ -3729,15 +3729,15 @@ function LeisureStep3Screen({
             </div>
             <div
               className="mt-6 text-[16px] font-medium"
-              style={{ fontFamily: SERIF, fontSize: 18, color: S1_GOLD_SOFT, lineHeight: 1.25 }}
+              style={{ fontFamily: SERIF, fontSize: 20, color: S1_GOLD_SOFT, lineHeight: 1.2 }}
             >
-              Let HotelGroupBook<br />recommend extras
+              Need help<br />choosing?
             </div>
             <p
               className="mt-4 text-[12.5px] leading-relaxed"
               style={{ color: "rgba(245,241,230,0.65)" }}
             >
-              We&apos;ll suggest the most suitable services based on your destination, hotel and group size.
+              HotelGroupBook can recommend the best services for your group.
             </p>
             <div className="mt-auto pt-8">
               <DarkCheckbox
