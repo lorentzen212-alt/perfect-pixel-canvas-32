@@ -4371,7 +4371,7 @@ function LeisureStep3Screen({
                     className="mt-2.5 text-[11.5px] leading-[1.25]"
                     style={{ color: S3_TEXT }}
                   >
-                    {opt.label}
+                    {opt.displayLabel ?? opt.label}
                   </div>
                 </button>
               );
@@ -4384,10 +4384,12 @@ function LeisureStep3Screen({
                 <SmartConfigPanel
                   key={opt.label}
                   label={opt.label}
+                  displayLabel={opt.displayLabel}
                   cfg={serviceConfig[opt.label] ?? {}}
                   onChange={(patch) => updateConfig(opt.label, patch)}
                   context={context}
                 />
+
               ))}
             </div>
           )}
