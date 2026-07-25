@@ -27,6 +27,7 @@ import {
   Utensils,
   Coffee,
   Bus,
+  Car,
   ConciergeBell,
   DoorOpen,
   Gift,
