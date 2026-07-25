@@ -3686,7 +3686,7 @@ function LeisureStep3Screen({
                   </div>
                 </div>
 
-                <div className="flex flex-1 flex-col px-4 pb-3 pt-8">
+                <div className="flex flex-1 flex-col px-4 pb-2 pt-8">
                   <div
                     className="text-[16px] font-medium text-white"
                     style={{ fontFamily: SERIF, fontSize: 19 }}
