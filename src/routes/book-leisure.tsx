@@ -2572,17 +2572,19 @@ function DarkCheckbox({
   label,
   checked,
   onChange,
+  align = "left",
 }: {
   label: string;
   checked: boolean;
   onChange: (v: boolean) => void;
+  align?: "left" | "center";
 }) {
   return (
     <button
       type="button"
       onClick={() => onChange(!checked)}
       className="group inline-flex items-center gap-3 text-[14px] transition-colors"
-      style={{ color: "#F5F1E6" }}
+      style={{ color: "#F5F1E6", textAlign: align }}
     >
       <span
         className="grid h-6 w-6 place-items-center rounded-lg transition-all duration-200 ease-out group-hover:scale-[1.06]"
