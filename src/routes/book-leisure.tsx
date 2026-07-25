@@ -3556,8 +3556,9 @@ function AccommodationSummary({
                   {STEP2_ROOMS_ORDER.map((k) => {
                     const v = s.rooms[k] ?? 0;
                     if (v === 0) return null;
+                    const cat = s.roomCategories?.[k];
                     return (
-                      <li key={k} className="flex items-center justify-between text-[13px]">
+                      <li key={k} className="flex items-start justify-between text-[13px]">
                         <span className="flex items-center gap-2" style={{ color: "rgba(245,241,230,0.78)" }}>
                           <span
                             className="h-1.5 w-1.5 rounded-full"
@@ -3565,7 +3566,14 @@ function AccommodationSummary({
                           />
                           {ROOM_LABELS[k]}
                         </span>
-                        <span className="tabular-nums text-white">{v}</span>
+                        <span className="text-right">
+                          <span className="tabular-nums text-white">{v}</span>
+                          {cat && (
+                            <span className="block text-[11.5px]" style={{ color: S1_GOLD_SOFT }}>
+                              {v} × {cat}
+                            </span>
+                          )}
+                        </span>
                       </li>
                     );
                   })}
