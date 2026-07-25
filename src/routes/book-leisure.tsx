@@ -3734,6 +3734,7 @@ function LeisureStep3Screen({
   onNext,
   onBack,
   onStepGo,
+  context,
 }: {
   selected: Set<string>;
   onToggle: (label: string) => void;
@@ -3744,9 +3745,16 @@ function LeisureStep3Screen({
   onNext: () => void;
   onBack: () => void;
   onStepGo: (s: StepKey) => void;
+  context: Step3Context;
 }) {
   const [expanded, setExpanded] = useState<string>("arrival");
   const active = CONCIERGE_CATEGORIES.find((c) => c.key === expanded) ?? CONCIERGE_CATEGORIES[0];
+  const [serviceConfig, setServiceConfig] = useState<Record<string, Record<string, string>>>({});
+  const updateConfig = (label: string, patch: Record<string, string>) =>
+    setServiceConfig((prev) => ({ ...prev, [label]: { ...(prev[label] ?? {}), ...patch } }));
+  const activeSmartSelections = active.options.filter(
+    (o) => selected.has(o.label) && SMART_SERVICES.has(o.label),
+  );
 
   const countFor = (cat: ConciergeCategory) =>
     cat.options.filter(
