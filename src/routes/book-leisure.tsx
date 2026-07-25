@@ -2472,7 +2472,7 @@ function LeisureStepShell({
   rightSidebar?: React.ReactNode;
 }) {
   const gridCols = rightSidebar
-    ? "lg:grid-cols-[minmax(240px,0.8fr)_minmax(620px,1.9fr)_minmax(300px,0.95fr)]"
+    ? "lg:grid-cols-[minmax(220px,0.68fr)_minmax(640px,2.10fr)_minmax(290px,0.92fr)]"
     : "lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)]";
 
   return (
