@@ -2509,42 +2509,44 @@ function LeisureStepShell({
                 "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
             }}
           />
-          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
-            <div>
-              <div className="text-[11px] font-medium tracking-[0.32em]" style={{ color: S1_GOLD_SOFT }}>
-                {chapter}
+          <div className="relative z-10 h-full min-h-[520px] p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
+            <div className="flex h-full flex-col justify-between lg:ml-[15px] lg:mt-[10px]">
+              <div>
+                <div className="text-[11px] font-medium tracking-[0.32em]" style={{ color: S1_GOLD_SOFT }}>
+                  {chapter}
+                </div>
+                <h1
+                  className="mt-6 text-[42px] sm:text-[52px] lg:text-[60px] leading-[1.02] font-medium text-white"
+                  style={{ fontFamily: SERIF }}
+                >
+                  {headline}
+                </h1>
+                <div
+                  className="mt-6 h-[2px] w-[64px] rounded-full"
+                  style={{ background: `linear-gradient(90deg, ${S1_GOLD}, ${S1_GOLD_SOFT})` }}
+                />
+                <p className="mt-6 max-w-[360px] text-[15.5px] leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>
+                  {subtext}
+                </p>
               </div>
-              <h1
-                className="mt-6 text-[42px] sm:text-[52px] lg:text-[60px] leading-[1.02] font-medium text-white"
-                style={{ fontFamily: SERIF }}
-              >
-                {headline}
-              </h1>
-              <div
-                className="mt-6 h-[2px] w-[64px] rounded-full"
-                style={{ background: `linear-gradient(90deg, ${S1_GOLD}, ${S1_GOLD_SOFT})` }}
-              />
-              <p className="mt-6 max-w-[360px] text-[15.5px] leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>
-                {subtext}
-              </p>
-            </div>
 
-            <ul className="space-y-3.5 pt-8">
-              {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
-                <li key={t} className="flex items-center gap-3 text-[15px] text-white/95">
-                  <span
-                    className="grid h-6 w-6 place-items-center rounded-full"
-                    style={{
-                      backgroundColor: "rgba(212,166,74,0.14)",
-                      border: `1px solid ${S1_GOLD}`,
-                    }}
-                  >
-                    <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
-                  </span>
-                  {t}
-                </li>
-              ))}
-            </ul>
+              <ul className="space-y-3.5 pt-8">
+                {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
+                  <li key={t} className="flex items-center gap-3 text-[15px] text-white/95">
+                    <span
+                      className="grid h-6 w-6 place-items-center rounded-full"
+                      style={{
+                        backgroundColor: "rgba(212,166,74,0.14)",
+                        border: `1px solid ${S1_GOLD}`,
+                      }}
+                    >
+                      <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
+                    </span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </aside>
 
