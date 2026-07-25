@@ -2509,42 +2509,44 @@ function LeisureStepShell({
                 "linear-gradient(180deg, rgba(8,19,31,0.35) 0%, rgba(8,19,31,0.48) 55%, rgba(8,19,31,0.86) 100%)",
             }}
           />
-          <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-between p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
-            <div>
-              <div className="text-[11px] font-medium tracking-[0.32em]" style={{ color: S1_GOLD_SOFT }}>
-                {chapter}
+          <div className="relative z-10 h-full min-h-[520px] p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
+            <div className="flex h-full flex-col justify-between lg:ml-[15px] lg:mt-[10px]">
+              <div>
+                <div className="text-[11px] font-medium tracking-[0.32em]" style={{ color: S1_GOLD_SOFT }}>
+                  {chapter}
+                </div>
+                <h1
+                  className="mt-6 text-[42px] sm:text-[52px] lg:text-[60px] leading-[1.02] font-medium text-white"
+                  style={{ fontFamily: SERIF }}
+                >
+                  {headline}
+                </h1>
+                <div
+                  className="mt-6 h-[2px] w-[64px] rounded-full"
+                  style={{ background: `linear-gradient(90deg, ${S1_GOLD}, ${S1_GOLD_SOFT})` }}
+                />
+                <p className="mt-6 max-w-[360px] text-[15.5px] leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>
+                  {subtext}
+                </p>
               </div>
-              <h1
-                className="mt-6 text-[42px] sm:text-[52px] lg:text-[60px] leading-[1.02] font-medium text-white"
-                style={{ fontFamily: SERIF }}
-              >
-                {headline}
-              </h1>
-              <div
-                className="mt-6 h-[2px] w-[64px] rounded-full"
-                style={{ background: `linear-gradient(90deg, ${S1_GOLD}, ${S1_GOLD_SOFT})` }}
-              />
-              <p className="mt-6 max-w-[360px] text-[15.5px] leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>
-                {subtext}
-              </p>
-            </div>
 
-            <ul className="space-y-3.5 pt-8">
-              {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
-                <li key={t} className="flex items-center gap-3 text-[15px] text-white/95">
-                  <span
-                    className="grid h-6 w-6 place-items-center rounded-full"
-                    style={{
-                      backgroundColor: "rgba(212,166,74,0.14)",
-                      border: `1px solid ${S1_GOLD}`,
-                    }}
-                  >
-                    <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
-                  </span>
-                  {t}
-                </li>
-              ))}
-            </ul>
+              <ul className="space-y-3.5 pt-8">
+                {["One request.", "Multiple offers.", "The perfect trip."].map((t) => (
+                  <li key={t} className="flex items-center gap-3 text-[15px] text-white/95">
+                    <span
+                      className="grid h-6 w-6 place-items-center rounded-full"
+                      style={{
+                        backgroundColor: "rgba(212,166,74,0.14)",
+                        border: `1px solid ${S1_GOLD}`,
+                      }}
+                    >
+                      <Check size={12} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
+                    </span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </aside>
 
@@ -2605,13 +2607,13 @@ function RoomCounter({
         type="button"
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-8 w-8 place-items-center transition-opacity"
+        className="grid h-8 w-8 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95"
         style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1 }}
       >
         <Minus size={18} strokeWidth={2.4} />
       </button>
       <span
-        className="min-w-[22px] text-center text-[20px] font-medium text-white"
+        className="min-w-[26px] text-center text-[20px] font-medium text-white transition-all duration-200"
         style={{ fontFamily: SERIF }}
       >
         {value}
@@ -2619,7 +2621,7 @@ function RoomCounter({
       <button
         type="button"
         onClick={() => onChange(value + 1)}
-        className="grid h-8 w-8 place-items-center transition-transform hover:scale-110"
+        className="grid h-8 w-8 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95"
         style={{ color: S1_GOLD_SOFT }}
       >
         <Plus size={18} strokeWidth={2.4} />
@@ -2717,20 +2719,21 @@ function LeisureDateField({
         {label}
       </span>
       <div
-        className="mt-2 flex items-center gap-3 rounded-[12px] px-3.5 h-[52px] transition-all focus-within:border-[color:var(--gold)]"
+        className="mt-1.5 flex items-center gap-4 rounded-[14px] px-5 h-[62px] transition-all duration-200 focus-within:border-[color:var(--gold)]"
         style={{
           backgroundColor: S1_NAVY,
-          border: `1px solid ${value ? "rgba(212,166,74,0.55)" : "rgba(245,241,230,0.12)"}`,
+          border: `1px solid ${value ? "rgba(212,166,74,0.42)" : "rgba(245,241,230,0.12)"}`,
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 10px 24px -16px rgba(0,0,0,0.35)",
           ["--gold" as never]: S1_GOLD,
         }}
       >
-        <CalendarDays size={17} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+        <CalendarDays size={19} strokeWidth={1.9} style={{ color: S1_GOLD_SOFT }} />
         <input
           type="date"
           value={value}
           min={min}
           onChange={(e) => onChange(e.target.value)}
-          className="flex-1 bg-transparent outline-none text-[14.5px] text-white [color-scheme:dark]"
+          className="flex-1 bg-transparent outline-none text-[15px] text-white [color-scheme:dark]"
           style={{ fontFamily: "Inter, system-ui, sans-serif" }}
         />
       </div>
@@ -2751,23 +2754,33 @@ function StayRoomRow({
   const active = value > 0;
   return (
     <div
-      className="group flex items-center gap-4 rounded-[16px] p-3 transition-all"
+      className="group flex items-center gap-5 rounded-[20px] p-3.5 transition-all duration-200 hover:-translate-y-[2px]"
       style={{
         backgroundColor: S1_NAVY,
-        border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.10)"}`,
+        border: `1px solid ${active ? "rgba(212,166,74,0.75)" : "rgba(245,241,230,0.08)"}`,
         boxShadow: active
-          ? "0 14px 30px -18px rgba(212,166,74,0.35)"
-          : "0 10px 26px -18px rgba(0,0,0,0.55)",
+          ? "0 18px 36px -18px rgba(212,166,74,0.22), inset 0 1px 0 rgba(255,255,230,0.04), inset 0 -1px 0 rgba(0,0,0,0.18)"
+          : "0 16px 34px -20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,230,0.03), inset 0 -1px 0 rgba(0,0,0,0.15)",
       }}
     >
       <div
-        className="h-[56px] w-[80px] flex-shrink-0 overflow-hidden rounded-[10px]"
+        className="h-[60px] w-[86px] flex-shrink-0 overflow-hidden rounded-[12px]"
         style={{ border: `1px solid rgba(245,241,230,0.10)` }}
       >
-        <img src={meta.img} alt={meta.title} className="h-full w-full object-cover" />
+        <img
+          src={meta.img}
+          alt={meta.title}
+          className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+          style={{ filter: "saturate(1.05) contrast(1.02)" }}
+        />
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="text-[14.5px] font-medium text-white">{meta.title}</div>
+      <div
+        className="min-w-0 flex-1 rounded-[12px] px-1 py-0.5"
+        style={{
+          background: "linear-gradient(90deg, rgba(8,19,31,0.55) 0%, rgba(8,19,31,0) 85%)",
+        }}
+      >
+        <div className="text-[15px] font-medium text-white">{meta.title}</div>
         <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.55)" }}>
           {meta.desc}
         </div>
@@ -2910,7 +2923,7 @@ function LeisureStep2Screen({
         }}
       >
         <h2
-          className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
+          className="text-[29px] sm:text-[33px] leading-tight font-medium text-white"
           style={{ fontFamily: SERIF }}
         >
           Step 2 – Accommodation
@@ -2930,7 +2943,7 @@ function LeisureStep2Screen({
               return (
                 <div
                   key={s.id}
-                  className="rounded-[16px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+                  className="rounded-[16px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 transition-all duration-200 hover:-translate-y-[2px]"
                   style={{
                     backgroundColor: S1_NAVY,
                     border: `1px solid rgba(245,241,230,0.10)`,
@@ -2960,7 +2973,7 @@ function LeisureStep2Screen({
                     <button
                       type="button"
                       onClick={() => editStay(s.id)}
-                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0"
                       style={{
                         border: `1px solid rgba(212,166,74,0.4)`,
                         color: S1_GOLD_SOFT,
@@ -2973,7 +2986,7 @@ function LeisureStep2Screen({
                     <button
                       type="button"
                       onClick={() => removeStay(s.id)}
-                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0"
                       style={{
                         border: `1px solid rgba(245,241,230,0.14)`,
                         color: "rgba(245,241,230,0.7)",
@@ -3053,13 +3066,13 @@ function LeisureStep2Screen({
             )}
 
             <div
-              className="mt-6 text-[13px] font-medium uppercase tracking-[0.14em]"
+              className="mt-6 text-[12.5px] font-medium uppercase tracking-[0.14em]"
               style={{ color: "rgba(245,241,230,0.7)" }}
             >
               Room distribution
             </div>
 
-            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div className="mt-4 grid grid-cols-1 gap-3.5 md:grid-cols-2">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <StayRoomRow
                   key={key}
@@ -3072,25 +3085,27 @@ function LeisureStep2Screen({
               ))}
             </div>
 
-            <div className="mt-6 flex justify-end">
+            <div className="mt-8 flex justify-end">
               <button
                 type="button"
                 onClick={commitStay}
                 disabled={!canAddStay}
-                className="inline-flex items-center gap-2.5 rounded-[12px] px-6 py-3 text-[14px] font-semibold transition-all hover:-translate-y-[1px]"
+                className="inline-flex items-center gap-3 rounded-[14px] px-7 py-3.5 text-[15.5px] font-semibold transition-all duration-200 hover:-translate-y-[2px] active:translate-y-0"
                 style={{
                   background: canAddStay
                     ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`
-                    : "rgba(245,241,230,0.08)",
-                  color: canAddStay ? S1_NAVY : "rgba(245,241,230,0.4)",
+                    : `linear-gradient(135deg, rgba(245,241,230,0.10) 0%, rgba(245,241,230,0.05) 100%)`,
+                  color: canAddStay ? S1_NAVY : "rgba(245,241,230,0.38)",
                   boxShadow: canAddStay
-                    ? "0 14px 30px -14px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)"
-                    : "none",
+                    ? "0 18px 40px -16px rgba(212,166,74,0.55), 0 0 28px -8px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    : "inset 0 1px 0 rgba(255,255,255,0.04)",
+                  border: canAddStay ? "1px solid rgba(212,166,74,0.45)" : "1px solid rgba(245,241,230,0.10)",
                   cursor: canAddStay ? "pointer" : "not-allowed",
+                  opacity: canAddStay ? 1 : 0.72,
                 }}
               >
                 {editingId ? "Save changes" : "Add this stay"}
-                <ArrowRight size={16} strokeWidth={2.4} />
+                <ArrowRight size={18} strokeWidth={2.4} />
               </button>
             </div>
           </div>
@@ -3101,7 +3116,7 @@ function LeisureStep2Screen({
           <button
             type="button"
             onClick={startNewStay}
-            className="mt-6 flex w-full items-center justify-center gap-2.5 rounded-[14px] py-4 text-[14px] font-medium transition-all hover:-translate-y-[1px]"
+            className="mt-8 flex w-full items-center justify-center gap-2.5 rounded-[14px] py-4 text-[14px] font-medium transition-all duration-200 hover:-translate-y-[2px] active:translate-y-0"
             style={{
               border: `1.5px dashed rgba(212,166,74,0.45)`,
               color: S1_GOLD_SOFT,
@@ -3114,15 +3129,16 @@ function LeisureStep2Screen({
         )}
 
         {/* Notes */}
-        <div className="mt-8">
+        <div className="mt-10">
           <div className="text-[14px] font-medium" style={{ color: "#F5F1E6" }}>
             Anything else we should know? <span style={{ color: "rgba(245,241,230,0.5)" }}>(optional)</span>
           </div>
           <div
-            className="mt-3 rounded-[14px] p-4"
+            className="mt-3 rounded-[14px] p-4 transition-all duration-200 focus-within:border-[color:var(--gold)]"
             style={{
               backgroundColor: S1_NAVY,
               border: `1px solid rgba(245,241,230,0.12)`,
+              ["--gold" as never]: S1_GOLD,
             }}
           >
             <textarea
@@ -3140,11 +3156,11 @@ function LeisureStep2Screen({
         </div>
 
         {/* Bottom nav */}
-        <div className="mt-8 flex items-center justify-between gap-4">
+        <div className="mt-10 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
+            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0"
             style={{ color: S1_GOLD_SOFT }}
           >
             <ArrowLeft size={16} strokeWidth={2.2} />
@@ -3156,7 +3172,7 @@ function LeisureStep2Screen({
               type="button"
               onClick={onNext}
               disabled={!nextEnabled}
-              className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+              className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all duration-200 hover:-translate-y-[2px] active:translate-y-0"
               style={{
                 background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
                 color: S1_NAVY,
@@ -3179,7 +3195,7 @@ function LeisureStep2Screen({
           </div>
         </div>
 
-        <div className="mt-6 flex flex-col items-center gap-1 text-center">
+        <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
           <div className="flex items-center gap-2 text-[13.5px]">
             <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
             <span style={{ color: S1_GOLD_SOFT }}>
@@ -3238,18 +3254,23 @@ function AccommodationSummary({
 
         {!hasStays && (
           <div
-            className="mt-4 rounded-[14px] px-4 py-6 text-center"
+            className="mt-5 rounded-[16px] px-5 py-8 text-center"
             style={{
               backgroundColor: S1_NAVY,
               border: `1px dashed rgba(245,241,230,0.14)`,
             }}
           >
-            <div className="mx-auto grid h-10 w-10 place-items-center rounded-full" style={{ backgroundColor: "rgba(212,166,74,0.08)", border: `1px solid rgba(212,166,74,0.35)` }}>
-              <BedDouble size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+            <div className="mx-auto grid h-12 w-12 place-items-center rounded-full" style={{ backgroundColor: "rgba(212,166,74,0.08)", border: `1px solid rgba(212,166,74,0.35)` }}>
+              <BedDouble size={19} strokeWidth={1.9} style={{ color: S1_GOLD_SOFT }} />
             </div>
-            <div className="mt-3 text-[13.5px] font-medium text-white">No stays added yet</div>
-            <div className="mt-1 text-[12px]" style={{ color: "rgba(245,241,230,0.55)" }}>
-              Your saved stays will appear here.
+            <div className="mt-4 text-[15px] font-medium text-white" style={{ fontFamily: SERIF }}>
+              No stays added yet
+            </div>
+            <div className="mt-2 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.55)" }}>
+              Choose your dates and room types.
+            </div>
+            <div className="mt-4 text-[12px] leading-relaxed" style={{ color: "rgba(245,241,230,0.45)" }}>
+              Press <span className="font-medium" style={{ color: S1_GOLD_SOFT }}>Add this stay</span> to save your first stay.
             </div>
           </div>
         )}
@@ -3263,10 +3284,11 @@ function AccommodationSummary({
             return (
               <div
                 key={s.id}
-                className="rounded-[14px] p-4"
+                className="rounded-[14px] p-4 transition-all duration-200"
                 style={{
                   backgroundColor: S1_NAVY,
                   border: `1px solid ${isEditing ? "rgba(212,166,74,0.5)" : "rgba(245,241,230,0.08)"}`,
+                  boxShadow: isEditing ? "0 12px 28px -16px rgba(212,166,74,0.22)" : "none",
                 }}
               >
                 <div className="flex items-center gap-2">
@@ -3314,7 +3336,7 @@ function AccommodationSummary({
                   <button
                     type="button"
                     onClick={() => onEdit(s.id)}
-                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors hover:bg-white/5"
+                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:bg-white/5 active:scale-[0.98]"
                     style={{
                       border: `1px solid rgba(245,241,230,0.18)`,
                       color: "#F5F1E6",
@@ -3326,7 +3348,7 @@ function AccommodationSummary({
                   <button
                     type="button"
                     onClick={() => onRemove(s.id)}
-                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors hover:bg-white/5"
+                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:bg-white/5 active:scale-[0.98]"
                     style={{
                       border: `1px solid rgba(245,241,230,0.18)`,
                       color: "rgba(245,241,230,0.8)",
