@@ -3986,7 +3986,23 @@ function LeisureStep3Screen({
               );
             })}
           </div>
+
+          {activeSmartSelections.length > 0 && (
+            <div className="mt-5 space-y-3">
+              {activeSmartSelections.map((opt) => (
+                <SmartConfigPanel
+                  key={opt.label}
+                  label={opt.label}
+                  cfg={serviceConfig[opt.label] ?? {}}
+                  onChange={(patch) => updateConfig(opt.label, patch)}
+                  context={context}
+                />
+              ))}
+            </div>
+          )}
         </section>
+
+
 
         {/* Additional requests */}
         <section
