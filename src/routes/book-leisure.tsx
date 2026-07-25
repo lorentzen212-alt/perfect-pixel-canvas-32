@@ -499,6 +499,12 @@ function BookLeisure() {
         onNext={() => go(4)}
         onBack={() => go(2)}
         onStepGo={(s: StepKey) => go(s)}
+        context={{
+          city: customDestination.trim() || city,
+          arrival,
+          departure,
+          stays,
+        }}
       />
     );
   }
