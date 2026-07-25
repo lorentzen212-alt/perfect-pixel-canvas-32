@@ -2483,88 +2483,6 @@ const STEP2_ROOMS: {
   { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: roomAccessibleImg.url },
 ];
 
-const PARALLAX_FACTOR = 0.13;
-const PARALLAX_BLEED = 70; // px of extra image height on each side
-
-function ParallaxHeroImage({ src }: { src: string }) {
-  const wrapRef = React.useRef<HTMLDivElement | null>(null);
-  const imgRef = React.useRef<HTMLImageElement | null>(null);
-
-  React.useEffect(() => {
-    const reduce =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-
-    let frame = 0;
-    let current = 0;
-    let target = 0;
-    let running = false;
-
-    const measure = () => {
-      const wrap = wrapRef.current;
-      if (!wrap) return;
-      const rect = wrap.getBoundingClientRect();
-      const vh = window.innerHeight || 1;
-      // progress: -1 (below viewport) → 1 (above viewport)
-      const centerDelta = rect.top + rect.height / 2 - vh / 2;
-      const raw = -centerDelta * PARALLAX_FACTOR;
-      target = Math.max(-PARALLAX_BLEED, Math.min(PARALLAX_BLEED, raw));
-    };
-
-    const tick = () => {
-      // critically-damped smoothing for jitter-free motion
-      current += (target - current) * 0.14;
-      const img = imgRef.current;
-      if (img) img.style.transform = `translate3d(0, ${current.toFixed(2)}px, 0)`;
-      if (Math.abs(target - current) > 0.05) {
-        frame = window.requestAnimationFrame(tick);
-      } else {
-        running = false;
-      }
-    };
-
-    const start = () => {
-      measure();
-      if (!running) {
-        running = true;
-        frame = window.requestAnimationFrame(tick);
-      }
-    };
-
-    measure();
-    current = target;
-    const img = imgRef.current;
-    if (img) img.style.transform = `translate3d(0, ${current.toFixed(2)}px, 0)`;
-
-    window.addEventListener("scroll", start, { passive: true });
-    window.addEventListener("resize", start);
-    return () => {
-      window.removeEventListener("scroll", start);
-      window.removeEventListener("resize", start);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  return (
-    <div ref={wrapRef} className="pointer-events-none absolute inset-0 overflow-hidden">
-      <img
-        ref={imgRef}
-        src={src}
-        alt=""
-        className="s4-hero-img absolute left-0 w-full object-cover"
-        style={{
-          top: -PARALLAX_BLEED,
-          height: `calc(100% + ${PARALLAX_BLEED * 2}px)`,
-          willChange: "transform",
-          backfaceVisibility: "hidden",
-          transform: "translate3d(0,0,0)",
-        }}
-      />
-    </div>
-  );
-}
-
 function LeisureStepShell({
   activeStep,
   onStepGo,
@@ -2617,11 +2535,7 @@ function LeisureStepShell({
             boxShadow: "0 40px 80px -40px rgba(0,0,0,0.6)",
           }}
         >
-          {enhancedHero ? (
-            <ParallaxHeroImage src={hero} />
-          ) : (
-            <img src={hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
-          )}
+          <img src={hero} alt="" className={`absolute inset-0 h-full w-full object-cover ${enhancedHero ? "s4-hero-img" : ""}`} />
           {enhancedHero && (
             <>
               <div className="pointer-events-none absolute inset-0 s4-hero-vignette" />
