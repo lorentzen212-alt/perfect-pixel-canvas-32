@@ -2754,23 +2754,33 @@ function StayRoomRow({
   const active = value > 0;
   return (
     <div
-      className="group flex items-center gap-4 rounded-[16px] p-3 transition-all"
+      className="group flex items-center gap-5 rounded-[20px] p-3.5 transition-all duration-200 hover:-translate-y-[2px]"
       style={{
         backgroundColor: S1_NAVY,
-        border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.10)"}`,
+        border: `1px solid ${active ? "rgba(212,166,74,0.75)" : "rgba(245,241,230,0.08)"}`,
         boxShadow: active
-          ? "0 14px 30px -18px rgba(212,166,74,0.35)"
-          : "0 10px 26px -18px rgba(0,0,0,0.55)",
+          ? "0 18px 36px -18px rgba(212,166,74,0.22), inset 0 1px 0 rgba(255,255,230,0.04), inset 0 -1px 0 rgba(0,0,0,0.18)"
+          : "0 16px 34px -20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,230,0.03), inset 0 -1px 0 rgba(0,0,0,0.15)",
       }}
     >
       <div
-        className="h-[56px] w-[80px] flex-shrink-0 overflow-hidden rounded-[10px]"
+        className="h-[60px] w-[86px] flex-shrink-0 overflow-hidden rounded-[12px]"
         style={{ border: `1px solid rgba(245,241,230,0.10)` }}
       >
-        <img src={meta.img} alt={meta.title} className="h-full w-full object-cover" />
+        <img
+          src={meta.img}
+          alt={meta.title}
+          className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+          style={{ filter: "saturate(1.05) contrast(1.02)" }}
+        />
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="text-[14.5px] font-medium text-white">{meta.title}</div>
+      <div
+        className="min-w-0 flex-1 rounded-[12px] px-1 py-0.5"
+        style={{
+          background: "linear-gradient(90deg, rgba(8,19,31,0.55) 0%, rgba(8,19,31,0) 85%)",
+        }}
+      >
+        <div className="text-[15px] font-medium text-white">{meta.title}</div>
         <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.55)" }}>
           {meta.desc}
         </div>
