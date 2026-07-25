@@ -3810,25 +3810,28 @@ function SCRadioRow({
 
 function SmartConfigPanel({
   label,
+  displayLabel,
   cfg,
   onChange,
   context,
 }: {
   label: string;
+  displayLabel?: string;
   cfg: Record<string, string>;
   onChange: (patch: Record<string, string>) => void;
   context: Step3Context;
 }) {
   const isTransport = TRANSPORT_SERVICES.has(label);
-  const isOutbound = label.endsWith(" Out") || label === "Airport Transfer Out";
+  const isPorter = PORTER_SERVICES.has(label);
+  const isOutbound = label === "Departure Transport" || label === "Porter Service Out";
   const dateSuggestion = isOutbound
     ? contextDepartureISO(context)
     : contextArrivalISO(context);
   const airport = nearestAirportFor(context.city);
   const hotelName = context.city ? `Hotel in ${context.city}` : "";
-
   const pickupSuggestion = isOutbound ? hotelName : airport;
   const destinationSuggestion = isOutbound ? airport : hotelName;
+  const title = (displayLabel ?? label).toUpperCase();
 
   return (
     <div
@@ -3853,7 +3856,7 @@ function SmartConfigPanel({
           <Check size={12} strokeWidth={3} style={{ color: "#1A1207" }} />
         </span>
         <div className="text-[12.5px] font-medium tracking-[0.18em]" style={{ color: S3_TEXT }}>
-          {label.toUpperCase()}
+          {title}
         </div>
         <div className="text-[10.5px] tracking-[0.16em]" style={{ color: S3_TEXT_FAINT }}>
           · CONFIGURE
@@ -3867,7 +3870,7 @@ function SmartConfigPanel({
               name={`${label}-style`}
               value={cfg.style}
               onChange={(v) => onChange({ style: v })}
-              options={["2-course menu", "3-course menu", "Buffet"]}
+              options={["2-course", "3-course", "Buffet"]}
             />
           </SCField>
           <SCField label="Optional Notes">
@@ -3889,7 +3892,7 @@ function SmartConfigPanel({
               onChange={(e) => onChange({ date: e.target.value })}
             />
           </SCField>
-          <SCField label="Preferred Check-in Time (optional)">
+          <SCField label="Preferred Arrival Time (optional)">
             <SCInput
               type="time"
               value={cfg.time ?? ""}
@@ -3908,7 +3911,7 @@ function SmartConfigPanel({
               onChange={(e) => onChange({ date: e.target.value })}
             />
           </SCField>
-          <SCField label="Preferred Check-out Time (optional)">
+          <SCField label="Preferred Departure Time (optional)">
             <SCInput
               type="time"
               value={cfg.time ?? ""}
@@ -3935,7 +3938,7 @@ function SmartConfigPanel({
               ]}
             />
           </SCField>
-          <SCField label="Deliver To">
+          <SCField label="Applies To">
             <SCRadioRow
               name="vip-deliver"
               value={cfg.deliverTo}
@@ -3944,7 +3947,7 @@ function SmartConfigPanel({
             />
           </SCField>
           {cfg.deliverTo === "Selected Rooms" && (
-            <SCField label="Room Numbers">
+            <SCField label="Room Numbers (optional)">
               <SCInput
                 placeholder="e.g. 204, 208, 312"
                 value={cfg.rooms ?? ""}
@@ -3952,7 +3955,7 @@ function SmartConfigPanel({
               />
             </SCField>
           )}
-          <SCField label="Optional Notes">
+          <SCField label="Notes (optional)">
             <SCTextarea
               placeholder="Delivery timing, personalisation…"
               value={cfg.notes ?? ""}
@@ -3962,8 +3965,95 @@ function SmartConfigPanel({
         </div>
       )}
 
+      {label === "Hospitality Desk" && (
+        <div className="grid gap-4">
+          <SCField label="Service Type">
+            <SCRadioRow
+              name="hospitality-type"
+              value={cfg.serviceType}
+              onChange={(v) => onChange({ serviceType: v })}
+              options={[
+                "Welcome Desk",
+                "Registration Desk",
+                "Information Desk",
+                "Name Badge Distribution",
+                "Guest Assistance",
+              ]}
+            />
+          </SCField>
+          <SCField label="Optional Notes">
+            <SCTextarea
+              placeholder="Setup timing, staffing preferences…"
+              value={cfg.notes ?? ""}
+              onChange={(e) => onChange({ notes: e.target.value })}
+            />
+          </SCField>
+        </div>
+      )}
+
+      {isPorter && (
+        <div className="grid gap-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <SCField
+              label={
+                isOutbound
+                  ? "Departure Date (recommended)"
+                  : "Arrival Date (recommended)"
+              }
+            >
+              <SCInput
+                type="date"
+                value={cfg.date ?? dateSuggestion}
+                onChange={(e) => onChange({ date: e.target.value })}
+              />
+            </SCField>
+            <SCField label="Preferred Time (optional)">
+              <SCInput
+                type="time"
+                value={cfg.time ?? ""}
+                onChange={(e) => onChange({ time: e.target.value })}
+              />
+            </SCField>
+            <SCField label="Estimated Number of Bags (optional)">
+              <SCInput
+                type="number"
+                min={0}
+                placeholder="e.g. 24"
+                value={cfg.bags ?? ""}
+                onChange={(e) => onChange({ bags: e.target.value })}
+              />
+            </SCField>
+          </div>
+          <SCField label="Special Instructions (optional)">
+            <SCTextarea
+              placeholder="Fragile items, room drop-off preferences…"
+              value={cfg.notes ?? ""}
+              onChange={(e) => onChange({ notes: e.target.value })}
+            />
+          </SCField>
+        </div>
+      )}
+
       {isTransport && (
         <div className="grid gap-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <SCField label="Transport Type">
+              <SCRadioRow
+                name={`${label}-mode`}
+                value={cfg.mode}
+                onChange={(v) => onChange({ mode: v })}
+                options={["Airport Transfer", "Taxi", "Private Chauffeur", "Coach"]}
+              />
+            </SCField>
+            <SCField label="Direction">
+              <SCRadioRow
+                name={`${label}-direction`}
+                value={cfg.direction ?? (isOutbound ? "Departure" : "Arrival")}
+                onChange={(v) => onChange({ direction: v })}
+                options={["Arrival", "Departure", "Both"]}
+              />
+            </SCField>
+          </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <SCField label="Pickup Date (recommended)">
               <SCInput
@@ -3979,14 +4069,14 @@ function SmartConfigPanel({
                 onChange={(e) => onChange({ time: e.target.value })}
               />
             </SCField>
-            <SCField label={`Pickup Location${pickupSuggestion ? " (recommended)" : ""}`}>
+            <SCField label={`Pickup Location${pickupSuggestion ? " (recommended)" : " (optional)"}`}>
               <SCInput
                 placeholder={pickupSuggestion || "Enter pickup location"}
                 value={cfg.pickup ?? pickupSuggestion}
                 onChange={(e) => onChange({ pickup: e.target.value })}
               />
             </SCField>
-            <SCField label={`Destination${destinationSuggestion ? " (recommended)" : ""}`}>
+            <SCField label={`Destination${destinationSuggestion ? " (recommended)" : " (optional)"}`}>
               <SCInput
                 placeholder={destinationSuggestion || "Enter destination"}
                 value={cfg.destination ?? destinationSuggestion}
@@ -3994,25 +4084,23 @@ function SmartConfigPanel({
               />
             </SCField>
           </div>
-          {(label === "Taxi" || label === "Private Chauffeur") && (
-            <SCField label="Service Applies To">
-              <SCRadioRow
-                name={`${label}-scope`}
-                value={cfg.scope}
-                onChange={(v) => onChange({ scope: v })}
-                options={["Entire Group", "Group Leader Only", "Selected Guests"]}
-              />
-              {cfg.scope === "Selected Guests" && (
-                <div className="mt-2">
-                  <SCInput
-                    placeholder="Guest names or room numbers"
-                    value={cfg.scopeDetail ?? ""}
-                    onChange={(e) => onChange({ scopeDetail: e.target.value })}
-                  />
-                </div>
-              )}
-            </SCField>
-          )}
+          <SCField label="Applies To">
+            <SCRadioRow
+              name={`${label}-scope`}
+              value={cfg.scope}
+              onChange={(v) => onChange({ scope: v })}
+              options={["Entire Group", "Group Leader", "Selected Guests"]}
+            />
+            {cfg.scope === "Selected Guests" && (
+              <div className="mt-2">
+                <SCInput
+                  placeholder="Guest names or room numbers"
+                  value={cfg.scopeDetail ?? ""}
+                  onChange={(e) => onChange({ scopeDetail: e.target.value })}
+                />
+              </div>
+            )}
+          </SCField>
           <SCField label="Special Instructions (optional)">
             <SCTextarea
               placeholder="Flight number, luggage, signage…"
@@ -4025,6 +4113,7 @@ function SmartConfigPanel({
     </div>
   );
 }
+
 
 function LeisureStep3Screen({
   selected,
