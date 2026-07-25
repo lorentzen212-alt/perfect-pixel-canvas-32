@@ -5200,13 +5200,21 @@ function LeisureStep4Screen({
 
         {/* Recommendation panel */}
         <div
-          className="mt-6 flex flex-col gap-4 rounded-[16px] p-5 sm:flex-row sm:items-center sm:justify-between"
+          className="relative mt-6 flex flex-col gap-5 overflow-hidden rounded-[16px] px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-7"
           style={{
-            backgroundColor: S1_NAVY,
-            border: `1px solid ${S1_BORDER}`,
+            background: "linear-gradient(180deg, rgba(26,46,68,0.96) 0%, rgba(15,30,47,0.96) 100%)",
+            border: `1px solid rgba(255,255,255,0.11)`,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
           }}
         >
-          <div className="flex items-center gap-4">
+          <div
+            className="pointer-events-none absolute right-0 top-1/2 h-[280px] w-[380px] -translate-y-1/2"
+            style={{
+              background: "radial-gradient(50% 50% at 70% 50%, rgba(212,166,74,0.16), transparent 72%)",
+              filter: "blur(6px)",
+            }}
+          />
+          <div className="relative flex items-center gap-4">
             <span
               className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full"
               style={{
@@ -5218,12 +5226,12 @@ function LeisureStep4Screen({
             </span>
             <div>
               <div
-                className="text-[15.5px] font-medium text-white"
-                style={{ fontFamily: SERIF, fontSize: 18 }}
+                className="font-medium text-white"
+                style={{ fontFamily: SERIF, fontSize: 18, lineHeight: 1.28 }}
               >
                 Let HotelGroupBook curate the perfect experience package for your group.
               </div>
-              <div className="text-[13px]" style={{ color: "rgba(245,241,230,0.6)" }}>
+              <div className="mt-1.5 text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.6)" }}>
                 We&apos;ll recommend the best experiences based on your destination, travel dates and group profile.
               </div>
             </div>
@@ -5231,11 +5239,12 @@ function LeisureStep4Screen({
           <button
             type="button"
             onClick={() => setLetUsRecommend(!letUsRecommend)}
-            className="s4-shimmer s4-surprise inline-flex items-center gap-2.5 rounded-[13px] px-6 py-[14px] text-[14.5px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
+            className="s4-shimmer s4-surprise relative inline-flex flex-shrink-0 items-center justify-center gap-2.5 whitespace-nowrap rounded-[13px] px-7 py-[14px] text-[14.5px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
             style={{
               background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B88C2F 100%)`,
               color: S1_NAVY,
               border: `1px solid ${S1_GOLD}`,
+              minWidth: 196,
               boxShadow: letUsRecommend
                 ? "0 32px 56px -18px rgba(212,166,74,0.85), 0 8px 18px -8px rgba(212,166,74,0.5), inset 0 1px 0 rgba(255,255,255,0.55)"
                 : "0 22px 40px -14px rgba(212,166,74,0.6), 0 6px 14px -6px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
@@ -5247,7 +5256,7 @@ function LeisureStep4Screen({
         </div>
 
         {/* Bottom nav */}
-        <div className="mt-10 flex items-center justify-between gap-4">
+        <div className="mt-6 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={onBack}
@@ -5275,8 +5284,7 @@ function LeisureStep4Screen({
           </button>
         </div>
 
-
-        <div className="mt-8 flex flex-col items-center gap-1 text-center">
+        <div className="mt-5 flex flex-col items-center gap-1 text-center">
           <div className="flex items-center gap-2 text-[13.5px]">
             <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
             <span style={{ color: S1_GOLD_SOFT }}>
@@ -5287,6 +5295,7 @@ function LeisureStep4Screen({
             We find the best options so you can choose what suits your group.
           </div>
         </div>
+
       </section>
     </LeisureStepShell>
   );
