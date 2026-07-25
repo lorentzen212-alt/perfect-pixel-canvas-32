@@ -3320,6 +3320,8 @@ function AccommodationSummary({
   onEdit,
   onRemove,
   editingId,
+  lastAddedId,
+  removingIds,
 }: {
   stays: LeisureStay[];
   totalStays: number;
@@ -3328,6 +3330,8 @@ function AccommodationSummary({
   onEdit: (id: string) => void;
   onRemove: (id: string) => void;
   editingId: string | null;
+  lastAddedId?: string | null;
+  removingIds?: Set<string>;
 }) {
   const hasStays = stays.length > 0;
   return (
