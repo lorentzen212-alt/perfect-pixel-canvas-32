@@ -233,6 +233,18 @@
 .no-spin::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .no-spin { -moz-appearance: textfield; }
 
+/* Room distribution grid: single column until the container is wide enough for two readable cards */
+.room-distribution-grid {
+  display: grid;
+  gap: 0.875rem;
+  grid-template-columns: 1fr;
+  container-type: inline-size;
+}
+@container (min-width: 820px) {
+  .room-distribution-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .luxury-particle,

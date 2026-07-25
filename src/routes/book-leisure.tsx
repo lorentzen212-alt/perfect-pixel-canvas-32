@@ -2625,20 +2625,18 @@ function RoomCounter({
   return (
     <div
       className="flex items-center justify-end shrink-0 w-full"
-      style={{ gap: 12, paddingRight: 12 }}
+      style={{ gap: 3, paddingRight: 4 }}
       onClick={onClickStop}
     >
-
-
       <button
         type="button"
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-6 w-6 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
-        <Minus size={20} strokeWidth={2.4} />
+        <Minus size={14} strokeWidth={2.4} />
       </button>
       <input
         type="text"
@@ -2669,7 +2667,7 @@ function RoomCounter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className="no-spin h-10 w-[48px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
+        className="no-spin h-6 w-[26px] rounded-[10px] text-center text-[15px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
         style={{
           fontFamily: SERIF,
           backgroundColor: "rgba(6,16,26,0.85)",
@@ -2682,10 +2680,10 @@ function RoomCounter({
         type="button"
         aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
-        className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="grid h-6 w-6 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
         style={{ color: S1_GOLD_SOFT, opacity: 0.86, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
-        <Plus size={20} strokeWidth={2.4} />
+        <Plus size={14} strokeWidth={2.4} />
       </button>
     </div>
   );
@@ -2828,11 +2826,11 @@ function StayRoomRow({
           handleCardClick();
         }
       }}
-      className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-5 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
+      className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-9 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
       style={{
-        gridTemplateColumns: "37% 39% 24%",
+        gridTemplateColumns: "41% 35% 24%",
         columnGap: 16,
-        backgroundColor: active ? "rgba(19,36,54,1)" : S1_NAVY,
+        backgroundColor: active ? "rgba(18,34,51,1)" : S1_NAVY,
         border: `1px solid ${active ? "rgba(212,166,74,0.62)" : "rgba(245,241,230,0.06)"}`,
         boxShadow: active
           ? "0 20px 42px -24px rgba(212,166,74,0.14), 0 0 26px -14px rgba(212,166,74,0.09), inset 0 1px 0 rgba(255,255,230,0.06), inset 0 -1px 0 rgba(0,0,0,0.22), inset 0 0 22px -14px rgba(0,0,0,0.5)"
@@ -2840,8 +2838,9 @@ function StayRoomRow({
       }}
     >
       <div
-        className="aspect-[4/3] w-full max-w-[188px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
+        className="w-full max-w-[210px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
         style={{
+          aspectRatio: "4 / 2.95",
           border: `1px solid ${active ? "rgba(212,166,74,0.4)" : "rgba(245,241,230,0.1)"}`,
           boxShadow: "0 14px 30px -12px rgba(0,0,0,0.55)",
         }}
@@ -2853,19 +2852,18 @@ function StayRoomRow({
           style={{ filter: "saturate(1.10) contrast(1.10) brightness(1.03) hue-rotate(-2deg)" }}
         />
       </div>
-      <div className="min-w-0 -mt-2.5 pr-2">
+      <div className="min-w-0 -mt-4">
         <div
-          className="whitespace-nowrap overflow-hidden text-ellipsis text-[15.5px] font-medium text-white"
-          style={{ letterSpacing: "-0.005em" }}
+          className="whitespace-nowrap overflow-hidden text-ellipsis text-[13.5px] font-medium text-white"
+          style={{ letterSpacing: "-0.015em" }}
         >
           {meta.title}
         </div>
-        <div className="mt-1.5 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.6)" }}>
+        <div className="mt-2.5 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.68)" }}>
           {meta.desc}
         </div>
       </div>
       <RoomCounter value={value} onChange={onChange} onClickStop={stopPropagation} ariaLabel={meta.title} />
-
     </div>
   );
 }
@@ -3175,7 +3173,7 @@ function LeisureStep2Screen({
               Room distribution
             </div>
 
-            <div className="mt-4 grid grid-cols-1 gap-3.5 md:grid-cols-2">
+            <div className="room-distribution-grid mt-4">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <StayRoomRow
                   key={key}
