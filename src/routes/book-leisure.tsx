@@ -3284,10 +3284,11 @@ function AccommodationSummary({
             return (
               <div
                 key={s.id}
-                className="rounded-[14px] p-4"
+                className="rounded-[14px] p-4 transition-all duration-200"
                 style={{
                   backgroundColor: S1_NAVY,
                   border: `1px solid ${isEditing ? "rgba(212,166,74,0.5)" : "rgba(245,241,230,0.08)"}`,
+                  boxShadow: isEditing ? "0 12px 28px -16px rgba(212,166,74,0.22)" : "none",
                 }}
               >
                 <div className="flex items-center gap-2">
