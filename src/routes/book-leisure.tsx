@@ -2973,7 +2973,7 @@ function LeisureStep2Screen({
                     <button
                       type="button"
                       onClick={() => editStay(s.id)}
-                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0"
                       style={{
                         border: `1px solid rgba(212,166,74,0.4)`,
                         color: S1_GOLD_SOFT,
@@ -2986,7 +2986,7 @@ function LeisureStep2Screen({
                     <button
                       type="button"
                       onClick={() => removeStay(s.id)}
-                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0"
                       style={{
                         border: `1px solid rgba(245,241,230,0.14)`,
                         color: "rgba(245,241,230,0.7)",
