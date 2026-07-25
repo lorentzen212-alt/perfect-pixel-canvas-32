@@ -2923,7 +2923,7 @@ function LeisureStep2Screen({
         }}
       >
         <h2
-          className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
+          className="text-[29px] sm:text-[33px] leading-tight font-medium text-white"
           style={{ fontFamily: SERIF }}
         >
           Step 2 – Accommodation
