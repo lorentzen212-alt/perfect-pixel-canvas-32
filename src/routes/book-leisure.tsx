@@ -3654,7 +3654,7 @@ function LeisureStep3Screen({
             return (
               <div
                 key={card.key}
-                className="flex flex-col overflow-hidden rounded-[18px]"
+                className="flex flex-col self-stretch overflow-hidden rounded-[18px]"
                 style={{
                   backgroundColor: S1_NAVY,
                   border: `1px solid ${S1_BORDER}`,
