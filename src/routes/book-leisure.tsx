@@ -2826,37 +2826,37 @@ function StayRoomRow({
           handleCardClick();
         }
       }}
-      className="group flex cursor-pointer items-center gap-4 rounded-[20px] p-3 pr-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] active:-translate-y-[1px]"
+      className="group flex cursor-pointer items-center gap-5 rounded-[20px] p-3.5 pr-5 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
       style={{
-        backgroundColor: active ? "rgba(15,32,49,0.98)" : S1_NAVY,
-        border: `1px solid ${active ? "rgba(212,166,74,0.55)" : "rgba(245,241,230,0.06)"}`,
+        backgroundColor: active ? "rgba(19,36,54,1)" : S1_NAVY,
+        border: `1px solid ${active ? "rgba(212,166,74,0.62)" : "rgba(245,241,230,0.06)"}`,
         boxShadow: active
-          ? "0 22px 46px -22px rgba(212,166,74,0.16), 0 0 32px -14px rgba(212,166,74,0.10), inset 0 1px 0 rgba(255,255,230,0.05), inset 0 -1px 0 rgba(0,0,0,0.16)"
+          ? "0 20px 42px -24px rgba(212,166,74,0.14), 0 0 26px -14px rgba(212,166,74,0.09), inset 0 1px 0 rgba(255,255,230,0.06), inset 0 -1px 0 rgba(0,0,0,0.22), inset 0 0 22px -14px rgba(0,0,0,0.5)"
           : "0 18px 38px -22px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,230,0.03), inset 0 -1px 0 rgba(0,0,0,0.12)",
       }}
     >
       <div
-        className="aspect-[4/3] w-[30%] max-w-[150px] flex-shrink-0 overflow-hidden rounded-[16px] transition-all duration-[200ms]"
+        className="aspect-[4/3] w-[34%] max-w-[172px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
         style={{
-          border: `1px solid ${active ? "rgba(212,166,74,0.35)" : "rgba(245,241,230,0.10)"}`,
-          boxShadow: "0 12px 26px -12px rgba(0,0,0,0.5)",
+          border: `1px solid ${active ? "rgba(212,166,74,0.4)" : "rgba(245,241,230,0.1)"}`,
+          boxShadow: "0 14px 30px -12px rgba(0,0,0,0.55)",
         }}
       >
         <img
           src={meta.img}
           alt={meta.title}
           className="h-full w-full object-cover transition-transform duration-[220ms] ease-out group-hover:scale-105"
-          style={{ filter: "saturate(1.08) contrast(1.06) brightness(1.01)" }}
+          style={{ filter: "saturate(1.10) contrast(1.10) brightness(1.03) hue-rotate(-2deg)" }}
         />
       </div>
-      <div className="min-w-0 flex-1">
+      <div className="min-w-0 flex-1 -mt-1.5">
         <div
           className="whitespace-nowrap text-[15.5px] font-medium text-white"
           style={{ letterSpacing: "-0.005em" }}
         >
           {meta.title}
         </div>
-        <div className="mt-1 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.55)" }}>
+        <div className="mt-1.5 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.5)" }}>
           {meta.desc}
         </div>
       </div>
@@ -2864,6 +2864,7 @@ function StayRoomRow({
     </div>
   );
 }
+
 
 function LeisureStep2Screen({
   stays,
