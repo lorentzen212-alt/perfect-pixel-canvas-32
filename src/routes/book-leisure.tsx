@@ -3085,25 +3085,27 @@ function LeisureStep2Screen({
               ))}
             </div>
 
-            <div className="mt-6 flex justify-end">
+            <div className="mt-8 flex justify-end">
               <button
                 type="button"
                 onClick={commitStay}
                 disabled={!canAddStay}
-                className="inline-flex items-center gap-2.5 rounded-[12px] px-6 py-3 text-[14px] font-semibold transition-all hover:-translate-y-[1px]"
+                className="inline-flex items-center gap-3 rounded-[14px] px-7 py-3.5 text-[15.5px] font-semibold transition-all duration-200 hover:-translate-y-[2px] active:translate-y-0"
                 style={{
                   background: canAddStay
                     ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`
-                    : "rgba(245,241,230,0.08)",
-                  color: canAddStay ? S1_NAVY : "rgba(245,241,230,0.4)",
+                    : `linear-gradient(135deg, rgba(245,241,230,0.10) 0%, rgba(245,241,230,0.05) 100%)`,
+                  color: canAddStay ? S1_NAVY : "rgba(245,241,230,0.38)",
                   boxShadow: canAddStay
-                    ? "0 14px 30px -14px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)"
-                    : "none",
+                    ? "0 18px 40px -16px rgba(212,166,74,0.55), 0 0 28px -8px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    : "inset 0 1px 0 rgba(255,255,255,0.04)",
+                  border: canAddStay ? "1px solid rgba(212,166,74,0.45)" : "1px solid rgba(245,241,230,0.10)",
                   cursor: canAddStay ? "pointer" : "not-allowed",
+                  opacity: canAddStay ? 1 : 0.72,
                 }}
               >
                 {editingId ? "Save changes" : "Add this stay"}
-                <ArrowRight size={16} strokeWidth={2.4} />
+                <ArrowRight size={18} strokeWidth={2.4} />
               </button>
             </div>
           </div>
