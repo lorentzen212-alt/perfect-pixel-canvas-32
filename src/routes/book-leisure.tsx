@@ -313,6 +313,9 @@ function BookLeisure() {
   const [expCategory, setExpCategory] = useState("All");
   const [selectedExps, setSelectedExps] = useState<Set<string>>(new Set());
   const [letUsRecommend, setLetUsRecommend] = useState(false);
+  const [preferredExpDate, setPreferredExpDate] = useState<Date | undefined>(undefined);
+  const [expDateFlexible, setExpDateFlexible] = useState(false);
+  const [additionalExpRequests, setAdditionalExpRequests] = useState("");
 
   // Step 5 - Contact
   const [firstName, setFirstName] = useState("");
