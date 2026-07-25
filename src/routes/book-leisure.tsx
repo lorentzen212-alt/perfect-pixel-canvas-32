@@ -2572,27 +2572,33 @@ function DarkCheckbox({
   label,
   checked,
   onChange,
+  align = "left",
 }: {
   label: string;
   checked: boolean;
   onChange: (v: boolean) => void;
+  align?: "left" | "center";
 }) {
   return (
     <button
       type="button"
       onClick={() => onChange(!checked)}
-      className="inline-flex items-center gap-2.5 text-[14px] transition-colors"
-      style={{ color: "#F5F1E6" }}
+      className="group inline-flex items-center gap-3 text-[13px] transition-colors"
+      style={{ color: "#F5F1E6", textAlign: align, lineHeight: 1.35 }}
     >
       <span
-        className="grid h-[22px] w-[22px] place-items-center rounded-[6px] transition-all"
+        className="grid h-6 w-6 place-items-center rounded-lg transition-all duration-200 ease-out group-hover:scale-[1.06]"
         style={{
-          background: checked ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})` : S1_NAVY,
-          border: `1.5px solid ${checked ? S1_GOLD : "rgba(245,241,230,0.28)"}`,
-          boxShadow: checked ? "0 6px 14px -8px rgba(212,166,74,0.55)" : "none",
+          background: checked
+            ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B88C2F 100%)`
+            : S1_NAVY,
+          border: `1px solid ${checked ? S1_GOLD : "rgba(245,241,230,0.22)"}`,
+          boxShadow: checked
+            ? "inset 0 1px 0 rgba(255,255,255,0.35), 0 6px 16px -8px rgba(212,166,74,0.55)"
+            : "inset 0 1px 0 rgba(255,255,255,0.04)",
         }}
       >
-        {checked && <Check size={13} strokeWidth={3} style={{ color: S1_NAVY }} />}
+        {checked && <Check size={14} strokeWidth={2.8} style={{ color: S1_NAVY }} />}
       </span>
       {label}
     </button>
@@ -3623,7 +3629,7 @@ function LeisureStep3Screen({
       }
     >
       <section
-        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+        className="rounded-[24px] p-6 sm:p-8 lg:p-7"
         style={{
           backgroundColor: S1_NAVY_SOFT,
           border: `1px solid ${S1_BORDER}`,
@@ -3642,20 +3648,20 @@ function LeisureStep3Screen({
         </p>
 
         {/* Five service cards */}
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-8 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 sm:gap-3 lg:grid-cols-5 lg:gap-1">
           {STEP3_CARDS.map((card) => {
             const Icon = card.icon;
             return (
               <div
                 key={card.key}
-                className="flex flex-col overflow-hidden rounded-[18px]"
+                className="flex flex-col self-stretch overflow-hidden rounded-[18px]"
                 style={{
                   backgroundColor: S1_NAVY,
                   border: `1px solid ${S1_BORDER}`,
                   boxShadow: "0 18px 40px -24px rgba(0,0,0,0.55)",
                 }}
               >
-                <div className="relative h-[140px] w-full overflow-hidden">
+                <div className="relative h-[154px] w-full overflow-hidden">
                   <img
                     src={card.img}
                     alt={card.title}
@@ -3680,14 +3686,14 @@ function LeisureStep3Screen({
                   </div>
                 </div>
 
-                <div className="flex flex-1 flex-col px-4 pb-5 pt-8">
+                <div className="flex flex-1 flex-col px-4 pb-2 pt-8">
                   <div
                     className="text-[16px] font-medium text-white"
                     style={{ fontFamily: SERIF, fontSize: 19 }}
                   >
                     {card.title}
                   </div>
-                  <div className="mt-3 flex flex-col gap-2.5">
+                  <div className="mt-4 flex flex-col gap-3">
                     {card.options.map((opt) => (
                       <DarkCheckbox
                         key={opt}
@@ -3704,7 +3710,7 @@ function LeisureStep3Screen({
 
           {/* HGB Recommendations card */}
           <div
-            className="flex flex-col items-center rounded-[18px] px-4 py-6 text-center"
+            className="flex flex-col items-center rounded-[18px] px-5 py-8 text-center"
             style={{
               backgroundColor: S1_NAVY,
               border: `1px solid ${S1_BORDER}`,
@@ -3722,22 +3728,23 @@ function LeisureStep3Screen({
               <Star size={20} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
             </div>
             <div
-              className="mt-4 text-[16px] font-medium"
+              className="mt-6 text-[16px] font-medium"
               style={{ fontFamily: SERIF, fontSize: 18, color: S1_GOLD_SOFT, lineHeight: 1.25 }}
             >
               Let HotelGroupBook<br />recommend extras
             </div>
             <p
-              className="mt-3 text-[12.5px] leading-relaxed"
+              className="mt-4 text-[12.5px] leading-relaxed"
               style={{ color: "rgba(245,241,230,0.65)" }}
             >
               We&apos;ll suggest the most suitable services based on your destination, hotel and group size.
             </p>
-            <div className="mt-auto pt-5">
+            <div className="mt-auto pt-8">
               <DarkCheckbox
                 label="Recommend the best extras for my group"
                 checked={recommend}
                 onChange={setRecommend}
+                align="center"
               />
             </div>
           </div>
@@ -3745,7 +3752,7 @@ function LeisureStep3Screen({
 
         {/* Additional comments */}
         <div
-          className="mt-8 flex items-start gap-4 rounded-[16px] p-4"
+          className="mt-8 flex items-start gap-4 rounded-[16px] p-5"
           style={{
             backgroundColor: S1_NAVY,
             border: `1px solid ${S1_BORDER}`,
@@ -3769,8 +3776,8 @@ function LeisureStep3Screen({
               value={comments}
               onChange={(e) => setComments(e.target.value)}
               placeholder="Tell us anything else we should know..."
-              rows={2}
-              className="mt-1 w-full resize-none bg-transparent text-[13.5px] outline-none"
+              rows={3}
+              className="mt-3 w-full resize-none bg-transparent text-[13.5px] outline-none"
               style={{ color: "#F5F1E6" }}
             />
           </div>
