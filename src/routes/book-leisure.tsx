@@ -4451,9 +4451,12 @@ function LeisureStep3Screen({
                   <OptIcon
                     size={22}
                     strokeWidth={1.5}
-                    className="transition-colors duration-300"
-                    style={{ color: isOn ? S3_GOLD_SOFT : "rgba(237,231,218,0.72)" }}
+                    style={{
+                      color: isOn ? S3_GOLD_SOFT : "rgba(237,231,218,0.72)",
+                      transition: "color 300ms",
+                    }}
                   />
+
                   <div
                     className="mt-2.5 text-[11.5px] leading-[1.25]"
                     style={{ color: S3_TEXT }}
