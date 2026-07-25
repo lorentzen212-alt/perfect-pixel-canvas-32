@@ -2,6 +2,12 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import React, { useState, useMemo, useEffect } from "react";
 import { format } from "date-fns";
 import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
+import roomSingleImg from "@/assets/room-single.jpg.asset.json";
+import roomDoubleImg from "@/assets/room-double.jpg.asset.json";
+import roomTwinImg from "@/assets/room-twin.jpg.asset.json";
+import roomTripleImg from "@/assets/room-triple.jpg.asset.json";
+import roomFamilyImg from "@/assets/room-family.jpg.asset.json";
+import roomAccessibleImg from "@/assets/room-accessible.jpg.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
@@ -2444,12 +2450,12 @@ const STEP2_ROOMS: {
   desc: string;
   img: string;
 }[] = [
-  { key: "single", title: "Single Rooms", desc: "1 person", img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=400&q=80" },
-  { key: "triple", title: "Triple Rooms", desc: "3 people", img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=400&q=80" },
-  { key: "twin", title: "Twin Rooms", desc: "2 separate beds", img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=400&q=80" },
-  { key: "family", title: "Family Rooms", desc: "4+ people", img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=400&q=80" },
-  { key: "double", title: "Double Rooms", desc: "1 double bed", img: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=400&q=80" },
-  { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80" },
+  { key: "single", title: "Single Rooms", desc: "1 person", img: roomSingleImg.url },
+  { key: "triple", title: "Triple Rooms", desc: "3 people", img: roomTripleImg.url },
+  { key: "twin", title: "Twin Rooms", desc: "2 separate beds", img: roomTwinImg.url },
+  { key: "family", title: "Family Rooms", desc: "4+ people", img: roomFamilyImg.url },
+  { key: "double", title: "Double Rooms", desc: "1 double bed", img: roomDoubleImg.url },
+  { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: roomAccessibleImg.url },
 ];
 
 function LeisureStepShell({
@@ -2829,7 +2835,7 @@ function StayRoomRow({
       }}
       className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
       style={{
-        gridTemplateColumns: "minmax(110px, 32%) 1fr auto",
+        gridTemplateColumns: "minmax(121px, 35%) 1fr auto",
         columnGap: 14,
         backgroundColor: active ? "rgba(19,36,54,1)" : S1_NAVY,
         border: `1px solid ${active ? "rgba(212,166,74,0.62)" : "rgba(245,241,230,0.06)"}`,
@@ -2839,7 +2845,7 @@ function StayRoomRow({
       }}
     >
       <div
-        className="aspect-[4/3] w-full max-w-[188px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
+        className="aspect-[4/3] w-full max-w-[207px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
         style={{
           border: `1px solid ${active ? "rgba(212,166,74,0.4)" : "rgba(245,241,230,0.1)"}`,
           boxShadow: "0 14px 30px -12px rgba(0,0,0,0.55)",
