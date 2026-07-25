@@ -2624,21 +2624,19 @@ function RoomCounter({
 
   return (
     <div
-      className="flex items-center justify-end shrink-0 w-full"
-      style={{ gap: 12, paddingRight: 12 }}
+      className="flex items-center shrink-0"
+      style={{ gap: 18 }}
       onClick={onClickStop}
     >
-
-
       <button
         type="button"
         aria-label={ariaLabel ? `Decrease ${ariaLabel}` : "Decrease"}
         onClick={() => onChange(Math.max(0, value - 1))}
         disabled={disabled}
-        className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
+        className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)] before:absolute before:inset-[-7px] before:rounded-full before:content-['']"
         style={{ color: S1_GOLD_SOFT, opacity: disabled ? 0.35 : 1, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
-        <Minus size={20} strokeWidth={2.4} />
+        <Minus size={22} strokeWidth={2.4} />
       </button>
       <input
         type="text"
@@ -2669,7 +2667,7 @@ function RoomCounter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className="no-spin h-10 w-[48px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
+        className="no-spin h-10 w-[52px] rounded-[12px] text-center text-[19px] font-medium text-white outline-none transition-all duration-200 focus:border-[color:var(--gold)]"
         style={{
           fontFamily: SERIF,
           backgroundColor: "rgba(6,16,26,0.85)",
@@ -2682,10 +2680,10 @@ function RoomCounter({
         type="button"
         aria-label={ariaLabel ? `Increase ${ariaLabel}` : "Increase"}
         onClick={() => onChange(value + 1)}
-        className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)]"
-        style={{ color: S1_GOLD_SOFT, opacity: 0.86, ["--gold-soft" as never]: S1_GOLD_SOFT }}
+        className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold-soft)] before:absolute before:inset-[-7px] before:rounded-full before:content-['']"
+        style={{ color: S1_GOLD_SOFT, ["--gold-soft" as never]: S1_GOLD_SOFT }}
       >
-        <Plus size={20} strokeWidth={2.4} />
+        <Plus size={22} strokeWidth={2.4} />
       </button>
     </div>
   );
@@ -2853,9 +2851,9 @@ function StayRoomRow({
           style={{ filter: "saturate(1.10) contrast(1.10) brightness(1.03) hue-rotate(-2deg)" }}
         />
       </div>
-      <div className="min-w-0 -mt-2.5 pr-2">
+      <div className="min-w-0 -mt-2.5 pr-4">
         <div
-          className="whitespace-nowrap overflow-hidden text-ellipsis text-[15.5px] font-medium text-white"
+          className="text-[15.5px] font-medium text-white"
           style={{ letterSpacing: "-0.005em" }}
         >
           {meta.title}
@@ -3175,7 +3173,7 @@ function LeisureStep2Screen({
               Room distribution
             </div>
 
-            <div className="mt-4 grid grid-cols-1 gap-3.5 md:grid-cols-2">
+            <div className="mt-4 grid grid-cols-1 gap-3.5 min-[2000px]:grid-cols-2">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <StayRoomRow
                   key={key}
