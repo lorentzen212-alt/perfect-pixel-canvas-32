@@ -2885,6 +2885,8 @@ function LeisureStep2Screen({
   const [draftRooms, setDraftRooms] = useState<Record<string, number>>(emptyDraftRooms());
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
+  const [lastAddedId, setLastAddedId] = useState<string | null>(null);
+  const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
 
   const draftNights = stayNights(draftArrival, draftDeparture);
   const draftRoomsCount = stayRoomsTotal(draftRooms);
@@ -2906,8 +2908,9 @@ function LeisureStep2Screen({
 
   const commitStay = () => {
     if (!canAddStay) return;
+    const id = editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now()));
     const stay: LeisureStay = {
-      id: editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now())),
+      id,
       arrival: draftArrival,
       departure: draftDeparture,
       rooms: { ...draftRooms },
@@ -2915,6 +2918,10 @@ function LeisureStep2Screen({
     setStays((prev) =>
       editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
     );
+    setLastAddedId(id);
+    window.setTimeout(() => {
+      setLastAddedId((cur) => (cur === id ? null : cur));
+    }, 320);
     resetDraft();
     setShowEditor(false);
   };
@@ -2932,12 +2939,25 @@ function LeisureStep2Screen({
   };
 
   const removeStay = (id: string) => {
-    setStays((prev) => prev.filter((s) => s.id !== id));
-    if (editingId === id) {
-      resetDraft();
-      setShowEditor(true);
-    }
+    setRemovingIds((prev) => {
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
+    window.setTimeout(() => {
+      setStays((prev) => prev.filter((s) => s.id !== id));
+      setRemovingIds((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
+      if (editingId === id) {
+        resetDraft();
+        setShowEditor(true);
+      }
+    }, 220);
   };
+
 
   const startNewStay = () => {
     resetDraft();
