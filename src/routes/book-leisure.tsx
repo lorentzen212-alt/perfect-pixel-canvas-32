@@ -2581,18 +2581,22 @@ function DarkCheckbox({
     <button
       type="button"
       onClick={() => onChange(!checked)}
-      className="inline-flex items-center gap-2.5 text-[14px] transition-colors"
+      className="group inline-flex items-center gap-3 text-[14px] transition-colors"
       style={{ color: "#F5F1E6" }}
     >
       <span
-        className="grid h-[22px] w-[22px] place-items-center rounded-[6px] transition-all"
+        className="grid h-6 w-6 place-items-center rounded-lg transition-all duration-200 ease-out group-hover:scale-[1.06]"
         style={{
-          background: checked ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})` : S1_NAVY,
-          border: `1.5px solid ${checked ? S1_GOLD : "rgba(245,241,230,0.28)"}`,
-          boxShadow: checked ? "0 6px 14px -8px rgba(212,166,74,0.55)" : "none",
+          background: checked
+            ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B88C2F 100%)`
+            : S1_NAVY,
+          border: `1px solid ${checked ? S1_GOLD : "rgba(245,241,230,0.22)"}`,
+          boxShadow: checked
+            ? "inset 0 1px 0 rgba(255,255,255,0.35), 0 6px 16px -8px rgba(212,166,74,0.55)"
+            : "inset 0 1px 0 rgba(255,255,255,0.04)",
         }}
       >
-        {checked && <Check size={13} strokeWidth={3} style={{ color: S1_NAVY }} />}
+        {checked && <Check size={14} strokeWidth={2.8} style={{ color: S1_NAVY }} />}
       </span>
       {label}
     </button>
