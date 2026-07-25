@@ -3156,11 +3156,11 @@ function LeisureStep2Screen({
         </div>
 
         {/* Bottom nav */}
-        <div className="mt-8 flex items-center justify-between gap-4">
+        <div className="mt-10 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
+            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0"
             style={{ color: S1_GOLD_SOFT }}
           >
             <ArrowLeft size={16} strokeWidth={2.2} />
@@ -3172,7 +3172,7 @@ function LeisureStep2Screen({
               type="button"
               onClick={onNext}
               disabled={!nextEnabled}
-              className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
+              className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all duration-200 hover:-translate-y-[2px] active:translate-y-0"
               style={{
                 background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
                 color: S1_NAVY,
@@ -3195,7 +3195,7 @@ function LeisureStep2Screen({
           </div>
         </div>
 
-        <div className="mt-6 flex flex-col items-center gap-1 text-center">
+        <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
           <div className="flex items-center gap-2 text-[13.5px]">
             <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
             <span style={{ color: S1_GOLD_SOFT }}>
