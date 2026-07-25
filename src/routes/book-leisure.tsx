@@ -5004,7 +5004,7 @@ function LeisureStep4Screen({
           <textarea
             value={additionalRequests}
             onChange={(e) => setAdditionalRequests(e.target.value)}
-            placeholder={`Examples:\n\n• Private boat charter\n• Hike\n• Local food tasting\n• Photography tour\n• Dog sledding\n• Wine tasting\n• Brewery visit`}
+            placeholder={`Looking for something unique?\n\nPrivate boat charter · Hike · Photography tour\nDog sledding · Wine tasting · Brewery visit`}
             rows={5}
             className="mt-4 w-full resize-y rounded-[14px] px-5 py-4 text-[14.5px] outline-none transition-all duration-200 focus:border-[#D4A64A] focus:ring-4 focus:ring-[rgba(212,166,74,0.12)]"
             style={{
