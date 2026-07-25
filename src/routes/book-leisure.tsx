@@ -3336,7 +3336,7 @@ function AccommodationSummary({
                   <button
                     type="button"
                     onClick={() => onEdit(s.id)}
-                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors hover:bg-white/5"
+                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:bg-white/5 active:scale-[0.98]"
                     style={{
                       border: `1px solid rgba(245,241,230,0.18)`,
                       color: "#F5F1E6",
@@ -3348,7 +3348,7 @@ function AccommodationSummary({
                   <button
                     type="button"
                     onClick={() => onRemove(s.id)}
-                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-colors hover:bg-white/5"
+                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:bg-white/5 active:scale-[0.98]"
                     style={{
                       border: `1px solid rgba(245,241,230,0.18)`,
                       color: "rgba(245,241,230,0.8)",
