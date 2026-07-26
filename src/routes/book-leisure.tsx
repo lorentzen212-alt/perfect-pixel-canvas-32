@@ -3142,7 +3142,7 @@ function LeisureStep2Screen({
           </div>
 
           {/* Saved stays */}
-          <div className="mt-7 space-y-4">
+          <div className="mt-5 space-y-3">
             {stays.map((s, idx) => {
               if (s.id === editingId) return null;
               return (
@@ -3166,7 +3166,7 @@ function LeisureStep2Screen({
 
           {/* Editor */}
           {showEditor && (
-            <div className={stays.length > 0 ? "mt-5" : "mt-7"}>
+            <div className={stays.length > 0 ? "mt-4" : "mt-5"}>
               <S2StayCard
                 title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
                 arrival={draftArrival}
@@ -3548,10 +3548,10 @@ function S2StayCard({
       style={{
         borderRadius: 22,
         backgroundImage: "linear-gradient(165deg, #293E4F 0%, #263B4C 52%, #223648 100%)",
-        border: "1px solid rgba(255,255,255,0.06)",
-        padding: "32px 40px 22px",
+        border: "1px solid rgba(217,191,130,0.18)",
+        padding: "26px 36px 18px",
         boxShadow:
-          "inset 0 1.5px 0 rgba(255,255,255,0.07), 0 4px 10px -3px rgba(6,13,20,0.5), 0 30px 70px -48px rgba(6,13,20,0.9)",
+          "inset 0 1.5px 0 rgba(255,255,255,0.08), 0 6px 18px -6px rgba(6,13,20,0.55), 0 40px 90px -60px rgba(6,13,20,0.95)",
       }}
 
     >
@@ -3576,7 +3576,7 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[22px] grid items-center px-[28px] py-[18px]"
+        className="mt-[16px] grid items-center px-[28px] py-[12px]"
         style={{
           width: "92%",
           margin: "0 auto",
@@ -3621,7 +3621,7 @@ function S2StayCard({
 
       {/* SECTION 3 — bottom action zone */}
       <div
-        className="mt-[10px] flex flex-wrap items-center justify-between px-3 py-[8px]"
+        className="mt-[6px] flex flex-wrap items-center justify-between px-3 py-[5px]"
         style={{
           borderRadius: 12,
           backgroundColor: "rgba(12,22,32,0.16)",
