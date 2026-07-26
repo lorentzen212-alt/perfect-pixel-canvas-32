@@ -3446,7 +3446,7 @@ function S2StayCard({
 
     const dateValue = (
       <span
-        className={`whitespace-nowrap font-medium leading-none ${selected ? "text-[24.5px]" : "text-[17.5px]"}`}
+        className={`whitespace-nowrap font-medium leading-none ${selected ? "text-[21px]" : "text-[15px]"}`}
         style={{ color: selected ? "#F7F3EA" : "rgba(226,216,198,0.45)" }}
       >
         {selected ? format(selected, "d MMM yyyy") : placeholder}
@@ -3455,12 +3455,12 @@ function S2StayCard({
 
     const icon = (
       <span aria-hidden className="shrink-0 leading-none" style={{ color: "rgba(217,191,130,0.9)" }}>
-        <CalendarDays size={18} strokeWidth={1.5} />
+        <CalendarDays size={16} strokeWidth={1.5} />
       </span>
     );
 
     const field = (
-      <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
+      <div className={`flex min-w-0 flex-col gap-[9px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
           style={{ color: "rgba(226,232,240,0.36)" }}
@@ -3498,7 +3498,7 @@ function S2StayCard({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-label={`${label} date`}
-        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-3 text-left transition-colors duration-200 disabled:cursor-default"
+        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-5 text-left transition-colors duration-200 disabled:cursor-default"
         style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
       >
         {field}
@@ -3549,7 +3549,7 @@ function S2StayCard({
         borderRadius: 22,
         backgroundImage: "linear-gradient(165deg, #293E4F 0%, #263B4C 52%, #223648 100%)",
         border: "1px solid rgba(255,255,255,0.06)",
-        padding: "26px 34px 16px",
+        padding: "32px 40px 22px",
         boxShadow:
           "inset 0 1.5px 0 rgba(255,255,255,0.07), 0 4px 10px -3px rgba(6,13,20,0.5), 0 30px 70px -48px rgba(6,13,20,0.9)",
       }}
@@ -3576,7 +3576,7 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[18px] grid items-center px-[22px] py-[13px]"
+        className="mt-[22px] grid items-center px-[28px] py-[18px]"
         style={{
           width: "92%",
           margin: "0 auto",
@@ -3621,7 +3621,7 @@ function S2StayCard({
 
       {/* SECTION 3 — bottom action zone */}
       <div
-        className="mt-[1px] flex flex-wrap items-center justify-between px-3 py-[5px]"
+        className="mt-[10px] flex flex-wrap items-center justify-between px-3 py-[8px]"
         style={{
           borderRadius: 12,
           backgroundColor: "rgba(12,22,32,0.16)",
