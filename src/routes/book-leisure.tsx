@@ -2985,11 +2985,16 @@ function LeisureStep2Screen({
     setDraftRooms({ ...emptyDraftRooms(), ...s.rooms });
     setDraftCategories({ ...(s.roomCategories ?? {}) });
     setShowEditor(true);
+    setArrivalFocusToken((t) => t + 1);
     if (typeof window !== "undefined")
       window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const removeStay = (id: string) => {
+  const removeStay = (id: string, confirmFirst = false) => {
+    if (stays.length <= 1 && stays.some((s) => s.id === id)) return;
+    if (confirmFirst && typeof window !== "undefined") {
+      if (!window.confirm("Remove this stay?")) return;
+    }
     setRemovingIds((prev) => {
       const next = new Set(prev);
       next.add(id);
@@ -3008,6 +3013,7 @@ function LeisureStep2Screen({
       }
     }, 220);
   };
+
 
   const startNewStay = () => {
     resetDraft();
