@@ -3390,7 +3390,6 @@ function S2StayCard({
   onArrival,
   onDeparture,
   onAddAnother,
-  onEdit,
   onRemove,
   animClass = "",
 }: {
@@ -3404,7 +3403,6 @@ function S2StayCard({
   onArrival?: (v: string) => void;
   onDeparture?: (v: string) => void;
   onAddAnother: () => void;
-  onEdit: () => void;
   onRemove: () => void;
   animClass?: string;
 }) {
@@ -3641,8 +3639,6 @@ function S2StayCard({
         <S2StayDivider />
         <S2StayInfo icon={<UserRound size={19} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
         <S2StayDivider />
-        <S2StayInfo icon={<Pencil size={18} strokeWidth={1.6} />} text="Edit" onClick={onEdit} />
-        <S2StayDivider />
         <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
       </div>
 
@@ -3680,7 +3676,8 @@ function S2StayInfo({
       </span>
     </>
   );
-  const cls = "s2-stay-info group inline-flex items-center gap-2.5 py-1 text-[14.5px] font-light";
+  const cls =
+    "s2-stay-info group flex flex-1 items-center justify-center gap-2.5 py-1 text-[14.5px] font-light";
 
   return onClick ? (
     <button type="button" onClick={onClick} className={cls}>
