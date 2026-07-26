@@ -3122,8 +3122,8 @@ function LeisureStep2Screen({
                 style={{
                   borderRadius: 14,
                   color: S2_GOLD_SOFT,
-                  border: "1px solid rgba(232,199,117,0.30)",
-                  backgroundColor: "rgba(232,199,117,0.05)",
+                  border: "1px solid rgba(217,191,130,0.30)",
+                  backgroundColor: "rgba(217,191,130,0.05)",
                 }}
               >
                 <Plus size={16} strokeWidth={2.4} />
@@ -3207,11 +3207,11 @@ function LeisureStep2Screen({
                 style={{
                   borderRadius: 16,
                   background: canAddStay
-                    ? `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 55%, #B98C35 100%)`
+                    ? `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 55%, #B99C60 100%)`
                     : "rgba(255,255,255,0.05)",
                   color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
                   boxShadow: canAddStay
-                    ? "0 22px 46px -20px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    ? "0 22px 46px -20px rgba(198,170,116,0.55), inset 0 1px 0 rgba(255,255,255,0.45)"
                     : "none",
                   cursor: canAddStay ? "pointer" : "not-allowed",
                 }}
@@ -3279,7 +3279,7 @@ function LeisureStep2Screen({
                   borderRadius: 16,
                   background: `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 100%)`,
                   color: "#10202F",
-                  boxShadow: "0 20px 44px -20px rgba(212,166,74,0.5), inset 0 1px 0 rgba(255,255,255,0.4)",
+                  boxShadow: "0 20px 44px -20px rgba(198,170,116,0.5), inset 0 1px 0 rgba(255,255,255,0.4)",
                   opacity: nextEnabled ? 1 : 0.4,
                   cursor: nextEnabled ? "pointer" : "not-allowed",
                 }}
@@ -3418,7 +3418,7 @@ function S2StayBar({
           type="button"
           onClick={onEdit}
           className="inline-flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
-          style={{ borderRadius: 12, color: S2_GOLD_SOFT, border: "1px solid rgba(232,199,117,0.32)" }}
+          style={{ borderRadius: 12, color: S2_GOLD_SOFT, border: "1px solid rgba(217,191,130,0.32)" }}
         >
           <Pencil size={14} strokeWidth={2.1} />
           Edit
@@ -3504,8 +3504,8 @@ function S2StayPanel({
               style={{
                 borderRadius: 14,
                 color: S2_GOLD_SOFT,
-                border: "1px solid rgba(232,199,117,0.35)",
-                backgroundColor: "rgba(232,199,117,0.05)",
+                border: "1px solid rgba(217,191,130,0.35)",
+                backgroundColor: "rgba(217,191,130,0.05)",
               }}
             >
               <Plus size={15} strokeWidth={2.4} />
@@ -3548,7 +3548,7 @@ function S2StayPanel({
               style={{
                 borderRadius: 12,
                 color: S2_GOLD_SOFT,
-                border: "1px solid rgba(232,199,117,0.32)",
+                border: "1px solid rgba(217,191,130,0.32)",
               }}
             >
               <Pencil size={14} strokeWidth={2.1} />
@@ -3611,7 +3611,7 @@ function S2DateField({
         style={{
           borderRadius: 14,
           backgroundColor: S2_FIELD,
-          border: `1px solid ${value ? "rgba(232,199,117,0.32)" : "rgba(255,255,255,0.08)"}`,
+          border: `1px solid ${value ? "rgba(217,191,130,0.32)" : "rgba(255,255,255,0.08)"}`,
         }}
       >
         <CalendarDays size={18} strokeWidth={1.9} style={{ color: S2_GOLD_SOFT }} />
@@ -3656,9 +3656,9 @@ function S2RoomCard({
         borderRadius: 15,
         padding: 13,
         backgroundColor: active ? S2_CARD_ACTIVE : S2_CARD,
-        border: `1px solid ${active ? "rgba(226,190,116,0.42)" : "rgba(214,226,236,0.12)"}`,
+        border: `1px solid ${active ? "rgba(217,191,130,0.42)" : "rgba(214,226,236,0.12)"}`,
         boxShadow: active
-          ? "0 10px 26px -20px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.05)"
+          ? "0 10px 26px -20px rgba(198,170,116,0.35), inset 0 1px 0 rgba(255,255,255,0.05)"
           : "0 10px 24px -22px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
       }}
     >
@@ -3779,7 +3779,7 @@ function S2Counter({
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
       className="grid h-[34px] w-[34px] shrink-0 place-items-center transition-all duration-200 hover:bg-white/[0.07] active:scale-95 disabled:opacity-30"
-      style={{ borderRadius: 9, color: "rgba(226,190,116,0.9)" }}
+      style={{ borderRadius: 9, color: "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? <Minus size={16} strokeWidth={2.2} /> : <Plus size={16} strokeWidth={2.2} />}
     </button>
@@ -3894,7 +3894,7 @@ function AccommodationSummary({
         <S2SumRow icon={<CalendarDays size={17} strokeWidth={1.9} />} label="Total stays" value={totalStays} />
       </div>
 
-      <div className="my-7 h-px w-full" style={{ background: "rgba(232,199,117,0.18)" }} />
+      <div className="my-7 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
 
       {stays.length === 0 && (
         <div className="text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.5)" }}>
@@ -3969,7 +3969,7 @@ function AccommodationSummary({
 
       {stays.length > 0 && (
         <>
-          <div className="my-7 h-px w-full" style={{ background: "rgba(232,199,117,0.18)" }} />
+          <div className="my-7 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
           <div
             className="text-[11.5px] font-semibold uppercase tracking-[0.22em]"
             style={{ color: "rgba(245,241,230,0.55)" }}
@@ -3992,9 +3992,9 @@ function AccommodationSummary({
         className="mt-7 flex w-full items-center justify-center gap-3 py-4 text-[15.5px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
         style={{
           borderRadius: 16,
-          background: `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 55%, #B98C35 100%)`,
+          background: `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 55%, #B99C60 100%)`,
           color: "#10202F",
-          boxShadow: "0 22px 46px -22px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.45)",
+          boxShadow: "0 22px 46px -22px rgba(198,170,116,0.55), inset 0 1px 0 rgba(255,255,255,0.45)",
           opacity: nextEnabled ? 1 : 0.4,
           cursor: nextEnabled ? "pointer" : "not-allowed",
         }}
