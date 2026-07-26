@@ -3465,7 +3465,7 @@ function S2StayBar({
 
       {/* Divider */}
       <div
-        className="mt-6"
+        className="mt-5"
         style={{
           height: 1,
           background:
@@ -3474,7 +3474,8 @@ function S2StayBar({
       />
 
       {/* Bottom info row */}
-      <div className="mt-5 flex flex-wrap items-center">
+      <div className="mt-3.5 flex flex-wrap items-center">
+
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
         <S2StayInfo icon={<BedDouble size={15} strokeWidth={1.7} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
