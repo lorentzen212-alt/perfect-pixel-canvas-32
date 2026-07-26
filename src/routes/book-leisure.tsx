@@ -2985,7 +2985,14 @@ function LeisureStep2Screen({
   };
 
   /** Top "+ Add another stay": same flow as "Add this stay", then ready for next stay. */
-  const commitAndStartNext = () => commitStay(true);
+  const commitAndStartNext = () => {
+    // From a saved stay card with no draft in progress: just open a fresh form.
+    if (!showEditor && !draftArrival && !draftDeparture && stayRoomsTotal(draftRooms) === 0) {
+      startNewStay();
+      return;
+    }
+    commitStay(true);
+  };
 
 
   const editStay = (id: string) => {
