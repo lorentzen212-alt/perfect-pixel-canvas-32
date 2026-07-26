@@ -3269,6 +3269,12 @@ function LeisureStep2Screen({
                 onDeparture={setDraftDeparture}
                 onAddAnother={commitAndStartNext}
                 onRemove={handleEditorRemove}
+                confirming={
+                  pendingRemoveId === DRAFT_REMOVE_ID ||
+                  (!!editingId && pendingRemoveId === editingId)
+                }
+                onConfirmRemove={confirmPendingRemove}
+                onCancelRemove={cancelPendingRemove}
               />
             </div>
           )}
