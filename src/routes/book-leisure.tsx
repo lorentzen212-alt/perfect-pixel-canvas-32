@@ -3106,13 +3106,14 @@ function LeisureStep2Screen({
               />
 
               <div
-                className="mt-9 text-[11.5px] font-semibold uppercase tracking-[0.22em]"
+                className="mt-7 text-[11.5px] font-semibold uppercase tracking-[0.22em]"
                 style={{ color: "rgba(245,241,230,0.65)" }}
               >
                 Room Distribution
               </div>
 
-              <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <div className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+
 
                 {STEP2_ROOMS_ORDER.map((key) => (
                   <S2RoomCard
