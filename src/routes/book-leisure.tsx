@@ -3453,7 +3453,7 @@ function S2StayCard({
     const field = (
       <div className="flex min-w-0 flex-col gap-[5px]">
         <span
-          className="text-[10.5px] font-medium uppercase leading-none tracking-[0.22em]"
+          className="whitespace-nowrap text-[10px] font-medium uppercase leading-none tracking-[0.16em]"
           style={{ color: "rgba(226,232,240,0.5)" }}
         >
           {label}
@@ -3469,8 +3469,8 @@ function S2StayCard({
     return (
       <div
         onClick={() => openPicker(inputRef)}
-        className={`s2-date-field relative flex min-w-0 cursor-pointer items-center gap-3 rounded-[10px] px-3 py-1.5 transition-colors duration-200 ${
-          align === "right" ? "justify-self-end mr-[10px]" : "justify-self-start ml-[10px]"
+        className={`s2-date-field relative flex min-w-0 cursor-pointer items-center gap-2 rounded-[10px] px-2 py-1.5 transition-colors duration-200 ${
+          align === "right" ? "justify-self-end" : "justify-self-start"
         }`}
         style={{ border: "1px solid transparent" }}
       >
@@ -3542,7 +3542,7 @@ function S2StayCard({
       <div
         className="mt-[18px] grid items-center py-[9px]"
         style={{
-          width: "82%",
+          width: "min(100%, 560px)",
           margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
           borderRadius: 14,
