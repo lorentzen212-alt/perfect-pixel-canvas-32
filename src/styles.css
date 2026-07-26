@@ -349,3 +349,6 @@
 }
 .s2-menu-in { animation: s2-menu-in-kf 180ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
 .s2-menu-out { animation: s2-menu-out-kf 180ms cubic-bezier(0.4, 0, 1, 1) both; }
+
+.s2-stay-info:hover .s2-stay-info-icon { opacity: 1; }
+.s2-stay-info:hover .s2-stay-info-text { color: rgba(255,252,246,0.98); }

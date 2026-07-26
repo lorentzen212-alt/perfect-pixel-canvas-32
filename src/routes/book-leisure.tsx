@@ -3137,28 +3137,13 @@ function LeisureStep2Screen({
                 How many rooms will your group need?
               </p>
             </div>
-            {!showEditor && stays.length > 0 && (
-              <button
-                type="button"
-                onClick={startNewStay}
-                className="inline-flex items-center gap-2 px-5 py-3.5 text-[14px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
-                style={{
-                  borderRadius: 14,
-                  color: S2_GOLD_SOFT,
-                  border: "1px solid rgba(217,191,130,0.30)",
-                  backgroundColor: "rgba(217,191,130,0.05)",
-                }}
-              >
-                <Plus size={16} strokeWidth={2.4} />
-                Add another stay
-              </button>
-            )}
           </div>
 
           {/* Saved stays */}
           <div className="mt-7 space-y-4">
             {stays.map((s, idx) => {
               if (s.id === editingId) return null;
+              const isLastVisible = !showEditor && idx === stays.length - 1;
               return (
                 <S2StayBar
                   key={s.id}
@@ -3169,12 +3154,14 @@ function LeisureStep2Screen({
                   nights={stayNights(s.arrival, s.departure)}
                   rooms={stayRoomsTotal(s.rooms)}
                   guests={stayGuestsTotal(s.rooms)}
+                  onAddAnother={isLastVisible ? startNewStay : undefined}
                   onEdit={() => editStay(s.id)}
                   onRemove={() => removeStay(s.id)}
                 />
               );
             })}
           </div>
+
 
           {/* Editor */}
           {showEditor && (
@@ -3388,6 +3375,7 @@ function S2StayBar({
   guests,
   onEdit,
   onRemove,
+  onAddAnother,
   animClass = "",
 }: {
   index: number;
@@ -3398,77 +3386,147 @@ function S2StayBar({
   guests: number;
   onEdit: () => void;
   onRemove: () => void;
+  onAddAnother?: () => void;
   animClass?: string;
 }) {
-  const range =
-    arrival && departure
-      ? `${format(new Date(arrival), "d")} – ${format(new Date(departure), "d MMMM yyyy")}`
-      : "—";
+  const fmt = (v: string) => (v ? format(new Date(v), "d MMM yyyy") : "—");
 
   return (
     <div
-      className={`flex flex-wrap items-center gap-x-7 gap-y-4 ${animClass}`}
+      className={animClass}
       style={{
-        borderRadius: 16,
-        backgroundColor: "rgba(38,55,70,0.94)",
-        border: "1px solid rgba(255,255,255,0.05)",
-        padding: "14px 18px",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 16px 34px -24px rgba(6,13,20,0.7)",
+        borderRadius: 19,
+        backgroundColor: "rgba(23,35,47,0.97)",
+        backgroundImage:
+          "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.10) 100%)",
+        border: "1px solid rgba(255,255,255,0.07)",
+        padding: 30,
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.10), 0 22px 48px -30px rgba(4,10,16,0.78), 0 60px 110px -70px rgba(0,0,0,0.6)",
       }}
     >
-      <div className="flex items-center gap-2.5">
-        <span
-          className="text-[14px] font-semibold uppercase tracking-[0.14em] text-white"
-        >
+      {/* Header */}
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="text-[27px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
           Stay {index}
-        </span>
-        <span
-          className="grid h-[18px] w-[18px] place-items-center rounded-full"
-          style={{ border: `1.5px solid ${S2_GOLD_SOFT}` }}
-        >
-          <Check size={11} strokeWidth={3} style={{ color: S2_GOLD_SOFT }} />
-        </span>
+        </h3>
+        {onAddAnother && (
+          <button
+            type="button"
+            onClick={onAddAnother}
+            className="inline-flex items-center gap-1.5 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
+            style={{ color: S2_GOLD_SOFT, opacity: 0.85 }}
+          >
+            <Plus size={14} strokeWidth={1.8} />
+            Add another stay
+          </button>
+        )}
       </div>
 
-      <div className="text-[14px]" style={{ color: "rgba(245,241,230,0.85)" }}>
-        {range}
+      {/* Date container */}
+      <div
+        className="mt-6 flex items-center gap-4 px-6 py-5 sm:px-8"
+        style={{
+          borderRadius: 15,
+          backgroundColor: "rgba(15,25,35,0.6)",
+          border: "1px solid rgba(255,255,255,0.06)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+        }}
+      >
+        <div className="min-w-0 flex-1">
+          <div
+            className="flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.24em]"
+            style={{ color: "rgba(245,241,230,0.5)" }}
+          >
+            <CalendarDays size={13} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
+            Arrival
+          </div>
+          <div className="mt-2 text-[19px] leading-none text-white" style={{ fontFamily: SERIF }}>
+            {fmt(arrival)}
+          </div>
+        </div>
+
+        <ArrowRight size={22} strokeWidth={1.2} style={{ color: S2_GOLD_SOFT, opacity: 0.9 }} />
+
+        <div className="min-w-0 flex-1 text-right">
+          <div
+            className="flex items-center justify-end gap-2 text-[10.5px] font-medium uppercase tracking-[0.24em]"
+            style={{ color: "rgba(245,241,230,0.5)" }}
+          >
+            <CalendarDays size={13} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
+            Departure
+          </div>
+          <div className="mt-2 text-[19px] leading-none text-white" style={{ fontFamily: SERIF }}>
+            {fmt(departure)}
+          </div>
+        </div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-6">
-        <S2Metric icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "night" : "nights"}`} />
-        <S2Metric
-          icon={<BedDouble size={16} strokeWidth={1.9} />}
-          text={`${rooms} ${rooms === 1 ? "room" : "rooms"}`}
-        />
-        <S2Metric
-          icon={<UserRound size={16} strokeWidth={1.9} />}
-          text={`${guests} ${guests === 1 ? "guest" : "guests"}`}
-        />
-      </div>
+      {/* Divider */}
+      <div
+        className="mt-6"
+        style={{
+          height: 1,
+          background:
+            "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0) 100%)",
+        }}
+      />
 
-      <div className="ml-auto flex items-center gap-3">
-        <button
-          type="button"
-          onClick={onEdit}
-          className="inline-flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
-          style={{ borderRadius: 12, color: S2_GOLD_SOFT, border: "1px solid rgba(217,191,130,0.32)" }}
-        >
-          <Pencil size={14} strokeWidth={2.1} />
-          Edit
-        </button>
-        <button
-          type="button"
-          onClick={onRemove}
-          className="inline-flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
-          style={{ borderRadius: 12, color: "rgba(245,241,230,0.65)", border: "1px solid rgba(255,255,255,0.10)" }}
-        >
-          <Trash2 size={14} strokeWidth={2.1} />
-          Remove
-        </button>
+      {/* Bottom info row */}
+      <div className="mt-5 flex flex-wrap items-center">
+        <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
+        <S2StayDivider />
+        <S2StayInfo icon={<BedDouble size={15} strokeWidth={1.7} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
+        <S2StayDivider />
+        <S2StayInfo icon={<UserRound size={15} strokeWidth={1.7} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
+        <S2StayDivider />
+        <S2StayInfo icon={<Pencil size={14} strokeWidth={1.7} />} text="Edit" onClick={onEdit} />
+        <S2StayDivider />
+        <S2StayInfo icon={<Trash2 size={14} strokeWidth={1.7} />} text="Remove" onClick={onRemove} />
       </div>
     </div>
   );
 }
+
+function S2StayDivider() {
+  return (
+    <span
+      aria-hidden
+      className="mx-4 hidden sm:block"
+      style={{ width: 1, height: 16, backgroundColor: "rgba(255,255,255,0.09)" }}
+    />
+  );
+}
+
+function S2StayInfo({
+  icon,
+  text,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  text: string;
+  onClick?: () => void;
+}) {
+  const content = (
+    <>
+      <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: S2_GOLD_SOFT, opacity: 0.9 }}>
+        {icon}
+      </span>
+      <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(245,241,230,0.82)" }}>
+        {text}
+      </span>
+    </>
+  );
+  const cls = "s2-stay-info group inline-flex items-center gap-2 py-1 text-[13.5px]";
+  return onClick ? (
+    <button type="button" onClick={onClick} className={cls}>
+      {content}
+    </button>
+  ) : (
+    <span className={cls}>{content}</span>
+  );
+}
+
 
 
 /* ---- Step 2 stay panel (dates + metrics in one box) ---- */
