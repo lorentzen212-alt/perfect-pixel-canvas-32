@@ -39,6 +39,20 @@ function isUi(el: Element | null) {
   return !!el?.closest("[data-dm-ui]");
 }
 
+function clearDesignModeStorage() {
+  if (typeof window === "undefined") return;
+  const clearMatchingKeys = (storage: Storage) => {
+    Object.keys(storage).forEach((key) => {
+      const normalized = key.toLowerCase();
+      if (key.startsWith("hgb:design-mode") || normalized.includes("design-mode")) {
+        storage.removeItem(key);
+      }
+    });
+  };
+  clearMatchingKeys(window.localStorage);
+  clearMatchingKeys(window.sessionStorage);
+}
+
 function pickTarget(el: Element | null): HTMLElement | null {
   let cur: HTMLElement | null = el as HTMLElement | null;
   while (cur && cur !== document.body) {
@@ -96,7 +110,14 @@ export default function DesignMode() {
   }, []);
 
   useEffect(() => {
-    const loaded = loadDoc(routePath);
+    const forceCleanBookLeisure = routePath === "/book-leisure";
+    if (forceCleanBookLeisure) {
+      clearDesignModeStorage();
+      setEnabledPersisted(false);
+      setEnabled(false);
+    }
+
+    const loaded = forceCleanBookLeisure ? emptyDoc() : loadDoc(routePath);
     historyRef.current = new History(loaded);
     opsAppliedRef.current = false;
     setDoc(loaded);
