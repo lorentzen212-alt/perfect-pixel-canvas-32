@@ -3033,6 +3033,8 @@ function LeisureStep2Screen({
       className="min-h-screen w-full"
       style={{
         backgroundColor: S2_BG,
+        backgroundImage: S2_BG_GRADIENT,
+        backgroundAttachment: "fixed",
         fontFamily: "Inter, system-ui, sans-serif",
         color: S2_TEXT,
       }}
