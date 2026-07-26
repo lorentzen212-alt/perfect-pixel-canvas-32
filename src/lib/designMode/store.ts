@@ -8,6 +8,9 @@ export type Override = {
   y?: number;
   w?: number;
   h?: number;
+  /** original layout footprint, kept so resizing never reflows siblings */
+  baseW?: number;
+  baseH?: number;
   padding?: string;
   margin?: string;
   radius?: string;
