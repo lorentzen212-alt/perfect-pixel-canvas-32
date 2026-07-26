@@ -3714,8 +3714,8 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className="grid h-[38px] w-[38px] shrink-0 place-items-center transition-all duration-200 hover:bg-white/[0.07] active:scale-95 disabled:opacity-30"
-      style={{ borderRadius: 11, color: S1_GOLD_SOFT }}
+      className="grid h-[34px] w-[34px] shrink-0 place-items-center transition-all duration-200 hover:bg-white/[0.07] active:scale-95 disabled:opacity-30"
+      style={{ borderRadius: 9, color: "rgba(226,190,116,0.9)" }}
     >
       {dir === "dec" ? <Minus size={16} strokeWidth={2.2} /> : <Plus size={16} strokeWidth={2.2} />}
     </button>
@@ -3723,11 +3723,11 @@ function S2Counter({
 
   return (
     <div
-      className="flex h-[46px] items-center justify-between px-1.5"
+      className="flex h-[42px] items-center justify-between px-1.5"
       style={{
-        borderRadius: 14,
-        backgroundColor: S2_FIELD,
-        border: "1px solid rgba(255,255,255,0.07)",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,0.045)",
+        border: "1px solid rgba(255,255,255,0.06)",
       }}
     >
       {btn("dec")}
