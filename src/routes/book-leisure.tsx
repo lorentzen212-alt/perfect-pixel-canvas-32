@@ -3894,12 +3894,15 @@ function AccommodationSummary({
       style={{
         borderRadius: 24,
         backgroundColor: S2_PANEL,
+        backdropFilter: "blur(8px)",
+        border: "1px solid rgba(255,255,255,0.05)",
         padding: 28,
-        boxShadow: "0 40px 80px -46px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -18px 34px -30px rgba(0,0,0,0.6), 0 30px 66px -38px rgba(6,13,20,0.72)",
       }}
     >
       <div
-        className="text-[11.5px] font-semibold uppercase tracking-[0.22em]"
+        className="text-[11.5px] font-semibold uppercase tracking-[0.28em]"
         style={{ color: S2_GOLD_SOFT }}
       >
         Accommodation Summary
