@@ -3726,7 +3726,7 @@ function S2StayInfo({
     </>
   );
   const cls =
-    "s2-stay-info group flex flex-1 items-center justify-center gap-2.5 py-1 text-[14.5px] font-light";
+    "s2-stay-info group flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px] font-light";
 
   return onClick ? (
     <button type="button" onClick={onClick} className={cls}>
