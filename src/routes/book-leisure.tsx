@@ -3565,7 +3565,7 @@ function S2StayCard({
       <div
         className="mt-[18px] grid items-center px-[22px] py-[13px]"
         style={{
-          width: "80%",
+          width: "84%",
           margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
           borderRadius: 15,
