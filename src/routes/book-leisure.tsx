@@ -3084,7 +3084,8 @@ function LeisureStep2Screen({
   const totalRoomsAll = stays.reduce((a, s) => a + stayRoomsTotal(s.rooms), 0);
   const totalGuestsAll = stays.reduce((a, s) => a + stayGuestsTotal(s.rooms), 0);
 
-  const nextEnabled = canContinue && stays.length > 0 && !showEditor;
+  // A fresh empty stay form always stays visible, so it must not block continuing.
+  const nextEnabled = canContinue && stays.length > 0 && !editingId;
 
   /* Live caption for the left hero image */
   const heroSource = stays[0]
