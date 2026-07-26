@@ -3393,6 +3393,8 @@ function S2StayCard({
   onEdit,
   onRemove,
   animClass = "",
+  canRemove = true,
+  openArrivalToken = 0,
 }: {
   title: string;
   arrival: string;
@@ -3407,7 +3409,10 @@ function S2StayCard({
   onEdit: () => void;
   onRemove: () => void;
   animClass?: string;
+  canRemove?: boolean;
+  openArrivalToken?: number;
 }) {
+
   const toDate = (iso: string): Date | undefined => {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
     if (!m) return undefined;
