@@ -3415,14 +3415,18 @@ function LeisureStep2Screen({
             </div>
           </div>
 
-          <div className="mt-2 flex flex-col items-center gap-1.5 text-center">
-            <div className="flex items-center gap-2 text-[13.5px]">
-              <ShieldCheck size={16} strokeWidth={2} style={{ color: S2_GOLD_SOFT }} />
-              <span style={{ color: S2_GOLD_SOFT }}>Your request is free and non-binding</span>
-            </div>
-            <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.45)" }}>
-              We find the best options so you can choose what suits your group.
-            </div>
+          <div className="mt-2 flex items-center justify-center gap-2 text-center text-[13.5px]">
+            <span
+              className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full"
+              style={{
+                color: "#10202F",
+                background: `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 100%)`,
+                boxShadow: "0 0 0 1px rgba(217,191,130,0.35)",
+              }}
+            >
+              <Check size={11} strokeWidth={3.2} />
+            </span>
+            <span style={{ color: S2_GOLD_SOFT }}>Expert support every step of the way</span>
           </div>
         </section>
 
