@@ -2935,7 +2935,7 @@ function StayRoomRow({
           handleCardClick();
         }
       }}
-      className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
+      className="group grid cursor-pointer items-center rounded-[22px] p-4 pr-4.5 transition-all duration-300 ease-out hover:-translate-y-[3px] hover:border-[rgba(212,166,74,0.45)] active:-translate-y-[1px]"
       style={{
         gridTemplateColumns: "minmax(108px, 30%) 1fr auto",
         columnGap: 14,
@@ -2945,6 +2945,7 @@ function StayRoomRow({
           ? "0 20px 42px -24px rgba(212,166,74,0.14), 0 0 26px -14px rgba(212,166,74,0.09), inset 0 1px 0 rgba(255,255,230,0.06), inset 0 -1px 0 rgba(0,0,0,0.22), inset 0 0 22px -14px rgba(0,0,0,0.5)"
           : "0 18px 38px -22px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,230,0.03), inset 0 -1px 0 rgba(0,0,0,0.12)",
       }}
+
     >
       <div
         className="aspect-[4/3] w-full max-w-[180px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
