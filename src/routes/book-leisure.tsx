@@ -3632,7 +3632,7 @@ function S2StayCard({
           borderRadius: 12,
           backgroundColor: "rgba(12,22,32,0.16)",
           borderTop: "1px solid rgba(255,255,255,0.06)",
-          transform: "translateY(14px)",
+          transform: "translateY(16px)",
         }}
       >
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
