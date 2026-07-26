@@ -3578,7 +3578,7 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[10px] grid items-center px-[28px] py-[6px]"
+        className="mt-[19px] grid items-center px-[28px] py-[6px]"
         style={{
           width: "92%",
           margin: "0 auto",
