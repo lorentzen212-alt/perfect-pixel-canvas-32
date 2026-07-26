@@ -3555,8 +3555,8 @@ function S2StayDivider() {
   return (
     <span
       aria-hidden
-      className="mx-[13px] hidden sm:block"
-      style={{ width: 1, height: 16, backgroundColor: "rgba(255,255,255,0.09)" }}
+      className="mx-[14px] hidden sm:block"
+      style={{ width: 1, height: 20, backgroundColor: "rgba(255,255,255,0.10)" }}
     />
   );
 }
@@ -3572,15 +3572,16 @@ function S2StayInfo({
 }) {
   const content = (
     <>
-      <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: S2_GOLD_SOFT, opacity: 0.9 }}>
+      <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: S2_GOLD_SOFT, opacity: 0.95 }}>
         {icon}
       </span>
-      <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(245,241,230,0.82)" }}>
+      <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(248,245,238,0.92)" }}>
         {text}
       </span>
     </>
   );
-  const cls = "s2-stay-info group inline-flex items-center gap-2 py-1 text-[13.5px]";
+  const cls = "s2-stay-info group inline-flex items-center gap-2.5 py-1 text-[14.5px] font-light";
+
   return onClick ? (
     <button type="button" onClick={onClick} className={cls}>
       {content}
