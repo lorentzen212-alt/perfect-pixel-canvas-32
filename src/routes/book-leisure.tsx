@@ -3578,10 +3578,12 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[34px] grid items-center px-[28px] py-[6px]"
+        className="grid items-center px-[28px] py-[6px]"
         style={{
           width: "92%",
-          margin: "0 auto",
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginTop: 24,
           gridTemplateColumns: "minmax(0,1fr) auto minmax(0,1fr)",
           borderRadius: 15,
           backgroundImage: "linear-gradient(180deg, #203548 0%, #1B2E3E 52%, #182B3A 100%)",
