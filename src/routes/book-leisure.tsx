@@ -3105,10 +3105,12 @@ function LeisureStep2Screen({
           className="order-1 lg:order-none min-w-0"
           style={{
             backgroundColor: S2_PANEL,
+            backdropFilter: "blur(8px)",
             borderRadius: 24,
             padding: 30,
-            border: "1px solid rgba(255,255,255,0.055)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.05)",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 54px -34px rgba(6,13,20,0.7), 0 60px 110px -70px rgba(0,0,0,0.6)",
           }}
         >
 
