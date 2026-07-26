@@ -3563,17 +3563,16 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[18px] grid items-center py-[11px]"
+        className="mt-[18px] grid items-center px-[22px] py-[13px]"
         style={{
-          width: "100%",
+          width: "80%",
           margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
           borderRadius: 15,
-          backgroundImage: "linear-gradient(180deg, #1F3244 0%, #1A2C3C 100%)",
+          backgroundImage: "linear-gradient(180deg, #203548 0%, #1B2E3E 52%, #182B3A 100%)",
           border: "1px solid rgba(217,191,130,0.30)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.18), 0 16px 34px -26px rgba(6,13,20,0.75)",
-
+            "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.22), 0 22px 50px -34px rgba(6,13,20,0.85)",
         }}
       >
         <DateCol
