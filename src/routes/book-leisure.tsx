@@ -3165,7 +3165,9 @@ function LeisureStep2Screen({
                   guests={stayGuestsTotal(s.rooms)}
                   onAddAnother={startNewStay}
                   onEdit={() => editStay(s.id)}
-                  onRemove={() => removeStay(s.id)}
+                  canRemove={stays.length > 1}
+                  onRemove={() => removeStay(s.id, true)}
+
                 />
               );
             })}
