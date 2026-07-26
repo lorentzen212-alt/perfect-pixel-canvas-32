@@ -369,6 +369,9 @@ export default function DesignMode() {
     let h = r.height;
     let x = ov.x ?? 0;
     let y = ov.y ?? 0;
+    /* footprint reserved in the layout so nothing else on the page moves */
+    const baseW = ov.baseW ?? r.width;
+    const baseH = ov.baseH ?? r.height;
 
     const move = (ev: MouseEvent) => {
       const dx = ev.clientX - sx;
@@ -383,15 +386,19 @@ export default function DesignMode() {
         h = Math.max(16, snap(r.height - dy));
         y = snap((ov.y ?? 0) + dy);
       }
+      el.style.flex = "none";
       el.style.width = `${w}px`;
+      el.style.maxWidth = "none";
       el.style.height = `${h}px`;
+      el.style.marginRight = `${baseW - w}px`;
+      el.style.marginBottom = `${baseH - h}px`;
       el.style.transform = `translate(${x}px, ${y}px)`;
       rerender();
     };
     const up = () => {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseup", up);
-      patch(selected, { w, h, x, y });
+      patch(selected, { w, h, x, y, baseW, baseH });
     };
     window.addEventListener("mousemove", move);
     window.addEventListener("mouseup", up);
