@@ -3475,7 +3475,7 @@ function S2StayCard({
         borderRadius: 20,
         backgroundColor: "#16222F",
         border: "1px solid rgba(255,255,255,0.055)",
-        padding: "18px 26px 14px",
+        padding: "14px 26px 10px",
         boxShadow: "0 18px 44px -30px rgba(0,0,0,0.75)",
       }}
     >
