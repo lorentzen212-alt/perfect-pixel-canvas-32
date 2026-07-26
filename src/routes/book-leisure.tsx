@@ -3568,17 +3568,17 @@ function S2StayPanel({
       className={animClass}
       style={{
         borderRadius: 22,
-        backgroundColor: "rgba(28,42,55,0.97)",
+        backgroundColor: "#243746",
         backgroundImage:
           "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.012) 40%, rgba(0,0,0,0.07) 100%)",
         border: "1px solid rgba(255,255,255,0.07)",
-        padding: 30,
+        padding: "26px 26px 20px",
         boxShadow:
           "inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 24px -18px rgba(4,10,16,0.62), 0 30px 62px -30px rgba(4,10,16,0.78), 0 70px 120px -70px rgba(0,0,0,0.65)",
       }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="mt-[10px] flex items-center justify-between gap-4">
         <h3 className="text-[27px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
           {title}
         </h3>
@@ -3597,10 +3597,9 @@ function S2StayPanel({
             <button
               type="button"
               onClick={onAddAnother}
-              className="inline-flex items-center gap-1.5 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
-              style={{ color: S2_GOLD_SOFT, opacity: 0.85 }}
+              className="bg-transparent p-0 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
+              style={{ color: S2_GOLD_SOFT, opacity: 0.85, border: "none" }}
             >
-              <Plus size={14} strokeWidth={1.8} />
               Add another stay
             </button>
           )}
@@ -3609,18 +3608,19 @@ function S2StayPanel({
 
       {/* Unified date container */}
       <div
-        className="mt-6 flex flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:px-8"
+        className="mt-5 flex flex-col gap-3 px-6 py-[13px] sm:flex-row sm:items-center sm:px-8"
         style={{
           borderRadius: 15,
-          backgroundColor: "rgba(15,25,35,0.6)",
+          backgroundColor: "#172434",
           border: "1px solid rgba(255,255,255,0.06)",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 24px -18px rgba(0,0,0,0.55)",
         }}
       >
         <S2StayDate label="Arrival" value={arrival} editable={editable} onChange={onArrival} />
         <ArrowRight
-          size={22}
-          strokeWidth={1.2}
+          size={18}
+          strokeWidth={1}
           className="hidden shrink-0 sm:block"
           style={{ color: S2_GOLD_SOFT, opacity: 0.9 }}
         />
@@ -3636,7 +3636,7 @@ function S2StayPanel({
 
       {/* Divider */}
       <div
-        className="mt-6"
+        className="mt-5"
         style={{
           height: 1,
           background:
@@ -3645,7 +3645,8 @@ function S2StayPanel({
       />
 
       {/* Info row */}
-      <div className="mt-5 flex flex-wrap items-center">
+      <div className="mt-3.5 flex flex-wrap items-center">
+
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
         <S2StayInfo icon={<BedDouble size={15} strokeWidth={1.7} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
