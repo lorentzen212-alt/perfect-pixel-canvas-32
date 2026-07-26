@@ -3585,7 +3585,7 @@ function S2StayCard({
         <ArrowRight
           size={34}
           strokeWidth={1.1}
-          className="mx-4 shrink-0 self-center"
+          className="mx-3 shrink-0 self-center"
           style={{ color: "rgba(217,191,130,0.9)" }}
         />
         <DateCol
