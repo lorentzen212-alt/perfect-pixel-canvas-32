@@ -3395,15 +3395,16 @@ function LeisureStep2Screen({
         )}
 
         {/* Notes */}
-        <div className="mt-10">
-          <div className="text-[14px] font-medium" style={{ color: "#F5F1E6" }}>
+        <div className="mt-14">
+          <div className="text-[14.5px] font-medium" style={{ color: "#F5F1E6" }}>
             Anything else we should know? <span style={{ color: "rgba(245,241,230,0.5)" }}>(optional)</span>
           </div>
           <div
-            className="mt-3 rounded-[14px] p-4 transition-all duration-200 focus-within:border-[color:var(--gold)]"
+            className="mt-4 rounded-[20px] p-5 transition-all duration-300 focus-within:border-[color:var(--gold)]"
             style={{
               backgroundColor: S1_NAVY,
               border: `1px solid rgba(245,241,230,0.12)`,
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 24px 50px -34px rgba(0,0,0,0.6)",
               ["--gold" as never]: S1_GOLD,
             }}
           >
@@ -3411,10 +3412,11 @@ function LeisureStep2Screen({
               value={roomNotes}
               onChange={(e) => setRoomNotes(e.target.value.slice(0, 500))}
               placeholder="Tell us anything important about your accommodation needs…"
-              rows={3}
-              className="w-full resize-none bg-transparent text-[14px] outline-none"
+              rows={4}
+              className="w-full resize-none bg-transparent text-[14.5px] leading-relaxed outline-none"
               style={{ color: "#F5F1E6" }}
             />
+
             <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.4)" }}>
               {roomNotes.length} / 500
             </div>
