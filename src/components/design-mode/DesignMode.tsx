@@ -1272,9 +1272,8 @@ function Inspector({
   onReset,
   onClose,
 }: {
-  tab: InspectorTab;
-  setTab: (t: InspectorTab) => void;
   count: number;
+
   ov: Override;
   rect?: DOMRect;
   onChange: (p: Override) => void;
