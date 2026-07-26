@@ -293,7 +293,7 @@ const STEP_META: Record<StepKey, { title: string; kicker: string; headline: stri
 
 function BookLeisure() {
   const navigate = useNavigate();
-  const [step, setStep] = useState<StepKey>(2);
+  const [step, setStep] = useState<StepKey>(1);
 
   // Step 1 - Destination
   const [country, setCountry] = useState<CountryCode>("NO");
