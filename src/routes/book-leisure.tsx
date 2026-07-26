@@ -3369,6 +3369,16 @@ function LeisureStep2Screen({
                 {editingId ? "Save changes" : "Add this stay"}
                 <ArrowRight size={18} strokeWidth={2.4} />
               </button>
+              {editingId && (
+                <button
+                  type="button"
+                  onClick={cancelEdit}
+                  className="bg-transparent p-0 text-[13.5px] font-light underline-offset-4 transition-opacity duration-200 hover:opacity-100"
+                  style={{ color: "rgba(245,241,230,0.6)", border: "none", opacity: 0.85 }}
+                >
+                  Cancel
+                </button>
+              )}
             </div>
           )}
 
