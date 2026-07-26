@@ -3441,50 +3441,44 @@ function S2StayCard({
     min?: string;
     align: "left" | "right";
   }) => {
-    const p = parts(value);
     const icon = (
-      <CalendarDays
-        size={22}
-        strokeWidth={1.6}
-        className="shrink-0"
-        style={{ color: S2_GOLD_SOFT }}
-      />
-    );
-    const block = (
-      <div className="flex items-center gap-3">
-        <span
-          className="leading-none"
-          style={{ fontFamily: SERIF, color: "#F7F5F0", fontSize: 38, fontWeight: 400 }}
-        >
-          {p.day}
-        </span>
-        <span className="flex flex-col gap-[3px]">
-          <span
-            className="text-[11.5px] font-semibold uppercase leading-none tracking-[0.14em]"
-            style={{ color: "rgba(226,232,240,0.72)" }}
-          >
-            {p.my}
-          </span>
-          <span
-            className="text-[11.5px] font-semibold uppercase leading-none tracking-[0.14em]"
-            style={{ color: "rgba(226,232,240,0.55)" }}
-          >
-            {p.wd}
-          </span>
-        </span>
-      </div>
-    );
-    const interactive = editable;
-    const activate = () => {
-      if (interactive) openPicker(inputRef);
-      else onEdit();
-    };
-    return (
       <button
         type="button"
-        onClick={activate}
-        aria-label={label}
-        className={`s2-date-field relative flex min-w-0 cursor-pointer items-center gap-3 rounded-[10px] bg-transparent px-3 py-1.5 text-left transition-colors duration-200 ${
+        onClick={() => openPicker(inputRef)}
+        aria-label={`Open ${label} calendar`}
+        className="shrink-0 bg-transparent p-0 leading-none"
+        style={{ border: "none", color: S2_GOLD_SOFT }}
+      >
+        <CalendarDays size={22} strokeWidth={1.6} />
+      </button>
+    );
+    const field = (
+      <div className="flex min-w-0 flex-col gap-[5px]">
+        <span
+          className="text-[10.5px] font-medium uppercase leading-none tracking-[0.22em]"
+          style={{ color: "rgba(226,232,240,0.5)" }}
+        >
+          {label}
+        </span>
+        <input
+          ref={inputRef}
+          type="date"
+          value={value}
+          min={min}
+          readOnly={!editable}
+          onChange={(e) => onChange?.(e.target.value)}
+          onClick={() => openPicker(inputRef)}
+          onFocus={() => openPicker(inputRef)}
+          aria-label={label}
+          className="s2-date-input w-[150px] cursor-pointer bg-transparent p-0 text-[20px] font-light leading-none outline-none"
+          style={{ color: "#F6F4EF", border: "none" }}
+        />
+      </div>
+    );
+    return (
+      <div
+        onClick={() => openPicker(inputRef)}
+        className={`s2-date-field relative flex min-w-0 cursor-pointer items-center gap-3 rounded-[10px] px-3 py-1.5 transition-colors duration-200 ${
           align === "right" ? "justify-self-end mr-[30px]" : "justify-self-start ml-[30px]"
         }`}
         style={{ border: "1px solid transparent" }}
@@ -3492,29 +3486,18 @@ function S2StayCard({
         {align === "left" ? (
           <>
             {icon}
-            {block}
+            {field}
           </>
         ) : (
           <>
-            {block}
+            {field}
             {icon}
           </>
         )}
-        {interactive && (
-          <input
-            ref={inputRef}
-            type="date"
-            value={value}
-            min={min}
-            onChange={(e) => onChange?.(e.target.value)}
-            className="pointer-events-none absolute bottom-0 left-1/2 h-[1px] w-[1px] -translate-x-1/2 opacity-0"
-            tabIndex={-1}
-            aria-hidden
-          />
-        )}
-      </button>
+      </div>
     );
   };
+
 
 
   return (
