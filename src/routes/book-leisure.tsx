@@ -63,7 +63,6 @@ import {
   MessageSquare,
   Tag,
   Trash2,
-  Pencil,
   Lightbulb,
 
   Headphones,
