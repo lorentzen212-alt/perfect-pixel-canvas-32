@@ -3169,15 +3169,15 @@ function LeisureStep2Screen({
           )}
 
           {/* Notes */}
-          <div className="mt-12">
-            <div className="text-[15px] font-medium" style={{ color: S2_TEXT }}>
+          <div className="mt-8">
+            <div className="text-[14px] font-medium" style={{ color: S2_TEXT }}>
               Anything else we should know?{" "}
               <span style={{ color: "rgba(245,241,230,0.45)" }}>(optional)</span>
             </div>
             <div
-              className="mt-4 p-6 transition-colors duration-300"
+              className="mt-3 px-5 py-4 transition-colors duration-300"
               style={{
-                borderRadius: 20,
+                borderRadius: 18,
                 backgroundColor: S2_SUNK,
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 26px 50px -40px rgba(0,0,0,0.7)",
               }}
@@ -3186,8 +3186,8 @@ function LeisureStep2Screen({
                 value={roomNotes}
                 onChange={(e) => setRoomNotes(e.target.value.slice(0, 500))}
                 placeholder="Tell us anything important about your accommodation needs…"
-                rows={4}
-                className="w-full resize-none bg-transparent text-[14.5px] leading-relaxed outline-none"
+                rows={2}
+                className="w-full resize-none bg-transparent text-[14px] leading-relaxed outline-none"
                 style={{ color: S2_TEXT }}
               />
               <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.35)" }}>
@@ -3195,6 +3195,7 @@ function LeisureStep2Screen({
               </div>
             </div>
           </div>
+
 
           {/* Navigation */}
           <div className="mt-10 flex items-center justify-between gap-6">
