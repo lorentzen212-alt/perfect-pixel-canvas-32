@@ -3678,6 +3678,7 @@ function S2RoomCard({
   return (
     <div
       className="group s2-room-card flex flex-col"
+      data-active={active ? "true" : "false"}
       style={{
         borderRadius: 18,
         padding: 13,
