@@ -3621,7 +3621,7 @@ function S2StayCard({
 
       {/* SECTION 3 — bottom action zone */}
       <div
-        className="mt-[10px] flex flex-wrap items-center justify-between px-3 py-[8px]"
+        className="mt-[6px] flex flex-wrap items-center justify-between px-3 py-[5px]"
         style={{
           borderRadius: 12,
           backgroundColor: "rgba(12,22,32,0.16)",
