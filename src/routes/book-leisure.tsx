@@ -3731,14 +3731,26 @@ function AccommodationSummary({
                   const cat = s.roomCategories?.[k];
                   return (
                     <li key={k} className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <div className="text-[13.5px] text-white">{ROOM_LABELS[k]}</div>
-                        {cat && (
-                          <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
-                            {cat}
-                          </div>
-                        )}
+                      <div className="flex min-w-0 items-start gap-2.5">
+                        <span className="mt-0.5 shrink-0" style={{ color: S1_GOLD_SOFT }}>
+                          {k === "single" ? (
+                            <UserRound size={16} strokeWidth={1.8} />
+                          ) : k === "double" || k === "twin" ? (
+                            <BedDouble size={16} strokeWidth={1.8} />
+                          ) : (
+                            <Users size={16} strokeWidth={1.8} />
+                          )}
+                        </span>
+                        <div className="min-w-0">
+                          <div className="text-[13.5px] text-white">{ROOM_LABELS[k]}</div>
+                          {cat && (
+                            <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+                              {cat}
+                            </div>
+                          )}
+                        </div>
                       </div>
+
                       <span
                         className="grid h-[30px] min-w-[42px] shrink-0 place-items-center text-[13.5px] tabular-nums text-white"
                         style={{
