@@ -3060,7 +3060,7 @@ function LeisureStep2Screen({
           style={{
             backgroundColor: S2_PANEL,
             borderRadius: 24,
-            padding: 40,
+            padding: 30,
             boxShadow: "0 44px 90px -46px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.03)",
           }}
         >
