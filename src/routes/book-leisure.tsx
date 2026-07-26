@@ -3670,10 +3670,13 @@ function S2RoomCard({
         borderRadius: 15,
         padding: 13,
         backgroundColor: active ? S2_CARD_ACTIVE : S2_CARD,
-        border: `1px solid ${active ? "rgba(217,191,130,0.42)" : "rgba(214,226,236,0.12)"}`,
+        backgroundImage:
+          "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.05) 100%)",
+        backdropFilter: "blur(8px)",
+        border: `1px solid ${active ? "rgba(217,191,130,0.38)" : "rgba(255,255,255,0.05)"}`,
         boxShadow: active
-          ? "0 10px 26px -20px rgba(198,170,116,0.35), inset 0 1px 0 rgba(255,255,255,0.05)"
-          : "0 10px 24px -22px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
+          ? `${S2_CARD_SHADOW}, 0 12px 30px -22px rgba(217,191,130,0.30)`
+          : S2_CARD_SHADOW,
       }}
     >
       {/* header */}
