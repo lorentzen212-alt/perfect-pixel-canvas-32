@@ -3490,7 +3490,7 @@ function S2RoomCard({
           : "0 26px 54px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
       }}
     >
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 10" }}>
+      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
         <img
           src={meta.img}
           alt={meta.title}
