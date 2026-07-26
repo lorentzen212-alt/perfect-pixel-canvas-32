@@ -3507,11 +3507,13 @@ function S2StayCard({
       className={animClass}
       style={{
         borderRadius: 22,
-        backgroundImage: "linear-gradient(165deg, #17232F 0%, #121D28 100%)",
-        border: "1px solid rgba(255,255,255,0.06)",
+        backgroundImage: "linear-gradient(165deg, #2C4355 0%, #263B4D 100%)",
+        border: "1px solid rgba(255,255,255,0.07)",
         padding: "22px 30px 16px",
-        boxShadow: "0 22px 50px -32px rgba(0,0,0,0.8)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.07), 0 22px 50px -34px rgba(6,13,20,0.65)",
       }}
+
     >
       {/* SECTION 1 — header */}
       <div className="flex items-center justify-between gap-4">
