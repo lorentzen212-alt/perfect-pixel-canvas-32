@@ -3052,11 +3052,25 @@ function LeisureStep2Screen({
     setShowEditor(false);
   };
 
-  /** Remove a completed stay, with confirmation. */
+  /** Ask for confirmation before deleting a saved stay (in-card, no browser dialog). */
   const requestRemoveStay = (id: string) => {
-    if (typeof window !== "undefined" && !window.confirm("Remove this stay?")) return;
+    setPendingRemoveId(id);
+  };
+
+  const confirmPendingRemove = () => {
+    const id = pendingRemoveId;
+    setPendingRemoveId(null);
+    if (!id) return;
+    if (id === DRAFT_REMOVE_ID) {
+      resetDraft();
+      setAddError(false);
+      setShowEditor(true);
+      return;
+    }
     removeStay(id);
   };
+
+  const cancelPendingRemove = () => setPendingRemoveId(null);
 
   const draftIsEmpty =
     !draftArrival && !draftDeparture && draftRoomsCount === 0;
@@ -3074,11 +3088,9 @@ function LeisureStep2Screen({
       setShowEditor(true);
       return;
     }
-    if (typeof window !== "undefined" && !window.confirm("Remove this stay?")) return;
-    resetDraft();
-    setAddError(false);
-    setShowEditor(true);
+    setPendingRemoveId(DRAFT_REMOVE_ID);
   };
+
 
 
   const totalStays = stays.length;
