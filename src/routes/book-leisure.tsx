@@ -3641,28 +3641,28 @@ function S2RoomCard({
 
   return (
     <div
-      className="group flex flex-col transition-all duration-300 ease-out hover:-translate-y-[3px]"
+      className="group flex flex-col transition-all duration-300 ease-out hover:-translate-y-[2px]"
       style={{
-        borderRadius: 14,
-        padding: 16,
+        borderRadius: 15,
+        padding: 13,
         backgroundColor: active ? S2_CARD_ACTIVE : S2_CARD,
-        border: `1px solid ${active ? "rgba(226,190,116,0.55)" : "rgba(255,255,255,0.06)"}`,
+        border: `1px solid ${active ? "rgba(226,190,116,0.42)" : "rgba(214,226,236,0.12)"}`,
         boxShadow: active
-          ? "0 24px 50px -34px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.04)"
-          : "0 22px 48px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+          ? "0 10px 26px -20px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.05)"
+          : "0 10px 24px -22px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
       }}
     >
       {/* header */}
-      <div className="flex items-start gap-3">
+      <div className="flex items-center gap-2.5">
         <span
-          className="mt-[2px] shrink-0"
-          style={{ color: active ? S1_GOLD_SOFT : "rgba(245,241,230,0.72)" }}
+          className="shrink-0"
+          style={{ color: active ? S1_GOLD_SOFT : "rgba(245,241,230,0.82)" }}
         >
           {roomIcon(roomKey)}
         </span>
         <div className="min-w-0">
-          <div className="text-[15px] font-medium leading-tight text-white">{meta.title}</div>
-          <div className="mt-[3px] text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+          <div className="text-[14.5px] font-medium leading-tight text-white">{meta.title}</div>
+          <div className="mt-[2px] text-[12px]" style={{ color: "rgba(232,238,244,0.55)" }}>
             {meta.desc}
           </div>
         </div>
@@ -3670,25 +3670,22 @@ function S2RoomCard({
 
       {/* image */}
       <div
-        className="relative mt-3 overflow-hidden"
-        style={{ borderRadius: 10, aspectRatio: "4 / 3" }}
+        className="relative mt-2.5 overflow-hidden"
+        style={{ borderRadius: 11, aspectRatio: "16 / 11" }}
       >
         <img
           src={meta.img}
           alt={meta.title}
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-          style={{ filter: "saturate(1.04) contrast(1.05) brightness(0.98)" }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{ background: "linear-gradient(180deg, rgba(11,22,36,0) 55%, rgba(11,22,36,0.45) 100%)" }}
+          style={{ objectPosition: "center", filter: "saturate(1.02) contrast(1.03) brightness(0.98)" }}
         />
       </div>
 
       {/* counter */}
-      <div className="mt-3">
+      <div className="mt-2.5">
         <S2Counter value={value} onChange={onChange} label={meta.title} />
       </div>
+
 
       {categoryOptions && (
         <>
