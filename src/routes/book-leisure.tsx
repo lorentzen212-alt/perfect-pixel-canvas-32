@@ -3127,7 +3127,7 @@ function LeisureStep2Screen({
                 ))}
               </div>
 
-              <div className="mt-9 flex justify-end">
+              <div className="mt-6 flex justify-end">
                 <button
                   type="button"
                   onClick={commitStay}
