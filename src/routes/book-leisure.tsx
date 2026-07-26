@@ -3143,18 +3143,17 @@ function LeisureStep2Screen({
           <div className="mt-7 space-y-4">
             {stays.map((s, idx) => {
               if (s.id === editingId) return null;
-              const isLastVisible = !showEditor && idx === stays.length - 1;
               return (
-                <S2StayBar
+                <S2StayCard
                   key={s.id}
-                  index={idx + 1}
+                  title={`Stay ${idx + 1}`}
                   animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
                   arrival={s.arrival}
                   departure={s.departure}
                   nights={stayNights(s.arrival, s.departure)}
                   rooms={stayRoomsTotal(s.rooms)}
                   guests={stayGuestsTotal(s.rooms)}
-                  onAddAnother={isLastVisible ? startNewStay : undefined}
+                  onAddAnother={startNewStay}
                   onEdit={() => editStay(s.id)}
                   onRemove={() => removeStay(s.id)}
                 />
@@ -3166,7 +3165,7 @@ function LeisureStep2Screen({
           {/* Editor */}
           {showEditor && (
             <div className={stays.length > 0 ? "mt-5" : "mt-7"}>
-              <S2StayPanel
+              <S2StayCard
                 title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
                 arrival={draftArrival}
                 departure={draftDeparture}
@@ -3174,12 +3173,20 @@ function LeisureStep2Screen({
                 rooms={draftRoomsCount}
                 guests={draftGuestsCount}
                 editable
-                onArrival={(v) => {
+                onArrival={(v: string) => {
                   setDraftArrival(v);
                   if (draftDeparture && new Date(draftDeparture) <= new Date(v)) setDraftDeparture("");
                 }}
                 onDeparture={setDraftDeparture}
-                onCancel={stays.length > 0 ? cancelEditor : undefined}
+                onAddAnother={startNewStay}
+                onEdit={() => {
+                  if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                onRemove={() => {
+                  if (editingId) removeStay(editingId);
+                  else if (stays.length > 0) cancelEditor();
+                  else resetDraft();
+                }}
               />
             </div>
           )}
