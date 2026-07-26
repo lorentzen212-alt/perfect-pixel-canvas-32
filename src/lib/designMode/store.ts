@@ -1,11 +1,6 @@
 /**
  * Design Mode store — internal editing tool only.
- *
- * Model:
- *  - "Live page"    = the persisted DesignDoc (applied always, also when Design Mode is off).
- *  - "Working copy" = an in-memory clone created when Design Mode starts. All edits happen there.
- *                     Save Changes copies it onto the live page. Discard throws it away.
- *  - Snapshots      = named copies of a doc that can be restored at any time.
+ * Persists per-element style overrides + structural ops in localStorage.
  */
 
 export type Override = {
@@ -27,19 +22,6 @@ export type Override = {
   z?: number;
   name?: string;
   locked?: boolean;
-  /* visual */
-  bg?: string;
-  border?: string;
-  /* typography */
-  color?: string;
-  fontSize?: string;
-  fontWeight?: string;
-  letterSpacing?: string;
-  lineHeight?: string;
-  textAlign?: string;
-  /* content */
-  src?: string;
-  text?: string;
 };
 
 export type Op =
@@ -53,22 +35,12 @@ export type DesignDoc = {
   ops: Op[];
 };
 
-export type Snapshot = {
-  id: string;
-  name: string;
-  at: number;
-  doc: DesignDoc;
-};
-
 export const emptyDoc = (): DesignDoc => ({ overrides: {}, ops: [] });
 
 const KEY_PREFIX = "hgb:design-mode:v1:";
-const SNAP_PREFIX = "hgb:design-mode:snapshots:v1:";
 const ENABLED_KEY = "hgb:design-mode:enabled";
-const PRECISION_KEY = "hgb:design-mode:precision";
 
 const docKey = (route: string) => KEY_PREFIX + route;
-const snapKey = (route: string) => SNAP_PREFIX + route;
 
 export function loadDoc(route: string): DesignDoc {
   if (typeof window === "undefined") return emptyDoc();
@@ -91,38 +63,6 @@ export function saveDoc(route: string, doc: DesignDoc) {
   }
 }
 
-/* ---------------- snapshots ---------------- */
-
-export function loadSnapshots(route: string): Snapshot[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = window.localStorage.getItem(snapKey(route));
-    return raw ? (JSON.parse(raw) as Snapshot[]) : [];
-  } catch {
-    return [];
-  }
-}
-
-export function saveSnapshots(route: string, list: Snapshot[]) {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(snapKey(route), JSON.stringify(list.slice(-40)));
-  } catch {
-    /* ignore */
-  }
-}
-
-export function makeSnapshot(name: string, doc: DesignDoc): Snapshot {
-  return {
-    id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-    name,
-    at: Date.now(),
-    doc: clone(doc),
-  };
-}
-
-/* ---------------- flags ---------------- */
-
 export function isEnabledPersisted() {
   if (typeof window === "undefined") return false;
   return window.localStorage.getItem(ENABLED_KEY) === "1";
@@ -132,16 +72,6 @@ export function setEnabledPersisted(on: boolean) {
   if (typeof window === "undefined") return;
   if (on) window.localStorage.setItem(ENABLED_KEY, "1");
   else window.localStorage.removeItem(ENABLED_KEY);
-}
-
-export function isPrecisionPersisted() {
-  if (typeof window === "undefined") return true;
-  return window.localStorage.getItem(PRECISION_KEY) !== "0";
-}
-
-export function setPrecisionPersisted(on: boolean) {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(PRECISION_KEY, on ? "1" : "0");
 }
 
 /** Whether the floating toggle is allowed to appear at all. */
@@ -194,24 +124,11 @@ export class History {
     return this.stack[this.index];
   }
 
-  reset(doc: DesignDoc) {
-    this.stack = [clone(doc)];
-    this.index = 0;
-  }
-
   push(doc: DesignDoc) {
     this.stack = this.stack.slice(0, this.index + 1);
     this.stack.push(clone(doc));
     if (this.stack.length > 100) this.stack.shift();
     this.index = this.stack.length - 1;
-  }
-
-  canUndo() {
-    return this.index > 0;
-  }
-
-  canRedo() {
-    return this.index < this.stack.length - 1;
   }
 
   undo(): DesignDoc | null {
@@ -227,61 +144,8 @@ export class History {
   }
 }
 
-export function clone<T>(v: T): T {
+function clone<T>(v: T): T {
   return JSON.parse(JSON.stringify(v)) as T;
-}
-
-/* ---------------- change summary ---------------- */
-
-const LABELS: Record<keyof Override, string> = {
-  x: "X offset",
-  y: "Y offset",
-  w: "Width",
-  h: "Height",
-  padding: "Padding",
-  margin: "Margin",
-  radius: "Border radius",
-  gap: "Gap",
-  align: "Align",
-  justify: "Justify",
-  dir: "Direction",
-  maxW: "Max width",
-  opacity: "Opacity",
-  shadow: "Shadow",
-  hidden: "Visibility",
-  z: "Layer order",
-  name: "Name",
-  locked: "Lock",
-  bg: "Background",
-  border: "Border",
-  color: "Text colour",
-  fontSize: "Font size",
-  fontWeight: "Font weight",
-  letterSpacing: "Letter spacing",
-  lineHeight: "Line height",
-  textAlign: "Text align",
-  src: "Image",
-  text: "Text",
-};
-
-export function diffSummary(before: DesignDoc, after: DesignDoc): string[] {
-  const out: string[] = [];
-  const paths = new Set([...Object.keys(before.overrides), ...Object.keys(after.overrides)]);
-  paths.forEach((p) => {
-    const a = before.overrides[p] ?? {};
-    const b = after.overrides[p] ?? {};
-    (Object.keys({ ...a, ...b }) as (keyof Override)[]).forEach((k) => {
-      if (JSON.stringify(a[k]) === JSON.stringify(b[k])) return;
-      const label = LABELS[k] ?? String(k);
-      const val = b[k];
-      out.push(`${label} → ${val === undefined || val === "" ? "reset" : String(val)}`);
-    });
-  });
-  if (before.ops.length !== after.ops.length) {
-    const op = after.ops[after.ops.length - 1];
-    if (op) out.push(`${op.type} element`);
-  }
-  return out.slice(0, 12);
 }
 
 export const SNAP = 8;
