@@ -126,6 +126,7 @@ export default function DesignMode() {
 
   /* ---- structural ops replay (persisted) ---- */
   useEffect(() => {
+    if (!enabled) return;
     if (opsAppliedRef.current) return;
     if (!doc.ops.length) {
       opsAppliedRef.current = true;
@@ -137,7 +138,7 @@ export default function DesignMode() {
       rerender();
     }, 250);
     return () => window.clearTimeout(t);
-  }, [doc.ops, rerender]);
+  }, [enabled, doc.ops, rerender]);
 
   /* ---- apply overrides to the DOM ---- */
   const applyOverrides = useCallback(() => {
@@ -160,6 +161,10 @@ export default function DesignMode() {
     });
     appliedRef.current.clear();
 
+    // Design Mode is a hidden authoring tool: never let saved overrides leak
+    // into the live app, where displaced/resized nodes can swallow clicks.
+    if (!enabled) return;
+
     Object.entries(doc.overrides).forEach(([path, o]) => {
       const el = elementAtPath(path);
       if (!el) return;
@@ -180,7 +185,7 @@ export default function DesignMode() {
       if (o.z != null) el.style.zIndex = String(o.z);
       if (o.hidden) el.style.display = "none";
     });
-  }, [doc.overrides]);
+  }, [doc.overrides, enabled]);
 
   useEffect(() => {
     applyOverrides();
