@@ -3567,7 +3567,7 @@ function S2StayCard({
         style={{
           width: "84%",
           margin: "0 auto",
-          gridTemplateColumns: "1fr auto 1fr",
+          gridTemplateColumns: "minmax(0,1fr) auto minmax(0,1fr)",
           borderRadius: 15,
           backgroundImage: "linear-gradient(180deg, #203548 0%, #1B2E3E 52%, #182B3A 100%)",
           border: "1px solid rgba(217,191,130,0.30)",
