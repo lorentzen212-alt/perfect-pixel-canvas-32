@@ -3404,7 +3404,15 @@ function S2StayCard({
 }) {
   const arrivalRef = React.useRef<HTMLInputElement | null>(null);
   const departureRef = React.useRef<HTMLInputElement | null>(null);
-  const fmt = (v: string) => (v ? format(new Date(v), "d MMM yyyy") : "dd.mm.yyyy");
+  const parts = (v: string) => {
+    if (!v) return { day: "--", my: "—", wd: "—" };
+    const d = new Date(v);
+    return {
+      day: format(d, "d"),
+      my: format(d, "MMM yyyy").toUpperCase(),
+      wd: format(d, "EEEE").toUpperCase(),
+    };
+  };
 
   const openPicker = (ref: React.RefObject<HTMLInputElement | null>) => {
     const el = ref.current;
@@ -3432,78 +3440,102 @@ function S2StayCard({
     onChange?: (v: string) => void;
     min?: string;
     align: "left" | "right";
-  }) => (
-    <div
-      className={`relative min-w-0 ${editable ? "cursor-pointer" : ""} ${align === "right" ? "justify-self-end pr-1" : "justify-self-start pl-1"}`}
-      onClick={editable ? () => openPicker(inputRef) : undefined}
-      role={editable ? "button" : undefined}
-      tabIndex={editable ? 0 : undefined}
-      onKeyDown={
-        editable
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                openPicker(inputRef);
-              }
-            }
-          : undefined
-      }
-      style={align === "left" ? { marginRight: 52 } : { marginLeft: 52 }}
-    >
-      <div
-        className="pl-[27px] text-[11px] font-medium uppercase tracking-[0.22em]"
-        style={{ color: "rgba(226,230,238,0.52)" }}
-      >
-        {label}
-      </div>
-      <div className="mt-[6px] flex items-center gap-2">
-        <CalendarDays
-          size={19}
-          strokeWidth={1.5}
-          className="shrink-0"
-          style={{ color: S2_GOLD_SOFT }}
-          onClick={editable ? () => openPicker(inputRef) : undefined}
-        />
+  }) => {
+    const p = parts(value);
+    const icon = (
+      <CalendarDays
+        size={22}
+        strokeWidth={1.6}
+        className="shrink-0"
+        style={{ color: S2_GOLD_SOFT }}
+      />
+    );
+    const block = (
+      <div className="flex items-center gap-3">
         <span
-          className="truncate text-[23px] font-light leading-none"
-          style={{ color: "#F6F4EF", letterSpacing: "0.005em" }}
-          onClick={editable ? () => openPicker(inputRef) : undefined}
+          className="leading-none"
+          style={{ fontFamily: SERIF, color: "#F7F5F0", fontSize: 38, fontWeight: 400 }}
         >
-          {fmt(value)}
+          {p.day}
+        </span>
+        <span className="flex flex-col gap-[3px]">
+          <span
+            className="text-[11.5px] font-semibold uppercase leading-none tracking-[0.14em]"
+            style={{ color: "rgba(226,232,240,0.72)" }}
+          >
+            {p.my}
+          </span>
+          <span
+            className="text-[11.5px] font-semibold uppercase leading-none tracking-[0.14em]"
+            style={{ color: "rgba(226,232,240,0.55)" }}
+          >
+            {p.wd}
+          </span>
         </span>
       </div>
-      {editable && (
-        <input
-          ref={inputRef}
-          type="date"
-          value={value}
-          min={min}
-          onChange={(e) => onChange?.(e.target.value)}
-          className="pointer-events-none absolute bottom-0 left-1/2 h-[1px] w-[1px] -translate-x-1/2 opacity-0"
-          tabIndex={-1}
-          aria-label={label}
-        />
-      )}
-    </div>
-  );
-
-
+    );
+    return (
+      <div
+        className={`relative flex min-w-0 items-center gap-4 ${editable ? "cursor-pointer" : ""} ${
+          align === "right" ? "justify-self-end pr-2" : "justify-self-start pl-2"
+        }`}
+        onClick={editable ? () => openPicker(inputRef) : undefined}
+        role={editable ? "button" : undefined}
+        aria-label={label}
+        tabIndex={editable ? 0 : undefined}
+        onKeyDown={
+          editable
+            ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  openPicker(inputRef);
+                }
+              }
+            : undefined
+        }
+      >
+        {align === "left" ? (
+          <>
+            {icon}
+            {block}
+          </>
+        ) : (
+          <>
+            {block}
+            {icon}
+          </>
+        )}
+        {editable && (
+          <input
+            ref={inputRef}
+            type="date"
+            value={value}
+            min={min}
+            onChange={(e) => onChange?.(e.target.value)}
+            className="pointer-events-none absolute bottom-0 left-1/2 h-[1px] w-[1px] -translate-x-1/2 opacity-0"
+            tabIndex={-1}
+            aria-label={label}
+          />
+        )}
+      </div>
+    );
+  };
 
   return (
     <div
       className={animClass}
       style={{
-        borderRadius: 20,
-        backgroundColor: "#16222F",
-        border: "1px solid rgba(255,255,255,0.055)",
-        padding: "14px 26px 10px",
-        boxShadow: "0 18px 44px -30px rgba(0,0,0,0.75)",
+        borderRadius: 22,
+        backgroundImage: "linear-gradient(165deg, #17232F 0%, #121D28 100%)",
+        border: "1px solid rgba(255,255,255,0.06)",
+        padding: "22px 30px 16px",
+        boxShadow: "0 22px 50px -32px rgba(0,0,0,0.8)",
       }}
     >
       {/* SECTION 1 — header */}
       <div className="flex items-center justify-between gap-4">
         <h3
-          className="text-[28px] font-medium leading-none"
+          className="text-[30px] font-medium leading-none"
           style={{ fontFamily: SERIF, color: "#FBF8F1" }}
         >
           {title}
@@ -3521,23 +3553,22 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[13px] grid items-center py-[13px]"
+        className="mt-[18px] grid items-center py-[12px]"
         style={{
-          width: "75%",
+          width: "82%",
           margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
-          borderRadius: 15,
-          backgroundImage:
-            "linear-gradient(160deg, #111C2B 0%, #172536 100%)",
-          border: "1px solid rgba(255,255,255,0.045)",
+          borderRadius: 14,
+          backgroundImage: "linear-gradient(160deg, #111C2B 0%, #16222F 100%)",
+          border: `1px solid ${S2_GOLD_SOFT}`,
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.07), 0 12px 28px -22px rgba(0,0,0,0.7)",
+            "inset 0 1px 0 rgba(255,255,255,0.05), 0 12px 28px -22px rgba(0,0,0,0.7)",
         }}
       >
         <DateCol label="Arrival" value={arrival} inputRef={arrivalRef} onChange={onArrival} align="left" />
         <ArrowRight
-          size={34}
-          strokeWidth={1.1}
+          size={30}
+          strokeWidth={1.4}
           className="mx-6 shrink-0 self-center"
           style={{ color: S2_GOLD_SOFT }}
         />
@@ -3550,6 +3581,7 @@ function S2StayCard({
           align="right"
         />
       </div>
+
 
       {/* Divider */}
       <div
