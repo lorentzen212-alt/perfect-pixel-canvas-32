@@ -3444,25 +3444,29 @@ function S2StayCard({
     const selected = toDate(value);
     const interactive = editable && !!onChange;
 
-    const icon = (
-      <span aria-hidden className="shrink-0 leading-none" style={{ color: "rgba(217,191,130,0.9)" }}>
-        <CalendarDays size={20} strokeWidth={1.6} />
+    const dateValue = (
+      <span
+        className={`whitespace-nowrap font-medium leading-none ${selected ? "text-[24.5px]" : "text-[17.5px]"}`}
+        style={{ color: selected ? "#F7F3EA" : "rgba(226,216,198,0.45)" }}
+      >
+        {selected ? format(selected, "d MMM yyyy") : placeholder}
       </span>
     );
+
     const field = (
-      <div className={`flex min-w-0 flex-col gap-[5px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
+      <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
-          style={{ color: "rgba(226,232,240,0.42)" }}
+          style={{ color: "rgba(226,232,240,0.36)" }}
         >
           {label}
         </span>
-        <span
-          className={`whitespace-nowrap font-medium leading-none ${selected ? "text-[20px]" : "text-[14.5px]"}`}
-          style={{ color: selected ? "#F7F3EA" : "rgba(226,216,198,0.45)" }}
-        >
-          {selected ? format(selected, "d MMM yyyy") : placeholder}
-        </span>
+        <div className={`flex items-center gap-[6px] ${align === "right" ? "justify-end" : ""}`}>
+          <span aria-hidden className="shrink-0 leading-none" style={{ color: "rgba(217,191,130,0.9)" }}>
+            <CalendarDays size={22} strokeWidth={1.5} />
+          </span>
+          {dateValue}
+        </div>
         {selected ? (
           <span
             className="whitespace-nowrap text-[12px] font-light leading-none"
@@ -3481,20 +3485,10 @@ function S2StayCard({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-label={`${label} date`}
-        className="s2-date-field flex w-full min-w-0 items-center gap-[10px] rounded-[12px] bg-transparent px-4 py-3 text-left transition-colors duration-200 disabled:cursor-default"
+        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-4 py-3 text-left transition-colors duration-200 disabled:cursor-default"
         style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
       >
-        {align === "left" ? (
-          <>
-            {icon}
-            {field}
-          </>
-        ) : (
-          <>
-            {field}
-            {icon}
-          </>
-        )}
+        {field}
       </button>
     );
 
