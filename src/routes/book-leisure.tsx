@@ -3264,10 +3264,16 @@ function LeisureStep2Screen({
           </div>
 
           {showEditor && (
-            <div className="mt-2 flex justify-end">
+            <div className="mt-2 flex flex-col items-end gap-2">
+              {addError && !canAddStay && (
+                <span className="text-[13px]" style={{ color: "rgba(238,170,150,0.95)" }}>
+                  Please select arrival and departure dates and at least one room.
+                </span>
+              )}
               <button
+                ref={addBtnRef}
                 type="button"
-                onClick={commitStay}
+                onClick={() => commitStay()}
                 disabled={!canAddStay}
                 className="s2-btn inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold hover:-translate-y-[2px] active:translate-y-0"
                 style={{
@@ -3287,6 +3293,7 @@ function LeisureStep2Screen({
               </button>
             </div>
           )}
+
 
 
 
