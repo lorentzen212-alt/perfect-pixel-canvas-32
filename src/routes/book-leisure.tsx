@@ -3175,7 +3175,11 @@ function LeisureStep2Screen({
                 editable
                 onArrival={(v: string) => {
                   setDraftArrival(v);
-                  if (draftDeparture && new Date(draftDeparture) <= new Date(v)) setDraftDeparture("");
+                  if (v && (!draftDeparture || new Date(draftDeparture) <= new Date(v))) {
+                    const next = new Date(`${v}T00:00:00`);
+                    next.setDate(next.getDate() + 1);
+                    setDraftDeparture(next.toISOString().slice(0, 10));
+                  }
                 }}
                 onDeparture={setDraftDeparture}
                 onAddAnother={startNewStay}
@@ -3554,7 +3558,7 @@ function S2StayCard({
           size={30}
           strokeWidth={1.4}
           className="mx-6 shrink-0 self-center"
-          style={{ color: S2_GOLD_SOFT }}
+          style={{ color: "rgba(217,191,130,0.85)" }}
         />
         <DateCol
           label="Departure"
@@ -3611,7 +3615,7 @@ function S2StayInfo({
 }) {
   const content = (
     <>
-      <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: S2_GOLD_SOFT, opacity: 0.95 }}>
+      <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: "rgba(217,191,130,0.8)", opacity: 1 }}>
         {icon}
       </span>
       <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(248,245,238,0.92)" }}>
