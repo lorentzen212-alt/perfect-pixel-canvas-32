@@ -3038,7 +3038,7 @@ function LeisureStep2Screen({
       </div>
 
       <div
-        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(280px,3fr)_minmax(0,5fr)_minmax(240px,2fr)]"
+        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(330px,1.18fr)_minmax(0,2.6fr)_300px]"
         style={{ maxWidth: 1660, padding: 28, gap: 24 }}
       >
         {/* ---------- LEFT: vertical hotel image ---------- */}
