@@ -3416,6 +3416,12 @@ function S2StayCard({
     }
   };
 
+  const fmtDate = (iso: string) => {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+    if (!m) return "dd.mm.yyyy";
+    return `${m[3]}.${m[2]}.${m[1]}`;
+  };
+
   const DateCol = ({
     label,
     value,
@@ -3432,15 +3438,13 @@ function S2StayCard({
     align: "left" | "right";
   }) => {
     const icon = (
-      <button
-        type="button"
-        onClick={() => openPicker(inputRef)}
-        aria-label={`Open ${label} calendar`}
-        className="shrink-0 bg-transparent p-0 leading-none"
-        style={{ border: "none", color: S2_GOLD_SOFT }}
+      <span
+        aria-hidden
+        className="shrink-0 leading-none"
+        style={{ color: "rgba(217,191,130,0.85)" }}
       >
         <CalendarDays size={22} strokeWidth={1.6} />
-      </button>
+      </span>
     );
     const field = (
       <div className="flex min-w-0 flex-col gap-[5px]">
@@ -3450,19 +3454,12 @@ function S2StayCard({
         >
           {label}
         </span>
-        <input
-          ref={inputRef}
-          type="date"
-          value={value}
-          min={min}
-          readOnly={!editable}
-          onChange={(e) => onChange?.(e.target.value)}
-          onClick={() => openPicker(inputRef)}
-          onFocus={() => openPicker(inputRef)}
-          aria-label={label}
-          className="s2-date-input w-[150px] cursor-pointer bg-transparent p-0 text-[20px] font-light leading-none outline-none"
-          style={{ color: "#F6F4EF", border: "none" }}
-        />
+        <span
+          className="w-[150px] text-[20px] font-light leading-none"
+          style={{ color: value ? "#F6F4EF" : "rgba(246,244,239,0.45)" }}
+        >
+          {fmtDate(value)}
+        </span>
       </div>
     );
     return (
@@ -3484,9 +3481,24 @@ function S2StayCard({
             {icon}
           </>
         )}
+        <input
+          ref={inputRef}
+          type="date"
+          value={value}
+          min={min}
+          readOnly={!editable}
+          onChange={(e) => onChange?.(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") (e.currentTarget as HTMLInputElement).blur();
+          }}
+          aria-label={label}
+          className="s2-date-input absolute inset-0 h-full w-full cursor-pointer opacity-0"
+          style={{ border: "none", background: "transparent" }}
+        />
       </div>
     );
   };
+
 
 
 
