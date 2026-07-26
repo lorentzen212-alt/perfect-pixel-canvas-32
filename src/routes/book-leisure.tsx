@@ -2902,6 +2902,9 @@ const S2_CARD_SHADOW =
 
 
 
+/** Sentinel id used when the in-progress draft card asks for removal confirmation. */
+const DRAFT_REMOVE_ID = "__draft__";
+
 function LeisureStep2Screen({
   stays,
   setStays,
