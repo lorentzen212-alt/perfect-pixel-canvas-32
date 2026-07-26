@@ -3236,8 +3236,29 @@ function LeisureStep2Screen({
           </div>
         </section>
 
-        {/* ---------- RIGHT: sticky summary ---------- */}
-        <div className="order-3 lg:order-none min-w-0 lg:sticky lg:top-8 lg:self-start">
+        {/* ---------- RIGHT: tip + sticky summary ---------- */}
+        <div className="order-3 lg:order-none min-w-0 lg:sticky lg:top-8 lg:self-start space-y-6">
+          <div
+            style={{
+              borderRadius: 20,
+              backgroundColor: S2_CARD,
+              border: "1px solid rgba(255,255,255,0.05)",
+              padding: 22,
+              boxShadow: "0 26px 54px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+            }}
+          >
+            <Lightbulb size={20} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
+            <div
+              className="mt-3 text-[12px] font-semibold uppercase tracking-[0.22em]"
+              style={{ color: S1_GOLD_SOFT }}
+            >
+              Tip
+            </div>
+            <p className="mt-2.5 text-[13.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.62)" }}>
+              You can add multiple stays after completing this one.
+            </p>
+          </div>
+
           <AccommodationSummary
             stays={stays}
             totalStays={totalStays}
@@ -3253,6 +3274,99 @@ function LeisureStep2Screen({
     </main>
   );
 }
+
+/* ---- Step 2 compact saved stay bar ---- */
+function S2StayBar({
+  index,
+  arrival,
+  departure,
+  nights,
+  rooms,
+  guests,
+  onEdit,
+  onRemove,
+  animClass = "",
+}: {
+  index: number;
+  arrival: string;
+  departure: string;
+  nights: number;
+  rooms: number;
+  guests: number;
+  onEdit: () => void;
+  onRemove: () => void;
+  animClass?: string;
+}) {
+  const range =
+    arrival && departure
+      ? `${format(new Date(arrival), "d")} – ${format(new Date(departure), "d MMMM yyyy")}`
+      : "—";
+
+  return (
+    <div
+      className={`flex flex-wrap items-center gap-x-7 gap-y-4 ${animClass}`}
+      style={{
+        borderRadius: 16,
+        backgroundColor: S2_SUNK,
+        border: "1px solid rgba(255,255,255,0.05)",
+        padding: "16px 20px",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+      }}
+    >
+      <div className="flex items-center gap-2.5">
+        <span
+          className="text-[14px] font-semibold uppercase tracking-[0.14em] text-white"
+        >
+          Stay {index}
+        </span>
+        <span
+          className="grid h-[18px] w-[18px] place-items-center rounded-full"
+          style={{ border: `1.5px solid ${S1_GOLD_SOFT}` }}
+        >
+          <Check size={11} strokeWidth={3} style={{ color: S1_GOLD_SOFT }} />
+        </span>
+      </div>
+
+      <div className="text-[14px]" style={{ color: "rgba(245,241,230,0.85)" }}>
+        {range}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-6">
+        <S2Metric icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "night" : "nights"}`} />
+        <S2Metric
+          icon={<BedDouble size={16} strokeWidth={1.9} />}
+          text={`${rooms} ${rooms === 1 ? "room" : "rooms"}`}
+        />
+        <S2Metric
+          icon={<UserRound size={16} strokeWidth={1.9} />}
+          text={`${guests} ${guests === 1 ? "guest" : "guests"}`}
+        />
+      </div>
+
+      <div className="ml-auto flex items-center gap-3">
+        <button
+          type="button"
+          onClick={onEdit}
+          className="inline-flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
+          style={{ borderRadius: 12, color: S1_GOLD_SOFT, border: "1px solid rgba(232,199,117,0.32)" }}
+        >
+          <Pencil size={14} strokeWidth={2.1} />
+          Edit
+        </button>
+        <button
+          type="button"
+          onClick={onRemove}
+          className="inline-flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
+          style={{ borderRadius: 12, color: "rgba(245,241,230,0.65)", border: "1px solid rgba(255,255,255,0.10)" }}
+        >
+          <Trash2 size={14} strokeWidth={2.1} />
+          Remove
+        </button>
+      </div>
+    </div>
+  );
+}
+
 
 /* ---- Step 2 stay panel (dates + metrics in one box) ---- */
 function S2StayPanel({
