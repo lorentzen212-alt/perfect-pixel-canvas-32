@@ -47,6 +47,8 @@ import {
   Star,
   Bell,
   BedDouble,
+  User as UserIcon,
+  Accessibility,
   ChevronDown,
   Send,
   Lock,
@@ -3582,62 +3584,72 @@ function S2RoomCard({
 
   return (
     <div
-      className="group flex flex-col overflow-hidden transition-all duration-300 ease-out hover:-translate-y-[4px]"
+      className="group flex flex-col transition-all duration-300 ease-out hover:-translate-y-[3px]"
       style={{
-        borderRadius: 20,
+        borderRadius: 14,
+        padding: 16,
         backgroundColor: active ? S2_CARD_ACTIVE : S2_CARD,
-        border: `1px solid ${active ? "rgba(232,199,117,0.45)" : "rgba(255,255,255,0.05)"}`,
+        border: `1px solid ${active ? "rgba(226,190,116,0.55)" : "rgba(255,255,255,0.06)"}`,
         boxShadow: active
-          ? "0 30px 60px -34px rgba(212,166,74,0.30), inset 0 1px 0 rgba(255,255,255,0.05)"
-          : "0 26px 54px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+          ? "0 24px 50px -34px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.04)"
+          : "0 22px 48px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
       }}
     >
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
+      {/* header */}
+      <div className="flex items-start gap-3">
+        <span
+          className="mt-[2px] shrink-0"
+          style={{ color: active ? S1_GOLD_SOFT : "rgba(245,241,230,0.72)" }}
+        >
+          {roomIcon(roomKey)}
+        </span>
+        <div className="min-w-0">
+          <div className="text-[15px] font-medium leading-tight text-white">{meta.title}</div>
+          <div className="mt-[3px] text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+            {meta.desc}
+          </div>
+        </div>
+      </div>
+
+      {/* image */}
+      <div
+        className="relative mt-3 overflow-hidden"
+        style={{ borderRadius: 10, aspectRatio: "4 / 3" }}
+      >
         <img
           src={meta.img}
           alt={meta.title}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-          style={{ filter: "saturate(1.06) contrast(1.06)" }}
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          style={{ filter: "saturate(1.04) contrast(1.05) brightness(0.98)" }}
         />
         <div
           className="pointer-events-none absolute inset-0"
-          style={{ background: "linear-gradient(180deg, rgba(11,22,36,0) 45%, rgba(11,22,36,0.75) 100%)" }}
+          style={{ background: "linear-gradient(180deg, rgba(11,22,36,0) 55%, rgba(11,22,36,0.45) 100%)" }}
         />
-        {active && (
-          <span
-            className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full"
-            style={{
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`,
-              boxShadow: "0 8px 18px -8px rgba(212,166,74,0.7)",
-            }}
-          >
-            <Check size={14} strokeWidth={3} style={{ color: "#10202F" }} />
-          </span>
-        )}
       </div>
 
-      <div className="flex flex-1 flex-col" style={{ padding: 16 }}>
-        <div className="text-[15.5px] font-medium leading-tight text-white">{meta.title}</div>
-        <div className="mt-0.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
-          {meta.desc}
-        </div>
+      {/* counter */}
+      <div className="mt-3">
+        <S2Counter value={value} onChange={onChange} label={meta.title} />
+      </div>
 
-        <div className="mt-3">
-          <S2Counter value={value} onChange={onChange} label={meta.title} />
-        </div>
-
-        {categoryOptions && (
-          <div className="mt-3" style={{ opacity: active ? 1 : 0.4, pointerEvents: active ? "auto" : "none" }}>
-            <div className="text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+      {categoryOptions && (
+        <>
+          <div
+            className="mt-3"
+            style={{ height: 1, background: "rgba(255,255,255,0.07)" }}
+          />
+          <div className="mt-2.5" style={{ opacity: active ? 1 : 0.45, pointerEvents: active ? "auto" : "none" }}>
+            <div className="text-[11.5px]" style={{ color: "rgba(245,241,230,0.45)" }}>
               Category
             </div>
-            <div className="relative mt-1 flex items-center pr-7">
+            <div className="relative mt-[2px] flex items-center pr-6">
               <select
                 value={category ?? ""}
                 disabled={!active}
                 aria-label={`${meta.title} category`}
                 onChange={(e) => onCategoryChange?.(e.target.value)}
-                className="w-full cursor-pointer appearance-none bg-transparent text-[15px] font-medium text-white outline-none disabled:cursor-not-allowed"
+                className="w-full cursor-pointer appearance-none bg-transparent text-[15px] font-normal text-white outline-none disabled:cursor-not-allowed"
               >
                 <option value="" style={{ backgroundColor: S2_FIELD }}>
                   Select category
@@ -3649,19 +3661,33 @@ function S2RoomCard({
                 ))}
               </select>
               <ChevronDown
-                size={17}
+                size={16}
                 strokeWidth={2}
                 className="pointer-events-none absolute right-0"
-                style={{ color: S1_GOLD_SOFT }}
+                style={{ color: "rgba(245,241,230,0.55)" }}
               />
             </div>
           </div>
-        )}
-      </div>
-
+        </>
+      )}
     </div>
   );
 }
+
+function roomIcon(key: string) {
+  const p = { size: 19, strokeWidth: 1.7 } as const;
+  switch (key) {
+    case "single":
+      return <UserIcon {...p} />;
+    case "double":
+      return <BedDouble {...p} />;
+    case "accessible":
+      return <Accessibility {...p} />;
+    default:
+      return <Users {...p} />;
+  }
+}
+
 
 function S2Counter({
   value,
@@ -3688,8 +3714,8 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className="grid h-[38px] w-[38px] shrink-0 place-items-center transition-all duration-200 hover:bg-white/[0.07] active:scale-95 disabled:opacity-30"
-      style={{ borderRadius: 11, color: S1_GOLD_SOFT }}
+      className="grid h-[34px] w-[34px] shrink-0 place-items-center transition-all duration-200 hover:bg-white/[0.07] active:scale-95 disabled:opacity-30"
+      style={{ borderRadius: 9, color: "rgba(226,190,116,0.9)" }}
     >
       {dir === "dec" ? <Minus size={16} strokeWidth={2.2} /> : <Plus size={16} strokeWidth={2.2} />}
     </button>
@@ -3697,11 +3723,11 @@ function S2Counter({
 
   return (
     <div
-      className="flex h-[46px] items-center justify-between px-1.5"
+      className="flex h-[42px] items-center justify-between px-1.5"
       style={{
-        borderRadius: 14,
-        backgroundColor: S2_FIELD,
-        border: "1px solid rgba(255,255,255,0.07)",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,0.045)",
+        border: "1px solid rgba(255,255,255,0.06)",
       }}
     >
       {btn("dec")}
