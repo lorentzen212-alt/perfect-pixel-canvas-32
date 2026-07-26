@@ -9,7 +9,7 @@ import roomTwinImg from "@/assets/room-twin.jpg.asset.json";
 import roomTripleImg from "@/assets/room-triple.jpg.asset.json";
 import roomFamilyImg from "@/assets/room-family.jpg.asset.json";
 import roomAccessibleImg from "@/assets/room-accessible.jpg.asset.json";
-import s2StayHeroImg from "@/assets/s2-stay-hero.png.asset.json";
+import s2StayHeroImg from "@/assets/s2-stay-hero-new.png.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
