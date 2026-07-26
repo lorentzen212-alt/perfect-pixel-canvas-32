@@ -2,6 +2,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { format } from "date-fns";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
 import s2HeroImg from "@/assets/s2-accommodation-hero.jpg";
 import roomSingleImg from "@/assets/room-single.jpg.asset.json";
@@ -3406,52 +3408,49 @@ function S2StayCard({
   onRemove: () => void;
   animClass?: string;
 }) {
-  const arrivalRef = React.useRef<HTMLInputElement | null>(null);
-  const departureRef = React.useRef<HTMLInputElement | null>(null);
-  const openPicker = (ref: React.RefObject<HTMLInputElement | null>) => {
-    const el = ref.current;
-    if (!el) return;
-    try {
-      el.focus({ preventScroll: true });
-      if (typeof el.showPicker === "function") el.showPicker();
-      else el.click();
-    } catch {
-      el.click();
-    }
-  };
-
-  const fmtDate = (iso: string) => {
+  const toDate = (iso: string): Date | undefined => {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
-    if (!m) return "dd.mm.yyyy";
-    return `${m[3]}.${m[2]}.${m[1]}`;
+    if (!m) return undefined;
+    const y = Number(m[1]);
+    if (y < 1900 || y > 2999) return undefined;
+    const d = new Date(y, Number(m[2]) - 1, Number(m[3]));
+    return isNaN(d.getTime()) ? undefined : d;
   };
+  const toISO = (d: Date) =>
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+  const today = React.useMemo(() => {
+    const t = new Date();
+    t.setHours(0, 0, 0, 0);
+    return t;
+  }, []);
 
   const DateCol = ({
     label,
     value,
-    inputRef,
     onChange,
-    min,
+    minDate,
     align,
+    placeholder,
   }: {
     label: string;
     value: string;
-    inputRef: React.RefObject<HTMLInputElement | null>;
     onChange?: (v: string) => void;
-    min?: string;
+    minDate?: Date;
     align: "left" | "right";
+    placeholder: string;
   }) => {
+    const [open, setOpen] = React.useState(false);
+    const selected = toDate(value);
+    const interactive = editable && !!onChange;
+
     const icon = (
-      <span
-        aria-hidden
-        className="shrink-0 leading-none"
-        style={{ color: "rgba(217,191,130,0.85)" }}
-      >
-        <CalendarDays size={21} strokeWidth={1.6} />
+      <span aria-hidden className="shrink-0 leading-none" style={{ color: "rgba(217,191,130,0.9)" }}>
+        <CalendarDays size={20} strokeWidth={1.6} />
       </span>
     );
     const field = (
-      <div className="flex min-w-0 flex-col gap-[5px]">
+      <div className={`flex min-w-0 flex-col gap-[5px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
           style={{ color: "rgba(226,232,240,0.42)" }}
@@ -3459,18 +3458,31 @@ function S2StayCard({
           {label}
         </span>
         <span
-          className="whitespace-nowrap text-[22px] font-medium leading-none"
-          style={{ color: value ? "#F7F3EA" : "rgba(247,243,234,0.42)" }}
+          className={`whitespace-nowrap font-medium leading-none ${selected ? "text-[20px]" : "text-[14.5px]"}`}
+          style={{ color: selected ? "#F7F3EA" : "rgba(226,216,198,0.45)" }}
         >
-          {fmtDate(value)}
+          {selected ? format(selected, "d MMM yyyy") : placeholder}
         </span>
+        {selected ? (
+          <span
+            className="whitespace-nowrap text-[12px] font-light leading-none"
+            style={{ color: "rgba(226,232,240,0.45)" }}
+          >
+            {format(selected, "EEEE")}
+          </span>
+        ) : null}
       </div>
     );
-    return (
-      <div
-        onClick={() => openPicker(inputRef)}
-        className="s2-date-field relative flex min-w-0 cursor-pointer items-center gap-[8px] justify-self-center rounded-[10px] px-3 py-2 transition-colors duration-200"
-        style={{ border: "1px solid transparent" }}
+
+    const trigger = (
+      <button
+        type="button"
+        disabled={!interactive}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-label={`${label} date`}
+        className="s2-date-field flex w-full min-w-0 items-center gap-[10px] rounded-[12px] bg-transparent px-4 py-3 text-left transition-colors duration-200 disabled:cursor-default"
+        style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
       >
         {align === "left" ? (
           <>
@@ -3483,24 +3495,42 @@ function S2StayCard({
             {icon}
           </>
         )}
+      </button>
+    );
 
-        <input
-          ref={inputRef}
-          type="date"
-          value={value}
-          min={min}
-          readOnly={!editable}
-          onChange={(e) => onChange?.(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Escape") (e.currentTarget as HTMLInputElement).blur();
+    if (!interactive) return <div className="min-w-0">{trigger}</div>;
+
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>{trigger}</PopoverTrigger>
+        <PopoverContent
+          align={align === "right" ? "end" : "start"}
+          sideOffset={10}
+          className="pointer-events-auto z-[120] w-auto border p-0"
+          style={{
+            backgroundColor: "#1B2C3C",
+            borderColor: "rgba(217,191,130,0.28)",
+            boxShadow: "0 30px 70px -30px rgba(4,10,16,0.85)",
           }}
-          aria-label={label}
-          className="s2-date-input absolute inset-0 h-full w-full cursor-pointer opacity-0"
-          style={{ border: "none", background: "transparent" }}
-        />
-      </div>
+        >
+          <Calendar
+            mode="single"
+            selected={selected}
+            defaultMonth={selected ?? minDate ?? today}
+            disabled={{ before: minDate ?? today }}
+            onSelect={(d: Date | undefined) => {
+              if (!d) return;
+              onChange?.(toISO(d));
+              setOpen(false);
+            }}
+            initialFocus
+            className="pointer-events-auto p-3 text-[#F2EDE3]"
+          />
+        </PopoverContent>
+      </Popover>
     );
   };
+
 
 
 
@@ -3541,7 +3571,7 @@ function S2StayCard({
       <div
         className="mt-[18px] grid items-center py-[11px]"
         style={{
-          width: "min(100%, 624px)",
+          width: "100%",
           margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
           borderRadius: 15,
@@ -3552,21 +3582,34 @@ function S2StayCard({
 
         }}
       >
-        <DateCol label="Arrival" value={arrival} inputRef={arrivalRef} onChange={onArrival} align="left" />
+        <DateCol
+          label="Arrival"
+          value={arrival}
+          onChange={onArrival}
+          align="left"
+          placeholder="Select arrival date"
+        />
         <ArrowRight
-          size={34}
+          size={30}
           strokeWidth={1.2}
           className="mx-3 shrink-0 self-center"
-          style={{ color: "rgba(217,191,130,0.85)" }}
+          style={{ color: "rgba(217,191,130,0.9)" }}
         />
         <DateCol
           label="Departure"
           value={departure}
-          inputRef={departureRef}
           onChange={onDeparture}
-          min={arrival || undefined}
+          minDate={(() => {
+            const a = toDate(arrival);
+            if (!a) return undefined;
+            const n = new Date(a);
+            n.setDate(n.getDate() + 1);
+            return n;
+          })()}
           align="right"
+          placeholder="Select departure date"
         />
+
       </div>
 
 
