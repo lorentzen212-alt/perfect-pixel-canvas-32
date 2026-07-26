@@ -3396,17 +3396,17 @@ function S2StayBar({
       className={animClass}
       style={{
         borderRadius: 19,
-        backgroundColor: "rgba(23,35,47,0.97)",
+        backgroundColor: "#243746",
         backgroundImage:
           "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.10) 100%)",
         border: "1px solid rgba(255,255,255,0.07)",
-        padding: 30,
+        padding: "26px 26px 20px",
         boxShadow:
           "inset 0 1px 0 rgba(255,255,255,0.10), 0 22px 48px -30px rgba(4,10,16,0.78), 0 60px 110px -70px rgba(0,0,0,0.6)",
       }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="mt-[10px] flex items-center justify-between gap-4">
         <h3 className="text-[27px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
           Stay {index}
         </h3>
@@ -3414,10 +3414,9 @@ function S2StayBar({
           <button
             type="button"
             onClick={onAddAnother}
-            className="inline-flex items-center gap-1.5 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
-            style={{ color: S2_GOLD_SOFT, opacity: 0.85 }}
+            className="bg-transparent p-0 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
+            style={{ color: S2_GOLD_SOFT, opacity: 0.85, border: "none" }}
           >
-            <Plus size={14} strokeWidth={1.8} />
             Add another stay
           </button>
         )}
@@ -3425,12 +3424,13 @@ function S2StayBar({
 
       {/* Date container */}
       <div
-        className="mt-6 flex items-center gap-4 px-6 py-5 sm:px-8"
+        className="mt-5 flex items-center gap-4 px-6 py-[13px] sm:px-8"
         style={{
           borderRadius: 15,
-          backgroundColor: "rgba(15,25,35,0.6)",
+          backgroundColor: "#172434",
           border: "1px solid rgba(255,255,255,0.06)",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 24px -18px rgba(0,0,0,0.55)",
         }}
       >
         <div className="min-w-0 flex-1">
@@ -3441,12 +3441,12 @@ function S2StayBar({
             <CalendarDays size={13} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
             Arrival
           </div>
-          <div className="mt-2 text-[19px] leading-none text-white" style={{ fontFamily: SERIF }}>
+          <div className="mt-1.5 text-[19px] leading-none text-white" style={{ fontFamily: SERIF }}>
             {fmt(arrival)}
           </div>
         </div>
 
-        <ArrowRight size={22} strokeWidth={1.2} style={{ color: S2_GOLD_SOFT, opacity: 0.9 }} />
+        <ArrowRight size={18} strokeWidth={1} style={{ color: S2_GOLD_SOFT, opacity: 0.9 }} />
 
         <div className="min-w-0 flex-1 text-right">
           <div
@@ -3456,11 +3456,12 @@ function S2StayBar({
             <CalendarDays size={13} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
             Departure
           </div>
-          <div className="mt-2 text-[19px] leading-none text-white" style={{ fontFamily: SERIF }}>
+          <div className="mt-1.5 text-[19px] leading-none text-white" style={{ fontFamily: SERIF }}>
             {fmt(departure)}
           </div>
         </div>
       </div>
+
 
       {/* Divider */}
       <div
