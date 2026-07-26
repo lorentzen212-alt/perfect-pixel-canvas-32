@@ -57,6 +57,8 @@ import {
   MessageSquare,
   Tag,
   Trash2,
+  Lightbulb,
+
   Headphones,
   PartyPopper,
   PlaneLanding,
