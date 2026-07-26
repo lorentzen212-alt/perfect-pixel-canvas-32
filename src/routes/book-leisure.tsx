@@ -3443,8 +3443,11 @@ function S2StayBar({
           >
             Arrival
           </div>
-          <div className="mt-1 text-[19px] leading-tight text-white" style={{ fontFamily: SERIF }}>
-            {fmt(arrival)}
+          <div className="mt-1 flex items-center gap-2.5">
+            <CalendarDays size={16} strokeWidth={1.6} className="shrink-0" style={{ color: S2_GOLD_SOFT }} />
+            <span className="truncate text-[19px] leading-tight text-white" style={{ fontFamily: SERIF }}>
+              {fmt(arrival)}
+            </span>
           </div>
         </div>
 
@@ -3462,8 +3465,11 @@ function S2StayBar({
           >
             Departure
           </div>
-          <div className="mt-1 text-[19px] leading-tight text-white" style={{ fontFamily: SERIF }}>
-            {fmt(departure)}
+          <div className="mt-1 flex items-center justify-end gap-2.5">
+            <CalendarDays size={16} strokeWidth={1.6} className="shrink-0" style={{ color: S2_GOLD_SOFT }} />
+            <span className="truncate text-[19px] leading-tight text-white" style={{ fontFamily: SERIF }}>
+              {fmt(departure)}
+            </span>
           </div>
         </div>
       </div>
@@ -3481,8 +3487,7 @@ function S2StayBar({
       />
 
       {/* Bottom info row */}
-      <div className="mt-3.5 flex flex-wrap items-center">
-
+      <div className="mt-3.5 flex flex-wrap items-center justify-between">
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
         <S2StayInfo icon={<BedDouble size={15} strokeWidth={1.7} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
@@ -3493,6 +3498,7 @@ function S2StayBar({
         <S2StayDivider />
         <S2StayInfo icon={<Trash2 size={14} strokeWidth={1.7} />} text="Remove" onClick={onRemove} />
       </div>
+
     </div>
   );
 }
@@ -3656,7 +3662,8 @@ function S2StayPanel({
       />
 
       {/* Info row */}
-      <div className="mt-3.5 flex flex-wrap items-center">
+      <div className="mt-3.5 flex flex-wrap items-center justify-between">
+
 
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
@@ -3706,23 +3713,27 @@ function S2StayDate({
       >
         {label}
       </span>
-      {editable ? (
-        <input
-          type="date"
-          value={value}
-          min={min}
-          onChange={(e) => onChange?.(e.target.value)}
-          className={`mt-1 w-full min-w-0 bg-transparent text-[19px] leading-tight text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
-          style={{ fontFamily: SERIF }}
-        />
-      ) : (
-        <span
-          className={`mt-1 block truncate text-[19px] leading-tight text-white ${right ? "sm:text-right" : ""}`}
-          style={{ fontFamily: SERIF }}
-        >
-          {value ? format(new Date(value), "d MMM yyyy") : "—"}
-        </span>
-      )}
+      <span className={`mt-1 flex items-center gap-2.5 ${right ? "sm:justify-end" : ""}`}>
+        <CalendarDays size={16} strokeWidth={1.6} className="shrink-0" style={{ color: S2_GOLD_SOFT }} />
+        {editable ? (
+          <input
+            type="date"
+            value={value}
+            min={min}
+            onChange={(e) => onChange?.(e.target.value)}
+            className={`w-full min-w-0 bg-transparent text-[19px] leading-tight text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
+            style={{ fontFamily: SERIF }}
+          />
+        ) : (
+          <span
+            className={`block truncate text-[19px] leading-tight text-white ${right ? "sm:text-right" : ""}`}
+            style={{ fontFamily: SERIF }}
+          >
+            {value ? format(new Date(value), "d MMM yyyy") : "—"}
+          </span>
+        )}
+      </span>
+
 
     </label>
   );
