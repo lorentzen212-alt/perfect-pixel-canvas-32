@@ -3702,12 +3702,12 @@ function S2StayDate({
           value={value}
           min={min}
           onChange={(e) => onChange?.(e.target.value)}
-          className={`mt-2 w-full min-w-0 bg-transparent text-[19px] leading-none text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
+          className={`mt-1.5 w-full min-w-0 bg-transparent text-[19px] leading-none text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
           style={{ fontFamily: SERIF }}
         />
       ) : (
         <span
-          className={`mt-2 block truncate text-[19px] leading-none text-white ${right ? "sm:text-right" : ""}`}
+          className={`mt-1.5 block truncate text-[19px] leading-none text-white ${right ? "sm:text-right" : ""}`}
           style={{ fontFamily: SERIF }}
         >
           {value ? format(new Date(value), "d MMM yyyy") : "—"}
