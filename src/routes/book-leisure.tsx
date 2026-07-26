@@ -3016,14 +3016,38 @@ function LeisureStep2Screen({
   const editStay = (id: string) => {
     const s = stays.find((x) => x.id === id);
     if (!s) return;
+    if (!editingId) {
+      preEditDraftRef.current = {
+        arrival: draftArrival,
+        departure: draftDeparture,
+        rooms: { ...draftRooms },
+        categories: { ...draftCategories },
+      };
+    }
     setEditingId(id);
+    setAddError(false);
+    setPendingRemoveId(null);
     setDraftArrival(s.arrival);
     setDraftDeparture(s.departure);
     setDraftRooms({ ...emptyDraftRooms(), ...s.rooms });
-    setDraftCategories({ ...(s.roomCategories ?? {}) });
+    setDraftCategories({ ...defaultDraftCategories(), ...(s.roomCategories ?? {}) });
     setShowEditor(true);
     if (typeof window !== "undefined")
       window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  /** Leave edit mode without touching the saved stay; restore the pre-edit draft. */
+  const cancelEdit = () => {
+    const prev = preEditDraftRef.current;
+    setEditingId(null);
+    setAddError(false);
+    setPendingRemoveId(null);
+    setDraftArrival(prev?.arrival ?? "");
+    setDraftDeparture(prev?.departure ?? "");
+    setDraftRooms(prev ? { ...prev.rooms } : emptyDraftRooms());
+    setDraftCategories(prev ? { ...prev.categories } : defaultDraftCategories());
+    preEditDraftRef.current = null;
+    setShowEditor(true);
   };
 
   const removeStay = (id: string) => {
