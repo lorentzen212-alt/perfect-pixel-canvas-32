@@ -2475,19 +2475,22 @@ const STEP2_ROOMS: {
   desc: string;
   img: string;
 }[] = [
-  { key: "single", title: "Single Rooms", desc: "1 person", img: roomSingleImg.url },
-  { key: "triple", title: "Triple Rooms", desc: "3 people", img: roomTripleImg.url },
-  { key: "twin", title: "Twin Rooms", desc: "2 separate beds", img: roomTwinImg.url },
-  { key: "family", title: "Family Rooms", desc: "4+ people", img: roomFamilyImg.url },
-  { key: "double", title: "Double Rooms", desc: "1 double bed", img: roomDoubleImg.url },
-  { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: roomAccessibleImg.url },
+  { key: "single", title: "Single Room", desc: "1 person", img: roomSingleImg.url },
+  { key: "triple", title: "Triple Room", desc: "3 people", img: roomTripleImg.url },
+  { key: "twin", title: "Twin Room", desc: "2 separate beds", img: roomTwinImg.url },
+  { key: "family", title: "Family Room", desc: "4+ people", img: roomFamilyImg.url },
+  { key: "double", title: "Double Room", desc: "1 double bed", img: roomDoubleImg.url },
+  { key: "accessible", title: "Accessible Room", desc: "Wheelchair friendly", img: roomAccessibleImg.url },
 ];
 
-/* Room categories – only offered for single / double / twin */
+/* Room categories */
 const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
   single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
   double: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
   twin: ["Standard", "Superior", "Premium", "Junior Suite"],
+  triple: ["Standard", "Superior", "Premium"],
+  family: ["Standard", "Superior", "Premium", "Suite"],
+  accessible: ["Accessible", "Accessible Superior"],
 };
 
 function LeisureStepShell({
