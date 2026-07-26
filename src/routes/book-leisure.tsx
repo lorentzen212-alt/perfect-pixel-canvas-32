@@ -3753,31 +3753,13 @@ function S2RoomCard({
             <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
               Category
             </div>
-            <div className="relative mt-[1px] flex items-center pr-6">
-              <select
-                value={category ?? ""}
-                disabled={!active}
-                style={{ position: "relative", zIndex: 20 }}
-                aria-label={`${meta.title} category`}
-                onChange={(e) => onCategoryChange?.(e.target.value)}
-                className="w-full cursor-pointer appearance-none bg-transparent text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
-              >
-                <option value="" style={{ backgroundColor: S2_FIELD }}>
-                  Select category
-                </option>
-                {categoryOptions.map((o) => (
-                  <option key={o} value={o} style={{ backgroundColor: S2_FIELD }}>
-                    {o}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown
-                size={16}
-                strokeWidth={2}
-                className="pointer-events-none absolute right-0"
-                style={{ color: "rgba(245,241,230,0.55)" }}
-              />
-            </div>
+            <S2CategorySelect
+              value={category ?? ""}
+              options={categoryOptions}
+              disabled={!active}
+              label={`${meta.title} category`}
+              onChange={(v) => onCategoryChange?.(v)}
+            />
           </div>
         </>
       )}
