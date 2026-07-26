@@ -3057,8 +3057,8 @@ function LeisureStep2Screen({
             <img
               src={s2StayHeroImg.url}
               alt="Hotel room with city and waterfront view"
-              className="absolute inset-0 h-full w-full"
-              style={{ objectFit: "cover", objectPosition: "center" }}
+              className="absolute left-0 top-0 w-full"
+              style={{ height: "112%", objectFit: "cover", objectPosition: "center top" }}
             />
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0"
