@@ -3690,20 +3690,20 @@ function S2RoomCard({
       {categoryOptions && (
         <>
           <div
-            className="mt-3"
-            style={{ height: 1, background: "rgba(255,255,255,0.07)" }}
+            className="mt-2.5"
+            style={{ height: 1, background: "rgba(214,226,236,0.12)" }}
           />
-          <div className="mt-2.5" style={{ opacity: active ? 1 : 0.45, pointerEvents: active ? "auto" : "none" }}>
-            <div className="text-[11.5px]" style={{ color: "rgba(245,241,230,0.45)" }}>
+          <div className="mt-2" style={{ opacity: active ? 1 : 0.45, pointerEvents: active ? "auto" : "none" }}>
+            <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
               Category
             </div>
-            <div className="relative mt-[2px] flex items-center pr-6">
+            <div className="relative mt-[1px] flex items-center pr-6">
               <select
                 value={category ?? ""}
                 disabled={!active}
                 aria-label={`${meta.title} category`}
                 onChange={(e) => onCategoryChange?.(e.target.value)}
-                className="w-full cursor-pointer appearance-none bg-transparent text-[15px] font-normal text-white outline-none disabled:cursor-not-allowed"
+                className="w-full cursor-pointer appearance-none bg-transparent text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
               >
                 <option value="" style={{ backgroundColor: S2_FIELD }}>
                   Select category
