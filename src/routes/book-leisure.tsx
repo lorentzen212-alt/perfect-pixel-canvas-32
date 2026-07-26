@@ -3409,7 +3409,6 @@ function S2StayCard({
   const openPicker = (ref: React.RefObject<HTMLInputElement | null>) => {
     const el = ref.current;
     if (!el) return;
-    // @ts-expect-error showPicker is not in all TS lib versions
     if (typeof el.showPicker === "function") el.showPicker();
     else el.focus();
   };
