@@ -3576,7 +3576,7 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[16px] grid items-center px-[28px] py-[12px]"
+        className="mt-[6px] grid items-center px-[28px] py-[6px]"
         style={{
           width: "92%",
           margin: "0 auto",
@@ -3621,7 +3621,7 @@ function S2StayCard({
 
       {/* SECTION 3 — bottom action zone */}
       <div
-        className="mt-[6px] flex flex-wrap items-center justify-between px-3 py-[5px]"
+        className="mt-[4px] flex flex-wrap items-center justify-between px-3 py-[3px]"
         style={{
           borderRadius: 12,
           backgroundColor: "rgba(12,22,32,0.16)",
