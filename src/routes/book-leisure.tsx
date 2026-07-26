@@ -3429,8 +3429,9 @@ function S2StayCard({
     align: "left" | "right";
   }) => (
     <div
-      className={`relative min-w-0 ${editable ? "cursor-pointer" : ""} ${align === "right" ? "justify-self-start pl-2" : "justify-self-start pl-1"}`}
+      className={`relative min-w-0 ${editable ? "cursor-pointer" : ""} ${align === "right" ? "justify-self-end pr-1" : "justify-self-start pl-1"}`}
       onClick={editable ? () => openPicker(inputRef) : undefined}
+      style={align === "left" ? { marginRight: 40 } : { marginLeft: 40 }}
     >
       <div
         className="pl-[34px] text-[11px] font-medium uppercase tracking-[0.22em]"
