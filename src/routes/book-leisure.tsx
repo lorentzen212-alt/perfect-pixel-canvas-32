@@ -3429,22 +3429,25 @@ function S2StayCard({
     align: "left" | "right";
   }) => (
     <div
-      className={`relative min-w-0 flex-1 ${editable ? "cursor-pointer" : ""} ${align === "right" ? "pr-1 sm:pr-3" : "pl-1 sm:pl-3"}`}
+      className={`relative min-w-0 ${editable ? "cursor-pointer" : ""} ${align === "right" ? "justify-self-start pl-2" : "justify-self-start pl-1"}`}
       onClick={editable ? () => openPicker(inputRef) : undefined}
     >
       <div
-        className={`text-[10.5px] font-medium uppercase tracking-[0.30em] ${align === "right" ? "text-right" : ""}`}
-        style={{ color: "rgba(233,232,226,0.48)" }}
+        className="pl-[34px] text-[11px] font-medium uppercase tracking-[0.22em]"
+        style={{ color: "rgba(226,230,238,0.52)" }}
       >
         {label}
       </div>
-      <div
-        className={`mt-1.5 flex items-center gap-2.5 ${align === "right" ? "justify-end" : ""}`}
-      >
-        <CalendarDays size={18} strokeWidth={1.6} className="shrink-0" style={{ color: S2_GOLD_SOFT }} />
+      <div className="mt-[7px] flex items-center gap-3">
+        <CalendarDays
+          size={25}
+          strokeWidth={1.5}
+          className="shrink-0"
+          style={{ color: S2_GOLD_SOFT }}
+        />
         <span
-          className="truncate text-[22px] leading-tight"
-          style={{ fontFamily: SERIF, color: "#F8F5EE" }}
+          className="truncate text-[25px] font-light leading-none"
+          style={{ color: "#F6F4EF", letterSpacing: "0.005em" }}
         >
           {fmt(value)}
         </span>
@@ -3463,6 +3466,7 @@ function S2StayCard({
       )}
     </div>
   );
+
 
   return (
     <div
