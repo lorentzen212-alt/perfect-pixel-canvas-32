@@ -3153,6 +3153,23 @@ function LeisureStep2Screen({
           Design the perfect room<br />distribution for your group.
         </>
       }
+      pageBg="#232C36"
+      heroOverlay={
+        <div>
+          <div className="text-[13px] font-medium" style={{ color: S1_GOLD_SOFT }}>
+            Step 2 of 6
+          </div>
+          <h1
+            className="mt-3 text-[44px] sm:text-[56px] lg:text-[62px] leading-[1.02] font-medium text-white"
+            style={{ fontFamily: SERIF }}
+          >
+            Accommodation
+          </h1>
+          <p className="mt-4 text-[16px] leading-relaxed" style={{ color: "rgba(255,255,255,0.78)" }}>
+            How many rooms will your group need?
+          </p>
+        </div>
+      }
       rightSidebar={
         <AccommodationSummary
           stays={stays}
@@ -3168,7 +3185,7 @@ function LeisureStep2Screen({
       }
     >
       <section
-        className="rounded-[24px] p-6 sm:p-8 lg:p-9"
+        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
         style={{
           backgroundColor: S1_NAVY_SOFT,
           border: `1px solid ${S1_BORDER}`,
@@ -3176,19 +3193,10 @@ function LeisureStep2Screen({
             "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
-        <h2
-          className="text-[29px] sm:text-[33px] leading-tight font-medium text-white"
-          style={{ fontFamily: SERIF }}
-        >
-          Step 2 – Accommodation
-        </h2>
-        <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
-          How many rooms will your group need?
-        </p>
-
         {/* Saved stay cards (centre column) */}
         {stays.filter((s) => s.id !== editingId).length > 0 && (
-          <div className="mt-6 space-y-3">
+          <div className="space-y-3">
+
             {stays.map((s, idx) => {
               if (s.id === editingId) return null;
               const nights = stayNights(s.arrival, s.departure);
