@@ -3546,10 +3546,12 @@ function S2StayCard({
     <div
       className={animClass}
       style={{
+        height: "auto",
+        minHeight: 0,
         borderRadius: 22,
         backgroundImage: "linear-gradient(165deg, #293E4F 0%, #263B4C 52%, #223648 100%)",
         border: "1px solid rgba(217,191,130,0.18)",
-        padding: "18px 36px 14px",
+        padding: "6px 36px 12px",
         boxShadow:
           "inset 0 1.5px 0 rgba(255,255,255,0.08), 0 6px 18px -6px rgba(6,13,20,0.55), 0 40px 90px -60px rgba(6,13,20,0.95)",
       }}
@@ -3576,7 +3578,7 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[6px] grid items-center px-[28px] py-[6px]"
+        className="mt-[10px] grid items-center px-[28px] py-[6px]"
         style={{
           width: "92%",
           margin: "0 auto",
@@ -3621,7 +3623,7 @@ function S2StayCard({
 
       {/* SECTION 3 — bottom action zone */}
       <div
-        className="mt-[4px] flex flex-wrap items-center justify-between px-3 py-[3px]"
+        className="mt-[8px] flex flex-wrap items-center justify-between px-3 py-[3px]"
         style={{
           borderRadius: 12,
           backgroundColor: "rgba(12,22,32,0.16)",
