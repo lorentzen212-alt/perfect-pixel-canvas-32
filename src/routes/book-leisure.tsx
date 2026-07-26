@@ -3777,11 +3777,11 @@ function S2Counter({
 
   return (
     <div
-      className="flex h-[42px] items-center justify-between px-1.5"
+      className="flex h-[40px] items-center justify-between px-1.5"
       style={{
         borderRadius: 10,
-        backgroundColor: "rgba(255,255,255,0.045)",
-        border: "1px solid rgba(255,255,255,0.06)",
+        backgroundColor: "rgba(20,33,45,0.72)",
+        border: "1px solid rgba(214,226,236,0.10)",
       }}
     >
       {btn("dec")}
