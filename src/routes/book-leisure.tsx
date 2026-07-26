@@ -3109,6 +3109,7 @@ function LeisureStep2Screen({
             backdropFilter: "blur(8px)",
             borderRadius: 24,
             padding: 30,
+            paddingBottom: 22,
             border: "1px solid rgba(255,255,255,0.05)",
             boxShadow:
               "inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 54px -34px rgba(6,13,20,0.7), 0 60px 110px -70px rgba(0,0,0,0.6)",
@@ -3220,12 +3221,12 @@ function LeisureStep2Screen({
           </div>
 
           {showEditor && (
-            <div className="mt-6 flex justify-end">
+            <div className="mt-2 flex justify-end">
               <button
                 type="button"
                 onClick={commitStay}
                 disabled={!canAddStay}
-                className="inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0"
+                className="s2-btn inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold hover:-translate-y-[2px] active:translate-y-0"
                 style={{
                   borderRadius: 16,
                   background: canAddStay
@@ -3247,7 +3248,7 @@ function LeisureStep2Screen({
 
 
           {/* Notes */}
-          <div className="mt-4">
+          <div className="mt-2">
             <div className="text-[14px] font-medium" style={{ color: S2_TEXT }}>
               Anything else we should know?{" "}
               <span style={{ color: "rgba(245,241,230,0.45)" }}>(optional)</span>
@@ -3276,11 +3277,11 @@ function LeisureStep2Screen({
 
 
           {/* Navigation */}
-          <div className="mt-3 flex items-center justify-between gap-6">
+          <div className="mt-2 flex items-center justify-between gap-6">
             <button
               type="button"
               onClick={onBack}
-              className="inline-flex items-center gap-2 px-6 py-3.5 text-[14.5px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
+              className="s2-btn inline-flex items-center gap-2 px-6 py-3.5 text-[14.5px] font-medium hover:-translate-y-[2px]"
               style={{
                 borderRadius: 14,
                 color: S2_GOLD_SOFT,
@@ -3296,7 +3297,7 @@ function LeisureStep2Screen({
                 type="button"
                 onClick={onNext}
                 disabled={!nextEnabled}
-                className="inline-flex items-center gap-2.5 px-9 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
+                className="s2-btn inline-flex items-center gap-2.5 px-9 py-4 text-[15px] font-semibold hover:-translate-y-[2px]"
                 style={{
                   borderRadius: 16,
                   background: `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`,
@@ -3317,7 +3318,7 @@ function LeisureStep2Screen({
             </div>
           </div>
 
-          <div className="mt-3 flex flex-col items-center gap-1.5 text-center">
+          <div className="mt-2 flex flex-col items-center gap-1.5 text-center">
             <div className="flex items-center gap-2 text-[13.5px]">
               <ShieldCheck size={16} strokeWidth={2} style={{ color: S2_GOLD_SOFT }} />
               <span style={{ color: S2_GOLD_SOFT }}>Your request is free and non-binding</span>
@@ -3976,7 +3977,7 @@ function AccommodationSummary({
                   if (v === 0) return null;
                   const cat = s.roomCategories?.[k];
                   return (
-                    <li key={k} className="flex items-start justify-between gap-3">
+                    <li key={k} className="s2-sum-row flex items-start justify-between gap-3">
                       <div className="flex min-w-0 items-start gap-2.5">
                         <span
                           className="mt-1 h-[16px] w-px shrink-0 rounded-full"
@@ -4044,7 +4045,7 @@ function AccommodationSummary({
         type="button"
         onClick={onContinue}
         disabled={!nextEnabled}
-        className="mt-7 flex w-full items-center justify-center gap-3 py-4 text-[15.5px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
+        className="s2-btn mt-7 flex w-full items-center justify-center gap-3 py-4 text-[15.5px] font-semibold hover:-translate-y-[2px]"
         style={{
           borderRadius: 16,
           background: `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`,
