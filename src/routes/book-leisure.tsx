@@ -3465,10 +3465,11 @@ function S2StayPanel({
     <div
       className={animClass}
       style={{
-        borderRadius: 20,
-        backgroundColor: S2_SUNK,
-        padding: 28,
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 30px 60px -44px rgba(0,0,0,0.8)",
+        borderRadius: 18,
+        backgroundColor: "rgba(255,255,255,0.05)",
+        border: "1px solid rgba(214,226,236,0.12)",
+        padding: 22,
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045)",
       }}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
