@@ -3039,10 +3039,9 @@ function LeisureStep2Screen({
         next.delete(id);
         return next;
       });
-      if (editingId === id) {
-        resetDraft();
-        setShowEditor(true);
-      }
+      if (editingId === id) resetDraft();
+      // Never leave the page without an active stay form.
+      setShowEditor(true);
     }, 220);
   };
 
