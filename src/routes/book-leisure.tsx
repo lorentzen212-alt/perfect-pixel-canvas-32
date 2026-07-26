@@ -3509,40 +3509,28 @@ function S2RoomCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col" style={{ padding: 22 }}>
-        <div className="text-[19px] font-medium leading-tight text-white" style={{ fontFamily: SERIF }}>
-          {meta.title}
-        </div>
-        <div className="mt-1.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+      <div className="flex flex-1 flex-col" style={{ padding: 18 }}>
+        <div className="text-[16px] font-medium leading-tight text-white">{meta.title}</div>
+        <div className="mt-1 text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
           {meta.desc}
         </div>
 
-        <div className="mt-5">
+        <div className="mt-4">
           <S2Counter value={value} onChange={onChange} label={meta.title} />
         </div>
 
         {categoryOptions && (
           <div className="mt-4" style={{ opacity: active ? 1 : 0.4, pointerEvents: active ? "auto" : "none" }}>
-            <div
-              className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-              style={{ color: "rgba(245,241,230,0.45)" }}
-            >
+            <div className="text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
               Category
             </div>
-            <div
-              className="relative mt-2 flex h-[44px] items-center pl-4 pr-9"
-              style={{
-                borderRadius: 12,
-                backgroundColor: S2_FIELD,
-                border: `1px solid ${active && category ? "rgba(232,199,117,0.32)" : "rgba(255,255,255,0.08)"}`,
-              }}
-            >
+            <div className="relative mt-1 flex items-center pr-7">
               <select
                 value={category ?? ""}
                 disabled={!active}
                 aria-label={`${meta.title} category`}
                 onChange={(e) => onCategoryChange?.(e.target.value)}
-                className="w-full cursor-pointer appearance-none bg-transparent text-[13.5px] text-white outline-none disabled:cursor-not-allowed"
+                className="w-full cursor-pointer appearance-none bg-transparent text-[15px] font-medium text-white outline-none disabled:cursor-not-allowed"
               >
                 <option value="" style={{ backgroundColor: S2_FIELD }}>
                   Select category
@@ -3554,15 +3542,16 @@ function S2RoomCard({
                 ))}
               </select>
               <ChevronDown
-                size={15}
+                size={17}
                 strokeWidth={2}
-                className="pointer-events-none absolute right-3"
+                className="pointer-events-none absolute right-0"
                 style={{ color: S1_GOLD_SOFT }}
               />
             </div>
           </div>
         )}
       </div>
+
     </div>
   );
 }
