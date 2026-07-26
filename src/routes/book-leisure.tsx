@@ -3058,13 +3058,13 @@ function LeisureStep2Screen({
               src={s2StayHeroImg.url}
               alt="Hotel room with city and waterfront view"
               className="absolute left-0 top-0 w-full"
-              style={{ height: "112%", objectFit: "cover", objectPosition: "center top" }}
+              style={{ height: "124%", objectFit: "cover", objectPosition: "center top" }}
             />
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0"
               style={{
-                height: "42%",
-                background: "linear-gradient(180deg, rgba(15,25,35,0) 0%, rgba(13,22,31,0.78) 70%, rgba(11,19,27,0.92) 100%)",
+                height: "40%",
+                background: "linear-gradient(180deg, rgba(15,25,35,0) 0%, rgba(13,22,31,0.72) 55%, rgba(11,19,27,0.97) 88%, rgba(11,19,27,1) 100%)",
               }}
             />
             <div className="absolute bottom-6 left-6 right-6">
