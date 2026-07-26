@@ -3198,7 +3198,7 @@ function LeisureStep2Screen({
 
 
           {/* Navigation */}
-          <div className="mt-10 flex items-center justify-between gap-6">
+          <div className="mt-6 flex items-center justify-between gap-6">
             <button
               type="button"
               onClick={onBack}
