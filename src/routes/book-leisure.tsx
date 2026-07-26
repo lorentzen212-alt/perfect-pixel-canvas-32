@@ -3414,9 +3414,10 @@ function S2StayBar({
           <button
             type="button"
             onClick={onAddAnother}
-            className="bg-transparent p-0 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
-            style={{ color: S2_GOLD_SOFT, opacity: 0.85, border: "none" }}
+            className="inline-flex items-center gap-1.5 bg-transparent p-0 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
+            style={{ color: S2_GOLD_SOFT, opacity: 0.9, border: "none" }}
           >
+            <Plus size={13} strokeWidth={1.6} />
             Add another stay
           </button>
         )}
@@ -3424,43 +3425,49 @@ function S2StayBar({
 
       {/* Date container */}
       <div
-        className="mt-5 flex items-center gap-4 px-6 py-[13px] sm:px-8"
+        className="mt-5 flex items-center justify-center gap-6 px-6 py-[11px] sm:px-8"
         style={{
           borderRadius: 15,
           backgroundColor: "#172434",
-          border: "1px solid rgba(255,255,255,0.06)",
+          backgroundImage:
+            "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.008) 45%, rgba(0,0,0,0.10) 100%)",
+          border: "1px solid rgba(255,255,255,0.055)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 24px -18px rgba(0,0,0,0.55)",
+            "inset 0 1px 0 rgba(255,255,255,0.055), 0 8px 20px -16px rgba(0,0,0,0.5)",
         }}
       >
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 sm:max-w-[240px]">
           <div
-            className="flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.24em]"
-            style={{ color: "rgba(245,241,230,0.5)" }}
+            className="text-[10px] font-medium uppercase tracking-[0.26em]"
+            style={{ color: "rgba(245,241,230,0.45)" }}
           >
-            <CalendarDays size={13} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
             Arrival
           </div>
-          <div className="mt-1.5 text-[19px] leading-none text-white" style={{ fontFamily: SERIF }}>
+          <div className="mt-1 text-[19px] leading-tight text-white" style={{ fontFamily: SERIF }}>
             {fmt(arrival)}
           </div>
         </div>
 
-        <ArrowRight size={18} strokeWidth={1} style={{ color: S2_GOLD_SOFT, opacity: 0.9 }} />
+        <ArrowRight
+          size={18}
+          strokeWidth={1}
+          className="shrink-0 self-center"
+          style={{ color: S2_GOLD_SOFT, opacity: 0.85 }}
+        />
 
-        <div className="min-w-0 flex-1 text-right">
+        <div className="min-w-0 flex-1 text-right sm:max-w-[240px]">
           <div
-            className="flex items-center justify-end gap-2 text-[10.5px] font-medium uppercase tracking-[0.24em]"
-            style={{ color: "rgba(245,241,230,0.5)" }}
+            className="text-[10px] font-medium uppercase tracking-[0.26em]"
+            style={{ color: "rgba(245,241,230,0.45)" }}
           >
-            <CalendarDays size={13} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
             Departure
           </div>
-          <div className="mt-1.5 text-[19px] leading-none text-white" style={{ fontFamily: SERIF }}>
+          <div className="mt-1 text-[19px] leading-tight text-white" style={{ fontFamily: SERIF }}>
             {fmt(departure)}
           </div>
         </div>
       </div>
+
 
 
       {/* Divider */}
@@ -3597,9 +3604,10 @@ function S2StayPanel({
             <button
               type="button"
               onClick={onAddAnother}
-              className="bg-transparent p-0 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
-              style={{ color: S2_GOLD_SOFT, opacity: 0.85, border: "none" }}
+              className="inline-flex items-center gap-1.5 bg-transparent p-0 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
+              style={{ color: S2_GOLD_SOFT, opacity: 0.9, border: "none" }}
             >
+              <Plus size={13} strokeWidth={1.6} />
               Add another stay
             </button>
           )}
@@ -3608,21 +3616,23 @@ function S2StayPanel({
 
       {/* Unified date container */}
       <div
-        className="mt-5 flex flex-col gap-3 px-6 py-[13px] sm:flex-row sm:items-center sm:px-8"
+        className="mt-5 flex flex-col gap-3 px-6 py-[11px] sm:flex-row sm:items-center sm:justify-center sm:gap-6 sm:px-8"
         style={{
           borderRadius: 15,
           backgroundColor: "#172434",
-          border: "1px solid rgba(255,255,255,0.06)",
+          backgroundImage:
+            "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.008) 45%, rgba(0,0,0,0.10) 100%)",
+          border: "1px solid rgba(255,255,255,0.055)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 24px -18px rgba(0,0,0,0.55)",
+            "inset 0 1px 0 rgba(255,255,255,0.055), 0 8px 20px -16px rgba(0,0,0,0.5)",
         }}
       >
         <S2StayDate label="Arrival" value={arrival} editable={editable} onChange={onArrival} />
         <ArrowRight
           size={18}
           strokeWidth={1}
-          className="hidden shrink-0 sm:block"
-          style={{ color: S2_GOLD_SOFT, opacity: 0.9 }}
+          className="hidden shrink-0 self-center sm:block"
+          style={{ color: S2_GOLD_SOFT, opacity: 0.85 }}
         />
         <S2StayDate
           label="Departure"
@@ -3633,6 +3643,7 @@ function S2StayPanel({
           align="right"
         />
       </div>
+
 
       {/* Divider */}
       <div
@@ -3688,12 +3699,11 @@ function S2StayDate({
 }) {
   const right = align === "right";
   return (
-    <label className="block min-w-0 flex-1">
+    <label className="block min-w-0 flex-1 sm:max-w-[240px]">
       <span
-        className={`flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.24em] ${right ? "sm:justify-end" : ""}`}
-        style={{ color: "rgba(245,241,230,0.5)" }}
+        className={`block text-[10px] font-medium uppercase tracking-[0.26em] ${right ? "sm:text-right" : ""}`}
+        style={{ color: "rgba(245,241,230,0.45)" }}
       >
-        <CalendarDays size={13} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
         {label}
       </span>
       {editable ? (
@@ -3702,17 +3712,18 @@ function S2StayDate({
           value={value}
           min={min}
           onChange={(e) => onChange?.(e.target.value)}
-          className={`mt-1.5 w-full min-w-0 bg-transparent text-[19px] leading-none text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
+          className={`mt-1 w-full min-w-0 bg-transparent text-[19px] leading-tight text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
           style={{ fontFamily: SERIF }}
         />
       ) : (
         <span
-          className={`mt-1.5 block truncate text-[19px] leading-none text-white ${right ? "sm:text-right" : ""}`}
+          className={`mt-1 block truncate text-[19px] leading-tight text-white ${right ? "sm:text-right" : ""}`}
           style={{ fontFamily: SERIF }}
         >
           {value ? format(new Date(value), "d MMM yyyy") : "—"}
         </span>
       )}
+
     </label>
   );
 }
