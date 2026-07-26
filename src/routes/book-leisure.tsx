@@ -2947,7 +2947,7 @@ function LeisureStep2Screen({
     setDraftArrival("");
     setDraftDeparture("");
     setDraftRooms(emptyDraftRooms());
-    setDraftCategories({});
+    setDraftCategories(defaultDraftCategories());
     setEditingId(null);
   };
 
