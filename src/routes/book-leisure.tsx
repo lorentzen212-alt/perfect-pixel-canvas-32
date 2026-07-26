@@ -3155,9 +3155,8 @@ function LeisureStep2Screen({
                   nights={stayNights(s.arrival, s.departure)}
                   rooms={stayRoomsTotal(s.rooms)}
                   guests={stayGuestsTotal(s.rooms)}
-                  onAddAnother={startNewStay}
-                  onEdit={() => editStay(s.id)}
-                  onRemove={() => removeStay(s.id)}
+                  onAddAnother={commitAndStartNext}
+                  onRemove={() => requestRemoveStay(s.id)}
                 />
               );
             })}
@@ -3184,15 +3183,8 @@ function LeisureStep2Screen({
                   }
                 }}
                 onDeparture={setDraftDeparture}
-                onAddAnother={startNewStay}
-                onEdit={() => {
-                  if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                onRemove={() => {
-                  if (editingId) removeStay(editingId);
-                  else if (stays.length > 0) cancelEditor();
-                  else resetDraft();
-                }}
+                onAddAnother={commitAndStartNext}
+                onRemove={handleEditorRemove}
               />
             </div>
           )}
