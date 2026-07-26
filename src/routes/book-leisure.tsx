@@ -2500,6 +2500,8 @@ function LeisureStepShell({
   subtext,
   rightSidebar,
   enhancedHero = false,
+  pageBg,
+  heroOverlay,
 }: {
   activeStep: StepKey;
   onStepGo: (s: StepKey) => void;
@@ -2510,6 +2512,8 @@ function LeisureStepShell({
   subtext: React.ReactNode;
   rightSidebar?: React.ReactNode;
   enhancedHero?: boolean;
+  pageBg?: string;
+  heroOverlay?: React.ReactNode;
 
 }) {
   const gridCols = rightSidebar
@@ -2520,7 +2524,7 @@ function LeisureStepShell({
     <main
       className="min-h-screen w-full"
       style={{
-        backgroundColor: S1_NAVY,
+        backgroundColor: pageBg ?? S1_NAVY,
         fontFamily: "Inter, system-ui, sans-serif",
         color: "#F5F1E6",
       }}
@@ -2533,7 +2537,8 @@ function LeisureStepShell({
         />
       </div>
 
-      <div className={`mx-auto grid max-w-[1680px] grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-5 lg:px-5 lg:py-12`}>
+      <div className={`mx-auto grid max-w-[1680px] grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-7 lg:px-8 lg:py-14`}>
+
         <aside
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px] order-3 lg:order-none"
 
