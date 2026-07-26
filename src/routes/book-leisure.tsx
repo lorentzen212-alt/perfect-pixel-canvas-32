@@ -3444,25 +3444,42 @@ function S2StayCard({
     const selected = toDate(value);
     const interactive = editable && !!onChange;
 
-    const icon = (
-      <span aria-hidden className="shrink-0 leading-none" style={{ color: "rgba(217,191,130,0.9)" }}>
-        <CalendarDays size={20} strokeWidth={1.6} />
+    const dateValue = (
+      <span
+        className={`whitespace-nowrap font-medium leading-none ${selected ? "text-[24.5px]" : "text-[17.5px]"}`}
+        style={{ color: selected ? "#F7F3EA" : "rgba(226,216,198,0.45)" }}
+      >
+        {selected ? format(selected, "d MMM yyyy") : placeholder}
       </span>
     );
+
+    const icon = (
+      <span aria-hidden className="shrink-0 leading-none" style={{ color: "rgba(217,191,130,0.9)" }}>
+        <CalendarDays size={18} strokeWidth={1.5} />
+      </span>
+    );
+
     const field = (
-      <div className={`flex min-w-0 flex-col gap-[5px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
+      <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
-          style={{ color: "rgba(226,232,240,0.42)" }}
+          style={{ color: "rgba(226,232,240,0.36)" }}
         >
           {label}
         </span>
-        <span
-          className={`whitespace-nowrap font-medium leading-none ${selected ? "text-[20px]" : "text-[14.5px]"}`}
-          style={{ color: selected ? "#F7F3EA" : "rgba(226,216,198,0.45)" }}
-        >
-          {selected ? format(selected, "d MMM yyyy") : placeholder}
-        </span>
+        <div className="flex items-center gap-[3px]">
+          {align === "right" ? (
+            <>
+              {dateValue}
+              {icon}
+            </>
+          ) : (
+            <>
+              {icon}
+              {dateValue}
+            </>
+          )}
+        </div>
         {selected ? (
           <span
             className="whitespace-nowrap text-[12px] font-light leading-none"
@@ -3481,20 +3498,10 @@ function S2StayCard({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-label={`${label} date`}
-        className="s2-date-field flex w-full min-w-0 items-center gap-[10px] rounded-[12px] bg-transparent px-4 py-3 text-left transition-colors duration-200 disabled:cursor-default"
+        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-3 text-left transition-colors duration-200 disabled:cursor-default"
         style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
       >
-        {align === "left" ? (
-          <>
-            {icon}
-            {field}
-          </>
-        ) : (
-          <>
-            {field}
-            {icon}
-          </>
-        )}
+        {field}
       </button>
     );
 
@@ -3540,11 +3547,11 @@ function S2StayCard({
       className={animClass}
       style={{
         borderRadius: 22,
-        backgroundImage: "linear-gradient(165deg, #293E4F 0%, #223648 100%)",
+        backgroundImage: "linear-gradient(165deg, #293E4F 0%, #263B4C 52%, #223648 100%)",
         border: "1px solid rgba(255,255,255,0.06)",
-        padding: "22px 30px 14px",
+        padding: "26px 34px 16px",
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 6px -2px rgba(6,13,20,0.45), 0 26px 60px -38px rgba(6,13,20,0.8)",
+          "inset 0 1.5px 0 rgba(255,255,255,0.07), 0 4px 10px -3px rgba(6,13,20,0.5), 0 30px 70px -48px rgba(6,13,20,0.9)",
       }}
 
     >
@@ -3569,17 +3576,16 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[18px] grid items-center py-[11px]"
+        className="mt-[18px] grid items-center px-[22px] py-[13px]"
         style={{
-          width: "100%",
+          width: "92%",
           margin: "0 auto",
-          gridTemplateColumns: "1fr auto 1fr",
+          gridTemplateColumns: "minmax(0,1fr) auto minmax(0,1fr)",
           borderRadius: 15,
-          backgroundImage: "linear-gradient(180deg, #1F3244 0%, #1A2C3C 100%)",
+          backgroundImage: "linear-gradient(180deg, #203548 0%, #1B2E3E 52%, #182B3A 100%)",
           border: "1px solid rgba(217,191,130,0.30)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.18), 0 16px 34px -26px rgba(6,13,20,0.75)",
-
+            "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.22), 0 22px 50px -34px rgba(6,13,20,0.85)",
         }}
       >
         <DateCol
@@ -3590,8 +3596,8 @@ function S2StayCard({
           placeholder="Select arrival date"
         />
         <ArrowRight
-          size={30}
-          strokeWidth={1.2}
+          size={34}
+          strokeWidth={1.1}
           className="mx-3 shrink-0 self-center"
           style={{ color: "rgba(217,191,130,0.9)" }}
         />
@@ -3615,7 +3621,7 @@ function S2StayCard({
 
       {/* SECTION 3 — bottom action zone */}
       <div
-        className="mt-[11px] flex flex-wrap items-center justify-between px-3 py-[7px]"
+        className="mt-[1px] flex flex-wrap items-center justify-between px-3 py-[5px]"
         style={{
           borderRadius: 12,
           backgroundColor: "rgba(12,22,32,0.16)",
@@ -3624,13 +3630,13 @@ function S2StayCard({
       >
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
-        <S2StayInfo icon={<BedDouble size={18} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
+        <S2StayInfo icon={<BedDouble size={19} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
         <S2StayDivider />
-        <S2StayInfo icon={<UserRound size={18} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
+        <S2StayInfo icon={<UserRound size={19} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
         <S2StayDivider />
-        <S2StayInfo icon={<Pencil size={17} strokeWidth={1.6} />} text="Edit" onClick={onEdit} />
+        <S2StayInfo icon={<Pencil size={18} strokeWidth={1.6} />} text="Edit" onClick={onEdit} />
         <S2StayDivider />
-        <S2StayInfo icon={<Trash2 size={17} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
+        <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
       </div>
 
     </div>
@@ -4158,7 +4164,7 @@ function S2Counter({
 
 function MoonIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
     </svg>
   );
