@@ -3662,7 +3662,8 @@ function S2StayPanel({
       />
 
       {/* Info row */}
-      <div className="mt-3.5 flex flex-wrap items-center">
+      <div className="mt-3.5 flex flex-wrap items-center justify-between">
+
 
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
