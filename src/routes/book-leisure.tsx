@@ -2467,8 +2467,7 @@ function LeisureStep1Screen({
    LEISURE STEP 2 — Accommodation (dark navy premium)
    ============================================================= */
 
-const S2_HERO =
-  "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1600&q=80";
+const S2_HERO = s2HeroImg;
 
 const STEP2_ROOMS: {
   key: string;
