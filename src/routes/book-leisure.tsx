@@ -3557,7 +3557,7 @@ function S2StayDivider() {
   return (
     <span
       aria-hidden
-      className="mx-4 hidden sm:block"
+      className="mx-[13px] hidden sm:block"
       style={{ width: 1, height: 16, backgroundColor: "rgba(255,255,255,0.09)" }}
     />
   );
