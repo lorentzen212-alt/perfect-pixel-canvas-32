@@ -1200,8 +1200,8 @@ export default function DesignMode() {
           {/* inspector */}
           {primary && (
             <Inspector
-              tab={inspectorTab}
-              setTab={setInspectorTab}
+              count={selected.length}
+
               count={selected.length}
               ov={primaryOv}
               rect={primaryRect}
