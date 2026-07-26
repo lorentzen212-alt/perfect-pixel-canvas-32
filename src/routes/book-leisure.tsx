@@ -3060,8 +3060,9 @@ function LeisureStep2Screen({
               minHeight: 560,
               height: "calc(100vh - 96px)",
               maxHeight: 1120,
-              border: "1px solid rgba(226,214,196,0.18)",
-              boxShadow: "0 48px 96px -48px rgba(0,0,0,0.66)",
+              border: `1px solid ${S2_GOLD}55`,
+              boxShadow:
+                "0 2px 0 rgba(255,255,255,0.06) inset, 0 0 0 1px rgba(10,18,26,0.35), 0 34px 70px -34px rgba(6,13,20,0.72), 0 60px 120px -60px rgba(0,0,0,0.7)",
             }}
           >
             <img
