@@ -3018,67 +3018,64 @@ function LeisureStep2Screen({
       </div>
 
       <div
-        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[28fr_50fr_22fr]"
-        style={{ maxWidth: 1700, padding: 32, gap: 32 }}
+        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[1fr_320px]"
+        style={{ maxWidth: 1500, padding: 32, gap: 28 }}
       >
-        {/* ---------- LEFT: visual panel ---------- */}
-        <aside
-          className="relative overflow-hidden order-2 lg:order-none"
-          style={{
-            borderRadius: 24,
-            minHeight: 600,
-            boxShadow: "0 50px 100px -50px rgba(0,0,0,0.75)",
-          }}
-        >
-          <img src={S2_HERO} alt="" className="absolute inset-0 h-full w-full object-cover" />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(6,14,22,0.10) 0%, rgba(6,14,22,0.35) 55%, rgba(6,14,22,0.92) 100%)",
-            }}
-          />
-          <div className="relative z-10 flex h-full flex-col justify-end" style={{ padding: 40 }}>
-            <div className="text-[14px] font-medium" style={{ color: S1_GOLD_SOFT }}>
-              Step 2 of 6
-            </div>
-            <h1
-              className="mt-4 text-[42px] lg:text-[50px] font-medium leading-[1.04] text-white"
-              style={{ fontFamily: SERIF }}
-            >
-              Accommodation
-            </h1>
-            <p className="mt-4 text-[16.5px] leading-relaxed" style={{ color: "rgba(255,255,255,0.80)" }}>
-              How many rooms will your group need?
-            </p>
-          </div>
-        </aside>
-
-        {/* ---------- CENTER: working area ---------- */}
+        {/* ---------- MAIN: working area ---------- */}
         <section
           className="order-1 lg:order-none min-w-0"
           style={{
             backgroundColor: S2_PANEL,
             borderRadius: 24,
-            padding: 30,
+            padding: 34,
             boxShadow: "0 44px 90px -46px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.03)",
           }}
         >
+          {/* Page heading */}
+          <div className="flex flex-wrap items-start justify-between gap-5">
+            <div className="min-w-0">
+              <h1
+                className="text-[34px] lg:text-[40px] font-medium leading-[1.06] text-white"
+                style={{ fontFamily: SERIF }}
+              >
+                Step 2 – Accommodation
+              </h1>
+              <p className="mt-2.5 text-[15px]" style={{ color: "rgba(245,241,230,0.62)" }}>
+                How many rooms will your group need?
+              </p>
+            </div>
+            {!showEditor && stays.length > 0 && (
+              <button
+                type="button"
+                onClick={startNewStay}
+                className="inline-flex items-center gap-2 px-5 py-3.5 text-[14px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
+                style={{
+                  borderRadius: 14,
+                  color: S1_GOLD_SOFT,
+                  border: "1px solid rgba(232,199,117,0.30)",
+                  backgroundColor: "rgba(232,199,117,0.05)",
+                }}
+              >
+                <Plus size={16} strokeWidth={2.4} />
+                Add another stay
+              </button>
+            )}
+          </div>
+
           {/* Saved stays */}
-          <div className="space-y-5">
+          <div className="mt-7 space-y-4">
             {stays.map((s, idx) => {
               if (s.id === editingId) return null;
               return (
-                <S2StayPanel
+                <S2StayBar
                   key={s.id}
-                  title={`Stay ${idx + 1}`}
+                  index={idx + 1}
                   animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
                   arrival={s.arrival}
                   departure={s.departure}
                   nights={stayNights(s.arrival, s.departure)}
                   rooms={stayRoomsTotal(s.rooms)}
                   guests={stayGuestsTotal(s.rooms)}
-                  onAddAnother={!showEditor ? startNewStay : undefined}
                   onEdit={() => editStay(s.id)}
                   onRemove={() => removeStay(s.id)}
                 />
@@ -3088,7 +3085,7 @@ function LeisureStep2Screen({
 
           {/* Editor */}
           {showEditor && (
-            <div className={stays.length > 0 ? "mt-5" : ""}>
+            <div className={stays.length > 0 ? "mt-5" : "mt-7"}>
               <S2StayPanel
                 title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
                 arrival={draftArrival}
@@ -3104,28 +3101,57 @@ function LeisureStep2Screen({
                 onDeparture={setDraftDeparture}
                 onCancel={stays.length > 0 ? cancelEditor : undefined}
               />
+            </div>
+          )}
 
-              <div
-                className="mt-7 text-[11.5px] font-semibold uppercase tracking-[0.22em]"
-                style={{ color: "rgba(245,241,230,0.65)" }}
+          <div
+            className="mt-7 text-[11.5px] font-semibold uppercase tracking-[0.22em]"
+            style={{ color: "rgba(245,241,230,0.65)" }}
+          >
+            Room Distribution
+          </div>
+
+          <div className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {STEP2_ROOMS_ORDER.map((key) => (
+              <S2RoomCard
+                key={key}
+                roomKey={key}
+                value={draftRooms[key] ?? 0}
+                onChange={(v) => {
+                  if (!showEditor) setShowEditor(true);
+                  setDraftRooms((r) => ({ ...r, [key]: Math.max(0, v) }));
+                }}
+                category={draftCategories[key]}
+                onCategoryChange={(v) => setDraftCategories((c) => ({ ...c, [key]: v }))}
+              />
+            ))}
+          </div>
+
+          {showEditor && (
+            <div className="mt-6 flex justify-end">
+              <button
+                type="button"
+                onClick={commitStay}
+                disabled={!canAddStay}
+                className="inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0"
+                style={{
+                  borderRadius: 16,
+                  background: canAddStay
+                    ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B98C35 100%)`
+                    : "rgba(255,255,255,0.05)",
+                  color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
+                  boxShadow: canAddStay
+                    ? "0 22px 46px -20px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    : "none",
+                  cursor: canAddStay ? "pointer" : "not-allowed",
+                }}
               >
-                Room Distribution
-              </div>
+                {editingId ? "Save changes" : "Add this stay"}
+                <ArrowRight size={18} strokeWidth={2.4} />
+              </button>
+            </div>
+          )}
 
-              <div className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-
-
-                {STEP2_ROOMS_ORDER.map((key) => (
-                  <S2RoomCard
-                    key={key}
-                    roomKey={key}
-                    value={draftRooms[key] ?? 0}
-                    onChange={(v) => setDraftRooms((r) => ({ ...r, [key]: Math.max(0, v) }))}
-                    category={draftCategories[key]}
-                    onCategoryChange={(v) => setDraftCategories((c) => ({ ...c, [key]: v }))}
-                  />
-                ))}
-              </div>
 
               <div className="mt-6 flex justify-end">
                 <button
