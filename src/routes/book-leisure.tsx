@@ -3553,8 +3553,10 @@ function S2StayCard({
     );
   };
 
-
-
+  const [arrivalOpen, setArrivalOpen] = React.useState(false);
+  React.useEffect(() => {
+    if (openArrivalToken > 0 && editable) setArrivalOpen(true);
+  }, [openArrivalToken, editable]);
 
 
   return (
