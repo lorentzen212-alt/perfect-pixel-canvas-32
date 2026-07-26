@@ -3102,15 +3102,15 @@ function LeisureStep2Screen({
                 onCancel={stays.length > 0 ? cancelEditor : undefined}
               />
 
-              <h2
-                className="mt-10 text-[30px] font-medium leading-none text-white"
-                style={{ fontFamily: SERIF }}
+              <div
+                className="mt-9 text-[11.5px] font-semibold uppercase tracking-[0.22em]"
+                style={{ color: "rgba(245,241,230,0.65)" }}
               >
                 Room Distribution
-              </h2>
-              <div className="mt-2 h-px w-full" style={{ background: "rgba(232,199,117,0.16)" }} />
+              </div>
 
-              <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+
                 {STEP2_ROOMS_ORDER.map((key) => (
                   <S2RoomCard
                     key={key}
@@ -3509,40 +3509,28 @@ function S2RoomCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col" style={{ padding: 22 }}>
-        <div className="text-[19px] font-medium leading-tight text-white" style={{ fontFamily: SERIF }}>
-          {meta.title}
-        </div>
-        <div className="mt-1.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+      <div className="flex flex-1 flex-col" style={{ padding: 18 }}>
+        <div className="text-[16px] font-medium leading-tight text-white">{meta.title}</div>
+        <div className="mt-1 text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
           {meta.desc}
         </div>
 
-        <div className="mt-5">
+        <div className="mt-4">
           <S2Counter value={value} onChange={onChange} label={meta.title} />
         </div>
 
         {categoryOptions && (
           <div className="mt-4" style={{ opacity: active ? 1 : 0.4, pointerEvents: active ? "auto" : "none" }}>
-            <div
-              className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-              style={{ color: "rgba(245,241,230,0.45)" }}
-            >
+            <div className="text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
               Category
             </div>
-            <div
-              className="relative mt-2 flex h-[44px] items-center pl-4 pr-9"
-              style={{
-                borderRadius: 12,
-                backgroundColor: S2_FIELD,
-                border: `1px solid ${active && category ? "rgba(232,199,117,0.32)" : "rgba(255,255,255,0.08)"}`,
-              }}
-            >
+            <div className="relative mt-1 flex items-center pr-7">
               <select
                 value={category ?? ""}
                 disabled={!active}
                 aria-label={`${meta.title} category`}
                 onChange={(e) => onCategoryChange?.(e.target.value)}
-                className="w-full cursor-pointer appearance-none bg-transparent text-[13.5px] text-white outline-none disabled:cursor-not-allowed"
+                className="w-full cursor-pointer appearance-none bg-transparent text-[15px] font-medium text-white outline-none disabled:cursor-not-allowed"
               >
                 <option value="" style={{ backgroundColor: S2_FIELD }}>
                   Select category
@@ -3554,15 +3542,16 @@ function S2RoomCard({
                 ))}
               </select>
               <ChevronDown
-                size={15}
+                size={17}
                 strokeWidth={2}
-                className="pointer-events-none absolute right-3"
+                className="pointer-events-none absolute right-0"
                 style={{ color: S1_GOLD_SOFT }}
               />
             </div>
           </div>
         )}
       </div>
+
     </div>
   );
 }
@@ -3742,14 +3731,26 @@ function AccommodationSummary({
                   const cat = s.roomCategories?.[k];
                   return (
                     <li key={k} className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <div className="text-[13.5px] text-white">{ROOM_LABELS[k]}</div>
-                        {cat && (
-                          <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
-                            {cat}
-                          </div>
-                        )}
+                      <div className="flex min-w-0 items-start gap-2.5">
+                        <span className="mt-0.5 shrink-0" style={{ color: S1_GOLD_SOFT }}>
+                          {k === "single" ? (
+                            <UserRound size={16} strokeWidth={1.8} />
+                          ) : k === "double" || k === "twin" ? (
+                            <BedDouble size={16} strokeWidth={1.8} />
+                          ) : (
+                            <Users size={16} strokeWidth={1.8} />
+                          )}
+                        </span>
+                        <div className="min-w-0">
+                          <div className="text-[13.5px] text-white">{ROOM_LABELS[k]}</div>
+                          {cat && (
+                            <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+                              {cat}
+                            </div>
+                          )}
+                        </div>
                       </div>
+
                       <span
                         className="grid h-[30px] min-w-[42px] shrink-0 place-items-center text-[13.5px] tabular-nums text-white"
                         style={{
