@@ -3453,6 +3453,12 @@ function S2StayCard({
       </span>
     );
 
+    const icon = (
+      <span aria-hidden className="shrink-0 leading-none" style={{ color: "rgba(217,191,130,0.9)" }}>
+        <CalendarDays size={18} strokeWidth={1.5} />
+      </span>
+    );
+
     const field = (
       <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
@@ -3461,11 +3467,18 @@ function S2StayCard({
         >
           {label}
         </span>
-        <div className={`flex items-center gap-[5px] ${align === "right" ? "justify-end" : ""}`}>
-          <span aria-hidden className="shrink-0 leading-none" style={{ color: "rgba(217,191,130,0.9)" }}>
-            <CalendarDays size={20} strokeWidth={1.5} />
-          </span>
-          {dateValue}
+        <div className="flex items-center gap-[3px]">
+          {align === "right" ? (
+            <>
+              {dateValue}
+              {icon}
+            </>
+          ) : (
+            <>
+              {icon}
+              {dateValue}
+            </>
+          )}
         </div>
         {selected ? (
           <span
@@ -3485,7 +3498,7 @@ function S2StayCard({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-label={`${label} date`}
-        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-3 py-3 text-left transition-colors duration-200 disabled:cursor-default"
+        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-3 text-left transition-colors duration-200 disabled:cursor-default"
         style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
       >
         {field}
