@@ -3459,7 +3459,7 @@ function S2StayCard({
           {label}
         </span>
         <span
-          className="w-[150px] text-[20px] font-light leading-none"
+          className="whitespace-nowrap text-[19px] font-light leading-none"
           style={{ color: value ? "#F6F4EF" : "rgba(246,244,239,0.45)" }}
         >
           {fmtDate(value)}
@@ -3470,7 +3470,7 @@ function S2StayCard({
       <div
         onClick={() => openPicker(inputRef)}
         className={`s2-date-field relative flex min-w-0 cursor-pointer items-center gap-3 rounded-[10px] px-3 py-1.5 transition-colors duration-200 ${
-          align === "right" ? "justify-self-end mr-[30px]" : "justify-self-start ml-[30px]"
+          align === "right" ? "justify-self-end mr-[10px]" : "justify-self-start ml-[10px]"
         }`}
         style={{ border: "1px solid transparent" }}
       >
@@ -3557,7 +3557,7 @@ function S2StayCard({
         <ArrowRight
           size={30}
           strokeWidth={1.4}
-          className="mx-6 shrink-0 self-center"
+          className="mx-3 shrink-0 self-center"
           style={{ color: "rgba(217,191,130,0.85)" }}
         />
         <DateCol
