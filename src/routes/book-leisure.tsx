@@ -3751,25 +3751,30 @@ function S2RoomCard({
       </div>
 
 
-      {categoryOptions && (
-        <>
-          <div
-            className="mt-2.5"
-            style={{ height: 1, background: "rgba(214,226,236,0.12)" }}
-          />
-          <div className="relative z-10 mt-2" style={{ opacity: active ? 1 : 0.45 }}>
-            <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
-              Category
-            </div>
-            <S2CategorySelect
-              value={category ?? categoryOptions[0]}
-              options={categoryOptions}
-              disabled={!active}
-              label={`${meta.title} category`}
-              onChange={(v) => onCategoryChange?.(v)}
-            />
+      <div className="mt-2.5" style={{ height: 1, background: "rgba(214,226,236,0.12)" }} />
+      {categoryOptions ? (
+        <div className="relative z-10 mt-2" style={{ opacity: active ? 1 : 0.45 }}>
+          <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
+            Category
           </div>
-        </>
+          <S2CategorySelect
+            value={category ?? categoryOptions[0]}
+            options={categoryOptions}
+            disabled={!active}
+            label={`${meta.title} category`}
+            onChange={(v) => onCategoryChange?.(v)}
+          />
+        </div>
+      ) : (
+        <div className="relative z-10 mt-2" style={{ opacity: active ? 1 : 0.45 }}>
+          <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
+            Room category
+          </div>
+          <div className="mt-[1px] flex items-center gap-2 text-[14px]">
+            <Check size={15} strokeWidth={2.4} style={{ color: S2_GOLD_SOFT }} />
+            <span style={{ color: S2_GOLD_SOFT }}>Included</span>
+          </div>
+        </div>
       )}
     </div>
   );
