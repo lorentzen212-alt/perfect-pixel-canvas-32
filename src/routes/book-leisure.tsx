@@ -3391,10 +3391,10 @@ function S2StayBar({
       className={`flex flex-wrap items-center gap-x-7 gap-y-4 ${animClass}`}
       style={{
         borderRadius: 16,
-        backgroundColor: "rgba(255,255,255,0.05)",
-        border: "1px solid rgba(214,226,236,0.12)",
+        backgroundColor: "rgba(38,55,70,0.94)",
+        border: "1px solid rgba(255,255,255,0.05)",
         padding: "14px 18px",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 16px 34px -24px rgba(6,13,20,0.7)",
       }}
     >
       <div className="flex items-center gap-2.5">
@@ -3489,10 +3489,10 @@ function S2StayPanel({
       className={animClass}
       style={{
         borderRadius: 18,
-        backgroundColor: "rgba(255,255,255,0.05)",
-        border: "1px solid rgba(214,226,236,0.12)",
+        backgroundColor: "rgba(38,55,70,0.94)",
+        border: "1px solid rgba(255,255,255,0.05)",
         padding: 22,
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 18px 38px -26px rgba(6,13,20,0.7)",
       }}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
