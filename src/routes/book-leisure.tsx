@@ -2931,6 +2931,8 @@ function LeisureStep2Screen({
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
   const [addError, setAddError] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const savingRef = useRef(false);
   const addBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const draftNights = stayNights(draftArrival, draftDeparture);
@@ -2953,46 +2955,57 @@ function LeisureStep2Screen({
     setEditingId(null);
   };
 
-  const commitStay = (keepEditorOpen = false) => {
+  const commitStay = () => {
+    if (savingRef.current) return; // prevent duplicate submissions
     if (!canAddStay) {
       setAddError(true);
+      setShowEditor(true);
       if (typeof window !== "undefined") {
         addBtnRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-      setShowEditor(true);
       return;
     }
-    setAddError(false);
-    const id = editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now()));
-    const stay: LeisureStay = {
-      id,
-      arrival: draftArrival,
-      departure: draftDeparture,
-      rooms: { ...draftRooms },
-      roomCategories: Object.fromEntries(
-        Object.entries(draftCategories).filter(([k, v]) => v && (draftRooms[k] ?? 0) > 0),
-      ),
-    };
-    setStays((prev) =>
-      editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
-    );
-    setLastAddedId(id);
-    window.setTimeout(() => {
-      setLastAddedId((cur) => (cur === id ? null : cur));
-    }, 320);
-    resetDraft();
-    setShowEditor(keepEditorOpen);
+    savingRef.current = true;
+    setSaving(true);
+    try {
+      const id =
+        editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now()));
+      const stay: LeisureStay = {
+        id,
+        arrival: draftArrival,
+        departure: draftDeparture,
+        rooms: { ...draftRooms },
+        roomCategories: Object.fromEntries(
+          Object.entries(draftCategories).filter(([k, v]) => v && (draftRooms[k] ?? 0) > 0),
+        ),
+      };
+      setStays((prev) =>
+        editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
+      );
+      setAddError(false);
+      setLastAddedId(id);
+      window.setTimeout(() => {
+        setLastAddedId((cur) => (cur === id ? null : cur));
+      }, 320);
+      // Reset only after the stay has been saved, and keep a fresh form visible.
+      resetDraft();
+      setShowEditor(true);
+    } finally {
+      savingRef.current = false;
+      setSaving(false);
+    }
   };
 
-  /** Top "+ Add another stay": same flow as "Add this stay", then ready for next stay. */
+  /** Top "+ Add another stay": same handler as "Add this stay". */
   const commitAndStartNext = () => {
     // From a saved stay card with no draft in progress: just open a fresh form.
     if (!showEditor && !draftArrival && !draftDeparture && stayRoomsTotal(draftRooms) === 0) {
       startNewStay();
       return;
     }
-    commitStay(true);
+    commitStay();
   };
+
 
 
   const editStay = (id: string) => {
@@ -3071,7 +3084,8 @@ function LeisureStep2Screen({
   const totalRoomsAll = stays.reduce((a, s) => a + stayRoomsTotal(s.rooms), 0);
   const totalGuestsAll = stays.reduce((a, s) => a + stayGuestsTotal(s.rooms), 0);
 
-  const nextEnabled = canContinue && stays.length > 0 && !showEditor;
+  // A fresh empty stay form always stays visible, so it must not block continuing.
+  const nextEnabled = canContinue && stays.length > 0 && !editingId;
 
   /* Live caption for the left hero image */
   const heroSource = stays[0]
@@ -3281,7 +3295,8 @@ function LeisureStep2Screen({
                 ref={addBtnRef}
                 type="button"
                 onClick={() => commitStay()}
-                disabled={!canAddStay}
+                aria-disabled={!canAddStay}
+                disabled={saving}
                 className="s2-btn inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold hover:-translate-y-[2px] active:translate-y-0"
                 style={{
                   borderRadius: 16,
