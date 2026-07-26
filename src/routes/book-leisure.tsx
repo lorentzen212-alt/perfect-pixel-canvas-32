@@ -3474,25 +3474,20 @@ function S2StayCard({
         </span>
       </div>
     );
+    const interactive = editable;
+    const activate = () => {
+      if (interactive) openPicker(inputRef);
+      else onEdit();
+    };
     return (
-      <div
-        className={`relative flex min-w-0 items-center gap-4 ${editable ? "cursor-pointer" : ""} ${
-          align === "right" ? "justify-self-end pr-2" : "justify-self-start pl-2"
-        }`}
-        onClick={editable ? () => openPicker(inputRef) : undefined}
-        role={editable ? "button" : undefined}
+      <button
+        type="button"
+        onClick={activate}
         aria-label={label}
-        tabIndex={editable ? 0 : undefined}
-        onKeyDown={
-          editable
-            ? (e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  openPicker(inputRef);
-                }
-              }
-            : undefined
-        }
+        className={`s2-date-field relative flex min-w-0 cursor-pointer items-center gap-3 rounded-[10px] bg-transparent px-3 py-1.5 text-left transition-colors duration-200 ${
+          align === "right" ? "justify-self-end mr-[30px]" : "justify-self-start ml-[30px]"
+        }`}
+        style={{ border: "1px solid transparent" }}
       >
         {align === "left" ? (
           <>
@@ -3505,7 +3500,7 @@ function S2StayCard({
             {icon}
           </>
         )}
-        {editable && (
+        {interactive && (
           <input
             ref={inputRef}
             type="date"
@@ -3514,12 +3509,13 @@ function S2StayCard({
             onChange={(e) => onChange?.(e.target.value)}
             className="pointer-events-none absolute bottom-0 left-1/2 h-[1px] w-[1px] -translate-x-1/2 opacity-0"
             tabIndex={-1}
-            aria-label={label}
+            aria-hidden
           />
         )}
-      </div>
+      </button>
     );
   };
+
 
   return (
     <div
@@ -3553,7 +3549,7 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[18px] grid items-center py-[12px]"
+        className="mt-[18px] grid items-center py-[9px]"
         style={{
           width: "82%",
           margin: "0 auto",
