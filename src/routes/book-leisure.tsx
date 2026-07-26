@@ -3575,17 +3575,18 @@ function S2StayPanel({
           "inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 24px -18px rgba(4,10,16,0.62), 0 30px 62px -30px rgba(4,10,16,0.78), 0 70px 120px -70px rgba(0,0,0,0.65)",
       }}
     >
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <h3 className="text-[29px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
+      {/* Header */}
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="text-[27px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
           {title}
         </h3>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           {onCancel && (
             <button
               type="button"
               onClick={onCancel}
-              className="px-3 py-2 text-[12.5px] font-medium transition-colors hover:text-white"
-              style={{ color: "rgba(245,241,230,0.55)" }}
+              className="text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
+              style={{ color: "rgba(245,241,230,0.6)", opacity: 0.85 }}
             >
               Cancel
             </button>
@@ -3594,78 +3595,74 @@ function S2StayPanel({
             <button
               type="button"
               onClick={onAddAnother}
-              className="inline-flex items-center gap-2 px-5 py-3 text-[13.5px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
-              style={{
-                borderRadius: 14,
-                color: S2_GOLD_SOFT,
-                border: "1px solid rgba(217,191,130,0.35)",
-                backgroundColor: "rgba(217,191,130,0.05)",
-              }}
+              className="inline-flex items-center gap-1.5 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
+              style={{ color: S2_GOLD_SOFT, opacity: 0.85 }}
             >
-              <Plus size={15} strokeWidth={2.4} />
+              <Plus size={14} strokeWidth={1.8} />
               Add another stay
             </button>
           )}
         </div>
       </div>
 
-      <div className="mt-7 grid grid-cols-1 gap-x-7 gap-y-6 sm:grid-cols-2 xl:grid-cols-[minmax(190px,1fr)_minmax(190px,1fr)_auto] xl:items-end">
-        <S2DateField label="Arrival" value={arrival} editable={editable} onChange={onArrival} />
-        <S2DateField
+      {/* Unified date container */}
+      <div
+        className="mt-6 flex flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:px-8"
+        style={{
+          borderRadius: 15,
+          backgroundColor: "rgba(15,25,35,0.6)",
+          border: "1px solid rgba(255,255,255,0.06)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+        }}
+      >
+        <S2StayDate label="Arrival" value={arrival} editable={editable} onChange={onArrival} />
+        <ArrowRight
+          size={22}
+          strokeWidth={1.2}
+          className="hidden shrink-0 sm:block"
+          style={{ color: S2_GOLD_SOFT, opacity: 0.9 }}
+        />
+        <S2StayDate
           label="Departure"
           value={departure}
           editable={editable}
           min={arrival || undefined}
           onChange={onDeparture}
+          align="right"
         />
-
-        <div className="flex flex-wrap items-center gap-6 pb-1 xl:pl-4">
-          <S2Metric icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "night" : "nights"}`} />
-          <S2Metric
-            icon={<BedDouble size={16} strokeWidth={1.9} />}
-            text={`${rooms} ${rooms === 1 ? "room" : "rooms"}`}
-          />
-          <S2Metric
-            icon={<UserRound size={16} strokeWidth={1.9} />}
-            text={`${guests} ${guests === 1 ? "guest" : "guests"}`}
-          />
-        </div>
       </div>
 
-      {(onEdit || onRemove) && (
-        <div className="mt-6 flex justify-end gap-3">
-          {onEdit && (
-            <button
-              type="button"
-              onClick={onEdit}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
-              style={{
-                borderRadius: 12,
-                color: S2_GOLD_SOFT,
-                border: "1px solid rgba(217,191,130,0.32)",
-              }}
-            >
-              <Pencil size={14} strokeWidth={2.1} />
-              Edit
-            </button>
-          )}
-          {onRemove && (
-            <button
-              type="button"
-              onClick={onRemove}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
-              style={{
-                borderRadius: 12,
-                color: "rgba(245,241,230,0.65)",
-                border: "1px solid rgba(255,255,255,0.10)",
-              }}
-            >
-              <Trash2 size={14} strokeWidth={2.1} />
-              Remove
-            </button>
-          )}
-        </div>
-      )}
+      {/* Divider */}
+      <div
+        className="mt-6"
+        style={{
+          height: 1,
+          background:
+            "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0) 100%)",
+        }}
+      />
+
+      {/* Info row */}
+      <div className="mt-5 flex flex-wrap items-center">
+        <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
+        <S2StayDivider />
+        <S2StayInfo icon={<BedDouble size={15} strokeWidth={1.7} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
+        <S2StayDivider />
+        <S2StayInfo icon={<UserRound size={15} strokeWidth={1.7} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
+        {onEdit && (
+          <>
+            <S2StayDivider />
+            <S2StayInfo icon={<Pencil size={14} strokeWidth={1.7} />} text="Edit" onClick={onEdit} />
+          </>
+        )}
+        {onRemove && (
+          <>
+            <S2StayDivider />
+            <S2StayInfo icon={<Trash2 size={14} strokeWidth={1.7} />} text="Remove" onClick={onRemove} />
+          </>
+        )}
+      </div>
+
     </div>
   );
 }
