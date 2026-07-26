@@ -2876,12 +2876,20 @@ function fmtStayRange(a: string, d: string): string {
 
 /* Step 2 — matte blue-grey design tokens */
 const S2_BG = "#2B3E4E";
-const S2_PANEL = "rgba(255,255,255,0.028)";
+const S2_BG_GRADIENT =
+  "linear-gradient(180deg, #344B5E 0%, #3A5266 52%, #42596D 100%)";
+const S2_PANEL = "rgba(46,66,82,0.92)";
 const S2_SUNK = "rgba(19,31,42,0.55)";
-const S2_CARD = "rgba(255,255,255,0.045)";
-const S2_CARD_ACTIVE = "rgba(255,255,255,0.07)";
+const S2_CARD = "rgba(46,66,82,0.92)";
+const S2_CARD_ACTIVE = "rgba(52,74,92,0.94)";
 const S2_FIELD = "#243746";
 const S2_TEXT = "#F5F1E6";
+/* champagne palette (step 2 only) */
+const S2_GOLD = "#D9BF82";
+const S2_GOLD_SOFT = "#E7D3A4";
+const S2_GOLD_DEEP = "#B99C60";
+const S2_CARD_SHADOW =
+  "0 1px 0 rgba(255,255,255,0.06) inset, 0 -12px 24px -22px rgba(0,0,0,0.55) inset, 0 18px 38px -26px rgba(6,14,22,0.7)";
 
 
 
@@ -3025,6 +3033,8 @@ function LeisureStep2Screen({
       className="min-h-screen w-full"
       style={{
         backgroundColor: S2_BG,
+        backgroundImage: S2_BG_GRADIENT,
+        backgroundAttachment: "fixed",
         fontFamily: "Inter, system-ui, sans-serif",
         color: S2_TEXT,
       }}
@@ -3050,8 +3060,9 @@ function LeisureStep2Screen({
               minHeight: 560,
               height: "calc(100vh - 96px)",
               maxHeight: 1120,
-              border: "1px solid rgba(226,214,196,0.18)",
-              boxShadow: "0 48px 96px -48px rgba(0,0,0,0.66)",
+              border: `1px solid ${S2_GOLD}55`,
+              boxShadow:
+                "0 2px 0 rgba(255,255,255,0.06) inset, 0 0 0 1px rgba(10,18,26,0.35), 0 34px 70px -34px rgba(6,13,20,0.72), 0 60px 120px -60px rgba(0,0,0,0.7)",
             }}
           >
             <img
@@ -3059,6 +3070,14 @@ function LeisureStep2Screen({
               alt="Premium hotel room with city and waterfront view"
               className="absolute left-0 top-0 h-full w-full"
               style={{ objectFit: "cover", objectPosition: "center center" }}
+            />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                borderRadius: 24,
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 0 60px -18px rgba(0,0,0,0.55)",
+              }}
             />
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0"
@@ -3086,10 +3105,12 @@ function LeisureStep2Screen({
           className="order-1 lg:order-none min-w-0"
           style={{
             backgroundColor: S2_PANEL,
+            backdropFilter: "blur(8px)",
             borderRadius: 24,
             padding: 30,
-            border: "1px solid rgba(255,255,255,0.055)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.05)",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 54px -34px rgba(6,13,20,0.7), 0 60px 110px -70px rgba(0,0,0,0.6)",
           }}
         >
 
@@ -3113,9 +3134,9 @@ function LeisureStep2Screen({
                 className="inline-flex items-center gap-2 px-5 py-3.5 text-[14px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
                 style={{
                   borderRadius: 14,
-                  color: S1_GOLD_SOFT,
-                  border: "1px solid rgba(232,199,117,0.30)",
-                  backgroundColor: "rgba(232,199,117,0.05)",
+                  color: S2_GOLD_SOFT,
+                  border: "1px solid rgba(217,191,130,0.30)",
+                  backgroundColor: "rgba(217,191,130,0.05)",
                 }}
               >
                 <Plus size={16} strokeWidth={2.4} />
@@ -3167,8 +3188,8 @@ function LeisureStep2Screen({
           )}
 
           <div
-            className="mt-7 text-[11.5px] font-semibold uppercase tracking-[0.22em]"
-            style={{ color: "rgba(245,241,230,0.65)" }}
+            className="mt-7 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+            style={{ color: "rgba(247,244,236,0.72)" }}
           >
             Room Distribution
           </div>
@@ -3199,11 +3220,11 @@ function LeisureStep2Screen({
                 style={{
                   borderRadius: 16,
                   background: canAddStay
-                    ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B98C35 100%)`
+                    ? `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`
                     : "rgba(255,255,255,0.05)",
                   color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
                   boxShadow: canAddStay
-                    ? "0 22px 46px -20px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    ? "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)"
                     : "none",
                   cursor: canAddStay ? "pointer" : "not-allowed",
                 }}
@@ -3253,7 +3274,7 @@ function LeisureStep2Screen({
               className="inline-flex items-center gap-2 px-6 py-3.5 text-[14.5px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
               style={{
                 borderRadius: 14,
-                color: S1_GOLD_SOFT,
+                color: S2_GOLD_SOFT,
                 border: "1px solid rgba(255,255,255,0.10)",
               }}
             >
@@ -3269,9 +3290,9 @@ function LeisureStep2Screen({
                 className="inline-flex items-center gap-2.5 px-9 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
                 style={{
                   borderRadius: 16,
-                  background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+                  background: `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`,
                   color: "#10202F",
-                  boxShadow: "0 20px 44px -20px rgba(212,166,74,0.5), inset 0 1px 0 rgba(255,255,255,0.4)",
+                  boxShadow: "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)",
                   opacity: nextEnabled ? 1 : 0.4,
                   cursor: nextEnabled ? "pointer" : "not-allowed",
                 }}
@@ -3289,8 +3310,8 @@ function LeisureStep2Screen({
 
           <div className="mt-6 flex flex-col items-center gap-1.5 text-center">
             <div className="flex items-center gap-2 text-[13.5px]">
-              <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
-              <span style={{ color: S1_GOLD_SOFT }}>Your request is free and non-binding</span>
+              <ShieldCheck size={16} strokeWidth={2} style={{ color: S2_GOLD_SOFT }} />
+              <span style={{ color: S2_GOLD_SOFT }}>Your request is free and non-binding</span>
             </div>
             <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.45)" }}>
               We find the best options so you can choose what suits your group.
@@ -3304,15 +3325,16 @@ function LeisureStep2Screen({
             style={{
               borderRadius: 20,
               backgroundColor: S2_CARD,
+              backdropFilter: "blur(8px)",
               border: "1px solid rgba(255,255,255,0.05)",
               padding: 22,
-              boxShadow: "0 26px 54px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+              boxShadow: S2_CARD_SHADOW,
             }}
           >
-            <Lightbulb size={20} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
+            <Lightbulb size={20} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
             <div
-              className="mt-3 text-[12px] font-semibold uppercase tracking-[0.22em]"
-              style={{ color: S1_GOLD_SOFT }}
+              className="mt-3 text-[12px] font-semibold uppercase tracking-[0.28em]"
+              style={{ color: S2_GOLD_SOFT }}
             >
               Tip
             </div>
@@ -3369,10 +3391,10 @@ function S2StayBar({
       className={`flex flex-wrap items-center gap-x-7 gap-y-4 ${animClass}`}
       style={{
         borderRadius: 16,
-        backgroundColor: "rgba(255,255,255,0.05)",
-        border: "1px solid rgba(214,226,236,0.12)",
+        backgroundColor: "rgba(38,55,70,0.94)",
+        border: "1px solid rgba(255,255,255,0.05)",
         padding: "14px 18px",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 16px 34px -24px rgba(6,13,20,0.7)",
       }}
     >
       <div className="flex items-center gap-2.5">
@@ -3383,9 +3405,9 @@ function S2StayBar({
         </span>
         <span
           className="grid h-[18px] w-[18px] place-items-center rounded-full"
-          style={{ border: `1.5px solid ${S1_GOLD_SOFT}` }}
+          style={{ border: `1.5px solid ${S2_GOLD_SOFT}` }}
         >
-          <Check size={11} strokeWidth={3} style={{ color: S1_GOLD_SOFT }} />
+          <Check size={11} strokeWidth={3} style={{ color: S2_GOLD_SOFT }} />
         </span>
       </div>
 
@@ -3410,7 +3432,7 @@ function S2StayBar({
           type="button"
           onClick={onEdit}
           className="inline-flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
-          style={{ borderRadius: 12, color: S1_GOLD_SOFT, border: "1px solid rgba(232,199,117,0.32)" }}
+          style={{ borderRadius: 12, color: S2_GOLD_SOFT, border: "1px solid rgba(217,191,130,0.32)" }}
         >
           <Pencil size={14} strokeWidth={2.1} />
           Edit
@@ -3467,10 +3489,10 @@ function S2StayPanel({
       className={animClass}
       style={{
         borderRadius: 18,
-        backgroundColor: "rgba(255,255,255,0.05)",
-        border: "1px solid rgba(214,226,236,0.12)",
+        backgroundColor: "rgba(38,55,70,0.94)",
+        border: "1px solid rgba(255,255,255,0.05)",
         padding: 22,
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 18px 38px -26px rgba(6,13,20,0.7)",
       }}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -3495,9 +3517,9 @@ function S2StayPanel({
               className="inline-flex items-center gap-2 px-5 py-3 text-[13.5px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
               style={{
                 borderRadius: 14,
-                color: S1_GOLD_SOFT,
-                border: "1px solid rgba(232,199,117,0.35)",
-                backgroundColor: "rgba(232,199,117,0.05)",
+                color: S2_GOLD_SOFT,
+                border: "1px solid rgba(217,191,130,0.35)",
+                backgroundColor: "rgba(217,191,130,0.05)",
               }}
             >
               <Plus size={15} strokeWidth={2.4} />
@@ -3539,8 +3561,8 @@ function S2StayPanel({
               className="inline-flex items-center gap-2 px-5 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
               style={{
                 borderRadius: 12,
-                color: S1_GOLD_SOFT,
-                border: "1px solid rgba(232,199,117,0.32)",
+                color: S2_GOLD_SOFT,
+                border: "1px solid rgba(217,191,130,0.32)",
               }}
             >
               <Pencil size={14} strokeWidth={2.1} />
@@ -3571,7 +3593,7 @@ function S2StayPanel({
 function S2Metric({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
     <div className="flex items-center gap-2.5 text-[14px]" style={{ color: "rgba(245,241,230,0.85)" }}>
-      <span style={{ color: S1_GOLD_SOFT }}>{icon}</span>
+      <span style={{ color: S2_GOLD_SOFT }}>{icon}</span>
       {text}
     </div>
   );
@@ -3603,10 +3625,10 @@ function S2DateField({
         style={{
           borderRadius: 14,
           backgroundColor: S2_FIELD,
-          border: `1px solid ${value ? "rgba(232,199,117,0.32)" : "rgba(255,255,255,0.08)"}`,
+          border: `1px solid ${value ? "rgba(217,191,130,0.32)" : "rgba(255,255,255,0.08)"}`,
         }}
       >
-        <CalendarDays size={18} strokeWidth={1.9} style={{ color: S1_GOLD_SOFT }} />
+        <CalendarDays size={18} strokeWidth={1.9} style={{ color: S2_GOLD_SOFT }} />
         {editable ? (
           <input
             type="date"
@@ -3648,17 +3670,20 @@ function S2RoomCard({
         borderRadius: 15,
         padding: 13,
         backgroundColor: active ? S2_CARD_ACTIVE : S2_CARD,
-        border: `1px solid ${active ? "rgba(226,190,116,0.42)" : "rgba(214,226,236,0.12)"}`,
+        backgroundImage:
+          "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.05) 100%)",
+        backdropFilter: "blur(8px)",
+        border: `1px solid ${active ? "rgba(217,191,130,0.38)" : "rgba(255,255,255,0.05)"}`,
         boxShadow: active
-          ? "0 10px 26px -20px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.05)"
-          : "0 10px 24px -22px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
+          ? `${S2_CARD_SHADOW}, 0 12px 30px -22px rgba(217,191,130,0.30)`
+          : S2_CARD_SHADOW,
       }}
     >
       {/* header */}
       <div className="flex items-center gap-2.5">
         <span
           className="shrink-0"
-          style={{ color: active ? S1_GOLD_SOFT : "rgba(245,241,230,0.82)" }}
+          style={{ color: active ? S2_GOLD_SOFT : "rgba(245,241,230,0.82)" }}
         >
           {roomIcon(roomKey)}
         </span>
@@ -3771,7 +3796,7 @@ function S2Counter({
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
       className="grid h-[34px] w-[34px] shrink-0 place-items-center transition-all duration-200 hover:bg-white/[0.07] active:scale-95 disabled:opacity-30"
-      style={{ borderRadius: 9, color: "rgba(226,190,116,0.9)" }}
+      style={{ borderRadius: 9, color: "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? <Minus size={16} strokeWidth={2.2} /> : <Plus size={16} strokeWidth={2.2} />}
     </button>
@@ -3869,13 +3894,16 @@ function AccommodationSummary({
       style={{
         borderRadius: 24,
         backgroundColor: S2_PANEL,
+        backdropFilter: "blur(8px)",
+        border: "1px solid rgba(255,255,255,0.05)",
         padding: 28,
-        boxShadow: "0 40px 80px -46px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -18px 34px -30px rgba(0,0,0,0.6), 0 30px 66px -38px rgba(6,13,20,0.72)",
       }}
     >
       <div
-        className="text-[11.5px] font-semibold uppercase tracking-[0.22em]"
-        style={{ color: S1_GOLD_SOFT }}
+        className="text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+        style={{ color: S2_GOLD_SOFT }}
       >
         Accommodation Summary
       </div>
@@ -3886,12 +3914,12 @@ function AccommodationSummary({
         <S2SumRow icon={<CalendarDays size={17} strokeWidth={1.9} />} label="Total stays" value={totalStays} />
       </div>
 
-      <div className="my-7 h-px w-full" style={{ background: "rgba(232,199,117,0.18)" }} />
+      <div className="my-7 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
 
       {stays.length === 0 && (
         <div className="text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.5)" }}>
           No stays added yet. Choose your dates and room types, then press{" "}
-          <span style={{ color: S1_GOLD_SOFT }}>Add this stay</span>.
+          <span style={{ color: S2_GOLD_SOFT }}>Add this stay</span>.
         </div>
       )}
 
@@ -3905,7 +3933,7 @@ function AccommodationSummary({
             >
               <div
                 className="text-[11.5px] font-semibold uppercase tracking-[0.2em]"
-                style={{ color: S1_GOLD_SOFT }}
+                style={{ color: S2_GOLD_SOFT }}
               >
                 Stay {idx + 1}
               </div>
@@ -3921,7 +3949,7 @@ function AccommodationSummary({
                   return (
                     <li key={k} className="flex items-start justify-between gap-3">
                       <div className="flex min-w-0 items-start gap-2.5">
-                        <span className="mt-0.5 shrink-0" style={{ color: S1_GOLD_SOFT }}>
+                        <span className="mt-0.5 shrink-0" style={{ color: S2_GOLD_SOFT }}>
                           {k === "single" ? (
                             <UserRound size={16} strokeWidth={1.8} />
                           ) : k === "double" || k === "twin" ? (
@@ -3961,14 +3989,14 @@ function AccommodationSummary({
 
       {stays.length > 0 && (
         <>
-          <div className="my-7 h-px w-full" style={{ background: "rgba(232,199,117,0.18)" }} />
+          <div className="my-7 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
           <div
             className="text-[11.5px] font-semibold uppercase tracking-[0.22em]"
             style={{ color: "rgba(245,241,230,0.55)" }}
           >
             Estimated total
           </div>
-          <div className="mt-3 text-[30px] font-medium leading-none" style={{ color: S1_GOLD, fontFamily: SERIF }}>
+          <div className="mt-3 text-[30px] font-medium leading-none" style={{ color: S2_GOLD, fontFamily: SERIF }}>
             NOK {estimate.toLocaleString("en-US")}
           </div>
           <div className="mt-2 text-[12.5px]" style={{ color: "rgba(245,241,230,0.45)" }}>
@@ -3984,9 +4012,9 @@ function AccommodationSummary({
         className="mt-7 flex w-full items-center justify-center gap-3 py-4 text-[15.5px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
         style={{
           borderRadius: 16,
-          background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B98C35 100%)`,
+          background: `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`,
           color: "#10202F",
-          boxShadow: "0 22px 46px -22px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.45)",
+          boxShadow: "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)",
           opacity: nextEnabled ? 1 : 0.4,
           cursor: nextEnabled ? "pointer" : "not-allowed",
         }}
@@ -4002,7 +4030,7 @@ function S2SumRow({ icon, label, value }: { icon: React.ReactNode; label: string
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3 text-[14px]" style={{ color: "rgba(245,241,230,0.8)" }}>
-        <span style={{ color: S1_GOLD_SOFT }}>{icon}</span>
+        <span style={{ color: S2_GOLD_SOFT }}>{icon}</span>
         {label}
       </div>
       <span className="text-[17px] font-medium tabular-nums text-white">{value}</span>
