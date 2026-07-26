@@ -3023,19 +3023,60 @@ function LeisureStep2Screen({
       </div>
 
       <div
-        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[1fr_320px]"
-        style={{ maxWidth: 1500, padding: 32, gap: 28 }}
+        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(240px,0.9fr)_minmax(0,3.2fr)_320px]"
+        style={{ maxWidth: 1560, padding: 32, gap: 26 }}
       >
+        {/* ---------- LEFT: vertical hotel image ---------- */}
+        <aside className="order-2 lg:order-none min-w-0">
+          <div
+            className="relative overflow-hidden lg:sticky lg:top-8"
+            style={{
+              borderRadius: 22,
+              minHeight: 480,
+              height: "calc(100vh - 140px)",
+              maxHeight: 900,
+              border: "1px solid rgba(226,214,196,0.16)",
+              boxShadow: "0 40px 80px -46px rgba(0,0,0,0.6)",
+            }}
+          >
+            <img
+              src={s2StayHeroImg.url}
+              alt="Hotel room with city and waterfront view"
+              className="absolute inset-0 h-full w-full"
+              style={{ objectFit: "cover", objectPosition: "center" }}
+            />
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0"
+              style={{
+                height: "42%",
+                background: "linear-gradient(180deg, rgba(15,25,35,0) 0%, rgba(13,22,31,0.78) 70%, rgba(11,19,27,0.92) 100%)",
+              }}
+            />
+            <div className="absolute bottom-6 left-6 right-6">
+              <div
+                className="text-[12px] font-semibold uppercase tracking-[0.24em] text-white"
+              >
+                {heroStayLabel}
+              </div>
+              <div className="mt-1.5 text-[13.5px]" style={{ color: "rgba(245,241,230,0.78)" }}>
+                {heroStayMeta}
+              </div>
+            </div>
+          </div>
+        </aside>
+
         {/* ---------- MAIN: working area ---------- */}
         <section
           className="order-1 lg:order-none min-w-0"
           style={{
             backgroundColor: S2_PANEL,
             borderRadius: 24,
-            padding: 34,
-            boxShadow: "0 44px 90px -46px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.03)",
+            padding: 30,
+            border: "1px solid rgba(255,255,255,0.055)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
+
           {/* Page heading */}
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div className="min-w-0">
