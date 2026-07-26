@@ -3082,8 +3082,9 @@ function LeisureStep2Screen({
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0"
               style={{
-                height: "38%",
-                background: "linear-gradient(180deg, rgba(15,25,35,0) 0%, rgba(13,22,31,0.7) 54%, rgba(11,19,27,0.96) 88%, rgba(11,19,27,1) 100%)",
+                height: "15%",
+                background:
+                  "linear-gradient(180deg, rgba(11,19,27,0) 0%, rgba(11,19,27,0.42) 45%, rgba(11,19,27,0.78) 100%)",
               }}
             />
             <div className="absolute bottom-9 left-9 right-9">
@@ -3193,6 +3194,14 @@ function LeisureStep2Screen({
           >
             Room Distribution
           </div>
+          <div
+            className="mt-2.5"
+            style={{
+              width: 60,
+              height: 1,
+              background: `linear-gradient(90deg, ${S2_GOLD} 0%, rgba(217,191,130,0.15) 100%)`,
+            }}
+          />
 
           <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
             {STEP2_ROOMS_ORDER.map((key) => (
@@ -3238,7 +3247,7 @@ function LeisureStep2Screen({
 
 
           {/* Notes */}
-          <div className="mt-8">
+          <div className="mt-4">
             <div className="text-[14px] font-medium" style={{ color: S2_TEXT }}>
               Anything else we should know?{" "}
               <span style={{ color: "rgba(245,241,230,0.45)" }}>(optional)</span>
@@ -3267,7 +3276,7 @@ function LeisureStep2Screen({
 
 
           {/* Navigation */}
-          <div className="mt-6 flex items-center justify-between gap-6">
+          <div className="mt-3 flex items-center justify-between gap-6">
             <button
               type="button"
               onClick={onBack}
@@ -3308,7 +3317,7 @@ function LeisureStep2Screen({
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col items-center gap-1.5 text-center">
+          <div className="mt-3 flex flex-col items-center gap-1.5 text-center">
             <div className="flex items-center gap-2 text-[13.5px]">
               <ShieldCheck size={16} strokeWidth={2} style={{ color: S2_GOLD_SOFT }} />
               <span style={{ color: S2_GOLD_SOFT }}>Your request is free and non-binding</span>
@@ -3488,11 +3497,14 @@ function S2StayPanel({
     <div
       className={animClass}
       style={{
-        borderRadius: 18,
-        backgroundColor: "rgba(38,55,70,0.94)",
-        border: "1px solid rgba(255,255,255,0.05)",
-        padding: 22,
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 18px 38px -26px rgba(6,13,20,0.7)",
+        borderRadius: 22,
+        backgroundColor: "rgba(33,48,62,0.96)",
+        backgroundImage:
+          "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.010) 38%, rgba(0,0,0,0.06) 100%)",
+        border: "1px solid rgba(255,255,255,0.06)",
+        padding: 26,
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 22px -18px rgba(4,10,16,0.6), 0 26px 54px -30px rgba(4,10,16,0.75), 0 60px 110px -70px rgba(0,0,0,0.6)",
       }}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -3665,18 +3677,21 @@ function S2RoomCard({
 
   return (
     <div
-      className="group flex flex-col transition-all duration-300 ease-out hover:-translate-y-[2px]"
+      className="group s2-room-card flex flex-col"
       style={{
-        borderRadius: 15,
+        borderRadius: 18,
         padding: 13,
-        backgroundColor: active ? S2_CARD_ACTIVE : S2_CARD,
-        backgroundImage:
-          "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.05) 100%)",
+        backgroundColor: active ? "rgba(56,79,98,0.95)" : S2_CARD,
+        backgroundImage: active
+          ? "linear-gradient(180deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.02) 44%, rgba(0,0,0,0.05) 100%)"
+          : "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.05) 100%)",
         backdropFilter: "blur(8px)",
-        border: `1px solid ${active ? "rgba(217,191,130,0.38)" : "rgba(255,255,255,0.05)"}`,
+        border: `1px solid ${active ? "rgba(217,191,130,0.46)" : "rgba(255,255,255,0.06)"}`,
         boxShadow: active
-          ? `${S2_CARD_SHADOW}, 0 12px 30px -22px rgba(217,191,130,0.30)`
+          ? `${S2_CARD_SHADOW}, 0 0 0 1px rgba(217,191,130,0.10), 0 14px 40px -24px rgba(217,191,130,0.40)`
           : S2_CARD_SHADOW,
+        transition:
+          "transform 170ms ease-out, box-shadow 170ms ease-out, border-color 170ms ease-out, background-color 170ms ease-out",
       }}
     >
       {/* header */}
@@ -3949,6 +3964,10 @@ function AccommodationSummary({
                   return (
                     <li key={k} className="flex items-start justify-between gap-3">
                       <div className="flex min-w-0 items-start gap-2.5">
+                        <span
+                          className="mt-1 h-[16px] w-px shrink-0 rounded-full"
+                          style={{ background: `linear-gradient(180deg, ${S2_GOLD_SOFT}, rgba(217,191,130,0.15))` }}
+                        />
                         <span className="mt-0.5 shrink-0" style={{ color: S2_GOLD_SOFT }}>
                           {k === "single" ? (
                             <UserRound size={16} strokeWidth={1.8} />
@@ -3959,9 +3978,9 @@ function AccommodationSummary({
                           )}
                         </span>
                         <div className="min-w-0">
-                          <div className="text-[13.5px] text-white">{ROOM_LABELS[k]}</div>
+                          <div className="text-[13.5px] font-medium text-white">{ROOM_LABELS[k]}</div>
                           {cat && (
-                            <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+                            <div className="mt-0.5 text-[12px]" style={{ color: "rgba(231,211,164,0.72)" }}>
                               {cat}
                             </div>
                           )}
@@ -3969,11 +3988,13 @@ function AccommodationSummary({
                       </div>
 
                       <span
-                        className="grid h-[30px] min-w-[42px] shrink-0 place-items-center text-[13.5px] tabular-nums text-white"
+                        className="grid h-[30px] min-w-[42px] shrink-0 place-items-center text-[13.5px] tabular-nums"
                         style={{
                           borderRadius: 9,
-                          backgroundColor: S2_FIELD,
-                          border: "1px solid rgba(255,255,255,0.07)",
+                          color: S2_GOLD_SOFT,
+                          backgroundColor: "rgba(217,191,130,0.10)",
+                          border: "1px solid rgba(217,191,130,0.28)",
+                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
                         }}
                       >
                         {v}
