@@ -2499,6 +2499,13 @@ const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
   accessible: ["Accessible", "Accessible Superior"],
 };
 
+/* Default selected category per room type (first option, e.g. "Standard") */
+function defaultDraftCategories(): Record<string, string> {
+  return Object.fromEntries(
+    Object.entries(ROOM_CATEGORY_OPTIONS).map(([k, opts]) => [k, opts[0]]),
+  );
+}
+
 function LeisureStepShell({
   activeStep,
   onStepGo,
