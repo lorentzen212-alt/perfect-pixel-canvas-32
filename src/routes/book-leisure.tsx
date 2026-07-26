@@ -3102,15 +3102,15 @@ function LeisureStep2Screen({
                 onCancel={stays.length > 0 ? cancelEditor : undefined}
               />
 
-              <h2
-                className="mt-10 text-[30px] font-medium leading-none text-white"
-                style={{ fontFamily: SERIF }}
+              <div
+                className="mt-9 text-[11.5px] font-semibold uppercase tracking-[0.22em]"
+                style={{ color: "rgba(245,241,230,0.65)" }}
               >
                 Room Distribution
-              </h2>
-              <div className="mt-2 h-px w-full" style={{ background: "rgba(232,199,117,0.16)" }} />
+              </div>
 
-              <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+
                 {STEP2_ROOMS_ORDER.map((key) => (
                   <S2RoomCard
                     key={key}
