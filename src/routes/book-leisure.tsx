@@ -3047,6 +3047,7 @@ function LeisureStep2Screen({
 
   const draftNights = stayNights(draftArrival, draftDeparture);
   const draftRoomsCount = stayRoomsTotal(draftRooms);
+  const draftGuestsCount = stayGuestsTotal(draftRooms);
   const datesValid =
     !!draftArrival &&
     !!draftDeparture &&
@@ -3120,7 +3121,6 @@ function LeisureStep2Screen({
     }, 220);
   };
 
-
   const startNewStay = () => {
     resetDraft();
     setShowEditor(true);
@@ -3135,368 +3135,677 @@ function LeisureStep2Screen({
   const totalRoomsAll = stays.reduce((a, s) => a + stayRoomsTotal(s.rooms), 0);
   const totalGuestsAll = stays.reduce((a, s) => a + stayGuestsTotal(s.rooms), 0);
 
-  // Next step: enabled only when at least one stay saved AND editor is closed
   const nextEnabled = canContinue && stays.length > 0 && !showEditor;
 
   return (
-    <LeisureStepShell
-      activeStep={2}
-      onStepGo={onStepGo}
-      hero={S2_HERO}
-      chapter="CHAPTER II"
-      headline={
-        <>
-          Choose where<br />your group<br />will rest.
-        </>
-      }
-      subtext={
-        <>
-          Design the perfect room<br />distribution for your group.
-        </>
-      }
-      pageBg="#232C36"
-      heroOverlay={
-        <div>
-          <div className="text-[13px] font-medium" style={{ color: S1_GOLD_SOFT }}>
-            Step 2 of 6
-          </div>
-          <h1
-            className="mt-3 text-[44px] sm:text-[56px] lg:text-[62px] leading-[1.02] font-medium text-white"
-            style={{ fontFamily: SERIF }}
-          >
-            Accommodation
-          </h1>
-          <p className="mt-4 text-[16px] leading-relaxed" style={{ color: "rgba(255,255,255,0.78)" }}>
-            How many rooms will your group need?
-          </p>
-        </div>
-      }
-      rightSidebar={
-        <AccommodationSummary
-          stays={stays}
-          totalStays={totalStays}
-          totalRooms={totalRoomsAll}
-          totalGuests={totalGuestsAll}
-          onEdit={editStay}
-          onRemove={removeStay}
-          editingId={editingId}
-          lastAddedId={lastAddedId}
-          removingIds={removingIds}
-        />
-      }
+    <main
+      className="min-h-screen w-full"
+      style={{
+        backgroundColor: S2_BG,
+        fontFamily: "Inter, system-ui, sans-serif",
+        color: S2_TEXT,
+      }}
     >
-      <section
-        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
-        style={{
-          backgroundColor: S1_NAVY_SOFT,
-          border: `1px solid ${S1_BORDER}`,
-          boxShadow:
-            "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
-        }}
-      >
-        {/* Saved stay cards (centre column) */}
-        {stays.filter((s) => s.id !== editingId).length > 0 && (
-          <div className="space-y-3">
+      <div style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}>
+        <BookingHeader
+          currentStep={2}
+          onStepGo={(s) => onStepGo(s as StepKey)}
+          hideCurrentFlow="leisure"
+        />
+      </div>
 
+      <div
+        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[28fr_50fr_22fr]"
+        style={{ maxWidth: 1700, padding: 32, gap: 32 }}
+      >
+        {/* ---------- LEFT: visual panel ---------- */}
+        <aside
+          className="relative overflow-hidden order-2 lg:order-none"
+          style={{
+            borderRadius: 24,
+            minHeight: "calc(100vh - 140px)",
+            boxShadow: "0 50px 100px -50px rgba(0,0,0,0.75)",
+          }}
+        >
+          <img src={S2_HERO} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(6,14,22,0.10) 0%, rgba(6,14,22,0.35) 55%, rgba(6,14,22,0.92) 100%)",
+            }}
+          />
+          <div className="relative z-10 flex h-full flex-col justify-end" style={{ padding: 40 }}>
+            <div className="text-[14px] font-medium" style={{ color: S1_GOLD_SOFT }}>
+              Step 2 of 6
+            </div>
+            <h1
+              className="mt-4 text-[52px] lg:text-[62px] font-medium leading-[1.02] text-white"
+              style={{ fontFamily: SERIF }}
+            >
+              Accommodation
+            </h1>
+            <p className="mt-4 text-[16.5px] leading-relaxed" style={{ color: "rgba(255,255,255,0.80)" }}>
+              How many rooms will your group need?
+            </p>
+          </div>
+        </aside>
+
+        {/* ---------- CENTER: working area ---------- */}
+        <section
+          className="order-1 lg:order-none min-w-0"
+          style={{
+            backgroundColor: S2_PANEL,
+            borderRadius: 24,
+            padding: 40,
+            boxShadow: "0 44px 90px -46px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.03)",
+          }}
+        >
+          {/* Saved stays */}
+          <div className="space-y-5">
             {stays.map((s, idx) => {
               if (s.id === editingId) return null;
-              const nights = stayNights(s.arrival, s.departure);
-              const roomsN = stayRoomsTotal(s.rooms);
-              const guestsN = stayGuestsTotal(s.rooms);
               return (
-                <div
+                <S2StayPanel
                   key={s.id}
-                  className={`rounded-[16px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 transition-all duration-200 hover:-translate-y-[2px] ${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
-                  style={{
-                    backgroundColor: S1_NAVY,
-                    border: `1px solid rgba(245,241,230,0.10)`,
-                    boxShadow: "0 18px 40px -28px rgba(0,0,0,0.55)",
-                  }}
-                >
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[15.5px] font-semibold text-white" style={{ fontFamily: SERIF }}>
-                        Stay {idx + 1}
-                      </span>
-                      <span
-                        className="inline-grid h-[18px] w-[18px] place-items-center rounded-full"
-                        style={{ backgroundColor: "rgba(212,166,74,0.16)", border: `1px solid ${S1_GOLD_SOFT}` }}
-                      >
-                        <Check size={11} strokeWidth={3} style={{ color: S1_GOLD_SOFT }} />
-                      </span>
-                    </div>
-                    <div className="mt-1 text-[13px]" style={{ color: S1_GOLD_SOFT }}>
-                      {fmtStayRange(s.arrival, s.departure)} · {nights} {nights === 1 ? "night" : "nights"}
-                    </div>
-                    <div className="mt-0.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.6)" }}>
-                      {roomsN} {roomsN === 1 ? "room" : "rooms"} · {guestsN} {guestsN === 1 ? "guest" : "guests"}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <button
-                      type="button"
-                      onClick={() => editStay(s.id)}
-                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0"
-                      style={{
-                        border: `1px solid rgba(212,166,74,0.4)`,
-                        color: S1_GOLD_SOFT,
-                        backgroundColor: "rgba(212,166,74,0.04)",
-                      }}
-                    >
-                      <Pencil size={13} strokeWidth={2.2} />
-                      Edit
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => removeStay(s.id)}
-                      className="inline-flex items-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0"
-                      style={{
-                        border: `1px solid rgba(245,241,230,0.14)`,
-                        color: "rgba(245,241,230,0.7)",
-                      }}
-                    >
-                      <Trash2 size={13} strokeWidth={2.2} />
-                      Remove
-                    </button>
-                  </div>
-                </div>
+                  title={`Stay ${idx + 1}`}
+                  animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
+                  arrival={s.arrival}
+                  departure={s.departure}
+                  nights={stayNights(s.arrival, s.departure)}
+                  rooms={stayRoomsTotal(s.rooms)}
+                  guests={stayGuestsTotal(s.rooms)}
+                  onAddAnother={!showEditor ? startNewStay : undefined}
+                  onEdit={() => editStay(s.id)}
+                  onRemove={() => removeStay(s.id)}
+                />
               );
             })}
           </div>
-        )}
 
-        {/* Editor */}
-        {showEditor && (
+          {/* Editor */}
+          {showEditor && (
+            <div className={stays.length > 0 ? "mt-5" : ""}>
+              <S2StayPanel
+                title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
+                arrival={draftArrival}
+                departure={draftDeparture}
+                nights={draftNights}
+                rooms={draftRoomsCount}
+                guests={draftGuestsCount}
+                editable
+                onArrival={(v) => {
+                  setDraftArrival(v);
+                  if (draftDeparture && new Date(draftDeparture) <= new Date(v)) setDraftDeparture("");
+                }}
+                onDeparture={setDraftDeparture}
+                onCancel={stays.length > 0 ? cancelEditor : undefined}
+              />
 
-          <div
-            className="mt-6 rounded-[20px] p-5 sm:p-6"
-            style={{
-              backgroundColor: S1_NAVY,
-              border: `1px solid rgba(245,241,230,0.10)`,
-              boxShadow: "0 24px 50px -30px rgba(0,0,0,0.55)",
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <h3
-                className="text-[20px] sm:text-[22px] font-medium text-white"
+              <h2
+                className="mt-10 text-[30px] font-medium leading-none text-white"
                 style={{ fontFamily: SERIF }}
               >
-                {editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
-              </h3>
-              {stays.length > 0 && (
+                Room Distribution
+              </h2>
+              <div className="mt-2 h-px w-full" style={{ background: "rgba(232,199,117,0.16)" }} />
+
+              <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {STEP2_ROOMS_ORDER.map((key) => (
+                  <S2RoomCard
+                    key={key}
+                    roomKey={key}
+                    value={draftRooms[key] ?? 0}
+                    onChange={(v) => setDraftRooms((r) => ({ ...r, [key]: Math.max(0, v) }))}
+                    category={draftCategories[key]}
+                    onCategoryChange={(v) => setDraftCategories((c) => ({ ...c, [key]: v }))}
+                  />
+                ))}
+              </div>
+
+              <div className="mt-9 flex justify-end">
                 <button
                   type="button"
-                  onClick={cancelEditor}
-                  className="text-[12.5px] font-medium transition-colors hover:text-white"
-                  style={{ color: "rgba(245,241,230,0.6)" }}
+                  onClick={commitStay}
+                  disabled={!canAddStay}
+                  className="inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0"
+                  style={{
+                    borderRadius: 16,
+                    background: canAddStay
+                      ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B98C35 100%)`
+                      : "rgba(255,255,255,0.05)",
+                    color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
+                    boxShadow: canAddStay
+                      ? "0 22px 46px -20px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.45)"
+                      : "none",
+                    cursor: canAddStay ? "pointer" : "not-allowed",
+                  }}
                 >
-                  Cancel
+                  {editingId ? "Save changes" : "Add this stay"}
+                  <ArrowRight size={18} strokeWidth={2.4} />
                 </button>
-              )}
-            </div>
-
-            <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <LeisureDateField
-                label="Arrival"
-                value={draftArrival}
-                onChange={(v) => {
-                  setDraftArrival(v);
-                  if (draftDeparture && new Date(draftDeparture) <= new Date(v)) {
-                    setDraftDeparture("");
-                  }
-                }}
-              />
-              <LeisureDateField
-                label="Departure"
-                value={draftDeparture}
-                onChange={setDraftDeparture}
-                min={draftArrival || undefined}
-              />
-            </div>
-
-            {draftNights > 0 && (
-              <div
-                className="mt-3 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[12.5px]"
-                style={{
-                  backgroundColor: "rgba(212,166,74,0.10)",
-                  border: `1px solid rgba(212,166,74,0.35)`,
-                  color: S1_GOLD_SOFT,
-                }}
-              >
-                <MoonIcon />
-                {draftNights} {draftNights === 1 ? "night" : "nights"}
               </div>
-            )}
-
-            <div
-              className="mt-6 text-[12.5px] font-medium uppercase tracking-[0.14em]"
-              style={{ color: "rgba(245,241,230,0.7)" }}
-            >
-              Room distribution
             </div>
+          )}
 
-            <div className="mt-4 grid grid-cols-1 gap-3.5 md:grid-cols-2">
-              {STEP2_ROOMS_ORDER.map((key) => (
-                <StayRoomRow
-                  key={key}
-                  roomKey={key}
-                  value={draftRooms[key] ?? 0}
-                  onChange={(v) =>
-                    setDraftRooms((r) => ({ ...r, [key]: Math.max(0, v) }))
-                  }
-                  category={draftCategories[key]}
-                  onCategoryChange={(v) =>
-                    setDraftCategories((c) => ({ ...c, [key]: v }))
-                  }
-                />
-              ))}
-            </div>
-
-            <div className="mt-8 flex justify-end">
-              <button
-                type="button"
-                onClick={commitStay}
-                disabled={!canAddStay}
-                className="inline-flex items-center gap-3 rounded-[14px] px-7 py-3.5 text-[15.5px] font-semibold transition-all duration-200 hover:-translate-y-[2px] active:translate-y-0"
-                style={{
-                  background: canAddStay
-                    ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`
-                    : `linear-gradient(135deg, rgba(245,241,230,0.10) 0%, rgba(245,241,230,0.05) 100%)`,
-                  color: canAddStay ? S1_NAVY : "rgba(245,241,230,0.38)",
-                  boxShadow: canAddStay
-                    ? "0 18px 40px -16px rgba(212,166,74,0.55), 0 0 28px -8px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.45)"
-                    : "inset 0 1px 0 rgba(255,255,255,0.04)",
-                  border: canAddStay ? "1px solid rgba(212,166,74,0.45)" : "1px solid rgba(245,241,230,0.10)",
-                  cursor: canAddStay ? "pointer" : "not-allowed",
-                  opacity: canAddStay ? 1 : 0.72,
-                }}
-              >
-                {editingId ? "Save changes" : "Add this stay"}
-                <ArrowRight size={18} strokeWidth={2.4} />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Add another stay */}
-        {!showEditor && stays.length > 0 && (
-          <button
-            type="button"
-            onClick={startNewStay}
-            className="mt-8 flex w-full items-center justify-center gap-2.5 rounded-[14px] py-4 text-[14px] font-medium transition-all duration-200 hover:-translate-y-[2px] active:translate-y-0"
-            style={{
-              border: `1.5px dashed rgba(212,166,74,0.45)`,
-              color: S1_GOLD_SOFT,
-              backgroundColor: "rgba(212,166,74,0.04)",
-            }}
-          >
-            <Plus size={16} strokeWidth={2.4} />
-            Add another stay
-          </button>
-        )}
-
-        {/* Notes */}
-        <div className="mt-14">
-          <div className="text-[14.5px] font-medium" style={{ color: "#F5F1E6" }}>
-            Anything else we should know? <span style={{ color: "rgba(245,241,230,0.5)" }}>(optional)</span>
-          </div>
-          <div
-            className="mt-4 rounded-[20px] p-5 transition-all duration-300 focus-within:border-[color:var(--gold)]"
-            style={{
-              backgroundColor: S1_NAVY,
-              border: `1px solid rgba(245,241,230,0.12)`,
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 24px 50px -34px rgba(0,0,0,0.6)",
-              ["--gold" as never]: S1_GOLD,
-            }}
-          >
-            <textarea
-              value={roomNotes}
-              onChange={(e) => setRoomNotes(e.target.value.slice(0, 500))}
-              placeholder="Tell us anything important about your accommodation needs…"
-              rows={4}
-              className="w-full resize-none bg-transparent text-[14.5px] leading-relaxed outline-none"
-              style={{ color: "#F5F1E6" }}
-            />
-
-            <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.4)" }}>
-              {roomNotes.length} / 500
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom nav */}
-        <div className="mt-12 flex items-center justify-between gap-4">
-          <button
-            type="button"
-            onClick={onBack}
-            className="inline-flex items-center gap-2 rounded-[14px] px-5 py-3 text-[14.5px] font-medium transition-all duration-300 hover:-translate-y-[3px] hover:border-[rgba(212,166,74,0.45)] active:translate-y-0"
-            style={{ color: S1_GOLD_SOFT, border: "1px solid rgba(245,241,230,0.14)" }}
-          >
-            <ArrowLeft size={16} strokeWidth={2.2} />
-            Back
-          </button>
-
-          <div className="flex flex-col items-end gap-1.5">
+          {!showEditor && stays.length === 0 && (
             <button
               type="button"
-              onClick={onNext}
-              disabled={!nextEnabled}
-              className="inline-flex items-center gap-2.5 rounded-[16px] px-9 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-[3px] active:translate-y-0"
+              onClick={startNewStay}
+              className="mt-6 flex w-full items-center justify-center gap-2.5 py-5 text-[14.5px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
               style={{
-                background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
-                color: S1_NAVY,
-                boxShadow:
-                  "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
-                opacity: nextEnabled ? 1 : 0.45,
-                cursor: nextEnabled ? "pointer" : "not-allowed",
+                borderRadius: 20,
+                border: "1.5px dashed rgba(232,199,117,0.4)",
+                color: S1_GOLD_SOFT,
               }}
             >
-              Next step
-              <ArrowRight size={17} strokeWidth={2.4} />
+              <Plus size={16} strokeWidth={2.4} />
+              Add a stay
             </button>
-            {!nextEnabled && (
-              <span className="text-[11.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
-                {stays.length === 0
-                  ? "Add at least one stay to continue"
-                  : "Finish editing to continue"}
-              </span>
-            )}
+          )}
+
+          {/* Notes */}
+          <div className="mt-12">
+            <div className="text-[15px] font-medium" style={{ color: S2_TEXT }}>
+              Anything else we should know?{" "}
+              <span style={{ color: "rgba(245,241,230,0.45)" }}>(optional)</span>
+            </div>
+            <div
+              className="mt-4 p-6 transition-colors duration-300"
+              style={{
+                borderRadius: 20,
+                backgroundColor: S2_SUNK,
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 26px 50px -40px rgba(0,0,0,0.7)",
+              }}
+            >
+              <textarea
+                value={roomNotes}
+                onChange={(e) => setRoomNotes(e.target.value.slice(0, 500))}
+                placeholder="Tell us anything important about your accommodation needs…"
+                rows={4}
+                className="w-full resize-none bg-transparent text-[14.5px] leading-relaxed outline-none"
+                style={{ color: S2_TEXT }}
+              />
+              <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.35)" }}>
+                {roomNotes.length} / 500
+              </div>
+            </div>
           </div>
+
+          {/* Navigation */}
+          <div className="mt-10 flex items-center justify-between gap-6">
+            <button
+              type="button"
+              onClick={onBack}
+              className="inline-flex items-center gap-2 px-6 py-3.5 text-[14.5px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
+              style={{
+                borderRadius: 14,
+                color: S1_GOLD_SOFT,
+                border: "1px solid rgba(255,255,255,0.10)",
+              }}
+            >
+              <ArrowLeft size={16} strokeWidth={2.2} />
+              Back
+            </button>
+
+            <div className="flex flex-col items-end gap-1.5">
+              <button
+                type="button"
+                onClick={onNext}
+                disabled={!nextEnabled}
+                className="inline-flex items-center gap-2.5 px-9 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
+                style={{
+                  borderRadius: 16,
+                  background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
+                  color: "#10202F",
+                  boxShadow: "0 20px 44px -20px rgba(212,166,74,0.5), inset 0 1px 0 rgba(255,255,255,0.4)",
+                  opacity: nextEnabled ? 1 : 0.4,
+                  cursor: nextEnabled ? "pointer" : "not-allowed",
+                }}
+              >
+                Next step
+                <ArrowRight size={17} strokeWidth={2.4} />
+              </button>
+              {!nextEnabled && (
+                <span className="text-[11.5px]" style={{ color: "rgba(245,241,230,0.45)" }}>
+                  {stays.length === 0 ? "Add at least one stay to continue" : "Finish editing to continue"}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-10 flex flex-col items-center gap-1.5 text-center">
+            <div className="flex items-center gap-2 text-[13.5px]">
+              <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
+              <span style={{ color: S1_GOLD_SOFT }}>Your request is free and non-binding</span>
+            </div>
+            <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.45)" }}>
+              We find the best options so you can choose what suits your group.
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- RIGHT: sticky summary ---------- */}
+        <div className="order-3 lg:order-none min-w-0 lg:sticky lg:top-8 lg:self-start">
+          <AccommodationSummary
+            stays={stays}
+            totalStays={totalStays}
+            totalRooms={totalRoomsAll}
+            totalGuests={totalGuestsAll}
+            nextEnabled={nextEnabled}
+            onContinue={onNext}
+            lastAddedId={lastAddedId}
+            removingIds={removingIds}
+          />
+        </div>
+      </div>
+    </main>
+  );
+}
+
+/* ---- Step 2 stay panel (dates + metrics in one box) ---- */
+function S2StayPanel({
+  title,
+  arrival,
+  departure,
+  nights,
+  rooms,
+  guests,
+  editable = false,
+  onArrival,
+  onDeparture,
+  onAddAnother,
+  onEdit,
+  onRemove,
+  onCancel,
+  animClass = "",
+}: {
+  title: string;
+  arrival: string;
+  departure: string;
+  nights: number;
+  rooms: number;
+  guests: number;
+  editable?: boolean;
+  onArrival?: (v: string) => void;
+  onDeparture?: (v: string) => void;
+  onAddAnother?: () => void;
+  onEdit?: () => void;
+  onRemove?: () => void;
+  onCancel?: () => void;
+  animClass?: string;
+}) {
+  return (
+    <div
+      className={animClass}
+      style={{
+        borderRadius: 20,
+        backgroundColor: S2_SUNK,
+        padding: 28,
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 30px 60px -44px rgba(0,0,0,0.8)",
+      }}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h3 className="text-[26px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
+          {title}
+        </h3>
+        <div className="flex items-center gap-2">
+          {onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="px-3 py-2 text-[12.5px] font-medium transition-colors hover:text-white"
+              style={{ color: "rgba(245,241,230,0.55)" }}
+            >
+              Cancel
+            </button>
+          )}
+          {onAddAnother && (
+            <button
+              type="button"
+              onClick={onAddAnother}
+              className="inline-flex items-center gap-2 px-5 py-3 text-[13.5px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
+              style={{
+                borderRadius: 14,
+                color: S1_GOLD_SOFT,
+                border: "1px solid rgba(232,199,117,0.35)",
+                backgroundColor: "rgba(232,199,117,0.05)",
+              }}
+            >
+              <Plus size={15} strokeWidth={2.4} />
+              Add another stay
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="mt-7 grid grid-cols-1 gap-6 xl:grid-cols-[1fr_1fr_auto] xl:items-end">
+        <S2DateField label="Arrival" value={arrival} editable={editable} onChange={onArrival} />
+        <S2DateField
+          label="Departure"
+          value={departure}
+          editable={editable}
+          min={arrival || undefined}
+          onChange={onDeparture}
+        />
+
+        <div className="flex flex-wrap items-center gap-6 pb-1 xl:pl-4">
+          <S2Metric icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "night" : "nights"}`} />
+          <S2Metric
+            icon={<BedDouble size={16} strokeWidth={1.9} />}
+            text={`${rooms} ${rooms === 1 ? "room" : "rooms"}`}
+          />
+          <S2Metric
+            icon={<UserRound size={16} strokeWidth={1.9} />}
+            text={`${guests} ${guests === 1 ? "guest" : "guests"}`}
+          />
+        </div>
+      </div>
+
+      {(onEdit || onRemove) && (
+        <div className="mt-6 flex justify-end gap-3">
+          {onEdit && (
+            <button
+              type="button"
+              onClick={onEdit}
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
+              style={{
+                borderRadius: 12,
+                color: S1_GOLD_SOFT,
+                border: "1px solid rgba(232,199,117,0.32)",
+              }}
+            >
+              <Pencil size={14} strokeWidth={2.1} />
+              Edit
+            </button>
+          )}
+          {onRemove && (
+            <button
+              type="button"
+              onClick={onRemove}
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
+              style={{
+                borderRadius: 12,
+                color: "rgba(245,241,230,0.65)",
+                border: "1px solid rgba(255,255,255,0.10)",
+              }}
+            >
+              <Trash2 size={14} strokeWidth={2.1} />
+              Remove
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function S2Metric({ icon, text }: { icon: React.ReactNode; text: string }) {
+  return (
+    <div className="flex items-center gap-2.5 text-[14px]" style={{ color: "rgba(245,241,230,0.85)" }}>
+      <span style={{ color: S1_GOLD_SOFT }}>{icon}</span>
+      {text}
+    </div>
+  );
+}
+
+function S2DateField({
+  label,
+  value,
+  editable,
+  min,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  editable?: boolean;
+  min?: string;
+  onChange?: (v: string) => void;
+}) {
+  return (
+    <label className="block min-w-0">
+      <span
+        className="text-[11.5px] font-semibold uppercase tracking-[0.18em]"
+        style={{ color: "rgba(245,241,230,0.5)" }}
+      >
+        {label}
+      </span>
+      <div
+        className="mt-2.5 flex h-[58px] items-center gap-3.5 px-5 transition-colors duration-200"
+        style={{
+          borderRadius: 14,
+          backgroundColor: S2_FIELD,
+          border: `1px solid ${value ? "rgba(232,199,117,0.32)" : "rgba(255,255,255,0.08)"}`,
+        }}
+      >
+        <CalendarDays size={18} strokeWidth={1.9} style={{ color: S1_GOLD_SOFT }} />
+        {editable ? (
+          <input
+            type="date"
+            value={value}
+            min={min}
+            onChange={(e) => onChange?.(e.target.value)}
+            className="min-w-0 flex-1 bg-transparent text-[15px] text-white outline-none [color-scheme:dark]"
+          />
+        ) : (
+          <span className="truncate text-[15px] text-white">{value ? format(new Date(value), "d MMMM yyyy") : "—"}</span>
+        )}
+      </div>
+    </label>
+  );
+}
+
+/* ---- Step 2 luxury room card ---- */
+function S2RoomCard({
+  roomKey,
+  value,
+  onChange,
+  category,
+  onCategoryChange,
+}: {
+  roomKey: string;
+  value: number;
+  onChange: (v: number) => void;
+  category?: string;
+  onCategoryChange?: (v: string) => void;
+}) {
+  const meta = STEP2_ROOMS.find((r) => r.key === roomKey)!;
+  const active = value > 0;
+  const categoryOptions = ROOM_CATEGORY_OPTIONS[roomKey];
+
+  return (
+    <div
+      className="group flex flex-col overflow-hidden transition-all duration-300 ease-out hover:-translate-y-[4px]"
+      style={{
+        borderRadius: 20,
+        backgroundColor: active ? S2_CARD_ACTIVE : S2_CARD,
+        border: `1px solid ${active ? "rgba(232,199,117,0.45)" : "rgba(255,255,255,0.05)"}`,
+        boxShadow: active
+          ? "0 30px 60px -34px rgba(212,166,74,0.30), inset 0 1px 0 rgba(255,255,255,0.05)"
+          : "0 26px 54px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+      }}
+    >
+      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 10" }}>
+        <img
+          src={meta.img}
+          alt={meta.title}
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+          style={{ filter: "saturate(1.06) contrast(1.06)" }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: "linear-gradient(180deg, rgba(11,22,36,0) 45%, rgba(11,22,36,0.75) 100%)" }}
+        />
+        {active && (
+          <span
+            className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full"
+            style={{
+              background: `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`,
+              boxShadow: "0 8px 18px -8px rgba(212,166,74,0.7)",
+            }}
+          >
+            <Check size={14} strokeWidth={3} style={{ color: "#10202F" }} />
+          </span>
+        )}
+      </div>
+
+      <div className="flex flex-1 flex-col" style={{ padding: 22 }}>
+        <div className="text-[19px] font-medium leading-tight text-white" style={{ fontFamily: SERIF }}>
+          {meta.title}
+        </div>
+        <div className="mt-1.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+          {meta.desc}
         </div>
 
-        <div className="mt-12 flex flex-col items-center gap-1.5 text-center">
-
-          <div className="flex items-center gap-2 text-[13.5px]">
-            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
-            <span style={{ color: S1_GOLD_SOFT }}>
-              Your request is free and non-binding
-            </span>
-          </div>
-          <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
-            We find the best options so you can choose what suits your group.
-          </div>
+        <div className="mt-5">
+          <S2Counter value={value} onChange={onChange} label={meta.title} />
         </div>
-      </section>
-    </LeisureStepShell>
+
+        {categoryOptions && (
+          <div className="mt-4" style={{ opacity: active ? 1 : 0.4, pointerEvents: active ? "auto" : "none" }}>
+            <div
+              className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+              style={{ color: "rgba(245,241,230,0.45)" }}
+            >
+              Category
+            </div>
+            <div
+              className="relative mt-2 flex h-[44px] items-center pl-4 pr-9"
+              style={{
+                borderRadius: 12,
+                backgroundColor: S2_FIELD,
+                border: `1px solid ${active && category ? "rgba(232,199,117,0.32)" : "rgba(255,255,255,0.08)"}`,
+              }}
+            >
+              <select
+                value={category ?? ""}
+                disabled={!active}
+                aria-label={`${meta.title} category`}
+                onChange={(e) => onCategoryChange?.(e.target.value)}
+                className="w-full cursor-pointer appearance-none bg-transparent text-[13.5px] text-white outline-none disabled:cursor-not-allowed"
+              >
+                <option value="" style={{ backgroundColor: S2_FIELD }}>
+                  Select category
+                </option>
+                {categoryOptions.map((o) => (
+                  <option key={o} value={o} style={{ backgroundColor: S2_FIELD }}>
+                    {o}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                size={15}
+                strokeWidth={2}
+                className="pointer-events-none absolute right-3"
+                style={{ color: S1_GOLD_SOFT }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function S2Counter({
+  value,
+  onChange,
+  label,
+}: {
+  value: number;
+  onChange: (v: number) => void;
+  label: string;
+}) {
+  const [text, setText] = useState(String(value));
+  React.useEffect(() => setText(String(value)), [value]);
+
+  const commit = (raw: string) => {
+    const cleaned = raw.replace(/[^\d]/g, "");
+    const n = cleaned === "" ? 0 : Math.max(0, parseInt(cleaned, 10) || 0);
+    onChange(n);
+    setText(String(n));
+  };
+
+  const btn = (dir: "dec" | "inc") => (
+    <button
+      type="button"
+      aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
+      disabled={dir === "dec" && value === 0}
+      onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
+      className="grid h-[38px] w-[38px] shrink-0 place-items-center transition-all duration-200 hover:bg-white/[0.07] active:scale-95 disabled:opacity-30"
+      style={{ borderRadius: 11, color: S1_GOLD_SOFT }}
+    >
+      {dir === "dec" ? <Minus size={16} strokeWidth={2.2} /> : <Plus size={16} strokeWidth={2.2} />}
+    </button>
+  );
+
+  return (
+    <div
+      className="flex h-[50px] items-center justify-between px-1.5"
+      style={{
+        borderRadius: 14,
+        backgroundColor: S2_FIELD,
+        border: "1px solid rgba(255,255,255,0.07)",
+      }}
+    >
+      {btn("dec")}
+      <input
+        type="text"
+        inputMode="numeric"
+        aria-label={`${label} quantity`}
+        value={text}
+        onFocus={(e) => e.currentTarget.select()}
+        onChange={(e) => {
+          const v = e.target.value.replace(/[^\d]/g, "");
+          setText(v);
+          if (v !== "") onChange(Math.max(0, parseInt(v, 10) || 0));
+        }}
+        onBlur={(e) => commit(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            commit((e.target as HTMLInputElement).value);
+            (e.target as HTMLInputElement).blur();
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            onChange(value + 1);
+          } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            onChange(Math.max(0, value - 1));
+          }
+        }}
+        className="no-spin w-full bg-transparent text-center text-[18px] font-medium text-white outline-none"
+        style={{ fontFamily: SERIF }}
+      />
+      {btn("inc")}
+    </div>
   );
 }
 
 function MoonIcon() {
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
     </svg>
   );
 }
+
+const S2_ROOM_RATE: Record<string, number> = {
+  single: 1450,
+  double: 1950,
+  twin: 1950,
+  triple: 2450,
+  family: 2950,
+  accessible: 1750,
+};
 
 function AccommodationSummary({
   stays,
   totalStays,
   totalRooms,
   totalGuests,
-  onEdit,
-  onRemove,
-  editingId,
+  nextEnabled,
+  onContinue,
   lastAddedId,
   removingIds,
 }: {
@@ -3504,196 +3813,153 @@ function AccommodationSummary({
   totalStays: number;
   totalRooms: number;
   totalGuests: number;
-  onEdit: (id: string) => void;
-  onRemove: (id: string) => void;
-  editingId: string | null;
+  nextEnabled: boolean;
+  onContinue: () => void;
   lastAddedId?: string | null;
   removingIds?: Set<string>;
 }) {
-  const hasStays = stays.length > 0;
+  const estimate = stays.reduce((sum, s) => {
+    const nights = stayNights(s.arrival, s.departure);
+    return (
+      sum +
+      Object.entries(s.rooms).reduce((a, [k, v]) => a + v * (S2_ROOM_RATE[k] ?? 1500) * nights, 0)
+    );
+  }, 0);
+
   return (
-    <aside className="flex flex-col gap-4">
+    <aside
+      style={{
+        borderRadius: 24,
+        backgroundColor: S2_PANEL,
+        padding: 28,
+        boxShadow: "0 40px 80px -46px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+      }}
+    >
       <div
-        className="rounded-[20px] p-5"
-        style={{
-          backgroundColor: S1_NAVY_SOFT,
-          border: `1px solid ${S1_BORDER}`,
-          boxShadow: "0 24px 60px -30px rgba(0,0,0,0.6)",
-        }}
+        className="text-[11.5px] font-semibold uppercase tracking-[0.22em]"
+        style={{ color: S1_GOLD_SOFT }}
       >
-        <div className="flex items-center gap-2.5">
-          <BedDouble size={18} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
-          <h3 className="text-[16px] font-semibold text-white">Accommodation Summary</h3>
-        </div>
-
-        {!hasStays && (
-          <div
-            className="mt-5 rounded-[16px] px-5 py-8 text-center"
-            style={{
-              backgroundColor: S1_NAVY,
-              border: `1px dashed rgba(245,241,230,0.14)`,
-            }}
-          >
-            <div className="mx-auto grid h-12 w-12 place-items-center rounded-full" style={{ backgroundColor: "rgba(212,166,74,0.08)", border: `1px solid rgba(212,166,74,0.35)` }}>
-              <BedDouble size={19} strokeWidth={1.9} style={{ color: S1_GOLD_SOFT }} />
-            </div>
-            <div className="mt-4 text-[15px] font-medium text-white" style={{ fontFamily: SERIF }}>
-              No stays added yet
-            </div>
-            <div className="mt-2 text-[12.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.55)" }}>
-              Choose your dates and room types.
-            </div>
-            <div className="mt-4 text-[12px] leading-relaxed" style={{ color: "rgba(245,241,230,0.45)" }}>
-              Press <span className="font-medium" style={{ color: S1_GOLD_SOFT }}>Add this stay</span> to save your first stay.
-            </div>
-          </div>
-        )}
-
-        <div className="mt-4 space-y-4">
-          {stays.map((s, idx) => {
-            const nights = stayNights(s.arrival, s.departure);
-            const roomsN = stayRoomsTotal(s.rooms);
-            const guestsN = stayGuestsTotal(s.rooms);
-            const isEditing = editingId === s.id;
-            return (
-              <div
-                key={s.id}
-                className={`rounded-[14px] p-4 transition-all duration-200 ${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds?.has(s.id) ? "stay-removing" : ""}`}
-                style={{
-                  backgroundColor: S1_NAVY,
-                  border: `1px solid ${isEditing ? "rgba(212,166,74,0.5)" : "rgba(245,241,230,0.08)"}`,
-                  boxShadow: isEditing ? "0 12px 28px -16px rgba(212,166,74,0.22)" : "none",
-                }}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-[15px] font-semibold text-white">Stay {idx + 1}</span>
-                  <Check size={14} strokeWidth={3} style={{ color: "#7EC98A" }} />
-                </div>
-                <div className="mt-1 text-[13px]" style={{ color: S1_GOLD_SOFT }}>
-                  {fmtStayRange(s.arrival, s.departure)}
-                </div>
-                <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.55)" }}>
-                  {nights} {nights === 1 ? "night" : "nights"}
-                </div>
-
-                <ul className="mt-3 space-y-1.5">
-                  {STEP2_ROOMS_ORDER.map((k) => {
-                    const v = s.rooms[k] ?? 0;
-                    if (v === 0) return null;
-                    const cat = s.roomCategories?.[k];
-                    return (
-                      <li key={k} className="flex items-start justify-between text-[13px]">
-                        <span className="flex items-center gap-2" style={{ color: "rgba(245,241,230,0.78)" }}>
-                          <span
-                            className="h-1.5 w-1.5 rounded-full"
-                            style={{ backgroundColor: S1_GOLD }}
-                          />
-                          {ROOM_LABELS[k]}
-                        </span>
-                        <span className="text-right">
-                          <span className="tabular-nums text-white">{v}</span>
-                          {cat && (
-                            <span className="block text-[11.5px]" style={{ color: S1_GOLD_SOFT }}>
-                              {v} × {cat}
-                            </span>
-                          )}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-
-                <div className="mt-3 border-t pt-3" style={{ borderColor: "rgba(245,241,230,0.08)" }}>
-                  <div className="flex items-center justify-between text-[13px]">
-                    <span style={{ color: "rgba(245,241,230,0.7)" }}>Total rooms</span>
-                    <span className="tabular-nums font-semibold text-white">{roomsN}</span>
-                  </div>
-                  <div className="mt-1 flex items-center justify-between text-[13px]">
-                    <span style={{ color: "rgba(245,241,230,0.7)" }}>Total guests (est.)</span>
-                    <span className="tabular-nums font-semibold text-white">{guestsN}</span>
-                  </div>
-                </div>
-
-                <div className="mt-3 flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => onEdit(s.id)}
-                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:bg-white/5 active:scale-[0.98]"
-                    style={{
-                      border: `1px solid rgba(245,241,230,0.18)`,
-                      color: "#F5F1E6",
-                    }}
-                  >
-                    <Pencil size={12} strokeWidth={2} />
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => onRemove(s.id)}
-                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] px-3 py-2 text-[12.5px] font-medium transition-all duration-200 hover:bg-white/5 active:scale-[0.98]"
-                    style={{
-                      border: `1px solid rgba(245,241,230,0.18)`,
-                      color: "rgba(245,241,230,0.8)",
-                    }}
-                  >
-                    <Trash2 size={12} strokeWidth={2} />
-                    Remove
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {stays.length > 1 && (
-          <div
-            className="mt-4 rounded-[14px] p-4"
-            style={{
-              backgroundColor: S1_NAVY,
-              border: `1px solid rgba(212,166,74,0.28)`,
-            }}
-          >
-            <div className="text-[13.5px] font-semibold text-white">Overall total</div>
-            <div className="mt-2 space-y-1.5 text-[13px]">
-              <div className="flex items-center justify-between">
-                <span style={{ color: "rgba(245,241,230,0.7)" }}>Total stays</span>
-                <span className="tabular-nums font-semibold text-white">{totalStays}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span style={{ color: "rgba(245,241,230,0.7)" }}>Total rooms</span>
-                <span className="tabular-nums font-semibold text-white">{totalRooms}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span style={{ color: "rgba(245,241,230,0.7)" }}>Total guests (est.)</span>
-                <span className="tabular-nums font-semibold text-white">{totalGuests}</span>
-              </div>
-            </div>
-          </div>
-        )}
+        Accommodation Summary
       </div>
 
-      {hasStays && (
-        <div
-          className="rounded-[16px] p-4"
-          style={{
-            backgroundColor: "rgba(212,166,74,0.08)",
-            border: `1px solid rgba(212,166,74,0.35)`,
-          }}
-        >
-          <div className="flex items-start gap-2.5">
-            <CheckCircle2 size={18} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
-            <div>
-              <div className="text-[14px] font-semibold text-white">Ready for the next step</div>
-              <div className="mt-0.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.7)" }}>
-                You can continue when you're ready.
-              </div>
-            </div>
-          </div>
+      <div className="mt-6 space-y-4">
+        <S2SumRow icon={<BedDouble size={17} strokeWidth={1.9} />} label="Total rooms" value={totalRooms} />
+        <S2SumRow icon={<Users size={17} strokeWidth={1.9} />} label="Total guests" value={totalGuests} />
+        <S2SumRow icon={<CalendarDays size={17} strokeWidth={1.9} />} label="Total stays" value={totalStays} />
+      </div>
+
+      <div className="my-7 h-px w-full" style={{ background: "rgba(232,199,117,0.18)" }} />
+
+      {stays.length === 0 && (
+        <div className="text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.5)" }}>
+          No stays added yet. Choose your dates and room types, then press{" "}
+          <span style={{ color: S1_GOLD_SOFT }}>Add this stay</span>.
         </div>
       )}
+
+      <div className="space-y-7">
+        {stays.map((s, idx) => {
+          const nights = stayNights(s.arrival, s.departure);
+          return (
+            <div
+              key={s.id}
+              className={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds?.has(s.id) ? "stay-removing" : ""}`}
+            >
+              <div
+                className="text-[11.5px] font-semibold uppercase tracking-[0.2em]"
+                style={{ color: S1_GOLD_SOFT }}
+              >
+                Stay {idx + 1}
+              </div>
+              <div className="mt-1.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.6)" }}>
+                {fmtStayRange(s.arrival, s.departure)} • {nights} {nights === 1 ? "night" : "nights"}
+              </div>
+
+              <ul className="mt-4 space-y-3.5">
+                {STEP2_ROOMS_ORDER.map((k) => {
+                  const v = s.rooms[k] ?? 0;
+                  if (v === 0) return null;
+                  const cat = s.roomCategories?.[k];
+                  return (
+                    <li key={k} className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <div className="text-[13.5px] text-white">{ROOM_LABELS[k]}</div>
+                        {cat && (
+                          <div className="mt-0.5 text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+                            {cat}
+                          </div>
+                        )}
+                      </div>
+                      <span
+                        className="grid h-[30px] min-w-[42px] shrink-0 place-items-center text-[13.5px] tabular-nums text-white"
+                        style={{
+                          borderRadius: 9,
+                          backgroundColor: S2_FIELD,
+                          border: "1px solid rgba(255,255,255,0.07)",
+                        }}
+                      >
+                        {v}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+
+      {stays.length > 0 && (
+        <>
+          <div className="my-7 h-px w-full" style={{ background: "rgba(232,199,117,0.18)" }} />
+          <div
+            className="text-[11.5px] font-semibold uppercase tracking-[0.22em]"
+            style={{ color: "rgba(245,241,230,0.55)" }}
+          >
+            Estimated total
+          </div>
+          <div className="mt-3 text-[30px] font-medium leading-none" style={{ color: S1_GOLD, fontFamily: SERIF }}>
+            NOK {estimate.toLocaleString("en-US")}
+          </div>
+          <div className="mt-2 text-[12.5px]" style={{ color: "rgba(245,241,230,0.45)" }}>
+            Including taxes &amp; fees
+          </div>
+        </>
+      )}
+
+      <button
+        type="button"
+        onClick={onContinue}
+        disabled={!nextEnabled}
+        className="mt-7 flex w-full items-center justify-center gap-3 py-4 text-[15.5px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
+        style={{
+          borderRadius: 16,
+          background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B98C35 100%)`,
+          color: "#10202F",
+          boxShadow: "0 22px 46px -22px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.45)",
+          opacity: nextEnabled ? 1 : 0.4,
+          cursor: nextEnabled ? "pointer" : "not-allowed",
+        }}
+      >
+        Continue to extras
+        <ArrowRight size={18} strokeWidth={2.4} />
+      </button>
     </aside>
   );
 }
+
+function S2SumRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-3 text-[14px]" style={{ color: "rgba(245,241,230,0.8)" }}>
+        <span style={{ color: S1_GOLD_SOFT }}>{icon}</span>
+        {label}
+      </div>
+      <span className="text-[17px] font-medium tabular-nums text-white">{value}</span>
+    </div>
+  );
+}
+
 
 
 /* =========================================================
