@@ -3458,7 +3458,7 @@ function S2StayCard({
           {label}
         </span>
         <span
-          className="whitespace-nowrap text-[21px] font-medium leading-none"
+          className={`whitespace-nowrap font-medium leading-none ${selected ? "text-[20px]" : "text-[14.5px]"}`}
           style={{ color: selected ? "#F7F3EA" : "rgba(226,216,198,0.45)" }}
         >
           {selected ? format(selected, "d MMM yyyy") : placeholder}
