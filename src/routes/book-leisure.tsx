@@ -3040,7 +3040,7 @@ function LeisureStep2Screen({
               Step 2 of 6
             </div>
             <h1
-              className="mt-4 text-[52px] lg:text-[62px] font-medium leading-[1.02] text-white"
+              className="mt-4 text-[42px] lg:text-[50px] font-medium leading-[1.04] text-white"
               style={{ fontFamily: SERIF }}
             >
               Accommodation
