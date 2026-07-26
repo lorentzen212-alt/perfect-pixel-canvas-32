@@ -3052,17 +3052,17 @@ function LeisureStep2Screen({
         style={{ maxWidth: 1780, padding: 28, gap: 24 }}
       >
         {/* ---------- LEFT: vertical hotel image ---------- */}
-        <aside className="order-2 lg:order-none min-w-0">
+        <aside className="order-2 lg:order-none min-w-0 lg:pr-[10px]">
           <div
             className="relative overflow-hidden lg:sticky lg:top-7"
             style={{
-              borderRadius: 24,
+              borderRadius: 28,
               minHeight: 560,
               height: "calc(100vh - 96px)",
               maxHeight: 1120,
-              border: `1px solid ${S2_GOLD}55`,
+              border: "1px solid rgba(217,191,130,0.22)",
               boxShadow:
-                "0 2px 0 rgba(255,255,255,0.06) inset, 0 0 0 1px rgba(10,18,26,0.35), 0 34px 70px -34px rgba(6,13,20,0.72), 0 60px 120px -60px rgba(0,0,0,0.7)",
+                "0 2px 0 rgba(255,255,255,0.07) inset, 0 0 0 1px rgba(10,18,26,0.4), 0 18px 40px -26px rgba(4,10,16,0.6), 0 44px 88px -38px rgba(6,13,20,0.78), 0 80px 150px -70px rgba(0,0,0,0.75)",
             }}
           >
             <img
@@ -3498,17 +3498,17 @@ function S2StayPanel({
       className={animClass}
       style={{
         borderRadius: 22,
-        backgroundColor: "rgba(33,48,62,0.96)",
+        backgroundColor: "rgba(28,42,55,0.97)",
         backgroundImage:
-          "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.010) 38%, rgba(0,0,0,0.06) 100%)",
-        border: "1px solid rgba(255,255,255,0.06)",
-        padding: 26,
+          "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.012) 40%, rgba(0,0,0,0.07) 100%)",
+        border: "1px solid rgba(255,255,255,0.07)",
+        padding: 30,
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 22px -18px rgba(4,10,16,0.6), 0 26px 54px -30px rgba(4,10,16,0.75), 0 60px 110px -70px rgba(0,0,0,0.6)",
+          "inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 24px -18px rgba(4,10,16,0.62), 0 30px 62px -30px rgba(4,10,16,0.78), 0 70px 120px -70px rgba(0,0,0,0.65)",
       }}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h3 className="text-[26px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
+        <h3 className="text-[29px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
           {title}
         </h3>
         <div className="flex items-center gap-2">
@@ -3680,19 +3680,19 @@ function S2RoomCard({
       className="group s2-room-card flex flex-col"
       data-active={active ? "true" : "false"}
       style={{
-        borderRadius: 18,
+        borderRadius: 20,
         padding: 13,
-        backgroundColor: active ? "rgba(56,79,98,0.95)" : S2_CARD,
+        backgroundColor: active ? "rgba(58,82,101,0.96)" : S2_CARD,
         backgroundImage: active
-          ? "linear-gradient(180deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.02) 44%, rgba(0,0,0,0.05) 100%)"
+          ? "linear-gradient(180deg, rgba(255,255,255,0.085) 0%, rgba(255,255,255,0.022) 44%, rgba(0,0,0,0.05) 100%)"
           : "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.05) 100%)",
         backdropFilter: "blur(8px)",
-        border: `1px solid ${active ? "rgba(217,191,130,0.46)" : "rgba(255,255,255,0.06)"}`,
+        border: `1px solid ${active ? "rgba(217,191,130,0.48)" : "rgba(255,255,255,0.09)"}`,
         boxShadow: active
-          ? `${S2_CARD_SHADOW}, 0 0 0 1px rgba(217,191,130,0.10), 0 14px 40px -24px rgba(217,191,130,0.40)`
-          : S2_CARD_SHADOW,
+          ? "inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 18px -14px rgba(4,10,16,0.55), 0 22px 46px -26px rgba(4,10,16,0.7), 0 0 0 1px rgba(217,191,130,0.10), 0 16px 44px -24px rgba(217,191,130,0.42)"
+          : "inset 0 1px 0 rgba(255,255,255,0.07), 0 8px 18px -14px rgba(4,10,16,0.5), 0 22px 46px -26px rgba(4,10,16,0.68)",
         transition:
-          "transform 170ms ease-out, box-shadow 170ms ease-out, border-color 170ms ease-out, background-color 170ms ease-out",
+          "transform 180ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 180ms cubic-bezier(0.22,0.61,0.36,1), border-color 180ms ease-out, background-color 180ms ease-out",
       }}
     >
       {/* header */}
@@ -3713,19 +3713,32 @@ function S2RoomCard({
 
       {/* image */}
       <div
-        className="relative mt-2.5 overflow-hidden"
-        style={{ borderRadius: 11, aspectRatio: "16 / 11" }}
+        className="relative mt-3 overflow-hidden"
+        style={{
+          borderRadius: 13,
+          aspectRatio: "16 / 11",
+          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06), 0 10px 22px -18px rgba(0,0,0,0.7)",
+        }}
       >
         <img
           src={meta.img}
           alt={meta.title}
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-          style={{ objectPosition: "center", filter: "saturate(1.02) contrast(1.03) brightness(0.98)" }}
+          style={{
+            objectPosition: "center",
+            filter: active
+              ? "saturate(1.06) contrast(1.09) brightness(1.01)"
+              : "saturate(1.02) contrast(1.03) brightness(0.98)",
+            transition: "filter 180ms ease-out",
+          }}
         />
       </div>
 
       {/* counter */}
-      <div className="mt-2.5">
+      <div
+        className="mt-3 pt-3"
+        style={{ borderTop: "1px solid rgba(214,226,236,0.08)" }}
+      >
         <S2Counter value={value} onChange={onChange} label={meta.title} />
       </div>
 
