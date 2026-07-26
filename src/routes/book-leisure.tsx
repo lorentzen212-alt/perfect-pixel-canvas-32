@@ -3533,12 +3533,12 @@ function S2StayCard({
 
       {/* Divider */}
       <div
-        className="mt-[16px]"
+        className="mt-[13px]"
         style={{ height: 1, backgroundColor: "rgba(255,255,255,0.075)" }}
       />
 
       {/* SECTION 3 — bottom row */}
-      <div className="mt-[13px] flex flex-wrap items-center justify-between">
+      <div className="mt-[11px] flex flex-wrap items-center justify-between">
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
         <S2StayInfo icon={<BedDouble size={17} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
