@@ -3699,12 +3699,11 @@ function S2StayDate({
 }) {
   const right = align === "right";
   return (
-    <label className="block min-w-0 flex-1">
+    <label className="block min-w-0 flex-1 sm:max-w-[240px]">
       <span
-        className={`flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.24em] ${right ? "sm:justify-end" : ""}`}
-        style={{ color: "rgba(245,241,230,0.5)" }}
+        className={`block text-[10px] font-medium uppercase tracking-[0.26em] ${right ? "sm:text-right" : ""}`}
+        style={{ color: "rgba(245,241,230,0.45)" }}
       >
-        <CalendarDays size={13} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
         {label}
       </span>
       {editable ? (
@@ -3713,17 +3712,18 @@ function S2StayDate({
           value={value}
           min={min}
           onChange={(e) => onChange?.(e.target.value)}
-          className={`mt-1.5 w-full min-w-0 bg-transparent text-[19px] leading-none text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
+          className={`mt-1 w-full min-w-0 bg-transparent text-[19px] leading-tight text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
           style={{ fontFamily: SERIF }}
         />
       ) : (
         <span
-          className={`mt-1.5 block truncate text-[19px] leading-none text-white ${right ? "sm:text-right" : ""}`}
+          className={`mt-1 block truncate text-[19px] leading-tight text-white ${right ? "sm:text-right" : ""}`}
           style={{ fontFamily: SERIF }}
         >
           {value ? format(new Date(value), "d MMM yyyy") : "—"}
         </span>
       )}
+
     </label>
   );
 }
