@@ -3166,7 +3166,7 @@ function LeisureStep2Screen({
 
           {/* Editor */}
           {showEditor && (
-            <div className={stays.length > 0 ? "mt-4" : "mt-5"}>
+            <div className={stays.length > 0 ? "mt-3" : "mt-4"}>
               <S2StayCard
                 title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
                 arrival={draftArrival}
