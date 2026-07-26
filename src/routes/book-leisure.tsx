@@ -3038,47 +3038,48 @@ function LeisureStep2Screen({
       </div>
 
       <div
-        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(240px,0.9fr)_minmax(0,3.2fr)_320px]"
-        style={{ maxWidth: 1560, padding: 32, gap: 26 }}
+        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(330px,1.18fr)_minmax(0,2.6fr)_300px]"
+        style={{ maxWidth: 1660, padding: 28, gap: 24 }}
       >
         {/* ---------- LEFT: vertical hotel image ---------- */}
         <aside className="order-2 lg:order-none min-w-0">
           <div
-            className="relative overflow-hidden lg:sticky lg:top-8"
+            className="relative overflow-hidden lg:sticky lg:top-7"
             style={{
-              borderRadius: 22,
-              minHeight: 480,
-              height: "calc(100vh - 140px)",
-              maxHeight: 900,
-              border: "1px solid rgba(226,214,196,0.16)",
-              boxShadow: "0 40px 80px -46px rgba(0,0,0,0.6)",
+              borderRadius: 24,
+              minHeight: 560,
+              height: "calc(100vh - 96px)",
+              maxHeight: 1120,
+              border: "1px solid rgba(226,214,196,0.18)",
+              boxShadow: "0 48px 96px -48px rgba(0,0,0,0.66)",
             }}
           >
             <img
               src={s2StayHeroImg.url}
               alt="Hotel room with city and waterfront view"
               className="absolute left-0 top-0 w-full"
-              style={{ height: "124%", objectFit: "cover", objectPosition: "center top" }}
+              style={{ height: "116%", objectFit: "cover", objectPosition: "center center" }}
             />
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0"
               style={{
-                height: "40%",
-                background: "linear-gradient(180deg, rgba(15,25,35,0) 0%, rgba(13,22,31,0.72) 55%, rgba(11,19,27,0.97) 88%, rgba(11,19,27,1) 100%)",
+                height: "38%",
+                background: "linear-gradient(180deg, rgba(15,25,35,0) 0%, rgba(13,22,31,0.7) 54%, rgba(11,19,27,0.96) 88%, rgba(11,19,27,1) 100%)",
               }}
             />
-            <div className="absolute bottom-6 left-6 right-6">
+            <div className="absolute bottom-9 left-9 right-9">
               <div
-                className="text-[12px] font-semibold uppercase tracking-[0.24em] text-white"
+                className="text-[12.5px] font-semibold uppercase tracking-[0.26em] text-white"
               >
                 {heroStayLabel}
               </div>
-              <div className="mt-1.5 text-[13.5px]" style={{ color: "rgba(245,241,230,0.78)" }}>
+              <div className="mt-2 text-[14px]" style={{ color: "rgba(245,241,230,0.8)" }}>
                 {heroStayMeta}
               </div>
             </div>
           </div>
         </aside>
+
 
         {/* ---------- MAIN: working area ---------- */}
         <section
