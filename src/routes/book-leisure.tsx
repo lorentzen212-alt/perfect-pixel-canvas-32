@@ -4319,14 +4319,6 @@ function AccommodationSummary({
   lastAddedId?: string | null;
   removingIds?: Set<string>;
 }) {
-  const estimate = stays.reduce((sum, s) => {
-    const nights = stayNights(s.arrival, s.departure);
-    return (
-      sum +
-      Object.entries(s.rooms).reduce((a, [k, v]) => a + v * (S2_ROOM_RATE[k] ?? 1500) * nights, 0)
-    );
-  }, 0);
-
   return (
     <aside
       style={{
@@ -4430,23 +4422,38 @@ function AccommodationSummary({
         })}
       </div>
 
-      {stays.length > 0 && (
-        <>
-          <div className="my-7 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
-          <div
-            className="text-[11.5px] font-semibold uppercase tracking-[0.22em]"
-            style={{ color: "rgba(245,241,230,0.55)" }}
-          >
-            Estimated total
-          </div>
-          <div className="mt-3 text-[30px] font-medium leading-none" style={{ color: S2_GOLD, fontFamily: SERIF }}>
-            NOK {estimate.toLocaleString("en-US")}
-          </div>
-          <div className="mt-2 text-[12.5px]" style={{ color: "rgba(245,241,230,0.45)" }}>
-            Including taxes &amp; fees
-          </div>
-        </>
-      )}
+      <div className="my-7 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
+
+      <div
+        className="text-[11.5px] font-semibold uppercase tracking-[0.22em]"
+        style={{ color: "rgba(245,241,230,0.55)" }}
+      >
+        What happens next?
+      </div>
+      <ul className="mt-5 space-y-3.5">
+        {[
+          "Your request is reviewed by our group specialists",
+          "Matching hotels prepare tailored offers",
+          "You'll receive your hotel proposal within 24 hours",
+          "Expert support every step of the way",
+        ].map((text) => (
+          <li key={text} className="flex items-start gap-3">
+            <span
+              className="mt-0.5 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full"
+              style={{
+                color: "#10202F",
+                background: `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 100%)`,
+                boxShadow: "0 0 0 1px rgba(217,191,130,0.35)",
+              }}
+            >
+              <Check size={11} strokeWidth={3.2} />
+            </span>
+            <span className="text-[13.5px] leading-snug" style={{ color: "rgba(245,241,230,0.82)" }}>
+              {text}
+            </span>
+          </li>
+        ))}
+      </ul>
 
       <button
         type="button"
