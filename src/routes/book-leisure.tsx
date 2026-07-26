@@ -3447,20 +3447,20 @@ function S2StayCard({
         className="shrink-0 leading-none"
         style={{ color: "rgba(217,191,130,0.85)" }}
       >
-        <CalendarDays size={22} strokeWidth={1.6} />
+        <CalendarDays size={21} strokeWidth={1.6} />
       </span>
     );
     const field = (
       <div className="flex min-w-0 flex-col gap-[5px]">
         <span
-          className="whitespace-nowrap text-[10px] font-medium uppercase leading-none tracking-[0.16em]"
-          style={{ color: "rgba(226,232,240,0.5)" }}
+          className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
+          style={{ color: "rgba(226,232,240,0.42)" }}
         >
           {label}
         </span>
         <span
-          className="whitespace-nowrap text-[19px] font-light leading-none"
-          style={{ color: value ? "#F6F4EF" : "rgba(246,244,239,0.45)" }}
+          className="whitespace-nowrap text-[22px] font-medium leading-none"
+          style={{ color: value ? "#F7F3EA" : "rgba(247,243,234,0.42)" }}
         >
           {fmtDate(value)}
         </span>
@@ -3469,9 +3469,7 @@ function S2StayCard({
     return (
       <div
         onClick={() => openPicker(inputRef)}
-        className={`s2-date-field relative flex min-w-0 cursor-pointer items-center gap-2 rounded-[10px] px-2 py-1.5 transition-colors duration-200 ${
-          align === "right" ? "justify-self-end" : "justify-self-start"
-        }`}
+        className="s2-date-field relative flex min-w-0 cursor-pointer items-center gap-[8px] justify-self-center rounded-[10px] px-3 py-2 transition-colors duration-200"
         style={{ border: "1px solid transparent" }}
       >
         {align === "left" ? (
@@ -3485,6 +3483,7 @@ function S2StayCard({
             {icon}
           </>
         )}
+
         <input
           ref={inputRef}
           type="date"
