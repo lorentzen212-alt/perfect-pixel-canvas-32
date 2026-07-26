@@ -3026,7 +3026,7 @@ function LeisureStep2Screen({
           className="relative overflow-hidden order-2 lg:order-none"
           style={{
             borderRadius: 24,
-            minHeight: "calc(100vh - 140px)",
+            minHeight: 600,
             boxShadow: "0 50px 100px -50px rgba(0,0,0,0.75)",
           }}
         >
