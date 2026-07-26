@@ -3753,33 +3753,175 @@ function S2RoomCard({
             <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
               Category
             </div>
-            <div className="relative mt-[1px] flex items-center pr-6">
-              <select
-                value={category ?? ""}
-                disabled={!active}
-                style={{ position: "relative", zIndex: 20 }}
-                aria-label={`${meta.title} category`}
-                onChange={(e) => onCategoryChange?.(e.target.value)}
-                className="w-full cursor-pointer appearance-none bg-transparent text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
-              >
-                <option value="" style={{ backgroundColor: S2_FIELD }}>
-                  Select category
-                </option>
-                {categoryOptions.map((o) => (
-                  <option key={o} value={o} style={{ backgroundColor: S2_FIELD }}>
-                    {o}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown
-                size={16}
-                strokeWidth={2}
-                className="pointer-events-none absolute right-0"
-                style={{ color: "rgba(245,241,230,0.55)" }}
-              />
-            </div>
+            <S2CategorySelect
+              value={category ?? ""}
+              options={categoryOptions}
+              disabled={!active}
+              label={`${meta.title} category`}
+              onChange={(v) => onCategoryChange?.(v)}
+            />
           </div>
         </>
+      )}
+    </div>
+  );
+}
+
+/* ---- Step 2 premium custom category dropdown ---- */
+function S2CategorySelect({
+  value,
+  options,
+  onChange,
+  disabled,
+  label,
+}: {
+  value: string;
+  options: string[];
+  onChange: (v: string) => void;
+  disabled?: boolean;
+  label: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+
+  const items = useMemo(() => ["", ...options], [options]);
+
+  const close = () => {
+    if (!open) return;
+    setClosing(true);
+    window.setTimeout(() => {
+      setClosing(false);
+      setOpen(false);
+    }, 150);
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) close();
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, [open]);
+
+  const toggle = () => {
+    if (disabled) return;
+    if (open) close();
+    else {
+      setActiveIdx(Math.max(0, items.indexOf(value)));
+      setOpen(true);
+    }
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (disabled) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (open) {
+        onChange(items[activeIdx] ?? "");
+        close();
+      } else toggle();
+      return;
+    }
+    if (e.key === "Escape") {
+      close();
+      return;
+    }
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      if (!open) {
+        toggle();
+        return;
+      }
+      setActiveIdx((i) => {
+        const n = items.length;
+        return e.key === "ArrowDown" ? (i + 1) % n : (i - 1 + n) % n;
+      });
+    }
+  };
+
+  return (
+    <div ref={wrapRef} className="relative mt-[1px]">
+      <button
+        type="button"
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={label}
+        disabled={disabled}
+        onClick={toggle}
+        onKeyDown={onKeyDown}
+        className="flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
+      >
+        <span className="truncate" style={{ color: value ? "#FFFFFF" : "rgba(245,241,230,0.75)" }}>
+          {value || "Select category"}
+        </span>
+        <ChevronDown
+          size={16}
+          strokeWidth={2}
+          style={{
+            color: "rgba(245,241,230,0.55)",
+            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            transition: "transform 170ms cubic-bezier(0.22,0.61,0.36,1)",
+          }}
+        />
+      </button>
+
+      {open && (
+        <div
+          role="listbox"
+          aria-label={label}
+          className={closing ? "s2-menu-out" : "s2-menu-in"}
+          style={{
+            position: "absolute",
+            zIndex: 60,
+            top: "calc(100% + 8px)",
+            left: -6,
+            right: -6,
+            maxHeight: 260,
+            overflowY: "auto",
+            borderRadius: 14,
+            padding: 11,
+            backgroundColor: "rgba(26,40,53,0.99)",
+            border: "1px solid rgba(217,191,130,0.26)",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 24px -16px rgba(4,10,16,0.7), 0 28px 60px -28px rgba(4,10,16,0.85)",
+            scrollBehavior: "smooth",
+          }}
+        >
+          {items.map((o, i) => {
+            const selected = (value || "") === o;
+            const highlighted = i === activeIdx;
+            return (
+              <div
+                key={o || "__none"}
+                role="option"
+                aria-selected={selected}
+                onMouseEnter={() => setActiveIdx(i)}
+                onClick={() => {
+                  onChange(o);
+                  close();
+                }}
+                className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 text-[13.5px]"
+                style={{
+                  borderRadius: 10,
+                  color: selected ? S2_GOLD_SOFT : "rgba(255,255,255,0.92)",
+                  backgroundColor: selected
+                    ? "rgba(217,191,130,0.10)"
+                    : highlighted
+                      ? "rgba(255,255,255,0.06)"
+                      : "transparent",
+                  transition: "background-color 150ms ease-out, color 150ms ease-out",
+                }}
+              >
+                <span className="truncate">{o || "Select category"}</span>
+                {selected && <Check size={14} strokeWidth={2.4} style={{ color: S2_GOLD_SOFT }} />}
+              </div>
+            );
+          })}
+        </div>
       )}
     </div>
   );
