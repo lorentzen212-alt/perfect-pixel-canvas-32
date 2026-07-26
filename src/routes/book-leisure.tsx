@@ -2930,6 +2930,8 @@ function LeisureStep2Screen({
   const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
+  const [arrivalFocusToken, setArrivalFocusToken] = useState(0);
+
 
   const draftNights = stayNights(draftArrival, draftDeparture);
   const draftRoomsCount = stayRoomsTotal(draftRooms);
