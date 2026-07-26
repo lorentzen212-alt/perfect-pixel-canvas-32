@@ -3368,10 +3368,10 @@ function S2StayBar({
       className={`flex flex-wrap items-center gap-x-7 gap-y-4 ${animClass}`}
       style={{
         borderRadius: 16,
-        backgroundColor: S2_SUNK,
-        border: "1px solid rgba(255,255,255,0.05)",
-        padding: "16px 20px",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+        backgroundColor: "rgba(255,255,255,0.05)",
+        border: "1px solid rgba(214,226,236,0.12)",
+        padding: "14px 18px",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045)",
       }}
     >
       <div className="flex items-center gap-2.5">
