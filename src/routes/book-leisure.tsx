@@ -2500,6 +2500,8 @@ function LeisureStepShell({
   subtext,
   rightSidebar,
   enhancedHero = false,
+  pageBg,
+  heroOverlay,
 }: {
   activeStep: StepKey;
   onStepGo: (s: StepKey) => void;
@@ -2510,6 +2512,8 @@ function LeisureStepShell({
   subtext: React.ReactNode;
   rightSidebar?: React.ReactNode;
   enhancedHero?: boolean;
+  pageBg?: string;
+  heroOverlay?: React.ReactNode;
 
 }) {
   const gridCols = rightSidebar
@@ -2520,7 +2524,7 @@ function LeisureStepShell({
     <main
       className="min-h-screen w-full"
       style={{
-        backgroundColor: S1_NAVY,
+        backgroundColor: pageBg ?? S1_NAVY,
         fontFamily: "Inter, system-ui, sans-serif",
         color: "#F5F1E6",
       }}
@@ -2533,7 +2537,8 @@ function LeisureStepShell({
         />
       </div>
 
-      <div className={`mx-auto grid max-w-[1680px] grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-5 lg:px-5 lg:py-12`}>
+      <div className={`mx-auto grid max-w-[1680px] grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-7 lg:px-8 lg:py-14`}>
+
         <aside
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px] order-3 lg:order-none"
 
@@ -2559,9 +2564,14 @@ function LeisureStepShell({
             }}
           />
 
-
+          {heroOverlay ? (
+            <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-end p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
+              {heroOverlay}
+            </div>
+          ) : (
           <div className="relative z-10 h-full min-h-[520px] p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
             <div className="flex h-full flex-col justify-between lg:ml-[15px] lg:mt-[10px]">
+
               <div>
                 <div className="text-[11px] font-medium tracking-[0.32em]" style={{ color: S1_GOLD_SOFT }}>
                   {chapter}
@@ -2632,7 +2642,9 @@ function LeisureStepShell({
 
             </div>
           </div>
+          )}
         </aside>
+
 
         <div className="order-1 lg:order-none min-w-0">{children}</div>
 
@@ -2923,7 +2935,7 @@ function StayRoomRow({
           handleCardClick();
         }
       }}
-      className="group grid cursor-pointer items-center rounded-[20px] p-3.5 pr-4 transition-all duration-[200ms] ease-out hover:-translate-y-[2px] hover:shadow-lg active:-translate-y-[1px]"
+      className="group grid cursor-pointer items-center rounded-[22px] p-4 pr-4.5 transition-all duration-300 ease-out hover:-translate-y-[3px] hover:border-[rgba(212,166,74,0.45)] active:-translate-y-[1px]"
       style={{
         gridTemplateColumns: "minmax(108px, 30%) 1fr auto",
         columnGap: 14,
@@ -2933,6 +2945,7 @@ function StayRoomRow({
           ? "0 20px 42px -24px rgba(212,166,74,0.14), 0 0 26px -14px rgba(212,166,74,0.09), inset 0 1px 0 rgba(255,255,230,0.06), inset 0 -1px 0 rgba(0,0,0,0.22), inset 0 0 22px -14px rgba(0,0,0,0.5)"
           : "0 18px 38px -22px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,230,0.03), inset 0 -1px 0 rgba(0,0,0,0.12)",
       }}
+
     >
       <div
         className="aspect-[4/3] w-full max-w-[180px] flex-shrink-0 self-center overflow-hidden rounded-[18px] transition-all duration-[200ms]"
@@ -3141,6 +3154,23 @@ function LeisureStep2Screen({
           Design the perfect room<br />distribution for your group.
         </>
       }
+      pageBg="#232C36"
+      heroOverlay={
+        <div>
+          <div className="text-[13px] font-medium" style={{ color: S1_GOLD_SOFT }}>
+            Step 2 of 6
+          </div>
+          <h1
+            className="mt-3 text-[44px] sm:text-[56px] lg:text-[62px] leading-[1.02] font-medium text-white"
+            style={{ fontFamily: SERIF }}
+          >
+            Accommodation
+          </h1>
+          <p className="mt-4 text-[16px] leading-relaxed" style={{ color: "rgba(255,255,255,0.78)" }}>
+            How many rooms will your group need?
+          </p>
+        </div>
+      }
       rightSidebar={
         <AccommodationSummary
           stays={stays}
@@ -3156,7 +3186,7 @@ function LeisureStep2Screen({
       }
     >
       <section
-        className="rounded-[24px] p-6 sm:p-8 lg:p-9"
+        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
         style={{
           backgroundColor: S1_NAVY_SOFT,
           border: `1px solid ${S1_BORDER}`,
@@ -3164,19 +3194,10 @@ function LeisureStep2Screen({
             "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
-        <h2
-          className="text-[29px] sm:text-[33px] leading-tight font-medium text-white"
-          style={{ fontFamily: SERIF }}
-        >
-          Step 2 – Accommodation
-        </h2>
-        <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
-          How many rooms will your group need?
-        </p>
-
         {/* Saved stay cards (centre column) */}
         {stays.filter((s) => s.id !== editingId).length > 0 && (
-          <div className="mt-6 space-y-3">
+          <div className="space-y-3">
+
             {stays.map((s, idx) => {
               if (s.id === editingId) return null;
               const nights = stayNights(s.arrival, s.departure);
@@ -3375,15 +3396,16 @@ function LeisureStep2Screen({
         )}
 
         {/* Notes */}
-        <div className="mt-10">
-          <div className="text-[14px] font-medium" style={{ color: "#F5F1E6" }}>
+        <div className="mt-14">
+          <div className="text-[14.5px] font-medium" style={{ color: "#F5F1E6" }}>
             Anything else we should know? <span style={{ color: "rgba(245,241,230,0.5)" }}>(optional)</span>
           </div>
           <div
-            className="mt-3 rounded-[14px] p-4 transition-all duration-200 focus-within:border-[color:var(--gold)]"
+            className="mt-4 rounded-[20px] p-5 transition-all duration-300 focus-within:border-[color:var(--gold)]"
             style={{
               backgroundColor: S1_NAVY,
               border: `1px solid rgba(245,241,230,0.12)`,
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 24px 50px -34px rgba(0,0,0,0.6)",
               ["--gold" as never]: S1_GOLD,
             }}
           >
@@ -3391,10 +3413,11 @@ function LeisureStep2Screen({
               value={roomNotes}
               onChange={(e) => setRoomNotes(e.target.value.slice(0, 500))}
               placeholder="Tell us anything important about your accommodation needs…"
-              rows={3}
-              className="w-full resize-none bg-transparent text-[14px] outline-none"
+              rows={4}
+              className="w-full resize-none bg-transparent text-[14.5px] leading-relaxed outline-none"
               style={{ color: "#F5F1E6" }}
             />
+
             <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.4)" }}>
               {roomNotes.length} / 500
             </div>
@@ -3402,12 +3425,12 @@ function LeisureStep2Screen({
         </div>
 
         {/* Bottom nav */}
-        <div className="mt-10 flex items-center justify-between gap-4">
+        <div className="mt-12 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0"
-            style={{ color: S1_GOLD_SOFT }}
+            className="inline-flex items-center gap-2 rounded-[14px] px-5 py-3 text-[14.5px] font-medium transition-all duration-300 hover:-translate-y-[3px] hover:border-[rgba(212,166,74,0.45)] active:translate-y-0"
+            style={{ color: S1_GOLD_SOFT, border: "1px solid rgba(245,241,230,0.14)" }}
           >
             <ArrowLeft size={16} strokeWidth={2.2} />
             Back
@@ -3418,7 +3441,7 @@ function LeisureStep2Screen({
               type="button"
               onClick={onNext}
               disabled={!nextEnabled}
-              className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all duration-200 hover:-translate-y-[2px] active:translate-y-0"
+              className="inline-flex items-center gap-2.5 rounded-[16px] px-9 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-[3px] active:translate-y-0"
               style={{
                 background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
                 color: S1_NAVY,
@@ -3441,7 +3464,8 @@ function LeisureStep2Screen({
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
+        <div className="mt-12 flex flex-col items-center gap-1.5 text-center">
+
           <div className="flex items-center gap-2 text-[13.5px]">
             <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
             <span style={{ color: S1_GOLD_SOFT }}>
