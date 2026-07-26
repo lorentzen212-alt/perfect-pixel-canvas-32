@@ -3238,6 +3238,9 @@ function LeisureStep2Screen({
                   guests={stayGuestsTotal(s.rooms)}
                   onAddAnother={commitAndStartNext}
                   onRemove={() => requestRemoveStay(s.id)}
+                  confirming={pendingRemoveId === s.id}
+                  onConfirmRemove={confirmPendingRemove}
+                  onCancelRemove={cancelPendingRemove}
                 />
               );
             })}
