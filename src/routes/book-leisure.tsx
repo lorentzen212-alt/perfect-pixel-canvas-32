@@ -3808,7 +3808,7 @@ function S2CategorySelect({
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const items = useMemo(() => ["", ...options], [options]);
+  const items = useMemo(() => [...options], [options]);
   const ROW_H = 46;
   const GAP = 12;
   const PAD = 8;
