@@ -3404,16 +3404,6 @@ function S2StayCard({
 }) {
   const arrivalRef = React.useRef<HTMLInputElement | null>(null);
   const departureRef = React.useRef<HTMLInputElement | null>(null);
-  const parts = (v: string) => {
-    if (!v) return { day: "--", my: "—", wd: "—" };
-    const d = new Date(v);
-    return {
-      day: format(d, "d"),
-      my: format(d, "MMM yyyy").toUpperCase(),
-      wd: format(d, "EEEE").toUpperCase(),
-    };
-  };
-
   const openPicker = (ref: React.RefObject<HTMLInputElement | null>) => {
     const el = ref.current;
     if (!el) return;

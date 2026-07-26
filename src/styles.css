@@ -361,3 +361,14 @@
   outline: none;
   border-color: rgba(217, 191, 130, 0.6) !important;
 }
+
+.s2-date-input::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+.s2-date-input::-webkit-datetime-edit {
+  color: #f6f4ef;
+}
+.s2-date-input:focus {
+  outline: none;
+}
