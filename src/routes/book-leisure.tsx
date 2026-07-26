@@ -3295,7 +3295,8 @@ function LeisureStep2Screen({
                 ref={addBtnRef}
                 type="button"
                 onClick={() => commitStay()}
-                disabled={!canAddStay}
+                aria-disabled={!canAddStay}
+                disabled={saving}
                 className="s2-btn inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold hover:-translate-y-[2px] active:translate-y-0"
                 style={{
                   borderRadius: 16,
