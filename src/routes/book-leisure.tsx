@@ -3767,7 +3767,9 @@ function S2RoomCard({
   );
 }
 
-/* ---- Step 2 premium custom category dropdown ---- */
+/* ---- Step 2 premium custom category dropdown (portal / floating) ---- */
+let s2OpenDropdownId = 0;
+
 function S2CategorySelect({
   value,
   options,
@@ -3781,36 +3783,84 @@ function S2CategorySelect({
   disabled?: boolean;
   label: string;
 }) {
+  const idRef = useRef(++s2OpenDropdownId);
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
-  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const [rect, setRect] = useState<{ left: number; top: number; width: number; up: boolean }>({
+    left: 0,
+    top: 0,
+    width: 0,
+    up: false,
+  });
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const items = useMemo(() => ["", ...options], [options]);
+  const ROW_H = 46;
+  const GAP = 12;
+  const PAD = 8;
+  const menuHeight = items.length * ROW_H + (items.length - 1) * GAP + PAD * 2 + 2;
 
-  const close = () => {
-    if (!open) return;
+  const measure = React.useCallback(() => {
+    const el = triggerRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - r.bottom;
+    const up = spaceBelow < menuHeight + 16 && r.top > spaceBelow;
+    setRect({
+      left: r.left,
+      top: up ? r.top - 8 - menuHeight : r.bottom + 8,
+      width: r.width,
+      up,
+    });
+  }, [menuHeight]);
+
+  const close = React.useCallback(() => {
     setClosing(true);
     window.setTimeout(() => {
       setClosing(false);
       setOpen(false);
-    }, 150);
-  };
+    }, 180);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
+    measure();
     const onDoc = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) close();
+      const t = e.target as Node;
+      if (triggerRef.current?.contains(t) || menuRef.current?.contains(t)) return;
+      close();
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    const onOther = (e: Event) => {
+      if ((e as CustomEvent).detail !== idRef.current) close();
     };
     document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, [open]);
+    document.addEventListener("keydown", onKey);
+    window.addEventListener("s2-dropdown-open", onOther as EventListener);
+    window.addEventListener("scroll", measure, true);
+    window.addEventListener("resize", measure);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+      window.removeEventListener("s2-dropdown-open", onOther as EventListener);
+      window.removeEventListener("scroll", measure, true);
+      window.removeEventListener("resize", measure);
+    };
+  }, [open, measure, close]);
 
   const toggle = () => {
     if (disabled) return;
     if (open) close();
     else {
       setActiveIdx(Math.max(0, items.indexOf(value)));
+      measure();
+      window.dispatchEvent(new CustomEvent("s2-dropdown-open", { detail: idRef.current }));
       setOpen(true);
     }
   };
@@ -3826,7 +3876,7 @@ function S2CategorySelect({
       return;
     }
     if (e.key === "Escape") {
-      close();
+      if (open) close();
       return;
     }
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
@@ -3842,9 +3892,71 @@ function S2CategorySelect({
     }
   };
 
+  const menu = (
+    <div
+      ref={menuRef}
+      role="listbox"
+      aria-label={label}
+      className={closing ? "s2-menu-out" : "s2-menu-in"}
+      style={{
+        position: "fixed",
+        left: rect.left,
+        top: rect.top,
+        width: rect.width,
+        zIndex: 9999,
+        maxHeight: "min(60vh, " + (menuHeight + 2) + "px)",
+        overflowY: "auto",
+        borderRadius: 16,
+        padding: PAD,
+        display: "flex",
+        flexDirection: "column",
+        gap: GAP,
+        backgroundColor: "rgba(19,31,42,0.985)",
+        border: "1px solid rgba(217,191,130,0.20)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.06), 0 12px 28px -18px rgba(4,10,16,0.75), 0 34px 70px -30px rgba(4,10,16,0.9)",
+        transformOrigin: rect.up ? "bottom center" : "top center",
+      }}
+    >
+      {items.map((o, i) => {
+        const selected = (value || "") === o;
+        const highlighted = i === activeIdx;
+        return (
+          <div
+            key={o || "__none"}
+            role="option"
+            aria-selected={selected}
+            onMouseEnter={() => setActiveIdx(i)}
+            onClick={() => {
+              onChange(o);
+              close();
+            }}
+            className="flex cursor-pointer select-none items-center justify-between gap-3 px-3 text-[13.5px]"
+            style={{
+              height: ROW_H,
+              flex: "0 0 auto",
+              borderRadius: 12,
+              color: selected ? S2_GOLD_SOFT : "rgba(255,255,255,0.92)",
+              backgroundColor: selected
+                ? "rgba(217,191,130,0.12)"
+                : highlighted
+                  ? "rgba(255,255,255,0.06)"
+                  : "transparent",
+              transition: "background-color 180ms ease-out, color 180ms ease-out",
+            }}
+          >
+            <span className="truncate">{o || "Select category"}</span>
+            {selected && <Check size={14} strokeWidth={2.4} style={{ color: S2_GOLD_SOFT }} />}
+          </div>
+        );
+      })}
+    </div>
+  );
+
   return (
-    <div ref={wrapRef} className="relative mt-[1px]">
+    <div className="relative mt-[1px]">
       <button
+        ref={triggerRef}
         type="button"
         role="combobox"
         aria-haspopup="listbox"
@@ -3853,7 +3965,7 @@ function S2CategorySelect({
         disabled={disabled}
         onClick={toggle}
         onKeyDown={onKeyDown}
-        className="flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
+        className="flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
       >
         <span className="truncate" style={{ color: value ? "#FFFFFF" : "rgba(245,241,230,0.75)" }}>
           {value || "Select category"}
@@ -3863,66 +3975,12 @@ function S2CategorySelect({
           strokeWidth={2}
           style={{
             color: "rgba(245,241,230,0.55)",
-            transform: open ? "rotate(180deg)" : "rotate(0deg)",
-            transition: "transform 170ms cubic-bezier(0.22,0.61,0.36,1)",
+            transform: open && !closing ? "rotate(180deg)" : "rotate(0deg)",
+            transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1)",
           }}
         />
       </button>
-
-      {open && (
-        <div
-          role="listbox"
-          aria-label={label}
-          className={closing ? "s2-menu-out" : "s2-menu-in"}
-          style={{
-            position: "absolute",
-            zIndex: 60,
-            top: "calc(100% + 8px)",
-            left: -6,
-            right: -6,
-            maxHeight: 260,
-            overflowY: "auto",
-            borderRadius: 14,
-            padding: 11,
-            backgroundColor: "rgba(26,40,53,0.99)",
-            border: "1px solid rgba(217,191,130,0.26)",
-            boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 24px -16px rgba(4,10,16,0.7), 0 28px 60px -28px rgba(4,10,16,0.85)",
-            scrollBehavior: "smooth",
-          }}
-        >
-          {items.map((o, i) => {
-            const selected = (value || "") === o;
-            const highlighted = i === activeIdx;
-            return (
-              <div
-                key={o || "__none"}
-                role="option"
-                aria-selected={selected}
-                onMouseEnter={() => setActiveIdx(i)}
-                onClick={() => {
-                  onChange(o);
-                  close();
-                }}
-                className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 text-[13.5px]"
-                style={{
-                  borderRadius: 10,
-                  color: selected ? S2_GOLD_SOFT : "rgba(255,255,255,0.92)",
-                  backgroundColor: selected
-                    ? "rgba(217,191,130,0.10)"
-                    : highlighted
-                      ? "rgba(255,255,255,0.06)"
-                      : "transparent",
-                  transition: "background-color 150ms ease-out, color 150ms ease-out",
-                }}
-              >
-                <span className="truncate">{o || "Select category"}</span>
-                {selected && <Check size={14} strokeWidth={2.4} style={{ color: S2_GOLD_SOFT }} />}
-              </div>
-            );
-          })}
-        </div>
-      )}
+      {mounted && open && createPortal(menu, document.body)}
     </div>
   );
 }
