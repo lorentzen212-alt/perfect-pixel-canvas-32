@@ -47,6 +47,8 @@ import {
   Star,
   Bell,
   BedDouble,
+  User as UserIcon,
+  Accessibility,
   ChevronDown,
   Send,
   Lock,
