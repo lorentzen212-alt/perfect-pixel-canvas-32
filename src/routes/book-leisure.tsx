@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { format } from "date-fns";
 import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
+import s2HeroImg from "@/assets/s2-accommodation-hero.jpg";
 import roomSingleImg from "@/assets/room-single.jpg.asset.json";
 import roomDoubleImg from "@/assets/room-double.jpg.asset.json";
 import roomTwinImg from "@/assets/room-twin.jpg.asset.json";
@@ -2466,8 +2467,7 @@ function LeisureStep1Screen({
    LEISURE STEP 2 — Accommodation (dark navy premium)
    ============================================================= */
 
-const S2_HERO =
-  "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1600&q=80";
+const S2_HERO = s2HeroImg;
 
 const STEP2_ROOMS: {
   key: string;
@@ -2475,19 +2475,22 @@ const STEP2_ROOMS: {
   desc: string;
   img: string;
 }[] = [
-  { key: "single", title: "Single Rooms", desc: "1 person", img: roomSingleImg.url },
-  { key: "triple", title: "Triple Rooms", desc: "3 people", img: roomTripleImg.url },
-  { key: "twin", title: "Twin Rooms", desc: "2 separate beds", img: roomTwinImg.url },
-  { key: "family", title: "Family Rooms", desc: "4+ people", img: roomFamilyImg.url },
-  { key: "double", title: "Double Rooms", desc: "1 double bed", img: roomDoubleImg.url },
-  { key: "accessible", title: "Accessible Rooms", desc: "Wheelchair friendly", img: roomAccessibleImg.url },
+  { key: "single", title: "Single Room", desc: "1 person", img: roomSingleImg.url },
+  { key: "triple", title: "Triple Room", desc: "3 people", img: roomTripleImg.url },
+  { key: "twin", title: "Twin Room", desc: "2 separate beds", img: roomTwinImg.url },
+  { key: "family", title: "Family Room", desc: "4+ people", img: roomFamilyImg.url },
+  { key: "double", title: "Double Room", desc: "1 double bed", img: roomDoubleImg.url },
+  { key: "accessible", title: "Accessible Room", desc: "Wheelchair friendly", img: roomAccessibleImg.url },
 ];
 
-/* Room categories – only offered for single / double / twin */
+/* Room categories */
 const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
   single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
   double: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
   twin: ["Standard", "Superior", "Premium", "Junior Suite"],
+  triple: ["Standard", "Superior", "Premium"],
+  family: ["Standard", "Superior", "Premium", "Suite"],
+  accessible: ["Accessible", "Accessible Superior"],
 };
 
 function LeisureStepShell({
@@ -3023,7 +3026,7 @@ function LeisureStep2Screen({
           className="relative overflow-hidden order-2 lg:order-none"
           style={{
             borderRadius: 24,
-            minHeight: "calc(100vh - 140px)",
+            minHeight: 600,
             boxShadow: "0 50px 100px -50px rgba(0,0,0,0.75)",
           }}
         >
@@ -3057,7 +3060,7 @@ function LeisureStep2Screen({
           style={{
             backgroundColor: S2_PANEL,
             borderRadius: 24,
-            padding: 40,
+            padding: 30,
             boxShadow: "0 44px 90px -46px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.03)",
           }}
         >
@@ -3103,13 +3106,14 @@ function LeisureStep2Screen({
               />
 
               <div
-                className="mt-9 text-[11.5px] font-semibold uppercase tracking-[0.22em]"
+                className="mt-7 text-[11.5px] font-semibold uppercase tracking-[0.22em]"
                 style={{ color: "rgba(245,241,230,0.65)" }}
               >
                 Room Distribution
               </div>
 
-              <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <div className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+
 
                 {STEP2_ROOMS_ORDER.map((key) => (
                   <S2RoomCard
@@ -3123,7 +3127,7 @@ function LeisureStep2Screen({
                 ))}
               </div>
 
-              <div className="mt-9 flex justify-end">
+              <div className="mt-6 flex justify-end">
                 <button
                   type="button"
                   onClick={commitStay}
@@ -3165,15 +3169,15 @@ function LeisureStep2Screen({
           )}
 
           {/* Notes */}
-          <div className="mt-12">
-            <div className="text-[15px] font-medium" style={{ color: S2_TEXT }}>
+          <div className="mt-8">
+            <div className="text-[14px] font-medium" style={{ color: S2_TEXT }}>
               Anything else we should know?{" "}
               <span style={{ color: "rgba(245,241,230,0.45)" }}>(optional)</span>
             </div>
             <div
-              className="mt-4 p-6 transition-colors duration-300"
+              className="mt-3 px-5 py-4 transition-colors duration-300"
               style={{
-                borderRadius: 20,
+                borderRadius: 18,
                 backgroundColor: S2_SUNK,
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 26px 50px -40px rgba(0,0,0,0.7)",
               }}
@@ -3182,8 +3186,8 @@ function LeisureStep2Screen({
                 value={roomNotes}
                 onChange={(e) => setRoomNotes(e.target.value.slice(0, 500))}
                 placeholder="Tell us anything important about your accommodation needs…"
-                rows={4}
-                className="w-full resize-none bg-transparent text-[14.5px] leading-relaxed outline-none"
+                rows={2}
+                className="w-full resize-none bg-transparent text-[14px] leading-relaxed outline-none"
                 style={{ color: S2_TEXT }}
               />
               <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.35)" }}>
@@ -3192,8 +3196,9 @@ function LeisureStep2Screen({
             </div>
           </div>
 
+
           {/* Navigation */}
-          <div className="mt-10 flex items-center justify-between gap-6">
+          <div className="mt-6 flex items-center justify-between gap-6">
             <button
               type="button"
               onClick={onBack}
@@ -3234,7 +3239,7 @@ function LeisureStep2Screen({
             </div>
           </div>
 
-          <div className="mt-10 flex flex-col items-center gap-1.5 text-center">
+          <div className="mt-6 flex flex-col items-center gap-1.5 text-center">
             <div className="flex items-center gap-2 text-[13.5px]">
               <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
               <span style={{ color: S1_GOLD_SOFT }}>Your request is free and non-binding</span>
@@ -3485,7 +3490,7 @@ function S2RoomCard({
           : "0 26px 54px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
       }}
     >
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 10" }}>
+      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
         <img
           src={meta.img}
           alt={meta.title}
@@ -3509,18 +3514,18 @@ function S2RoomCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col" style={{ padding: 18 }}>
-        <div className="text-[16px] font-medium leading-tight text-white">{meta.title}</div>
-        <div className="mt-1 text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+      <div className="flex flex-1 flex-col" style={{ padding: 16 }}>
+        <div className="text-[15.5px] font-medium leading-tight text-white">{meta.title}</div>
+        <div className="mt-0.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
           {meta.desc}
         </div>
 
-        <div className="mt-4">
+        <div className="mt-3">
           <S2Counter value={value} onChange={onChange} label={meta.title} />
         </div>
 
         {categoryOptions && (
-          <div className="mt-4" style={{ opacity: active ? 1 : 0.4, pointerEvents: active ? "auto" : "none" }}>
+          <div className="mt-3" style={{ opacity: active ? 1 : 0.4, pointerEvents: active ? "auto" : "none" }}>
             <div className="text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
               Category
             </div>
@@ -3590,7 +3595,7 @@ function S2Counter({
 
   return (
     <div
-      className="flex h-[50px] items-center justify-between px-1.5"
+      className="flex h-[46px] items-center justify-between px-1.5"
       style={{
         borderRadius: 14,
         backgroundColor: S2_FIELD,
