@@ -6581,6 +6581,85 @@ function LeisureStep5Screen({
    STEP 6 - Review (redesigned)
    ========================================================= */
 
+const S6_IMG_STAY =
+  "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80";
+const S6_IMG_DINING =
+  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80";
+const S6_IMG_EXPERIENCE =
+  "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=900&q=80";
+const S6_IMG_CONCIERGE =
+  "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80";
+
+function S6LuxCard({
+  icon,
+  title,
+  detail,
+  image,
+  onClick,
+  index,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  detail: string;
+  image: string;
+  onClick: () => void;
+  index: number;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="s6-card group relative flex w-full items-stretch overflow-hidden rounded-[20px] text-left"
+      style={{ animationDelay: `${index * 70}ms` }}
+    >
+      <div className="flex flex-1 items-center gap-6 px-6 py-7 sm:px-9 sm:py-8">
+        <span className="shrink-0" style={{ color: S1_GOLD }}>
+          {icon}
+        </span>
+        <span className="min-w-0">
+          <span
+            className="block text-[16px] uppercase tracking-[0.13em] text-white sm:text-[18px]"
+            style={{ fontFamily: SERIF }}
+          >
+            {title}
+          </span>
+          <span
+            className="mt-1.5 block truncate text-[13.5px] sm:text-[14.5px]"
+            style={{ color: "rgba(245,241,230,0.66)" }}
+          >
+            {detail}
+          </span>
+        </span>
+      </div>
+
+      <span className="relative hidden w-[190px] shrink-0 overflow-hidden sm:block lg:w-[230px]">
+        <img
+          src={image}
+          alt=""
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+        />
+        <span
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(19,30,42,0.95) 0%, rgba(19,30,42,0.15) 45%, rgba(19,30,42,0) 100%)",
+          }}
+        />
+      </span>
+
+      <span className="flex w-[58px] shrink-0 items-center justify-center sm:w-[72px]">
+        <ChevronRight
+          size={22}
+          strokeWidth={1.6}
+          className="transition-transform duration-300 group-hover:translate-x-[3px]"
+          style={{ color: S1_GOLD }}
+        />
+      </span>
+    </button>
+  );
+}
+
 const S6_HERO =
   "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80";
 
