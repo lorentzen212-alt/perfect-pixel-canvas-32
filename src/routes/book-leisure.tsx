@@ -3040,6 +3040,7 @@ function LeisureStep2Screen({
     <main
       className="min-h-screen w-full"
       style={{
+        overflowX: "clip",
         backgroundColor: S2_BG,
         backgroundImage: S2_BG_GRADIENT,
         backgroundRepeat: "no-repeat",
@@ -3060,7 +3061,7 @@ function LeisureStep2Screen({
         style={{ maxWidth: 1780, padding: 28, gap: 24 }}
       >
         {/* ---------- LEFT: vertical hotel image ---------- */}
-        <aside className="order-2 lg:order-none min-w-0 lg:pr-[10px]">
+        <aside className="order-2 lg:order-none min-w-0 lg:pr-[10px] lg:self-start">
           <div
             className="relative overflow-hidden lg:sticky lg:top-7"
             style={{
@@ -3337,7 +3338,7 @@ function LeisureStep2Screen({
         </section>
 
         {/* ---------- RIGHT: tip + sticky summary ---------- */}
-        <div className="order-3 lg:order-none min-w-0 space-y-6">
+        <div className="order-3 lg:order-none min-w-0 space-y-6 lg:self-start">
           <div
             style={{
               borderRadius: 20,
