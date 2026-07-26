@@ -2938,6 +2938,12 @@ function LeisureStep2Screen({
   const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const savingRef = useRef(false);
+  const preEditDraftRef = useRef<{
+    arrival: string;
+    departure: string;
+    rooms: Record<string, number>;
+    categories: Record<string, string>;
+  } | null>(null);
   const addBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const draftNights = stayNights(draftArrival, draftDeparture);
