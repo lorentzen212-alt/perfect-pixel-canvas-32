@@ -3429,18 +3429,19 @@ function S2StayCard({
     align: "left" | "right";
   }) => (
     <div
-      className={`relative min-w-0 ${editable ? "cursor-pointer" : ""} ${align === "right" ? "justify-self-start pl-2" : "justify-self-start pl-1"}`}
+      className={`relative min-w-0 ${editable ? "cursor-pointer" : ""} ${align === "right" ? "justify-self-end pr-1" : "justify-self-start pl-1"}`}
       onClick={editable ? () => openPicker(inputRef) : undefined}
+      style={align === "left" ? { marginRight: 40 } : { marginLeft: 40 }}
     >
       <div
-        className="pl-[34px] text-[11px] font-medium uppercase tracking-[0.22em]"
+        className="pl-[30px] text-[11px] font-medium uppercase tracking-[0.22em]"
         style={{ color: "rgba(226,230,238,0.52)" }}
       >
         {label}
       </div>
-      <div className="mt-[7px] flex items-center gap-3">
+      <div className="mt-[7px] flex items-center gap-2">
         <CalendarDays
-          size={25}
+          size={21}
           strokeWidth={1.5}
           className="shrink-0"
           style={{ color: S2_GOLD_SOFT }}
@@ -3475,7 +3476,7 @@ function S2StayCard({
         borderRadius: 20,
         backgroundColor: "#16222F",
         border: "1px solid rgba(255,255,255,0.055)",
-        padding: "18px 26px 14px",
+        padding: "14px 26px 10px",
         boxShadow: "0 18px 44px -30px rgba(0,0,0,0.75)",
       }}
     >
@@ -3500,8 +3501,10 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[16px] grid items-center px-6 py-[18px] sm:px-8"
+        className="mt-[14px] grid items-center py-[15px]"
         style={{
+          width: "82%",
+          margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
           borderRadius: 15,
           backgroundImage:
@@ -3530,12 +3533,12 @@ function S2StayCard({
 
       {/* Divider */}
       <div
-        className="mt-[16px]"
+        className="mt-[13px]"
         style={{ height: 1, backgroundColor: "rgba(255,255,255,0.075)" }}
       />
 
       {/* SECTION 3 — bottom row */}
-      <div className="mt-[13px] flex flex-wrap items-center justify-between">
+      <div className="mt-[11px] flex flex-wrap items-center justify-between">
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
         <S2StayInfo icon={<BedDouble size={17} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
