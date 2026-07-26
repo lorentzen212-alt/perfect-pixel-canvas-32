@@ -3580,21 +3580,34 @@ function S2StayCard({
 
         }}
       >
-        <DateCol label="Arrival" value={arrival} inputRef={arrivalRef} onChange={onArrival} align="left" />
+        <DateCol
+          label="Arrival"
+          value={arrival}
+          onChange={onArrival}
+          align="left"
+          placeholder="Select arrival date"
+        />
         <ArrowRight
-          size={34}
+          size={30}
           strokeWidth={1.2}
           className="mx-3 shrink-0 self-center"
-          style={{ color: "rgba(217,191,130,0.85)" }}
+          style={{ color: "rgba(217,191,130,0.9)" }}
         />
         <DateCol
           label="Departure"
           value={departure}
-          inputRef={departureRef}
           onChange={onDeparture}
-          min={arrival || undefined}
+          minDate={(() => {
+            const a = toDate(arrival);
+            if (!a) return undefined;
+            const n = new Date(a);
+            n.setDate(n.getDate() + 1);
+            return n;
+          })()}
           align="right"
+          placeholder="Select departure date"
         />
+
       </div>
 
 
