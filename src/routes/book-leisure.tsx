@@ -3595,7 +3595,7 @@ function S2Counter({
 
   return (
     <div
-      className="flex h-[50px] items-center justify-between px-1.5"
+      className="flex h-[46px] items-center justify-between px-1.5"
       style={{
         borderRadius: 14,
         backgroundColor: S2_FIELD,
