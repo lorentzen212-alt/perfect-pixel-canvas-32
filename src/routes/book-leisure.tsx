@@ -3034,7 +3034,7 @@ function LeisureStep2Screen({
       style={{
         backgroundColor: S2_BG,
         backgroundImage: S2_BG_GRADIENT,
-        backgroundAttachment: "fixed",
+        backgroundRepeat: "no-repeat",
         fontFamily: "Inter, system-ui, sans-serif",
         color: S2_TEXT,
       }}
@@ -3106,7 +3106,6 @@ function LeisureStep2Screen({
           className="order-1 lg:order-none min-w-0"
           style={{
             backgroundColor: S2_PANEL,
-            backdropFilter: "blur(8px)",
             borderRadius: 24,
             padding: 30,
             paddingBottom: 22,
@@ -3330,12 +3329,11 @@ function LeisureStep2Screen({
         </section>
 
         {/* ---------- RIGHT: tip + sticky summary ---------- */}
-        <div className="order-3 lg:order-none min-w-0 lg:sticky lg:top-8 lg:self-start space-y-6">
+        <div className="order-3 lg:order-none min-w-0 space-y-6">
           <div
             style={{
               borderRadius: 20,
               backgroundColor: S2_CARD,
-              backdropFilter: "blur(8px)",
               border: "1px solid rgba(255,255,255,0.05)",
               padding: 22,
               boxShadow: S2_CARD_SHADOW,
@@ -3353,6 +3351,7 @@ function LeisureStep2Screen({
             </p>
           </div>
 
+          <div className="lg:sticky lg:top-7">
           <AccommodationSummary
             stays={stays}
             totalStays={totalStays}
@@ -3363,6 +3362,7 @@ function LeisureStep2Screen({
             lastAddedId={lastAddedId}
             removingIds={removingIds}
           />
+          </div>
         </div>
       </div>
     </main>
@@ -3687,7 +3687,6 @@ function S2RoomCard({
         backgroundImage: active
           ? "linear-gradient(180deg, rgba(255,255,255,0.085) 0%, rgba(255,255,255,0.022) 44%, rgba(0,0,0,0.05) 100%)"
           : "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.05) 100%)",
-        backdropFilter: "blur(8px)",
         border: `1px solid ${active ? "rgba(217,191,130,0.48)" : "rgba(255,255,255,0.09)"}`,
         boxShadow: active
           ? "inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 18px -14px rgba(4,10,16,0.55), 0 22px 46px -26px rgba(4,10,16,0.7), 0 0 0 1px rgba(217,191,130,0.10), 0 16px 44px -24px rgba(217,191,130,0.42)"
@@ -3750,7 +3749,7 @@ function S2RoomCard({
             className="mt-2.5"
             style={{ height: 1, background: "rgba(214,226,236,0.12)" }}
           />
-          <div className="mt-2" style={{ opacity: active ? 1 : 0.45, pointerEvents: active ? "auto" : "none" }}>
+          <div className="relative z-10 mt-2" style={{ opacity: active ? 1 : 0.45 }}>
             <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
               Category
             </div>
@@ -3758,6 +3757,7 @@ function S2RoomCard({
               <select
                 value={category ?? ""}
                 disabled={!active}
+                style={{ position: "relative", zIndex: 20 }}
                 aria-label={`${meta.title} category`}
                 onChange={(e) => onCategoryChange?.(e.target.value)}
                 className="w-full cursor-pointer appearance-none bg-transparent text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
@@ -3924,7 +3924,6 @@ function AccommodationSummary({
       style={{
         borderRadius: 24,
         backgroundColor: S2_PANEL,
-        backdropFilter: "blur(8px)",
         border: "1px solid rgba(255,255,255,0.05)",
         padding: 28,
         boxShadow:
