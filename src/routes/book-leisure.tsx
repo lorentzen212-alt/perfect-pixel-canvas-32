@@ -3404,7 +3404,7 @@ function S2StayCard({
 }) {
   const arrivalRef = React.useRef<HTMLInputElement | null>(null);
   const departureRef = React.useRef<HTMLInputElement | null>(null);
-  const fmt = (v: string) => (v ? format(new Date(v), "d MMM yyyy") : "dd.mm.åååå");
+  const fmt = (v: string) => (v ? format(new Date(v), "d MMM yyyy") : "dd.mm.yyyy");
 
   const openPicker = (ref: React.RefObject<HTMLInputElement | null>) => {
     const el = ref.current;
@@ -3521,9 +3521,9 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[14px] grid items-center py-[15px]"
+        className="mt-[13px] grid items-center py-[13px]"
         style={{
-          width: "82%",
+          width: "75%",
           margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
           borderRadius: 15,
