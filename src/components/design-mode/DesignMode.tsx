@@ -1202,7 +1202,6 @@ export default function DesignMode() {
             <Inspector
               count={selected.length}
 
-              count={selected.length}
               ov={primaryOv}
               rect={primaryRect}
               onChange={(p) => patchMany(selected, p)}
