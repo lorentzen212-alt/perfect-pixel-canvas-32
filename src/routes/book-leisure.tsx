@@ -3434,14 +3434,14 @@ function S2StayCard({
       style={align === "left" ? { marginRight: 40 } : { marginLeft: 40 }}
     >
       <div
-        className="pl-[34px] text-[11px] font-medium uppercase tracking-[0.22em]"
+        className="pl-[30px] text-[11px] font-medium uppercase tracking-[0.22em]"
         style={{ color: "rgba(226,230,238,0.52)" }}
       >
         {label}
       </div>
-      <div className="mt-[7px] flex items-center gap-3">
+      <div className="mt-[7px] flex items-center gap-2">
         <CalendarDays
-          size={25}
+          size={21}
           strokeWidth={1.5}
           className="shrink-0"
           style={{ color: S2_GOLD_SOFT }}
