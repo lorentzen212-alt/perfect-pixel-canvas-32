@@ -2493,10 +2493,8 @@ const STEP2_ROOMS: {
 const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
   single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
   double: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
-  twin: ["Standard", "Superior", "Premium", "Junior Suite"],
-  triple: ["Standard", "Superior", "Premium"],
-  family: ["Standard", "Superior", "Premium", "Suite"],
-  accessible: ["Accessible", "Accessible Superior"],
+  twin: ["Standard", "Superior", "Premium"],
+  family: ["Family Room", "Junior Suite", "Suite"],
 };
 
 /* Default selected category per room type (first option, e.g. "Standard") */
