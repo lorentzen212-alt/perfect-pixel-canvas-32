@@ -2874,13 +2874,13 @@ function fmtStayRange(a: string, d: string): string {
   return `${format(ad, "d MMM")} – ${format(dd, "d MMM yyyy")}`;
 }
 
-/* Step 2 — rebuilt design tokens */
-const S2_BG = "#0B1624";
-const S2_PANEL = "#111F2F";
-const S2_SUNK = "#0D1A29";
-const S2_CARD = "#132234";
-const S2_CARD_ACTIVE = "#17293D";
-const S2_FIELD = "#0B1624";
+/* Step 2 — matte blue-grey design tokens */
+const S2_BG = "#2B3E4E";
+const S2_PANEL = "rgba(255,255,255,0.028)";
+const S2_SUNK = "rgba(19,31,42,0.55)";
+const S2_CARD = "rgba(255,255,255,0.045)";
+const S2_CARD_ACTIVE = "rgba(255,255,255,0.07)";
+const S2_FIELD = "#243746";
 const S2_TEXT = "#F5F1E6";
 
 
