@@ -3072,6 +3072,14 @@ function LeisureStep2Screen({
               style={{ objectFit: "cover", objectPosition: "center center" }}
             />
             <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                borderRadius: 24,
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 0 60px -18px rgba(0,0,0,0.55)",
+              }}
+            />
+            <div
               className="pointer-events-none absolute inset-x-0 bottom-0"
               style={{
                 height: "38%",
