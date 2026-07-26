@@ -147,6 +147,9 @@ export default function DesignMode() {
       el.style.removeProperty("height");
       el.style.removeProperty("padding");
       el.style.removeProperty("margin");
+      el.style.removeProperty("margin-right");
+      el.style.removeProperty("margin-bottom");
+      el.style.removeProperty("flex");
       el.style.removeProperty("border-radius");
       el.style.removeProperty("gap");
       el.style.removeProperty("align-items");
@@ -156,6 +159,7 @@ export default function DesignMode() {
       el.style.removeProperty("opacity");
       el.style.removeProperty("box-shadow");
       el.style.removeProperty("display");
+      el.style.removeProperty("visibility");
       el.style.removeProperty("z-index");
     });
     appliedRef.current.clear();
@@ -164,9 +168,23 @@ export default function DesignMode() {
       const el = elementAtPath(path);
       if (!el) return;
       appliedRef.current.add(el);
+      /* movement uses transform only — it never affects surrounding layout */
       if (o.x || o.y) el.style.transform = `translate(${o.x ?? 0}px, ${o.y ?? 0}px)`;
-      if (o.w != null) el.style.width = `${o.w}px`;
-      if (o.h != null) el.style.height = `${o.h}px`;
+      /* resizing keeps the original footprint so siblings never shift */
+      if (o.w != null || o.h != null) {
+        el.style.flex = "none";
+        if (o.w != null) {
+          el.style.width = `${o.w}px`;
+          el.style.maxWidth = "none";
+          const base = o.baseW ?? o.w;
+          if (base !== o.w) el.style.marginRight = `${base - o.w}px`;
+        }
+        if (o.h != null) {
+          el.style.height = `${o.h}px`;
+          const base = o.baseH ?? o.h;
+          if (base !== o.h) el.style.marginBottom = `${base - o.h}px`;
+        }
+      }
       if (o.padding) el.style.padding = o.padding;
       if (o.margin) el.style.margin = o.margin;
       if (o.radius) el.style.borderRadius = o.radius;
@@ -178,7 +196,8 @@ export default function DesignMode() {
       if (o.opacity != null) el.style.opacity = String(o.opacity);
       if (o.shadow) el.style.boxShadow = o.shadow;
       if (o.z != null) el.style.zIndex = String(o.z);
-      if (o.hidden) el.style.display = "none";
+      /* hiding keeps the space reserved so nothing else moves */
+      if (o.hidden) el.style.visibility = "hidden";
     });
   }, [doc.overrides]);
 
