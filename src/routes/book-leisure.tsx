@@ -3703,14 +3703,36 @@ function S2StayCard({
           transform: "translateY(16px)",
         }}
       >
-        <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
-        <S2StayDivider />
-        <S2StayInfo icon={<BedDouble size={19} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
-        <S2StayDivider />
-        <S2StayInfo icon={<UserRound size={19} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
-        <S2StayDivider />
-        <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
+        {confirming ? (
+          <>
+            <span
+              className="flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px] font-light"
+              style={{ color: "rgba(248,245,238,0.92)" }}
+            >
+              Remove this stay?
+            </span>
+            <S2StayDivider />
+            <S2StayInfo
+              icon={<Trash2 size={18} strokeWidth={1.6} />}
+              text="Confirm"
+              onClick={onConfirmRemove}
+            />
+            <S2StayDivider />
+            <S2StayInfo icon={<X size={18} strokeWidth={1.6} />} text="Cancel" onClick={onCancelRemove} />
+          </>
+        ) : (
+          <>
+            <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
+            <S2StayDivider />
+            <S2StayInfo icon={<BedDouble size={19} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
+            <S2StayDivider />
+            <S2StayInfo icon={<UserRound size={19} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
+            <S2StayDivider />
+            <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
+          </>
+        )}
       </div>
+
 
     </div>
   );
