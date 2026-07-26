@@ -2930,6 +2930,8 @@ function LeisureStep2Screen({
   const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
+  const [addError, setAddError] = useState(false);
+  const addBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const draftNights = stayNights(draftArrival, draftDeparture);
   const draftRoomsCount = stayRoomsTotal(draftRooms);
@@ -2951,8 +2953,16 @@ function LeisureStep2Screen({
     setEditingId(null);
   };
 
-  const commitStay = () => {
-    if (!canAddStay) return;
+  const commitStay = (keepEditorOpen = false) => {
+    if (!canAddStay) {
+      setAddError(true);
+      if (typeof window !== "undefined") {
+        addBtnRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      setShowEditor(true);
+      return;
+    }
+    setAddError(false);
     const id = editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now()));
     const stay: LeisureStay = {
       id,
@@ -2971,8 +2981,19 @@ function LeisureStep2Screen({
       setLastAddedId((cur) => (cur === id ? null : cur));
     }, 320);
     resetDraft();
-    setShowEditor(false);
+    setShowEditor(keepEditorOpen);
   };
+
+  /** Top "+ Add another stay": same flow as "Add this stay", then ready for next stay. */
+  const commitAndStartNext = () => {
+    // From a saved stay card with no draft in progress: just open a fresh form.
+    if (!showEditor && !draftArrival && !draftDeparture && stayRoomsTotal(draftRooms) === 0) {
+      startNewStay();
+      return;
+    }
+    commitStay(true);
+  };
+
 
   const editStay = (id: string) => {
     const s = stays.find((x) => x.id === id);
@@ -3016,6 +3037,35 @@ function LeisureStep2Screen({
     resetDraft();
     setShowEditor(false);
   };
+
+  /** Remove a completed stay, with confirmation. */
+  const requestRemoveStay = (id: string) => {
+    if (typeof window !== "undefined" && !window.confirm("Remove this stay?")) return;
+    removeStay(id);
+  };
+
+  const draftIsEmpty =
+    !draftArrival && !draftDeparture && draftRoomsCount === 0;
+
+  /** Remove from the editor card: delete the stay being edited, or reset the draft. */
+  const handleEditorRemove = () => {
+    if (editingId) {
+      requestRemoveStay(editingId);
+      return;
+    }
+    if (draftIsEmpty) {
+      // Nothing to confirm — keep the form visible and clean.
+      resetDraft();
+      setAddError(false);
+      setShowEditor(true);
+      return;
+    }
+    if (typeof window !== "undefined" && !window.confirm("Remove this stay?")) return;
+    resetDraft();
+    setAddError(false);
+    setShowEditor(true);
+  };
+
 
   const totalStays = stays.length;
   const totalRoomsAll = stays.reduce((a, s) => a + stayRoomsTotal(s.rooms), 0);
@@ -3155,9 +3205,8 @@ function LeisureStep2Screen({
                   nights={stayNights(s.arrival, s.departure)}
                   rooms={stayRoomsTotal(s.rooms)}
                   guests={stayGuestsTotal(s.rooms)}
-                  onAddAnother={startNewStay}
-                  onEdit={() => editStay(s.id)}
-                  onRemove={() => removeStay(s.id)}
+                  onAddAnother={commitAndStartNext}
+                  onRemove={() => requestRemoveStay(s.id)}
                 />
               );
             })}
@@ -3184,15 +3233,8 @@ function LeisureStep2Screen({
                   }
                 }}
                 onDeparture={setDraftDeparture}
-                onAddAnother={startNewStay}
-                onEdit={() => {
-                  if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                onRemove={() => {
-                  if (editingId) removeStay(editingId);
-                  else if (stays.length > 0) cancelEditor();
-                  else resetDraft();
-                }}
+                onAddAnother={commitAndStartNext}
+                onRemove={handleEditorRemove}
               />
             </div>
           )}
@@ -3229,10 +3271,16 @@ function LeisureStep2Screen({
           </div>
 
           {showEditor && (
-            <div className="mt-2 flex justify-end">
+            <div className="mt-2 flex flex-col items-end gap-2">
+              {addError && !canAddStay && (
+                <span className="text-[13px]" style={{ color: "rgba(238,170,150,0.95)" }}>
+                  Please select arrival and departure dates and at least one room.
+                </span>
+              )}
               <button
+                ref={addBtnRef}
                 type="button"
-                onClick={commitStay}
+                onClick={() => commitStay()}
                 disabled={!canAddStay}
                 className="s2-btn inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold hover:-translate-y-[2px] active:translate-y-0"
                 style={{
@@ -3252,6 +3300,7 @@ function LeisureStep2Screen({
               </button>
             </div>
           )}
+
 
 
 
@@ -3390,7 +3439,6 @@ function S2StayCard({
   onArrival,
   onDeparture,
   onAddAnother,
-  onEdit,
   onRemove,
   animClass = "",
 }: {
@@ -3404,7 +3452,6 @@ function S2StayCard({
   onArrival?: (v: string) => void;
   onDeparture?: (v: string) => void;
   onAddAnother: () => void;
-  onEdit: () => void;
   onRemove: () => void;
   animClass?: string;
 }) {
@@ -3627,7 +3674,7 @@ function S2StayCard({
 
       {/* SECTION 3 — bottom action zone */}
       <div
-        className="mt-auto flex flex-wrap items-center justify-between px-3 py-[3px]"
+        className="mt-auto flex items-center justify-between px-3 py-[3px]"
         style={{
           borderRadius: 12,
           backgroundColor: "rgba(12,22,32,0.16)",
@@ -3640,8 +3687,6 @@ function S2StayCard({
         <S2StayInfo icon={<BedDouble size={19} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
         <S2StayDivider />
         <S2StayInfo icon={<UserRound size={19} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
-        <S2StayDivider />
-        <S2StayInfo icon={<Pencil size={18} strokeWidth={1.6} />} text="Edit" onClick={onEdit} />
         <S2StayDivider />
         <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
       </div>
@@ -3680,7 +3725,8 @@ function S2StayInfo({
       </span>
     </>
   );
-  const cls = "s2-stay-info group inline-flex items-center gap-2.5 py-1 text-[14.5px] font-light";
+  const cls =
+    "s2-stay-info group flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px] font-light";
 
   return onClick ? (
     <button type="button" onClick={onClick} className={cls}>
