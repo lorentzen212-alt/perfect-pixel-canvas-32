@@ -3485,7 +3485,7 @@ function S2StayCard({
         onClick={activate}
         aria-label={label}
         className={`s2-date-field relative flex min-w-0 cursor-pointer items-center gap-3 rounded-[10px] bg-transparent px-3 py-1.5 text-left transition-colors duration-200 ${
-          align === "right" ? "justify-self-end mr-[6px]" : "justify-self-start ml-[6px]"
+          align === "right" ? "justify-self-end mr-[30px]" : "justify-self-start ml-[30px]"
         }`}
         style={{ border: "1px solid transparent" }}
       >
@@ -3549,7 +3549,7 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[18px] grid items-center py-[12px]"
+        className="mt-[18px] grid items-center py-[9px]"
         style={{
           width: "82%",
           margin: "0 auto",
