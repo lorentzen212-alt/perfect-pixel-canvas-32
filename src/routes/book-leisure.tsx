@@ -3483,6 +3483,7 @@ function S2StayCard({
   onArrival,
   onDeparture,
   onAddAnother,
+  onEdit,
   onRemove,
   confirming = false,
   onConfirmRemove,
@@ -3499,6 +3500,7 @@ function S2StayCard({
   onArrival?: (v: string) => void;
   onDeparture?: (v: string) => void;
   onAddAnother: () => void;
+  onEdit?: () => void;
   onRemove: () => void;
   confirming?: boolean;
   onConfirmRemove?: () => void;
