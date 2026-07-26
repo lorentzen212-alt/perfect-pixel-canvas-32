@@ -3437,6 +3437,8 @@ function S2StayCard({
     minDate,
     align,
     placeholder,
+    open: openProp,
+    onOpenChange,
   }: {
     label: string;
     value: string;
@@ -3444,10 +3446,18 @@ function S2StayCard({
     minDate?: Date;
     align: "left" | "right";
     placeholder: string;
+    open?: boolean;
+    onOpenChange?: (v: boolean) => void;
   }) => {
-    const [open, setOpen] = React.useState(false);
+    const [openLocal, setOpenLocal] = React.useState(false);
+    const open = openProp ?? openLocal;
+    const setOpen = (v: boolean) => {
+      if (onOpenChange) onOpenChange(v);
+      else setOpenLocal(v);
+    };
     const selected = toDate(value);
     const interactive = editable && !!onChange;
+
 
     const dateValue = (
       <span
