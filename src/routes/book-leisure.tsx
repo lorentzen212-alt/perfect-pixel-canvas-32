@@ -3195,15 +3195,18 @@ function LeisureStep2Screen({
                 }}
                 onDeparture={setDraftDeparture}
                 onAddAnother={startNewStay}
+                openArrivalToken={arrivalFocusToken}
                 onEdit={() => {
+                  setArrivalFocusToken((t) => t + 1);
                   if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
+                canRemove={editingId ? stays.length > 1 : stays.length > 0}
                 onRemove={() => {
-                  if (editingId) removeStay(editingId);
+                  if (editingId) removeStay(editingId, true);
                   else if (stays.length > 0) cancelEditor();
-                  else resetDraft();
                 }}
               />
+
             </div>
           )}
 
