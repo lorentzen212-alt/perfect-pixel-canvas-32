@@ -2930,6 +2930,8 @@ function LeisureStep2Screen({
   const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
+  const [arrivalFocusToken, setArrivalFocusToken] = useState(0);
+
 
   const draftNights = stayNights(draftArrival, draftDeparture);
   const draftRoomsCount = stayRoomsTotal(draftRooms);
@@ -2983,11 +2985,16 @@ function LeisureStep2Screen({
     setDraftRooms({ ...emptyDraftRooms(), ...s.rooms });
     setDraftCategories({ ...(s.roomCategories ?? {}) });
     setShowEditor(true);
+    setArrivalFocusToken((t) => t + 1);
     if (typeof window !== "undefined")
       window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const removeStay = (id: string) => {
+  const removeStay = (id: string, confirmFirst = false) => {
+    if (stays.length <= 1 && stays.some((s) => s.id === id)) return;
+    if (confirmFirst && typeof window !== "undefined") {
+      if (!window.confirm("Remove this stay?")) return;
+    }
     setRemovingIds((prev) => {
       const next = new Set(prev);
       next.add(id);
@@ -3006,6 +3013,7 @@ function LeisureStep2Screen({
       }
     }, 220);
   };
+
 
   const startNewStay = () => {
     resetDraft();
@@ -3157,7 +3165,9 @@ function LeisureStep2Screen({
                   guests={stayGuestsTotal(s.rooms)}
                   onAddAnother={startNewStay}
                   onEdit={() => editStay(s.id)}
-                  onRemove={() => removeStay(s.id)}
+                  canRemove={stays.length > 1}
+                  onRemove={() => removeStay(s.id, true)}
+
                 />
               );
             })}
@@ -3185,15 +3195,18 @@ function LeisureStep2Screen({
                 }}
                 onDeparture={setDraftDeparture}
                 onAddAnother={startNewStay}
+                openArrivalToken={arrivalFocusToken}
                 onEdit={() => {
+                  setArrivalFocusToken((t) => t + 1);
                   if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
+                canRemove={editingId ? stays.length > 1 : stays.length > 0}
                 onRemove={() => {
-                  if (editingId) removeStay(editingId);
+                  if (editingId) removeStay(editingId, true);
                   else if (stays.length > 0) cancelEditor();
-                  else resetDraft();
                 }}
               />
+
             </div>
           )}
 
@@ -3393,6 +3406,8 @@ function S2StayCard({
   onEdit,
   onRemove,
   animClass = "",
+  canRemove = true,
+  openArrivalToken = 0,
 }: {
   title: string;
   arrival: string;
@@ -3407,7 +3422,10 @@ function S2StayCard({
   onEdit: () => void;
   onRemove: () => void;
   animClass?: string;
+  canRemove?: boolean;
+  openArrivalToken?: number;
 }) {
+
   const toDate = (iso: string): Date | undefined => {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
     if (!m) return undefined;
@@ -3432,6 +3450,8 @@ function S2StayCard({
     minDate,
     align,
     placeholder,
+    open: openProp,
+    onOpenChange,
   }: {
     label: string;
     value: string;
@@ -3439,10 +3459,18 @@ function S2StayCard({
     minDate?: Date;
     align: "left" | "right";
     placeholder: string;
+    open?: boolean;
+    onOpenChange?: (v: boolean) => void;
   }) => {
-    const [open, setOpen] = React.useState(false);
+    const [openLocal, setOpenLocal] = React.useState(false);
+    const open = openProp ?? openLocal;
+    const setOpen = (v: boolean) => {
+      if (onOpenChange) onOpenChange(v);
+      else setOpenLocal(v);
+    };
     const selected = toDate(value);
     const interactive = editable && !!onChange;
+
 
     const dateValue = (
       <span
@@ -3538,8 +3566,10 @@ function S2StayCard({
     );
   };
 
-
-
+  const [arrivalOpen, setArrivalOpen] = React.useState(false);
+  React.useEffect(() => {
+    if (openArrivalToken > 0 && editable) setArrivalOpen(true);
+  }, [openArrivalToken, editable]);
 
 
   return (
@@ -3600,7 +3630,10 @@ function S2StayCard({
           onChange={onArrival}
           align="left"
           placeholder="Select arrival date"
+          open={editable ? arrivalOpen : undefined}
+          onOpenChange={editable ? setArrivalOpen : undefined}
         />
+
         <ArrowRight
           size={34}
           strokeWidth={1.1}
@@ -3642,8 +3675,13 @@ function S2StayCard({
         <S2StayInfo icon={<UserRound size={19} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
         <S2StayDivider />
         <S2StayInfo icon={<Pencil size={18} strokeWidth={1.6} />} text="Edit" onClick={onEdit} />
-        <S2StayDivider />
-        <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
+        {canRemove ? (
+          <>
+            <S2StayDivider />
+            <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
+          </>
+        ) : null}
+
       </div>
 
     </div>
