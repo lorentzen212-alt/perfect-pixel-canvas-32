@@ -3514,18 +3514,18 @@ function S2RoomCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col" style={{ padding: 18 }}>
-        <div className="text-[16px] font-medium leading-tight text-white">{meta.title}</div>
-        <div className="mt-1 text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+      <div className="flex flex-1 flex-col" style={{ padding: 16 }}>
+        <div className="text-[15.5px] font-medium leading-tight text-white">{meta.title}</div>
+        <div className="mt-0.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
           {meta.desc}
         </div>
 
-        <div className="mt-4">
+        <div className="mt-3">
           <S2Counter value={value} onChange={onChange} label={meta.title} />
         </div>
 
         {categoryOptions && (
-          <div className="mt-4" style={{ opacity: active ? 1 : 0.4, pointerEvents: active ? "auto" : "none" }}>
+          <div className="mt-3" style={{ opacity: active ? 1 : 0.4, pointerEvents: active ? "auto" : "none" }}>
             <div className="text-[12px]" style={{ color: "rgba(245,241,230,0.5)" }}>
               Category
             </div>
