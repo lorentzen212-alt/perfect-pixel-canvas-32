@@ -3236,6 +3236,7 @@ function LeisureStep2Screen({
                   rooms={stayRoomsTotal(s.rooms)}
                   guests={stayGuestsTotal(s.rooms)}
                   onAddAnother={commitAndStartNext}
+                  onEdit={() => editStay(s.id)}
                   onRemove={() => requestRemoveStay(s.id)}
                   confirming={pendingRemoveId === s.id}
                   onConfirmRemove={confirmPendingRemove}
