@@ -2564,9 +2564,14 @@ function LeisureStepShell({
             }}
           />
 
-
+          {heroOverlay ? (
+            <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-end p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
+              {heroOverlay}
+            </div>
+          ) : (
           <div className="relative z-10 h-full min-h-[520px] p-8 sm:p-10 lg:min-h-[820px] lg:p-12">
             <div className="flex h-full flex-col justify-between lg:ml-[15px] lg:mt-[10px]">
+
               <div>
                 <div className="text-[11px] font-medium tracking-[0.32em]" style={{ color: S1_GOLD_SOFT }}>
                   {chapter}
