@@ -3175,7 +3175,11 @@ function LeisureStep2Screen({
                 editable
                 onArrival={(v: string) => {
                   setDraftArrival(v);
-                  if (draftDeparture && new Date(draftDeparture) <= new Date(v)) setDraftDeparture("");
+                  if (v && (!draftDeparture || new Date(draftDeparture) <= new Date(v))) {
+                    const next = new Date(`${v}T00:00:00`);
+                    next.setDate(next.getDate() + 1);
+                    setDraftDeparture(next.toISOString().slice(0, 10));
+                  }
                 }}
                 onDeparture={setDraftDeparture}
                 onAddAnother={startNewStay}
@@ -3416,6 +3420,12 @@ function S2StayCard({
     }
   };
 
+  const fmtDate = (iso: string) => {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+    if (!m) return "dd.mm.yyyy";
+    return `${m[3]}.${m[2]}.${m[1]}`;
+  };
+
   const DateCol = ({
     label,
     value,
@@ -3432,44 +3442,35 @@ function S2StayCard({
     align: "left" | "right";
   }) => {
     const icon = (
-      <button
-        type="button"
-        onClick={() => openPicker(inputRef)}
-        aria-label={`Open ${label} calendar`}
-        className="shrink-0 bg-transparent p-0 leading-none"
-        style={{ border: "none", color: S2_GOLD_SOFT }}
+      <span
+        aria-hidden
+        className="shrink-0 leading-none"
+        style={{ color: "rgba(217,191,130,0.85)" }}
       >
         <CalendarDays size={22} strokeWidth={1.6} />
-      </button>
+      </span>
     );
     const field = (
       <div className="flex min-w-0 flex-col gap-[5px]">
         <span
-          className="text-[10.5px] font-medium uppercase leading-none tracking-[0.22em]"
+          className="whitespace-nowrap text-[10px] font-medium uppercase leading-none tracking-[0.16em]"
           style={{ color: "rgba(226,232,240,0.5)" }}
         >
           {label}
         </span>
-        <input
-          ref={inputRef}
-          type="date"
-          value={value}
-          min={min}
-          readOnly={!editable}
-          onChange={(e) => onChange?.(e.target.value)}
-          onClick={() => openPicker(inputRef)}
-          onFocus={() => openPicker(inputRef)}
-          aria-label={label}
-          className="s2-date-input w-[150px] cursor-pointer bg-transparent p-0 text-[20px] font-light leading-none outline-none"
-          style={{ color: "#F6F4EF", border: "none" }}
-        />
+        <span
+          className="whitespace-nowrap text-[19px] font-light leading-none"
+          style={{ color: value ? "#F6F4EF" : "rgba(246,244,239,0.45)" }}
+        >
+          {fmtDate(value)}
+        </span>
       </div>
     );
     return (
       <div
         onClick={() => openPicker(inputRef)}
-        className={`s2-date-field relative flex min-w-0 cursor-pointer items-center gap-3 rounded-[10px] px-3 py-1.5 transition-colors duration-200 ${
-          align === "right" ? "justify-self-end mr-[30px]" : "justify-self-start ml-[30px]"
+        className={`s2-date-field relative flex min-w-0 cursor-pointer items-center gap-2 rounded-[10px] px-2 py-1.5 transition-colors duration-200 ${
+          align === "right" ? "justify-self-end" : "justify-self-start"
         }`}
         style={{ border: "1px solid transparent" }}
       >
@@ -3484,9 +3485,24 @@ function S2StayCard({
             {icon}
           </>
         )}
+        <input
+          ref={inputRef}
+          type="date"
+          value={value}
+          min={min}
+          readOnly={!editable}
+          onChange={(e) => onChange?.(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") (e.currentTarget as HTMLInputElement).blur();
+          }}
+          aria-label={label}
+          className="s2-date-input absolute inset-0 h-full w-full cursor-pointer opacity-0"
+          style={{ border: "none", background: "transparent" }}
+        />
       </div>
     );
   };
+
 
 
 
@@ -3495,11 +3511,13 @@ function S2StayCard({
       className={animClass}
       style={{
         borderRadius: 22,
-        backgroundImage: "linear-gradient(165deg, #17232F 0%, #121D28 100%)",
-        border: "1px solid rgba(255,255,255,0.06)",
+        backgroundImage: "linear-gradient(165deg, #2C4355 0%, #263B4D 100%)",
+        border: "1px solid rgba(255,255,255,0.07)",
         padding: "22px 30px 16px",
-        boxShadow: "0 22px 50px -32px rgba(0,0,0,0.8)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.07), 0 22px 50px -34px rgba(6,13,20,0.65)",
       }}
+
     >
       {/* SECTION 1 — header */}
       <div className="flex items-center justify-between gap-4">
@@ -3524,22 +3542,23 @@ function S2StayCard({
       <div
         className="mt-[18px] grid items-center py-[9px]"
         style={{
-          width: "82%",
+          width: "min(100%, 560px)",
           margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
           borderRadius: 14,
-          backgroundImage: "linear-gradient(160deg, #111C2B 0%, #16222F 100%)",
-          border: `1px solid ${S2_GOLD_SOFT}`,
+          backgroundImage: "linear-gradient(160deg, #223648 0%, #1D3041 100%)",
+          border: "1px solid rgba(217,191,130,0.42)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.05), 0 12px 28px -22px rgba(0,0,0,0.7)",
+            "inset 0 1px 0 rgba(255,255,255,0.05), 0 12px 28px -24px rgba(6,13,20,0.6)",
+
         }}
       >
         <DateCol label="Arrival" value={arrival} inputRef={arrivalRef} onChange={onArrival} align="left" />
         <ArrowRight
           size={30}
           strokeWidth={1.4}
-          className="mx-6 shrink-0 self-center"
-          style={{ color: S2_GOLD_SOFT }}
+          className="mx-3 shrink-0 self-center"
+          style={{ color: "rgba(217,191,130,0.85)" }}
         />
         <DateCol
           label="Departure"
@@ -3596,7 +3615,7 @@ function S2StayInfo({
 }) {
   const content = (
     <>
-      <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: S2_GOLD_SOFT, opacity: 0.95 }}>
+      <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: "rgba(217,191,130,0.8)", opacity: 1 }}>
         {icon}
       </span>
       <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(248,245,238,0.92)" }}>
