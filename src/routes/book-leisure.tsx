@@ -3220,11 +3220,11 @@ function LeisureStep2Screen({
                 style={{
                   borderRadius: 16,
                   background: canAddStay
-                    ? `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 55%, #B99C60 100%)`
+                    ? `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`
                     : "rgba(255,255,255,0.05)",
                   color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
                   boxShadow: canAddStay
-                    ? "0 22px 46px -20px rgba(198,170,116,0.55), inset 0 1px 0 rgba(255,255,255,0.45)"
+                    ? "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)"
                     : "none",
                   cursor: canAddStay ? "pointer" : "not-allowed",
                 }}
@@ -3290,9 +3290,9 @@ function LeisureStep2Screen({
                 className="inline-flex items-center gap-2.5 px-9 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
                 style={{
                   borderRadius: 16,
-                  background: `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 100%)`,
+                  background: `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`,
                   color: "#10202F",
-                  boxShadow: "0 20px 44px -20px rgba(198,170,116,0.5), inset 0 1px 0 rgba(255,255,255,0.4)",
+                  boxShadow: "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)",
                   opacity: nextEnabled ? 1 : 0.4,
                   cursor: nextEnabled ? "pointer" : "not-allowed",
                 }}
@@ -4012,9 +4012,9 @@ function AccommodationSummary({
         className="mt-7 flex w-full items-center justify-center gap-3 py-4 text-[15.5px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
         style={{
           borderRadius: 16,
-          background: `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 55%, #B99C60 100%)`,
+          background: `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`,
           color: "#10202F",
-          boxShadow: "0 22px 46px -22px rgba(198,170,116,0.55), inset 0 1px 0 rgba(255,255,255,0.45)",
+          boxShadow: "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)",
           opacity: nextEnabled ? 1 : 0.4,
           cursor: nextEnabled ? "pointer" : "not-allowed",
         }}
