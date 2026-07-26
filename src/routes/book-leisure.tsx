@@ -2953,46 +2953,57 @@ function LeisureStep2Screen({
     setEditingId(null);
   };
 
-  const commitStay = (keepEditorOpen = false) => {
+  const commitStay = () => {
+    if (savingRef.current) return; // prevent duplicate submissions
     if (!canAddStay) {
       setAddError(true);
+      setShowEditor(true);
       if (typeof window !== "undefined") {
         addBtnRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-      setShowEditor(true);
       return;
     }
-    setAddError(false);
-    const id = editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now()));
-    const stay: LeisureStay = {
-      id,
-      arrival: draftArrival,
-      departure: draftDeparture,
-      rooms: { ...draftRooms },
-      roomCategories: Object.fromEntries(
-        Object.entries(draftCategories).filter(([k, v]) => v && (draftRooms[k] ?? 0) > 0),
-      ),
-    };
-    setStays((prev) =>
-      editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
-    );
-    setLastAddedId(id);
-    window.setTimeout(() => {
-      setLastAddedId((cur) => (cur === id ? null : cur));
-    }, 320);
-    resetDraft();
-    setShowEditor(keepEditorOpen);
+    savingRef.current = true;
+    setSaving(true);
+    try {
+      const id =
+        editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now()));
+      const stay: LeisureStay = {
+        id,
+        arrival: draftArrival,
+        departure: draftDeparture,
+        rooms: { ...draftRooms },
+        roomCategories: Object.fromEntries(
+          Object.entries(draftCategories).filter(([k, v]) => v && (draftRooms[k] ?? 0) > 0),
+        ),
+      };
+      setStays((prev) =>
+        editingId ? prev.map((s) => (s.id === editingId ? stay : s)) : [...prev, stay],
+      );
+      setAddError(false);
+      setLastAddedId(id);
+      window.setTimeout(() => {
+        setLastAddedId((cur) => (cur === id ? null : cur));
+      }, 320);
+      // Reset only after the stay has been saved, and keep a fresh form visible.
+      resetDraft();
+      setShowEditor(true);
+    } finally {
+      savingRef.current = false;
+      setSaving(false);
+    }
   };
 
-  /** Top "+ Add another stay": same flow as "Add this stay", then ready for next stay. */
+  /** Top "+ Add another stay": same handler as "Add this stay". */
   const commitAndStartNext = () => {
     // From a saved stay card with no draft in progress: just open a fresh form.
     if (!showEditor && !draftArrival && !draftDeparture && stayRoomsTotal(draftRooms) === 0) {
       startNewStay();
       return;
     }
-    commitStay(true);
+    commitStay();
   };
+
 
 
   const editStay = (id: string) => {
