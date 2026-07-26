@@ -3031,6 +3031,35 @@ function LeisureStep2Screen({
     setShowEditor(false);
   };
 
+  /** Remove a completed stay, with confirmation. */
+  const requestRemoveStay = (id: string) => {
+    if (typeof window !== "undefined" && !window.confirm("Remove this stay?")) return;
+    removeStay(id);
+  };
+
+  const draftIsEmpty =
+    !draftArrival && !draftDeparture && draftRoomsCount === 0;
+
+  /** Remove from the editor card: delete the stay being edited, or reset the draft. */
+  const handleEditorRemove = () => {
+    if (editingId) {
+      requestRemoveStay(editingId);
+      return;
+    }
+    if (draftIsEmpty) {
+      // Nothing to confirm — keep the form visible and clean.
+      resetDraft();
+      setAddError(false);
+      setShowEditor(true);
+      return;
+    }
+    if (typeof window !== "undefined" && !window.confirm("Remove this stay?")) return;
+    resetDraft();
+    setAddError(false);
+    setShowEditor(true);
+  };
+
+
   const totalStays = stays.length;
   const totalRoomsAll = stays.reduce((a, s) => a + stayRoomsTotal(s.rooms), 0);
   const totalGuestsAll = stays.reduce((a, s) => a + stayGuestsTotal(s.rooms), 0);
