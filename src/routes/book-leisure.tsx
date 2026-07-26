@@ -3518,7 +3518,7 @@ function S2StayCard({
             selected={selected}
             defaultMonth={selected ?? minDate ?? today}
             disabled={{ before: minDate ?? today }}
-            onSelect={(d) => {
+            onSelect={(d: Date | undefined) => {
               if (!d) return;
               onChange?.(toISO(d));
               setOpen(false);
