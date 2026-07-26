@@ -2493,10 +2493,8 @@ const STEP2_ROOMS: {
 const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
   single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
   double: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
-  twin: ["Standard", "Superior", "Premium", "Junior Suite"],
-  triple: ["Standard", "Superior", "Premium"],
-  family: ["Standard", "Superior", "Premium", "Suite"],
-  accessible: ["Accessible", "Accessible Superior"],
+  twin: ["Standard", "Superior", "Premium"],
+  family: ["Family Room", "Junior Suite", "Suite"],
 };
 
 /* Default selected category per room type (first option, e.g. "Standard") */
@@ -3042,6 +3040,7 @@ function LeisureStep2Screen({
     <main
       className="min-h-screen w-full"
       style={{
+        overflowX: "clip",
         backgroundColor: S2_BG,
         backgroundImage: S2_BG_GRADIENT,
         backgroundRepeat: "no-repeat",
@@ -3062,7 +3061,7 @@ function LeisureStep2Screen({
         style={{ maxWidth: 1780, padding: 28, gap: 24 }}
       >
         {/* ---------- LEFT: vertical hotel image ---------- */}
-        <aside className="order-2 lg:order-none min-w-0 lg:pr-[10px]">
+        <aside className="order-2 lg:order-none min-w-0 lg:pr-[10px] lg:self-start">
           <div
             className="relative overflow-hidden lg:sticky lg:top-7"
             style={{
@@ -3339,7 +3338,7 @@ function LeisureStep2Screen({
         </section>
 
         {/* ---------- RIGHT: tip + sticky summary ---------- */}
-        <div className="order-3 lg:order-none min-w-0 space-y-6">
+        <div className="order-3 lg:order-none min-w-0 space-y-6 lg:self-start">
           <div
             style={{
               borderRadius: 20,
@@ -3753,25 +3752,30 @@ function S2RoomCard({
       </div>
 
 
-      {categoryOptions && (
-        <>
-          <div
-            className="mt-2.5"
-            style={{ height: 1, background: "rgba(214,226,236,0.12)" }}
-          />
-          <div className="relative z-10 mt-2" style={{ opacity: active ? 1 : 0.45 }}>
-            <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
-              Category
-            </div>
-            <S2CategorySelect
-              value={category ?? categoryOptions[0]}
-              options={categoryOptions}
-              disabled={!active}
-              label={`${meta.title} category`}
-              onChange={(v) => onCategoryChange?.(v)}
-            />
+      <div className="mt-2.5" style={{ height: 1, background: "rgba(214,226,236,0.12)" }} />
+      {categoryOptions ? (
+        <div className="relative z-10 mt-2" style={{ opacity: active ? 1 : 0.45 }}>
+          <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
+            Category
           </div>
-        </>
+          <S2CategorySelect
+            value={category ?? categoryOptions[0]}
+            options={categoryOptions}
+            disabled={!active}
+            label={`${meta.title} category`}
+            onChange={(v) => onCategoryChange?.(v)}
+          />
+        </div>
+      ) : (
+        <div className="relative z-10 mt-2" style={{ opacity: active ? 1 : 0.45 }}>
+          <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
+            Room category
+          </div>
+          <div className="mt-[1px] flex items-center gap-2 text-[14px]">
+            <Check size={15} strokeWidth={2.4} style={{ color: S2_GOLD_SOFT }} />
+            <span style={{ color: S2_GOLD_SOFT }}>Included</span>
+          </div>
+        </div>
       )}
     </div>
   );
