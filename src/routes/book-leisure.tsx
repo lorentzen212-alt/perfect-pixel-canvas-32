@@ -2938,6 +2938,12 @@ function LeisureStep2Screen({
   const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const savingRef = useRef(false);
+  const preEditDraftRef = useRef<{
+    arrival: string;
+    departure: string;
+    rooms: Record<string, number>;
+    categories: Record<string, string>;
+  } | null>(null);
   const addBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const draftNights = stayNights(draftArrival, draftDeparture);
@@ -2993,7 +2999,15 @@ function LeisureStep2Screen({
         setLastAddedId((cur) => (cur === id ? null : cur));
       }, 320);
       // Reset only after the stay has been saved, and keep a fresh form visible.
+      const prev = editingId ? preEditDraftRef.current : null;
+      preEditDraftRef.current = null;
       resetDraft();
+      if (prev) {
+        setDraftArrival(prev.arrival);
+        setDraftDeparture(prev.departure);
+        setDraftRooms({ ...prev.rooms });
+        setDraftCategories({ ...prev.categories });
+      }
       setShowEditor(true);
     } finally {
       savingRef.current = false;
@@ -3016,14 +3030,38 @@ function LeisureStep2Screen({
   const editStay = (id: string) => {
     const s = stays.find((x) => x.id === id);
     if (!s) return;
+    if (!editingId) {
+      preEditDraftRef.current = {
+        arrival: draftArrival,
+        departure: draftDeparture,
+        rooms: { ...draftRooms },
+        categories: { ...draftCategories },
+      };
+    }
     setEditingId(id);
+    setAddError(false);
+    setPendingRemoveId(null);
     setDraftArrival(s.arrival);
     setDraftDeparture(s.departure);
     setDraftRooms({ ...emptyDraftRooms(), ...s.rooms });
-    setDraftCategories({ ...(s.roomCategories ?? {}) });
+    setDraftCategories({ ...defaultDraftCategories(), ...(s.roomCategories ?? {}) });
     setShowEditor(true);
     if (typeof window !== "undefined")
       window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  /** Leave edit mode without touching the saved stay; restore the pre-edit draft. */
+  const cancelEdit = () => {
+    const prev = preEditDraftRef.current;
+    setEditingId(null);
+    setAddError(false);
+    setPendingRemoveId(null);
+    setDraftArrival(prev?.arrival ?? "");
+    setDraftDeparture(prev?.departure ?? "");
+    setDraftRooms(prev ? { ...prev.rooms } : emptyDraftRooms());
+    setDraftCategories(prev ? { ...prev.categories } : defaultDraftCategories());
+    preEditDraftRef.current = null;
+    setShowEditor(true);
   };
 
   const removeStay = (id: string) => {
@@ -3236,6 +3274,7 @@ function LeisureStep2Screen({
                   rooms={stayRoomsTotal(s.rooms)}
                   guests={stayGuestsTotal(s.rooms)}
                   onAddAnother={commitAndStartNext}
+                  onEdit={() => editStay(s.id)}
                   onRemove={() => requestRemoveStay(s.id)}
                   confirming={pendingRemoveId === s.id}
                   onConfirmRemove={confirmPendingRemove}
@@ -3338,6 +3377,16 @@ function LeisureStep2Screen({
                 {editingId ? "Save changes" : "Add this stay"}
                 <ArrowRight size={18} strokeWidth={2.4} />
               </button>
+              {editingId && (
+                <button
+                  type="button"
+                  onClick={cancelEdit}
+                  className="bg-transparent p-0 text-[13.5px] font-light underline-offset-4 transition-opacity duration-200 hover:opacity-100"
+                  style={{ color: "rgba(245,241,230,0.6)", border: "none", opacity: 0.85 }}
+                >
+                  Cancel
+                </button>
+              )}
             </div>
           )}
 
@@ -3483,6 +3532,7 @@ function S2StayCard({
   onArrival,
   onDeparture,
   onAddAnother,
+  onEdit,
   onRemove,
   confirming = false,
   onConfirmRemove,
@@ -3499,6 +3549,7 @@ function S2StayCard({
   onArrival?: (v: string) => void;
   onDeparture?: (v: string) => void;
   onAddAnother: () => void;
+  onEdit?: () => void;
   onRemove: () => void;
   confirming?: boolean;
   onConfirmRemove?: () => void;
@@ -3756,6 +3807,12 @@ function S2StayCard({
             <S2StayInfo icon={<BedDouble size={19} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
             <S2StayDivider />
             <S2StayInfo icon={<UserRound size={19} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
+            {onEdit && (
+              <>
+                <S2StayDivider />
+                <S2StayInfo icon={<Pencil size={18} strokeWidth={1.6} />} text="Edit" onClick={onEdit} />
+              </>
+            )}
             <S2StayDivider />
             <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
           </>
@@ -3772,7 +3829,7 @@ function S2StayDivider() {
   return (
     <span
       aria-hidden
-      className="mx-[14px] hidden sm:block"
+      className="mx-[8px] hidden sm:block"
       style={{ width: 1, height: 20, backgroundColor: "rgba(255,255,255,0.10)" }}
     />
   );
