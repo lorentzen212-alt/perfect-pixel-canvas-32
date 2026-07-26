@@ -3510,52 +3510,52 @@ function S2StayCard({
       className={animClass}
       style={{
         borderRadius: 22,
-        backgroundImage: "linear-gradient(165deg, #2C4355 0%, #263B4D 100%)",
-        border: "1px solid rgba(255,255,255,0.07)",
-        padding: "22px 30px 16px",
+        backgroundImage: "linear-gradient(165deg, #293E4F 0%, #223648 100%)",
+        border: "1px solid rgba(255,255,255,0.06)",
+        padding: "22px 30px 14px",
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.07), 0 22px 50px -34px rgba(6,13,20,0.65)",
+          "inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 6px -2px rgba(6,13,20,0.45), 0 26px 60px -38px rgba(6,13,20,0.8)",
       }}
 
     >
       {/* SECTION 1 — header */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-baseline justify-between gap-4">
         <h3
-          className="text-[30px] font-medium leading-none"
-          style={{ fontFamily: SERIF, color: "#FBF8F1" }}
+          className="text-[32px] font-medium leading-none"
+          style={{ fontFamily: SERIF, color: "#FDFBF6" }}
         >
           {title}
         </h3>
         <button
           type="button"
           onClick={onAddAnother}
-          className="inline-flex items-center gap-2 bg-transparent p-0 text-[15px] font-light leading-none transition-opacity duration-200 hover:opacity-100"
-          style={{ color: S2_GOLD_SOFT, opacity: 0.95, border: "none" }}
+          className="inline-flex items-baseline gap-2 bg-transparent p-0 text-[14px] font-extralight leading-none transition-opacity duration-200 hover:opacity-100"
+          style={{ color: S2_GOLD_SOFT, opacity: 0.92, border: "none" }}
         >
-          <Plus size={16} strokeWidth={1.5} />
+          <Plus size={15} strokeWidth={1.3} className="translate-y-[2px]" />
           Add another stay
         </button>
       </div>
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[18px] grid items-center py-[9px]"
+        className="mt-[18px] grid items-center py-[11px]"
         style={{
-          width: "min(100%, 560px)",
+          width: "min(100%, 624px)",
           margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
-          borderRadius: 14,
-          backgroundImage: "linear-gradient(160deg, #223648 0%, #1D3041 100%)",
-          border: "1px solid rgba(217,191,130,0.42)",
+          borderRadius: 15,
+          backgroundImage: "linear-gradient(180deg, #1F3244 0%, #1A2C3C 100%)",
+          border: "1px solid rgba(217,191,130,0.30)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.05), 0 12px 28px -24px rgba(6,13,20,0.6)",
+            "inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.18), 0 16px 34px -26px rgba(6,13,20,0.75)",
 
         }}
       >
         <DateCol label="Arrival" value={arrival} inputRef={arrivalRef} onChange={onArrival} align="left" />
         <ArrowRight
-          size={30}
-          strokeWidth={1.4}
+          size={34}
+          strokeWidth={1.2}
           className="mx-3 shrink-0 self-center"
           style={{ color: "rgba(217,191,130,0.85)" }}
         />
@@ -3570,24 +3570,26 @@ function S2StayCard({
       </div>
 
 
-      {/* Divider */}
+      {/* SECTION 3 — bottom action zone */}
       <div
-        className="mt-[13px]"
-        style={{ height: 1, backgroundColor: "rgba(255,255,255,0.075)" }}
-      />
-
-      {/* SECTION 3 — bottom row */}
-      <div className="mt-[11px] flex flex-wrap items-center justify-between">
+        className="mt-[11px] flex flex-wrap items-center justify-between px-3 py-[7px]"
+        style={{
+          borderRadius: 12,
+          backgroundColor: "rgba(12,22,32,0.16)",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
-        <S2StayInfo icon={<BedDouble size={17} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
+        <S2StayInfo icon={<BedDouble size={18} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
         <S2StayDivider />
-        <S2StayInfo icon={<UserRound size={17} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
+        <S2StayInfo icon={<UserRound size={18} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
         <S2StayDivider />
-        <S2StayInfo icon={<Pencil size={16} strokeWidth={1.6} />} text="Edit" onClick={onEdit} />
+        <S2StayInfo icon={<Pencil size={17} strokeWidth={1.6} />} text="Edit" onClick={onEdit} />
         <S2StayDivider />
-        <S2StayInfo icon={<Trash2 size={16} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
+        <S2StayInfo icon={<Trash2 size={17} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
       </div>
+
     </div>
   );
 }
