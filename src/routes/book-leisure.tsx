@@ -3153,46 +3153,6 @@ function LeisureStep2Screen({
           )}
 
 
-              <div className="mt-6 flex justify-end">
-                <button
-                  type="button"
-                  onClick={commitStay}
-                  disabled={!canAddStay}
-                  className="inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0"
-                  style={{
-                    borderRadius: 16,
-                    background: canAddStay
-                      ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B98C35 100%)`
-                      : "rgba(255,255,255,0.05)",
-                    color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
-                    boxShadow: canAddStay
-                      ? "0 22px 46px -20px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.45)"
-                      : "none",
-                    cursor: canAddStay ? "pointer" : "not-allowed",
-                  }}
-                >
-                  {editingId ? "Save changes" : "Add this stay"}
-                  <ArrowRight size={18} strokeWidth={2.4} />
-                </button>
-              </div>
-            </div>
-          )}
-
-          {!showEditor && stays.length === 0 && (
-            <button
-              type="button"
-              onClick={startNewStay}
-              className="mt-6 flex w-full items-center justify-center gap-2.5 py-5 text-[14.5px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
-              style={{
-                borderRadius: 20,
-                border: "1.5px dashed rgba(232,199,117,0.4)",
-                color: S1_GOLD_SOFT,
-              }}
-            >
-              <Plus size={16} strokeWidth={2.4} />
-              Add a stay
-            </button>
-          )}
 
           {/* Notes */}
           <div className="mt-8">
