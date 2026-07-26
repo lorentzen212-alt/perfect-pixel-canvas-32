@@ -3188,8 +3188,8 @@ function LeisureStep2Screen({
           )}
 
           <div
-            className="mt-7 text-[11.5px] font-semibold uppercase tracking-[0.22em]"
-            style={{ color: "rgba(245,241,230,0.65)" }}
+            className="mt-7 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+            style={{ color: "rgba(247,244,236,0.72)" }}
           >
             Room Distribution
           </div>
