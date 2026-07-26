@@ -9,6 +9,7 @@ import roomTwinImg from "@/assets/room-twin.jpg.asset.json";
 import roomTripleImg from "@/assets/room-triple.jpg.asset.json";
 import roomFamilyImg from "@/assets/room-family.jpg.asset.json";
 import roomAccessibleImg from "@/assets/room-accessible.jpg.asset.json";
+import s2StayHeroImg from "@/assets/s2-stay-hero.png.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
@@ -2873,13 +2874,13 @@ function fmtStayRange(a: string, d: string): string {
   return `${format(ad, "d MMM")} – ${format(dd, "d MMM yyyy")}`;
 }
 
-/* Step 2 — rebuilt design tokens */
-const S2_BG = "#0B1624";
-const S2_PANEL = "#111F2F";
-const S2_SUNK = "#0D1A29";
-const S2_CARD = "#132234";
-const S2_CARD_ACTIVE = "#17293D";
-const S2_FIELD = "#0B1624";
+/* Step 2 — matte blue-grey design tokens */
+const S2_BG = "#2B3E4E";
+const S2_PANEL = "rgba(255,255,255,0.028)";
+const S2_SUNK = "rgba(19,31,42,0.55)";
+const S2_CARD = "rgba(255,255,255,0.045)";
+const S2_CARD_ACTIVE = "rgba(255,255,255,0.07)";
+const S2_FIELD = "#243746";
 const S2_TEXT = "#F5F1E6";
 
 
@@ -3004,6 +3005,21 @@ function LeisureStep2Screen({
 
   const nextEnabled = canContinue && stays.length > 0 && !showEditor;
 
+  /* Live caption for the left hero image */
+  const heroSource = stays[0]
+    ? {
+        index: 1,
+        arrival: stays[0].arrival,
+        departure: stays[0].departure,
+      }
+    : { index: stayNumber, arrival: draftArrival, departure: draftDeparture };
+  const heroNights = stayNights(heroSource.arrival, heroSource.departure);
+  const heroStayLabel = `Stay ${heroSource.index}`;
+  const heroStayMeta =
+    heroSource.arrival && heroSource.departure && heroNights > 0
+      ? `${fmtStayRange(heroSource.arrival, heroSource.departure)}  |  ${heroNights} ${heroNights === 1 ? "night" : "nights"}`
+      : "Select your dates to begin";
+
   return (
     <main
       className="min-h-screen w-full"
@@ -3022,19 +3038,60 @@ function LeisureStep2Screen({
       </div>
 
       <div
-        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[1fr_320px]"
-        style={{ maxWidth: 1500, padding: 32, gap: 28 }}
+        className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(240px,0.9fr)_minmax(0,3.2fr)_320px]"
+        style={{ maxWidth: 1560, padding: 32, gap: 26 }}
       >
+        {/* ---------- LEFT: vertical hotel image ---------- */}
+        <aside className="order-2 lg:order-none min-w-0">
+          <div
+            className="relative overflow-hidden lg:sticky lg:top-8"
+            style={{
+              borderRadius: 22,
+              minHeight: 480,
+              height: "calc(100vh - 140px)",
+              maxHeight: 900,
+              border: "1px solid rgba(226,214,196,0.16)",
+              boxShadow: "0 40px 80px -46px rgba(0,0,0,0.6)",
+            }}
+          >
+            <img
+              src={s2StayHeroImg.url}
+              alt="Hotel room with city and waterfront view"
+              className="absolute left-0 top-0 w-full"
+              style={{ height: "124%", objectFit: "cover", objectPosition: "center top" }}
+            />
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0"
+              style={{
+                height: "40%",
+                background: "linear-gradient(180deg, rgba(15,25,35,0) 0%, rgba(13,22,31,0.72) 55%, rgba(11,19,27,0.97) 88%, rgba(11,19,27,1) 100%)",
+              }}
+            />
+            <div className="absolute bottom-6 left-6 right-6">
+              <div
+                className="text-[12px] font-semibold uppercase tracking-[0.24em] text-white"
+              >
+                {heroStayLabel}
+              </div>
+              <div className="mt-1.5 text-[13.5px]" style={{ color: "rgba(245,241,230,0.78)" }}>
+                {heroStayMeta}
+              </div>
+            </div>
+          </div>
+        </aside>
+
         {/* ---------- MAIN: working area ---------- */}
         <section
           className="order-1 lg:order-none min-w-0"
           style={{
             backgroundColor: S2_PANEL,
             borderRadius: 24,
-            padding: 34,
-            boxShadow: "0 44px 90px -46px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.03)",
+            padding: 30,
+            border: "1px solid rgba(255,255,255,0.055)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
+
           {/* Page heading */}
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div className="min-w-0">
@@ -3115,7 +3172,7 @@ function LeisureStep2Screen({
             Room Distribution
           </div>
 
-          <div className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
             {STEP2_ROOMS_ORDER.map((key) => (
               <S2RoomCard
                 key={key}
@@ -3311,10 +3368,10 @@ function S2StayBar({
       className={`flex flex-wrap items-center gap-x-7 gap-y-4 ${animClass}`}
       style={{
         borderRadius: 16,
-        backgroundColor: S2_SUNK,
-        border: "1px solid rgba(255,255,255,0.05)",
-        padding: "16px 20px",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+        backgroundColor: "rgba(255,255,255,0.05)",
+        border: "1px solid rgba(214,226,236,0.12)",
+        padding: "14px 18px",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045)",
       }}
     >
       <div className="flex items-center gap-2.5">
@@ -3408,10 +3465,11 @@ function S2StayPanel({
     <div
       className={animClass}
       style={{
-        borderRadius: 20,
-        backgroundColor: S2_SUNK,
-        padding: 28,
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 30px 60px -44px rgba(0,0,0,0.8)",
+        borderRadius: 18,
+        backgroundColor: "rgba(255,255,255,0.05)",
+        border: "1px solid rgba(214,226,236,0.12)",
+        padding: 22,
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045)",
       }}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -3584,28 +3642,28 @@ function S2RoomCard({
 
   return (
     <div
-      className="group flex flex-col transition-all duration-300 ease-out hover:-translate-y-[3px]"
+      className="group flex flex-col transition-all duration-300 ease-out hover:-translate-y-[2px]"
       style={{
-        borderRadius: 14,
-        padding: 16,
+        borderRadius: 15,
+        padding: 13,
         backgroundColor: active ? S2_CARD_ACTIVE : S2_CARD,
-        border: `1px solid ${active ? "rgba(226,190,116,0.55)" : "rgba(255,255,255,0.06)"}`,
+        border: `1px solid ${active ? "rgba(226,190,116,0.42)" : "rgba(214,226,236,0.12)"}`,
         boxShadow: active
-          ? "0 24px 50px -34px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.04)"
-          : "0 22px 48px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+          ? "0 10px 26px -20px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.05)"
+          : "0 10px 24px -22px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
       }}
     >
       {/* header */}
-      <div className="flex items-start gap-3">
+      <div className="flex items-center gap-2.5">
         <span
-          className="mt-[2px] shrink-0"
-          style={{ color: active ? S1_GOLD_SOFT : "rgba(245,241,230,0.72)" }}
+          className="shrink-0"
+          style={{ color: active ? S1_GOLD_SOFT : "rgba(245,241,230,0.82)" }}
         >
           {roomIcon(roomKey)}
         </span>
         <div className="min-w-0">
-          <div className="text-[15px] font-medium leading-tight text-white">{meta.title}</div>
-          <div className="mt-[3px] text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
+          <div className="text-[14.5px] font-medium leading-tight text-white">{meta.title}</div>
+          <div className="mt-[2px] text-[12px]" style={{ color: "rgba(232,238,244,0.55)" }}>
             {meta.desc}
           </div>
         </div>
@@ -3613,43 +3671,40 @@ function S2RoomCard({
 
       {/* image */}
       <div
-        className="relative mt-3 overflow-hidden"
-        style={{ borderRadius: 10, aspectRatio: "4 / 3" }}
+        className="relative mt-2.5 overflow-hidden"
+        style={{ borderRadius: 11, aspectRatio: "16 / 11" }}
       >
         <img
           src={meta.img}
           alt={meta.title}
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-          style={{ filter: "saturate(1.04) contrast(1.05) brightness(0.98)" }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{ background: "linear-gradient(180deg, rgba(11,22,36,0) 55%, rgba(11,22,36,0.45) 100%)" }}
+          style={{ objectPosition: "center", filter: "saturate(1.02) contrast(1.03) brightness(0.98)" }}
         />
       </div>
 
       {/* counter */}
-      <div className="mt-3">
+      <div className="mt-2.5">
         <S2Counter value={value} onChange={onChange} label={meta.title} />
       </div>
+
 
       {categoryOptions && (
         <>
           <div
-            className="mt-3"
-            style={{ height: 1, background: "rgba(255,255,255,0.07)" }}
+            className="mt-2.5"
+            style={{ height: 1, background: "rgba(214,226,236,0.12)" }}
           />
-          <div className="mt-2.5" style={{ opacity: active ? 1 : 0.45, pointerEvents: active ? "auto" : "none" }}>
-            <div className="text-[11.5px]" style={{ color: "rgba(245,241,230,0.45)" }}>
+          <div className="mt-2" style={{ opacity: active ? 1 : 0.45, pointerEvents: active ? "auto" : "none" }}>
+            <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
               Category
             </div>
-            <div className="relative mt-[2px] flex items-center pr-6">
+            <div className="relative mt-[1px] flex items-center pr-6">
               <select
                 value={category ?? ""}
                 disabled={!active}
                 aria-label={`${meta.title} category`}
                 onChange={(e) => onCategoryChange?.(e.target.value)}
-                className="w-full cursor-pointer appearance-none bg-transparent text-[15px] font-normal text-white outline-none disabled:cursor-not-allowed"
+                className="w-full cursor-pointer appearance-none bg-transparent text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
               >
                 <option value="" style={{ backgroundColor: S2_FIELD }}>
                   Select category
@@ -3723,11 +3778,11 @@ function S2Counter({
 
   return (
     <div
-      className="flex h-[42px] items-center justify-between px-1.5"
+      className="flex h-[40px] items-center justify-between px-1.5"
       style={{
         borderRadius: 10,
-        backgroundColor: "rgba(255,255,255,0.045)",
-        border: "1px solid rgba(255,255,255,0.06)",
+        backgroundColor: "rgba(20,33,45,0.72)",
+        border: "1px solid rgba(214,226,236,0.10)",
       }}
     >
       {btn("dec")}
