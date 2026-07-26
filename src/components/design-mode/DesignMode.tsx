@@ -126,6 +126,7 @@ export default function DesignMode() {
 
   /* ---- structural ops replay (persisted) ---- */
   useEffect(() => {
+    if (!enabled) return;
     if (opsAppliedRef.current) return;
     if (!doc.ops.length) {
       opsAppliedRef.current = true;
@@ -137,7 +138,7 @@ export default function DesignMode() {
       rerender();
     }, 250);
     return () => window.clearTimeout(t);
-  }, [doc.ops, rerender]);
+  }, [enabled, doc.ops, rerender]);
 
   /* ---- apply overrides to the DOM ---- */
   const applyOverrides = useCallback(() => {
