@@ -3713,23 +3713,27 @@ function S2StayDate({
       >
         {label}
       </span>
-      {editable ? (
-        <input
-          type="date"
-          value={value}
-          min={min}
-          onChange={(e) => onChange?.(e.target.value)}
-          className={`mt-1 w-full min-w-0 bg-transparent text-[19px] leading-tight text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
-          style={{ fontFamily: SERIF }}
-        />
-      ) : (
-        <span
-          className={`mt-1 block truncate text-[19px] leading-tight text-white ${right ? "sm:text-right" : ""}`}
-          style={{ fontFamily: SERIF }}
-        >
-          {value ? format(new Date(value), "d MMM yyyy") : "—"}
-        </span>
-      )}
+      <span className={`mt-1 flex items-center gap-2.5 ${right ? "sm:justify-end" : ""}`}>
+        <CalendarDays size={16} strokeWidth={1.6} className="shrink-0" style={{ color: S2_GOLD_SOFT }} />
+        {editable ? (
+          <input
+            type="date"
+            value={value}
+            min={min}
+            onChange={(e) => onChange?.(e.target.value)}
+            className={`w-full min-w-0 bg-transparent text-[19px] leading-tight text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
+            style={{ fontFamily: SERIF }}
+          />
+        ) : (
+          <span
+            className={`block truncate text-[19px] leading-tight text-white ${right ? "sm:text-right" : ""}`}
+            style={{ fontFamily: SERIF }}
+          >
+            {value ? format(new Date(value), "d MMM yyyy") : "—"}
+          </span>
+        )}
+      </span>
+
 
     </label>
   );
