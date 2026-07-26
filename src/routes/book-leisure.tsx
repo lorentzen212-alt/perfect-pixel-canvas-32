@@ -2951,8 +2951,16 @@ function LeisureStep2Screen({
     setEditingId(null);
   };
 
-  const commitStay = () => {
-    if (!canAddStay) return;
+  const commitStay = (keepEditorOpen = false) => {
+    if (!canAddStay) {
+      setAddError(true);
+      if (typeof window !== "undefined") {
+        addBtnRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      setShowEditor(true);
+      return;
+    }
+    setAddError(false);
     const id = editingId ?? (typeof crypto !== "undefined" ? crypto.randomUUID() : String(Date.now()));
     const stay: LeisureStay = {
       id,
@@ -2971,8 +2979,12 @@ function LeisureStep2Screen({
       setLastAddedId((cur) => (cur === id ? null : cur));
     }, 320);
     resetDraft();
-    setShowEditor(false);
+    setShowEditor(keepEditorOpen);
   };
+
+  /** Top "+ Add another stay": same flow as "Add this stay", then ready for next stay. */
+  const commitAndStartNext = () => commitStay(true);
+
 
   const editStay = (id: string) => {
     const s = stays.find((x) => x.id === id);
