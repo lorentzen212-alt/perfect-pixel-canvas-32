@@ -3365,120 +3365,158 @@ function LeisureStep2Screen({
   );
 }
 
-/* ---- Step 2 compact saved stay bar ---- */
-function S2StayBar({
-  index,
+/* ---- Step 2 Stay card (single premium component) ---- */
+function S2StayCard({
+  title,
   arrival,
   departure,
   nights,
   rooms,
   guests,
+  editable = false,
+  onArrival,
+  onDeparture,
+  onAddAnother,
   onEdit,
   onRemove,
-  onAddAnother,
   animClass = "",
 }: {
-  index: number;
+  title: string;
   arrival: string;
   departure: string;
   nights: number;
   rooms: number;
   guests: number;
+  editable?: boolean;
+  onArrival?: (v: string) => void;
+  onDeparture?: (v: string) => void;
+  onAddAnother: () => void;
   onEdit: () => void;
   onRemove: () => void;
-  onAddAnother?: () => void;
   animClass?: string;
 }) {
-  const fmt = (v: string) => (v ? format(new Date(v), "d MMM yyyy") : "—");
+  const arrivalRef = React.useRef<HTMLInputElement | null>(null);
+  const departureRef = React.useRef<HTMLInputElement | null>(null);
+  const fmt = (v: string) => (v ? format(new Date(v), "d MMM yyyy") : "dd.mm.åååå");
+
+  const openPicker = (ref: React.RefObject<HTMLInputElement | null>) => {
+    const el = ref.current;
+    if (!el) return;
+    // @ts-expect-error showPicker is not in all TS lib versions
+    if (typeof el.showPicker === "function") el.showPicker();
+    else el.focus();
+  };
+
+  const DateCol = ({
+    label,
+    value,
+    inputRef,
+    onChange,
+    min,
+    align,
+  }: {
+    label: string;
+    value: string;
+    inputRef: React.RefObject<HTMLInputElement | null>;
+    onChange?: (v: string) => void;
+    min?: string;
+    align: "left" | "right";
+  }) => (
+    <div
+      className={`relative min-w-0 flex-1 ${editable ? "cursor-pointer" : ""}`}
+      onClick={editable ? () => openPicker(inputRef) : undefined}
+    >
+      <div
+        className={`text-[10px] font-medium uppercase tracking-[0.26em] ${align === "right" ? "text-right" : ""}`}
+        style={{ color: "rgba(245,241,230,0.45)" }}
+      >
+        {label}
+      </div>
+      <div
+        className={`mt-1 flex items-center gap-2.5 ${align === "right" ? "justify-end" : ""}`}
+      >
+        <CalendarDays size={16} strokeWidth={1.6} className="shrink-0" style={{ color: S2_GOLD_SOFT }} />
+        <span className="truncate text-[19px] leading-tight text-white" style={{ fontFamily: SERIF }}>
+          {fmt(value)}
+        </span>
+      </div>
+      {editable && (
+        <input
+          ref={inputRef}
+          type="date"
+          value={value}
+          min={min}
+          onChange={(e) => onChange?.(e.target.value)}
+          className="pointer-events-none absolute bottom-0 left-0 h-0 w-0 opacity-0"
+          tabIndex={-1}
+          aria-label={label}
+        />
+      )}
+    </div>
+  );
 
   return (
     <div
       className={animClass}
       style={{
-        borderRadius: 19,
+        borderRadius: 20,
         backgroundColor: "#243746",
         backgroundImage:
           "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.10) 100%)",
         border: "1px solid rgba(255,255,255,0.07)",
-        padding: "26px 26px 20px",
+        padding: "20px 24px 16px",
         boxShadow:
           "inset 0 1px 0 rgba(255,255,255,0.10), 0 22px 48px -30px rgba(4,10,16,0.78), 0 60px 110px -70px rgba(0,0,0,0.6)",
       }}
     >
-      {/* Header */}
-      <div className="mt-[10px] flex items-center justify-between gap-4">
-        <h3 className="text-[27px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
-          Stay {index}
+      {/* SECTION 1 — header */}
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="text-[26px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
+          {title}
         </h3>
-        {onAddAnother && (
-          <button
-            type="button"
-            onClick={onAddAnother}
-            className="inline-flex items-center gap-1.5 bg-transparent p-0 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
-            style={{ color: S2_GOLD_SOFT, opacity: 0.9, border: "none" }}
-          >
-            <Plus size={13} strokeWidth={1.6} />
-            Add another stay
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={onAddAnother}
+          className="inline-flex items-center gap-1.5 bg-transparent p-0 text-[13.5px] font-light transition-opacity duration-200 hover:opacity-100"
+          style={{ color: S2_GOLD_SOFT, opacity: 0.92, border: "none" }}
+        >
+          <Plus size={14} strokeWidth={1.6} />
+          Add another stay
+        </button>
       </div>
 
-      {/* Date container */}
+      {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-5 flex items-center justify-center gap-6 px-6 py-[11px] sm:px-8"
+        className="mt-4 flex items-center gap-5 px-6 py-3"
         style={{
           borderRadius: 15,
           backgroundColor: "#172434",
           backgroundImage:
             "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.008) 45%, rgba(0,0,0,0.10) 100%)",
           border: "1px solid rgba(255,255,255,0.055)",
-          boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.055), 0 8px 20px -16px rgba(0,0,0,0.5)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.055), 0 8px 20px -16px rgba(0,0,0,0.5)",
         }}
       >
-        <div className="min-w-0 flex-1 sm:max-w-[240px]">
-          <div
-            className="text-[10px] font-medium uppercase tracking-[0.26em]"
-            style={{ color: "rgba(245,241,230,0.45)" }}
-          >
-            Arrival
-          </div>
-          <div className="mt-1 flex items-center gap-2.5">
-            <CalendarDays size={16} strokeWidth={1.6} className="shrink-0" style={{ color: S2_GOLD_SOFT }} />
-            <span className="truncate text-[19px] leading-tight text-white" style={{ fontFamily: SERIF }}>
-              {fmt(arrival)}
-            </span>
-          </div>
-        </div>
-
+        <DateCol label="Arrival" value={arrival} inputRef={arrivalRef} onChange={onArrival} align="left" />
         <ArrowRight
-          size={18}
+          size={20}
           strokeWidth={1}
           className="shrink-0 self-center"
-          style={{ color: S2_GOLD_SOFT, opacity: 0.85 }}
+          style={{ color: S2_GOLD_SOFT, opacity: 0.9 }}
         />
-
-        <div className="min-w-0 flex-1 text-right sm:max-w-[240px]">
-          <div
-            className="text-[10px] font-medium uppercase tracking-[0.26em]"
-            style={{ color: "rgba(245,241,230,0.45)" }}
-          >
-            Departure
-          </div>
-          <div className="mt-1 flex items-center justify-end gap-2.5">
-            <CalendarDays size={16} strokeWidth={1.6} className="shrink-0" style={{ color: S2_GOLD_SOFT }} />
-            <span className="truncate text-[19px] leading-tight text-white" style={{ fontFamily: SERIF }}>
-              {fmt(departure)}
-            </span>
-          </div>
-        </div>
+        <DateCol
+          label="Departure"
+          value={departure}
+          inputRef={departureRef}
+          onChange={onDeparture}
+          min={arrival || undefined}
+          align="right"
+        />
       </div>
-
-
 
       {/* Divider */}
       <div
-        className="mt-5"
+        className="mt-4"
         style={{
           height: 1,
           background:
@@ -3486,8 +3524,8 @@ function S2StayBar({
         }}
       />
 
-      {/* Bottom info row */}
-      <div className="mt-3.5 flex flex-wrap items-center justify-between">
+      {/* SECTION 3 — bottom row */}
+      <div className="mt-3 flex flex-wrap items-center justify-between">
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
         <S2StayInfo icon={<BedDouble size={15} strokeWidth={1.7} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
@@ -3498,7 +3536,6 @@ function S2StayBar({
         <S2StayDivider />
         <S2StayInfo icon={<Trash2 size={14} strokeWidth={1.7} />} text="Remove" onClick={onRemove} />
       </div>
-
     </div>
   );
 }
@@ -3539,203 +3576,6 @@ function S2StayInfo({
     </button>
   ) : (
     <span className={cls}>{content}</span>
-  );
-}
-
-
-
-/* ---- Step 2 stay panel (dates + metrics in one box) ---- */
-function S2StayPanel({
-  title,
-  arrival,
-  departure,
-  nights,
-  rooms,
-  guests,
-  editable = false,
-  onArrival,
-  onDeparture,
-  onAddAnother,
-  onEdit,
-  onRemove,
-  onCancel,
-  animClass = "",
-}: {
-  title: string;
-  arrival: string;
-  departure: string;
-  nights: number;
-  rooms: number;
-  guests: number;
-  editable?: boolean;
-  onArrival?: (v: string) => void;
-  onDeparture?: (v: string) => void;
-  onAddAnother?: () => void;
-  onEdit?: () => void;
-  onRemove?: () => void;
-  onCancel?: () => void;
-  animClass?: string;
-}) {
-  return (
-    <div
-      className={animClass}
-      style={{
-        borderRadius: 22,
-        backgroundColor: "#243746",
-        backgroundImage:
-          "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.012) 40%, rgba(0,0,0,0.07) 100%)",
-        border: "1px solid rgba(255,255,255,0.07)",
-        padding: "26px 26px 20px",
-        boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 24px -18px rgba(4,10,16,0.62), 0 30px 62px -30px rgba(4,10,16,0.78), 0 70px 120px -70px rgba(0,0,0,0.65)",
-      }}
-    >
-      {/* Header */}
-      <div className="mt-[10px] flex items-center justify-between gap-4">
-        <h3 className="text-[27px] font-medium leading-none text-white" style={{ fontFamily: SERIF }}>
-          {title}
-        </h3>
-        <div className="flex items-center gap-4">
-          {onCancel && (
-            <button
-              type="button"
-              onClick={onCancel}
-              className="text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
-              style={{ color: "rgba(245,241,230,0.6)", opacity: 0.85 }}
-            >
-              Cancel
-            </button>
-          )}
-          {onAddAnother && (
-            <button
-              type="button"
-              onClick={onAddAnother}
-              className="inline-flex items-center gap-1.5 bg-transparent p-0 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
-              style={{ color: S2_GOLD_SOFT, opacity: 0.9, border: "none" }}
-            >
-              <Plus size={13} strokeWidth={1.6} />
-              Add another stay
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Unified date container */}
-      <div
-        className="mt-5 flex flex-col gap-3 px-6 py-[11px] sm:flex-row sm:items-center sm:justify-center sm:gap-6 sm:px-8"
-        style={{
-          borderRadius: 15,
-          backgroundColor: "#172434",
-          backgroundImage:
-            "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.008) 45%, rgba(0,0,0,0.10) 100%)",
-          border: "1px solid rgba(255,255,255,0.055)",
-          boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.055), 0 8px 20px -16px rgba(0,0,0,0.5)",
-        }}
-      >
-        <S2StayDate label="Arrival" value={arrival} editable={editable} onChange={onArrival} />
-        <ArrowRight
-          size={18}
-          strokeWidth={1}
-          className="hidden shrink-0 self-center sm:block"
-          style={{ color: S2_GOLD_SOFT, opacity: 0.85 }}
-        />
-        <S2StayDate
-          label="Departure"
-          value={departure}
-          editable={editable}
-          min={arrival || undefined}
-          onChange={onDeparture}
-          align="right"
-        />
-      </div>
-
-
-      {/* Divider */}
-      <div
-        className="mt-5"
-        style={{
-          height: 1,
-          background:
-            "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0) 100%)",
-        }}
-      />
-
-      {/* Info row */}
-      <div className="mt-3.5 flex flex-wrap items-center justify-between">
-
-
-        <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
-        <S2StayDivider />
-        <S2StayInfo icon={<BedDouble size={15} strokeWidth={1.7} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
-        <S2StayDivider />
-        <S2StayInfo icon={<UserRound size={15} strokeWidth={1.7} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
-        {onEdit && (
-          <>
-            <S2StayDivider />
-            <S2StayInfo icon={<Pencil size={14} strokeWidth={1.7} />} text="Edit" onClick={onEdit} />
-          </>
-        )}
-        {onRemove && (
-          <>
-            <S2StayDivider />
-            <S2StayInfo icon={<Trash2 size={14} strokeWidth={1.7} />} text="Remove" onClick={onRemove} />
-          </>
-        )}
-      </div>
-
-    </div>
-  );
-}
-
-/* ---- Stay card date slot (inside the unified date container) ---- */
-function S2StayDate({
-  label,
-  value,
-  editable,
-  min,
-  onChange,
-  align = "left",
-}: {
-  label: string;
-  value: string;
-  editable?: boolean;
-  min?: string;
-  onChange?: (v: string) => void;
-  align?: "left" | "right";
-}) {
-  const right = align === "right";
-  return (
-    <label className="block min-w-0 flex-1 sm:max-w-[240px]">
-      <span
-        className={`block text-[10px] font-medium uppercase tracking-[0.26em] ${right ? "sm:text-right" : ""}`}
-        style={{ color: "rgba(245,241,230,0.45)" }}
-      >
-        {label}
-      </span>
-      <span className={`mt-1 flex items-center gap-2.5 ${right ? "sm:justify-end" : ""}`}>
-        <CalendarDays size={16} strokeWidth={1.6} className="shrink-0" style={{ color: S2_GOLD_SOFT }} />
-        {editable ? (
-          <input
-            type="date"
-            value={value}
-            min={min}
-            onChange={(e) => onChange?.(e.target.value)}
-            className={`w-full min-w-0 bg-transparent text-[19px] leading-tight text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
-            style={{ fontFamily: SERIF }}
-          />
-        ) : (
-          <span
-            className={`block truncate text-[19px] leading-tight text-white ${right ? "sm:text-right" : ""}`}
-            style={{ fontFamily: SERIF }}
-          >
-            {value ? format(new Date(value), "d MMM yyyy") : "—"}
-          </span>
-        )}
-      </span>
-
-
-    </label>
   );
 }
 
