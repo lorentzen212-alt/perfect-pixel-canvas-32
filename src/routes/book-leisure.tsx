@@ -4295,15 +4295,6 @@ function MoonIcon() {
   );
 }
 
-const S2_ROOM_RATE: Record<string, number> = {
-  single: 1450,
-  double: 1950,
-  twin: 1950,
-  triple: 2450,
-  family: 2950,
-  accessible: 1750,
-};
-
 function AccommodationSummary({
   stays,
   totalStays,
