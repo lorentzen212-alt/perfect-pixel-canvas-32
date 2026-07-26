@@ -3529,7 +3529,7 @@ function S2StayCard({
 
       {/* Divider */}
       <div
-        className="mt-4"
+        className="mx-1 mt-[13px]"
         style={{
           height: 1,
           background:
@@ -3538,16 +3538,16 @@ function S2StayCard({
       />
 
       {/* SECTION 3 — bottom row */}
-      <div className="mt-3 flex flex-wrap items-center justify-between">
+      <div className="mx-1 mt-2 flex flex-wrap items-center justify-between">
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
         <S2StayDivider />
-        <S2StayInfo icon={<BedDouble size={15} strokeWidth={1.7} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
+        <S2StayInfo icon={<BedDouble size={16} strokeWidth={1.7} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
         <S2StayDivider />
-        <S2StayInfo icon={<UserRound size={15} strokeWidth={1.7} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
+        <S2StayInfo icon={<UserRound size={16} strokeWidth={1.7} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
         <S2StayDivider />
-        <S2StayInfo icon={<Pencil size={14} strokeWidth={1.7} />} text="Edit" onClick={onEdit} />
+        <S2StayInfo icon={<Pencil size={15} strokeWidth={1.7} />} text="Edit" onClick={onEdit} />
         <S2StayDivider />
-        <S2StayInfo icon={<Trash2 size={14} strokeWidth={1.7} />} text="Remove" onClick={onRemove} />
+        <S2StayInfo icon={<Trash2 size={15} strokeWidth={1.7} />} text="Remove" onClick={onRemove} />
       </div>
     </div>
   );
