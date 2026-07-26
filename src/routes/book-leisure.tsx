@@ -3667,6 +3667,54 @@ function S2StayPanel({
   );
 }
 
+/* ---- Stay card date slot (inside the unified date container) ---- */
+function S2StayDate({
+  label,
+  value,
+  editable,
+  min,
+  onChange,
+  align = "left",
+}: {
+  label: string;
+  value: string;
+  editable?: boolean;
+  min?: string;
+  onChange?: (v: string) => void;
+  align?: "left" | "right";
+}) {
+  const right = align === "right";
+  return (
+    <label className="block min-w-0 flex-1">
+      <span
+        className={`flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.24em] ${right ? "sm:justify-end" : ""}`}
+        style={{ color: "rgba(245,241,230,0.5)" }}
+      >
+        <CalendarDays size={13} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
+        {label}
+      </span>
+      {editable ? (
+        <input
+          type="date"
+          value={value}
+          min={min}
+          onChange={(e) => onChange?.(e.target.value)}
+          className={`mt-2 w-full min-w-0 bg-transparent text-[19px] leading-none text-white outline-none [color-scheme:dark] ${right ? "sm:text-right" : ""}`}
+          style={{ fontFamily: SERIF }}
+        />
+      ) : (
+        <span
+          className={`mt-2 block truncate text-[19px] leading-none text-white ${right ? "sm:text-right" : ""}`}
+          style={{ fontFamily: SERIF }}
+        >
+          {value ? format(new Date(value), "d MMM yyyy") : "—"}
+        </span>
+      )}
+    </label>
+  );
+}
+
+
 function S2Metric({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
     <div className="flex items-center gap-2.5 text-[14px]" style={{ color: "rgba(245,241,230,0.85)" }}>
