@@ -3325,14 +3325,15 @@ function LeisureStep2Screen({
             style={{
               borderRadius: 20,
               backgroundColor: S2_CARD,
+              backdropFilter: "blur(8px)",
               border: "1px solid rgba(255,255,255,0.05)",
               padding: 22,
-              boxShadow: "0 26px 54px -34px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
+              boxShadow: S2_CARD_SHADOW,
             }}
           >
             <Lightbulb size={20} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
             <div
-              className="mt-3 text-[12px] font-semibold uppercase tracking-[0.22em]"
+              className="mt-3 text-[12px] font-semibold uppercase tracking-[0.28em]"
               style={{ color: S2_GOLD_SOFT }}
             >
               Tip
