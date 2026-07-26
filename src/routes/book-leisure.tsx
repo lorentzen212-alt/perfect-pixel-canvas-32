@@ -69,6 +69,7 @@ import {
   PartyPopper,
   PlaneLanding,
   Plane,
+  X,
 } from "lucide-react";
 
 
@@ -2901,6 +2902,9 @@ const S2_CARD_SHADOW =
 
 
 
+/** Sentinel id used when the in-progress draft card asks for removal confirmation. */
+const DRAFT_REMOVE_ID = "__draft__";
+
 function LeisureStep2Screen({
   stays,
   setStays,
@@ -2931,6 +2935,7 @@ function LeisureStep2Screen({
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
   const [addError, setAddError] = useState(false);
+  const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const savingRef = useRef(false);
   const addBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -3034,10 +3039,9 @@ function LeisureStep2Screen({
         next.delete(id);
         return next;
       });
-      if (editingId === id) {
-        resetDraft();
-        setShowEditor(true);
-      }
+      if (editingId === id) resetDraft();
+      // Never leave the page without an active stay form.
+      setShowEditor(true);
     }, 220);
   };
 
@@ -3051,11 +3055,25 @@ function LeisureStep2Screen({
     setShowEditor(false);
   };
 
-  /** Remove a completed stay, with confirmation. */
+  /** Ask for confirmation before deleting a saved stay (in-card, no browser dialog). */
   const requestRemoveStay = (id: string) => {
-    if (typeof window !== "undefined" && !window.confirm("Remove this stay?")) return;
+    setPendingRemoveId(id);
+  };
+
+  const confirmPendingRemove = () => {
+    const id = pendingRemoveId;
+    setPendingRemoveId(null);
+    if (!id) return;
+    if (id === DRAFT_REMOVE_ID) {
+      resetDraft();
+      setAddError(false);
+      setShowEditor(true);
+      return;
+    }
     removeStay(id);
   };
+
+  const cancelPendingRemove = () => setPendingRemoveId(null);
 
   const draftIsEmpty =
     !draftArrival && !draftDeparture && draftRoomsCount === 0;
@@ -3073,11 +3091,9 @@ function LeisureStep2Screen({
       setShowEditor(true);
       return;
     }
-    if (typeof window !== "undefined" && !window.confirm("Remove this stay?")) return;
-    resetDraft();
-    setAddError(false);
-    setShowEditor(true);
+    setPendingRemoveId(DRAFT_REMOVE_ID);
   };
+
 
 
   const totalStays = stays.length;
@@ -3221,6 +3237,9 @@ function LeisureStep2Screen({
                   guests={stayGuestsTotal(s.rooms)}
                   onAddAnother={commitAndStartNext}
                   onRemove={() => requestRemoveStay(s.id)}
+                  confirming={pendingRemoveId === s.id}
+                  onConfirmRemove={confirmPendingRemove}
+                  onCancelRemove={cancelPendingRemove}
                 />
               );
             })}
@@ -3249,6 +3268,12 @@ function LeisureStep2Screen({
                 onDeparture={setDraftDeparture}
                 onAddAnother={commitAndStartNext}
                 onRemove={handleEditorRemove}
+                confirming={
+                  pendingRemoveId === DRAFT_REMOVE_ID ||
+                  (!!editingId && pendingRemoveId === editingId)
+                }
+                onConfirmRemove={confirmPendingRemove}
+                onCancelRemove={cancelPendingRemove}
               />
             </div>
           )}
@@ -3455,6 +3480,9 @@ function S2StayCard({
   onDeparture,
   onAddAnother,
   onRemove,
+  confirming = false,
+  onConfirmRemove,
+  onCancelRemove,
   animClass = "",
 }: {
   title: string;
@@ -3468,6 +3496,9 @@ function S2StayCard({
   onDeparture?: (v: string) => void;
   onAddAnother: () => void;
   onRemove: () => void;
+  confirming?: boolean;
+  onConfirmRemove?: () => void;
+  onCancelRemove?: () => void;
   animClass?: string;
 }) {
   const toDate = (iso: string): Date | undefined => {
@@ -3697,14 +3728,36 @@ function S2StayCard({
           transform: "translateY(16px)",
         }}
       >
-        <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
-        <S2StayDivider />
-        <S2StayInfo icon={<BedDouble size={19} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
-        <S2StayDivider />
-        <S2StayInfo icon={<UserRound size={19} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
-        <S2StayDivider />
-        <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
+        {confirming ? (
+          <>
+            <span
+              className="flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px] font-light"
+              style={{ color: "rgba(248,245,238,0.92)" }}
+            >
+              Remove this stay?
+            </span>
+            <S2StayDivider />
+            <S2StayInfo
+              icon={<Trash2 size={18} strokeWidth={1.6} />}
+              text="Confirm"
+              onClick={onConfirmRemove}
+            />
+            <S2StayDivider />
+            <S2StayInfo icon={<X size={18} strokeWidth={1.6} />} text="Cancel" onClick={onCancelRemove} />
+          </>
+        ) : (
+          <>
+            <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
+            <S2StayDivider />
+            <S2StayInfo icon={<BedDouble size={19} strokeWidth={1.6} />} text={`${rooms} ${rooms === 1 ? "Room" : "Rooms"}`} />
+            <S2StayDivider />
+            <S2StayInfo icon={<UserRound size={19} strokeWidth={1.6} />} text={`${guests} ${guests === 1 ? "Guest" : "Guests"}`} />
+            <S2StayDivider />
+            <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
+          </>
+        )}
       </div>
+
 
     </div>
   );
