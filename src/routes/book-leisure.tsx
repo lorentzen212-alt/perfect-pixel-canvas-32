@@ -3625,11 +3625,12 @@ function S2StayCard({
 
       {/* SECTION 3 — bottom action zone */}
       <div
-        className="mt-[8px] flex flex-wrap items-center justify-between px-3 py-[3px]"
+        className="mt-auto flex flex-wrap items-center justify-between px-3 py-[3px]"
         style={{
           borderRadius: 12,
           backgroundColor: "rgba(12,22,32,0.16)",
           borderTop: "1px solid rgba(255,255,255,0.06)",
+          marginBottom: -53,
         }}
       >
         <S2StayInfo icon={<MoonIcon />} text={`${nights} ${nights === 1 ? "Night" : "Nights"}`} />
