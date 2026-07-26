@@ -3142,7 +3142,7 @@ function LeisureStep2Screen({
           </div>
 
           {/* Saved stays */}
-          <div className="mt-5 space-y-3">
+          <div className="mt-4 space-y-2">
             {stays.map((s, idx) => {
               if (s.id === editingId) return null;
               return (
