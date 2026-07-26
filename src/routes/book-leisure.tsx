@@ -2932,6 +2932,7 @@ function LeisureStep2Screen({
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
   const [addError, setAddError] = useState(false);
+  const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const savingRef = useRef(false);
   const addBtnRef = useRef<HTMLButtonElement | null>(null);
