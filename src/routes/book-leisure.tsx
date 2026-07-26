@@ -3604,9 +3604,10 @@ function S2StayPanel({
             <button
               type="button"
               onClick={onAddAnother}
-              className="bg-transparent p-0 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
-              style={{ color: S2_GOLD_SOFT, opacity: 0.85, border: "none" }}
+              className="inline-flex items-center gap-1.5 bg-transparent p-0 text-[13px] font-light transition-opacity duration-200 hover:opacity-100"
+              style={{ color: S2_GOLD_SOFT, opacity: 0.9, border: "none" }}
             >
+              <Plus size={13} strokeWidth={1.6} />
               Add another stay
             </button>
           )}
@@ -3615,21 +3616,23 @@ function S2StayPanel({
 
       {/* Unified date container */}
       <div
-        className="mt-5 flex flex-col gap-3 px-6 py-[13px] sm:flex-row sm:items-center sm:px-8"
+        className="mt-5 flex flex-col gap-3 px-6 py-[11px] sm:flex-row sm:items-center sm:justify-center sm:gap-6 sm:px-8"
         style={{
           borderRadius: 15,
           backgroundColor: "#172434",
-          border: "1px solid rgba(255,255,255,0.06)",
+          backgroundImage:
+            "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.008) 45%, rgba(0,0,0,0.10) 100%)",
+          border: "1px solid rgba(255,255,255,0.055)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 24px -18px rgba(0,0,0,0.55)",
+            "inset 0 1px 0 rgba(255,255,255,0.055), 0 8px 20px -16px rgba(0,0,0,0.5)",
         }}
       >
         <S2StayDate label="Arrival" value={arrival} editable={editable} onChange={onArrival} />
         <ArrowRight
           size={18}
           strokeWidth={1}
-          className="hidden shrink-0 sm:block"
-          style={{ color: S2_GOLD_SOFT, opacity: 0.9 }}
+          className="hidden shrink-0 self-center sm:block"
+          style={{ color: S2_GOLD_SOFT, opacity: 0.85 }}
         />
         <S2StayDate
           label="Departure"
@@ -3640,6 +3643,7 @@ function S2StayPanel({
           align="right"
         />
       </div>
+
 
       {/* Divider */}
       <div
