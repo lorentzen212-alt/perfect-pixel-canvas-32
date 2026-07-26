@@ -3339,7 +3339,7 @@ function S2StayPanel({
         </div>
       </div>
 
-      <div className="mt-7 grid grid-cols-1 gap-6 xl:grid-cols-[1fr_1fr_auto] xl:items-end">
+      <div className="mt-7 grid grid-cols-1 gap-x-7 gap-y-6 sm:grid-cols-2 xl:grid-cols-[minmax(190px,1fr)_minmax(190px,1fr)_auto] xl:items-end">
         <S2DateField label="Arrival" value={arrival} editable={editable} onChange={onArrival} />
         <S2DateField
           label="Departure"
