@@ -3239,7 +3239,7 @@ function LeisureStep2Screen({
             </div>
           </div>
 
-          <div className="mt-10 flex flex-col items-center gap-1.5 text-center">
+          <div className="mt-6 flex flex-col items-center gap-1.5 text-center">
             <div className="flex items-center gap-2 text-[13.5px]">
               <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
               <span style={{ color: S1_GOLD_SOFT }}>Your request is free and non-binding</span>
