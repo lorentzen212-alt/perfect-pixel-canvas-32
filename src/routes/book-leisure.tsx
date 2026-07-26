@@ -9,7 +9,7 @@ import roomTwinImg from "@/assets/room-twin.jpg.asset.json";
 import roomTripleImg from "@/assets/room-triple.jpg.asset.json";
 import roomFamilyImg from "@/assets/room-family.jpg.asset.json";
 import roomAccessibleImg from "@/assets/room-accessible.jpg.asset.json";
-import s2StayHeroImg from "@/assets/s2-stay-hero-new.png.asset.json";
+import s2StayHeroImg from "@/assets/s2-stay-hero.png.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
@@ -3057,8 +3057,8 @@ function LeisureStep2Screen({
             <img
               src={s2StayHeroImg.url}
               alt="Hotel room with city and waterfront view"
-              className="absolute left-0 top-0 h-full w-full"
-              style={{ objectFit: "cover", objectPosition: "center center" }}
+              className="absolute left-0 top-0 w-full"
+              style={{ height: "116%", objectFit: "cover", objectPosition: "center center" }}
             />
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0"
