@@ -3764,7 +3764,7 @@ function S2RoomCard({
               Category
             </div>
             <S2CategorySelect
-              value={category ?? ""}
+              value={category ?? categoryOptions[0]}
               options={categoryOptions}
               disabled={!active}
               label={`${meta.title} category`}
