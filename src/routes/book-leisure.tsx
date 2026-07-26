@@ -3404,13 +3404,18 @@ function S2StayCard({
 }) {
   const arrivalRef = React.useRef<HTMLInputElement | null>(null);
   const departureRef = React.useRef<HTMLInputElement | null>(null);
-  const fmt = (v: string) => (v ? format(new Date(v), "d MMM yyyy") : "dd.mm.åååå");
+  const fmt = (v: string) => (v ? format(new Date(v), "d MMM yyyy") : "dd.mm.yyyy");
 
   const openPicker = (ref: React.RefObject<HTMLInputElement | null>) => {
     const el = ref.current;
     if (!el) return;
-    if (typeof el.showPicker === "function") el.showPicker();
-    else el.focus();
+    try {
+      el.focus({ preventScroll: true });
+      if (typeof el.showPicker === "function") el.showPicker();
+      else el.click();
+    } catch {
+      el.click();
+    }
   };
 
   const DateCol = ({
@@ -3431,24 +3436,38 @@ function S2StayCard({
     <div
       className={`relative min-w-0 ${editable ? "cursor-pointer" : ""} ${align === "right" ? "justify-self-end pr-1" : "justify-self-start pl-1"}`}
       onClick={editable ? () => openPicker(inputRef) : undefined}
-      style={align === "left" ? { marginRight: 40 } : { marginLeft: 40 }}
+      role={editable ? "button" : undefined}
+      tabIndex={editable ? 0 : undefined}
+      onKeyDown={
+        editable
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openPicker(inputRef);
+              }
+            }
+          : undefined
+      }
+      style={align === "left" ? { marginRight: 52 } : { marginLeft: 52 }}
     >
       <div
-        className="pl-[30px] text-[11px] font-medium uppercase tracking-[0.22em]"
+        className="pl-[27px] text-[11px] font-medium uppercase tracking-[0.22em]"
         style={{ color: "rgba(226,230,238,0.52)" }}
       >
         {label}
       </div>
-      <div className="mt-[7px] flex items-center gap-2">
+      <div className="mt-[6px] flex items-center gap-2">
         <CalendarDays
-          size={21}
+          size={19}
           strokeWidth={1.5}
           className="shrink-0"
           style={{ color: S2_GOLD_SOFT }}
+          onClick={editable ? () => openPicker(inputRef) : undefined}
         />
         <span
-          className="truncate text-[25px] font-light leading-none"
+          className="truncate text-[23px] font-light leading-none"
           style={{ color: "#F6F4EF", letterSpacing: "0.005em" }}
+          onClick={editable ? () => openPicker(inputRef) : undefined}
         >
           {fmt(value)}
         </span>
@@ -3460,13 +3479,14 @@ function S2StayCard({
           value={value}
           min={min}
           onChange={(e) => onChange?.(e.target.value)}
-          className="pointer-events-none absolute bottom-0 left-0 h-0 w-0 opacity-0"
+          className="pointer-events-none absolute bottom-0 left-1/2 h-[1px] w-[1px] -translate-x-1/2 opacity-0"
           tabIndex={-1}
           aria-label={label}
         />
       )}
     </div>
   );
+
 
 
   return (
@@ -3501,9 +3521,9 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mt-[14px] grid items-center py-[15px]"
+        className="mt-[13px] grid items-center py-[13px]"
         style={{
-          width: "82%",
+          width: "75%",
           margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
           borderRadius: 15,
