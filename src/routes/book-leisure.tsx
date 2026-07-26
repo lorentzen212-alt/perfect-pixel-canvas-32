@@ -6718,6 +6718,90 @@ function LeisureStep6Screen({
     !!data.email &&
     !!data.phone;
 
+  const nights =
+    data.arrival && data.departure
+      ? Math.max(
+          0,
+          Math.round(
+            (data.departure.getTime() - data.arrival.getTime()) / 86400000,
+          ),
+        )
+      : 0;
+
+  const specialRequestsCount =
+    (data.earlyCheckin ? 1 : 0) +
+    (data.lateCheckout ? 1 : 0) +
+    (data.connectingRooms ? 1 : 0) +
+    (data.additionalComments.trim() ? 1 : 0);
+
+  const totalRooms = Object.values(data.rooms).reduce((a, b) => a + b, 0);
+
+  const reviewCards = [
+    {
+      icon: <MapPin size={30} strokeWidth={1.1} />,
+      title: "Destination",
+      detail:
+        [data.city, data.country].filter(Boolean).join(", ") ||
+        "To be confirmed",
+      image: cityImg,
+      onClick: () => onEdit(1),
+    },
+    {
+      icon: <BedDouble size={30} strokeWidth={1.1} />,
+      title: "Stay",
+      detail: [
+        nights > 0 ? `${nights} ${nights === 1 ? "Night" : "Nights"}` : dateRange,
+        `${data.guests} ${data.guests === 1 ? "Guest" : "Guests"}`,
+        totalRooms > 0
+          ? `${totalRooms} ${totalRooms === 1 ? "Room" : "Rooms"}`
+          : null,
+      ]
+        .filter(Boolean)
+        .join("  •  "),
+      image: S6_IMG_STAY,
+      onClick: () => onEdit(2),
+    },
+    {
+      icon: <Utensils size={30} strokeWidth={1.1} />,
+      title: "Dining",
+      detail:
+        data.extras.length > 0
+          ? `${data.extras.length} ${
+              data.extras.length === 1 ? "Selection" : "Selections"
+            }`
+          : "No selections",
+      image: S6_IMG_DINING,
+      onClick: () => onEdit(3),
+    },
+    {
+      icon: <Mountain size={30} strokeWidth={1.1} />,
+      title: "Experiences",
+      detail: data.letUsRecommend
+        ? "Concierge recommendations"
+        : data.experiences.length > 0
+        ? `${data.experiences.length} ${
+            data.experiences.length === 1 ? "Service" : "Services"
+          }`
+        : "No services",
+      image: S6_IMG_EXPERIENCE,
+      onClick: () => onEdit(4),
+    },
+    {
+      icon: <ConciergeBell size={30} strokeWidth={1.1} />,
+      title: "Special Requests",
+      detail:
+        specialRequestsCount > 0
+          ? `${specialRequestsCount} ${
+              specialRequestsCount === 1 ? "Request" : "Requests"
+            }`
+          : "No requests",
+      image: S6_IMG_CONCIERGE,
+      onClick: () => onEdit(5),
+    },
+  ];
+
+
+
   return (
     <LeisureStepShell
       activeStep={6}
