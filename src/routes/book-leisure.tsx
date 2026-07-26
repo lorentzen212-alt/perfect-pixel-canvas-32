@@ -2876,12 +2876,20 @@ function fmtStayRange(a: string, d: string): string {
 
 /* Step 2 — matte blue-grey design tokens */
 const S2_BG = "#2B3E4E";
-const S2_PANEL = "rgba(255,255,255,0.028)";
+const S2_BG_GRADIENT =
+  "linear-gradient(180deg, #344B5E 0%, #3A5266 52%, #42596D 100%)";
+const S2_PANEL = "rgba(46,66,82,0.92)";
 const S2_SUNK = "rgba(19,31,42,0.55)";
-const S2_CARD = "rgba(255,255,255,0.045)";
-const S2_CARD_ACTIVE = "rgba(255,255,255,0.07)";
+const S2_CARD = "rgba(46,66,82,0.92)";
+const S2_CARD_ACTIVE = "rgba(52,74,92,0.94)";
 const S2_FIELD = "#243746";
 const S2_TEXT = "#F5F1E6";
+/* champagne palette (step 2 only) */
+const S2_GOLD = "#D9BF82";
+const S2_GOLD_SOFT = "#E7D3A4";
+const S2_GOLD_DEEP = "#B99C60";
+const S2_CARD_SHADOW =
+  "0 1px 0 rgba(255,255,255,0.06) inset, 0 -12px 24px -22px rgba(0,0,0,0.55) inset, 0 18px 38px -26px rgba(6,14,22,0.7)";
 
 
 
