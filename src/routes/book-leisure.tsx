@@ -3542,10 +3542,11 @@ function S2StayCard({
           margin: "0 auto",
           gridTemplateColumns: "1fr auto 1fr",
           borderRadius: 14,
-          backgroundImage: "linear-gradient(160deg, #111C2B 0%, #16222F 100%)",
-          border: `1px solid ${S2_GOLD_SOFT}`,
+          backgroundImage: "linear-gradient(160deg, #223648 0%, #1D3041 100%)",
+          border: "1px solid rgba(217,191,130,0.42)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.05), 0 12px 28px -22px rgba(0,0,0,0.7)",
+            "inset 0 1px 0 rgba(255,255,255,0.05), 0 12px 28px -24px rgba(6,13,20,0.6)",
+
         }}
       >
         <DateCol label="Arrival" value={arrival} inputRef={arrivalRef} onChange={onArrival} align="left" />
