@@ -56,6 +56,7 @@ import {
   ChevronDown,
   Send,
   Lock,
+  Clock,
   CalendarDays,
   Info,
   UserRound,
@@ -6581,6 +6582,85 @@ function LeisureStep5Screen({
    STEP 6 - Review (redesigned)
    ========================================================= */
 
+const S6_IMG_STAY =
+  "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80";
+const S6_IMG_DINING =
+  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80";
+const S6_IMG_EXPERIENCE =
+  "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=900&q=80";
+const S6_IMG_CONCIERGE =
+  "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80";
+
+function S6LuxCard({
+  icon,
+  title,
+  detail,
+  image,
+  onClick,
+  index,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  detail: string;
+  image: string;
+  onClick: () => void;
+  index: number;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="s6-card group relative flex w-full items-stretch overflow-hidden rounded-[20px] text-left"
+      style={{ animationDelay: `${index * 70}ms` }}
+    >
+      <div className="flex flex-1 items-center gap-6 px-6 py-7 sm:px-9 sm:py-8">
+        <span className="shrink-0" style={{ color: S1_GOLD }}>
+          {icon}
+        </span>
+        <span className="min-w-0">
+          <span
+            className="block text-[16px] uppercase tracking-[0.13em] text-white sm:text-[18px]"
+            style={{ fontFamily: SERIF }}
+          >
+            {title}
+          </span>
+          <span
+            className="mt-1.5 block truncate text-[13.5px] sm:text-[14.5px]"
+            style={{ color: "rgba(245,241,230,0.66)" }}
+          >
+            {detail}
+          </span>
+        </span>
+      </div>
+
+      <span className="relative hidden w-[190px] shrink-0 overflow-hidden sm:block lg:w-[230px]">
+        <img
+          src={image}
+          alt=""
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+        />
+        <span
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(19,30,42,0.95) 0%, rgba(19,30,42,0.15) 45%, rgba(19,30,42,0) 100%)",
+          }}
+        />
+      </span>
+
+      <span className="flex w-[58px] shrink-0 items-center justify-center sm:w-[72px]">
+        <ChevronRight
+          size={22}
+          strokeWidth={1.6}
+          className="transition-transform duration-300 group-hover:translate-x-[3px]"
+          style={{ color: S1_GOLD }}
+        />
+      </span>
+    </button>
+  );
+}
+
 const S6_HERO =
   "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80";
 
@@ -6718,6 +6798,90 @@ function LeisureStep6Screen({
     !!data.email &&
     !!data.phone;
 
+  const nights =
+    data.arrival && data.departure
+      ? Math.max(
+          0,
+          Math.round(
+            (data.departure.getTime() - data.arrival.getTime()) / 86400000,
+          ),
+        )
+      : 0;
+
+  const specialRequestsCount =
+    (data.earlyCheckin ? 1 : 0) +
+    (data.lateCheckout ? 1 : 0) +
+    (data.connectingRooms ? 1 : 0) +
+    (data.additionalComments.trim() ? 1 : 0);
+
+  const totalRooms = Object.values(data.rooms).reduce((a, b) => a + b, 0);
+
+  const reviewCards = [
+    {
+      icon: <MapPin size={30} strokeWidth={1.1} />,
+      title: "Destination",
+      detail:
+        [data.city, data.country].filter(Boolean).join(", ") ||
+        "To be confirmed",
+      image: cityImg,
+      onClick: () => onEdit(1),
+    },
+    {
+      icon: <BedDouble size={30} strokeWidth={1.1} />,
+      title: "Stay",
+      detail: [
+        nights > 0 ? `${nights} ${nights === 1 ? "Night" : "Nights"}` : dateRange,
+        `${data.guests} ${data.guests === 1 ? "Guest" : "Guests"}`,
+        totalRooms > 0
+          ? `${totalRooms} ${totalRooms === 1 ? "Room" : "Rooms"}`
+          : null,
+      ]
+        .filter(Boolean)
+        .join("  •  "),
+      image: S6_IMG_STAY,
+      onClick: () => onEdit(2),
+    },
+    {
+      icon: <Utensils size={30} strokeWidth={1.1} />,
+      title: "Dining",
+      detail:
+        data.extras.length > 0
+          ? `${data.extras.length} ${
+              data.extras.length === 1 ? "Selection" : "Selections"
+            }`
+          : "No selections",
+      image: S6_IMG_DINING,
+      onClick: () => onEdit(3),
+    },
+    {
+      icon: <Mountain size={30} strokeWidth={1.1} />,
+      title: "Experiences",
+      detail: data.letUsRecommend
+        ? "Concierge recommendations"
+        : data.experiences.length > 0
+        ? `${data.experiences.length} ${
+            data.experiences.length === 1 ? "Service" : "Services"
+          }`
+        : "No services",
+      image: S6_IMG_EXPERIENCE,
+      onClick: () => onEdit(4),
+    },
+    {
+      icon: <ConciergeBell size={30} strokeWidth={1.1} />,
+      title: "Special Requests",
+      detail:
+        specialRequestsCount > 0
+          ? `${specialRequestsCount} ${
+              specialRequestsCount === 1 ? "Request" : "Requests"
+            }`
+          : "No requests",
+      image: S6_IMG_CONCIERGE,
+      onClick: () => onEdit(5),
+    },
+  ];
+
+
+
   return (
     <LeisureStepShell
       activeStep={6}
@@ -6734,284 +6898,166 @@ function LeisureStep6Screen({
       }
     >
       <section
-        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+        className="s6-lux relative overflow-hidden rounded-[24px] px-5 py-12 sm:px-10 sm:py-16 lg:px-16 lg:py-20"
         style={{
-          backgroundColor: S1_NAVY_SOFT,
+          background:
+            "radial-gradient(120% 90% at 50% -10%, #172331 0%, #131E2A 45%, #111B26 100%)",
           border: `1px solid ${S1_BORDER}`,
           boxShadow:
-            "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
+            "0 40px 90px -50px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
-        {/* Header */}
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <h2
-              className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
-              style={{ fontFamily: SERIF }}
-            >
-              Step 6 – Review
-            </h2>
-            <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
-              Please review your details before sending your request.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => onEdit(1)}
-            className="inline-flex items-center gap-2 rounded-[12px] px-5 py-2.5 text-[13.5px] font-medium transition-all hover:-translate-y-[1px]"
-            style={{
-              color: S1_GOLD_SOFT,
-              border: `1px solid ${S1_GOLD}`,
-              background: "transparent",
-              boxShadow: "0 8px 20px -14px rgba(212,166,74,0.45)",
-            }}
-          >
-            <Pencil size={13} strokeWidth={2.2} />
-            Edit all details
-          </button>
-        </div>
+        {/* fine corner line details */}
+        <span className="s6-corner s6-corner-tl" aria-hidden />
+        <span className="s6-corner s6-corner-br" aria-hidden />
 
-        {/* Summary grid */}
-        <div
-          className="mt-8 grid grid-cols-1 gap-6 rounded-[18px] p-6 sm:p-7 md:grid-cols-2 lg:grid-cols-4"
-          style={{
-            backgroundColor: S1_NAVY,
-            border: `1px solid ${S1_BORDER}`,
-          }}
-        >
-          {/* Destination */}
-          <S6Panel
-            icon={<MapPin size={16} strokeWidth={2} />}
-            title="Destination"
-            onEdit={() => onEdit(1)}
-          >
-            <div className="text-[14.5px]" style={{ color: "#F5F1E6" }}>
-              {data.city}
-              {data.country && `, ${data.country}`}
-            </div>
-            <div
-              className="mt-4 flex items-center gap-2 text-[13.5px]"
-              style={{ color: S1_GOLD_SOFT }}
-            >
-              <CalendarDays size={14} strokeWidth={2} />
-              {dateRange}
-            </div>
-            <div
-              className="mt-3 flex items-center gap-2 text-[13.5px]"
-              style={{ color: S1_GOLD_SOFT }}
-            >
-              <Users2 size={14} strokeWidth={2} />
-              {data.guests} Guests
-            </div>
-            <div
-              className="relative mt-5 overflow-hidden rounded-[12px]"
-              style={{ border: `1px solid ${S1_BORDER}` }}
-            >
-              <img
-                src={cityImg}
-                alt={data.city}
-                className="h-[110px] w-full object-cover"
+        <div className="relative mx-auto w-full max-w-[900px]">
+          {/* HEADER */}
+          <div className="flex flex-col items-center text-center">
+            <ConciergeBell size={30} strokeWidth={1.2} style={{ color: S1_GOLD }} />
+            <div className="mt-5 flex w-full max-w-[420px] items-center gap-4">
+              <span
+                className="h-px flex-1"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(212,166,74,0.55))",
+                }}
+              />
+              <span
+                className="inline-block h-[5px] w-[5px] rotate-45"
+                style={{ backgroundColor: S1_GOLD }}
+              />
+              <span
+                className="h-px flex-1"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(212,166,74,0.55), transparent)",
+                }}
               />
             </div>
-          </S6Panel>
-
-          {/* Accommodation */}
-          <S6Panel
-            icon={<BedDouble size={16} strokeWidth={2} />}
-            title="Accommodation"
-            onEdit={() => onEdit(2)}
-          >
-            <ul className="space-y-1.5">
-              {(roomLines.length > 0 ? roomLines : ["No rooms selected"]).map((r) => (
-                <S6Bullet key={r}>{r}</S6Bullet>
-              ))}
-            </ul>
-            {(data.earlyCheckin || data.lateCheckout || data.connectingRooms) && (
-              <div className="mt-4 space-y-2">
-                {data.earlyCheckin && (
-                  <div className="flex items-center gap-2 text-[13.5px]" style={{ color: "#F5F1E6" }}>
-                    <Check size={13} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
-                    Early check-in
-                  </div>
-                )}
-                {data.lateCheckout && (
-                  <div className="flex items-center gap-2 text-[13.5px]" style={{ color: "#F5F1E6" }}>
-                    <Check size={13} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
-                    Late check-out
-                  </div>
-                )}
-                {data.connectingRooms && (
-                  <div className="flex items-center gap-2 text-[13.5px]" style={{ color: "#F5F1E6" }}>
-                    <Check size={13} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT }} />
-                    Connecting rooms
-                  </div>
-                )}
-              </div>
-            )}
-          </S6Panel>
-
-          {/* Extras */}
-          <S6Panel
-            icon={<Bell size={16} strokeWidth={2} />}
-            title="Extras"
-            onEdit={() => onEdit(3)}
-          >
-            {data.extras.length === 0 ? (
-              <div className="text-[14px]" style={{ color: "rgba(245,241,230,0.55)" }}>
-                No extras selected
-              </div>
-            ) : (
-              <ul className="space-y-1.5">
-                {extrasVisible.map((e) => (
-                  <S6Bullet key={e}>{e}</S6Bullet>
-                ))}
-                {extrasMore > 0 && (
-                  <S6Bullet>
-                    <span style={{ color: S1_GOLD_SOFT }}>+{extrasMore} more</span>
-                  </S6Bullet>
-                )}
-              </ul>
-            )}
-          </S6Panel>
-
-          {/* Experiences */}
-          <S6Panel
-            icon={<Camera size={16} strokeWidth={2} />}
-            title="Experiences"
-            onEdit={() => onEdit(4)}
-          >
-            {data.experiences.length === 0 && !data.letUsRecommend ? (
-              <div className="text-[14px]" style={{ color: "rgba(245,241,230,0.55)" }}>
-                No experiences selected
-              </div>
-            ) : (
-              <ul className="space-y-1.5">
-                {expsVisible.map((e) => (
-                  <S6Bullet key={e}>{e}</S6Bullet>
-                ))}
-                {expsMore > 0 && (
-                  <S6Bullet>
-                    <span style={{ color: S1_GOLD_SOFT }}>+{expsMore} more</span>
-                  </S6Bullet>
-                )}
-                {data.letUsRecommend && (
-                  <S6Bullet>
-                    <span style={{ color: S1_GOLD_SOFT }}>Surprise recommendations</span>
-                  </S6Bullet>
-                )}
-              </ul>
-            )}
-          </S6Panel>
-        </div>
-
-        {/* Second row */}
-        <div
-          className="mt-6 grid grid-cols-1 gap-6 rounded-[18px] p-6 sm:p-7 md:grid-cols-2 lg:grid-cols-4"
-          style={{
-            backgroundColor: S1_NAVY,
-            border: `1px solid ${S1_BORDER}`,
-          }}
-        >
-          <S6Panel
-            icon={<UserRound size={16} strokeWidth={2} />}
-            title="Contact"
-            onEdit={() => onEdit(5)}
-          >
-            <div className="space-y-1.5 text-[14px]" style={{ color: "#F5F1E6" }}>
-              <div>{data.contactName || "—"}</div>
-              <div style={{ color: "rgba(245,241,230,0.75)" }}>{data.email || "—"}</div>
-              <div style={{ color: "rgba(245,241,230,0.75)" }}>{data.phone || "—"}</div>
-            </div>
-          </S6Panel>
-
-          <S6Panel
-            icon={<Users size={16} strokeWidth={2} />}
-            title="Organisation"
-            onEdit={() => onEdit(5)}
-          >
-            <div className="space-y-1.5 text-[14px]" style={{ color: "#F5F1E6" }}>
-              <div>{data.organisation || "—"}</div>
-              <div style={{ color: "rgba(245,241,230,0.75)" }}>{data.country || "—"}</div>
-            </div>
-          </S6Panel>
-
-          <S6Panel
-            icon={<MessageSquare size={16} strokeWidth={2} />}
-            title="Additional comments"
-            onEdit={() => onEdit(5)}
-          >
-            <p className="text-[14px] leading-relaxed" style={{ color: "#F5F1E6" }}>
-              {data.additionalComments || (
-                <span style={{ color: "rgba(245,241,230,0.55)" }}>
-                  No additional comments.
-                </span>
-              )}
+            <h2
+              className="mt-6 text-[34px] leading-[1.08] font-normal tracking-[0.02em] text-white sm:text-[46px]"
+              style={{ fontFamily: SERIF }}
+            >
+              Your Journey
+              <br />
+              at a Glance
+            </h2>
+            <p
+              className="mt-5 text-[14.5px] sm:text-[15.5px]"
+              style={{ color: "rgba(245,241,230,0.62)" }}
+            >
+              Please review your request before submitting.
             </p>
-          </S6Panel>
+          </div>
 
-          <S6Panel icon={<Tag size={16} strokeWidth={2} />} title="Request type">
-            <div className="text-[14px]" style={{ color: "#F5F1E6" }}>
-              Leisure Group Booking
+          {/* REVIEW CARDS */}
+          <div className="mt-14 space-y-5">
+            {reviewCards.map((c, i) => (
+              <S6LuxCard key={c.title} {...c} index={i} />
+            ))}
+          </div>
+
+          {/* BOTTOM INFORMATION PANEL */}
+          <div
+            className="mt-12 grid grid-cols-1 gap-8 rounded-[20px] px-7 py-8 sm:px-10 md:grid-cols-2 md:gap-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(23,35,49,0.95), rgba(17,27,38,0.95))",
+              border: "1px solid rgba(212,166,74,0.28)",
+              boxShadow: "0 24px 60px -40px rgba(0,0,0,0.7)",
+            }}
+          >
+            <div className="flex items-center gap-5 md:pr-10">
+              <span
+                className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
+                style={{ border: "1px solid rgba(212,166,74,0.4)" }}
+              >
+                <Users size={20} strokeWidth={1.4} style={{ color: S1_GOLD }} />
+              </span>
+              <div className="min-w-0">
+                <div
+                  className="text-[12px] font-medium uppercase tracking-[0.16em]"
+                  style={{ color: S1_GOLD }}
+                >
+                  Dedicated Concierge Specialist
+                </div>
+                <p
+                  className="mt-2 text-[13.5px] leading-relaxed"
+                  style={{ color: "rgba(245,241,230,0.68)" }}
+                >
+                  Our concierge team will personally review your request and find
+                  the perfect hotel.
+                </p>
+              </div>
             </div>
-          </S6Panel>
-        </div>
 
-        {/* Bottom actions */}
-        <div className="mt-10 flex flex-col-reverse items-stretch justify-between gap-4 sm:flex-row sm:items-center">
+            <div
+              className="flex items-center justify-between gap-5 md:justify-end md:pl-10"
+              style={{ borderLeft: "1px solid rgba(212,166,74,0.16)" }}
+            >
+              <div className="min-w-0 md:text-right">
+                <div
+                  className="text-[12px] font-medium uppercase tracking-[0.16em]"
+                  style={{ color: S1_GOLD }}
+                >
+                  Estimated Reply
+                </div>
+                <div
+                  className="mt-2 text-[24px] leading-none text-white sm:text-[27px]"
+                  style={{ fontFamily: SERIF }}
+                >
+                  Within 24 Hours
+                </div>
+              </div>
+              <span
+                className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
+                style={{ border: "1px solid rgba(212,166,74,0.4)" }}
+              >
+                <Clock size={20} strokeWidth={1.4} style={{ color: S1_GOLD }} />
+              </span>
+            </div>
+          </div>
+
+          {/* SUBMIT */}
           <button
             type="button"
-            onClick={onBack}
-            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
-            style={{ color: S1_GOLD_SOFT }}
+            onClick={onSubmit}
+            disabled={!canSubmit}
+            className="s6-submit mt-8 flex h-[64px] w-full items-center justify-center gap-3 rounded-[14px] text-[15px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
+            style={{
+              background:
+                "linear-gradient(180deg, #F0D598 0%, #D9AF62 45%, #C39A4C 100%)",
+              color: "#16222F",
+              boxShadow: "0 18px 40px -26px rgba(212,166,74,0.7)",
+            }}
           >
-            <ArrowLeft size={16} strokeWidth={2.2} />
-            Back
+            {submitting ? (
+              <>
+                <Loader2 size={18} strokeWidth={2.2} className="animate-spin" />
+                Sending…
+              </>
+            ) : (
+              "Submit Request"
+            )}
           </button>
 
-          <div className="flex flex-col items-end gap-2">
+          <div className="mt-8 flex flex-col items-center gap-3 text-center">
             <button
               type="button"
-              onClick={onSubmit}
-              disabled={!canSubmit}
-              className="inline-flex items-center gap-2.5 rounded-[14px] px-10 py-4 text-[15px] font-semibold transition-all hover:-translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
-              style={{
-                background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
-                color: S1_NAVY,
-                boxShadow:
-                  "0 22px 44px -18px rgba(212,166,74,0.65), inset 0 1px 0 rgba(255,255,255,0.4)",
-              }}
+              onClick={onBack}
+              className="inline-flex items-center gap-2 text-[14px] font-medium transition-opacity hover:opacity-80"
+              style={{ color: S1_GOLD_SOFT }}
             >
-              {submitting ? (
-                <>
-                  <Loader2 size={17} strokeWidth={2.4} className="animate-spin" />
-                  Sending…
-                </>
-              ) : (
-                <>
-                  Send request
-                  <Send size={17} strokeWidth={2.4} />
-                </>
-              )}
+              <ArrowLeft size={15} strokeWidth={2} />
+              Back
             </button>
-            <div
-              className="flex items-center gap-1.5 text-[12.5px]"
-              style={{ color: "rgba(245,241,230,0.65)" }}
-            >
-              <Lock size={12} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
-              Free and non-binding
+            <div className="flex items-center gap-2 text-[12.5px]">
+              <ShieldCheck size={14} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
+              <span style={{ color: "rgba(245,241,230,0.55)" }}>
+                Your request is free and non-binding
+              </span>
             </div>
-          </div>
-        </div>
-
-        <div className="mt-8 flex flex-col items-center gap-1 text-center">
-          <div className="flex items-center gap-2 text-[13.5px]">
-            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
-            <span style={{ color: S1_GOLD_SOFT }}>
-              Your request is free and non-binding
-            </span>
-          </div>
-          <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
-            We find the best options so you can choose what suits your group.
           </div>
         </div>
       </section>
