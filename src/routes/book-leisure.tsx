@@ -3551,7 +3551,7 @@ function S2StayCard({
         borderRadius: 22,
         backgroundImage: "linear-gradient(165deg, #293E4F 0%, #263B4C 52%, #223648 100%)",
         border: "1px solid rgba(217,191,130,0.18)",
-        padding: "30px 36px 50px",
+        padding: "30px 36px 71px",
         boxShadow:
           "inset 0 1.5px 0 rgba(255,255,255,0.08), 0 6px 18px -6px rgba(6,13,20,0.55), 0 40px 90px -60px rgba(6,13,20,0.95)",
       }}
