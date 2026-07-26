@@ -3455,6 +3455,9 @@ function S2StayCard({
   onDeparture,
   onAddAnother,
   onRemove,
+  confirming = false,
+  onConfirmRemove,
+  onCancelRemove,
   animClass = "",
 }: {
   title: string;
@@ -3468,6 +3471,9 @@ function S2StayCard({
   onDeparture?: (v: string) => void;
   onAddAnother: () => void;
   onRemove: () => void;
+  confirming?: boolean;
+  onConfirmRemove?: () => void;
+  onCancelRemove?: () => void;
   animClass?: string;
 }) {
   const toDate = (iso: string): Date | undefined => {
