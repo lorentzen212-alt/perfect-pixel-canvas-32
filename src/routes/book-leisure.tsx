@@ -3137,28 +3137,13 @@ function LeisureStep2Screen({
                 How many rooms will your group need?
               </p>
             </div>
-            {!showEditor && stays.length > 0 && (
-              <button
-                type="button"
-                onClick={startNewStay}
-                className="inline-flex items-center gap-2 px-5 py-3.5 text-[14px] font-medium transition-all duration-300 hover:-translate-y-[2px]"
-                style={{
-                  borderRadius: 14,
-                  color: S2_GOLD_SOFT,
-                  border: "1px solid rgba(217,191,130,0.30)",
-                  backgroundColor: "rgba(217,191,130,0.05)",
-                }}
-              >
-                <Plus size={16} strokeWidth={2.4} />
-                Add another stay
-              </button>
-            )}
           </div>
 
           {/* Saved stays */}
           <div className="mt-7 space-y-4">
             {stays.map((s, idx) => {
               if (s.id === editingId) return null;
+              const isLastVisible = !showEditor && idx === stays.length - 1;
               return (
                 <S2StayBar
                   key={s.id}
@@ -3169,12 +3154,14 @@ function LeisureStep2Screen({
                   nights={stayNights(s.arrival, s.departure)}
                   rooms={stayRoomsTotal(s.rooms)}
                   guests={stayGuestsTotal(s.rooms)}
+                  onAddAnother={isLastVisible ? startNewStay : undefined}
                   onEdit={() => editStay(s.id)}
                   onRemove={() => removeStay(s.id)}
                 />
               );
             })}
           </div>
+
 
           {/* Editor */}
           {showEditor && (
