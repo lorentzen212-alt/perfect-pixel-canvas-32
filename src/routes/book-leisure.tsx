@@ -3473,7 +3473,7 @@ function S2StayCard({
         backgroundImage:
           "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.010) 40%, rgba(0,0,0,0.12) 100%)",
         border: "1px solid rgba(255,255,255,0.065)",
-        padding: "18px 26px 13px",
+        padding: "15px 26px 10px",
         boxShadow:
           "inset 0 1px 0 rgba(255,255,255,0.09), 0 14px 30px -22px rgba(4,10,16,0.75), 0 34px 70px -44px rgba(0,0,0,0.7)",
       }}
@@ -3499,7 +3499,7 @@ function S2StayCard({
 
       {/* SECTION 2 — unified date timeline */}
       <div
-        className="mx-1 mt-[14px] flex items-center gap-5 px-7 py-[13px] sm:px-9"
+        className="mx-1 mt-[12px] flex items-center gap-5 px-7 py-[11px] sm:px-9"
         style={{
           borderRadius: 14,
           backgroundColor: "#121E2C",
@@ -3529,7 +3529,7 @@ function S2StayCard({
 
       {/* Divider */}
       <div
-        className="mx-1 mt-[13px]"
+        className="mx-1 mt-[11px]"
         style={{
           height: 1,
           background:
