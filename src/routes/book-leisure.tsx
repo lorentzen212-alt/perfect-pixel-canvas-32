@@ -3617,7 +3617,10 @@ function S2StayCard({
           onChange={onArrival}
           align="left"
           placeholder="Select arrival date"
+          open={editable ? arrivalOpen : undefined}
+          onOpenChange={editable ? setArrivalOpen : undefined}
         />
+
         <ArrowRight
           size={34}
           strokeWidth={1.1}
