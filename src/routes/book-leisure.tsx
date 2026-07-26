@@ -2999,7 +2999,15 @@ function LeisureStep2Screen({
         setLastAddedId((cur) => (cur === id ? null : cur));
       }, 320);
       // Reset only after the stay has been saved, and keep a fresh form visible.
+      const prev = editingId ? preEditDraftRef.current : null;
+      preEditDraftRef.current = null;
       resetDraft();
+      if (prev) {
+        setDraftArrival(prev.arrival);
+        setDraftDeparture(prev.departure);
+        setDraftRooms({ ...prev.rooms });
+        setDraftCategories({ ...prev.categories });
+      }
       setShowEditor(true);
     } finally {
       savingRef.current = false;
