@@ -7004,7 +7004,7 @@ function LeisureStep6Screen({
 
             {/* BOTTOM INFORMATION PANEL */}
             <div
-              className="mt-[10px] grid grid-cols-1 gap-4 rounded-[16px] px-6 py-[13px] sm:px-8 md:grid-cols-2 md:gap-0"
+              className="mt-[9px] grid grid-cols-1 gap-3 rounded-[14px] px-5 py-[8px] sm:px-7 md:grid-cols-2 md:gap-0"
               style={{
                 background:
                   "linear-gradient(180deg, rgba(28,40,55,0.95), rgba(19,29,41,0.95))",
@@ -7014,10 +7014,10 @@ function LeisureStep6Screen({
             >
               <div className="flex items-center gap-4 md:pr-8">
                 <span
-                  className="grid h-[44px] w-[44px] shrink-0 place-items-center rounded-full"
+                  className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
                   style={{ border: "1px solid rgba(212,166,74,0.4)" }}
                 >
-                  <Users size={19} strokeWidth={1.4} style={{ color: S1_GOLD }} />
+                  <Users size={17} strokeWidth={1.4} style={{ color: S1_GOLD }} />
                 </span>
                 <div className="min-w-0">
                   <div
@@ -7027,7 +7027,7 @@ function LeisureStep6Screen({
                     A Dedicated Concierge Specialist
                   </div>
                   <p
-                    className="mt-1 text-[13px] leading-snug"
+                    className="mt-0.5 text-[12px] leading-snug"
                     style={{ color: "rgba(245,241,230,0.68)" }}
                   >
                     will personally handle your request
@@ -7048,17 +7048,17 @@ function LeisureStep6Screen({
                     Estimated Reply
                   </div>
                   <div
-                    className="mt-1 text-[22px] leading-none text-white sm:text-[24px]"
+                    className="mt-0.5 text-[19px] leading-none text-white sm:text-[21px]"
                     style={{ fontFamily: SERIF }}
                   >
                     Within 24 Hours
                   </div>
                 </div>
                 <span
-                  className="grid h-[44px] w-[44px] shrink-0 place-items-center rounded-full"
+                  className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
                   style={{ border: "1px solid rgba(212,166,74,0.4)" }}
                 >
-                  <Clock size={19} strokeWidth={1.4} style={{ color: S1_GOLD }} />
+                  <Clock size={17} strokeWidth={1.4} style={{ color: S1_GOLD }} />
                 </span>
               </div>
             </div>
@@ -7068,7 +7068,7 @@ function LeisureStep6Screen({
               type="button"
               onClick={onSubmit}
               disabled={!canSubmit}
-              className="s6-submit mt-[10px] flex h-[52px] w-full items-center justify-center gap-3 rounded-[12px] text-[15px] font-semibold uppercase tracking-[0.22em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
+              className="s6-submit mt-[9px] flex h-[48px] w-full items-center justify-center gap-3 rounded-[12px] text-[15px] font-semibold uppercase tracking-[0.22em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
               style={{
                 background:
                   "linear-gradient(180deg, #F2DBA4 0%, #DDB468 42%, #C69C4E 100%)",
@@ -7091,7 +7091,7 @@ function LeisureStep6Screen({
         </div>
 
         {/* OUTSIDE THE REVIEW CONTAINER */}
-        <div className="mt-4 flex flex-col items-center gap-2 text-center">
+        <div className="mt-3 flex flex-col items-center gap-1.5 text-center">
           <button
             type="button"
             onClick={onBack}
