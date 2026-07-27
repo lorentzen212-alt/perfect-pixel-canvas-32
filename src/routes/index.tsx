@@ -389,7 +389,7 @@ function ExperienceCard({
 
       <Link
         to={to}
-        className="group/card relative block overflow-hidden rounded-[20px] bg-[#0E1013] group"
+        className="group/card relative block overflow-hidden rounded-[22px] bg-[#0E1013] group"
         style={{
           position: "relative",
           zIndex: 2,
