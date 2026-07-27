@@ -4,7 +4,7 @@ import {
   ArrowRight,
   Users,
   Briefcase,
-  CalendarCheck,
+  Compass,
   ShieldCheck,
   Clock,
   Headphones,
@@ -18,7 +18,7 @@ import {
   Linkedin,
   Facebook,
   Instagram,
-  Sunrise,
+  LayoutDashboard,
 } from "lucide-react";
 import {
   ShieldCheckPremium,
