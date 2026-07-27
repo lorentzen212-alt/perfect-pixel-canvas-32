@@ -2559,7 +2559,7 @@ function LeisureStepShell({
         />
       </div>
 
-      <div className={`mx-auto grid ${hideHero ? "max-w-[1240px] py-7 lg:py-9" : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
+      <div className={`mx-auto grid ${hideHero ? "max-w-[1240px] py-4 lg:py-5" : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
 
         {!hideHero && (
         <aside
@@ -6619,7 +6619,7 @@ function S6LuxCard({
       className="s6-card group relative flex w-full items-stretch overflow-hidden rounded-[20px] text-left"
       style={{ animationDelay: `${index * 70}ms` }}
     >
-      <div className="flex flex-1 items-center gap-7 px-7 py-[19px] sm:px-10 sm:py-[22px]">
+      <div className="flex flex-1 items-center gap-6 px-6 py-[15px] sm:px-9 sm:py-[17px]">
         <span className="shrink-0" style={{ color: S1_GOLD }}>
           {icon}
         </span>
@@ -6904,141 +6904,193 @@ function LeisureStep6Screen({
         <>Review your details before we start finding the best hotel offers for your group.</>
       }
     >
-      <section className="s6-lux relative mx-auto w-full max-w-[1180px] px-5 py-4 sm:px-12 lg:px-20">
-        <div className="relative mx-auto w-full max-w-[1040px]">
-          {/* HEADER */}
-          <div className="flex flex-col items-center text-center">
-            <ConciergeBell size={28} strokeWidth={1.2} style={{ color: S1_GOLD }} />
-            <div className="mt-3 flex w-full max-w-[420px] items-center gap-4">
-              <span
-                className="h-px flex-1"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(212,166,74,0.55))",
-                }}
-              />
-              <span
-                className="inline-block h-[5px] w-[5px] rotate-45"
-                style={{ backgroundColor: S1_GOLD }}
-              />
-              <span
-                className="h-px flex-1"
-                style={{
-                  background:
-                    "linear-gradient(90deg, rgba(212,166,74,0.55), transparent)",
-                }}
-              />
-            </div>
-            <h2
-              className="mt-3 text-[30px] leading-[1.08] font-normal tracking-[0.02em] text-white sm:text-[40px]"
-              style={{ fontFamily: SERIF }}
-            >
-              Your Journey
-              <br />
-              at a Glance
-            </h2>
-            <p
-              className="mt-2.5 text-[14.5px] sm:text-[15.5px]"
-              style={{ color: "rgba(245,241,230,0.62)" }}
-            >
-              Please review your request before submitting.
-            </p>
-          </div>
-
-          {/* REVIEW CARDS */}
-          <div className="mt-7 space-y-[11px]">
-            {reviewCards.map((c, i) => (
-              <S6LuxCard key={c.title} {...c} index={i} />
-            ))}
-          </div>
-
-          {/* BOTTOM INFORMATION PANEL */}
-          <div
-            className="mt-6 grid grid-cols-1 gap-5 rounded-[20px] px-7 py-[15px] sm:px-10 md:grid-cols-2 md:gap-0"
+      <section className="s6-lux relative mx-auto w-full max-w-[1180px] px-4 py-3 sm:px-8 lg:px-10">
+        {/* OUTER LUXURY CONTAINER */}
+        <div
+          className="relative mx-auto w-full max-w-[1060px] overflow-hidden rounded-[26px] px-5 py-6 sm:px-10 sm:py-7"
+          style={{
+            background:
+              "radial-gradient(120% 90% at 50% 0%, rgba(28,42,58,0.96) 0%, rgba(15,24,34,0.98) 60%, rgba(11,18,26,0.99) 100%)",
+            border: "1px solid rgba(212,166,74,0.34)",
+            boxShadow:
+              "0 40px 110px -50px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.04)",
+          }}
+        >
+          {/* subtle gold corner details */}
+          <span
+            className="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rotate-45"
             style={{
               background:
-                "linear-gradient(180deg, rgba(23,35,49,0.95), rgba(17,27,38,0.95))",
-              border: "1px solid rgba(212,166,74,0.28)",
-              boxShadow: "0 24px 60px -40px rgba(0,0,0,0.7)",
+                "linear-gradient(90deg, rgba(212,166,74,0.35), transparent 60%)",
+              maskImage:
+                "linear-gradient(180deg, rgba(0,0,0,1), transparent 70%)",
+              opacity: 0.5,
             }}
-          >
-            <div className="flex items-center gap-5 md:pr-10">
+          />
+          <span
+            className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 -rotate-45"
+            style={{
+              background:
+                "linear-gradient(270deg, rgba(212,166,74,0.35), transparent 60%)",
+              maskImage:
+                "linear-gradient(180deg, rgba(0,0,0,1), transparent 70%)",
+              opacity: 0.5,
+            }}
+          />
+          <span
+            className="pointer-events-none absolute bottom-0 left-0 h-32 w-64"
+            style={{
+              background:
+                "radial-gradient(circle at 0% 100%, rgba(212,166,74,0.18), transparent 70%)",
+            }}
+          />
+          <span
+            className="pointer-events-none absolute bottom-0 right-0 h-32 w-64"
+            style={{
+              background:
+                "radial-gradient(circle at 100% 100%, rgba(212,166,74,0.18), transparent 70%)",
+            }}
+          />
+
+          <div className="relative">
+            {/* HEADER */}
+            <div className="flex flex-col items-center text-center">
               <span
-                className="grid h-[48px] w-[48px] shrink-0 place-items-center rounded-full"
-                style={{ border: "1px solid rgba(212,166,74,0.4)" }}
+                className="text-[12px] font-medium uppercase tracking-[0.28em]"
+                style={{ color: S1_GOLD, fontFamily: SERIF }}
               >
-                <Users size={20} strokeWidth={1.4} style={{ color: S1_GOLD }} />
+                3. Concierge Review
               </span>
-              <div className="min-w-0">
-                <div
-                  className="text-[12px] font-medium uppercase tracking-[0.16em]"
-                  style={{ color: S1_GOLD }}
-                >
-                  Dedicated Concierge Specialist
-                </div>
-                <p
-                  className="mt-1.5 text-[13.5px] leading-snug"
-                  style={{ color: "rgba(245,241,230,0.68)" }}
-                >
-                  Our concierge team will personally review your request and find
-                  the perfect hotel.
-                </p>
+              <div className="mt-2.5 flex w-full max-w-[520px] items-center gap-4">
+                <span
+                  className="h-px flex-1"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(212,166,74,0.55))",
+                  }}
+                />
+                <ConciergeBell size={24} strokeWidth={1.2} style={{ color: S1_GOLD }} />
+                <span
+                  className="h-px flex-1"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(212,166,74,0.55), transparent)",
+                  }}
+                />
               </div>
+              <h2
+                className="mt-2 text-[27px] leading-[1.06] font-normal uppercase tracking-[0.03em] text-white sm:text-[36px]"
+                style={{ fontFamily: SERIF }}
+              >
+                Your Journey
+                <br />
+                at a Glance
+              </h2>
+              <p
+                className="mt-2 text-[13.5px] sm:text-[14.5px]"
+                style={{ color: "rgba(245,241,230,0.62)" }}
+              >
+                Please review your request details before submitting.
+              </p>
             </div>
 
+            {/* REVIEW CARDS */}
+            <div className="mt-5 space-y-[9px]">
+              {reviewCards.map((c, i) => (
+                <S6LuxCard key={c.title} {...c} index={i} />
+              ))}
+            </div>
+
+            {/* BOTTOM INFORMATION PANEL */}
             <div
-              className="flex items-center justify-between gap-5 md:justify-end md:pl-10"
-              style={{ borderLeft: "1px solid rgba(212,166,74,0.16)" }}
+              className="mt-[10px] grid grid-cols-1 gap-4 rounded-[16px] px-6 py-[13px] sm:px-8 md:grid-cols-2 md:gap-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(28,40,55,0.95), rgba(19,29,41,0.95))",
+                border: "1px solid rgba(212,166,74,0.22)",
+                boxShadow: "0 24px 60px -40px rgba(0,0,0,0.7)",
+              }}
             >
-              <div className="min-w-0 md:text-right">
-                <div
-                  className="text-[12px] font-medium uppercase tracking-[0.16em]"
-                  style={{ color: S1_GOLD }}
+              <div className="flex items-center gap-4 md:pr-8">
+                <span
+                  className="grid h-[44px] w-[44px] shrink-0 place-items-center rounded-full"
+                  style={{ border: "1px solid rgba(212,166,74,0.4)" }}
                 >
-                  Estimated Reply
-                </div>
-                <div
-                  className="mt-1.5 text-[24px] leading-none text-white sm:text-[26px]"
-                  style={{ fontFamily: SERIF }}
-                >
-                  Within 24 Hours
+                  <Users size={19} strokeWidth={1.4} style={{ color: S1_GOLD }} />
+                </span>
+                <div className="min-w-0">
+                  <div
+                    className="text-[11.5px] font-medium uppercase tracking-[0.14em]"
+                    style={{ color: S1_GOLD }}
+                  >
+                    A Dedicated Concierge Specialist
+                  </div>
+                  <p
+                    className="mt-1 text-[13px] leading-snug"
+                    style={{ color: "rgba(245,241,230,0.68)" }}
+                  >
+                    will personally handle your request
+                    <br className="hidden sm:block" /> and find the perfect match for you.
+                  </p>
                 </div>
               </div>
-              <span
-                className="grid h-[48px] w-[48px] shrink-0 place-items-center rounded-full"
-                style={{ border: "1px solid rgba(212,166,74,0.4)" }}
-              >
-                <Clock size={20} strokeWidth={1.4} style={{ color: S1_GOLD }} />
-              </span>
-            </div>
-          </div>
 
-          {/* SUBMIT */}
-          <button
-            type="button"
-            onClick={onSubmit}
-            disabled={!canSubmit}
-            className="s6-submit mt-5 flex h-[56px] w-full items-center justify-center gap-3 rounded-[14px] text-[15px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
-            style={{
-              background:
-                "linear-gradient(180deg, #F0D598 0%, #D9AF62 45%, #C39A4C 100%)",
-              color: "#16222F",
-              boxShadow: "0 18px 40px -26px rgba(212,166,74,0.7)",
-            }}
-          >
-            {submitting ? (
-              <>
-                <Loader2 size={18} strokeWidth={2.2} className="animate-spin" />
-                Sending…
-              </>
-            ) : (
-              "Submit Request"
-            )}
-          </button>
+              <div
+                className="flex items-center justify-between gap-4 md:justify-end md:pl-8"
+                style={{ borderLeft: "1px solid rgba(212,166,74,0.16)" }}
+              >
+                <div className="min-w-0 md:text-right">
+                  <div
+                    className="text-[11.5px] font-medium uppercase tracking-[0.14em]"
+                    style={{ color: S1_GOLD }}
+                  >
+                    Estimated Reply
+                  </div>
+                  <div
+                    className="mt-1 text-[22px] leading-none text-white sm:text-[24px]"
+                    style={{ fontFamily: SERIF }}
+                  >
+                    Within 24 Hours
+                  </div>
+                </div>
+                <span
+                  className="grid h-[44px] w-[44px] shrink-0 place-items-center rounded-full"
+                  style={{ border: "1px solid rgba(212,166,74,0.4)" }}
+                >
+                  <Clock size={19} strokeWidth={1.4} style={{ color: S1_GOLD }} />
+                </span>
+              </div>
+            </div>
+
+            {/* SUBMIT */}
+            <button
+              type="button"
+              onClick={onSubmit}
+              disabled={!canSubmit}
+              className="s6-submit mt-[10px] flex h-[52px] w-full items-center justify-center gap-3 rounded-[12px] text-[15px] font-semibold uppercase tracking-[0.22em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
+              style={{
+                background:
+                  "linear-gradient(180deg, #F2DBA4 0%, #DDB468 42%, #C69C4E 100%)",
+                color: "#16222F",
+                fontFamily: SERIF,
+                border: "1px solid rgba(242,219,164,0.6)",
+                boxShadow: "0 16px 36px -26px rgba(212,166,74,0.65)",
+              }}
+            >
+              {submitting ? (
+                <>
+                  <Loader2 size={18} strokeWidth={2.2} className="animate-spin" />
+                  Sending…
+                </>
+              ) : (
+                "Submit Request"
+              )}
+            </button>
+          </div>
         </div>
 
-        {/* OUTSIDE THE REVIEW CONTENT */}
-        <div className="mt-10 flex flex-col items-center gap-3 text-center">
+        {/* OUTSIDE THE REVIEW CONTAINER */}
+        <div className="mt-4 flex flex-col items-center gap-2 text-center">
           <button
             type="button"
             onClick={onBack}
@@ -7056,6 +7108,7 @@ function LeisureStep6Screen({
           </div>
         </div>
       </section>
+
 
     </LeisureStepShell>
   );
