@@ -6918,7 +6918,7 @@ function LeisureStep6Screen({
         <span className="s6-corner s6-corner-tl" aria-hidden />
         <span className="s6-corner s6-corner-br" aria-hidden />
 
-        <div className="relative mx-auto w-full max-w-[900px]">
+        <div className="relative mx-auto w-full max-w-[1040px]">
           {/* HEADER */}
           <div className="flex flex-col items-center text-center">
             <ConciergeBell size={30} strokeWidth={1.2} style={{ color: S1_GOLD }} />
