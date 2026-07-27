@@ -2546,7 +2546,7 @@ function LeisureStepShell({
     <main
       className="min-h-screen w-full"
       style={{
-        backgroundColor: pageBg ?? S1_NAVY,
+        background: pageBg ?? S1_NAVY,
         fontFamily: "Inter, system-ui, sans-serif",
         color: "#F5F1E6",
       }}
@@ -6897,6 +6897,7 @@ function LeisureStep6Screen({
     <LeisureStepShell
       activeStep={6}
       onStepGo={onStepGo}
+      pageBg="radial-gradient(120% 80% at 50% -10%, #1B2B3D 0%, #14202E 45%, #0D1723 100%) fixed"
       hideHero
       hero={S6_HERO}
       chapter="CHAPTER VI"
@@ -6910,15 +6911,6 @@ function LeisureStep6Screen({
       }
     >
       <section className="s6-lux relative mx-auto w-full max-w-[1180px] px-4 py-2 sm:px-8 lg:px-10">
-        {/* warm midnight-blue page atmosphere (colour only) */}
-        <span
-          aria-hidden
-          className="pointer-events-none fixed inset-0 -z-0"
-          style={{
-            background:
-              "radial-gradient(120% 80% at 50% -10%, #1B2B3D 0%, #14202E 45%, #0D1723 100%)",
-          }}
-        />
 
         {/* OUTER LUXURY CONTAINER */}
         <div
