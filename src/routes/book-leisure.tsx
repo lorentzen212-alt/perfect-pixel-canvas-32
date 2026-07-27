@@ -3196,9 +3196,9 @@ function LeisureStep2Screen({
               minHeight: 560,
               height: "calc(100vh - 96px)",
               maxHeight: 1120,
-              border: "1px solid rgba(217,191,130,0.22)",
+              border: "1.5px solid rgba(217,191,130,0.42)",
               boxShadow:
-                "0 2px 0 rgba(255,255,255,0.07) inset, 0 0 0 1px rgba(10,18,26,0.4), 0 18px 40px -26px rgba(4,10,16,0.6), 0 44px 88px -38px rgba(6,13,20,0.78), 0 80px 150px -70px rgba(0,0,0,0.75)",
+                "0 2px 0 rgba(255,255,255,0.07) inset, 0 0 0 4px rgba(217,191,130,0.05), 0 0 34px -6px rgba(217,191,130,0.08), 0 18px 40px -26px rgba(4,10,16,0.6), 0 44px 88px -38px rgba(6,13,20,0.78), 0 80px 150px -70px rgba(0,0,0,0.75)",
             }}
           >
             <img
@@ -3306,8 +3306,8 @@ function LeisureStep2Screen({
 
 
           <div
-            className="mt-7 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
-            style={{ color: "rgba(247,244,236,0.72)" }}
+            className="mt-[42px] text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+            style={{ color: "rgba(253,251,246,0.94)" }}
           >
             Room Distribution
           </div>
@@ -3320,7 +3320,7 @@ function LeisureStep2Screen({
             }}
           />
 
-          <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-[30px] grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
             {STEP2_ROOMS_ORDER.map((key) => (
               <S2RoomCard
                 key={key}
@@ -3346,8 +3346,9 @@ function LeisureStep2Screen({
               className="mt-3 px-5 py-4 transition-colors duration-300"
               style={{
                 borderRadius: 18,
-                backgroundColor: S2_SUNK,
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 26px 50px -40px rgba(0,0,0,0.7)",
+                backgroundColor: "rgba(30,46,60,0.62)",
+                border: "1px solid rgba(255,255,255,0.10)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 26px 50px -40px rgba(0,0,0,0.7)",
               }}
             >
               <textarea
@@ -3893,10 +3894,10 @@ function S2StayCard({
         marginTop: compact ? 0 : 24,
         gridTemplateColumns: "minmax(0,1fr) auto minmax(0,1fr)",
         borderRadius: 15,
-        backgroundImage: "linear-gradient(180deg, #203548 0%, #1B2E3E 52%, #182B3A 100%)",
-        border: "1px solid rgba(217,191,130,0.30)",
+        backgroundImage: "linear-gradient(180deg, #2E4759 0%, #294152 52%, #253C4D 100%)",
+        border: "1.5px solid rgba(217,191,130,0.42)",
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.22), 0 22px 50px -34px rgba(6,13,20,0.85)",
+          "inset 0 1px 0 rgba(255,255,255,0.09), inset 0 -1px 0 rgba(0,0,0,0.22), 0 0 0 4px rgba(217,191,130,0.05), 0 0 34px -6px rgba(217,191,130,0.08), 0 22px 50px -34px rgba(6,13,20,0.85)",
       }}
     >
       <DateCol
@@ -4147,10 +4148,10 @@ function S2RoomCard({
       style={{
         borderRadius: 20,
         padding: 13,
-        backgroundColor: active ? "rgba(58,82,101,0.96)" : S2_CARD,
+        backgroundColor: active ? "rgba(62,88,109,0.97)" : "rgba(52,74,92,0.95)",
         backgroundImage: active
-          ? "linear-gradient(180deg, rgba(255,255,255,0.085) 0%, rgba(255,255,255,0.022) 44%, rgba(0,0,0,0.05) 100%)"
-          : "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.05) 100%)",
+          ? "linear-gradient(180deg, rgba(255,255,255,0.115) 0%, rgba(255,255,255,0.035) 44%, rgba(0,0,0,0.09) 100%)"
+          : "linear-gradient(180deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.022) 42%, rgba(0,0,0,0.085) 100%)",
         border: `1px solid ${active ? "rgba(217,191,130,0.48)" : "rgba(255,255,255,0.09)"}`,
         boxShadow: active
           ? "inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 18px -14px rgba(4,10,16,0.55), 0 22px 46px -26px rgba(4,10,16,0.7), 0 0 0 1px rgba(217,191,130,0.10), 0 16px 44px -24px rgba(217,191,130,0.42)"
@@ -4588,6 +4589,14 @@ function AccommodationSummary({
       >
         Accommodation Summary
       </div>
+      <div
+        className="mt-3 h-px w-full"
+        style={{
+          background: `linear-gradient(90deg, rgba(217,191,130,0.55) 0%, ${S2_GOLD_SOFT} 22%, rgba(217,191,130,0.10) 100%)`,
+        }}
+      />
+
+
 
       <div className="mt-6 space-y-4">
         <S2SumRow icon={<BedDouble size={17} strokeWidth={1.9} />} label="Total rooms" value={totalRooms} />
