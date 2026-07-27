@@ -3833,6 +3833,54 @@ function S2StayCard({
 
 
 
+  const dateTimeline = (
+    <div
+      className="grid items-center px-[28px] py-[6px]"
+      style={{
+        width: compact ? "100%" : "92%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginTop: compact ? 0 : 24,
+        gridTemplateColumns: "minmax(0,1fr) auto minmax(0,1fr)",
+        borderRadius: 15,
+        backgroundImage: "linear-gradient(180deg, #203548 0%, #1B2E3E 52%, #182B3A 100%)",
+        border: "1px solid rgba(217,191,130,0.30)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.22), 0 22px 50px -34px rgba(6,13,20,0.85)",
+      }}
+    >
+      <DateCol
+        label="Arrival"
+        value={arrival}
+        onChange={onArrival}
+        align="left"
+        placeholder="Select arrival date"
+      />
+      <ArrowRight
+        size={34}
+        strokeWidth={1.1}
+        className="mx-3 shrink-0 self-center"
+        style={{ color: "rgba(217,191,130,0.9)" }}
+      />
+      <DateCol
+        label="Departure"
+        value={departure}
+        onChange={onDeparture}
+        minDate={(() => {
+          const a = toDate(arrival);
+          if (!a) return undefined;
+          const n = new Date(a);
+          n.setDate(n.getDate() + 1);
+          return n;
+        })()}
+        align="right"
+        placeholder="Select departure date"
+      />
+    </div>
+  );
+
+  if (compact) return <div className={animClass}>{dateTimeline}</div>;
+
   return (
     <div
       className={animClass}
@@ -3850,6 +3898,7 @@ function S2StayCard({
       }}
 
     >
+
       {/* SECTION 1 — header */}
       <div className="flex items-baseline justify-between gap-4">
         <h3
