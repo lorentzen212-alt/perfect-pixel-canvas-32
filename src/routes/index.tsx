@@ -143,7 +143,7 @@ function Home() {
             className="mx-auto mt-7 lg:mt-9 max-w-[980px] font-light text-white leading-[1.18] tracking-[0.005em] text-[40px] sm:text-[54px] lg:text-[62px]"
             style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
           >
-            <span className="block text-white/85 text-[0.82em] leading-[1.2]">Three ways to</span>
+            <span className="block">Three ways to</span>
             <span className="block">
               <em className="italic font-light">exceptional</em> group stays
             </span>
