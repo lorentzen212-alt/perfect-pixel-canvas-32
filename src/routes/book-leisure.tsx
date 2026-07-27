@@ -3672,6 +3672,7 @@ function S2StayCard({
   rooms,
   guests,
   editable = false,
+  compact = false,
   onArrival,
   onDeparture,
   onAddAnother,
@@ -3689,6 +3690,8 @@ function S2StayCard({
   rooms: number;
   guests: number;
   editable?: boolean;
+  compact?: boolean;
+
   onArrival?: (v: string) => void;
   onDeparture?: (v: string) => void;
   onAddAnother: () => void;
