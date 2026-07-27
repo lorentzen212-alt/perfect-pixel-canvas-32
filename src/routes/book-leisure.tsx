@@ -6958,12 +6958,12 @@ function LeisureStep6Screen({
             {/* HEADER */}
             <div className="flex flex-col items-center text-center">
               <span
-                className="text-[12px] font-medium uppercase tracking-[0.28em]"
+                className="text-[11px] font-medium uppercase tracking-[0.28em]"
                 style={{ color: S1_GOLD, fontFamily: SERIF }}
               >
                 3. Concierge Review
               </span>
-              <div className="mt-2.5 flex w-full max-w-[520px] items-center gap-4">
+              <div className="mt-1.5 flex w-full max-w-[440px] items-center gap-3">
                 <span
                   className="h-px flex-1"
                   style={{
@@ -6971,7 +6971,7 @@ function LeisureStep6Screen({
                       "linear-gradient(90deg, transparent, rgba(212,166,74,0.55))",
                   }}
                 />
-                <ConciergeBell size={24} strokeWidth={1.2} style={{ color: S1_GOLD }} />
+                <ConciergeBell size={19} strokeWidth={1.2} style={{ color: S1_GOLD }} />
                 <span
                   className="h-px flex-1"
                   style={{
@@ -6981,15 +6981,13 @@ function LeisureStep6Screen({
                 />
               </div>
               <h2
-                className="mt-2 text-[27px] leading-[1.06] font-normal uppercase tracking-[0.03em] text-white sm:text-[36px]"
+                className="mt-1.5 text-[22px] leading-[1.04] font-normal uppercase tracking-[0.03em] text-white sm:text-[27px]"
                 style={{ fontFamily: SERIF }}
               >
-                Your Journey
-                <br />
-                at a Glance
+                Your Journey at a Glance
               </h2>
               <p
-                className="mt-2 text-[13.5px] sm:text-[14.5px]"
+                className="mt-1 text-[12.5px] sm:text-[13px]"
                 style={{ color: "rgba(245,241,230,0.62)" }}
               >
                 Please review your request details before submitting.
@@ -6997,11 +6995,12 @@ function LeisureStep6Screen({
             </div>
 
             {/* REVIEW CARDS */}
-            <div className="mt-5 space-y-[9px]">
+            <div className="mt-3.5 space-y-[8px]">
               {reviewCards.map((c, i) => (
                 <S6LuxCard key={c.title} {...c} index={i} />
               ))}
             </div>
+
 
             {/* BOTTOM INFORMATION PANEL */}
             <div
