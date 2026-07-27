@@ -180,7 +180,7 @@ function Home() {
                 image={cardLeisureAsset.url}
                 imagePosition="center 35%"
                 label="L E I S U R E"
-                tagline="Group hotel bookings"
+                tagline="Group Hotel Bookings"
                 ctaText="Explore"
                 icon={<LeisureIcon />}
                 intensity={1.8}
@@ -544,19 +544,19 @@ function ExperienceCard({
 
 function LeisureIcon() {
   return (
-    <Compass size={19} strokeWidth={1.4} color="#D4AF37" />
+    <Compass size={18} strokeWidth={1.4} color="#D4AF37" />
   );
 }
 
 function MeIcon() {
   return (
-    <UsersRound size={19} strokeWidth={1.4} color="#D4AF37" />
+    <UsersRound size={18} strokeWidth={1.4} color="#D4AF37" />
   );
 }
 
 function ManageIcon() {
   return (
-    <CalendarDays size={19} strokeWidth={1.4} color="#D4AF37" />
+    <CalendarDays size={18} strokeWidth={1.4} color="#D4AF37" />
   );
 }
 
