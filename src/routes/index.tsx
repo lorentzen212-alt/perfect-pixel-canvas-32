@@ -4,12 +4,10 @@ import {
   ArrowRight,
   Users,
   Briefcase,
-  Compass,
   ShieldCheck,
   Clock,
   Headphones,
   Lock,
-  UsersRound,
   FileText,
   Building2,
   CheckCircle2,
@@ -18,7 +16,6 @@ import {
   Linkedin,
   Facebook,
   Instagram,
-  CalendarDays,
 } from "lucide-react";
 import {
   ShieldCheckPremium,
@@ -182,7 +179,6 @@ function Home() {
                 label="L E I S U R E"
                 tagline="Group Hotel Bookings"
                 ctaText="Explore"
-                icon={<LeisureIcon />}
                 intensity={1.8}
               />
               <ExperienceCard
@@ -192,7 +188,6 @@ function Home() {
                 label="M & E"
                 tagline="Professional Event Planning"
                 ctaText="Plan event"
-                icon={<MeIcon />}
                 intensity={2}
               />
               <ExperienceCard
@@ -202,7 +197,6 @@ function Home() {
                 label="M A N A G E"
                 tagline="Manage Your Bookings"
                 ctaText="Open dashboard"
-                icon={<ManageIcon />}
                 intensity={1.8}
               />
             </div>
@@ -281,7 +275,6 @@ function ExperienceCard({
   label,
   tagline,
   ctaText,
-  icon,
   intensity = 1,
 }: {
   to: string;
@@ -292,7 +285,6 @@ function ExperienceCard({
   label: string;
   tagline: React.ReactNode;
   ctaText: string;
-  icon: React.ReactNode;
   intensity?: number;
 }) {
   const cardShadow = "0 28px 70px rgba(0, 0, 0, 0.42)";
@@ -478,61 +470,66 @@ function ExperienceCard({
 
           {/* Cinematic gradient: lighter top, progressively darker bottom */}
           <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
-          {/* Premium dark gradient overlay behind text only */}
+          {/* Subtle bottom gradient purely for text legibility */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 z-10"
-            style={{
-              height: "62%",
-              background:
-                "linear-gradient(0deg, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.44) 38%, rgba(0,0,0,0.16) 68%, rgba(0,0,0,0) 100%)",
-            }}
-          />
-          {/* Polished dark-glass reflection along the lower portion */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%]"
+            className="pointer-events-none absolute inset-0 z-10"
             style={{
               background:
-                "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,252,244,0.028) 62%, rgba(255,250,238,0.05) 100%)",
+                "linear-gradient(to top, rgba(4,8,13,0.68) 0%, rgba(4,8,13,0.25) 28%, transparent 52%)",
             }}
           />
-
-
 
           {/* Content overlay — quiet editorial typography block */}
           <div className="absolute inset-0 z-20">
             <div
-              className="absolute bottom-0 left-0 flex w-full flex-col items-start text-left"
-              style={{ padding: "0 0 36px 34px" }}
+              className="absolute text-left"
+              style={{ left: "34px", bottom: "82px" }}
             >
-              <span style={{ color: "#D4AF37", lineHeight: 0 }}>
-                {icon}
-              </span>
               <p
-                className="mt-[20px] text-[18px] font-medium uppercase tracking-[0.28em]"
-                style={{ color: "#FFFFFF" }}
+                className="uppercase"
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: "20px",
+                  fontWeight: 500,
+                  letterSpacing: "0.30em",
+                  lineHeight: 1,
+                  whiteSpace: "nowrap",
+                }}
               >
                 {label}
               </p>
               <p
-                className="mt-[16px] max-w-[170px] text-[15px] leading-[1.5]"
                 style={{
-                  color: "rgba(255, 255, 255, 0.88)",
+                  marginTop: "16px",
+                  color: "rgba(255,255,255,0.78)",
+                  fontSize: "15px",
                   fontWeight: 400,
+                  lineHeight: 1.4,
+                  whiteSpace: "nowrap",
                 }}
               >
                 {tagline}
               </p>
-              <span
-                className="mt-[34px] flex items-center gap-[10px] text-[15px] font-medium text-white transition-opacity duration-300 group-hover/card:opacity-75"
-                style={{ letterSpacing: "0.02em" }}
-              >
-                <ArrowRight size={15} strokeWidth={1.6} className="text-white transition-transform duration-300 group-hover/card:translate-x-1" />
-                {ctaText}
-              </span>
             </div>
+            <span
+              className="absolute flex items-center opacity-[0.82] transition-opacity duration-[250ms] ease-out group-hover/card:opacity-100"
+              style={{
+                right: "30px",
+                bottom: "28px",
+                color: "#FFFFFF",
+                fontSize: "14px",
+                fontWeight: 500,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {ctaText}
+              <span className="ml-[6px] inline-block transition-transform duration-[250ms] ease-out group-hover/card:translate-x-1">
+                →
+              </span>
+            </span>
           </div>
+
 
         </div>
       </Link>
@@ -540,23 +537,8 @@ function ExperienceCard({
   );
 }
 
-function LeisureIcon() {
-  return (
-    <Compass size={18} strokeWidth={1.4} color="#D4AF37" />
-  );
-}
 
-function MeIcon() {
-  return (
-    <UsersRound size={18} strokeWidth={1.4} color="#D4AF37" />
-  );
-}
 
-function ManageIcon() {
-  return (
-    <CalendarDays size={18} strokeWidth={1.4} color="#D4AF37" />
-  );
-}
 
 
 function CTAButton({
