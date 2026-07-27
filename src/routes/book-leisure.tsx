@@ -3346,8 +3346,9 @@ function LeisureStep2Screen({
               className="mt-3 px-5 py-4 transition-colors duration-300"
               style={{
                 borderRadius: 18,
-                backgroundColor: S2_SUNK,
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 26px 50px -40px rgba(0,0,0,0.7)",
+                backgroundColor: "rgba(30,46,60,0.62)",
+                border: "1px solid rgba(255,255,255,0.10)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 26px 50px -40px rgba(0,0,0,0.7)",
               }}
             >
               <textarea
