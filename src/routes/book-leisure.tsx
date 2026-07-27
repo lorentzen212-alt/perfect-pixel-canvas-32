@@ -3223,13 +3223,25 @@ function LeisureStep2Screen({
                   "linear-gradient(180deg, rgba(11,19,27,0) 0%, rgba(11,19,27,0.42) 45%, rgba(11,19,27,0.78) 100%)",
               }}
             />
-            <div className="absolute bottom-9 left-9 right-9">
+            <div
+              className="absolute bottom-9 left-9 right-9"
+              style={{
+                borderRadius: 16,
+                padding: "16px 20px",
+                background:
+                  "linear-gradient(180deg, rgba(8,16,24,0.42) 0%, rgba(6,13,20,0.62) 100%)",
+                backdropFilter: "blur(10px) saturate(115%)",
+                border: "1px solid rgba(255,255,255,0.07)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
+              }}
+            >
               <div
-                className="text-[12.5px] font-semibold uppercase tracking-[0.26em] text-white"
+                className="text-[12.5px] font-semibold uppercase tracking-[0.26em]"
+                style={{ color: "#FFFFFF" }}
               >
                 {heroStayLabel}
               </div>
-              <div className="mt-2 text-[14px]" style={{ color: "rgba(245,241,230,0.8)" }}>
+              <div className="mt-2 text-[14px]" style={{ color: "rgba(240,236,226,0.66)" }}>
                 {heroStayMeta}
               </div>
             </div>
