@@ -195,22 +195,32 @@ function Home() {
 
           </div>
 
-          {/* FEATURE BAR */}
-          <div className="mt-5 lg:mt-6 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm px-6 lg:px-10 py-6 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 text-left">
-            {[
-              { Icon: Clock, title: "Save Time", desc: "We handle the time-consuming work for you." },
-              { Icon: Gem, title: "Best Offers", desc: "Receive multiple offers from carefully selected hotels." },
-              { Icon: Headphones, title: "Expert Support", desc: "Dedicated M&E specialists ready to help." },
-              { Icon: ShieldCheck, title: "Trusted & Secure", desc: "Your data is safe with us, always." },
-            ].map(({ Icon, title, desc }) => (
-              <div key={title} className="flex items-start gap-3">
-                <Icon className="text-[#C9A65E] shrink-0 mt-0.5" size={26} strokeWidth={1.4} />
-                <div>
-                  <p className="text-white text-[12px] tracking-[0.18em] uppercase font-medium">{title}</p>
-                  <p className="mt-1 text-white/65 text-[13px] leading-snug font-light">{desc}</p>
-                </div>
-              </div>
-            ))}
+          {/* FEATURE RIBBON */}
+          <div className="mt-5 lg:mt-6 group rounded-[28px] border border-[rgba(212,175,55,0.18)] bg-[linear-gradient(180deg,rgba(18,26,39,0.88),rgba(13,20,32,0.82))] px-8 lg:px-14 py-8 shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-[18px] transition-all duration-[250ms] hover:brightness-[1.03]">
+            <div className="flex flex-wrap items-center justify-center gap-y-8 lg:gap-y-0 gap-x-6 lg:gap-x-12 lg:flex-nowrap">
+              {[
+                { Icon: Clock, title: "Save Time", desc: "We handle the time-consuming work for you." },
+                { Icon: Gem, title: "Best Offers", desc: "Receive multiple offers from carefully selected hotels." },
+                { Icon: Headphones, title: "Expert Support", desc: "Dedicated M&E specialists ready to help." },
+                { Icon: ShieldCheck, title: "Trusted & Secure", desc: "Your data is safe with us, always." },
+              ].map(({ Icon, title, desc }, idx, arr) => [
+                <div key={title} className="flex flex-1 min-w-[220px] max-w-[340px] items-center gap-4">
+                  <span className="inline-flex shrink-0 text-[#C9A65E] drop-shadow-[0_0_6px_rgba(201,166,94,0.25)] transition-all duration-[250ms] group-hover:-translate-y-0.5 group-hover:text-[#E6C88A]">
+                    <Icon size={30} strokeWidth={1.4} />
+                  </span>
+                  <div>
+                    <p className="text-white text-[12px] tracking-[0.18em] uppercase font-medium">{title}</p>
+                    <p className="mt-1 text-white/65 text-[13px] leading-snug font-light">{desc}</p>
+                  </div>
+                </div>,
+                idx < arr.length - 1 && (
+                  <div
+                    key={`sep-${title}`}
+                    className="hidden lg:block w-px self-stretch bg-gradient-to-b from-transparent via-[#D4AF37]/10 to-transparent"
+                  />
+                ),
+              ])}
+            </div>
           </div>
         </section>
       </div>
