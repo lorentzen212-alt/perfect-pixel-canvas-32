@@ -6825,7 +6825,7 @@ function LeisureStep6Screen({
 
   const reviewCards = [
     {
-      icon: <MapPin size={30} strokeWidth={1.1} />,
+      icon: <MapPin size={26} strokeWidth={1.1} />,
       title: "Destination",
       detail:
         [data.city, data.country].filter(Boolean).join(", ") ||
@@ -6834,7 +6834,7 @@ function LeisureStep6Screen({
       onClick: () => onEdit(1),
     },
     {
-      icon: <BedDouble size={30} strokeWidth={1.1} />,
+      icon: <BedDouble size={26} strokeWidth={1.1} />,
       title: "Stay",
       detail: [
         nights > 0 ? `${nights} ${nights === 1 ? "Night" : "Nights"}` : dateRange,
@@ -6849,7 +6849,7 @@ function LeisureStep6Screen({
       onClick: () => onEdit(2),
     },
     {
-      icon: <Utensils size={30} strokeWidth={1.1} />,
+      icon: <Utensils size={26} strokeWidth={1.1} />,
       title: "Dining",
       detail:
         data.extras.length > 0
@@ -6861,7 +6861,7 @@ function LeisureStep6Screen({
       onClick: () => onEdit(3),
     },
     {
-      icon: <Mountain size={30} strokeWidth={1.1} />,
+      icon: <Mountain size={26} strokeWidth={1.1} />,
       title: "Experiences",
       detail: data.letUsRecommend
         ? "Concierge recommendations"
@@ -6874,7 +6874,7 @@ function LeisureStep6Screen({
       onClick: () => onEdit(4),
     },
     {
-      icon: <ConciergeBell size={30} strokeWidth={1.1} />,
+      icon: <ConciergeBell size={26} strokeWidth={1.1} />,
       title: "Special Requests",
       detail:
         specialRequestsCount > 0
