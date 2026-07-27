@@ -182,7 +182,6 @@ function Home() {
                 label="L E I S U R E"
                 tagline="Group Hotel Bookings"
                 ctaText="Explore"
-                icon={<LeisureIcon />}
                 intensity={1.8}
               />
               <ExperienceCard
@@ -192,7 +191,6 @@ function Home() {
                 label="M & E"
                 tagline="Professional Event Planning"
                 ctaText="Plan event"
-                icon={<MeIcon />}
                 intensity={2}
               />
               <ExperienceCard
@@ -202,7 +200,6 @@ function Home() {
                 label="M A N A G E"
                 tagline="Manage Your Bookings"
                 ctaText="Open dashboard"
-                icon={<ManageIcon />}
                 intensity={1.8}
               />
             </div>
@@ -281,7 +278,6 @@ function ExperienceCard({
   label,
   tagline,
   ctaText,
-  icon,
   intensity = 1,
 }: {
   to: string;
@@ -292,7 +288,6 @@ function ExperienceCard({
   label: string;
   tagline: React.ReactNode;
   ctaText: string;
-  icon: React.ReactNode;
   intensity?: number;
 }) {
   const cardShadow = "0 28px 70px rgba(0, 0, 0, 0.42)";
