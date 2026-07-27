@@ -6904,25 +6904,12 @@ function LeisureStep6Screen({
         <>Review your details before we start finding the best hotel offers for your group.</>
       }
     >
-      <section
-        className="s6-lux relative mx-auto w-full max-w-[1180px] overflow-hidden rounded-[26px] px-5 py-10 sm:px-12 sm:py-12 lg:px-20 lg:py-16"
-        style={{
-          background:
-            "radial-gradient(120% 90% at 50% -10%, #172331 0%, #131E2A 45%, #111B26 100%)",
-          border: `1px solid ${S1_BORDER}`,
-          boxShadow:
-            "0 40px 90px -50px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.03)",
-        }}
-      >
-        {/* fine corner line details */}
-        <span className="s6-corner s6-corner-tl" aria-hidden />
-        <span className="s6-corner s6-corner-br" aria-hidden />
-
+      <section className="s6-lux relative mx-auto w-full max-w-[1180px] px-5 py-4 sm:px-12 lg:px-20">
         <div className="relative mx-auto w-full max-w-[1040px]">
           {/* HEADER */}
           <div className="flex flex-col items-center text-center">
-            <ConciergeBell size={30} strokeWidth={1.2} style={{ color: S1_GOLD }} />
-            <div className="mt-4 flex w-full max-w-[420px] items-center gap-4">
+            <ConciergeBell size={28} strokeWidth={1.2} style={{ color: S1_GOLD }} />
+            <div className="mt-3 flex w-full max-w-[420px] items-center gap-4">
               <span
                 className="h-px flex-1"
                 style={{
@@ -6943,7 +6930,7 @@ function LeisureStep6Screen({
               />
             </div>
             <h2
-              className="mt-4 text-[34px] leading-[1.08] font-normal tracking-[0.02em] text-white sm:text-[46px]"
+              className="mt-3 text-[30px] leading-[1.08] font-normal tracking-[0.02em] text-white sm:text-[40px]"
               style={{ fontFamily: SERIF }}
             >
               Your Journey
@@ -6951,7 +6938,7 @@ function LeisureStep6Screen({
               at a Glance
             </h2>
             <p
-              className="mt-3.5 text-[14.5px] sm:text-[15.5px]"
+              className="mt-2.5 text-[14.5px] sm:text-[15.5px]"
               style={{ color: "rgba(245,241,230,0.62)" }}
             >
               Please review your request before submitting.
@@ -6959,7 +6946,7 @@ function LeisureStep6Screen({
           </div>
 
           {/* REVIEW CARDS */}
-          <div className="mt-10 space-y-3.5">
+          <div className="mt-7 space-y-[11px]">
             {reviewCards.map((c, i) => (
               <S6LuxCard key={c.title} {...c} index={i} />
             ))}
@@ -6967,7 +6954,7 @@ function LeisureStep6Screen({
 
           {/* BOTTOM INFORMATION PANEL */}
           <div
-            className="mt-9 grid grid-cols-1 gap-6 rounded-[20px] px-7 py-6 sm:px-10 md:grid-cols-2 md:gap-0"
+            className="mt-6 grid grid-cols-1 gap-5 rounded-[20px] px-7 py-[15px] sm:px-10 md:grid-cols-2 md:gap-0"
             style={{
               background:
                 "linear-gradient(180deg, rgba(23,35,49,0.95), rgba(17,27,38,0.95))",
@@ -6977,7 +6964,7 @@ function LeisureStep6Screen({
           >
             <div className="flex items-center gap-5 md:pr-10">
               <span
-                className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
+                className="grid h-[48px] w-[48px] shrink-0 place-items-center rounded-full"
                 style={{ border: "1px solid rgba(212,166,74,0.4)" }}
               >
                 <Users size={20} strokeWidth={1.4} style={{ color: S1_GOLD }} />
@@ -6990,7 +6977,7 @@ function LeisureStep6Screen({
                   Dedicated Concierge Specialist
                 </div>
                 <p
-                  className="mt-2 text-[13.5px] leading-relaxed"
+                  className="mt-1.5 text-[13.5px] leading-snug"
                   style={{ color: "rgba(245,241,230,0.68)" }}
                 >
                   Our concierge team will personally review your request and find
@@ -7011,14 +6998,14 @@ function LeisureStep6Screen({
                   Estimated Reply
                 </div>
                 <div
-                  className="mt-2 text-[24px] leading-none text-white sm:text-[27px]"
+                  className="mt-1.5 text-[24px] leading-none text-white sm:text-[26px]"
                   style={{ fontFamily: SERIF }}
                 >
                   Within 24 Hours
                 </div>
               </div>
               <span
-                className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
+                className="grid h-[48px] w-[48px] shrink-0 place-items-center rounded-full"
                 style={{ border: "1px solid rgba(212,166,74,0.4)" }}
               >
                 <Clock size={20} strokeWidth={1.4} style={{ color: S1_GOLD }} />
@@ -7031,7 +7018,7 @@ function LeisureStep6Screen({
             type="button"
             onClick={onSubmit}
             disabled={!canSubmit}
-            className="s6-submit mt-6 flex h-[60px] w-full items-center justify-center gap-3 rounded-[14px] text-[15px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
+            className="s6-submit mt-5 flex h-[56px] w-full items-center justify-center gap-3 rounded-[14px] text-[15px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
             style={{
               background:
                 "linear-gradient(180deg, #F0D598 0%, #D9AF62 45%, #C39A4C 100%)",
@@ -7048,26 +7035,28 @@ function LeisureStep6Screen({
               "Submit Request"
             )}
           </button>
+        </div>
 
-          <div className="mt-5 flex flex-col items-center gap-2 text-center">
-            <button
-              type="button"
-              onClick={onBack}
-              className="inline-flex items-center gap-2 text-[14px] font-medium transition-opacity hover:opacity-80"
-              style={{ color: S1_GOLD_SOFT }}
-            >
-              <ArrowLeft size={15} strokeWidth={2} />
-              Back
-            </button>
-            <div className="flex items-center gap-2 text-[12.5px]">
-              <ShieldCheck size={14} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
-              <span style={{ color: "rgba(245,241,230,0.55)" }}>
-                Your request is free and non-binding
-              </span>
-            </div>
+        {/* OUTSIDE THE REVIEW CONTENT */}
+        <div className="mt-10 flex flex-col items-center gap-3 text-center">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-2 text-[14px] font-medium transition-opacity hover:opacity-80"
+            style={{ color: S1_GOLD_SOFT }}
+          >
+            <ArrowLeft size={15} strokeWidth={2} />
+            Back
+          </button>
+          <div className="flex items-center gap-2 text-[12.5px]">
+            <ShieldCheck size={14} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
+            <span style={{ color: "rgba(245,241,230,0.55)" }}>
+              Your request is free and non-binding
+            </span>
           </div>
         </div>
       </section>
+
     </LeisureStepShell>
   );
 }
