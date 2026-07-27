@@ -297,7 +297,7 @@ function ExperienceCard({
 
   return (
     <div
-      className={cn("relative", raised && "md:-translate-y-[10px]")}
+      className="relative"
       style={{ isolation: "isolate", overflow: "visible" }}
     >
       {/* Extremely soft radial glow behind the card */}
