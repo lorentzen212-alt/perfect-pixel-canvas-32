@@ -434,6 +434,34 @@ function ExperienceCard({
             style={{ objectPosition: imagePosition, filter: imageFilter }}
             className="absolute inset-0 h-full w-full object-cover"
           />
+          {/* Unified cinematic grade: cool grey cast + champagne highlights */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(150,168,186,0.30) 0%, rgba(120,136,154,0.18) 48%, rgba(38,44,52,0.34) 100%)",
+            }}
+          />
+          {/* Champagne highlight tint */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 mix-blend-overlay"
+            style={{
+              background:
+                "radial-gradient(120% 80% at 50% 22%, rgba(226,206,166,0.16) 0%, rgba(226,206,166,0) 62%)",
+            }}
+          />
+          {/* Lifted charcoal blacks + subtle cinematic haze */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(216,224,232,0.045) 0%, rgba(30,36,44,0.06) 100%)",
+            }}
+          />
+
           {/* Cinematic gradient: lighter top, progressively darker bottom */}
           <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
           {/* Polished dark-glass reflection along the lower portion */}
