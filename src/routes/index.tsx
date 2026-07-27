@@ -274,7 +274,7 @@ function ExperienceCard({
   to,
   image,
   imagePosition = "center center",
-  imageFilter = "brightness(1.15) contrast(1.05) saturate(1.05) sepia(0.02)",
+  imageFilter = "brightness(1.06) contrast(1.07) saturate(0.86) hue-rotate(-6deg) sepia(0.05)",
   overlay = "from-transparent via-transparent via-[84%] to-black/18",
   label,
   tagline,
