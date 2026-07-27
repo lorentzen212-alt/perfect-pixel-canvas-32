@@ -505,36 +505,35 @@ function ExperienceCard({
             {/* Typography block — bottom-left */}
             <div
               className="absolute bottom-0 left-0 flex flex-col items-start text-left"
-              style={{ paddingLeft: 40, paddingBottom: 68 }}
+              style={{ paddingLeft: 40, paddingBottom: 30 }}
             >
               <span className="text-[#C9A65E]">
                 {icon}
               </span>
               <p
-                className="mt-[26px] pl-[1px] text-[18px] font-medium uppercase tracking-[0.22em]"
-                style={{ color: "#F8F6F2" }}
+                className="mt-[22px] pl-[1px] text-[18px] font-semibold uppercase tracking-[0.18em]"
+                style={{ color: "#F7F5F1" }}
               >
                 {label}
               </p>
               <p
-                className="mt-[18px] text-[16px] leading-[1.5]"
+                className="mt-[14px] text-[15px] leading-[1.5]"
                 style={{
-                  color: "rgba(248,246,242,0.75)",
-                  fontWeight: 350,
+                  color: "#D8D8D8",
+                  fontWeight: 500,
                   whiteSpace: "nowrap",
                 }}
               >
                 {tagline}
               </p>
+              <span
+                className="mt-[26px] flex items-center gap-2 text-[14px] font-medium text-white transition-opacity duration-300 group-hover/card:opacity-75"
+                style={{ letterSpacing: "0.02em" }}
+              >
+                {ctaText}
+                <ArrowRight size={14} strokeWidth={1.8} className="text-white" />
+              </span>
             </div>
-
-            {/* Circular arrow CTA — bottom-right */}
-            <span
-              className="absolute flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15 relative overflow-hidden before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-b before:from-white/14 before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 group-hover/card:before:opacity-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.10)]"
-              style={{ right: 34, bottom: 34 }}
-            >
-              <ArrowRight size={18} strokeWidth={1.5} />
-            </span>
           </div>
         </div>
       </Link>
