@@ -2559,7 +2559,7 @@ function LeisureStepShell({
         />
       </div>
 
-      <div className={`mx-auto grid ${hideHero ? "max-w-[1240px] py-7 lg:py-9" : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
+      <div className={`mx-auto grid ${hideHero ? "max-w-[1240px] py-4 lg:py-5" : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
 
         {!hideHero && (
         <aside
