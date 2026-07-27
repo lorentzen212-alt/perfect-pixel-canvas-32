@@ -2559,8 +2559,9 @@ function LeisureStepShell({
         />
       </div>
 
-      <div className={`mx-auto grid max-w-[1680px] grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-7 lg:px-8 lg:py-14`}>
+      <div className={`mx-auto grid ${hideHero ? "max-w-[1240px]" : "max-w-[1680px]"} grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-7 lg:px-8 lg:py-14`}>
 
+        {!hideHero && (
         <aside
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px] order-3 lg:order-none"
 
