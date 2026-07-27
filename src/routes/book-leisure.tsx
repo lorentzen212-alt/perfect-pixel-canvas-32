@@ -3588,40 +3588,54 @@ function S2CompletedStayCard({
 
   return (
     <div
-      className={animClass}
+      className={`${animClass} flex h-full flex-col`}
       style={{
-        borderRadius: 16,
+        borderRadius: 18,
+        minHeight: 196,
         backgroundImage: "linear-gradient(165deg, rgba(38,58,75,0.65) 0%, rgba(31,49,64,0.65) 100%)",
         border: "1px solid rgba(217,191,130,0.14)",
-        padding: "16px 20px",
+        padding: "20px 24px",
         boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
       }}
     >
-      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
-        <div className="flex min-w-0 items-center gap-4">
-          <span
-            className="grid h-9 w-9 shrink-0 place-items-center text-[14px] font-semibold"
-            style={{
-              borderRadius: 999,
-              border: "1px solid rgba(217,191,130,0.35)",
-              color: S2_GOLD_SOFT,
-            }}
-          >
-            {index}
-          </span>
-          <div className="min-w-0">
-            <div className="text-[15px] font-medium" style={{ color: "#F7F3EA" }}>
-              {fmt(arrival)} — {fmt(departure)}
-            </div>
-            <div className="mt-1 text-[12.5px]" style={{ color: "rgba(226,232,240,0.5)" }}>
-              {nights} {nights === 1 ? "night" : "nights"} · {rooms} {rooms === 1 ? "room" : "rooms"} · {guests}{" "}
-              {guests === 1 ? "guest" : "guests"}
-            </div>
-          </div>
-        </div>
+      <div className="flex items-center gap-3.5">
+        <span
+          className="grid h-10 w-10 shrink-0 place-items-center text-[15px] font-semibold"
+          style={{
+            borderRadius: 999,
+            border: "1px solid rgba(217,191,130,0.35)",
+            color: S2_GOLD_SOFT,
+          }}
+        >
+          {index}
+        </span>
+        <span
+          className="text-[19px] font-medium leading-none"
+          style={{ fontFamily: SERIF, color: "#FDFBF6" }}
+        >
+          Stay {index}
+        </span>
+      </div>
 
+      <div className="mt-4 min-w-0">
+        <div className="text-[15.5px] font-medium" style={{ color: "#F7F3EA" }}>
+          {fmt(arrival)} → {fmt(departure)}
+        </div>
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]" style={{ color: "rgba(226,232,240,0.55)" }}>
+          <span>{nights} {nights === 1 ? "night" : "nights"}</span>
+          <span aria-hidden>·</span>
+          <span>{guests} {guests === 1 ? "guest" : "guests"}</span>
+          <span aria-hidden>·</span>
+          <span>{rooms} {rooms === 1 ? "room" : "rooms"}</span>
+        </div>
+      </div>
+
+      <div
+        className="mt-auto pt-4"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+      >
         {confirming ? (
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <span className="text-[13px]" style={{ color: "rgba(245,241,230,0.7)" }}>
               Remove this stay?
             </span>
@@ -3643,21 +3657,23 @@ function S2CompletedStayCard({
             </button>
           </div>
         ) : (
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-6">
             <button
               type="button"
               onClick={onEdit}
-              className="bg-transparent p-0 text-[13.5px] font-medium"
+              className="inline-flex items-center gap-2 bg-transparent p-0 text-[13.5px] font-medium"
               style={{ color: S2_GOLD_SOFT, border: "none" }}
             >
+              <Pencil size={15} strokeWidth={1.7} />
               Edit
             </button>
             <button
               type="button"
               onClick={onRemove}
-              className="bg-transparent p-0 text-[13.5px]"
+              className="inline-flex items-center gap-2 bg-transparent p-0 text-[13.5px]"
               style={{ color: "rgba(245,241,230,0.55)", border: "none" }}
             >
+              <Trash2 size={15} strokeWidth={1.7} />
               Remove
             </button>
           </div>
@@ -3666,6 +3682,33 @@ function S2CompletedStayCard({
     </div>
   );
 }
+
+function S2AddStayCard({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex h-full flex-col items-center justify-center gap-3 transition-transform duration-200 hover:-translate-y-[2px]"
+      style={{
+        borderRadius: 18,
+        minHeight: 196,
+        padding: "20px 24px",
+        backgroundColor: "rgba(255,255,255,0.02)",
+        border: "1px dashed rgba(217,191,130,0.35)",
+        color: S2_GOLD_SOFT,
+      }}
+    >
+      <span
+        className="grid h-11 w-11 place-items-center"
+        style={{ borderRadius: 999, border: "1px solid rgba(217,191,130,0.35)" }}
+      >
+        <Plus size={20} strokeWidth={1.6} />
+      </span>
+      <span className="text-[15px] font-medium">Add another stay</span>
+    </button>
+  );
+}
+
 
 function S2StayCard({
 
