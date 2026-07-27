@@ -163,38 +163,50 @@ function Home() {
           </p>
 
           {/* EXPERIENCE CARDS */}
-          <div className="mt-7 lg:mt-8 grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
-
-            <ExperienceCard
-              to="/book-leisure"
-              image={cardLeisureAsset.url}
-              imagePosition="center 35%"
-              label="Leisure"
-              tagline={<>Unforgettable<br />getaways</>}
-              icon={<LeisureIcon />}
-              intensity={1.8}
+          <div className="relative mt-7 lg:mt-8 lg:-mx-[70px]">
+            {/* Stage spotlight behind all three cards */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -inset-x-[12%] -top-[18%] -bottom-[22%] -z-10"
+              style={{
+                background:
+                  "radial-gradient(60% 55% at 50% 45%, rgba(255,246,226,0.09) 0%, rgba(255,244,220,0.05) 38%, rgba(255,240,215,0.02) 62%, rgba(0,0,0,0) 82%)",
+                filter: "blur(6px)",
+              }}
             />
-            <ExperienceCard
-              to="/book-meetings-events"
-              image={cardMeAsset.url}
-              imagePosition="center 40%"
-              label="M&E"
-              tagline={<>Meetings &amp; events<br />made seamless</>}
-              icon={<MeIcon />}
-              centerAccent
-              intensity={2}
-            />
-            <ExperienceCard
-              to="/manage-bookings"
-              image={cardManageAsset.url}
-              imagePosition="55% center"
-              label="Manage"
-              tagline={<>Manage bookings<br />with ease</>}
-              icon={<ManageIcon />}
-              intensity={1.8}
-            />
-
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[44px]">
+              <ExperienceCard
+                to="/book-leisure"
+                image={cardLeisureAsset.url}
+                imagePosition="center 35%"
+                label="Leisure"
+                tagline={<>Unforgettable<br />getaways</>}
+                icon={<LeisureIcon />}
+                intensity={1.8}
+              />
+              <ExperienceCard
+                to="/book-meetings-events"
+                image={cardMeAsset.url}
+                imagePosition="center 40%"
+                label="M&E"
+                tagline={<>Meetings &amp; events<br />made seamless</>}
+                icon={<MeIcon />}
+                centerAccent
+                raised
+                intensity={2}
+              />
+              <ExperienceCard
+                to="/manage-bookings"
+                image={cardManageAsset.url}
+                imagePosition="55% center"
+                label="Manage"
+                tagline={<>Manage bookings<br />with ease</>}
+                icon={<ManageIcon />}
+                intensity={1.8}
+              />
+            </div>
           </div>
+
 
           {/* FEATURE RIBBON */}
           
