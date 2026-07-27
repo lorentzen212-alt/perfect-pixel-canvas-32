@@ -291,6 +291,7 @@ function ExperienceCard({
   overlay?: string;
   label: string;
   tagline: React.ReactNode;
+  ctaText: string;
   icon: React.ReactNode;
   intensity?: number;
 }) {
