@@ -178,7 +178,6 @@ function Home() {
               to="/book-meetings-events"
               image={cardMeAsset.url}
               imagePosition="center 40%"
-              imageFilter="brightness(0.93)"
               label="M&E"
               tagline={<>Meetings &amp; events<br />made seamless</>}
               icon={<MeIcon />}
@@ -189,7 +188,6 @@ function Home() {
               to="/manage-bookings"
               image={cardManageAsset.url}
               imagePosition="55% center"
-              overlay="from-black/28 via-black/58 to-black/95"
               label="Manage"
               tagline={<>Manage bookings<br />with ease</>}
               icon={<ManageIcon />}
@@ -232,7 +230,7 @@ function ExperienceCard({
   image,
   imagePosition = "center center",
   imageFilter,
-  overlay = "from-black/15 via-black/45 to-black/85",
+  overlay = "from-transparent via-transparent via-[78%] to-black/18",
   label,
   tagline,
   icon,
