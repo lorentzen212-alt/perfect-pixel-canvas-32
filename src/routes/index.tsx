@@ -163,7 +163,7 @@ function Home() {
           </p>
 
           {/* EXPERIENCE CARDS */}
-          <div className="relative mt-7 lg:mt-8 lg:-mx-[70px]">
+          <div className="relative mt-7 lg:mt-8">
             {/* Stage spotlight behind all three cards */}
             <div
               aria-hidden
