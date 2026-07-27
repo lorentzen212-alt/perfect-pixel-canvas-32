@@ -2940,6 +2940,7 @@ function LeisureStep2Screen({
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
+  const [stayAddedFlash, setStayAddedFlash] = useState(false);
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
   const [addError, setAddError] = useState(false);
   const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null);
@@ -3002,6 +3003,8 @@ function LeisureStep2Screen({
       );
       setAddError(false);
       setLastAddedId(id);
+      setStayAddedFlash(true);
+      window.setTimeout(() => setStayAddedFlash(false), 1100);
       window.setTimeout(() => {
         setLastAddedId((cur) => (cur === id ? null : cur));
       }, 320);
@@ -3230,7 +3233,7 @@ function LeisureStep2Screen({
                 padding: "16px 20px",
                 background:
                   "linear-gradient(180deg, rgba(8,16,24,0.42) 0%, rgba(6,13,20,0.62) 100%)",
-                backdropFilter: "blur(10px) saturate(115%)",
+                backdropFilter: "blur(16px) saturate(120%)",
                 border: "1px solid rgba(255,255,255,0.07)",
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
               }}
@@ -3239,9 +3242,12 @@ function LeisureStep2Screen({
                 className="text-[12.5px] font-semibold uppercase tracking-[0.26em]"
                 style={{ color: "#FFFFFF" }}
               >
-                {heroStayLabel}
+                Current stay
               </div>
-              <div className="mt-2 text-[14px]" style={{ color: "rgba(240,236,226,0.66)" }}>
+              <div
+                className="mt-2 text-[15px] font-medium"
+                style={{ color: "rgba(250,247,240,0.9)" }}
+              >
                 {heroStayMeta}
               </div>
             </div>
@@ -3331,8 +3337,11 @@ function LeisureStep2Screen({
               background: `linear-gradient(90deg, ${S2_GOLD} 0%, rgba(217,191,130,0.15) 100%)`,
             }}
           />
+          <p className="mt-3 text-[13px]" style={{ color: "rgba(240,236,226,0.55)" }}>
+            Choose the number and type of rooms required.
+          </p>
 
-          <div className="mt-[30px] grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-[26px] grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
             {STEP2_ROOMS_ORDER.map((key) => (
               <S2RoomCard
                 key={key}
@@ -3368,8 +3377,9 @@ function LeisureStep2Screen({
                 onChange={(e) => setRoomNotes(e.target.value.slice(0, 500))}
                 placeholder="Tell us anything important about your accommodation needs…"
                 rows={2}
-                className="w-full resize-none bg-transparent text-[14px] leading-relaxed outline-none"
-                style={{ color: S2_TEXT }}
+                className="s2-notes w-full resize-none bg-transparent text-[14px] leading-relaxed outline-none"
+                style={{ color: S2_TEXT, minHeight: 62 }}
+
               />
               <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.35)" }}>
                 {roomNotes.length} / 500
@@ -3390,15 +3400,15 @@ function LeisureStep2Screen({
               onClick={() => commitStay()}
               aria-disabled={!canAddStay}
               disabled={saving}
-              className="s2-btn group inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold transition-all duration-300 ease-out hover:-translate-y-[2px] hover:brightness-[1.04] active:translate-y-0"
+              className="s2-btn group inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold transition-all duration-[420ms] ease-out hover:-translate-y-[2px] hover:brightness-[1.05] active:translate-y-0"
               style={{
                 borderRadius: 16,
                 background: canAddStay
-                  ? `linear-gradient(180deg, #FBEFC8 0%, ${S2_GOLD_SOFT} 26%, ${S2_GOLD} 62%, ${S2_GOLD_DEEP} 100%)`
+                  ? `linear-gradient(180deg, #FDF6DC 0%, #F3E1AC 22%, ${S2_GOLD_SOFT} 44%, ${S2_GOLD} 72%, ${S2_GOLD_DEEP} 100%)`
                   : "rgba(255,255,255,0.05)",
                 color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
                 boxShadow: canAddStay
-                  ? "0 20px 44px -20px rgba(20,14,4,0.62), 0 6px 16px -10px rgba(20,14,4,0.45), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -2px 0 rgba(120,95,45,0.35)"
+                  ? "0 26px 54px -26px rgba(20,14,4,0.5), 0 8px 20px -14px rgba(20,14,4,0.36), inset 0 1px 0 rgba(255,255,255,0.66), inset 0 -2px 0 rgba(120,95,45,0.3)"
                   : "none",
                 cursor: canAddStay ? "pointer" : "not-allowed",
               }}
@@ -3407,10 +3417,20 @@ function LeisureStep2Screen({
               <ArrowRight
                 size={18}
                 strokeWidth={2.4}
-                className="transition-all duration-300 ease-out group-hover:translate-x-[2px] group-hover:opacity-100"
+                className="transition-all duration-[420ms] ease-out group-hover:translate-x-[5px] group-hover:opacity-100"
                 style={{ opacity: 0.86 }}
               />
             </button>
+            {stayAddedFlash && (
+              <span
+                className="s2-added-flash inline-flex items-center gap-2 text-[13px] font-medium"
+                style={{ color: S2_GOLD_SOFT }}
+                role="status"
+              >
+                <Check size={14} strokeWidth={3} />
+                Stay added
+              </span>
+            )}
             {editingId && (
               <button
                 type="button"
@@ -3426,7 +3446,7 @@ function LeisureStep2Screen({
           {/* 5 — Your Stays (rendered BELOW "Add this stay") */}
           {stays.some((s) => s.id !== editingId) && (
             <div
-              className="mt-[54px]"
+              className="mt-[78px]"
               data-section="completed-stays"
               style={{
                 borderRadius: 24,
@@ -3439,8 +3459,8 @@ function LeisureStep2Screen({
               }}
             >
               <div
-                className="text-[11.5px] font-semibold uppercase tracking-[0.28em]"
-                style={{ color: "rgba(247,244,236,0.72)" }}
+                className="text-[13px] font-semibold uppercase tracking-[0.28em]"
+                style={{ color: "rgba(255,253,248,0.96)" }}
               >
                 Your Stays
               </div>
@@ -3452,7 +3472,10 @@ function LeisureStep2Screen({
                   background: `linear-gradient(90deg, ${S2_GOLD} 0%, rgba(217,191,130,0.15) 100%)`,
                 }}
               />
-              <div className="mt-4 grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-3">
+              <p className="mt-3 text-[13px]" style={{ color: "rgba(240,236,226,0.55)" }}>
+                Your hotel itinerary will appear here.
+              </p>
+              <div className="mt-5 grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-3">
                 {stays.map((s, idx) => {
                   if (s.id === editingId) return null;
                   return (
@@ -3620,13 +3643,13 @@ function S2CompletedStayCard({
     <div
       className={`${animClass} flex h-full flex-col`}
       style={{
-        borderRadius: 18,
+        borderRadius: 22,
         minHeight: 196,
-        backgroundImage: "linear-gradient(165deg, rgba(24,40,54,0.92) 0%, rgba(19,33,45,0.92) 100%)",
-        border: "1px solid rgba(217,191,130,0.30)",
+        backgroundImage: "linear-gradient(165deg, rgba(38,56,72,0.95) 0%, rgba(31,48,63,0.95) 100%)",
+        border: "1px solid rgba(217,191,130,0.34)",
         padding: "20px 24px",
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.07), 0 22px 46px -28px rgba(4,10,16,0.75), 0 6px 16px -12px rgba(0,0,0,0.5)",
+          "inset 0 1px 0 rgba(255,255,255,0.09), 0 30px 60px -30px rgba(4,10,16,0.7), 0 10px 22px -16px rgba(0,0,0,0.45)",
       }}
     >
       <div className="flex items-center gap-3.5">
@@ -3634,10 +3657,10 @@ function S2CompletedStayCard({
           className="grid h-10 w-10 shrink-0 place-items-center text-[15px] font-semibold"
           style={{
             borderRadius: 999,
-            border: "1px solid rgba(228,203,140,0.62)",
-            backgroundColor: "rgba(12,23,33,0.92)",
-            color: "#F0DCA6",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.10), 0 0 12px -6px rgba(217,191,130,0.5)",
+            border: "1.5px solid rgba(240,219,163,0.8)",
+            backgroundColor: "rgba(7,15,23,0.96)",
+            color: "#FFF2CE",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14), 0 0 16px -6px rgba(217,191,130,0.6)",
           }}
         >
           {index}
@@ -3654,7 +3677,7 @@ function S2CompletedStayCard({
         <div className="text-[15.5px] font-medium" style={{ color: "#FCF8EF" }}>
           {fmt(arrival)} → {fmt(departure)}
         </div>
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]" style={{ color: "rgba(233,239,246,0.78)" }}>
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]" style={{ color: "rgba(240,245,251,0.9)" }}>
           <span>{nights} {nights === 1 ? "night" : "nights"}</span>
           <span aria-hidden style={{ color: "rgba(233,239,246,0.4)" }}>·</span>
           <span>{guests} {guests === 1 ? "guest" : "guests"}</span>
@@ -3705,7 +3728,7 @@ function S2CompletedStayCard({
               type="button"
               onClick={onRemove}
               className="inline-flex items-center gap-2 bg-transparent p-0 text-[13.5px]"
-              style={{ color: "rgba(245,241,230,0.55)", border: "none" }}
+              style={{ color: "rgba(245,241,230,0.72)", border: "none" }}
             >
               <Trash2 size={15} strokeWidth={1.7} />
               Remove
@@ -3728,21 +3751,25 @@ function S2AddStayCard({ onClick }: { onClick: () => void }) {
         minHeight: 196,
         padding: "20px 24px",
         backgroundColor: "rgba(255,255,255,0.035)",
-        border: "1px dashed rgba(217,191,130,0.5)",
+        border: "1px dashed rgba(224,201,143,0.68)",
         color: "#EBD7A4",
+        cursor: "pointer",
       }}
     >
       <span
-        className="grid h-11 w-11 place-items-center transition-all duration-300 ease-out group-hover:scale-[1.06]"
+        className="s2-addstay-icon grid h-[51px] w-[51px] place-items-center transition-all duration-300 ease-out group-hover:scale-[1.06]"
         style={{
           borderRadius: 999,
           border: "1px solid rgba(228,203,140,0.55)",
           backgroundColor: "rgba(12,23,33,0.55)",
         }}
       >
-        <Plus size={20} strokeWidth={1.7} className="transition-transform duration-300 ease-out group-hover:rotate-90" />
+        <Plus size={23} strokeWidth={1.7} className="transition-transform duration-300 ease-out group-hover:rotate-90" />
       </span>
       <span className="text-[15px] font-medium">Add another stay</span>
+      <span className="text-[12.5px] font-light" style={{ color: "rgba(240,236,226,0.55)" }}>
+        Create another hotel stay
+      </span>
     </button>
   );
 }
@@ -3825,8 +3852,8 @@ function S2StayCard({
 
     const dateValue = (
       <span
-        className={`whitespace-nowrap font-medium leading-none ${selected ? "text-[21px]" : "text-[15px]"}`}
-        style={{ color: selected ? "#F7F3EA" : "rgba(226,216,198,0.45)" }}
+        className={`whitespace-nowrap leading-none ${selected ? "text-[22.5px] font-semibold" : "text-[15px] font-medium"}`}
+        style={{ color: selected ? "#FFFCF5" : "rgba(226,216,198,0.5)" }}
       >
         {selected ? format(selected, "d MMM yyyy") : placeholder}
       </span>
@@ -3842,7 +3869,7 @@ function S2StayCard({
       <div className={`flex min-w-0 flex-col gap-[9px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
-          style={{ color: "rgba(226,232,240,0.36)" }}
+          style={{ color: "rgba(230,236,244,0.62)" }}
         >
           {label}
         </span>
@@ -3862,7 +3889,7 @@ function S2StayCard({
         {selected ? (
           <span
             className="whitespace-nowrap text-[12px] font-light leading-none"
-            style={{ color: "rgba(226,232,240,0.45)" }}
+            style={{ color: "rgba(226,232,240,0.34)" }}
           >
             {format(selected, "EEEE")}
           </span>
