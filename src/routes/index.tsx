@@ -28,7 +28,7 @@ import {
   GroupPremium,
 } from "@/components/PremiumIcons";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
-import heroExperienceBgAsset from "@/assets/hero-experience-bg-new.png.asset.json";
+import homepageHeroBgAsset from "@/assets/homepage-hero-bg.png.asset.json";
 import cardLeisureAsset from "@/assets/card-leisure-new.png.asset.json";
 import cardMeAsset from "@/assets/card-me.png.asset.json";
 import cardManageAsset from "@/assets/card-manage.png.asset.json";
