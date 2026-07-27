@@ -3362,52 +3362,50 @@ function LeisureStep2Screen({
             </div>
           </div>
 
-          {/* Add this stay */}
-          {showEditor && (
-            <div className="mt-3 flex flex-col items-end gap-2">
-              {addError && !canAddStay && (
-                <span className="text-[13px]" style={{ color: "rgba(238,170,150,0.95)" }}>
-                  Please select arrival and departure dates and at least one room.
-                </span>
-              )}
+          {/* 4 — Add this stay */}
+          <div className="mt-3 flex flex-col items-end gap-2">
+            {addError && !canAddStay && (
+              <span className="text-[13px]" style={{ color: "rgba(238,170,150,0.95)" }}>
+                Please select arrival and departure dates and at least one room.
+              </span>
+            )}
+            <button
+              ref={addBtnRef}
+              type="button"
+              onClick={() => commitStay()}
+              aria-disabled={!canAddStay}
+              disabled={saving}
+              className="s2-btn inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold hover:-translate-y-[2px] active:translate-y-0"
+              style={{
+                borderRadius: 16,
+                background: canAddStay
+                  ? `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`
+                  : "rgba(255,255,255,0.05)",
+                color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
+                boxShadow: canAddStay
+                  ? "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)"
+                  : "none",
+                cursor: canAddStay ? "pointer" : "not-allowed",
+              }}
+            >
+              {editingId ? "Save changes" : "Add this stay"}
+              <ArrowRight size={18} strokeWidth={2.4} />
+            </button>
+            {editingId && (
               <button
-                ref={addBtnRef}
                 type="button"
-                onClick={() => commitStay()}
-                aria-disabled={!canAddStay}
-                disabled={saving}
-                className="s2-btn inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold hover:-translate-y-[2px] active:translate-y-0"
-                style={{
-                  borderRadius: 16,
-                  background: canAddStay
-                    ? `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`
-                    : "rgba(255,255,255,0.05)",
-                  color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
-                  boxShadow: canAddStay
-                    ? "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)"
-                    : "none",
-                  cursor: canAddStay ? "pointer" : "not-allowed",
-                }}
+                onClick={cancelEdit}
+                className="bg-transparent p-0 text-[13.5px] font-light underline-offset-4 transition-opacity duration-200 hover:opacity-100"
+                style={{ color: "rgba(245,241,230,0.6)", border: "none", opacity: 0.85 }}
               >
-                {editingId ? "Save changes" : "Add this stay"}
-                <ArrowRight size={18} strokeWidth={2.4} />
+                Cancel
               </button>
-              {editingId && (
-                <button
-                  type="button"
-                  onClick={cancelEdit}
-                  className="bg-transparent p-0 text-[13.5px] font-light underline-offset-4 transition-opacity duration-200 hover:opacity-100"
-                  style={{ color: "rgba(245,241,230,0.6)", border: "none", opacity: 0.85 }}
-                >
-                  Cancel
-                </button>
-              )}
-            </div>
-          )}
+            )}
+          </div>
 
-          {/* Completed stays */}
+          {/* 5 — Completed stays (rendered BELOW "Add this stay") */}
           {stays.some((s) => s.id !== editingId) && (
-            <div className="mt-6">
+            <div className="mt-8" data-section="completed-stays">
               <div
                 className="text-[11.5px] font-semibold uppercase tracking-[0.28em]"
                 style={{ color: "rgba(247,244,236,0.72)" }}
@@ -3422,20 +3420,19 @@ function LeisureStep2Screen({
                   background: `linear-gradient(90deg, ${S2_GOLD} 0%, rgba(217,191,130,0.15) 100%)`,
                 }}
               />
-              <div className="mt-4 space-y-2">
+              <div className="mt-4 space-y-2.5">
                 {stays.map((s, idx) => {
                   if (s.id === editingId) return null;
                   return (
-                    <S2StayCard
+                    <S2CompletedStayCard
                       key={s.id}
-                      title={`Stay ${idx + 1}`}
-                      animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
+                      index={idx + 1}
                       arrival={s.arrival}
                       departure={s.departure}
                       nights={stayNights(s.arrival, s.departure)}
                       rooms={stayRoomsTotal(s.rooms)}
                       guests={stayGuestsTotal(s.rooms)}
-                      onAddAnother={commitAndStartNext}
+                      animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
                       onEdit={() => editStay(s.id)}
                       onRemove={() => requestRemoveStay(s.id)}
                       confirming={pendingRemoveId === s.id}
@@ -3447,6 +3444,8 @@ function LeisureStep2Screen({
               </div>
             </div>
           )}
+
+
 
 
 
