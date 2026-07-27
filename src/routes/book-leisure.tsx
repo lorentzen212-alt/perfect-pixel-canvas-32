@@ -4650,7 +4650,7 @@ function AccommodationSummary({
         </div>
       )}
 
-      <div className="space-y-7">
+      <div className="space-y-10">
         {stays.map((s, idx) => {
           const nights = stayNights(s.arrival, s.departure);
           return (
@@ -4658,15 +4658,32 @@ function AccommodationSummary({
               key={s.id}
               className={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds?.has(s.id) ? "stay-removing" : ""}`}
             >
-              <div
-                className="text-[11.5px] font-semibold uppercase tracking-[0.2em]"
-                style={{ color: S2_GOLD_SOFT }}
-              >
-                Stay {idx + 1}
+              <div className="flex items-center gap-2.5">
+                <span
+                  className="h-[6px] w-[6px] shrink-0 rounded-full"
+                  style={{
+                    background: `linear-gradient(135deg, #F3E2B0, ${S2_GOLD})`,
+                    boxShadow: "0 0 8px -2px rgba(217,191,130,0.75)",
+                  }}
+                />
+                <div
+                  className="text-[11.5px] font-semibold uppercase tracking-[0.2em]"
+                  style={{ color: "#F0DCA6" }}
+                >
+                  Stay {idx + 1}
+                </div>
               </div>
-              <div className="mt-1.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.6)" }}>
+              <div className="mt-1.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.7)" }}>
                 {fmtStayRange(s.arrival, s.departure)} • {nights} {nights === 1 ? "night" : "nights"}
               </div>
+              <div
+                className="mt-3 h-px w-full"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(217,191,130,0.42) 0%, rgba(217,191,130,0.14) 55%, rgba(217,191,130,0) 100%)",
+                }}
+              />
+
 
               <ul className="mt-4 space-y-3.5">
                 {STEP2_ROOMS_ORDER.map((k) => {
