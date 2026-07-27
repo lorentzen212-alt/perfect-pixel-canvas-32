@@ -476,21 +476,39 @@ function ExperienceCard({
 
 
 
-          {/* Content overlay — bottom-left editorial layout */}
-          <div className="absolute inset-x-0 bottom-0 flex flex-col items-start px-7 pb-8 pt-16 text-left">
-            <div className="text-[#E6C88A] mb-6">
-              {icon}
-            </div>
-            <p className="text-[#E6C88A] text-[15px] tracking-[0.42em] uppercase font-medium mb-3">
-              {label}
-            </p>
-            <p
-              className="text-[#F3EEE5]/90 text-[15px] leading-[1.7] font-light mb-9"
-              style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
+          {/* Content overlay — quiet editorial typography block */}
+          <div className="absolute inset-0">
+            {/* Typography block — bottom-left */}
+            <div
+              className="absolute bottom-0 left-0 flex flex-col items-start text-left"
+              style={{ paddingLeft: 40, paddingBottom: 42 }}
             >
-              {tagline}
-            </p>
-            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15">
+              <span className="text-[#D8C69D]/90" style={{ opacity: 0.9 }}>
+                {icon}
+              </span>
+              <p
+                className="mt-[18px] text-[22px] font-medium uppercase tracking-[0.28em]"
+                style={{ color: "#F4F0E8" }}
+              >
+                {label}
+              </p>
+              <p
+                className="mt-4 text-[17px] leading-[1.55] font-light"
+                style={{
+                  fontFamily: '"Cormorant Garamond", Georgia, serif',
+                  color: "rgba(244,240,232,0.82)",
+                  maxWidth: 170,
+                }}
+              >
+                {tagline}
+              </p>
+            </div>
+
+            {/* Circular arrow CTA — bottom-right */}
+            <span
+              className="absolute flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15"
+              style={{ right: 34, bottom: 34 }}
+            >
               <ArrowRight size={18} strokeWidth={1.5} />
             </span>
           </div>
