@@ -3548,7 +3548,123 @@ function LeisureStep2Screen({
 }
 
 /* ---- Step 2 Stay card (single premium component) ---- */
+/** Compact, read-only summary of a saved stay. Used ONLY below "Add this stay". */
+function S2CompletedStayCard({
+  index,
+  arrival,
+  departure,
+  nights,
+  rooms,
+  guests,
+  onEdit,
+  onRemove,
+  confirming = false,
+  onConfirmRemove,
+  onCancelRemove,
+  animClass = "",
+}: {
+  index: number;
+  arrival: string;
+  departure: string;
+  nights: number;
+  rooms: number;
+  guests: number;
+  onEdit: () => void;
+  onRemove: () => void;
+  confirming?: boolean;
+  onConfirmRemove?: () => void;
+  onCancelRemove?: () => void;
+  animClass?: string;
+}) {
+  const fmt = (iso: string) => {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+    if (!m) return "—";
+    return format(new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])), "d MMM yyyy");
+  };
+
+  return (
+    <div
+      className={animClass}
+      style={{
+        borderRadius: 16,
+        backgroundImage: "linear-gradient(165deg, rgba(38,58,75,0.65) 0%, rgba(31,49,64,0.65) 100%)",
+        border: "1px solid rgba(217,191,130,0.14)",
+        padding: "16px 20px",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+      }}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+        <div className="flex min-w-0 items-center gap-4">
+          <span
+            className="grid h-9 w-9 shrink-0 place-items-center text-[14px] font-semibold"
+            style={{
+              borderRadius: 999,
+              border: "1px solid rgba(217,191,130,0.35)",
+              color: S2_GOLD_SOFT,
+            }}
+          >
+            {index}
+          </span>
+          <div className="min-w-0">
+            <div className="text-[15px] font-medium" style={{ color: "#F7F3EA" }}>
+              {fmt(arrival)} — {fmt(departure)}
+            </div>
+            <div className="mt-1 text-[12.5px]" style={{ color: "rgba(226,232,240,0.5)" }}>
+              {nights} {nights === 1 ? "night" : "nights"} · {rooms} {rooms === 1 ? "room" : "rooms"} · {guests}{" "}
+              {guests === 1 ? "guest" : "guests"}
+            </div>
+          </div>
+        </div>
+
+        {confirming ? (
+          <div className="flex items-center gap-3">
+            <span className="text-[13px]" style={{ color: "rgba(245,241,230,0.7)" }}>
+              Remove this stay?
+            </span>
+            <button
+              type="button"
+              onClick={onConfirmRemove}
+              className="bg-transparent p-0 text-[13px] font-semibold"
+              style={{ color: "rgba(238,170,150,0.95)", border: "none" }}
+            >
+              Yes, remove
+            </button>
+            <button
+              type="button"
+              onClick={onCancelRemove}
+              className="bg-transparent p-0 text-[13px]"
+              style={{ color: "rgba(245,241,230,0.6)", border: "none" }}
+            >
+              Cancel
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-5">
+            <button
+              type="button"
+              onClick={onEdit}
+              className="bg-transparent p-0 text-[13.5px] font-medium"
+              style={{ color: S2_GOLD_SOFT, border: "none" }}
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              onClick={onRemove}
+              className="bg-transparent p-0 text-[13.5px]"
+              style={{ color: "rgba(245,241,230,0.55)", border: "none" }}
+            >
+              Remove
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function S2StayCard({
+
   title,
   arrival,
   departure,
