@@ -302,7 +302,21 @@ function ExperienceCard({
 
 
   return (
-    <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
+    <div
+      className={cn("relative", raised && "md:-translate-y-[10px]")}
+      style={{ isolation: "isolate", overflow: "visible" }}
+    >
+      {/* Extremely soft radial glow behind the card */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-x-[14%] -inset-y-[10%] -z-10"
+        style={{
+          background:
+            "radial-gradient(52% 48% at 50% 50%, rgba(255,247,230,0.07) 0%, rgba(255,244,222,0.035) 45%, rgba(0,0,0,0) 78%)",
+          filter: "blur(18px)",
+        }}
+      />
+
       {/* Inner warm haze — pulled in tight, no side spill */}
       <div
         aria-hidden
