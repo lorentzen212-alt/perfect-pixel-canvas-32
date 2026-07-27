@@ -278,8 +278,6 @@ function ExperienceCard({
   label,
   tagline,
   icon,
-  centerAccent = false,
-  raised = false,
   intensity = 1,
 }: {
   to: string;
@@ -290,8 +288,6 @@ function ExperienceCard({
   label: string;
   tagline: React.ReactNode;
   icon: React.ReactNode;
-  centerAccent?: boolean;
-  raised?: boolean;
   intensity?: number;
 }) {
   const cardShadow = "0 28px 70px rgba(0, 0, 0, 0.42)";
