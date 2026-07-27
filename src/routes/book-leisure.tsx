@@ -6616,22 +6616,22 @@ function S6LuxCard({
     <button
       type="button"
       onClick={onClick}
-      className="s6-card group relative flex w-full items-stretch overflow-hidden rounded-[20px] text-left"
+      className="s6-card group relative flex h-[64px] w-full items-stretch overflow-hidden rounded-[16px] text-left lg:h-[68px]"
       style={{ animationDelay: `${index * 70}ms` }}
     >
-      <div className="flex flex-1 items-center gap-6 px-6 py-[15px] sm:px-9 sm:py-[17px]">
+      <div className="flex flex-1 items-center gap-5 px-5 py-0 sm:px-7">
         <span className="shrink-0" style={{ color: S1_GOLD }}>
           {icon}
         </span>
         <span className="min-w-0">
           <span
-            className="block text-[16px] uppercase tracking-[0.13em] text-white sm:text-[18px]"
+            className="block text-[14px] uppercase tracking-[0.13em] text-white sm:text-[15.5px]"
             style={{ fontFamily: SERIF }}
           >
             {title}
           </span>
           <span
-            className="mt-1.5 block truncate text-[13.5px] sm:text-[14.5px]"
+            className="mt-[3px] block truncate text-[12.5px] sm:text-[13px]"
             style={{ color: "rgba(245,241,230,0.66)" }}
           >
             {detail}
@@ -6639,7 +6639,7 @@ function S6LuxCard({
         </span>
       </div>
 
-      <span className="relative hidden w-[215px] shrink-0 overflow-hidden sm:block lg:w-[264px]">
+      <span className="relative hidden w-[250px] shrink-0 overflow-hidden sm:block lg:w-[320px]">
         <img
           src={image}
           alt=""
@@ -6655,14 +6655,15 @@ function S6LuxCard({
         />
       </span>
 
-      <span className="flex w-[58px] shrink-0 items-center justify-center sm:w-[72px]">
+      <span className="flex w-[48px] shrink-0 items-center justify-center sm:w-[60px]">
         <ChevronRight
-          size={22}
+          size={20}
           strokeWidth={1.6}
           className="transition-transform duration-300 group-hover:translate-x-[3px]"
           style={{ color: S1_GOLD }}
         />
       </span>
+
     </button>
   );
 }
