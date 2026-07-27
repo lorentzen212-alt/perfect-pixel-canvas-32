@@ -31,7 +31,7 @@ import heroAsset from "@/assets/hero-bg.png.asset.json";
 import { HomeBackgroundVideo } from "@/components/HomeBackgroundVideo";
 import cardLeisureAsset from "@/assets/card-leisure-new.png.asset.json";
 import cardMeAsset from "@/assets/card-me-new.png.asset.json";
-import cardManageAsset from "@/assets/card-manage.png.asset.json";
+import cardManageAsset from "@/assets/card-manage-new.png.asset.json";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import woodRibbonAsset from "@/assets/wood-ribbon-texture.jpg.asset.json";
 import lofotenImg from "@/assets/dest-lofoten.jpg";
@@ -198,7 +198,7 @@ function Home() {
               <ExperienceCard
                 to="/manage-bookings"
                 image={cardManageAsset.url}
-                imagePosition="55% center"
+                imagePosition="center center"
                 label="Manage"
                 tagline={<>Manage bookings<br />with ease</>}
                 icon={<ManageIcon />}
