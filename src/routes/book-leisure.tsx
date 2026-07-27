@@ -3366,7 +3366,7 @@ function LeisureStep2Screen({
           </div>
 
           {/* 4 — Add this stay */}
-          <div className="mt-3 flex flex-col items-end gap-2">
+          <div className="mt-[26px] flex flex-col items-end gap-2">
             {addError && !canAddStay && (
               <span className="text-[13px]" style={{ color: "rgba(238,170,150,0.95)" }}>
                 Please select arrival and departure dates and at least one room.
@@ -3378,21 +3378,26 @@ function LeisureStep2Screen({
               onClick={() => commitStay()}
               aria-disabled={!canAddStay}
               disabled={saving}
-              className="s2-btn inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold hover:-translate-y-[2px] active:translate-y-0"
+              className="s2-btn group inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold transition-all duration-300 ease-out hover:-translate-y-[2px] hover:brightness-[1.04] active:translate-y-0"
               style={{
                 borderRadius: 16,
                 background: canAddStay
-                  ? `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`
+                  ? `linear-gradient(180deg, #FBEFC8 0%, ${S2_GOLD_SOFT} 26%, ${S2_GOLD} 62%, ${S2_GOLD_DEEP} 100%)`
                   : "rgba(255,255,255,0.05)",
                 color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
                 boxShadow: canAddStay
-                  ? "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)"
+                  ? "0 20px 44px -20px rgba(20,14,4,0.62), 0 6px 16px -10px rgba(20,14,4,0.45), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -2px 0 rgba(120,95,45,0.35)"
                   : "none",
                 cursor: canAddStay ? "pointer" : "not-allowed",
               }}
             >
               {editingId ? "Save changes" : "Add this stay"}
-              <ArrowRight size={18} strokeWidth={2.4} />
+              <ArrowRight
+                size={18}
+                strokeWidth={2.4}
+                className="transition-all duration-300 ease-out group-hover:translate-x-[2px] group-hover:opacity-100"
+                style={{ opacity: 0.86 }}
+              />
             </button>
             {editingId && (
               <button
@@ -3408,7 +3413,19 @@ function LeisureStep2Screen({
 
           {/* 5 — Your Stays (rendered BELOW "Add this stay") */}
           {stays.some((s) => s.id !== editingId) && (
-            <div className="mt-8" data-section="completed-stays">
+            <div
+              className="mt-[54px]"
+              data-section="completed-stays"
+              style={{
+                borderRadius: 24,
+                padding: "28px 30px 30px",
+                backgroundImage:
+                  "linear-gradient(180deg, rgba(30,48,64,0.72) 0%, rgba(26,42,56,0.72) 100%)",
+                border: "1px solid rgba(255,255,255,0.055)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -22px 40px -34px rgba(0,0,0,0.6)",
+              }}
+            >
               <div
                 className="text-[11.5px] font-semibold uppercase tracking-[0.28em]"
                 style={{ color: "rgba(247,244,236,0.72)" }}
