@@ -3266,35 +3266,9 @@ function LeisureStep2Screen({
             </div>
           </div>
 
-          {/* Saved stays */}
-          <div className="mt-4 space-y-2">
-            {stays.map((s, idx) => {
-              if (s.id === editingId) return null;
-              return (
-                <S2StayCard
-                  key={s.id}
-                  title={`Stay ${idx + 1}`}
-                  animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
-                  arrival={s.arrival}
-                  departure={s.departure}
-                  nights={stayNights(s.arrival, s.departure)}
-                  rooms={stayRoomsTotal(s.rooms)}
-                  guests={stayGuestsTotal(s.rooms)}
-                  onAddAnother={commitAndStartNext}
-                  onEdit={() => editStay(s.id)}
-                  onRemove={() => requestRemoveStay(s.id)}
-                  confirming={pendingRemoveId === s.id}
-                  onConfirmRemove={confirmPendingRemove}
-                  onCancelRemove={cancelPendingRemove}
-                />
-              );
-            })}
-          </div>
-
-
           {/* Editor */}
           {showEditor && (
-            <div className={stays.length > 0 ? "mt-3" : "mt-4"}>
+            <div className="mt-4">
               <S2StayCard
                 title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
                 arrival={draftArrival}
@@ -3355,8 +3329,37 @@ function LeisureStep2Screen({
             ))}
           </div>
 
+          {/* Notes */}
+          <div className="mt-4">
+            <div className="text-[14px] font-medium" style={{ color: S2_TEXT }}>
+              Anything else we should know?{" "}
+              <span style={{ color: "rgba(245,241,230,0.45)" }}>(optional)</span>
+            </div>
+            <div
+              className="mt-3 px-5 py-4 transition-colors duration-300"
+              style={{
+                borderRadius: 18,
+                backgroundColor: S2_SUNK,
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 26px 50px -40px rgba(0,0,0,0.7)",
+              }}
+            >
+              <textarea
+                value={roomNotes}
+                onChange={(e) => setRoomNotes(e.target.value.slice(0, 500))}
+                placeholder="Tell us anything important about your accommodation needs…"
+                rows={2}
+                className="w-full resize-none bg-transparent text-[14px] leading-relaxed outline-none"
+                style={{ color: S2_TEXT }}
+              />
+              <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.35)" }}>
+                {roomNotes.length} / 500
+              </div>
+            </div>
+          </div>
+
+          {/* Add this stay */}
           {showEditor && (
-            <div className="mt-2 flex flex-col items-end gap-2">
+            <div className="mt-3 flex flex-col items-end gap-2">
               {addError && !canAddStay && (
                 <span className="text-[13px]" style={{ color: "rgba(238,170,150,0.95)" }}>
                   Please select arrival and departure dates and at least one room.
@@ -3397,36 +3400,49 @@ function LeisureStep2Screen({
             </div>
           )}
 
-
-
-
-          {/* Notes */}
-          <div className="mt-2">
-            <div className="text-[14px] font-medium" style={{ color: S2_TEXT }}>
-              Anything else we should know?{" "}
-              <span style={{ color: "rgba(245,241,230,0.45)" }}>(optional)</span>
-            </div>
-            <div
-              className="mt-3 px-5 py-4 transition-colors duration-300"
-              style={{
-                borderRadius: 18,
-                backgroundColor: S2_SUNK,
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03), 0 26px 50px -40px rgba(0,0,0,0.7)",
-              }}
-            >
-              <textarea
-                value={roomNotes}
-                onChange={(e) => setRoomNotes(e.target.value.slice(0, 500))}
-                placeholder="Tell us anything important about your accommodation needs…"
-                rows={2}
-                className="w-full resize-none bg-transparent text-[14px] leading-relaxed outline-none"
-                style={{ color: S2_TEXT }}
+          {/* Completed stays */}
+          {stays.some((s) => s.id !== editingId) && (
+            <div className="mt-6">
+              <div
+                className="text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+                style={{ color: "rgba(247,244,236,0.72)" }}
+              >
+                Completed stays
+              </div>
+              <div
+                className="mt-2.5"
+                style={{
+                  width: 60,
+                  height: 1,
+                  background: `linear-gradient(90deg, ${S2_GOLD} 0%, rgba(217,191,130,0.15) 100%)`,
+                }}
               />
-              <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.35)" }}>
-                {roomNotes.length} / 500
+              <div className="mt-4 space-y-2">
+                {stays.map((s, idx) => {
+                  if (s.id === editingId) return null;
+                  return (
+                    <S2StayCard
+                      key={s.id}
+                      title={`Stay ${idx + 1}`}
+                      animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
+                      arrival={s.arrival}
+                      departure={s.departure}
+                      nights={stayNights(s.arrival, s.departure)}
+                      rooms={stayRoomsTotal(s.rooms)}
+                      guests={stayGuestsTotal(s.rooms)}
+                      onAddAnother={commitAndStartNext}
+                      onEdit={() => editStay(s.id)}
+                      onRemove={() => requestRemoveStay(s.id)}
+                      confirming={pendingRemoveId === s.id}
+                      onConfirmRemove={confirmPendingRemove}
+                      onCancelRemove={cancelPendingRemove}
+                    />
+                  );
+                })}
               </div>
             </div>
-          </div>
+          )}
+
 
 
           {/* Navigation */}
