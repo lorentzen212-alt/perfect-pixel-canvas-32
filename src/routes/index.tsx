@@ -197,7 +197,7 @@ function Home() {
           </div>
 
           {/* FEATURE RIBBON */}
-          <div className="mt-5 lg:mt-6 group rounded-[28px] border border-[rgba(212,175,55,0.18)] bg-[linear-gradient(180deg,rgba(18,26,39,0.88),rgba(13,20,32,0.82))] px-8 lg:px-14 py-8 shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-[18px] transition-all duration-[250ms] hover:brightness-[1.03]">
+          
           <div className="relative isolate overflow-hidden mt-5 lg:mt-6 group rounded-[28px] border border-[rgba(212,175,55,0.18)] px-8 lg:px-14 py-8 shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-[18px] transition-all duration-[250ms] hover:brightness-[1.03]">
             {/* wood veneer texture */}
             <div
