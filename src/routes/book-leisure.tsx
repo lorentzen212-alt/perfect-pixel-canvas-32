@@ -6588,6 +6588,10 @@ function LeisureStep5Screen({
    STEP 6 - Review (redesigned)
    ========================================================= */
 
+/* Step 6 champagne-gold palette (colour only) */
+const S6_GOLD = "#E7C96B";
+const S6_GOLD_LIGHT = "#F3D987";
+
 const S6_IMG_STAY =
   "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80";
 const S6_IMG_DINING =
