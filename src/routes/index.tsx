@@ -381,24 +381,59 @@ function ExperienceCard({
 
       <Link
         to={to}
-        className="group relative block overflow-hidden rounded-[20px] bg-[#0E1013] transition-transform duration-500 ease-out hover:-translate-y-[3px]"
+        className="group/card relative block overflow-hidden rounded-[20px] bg-[#0E1013] group"
         style={{
           position: "relative",
           zIndex: 2,
-          border: "1px solid rgba(224, 190, 126, 0.48)",
+          border: "1px solid rgba(214, 183, 124, 0.34)",
           boxShadow: cardShadow,
+          transition:
+            "transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-8px)";
+          e.currentTarget.style.boxShadow = "0 36px 84px rgba(0, 0, 0, 0.48)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = cardShadow;
         }}
       >
+        {/* Brushed champagne-gold ring */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-20 rounded-[20px] opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            padding: "1px",
+            background:
+              "linear-gradient(145deg, rgba(246,231,196,0.60) 0%, rgba(198,166,108,0.26) 22%, rgba(232,212,167,0.46) 44%, rgba(150,120,72,0.20) 66%, rgba(240,224,183,0.52) 100%)",
+            WebkitMask:
+              "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
         {/* Full-height background image */}
         <div className="relative aspect-[12/13] overflow-hidden">
           <img
             src={image}
             alt=""
             style={{ objectPosition: imagePosition, filter: imageFilter }}
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+            className="absolute inset-0 h-full w-full object-cover"
           />
           {/* Cinematic gradient: lighter top, progressively darker bottom */}
           <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
+          {/* Polished dark-glass reflection along the lower portion */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%]"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,252,244,0.028) 62%, rgba(255,250,238,0.05) 100%)",
+            }}
+          />
+
+
 
           {/* Content overlay */}
           <div className="absolute inset-0 flex flex-col items-center px-6 pt-8 pb-6 text-center">
