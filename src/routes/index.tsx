@@ -482,7 +482,7 @@ function ExperienceCard({
                 {icon}
               </span>
               <p
-                className="mt-[18px] text-[22px] font-medium uppercase tracking-[0.28em]"
+                className="mt-[18px] pl-[3px] text-[22px] font-medium uppercase tracking-[0.28em]"
                 style={{ color: "#F4F0E8" }}
               >
                 {label}
