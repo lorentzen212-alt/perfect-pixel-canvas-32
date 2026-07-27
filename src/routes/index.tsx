@@ -540,23 +540,8 @@ function ExperienceCard({
   );
 }
 
-function LeisureIcon() {
-  return (
-    <Compass size={18} strokeWidth={1.4} color="#D4AF37" />
-  );
-}
 
-function MeIcon() {
-  return (
-    <UsersRound size={18} strokeWidth={1.4} color="#D4AF37" />
-  );
-}
 
-function ManageIcon() {
-  return (
-    <CalendarDays size={18} strokeWidth={1.4} color="#D4AF37" />
-  );
-}
 
 
 function CTAButton({
