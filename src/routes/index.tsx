@@ -198,8 +198,31 @@ function Home() {
 
           {/* FEATURE RIBBON */}
           <div className="mt-5 lg:mt-6 group rounded-[28px] border border-[rgba(212,175,55,0.18)] bg-[linear-gradient(180deg,rgba(18,26,39,0.88),rgba(13,20,32,0.82))] px-8 lg:px-14 py-8 shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-[18px] transition-all duration-[250ms] hover:brightness-[1.03]">
-            <div className="flex flex-wrap items-center justify-center gap-y-8 lg:gap-y-0 gap-x-6 lg:gap-x-12 lg:flex-nowrap">
-              {[
+          <div className="relative isolate overflow-hidden mt-5 lg:mt-6 group rounded-[28px] border border-[rgba(212,175,55,0.18)] px-8 lg:px-14 py-8 shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-[18px] transition-all duration-[250ms] hover:brightness-[1.03]">
+            {/* wood veneer texture */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -z-30 opacity-[0.15] saturate-[0.55]"
+              style={{
+                backgroundImage: `url(${woodRibbonAsset.url})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            />
+            {/* deep navy overlay */}
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-20 bg-[#101A28]/90" />
+            {/* soft top-to-bottom gradient + vignette + top inner highlight */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -z-10"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.0) 18%, rgba(8,13,21,0.18) 100%), radial-gradient(120% 100% at 50% 50%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.28) 100%)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07)",
+              }}
+            />
+            <div className="relative flex flex-wrap items-center justify-center gap-y-8 lg:gap-y-0 gap-x-6 lg:gap-x-12 lg:flex-nowrap">
+
                 { Icon: Clock, title: "Save Time", desc: "We handle the time-consuming work for you." },
                 { Icon: Gem, title: "Best Offers", desc: "Receive multiple offers from carefully selected hotels." },
                 { Icon: Headphones, title: "Expert Support", desc: "Dedicated M&E specialists ready to help." },
