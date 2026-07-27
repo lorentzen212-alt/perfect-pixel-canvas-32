@@ -539,19 +539,19 @@ function ExperienceCard({
 
 function LeisureIcon() {
   return (
-    <Compass size={22} strokeWidth={1.8} color="#C9A65E" />
+    <Compass size={27} strokeWidth={1.5} color="#C9A65E" style={{ opacity: 0.82 }} />
   );
 }
 
 function MeIcon() {
   return (
-    <UsersRound size={22} strokeWidth={1.8} color="#C9A65E" />
+    <UsersRound size={27} strokeWidth={1.5} color="#C9A65E" style={{ opacity: 0.82 }} />
   );
 }
 
 function ManageIcon() {
   return (
-    <LayoutDashboard size={22} strokeWidth={1.8} color="#C9A65E" />
+    <LayoutDashboard size={27} strokeWidth={1.5} color="#C9A65E" style={{ opacity: 0.82 }} />
   );
 }
 
