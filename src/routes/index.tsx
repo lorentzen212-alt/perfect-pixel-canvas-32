@@ -191,7 +191,7 @@ function Home() {
                 imagePosition="center center"
                 label="M & E"
                 tagline="Professional Event Planning"
-                ctaText="Plan Event"
+                ctaText="Plan event"
                 icon={<MeIcon />}
                 intensity={2}
               />
@@ -201,7 +201,7 @@ function Home() {
                 imagePosition="center center"
                 label="M A N A G E"
                 tagline="Manage Your Bookings"
-                ctaText="Open Dashboard"
+                ctaText="Open dashboard"
                 icon={<ManageIcon />}
                 intensity={1.8}
               />
