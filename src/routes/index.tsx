@@ -189,7 +189,7 @@ function Home() {
                 image={cardMeAsset.url}
                 imagePosition="center center"
                 label="M&E"
-                tagline={<>Meetings &amp; events<br />made seamless</>}
+                tagline={<>Seamless meetings<br />&amp; events</>}
                 icon={<MeIcon />}
                 intensity={2}
               />
@@ -198,7 +198,7 @@ function Home() {
                 image={cardManageAsset.url}
                 imagePosition="center center"
                 label="Manage"
-                tagline={<>Manage bookings<br />with ease</>}
+                tagline={<>Booking control,<br />simplified</>}
                 icon={<ManageIcon />}
                 intensity={1.8}
               />
