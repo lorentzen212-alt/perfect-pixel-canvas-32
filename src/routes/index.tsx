@@ -180,7 +180,7 @@ function Home() {
                 image={cardLeisureAsset.url}
                 imagePosition="center 35%"
                 label="L E I S U R E"
-                tagline="Group hotel bookings"
+                tagline="Group Hotel Bookings"
                 ctaText="Explore"
                 icon={<LeisureIcon />}
                 intensity={1.8}
@@ -504,13 +504,15 @@ function ExperienceCard({
           <div className="absolute inset-0 z-20">
             <div
               className="absolute inset-0 flex flex-col items-start text-left"
-              style={{ padding: "42px 40px 32px" }}
+              style={{ padding: "0 40px 34px" }}
             >
-              <span style={{ color: "#D4AF37" }}>
+              {/* photography breathing room — content begins ~60% down */}
+              <div style={{ height: "60%" }} aria-hidden />
+              <span style={{ color: "#D4AF37", lineHeight: 0 }}>
                 {icon}
               </span>
               <p
-                className="mt-[22px] text-[18px] font-semibold uppercase tracking-[0.28em]"
+                className="mt-[24px] text-[18px] font-semibold uppercase tracking-[0.28em]"
                 style={{ color: "#FFFFFF" }}
               >
                 {label}
@@ -533,6 +535,7 @@ function ExperienceCard({
               </span>
             </div>
           </div>
+
         </div>
       </Link>
     </div>
@@ -541,19 +544,19 @@ function ExperienceCard({
 
 function LeisureIcon() {
   return (
-    <Compass size={19} strokeWidth={1.4} color="#D4AF37" />
+    <Compass size={18} strokeWidth={1.4} color="#D4AF37" />
   );
 }
 
 function MeIcon() {
   return (
-    <UsersRound size={19} strokeWidth={1.4} color="#D4AF37" />
+    <UsersRound size={18} strokeWidth={1.4} color="#D4AF37" />
   );
 }
 
 function ManageIcon() {
   return (
-    <CalendarDays size={19} strokeWidth={1.4} color="#D4AF37" />
+    <CalendarDays size={18} strokeWidth={1.4} color="#D4AF37" />
   );
 }
 
