@@ -502,7 +502,7 @@ function ExperienceCard({
 
 function LeisureIcon() {
   return (
-    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="44" height="44" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="36" cy="30" r="7" />
       <path d="M36 15v4M36 41v4M21 30h4M47 30h4M25.5 19.5l2.8 2.8M43.7 37.7l2.8 2.8M25.5 40.5l2.8-2.8M43.7 22.3l2.8-2.8" />
       <path d="M12 52l8-10 6 6 8-12 10 10 8-6 8 12" />
@@ -512,7 +512,7 @@ function LeisureIcon() {
 
 function MeIcon() {
   return (
-    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="44" height="44" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="36" cy="20" r="6" />
       <path d="M26 44c0-6 4.5-10 10-10s10 4 10 10" />
       <circle cx="20" cy="28" r="5" />
@@ -525,7 +525,7 @@ function MeIcon() {
 
 function ManageIcon() {
   return (
-    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="44" height="44" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
       <rect x="14" y="18" width="44" height="40" rx="3" />
       <path d="M14 30h44M24 14v8M48 14v8" />
       <text x="36" y="49" textAnchor="middle" fontSize="13" fontFamily="Georgia, serif" stroke="none" fill="currentColor">15</text>
