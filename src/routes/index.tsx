@@ -163,42 +163,54 @@ function Home() {
           </p>
 
           {/* EXPERIENCE CARDS */}
-          <div className="mt-7 lg:mt-8 grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
-
-            <ExperienceCard
-              to="/book-leisure"
-              image={cardLeisureAsset.url}
-              imagePosition="center 35%"
-              label="Leisure"
-              tagline={<>Unforgettable<br />getaways</>}
-              icon={<LeisureIcon />}
-              intensity={1.8}
+          <div className="relative mt-7 lg:mt-8 lg:-mx-[70px]">
+            {/* Stage spotlight behind all three cards */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -inset-x-[12%] -top-[18%] -bottom-[22%] -z-10"
+              style={{
+                background:
+                  "radial-gradient(60% 55% at 50% 45%, rgba(255,246,226,0.09) 0%, rgba(255,244,220,0.05) 38%, rgba(255,240,215,0.02) 62%, rgba(0,0,0,0) 82%)",
+                filter: "blur(6px)",
+              }}
             />
-            <ExperienceCard
-              to="/book-meetings-events"
-              image={cardMeAsset.url}
-              imagePosition="center 40%"
-              label="M&E"
-              tagline={<>Meetings &amp; events<br />made seamless</>}
-              icon={<MeIcon />}
-              centerAccent
-              intensity={2}
-            />
-            <ExperienceCard
-              to="/manage-bookings"
-              image={cardManageAsset.url}
-              imagePosition="55% center"
-              label="Manage"
-              tagline={<>Manage bookings<br />with ease</>}
-              icon={<ManageIcon />}
-              intensity={1.8}
-            />
-
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[44px]">
+              <ExperienceCard
+                to="/book-leisure"
+                image={cardLeisureAsset.url}
+                imagePosition="center 35%"
+                label="Leisure"
+                tagline={<>Unforgettable<br />getaways</>}
+                icon={<LeisureIcon />}
+                intensity={1.8}
+              />
+              <ExperienceCard
+                to="/book-meetings-events"
+                image={cardMeAsset.url}
+                imagePosition="center 40%"
+                label="M&E"
+                tagline={<>Meetings &amp; events<br />made seamless</>}
+                icon={<MeIcon />}
+                centerAccent
+                raised
+                intensity={2}
+              />
+              <ExperienceCard
+                to="/manage-bookings"
+                image={cardManageAsset.url}
+                imagePosition="55% center"
+                label="Manage"
+                tagline={<>Manage bookings<br />with ease</>}
+                icon={<ManageIcon />}
+                intensity={1.8}
+              />
+            </div>
           </div>
+
 
           {/* FEATURE RIBBON */}
           
-          <div className="relative isolate overflow-hidden mt-5 lg:mt-6 group rounded-[28px] border border-[rgba(212,175,55,0.18)] px-8 lg:px-14 py-8 shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-[18px] transition-all duration-[250ms] hover:brightness-[1.03]">
+          <div className="relative isolate overflow-hidden mt-5 lg:mt-6 group rounded-[28px] border border-[rgba(212,175,55,0.12)] px-8 lg:px-14 py-8 opacity-[0.86] shadow-[0_8px_22px_rgba(0,0,0,0.22)] backdrop-blur-[18px] transition-all duration-[250ms] hover:opacity-100 hover:brightness-[1.03]">
             {/* wood veneer texture */}
             <div
               aria-hidden
@@ -269,6 +281,7 @@ function ExperienceCard({
   tagline,
   icon,
   centerAccent = false,
+  raised = false,
   intensity = 1,
 }: {
   to: string;
@@ -280,15 +293,30 @@ function ExperienceCard({
   tagline: React.ReactNode;
   icon: React.ReactNode;
   centerAccent?: boolean;
+  raised?: boolean;
   intensity?: number;
 }) {
-  const cardShadow =
-    "0 12px 28px rgba(0, 0, 0, 0.42), 0 0 6px rgba(244, 232, 207, 0.06)";
+  const cardShadow = "0 28px 70px rgba(0, 0, 0, 0.42)";
   const k = Math.min(intensity, 2.2);
   const clamp = (v: number) => Math.min(v, 1);
 
+
   return (
-    <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
+    <div
+      className={cn("relative", raised && "md:-translate-y-[10px]")}
+      style={{ isolation: "isolate", overflow: "visible" }}
+    >
+      {/* Extremely soft radial glow behind the card */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-x-[14%] -inset-y-[10%] -z-10"
+        style={{
+          background:
+            "radial-gradient(52% 48% at 50% 50%, rgba(255,247,230,0.07) 0%, rgba(255,244,222,0.035) 45%, rgba(0,0,0,0) 78%)",
+          filter: "blur(18px)",
+        }}
+      />
+
       {/* Inner warm haze — pulled in tight, no side spill */}
       <div
         aria-hidden
@@ -367,24 +395,59 @@ function ExperienceCard({
 
       <Link
         to={to}
-        className="group relative block overflow-hidden rounded-[20px] bg-[#0E1013] transition-transform duration-500 ease-out hover:-translate-y-[3px]"
+        className="group/card relative block overflow-hidden rounded-[20px] bg-[#0E1013] group"
         style={{
           position: "relative",
           zIndex: 2,
-          border: "1px solid rgba(224, 190, 126, 0.48)",
+          border: "1px solid rgba(214, 183, 124, 0.34)",
           boxShadow: cardShadow,
+          transition:
+            "transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-8px)";
+          e.currentTarget.style.boxShadow = "0 36px 84px rgba(0, 0, 0, 0.48)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = cardShadow;
         }}
       >
+        {/* Brushed champagne-gold ring */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-20 rounded-[20px] opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            padding: "1px",
+            background:
+              "linear-gradient(145deg, rgba(246,231,196,0.60) 0%, rgba(198,166,108,0.26) 22%, rgba(232,212,167,0.46) 44%, rgba(150,120,72,0.20) 66%, rgba(240,224,183,0.52) 100%)",
+            WebkitMask:
+              "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
         {/* Full-height background image */}
         <div className="relative aspect-[12/13] overflow-hidden">
           <img
             src={image}
             alt=""
             style={{ objectPosition: imagePosition, filter: imageFilter }}
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+            className="absolute inset-0 h-full w-full object-cover"
           />
           {/* Cinematic gradient: lighter top, progressively darker bottom */}
           <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
+          {/* Polished dark-glass reflection along the lower portion */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%]"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,252,244,0.028) 62%, rgba(255,250,238,0.05) 100%)",
+            }}
+          />
+
+
 
           {/* Content overlay */}
           <div className="absolute inset-0 flex flex-col items-center px-6 pt-8 pb-6 text-center">
