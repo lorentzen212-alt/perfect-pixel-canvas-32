@@ -380,9 +380,9 @@
 }
 
 .s6-lux .s6-card {
-  background: linear-gradient(180deg, rgba(26,39,54,0.92), rgba(20,31,43,0.92));
-  border: 1px solid rgba(212, 166, 74, 0.26);
-  box-shadow: 0 18px 44px -34px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(180deg, rgba(41,56,75,0.95), rgba(31,45,62,0.95));
+  border: 1px solid rgba(231, 201, 107, 0.30);
+  box-shadow: 0 18px 44px -34px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(247,232,190,0.07);
   opacity: 0;
   animation: s6-card-in 220ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
   transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
@@ -390,9 +390,10 @@
 
 .s6-lux .s6-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(226, 187, 108, 0.55);
-  box-shadow: 0 26px 60px -34px rgba(0, 0, 0, 0.9);
+  border-color: rgba(243, 217, 135, 0.6);
+  box-shadow: 0 26px 60px -34px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(247,232,190,0.1);
 }
+
 
 .s6-lux .s6-submit:hover:not(:disabled) {
   transform: translateY(-1px);
