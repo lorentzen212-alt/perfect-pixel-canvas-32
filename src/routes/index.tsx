@@ -192,7 +192,6 @@ function Home() {
                 tagline={<>Meetings &amp; events<br />made seamless</>}
                 icon={<MeIcon />}
                 centerAccent
-                raised
                 intensity={2}
               />
               <ExperienceCard
