@@ -4,7 +4,7 @@ import {
   ArrowRight,
   Users,
   Briefcase,
-  Mountain,
+  Compass,
   ShieldCheck,
   Clock,
   Headphones,
@@ -179,8 +179,8 @@ function Home() {
                 to="/book-leisure"
                 image={cardLeisureAsset.url}
                 imagePosition="center 35%"
-                label="Leisure"
-                tagline="Luxury Group Escapes"
+                label="L E I S U R E"
+                tagline="Group hotel bookings"
                 ctaText="Explore"
                 icon={<LeisureIcon />}
                 intensity={1.8}
@@ -189,8 +189,8 @@ function Home() {
                 to="/book-meetings-events"
                 image={cardMeAsset.url}
                 imagePosition="center center"
-                label="Meetings & Events"
-                tagline="Business Events Made Simple"
+                label="M & E"
+                tagline="Professional Event Planning"
                 ctaText="Plan Event"
                 icon={<MeIcon />}
                 intensity={2}
@@ -199,8 +199,8 @@ function Home() {
                 to="/manage-bookings"
                 image={cardManageAsset.url}
                 imagePosition="center center"
-                label="Manage Bookings"
-                tagline="Bookings, Contracts & Updates"
+                label="M A N A G E"
+                tagline="Manage Your Bookings"
                 ctaText="Open Dashboard"
                 icon={<ManageIcon />}
                 intensity={1.8}
