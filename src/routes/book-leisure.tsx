@@ -6639,7 +6639,7 @@ function S6LuxCard({
         </span>
       </div>
 
-      <span className="relative hidden w-[190px] shrink-0 overflow-hidden sm:block lg:w-[230px]">
+      <span className="relative hidden w-[215px] shrink-0 overflow-hidden sm:block lg:w-[264px]">
         <img
           src={image}
           alt=""
