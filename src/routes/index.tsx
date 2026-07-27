@@ -515,19 +515,19 @@ function ExperienceCard({
 
 function LeisureIcon() {
   return (
-    <Mountain size={18} strokeWidth={1.5} color="#D8C69D" />
+    <Mountain size={18} strokeWidth={1.5} color="#C9A65E" />
   );
 }
 
 function MeIcon() {
   return (
-    <UsersRound size={18} strokeWidth={1.5} color="#D8C69D" />
+    <UsersRound size={18} strokeWidth={1.5} color="#C9A65E" />
   );
 }
 
 function ManageIcon() {
   return (
-    <CalendarDays size={18} strokeWidth={1.5} color="#D8C69D" />
+    <CalendarDays size={18} strokeWidth={1.5} color="#C9A65E" />
   );
 }
 
