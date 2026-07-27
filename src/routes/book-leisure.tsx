@@ -6905,10 +6905,11 @@ function LeisureStep6Screen({
         <>Review your details before we start finding the best hotel offers for your group.</>
       }
     >
-      <section className="s6-lux relative mx-auto w-full max-w-[1180px] px-4 py-3 sm:px-8 lg:px-10">
+      <section className="s6-lux relative mx-auto w-full max-w-[1180px] px-4 py-2 sm:px-8 lg:px-10">
         {/* OUTER LUXURY CONTAINER */}
         <div
-          className="relative mx-auto w-full max-w-[1060px] overflow-hidden rounded-[26px] px-5 py-6 sm:px-10 sm:py-7"
+          className="relative mx-auto w-full max-w-[1100px] overflow-hidden rounded-[22px] px-5 py-4 sm:px-9 sm:py-5"
+
           style={{
             background:
               "radial-gradient(120% 90% at 50% 0%, rgba(28,42,58,0.96) 0%, rgba(15,24,34,0.98) 60%, rgba(11,18,26,0.99) 100%)",
