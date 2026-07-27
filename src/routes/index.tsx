@@ -389,7 +389,7 @@ function ExperienceCard({
 
       <Link
         to={to}
-        className="group/card relative block overflow-hidden rounded-[20px] bg-[#0E1013] group"
+        className="group/card relative block overflow-hidden rounded-[22px] bg-[#0E1013] group"
         style={{
           position: "relative",
           zIndex: 2,
@@ -410,11 +410,25 @@ function ExperienceCard({
         {/* Brushed champagne-gold ring */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-20 rounded-[20px] opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 z-20 rounded-[22px] opacity-90 transition-opacity duration-300 group-hover:opacity-100"
           style={{
             padding: "1px",
             background:
               "linear-gradient(145deg, rgba(246,231,196,0.60) 0%, rgba(198,166,108,0.26) 22%, rgba(232,212,167,0.46) 44%, rgba(150,120,72,0.20) 66%, rgba(240,224,183,0.52) 100%)",
+            WebkitMask:
+              "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
+        {/* Soft gold reflection on border during hover */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-20 rounded-[22px] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+          style={{
+            padding: "1px",
+            background:
+              "linear-gradient(145deg, rgba(255,250,235,0.55) 0%, rgba(232,212,167,0.22) 30%, rgba(150,120,72,0.08) 55%, rgba(246,231,196,0.42) 100%)",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
@@ -459,6 +473,16 @@ function ExperienceCard({
 
           {/* Cinematic gradient: lighter top, progressively darker bottom */}
           <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
+          {/* Premium dark gradient overlay behind text only */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-10"
+            style={{
+              height: "62%",
+              background:
+                "linear-gradient(0deg, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.44) 38%, rgba(0,0,0,0.16) 68%, rgba(0,0,0,0) 100%)",
+            }}
+          />
           {/* Polished dark-glass reflection along the lower portion */}
           <div
             aria-hidden
@@ -472,26 +496,27 @@ function ExperienceCard({
 
 
           {/* Content overlay — quiet editorial typography block */}
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 z-20">
             {/* Typography block — bottom-left */}
             <div
               className="absolute bottom-0 left-0 flex flex-col items-start text-left"
-              style={{ paddingLeft: 40, paddingBottom: 42 }}
+              style={{ paddingLeft: 40, paddingBottom: 68 }}
             >
               <span className="text-[#C9A65E]">
                 {icon}
               </span>
               <p
-                className="mt-[22px] pl-[1px] text-[19px] font-medium uppercase tracking-[0.18em]"
-                style={{ color: "#F7F5F1" }}
+                className="mt-[26px] pl-[1px] text-[18px] font-medium uppercase tracking-[0.22em]"
+                style={{ color: "#F8F6F2" }}
               >
                 {label}
               </p>
               <p
-                className="mt-4 text-[16px] leading-[1.55] font-normal"
+                className="mt-[18px] text-[16px] leading-[1.5]"
                 style={{
-                  color: "rgba(247,245,241,0.78)",
-                  maxWidth: 180,
+                  color: "rgba(248,246,242,0.75)",
+                  fontWeight: 350,
+                  whiteSpace: "nowrap",
                 }}
               >
                 {tagline}
@@ -500,7 +525,7 @@ function ExperienceCard({
 
             {/* Circular arrow CTA — bottom-right */}
             <span
-              className="absolute flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15"
+              className="absolute flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15 relative overflow-hidden before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-b before:from-white/14 before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 group-hover/card:before:opacity-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.10)]"
               style={{ right: 34, bottom: 34 }}
             >
               <ArrowRight size={18} strokeWidth={1.5} />
@@ -514,19 +539,19 @@ function ExperienceCard({
 
 function LeisureIcon() {
   return (
-    <Compass size={22} strokeWidth={1.8} color="#C9A65E" />
+    <Compass size={27} strokeWidth={1.5} color="#C9A65E" style={{ opacity: 0.82 }} />
   );
 }
 
 function MeIcon() {
   return (
-    <UsersRound size={22} strokeWidth={1.8} color="#C9A65E" />
+    <UsersRound size={27} strokeWidth={1.5} color="#C9A65E" style={{ opacity: 0.82 }} />
   );
 }
 
 function ManageIcon() {
   return (
-    <LayoutDashboard size={22} strokeWidth={1.8} color="#C9A65E" />
+    <LayoutDashboard size={27} strokeWidth={1.5} color="#C9A65E" style={{ opacity: 0.82 }} />
   );
 }
 
