@@ -4,7 +4,7 @@ import {
   ArrowRight,
   Users,
   Briefcase,
-  CalendarDays,
+  CalendarCheck,
   ShieldCheck,
   Clock,
   Headphones,
@@ -18,7 +18,7 @@ import {
   Linkedin,
   Facebook,
   Instagram,
-  Mountain,
+  Sunrise,
 } from "lucide-react";
 import {
   ShieldCheckPremium,
@@ -180,7 +180,7 @@ function Home() {
                 image={cardLeisureAsset.url}
                 imagePosition="center 35%"
                 label="Leisure"
-                tagline={<>Unforgettable<br />getaways</>}
+                tagline="Curated luxury escapes."
                 icon={<LeisureIcon />}
                 intensity={1.8}
               />
@@ -189,7 +189,7 @@ function Home() {
                 image={cardMeAsset.url}
                 imagePosition="center center"
                 label="M&E"
-                tagline={<>Seamless meetings<br />&amp; events</>}
+                tagline="Professional events, perfectly managed."
                 icon={<MeIcon />}
                 intensity={2}
               />
@@ -198,7 +198,7 @@ function Home() {
                 image={cardManageAsset.url}
                 imagePosition="center center"
                 label="Manage"
-                tagline={<>Booking control,<br />simplified</>}
+                tagline="All your bookings in one place."
                 icon={<ManageIcon />}
                 intensity={1.8}
               />
@@ -478,21 +478,29 @@ function ExperienceCard({
               className="absolute bottom-0 left-0 flex flex-col items-start text-left"
               style={{ paddingLeft: 40, paddingBottom: 42 }}
             >
-              <span style={{ opacity: 0.9 }}>
+              <span
+                className="text-[#D4AF37] drop-shadow-[0_0_7px_rgba(212,175,55,0.35)]"
+                style={{ opacity: 0.92 }}
+              >
                 {icon}
               </span>
               <p
-                className="mt-[18px] pl-[3px] text-[22px] font-medium uppercase tracking-[0.28em]"
-                style={{ color: "#F4F0E8" }}
+                className="mt-[14px] pl-[1px] text-[22px] font-semibold uppercase tracking-[0.25em]"
+                style={{ color: "#F7F5F1" }}
               >
                 {label}
               </p>
+              {/* Refined metallic gold divider */}
+              <div
+                className="mt-[10px] h-[2px] w-[28px] rounded-full"
+                style={{ background: "rgba(212, 175, 55, 0.75)" }}
+              />
               <p
-                className="mt-4 text-[17px] leading-[1.55] font-light"
+                className="mt-[10px] text-[16px] leading-[1.6] font-light"
                 style={{
                   fontFamily: '"Cormorant Garamond", Georgia, serif',
-                  color: "rgba(244,240,232,0.82)",
-                  maxWidth: 170,
+                  color: "rgba(247,245,241,0.84)",
+                  maxWidth: 190,
                 }}
               >
                 {tagline}
@@ -515,19 +523,19 @@ function ExperienceCard({
 
 function LeisureIcon() {
   return (
-    <Mountain size={18} strokeWidth={1.5} color="#C9A65E" />
+    <Sunrise size={21} strokeWidth={2} />
   );
 }
 
 function MeIcon() {
   return (
-    <UsersRound size={18} strokeWidth={1.5} color="#C9A65E" />
+    <UsersRound size={21} strokeWidth={2} />
   );
 }
 
 function ManageIcon() {
   return (
-    <CalendarDays size={18} strokeWidth={1.5} color="#C9A65E" />
+    <CalendarCheck size={21} strokeWidth={2} />
   );
 }
 
