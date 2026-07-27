@@ -30,7 +30,7 @@ import {
 import heroAsset from "@/assets/hero-bg.png.asset.json";
 import { HomeBackgroundVideo } from "@/components/HomeBackgroundVideo";
 import cardLeisureAsset from "@/assets/card-leisure-new.png.asset.json";
-import cardMeAsset from "@/assets/card-me.png.asset.json";
+import cardMeAsset from "@/assets/card-me-new.png.asset.json";
 import cardManageAsset from "@/assets/card-manage.png.asset.json";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 import woodRibbonAsset from "@/assets/wood-ribbon-texture.jpg.asset.json";
@@ -187,7 +187,7 @@ function Home() {
               <ExperienceCard
                 to="/book-meetings-events"
                 image={cardMeAsset.url}
-                imagePosition="center 40%"
+                imagePosition="center center"
                 label="M&E"
                 tagline={<>Meetings &amp; events<br />made seamless</>}
                 icon={<MeIcon />}
