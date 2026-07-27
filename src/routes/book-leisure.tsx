@@ -3610,10 +3610,11 @@ function S2CompletedStayCard({
       style={{
         borderRadius: 18,
         minHeight: 196,
-        backgroundImage: "linear-gradient(165deg, rgba(38,58,75,0.65) 0%, rgba(31,49,64,0.65) 100%)",
-        border: "1px solid rgba(217,191,130,0.14)",
+        backgroundImage: "linear-gradient(165deg, rgba(24,40,54,0.92) 0%, rgba(19,33,45,0.92) 100%)",
+        border: "1px solid rgba(217,191,130,0.30)",
         padding: "20px 24px",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.07), 0 22px 46px -28px rgba(4,10,16,0.75), 0 6px 16px -12px rgba(0,0,0,0.5)",
       }}
     >
       <div className="flex items-center gap-3.5">
@@ -3621,32 +3622,35 @@ function S2CompletedStayCard({
           className="grid h-10 w-10 shrink-0 place-items-center text-[15px] font-semibold"
           style={{
             borderRadius: 999,
-            border: "1px solid rgba(217,191,130,0.35)",
-            color: S2_GOLD_SOFT,
+            border: "1px solid rgba(228,203,140,0.62)",
+            backgroundColor: "rgba(12,23,33,0.92)",
+            color: "#F0DCA6",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.10), 0 0 12px -6px rgba(217,191,130,0.5)",
           }}
         >
           {index}
         </span>
         <span
           className="text-[19px] font-medium leading-none"
-          style={{ fontFamily: SERIF, color: "#FDFBF6" }}
+          style={{ fontFamily: SERIF, color: "#FFFDF8" }}
         >
           Stay {index}
         </span>
       </div>
 
       <div className="mt-4 min-w-0">
-        <div className="text-[15.5px] font-medium" style={{ color: "#F7F3EA" }}>
+        <div className="text-[15.5px] font-medium" style={{ color: "#FCF8EF" }}>
           {fmt(arrival)} → {fmt(departure)}
         </div>
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]" style={{ color: "rgba(226,232,240,0.55)" }}>
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]" style={{ color: "rgba(233,239,246,0.78)" }}>
           <span>{nights} {nights === 1 ? "night" : "nights"}</span>
-          <span aria-hidden>·</span>
+          <span aria-hidden style={{ color: "rgba(233,239,246,0.4)" }}>·</span>
           <span>{guests} {guests === 1 ? "guest" : "guests"}</span>
-          <span aria-hidden>·</span>
+          <span aria-hidden style={{ color: "rgba(233,239,246,0.4)" }}>·</span>
           <span>{rooms} {rooms === 1 ? "room" : "rooms"}</span>
         </div>
       </div>
+
 
       <div
         className="mt-auto pt-4"
@@ -3706,21 +3710,25 @@ function S2AddStayCard({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="flex h-full flex-col items-center justify-center gap-3 transition-transform duration-200 hover:-translate-y-[2px]"
+      className="s2-addstay group flex h-full flex-col items-center justify-center gap-3 transition-all duration-300 ease-out hover:-translate-y-[2px]"
       style={{
         borderRadius: 18,
         minHeight: 196,
         padding: "20px 24px",
-        backgroundColor: "rgba(255,255,255,0.02)",
-        border: "1px dashed rgba(217,191,130,0.35)",
-        color: S2_GOLD_SOFT,
+        backgroundColor: "rgba(255,255,255,0.035)",
+        border: "1px dashed rgba(217,191,130,0.5)",
+        color: "#EBD7A4",
       }}
     >
       <span
-        className="grid h-11 w-11 place-items-center"
-        style={{ borderRadius: 999, border: "1px solid rgba(217,191,130,0.35)" }}
+        className="grid h-11 w-11 place-items-center transition-all duration-300 ease-out group-hover:scale-[1.06]"
+        style={{
+          borderRadius: 999,
+          border: "1px solid rgba(228,203,140,0.55)",
+          backgroundColor: "rgba(12,23,33,0.55)",
+        }}
       >
-        <Plus size={20} strokeWidth={1.6} />
+        <Plus size={20} strokeWidth={1.7} className="transition-transform duration-300 ease-out group-hover:rotate-90" />
       </span>
       <span className="text-[15px] font-medium">Add another stay</span>
     </button>
