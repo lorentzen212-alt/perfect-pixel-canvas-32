@@ -28,7 +28,7 @@ import {
   GroupPremium,
 } from "@/components/PremiumIcons";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
-import homepageHeroBgAsset from "@/assets/homepage-hero-bg.png.asset.json";
+import homepageTextureAsset from "@/assets/homepage-texture-bg.jpg.asset.json";
 import cardLeisureAsset from "@/assets/card-leisure-new.png.asset.json";
 import cardMeAsset from "@/assets/card-me.png.asset.json";
 import cardManageAsset from "@/assets/card-manage.png.asset.json";
@@ -98,19 +98,64 @@ function Home() {
   return (
     <>
     <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
-      {/* Homepage hero background — uploaded luxury lobby image */}
+      {/* Homepage background — supplied dark texture + navy tint, radial light, gold ambience, vignette */}
       <div
         aria-hidden
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `url(${homepageHeroBgAsset.url})`,
+          backgroundImage: `url(${homepageTextureAsset.url})`,
           backgroundSize: "cover",
           backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
-          width: "100vw",
-          height: "100vh",
         }}
       />
+      {/* Navy luxury tint */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0"
+        style={{ backgroundColor: "#243241", opacity: 0.42, mixBlendMode: "soft-light" }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0"
+        style={{ backgroundColor: "#243241", opacity: 0.28 }}
+      />
+      {/* Gentle radial light behind headline + cards */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(70% 55% at 50% 42%, rgba(226,234,243,0.10) 0%, rgba(226,234,243,0.04) 45%, rgba(0,0,0,0) 75%)",
+        }}
+      />
+      {/* Warm gold ambient glow */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(48% 38% at 50% 50%, rgba(201,166,94,0.11) 0%, rgba(201,166,94,0.045) 50%, rgba(0,0,0,0) 78%)",
+        }}
+      />
+      {/* Edge fade + elegant vignette */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(100% 85% at 50% 45%, rgba(0,0,0,0) 45%, rgba(4,8,12,0.35) 78%, rgba(3,6,10,0.62) 100%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(3,6,10,0.42) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 74%, rgba(3,6,10,0.5) 100%)",
+        }}
+      />
+
 
 
 
