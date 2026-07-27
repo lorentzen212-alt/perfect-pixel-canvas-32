@@ -132,32 +132,34 @@ function Home() {
         {/* CENTERED HERO CONTENT */}
         <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px+110px)] flex flex-col justify-start lg:-mt-[75px]">
           {/* Eyebrow */}
-          <div className="flex items-center justify-center gap-3 text-[#C9A65E]">
-            <span className="text-[12px] tracking-[0.28em] uppercase font-light">The Experience</span>
+          <div className="flex items-center justify-center -mt-1">
+            <span className="text-[10.5px] tracking-[0.44em] uppercase font-light text-[#C0A062]">
+              The Experience
+            </span>
           </div>
 
           {/* Headline */}
           <h1
-            className="mx-auto mt-2 lg:mt-5 max-w-[900px] font-normal text-white leading-[1.05] text-[44px] sm:text-[58px] lg:text-[63px]"
+            className="mx-auto mt-7 lg:mt-9 max-w-[980px] font-light text-white leading-[1.18] tracking-[0.005em] text-[40px] sm:text-[54px] lg:text-[62px]"
             style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
           >
-            Three ways
-            <br />
-            to exceptional
-            <br />
-            group stays
+            <span className="block text-white/85 text-[0.82em] leading-[1.2]">Three ways to</span>
+            <span className="block">
+              <em className="not-italic italic font-light">exceptional</em> group stays
+            </span>
           </h1>
 
           {/* Gold divider */}
-          <div className="mt-2 lg:mt-2 flex items-center justify-center">
-            <div className="h-px w-[90px] bg-gradient-to-r from-transparent via-[#C9A65E] to-transparent" />
-            <div className="mx-2 h-[6px] w-[6px] rotate-45 bg-[#C9A65E]" />
-            <div className="h-px w-[90px] bg-gradient-to-r from-transparent via-[#C9A65E] to-transparent" />
+          <div className="mt-7 lg:mt-9 flex items-center justify-center">
+            <div className="h-px w-[70px] lg:w-[88px] bg-[#B99A5B]/70" />
+            <div className="mx-[14px] h-[4px] w-[4px] rotate-45 bg-[#C0A062]" />
+            <div className="h-px w-[70px] lg:w-[88px] bg-[#B99A5B]/70" />
           </div>
 
-          <p className="mt-2 lg:mt-2 text-white/80 text-[16px] lg:text-[17px] font-light tracking-wide">
+          <p className="mt-[10px] lg:mt-[12px] text-white/65 text-[15px] lg:text-[16px] font-extralight tracking-[0.05em]">
             One request. Everything handled.
           </p>
+
 
           {/* EXPERIENCE CARDS */}
           <div className="relative mt-7 lg:mt-8">
