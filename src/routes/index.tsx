@@ -191,7 +191,7 @@ function Home() {
                 imagePosition="center center"
                 label="M & E"
                 tagline="Professional Event Planning"
-                ctaText="Plan Event"
+                ctaText="Plan event"
                 icon={<MeIcon />}
                 intensity={2}
               />
@@ -201,7 +201,7 @@ function Home() {
                 imagePosition="center center"
                 label="M A N A G E"
                 tagline="Manage Your Bookings"
-                ctaText="Open Dashboard"
+                ctaText="Open dashboard"
                 icon={<ManageIcon />}
                 intensity={1.8}
               />
@@ -503,35 +503,33 @@ function ExperienceCard({
           {/* Content overlay — quiet editorial typography block */}
           <div className="absolute inset-0 z-20">
             <div
-              className="absolute inset-0 flex flex-col items-start text-left"
-              style={{ padding: "0 40px 34px" }}
+              className="absolute bottom-0 left-0 flex w-full flex-col items-start text-left"
+              style={{ padding: "0 0 36px 34px" }}
             >
-              {/* photography breathing room — content begins ~60% down */}
-              <div style={{ height: "60%" }} aria-hidden />
               <span style={{ color: "#D4AF37", lineHeight: 0 }}>
                 {icon}
               </span>
               <p
-                className="mt-[24px] text-[18px] font-semibold uppercase tracking-[0.28em]"
+                className="mt-[20px] text-[18px] font-medium uppercase tracking-[0.28em]"
                 style={{ color: "#FFFFFF" }}
               >
                 {label}
               </p>
               <p
-                className="mt-[14px] text-[15px] leading-[1.5]"
+                className="mt-[16px] max-w-[170px] text-[15px] leading-[1.5]"
                 style={{
-                  color: "rgba(255, 255, 255, 0.8)",
+                  color: "rgba(255, 255, 255, 0.88)",
                   fontWeight: 400,
                 }}
               >
                 {tagline}
               </p>
               <span
-                className="mt-auto flex items-center gap-2 text-[15px] font-medium text-white transition-opacity duration-300 group-hover/card:opacity-75"
+                className="mt-[34px] flex items-center gap-[10px] text-[15px] font-medium text-white transition-opacity duration-300 group-hover/card:opacity-75"
                 style={{ letterSpacing: "0.02em" }}
               >
+                <ArrowRight size={15} strokeWidth={1.6} className="text-white transition-transform duration-300 group-hover/card:translate-x-1" />
                 {ctaText}
-                <ArrowRight size={15} strokeWidth={1.6} className="text-white" />
               </span>
             </div>
           </div>
