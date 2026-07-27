@@ -3266,37 +3266,42 @@ function LeisureStep2Screen({
             </div>
           </div>
 
-          {/* Editor */}
-          {showEditor && (
-            <div className="mt-4">
-              <S2StayCard
-                title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
-                arrival={draftArrival}
-                departure={draftDeparture}
-                nights={draftNights}
-                rooms={draftRoomsCount}
-                guests={draftGuestsCount}
-                editable
-                onArrival={(v: string) => {
-                  setDraftArrival(v);
-                  if (v && (!draftDeparture || new Date(draftDeparture) <= new Date(v))) {
-                    const next = new Date(`${v}T00:00:00`);
-                    next.setDate(next.getDate() + 1);
-                    setDraftDeparture(next.toISOString().slice(0, 10));
-                  }
-                }}
-                onDeparture={setDraftDeparture}
-                onAddAnother={commitAndStartNext}
-                onRemove={handleEditorRemove}
-                confirming={
-                  pendingRemoveId === DRAFT_REMOVE_ID ||
-                  (!!editingId && pendingRemoveId === editingId)
-                }
-                onConfirmRemove={confirmPendingRemove}
-                onCancelRemove={cancelPendingRemove}
-              />
+          {/* 1 — ACTIVE STAY EDITOR (always at the top, editor only) */}
+          <div className="mt-4">
+            <div
+              className="mb-3 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+              style={{ color: "rgba(247,244,236,0.72)" }}
+            >
+              {editingId ? "Editing stay" : "Active stay"}
             </div>
-          )}
+            <S2StayCard
+              title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
+              arrival={draftArrival}
+              departure={draftDeparture}
+              nights={draftNights}
+              rooms={draftRoomsCount}
+              guests={draftGuestsCount}
+              editable
+              onArrival={(v: string) => {
+                setDraftArrival(v);
+                if (v && (!draftDeparture || new Date(draftDeparture) <= new Date(v))) {
+                  const next = new Date(`${v}T00:00:00`);
+                  next.setDate(next.getDate() + 1);
+                  setDraftDeparture(next.toISOString().slice(0, 10));
+                }
+              }}
+              onDeparture={setDraftDeparture}
+              onAddAnother={commitAndStartNext}
+              onRemove={handleEditorRemove}
+              confirming={
+                pendingRemoveId === DRAFT_REMOVE_ID ||
+                (!!editingId && pendingRemoveId === editingId)
+              }
+              onConfirmRemove={confirmPendingRemove}
+              onCancelRemove={cancelPendingRemove}
+            />
+          </div>
+
 
           <div
             className="mt-7 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
