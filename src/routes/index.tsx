@@ -230,7 +230,7 @@ function ExperienceCard({
   image,
   imagePosition = "center center",
   imageFilter,
-  overlay = "from-transparent via-transparent via-[78%] to-black/18",
+  overlay = "from-transparent via-transparent via-[84%] to-black/18",
   label,
   tagline,
   icon,
