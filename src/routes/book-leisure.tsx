@@ -7077,7 +7077,7 @@ function LeisureStep6Screen({
               className="s6-submit mt-[12px] flex h-[58px] w-full items-center justify-center gap-3 rounded-[12px] text-[15px] font-semibold uppercase tracking-[0.22em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
               style={{
                 background:
-                  "linear-gradient(180deg, #F3D987 0%, #E7C96B 34%, #D4AF37 62%, #C5962D 84%, #A97816 100%)",
+                  "linear-gradient(180deg, #F7E4A6 0%, #F3D987 26%, #E7C96B 52%, #D4AF37 78%, #C5962D 100%)",
                 color: "#1A2331",
                 fontFamily: SERIF,
                 border: "1px solid rgba(243,217,135,0.75)",
