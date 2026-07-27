@@ -478,7 +478,7 @@ function ExperienceCard({
               className="absolute bottom-0 left-0 flex flex-col items-start text-left"
               style={{ paddingLeft: 40, paddingBottom: 42 }}
             >
-              <span className="text-[#D8C69D]/90" style={{ opacity: 0.9 }}>
+              <span style={{ opacity: 0.9 }}>
                 {icon}
               </span>
               <p
