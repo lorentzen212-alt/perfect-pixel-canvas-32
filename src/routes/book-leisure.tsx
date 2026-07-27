@@ -4398,7 +4398,7 @@ function AccommodationSummary({
 
       <div className="mt-6 space-y-4">
         <S2SumRow icon={<BedDouble size={17} strokeWidth={1.9} />} label="Total rooms" value={totalRooms} />
-        <S2SumRow icon={<Users size={17} strokeWidth={1.9} />} label="Total guests" value={totalGuests} />
+        <S2SumRow icon={<Users size={20} strokeWidth={1.9} />} label="Total guests" value={totalGuests} />
         <S2SumRow icon={<CalendarDays size={17} strokeWidth={1.9} />} label="Total stays" value={totalStays} />
       </div>
 
@@ -6616,22 +6616,22 @@ function S6LuxCard({
     <button
       type="button"
       onClick={onClick}
-      className="s6-card group relative flex h-[64px] w-full items-stretch overflow-hidden rounded-[16px] text-left lg:h-[68px]"
+      className="s6-card group relative flex h-[80px] w-full items-stretch overflow-hidden rounded-[20px] text-left lg:h-[84px]"
       style={{ animationDelay: `${index * 70}ms` }}
     >
-      <div className="flex flex-1 items-center gap-5 px-5 py-0 sm:px-7">
+      <div className="flex flex-1 items-center gap-6 px-6 py-0 sm:px-9">
         <span className="shrink-0" style={{ color: S1_GOLD }}>
           {icon}
         </span>
         <span className="min-w-0">
           <span
-            className="block text-[14px] uppercase tracking-[0.13em] text-white sm:text-[15.5px]"
+            className="block text-[16px] uppercase tracking-[0.13em] text-white sm:text-[18px]"
             style={{ fontFamily: SERIF }}
           >
             {title}
           </span>
           <span
-            className="mt-[3px] block truncate text-[12.5px] sm:text-[13px]"
+            className="mt-1 block truncate text-[13.5px] sm:text-[14.5px]"
             style={{ color: "rgba(245,241,230,0.66)" }}
           >
             {detail}
@@ -6639,7 +6639,7 @@ function S6LuxCard({
         </span>
       </div>
 
-      <span className="relative hidden w-[250px] shrink-0 overflow-hidden sm:block lg:w-[320px]">
+      <span className="relative hidden w-[215px] shrink-0 overflow-hidden sm:block lg:w-[264px]">
         <img
           src={image}
           alt=""
@@ -6655,9 +6655,9 @@ function S6LuxCard({
         />
       </span>
 
-      <span className="flex w-[48px] shrink-0 items-center justify-center sm:w-[60px]">
+      <span className="flex w-[58px] shrink-0 items-center justify-center sm:w-[72px]">
         <ChevronRight
-          size={20}
+          size={22}
           strokeWidth={1.6}
           className="transition-transform duration-300 group-hover:translate-x-[3px]"
           style={{ color: S1_GOLD }}
@@ -6825,7 +6825,7 @@ function LeisureStep6Screen({
 
   const reviewCards = [
     {
-      icon: <MapPin size={26} strokeWidth={1.1} />,
+      icon: <MapPin size={30} strokeWidth={1.1} />,
       title: "Destination",
       detail:
         [data.city, data.country].filter(Boolean).join(", ") ||
@@ -6834,7 +6834,7 @@ function LeisureStep6Screen({
       onClick: () => onEdit(1),
     },
     {
-      icon: <BedDouble size={26} strokeWidth={1.1} />,
+      icon: <BedDouble size={30} strokeWidth={1.1} />,
       title: "Stay",
       detail: [
         nights > 0 ? `${nights} ${nights === 1 ? "Night" : "Nights"}` : dateRange,
@@ -6849,7 +6849,7 @@ function LeisureStep6Screen({
       onClick: () => onEdit(2),
     },
     {
-      icon: <Utensils size={26} strokeWidth={1.1} />,
+      icon: <Utensils size={30} strokeWidth={1.1} />,
       title: "Dining",
       detail:
         data.extras.length > 0
@@ -6861,7 +6861,7 @@ function LeisureStep6Screen({
       onClick: () => onEdit(3),
     },
     {
-      icon: <Mountain size={26} strokeWidth={1.1} />,
+      icon: <Mountain size={30} strokeWidth={1.1} />,
       title: "Experiences",
       detail: data.letUsRecommend
         ? "Concierge recommendations"
@@ -6874,7 +6874,7 @@ function LeisureStep6Screen({
       onClick: () => onEdit(4),
     },
     {
-      icon: <ConciergeBell size={26} strokeWidth={1.1} />,
+      icon: <ConciergeBell size={30} strokeWidth={1.1} />,
       title: "Special Requests",
       detail:
         specialRequestsCount > 0
@@ -6958,12 +6958,12 @@ function LeisureStep6Screen({
             {/* HEADER */}
             <div className="flex flex-col items-center text-center">
               <span
-                className="text-[11px] font-medium uppercase tracking-[0.28em]"
+                className="text-[13px] font-medium uppercase tracking-[0.28em]"
                 style={{ color: S1_GOLD, fontFamily: SERIF }}
               >
                 3. Concierge Review
               </span>
-              <div className="mt-1.5 flex w-full max-w-[440px] items-center gap-3">
+              <div className="mt-2 flex w-full max-w-[520px] items-center gap-4">
                 <span
                   className="h-px flex-1"
                   style={{
@@ -6971,7 +6971,7 @@ function LeisureStep6Screen({
                       "linear-gradient(90deg, transparent, rgba(212,166,74,0.55))",
                   }}
                 />
-                <ConciergeBell size={19} strokeWidth={1.2} style={{ color: S1_GOLD }} />
+                <ConciergeBell size={24} strokeWidth={1.2} style={{ color: S1_GOLD }} />
                 <span
                   className="h-px flex-1"
                   style={{
@@ -6981,13 +6981,13 @@ function LeisureStep6Screen({
                 />
               </div>
               <h2
-                className="mt-1.5 text-[22px] leading-[1.04] font-normal uppercase tracking-[0.03em] text-white sm:text-[27px]"
+                className="mt-2 text-[30px] leading-[1.05] font-normal uppercase tracking-[0.03em] text-white sm:text-[40px]"
                 style={{ fontFamily: SERIF }}
               >
                 Your Journey at a Glance
               </h2>
               <p
-                className="mt-1 text-[12.5px] sm:text-[13px]"
+                className="mt-1.5 text-[14px] sm:text-[15px]"
                 style={{ color: "rgba(245,241,230,0.62)" }}
               >
                 Please review your request details before submitting.
@@ -6995,7 +6995,7 @@ function LeisureStep6Screen({
             </div>
 
             {/* REVIEW CARDS */}
-            <div className="mt-3.5 space-y-[8px]">
+            <div className="mt-4 space-y-[10px]">
               {reviewCards.map((c, i) => (
                 <S6LuxCard key={c.title} {...c} index={i} />
               ))}
@@ -7004,7 +7004,7 @@ function LeisureStep6Screen({
 
             {/* BOTTOM INFORMATION PANEL */}
             <div
-              className="mt-[9px] grid grid-cols-1 gap-3 rounded-[14px] px-5 py-[8px] sm:px-7 md:grid-cols-2 md:gap-0"
+              className="mt-[10px] grid grid-cols-1 gap-3 rounded-[16px] px-6 py-[12px] sm:px-8 md:grid-cols-2 md:gap-0"
               style={{
                 background:
                   "linear-gradient(180deg, rgba(28,40,55,0.95), rgba(19,29,41,0.95))",
@@ -7014,10 +7014,10 @@ function LeisureStep6Screen({
             >
               <div className="flex items-center gap-4 md:pr-8">
                 <span
-                  className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
+                  className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-full"
                   style={{ border: "1px solid rgba(212,166,74,0.4)" }}
                 >
-                  <Users size={17} strokeWidth={1.4} style={{ color: S1_GOLD }} />
+                  <Users size={20} strokeWidth={1.4} style={{ color: S1_GOLD }} />
                 </span>
                 <div className="min-w-0">
                   <div
@@ -7027,7 +7027,7 @@ function LeisureStep6Screen({
                     A Dedicated Concierge Specialist
                   </div>
                   <p
-                    className="mt-0.5 text-[12px] leading-snug"
+                    className="mt-1 text-[13px] leading-snug"
                     style={{ color: "rgba(245,241,230,0.68)" }}
                   >
                     will personally handle your request
@@ -7048,17 +7048,17 @@ function LeisureStep6Screen({
                     Estimated Reply
                   </div>
                   <div
-                    className="mt-0.5 text-[19px] leading-none text-white sm:text-[21px]"
+                    className="mt-1 text-[22px] leading-none text-white sm:text-[25px]"
                     style={{ fontFamily: SERIF }}
                   >
                     Within 24 Hours
                   </div>
                 </div>
                 <span
-                  className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
+                  className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-full"
                   style={{ border: "1px solid rgba(212,166,74,0.4)" }}
                 >
-                  <Clock size={17} strokeWidth={1.4} style={{ color: S1_GOLD }} />
+                  <Clock size={20} strokeWidth={1.4} style={{ color: S1_GOLD }} />
                 </span>
               </div>
             </div>
@@ -7068,7 +7068,7 @@ function LeisureStep6Screen({
               type="button"
               onClick={onSubmit}
               disabled={!canSubmit}
-              className="s6-submit mt-[9px] flex h-[48px] w-full items-center justify-center gap-3 rounded-[12px] text-[15px] font-semibold uppercase tracking-[0.22em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
+              className="s6-submit mt-[12px] flex h-[58px] w-full items-center justify-center gap-3 rounded-[12px] text-[15px] font-semibold uppercase tracking-[0.22em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
               style={{
                 background:
                   "linear-gradient(180deg, #F2DBA4 0%, #DDB468 42%, #C69C4E 100%)",
@@ -7091,7 +7091,7 @@ function LeisureStep6Screen({
         </div>
 
         {/* OUTSIDE THE REVIEW CONTAINER */}
-        <div className="mt-3 flex flex-col items-center gap-1.5 text-center">
+        <div className="mt-4 flex flex-col items-center gap-2 text-center">
           <button
             type="button"
             onClick={onBack}
