@@ -6619,7 +6619,7 @@ function S6LuxCard({
       className="s6-card group relative flex w-full items-stretch overflow-hidden rounded-[20px] text-left"
       style={{ animationDelay: `${index * 70}ms` }}
     >
-      <div className="flex flex-1 items-center gap-7 px-7 py-[26px] sm:px-10 sm:py-[29px]">
+      <div className="flex flex-1 items-center gap-7 px-7 py-[19px] sm:px-10 sm:py-[22px]">
         <span className="shrink-0" style={{ color: S1_GOLD }}>
           {icon}
         </span>
