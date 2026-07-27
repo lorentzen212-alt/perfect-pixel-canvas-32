@@ -163,7 +163,7 @@ function Home() {
           </p>
 
           {/* EXPERIENCE CARDS */}
-          <div className="relative mt-7 lg:mt-8 lg:-mx-[70px]">
+          <div className="relative mt-7 lg:mt-8">
             {/* Stage spotlight behind all three cards */}
             <div
               aria-hidden
@@ -189,9 +189,8 @@ function Home() {
                 image={cardMeAsset.url}
                 imagePosition="center center"
                 label="M&E"
-                tagline={<>Meetings &amp; events<br />made seamless</>}
+                tagline={<>Seamless meetings<br />&amp; events</>}
                 icon={<MeIcon />}
-                centerAccent
                 intensity={2}
               />
               <ExperienceCard
@@ -199,7 +198,7 @@ function Home() {
                 image={cardManageAsset.url}
                 imagePosition="center center"
                 label="Manage"
-                tagline={<>Manage bookings<br />with ease</>}
+                tagline={<>Booking control,<br />simplified</>}
                 icon={<ManageIcon />}
                 intensity={1.8}
               />
@@ -279,8 +278,6 @@ function ExperienceCard({
   label,
   tagline,
   icon,
-  centerAccent = false,
-  raised = false,
   intensity = 1,
 }: {
   to: string;
@@ -291,8 +288,6 @@ function ExperienceCard({
   label: string;
   tagline: React.ReactNode;
   icon: React.ReactNode;
-  centerAccent?: boolean;
-  raised?: boolean;
   intensity?: number;
 }) {
   const cardShadow = "0 28px 70px rgba(0, 0, 0, 0.42)";
@@ -302,7 +297,7 @@ function ExperienceCard({
 
   return (
     <div
-      className={cn("relative", raised && "md:-translate-y-[10px]")}
+      className="relative"
       style={{ isolation: "isolate", overflow: "visible" }}
     >
       {/* Extremely soft radial glow behind the card */}
@@ -476,21 +471,39 @@ function ExperienceCard({
 
 
 
-          {/* Content overlay — bottom-left editorial layout */}
-          <div className="absolute inset-x-0 bottom-0 flex flex-col items-start px-7 pb-8 pt-16 text-left">
-            <div className="text-[#E6C88A] mb-6">
-              {icon}
-            </div>
-            <p className="text-[#E6C88A] text-[15px] tracking-[0.42em] uppercase font-medium mb-3">
-              {label}
-            </p>
-            <p
-              className="text-[#F3EEE5]/90 text-[15px] leading-[1.7] font-light mb-9"
-              style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
+          {/* Content overlay — quiet editorial typography block */}
+          <div className="absolute inset-0">
+            {/* Typography block — bottom-left */}
+            <div
+              className="absolute bottom-0 left-0 flex flex-col items-start text-left"
+              style={{ paddingLeft: 40, paddingBottom: 42 }}
             >
-              {tagline}
-            </p>
-            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15">
+              <span style={{ opacity: 0.9 }}>
+                {icon}
+              </span>
+              <p
+                className="mt-[18px] pl-[3px] text-[22px] font-medium uppercase tracking-[0.28em]"
+                style={{ color: "#F4F0E8" }}
+              >
+                {label}
+              </p>
+              <p
+                className="mt-4 text-[17px] leading-[1.55] font-light"
+                style={{
+                  fontFamily: '"Cormorant Garamond", Georgia, serif',
+                  color: "rgba(244,240,232,0.82)",
+                  maxWidth: 170,
+                }}
+              >
+                {tagline}
+              </p>
+            </div>
+
+            {/* Circular arrow CTA — bottom-right */}
+            <span
+              className="absolute flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15"
+              style={{ right: 34, bottom: 34 }}
+            >
               <ArrowRight size={18} strokeWidth={1.5} />
             </span>
           </div>
@@ -502,34 +515,19 @@ function ExperienceCard({
 
 function LeisureIcon() {
   return (
-    <svg width="44" height="44" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="36" cy="30" r="7" />
-      <path d="M36 15v4M36 41v4M21 30h4M47 30h4M25.5 19.5l2.8 2.8M43.7 37.7l2.8 2.8M25.5 40.5l2.8-2.8M43.7 22.3l2.8-2.8" />
-      <path d="M12 52l8-10 6 6 8-12 10 10 8-6 8 12" />
-    </svg>
+    <Mountain size={18} strokeWidth={1.5} color="#C9A65E" />
   );
 }
 
 function MeIcon() {
   return (
-    <svg width="44" height="44" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="36" cy="20" r="6" />
-      <path d="M26 44c0-6 4.5-10 10-10s10 4 10 10" />
-      <circle cx="20" cy="28" r="5" />
-      <path d="M12 48c0-5 3.5-9 8-9" />
-      <circle cx="52" cy="28" r="5" />
-      <path d="M60 48c0-5-3.5-9-8-9" />
-    </svg>
+    <UsersRound size={18} strokeWidth={1.5} color="#C9A65E" />
   );
 }
 
 function ManageIcon() {
   return (
-    <svg width="44" height="44" viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="14" y="18" width="44" height="40" rx="3" />
-      <path d="M14 30h44M24 14v8M48 14v8" />
-      <text x="36" y="49" textAnchor="middle" fontSize="13" fontFamily="Georgia, serif" stroke="none" fill="currentColor">15</text>
-    </svg>
+    <CalendarDays size={18} strokeWidth={1.5} color="#C9A65E" />
   );
 }
 
