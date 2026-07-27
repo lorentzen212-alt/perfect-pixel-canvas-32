@@ -4589,6 +4589,14 @@ function AccommodationSummary({
       >
         Accommodation Summary
       </div>
+      <div
+        className="mt-3 h-px w-full"
+        style={{
+          background: `linear-gradient(90deg, rgba(217,191,130,0.55) 0%, ${S2_GOLD_SOFT} 22%, rgba(217,191,130,0.10) 100%)`,
+        }}
+      />
+
+
 
       <div className="mt-6 space-y-4">
         <S2SumRow icon={<BedDouble size={17} strokeWidth={1.9} />} label="Total rooms" value={totalRooms} />
