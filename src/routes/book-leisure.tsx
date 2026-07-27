@@ -2520,6 +2520,7 @@ function LeisureStepShell({
   enhancedHero = false,
   pageBg,
   heroOverlay,
+  hideHero = false,
 }: {
   activeStep: StepKey;
   onStepGo: (s: StepKey) => void;
@@ -2532,9 +2533,12 @@ function LeisureStepShell({
   enhancedHero?: boolean;
   pageBg?: string;
   heroOverlay?: React.ReactNode;
+  hideHero?: boolean;
 
 }) {
-  const gridCols = rightSidebar
+  const gridCols = hideHero
+    ? "lg:grid-cols-1"
+    : rightSidebar
     ? "lg:grid-cols-[minmax(220px,0.68fr)_minmax(640px,2.10fr)_minmax(290px,0.92fr)]"
     : "lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)]";
 
