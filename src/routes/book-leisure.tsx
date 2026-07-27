@@ -3223,13 +3223,25 @@ function LeisureStep2Screen({
                   "linear-gradient(180deg, rgba(11,19,27,0) 0%, rgba(11,19,27,0.42) 45%, rgba(11,19,27,0.78) 100%)",
               }}
             />
-            <div className="absolute bottom-9 left-9 right-9">
+            <div
+              className="absolute bottom-9 left-9 right-9"
+              style={{
+                borderRadius: 16,
+                padding: "16px 20px",
+                background:
+                  "linear-gradient(180deg, rgba(8,16,24,0.42) 0%, rgba(6,13,20,0.62) 100%)",
+                backdropFilter: "blur(10px) saturate(115%)",
+                border: "1px solid rgba(255,255,255,0.07)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
+              }}
+            >
               <div
-                className="text-[12.5px] font-semibold uppercase tracking-[0.26em] text-white"
+                className="text-[12.5px] font-semibold uppercase tracking-[0.26em]"
+                style={{ color: "#FFFFFF" }}
               >
                 {heroStayLabel}
               </div>
-              <div className="mt-2 text-[14px]" style={{ color: "rgba(245,241,230,0.8)" }}>
+              <div className="mt-2 text-[14px]" style={{ color: "rgba(240,236,226,0.66)" }}>
                 {heroStayMeta}
               </div>
             </div>
@@ -3366,7 +3378,7 @@ function LeisureStep2Screen({
           </div>
 
           {/* 4 — Add this stay */}
-          <div className="mt-3 flex flex-col items-end gap-2">
+          <div className="mt-[26px] flex flex-col items-end gap-2">
             {addError && !canAddStay && (
               <span className="text-[13px]" style={{ color: "rgba(238,170,150,0.95)" }}>
                 Please select arrival and departure dates and at least one room.
@@ -3378,21 +3390,26 @@ function LeisureStep2Screen({
               onClick={() => commitStay()}
               aria-disabled={!canAddStay}
               disabled={saving}
-              className="s2-btn inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold hover:-translate-y-[2px] active:translate-y-0"
+              className="s2-btn group inline-flex items-center gap-3 px-8 py-4 text-[15px] font-semibold transition-all duration-300 ease-out hover:-translate-y-[2px] hover:brightness-[1.04] active:translate-y-0"
               style={{
                 borderRadius: 16,
                 background: canAddStay
-                  ? `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`
+                  ? `linear-gradient(180deg, #FBEFC8 0%, ${S2_GOLD_SOFT} 26%, ${S2_GOLD} 62%, ${S2_GOLD_DEEP} 100%)`
                   : "rgba(255,255,255,0.05)",
                 color: canAddStay ? "#10202F" : "rgba(245,241,230,0.4)",
                 boxShadow: canAddStay
-                  ? "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)"
+                  ? "0 20px 44px -20px rgba(20,14,4,0.62), 0 6px 16px -10px rgba(20,14,4,0.45), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -2px 0 rgba(120,95,45,0.35)"
                   : "none",
                 cursor: canAddStay ? "pointer" : "not-allowed",
               }}
             >
               {editingId ? "Save changes" : "Add this stay"}
-              <ArrowRight size={18} strokeWidth={2.4} />
+              <ArrowRight
+                size={18}
+                strokeWidth={2.4}
+                className="transition-all duration-300 ease-out group-hover:translate-x-[2px] group-hover:opacity-100"
+                style={{ opacity: 0.86 }}
+              />
             </button>
             {editingId && (
               <button
@@ -3408,7 +3425,19 @@ function LeisureStep2Screen({
 
           {/* 5 — Your Stays (rendered BELOW "Add this stay") */}
           {stays.some((s) => s.id !== editingId) && (
-            <div className="mt-8" data-section="completed-stays">
+            <div
+              className="mt-[54px]"
+              data-section="completed-stays"
+              style={{
+                borderRadius: 24,
+                padding: "28px 30px 30px",
+                backgroundImage:
+                  "linear-gradient(180deg, rgba(30,48,64,0.72) 0%, rgba(26,42,56,0.72) 100%)",
+                border: "1px solid rgba(255,255,255,0.055)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -22px 40px -34px rgba(0,0,0,0.6)",
+              }}
+            >
               <div
                 className="text-[11.5px] font-semibold uppercase tracking-[0.28em]"
                 style={{ color: "rgba(247,244,236,0.72)" }}
@@ -3593,10 +3622,11 @@ function S2CompletedStayCard({
       style={{
         borderRadius: 18,
         minHeight: 196,
-        backgroundImage: "linear-gradient(165deg, rgba(38,58,75,0.65) 0%, rgba(31,49,64,0.65) 100%)",
-        border: "1px solid rgba(217,191,130,0.14)",
+        backgroundImage: "linear-gradient(165deg, rgba(24,40,54,0.92) 0%, rgba(19,33,45,0.92) 100%)",
+        border: "1px solid rgba(217,191,130,0.30)",
         padding: "20px 24px",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.07), 0 22px 46px -28px rgba(4,10,16,0.75), 0 6px 16px -12px rgba(0,0,0,0.5)",
       }}
     >
       <div className="flex items-center gap-3.5">
@@ -3604,32 +3634,35 @@ function S2CompletedStayCard({
           className="grid h-10 w-10 shrink-0 place-items-center text-[15px] font-semibold"
           style={{
             borderRadius: 999,
-            border: "1px solid rgba(217,191,130,0.35)",
-            color: S2_GOLD_SOFT,
+            border: "1px solid rgba(228,203,140,0.62)",
+            backgroundColor: "rgba(12,23,33,0.92)",
+            color: "#F0DCA6",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.10), 0 0 12px -6px rgba(217,191,130,0.5)",
           }}
         >
           {index}
         </span>
         <span
           className="text-[19px] font-medium leading-none"
-          style={{ fontFamily: SERIF, color: "#FDFBF6" }}
+          style={{ fontFamily: SERIF, color: "#FFFDF8" }}
         >
           Stay {index}
         </span>
       </div>
 
       <div className="mt-4 min-w-0">
-        <div className="text-[15.5px] font-medium" style={{ color: "#F7F3EA" }}>
+        <div className="text-[15.5px] font-medium" style={{ color: "#FCF8EF" }}>
           {fmt(arrival)} → {fmt(departure)}
         </div>
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]" style={{ color: "rgba(226,232,240,0.55)" }}>
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]" style={{ color: "rgba(233,239,246,0.78)" }}>
           <span>{nights} {nights === 1 ? "night" : "nights"}</span>
-          <span aria-hidden>·</span>
+          <span aria-hidden style={{ color: "rgba(233,239,246,0.4)" }}>·</span>
           <span>{guests} {guests === 1 ? "guest" : "guests"}</span>
-          <span aria-hidden>·</span>
+          <span aria-hidden style={{ color: "rgba(233,239,246,0.4)" }}>·</span>
           <span>{rooms} {rooms === 1 ? "room" : "rooms"}</span>
         </div>
       </div>
+
 
       <div
         className="mt-auto pt-4"
@@ -3689,21 +3722,25 @@ function S2AddStayCard({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="flex h-full flex-col items-center justify-center gap-3 transition-transform duration-200 hover:-translate-y-[2px]"
+      className="s2-addstay group flex h-full flex-col items-center justify-center gap-3 transition-all duration-300 ease-out hover:-translate-y-[2px]"
       style={{
         borderRadius: 18,
         minHeight: 196,
         padding: "20px 24px",
-        backgroundColor: "rgba(255,255,255,0.02)",
-        border: "1px dashed rgba(217,191,130,0.35)",
-        color: S2_GOLD_SOFT,
+        backgroundColor: "rgba(255,255,255,0.035)",
+        border: "1px dashed rgba(217,191,130,0.5)",
+        color: "#EBD7A4",
       }}
     >
       <span
-        className="grid h-11 w-11 place-items-center"
-        style={{ borderRadius: 999, border: "1px solid rgba(217,191,130,0.35)" }}
+        className="grid h-11 w-11 place-items-center transition-all duration-300 ease-out group-hover:scale-[1.06]"
+        style={{
+          borderRadius: 999,
+          border: "1px solid rgba(228,203,140,0.55)",
+          backgroundColor: "rgba(12,23,33,0.55)",
+        }}
       >
-        <Plus size={20} strokeWidth={1.6} />
+        <Plus size={20} strokeWidth={1.7} className="transition-transform duration-300 ease-out group-hover:rotate-90" />
       </span>
       <span className="text-[15px] font-medium">Add another stay</span>
     </button>
@@ -4613,7 +4650,7 @@ function AccommodationSummary({
         </div>
       )}
 
-      <div className="space-y-7">
+      <div className="space-y-10">
         {stays.map((s, idx) => {
           const nights = stayNights(s.arrival, s.departure);
           return (
@@ -4621,15 +4658,32 @@ function AccommodationSummary({
               key={s.id}
               className={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds?.has(s.id) ? "stay-removing" : ""}`}
             >
-              <div
-                className="text-[11.5px] font-semibold uppercase tracking-[0.2em]"
-                style={{ color: S2_GOLD_SOFT }}
-              >
-                Stay {idx + 1}
+              <div className="flex items-center gap-2.5">
+                <span
+                  className="h-[6px] w-[6px] shrink-0 rounded-full"
+                  style={{
+                    background: `linear-gradient(135deg, #F3E2B0, ${S2_GOLD})`,
+                    boxShadow: "0 0 8px -2px rgba(217,191,130,0.75)",
+                  }}
+                />
+                <div
+                  className="text-[11.5px] font-semibold uppercase tracking-[0.2em]"
+                  style={{ color: "#F0DCA6" }}
+                >
+                  Stay {idx + 1}
+                </div>
               </div>
-              <div className="mt-1.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.6)" }}>
+              <div className="mt-1.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.7)" }}>
                 {fmtStayRange(s.arrival, s.departure)} • {nights} {nights === 1 ? "night" : "nights"}
               </div>
+              <div
+                className="mt-3 h-px w-full"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(217,191,130,0.42) 0%, rgba(217,191,130,0.14) 55%, rgba(217,191,130,0) 100%)",
+                }}
+              />
+
 
               <ul className="mt-4 space-y-3.5">
                 {STEP2_ROOMS_ORDER.map((k) => {

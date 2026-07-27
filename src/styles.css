@@ -428,3 +428,13 @@
 @media (prefers-reduced-motion: reduce) {
   .s6-lux .s6-card { animation: none; opacity: 1; }
 }
+
+/* Step 2 — "Add another stay" card hover polish */
+.s2-addstay {
+  transition: background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+.s2-addstay:hover {
+  background-color: rgba(217, 191, 130, 0.07);
+  border-color: rgba(228, 203, 140, 0.72);
+  box-shadow: 0 20px 44px -30px rgba(4, 10, 16, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
