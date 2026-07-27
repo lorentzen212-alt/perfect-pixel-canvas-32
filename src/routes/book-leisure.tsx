@@ -2559,7 +2559,7 @@ function LeisureStepShell({
         />
       </div>
 
-      <div className={`mx-auto grid ${hideHero ? "max-w-[1240px]" : "max-w-[1680px]"} grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-7 lg:px-8 lg:py-14`}>
+      <div className={`mx-auto grid ${hideHero ? "max-w-[1240px] py-7 lg:py-9" : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
 
         {!hideHero && (
         <aside
@@ -6619,7 +6619,7 @@ function S6LuxCard({
       className="s6-card group relative flex w-full items-stretch overflow-hidden rounded-[20px] text-left"
       style={{ animationDelay: `${index * 70}ms` }}
     >
-      <div className="flex flex-1 items-center gap-7 px-7 py-8 sm:px-10 sm:py-9">
+      <div className="flex flex-1 items-center gap-7 px-7 py-[26px] sm:px-10 sm:py-[29px]">
         <span className="shrink-0" style={{ color: S1_GOLD }}>
           {icon}
         </span>
@@ -6905,7 +6905,7 @@ function LeisureStep6Screen({
       }
     >
       <section
-        className="s6-lux relative mx-auto w-full max-w-[1180px] overflow-hidden rounded-[26px] px-5 py-14 sm:px-12 sm:py-18 lg:px-20 lg:py-24"
+        className="s6-lux relative mx-auto w-full max-w-[1180px] overflow-hidden rounded-[26px] px-5 py-10 sm:px-12 sm:py-12 lg:px-20 lg:py-16"
         style={{
           background:
             "radial-gradient(120% 90% at 50% -10%, #172331 0%, #131E2A 45%, #111B26 100%)",
@@ -6922,7 +6922,7 @@ function LeisureStep6Screen({
           {/* HEADER */}
           <div className="flex flex-col items-center text-center">
             <ConciergeBell size={30} strokeWidth={1.2} style={{ color: S1_GOLD }} />
-            <div className="mt-5 flex w-full max-w-[420px] items-center gap-4">
+            <div className="mt-4 flex w-full max-w-[420px] items-center gap-4">
               <span
                 className="h-px flex-1"
                 style={{
@@ -6943,7 +6943,7 @@ function LeisureStep6Screen({
               />
             </div>
             <h2
-              className="mt-6 text-[34px] leading-[1.08] font-normal tracking-[0.02em] text-white sm:text-[46px]"
+              className="mt-4 text-[34px] leading-[1.08] font-normal tracking-[0.02em] text-white sm:text-[46px]"
               style={{ fontFamily: SERIF }}
             >
               Your Journey
@@ -6951,7 +6951,7 @@ function LeisureStep6Screen({
               at a Glance
             </h2>
             <p
-              className="mt-5 text-[14.5px] sm:text-[15.5px]"
+              className="mt-3.5 text-[14.5px] sm:text-[15.5px]"
               style={{ color: "rgba(245,241,230,0.62)" }}
             >
               Please review your request before submitting.
@@ -6959,7 +6959,7 @@ function LeisureStep6Screen({
           </div>
 
           {/* REVIEW CARDS */}
-          <div className="mt-14 space-y-5">
+          <div className="mt-10 space-y-3.5">
             {reviewCards.map((c, i) => (
               <S6LuxCard key={c.title} {...c} index={i} />
             ))}
@@ -6967,7 +6967,7 @@ function LeisureStep6Screen({
 
           {/* BOTTOM INFORMATION PANEL */}
           <div
-            className="mt-12 grid grid-cols-1 gap-8 rounded-[20px] px-7 py-8 sm:px-10 md:grid-cols-2 md:gap-0"
+            className="mt-9 grid grid-cols-1 gap-6 rounded-[20px] px-7 py-6 sm:px-10 md:grid-cols-2 md:gap-0"
             style={{
               background:
                 "linear-gradient(180deg, rgba(23,35,49,0.95), rgba(17,27,38,0.95))",
@@ -7031,7 +7031,7 @@ function LeisureStep6Screen({
             type="button"
             onClick={onSubmit}
             disabled={!canSubmit}
-            className="s6-submit mt-8 flex h-[64px] w-full items-center justify-center gap-3 rounded-[14px] text-[15px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
+            className="s6-submit mt-6 flex h-[60px] w-full items-center justify-center gap-3 rounded-[14px] text-[15px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
             style={{
               background:
                 "linear-gradient(180deg, #F0D598 0%, #D9AF62 45%, #C39A4C 100%)",
@@ -7049,7 +7049,7 @@ function LeisureStep6Screen({
             )}
           </button>
 
-          <div className="mt-8 flex flex-col items-center gap-3 text-center">
+          <div className="mt-5 flex flex-col items-center gap-2 text-center">
             <button
               type="button"
               onClick={onBack}
