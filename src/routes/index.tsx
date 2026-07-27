@@ -502,36 +502,34 @@ function ExperienceCard({
 
           {/* Content overlay — quiet editorial typography block */}
           <div className="absolute inset-0 z-20">
-            {/* Typography block — bottom-left */}
             <div
-              className="absolute bottom-0 left-0 flex flex-col items-start text-left"
-              style={{ paddingLeft: 40, paddingBottom: 30 }}
+              className="absolute inset-0 flex flex-col items-start text-left"
+              style={{ padding: "42px 40px 32px" }}
             >
-              <span className="text-[#C9A65E]">
+              <span style={{ color: "#D4AF37" }}>
                 {icon}
               </span>
               <p
-                className="mt-[22px] pl-[1px] text-[18px] font-semibold uppercase tracking-[0.18em]"
-                style={{ color: "#F7F5F1" }}
+                className="mt-[22px] text-[18px] font-semibold uppercase tracking-[0.28em]"
+                style={{ color: "#FFFFFF" }}
               >
                 {label}
               </p>
               <p
                 className="mt-[14px] text-[15px] leading-[1.5]"
                 style={{
-                  color: "#D8D8D8",
-                  fontWeight: 500,
-                  whiteSpace: "nowrap",
+                  color: "rgba(255, 255, 255, 0.8)",
+                  fontWeight: 400,
                 }}
               >
                 {tagline}
               </p>
               <span
-                className="mt-[26px] flex items-center gap-2 text-[14px] font-medium text-white transition-opacity duration-300 group-hover/card:opacity-75"
+                className="mt-auto flex items-center gap-2 text-[15px] font-medium text-white transition-opacity duration-300 group-hover/card:opacity-75"
                 style={{ letterSpacing: "0.02em" }}
               >
                 {ctaText}
-                <ArrowRight size={14} strokeWidth={1.8} className="text-white" />
+                <ArrowRight size={15} strokeWidth={1.6} className="text-white" />
               </span>
             </div>
           </div>
@@ -543,19 +541,19 @@ function ExperienceCard({
 
 function LeisureIcon() {
   return (
-    <Mountain size={21} strokeWidth={1.5} color="#C9A65E" />
+    <Compass size={19} strokeWidth={1.4} color="#D4AF37" />
   );
 }
 
 function MeIcon() {
   return (
-    <UsersRound size={21} strokeWidth={1.5} color="#C9A65E" />
+    <UsersRound size={19} strokeWidth={1.4} color="#D4AF37" />
   );
 }
 
 function ManageIcon() {
   return (
-    <CalendarDays size={21} strokeWidth={1.5} color="#C9A65E" />
+    <CalendarDays size={19} strokeWidth={1.4} color="#D4AF37" />
   );
 }
 
