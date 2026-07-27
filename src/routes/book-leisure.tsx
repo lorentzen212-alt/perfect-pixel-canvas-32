@@ -2667,6 +2667,7 @@ function LeisureStepShell({
           </div>
           )}
         </aside>
+        )}
 
 
         <div className="order-1 lg:order-none min-w-0">{children}</div>
