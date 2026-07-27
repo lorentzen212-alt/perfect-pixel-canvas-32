@@ -180,7 +180,8 @@ function Home() {
                 image={cardLeisureAsset.url}
                 imagePosition="center 35%"
                 label="Leisure"
-                tagline="Luxury group travel."
+                tagline="Luxury Group Escapes"
+                ctaText="Explore"
                 icon={<LeisureIcon />}
                 intensity={1.8}
               />
@@ -188,8 +189,9 @@ function Home() {
                 to="/book-meetings-events"
                 image={cardMeAsset.url}
                 imagePosition="center center"
-                label="M&E"
-                tagline="Professional events."
+                label="Meetings & Events"
+                tagline="Business Events Made Simple"
+                ctaText="Plan Event"
                 icon={<MeIcon />}
                 intensity={2}
               />
@@ -197,8 +199,9 @@ function Home() {
                 to="/manage-bookings"
                 image={cardManageAsset.url}
                 imagePosition="center center"
-                label="Manage"
-                tagline="Manage your bookings."
+                label="Manage Bookings"
+                tagline="Bookings, Contracts & Updates"
+                ctaText="Open Dashboard"
                 icon={<ManageIcon />}
                 intensity={1.8}
               />
