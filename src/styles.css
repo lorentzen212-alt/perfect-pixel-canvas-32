@@ -398,7 +398,7 @@
 .s6-lux .s6-submit:hover:not(:disabled) {
   transform: translateY(-1px);
   filter: brightness(1.04);
-  box-shadow: 0 22px 48px -26px rgba(212, 166, 74, 0.75);
+  box-shadow: 0 22px 48px -26px rgba(231,201,107,0.75);
 }
 
 .s6-lux .s6-corner {
@@ -413,16 +413,16 @@
   top: 0;
   left: 0;
   background:
-    linear-gradient(90deg, rgba(212,166,74,0.45), transparent) top left / 180px 1px no-repeat,
-    linear-gradient(180deg, rgba(212,166,74,0.45), transparent) top left / 1px 180px no-repeat;
+    linear-gradient(90deg, rgba(231,201,107,0.5), transparent) top left / 180px 1px no-repeat,
+    linear-gradient(180deg, rgba(231,201,107,0.5), transparent) top left / 1px 180px no-repeat;
 }
 
 .s6-lux .s6-corner-br {
   right: 0;
   bottom: 0;
   background:
-    linear-gradient(270deg, rgba(212,166,74,0.45), transparent) bottom right / 180px 1px no-repeat,
-    linear-gradient(0deg, rgba(212,166,74,0.45), transparent) bottom right / 1px 180px no-repeat;
+    linear-gradient(270deg, rgba(231,201,107,0.5), transparent) bottom right / 180px 1px no-repeat,
+    linear-gradient(0deg, rgba(231,201,107,0.5), transparent) bottom right / 1px 180px no-repeat;
 }
 
 @media (prefers-reduced-motion: reduce) {
