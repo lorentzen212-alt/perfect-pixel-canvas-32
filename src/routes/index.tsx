@@ -187,7 +187,7 @@ function Home() {
               <ExperienceCard
                 to="/book-meetings-events"
                 image={cardMeAsset.url}
-                imagePosition="center 40%"
+                imagePosition="center center"
                 label="M&E"
                 tagline={<>Meetings &amp; events<br />made seamless</>}
                 icon={<MeIcon />}
