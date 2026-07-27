@@ -145,7 +145,7 @@ function Home() {
           >
             <span className="block text-white/85 text-[0.82em] leading-[1.2]">Three ways to</span>
             <span className="block">
-              <em className="not-italic italic font-light">exceptional</em> group stays
+              <em className="italic font-light">exceptional</em> group stays
             </span>
           </h1>
 
