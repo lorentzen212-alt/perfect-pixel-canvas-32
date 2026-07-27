@@ -280,6 +280,7 @@ function ExperienceCard({
   overlay = "from-transparent via-transparent via-[84%] to-black/18",
   label,
   tagline,
+  ctaText,
   icon,
   intensity = 1,
 }: {
