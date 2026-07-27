@@ -3266,15 +3266,16 @@ function LeisureStep2Screen({
             </div>
           </div>
 
-          {/* 1 — ACTIVE STAY EDITOR (always at the top, editor only) */}
+          {/* 1 — COMPACT DATE SELECTOR */}
           <div className="mt-4">
             <div
               className="mb-3 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
               style={{ color: "rgba(247,244,236,0.72)" }}
             >
-              {editingId ? "Editing stay" : "Active stay"}
+              {editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber} — dates`}
             </div>
             <S2StayCard
+              compact
               title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
               arrival={draftArrival}
               departure={draftDeparture}
@@ -3301,6 +3302,7 @@ function LeisureStep2Screen({
               onCancelRemove={cancelPendingRemove}
             />
           </div>
+
 
 
           <div
