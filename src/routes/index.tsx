@@ -191,7 +191,6 @@ function Home() {
                 label="M&E"
                 tagline={<>Meetings &amp; events<br />made seamless</>}
                 icon={<MeIcon />}
-                centerAccent
                 intensity={2}
               />
               <ExperienceCard
