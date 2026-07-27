@@ -476,25 +476,23 @@ function ExperienceCard({
 
 
 
-          {/* Content overlay */}
-          <div className="absolute inset-0 flex flex-col items-center px-6 pt-8 pb-6 text-center">
-            <div className="flex-1 flex items-center justify-center text-[#E6C88A]">
+          {/* Content overlay — bottom-left editorial layout */}
+          <div className="absolute inset-x-0 bottom-0 flex flex-col items-start px-7 pb-8 pt-16 text-left">
+            <div className="text-[#E6C88A] mb-6">
               {icon}
             </div>
-            <p className="text-[#E6C88A] text-[13px] tracking-[0.35em] uppercase font-light">
+            <p className="text-[#E6C88A] text-[15px] tracking-[0.42em] uppercase font-medium mb-3">
               {label}
             </p>
             <p
-              className="mt-3 text-white/90 text-[17px] leading-snug font-light drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+              className="text-[#F3EEE5]/90 text-[15px] leading-[1.7] font-light mb-9"
               style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
             >
               {tagline}
             </p>
-            <div className="mt-5 flex justify-center">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15">
-                <ArrowRight size={18} strokeWidth={1.5} />
-              </span>
-            </div>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B99A5B]/70 bg-black/25 backdrop-blur-sm text-[#E6C88A] transition-all duration-300 group-hover:border-[#E6C88A] group-hover:bg-[#E6C88A]/15">
+              <ArrowRight size={18} strokeWidth={1.5} />
+            </span>
           </div>
         </div>
       </Link>
