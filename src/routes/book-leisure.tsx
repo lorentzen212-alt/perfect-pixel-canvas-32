@@ -6910,6 +6910,16 @@ function LeisureStep6Screen({
       }
     >
       <section className="s6-lux relative mx-auto w-full max-w-[1180px] px-4 py-2 sm:px-8 lg:px-10">
+        {/* warm midnight-blue page atmosphere (colour only) */}
+        <span
+          aria-hidden
+          className="pointer-events-none fixed inset-0 -z-0"
+          style={{
+            background:
+              "radial-gradient(120% 80% at 50% -10%, #1B2B3D 0%, #14202E 45%, #0D1723 100%)",
+          }}
+        />
+
         {/* OUTER LUXURY CONTAINER */}
         <div
           className="relative mx-auto w-full max-w-[1100px] overflow-hidden rounded-[22px] px-5 py-4 sm:px-9 sm:py-5"
