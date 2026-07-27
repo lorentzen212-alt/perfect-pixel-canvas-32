@@ -473,6 +473,16 @@ function ExperienceCard({
 
           {/* Cinematic gradient: lighter top, progressively darker bottom */}
           <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
+          {/* Premium dark gradient overlay behind text only */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-10"
+            style={{
+              height: "62%",
+              background:
+                "linear-gradient(0deg, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.44) 38%, rgba(0,0,0,0.16) 68%, rgba(0,0,0,0) 100%)",
+            }}
+          />
           {/* Polished dark-glass reflection along the lower portion */}
           <div
             aria-hidden
