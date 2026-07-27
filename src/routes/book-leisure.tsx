@@ -4147,10 +4147,10 @@ function S2RoomCard({
       style={{
         borderRadius: 20,
         padding: 13,
-        backgroundColor: active ? "rgba(58,82,101,0.96)" : S2_CARD,
+        backgroundColor: active ? "rgba(62,88,109,0.97)" : "rgba(52,74,92,0.95)",
         backgroundImage: active
-          ? "linear-gradient(180deg, rgba(255,255,255,0.085) 0%, rgba(255,255,255,0.022) 44%, rgba(0,0,0,0.05) 100%)"
-          : "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 42%, rgba(0,0,0,0.05) 100%)",
+          ? "linear-gradient(180deg, rgba(255,255,255,0.115) 0%, rgba(255,255,255,0.035) 44%, rgba(0,0,0,0.09) 100%)"
+          : "linear-gradient(180deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.022) 42%, rgba(0,0,0,0.085) 100%)",
         border: `1px solid ${active ? "rgba(217,191,130,0.48)" : "rgba(255,255,255,0.09)"}`,
         boxShadow: active
           ? "inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 18px -14px rgba(4,10,16,0.55), 0 22px 46px -26px rgba(4,10,16,0.7), 0 0 0 1px rgba(217,191,130,0.10), 0 16px 44px -24px rgba(217,191,130,0.42)"
