@@ -281,6 +281,7 @@ function ExperienceCard({
   tagline,
   icon,
   centerAccent = false,
+  raised = false,
   intensity = 1,
 }: {
   to: string;
@@ -292,12 +293,13 @@ function ExperienceCard({
   tagline: React.ReactNode;
   icon: React.ReactNode;
   centerAccent?: boolean;
+  raised?: boolean;
   intensity?: number;
 }) {
-  const cardShadow =
-    "0 12px 28px rgba(0, 0, 0, 0.42), 0 0 6px rgba(244, 232, 207, 0.06)";
+  const cardShadow = "0 28px 70px rgba(0, 0, 0, 0.42)";
   const k = Math.min(intensity, 2.2);
   const clamp = (v: number) => Math.min(v, 1);
+
 
   return (
     <div className="relative" style={{ isolation: "isolate", overflow: "visible" }}>
