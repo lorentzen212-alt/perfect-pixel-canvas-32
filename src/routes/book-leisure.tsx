@@ -2520,6 +2520,7 @@ function LeisureStepShell({
   enhancedHero = false,
   pageBg,
   heroOverlay,
+  hideHero = false,
 }: {
   activeStep: StepKey;
   onStepGo: (s: StepKey) => void;
@@ -2532,9 +2533,12 @@ function LeisureStepShell({
   enhancedHero?: boolean;
   pageBg?: string;
   heroOverlay?: React.ReactNode;
+  hideHero?: boolean;
 
 }) {
-  const gridCols = rightSidebar
+  const gridCols = hideHero
+    ? "lg:grid-cols-1"
+    : rightSidebar
     ? "lg:grid-cols-[minmax(220px,0.68fr)_minmax(640px,2.10fr)_minmax(290px,0.92fr)]"
     : "lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)]";
 
@@ -2555,8 +2559,9 @@ function LeisureStepShell({
         />
       </div>
 
-      <div className={`mx-auto grid max-w-[1680px] grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-7 lg:px-8 lg:py-14`}>
+      <div className={`mx-auto grid ${hideHero ? "max-w-[1240px]" : "max-w-[1680px]"} grid-cols-1 gap-6 px-6 py-10 ${gridCols} lg:gap-7 lg:px-8 lg:py-14`}>
 
+        {!hideHero && (
         <aside
           className="relative overflow-hidden rounded-[24px] min-h-[520px] lg:min-h-[820px] order-3 lg:order-none"
 
@@ -2662,6 +2667,7 @@ function LeisureStepShell({
           </div>
           )}
         </aside>
+        )}
 
 
         <div className="order-1 lg:order-none min-w-0">{children}</div>
@@ -6613,7 +6619,7 @@ function S6LuxCard({
       className="s6-card group relative flex w-full items-stretch overflow-hidden rounded-[20px] text-left"
       style={{ animationDelay: `${index * 70}ms` }}
     >
-      <div className="flex flex-1 items-center gap-6 px-6 py-7 sm:px-9 sm:py-8">
+      <div className="flex flex-1 items-center gap-7 px-7 py-8 sm:px-10 sm:py-9">
         <span className="shrink-0" style={{ color: S1_GOLD }}>
           {icon}
         </span>
@@ -6633,7 +6639,7 @@ function S6LuxCard({
         </span>
       </div>
 
-      <span className="relative hidden w-[190px] shrink-0 overflow-hidden sm:block lg:w-[230px]">
+      <span className="relative hidden w-[215px] shrink-0 overflow-hidden sm:block lg:w-[264px]">
         <img
           src={image}
           alt=""
@@ -6886,6 +6892,7 @@ function LeisureStep6Screen({
     <LeisureStepShell
       activeStep={6}
       onStepGo={onStepGo}
+      hideHero
       hero={S6_HERO}
       chapter="CHAPTER VI"
       headline={
@@ -6898,7 +6905,7 @@ function LeisureStep6Screen({
       }
     >
       <section
-        className="s6-lux relative overflow-hidden rounded-[24px] px-5 py-12 sm:px-10 sm:py-16 lg:px-16 lg:py-20"
+        className="s6-lux relative mx-auto w-full max-w-[1180px] overflow-hidden rounded-[26px] px-5 py-14 sm:px-12 sm:py-18 lg:px-20 lg:py-24"
         style={{
           background:
             "radial-gradient(120% 90% at 50% -10%, #172331 0%, #131E2A 45%, #111B26 100%)",
@@ -6911,7 +6918,7 @@ function LeisureStep6Screen({
         <span className="s6-corner s6-corner-tl" aria-hidden />
         <span className="s6-corner s6-corner-br" aria-hidden />
 
-        <div className="relative mx-auto w-full max-w-[900px]">
+        <div className="relative mx-auto w-full max-w-[1040px]">
           {/* HEADER */}
           <div className="flex flex-col items-center text-center">
             <ConciergeBell size={30} strokeWidth={1.2} style={{ color: S1_GOLD }} />
