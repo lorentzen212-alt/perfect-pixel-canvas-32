@@ -180,7 +180,7 @@ function Home() {
                 image={cardLeisureAsset.url}
                 imagePosition="center 35%"
                 label="Leisure"
-                tagline="Curated luxury escapes."
+                tagline="Luxury group travel."
                 icon={<LeisureIcon />}
                 intensity={1.8}
               />
@@ -189,7 +189,7 @@ function Home() {
                 image={cardMeAsset.url}
                 imagePosition="center center"
                 label="M&E"
-                tagline="Professional events, perfectly managed."
+                tagline="Professional events."
                 icon={<MeIcon />}
                 intensity={2}
               />
@@ -198,7 +198,7 @@ function Home() {
                 image={cardManageAsset.url}
                 imagePosition="center center"
                 label="Manage"
-                tagline="All your bookings in one place."
+                tagline="Manage your bookings."
                 icon={<ManageIcon />}
                 intensity={1.8}
               />
@@ -478,29 +478,20 @@ function ExperienceCard({
               className="absolute bottom-0 left-0 flex flex-col items-start text-left"
               style={{ paddingLeft: 40, paddingBottom: 42 }}
             >
-              <span
-                className="text-[#D4AF37] drop-shadow-[0_0_7px_rgba(212,175,55,0.35)]"
-                style={{ opacity: 0.92 }}
-              >
+              <span className="text-[#C9A65E]">
                 {icon}
               </span>
               <p
-                className="mt-[14px] pl-[1px] text-[22px] font-semibold uppercase tracking-[0.25em]"
+                className="mt-[22px] pl-[1px] text-[19px] font-medium uppercase tracking-[0.18em]"
                 style={{ color: "#F7F5F1" }}
               >
                 {label}
               </p>
-              {/* Refined metallic gold divider */}
-              <div
-                className="mt-[10px] h-[2px] w-[28px] rounded-full"
-                style={{ background: "rgba(212, 175, 55, 0.75)" }}
-              />
               <p
-                className="mt-[10px] text-[16px] leading-[1.6] font-light"
+                className="mt-4 text-[16px] leading-[1.55] font-normal"
                 style={{
-                  fontFamily: '"Cormorant Garamond", Georgia, serif',
-                  color: "rgba(247,245,241,0.84)",
-                  maxWidth: 190,
+                  color: "rgba(247,245,241,0.78)",
+                  maxWidth: 180,
                 }}
               >
                 {tagline}
@@ -523,19 +514,19 @@ function ExperienceCard({
 
 function LeisureIcon() {
   return (
-    <Sunrise size={21} strokeWidth={2} />
+    <Compass size={22} strokeWidth={1.8} color="#C9A65E" />
   );
 }
 
 function MeIcon() {
   return (
-    <UsersRound size={21} strokeWidth={2} />
+    <UsersRound size={22} strokeWidth={1.8} color="#C9A65E" />
   );
 }
 
 function ManageIcon() {
   return (
-    <CalendarCheck size={21} strokeWidth={2} />
+    <LayoutDashboard size={22} strokeWidth={1.8} color="#C9A65E" />
   );
 }
 
