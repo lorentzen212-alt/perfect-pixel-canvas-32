@@ -4,12 +4,10 @@ import {
   ArrowRight,
   Users,
   Briefcase,
-  Compass,
   ShieldCheck,
   Clock,
   Headphones,
   Lock,
-  UsersRound,
   FileText,
   Building2,
   CheckCircle2,
@@ -18,7 +16,6 @@ import {
   Linkedin,
   Facebook,
   Instagram,
-  CalendarDays,
 } from "lucide-react";
 import {
   ShieldCheckPremium,
