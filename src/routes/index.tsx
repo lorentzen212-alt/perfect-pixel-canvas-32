@@ -98,63 +98,17 @@ function Home() {
   return (
     <>
     <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
-      {/* Homepage background — supplied dark texture + navy tint, radial light, gold ambience, vignette */}
+      {/* Homepage background — supplied video (poster fallback) + subtle overlay */}
+      <HomeBackgroundVideo />
       <div
         aria-hidden
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `url(${homepageTextureAsset.url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-      {/* Navy luxury tint */}
-      <div
-        aria-hidden
-        className="absolute inset-0 z-0"
-        style={{ backgroundColor: "#243241", opacity: 0.42, mixBlendMode: "soft-light" }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 z-0"
-        style={{ backgroundColor: "#243241", opacity: 0.28 }}
-      />
-      {/* Gentle radial light behind headline + cards */}
-      <div
-        aria-hidden
-        className="absolute inset-0 z-0"
+        className="pointer-events-none absolute inset-0 z-10"
         style={{
           background:
-            "radial-gradient(70% 55% at 50% 42%, rgba(226,234,243,0.10) 0%, rgba(226,234,243,0.04) 45%, rgba(0,0,0,0) 75%)",
+            "linear-gradient(180deg, rgba(8, 15, 25, 0.48) 0%, rgba(14, 25, 39, 0.32) 48%, rgba(7, 14, 23, 0.58) 100%)",
         }}
       />
-      {/* Warm gold ambient glow */}
-      <div
-        aria-hidden
-        className="absolute inset-0 z-0"
-        style={{
-          background:
-            "radial-gradient(48% 38% at 50% 50%, rgba(201,166,94,0.11) 0%, rgba(201,166,94,0.045) 50%, rgba(0,0,0,0) 78%)",
-        }}
-      />
-      {/* Edge fade + elegant vignette */}
-      <div
-        aria-hidden
-        className="absolute inset-0 z-0"
-        style={{
-          background:
-            "radial-gradient(100% 85% at 50% 45%, rgba(0,0,0,0) 45%, rgba(4,8,12,0.35) 78%, rgba(3,6,10,0.62) 100%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 z-0"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(3,6,10,0.42) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 74%, rgba(3,6,10,0.5) 100%)",
-        }}
-      />
+
 
 
 
