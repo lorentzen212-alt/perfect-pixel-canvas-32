@@ -223,6 +223,7 @@ function Home() {
             />
             <div className="relative flex flex-wrap items-center justify-center gap-y-8 lg:gap-y-0 gap-x-6 lg:gap-x-12 lg:flex-nowrap">
 
+              {[
                 { Icon: Clock, title: "Save Time", desc: "We handle the time-consuming work for you." },
                 { Icon: Gem, title: "Best Offers", desc: "Receive multiple offers from carefully selected hotels." },
                 { Icon: Headphones, title: "Expert Support", desc: "Dedicated M&E specialists ready to help." },
