@@ -3405,14 +3405,14 @@ function LeisureStep2Screen({
             )}
           </div>
 
-          {/* 5 — Completed stays (rendered BELOW "Add this stay") */}
+          {/* 5 — Your Stays (rendered BELOW "Add this stay") */}
           {stays.some((s) => s.id !== editingId) && (
             <div className="mt-8" data-section="completed-stays">
               <div
                 className="text-[11.5px] font-semibold uppercase tracking-[0.28em]"
                 style={{ color: "rgba(247,244,236,0.72)" }}
               >
-                Completed stays
+                Your Stays
               </div>
               <div
                 className="mt-2.5"
@@ -3422,7 +3422,7 @@ function LeisureStep2Screen({
                   background: `linear-gradient(90deg, ${S2_GOLD} 0%, rgba(217,191,130,0.15) 100%)`,
                 }}
               />
-              <div className="mt-4 space-y-2.5">
+              <div className="mt-4 grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-3">
                 {stays.map((s, idx) => {
                   if (s.id === editingId) return null;
                   return (
@@ -3443,9 +3443,11 @@ function LeisureStep2Screen({
                     />
                   );
                 })}
+                <S2AddStayCard onClick={commitAndStartNext} />
               </div>
             </div>
           )}
+
 
 
 
