@@ -6892,6 +6892,7 @@ function LeisureStep6Screen({
     <LeisureStepShell
       activeStep={6}
       onStepGo={onStepGo}
+      hideHero
       hero={S6_HERO}
       chapter="CHAPTER VI"
       headline={
@@ -6904,7 +6905,7 @@ function LeisureStep6Screen({
       }
     >
       <section
-        className="s6-lux relative overflow-hidden rounded-[24px] px-5 py-12 sm:px-10 sm:py-16 lg:px-16 lg:py-20"
+        className="s6-lux relative mx-auto w-full max-w-[1180px] overflow-hidden rounded-[26px] px-5 py-14 sm:px-12 sm:py-18 lg:px-20 lg:py-24"
         style={{
           background:
             "radial-gradient(120% 90% at 50% -10%, #172331 0%, #131E2A 45%, #111B26 100%)",
