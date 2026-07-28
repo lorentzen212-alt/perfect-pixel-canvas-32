@@ -132,7 +132,7 @@ function Home() {
 
 
         {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-center">
+        <section className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-6 pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-center">
           {/* Eyebrow */}
           <div className="flex items-center justify-center">
             <span
@@ -152,7 +152,7 @@ function Home() {
           <h1
             className="mx-auto max-w-[980px] font-light text-white leading-[1.16] text-[40px] sm:text-[54px] lg:text-[clamp(42px,3.6vh_+_1.5vw,62px)]"
             style={{
-              marginTop: "clamp(20px, 2.6vh, 26px)",
+              marginTop: "clamp(14px, 1.8vh, 18px)",
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               letterSpacing: "0.012em",
               fontWeight: 300,
@@ -175,7 +175,7 @@ function Home() {
           {/* Gold divider */}
           <div
             className="flex items-center justify-center"
-            style={{ marginTop: "clamp(14px, 2vh, 20px)" }}
+            style={{ marginTop: "clamp(10px, 1.4vh, 14px)" }}
           >
             <div
               className="h-px w-[110px] lg:w-[130px]"
@@ -199,7 +199,7 @@ function Home() {
 
           <p
             className="text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]"
-            style={{ marginTop: "clamp(12px, 1.7vh, 16px)" }}
+            style={{ marginTop: "clamp(8px, 1.1vh, 10px)" }}
           >
             One request. Everything handled.
           </p>
@@ -208,7 +208,7 @@ function Home() {
 
 
           {/* EXPERIENCE CARDS */}
-          <div className="relative" style={{ marginTop: "clamp(22px, 3vh, 30px)" }}>
+          <div className="relative" style={{ marginTop: "clamp(14px, 1.9vh, 18px)" }}>
             {/* Stage spotlight behind all three cards */}
             <div
               aria-hidden
@@ -219,7 +219,7 @@ function Home() {
                 filter: "blur(6px)",
               }}
             />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[44px]">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[32px]">
 
               <ExperienceCard
                 to="/book-leisure"
@@ -241,7 +241,7 @@ function Home() {
                 imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
                 overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
                 bottomGradient={false}
-                borderGradient="linear-gradient(145deg, rgba(255,250,230,0.68) 0%, rgba(230,205,155,0.34) 18%, rgba(255,245,210,0.58) 36%, rgba(180,150,100,0.26) 54%, rgba(245,230,195,0.52) 74%, rgba(255,250,230,0.68) 100%)"
+                borderGradient="linear-gradient(155deg, #F0D58A 0%, #D4AF55 14%, #B98A2E 32%, #8F681C 48%, #C09235 64%, #765116 80%, #E3C270 94%, #F0D58A 100%)"
                 disableCoolGrey={true}
               />
               <ExperienceCard
@@ -255,7 +255,7 @@ function Home() {
                 imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
                 overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
                 bottomGradient={false}
-                borderGradient="linear-gradient(145deg, rgba(255,250,230,0.68) 0%, rgba(230,205,155,0.34) 18%, rgba(255,245,210,0.58) 36%, rgba(180,150,100,0.26) 54%, rgba(245,230,195,0.52) 74%, rgba(255,250,230,0.68) 100%)"
+                borderGradient="linear-gradient(155deg, #F0D58A 0%, #D4AF55 14%, #B98A2E 32%, #8F681C 48%, #C09235 64%, #765116 80%, #E3C270 94%, #F0D58A 100%)"
                 disableCoolGrey={true}
               />
             </div>
@@ -444,8 +444,9 @@ function ExperienceCard({
         style={{
           position: "relative",
           zIndex: 2,
-          border: "1px solid rgba(226, 194, 133, 0.62)",
-          boxShadow: cardShadow + ", 0 0 22px rgba(226,190,126,0.10)",
+          border: "1px solid rgba(184, 138, 46, 0.55)",
+          boxShadow:
+            "0 14px 35px rgba(0,0,0,0.45), 0 28px 70px rgba(0,0,0,0.34), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12)",
 
           transition:
             "transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1)",
@@ -467,7 +468,7 @@ function ExperienceCard({
             padding: "1px",
             background:
               borderGradient ||
-              "linear-gradient(160deg, rgba(248,232,196,0.92) 0%, rgba(226,193,133,0.62) 24%, rgba(240,222,182,0.72) 48%, rgba(190,160,108,0.48) 72%, rgba(236,214,168,0.66) 100%)",
+              "linear-gradient(155deg, #F0D58A 0%, #D4AF55 12%, #B98A2E 30%, #8F681C 46%, #C09235 62%, #765116 78%, #D4AF55 92%, #F0D58A 100%)",
 
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
@@ -492,7 +493,7 @@ function ExperienceCard({
         {/* Full-height background image */}
         <div
           className="relative w-full aspect-[12/13.6] overflow-hidden"
-          style={{ height: "clamp(280px, 44vh, 470px)", maxHeight: "none" }}
+          style={{ height: "clamp(300px, 52vh, 540px)", maxHeight: "none" }}
 
         >
           <img
