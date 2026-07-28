@@ -59,20 +59,22 @@ export const Route = createFileRoute("/manage-bookings")({
 });
 
 /* ── palette ─────────────────────────────────────────── */
-const BG = "#24323C";
-const BG_ALT = "#273640";
-const SIDEBAR = "#0C2230";
-const SIDEBAR_ALT = "#102734";
-const TOPBAR = "#0E202C";
-const CARD = "#2C3A43";
-const SURFACE = "#32414A";
-const BORDER = "rgba(255,255,255,0.10)";
-const TEXT = "#F4F2ED";
-const TEXT_2 = "#C5CBD0";
-const MUTED = "#98A3AA";
-const GOLD = "#D6B15C";
-const GOLD_MID = "#C99A3D";
-const GOLD_DEEP = "#A97822";
+const BG = "#1E2C36";
+const BG_ALT = "#22303A";
+const SIDEBAR = "#0B1D29";
+const SIDEBAR_ALT = "#0E2331";
+const TOPBAR = "#0C1E2A";
+const CARD = "#293841";
+const SURFACE = "#2E3D47";
+const BORDER = "rgba(255,255,255,0.075)";
+const TEXT = "#F2F1EC";
+const TEXT_2 = "#BFC7CD";
+const MUTED = "#929DA5";
+const GOLD = "#C7A34A";
+const GOLD_MID = "#B99135";
+const GOLD_DEEP = "rgba(199,163,74,0.55)";
+const GOLD_SOFT = "#D0B05A";
+
 
 const SERIF = '"Cormorant Garamond", Georgia, serif';
 
