@@ -180,7 +180,7 @@ function Home() {
                 image={cardLeisureAsset.url}
                 imagePosition="center 35%"
                 label="L E I S U R E"
-                tagline="Group Hotel Bookings"
+                tagline="Group Hotel Booking"
                 ctaText="Explore"
                 intensity={1.8}
               />
