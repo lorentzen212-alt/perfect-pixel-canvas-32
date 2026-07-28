@@ -399,7 +399,7 @@ function ExperienceCard({
         style={{
           position: "relative",
           zIndex: 2,
-          border: "1px solid rgba(214, 183, 124, 0.34)",
+          border: "1px solid rgba(222, 192, 138, 0.40)",
           boxShadow: cardShadow,
           transition:
             "transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1)",
@@ -420,7 +420,7 @@ function ExperienceCard({
           style={{
             padding: "1px",
             background:
-              "linear-gradient(145deg, rgba(243,229,201,0.52) 0%, rgba(203,177,130,0.22) 22%, rgba(230,214,180,0.40) 44%, rgba(158,133,92,0.17) 66%, rgba(238,226,197,0.45) 100%)",
+              "linear-gradient(145deg, rgba(255,242,216,0.60) 0%, rgba(220,192,142,0.28) 20%, rgba(245,228,192,0.48) 42%, rgba(175,148,102,0.22) 62%, rgba(250,238,208,0.52) 100%)",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
@@ -434,7 +434,7 @@ function ExperienceCard({
           style={{
             padding: "1px",
             background:
-              "linear-gradient(145deg, rgba(255,250,235,0.55) 0%, rgba(232,212,167,0.22) 30%, rgba(150,120,72,0.08) 55%, rgba(246,231,196,0.42) 100%)",
+              "linear-gradient(145deg, rgba(255,252,238,0.62) 0%, rgba(240,220,175,0.30) 28%, rgba(190,162,112,0.12) 52%, rgba(250,240,210,0.48) 100%)",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
