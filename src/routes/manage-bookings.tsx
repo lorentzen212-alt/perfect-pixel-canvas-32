@@ -145,21 +145,21 @@ function ProgressRing({ value }: { value: number }) {
   const r = 26;
   const c = 2 * Math.PI * r;
   return (
-    <div className="relative grid h-[68px] w-[68px] shrink-0 place-items-center">
-      <svg viewBox="0 0 64 64" className="h-[68px] w-[68px] -rotate-90">
-        <circle cx="32" cy="32" r={r} fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth="4" />
+    <div className="relative grid h-[64px] w-[64px] shrink-0 place-items-center">
+      <svg viewBox="0 0 64 64" className="h-[64px] w-[64px] -rotate-90">
+        <circle cx="32" cy="32" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="3.5" />
         <circle
           cx="32"
           cy="32"
           r={r}
           fill="none"
-          stroke="#8FA98A"
-          strokeWidth="4"
+          stroke={GOLD}
+          strokeWidth="3.5"
           strokeLinecap="round"
           strokeDasharray={`${(value / 100) * c} ${c}`}
         />
       </svg>
-      <span className="absolute text-[14px] font-semibold" style={{ color: TEXT }}>
+      <span className="absolute text-[13.5px] font-medium" style={{ color: TEXT }}>
         {value}%
       </span>
     </div>
@@ -170,10 +170,10 @@ function GoldButton({ label }: { label: string }) {
   return (
     <button
       type="button"
-      className="inline-flex items-center gap-2 rounded-md px-3.5 py-2 text-[12.5px] font-medium transition-colors"
+      className="inline-flex items-center gap-2 rounded-[6px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
       style={{
-        color: "#1B2A33",
-        background: `linear-gradient(180deg, ${GOLD} 0%, ${GOLD_MID} 100%)`,
+        color: GOLD_SOFT,
+        backgroundColor: "transparent",
         border: `1px solid ${GOLD_DEEP}`,
       }}
     >
@@ -187,14 +187,15 @@ function QuietButton({ label }: { label: string }) {
   return (
     <button
       type="button"
-      className="inline-flex items-center gap-2 rounded-md px-3.5 py-2 text-[12.5px] font-medium transition-colors hover:border-[rgba(214,177,92,0.45)]"
-      style={{ color: TEXT, backgroundColor: SURFACE, border: `1px solid ${BORDER}` }}
+      className="inline-flex items-center gap-2 rounded-[6px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-white/5"
+      style={{ color: TEXT_2, backgroundColor: "transparent", border: `1px solid rgba(255,255,255,0.14)` }}
     >
       {label}
       <span aria-hidden>→</span>
     </button>
   );
 }
+
 
 function ActionIcon({ booking }: { booking: Booking }) {
   const kind = booking.action.kind;
