@@ -228,9 +228,9 @@ function Home() {
               className="mx-auto mt-[15px] max-w-[440px] text-center text-[16px] leading-[1.55]"
               style={{ color: 'rgba(232,228,221,0.80)', fontFamily: 'Inter, sans-serif', fontWeight: 350 }}
             >
-              Designed to simplify group travel
+              Designed to simplify group travel from request to&nbsp;
               <br />
-              from request to stay.
+              stay.
             </p>
           </section>
         </section>
@@ -488,7 +488,7 @@ function ExperienceCard({
                   whiteSpace: "nowrap",
                 }}
               >
-                {tagline}
+                &nbsp;{tagline}
               </p>
             </div>
             <span
