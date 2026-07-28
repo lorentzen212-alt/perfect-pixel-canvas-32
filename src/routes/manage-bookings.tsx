@@ -227,15 +227,17 @@ function BookingCard({ booking }: { booking: Booking }) {
 
   return (
     <article
-      className="grid grid-cols-1 gap-4 rounded-xl p-3 md:grid-cols-[164px_minmax(0,1.5fr)_minmax(0,0.85fr)_minmax(0,1.15fr)_auto] md:items-center md:gap-0"
+      className="grid grid-cols-1 gap-4 rounded-[10px] p-2.5 md:grid-cols-[168px_minmax(0,1.5fr)_minmax(0,0.85fr)_minmax(0,1.15fr)_auto] md:items-center md:gap-0"
       style={{ backgroundColor: CARD, border: `1px solid ${BORDER}` }}
     >
       <img
         src={booking.image}
         alt={`${booking.destination} — ${booking.name}`}
         loading="lazy"
-        className="h-[132px] w-full rounded-lg object-cover md:h-[118px]"
+        className="h-[124px] w-full rounded-[8px] object-cover md:h-[110px]"
+        style={{ filter: "saturate(0.92) contrast(1.02) brightness(0.98)" }}
       />
+
 
       {/* 2. booking information */}
       <div className="min-w-0 md:px-5">
