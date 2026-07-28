@@ -211,6 +211,11 @@ function Home() {
                 tagline="Professional Event Planning"
                 ctaText="Plan event"
                 intensity={2}
+                imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
+                overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
+                bottomGradient={false}
+                borderGradient="linear-gradient(145deg, rgba(255,250,230,0.68) 0%, rgba(230,205,155,0.34) 18%, rgba(255,245,210,0.58) 36%, rgba(180,150,100,0.26) 54%, rgba(245,230,195,0.52) 74%, rgba(255,250,230,0.68) 100%)"
+                disableCoolGrey={true}
               />
               <ExperienceCard
                 to="/manage-bookings"
@@ -220,6 +225,11 @@ function Home() {
                 tagline="Manage Your Bookings"
                 ctaText="Open dashboard"
                 intensity={1.8}
+                imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
+                overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
+                bottomGradient={false}
+                borderGradient="linear-gradient(145deg, rgba(255,250,230,0.68) 0%, rgba(230,205,155,0.34) 18%, rgba(255,245,210,0.58) 36%, rgba(180,150,100,0.26) 54%, rgba(245,230,195,0.52) 74%, rgba(255,250,230,0.68) 100%)"
+                disableCoolGrey={true}
               />
             </div>
           </div>
@@ -280,6 +290,9 @@ function ExperienceCard({
   imagePosition = "center center",
   imageFilter = "brightness(1.075) contrast(1.12) saturate(0.87) hue-rotate(-6deg) sepia(0.05)",
   overlay = "from-transparent via-transparent via-[86%] to-black/12",
+  bottomGradient = true,
+  borderGradient,
+  disableCoolGrey = false,
 
   label,
   tagline,
@@ -291,6 +304,9 @@ function ExperienceCard({
   imagePosition?: string;
   imageFilter?: string;
   overlay?: string;
+  bottomGradient?: boolean;
+  borderGradient?: string;
+  disableCoolGrey?: boolean;
   label: string;
   tagline: React.ReactNode;
   ctaText: string;
@@ -420,6 +436,7 @@ function ExperienceCard({
           style={{
             padding: "1px",
             background:
+              borderGradient ||
               "linear-gradient(145deg, rgba(243,229,201,0.52) 0%, rgba(203,177,130,0.22) 22%, rgba(230,214,180,0.40) 44%, rgba(158,133,92,0.17) 66%, rgba(238,226,197,0.45) 100%)",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
@@ -450,14 +467,16 @@ function ExperienceCard({
             className="absolute inset-0 h-full w-full object-cover"
           />
           {/* Unified cinematic grade: cool grey cast + champagne highlights */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 mix-blend-soft-light"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(150,168,186,0.30) 0%, rgba(120,136,154,0.18) 48%, rgba(38,44,52,0.34) 100%)",
-            }}
-          />
+          {!disableCoolGrey && (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(150,168,186,0.30) 0%, rgba(120,136,154,0.18) 48%, rgba(38,44,52,0.34) 100%)",
+              }}
+            />
+          )}
           {/* Champagne highlight tint */}
           <div
             aria-hidden
@@ -480,14 +499,16 @@ function ExperienceCard({
           {/* Cinematic gradient: lighter top, progressively darker bottom */}
           <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
           {/* Subtle bottom gradient purely for text legibility */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 z-10"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(4,8,13,0.60) 0%, rgba(4,8,13,0.20) 30%, transparent 54%)",
-            }}
-          />
+          {bottomGradient && (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-10"
+              style={{
+                background:
+                  "linear-gradient(to top, rgba(4,8,13,0.60) 0%, rgba(4,8,13,0.20) 30%, transparent 54%)",
+              }}
+            />
+          )}
 
           {/* Content overlay — quiet editorial typography block */}
           <div className="absolute inset-0 z-20">
