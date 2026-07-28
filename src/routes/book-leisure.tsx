@@ -3260,7 +3260,7 @@ function LeisureStep2Screen({
         <section
           className="order-1 lg:order-none min-w-0"
           style={{
-            backgroundColor: S2_PANEL,
+            backgroundColor: "#263B4A",
             borderRadius: 24,
             padding: 24,
             paddingBottom: 18,
