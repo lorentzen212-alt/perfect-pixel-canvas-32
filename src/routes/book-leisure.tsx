@@ -3279,16 +3279,16 @@ function LeisureStep2Screen({
               >
                 Step 2 – Accommodation
               </h1>
-              <p className="mt-2.5 text-[15px]" style={{ color: "rgba(245,241,230,0.62)" }}>
+              <p className="mt-1.5 text-[15px]" style={{ color: "rgba(245,241,230,0.62)" }}>
                 How many rooms will your group need?
               </p>
             </div>
           </div>
 
           {/* 1 — COMPACT DATE SELECTOR */}
-          <div className="mt-4">
+          <div className="mt-3">
             <div
-              className="mb-3 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+              className="mb-2 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
               style={{ color: "rgba(247,244,236,0.72)" }}
             >
               {editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber} — dates`}
