@@ -739,13 +739,14 @@ function ManageBookings() {
                 style={{ borderColor: BORDER }}
               >
                 <span
-                  className="grid h-12 w-12 shrink-0 place-items-center rounded-full"
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full"
                   style={{
-                    backgroundColor: "rgba(214,177,92,0.14)",
+                    backgroundColor: "rgba(199,163,74,0.12)",
                     color: GOLD,
-                    border: "1px solid rgba(214,177,92,0.32)",
+                    border: "1px solid rgba(199,163,74,0.28)",
                   }}
                 >
+
                   <Gift size={20} />
                 </span>
                 <div className="min-w-0">
