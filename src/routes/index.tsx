@@ -228,7 +228,7 @@ function Home() {
           {/* TRUST BAR */}
           <section className="mt-[46px] pb-[64px]">
             <div
-              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[26px] gap-y-3 rounded-[10px] px-[34px] py-[16px]"
+              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[34px] gap-y-3 rounded-[10px] px-[40px] py-[14px]"
               style={{
                 backgroundColor: 'rgba(9,18,28,0.55)',
                 border: '1px solid rgba(212,175,55,0.22)',
@@ -236,12 +236,17 @@ function Home() {
               }}
             >
               {['One Request', 'One Team', 'One Contact', 'Total Simplicity'].map((item, i) => (
-                <div key={item} className="flex items-center gap-x-[26px]">
+                <div key={item} className="flex items-center gap-x-[34px]">
                   {i > 0 && (
-                    <span className="text-[11px] leading-none" style={{ color: '#C8942E' }}>
+                    <span
+                      className="inline-flex items-center justify-center text-[12.5px] leading-none"
+                      style={{ color: 'rgba(219,178,110,0.9)', transform: 'translateY(-0.5px)' }}
+                      aria-hidden
+                    >
                       &#10022;
                     </span>
                   )}
+
                   <span
                     className="whitespace-nowrap text-[13.5px] leading-none tracking-[0.06em]"
                     style={{
