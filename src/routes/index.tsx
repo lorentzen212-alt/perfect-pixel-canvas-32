@@ -136,10 +136,10 @@ function Home() {
           {/* Eyebrow */}
           <div className="flex items-center justify-center">
             <span
-              className="text-[11.25px] tracking-[0.44em] uppercase"
+              className="text-[11.25px] tracking-[0.4em] uppercase"
               style={{
-                color: "#D6AC6A",
-                fontWeight: 400,
+                color: "#E5A93C",
+                fontWeight: 600,
                 WebkitFontSmoothing: "antialiased",
                 textRendering: "optimizeLegibility",
               }}
