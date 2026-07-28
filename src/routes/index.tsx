@@ -132,14 +132,21 @@ function Home() {
 
 
         {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-center">
+        <section className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-6 pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-center">
           {/* Eyebrow */}
           <div className="flex items-center justify-center">
             <span
               className="text-[11.25px] tracking-[0.44em] uppercase"
               style={{
-                color: "#D6AC6A",
-                fontWeight: 400,
+                color: "#D4AF37",
+                backgroundImage:
+                  "linear-gradient(100deg, #C5962D 0%, #D4AF37 35%, #E8C66A 55%, #D4AF37 78%, #C5962D 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                filter: "drop-shadow(0 0 6px rgba(212,175,55,0.22))",
+                opacity: 0.98,
+                fontWeight: 500,
                 WebkitFontSmoothing: "antialiased",
                 textRendering: "optimizeLegibility",
               }}
@@ -152,7 +159,8 @@ function Home() {
           <h1
             className="mx-auto max-w-[980px] font-light text-white leading-[1.16] text-[40px] sm:text-[54px] lg:text-[clamp(42px,3.6vh_+_1.5vw,62px)]"
             style={{
-              marginTop: "clamp(20px, 2.6vh, 26px)",
+              marginTop: "clamp(14px, 1.9vh, 21px)",
+
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               letterSpacing: "0.012em",
               fontWeight: 300,
