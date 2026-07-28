@@ -209,9 +209,10 @@ function ActionIcon({ booking }: { booking: Booking }) {
   const { icon, tone } = map[kind] ?? map.generic;
   return (
     <span
-      className="grid h-12 w-12 shrink-0 place-items-center rounded-full"
-      style={{ backgroundColor: `${tone}1A`, color: tone, border: `1px solid ${tone}33` }}
+      className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-full"
+      style={{ backgroundColor: `${tone}12`, color: tone, border: `1px solid ${tone}2B` }}
     >
+
       {icon}
     </span>
   );
