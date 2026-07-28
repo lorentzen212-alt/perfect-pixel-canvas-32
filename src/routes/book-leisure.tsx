@@ -3325,24 +3325,24 @@ function LeisureStep2Screen({
 
 
           <div
-            className="mt-[42px] text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+            className="mt-[24px] text-[11.5px] font-semibold uppercase tracking-[0.28em]"
             style={{ color: "rgba(253,251,246,0.94)" }}
           >
             Room Distribution
           </div>
           <div
-            className="mt-2.5"
+            className="mt-2"
             style={{
               width: 60,
               height: 1,
               background: `linear-gradient(90deg, ${S2_GOLD} 0%, rgba(217,191,130,0.15) 100%)`,
             }}
           />
-          <p className="mt-3 text-[13px]" style={{ color: "rgba(240,236,226,0.55)" }}>
+          <p className="mt-2 text-[13px]" style={{ color: "rgba(240,236,226,0.55)" }}>
             Choose the number and type of rooms required.
           </p>
 
-          <div className="mt-[26px] grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-[16px] grid grid-cols-1 gap-x-3 gap-y-[14px] md:grid-cols-2 xl:grid-cols-3">
             {STEP2_ROOMS_ORDER.map((key) => (
               <S2RoomCard
                 key={key}
