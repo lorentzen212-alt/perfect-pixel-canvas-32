@@ -3853,7 +3853,7 @@ function S2StayCard({
 
     const dateValue = (
       <span
-        className={`whitespace-nowrap leading-none ${selected ? "text-[22.5px] font-semibold" : "text-[15px] font-medium"}`}
+        className={`whitespace-nowrap leading-none ${selected ? "text-[19.5px] font-semibold" : "text-[15px] font-medium"}`}
         style={{ color: selected ? "#FFFCF5" : "rgba(226,216,198,0.5)" }}
       >
         {selected ? format(selected, "d MMM yyyy") : placeholder}
@@ -3874,7 +3874,7 @@ function S2StayCard({
         >
           {label}
         </span>
-        <div className="flex items-center gap-[3px]">
+        <div className={`flex items-center gap-[3px] ${align === "left" ? "translate-x-[3px]" : "-translate-x-[3px]"}`}>
           {align === "right" ? (
             <>
               {dateValue}
