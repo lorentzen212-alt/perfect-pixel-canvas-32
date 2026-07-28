@@ -170,7 +170,7 @@ function GoldButton({ label }: { label: string }) {
   return (
     <button
       type="button"
-      className="inline-flex items-center gap-2 rounded-[6px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+      className="inline-flex items-center gap-2 whitespace-nowrap rounded-[6px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
       style={{
         color: GOLD_SOFT,
         backgroundColor: "transparent",
@@ -187,7 +187,7 @@ function QuietButton({ label }: { label: string }) {
   return (
     <button
       type="button"
-      className="inline-flex items-center gap-2 rounded-[6px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-white/5"
+      className="inline-flex items-center gap-2 whitespace-nowrap rounded-[6px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-white/5"
       style={{ color: TEXT_2, backgroundColor: "transparent", border: `1px solid rgba(255,255,255,0.14)` }}
     >
       {label}
