@@ -107,20 +107,20 @@ function StatCard({
 }) {
   return (
     <div
-      className="flex min-w-0 items-center gap-3 rounded-lg px-4 py-3"
-      style={{ backgroundColor: CARD, border: `1px solid ${BORDER}` }}
+      className="flex min-w-0 items-center gap-2.5 rounded-lg px-3.5 py-2.5"
+      style={{ backgroundColor: CARD, border: `1px solid ${CARD_BORDER}` }}
     >
       <span
-        className="grid h-10 w-10 shrink-0 place-items-center rounded-full"
-        style={{ backgroundColor: `${tone}14`, color: tone, border: `1px solid ${tone}2E` }}
+        className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full"
+        style={{ backgroundColor: `${tone}12`, color: tone, border: `1px solid ${tone}26` }}
       >
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block text-[21px] font-medium leading-none" style={{ color: TEXT }}>
+        <span className="block text-[18px] font-medium leading-none" style={{ color: TEXT }}>
           {value}
         </span>
-        <span className="mt-1.5 block truncate text-[12px]" style={{ color: MUTED }}>
+        <span className="mt-1 block truncate text-[11.5px]" style={{ color: MUTED }}>
           {label}
         </span>
       </span>
