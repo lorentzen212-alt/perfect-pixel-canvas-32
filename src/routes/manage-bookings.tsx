@@ -303,9 +303,10 @@ function BookingCard({ booking }: { booking: Booking }) {
 
       {/* 4. action panel */}
       <div
-        className="flex min-w-0 items-center gap-4 rounded-lg p-3 md:border-l md:bg-transparent md:px-5"
-        style={{ borderColor: BORDER, backgroundColor: SURFACE }}
+        className="flex min-w-0 items-center gap-4 rounded-[8px] p-3 md:border-l md:bg-transparent md:px-5"
+        style={{ borderColor: BORDER, backgroundColor: `${SURFACE}80` }}
       >
+
         {booking.rooming ? <ProgressRing value={progress} /> : <ActionIcon booking={booking} />}
         <div className="min-w-0">
           <p
