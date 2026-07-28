@@ -20,7 +20,6 @@ import {
   MoreVertical,
   Plus,
   Search,
-  Users,
   X,
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
@@ -824,11 +823,6 @@ function ManageBookings() {
           </footer>
         </main>
       </div>
-
-      {/* unused imports guard */}
-      <span className="hidden">
-        <Users size={0} />
-      </span>
     </div>
   );
 }
