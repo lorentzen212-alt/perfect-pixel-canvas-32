@@ -698,9 +698,10 @@ function ManageBookings() {
           <section
             className="mt-5 rounded-[10px] p-4 sm:px-5 sm:py-4"
             style={{
-              backgroundColor: CARD,
-              border: `1px solid ${BORDER}`,
+              backgroundColor: ATTENTION,
+              border: `1px solid ${CARD_BORDER}`,
               borderLeft: `2px solid ${GOLD_MID}`,
+              boxShadow: CARD_SHADOW,
             }}
           >
             <h2 className="text-[14px] font-medium" style={{ color: TEXT }}>
