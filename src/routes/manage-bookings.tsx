@@ -742,8 +742,8 @@ function ManageBookings() {
                 </div>
                 <button
                   type="button"
-                  className="ml-auto inline-flex items-center gap-2 text-[12.5px]"
-                  style={{ color: GOLD }}
+                  className="ml-auto inline-flex items-center gap-2 text-[12.5px] font-medium underline-offset-4 transition-colors hover:underline"
+                  style={{ color: GOLD_SOFT }}
                 >
                   Continue <span aria-hidden>→</span>
                 </button>
