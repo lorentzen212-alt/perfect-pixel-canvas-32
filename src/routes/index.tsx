@@ -132,7 +132,7 @@ function Home() {
 
 
         {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-6 pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-center">
+        <section className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-6 pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-center -translate-y-[10px]">
           {/* Eyebrow */}
           <div className="flex items-center justify-center">
             <span
