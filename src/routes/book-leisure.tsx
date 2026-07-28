@@ -3180,6 +3180,7 @@ function LeisureStep2Screen({
     >
       <div style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}>
         <BookingHeader
+          compact
           currentStep={2}
           onStepGo={(s) => onStepGo(s as StepKey)}
           hideCurrentFlow="leisure"
@@ -3188,7 +3189,7 @@ function LeisureStep2Screen({
 
       <div
         className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(363px,1.298fr)_minmax(0,2.86fr)_300px]"
-        style={{ maxWidth: 1780, padding: 28, gap: 24 }}
+        style={{ maxWidth: 1780, padding: 22, gap: 20 }}
       >
         {/* ---------- LEFT: vertical hotel image ---------- */}
         <aside className="order-2 lg:order-none min-w-0 lg:pr-[10px] lg:self-start">
