@@ -63,9 +63,13 @@ export function SiteMenu({ items, variant = "outline" }: SiteMenuProps) {
           <span className="h-px w-6" style={{ background: GOLD }} />
           <span className="h-px w-6" style={{ background: GOLD }} />
         </span>
-        <span className="text-[13px] tracking-[0.18em]" style={{ color: IVORY }}>
+        <span
+          className="text-[13px] leading-none tracking-[0.18em]"
+          style={{ color: IVORY, transform: "translateY(0.5px)" }}
+        >
           Menu
         </span>
+
       </button>
 
       {/* Overlay */}
