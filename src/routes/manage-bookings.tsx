@@ -465,7 +465,7 @@ function Select<T extends string>({
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="w-full appearance-none rounded-lg px-4 py-2.5 pr-9 text-[13.5px] outline-none"
+        className="w-full appearance-none rounded-[8px] px-4 py-[9px] pr-9 text-[13.5px] outline-none"
         style={{ backgroundColor: CARD, border: `1px solid ${BORDER}`, color: TEXT_2 }}
       >
         {options.map((o) => (
@@ -635,7 +635,7 @@ function ManageBookings() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search bookings..."
                 aria-label="Search bookings by name, ID, destination or hotel"
-                className="w-full rounded-lg py-2.5 pl-11 pr-4 text-[13.5px] outline-none placeholder:text-[#98A3AA]"
+                className="w-full rounded-[8px] py-[9px] pl-11 pr-4 text-[13.5px] outline-none placeholder:text-[#98A3AA]"
                 style={{ backgroundColor: CARD, border: `1px solid ${BORDER}`, color: TEXT }}
               />
             </div>
@@ -666,7 +666,7 @@ function ManageBookings() {
                     aria-label={label}
                     aria-pressed={on}
                     onClick={() => setView(key)}
-                    className="grid h-[42px] w-[46px] place-items-center rounded-lg"
+                    className="grid h-[38px] w-[42px] place-items-center rounded-[8px]"
                     style={{
                       backgroundColor: on ? "rgba(199,163,74,0.10)" : CARD,
                       border: `1px solid ${on ? "rgba(199,163,74,0.55)" : BORDER}`,
