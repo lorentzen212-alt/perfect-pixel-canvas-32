@@ -290,6 +290,7 @@ function ExperienceCard({
   overlay = "from-transparent via-transparent via-[86%] to-black/12",
   bottomGradient = true,
   borderGradient,
+  disableCoolGrey = false,
 
   label,
   tagline,
@@ -303,6 +304,7 @@ function ExperienceCard({
   overlay?: string;
   bottomGradient?: boolean;
   borderGradient?: string;
+  disableCoolGrey?: boolean;
   label: string;
   tagline: React.ReactNode;
   ctaText: string;
