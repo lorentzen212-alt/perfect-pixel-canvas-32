@@ -132,8 +132,8 @@ function StatusChip({ type }: { type: Booking["type"] }) {
       className="inline-flex items-center rounded px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.14em]"
       style={{
         color: isLeisure ? GOLD : "#9FB6C8",
-        backgroundColor: isLeisure ? "rgba(214,177,92,0.12)" : "rgba(143,167,188,0.14)",
-        border: `1px solid ${isLeisure ? "rgba(214,177,92,0.32)" : "rgba(143,167,188,0.30)"}`,
+        backgroundColor: isLeisure ? "rgba(199,163,74,0.12)" : "rgba(143,167,188,0.14)",
+        border: `1px solid ${isLeisure ? "rgba(199,163,74,0.32)" : "rgba(143,167,188,0.30)"}`,
       }}
     >
       {isLeisure ? "Leisure" : "M&E"}
@@ -427,7 +427,7 @@ function SidebarContent({ active }: { active: string }) {
         >
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
-            style={{ backgroundColor: "rgba(214,177,92,0.16)", color: GOLD }}
+            style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
           >
             EH
           </span>
@@ -588,7 +588,7 @@ function ManageBookings() {
             <button type="button" className="flex items-center gap-2">
               <span
                 className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
-                style={{ backgroundColor: "rgba(214,177,92,0.16)", color: GOLD }}
+                style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
               >
                 EH
               </span>
@@ -616,7 +616,7 @@ function ManageBookings() {
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               <StatCard value="7" label="Total Bookings" icon={<CalendarDays size={18} />} tone={GOLD} />
-              <StatCard value="2" label="Needs Attention" icon={<Bell size={18} />} tone="#D8A44A" />
+              <StatCard value="2" label="Needs Attention" icon={<Bell size={18} />} tone="#C7A34A" />
               <StatCard value="3" label="Offers Ready" icon={<Gift size={18} />} tone="#8FA98A" />
               <StatCard value="4" label="Upcoming Stays" icon={<CalendarCheck size={18} />} tone="#8FA7BC" />
             </div>
@@ -668,8 +668,8 @@ function ManageBookings() {
                     onClick={() => setView(key)}
                     className="grid h-[42px] w-[46px] place-items-center rounded-lg"
                     style={{
-                      backgroundColor: on ? "rgba(214,177,92,0.10)" : CARD,
-                      border: `1px solid ${on ? "rgba(214,177,92,0.55)" : BORDER}`,
+                      backgroundColor: on ? "rgba(199,163,74,0.10)" : CARD,
+                      border: `1px solid ${on ? "rgba(199,163,74,0.55)" : BORDER}`,
                       color: on ? GOLD : MUTED,
                     }}
                   >
@@ -826,8 +826,8 @@ function ManageBookings() {
                       type="button"
                       className="grid h-8 min-w-8 place-items-center rounded-md px-2 text-[12.5px]"
                       style={{
-                        backgroundColor: active ? "rgba(214,177,92,0.10)" : "transparent",
-                        border: `1px solid ${active ? "rgba(214,177,92,0.5)" : BORDER}`,
+                        backgroundColor: active ? "rgba(199,163,74,0.10)" : "transparent",
+                        border: `1px solid ${active ? "rgba(199,163,74,0.5)" : BORDER}`,
                         color: active ? GOLD : TEXT_2,
                       }}
                     >
