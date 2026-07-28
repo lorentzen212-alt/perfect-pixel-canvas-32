@@ -30,7 +30,7 @@ import cardLeisureAsset from "@/assets/card-leisure-new.png.asset.json";
 import cardMeAsset from "@/assets/card-me-new.png.asset.json";
 import cardManageAsset from "@/assets/card-manage-new.png.asset.json";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
-import woodRibbonAsset from "@/assets/wood-ribbon-texture.jpg.asset.json";
+
 import lofotenImg from "@/assets/dest-lofoten.jpg";
 import tromsoImg from "@/assets/dest-tromso.jpg";
 import bergenImg from "@/assets/dest-bergen.jpg";
