@@ -214,7 +214,7 @@ function Home() {
                 imageFilter="brightness(1.42) contrast(1.12) saturate(0.85) hue-rotate(-3deg) sepia(0.06)"
                 overlay="from-black/0 via-black/[0.04] via-[40%] via-black/[0.10] via-[66%] to-black/[0.56]"
                 bottomGradient={false}
-                borderGradient="linear-gradient(145deg, rgba(252,245,220,0.58) 0%, rgba(225,198,148,0.28) 16%, rgba(248,232,190,0.50) 34%, rgba(185,158,108,0.22) 54%, rgba(240,225,188,0.46) 74%, rgba(252,244,218,0.58) 100%)"
+                borderGradient="linear-gradient(145deg, rgba(255,250,230,0.68) 0%, rgba(230,205,155,0.34) 18%, rgba(255,245,210,0.58) 36%, rgba(180,150,100,0.26) 54%, rgba(245,230,195,0.52) 74%, rgba(255,250,230,0.68) 100%)"
                 disableCoolGrey={true}
               />
               <ExperienceCard
@@ -228,7 +228,7 @@ function Home() {
                 imageFilter="brightness(1.42) contrast(1.12) saturate(0.85) hue-rotate(-3deg) sepia(0.06)"
                 overlay="from-black/0 via-black/[0.04] via-[40%] via-black/[0.10] via-[66%] to-black/[0.56]"
                 bottomGradient={false}
-                borderGradient="linear-gradient(145deg, rgba(252,245,220,0.58) 0%, rgba(225,198,148,0.28) 16%, rgba(248,232,190,0.50) 34%, rgba(185,158,108,0.22) 54%, rgba(240,225,188,0.46) 74%, rgba(252,244,218,0.58) 100%)"
+                borderGradient="linear-gradient(145deg, rgba(255,250,230,0.68) 0%, rgba(230,205,155,0.34) 18%, rgba(255,245,210,0.58) 36%, rgba(180,150,100,0.26) 54%, rgba(245,230,195,0.52) 74%, rgba(255,250,230,0.68) 100%)"
                 disableCoolGrey={true}
               />
             </div>
