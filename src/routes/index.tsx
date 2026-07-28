@@ -476,6 +476,15 @@ function ExperienceCard({
                 "radial-gradient(140% 90% at 50% 0%, rgba(255,248,235,0.14) 0%, rgba(255,244,225,0.06) 45%, transparent 72%)",
             }}
           />
+          {/* Shadow lift — gently lifts dark bottom/lower-mid tones for a brighter, more open feel */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(255,246,228,0.10) 0%, rgba(255,242,220,0.04) 32%, transparent 58%)",
+            }}
+          />
           {/* Lifted charcoal blacks + subtle cinematic haze */}
           <div
             aria-hidden
