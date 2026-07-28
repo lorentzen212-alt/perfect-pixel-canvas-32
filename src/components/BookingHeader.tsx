@@ -30,12 +30,15 @@ interface BookingHeaderProps {
   currentStep: BookingStepKey;
   onStepGo?: (s: BookingStepKey) => void;
   hideCurrentFlow?: "leisure" | "me" | "manage";
+  /** Slightly tighter vertical padding (used by compact step layouts). */
+  compact?: boolean;
 }
 
 export function BookingHeader({
   currentStep,
   onStepGo,
   hideCurrentFlow = "leisure",
+  compact = false,
 }: BookingHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
