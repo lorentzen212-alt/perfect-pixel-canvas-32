@@ -136,10 +136,10 @@ function Home() {
           {/* Eyebrow */}
           <div className="flex items-center justify-center">
             <span
-              className="text-[11.25px] tracking-[0.44em] uppercase"
+              className="text-[11.25px] tracking-[0.4em] uppercase"
               style={{
-                color: "#D6AC6A",
-                fontWeight: 400,
+                color: "#E5A93C",
+                fontWeight: 600,
                 WebkitFontSmoothing: "antialiased",
                 textRendering: "optimizeLegibility",
               }}
@@ -165,7 +165,7 @@ function Home() {
           >
             <span className="block">Three ways to</span>
             <span className="block">
-              <em className="italic" style={{ color: "#E6B65C", fontWeight: 300 }}>
+              <em className="italic" style={{ color: "#E2921F", fontWeight: 400 }}>
                 exceptional
               </em>{" "}
               group stays
