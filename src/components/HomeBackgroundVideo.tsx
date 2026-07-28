@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import videoAsset from "@/assets/homepage-bg.mp4.asset.json";
-import posterAsset from "@/assets/homepage-bg-poster.jpg.asset.json";
+import videoAsset from "@/assets/homepage-bg-v2.mp4.asset.json";
+import posterAsset from "@/assets/homepage-bg-v2-poster.jpg.asset.json";
 
 /**
  * Full-bleed homepage background video.
