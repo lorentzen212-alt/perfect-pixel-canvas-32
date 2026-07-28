@@ -420,7 +420,7 @@ function ExperienceCard({
           style={{
             padding: "1px",
             background:
-              "linear-gradient(145deg, rgba(246,231,196,0.60) 0%, rgba(198,166,108,0.26) 22%, rgba(232,212,167,0.46) 44%, rgba(150,120,72,0.20) 66%, rgba(240,224,183,0.52) 100%)",
+              "linear-gradient(145deg, rgba(243,229,201,0.52) 0%, rgba(203,177,130,0.22) 22%, rgba(230,214,180,0.40) 44%, rgba(158,133,92,0.17) 66%, rgba(238,226,197,0.45) 100%)",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
