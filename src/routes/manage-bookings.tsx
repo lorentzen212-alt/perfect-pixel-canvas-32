@@ -682,22 +682,27 @@ function ManageBookings() {
 
           {/* needs your attention */}
           <section
-            className="mt-5 rounded-xl p-4 sm:p-5"
-            style={{ backgroundColor: CARD, border: `1px solid ${BORDER}` }}
+            className="mt-5 rounded-[10px] p-4 sm:px-5 sm:py-4"
+            style={{
+              backgroundColor: CARD,
+              border: `1px solid ${BORDER}`,
+              borderLeft: `2px solid ${GOLD_MID}`,
+            }}
           >
-            <h2 className="text-[15px] font-medium" style={{ color: TEXT }}>
+            <h2 className="text-[14px] font-medium" style={{ color: TEXT }}>
               Needs Your Attention
             </h2>
-            <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="mt-3.5 grid grid-cols-1 gap-4 lg:grid-cols-2">
               <div className="flex flex-wrap items-center gap-4 lg:flex-nowrap">
                 <span
-                  className="grid h-12 w-12 shrink-0 place-items-center rounded-full"
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full"
                   style={{
-                    backgroundColor: "rgba(216,164,74,0.14)",
-                    color: "#D8A44A",
-                    border: "1px solid rgba(216,164,74,0.32)",
+                    backgroundColor: "rgba(199,163,74,0.12)",
+                    color: GOLD,
+                    border: "1px solid rgba(199,163,74,0.28)",
                   }}
                 >
+
                   <Bell size={20} />
                 </span>
                 <div className="min-w-0">
