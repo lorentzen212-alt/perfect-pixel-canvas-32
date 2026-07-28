@@ -3359,13 +3359,13 @@ function LeisureStep2Screen({
           </div>
 
           {/* Notes */}
-          <div className="mt-4">
+          <div className="mt-3">
             <div className="text-[14px] font-medium" style={{ color: S2_TEXT }}>
               Anything else we should know?{" "}
               <span style={{ color: "rgba(245,241,230,0.45)" }}>(optional)</span>
             </div>
             <div
-              className="mt-3 px-5 py-4 transition-colors duration-300"
+              className="mt-2 px-5 py-3 transition-colors duration-300"
               style={{
                 borderRadius: 18,
                 backgroundColor: "rgba(30,46,60,0.62)",
