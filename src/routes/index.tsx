@@ -151,14 +151,15 @@ function Home() {
 
           {/* Gold divider */}
           <div className="mt-7 lg:mt-9 flex items-center justify-center">
-            <div className="h-px w-[70px] lg:w-[88px] bg-[#B99A5B]/70" />
-            <div className="mx-[14px] h-[4px] w-[4px] rotate-45 bg-[#C0A062]" />
-            <div className="h-px w-[70px] lg:w-[88px] bg-[#B99A5B]/70" />
+            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-r from-transparent to-[#E0A33A]" />
+            <div className="mx-[16px] h-[7px] w-[7px] rotate-45 bg-[#E8A93B]" />
+            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-l from-transparent to-[#E0A33A]" />
           </div>
 
-          <p className="mt-[10px] lg:mt-[12px] text-white/65 text-[15px] lg:text-[16px] font-extralight tracking-[0.05em]">
+          <p className="mt-[14px] lg:mt-[16px] text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]">
             One request. Everything handled.
           </p>
+
 
 
           {/* EXPERIENCE CARDS */}
