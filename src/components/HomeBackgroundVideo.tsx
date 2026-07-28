@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import videoAsset from "@/assets/homepage-bg-v2.mp4.asset.json";
-import posterAsset from "@/assets/homepage-bg-poster-v2.jpg.asset.json";
+import videoAsset from "@/assets/homepage-bg.mp4.asset.json";
+import posterAsset from "@/assets/homepage-bg-poster.jpg.asset.json";
 
 /**
  * Full-bleed homepage background video.
@@ -14,13 +14,16 @@ export function HomeBackgroundVideo() {
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const smallScreen = window.matchMedia("(max-width: 640px)");
 
-    const sync = () => setUseVideo(!reduced.matches);
+    const sync = () => setUseVideo(!reduced.matches && !smallScreen.matches);
     sync();
 
     reduced.addEventListener("change", sync);
+    smallScreen.addEventListener("change", sync);
     return () => {
       reduced.removeEventListener("change", sync);
+      smallScreen.removeEventListener("change", sync);
     };
   }, []);
 
@@ -66,13 +69,14 @@ export function HomeBackgroundVideo() {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           poster={posterAsset.url}
           onError={() => setUseVideo(false)}
           className="pointer-events-none absolute inset-0 h-full w-full"
           style={{
             objectFit: "cover",
             objectPosition: "center center",
+            filter: "brightness(1.18) contrast(1.02)",
           }}
         >
           <source src={videoAsset.url} type="video/mp4" />
