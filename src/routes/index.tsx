@@ -211,6 +211,10 @@ function Home() {
                 tagline="Professional Event Planning"
                 ctaText="Plan event"
                 intensity={2}
+                imageFilter="brightness(1.18) contrast(1.16) saturate(0.90) hue-rotate(-5deg) sepia(0.08)"
+                overlay="from-black/0 via-black/[0.08] via-[40%] via-black/[0.18] via-[65%] to-black/[0.58]"
+                bottomGradient={false}
+                borderGradient="linear-gradient(145deg, rgba(252,245,220,0.58) 0%, rgba(225,198,148,0.28) 16%, rgba(248,232,190,0.50) 34%, rgba(185,158,108,0.22) 54%, rgba(240,225,188,0.46) 74%, rgba(252,244,218,0.58) 100%)"
               />
               <ExperienceCard
                 to="/manage-bookings"
@@ -220,6 +224,10 @@ function Home() {
                 tagline="Manage Your Bookings"
                 ctaText="Open dashboard"
                 intensity={1.8}
+                imageFilter="brightness(1.18) contrast(1.16) saturate(0.90) hue-rotate(-5deg) sepia(0.08)"
+                overlay="from-black/0 via-black/[0.08] via-[40%] via-black/[0.18] via-[65%] to-black/[0.58]"
+                bottomGradient={false}
+                borderGradient="linear-gradient(145deg, rgba(252,245,220,0.58) 0%, rgba(225,198,148,0.28) 16%, rgba(248,232,190,0.50) 34%, rgba(185,158,108,0.22) 54%, rgba(240,225,188,0.46) 74%, rgba(252,244,218,0.58) 100%)"
               />
             </div>
           </div>
