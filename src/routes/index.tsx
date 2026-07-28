@@ -134,7 +134,7 @@ function Home() {
         {/* CENTERED HERO CONTENT */}
         <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start lg:-mt-[115px]">
           {/* Eyebrow */}
-          <div className="flex items-center justify-center mt-[30px]">
+          <div className="flex items-center justify-center mt-[88px]">
             <span
               className="text-[11.25px] tracking-[0.44em] uppercase font-light"
               style={{
@@ -184,7 +184,7 @@ function Home() {
 
 
           {/* EXPERIENCE CARDS */}
-          <div className="relative mt-[14px] lg:mt-[16px]">
+          <div className="relative mt-[26px] lg:mt-[28px]">
             {/* Stage spotlight behind all three cards */}
             <div
               aria-hidden
