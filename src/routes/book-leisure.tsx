@@ -3447,7 +3447,7 @@ function LeisureStep2Screen({
           {/* 5 — Your Stays (rendered BELOW "Add this stay") */}
           {stays.some((s) => s.id !== editingId) && (
             <div
-              className="mt-[78px]"
+              className="mt-[34px]"
               data-section="completed-stays"
               style={{
                 borderRadius: 24,
