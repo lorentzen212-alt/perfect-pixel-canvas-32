@@ -483,16 +483,7 @@ function ExperienceCard({
             className="pointer-events-none absolute inset-0 z-[5]"
             style={{
               background:
-                "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.08) 10%, rgba(0,0,0,0.18) 45%, rgba(0,0,0,0.58) 100%)",
-            }}
-          />
-          {/* Fine-tuned bottom text legibility lift */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 z-[6]"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(4,8,13,0.62) 0%, rgba(4,8,13,0.18) 28%, transparent 52%)",
+                "linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.07) 10%, rgba(0,0,0,0.16) 45%, rgba(0,0,0,0.56) 100%)",
             }}
           />
 
