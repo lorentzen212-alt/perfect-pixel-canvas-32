@@ -494,16 +494,14 @@ function ExperienceCard({
           style={{
             padding: "1.25px",
             background:
-              "linear-gradient(90deg, rgba(243,217,135,0.95) 0%, rgba(243,217,135,0.35) 16%, rgba(255,246,214,0.85) 50%, rgba(243,217,135,0.35) 84%, rgba(243,217,135,0.95) 100%)",
+              "linear-gradient(180deg, rgba(255,246,214,0.9) 0%, rgba(243,217,135,0.5) 14%, rgba(243,217,135,0) 34%)",
             WebkitMaskImage:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
             maskComposite: "exclude",
-            opacity: 0.55,
-            maskSize: "100% 100%",
-            WebkitMaskSize: "100% 100%",
-            clipPath: "inset(0 0 68% 0 round 22px)",
+            opacity: 0.6,
           }}
+
         />
         {/* Soft gold reflection on border during hover */}
         <div
