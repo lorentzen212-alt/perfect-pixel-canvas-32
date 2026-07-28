@@ -4217,11 +4217,11 @@ function S2RoomCard({
       style={{
         borderRadius: 20,
         padding: 11,
-        backgroundColor: "#3E4A50",
+        backgroundColor: active ? "rgba(62,88,109,0.97)" : "rgba(52,74,92,0.95)",
         backgroundImage: active
           ? "linear-gradient(180deg, rgba(255,255,255,0.115) 0%, rgba(255,255,255,0.035) 44%, rgba(0,0,0,0.09) 100%)"
           : "linear-gradient(180deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.022) 42%, rgba(0,0,0,0.085) 100%)",
-        border: "1px solid rgba(190, 200, 202, 0.18)",
+        border: `1px solid ${active ? "rgba(217,191,130,0.48)" : "rgba(255,255,255,0.09)"}`,
         boxShadow: active
           ? "inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 18px -14px rgba(4,10,16,0.55), 0 22px 46px -26px rgba(4,10,16,0.7), 0 0 0 1px rgba(217,191,130,0.10), 0 16px 44px -24px rgba(217,191,130,0.42)"
           : "inset 0 1px 0 rgba(255,255,255,0.07), 0 8px 18px -14px rgba(4,10,16,0.5), 0 22px 46px -26px rgba(4,10,16,0.68)",
