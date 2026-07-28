@@ -133,14 +133,14 @@ function Home() {
         <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px+110px)] flex flex-col justify-start lg:-mt-[75px]">
           {/* Eyebrow */}
           <div className="flex items-center justify-center -mt-1">
-            <span className="text-[10.5px] tracking-[0.44em] uppercase font-light text-[#C0A062]">
+            <span className="text-[10.5px] tracking-[0.44em] uppercase font-light text-[#C8942E]">
               The Experience
             </span>
           </div>
 
           {/* Headline */}
           <h1
-            className="mx-auto mt-7 lg:mt-9 max-w-[980px] font-light text-white leading-[1.18] tracking-[0.005em] text-[40px] sm:text-[54px] lg:text-[62px]"
+            className="mx-auto mt-3 lg:mt-4 max-w-[980px] font-light text-white leading-[1.18] tracking-[0.005em] text-[40px] sm:text-[54px] lg:text-[62px]"
             style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
           >
             <span className="block">Three ways to</span>
