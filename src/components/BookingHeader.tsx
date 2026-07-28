@@ -30,12 +30,15 @@ interface BookingHeaderProps {
   currentStep: BookingStepKey;
   onStepGo?: (s: BookingStepKey) => void;
   hideCurrentFlow?: "leisure" | "me" | "manage";
+  /** Slightly tighter vertical padding (used by compact step layouts). */
+  compact?: boolean;
 }
 
 export function BookingHeader({
   currentStep,
   onStepGo,
   hideCurrentFlow = "leisure",
+  compact = false,
 }: BookingHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -78,7 +81,11 @@ export function BookingHeader({
   return (
     <>
       <header className="w-full" style={{ backgroundColor: NAVY }}>
-        <div className="relative mx-auto flex max-w-[1600px] items-center px-6 py-6 lg:px-10 lg:py-7">
+        <div
+          className={`relative mx-auto flex max-w-[1600px] items-center px-6 lg:px-10 ${
+            compact ? "py-[19px] lg:py-[22px]" : "py-6 lg:py-7"
+          }`}
+        >
           {/* Logo (left) */}
           <Link to="/" className="flex shrink-0 items-center" aria-label="HotelGroupBook home">
             <img

@@ -3180,6 +3180,7 @@ function LeisureStep2Screen({
     >
       <div style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}>
         <BookingHeader
+          compact
           currentStep={2}
           onStepGo={(s) => onStepGo(s as StepKey)}
           hideCurrentFlow="leisure"
@@ -3188,17 +3189,17 @@ function LeisureStep2Screen({
 
       <div
         className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(363px,1.298fr)_minmax(0,2.86fr)_300px]"
-        style={{ maxWidth: 1780, padding: 28, gap: 24 }}
+        style={{ maxWidth: 1780, padding: 22, gap: 20 }}
       >
         {/* ---------- LEFT: vertical hotel image ---------- */}
         <aside className="order-2 lg:order-none min-w-0 lg:pr-[10px] lg:self-start">
           <div
-            className="relative overflow-hidden lg:sticky lg:top-7"
+            className="relative overflow-hidden lg:sticky lg:top-6"
             style={{
               borderRadius: 28,
-              minHeight: 560,
-              height: "calc(100vh - 96px)",
-              maxHeight: 1120,
+              minHeight: 460,
+              height: "calc(100vh - 148px)",
+              maxHeight: 880,
               border: "1.5px solid rgba(217,191,130,0.42)",
               boxShadow:
                 "0 2px 0 rgba(255,255,255,0.07) inset, 0 0 0 4px rgba(217,191,130,0.05), 0 0 34px -6px rgba(217,191,130,0.08), 0 18px 40px -26px rgba(4,10,16,0.6), 0 44px 88px -38px rgba(6,13,20,0.78), 0 80px 150px -70px rgba(0,0,0,0.75)",
@@ -3261,8 +3262,8 @@ function LeisureStep2Screen({
           style={{
             backgroundColor: S2_PANEL,
             borderRadius: 24,
-            padding: 30,
-            paddingBottom: 22,
+            padding: 24,
+            paddingBottom: 18,
             border: "1px solid rgba(255,255,255,0.05)",
             boxShadow:
               "inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 54px -34px rgba(6,13,20,0.7), 0 60px 110px -70px rgba(0,0,0,0.6)",
@@ -3278,16 +3279,16 @@ function LeisureStep2Screen({
               >
                 Step 2 – Accommodation
               </h1>
-              <p className="mt-2.5 text-[15px]" style={{ color: "rgba(245,241,230,0.62)" }}>
+              <p className="mt-1.5 text-[15px]" style={{ color: "rgba(245,241,230,0.62)" }}>
                 How many rooms will your group need?
               </p>
             </div>
           </div>
 
           {/* 1 — COMPACT DATE SELECTOR */}
-          <div className="mt-4">
+          <div className="mt-3">
             <div
-              className="mb-3 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+              className="mb-2 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
               style={{ color: "rgba(247,244,236,0.72)" }}
             >
               {editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber} — dates`}
@@ -3324,24 +3325,24 @@ function LeisureStep2Screen({
 
 
           <div
-            className="mt-[42px] text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+            className="mt-[24px] text-[11.5px] font-semibold uppercase tracking-[0.28em]"
             style={{ color: "rgba(253,251,246,0.94)" }}
           >
             Room Distribution
           </div>
           <div
-            className="mt-2.5"
+            className="mt-2"
             style={{
               width: 60,
               height: 1,
               background: `linear-gradient(90deg, ${S2_GOLD} 0%, rgba(217,191,130,0.15) 100%)`,
             }}
           />
-          <p className="mt-3 text-[13px]" style={{ color: "rgba(240,236,226,0.55)" }}>
+          <p className="mt-2 text-[13px]" style={{ color: "rgba(240,236,226,0.55)" }}>
             Choose the number and type of rooms required.
           </p>
 
-          <div className="mt-[26px] grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-[16px] grid grid-cols-1 gap-x-3 gap-y-[14px] md:grid-cols-2 xl:grid-cols-3">
             {STEP2_ROOMS_ORDER.map((key) => (
               <S2RoomCard
                 key={key}
@@ -3358,13 +3359,13 @@ function LeisureStep2Screen({
           </div>
 
           {/* Notes */}
-          <div className="mt-4">
+          <div className="mt-3">
             <div className="text-[14px] font-medium" style={{ color: S2_TEXT }}>
               Anything else we should know?{" "}
               <span style={{ color: "rgba(245,241,230,0.45)" }}>(optional)</span>
             </div>
             <div
-              className="mt-3 px-5 py-4 transition-colors duration-300"
+              className="mt-2 px-5 py-3 transition-colors duration-300"
               style={{
                 borderRadius: 18,
                 backgroundColor: "rgba(30,46,60,0.62)",
@@ -3378,7 +3379,7 @@ function LeisureStep2Screen({
                 placeholder="Tell us anything important about your accommodation needs…"
                 rows={2}
                 className="s2-notes w-full resize-none bg-transparent text-[14px] leading-relaxed outline-none"
-                style={{ color: S2_TEXT, minHeight: 62 }}
+                style={{ color: S2_TEXT, minHeight: 46 }}
 
               />
               <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.35)" }}>
@@ -3388,7 +3389,7 @@ function LeisureStep2Screen({
           </div>
 
           {/* 4 — Add this stay */}
-          <div className="mt-[26px] flex flex-col items-end gap-2">
+          <div className="mt-[16px] flex flex-col items-end gap-2">
             {addError && !canAddStay && (
               <span className="text-[13px]" style={{ color: "rgba(238,170,150,0.95)" }}>
                 Please select arrival and departure dates and at least one room.
@@ -3446,7 +3447,7 @@ function LeisureStep2Screen({
           {/* 5 — Your Stays (rendered BELOW "Add this stay") */}
           {stays.some((s) => s.id !== editingId) && (
             <div
-              className="mt-[78px]"
+              className="mt-[34px]"
               data-section="completed-stays"
               style={{
                 borderRadius: 24,
@@ -3564,29 +3565,29 @@ function LeisureStep2Screen({
         </section>
 
         {/* ---------- RIGHT: tip + sticky summary ---------- */}
-        <div className="order-3 lg:order-none min-w-0 space-y-6 lg:self-start">
+        <div className="order-3 lg:order-none min-w-0 space-y-4 lg:self-start">
           <div
             style={{
               borderRadius: 20,
               backgroundColor: S2_CARD,
               border: "1px solid rgba(255,255,255,0.05)",
-              padding: 22,
+              padding: 18,
               boxShadow: S2_CARD_SHADOW,
             }}
           >
             <Lightbulb size={20} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
             <div
-              className="mt-3 text-[12px] font-semibold uppercase tracking-[0.28em]"
+              className="mt-2.5 text-[12px] font-semibold uppercase tracking-[0.28em]"
               style={{ color: S2_GOLD_SOFT }}
             >
               Tip
             </div>
-            <p className="mt-2.5 text-[13.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.62)" }}>
+            <p className="mt-2 text-[13.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.62)" }}>
               You can add multiple stays after completing this one.
             </p>
           </div>
 
-          <div className="lg:sticky lg:top-7">
+          <div className="lg:sticky lg:top-6">
           <AccommodationSummary
             stays={stays}
             totalStays={totalStays}
@@ -3866,7 +3867,7 @@ function S2StayCard({
     );
 
     const field = (
-      <div className={`flex min-w-0 flex-col gap-[9px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
+      <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
           style={{ color: "rgba(230,236,244,0.62)" }}
@@ -3904,7 +3905,7 @@ function S2StayCard({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-label={`${label} date`}
-        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-3 text-left transition-colors duration-200 disabled:cursor-default"
+        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-[9px] text-left transition-colors duration-200 disabled:cursor-default"
         style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
       >
         {field}
@@ -3950,7 +3951,7 @@ function S2StayCard({
 
   const dateTimeline = (
     <div
-      className="grid items-center px-[28px] py-[6px]"
+      className="grid items-center px-[28px] py-[2px]"
       style={{
         width: compact ? "100%" : "92%",
         marginLeft: "auto",
@@ -4211,7 +4212,7 @@ function S2RoomCard({
       data-active={active ? "true" : "false"}
       style={{
         borderRadius: 20,
-        padding: 13,
+        padding: 11,
         backgroundColor: active ? "rgba(62,88,109,0.97)" : "rgba(52,74,92,0.95)",
         backgroundImage: active
           ? "linear-gradient(180deg, rgba(255,255,255,0.115) 0%, rgba(255,255,255,0.035) 44%, rgba(0,0,0,0.09) 100%)"
@@ -4242,10 +4243,10 @@ function S2RoomCard({
 
       {/* image */}
       <div
-        className="relative mt-3 overflow-hidden"
+        className="relative mt-2.5 overflow-hidden"
         style={{
           borderRadius: 13,
-          aspectRatio: "16 / 11",
+          aspectRatio: "16 / 9.7",
           boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06), 0 10px 22px -18px rgba(0,0,0,0.7)",
         }}
       >
@@ -4265,16 +4266,16 @@ function S2RoomCard({
 
       {/* counter */}
       <div
-        className="mt-3 pt-3"
+        className="mt-2.5 pt-2.5"
         style={{ borderTop: "1px solid rgba(214,226,236,0.08)" }}
       >
         <S2Counter value={value} onChange={onChange} label={meta.title} />
       </div>
 
 
-      <div className="mt-2.5" style={{ height: 1, background: "rgba(214,226,236,0.12)" }} />
+      <div className="mt-2" style={{ height: 1, background: "rgba(214,226,236,0.12)" }} />
       {categoryOptions ? (
-        <div className="relative z-10 mt-2" style={{ opacity: active ? 1 : 0.45 }}>
+        <div className="relative z-10 mt-1.5" style={{ opacity: active ? 1 : 0.45 }}>
           <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
             Category
           </div>
@@ -4287,7 +4288,7 @@ function S2RoomCard({
           />
         </div>
       ) : (
-        <div className="relative z-10 mt-2" style={{ opacity: active ? 1 : 0.45 }}>
+        <div className="relative z-10 mt-1.5" style={{ opacity: active ? 1 : 0.45 }}>
           <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
             Room category
           </div>
@@ -4559,7 +4560,7 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className="grid h-[34px] w-[34px] shrink-0 place-items-center transition-all duration-200 hover:bg-white/[0.07] active:scale-95 disabled:opacity-30"
+      className="grid h-[30px] w-[30px] shrink-0 place-items-center transition-all duration-200 hover:bg-white/[0.07] active:scale-95 disabled:opacity-30"
       style={{ borderRadius: 9, color: "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? <Minus size={16} strokeWidth={2.2} /> : <Plus size={16} strokeWidth={2.2} />}
@@ -4568,7 +4569,7 @@ function S2Counter({
 
   return (
     <div
-      className="flex h-[40px] items-center justify-between px-1.5"
+      className="flex h-[35px] items-center justify-between px-1.5"
       style={{
         borderRadius: 10,
         backgroundColor: "rgba(20,33,45,0.72)",
@@ -4642,7 +4643,7 @@ function AccommodationSummary({
         borderRadius: 24,
         backgroundColor: S2_PANEL,
         border: "1px solid rgba(255,255,255,0.05)",
-        padding: 28,
+        padding: 22,
         boxShadow:
           "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -18px 34px -30px rgba(0,0,0,0.6), 0 30px 66px -38px rgba(6,13,20,0.72)",
       }}
@@ -4662,13 +4663,13 @@ function AccommodationSummary({
 
 
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-4 space-y-3">
         <S2SumRow icon={<BedDouble size={17} strokeWidth={1.9} />} label="Total rooms" value={totalRooms} />
         <S2SumRow icon={<Users size={20} strokeWidth={1.9} />} label="Total guests" value={totalGuests} />
         <S2SumRow icon={<CalendarDays size={17} strokeWidth={1.9} />} label="Total stays" value={totalStays} />
       </div>
 
-      <div className="my-7 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
+      <div className="my-5 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
 
       {stays.length === 0 && (
         <div className="text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.5)" }}>
@@ -4677,7 +4678,7 @@ function AccommodationSummary({
         </div>
       )}
 
-      <div className="space-y-10">
+      <div className="space-y-7">
         {stays.map((s, idx) => {
           const nights = stayNights(s.arrival, s.departure);
           return (
