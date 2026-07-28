@@ -592,7 +592,10 @@ function ManageBookings() {
           </div>
         </header>
 
-        <main className="px-4 py-6 sm:px-6 lg:px-8" style={{ backgroundColor: BG_ALT }}>
+        <main
+          className="min-h-[calc(100vh-64px)] px-4 py-6 sm:px-6 lg:px-8"
+          style={{ backgroundColor: BG_ALT }}
+        >
           {/* heading + stats */}
           <section className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,300px)_minmax(0,1fr)] xl:items-center">
             <div className="min-w-0">
