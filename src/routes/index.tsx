@@ -502,7 +502,8 @@ function ExperienceCard({
                 whiteSpace: "nowrap",
               }}
             >
-              {ctaText}
+              &nbsp;{ctaText}
+              <br />
               <span className="ml-[10px] inline-block transition-transform duration-[250ms] ease-out group-hover/card:translate-x-1">
                 →
               </span>
