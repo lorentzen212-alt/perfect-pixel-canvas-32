@@ -442,7 +442,7 @@ function ExperienceCard({
           }}
         />
         {/* Full-height background image */}
-        <div className="relative aspect-[12/13.6] overflow-hidden">
+        <div className="relative aspect-[12/14.8] overflow-hidden">
           <img
             src={image}
             alt=""
