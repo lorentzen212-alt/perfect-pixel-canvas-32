@@ -183,7 +183,7 @@ function Home() {
           {/* Gold divider */}
           <div
             className="flex items-center justify-center"
-            style={{ marginTop: "clamp(14px, 2vh, 20px)" }}
+            style={{ marginTop: "clamp(10px, 1.5vh, 15px)" }}
           >
             <div
               className="h-px w-[110px] lg:w-[130px]"
@@ -207,7 +207,7 @@ function Home() {
 
           <p
             className="text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]"
-            style={{ marginTop: "clamp(12px, 1.7vh, 16px)" }}
+            style={{ marginTop: "clamp(9px, 1.3vh, 13px)" }}
           >
             One request. Everything handled.
           </p>
@@ -216,7 +216,7 @@ function Home() {
 
 
           {/* EXPERIENCE CARDS */}
-          <div className="relative" style={{ marginTop: "clamp(22px, 3vh, 30px)" }}>
+          <div className="relative" style={{ marginTop: "clamp(16px, 2.1vh, 23px)" }}>
             {/* Stage spotlight behind all three cards */}
             <div
               aria-hidden
@@ -227,7 +227,7 @@ function Home() {
                 filter: "blur(6px)",
               }}
             />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[44px]">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[36px]">
 
               <ExperienceCard
                 to="/book-leisure"
@@ -271,7 +271,7 @@ function Home() {
 
 
           {/* TRUST BAR */}
-          <section style={{ marginTop: "clamp(26px, 3.6vh, 35px)", paddingBottom: "clamp(28px, 5vh, 56px)" }}>
+          <section style={{ marginTop: "clamp(20px, 2.8vh, 28px)", paddingBottom: "clamp(22px, 3.4vh, 42px)" }}>
 
             <div
               className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[34px] gap-y-3 rounded-[10px] px-[40px] py-[14px]"
