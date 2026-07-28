@@ -207,15 +207,15 @@ function Home() {
 
 
           {/* EDITORIAL DIVIDER SECTION */}
-          <section className="mt-[60px] pb-[80px] text-center">
+          <section className="mt-[52px] pb-[72px] text-center">
             <div className="flex items-center justify-center">
-              <div className="h-[1px] flex-1 bg-[#C8942E]" />
-              <h2 className="mx-4 sm:mx-5 text-[10px] font-medium uppercase tracking-[0.42em] text-[#C8942E]">
+              <div className="h-[0.5px] flex-1 bg-[#C8942E]" />
+              <h2 className="mx-4 sm:mx-5 text-[9.5px] font-medium uppercase tracking-[0.48em] text-[#C8942E]">
                 Built for planners
               </h2>
-              <div className="h-[1px] flex-1 bg-[#C8942E]" />
+              <div className="h-[0.5px] flex-1 bg-[#C8942E]" />
             </div>
-            <p className="mx-auto mt-5 max-w-[420px] text-[17px] font-light leading-[1.7] text-[#E8E4DD]">
+            <p className="mx-auto mt-4 max-w-[420px] text-[14.5px] font-light leading-[1.65] text-[#E8E4DD]/90">
               Designed to simplify group travel from request to stay.
             </p>
           </section>
