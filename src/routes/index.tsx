@@ -451,30 +451,35 @@ function ExperienceCard({
         style={{
           position: "relative",
           zIndex: 2,
-          border: "1px solid rgba(226, 194, 133, 0.62)",
-          boxShadow: cardShadow + ", 0 0 22px rgba(226,190,126,0.10)",
+          border: "none",
+          boxShadow:
+            cardShadow +
+            ", 0 30px 62px -26px rgba(0,0,0,0.62), 0 0 26px rgba(212,175,55,0.13), 0 3px 0 -1px rgba(233,199,120,0.16)",
 
           transition:
             "transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1)",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "translateY(-8px)";
-          e.currentTarget.style.boxShadow = "0 36px 84px rgba(0, 0, 0, 0.48)";
+          e.currentTarget.style.boxShadow =
+            "0 40px 88px -28px rgba(0,0,0,0.58), 0 0 34px rgba(212,175,55,0.20), 0 3px 0 -1px rgba(243,217,135,0.24)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = cardShadow;
+          e.currentTarget.style.boxShadow =
+            cardShadow +
+            ", 0 30px 62px -26px rgba(0,0,0,0.62), 0 0 26px rgba(212,175,55,0.13), 0 3px 0 -1px rgba(233,199,120,0.16)";
         }}
       >
-        {/* Brushed champagne-gold ring */}
+        {/* Metallic champagne-gold gradient frame */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-20 rounded-[22px] opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 z-20 rounded-[22px] opacity-95 transition-opacity duration-300 group-hover:opacity-100"
           style={{
-            padding: "1px",
+            padding: "1.25px",
             background:
               borderGradient ||
-              "linear-gradient(160deg, rgba(248,232,196,0.92) 0%, rgba(226,193,133,0.62) 24%, rgba(240,222,182,0.72) 48%, rgba(190,160,108,0.48) 72%, rgba(236,214,168,0.66) 100%)",
+              "linear-gradient(150deg, #F3D987 0%, #E3C263 8%, #C5962D 22%, #A97816 38%, #C5962D 52%, #D4AF37 66%, #A97816 82%, #E9CB80 94%, #F3D987 100%)",
 
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
@@ -482,14 +487,32 @@ function ExperienceCard({
             maskComposite: "exclude",
           }}
         />
+        {/* Brightest champagne highlight along the top edge and corners */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-20 rounded-[22px]"
+          style={{
+            padding: "1.25px",
+            background:
+              "linear-gradient(90deg, rgba(243,217,135,0.95) 0%, rgba(243,217,135,0.35) 16%, rgba(255,246,214,0.85) 50%, rgba(243,217,135,0.35) 84%, rgba(243,217,135,0.95) 100%)",
+            WebkitMaskImage:
+              "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+            opacity: 0.55,
+            maskSize: "100% 100%",
+            WebkitMaskSize: "100% 100%",
+            clipPath: "inset(0 0 68% 0 round 22px)",
+          }}
+        />
         {/* Soft gold reflection on border during hover */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 z-20 rounded-[22px] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
           style={{
-            padding: "1px",
+            padding: "1.25px",
             background:
-              "linear-gradient(145deg, rgba(255,250,235,0.55) 0%, rgba(232,212,167,0.22) 30%, rgba(150,120,72,0.08) 55%, rgba(246,231,196,0.42) 100%)",
+              "linear-gradient(145deg, rgba(255,250,235,0.6) 0%, rgba(243,217,135,0.35) 30%, rgba(169,120,22,0.14) 55%, rgba(246,231,196,0.5) 100%)",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
@@ -499,7 +522,8 @@ function ExperienceCard({
         {/* Full-height background image */}
         <div
           className="relative w-full aspect-[12/13.6] overflow-hidden"
-          style={{ height: "clamp(280px, 44vh, 470px)", maxHeight: "none" }}
+          style={{ height: "clamp(300px, 48vh, 512px)", maxHeight: "none" }}
+
 
         >
           <img
