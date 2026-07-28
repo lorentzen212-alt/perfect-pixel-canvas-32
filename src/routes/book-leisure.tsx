@@ -3565,29 +3565,29 @@ function LeisureStep2Screen({
         </section>
 
         {/* ---------- RIGHT: tip + sticky summary ---------- */}
-        <div className="order-3 lg:order-none min-w-0 space-y-6 lg:self-start">
+        <div className="order-3 lg:order-none min-w-0 space-y-4 lg:self-start">
           <div
             style={{
               borderRadius: 20,
               backgroundColor: S2_CARD,
               border: "1px solid rgba(255,255,255,0.05)",
-              padding: 22,
+              padding: 18,
               boxShadow: S2_CARD_SHADOW,
             }}
           >
             <Lightbulb size={20} strokeWidth={1.8} style={{ color: S2_GOLD_SOFT }} />
             <div
-              className="mt-3 text-[12px] font-semibold uppercase tracking-[0.28em]"
+              className="mt-2.5 text-[12px] font-semibold uppercase tracking-[0.28em]"
               style={{ color: S2_GOLD_SOFT }}
             >
               Tip
             </div>
-            <p className="mt-2.5 text-[13.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.62)" }}>
+            <p className="mt-2 text-[13.5px] leading-relaxed" style={{ color: "rgba(245,241,230,0.62)" }}>
               You can add multiple stays after completing this one.
             </p>
           </div>
 
-          <div className="lg:sticky lg:top-7">
+          <div className="lg:sticky lg:top-6">
           <AccommodationSummary
             stays={stays}
             totalStays={totalStays}
