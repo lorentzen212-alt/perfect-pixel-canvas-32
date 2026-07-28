@@ -64,8 +64,12 @@ const BG_ALT = "#22303A";
 const SIDEBAR = "#0B1D29";
 const SIDEBAR_ALT = "#0E2331";
 const TOPBAR = "#0C1E2A";
-const CARD = "#293841";
-const SURFACE = "#2E3D47";
+const CARD = "#2B3A45";
+const CARD_BORDER = "rgba(154,176,192,0.13)";
+const CARD_SHADOW = "0 1px 2px rgba(0,0,0,0.18), 0 8px 20px -14px rgba(0,0,0,0.45)";
+const ACTION_PANEL = "#31404B";
+const ATTENTION = "#2F3E49";
+
 const BORDER = "rgba(255,255,255,0.075)";
 const TEXT = "#F2F1EC";
 const TEXT_2 = "#BFC7CD";
@@ -103,20 +107,20 @@ function StatCard({
 }) {
   return (
     <div
-      className="flex min-w-0 items-center gap-3 rounded-lg px-4 py-3"
-      style={{ backgroundColor: CARD, border: `1px solid ${BORDER}` }}
+      className="flex min-w-0 items-center gap-2.5 rounded-lg px-3.5 py-2.5"
+      style={{ backgroundColor: CARD, border: `1px solid ${CARD_BORDER}` }}
     >
       <span
-        className="grid h-10 w-10 shrink-0 place-items-center rounded-full"
-        style={{ backgroundColor: `${tone}14`, color: tone, border: `1px solid ${tone}2E` }}
+        className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full"
+        style={{ backgroundColor: `${tone}12`, color: tone, border: `1px solid ${tone}26` }}
       >
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block text-[21px] font-medium leading-none" style={{ color: TEXT }}>
+        <span className="block text-[18px] font-medium leading-none" style={{ color: TEXT }}>
           {value}
         </span>
-        <span className="mt-1.5 block truncate text-[12px]" style={{ color: MUTED }}>
+        <span className="mt-1 block truncate text-[11.5px]" style={{ color: MUTED }}>
           {label}
         </span>
       </span>
@@ -227,23 +231,28 @@ function BookingCard({ booking }: { booking: Booking }) {
 
   return (
     <article
-      className="grid grid-cols-1 gap-4 rounded-[10px] p-2.5 md:grid-cols-[168px_minmax(0,1.5fr)_minmax(0,0.85fr)_minmax(0,1.15fr)_auto] md:items-center md:gap-0"
-      style={{ backgroundColor: CARD, border: `1px solid ${BORDER}` }}
+      className="grid grid-cols-1 gap-4 rounded-[10px] p-2.5 md:grid-cols-[184px_minmax(0,1.32fr)_minmax(0,0.78fr)_minmax(0,1.2fr)_auto] md:items-center md:gap-0"
+      style={{
+        backgroundColor: CARD,
+        border: `1px solid ${CARD_BORDER}`,
+        boxShadow: CARD_SHADOW,
+      }}
     >
       <img
         src={booking.image}
         alt={`${booking.destination} — ${booking.name}`}
         loading="lazy"
         className="h-[124px] w-full rounded-[8px] object-cover md:h-[110px]"
-        style={{ filter: "saturate(0.92) contrast(1.02) brightness(0.98)" }}
+        style={{ filter: "saturate(0.94) contrast(1.02)" }}
       />
 
 
+
       {/* 2. booking information */}
-      <div className="min-w-0 md:px-5">
+      <div className="min-w-0 md:px-4">
         <StatusChip type={booking.type} />
         <h3
-          className="mt-2 truncate text-[19px] font-medium"
+          className="mt-2 truncate text-[20.5px] font-semibold leading-tight"
           style={{ color: TEXT, fontFamily: SERIF }}
         >
           {booking.name}
@@ -264,11 +273,11 @@ function BookingCard({ booking }: { booking: Booking }) {
           </span>
         </div>
         {booking.hotel && (
-          <p className="mt-2 text-[12.5px]" style={{ color: TEXT_2 }}>
+          <p className="mt-1.5 text-[12px]" style={{ color: MUTED }}>
             {booking.hotel}
           </p>
         )}
-        <p className="mt-1 text-[12.5px]" style={{ color: MUTED }}>
+        <p className="mt-1 text-[12px]" style={{ color: MUTED }}>
           {booking.type === "me"
             ? `${booking.delegates} delegates  •  ${booking.meetingSpaces} meeting spaces`
             : `${booking.rooms} rooms  •  ${booking.guests} guests`}
@@ -276,7 +285,7 @@ function BookingCard({ booking }: { booking: Booking }) {
       </div>
 
       {/* 3. booking id + status */}
-      <div className="min-w-0 md:border-l md:px-5" style={{ borderColor: BORDER }}>
+      <div className="min-w-0 md:border-l md:px-4" style={{ borderColor: BORDER }}>
         <p className="text-[12.5px]" style={{ color: TEXT }}>
           {booking.reference}
         </p>
@@ -285,16 +294,16 @@ function BookingCard({ booking }: { booking: Booking }) {
         </p>
         {booking.hotelReference ? (
           <>
-            <p className="mt-3 text-[12px]" style={{ color: MUTED }}>
+            <p className="mt-2.5 text-[11.5px]" style={{ color: MUTED }}>
               Hotel reference
             </p>
-            <p className="mt-0.5 text-[12.5px]" style={{ color: TEXT_2 }}>
+            <p className="mt-0.5 text-[12px]" style={{ color: TEXT_2 }}>
               {booking.hotelReference}
             </p>
           </>
         ) : (
           booking.statusNote && (
-            <p className="mt-3 text-[12.5px]" style={{ color: MUTED }}>
+            <p className="mt-2.5 text-[12px]" style={{ color: MUTED }}>
               {booking.statusNote}
             </p>
           )
@@ -303,9 +312,13 @@ function BookingCard({ booking }: { booking: Booking }) {
 
       {/* 4. action panel */}
       <div
-        className="flex min-w-0 items-center gap-4 rounded-[8px] p-3 md:border-l md:bg-transparent md:px-5"
-        style={{ borderColor: BORDER, backgroundColor: `${SURFACE}80` }}
+        className="flex min-w-0 items-center gap-4 self-stretch rounded-[8px] p-3 md:my-0 md:ml-2 md:px-4"
+        style={{
+          border: `1px solid ${CARD_BORDER}`,
+          backgroundColor: ACTION_PANEL,
+        }}
       >
+
 
         {booking.rooming ? <ProgressRing value={progress} /> : <ActionIcon booking={booking} />}
         <div className="min-w-0">
@@ -605,21 +618,22 @@ function ManageBookings() {
           style={{ backgroundColor: BG_ALT }}
         >
           {/* heading + stats */}
-          <section className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,300px)_minmax(0,1fr)] xl:items-center">
+          <section className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,330px)_minmax(0,1fr)] xl:items-center">
             <div className="min-w-0">
-              <h1 className="text-[36px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
+              <h1 className="text-[40px] leading-[1.05]" style={{ color: TEXT, fontFamily: SERIF }}>
                 My Bookings
               </h1>
-              <p className="mt-2 text-[13.5px]" style={{ color: MUTED }}>
+              <p className="mt-2.5 text-[13.5px]" style={{ color: MUTED }}>
                 All your group stays and events in one place.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <StatCard value="7" label="Total Bookings" icon={<CalendarDays size={18} />} tone={GOLD} />
-              <StatCard value="2" label="Needs Attention" icon={<Bell size={18} />} tone="#C7A34A" />
-              <StatCard value="3" label="Offers Ready" icon={<Gift size={18} />} tone="#8FA98A" />
-              <StatCard value="4" label="Upcoming Stays" icon={<CalendarCheck size={18} />} tone="#8FA7BC" />
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+              <StatCard value="7" label="Total Bookings" icon={<CalendarDays size={16} />} tone="#B9A06B" />
+              <StatCard value="2" label="Needs Attention" icon={<Bell size={16} />} tone={GOLD} />
+              <StatCard value="3" label="Offers Ready" icon={<Gift size={16} />} tone="#8FA98A" />
+              <StatCard value="4" label="Upcoming Stays" icon={<CalendarCheck size={16} />} tone="#8FA7BC" />
             </div>
+
           </section>
 
           {/* controls */}
@@ -684,9 +698,10 @@ function ManageBookings() {
           <section
             className="mt-5 rounded-[10px] p-4 sm:px-5 sm:py-4"
             style={{
-              backgroundColor: CARD,
-              border: `1px solid ${BORDER}`,
+              backgroundColor: ATTENTION,
+              border: `1px solid ${CARD_BORDER}`,
               borderLeft: `2px solid ${GOLD_MID}`,
+              boxShadow: CARD_SHADOW,
             }}
           >
             <h2 className="text-[14px] font-medium" style={{ color: TEXT }}>
@@ -727,8 +742,8 @@ function ManageBookings() {
                 </div>
                 <button
                   type="button"
-                  className="ml-auto inline-flex items-center gap-2 text-[12.5px]"
-                  style={{ color: GOLD }}
+                  className="ml-auto inline-flex items-center gap-2 text-[12.5px] font-medium underline-offset-4 transition-colors hover:underline"
+                  style={{ color: GOLD_SOFT }}
                 >
                   Continue <span aria-hidden>→</span>
                 </button>
@@ -764,8 +779,8 @@ function ManageBookings() {
                   </p>
                   <button
                     type="button"
-                    className="mt-1 inline-flex items-center gap-2 text-[12.5px]"
-                    style={{ color: GOLD }}
+                    className="mt-1 inline-flex items-center gap-2 text-[12.5px] font-medium underline-offset-4 transition-colors hover:underline"
+                    style={{ color: GOLD_SOFT }}
                   >
                     Review offers <span aria-hidden>→</span>
                   </button>
