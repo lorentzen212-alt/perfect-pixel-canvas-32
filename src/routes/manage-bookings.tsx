@@ -249,10 +249,10 @@ function BookingCard({ booking }: { booking: Booking }) {
 
 
       {/* 2. booking information */}
-      <div className="min-w-0 md:px-5">
+      <div className="min-w-0 md:px-4">
         <StatusChip type={booking.type} />
         <h3
-          className="mt-2 truncate text-[19px] font-medium"
+          className="mt-2 truncate text-[20.5px] font-semibold leading-tight"
           style={{ color: TEXT, fontFamily: SERIF }}
         >
           {booking.name}
@@ -273,11 +273,11 @@ function BookingCard({ booking }: { booking: Booking }) {
           </span>
         </div>
         {booking.hotel && (
-          <p className="mt-2 text-[12.5px]" style={{ color: TEXT_2 }}>
+          <p className="mt-1.5 text-[12px]" style={{ color: MUTED }}>
             {booking.hotel}
           </p>
         )}
-        <p className="mt-1 text-[12.5px]" style={{ color: MUTED }}>
+        <p className="mt-1 text-[12px]" style={{ color: MUTED }}>
           {booking.type === "me"
             ? `${booking.delegates} delegates  •  ${booking.meetingSpaces} meeting spaces`
             : `${booking.rooms} rooms  •  ${booking.guests} guests`}
@@ -285,7 +285,7 @@ function BookingCard({ booking }: { booking: Booking }) {
       </div>
 
       {/* 3. booking id + status */}
-      <div className="min-w-0 md:border-l md:px-5" style={{ borderColor: BORDER }}>
+      <div className="min-w-0 md:border-l md:px-4" style={{ borderColor: BORDER }}>
         <p className="text-[12.5px]" style={{ color: TEXT }}>
           {booking.reference}
         </p>
@@ -294,16 +294,16 @@ function BookingCard({ booking }: { booking: Booking }) {
         </p>
         {booking.hotelReference ? (
           <>
-            <p className="mt-3 text-[12px]" style={{ color: MUTED }}>
+            <p className="mt-2.5 text-[11.5px]" style={{ color: MUTED }}>
               Hotel reference
             </p>
-            <p className="mt-0.5 text-[12.5px]" style={{ color: TEXT_2 }}>
+            <p className="mt-0.5 text-[12px]" style={{ color: TEXT_2 }}>
               {booking.hotelReference}
             </p>
           </>
         ) : (
           booking.statusNote && (
-            <p className="mt-3 text-[12.5px]" style={{ color: MUTED }}>
+            <p className="mt-2.5 text-[12px]" style={{ color: MUTED }}>
               {booking.statusNote}
             </p>
           )
@@ -312,9 +312,13 @@ function BookingCard({ booking }: { booking: Booking }) {
 
       {/* 4. action panel */}
       <div
-        className="flex min-w-0 items-center gap-4 rounded-[8px] p-3 md:border-l md:bg-transparent md:px-5"
-        style={{ borderColor: BORDER, backgroundColor: `${SURFACE}80` }}
+        className="flex min-w-0 items-center gap-4 self-stretch rounded-[8px] p-3 md:my-0 md:ml-2 md:px-4"
+        style={{
+          border: `1px solid ${CARD_BORDER}`,
+          backgroundColor: ACTION_PANEL,
+        }}
       >
+
 
         {booking.rooming ? <ProgressRing value={progress} /> : <ActionIcon booking={booking} />}
         <div className="min-w-0">
