@@ -206,57 +206,21 @@ function Home() {
           </div>
 
 
-          {/* FEATURE RIBBON */}
-          
-          <div className="relative isolate overflow-hidden mt-5 lg:mt-6 group rounded-[28px] border border-[rgba(212,175,55,0.12)] px-8 lg:px-14 py-8 opacity-[0.86] shadow-[0_8px_22px_rgba(0,0,0,0.22)] backdrop-blur-[18px] transition-all duration-[250ms] hover:opacity-100 hover:brightness-[1.03]">
-            {/* wood veneer texture */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 -z-30 opacity-[0.15] saturate-[0.55]"
-              style={{
-                backgroundImage: `url(${woodRibbonAsset.url})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            />
-            {/* deep navy overlay */}
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-20 bg-[#101A28]/90" />
-            {/* soft top-to-bottom gradient + vignette + top inner highlight */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 -z-10"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.0) 18%, rgba(8,13,21,0.18) 100%), radial-gradient(120% 100% at 50% 50%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.28) 100%)",
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07)",
-              }}
-            />
-            <div className="relative flex flex-wrap items-center justify-center gap-y-8 lg:gap-y-0 gap-x-6 lg:gap-x-12 lg:flex-nowrap">
-
-              {[
-                { Icon: Clock, title: "Save Time", desc: "We handle the time-consuming work for you." },
-                { Icon: Gem, title: "Best Offers", desc: "Receive multiple offers from carefully selected hotels." },
-                { Icon: Headphones, title: "Expert Support", desc: "Dedicated M&E specialists ready to help." },
-                { Icon: ShieldCheck, title: "Trusted & Secure", desc: "Your data is safe with us, always." },
-              ].map(({ Icon, title, desc }, idx, arr) => [
-                <div key={title} className="flex flex-1 min-w-[220px] max-w-[340px] items-center gap-4">
-                  <span className="inline-flex shrink-0 text-[#C9A65E] drop-shadow-[0_0_6px_rgba(201,166,94,0.25)] transition-all duration-[250ms] group-hover:-translate-y-0.5 group-hover:text-[#E6C88A]">
-                    <Icon size={30} strokeWidth={1.4} />
-                  </span>
-                  <div>
-                    <p className="text-white text-[12px] tracking-[0.18em] uppercase font-medium">{title}</p>
-                    <p className="mt-1 text-white/65 text-[13px] leading-snug font-light">{desc}</p>
-                  </div>
-                </div>,
-                idx < arr.length - 1 && (
-                  <div
-                    key={`sep-${title}`}
-                    className="hidden lg:block w-px self-stretch bg-gradient-to-b from-transparent via-[#D4AF37]/10 to-transparent"
-                  />
-                ),
-              ])}
+          {/* EDITORIAL DIVIDER SECTION */}
+          <section className="mt-[60px] pb-[80px] text-center">
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-px w-[70px] sm:w-[110px] lg:w-[150px] bg-gradient-to-r from-transparent via-[#C9A65E]/80 to-transparent" />
+              <h2 className="text-[12px] sm:text-[13px] font-medium uppercase tracking-[0.28em] text-[#D4AF37]">
+                Built for modern group travel
+              </h2>
+              <div className="h-px w-[70px] sm:w-[110px] lg:w-[150px] bg-gradient-to-r from-transparent via-[#C9A65E]/80 to-transparent" />
             </div>
-          </div>
+            <p className="mx-auto mt-5 max-w-[420px] text-[17px] font-light leading-[1.7] text-[#E8E4DD]">
+              Designed to simplify every step,
+              <br />
+              from enquiry to arrival.
+            </p>
+          </section>
         </section>
       </div>
     </main>
