@@ -103,9 +103,10 @@ function Home() {
         className="pointer-events-none absolute inset-0 z-10"
         style={{
           background: `
-            radial-gradient(ellipse 65% 50% at center 34%, rgba(8, 15, 25, 0.12) 0%, transparent 58%),
-            linear-gradient(180deg, rgba(8, 15, 25, 0.35) 0%, rgba(14, 25, 39, 0.23) 45%, rgba(7, 14, 23, 0.42) 100%)
+            radial-gradient(ellipse 65% 50% at center 34%, rgba(8, 15, 25, 0.05) 0%, transparent 60%),
+            linear-gradient(180deg, rgba(8, 15, 25, 0.10) 0%, rgba(14, 25, 39, 0.05) 45%, rgba(7, 14, 23, 0.12) 100%)
           `,
+
         }}
       />
 
