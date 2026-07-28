@@ -550,7 +550,7 @@ function ExperienceCard({
           <div className="absolute inset-0 z-20">
             <div
               className="absolute text-left"
-              style={{ left: "31px", bottom: "76px" }}
+              style={{ left: "41px", bottom: "76px" }}
             >
               <p
                 className="uppercase"
@@ -581,7 +581,7 @@ function ExperienceCard({
             <span
               className="absolute flex items-center opacity-[0.9] transition-opacity duration-[250ms] ease-out group-hover/card:opacity-100"
               style={{
-                left: "31px",
+                left: "41px",
                 bottom: "26px",
                 color: "#FFFFFF",
                 fontSize: "14.55px",
