@@ -211,8 +211,8 @@ function Home() {
                 tagline="Professional Event Planning"
                 ctaText="Plan event"
                 intensity={2}
-                imageFilter="brightness(1.42) contrast(1.12) saturate(0.85) hue-rotate(-3deg) sepia(0.06)"
-                overlay="from-black/0 via-black/[0.04] via-[40%] via-black/[0.10] via-[66%] to-black/[0.56]"
+                imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
+                overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
                 bottomGradient={false}
                 borderGradient="linear-gradient(145deg, rgba(255,250,230,0.68) 0%, rgba(230,205,155,0.34) 18%, rgba(255,245,210,0.58) 36%, rgba(180,150,100,0.26) 54%, rgba(245,230,195,0.52) 74%, rgba(255,250,230,0.68) 100%)"
                 disableCoolGrey={true}
@@ -225,8 +225,8 @@ function Home() {
                 tagline="Manage Your Bookings"
                 ctaText="Open dashboard"
                 intensity={1.8}
-                imageFilter="brightness(1.42) contrast(1.12) saturate(0.85) hue-rotate(-3deg) sepia(0.06)"
-                overlay="from-black/0 via-black/[0.04] via-[40%] via-black/[0.10] via-[66%] to-black/[0.56]"
+                imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
+                overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
                 bottomGradient={false}
                 borderGradient="linear-gradient(145deg, rgba(255,250,230,0.68) 0%, rgba(230,205,155,0.34) 18%, rgba(255,245,210,0.58) 36%, rgba(180,150,100,0.26) 54%, rgba(245,230,195,0.52) 74%, rgba(255,250,230,0.68) 100%)"
                 disableCoolGrey={true}
