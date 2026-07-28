@@ -493,9 +493,9 @@ function ExperienceCard({
                 className="uppercase"
                 style={{
                   color: "#FFFFFF",
-                  fontSize: "20px",
-                  fontWeight: 500,
-                  letterSpacing: "0.30em",
+                  fontSize: "18px",
+                  fontWeight: 600,
+                  letterSpacing: "0.28em",
                   lineHeight: 1,
                   whiteSpace: "nowrap",
                 }}
@@ -504,11 +504,11 @@ function ExperienceCard({
               </p>
               <p
                 style={{
-                  marginTop: "16px",
-                  color: "rgba(255,255,255,0.78)",
+                  marginTop: "7px",
+                  color: "rgba(255,255,255,0.8)",
                   fontSize: "15px",
                   fontWeight: 400,
-                  lineHeight: 1.4,
+                  lineHeight: 1.5,
                   whiteSpace: "nowrap",
                 }}
               >
@@ -516,22 +516,23 @@ function ExperienceCard({
               </p>
             </div>
             <span
-              className="absolute flex items-center opacity-[0.82] transition-opacity duration-[250ms] ease-out group-hover/card:opacity-100"
+              className="absolute flex items-center opacity-[0.9] transition-opacity duration-[250ms] ease-out group-hover/card:opacity-100"
               style={{
-                right: "30px",
-                bottom: "28px",
+                left: "34px",
+                bottom: "32px",
                 color: "#FFFFFF",
-                fontSize: "14px",
+                fontSize: "15px",
                 fontWeight: 500,
                 whiteSpace: "nowrap",
               }}
             >
               {ctaText}
-              <span className="ml-[6px] inline-block transition-transform duration-[250ms] ease-out group-hover/card:translate-x-1">
+              <span className="ml-[10px] inline-block transition-transform duration-[250ms] ease-out group-hover/card:translate-x-1">
                 →
               </span>
             </span>
           </div>
+
 
 
         </div>
