@@ -455,7 +455,7 @@ function ExperienceCard({
             className="pointer-events-none absolute inset-0 mix-blend-soft-light"
             style={{
               background:
-                "linear-gradient(180deg, rgba(150,168,186,0.18) 0%, rgba(120,136,154,0.10) 48%, rgba(38,44,52,0.20) 100%)",
+                "linear-gradient(180deg, rgba(150,168,186,0.10) 0%, rgba(120,136,154,0.05) 48%, rgba(38,44,52,0.10) 100%)",
             }}
           />
           {/* Champagne highlight tint */}
