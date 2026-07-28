@@ -132,7 +132,7 @@ function Home() {
 
 
         {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px+110px)] flex flex-col justify-start lg:-mt-[75px]">
+        <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start lg:-mt-[115px]">
           {/* Eyebrow */}
           <div className="flex items-center justify-center mt-[30px]">
             <span
@@ -167,7 +167,7 @@ function Home() {
           </h1>
 
           {/* Gold divider */}
-          <div className="mt-[26px] lg:mt-[30px] flex items-center justify-center">
+          <div className="mt-[16px] lg:mt-[18px] flex items-center justify-center">
             <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-r from-transparent to-[rgba(226,177,102,0.9)]" />
             <div
               className="mx-[16px] h-[6.5px] w-[6.5px] rotate-45"
@@ -176,7 +176,7 @@ function Home() {
             <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-l from-transparent to-[rgba(226,177,102,0.9)]" />
           </div>
 
-          <p className="mt-[18px] lg:mt-[20px] text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]">
+          <p className="mt-[10px] lg:mt-[12px] text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]">
             One request. Everything handled.
           </p>
 
@@ -184,7 +184,7 @@ function Home() {
 
 
           {/* EXPERIENCE CARDS */}
-          <div className="relative mt-[26px] lg:mt-[30px]">
+          <div className="relative mt-[14px] lg:mt-[16px]">
             {/* Stage spotlight behind all three cards */}
             <div
               aria-hidden
