@@ -424,6 +424,7 @@ function ExperienceCard({
           style={{
             padding: "1px",
             background:
+              borderGradient ||
               "linear-gradient(145deg, rgba(243,229,201,0.52) 0%, rgba(203,177,130,0.22) 22%, rgba(230,214,180,0.40) 44%, rgba(158,133,92,0.17) 66%, rgba(238,226,197,0.45) 100%)",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
