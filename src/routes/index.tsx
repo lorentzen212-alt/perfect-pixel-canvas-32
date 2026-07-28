@@ -208,9 +208,9 @@ function Home() {
 
           {/* EDITORIAL DIVIDER SECTION */}
           <section className="mt-[60px] pb-[80px] text-center">
-            <div className="flex items-center justify-center px-6 sm:px-10 lg:px-16">
+            <div className="flex items-center justify-center">
               <div className="h-[1px] flex-1 bg-[#C8942E]" />
-              <h2 className="mx-4 sm:mx-5 text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.38em] text-[#C8942E]">
+              <h2 className="mx-4 sm:mx-5 text-[10px] font-medium uppercase tracking-[0.42em] text-[#C8942E]">
                 Built for modern group travel
               </h2>
               <div className="h-[1px] flex-1 bg-[#C8942E]" />
