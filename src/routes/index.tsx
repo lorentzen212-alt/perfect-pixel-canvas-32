@@ -163,7 +163,7 @@ function Home() {
 
 
           {/* EXPERIENCE CARDS */}
-          <div className="relative mt-12 lg:mt-16">
+          <div className="relative mt-2 lg:mt-4">
             {/* Stage spotlight behind all three cards */}
             <div
               aria-hidden
@@ -207,14 +207,14 @@ function Home() {
 
 
           {/* EDITORIAL DIVIDER SECTION */}
-          <section className="mt-[52px] pb-[72px]">
+          <section className="mt-[46px] pb-[64px]">
             <div className="flex items-center">
               <div
                 className="h-[1px] flex-1"
                 style={{ backgroundColor: 'rgba(212,175,55,0.45)' }}
               />
               <h2
-                className="px-[28px] text-center text-[12px] font-medium uppercase leading-none tracking-[0.32em]"
+                className="px-[28px] text-center text-[11.5px] font-medium uppercase leading-none tracking-[0.3em]"
                 style={{ color: '#D4AF37', fontFamily: 'Inter, sans-serif' }}
               >
                 Built for planners
@@ -225,8 +225,8 @@ function Home() {
               />
             </div>
             <p
-              className="mx-auto mt-[22px] max-w-[440px] text-center text-[17px] font-light leading-[1.7]"
-              style={{ color: '#E8E4DD', fontFamily: 'Inter, sans-serif', fontWeight: 350 }}
+              className="mx-auto mt-[15px] max-w-[440px] text-center text-[16px] leading-[1.55]"
+              style={{ color: 'rgba(232,228,221,0.80)', fontFamily: 'Inter, sans-serif', fontWeight: 350 }}
             >
               Designed to simplify group travel
               <br />
