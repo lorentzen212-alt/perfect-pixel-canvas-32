@@ -150,7 +150,7 @@ function Home() {
 
           {/* Headline */}
           <h1
-            className="mx-auto max-w-[980px] font-light text-white leading-[1.16] text-[40px] sm:text-[54px] lg:text-[clamp(46px,4.6vh_+_1.4vw,62px)]"
+            className="mx-auto max-w-[980px] font-light text-white leading-[1.16] text-[40px] sm:text-[54px] lg:text-[clamp(42px,3.6vh_+_1.5vw,62px)]"
             style={{
               marginTop: "clamp(20px, 2.6vh, 26px)",
               fontFamily: '"Cormorant Garamond", Georgia, serif',
@@ -491,7 +491,7 @@ function ExperienceCard({
         {/* Full-height background image */}
         <div
           className="relative aspect-[12/13.6] overflow-hidden"
-          style={{ maxHeight: "clamp(300px, 47vh, 470px)" }}
+          style={{ maxHeight: "clamp(250px, 42vh, 460px)" }}
         >
           <img
             src={image}
