@@ -211,14 +211,12 @@ function Home() {
             <div className="flex items-center justify-center">
               <div className="h-[1px] flex-1 bg-[#C8942E]" />
               <h2 className="mx-4 sm:mx-5 text-[10px] font-medium uppercase tracking-[0.42em] text-[#C8942E]">
-                Built for modern group travel
+                Built for planners
               </h2>
               <div className="h-[1px] flex-1 bg-[#C8942E]" />
             </div>
             <p className="mx-auto mt-5 max-w-[420px] text-[17px] font-light leading-[1.7] text-[#E8E4DD]">
-              Designed to simplify every step,
-              <br />
-              from enquiry to arrival.
+              Designed to simplify group travel from request to stay.
             </p>
           </section>
         </section>
