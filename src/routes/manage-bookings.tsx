@@ -103,25 +103,26 @@ function StatCard({
 }) {
   return (
     <div
-      className="flex min-w-0 items-center gap-3 rounded-xl px-4 py-3"
+      className="flex min-w-0 items-center gap-3 rounded-lg px-4 py-3"
       style={{ backgroundColor: CARD, border: `1px solid ${BORDER}` }}
     >
       <span
         className="grid h-10 w-10 shrink-0 place-items-center rounded-full"
-        style={{ backgroundColor: `${tone}1F`, color: tone, border: `1px solid ${tone}3D` }}
+        style={{ backgroundColor: `${tone}14`, color: tone, border: `1px solid ${tone}2E` }}
       >
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block text-[20px] font-semibold leading-none" style={{ color: TEXT }}>
+        <span className="block text-[21px] font-medium leading-none" style={{ color: TEXT }}>
           {value}
         </span>
-        <span className="mt-1 block truncate text-[12.5px]" style={{ color: MUTED }}>
+        <span className="mt-1.5 block truncate text-[12px]" style={{ color: MUTED }}>
           {label}
         </span>
       </span>
     </div>
   );
+
 }
 
 function StatusChip({ type }: { type: Booking["type"] }) {
