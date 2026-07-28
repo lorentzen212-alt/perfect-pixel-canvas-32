@@ -207,16 +207,30 @@ function Home() {
 
 
           {/* EDITORIAL DIVIDER SECTION */}
-          <section className="mt-[52px] pb-[72px] text-center">
-            <div className="flex items-center justify-center">
-              <div className="h-[0.5px] flex-1 bg-[#C8942E]" />
-              <h2 className="mx-4 sm:mx-5 text-[9.5px] font-medium uppercase tracking-[0.48em] text-[#C8942E]">
+          <section className="mt-[52px] pb-[72px]">
+            <div className="flex items-center">
+              <div
+                className="h-[1px] flex-1"
+                style={{ backgroundColor: 'rgba(212,175,55,0.45)' }}
+              />
+              <h2
+                className="px-[28px] text-center text-[12px] font-medium uppercase leading-none tracking-[0.32em]"
+                style={{ color: '#D4AF37', fontFamily: 'Inter, sans-serif' }}
+              >
                 Built for planners
               </h2>
-              <div className="h-[0.5px] flex-1 bg-[#C8942E]" />
+              <div
+                className="h-[1px] flex-1"
+                style={{ backgroundColor: 'rgba(212,175,55,0.45)' }}
+              />
             </div>
-            <p className="mx-auto mt-4 max-w-[420px] text-[14.5px] font-light leading-[1.65] text-[#E8E4DD]/90">
-              Designed to simplify group travel from request to stay.
+            <p
+              className="mx-auto mt-[22px] max-w-[440px] text-center text-[17px] font-light leading-[1.7]"
+              style={{ color: '#E8E4DD', fontFamily: 'Inter, sans-serif', fontWeight: 350 }}
+            >
+              Designed to simplify group travel
+              <br />
+              from request to stay.
             </p>
           </section>
         </section>
