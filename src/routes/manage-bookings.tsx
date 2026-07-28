@@ -618,21 +618,22 @@ function ManageBookings() {
           style={{ backgroundColor: BG_ALT }}
         >
           {/* heading + stats */}
-          <section className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,300px)_minmax(0,1fr)] xl:items-center">
+          <section className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,330px)_minmax(0,1fr)] xl:items-center">
             <div className="min-w-0">
-              <h1 className="text-[36px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
+              <h1 className="text-[40px] leading-[1.05]" style={{ color: TEXT, fontFamily: SERIF }}>
                 My Bookings
               </h1>
-              <p className="mt-2 text-[13.5px]" style={{ color: MUTED }}>
+              <p className="mt-2.5 text-[13.5px]" style={{ color: MUTED }}>
                 All your group stays and events in one place.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <StatCard value="7" label="Total Bookings" icon={<CalendarDays size={18} />} tone={GOLD} />
-              <StatCard value="2" label="Needs Attention" icon={<Bell size={18} />} tone="#C7A34A" />
-              <StatCard value="3" label="Offers Ready" icon={<Gift size={18} />} tone="#8FA98A" />
-              <StatCard value="4" label="Upcoming Stays" icon={<CalendarCheck size={18} />} tone="#8FA7BC" />
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+              <StatCard value="7" label="Total Bookings" icon={<CalendarDays size={16} />} tone="#B9A06B" />
+              <StatCard value="2" label="Needs Attention" icon={<Bell size={16} />} tone={GOLD} />
+              <StatCard value="3" label="Offers Ready" icon={<Gift size={16} />} tone="#8FA98A" />
+              <StatCard value="4" label="Upcoming Stays" icon={<CalendarCheck size={16} />} tone="#8FA7BC" />
             </div>
+
           </section>
 
           {/* controls */}
