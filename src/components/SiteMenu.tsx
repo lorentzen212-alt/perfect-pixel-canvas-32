@@ -36,8 +36,9 @@ export function SiteMenu({ items, variant = "outline" }: SiteMenuProps) {
 
   const triggerClass =
     variant === "outline"
-      ? "inline-flex items-center gap-3 rounded-full border px-6 py-2 text-[14px] tracking-[0.14em] transition-all hover:border-[color:var(--gold-soft)] hover:text-[color:var(--gold-soft)]"
+      ? "inline-flex items-center justify-center gap-3 rounded-full border px-[26px] py-2 text-[14px] leading-none tracking-[0.14em] transition-all hover:border-[color:var(--gold-soft)] hover:text-[color:var(--gold-soft)]"
       : "ml-auto flex shrink-0 items-center gap-3 rounded-md px-2 py-1 transition-colors hover:bg-white/5";
+
 
   return (
     <>
