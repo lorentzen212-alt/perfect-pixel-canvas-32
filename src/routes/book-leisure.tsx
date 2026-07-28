@@ -3389,7 +3389,7 @@ function LeisureStep2Screen({
           </div>
 
           {/* 4 — Add this stay */}
-          <div className="mt-[26px] flex flex-col items-end gap-2">
+          <div className="mt-[16px] flex flex-col items-end gap-2">
             {addError && !canAddStay && (
               <span className="text-[13px]" style={{ color: "rgba(238,170,150,0.95)" }}>
                 Please select arrival and departure dates and at least one room.
