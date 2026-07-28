@@ -465,14 +465,16 @@ function ExperienceCard({
             className="absolute inset-0 h-full w-full object-cover"
           />
           {/* Unified cinematic grade: cool grey cast + champagne highlights */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 mix-blend-soft-light"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(150,168,186,0.30) 0%, rgba(120,136,154,0.18) 48%, rgba(38,44,52,0.34) 100%)",
-            }}
-          />
+          {!disableCoolGrey && (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(150,168,186,0.30) 0%, rgba(120,136,154,0.18) 48%, rgba(38,44,52,0.34) 100%)",
+              }}
+            />
+          )}
           {/* Champagne highlight tint */}
           <div
             aria-hidden
