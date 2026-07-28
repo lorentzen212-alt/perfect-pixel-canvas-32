@@ -3194,12 +3194,12 @@ function LeisureStep2Screen({
         {/* ---------- LEFT: vertical hotel image ---------- */}
         <aside className="order-2 lg:order-none min-w-0 lg:pr-[10px] lg:self-start">
           <div
-            className="relative overflow-hidden lg:sticky lg:top-7"
+            className="relative overflow-hidden lg:sticky lg:top-6"
             style={{
               borderRadius: 28,
-              minHeight: 560,
-              height: "calc(100vh - 96px)",
-              maxHeight: 1120,
+              minHeight: 460,
+              height: "calc(100vh - 148px)",
+              maxHeight: 880,
               border: "1.5px solid rgba(217,191,130,0.42)",
               boxShadow:
                 "0 2px 0 rgba(255,255,255,0.07) inset, 0 0 0 4px rgba(217,191,130,0.05), 0 0 34px -6px rgba(217,191,130,0.08), 0 18px 40px -26px rgba(4,10,16,0.6), 0 44px 88px -38px rgba(6,13,20,0.78), 0 80px 150px -70px rgba(0,0,0,0.75)",
