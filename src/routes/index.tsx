@@ -266,19 +266,19 @@ function Home() {
           <section style={{ marginTop: "clamp(26px, 3.6vh, 35px)", paddingBottom: "clamp(28px, 5vh, 56px)" }}>
 
             <div
-              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[34px] gap-y-3 rounded-[10px] px-[40px] py-[14px]"
+              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[58px] gap-y-3 rounded-[14px] px-[54px] py-[17px]"
               style={{
                 backgroundColor: 'rgba(9,18,28,0.55)',
-                border: '1px solid rgba(212,175,55,0.22)',
+                border: '1px solid rgba(212,175,55,0.30)',
                 backdropFilter: 'blur(6px)',
               }}
             >
               {['One Request', 'One Team', 'One Contact', 'Total Simplicity'].map((item, i) => (
-                <div key={item} className="flex items-center gap-x-[34px]">
+                <div key={item} className="flex items-center gap-x-[58px]">
                   {i > 0 && (
                     <span
-                      className="inline-flex items-center justify-center text-[12.5px] leading-none"
-                      style={{ color: 'rgba(219,178,110,0.9)', transform: 'translateY(-0.5px)' }}
+                      className="inline-flex items-center justify-center text-[13px] leading-none"
+                      style={{ color: '#E9A63C', transform: 'translateY(-0.5px)' }}
                       aria-hidden
                     >
                       &#10022;
@@ -286,9 +286,9 @@ function Home() {
                   )}
 
                   <span
-                    className="whitespace-nowrap text-[13.5px] leading-none tracking-[0.06em]"
+                    className="whitespace-nowrap text-[14px] leading-none tracking-[0.045em]"
                     style={{
-                      color: 'rgba(240,236,229,0.92)',
+                      color: 'rgba(248,246,242,0.97)',
                       fontFamily: 'Inter, sans-serif',
                       fontWeight: 400,
                     }}
@@ -298,6 +298,7 @@ function Home() {
                 </div>
               ))}
             </div>
+
           </section>
 
         </section>
