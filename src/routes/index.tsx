@@ -443,8 +443,9 @@ function ExperienceCard({
         style={{
           position: "relative",
           zIndex: 2,
-          border: "1px solid rgba(214, 183, 124, 0.34)",
-          boxShadow: cardShadow,
+          border: "1px solid rgba(226, 194, 133, 0.62)",
+          boxShadow: cardShadow + ", 0 0 22px rgba(226,190,126,0.10)",
+
           transition:
             "transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1)",
         }}
