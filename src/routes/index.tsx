@@ -132,13 +132,14 @@ function Home() {
 
 
         {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-start lg:-mt-[115px]">
+        <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-center">
           {/* Eyebrow */}
-          <div className="flex items-center justify-center mt-[88px]">
+          <div className="flex items-center justify-center">
             <span
-              className="text-[11.25px] tracking-[0.44em] uppercase font-light"
+              className="text-[11.25px] tracking-[0.44em] uppercase"
               style={{
-                color: "#D9A63C",
+                color: "#D6AC6A",
+                fontWeight: 400,
                 WebkitFontSmoothing: "antialiased",
                 textRendering: "optimizeLegibility",
               }}
@@ -149,10 +150,12 @@ function Home() {
 
           {/* Headline */}
           <h1
-            className="mx-auto mt-[22px] lg:mt-[26px] max-w-[980px] font-light text-white leading-[1.18] text-[40px] sm:text-[54px] lg:text-[62px]"
+            className="mx-auto max-w-[980px] font-light text-white leading-[1.16] text-[40px] sm:text-[54px] lg:text-[clamp(42px,3.6vh_+_1.5vw,62px)]"
             style={{
+              marginTop: "clamp(20px, 2.6vh, 26px)",
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               letterSpacing: "0.012em",
+              fontWeight: 300,
               WebkitFontSmoothing: "antialiased",
               MozOsxFontSmoothing: "grayscale",
               textRendering: "optimizeLegibility",
@@ -162,21 +165,42 @@ function Home() {
           >
             <span className="block">Three ways to</span>
             <span className="block">
-              <em className="italic font-light">exceptional</em> group stays
+              <em className="italic" style={{ color: "#E6B65C", fontWeight: 300 }}>
+                exceptional
+              </em>{" "}
+              group stays
             </span>
           </h1>
 
           {/* Gold divider */}
-          <div className="mt-[16px] lg:mt-[18px] flex items-center justify-center">
-            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-r from-transparent to-[rgba(226,177,102,0.9)]" />
+          <div
+            className="flex items-center justify-center"
+            style={{ marginTop: "clamp(14px, 2vh, 20px)" }}
+          >
             <div
-              className="mx-[16px] h-[6.5px] w-[6.5px] rotate-45"
-              style={{ background: "rgba(232,187,116,0.92)" }}
+              className="h-px w-[110px] lg:w-[130px]"
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(214,172,106,0) 0%, rgba(224,183,112,0.75) 45%, rgba(232,190,120,0.98) 100%)",
+              }}
             />
-            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-l from-transparent to-[rgba(226,177,102,0.9)]" />
+            <div
+              className="mx-[14px] h-[7px] w-[7px] rotate-45"
+              style={{ background: "#E2B473" }}
+            />
+            <div
+              className="h-px w-[110px] lg:w-[130px]"
+              style={{
+                background:
+                  "linear-gradient(to left, rgba(214,172,106,0) 0%, rgba(224,183,112,0.75) 45%, rgba(232,190,120,0.98) 100%)",
+              }}
+            />
           </div>
 
-          <p className="mt-[10px] lg:mt-[12px] text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]">
+          <p
+            className="text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]"
+            style={{ marginTop: "clamp(12px, 1.7vh, 16px)" }}
+          >
             One request. Everything handled.
           </p>
 
@@ -184,7 +208,7 @@ function Home() {
 
 
           {/* EXPERIENCE CARDS */}
-          <div className="relative mt-[26px] lg:mt-[28px]">
+          <div className="relative" style={{ marginTop: "clamp(22px, 3vh, 30px)" }}>
             {/* Stage spotlight behind all three cards */}
             <div
               aria-hidden
@@ -196,6 +220,7 @@ function Home() {
               }}
             />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[44px]">
+
               <ExperienceCard
                 to="/book-leisure"
                 image={cardLeisureAsset.url}
@@ -238,7 +263,8 @@ function Home() {
 
 
           {/* TRUST BAR */}
-          <section className="mt-[46px] pb-[64px]">
+          <section style={{ marginTop: "clamp(26px, 3.6vh, 35px)", paddingBottom: "clamp(28px, 5vh, 56px)" }}>
+
             <div
               className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[34px] gap-y-3 rounded-[10px] px-[40px] py-[14px]"
               style={{
@@ -417,8 +443,9 @@ function ExperienceCard({
         style={{
           position: "relative",
           zIndex: 2,
-          border: "1px solid rgba(214, 183, 124, 0.34)",
-          boxShadow: cardShadow,
+          border: "1px solid rgba(226, 194, 133, 0.62)",
+          boxShadow: cardShadow + ", 0 0 22px rgba(226,190,126,0.10)",
+
           transition:
             "transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1)",
         }}
@@ -439,7 +466,8 @@ function ExperienceCard({
             padding: "1px",
             background:
               borderGradient ||
-              "linear-gradient(145deg, rgba(243,229,201,0.52) 0%, rgba(203,177,130,0.22) 22%, rgba(230,214,180,0.40) 44%, rgba(158,133,92,0.17) 66%, rgba(238,226,197,0.45) 100%)",
+              "linear-gradient(160deg, rgba(248,232,196,0.92) 0%, rgba(226,193,133,0.62) 24%, rgba(240,222,182,0.72) 48%, rgba(190,160,108,0.48) 72%, rgba(236,214,168,0.66) 100%)",
+
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
@@ -461,7 +489,11 @@ function ExperienceCard({
           }}
         />
         {/* Full-height background image */}
-        <div className="relative aspect-[12/13.6] overflow-hidden">
+        <div
+          className="relative w-full aspect-[12/13.6] overflow-hidden"
+          style={{ height: "clamp(280px, 44vh, 470px)", maxHeight: "none" }}
+
+        >
           <img
             src={image}
             alt=""
