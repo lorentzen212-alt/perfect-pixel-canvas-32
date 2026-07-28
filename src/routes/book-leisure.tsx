@@ -3379,7 +3379,7 @@ function LeisureStep2Screen({
                 placeholder="Tell us anything important about your accommodation needs…"
                 rows={2}
                 className="s2-notes w-full resize-none bg-transparent text-[14px] leading-relaxed outline-none"
-                style={{ color: S2_TEXT, minHeight: 62 }}
+                style={{ color: S2_TEXT, minHeight: 46 }}
 
               />
               <div className="mt-1 text-right text-[11.5px]" style={{ color: "rgba(245,241,230,0.35)" }}>
