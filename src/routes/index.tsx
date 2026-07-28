@@ -132,16 +132,31 @@ function Home() {
         {/* CENTERED HERO CONTENT */}
         <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px+110px)] flex flex-col justify-start lg:-mt-[75px]">
           {/* Eyebrow */}
-          <div className="flex items-center justify-center -mt-1">
-            <span className="text-[10.5px] tracking-[0.44em] uppercase font-light text-[#C8942E]">
+          <div className="flex items-center justify-center mt-[10px]">
+            <span
+              className="text-[11.25px] tracking-[0.44em] uppercase font-light"
+              style={{
+                color: "#D9A63C",
+                WebkitFontSmoothing: "antialiased",
+                textRendering: "optimizeLegibility",
+              }}
+            >
               The Experience
             </span>
           </div>
 
           {/* Headline */}
           <h1
-            className="mx-auto mt-3 lg:mt-4 max-w-[980px] font-light text-white leading-[1.18] tracking-[0.005em] text-[40px] sm:text-[54px] lg:text-[62px]"
-            style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
+            className="mx-auto mt-[22px] lg:mt-[26px] max-w-[980px] font-light text-white leading-[1.18] text-[40px] sm:text-[54px] lg:text-[62px]"
+            style={{
+              fontFamily: '"Cormorant Garamond", Georgia, serif',
+              letterSpacing: "0.012em",
+              WebkitFontSmoothing: "antialiased",
+              MozOsxFontSmoothing: "grayscale",
+              textRendering: "optimizeLegibility",
+              fontKerning: "normal",
+              fontVariantLigatures: "common-ligatures",
+            }}
           >
             <span className="block">Three ways to</span>
             <span className="block">
@@ -150,15 +165,19 @@ function Home() {
           </h1>
 
           {/* Gold divider */}
-          <div className="mt-7 lg:mt-9 flex items-center justify-center">
-            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-r from-transparent to-[#E0A33A]" />
-            <div className="mx-[16px] h-[7px] w-[7px] rotate-45 bg-[#E8A93B]" />
-            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-l from-transparent to-[#E0A33A]" />
+          <div className="mt-[26px] lg:mt-[30px] flex items-center justify-center">
+            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-r from-transparent to-[rgba(226,177,102,0.9)]" />
+            <div
+              className="mx-[16px] h-[6.5px] w-[6.5px] rotate-45"
+              style={{ background: "rgba(232,187,116,0.92)" }}
+            />
+            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-l from-transparent to-[rgba(226,177,102,0.9)]" />
           </div>
 
-          <p className="mt-[14px] lg:mt-[16px] text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]">
+          <p className="mt-[18px] lg:mt-[20px] text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]">
             One request. Everything handled.
           </p>
+
 
 
 
