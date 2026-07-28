@@ -263,7 +263,8 @@ function Home() {
 
 
           {/* TRUST BAR */}
-          <section className="mt-[46px] pb-[64px]">
+          <section style={{ marginTop: "clamp(26px, 3.6vh, 35px)", paddingBottom: "clamp(28px, 5vh, 56px)" }}>
+
             <div
               className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[34px] gap-y-3 rounded-[10px] px-[40px] py-[14px]"
               style={{
