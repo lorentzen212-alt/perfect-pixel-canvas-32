@@ -198,7 +198,7 @@ function Home() {
                 to="/book-leisure"
                 image={cardLeisureAsset.url}
                 imagePosition="center 35%"
-                imageFilter="brightness(1.62) contrast(1.22) saturate(0.96) hue-rotate(-2deg) sepia(0.08)"
+                imageFilter="brightness(1.60) contrast(1.24) saturate(0.96) hue-rotate(-2deg) sepia(0.08)"
                 label="L E I S U R E"
                 tagline="Group Hotel Booking"
                 ctaText="Explore"
