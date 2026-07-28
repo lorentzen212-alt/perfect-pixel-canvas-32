@@ -491,7 +491,7 @@ function ExperienceCard({
         {/* Full-height background image */}
         <div
           className="relative w-full aspect-[12/13.6] overflow-hidden"
-          style={{ height: "clamp(300px, 46vh, 470px)", maxHeight: "none" }}
+          style={{ height: "clamp(280px, 44vh, 470px)", maxHeight: "none" }}
 
         >
           <img
