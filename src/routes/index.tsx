@@ -208,12 +208,12 @@ function Home() {
 
           {/* EDITORIAL DIVIDER SECTION */}
           <section className="mt-[60px] pb-[80px] text-center">
-            <div className="flex items-center justify-center gap-4">
-              <div className="h-px w-[70px] sm:w-[110px] lg:w-[150px] bg-gradient-to-r from-transparent via-[#C9A65E]/80 to-transparent" />
-              <h2 className="text-[12px] sm:text-[13px] font-medium uppercase tracking-[0.28em] text-[#D4AF37]">
+            <div className="flex items-center justify-center">
+              <div className="h-px flex-1 max-w-[280px] sm:max-w-[360px] lg:max-w-[460px] bg-[#C8942E]" />
+              <h2 className="mx-5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.34em] text-[#C8942E]">
                 Built for modern group travel
               </h2>
-              <div className="h-px w-[70px] sm:w-[110px] lg:w-[150px] bg-gradient-to-r from-transparent via-[#C9A65E]/80 to-transparent" />
+              <div className="h-px flex-1 max-w-[280px] sm:max-w-[360px] lg:max-w-[460px] bg-[#C8942E]" />
             </div>
             <p className="mx-auto mt-5 max-w-[420px] text-[17px] font-light leading-[1.7] text-[#E8E4DD]">
               Designed to simplify every step,
