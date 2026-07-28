@@ -485,7 +485,7 @@ function ExperienceCard({
             className="pointer-events-none absolute inset-0 z-10"
             style={{
               background:
-                "linear-gradient(to top, rgba(4,8,13,0.68) 0%, rgba(4,8,13,0.25) 28%, transparent 52%)",
+                "linear-gradient(to top, rgba(4,8,13,0.60) 0%, rgba(4,8,13,0.20) 30%, transparent 54%)",
             }}
           />
 
