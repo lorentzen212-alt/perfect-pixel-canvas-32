@@ -779,8 +779,8 @@ function ManageBookings() {
                   </p>
                   <button
                     type="button"
-                    className="mt-1 inline-flex items-center gap-2 text-[12.5px]"
-                    style={{ color: GOLD }}
+                    className="mt-1 inline-flex items-center gap-2 text-[12.5px] font-medium underline-offset-4 transition-colors hover:underline"
+                    style={{ color: GOLD_SOFT }}
                   >
                     Review offers <span aria-hidden>→</span>
                   </button>
