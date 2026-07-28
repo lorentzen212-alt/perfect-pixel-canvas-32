@@ -280,6 +280,8 @@ function ExperienceCard({
   imagePosition = "center center",
   imageFilter = "brightness(1.075) contrast(1.12) saturate(0.87) hue-rotate(-6deg) sepia(0.05)",
   overlay = "from-transparent via-transparent via-[86%] to-black/12",
+  bottomGradient = true,
+  borderGradient,
 
   label,
   tagline,
@@ -291,6 +293,8 @@ function ExperienceCard({
   imagePosition?: string;
   imageFilter?: string;
   overlay?: string;
+  bottomGradient?: boolean;
+  borderGradient?: string;
   label: string;
   tagline: React.ReactNode;
   ctaText: string;
