@@ -69,7 +69,7 @@ const CARD_BORDER = "rgba(154,176,192,0.13)";
 const CARD_SHADOW = "0 1px 2px rgba(0,0,0,0.18), 0 8px 20px -14px rgba(0,0,0,0.45)";
 const ACTION_PANEL = "#31404B";
 const ATTENTION = "#2F3E49";
-const SURFACE = "#2E3D47";
+
 const BORDER = "rgba(255,255,255,0.075)";
 const TEXT = "#F2F1EC";
 const TEXT_2 = "#BFC7CD";
