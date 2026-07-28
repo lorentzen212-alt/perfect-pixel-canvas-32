@@ -132,16 +132,31 @@ function Home() {
         {/* CENTERED HERO CONTENT */}
         <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px+110px)] flex flex-col justify-start lg:-mt-[75px]">
           {/* Eyebrow */}
-          <div className="flex items-center justify-center -mt-1">
-            <span className="text-[10.5px] tracking-[0.44em] uppercase font-light text-[#C8942E]">
+          <div className="flex items-center justify-center mt-[10px]">
+            <span
+              className="text-[11.25px] tracking-[0.44em] uppercase font-light"
+              style={{
+                color: "#D9A63C",
+                WebkitFontSmoothing: "antialiased",
+                textRendering: "optimizeLegibility",
+              }}
+            >
               The Experience
             </span>
           </div>
 
           {/* Headline */}
           <h1
-            className="mx-auto mt-3 lg:mt-4 max-w-[980px] font-light text-white leading-[1.18] tracking-[0.005em] text-[40px] sm:text-[54px] lg:text-[62px]"
-            style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
+            className="mx-auto mt-[22px] lg:mt-[26px] max-w-[980px] font-light text-white leading-[1.18] text-[40px] sm:text-[54px] lg:text-[62px]"
+            style={{
+              fontFamily: '"Cormorant Garamond", Georgia, serif',
+              letterSpacing: "0.012em",
+              WebkitFontSmoothing: "antialiased",
+              MozOsxFontSmoothing: "grayscale",
+              textRendering: "optimizeLegibility",
+              fontKerning: "normal",
+              fontVariantLigatures: "common-ligatures",
+            }}
           >
             <span className="block">Three ways to</span>
             <span className="block">
@@ -150,20 +165,24 @@ function Home() {
           </h1>
 
           {/* Gold divider */}
-          <div className="mt-7 lg:mt-9 flex items-center justify-center">
-            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-r from-transparent to-[#E0A33A]" />
-            <div className="mx-[16px] h-[7px] w-[7px] rotate-45 bg-[#E8A93B]" />
-            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-l from-transparent to-[#E0A33A]" />
+          <div className="mt-[26px] lg:mt-[30px] flex items-center justify-center">
+            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-r from-transparent to-[rgba(226,177,102,0.9)]" />
+            <div
+              className="mx-[16px] h-[6.5px] w-[6.5px] rotate-45"
+              style={{ background: "rgba(232,187,116,0.92)" }}
+            />
+            <div className="h-px w-[110px] lg:w-[130px] bg-gradient-to-l from-transparent to-[rgba(226,177,102,0.9)]" />
           </div>
 
-          <p className="mt-[14px] lg:mt-[16px] text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]">
+          <p className="mt-[18px] lg:mt-[20px] text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]">
             One request. Everything handled.
           </p>
 
 
 
+
           {/* EXPERIENCE CARDS */}
-          <div className="relative mt-2 lg:mt-4">
+          <div className="relative mt-[26px] lg:mt-[30px]">
             {/* Stage spotlight behind all three cards */}
             <div
               aria-hidden
@@ -209,7 +228,7 @@ function Home() {
           {/* TRUST BAR */}
           <section className="mt-[46px] pb-[64px]">
             <div
-              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[26px] gap-y-3 rounded-[10px] px-[34px] py-[16px]"
+              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[34px] gap-y-3 rounded-[10px] px-[40px] py-[14px]"
               style={{
                 backgroundColor: 'rgba(9,18,28,0.55)',
                 border: '1px solid rgba(212,175,55,0.22)',
@@ -217,12 +236,17 @@ function Home() {
               }}
             >
               {['One Request', 'One Team', 'One Contact', 'Total Simplicity'].map((item, i) => (
-                <div key={item} className="flex items-center gap-x-[26px]">
+                <div key={item} className="flex items-center gap-x-[34px]">
                   {i > 0 && (
-                    <span className="text-[11px] leading-none" style={{ color: '#C8942E' }}>
+                    <span
+                      className="inline-flex items-center justify-center text-[12.5px] leading-none"
+                      style={{ color: 'rgba(219,178,110,0.9)', transform: 'translateY(-0.5px)' }}
+                      aria-hidden
+                    >
                       &#10022;
                     </span>
                   )}
+
                   <span
                     className="whitespace-nowrap text-[13.5px] leading-none tracking-[0.06em]"
                     style={{
@@ -254,8 +278,9 @@ function ExperienceCard({
   to,
   image,
   imagePosition = "center center",
-  imageFilter = "brightness(1.06) contrast(1.07) saturate(0.86) hue-rotate(-6deg) sepia(0.05)",
-  overlay = "from-transparent via-transparent via-[84%] to-black/18",
+  imageFilter = "brightness(1.075) contrast(1.12) saturate(0.87) hue-rotate(-6deg) sepia(0.05)",
+  overlay = "from-transparent via-transparent via-[86%] to-black/12",
+
   label,
   tagline,
   ctaText,
@@ -395,7 +420,7 @@ function ExperienceCard({
           style={{
             padding: "1px",
             background:
-              "linear-gradient(145deg, rgba(246,231,196,0.60) 0%, rgba(198,166,108,0.26) 22%, rgba(232,212,167,0.46) 44%, rgba(150,120,72,0.20) 66%, rgba(240,224,183,0.52) 100%)",
+              "linear-gradient(145deg, rgba(243,229,201,0.52) 0%, rgba(203,177,130,0.22) 22%, rgba(230,214,180,0.40) 44%, rgba(158,133,92,0.17) 66%, rgba(238,226,197,0.45) 100%)",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
@@ -460,7 +485,7 @@ function ExperienceCard({
             className="pointer-events-none absolute inset-0 z-10"
             style={{
               background:
-                "linear-gradient(to top, rgba(4,8,13,0.68) 0%, rgba(4,8,13,0.25) 28%, transparent 52%)",
+                "linear-gradient(to top, rgba(4,8,13,0.60) 0%, rgba(4,8,13,0.20) 30%, transparent 54%)",
             }}
           />
 
