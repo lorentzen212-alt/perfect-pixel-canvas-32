@@ -132,7 +132,7 @@ function Home() {
         {/* CENTERED HERO CONTENT */}
         <section className="mx-auto max-w-[1300px] px-5 sm:px-8 lg:px-6 pt-0 lg:pt-0 pb-10 lg:pb-12 text-center lg:min-h-[calc(100vh-88px+110px)] flex flex-col justify-start lg:-mt-[75px]">
           {/* Eyebrow */}
-          <div className="flex items-center justify-center mt-[10px]">
+          <div className="flex items-center justify-center mt-[30px]">
             <span
               className="text-[11.25px] tracking-[0.44em] uppercase font-light"
               style={{
