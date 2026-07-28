@@ -59,20 +59,22 @@ export const Route = createFileRoute("/manage-bookings")({
 });
 
 /* ── palette ─────────────────────────────────────────── */
-const BG = "#24323C";
-const BG_ALT = "#273640";
-const SIDEBAR = "#0C2230";
-const SIDEBAR_ALT = "#102734";
-const TOPBAR = "#0E202C";
-const CARD = "#2C3A43";
-const SURFACE = "#32414A";
-const BORDER = "rgba(255,255,255,0.10)";
-const TEXT = "#F4F2ED";
-const TEXT_2 = "#C5CBD0";
-const MUTED = "#98A3AA";
-const GOLD = "#D6B15C";
-const GOLD_MID = "#C99A3D";
-const GOLD_DEEP = "#A97822";
+const BG = "#1E2C36";
+const BG_ALT = "#22303A";
+const SIDEBAR = "#0B1D29";
+const SIDEBAR_ALT = "#0E2331";
+const TOPBAR = "#0C1E2A";
+const CARD = "#293841";
+const SURFACE = "#2E3D47";
+const BORDER = "rgba(255,255,255,0.075)";
+const TEXT = "#F2F1EC";
+const TEXT_2 = "#BFC7CD";
+const MUTED = "#929DA5";
+const GOLD = "#C7A34A";
+const GOLD_MID = "#B99135";
+const GOLD_DEEP = "rgba(199,163,74,0.55)";
+const GOLD_SOFT = "#D0B05A";
+
 
 const SERIF = '"Cormorant Garamond", Georgia, serif';
 
@@ -101,25 +103,26 @@ function StatCard({
 }) {
   return (
     <div
-      className="flex min-w-0 items-center gap-3 rounded-xl px-4 py-3"
+      className="flex min-w-0 items-center gap-3 rounded-lg px-4 py-3"
       style={{ backgroundColor: CARD, border: `1px solid ${BORDER}` }}
     >
       <span
         className="grid h-10 w-10 shrink-0 place-items-center rounded-full"
-        style={{ backgroundColor: `${tone}1F`, color: tone, border: `1px solid ${tone}3D` }}
+        style={{ backgroundColor: `${tone}14`, color: tone, border: `1px solid ${tone}2E` }}
       >
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block text-[20px] font-semibold leading-none" style={{ color: TEXT }}>
+        <span className="block text-[21px] font-medium leading-none" style={{ color: TEXT }}>
           {value}
         </span>
-        <span className="mt-1 block truncate text-[12.5px]" style={{ color: MUTED }}>
+        <span className="mt-1.5 block truncate text-[12px]" style={{ color: MUTED }}>
           {label}
         </span>
       </span>
     </div>
   );
+
 }
 
 function StatusChip({ type }: { type: Booking["type"] }) {
@@ -129,8 +132,8 @@ function StatusChip({ type }: { type: Booking["type"] }) {
       className="inline-flex items-center rounded px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.14em]"
       style={{
         color: isLeisure ? GOLD : "#9FB6C8",
-        backgroundColor: isLeisure ? "rgba(214,177,92,0.12)" : "rgba(143,167,188,0.14)",
-        border: `1px solid ${isLeisure ? "rgba(214,177,92,0.32)" : "rgba(143,167,188,0.30)"}`,
+        backgroundColor: isLeisure ? "rgba(199,163,74,0.12)" : "rgba(143,167,188,0.14)",
+        border: `1px solid ${isLeisure ? "rgba(199,163,74,0.32)" : "rgba(143,167,188,0.30)"}`,
       }}
     >
       {isLeisure ? "Leisure" : "M&E"}
@@ -142,21 +145,21 @@ function ProgressRing({ value }: { value: number }) {
   const r = 26;
   const c = 2 * Math.PI * r;
   return (
-    <div className="relative grid h-[68px] w-[68px] shrink-0 place-items-center">
-      <svg viewBox="0 0 64 64" className="h-[68px] w-[68px] -rotate-90">
-        <circle cx="32" cy="32" r={r} fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth="4" />
+    <div className="relative grid h-[64px] w-[64px] shrink-0 place-items-center">
+      <svg viewBox="0 0 64 64" className="h-[64px] w-[64px] -rotate-90">
+        <circle cx="32" cy="32" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="3.5" />
         <circle
           cx="32"
           cy="32"
           r={r}
           fill="none"
-          stroke="#8FA98A"
-          strokeWidth="4"
+          stroke={GOLD}
+          strokeWidth="3.5"
           strokeLinecap="round"
           strokeDasharray={`${(value / 100) * c} ${c}`}
         />
       </svg>
-      <span className="absolute text-[14px] font-semibold" style={{ color: TEXT }}>
+      <span className="absolute text-[13.5px] font-medium" style={{ color: TEXT }}>
         {value}%
       </span>
     </div>
@@ -167,10 +170,10 @@ function GoldButton({ label }: { label: string }) {
   return (
     <button
       type="button"
-      className="inline-flex items-center gap-2 rounded-md px-3.5 py-2 text-[12.5px] font-medium transition-colors"
+      className="inline-flex items-center gap-2 whitespace-nowrap rounded-[6px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
       style={{
-        color: "#1B2A33",
-        background: `linear-gradient(180deg, ${GOLD} 0%, ${GOLD_MID} 100%)`,
+        color: GOLD_SOFT,
+        backgroundColor: "transparent",
         border: `1px solid ${GOLD_DEEP}`,
       }}
     >
@@ -184,14 +187,15 @@ function QuietButton({ label }: { label: string }) {
   return (
     <button
       type="button"
-      className="inline-flex items-center gap-2 rounded-md px-3.5 py-2 text-[12.5px] font-medium transition-colors hover:border-[rgba(214,177,92,0.45)]"
-      style={{ color: TEXT, backgroundColor: SURFACE, border: `1px solid ${BORDER}` }}
+      className="inline-flex items-center gap-2 whitespace-nowrap rounded-[6px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-white/5"
+      style={{ color: TEXT_2, backgroundColor: "transparent", border: `1px solid rgba(255,255,255,0.14)` }}
     >
       {label}
       <span aria-hidden>→</span>
     </button>
   );
 }
+
 
 function ActionIcon({ booking }: { booking: Booking }) {
   const kind = booking.action.kind;
@@ -205,9 +209,10 @@ function ActionIcon({ booking }: { booking: Booking }) {
   const { icon, tone } = map[kind] ?? map.generic;
   return (
     <span
-      className="grid h-12 w-12 shrink-0 place-items-center rounded-full"
-      style={{ backgroundColor: `${tone}1A`, color: tone, border: `1px solid ${tone}33` }}
+      className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-full"
+      style={{ backgroundColor: `${tone}12`, color: tone, border: `1px solid ${tone}2B` }}
     >
+
       {icon}
     </span>
   );
@@ -222,15 +227,17 @@ function BookingCard({ booking }: { booking: Booking }) {
 
   return (
     <article
-      className="grid grid-cols-1 gap-4 rounded-xl p-3 md:grid-cols-[164px_minmax(0,1.5fr)_minmax(0,0.85fr)_minmax(0,1.15fr)_auto] md:items-center md:gap-0"
+      className="grid grid-cols-1 gap-4 rounded-[10px] p-2.5 md:grid-cols-[168px_minmax(0,1.5fr)_minmax(0,0.85fr)_minmax(0,1.15fr)_auto] md:items-center md:gap-0"
       style={{ backgroundColor: CARD, border: `1px solid ${BORDER}` }}
     >
       <img
         src={booking.image}
         alt={`${booking.destination} — ${booking.name}`}
         loading="lazy"
-        className="h-[132px] w-full rounded-lg object-cover md:h-[118px]"
+        className="h-[124px] w-full rounded-[8px] object-cover md:h-[110px]"
+        style={{ filter: "saturate(0.92) contrast(1.02) brightness(0.98)" }}
       />
+
 
       {/* 2. booking information */}
       <div className="min-w-0 md:px-5">
@@ -296,9 +303,10 @@ function BookingCard({ booking }: { booking: Booking }) {
 
       {/* 4. action panel */}
       <div
-        className="flex min-w-0 items-center gap-4 rounded-lg p-3 md:border-l md:bg-transparent md:px-5"
-        style={{ borderColor: BORDER, backgroundColor: SURFACE }}
+        className="flex min-w-0 items-center gap-4 rounded-[8px] p-3 md:border-l md:bg-transparent md:px-5"
+        style={{ borderColor: BORDER, backgroundColor: `${SURFACE}80` }}
       >
+
         {booking.rooming ? <ProgressRing value={progress} /> : <ActionIcon booking={booking} />}
         <div className="min-w-0">
           <p
@@ -419,7 +427,7 @@ function SidebarContent({ active }: { active: string }) {
         >
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
-            style={{ backgroundColor: "rgba(214,177,92,0.16)", color: GOLD }}
+            style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
           >
             EH
           </span>
@@ -457,7 +465,7 @@ function Select<T extends string>({
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="w-full appearance-none rounded-lg px-4 py-2.5 pr-9 text-[13.5px] outline-none"
+        className="w-full appearance-none rounded-[8px] px-4 py-[9px] pr-9 text-[13.5px] outline-none"
         style={{ backgroundColor: CARD, border: `1px solid ${BORDER}`, color: TEXT_2 }}
       >
         {options.map((o) => (
@@ -580,7 +588,7 @@ function ManageBookings() {
             <button type="button" className="flex items-center gap-2">
               <span
                 className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
-                style={{ backgroundColor: "rgba(214,177,92,0.16)", color: GOLD }}
+                style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
               >
                 EH
               </span>
@@ -608,7 +616,7 @@ function ManageBookings() {
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               <StatCard value="7" label="Total Bookings" icon={<CalendarDays size={18} />} tone={GOLD} />
-              <StatCard value="2" label="Needs Attention" icon={<Bell size={18} />} tone="#D8A44A" />
+              <StatCard value="2" label="Needs Attention" icon={<Bell size={18} />} tone="#C7A34A" />
               <StatCard value="3" label="Offers Ready" icon={<Gift size={18} />} tone="#8FA98A" />
               <StatCard value="4" label="Upcoming Stays" icon={<CalendarCheck size={18} />} tone="#8FA7BC" />
             </div>
@@ -627,7 +635,7 @@ function ManageBookings() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search bookings..."
                 aria-label="Search bookings by name, ID, destination or hotel"
-                className="w-full rounded-lg py-2.5 pl-11 pr-4 text-[13.5px] outline-none placeholder:text-[#98A3AA]"
+                className="w-full rounded-[8px] py-[9px] pl-11 pr-4 text-[13.5px] outline-none placeholder:text-[#98A3AA]"
                 style={{ backgroundColor: CARD, border: `1px solid ${BORDER}`, color: TEXT }}
               />
             </div>
@@ -658,10 +666,10 @@ function ManageBookings() {
                     aria-label={label}
                     aria-pressed={on}
                     onClick={() => setView(key)}
-                    className="grid h-[42px] w-[46px] place-items-center rounded-lg"
+                    className="grid h-[38px] w-[42px] place-items-center rounded-[8px]"
                     style={{
-                      backgroundColor: on ? "rgba(214,177,92,0.10)" : CARD,
-                      border: `1px solid ${on ? "rgba(214,177,92,0.55)" : BORDER}`,
+                      backgroundColor: on ? "rgba(199,163,74,0.10)" : CARD,
+                      border: `1px solid ${on ? "rgba(199,163,74,0.55)" : BORDER}`,
                       color: on ? GOLD : MUTED,
                     }}
                   >
@@ -674,22 +682,27 @@ function ManageBookings() {
 
           {/* needs your attention */}
           <section
-            className="mt-5 rounded-xl p-4 sm:p-5"
-            style={{ backgroundColor: CARD, border: `1px solid ${BORDER}` }}
+            className="mt-5 rounded-[10px] p-4 sm:px-5 sm:py-4"
+            style={{
+              backgroundColor: CARD,
+              border: `1px solid ${BORDER}`,
+              borderLeft: `2px solid ${GOLD_MID}`,
+            }}
           >
-            <h2 className="text-[15px] font-medium" style={{ color: TEXT }}>
+            <h2 className="text-[14px] font-medium" style={{ color: TEXT }}>
               Needs Your Attention
             </h2>
-            <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="mt-3.5 grid grid-cols-1 gap-4 lg:grid-cols-2">
               <div className="flex flex-wrap items-center gap-4 lg:flex-nowrap">
                 <span
-                  className="grid h-12 w-12 shrink-0 place-items-center rounded-full"
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full"
                   style={{
-                    backgroundColor: "rgba(216,164,74,0.14)",
-                    color: "#D8A44A",
-                    border: "1px solid rgba(216,164,74,0.32)",
+                    backgroundColor: "rgba(199,163,74,0.12)",
+                    color: GOLD,
+                    border: "1px solid rgba(199,163,74,0.28)",
                   }}
                 >
+
                   <Bell size={20} />
                 </span>
                 <div className="min-w-0">
@@ -726,13 +739,14 @@ function ManageBookings() {
                 style={{ borderColor: BORDER }}
               >
                 <span
-                  className="grid h-12 w-12 shrink-0 place-items-center rounded-full"
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full"
                   style={{
-                    backgroundColor: "rgba(214,177,92,0.14)",
+                    backgroundColor: "rgba(199,163,74,0.12)",
                     color: GOLD,
-                    border: "1px solid rgba(214,177,92,0.32)",
+                    border: "1px solid rgba(199,163,74,0.28)",
                   }}
                 >
+
                   <Gift size={20} />
                 </span>
                 <div className="min-w-0">
@@ -812,8 +826,8 @@ function ManageBookings() {
                       type="button"
                       className="grid h-8 min-w-8 place-items-center rounded-md px-2 text-[12.5px]"
                       style={{
-                        backgroundColor: active ? "rgba(214,177,92,0.10)" : "transparent",
-                        border: `1px solid ${active ? "rgba(214,177,92,0.5)" : BORDER}`,
+                        backgroundColor: active ? "rgba(199,163,74,0.10)" : "transparent",
+                        border: `1px solid ${active ? "rgba(199,163,74,0.5)" : BORDER}`,
                         color: active ? GOLD : TEXT_2,
                       }}
                     >

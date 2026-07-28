@@ -34,11 +34,12 @@ export const STATUS_META: Record<BookingStatus, StatusMeta> = {
 };
 
 export const TONE_COLOR: Record<StatusTone, string> = {
-  gold: "#D6B15C",
-  sage: "#8FA98A",
-  steel: "#8FA7BC",
-  muted: "#98A3AA",
+  gold: "#C7A34A",
+  sage: "#8DA88A",
+  steel: "#8AA3B8",
+  muted: "#929DA5",
 };
+
 
 export type BookingType = "leisure" | "me";
 
