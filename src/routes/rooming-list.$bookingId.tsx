@@ -314,10 +314,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;border-color:rgba(255,255,255,0.14) !important}
+      .hgb-row{transition:transform 170ms ease,box-shadow 170ms ease,background 170ms ease,border-color 170ms ease}
+      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,35,63,0.16) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
-      .hgb-cell{border-top:1px solid rgba(255,255,255,0.07)}
-      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(255,255,255,0.08)}}
+      .hgb-cell{border-top:1px solid rgba(255,255,255,0.05)}
+      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:none}}
       .hgb-search::placeholder{color:#B8BDC2}`}</style>
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
@@ -627,12 +628,13 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
             </div>
 
             {/* allocation cards */}
-            <div className="space-y-2">
+            <div className="space-y-[8px]">
                 {visible.map((a) => (
                   <AllocationRow
                     key={a.id}
                     allocation={a}
                     locked={locked}
+                    active={openGuest?.allocationId === a.id || pendingGuest?.allocationId === a.id}
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
                     onPatch={(fn) => patchAllocation(a.id, fn)}
@@ -775,6 +777,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 function AllocationRow({
   allocation,
   locked,
+  active,
   autoFocus,
   onAutoFocused,
   onPatch,
@@ -783,6 +786,7 @@ function AllocationRow({
 }: {
   allocation: Allocation;
   locked: boolean;
+  active?: boolean;
   autoFocus?: boolean;
   onAutoFocused?: () => void;
   onPatch: (fn: (a: Allocation) => Allocation) => void;
@@ -825,19 +829,24 @@ function AllocationRow({
           ? "Missing guests"
           : "Missing guest";
 
+  const isActive = !!active || typeOpen || menuOpen || requestOpen;
+
   return (
     <div
       id={`alloc-${allocation.id}`}
-      className="hgb-row grid rounded-[10px] transition-[background,border-color] duration-200 ease-out lg:[grid-template-columns:14%_42%_21%_19%_4%]"
+      className="hgb-row grid rounded-[12px] lg:[grid-template-columns:14%_42%_21%_19%_4%]"
       style={{
         background: CARD_NAVY,
-        border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: "0 4px 12px rgba(20,45,70,0.10)",
+        border: isActive ? "1.5px solid #C5A24B" : "1px solid rgba(255,255,255,0.07)",
+        boxShadow: isActive
+          ? "0 8px 22px rgba(16,35,63,0.18)"
+          : "0 4px 14px rgba(16,35,63,0.12)",
       }}
     >
 
+
       {/* ── ALLOCATION ── */}
-      <div className="flex flex-col justify-center px-3.5 py-2">
+      <div className="flex flex-col justify-center px-4 py-3">
         <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
           {String(allocation.index).padStart(2, "0")}
         </p>
@@ -888,7 +897,7 @@ function AllocationRow({
       </div>
 
       {/* ── GUESTS ── */}
-      <div className="hgb-cell flex flex-col justify-center gap-[3px] px-3.5 py-2">
+      <div className="hgb-cell flex flex-col justify-center gap-[5px] px-4 py-3">
         {allocation.guests.map((g) => (
           <button
             key={g.id}
@@ -926,7 +935,7 @@ function AllocationRow({
       </div>
 
       {/* ── ROOM REQUEST ── */}
-      <div className="hgb-cell relative flex flex-col justify-center px-3.5 py-2">
+      <div className="hgb-cell relative flex flex-col justify-center px-4 py-3">
         {allocation.requests.length > 0 ? (
           <div className="space-y-[3px]">
             {allocation.requests.map((r) => (
@@ -983,18 +992,18 @@ function AllocationRow({
       </div>
 
       {/* ── STATUS ── */}
-      <div className="hgb-cell flex flex-col justify-center px-3.5 py-2">
+      <div className="hgb-cell flex flex-col justify-center px-4 py-3">
         <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: statusColor }}>
           {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={14} strokeWidth={1.6} />}
           {statusLabel}
         </span>
-        <p className="mt-[3px] text-[11.5px]" style={{ color: TEXT_2 }}>
+        <p className="mt-[3px] text-[11.5px]" style={{ color: RT_2 }}>
           {named.length} / {cap} guest{cap > 1 ? "s" : ""}
         </p>
       </div>
 
       {/* ── MENU ── */}
-      <div className="hgb-cell relative flex items-center justify-center py-2">
+      <div className="hgb-cell relative flex items-center justify-center py-3">
         <button
           ref={menuBtnRef}
           type="button"
