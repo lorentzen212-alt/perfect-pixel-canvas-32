@@ -145,7 +145,7 @@ const GOLD_BAR = "#C5A24B";
 const HERO_INK = "#10233F";
 const HERO_INK_2 = "#4A6076";
 const HERO_ACCENT = "#2C5B8C";
-const COLS = "14% 42% 21% 19% 4%";
+
 
 
 /* ───────────────── primitives ───────────────── */
