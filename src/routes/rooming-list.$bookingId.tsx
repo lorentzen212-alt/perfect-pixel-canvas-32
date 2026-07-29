@@ -1206,32 +1206,31 @@ function GuestDrawer({
               );
             })}
           </div>
-          <div className="relative mt-2">
-            <button type="button" onClick={() => setTagOpen((v) => !v)} className="text-[12px]" style={{ color: GOLD_SOFT }}>
+          <div className="mt-2">
+            <button
+              ref={tagBtnRef}
+              type="button"
+              onClick={() => setTagOpen((v) => !v)}
+              className="text-[12px] transition-opacity hover:opacity-80"
+              style={{ color: GOLD_SOFT }}
+            >
               + Add dietary / allergy
             </button>
-            {tagOpen && (
-              <div
-                className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}
-              >
-                {[...DIETARY_TAGS, ...ALLERGY_TAGS].map((t) => (
-                  <button
-                    key={t}
-                    type="button"
-                    onClick={() => {
-                      if (!draft.requirements.includes(t)) set({ requirements: [...draft.requirements, t] });
-                      setTagOpen(false);
-                    }}
-                    className="block w-full px-3 py-[6px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-                    style={{ color: isAllergy(t) ? AMBER : TEXT_2 }}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-            )}
+            <DietaryPopover
+              anchorRef={tagBtnRef}
+              open={tagOpen}
+              onClose={() => setTagOpen(false)}
+              selected={draft.requirements}
+              onToggle={(t) =>
+                set({
+                  requirements: draft.requirements.includes(t)
+                    ? draft.requirements.filter((x) => x !== t)
+                    : [...draft.requirements, t],
+                })
+              }
+            />
           </div>
+
         </div>
 
         <div className="px-4 pb-4">
