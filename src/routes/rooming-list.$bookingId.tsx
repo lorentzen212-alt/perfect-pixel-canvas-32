@@ -117,14 +117,15 @@ function GoldButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`inline-flex items-center gap-2 rounded-[7px] font-medium transition-[filter,transform] duration-200 ease-out hover:brightness-[1.06] active:translate-y-px disabled:opacity-50 ${
+      className={`inline-flex items-center gap-2 rounded-[8px] font-medium text-white transition-[filter,transform] duration-200 ease-out hover:-translate-y-px hover:brightness-[1.12] active:translate-y-0 disabled:opacity-50 ${
         small ? "px-3 py-[6px] text-[12px]" : "px-4 py-[8px] text-[12.5px]"
       }`}
       style={{
-        background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${GOLD_MET} 55%, ${GOLD_MET_LOW} 100%)`,
-        color: "#1B2A33",
-        border: "1px solid rgba(243,217,135,0.45)",
+        backgroundColor: NAVY,
+        border: "1px solid rgba(255,255,255,0.10)",
+        boxShadow: "0 2px 8px rgba(20,45,70,0.16)",
       }}
+
     >
       {children}
     </button>
