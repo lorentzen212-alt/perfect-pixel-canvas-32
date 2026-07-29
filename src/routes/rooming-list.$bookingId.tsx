@@ -323,7 +323,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         />
 
         <div className="mx-auto flex w-full max-w-[1480px] items-start gap-3.5 px-4 pb-5 pt-3 sm:px-6 lg:px-7">
-          <main className="min-w-0 flex-1">
+          <main className="mx-auto min-w-0 flex-1 lg:max-w-[1120px]">
             {/* ── compact booking hero ── */}
             <section className="relative overflow-hidden rounded-[12px]">
               <div className="relative px-1 py-1">
@@ -805,14 +805,14 @@ function AllocationRow({
             key={g.id}
             type="button"
             onClick={() => onOpenGuest(g.id)}
-            className="grid w-full items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)] [grid-template-columns:14px_minmax(0,1fr)_auto]"
+            className="grid w-full items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)] [grid-template-columns:14px_minmax(0,1fr)_104px]"
           >
             <User size={13} style={{ color: RT_3 }} />
             <span className="min-w-0 truncate text-[13.5px]" style={{ color: RT }}>
               {guestName(g) || "Unnamed guest"}
             </span>
             {g.nationality && (
-              <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px]" style={{ color: "rgba(255,255,255,0.70)" }}>
+              <span className="inline-flex min-w-0 items-center gap-1.5 truncate text-[12px]" style={{ color: "rgba(255,255,255,0.70)" }}>
                 <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>
                 {g.nationality}
               </span>
