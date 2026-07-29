@@ -1277,18 +1277,19 @@ function Workspace({ booking }: { booking: Booking }) {
               {/* ── right rail ─────────────────────── */}
               <aside className="grid content-start gap-3">
                 <section
-                  className="rounded-[13px] px-4 py-3"
+                  className="rounded-[13px] px-3.5 py-2.5"
                   style={{
-                    backgroundColor: ACTION_PANEL,
-                    border: `1px solid rgba(212,175,55,0.20)`,
-                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.05), ${CARD_SHADOW}`,
+                    backgroundColor: "#243039",
+                    border: `1px solid rgba(154,176,192,0.07)`,
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
                   }}
                 >
-                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
+                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
                     Preparing your stay
                   </h3>
                   <div className="mt-2.5 flex items-center gap-3.5">
-                    <Ring value={progress} size={52} />
+                    <Ring value={progress} size={40} />
+
                     <div
                       className="h-[3px] flex-1 overflow-hidden rounded-full"
                       style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
