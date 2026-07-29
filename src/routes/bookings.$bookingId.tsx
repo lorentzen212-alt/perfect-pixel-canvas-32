@@ -834,7 +834,7 @@ function Workspace({ booking }: { booking: Booking }) {
             </section>
           ) : (
             <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1fr)_316px] xl:gap-5">
-              <div className="grid content-start gap-3 self-start sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[202px_202px_auto]">
+              <div className="grid content-start gap-3 self-start sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[214px_214px_auto]">
                 {/* STAY */}
                 {panel === "stay" ? (
                   <div className="sm:col-span-2 lg:col-span-3">
