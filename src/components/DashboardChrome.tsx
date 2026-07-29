@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import {
   Bell,
+  BedDouble,
   CalendarCheck,
   CalendarDays,
   ChevronDown,
