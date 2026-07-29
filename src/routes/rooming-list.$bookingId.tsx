@@ -1407,27 +1407,18 @@ function ImportModal({ onClose }: { onClose: () => void }) {
 function ReviewModal({
   list,
   stats,
+  issues,
   onClose,
   onFix,
   onSubmit,
 }: {
   list: RoomingList;
   stats: ReturnType<typeof statsOf>;
+  issues: RoomingIssue[];
   onClose: () => void;
   onFix: (allocationId: string) => void;
   onSubmit: () => void;
 }) {
-  const issues = list.allocations
-    .filter((a) => allocationStatus(a) !== "complete")
-    .map((a) => {
-      const cap = capacityOf(a.type, a.occupancy);
-      const named = a.guests.filter(isNamed).length;
-      return {
-        id: a.id,
-        title: `${labelOf(a.type)} ${String(a.index).padStart(2, "0")}`,
-        detail: named === 0 ? "No guests assigned" : `Missing ${cap - named === 1 ? "" : `${cap - named} `}guest${cap - named > 1 ? "s" : ""}`,
-      };
-    });
 
   const locked = Boolean(list.submittedAt);
 
