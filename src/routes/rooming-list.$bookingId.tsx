@@ -584,7 +584,15 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       className="flex items-stretch overflow-hidden rounded-[9px]"
                       style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
                     >
-                      {stats.byType.map((t, i) => (
+                      <div className="px-[15px] py-[7px] text-center">
+                        <p className="text-[17.5px] font-bold leading-none" style={{ color: TEXT }}>
+                          {stats.totalAllocations}
+                        </p>
+                        <p className="mt-1 text-[10.5px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
+                          Total rooms
+                        </p>
+                      </div>
+                      {stats.byType.map((t) => (
                         <div
                           key={t.type}
                           className="px-[15px] py-[7px] text-center"
