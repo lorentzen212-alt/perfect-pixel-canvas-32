@@ -1479,15 +1479,19 @@ function AllocationRow({
                   </button>
                 </div>
               ) : (
-                <div key={`pending-${allocation.id}`} className="flex w-full items-center gap-1.5">
+                <div
+                  key={`pending-${allocation.id}`}
+                  className="flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
+                  style={{ minHeight: 46, backgroundColor: GUEST_BG, border: `1px solid ${GUEST_BORDER}` }}
+                >
                   <button
                     type="button"
                     onClick={onPendingEdit}
                     title="Click to edit name"
-                    className="flex min-w-0 flex-1 items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                    className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left"
                   >
-                    <User size={13} style={{ color: RT_3 }} />
-                    <span className="min-w-0 truncate text-[13.5px]" style={{ color: RT }}>
+                    <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
+                    <span className="min-w-0 truncate text-[13.5px] font-medium" style={{ color: RT }}>
                       {pending.raw}
                     </span>
                   </button>
@@ -1495,7 +1499,7 @@ function AllocationRow({
                     type="button"
                     aria-label="Cancel guest entry"
                     onClick={onPendingCancel}
-                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C]"
+                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100"
                     style={{ color: RT_3 }}
                   >
                     <X size={13} />
@@ -1507,13 +1511,14 @@ function AllocationRow({
                 key={`slot-${allocation.id}-${allocation.guests.length + i}`}
                 type="button"
                 onClick={onAddGuest}
-                className="flex w-fit items-center gap-1.5 rounded-[6px] px-1.5 py-[2px] text-left text-[12.5px] opacity-80 transition-opacity hover:opacity-100"
-                style={{ color: "#C5A24B" }}
+                className="flex w-fit items-center gap-1.5 rounded-[8px] px-1 py-[6px] text-left text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
+                style={{ color: "#D8B463" }}
               >
-                <span className="text-[13px] leading-none">+</span>
+                <Plus size={13} />
                 <span>Add guest</span>
               </button>
             ),
+
           )}
 
 
