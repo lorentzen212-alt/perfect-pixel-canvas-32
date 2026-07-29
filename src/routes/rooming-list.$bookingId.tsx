@@ -540,6 +540,36 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
             </section>
 
+            {/* ── unassigned guests ── */}
+            <UnassignedPanel
+              guests={list.unassigned}
+              allocations={list.allocations}
+              locked={locked}
+              onOpenGuest={(guestId) => setOpenGuest({ allocationId: null, guestId })}
+              onAdd={(first, last) =>
+                update((l) => ({
+                  ...l,
+                  unassigned: [...l.unassigned, newGuest({ firstName: first, lastName: last })],
+                }))
+              }
+              onRemove={(guestId) =>
+                update((l) => ({ ...l, unassigned: l.unassigned.filter((g) => g.id !== guestId) }))
+              }
+              onAssign={(guestId, allocationId) =>
+                update((l) => {
+                  const guest = l.unassigned.find((g) => g.id === guestId);
+                  if (!guest) return l;
+                  return {
+                    ...l,
+                    unassigned: l.unassigned.filter((g) => g.id !== guestId),
+                    allocations: l.allocations.map((a) =>
+                      a.id === allocationId ? { ...a, guests: [...a.guests, guest] } : a,
+                    ),
+                  };
+                })
+              }
+            />
+
             {/* column headers */}
             <div
               className="hidden px-1 pb-1 pt-3 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
