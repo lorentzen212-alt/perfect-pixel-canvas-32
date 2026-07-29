@@ -14,7 +14,7 @@ import {
   MapPin,
   MessageSquare,
   MoreHorizontal,
-  Pencil,
+  
   Plus,
   Star,
   Trash2,
