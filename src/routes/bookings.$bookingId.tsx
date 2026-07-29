@@ -489,9 +489,8 @@ function Workspace({ booking }: { booking: Booking }) {
   const [savedPanel, setSavedPanel] = useState<PanelKey>(null);
 
   /* top-card editable state */
-  const [hotelRef, setHotelRef] = useState(booking.hotelReference ?? "");
-  const [refDraft, setRefDraft] = useState(hotelRef);
-  const [editingRef, setEditingRef] = useState(false);
+  const [hotelRef] = useState(booking.hotelReference ?? "");
+
   const [copied, setCopied] = useState(false);
 
   /* domain state (kept live across panels) */
