@@ -833,7 +833,7 @@ function AllocationRow({
                   }}
                   placeholder="First name"
                   className="w-[120px] bg-transparent text-[13px] outline-none"
-                  style={{ color: RT }}
+                  style={{ color: "#10233F" }}
                 />
                 <input
                   value={last}
@@ -844,12 +844,12 @@ function AllocationRow({
                   }}
                   placeholder="Last name"
                   className="w-[140px] bg-transparent text-[13px] outline-none"
-                  style={{ color: RT }}
+                  style={{ color: "#10233F" }}
                 />
                 <GoldButton small onClick={commit}>
                   Save
                 </GoldButton>
-                <button type="button" onClick={() => setAdding(false)} style={{ color: RT_3 }} aria-label="Cancel">
+                <button type="button" onClick={() => setAdding(false)} style={{ color: "#71859A" }} aria-label="Cancel">
                   <X size={14} />
                 </button>
               </div>
@@ -862,8 +862,12 @@ function AllocationRow({
                   key={i}
                   type="button"
                   onClick={() => setAdding(true)}
-                  className="flex w-full items-center gap-2 rounded-[7px] px-1.5 py-1 text-left text-[12.5px] transition-colors hover:bg-[rgba(199,163,74,0.07)]"
-                  style={{ color: R_AMBER }}
+                  className="flex w-full items-center gap-2 rounded-[7px] px-2 py-[5px] text-left text-[12.5px] transition-colors hover:bg-[rgba(231,180,75,0.09)]"
+                  style={{
+                    color: R_AMBER,
+                    border: "1px dashed rgba(231,180,75,0.35)",
+                    backgroundColor: "rgba(255,255,255,0.02)",
+                  }}
                 >
                   <Plus size={13} />
                   {i === 0 ? slotLabel : "Add guest"}
