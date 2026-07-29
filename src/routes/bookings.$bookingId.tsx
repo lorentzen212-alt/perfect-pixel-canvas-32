@@ -1351,7 +1351,12 @@ function Workspace({ booking }: { booking: Booking }) {
                         Rooming List
                       </p>
                       <p className="mt-0.5 text-[12px]" style={{ color: MUTED }}>
-                        {rooming ? `${rooming.complete} / ${rooming.total}` : "42 / 58"} guests complete
+                        {roomingStats
+                          ? `${roomingStats.filled} / ${roomingStats.total}`
+                          : rooming
+                            ? `${rooming.complete} / ${rooming.total}`
+                            : "—"}{" "}
+                        guests complete
                       </p>
                     </div>
                   </div>
