@@ -1184,6 +1184,7 @@ function AllocationRow({
   return (
     <div
       id={`alloc-${allocation.id}`}
+      data-selected={selected ? "true" : "false"}
       className="hgb-row grid rounded-[12px] lg:[grid-template-columns:14%_42%_21%_19%_4%]"
       style={{
         backgroundColor: NAVY,
