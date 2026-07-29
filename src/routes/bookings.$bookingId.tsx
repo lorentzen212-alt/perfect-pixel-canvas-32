@@ -1192,6 +1192,8 @@ function Workspace({ booking }: { booking: Booking }) {
                     action="Manage services"
                     onAction={() => setPanel("services")}
                     dimmed={dim("services")}
+                    compact
+
                   >
                     {services.slice(0, 2).map((s) => (
                       <p key={s.name} className="mt-1 text-[13.5px] font-medium first:mt-0" style={{ color: TEXT }}>
