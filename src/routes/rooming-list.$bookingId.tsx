@@ -1665,27 +1665,70 @@ function DietaryPopover({
         </p>
       )}
 
-      {otherSelected && (
+      {showOtherOption && (
+        <button
+          type="button"
+          onClick={() => setShowCustom(true)}
+          className="flex w-full items-center justify-between px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+          style={{ color: showCustom ? "#F7F7F5" : AMBER }}
+        >
+          <span>Other allergy</span>
+          <Plus size={12} style={{ color: GOLD }} />
+        </button>
+      )}
+
+      {showCustom && (
         <div className="px-3 pb-3 pt-2" style={{ borderTop: `1px solid ${BORDER}` }}>
           <p className="mb-1.5 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
-            Specify allergy
+            Other allergy
           </p>
-          <input
-            value={custom}
-            onChange={(e) => setCustom(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                addCustom();
-              }
-            }}
-            onBlur={addCustom}
-            placeholder="e.g. Kiwi allergy"
-            className="w-full rounded-[8px] px-2.5 py-[6px] text-[12.5px] outline-none placeholder:text-[#88A0B6]"
-            style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}`, color: FIELD_TEXT }}
-          />
+          <div className="flex items-center gap-2">
+            <input
+              ref={customRef}
+              value={custom}
+              onChange={(e) => setCustom(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  addCustom();
+                }
+                if (e.key === "Escape") {
+                  e.preventDefault();
+                  setCustom("");
+                  setShowCustom(false);
+                }
+              }}
+              placeholder="Enter allergy..."
+              className="w-full rounded-[8px] px-2.5 py-[6px] text-[12.5px] outline-none placeholder:text-[#88A0B6]"
+              style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}`, color: FIELD_TEXT }}
+            />
+            <button
+              type="button"
+              onClick={addCustom}
+              disabled={!custom.trim()}
+              className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors disabled:opacity-40"
+              style={{
+                color: GOLD,
+                backgroundColor: "rgba(197,162,75,0.14)",
+                border: "1px solid rgba(197,162,75,0.36)",
+              }}
+            >
+              Add
+            </button>
+          </div>
+          {custom.trim() &&
+            selected.some(
+              (s) =>
+                s.toLowerCase() ===
+                (/allerg/i.test(custom.trim()) ? custom.trim() : `${custom.trim()} allergy`).toLowerCase(),
+            ) && (
+              <p className="mt-1.5 text-[11px]" style={{ color: AMBER }}>
+                Already added for this guest.
+              </p>
+            )}
         </div>
       )}
+
     </FloatingPopover>
   );
 }
