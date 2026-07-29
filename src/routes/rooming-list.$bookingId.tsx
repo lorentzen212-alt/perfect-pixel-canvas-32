@@ -1266,22 +1266,34 @@ function AllocationRow({
       {/* ── ALLOCATION ── */}
       <div className="flex flex-col justify-center px-4 py-[17px]">
         <div className="flex items-center gap-2.5">
-          {upgradeMode && (
+          {manageMode ? (
             <UpgradeCheckbox
               checked={!!selected}
-              disabled={!selectable}
+              disabled={!allocation.upgradeRequest || locked}
               onChange={() => onToggleSelected?.()}
               title={
-                withdrawable
-                  ? "Select to withdraw this upgrade request"
-                  : allocation.upgradeRequest
-                    ? "An upgrade has already been requested for this room"
-                    : upgradeEligible
-                      ? undefined
-                      : "No higher room category available"
+                allocation.upgradeRequest
+                  ? "Select this upgrade request"
+                  : "This room has no upgrade request"
               }
-
             />
+          ) : (
+            upgradeMode && (
+              <UpgradeCheckbox
+                checked={!!selected}
+                disabled={!selectable}
+                onChange={() => onToggleSelected?.()}
+                title={
+                  withdrawable
+                    ? "Select to withdraw this upgrade request"
+                    : allocation.upgradeRequest
+                      ? "An upgrade has already been requested for this room"
+                      : upgradeEligible
+                        ? undefined
+                        : "No higher room category available"
+                }
+              />
+            )
           )}
           <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
             {String(allocation.index).padStart(2, "0")}
