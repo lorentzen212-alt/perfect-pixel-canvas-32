@@ -821,6 +821,7 @@ function AllocationRow({
   onAutoFocused,
   onPatch,
   onOpenGuest,
+  onAddGuest,
 }: {
   allocation: Allocation;
   locked: boolean;
@@ -828,7 +829,9 @@ function AllocationRow({
   onAutoFocused?: () => void;
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
+  onAddGuest: () => void;
 }) {
+
   const cap = capacityOf(allocation.type, allocation.occupancy);
   const named = allocation.guests.filter(isNamed);
   const status = allocationStatus(allocation);
