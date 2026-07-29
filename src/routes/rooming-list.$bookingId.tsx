@@ -336,7 +336,32 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     [list],
   );
 
+  const isWithdrawable = (a: Allocation) =>
+    !!a.upgradeRequest &&
+    !a.upgradeRequest.appliedAt &&
+    (a.upgradeRequest.status === "requested" || a.upgradeRequest.status === "price_offered");
+
+  const selectedForWithdraw = useMemo(
+    () => selectedAllocations.filter(isWithdrawable),
+    [selectedAllocations],
+  );
+  const selectedForRequest = useMemo(
+    () => selectedAllocations.filter((a) => !a.upgradeRequest),
+    [selectedAllocations],
+  );
+
+  const withdrawUpgrades = useCallback(
+    (ids: string[]) => {
+      update((l) => ({
+        ...l,
+        allocations: l.allocations.map((a) => (ids.includes(a.id) ? { ...a, upgradeRequest: null } : a)),
+      }));
+    },
+    [update],
+  );
+
   const toggleSelected = useCallback(
+
     (id: string) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id])),
     [],
   );
