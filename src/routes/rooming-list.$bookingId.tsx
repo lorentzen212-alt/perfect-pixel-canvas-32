@@ -372,10 +372,12 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
             </section>
 
             {/* ── workspace ── */}
+            {/* ── summary card ── */}
             <section
-              className="mt-2.5 overflow-hidden rounded-[13px]"
+              className="mt-2 overflow-visible rounded-[13px]"
               style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
             >
+
               {locked ? (
                 <SubmittedBanner list={list} stats={stats} onRequestChange={() => setShowReview(true)} />
               ) : (
