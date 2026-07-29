@@ -225,15 +225,15 @@ export function TopBar({
 /* ── light (blue-white-grey) chrome used by the Rooming List workspace ── */
 
 export const LIGHT = {
-  INK: "#EDF2F7",
-  INK_2: "#B3C3D2",
-  INK_3: "#8699AB",
-  SIDEBAR_TOP: "#1C4165",
-  SIDEBAR_BOTTOM: "#173753",
-  SURFACE: "#1A3A58",
-  SURFACE_BORDER: "rgba(255,255,255,0.085)",
-  SURFACE_SHADOW: "0 10px 30px rgba(6,18,30,0.28)",
-  NAVY: "#2A5F94",
+  INK: "#10233F",
+  INK_2: "#50657A",
+  INK_3: "#71859A",
+  SIDEBAR_TOP: "#AFC4D7",
+  SIDEBAR_BOTTOM: "#9FB7CC",
+  SURFACE: "rgba(245,248,251,0.72)",
+  SURFACE_BORDER: "rgba(110,135,160,0.16)",
+  SURFACE_SHADOW: "0 8px 30px rgba(35,60,85,0.06)",
+  NAVY: "#153E6C",
 } as const;
 
 const LIGHT_NAV = [
@@ -278,15 +278,15 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
             "flex w-full items-center gap-3 rounded-[9px] px-3 py-[9px] text-[13.5px] transition-colors";
           const style = isActive
             ? {
-                backgroundColor: "rgba(255,255,255,0.94)",
-                color: "#10233F",
-                boxShadow: "0 2px 10px rgba(6,18,30,0.30)",
+                backgroundColor: "rgba(255,255,255,0.92)",
+                color: LIGHT.INK,
+                boxShadow: "0 2px 8px rgba(30,55,80,0.10)",
                 fontWeight: 500,
               }
-            : { color: "rgba(255,255,255,0.82)" };
+            : { color: "rgba(255,255,255,0.92)" };
           const inner = (
             <>
-              <item.icon size={17} style={{ color: isActive ? "#2C4F76" : "rgba(255,255,255,0.80)" }} />
+              <item.icon size={17} style={{ color: isActive ? "#2C4F76" : "rgba(255,255,255,0.92)" }} />
               {item.label}
             </>
           );
@@ -326,7 +326,7 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
         >
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
-            style={{ backgroundColor: "rgba(255,255,255,0.14)", color: "#EDF2F7" }}
+            style={{ backgroundColor: "rgba(255,255,255,0.85)", color: LIGHT.INK }}
           >
             EH
           </span>
@@ -350,9 +350,9 @@ export function TopBarLight({ left, onOpenNav }: { left?: React.ReactNode; onOpe
     <header
       className="sticky top-0 z-30 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:px-8"
       style={{
-        backgroundColor: "rgba(19,44,68,0.88)",
+        backgroundColor: "rgba(240,245,250,0.82)",
         backdropFilter: "blur(10px)",
-        borderBottom: "1px solid rgba(255,255,255,0.09)",
+        borderBottom: "1px solid rgba(110,135,160,0.16)",
       }}
     >
       <div className="flex min-w-0 items-center gap-3">
@@ -361,7 +361,7 @@ export function TopBarLight({ left, onOpenNav }: { left?: React.ReactNode; onOpe
           aria-label="Open navigation"
           onClick={onOpenNav}
           className="grid h-9 w-9 place-items-center rounded-md lg:hidden"
-          style={{ color: LIGHT.INK_2, border: "1px solid rgba(255,255,255,0.14)" }}
+          style={{ color: LIGHT.INK_2, border: "1px solid rgba(110,135,160,0.24)" }}
         >
           <Menu size={18} />
         </button>
@@ -387,7 +387,7 @@ export function TopBarLight({ left, onOpenNav }: { left?: React.ReactNode; onOpe
           <Bell size={18} />
           <span
             className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full px-1 text-[10px] font-semibold text-white"
-            style={{ backgroundColor: "#3B79B4" }}
+            style={{ backgroundColor: "#285D91" }}
           >
             2
           </span>
@@ -396,7 +396,7 @@ export function TopBarLight({ left, onOpenNav }: { left?: React.ReactNode; onOpe
         <button type="button" className="flex items-center gap-2">
           <span
             className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
-            style={{ backgroundColor: "rgba(255,255,255,0.10)", color: LIGHT.INK }}
+            style={{ backgroundColor: "rgba(128,154,180,0.28)", color: LIGHT.INK }}
           >
             EH
           </span>
