@@ -484,7 +484,13 @@ function BookingWorkspace() {
 function Workspace({ booking }: { booking: Booking }) {
   const [navOpen, setNavOpen] = useState(false);
   const [tab, setTab] = useState("Overview");
-  const progress = roomingProgress(booking) || 72;
+  /* rooming progress is derived from the live rooming list, never hardcoded */
+  const [roomingStats, setRoomingStats] = useState<{ filled: number; total: number; percent: number } | null>(null);
+  useEffect(() => {
+    const s = statsOf(loadRoomingList(booking.id, distributionFor(booking.id, booking.rooms ?? 12)));
+    setRoomingStats({ filled: s.filled, total: s.totalSlots, percent: s.percent });
+  }, [booking.id, booking.rooms]);
+  const progress = roomingStats?.percent ?? roomingProgress(booking);
   const rooming = booking.rooming;
   const confirmed = booking.status === "confirmed" || booking.status === "upcoming";
 
