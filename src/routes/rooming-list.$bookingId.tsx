@@ -124,7 +124,22 @@ const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
 const R_AMBER = "#C5A24B";
 
+/* premium room-card sub-surfaces */
+const CTRL_BG = "#1B3B5E";
+const CTRL_BORDER = "rgba(255,255,255,0.11)";
+const GUEST_BG = "#1A3856";
+const GUEST_BORDER = "rgba(255,255,255,0.10)";
+const GOLD_EDGE =
+  "linear-gradient(180deg,#8F6A26 0%,#C99845 18%,#F4DEAA 42%,#E6C47A 58%,#B8873A 100%)";
+const GOLD_METAL_TEXT: React.CSSProperties = {
+  backgroundImage: "linear-gradient(155deg,#B8873A 0%,#E6C47A 36%,#F4DEAA 54%,#C99845 100%)",
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  color: "transparent",
+};
+
 const GOLD_BAR = "#C5A24B";
+
 const HERO_INK = "#10233F";
 const HERO_INK_2 = "#4A6076";
 const HERO_ACCENT = "#2C5B8C";
