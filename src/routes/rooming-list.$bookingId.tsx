@@ -336,12 +336,36 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
             {/* ── compact booking hero ── */}
             <section className="relative overflow-hidden rounded-[12px]">
               <div className="relative px-1 py-1">
-                <span
-                  className="inline-flex items-center rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: TEXT_2, backgroundColor: "rgba(128,154,180,0.22)" }}
-                >
-                  {booking.type === "leisure" ? "Leisure" : "M&E"}
+                <span className="inline-flex items-center gap-2">
+                  <span
+                    className="inline-flex items-center rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: TEXT_2, backgroundColor: "rgba(128,154,180,0.22)" }}
+                  >
+                    {booking.type === "leisure" ? "Leisure" : "M&E"}
+                  </span>
+                  <span
+                    className="inline-flex items-center gap-1.5 rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
+                    style={
+                      locked
+                        ? { color: GREEN, backgroundColor: "rgba(62,155,87,0.12)" }
+                        : { color: AMBER, backgroundColor: "rgba(176,128,15,0.12)" }
+                    }
+                  >
+                    {locked ? (
+                      <>
+                        <CheckCircle2 size={11} /> Submitted{" "}
+                        {new Date(list.submittedAt as string).toLocaleDateString("en-GB", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </>
+                    ) : (
+                      "Draft"
+                    )}
+                  </span>
                 </span>
+
 
                 <h1 className="mt-1.5 text-[26px] font-semibold leading-[1.06] tracking-[-0.01em]" style={{ color: TEXT }}>
                   {booking.name}
