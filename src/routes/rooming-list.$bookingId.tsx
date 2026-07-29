@@ -1629,7 +1629,7 @@ function UnassignedPanel({
             {guests.length}
           </span>
         </p>
-        <p className="text-[12px]" style={{ color: MUTED }}>
+        <p className="text-[12px]" style={{ color: TEXT_2 }}>
           Saved with your rooming list — assign them to a room whenever you are ready.
         </p>
         {!locked && (
@@ -1683,7 +1683,7 @@ function UnassignedPanel({
       )}
 
       {guests.length === 0 ? (
-        <p className="mt-2 text-[12.5px]" style={{ color: MUTED }}>
+        <p className="mt-2 text-[12.5px]" style={{ color: TEXT_2 }}>
           Every guest is assigned to a room.
         </p>
       ) : (
