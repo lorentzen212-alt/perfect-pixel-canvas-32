@@ -317,3 +317,86 @@ export function newGuest(partial: Partial<Guest> = {}): Guest {
 export function newId() {
   return uid();
 }
+
+/* ── validation ───────────────────────────────────────────────── */
+
+export type IssueKind =
+  | "missing-guest"
+  | "incomplete-room"
+  | "unassigned-guest"
+  | "missing-info"
+  | "dietary-clarification";
+
+export interface RoomingIssue {
+  id: string;
+  kind: IssueKind;
+  /** allocation id when the issue belongs to a room */
+  allocationId?: string;
+  /** guest id when the issue belongs to a guest */
+  guestId?: string;
+  title: string;
+  detail: string;
+}
+
+export function roomingIssues(list: RoomingList): RoomingIssue[] {
+  const out: RoomingIssue[] = [];
+
+  for (const a of list.allocations) {
+    const cap = capacityOf(a.type, a.occupancy);
+    const named = a.guests.filter(isNamed).length;
+    const label = `${labelOf(a.type)} ${String(a.index).padStart(2, "0")}`;
+
+    if (named === 0) {
+      out.push({
+        id: `${a.id}-empty`,
+        kind: "missing-guest",
+        allocationId: a.id,
+        title: label,
+        detail: cap > 1 ? "No guests assigned to this room" : "No guest assigned to this room",
+      });
+    } else if (named < cap) {
+      out.push({
+        id: `${a.id}-partial`,
+        kind: "incomplete-room",
+        allocationId: a.id,
+        title: label,
+        detail: `Incomplete occupancy — ${cap - named} of ${cap} places still open`,
+      });
+    }
+
+    for (const g of a.guests) {
+      if (isNamed(g) && (!g.firstName?.trim() || !g.lastName?.trim())) {
+        out.push({
+          id: `${g.id}-name`,
+          kind: "missing-info",
+          allocationId: a.id,
+          guestId: g.id,
+          title: guestName(g) || "Unnamed guest",
+          detail: "Missing required guest information (first and last name)",
+        });
+      }
+      if (g.requirements.some((r) => /other allergy/i.test(r)) && !g.specialRequests?.trim()) {
+        out.push({
+          id: `${g.id}-diet`,
+          kind: "dietary-clarification",
+          allocationId: a.id,
+          guestId: g.id,
+          title: guestName(g) || "Guest",
+          detail: "Allergy information needs clarification",
+        });
+      }
+    }
+  }
+
+  for (const g of list.unassigned) {
+    out.push({
+      id: `${g.id}-unassigned`,
+      kind: "unassigned-guest",
+      guestId: g.id,
+      title: guestName(g) || "Unnamed guest",
+      detail: "Guest is not yet assigned to a room",
+    });
+  }
+
+  return out;
+}
