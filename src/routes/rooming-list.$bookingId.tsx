@@ -280,15 +280,22 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   }, [list, view, query]);
 
   const drawerGuest = useMemo(() => {
-    if (!list || !openGuest) return null;
+    if (!list) return null;
+    if (pendingGuest) {
+      const alloc = pendingGuest.allocationId
+        ? (list.allocations.find((a) => a.id === pendingGuest.allocationId) ?? null)
+        : null;
+      return { alloc, guest: pendingGuest.guest, isNew: true };
+    }
+    if (!openGuest) return null;
     if (!openGuest.allocationId) {
       const guest = list.unassigned.find((g) => g.id === openGuest.guestId);
-      return guest ? { alloc: null, guest } : null;
+      return guest ? { alloc: null, guest, isNew: false } : null;
     }
     const alloc = list.allocations.find((a) => a.id === openGuest.allocationId);
     const guest = alloc?.guests.find((g) => g.id === openGuest.guestId);
-    return alloc && guest ? { alloc, guest } : null;
-  }, [list, openGuest]);
+    return alloc && guest ? { alloc, guest, isNew: false } : null;
+  }, [list, openGuest, pendingGuest]);
 
   const issues = useMemo(() => (list ? roomingIssues(list) : []), [list]);
 
