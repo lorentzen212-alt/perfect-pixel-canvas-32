@@ -1766,18 +1766,21 @@ function SavedGuestRow({
 
   return (
     <div
-      className="flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
+      className="hgb-guest flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
       style={{ minHeight: 46, backgroundColor: GUEST_BG, border: `1px solid ${GUEST_BORDER}` }}
     >
       <button
         type="button"
         onClick={onOpen}
-        className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left"
+        title="Click to edit or change this guest"
+        className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 py-2 text-left"
       >
         <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
         <span className="min-w-0 flex-1 truncate text-[13.5px] font-medium" style={{ color: RT }}>
           {guestName(guest) || "Unnamed guest"}
         </span>
+        <Pencil className="hgb-edit shrink-0" size={11} style={{ color: "rgba(230,196,122,0.9)" }} />
+
         {req.count > 0 && (
           <span
             title={req.tooltip}
