@@ -1425,7 +1425,7 @@ function AllocationRow({
 
 
       {/* ── GUESTS ── */}
-      <div className="hgb-cell flex flex-col justify-center gap-[5px] px-4 py-[17px]">
+      <div className="hgb-cell flex flex-col justify-center gap-[8px] px-4 py-[19px]">
         {allocation.guests.map((g) => (
           <SavedGuestRow
             key={g.id}
