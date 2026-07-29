@@ -892,32 +892,23 @@ function AllocationRow({
             {labelOf(allocation.type)}
             {!locked && <ChevronDown size={13} style={{ color: RT_3 }} />}
           </button>
-          {typeOpen && (
-            <div
-              className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
-              style={{
-                backgroundColor: SURFACE_2,
-                border: "1px solid rgba(90,115,140,0.18)",
-                boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
-                animation: "hgbFade 160ms ease-out",
-              }}
-            >
-              {ROOM_TYPES.map((t) => (
-                <button
-                  key={t.value}
-                  type="button"
-                  onClick={() => changeType(t.value)}
-                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-                  style={{ color: t.value === allocation.type ? "#F7F7F5" : "#D9DDE0" }}
-                >
-                  <span>{t.label}</span>
-                  <span className="text-[10.5px]" style={{ color: "#B8BDC2" }}>
-                    {t.capacity} guest{t.capacity > 1 ? "s" : ""}
-                  </span>
-                </button>
-              ))}
-            </div>
-          )}
+          <FloatingPopover anchorRef={typeBtnRef} open={typeOpen} onClose={() => setTypeOpen(false)} width={190}>
+            {ROOM_TYPES.map((t) => (
+              <button
+                key={t.value}
+                type="button"
+                onClick={() => changeType(t.value)}
+                className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                style={{ color: t.value === allocation.type ? "#F7F7F5" : "#D9DDE0" }}
+              >
+                <span>{t.label}</span>
+                <span className="text-[10.5px]" style={{ color: "#B8BDC2" }}>
+                  {t.capacity} guest{t.capacity > 1 ? "s" : ""}
+                </span>
+              </button>
+            ))}
+          </FloatingPopover>
+
         </div>
         {approval && (
           <div
