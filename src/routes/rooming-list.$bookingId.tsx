@@ -771,10 +771,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       eligible={eligible}
                       selected={selected}
                       selectedAllocations={selectedAllocations}
+                      selectedForRequest={selectedForRequest}
+                      selectedForWithdraw={selectedForWithdraw}
                       onSelectAll={(on) => setSelected(on ? eligible.map((a) => a.id) : [])}
                       onCancel={exitUpgradeMode}
+                      onWithdraw={() => setConfirmWithdraw(true)}
                       onRequest={(category, preference, note) => setConfirmUpgrade({ category, preference, note })}
                     />
+
                   )}
                 </>
               )}
