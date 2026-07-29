@@ -326,7 +326,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               to="/bookings/$bookingId"
               params={{ bookingId: booking.id }}
               className="inline-flex items-center gap-2 text-[13.5px] font-medium transition-opacity hover:opacity-80"
-              style={{ color: GOLD_SOFT }}
+              style={{ color: HERO_ACCENT }}
             >
               <ArrowLeft size={16} />
               Back to Overview
@@ -378,12 +378,12 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <div className="mt-1.5 flex flex-wrap items-center gap-x-5 gap-y-1 text-[12.5px]" style={{ color: HERO_INK_2 }}>
                   {booking.hotel && (
                     <span className="inline-flex items-center gap-2">
-                      <MapPin size={13} style={{ color: GOLD_SOFT }} />
+                      <MapPin size={13} style={{ color: HERO_ACCENT }} />
                       {booking.hotel}
                     </span>
                   )}
                   <span className="inline-flex items-center gap-2">
-                    <CalendarDays size={13} style={{ color: GOLD_SOFT }} />
+                    <CalendarDays size={13} style={{ color: HERO_ACCENT }} />
                     {new Date(booking.startDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} –{" "}
                     {new Date(booking.endDate).toLocaleDateString("en-GB", {
                       day: "2-digit",
@@ -392,15 +392,15 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     })}
                   </span>
                   <span className="inline-flex items-center gap-2">
-                    <Clock size={13} style={{ color: GOLD_SOFT }} />
+                    <Clock size={13} style={{ color: HERO_ACCENT }} />
                     {nights} nights
                   </span>
                   <span className="inline-flex items-center gap-2">
-                    <Bed size={13} style={{ color: GOLD_SOFT }} />
+                    <Bed size={13} style={{ color: HERO_ACCENT }} />
                     {stats.totalAllocations} rooms
                   </span>
                   <span className="inline-flex items-center gap-2">
-                    <Users size={13} style={{ color: GOLD_SOFT }} />
+                    <Users size={13} style={{ color: HERO_ACCENT }} />
                     {stats.totalSlots} guests
                   </span>
                 </div>
