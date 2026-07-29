@@ -1037,6 +1037,7 @@ function AllocationRow({
       {/* ── MENU ── */}
       <div className="hgb-cell relative flex items-center justify-center py-2">
         <button
+          ref={menuBtnRef}
           type="button"
           aria-label="Allocation actions"
           onClick={() => setMenuOpen((v) => !v)}
@@ -1045,38 +1046,29 @@ function AllocationRow({
         >
           <MoreVertical size={15} />
         </button>
-        {menuOpen && (
-          <div
-            className="absolute right-1 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
-            style={{
-              backgroundColor: SURFACE_2,
-              border: "1px solid rgba(90,115,140,0.18)",
-              boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
-              animation: "hgbFade 160ms ease-out",
-            }}
-          >
-            {[
-              { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
-              { label: "Change room type", run: () => setTypeOpen(true) },
-              { label: "Add room request", run: () => setRequestOpen(true) },
-              { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
-            ].map((item) => (
-              <button
-                key={item.label}
-                type="button"
-                disabled={locked}
-                onClick={() => {
-                  item.run();
-                  setMenuOpen(false);
-                }}
-                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)] disabled:opacity-40"
-                style={{ color: "#D9DDE0" }}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        )}
+        <FloatingPopover anchorRef={menuBtnRef} open={menuOpen} onClose={() => setMenuOpen(false)} width={190} align="end">
+          {[
+            { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
+            { label: "Change room type", run: () => setTypeOpen(true) },
+            { label: "Add room request", run: () => setRequestOpen(true) },
+            { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
+          ].map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              disabled={locked}
+              onClick={() => {
+                item.run();
+                setMenuOpen(false);
+              }}
+              className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)] disabled:opacity-40"
+              style={{ color: "#D9DDE0" }}
+            >
+              {item.label}
+            </button>
+          ))}
+        </FloatingPopover>
+
       </div>
     </div>
   );
