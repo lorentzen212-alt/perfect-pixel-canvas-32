@@ -98,9 +98,9 @@ const FIELD_LABEL = "#7C93A8"; // muted blue-grey label
 /* dark matte navy room-allocation card tokens */
 const CARD_NAVY = "linear-gradient(180deg, #1D456C 0%, #173A5D 100%)";
 const CARD_NAVY_HOVER = "linear-gradient(180deg, #214C76 0%, #1A4165 100%)";
-const RT = "#F4F7FA";
-const RT_2 = "#D9E3EC";
-const RT_3 = "rgba(255,255,255,0.68)";
+const RT = "#F4F6F7"; // primary — soft white (matches TEXT)
+const RT_2 = "#C9D5DF"; // secondary — light silver-blue / cool grey
+const RT_3 = "#AABCCB"; // micro — muted pale steel-blue
 const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B44B";
@@ -308,7 +308,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;border-color:rgba(255,255,255,0.14) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
       .hgb-cell{border-top:1px solid rgba(255,255,255,0.07)}
-      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(255,255,255,0.08)}}`}</style>
+      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(255,255,255,0.08)}}
+      .hgb-search::placeholder{color:#AABCCB}`}</style>
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
         <SidebarContent light active="Rooming List" bookingId={booking.id} />
@@ -430,7 +431,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       <h2 className="text-[19.5px] font-semibold leading-none" style={{ color: TEXT }}>
                         Rooming List
                       </h2>
-                      <p className="mt-1.5 text-[12.5px]" style={{ color: MUTED }}>
+                      <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
                         Add guest details for each room allocation.
                       </p>
                     </div>
@@ -562,7 +563,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           value={query}
                           onChange={(e) => setQuery(e.target.value)}
                           placeholder="Search guests..."
-                          className="w-[150px] bg-transparent text-[12.5px] outline-none"
+                          className="hgb-search w-[150px] bg-transparent text-[12.5px] outline-none"
                           style={{ color: TEXT }}
                         />
                         <Search size={14} style={{ color: MUTED }} />
@@ -893,7 +894,7 @@ function AllocationRow({
               {guestName(g) || "Unnamed guest"}
             </span>
             {g.nationality && (
-              <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px]" style={{ color: "rgba(255,255,255,0.70)" }}>
+              <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px]" style={{ color: RT_2 }}>
                 <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>
                 {g.nationality}
               </span>
@@ -1030,7 +1031,7 @@ function AllocationRow({
           {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={14} strokeWidth={1.6} />}
           {statusLabel}
         </span>
-        <p className="mt-[3px] text-[11.5px]" style={{ color: "rgba(255,255,255,0.65)" }}>
+        <p className="mt-[3px] text-[11.5px]" style={{ color: TEXT_2 }}>
           {named.length} / {cap} guest{cap > 1 ? "s" : ""}
         </p>
       </div>
