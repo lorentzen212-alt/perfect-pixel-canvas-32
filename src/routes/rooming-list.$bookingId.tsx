@@ -1885,7 +1885,11 @@ function SavedGuestRow({
         {req.count > 0 && (
           <span
             title={req.tooltip}
-            className="inline-flex shrink-0 items-center gap-1 rounded-[6px] px-1.5 py-[2px] text-[10.5px] leading-[15px]"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpen();
+            }}
+            className="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-[6px] px-1.5 py-[2px] text-[10.5px] leading-[15px]"
             style={
               req.hasAllergy
                 ? { color: "#E6C47A", backgroundColor: "rgba(231,180,75,0.12)", border: "1px solid rgba(231,180,75,0.34)" }
@@ -1901,7 +1905,8 @@ function SavedGuestRow({
             {req.tooltip}
           </span>
         )}
-      </button>
+      </div>
+
 
 
       {!locked && (
