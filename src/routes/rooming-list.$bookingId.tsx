@@ -384,6 +384,13 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     setConfirmRemove(null);
   }, []);
 
+  /* leaving nothing to manage — return to the normal list */
+  useEffect(() => {
+    if (manageMode && upgradeRequests.length === 0) exitManageMode();
+  }, [manageMode, upgradeRequests.length, exitManageMode]);
+
+
+
   const enterManageMode = useCallback(() => {
     setUpgradeMode(false);
     setSelected([]);
