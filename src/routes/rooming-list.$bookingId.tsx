@@ -3102,6 +3102,8 @@ function UpgradeConfirmModal({
   note,
   onClose,
   onConfirm,
+  onRemove,
+  onRestore,
 }: {
   allocations: Allocation[];
   category: RoomCategory;
@@ -3109,8 +3111,19 @@ function UpgradeConfirmModal({
   note: string;
   onClose: () => void;
   onConfirm: () => void;
+  onRemove: (id: string) => void;
+  onRestore: (id: string) => void;
 }) {
   const blocked = invalidForCategory(allocations, category);
+  const count = allocations.length - blocked.length;
+  const [undo, setUndo] = useState<{ id: string; label: string } | null>(null);
+
+  useEffect(() => {
+    if (!undo) return;
+    const t = setTimeout(() => setUndo(null), 4500);
+    return () => clearTimeout(t);
+  }, [undo]);
+
   return (
     <Modal title="Confirm upgrade request" onClose={onClose}>
       <p className="text-[12.5px]" style={{ color: MUTED }}>
@@ -3118,7 +3131,7 @@ function UpgradeConfirmModal({
       </p>
 
       <div className="mt-3 space-y-2">
-        <SummaryLine label="Rooms" value={`${allocations.length - blocked.length} room(s)`} />
+        <SummaryLine label="Rooms" value={`${count} room(s)`} />
         <SummaryLine label="Upgrade to" value={categoryLabel(category)} />
         <SummaryLine
           label="Preference"
@@ -3130,22 +3143,61 @@ function UpgradeConfirmModal({
       <div className="mt-3 max-h-[180px] space-y-1.5 overflow-y-auto">
         {allocations.map((a) => {
           const bad = blocked.includes(a);
+          const label = `${labelOf(a.type)} ${String(a.index).padStart(2, "0")}`;
           return (
             <div
               key={a.id}
-              className="flex items-center justify-between rounded-[8px] px-3 py-[7px] text-[12.5px]"
+              className="group/upg flex items-center gap-3 rounded-[8px] px-3 py-[7px] text-[12.5px]"
               style={{ backgroundColor: ROW, border: `1px solid ${BORDER}`, color: bad ? MUTED : TEXT_2 }}
             >
-              <span>
-                {labelOf(a.type)} {String(a.index).padStart(2, "0")} · {categoryLabel(a.bookedRoomCategory)}
+              <span className="flex-1">
+                {label} · {categoryLabel(a.bookedRoomCategory)}
               </span>
               <span style={{ color: bad ? MUTED : GOLD }}>
                 {bad ? "Not eligible — skipped" : `→ ${categoryLabel(category)}`}
               </span>
+              <button
+                type="button"
+                title={`Remove ${label} from this upgrade request`}
+                aria-label={`Remove ${label} from this upgrade request`}
+                onClick={() => {
+                  onRemove(a.id);
+                  setUndo({ id: a.id, label });
+                }}
+                className="grid h-5 w-5 shrink-0 place-items-center rounded-[5px] opacity-45 transition-all hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100 group-hover/upg:opacity-80"
+                style={{ color: MUTED }}
+              >
+                <X size={12} />
+              </button>
             </div>
           );
         })}
+        {allocations.length === 0 && (
+          <div
+            className="rounded-[8px] px-3 py-[10px] text-center text-[12.5px]"
+            style={{ backgroundColor: ROW, border: `1px solid ${BORDER}`, color: MUTED }}
+          >
+            0 rooms selected
+          </div>
+        )}
       </div>
+
+      {undo && (
+        <div className="mt-2.5 flex items-center justify-between gap-3 text-[11.5px]" style={{ color: MUTED }}>
+          <span>{undo.label} removed from upgrade request.</span>
+          <button
+            type="button"
+            onClick={() => {
+              onRestore(undo.id);
+              setUndo(null);
+            }}
+            className="underline underline-offset-2 transition-opacity hover:opacity-80"
+            style={{ color: GOLD }}
+          >
+            Undo
+          </button>
+        </div>
+      )}
 
       <div className="mt-4 flex items-center justify-end gap-2">
         <button
@@ -3154,9 +3206,9 @@ function UpgradeConfirmModal({
           className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
           style={{ color: MUTED }}
         >
-          Back
+          {count === 0 ? "Back to room selection" : "Back"}
         </button>
-        <GoldButton small onClick={onConfirm} disabled={allocations.length - blocked.length === 0}>
+        <GoldButton small onClick={onConfirm} disabled={count === 0}>
           <ArrowUp size={13} /> Send upgrade request
         </GoldButton>
       </div>
