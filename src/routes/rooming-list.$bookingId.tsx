@@ -20,7 +20,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { PAL, SERIF, SidebarContent, TopBar } from "@/components/DashboardChrome";
+import { SERIF, SidebarContent, TopBarLight } from "@/components/DashboardChrome";
 import { BOOKINGS, type Booking } from "@/lib/bookings";
 import {
   ALLERGY_TAGS,
