@@ -67,6 +67,69 @@ export const ROOM_REQUEST_OPTIONS = [
   "Accessible room",
 ];
 
+/* ── room categories (upgrade hierarchy) ─────────────────────── */
+
+export type RoomCategory = "standard" | "superior" | "premium" | "junior_suite" | "suite";
+
+/** Hierarchy configured for the booking/hotel — index = rank (low → high). */
+export const ROOM_CATEGORIES: { value: RoomCategory; label: string }[] = [
+  { value: "standard", label: "Standard" },
+  { value: "superior", label: "Superior" },
+  { value: "premium", label: "Premium" },
+  { value: "junior_suite", label: "Junior Suite" },
+  { value: "suite", label: "Suite" },
+];
+
+export function categoryRank(c: RoomCategory) {
+  return ROOM_CATEGORIES.findIndex((x) => x.value === c);
+}
+
+export function categoryLabel(c: RoomCategory) {
+  return ROOM_CATEGORIES.find((x) => x.value === c)?.label ?? "Standard";
+}
+
+export type UpgradePreference = "if_available" | "price";
+export type UpgradeStatus = "requested" | "price_offered" | "approved" | "declined";
+
+export const UPGRADE_STATUS_META: Record<UpgradeStatus, { label: string; color: string; bg: string; border: string }> = {
+  requested: {
+    label: "Requested",
+    color: "#C5A24B",
+    bg: "rgba(197,162,75,0.12)",
+    border: "rgba(197,162,75,0.30)",
+  },
+  price_offered: {
+    label: "Price offered",
+    color: "#9FBBD6",
+    bg: "rgba(120,158,196,0.14)",
+    border: "rgba(140,175,208,0.32)",
+  },
+  approved: {
+    label: "Approved",
+    color: "#8FC79A",
+    bg: "rgba(116,182,128,0.12)",
+    border: "rgba(116,182,128,0.30)",
+  },
+  declined: {
+    label: "Declined",
+    color: "#C79A9A",
+    bg: "rgba(190,140,140,0.12)",
+    border: "rgba(190,140,140,0.28)",
+  },
+};
+
+export interface UpgradeRequest {
+  id: string;
+  /** requested higher category — never mutates bookedRoomCategory */
+  category: RoomCategory;
+  preference: UpgradePreference;
+  note?: string;
+  status: UpgradeStatus;
+  requestedAt: string;
+  /** set once the approved upgrade has been formally applied to the booking */
+  appliedAt?: string | null;
+}
+
 export interface Guest {
   id: string;
   firstName: string;
@@ -83,11 +146,81 @@ export interface Allocation {
   id: string;
   /** sequential list position — NOT a hotel room number */
   index: number;
+  /** current (working) room type */
   type: RoomType;
+  /** the confirmed/booked room type — never changed by the user */
+  bookedRoomType: RoomType;
+  /** the confirmed/booked room category */
+  bookedRoomCategory: RoomCategory;
+  /** request only — does NOT change bookedRoomCategory */
+  upgradeRequest?: UpgradeRequest | null;
   /** optional occupancy override for dynamic room types (e.g. family) */
   occupancy?: number;
   guests: Guest[];
   requests: string[];
+}
+
+/** true when the working room type no longer matches the confirmed booking */
+export function hasRoomTypeChange(a: Allocation) {
+  return a.type !== a.bookedRoomType;
+}
+
+/** Valid upgrade categories for a single allocation (strictly higher only). */
+export function upgradeOptionsFor(a: Allocation): RoomCategory[] {
+  const rank = categoryRank(a.bookedRoomCategory);
+  return ROOM_CATEGORIES.filter((c) => categoryRank(c.value) > rank).map((c) => c.value);
+}
+
+export function canUpgrade(a: Allocation) {
+  return upgradeOptionsFor(a).length > 0;
+}
+
+/** Categories valid for EVERY allocation in the selection. */
+export function commonUpgradeOptions(list: Allocation[]): RoomCategory[] {
+  if (list.length === 0) return [];
+  return ROOM_CATEGORIES.map((c) => c.value).filter((c) =>
+    list.every((a) => upgradeOptionsFor(a).includes(c)),
+  );
+}
+
+/** Allocations in the selection for which the given category is NOT a valid upgrade. */
+export function invalidForCategory(list: Allocation[], category: RoomCategory) {
+  return list.filter((a) => !upgradeOptionsFor(a).includes(category));
+}
+
+export function newUpgradeRequest(
+  category: RoomCategory,
+  preference: UpgradePreference,
+  note?: string,
+): UpgradeRequest {
+  return {
+    id: uid(),
+    category,
+    preference,
+    note: note?.trim() ? note.trim() : undefined,
+    status: "requested",
+    requestedAt: new Date().toISOString(),
+    appliedAt: null,
+  };
+}
+
+/* ── guest requirement helpers ────────────────────────────────── */
+
+export function guestRequirementSummary(g: Guest) {
+  const tags = g.requirements ?? [];
+  const allergies = tags.filter(isAllergy);
+  const dietary = tags.filter((t) => !isAllergy(t));
+  return {
+    tags,
+    allergies,
+    dietary,
+    hasAny: tags.length > 0,
+    hasAllergy: allergies.length > 0,
+  };
+}
+
+export function allocationHasRequirements(a: Allocation) {
+  return a.guests.some((g) => (g.requirements?.length ?? 0) > 0);
 }
 
 export interface RoomingList {
@@ -101,6 +234,7 @@ export interface RoomingList {
   /** pending change proposals for a submitted (locked) list */
   changeLog: { id: string; allocation: number; removed: string[]; added: string[] }[];
 }
+
 
 export type Distribution = Partial<Record<RoomType, number>>;
 
