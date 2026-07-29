@@ -489,7 +489,12 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(173,192,205,0.14)}}
       .hgb-inline::placeholder{color:#9FB0BE}
       .hgb-inline:focus{border-color:rgba(197,162,75,0.75) !important}
-      .hgb-search::placeholder{color:#B8BDC2}`}</style>
+      .hgb-search::placeholder{color:#B8BDC2}
+      .hgb-guest{transition:background-color 150ms ease,border-color 150ms ease}
+      .hgb-guest:hover{background-color:rgba(255,255,255,0.05) !important;border-color:rgba(230,196,122,0.34) !important}
+      .hgb-guest .hgb-edit{opacity:0;transition:opacity 150ms ease}
+      .hgb-guest:hover .hgb-edit{opacity:0.75}`}</style>
+
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
         <SidebarContent light active="Rooming List" bookingId={booking.id} />
