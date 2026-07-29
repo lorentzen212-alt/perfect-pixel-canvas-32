@@ -124,11 +124,28 @@ const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
 const R_AMBER = "#C5A24B";
 
+/* premium room-card sub-surfaces */
+
+const CTRL_BG = "#1B3B5E";
+
+const CTRL_BORDER = "rgba(255,255,255,0.11)";
+const GUEST_BG = "#1A3856";
+const GUEST_BORDER = "rgba(255,255,255,0.10)";
+const GOLD_EDGE =
+  "linear-gradient(180deg,#8F6A26 0%,#C99845 18%,#F4DEAA 42%,#E6C47A 58%,#B8873A 100%)";
+const GOLD_METAL_TEXT: React.CSSProperties = {
+  backgroundImage: "linear-gradient(155deg,#B8873A 0%,#E6C47A 36%,#F4DEAA 54%,#C99845 100%)",
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  color: "transparent",
+};
+
 const GOLD_BAR = "#C5A24B";
+
 const HERO_INK = "#10233F";
 const HERO_INK_2 = "#4A6076";
 const HERO_ACCENT = "#2C5B8C";
-const COLS = "14% 42% 21% 19% 4%";
+
 
 
 /* ───────────────── primitives ───────────────── */
@@ -882,17 +899,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               }
             />
 
-            {/* column headers */}
-            <div
-              className="hidden px-1 pb-1 pt-3 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
-              style={{ color: HERO_INK_2, gridTemplateColumns: COLS }}
-            >
-              <span className="px-3.5">Allocation</span>
-              <span className="px-3.5">Guests</span>
-              <span className="px-3.5">Room request</span>
-              <span className="px-3.5">Status</span>
-              <span />
-            </div>
+            <div className="pt-3" />
+
+
 
             {/* allocation cards */}
             <div className="space-y-[8px]">
@@ -1296,7 +1305,7 @@ function AllocationRow({
     <div
       id={`alloc-${allocation.id}`}
       data-selected={selected ? "true" : "false"}
-      className="hgb-row grid rounded-[12px] lg:[grid-template-columns:14%_42%_21%_19%_4%]"
+      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:30%_28%_20%_18%_4%]"
       style={{
         backgroundColor: NAVY,
         backgroundImage: selected
@@ -1308,109 +1317,131 @@ function AllocationRow({
             ? "1.5px solid #C5A24B"
             : "1px solid rgba(255,255,255,0.07)",
         boxShadow: isActive
-          ? "0 8px 22px rgba(16,35,63,0.18)"
-          : "0 4px 14px rgba(16,35,63,0.12)",
+          ? "0 10px 26px rgba(10,26,46,0.26)"
+          : "0 6px 18px rgba(10,26,46,0.18)",
       }}
     >
-
-
+      {/* metallic gold left edge */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 w-[5px]"
+        style={{ backgroundImage: GOLD_EDGE, boxShadow: "1px 0 6px rgba(197,162,75,0.18)" }}
+      />
 
       {/* ── ALLOCATION ── */}
-      <div className="flex flex-col justify-center px-4 py-[17px]">
-        <div className="flex items-center gap-2.5">
-          {manageMode && allocation.upgradeRequest ? (
-            <UpgradeCheckbox
+      <div className="flex items-center gap-4 py-[19px] pl-6 pr-4">
+        {manageMode && allocation.upgradeRequest ? (
+          <RoomSelectCircle
+            checked={!!selected}
+            disabled={locked}
+            onChange={() => onToggleSelected?.()}
+            title="Select this upgrade request"
+          />
+        ) : (
+          upgradeMode && (
+            <RoomSelectCircle
               checked={!!selected}
-              disabled={locked}
+              disabled={!selectable}
               onChange={() => onToggleSelected?.()}
               title={
-                allocation.upgradeRequest
-                  ? "Select this upgrade request"
-                  : "This room has no upgrade request"
+                withdrawable
+                  ? "Select to withdraw this upgrade request"
+                  : allocation.upgradeRequest
+                    ? "An upgrade has already been requested for this room"
+                    : upgradeEligible
+                      ? undefined
+                      : "No higher room category available"
               }
             />
-          ) : (
-            upgradeMode && (
-              <UpgradeCheckbox
-                checked={!!selected}
-                disabled={!selectable}
-                onChange={() => onToggleSelected?.()}
-                title={
-                  withdrawable
-                    ? "Select to withdraw this upgrade request"
-                    : allocation.upgradeRequest
-                      ? "An upgrade has already been requested for this room"
-                      : upgradeEligible
-                        ? undefined
-                        : "No higher room category available"
-                }
-              />
-            )
-          )}
-          <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
-            {String(allocation.index).padStart(2, "0")}
-          </p>
-        </div>
-        <div className="relative mt-1.5">
-          <button
-            ref={typeBtnRef}
-            type="button"
-            disabled={locked}
-            onClick={() => setTypeOpen((v) => !v)}
-            className="inline-flex items-center gap-1.5 text-[12.5px] transition-colors hover:text-white"
-            style={{ color: RT_2 }}
-          >
-            <Bed size={13} style={{ color: RT_3 }} />
-            {labelOf(allocation.type)}
-            {!locked && <ChevronDown size={13} style={{ color: RT_3 }} />}
-          </button>
-          <FloatingPopover anchorRef={typeBtnRef} open={typeOpen} onClose={() => setTypeOpen(false)} width={190}>
-            {ROOM_TYPES.map((t) => (
-              <button
-                key={t.value}
-                type="button"
-                onClick={() => changeType(t.value)}
-                className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
-                style={{ color: t.value === allocation.type ? "#F7F7F5" : "#D9DDE0" }}
-              >
-                <span>{t.label}</span>
-                <span className="text-[10.5px]" style={{ color: "#B8BDC2" }}>
-                  {t.capacity} guest{t.capacity > 1 ? "s" : ""}
-                </span>
-              </button>
-            ))}
-          </FloatingPopover>
-
-        </div>
-        <p className="mt-[3px] text-[11px]" style={{ color: RT_3 }}>
-          {categoryLabel(allocation.bookedRoomCategory)}
-        </p>
-        {typeChanged && (
-          <div
-            className="mt-2 rounded-[7px] px-2 py-1.5"
-            style={{ backgroundColor: "rgba(231,180,75,0.10)", border: "1px solid rgba(231,180,75,0.28)" }}
-          >
-            <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
-              Booking change may require approval
-            </p>
-            <p className="mt-[2px] text-[10px] leading-snug" style={{ color: RT_3 }}>
-              Booked as {labelOf(allocation.bookedRoomType)}
-            </p>
-            <button
-              type="button"
-              className="mt-1 text-[10.5px]"
-              style={{ color: R_AMBER }}
-              onClick={() => onPatch((a) => ({ ...a, type: a.bookedRoomType }))}
-            >
-              Restore booked type
-            </button>
-          </div>
+          )
         )}
+
+        <p
+          className="w-[58px] shrink-0 text-[44px] leading-none tracking-[-0.02em]"
+          style={{ ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }}
+        >
+          {String(allocation.index).padStart(2, "0")}
+        </p>
+
+        <div className="min-w-0 flex-1">
+          <div
+            className="relative w-full max-w-[190px] rounded-[11px] px-3 py-2.5"
+            style={{
+              backgroundColor: CTRL_BG,
+              border: `1px solid ${CTRL_BORDER}`,
+              boxShadow: "0 2px 8px rgba(10,26,46,0.20)",
+            }}
+          >
+            <button
+              ref={typeBtnRef}
+              type="button"
+              disabled={locked}
+              onClick={() => setTypeOpen((v) => !v)}
+              className="flex w-full items-center gap-2 text-[13.5px]"
+              style={{ color: RT }}
+            >
+              <Bed size={15} className="shrink-0" style={{ color: "rgba(230,196,122,0.9)" }} />
+              <span className="min-w-0 flex-1 truncate text-left">{labelOf(allocation.type)}</span>
+              {!locked && <ChevronDown size={14} className="shrink-0" style={{ color: RT_3 }} />}
+            </button>
+            <div className="mt-2 flex">
+              <span
+                className="inline-flex items-center rounded-full px-2.5 py-[3px] text-[9.5px] uppercase tracking-[0.18em]"
+                style={{
+                  color: "#E6C47A",
+                  backgroundColor: "rgba(197,162,75,0.06)",
+                  border: "1px solid rgba(197,162,75,0.42)",
+                }}
+              >
+                {categoryLabel(allocation.bookedRoomCategory)}
+              </span>
+            </div>
+            <FloatingPopover anchorRef={typeBtnRef} open={typeOpen} onClose={() => setTypeOpen(false)} width={190}>
+              {ROOM_TYPES.map((t) => (
+                <button
+                  key={t.value}
+                  type="button"
+                  onClick={() => changeType(t.value)}
+                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                  style={{ color: t.value === allocation.type ? "#F7F7F5" : "#D9DDE0" }}
+                >
+                  <span>{t.label}</span>
+                  <span className="text-[10.5px]" style={{ color: "#B8BDC2" }}>
+                    {t.capacity} guest{t.capacity > 1 ? "s" : ""}
+                  </span>
+                </button>
+              ))}
+            </FloatingPopover>
+          </div>
+
+          {typeChanged && (
+            <div
+              className="mt-2 max-w-[190px] rounded-[8px] px-2 py-1.5"
+              style={{ backgroundColor: "rgba(231,180,75,0.10)", border: "1px solid rgba(231,180,75,0.28)" }}
+            >
+              <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
+                Booking change may require approval
+              </p>
+              <p className="mt-[2px] text-[10px] leading-snug" style={{ color: RT_3 }}>
+                Booked as {labelOf(allocation.bookedRoomType)}
+              </p>
+              <button
+                type="button"
+                className="mt-1 text-[10.5px]"
+                style={{ color: R_AMBER }}
+                onClick={() => onPatch((a) => ({ ...a, type: a.bookedRoomType }))}
+              >
+                Restore booked type
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
 
+
       {/* ── GUESTS ── */}
-      <div className="hgb-cell flex flex-col justify-center gap-[5px] px-4 py-[17px]">
+      <div className="hgb-cell flex flex-col justify-center gap-[8px] px-4 py-[19px]">
         {allocation.guests.map((g) => (
           <SavedGuestRow
             key={g.id}
@@ -1446,12 +1477,13 @@ function AllocationRow({
                     onKeyUpCapture={(e) => e.stopPropagation()}
                     onKeyPressCapture={(e) => e.stopPropagation()}
                     placeholder="Enter guest name..."
-                    className="hgb-inline h-[35px] w-full max-w-[250px] rounded-[7px] px-2.5 text-[13px] outline-none transition-colors"
+                    className="hgb-inline h-[42px] w-full rounded-[10px] px-3 text-[13.5px] outline-none transition-colors"
                     style={{
-                      backgroundColor: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(173,192,205,0.22)",
+                      backgroundColor: GUEST_BG,
+                      border: `1px solid ${GUEST_BORDER}`,
                       color: RT,
                     }}
+
                   />
                   <button
                     type="button"
@@ -1464,15 +1496,19 @@ function AllocationRow({
                   </button>
                 </div>
               ) : (
-                <div key={`pending-${allocation.id}`} className="flex w-full items-center gap-1.5">
+                <div
+                  key={`pending-${allocation.id}`}
+                  className="flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
+                  style={{ minHeight: 46, backgroundColor: GUEST_BG, border: `1px solid ${GUEST_BORDER}` }}
+                >
                   <button
                     type="button"
                     onClick={onPendingEdit}
                     title="Click to edit name"
-                    className="flex min-w-0 flex-1 items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                    className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left"
                   >
-                    <User size={13} style={{ color: RT_3 }} />
-                    <span className="min-w-0 truncate text-[13.5px]" style={{ color: RT }}>
+                    <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
+                    <span className="min-w-0 truncate text-[13.5px] font-medium" style={{ color: RT }}>
                       {pending.raw}
                     </span>
                   </button>
@@ -1480,7 +1516,7 @@ function AllocationRow({
                     type="button"
                     aria-label="Cancel guest entry"
                     onClick={onPendingCancel}
-                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C]"
+                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100"
                     style={{ color: RT_3 }}
                   >
                     <X size={13} />
@@ -1492,13 +1528,14 @@ function AllocationRow({
                 key={`slot-${allocation.id}-${allocation.guests.length + i}`}
                 type="button"
                 onClick={onAddGuest}
-                className="flex w-fit items-center gap-1.5 rounded-[6px] px-1.5 py-[2px] text-left text-[12.5px] opacity-80 transition-opacity hover:opacity-100"
-                style={{ color: "#C5A24B" }}
+                className="flex w-fit items-center gap-1.5 rounded-[8px] px-1 py-[6px] text-left text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
+                style={{ color: "#D8B463" }}
               >
-                <span className="text-[13px] leading-none">+</span>
+                <Plus size={13} />
                 <span>Add guest</span>
               </button>
             ),
+
           )}
 
 
@@ -1525,13 +1562,8 @@ function AllocationRow({
               </span>
             ))}
           </div>
-        ) : (
-          !allocation.upgradeRequest && (
-            <span className="block text-[13px]" style={{ color: RT_3 }}>
-              —
-            </span>
-          )
-        )}
+        ) : null}
+
 
         {allocation.upgradeRequest && (
           <UpgradeIndicator
@@ -1572,31 +1604,42 @@ function AllocationRow({
         )}
 
         {!locked && (
-          <div className="mt-[3px] flex flex-wrap items-center gap-x-3 gap-y-1">
-            <button
-              ref={requestBtnRef}
-              type="button"
-              onClick={() => setRequestOpen((v) => !v)}
-              className="hgb-req inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
-              style={{ color: R_AMBER }}
-            >
-              <Plus size={12} />
-              Add room request
-            </button>
-            {!allocation.upgradeRequest && upgradeEligible && (
+          <div className="mt-[6px] flex w-full flex-col items-start">
+            {allocation.requests.length === 0 && (
               <button
-                ref={upgradeBtnRef}
+                ref={requestBtnRef}
                 type="button"
-                onClick={() => setUpgradeOpen((v) => !v)}
-                className="hgb-req inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
-                style={{ color: R_AMBER }}
+                onClick={() => setRequestOpen((v) => !v)}
+                className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
+                style={{ color: "#D8B463" }}
               >
-                <ArrowUp size={12} />
-                Request room upgrade
+                <Plus size={13} />
+                Add special request
               </button>
+            )}
+            {!allocation.upgradeRequest && upgradeEligible && (
+              <>
+                {allocation.requests.length === 0 && (
+                  <span
+                    className="my-[2px] block h-px w-[86%]"
+                    style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
+                  />
+                )}
+                <button
+                  ref={upgradeBtnRef}
+                  type="button"
+                  onClick={() => setUpgradeOpen((v) => !v)}
+                  className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
+                  style={{ color: "#D8B463" }}
+                >
+                  <Plus size={13} />
+                  Request room upgrade
+                </button>
+              </>
             )}
           </div>
         )}
+
         <FloatingPopover anchorRef={requestBtnRef} open={requestOpen} onClose={() => setRequestOpen(false)} width={220}>
           {ROOM_REQUEST_OPTIONS.map((r) => (
             <button
@@ -1631,14 +1674,31 @@ function AllocationRow({
 
 
       {/* ── STATUS ── */}
-      <div className="hgb-cell flex flex-col justify-center px-4 py-[17px]">
-        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: statusColor }}>
-          {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={14} strokeWidth={1.6} />}
-          {statusLabel}
+      <div className="hgb-cell flex items-center gap-3 px-4 py-[19px]">
+        <span
+          className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full"
+          style={{
+            border: `1.4px solid ${status === "complete" ? "rgba(116,217,124,0.75)" : "rgba(230,196,122,0.55)"}`,
+            boxShadow:
+              status === "complete"
+                ? "0 0 10px rgba(116,217,124,0.22), inset 0 0 6px rgba(116,217,124,0.10)"
+                : "none",
+            color: statusColor,
+          }}
+        >
+          {status === "complete" ? <Check size={13} strokeWidth={2.4} /> : null}
         </span>
-        <p className="mt-[3px] text-[11.5px]" style={{ color: RT_2 }}>
-          {named.length} / {cap} guest{cap > 1 ? "s" : ""}
-        </p>
+        <div className="min-w-0">
+          <p
+            className="truncate text-[11.5px] font-medium uppercase tracking-[0.10em]"
+            style={{ color: statusColor }}
+          >
+            {statusLabel}
+          </p>
+          <p className="mt-[3px] truncate text-[11.5px]" style={{ color: RT_3 }}>
+            {named.length} of {cap} guest{cap > 1 ? "s" : ""} assigned
+          </p>
+        </div>
       </div>
 
       {/* ── MENU ── */}
@@ -1648,9 +1708,10 @@ function AllocationRow({
           type="button"
           aria-label="Allocation actions"
           onClick={() => setMenuOpen((v) => !v)}
-          className="hgb-menu grid h-7 w-7 place-items-center rounded-[6px] opacity-0 transition-opacity duration-200"
-          style={{ color: RT_3 }}
+          className="grid h-7 w-7 place-items-center rounded-[6px] opacity-70 transition-opacity duration-200 hover:opacity-100"
+          style={{ color: "rgba(230,196,122,0.80)" }}
         >
+
           <MoreVertical size={15} />
         </button>
         <FloatingPopover anchorRef={menuBtnRef} open={menuOpen} onClose={() => setMenuOpen(false)} width={190} align="end">
@@ -1707,23 +1768,26 @@ function SavedGuestRow({
   const req = guestRequirementSummary(guest);
 
   return (
-    <div className="flex w-full items-center gap-1.5">
+    <div
+      className="flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
+      style={{ minHeight: 46, backgroundColor: GUEST_BG, border: `1px solid ${GUEST_BORDER}` }}
+    >
       <button
         type="button"
         onClick={onOpen}
-        className="flex min-w-0 flex-1 items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+        className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left"
       >
-        <User size={13} style={{ color: RT_3 }} />
-        <span className="min-w-0 max-w-[52%] truncate text-[13.5px]" style={{ color: RT }}>
+        <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
+        <span className="min-w-0 flex-1 truncate text-[13.5px] font-medium" style={{ color: RT }}>
           {guestName(guest) || "Unnamed guest"}
         </span>
         {req.count > 0 && (
           <span
             title={req.tooltip}
-            className="inline-flex shrink-0 items-center gap-1 rounded-[5px] px-1.5 py-[1px] text-[10.5px] leading-[15px]"
+            className="inline-flex shrink-0 items-center gap-1 rounded-[6px] px-1.5 py-[2px] text-[10.5px] leading-[15px]"
             style={
               req.hasAllergy
-                ? { color: R_AMBER, backgroundColor: "rgba(231,180,75,0.12)", border: "1px solid rgba(231,180,75,0.30)" }
+                ? { color: "#E6C47A", backgroundColor: "rgba(231,180,75,0.12)", border: "1px solid rgba(231,180,75,0.34)" }
                 : { color: RT_2, backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }
             }
           >
@@ -1732,16 +1796,12 @@ function SavedGuestRow({
           </span>
         )}
         {showRequirementDetail && req.count > 0 && (
-          <span className="min-w-0 truncate text-[11px]" style={{ color: RT_3 }}>
+          <span className="min-w-0 shrink truncate text-[11px]" style={{ color: RT_3 }}>
             {req.tooltip}
           </span>
         )}
-        {guest.nationality && !showRequirementDetail && (
-          <span className="inline-flex shrink-0 items-center text-[12px]" style={{ color: RT_2 }}>
-            {guest.nationality}
-          </span>
-        )}
       </button>
+
 
       {!locked && (
         <>
@@ -1750,8 +1810,9 @@ function SavedGuestRow({
             type="button"
             aria-label={`Remove ${guestName(guest) || "guest"}`}
             onClick={() => setConfirm((v) => !v)}
-            className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-0 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] group-hover/row:opacity-100 [.hgb-row:hover_&]:opacity-100"
+            className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100"
             style={{ color: RT_3 }}
+
           >
             <X size={13} />
           </button>
@@ -2801,6 +2862,40 @@ function UpgradeCheckbox({
     </button>
   );
 }
+
+/** Thin circular selection control used on the premium room cards. */
+function RoomSelectCircle({
+  checked,
+  disabled,
+  onChange,
+  title,
+}: {
+  checked: boolean;
+  disabled?: boolean;
+  onChange: () => void;
+  title?: string;
+}) {
+  return (
+    <button
+      type="button"
+      role="checkbox"
+      aria-checked={checked}
+      aria-label="Select room"
+      title={title}
+      disabled={disabled}
+      onClick={onChange}
+      className="grid h-[20px] w-[20px] shrink-0 place-items-center rounded-full transition-colors disabled:cursor-not-allowed"
+      style={{
+        backgroundColor: checked ? "rgba(197,162,75,0.18)" : "transparent",
+        border: `1.2px solid ${checked ? "rgba(230,196,122,0.85)" : "rgba(255,255,255,0.24)"}`,
+        opacity: disabled ? 0.32 : 1,
+      }}
+    >
+      {checked && <Check size={11} strokeWidth={2.6} style={{ color: "#E6C47A" }} />}
+    </button>
+  );
+}
+
 
 /** Small gold pill showing the current upgrade request state on a room card. */
 /** Small confirmation popover for withdrawing / changing an upgrade request. */
