@@ -226,12 +226,14 @@ function RoomingListRoute() {
   return <RoomingWorkspace booking={booking} />;
 }
 
-type ViewFilter = "all" | "missing" | "complete";
+type ViewFilter = "all" | "missing" | "complete" | "dietary" | "requests" | "upgrades";
+type UpgradeFilter = "all" | UpgradeStatus;
 
 function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [navOpen, setNavOpen] = useState(false);
   const [list, setList] = useState<RoomingList | null>(null);
   const [view, setView] = useState<ViewFilter>("all");
+  const [upgradeFilter, setUpgradeFilter] = useState<UpgradeFilter>("all");
   const [query, setQuery] = useState("");
   const [openGuest, setOpenGuest] = useState<{ allocationId: string | null; guestId: string } | null>(null);
   const [pendingGuest, setPendingGuest] = useState<{
@@ -245,7 +247,16 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [showImport, setShowImport] = useState(false);
   const [focusAllocation, setFocusAllocation] = useState<string | null>(null);
   const [savedLabel, setSavedLabel] = useState("Just now");
+  /* ── upgrade workflow ── */
+  const [upgradeMode, setUpgradeMode] = useState(false);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [confirmUpgrade, setConfirmUpgrade] = useState<{
+    category: RoomCategory;
+    preference: UpgradePreference;
+    note: string;
+  } | null>(null);
   const firstRender = useRef(true);
+
 
   /* allocations are generated from the confirmed booking room distribution */
   useEffect(() => {
