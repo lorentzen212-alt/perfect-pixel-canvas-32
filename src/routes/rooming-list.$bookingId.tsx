@@ -256,6 +256,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     preference: UpgradePreference;
     note: string;
   } | null>(null);
+  const [confirmWithdraw, setConfirmWithdraw] = useState(false);
+
   const firstRender = useRef(true);
 
 
