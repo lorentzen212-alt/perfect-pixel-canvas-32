@@ -936,9 +936,16 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     onPendingNameChange={(v) =>
                       setPendingGuest((p) => (p ? { ...p, raw: v, guest: { ...p.guest, ...splitName(v) } } : p))
                     }
-                    onPendingConfirm={() =>
-                      setPendingGuest((p) => (p && p.raw.trim() ? { ...p, editing: false } : p))
-                    }
+                    onPendingConfirm={() => {
+                      const p = pendingGuest;
+                      if (!p || p.allocationId !== a.id || !p.raw.trim()) return;
+                      const committed: Guest = { ...p.guest, ...splitName(p.raw) };
+                      /* append only — never touches existing guests */
+                      patchAllocation(a.id, (al) => ({ ...al, guests: [...al.guests, committed] }));
+                      setPendingGuest(null);
+                      setOpenGuest({ allocationId: a.id, guestId: committed.id });
+                    }}
+
                     onPendingEdit={() => setPendingGuest((p) => (p ? { ...p, editing: true } : p))}
                     onPendingCancel={() => {
                       setPendingGuest(null);
