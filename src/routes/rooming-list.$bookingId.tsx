@@ -772,7 +772,7 @@ function AllocationRow({
                       key={t.value}
                       type="button"
                       onClick={() => changeType(t.value)}
-                      className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
+                      className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
                       style={{ color: t.value === allocation.type ? "#153E6C" : "#50657A" }}
                     >
                       <span>{t.label}</span>
@@ -924,8 +924,8 @@ function AllocationRow({
                       onPatch((a) => (a.requests.includes(r) ? a : { ...a, requests: [...a.requests, r] }));
                       setRequestOpen(false);
                     }}
-                    className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-                    style={{ color: RT_2 }}
+                    className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                    style={{ color: "#50657A" }}
                   >
                     {r}
                   </button>
@@ -975,8 +975,8 @@ function AllocationRow({
                       item.run();
                       setMenuOpen(false);
                     }}
-                    className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)] disabled:opacity-40"
-                    style={{ color: RT_2 }}
+                    className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)] disabled:opacity-40"
+                    style={{ color: "#50657A" }}
                   >
                     {item.label}
                   </button>
