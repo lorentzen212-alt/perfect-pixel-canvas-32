@@ -213,7 +213,6 @@ function OverviewCard({
   action,
   onAction,
   dimmed,
-  compact,
 }: {
   icon: React.ReactNode;
   title: string;
@@ -222,7 +221,6 @@ function OverviewCard({
   action?: string;
   onAction?: () => void;
   dimmed?: boolean;
-  compact?: boolean;
 }) {
   const [hover, setHover] = useState(false);
   const interactive = Boolean(onAction);
@@ -1105,8 +1103,6 @@ function Workspace({ booking }: { booking: Booking }) {
                     action="Manage dining"
                     onAction={() => setPanel("dining")}
                     dimmed={dim("dining")}
-                    compact
-
                   >
                     <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>
                       {dining.breakfast ? "Breakfast included" : "No breakfast"}
@@ -1197,8 +1193,6 @@ function Workspace({ booking }: { booking: Booking }) {
                     action="Manage services"
                     onAction={() => setPanel("services")}
                     dimmed={dim("services")}
-                    compact
-
                   >
                     {services.slice(0, 2).map((s) => (
                       <p key={s.name} className="mt-1 text-[13.5px] font-medium first:mt-0" style={{ color: TEXT }}>
@@ -1272,8 +1266,6 @@ function Workspace({ booking }: { booking: Booking }) {
                     action="Update requests"
                     onAction={() => setPanel("requests")}
                     dimmed={dim("requests")}
-                    compact
-
                   >
                     {requests.length ? (
                       requests.map((r, i) => (
