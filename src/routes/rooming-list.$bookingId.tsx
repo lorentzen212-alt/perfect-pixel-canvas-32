@@ -1414,6 +1414,9 @@ function AllocationRow({
             { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
             { label: "Change room type", run: () => setTypeOpen(true) },
             { label: "Add room request", run: () => setRequestOpen(true) },
+            ...(upgradeEligible && !allocation.upgradeRequest
+              ? [{ label: "Request room upgrade", run: () => setUpgradeOpen(true) }]
+              : []),
             { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
           ].map((item) => (
             <button
