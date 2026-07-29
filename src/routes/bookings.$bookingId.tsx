@@ -1271,8 +1271,8 @@ function Workspace({ booking }: { booking: Booking }) {
                   className="rounded-[13px] px-4 py-3"
                   style={{
                     backgroundColor: ACTION_PANEL,
-                    border: `1px solid rgba(199,163,74,0.18)`,
-                    boxShadow: CARD_SHADOW,
+                    border: `1px solid rgba(212,175,55,0.20)`,
+                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.05), ${CARD_SHADOW}`,
                   }}
                 >
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
@@ -1281,10 +1281,16 @@ function Workspace({ booking }: { booking: Booking }) {
                   <div className="mt-2.5 flex items-center gap-3.5">
                     <Ring value={progress} size={52} />
                     <div
-                      className="h-[5px] flex-1 overflow-hidden rounded-full"
-                      style={{ backgroundColor: "rgba(255,255,255,0.09)" }}
+                      className="h-[3px] flex-1 overflow-hidden rounded-full"
+                      style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
                     >
-                      <div className="h-full rounded-full" style={{ width: `${progress}%`, backgroundColor: GOLD }} />
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: `${progress}%`,
+                          background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 55%, ${GOLD_MET_MID})`,
+                        }}
+                      />
                     </div>
                   </div>
                   <ul className="mt-2.5 space-y-2 text-[13px]">
@@ -1315,9 +1321,9 @@ function Workspace({ booking }: { booking: Booking }) {
                 <section
                   className="rounded-[13px] px-3.5 py-2.5"
                   style={{
-                    backgroundColor: "#26333E",
-                    border: `1px solid rgba(154,176,192,0.09)`,
-                    boxShadow: CARD_SHADOW,
+                    backgroundColor: "#243039",
+                    border: `1px solid rgba(154,176,192,0.07)`,
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
                   }}
                 >
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
@@ -1358,9 +1364,9 @@ function Workspace({ booking }: { booking: Booking }) {
                 <section
                   className="rounded-[13px] px-3.5 py-2.5"
                   style={{
-                    backgroundColor: "#26333E",
-                    border: `1px solid rgba(154,176,192,0.09)`,
-                    boxShadow: CARD_SHADOW,
+                    backgroundColor: "#243039",
+                    border: `1px solid rgba(154,176,192,0.07)`,
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
                   }}
                 >
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
