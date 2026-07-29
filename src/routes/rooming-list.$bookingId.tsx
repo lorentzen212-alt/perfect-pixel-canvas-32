@@ -1373,7 +1373,7 @@ function AllocationRow({
         )}
 
         <p
-          className="w-[58px] shrink-0 text-[44px] leading-none tracking-[-0.02em]"
+          className="w-[50px] shrink-0 text-[44px] leading-none tracking-[-0.02em]"
           style={{ ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }}
         >
           {String(allocation.index).padStart(2, "0")}
@@ -1381,7 +1381,7 @@ function AllocationRow({
 
         <div className="min-w-0 flex-1">
           <div
-            className="relative w-full max-w-[190px] rounded-[11px] px-3 py-2.5"
+            className="relative w-full max-w-[172px] rounded-[11px] px-3 py-2.5"
             style={{
               backgroundColor: CTRL_BG,
               border: `1px solid ${CTRL_BORDER}`,
