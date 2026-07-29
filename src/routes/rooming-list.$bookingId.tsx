@@ -878,7 +878,7 @@ function AllocationRow({
               <button
                 type="button"
                 onClick={() => setRequestOpen((v) => !v)}
-                className="mt-1 inline-flex items-center gap-1.5 text-[12px]"
+                className="mt-1 flex items-center gap-1.5 text-[12px]"
                 style={{ color: GOLD_SOFT }}
               >
                 <Plus size={12} />
