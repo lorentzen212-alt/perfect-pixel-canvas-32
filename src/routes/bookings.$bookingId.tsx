@@ -1100,6 +1100,8 @@ function Workspace({ booking }: { booking: Booking }) {
                     action="Manage dining"
                     onAction={() => setPanel("dining")}
                     dimmed={dim("dining")}
+                    compact
+
                   >
                     <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>
                       {dining.breakfast ? "Breakfast included" : "No breakfast"}
