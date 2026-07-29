@@ -1201,8 +1201,7 @@ function GuestDrawer({
   const [tagOpen, setTagOpen] = useState(false);
   const tagBtnRef = useRef<HTMLButtonElement>(null);
 
-  const controlled = Boolean(onDraftChange);
-  const draft = controlled ? guest : localDraft;
+  const draft = onDraftChange ? guest : localDraft;
 
   const set = (patch: Partial<Guest>) => {
     if (onDraftChange) onDraftChange({ ...guest, ...patch });
