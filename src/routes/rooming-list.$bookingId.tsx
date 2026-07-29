@@ -2460,3 +2460,453 @@ function UnassignedPanel({
     </section>
   );
 }
+
+/* ══════════════════════════════════════════════════════════════
+   Room upgrade workflow
+   ══════════════════════════════════════════════════════════════ */
+
+function UpgradeCheckbox({
+  checked,
+  disabled,
+  onChange,
+  title,
+}: {
+  checked: boolean;
+  disabled?: boolean;
+  onChange: () => void;
+  title?: string;
+}) {
+  return (
+    <button
+      type="button"
+      role="checkbox"
+      aria-checked={checked}
+      aria-label="Select room for upgrade"
+      title={title}
+      disabled={disabled}
+      onClick={onChange}
+      className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] transition-colors disabled:cursor-not-allowed"
+      style={{
+        backgroundColor: checked ? "rgba(197,162,75,0.20)" : "rgba(255,255,255,0.05)",
+        border: `1px solid ${checked ? "rgba(197,162,75,0.70)" : "rgba(255,255,255,0.18)"}`,
+        opacity: disabled ? 0.35 : 1,
+      }}
+    >
+      {checked && <Check size={12} style={{ color: GOLD }} />}
+    </button>
+  );
+}
+
+/** Small gold pill showing the current upgrade request state on a room card. */
+function UpgradeIndicator({
+  request,
+  bookedCategory,
+  locked,
+  onWithdraw,
+  onApply,
+}: {
+  request: UpgradeRequest;
+  bookedCategory: RoomCategory;
+  locked: boolean;
+  onWithdraw: () => void;
+  onApply: () => void;
+}) {
+  const meta = UPGRADE_STATUS_META[request.status];
+  const applied = Boolean(request.appliedAt);
+  return (
+    <div className="mt-[3px] space-y-[5px]">
+      <div className="group/upg flex items-center gap-1.5">
+        <span className="inline-flex items-center gap-1 text-[12.5px]" style={{ color: GOLD }}>
+          <ArrowUp size={12} />
+          {categoryLabel(request.category)} requested
+        </span>
+        {!locked && !applied && (
+          <button
+            type="button"
+            aria-label="Withdraw upgrade request"
+            onClick={onWithdraw}
+            className="opacity-0 transition-opacity group-hover/upg:opacity-100"
+            style={{ color: RT_3 }}
+          >
+            <X size={11} />
+          </button>
+        )}
+      </div>
+      <span
+        className="inline-flex items-center gap-1 rounded-[5px] px-1.5 py-[1px] text-[10.5px]"
+        style={{ color: meta.color, backgroundColor: meta.bg, border: `1px solid ${meta.border}` }}
+      >
+        {request.status === "approved" ? <Check size={9.5} /> : <Clock size={9.5} />}
+        {applied ? "Upgrade applied" : meta.label}
+      </span>
+      {request.status === "price_offered" && (
+        <p className="text-[10.5px] leading-snug" style={{ color: RT_3 }}>
+          Your concierge will share the upgrade price for approval.
+        </p>
+      )}
+      {request.status === "approved" && !applied && !locked && (
+        <button
+          type="button"
+          onClick={onApply}
+          className="mt-[2px] rounded-[6px] px-2 py-[4px] text-[11px] transition-colors"
+          style={{
+            color: GOLD,
+            backgroundColor: "rgba(197,162,75,0.12)",
+            border: "1px solid rgba(197,162,75,0.34)",
+          }}
+        >
+          Apply approved upgrade
+        </button>
+      )}
+      {applied && (
+        <p className="text-[10.5px]" style={{ color: RT_3 }}>
+          Booked as {categoryLabel(bookedCategory)}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/** Shared category + preference + note form used for single and bulk requests. */
+function UpgradeForm({
+  title,
+  options,
+  submitLabel,
+  disabledReason,
+  onSubmit,
+  onCancel,
+}: {
+  title?: string;
+  options: RoomCategory[];
+  submitLabel: string;
+  disabledReason?: string;
+  onSubmit: (category: RoomCategory, preference: UpgradePreference, note: string) => void;
+  onCancel?: () => void;
+}) {
+  const [category, setCategory] = useState<RoomCategory | null>(options[0] ?? null);
+  const [preference, setPreference] = useState<UpgradePreference>("if_available");
+  const [note, setNote] = useState("");
+  const catRef = useRef<HTMLButtonElement>(null);
+  const [catOpen, setCatOpen] = useState(false);
+
+  useEffect(() => {
+    if (category && !options.includes(category)) setCategory(options[0] ?? null);
+    if (!category && options.length) setCategory(options[0]);
+  }, [options, category]);
+
+  return (
+    <div className="px-3 py-3">
+      {title && (
+        <p className="mb-2 text-[11px] uppercase tracking-[0.14em]" style={{ color: "#B8BDC2" }}>
+          {title}
+        </p>
+      )}
+
+      <label className="block text-[11px] uppercase tracking-[0.12em]" style={{ color: "#B8BDC2" }}>
+        Upgrade to
+      </label>
+      <button
+        ref={catRef}
+        type="button"
+        disabled={options.length === 0}
+        onClick={() => setCatOpen((v) => !v)}
+        className="mt-1 flex w-full items-center justify-between rounded-[8px] px-3 py-[7px] text-left text-[12.5px] disabled:opacity-50"
+        style={{ backgroundColor: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.14)", color: "#F7F7F5" }}
+      >
+        {category ? categoryLabel(category) : "No higher category"}
+        <ChevronDown size={13} style={{ color: "#B8BDC2" }} />
+      </button>
+      <FloatingPopover anchorRef={catRef} open={catOpen} onClose={() => setCatOpen(false)} width={220}>
+        {options.map((c) => (
+          <button
+            key={c}
+            type="button"
+            onClick={() => {
+              setCategory(c);
+              setCatOpen(false);
+            }}
+            className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+            style={{ color: c === category ? "#F7F7F5" : "#D9DDE0" }}
+          >
+            {categoryLabel(c)}
+          </button>
+        ))}
+      </FloatingPopover>
+
+      <p className="mt-3 text-[11px] uppercase tracking-[0.12em]" style={{ color: "#B8BDC2" }}>
+        Preference
+      </p>
+      <div className="mt-1 space-y-1.5">
+        {(
+          [
+            { value: "if_available", label: "Upgrade if available" },
+            { value: "price", label: "Request price first" },
+          ] as { value: UpgradePreference; label: string }[]
+        ).map((o) => (
+          <button
+            key={o.value}
+            type="button"
+            onClick={() => setPreference(o.value)}
+            className="flex w-full items-center gap-2 rounded-[7px] px-2.5 py-[6px] text-left text-[12.5px] transition-colors"
+            style={{
+              color: preference === o.value ? "#F7F7F5" : "#D9DDE0",
+              backgroundColor: preference === o.value ? "rgba(197,162,75,0.12)" : "transparent",
+              border: `1px solid ${preference === o.value ? "rgba(197,162,75,0.34)" : "rgba(255,255,255,0.10)"}`,
+            }}
+          >
+            {preference === o.value ? (
+              <CheckCircle2 size={13} style={{ color: GOLD }} />
+            ) : (
+              <Circle size={13} style={{ color: "#B8BDC2" }} />
+            )}
+            {o.label}
+          </button>
+        ))}
+      </div>
+
+      <label className="mt-3 block text-[11px] uppercase tracking-[0.12em]" style={{ color: "#B8BDC2" }}>
+        Note (optional)
+      </label>
+      <textarea
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+        rows={2}
+        placeholder="e.g. Upgrade only for the VIP guests."
+        className="mt-1 w-full resize-none rounded-[8px] px-3 py-2 text-[12.5px] outline-none"
+        style={{ backgroundColor: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.14)", color: "#F7F7F5" }}
+      />
+
+      {disabledReason && (
+        <p className="mt-2 text-[11px] leading-snug" style={{ color: GOLD }}>
+          {disabledReason}
+        </p>
+      )}
+
+      <div className="mt-3 flex items-center justify-end gap-2">
+        {onCancel && (
+          <button
+            type="button"
+            onClick={onCancel}
+            className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+            style={{ color: "#B8BDC2" }}
+          >
+            Cancel
+          </button>
+        )}
+        <button
+          type="button"
+          disabled={!category}
+          onClick={() => category && onSubmit(category, preference, note)}
+          className="rounded-[7px] px-3 py-[6px] text-[12px] transition-colors disabled:opacity-50"
+          style={{
+            color: GOLD,
+            backgroundColor: "rgba(197,162,75,0.14)",
+            border: "1px solid rgba(197,162,75,0.36)",
+          }}
+        >
+          {submitLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/** Sticky panel shown while Upgrade Mode is active. */
+function UpgradeModePanel({
+  allocations,
+  eligible,
+  selected,
+  selectedAllocations,
+  onSelectAll,
+  onCancel,
+  onRequest,
+}: {
+  allocations: Allocation[];
+  eligible: Allocation[];
+  selected: string[];
+  selectedAllocations: Allocation[];
+  onSelectAll: (on: boolean) => void;
+  onCancel: () => void;
+  onRequest: (category: RoomCategory, preference: UpgradePreference, note: string) => void;
+}) {
+  const allSelected = eligible.length > 0 && selected.length === eligible.length;
+  const options = commonUpgradeOptions(selectedAllocations);
+  const ineligible = allocations.length - eligible.length;
+
+  return (
+    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(197,162,75,0.05)" }}>
+      <div className="flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={() => onSelectAll(!allSelected)}
+          className="inline-flex items-center gap-2 text-[12.5px]"
+          style={{ color: TEXT_2 }}
+        >
+          <UpgradeCheckbox checked={allSelected} onChange={() => onSelectAll(!allSelected)} />
+          Select all eligible rooms
+        </button>
+        <span className="text-[12px]" style={{ color: MUTED }}>
+          {selected.length} of {eligible.length} selected
+          {ineligible > 0 ? ` · ${ineligible} not eligible` : ""}
+        </span>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="ml-auto rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+          style={{ color: MUTED }}
+        >
+          Exit upgrade mode
+        </button>
+      </div>
+
+      {selected.length > 0 && (
+        <div
+          className="mt-3 rounded-[10px]"
+          style={{ backgroundColor: SURFACE_2, border: `1px solid ${GOLD_DEEP}` }}
+        >
+          <UpgradeForm
+            title={`Upgrade ${selected.length} room${selected.length > 1 ? "s" : ""}`}
+            options={options}
+            submitLabel="Review upgrade request"
+            disabledReason={
+              options.length === 0
+                ? "The selected rooms have no shared higher category. Adjust your selection."
+                : undefined
+            }
+            onSubmit={onRequest}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Bulk confirmation step before submitting upgrade requests. */
+function UpgradeConfirmModal({
+  allocations,
+  category,
+  preference,
+  note,
+  onClose,
+  onConfirm,
+}: {
+  allocations: Allocation[];
+  category: RoomCategory;
+  preference: UpgradePreference;
+  note: string;
+  onClose: () => void;
+  onConfirm: () => void;
+}) {
+  const blocked = invalidForCategory(allocations, category);
+  return (
+    <Modal title="Confirm upgrade request" onClose={onClose}>
+      <p className="text-[12.5px]" style={{ color: MUTED }}>
+        This sends a request only. Your booked room types stay unchanged until an upgrade is approved and you apply it.
+      </p>
+
+      <div className="mt-3 space-y-2">
+        <SummaryLine label="Rooms" value={`${allocations.length - blocked.length} room(s)`} />
+        <SummaryLine label="Upgrade to" value={categoryLabel(category)} />
+        <SummaryLine
+          label="Preference"
+          value={preference === "price" ? "Request price first" : "Upgrade if available"}
+        />
+        {note.trim() && <SummaryLine label="Note" value={note.trim()} />}
+      </div>
+
+      <div className="mt-3 max-h-[180px] space-y-1.5 overflow-y-auto">
+        {allocations.map((a) => {
+          const bad = blocked.includes(a);
+          return (
+            <div
+              key={a.id}
+              className="flex items-center justify-between rounded-[8px] px-3 py-[7px] text-[12.5px]"
+              style={{ backgroundColor: ROW, border: `1px solid ${BORDER}`, color: bad ? MUTED : TEXT_2 }}
+            >
+              <span>
+                {labelOf(a.type)} {String(a.index).padStart(2, "0")} · {categoryLabel(a.bookedRoomCategory)}
+              </span>
+              <span style={{ color: bad ? MUTED : GOLD }}>
+                {bad ? "Not eligible — skipped" : `→ ${categoryLabel(category)}`}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-4 flex items-center justify-end gap-2">
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+          style={{ color: MUTED }}
+        >
+          Back
+        </button>
+        <GoldButton small onClick={onConfirm} disabled={allocations.length - blocked.length === 0}>
+          <ArrowUp size={13} /> Send upgrade request
+        </GoldButton>
+      </div>
+    </Modal>
+  );
+}
+
+function SummaryLine({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-start justify-between gap-4">
+      <span className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+        {label}
+      </span>
+      <span className="text-right text-[12.5px]" style={{ color: TEXT }}>
+        {value}
+      </span>
+    </div>
+  );
+}
+
+/** Extra view filters kept in a portal menu so the segmented control stays compact. */
+function SecondaryFilterMenu({ view, onChange }: { view: ViewFilter; onChange: (v: ViewFilter) => void }) {
+  const [open, setOpen] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const extras: { value: ViewFilter; label: string }[] = [
+    { value: "dietary", label: "Dietary & allergies" },
+    { value: "requests", label: "Requests" },
+    { value: "upgrades", label: "Upgrades" },
+  ];
+  const active = extras.find((e) => e.value === view);
+
+  return (
+    <>
+      <button
+        ref={btnRef}
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="inline-flex items-center gap-1 rounded-[6px] px-3 py-[5px] text-[12px] transition-colors"
+        style={
+          active
+            ? { color: GOLD, backgroundColor: SURFACE_2, border: `1px solid ${GOLD_DEEP}` }
+            : { color: TEXT_2, border: "1px solid transparent" }
+        }
+      >
+        {active ? active.label : "More"}
+        <ChevronDown size={12} />
+      </button>
+      <FloatingPopover anchorRef={btnRef} open={open} onClose={() => setOpen(false)} width={210} align="end">
+        {extras.map((e) => (
+          <button
+            key={e.value}
+            type="button"
+            onClick={() => {
+              onChange(e.value);
+              setOpen(false);
+            }}
+            className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+            style={{ color: view === e.value ? "#F7F7F5" : "#D9DDE0" }}
+          >
+            {e.label}
+          </button>
+        ))}
+      </FloatingPopover>
+    </>
+  );
+}
