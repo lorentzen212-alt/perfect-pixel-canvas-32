@@ -8,10 +8,13 @@ import {
   ChevronRight,
   Clock,
   Copy,
+  Download,
+  FileText,
+
   MapPin,
   MessageSquare,
   MoreHorizontal,
-  Pencil,
+  
   Plus,
   Star,
   Trash2,
@@ -486,9 +489,8 @@ function Workspace({ booking }: { booking: Booking }) {
   const [savedPanel, setSavedPanel] = useState<PanelKey>(null);
 
   /* top-card editable state */
-  const [hotelRef, setHotelRef] = useState(booking.hotelReference ?? "");
-  const [refDraft, setRefDraft] = useState(hotelRef);
-  const [editingRef, setEditingRef] = useState(false);
+  const [hotelRef] = useState(booking.hotelReference ?? "");
+
   const [copied, setCopied] = useState(false);
 
   /* domain state (kept live across panels) */
@@ -660,126 +662,132 @@ function Workspace({ booking }: { booking: Booking }) {
                 </span>
               </div>
             </div>
+
+            {/* hero footer: references + contract */}
+            <div
+              className="relative flex flex-wrap items-center gap-x-8 gap-y-2 px-5 py-2.5"
+              style={{
+                borderTop: "1px solid rgba(255,255,255,0.07)",
+                backgroundColor: "rgba(12,30,42,0.42)",
+              }}
+            >
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
+                  Hotel Reference
+                </p>
+                <p className="mt-0.5 text-[13.5px]" style={{ color: TEXT_2 }}>
+                  {hotelRef || "Not yet assigned"}
+                </p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
+                  Booking ID
+                </p>
+                <p className="mt-0.5 flex items-center gap-2 text-[13.5px]" style={{ color: TEXT_2 }}>
+                  {booking.reference}
+                  <button
+                    type="button"
+                    aria-label="Copy booking ID"
+                    onClick={() => {
+                      navigator.clipboard?.writeText(booking.reference);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 1500);
+                    }}
+                    className="transition-opacity hover:opacity-80"
+                    style={{ color: copied ? GREEN : GOLD_SOFT }}
+                  >
+                    {copied ? <Check size={13} /> : <Copy size={12} />}
+                  </button>
+                </p>
+              </div>
+              <button
+                type="button"
+                className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-[6px] px-4 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+                style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
+              >
+                <FileText size={14} />
+                View contract
+              </button>
+            </div>
           </section>
 
-          {/* ── next action + info cards ─────────── */}
+
+          {/* ── your stay journey ────────────────── */}
           <section
-            className="mt-3 rounded-[13px] px-4 py-2.5"
+            className="mt-3 rounded-[13px] px-5 py-3.5"
             style={{
               backgroundColor: ACTION_PANEL,
               border: `1px solid ${CARD_BORDER}`,
               boxShadow: CARD_SHADOW,
             }}
           >
-            <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-              <Ring value={progress} size={64} />
-              <div className="min-w-0 flex-1 sm:pl-2">
-                <h2 className="text-[20px] font-medium" style={{ color: TEXT }}>
-                  Complete your Rooming List
-                </h2>
-                <p className="mt-1 text-[12.5px]" style={{ color: MUTED }}>
-                  {rooming ? `${rooming.complete} / ${rooming.total} guests complete` : "42 / 58 guests complete"}
-                  {"  •  Due 04 September 2026"}
-                </p>
-              </div>
+            <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: TEXT_2 }}>
+              Your stay journey
+            </h2>
+
+            <div className="mt-3 flex flex-col gap-4 lg:flex-row lg:items-center">
+              <ol className="flex min-w-0 flex-1 items-start">
+                {[
+                  { label: "Hotel confirmed", sub: "21 Jul 2026", state: "done" },
+                  { label: "Contract signed", sub: "21 Jul 2026", state: "done" },
+                  { label: "Rooming list", sub: "Due 04 Sep 2026", state: "active" },
+                  { label: "Final details", sub: "Due 08 Sep 2026", state: "todo" },
+                ].map((m, i, arr) => (
+                  <li key={m.label} className="flex min-w-0 flex-1 items-start">
+                    <div className="flex min-w-0 flex-col items-center px-1 text-center">
+                      {m.state === "active" ? (
+                        <Ring value={progress} size={46} />
+                      ) : (
+                        <span
+                          className="grid h-[30px] w-[30px] place-items-center rounded-full"
+                          style={{
+                            border: `1px solid ${
+                              m.state === "done" ? "rgba(141,168,138,0.45)" : "rgba(255,255,255,0.13)"
+                            }`,
+                            color: m.state === "done" ? GREEN : MUTED,
+                            backgroundColor:
+                              m.state === "done" ? "rgba(141,168,138,0.10)" : "transparent",
+                          }}
+                        >
+                          {m.state === "done" ? <Check size={14} /> : null}
+                        </span>
+                      )}
+                      <span
+                        className="mt-2 truncate text-[12.5px]"
+                        style={{
+                          color: m.state === "active" ? GOLD_SOFT : m.state === "done" ? TEXT_2 : MUTED,
+                          fontWeight: m.state === "active" ? 500 : 400,
+                        }}
+                      >
+                        {m.label}
+                      </span>
+                      <span className="mt-0.5 text-[11px]" style={{ color: MUTED }}>
+                        {m.sub}
+                      </span>
+                    </div>
+                    {i < arr.length - 1 && (
+                      <span
+                        aria-hidden
+                        className="mt-[22px] h-px min-w-[18px] flex-1"
+                        style={{ backgroundColor: "rgba(255,255,255,0.10)" }}
+                      />
+                    )}
+                  </li>
+                ))}
+              </ol>
+
               <button
                 type="button"
                 onClick={() => setTab("Rooming List")}
-                className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] px-5 py-[8px] text-[13px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+                className="inline-flex shrink-0 items-center justify-center gap-2 self-start whitespace-nowrap rounded-[6px] px-4 py-[8px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)] lg:self-center"
                 style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
               >
                 Continue Rooming List
                 <span aria-hidden>→</span>
               </button>
             </div>
-
-            <div className="mt-2.5 grid gap-3 md:grid-cols-3">
-              {/* hotel reference */}
-              <div
-                className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
-              >
-                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
-                  Hotel Reference
-                </p>
-                <div className="mt-1 flex items-center justify-between gap-3">
-                  {editingRef ? (
-                    <input
-                      autoFocus
-                      value={refDraft}
-                      onChange={(e) => setRefDraft(e.target.value)}
-                      className="min-w-0 flex-1 rounded-[6px] px-2 py-1 text-[14px] outline-none"
-                      style={inputStyle}
-                    />
-                  ) : (
-                    <span className="truncate text-[15px]" style={{ color: hotelRef ? TEXT : MUTED }}>
-                      {hotelRef || "Not yet assigned"}
-                    </span>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (editingRef) setHotelRef(refDraft.trim());
-                      else setRefDraft(hotelRef);
-                      setEditingRef(!editingRef);
-                    }}
-                    className="inline-flex shrink-0 items-center gap-1.5 text-[12px] transition-opacity hover:opacity-80"
-                    style={{ color: GOLD_SOFT }}
-                  >
-                    {editingRef ? "Save" : "Edit"}
-                    {editingRef ? <Check size={13} /> : <Pencil size={12} />}
-                  </button>
-                </div>
-              </div>
-
-              {/* booking id */}
-              <div
-                className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
-              >
-                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
-                  Booking ID
-                </p>
-                <div className="mt-1 flex items-center justify-between gap-3">
-                  <span className="truncate text-[15px]" style={{ color: TEXT }}>
-                    {booking.reference}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      navigator.clipboard?.writeText(booking.reference);
-                      setCopied(true);
-                      setTimeout(() => setCopied(false), 1500);
-                    }}
-                    className="inline-flex shrink-0 items-center gap-1.5 text-[12px] transition-opacity hover:opacity-80"
-                    style={{ color: copied ? GREEN : GOLD_SOFT }}
-                  >
-                    {copied ? "Copied" : "Copy"}
-                    {copied ? <Check size={13} /> : <Copy size={12} />}
-                  </button>
-                </div>
-              </div>
-
-              {/* status */}
-              <div
-                className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
-              >
-                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
-                  Status
-                </p>
-                <div className="mt-1 flex items-center gap-2.5">
-                  <span className="inline-flex items-center gap-1.5 text-[15px]" style={{ color: GREEN }}>
-                    Confirmed
-                    <Check size={14} />
-                  </span>
-                  <span className="text-[12px]" style={{ color: MUTED }}>
-                    on 21 Jul 2026
-                  </span>
-                </div>
-              </div>
-            </div>
           </section>
+
 
           {/* ── tabs ─────────────────────────────── */}
           <nav
@@ -1268,18 +1276,19 @@ function Workspace({ booking }: { booking: Booking }) {
               {/* ── right rail ─────────────────────── */}
               <aside className="grid content-start gap-3">
                 <section
-                  className="rounded-[13px] px-4 py-3"
+                  className="rounded-[13px] px-3.5 py-2.5"
                   style={{
-                    backgroundColor: ACTION_PANEL,
-                    border: `1px solid rgba(212,175,55,0.20)`,
-                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.05), ${CARD_SHADOW}`,
+                    backgroundColor: "#243039",
+                    border: `1px solid rgba(154,176,192,0.07)`,
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
                   }}
                 >
-                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
+                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
                     Preparing your stay
                   </h3>
                   <div className="mt-2.5 flex items-center gap-3.5">
-                    <Ring value={progress} size={52} />
+                    <Ring value={progress} size={40} />
+
                     <div
                       className="h-[3px] flex-1 overflow-hidden rounded-full"
                       style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
@@ -1360,6 +1369,51 @@ function Workspace({ booking }: { booking: Booking }) {
                     ))}
                   </ul>
                 </section>
+
+                {/* booking summary */}
+                <section
+                  className="rounded-[13px] px-3.5 py-2.5"
+                  style={{
+                    backgroundColor: "#243039",
+                    border: `1px solid rgba(154,176,192,0.07)`,
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
+                  }}
+                >
+                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
+                    Booking summary
+                  </h3>
+                  <dl className="mt-2 space-y-[7px] text-[12.5px]">
+                    {[
+                      [
+                        "Stay",
+                        `${new Date(stay.arrival).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} – ${new Date(
+                          stay.departure,
+                        ).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}`,
+                      ],
+                      ["Hotel", booking.hotel ?? "—"],
+                      ["Rooms", `${totalRooms} rooms`],
+                      ["Guests", `${totalGuests} guests`],
+                      ["Meal plan", dining.breakfast ? "Breakfast included" : "Room only"],
+                    ].map(([k, v]) => (
+                      <div key={k} className="flex items-start justify-between gap-4">
+                        <dt style={{ color: MUTED }}>{k}</dt>
+                        <dd className="text-right" style={{ color: TEXT_2 }}>
+                          {v}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <button
+                    type="button"
+                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-[6px] px-3 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+                    style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
+                  >
+                    Download summary
+                    <Download size={13} />
+                  </button>
+                </section>
+
+
 
                 <section
                   className="rounded-[13px] px-3.5 py-2.5"
