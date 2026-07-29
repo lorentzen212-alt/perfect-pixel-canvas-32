@@ -265,7 +265,7 @@ function OverviewCard({
         </span>
       </div>
       <div
-        className="mt-2.5 flex-1 text-[12.5px] leading-[1.5]"
+        className="mt-2.5 min-h-0 flex-1 overflow-hidden text-[12.5px] leading-[1.5]"
         style={{ color: "rgba(146,157,165,0.86)" }}
       >
         {children}
