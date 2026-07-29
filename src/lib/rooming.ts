@@ -439,7 +439,21 @@ export function loadRoomingList(bookingId: string, dist: Distribution): RoomingL
     const raw = window.localStorage.getItem(storageKey(bookingId));
     if (raw) {
       const parsed = JSON.parse(raw) as RoomingList;
-      if (parsed?.allocations?.length) return { ...parsed, unassigned: parsed.unassigned ?? [] };
+      if (parsed?.allocations?.length) {
+        return {
+          ...parsed,
+          unassigned: parsed.unassigned ?? [],
+          /* migrate older drafts that predate the booked-category model */
+          allocations: parsed.allocations.map((a) => ({
+            ...a,
+            bookedRoomType: a.bookedRoomType ?? a.type,
+            bookedRoomCategory:
+              a.bookedRoomCategory ??
+              ((a.type === "triple" ? "suite" : a.index % 7 === 0 ? "superior" : "standard") as RoomCategory),
+            upgradeRequest: a.upgradeRequest ?? null,
+          })),
+        };
+      }
     }
   } catch {
     /* ignore corrupt drafts */
