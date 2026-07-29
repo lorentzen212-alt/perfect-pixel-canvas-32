@@ -1300,21 +1300,58 @@ function AllocationRow({
             ))}
           </div>
         ) : (
-          <span className="block text-[13px]" style={{ color: RT_3 }}>
-            —
-          </span>
+          !allocation.upgradeRequest && (
+            <span className="block text-[13px]" style={{ color: RT_3 }}>
+              —
+            </span>
+          )
         )}
+
+        {allocation.upgradeRequest && (
+          <UpgradeIndicator
+            request={allocation.upgradeRequest}
+            bookedCategory={allocation.bookedRoomCategory}
+            locked={locked}
+            onWithdraw={() => onPatch((a) => ({ ...a, upgradeRequest: null }))}
+            onApply={() =>
+              onPatch((a) =>
+                a.upgradeRequest
+                  ? {
+                      ...a,
+                      bookedRoomCategory: a.upgradeRequest.category,
+                      upgradeRequest: { ...a.upgradeRequest, appliedAt: new Date().toISOString() },
+                    }
+                  : a,
+              )
+            }
+          />
+        )}
+
         {!locked && (
-          <button
-            ref={requestBtnRef}
-            type="button"
-            onClick={() => setRequestOpen((v) => !v)}
-            className="hgb-req mt-[3px] inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
-            style={{ color: R_AMBER }}
-          >
-            <Plus size={12} />
-            Add room request
-          </button>
+          <div className="mt-[3px] flex flex-wrap items-center gap-x-3 gap-y-1">
+            <button
+              ref={requestBtnRef}
+              type="button"
+              onClick={() => setRequestOpen((v) => !v)}
+              className="hgb-req inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
+              style={{ color: R_AMBER }}
+            >
+              <Plus size={12} />
+              Add room request
+            </button>
+            {!allocation.upgradeRequest && upgradeEligible && (
+              <button
+                ref={upgradeBtnRef}
+                type="button"
+                onClick={() => setUpgradeOpen((v) => !v)}
+                className="hgb-req inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
+                style={{ color: R_AMBER }}
+              >
+                <ArrowUp size={12} />
+                Request room upgrade
+              </button>
+            )}
+          </div>
         )}
         <FloatingPopover anchorRef={requestBtnRef} open={requestOpen} onClose={() => setRequestOpen(false)} width={220}>
           {ROOM_REQUEST_OPTIONS.map((r) => (
@@ -1333,7 +1370,21 @@ function AllocationRow({
           ))}
         </FloatingPopover>
 
+        <FloatingPopover anchorRef={upgradeBtnRef} open={upgradeOpen} onClose={() => setUpgradeOpen(false)} width={300}>
+          <UpgradeForm
+            title="Request room upgrade"
+            options={upgradeOptionsFor(allocation)}
+            submitLabel="Add request"
+            onCancel={() => setUpgradeOpen(false)}
+            onSubmit={(category, preference, note) => {
+              onPatch((a) => ({ ...a, upgradeRequest: newUpgradeRequest(category, preference, note) }));
+              setUpgradeOpen(false);
+            }}
+          />
+        </FloatingPopover>
+
       </div>
+
 
       {/* ── STATUS ── */}
       <div className="hgb-cell flex flex-col justify-center px-4 py-[17px]">
