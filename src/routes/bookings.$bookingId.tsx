@@ -1146,9 +1146,9 @@ function Workspace({ booking }: { booking: Booking }) {
               </div>
 
               {/* ── right rail ─────────────────────── */}
-              <aside className="grid content-start gap-4">
+              <aside className="grid content-start gap-3">
                 <section
-                  className="rounded-[13px] p-4"
+                  className="rounded-[13px] px-4 py-3"
                   style={{
                     backgroundColor: ACTION_PANEL,
                     border: `1px solid rgba(199,163,74,0.18)`,
@@ -1158,8 +1158,8 @@ function Workspace({ booking }: { booking: Booking }) {
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
                     Preparing your stay
                   </h3>
-                  <div className="mt-3 flex items-center gap-3.5">
-                    <Ring value={progress} size={58} />
+                  <div className="mt-2.5 flex items-center gap-3.5">
+                    <Ring value={progress} size={52} />
                     <div
                       className="h-[5px] flex-1 overflow-hidden rounded-full"
                       style={{ backgroundColor: "rgba(255,255,255,0.09)" }}
@@ -1167,7 +1167,7 @@ function Workspace({ booking }: { booking: Booking }) {
                       <div className="h-full rounded-full" style={{ width: `${progress}%`, backgroundColor: GOLD }} />
                     </div>
                   </div>
-                  <ul className="mt-3.5 space-y-2.5 text-[13px]">
+                  <ul className="mt-2.5 space-y-2 text-[13px]">
                     {["Hotel confirmed", "Contract signed"].map((l) => (
                       <li key={l} className="flex items-center justify-between">
                         <span style={{ color: TEXT_2 }}>{l}</span>
@@ -1193,13 +1193,13 @@ function Workspace({ booking }: { booking: Booking }) {
                 </section>
 
                 <section
-                  className="rounded-[13px] p-4"
+                  className="rounded-[13px] px-4 py-3"
                   style={{ backgroundColor: CARD, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
                 >
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
                     Upcoming
                   </h3>
-                  <ul className="mt-3 space-y-2">
+                  <ul className="mt-2.5 space-y-2">
                     {[
                       { d: "04", m: "Sep", t: "Rooming List", s: "Due in 6 days" },
                       { d: "08", m: "Sep", t: "Final guest details", s: "Due in 10 days" },
@@ -1232,16 +1232,16 @@ function Workspace({ booking }: { booking: Booking }) {
                 </section>
 
                 <section
-                  className="rounded-[13px] p-4"
+                  className="rounded-[13px] px-4 py-3"
                   style={{ backgroundColor: CARD, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
                 >
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
                     Need help?
                   </h3>
-                  <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
+                  <p className="mt-1 text-[12.5px]" style={{ color: TEXT_2 }}>
                     Our team is here for you.
                   </p>
-                  <div className="mt-2.5">
+                  <div className="mt-2">
                     <GoldAction label="Contact Support" />
                   </div>
                 </section>
@@ -1252,7 +1252,7 @@ function Workspace({ booking }: { booking: Booking }) {
           {/* ── bottom change request ────────────── */}
           {tab === "Overview" && (
             <section
-              className="mt-4 flex flex-col gap-3 rounded-[13px] px-4 py-3.5 sm:flex-row sm:items-center"
+              className="mt-3 flex flex-col gap-3 rounded-[13px] px-4 py-2.5 sm:flex-row sm:items-center"
               style={{ backgroundColor: "rgba(12,30,42,0.28)", border: `1px solid ${BORDER}` }}
             >
               <span
