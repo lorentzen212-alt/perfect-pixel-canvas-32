@@ -13,6 +13,7 @@ import { Route as ManageBookingsRouteImport } from './routes/manage-bookings'
 import { Route as BookMeetingsEventsRouteImport } from './routes/book-meetings-events'
 import { Route as BookLeisureRouteImport } from './routes/book-leisure'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BookingsBookingIdRouteImport } from './routes/bookings.$bookingId'
 
 const ManageBookingsRoute = ManageBookingsRouteImport.update({
   id: '/manage-bookings',
@@ -34,18 +35,25 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingsBookingIdRoute = BookingsBookingIdRouteImport.update({
+  id: '/bookings/$bookingId',
+  path: '/bookings/$bookingId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book-leisure': typeof BookLeisureRoute
   '/book-meetings-events': typeof BookMeetingsEventsRoute
   '/manage-bookings': typeof ManageBookingsRoute
+  '/bookings/$bookingId': typeof BookingsBookingIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book-leisure': typeof BookLeisureRoute
   '/book-meetings-events': typeof BookMeetingsEventsRoute
   '/manage-bookings': typeof ManageBookingsRoute
+  '/bookings/$bookingId': typeof BookingsBookingIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,6 +61,7 @@ export interface FileRoutesById {
   '/book-leisure': typeof BookLeisureRoute
   '/book-meetings-events': typeof BookMeetingsEventsRoute
   '/manage-bookings': typeof ManageBookingsRoute
+  '/bookings/$bookingId': typeof BookingsBookingIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -61,14 +70,21 @@ export interface FileRouteTypes {
     | '/book-leisure'
     | '/book-meetings-events'
     | '/manage-bookings'
+    | '/bookings/$bookingId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/book-leisure' | '/book-meetings-events' | '/manage-bookings'
+  to:
+    | '/'
+    | '/book-leisure'
+    | '/book-meetings-events'
+    | '/manage-bookings'
+    | '/bookings/$bookingId'
   id:
     | '__root__'
     | '/'
     | '/book-leisure'
     | '/book-meetings-events'
     | '/manage-bookings'
+    | '/bookings/$bookingId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +92,7 @@ export interface RootRouteChildren {
   BookLeisureRoute: typeof BookLeisureRoute
   BookMeetingsEventsRoute: typeof BookMeetingsEventsRoute
   ManageBookingsRoute: typeof ManageBookingsRoute
+  BookingsBookingIdRoute: typeof BookingsBookingIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -108,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bookings/$bookingId': {
+      id: '/bookings/$bookingId'
+      path: '/bookings/$bookingId'
+      fullPath: '/bookings/$bookingId'
+      preLoaderRoute: typeof BookingsBookingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -116,7 +140,18 @@ const rootRouteChildren: RootRouteChildren = {
   BookLeisureRoute: BookLeisureRoute,
   BookMeetingsEventsRoute: BookMeetingsEventsRoute,
   ManageBookingsRoute: ManageBookingsRoute,
+  BookingsBookingIdRoute: BookingsBookingIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
