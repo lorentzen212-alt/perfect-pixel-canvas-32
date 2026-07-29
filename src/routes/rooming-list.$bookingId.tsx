@@ -323,27 +323,15 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         <div className="flex">
           <main className="min-w-0 flex-1 px-4 py-3 sm:px-6 lg:px-8">
             {/* ── compact booking hero ── */}
-            <section className="relative overflow-hidden rounded-[13px]" style={{ border: `1px solid ${CARD_BORDER}` }}>
-              <img
-                src={booking.image}
-                alt={`${booking.destination}`}
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ filter: "saturate(1.04) contrast(1.05) brightness(1.05)" }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(100deg, rgba(19,36,50,0.95) 0%, rgba(21,39,53,0.85) 40%, rgba(24,43,58,0.55) 100%)",
-                }}
-              />
-              <div className="relative px-5 py-3">
+            <section className="relative overflow-hidden rounded-[12px]">
+              <div className="relative px-1 py-1">
                 <span
-                  className="inline-flex items-center rounded px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: GOLD, backgroundColor: "rgba(199,163,74,0.12)", border: `1px solid rgba(199,163,74,0.34)` }}
+                  className="inline-flex items-center rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: TEXT_2, backgroundColor: "rgba(128,154,180,0.22)" }}
                 >
                   {booking.type === "leisure" ? "Leisure" : "M&E"}
                 </span>
+
                 <h1 className="mt-1.5 text-[27px] leading-[1.06]" style={{ color: TEXT, fontFamily: SERIF }}>
                   {booking.name}
                 </h1>
