@@ -251,12 +251,14 @@ function BookingCard({ booking }: { booking: Booking }) {
       {/* 2. booking information */}
       <div className="min-w-0 md:px-4">
         <StatusChip type={booking.type} />
-        <h3
-          className="mt-2 truncate text-[20.5px] font-semibold leading-tight"
+        <Link
+          to="/bookings/$bookingId"
+          params={{ bookingId: booking.id }}
+          className="mt-2 block truncate text-[20.5px] font-semibold leading-tight transition-opacity hover:opacity-80"
           style={{ color: TEXT, fontFamily: SERIF }}
         >
-          {booking.name}
-        </h3>
+          <h3 className="truncate">{booking.name}</h3>
+        </Link>
         <div
           className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12.5px]"
           style={{ color: TEXT_2 }}
