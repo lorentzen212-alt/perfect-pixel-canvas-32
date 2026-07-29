@@ -910,6 +910,25 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
 
 
+            {/* column headers */}
+            <div className="hidden lg:grid lg:[grid-template-columns:28%_32%_21%_15%_4%] px-0 pb-[6px]">
+              {[
+                { label: "Allocation", cls: "pl-6 pr-3" },
+                { label: "Guests", cls: "px-4" },
+                { label: "Room request", cls: "px-4" },
+                { label: "Status", cls: "px-4" },
+              ].map((h) => (
+                <span
+                  key={h.label}
+                  className={`${h.cls} text-[10px] font-light uppercase leading-[14px] tracking-[0.22em]`}
+                  style={{ color: "#8FA3B4" }}
+                >
+                  {h.label}
+                </span>
+              ))}
+              <span />
+            </div>
+
             {/* allocation cards */}
             <div className="space-y-[8px]">
                 {visible.map((a) => (
