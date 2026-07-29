@@ -68,17 +68,36 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
   }),
 });
 
-const { BG_ALT, CARD, CARD_BORDER, CARD_SHADOW, BORDER, TEXT, TEXT_2, MUTED, GOLD, GOLD_SOFT, GOLD_DEEP, GREEN } = PAL;
+/* Light blue-white-grey workspace tokens (names kept so existing markup keeps working) */
+const BG_ALT = "#E7EEF5";
+const CARD = "#F5F8FB";
+const CARD_BORDER = "rgba(110,135,160,0.16)";
+const CARD_SHADOW = "0 8px 30px rgba(35,60,85,0.06)";
+const BORDER = "rgba(90,115,140,0.14)";
+const TEXT = "#10233F";
+const TEXT_2 = "#50657A";
+const MUTED = "#71859A";
+const GOLD = "#285D91";
+const GOLD_SOFT = "#285D91";
+const GOLD_DEEP = "rgba(40,93,145,0.32)";
+const GREEN = "#3E9B57";
+const AMBER = "#B0800F";
+const ROW = "rgba(255,255,255,0.45)";
+const PANEL = "rgba(245,248,251,0.72)";
+const NAVY = "#153E6C";
 
-const GOLD_HI = "#F3D987";
-const GOLD_MET = "#D4AF37";
-const GOLD_MET_LOW = "#A97816";
-const AMBER = "#CBA24A";
-const ROW = "#26343E";
-const ROW_HOVER = "#2A3944";
-const PANEL = "#22303A";
+/* dark matte navy room-allocation card tokens */
+const CARD_NAVY = "linear-gradient(180deg, #1D456C 0%, #173A5D 100%)";
+const CARD_NAVY_HOVER = "linear-gradient(180deg, #214C76 0%, #1A4165 100%)";
+const RT = "#F4F7FA";
+const RT_2 = "#D9E3EC";
+const RT_3 = "rgba(255,255,255,0.68)";
+const R_BORDER = "rgba(255,255,255,0.09)";
+const R_GREEN = "#74D97C";
+const R_AMBER = "#E7B44B";
 
-const GOLD_BAR = `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_MET} 45%, ${GOLD_HI})`;
+const GOLD_BAR = "#285D91";
+
 
 /* ───────────────── primitives ───────────────── */
 
