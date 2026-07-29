@@ -332,9 +332,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   {booking.type === "leisure" ? "Leisure" : "M&E"}
                 </span>
 
-                <h1 className="mt-1.5 text-[27px] leading-[1.06]" style={{ color: TEXT, fontFamily: SERIF }}>
+                <h1 className="mt-1.5 text-[29px] font-semibold leading-[1.06] tracking-[-0.01em]" style={{ color: TEXT }}>
                   {booking.name}
                 </h1>
+
                 <div className="mt-1.5 flex flex-wrap items-center gap-x-6 gap-y-1 text-[12.5px]" style={{ color: TEXT_2 }}>
                   {booking.hotel && (
                     <span className="inline-flex items-center gap-2">
