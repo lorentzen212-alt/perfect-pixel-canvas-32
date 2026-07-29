@@ -69,23 +69,23 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
   }),
 });
 
-/* Light blue-white-grey workspace tokens (names kept so existing markup keeps working) */
-const BG_ALT = "#E7EEF5";
-const CARD = "#F5F8FB";
-const CARD_BORDER = "rgba(110,135,160,0.16)";
-const CARD_SHADOW = "0 8px 30px rgba(35,60,85,0.06)";
-const BORDER = "rgba(90,115,140,0.14)";
-const TEXT = "#10233F";
-const TEXT_2 = "#50657A";
-const MUTED = "#71859A";
-const GOLD = "#285D91";
-const GOLD_SOFT = "#285D91";
-const GOLD_DEEP = "rgba(40,93,145,0.32)";
-const GREEN = "#3E9B57";
-const AMBER = "#B0800F";
-const ROW = "rgba(255,255,255,0.45)";
-const PANEL = "rgba(245,248,251,0.72)";
-const NAVY = "#153E6C";
+/* Deep matte navy workspace tokens (names kept so existing markup keeps working) */
+const BG_ALT = "#14304C";
+const CARD = "#1A3A58";
+const CARD_BORDER = "rgba(255,255,255,0.085)";
+const CARD_SHADOW = "0 10px 30px rgba(6,18,30,0.28)";
+const BORDER = "rgba(255,255,255,0.10)";
+const TEXT = "#EDF2F7";
+const TEXT_2 = "#B3C3D2";
+const MUTED = "#8699AB";
+const GOLD = "#9CC3E4";
+const GOLD_SOFT = "#9CC3E4";
+const GOLD_DEEP = "rgba(156,195,228,0.30)";
+const GREEN = "#74D97C";
+const AMBER = "#E7B44B";
+const ROW = "rgba(255,255,255,0.05)";
+const PANEL = "#1A3A58";
+const NAVY = "#2A5F94";
 
 /* dark matte navy room-allocation card tokens */
 const CARD_NAVY = "linear-gradient(180deg, #1D456C 0%, #173A5D 100%)";
@@ -97,7 +97,7 @@ const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B44B";
 
-const GOLD_BAR = "#285D91";
+const GOLD_BAR = "#7FB2DD";
 const COLS = "14% 42% 21% 19% 4%";
 
 
