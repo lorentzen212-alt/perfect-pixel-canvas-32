@@ -213,6 +213,7 @@ function OverviewCard({
   action,
   onAction,
   dimmed,
+  compact,
 }: {
   icon: React.ReactNode;
   title: string;
@@ -221,6 +222,7 @@ function OverviewCard({
   action?: string;
   onAction?: () => void;
   dimmed?: boolean;
+  compact?: boolean;
 }) {
   const [hover, setHover] = useState(false);
   const interactive = Boolean(onAction);
@@ -229,8 +231,9 @@ function OverviewCard({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={onAction}
-      className="flex min-h-[138px] flex-col rounded-[13px] px-4 py-[11px]"
+      className="flex flex-col rounded-[11px] px-4 py-3"
       style={{
+        minHeight: compact ? 104 : 148,
         backgroundColor: hover && interactive ? "#30404C" : CARD,
         border: `1px solid ${hover && interactive ? "rgba(212,175,55,0.34)" : CARD_BORDER}`,
         boxShadow:
@@ -244,6 +247,7 @@ function OverviewCard({
         opacity: dimmed ? 0.55 : 1,
       }}
     >
+
       <div className="flex items-center gap-3">
         <IconBubble>{icon}</IconBubble>
         <h3
