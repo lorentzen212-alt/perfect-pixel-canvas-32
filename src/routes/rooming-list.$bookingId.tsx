@@ -910,6 +910,25 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
 
 
+            {/* column headers */}
+            <div className="hidden lg:grid lg:[grid-template-columns:28%_32%_21%_15%_4%] px-0 pb-[6px]">
+              {[
+                { label: "Allocation", cls: "pl-6 pr-3" },
+                { label: "Guests", cls: "px-4" },
+                { label: "Room request", cls: "px-4" },
+                { label: "Status", cls: "px-4" },
+              ].map((h) => (
+                <span
+                  key={h.label}
+                  className={`${h.cls} text-[10px] font-light uppercase leading-[14px] tracking-[0.22em]`}
+                  style={{ color: "#8FA3B4" }}
+                >
+                  {h.label}
+                </span>
+              ))}
+              <span />
+            </div>
+
             {/* allocation cards */}
             <div className="space-y-[8px]">
                 {visible.map((a) => (
@@ -1321,7 +1340,7 @@ function AllocationRow({
     <div
       id={`alloc-${allocation.id}`}
       data-selected={selected ? "true" : "false"}
-      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:30%_28%_20%_18%_4%]"
+      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:28%_32%_21%_15%_4%]"
       style={{
         backgroundColor: NAVY,
         backgroundImage: selected
@@ -1345,7 +1364,7 @@ function AllocationRow({
       />
 
       {/* ── ALLOCATION ── */}
-      <div className="flex items-center gap-4 py-[19px] pl-6 pr-4">
+      <div className="flex items-center gap-2.5 py-[19px] pl-6 pr-3">
         {manageMode && allocation.upgradeRequest ? (
           <RoomSelectCircle
             checked={!!selected}
@@ -1373,7 +1392,7 @@ function AllocationRow({
         )}
 
         <p
-          className="w-[58px] shrink-0 text-[44px] leading-none tracking-[-0.02em]"
+          className="w-[50px] shrink-0 text-[44px] leading-none tracking-[-0.02em]"
           style={{ ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }}
         >
           {String(allocation.index).padStart(2, "0")}
@@ -1381,7 +1400,7 @@ function AllocationRow({
 
         <div className="min-w-0 flex-1">
           <div
-            className="relative w-full max-w-[190px] rounded-[11px] px-3 py-2.5"
+            className="relative w-full max-w-[172px] rounded-[11px] px-3 py-2.5"
             style={{
               backgroundColor: CTRL_BG,
               border: `1px solid ${CTRL_BORDER}`,
