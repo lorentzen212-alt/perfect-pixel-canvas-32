@@ -1082,7 +1082,139 @@ function AllocationRow({
   );
 }
 
+/* ───────────────── dietary / allergy popover ───────────────── */
+
+function DietaryPopover({
+  anchorRef,
+  open,
+  onClose,
+  selected,
+  onToggle,
+}: {
+  anchorRef: React.RefObject<HTMLButtonElement | null>;
+  open: boolean;
+  onClose: () => void;
+  selected: string[];
+  onToggle: (tag: string) => void;
+}) {
+  const [q, setQ] = useState("");
+  const [custom, setCustom] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open) {
+      setQ("");
+      setCustom("");
+      const t = setTimeout(() => searchRef.current?.focus(), 30);
+      return () => clearTimeout(t);
+    }
+  }, [open]);
+
+  const match = (t: string) => t.toLowerCase().includes(q.trim().toLowerCase());
+  const diet = DIETARY_TAGS.filter(match);
+  const allergies = ALLERGY_TAGS.filter(match);
+  const otherSelected = selected.some((t) => /other allergy/i.test(t));
+
+  const addCustom = () => {
+    const v = custom.trim();
+    if (!v) return;
+    const tag = /allerg/i.test(v) ? v : `${v} allergy`;
+    if (!selected.includes(tag)) onToggle(tag);
+    setCustom("");
+  };
+
+  const Option = ({ t }: { t: string }) => {
+    const on = selected.includes(t);
+    return (
+      <button
+        type="button"
+        onClick={() => onToggle(t)}
+        className="flex w-full items-center justify-between px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+        style={{ color: on ? "#F7F7F5" : isAllergy(t) ? AMBER : TEXT_2 }}
+      >
+        <span>{t}</span>
+        {on && <Check size={13} style={{ color: GOLD }} />}
+      </button>
+    );
+  };
+
+  return (
+    <FloatingPopover anchorRef={anchorRef} open={open} onClose={onClose} width={300} align="auto">
+      <div className="px-3 pb-2 pt-3">
+        <p className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+          Add dietary / allergy
+        </p>
+        <div
+          className="mt-2 flex items-center gap-2 rounded-[8px] px-2.5 py-[6px]"
+          style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}` }}
+        >
+          <Search size={13} style={{ color: FIELD_PLACEHOLDER }} />
+          <input
+            ref={searchRef}
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search dietary requirements..."
+            className="w-full bg-transparent text-[12.5px] outline-none placeholder:text-[#88A0B6]"
+            style={{ color: FIELD_TEXT }}
+          />
+        </div>
+      </div>
+
+      {diet.length > 0 && (
+        <>
+          <p className="px-3 pb-1 pt-1 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+            Dietary
+          </p>
+          {diet.map((t) => (
+            <Option key={t} t={t} />
+          ))}
+        </>
+      )}
+
+      {allergies.length > 0 && (
+        <>
+          <p className="px-3 pb-1 pt-2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+            Allergies
+          </p>
+          {allergies.map((t) => (
+            <Option key={t} t={t} />
+          ))}
+        </>
+      )}
+
+      {diet.length === 0 && allergies.length === 0 && (
+        <p className="px-3 py-3 text-[12px]" style={{ color: MUTED }}>
+          No matches.
+        </p>
+      )}
+
+      {otherSelected && (
+        <div className="px-3 pb-3 pt-2" style={{ borderTop: `1px solid ${BORDER}` }}>
+          <p className="mb-1.5 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+            Specify allergy
+          </p>
+          <input
+            value={custom}
+            onChange={(e) => setCustom(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                addCustom();
+              }
+            }}
+            onBlur={addCustom}
+            placeholder="e.g. Kiwi allergy"
+            className="w-full rounded-[8px] px-2.5 py-[6px] text-[12.5px] outline-none placeholder:text-[#88A0B6]"
+            style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}`, color: FIELD_TEXT }}
+          />
+        </div>
+      )}
+    </FloatingPopover>
+  );
+}
+
 /* ───────────────── guest drawer ───────────────── */
+
 
 function GuestDrawer({
   allocation,
