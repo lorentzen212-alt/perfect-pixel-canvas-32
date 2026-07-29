@@ -2568,18 +2568,26 @@ function UpgradeCheckbox({
 function UpgradeIndicator({
   request,
   bookedCategory,
+  roomLabel,
   locked,
   onWithdraw,
+  onRequestChange,
   onApply,
 }: {
   request: UpgradeRequest;
   bookedCategory: RoomCategory;
+  roomLabel: string;
   locked: boolean;
   onWithdraw: () => void;
+  onRequestChange: () => void;
   onApply: () => void;
 }) {
   const meta = UPGRADE_STATUS_META[request.status];
   const applied = Boolean(request.appliedAt);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const xRef = useRef<HTMLButtonElement>(null);
+  const canRemove = !locked && !applied;
+
   return (
     <div className="mt-[3px] space-y-[5px]">
       <div className="group/upg flex items-center gap-1.5">
@@ -2587,25 +2595,44 @@ function UpgradeIndicator({
           <ArrowUp size={12} />
           {categoryLabel(request.category)} requested
         </span>
-        {!locked && !applied && (
-          <button
-            type="button"
-            aria-label="Withdraw upgrade request"
-            onClick={onWithdraw}
-            className="opacity-0 transition-opacity group-hover/upg:opacity-100"
-            style={{ color: RT_3 }}
-          >
-            <X size={11} />
-          </button>
-        )}
       </div>
       <span
-        className="inline-flex items-center gap-1 rounded-[5px] px-1.5 py-[1px] text-[10.5px]"
+        className="group/pill inline-flex items-center gap-1 rounded-[5px] px-1.5 py-[1px] text-[10.5px]"
         style={{ color: meta.color, backgroundColor: meta.bg, border: `1px solid ${meta.border}` }}
       >
         {request.status === "approved" ? <Check size={9.5} /> : <Clock size={9.5} />}
         {applied ? "Upgrade applied" : meta.label}
+        {canRemove && (
+          <button
+            ref={xRef}
+            type="button"
+            aria-label="Remove upgrade request"
+            onClick={() => setConfirmOpen((v) => !v)}
+            className="hgb-x ml-[1px] opacity-45 transition-opacity hover:opacity-100 group-hover/pill:opacity-80"
+            style={{ color: "inherit" }}
+          >
+            <X size={9.5} />
+          </button>
+        )}
       </span>
+      {canRemove && (
+        <WithdrawUpgradePopover
+          anchorRef={xRef}
+          open={confirmOpen}
+          onClose={() => setConfirmOpen(false)}
+          request={request}
+          roomLabel={roomLabel}
+          onWithdraw={() => {
+            setConfirmOpen(false);
+            onWithdraw();
+          }}
+          onRequestChange={() => {
+            setConfirmOpen(false);
+            onRequestChange();
+          }}
+        />
+      )}
+
       {request.status === "price_offered" && (
         <p className="text-[10.5px] leading-snug" style={{ color: RT_3 }}>
           Your concierge will share the upgrade price for approval.
