@@ -318,7 +318,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,35,63,0.16) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
       .hgb-cell{border-top:1px solid rgba(255,255,255,0.05)}
-      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:none}}
+      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(173,192,205,0.14)}}
+      .hgb-inline::placeholder{color:#9FB0BE}
+      .hgb-inline:focus{border-color:rgba(197,162,75,0.75) !important}
       .hgb-search::placeholder{color:#B8BDC2}`}</style>
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
