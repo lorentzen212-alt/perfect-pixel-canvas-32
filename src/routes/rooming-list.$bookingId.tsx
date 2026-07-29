@@ -370,6 +370,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     setUpgradeMode(false);
     setSelected([]);
     setConfirmUpgrade(null);
+    setConfirmWithdraw(false);
   }, []);
 
   const submitUpgrades = useCallback(
@@ -770,7 +771,6 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       allocations={list.allocations}
                       eligible={eligible}
                       selected={selected}
-                      selectedAllocations={selectedAllocations}
                       selectedForRequest={selectedForRequest}
                       selectedForWithdraw={selectedForWithdraw}
                       onSelectAll={(on) => setSelected(on ? eligible.map((a) => a.id) : [])}
@@ -987,14 +987,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
       {confirmUpgrade && (
         <UpgradeConfirmModal
-          allocations={selectedAllocations}
+          allocations={selectedForRequest}
           category={confirmUpgrade.category}
           preference={confirmUpgrade.preference}
           note={confirmUpgrade.note}
           onClose={() => setConfirmUpgrade(null)}
           onConfirm={() => {
             submitUpgrades(
-              selectedAllocations.map((a) => a.id),
+              selectedForRequest.map((a) => a.id),
               confirmUpgrade.category,
               confirmUpgrade.preference,
               confirmUpgrade.note,
@@ -1005,6 +1005,57 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       )}
 
 
+
+      {confirmWithdraw && (
+        <Modal title="Withdraw upgrade requests" onClose={() => setConfirmWithdraw(false)}>
+          <p className="text-[12.5px]" style={{ color: MUTED }}>
+            Withdraw upgrade requests for {selectedForWithdraw.length} room
+            {selectedForWithdraw.length === 1 ? "" : "s"}? The booked room types, categories, guests and normal room
+            requests remain unchanged.
+          </p>
+          <div className="mt-3 max-h-[180px] space-y-1.5 overflow-y-auto">
+            {selectedForWithdraw.map((a) => (
+              <div
+                key={a.id}
+                className="flex items-center justify-between rounded-[8px] px-3 py-[7px] text-[12.5px]"
+                style={{ backgroundColor: ROW, border: `1px solid ${BORDER}`, color: TEXT_2 }}
+              >
+                <span>
+                  {labelOf(a.type)} {String(a.index).padStart(2, "0")} · {categoryLabel(a.bookedRoomCategory)}
+                </span>
+                <span style={{ color: MUTED }}>
+                  {a.upgradeRequest ? `${categoryLabel(a.upgradeRequest.category)} request` : ""}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 flex items-center justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setConfirmWithdraw(false)}
+              className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+              style={{ color: MUTED }}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                withdrawUpgrades(selectedForWithdraw.map((a) => a.id));
+                exitUpgradeMode();
+              }}
+              className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors"
+              style={{
+                color: "#E2A2A2",
+                backgroundColor: "rgba(190,110,110,0.12)",
+                border: "1px solid rgba(190,110,110,0.34)",
+              }}
+            >
+              Withdraw requests
+            </button>
+          </div>
+        </Modal>
+      )}
 
       {showReview && (
         <ReviewModal
@@ -2955,7 +3006,6 @@ function UpgradeModePanel({
   allocations,
   eligible,
   selected,
-  selectedAllocations,
   selectedForRequest,
   selectedForWithdraw,
   onSelectAll,
@@ -2966,7 +3016,6 @@ function UpgradeModePanel({
   allocations: Allocation[];
   eligible: Allocation[];
   selected: string[];
-  selectedAllocations: Allocation[];
   selectedForRequest: Allocation[];
   selectedForWithdraw: Allocation[];
   onSelectAll: (on: boolean) => void;
