@@ -713,15 +713,21 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     {upgradeRequests.length > 0 && (
                       <button
                         type="button"
+                        title="Manage upgrade requests"
                         onClick={() => {
-                          setView(view === "upgrades" ? "all" : "upgrades");
+                          if (manageMode) {
+                            exitManageMode();
+                            return;
+                          }
+                          setView("upgrades");
                           setUpgradeFilter("all");
+                          enterManageMode();
                         }}
-                        className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(197,162,75,0.10)]"
+                        className="inline-flex cursor-pointer items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-all duration-200 hover:-translate-y-[1px] hover:bg-[rgba(197,162,75,0.12)] hover:shadow-[0_4px_12px_rgba(16,35,63,0.14)]"
                         style={{
                           color: GOLD_SOFT,
-                          backgroundColor: view === "upgrades" ? "rgba(197,162,75,0.12)" : "transparent",
-                          border: `1px solid ${view === "upgrades" ? "rgba(197,162,75,0.42)" : BORDER}`,
+                          backgroundColor: manageMode || view === "upgrades" ? "rgba(197,162,75,0.12)" : "transparent",
+                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(197,162,75,0.42)" : BORDER}`,
                         }}
                       >
                         <ArrowUp size={12} />
