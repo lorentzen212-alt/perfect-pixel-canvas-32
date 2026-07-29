@@ -1004,6 +1004,10 @@ function AllocationRow({
   active,
   autoFocus,
   onAutoFocused,
+  upgradeMode,
+  selected,
+  onToggleSelected,
+  showRequirementDetail,
   onPatch,
   onOpenGuest,
   onAddGuest,
@@ -1019,6 +1023,10 @@ function AllocationRow({
   active?: boolean;
   autoFocus?: boolean;
   onAutoFocused?: () => void;
+  upgradeMode?: boolean;
+  selected?: boolean;
+  onToggleSelected?: () => void;
+  showRequirementDetail?: boolean;
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
   onAddGuest: () => void;
@@ -1037,9 +1045,10 @@ function AllocationRow({
   const [typeOpen, setTypeOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [requestOpen, setRequestOpen] = useState(false);
-  const [approval, setApproval] = useState(false);
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
   const typeBtnRef = useRef<HTMLButtonElement>(null);
   const requestBtnRef = useRef<HTMLButtonElement>(null);
+  const upgradeBtnRef = useRef<HTMLButtonElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -1050,9 +1059,14 @@ function AllocationRow({
   const changeType = (t: RoomType) => {
     setTypeOpen(false);
     const nextCap = capacityOf(t);
-    if (nextCap < cap || t === "triple") setApproval(true);
     onPatch((a) => ({ ...a, type: t, guests: a.guests.slice(0, Math.max(nextCap, a.guests.length)) }));
   };
+
+  /* warning compares against the ORIGINAL confirmed booking value, never the previous value */
+  const typeChanged = hasRoomTypeChange(allocation);
+
+  const upgradeEligible = canUpgrade(allocation);
+  const selectable = !!upgradeMode && upgradeEligible && !allocation.upgradeRequest && !locked;
 
   const statusColor = status === "complete" ? R_GREEN : status === "attention" ? R_AMBER : RT_3;
   const statusLabel =
@@ -1066,7 +1080,7 @@ function AllocationRow({
           ? "Missing guests"
           : "Missing guest";
 
-  const isActive = !!active || typeOpen || menuOpen || requestOpen;
+  const isActive = !!active || typeOpen || menuOpen || requestOpen || upgradeOpen;
 
   return (
     <div
@@ -1074,12 +1088,20 @@ function AllocationRow({
       className="hgb-row grid rounded-[12px] lg:[grid-template-columns:14%_42%_21%_19%_4%]"
       style={{
         background: CARD_NAVY,
-        border: isActive ? "1.5px solid #C5A24B" : "1px solid rgba(255,255,255,0.07)",
+        border: selected
+          ? "1.5px solid rgba(197,162,75,0.62)"
+          : isActive
+            ? "1.5px solid #C5A24B"
+            : "1px solid rgba(255,255,255,0.07)",
         boxShadow: isActive
           ? "0 8px 22px rgba(16,35,63,0.18)"
           : "0 4px 14px rgba(16,35,63,0.12)",
+        backgroundImage: selected
+          ? `linear-gradient(0deg, rgba(197,162,75,0.07), rgba(197,162,75,0.07)), ${CARD_NAVY}`
+          : undefined,
       }}
     >
+
 
 
       {/* ── ALLOCATION ── */}
