@@ -1171,6 +1171,7 @@ function GuestDrawer({
   allocation,
   guest,
   locked,
+  isNew = false,
   onClose,
   onSave,
   onRemove,
@@ -1178,6 +1179,7 @@ function GuestDrawer({
   allocation: Allocation | null;
   guest: Guest;
   locked: boolean;
+  isNew?: boolean;
   onClose: () => void;
   onSave: (g: Guest) => void;
   onRemove: () => void;
