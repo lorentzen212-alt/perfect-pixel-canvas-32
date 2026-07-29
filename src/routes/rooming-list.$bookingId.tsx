@@ -1445,16 +1445,19 @@ function AllocationRow({
 function SavedGuestRow({
   guest,
   locked,
+  showRequirementDetail,
   onOpen,
   onRemove,
 }: {
   guest: Guest;
   locked: boolean;
+  showRequirementDetail?: boolean;
   onOpen: () => void;
   onRemove: () => void;
 }) {
   const [confirm, setConfirm] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
+  const req = guestRequirementSummary(guest);
 
   return (
     <div className="flex w-full items-center gap-1.5">
@@ -1464,15 +1467,35 @@ function SavedGuestRow({
         className="flex min-w-0 flex-1 items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)]"
       >
         <User size={13} style={{ color: RT_3 }} />
-        <span className="min-w-0 max-w-[62%] truncate text-[13.5px]" style={{ color: RT }}>
+        <span className="min-w-0 max-w-[52%] truncate text-[13.5px]" style={{ color: RT }}>
           {guestName(guest) || "Unnamed guest"}
         </span>
-        {guest.nationality && (
+        {req.count > 0 && (
+          <span
+            title={req.tooltip}
+            className="inline-flex shrink-0 items-center gap-1 rounded-[5px] px-1.5 py-[1px] text-[10.5px] leading-[15px]"
+            style={
+              req.hasAllergy
+                ? { color: R_AMBER, backgroundColor: "rgba(231,180,75,0.12)", border: "1px solid rgba(231,180,75,0.30)" }
+                : { color: RT_2, backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }
+            }
+          >
+            {req.hasAllergy ? <AlertTriangle size={9.5} /> : <Utensils size={9.5} />}
+            {req.hasAllergy ? "Allergy" : "Dietary"}
+          </span>
+        )}
+        {showRequirementDetail && req.count > 0 && (
+          <span className="min-w-0 truncate text-[11px]" style={{ color: RT_3 }}>
+            {req.tooltip}
+          </span>
+        )}
+        {guest.nationality && !showRequirementDetail && (
           <span className="inline-flex shrink-0 items-center text-[12px]" style={{ color: RT_2 }}>
             {guest.nationality}
           </span>
         )}
       </button>
+
       {!locked && (
         <>
           <button
