@@ -651,22 +651,29 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     }}
                     onAddGuest={() => {
                       setOpenGuest(null);
-                      setPendingGuest({ allocationId: a.id, guest: newGuest() });
+                      setPendingGuest({ allocationId: a.id, guest: newGuest(), raw: "", editing: true });
                     }}
-                    pendingName={
+                    pending={
                       pendingGuest?.allocationId === a.id
-                        ? [pendingGuest.guest.firstName, pendingGuest.guest.lastName].filter(Boolean).join(" ")
+                        ? { raw: pendingGuest.raw, editing: pendingGuest.editing }
                         : null
                     }
                     onPendingNameChange={(v) =>
-                      setPendingGuest((p) => {
-                        if (!p) return p;
-                        const parts = v.trimStart().split(" ");
-                        const firstName = parts[0] ?? "";
-                        const lastName = parts.slice(1).join(" ");
-                        return { ...p, guest: { ...p.guest, firstName, lastName } };
-                      })
+                      setPendingGuest((p) => (p ? { ...p, raw: v, guest: { ...p.guest, ...splitName(v) } } : p))
                     }
+                    onPendingConfirm={() =>
+                      setPendingGuest((p) => (p && p.raw.trim() ? { ...p, editing: false } : p))
+                    }
+                    onPendingEdit={() => setPendingGuest((p) => (p ? { ...p, editing: true } : p))}
+                    onPendingCancel={() => {
+                      setPendingGuest(null);
+                      setOpenGuest(null);
+                    }}
+                    onRemoveGuest={(guestId) => {
+                      patchAllocation(a.id, (al) => ({ ...al, guests: al.guests.filter((g) => g.id !== guestId) }));
+                      setOpenGuest((o) => (o?.guestId === guestId ? null : o));
+                    }}
+
                   />
                 ))}
                 {visible.length === 0 && (
