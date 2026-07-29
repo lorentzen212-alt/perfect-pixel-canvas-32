@@ -2956,20 +2956,26 @@ function UpgradeModePanel({
   eligible,
   selected,
   selectedAllocations,
+  selectedForRequest,
+  selectedForWithdraw,
   onSelectAll,
   onCancel,
+  onWithdraw,
   onRequest,
 }: {
   allocations: Allocation[];
   eligible: Allocation[];
   selected: string[];
   selectedAllocations: Allocation[];
+  selectedForRequest: Allocation[];
+  selectedForWithdraw: Allocation[];
   onSelectAll: (on: boolean) => void;
   onCancel: () => void;
+  onWithdraw: () => void;
   onRequest: (category: RoomCategory, preference: UpgradePreference, note: string) => void;
 }) {
   const allSelected = eligible.length > 0 && selected.length === eligible.length;
-  const options = commonUpgradeOptions(selectedAllocations);
+  const options = commonUpgradeOptions(selectedForRequest);
   const ineligible = allocations.length - eligible.length;
 
   return (
@@ -2985,6 +2991,25 @@ function UpgradeModePanel({
           {selected.length} of {eligible.length} selected
           {ineligible > 0 ? ` · ${ineligible} not eligible` : ""}
         </span>
+        {selectedForWithdraw.length > 0 && (
+          <span className="inline-flex items-center gap-2.5 text-[12px]" style={{ color: TEXT_2 }}>
+            <span style={{ color: MUTED }}>
+              {selectedForWithdraw.length} upgrade request{selectedForWithdraw.length === 1 ? "" : "s"} selected
+            </span>
+            <button
+              type="button"
+              onClick={onWithdraw}
+              className="rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors"
+              style={{
+                color: "#E2A2A2",
+                backgroundColor: "rgba(190,110,110,0.10)",
+                border: "1px solid rgba(190,110,110,0.30)",
+              }}
+            >
+              Withdraw selected requests
+            </button>
+          </span>
+        )}
         <button
           type="button"
           onClick={onCancel}
@@ -2995,13 +3020,13 @@ function UpgradeModePanel({
         </button>
       </div>
 
-      {selected.length > 0 && (
+      {selectedForRequest.length > 0 && (
         <div
           className="mt-3 rounded-[10px]"
           style={{ backgroundColor: SURFACE_2, border: `1px solid ${GOLD_DEEP}` }}
         >
           <UpgradeForm
-            title={`Upgrade ${selected.length} room${selected.length > 1 ? "s" : ""}`}
+            title={`Upgrade ${selectedForRequest.length} room${selectedForRequest.length > 1 ? "s" : ""}`}
             options={options}
             submitLabel="Review upgrade request"
             disabledReason={
@@ -3016,6 +3041,7 @@ function UpgradeModePanel({
     </div>
   );
 }
+
 
 /** Bulk confirmation step before submitting upgrade requests. */
 function UpgradeConfirmModal({
