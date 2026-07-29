@@ -380,7 +380,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   {/* header */}
                   <div className="flex flex-wrap items-center gap-x-8 gap-y-3 px-5 pb-3 pt-4">
                     <div className="min-w-[220px]">
-                      <h2 className="text-[21px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
+                      <h2 className="text-[21px] font-semibold leading-none" style={{ color: TEXT }}>
                         Rooming List
                       </h2>
                       <p className="mt-1.5 text-[12.5px]" style={{ color: MUTED }}>
@@ -397,7 +397,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           {stats.percent}%
                         </span>
                       </div>
-                      <div className="mt-1.5 h-[5px] w-full overflow-hidden rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.07)" }}>
+                      <div className="mt-1.5 h-[5px] w-full overflow-hidden rounded-full" style={{ backgroundColor: "#CBD7E2" }}>
                         <div
                           className="h-full rounded-full transition-[width] duration-300 ease-out"
                           style={{ width: `${stats.percent}%`, background: GOLD_BAR }}
