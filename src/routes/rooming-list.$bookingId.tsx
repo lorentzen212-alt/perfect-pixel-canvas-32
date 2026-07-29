@@ -911,17 +911,17 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
 
             {/* column headers */}
-            <div className="hidden lg:grid lg:[grid-template-columns:28%_32%_21%_15%_4%] px-0 pb-[6px]">
+            <div className="hidden lg:grid lg:[grid-template-columns:24%_36%_22%_14%_4%] px-0 pb-[7px]">
               {[
-                { label: "Allocation", cls: "pl-6 pr-3" },
+                { label: "Allocation", cls: "pl-5 pr-2" },
                 { label: "Guests", cls: "px-4" },
                 { label: "Room request", cls: "px-4" },
                 { label: "Status", cls: "px-4" },
               ].map((h) => (
                 <span
                   key={h.label}
-                  className={`${h.cls} text-[10px] font-light uppercase leading-[14px] tracking-[0.22em]`}
-                  style={{ color: "#8FA3B4" }}
+                  className={`${h.cls} text-[12px] font-semibold uppercase leading-[15px] tracking-[0.16em]`}
+                  style={{ color: "#5A7286" }}
                 >
                   {h.label}
                 </span>
@@ -1340,7 +1340,7 @@ function AllocationRow({
     <div
       id={`alloc-${allocation.id}`}
       data-selected={selected ? "true" : "false"}
-      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:28%_32%_21%_15%_4%]"
+      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:24%_36%_22%_14%_4%]"
       style={{
         backgroundColor: NAVY,
         backgroundImage: selected
@@ -1364,7 +1364,7 @@ function AllocationRow({
       />
 
       {/* ── ALLOCATION ── */}
-      <div className="flex items-center gap-2.5 py-[19px] pl-6 pr-3">
+      <div className="flex items-center gap-2 py-[19px] pl-5 pr-2">
         {manageMode && allocation.upgradeRequest ? (
           <RoomSelectCircle
             checked={!!selected}
