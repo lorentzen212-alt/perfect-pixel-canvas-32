@@ -70,7 +70,7 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
 });
 
 /* Deep matte navy workspace tokens (names kept so existing markup keeps working) */
-const BG_ALT = "#EEF3F8";
+const BG_ALT = "#E9EEF2";
 const CARD = "#1D456C";
 const SURFACE_2 = "#22507C";
 const CARD_BORDER = "rgba(255,255,255,0.10)";
@@ -79,11 +79,11 @@ const BORDER = "rgba(255,255,255,0.12)";
 const TEXT = "#F7F7F5"; // primary — soft off-white
 const TEXT_2 = "#D9DDE0"; // secondary — light neutral grey
 const MUTED = "#B8BDC2"; // micro labels / eyebrows — muted neutral grey
-const GOLD = "#E7B44B";
-const GOLD_SOFT = "#E7B44B";
-const GOLD_DEEP = "rgba(231,180,75,0.34)";
+const GOLD = "#C5A24B";
+const GOLD_SOFT = "#C5A24B";
+const GOLD_DEEP = "rgba(197,162,75,0.34)";
 const GREEN = "#74D97C";
-const AMBER = "#E7B44B";
+const AMBER = "#C5A24B";
 const ROW = "rgba(255,255,255,0.07)";
 const PANEL = "#1D456C";
 const NAVY = "#1D456C";
@@ -103,9 +103,9 @@ const RT_2 = "#D9DDE0"; // secondary — light neutral grey
 const RT_3 = "#B8BDC2"; // micro — muted neutral grey
 const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
-const R_AMBER = "#E7B44B";
+const R_AMBER = "#C5A24B";
 
-const GOLD_BAR = "#E7B44B";
+const GOLD_BAR = "#C5A24B";
 const HERO_INK = "#10233F";
 const HERO_INK_2 = "#4A6076";
 const HERO_ACCENT = "#2C5B8C";
@@ -300,7 +300,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#E4EBF1",
+        backgroundColor: "#E9EEF2",
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
