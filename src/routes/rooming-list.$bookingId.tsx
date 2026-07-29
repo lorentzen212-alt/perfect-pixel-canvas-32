@@ -617,17 +617,25 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               guest={drawerGuest.guest}
               locked={locked}
               onClose={() => setOpenGuest(null)}
-              onSave={(g) =>
-                patchAllocation(drawerGuest.alloc.id, (a) => ({
-                  ...a,
-                  guests: a.guests.map((x) => (x.id === g.id ? g : x)),
-                }))
-              }
+              onSave={(g) => {
+                if (drawerGuest.alloc) {
+                  patchAllocation(drawerGuest.alloc.id, (a) => ({
+                    ...a,
+                    guests: a.guests.map((x) => (x.id === g.id ? g : x)),
+                  }));
+                } else {
+                  update((l) => ({ ...l, unassigned: l.unassigned.map((x) => (x.id === g.id ? g : x)) }));
+                }
+              }}
               onRemove={() => {
-                patchAllocation(drawerGuest.alloc.id, (a) => ({
-                  ...a,
-                  guests: a.guests.filter((x) => x.id !== drawerGuest.guest.id),
-                }));
+                if (drawerGuest.alloc) {
+                  patchAllocation(drawerGuest.alloc.id, (a) => ({
+                    ...a,
+                    guests: a.guests.filter((x) => x.id !== drawerGuest.guest.id),
+                  }));
+                } else {
+                  update((l) => ({ ...l, unassigned: l.unassigned.filter((x) => x.id !== drawerGuest.guest.id) }));
+                }
                 setOpenGuest(null);
               }}
             />
