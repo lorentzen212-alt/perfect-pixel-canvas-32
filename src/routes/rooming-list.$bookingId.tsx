@@ -88,6 +88,13 @@ const ROW = "rgba(255,255,255,0.07)";
 const PANEL = "#1D456C";
 const NAVY = "#1D456C";
 
+/* light input-field tokens used inside the navy Guest Details panel */
+const FIELD_BG = "#EEF2F6"; // soft cool off-white / very light blue-grey
+const FIELD_BORDER_LIGHT = "#CBD8E3"; // very subtle cool blue-grey
+const FIELD_TEXT = "#10233F"; // dark navy entered text
+const FIELD_PLACEHOLDER = "#88A0B6"; // muted blue-grey placeholder
+const FIELD_LABEL = "#7C93A8"; // muted blue-grey label
+
 /* dark matte navy room-allocation card tokens */
 const CARD_NAVY = "linear-gradient(180deg, #1D456C 0%, #173A5D 100%)";
 const CARD_NAVY_HOVER = "linear-gradient(180deg, #214C76 0%, #1A4165 100%)";
@@ -176,8 +183,8 @@ function Field({
   placeholder?: string;
 }) {
   return (
-    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}>
-      <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}` }}>
+      <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: FIELD_LABEL }}>
         {label}
       </span>
       <input
@@ -185,8 +192,8 @@ function Field({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-[2px] w-full bg-transparent text-[13.5px] outline-none"
-        style={{ color: TEXT }}
+        className="mt-[2px] w-full bg-transparent text-[13.5px] outline-none placeholder:text-[#88A0B6]"
+        style={{ color: FIELD_TEXT }}
       />
     </label>
   );
@@ -1148,15 +1155,15 @@ function GuestDrawer({
           </p>
           <Field label="First name" value={draft.firstName} onChange={(v) => set({ firstName: v })} />
           <Field label="Last name" value={draft.lastName} onChange={(v) => set({ lastName: v })} />
-          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}>
-            <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}` }}>
+            <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: FIELD_LABEL }}>
               Nationality
             </span>
             <select
               value={draft.nationality ?? ""}
               onChange={(e) => set({ nationality: e.target.value || undefined })}
               className="mt-[2px] w-full bg-transparent text-[13.5px] outline-none"
-              style={{ color: TEXT }}
+              style={{ color: FIELD_TEXT }}
             >
               <option value="" style={{ color: "#111" }}>
                 Not specified
@@ -1239,8 +1246,8 @@ function GuestDrawer({
             onChange={(e) => set({ specialRequests: e.target.value })}
             rows={4}
             placeholder="Accessibility requirement, baby cot, personal preference…"
-            className="mt-2 w-full resize-none rounded-[8px] px-3 py-2 text-[13px] outline-none"
-            style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}`, color: TEXT }}
+            className="mt-2 w-full resize-none rounded-[8px] px-3 py-2 text-[13px] outline-none placeholder:text-[#88A0B6]"
+            style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}`, color: FIELD_TEXT }}
           />
           <div className="mt-1 flex items-center justify-between text-[11px]" style={{ color: MUTED }}>
             <span>{(draft.specialRequests ?? "").length} / 500</span>
