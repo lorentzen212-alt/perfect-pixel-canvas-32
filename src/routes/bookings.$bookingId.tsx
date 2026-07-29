@@ -697,9 +697,9 @@ function Workspace({ booking }: { booking: Booking }) {
               {/* hotel reference */}
               <div
                 className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
               >
-                <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
                   Hotel Reference
                 </p>
                 <div className="mt-1 flex items-center justify-between gap-3">
@@ -735,9 +735,9 @@ function Workspace({ booking }: { booking: Booking }) {
               {/* booking id */}
               <div
                 className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
               >
-                <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
                   Booking ID
                 </p>
                 <div className="mt-1 flex items-center justify-between gap-3">
@@ -763,9 +763,9 @@ function Workspace({ booking }: { booking: Booking }) {
               {/* status */}
               <div
                 className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
               >
-                <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
                   Status
                 </p>
                 <div className="mt-1 flex items-center gap-2.5">
@@ -800,7 +800,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   {active && (
                     <span
                       className="absolute inset-x-0 -bottom-px h-[2px] rounded-full"
-                      style={{ background: `linear-gradient(90deg, ${GOLD_SOFT}, ${GOLD})` }}
+                      style={{ background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 45%, ${GOLD_MET_MID})` }}
                     />
                   )}
                 </button>
