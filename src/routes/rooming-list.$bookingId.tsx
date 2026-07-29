@@ -1075,7 +1075,14 @@ function AllocationRow({
   const typeChanged = hasRoomTypeChange(allocation);
 
   const upgradeEligible = canUpgrade(allocation);
-  const selectable = !!upgradeMode && upgradeEligible && !allocation.upgradeRequest && !locked;
+  const withdrawable =
+    !!allocation.upgradeRequest &&
+    !allocation.upgradeRequest.appliedAt &&
+    (allocation.upgradeRequest.status === "requested" ||
+      allocation.upgradeRequest.status === "price_offered");
+  const selectable =
+    !!upgradeMode && !locked && ((upgradeEligible && !allocation.upgradeRequest) || withdrawable);
+
 
   const statusColor = status === "complete" ? R_GREEN : status === "attention" ? R_AMBER : RT_3;
   const statusLabel =
