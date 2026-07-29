@@ -538,7 +538,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               </div>
 
               {/* allocation rows */}
-              <div className="space-y-2 px-3 pb-4 sm:px-4">
+              <div className="space-y-[5px] px-3 pb-4 sm:px-4">
                 {visible.map((a) => (
                   <AllocationRow
                     key={a.id}
