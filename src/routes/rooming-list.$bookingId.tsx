@@ -1444,52 +1444,60 @@ function ReviewModal({
         </>
       ) : (
         <>
-          <p className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: GOLD_SOFT }}>
-            Rooming list ready for review
+          <p className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: issues.length ? AMBER : GREEN }}>
+            {issues.length ? "Almost ready" : "Rooming list ready"}
           </p>
-          <div className="mt-3 grid grid-cols-3 gap-2">
-            {[
-              { v: stats.totalSlots, l: "Guests" },
-              { v: stats.totalAllocations, l: "Room allocations" },
-              { v: stats.completeAllocations, l: "Complete allocations" },
-            ].map((x) => (
-              <div key={x.l} className="rounded-[9px] px-3 py-2.5" style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}>
-                <p className="text-[19px] leading-none" style={{ color: TEXT }}>
-                  {x.v}
-                </p>
-                <p className="mt-1 text-[11px]" style={{ color: MUTED }}>
-                  {x.l}
-                </p>
-              </div>
+          <p className="mt-1.5 text-[14px]" style={{ color: TEXT }}>
+            {issues.length
+              ? `${stats.filled} / ${stats.totalSlots} guests complete · ${issues.length} item${issues.length > 1 ? "s" : ""} need attention`
+              : `${stats.totalSlots} guests · ${stats.totalAllocations} rooms`}
+          </p>
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            {stats.byType.map((t) => (
+              <span
+                key={t.type}
+                className="rounded-[8px] px-3 py-1.5 text-[12.5px]"
+                style={{ backgroundColor: ROW, border: `1px solid ${BORDER}`, color: TEXT_2 }}
+              >
+                <strong style={{ color: TEXT }}>{t.count}</strong> {t.label}
+              </span>
             ))}
           </div>
 
           {issues.length > 0 ? (
             <>
               <p className="mt-4 text-[13px]" style={{ color: AMBER }}>
-                {issues.length} item{issues.length > 1 ? "s" : ""} need attention
+                Issues to review
               </p>
               <div className="mt-2 space-y-1.5">
-                {issues.slice(0, 8).map((i) => (
+                {issues.slice(0, 10).map((i) => (
                   <div
                     key={i.id}
-                    className="flex items-center justify-between rounded-[8px] px-3 py-2"
+                    className="flex items-center justify-between gap-3 rounded-[8px] px-3 py-2"
                     style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
                   >
-                    <span className="text-[13px]" style={{ color: TEXT }}>
+                    <span className="min-w-0 text-[13px]" style={{ color: TEXT }}>
                       {i.title}
                       <span className="ml-2 text-[12px]" style={{ color: MUTED }}>
                         {i.detail}
                       </span>
                     </span>
-                    <button type="button" onClick={() => onFix(i.id)} className="text-[12.5px]" style={{ color: GOLD_SOFT }}>
-                      Fix →
-                    </button>
+                    {i.allocationId && (
+                      <button
+                        type="button"
+                        onClick={() => onFix(i.allocationId as string)}
+                        className="shrink-0 text-[12.5px]"
+                        style={{ color: GOLD_SOFT }}
+                      >
+                        Fix →
+                      </button>
+                    )}
                   </div>
                 ))}
-                {issues.length > 8 && (
+                {issues.length > 10 && (
                   <p className="text-[12px]" style={{ color: MUTED }}>
-                    +{issues.length - 8} more allocations need attention
+                    +{issues.length - 10} more items need attention
                   </p>
                 )}
               </div>
@@ -1497,10 +1505,10 @@ function ReviewModal({
           ) : (
             <div className="mt-4 rounded-[9px] px-3 py-3" style={{ backgroundColor: "rgba(62,155,87,0.10)", border: "1px solid rgba(62,155,87,0.28)" }}>
               <p className="inline-flex items-center gap-2 text-[13.5px]" style={{ color: GREEN }}>
-                <CheckCircle2 size={15} /> Rooming list complete
+                <CheckCircle2 size={15} /> All required information completed
               </p>
               <p className="mt-1 text-[12.5px]" style={{ color: TEXT_2 }}>
-                {stats.totalSlots} guests · {stats.totalAllocations} rooms · 0 missing guest assignments
+                {stats.totalSlots} guests · {stats.totalAllocations} rooms · no unassigned guests
               </p>
             </div>
           )}
