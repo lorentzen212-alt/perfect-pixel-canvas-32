@@ -15,6 +15,8 @@ import {
   FileSpreadsheet,
   MapPin,
   MoreVertical,
+  Pencil,
+
   Plus,
   Search,
   Upload,
@@ -487,7 +489,12 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(173,192,205,0.14)}}
       .hgb-inline::placeholder{color:#9FB0BE}
       .hgb-inline:focus{border-color:rgba(197,162,75,0.75) !important}
-      .hgb-search::placeholder{color:#B8BDC2}`}</style>
+      .hgb-search::placeholder{color:#B8BDC2}
+      .hgb-guest{transition:background-color 150ms ease,border-color 150ms ease}
+      .hgb-guest:hover{background-color:rgba(255,255,255,0.05) !important;border-color:rgba(230,196,122,0.34) !important}
+      .hgb-guest .hgb-edit{opacity:0;transition:opacity 150ms ease}
+      .hgb-guest:hover .hgb-edit{opacity:0.75}`}</style>
+
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
         <SidebarContent light active="Rooming List" bookingId={booking.id} />
@@ -936,9 +943,16 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     onPendingNameChange={(v) =>
                       setPendingGuest((p) => (p ? { ...p, raw: v, guest: { ...p.guest, ...splitName(v) } } : p))
                     }
-                    onPendingConfirm={() =>
-                      setPendingGuest((p) => (p && p.raw.trim() ? { ...p, editing: false } : p))
-                    }
+                    onPendingConfirm={() => {
+                      const p = pendingGuest;
+                      if (!p || p.allocationId !== a.id || !p.raw.trim()) return;
+                      const committed: Guest = { ...p.guest, ...splitName(p.raw) };
+                      /* append only — never touches existing guests */
+                      patchAllocation(a.id, (al) => ({ ...al, guests: [...al.guests, committed] }));
+                      setPendingGuest(null);
+                      setOpenGuest({ allocationId: a.id, guestId: committed.id });
+                    }}
+
                     onPendingEdit={() => setPendingGuest((p) => (p ? { ...p, editing: true } : p))}
                     onPendingCancel={() => {
                       setPendingGuest(null);
@@ -1275,7 +1289,9 @@ function AllocationRow({
   };
 
   /* warning compares against the ORIGINAL confirmed booking value, never the previous value */
-  const typeChanged = hasRoomTypeChange(allocation);
+  /* kept: underlying booking-change logic (no visual notice is rendered) */
+  void hasRoomTypeChange(allocation);
+
 
   const upgradeEligible = canUpgrade(allocation);
   const withdrawable =
@@ -1414,27 +1430,8 @@ function AllocationRow({
             </FloatingPopover>
           </div>
 
-          {typeChanged && (
-            <div
-              className="mt-2 max-w-[190px] rounded-[8px] px-2 py-1.5"
-              style={{ backgroundColor: "rgba(231,180,75,0.10)", border: "1px solid rgba(231,180,75,0.28)" }}
-            >
-              <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
-                Booking change may require approval
-              </p>
-              <p className="mt-[2px] text-[10px] leading-snug" style={{ color: RT_3 }}>
-                Booked as {labelOf(allocation.bookedRoomType)}
-              </p>
-              <button
-                type="button"
-                className="mt-1 text-[10.5px]"
-                style={{ color: R_AMBER }}
-                onClick={() => onPatch((a) => ({ ...a, type: a.bookedRoomType }))}
-              >
-                Restore booked type
-              </button>
-            </div>
-          )}
+          {/* booking-change notice intentionally not rendered (logic preserved via hasRoomTypeChange) */}
+
         </div>
       </div>
 
@@ -1769,18 +1766,21 @@ function SavedGuestRow({
 
   return (
     <div
-      className="flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
+      className="hgb-guest flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
       style={{ minHeight: 46, backgroundColor: GUEST_BG, border: `1px solid ${GUEST_BORDER}` }}
     >
       <button
         type="button"
         onClick={onOpen}
-        className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left"
+        title="Click to edit or change this guest"
+        className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 py-2 text-left"
       >
         <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
         <span className="min-w-0 flex-1 truncate text-[13.5px] font-medium" style={{ color: RT }}>
           {guestName(guest) || "Unnamed guest"}
         </span>
+        <Pencil className="hgb-edit shrink-0" size={11} style={{ color: "rgba(230,196,122,0.9)" }} />
+
         {req.count > 0 && (
           <span
             title={req.tooltip}
