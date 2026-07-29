@@ -213,6 +213,7 @@ function OverviewCard({
   action,
   onAction,
   dimmed,
+  compact,
 }: {
   icon: React.ReactNode;
   title: string;
@@ -221,6 +222,7 @@ function OverviewCard({
   action?: string;
   onAction?: () => void;
   dimmed?: boolean;
+  compact?: boolean;
 }) {
   const [hover, setHover] = useState(false);
   const interactive = Boolean(onAction);
@@ -229,8 +231,9 @@ function OverviewCard({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={onAction}
-      className="flex min-h-[138px] flex-col rounded-[13px] px-4 py-[11px]"
+      className="flex flex-col rounded-[11px] px-4 py-3"
       style={{
+        minHeight: compact ? 104 : 148,
         backgroundColor: hover && interactive ? "#30404C" : CARD,
         border: `1px solid ${hover && interactive ? "rgba(212,175,55,0.34)" : CARD_BORDER}`,
         boxShadow:
@@ -244,6 +247,7 @@ function OverviewCard({
         opacity: dimmed ? 0.55 : 1,
       }}
     >
+
       <div className="flex items-center gap-3">
         <IconBubble>{icon}</IconBubble>
         <h3
@@ -831,7 +835,7 @@ function Workspace({ booking }: { booking: Booking }) {
             </section>
           ) : (
             <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1fr)_340px] xl:gap-6">
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-[94.5%]">
+              <div className="grid content-start gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {/* STAY */}
                 {panel === "stay" ? (
                   <div className="sm:col-span-2 lg:col-span-3">
@@ -981,8 +985,11 @@ function Workspace({ booking }: { booking: Booking }) {
                     onAction={() => setPanel("rooms")}
                     dimmed={dim("rooms")}
                   >
+                    <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>
+                      {totalRooms} rooms
+                    </p>
                     {rooms.map((r) => (
-                      <p key={r.type} className="mt-1 first:mt-0" style={{ color: TEXT_2 }}>
+                      <p key={r.type} className="mt-1" style={{ color: TEXT_2 }}>
                         {r.qty} {r.type}
                       </p>
                     ))}
@@ -990,8 +997,9 @@ function Workspace({ booking }: { booking: Booking }) {
                       className="mt-2 pt-2 text-[12.5px] font-medium"
                       style={{ borderTop: `1px solid ${BORDER}`, color: TEXT }}
                     >
-                      {totalRooms} rooms  •  {totalGuests} guests
+                      {totalGuests} guests
                     </p>
+
                   </OverviewCard>
                 )}
 
@@ -1096,6 +1104,8 @@ function Workspace({ booking }: { booking: Booking }) {
                     action="Manage dining"
                     onAction={() => setPanel("dining")}
                     dimmed={dim("dining")}
+                    compact
+
                   >
                     <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>
                       {dining.breakfast ? "Breakfast included" : "No breakfast"}
@@ -1186,6 +1196,8 @@ function Workspace({ booking }: { booking: Booking }) {
                     action="Manage services"
                     onAction={() => setPanel("services")}
                     dimmed={dim("services")}
+                    compact
+
                   >
                     {services.slice(0, 2).map((s) => (
                       <p key={s.name} className="mt-1 text-[13.5px] font-medium first:mt-0" style={{ color: TEXT }}>
@@ -1259,6 +1271,8 @@ function Workspace({ booking }: { booking: Booking }) {
                     action="Update requests"
                     onAction={() => setPanel("requests")}
                     dimmed={dim("requests")}
+                    compact
+
                   >
                     {requests.length ? (
                       requests.map((r, i) => (
@@ -1273,114 +1287,86 @@ function Workspace({ booking }: { booking: Booking }) {
                 )}
               </div>
 
-              {/* ── right rail ─────────────────────── */}
-              <aside className="grid content-start gap-3">
-                <section
-                  className="rounded-[13px] px-3.5 py-2.5"
-                  style={{
-                    backgroundColor: "#243039",
-                    border: `1px solid rgba(154,176,192,0.07)`,
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
-                  }}
-                >
-                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
-                    Preparing your stay
+              {/* ── right rail : booking assistant ── */}
+              <aside
+                className="grid content-start self-start overflow-hidden rounded-[11px]"
+                style={{
+                  backgroundColor: CARD,
+                  border: `1px solid ${CARD_BORDER}`,
+                  boxShadow: CARD_SHADOW,
+                }}
+              >
+                {/* 1 — your next step */}
+                <section className="px-4 py-3.5">
+                  <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.2em]" style={{ color: TEXT_2 }}>
+                    Your next step
                   </h3>
                   <div className="mt-2.5 flex items-center gap-3.5">
-                    <Ring value={progress} size={40} />
-
-                    <div
-                      className="h-[3px] flex-1 overflow-hidden rounded-full"
-                      style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
-                    >
-                      <div
-                        className="h-full rounded-full"
-                        style={{
-                          width: `${progress}%`,
-                          background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 55%, ${GOLD_MET_MID})`,
-                        }}
-                      />
+                    <Ring value={progress} size={52} />
+                    <div className="min-w-0">
+                      <p className="text-[14px] font-medium" style={{ color: TEXT }}>
+                        Rooming List
+                      </p>
+                      <p className="mt-0.5 text-[12px]" style={{ color: MUTED }}>
+                        {rooming ? `${rooming.complete} / ${rooming.total}` : "42 / 58"} guests complete
+                      </p>
                     </div>
                   </div>
-                  <ul className="mt-2.5 space-y-2 text-[13px]">
-                    {["Hotel confirmed", "Contract signed"].map((l) => (
-                      <li key={l} className="flex items-center justify-between">
-                        <span style={{ color: TEXT_2 }}>{l}</span>
-                        <span
-                          className="grid h-[18px] w-[18px] place-items-center rounded-full"
-                          style={{ backgroundColor: "rgba(141,168,138,0.18)", color: GREEN }}
-                        >
-                          <Check size={12} />
-                        </span>
-                      </li>
-                    ))}
-                    <li className="flex items-center justify-between">
-                      <span style={{ color: TEXT_2 }}>Rooming List</span>
-                      <span style={{ color: GOLD_SOFT }}>
-                        {rooming ? `${rooming.complete} / ${rooming.total}` : "42 / 58"}
-                      </span>
-                    </li>
-                    <li className="flex items-center justify-between">
-                      <span style={{ color: TEXT_2 }}>Final details</span>
-                      <span style={{ color: MUTED }}>—</span>
-                    </li>
-                  </ul>
+                  <button
+                    type="button"
+                    onClick={() => setTab("Rooming List")}
+                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-[6px] px-3 py-[8px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+                    style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
+                  >
+                    Continue
+                    <span aria-hidden>→</span>
+                  </button>
                 </section>
 
-                <section
-                  className="rounded-[13px] px-3.5 py-2.5"
-                  style={{
-                    backgroundColor: "#243039",
-                    border: `1px solid rgba(154,176,192,0.07)`,
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
-                  }}
-                >
-                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
+                {/* 2 — upcoming */}
+                <section className="px-4 py-3.5" style={{ borderTop: `1px solid ${BORDER}` }}>
+                  <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.2em]" style={{ color: TEXT_2 }}>
                     Upcoming
                   </h3>
-                  <ul className="mt-2.5 space-y-2">
+                  <ul className="mt-1">
                     {[
-                      { d: "04", m: "Sep", t: "Rooming List", s: "Due in 6 days" },
-                      { d: "08", m: "Sep", t: "Final guest details", s: "Due in 10 days" },
-                    ].map((it) => (
-                      <li
-                        key={it.t}
-                        className="flex items-center gap-3 rounded-[8px] px-2.5 py-2"
-                        style={{ backgroundColor: "rgba(12,30,42,0.35)" }}
-                      >
-                        <span className="grid w-[34px] shrink-0 text-center">
-                          <span className="text-[15px] font-medium leading-none" style={{ color: TEXT }}>
-                            {it.d}
+                      { d: "04", m: "Sep", t: "Rooming List", s: "Due in 6 days", go: "Rooming List" },
+                      { d: "08", m: "Sep", t: "Final guest details", s: "Due in 10 days", go: "Activity" },
+                    ].map((it, i) => (
+                      <li key={it.t}>
+                        <button
+                          type="button"
+                          onClick={() => setTab(it.go)}
+                          className="flex w-full items-center gap-3 py-2 text-left transition-opacity hover:opacity-90"
+                          style={i > 0 ? { borderTop: `1px solid ${BORDER}` } : undefined}
+                        >
+                          <span className="grid w-[32px] shrink-0 text-center">
+                            <span className="text-[15px] font-medium leading-none" style={{ color: TEXT }}>
+                              {it.d}
+                            </span>
+                            <span className="mt-0.5 text-[9.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                              {it.m}
+                            </span>
                           </span>
-                          <span className="mt-0.5 text-[9.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
-                            {it.m}
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-[13px]" style={{ color: TEXT }}>
+                              {it.t}
+                            </span>
+                            <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
+                              {it.s}
+                            </span>
                           </span>
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="block truncate text-[13px]" style={{ color: TEXT }}>
-                            {it.t}
-                          </span>
-                          <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
-                            {it.s}
-                          </span>
-                        </span>
-                        <ChevronRight size={16} style={{ color: MUTED }} />
+                          <ChevronRight size={16} style={{ color: MUTED }} />
+                        </button>
                       </li>
                     ))}
                   </ul>
                 </section>
 
-                {/* booking summary */}
-                <section
-                  className="rounded-[13px] px-3.5 py-2.5"
-                  style={{
-                    backgroundColor: "#243039",
-                    border: `1px solid rgba(154,176,192,0.07)`,
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
-                  }}
-                >
-                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
-                    Booking summary
+                {/* 3 — booking at a glance */}
+                <section className="px-4 py-3.5" style={{ borderTop: `1px solid ${BORDER}` }}>
+                  <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.2em]" style={{ color: TEXT_2 }}>
+                    Booking at a glance
                   </h3>
                   <dl className="mt-2 space-y-[7px] text-[12.5px]">
                     {[
@@ -1413,17 +1399,9 @@ function Workspace({ booking }: { booking: Booking }) {
                   </button>
                 </section>
 
-
-
-                <section
-                  className="rounded-[13px] px-3.5 py-2.5"
-                  style={{
-                    backgroundColor: "#243039",
-                    border: `1px solid rgba(154,176,192,0.07)`,
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
-                  }}
-                >
-                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
+                {/* 4 — need help */}
+                <section className="px-4 py-3.5" style={{ borderTop: `1px solid ${BORDER}` }}>
+                  <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.2em]" style={{ color: TEXT_2 }}>
                     Need help?
                   </h3>
                   <p className="mt-1 text-[12.5px]" style={{ color: TEXT_2 }}>
@@ -1434,6 +1412,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   </div>
                 </section>
               </aside>
+
             </div>
           )}
 
