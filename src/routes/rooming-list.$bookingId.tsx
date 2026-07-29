@@ -323,7 +323,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         />
 
         <div className="mx-auto flex w-full max-w-[1480px] items-start gap-3.5 px-4 pb-5 pt-3 sm:px-6 lg:px-7">
-          <main className="mx-auto min-w-0 flex-1 lg:max-w-[1120px]">
+          <main className="mx-auto min-w-0 flex-1 lg:max-w-[1010px]">
             {/* ── compact booking hero ── */}
             <section className="relative overflow-hidden rounded-[12px]">
               <div className="relative px-1 py-1">
