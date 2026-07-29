@@ -761,36 +761,15 @@ function AllocationRow({
   const [typeOpen, setTypeOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [requestOpen, setRequestOpen] = useState(false);
-  const [adding, setAdding] = useState(false);
-  const [first, setFirst] = useState("");
-  const [last, setLast] = useState("");
   const [approval, setApproval] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const typeBtnRef = useRef<HTMLButtonElement>(null);
+  const requestBtnRef = useRef<HTMLButtonElement>(null);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (autoFocus) {
-      setAdding(true);
-      onAutoFocused?.();
-    }
+    if (autoFocus) onAutoFocused?.();
   }, [autoFocus, onAutoFocused]);
 
-  useEffect(() => {
-    if (adding) inputRef.current?.focus();
-  }, [adding]);
-
-  const slotLabel = named.length === 0 ? "Add guest" : named.length === 1 ? "Add second guest" : named.length === 2 ? "Add third guest" : "Add guest";
-
-  const commit = () => {
-    if (!first.trim() && !last.trim()) {
-      setAdding(false);
-      return;
-    }
-    onPatch((a) => ({ ...a, guests: [...a.guests, newGuest({ firstName: first.trim(), lastName: last.trim() })] }));
-    setFirst("");
-    setLast("");
-    if (named.length + 1 >= cap) setAdding(false);
-    else inputRef.current?.focus();
-  };
 
   const changeType = (t: RoomType) => {
     setTypeOpen(false);
