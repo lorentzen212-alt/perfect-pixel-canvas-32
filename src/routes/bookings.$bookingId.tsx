@@ -1267,6 +1267,8 @@ function Workspace({ booking }: { booking: Booking }) {
                     action="Update requests"
                     onAction={() => setPanel("requests")}
                     dimmed={dim("requests")}
+                    compact
+
                   >
                     {requests.length ? (
                       requests.map((r, i) => (
