@@ -713,124 +713,82 @@ function Workspace({ booking }: { booking: Booking }) {
           </section>
 
 
-          {/* ── next action + info cards ─────────── */}
+          {/* ── your stay journey ────────────────── */}
           <section
-            className="mt-3 rounded-[13px] px-4 py-2.5"
+            className="mt-3 rounded-[13px] px-5 py-3.5"
             style={{
               backgroundColor: ACTION_PANEL,
               border: `1px solid ${CARD_BORDER}`,
               boxShadow: CARD_SHADOW,
             }}
           >
-            <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-              <Ring value={progress} size={64} />
-              <div className="min-w-0 flex-1 sm:pl-2">
-                <h2 className="text-[20px] font-medium" style={{ color: TEXT }}>
-                  Complete your Rooming List
-                </h2>
-                <p className="mt-1 text-[12.5px]" style={{ color: MUTED }}>
-                  {rooming ? `${rooming.complete} / ${rooming.total} guests complete` : "42 / 58 guests complete"}
-                  {"  •  Due 04 September 2026"}
-                </p>
-              </div>
+            <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: TEXT_2 }}>
+              Your stay journey
+            </h2>
+
+            <div className="mt-3 flex flex-col gap-4 lg:flex-row lg:items-center">
+              <ol className="flex min-w-0 flex-1 items-start">
+                {[
+                  { label: "Hotel confirmed", sub: "21 Jul 2026", state: "done" },
+                  { label: "Contract signed", sub: "21 Jul 2026", state: "done" },
+                  { label: "Rooming list", sub: "Due 04 Sep 2026", state: "active" },
+                  { label: "Final details", sub: "Due 08 Sep 2026", state: "todo" },
+                ].map((m, i, arr) => (
+                  <li key={m.label} className="flex min-w-0 flex-1 items-start">
+                    <div className="flex min-w-0 flex-col items-center px-1 text-center">
+                      {m.state === "active" ? (
+                        <Ring value={progress} size={46} />
+                      ) : (
+                        <span
+                          className="grid h-[30px] w-[30px] place-items-center rounded-full"
+                          style={{
+                            border: `1px solid ${
+                              m.state === "done" ? "rgba(141,168,138,0.45)" : "rgba(255,255,255,0.13)"
+                            }`,
+                            color: m.state === "done" ? GREEN : MUTED,
+                            backgroundColor:
+                              m.state === "done" ? "rgba(141,168,138,0.10)" : "transparent",
+                          }}
+                        >
+                          {m.state === "done" ? <Check size={14} /> : null}
+                        </span>
+                      )}
+                      <span
+                        className="mt-2 truncate text-[12.5px]"
+                        style={{
+                          color: m.state === "active" ? GOLD_SOFT : m.state === "done" ? TEXT_2 : MUTED,
+                          fontWeight: m.state === "active" ? 500 : 400,
+                        }}
+                      >
+                        {m.label}
+                      </span>
+                      <span className="mt-0.5 text-[11px]" style={{ color: MUTED }}>
+                        {m.sub}
+                      </span>
+                    </div>
+                    {i < arr.length - 1 && (
+                      <span
+                        aria-hidden
+                        className="mt-[22px] h-px min-w-[18px] flex-1"
+                        style={{ backgroundColor: "rgba(255,255,255,0.10)" }}
+                      />
+                    )}
+                  </li>
+                ))}
+              </ol>
+
               <button
                 type="button"
                 onClick={() => setTab("Rooming List")}
-                className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] px-5 py-[8px] text-[13px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+                className="inline-flex shrink-0 items-center justify-center gap-2 self-start whitespace-nowrap rounded-[6px] px-4 py-[8px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)] lg:self-center"
                 style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
               >
                 Continue Rooming List
                 <span aria-hidden>→</span>
               </button>
             </div>
-
-            <div className="mt-2.5 grid gap-3 md:grid-cols-3">
-              {/* hotel reference */}
-              <div
-                className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
-              >
-                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
-                  Hotel Reference
-                </p>
-                <div className="mt-1 flex items-center justify-between gap-3">
-                  {editingRef ? (
-                    <input
-                      autoFocus
-                      value={refDraft}
-                      onChange={(e) => setRefDraft(e.target.value)}
-                      className="min-w-0 flex-1 rounded-[6px] px-2 py-1 text-[14px] outline-none"
-                      style={inputStyle}
-                    />
-                  ) : (
-                    <span className="truncate text-[15px]" style={{ color: hotelRef ? TEXT : MUTED }}>
-                      {hotelRef || "Not yet assigned"}
-                    </span>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (editingRef) setHotelRef(refDraft.trim());
-                      else setRefDraft(hotelRef);
-                      setEditingRef(!editingRef);
-                    }}
-                    className="inline-flex shrink-0 items-center gap-1.5 text-[12px] transition-opacity hover:opacity-80"
-                    style={{ color: GOLD_SOFT }}
-                  >
-                    {editingRef ? "Save" : "Edit"}
-                    {editingRef ? <Check size={13} /> : <Pencil size={12} />}
-                  </button>
-                </div>
-              </div>
-
-              {/* booking id */}
-              <div
-                className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
-              >
-                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
-                  Booking ID
-                </p>
-                <div className="mt-1 flex items-center justify-between gap-3">
-                  <span className="truncate text-[15px]" style={{ color: TEXT }}>
-                    {booking.reference}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      navigator.clipboard?.writeText(booking.reference);
-                      setCopied(true);
-                      setTimeout(() => setCopied(false), 1500);
-                    }}
-                    className="inline-flex shrink-0 items-center gap-1.5 text-[12px] transition-opacity hover:opacity-80"
-                    style={{ color: copied ? GREEN : GOLD_SOFT }}
-                  >
-                    {copied ? "Copied" : "Copy"}
-                    {copied ? <Check size={13} /> : <Copy size={12} />}
-                  </button>
-                </div>
-              </div>
-
-              {/* status */}
-              <div
-                className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
-              >
-                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
-                  Status
-                </p>
-                <div className="mt-1 flex items-center gap-2.5">
-                  <span className="inline-flex items-center gap-1.5 text-[15px]" style={{ color: GREEN }}>
-                    Confirmed
-                    <Check size={14} />
-                  </span>
-                  <span className="text-[12px]" style={{ color: MUTED }}>
-                    on 21 Jul 2026
-                  </span>
-                </div>
-              </div>
-            </div>
           </section>
+
 
           {/* ── tabs ─────────────────────────────── */}
           <nav
