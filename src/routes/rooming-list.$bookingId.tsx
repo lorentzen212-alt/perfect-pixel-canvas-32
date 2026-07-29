@@ -1343,15 +1343,26 @@ function GuestDrawer({
           className="sticky bottom-0 mt-auto flex items-center justify-between gap-3 px-4 py-3"
           style={{ backgroundColor: "rgba(24,58,92,0.96)", borderTop: `1px solid ${CARD_BORDER}` }}
         >
-          <button
-            type="button"
-            disabled={locked}
-            onClick={onRemove}
-            className="text-[12.5px] transition-opacity hover:opacity-80 disabled:opacity-40"
-            style={{ color: "#B47A72" }}
-          >
-            Remove guest
-          </button>
+          {isNew ? (
+            <button
+              type="button"
+              onClick={onClose}
+              className="text-[12.5px] transition-opacity hover:opacity-80"
+              style={{ color: MUTED }}
+            >
+              Cancel
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled={locked}
+              onClick={onRemove}
+              className="text-[12.5px] transition-opacity hover:opacity-80 disabled:opacity-40"
+              style={{ color: "#B47A72" }}
+            >
+              Remove guest
+            </button>
+          )}
           <div className="flex items-center gap-3">
             {saved && (
               <span className="inline-flex items-center gap-1.5 text-[12px]" style={{ color: GREEN }}>
@@ -1360,17 +1371,19 @@ function GuestDrawer({
             )}
             <GoldButton
               small
-              disabled={locked}
+              disabled={locked || (isNew && !isNamed(draft))}
               onClick={() => {
                 onSave(draft);
+                if (isNew) return;
                 setSaved(true);
                 setTimeout(() => setSaved(false), 1800);
               }}
             >
-              Save changes
+              {isNew ? "Add guest" : "Save changes"}
             </GoldButton>
           </div>
         </div>
+
       </div>
     </aside>
   );
