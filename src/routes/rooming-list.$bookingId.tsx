@@ -628,7 +628,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
                     onPatch={(fn) => patchAllocation(a.id, fn)}
-                    onOpenGuest={(guestId) => setOpenGuest({ allocationId: a.id, guestId })}
+                    onOpenGuest={(guestId) => {
+                      setPendingGuest(null);
+                      setOpenGuest({ allocationId: a.id, guestId });
+                    }}
+                    onAddGuest={() => {
+                      setOpenGuest(null);
+                      setPendingGuest({ allocationId: a.id, guest: newGuest() });
+                    }}
                   />
                 ))}
                 {visible.length === 0 && (
