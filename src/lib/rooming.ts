@@ -264,7 +264,19 @@ export function generateAllocations(dist: Distribution): Allocation[] {
   for (const type of order) {
     for (let n = 0; n < (dist[type] ?? 0); n++) {
       i += 1;
-      out.push({ id: uid(), index: i, type, guests: [], requests: [] });
+      // booked category comes from the hotel contract for this booking
+      const bookedRoomCategory: RoomCategory =
+        type === "triple" ? "suite" : i % 7 === 0 ? "superior" : "standard";
+      out.push({
+        id: uid(),
+        index: i,
+        type,
+        bookedRoomType: type,
+        bookedRoomCategory,
+        upgradeRequest: null,
+        guests: [],
+        requests: [],
+      });
     }
   }
   return out;
