@@ -1082,7 +1082,9 @@ function GuestDrawer({
               {guestName(draft) || "New guest"}
             </p>
             <p className="text-[11.5px]" style={{ color: MUTED }}>
-              Allocation {String(allocation.index).padStart(2, "0")} • {labelOf(allocation.type)}
+              {allocation
+                ? `Allocation ${String(allocation.index).padStart(2, "0")} • ${labelOf(allocation.type)}`
+                : "Not yet assigned to a room"}
             </p>
           </div>
         </div>
