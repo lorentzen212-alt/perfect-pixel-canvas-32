@@ -799,6 +799,19 @@ function Workspace({ booking }: { booking: Booking }) {
           >
             {TABS.map((t) => {
               const active = t === tab;
+              if (t === "Rooming List") {
+                return (
+                  <Link
+                    key={t}
+                    to="/rooming-list/$bookingId"
+                    params={{ bookingId: booking.id }}
+                    className="relative whitespace-nowrap pb-2 pt-0.5 text-[13.5px] transition-colors"
+                    style={{ color: MUTED }}
+                  >
+                    {t}
+                  </Link>
+                );
+              }
               return (
                 <button
                   key={t}
