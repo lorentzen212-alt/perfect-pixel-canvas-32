@@ -291,7 +291,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       className="min-h-screen"
       style={{
         background:
-          "radial-gradient(circle at 50% 12%, rgba(255,255,255,0.10), rgba(228,237,245,0.9) 55%, rgba(210,224,236,0.96) 100%), #E7EEF5",
+          "radial-gradient(circle at 50% 12%, rgba(38,86,132,0.55), rgba(26,64,101,0.75) 55%, rgba(20,50,80,0.9) 100%), #173A5D",
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
