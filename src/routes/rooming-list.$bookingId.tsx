@@ -31,6 +31,7 @@ import {
   type Allocation,
   type Guest,
   type RoomType,
+  type RoomingIssue,
   type RoomingList,
   allocationStatus,
   capacityOf,
@@ -42,7 +43,7 @@ import {
   labelOf,
   loadRoomingList,
   newGuest,
-  newId,
+  roomingIssues,
   saveRoomingList,
   statsOf,
 } from "@/lib/rooming";
