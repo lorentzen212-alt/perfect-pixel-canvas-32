@@ -3077,6 +3077,82 @@ function UpgradeForm({
   );
 }
 
+/** Bulk management of EXISTING upgrade requests (separate from the add workflow). */
+function ManageUpgradesPanel({
+  requests,
+  selected,
+  onSelectAll,
+  onRemove,
+  onDone,
+}: {
+  requests: Allocation[];
+  selected: string[];
+  onSelectAll: (on: boolean) => void;
+  onRemove: () => void;
+  onDone: () => void;
+}) {
+  const count = selected.filter((id) => requests.some((a) => a.id === id)).length;
+  const all = requests.length > 0 && count === requests.length;
+  const some = count > 0 && !all;
+
+  return (
+    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(197,162,75,0.05)" }}>
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
+          <button
+            type="button"
+            role="checkbox"
+            aria-checked={all ? true : some ? "mixed" : false}
+            aria-label="Select all upgrade requests"
+            onClick={() => onSelectAll(!all)}
+            className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] transition-colors"
+            style={{
+              backgroundColor: count > 0 ? "rgba(197,162,75,0.20)" : "rgba(255,255,255,0.05)",
+              border: `1px solid ${count > 0 ? "rgba(197,162,75,0.70)" : "rgba(255,255,255,0.18)"}`,
+            }}
+          >
+            {all ? (
+              <Check size={12} style={{ color: GOLD }} />
+            ) : some ? (
+              <span className="h-[2px] w-[9px] rounded-full" style={{ backgroundColor: GOLD }} />
+            ) : null}
+          </button>
+          <button type="button" onClick={() => onSelectAll(!all)} style={{ color: TEXT_2 }}>
+            Select all upgrade requests
+          </button>
+        </span>
+        <span className="text-[12px]" style={{ color: MUTED }}>
+          {count} of {requests.length} selected
+        </span>
+
+        {count > 0 && (
+          <button
+            type="button"
+            onClick={onRemove}
+            className="rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(190,110,110,0.18)]"
+            style={{
+              color: "#E2A2A2",
+              backgroundColor: "rgba(190,110,110,0.10)",
+              border: "1px solid rgba(190,110,110,0.30)",
+            }}
+          >
+            {count === 1 ? "Remove upgrade request" : `Remove upgrade requests (${count})`}
+          </button>
+        )}
+
+        <button
+          type="button"
+          onClick={onDone}
+          className="ml-auto rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+          style={{ color: MUTED }}
+        >
+          {count > 0 ? "Cancel selection" : "Done"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 /** Sticky panel shown while Upgrade Mode is active. */
 function UpgradeModePanel({
   allocations,
