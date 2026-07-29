@@ -231,28 +231,25 @@ function OverviewCard({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={onAction}
-      className="flex flex-col rounded-[11px] px-4 py-3"
+      className="flex h-full flex-col rounded-[11px] px-4 py-3.5"
       style={{
-        minHeight: compact ? 104 : 148,
-        backgroundColor: hover && interactive ? "#30404C" : CARD,
-        border: `1px solid ${hover && interactive ? "rgba(212,175,55,0.34)" : CARD_BORDER}`,
-        boxShadow:
-          hover && interactive
-            ? "inset 0 1px 0 rgba(255,255,255,0.055), 0 1px 2px rgba(0,0,0,0.2), 0 14px 30px -22px rgba(169,120,22,0.5)"
-            : `inset 0 1px 0 rgba(255,255,255,0.04), ${CARD_SHADOW}`,
-        transform: hover && interactive ? "translateY(-2px)" : "none",
+        minHeight: 148,
+        background: `linear-gradient(180deg, rgba(255,255,255,0.028), rgba(0,0,0,0.03)), ${CARD}`,
+        border: `1px solid ${
+          hover && interactive ? "rgba(212,175,55,0.22)" : "rgba(255,255,255,0.08)"
+        }`,
+        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.035), ${CARD_SHADOW}`,
         transition:
-          "transform 200ms ease-out, background-color 200ms ease-out, border-color 200ms ease-out, box-shadow 200ms ease-out, opacity 200ms ease-out",
+          "border-color 200ms ease, background-color 200ms ease, opacity 200ms ease",
         cursor: interactive ? "pointer" : "default",
         opacity: dimmed ? 0.55 : 1,
       }}
     >
-
       <div className="flex items-center gap-3">
         <IconBubble>{icon}</IconBubble>
         <h3
-          className="text-[12.5px] font-semibold uppercase tracking-[0.19em]"
-          style={{ color: TEXT }}
+          className="text-[11.5px] font-semibold uppercase tracking-[0.2em]"
+          style={{ color: TEXT_2 }}
         >
           {title}
         </h3>
@@ -269,17 +266,21 @@ function OverviewCard({
           <CardMenu visible={hover} />
         </span>
       </div>
-      <div className="mt-2 flex-1 text-[13px]" style={{ color: MUTED }}>
+      <div
+        className="mt-2.5 flex-1 text-[12.5px] leading-[1.5]"
+        style={{ color: "rgba(146,157,165,0.86)" }}
+      >
         {children}
       </div>
       {action && (
-        <div className="mt-1.5">
+        <div className="mt-3">
           <GoldAction label={action} bright={hover} />
         </div>
       )}
     </article>
   );
 }
+
 
 
 function Ring({ value, size = 78 }: { value: number; size?: number }) {
