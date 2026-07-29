@@ -611,13 +611,13 @@ function Workspace({ booking }: { booking: Booking }) {
               src={booking.image}
               alt={`${booking.destination} skyline`}
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ filter: "saturate(1.02) brightness(1.05)" }}
+              style={{ filter: "saturate(1.04) contrast(1.06) brightness(1.06)" }}
             />
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(21,39,53,0.93) 0%, rgba(22,40,54,0.80) 42%, rgba(26,45,60,0.50) 72%, rgba(26,45,60,0.62) 100%)",
+                  "linear-gradient(100deg, rgba(19,36,50,0.94) 0%, rgba(21,39,53,0.82) 38%, rgba(24,43,58,0.52) 66%, rgba(26,45,60,0.44) 100%), linear-gradient(180deg, rgba(12,30,42,0.10) 0%, rgba(12,30,42,0.34) 100%)",
               }}
             />
 
@@ -632,7 +632,7 @@ function Workspace({ booking }: { booking: Booking }) {
               >
                 {booking.type === "leisure" ? "Leisure" : "M&E"}
               </span>
-              <h1 className="mt-1.5 text-[28px] leading-[1.05]" style={{ color: TEXT, fontFamily: SERIF }}>
+              <h1 className="mt-1.5 text-[30.5px] leading-[1.04]" style={{ color: TEXT, fontFamily: SERIF }}>
                 {booking.name}
               </h1>
               <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-1.5 text-[13px]" style={{ color: TEXT_2 }}>
@@ -675,18 +675,18 @@ function Workspace({ booking }: { booking: Booking }) {
               }}
             >
               <div>
-                <p className="text-[10px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
+                <p className="text-[9.5px] uppercase tracking-[0.22em]" style={{ color: "rgba(146,157,165,0.72)" }}>
                   Hotel Reference
                 </p>
-                <p className="mt-0.5 text-[13.5px]" style={{ color: TEXT_2 }}>
+                <p className="mt-0.5 text-[13.5px] font-medium" style={{ color: TEXT }}>
                   {hotelRef || "Not yet assigned"}
                 </p>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
+                <p className="text-[9.5px] uppercase tracking-[0.22em]" style={{ color: "rgba(146,157,165,0.72)" }}>
                   Booking ID
                 </p>
-                <p className="mt-0.5 flex items-center gap-2 text-[13.5px]" style={{ color: TEXT_2 }}>
+                <p className="mt-0.5 flex items-center gap-2 text-[13.5px] font-medium" style={{ color: TEXT }}>
                   {booking.reference}
                   <button
                     type="button"
@@ -717,7 +717,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
           {/* ── your stay journey ────────────────── */}
           <section
-            className="mt-3 rounded-[13px] px-5 py-3.5"
+            className="mt-3 rounded-[13px] px-5 py-3"
             style={{
               backgroundColor: ACTION_PANEL,
               border: `1px solid ${CARD_BORDER}`,
@@ -728,7 +728,7 @@ function Workspace({ booking }: { booking: Booking }) {
               Your stay journey
             </h2>
 
-            <div className="mt-3 flex flex-col gap-4 lg:flex-row lg:items-center">
+            <div className="mt-2.5 flex flex-col gap-4 lg:flex-row lg:items-center">
               <ol className="flex min-w-0 flex-1 items-start">
                 {[
                   { label: "Hotel confirmed", sub: "21 Jul 2026", state: "done" },
@@ -737,9 +737,9 @@ function Workspace({ booking }: { booking: Booking }) {
                   { label: "Final details", sub: "Due 08 Sep 2026", state: "todo" },
                 ].map((m, i, arr) => (
                   <li key={m.label} className="flex min-w-0 flex-1 items-start">
-                    <div className="flex min-w-0 flex-col items-center px-1 text-center">
+                    <div className="flex min-w-0 flex-col items-center px-2.5 text-center">
                       {m.state === "active" ? (
-                        <Ring value={progress} size={46} />
+                        <Ring value={progress} size={49} />
                       ) : (
                         <span
                           className="grid h-[30px] w-[30px] place-items-center rounded-full"
@@ -756,7 +756,7 @@ function Workspace({ booking }: { booking: Booking }) {
                         </span>
                       )}
                       <span
-                        className="mt-2 truncate text-[12.5px]"
+                        className="mt-1.5 truncate text-[12.5px]"
                         style={{
                           color: m.state === "active" ? GOLD_SOFT : m.state === "done" ? TEXT_2 : MUTED,
                           fontWeight: m.state === "active" ? 500 : 400,
@@ -771,8 +771,8 @@ function Workspace({ booking }: { booking: Booking }) {
                     {i < arr.length - 1 && (
                       <span
                         aria-hidden
-                        className="mt-[22px] h-px min-w-[18px] flex-1"
-                        style={{ backgroundColor: "rgba(255,255,255,0.10)" }}
+                        className="mt-[23px] h-px min-w-[26px] flex-1"
+                        style={{ backgroundColor: "rgba(255,255,255,0.065)" }}
                       />
                     )}
                   </li>
@@ -833,8 +833,8 @@ function Workspace({ booking }: { booking: Booking }) {
               </p>
             </section>
           ) : (
-            <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1fr)_340px] xl:gap-6">
-              <div className="grid content-start gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1fr)_316px] xl:gap-5">
+              <div className="grid auto-rows-fr gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {/* STAY */}
                 {panel === "stay" ? (
                   <div className="sm:col-span-2 lg:col-span-3">
@@ -901,7 +901,7 @@ function Workspace({ booking }: { booking: Booking }) {
                     onAction={() => setPanel("stay")}
                     dimmed={dim("stay")}
                   >
-                    <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>{stay.location}</p>
+                    <p className="text-[13.5px] font-semibold tracking-[0.005em]" style={{ color: "#F7F6F2" }}>{stay.location}</p>
                     <p className="mt-1.5">
                       {new Date(stay.arrival).toLocaleDateString("en-GB", { day: "numeric", month: "long" })} –{" "}
                       {new Date(stay.departure).toLocaleDateString("en-GB", {
@@ -922,9 +922,9 @@ function Workspace({ booking }: { booking: Booking }) {
                   onAction={() => {}}
                   dimmed={dim("hotel" as PanelKey)}
                 >
-                  <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>{booking.hotel}</p>
+                  <p className="text-[13.5px] font-semibold tracking-[0.005em]" style={{ color: "#F7F6F2" }}>{booking.hotel}</p>
                   <p className="mt-1">4-star hotel</p>
-                  <p className="mt-2 pt-2 text-[12px]" style={{ borderTop: `1px solid ${BORDER}`, color: MUTED }}>
+                  <p className="mt-2 pt-2 text-[11.5px] uppercase tracking-[0.14em]" style={{ borderTop: `1px solid rgba(255,255,255,0.06)`, color: "rgba(146,157,165,0.72)" }}>
                     Hotel Reference
                   </p>
                   <p className="mt-0.5">{hotelRef || "—"}</p>
@@ -984,17 +984,17 @@ function Workspace({ booking }: { booking: Booking }) {
                     onAction={() => setPanel("rooms")}
                     dimmed={dim("rooms")}
                   >
-                    <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>
+                    <p className="text-[14.5px] font-semibold tracking-[0.005em]" style={{ color: "#F8F7F3" }}>
                       {totalRooms} rooms
                     </p>
                     {rooms.map((r) => (
-                      <p key={r.type} className="mt-1" style={{ color: TEXT_2 }}>
+                      <p key={r.type} className="mt-1" style={{ color: "rgba(146,157,165,0.9)" }}>
                         {r.qty} {r.type}
                       </p>
                     ))}
                     <p
-                      className="mt-2 pt-2 text-[12.5px] font-medium"
-                      style={{ borderTop: `1px solid ${BORDER}`, color: TEXT }}
+                      className="mt-2 pt-2 text-[13px] font-semibold"
+                      style={{ borderTop: `1px solid rgba(255,255,255,0.06)`, color: "#F8F7F3" }}
                     >
                       {totalGuests} guests
                     </p>
@@ -1104,7 +1104,7 @@ function Workspace({ booking }: { booking: Booking }) {
                     onAction={() => setPanel("dining")}
                     dimmed={dim("dining")}
                   >
-                    <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>
+                    <p className="text-[13.5px] font-semibold tracking-[0.005em]" style={{ color: "#F7F6F2" }}>
                       {dining.breakfast ? "Breakfast included" : "No breakfast"}
                     </p>
                     {dining.groupDinner && (
@@ -1195,7 +1195,7 @@ function Workspace({ booking }: { booking: Booking }) {
                     dimmed={dim("services")}
                   >
                     {services.slice(0, 2).map((s) => (
-                      <p key={s.name} className="mt-1 text-[13.5px] font-medium first:mt-0" style={{ color: TEXT }}>
+                      <p key={s.name} className="mt-1 text-[13.5px] font-semibold first:mt-0" style={{ color: "#F7F6F2" }}>
                         {s.name}
                       </p>
                     ))}
@@ -1269,7 +1269,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   >
                     {requests.length ? (
                       requests.map((r, i) => (
-                        <p key={i} className="mt-1.5 text-[13.5px] font-medium leading-[1.45] first:mt-0" style={{ color: TEXT }}>
+                        <p key={i} className="mt-1.5 text-[13.5px] font-medium leading-[1.45] first:mt-0" style={{ color: "#F7F6F2" }}>
                           {r}
                         </p>
                       ))
@@ -1284,8 +1284,8 @@ function Workspace({ booking }: { booking: Booking }) {
               <aside
                 className="grid content-start self-start overflow-hidden rounded-[11px]"
                 style={{
-                  backgroundColor: CARD,
-                  border: `1px solid ${CARD_BORDER}`,
+                  background: `linear-gradient(180deg, rgba(255,255,255,0.026), rgba(0,0,0,0.03)), ${CARD}`,
+                  border: "1px solid rgba(255,255,255,0.08)",
                   boxShadow: CARD_SHADOW,
                 }}
               >
@@ -1317,7 +1317,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 </section>
 
                 {/* 2 — upcoming */}
-                <section className="px-4 py-3.5" style={{ borderTop: `1px solid ${BORDER}` }}>
+                <section className="px-4 py-3.5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                   <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.2em]" style={{ color: TEXT_2 }}>
                     Upcoming
                   </h3>
@@ -1331,7 +1331,7 @@ function Workspace({ booking }: { booking: Booking }) {
                           type="button"
                           onClick={() => setTab(it.go)}
                           className="flex w-full items-center gap-3 py-2 text-left transition-opacity hover:opacity-90"
-                          style={i > 0 ? { borderTop: `1px solid ${BORDER}` } : undefined}
+                          style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.06)" } : undefined}
                         >
                           <span className="grid w-[32px] shrink-0 text-center">
                             <span className="text-[15px] font-medium leading-none" style={{ color: TEXT }}>
@@ -1357,7 +1357,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 </section>
 
                 {/* 3 — booking at a glance */}
-                <section className="px-4 py-3.5" style={{ borderTop: `1px solid ${BORDER}` }}>
+                <section className="px-4 py-3.5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                   <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.2em]" style={{ color: TEXT_2 }}>
                     Booking at a glance
                   </h3>
@@ -1393,7 +1393,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 </section>
 
                 {/* 4 — need help */}
-                <section className="px-4 py-3.5" style={{ borderTop: `1px solid ${BORDER}` }}>
+                <section className="px-4 py-3.5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                   <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.2em]" style={{ color: TEXT_2 }}>
                     Need help?
                   </h3>
