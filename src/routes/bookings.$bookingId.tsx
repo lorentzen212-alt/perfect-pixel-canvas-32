@@ -1289,7 +1289,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
               {/* ── right rail : booking assistant ── */}
               <aside
-                className="grid content-start overflow-hidden rounded-[11px]"
+                className="grid content-start self-start overflow-hidden rounded-[11px]"
                 style={{
                   backgroundColor: CARD,
                   border: `1px solid ${CARD_BORDER}`,
