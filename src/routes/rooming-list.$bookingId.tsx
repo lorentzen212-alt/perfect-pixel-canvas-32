@@ -993,6 +993,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
           preference={confirmUpgrade.preference}
           note={confirmUpgrade.note}
           onClose={() => setConfirmUpgrade(null)}
+          onRemove={(id) => setSelected((s) => s.filter((x) => x !== id))}
+          onRestore={(id) => setSelected((s) => (s.includes(id) ? s : [...s, id]))}
           onConfirm={() => {
             submitUpgrades(
               selectedForRequest.map((a) => a.id),
