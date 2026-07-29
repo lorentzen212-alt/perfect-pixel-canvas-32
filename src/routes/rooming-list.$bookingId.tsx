@@ -41,6 +41,7 @@ import {
   type RoomingIssue,
   type RoomingList,
   type UpgradePreference,
+  type UpgradeRequest,
   type UpgradeStatus,
   allocationHasRequirements,
   allocationStatus,
