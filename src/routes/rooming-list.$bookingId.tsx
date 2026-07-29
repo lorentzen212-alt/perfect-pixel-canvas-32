@@ -776,6 +776,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 function AllocationRow({
   allocation,
   locked,
+  active,
   autoFocus,
   onAutoFocused,
   onPatch,
@@ -784,6 +785,7 @@ function AllocationRow({
 }: {
   allocation: Allocation;
   locked: boolean;
+  active?: boolean;
   autoFocus?: boolean;
   onAutoFocused?: () => void;
   onPatch: (fn: (a: Allocation) => Allocation) => void;
