@@ -314,10 +314,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;border-color:rgba(255,255,255,0.14) !important}
+      .hgb-row{transition:transform 170ms ease,box-shadow 170ms ease,background 170ms ease,border-color 170ms ease}
+      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,35,63,0.16) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
-      .hgb-cell{border-top:1px solid rgba(255,255,255,0.07)}
-      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(255,255,255,0.08)}}
+      .hgb-cell{border-top:1px solid rgba(255,255,255,0.05)}
+      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:none}}
       .hgb-search::placeholder{color:#B8BDC2}`}</style>
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
