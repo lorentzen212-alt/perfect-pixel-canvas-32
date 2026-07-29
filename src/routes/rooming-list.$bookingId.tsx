@@ -530,20 +530,22 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 </>
               )}
 
-              {/* column headers */}
-              <div
-                className="hidden px-[18px] pb-1.5 pt-2.5 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
-                style={{ color: MUTED, gridTemplateColumns: "112px minmax(0,1fr) 190px 152px 34px" }}
-              >
-                <span className="px-3.5">Allocation</span>
-                <span className="px-3.5">Guests</span>
-                <span className="px-3.5">Room request</span>
-                <span className="px-3.5">Status</span>
-                <span />
-              </div>
+            </section>
 
-              {/* allocation rows */}
-              <div className="space-y-[5px] px-4 pb-3">
+            {/* column headers */}
+            <div
+              className="hidden px-1 pb-1 pt-3 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
+              style={{ color: MUTED, gridTemplateColumns: COLS }}
+            >
+              <span className="px-3.5">Allocation</span>
+              <span className="px-3.5">Guests</span>
+              <span className="px-3.5">Room request</span>
+              <span className="px-3.5">Status</span>
+              <span />
+            </div>
+
+            {/* allocation cards */}
+            <div className="space-y-2">
                 {visible.map((a) => (
                   <AllocationRow
                     key={a.id}
@@ -562,11 +564,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 )}
               </div>
 
-              {/* sticky workspace bar */}
-              <div
-                className="sticky bottom-0 z-20 flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3"
-                style={{ backgroundColor: "rgba(245,248,251,0.92)", borderTop: `1px solid ${CARD_BORDER}`, backdropFilter: "blur(8px)" }}
-              >
+            {/* sticky action bar */}
+            <div
+              className="sticky bottom-3 z-20 mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-[12px] px-4 py-2.5"
+              style={{ backgroundColor: "rgba(245,248,251,0.94)", border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW, backdropFilter: "blur(8px)" }}
+            >
                 <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
                   <CheckCircle2 size={15} style={{ color: GREEN }} />
                   <span>
@@ -597,8 +599,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     {locked ? "Request change" : "Review & Submit"}
                   </GoldButton>
                 </div>
-              </div>
-            </section>
+            </div>
           </main>
 
           {drawerGuest && (
