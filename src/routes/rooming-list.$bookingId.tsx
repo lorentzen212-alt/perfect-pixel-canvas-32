@@ -1764,8 +1764,9 @@ function SavedGuestRow({
             type="button"
             aria-label={`Remove ${guestName(guest) || "guest"}`}
             onClick={() => setConfirm((v) => !v)}
-            className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-0 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] group-hover/row:opacity-100 [.hgb-row:hover_&]:opacity-100"
+            className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100"
             style={{ color: RT_3 }}
+
           >
             <X size={13} />
           </button>
