@@ -1321,7 +1321,7 @@ function AllocationRow({
     <div
       id={`alloc-${allocation.id}`}
       data-selected={selected ? "true" : "false"}
-      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:30%_28%_20%_18%_4%]"
+      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:28%_32%_21%_15%_4%]"
       style={{
         backgroundColor: NAVY,
         backgroundImage: selected
