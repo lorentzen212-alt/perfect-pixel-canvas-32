@@ -1155,15 +1155,15 @@ function GuestDrawer({
           </p>
           <Field label="First name" value={draft.firstName} onChange={(v) => set({ firstName: v })} />
           <Field label="Last name" value={draft.lastName} onChange={(v) => set({ lastName: v })} />
-          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}>
-            <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}` }}>
+            <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: FIELD_LABEL }}>
               Nationality
             </span>
             <select
               value={draft.nationality ?? ""}
               onChange={(e) => set({ nationality: e.target.value || undefined })}
               className="mt-[2px] w-full bg-transparent text-[13.5px] outline-none"
-              style={{ color: TEXT }}
+              style={{ color: FIELD_TEXT }}
             >
               <option value="" style={{ color: "#111" }}>
                 Not specified
