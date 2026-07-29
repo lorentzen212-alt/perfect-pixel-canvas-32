@@ -339,7 +339,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <span className="inline-flex items-center gap-2">
                   <span
                     className="inline-flex items-center rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
-                    style={{ color: TEXT_2, backgroundColor: "rgba(128,154,180,0.22)" }}
+                    style={{ color: TEXT_2, backgroundColor: "rgba(255,255,255,0.08)" }}
                   >
                     {booking.type === "leisure" ? "Leisure" : "M&E"}
                   </span>
@@ -832,8 +832,8 @@ function AllocationRow({
               className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
               style={{
                 backgroundColor: "#1D4062",
-                border: "1px solid rgba(90,115,140,0.18)",
-                boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
+                border: "1px solid rgba(255,255,255,0.10)",
+                boxShadow: "0 14px 30px rgba(5,15,26,0.42)",
                 animation: "hgbFade 160ms ease-out",
               }}
             >
@@ -896,7 +896,7 @@ function AllocationRow({
             className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-1.5"
             style={{
               backgroundColor: "#1D4062",
-              border: "1px solid rgba(90,115,140,0.22)",
+              border: "1px solid rgba(255,255,255,0.10)",
               boxShadow: "0 8px 20px rgba(20,45,70,0.18)",
               animation: "hgbFade 160ms ease-out",
             }}
@@ -991,8 +991,8 @@ function AllocationRow({
             className="absolute left-2 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
             style={{
               backgroundColor: "#1D4062",
-              border: "1px solid rgba(90,115,140,0.18)",
-              boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
+              border: "1px solid rgba(255,255,255,0.10)",
+              boxShadow: "0 14px 30px rgba(5,15,26,0.42)",
               animation: "hgbFade 160ms ease-out",
             }}
           >
@@ -1041,8 +1041,8 @@ function AllocationRow({
             className="absolute right-1 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
             style={{
               backgroundColor: "#1D4062",
-              border: "1px solid rgba(90,115,140,0.18)",
-              boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
+              border: "1px solid rgba(255,255,255,0.10)",
+              boxShadow: "0 14px 30px rgba(5,15,26,0.42)",
               animation: "hgbFade 160ms ease-out",
             }}
           >
@@ -1123,7 +1123,7 @@ function GuestDrawer({
         <div className="flex items-center gap-3 px-4 py-3" style={{ borderTop: `1px solid ${BORDER}` }}>
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[11.5px] font-medium"
-            style={{ backgroundColor: "rgba(128,154,180,0.28)", color: TEXT }}
+            style={{ backgroundColor: "rgba(255,255,255,0.10)", color: TEXT }}
           >
             {(draft.firstName[0] ?? "") + (draft.lastName[0] ?? "")}
           </span>
@@ -1717,8 +1717,8 @@ function UnassignedPanel({
                   className="absolute left-0 top-full z-30 mt-1 max-h-[240px] w-[220px] overflow-y-auto rounded-[8px]"
                   style={{
                     backgroundColor: "#1D4062",
-                    border: "1px solid rgba(90,115,140,0.18)",
-                    boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
+                    border: "1px solid rgba(255,255,255,0.10)",
+                    boxShadow: "0 14px 30px rgba(5,15,26,0.42)",
                     animation: "hgbFade 160ms ease-out",
                   }}
                 >
