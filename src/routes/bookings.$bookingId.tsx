@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { PAL, SERIF, SidebarContent, TopBar } from "@/components/DashboardChrome";
 import { BOOKINGS, roomingProgress, type Booking } from "@/lib/bookings";
+import { distributionFor, loadRoomingList, statsOf } from "@/lib/rooming";
 
 export const Route = createFileRoute("/bookings/$bookingId")({
   component: BookingWorkspace,
