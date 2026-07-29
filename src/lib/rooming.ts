@@ -210,13 +210,20 @@ export function guestRequirementSummary(g: Guest) {
   const tags = g.requirements ?? [];
   const allergies = tags.filter(isAllergy);
   const dietary = tags.filter((t) => !isAllergy(t));
+  const parts: string[] = [];
+  if (allergies.length) parts.push(`Allergies: ${allergies.join(", ")}`);
+  if (dietary.length) parts.push(`Dietary: ${dietary.join(", ")}`);
+  if (g.specialRequests?.trim()) parts.push(`Note: ${g.specialRequests.trim()}`);
   return {
     tags,
     allergies,
     dietary,
+    count: tags.length,
+    tooltip: parts.join(" · "),
     hasAny: tags.length > 0,
     hasAllergy: allergies.length > 0,
   };
+
 }
 
 export function allocationHasRequirements(a: Allocation) {
