@@ -170,7 +170,7 @@ function Field({
   placeholder?: string;
 }) {
   return (
-    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}` }}>
+    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}>
       <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
         {label}
       </span>
@@ -764,7 +764,7 @@ function AllocationRow({
               {typeOpen && (
                 <div
                   className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
-                  style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                  style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
                 >
                   {ROOM_TYPES.map((t) => (
                     <button
@@ -820,7 +820,7 @@ function AllocationRow({
             {!locked && adding && named.length < cap && (
               <div
                 className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-2"
-                style={{ backgroundColor: "#1C2932", border: `1px solid ${GOLD_DEEP}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${GOLD_DEEP}`, animation: "hgbFade 160ms ease-out" }}
               >
                 <input
                   ref={inputRef}
@@ -909,7 +909,7 @@ function AllocationRow({
             {requestOpen && (
               <div
                 className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
               >
                 {ROOM_REQUEST_OPTIONS.map((r) => (
                   <button
@@ -954,7 +954,7 @@ function AllocationRow({
             {menuOpen && (
               <div
                 className="absolute right-0 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
               >
                 {[
                   { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
@@ -1050,7 +1050,7 @@ function GuestDrawer({
           </p>
           <Field label="First name" value={draft.firstName} onChange={(v) => set({ firstName: v })} />
           <Field label="Last name" value={draft.lastName} onChange={(v) => set({ lastName: v })} />
-          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}` }}>
+          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}>
             <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
               Nationality
             </span>
@@ -1110,7 +1110,7 @@ function GuestDrawer({
             {tagOpen && (
               <div
                 className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}
               >
                 {[...DIETARY_TAGS, ...ALLERGY_TAGS].map((t) => (
                   <button
@@ -1142,7 +1142,7 @@ function GuestDrawer({
             rows={4}
             placeholder="Accessibility requirement, baby cot, personal preference…"
             className="mt-2 w-full resize-none rounded-[8px] px-3 py-2 text-[13px] outline-none"
-            style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}`, color: TEXT }}
+            style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, color: TEXT }}
           />
           <div className="mt-1 flex items-center justify-between text-[11px]" style={{ color: MUTED }}>
             <span>{(draft.specialRequests ?? "").length} / 500</span>
@@ -1264,7 +1264,7 @@ function GroupRequestsModal({
             }}
             placeholder="e.g. Rooms requested on the same floor."
             className="flex-1 rounded-[8px] px-3 py-2 text-[13px] outline-none"
-            style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}`, color: TEXT }}
+            style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, color: TEXT }}
           />
           <GoldButton
             small
