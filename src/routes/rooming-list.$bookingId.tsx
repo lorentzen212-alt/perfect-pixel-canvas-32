@@ -297,12 +297,19 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       const status = allocationStatus(a);
       if (view === "complete" && status !== "complete") return false;
       if (view === "missing" && status === "complete") return false;
+      if (view === "dietary" && !allocationHasRequirements(a)) return false;
+      if (view === "requests" && a.requests.length === 0 && !a.upgradeRequest) return false;
+      if (view === "upgrades") {
+        if (!a.upgradeRequest) return false;
+        if (upgradeFilter !== "all" && a.upgradeRequest.status !== upgradeFilter) return false;
+      }
       if (q) {
         const hay = [
           ...a.guests.map(guestName),
           labelOf(a.type),
           String(a.index).padStart(2, "0"),
           ...a.requests,
+          a.upgradeRequest ? categoryLabel(a.upgradeRequest.category) : "",
         ]
           .join(" ")
           .toLowerCase();
@@ -310,7 +317,45 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       }
       return true;
     });
-  }, [list, view, query]);
+  }, [list, view, query, upgradeFilter]);
+
+  /* ── upgrade derived state ── */
+  const eligible = useMemo(
+    () => (list ? list.allocations.filter((a) => canUpgrade(a) && !a.upgradeRequest) : []),
+    [list],
+  );
+  const selectedAllocations = useMemo(
+    () => (list ? list.allocations.filter((a) => selected.includes(a.id)) : []),
+    [list, selected],
+  );
+  const upgradeRequests = useMemo(
+    () => (list ? list.allocations.filter((a) => a.upgradeRequest) : []),
+    [list],
+  );
+
+  const toggleSelected = useCallback(
+    (id: string) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id])),
+    [],
+  );
+
+  const exitUpgradeMode = useCallback(() => {
+    setUpgradeMode(false);
+    setSelected([]);
+    setConfirmUpgrade(null);
+  }, []);
+
+  const submitUpgrades = useCallback(
+    (ids: string[], category: RoomCategory, preference: UpgradePreference, note: string) => {
+      update((l) => ({
+        ...l,
+        allocations: l.allocations.map((a) =>
+          ids.includes(a.id) ? { ...a, upgradeRequest: newUpgradeRequest(category, preference, note) } : a,
+        ),
+      }));
+    },
+    [update],
+  );
+
 
   const drawerGuest = useMemo(() => {
     if (!list) return null;
