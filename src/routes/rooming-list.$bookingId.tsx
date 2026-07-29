@@ -638,6 +638,25 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       )}
                     </button>
 
+                    {upgradeRequests.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setView(view === "upgrades" ? "all" : "upgrades");
+                          setUpgradeFilter("all");
+                        }}
+                        className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(197,162,75,0.10)]"
+                        style={{
+                          color: GOLD_SOFT,
+                          backgroundColor: view === "upgrades" ? "rgba(197,162,75,0.12)" : "transparent",
+                          border: `1px solid ${view === "upgrades" ? "rgba(197,162,75,0.42)" : BORDER}`,
+                        }}
+                      >
+                        <ArrowUp size={12} />
+                        {upgradeRequests.length} upgrade request{upgradeRequests.length === 1 ? "" : "s"}
+                      </button>
+                    )}
+
                     <div className="ml-auto flex flex-wrap items-center gap-3">
                       <span className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                         View
@@ -658,7 +677,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                             {v}
                           </button>
                         ))}
+                        <SecondaryFilterMenu view={view} onChange={setView} />
                       </div>
+
                       <label
                         className="flex items-center gap-2 rounded-[8px] px-3 py-[6px]"
                         style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
