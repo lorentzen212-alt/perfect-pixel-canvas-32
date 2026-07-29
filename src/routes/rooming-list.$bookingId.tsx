@@ -421,7 +421,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-      .hgb-row{transition:transform 170ms ease,box-shadow 170ms ease,background 170ms ease,border-color 170ms ease}
+      .hgb-row{background:${CARD_NAVY} !important;background-color:${NAVY} !important;opacity:1 !important;transition:transform 170ms ease,box-shadow 170ms ease,background 170ms ease,border-color 170ms ease}
+      .hgb-row[data-selected="true"]{background:linear-gradient(0deg, rgba(197,162,75,0.07), rgba(197,162,75,0.07)), ${CARD_NAVY} !important}
       .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,35,63,0.16) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
       .hgb-cell{border-top:1px solid rgba(255,255,255,0.05)}
