@@ -125,7 +125,7 @@ const R_GREEN = "#74D97C";
 const R_AMBER = "#C5A24B";
 
 /* premium room-card sub-surfaces */
-const SERIF = "'Cormorant Garamond', Georgia, serif";
+
 const CTRL_BG = "#1B3B5E";
 
 const CTRL_BORDER = "rgba(255,255,255,0.11)";
