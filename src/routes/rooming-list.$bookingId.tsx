@@ -1168,7 +1168,7 @@ function GuestDrawer({
               </option>
               {NATIONALITIES.map((n) => (
                 <option key={n.code} value={n.label} style={{ color: "#111" }}>
-                  {n.flag} {n.label}
+                  {n.label}
                 </option>
               ))}
             </select>
