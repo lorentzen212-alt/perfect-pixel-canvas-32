@@ -1266,10 +1266,10 @@ function AllocationRow({
       {/* ── ALLOCATION ── */}
       <div className="flex flex-col justify-center px-4 py-[17px]">
         <div className="flex items-center gap-2.5">
-          {manageMode ? (
+          {manageMode && allocation.upgradeRequest ? (
             <UpgradeCheckbox
               checked={!!selected}
-              disabled={!allocation.upgradeRequest || locked}
+              disabled={locked}
               onChange={() => onToggleSelected?.()}
               title={
                 allocation.upgradeRequest
