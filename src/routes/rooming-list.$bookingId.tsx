@@ -2869,6 +2869,40 @@ function UpgradeCheckbox({
   );
 }
 
+/** Thin circular selection control used on the premium room cards. */
+function RoomSelectCircle({
+  checked,
+  disabled,
+  onChange,
+  title,
+}: {
+  checked: boolean;
+  disabled?: boolean;
+  onChange: () => void;
+  title?: string;
+}) {
+  return (
+    <button
+      type="button"
+      role="checkbox"
+      aria-checked={checked}
+      aria-label="Select room"
+      title={title}
+      disabled={disabled}
+      onClick={onChange}
+      className="grid h-[20px] w-[20px] shrink-0 place-items-center rounded-full transition-colors disabled:cursor-not-allowed"
+      style={{
+        backgroundColor: checked ? "rgba(197,162,75,0.18)" : "transparent",
+        border: `1.2px solid ${checked ? "rgba(230,196,122,0.85)" : "rgba(255,255,255,0.24)"}`,
+        opacity: disabled ? 0.32 : 1,
+      }}
+    >
+      {checked && <Check size={11} strokeWidth={2.6} style={{ color: "#E6C47A" }} />}
+    </button>
+  );
+}
+
+
 /** Small gold pill showing the current upgrade request state on a room card. */
 /** Small confirmation popover for withdrawing / changing an upgrade request. */
 function WithdrawUpgradePopover({
