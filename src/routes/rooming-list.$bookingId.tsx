@@ -217,7 +217,12 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [view, setView] = useState<ViewFilter>("all");
   const [query, setQuery] = useState("");
   const [openGuest, setOpenGuest] = useState<{ allocationId: string | null; guestId: string } | null>(null);
-  const [pendingGuest, setPendingGuest] = useState<{ allocationId: string | null; guest: Guest } | null>(null);
+  const [pendingGuest, setPendingGuest] = useState<{
+    allocationId: string | null;
+    guest: Guest;
+    raw: string;
+    editing: boolean;
+  } | null>(null);
   const [showReview, setShowReview] = useState(false);
   const [showGroup, setShowGroup] = useState(false);
   const [showImport, setShowImport] = useState(false);
@@ -646,22 +651,29 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     }}
                     onAddGuest={() => {
                       setOpenGuest(null);
-                      setPendingGuest({ allocationId: a.id, guest: newGuest() });
+                      setPendingGuest({ allocationId: a.id, guest: newGuest(), raw: "", editing: true });
                     }}
-                    pendingName={
+                    pending={
                       pendingGuest?.allocationId === a.id
-                        ? [pendingGuest.guest.firstName, pendingGuest.guest.lastName].filter(Boolean).join(" ")
+                        ? { raw: pendingGuest.raw, editing: pendingGuest.editing }
                         : null
                     }
                     onPendingNameChange={(v) =>
-                      setPendingGuest((p) => {
-                        if (!p) return p;
-                        const parts = v.trimStart().split(" ");
-                        const firstName = parts[0] ?? "";
-                        const lastName = parts.slice(1).join(" ");
-                        return { ...p, guest: { ...p.guest, firstName, lastName } };
-                      })
+                      setPendingGuest((p) => (p ? { ...p, raw: v, guest: { ...p.guest, ...splitName(v) } } : p))
                     }
+                    onPendingConfirm={() =>
+                      setPendingGuest((p) => (p && p.raw.trim() ? { ...p, editing: false } : p))
+                    }
+                    onPendingEdit={() => setPendingGuest((p) => (p ? { ...p, editing: true } : p))}
+                    onPendingCancel={() => {
+                      setPendingGuest(null);
+                      setOpenGuest(null);
+                    }}
+                    onRemoveGuest={(guestId) => {
+                      patchAllocation(a.id, (al) => ({ ...al, guests: al.guests.filter((g) => g.id !== guestId) }));
+                      setOpenGuest((o) => (o?.guestId === guestId ? null : o));
+                    }}
+
                   />
                 ))}
                 {visible.length === 0 && (
@@ -713,7 +725,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               isNew={drawerGuest.isNew}
               onDraftChange={
                 drawerGuest.isNew
-                  ? (g) => setPendingGuest((p) => (p ? { ...p, guest: g } : p))
+                  ? (g) =>
+                      setPendingGuest((p) => {
+                        if (!p) return p;
+                        const joined = `${g.firstName ?? ""} ${g.lastName ?? ""}`.trim();
+                        const rawChanged =
+                          `${p.guest.firstName ?? ""} ${p.guest.lastName ?? ""}`.trim() !== joined;
+                        return { ...p, guest: g, raw: rawChanged ? joined : p.raw };
+                      })
                   : undefined
               }
               onClose={() => {
@@ -795,6 +814,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 /* ───────────────── allocation row ───────────────── */
 
 
+function splitName(v: string) {
+  const parts = v.trim().split(/\s+/).filter(Boolean);
+  return { firstName: parts[0] ?? "", lastName: parts.slice(1).join(" ") };
+}
+
 function AllocationRow({
   allocation,
   locked,
@@ -804,8 +828,12 @@ function AllocationRow({
   onPatch,
   onOpenGuest,
   onAddGuest,
-  pendingName,
+  onRemoveGuest,
+  pending,
   onPendingNameChange,
+  onPendingConfirm,
+  onPendingEdit,
+  onPendingCancel,
 }: {
   allocation: Allocation;
   locked: boolean;
@@ -815,9 +843,13 @@ function AllocationRow({
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
   onAddGuest: () => void;
+  onRemoveGuest: (guestId: string) => void;
   /** non-null when this room has an active new-guest entry */
-  pendingName?: string | null;
+  pending?: { raw: string; editing: boolean } | null;
   onPendingNameChange?: (v: string) => void;
+  onPendingConfirm?: () => void;
+  onPendingEdit?: () => void;
+  onPendingCancel?: () => void;
 }) {
 
   const cap = capacityOf(allocation.type, allocation.occupancy);
@@ -872,7 +904,7 @@ function AllocationRow({
 
 
       {/* ── ALLOCATION ── */}
-      <div className="flex flex-col justify-center px-4 py-3">
+      <div className="flex flex-col justify-center px-4 py-[17px]">
         <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
           {String(allocation.index).padStart(2, "0")}
         </p>
@@ -923,45 +955,82 @@ function AllocationRow({
       </div>
 
       {/* ── GUESTS ── */}
-      <div className="hgb-cell flex flex-col justify-center gap-[5px] px-4 py-3">
+      <div className="hgb-cell flex flex-col justify-center gap-[5px] px-4 py-[17px]">
         {allocation.guests.map((g) => (
-          <button
+          <SavedGuestRow
             key={g.id}
-            type="button"
-            onClick={() => onOpenGuest(g.id)}
-            className="flex w-full items-center gap-2 rounded-[6px] px-1.5 py-[2px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-          >
-            <User size={13} style={{ color: RT_3 }} />
-            <span className="min-w-0 max-w-[62%] truncate text-[13.5px]" style={{ color: RT }}>
-              {guestName(g) || "Unnamed guest"}
-            </span>
-            {g.nationality && (
-              <span className="inline-flex shrink-0 items-center text-[12px]" style={{ color: RT_2 }}>
-                {g.nationality}
-              </span>
-            )}
-          </button>
+            guest={g}
+            locked={locked}
+            onOpen={() => onOpenGuest(g.id)}
+            onRemove={() => onRemoveGuest(g.id)}
+          />
         ))}
 
         {!locked &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) =>
-            i === 0 && pendingName !== null && pendingName !== undefined ? (
-              <input
-                key={`pending-${allocation.id}`}
-                autoFocus
-                value={pendingName}
-                onChange={(e) => onPendingNameChange?.(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") e.preventDefault();
-                }}
-                placeholder="Enter guest name..."
-                className="hgb-inline w-full max-w-[240px] rounded-[6px] px-2 py-[5px] text-[13px] outline-none transition-colors"
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(173,192,205,0.22)",
-                  color: RT,
-                }}
-              />
+            i === 0 && pending ? (
+              pending.editing ? (
+                <div key={`pending-${allocation.id}`} className="flex w-full items-center gap-1.5">
+                  <input
+                    autoFocus
+                    value={pending.raw}
+                    onChange={(e) => onPendingNameChange?.(e.target.value)}
+                    onKeyDownCapture={(e) => {
+                      // text entry always wins over row/global shortcuts
+                      e.stopPropagation();
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        onPendingConfirm?.();
+                      }
+                      if (e.key === "Escape") {
+                        e.preventDefault();
+                        onPendingCancel?.();
+                      }
+                    }}
+                    onKeyUpCapture={(e) => e.stopPropagation()}
+                    onKeyPressCapture={(e) => e.stopPropagation()}
+                    placeholder="Enter guest name..."
+                    className="hgb-inline h-[35px] w-full max-w-[250px] rounded-[7px] px-2.5 text-[13px] outline-none transition-colors"
+                    style={{
+                      backgroundColor: "rgba(255,255,255,0.05)",
+                      border: "1px solid rgba(173,192,205,0.22)",
+                      color: RT,
+                    }}
+                  />
+                  <button
+                    type="button"
+                    aria-label="Cancel guest entry"
+                    onClick={onPendingCancel}
+                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C]"
+                    style={{ color: RT_3 }}
+                  >
+                    <X size={13} />
+                  </button>
+                </div>
+              ) : (
+                <div key={`pending-${allocation.id}`} className="flex w-full items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={onPendingEdit}
+                    title="Click to edit name"
+                    className="flex min-w-0 flex-1 items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                  >
+                    <User size={13} style={{ color: RT_3 }} />
+                    <span className="min-w-0 truncate text-[13.5px]" style={{ color: RT }}>
+                      {pending.raw}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Cancel guest entry"
+                    onClick={onPendingCancel}
+                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C]"
+                    style={{ color: RT_3 }}
+                  >
+                    <X size={13} />
+                  </button>
+                </div>
+              )
             ) : (
               <button
                 key={`slot-${allocation.id}-${allocation.guests.length + i}`}
@@ -980,7 +1049,7 @@ function AllocationRow({
       </div>
 
       {/* ── ROOM REQUEST ── */}
-      <div className="hgb-cell relative flex flex-col justify-center px-4 py-3">
+      <div className="hgb-cell relative flex flex-col justify-center px-4 py-[17px]">
         {allocation.requests.length > 0 ? (
           <div className="space-y-[3px]">
             {allocation.requests.map((r) => (
@@ -1037,7 +1106,7 @@ function AllocationRow({
       </div>
 
       {/* ── STATUS ── */}
-      <div className="hgb-cell flex flex-col justify-center px-4 py-3">
+      <div className="hgb-cell flex flex-col justify-center px-4 py-[17px]">
         <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: statusColor }}>
           {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={14} strokeWidth={1.6} />}
           {statusLabel}
@@ -1048,7 +1117,7 @@ function AllocationRow({
       </div>
 
       {/* ── MENU ── */}
-      <div className="hgb-cell relative flex items-center justify-center py-3">
+      <div className="hgb-cell relative flex items-center justify-center py-[17px]">
         <button
           ref={menuBtnRef}
           type="button"
@@ -1083,6 +1152,89 @@ function AllocationRow({
         </FloatingPopover>
 
       </div>
+    </div>
+  );
+}
+
+/* ───────────────── saved guest row (with confirm-remove) ───────────────── */
+
+function SavedGuestRow({
+  guest,
+  locked,
+  onOpen,
+  onRemove,
+}: {
+  guest: Guest;
+  locked: boolean;
+  onOpen: () => void;
+  onRemove: () => void;
+}) {
+  const [confirm, setConfirm] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  return (
+    <div className="flex w-full items-center gap-1.5">
+      <button
+        type="button"
+        onClick={onOpen}
+        className="flex min-w-0 flex-1 items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+      >
+        <User size={13} style={{ color: RT_3 }} />
+        <span className="min-w-0 max-w-[62%] truncate text-[13.5px]" style={{ color: RT }}>
+          {guestName(guest) || "Unnamed guest"}
+        </span>
+        {guest.nationality && (
+          <span className="inline-flex shrink-0 items-center text-[12px]" style={{ color: RT_2 }}>
+            {guest.nationality}
+          </span>
+        )}
+      </button>
+      {!locked && (
+        <>
+          <button
+            ref={btnRef}
+            type="button"
+            aria-label={`Remove ${guestName(guest) || "guest"}`}
+            onClick={() => setConfirm((v) => !v)}
+            className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-0 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] group-hover/row:opacity-100 [.hgb-row:hover_&]:opacity-100"
+            style={{ color: RT_3 }}
+          >
+            <X size={13} />
+          </button>
+          <FloatingPopover anchorRef={btnRef} open={confirm} onClose={() => setConfirm(false)} width={248} align="end">
+            <div className="px-3 py-2.5">
+              <p className="text-[12.5px]" style={{ color: "#D9DDE0" }}>
+                Remove {guestName(guest) || "this guest"} from this room?
+              </p>
+              <div className="mt-2.5 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setConfirm(false)}
+                  className="rounded-[6px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                  style={{ color: "#B8BDC2" }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setConfirm(false);
+                    onRemove();
+                  }}
+                  className="rounded-[6px] px-2.5 py-[5px] text-[12px] transition-colors"
+                  style={{
+                    color: "#E08C8C",
+                    backgroundColor: "rgba(214,109,109,0.14)",
+                    border: "1px solid rgba(214,109,109,0.30)",
+                  }}
+                >
+                  Remove guest
+                </button>
+              </div>
+            </div>
+          </FloatingPopover>
+        </>
+      )}
     </div>
   );
 }
