@@ -977,10 +977,19 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       setPendingGuest(null);
                       setOpenGuest(null);
                     }}
+                    onRenameGuest={(guestId, name) => {
+                      patchAllocation(a.id, (al) => ({
+                        ...al,
+                        guests: al.guests.map((g) =>
+                          g.id === guestId ? { ...g, ...splitName(name) } : g,
+                        ),
+                      }));
+                    }}
                     onRemoveGuest={(guestId) => {
                       patchAllocation(a.id, (al) => ({ ...al, guests: al.guests.filter((g) => g.id !== guestId) }));
                       setOpenGuest((o) => (o?.guestId === guestId ? null : o));
                     }}
+
 
                   />
                 ))}
@@ -1255,6 +1264,8 @@ function AllocationRow({
   onOpenGuest,
   onAddGuest,
   onRemoveGuest,
+  onRenameGuest,
+
   pending,
   onPendingNameChange,
   onPendingConfirm,
@@ -1276,6 +1287,8 @@ function AllocationRow({
   onOpenGuest: (guestId: string) => void;
   onAddGuest: () => void;
   onRemoveGuest: (guestId: string) => void;
+  onRenameGuest?: (guestId: string, name: string) => void;
+
   /** non-null when this room has an active new-guest entry */
   pending?: { raw: string; editing: boolean } | null;
   onPendingNameChange?: (v: string) => void;
@@ -1465,9 +1478,11 @@ function AllocationRow({
             locked={locked}
             showRequirementDetail={showRequirementDetail}
             onOpen={() => onOpenGuest(g.id)}
+            onRename={(name) => onRenameGuest?.(g.id, name)}
             onRemove={() => onRemoveGuest(g.id)}
           />
         ))}
+
 
         {!locked &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) =>
@@ -1771,39 +1786,110 @@ function SavedGuestRow({
   locked,
   showRequirementDetail,
   onOpen,
+  onRename,
   onRemove,
 }: {
   guest: Guest;
   locked: boolean;
   showRequirementDetail?: boolean;
   onOpen: () => void;
+  onRename?: (name: string) => void;
   onRemove: () => void;
 }) {
   const [confirm, setConfirm] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
   const req = guestRequirementSummary(guest);
+  const displayName = guestName(guest);
+  const [editing, setEditing] = useState(false);
+  const [draftName, setDraftName] = useState(displayName);
+
+  const startEdit = () => {
+    if (locked) return;
+    setDraftName(displayName);
+    setEditing(true);
+  };
+  const commit = () => {
+    setEditing(false);
+    const v = draftName.trim();
+    if (v && v !== displayName) onRename?.(v);
+  };
 
   return (
     <div
       className="hgb-guest flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
       style={{ minHeight: 46, backgroundColor: GUEST_BG, border: `1px solid ${GUEST_BORDER}` }}
     >
-      <button
-        type="button"
-        onClick={onOpen}
-        title="Click to edit or change this guest"
-        className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 py-2 text-left"
-      >
+      <div className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left">
         <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
-        <span className="min-w-0 flex-1 truncate text-[13.5px] font-medium" style={{ color: RT }}>
-          {guestName(guest) || "Unnamed guest"}
-        </span>
-        <Pencil className="hgb-edit shrink-0" size={11} style={{ color: "rgba(230,196,122,0.9)" }} />
+        {editing ? (
+          <input
+            autoFocus
+            value={draftName}
+            onChange={(e) => setDraftName(e.target.value)}
+            onBlur={commit}
+            onFocus={(e) => e.currentTarget.select()}
+            onKeyDownCapture={(e) => {
+              e.stopPropagation();
+              if (e.key === "Enter") {
+                e.preventDefault();
+                commit();
+              }
+              if (e.key === "Escape") {
+                e.preventDefault();
+                setDraftName(displayName);
+                setEditing(false);
+              }
+            }}
+            onKeyUpCapture={(e) => e.stopPropagation()}
+            onKeyPressCapture={(e) => e.stopPropagation()}
+            className="hgb-inline min-w-0 flex-1 bg-transparent text-[13.5px] font-medium outline-none"
+            style={{
+              color: RT,
+              borderBottom: "1px solid rgba(230,196,122,0.75)",
+              caretColor: "#E6C47A",
+            }}
+          />
+        ) : (
+          <span
+            role="textbox"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              startEdit();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") startEdit();
+            }}
+            title="Click to edit name"
+            className="min-w-0 flex-1 truncate text-[13.5px] font-medium hover:opacity-90"
+            style={{ color: RT, cursor: locked ? "default" : "text" }}
+          >
+            {displayName || "Unnamed guest"}
+          </span>
+        )}
+        {!editing && (
+          <button
+            type="button"
+            aria-label="Edit guest name"
+            onClick={(e) => {
+              e.stopPropagation();
+              startEdit();
+            }}
+            className="hgb-edit shrink-0 bg-transparent p-0 leading-none"
+          >
+            <Pencil size={11} style={{ color: "rgba(230,196,122,0.9)" }} />
+          </button>
+        )}
+
 
         {req.count > 0 && (
           <span
             title={req.tooltip}
-            className="inline-flex shrink-0 items-center gap-1 rounded-[6px] px-1.5 py-[2px] text-[10.5px] leading-[15px]"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpen();
+            }}
+            className="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-[6px] px-1.5 py-[2px] text-[10.5px] leading-[15px]"
             style={
               req.hasAllergy
                 ? { color: "#E6C47A", backgroundColor: "rgba(231,180,75,0.12)", border: "1px solid rgba(231,180,75,0.34)" }
@@ -1819,7 +1905,8 @@ function SavedGuestRow({
             {req.tooltip}
           </span>
         )}
-      </button>
+      </div>
+
 
 
       {!locked && (
