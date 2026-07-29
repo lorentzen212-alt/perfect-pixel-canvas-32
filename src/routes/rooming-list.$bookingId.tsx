@@ -904,7 +904,7 @@ function AllocationRow({
 
 
       {/* ── ALLOCATION ── */}
-      <div className="flex flex-col justify-center px-4 py-3">
+      <div className="flex flex-col justify-center px-4 py-[17px]">
         <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
           {String(allocation.index).padStart(2, "0")}
         </p>
@@ -1049,7 +1049,7 @@ function AllocationRow({
       </div>
 
       {/* ── ROOM REQUEST ── */}
-      <div className="hgb-cell relative flex flex-col justify-center px-4 py-3">
+      <div className="hgb-cell relative flex flex-col justify-center px-4 py-[17px]">
         {allocation.requests.length > 0 ? (
           <div className="space-y-[3px]">
             {allocation.requests.map((r) => (
@@ -1106,7 +1106,7 @@ function AllocationRow({
       </div>
 
       {/* ── STATUS ── */}
-      <div className="hgb-cell flex flex-col justify-center px-4 py-3">
+      <div className="hgb-cell flex flex-col justify-center px-4 py-[17px]">
         <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: statusColor }}>
           {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={14} strokeWidth={1.6} />}
           {statusLabel}
@@ -1117,7 +1117,7 @@ function AllocationRow({
       </div>
 
       {/* ── MENU ── */}
-      <div className="hgb-cell relative flex items-center justify-center py-3">
+      <div className="hgb-cell relative flex items-center justify-center py-[17px]">
         <button
           ref={menuBtnRef}
           type="button"
