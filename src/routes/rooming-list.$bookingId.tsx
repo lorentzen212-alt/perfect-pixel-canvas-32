@@ -902,62 +902,23 @@ function AllocationRow({
           </button>
         ))}
 
-        {!locked && adding && named.length < cap && (
-          <div
-            className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-1.5"
-            style={{
-              backgroundColor: SURFACE_2,
-              border: "1px solid rgba(90,115,140,0.22)",
-              boxShadow: "0 8px 20px rgba(20,45,70,0.18)",
-              animation: "hgbFade 160ms ease-out",
-            }}
-          >
-            <input
-              ref={inputRef}
-              value={first}
-              onChange={(e) => setFirst(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") commit();
-                if (e.key === "Escape") setAdding(false);
-              }}
-              placeholder="First name"
-              className="w-[104px] bg-transparent text-[13px] outline-none"
-              style={{ color: "#10233F" }}
-            />
-            <input
-              value={last}
-              onChange={(e) => setLast(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") commit();
-                if (e.key === "Escape") setAdding(false);
-              }}
-              placeholder="Last name"
-              className="w-[118px] bg-transparent text-[13px] outline-none"
-              style={{ color: "#10233F" }}
-            />
-            <GoldButton small onClick={commit}>
-              Save
-            </GoldButton>
-            <button type="button" onClick={() => setAdding(false)} style={{ color: "#B8BDC2" }} aria-label="Cancel">
-              <X size={14} />
-            </button>
-          </div>
-        )}
-
         {!locked &&
-          !adding &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setAdding(true)}
-              className="flex w-full items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left text-[12.5px] transition-colors hover:bg-[rgba(231,180,75,0.10)]"
-              style={{ color: R_AMBER }}
-            >
-              <Plus size={13} />
-              {i === 0 ? slotLabel : "Add guest"}
-            </button>
+            <QuickGuestInput
+              key={`slot-${allocation.id}-${allocation.guests.length + i}`}
+              autoFocus={autoFocus && i === 0}
+              onCommit={(name) => {
+                const parts = name.trim().split(/\s+/);
+                const firstName = parts.shift() ?? "";
+                onPatch((a) => ({
+                  ...a,
+                  guests: [...a.guests, newGuest({ firstName, lastName: parts.join(" ") })],
+                }));
+                focusNextQuickInput(`alloc-${allocation.id}`);
+              }}
+            />
           ))}
+
       </div>
 
       {/* ── ROOM REQUEST ── */}
