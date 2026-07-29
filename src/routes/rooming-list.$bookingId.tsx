@@ -1246,8 +1246,8 @@ function GuestDrawer({
             onChange={(e) => set({ specialRequests: e.target.value })}
             rows={4}
             placeholder="Accessibility requirement, baby cot, personal preference…"
-            className="mt-2 w-full resize-none rounded-[8px] px-3 py-2 text-[13px] outline-none"
-            style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}`, color: TEXT }}
+            className="mt-2 w-full resize-none rounded-[8px] px-3 py-2 text-[13px] outline-none placeholder:text-[#88A0B6]"
+            style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}`, color: FIELD_TEXT }}
           />
           <div className="mt-1 flex items-center justify-between text-[11px]" style={{ color: MUTED }}>
             <span>{(draft.specialRequests ?? "").length} / 500</span>
