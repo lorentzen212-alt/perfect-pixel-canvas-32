@@ -278,28 +278,35 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const nights = booking.nights;
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: BG_ALT }}>
+    <div
+      className="min-h-screen"
+      style={{
+        background:
+          "radial-gradient(circle at 50% 12%, rgba(255,255,255,0.9), rgba(228,237,245,0.9) 55%, rgba(210,224,236,0.96) 100%), #E7EEF5",
+      }}
+    >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-      .hgb-row:hover{background-color:${ROW_HOVER} !important;border-color:rgba(212,175,55,0.20) !important;transform:translateY(-1px)}
+      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;border-color:rgba(255,255,255,0.14) !important}
       .hgb-row:hover .hgb-menu{opacity:1}`}</style>
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
-        <SidebarContent active="Rooming List" bookingId={booking.id} />
+        <SidebarContent light active="Rooming List" bookingId={booking.id} />
       </aside>
 
       {navOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <button aria-label="Close navigation" className="absolute inset-0 bg-black/60" onClick={() => setNavOpen(false)} />
+          <button aria-label="Close navigation" className="absolute inset-0 bg-black/40" onClick={() => setNavOpen(false)} />
           <div className="absolute inset-y-0 left-0 w-[268px]">
-            <SidebarContent active="Rooming List" bookingId={booking.id} />
+            <SidebarContent light active="Rooming List" bookingId={booking.id} />
           </div>
         </div>
       )}
 
       <div className="lg:pl-[244px]">
-        <TopBar
+        <TopBarLight
           onOpenNav={() => setNavOpen(true)}
+
           left={
             <Link
               to="/bookings/$bookingId"
