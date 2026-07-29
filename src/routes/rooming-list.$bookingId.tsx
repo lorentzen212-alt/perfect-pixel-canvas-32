@@ -69,23 +69,24 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
   }),
 });
 
-/* Light blue-white-grey workspace tokens (names kept so existing markup keeps working) */
-const BG_ALT = "#E7EEF5";
-const CARD = "#F5F8FB";
-const CARD_BORDER = "rgba(110,135,160,0.16)";
-const CARD_SHADOW = "0 8px 30px rgba(35,60,85,0.06)";
-const BORDER = "rgba(90,115,140,0.14)";
-const TEXT = "#10233F";
-const TEXT_2 = "#50657A";
-const MUTED = "#71859A";
-const GOLD = "#285D91";
-const GOLD_SOFT = "#285D91";
-const GOLD_DEEP = "rgba(40,93,145,0.32)";
-const GREEN = "#3E9B57";
-const AMBER = "#B0800F";
-const ROW = "rgba(255,255,255,0.45)";
-const PANEL = "rgba(245,248,251,0.72)";
-const NAVY = "#153E6C";
+/* Deep matte navy workspace tokens (names kept so existing markup keeps working) */
+const BG_ALT = "#173A5D";
+const CARD = "#1D456C";
+const SURFACE_2 = "#22507C";
+const CARD_BORDER = "rgba(255,255,255,0.10)";
+const CARD_SHADOW = "0 8px 30px rgba(8,20,34,0.28)";
+const BORDER = "rgba(255,255,255,0.12)";
+const TEXT = "#EDF3F9";
+const TEXT_2 = "#B4C6D8";
+const MUTED = "#93A9BF";
+const GOLD = "#8FB9E4";
+const GOLD_SOFT = "#8FB9E4";
+const GOLD_DEEP = "rgba(143,185,228,0.34)";
+const GREEN = "#74D97C";
+const AMBER = "#E7B44B";
+const ROW = "rgba(255,255,255,0.04)";
+const PANEL = "rgba(255,255,255,0.05)";
+const NAVY = "#1D456C";
 
 /* dark matte navy room-allocation card tokens */
 const CARD_NAVY = "linear-gradient(180deg, #1D456C 0%, #173A5D 100%)";
@@ -97,7 +98,7 @@ const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B44B";
 
-const GOLD_BAR = "#285D91";
+const GOLD_BAR = "#8FB9E4";
 const COLS = "14% 42% 21% 19% 4%";
 
 
@@ -147,10 +148,10 @@ function GhostButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-2 rounded-[8px] font-medium transition-colors duration-200 ease-out hover:bg-[rgba(255,255,255,0.9)] ${
+      className={`inline-flex items-center gap-2 rounded-[8px] font-medium transition-colors duration-200 ease-out hover:bg-[rgba(255,255,255,0.10)] ${
         small ? "px-3 py-[6px] text-[12px]" : "px-4 py-[8px] text-[12.5px]"
       }`}
-      style={{ color: TEXT, backgroundColor: "rgba(255,255,255,0.62)", border: `1px solid rgba(90,115,140,0.22)` }}
+      style={{ color: TEXT, backgroundColor: "rgba(255,255,255,0.05)", border: `1px solid rgba(90,115,140,0.22)` }}
 
     >
       {children}
@@ -172,7 +173,7 @@ function Field({
   placeholder?: string;
 }) {
   return (
-    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}>
+    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}>
       <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
         {label}
       </span>
@@ -290,7 +291,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       className="min-h-screen"
       style={{
         background:
-          "radial-gradient(circle at 50% 12%, rgba(255,255,255,0.9), rgba(228,237,245,0.9) 55%, rgba(210,224,236,0.96) 100%), #E7EEF5",
+          "radial-gradient(circle at 50% 12%, rgba(38,86,132,0.55), rgba(26,64,101,0.75) 55%, rgba(20,50,80,0.9) 100%), #173A5D",
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
@@ -509,7 +510,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     <button
                       type="button"
                       onClick={() => setShowGroup(true)}
-                      className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                      className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
                       style={{ color: GOLD_SOFT, border: `1px solid ${BORDER}` }}
                     >
                       Group requests
@@ -536,7 +537,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                             className="rounded-[6px] px-3 py-[5px] text-[12px] capitalize transition-colors"
                             style={
                               view === v
-                                ? { color: GOLD, backgroundColor: "#FFFFFF", border: `1px solid ${GOLD_DEEP}`, boxShadow: "0 1px 4px rgba(20,45,70,0.10)" }
+                                ? { color: GOLD, backgroundColor: SURFACE_2, border: `1px solid ${GOLD_DEEP}`, boxShadow: "0 1px 4px rgba(20,45,70,0.10)" }
                                 : { color: TEXT_2, border: "1px solid transparent" }
                             }
                           >
@@ -629,7 +630,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
             {/* sticky action bar */}
             <div
               className="sticky bottom-3 z-20 mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-[12px] px-4 py-2.5"
-              style={{ backgroundColor: "rgba(245,248,251,0.94)", border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW, backdropFilter: "blur(8px)" }}
+              style={{ backgroundColor: "rgba(29,69,108,0.94)", border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW, backdropFilter: "blur(8px)" }}
             >
                 <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
                   <CheckCircle2 size={15} style={{ color: GREEN }} />
@@ -831,7 +832,7 @@ function AllocationRow({
             <div
               className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
               style={{
-                backgroundColor: "#FFFFFF",
+                backgroundColor: SURFACE_2,
                 border: "1px solid rgba(90,115,140,0.18)",
                 boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
                 animation: "hgbFade 160ms ease-out",
@@ -842,7 +843,7 @@ function AllocationRow({
                   key={t.value}
                   type="button"
                   onClick={() => changeType(t.value)}
-                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
                   style={{ color: t.value === allocation.type ? "#153E6C" : "#50657A" }}
                 >
                   <span>{t.label}</span>
@@ -895,7 +896,7 @@ function AllocationRow({
           <div
             className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-1.5"
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: SURFACE_2,
               border: "1px solid rgba(90,115,140,0.22)",
               boxShadow: "0 8px 20px rgba(20,45,70,0.18)",
               animation: "hgbFade 160ms ease-out",
@@ -990,7 +991,7 @@ function AllocationRow({
           <div
             className="absolute left-2 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: SURFACE_2,
               border: "1px solid rgba(90,115,140,0.18)",
               boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
               animation: "hgbFade 160ms ease-out",
@@ -1004,7 +1005,7 @@ function AllocationRow({
                   onPatch((a) => (a.requests.includes(r) ? a : { ...a, requests: [...a.requests, r] }));
                   setRequestOpen(false);
                 }}
-                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
                 style={{ color: "#50657A" }}
               >
                 {r}
@@ -1040,7 +1041,7 @@ function AllocationRow({
           <div
             className="absolute right-1 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: SURFACE_2,
               border: "1px solid rgba(90,115,140,0.18)",
               boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
               animation: "hgbFade 160ms ease-out",
@@ -1060,7 +1061,7 @@ function AllocationRow({
                   item.run();
                   setMenuOpen(false);
                 }}
-                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)] disabled:opacity-40"
+                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)] disabled:opacity-40"
                 style={{ color: "#50657A" }}
               >
                 {item.label}
@@ -1145,7 +1146,7 @@ function GuestDrawer({
           </p>
           <Field label="First name" value={draft.firstName} onChange={(v) => set({ firstName: v })} />
           <Field label="Last name" value={draft.lastName} onChange={(v) => set({ lastName: v })} />
-          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}>
+          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}>
             <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
               Nationality
             </span>
@@ -1205,7 +1206,7 @@ function GuestDrawer({
             {tagOpen && (
               <div
                 className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}
               >
                 {[...DIETARY_TAGS, ...ALLERGY_TAGS].map((t) => (
                   <button
@@ -1237,7 +1238,7 @@ function GuestDrawer({
             rows={4}
             placeholder="Accessibility requirement, baby cot, personal preference…"
             className="mt-2 w-full resize-none rounded-[8px] px-3 py-2 text-[13px] outline-none"
-            style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, color: TEXT }}
+            style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}`, color: TEXT }}
           />
           <div className="mt-1 flex items-center justify-between text-[11px]" style={{ color: MUTED }}>
             <span>{(draft.specialRequests ?? "").length} / 500</span>
@@ -1249,7 +1250,7 @@ function GuestDrawer({
 
         <div
           className="sticky bottom-0 mt-auto flex items-center justify-between gap-3 px-4 py-3"
-          style={{ backgroundColor: "rgba(240,245,250,0.96)", borderTop: `1px solid ${CARD_BORDER}` }}
+          style={{ backgroundColor: "rgba(24,58,92,0.96)", borderTop: `1px solid ${CARD_BORDER}` }}
         >
           <button
             type="button"
@@ -1359,7 +1360,7 @@ function GroupRequestsModal({
             }}
             placeholder="e.g. Rooms requested on the same floor."
             className="flex-1 rounded-[8px] px-3 py-2 text-[13px] outline-none"
-            style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, color: TEXT }}
+            style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}`, color: TEXT }}
           />
           <GoldButton
             small
@@ -1387,7 +1388,7 @@ function ImportModal({ onClose }: { onClose: () => void }) {
       </p>
       <div
         className="mt-4 grid place-items-center rounded-[10px] px-4 py-8 text-center"
-        style={{ backgroundColor: "rgba(255,255,255,0.55)", border: `1px dashed ${GOLD_DEEP}` }}
+        style={{ backgroundColor: "rgba(255,255,255,0.04)", border: `1px dashed ${GOLD_DEEP}` }}
       >
         <FileSpreadsheet size={22} style={{ color: GOLD_SOFT }} />
         <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
@@ -1638,7 +1639,7 @@ function UnassignedPanel({
       {adding && !locked && (
         <div
           className="mt-2.5 flex flex-wrap items-center gap-2 rounded-[8px] px-2.5 py-2"
-          style={{ backgroundColor: "#FFFFFF", border: `1px solid ${BORDER}` }}
+          style={{ backgroundColor: SURFACE_2, border: `1px solid ${BORDER}` }}
         >
           <input
             autoFocus
@@ -1682,7 +1683,7 @@ function UnassignedPanel({
             <div
               key={g.id}
               className="relative flex items-center gap-2 rounded-[9px] py-[6px] pl-2.5 pr-2"
-              style={{ backgroundColor: "rgba(255,255,255,0.78)", border: `1px solid ${BORDER}` }}
+              style={{ backgroundColor: "rgba(255,255,255,0.05)", border: `1px solid ${BORDER}` }}
             >
               <button
                 type="button"
@@ -1716,7 +1717,7 @@ function UnassignedPanel({
                 <div
                   className="absolute left-0 top-full z-30 mt-1 max-h-[240px] w-[220px] overflow-y-auto rounded-[8px]"
                   style={{
-                    backgroundColor: "#FFFFFF",
+                    backgroundColor: SURFACE_2,
                     border: "1px solid rgba(90,115,140,0.18)",
                     boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
                     animation: "hgbFade 160ms ease-out",
@@ -1735,7 +1736,7 @@ function UnassignedPanel({
                         onAssign(g.id, a.id);
                         setAssignFor(null);
                       }}
-                      className="flex w-full items-center justify-between px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                      className="flex w-full items-center justify-between px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
                       style={{ color: TEXT_2 }}
                     >
                       <span>

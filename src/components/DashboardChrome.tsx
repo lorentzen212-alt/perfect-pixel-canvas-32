@@ -226,14 +226,14 @@ export function TopBar({
 
 export const LIGHT = {
   INK: "#10233F",
-  INK_2: "#50657A",
-  INK_3: "#71859A",
-  SIDEBAR_TOP: "#AFC4D7",
-  SIDEBAR_BOTTOM: "#9FB7CC",
-  SURFACE: "rgba(245,248,251,0.72)",
-  SURFACE_BORDER: "rgba(110,135,160,0.16)",
-  SURFACE_SHADOW: "0 8px 30px rgba(35,60,85,0.06)",
-  NAVY: "#153E6C",
+  INK_2: "#B4C6D8",
+  INK_3: "#93A9BF",
+  SIDEBAR_TOP: "#24537F",
+  SIDEBAR_BOTTOM: "#1E4670",
+  SURFACE: "rgba(255,255,255,0.05)",
+  SURFACE_BORDER: "rgba(255,255,255,0.10)",
+  SURFACE_SHADOW: "0 8px 30px rgba(8,20,34,0.28)",
+  NAVY: "#1D456C",
 } as const;
 
 const LIGHT_NAV = [
