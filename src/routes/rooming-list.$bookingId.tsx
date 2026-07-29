@@ -955,45 +955,82 @@ function AllocationRow({
       </div>
 
       {/* ── GUESTS ── */}
-      <div className="hgb-cell flex flex-col justify-center gap-[5px] px-4 py-3">
+      <div className="hgb-cell flex flex-col justify-center gap-[5px] px-4 py-[17px]">
         {allocation.guests.map((g) => (
-          <button
+          <SavedGuestRow
             key={g.id}
-            type="button"
-            onClick={() => onOpenGuest(g.id)}
-            className="flex w-full items-center gap-2 rounded-[6px] px-1.5 py-[2px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-          >
-            <User size={13} style={{ color: RT_3 }} />
-            <span className="min-w-0 max-w-[62%] truncate text-[13.5px]" style={{ color: RT }}>
-              {guestName(g) || "Unnamed guest"}
-            </span>
-            {g.nationality && (
-              <span className="inline-flex shrink-0 items-center text-[12px]" style={{ color: RT_2 }}>
-                {g.nationality}
-              </span>
-            )}
-          </button>
+            guest={g}
+            locked={locked}
+            onOpen={() => onOpenGuest(g.id)}
+            onRemove={() => onRemoveGuest(g.id)}
+          />
         ))}
 
         {!locked &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) =>
-            i === 0 && pendingName !== null && pendingName !== undefined ? (
-              <input
-                key={`pending-${allocation.id}`}
-                autoFocus
-                value={pendingName}
-                onChange={(e) => onPendingNameChange?.(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") e.preventDefault();
-                }}
-                placeholder="Enter guest name..."
-                className="hgb-inline w-full max-w-[240px] rounded-[6px] px-2 py-[5px] text-[13px] outline-none transition-colors"
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(173,192,205,0.22)",
-                  color: RT,
-                }}
-              />
+            i === 0 && pending ? (
+              pending.editing ? (
+                <div key={`pending-${allocation.id}`} className="flex w-full items-center gap-1.5">
+                  <input
+                    autoFocus
+                    value={pending.raw}
+                    onChange={(e) => onPendingNameChange?.(e.target.value)}
+                    onKeyDownCapture={(e) => {
+                      // text entry always wins over row/global shortcuts
+                      e.stopPropagation();
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        onPendingConfirm?.();
+                      }
+                      if (e.key === "Escape") {
+                        e.preventDefault();
+                        onPendingCancel?.();
+                      }
+                    }}
+                    onKeyUpCapture={(e) => e.stopPropagation()}
+                    onKeyPressCapture={(e) => e.stopPropagation()}
+                    placeholder="Enter guest name..."
+                    className="hgb-inline h-[35px] w-full max-w-[250px] rounded-[7px] px-2.5 text-[13px] outline-none transition-colors"
+                    style={{
+                      backgroundColor: "rgba(255,255,255,0.05)",
+                      border: "1px solid rgba(173,192,205,0.22)",
+                      color: RT,
+                    }}
+                  />
+                  <button
+                    type="button"
+                    aria-label="Cancel guest entry"
+                    onClick={onPendingCancel}
+                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C]"
+                    style={{ color: RT_3 }}
+                  >
+                    <X size={13} />
+                  </button>
+                </div>
+              ) : (
+                <div key={`pending-${allocation.id}`} className="flex w-full items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={onPendingEdit}
+                    title="Click to edit name"
+                    className="flex min-w-0 flex-1 items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                  >
+                    <User size={13} style={{ color: RT_3 }} />
+                    <span className="min-w-0 truncate text-[13.5px]" style={{ color: RT }}>
+                      {pending.raw}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Cancel guest entry"
+                    onClick={onPendingCancel}
+                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C]"
+                    style={{ color: RT_3 }}
+                  >
+                    <X size={13} />
+                  </button>
+                </div>
+              )
             ) : (
               <button
                 key={`slot-${allocation.id}-${allocation.guests.length + i}`}
