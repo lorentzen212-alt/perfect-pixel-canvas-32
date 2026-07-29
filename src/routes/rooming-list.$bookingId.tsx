@@ -1587,31 +1587,42 @@ function AllocationRow({
         )}
 
         {!locked && (
-          <div className="mt-[3px] flex flex-wrap items-center gap-x-3 gap-y-1">
-            <button
-              ref={requestBtnRef}
-              type="button"
-              onClick={() => setRequestOpen((v) => !v)}
-              className="hgb-req inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
-              style={{ color: R_AMBER }}
-            >
-              <Plus size={12} />
-              Add room request
-            </button>
-            {!allocation.upgradeRequest && upgradeEligible && (
+          <div className="mt-[6px] flex w-full flex-col items-start">
+            {allocation.requests.length === 0 && (
               <button
-                ref={upgradeBtnRef}
+                ref={requestBtnRef}
                 type="button"
-                onClick={() => setUpgradeOpen((v) => !v)}
-                className="hgb-req inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
-                style={{ color: R_AMBER }}
+                onClick={() => setRequestOpen((v) => !v)}
+                className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
+                style={{ color: "#D8B463" }}
               >
-                <ArrowUp size={12} />
-                Request room upgrade
+                <Plus size={13} />
+                Add special request
               </button>
+            )}
+            {!allocation.upgradeRequest && upgradeEligible && (
+              <>
+                {allocation.requests.length === 0 && (
+                  <span
+                    className="my-[2px] block h-px w-[86%]"
+                    style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
+                  />
+                )}
+                <button
+                  ref={upgradeBtnRef}
+                  type="button"
+                  onClick={() => setUpgradeOpen((v) => !v)}
+                  className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
+                  style={{ color: "#D8B463" }}
+                >
+                  <Plus size={13} />
+                  Request room upgrade
+                </button>
+              </>
             )}
           </div>
         )}
+
         <FloatingPopover anchorRef={requestBtnRef} open={requestOpen} onClose={() => setRequestOpen(false)} width={220}>
           {ROOM_REQUEST_OPTIONS.map((r) => (
             <button
