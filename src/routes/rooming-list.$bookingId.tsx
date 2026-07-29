@@ -620,19 +620,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <span className="text-[12.5px]" style={{ color: TEXT }}>
                   {stats.filled} / {stats.totalSlots} guests added
                   <span className="ml-2 text-[11.5px]" style={{ color: MUTED }}>
-                    {stats.missing} missing
+                    {stats.percent}% · {stats.missing} guest{stats.missing === 1 ? "" : "s"} missing
                   </span>
                 </span>
 
                 <div className="ml-auto flex items-center gap-2.5">
-                  <GhostButton
-                    onClick={() => {
-                      setView("missing");
-                      setQuery("");
-                    }}
-                  >
-                    Review issues ({stats.missing})
-                  </GhostButton>
+                  {issues.length > 0 && (
+                    <GhostButton onClick={() => setShowReview(true)}>Review issues ({issues.length})</GhostButton>
+                  )}
                   <GoldButton onClick={() => setShowReview(true)}>
                     {locked ? "Request change" : "Review & Submit"}
                   </GoldButton>
