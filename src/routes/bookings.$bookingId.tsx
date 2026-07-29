@@ -67,6 +67,13 @@ type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 
 /* ───────────────────────── primitives ───────────────────────── */
 
+/* metallic gold ramp – used sparingly for decorative accents */
+const GOLD_HI = "#F3D987";
+const GOLD_MET = "#D4AF37";
+const GOLD_MET_MID = "#C5962D";
+const GOLD_MET_LOW = "#A97816";
+const GOLD_CALM = "#CBAE6B";
+
 function GoldAction({
   label,
   onClick,
@@ -76,35 +83,73 @@ function GoldAction({
   onClick?: () => void;
   bright?: boolean;
 }) {
+  const [self, setSelf] = useState(false);
+  const lit = Boolean(bright) || self;
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="inline-flex items-center gap-1.5 text-[12.5px] font-medium transition-all duration-200"
-      style={{ color: bright ? GOLD : GOLD_SOFT, opacity: bright ? 1 : 0.88 }}
-    >
-      {label}
-      <span aria-hidden className="text-[13px] leading-none">
-        →
-      </span>
-    </button>
+    <span className="inline-grid">
+      <button
+        type="button"
+        onClick={onClick}
+        onMouseEnter={() => setSelf(true)}
+        onMouseLeave={() => setSelf(false)}
+        className="inline-flex items-center gap-1.5 text-[12.5px] font-medium"
+        style={{
+          color: lit ? GOLD_SOFT : GOLD_CALM,
+          opacity: lit ? 1 : 0.86,
+          transition: "color 180ms ease-out, opacity 180ms ease-out",
+        }}
+      >
+        {label}
+        <span
+          aria-hidden
+          className="text-[13px] leading-none"
+          style={{
+            transform: lit ? "translateX(3px)" : "none",
+            transition: "transform 180ms ease-out",
+          }}
+        >
+          →
+        </span>
+      </button>
+      <span
+        aria-hidden
+        className="mt-[3px] h-px origin-left rounded-full"
+        style={{
+          width: 26,
+          background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI}, ${GOLD_MET_MID})`,
+          transform: lit ? "scaleX(1)" : "scaleX(0)",
+          opacity: lit ? 0.75 : 0,
+          transition: "transform 260ms ease-out, opacity 200ms ease-out",
+        }}
+      />
+    </span>
   );
 }
 
 function IconBubble({ children }: { children: React.ReactNode }) {
   return (
-    <span
-      className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full"
-      style={{
-        backgroundColor: "rgba(12,30,42,0.55)",
-        border: `1px solid rgba(199,163,74,0.22)`,
-        color: GOLD,
-      }}
-    >
-      {children}
+    <span className="relative grid h-[32px] w-[32px] shrink-0 place-items-center">
+      <span
+        aria-hidden
+        className="absolute -inset-2 rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(243,217,135,0.05), rgba(243,217,135,0) 70%)",
+        }}
+      />
+      <span
+        className="relative grid h-full w-full place-items-center rounded-full"
+        style={{
+          backgroundColor: "rgba(12,30,42,0.5)",
+          border: `1px solid rgba(212,175,55,0.26)`,
+          color: GOLD_MET,
+        }}
+      >
+        {children}
+      </span>
     </span>
   );
 }
+
 
 function CardMenu({ visible }: { visible: boolean }) {
   const [open, setOpen] = useState(false);
@@ -184,11 +229,11 @@ function OverviewCard({
       className="flex min-h-[138px] flex-col rounded-[13px] px-4 py-[11px]"
       style={{
         backgroundColor: hover && interactive ? "#30404C" : CARD,
-        border: `1px solid ${hover && interactive ? "rgba(199,163,74,0.38)" : CARD_BORDER}`,
+        border: `1px solid ${hover && interactive ? "rgba(212,175,55,0.34)" : CARD_BORDER}`,
         boxShadow:
           hover && interactive
-            ? `${CARD_SHADOW}, 0 10px 26px -18px rgba(199,163,74,0.4)`
-            : CARD_SHADOW,
+            ? "inset 0 1px 0 rgba(255,255,255,0.055), 0 1px 2px rgba(0,0,0,0.2), 0 14px 30px -22px rgba(169,120,22,0.5)"
+            : `inset 0 1px 0 rgba(255,255,255,0.04), ${CARD_SHADOW}`,
         transform: hover && interactive ? "translateY(-2px)" : "none",
         transition:
           "transform 200ms ease-out, background-color 200ms ease-out, border-color 200ms ease-out, box-shadow 200ms ease-out, opacity 200ms ease-out",
@@ -198,9 +243,13 @@ function OverviewCard({
     >
       <div className="flex items-center gap-3">
         <IconBubble>{icon}</IconBubble>
-        <h3 className="text-[12.5px] font-semibold uppercase tracking-[0.16em]" style={{ color: TEXT }}>
+        <h3
+          className="text-[12.5px] font-semibold uppercase tracking-[0.19em]"
+          style={{ color: TEXT }}
+        >
           {title}
         </h3>
+
         <span className="ml-auto flex items-center gap-2">
           {badge && (
             <span
@@ -229,26 +278,39 @@ function OverviewCard({
 function Ring({ value, size = 78 }: { value: number; size?: number }) {
   const r = size / 2 - 6;
   const c = 2 * Math.PI * r;
+  const gid = `ringGold-${size}`;
   return (
     <div className="relative grid shrink-0 place-items-center" style={{ height: size, width: size }}>
       <svg viewBox={`0 0 ${size} ${size}`} className="-rotate-90" style={{ height: size, width: size }}>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="3.5" />
+        <defs>
+          <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={GOLD_HI} />
+            <stop offset="45%" stopColor={GOLD_MET} />
+            <stop offset="75%" stopColor={GOLD_MET_MID} />
+            <stop offset="100%" stopColor={GOLD_MET_LOW} />
+          </linearGradient>
+        </defs>
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="3" />
         <circle
           cx={size / 2}
           cy={size / 2}
           r={r}
           fill="none"
-          stroke={GOLD}
-          strokeWidth="3.5"
+          stroke={`url(#${gid})`}
+          strokeWidth="3"
           strokeLinecap="round"
           strokeDasharray={`${(value / 100) * c} ${c}`}
         />
       </svg>
-      <span className="absolute text-[15px] font-medium" style={{ color: TEXT }}>
+      <span
+        className="absolute text-[15px] font-medium tracking-[0.01em]"
+        style={{ color: TEXT }}
+      >
         {value}%
       </span>
     </div>
   );
+
 }
 
 function PanelShell({
@@ -544,15 +606,16 @@ function Workspace({ booking }: { booking: Booking }) {
               src={booking.image}
               alt={`${booking.destination} skyline`}
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ filter: "saturate(0.95) brightness(0.95)" }}
+              style={{ filter: "saturate(1.02) brightness(1.05)" }}
             />
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(23,42,56,0.94) 0%, rgba(23,42,56,0.86) 42%, rgba(26,45,60,0.62) 70%, rgba(26,45,60,0.74) 100%)",
+                  "linear-gradient(90deg, rgba(21,39,53,0.93) 0%, rgba(22,40,54,0.80) 42%, rgba(26,45,60,0.50) 72%, rgba(26,45,60,0.62) 100%)",
               }}
             />
+
             <div className="relative px-5 py-3.5">
               <span
                 className="inline-flex items-center rounded px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
@@ -634,9 +697,9 @@ function Workspace({ booking }: { booking: Booking }) {
               {/* hotel reference */}
               <div
                 className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
               >
-                <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
                   Hotel Reference
                 </p>
                 <div className="mt-1 flex items-center justify-between gap-3">
@@ -672,9 +735,9 @@ function Workspace({ booking }: { booking: Booking }) {
               {/* booking id */}
               <div
                 className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
               >
-                <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
                   Booking ID
                 </p>
                 <div className="mt-1 flex items-center justify-between gap-3">
@@ -700,9 +763,9 @@ function Workspace({ booking }: { booking: Booking }) {
               {/* status */}
               <div
                 className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
-                style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(16,34,46,0.34)", border: "1px solid rgba(255,255,255,0.055)" }}
               >
-                <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                <p className="text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
                   Status
                 </p>
                 <div className="mt-1 flex items-center gap-2.5">
@@ -737,7 +800,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   {active && (
                     <span
                       className="absolute inset-x-0 -bottom-px h-[2px] rounded-full"
-                      style={{ background: `linear-gradient(90deg, ${GOLD_SOFT}, ${GOLD})` }}
+                      style={{ background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 45%, ${GOLD_MET_MID})` }}
                     />
                   )}
                 </button>
@@ -1208,8 +1271,8 @@ function Workspace({ booking }: { booking: Booking }) {
                   className="rounded-[13px] px-4 py-3"
                   style={{
                     backgroundColor: ACTION_PANEL,
-                    border: `1px solid rgba(199,163,74,0.18)`,
-                    boxShadow: CARD_SHADOW,
+                    border: `1px solid rgba(212,175,55,0.20)`,
+                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.05), ${CARD_SHADOW}`,
                   }}
                 >
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
@@ -1218,10 +1281,16 @@ function Workspace({ booking }: { booking: Booking }) {
                   <div className="mt-2.5 flex items-center gap-3.5">
                     <Ring value={progress} size={52} />
                     <div
-                      className="h-[5px] flex-1 overflow-hidden rounded-full"
-                      style={{ backgroundColor: "rgba(255,255,255,0.09)" }}
+                      className="h-[3px] flex-1 overflow-hidden rounded-full"
+                      style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
                     >
-                      <div className="h-full rounded-full" style={{ width: `${progress}%`, backgroundColor: GOLD }} />
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: `${progress}%`,
+                          background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 55%, ${GOLD_MET_MID})`,
+                        }}
+                      />
                     </div>
                   </div>
                   <ul className="mt-2.5 space-y-2 text-[13px]">
@@ -1252,9 +1321,9 @@ function Workspace({ booking }: { booking: Booking }) {
                 <section
                   className="rounded-[13px] px-3.5 py-2.5"
                   style={{
-                    backgroundColor: "#26333E",
-                    border: `1px solid rgba(154,176,192,0.09)`,
-                    boxShadow: CARD_SHADOW,
+                    backgroundColor: "#243039",
+                    border: `1px solid rgba(154,176,192,0.07)`,
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
                   }}
                 >
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
@@ -1295,9 +1364,9 @@ function Workspace({ booking }: { booking: Booking }) {
                 <section
                   className="rounded-[13px] px-3.5 py-2.5"
                   style={{
-                    backgroundColor: "#26333E",
-                    border: `1px solid rgba(154,176,192,0.09)`,
-                    boxShadow: CARD_SHADOW,
+                    backgroundColor: "#243039",
+                    border: `1px solid rgba(154,176,192,0.07)`,
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
                   }}
                 >
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
