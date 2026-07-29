@@ -945,6 +945,27 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
       {showImport && <ImportModal onClose={() => setShowImport(false)} />}
 
+      {confirmUpgrade && (
+        <UpgradeConfirmModal
+          allocations={selectedAllocations}
+          category={confirmUpgrade.category}
+          preference={confirmUpgrade.preference}
+          note={confirmUpgrade.note}
+          onClose={() => setConfirmUpgrade(null)}
+          onConfirm={() => {
+            submitUpgrades(
+              selectedAllocations.map((a) => a.id),
+              confirmUpgrade.category,
+              confirmUpgrade.preference,
+              confirmUpgrade.note,
+            );
+            exitUpgradeMode();
+          }}
+        />
+      )}
+
+
+
       {showReview && (
         <ReviewModal
           list={list}
