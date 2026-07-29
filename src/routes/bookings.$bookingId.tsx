@@ -1370,6 +1370,51 @@ function Workspace({ booking }: { booking: Booking }) {
                   </ul>
                 </section>
 
+                {/* booking summary */}
+                <section
+                  className="rounded-[13px] px-3.5 py-2.5"
+                  style={{
+                    backgroundColor: "#243039",
+                    border: `1px solid rgba(154,176,192,0.07)`,
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.16)",
+                  }}
+                >
+                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
+                    Booking summary
+                  </h3>
+                  <dl className="mt-2 space-y-[7px] text-[12.5px]">
+                    {[
+                      [
+                        "Stay",
+                        `${new Date(stay.arrival).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} – ${new Date(
+                          stay.departure,
+                        ).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}`,
+                      ],
+                      ["Hotel", booking.hotel ?? "—"],
+                      ["Rooms", `${totalRooms} rooms`],
+                      ["Guests", `${totalGuests} guests`],
+                      ["Meal plan", dining.breakfast ? "Breakfast included" : "Room only"],
+                    ].map(([k, v]) => (
+                      <div key={k} className="flex items-start justify-between gap-4">
+                        <dt style={{ color: MUTED }}>{k}</dt>
+                        <dd className="text-right" style={{ color: TEXT_2 }}>
+                          {v}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <button
+                    type="button"
+                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-[6px] px-3 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+                    style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
+                  >
+                    Download summary
+                    <Download size={13} />
+                  </button>
+                </section>
+
+
+
                 <section
                   className="rounded-[13px] px-3.5 py-2.5"
                   style={{
