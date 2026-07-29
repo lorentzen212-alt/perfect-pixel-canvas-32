@@ -67,6 +67,13 @@ type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 
 /* ───────────────────────── primitives ───────────────────────── */
 
+/* metallic gold ramp – used sparingly for decorative accents */
+const GOLD_HI = "#F3D987";
+const GOLD_MET = "#D4AF37";
+const GOLD_MET_MID = "#C5962D";
+const GOLD_MET_LOW = "#A97816";
+const GOLD_CALM = "#CBAE6B";
+
 function GoldAction({
   label,
   onClick,
@@ -76,35 +83,73 @@ function GoldAction({
   onClick?: () => void;
   bright?: boolean;
 }) {
+  const [self, setSelf] = useState(false);
+  const lit = Boolean(bright) || self;
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="inline-flex items-center gap-1.5 text-[12.5px] font-medium transition-all duration-200"
-      style={{ color: bright ? GOLD : GOLD_SOFT, opacity: bright ? 1 : 0.88 }}
-    >
-      {label}
-      <span aria-hidden className="text-[13px] leading-none">
-        →
-      </span>
-    </button>
+    <span className="inline-grid">
+      <button
+        type="button"
+        onClick={onClick}
+        onMouseEnter={() => setSelf(true)}
+        onMouseLeave={() => setSelf(false)}
+        className="inline-flex items-center gap-1.5 text-[12.5px] font-medium"
+        style={{
+          color: lit ? GOLD_SOFT : GOLD_CALM,
+          opacity: lit ? 1 : 0.86,
+          transition: "color 180ms ease-out, opacity 180ms ease-out",
+        }}
+      >
+        {label}
+        <span
+          aria-hidden
+          className="text-[13px] leading-none"
+          style={{
+            transform: lit ? "translateX(3px)" : "none",
+            transition: "transform 180ms ease-out",
+          }}
+        >
+          →
+        </span>
+      </button>
+      <span
+        aria-hidden
+        className="mt-[3px] h-px origin-left rounded-full"
+        style={{
+          width: 26,
+          background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI}, ${GOLD_MET_MID})`,
+          transform: lit ? "scaleX(1)" : "scaleX(0)",
+          opacity: lit ? 0.75 : 0,
+          transition: "transform 260ms ease-out, opacity 200ms ease-out",
+        }}
+      />
+    </span>
   );
 }
 
 function IconBubble({ children }: { children: React.ReactNode }) {
   return (
-    <span
-      className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full"
-      style={{
-        backgroundColor: "rgba(12,30,42,0.55)",
-        border: `1px solid rgba(199,163,74,0.22)`,
-        color: GOLD,
-      }}
-    >
-      {children}
+    <span className="relative grid h-[32px] w-[32px] shrink-0 place-items-center">
+      <span
+        aria-hidden
+        className="absolute -inset-2 rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(243,217,135,0.05), rgba(243,217,135,0) 70%)",
+        }}
+      />
+      <span
+        className="relative grid h-full w-full place-items-center rounded-full"
+        style={{
+          backgroundColor: "rgba(12,30,42,0.5)",
+          border: `1px solid rgba(212,175,55,0.26)`,
+          color: GOLD_MET,
+        }}
+      >
+        {children}
+      </span>
     </span>
   );
 }
+
 
 function CardMenu({ visible }: { visible: boolean }) {
   const [open, setOpen] = useState(false);
