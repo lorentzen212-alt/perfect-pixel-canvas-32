@@ -814,6 +814,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 /* ───────────────── allocation row ───────────────── */
 
 
+function splitName(v: string) {
+  const parts = v.trim().split(/\s+/).filter(Boolean);
+  return { firstName: parts[0] ?? "", lastName: parts.slice(1).join(" ") };
+}
+
 function AllocationRow({
   allocation,
   locked,
@@ -823,8 +828,12 @@ function AllocationRow({
   onPatch,
   onOpenGuest,
   onAddGuest,
-  pendingName,
+  onRemoveGuest,
+  pending,
   onPendingNameChange,
+  onPendingConfirm,
+  onPendingEdit,
+  onPendingCancel,
 }: {
   allocation: Allocation;
   locked: boolean;
@@ -834,9 +843,13 @@ function AllocationRow({
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
   onAddGuest: () => void;
+  onRemoveGuest: (guestId: string) => void;
   /** non-null when this room has an active new-guest entry */
-  pendingName?: string | null;
+  pending?: { raw: string; editing: boolean } | null;
   onPendingNameChange?: (v: string) => void;
+  onPendingConfirm?: () => void;
+  onPendingEdit?: () => void;
+  onPendingCancel?: () => void;
 }) {
 
   const cap = capacityOf(allocation.type, allocation.occupancy);
