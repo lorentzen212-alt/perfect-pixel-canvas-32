@@ -226,10 +226,10 @@ export function TopBar({
 
 export const LIGHT = {
   INK: "#10233F",
-  INK_2: "#B4C6D8",
-  INK_3: "#93A9BF",
-  SIDEBAR_TOP: "#24537F",
-  SIDEBAR_BOTTOM: "#1E4670",
+  INK_2: "#4A6076",
+  INK_3: "#6E87A0",
+  SIDEBAR_TOP: "#EDF2F7",
+  SIDEBAR_BOTTOM: "#DDE6EF",
   SURFACE: "rgba(255,255,255,0.05)",
   SURFACE_BORDER: "rgba(255,255,255,0.10)",
   SURFACE_SHADOW: "0 8px 30px rgba(8,20,34,0.28)",
@@ -259,13 +259,13 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
           src={logo.url}
           alt="HotelGroupBook"
           className="h-11 w-auto object-contain object-left"
-          style={{ filter: "brightness(0) invert(1)" }}
+          
         />
       </Link>
 
       <p
         className="mt-9 px-2 text-[10.5px] font-semibold uppercase tracking-[0.22em]"
-        style={{ color: "rgba(255,255,255,0.85)" }}
+        style={{ color: LIGHT.INK_3 }}
       >
         Manage my bookings
       </p>
@@ -278,15 +278,15 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
             "flex w-full items-center gap-3 rounded-[9px] px-3 py-[9px] text-[13.5px] transition-colors";
           const style = isActive
             ? {
-                backgroundColor: "rgba(255,255,255,0.92)",
+                backgroundColor: LIGHT.INK_2,
                 color: LIGHT.INK,
                 boxShadow: "0 2px 8px rgba(30,55,80,0.10)",
                 fontWeight: 500,
               }
-            : { color: "rgba(255,255,255,0.92)" };
+            : { color: LIGHT.INK_2 };
           const inner = (
             <>
-              <item.icon size={17} style={{ color: isActive ? "#2C4F76" : "rgba(255,255,255,0.92)" }} />
+              <item.icon size={17} style={{ color: isActive ? "#2C4F76" : LIGHT.INK_2 }} />
               {item.label}
             </>
           );
@@ -309,11 +309,11 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
       </nav>
 
       <div className="mt-auto pt-8">
-        <div className="px-2 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.28)" }}>
+        <div className="px-2 pt-5" style={{ borderTop: "1px solid rgba(110,135,160,0.22)" }}>
           <div className="flex items-start gap-3">
-            <Headphones size={17} className="mt-0.5 shrink-0" style={{ color: "rgba(255,255,255,0.9)" }} />
-            <div className="min-w-0 text-[12.5px]" style={{ color: "rgba(255,255,255,0.82)" }}>
-              <p style={{ color: "#FFFFFF" }}>Need help?</p>
+            <Headphones size={17} className="mt-0.5 shrink-0" style={{ color: LIGHT.INK_3 }} />
+            <div className="min-w-0 text-[12.5px]" style={{ color: LIGHT.INK_2 }}>
+              <p style={{ color: LIGHT.INK }}>Need help?</p>
               <p className="mt-1">+47 000 00 000</p>
               <p className="truncate">help@hotelgroupbook.com</p>
             </div>
@@ -322,23 +322,23 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
 
         <div
           className="mt-5 flex items-center gap-3 px-2 pt-5"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.28)" }}
+          style={{ borderTop: "1px solid rgba(110,135,160,0.22)" }}
         >
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
-            style={{ backgroundColor: "rgba(255,255,255,0.85)", color: LIGHT.INK }}
+            style={{ backgroundColor: "rgba(128,154,180,0.28)", color: LIGHT.INK }}
           >
             EH
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-[13px]" style={{ color: "#FFFFFF" }}>
+            <span className="block truncate text-[13px]" style={{ color: LIGHT.INK }}>
               Emma Hansen
             </span>
-            <span className="block truncate text-[11.5px]" style={{ color: "rgba(255,255,255,0.78)" }}>
+            <span className="block truncate text-[11.5px]" style={{ color: LIGHT.INK_3 }}>
               Nordic Events AS
             </span>
           </span>
-          <ChevronDown size={15} style={{ color: "rgba(255,255,255,0.85)" }} />
+          <ChevronDown size={15} style={{ color: LIGHT.INK_3 }} />
         </div>
       </div>
     </div>
