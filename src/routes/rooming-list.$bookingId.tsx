@@ -334,11 +334,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   {booking.type === "leisure" ? "Leisure" : "M&E"}
                 </span>
 
-                <h1 className="mt-1.5 text-[29px] font-semibold leading-[1.06] tracking-[-0.01em]" style={{ color: TEXT }}>
+                <h1 className="mt-1.5 text-[26px] font-semibold leading-[1.06] tracking-[-0.01em]" style={{ color: TEXT }}>
                   {booking.name}
                 </h1>
 
-                <div className="mt-1.5 flex flex-wrap items-center gap-x-6 gap-y-1 text-[12.5px]" style={{ color: TEXT_2 }}>
+                <div className="mt-1.5 flex flex-wrap items-center gap-x-5 gap-y-1 text-[12.5px]" style={{ color: TEXT_2 }}>
                   {booking.hotel && (
                     <span className="inline-flex items-center gap-2">
                       <MapPin size={13} style={{ color: GOLD_SOFT }} />
@@ -372,7 +372,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
             {/* ── workspace ── */}
             <section
-              className="mt-3 overflow-hidden rounded-[13px]"
+              className="mt-2.5 overflow-hidden rounded-[13px]"
               style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
             >
               {locked ? (
@@ -380,9 +380,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               ) : (
                 <>
                   {/* header */}
-                  <div className="flex flex-wrap items-center gap-x-8 gap-y-3 px-5 pb-3 pt-4">
+                  <div className="flex flex-wrap items-center gap-x-7 gap-y-3 px-5 pb-2.5 pt-3.5">
                     <div className="min-w-[220px]">
-                      <h2 className="text-[21px] font-semibold leading-none" style={{ color: TEXT }}>
+                      <h2 className="text-[19.5px] font-semibold leading-none" style={{ color: TEXT }}>
                         Rooming List
                       </h2>
                       <p className="mt-1.5 text-[12.5px]" style={{ color: MUTED }}>
@@ -426,7 +426,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
                   {/* allocation summary strip + filters */}
                   <div
-                    className="flex flex-wrap items-center gap-x-4 gap-y-3 px-5 pb-3"
+                    className="flex flex-wrap items-center gap-x-3 gap-y-2.5 px-5 pb-2.5"
                     style={{ borderBottom: `1px solid ${BORDER}` }}
                   >
                     <div
@@ -436,10 +436,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       {stats.byType.map((t, i) => (
                         <div
                           key={t.type}
-                          className="px-4 py-2 text-center"
+                          className="px-[15px] py-[7px] text-center"
                           style={{ borderLeft: i ? `1px solid ${BORDER}` : undefined }}
                         >
-                          <p className="text-[17px] font-medium leading-none" style={{ color: TEXT }}>
+                          <p className="text-[16.5px] font-semibold leading-none" style={{ color: TEXT }}>
                             {t.count}
                           </p>
                           <p className="mt-1 text-[10.5px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
@@ -453,16 +453,16 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       className="flex items-stretch overflow-hidden rounded-[9px]"
                       style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
                     >
-                      <div className="px-4 py-2 text-center">
-                        <p className="text-[17px] font-medium leading-none" style={{ color: AMBER }}>
+                      <div className="px-[15px] py-[7px] text-center">
+                        <p className="text-[16.5px] font-semibold leading-none" style={{ color: AMBER }}>
                           {stats.missing}
                         </p>
                         <p className="mt-1 text-[10.5px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
                           Missing guests
                         </p>
                       </div>
-                      <div className="px-4 py-2 text-center" style={{ borderLeft: `1px solid ${BORDER}` }}>
-                        <p className="text-[17px] font-medium leading-none" style={{ color: GREEN }}>
+                      <div className="px-[15px] py-[7px] text-center" style={{ borderLeft: `1px solid ${BORDER}` }}>
+                        <p className="text-[16.5px] font-semibold leading-none" style={{ color: GREEN }}>
                           {stats.completeAllocations}
                         </p>
                         <p className="mt-1 text-[10.5px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
@@ -1027,13 +1027,18 @@ function GuestDrawer({
 
   return (
     <aside
-      className="fixed inset-0 z-40 lg:static lg:z-auto lg:w-[330px] lg:shrink-0"
+      className="fixed inset-0 z-40 lg:sticky lg:top-[70px] lg:z-auto lg:w-[318px] lg:shrink-0"
       style={{ animation: "hgbSlide 200ms ease-out" }}
     >
       <button aria-label="Close guest details" className="absolute inset-0 bg-black/50 lg:hidden" onClick={onClose} />
       <div
-        className="absolute inset-y-0 right-0 flex w-full max-w-[420px] flex-col overflow-y-auto lg:static lg:h-[calc(100vh-56px)] lg:max-w-none"
-        style={{ backgroundColor: "rgba(245,248,251,0.92)", borderLeft: `1px solid rgba(95,120,145,0.15)` }}
+        className="absolute inset-y-0 right-0 flex w-full max-w-[420px] flex-col overflow-y-auto lg:static lg:h-[calc(100vh-96px)] lg:max-w-none lg:rounded-[13px]"
+        style={{
+          backgroundColor: "rgba(244,248,251,0.86)",
+          border: `1px solid ${CARD_BORDER}`,
+          boxShadow: CARD_SHADOW,
+          backdropFilter: "blur(6px)",
+        }}
       >
         <div className="flex items-center justify-between px-4 pb-2 pt-4">
           <h3 className="text-[17px]" style={{ color: TEXT, fontFamily: SERIF }}>
