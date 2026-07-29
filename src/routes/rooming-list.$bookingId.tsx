@@ -725,7 +725,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               isNew={drawerGuest.isNew}
               onDraftChange={
                 drawerGuest.isNew
-                  ? (g) => setPendingGuest((p) => (p ? { ...p, guest: g } : p))
+                  ? (g) =>
+                      setPendingGuest((p) => {
+                        if (!p) return p;
+                        const joined = `${g.firstName ?? ""} ${g.lastName ?? ""}`.trim();
+                        const rawChanged =
+                          `${p.guest.firstName ?? ""} ${p.guest.lastName ?? ""}`.trim() !== joined;
+                        return { ...p, guest: g, raw: rawChanged ? joined : p.raw };
+                      })
                   : undefined
               }
               onClose={() => {
