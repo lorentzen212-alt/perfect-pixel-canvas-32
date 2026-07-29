@@ -429,9 +429,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
                   {/* allocation summary strip + filters */}
                   <div
-                    className="flex flex-wrap items-center gap-x-3 gap-y-2.5 px-5 pb-2.5"
-                    style={{ borderBottom: `1px solid ${BORDER}` }}
+                    className="flex flex-wrap items-center gap-x-3 gap-y-2.5 px-5 pb-3.5"
                   >
+
                     <div
                       className="flex items-stretch overflow-hidden rounded-[9px]"
                       style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
