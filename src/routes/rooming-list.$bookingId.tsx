@@ -1609,6 +1609,9 @@ function AllocationRow({
             ...(upgradeEligible && !allocation.upgradeRequest
               ? [{ label: "Request room upgrade", run: () => setUpgradeOpen(true) }]
               : []),
+            ...(allocation.upgradeRequest
+              ? [{ label: "Remove upgrade request", run: () => onRemoveUpgrade?.() }]
+              : []),
             { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
           ].map((item) => (
             <button
