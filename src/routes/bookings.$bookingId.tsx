@@ -985,8 +985,11 @@ function Workspace({ booking }: { booking: Booking }) {
                     onAction={() => setPanel("rooms")}
                     dimmed={dim("rooms")}
                   >
+                    <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>
+                      {totalRooms} rooms
+                    </p>
                     {rooms.map((r) => (
-                      <p key={r.type} className="mt-1 first:mt-0" style={{ color: TEXT_2 }}>
+                      <p key={r.type} className="mt-1" style={{ color: TEXT_2 }}>
                         {r.qty} {r.type}
                       </p>
                     ))}
@@ -994,8 +997,9 @@ function Workspace({ booking }: { booking: Booking }) {
                       className="mt-2 pt-2 text-[12.5px] font-medium"
                       style={{ borderTop: `1px solid ${BORDER}`, color: TEXT }}
                     >
-                      {totalRooms} rooms  •  {totalGuests} guests
+                      {totalGuests} guests
                     </p>
+
                   </OverviewCard>
                 )}
 
