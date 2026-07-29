@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
+  AlertTriangle,
   ArrowLeft,
+  ArrowUp,
   Bed,
   CalendarDays,
   Check,
@@ -18,6 +20,7 @@ import {
   Upload,
   User,
   Users,
+  Utensils,
   X,
 } from "lucide-react";
 import { SERIF, SidebarContent, TopBarLight } from "@/components/DashboardChrome";
@@ -30,24 +33,38 @@ import {
   NATIONALITIES,
   ROOM_REQUEST_OPTIONS,
   ROOM_TYPES,
+  UPGRADE_STATUS_META,
   type Allocation,
   type Guest,
+  type RoomCategory,
   type RoomType,
   type RoomingIssue,
   type RoomingList,
+  type UpgradePreference,
+  type UpgradeStatus,
+  allocationHasRequirements,
   allocationStatus,
+  canUpgrade,
   capacityOf,
+  categoryLabel,
+  commonUpgradeOptions,
   distributionFor,
   guestName,
+  guestRequirementSummary,
+  hasRoomTypeChange,
+  invalidForCategory,
   isAllergy,
   isNamed,
   labelOf,
   loadRoomingList,
   newGuest,
+  newUpgradeRequest,
   roomingIssues,
   saveRoomingList,
   statsOf,
+  upgradeOptionsFor,
 } from "@/lib/rooming";
+
 
 export const Route = createFileRoute("/rooming-list/$bookingId")({
   component: RoomingListRoute,
