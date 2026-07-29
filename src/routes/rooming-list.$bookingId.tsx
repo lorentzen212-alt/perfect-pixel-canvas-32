@@ -715,7 +715,7 @@ function AllocationRow({
     onPatch((a) => ({ ...a, type: t, guests: a.guests.slice(0, Math.max(nextCap, a.guests.length)) }));
   };
 
-  const statusColor = status === "complete" ? GREEN : status === "attention" ? AMBER : MUTED;
+  const statusColor = status === "complete" ? R_GREEN : status === "attention" ? R_AMBER : RT_3;
   const statusLabel =
     status === "complete"
       ? "Complete"
@@ -747,7 +747,7 @@ function AllocationRow({
         >
           {/* allocation number + type */}
           <div>
-            <p className="text-[19px] font-medium leading-none" style={{ color: TEXT }}>
+            <p className="text-[19px] font-medium leading-none" style={{ color: RT }}>
               {String(allocation.index).padStart(2, "0")}
             </p>
             <div className="relative mt-1.5">
@@ -756,16 +756,16 @@ function AllocationRow({
                 disabled={locked}
                 onClick={() => setTypeOpen((v) => !v)}
                 className="inline-flex items-center gap-1.5 text-[12.5px] transition-colors hover:text-[color:var(--hgb-gold)]"
-                style={{ color: TEXT_2, ["--hgb-gold" as string]: GOLD_SOFT }}
+                style={{ color: RT_2, ["--hgb-gold" as string]: R_AMBER }}
               >
-                <Bed size={13} style={{ color: MUTED }} />
+                <Bed size={13} style={{ color: RT_3 }} />
                 {labelOf(allocation.type)}
-                {!locked && <ChevronDown size={13} style={{ color: MUTED }} />}
+                {!locked && <ChevronDown size={13} style={{ color: RT_3 }} />}
               </button>
               {typeOpen && (
                 <div
                   className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
-                  style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                  style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${R_BORDER}`, animation: "hgbFade 160ms ease-out" }}
                 >
                   {ROOM_TYPES.map((t) => (
                     <button
@@ -773,10 +773,10 @@ function AllocationRow({
                       type="button"
                       onClick={() => changeType(t.value)}
                       className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-                      style={{ color: t.value === allocation.type ? GOLD : TEXT_2 }}
+                      style={{ color: t.value === allocation.type ? R_AMBER : RT_2 }}
                     >
                       <span>{t.label}</span>
-                      <span className="text-[10.5px]" style={{ color: MUTED }}>
+                      <span className="text-[10.5px]" style={{ color: RT_3 }}>
                         {t.capacity} guest{t.capacity > 1 ? "s" : ""}
                       </span>
                     </button>
@@ -786,10 +786,10 @@ function AllocationRow({
             </div>
             {approval && (
               <div className="mt-2 rounded-[7px] px-2 py-1.5" style={{ backgroundColor: "rgba(203,162,74,0.10)", border: `1px solid rgba(203,162,74,0.28)` }}>
-                <p className="text-[10.5px] leading-snug" style={{ color: AMBER }}>
+                <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
                   Booking change may require approval
                 </p>
-                <button type="button" className="mt-1 text-[10.5px]" style={{ color: GOLD_SOFT }} onClick={() => setApproval(false)}>
+                <button type="button" className="mt-1 text-[10.5px]" style={{ color: R_AMBER }} onClick={() => setApproval(false)}>
                   Request change →
                 </button>
               </div>
@@ -805,12 +805,12 @@ function AllocationRow({
                 onClick={() => onOpenGuest(g.id)}
                 className="flex w-full items-center gap-3 rounded-[7px] px-1.5 py-1 text-left transition-colors hover:bg-[rgba(255,255,255,0.04)]"
               >
-                <User size={13} style={{ color: MUTED }} />
-                <span className="min-w-0 flex-1 truncate text-[13.5px]" style={{ color: TEXT }}>
+                <User size={13} style={{ color: RT_3 }} />
+                <span className="min-w-0 flex-1 truncate text-[13.5px]" style={{ color: RT }}>
                   {guestName(g) || "Unnamed guest"}
                 </span>
                 {g.nationality && (
-                  <span className="shrink-0 text-[12px]" style={{ color: TEXT_2 }}>
+                  <span className="shrink-0 text-[12px]" style={{ color: RT_2 }}>
                     <span className="mr-1.5">{flagOf(g.nationality)}</span>
                     {g.nationality}
                   </span>
@@ -821,7 +821,7 @@ function AllocationRow({
             {!locked && adding && named.length < cap && (
               <div
                 className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-2"
-                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${GOLD_DEEP}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${R_AMBER}`, animation: "hgbFade 160ms ease-out" }}
               >
                 <input
                   ref={inputRef}
@@ -833,7 +833,7 @@ function AllocationRow({
                   }}
                   placeholder="First name"
                   className="w-[120px] bg-transparent text-[13px] outline-none"
-                  style={{ color: TEXT }}
+                  style={{ color: RT }}
                 />
                 <input
                   value={last}
@@ -844,12 +844,12 @@ function AllocationRow({
                   }}
                   placeholder="Last name"
                   className="w-[140px] bg-transparent text-[13px] outline-none"
-                  style={{ color: TEXT }}
+                  style={{ color: RT }}
                 />
                 <GoldButton small onClick={commit}>
                   Save
                 </GoldButton>
-                <button type="button" onClick={() => setAdding(false)} style={{ color: MUTED }} aria-label="Cancel">
+                <button type="button" onClick={() => setAdding(false)} style={{ color: RT_3 }} aria-label="Cancel">
                   <X size={14} />
                 </button>
               </div>
@@ -863,7 +863,7 @@ function AllocationRow({
                   type="button"
                   onClick={() => setAdding(true)}
                   className="flex w-full items-center gap-2 rounded-[7px] px-1.5 py-1 text-left text-[12.5px] transition-colors hover:bg-[rgba(199,163,74,0.07)]"
-                  style={{ color: GOLD_SOFT }}
+                  style={{ color: R_AMBER }}
                 >
                   <Plus size={13} />
                   {i === 0 ? slotLabel : "Add guest"}
@@ -876,14 +876,14 @@ function AllocationRow({
             {allocation.requests.length > 0 ? (
               <div className="space-y-1">
                 {allocation.requests.map((r) => (
-                  <span key={r} className="flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
+                  <span key={r} className="flex items-center gap-2 text-[12.5px]" style={{ color: RT_2 }}>
                     {r}
                     {!locked && (
                       <button
                         type="button"
                         aria-label={`Remove ${r}`}
                         onClick={() => onPatch((a) => ({ ...a, requests: a.requests.filter((x) => x !== r) }))}
-                        style={{ color: MUTED }}
+                        style={{ color: RT_3 }}
                       >
                         <X size={11} />
                       </button>
@@ -892,7 +892,7 @@ function AllocationRow({
                 ))}
               </div>
             ) : (
-              <span className="block text-[13px]" style={{ color: MUTED }}>
+              <span className="block text-[13px]" style={{ color: RT_3 }}>
                 —
               </span>
             )}
@@ -901,7 +901,7 @@ function AllocationRow({
                 type="button"
                 onClick={() => setRequestOpen((v) => !v)}
                 className="mt-1 flex items-center gap-1.5 text-[12px]"
-                style={{ color: GOLD_SOFT }}
+                style={{ color: R_AMBER }}
               >
                 <Plus size={12} />
                 Add room request
@@ -910,7 +910,7 @@ function AllocationRow({
             {requestOpen && (
               <div
                 className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${R_BORDER}`, animation: "hgbFade 160ms ease-out" }}
               >
                 {ROOM_REQUEST_OPTIONS.map((r) => (
                   <button
@@ -921,7 +921,7 @@ function AllocationRow({
                       setRequestOpen(false);
                     }}
                     className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-                    style={{ color: TEXT_2 }}
+                    style={{ color: RT_2 }}
                   >
                     {r}
                   </button>
@@ -936,7 +936,7 @@ function AllocationRow({
               {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={12} fill={statusColor} strokeWidth={0} />}
               {statusLabel}
             </span>
-            <p className="mt-1 text-[12px]" style={{ color: MUTED }}>
+            <p className="mt-1 text-[12px]" style={{ color: RT_3 }}>
               {named.length} / {cap} guest{cap > 1 ? "s" : ""}
             </p>
           </div>
@@ -948,14 +948,14 @@ function AllocationRow({
               aria-label="Allocation actions"
               onClick={() => setMenuOpen((v) => !v)}
               className="hgb-menu grid h-7 w-7 place-items-center rounded-[6px] opacity-0 transition-opacity duration-200"
-              style={{ color: MUTED }}
+              style={{ color: RT_3 }}
             >
               <MoreVertical size={15} />
             </button>
             {menuOpen && (
               <div
                 className="absolute right-0 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${R_BORDER}`, animation: "hgbFade 160ms ease-out" }}
               >
                 {[
                   { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
@@ -972,7 +972,7 @@ function AllocationRow({
                       setMenuOpen(false);
                     }}
                     className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)] disabled:opacity-40"
-                    style={{ color: TEXT_2 }}
+                    style={{ color: RT_2 }}
                   >
                     {item.label}
                   </button>
