@@ -229,11 +229,11 @@ function OverviewCard({
       className="flex min-h-[138px] flex-col rounded-[13px] px-4 py-[11px]"
       style={{
         backgroundColor: hover && interactive ? "#30404C" : CARD,
-        border: `1px solid ${hover && interactive ? "rgba(199,163,74,0.38)" : CARD_BORDER}`,
+        border: `1px solid ${hover && interactive ? "rgba(212,175,55,0.34)" : CARD_BORDER}`,
         boxShadow:
           hover && interactive
-            ? `${CARD_SHADOW}, 0 10px 26px -18px rgba(199,163,74,0.4)`
-            : CARD_SHADOW,
+            ? "inset 0 1px 0 rgba(255,255,255,0.055), 0 1px 2px rgba(0,0,0,0.2), 0 14px 30px -22px rgba(169,120,22,0.5)"
+            : `inset 0 1px 0 rgba(255,255,255,0.04), ${CARD_SHADOW}`,
         transform: hover && interactive ? "translateY(-2px)" : "none",
         transition:
           "transform 200ms ease-out, background-color 200ms ease-out, border-color 200ms ease-out, box-shadow 200ms ease-out, opacity 200ms ease-out",
@@ -243,9 +243,13 @@ function OverviewCard({
     >
       <div className="flex items-center gap-3">
         <IconBubble>{icon}</IconBubble>
-        <h3 className="text-[12.5px] font-semibold uppercase tracking-[0.16em]" style={{ color: TEXT }}>
+        <h3
+          className="text-[12.5px] font-semibold uppercase tracking-[0.19em]"
+          style={{ color: TEXT }}
+        >
           {title}
         </h3>
+
         <span className="ml-auto flex items-center gap-2">
           {badge && (
             <span
