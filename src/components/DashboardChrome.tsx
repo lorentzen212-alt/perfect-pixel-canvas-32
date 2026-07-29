@@ -45,8 +45,17 @@ const NAV = [
   { label: "Support", icon: HelpCircle },
 ];
 
-export function SidebarContent({ active, bookingId }: { active: string; bookingId?: string }) {
+export function SidebarContent({
+  active,
+  bookingId,
+  light,
+}: {
+  active: string;
+  bookingId?: string;
+  light?: boolean;
+}) {
   const { SIDEBAR, SIDEBAR_ALT, GOLD_MID, TEXT, TEXT_2, MUTED, GOLD, BORDER } = PAL;
+  if (light) return <SidebarLight active={active} bookingId={bookingId} />;
   return (
     <div
       className="flex h-full flex-col px-5 py-6"
@@ -55,6 +64,7 @@ export function SidebarContent({ active, bookingId }: { active: string; bookingI
       <Link to="/" className="block">
         <img src={logo.url} alt="HotelGroupBook" className="h-11 w-auto object-contain object-left" />
       </Link>
+
 
       <p
         className="mt-9 text-[10.5px] font-semibold uppercase tracking-[0.22em]"
