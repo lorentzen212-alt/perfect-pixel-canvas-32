@@ -1062,6 +1062,44 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
 
 
+      {confirmRemove && confirmRemove.length > 0 && (
+        <Modal
+          title={confirmRemove.length === 1 ? "Remove room upgrade request?" : "Remove room upgrade requests?"}
+          onClose={() => setConfirmRemove(null)}
+        >
+          <p className="text-[12.5px]" style={{ color: MUTED }}>
+            {confirmRemove.length === 1
+              ? `You're about to remove the upgrade request from Room ${String(
+                  list.allocations.find((a) => a.id === confirmRemove[0])?.index ?? 0,
+                ).padStart(2, "0")}.`
+              : `You're about to remove upgrade requests from ${confirmRemove.length} rooms.`}{" "}
+            The booked room types, categories, guests and normal room requests remain unchanged.
+          </p>
+          <div className="mt-4 flex items-center justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setConfirmRemove(null)}
+              className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+              style={{ color: MUTED }}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => removeUpgradeRequests(confirmRemove)}
+              className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors"
+              style={{
+                color: "#E2A2A2",
+                backgroundColor: "rgba(190,110,110,0.12)",
+                border: "1px solid rgba(190,110,110,0.34)",
+              }}
+            >
+              {confirmRemove.length === 1 ? "Remove request" : `Remove ${confirmRemove.length} requests`}
+            </button>
+          </div>
+        </Modal>
+      )}
+
       {confirmWithdraw && (
         <Modal title="Withdraw upgrade requests" onClose={() => setConfirmWithdraw(false)}>
           <p className="text-[12.5px]" style={{ color: MUTED }}>
