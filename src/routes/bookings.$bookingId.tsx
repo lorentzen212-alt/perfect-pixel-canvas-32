@@ -278,26 +278,39 @@ function OverviewCard({
 function Ring({ value, size = 78 }: { value: number; size?: number }) {
   const r = size / 2 - 6;
   const c = 2 * Math.PI * r;
+  const gid = `ringGold-${size}`;
   return (
     <div className="relative grid shrink-0 place-items-center" style={{ height: size, width: size }}>
       <svg viewBox={`0 0 ${size} ${size}`} className="-rotate-90" style={{ height: size, width: size }}>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="3.5" />
+        <defs>
+          <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={GOLD_HI} />
+            <stop offset="45%" stopColor={GOLD_MET} />
+            <stop offset="75%" stopColor={GOLD_MET_MID} />
+            <stop offset="100%" stopColor={GOLD_MET_LOW} />
+          </linearGradient>
+        </defs>
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="3" />
         <circle
           cx={size / 2}
           cy={size / 2}
           r={r}
           fill="none"
-          stroke={GOLD}
-          strokeWidth="3.5"
+          stroke={`url(#${gid})`}
+          strokeWidth="3"
           strokeLinecap="round"
           strokeDasharray={`${(value / 100) * c} ${c}`}
         />
       </svg>
-      <span className="absolute text-[15px] font-medium" style={{ color: TEXT }}>
+      <span
+        className="absolute text-[15px] font-medium tracking-[0.01em]"
+        style={{ color: TEXT }}
+      >
         {value}%
       </span>
     </div>
   );
+
 }
 
 function PanelShell({
