@@ -256,6 +256,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     preference: UpgradePreference;
     note: string;
   } | null>(null);
+  const [confirmWithdraw, setConfirmWithdraw] = useState(false);
+
   const firstRender = useRef(true);
 
 
@@ -334,7 +336,32 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     [list],
   );
 
+  const isWithdrawable = (a: Allocation) =>
+    !!a.upgradeRequest &&
+    !a.upgradeRequest.appliedAt &&
+    (a.upgradeRequest.status === "requested" || a.upgradeRequest.status === "price_offered");
+
+  const selectedForWithdraw = useMemo(
+    () => selectedAllocations.filter(isWithdrawable),
+    [selectedAllocations],
+  );
+  const selectedForRequest = useMemo(
+    () => selectedAllocations.filter((a) => !a.upgradeRequest),
+    [selectedAllocations],
+  );
+
+  const withdrawUpgrades = useCallback(
+    (ids: string[]) => {
+      update((l) => ({
+        ...l,
+        allocations: l.allocations.map((a) => (ids.includes(a.id) ? { ...a, upgradeRequest: null } : a)),
+      }));
+    },
+    [update],
+  );
+
   const toggleSelected = useCallback(
+
     (id: string) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id])),
     [],
   );
@@ -343,6 +370,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     setUpgradeMode(false);
     setSelected([]);
     setConfirmUpgrade(null);
+    setConfirmWithdraw(false);
   }, []);
 
   const submitUpgrades = useCallback(
@@ -743,11 +771,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       allocations={list.allocations}
                       eligible={eligible}
                       selected={selected}
-                      selectedAllocations={selectedAllocations}
+                      selectedForRequest={selectedForRequest}
+                      selectedForWithdraw={selectedForWithdraw}
                       onSelectAll={(on) => setSelected(on ? eligible.map((a) => a.id) : [])}
                       onCancel={exitUpgradeMode}
+                      onWithdraw={() => setConfirmWithdraw(true)}
                       onRequest={(category, preference, note) => setConfirmUpgrade({ category, preference, note })}
                     />
+
                   )}
                 </>
               )}
@@ -956,14 +987,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
       {confirmUpgrade && (
         <UpgradeConfirmModal
-          allocations={selectedAllocations}
+          allocations={selectedForRequest}
           category={confirmUpgrade.category}
           preference={confirmUpgrade.preference}
           note={confirmUpgrade.note}
           onClose={() => setConfirmUpgrade(null)}
           onConfirm={() => {
             submitUpgrades(
-              selectedAllocations.map((a) => a.id),
+              selectedForRequest.map((a) => a.id),
               confirmUpgrade.category,
               confirmUpgrade.preference,
               confirmUpgrade.note,
@@ -974,6 +1005,57 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       )}
 
 
+
+      {confirmWithdraw && (
+        <Modal title="Withdraw upgrade requests" onClose={() => setConfirmWithdraw(false)}>
+          <p className="text-[12.5px]" style={{ color: MUTED }}>
+            Withdraw upgrade requests for {selectedForWithdraw.length} room
+            {selectedForWithdraw.length === 1 ? "" : "s"}? The booked room types, categories, guests and normal room
+            requests remain unchanged.
+          </p>
+          <div className="mt-3 max-h-[180px] space-y-1.5 overflow-y-auto">
+            {selectedForWithdraw.map((a) => (
+              <div
+                key={a.id}
+                className="flex items-center justify-between rounded-[8px] px-3 py-[7px] text-[12.5px]"
+                style={{ backgroundColor: ROW, border: `1px solid ${BORDER}`, color: TEXT_2 }}
+              >
+                <span>
+                  {labelOf(a.type)} {String(a.index).padStart(2, "0")} · {categoryLabel(a.bookedRoomCategory)}
+                </span>
+                <span style={{ color: MUTED }}>
+                  {a.upgradeRequest ? `${categoryLabel(a.upgradeRequest.category)} request` : ""}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 flex items-center justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setConfirmWithdraw(false)}
+              className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+              style={{ color: MUTED }}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                withdrawUpgrades(selectedForWithdraw.map((a) => a.id));
+                exitUpgradeMode();
+              }}
+              className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors"
+              style={{
+                color: "#E2A2A2",
+                backgroundColor: "rgba(190,110,110,0.12)",
+                border: "1px solid rgba(190,110,110,0.34)",
+              }}
+            >
+              Withdraw requests
+            </button>
+          </div>
+        </Modal>
+      )}
 
       {showReview && (
         <ReviewModal
@@ -1075,7 +1157,14 @@ function AllocationRow({
   const typeChanged = hasRoomTypeChange(allocation);
 
   const upgradeEligible = canUpgrade(allocation);
-  const selectable = !!upgradeMode && upgradeEligible && !allocation.upgradeRequest && !locked;
+  const withdrawable =
+    !!allocation.upgradeRequest &&
+    !allocation.upgradeRequest.appliedAt &&
+    (allocation.upgradeRequest.status === "requested" ||
+      allocation.upgradeRequest.status === "price_offered");
+  const selectable =
+    !!upgradeMode && !locked && ((upgradeEligible && !allocation.upgradeRequest) || withdrawable);
+
 
   const statusColor = status === "complete" ? R_GREEN : status === "attention" ? R_AMBER : RT_3;
   const statusLabel =
@@ -1122,12 +1211,15 @@ function AllocationRow({
               disabled={!selectable}
               onChange={() => onToggleSelected?.()}
               title={
-                allocation.upgradeRequest
-                  ? "An upgrade has already been requested for this room"
-                  : upgradeEligible
-                    ? undefined
-                    : "No higher room category available"
+                withdrawable
+                  ? "Select to withdraw this upgrade request"
+                  : allocation.upgradeRequest
+                    ? "An upgrade has already been requested for this room"
+                    : upgradeEligible
+                      ? undefined
+                      : "No higher room category available"
               }
+
             />
           )}
           <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
@@ -1320,8 +1412,26 @@ function AllocationRow({
           <UpgradeIndicator
             request={allocation.upgradeRequest}
             bookedCategory={allocation.bookedRoomCategory}
+            roomLabel={`Room ${String(allocation.index).padStart(2, "0")}`}
             locked={locked}
             onWithdraw={() => onPatch((a) => ({ ...a, upgradeRequest: null }))}
+            onRequestChange={() =>
+              onPatch((a) =>
+                a.upgradeRequest
+                  ? {
+                      ...a,
+                      upgradeRequest: {
+                        ...a.upgradeRequest,
+                        status: "requested",
+                        note: [a.upgradeRequest.note, "Change requested after approval."]
+                          .filter(Boolean)
+                          .join(" "),
+                      },
+                    }
+                  : a,
+              )
+            }
+
             onApply={() =>
               onPatch((a) =>
                 a.upgradeRequest
@@ -1572,29 +1682,44 @@ function DietaryPopover({
 }) {
   const [q, setQ] = useState("");
   const [custom, setCustom] = useState("");
+  const [showCustom, setShowCustom] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
+  const customRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open) {
       setQ("");
       setCustom("");
+      setShowCustom(false);
       const t = setTimeout(() => searchRef.current?.focus(), 30);
       return () => clearTimeout(t);
     }
   }, [open]);
 
+  useEffect(() => {
+    if (showCustom) {
+      const t = setTimeout(() => customRef.current?.focus(), 20);
+      return () => clearTimeout(t);
+    }
+  }, [showCustom]);
+
+
   const match = (t: string) => t.toLowerCase().includes(q.trim().toLowerCase());
+  const OTHER = "Other allergy";
   const diet = DIETARY_TAGS.filter(match);
-  const allergies = ALLERGY_TAGS.filter(match);
-  const otherSelected = selected.some((t) => /other allergy/i.test(t));
+  const allergies = ALLERGY_TAGS.filter((t) => t !== OTHER).filter(match);
+  const showOtherOption = match(OTHER);
 
   const addCustom = () => {
-    const v = custom.trim();
+    const v = custom.trim().replace(/\s+/g, " ");
     if (!v) return;
     const tag = /allerg/i.test(v) ? v : `${v} allergy`;
-    if (!selected.includes(tag)) onToggle(tag);
+    const dup = selected.some((s) => s.toLowerCase() === tag.toLowerCase());
+    if (!dup) onToggle(tag);
     setCustom("");
+    setShowCustom(false);
   };
+
 
   const Option = ({ t }: { t: string }) => {
     const on = selected.includes(t);
@@ -1661,27 +1786,70 @@ function DietaryPopover({
         </p>
       )}
 
-      {otherSelected && (
+      {showOtherOption && (
+        <button
+          type="button"
+          onClick={() => setShowCustom(true)}
+          className="flex w-full items-center justify-between px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+          style={{ color: showCustom ? "#F7F7F5" : AMBER }}
+        >
+          <span>Other allergy</span>
+          <Plus size={12} style={{ color: GOLD }} />
+        </button>
+      )}
+
+      {showCustom && (
         <div className="px-3 pb-3 pt-2" style={{ borderTop: `1px solid ${BORDER}` }}>
           <p className="mb-1.5 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
-            Specify allergy
+            Other allergy
           </p>
-          <input
-            value={custom}
-            onChange={(e) => setCustom(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                addCustom();
-              }
-            }}
-            onBlur={addCustom}
-            placeholder="e.g. Kiwi allergy"
-            className="w-full rounded-[8px] px-2.5 py-[6px] text-[12.5px] outline-none placeholder:text-[#88A0B6]"
-            style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}`, color: FIELD_TEXT }}
-          />
+          <div className="flex items-center gap-2">
+            <input
+              ref={customRef}
+              value={custom}
+              onChange={(e) => setCustom(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  addCustom();
+                }
+                if (e.key === "Escape") {
+                  e.preventDefault();
+                  setCustom("");
+                  setShowCustom(false);
+                }
+              }}
+              placeholder="Enter allergy..."
+              className="w-full rounded-[8px] px-2.5 py-[6px] text-[12.5px] outline-none placeholder:text-[#88A0B6]"
+              style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}`, color: FIELD_TEXT }}
+            />
+            <button
+              type="button"
+              onClick={addCustom}
+              disabled={!custom.trim()}
+              className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors disabled:opacity-40"
+              style={{
+                color: GOLD,
+                backgroundColor: "rgba(197,162,75,0.14)",
+                border: "1px solid rgba(197,162,75,0.36)",
+              }}
+            >
+              Add
+            </button>
+          </div>
+          {custom.trim() &&
+            selected.some(
+              (s) =>
+                s.toLowerCase() ===
+                (/allerg/i.test(custom.trim()) ? custom.trim() : `${custom.trim()} allergy`).toLowerCase(),
+            ) && (
+              <p className="mt-1.5 text-[11px]" style={{ color: AMBER }}>
+                Already added for this guest.
+              </p>
+            )}
         </div>
       )}
+
     </FloatingPopover>
   );
 }
@@ -2507,21 +2675,115 @@ function UpgradeCheckbox({
 }
 
 /** Small gold pill showing the current upgrade request state on a room card. */
+/** Small confirmation popover for withdrawing / changing an upgrade request. */
+function WithdrawUpgradePopover({
+  anchorRef,
+  open,
+  onClose,
+  request,
+  roomLabel,
+  onWithdraw,
+  onRequestChange,
+}: {
+  anchorRef: React.RefObject<HTMLButtonElement | null>;
+  open: boolean;
+  onClose: () => void;
+  request: UpgradeRequest;
+  roomLabel: string;
+  onWithdraw: () => void;
+  onRequestChange: () => void;
+}) {
+  const cat = categoryLabel(request.category);
+  const approved = request.status === "approved";
+  const declined = request.status === "declined";
+  const title = approved
+    ? "Upgrade already approved"
+    : declined
+      ? "Remove declined request?"
+      : "Remove upgrade request?";
+  const body = approved
+    ? "This upgrade has already been approved. Changes may require review by your concierge."
+    : request.status === "price_offered"
+      ? `Withdraw this upgrade request and decline the current upgrade offer? ${cat} upgrade requested for ${roomLabel}.`
+      : declined
+        ? `The ${cat} upgrade for ${roomLabel} was declined. Removing it lets you create a new request.`
+        : `${cat} upgrade requested for ${roomLabel}. This will withdraw the upgrade request. The original booked room remains unchanged.`;
+
+  return (
+    <FloatingPopover anchorRef={anchorRef} open={open} onClose={onClose} width={280} align="auto">
+      <div className="px-3 py-3">
+        <p className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+          {title}
+        </p>
+        <p className="mt-1.5 text-[12px] leading-snug" style={{ color: TEXT_2 }}>
+          {body}
+        </p>
+        <div className="mt-3 flex items-center justify-end gap-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+            style={{ color: MUTED }}
+          >
+            Cancel
+          </button>
+          {approved ? (
+            <button
+              type="button"
+              onClick={onRequestChange}
+              className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors"
+              style={{
+                color: GOLD,
+                backgroundColor: "rgba(197,162,75,0.14)",
+                border: "1px solid rgba(197,162,75,0.36)",
+              }}
+            >
+              Request change
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onWithdraw}
+              className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors"
+              style={{
+                color: "#E2A2A2",
+                backgroundColor: "rgba(190,110,110,0.12)",
+                border: "1px solid rgba(190,110,110,0.34)",
+              }}
+            >
+              {declined ? "Remove request" : "Withdraw request"}
+            </button>
+          )}
+        </div>
+      </div>
+    </FloatingPopover>
+  );
+}
+
 function UpgradeIndicator({
+
   request,
   bookedCategory,
+  roomLabel,
   locked,
   onWithdraw,
+  onRequestChange,
   onApply,
 }: {
   request: UpgradeRequest;
   bookedCategory: RoomCategory;
+  roomLabel: string;
   locked: boolean;
   onWithdraw: () => void;
+  onRequestChange: () => void;
   onApply: () => void;
 }) {
   const meta = UPGRADE_STATUS_META[request.status];
   const applied = Boolean(request.appliedAt);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const xRef = useRef<HTMLButtonElement>(null);
+  const canRemove = !locked && !applied;
+
   return (
     <div className="mt-[3px] space-y-[5px]">
       <div className="group/upg flex items-center gap-1.5">
@@ -2529,25 +2791,44 @@ function UpgradeIndicator({
           <ArrowUp size={12} />
           {categoryLabel(request.category)} requested
         </span>
-        {!locked && !applied && (
-          <button
-            type="button"
-            aria-label="Withdraw upgrade request"
-            onClick={onWithdraw}
-            className="opacity-0 transition-opacity group-hover/upg:opacity-100"
-            style={{ color: RT_3 }}
-          >
-            <X size={11} />
-          </button>
-        )}
       </div>
       <span
-        className="inline-flex items-center gap-1 rounded-[5px] px-1.5 py-[1px] text-[10.5px]"
+        className="group/pill inline-flex items-center gap-1 rounded-[5px] px-1.5 py-[1px] text-[10.5px]"
         style={{ color: meta.color, backgroundColor: meta.bg, border: `1px solid ${meta.border}` }}
       >
         {request.status === "approved" ? <Check size={9.5} /> : <Clock size={9.5} />}
         {applied ? "Upgrade applied" : meta.label}
+        {canRemove && (
+          <button
+            ref={xRef}
+            type="button"
+            aria-label="Remove upgrade request"
+            onClick={() => setConfirmOpen((v) => !v)}
+            className="hgb-x ml-[1px] opacity-45 transition-opacity hover:opacity-100 group-hover/pill:opacity-80"
+            style={{ color: "inherit" }}
+          >
+            <X size={9.5} />
+          </button>
+        )}
       </span>
+      {canRemove && (
+        <WithdrawUpgradePopover
+          anchorRef={xRef}
+          open={confirmOpen}
+          onClose={() => setConfirmOpen(false)}
+          request={request}
+          roomLabel={roomLabel}
+          onWithdraw={() => {
+            setConfirmOpen(false);
+            onWithdraw();
+          }}
+          onRequestChange={() => {
+            setConfirmOpen(false);
+            onRequestChange();
+          }}
+        />
+      )}
+
       {request.status === "price_offered" && (
         <p className="text-[10.5px] leading-snug" style={{ color: RT_3 }}>
           Your concierge will share the upgrade price for approval.
@@ -2725,21 +3006,25 @@ function UpgradeModePanel({
   allocations,
   eligible,
   selected,
-  selectedAllocations,
+  selectedForRequest,
+  selectedForWithdraw,
   onSelectAll,
   onCancel,
+  onWithdraw,
   onRequest,
 }: {
   allocations: Allocation[];
   eligible: Allocation[];
   selected: string[];
-  selectedAllocations: Allocation[];
+  selectedForRequest: Allocation[];
+  selectedForWithdraw: Allocation[];
   onSelectAll: (on: boolean) => void;
   onCancel: () => void;
+  onWithdraw: () => void;
   onRequest: (category: RoomCategory, preference: UpgradePreference, note: string) => void;
 }) {
   const allSelected = eligible.length > 0 && selected.length === eligible.length;
-  const options = commonUpgradeOptions(selectedAllocations);
+  const options = commonUpgradeOptions(selectedForRequest);
   const ineligible = allocations.length - eligible.length;
 
   return (
@@ -2755,6 +3040,25 @@ function UpgradeModePanel({
           {selected.length} of {eligible.length} selected
           {ineligible > 0 ? ` · ${ineligible} not eligible` : ""}
         </span>
+        {selectedForWithdraw.length > 0 && (
+          <span className="inline-flex items-center gap-2.5 text-[12px]" style={{ color: TEXT_2 }}>
+            <span style={{ color: MUTED }}>
+              {selectedForWithdraw.length} upgrade request{selectedForWithdraw.length === 1 ? "" : "s"} selected
+            </span>
+            <button
+              type="button"
+              onClick={onWithdraw}
+              className="rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors"
+              style={{
+                color: "#E2A2A2",
+                backgroundColor: "rgba(190,110,110,0.10)",
+                border: "1px solid rgba(190,110,110,0.30)",
+              }}
+            >
+              Withdraw selected requests
+            </button>
+          </span>
+        )}
         <button
           type="button"
           onClick={onCancel}
@@ -2765,13 +3069,13 @@ function UpgradeModePanel({
         </button>
       </div>
 
-      {selected.length > 0 && (
+      {selectedForRequest.length > 0 && (
         <div
           className="mt-3 rounded-[10px]"
           style={{ backgroundColor: SURFACE_2, border: `1px solid ${GOLD_DEEP}` }}
         >
           <UpgradeForm
-            title={`Upgrade ${selected.length} room${selected.length > 1 ? "s" : ""}`}
+            title={`Upgrade ${selectedForRequest.length} room${selectedForRequest.length > 1 ? "s" : ""}`}
             options={options}
             submitLabel="Review upgrade request"
             disabledReason={
@@ -2786,6 +3090,7 @@ function UpgradeModePanel({
     </div>
   );
 }
+
 
 /** Bulk confirmation step before submitting upgrade requests. */
 function UpgradeConfirmModal({
