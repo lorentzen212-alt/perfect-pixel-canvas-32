@@ -21,6 +21,8 @@ import {
   X,
 } from "lucide-react";
 import { SERIF, SidebarContent, TopBarLight } from "@/components/DashboardChrome";
+import { FloatingPopover } from "@/components/FloatingPopover";
+
 import { BOOKINGS, type Booking } from "@/lib/bookings";
 import {
   ALLERGY_TAGS,
