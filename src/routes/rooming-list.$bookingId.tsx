@@ -1461,12 +1461,13 @@ function AllocationRow({
                     onKeyUpCapture={(e) => e.stopPropagation()}
                     onKeyPressCapture={(e) => e.stopPropagation()}
                     placeholder="Enter guest name..."
-                    className="hgb-inline h-[35px] w-full max-w-[250px] rounded-[7px] px-2.5 text-[13px] outline-none transition-colors"
+                    className="hgb-inline h-[42px] w-full rounded-[10px] px-3 text-[13.5px] outline-none transition-colors"
                     style={{
-                      backgroundColor: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(173,192,205,0.22)",
+                      backgroundColor: GUEST_BG,
+                      border: `1px solid ${GUEST_BORDER}`,
                       color: RT,
                     }}
+
                   />
                   <button
                     type="button"
