@@ -1414,27 +1414,8 @@ function AllocationRow({
             </FloatingPopover>
           </div>
 
-          {typeChanged && (
-            <div
-              className="mt-2 max-w-[190px] rounded-[8px] px-2 py-1.5"
-              style={{ backgroundColor: "rgba(231,180,75,0.10)", border: "1px solid rgba(231,180,75,0.28)" }}
-            >
-              <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
-                Booking change may require approval
-              </p>
-              <p className="mt-[2px] text-[10px] leading-snug" style={{ color: RT_3 }}>
-                Booked as {labelOf(allocation.bookedRoomType)}
-              </p>
-              <button
-                type="button"
-                className="mt-1 text-[10.5px]"
-                style={{ color: R_AMBER }}
-                onClick={() => onPatch((a) => ({ ...a, type: a.bookedRoomType }))}
-              >
-                Restore booked type
-              </button>
-            </div>
-          )}
+          {/* booking-change notice intentionally not rendered (logic preserved via hasRoomTypeChange) */}
+
         </div>
       </div>
 
