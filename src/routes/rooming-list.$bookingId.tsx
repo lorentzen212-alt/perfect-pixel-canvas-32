@@ -36,7 +36,6 @@ import {
   allocationStatus,
   capacityOf,
   distributionFor,
-  flagOf,
   guestName,
   isAllergy,
   isNamed,
