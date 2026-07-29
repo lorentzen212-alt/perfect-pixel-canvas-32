@@ -730,9 +730,14 @@ function AllocationRow({
   return (
     <div
       id={`alloc-${allocation.id}`}
-      className="hgb-row rounded-[10px] px-3 py-2.5 transition-[background-color,border-color,transform] duration-200 ease-out sm:px-4"
-      style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
+      className="hgb-row rounded-[10px] px-3 py-2.5 transition-[background,border-color] duration-200 ease-out sm:px-4"
+      style={{
+        background: CARD_NAVY,
+        border: "1px solid rgba(255,255,255,0.06)",
+        boxShadow: "0 5px 14px rgba(20,45,70,0.10)",
+      }}
     >
+
       <div
         className="grid items-start gap-x-4 gap-y-3"
         style={{ gridTemplateColumns: "minmax(0,1fr)" }}
