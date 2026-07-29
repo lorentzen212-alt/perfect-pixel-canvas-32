@@ -45,8 +45,17 @@ const NAV = [
   { label: "Support", icon: HelpCircle },
 ];
 
-export function SidebarContent({ active, bookingId }: { active: string; bookingId?: string }) {
+export function SidebarContent({
+  active,
+  bookingId,
+  light,
+}: {
+  active: string;
+  bookingId?: string;
+  light?: boolean;
+}) {
   const { SIDEBAR, SIDEBAR_ALT, GOLD_MID, TEXT, TEXT_2, MUTED, GOLD, BORDER } = PAL;
+  if (light) return <SidebarLight active={active} bookingId={bookingId} />;
   return (
     <div
       className="flex h-full flex-col px-5 py-6"
@@ -55,6 +64,7 @@ export function SidebarContent({ active, bookingId }: { active: string; bookingI
       <Link to="/" className="block">
         <img src={logo.url} alt="HotelGroupBook" className="h-11 w-auto object-contain object-left" />
       </Link>
+
 
       <p
         className="mt-9 text-[10.5px] font-semibold uppercase tracking-[0.22em]"
@@ -203,6 +213,184 @@ export function TopBar({
             Emma Hansen
           </span>
           <ChevronDown size={15} style={{ color: MUTED }} />
+        </button>
+      </div>
+    </header>
+  );
+}
+
+/* ── light (blue-white-grey) chrome used by the Rooming List workspace ── */
+
+export const LIGHT = {
+  INK: "#10233F",
+  INK_2: "#50657A",
+  INK_3: "#71859A",
+  SIDEBAR_TOP: "#AFC4D7",
+  SIDEBAR_BOTTOM: "#9FB7CC",
+  SURFACE: "rgba(245,248,251,0.72)",
+  SURFACE_BORDER: "rgba(110,135,160,0.16)",
+  SURFACE_SHADOW: "0 8px 30px rgba(35,60,85,0.06)",
+  NAVY: "#153E6C",
+} as const;
+
+function SidebarLight({ active, bookingId }: { active: string; bookingId?: string }) {
+  return (
+    <div
+      className="flex h-full flex-col px-4 py-6"
+      style={{
+        background: `linear-gradient(180deg, ${LIGHT.SIDEBAR_TOP} 0%, ${LIGHT.SIDEBAR_BOTTOM} 100%)`,
+      }}
+    >
+      <Link to="/" className="block px-1">
+        <img
+          src={logo.url}
+          alt="HotelGroupBook"
+          className="h-11 w-auto object-contain object-left"
+          style={{ filter: "brightness(0) invert(1)" }}
+        />
+      </Link>
+
+      <p
+        className="mt-9 px-2 text-[10.5px] font-semibold uppercase tracking-[0.22em]"
+        style={{ color: "rgba(255,255,255,0.85)" }}
+      >
+        Manage my bookings
+      </p>
+
+      <nav className="mt-4 space-y-1">
+        {NAV.map((item) => {
+          const isActive = item.label === active;
+          const rooming = item.label === "Rooming List";
+          const className =
+            "flex w-full items-center gap-3 rounded-[9px] px-3 py-2.5 text-[14px] transition-colors";
+          const style = isActive
+            ? {
+                backgroundColor: "rgba(255,255,255,0.92)",
+                color: LIGHT.INK,
+                boxShadow: "0 2px 8px rgba(30,55,80,0.10)",
+                fontWeight: 500,
+              }
+            : { color: "rgba(255,255,255,0.92)" };
+          const inner = (
+            <>
+              <item.icon size={17} style={{ color: isActive ? "#2C4F76" : "rgba(255,255,255,0.92)" }} />
+              {item.label}
+            </>
+          );
+          return rooming ? (
+            <Link
+              key={item.label}
+              to="/rooming-list/$bookingId"
+              params={{ bookingId: bookingId ?? "1" }}
+              className={className}
+              style={style}
+            >
+              {inner}
+            </Link>
+          ) : (
+            <Link key={item.label} to="/manage-bookings" className={className} style={style}>
+              {inner}
+            </Link>
+          );
+        })}
+      </nav>
+
+      <div className="mt-auto pt-8">
+        <div className="px-2 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.28)" }}>
+          <div className="flex items-start gap-3">
+            <Headphones size={17} className="mt-0.5 shrink-0" style={{ color: "rgba(255,255,255,0.9)" }} />
+            <div className="min-w-0 text-[12.5px]" style={{ color: "rgba(255,255,255,0.82)" }}>
+              <p style={{ color: "#FFFFFF" }}>Need help?</p>
+              <p className="mt-1">+47 000 00 000</p>
+              <p className="truncate">help@hotelgroupbook.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="mt-5 flex items-center gap-3 px-2 pt-5"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.28)" }}
+        >
+          <span
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
+            style={{ backgroundColor: "rgba(255,255,255,0.85)", color: LIGHT.INK }}
+          >
+            EH
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-[13px]" style={{ color: "#FFFFFF" }}>
+              Emma Hansen
+            </span>
+            <span className="block truncate text-[11.5px]" style={{ color: "rgba(255,255,255,0.78)" }}>
+              Nordic Events AS
+            </span>
+          </span>
+          <ChevronDown size={15} style={{ color: "rgba(255,255,255,0.85)" }} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function TopBarLight({ left, onOpenNav }: { left?: React.ReactNode; onOpenNav?: () => void }) {
+  return (
+    <header
+      className="sticky top-0 z-30 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:px-8"
+      style={{
+        backgroundColor: "rgba(240,245,250,0.82)",
+        backdropFilter: "blur(10px)",
+        borderBottom: "1px solid rgba(110,135,160,0.16)",
+      }}
+    >
+      <div className="flex min-w-0 items-center gap-3">
+        <button
+          type="button"
+          aria-label="Open navigation"
+          onClick={onOpenNav}
+          className="grid h-9 w-9 place-items-center rounded-md lg:hidden"
+          style={{ color: LIGHT.INK_2, border: "1px solid rgba(110,135,160,0.24)" }}
+        >
+          <Menu size={18} />
+        </button>
+        {left}
+      </div>
+
+      <div className="flex shrink-0 items-center gap-3 sm:gap-5">
+        <button
+          type="button"
+          className="inline-flex items-center gap-2 rounded-[8px] px-3 py-2 text-[13px] font-medium text-white sm:px-4"
+          style={{ backgroundColor: LIGHT.NAVY }}
+        >
+          <Plus size={15} />
+          <span className="hidden sm:inline">New Booking</span>
+        </button>
+
+        <button
+          type="button"
+          aria-label="Notifications"
+          className="relative grid h-9 w-9 place-items-center rounded-md"
+          style={{ color: LIGHT.INK_2 }}
+        >
+          <Bell size={18} />
+          <span
+            className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full px-1 text-[10px] font-semibold text-white"
+            style={{ backgroundColor: "#285D91" }}
+          >
+            2
+          </span>
+        </button>
+
+        <button type="button" className="flex items-center gap-2">
+          <span
+            className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
+            style={{ backgroundColor: "rgba(128,154,180,0.28)", color: LIGHT.INK }}
+          >
+            EH
+          </span>
+          <span className="hidden text-[13px] sm:inline" style={{ color: LIGHT.INK }}>
+            Emma Hansen
+          </span>
+          <ChevronDown size={15} style={{ color: LIGHT.INK_3 }} />
         </button>
       </div>
     </header>

@@ -20,7 +20,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { PAL, SERIF, SidebarContent, TopBar } from "@/components/DashboardChrome";
+import { SERIF, SidebarContent, TopBarLight } from "@/components/DashboardChrome";
 import { BOOKINGS, type Booking } from "@/lib/bookings";
 import {
   ALLERGY_TAGS,
@@ -68,17 +68,36 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
   }),
 });
 
-const { BG_ALT, CARD, CARD_BORDER, CARD_SHADOW, BORDER, TEXT, TEXT_2, MUTED, GOLD, GOLD_SOFT, GOLD_DEEP, GREEN } = PAL;
+/* Light blue-white-grey workspace tokens (names kept so existing markup keeps working) */
+const BG_ALT = "#E7EEF5";
+const CARD = "#F5F8FB";
+const CARD_BORDER = "rgba(110,135,160,0.16)";
+const CARD_SHADOW = "0 8px 30px rgba(35,60,85,0.06)";
+const BORDER = "rgba(90,115,140,0.14)";
+const TEXT = "#10233F";
+const TEXT_2 = "#50657A";
+const MUTED = "#71859A";
+const GOLD = "#285D91";
+const GOLD_SOFT = "#285D91";
+const GOLD_DEEP = "rgba(40,93,145,0.32)";
+const GREEN = "#3E9B57";
+const AMBER = "#B0800F";
+const ROW = "rgba(255,255,255,0.45)";
+const PANEL = "rgba(245,248,251,0.72)";
+const NAVY = "#153E6C";
 
-const GOLD_HI = "#F3D987";
-const GOLD_MET = "#D4AF37";
-const GOLD_MET_LOW = "#A97816";
-const AMBER = "#CBA24A";
-const ROW = "#26343E";
-const ROW_HOVER = "#2A3944";
-const PANEL = "#22303A";
+/* dark matte navy room-allocation card tokens */
+const CARD_NAVY = "linear-gradient(180deg, #1D456C 0%, #173A5D 100%)";
+const CARD_NAVY_HOVER = "linear-gradient(180deg, #214C76 0%, #1A4165 100%)";
+const RT = "#F4F7FA";
+const RT_2 = "#D9E3EC";
+const RT_3 = "rgba(255,255,255,0.68)";
+const R_BORDER = "rgba(255,255,255,0.09)";
+const R_GREEN = "#74D97C";
+const R_AMBER = "#E7B44B";
 
-const GOLD_BAR = `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_MET} 45%, ${GOLD_HI})`;
+const GOLD_BAR = "#285D91";
+
 
 /* ───────────────── primitives ───────────────── */
 
@@ -98,14 +117,15 @@ function GoldButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`inline-flex items-center gap-2 rounded-[7px] font-medium transition-[filter,transform] duration-200 ease-out hover:brightness-[1.06] active:translate-y-px disabled:opacity-50 ${
+      className={`inline-flex items-center gap-2 rounded-[8px] font-medium text-white transition-[filter,transform] duration-200 ease-out hover:-translate-y-px hover:brightness-[1.12] active:translate-y-0 disabled:opacity-50 ${
         small ? "px-3 py-[6px] text-[12px]" : "px-4 py-[8px] text-[12.5px]"
       }`}
       style={{
-        background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${GOLD_MET} 55%, ${GOLD_MET_LOW} 100%)`,
-        color: "#1B2A33",
-        border: "1px solid rgba(243,217,135,0.45)",
+        backgroundColor: NAVY,
+        border: "1px solid rgba(255,255,255,0.10)",
+        boxShadow: "0 2px 8px rgba(20,45,70,0.16)",
       }}
+
     >
       {children}
     </button>
@@ -125,10 +145,11 @@ function GhostButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-2 rounded-[7px] font-medium transition-colors duration-200 ease-out hover:bg-[rgba(199,163,74,0.09)] ${
+      className={`inline-flex items-center gap-2 rounded-[8px] font-medium transition-colors duration-200 ease-out hover:bg-[rgba(255,255,255,0.9)] ${
         small ? "px-3 py-[6px] text-[12px]" : "px-4 py-[8px] text-[12.5px]"
       }`}
-      style={{ color: TEXT_2, border: `1px solid ${BORDER}` }}
+      style={{ color: TEXT, backgroundColor: "rgba(255,255,255,0.62)", border: `1px solid rgba(90,115,140,0.22)` }}
+
     >
       {children}
     </button>
@@ -149,7 +170,7 @@ function Field({
   placeholder?: string;
 }) {
   return (
-    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}` }}>
+    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}>
       <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
         {label}
       </span>
@@ -257,28 +278,35 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const nights = booking.nights;
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: BG_ALT }}>
+    <div
+      className="min-h-screen"
+      style={{
+        background:
+          "radial-gradient(circle at 50% 12%, rgba(255,255,255,0.9), rgba(228,237,245,0.9) 55%, rgba(210,224,236,0.96) 100%), #E7EEF5",
+      }}
+    >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-      .hgb-row:hover{background-color:${ROW_HOVER} !important;border-color:rgba(212,175,55,0.20) !important;transform:translateY(-1px)}
+      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;border-color:rgba(255,255,255,0.14) !important}
       .hgb-row:hover .hgb-menu{opacity:1}`}</style>
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
-        <SidebarContent active="Rooming List" bookingId={booking.id} />
+        <SidebarContent light active="Rooming List" bookingId={booking.id} />
       </aside>
 
       {navOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <button aria-label="Close navigation" className="absolute inset-0 bg-black/60" onClick={() => setNavOpen(false)} />
+          <button aria-label="Close navigation" className="absolute inset-0 bg-black/40" onClick={() => setNavOpen(false)} />
           <div className="absolute inset-y-0 left-0 w-[268px]">
-            <SidebarContent active="Rooming List" bookingId={booking.id} />
+            <SidebarContent light active="Rooming List" bookingId={booking.id} />
           </div>
         </div>
       )}
 
       <div className="lg:pl-[244px]">
-        <TopBar
+        <TopBarLight
           onOpenNav={() => setNavOpen(true)}
+
           left={
             <Link
               to="/bookings/$bookingId"
@@ -295,30 +323,19 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         <div className="flex">
           <main className="min-w-0 flex-1 px-4 py-3 sm:px-6 lg:px-8">
             {/* ── compact booking hero ── */}
-            <section className="relative overflow-hidden rounded-[13px]" style={{ border: `1px solid ${CARD_BORDER}` }}>
-              <img
-                src={booking.image}
-                alt={`${booking.destination}`}
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ filter: "saturate(1.04) contrast(1.05) brightness(1.05)" }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(100deg, rgba(19,36,50,0.95) 0%, rgba(21,39,53,0.85) 40%, rgba(24,43,58,0.55) 100%)",
-                }}
-              />
-              <div className="relative px-5 py-3">
+            <section className="relative overflow-hidden rounded-[12px]">
+              <div className="relative px-1 py-1">
                 <span
-                  className="inline-flex items-center rounded px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: GOLD, backgroundColor: "rgba(199,163,74,0.12)", border: `1px solid rgba(199,163,74,0.34)` }}
+                  className="inline-flex items-center rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: TEXT_2, backgroundColor: "rgba(128,154,180,0.22)" }}
                 >
                   {booking.type === "leisure" ? "Leisure" : "M&E"}
                 </span>
-                <h1 className="mt-1.5 text-[27px] leading-[1.06]" style={{ color: TEXT, fontFamily: SERIF }}>
+
+                <h1 className="mt-1.5 text-[29px] font-semibold leading-[1.06] tracking-[-0.01em]" style={{ color: TEXT }}>
                   {booking.name}
                 </h1>
+
                 <div className="mt-1.5 flex flex-wrap items-center gap-x-6 gap-y-1 text-[12.5px]" style={{ color: TEXT_2 }}>
                   {booking.hotel && (
                     <span className="inline-flex items-center gap-2">
@@ -363,7 +380,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   {/* header */}
                   <div className="flex flex-wrap items-center gap-x-8 gap-y-3 px-5 pb-3 pt-4">
                     <div className="min-w-[220px]">
-                      <h2 className="text-[21px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
+                      <h2 className="text-[21px] font-semibold leading-none" style={{ color: TEXT }}>
                         Rooming List
                       </h2>
                       <p className="mt-1.5 text-[12.5px]" style={{ color: MUTED }}>
@@ -380,7 +397,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           {stats.percent}%
                         </span>
                       </div>
-                      <div className="mt-1.5 h-[5px] w-full overflow-hidden rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.07)" }}>
+                      <div className="mt-1.5 h-[5px] w-full overflow-hidden rounded-full" style={{ backgroundColor: "#CBD7E2" }}>
                         <div
                           className="h-full rounded-full transition-[width] duration-300 ease-out"
                           style={{ width: `${stats.percent}%`, background: GOLD_BAR }}
@@ -455,14 +472,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     <button
                       type="button"
                       onClick={() => setShowGroup(true)}
-                      className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(199,163,74,0.08)]"
+                      className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
                       style={{ color: GOLD_SOFT, border: `1px solid ${BORDER}` }}
                     >
                       Group requests
                       {list.groupRequests.length > 0 && (
                         <span
                           className="rounded-full px-1.5 text-[10.5px]"
-                          style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
+                          style={{ backgroundColor: "rgba(40,93,145,0.14)", color: GOLD }}
                         >
                           {list.groupRequests.length}
                         </span>
@@ -482,7 +499,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                             className="rounded-[6px] px-3 py-[5px] text-[12px] capitalize transition-colors"
                             style={
                               view === v
-                                ? { color: GOLD, backgroundColor: "rgba(199,163,74,0.12)", border: `1px solid ${GOLD_DEEP}` }
+                                ? { color: GOLD, backgroundColor: "#FFFFFF", border: `1px solid ${GOLD_DEEP}`, boxShadow: "0 1px 4px rgba(20,45,70,0.10)" }
                                 : { color: TEXT_2, border: "1px solid transparent" }
                             }
                           >
@@ -521,7 +538,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               </div>
 
               {/* allocation rows */}
-              <div className="space-y-2 px-3 pb-4 sm:px-4">
+              <div className="space-y-[5px] px-3 pb-4 sm:px-4">
                 {visible.map((a) => (
                   <AllocationRow
                     key={a.id}
@@ -543,7 +560,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               {/* sticky workspace bar */}
               <div
                 className="sticky bottom-0 z-20 flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3"
-                style={{ backgroundColor: "#1F2C35", borderTop: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(245,248,251,0.92)", borderTop: `1px solid ${CARD_BORDER}`, backdropFilter: "blur(8px)" }}
               >
                 <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
                   <CheckCircle2 size={15} style={{ color: GREEN }} />
@@ -698,7 +715,7 @@ function AllocationRow({
     onPatch((a) => ({ ...a, type: t, guests: a.guests.slice(0, Math.max(nextCap, a.guests.length)) }));
   };
 
-  const statusColor = status === "complete" ? GREEN : status === "attention" ? AMBER : MUTED;
+  const statusColor = status === "complete" ? R_GREEN : status === "attention" ? R_AMBER : RT_3;
   const statusLabel =
     status === "complete"
       ? "Complete"
@@ -713,9 +730,14 @@ function AllocationRow({
   return (
     <div
       id={`alloc-${allocation.id}`}
-      className="hgb-row rounded-[10px] px-3 py-2.5 transition-[background-color,border-color,transform] duration-200 ease-out sm:px-4"
-      style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
+      className="hgb-row rounded-[10px] px-3 py-2.5 transition-[background,border-color] duration-200 ease-out sm:px-4"
+      style={{
+        background: CARD_NAVY,
+        border: "1px solid rgba(255,255,255,0.06)",
+        boxShadow: "0 5px 14px rgba(20,45,70,0.10)",
+      }}
     >
+
       <div
         className="grid items-start gap-x-4 gap-y-3"
         style={{ gridTemplateColumns: "minmax(0,1fr)" }}
@@ -725,7 +747,7 @@ function AllocationRow({
         >
           {/* allocation number + type */}
           <div>
-            <p className="text-[19px] font-medium leading-none" style={{ color: TEXT }}>
+            <p className="text-[19px] font-medium leading-none" style={{ color: RT }}>
               {String(allocation.index).padStart(2, "0")}
             </p>
             <div className="relative mt-1.5">
@@ -734,27 +756,27 @@ function AllocationRow({
                 disabled={locked}
                 onClick={() => setTypeOpen((v) => !v)}
                 className="inline-flex items-center gap-1.5 text-[12.5px] transition-colors hover:text-[color:var(--hgb-gold)]"
-                style={{ color: TEXT_2, ["--hgb-gold" as string]: GOLD_SOFT }}
+                style={{ color: RT_2, ["--hgb-gold" as string]: R_AMBER }}
               >
-                <Bed size={13} style={{ color: MUTED }} />
+                <Bed size={13} style={{ color: RT_3 }} />
                 {labelOf(allocation.type)}
-                {!locked && <ChevronDown size={13} style={{ color: MUTED }} />}
+                {!locked && <ChevronDown size={13} style={{ color: RT_3 }} />}
               </button>
               {typeOpen && (
                 <div
                   className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
-                  style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                  style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.18)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
                 >
                   {ROOM_TYPES.map((t) => (
                     <button
                       key={t.value}
                       type="button"
                       onClick={() => changeType(t.value)}
-                      className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-                      style={{ color: t.value === allocation.type ? GOLD : TEXT_2 }}
+                      className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                      style={{ color: t.value === allocation.type ? "#153E6C" : "#50657A" }}
                     >
                       <span>{t.label}</span>
-                      <span className="text-[10.5px]" style={{ color: MUTED }}>
+                      <span className="text-[10.5px]" style={{ color: "#71859A" }}>
                         {t.capacity} guest{t.capacity > 1 ? "s" : ""}
                       </span>
                     </button>
@@ -764,10 +786,10 @@ function AllocationRow({
             </div>
             {approval && (
               <div className="mt-2 rounded-[7px] px-2 py-1.5" style={{ backgroundColor: "rgba(203,162,74,0.10)", border: `1px solid rgba(203,162,74,0.28)` }}>
-                <p className="text-[10.5px] leading-snug" style={{ color: AMBER }}>
+                <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
                   Booking change may require approval
                 </p>
-                <button type="button" className="mt-1 text-[10.5px]" style={{ color: GOLD_SOFT }} onClick={() => setApproval(false)}>
+                <button type="button" className="mt-1 text-[10.5px]" style={{ color: R_AMBER }} onClick={() => setApproval(false)}>
                   Request change →
                 </button>
               </div>
@@ -783,12 +805,12 @@ function AllocationRow({
                 onClick={() => onOpenGuest(g.id)}
                 className="flex w-full items-center gap-3 rounded-[7px] px-1.5 py-1 text-left transition-colors hover:bg-[rgba(255,255,255,0.04)]"
               >
-                <User size={13} style={{ color: MUTED }} />
-                <span className="min-w-0 flex-1 truncate text-[13.5px]" style={{ color: TEXT }}>
+                <User size={13} style={{ color: RT_3 }} />
+                <span className="min-w-0 flex-1 truncate text-[13.5px]" style={{ color: RT }}>
                   {guestName(g) || "Unnamed guest"}
                 </span>
                 {g.nationality && (
-                  <span className="shrink-0 text-[12px]" style={{ color: TEXT_2 }}>
+                  <span className="shrink-0 text-[12px]" style={{ color: RT_2 }}>
                     <span className="mr-1.5">{flagOf(g.nationality)}</span>
                     {g.nationality}
                   </span>
@@ -799,7 +821,7 @@ function AllocationRow({
             {!locked && adding && named.length < cap && (
               <div
                 className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-2"
-                style={{ backgroundColor: "#1C2932", border: `1px solid ${GOLD_DEEP}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.22)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
               >
                 <input
                   ref={inputRef}
@@ -811,7 +833,7 @@ function AllocationRow({
                   }}
                   placeholder="First name"
                   className="w-[120px] bg-transparent text-[13px] outline-none"
-                  style={{ color: TEXT }}
+                  style={{ color: "#10233F" }}
                 />
                 <input
                   value={last}
@@ -822,12 +844,12 @@ function AllocationRow({
                   }}
                   placeholder="Last name"
                   className="w-[140px] bg-transparent text-[13px] outline-none"
-                  style={{ color: TEXT }}
+                  style={{ color: "#10233F" }}
                 />
                 <GoldButton small onClick={commit}>
                   Save
                 </GoldButton>
-                <button type="button" onClick={() => setAdding(false)} style={{ color: MUTED }} aria-label="Cancel">
+                <button type="button" onClick={() => setAdding(false)} style={{ color: "#71859A" }} aria-label="Cancel">
                   <X size={14} />
                 </button>
               </div>
@@ -840,8 +862,12 @@ function AllocationRow({
                   key={i}
                   type="button"
                   onClick={() => setAdding(true)}
-                  className="flex w-full items-center gap-2 rounded-[7px] px-1.5 py-1 text-left text-[12.5px] transition-colors hover:bg-[rgba(199,163,74,0.07)]"
-                  style={{ color: GOLD_SOFT }}
+                  className="flex w-full items-center gap-2 rounded-[7px] px-2 py-[5px] text-left text-[12.5px] transition-colors hover:bg-[rgba(231,180,75,0.09)]"
+                  style={{
+                    color: R_AMBER,
+                    border: "1px dashed rgba(231,180,75,0.35)",
+                    backgroundColor: "rgba(255,255,255,0.02)",
+                  }}
                 >
                   <Plus size={13} />
                   {i === 0 ? slotLabel : "Add guest"}
@@ -854,14 +880,14 @@ function AllocationRow({
             {allocation.requests.length > 0 ? (
               <div className="space-y-1">
                 {allocation.requests.map((r) => (
-                  <span key={r} className="flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
+                  <span key={r} className="flex items-center gap-2 text-[12.5px]" style={{ color: RT_2 }}>
                     {r}
                     {!locked && (
                       <button
                         type="button"
                         aria-label={`Remove ${r}`}
                         onClick={() => onPatch((a) => ({ ...a, requests: a.requests.filter((x) => x !== r) }))}
-                        style={{ color: MUTED }}
+                        style={{ color: RT_3 }}
                       >
                         <X size={11} />
                       </button>
@@ -870,7 +896,7 @@ function AllocationRow({
                 ))}
               </div>
             ) : (
-              <span className="block text-[13px]" style={{ color: MUTED }}>
+              <span className="block text-[13px]" style={{ color: RT_3 }}>
                 —
               </span>
             )}
@@ -879,7 +905,7 @@ function AllocationRow({
                 type="button"
                 onClick={() => setRequestOpen((v) => !v)}
                 className="mt-1 flex items-center gap-1.5 text-[12px]"
-                style={{ color: GOLD_SOFT }}
+                style={{ color: R_AMBER }}
               >
                 <Plus size={12} />
                 Add room request
@@ -888,7 +914,7 @@ function AllocationRow({
             {requestOpen && (
               <div
                 className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.18)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
               >
                 {ROOM_REQUEST_OPTIONS.map((r) => (
                   <button
@@ -898,8 +924,8 @@ function AllocationRow({
                       onPatch((a) => (a.requests.includes(r) ? a : { ...a, requests: [...a.requests, r] }));
                       setRequestOpen(false);
                     }}
-                    className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-                    style={{ color: TEXT_2 }}
+                    className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                    style={{ color: "#50657A" }}
                   >
                     {r}
                   </button>
@@ -914,7 +940,7 @@ function AllocationRow({
               {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={12} fill={statusColor} strokeWidth={0} />}
               {statusLabel}
             </span>
-            <p className="mt-1 text-[12px]" style={{ color: MUTED }}>
+            <p className="mt-1 text-[12px]" style={{ color: RT_3 }}>
               {named.length} / {cap} guest{cap > 1 ? "s" : ""}
             </p>
           </div>
@@ -926,14 +952,14 @@ function AllocationRow({
               aria-label="Allocation actions"
               onClick={() => setMenuOpen((v) => !v)}
               className="hgb-menu grid h-7 w-7 place-items-center rounded-[6px] opacity-0 transition-opacity duration-200"
-              style={{ color: MUTED }}
+              style={{ color: RT_3 }}
             >
               <MoreVertical size={15} />
             </button>
             {menuOpen && (
               <div
                 className="absolute right-0 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.18)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
               >
                 {[
                   { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
@@ -949,8 +975,8 @@ function AllocationRow({
                       item.run();
                       setMenuOpen(false);
                     }}
-                    className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)] disabled:opacity-40"
-                    style={{ color: TEXT_2 }}
+                    className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)] disabled:opacity-40"
+                    style={{ color: "#50657A" }}
                   >
                     {item.label}
                   </button>
@@ -995,7 +1021,7 @@ function GuestDrawer({
       <button aria-label="Close guest details" className="absolute inset-0 bg-black/50 lg:hidden" onClick={onClose} />
       <div
         className="absolute inset-y-0 right-0 flex w-full max-w-[420px] flex-col overflow-y-auto lg:static lg:h-[calc(100vh-56px)] lg:max-w-none"
-        style={{ backgroundColor: CARD, borderLeft: `1px solid ${CARD_BORDER}` }}
+        style={{ backgroundColor: "rgba(245,248,251,0.92)", borderLeft: `1px solid rgba(95,120,145,0.15)` }}
       >
         <div className="flex items-center justify-between px-4 pb-2 pt-4">
           <h3 className="text-[17px]" style={{ color: TEXT, fontFamily: SERIF }}>
@@ -1009,7 +1035,7 @@ function GuestDrawer({
         <div className="flex items-center gap-3 px-4 py-3" style={{ borderTop: `1px solid ${BORDER}` }}>
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[11.5px] font-medium"
-            style={{ backgroundColor: "rgba(199,163,74,0.14)", color: GOLD }}
+            style={{ backgroundColor: "rgba(128,154,180,0.28)", color: TEXT }}
           >
             {(draft.firstName[0] ?? "") + (draft.lastName[0] ?? "")}
           </span>
@@ -1029,7 +1055,7 @@ function GuestDrawer({
           </p>
           <Field label="First name" value={draft.firstName} onChange={(v) => set({ firstName: v })} />
           <Field label="Last name" value={draft.lastName} onChange={(v) => set({ lastName: v })} />
-          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}` }}>
+          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}>
             <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
               Nationality
             </span>
@@ -1065,9 +1091,9 @@ function GuestDrawer({
                   key={t}
                   className="inline-flex items-center gap-1.5 rounded-[6px] px-2 py-[4px] text-[11.5px]"
                   style={{
-                    color: strong ? AMBER : TEXT_2,
-                    backgroundColor: strong ? "rgba(203,162,74,0.12)" : "rgba(255,255,255,0.05)",
-                    border: `1px solid ${strong ? "rgba(203,162,74,0.35)" : BORDER}`,
+                    color: "#FFFFFF",
+                    backgroundColor: strong ? "#6E88A3" : "#809AB4",
+                    border: "1px solid rgba(255,255,255,0.14)",
                   }}
                 >
                   {t}
@@ -1089,7 +1115,7 @@ function GuestDrawer({
             {tagOpen && (
               <div
                 className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}
               >
                 {[...DIETARY_TAGS, ...ALLERGY_TAGS].map((t) => (
                   <button
@@ -1121,7 +1147,7 @@ function GuestDrawer({
             rows={4}
             placeholder="Accessibility requirement, baby cot, personal preference…"
             className="mt-2 w-full resize-none rounded-[8px] px-3 py-2 text-[13px] outline-none"
-            style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}`, color: TEXT }}
+            style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, color: TEXT }}
           />
           <div className="mt-1 flex items-center justify-between text-[11px]" style={{ color: MUTED }}>
             <span>{(draft.specialRequests ?? "").length} / 500</span>
@@ -1133,7 +1159,7 @@ function GuestDrawer({
 
         <div
           className="sticky bottom-0 mt-auto flex items-center justify-between gap-3 px-4 py-3"
-          style={{ backgroundColor: "#26333D", borderTop: `1px solid ${BORDER}` }}
+          style={{ backgroundColor: "rgba(240,245,250,0.96)", borderTop: `1px solid ${CARD_BORDER}` }}
         >
           <button
             type="button"
@@ -1243,7 +1269,7 @@ function GroupRequestsModal({
             }}
             placeholder="e.g. Rooms requested on the same floor."
             className="flex-1 rounded-[8px] px-3 py-2 text-[13px] outline-none"
-            style={{ backgroundColor: "#1C2932", border: `1px solid ${BORDER}`, color: TEXT }}
+            style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, color: TEXT }}
           />
           <GoldButton
             small
@@ -1271,7 +1297,7 @@ function ImportModal({ onClose }: { onClose: () => void }) {
       </p>
       <div
         className="mt-4 grid place-items-center rounded-[10px] px-4 py-8 text-center"
-        style={{ backgroundColor: ROW, border: `1px dashed ${GOLD_DEEP}` }}
+        style={{ backgroundColor: "rgba(255,255,255,0.55)", border: `1px dashed ${GOLD_DEEP}` }}
       >
         <FileSpreadsheet size={22} style={{ color: GOLD_SOFT }} />
         <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
@@ -1388,7 +1414,7 @@ function ReviewModal({
               </div>
             </>
           ) : (
-            <div className="mt-4 rounded-[9px] px-3 py-3" style={{ backgroundColor: "rgba(141,168,138,0.10)", border: `1px solid rgba(141,168,138,0.30)` }}>
+            <div className="mt-4 rounded-[9px] px-3 py-3" style={{ backgroundColor: "rgba(62,155,87,0.10)", border: "1px solid rgba(62,155,87,0.28)" }}>
               <p className="inline-flex items-center gap-2 text-[13.5px]" style={{ color: GREEN }}>
                 <CheckCircle2 size={15} /> Rooming list complete
               </p>
