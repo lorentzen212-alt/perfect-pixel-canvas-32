@@ -290,7 +290,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       className="min-h-screen"
       style={{
         background:
-          "radial-gradient(circle at 50% 12%, rgba(255,255,255,0.9), rgba(228,237,245,0.9) 55%, rgba(210,224,236,0.96) 100%), #E7EEF5",
+          "radial-gradient(circle at 50% 10%, #1B3E5F 0%, #163650 55%, #12293E 100%), #14304C",
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
@@ -509,7 +509,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     <button
                       type="button"
                       onClick={() => setShowGroup(true)}
-                      className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                      className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
                       style={{ color: GOLD_SOFT, border: `1px solid ${BORDER}` }}
                     >
                       Group requests
@@ -536,7 +536,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                             className="rounded-[6px] px-3 py-[5px] text-[12px] capitalize transition-colors"
                             style={
                               view === v
-                                ? { color: GOLD, backgroundColor: "#FFFFFF", border: `1px solid ${GOLD_DEEP}`, boxShadow: "0 1px 4px rgba(20,45,70,0.10)" }
+                                ? { color: GOLD, backgroundColor: "rgba(255,255,255,0.11)", border: `1px solid ${GOLD_DEEP}`, boxShadow: "0 1px 4px rgba(20,45,70,0.10)" }
                                 : { color: TEXT_2, border: "1px solid transparent" }
                             }
                           >
@@ -831,7 +831,7 @@ function AllocationRow({
             <div
               className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
               style={{
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "#1D4062",
                 border: "1px solid rgba(90,115,140,0.18)",
                 boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
                 animation: "hgbFade 160ms ease-out",
@@ -842,7 +842,7 @@ function AllocationRow({
                   key={t.value}
                   type="button"
                   onClick={() => changeType(t.value)}
-                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
                   style={{ color: t.value === allocation.type ? "#153E6C" : "#50657A" }}
                 >
                   <span>{t.label}</span>
@@ -895,7 +895,7 @@ function AllocationRow({
           <div
             className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-1.5"
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "#1D4062",
               border: "1px solid rgba(90,115,140,0.22)",
               boxShadow: "0 8px 20px rgba(20,45,70,0.18)",
               animation: "hgbFade 160ms ease-out",
@@ -990,7 +990,7 @@ function AllocationRow({
           <div
             className="absolute left-2 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "#1D4062",
               border: "1px solid rgba(90,115,140,0.18)",
               boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
               animation: "hgbFade 160ms ease-out",
@@ -1004,7 +1004,7 @@ function AllocationRow({
                   onPatch((a) => (a.requests.includes(r) ? a : { ...a, requests: [...a.requests, r] }));
                   setRequestOpen(false);
                 }}
-                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
                 style={{ color: "#50657A" }}
               >
                 {r}
@@ -1040,7 +1040,7 @@ function AllocationRow({
           <div
             className="absolute right-1 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "#1D4062",
               border: "1px solid rgba(90,115,140,0.18)",
               boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
               animation: "hgbFade 160ms ease-out",
@@ -1060,7 +1060,7 @@ function AllocationRow({
                   item.run();
                   setMenuOpen(false);
                 }}
-                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)] disabled:opacity-40"
+                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)] disabled:opacity-40"
                 style={{ color: "#50657A" }}
               >
                 {item.label}
@@ -1638,7 +1638,7 @@ function UnassignedPanel({
       {adding && !locked && (
         <div
           className="mt-2.5 flex flex-wrap items-center gap-2 rounded-[8px] px-2.5 py-2"
-          style={{ backgroundColor: "#FFFFFF", border: `1px solid ${BORDER}` }}
+          style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}
         >
           <input
             autoFocus
@@ -1716,7 +1716,7 @@ function UnassignedPanel({
                 <div
                   className="absolute left-0 top-full z-30 mt-1 max-h-[240px] w-[220px] overflow-y-auto rounded-[8px]"
                   style={{
-                    backgroundColor: "#FFFFFF",
+                    backgroundColor: "#1D4062",
                     border: "1px solid rgba(90,115,140,0.18)",
                     boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
                     animation: "hgbFade 160ms ease-out",
@@ -1735,7 +1735,7 @@ function UnassignedPanel({
                         onAssign(g.id, a.id);
                         setAssignFor(null);
                       }}
-                      className="flex w-full items-center justify-between px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                      className="flex w-full items-center justify-between px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
                       style={{ color: TEXT_2 }}
                     >
                       <span>
