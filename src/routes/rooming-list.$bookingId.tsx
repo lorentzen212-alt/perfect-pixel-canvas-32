@@ -692,8 +692,22 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               allocation={drawerGuest.alloc}
               guest={drawerGuest.guest}
               locked={locked}
-              onClose={() => setOpenGuest(null)}
+              isNew={drawerGuest.isNew}
+              onClose={() => {
+                setOpenGuest(null);
+                setPendingGuest(null);
+              }}
               onSave={(g) => {
+                if (drawerGuest.isNew) {
+                  if (drawerGuest.alloc) {
+                    patchAllocation(drawerGuest.alloc.id, (a) => ({ ...a, guests: [...a.guests, g] }));
+                  } else {
+                    update((l) => ({ ...l, unassigned: [...l.unassigned, g] }));
+                  }
+                  setPendingGuest(null);
+                  setOpenGuest(drawerGuest.alloc ? { allocationId: drawerGuest.alloc.id, guestId: g.id } : null);
+                  return;
+                }
                 if (drawerGuest.alloc) {
                   patchAllocation(drawerGuest.alloc.id, (a) => ({
                     ...a,
@@ -716,6 +730,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               }}
             />
           )}
+
         </div>
       </div>
 
