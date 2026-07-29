@@ -70,7 +70,7 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
 });
 
 /* Deep matte navy workspace tokens (names kept so existing markup keeps working) */
-const BG_ALT = "#173A5D";
+const BG_ALT = "#EEF3F8";
 const CARD = "#1D456C";
 const SURFACE_2 = "#22507C";
 const CARD_BORDER = "rgba(255,255,255,0.10)";
@@ -84,8 +84,8 @@ const GOLD_SOFT = "#8FB9E4";
 const GOLD_DEEP = "rgba(143,185,228,0.34)";
 const GREEN = "#74D97C";
 const AMBER = "#E7B44B";
-const ROW = "rgba(255,255,255,0.04)";
-const PANEL = "rgba(255,255,255,0.05)";
+const ROW = "rgba(255,255,255,0.07)";
+const PANEL = "#1D456C";
 const NAVY = "#1D456C";
 
 /* dark matte navy room-allocation card tokens */
@@ -99,6 +99,9 @@ const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B44B";
 
 const GOLD_BAR = "#8FB9E4";
+const HERO_INK = "#10233F";
+const HERO_INK_2 = "#4A6076";
+const HERO_ACCENT = "#2C5B8C";
 const COLS = "14% 42% 21% 19% 4%";
 
 
@@ -291,7 +294,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       className="min-h-screen"
       style={{
         background:
-          "radial-gradient(circle at 50% 12%, rgba(38,86,132,0.55), rgba(26,64,101,0.75) 55%, rgba(20,50,80,0.9) 100%), #173A5D",
+          "radial-gradient(circle at 50% 0%, #F6F9FC 0%, #EDF2F7 45%, #E4EBF2 100%)",
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
@@ -340,7 +343,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <span className="inline-flex items-center gap-2">
                   <span
                     className="inline-flex items-center rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
-                    style={{ color: TEXT_2, backgroundColor: "rgba(128,154,180,0.22)" }}
+                    style={{ color: HERO_INK_2, backgroundColor: "rgba(128,154,180,0.22)" }}
                   >
                     {booking.type === "leisure" ? "Leisure" : "M&E"}
                   </span>
@@ -368,11 +371,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 </span>
 
 
-                <h1 className="mt-1.5 text-[26px] font-semibold leading-[1.06] tracking-[-0.01em]" style={{ color: TEXT }}>
+                <h1 className="mt-1.5 text-[26px] font-semibold leading-[1.06] tracking-[-0.01em]" style={{ color: HERO_INK }}>
                   {booking.name}
                 </h1>
 
-                <div className="mt-1.5 flex flex-wrap items-center gap-x-5 gap-y-1 text-[12.5px]" style={{ color: TEXT_2 }}>
+                <div className="mt-1.5 flex flex-wrap items-center gap-x-5 gap-y-1 text-[12.5px]" style={{ color: HERO_INK_2 }}>
                   {booking.hotel && (
                     <span className="inline-flex items-center gap-2">
                       <MapPin size={13} style={{ color: GOLD_SOFT }} />
