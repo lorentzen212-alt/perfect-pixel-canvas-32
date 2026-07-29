@@ -1129,12 +1129,15 @@ function AllocationRow({
               disabled={!selectable}
               onChange={() => onToggleSelected?.()}
               title={
-                allocation.upgradeRequest
-                  ? "An upgrade has already been requested for this room"
-                  : upgradeEligible
-                    ? undefined
-                    : "No higher room category available"
+                withdrawable
+                  ? "Select to withdraw this upgrade request"
+                  : allocation.upgradeRequest
+                    ? "An upgrade has already been requested for this room"
+                    : upgradeEligible
+                      ? undefined
+                      : "No higher room category available"
               }
+
             />
           )}
           <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
