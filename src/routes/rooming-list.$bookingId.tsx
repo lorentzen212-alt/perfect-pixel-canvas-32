@@ -695,10 +695,56 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       </label>
                     </div>
                   </div>
+
+                  {/* upgrade status sub-filter */}
+                  {view === "upgrades" && upgradeRequests.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-2 px-5 pb-3.5">
+                      <span className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                        Upgrades
+                      </span>
+                      {(["all", "requested", "price_offered", "approved", "declined"] as UpgradeFilter[]).map((f) => {
+                        const count =
+                          f === "all"
+                            ? upgradeRequests.length
+                            : upgradeRequests.filter((a) => a.upgradeRequest?.status === f).length;
+                        const label = f === "all" ? "All upgrades" : UPGRADE_STATUS_META[f].label;
+                        const on = upgradeFilter === f;
+                        return (
+                          <button
+                            key={f}
+                            type="button"
+                            onClick={() => setUpgradeFilter(f)}
+                            className="rounded-[7px] px-2.5 py-[5px] text-[11.5px] transition-colors"
+                            style={{
+                              color: on ? GOLD : TEXT_2,
+                              backgroundColor: on ? SURFACE_2 : "transparent",
+                              border: `1px solid ${on ? GOLD_DEEP : BORDER}`,
+                            }}
+                          >
+                            {label} · {count}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* upgrade mode panel */}
+                  {upgradeMode && (
+                    <UpgradeModePanel
+                      allocations={list.allocations}
+                      eligible={eligible}
+                      selected={selected}
+                      selectedAllocations={selectedAllocations}
+                      onSelectAll={(on) => setSelected(on ? eligible.map((a) => a.id) : [])}
+                      onCancel={exitUpgradeMode}
+                      onRequest={(category, preference, note) => setConfirmUpgrade({ category, preference, note })}
+                    />
+                  )}
                 </>
               )}
 
             </section>
+
 
             {/* ── unassigned guests ── */}
             <UnassignedPanel
