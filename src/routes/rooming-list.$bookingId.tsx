@@ -1701,7 +1701,7 @@ function UnassignedPanel({
               >
                 <User size={13} style={{ color: MUTED }} />
                 {guestName(g) || "Unnamed guest"}
-                {g.nationality && <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>}
+                {g.nationality && <span className="text-[12px]" style={{ color: TEXT_2 }}>{g.nationality}</span>}
               </button>
 
               {!locked && (
