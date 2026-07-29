@@ -8,6 +8,9 @@ import {
   ChevronRight,
   Clock,
   Copy,
+  Download,
+  FileText,
+
   MapPin,
   MessageSquare,
   MoreHorizontal,
