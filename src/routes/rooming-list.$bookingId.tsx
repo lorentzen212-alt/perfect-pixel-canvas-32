@@ -977,10 +977,19 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       setPendingGuest(null);
                       setOpenGuest(null);
                     }}
+                    onRenameGuest={(guestId, name) => {
+                      patchAllocation(a.id, (al) => ({
+                        ...al,
+                        guests: al.guests.map((g) =>
+                          g.id === guestId ? { ...g, ...splitName(name) } : g,
+                        ),
+                      }));
+                    }}
                     onRemoveGuest={(guestId) => {
                       patchAllocation(a.id, (al) => ({ ...al, guests: al.guests.filter((g) => g.id !== guestId) }));
                       setOpenGuest((o) => (o?.guestId === guestId ? null : o));
                     }}
+
 
                   />
                 ))}
@@ -1255,6 +1264,8 @@ function AllocationRow({
   onOpenGuest,
   onAddGuest,
   onRemoveGuest,
+  onRenameGuest,
+
   pending,
   onPendingNameChange,
   onPendingConfirm,
@@ -1276,6 +1287,8 @@ function AllocationRow({
   onOpenGuest: (guestId: string) => void;
   onAddGuest: () => void;
   onRemoveGuest: (guestId: string) => void;
+  onRenameGuest?: (guestId: string, name: string) => void;
+
   /** non-null when this room has an active new-guest entry */
   pending?: { raw: string; editing: boolean } | null;
   onPendingNameChange?: (v: string) => void;
@@ -1465,9 +1478,11 @@ function AllocationRow({
             locked={locked}
             showRequirementDetail={showRequirementDetail}
             onOpen={() => onOpenGuest(g.id)}
+            onRename={(name) => onRenameGuest?.(g.id, name)}
             onRemove={() => onRemoveGuest(g.id)}
           />
         ))}
+
 
         {!locked &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) =>
