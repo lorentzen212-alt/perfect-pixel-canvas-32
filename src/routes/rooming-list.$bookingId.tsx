@@ -614,7 +614,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       </GhostButton>
                       <button
                         type="button"
-                        onClick={() => (upgradeMode ? exitUpgradeMode() : setUpgradeMode(true))}
+                        onClick={() => {
+                          if (upgradeMode) {
+                            exitUpgradeMode();
+                            return;
+                          }
+                          exitManageMode();
+                          setUpgradeMode(true);
+                        }}
                         className="inline-flex items-center gap-2 rounded-[8px] px-3.5 py-[8px] text-[12.5px] font-medium transition-colors duration-200 hover:bg-[rgba(197,162,75,0.10)]"
                         style={{
                           color: GOLD_SOFT,
