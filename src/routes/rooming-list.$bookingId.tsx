@@ -472,14 +472,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     <button
                       type="button"
                       onClick={() => setShowGroup(true)}
-                      className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(199,163,74,0.08)]"
+                      className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
                       style={{ color: GOLD_SOFT, border: `1px solid ${BORDER}` }}
                     >
                       Group requests
                       {list.groupRequests.length > 0 && (
                         <span
                           className="rounded-full px-1.5 text-[10.5px]"
-                          style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
+                          style={{ backgroundColor: "rgba(40,93,145,0.14)", color: GOLD }}
                         >
                           {list.groupRequests.length}
                         </span>
@@ -499,7 +499,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                             className="rounded-[6px] px-3 py-[5px] text-[12px] capitalize transition-colors"
                             style={
                               view === v
-                                ? { color: GOLD, backgroundColor: "rgba(199,163,74,0.12)", border: `1px solid ${GOLD_DEEP}` }
+                                ? { color: GOLD, backgroundColor: "#FFFFFF", border: `1px solid ${GOLD_DEEP}`, boxShadow: "0 1px 4px rgba(20,45,70,0.10)" }
                                 : { color: TEXT_2, border: "1px solid transparent" }
                             }
                           >
@@ -1035,7 +1035,7 @@ function GuestDrawer({
         <div className="flex items-center gap-3 px-4 py-3" style={{ borderTop: `1px solid ${BORDER}` }}>
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[11.5px] font-medium"
-            style={{ backgroundColor: "rgba(199,163,74,0.14)", color: GOLD }}
+            style={{ backgroundColor: "rgba(128,154,180,0.28)", color: TEXT }}
           >
             {(draft.firstName[0] ?? "") + (draft.lastName[0] ?? "")}
           </span>
@@ -1091,9 +1091,9 @@ function GuestDrawer({
                   key={t}
                   className="inline-flex items-center gap-1.5 rounded-[6px] px-2 py-[4px] text-[11.5px]"
                   style={{
-                    color: strong ? AMBER : TEXT_2,
-                    backgroundColor: strong ? "rgba(203,162,74,0.12)" : "rgba(255,255,255,0.05)",
-                    border: `1px solid ${strong ? "rgba(203,162,74,0.35)" : BORDER}`,
+                    color: "#FFFFFF",
+                    backgroundColor: strong ? "#6E88A3" : "#809AB4",
+                    border: "1px solid rgba(255,255,255,0.14)",
                   }}
                 >
                   {t}
@@ -1297,7 +1297,7 @@ function ImportModal({ onClose }: { onClose: () => void }) {
       </p>
       <div
         className="mt-4 grid place-items-center rounded-[10px] px-4 py-8 text-center"
-        style={{ backgroundColor: ROW, border: `1px dashed ${GOLD_DEEP}` }}
+        style={{ backgroundColor: "rgba(255,255,255,0.55)", border: `1px dashed ${GOLD_DEEP}` }}
       >
         <FileSpreadsheet size={22} style={{ color: GOLD_SOFT }} />
         <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
@@ -1414,7 +1414,7 @@ function ReviewModal({
               </div>
             </>
           ) : (
-            <div className="mt-4 rounded-[9px] px-3 py-3" style={{ backgroundColor: "rgba(141,168,138,0.10)", border: `1px solid rgba(141,168,138,0.30)` }}>
+            <div className="mt-4 rounded-[9px] px-3 py-3" style={{ backgroundColor: "rgba(62,155,87,0.10)", border: "1px solid rgba(62,155,87,0.28)" }}>
               <p className="inline-flex items-center gap-2 text-[13.5px]" style={{ color: GREEN }}>
                 <CheckCircle2 size={15} /> Rooming list complete
               </p>
