@@ -257,6 +257,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     note: string;
   } | null>(null);
   const [confirmWithdraw, setConfirmWithdraw] = useState(false);
+  /* ── manage existing upgrade requests (separate workflow) ── */
+  const [manageMode, setManageMode] = useState(false);
+  const [manageSelected, setManageSelected] = useState<string[]>([]);
+  const [confirmRemove, setConfirmRemove] = useState<string[] | null>(null);
 
   const firstRender = useRef(true);
 
@@ -372,6 +376,43 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     setConfirmUpgrade(null);
     setConfirmWithdraw(false);
   }, []);
+
+  /* manage-existing-requests workflow (kept separate from the add workflow) */
+  const exitManageMode = useCallback(() => {
+    setManageMode(false);
+    setManageSelected([]);
+    setConfirmRemove(null);
+  }, []);
+
+  /* leaving nothing to manage — return to the normal list */
+  useEffect(() => {
+    if (manageMode && upgradeRequests.length === 0) exitManageMode();
+  }, [manageMode, upgradeRequests.length, exitManageMode]);
+
+
+
+  const enterManageMode = useCallback(() => {
+    setUpgradeMode(false);
+    setSelected([]);
+    setConfirmUpgrade(null);
+    setConfirmWithdraw(false);
+    setManageSelected([]);
+    setManageMode(true);
+  }, []);
+
+  const toggleManageSelected = useCallback(
+    (id: string) => setManageSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id])),
+    [],
+  );
+
+  const removeUpgradeRequests = useCallback(
+    (ids: string[]) => {
+      withdrawUpgrades(ids);
+      setManageSelected((s) => s.filter((id) => !ids.includes(id)));
+      setConfirmRemove(null);
+    },
+    [withdrawUpgrades],
+  );
 
   const submitUpgrades = useCallback(
     (ids: string[], category: RoomCategory, preference: UpgradePreference, note: string) => {
@@ -580,7 +621,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       </GhostButton>
                       <button
                         type="button"
-                        onClick={() => (upgradeMode ? exitUpgradeMode() : setUpgradeMode(true))}
+                        onClick={() => {
+                          if (upgradeMode) {
+                            exitUpgradeMode();
+                            return;
+                          }
+                          exitManageMode();
+                          setUpgradeMode(true);
+                        }}
                         className="inline-flex items-center gap-2 rounded-[8px] px-3.5 py-[8px] text-[12.5px] font-medium transition-colors duration-200 hover:bg-[rgba(197,162,75,0.10)]"
                         style={{
                           color: GOLD_SOFT,
@@ -679,15 +727,21 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     {upgradeRequests.length > 0 && (
                       <button
                         type="button"
+                        title="Manage upgrade requests"
                         onClick={() => {
-                          setView(view === "upgrades" ? "all" : "upgrades");
+                          if (manageMode) {
+                            exitManageMode();
+                            return;
+                          }
+                          setView("upgrades");
                           setUpgradeFilter("all");
+                          enterManageMode();
                         }}
-                        className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(197,162,75,0.10)]"
+                        className="inline-flex cursor-pointer items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-all duration-200 hover:-translate-y-[1px] hover:bg-[rgba(197,162,75,0.12)] hover:shadow-[0_4px_12px_rgba(16,35,63,0.14)]"
                         style={{
                           color: GOLD_SOFT,
-                          backgroundColor: view === "upgrades" ? "rgba(197,162,75,0.12)" : "transparent",
-                          border: `1px solid ${view === "upgrades" ? "rgba(197,162,75,0.42)" : BORDER}`,
+                          backgroundColor: manageMode || view === "upgrades" ? "rgba(197,162,75,0.12)" : "transparent",
+                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(197,162,75,0.42)" : BORDER}`,
                         }}
                       >
                         <ArrowUp size={12} />
@@ -781,6 +835,17 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     />
 
                   )}
+
+                  {/* manage existing upgrade requests panel */}
+                  {manageMode && upgradeRequests.length > 0 && (
+                    <ManageUpgradesPanel
+                      requests={upgradeRequests}
+                      selected={manageSelected}
+                      onSelectAll={(on) => setManageSelected(on ? upgradeRequests.map((a) => a.id) : [])}
+                      onRemove={() => setConfirmRemove(manageSelected)}
+                      onDone={exitManageMode}
+                    />
+                  )}
                 </>
               )}
 
@@ -840,8 +905,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
                     upgradeMode={upgradeMode}
-                    selected={selected.includes(a.id)}
-                    onToggleSelected={() => toggleSelected(a.id)}
+                    manageMode={manageMode}
+                    selected={manageMode ? manageSelected.includes(a.id) : selected.includes(a.id)}
+                    onToggleSelected={() => (manageMode ? toggleManageSelected(a.id) : toggleSelected(a.id))}
+                    onRemoveUpgrade={() => setConfirmRemove([a.id])}
                     showRequirementDetail={view === "dietary"}
                     onPatch={(fn) => patchAllocation(a.id, fn)}
                     onOpenGuest={(guestId) => {
@@ -1009,6 +1076,44 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
 
 
+      {confirmRemove && confirmRemove.length > 0 && (
+        <Modal
+          title={confirmRemove.length === 1 ? "Remove room upgrade request?" : "Remove room upgrade requests?"}
+          onClose={() => setConfirmRemove(null)}
+        >
+          <p className="text-[12.5px]" style={{ color: MUTED }}>
+            {confirmRemove.length === 1
+              ? `You're about to remove the upgrade request from Room ${String(
+                  list.allocations.find((a) => a.id === confirmRemove[0])?.index ?? 0,
+                ).padStart(2, "0")}.`
+              : `You're about to remove upgrade requests from ${confirmRemove.length} rooms.`}{" "}
+            The booked room types, categories, guests and normal room requests remain unchanged.
+          </p>
+          <div className="mt-4 flex items-center justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setConfirmRemove(null)}
+              className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+              style={{ color: MUTED }}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => removeUpgradeRequests(confirmRemove)}
+              className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors"
+              style={{
+                color: "#E2A2A2",
+                backgroundColor: "rgba(190,110,110,0.12)",
+                border: "1px solid rgba(190,110,110,0.34)",
+              }}
+            >
+              {confirmRemove.length === 1 ? "Remove request" : `Remove ${confirmRemove.length} requests`}
+            </button>
+          </div>
+        </Modal>
+      )}
+
       {confirmWithdraw && (
         <Modal title="Withdraw upgrade requests" onClose={() => setConfirmWithdraw(false)}>
           <p className="text-[12.5px]" style={{ color: MUTED }}>
@@ -1099,8 +1204,10 @@ function AllocationRow({
   autoFocus,
   onAutoFocused,
   upgradeMode,
+  manageMode,
   selected,
   onToggleSelected,
+  onRemoveUpgrade,
   showRequirementDetail,
   onPatch,
   onOpenGuest,
@@ -1118,8 +1225,10 @@ function AllocationRow({
   autoFocus?: boolean;
   onAutoFocused?: () => void;
   upgradeMode?: boolean;
+  manageMode?: boolean;
   selected?: boolean;
   onToggleSelected?: () => void;
+  onRemoveUpgrade?: () => void;
   showRequirementDetail?: boolean;
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
@@ -1209,22 +1318,34 @@ function AllocationRow({
       {/* ── ALLOCATION ── */}
       <div className="flex flex-col justify-center px-4 py-[17px]">
         <div className="flex items-center gap-2.5">
-          {upgradeMode && (
+          {manageMode && allocation.upgradeRequest ? (
             <UpgradeCheckbox
               checked={!!selected}
-              disabled={!selectable}
+              disabled={locked}
               onChange={() => onToggleSelected?.()}
               title={
-                withdrawable
-                  ? "Select to withdraw this upgrade request"
-                  : allocation.upgradeRequest
-                    ? "An upgrade has already been requested for this room"
-                    : upgradeEligible
-                      ? undefined
-                      : "No higher room category available"
+                allocation.upgradeRequest
+                  ? "Select this upgrade request"
+                  : "This room has no upgrade request"
               }
-
             />
+          ) : (
+            upgradeMode && (
+              <UpgradeCheckbox
+                checked={!!selected}
+                disabled={!selectable}
+                onChange={() => onToggleSelected?.()}
+                title={
+                  withdrawable
+                    ? "Select to withdraw this upgrade request"
+                    : allocation.upgradeRequest
+                      ? "An upgrade has already been requested for this room"
+                      : upgradeEligible
+                        ? undefined
+                        : "No higher room category available"
+                }
+              />
+            )
           )}
           <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
             {String(allocation.index).padStart(2, "0")}
@@ -1539,6 +1660,9 @@ function AllocationRow({
             { label: "Add room request", run: () => setRequestOpen(true) },
             ...(upgradeEligible && !allocation.upgradeRequest
               ? [{ label: "Request room upgrade", run: () => setUpgradeOpen(true) }]
+              : []),
+            ...(allocation.upgradeRequest
+              ? [{ label: "Remove upgrade request", run: () => onRemoveUpgrade?.() }]
               : []),
             { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
           ].map((item) => (
@@ -2999,6 +3123,82 @@ function UpgradeForm({
           }}
         >
           {submitLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/** Bulk management of EXISTING upgrade requests (separate from the add workflow). */
+function ManageUpgradesPanel({
+  requests,
+  selected,
+  onSelectAll,
+  onRemove,
+  onDone,
+}: {
+  requests: Allocation[];
+  selected: string[];
+  onSelectAll: (on: boolean) => void;
+  onRemove: () => void;
+  onDone: () => void;
+}) {
+  const count = selected.filter((id) => requests.some((a) => a.id === id)).length;
+  const all = requests.length > 0 && count === requests.length;
+  const some = count > 0 && !all;
+
+  return (
+    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(197,162,75,0.05)" }}>
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
+          <button
+            type="button"
+            role="checkbox"
+            aria-checked={all ? true : some ? "mixed" : false}
+            aria-label="Select all upgrade requests"
+            onClick={() => onSelectAll(!all)}
+            className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] transition-colors"
+            style={{
+              backgroundColor: count > 0 ? "rgba(197,162,75,0.20)" : "rgba(255,255,255,0.05)",
+              border: `1px solid ${count > 0 ? "rgba(197,162,75,0.70)" : "rgba(255,255,255,0.18)"}`,
+            }}
+          >
+            {all ? (
+              <Check size={12} style={{ color: GOLD }} />
+            ) : some ? (
+              <span className="h-[2px] w-[9px] rounded-full" style={{ backgroundColor: GOLD }} />
+            ) : null}
+          </button>
+          <button type="button" onClick={() => onSelectAll(!all)} style={{ color: TEXT_2 }}>
+            Select all upgrade requests
+          </button>
+        </span>
+        <span className="text-[12px]" style={{ color: MUTED }}>
+          {count} of {requests.length} selected
+        </span>
+
+        {count > 0 && (
+          <button
+            type="button"
+            onClick={onRemove}
+            className="rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(190,110,110,0.18)]"
+            style={{
+              color: "#E2A2A2",
+              backgroundColor: "rgba(190,110,110,0.10)",
+              border: "1px solid rgba(190,110,110,0.30)",
+            }}
+          >
+            {count === 1 ? "Remove upgrade request" : `Remove upgrade requests (${count})`}
+          </button>
+        )}
+
+        <button
+          type="button"
+          onClick={onDone}
+          className="ml-auto rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+          style={{ color: MUTED }}
+        >
+          {count > 0 ? "Cancel selection" : "Done"}
         </button>
       </div>
     </div>
