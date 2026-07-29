@@ -2737,15 +2737,12 @@ function UpgradeModePanel({
   return (
     <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(197,162,75,0.05)" }}>
       <div className="flex flex-wrap items-center gap-3">
-        <button
-          type="button"
-          onClick={() => onSelectAll(!allSelected)}
-          className="inline-flex items-center gap-2 text-[12.5px]"
-          style={{ color: TEXT_2 }}
-        >
+        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
           <UpgradeCheckbox checked={allSelected} onChange={() => onSelectAll(!allSelected)} />
-          Select all eligible rooms
-        </button>
+          <button type="button" onClick={() => onSelectAll(!allSelected)} style={{ color: TEXT_2 }}>
+            Select all eligible rooms
+          </button>
+        </span>
         <span className="text-[12px]" style={{ color: MUTED }}>
           {selected.length} of {eligible.length} selected
           {ineligible > 0 ? ` · ${ineligible} not eligible` : ""}
