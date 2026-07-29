@@ -949,20 +949,18 @@ function AllocationRow({
 
         {!locked &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) => (
-            <QuickGuestInput
+            <button
               key={`slot-${allocation.id}-${allocation.guests.length + i}`}
-              autoFocus={autoFocus && i === 0}
-              onCommit={(name) => {
-                const parts = name.trim().split(/\s+/);
-                const firstName = parts.shift() ?? "";
-                onPatch((a) => ({
-                  ...a,
-                  guests: [...a.guests, newGuest({ firstName, lastName: parts.join(" ") })],
-                }));
-                focusNextQuickInput(`alloc-${allocation.id}`);
-              }}
-            />
+              type="button"
+              onClick={onAddGuest}
+              className="flex w-fit items-center gap-1.5 rounded-[6px] px-1.5 py-[2px] text-left text-[12.5px] opacity-80 transition-opacity hover:opacity-100"
+              style={{ color: "#C5A24B" }}
+            >
+              <span className="text-[13px] leading-none">+</span>
+              <span>Add guest</span>
+            </button>
           ))}
+
 
       </div>
 
