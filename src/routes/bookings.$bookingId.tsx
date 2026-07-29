@@ -606,15 +606,16 @@ function Workspace({ booking }: { booking: Booking }) {
               src={booking.image}
               alt={`${booking.destination} skyline`}
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ filter: "saturate(0.95) brightness(0.95)" }}
+              style={{ filter: "saturate(1.02) brightness(1.05)" }}
             />
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(23,42,56,0.94) 0%, rgba(23,42,56,0.86) 42%, rgba(26,45,60,0.62) 70%, rgba(26,45,60,0.74) 100%)",
+                  "linear-gradient(90deg, rgba(21,39,53,0.93) 0%, rgba(22,40,54,0.80) 42%, rgba(26,45,60,0.50) 72%, rgba(26,45,60,0.62) 100%)",
               }}
             />
+
             <div className="relative px-5 py-3.5">
               <span
                 className="inline-flex items-center rounded px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
