@@ -247,11 +247,21 @@ const LIGHT_NAV = [
 ];
 
 function SidebarLight({ active, bookingId }: { active: string; bookingId?: string }) {
+  // deep matte navy sidebar background — matches the room allocation cards.
+  // Sidebar content stays light/readable; only the background surface is navy.
+  const NAV_TEXT = "#C6D6E5"; // soft very-light blue-grey for nav text + icons
+  const NAV_INACTIVE = "#A9BDCD";
+  const SEL_BG = "#EAF0F5"; // light cool off-white selected pill
+  const SEL_INK = "#173A5D"; // dark navy text + icon on the selected pill
+  const DIVIDER = "rgba(255,255,255,0.10)"; // subtle lighter navy/blue-grey divider
+  const SOFT_WHITE = "#EAF1F7";
+  const MUTED_BLUE = "#9FB4C7";
+
   return (
     <div
       className="flex h-full flex-col px-4 py-6"
       style={{
-        background: `linear-gradient(180deg, ${LIGHT.SIDEBAR_TOP} 0%, ${LIGHT.SIDEBAR_BOTTOM} 100%)`,
+        background: `linear-gradient(180deg, #1D456C 0%, #173A5D 100%)`,
       }}
     >
       <Link to="/" className="block px-1">
@@ -259,13 +269,14 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
           src={logo.url}
           alt="HotelGroupBook"
           className="h-11 w-auto object-contain object-left"
-          
+          // ensure the white logo stays clearly visible on the navy background
+          style={{ filter: "brightness(1.05) contrast(1.02)" }}
         />
       </Link>
 
       <p
         className="mt-9 px-2 text-[10.5px] font-semibold uppercase tracking-[0.22em]"
-        style={{ color: LIGHT.INK_3 }}
+        style={{ color: MUTED_BLUE }}
       >
         Manage my bookings
       </p>
@@ -278,15 +289,15 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
             "flex w-full items-center gap-3 rounded-[9px] px-3 py-[9px] text-[13.5px] transition-colors";
           const style = isActive
             ? {
-                backgroundColor: LIGHT.INK_2,
-                color: LIGHT.INK,
-                boxShadow: "0 2px 8px rgba(30,55,80,0.10)",
+                backgroundColor: SEL_BG,
+                color: SEL_INK,
+                boxShadow: "0 2px 8px rgba(0,0,0,0.18)",
                 fontWeight: 500,
               }
-            : { color: LIGHT.INK_2 };
+            : { color: NAV_INACTIVE };
           const inner = (
             <>
-              <item.icon size={17} style={{ color: isActive ? "#2C4F76" : LIGHT.INK_2 }} />
+              <item.icon size={17} style={{ color: isActive ? SEL_INK : NAV_TEXT }} />
               {item.label}
             </>
           );
@@ -309,11 +320,11 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
       </nav>
 
       <div className="mt-auto pt-8">
-        <div className="px-2 pt-5" style={{ borderTop: "1px solid rgba(110,135,160,0.22)" }}>
+        <div className="px-2 pt-5" style={{ borderTop: `1px solid ${DIVIDER}` }}>
           <div className="flex items-start gap-3">
-            <Headphones size={17} className="mt-0.5 shrink-0" style={{ color: LIGHT.INK_3 }} />
-            <div className="min-w-0 text-[12.5px]" style={{ color: LIGHT.INK_2 }}>
-              <p style={{ color: LIGHT.INK }}>Need help?</p>
+            <Headphones size={17} className="mt-0.5 shrink-0" style={{ color: NAV_TEXT }} />
+            <div className="min-w-0 text-[12.5px]" style={{ color: MUTED_BLUE }}>
+              <p style={{ color: SOFT_WHITE }}>Need help?</p>
               <p className="mt-1">+47 000 00 000</p>
               <p className="truncate">help@hotelgroupbook.com</p>
             </div>
@@ -322,23 +333,23 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
 
         <div
           className="mt-5 flex items-center gap-3 px-2 pt-5"
-          style={{ borderTop: "1px solid rgba(110,135,160,0.22)" }}
+          style={{ borderTop: `1px solid ${DIVIDER}` }}
         >
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
-            style={{ backgroundColor: "rgba(128,154,180,0.28)", color: LIGHT.INK }}
+            style={{ backgroundColor: "rgba(255,255,255,0.14)", color: SOFT_WHITE }}
           >
             EH
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-[13px]" style={{ color: LIGHT.INK }}>
+            <span className="block truncate text-[13px]" style={{ color: SOFT_WHITE }}>
               Emma Hansen
             </span>
-            <span className="block truncate text-[11.5px]" style={{ color: LIGHT.INK_3 }}>
+            <span className="block truncate text-[11.5px]" style={{ color: MUTED_BLUE }}>
               Nordic Events AS
             </span>
           </span>
-          <ChevronDown size={15} style={{ color: LIGHT.INK_3 }} />
+          <ChevronDown size={15} style={{ color: MUTED_BLUE }} />
         </div>
       </div>
     </div>
