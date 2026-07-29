@@ -377,6 +377,36 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     setConfirmWithdraw(false);
   }, []);
 
+  /* manage-existing-requests workflow (kept separate from the add workflow) */
+  const exitManageMode = useCallback(() => {
+    setManageMode(false);
+    setManageSelected([]);
+    setConfirmRemove(null);
+  }, []);
+
+  const enterManageMode = useCallback(() => {
+    setUpgradeMode(false);
+    setSelected([]);
+    setConfirmUpgrade(null);
+    setConfirmWithdraw(false);
+    setManageSelected([]);
+    setManageMode(true);
+  }, []);
+
+  const toggleManageSelected = useCallback(
+    (id: string) => setManageSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id])),
+    [],
+  );
+
+  const removeUpgradeRequests = useCallback(
+    (ids: string[]) => {
+      withdrawUpgrades(ids);
+      setManageSelected((s) => s.filter((id) => !ids.includes(id)));
+      setConfirmRemove(null);
+    },
+    [withdrawUpgrades],
+  );
+
   const submitUpgrades = useCallback(
     (ids: string[], category: RoomCategory, preference: UpgradePreference, note: string) => {
       update((l) => ({
