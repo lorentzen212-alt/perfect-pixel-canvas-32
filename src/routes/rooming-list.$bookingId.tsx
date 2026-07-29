@@ -596,7 +596,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         <div
                           key={t.type}
                           className="px-[15px] py-[7px] text-center"
-                          style={{ borderLeft: i ? `1px solid ${BORDER}` : undefined }}
+                          style={{ borderLeft: `1px solid ${BORDER}` }}
                         >
                           <p className="text-[16.5px] font-semibold leading-none" style={{ color: TEXT }}>
                             {t.count}
