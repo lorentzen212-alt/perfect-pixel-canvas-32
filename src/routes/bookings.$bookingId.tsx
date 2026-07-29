@@ -601,14 +601,14 @@ function Workspace({ booking }: { booking: Booking }) {
 
           {/* ── next action + info cards ─────────── */}
           <section
-            className="mt-3 rounded-[13px] px-4 py-3"
+            className="mt-3 rounded-[13px] px-4 py-2.5"
             style={{
               backgroundColor: ACTION_PANEL,
               border: `1px solid ${CARD_BORDER}`,
               boxShadow: CARD_SHADOW,
             }}
           >
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
               <Ring value={progress} size={64} />
               <div className="min-w-0 flex-1 sm:pl-2">
                 <h2 className="text-[20px] font-medium" style={{ color: TEXT }}>
@@ -630,16 +630,16 @@ function Workspace({ booking }: { booking: Booking }) {
               </button>
             </div>
 
-            <div className="mt-3 grid gap-3 md:grid-cols-3">
+            <div className="mt-2.5 grid gap-3 md:grid-cols-3">
               {/* hotel reference */}
               <div
-                className="flex min-h-[60px] flex-col justify-center rounded-[10px] px-3.5 py-2"
+                className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
                 style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
               >
                 <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                   Hotel Reference
                 </p>
-                <div className="mt-1.5 flex items-center justify-between gap-3">
+                <div className="mt-1 flex items-center justify-between gap-3">
                   {editingRef ? (
                     <input
                       autoFocus
@@ -671,13 +671,13 @@ function Workspace({ booking }: { booking: Booking }) {
 
               {/* booking id */}
               <div
-                className="flex min-h-[60px] flex-col justify-center rounded-[10px] px-3.5 py-2"
+                className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
                 style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
               >
                 <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                   Booking ID
                 </p>
-                <div className="mt-1.5 flex items-center justify-between gap-3">
+                <div className="mt-1 flex items-center justify-between gap-3">
                   <span className="truncate text-[15px]" style={{ color: TEXT }}>
                     {booking.reference}
                   </span>
@@ -699,13 +699,13 @@ function Workspace({ booking }: { booking: Booking }) {
 
               {/* status */}
               <div
-                className="flex min-h-[60px] flex-col justify-center rounded-[10px] px-3.5 py-2"
+                className="flex min-h-[52px] flex-col justify-center rounded-[10px] px-3.5 py-1.5"
                 style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
               >
                 <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                   Status
                 </p>
-                <div className="mt-1.5 flex items-center gap-2.5">
+                <div className="mt-1 flex items-center gap-2.5">
                   <span className="inline-flex items-center gap-1.5 text-[15px]" style={{ color: GREEN }}>
                     Confirmed
                     <Check size={14} />
@@ -759,8 +759,8 @@ function Workspace({ booking }: { booking: Booking }) {
               </p>
             </section>
           ) : (
-            <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1fr)_340px]">
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1fr)_340px] xl:gap-6">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-[94.5%]">
                 {/* STAY */}
                 {panel === "stay" ? (
                   <div className="sm:col-span-2 lg:col-span-3">
