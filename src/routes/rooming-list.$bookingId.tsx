@@ -288,7 +288,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
       .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;border-color:rgba(255,255,255,0.14) !important}
-      .hgb-row:hover .hgb-menu{opacity:1}`}</style>
+      .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
+      .hgb-cell{border-top:1px solid rgba(255,255,255,0.07)}
+      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(255,255,255,0.08)}}`}</style>
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
         <SidebarContent light active="Rooming List" bookingId={booking.id} />
@@ -320,8 +322,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
           }
         />
 
-        <div className="flex">
-          <main className="min-w-0 flex-1 px-4 py-3 sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-[1480px] items-start gap-3.5 px-4 pb-5 pt-3 sm:px-6 lg:px-7">
+          <main className="min-w-0 flex-1">
             {/* ── compact booking hero ── */}
             <section className="relative overflow-hidden rounded-[12px]">
               <div className="relative px-1 py-1">
@@ -527,18 +529,18 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
               {/* column headers */}
               <div
-                className="hidden px-5 py-2 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
-                style={{ color: MUTED, gridTemplateColumns: "104px minmax(0,1fr) 168px 158px 32px", gap: "16px" }}
+                className="hidden px-[18px] pb-1.5 pt-2.5 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
+                style={{ color: MUTED, gridTemplateColumns: "112px minmax(0,1fr) 190px 152px 34px" }}
               >
-                <span>Allocation</span>
-                <span>Guests</span>
-                <span>Room request</span>
-                <span>Status</span>
+                <span className="px-3.5">Allocation</span>
+                <span className="px-3.5">Guests</span>
+                <span className="px-3.5">Room request</span>
+                <span className="px-3.5">Status</span>
                 <span />
               </div>
 
               {/* allocation rows */}
-              <div className="space-y-[5px] px-3 pb-4 sm:px-4">
+              <div className="space-y-[5px] px-4 pb-3">
                 {visible.map((a) => (
                   <AllocationRow
                     key={a.id}
