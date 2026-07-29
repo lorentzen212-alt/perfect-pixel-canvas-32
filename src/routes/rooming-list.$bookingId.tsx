@@ -1156,6 +1156,89 @@ function AllocationRow({
   );
 }
 
+/* ───────────────── saved guest row (with confirm-remove) ───────────────── */
+
+function SavedGuestRow({
+  guest,
+  locked,
+  onOpen,
+  onRemove,
+}: {
+  guest: Guest;
+  locked: boolean;
+  onOpen: () => void;
+  onRemove: () => void;
+}) {
+  const [confirm, setConfirm] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  return (
+    <div className="flex w-full items-center gap-1.5">
+      <button
+        type="button"
+        onClick={onOpen}
+        className="flex min-w-0 flex-1 items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+      >
+        <User size={13} style={{ color: RT_3 }} />
+        <span className="min-w-0 max-w-[62%] truncate text-[13.5px]" style={{ color: RT }}>
+          {guestName(guest) || "Unnamed guest"}
+        </span>
+        {guest.nationality && (
+          <span className="inline-flex shrink-0 items-center text-[12px]" style={{ color: RT_2 }}>
+            {guest.nationality}
+          </span>
+        )}
+      </button>
+      {!locked && (
+        <>
+          <button
+            ref={btnRef}
+            type="button"
+            aria-label={`Remove ${guestName(guest) || "guest"}`}
+            onClick={() => setConfirm((v) => !v)}
+            className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-0 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] group-hover/row:opacity-100 [.hgb-row:hover_&]:opacity-100"
+            style={{ color: RT_3 }}
+          >
+            <X size={13} />
+          </button>
+          <FloatingPopover anchorRef={btnRef} open={confirm} onClose={() => setConfirm(false)} width={248} align="end">
+            <div className="px-3 py-2.5">
+              <p className="text-[12.5px]" style={{ color: "#D9DDE0" }}>
+                Remove {guestName(guest) || "this guest"} from this room?
+              </p>
+              <div className="mt-2.5 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setConfirm(false)}
+                  className="rounded-[6px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                  style={{ color: "#B8BDC2" }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setConfirm(false);
+                    onRemove();
+                  }}
+                  className="rounded-[6px] px-2.5 py-[5px] text-[12px] transition-colors"
+                  style={{
+                    color: "#E08C8C",
+                    backgroundColor: "rgba(214,109,109,0.14)",
+                    border: "1px solid rgba(214,109,109,0.30)",
+                  }}
+                >
+                  Remove guest
+                </button>
+              </div>
+            </div>
+          </FloatingPopover>
+        </>
+      )}
+    </div>
+  );
+}
+
 /* ───────────────── dietary / allergy popover ───────────────── */
 
 function DietaryPopover({
