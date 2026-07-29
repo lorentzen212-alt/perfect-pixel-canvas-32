@@ -318,7 +318,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,35,63,0.16) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
       .hgb-cell{border-top:1px solid rgba(255,255,255,0.05)}
-      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:none}}
+      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(173,192,205,0.14)}}
+      .hgb-inline::placeholder{color:#9FB0BE}
+      .hgb-inline:focus{border-color:rgba(197,162,75,0.75) !important}
       .hgb-search::placeholder{color:#B8BDC2}`}</style>
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
@@ -646,6 +648,20 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       setOpenGuest(null);
                       setPendingGuest({ allocationId: a.id, guest: newGuest() });
                     }}
+                    pendingName={
+                      pendingGuest?.allocationId === a.id
+                        ? [pendingGuest.guest.firstName, pendingGuest.guest.lastName].filter(Boolean).join(" ")
+                        : null
+                    }
+                    onPendingNameChange={(v) =>
+                      setPendingGuest((p) => {
+                        if (!p) return p;
+                        const parts = v.trimStart().split(" ");
+                        const firstName = parts[0] ?? "";
+                        const lastName = parts.slice(1).join(" ");
+                        return { ...p, guest: { ...p.guest, firstName, lastName } };
+                      })
+                    }
                   />
                 ))}
                 {visible.length === 0 && (
@@ -695,6 +711,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               guest={drawerGuest.guest}
               locked={locked}
               isNew={drawerGuest.isNew}
+              onDraftChange={
+                drawerGuest.isNew
+                  ? (g) => setPendingGuest((p) => (p ? { ...p, guest: g } : p))
+                  : undefined
+              }
               onClose={() => {
                 setOpenGuest(null);
                 setPendingGuest(null);
@@ -783,6 +804,8 @@ function AllocationRow({
   onPatch,
   onOpenGuest,
   onAddGuest,
+  pendingName,
+  onPendingNameChange,
 }: {
   allocation: Allocation;
   locked: boolean;
@@ -792,6 +815,9 @@ function AllocationRow({
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
   onAddGuest: () => void;
+  /** non-null when this room has an active new-guest entry */
+  pendingName?: string | null;
+  onPendingNameChange?: (v: string) => void;
 }) {
 
   const cap = capacityOf(allocation.type, allocation.occupancy);
@@ -918,18 +944,37 @@ function AllocationRow({
         ))}
 
         {!locked &&
-          Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) => (
-            <button
-              key={`slot-${allocation.id}-${allocation.guests.length + i}`}
-              type="button"
-              onClick={onAddGuest}
-              className="flex w-fit items-center gap-1.5 rounded-[6px] px-1.5 py-[2px] text-left text-[12.5px] opacity-80 transition-opacity hover:opacity-100"
-              style={{ color: "#C5A24B" }}
-            >
-              <span className="text-[13px] leading-none">+</span>
-              <span>Add guest</span>
-            </button>
-          ))}
+          Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) =>
+            i === 0 && pendingName !== null && pendingName !== undefined ? (
+              <input
+                key={`pending-${allocation.id}`}
+                autoFocus
+                value={pendingName}
+                onChange={(e) => onPendingNameChange?.(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") e.preventDefault();
+                }}
+                placeholder="Enter guest name..."
+                className="hgb-inline w-full max-w-[240px] rounded-[6px] px-2 py-[5px] text-[13px] outline-none transition-colors"
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(173,192,205,0.22)",
+                  color: RT,
+                }}
+              />
+            ) : (
+              <button
+                key={`slot-${allocation.id}-${allocation.guests.length + i}`}
+                type="button"
+                onClick={onAddGuest}
+                className="flex w-fit items-center gap-1.5 rounded-[6px] px-1.5 py-[2px] text-left text-[12.5px] opacity-80 transition-opacity hover:opacity-100"
+                style={{ color: "#C5A24B" }}
+              >
+                <span className="text-[13px] leading-none">+</span>
+                <span>Add guest</span>
+              </button>
+            ),
+          )}
 
 
       </div>
@@ -1184,6 +1229,7 @@ function GuestDrawer({
   onClose,
   onSave,
   onRemove,
+  onDraftChange,
 }: {
   allocation: Allocation | null;
   guest: Guest;
@@ -1192,14 +1238,20 @@ function GuestDrawer({
   onClose: () => void;
   onSave: (g: Guest) => void;
   onRemove: () => void;
+  /** when provided the drawer is controlled — used to keep the inline row input in sync */
+  onDraftChange?: (g: Guest) => void;
 }) {
-  const [draft, setDraft] = useState<Guest>(guest);
+  const [localDraft, setLocalDraft] = useState<Guest>(guest);
   const [saved, setSaved] = useState(false);
   const [tagOpen, setTagOpen] = useState(false);
   const tagBtnRef = useRef<HTMLButtonElement>(null);
 
+  const draft = onDraftChange ? guest : localDraft;
 
-  const set = (patch: Partial<Guest>) => setDraft((d) => ({ ...d, ...patch }));
+  const set = (patch: Partial<Guest>) => {
+    if (onDraftChange) onDraftChange({ ...guest, ...patch });
+    else setLocalDraft((d) => ({ ...d, ...patch }));
+  };
 
   return (
     <aside
