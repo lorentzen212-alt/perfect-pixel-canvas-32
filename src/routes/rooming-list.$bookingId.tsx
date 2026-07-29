@@ -1173,8 +1173,10 @@ function AllocationRow({
   autoFocus?: boolean;
   onAutoFocused?: () => void;
   upgradeMode?: boolean;
+  manageMode?: boolean;
   selected?: boolean;
   onToggleSelected?: () => void;
+  onRemoveUpgrade?: () => void;
   showRequirementDetail?: boolean;
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
