@@ -648,6 +648,20 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       setOpenGuest(null);
                       setPendingGuest({ allocationId: a.id, guest: newGuest() });
                     }}
+                    pendingName={
+                      pendingGuest?.allocationId === a.id
+                        ? [pendingGuest.guest.firstName, pendingGuest.guest.lastName].filter(Boolean).join(" ")
+                        : null
+                    }
+                    onPendingNameChange={(v) =>
+                      setPendingGuest((p) => {
+                        if (!p) return p;
+                        const parts = v.trimStart().split(" ");
+                        const firstName = parts[0] ?? "";
+                        const lastName = parts.slice(1).join(" ");
+                        return { ...p, guest: { ...p.guest, firstName, lastName } };
+                      })
+                    }
                   />
                 ))}
                 {visible.length === 0 && (
@@ -697,6 +711,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               guest={drawerGuest.guest}
               locked={locked}
               isNew={drawerGuest.isNew}
+              onDraftChange={
+                drawerGuest.isNew
+                  ? (g) => setPendingGuest((p) => (p ? { ...p, guest: g } : p))
+                  : undefined
+              }
               onClose={() => {
                 setOpenGuest(null);
                 setPendingGuest(null);
@@ -785,6 +804,8 @@ function AllocationRow({
   onPatch,
   onOpenGuest,
   onAddGuest,
+  pendingName,
+  onPendingNameChange,
 }: {
   allocation: Allocation;
   locked: boolean;
@@ -794,6 +815,9 @@ function AllocationRow({
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
   onAddGuest: () => void;
+  /** non-null when this room has an active new-guest entry */
+  pendingName?: string | null;
+  onPendingNameChange?: (v: string) => void;
 }) {
 
   const cap = capacityOf(allocation.type, allocation.occupancy);
@@ -920,18 +944,37 @@ function AllocationRow({
         ))}
 
         {!locked &&
-          Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) => (
-            <button
-              key={`slot-${allocation.id}-${allocation.guests.length + i}`}
-              type="button"
-              onClick={onAddGuest}
-              className="flex w-fit items-center gap-1.5 rounded-[6px] px-1.5 py-[2px] text-left text-[12.5px] opacity-80 transition-opacity hover:opacity-100"
-              style={{ color: "#C5A24B" }}
-            >
-              <span className="text-[13px] leading-none">+</span>
-              <span>Add guest</span>
-            </button>
-          ))}
+          Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) =>
+            i === 0 && pendingName !== null && pendingName !== undefined ? (
+              <input
+                key={`pending-${allocation.id}`}
+                autoFocus
+                value={pendingName}
+                onChange={(e) => onPendingNameChange?.(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") e.preventDefault();
+                }}
+                placeholder="Enter guest name..."
+                className="hgb-inline w-full max-w-[240px] rounded-[6px] px-2 py-[5px] text-[13px] outline-none transition-colors"
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(173,192,205,0.22)",
+                  color: RT,
+                }}
+              />
+            ) : (
+              <button
+                key={`slot-${allocation.id}-${allocation.guests.length + i}`}
+                type="button"
+                onClick={onAddGuest}
+                className="flex w-fit items-center gap-1.5 rounded-[6px] px-1.5 py-[2px] text-left text-[12.5px] opacity-80 transition-opacity hover:opacity-100"
+                style={{ color: "#C5A24B" }}
+              >
+                <span className="text-[13px] leading-none">+</span>
+                <span>Add guest</span>
+              </button>
+            ),
+          )}
 
 
       </div>
