@@ -1305,7 +1305,7 @@ function AllocationRow({
     <div
       id={`alloc-${allocation.id}`}
       data-selected={selected ? "true" : "false"}
-      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:31%_30%_21%_14%_4%]"
+      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:30%_28%_20%_18%_4%]"
       style={{
         backgroundColor: NAVY,
         backgroundImage: selected
@@ -1357,7 +1357,7 @@ function AllocationRow({
         )}
 
         <p
-          className="shrink-0 text-[44px] leading-none tracking-[-0.02em]"
+          className="w-[58px] shrink-0 text-[44px] leading-none tracking-[-0.02em]"
           style={{ ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }}
         >
           {String(allocation.index).padStart(2, "0")}
