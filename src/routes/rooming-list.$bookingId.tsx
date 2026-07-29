@@ -1572,16 +1572,27 @@ function DietaryPopover({
 }) {
   const [q, setQ] = useState("");
   const [custom, setCustom] = useState("");
+  const [showCustom, setShowCustom] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
+  const customRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open) {
       setQ("");
       setCustom("");
+      setShowCustom(false);
       const t = setTimeout(() => searchRef.current?.focus(), 30);
       return () => clearTimeout(t);
     }
   }, [open]);
+
+  useEffect(() => {
+    if (showCustom) {
+      const t = setTimeout(() => customRef.current?.focus(), 20);
+      return () => clearTimeout(t);
+    }
+  }, [showCustom]);
+
 
   const match = (t: string) => t.toLowerCase().includes(q.trim().toLowerCase());
   const OTHER = "Other allergy";
