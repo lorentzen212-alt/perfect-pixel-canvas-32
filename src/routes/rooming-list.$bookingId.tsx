@@ -1112,7 +1112,6 @@ function GuestDrawer({
           backgroundColor: "#1D456C",
           border: `1px solid ${CARD_BORDER}`,
           boxShadow: CARD_SHADOW,
-          backdropFilter: "blur(6px)",
         }}
       >
         <div className="flex items-center justify-between px-4 pb-2 pt-4">
