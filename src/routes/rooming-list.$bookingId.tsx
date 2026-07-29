@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
+  AlertTriangle,
   ArrowLeft,
+  ArrowUp,
   Bed,
   CalendarDays,
   Check,
@@ -18,6 +20,7 @@ import {
   Upload,
   User,
   Users,
+  Utensils,
   X,
 } from "lucide-react";
 import { SERIF, SidebarContent, TopBarLight } from "@/components/DashboardChrome";
@@ -30,24 +33,39 @@ import {
   NATIONALITIES,
   ROOM_REQUEST_OPTIONS,
   ROOM_TYPES,
+  UPGRADE_STATUS_META,
   type Allocation,
   type Guest,
+  type RoomCategory,
   type RoomType,
   type RoomingIssue,
   type RoomingList,
+  type UpgradePreference,
+  type UpgradeRequest,
+  type UpgradeStatus,
+  allocationHasRequirements,
   allocationStatus,
+  canUpgrade,
   capacityOf,
+  categoryLabel,
+  commonUpgradeOptions,
   distributionFor,
   guestName,
+  guestRequirementSummary,
+  hasRoomTypeChange,
+  invalidForCategory,
   isAllergy,
   isNamed,
   labelOf,
   loadRoomingList,
   newGuest,
+  newUpgradeRequest,
   roomingIssues,
   saveRoomingList,
   statsOf,
+  upgradeOptionsFor,
 } from "@/lib/rooming";
+
 
 export const Route = createFileRoute("/rooming-list/$bookingId")({
   component: RoomingListRoute,
@@ -209,12 +227,14 @@ function RoomingListRoute() {
   return <RoomingWorkspace booking={booking} />;
 }
 
-type ViewFilter = "all" | "missing" | "complete";
+type ViewFilter = "all" | "missing" | "complete" | "dietary" | "requests" | "upgrades";
+type UpgradeFilter = "all" | UpgradeStatus;
 
 function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [navOpen, setNavOpen] = useState(false);
   const [list, setList] = useState<RoomingList | null>(null);
   const [view, setView] = useState<ViewFilter>("all");
+  const [upgradeFilter, setUpgradeFilter] = useState<UpgradeFilter>("all");
   const [query, setQuery] = useState("");
   const [openGuest, setOpenGuest] = useState<{ allocationId: string | null; guestId: string } | null>(null);
   const [pendingGuest, setPendingGuest] = useState<{
@@ -228,7 +248,16 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [showImport, setShowImport] = useState(false);
   const [focusAllocation, setFocusAllocation] = useState<string | null>(null);
   const [savedLabel, setSavedLabel] = useState("Just now");
+  /* ── upgrade workflow ── */
+  const [upgradeMode, setUpgradeMode] = useState(false);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [confirmUpgrade, setConfirmUpgrade] = useState<{
+    category: RoomCategory;
+    preference: UpgradePreference;
+    note: string;
+  } | null>(null);
   const firstRender = useRef(true);
+
 
   /* allocations are generated from the confirmed booking room distribution */
   useEffect(() => {
@@ -269,12 +298,19 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       const status = allocationStatus(a);
       if (view === "complete" && status !== "complete") return false;
       if (view === "missing" && status === "complete") return false;
+      if (view === "dietary" && !allocationHasRequirements(a)) return false;
+      if (view === "requests" && a.requests.length === 0 && !a.upgradeRequest) return false;
+      if (view === "upgrades") {
+        if (!a.upgradeRequest) return false;
+        if (upgradeFilter !== "all" && a.upgradeRequest.status !== upgradeFilter) return false;
+      }
       if (q) {
         const hay = [
           ...a.guests.map(guestName),
           labelOf(a.type),
           String(a.index).padStart(2, "0"),
           ...a.requests,
+          a.upgradeRequest ? categoryLabel(a.upgradeRequest.category) : "",
         ]
           .join(" ")
           .toLowerCase();
@@ -282,7 +318,45 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       }
       return true;
     });
-  }, [list, view, query]);
+  }, [list, view, query, upgradeFilter]);
+
+  /* ── upgrade derived state ── */
+  const eligible = useMemo(
+    () => (list ? list.allocations.filter((a) => canUpgrade(a) && !a.upgradeRequest) : []),
+    [list],
+  );
+  const selectedAllocations = useMemo(
+    () => (list ? list.allocations.filter((a) => selected.includes(a.id)) : []),
+    [list, selected],
+  );
+  const upgradeRequests = useMemo(
+    () => (list ? list.allocations.filter((a) => a.upgradeRequest) : []),
+    [list],
+  );
+
+  const toggleSelected = useCallback(
+    (id: string) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id])),
+    [],
+  );
+
+  const exitUpgradeMode = useCallback(() => {
+    setUpgradeMode(false);
+    setSelected([]);
+    setConfirmUpgrade(null);
+  }, []);
+
+  const submitUpgrades = useCallback(
+    (ids: string[], category: RoomCategory, preference: UpgradePreference, note: string) => {
+      update((l) => ({
+        ...l,
+        allocations: l.allocations.map((a) =>
+          ids.includes(a.id) ? { ...a, upgradeRequest: newUpgradeRequest(category, preference, note) } : a,
+        ),
+      }));
+    },
+    [update],
+  );
+
 
   const drawerGuest = useMemo(() => {
     if (!list) return null;
@@ -475,6 +549,19 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         <Upload size={14} />
                         Import file
                       </GhostButton>
+                      <button
+                        type="button"
+                        onClick={() => (upgradeMode ? exitUpgradeMode() : setUpgradeMode(true))}
+                        className="inline-flex items-center gap-2 rounded-[8px] px-3.5 py-[8px] text-[12.5px] font-medium transition-colors duration-200 hover:bg-[rgba(197,162,75,0.10)]"
+                        style={{
+                          color: GOLD_SOFT,
+                          backgroundColor: upgradeMode ? "rgba(197,162,75,0.12)" : "rgba(255,255,255,0.04)",
+                          border: `1px solid ${upgradeMode ? "rgba(197,162,75,0.46)" : "rgba(197,162,75,0.26)"}`,
+                        }}
+                      >
+                        <ArrowUp size={14} />
+                        {upgradeMode ? "Exit upgrade mode" : "Upgrade rooms"}
+                      </button>
                       <GoldButton
                         onClick={() => {
                           const target = list.allocations.find((a) => a.guests.filter(isNamed).length < capacityOf(a.type, a.occupancy));
@@ -485,6 +572,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         Add guest
                       </GoldButton>
                     </div>
+
                   </div>
 
                   {/* allocation summary strip + filters */}
@@ -551,6 +639,25 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       )}
                     </button>
 
+                    {upgradeRequests.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setView(view === "upgrades" ? "all" : "upgrades");
+                          setUpgradeFilter("all");
+                        }}
+                        className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(197,162,75,0.10)]"
+                        style={{
+                          color: GOLD_SOFT,
+                          backgroundColor: view === "upgrades" ? "rgba(197,162,75,0.12)" : "transparent",
+                          border: `1px solid ${view === "upgrades" ? "rgba(197,162,75,0.42)" : BORDER}`,
+                        }}
+                      >
+                        <ArrowUp size={12} />
+                        {upgradeRequests.length} upgrade request{upgradeRequests.length === 1 ? "" : "s"}
+                      </button>
+                    )}
+
                     <div className="ml-auto flex flex-wrap items-center gap-3">
                       <span className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                         View
@@ -571,7 +678,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                             {v}
                           </button>
                         ))}
+                        <SecondaryFilterMenu view={view} onChange={setView} />
                       </div>
+
                       <label
                         className="flex items-center gap-2 rounded-[8px] px-3 py-[6px]"
                         style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
@@ -587,10 +696,56 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       </label>
                     </div>
                   </div>
+
+                  {/* upgrade status sub-filter */}
+                  {view === "upgrades" && upgradeRequests.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-2 px-5 pb-3.5">
+                      <span className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                        Upgrades
+                      </span>
+                      {(["all", "requested", "price_offered", "approved", "declined"] as UpgradeFilter[]).map((f) => {
+                        const count =
+                          f === "all"
+                            ? upgradeRequests.length
+                            : upgradeRequests.filter((a) => a.upgradeRequest?.status === f).length;
+                        const label = f === "all" ? "All upgrades" : UPGRADE_STATUS_META[f].label;
+                        const on = upgradeFilter === f;
+                        return (
+                          <button
+                            key={f}
+                            type="button"
+                            onClick={() => setUpgradeFilter(f)}
+                            className="rounded-[7px] px-2.5 py-[5px] text-[11.5px] transition-colors"
+                            style={{
+                              color: on ? GOLD : TEXT_2,
+                              backgroundColor: on ? SURFACE_2 : "transparent",
+                              border: `1px solid ${on ? GOLD_DEEP : BORDER}`,
+                            }}
+                          >
+                            {label} · {count}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* upgrade mode panel */}
+                  {upgradeMode && (
+                    <UpgradeModePanel
+                      allocations={list.allocations}
+                      eligible={eligible}
+                      selected={selected}
+                      selectedAllocations={selectedAllocations}
+                      onSelectAll={(on) => setSelected(on ? eligible.map((a) => a.id) : [])}
+                      onCancel={exitUpgradeMode}
+                      onRequest={(category, preference, note) => setConfirmUpgrade({ category, preference, note })}
+                    />
+                  )}
                 </>
               )}
 
             </section>
+
 
             {/* ── unassigned guests ── */}
             <UnassignedPanel
@@ -644,6 +799,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     active={openGuest?.allocationId === a.id || pendingGuest?.allocationId === a.id}
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
+                    upgradeMode={upgradeMode}
+                    selected={selected.includes(a.id)}
+                    onToggleSelected={() => toggleSelected(a.id)}
+                    showRequirementDetail={view === "dietary"}
                     onPatch={(fn) => patchAllocation(a.id, fn)}
                     onOpenGuest={(guestId) => {
                       setPendingGuest(null);
@@ -787,6 +946,27 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
       {showImport && <ImportModal onClose={() => setShowImport(false)} />}
 
+      {confirmUpgrade && (
+        <UpgradeConfirmModal
+          allocations={selectedAllocations}
+          category={confirmUpgrade.category}
+          preference={confirmUpgrade.preference}
+          note={confirmUpgrade.note}
+          onClose={() => setConfirmUpgrade(null)}
+          onConfirm={() => {
+            submitUpgrades(
+              selectedAllocations.map((a) => a.id),
+              confirmUpgrade.category,
+              confirmUpgrade.preference,
+              confirmUpgrade.note,
+            );
+            exitUpgradeMode();
+          }}
+        />
+      )}
+
+
+
       {showReview && (
         <ReviewModal
           list={list}
@@ -825,6 +1005,10 @@ function AllocationRow({
   active,
   autoFocus,
   onAutoFocused,
+  upgradeMode,
+  selected,
+  onToggleSelected,
+  showRequirementDetail,
   onPatch,
   onOpenGuest,
   onAddGuest,
@@ -840,6 +1024,10 @@ function AllocationRow({
   active?: boolean;
   autoFocus?: boolean;
   onAutoFocused?: () => void;
+  upgradeMode?: boolean;
+  selected?: boolean;
+  onToggleSelected?: () => void;
+  showRequirementDetail?: boolean;
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
   onAddGuest: () => void;
@@ -858,9 +1046,10 @@ function AllocationRow({
   const [typeOpen, setTypeOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [requestOpen, setRequestOpen] = useState(false);
-  const [approval, setApproval] = useState(false);
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
   const typeBtnRef = useRef<HTMLButtonElement>(null);
   const requestBtnRef = useRef<HTMLButtonElement>(null);
+  const upgradeBtnRef = useRef<HTMLButtonElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -871,9 +1060,14 @@ function AllocationRow({
   const changeType = (t: RoomType) => {
     setTypeOpen(false);
     const nextCap = capacityOf(t);
-    if (nextCap < cap || t === "triple") setApproval(true);
     onPatch((a) => ({ ...a, type: t, guests: a.guests.slice(0, Math.max(nextCap, a.guests.length)) }));
   };
+
+  /* warning compares against the ORIGINAL confirmed booking value, never the previous value */
+  const typeChanged = hasRoomTypeChange(allocation);
+
+  const upgradeEligible = canUpgrade(allocation);
+  const selectable = !!upgradeMode && upgradeEligible && !allocation.upgradeRequest && !locked;
 
   const statusColor = status === "complete" ? R_GREEN : status === "attention" ? R_AMBER : RT_3;
   const statusLabel =
@@ -887,7 +1081,7 @@ function AllocationRow({
           ? "Missing guests"
           : "Missing guest";
 
-  const isActive = !!active || typeOpen || menuOpen || requestOpen;
+  const isActive = !!active || typeOpen || menuOpen || requestOpen || upgradeOpen;
 
   return (
     <div
@@ -895,19 +1089,43 @@ function AllocationRow({
       className="hgb-row grid rounded-[12px] lg:[grid-template-columns:14%_42%_21%_19%_4%]"
       style={{
         background: CARD_NAVY,
-        border: isActive ? "1.5px solid #C5A24B" : "1px solid rgba(255,255,255,0.07)",
+        border: selected
+          ? "1.5px solid rgba(197,162,75,0.62)"
+          : isActive
+            ? "1.5px solid #C5A24B"
+            : "1px solid rgba(255,255,255,0.07)",
         boxShadow: isActive
           ? "0 8px 22px rgba(16,35,63,0.18)"
           : "0 4px 14px rgba(16,35,63,0.12)",
+        backgroundImage: selected
+          ? `linear-gradient(0deg, rgba(197,162,75,0.07), rgba(197,162,75,0.07)), ${CARD_NAVY}`
+          : undefined,
       }}
     >
 
 
+
       {/* ── ALLOCATION ── */}
       <div className="flex flex-col justify-center px-4 py-[17px]">
-        <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
-          {String(allocation.index).padStart(2, "0")}
-        </p>
+        <div className="flex items-center gap-2.5">
+          {upgradeMode && (
+            <UpgradeCheckbox
+              checked={!!selected}
+              disabled={!selectable}
+              onChange={() => onToggleSelected?.()}
+              title={
+                allocation.upgradeRequest
+                  ? "An upgrade has already been requested for this room"
+                  : upgradeEligible
+                    ? undefined
+                    : "No higher room category available"
+              }
+            />
+          )}
+          <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
+            {String(allocation.index).padStart(2, "0")}
+          </p>
+        </div>
         <div className="relative mt-1.5">
           <button
             ref={typeBtnRef}
@@ -939,7 +1157,10 @@ function AllocationRow({
           </FloatingPopover>
 
         </div>
-        {approval && (
+        <p className="mt-[3px] text-[11px]" style={{ color: RT_3 }}>
+          {categoryLabel(allocation.bookedRoomCategory)}
+        </p>
+        {typeChanged && (
           <div
             className="mt-2 rounded-[7px] px-2 py-1.5"
             style={{ backgroundColor: "rgba(231,180,75,0.10)", border: "1px solid rgba(231,180,75,0.28)" }}
@@ -947,12 +1168,21 @@ function AllocationRow({
             <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
               Booking change may require approval
             </p>
-            <button type="button" className="mt-1 text-[10.5px]" style={{ color: R_AMBER }} onClick={() => setApproval(false)}>
-              Request change →
+            <p className="mt-[2px] text-[10px] leading-snug" style={{ color: RT_3 }}>
+              Booked as {labelOf(allocation.bookedRoomType)}
+            </p>
+            <button
+              type="button"
+              className="mt-1 text-[10.5px]"
+              style={{ color: R_AMBER }}
+              onClick={() => onPatch((a) => ({ ...a, type: a.bookedRoomType }))}
+            >
+              Restore booked type
             </button>
           </div>
         )}
       </div>
+
 
       {/* ── GUESTS ── */}
       <div className="hgb-cell flex flex-col justify-center gap-[5px] px-4 py-[17px]">
@@ -961,6 +1191,7 @@ function AllocationRow({
             key={g.id}
             guest={g}
             locked={locked}
+            showRequirementDetail={showRequirementDetail}
             onOpen={() => onOpenGuest(g.id)}
             onRemove={() => onRemoveGuest(g.id)}
           />
@@ -1070,21 +1301,58 @@ function AllocationRow({
             ))}
           </div>
         ) : (
-          <span className="block text-[13px]" style={{ color: RT_3 }}>
-            —
-          </span>
+          !allocation.upgradeRequest && (
+            <span className="block text-[13px]" style={{ color: RT_3 }}>
+              —
+            </span>
+          )
         )}
+
+        {allocation.upgradeRequest && (
+          <UpgradeIndicator
+            request={allocation.upgradeRequest}
+            bookedCategory={allocation.bookedRoomCategory}
+            locked={locked}
+            onWithdraw={() => onPatch((a) => ({ ...a, upgradeRequest: null }))}
+            onApply={() =>
+              onPatch((a) =>
+                a.upgradeRequest
+                  ? {
+                      ...a,
+                      bookedRoomCategory: a.upgradeRequest.category,
+                      upgradeRequest: { ...a.upgradeRequest, appliedAt: new Date().toISOString() },
+                    }
+                  : a,
+              )
+            }
+          />
+        )}
+
         {!locked && (
-          <button
-            ref={requestBtnRef}
-            type="button"
-            onClick={() => setRequestOpen((v) => !v)}
-            className="hgb-req mt-[3px] inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
-            style={{ color: R_AMBER }}
-          >
-            <Plus size={12} />
-            Add room request
-          </button>
+          <div className="mt-[3px] flex flex-wrap items-center gap-x-3 gap-y-1">
+            <button
+              ref={requestBtnRef}
+              type="button"
+              onClick={() => setRequestOpen((v) => !v)}
+              className="hgb-req inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
+              style={{ color: R_AMBER }}
+            >
+              <Plus size={12} />
+              Add room request
+            </button>
+            {!allocation.upgradeRequest && upgradeEligible && (
+              <button
+                ref={upgradeBtnRef}
+                type="button"
+                onClick={() => setUpgradeOpen((v) => !v)}
+                className="hgb-req inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
+                style={{ color: R_AMBER }}
+              >
+                <ArrowUp size={12} />
+                Request room upgrade
+              </button>
+            )}
+          </div>
         )}
         <FloatingPopover anchorRef={requestBtnRef} open={requestOpen} onClose={() => setRequestOpen(false)} width={220}>
           {ROOM_REQUEST_OPTIONS.map((r) => (
@@ -1103,7 +1371,21 @@ function AllocationRow({
           ))}
         </FloatingPopover>
 
+        <FloatingPopover anchorRef={upgradeBtnRef} open={upgradeOpen} onClose={() => setUpgradeOpen(false)} width={300}>
+          <UpgradeForm
+            title="Request room upgrade"
+            options={upgradeOptionsFor(allocation)}
+            submitLabel="Add request"
+            onCancel={() => setUpgradeOpen(false)}
+            onSubmit={(category, preference, note) => {
+              onPatch((a) => ({ ...a, upgradeRequest: newUpgradeRequest(category, preference, note) }));
+              setUpgradeOpen(false);
+            }}
+          />
+        </FloatingPopover>
+
       </div>
+
 
       {/* ── STATUS ── */}
       <div className="hgb-cell flex flex-col justify-center px-4 py-[17px]">
@@ -1133,6 +1415,9 @@ function AllocationRow({
             { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
             { label: "Change room type", run: () => setTypeOpen(true) },
             { label: "Add room request", run: () => setRequestOpen(true) },
+            ...(upgradeEligible && !allocation.upgradeRequest
+              ? [{ label: "Request room upgrade", run: () => setUpgradeOpen(true) }]
+              : []),
             { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
           ].map((item) => (
             <button
@@ -1161,16 +1446,19 @@ function AllocationRow({
 function SavedGuestRow({
   guest,
   locked,
+  showRequirementDetail,
   onOpen,
   onRemove,
 }: {
   guest: Guest;
   locked: boolean;
+  showRequirementDetail?: boolean;
   onOpen: () => void;
   onRemove: () => void;
 }) {
   const [confirm, setConfirm] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
+  const req = guestRequirementSummary(guest);
 
   return (
     <div className="flex w-full items-center gap-1.5">
@@ -1180,15 +1468,35 @@ function SavedGuestRow({
         className="flex min-w-0 flex-1 items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)]"
       >
         <User size={13} style={{ color: RT_3 }} />
-        <span className="min-w-0 max-w-[62%] truncate text-[13.5px]" style={{ color: RT }}>
+        <span className="min-w-0 max-w-[52%] truncate text-[13.5px]" style={{ color: RT }}>
           {guestName(guest) || "Unnamed guest"}
         </span>
-        {guest.nationality && (
+        {req.count > 0 && (
+          <span
+            title={req.tooltip}
+            className="inline-flex shrink-0 items-center gap-1 rounded-[5px] px-1.5 py-[1px] text-[10.5px] leading-[15px]"
+            style={
+              req.hasAllergy
+                ? { color: R_AMBER, backgroundColor: "rgba(231,180,75,0.12)", border: "1px solid rgba(231,180,75,0.30)" }
+                : { color: RT_2, backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }
+            }
+          >
+            {req.hasAllergy ? <AlertTriangle size={9.5} /> : <Utensils size={9.5} />}
+            {req.hasAllergy ? "Allergy" : "Dietary"}
+          </span>
+        )}
+        {showRequirementDetail && req.count > 0 && (
+          <span className="min-w-0 truncate text-[11px]" style={{ color: RT_3 }}>
+            {req.tooltip}
+          </span>
+        )}
+        {guest.nationality && !showRequirementDetail && (
           <span className="inline-flex shrink-0 items-center text-[12px]" style={{ color: RT_2 }}>
             {guest.nationality}
           </span>
         )}
       </button>
+
       {!locked && (
         <>
           <button
@@ -2151,5 +2459,452 @@ function UnassignedPanel({
         </div>
       )}
     </section>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Room upgrade workflow
+   ══════════════════════════════════════════════════════════════ */
+
+function UpgradeCheckbox({
+  checked,
+  disabled,
+  onChange,
+  title,
+}: {
+  checked: boolean;
+  disabled?: boolean;
+  onChange: () => void;
+  title?: string;
+}) {
+  return (
+    <button
+      type="button"
+      role="checkbox"
+      aria-checked={checked}
+      aria-label="Select room for upgrade"
+      title={title}
+      disabled={disabled}
+      onClick={onChange}
+      className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] transition-colors disabled:cursor-not-allowed"
+      style={{
+        backgroundColor: checked ? "rgba(197,162,75,0.20)" : "rgba(255,255,255,0.05)",
+        border: `1px solid ${checked ? "rgba(197,162,75,0.70)" : "rgba(255,255,255,0.18)"}`,
+        opacity: disabled ? 0.35 : 1,
+      }}
+    >
+      {checked && <Check size={12} style={{ color: GOLD }} />}
+    </button>
+  );
+}
+
+/** Small gold pill showing the current upgrade request state on a room card. */
+function UpgradeIndicator({
+  request,
+  bookedCategory,
+  locked,
+  onWithdraw,
+  onApply,
+}: {
+  request: UpgradeRequest;
+  bookedCategory: RoomCategory;
+  locked: boolean;
+  onWithdraw: () => void;
+  onApply: () => void;
+}) {
+  const meta = UPGRADE_STATUS_META[request.status];
+  const applied = Boolean(request.appliedAt);
+  return (
+    <div className="mt-[3px] space-y-[5px]">
+      <div className="group/upg flex items-center gap-1.5">
+        <span className="inline-flex items-center gap-1 text-[12.5px]" style={{ color: GOLD }}>
+          <ArrowUp size={12} />
+          {categoryLabel(request.category)} requested
+        </span>
+        {!locked && !applied && (
+          <button
+            type="button"
+            aria-label="Withdraw upgrade request"
+            onClick={onWithdraw}
+            className="opacity-0 transition-opacity group-hover/upg:opacity-100"
+            style={{ color: RT_3 }}
+          >
+            <X size={11} />
+          </button>
+        )}
+      </div>
+      <span
+        className="inline-flex items-center gap-1 rounded-[5px] px-1.5 py-[1px] text-[10.5px]"
+        style={{ color: meta.color, backgroundColor: meta.bg, border: `1px solid ${meta.border}` }}
+      >
+        {request.status === "approved" ? <Check size={9.5} /> : <Clock size={9.5} />}
+        {applied ? "Upgrade applied" : meta.label}
+      </span>
+      {request.status === "price_offered" && (
+        <p className="text-[10.5px] leading-snug" style={{ color: RT_3 }}>
+          Your concierge will share the upgrade price for approval.
+        </p>
+      )}
+      {request.status === "approved" && !applied && !locked && (
+        <button
+          type="button"
+          onClick={onApply}
+          className="mt-[2px] rounded-[6px] px-2 py-[4px] text-[11px] transition-colors"
+          style={{
+            color: GOLD,
+            backgroundColor: "rgba(197,162,75,0.12)",
+            border: "1px solid rgba(197,162,75,0.34)",
+          }}
+        >
+          Apply approved upgrade
+        </button>
+      )}
+      {applied && (
+        <p className="text-[10.5px]" style={{ color: RT_3 }}>
+          Booked as {categoryLabel(bookedCategory)}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/** Shared category + preference + note form used for single and bulk requests. */
+function UpgradeForm({
+  title,
+  options,
+  submitLabel,
+  disabledReason,
+  onSubmit,
+  onCancel,
+}: {
+  title?: string;
+  options: RoomCategory[];
+  submitLabel: string;
+  disabledReason?: string;
+  onSubmit: (category: RoomCategory, preference: UpgradePreference, note: string) => void;
+  onCancel?: () => void;
+}) {
+  const [category, setCategory] = useState<RoomCategory | null>(options[0] ?? null);
+  const [preference, setPreference] = useState<UpgradePreference>("if_available");
+  const [note, setNote] = useState("");
+  const catRef = useRef<HTMLButtonElement>(null);
+  const [catOpen, setCatOpen] = useState(false);
+
+  useEffect(() => {
+    if (category && !options.includes(category)) setCategory(options[0] ?? null);
+    if (!category && options.length) setCategory(options[0]);
+  }, [options, category]);
+
+  return (
+    <div className="px-3 py-3">
+      {title && (
+        <p className="mb-2 text-[11px] uppercase tracking-[0.14em]" style={{ color: "#B8BDC2" }}>
+          {title}
+        </p>
+      )}
+
+      <label className="block text-[11px] uppercase tracking-[0.12em]" style={{ color: "#B8BDC2" }}>
+        Upgrade to
+      </label>
+      <button
+        ref={catRef}
+        type="button"
+        disabled={options.length === 0}
+        onClick={() => setCatOpen((v) => !v)}
+        className="mt-1 flex w-full items-center justify-between rounded-[8px] px-3 py-[7px] text-left text-[12.5px] disabled:opacity-50"
+        style={{ backgroundColor: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.14)", color: "#F7F7F5" }}
+      >
+        {category ? categoryLabel(category) : "No higher category"}
+        <ChevronDown size={13} style={{ color: "#B8BDC2" }} />
+      </button>
+      <FloatingPopover anchorRef={catRef} open={catOpen} onClose={() => setCatOpen(false)} width={220}>
+        {options.map((c) => (
+          <button
+            key={c}
+            type="button"
+            onClick={() => {
+              setCategory(c);
+              setCatOpen(false);
+            }}
+            className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+            style={{ color: c === category ? "#F7F7F5" : "#D9DDE0" }}
+          >
+            {categoryLabel(c)}
+          </button>
+        ))}
+      </FloatingPopover>
+
+      <p className="mt-3 text-[11px] uppercase tracking-[0.12em]" style={{ color: "#B8BDC2" }}>
+        Preference
+      </p>
+      <div className="mt-1 space-y-1.5">
+        {(
+          [
+            { value: "if_available", label: "Upgrade if available" },
+            { value: "price", label: "Request price first" },
+          ] as { value: UpgradePreference; label: string }[]
+        ).map((o) => (
+          <button
+            key={o.value}
+            type="button"
+            onClick={() => setPreference(o.value)}
+            className="flex w-full items-center gap-2 rounded-[7px] px-2.5 py-[6px] text-left text-[12.5px] transition-colors"
+            style={{
+              color: preference === o.value ? "#F7F7F5" : "#D9DDE0",
+              backgroundColor: preference === o.value ? "rgba(197,162,75,0.12)" : "transparent",
+              border: `1px solid ${preference === o.value ? "rgba(197,162,75,0.34)" : "rgba(255,255,255,0.10)"}`,
+            }}
+          >
+            {preference === o.value ? (
+              <CheckCircle2 size={13} style={{ color: GOLD }} />
+            ) : (
+              <Circle size={13} style={{ color: "#B8BDC2" }} />
+            )}
+            {o.label}
+          </button>
+        ))}
+      </div>
+
+      <label className="mt-3 block text-[11px] uppercase tracking-[0.12em]" style={{ color: "#B8BDC2" }}>
+        Note (optional)
+      </label>
+      <textarea
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+        rows={2}
+        placeholder="e.g. Upgrade only for the VIP guests."
+        className="mt-1 w-full resize-none rounded-[8px] px-3 py-2 text-[12.5px] outline-none"
+        style={{ backgroundColor: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.14)", color: "#F7F7F5" }}
+      />
+
+      {disabledReason && (
+        <p className="mt-2 text-[11px] leading-snug" style={{ color: GOLD }}>
+          {disabledReason}
+        </p>
+      )}
+
+      <div className="mt-3 flex items-center justify-end gap-2">
+        {onCancel && (
+          <button
+            type="button"
+            onClick={onCancel}
+            className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+            style={{ color: "#B8BDC2" }}
+          >
+            Cancel
+          </button>
+        )}
+        <button
+          type="button"
+          disabled={!category}
+          onClick={() => category && onSubmit(category, preference, note)}
+          className="rounded-[7px] px-3 py-[6px] text-[12px] transition-colors disabled:opacity-50"
+          style={{
+            color: GOLD,
+            backgroundColor: "rgba(197,162,75,0.14)",
+            border: "1px solid rgba(197,162,75,0.36)",
+          }}
+        >
+          {submitLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/** Sticky panel shown while Upgrade Mode is active. */
+function UpgradeModePanel({
+  allocations,
+  eligible,
+  selected,
+  selectedAllocations,
+  onSelectAll,
+  onCancel,
+  onRequest,
+}: {
+  allocations: Allocation[];
+  eligible: Allocation[];
+  selected: string[];
+  selectedAllocations: Allocation[];
+  onSelectAll: (on: boolean) => void;
+  onCancel: () => void;
+  onRequest: (category: RoomCategory, preference: UpgradePreference, note: string) => void;
+}) {
+  const allSelected = eligible.length > 0 && selected.length === eligible.length;
+  const options = commonUpgradeOptions(selectedAllocations);
+  const ineligible = allocations.length - eligible.length;
+
+  return (
+    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(197,162,75,0.05)" }}>
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
+          <UpgradeCheckbox checked={allSelected} onChange={() => onSelectAll(!allSelected)} />
+          <button type="button" onClick={() => onSelectAll(!allSelected)} style={{ color: TEXT_2 }}>
+            Select all eligible rooms
+          </button>
+        </span>
+        <span className="text-[12px]" style={{ color: MUTED }}>
+          {selected.length} of {eligible.length} selected
+          {ineligible > 0 ? ` · ${ineligible} not eligible` : ""}
+        </span>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="ml-auto rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+          style={{ color: MUTED }}
+        >
+          Exit upgrade mode
+        </button>
+      </div>
+
+      {selected.length > 0 && (
+        <div
+          className="mt-3 rounded-[10px]"
+          style={{ backgroundColor: SURFACE_2, border: `1px solid ${GOLD_DEEP}` }}
+        >
+          <UpgradeForm
+            title={`Upgrade ${selected.length} room${selected.length > 1 ? "s" : ""}`}
+            options={options}
+            submitLabel="Review upgrade request"
+            disabledReason={
+              options.length === 0
+                ? "The selected rooms have no shared higher category. Adjust your selection."
+                : undefined
+            }
+            onSubmit={onRequest}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Bulk confirmation step before submitting upgrade requests. */
+function UpgradeConfirmModal({
+  allocations,
+  category,
+  preference,
+  note,
+  onClose,
+  onConfirm,
+}: {
+  allocations: Allocation[];
+  category: RoomCategory;
+  preference: UpgradePreference;
+  note: string;
+  onClose: () => void;
+  onConfirm: () => void;
+}) {
+  const blocked = invalidForCategory(allocations, category);
+  return (
+    <Modal title="Confirm upgrade request" onClose={onClose}>
+      <p className="text-[12.5px]" style={{ color: MUTED }}>
+        This sends a request only. Your booked room types stay unchanged until an upgrade is approved and you apply it.
+      </p>
+
+      <div className="mt-3 space-y-2">
+        <SummaryLine label="Rooms" value={`${allocations.length - blocked.length} room(s)`} />
+        <SummaryLine label="Upgrade to" value={categoryLabel(category)} />
+        <SummaryLine
+          label="Preference"
+          value={preference === "price" ? "Request price first" : "Upgrade if available"}
+        />
+        {note.trim() && <SummaryLine label="Note" value={note.trim()} />}
+      </div>
+
+      <div className="mt-3 max-h-[180px] space-y-1.5 overflow-y-auto">
+        {allocations.map((a) => {
+          const bad = blocked.includes(a);
+          return (
+            <div
+              key={a.id}
+              className="flex items-center justify-between rounded-[8px] px-3 py-[7px] text-[12.5px]"
+              style={{ backgroundColor: ROW, border: `1px solid ${BORDER}`, color: bad ? MUTED : TEXT_2 }}
+            >
+              <span>
+                {labelOf(a.type)} {String(a.index).padStart(2, "0")} · {categoryLabel(a.bookedRoomCategory)}
+              </span>
+              <span style={{ color: bad ? MUTED : GOLD }}>
+                {bad ? "Not eligible — skipped" : `→ ${categoryLabel(category)}`}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-4 flex items-center justify-end gap-2">
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+          style={{ color: MUTED }}
+        >
+          Back
+        </button>
+        <GoldButton small onClick={onConfirm} disabled={allocations.length - blocked.length === 0}>
+          <ArrowUp size={13} /> Send upgrade request
+        </GoldButton>
+      </div>
+    </Modal>
+  );
+}
+
+function SummaryLine({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-start justify-between gap-4">
+      <span className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+        {label}
+      </span>
+      <span className="text-right text-[12.5px]" style={{ color: TEXT }}>
+        {value}
+      </span>
+    </div>
+  );
+}
+
+/** Extra view filters kept in a portal menu so the segmented control stays compact. */
+function SecondaryFilterMenu({ view, onChange }: { view: ViewFilter; onChange: (v: ViewFilter) => void }) {
+  const [open, setOpen] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const extras: { value: ViewFilter; label: string }[] = [
+    { value: "dietary", label: "Dietary & allergies" },
+    { value: "requests", label: "Requests" },
+    { value: "upgrades", label: "Upgrades" },
+  ];
+  const active = extras.find((e) => e.value === view);
+
+  return (
+    <>
+      <button
+        ref={btnRef}
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="inline-flex items-center gap-1 rounded-[6px] px-3 py-[5px] text-[12px] transition-colors"
+        style={
+          active
+            ? { color: GOLD, backgroundColor: SURFACE_2, border: `1px solid ${GOLD_DEEP}` }
+            : { color: TEXT_2, border: "1px solid transparent" }
+        }
+      >
+        {active ? active.label : "More"}
+        <ChevronDown size={12} />
+      </button>
+      <FloatingPopover anchorRef={btnRef} open={open} onClose={() => setOpen(false)} width={210} align="end">
+        {extras.map((e) => (
+          <button
+            key={e.value}
+            type="button"
+            onClick={() => {
+              onChange(e.value);
+              setOpen(false);
+            }}
+            className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+            style={{ color: view === e.value ? "#F7F7F5" : "#D9DDE0" }}
+          >
+            {e.label}
+          </button>
+        ))}
+      </FloatingPopover>
+    </>
   );
 }
