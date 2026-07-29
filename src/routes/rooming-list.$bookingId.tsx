@@ -707,6 +707,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         <ReviewModal
           list={list}
           stats={stats}
+          issues={issues}
           onClose={() => setShowReview(false)}
           onFix={(id) => {
             setShowReview(false);
