@@ -268,10 +268,16 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
   const drawerGuest = useMemo(() => {
     if (!list || !openGuest) return null;
+    if (!openGuest.allocationId) {
+      const guest = list.unassigned.find((g) => g.id === openGuest.guestId);
+      return guest ? { alloc: null, guest } : null;
+    }
     const alloc = list.allocations.find((a) => a.id === openGuest.allocationId);
     const guest = alloc?.guests.find((g) => g.id === openGuest.guestId);
     return alloc && guest ? { alloc, guest } : null;
   }, [list, openGuest]);
+
+  const issues = useMemo(() => (list ? roomingIssues(list) : []), [list]);
 
   if (!list || !stats) {
     return <div className="min-h-screen" style={{ backgroundColor: BG_ALT }} />;
