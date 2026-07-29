@@ -1311,7 +1311,7 @@ function AllocationRow({
     <div
       id={`alloc-${allocation.id}`}
       data-selected={selected ? "true" : "false"}
-      className="hgb-row grid rounded-[12px] lg:[grid-template-columns:14%_42%_21%_19%_4%]"
+      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:31%_30%_21%_14%_4%]"
       style={{
         backgroundColor: NAVY,
         backgroundImage: selected
@@ -1323,15 +1323,20 @@ function AllocationRow({
             ? "1.5px solid #C5A24B"
             : "1px solid rgba(255,255,255,0.07)",
         boxShadow: isActive
-          ? "0 8px 22px rgba(16,35,63,0.18)"
-          : "0 4px 14px rgba(16,35,63,0.12)",
+          ? "0 10px 26px rgba(10,26,46,0.26)"
+          : "0 6px 18px rgba(10,26,46,0.18)",
       }}
     >
-
-
+      {/* metallic gold left edge */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 w-[5px]"
+        style={{ backgroundImage: GOLD_EDGE, boxShadow: "1px 0 6px rgba(197,162,75,0.18)" }}
+      />
 
       {/* ── ALLOCATION ── */}
-      <div className="flex flex-col justify-center px-4 py-[17px]">
+      <div className="flex items-center gap-4 py-[19px] pl-6 pr-4">
+
         <div className="flex items-center gap-2.5">
           {manageMode && allocation.upgradeRequest ? (
             <UpgradeCheckbox
