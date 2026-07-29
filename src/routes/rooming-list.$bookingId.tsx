@@ -628,12 +628,13 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
             </div>
 
             {/* allocation cards */}
-            <div className="space-y-2">
+            <div className="space-y-[8px]">
                 {visible.map((a) => (
                   <AllocationRow
                     key={a.id}
                     allocation={a}
                     locked={locked}
+                    active={openGuest?.allocationId === a.id || pendingGuest?.allocationId === a.id}
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
                     onPatch={(fn) => patchAllocation(a.id, fn)}
@@ -845,7 +846,7 @@ function AllocationRow({
 
 
       {/* ── ALLOCATION ── */}
-      <div className="flex flex-col justify-center px-3.5 py-2">
+      <div className="flex flex-col justify-center px-4 py-3">
         <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
           {String(allocation.index).padStart(2, "0")}
         </p>
@@ -896,7 +897,7 @@ function AllocationRow({
       </div>
 
       {/* ── GUESTS ── */}
-      <div className="hgb-cell flex flex-col justify-center gap-[3px] px-3.5 py-2">
+      <div className="hgb-cell flex flex-col justify-center gap-[5px] px-4 py-3">
         {allocation.guests.map((g) => (
           <button
             key={g.id}
@@ -934,7 +935,7 @@ function AllocationRow({
       </div>
 
       {/* ── ROOM REQUEST ── */}
-      <div className="hgb-cell relative flex flex-col justify-center px-3.5 py-2">
+      <div className="hgb-cell relative flex flex-col justify-center px-4 py-3">
         {allocation.requests.length > 0 ? (
           <div className="space-y-[3px]">
             {allocation.requests.map((r) => (
@@ -991,18 +992,18 @@ function AllocationRow({
       </div>
 
       {/* ── STATUS ── */}
-      <div className="hgb-cell flex flex-col justify-center px-3.5 py-2">
+      <div className="hgb-cell flex flex-col justify-center px-4 py-3">
         <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: statusColor }}>
           {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={14} strokeWidth={1.6} />}
           {statusLabel}
         </span>
-        <p className="mt-[3px] text-[11.5px]" style={{ color: TEXT_2 }}>
+        <p className="mt-[3px] text-[11.5px]" style={{ color: RT_2 }}>
           {named.length} / {cap} guest{cap > 1 ? "s" : ""}
         </p>
       </div>
 
       {/* ── MENU ── */}
-      <div className="hgb-cell relative flex items-center justify-center py-2">
+      <div className="hgb-cell relative flex items-center justify-center py-3">
         <button
           ref={menuBtnRef}
           type="button"
