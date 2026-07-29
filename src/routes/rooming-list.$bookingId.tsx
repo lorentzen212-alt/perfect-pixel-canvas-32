@@ -97,6 +97,7 @@ const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B44B";
 
 const GOLD_BAR = "#285D91";
+const COLS = "14% 42% 21% 19% 4%";
 
 
 /* ───────────────── primitives ───────────────── */
@@ -736,15 +737,17 @@ function AllocationRow({
   return (
     <div
       id={`alloc-${allocation.id}`}
-      className="hgb-row grid rounded-[10px] transition-[background,border-color] duration-200 ease-out lg:[grid-template-columns:112px_minmax(0,1fr)_190px_152px_34px]"
+      className="hgb-row grid rounded-[10px] transition-[background,border-color] duration-200 ease-out"
       style={{
         background: CARD_NAVY,
         border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: "0 5px 16px rgba(22,50,75,0.10)",
+        boxShadow: "0 4px 12px rgba(20,45,70,0.10)",
+        gridTemplateColumns: undefined,
       }}
+      data-cols
     >
       {/* ── ALLOCATION ── */}
-      <div className="flex flex-col justify-center px-3.5 py-2.5">
+      <div className="flex flex-col justify-center px-3.5 py-2">
         <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
           {String(allocation.index).padStart(2, "0")}
         </p>
@@ -803,20 +806,20 @@ function AllocationRow({
       </div>
 
       {/* ── GUESTS ── */}
-      <div className="hgb-cell flex flex-col justify-center gap-[3px] px-3.5 py-2.5">
+      <div className="hgb-cell flex flex-col justify-center gap-[3px] px-3.5 py-2">
         {allocation.guests.map((g) => (
           <button
             key={g.id}
             type="button"
             onClick={() => onOpenGuest(g.id)}
-            className="grid w-full items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)] [grid-template-columns:14px_minmax(0,1fr)_104px]"
+            className="flex w-full items-center gap-2 rounded-[6px] px-1.5 py-[2px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)]"
           >
             <User size={13} style={{ color: RT_3 }} />
-            <span className="min-w-0 truncate text-[13.5px]" style={{ color: RT }}>
+            <span className="min-w-0 max-w-[62%] truncate text-[13.5px]" style={{ color: RT }}>
               {guestName(g) || "Unnamed guest"}
             </span>
             {g.nationality && (
-              <span className="inline-flex min-w-0 items-center gap-1.5 truncate text-[12px]" style={{ color: "rgba(255,255,255,0.70)" }}>
+              <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px]" style={{ color: "rgba(255,255,255,0.70)" }}>
                 <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>
                 {g.nationality}
               </span>
@@ -883,7 +886,7 @@ function AllocationRow({
       </div>
 
       {/* ── ROOM REQUEST ── */}
-      <div className="hgb-cell relative flex flex-col justify-center px-3.5 py-2.5">
+      <div className="hgb-cell relative flex flex-col justify-center px-3.5 py-2">
         {allocation.requests.length > 0 ? (
           <div className="space-y-[3px]">
             {allocation.requests.map((r) => (
@@ -948,7 +951,7 @@ function AllocationRow({
       </div>
 
       {/* ── STATUS ── */}
-      <div className="hgb-cell flex flex-col justify-center px-3.5 py-2.5">
+      <div className="hgb-cell flex flex-col justify-center px-3.5 py-2">
         <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: statusColor }}>
           {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={14} strokeWidth={1.6} />}
           {statusLabel}
@@ -959,7 +962,7 @@ function AllocationRow({
       </div>
 
       {/* ── MENU ── */}
-      <div className="hgb-cell relative flex items-center justify-center py-2.5">
+      <div className="hgb-cell relative flex items-center justify-center py-2">
         <button
           type="button"
           aria-label="Allocation actions"
@@ -1031,7 +1034,7 @@ function GuestDrawer({
 
   return (
     <aside
-      className="fixed inset-0 z-40 lg:sticky lg:top-[70px] lg:z-auto lg:w-[318px] lg:shrink-0"
+      className="fixed inset-0 z-40 lg:sticky lg:top-[68px] lg:z-auto lg:w-[322px] lg:shrink-0"
       style={{ animation: "hgbSlide 200ms ease-out" }}
     >
       <button aria-label="Close guest details" className="absolute inset-0 bg-black/50 lg:hidden" onClick={onClose} />
