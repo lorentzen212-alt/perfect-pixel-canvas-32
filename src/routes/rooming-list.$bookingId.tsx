@@ -894,8 +894,7 @@ function AllocationRow({
               {guestName(g) || "Unnamed guest"}
             </span>
             {g.nationality && (
-              <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px]" style={{ color: RT_2 }}>
-                <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>
+              <span className="inline-flex shrink-0 items-center text-[12px]" style={{ color: RT_2 }}>
                 {g.nationality}
               </span>
             )}
