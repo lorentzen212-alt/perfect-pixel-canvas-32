@@ -730,261 +730,271 @@ function AllocationRow({
   return (
     <div
       id={`alloc-${allocation.id}`}
-      className="hgb-row rounded-[10px] px-3 py-2.5 transition-[background,border-color] duration-200 ease-out sm:px-4"
+      className="hgb-row grid rounded-[10px] transition-[background,border-color] duration-200 ease-out lg:[grid-template-columns:112px_minmax(0,1fr)_190px_152px_34px]"
       style={{
         background: CARD_NAVY,
         border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: "0 5px 14px rgba(20,45,70,0.10)",
+        boxShadow: "0 5px 16px rgba(22,50,75,0.10)",
       }}
     >
-
-      <div
-        className="grid items-start gap-x-4 gap-y-3"
-        style={{ gridTemplateColumns: "minmax(0,1fr)" }}
-      >
-        <div
-          className="grid items-start gap-x-4 gap-y-3 lg:[grid-template-columns:104px_minmax(0,1fr)_168px_158px_32px]"
-        >
-          {/* allocation number + type */}
-          <div>
-            <p className="text-[19px] font-medium leading-none" style={{ color: RT }}>
-              {String(allocation.index).padStart(2, "0")}
-            </p>
-            <div className="relative mt-1.5">
-              <button
-                type="button"
-                disabled={locked}
-                onClick={() => setTypeOpen((v) => !v)}
-                className="inline-flex items-center gap-1.5 text-[12.5px] transition-colors hover:text-[color:var(--hgb-gold)]"
-                style={{ color: RT_2, ["--hgb-gold" as string]: R_AMBER }}
-              >
-                <Bed size={13} style={{ color: RT_3 }} />
-                {labelOf(allocation.type)}
-                {!locked && <ChevronDown size={13} style={{ color: RT_3 }} />}
-              </button>
-              {typeOpen && (
-                <div
-                  className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
-                  style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.18)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
-                >
-                  {ROOM_TYPES.map((t) => (
-                    <button
-                      key={t.value}
-                      type="button"
-                      onClick={() => changeType(t.value)}
-                      className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
-                      style={{ color: t.value === allocation.type ? "#153E6C" : "#50657A" }}
-                    >
-                      <span>{t.label}</span>
-                      <span className="text-[10.5px]" style={{ color: "#71859A" }}>
-                        {t.capacity} guest{t.capacity > 1 ? "s" : ""}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-            {approval && (
-              <div className="mt-2 rounded-[7px] px-2 py-1.5" style={{ backgroundColor: "rgba(203,162,74,0.10)", border: `1px solid rgba(203,162,74,0.28)` }}>
-                <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
-                  Booking change may require approval
-                </p>
-                <button type="button" className="mt-1 text-[10.5px]" style={{ color: R_AMBER }} onClick={() => setApproval(false)}>
-                  Request change →
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* guests */}
-          <div className="space-y-1.5">
-            {allocation.guests.map((g) => (
-              <button
-                key={g.id}
-                type="button"
-                onClick={() => onOpenGuest(g.id)}
-                className="flex w-full items-center gap-3 rounded-[7px] px-1.5 py-1 text-left transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-              >
-                <User size={13} style={{ color: RT_3 }} />
-                <span className="min-w-0 flex-1 truncate text-[13.5px]" style={{ color: RT }}>
-                  {guestName(g) || "Unnamed guest"}
-                </span>
-                {g.nationality && (
-                  <span className="shrink-0 text-[12px]" style={{ color: RT_2 }}>
-                    <span className="mr-1.5">{flagOf(g.nationality)}</span>
-                    {g.nationality}
-                  </span>
-                )}
-              </button>
-            ))}
-
-            {!locked && adding && named.length < cap && (
-              <div
-                className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-2"
-                style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.22)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
-              >
-                <input
-                  ref={inputRef}
-                  value={first}
-                  onChange={(e) => setFirst(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") commit();
-                    if (e.key === "Escape") setAdding(false);
-                  }}
-                  placeholder="First name"
-                  className="w-[120px] bg-transparent text-[13px] outline-none"
-                  style={{ color: "#10233F" }}
-                />
-                <input
-                  value={last}
-                  onChange={(e) => setLast(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") commit();
-                    if (e.key === "Escape") setAdding(false);
-                  }}
-                  placeholder="Last name"
-                  className="w-[140px] bg-transparent text-[13px] outline-none"
-                  style={{ color: "#10233F" }}
-                />
-                <GoldButton small onClick={commit}>
-                  Save
-                </GoldButton>
-                <button type="button" onClick={() => setAdding(false)} style={{ color: "#71859A" }} aria-label="Cancel">
-                  <X size={14} />
-                </button>
-              </div>
-            )}
-
-            {!locked &&
-              !adding &&
-              Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) => (
+      {/* ── ALLOCATION ── */}
+      <div className="flex flex-col justify-center px-3.5 py-2.5">
+        <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
+          {String(allocation.index).padStart(2, "0")}
+        </p>
+        <div className="relative mt-1.5">
+          <button
+            type="button"
+            disabled={locked}
+            onClick={() => setTypeOpen((v) => !v)}
+            className="inline-flex items-center gap-1.5 text-[12.5px] transition-colors hover:text-white"
+            style={{ color: RT_2 }}
+          >
+            <Bed size={13} style={{ color: RT_3 }} />
+            {labelOf(allocation.type)}
+            {!locked && <ChevronDown size={13} style={{ color: RT_3 }} />}
+          </button>
+          {typeOpen && (
+            <div
+              className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
+              style={{
+                backgroundColor: "#FFFFFF",
+                border: "1px solid rgba(90,115,140,0.18)",
+                boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
+                animation: "hgbFade 160ms ease-out",
+              }}
+            >
+              {ROOM_TYPES.map((t) => (
                 <button
-                  key={i}
+                  key={t.value}
                   type="button"
-                  onClick={() => setAdding(true)}
-                  className="flex w-full items-center gap-2 rounded-[7px] px-2 py-[5px] text-left text-[12.5px] transition-colors hover:bg-[rgba(231,180,75,0.09)]"
-                  style={{
-                    color: R_AMBER,
-                    border: "1px dashed rgba(231,180,75,0.35)",
-                    backgroundColor: "rgba(255,255,255,0.02)",
-                  }}
+                  onClick={() => changeType(t.value)}
+                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                  style={{ color: t.value === allocation.type ? "#153E6C" : "#50657A" }}
                 >
-                  <Plus size={13} />
-                  {i === 0 ? slotLabel : "Add guest"}
+                  <span>{t.label}</span>
+                  <span className="text-[10.5px]" style={{ color: "#71859A" }}>
+                    {t.capacity} guest{t.capacity > 1 ? "s" : ""}
+                  </span>
                 </button>
               ))}
+            </div>
+          )}
+        </div>
+        {approval && (
+          <div
+            className="mt-2 rounded-[7px] px-2 py-1.5"
+            style={{ backgroundColor: "rgba(231,180,75,0.10)", border: "1px solid rgba(231,180,75,0.28)" }}
+          >
+            <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
+              Booking change may require approval
+            </p>
+            <button type="button" className="mt-1 text-[10.5px]" style={{ color: R_AMBER }} onClick={() => setApproval(false)}>
+              Request change →
+            </button>
           </div>
+        )}
+      </div>
 
-          {/* room request */}
-          <div className="relative">
-            {allocation.requests.length > 0 ? (
-              <div className="space-y-1">
-                {allocation.requests.map((r) => (
-                  <span key={r} className="flex items-center gap-2 text-[12.5px]" style={{ color: RT_2 }}>
-                    {r}
-                    {!locked && (
-                      <button
-                        type="button"
-                        aria-label={`Remove ${r}`}
-                        onClick={() => onPatch((a) => ({ ...a, requests: a.requests.filter((x) => x !== r) }))}
-                        style={{ color: RT_3 }}
-                      >
-                        <X size={11} />
-                      </button>
-                    )}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <span className="block text-[13px]" style={{ color: RT_3 }}>
-                —
+      {/* ── GUESTS ── */}
+      <div className="hgb-cell flex flex-col justify-center gap-[3px] px-3.5 py-2.5">
+        {allocation.guests.map((g) => (
+          <button
+            key={g.id}
+            type="button"
+            onClick={() => onOpenGuest(g.id)}
+            className="grid w-full items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)] [grid-template-columns:14px_minmax(0,1fr)_auto]"
+          >
+            <User size={13} style={{ color: RT_3 }} />
+            <span className="min-w-0 truncate text-[13.5px]" style={{ color: RT }}>
+              {guestName(g) || "Unnamed guest"}
+            </span>
+            {g.nationality && (
+              <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px]" style={{ color: "rgba(255,255,255,0.70)" }}>
+                <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>
+                {g.nationality}
               </span>
             )}
-            {!locked && (
-              <button
-                type="button"
-                onClick={() => setRequestOpen((v) => !v)}
-                className="mt-1 flex items-center gap-1.5 text-[12px]"
-                style={{ color: R_AMBER }}
-              >
-                <Plus size={12} />
-                Add room request
-              </button>
-            )}
-            {requestOpen && (
-              <div
-                className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.18)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
-              >
-                {ROOM_REQUEST_OPTIONS.map((r) => (
-                  <button
-                    key={r}
-                    type="button"
-                    onClick={() => {
-                      onPatch((a) => (a.requests.includes(r) ? a : { ...a, requests: [...a.requests, r] }));
-                      setRequestOpen(false);
-                    }}
-                    className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
-                    style={{ color: "#50657A" }}
-                  >
-                    {r}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          </button>
+        ))}
 
-          {/* status */}
-          <div>
-            <span className="inline-flex items-center gap-2 text-[13px]" style={{ color: statusColor }}>
-              {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={12} fill={statusColor} strokeWidth={0} />}
-              {statusLabel}
-            </span>
-            <p className="mt-1 text-[12px]" style={{ color: RT_3 }}>
-              {named.length} / {cap} guest{cap > 1 ? "s" : ""}
-            </p>
-          </div>
-
-          {/* secondary menu */}
-          <div className="relative justify-self-end">
-            <button
-              type="button"
-              aria-label="Allocation actions"
-              onClick={() => setMenuOpen((v) => !v)}
-              className="hgb-menu grid h-7 w-7 place-items-center rounded-[6px] opacity-0 transition-opacity duration-200"
-              style={{ color: RT_3 }}
-            >
-              <MoreVertical size={15} />
+        {!locked && adding && named.length < cap && (
+          <div
+            className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-1.5"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "1px solid rgba(90,115,140,0.22)",
+              boxShadow: "0 8px 20px rgba(20,45,70,0.18)",
+              animation: "hgbFade 160ms ease-out",
+            }}
+          >
+            <input
+              ref={inputRef}
+              value={first}
+              onChange={(e) => setFirst(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") commit();
+                if (e.key === "Escape") setAdding(false);
+              }}
+              placeholder="First name"
+              className="w-[104px] bg-transparent text-[13px] outline-none"
+              style={{ color: "#10233F" }}
+            />
+            <input
+              value={last}
+              onChange={(e) => setLast(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") commit();
+                if (e.key === "Escape") setAdding(false);
+              }}
+              placeholder="Last name"
+              className="w-[118px] bg-transparent text-[13px] outline-none"
+              style={{ color: "#10233F" }}
+            />
+            <GoldButton small onClick={commit}>
+              Save
+            </GoldButton>
+            <button type="button" onClick={() => setAdding(false)} style={{ color: "#71859A" }} aria-label="Cancel">
+              <X size={14} />
             </button>
-            {menuOpen && (
-              <div
-                className="absolute right-0 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.18)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
-              >
-                {[
-                  { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
-                  { label: "Change room type", run: () => setTypeOpen(true) },
-                  { label: "Add room request", run: () => setRequestOpen(true) },
-                  { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
-                ].map((item) => (
-                  <button
-                    key={item.label}
-                    type="button"
-                    disabled={locked}
-                    onClick={() => {
-                      item.run();
-                      setMenuOpen(false);
-                    }}
-                    className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)] disabled:opacity-40"
-                    style={{ color: "#50657A" }}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
-        </div>
+        )}
+
+        {!locked &&
+          !adding &&
+          Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setAdding(true)}
+              className="flex w-full items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left text-[12.5px] transition-colors hover:bg-[rgba(231,180,75,0.10)]"
+              style={{ color: R_AMBER }}
+            >
+              <Plus size={13} />
+              {i === 0 ? slotLabel : "Add guest"}
+            </button>
+          ))}
+      </div>
+
+      {/* ── ROOM REQUEST ── */}
+      <div className="hgb-cell relative flex flex-col justify-center px-3.5 py-2.5">
+        {allocation.requests.length > 0 ? (
+          <div className="space-y-[3px]">
+            {allocation.requests.map((r) => (
+              <span key={r} className="group/req flex items-center gap-1.5 text-[12.5px]" style={{ color: RT_2 }}>
+                {r}
+                {!locked && (
+                  <button
+                    type="button"
+                    aria-label={`Remove ${r}`}
+                    onClick={() => onPatch((a) => ({ ...a, requests: a.requests.filter((x) => x !== r) }))}
+                    className="opacity-0 transition-opacity group-hover/req:opacity-100"
+                    style={{ color: RT_3 }}
+                  >
+                    <X size={11} />
+                  </button>
+                )}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <span className="block text-[13px]" style={{ color: RT_3 }}>
+            —
+          </span>
+        )}
+        {!locked && (
+          <button
+            type="button"
+            onClick={() => setRequestOpen((v) => !v)}
+            className="hgb-req mt-[3px] inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
+            style={{ color: R_AMBER }}
+          >
+            <Plus size={12} />
+            Add room request
+          </button>
+        )}
+        {requestOpen && (
+          <div
+            className="absolute left-2 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "1px solid rgba(90,115,140,0.18)",
+              boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
+              animation: "hgbFade 160ms ease-out",
+            }}
+          >
+            {ROOM_REQUEST_OPTIONS.map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => {
+                  onPatch((a) => (a.requests.includes(r) ? a : { ...a, requests: [...a.requests, r] }));
+                  setRequestOpen(false);
+                }}
+                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                style={{ color: "#50657A" }}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* ── STATUS ── */}
+      <div className="hgb-cell flex flex-col justify-center px-3.5 py-2.5">
+        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: statusColor }}>
+          {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={14} strokeWidth={1.6} />}
+          {statusLabel}
+        </span>
+        <p className="mt-[3px] text-[11.5px]" style={{ color: "rgba(255,255,255,0.65)" }}>
+          {named.length} / {cap} guest{cap > 1 ? "s" : ""}
+        </p>
+      </div>
+
+      {/* ── MENU ── */}
+      <div className="hgb-cell relative flex items-center justify-center py-2.5">
+        <button
+          type="button"
+          aria-label="Allocation actions"
+          onClick={() => setMenuOpen((v) => !v)}
+          className="hgb-menu grid h-7 w-7 place-items-center rounded-[6px] opacity-0 transition-opacity duration-200"
+          style={{ color: RT_3 }}
+        >
+          <MoreVertical size={15} />
+        </button>
+        {menuOpen && (
+          <div
+            className="absolute right-1 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "1px solid rgba(90,115,140,0.18)",
+              boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
+              animation: "hgbFade 160ms ease-out",
+            }}
+          >
+            {[
+              { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
+              { label: "Change room type", run: () => setTypeOpen(true) },
+              { label: "Add room request", run: () => setRequestOpen(true) },
+              { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
+            ].map((item) => (
+              <button
+                key={item.label}
+                type="button"
+                disabled={locked}
+                onClick={() => {
+                  item.run();
+                  setMenuOpen(false);
+                }}
+                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)] disabled:opacity-40"
+                style={{ color: "#50657A" }}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
