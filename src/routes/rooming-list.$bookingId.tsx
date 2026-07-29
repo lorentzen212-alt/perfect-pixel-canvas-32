@@ -1320,8 +1320,26 @@ function AllocationRow({
           <UpgradeIndicator
             request={allocation.upgradeRequest}
             bookedCategory={allocation.bookedRoomCategory}
+            roomLabel={`Room ${String(allocation.index).padStart(2, "0")}`}
             locked={locked}
             onWithdraw={() => onPatch((a) => ({ ...a, upgradeRequest: null }))}
+            onRequestChange={() =>
+              onPatch((a) =>
+                a.upgradeRequest
+                  ? {
+                      ...a,
+                      upgradeRequest: {
+                        ...a.upgradeRequest,
+                        status: "requested",
+                        note: [a.upgradeRequest.note, "Change requested after approval."]
+                          .filter(Boolean)
+                          .join(" "),
+                      },
+                    }
+                  : a,
+              )
+            }
+
             onApply={() =>
               onPatch((a) =>
                 a.upgradeRequest
