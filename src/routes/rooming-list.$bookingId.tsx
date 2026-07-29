@@ -31,6 +31,7 @@ import {
   type Allocation,
   type Guest,
   type RoomType,
+  type RoomingIssue,
   type RoomingList,
   allocationStatus,
   capacityOf,
@@ -42,7 +43,7 @@ import {
   labelOf,
   loadRoomingList,
   newGuest,
-  newId,
+  roomingIssues,
   saveRoomingList,
   statsOf,
 } from "@/lib/rooming";
@@ -203,7 +204,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [list, setList] = useState<RoomingList | null>(null);
   const [view, setView] = useState<ViewFilter>("all");
   const [query, setQuery] = useState("");
-  const [openGuest, setOpenGuest] = useState<{ allocationId: string; guestId: string } | null>(null);
+  const [openGuest, setOpenGuest] = useState<{ allocationId: string | null; guestId: string } | null>(null);
   const [showReview, setShowReview] = useState(false);
   const [showGroup, setShowGroup] = useState(false);
   const [showImport, setShowImport] = useState(false);
@@ -267,10 +268,16 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
   const drawerGuest = useMemo(() => {
     if (!list || !openGuest) return null;
+    if (!openGuest.allocationId) {
+      const guest = list.unassigned.find((g) => g.id === openGuest.guestId);
+      return guest ? { alloc: null, guest } : null;
+    }
     const alloc = list.allocations.find((a) => a.id === openGuest.allocationId);
     const guest = alloc?.guests.find((g) => g.id === openGuest.guestId);
     return alloc && guest ? { alloc, guest } : null;
   }, [list, openGuest]);
+
+  const issues = useMemo(() => (list ? roomingIssues(list) : []), [list]);
 
   if (!list || !stats) {
     return <div className="min-h-screen" style={{ backgroundColor: BG_ALT }} />;
@@ -329,12 +336,36 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
             {/* ── compact booking hero ── */}
             <section className="relative overflow-hidden rounded-[12px]">
               <div className="relative px-1 py-1">
-                <span
-                  className="inline-flex items-center rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: TEXT_2, backgroundColor: "rgba(128,154,180,0.22)" }}
-                >
-                  {booking.type === "leisure" ? "Leisure" : "M&E"}
+                <span className="inline-flex items-center gap-2">
+                  <span
+                    className="inline-flex items-center rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: TEXT_2, backgroundColor: "rgba(128,154,180,0.22)" }}
+                  >
+                    {booking.type === "leisure" ? "Leisure" : "M&E"}
+                  </span>
+                  <span
+                    className="inline-flex items-center gap-1.5 rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
+                    style={
+                      locked
+                        ? { color: GREEN, backgroundColor: "rgba(62,155,87,0.12)" }
+                        : { color: AMBER, backgroundColor: "rgba(176,128,15,0.12)" }
+                    }
+                  >
+                    {locked ? (
+                      <>
+                        <CheckCircle2 size={11} /> Submitted{" "}
+                        {new Date(list.submittedAt as string).toLocaleDateString("en-GB", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </>
+                    ) : (
+                      "Draft"
+                    )}
+                  </span>
                 </span>
+
 
                 <h1 className="mt-1.5 text-[26px] font-semibold leading-[1.06] tracking-[-0.01em]" style={{ color: TEXT }}>
                   {booking.name}
@@ -533,6 +564,36 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
             </section>
 
+            {/* ── unassigned guests ── */}
+            <UnassignedPanel
+              guests={list.unassigned}
+              allocations={list.allocations}
+              locked={locked}
+              onOpenGuest={(guestId) => setOpenGuest({ allocationId: null, guestId })}
+              onAdd={(first, last) =>
+                update((l) => ({
+                  ...l,
+                  unassigned: [...l.unassigned, newGuest({ firstName: first, lastName: last })],
+                }))
+              }
+              onRemove={(guestId) =>
+                update((l) => ({ ...l, unassigned: l.unassigned.filter((g) => g.id !== guestId) }))
+              }
+              onAssign={(guestId, allocationId) =>
+                update((l) => {
+                  const guest = l.unassigned.find((g) => g.id === guestId);
+                  if (!guest) return l;
+                  return {
+                    ...l,
+                    unassigned: l.unassigned.filter((g) => g.id !== guestId),
+                    allocations: l.allocations.map((a) =>
+                      a.id === allocationId ? { ...a, guests: [...a.guests, guest] } : a,
+                    ),
+                  };
+                })
+              }
+            />
+
             {/* column headers */}
             <div
               className="hidden px-1 pb-1 pt-3 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
@@ -583,19 +644,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <span className="text-[12.5px]" style={{ color: TEXT }}>
                   {stats.filled} / {stats.totalSlots} guests added
                   <span className="ml-2 text-[11.5px]" style={{ color: MUTED }}>
-                    {stats.missing} missing
+                    {stats.percent}% · {stats.missing} guest{stats.missing === 1 ? "" : "s"} missing
                   </span>
                 </span>
 
                 <div className="ml-auto flex items-center gap-2.5">
-                  <GhostButton
-                    onClick={() => {
-                      setView("missing");
-                      setQuery("");
-                    }}
-                  >
-                    Review issues ({stats.missing})
-                  </GhostButton>
+                  {issues.length > 0 && (
+                    <GhostButton onClick={() => setShowReview(true)}>Review issues ({issues.length})</GhostButton>
+                  )}
                   <GoldButton onClick={() => setShowReview(true)}>
                     {locked ? "Request change" : "Review & Submit"}
                   </GoldButton>
@@ -610,17 +666,25 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               guest={drawerGuest.guest}
               locked={locked}
               onClose={() => setOpenGuest(null)}
-              onSave={(g) =>
-                patchAllocation(drawerGuest.alloc.id, (a) => ({
-                  ...a,
-                  guests: a.guests.map((x) => (x.id === g.id ? g : x)),
-                }))
-              }
+              onSave={(g) => {
+                if (drawerGuest.alloc) {
+                  patchAllocation(drawerGuest.alloc.id, (a) => ({
+                    ...a,
+                    guests: a.guests.map((x) => (x.id === g.id ? g : x)),
+                  }));
+                } else {
+                  update((l) => ({ ...l, unassigned: l.unassigned.map((x) => (x.id === g.id ? g : x)) }));
+                }
+              }}
               onRemove={() => {
-                patchAllocation(drawerGuest.alloc.id, (a) => ({
-                  ...a,
-                  guests: a.guests.filter((x) => x.id !== drawerGuest.guest.id),
-                }));
+                if (drawerGuest.alloc) {
+                  patchAllocation(drawerGuest.alloc.id, (a) => ({
+                    ...a,
+                    guests: a.guests.filter((x) => x.id !== drawerGuest.guest.id),
+                  }));
+                } else {
+                  update((l) => ({ ...l, unassigned: l.unassigned.filter((x) => x.id !== drawerGuest.guest.id) }));
+                }
                 setOpenGuest(null);
               }}
             />
@@ -643,6 +707,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         <ReviewModal
           list={list}
           stats={stats}
+          issues={issues}
           onClose={() => setShowReview(false)}
           onFix={(id) => {
             setShowReview(false);
@@ -1018,7 +1083,7 @@ function GuestDrawer({
   onSave,
   onRemove,
 }: {
-  allocation: Allocation;
+  allocation: Allocation | null;
   guest: Guest;
   locked: boolean;
   onClose: () => void;
@@ -1067,7 +1132,9 @@ function GuestDrawer({
               {guestName(draft) || "New guest"}
             </p>
             <p className="text-[11.5px]" style={{ color: MUTED }}>
-              Allocation {String(allocation.index).padStart(2, "0")} • {labelOf(allocation.type)}
+              {allocation
+                ? `Allocation ${String(allocation.index).padStart(2, "0")} • ${labelOf(allocation.type)}`
+                : "Not yet assigned to a room"}
             </p>
           </div>
         </div>
@@ -1340,27 +1407,18 @@ function ImportModal({ onClose }: { onClose: () => void }) {
 function ReviewModal({
   list,
   stats,
+  issues,
   onClose,
   onFix,
   onSubmit,
 }: {
   list: RoomingList;
   stats: ReturnType<typeof statsOf>;
+  issues: RoomingIssue[];
   onClose: () => void;
   onFix: (allocationId: string) => void;
   onSubmit: () => void;
 }) {
-  const issues = list.allocations
-    .filter((a) => allocationStatus(a) !== "complete")
-    .map((a) => {
-      const cap = capacityOf(a.type, a.occupancy);
-      const named = a.guests.filter(isNamed).length;
-      return {
-        id: a.id,
-        title: `${labelOf(a.type)} ${String(a.index).padStart(2, "0")}`,
-        detail: named === 0 ? "No guests assigned" : `Missing ${cap - named === 1 ? "" : `${cap - named} `}guest${cap - named > 1 ? "s" : ""}`,
-      };
-    });
 
   const locked = Boolean(list.submittedAt);
 
@@ -1386,52 +1444,60 @@ function ReviewModal({
         </>
       ) : (
         <>
-          <p className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: GOLD_SOFT }}>
-            Rooming list ready for review
+          <p className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: issues.length ? AMBER : GREEN }}>
+            {issues.length ? "Almost ready" : "Rooming list ready"}
           </p>
-          <div className="mt-3 grid grid-cols-3 gap-2">
-            {[
-              { v: stats.totalSlots, l: "Guests" },
-              { v: stats.totalAllocations, l: "Room allocations" },
-              { v: stats.completeAllocations, l: "Complete allocations" },
-            ].map((x) => (
-              <div key={x.l} className="rounded-[9px] px-3 py-2.5" style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}>
-                <p className="text-[19px] leading-none" style={{ color: TEXT }}>
-                  {x.v}
-                </p>
-                <p className="mt-1 text-[11px]" style={{ color: MUTED }}>
-                  {x.l}
-                </p>
-              </div>
+          <p className="mt-1.5 text-[14px]" style={{ color: TEXT }}>
+            {issues.length
+              ? `${stats.filled} / ${stats.totalSlots} guests complete · ${issues.length} item${issues.length > 1 ? "s" : ""} need attention`
+              : `${stats.totalSlots} guests · ${stats.totalAllocations} rooms`}
+          </p>
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            {stats.byType.map((t) => (
+              <span
+                key={t.type}
+                className="rounded-[8px] px-3 py-1.5 text-[12.5px]"
+                style={{ backgroundColor: ROW, border: `1px solid ${BORDER}`, color: TEXT_2 }}
+              >
+                <strong style={{ color: TEXT }}>{t.count}</strong> {t.label}
+              </span>
             ))}
           </div>
 
           {issues.length > 0 ? (
             <>
               <p className="mt-4 text-[13px]" style={{ color: AMBER }}>
-                {issues.length} item{issues.length > 1 ? "s" : ""} need attention
+                Issues to review
               </p>
               <div className="mt-2 space-y-1.5">
-                {issues.slice(0, 8).map((i) => (
+                {issues.slice(0, 10).map((i) => (
                   <div
                     key={i.id}
-                    className="flex items-center justify-between rounded-[8px] px-3 py-2"
+                    className="flex items-center justify-between gap-3 rounded-[8px] px-3 py-2"
                     style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
                   >
-                    <span className="text-[13px]" style={{ color: TEXT }}>
+                    <span className="min-w-0 text-[13px]" style={{ color: TEXT }}>
                       {i.title}
                       <span className="ml-2 text-[12px]" style={{ color: MUTED }}>
                         {i.detail}
                       </span>
                     </span>
-                    <button type="button" onClick={() => onFix(i.id)} className="text-[12.5px]" style={{ color: GOLD_SOFT }}>
-                      Fix →
-                    </button>
+                    {i.allocationId && (
+                      <button
+                        type="button"
+                        onClick={() => onFix(i.allocationId as string)}
+                        className="shrink-0 text-[12.5px]"
+                        style={{ color: GOLD_SOFT }}
+                      >
+                        Fix →
+                      </button>
+                    )}
                   </div>
                 ))}
-                {issues.length > 8 && (
+                {issues.length > 10 && (
                   <p className="text-[12px]" style={{ color: MUTED }}>
-                    +{issues.length - 8} more allocations need attention
+                    +{issues.length - 10} more items need attention
                   </p>
                 )}
               </div>
@@ -1439,10 +1505,10 @@ function ReviewModal({
           ) : (
             <div className="mt-4 rounded-[9px] px-3 py-3" style={{ backgroundColor: "rgba(62,155,87,0.10)", border: "1px solid rgba(62,155,87,0.28)" }}>
               <p className="inline-flex items-center gap-2 text-[13.5px]" style={{ color: GREEN }}>
-                <CheckCircle2 size={15} /> Rooming list complete
+                <CheckCircle2 size={15} /> All required information completed
               </p>
               <p className="mt-1 text-[12.5px]" style={{ color: TEXT_2 }}>
-                {stats.totalSlots} guests · {stats.totalAllocations} rooms · 0 missing guest assignments
+                {stats.totalSlots} guests · {stats.totalAllocations} rooms · no unassigned guests
               </p>
             </div>
           )}
@@ -1487,6 +1553,9 @@ function SubmittedBanner({
             {when.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
           </p>
         )}
+        <p className="mt-1 max-w-[420px] text-[12px]" style={{ color: MUTED }}>
+          Changes now require approval from HotelGroupBook.
+        </p>
       </div>
       <div className="ml-auto flex flex-wrap items-center gap-2.5">
         <GhostButton>View submission</GhostButton>
@@ -1497,5 +1566,192 @@ function SubmittedBanner({
         <GoldButton onClick={onRequestChange}>Request change →</GoldButton>
       </div>
     </div>
+  );
+}
+
+/* ───────────────── unassigned guests ───────────────── */
+
+function UnassignedPanel({
+  guests,
+  allocations,
+  locked,
+  onOpenGuest,
+  onAdd,
+  onRemove,
+  onAssign,
+}: {
+  guests: Guest[];
+  allocations: Allocation[];
+  locked: boolean;
+  onOpenGuest: (guestId: string) => void;
+  onAdd: (first: string, last: string) => void;
+  onRemove: (guestId: string) => void;
+  onAssign: (guestId: string, allocationId: string) => void;
+}) {
+  const [adding, setAdding] = useState(false);
+  const [first, setFirst] = useState("");
+  const [last, setLast] = useState("");
+  const [assignFor, setAssignFor] = useState<string | null>(null);
+
+  const available = allocations.filter((a) => a.guests.filter(isNamed).length < capacityOf(a.type, a.occupancy));
+
+  const commit = () => {
+    if (!first.trim() && !last.trim()) {
+      setAdding(false);
+      return;
+    }
+    onAdd(first.trim(), last.trim());
+    setFirst("");
+    setLast("");
+  };
+
+  if (locked && guests.length === 0) return null;
+
+  return (
+    <section
+      className="mt-2.5 rounded-[12px] px-4 py-3"
+      style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
+    >
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <p className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+          Unassigned guests
+          <span className="ml-2 text-[11.5px] font-semibold tracking-normal" style={{ color: guests.length ? AMBER : MUTED }}>
+            {guests.length}
+          </span>
+        </p>
+        <p className="text-[12px]" style={{ color: MUTED }}>
+          Saved with your rooming list — assign them to a room whenever you are ready.
+        </p>
+        {!locked && (
+          <button
+            type="button"
+            onClick={() => setAdding((v) => !v)}
+            className="ml-auto inline-flex items-center gap-1.5 text-[12.5px]"
+            style={{ color: GOLD_SOFT }}
+          >
+            <Plus size={13} />
+            Add guest without room
+          </button>
+        )}
+      </div>
+
+      {adding && !locked && (
+        <div
+          className="mt-2.5 flex flex-wrap items-center gap-2 rounded-[8px] px-2.5 py-2"
+          style={{ backgroundColor: "#FFFFFF", border: `1px solid ${BORDER}` }}
+        >
+          <input
+            autoFocus
+            value={first}
+            onChange={(e) => setFirst(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") commit();
+              if (e.key === "Escape") setAdding(false);
+            }}
+            placeholder="First name"
+            className="w-[118px] bg-transparent text-[13px] outline-none"
+            style={{ color: TEXT }}
+          />
+          <input
+            value={last}
+            onChange={(e) => setLast(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") commit();
+              if (e.key === "Escape") setAdding(false);
+            }}
+            placeholder="Last name"
+            className="w-[132px] bg-transparent text-[13px] outline-none"
+            style={{ color: TEXT }}
+          />
+          <GoldButton small onClick={commit}>
+            Add
+          </GoldButton>
+          <button type="button" aria-label="Cancel" onClick={() => setAdding(false)} style={{ color: MUTED }}>
+            <X size={14} />
+          </button>
+        </div>
+      )}
+
+      {guests.length === 0 ? (
+        <p className="mt-2 text-[12.5px]" style={{ color: MUTED }}>
+          Every guest is assigned to a room.
+        </p>
+      ) : (
+        <div className="mt-2.5 flex flex-wrap gap-2">
+          {guests.map((g) => (
+            <div
+              key={g.id}
+              className="relative flex items-center gap-2 rounded-[9px] py-[6px] pl-2.5 pr-2"
+              style={{ backgroundColor: "rgba(255,255,255,0.78)", border: `1px solid ${BORDER}` }}
+            >
+              <button
+                type="button"
+                onClick={() => onOpenGuest(g.id)}
+                className="inline-flex items-center gap-2 text-left text-[13px]"
+                style={{ color: TEXT }}
+              >
+                <User size={13} style={{ color: MUTED }} />
+                {guestName(g) || "Unnamed guest"}
+                {g.nationality && <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>}
+              </button>
+
+              {!locked && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setAssignFor((v) => (v === g.id ? null : g.id))}
+                    className="inline-flex items-center gap-1 rounded-[6px] px-2 py-[3px] text-[11.5px]"
+                    style={{ color: GOLD_SOFT, border: `1px solid ${BORDER}` }}
+                  >
+                    Assign
+                    <ChevronDown size={12} />
+                  </button>
+                  <button type="button" aria-label={`Remove ${guestName(g)}`} onClick={() => onRemove(g.id)} style={{ color: MUTED }}>
+                    <X size={13} />
+                  </button>
+                </>
+              )}
+
+              {assignFor === g.id && (
+                <div
+                  className="absolute left-0 top-full z-30 mt-1 max-h-[240px] w-[220px] overflow-y-auto rounded-[8px]"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid rgba(90,115,140,0.18)",
+                    boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
+                    animation: "hgbFade 160ms ease-out",
+                  }}
+                >
+                  {available.length === 0 && (
+                    <p className="px-3 py-2 text-[12.5px]" style={{ color: MUTED }}>
+                      No room has an open place.
+                    </p>
+                  )}
+                  {available.map((a) => (
+                    <button
+                      key={a.id}
+                      type="button"
+                      onClick={() => {
+                        onAssign(g.id, a.id);
+                        setAssignFor(null);
+                      }}
+                      className="flex w-full items-center justify-between px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                      style={{ color: TEXT_2 }}
+                    >
+                      <span>
+                        {String(a.index).padStart(2, "0")} · {labelOf(a.type)}
+                      </span>
+                      <span className="text-[11px]" style={{ color: MUTED }}>
+                        {a.guests.filter(isNamed).length} / {capacityOf(a.type, a.occupancy)}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
   );
 }
