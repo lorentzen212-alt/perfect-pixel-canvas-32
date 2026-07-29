@@ -660,7 +660,55 @@ function Workspace({ booking }: { booking: Booking }) {
                 </span>
               </div>
             </div>
+
+            {/* hero footer: references + contract */}
+            <div
+              className="relative flex flex-wrap items-center gap-x-8 gap-y-2 px-5 py-2.5"
+              style={{
+                borderTop: "1px solid rgba(255,255,255,0.07)",
+                backgroundColor: "rgba(12,30,42,0.42)",
+              }}
+            >
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
+                  Hotel Reference
+                </p>
+                <p className="mt-0.5 text-[13.5px]" style={{ color: TEXT_2 }}>
+                  {hotelRef || "Not yet assigned"}
+                </p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
+                  Booking ID
+                </p>
+                <p className="mt-0.5 flex items-center gap-2 text-[13.5px]" style={{ color: TEXT_2 }}>
+                  {booking.reference}
+                  <button
+                    type="button"
+                    aria-label="Copy booking ID"
+                    onClick={() => {
+                      navigator.clipboard?.writeText(booking.reference);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 1500);
+                    }}
+                    className="transition-opacity hover:opacity-80"
+                    style={{ color: copied ? GREEN : GOLD_SOFT }}
+                  >
+                    {copied ? <Check size={13} /> : <Copy size={12} />}
+                  </button>
+                </p>
+              </div>
+              <button
+                type="button"
+                className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-[6px] px-4 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+                style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
+              >
+                <FileText size={14} />
+                View contract
+              </button>
+            </div>
           </section>
+
 
           {/* ── next action + info cards ─────────── */}
           <section
