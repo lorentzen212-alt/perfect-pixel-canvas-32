@@ -548,6 +548,19 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         <Upload size={14} />
                         Import file
                       </GhostButton>
+                      <button
+                        type="button"
+                        onClick={() => (upgradeMode ? exitUpgradeMode() : setUpgradeMode(true))}
+                        className="inline-flex items-center gap-2 rounded-[8px] px-3.5 py-[8px] text-[12.5px] font-medium transition-colors duration-200 hover:bg-[rgba(197,162,75,0.10)]"
+                        style={{
+                          color: GOLD_SOFT,
+                          backgroundColor: upgradeMode ? "rgba(197,162,75,0.12)" : "rgba(255,255,255,0.04)",
+                          border: `1px solid ${upgradeMode ? "rgba(197,162,75,0.46)" : "rgba(197,162,75,0.26)"}`,
+                        }}
+                      >
+                        <ArrowUp size={14} />
+                        {upgradeMode ? "Exit upgrade mode" : "Upgrade rooms"}
+                      </button>
                       <GoldButton
                         onClick={() => {
                           const target = list.allocations.find((a) => a.guests.filter(isNamed).length < capacityOf(a.type, a.occupancy));
@@ -558,6 +571,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         Add guest
                       </GoldButton>
                     </div>
+
                   </div>
 
                   {/* allocation summary strip + filters */}
