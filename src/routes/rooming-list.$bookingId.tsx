@@ -204,7 +204,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [list, setList] = useState<RoomingList | null>(null);
   const [view, setView] = useState<ViewFilter>("all");
   const [query, setQuery] = useState("");
-  const [openGuest, setOpenGuest] = useState<{ allocationId: string; guestId: string } | null>(null);
+  const [openGuest, setOpenGuest] = useState<{ allocationId: string | null; guestId: string } | null>(null);
   const [showReview, setShowReview] = useState(false);
   const [showGroup, setShowGroup] = useState(false);
   const [showImport, setShowImport] = useState(false);
