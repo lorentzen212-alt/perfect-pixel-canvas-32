@@ -129,7 +129,7 @@ function OverviewCard({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={onAction}
-      className="flex min-h-[190px] flex-col rounded-[13px] p-4"
+      className="flex min-h-[152px] flex-col rounded-[13px] px-4 py-3"
       style={{
         backgroundColor: hover && interactive ? "#30404C" : CARD,
         border: `1px solid ${hover && interactive ? "rgba(199,163,74,0.42)" : CARD_BORDER}`,
@@ -157,11 +157,11 @@ function OverviewCard({
           </span>
         )}
       </div>
-      <div className="mt-3.5 flex-1 text-[13px]" style={{ color: TEXT_2 }}>
+      <div className="mt-2.5 flex-1 text-[13px]" style={{ color: TEXT_2 }}>
         {children}
       </div>
       {action && (
-        <div className="mt-3 pt-1">
+        <div className="mt-2">
           <GoldAction label={action} bright={hover} />
         </div>
       )}
@@ -477,7 +477,7 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         />
 
-        <main className="px-4 py-4 sm:px-6 lg:px-8" style={{ backgroundColor: BG_ALT }}>
+        <main className="px-4 py-3 sm:px-6 lg:px-8" style={{ backgroundColor: BG_ALT }}>
           {/* ── hero ─────────────────────────────── */}
           <section
             className="relative overflow-hidden rounded-[13px]"
@@ -496,7 +496,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   "linear-gradient(90deg, rgba(23,42,56,0.94) 0%, rgba(23,42,56,0.86) 42%, rgba(26,45,60,0.62) 70%, rgba(26,45,60,0.74) 100%)",
               }}
             />
-            <div className="relative p-5">
+            <div className="relative px-5 py-3.5">
               <span
                 className="inline-flex items-center rounded px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
                 style={{
@@ -507,10 +507,10 @@ function Workspace({ booking }: { booking: Booking }) {
               >
                 {booking.type === "leisure" ? "Leisure" : "M&E"}
               </span>
-              <h1 className="mt-2 text-[34px] leading-[1.05]" style={{ color: TEXT, fontFamily: SERIF }}>
+              <h1 className="mt-1.5 text-[28px] leading-[1.05]" style={{ color: TEXT, fontFamily: SERIF }}>
                 {booking.name}
               </h1>
-              <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]" style={{ color: TEXT_2 }}>
+              <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-1.5 text-[13px]" style={{ color: TEXT_2 }}>
                 {booking.hotel && (
                   <span className="inline-flex items-center gap-2">
                     <MapPin size={14} style={{ color: GOLD_SOFT }} />
@@ -544,15 +544,15 @@ function Workspace({ booking }: { booking: Booking }) {
 
           {/* ── next action + info cards ─────────── */}
           <section
-            className="mt-4 rounded-[13px] p-4"
+            className="mt-3 rounded-[13px] px-4 py-3"
             style={{
               backgroundColor: ACTION_PANEL,
               border: `1px solid ${CARD_BORDER}`,
               boxShadow: CARD_SHADOW,
             }}
           >
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Ring value={progress} />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Ring value={progress} size={64} />
               <div className="min-w-0 flex-1 sm:pl-2">
                 <h2 className="text-[20px] font-medium" style={{ color: TEXT }}>
                   Complete your Rooming List
