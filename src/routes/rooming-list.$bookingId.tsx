@@ -147,10 +147,10 @@ function GhostButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-2 rounded-[8px] font-medium transition-colors duration-200 ease-out hover:bg-[rgba(255,255,255,0.9)] ${
+      className={`inline-flex items-center gap-2 rounded-[8px] font-medium transition-colors duration-200 ease-out hover:bg-[rgba(255,255,255,0.11)] ${
         small ? "px-3 py-[6px] text-[12px]" : "px-4 py-[8px] text-[12.5px]"
       }`}
-      style={{ color: TEXT, backgroundColor: "rgba(255,255,255,0.62)", border: `1px solid rgba(90,115,140,0.22)` }}
+      style={{ color: TEXT, backgroundColor: "rgba(255,255,255,0.06)", border: `1px solid ${BORDER}` }}
 
     >
       {children}
@@ -172,7 +172,7 @@ function Field({
   placeholder?: string;
 }) {
   return (
-    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}>
+    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}>
       <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
         {label}
       </span>
@@ -1145,7 +1145,7 @@ function GuestDrawer({
           </p>
           <Field label="First name" value={draft.firstName} onChange={(v) => set({ firstName: v })} />
           <Field label="Last name" value={draft.lastName} onChange={(v) => set({ lastName: v })} />
-          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}>
+          <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}>
             <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
               Nationality
             </span>
@@ -1205,7 +1205,7 @@ function GuestDrawer({
             {tagOpen && (
               <div
                 className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}
               >
                 {[...DIETARY_TAGS, ...ALLERGY_TAGS].map((t) => (
                   <button
@@ -1237,7 +1237,7 @@ function GuestDrawer({
             rows={4}
             placeholder="Accessibility requirement, baby cot, personal preference…"
             className="mt-2 w-full resize-none rounded-[8px] px-3 py-2 text-[13px] outline-none"
-            style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, color: TEXT }}
+            style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}`, color: TEXT }}
           />
           <div className="mt-1 flex items-center justify-between text-[11px]" style={{ color: MUTED }}>
             <span>{(draft.specialRequests ?? "").length} / 500</span>
@@ -1359,7 +1359,7 @@ function GroupRequestsModal({
             }}
             placeholder="e.g. Rooms requested on the same floor."
             className="flex-1 rounded-[8px] px-3 py-2 text-[13px] outline-none"
-            style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${BORDER}`, color: TEXT }}
+            style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}`, color: TEXT }}
           />
           <GoldButton
             small
@@ -1682,7 +1682,7 @@ function UnassignedPanel({
             <div
               key={g.id}
               className="relative flex items-center gap-2 rounded-[9px] py-[6px] pl-2.5 pr-2"
-              style={{ backgroundColor: "rgba(255,255,255,0.78)", border: `1px solid ${BORDER}` }}
+              style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}
             >
               <button
                 type="button"
