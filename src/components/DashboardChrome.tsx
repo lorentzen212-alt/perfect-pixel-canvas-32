@@ -1,6 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import {
+  Activity,
   Bell,
+  CreditCard,
+  Settings,
   BedDouble,
   CalendarCheck,
   CalendarDays,
@@ -233,6 +236,16 @@ export const LIGHT = {
   NAVY: "#153E6C",
 } as const;
 
+const LIGHT_NAV = [
+  { label: "Overview", icon: CalendarCheck },
+  { label: "Rooming List", icon: BedDouble },
+  { label: "Bookings", icon: CalendarDays },
+  { label: "Documents", icon: FileText },
+  { label: "Activity", icon: Activity },
+  { label: "Billing", icon: CreditCard },
+  { label: "Settings", icon: Settings },
+];
+
 function SidebarLight({ active, bookingId }: { active: string; bookingId?: string }) {
   return (
     <div
@@ -258,11 +271,11 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
       </p>
 
       <nav className="mt-4 space-y-1">
-        {NAV.map((item) => {
+        {LIGHT_NAV.map((item) => {
           const isActive = item.label === active;
           const rooming = item.label === "Rooming List";
           const className =
-            "flex w-full items-center gap-3 rounded-[9px] px-3 py-2.5 text-[14px] transition-colors";
+            "flex w-full items-center gap-3 rounded-[9px] px-3 py-[9px] text-[13.5px] transition-colors";
           const style = isActive
             ? {
                 backgroundColor: "rgba(255,255,255,0.92)",
