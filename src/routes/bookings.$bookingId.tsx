@@ -10,6 +10,7 @@ import {
   Copy,
   MapPin,
   MessageSquare,
+  MoreHorizontal,
   Pencil,
   Plus,
   Star,
