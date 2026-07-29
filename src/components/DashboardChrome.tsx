@@ -361,8 +361,7 @@ export function TopBarLight({ left, onOpenNav }: { left?: React.ReactNode; onOpe
     <header
       className="sticky top-0 z-30 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:px-8"
       style={{
-        backgroundColor: "rgba(240,245,250,0.82)",
-        backdropFilter: "blur(10px)",
+        backgroundColor: "#E4EBF1",
         borderBottom: "1px solid rgba(110,135,160,0.16)",
       }}
     >
