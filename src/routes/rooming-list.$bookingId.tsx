@@ -511,7 +511,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               {/* column headers */}
               <div
                 className="hidden px-5 py-2 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
-                style={{ color: MUTED, gridTemplateColumns: "128px minmax(0,1fr) 190px 190px 32px", gap: "16px" }}
+                style={{ color: MUTED, gridTemplateColumns: "104px minmax(0,1fr) 168px 158px 32px", gap: "16px" }}
               >
                 <span>Allocation</span>
                 <span>Guests</span>
@@ -721,7 +721,7 @@ function AllocationRow({
         style={{ gridTemplateColumns: "minmax(0,1fr)" }}
       >
         <div
-          className="grid items-start gap-x-4 gap-y-3 lg:[grid-template-columns:128px_minmax(0,1fr)_190px_190px_32px]"
+          className="grid items-start gap-x-4 gap-y-3 lg:[grid-template-columns:104px_minmax(0,1fr)_168px_158px_32px]"
         >
           {/* allocation number + type */}
           <div>
@@ -870,7 +870,7 @@ function AllocationRow({
                 ))}
               </div>
             ) : (
-              <span className="text-[13px]" style={{ color: MUTED }}>
+              <span className="block text-[13px]" style={{ color: MUTED }}>
                 —
               </span>
             )}
