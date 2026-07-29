@@ -1336,97 +1336,114 @@ function AllocationRow({
 
       {/* ── ALLOCATION ── */}
       <div className="flex items-center gap-4 py-[19px] pl-6 pr-4">
-
-        <div className="flex items-center gap-2.5">
-          {manageMode && allocation.upgradeRequest ? (
-            <UpgradeCheckbox
+        {manageMode && allocation.upgradeRequest ? (
+          <RoomSelectCircle
+            checked={!!selected}
+            disabled={locked}
+            onChange={() => onToggleSelected?.()}
+            title="Select this upgrade request"
+          />
+        ) : (
+          upgradeMode && (
+            <RoomSelectCircle
               checked={!!selected}
-              disabled={locked}
+              disabled={!selectable}
               onChange={() => onToggleSelected?.()}
               title={
-                allocation.upgradeRequest
-                  ? "Select this upgrade request"
-                  : "This room has no upgrade request"
+                withdrawable
+                  ? "Select to withdraw this upgrade request"
+                  : allocation.upgradeRequest
+                    ? "An upgrade has already been requested for this room"
+                    : upgradeEligible
+                      ? undefined
+                      : "No higher room category available"
               }
             />
-          ) : (
-            upgradeMode && (
-              <UpgradeCheckbox
-                checked={!!selected}
-                disabled={!selectable}
-                onChange={() => onToggleSelected?.()}
-                title={
-                  withdrawable
-                    ? "Select to withdraw this upgrade request"
-                    : allocation.upgradeRequest
-                      ? "An upgrade has already been requested for this room"
-                      : upgradeEligible
-                        ? undefined
-                        : "No higher room category available"
-                }
-              />
-            )
-          )}
-          <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
-            {String(allocation.index).padStart(2, "0")}
-          </p>
-        </div>
-        <div className="relative mt-1.5">
-          <button
-            ref={typeBtnRef}
-            type="button"
-            disabled={locked}
-            onClick={() => setTypeOpen((v) => !v)}
-            className="inline-flex items-center gap-1.5 text-[12.5px] transition-colors hover:text-white"
-            style={{ color: RT_2 }}
-          >
-            <Bed size={13} style={{ color: RT_3 }} />
-            {labelOf(allocation.type)}
-            {!locked && <ChevronDown size={13} style={{ color: RT_3 }} />}
-          </button>
-          <FloatingPopover anchorRef={typeBtnRef} open={typeOpen} onClose={() => setTypeOpen(false)} width={190}>
-            {ROOM_TYPES.map((t) => (
-              <button
-                key={t.value}
-                type="button"
-                onClick={() => changeType(t.value)}
-                className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
-                style={{ color: t.value === allocation.type ? "#F7F7F5" : "#D9DDE0" }}
-              >
-                <span>{t.label}</span>
-                <span className="text-[10.5px]" style={{ color: "#B8BDC2" }}>
-                  {t.capacity} guest{t.capacity > 1 ? "s" : ""}
-                </span>
-              </button>
-            ))}
-          </FloatingPopover>
-
-        </div>
-        <p className="mt-[3px] text-[11px]" style={{ color: RT_3 }}>
-          {categoryLabel(allocation.bookedRoomCategory)}
-        </p>
-        {typeChanged && (
-          <div
-            className="mt-2 rounded-[7px] px-2 py-1.5"
-            style={{ backgroundColor: "rgba(231,180,75,0.10)", border: "1px solid rgba(231,180,75,0.28)" }}
-          >
-            <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
-              Booking change may require approval
-            </p>
-            <p className="mt-[2px] text-[10px] leading-snug" style={{ color: RT_3 }}>
-              Booked as {labelOf(allocation.bookedRoomType)}
-            </p>
-            <button
-              type="button"
-              className="mt-1 text-[10.5px]"
-              style={{ color: R_AMBER }}
-              onClick={() => onPatch((a) => ({ ...a, type: a.bookedRoomType }))}
-            >
-              Restore booked type
-            </button>
-          </div>
+          )
         )}
+
+        <p
+          className="shrink-0 text-[44px] leading-none tracking-[-0.02em]"
+          style={{ ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }}
+        >
+          {String(allocation.index).padStart(2, "0")}
+        </p>
+
+        <div className="min-w-0 flex-1">
+          <div
+            className="relative w-full max-w-[190px] rounded-[11px] px-3 py-2.5"
+            style={{
+              backgroundColor: CTRL_BG,
+              border: `1px solid ${CTRL_BORDER}`,
+              boxShadow: "0 2px 8px rgba(10,26,46,0.20)",
+            }}
+          >
+            <button
+              ref={typeBtnRef}
+              type="button"
+              disabled={locked}
+              onClick={() => setTypeOpen((v) => !v)}
+              className="flex w-full items-center gap-2 text-[13.5px]"
+              style={{ color: RT }}
+            >
+              <Bed size={15} className="shrink-0" style={{ color: "rgba(230,196,122,0.9)" }} />
+              <span className="min-w-0 flex-1 truncate text-left">{labelOf(allocation.type)}</span>
+              {!locked && <ChevronDown size={14} className="shrink-0" style={{ color: RT_3 }} />}
+            </button>
+            <div className="mt-2 flex">
+              <span
+                className="inline-flex items-center rounded-full px-2.5 py-[3px] text-[9.5px] uppercase tracking-[0.18em]"
+                style={{
+                  color: "#E6C47A",
+                  backgroundColor: "rgba(197,162,75,0.06)",
+                  border: "1px solid rgba(197,162,75,0.42)",
+                }}
+              >
+                {categoryLabel(allocation.bookedRoomCategory)}
+              </span>
+            </div>
+            <FloatingPopover anchorRef={typeBtnRef} open={typeOpen} onClose={() => setTypeOpen(false)} width={190}>
+              {ROOM_TYPES.map((t) => (
+                <button
+                  key={t.value}
+                  type="button"
+                  onClick={() => changeType(t.value)}
+                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                  style={{ color: t.value === allocation.type ? "#F7F7F5" : "#D9DDE0" }}
+                >
+                  <span>{t.label}</span>
+                  <span className="text-[10.5px]" style={{ color: "#B8BDC2" }}>
+                    {t.capacity} guest{t.capacity > 1 ? "s" : ""}
+                  </span>
+                </button>
+              ))}
+            </FloatingPopover>
+          </div>
+
+          {typeChanged && (
+            <div
+              className="mt-2 max-w-[190px] rounded-[8px] px-2 py-1.5"
+              style={{ backgroundColor: "rgba(231,180,75,0.10)", border: "1px solid rgba(231,180,75,0.28)" }}
+            >
+              <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
+                Booking change may require approval
+              </p>
+              <p className="mt-[2px] text-[10px] leading-snug" style={{ color: RT_3 }}>
+                Booked as {labelOf(allocation.bookedRoomType)}
+              </p>
+              <button
+                type="button"
+                className="mt-1 text-[10.5px]"
+                style={{ color: R_AMBER }}
+                onClick={() => onPatch((a) => ({ ...a, type: a.bookedRoomType }))}
+              >
+                Restore booked type
+              </button>
+            </div>
+          )}
+        </div>
       </div>
+
 
 
       {/* ── GUESTS ── */}
