@@ -1033,7 +1033,7 @@ function GuestDrawer({
   onSave,
   onRemove,
 }: {
-  allocation: Allocation;
+  allocation: Allocation | null;
   guest: Guest;
   locked: boolean;
   onClose: () => void;
