@@ -36,7 +36,6 @@ import {
   allocationStatus,
   capacityOf,
   distributionFor,
-  flagOf,
   guestName,
   isAllergy,
   isNamed,
@@ -70,7 +69,7 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
 });
 
 /* Deep matte navy workspace tokens (names kept so existing markup keeps working) */
-const BG_ALT = "#EEF3F8";
+const BG_ALT = "#E9EEF2";
 const CARD = "#1D456C";
 const SURFACE_2 = "#22507C";
 const CARD_BORDER = "rgba(255,255,255,0.10)";
@@ -79,11 +78,11 @@ const BORDER = "rgba(255,255,255,0.12)";
 const TEXT = "#F7F7F5"; // primary — soft off-white
 const TEXT_2 = "#D9DDE0"; // secondary — light neutral grey
 const MUTED = "#B8BDC2"; // micro labels / eyebrows — muted neutral grey
-const GOLD = "#E7B44B";
-const GOLD_SOFT = "#E7B44B";
-const GOLD_DEEP = "rgba(231,180,75,0.34)";
+const GOLD = "#C5A24B";
+const GOLD_SOFT = "#C5A24B";
+const GOLD_DEEP = "rgba(197,162,75,0.34)";
 const GREEN = "#74D97C";
-const AMBER = "#E7B44B";
+const AMBER = "#C5A24B";
 const ROW = "rgba(255,255,255,0.07)";
 const PANEL = "#1D456C";
 const NAVY = "#1D456C";
@@ -103,9 +102,9 @@ const RT_2 = "#D9DDE0"; // secondary — light neutral grey
 const RT_3 = "#B8BDC2"; // micro — muted neutral grey
 const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
-const R_AMBER = "#E7B44B";
+const R_AMBER = "#C5A24B";
 
-const GOLD_BAR = "#E7B44B";
+const GOLD_BAR = "#C5A24B";
 const HERO_INK = "#10233F";
 const HERO_INK_2 = "#4A6076";
 const HERO_ACCENT = "#2C5B8C";
@@ -300,7 +299,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#E4EBF1",
+        backgroundColor: "#E9EEF2",
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
@@ -894,8 +893,7 @@ function AllocationRow({
               {guestName(g) || "Unnamed guest"}
             </span>
             {g.nationality && (
-              <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px]" style={{ color: RT_2 }}>
-                <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>
+              <span className="inline-flex shrink-0 items-center text-[12px]" style={{ color: RT_2 }}>
                 {g.nationality}
               </span>
             )}
@@ -1617,6 +1615,84 @@ function UnassignedPanel({
 
   if (locked && guests.length === 0) return null;
 
+  /* compact, calm status strip when every guest is already allocated */
+  if (guests.length === 0) {
+    return (
+      <section
+        className="mt-2.5 rounded-[12px] px-4"
+        style={{
+          minHeight: 46,
+          backgroundColor: "#F4F6F7",
+          border: "1px solid #DCE3E9",
+          boxShadow: "0 1px 2px rgba(20,45,70,0.05)",
+        }}
+      >
+        <div className="flex min-h-[46px] flex-wrap items-center gap-x-3 gap-y-1 py-1.5">
+          <span
+            className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-full"
+            style={{ backgroundColor: "rgba(116,177,127,0.16)", color: "#4E9A63" }}
+          >
+            <Check size={12} />
+          </span>
+          <p className="text-[12.5px] font-medium" style={{ color: "#1D456C" }}>
+            All guests assigned
+          </p>
+          <p className="text-[12px]" style={{ color: "#6C7E8E" }}>
+            Every guest is currently allocated to a room.
+          </p>
+          {!locked && (
+            <button
+              type="button"
+              onClick={() => setAdding((v) => !v)}
+              className="ml-auto inline-flex items-center gap-1.5 text-[12.5px]"
+              style={{ color: "#C5A24B" }}
+            >
+              <Plus size={13} />
+              Add guest without room
+            </button>
+          )}
+        </div>
+
+        {adding && !locked && (
+          <div
+            className="mb-2 flex flex-wrap items-center gap-2 rounded-[8px] px-2.5 py-2"
+            style={{ backgroundColor: "#FFFFFF", border: "1px solid #DCE3E9" }}
+          >
+            <input
+              autoFocus
+              value={first}
+              onChange={(e) => setFirst(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") commit();
+                if (e.key === "Escape") setAdding(false);
+              }}
+              placeholder="First name"
+              className="w-[118px] bg-transparent text-[13px] outline-none"
+              style={{ color: FIELD_TEXT }}
+            />
+            <input
+              value={last}
+              onChange={(e) => setLast(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") commit();
+                if (e.key === "Escape") setAdding(false);
+              }}
+              placeholder="Last name"
+              className="w-[132px] bg-transparent text-[13px] outline-none"
+              style={{ color: FIELD_TEXT }}
+            />
+            <GoldButton small onClick={commit}>
+              Add
+            </GoldButton>
+            <button type="button" aria-label="Cancel" onClick={() => setAdding(false)} style={{ color: "#6C7E8E" }}>
+              <X size={14} />
+            </button>
+          </div>
+        )}
+      </section>
+    );
+  }
+
   return (
     <section
       className="mt-2.5 rounded-[12px] px-4 py-3"
@@ -1702,7 +1778,7 @@ function UnassignedPanel({
               >
                 <User size={13} style={{ color: MUTED }} />
                 {guestName(g) || "Unnamed guest"}
-                {g.nationality && <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>}
+                {g.nationality && <span className="text-[12px]" style={{ color: TEXT_2 }}>{g.nationality}</span>}
               </button>
 
               {!locked && (

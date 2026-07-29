@@ -31,7 +31,7 @@ export const PAL = {
   TEXT: "#F2F1EC",
   TEXT_2: "#BFC7CD",
   MUTED: "#929DA5",
-  GOLD: "#C7A34A",
+  GOLD: "#C5A24B",
   GOLD_MID: "#B99135",
   GOLD_DEEP: "rgba(199,163,74,0.55)",
   GOLD_SOFT: "#D0B05A",
@@ -131,7 +131,7 @@ export function SidebarContent({
         <div className="mt-5 flex items-center gap-3 pt-5" style={{ borderTop: `1px solid ${BORDER}` }}>
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
-            style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
+            style={{ backgroundColor: "rgba(197,162,75,0.16)", color: GOLD }}
           >
             EH
           </span>
@@ -208,7 +208,7 @@ export function TopBar({
         <button type="button" className="flex items-center gap-2">
           <span
             className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
-            style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
+            style={{ backgroundColor: "rgba(197,162,75,0.16)", color: GOLD }}
           >
             EH
           </span>
@@ -361,7 +361,7 @@ export function TopBarLight({ left, onOpenNav }: { left?: React.ReactNode; onOpe
     <header
       className="sticky top-0 z-30 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:px-8"
       style={{
-        backgroundColor: "#E4EBF1",
+        backgroundColor: "#E9EEF2",
         borderBottom: "1px solid rgba(110,135,160,0.16)",
       }}
     >
