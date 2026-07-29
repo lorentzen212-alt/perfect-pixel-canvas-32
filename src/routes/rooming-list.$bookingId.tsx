@@ -1088,7 +1088,10 @@ function AllocationRow({
       id={`alloc-${allocation.id}`}
       className="hgb-row grid rounded-[12px] lg:[grid-template-columns:14%_42%_21%_19%_4%]"
       style={{
-        background: CARD_NAVY,
+        backgroundColor: NAVY,
+        backgroundImage: selected
+          ? `linear-gradient(0deg, rgba(197,162,75,0.07), rgba(197,162,75,0.07)), ${CARD_NAVY}`
+          : CARD_NAVY,
         border: selected
           ? "1.5px solid rgba(197,162,75,0.62)"
           : isActive
@@ -1097,9 +1100,6 @@ function AllocationRow({
         boxShadow: isActive
           ? "0 8px 22px rgba(16,35,63,0.18)"
           : "0 4px 14px rgba(16,35,63,0.12)",
-        backgroundImage: selected
-          ? `linear-gradient(0deg, rgba(197,162,75,0.07), rgba(197,162,75,0.07)), ${CARD_NAVY}`
-          : undefined,
       }}
     >
 
