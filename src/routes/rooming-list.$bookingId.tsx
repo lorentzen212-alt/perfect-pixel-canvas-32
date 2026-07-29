@@ -1646,14 +1646,31 @@ function AllocationRow({
 
 
       {/* ── STATUS ── */}
-      <div className="hgb-cell flex flex-col justify-center px-4 py-[17px]">
-        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: statusColor }}>
-          {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={14} strokeWidth={1.6} />}
-          {statusLabel}
+      <div className="hgb-cell flex items-center gap-3 px-4 py-[19px]">
+        <span
+          className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full"
+          style={{
+            border: `1.4px solid ${status === "complete" ? "rgba(116,217,124,0.75)" : "rgba(230,196,122,0.55)"}`,
+            boxShadow:
+              status === "complete"
+                ? "0 0 10px rgba(116,217,124,0.22), inset 0 0 6px rgba(116,217,124,0.10)"
+                : "none",
+            color: statusColor,
+          }}
+        >
+          {status === "complete" ? <Check size={13} strokeWidth={2.4} /> : null}
         </span>
-        <p className="mt-[3px] text-[11.5px]" style={{ color: RT_2 }}>
-          {named.length} / {cap} guest{cap > 1 ? "s" : ""}
-        </p>
+        <div className="min-w-0">
+          <p
+            className="truncate text-[11.5px] font-medium uppercase tracking-[0.10em]"
+            style={{ color: statusColor }}
+          >
+            {statusLabel}
+          </p>
+          <p className="mt-[3px] truncate text-[11.5px]" style={{ color: RT_3 }}>
+            {named.length} of {cap} guest{cap > 1 ? "s" : ""} assigned
+          </p>
+        </div>
       </div>
 
       {/* ── MENU ── */}
@@ -1663,9 +1680,10 @@ function AllocationRow({
           type="button"
           aria-label="Allocation actions"
           onClick={() => setMenuOpen((v) => !v)}
-          className="hgb-menu grid h-7 w-7 place-items-center rounded-[6px] opacity-0 transition-opacity duration-200"
-          style={{ color: RT_3 }}
+          className="grid h-7 w-7 place-items-center rounded-[6px] opacity-70 transition-opacity duration-200 hover:opacity-100"
+          style={{ color: "rgba(230,196,122,0.80)" }}
         >
+
           <MoreVertical size={15} />
         </button>
         <FloatingPopover anchorRef={menuBtnRef} open={menuOpen} onClose={() => setMenuOpen(false)} width={190} align="end">
