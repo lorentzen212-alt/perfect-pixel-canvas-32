@@ -21,6 +21,8 @@ import {
   X,
 } from "lucide-react";
 import { SERIF, SidebarContent, TopBarLight } from "@/components/DashboardChrome";
+import { FloatingPopover } from "@/components/FloatingPopover";
+
 import { BOOKINGS, type Booking } from "@/lib/bookings";
 import {
   ALLERGY_TAGS,
@@ -736,7 +738,81 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   );
 }
 
+/* ───────────────── quick guest name entry ───────────────── */
+
+/**
+ * After a name is committed, move the caret to the next empty guest position —
+ * first inside the same room, otherwise the first empty position of the next
+ * room, so a full rooming list can be typed without touching the mouse.
+ */
+function focusNextQuickInput(currentCardId: string) {
+  requestAnimationFrame(() => {
+    const all = Array.from(document.querySelectorAll<HTMLInputElement>("input[data-quick-guest]"));
+    if (all.length === 0) return;
+    const card = document.getElementById(currentCardId);
+    const inSameCard = all.find((el) => card?.contains(el));
+    if (inSameCard) {
+      inSameCard.focus();
+      return;
+    }
+    const next = all.find((el) => {
+      if (!card) return true;
+      return card.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING;
+    });
+    (next ?? all[0]).focus();
+  });
+}
+
+function QuickGuestInput({ autoFocus, onCommit }: { autoFocus?: boolean; onCommit: (name: string) => void }) {
+  const [value, setValue] = useState("");
+  const [focused, setFocused] = useState(false);
+  const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (autoFocus) ref.current?.focus();
+  }, [autoFocus]);
+
+  return (
+    <input
+      ref={ref}
+      data-quick-guest=""
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onFocus={() => setFocused(true)}
+      onBlur={() => {
+        setFocused(false);
+        if (value.trim()) {
+          onCommit(value);
+          setValue("");
+        }
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (!value.trim()) return;
+          onCommit(value);
+          setValue("");
+        }
+        if (e.key === "Escape") {
+          setValue("");
+          e.currentTarget.blur();
+        }
+      }}
+      placeholder="Enter guest name..."
+      aria-label="Enter guest name"
+      className="w-full rounded-[6px] px-1.5 py-[3px] text-[13px] outline-none transition-colors placeholder:text-[#9FB0C2]"
+      style={{
+        color: RT,
+        backgroundColor: focused ? "rgba(255,255,255,0.09)" : "rgba(255,255,255,0.03)",
+        border: `1px solid ${focused ? "rgba(197,162,75,0.55)" : "rgba(150,175,200,0.22)"}`,
+        boxShadow: focused ? "0 0 0 2px rgba(197,162,75,0.16)" : "none",
+      }}
+    />
+  );
+}
+
 /* ───────────────── allocation row ───────────────── */
+
 
 function AllocationRow({
   allocation,
@@ -759,36 +835,15 @@ function AllocationRow({
   const [typeOpen, setTypeOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [requestOpen, setRequestOpen] = useState(false);
-  const [adding, setAdding] = useState(false);
-  const [first, setFirst] = useState("");
-  const [last, setLast] = useState("");
   const [approval, setApproval] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const typeBtnRef = useRef<HTMLButtonElement>(null);
+  const requestBtnRef = useRef<HTMLButtonElement>(null);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (autoFocus) {
-      setAdding(true);
-      onAutoFocused?.();
-    }
+    if (autoFocus) onAutoFocused?.();
   }, [autoFocus, onAutoFocused]);
 
-  useEffect(() => {
-    if (adding) inputRef.current?.focus();
-  }, [adding]);
-
-  const slotLabel = named.length === 0 ? "Add guest" : named.length === 1 ? "Add second guest" : named.length === 2 ? "Add third guest" : "Add guest";
-
-  const commit = () => {
-    if (!first.trim() && !last.trim()) {
-      setAdding(false);
-      return;
-    }
-    onPatch((a) => ({ ...a, guests: [...a.guests, newGuest({ firstName: first.trim(), lastName: last.trim() })] }));
-    setFirst("");
-    setLast("");
-    if (named.length + 1 >= cap) setAdding(false);
-    else inputRef.current?.focus();
-  };
 
   const changeType = (t: RoomType) => {
     setTypeOpen(false);
@@ -827,6 +882,7 @@ function AllocationRow({
         </p>
         <div className="relative mt-1.5">
           <button
+            ref={typeBtnRef}
             type="button"
             disabled={locked}
             onClick={() => setTypeOpen((v) => !v)}
@@ -837,32 +893,23 @@ function AllocationRow({
             {labelOf(allocation.type)}
             {!locked && <ChevronDown size={13} style={{ color: RT_3 }} />}
           </button>
-          {typeOpen && (
-            <div
-              className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
-              style={{
-                backgroundColor: SURFACE_2,
-                border: "1px solid rgba(90,115,140,0.18)",
-                boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
-                animation: "hgbFade 160ms ease-out",
-              }}
-            >
-              {ROOM_TYPES.map((t) => (
-                <button
-                  key={t.value}
-                  type="button"
-                  onClick={() => changeType(t.value)}
-                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-                  style={{ color: t.value === allocation.type ? "#F7F7F5" : "#D9DDE0" }}
-                >
-                  <span>{t.label}</span>
-                  <span className="text-[10.5px]" style={{ color: "#B8BDC2" }}>
-                    {t.capacity} guest{t.capacity > 1 ? "s" : ""}
-                  </span>
-                </button>
-              ))}
-            </div>
-          )}
+          <FloatingPopover anchorRef={typeBtnRef} open={typeOpen} onClose={() => setTypeOpen(false)} width={190}>
+            {ROOM_TYPES.map((t) => (
+              <button
+                key={t.value}
+                type="button"
+                onClick={() => changeType(t.value)}
+                className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                style={{ color: t.value === allocation.type ? "#F7F7F5" : "#D9DDE0" }}
+              >
+                <span>{t.label}</span>
+                <span className="text-[10.5px]" style={{ color: "#B8BDC2" }}>
+                  {t.capacity} guest{t.capacity > 1 ? "s" : ""}
+                </span>
+              </button>
+            ))}
+          </FloatingPopover>
+
         </div>
         {approval && (
           <div
@@ -900,62 +947,23 @@ function AllocationRow({
           </button>
         ))}
 
-        {!locked && adding && named.length < cap && (
-          <div
-            className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-1.5"
-            style={{
-              backgroundColor: SURFACE_2,
-              border: "1px solid rgba(90,115,140,0.22)",
-              boxShadow: "0 8px 20px rgba(20,45,70,0.18)",
-              animation: "hgbFade 160ms ease-out",
-            }}
-          >
-            <input
-              ref={inputRef}
-              value={first}
-              onChange={(e) => setFirst(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") commit();
-                if (e.key === "Escape") setAdding(false);
-              }}
-              placeholder="First name"
-              className="w-[104px] bg-transparent text-[13px] outline-none"
-              style={{ color: "#10233F" }}
-            />
-            <input
-              value={last}
-              onChange={(e) => setLast(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") commit();
-                if (e.key === "Escape") setAdding(false);
-              }}
-              placeholder="Last name"
-              className="w-[118px] bg-transparent text-[13px] outline-none"
-              style={{ color: "#10233F" }}
-            />
-            <GoldButton small onClick={commit}>
-              Save
-            </GoldButton>
-            <button type="button" onClick={() => setAdding(false)} style={{ color: "#B8BDC2" }} aria-label="Cancel">
-              <X size={14} />
-            </button>
-          </div>
-        )}
-
         {!locked &&
-          !adding &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setAdding(true)}
-              className="flex w-full items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left text-[12.5px] transition-colors hover:bg-[rgba(231,180,75,0.10)]"
-              style={{ color: R_AMBER }}
-            >
-              <Plus size={13} />
-              {i === 0 ? slotLabel : "Add guest"}
-            </button>
+            <QuickGuestInput
+              key={`slot-${allocation.id}-${allocation.guests.length + i}`}
+              autoFocus={autoFocus && i === 0}
+              onCommit={(name) => {
+                const parts = name.trim().split(/\s+/);
+                const firstName = parts.shift() ?? "";
+                onPatch((a) => ({
+                  ...a,
+                  guests: [...a.guests, newGuest({ firstName, lastName: parts.join(" ") })],
+                }));
+                focusNextQuickInput(`alloc-${allocation.id}`);
+              }}
+            />
           ))}
+
       </div>
 
       {/* ── ROOM REQUEST ── */}
@@ -986,6 +994,7 @@ function AllocationRow({
         )}
         {!locked && (
           <button
+            ref={requestBtnRef}
             type="button"
             onClick={() => setRequestOpen((v) => !v)}
             className="hgb-req mt-[3px] inline-flex w-fit items-center gap-1 text-[12px] opacity-0 transition-opacity duration-200"
@@ -995,32 +1004,23 @@ function AllocationRow({
             Add room request
           </button>
         )}
-        {requestOpen && (
-          <div
-            className="absolute left-2 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-            style={{
-              backgroundColor: SURFACE_2,
-              border: "1px solid rgba(90,115,140,0.18)",
-              boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
-              animation: "hgbFade 160ms ease-out",
-            }}
-          >
-            {ROOM_REQUEST_OPTIONS.map((r) => (
-              <button
-                key={r}
-                type="button"
-                onClick={() => {
-                  onPatch((a) => (a.requests.includes(r) ? a : { ...a, requests: [...a.requests, r] }));
-                  setRequestOpen(false);
-                }}
-                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-                style={{ color: "#D9DDE0" }}
-              >
-                {r}
-              </button>
-            ))}
-          </div>
-        )}
+        <FloatingPopover anchorRef={requestBtnRef} open={requestOpen} onClose={() => setRequestOpen(false)} width={220}>
+          {ROOM_REQUEST_OPTIONS.map((r) => (
+            <button
+              key={r}
+              type="button"
+              onClick={() => {
+                onPatch((a) => (a.requests.includes(r) ? a : { ...a, requests: [...a.requests, r] }));
+                setRequestOpen(false);
+              }}
+              className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+              style={{ color: "#D9DDE0" }}
+            >
+              {r}
+            </button>
+          ))}
+        </FloatingPopover>
+
       </div>
 
       {/* ── STATUS ── */}
@@ -1037,6 +1037,7 @@ function AllocationRow({
       {/* ── MENU ── */}
       <div className="hgb-cell relative flex items-center justify-center py-2">
         <button
+          ref={menuBtnRef}
           type="button"
           aria-label="Allocation actions"
           onClick={() => setMenuOpen((v) => !v)}
@@ -1045,44 +1046,167 @@ function AllocationRow({
         >
           <MoreVertical size={15} />
         </button>
-        {menuOpen && (
-          <div
-            className="absolute right-1 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
-            style={{
-              backgroundColor: SURFACE_2,
-              border: "1px solid rgba(90,115,140,0.18)",
-              boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
-              animation: "hgbFade 160ms ease-out",
-            }}
-          >
-            {[
-              { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
-              { label: "Change room type", run: () => setTypeOpen(true) },
-              { label: "Add room request", run: () => setRequestOpen(true) },
-              { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
-            ].map((item) => (
-              <button
-                key={item.label}
-                type="button"
-                disabled={locked}
-                onClick={() => {
-                  item.run();
-                  setMenuOpen(false);
-                }}
-                className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.06)] disabled:opacity-40"
-                style={{ color: "#D9DDE0" }}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        )}
+        <FloatingPopover anchorRef={menuBtnRef} open={menuOpen} onClose={() => setMenuOpen(false)} width={190} align="end">
+          {[
+            { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
+            { label: "Change room type", run: () => setTypeOpen(true) },
+            { label: "Add room request", run: () => setRequestOpen(true) },
+            { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
+          ].map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              disabled={locked}
+              onClick={() => {
+                item.run();
+                setMenuOpen(false);
+              }}
+              className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)] disabled:opacity-40"
+              style={{ color: "#D9DDE0" }}
+            >
+              {item.label}
+            </button>
+          ))}
+        </FloatingPopover>
+
       </div>
     </div>
   );
 }
 
+/* ───────────────── dietary / allergy popover ───────────────── */
+
+function DietaryPopover({
+  anchorRef,
+  open,
+  onClose,
+  selected,
+  onToggle,
+}: {
+  anchorRef: React.RefObject<HTMLButtonElement | null>;
+  open: boolean;
+  onClose: () => void;
+  selected: string[];
+  onToggle: (tag: string) => void;
+}) {
+  const [q, setQ] = useState("");
+  const [custom, setCustom] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open) {
+      setQ("");
+      setCustom("");
+      const t = setTimeout(() => searchRef.current?.focus(), 30);
+      return () => clearTimeout(t);
+    }
+  }, [open]);
+
+  const match = (t: string) => t.toLowerCase().includes(q.trim().toLowerCase());
+  const diet = DIETARY_TAGS.filter(match);
+  const allergies = ALLERGY_TAGS.filter(match);
+  const otherSelected = selected.some((t) => /other allergy/i.test(t));
+
+  const addCustom = () => {
+    const v = custom.trim();
+    if (!v) return;
+    const tag = /allerg/i.test(v) ? v : `${v} allergy`;
+    if (!selected.includes(tag)) onToggle(tag);
+    setCustom("");
+  };
+
+  const Option = ({ t }: { t: string }) => {
+    const on = selected.includes(t);
+    return (
+      <button
+        type="button"
+        onClick={() => onToggle(t)}
+        className="flex w-full items-center justify-between px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+        style={{ color: on ? "#F7F7F5" : isAllergy(t) ? AMBER : TEXT_2 }}
+      >
+        <span>{t}</span>
+        {on && <Check size={13} style={{ color: GOLD }} />}
+      </button>
+    );
+  };
+
+  return (
+    <FloatingPopover anchorRef={anchorRef} open={open} onClose={onClose} width={300} align="auto">
+      <div className="px-3 pb-2 pt-3">
+        <p className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+          Add dietary / allergy
+        </p>
+        <div
+          className="mt-2 flex items-center gap-2 rounded-[8px] px-2.5 py-[6px]"
+          style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}` }}
+        >
+          <Search size={13} style={{ color: FIELD_PLACEHOLDER }} />
+          <input
+            ref={searchRef}
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search dietary requirements..."
+            className="w-full bg-transparent text-[12.5px] outline-none placeholder:text-[#88A0B6]"
+            style={{ color: FIELD_TEXT }}
+          />
+        </div>
+      </div>
+
+      {diet.length > 0 && (
+        <>
+          <p className="px-3 pb-1 pt-1 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+            Dietary
+          </p>
+          {diet.map((t) => (
+            <Option key={t} t={t} />
+          ))}
+        </>
+      )}
+
+      {allergies.length > 0 && (
+        <>
+          <p className="px-3 pb-1 pt-2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+            Allergies
+          </p>
+          {allergies.map((t) => (
+            <Option key={t} t={t} />
+          ))}
+        </>
+      )}
+
+      {diet.length === 0 && allergies.length === 0 && (
+        <p className="px-3 py-3 text-[12px]" style={{ color: MUTED }}>
+          No matches.
+        </p>
+      )}
+
+      {otherSelected && (
+        <div className="px-3 pb-3 pt-2" style={{ borderTop: `1px solid ${BORDER}` }}>
+          <p className="mb-1.5 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+            Specify allergy
+          </p>
+          <input
+            value={custom}
+            onChange={(e) => setCustom(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                addCustom();
+              }
+            }}
+            onBlur={addCustom}
+            placeholder="e.g. Kiwi allergy"
+            className="w-full rounded-[8px] px-2.5 py-[6px] text-[12.5px] outline-none placeholder:text-[#88A0B6]"
+            style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}`, color: FIELD_TEXT }}
+          />
+        </div>
+      )}
+    </FloatingPopover>
+  );
+}
+
 /* ───────────────── guest drawer ───────────────── */
+
 
 function GuestDrawer({
   allocation,
@@ -1102,6 +1226,8 @@ function GuestDrawer({
   const [draft, setDraft] = useState<Guest>(guest);
   const [saved, setSaved] = useState(false);
   const [tagOpen, setTagOpen] = useState(false);
+  const tagBtnRef = useRef<HTMLButtonElement>(null);
+
 
   const set = (patch: Partial<Guest>) => setDraft((d) => ({ ...d, ...patch }));
 
@@ -1206,32 +1332,31 @@ function GuestDrawer({
               );
             })}
           </div>
-          <div className="relative mt-2">
-            <button type="button" onClick={() => setTagOpen((v) => !v)} className="text-[12px]" style={{ color: GOLD_SOFT }}>
+          <div className="mt-2">
+            <button
+              ref={tagBtnRef}
+              type="button"
+              onClick={() => setTagOpen((v) => !v)}
+              className="text-[12px] transition-opacity hover:opacity-80"
+              style={{ color: GOLD_SOFT }}
+            >
               + Add dietary / allergy
             </button>
-            {tagOpen && (
-              <div
-                className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}
-              >
-                {[...DIETARY_TAGS, ...ALLERGY_TAGS].map((t) => (
-                  <button
-                    key={t}
-                    type="button"
-                    onClick={() => {
-                      if (!draft.requirements.includes(t)) set({ requirements: [...draft.requirements, t] });
-                      setTagOpen(false);
-                    }}
-                    className="block w-full px-3 py-[6px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-                    style={{ color: isAllergy(t) ? AMBER : TEXT_2 }}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-            )}
+            <DietaryPopover
+              anchorRef={tagBtnRef}
+              open={tagOpen}
+              onClose={() => setTagOpen(false)}
+              selected={draft.requirements}
+              onToggle={(t) =>
+                set({
+                  requirements: draft.requirements.includes(t)
+                    ? draft.requirements.filter((x) => x !== t)
+                    : [...draft.requirements, t],
+                })
+              }
+            />
           </div>
+
         </div>
 
         <div className="px-4 pb-4">
