@@ -233,7 +233,7 @@ export const LIGHT = {
   SURFACE: "rgba(255,255,255,0.05)",
   SURFACE_BORDER: "rgba(255,255,255,0.10)",
   SURFACE_SHADOW: "0 8px 30px rgba(8,20,34,0.28)",
-  NAVY: "#1D456C",
+  NAVY: "#142D49",
 } as const;
 
 const LIGHT_NAV = [
@@ -252,7 +252,7 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
   const NAV_TEXT = "#E3EBF1"; // soft cool off-white / pale silver-blue for nav text + icons
   const NAV_INACTIVE = "#D2DCE4";
   const SEL_BG = "#EAF0F5"; // light cool off-white selected pill
-  const SEL_INK = "#173A5D"; // deep navy text + icon on the selected pill
+  const SEL_INK = "#0F2439"; // deep navy text + icon on the selected pill
   const DIVIDER = "rgba(255,255,255,0.10)"; // subtle lighter navy/blue-grey divider
   const SOFT_WHITE = "#EAF1F7";
   const MUTED_BLUE = "#AABFCF";
@@ -261,7 +261,7 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
     <div
       className="flex h-full flex-col px-4 py-6"
       style={{
-        background: `linear-gradient(180deg, #1D456C 0%, #173A5D 100%)`,
+        background: `linear-gradient(180deg, #142D49 0%, #0F2439 100%)`,
       }}
     >
       <Link to="/" className="block px-1">

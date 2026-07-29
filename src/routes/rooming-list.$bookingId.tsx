@@ -72,8 +72,8 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
 
 /* Deep matte navy workspace tokens (names kept so existing markup keeps working) */
 const BG_ALT = "#E9EEF2";
-const CARD = "#1D456C";
-const SURFACE_2 = "#22507C";
+const CARD = "#142D49";
+const SURFACE_2 = "#1B3B5E";
 const CARD_BORDER = "rgba(255,255,255,0.10)";
 const CARD_SHADOW = "0 8px 30px rgba(8,20,34,0.28)";
 const BORDER = "rgba(255,255,255,0.12)";
@@ -86,8 +86,8 @@ const GOLD_DEEP = "rgba(197,162,75,0.34)";
 const GREEN = "#74D97C";
 const AMBER = "#C5A24B";
 const ROW = "rgba(255,255,255,0.07)";
-const PANEL = "#1D456C";
-const NAVY = "#1D456C";
+const PANEL = "#142D49";
+const NAVY = "#142D49";
 
 /* light input-field tokens used inside the navy Guest Details panel */
 const FIELD_BG = "#EEF2F6"; // soft cool off-white / very light blue-grey
@@ -97,8 +97,8 @@ const FIELD_PLACEHOLDER = "#88A0B6"; // muted blue-grey placeholder
 const FIELD_LABEL = "#7C93A8"; // muted blue-grey label
 
 /* dark matte navy room-allocation card tokens */
-const CARD_NAVY = "linear-gradient(180deg, #1D456C 0%, #173A5D 100%)";
-const CARD_NAVY_HOVER = "linear-gradient(180deg, #214C76 0%, #1A4165 100%)";
+const CARD_NAVY = "linear-gradient(180deg, #142D49 0%, #0F2439 100%)";
+const CARD_NAVY_HOVER = "linear-gradient(180deg, #1A3A5C 0%, #132B45 100%)";
 const RT = "#F7F7F5"; // primary — soft off-white (matches TEXT)
 const RT_2 = "#D9DDE0"; // secondary — light neutral grey
 const RT_3 = "#B8BDC2"; // micro — muted neutral grey
@@ -1210,7 +1210,7 @@ function GuestDrawer({
       <div
         className="absolute inset-y-0 right-0 flex w-full max-w-[420px] flex-col overflow-y-auto lg:static lg:h-[calc(100vh-96px)] lg:max-w-none lg:rounded-[13px]"
         style={{
-          backgroundColor: "#1D456C",
+          backgroundColor: "#142D49",
           border: `1px solid ${CARD_BORDER}`,
           boxShadow: CARD_SHADOW,
         }}
@@ -1742,7 +1742,7 @@ function UnassignedPanel({
           >
             <Check size={12} />
           </span>
-          <p className="text-[12.5px] font-medium" style={{ color: "#1D456C" }}>
+          <p className="text-[12.5px] font-medium" style={{ color: "#142D49" }}>
             All guests assigned
           </p>
           <p className="text-[12px]" style={{ color: "#6C7E8E" }}>
