@@ -1584,17 +1584,21 @@ function DietaryPopover({
   }, [open]);
 
   const match = (t: string) => t.toLowerCase().includes(q.trim().toLowerCase());
+  const OTHER = "Other allergy";
   const diet = DIETARY_TAGS.filter(match);
-  const allergies = ALLERGY_TAGS.filter(match);
-  const otherSelected = selected.some((t) => /other allergy/i.test(t));
+  const allergies = ALLERGY_TAGS.filter((t) => t !== OTHER).filter(match);
+  const showOtherOption = match(OTHER);
 
   const addCustom = () => {
-    const v = custom.trim();
+    const v = custom.trim().replace(/\s+/g, " ");
     if (!v) return;
     const tag = /allerg/i.test(v) ? v : `${v} allergy`;
-    if (!selected.includes(tag)) onToggle(tag);
+    const dup = selected.some((s) => s.toLowerCase() === tag.toLowerCase());
+    if (!dup) onToggle(tag);
     setCustom("");
+    setShowCustom(false);
   };
+
 
   const Option = ({ t }: { t: string }) => {
     const on = selected.includes(t);
