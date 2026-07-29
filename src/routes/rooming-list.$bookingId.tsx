@@ -826,16 +826,21 @@ function AllocationRow({
           ? "Missing guests"
           : "Missing guest";
 
+  const isActive = !!active || typeOpen || menuOpen || requestOpen;
+
   return (
     <div
       id={`alloc-${allocation.id}`}
-      className="hgb-row grid rounded-[10px] transition-[background,border-color] duration-200 ease-out lg:[grid-template-columns:14%_42%_21%_19%_4%]"
+      className="hgb-row grid rounded-[12px] lg:[grid-template-columns:14%_42%_21%_19%_4%]"
       style={{
         background: CARD_NAVY,
-        border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: "0 4px 12px rgba(20,45,70,0.10)",
+        border: isActive ? "1.5px solid #C5A24B" : "1px solid rgba(255,255,255,0.07)",
+        boxShadow: isActive
+          ? "0 8px 22px rgba(16,35,63,0.18)"
+          : "0 4px 14px rgba(16,35,63,0.12)",
       }}
     >
+
 
       {/* ── ALLOCATION ── */}
       <div className="flex flex-col justify-center px-3.5 py-2">
