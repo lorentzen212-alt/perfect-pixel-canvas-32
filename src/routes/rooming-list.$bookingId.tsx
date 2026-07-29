@@ -145,10 +145,11 @@ function GhostButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-2 rounded-[7px] font-medium transition-colors duration-200 ease-out hover:bg-[rgba(199,163,74,0.09)] ${
+      className={`inline-flex items-center gap-2 rounded-[8px] font-medium transition-colors duration-200 ease-out hover:bg-[rgba(255,255,255,0.9)] ${
         small ? "px-3 py-[6px] text-[12px]" : "px-4 py-[8px] text-[12.5px]"
       }`}
-      style={{ color: TEXT_2, border: `1px solid ${BORDER}` }}
+      style={{ color: TEXT, backgroundColor: "rgba(255,255,255,0.62)", border: `1px solid rgba(90,115,140,0.22)` }}
+
     >
       {children}
     </button>
