@@ -2583,7 +2583,93 @@ function UpgradeCheckbox({
 }
 
 /** Small gold pill showing the current upgrade request state on a room card. */
+/** Small confirmation popover for withdrawing / changing an upgrade request. */
+function WithdrawUpgradePopover({
+  anchorRef,
+  open,
+  onClose,
+  request,
+  roomLabel,
+  onWithdraw,
+  onRequestChange,
+}: {
+  anchorRef: React.RefObject<HTMLButtonElement | null>;
+  open: boolean;
+  onClose: () => void;
+  request: UpgradeRequest;
+  roomLabel: string;
+  onWithdraw: () => void;
+  onRequestChange: () => void;
+}) {
+  const cat = categoryLabel(request.category);
+  const approved = request.status === "approved";
+  const declined = request.status === "declined";
+  const title = approved
+    ? "Upgrade already approved"
+    : declined
+      ? "Remove declined request?"
+      : "Remove upgrade request?";
+  const body = approved
+    ? "This upgrade has already been approved. Changes may require review by your concierge."
+    : request.status === "price_offered"
+      ? `Withdraw this upgrade request and decline the current upgrade offer? ${cat} upgrade requested for ${roomLabel}.`
+      : declined
+        ? `The ${cat} upgrade for ${roomLabel} was declined. Removing it lets you create a new request.`
+        : `${cat} upgrade requested for ${roomLabel}. This will withdraw the upgrade request. The original booked room remains unchanged.`;
+
+  return (
+    <FloatingPopover anchorRef={anchorRef} open={open} onClose={onClose} width={280} align="auto">
+      <div className="px-3 py-3">
+        <p className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+          {title}
+        </p>
+        <p className="mt-1.5 text-[12px] leading-snug" style={{ color: TEXT_2 }}>
+          {body}
+        </p>
+        <div className="mt-3 flex items-center justify-end gap-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+            style={{ color: MUTED }}
+          >
+            Cancel
+          </button>
+          {approved ? (
+            <button
+              type="button"
+              onClick={onRequestChange}
+              className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors"
+              style={{
+                color: GOLD,
+                backgroundColor: "rgba(197,162,75,0.14)",
+                border: "1px solid rgba(197,162,75,0.36)",
+              }}
+            >
+              Request change
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onWithdraw}
+              className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors"
+              style={{
+                color: "#E2A2A2",
+                backgroundColor: "rgba(190,110,110,0.12)",
+                border: "1px solid rgba(190,110,110,0.34)",
+              }}
+            >
+              {declined ? "Remove request" : "Withdraw request"}
+            </button>
+          )}
+        </div>
+      </div>
+    </FloatingPopover>
+  );
+}
+
 function UpgradeIndicator({
+
   request,
   bookedCategory,
   roomLabel,
