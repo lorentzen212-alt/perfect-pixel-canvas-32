@@ -97,6 +97,7 @@ const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B44B";
 
 const GOLD_BAR = "#285D91";
+const COLS = "14% 42% 21% 19% 4%";
 
 
 /* ───────────────── primitives ───────────────── */
@@ -322,8 +323,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
           }
         />
 
-        <div className="mx-auto flex w-full max-w-[1480px] items-start gap-3.5 px-4 pb-5 pt-3 sm:px-6 lg:px-7">
-          <main className="mx-auto min-w-0 flex-1 lg:max-w-[1010px]">
+        <div className="mx-auto flex w-full max-w-[1560px] items-start gap-4 px-4 pb-5 pt-2.5 sm:px-6 lg:px-7">
+          <main className="min-w-0 flex-1">
+
             {/* ── compact booking hero ── */}
             <section className="relative overflow-hidden rounded-[12px]">
               <div className="relative px-1 py-1">
@@ -371,10 +373,12 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
             </section>
 
             {/* ── workspace ── */}
+            {/* ── summary card ── */}
             <section
-              className="mt-2.5 overflow-hidden rounded-[13px]"
+              className="mt-2 overflow-visible rounded-[13px]"
               style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
             >
+
               {locked ? (
                 <SubmittedBanner list={list} stats={stats} onRequestChange={() => setShowReview(true)} />
               ) : (
@@ -426,9 +430,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
                   {/* allocation summary strip + filters */}
                   <div
-                    className="flex flex-wrap items-center gap-x-3 gap-y-2.5 px-5 pb-2.5"
-                    style={{ borderBottom: `1px solid ${BORDER}` }}
+                    className="flex flex-wrap items-center gap-x-3 gap-y-2.5 px-5 pb-3.5"
                   >
+
                     <div
                       className="flex items-stretch overflow-hidden rounded-[9px]"
                       style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
@@ -527,20 +531,22 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 </>
               )}
 
-              {/* column headers */}
-              <div
-                className="hidden px-[18px] pb-1.5 pt-2.5 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
-                style={{ color: MUTED, gridTemplateColumns: "112px minmax(0,1fr) 190px 152px 34px" }}
-              >
-                <span className="px-3.5">Allocation</span>
-                <span className="px-3.5">Guests</span>
-                <span className="px-3.5">Room request</span>
-                <span className="px-3.5">Status</span>
-                <span />
-              </div>
+            </section>
 
-              {/* allocation rows */}
-              <div className="space-y-[5px] px-4 pb-3">
+            {/* column headers */}
+            <div
+              className="hidden px-1 pb-1 pt-3 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
+              style={{ color: MUTED, gridTemplateColumns: COLS }}
+            >
+              <span className="px-3.5">Allocation</span>
+              <span className="px-3.5">Guests</span>
+              <span className="px-3.5">Room request</span>
+              <span className="px-3.5">Status</span>
+              <span />
+            </div>
+
+            {/* allocation cards */}
+            <div className="space-y-2">
                 {visible.map((a) => (
                   <AllocationRow
                     key={a.id}
@@ -559,11 +565,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 )}
               </div>
 
-              {/* sticky workspace bar */}
-              <div
-                className="sticky bottom-0 z-20 flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3"
-                style={{ backgroundColor: "rgba(245,248,251,0.92)", borderTop: `1px solid ${CARD_BORDER}`, backdropFilter: "blur(8px)" }}
-              >
+            {/* sticky action bar */}
+            <div
+              className="sticky bottom-3 z-20 mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-[12px] px-4 py-2.5"
+              style={{ backgroundColor: "rgba(245,248,251,0.94)", border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW, backdropFilter: "blur(8px)" }}
+            >
                 <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
                   <CheckCircle2 size={15} style={{ color: GREEN }} />
                   <span>
@@ -594,8 +600,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     {locked ? "Request change" : "Review & Submit"}
                   </GoldButton>
                 </div>
-              </div>
-            </section>
+            </div>
           </main>
 
           {drawerGuest && (
@@ -732,15 +737,16 @@ function AllocationRow({
   return (
     <div
       id={`alloc-${allocation.id}`}
-      className="hgb-row grid rounded-[10px] transition-[background,border-color] duration-200 ease-out lg:[grid-template-columns:112px_minmax(0,1fr)_190px_152px_34px]"
+      className="hgb-row grid rounded-[10px] transition-[background,border-color] duration-200 ease-out lg:[grid-template-columns:14%_42%_21%_19%_4%]"
       style={{
         background: CARD_NAVY,
         border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: "0 5px 16px rgba(22,50,75,0.10)",
+        boxShadow: "0 4px 12px rgba(20,45,70,0.10)",
       }}
     >
+
       {/* ── ALLOCATION ── */}
-      <div className="flex flex-col justify-center px-3.5 py-2.5">
+      <div className="flex flex-col justify-center px-3.5 py-2">
         <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
           {String(allocation.index).padStart(2, "0")}
         </p>
@@ -799,20 +805,20 @@ function AllocationRow({
       </div>
 
       {/* ── GUESTS ── */}
-      <div className="hgb-cell flex flex-col justify-center gap-[3px] px-3.5 py-2.5">
+      <div className="hgb-cell flex flex-col justify-center gap-[3px] px-3.5 py-2">
         {allocation.guests.map((g) => (
           <button
             key={g.id}
             type="button"
             onClick={() => onOpenGuest(g.id)}
-            className="grid w-full items-center gap-2 rounded-[6px] px-1.5 py-[3px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)] [grid-template-columns:14px_minmax(0,1fr)_104px]"
+            className="flex w-full items-center gap-2 rounded-[6px] px-1.5 py-[2px] text-left transition-colors hover:bg-[rgba(255,255,255,0.06)]"
           >
             <User size={13} style={{ color: RT_3 }} />
-            <span className="min-w-0 truncate text-[13.5px]" style={{ color: RT }}>
+            <span className="min-w-0 max-w-[62%] truncate text-[13.5px]" style={{ color: RT }}>
               {guestName(g) || "Unnamed guest"}
             </span>
             {g.nationality && (
-              <span className="inline-flex min-w-0 items-center gap-1.5 truncate text-[12px]" style={{ color: "rgba(255,255,255,0.70)" }}>
+              <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px]" style={{ color: "rgba(255,255,255,0.70)" }}>
                 <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>
                 {g.nationality}
               </span>
@@ -879,7 +885,7 @@ function AllocationRow({
       </div>
 
       {/* ── ROOM REQUEST ── */}
-      <div className="hgb-cell relative flex flex-col justify-center px-3.5 py-2.5">
+      <div className="hgb-cell relative flex flex-col justify-center px-3.5 py-2">
         {allocation.requests.length > 0 ? (
           <div className="space-y-[3px]">
             {allocation.requests.map((r) => (
@@ -944,7 +950,7 @@ function AllocationRow({
       </div>
 
       {/* ── STATUS ── */}
-      <div className="hgb-cell flex flex-col justify-center px-3.5 py-2.5">
+      <div className="hgb-cell flex flex-col justify-center px-3.5 py-2">
         <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: statusColor }}>
           {status === "complete" ? <CheckCircle2 size={14} /> : <Circle size={14} strokeWidth={1.6} />}
           {statusLabel}
@@ -955,7 +961,7 @@ function AllocationRow({
       </div>
 
       {/* ── MENU ── */}
-      <div className="hgb-cell relative flex items-center justify-center py-2.5">
+      <div className="hgb-cell relative flex items-center justify-center py-2">
         <button
           type="button"
           aria-label="Allocation actions"
@@ -1027,7 +1033,7 @@ function GuestDrawer({
 
   return (
     <aside
-      className="fixed inset-0 z-40 lg:sticky lg:top-[70px] lg:z-auto lg:w-[318px] lg:shrink-0"
+      className="fixed inset-0 z-40 lg:sticky lg:top-[68px] lg:z-auto lg:w-[322px] lg:shrink-0"
       style={{ animation: "hgbSlide 200ms ease-out" }}
     >
       <button aria-label="Close guest details" className="absolute inset-0 bg-black/50 lg:hidden" onClick={onClose} />
