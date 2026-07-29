@@ -560,7 +560,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               {/* sticky workspace bar */}
               <div
                 className="sticky bottom-0 z-20 flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3"
-                style={{ backgroundColor: "#1F2C35", borderTop: `1px solid ${BORDER}` }}
+                style={{ backgroundColor: "rgba(245,248,251,0.92)", borderTop: `1px solid ${CARD_BORDER}`, backdropFilter: "blur(8px)" }}
               >
                 <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
                   <CheckCircle2 size={15} style={{ color: GREEN }} />
@@ -1012,7 +1012,7 @@ function GuestDrawer({
       <button aria-label="Close guest details" className="absolute inset-0 bg-black/50 lg:hidden" onClick={onClose} />
       <div
         className="absolute inset-y-0 right-0 flex w-full max-w-[420px] flex-col overflow-y-auto lg:static lg:h-[calc(100vh-56px)] lg:max-w-none"
-        style={{ backgroundColor: CARD, borderLeft: `1px solid ${CARD_BORDER}` }}
+        style={{ backgroundColor: "rgba(245,248,251,0.92)", borderLeft: `1px solid rgba(95,120,145,0.15)` }}
       >
         <div className="flex items-center justify-between px-4 pb-2 pt-4">
           <h3 className="text-[17px]" style={{ color: TEXT, fontFamily: SERIF }}>
@@ -1150,7 +1150,7 @@ function GuestDrawer({
 
         <div
           className="sticky bottom-0 mt-auto flex items-center justify-between gap-3 px-4 py-3"
-          style={{ backgroundColor: "#26333D", borderTop: `1px solid ${BORDER}` }}
+          style={{ backgroundColor: "rgba(240,245,250,0.96)", borderTop: `1px solid ${CARD_BORDER}` }}
         >
           <button
             type="button"
