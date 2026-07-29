@@ -1250,10 +1250,14 @@ function Workspace({ booking }: { booking: Booking }) {
                 </section>
 
                 <section
-                  className="rounded-[13px] px-4 py-3"
-                  style={{ backgroundColor: CARD, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
+                  className="rounded-[13px] px-3.5 py-2.5"
+                  style={{
+                    backgroundColor: "#26333E",
+                    border: `1px solid rgba(154,176,192,0.09)`,
+                    boxShadow: CARD_SHADOW,
+                  }}
                 >
-                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
+                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
                     Upcoming
                   </h3>
                   <ul className="mt-2.5 space-y-2">
@@ -1289,10 +1293,14 @@ function Workspace({ booking }: { booking: Booking }) {
                 </section>
 
                 <section
-                  className="rounded-[13px] px-4 py-3"
-                  style={{ backgroundColor: CARD, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
+                  className="rounded-[13px] px-3.5 py-2.5"
+                  style={{
+                    backgroundColor: "#26333E",
+                    border: `1px solid rgba(154,176,192,0.09)`,
+                    boxShadow: CARD_SHADOW,
+                  }}
                 >
-                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
+                  <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
                     Need help?
                   </h3>
                   <p className="mt-1 text-[12.5px]" style={{ color: TEXT_2 }}>
