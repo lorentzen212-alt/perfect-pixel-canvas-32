@@ -105,6 +105,57 @@ function IconBubble({ children }: { children: React.ReactNode }) {
   );
 }
 
+function CardMenu({ visible }: { visible: boolean }) {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (!visible) setOpen(false);
+  }, [visible]);
+  return (
+    <span className="relative">
+      <button
+        type="button"
+        aria-label="More actions"
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((o) => !o);
+        }}
+        className="grid h-[24px] w-[24px] place-items-center rounded-[6px]"
+        style={{
+          color: MUTED,
+          opacity: visible || open ? 1 : 0,
+          pointerEvents: visible || open ? "auto" : "none",
+          transition: "opacity 200ms ease-out, color 200ms ease-out",
+        }}
+      >
+        <MoreHorizontal size={16} />
+      </button>
+      {open && (
+        <span
+          className="absolute right-0 top-[26px] z-20 grid w-[150px] overflow-hidden rounded-[8px] py-1"
+          style={{
+            backgroundColor: "#26333E",
+            border: `1px solid rgba(199,163,74,0.22)`,
+            boxShadow: "0 14px 30px -18px rgba(0,0,0,0.8)",
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {["View details", "Request change", "View history"].map((l) => (
+            <button
+              key={l}
+              type="button"
+              onClick={() => setOpen(false)}
+              className="px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-white/5"
+              style={{ color: TEXT_2 }}
+            >
+              {l}
+            </button>
+          ))}
+        </span>
+      )}
+    </span>
+  );
+}
+
 function OverviewCard({
   icon,
   title,
@@ -129,16 +180,17 @@ function OverviewCard({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={onAction}
-      className="flex min-h-[152px] flex-col rounded-[13px] px-4 py-3"
+      className="flex min-h-[138px] flex-col rounded-[13px] px-4 py-[11px]"
       style={{
         backgroundColor: hover && interactive ? "#30404C" : CARD,
-        border: `1px solid ${hover && interactive ? "rgba(199,163,74,0.42)" : CARD_BORDER}`,
+        border: `1px solid ${hover && interactive ? "rgba(199,163,74,0.38)" : CARD_BORDER}`,
         boxShadow:
           hover && interactive
-            ? `${CARD_SHADOW}, 0 0 0 1px rgba(199,163,74,0.06), 0 10px 26px -18px rgba(199,163,74,0.45)`
+            ? `${CARD_SHADOW}, 0 10px 26px -18px rgba(199,163,74,0.4)`
             : CARD_SHADOW,
         transform: hover && interactive ? "translateY(-2px)" : "none",
-        transition: "transform 200ms ease-out, background-color 200ms ease-out, border-color 200ms ease-out, box-shadow 200ms ease-out, opacity 200ms ease-out",
+        transition:
+          "transform 200ms ease-out, background-color 200ms ease-out, border-color 200ms ease-out, box-shadow 200ms ease-out, opacity 200ms ease-out",
         cursor: interactive ? "pointer" : "default",
         opacity: dimmed ? 0.55 : 1,
       }}
@@ -148,26 +200,30 @@ function OverviewCard({
         <h3 className="text-[12.5px] font-semibold uppercase tracking-[0.16em]" style={{ color: TEXT }}>
           {title}
         </h3>
-        {badge && (
-          <span
-            className="ml-auto rounded-[5px] px-2 py-[2px] text-[10.5px]"
-            style={{ backgroundColor: "rgba(141,168,138,0.14)", color: GREEN }}
-          >
-            {badge}
-          </span>
-        )}
+        <span className="ml-auto flex items-center gap-2">
+          {badge && (
+            <span
+              className="rounded-[5px] px-2 py-[2px] text-[10.5px]"
+              style={{ backgroundColor: "rgba(141,168,138,0.14)", color: GREEN }}
+            >
+              {badge}
+            </span>
+          )}
+          <CardMenu visible={hover} />
+        </span>
       </div>
-      <div className="mt-2.5 flex-1 text-[13px]" style={{ color: TEXT_2 }}>
+      <div className="mt-2 flex-1 text-[13px]" style={{ color: MUTED }}>
         {children}
       </div>
       {action && (
-        <div className="mt-2">
+        <div className="mt-1.5">
           <GoldAction label={action} bright={hover} />
         </div>
       )}
     </article>
   );
 }
+
 
 function Ring({ value, size = 78 }: { value: number; size?: number }) {
   const r = size / 2 - 6;
