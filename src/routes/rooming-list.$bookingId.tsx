@@ -882,6 +882,7 @@ function AllocationRow({
         </p>
         <div className="relative mt-1.5">
           <button
+            ref={typeBtnRef}
             type="button"
             disabled={locked}
             onClick={() => setTypeOpen((v) => !v)}
