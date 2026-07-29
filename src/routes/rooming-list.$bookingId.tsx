@@ -257,6 +257,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     note: string;
   } | null>(null);
   const [confirmWithdraw, setConfirmWithdraw] = useState(false);
+  /* ── manage existing upgrade requests (separate workflow) ── */
+  const [manageMode, setManageMode] = useState(false);
+  const [manageSelected, setManageSelected] = useState<string[]>([]);
+  const [confirmRemove, setConfirmRemove] = useState<string[] | null>(null);
 
   const firstRender = useRef(true);
 
