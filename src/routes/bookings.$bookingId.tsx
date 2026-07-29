@@ -129,7 +129,7 @@ function OverviewCard({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={onAction}
-      className="flex min-h-[190px] flex-col rounded-[13px] p-4"
+      className="flex min-h-[152px] flex-col rounded-[13px] px-4 py-3"
       style={{
         backgroundColor: hover && interactive ? "#30404C" : CARD,
         border: `1px solid ${hover && interactive ? "rgba(199,163,74,0.42)" : CARD_BORDER}`,
@@ -157,11 +157,11 @@ function OverviewCard({
           </span>
         )}
       </div>
-      <div className="mt-3.5 flex-1 text-[13px]" style={{ color: TEXT_2 }}>
+      <div className="mt-2.5 flex-1 text-[13px]" style={{ color: TEXT_2 }}>
         {children}
       </div>
       {action && (
-        <div className="mt-3 pt-1">
+        <div className="mt-2">
           <GoldAction label={action} bright={hover} />
         </div>
       )}
@@ -477,7 +477,7 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         />
 
-        <main className="px-4 py-4 sm:px-6 lg:px-8" style={{ backgroundColor: BG_ALT }}>
+        <main className="px-4 py-3 sm:px-6 lg:px-8" style={{ backgroundColor: BG_ALT }}>
           {/* ── hero ─────────────────────────────── */}
           <section
             className="relative overflow-hidden rounded-[13px]"
@@ -496,7 +496,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   "linear-gradient(90deg, rgba(23,42,56,0.94) 0%, rgba(23,42,56,0.86) 42%, rgba(26,45,60,0.62) 70%, rgba(26,45,60,0.74) 100%)",
               }}
             />
-            <div className="relative p-5">
+            <div className="relative px-5 py-3.5">
               <span
                 className="inline-flex items-center rounded px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
                 style={{
@@ -507,10 +507,10 @@ function Workspace({ booking }: { booking: Booking }) {
               >
                 {booking.type === "leisure" ? "Leisure" : "M&E"}
               </span>
-              <h1 className="mt-2 text-[34px] leading-[1.05]" style={{ color: TEXT, fontFamily: SERIF }}>
+              <h1 className="mt-1.5 text-[28px] leading-[1.05]" style={{ color: TEXT, fontFamily: SERIF }}>
                 {booking.name}
               </h1>
-              <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]" style={{ color: TEXT_2 }}>
+              <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-1.5 text-[13px]" style={{ color: TEXT_2 }}>
                 {booking.hotel && (
                   <span className="inline-flex items-center gap-2">
                     <MapPin size={14} style={{ color: GOLD_SOFT }} />
@@ -544,15 +544,15 @@ function Workspace({ booking }: { booking: Booking }) {
 
           {/* ── next action + info cards ─────────── */}
           <section
-            className="mt-4 rounded-[13px] p-4"
+            className="mt-3 rounded-[13px] px-4 py-3"
             style={{
               backgroundColor: ACTION_PANEL,
               border: `1px solid ${CARD_BORDER}`,
               boxShadow: CARD_SHADOW,
             }}
           >
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Ring value={progress} />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Ring value={progress} size={64} />
               <div className="min-w-0 flex-1 sm:pl-2">
                 <h2 className="text-[20px] font-medium" style={{ color: TEXT }}>
                   Complete your Rooming List
@@ -565,7 +565,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <button
                 type="button"
                 onClick={() => setTab("Rooming List")}
-                className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] px-5 py-[10px] text-[13px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+                className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] px-5 py-[8px] text-[13px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
                 style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
               >
                 Continue Rooming List
@@ -573,10 +573,10 @@ function Workspace({ booking }: { booking: Booking }) {
               </button>
             </div>
 
-            <div className="mt-4 grid gap-3 md:grid-cols-3">
+            <div className="mt-3 grid gap-3 md:grid-cols-3">
               {/* hotel reference */}
               <div
-                className="flex min-h-[74px] flex-col justify-center rounded-[10px] px-3.5 py-3"
+                className="flex min-h-[60px] flex-col justify-center rounded-[10px] px-3.5 py-2"
                 style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
               >
                 <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
@@ -614,7 +614,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
               {/* booking id */}
               <div
-                className="flex min-h-[74px] flex-col justify-center rounded-[10px] px-3.5 py-3"
+                className="flex min-h-[60px] flex-col justify-center rounded-[10px] px-3.5 py-2"
                 style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
               >
                 <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
@@ -642,7 +642,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
               {/* status */}
               <div
-                className="flex min-h-[74px] flex-col justify-center rounded-[10px] px-3.5 py-3"
+                className="flex min-h-[60px] flex-col justify-center rounded-[10px] px-3.5 py-2"
                 style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
               >
                 <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
@@ -663,7 +663,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
           {/* ── tabs ─────────────────────────────── */}
           <nav
-            className="mt-4 flex items-center gap-7 overflow-x-auto"
+            className="mt-3 flex items-center gap-7 overflow-x-auto"
             style={{ borderBottom: `1px solid ${BORDER}` }}
           >
             {TABS.map((t) => {
@@ -673,7 +673,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   key={t}
                   type="button"
                   onClick={() => setTab(t)}
-                  className="relative whitespace-nowrap pb-2.5 pt-1 text-[13.5px] transition-colors"
+                  className="relative whitespace-nowrap pb-2 pt-0.5 text-[13.5px] transition-colors"
                   style={{ color: active ? TEXT : MUTED }}
                 >
                   {t}
@@ -702,8 +702,8 @@ function Workspace({ booking }: { booking: Booking }) {
               </p>
             </section>
           ) : (
-            <div className="mt-4 grid gap-4 xl:grid-cols-[minmax(0,1fr)_340px]">
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1fr)_340px]">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {/* STAY */}
                 {panel === "stay" ? (
                   <div className="sm:col-span-2 lg:col-span-3">
@@ -1146,9 +1146,9 @@ function Workspace({ booking }: { booking: Booking }) {
               </div>
 
               {/* ── right rail ─────────────────────── */}
-              <aside className="grid content-start gap-4">
+              <aside className="grid content-start gap-3">
                 <section
-                  className="rounded-[13px] p-4"
+                  className="rounded-[13px] px-4 py-3"
                   style={{
                     backgroundColor: ACTION_PANEL,
                     border: `1px solid rgba(199,163,74,0.18)`,
@@ -1158,8 +1158,8 @@ function Workspace({ booking }: { booking: Booking }) {
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
                     Preparing your stay
                   </h3>
-                  <div className="mt-3 flex items-center gap-3.5">
-                    <Ring value={progress} size={58} />
+                  <div className="mt-2.5 flex items-center gap-3.5">
+                    <Ring value={progress} size={52} />
                     <div
                       className="h-[5px] flex-1 overflow-hidden rounded-full"
                       style={{ backgroundColor: "rgba(255,255,255,0.09)" }}
@@ -1167,7 +1167,7 @@ function Workspace({ booking }: { booking: Booking }) {
                       <div className="h-full rounded-full" style={{ width: `${progress}%`, backgroundColor: GOLD }} />
                     </div>
                   </div>
-                  <ul className="mt-3.5 space-y-2.5 text-[13px]">
+                  <ul className="mt-2.5 space-y-2 text-[13px]">
                     {["Hotel confirmed", "Contract signed"].map((l) => (
                       <li key={l} className="flex items-center justify-between">
                         <span style={{ color: TEXT_2 }}>{l}</span>
@@ -1193,13 +1193,13 @@ function Workspace({ booking }: { booking: Booking }) {
                 </section>
 
                 <section
-                  className="rounded-[13px] p-4"
+                  className="rounded-[13px] px-4 py-3"
                   style={{ backgroundColor: CARD, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
                 >
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
                     Upcoming
                   </h3>
-                  <ul className="mt-3 space-y-2">
+                  <ul className="mt-2.5 space-y-2">
                     {[
                       { d: "04", m: "Sep", t: "Rooming List", s: "Due in 6 days" },
                       { d: "08", m: "Sep", t: "Final guest details", s: "Due in 10 days" },
@@ -1232,16 +1232,16 @@ function Workspace({ booking }: { booking: Booking }) {
                 </section>
 
                 <section
-                  className="rounded-[13px] p-4"
+                  className="rounded-[13px] px-4 py-3"
                   style={{ backgroundColor: CARD, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
                 >
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT }}>
                     Need help?
                   </h3>
-                  <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
+                  <p className="mt-1 text-[12.5px]" style={{ color: TEXT_2 }}>
                     Our team is here for you.
                   </p>
-                  <div className="mt-2.5">
+                  <div className="mt-2">
                     <GoldAction label="Contact Support" />
                   </div>
                 </section>
@@ -1252,7 +1252,7 @@ function Workspace({ booking }: { booking: Booking }) {
           {/* ── bottom change request ────────────── */}
           {tab === "Overview" && (
             <section
-              className="mt-4 flex flex-col gap-3 rounded-[13px] px-4 py-3.5 sm:flex-row sm:items-center"
+              className="mt-3 flex flex-col gap-3 rounded-[13px] px-4 py-2.5 sm:flex-row sm:items-center"
               style={{ backgroundColor: "rgba(12,30,42,0.28)", border: `1px solid ${BORDER}` }}
             >
               <span
