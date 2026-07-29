@@ -183,8 +183,8 @@ function Field({
   placeholder?: string;
 }) {
   return (
-    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: "rgba(255,255,255,0.055)", border: `1px solid ${BORDER}` }}>
-      <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+    <label className="block rounded-[8px] px-3 py-[7px]" style={{ backgroundColor: FIELD_BG, border: `1px solid ${FIELD_BORDER_LIGHT}` }}>
+      <span className="block text-[10px] uppercase tracking-[0.14em]" style={{ color: FIELD_LABEL }}>
         {label}
       </span>
       <input
@@ -192,8 +192,8 @@ function Field({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-[2px] w-full bg-transparent text-[13.5px] outline-none"
-        style={{ color: TEXT }}
+        className="mt-[2px] w-full bg-transparent text-[13.5px] outline-none placeholder:text-[#88A0B6]"
+        style={{ color: FIELD_TEXT }}
       />
     </label>
   );
