@@ -293,7 +293,7 @@ export function loadRoomingList(bookingId: string, dist: Distribution): RoomingL
     const raw = window.localStorage.getItem(storageKey(bookingId));
     if (raw) {
       const parsed = JSON.parse(raw) as RoomingList;
-      if (parsed?.allocations?.length) return parsed;
+      if (parsed?.allocations?.length) return { ...parsed, unassigned: parsed.unassigned ?? [] };
     }
   } catch {
     /* ignore corrupt drafts */
