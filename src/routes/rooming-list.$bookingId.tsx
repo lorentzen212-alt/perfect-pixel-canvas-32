@@ -1565,3 +1565,190 @@ function SubmittedBanner({
     </div>
   );
 }
+
+/* ───────────────── unassigned guests ───────────────── */
+
+function UnassignedPanel({
+  guests,
+  allocations,
+  locked,
+  onOpenGuest,
+  onAdd,
+  onRemove,
+  onAssign,
+}: {
+  guests: Guest[];
+  allocations: Allocation[];
+  locked: boolean;
+  onOpenGuest: (guestId: string) => void;
+  onAdd: (first: string, last: string) => void;
+  onRemove: (guestId: string) => void;
+  onAssign: (guestId: string, allocationId: string) => void;
+}) {
+  const [adding, setAdding] = useState(false);
+  const [first, setFirst] = useState("");
+  const [last, setLast] = useState("");
+  const [assignFor, setAssignFor] = useState<string | null>(null);
+
+  const available = allocations.filter((a) => a.guests.filter(isNamed).length < capacityOf(a.type, a.occupancy));
+
+  const commit = () => {
+    if (!first.trim() && !last.trim()) {
+      setAdding(false);
+      return;
+    }
+    onAdd(first.trim(), last.trim());
+    setFirst("");
+    setLast("");
+  };
+
+  if (locked && guests.length === 0) return null;
+
+  return (
+    <section
+      className="mt-2.5 rounded-[12px] px-4 py-3"
+      style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
+    >
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <p className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+          Unassigned guests
+          <span className="ml-2 text-[11.5px] font-semibold tracking-normal" style={{ color: guests.length ? AMBER : MUTED }}>
+            {guests.length}
+          </span>
+        </p>
+        <p className="text-[12px]" style={{ color: MUTED }}>
+          Saved with your rooming list — assign them to a room whenever you are ready.
+        </p>
+        {!locked && (
+          <button
+            type="button"
+            onClick={() => setAdding((v) => !v)}
+            className="ml-auto inline-flex items-center gap-1.5 text-[12.5px]"
+            style={{ color: GOLD_SOFT }}
+          >
+            <Plus size={13} />
+            Add guest without room
+          </button>
+        )}
+      </div>
+
+      {adding && !locked && (
+        <div
+          className="mt-2.5 flex flex-wrap items-center gap-2 rounded-[8px] px-2.5 py-2"
+          style={{ backgroundColor: "#FFFFFF", border: `1px solid ${BORDER}` }}
+        >
+          <input
+            autoFocus
+            value={first}
+            onChange={(e) => setFirst(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") commit();
+              if (e.key === "Escape") setAdding(false);
+            }}
+            placeholder="First name"
+            className="w-[118px] bg-transparent text-[13px] outline-none"
+            style={{ color: TEXT }}
+          />
+          <input
+            value={last}
+            onChange={(e) => setLast(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") commit();
+              if (e.key === "Escape") setAdding(false);
+            }}
+            placeholder="Last name"
+            className="w-[132px] bg-transparent text-[13px] outline-none"
+            style={{ color: TEXT }}
+          />
+          <GoldButton small onClick={commit}>
+            Add
+          </GoldButton>
+          <button type="button" aria-label="Cancel" onClick={() => setAdding(false)} style={{ color: MUTED }}>
+            <X size={14} />
+          </button>
+        </div>
+      )}
+
+      {guests.length === 0 ? (
+        <p className="mt-2 text-[12.5px]" style={{ color: MUTED }}>
+          Every guest is assigned to a room.
+        </p>
+      ) : (
+        <div className="mt-2.5 flex flex-wrap gap-2">
+          {guests.map((g) => (
+            <div
+              key={g.id}
+              className="relative flex items-center gap-2 rounded-[9px] py-[6px] pl-2.5 pr-2"
+              style={{ backgroundColor: "rgba(255,255,255,0.78)", border: `1px solid ${BORDER}` }}
+            >
+              <button
+                type="button"
+                onClick={() => onOpenGuest(g.id)}
+                className="inline-flex items-center gap-2 text-left text-[13px]"
+                style={{ color: TEXT }}
+              >
+                <User size={13} style={{ color: MUTED }} />
+                {guestName(g) || "Unnamed guest"}
+                {g.nationality && <span className="text-[13px] leading-none">{flagOf(g.nationality)}</span>}
+              </button>
+
+              {!locked && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setAssignFor((v) => (v === g.id ? null : g.id))}
+                    className="inline-flex items-center gap-1 rounded-[6px] px-2 py-[3px] text-[11.5px]"
+                    style={{ color: GOLD_SOFT, border: `1px solid ${BORDER}` }}
+                  >
+                    Assign
+                    <ChevronDown size={12} />
+                  </button>
+                  <button type="button" aria-label={`Remove ${guestName(g)}`} onClick={() => onRemove(g.id)} style={{ color: MUTED }}>
+                    <X size={13} />
+                  </button>
+                </>
+              )}
+
+              {assignFor === g.id && (
+                <div
+                  className="absolute left-0 top-full z-30 mt-1 max-h-[240px] w-[220px] overflow-y-auto rounded-[8px]"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid rgba(90,115,140,0.18)",
+                    boxShadow: "0 10px 26px rgba(20,45,70,0.16)",
+                    animation: "hgbFade 160ms ease-out",
+                  }}
+                >
+                  {available.length === 0 && (
+                    <p className="px-3 py-2 text-[12.5px]" style={{ color: MUTED }}>
+                      No room has an open place.
+                    </p>
+                  )}
+                  {available.map((a) => (
+                    <button
+                      key={a.id}
+                      type="button"
+                      onClick={() => {
+                        onAssign(g.id, a.id);
+                        setAssignFor(null);
+                      }}
+                      className="flex w-full items-center justify-between px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(20,45,70,0.05)]"
+                      style={{ color: TEXT_2 }}
+                    >
+                      <span>
+                        {String(a.index).padStart(2, "0")} · {labelOf(a.type)}
+                      </span>
+                      <span className="text-[11px]" style={{ color: MUTED }}>
+                        {a.guests.filter(isNamed).length} / {capacityOf(a.type, a.occupancy)}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
