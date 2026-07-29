@@ -300,8 +300,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     <div
       className="min-h-screen"
       style={{
-        background:
-          "radial-gradient(circle at 50% 0%, #F6F9FC 0%, #EDF2F7 45%, #E4EBF2 100%)",
+        backgroundColor: "#E4EBF1",
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}

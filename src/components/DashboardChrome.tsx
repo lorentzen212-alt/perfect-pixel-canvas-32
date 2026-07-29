@@ -249,13 +249,13 @@ const LIGHT_NAV = [
 function SidebarLight({ active, bookingId }: { active: string; bookingId?: string }) {
   // deep matte navy sidebar background — matches the room allocation cards.
   // Sidebar content stays light/readable; only the background surface is navy.
-  const NAV_TEXT = "#C6D6E5"; // soft very-light blue-grey for nav text + icons
-  const NAV_INACTIVE = "#A9BDCD";
+  const NAV_TEXT = "#E3EBF1"; // soft cool off-white / pale silver-blue for nav text + icons
+  const NAV_INACTIVE = "#D2DCE4";
   const SEL_BG = "#EAF0F5"; // light cool off-white selected pill
-  const SEL_INK = "#173A5D"; // dark navy text + icon on the selected pill
+  const SEL_INK = "#173A5D"; // deep navy text + icon on the selected pill
   const DIVIDER = "rgba(255,255,255,0.10)"; // subtle lighter navy/blue-grey divider
   const SOFT_WHITE = "#EAF1F7";
-  const MUTED_BLUE = "#9FB4C7";
+  const MUTED_BLUE = "#AABFCF";
 
   return (
     <div
