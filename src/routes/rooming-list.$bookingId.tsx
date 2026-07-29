@@ -765,7 +765,7 @@ function AllocationRow({
               {typeOpen && (
                 <div
                   className="absolute left-0 top-full z-30 mt-1 w-[150px] overflow-hidden rounded-[8px]"
-                  style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${R_BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                  style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.18)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
                 >
                   {ROOM_TYPES.map((t) => (
                     <button
@@ -773,10 +773,10 @@ function AllocationRow({
                       type="button"
                       onClick={() => changeType(t.value)}
                       className="flex w-full items-center justify-between px-3 py-2 text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-                      style={{ color: t.value === allocation.type ? R_AMBER : RT_2 }}
+                      style={{ color: t.value === allocation.type ? "#153E6C" : "#50657A" }}
                     >
                       <span>{t.label}</span>
-                      <span className="text-[10.5px]" style={{ color: RT_3 }}>
+                      <span className="text-[10.5px]" style={{ color: "#71859A" }}>
                         {t.capacity} guest{t.capacity > 1 ? "s" : ""}
                       </span>
                     </button>
@@ -821,7 +821,7 @@ function AllocationRow({
             {!locked && adding && named.length < cap && (
               <div
                 className="flex flex-wrap items-center gap-2 rounded-[8px] px-2 py-2"
-                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${R_AMBER}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.22)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
               >
                 <input
                   ref={inputRef}
@@ -910,7 +910,7 @@ function AllocationRow({
             {requestOpen && (
               <div
                 className="absolute left-0 top-full z-30 mt-1 w-[190px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${R_BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.18)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
               >
                 {ROOM_REQUEST_OPTIONS.map((r) => (
                   <button
@@ -955,7 +955,7 @@ function AllocationRow({
             {menuOpen && (
               <div
                 className="absolute right-0 top-full z-30 mt-1 w-[168px] overflow-hidden rounded-[8px]"
-                style={{ backgroundColor: "rgba(255,255,255,0.92)", border: `1px solid ${R_BORDER}`, animation: "hgbFade 160ms ease-out" }}
+                style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(90,115,140,0.18)", boxShadow: "0 10px 26px rgba(20,45,70,0.16)", animation: "hgbFade 160ms ease-out" }}
               >
                 {[
                   { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
