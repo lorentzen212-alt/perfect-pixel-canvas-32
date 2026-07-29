@@ -1553,6 +1553,9 @@ function SubmittedBanner({
             {when.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
           </p>
         )}
+        <p className="mt-1 max-w-[420px] text-[12px]" style={{ color: MUTED }}>
+          Changes now require approval from HotelGroupBook.
+        </p>
       </div>
       <div className="ml-auto flex flex-wrap items-center gap-2.5">
         <GhostButton>View submission</GhostButton>
