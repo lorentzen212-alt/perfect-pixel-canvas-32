@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import {
   Bell,
+  BedDouble,
   CalendarCheck,
   CalendarDays,
   ChevronDown,
@@ -38,12 +39,13 @@ export const SERIF = '"Cormorant Garamond", Georgia, serif';
 
 const NAV = [
   { label: "Overview", icon: CalendarCheck },
+  { label: "Rooming List", icon: BedDouble },
   { label: "Bookings", icon: CalendarDays },
   { label: "Documents", icon: FileText },
   { label: "Support", icon: HelpCircle },
 ];
 
-export function SidebarContent({ active }: { active: string }) {
+export function SidebarContent({ active, bookingId }: { active: string; bookingId?: string }) {
   const { SIDEBAR, SIDEBAR_ALT, GOLD_MID, TEXT, TEXT_2, MUTED, GOLD, BORDER } = PAL;
   return (
     <div
@@ -64,16 +66,15 @@ export function SidebarContent({ active }: { active: string }) {
       <nav className="mt-4 space-y-1">
         {NAV.map((item) => {
           const isActive = item.label === active;
-          return (
-            <Link
-              key={item.label}
-              to="/manage-bookings"
-              className="relative flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-[14px] transition-colors"
-              style={{
-                backgroundColor: isActive ? "rgba(255,255,255,0.06)" : "transparent",
-                color: isActive ? TEXT : TEXT_2,
-              }}
-            >
+          const rooming = item.label === "Rooming List";
+          const className =
+            "relative flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-[14px] transition-colors";
+          const style = {
+            backgroundColor: isActive ? "rgba(255,255,255,0.06)" : "transparent",
+            color: isActive ? TEXT : TEXT_2,
+          };
+          const inner = (
+            <>
               {isActive && (
                 <span
                   className="absolute left-0 top-1.5 bottom-1.5 w-[2px] rounded-full"
@@ -82,6 +83,21 @@ export function SidebarContent({ active }: { active: string }) {
               )}
               <item.icon size={17} style={{ color: isActive ? GOLD : MUTED }} />
               {item.label}
+            </>
+          );
+          return rooming ? (
+            <Link
+              key={item.label}
+              to="/rooming-list/$bookingId"
+              params={{ bookingId: bookingId ?? "1" }}
+              className={className}
+              style={style}
+            >
+              {inner}
+            </Link>
+          ) : (
+            <Link key={item.label} to="/manage-bookings" className={className} style={style}>
+              {inner}
             </Link>
           );
         })}

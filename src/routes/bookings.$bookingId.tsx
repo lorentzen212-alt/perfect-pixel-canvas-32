@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { PAL, SERIF, SidebarContent, TopBar } from "@/components/DashboardChrome";
 import { BOOKINGS, roomingProgress, type Booking } from "@/lib/bookings";
+import { distributionFor, loadRoomingList, statsOf } from "@/lib/rooming";
 
 export const Route = createFileRoute("/bookings/$bookingId")({
   component: BookingWorkspace,
@@ -484,7 +485,13 @@ function BookingWorkspace() {
 function Workspace({ booking }: { booking: Booking }) {
   const [navOpen, setNavOpen] = useState(false);
   const [tab, setTab] = useState("Overview");
-  const progress = roomingProgress(booking) || 72;
+  /* rooming progress is derived from the live rooming list, never hardcoded */
+  const [roomingStats, setRoomingStats] = useState<{ filled: number; total: number; percent: number } | null>(null);
+  useEffect(() => {
+    const s = statsOf(loadRoomingList(booking.id, distributionFor(booking.id, booking.rooms ?? 12)));
+    setRoomingStats({ filled: s.filled, total: s.totalSlots, percent: s.percent });
+  }, [booking.id, booking.rooms]);
+  const progress = roomingStats?.percent ?? roomingProgress(booking);
   const rooming = booking.rooming;
   const confirmed = booking.status === "confirmed" || booking.status === "upcoming";
 
@@ -799,6 +806,19 @@ function Workspace({ booking }: { booking: Booking }) {
           >
             {TABS.map((t) => {
               const active = t === tab;
+              if (t === "Rooming List") {
+                return (
+                  <Link
+                    key={t}
+                    to="/rooming-list/$bookingId"
+                    params={{ bookingId: booking.id }}
+                    className="relative whitespace-nowrap pb-2 pt-0.5 text-[13.5px] transition-colors"
+                    style={{ color: MUTED }}
+                  >
+                    {t}
+                  </Link>
+                );
+              }
               return (
                 <button
                   key={t}
@@ -1331,7 +1351,12 @@ function Workspace({ booking }: { booking: Booking }) {
                         Rooming List
                       </p>
                       <p className="mt-0.5 text-[12px]" style={{ color: MUTED }}>
-                        {rooming ? `${rooming.complete} / ${rooming.total}` : "42 / 58"} guests complete
+                        {roomingStats
+                          ? `${roomingStats.filled} / ${roomingStats.total}`
+                          : rooming
+                            ? `${rooming.complete} / ${rooming.total}`
+                            : "—"}{" "}
+                        guests complete
                       </p>
                     </div>
                   </div>
