@@ -601,7 +601,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
             {/* column headers */}
             <div
               className="hidden px-1 pb-1 pt-3 text-[10.5px] uppercase tracking-[0.16em] lg:grid"
-              style={{ color: MUTED, gridTemplateColumns: COLS }}
+              style={{ color: HERO_INK_2, gridTemplateColumns: COLS }}
             >
               <span className="px-3.5">Allocation</span>
               <span className="px-3.5">Guests</span>
