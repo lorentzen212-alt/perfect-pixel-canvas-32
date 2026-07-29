@@ -1540,13 +1540,8 @@ function AllocationRow({
               </span>
             ))}
           </div>
-        ) : (
-          !allocation.upgradeRequest && (
-            <span className="block text-[13px]" style={{ color: RT_3 }}>
-              —
-            </span>
-          )
-        )}
+        ) : null}
+
 
         {allocation.upgradeRequest && (
           <UpgradeIndicator
