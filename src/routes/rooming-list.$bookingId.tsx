@@ -1275,7 +1275,9 @@ function AllocationRow({
   };
 
   /* warning compares against the ORIGINAL confirmed booking value, never the previous value */
-  const typeChanged = hasRoomTypeChange(allocation);
+  /* kept: underlying booking-change logic (no visual notice is rendered) */
+  void hasRoomTypeChange(allocation);
+
 
   const upgradeEligible = canUpgrade(allocation);
   const withdrawable =
