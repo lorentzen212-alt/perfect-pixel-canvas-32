@@ -1184,6 +1184,7 @@ function GuestDrawer({
   onClose,
   onSave,
   onRemove,
+  onDraftChange,
 }: {
   allocation: Allocation | null;
   guest: Guest;
@@ -1192,14 +1193,21 @@ function GuestDrawer({
   onClose: () => void;
   onSave: (g: Guest) => void;
   onRemove: () => void;
+  /** when provided the drawer is controlled — used to keep the inline row input in sync */
+  onDraftChange?: (g: Guest) => void;
 }) {
-  const [draft, setDraft] = useState<Guest>(guest);
+  const [localDraft, setLocalDraft] = useState<Guest>(guest);
   const [saved, setSaved] = useState(false);
   const [tagOpen, setTagOpen] = useState(false);
   const tagBtnRef = useRef<HTMLButtonElement>(null);
 
+  const controlled = Boolean(onDraftChange);
+  const draft = controlled ? guest : localDraft;
 
-  const set = (patch: Partial<Guest>) => setDraft((d) => ({ ...d, ...patch }));
+  const set = (patch: Partial<Guest>) => {
+    if (onDraftChange) onDraftChange({ ...guest, ...patch });
+    else setLocalDraft((d) => ({ ...d, ...patch }));
+  };
 
   return (
     <aside
