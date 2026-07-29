@@ -93,6 +93,8 @@ export interface Allocation {
 export interface RoomingList {
   bookingId: string;
   allocations: Allocation[];
+  /** guests captured before a room allocation is known — safely stored */
+  unassigned: Guest[];
   groupRequests: string[];
   submittedAt: string | null;
   savedAt: string | null;
