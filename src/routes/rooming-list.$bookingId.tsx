@@ -1190,6 +1190,7 @@ function AllocationRow({
             key={g.id}
             guest={g}
             locked={locked}
+            showRequirementDetail={showRequirementDetail}
             onOpen={() => onOpenGuest(g.id)}
             onRemove={() => onRemoveGuest(g.id)}
           />
