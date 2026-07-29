@@ -1106,9 +1106,25 @@ function AllocationRow({
 
       {/* ── ALLOCATION ── */}
       <div className="flex flex-col justify-center px-4 py-[17px]">
-        <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
-          {String(allocation.index).padStart(2, "0")}
-        </p>
+        <div className="flex items-center gap-2.5">
+          {upgradeMode && (
+            <UpgradeCheckbox
+              checked={!!selected}
+              disabled={!selectable}
+              onChange={() => onToggleSelected?.()}
+              title={
+                allocation.upgradeRequest
+                  ? "An upgrade has already been requested for this room"
+                  : upgradeEligible
+                    ? undefined
+                    : "No higher room category available"
+              }
+            />
+          )}
+          <p className="text-[19px] font-semibold leading-none tracking-[-0.01em]" style={{ color: RT }}>
+            {String(allocation.index).padStart(2, "0")}
+          </p>
+        </div>
         <div className="relative mt-1.5">
           <button
             ref={typeBtnRef}
@@ -1140,7 +1156,10 @@ function AllocationRow({
           </FloatingPopover>
 
         </div>
-        {approval && (
+        <p className="mt-[3px] text-[11px]" style={{ color: RT_3 }}>
+          {categoryLabel(allocation.bookedRoomCategory)}
+        </p>
+        {typeChanged && (
           <div
             className="mt-2 rounded-[7px] px-2 py-1.5"
             style={{ backgroundColor: "rgba(231,180,75,0.10)", border: "1px solid rgba(231,180,75,0.28)" }}
@@ -1148,12 +1167,21 @@ function AllocationRow({
             <p className="text-[10.5px] leading-snug" style={{ color: R_AMBER }}>
               Booking change may require approval
             </p>
-            <button type="button" className="mt-1 text-[10.5px]" style={{ color: R_AMBER }} onClick={() => setApproval(false)}>
-              Request change →
+            <p className="mt-[2px] text-[10px] leading-snug" style={{ color: RT_3 }}>
+              Booked as {labelOf(allocation.bookedRoomType)}
+            </p>
+            <button
+              type="button"
+              className="mt-1 text-[10.5px]"
+              style={{ color: R_AMBER }}
+              onClick={() => onPatch((a) => ({ ...a, type: a.bookedRoomType }))}
+            >
+              Restore booked type
             </button>
           </div>
         )}
       </div>
+
 
       {/* ── GUESTS ── */}
       <div className="hgb-cell flex flex-col justify-center gap-[5px] px-4 py-[17px]">
