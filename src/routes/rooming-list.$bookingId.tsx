@@ -1345,7 +1345,7 @@ function AllocationRow({
       />
 
       {/* ── ALLOCATION ── */}
-      <div className="flex items-center gap-4 py-[19px] pl-6 pr-4">
+      <div className="flex items-center gap-2.5 py-[19px] pl-6 pr-3">
         {manageMode && allocation.upgradeRequest ? (
           <RoomSelectCircle
             checked={!!selected}
