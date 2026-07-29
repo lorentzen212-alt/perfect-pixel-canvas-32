@@ -217,6 +217,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [view, setView] = useState<ViewFilter>("all");
   const [query, setQuery] = useState("");
   const [openGuest, setOpenGuest] = useState<{ allocationId: string | null; guestId: string } | null>(null);
+  const [pendingGuest, setPendingGuest] = useState<{ allocationId: string | null; guest: Guest } | null>(null);
   const [showReview, setShowReview] = useState(false);
   const [showGroup, setShowGroup] = useState(false);
   const [showImport, setShowImport] = useState(false);
@@ -279,15 +280,22 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   }, [list, view, query]);
 
   const drawerGuest = useMemo(() => {
-    if (!list || !openGuest) return null;
+    if (!list) return null;
+    if (pendingGuest) {
+      const alloc = pendingGuest.allocationId
+        ? (list.allocations.find((a) => a.id === pendingGuest.allocationId) ?? null)
+        : null;
+      return { alloc, guest: pendingGuest.guest, isNew: true };
+    }
+    if (!openGuest) return null;
     if (!openGuest.allocationId) {
       const guest = list.unassigned.find((g) => g.id === openGuest.guestId);
-      return guest ? { alloc: null, guest } : null;
+      return guest ? { alloc: null, guest, isNew: false } : null;
     }
     const alloc = list.allocations.find((a) => a.id === openGuest.allocationId);
     const guest = alloc?.guests.find((g) => g.id === openGuest.guestId);
-    return alloc && guest ? { alloc, guest } : null;
-  }, [list, openGuest]);
+    return alloc && guest ? { alloc, guest, isNew: false } : null;
+  }, [list, openGuest, pendingGuest]);
 
   const issues = useMemo(() => (list ? roomingIssues(list) : []), [list]);
 
@@ -628,7 +636,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
                     onPatch={(fn) => patchAllocation(a.id, fn)}
-                    onOpenGuest={(guestId) => setOpenGuest({ allocationId: a.id, guestId })}
+                    onOpenGuest={(guestId) => {
+                      setPendingGuest(null);
+                      setOpenGuest({ allocationId: a.id, guestId });
+                    }}
+                    onAddGuest={() => {
+                      setOpenGuest(null);
+                      setPendingGuest({ allocationId: a.id, guest: newGuest() });
+                    }}
                   />
                 ))}
                 {visible.length === 0 && (
@@ -677,8 +692,22 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               allocation={drawerGuest.alloc}
               guest={drawerGuest.guest}
               locked={locked}
-              onClose={() => setOpenGuest(null)}
+              isNew={drawerGuest.isNew}
+              onClose={() => {
+                setOpenGuest(null);
+                setPendingGuest(null);
+              }}
               onSave={(g) => {
+                if (drawerGuest.isNew) {
+                  if (drawerGuest.alloc) {
+                    patchAllocation(drawerGuest.alloc.id, (a) => ({ ...a, guests: [...a.guests, g] }));
+                  } else {
+                    update((l) => ({ ...l, unassigned: [...l.unassigned, g] }));
+                  }
+                  setPendingGuest(null);
+                  setOpenGuest(drawerGuest.alloc ? { allocationId: drawerGuest.alloc.id, guestId: g.id } : null);
+                  return;
+                }
                 if (drawerGuest.alloc) {
                   patchAllocation(drawerGuest.alloc.id, (a) => ({
                     ...a,
@@ -701,6 +730,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               }}
             />
           )}
+
         </div>
       </div>
 
@@ -738,78 +768,6 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   );
 }
 
-/* ───────────────── quick guest name entry ───────────────── */
-
-/**
- * After a name is committed, move the caret to the next empty guest position —
- * first inside the same room, otherwise the first empty position of the next
- * room, so a full rooming list can be typed without touching the mouse.
- */
-function focusNextQuickInput(currentCardId: string) {
-  requestAnimationFrame(() => {
-    const all = Array.from(document.querySelectorAll<HTMLInputElement>("input[data-quick-guest]"));
-    if (all.length === 0) return;
-    const card = document.getElementById(currentCardId);
-    const inSameCard = all.find((el) => card?.contains(el));
-    if (inSameCard) {
-      inSameCard.focus();
-      return;
-    }
-    const next = all.find((el) => {
-      if (!card) return true;
-      return card.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING;
-    });
-    (next ?? all[0]).focus();
-  });
-}
-
-function QuickGuestInput({ autoFocus, onCommit }: { autoFocus?: boolean; onCommit: (name: string) => void }) {
-  const [value, setValue] = useState("");
-  const [focused, setFocused] = useState(false);
-  const ref = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (autoFocus) ref.current?.focus();
-  }, [autoFocus]);
-
-  return (
-    <input
-      ref={ref}
-      data-quick-guest=""
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      onFocus={() => setFocused(true)}
-      onBlur={() => {
-        setFocused(false);
-        if (value.trim()) {
-          onCommit(value);
-          setValue("");
-        }
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          if (!value.trim()) return;
-          onCommit(value);
-          setValue("");
-        }
-        if (e.key === "Escape") {
-          setValue("");
-          e.currentTarget.blur();
-        }
-      }}
-      placeholder="Enter guest name..."
-      aria-label="Enter guest name"
-      className="w-full rounded-[6px] px-1.5 py-[3px] text-[13px] outline-none transition-colors placeholder:text-[#9FB0C2]"
-      style={{
-        color: RT,
-        backgroundColor: focused ? "rgba(255,255,255,0.09)" : "rgba(255,255,255,0.03)",
-        border: `1px solid ${focused ? "rgba(197,162,75,0.55)" : "rgba(150,175,200,0.22)"}`,
-        boxShadow: focused ? "0 0 0 2px rgba(197,162,75,0.16)" : "none",
-      }}
-    />
-  );
-}
 
 /* ───────────────── allocation row ───────────────── */
 
@@ -821,6 +779,7 @@ function AllocationRow({
   onAutoFocused,
   onPatch,
   onOpenGuest,
+  onAddGuest,
 }: {
   allocation: Allocation;
   locked: boolean;
@@ -828,7 +787,9 @@ function AllocationRow({
   onAutoFocused?: () => void;
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
+  onAddGuest: () => void;
 }) {
+
   const cap = capacityOf(allocation.type, allocation.occupancy);
   const named = allocation.guests.filter(isNamed);
   const status = allocationStatus(allocation);
@@ -949,20 +910,18 @@ function AllocationRow({
 
         {!locked &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) => (
-            <QuickGuestInput
+            <button
               key={`slot-${allocation.id}-${allocation.guests.length + i}`}
-              autoFocus={autoFocus && i === 0}
-              onCommit={(name) => {
-                const parts = name.trim().split(/\s+/);
-                const firstName = parts.shift() ?? "";
-                onPatch((a) => ({
-                  ...a,
-                  guests: [...a.guests, newGuest({ firstName, lastName: parts.join(" ") })],
-                }));
-                focusNextQuickInput(`alloc-${allocation.id}`);
-              }}
-            />
+              type="button"
+              onClick={onAddGuest}
+              className="flex w-fit items-center gap-1.5 rounded-[6px] px-1.5 py-[2px] text-left text-[12.5px] opacity-80 transition-opacity hover:opacity-100"
+              style={{ color: "#C5A24B" }}
+            >
+              <span className="text-[13px] leading-none">+</span>
+              <span>Add guest</span>
+            </button>
           ))}
+
 
       </div>
 
@@ -1212,6 +1171,7 @@ function GuestDrawer({
   allocation,
   guest,
   locked,
+  isNew = false,
   onClose,
   onSave,
   onRemove,
@@ -1219,6 +1179,7 @@ function GuestDrawer({
   allocation: Allocation | null;
   guest: Guest;
   locked: boolean;
+  isNew?: boolean;
   onClose: () => void;
   onSave: (g: Guest) => void;
   onRemove: () => void;
@@ -1384,15 +1345,26 @@ function GuestDrawer({
           className="sticky bottom-0 mt-auto flex items-center justify-between gap-3 px-4 py-3"
           style={{ backgroundColor: "rgba(24,58,92,0.96)", borderTop: `1px solid ${CARD_BORDER}` }}
         >
-          <button
-            type="button"
-            disabled={locked}
-            onClick={onRemove}
-            className="text-[12.5px] transition-opacity hover:opacity-80 disabled:opacity-40"
-            style={{ color: "#B47A72" }}
-          >
-            Remove guest
-          </button>
+          {isNew ? (
+            <button
+              type="button"
+              onClick={onClose}
+              className="text-[12.5px] transition-opacity hover:opacity-80"
+              style={{ color: MUTED }}
+            >
+              Cancel
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled={locked}
+              onClick={onRemove}
+              className="text-[12.5px] transition-opacity hover:opacity-80 disabled:opacity-40"
+              style={{ color: "#B47A72" }}
+            >
+              Remove guest
+            </button>
+          )}
           <div className="flex items-center gap-3">
             {saved && (
               <span className="inline-flex items-center gap-1.5 text-[12px]" style={{ color: GREEN }}>
@@ -1401,17 +1373,19 @@ function GuestDrawer({
             )}
             <GoldButton
               small
-              disabled={locked}
+              disabled={locked || (isNew && !isNamed(draft))}
               onClick={() => {
                 onSave(draft);
+                if (isNew) return;
                 setSaved(true);
                 setTimeout(() => setSaved(false), 1800);
               }}
             >
-              Save changes
+              {isNew ? "Add guest" : "Save changes"}
             </GoldButton>
           </div>
         </div>
+
       </div>
     </aside>
   );
