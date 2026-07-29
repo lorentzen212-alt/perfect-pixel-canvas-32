@@ -798,6 +798,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     active={openGuest?.allocationId === a.id || pendingGuest?.allocationId === a.id}
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
+                    upgradeMode={upgradeMode}
+                    selected={selected.includes(a.id)}
+                    onToggleSelected={() => toggleSelected(a.id)}
+                    showRequirementDetail={view === "dietary"}
                     onPatch={(fn) => patchAllocation(a.id, fn)}
                     onOpenGuest={(guestId) => {
                       setPendingGuest(null);
