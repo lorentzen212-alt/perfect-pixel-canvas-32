@@ -827,7 +827,7 @@ function Workspace({ booking }: { booking: Booking }) {
                     onAction={() => setPanel("stay")}
                     dimmed={dim("stay")}
                   >
-                    <p style={{ color: TEXT }}>{stay.location}</p>
+                    <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>{stay.location}</p>
                     <p className="mt-1.5">
                       {new Date(stay.arrival).toLocaleDateString("en-GB", { day: "numeric", month: "long" })} –{" "}
                       {new Date(stay.departure).toLocaleDateString("en-GB", {
@@ -848,9 +848,9 @@ function Workspace({ booking }: { booking: Booking }) {
                   onAction={() => {}}
                   dimmed={dim("hotel" as PanelKey)}
                 >
-                  <p style={{ color: TEXT }}>{booking.hotel}</p>
-                  <p className="mt-1.5">4-star hotel</p>
-                  <p className="mt-3 pt-3 text-[12px]" style={{ borderTop: `1px solid ${BORDER}`, color: MUTED }}>
+                  <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>{booking.hotel}</p>
+                  <p className="mt-1">4-star hotel</p>
+                  <p className="mt-2 pt-2 text-[12px]" style={{ borderTop: `1px solid ${BORDER}`, color: MUTED }}>
                     Hotel Reference
                   </p>
                   <p className="mt-0.5">{hotelRef || "—"}</p>
@@ -911,12 +911,12 @@ function Workspace({ booking }: { booking: Booking }) {
                     dimmed={dim("rooms")}
                   >
                     {rooms.map((r) => (
-                      <p key={r.type} className="mt-1 first:mt-0">
+                      <p key={r.type} className="mt-1 first:mt-0" style={{ color: TEXT_2 }}>
                         {r.qty} {r.type}
                       </p>
                     ))}
                     <p
-                      className="mt-3 pt-3 text-[12.5px]"
+                      className="mt-2 pt-2 text-[12.5px] font-medium"
                       style={{ borderTop: `1px solid ${BORDER}`, color: TEXT }}
                     >
                       {totalRooms} rooms  •  {totalGuests} guests
@@ -1026,12 +1026,12 @@ function Workspace({ booking }: { booking: Booking }) {
                     onAction={() => setPanel("dining")}
                     dimmed={dim("dining")}
                   >
-                    <p style={{ color: TEXT }}>
+                    <p className="text-[13.5px] font-medium" style={{ color: TEXT }}>
                       {dining.breakfast ? "Breakfast included" : "No breakfast"}
                     </p>
                     {dining.groupDinner && (
                       <>
-                        <p className="mt-3.5 text-[11.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                        <p className="mt-2.5 text-[11.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                           Group dinner
                         </p>
                         <p className="mt-1">
@@ -1117,12 +1117,12 @@ function Workspace({ booking }: { booking: Booking }) {
                     dimmed={dim("services")}
                   >
                     {services.slice(0, 2).map((s) => (
-                      <p key={s.name} className="mt-1 first:mt-0" style={{ color: TEXT }}>
+                      <p key={s.name} className="mt-1 text-[13.5px] font-medium first:mt-0" style={{ color: TEXT }}>
                         {s.name}
                       </p>
                     ))}
                     {services.length > 2 && (
-                      <p className="mt-3 text-[12.5px]" style={{ color: MUTED }}>
+                      <p className="mt-2 text-[12.5px]" style={{ color: MUTED }}>
                         + {services.length - 2} more services
                       </p>
                     )}
@@ -1191,7 +1191,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   >
                     {requests.length ? (
                       requests.map((r, i) => (
-                        <p key={i} className="mt-1.5 first:mt-0" style={{ color: TEXT }}>
+                        <p key={i} className="mt-1.5 text-[13.5px] font-medium leading-[1.45] first:mt-0" style={{ color: TEXT }}>
                           {r}
                         </p>
                       ))
