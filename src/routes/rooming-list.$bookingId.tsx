@@ -1615,6 +1615,84 @@ function UnassignedPanel({
 
   if (locked && guests.length === 0) return null;
 
+  /* compact, calm status strip when every guest is already allocated */
+  if (guests.length === 0) {
+    return (
+      <section
+        className="mt-2.5 rounded-[12px] px-4"
+        style={{
+          minHeight: 46,
+          backgroundColor: "#F4F6F7",
+          border: "1px solid #DCE3E9",
+          boxShadow: "0 1px 2px rgba(20,45,70,0.05)",
+        }}
+      >
+        <div className="flex min-h-[46px] flex-wrap items-center gap-x-3 gap-y-1 py-1.5">
+          <span
+            className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-full"
+            style={{ backgroundColor: "rgba(116,177,127,0.16)", color: "#4E9A63" }}
+          >
+            <Check size={12} />
+          </span>
+          <p className="text-[12.5px] font-medium" style={{ color: "#1D456C" }}>
+            All guests assigned
+          </p>
+          <p className="text-[12px]" style={{ color: "#6C7E8E" }}>
+            Every guest is currently allocated to a room.
+          </p>
+          {!locked && (
+            <button
+              type="button"
+              onClick={() => setAdding((v) => !v)}
+              className="ml-auto inline-flex items-center gap-1.5 text-[12.5px]"
+              style={{ color: "#C5A24B" }}
+            >
+              <Plus size={13} />
+              Add guest without room
+            </button>
+          )}
+        </div>
+
+        {adding && !locked && (
+          <div
+            className="mb-2 flex flex-wrap items-center gap-2 rounded-[8px] px-2.5 py-2"
+            style={{ backgroundColor: "#FFFFFF", border: "1px solid #DCE3E9" }}
+          >
+            <input
+              autoFocus
+              value={first}
+              onChange={(e) => setFirst(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") commit();
+                if (e.key === "Escape") setAdding(false);
+              }}
+              placeholder="First name"
+              className="w-[118px] bg-transparent text-[13px] outline-none"
+              style={{ color: FIELD_TEXT }}
+            />
+            <input
+              value={last}
+              onChange={(e) => setLast(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") commit();
+                if (e.key === "Escape") setAdding(false);
+              }}
+              placeholder="Last name"
+              className="w-[132px] bg-transparent text-[13px] outline-none"
+              style={{ color: FIELD_TEXT }}
+            />
+            <GoldButton small onClick={commit}>
+              Add
+            </GoldButton>
+            <button type="button" aria-label="Cancel" onClick={() => setAdding(false)} style={{ color: "#6C7E8E" }}>
+              <X size={14} />
+            </button>
+          </div>
+        )}
+      </section>
+    );
+  }
+
   return (
     <section
       className="mt-2.5 rounded-[12px] px-4 py-3"
