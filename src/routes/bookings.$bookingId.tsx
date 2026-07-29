@@ -565,7 +565,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <button
                 type="button"
                 onClick={() => setTab("Rooming List")}
-                className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] px-5 py-[10px] text-[13px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+                className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] px-5 py-[8px] text-[13px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
                 style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
               >
                 Continue Rooming List
@@ -573,10 +573,10 @@ function Workspace({ booking }: { booking: Booking }) {
               </button>
             </div>
 
-            <div className="mt-4 grid gap-3 md:grid-cols-3">
+            <div className="mt-3 grid gap-3 md:grid-cols-3">
               {/* hotel reference */}
               <div
-                className="flex min-h-[74px] flex-col justify-center rounded-[10px] px-3.5 py-3"
+                className="flex min-h-[60px] flex-col justify-center rounded-[10px] px-3.5 py-2"
                 style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
               >
                 <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
@@ -614,7 +614,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
               {/* booking id */}
               <div
-                className="flex min-h-[74px] flex-col justify-center rounded-[10px] px-3.5 py-3"
+                className="flex min-h-[60px] flex-col justify-center rounded-[10px] px-3.5 py-2"
                 style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
               >
                 <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
@@ -642,7 +642,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
               {/* status */}
               <div
-                className="flex min-h-[74px] flex-col justify-center rounded-[10px] px-3.5 py-3"
+                className="flex min-h-[60px] flex-col justify-center rounded-[10px] px-3.5 py-2"
                 style={{ backgroundColor: "rgba(12,30,42,0.42)", border: `1px solid ${BORDER}` }}
               >
                 <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
@@ -663,7 +663,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
           {/* ── tabs ─────────────────────────────── */}
           <nav
-            className="mt-4 flex items-center gap-7 overflow-x-auto"
+            className="mt-3 flex items-center gap-7 overflow-x-auto"
             style={{ borderBottom: `1px solid ${BORDER}` }}
           >
             {TABS.map((t) => {
@@ -673,7 +673,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   key={t}
                   type="button"
                   onClick={() => setTab(t)}
-                  className="relative whitespace-nowrap pb-2.5 pt-1 text-[13.5px] transition-colors"
+                  className="relative whitespace-nowrap pb-2 pt-0.5 text-[13.5px] transition-colors"
                   style={{ color: active ? TEXT : MUTED }}
                 >
                   {t}
@@ -702,8 +702,8 @@ function Workspace({ booking }: { booking: Booking }) {
               </p>
             </section>
           ) : (
-            <div className="mt-4 grid gap-4 xl:grid-cols-[minmax(0,1fr)_340px]">
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1fr)_340px]">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {/* STAY */}
                 {panel === "stay" ? (
                   <div className="sm:col-span-2 lg:col-span-3">
