@@ -834,7 +834,7 @@ function Workspace({ booking }: { booking: Booking }) {
             </section>
           ) : (
             <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1fr)_316px] xl:gap-5">
-              <div className="grid auto-rows-fr gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid content-start gap-3 self-start sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[176px_176px_auto]">
                 {/* STAY */}
                 {panel === "stay" ? (
                   <div className="sm:col-span-2 lg:col-span-3">
@@ -1278,6 +1278,36 @@ function Workspace({ booking }: { booking: Booking }) {
                     )}
                   </OverviewCard>
                 )}
+                <section
+                  className="flex flex-col gap-3 rounded-[11px] px-4 py-2.5 sm:col-span-2 sm:flex-row sm:items-center lg:col-span-3"
+                  style={{
+                    background: `linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02)), rgba(12,30,42,0.28)`,
+                    border: "1px solid rgba(255,255,255,0.07)",
+                  }}
+                >
+                  <span
+                    className="grid h-[32px] w-[32px] shrink-0 place-items-center rounded-full"
+                    style={{ border: `1px solid rgba(199,163,74,0.20)`, color: GOLD_SOFT }}
+                  >
+                    <MessageSquare size={14} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[13px] font-medium" style={{ color: TEXT }}>
+                      Need to make a big change?
+                    </p>
+                    <p className="mt-0.5 text-[12px]" style={{ color: "rgba(146,157,165,0.82)" }}>
+                      If you need to change dates, hotel or group size significantly, please send us a request.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="inline-flex shrink-0 items-center gap-2 rounded-[6px] px-4 py-[8px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+                    style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
+                  >
+                    Request a change
+                    <span aria-hidden>→</span>
+                  </button>
+                </section>
               </div>
 
               {/* ── right rail : booking assistant ── */}
@@ -1409,36 +1439,6 @@ function Workspace({ booking }: { booking: Booking }) {
             </div>
           )}
 
-          {/* ── bottom change request ────────────── */}
-          {tab === "Overview" && (
-            <section
-              className="mt-3 flex flex-col gap-3 rounded-[13px] px-4 py-2.5 sm:flex-row sm:items-center"
-              style={{ backgroundColor: "rgba(12,30,42,0.28)", border: `1px solid ${BORDER}` }}
-            >
-              <span
-                className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full"
-                style={{ border: `1px solid rgba(199,163,74,0.22)`, color: GOLD_SOFT }}
-              >
-                <MessageSquare size={15} />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="text-[13.5px]" style={{ color: TEXT }}>
-                  Need to make a big change?
-                </p>
-                <p className="mt-0.5 text-[12.5px]" style={{ color: MUTED }}>
-                  If you need to change dates, hotel or group size significantly, please send us a request.
-                </p>
-              </div>
-              <button
-                type="button"
-                className="inline-flex shrink-0 items-center gap-2 rounded-[6px] px-4 py-[9px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
-                style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
-              >
-                Request a change
-                <span aria-hidden>→</span>
-              </button>
-            </section>
-          )}
         </main>
       </div>
     </div>
