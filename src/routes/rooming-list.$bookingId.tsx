@@ -821,6 +821,17 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     />
 
                   )}
+
+                  {/* manage existing upgrade requests panel */}
+                  {manageMode && upgradeRequests.length > 0 && (
+                    <ManageUpgradesPanel
+                      requests={upgradeRequests}
+                      selected={manageSelected}
+                      onSelectAll={(on) => setManageSelected(on ? upgradeRequests.map((a) => a.id) : [])}
+                      onRemove={() => setConfirmRemove(manageSelected)}
+                      onDone={exitManageMode}
+                    />
+                  )}
                 </>
               )}
 
