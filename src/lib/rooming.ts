@@ -203,9 +203,27 @@ export function seedGuests(allocations: Allocation[], count: number): Allocation
   return next;
 }
 
+const SEED_UNASSIGNED: [string, string, string][] = [
+  ["Anna", "Smith", "United Kingdom"],
+  ["John", "Smith", "United Kingdom"],
+  ["Peter", "Hansen", "Denmark"],
+  ["Marie", "Olsen", "Norway"],
+];
+
 export function createRoomingList(bookingId: string, dist: Distribution): RoomingList {
   const allocations = seedGuests(generateAllocations(dist), 38);
-  return { bookingId, allocations, groupRequests: [], submittedAt: null, savedAt: null, changeLog: [] };
+  const unassigned = SEED_UNASSIGNED.map(([firstName, lastName, nationality]) =>
+    newGuest({ firstName, lastName, nationality }),
+  );
+  return {
+    bookingId,
+    allocations,
+    unassigned,
+    groupRequests: [],
+    submittedAt: null,
+    savedAt: null,
+    changeLog: [],
+  };
 }
 
 /* ── derived values (never hardcode progress) ─────────────────── */
