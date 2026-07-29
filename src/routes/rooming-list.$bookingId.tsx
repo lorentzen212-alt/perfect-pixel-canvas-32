@@ -1102,6 +1102,8 @@ function GuestDrawer({
   const [draft, setDraft] = useState<Guest>(guest);
   const [saved, setSaved] = useState(false);
   const [tagOpen, setTagOpen] = useState(false);
+  const tagBtnRef = useRef<HTMLButtonElement>(null);
+
 
   const set = (patch: Partial<Guest>) => setDraft((d) => ({ ...d, ...patch }));
 
