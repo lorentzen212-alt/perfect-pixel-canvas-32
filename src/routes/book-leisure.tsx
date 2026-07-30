@@ -303,6 +303,7 @@ const STEP_META: Record<StepKey, { title: string; kicker: string; headline: stri
 
 function BookLeisure() {
   const navigate = useNavigate();
+  const { session: authSession } = useAuth();
   const [step, setStep] = useState<StepKey>(1);
 
   // Step 1 - Destination
