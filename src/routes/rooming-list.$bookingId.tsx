@@ -1220,6 +1220,60 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 )}
               </div>
 
+            {/* ── archived: cancelled allocations (collapsed by default) ── */}
+            {view !== "cancelled" && cancelledAllocations.length > 0 && (
+              <div className="mt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowCancelled((s) => !s)}
+                  className="flex w-full items-center gap-3 rounded-[10px] px-4 py-[10px] text-left transition-colors"
+                  style={{
+                    backgroundColor: "rgba(32,58,82,0.55)",
+                    border: "1px solid rgba(184,101,101,0.20)",
+                  }}
+                >
+                  <span
+                    className="text-[11.5px] font-medium uppercase tracking-[0.16em]"
+                    style={{ color: CANCEL_TEXT }}
+                  >
+                    Cancelled allocations
+                  </span>
+                  <span
+                    className="rounded-full px-2 py-[1px] text-[11px]"
+                    style={{ backgroundColor: "rgba(184,101,101,0.16)", color: CANCEL_TEXT }}
+                  >
+                    {cancelledAllocations.length}
+                  </span>
+                  <span className="ml-auto inline-flex items-center gap-1.5 text-[12px]" style={{ color: MUTED }}>
+                    {showCancelled ? "Hide cancelled" : "Show cancelled"}
+                    <ChevronDown
+                      size={14}
+                      strokeWidth={2}
+                      style={{ transform: showCancelled ? "rotate(180deg)" : "none", transition: "transform 160ms ease" }}
+                    />
+                  </span>
+                </button>
+
+                {showCancelled && (
+                  <div className="mt-2 space-y-[8px]" style={{ opacity: 0.92 }}>
+                    {cancelledAllocations.map((a) => (
+                      <AllocationRow
+                        key={a.id}
+                        allocation={a}
+                        locked={locked}
+                        rowSelected={selectedRow === a.id}
+                        onSelectRow={() => setSelectedRow((s) => (s === a.id ? null : a.id))}
+                        onRestoreAllocation={() => restoreAllocation(a.id)}
+                        onPatch={(fn) => patchAllocation(a.id, fn)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+
+
             {/* action bar — natural document flow, sits under the final room card */}
             <div
               className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-[12px] px-4 py-2.5"
