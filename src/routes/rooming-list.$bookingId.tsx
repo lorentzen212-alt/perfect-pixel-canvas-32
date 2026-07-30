@@ -546,7 +546,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
             {/* ── booking + rooming overview card ── */}
             <section
-              className="relative overflow-visible rounded-[16px] px-5 py-5 sm:px-6"
+              className="relative overflow-visible rounded-[17px] px-5 py-5 sm:px-6"
               style={{
                 backgroundColor: HERO_CARD_BG,
                 border: "1px solid rgba(72,91,110,0.13)",
