@@ -3595,11 +3595,7 @@ function ManageUpgradesPanel({
             <button
               type="button"
               onClick={onRemove}
-              className="rounded-[8px] border px-2.5 py-[5px] text-[14px] font-medium text-[#B05858] transition-colors hover:bg-[rgba(201,111,111,0.16)] hover:border-[rgba(201,111,111,0.5)]"
-              style={{
-                backgroundColor: "rgba(201,111,111,0.08)",
-                borderColor: "rgba(201,111,111,0.28)",
-              }}
+              className="rounded-[8px] border border-[rgba(201,111,111,0.28)] bg-[rgba(201,111,111,0.08)] px-2.5 py-[5px] text-[14px] font-medium text-[#B05858] transition-colors hover:border-[rgba(201,111,111,0.5)] hover:bg-[rgba(201,111,111,0.16)]"
             >
               {count === 1 ? "Remove upgrade request" : `Remove upgrade requests (${count})`}
             </button>
