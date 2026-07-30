@@ -275,7 +275,7 @@ function BookingCard({ booking }: { booking: Booking }) {
 
   return (
     <article
-      className="grid grid-cols-1 gap-5 rounded-[18px] p-3.5 sm:p-4 md:grid-cols-[minmax(0,286px)_minmax(0,1fr)] md:gap-7"
+      className="grid grid-cols-1 gap-6 rounded-[20px] p-5 sm:p-7 md:grid-cols-[minmax(0,300px)_minmax(0,1fr)] md:gap-9"
       style={{
         background: "linear-gradient(155deg, #354553 0%, #31414F 55%, #2E3D4A 100%)",
         border: "1px solid rgba(174,196,212,0.16)",
@@ -287,9 +287,10 @@ function BookingCard({ booking }: { booking: Booking }) {
         src={booking.image}
         alt={`${booking.destination} — ${booking.name}`}
         loading="lazy"
-        className="h-[200px] w-full rounded-[12px] object-cover md:h-full md:max-h-[290px] md:min-h-[270px]"
+        className="h-[220px] w-full rounded-[14px] object-cover md:h-full md:min-h-[420px]"
         style={{ filter: "saturate(0.92) brightness(0.92)" }}
       />
+
 
       <div className="flex min-w-0 flex-col">
         <div className="flex items-start justify-between gap-3">
@@ -307,19 +308,20 @@ function BookingCard({ booking }: { booking: Booking }) {
         <Link
           to="/bookings/$bookingId"
           params={{ bookingId: booking.id }}
-          className="mt-1 block truncate transition-opacity hover:opacity-85"
+          className="mt-3 block truncate transition-opacity hover:opacity-85"
         >
           <h3
-            className="truncate text-[30px] leading-[1.08] sm:text-[38px]"
+            className="truncate text-[34px] leading-[1.06] sm:text-[48px]"
             style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
           >
             {booking.name}
           </h3>
         </Link>
 
-        <div className="mt-2 h-px w-full" style={{ backgroundColor: "rgba(174,196,212,0.16)" }} />
+        <div className="mt-4 h-px w-full" style={{ backgroundColor: "rgba(174,196,212,0.16)" }} />
 
-        <div className="flex flex-nowrap items-center gap-x-3 overflow-hidden py-2 lg:gap-x-4">
+        <div className="flex flex-nowrap items-center gap-x-3 overflow-hidden py-3.5 lg:gap-x-5">
+
           <MetaItem icon={<MapPin size={15} />}>{booking.destination}</MetaItem>
           <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(174,196,212,0.22)" }} aria-hidden />
           <MetaItem icon={<CalendarDays size={15} />}>
@@ -349,48 +351,48 @@ function BookingCard({ booking }: { booking: Booking }) {
 
         {/* reference panel */}
         <div
-          className="mt-2.5 grid grid-cols-1 rounded-[12px] sm:grid-cols-2"
+          className="mt-5 grid grid-cols-1 rounded-[14px] sm:grid-cols-2"
           style={{
             backgroundColor: "rgba(255,255,255,0.035)",
             border: "1px solid rgba(174,196,212,0.14)",
           }}
         >
-          <div className="px-5 py-2.5">
+          <div className="px-6 py-4">
             <p
-              className="text-[10.5px] font-medium uppercase tracking-[0.16em]"
+              className="text-[11px] font-medium uppercase tracking-[0.16em]"
               style={{ color: GOLD }}
             >
               Your reference
             </p>
-            <p className="mt-0.5 text-[17px]" style={{ color: TEXT }}>
+            <p className="mt-1.5 text-[20px]" style={{ color: TEXT }}>
               {booking.reference}
             </p>
           </div>
           <div
-            className="px-5 py-2.5 sm:border-l"
+            className="px-6 py-4 sm:border-l"
             style={{ borderColor: "rgba(174,196,212,0.16)" }}
           >
             <p
-              className="text-[10.5px] font-medium uppercase tracking-[0.16em]"
+              className="text-[11px] font-medium uppercase tracking-[0.16em]"
               style={{ color: GOLD }}
             >
               Hotel reference
             </p>
-            <p className="mt-0.5 text-[17px]" style={{ color: booking.hotelReference ? TEXT : MUTED }}>
+            <p className="mt-1.5 text-[20px]" style={{ color: booking.hotelReference ? TEXT : MUTED }}>
               {booking.hotelReference ?? "Pending"}
             </p>
           </div>
         </div>
 
         {/* progress tracker */}
-        <div className="relative mt-3.5 grid grid-cols-4 gap-2">
+        <div className="relative mt-7 grid grid-cols-4 gap-2">
           <div
-            className="absolute left-[12.5%] right-[12.5%] top-[22px] h-px"
+            className="absolute left-[12.5%] right-[12.5%] top-[28px] h-px"
             style={{ backgroundColor: "rgba(174,196,212,0.22)" }}
             aria-hidden
           />
           <div
-            className="absolute left-[12.5%] top-[22px] h-px"
+            className="absolute left-[12.5%] top-[28px] h-px"
             style={{
               width: `${(active / 3) * 75}%`,
               backgroundColor: GOLD_DEEP,
@@ -401,20 +403,20 @@ function BookingCard({ booking }: { booking: Booking }) {
             const done = i <= active;
             const current = i === active;
             return (
-              <div key={s.key} className="relative flex flex-col items-center gap-1.5">
+              <div key={s.key} className="relative flex flex-col items-center gap-2.5">
                 <span
-                  className="grid h-[44px] w-[44px] place-items-center rounded-full"
+                  className="grid h-[56px] w-[56px] place-items-center rounded-full"
                   style={{
                     backgroundColor: current ? "rgba(199,163,74,0.10)" : "#2B3A47",
                     border: `1px solid ${done ? GOLD_DEEP : "rgba(174,196,212,0.28)"}`,
                     color: done ? GOLD : TEXT_2,
-                    boxShadow: current ? "0 0 20px -6px rgba(199,163,74,0.55)" : "none",
+                    boxShadow: current ? "0 0 24px -6px rgba(199,163,74,0.55)" : "none",
                   }}
                 >
-                  <s.icon size={18} />
+                  <s.icon size={22} />
                 </span>
                 <span
-                  className="whitespace-pre-line text-center text-[11.5px] leading-[1.15]"
+                  className="whitespace-pre-line text-center text-[14px] leading-[1.25]"
                   style={{ color: current ? GOLD : TEXT_2 }}
                 >
                   {s.label}
@@ -425,23 +427,24 @@ function BookingCard({ booking }: { booking: Booking }) {
         </div>
 
         <div
-          className="mt-3 h-px w-full"
+          className="mt-7 h-px w-full"
           style={{ backgroundColor: "rgba(174,196,212,0.16)" }}
         />
 
-        <div className="mt-2.5 flex flex-nowrap items-center justify-between gap-4">
-          <p className="min-w-0 max-w-[460px] truncate text-[13px]" style={{ color: TEXT_2 }}>
+        <div className="mt-5 flex flex-nowrap items-center justify-between gap-4">
+          <p className="min-w-0 max-w-[520px] truncate text-[15px]" style={{ color: TEXT_2 }}>
             {message}
           </p>
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="inline-flex shrink-0 items-center gap-3 rounded-[10px] px-5 py-2.5 text-[14px] transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+            className="inline-flex shrink-0 items-center gap-3 rounded-[10px] px-7 py-3.5 text-[16px] transition-colors hover:bg-[rgba(199,163,74,0.10)]"
             style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
           >
             View booking <span aria-hidden>→</span>
           </Link>
         </div>
+
       </div>
     </article>
   );
