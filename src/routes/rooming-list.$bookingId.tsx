@@ -706,7 +706,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       <div className="min-w-[186px] pr-5">
                         <p
                           className="text-[13px] font-medium uppercase tracking-[0.22em]"
-                          style={{ color: TEXT }}
+                          style={{ color: STAT_HEAD }}
                         >
                           Rooming List
                         </p>
@@ -714,13 +714,13 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           className="mt-2 block h-[2px] w-[30px] rounded-full"
                           style={{ backgroundImage: GOLD_BAR }}
                         />
-                        <p className="mt-3 text-[12.5px]" style={{ color: TEXT_2 }}>
+                        <p className="mt-3 text-[12.5px]" style={{ color: STAT_TEXT_2 }}>
                           {stats.filled} / {stats.totalSlots} guests added
                         </p>
                         <div className="mt-2.5 flex items-center gap-2.5">
                           <div
                             className="h-[6px] w-[140px] overflow-hidden rounded-full"
-                            style={{ backgroundColor: "rgba(143,163,180,0.45)" }}
+                            style={{ backgroundColor: "rgba(255,255,255,0.28)" }}
                           >
                             <div
                               className="h-full rounded-full transition-[width] duration-300 ease-out"
@@ -731,7 +731,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                               }}
                             />
                           </div>
-                          <span className="text-[12.5px] font-medium" style={{ color: TEXT_2 }}>
+                          <span className="text-[12.5px] font-medium" style={{ color: STAT_TEXT_2 }}>
                             {stats.percent}%
                           </span>
                         </div>
@@ -740,15 +740,15 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       <div className="flex flex-1 flex-wrap items-stretch">
                         <div
                           className="flex flex-1 min-w-[120px] flex-col items-center justify-center px-3"
-                          style={{ borderLeft: `1px solid ${BORDER}` }}
+                          style={{ borderLeft: `1px solid ${STAT_SEP}` }}
                         >
                           <span className="flex items-center gap-2.5">
-                            <Bed size={20} style={{ color: GOLD }} />
-                            <span className="text-[27px] font-semibold leading-none" style={{ color: TEXT }}>
+                            <Bed size={20} style={{ color: "#F0CE7C" }} />
+                            <span className="text-[27px] font-semibold leading-none" style={{ color: STAT_TEXT }}>
                               {stats.totalAllocations}
                             </span>
                           </span>
-                          <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                          <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: STAT_TEXT_2 }}>
                             Total rooms
                           </p>
                         </div>
@@ -756,15 +756,15 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           <div
                             key={t.type}
                             className="flex flex-1 min-w-[92px] flex-col items-center justify-center px-2"
-                            style={{ borderLeft: `1px solid ${BORDER}` }}
+                            style={{ borderLeft: `1px solid ${STAT_SEP}` }}
                           >
                             <span className="flex items-center gap-2">
-                              <Users size={17} style={{ color: MUTED }} />
-                              <span className="text-[24px] font-semibold leading-none" style={{ color: TEXT }}>
+                              <Users size={17} style={{ color: "rgba(255,255,255,0.72)" }} />
+                              <span className="text-[24px] font-semibold leading-none" style={{ color: STAT_TEXT }}>
                                 {t.count}
                               </span>
                             </span>
-                            <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                            <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: STAT_TEXT_2 }}>
                               {t.label}
                             </p>
                           </div>
@@ -779,18 +779,18 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     >
                       <div className="flex flex-1 flex-col items-center justify-center px-3">
                         <span className="flex items-center gap-2">
-                          <AlertTriangle size={17} style={{ color: AMBER }} />
-                          <span className="text-[24px] font-semibold leading-none" style={{ color: AMBER }}>
+                          <AlertTriangle size={17} style={{ color: "#F5D98F" }} />
+                          <span className="text-[24px] font-semibold leading-none" style={{ color: "#F5D98F" }}>
                             {stats.missing}
                           </span>
                         </span>
-                        <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                        <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: STAT_TEXT_2 }}>
                           Missing guests
                         </p>
                       </div>
                       <div
                         className="flex flex-1 flex-col items-center justify-center px-3"
-                        style={{ borderLeft: `1px solid ${BORDER}` }}
+                        style={{ borderLeft: `1px solid ${STAT_SEP}` }}
                       >
                         <span className="flex items-center gap-2">
                           <CheckCircle2 size={17} style={{ color: GREEN }} />
@@ -798,7 +798,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                             {stats.completeAllocations}
                           </span>
                         </span>
-                        <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                        <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: STAT_TEXT_2 }}>
                           Complete
                         </p>
                       </div>
