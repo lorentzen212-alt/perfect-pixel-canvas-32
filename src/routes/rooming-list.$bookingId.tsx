@@ -1483,7 +1483,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
                   style={{ color: MUTED }}
                 >
-                  Keep allocation
+                  Keep room
                 </button>
                 <button
                   type="button"
