@@ -1920,6 +1920,7 @@ function SavedGuestRow({
   isSelected,
   showRequirementDetail,
   onOpen,
+  onDraftName,
   onRename,
   onRemove,
 }: {
@@ -1928,28 +1929,61 @@ function SavedGuestRow({
   isSelected?: boolean;
   showRequirementDetail?: boolean;
   onOpen: () => void;
+  /** live (uncommitted) name change — updates the shared selected-guest draft */
+  onDraftName?: (name: string) => void;
   onRename?: (name: string) => void;
   onRemove: () => void;
 }) {
   const [confirm, setConfirm] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
   const req = guestRequirementSummary(guest);
+  /* `guest` is already the live shared draft when this row is selected */
   const displayName = guestName(guest);
   const [editing, setEditing] = useState(false);
-  const [draftName, setDraftName] = useState(displayName);
+  const [raw, setRaw] = useState(displayName);
+  /** name as it was when editing started — used to restore on Escape */
+  const originalRef = useRef(displayName);
+  /** last value this input pushed into the shared draft */
+  const pushedRef = useRef(displayName);
+
+  /* keep the inline field in sync with the shared draft (e.g. Guest Details edits) */
+  useEffect(() => {
+    if (!editing) {
+      setRaw(displayName);
+      pushedRef.current = displayName;
+      return;
+    }
+    if (displayName !== pushedRef.current) {
+      setRaw(displayName);
+      pushedRef.current = displayName;
+    }
+  }, [displayName, editing]);
 
   /** one shared handler for pill click + pencil click */
   const editGuest = () => {
     onOpen();
     if (locked) return;
-    setDraftName(displayName);
+    originalRef.current = displayName;
+    pushedRef.current = displayName;
+    setRaw(displayName);
     setEditing(true);
   };
   const startEdit = editGuest;
+  const setName = (v: string) => {
+    setRaw(v);
+    pushedRef.current = v;
+    onDraftName?.(v);
+  };
   const commit = () => {
     setEditing(false);
-    const v = draftName.trim();
-    if (v && v !== displayName) onRename?.(v);
+    const v = raw.trim();
+    if (v && v !== originalRef.current) onRename?.(v);
+  };
+  const cancel = () => {
+    setEditing(false);
+    setRaw(originalRef.current);
+    pushedRef.current = originalRef.current;
+    onDraftName?.(originalRef.current);
   };
 
   return (
