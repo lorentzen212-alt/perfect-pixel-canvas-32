@@ -1939,18 +1939,18 @@ function SavedGuestRow({
           />
         ) : (
           <span
-            role="textbox"
+            role="button"
             tabIndex={0}
             onClick={(e) => {
               e.stopPropagation();
-              startEdit();
+              onOpen();
             }}
             onKeyDown={(e) => {
-              if (e.key === "Enter") startEdit();
+              if (e.key === "Enter") onOpen();
             }}
-            title="Click to edit name"
+            title="Click to open guest details"
             className="min-w-0 flex-1 truncate text-[13.5px] font-medium hover:opacity-90"
-            style={{ color: RT, cursor: locked ? "default" : "text" }}
+            style={{ color: RT, cursor: "pointer" }}
           >
             {displayName || "Unnamed guest"}
           </span>
@@ -2288,7 +2288,7 @@ function GuestDrawer({
       >
         <div className="flex items-center justify-between px-4 pb-2 pt-4">
           <h3 className="text-[17px]" style={{ color: TEXT, fontFamily: SERIF }}>
-            Guest details
+            {isNew ? "New guest" : "Edit guest"}
           </h3>
           <button type="button" aria-label="Close" onClick={onClose} style={{ color: MUTED }}>
             <X size={17} />
