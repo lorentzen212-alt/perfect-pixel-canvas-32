@@ -1438,7 +1438,87 @@ function StepProgress({ step, onGo }: { step: number; onGo: (n: number) => void 
   );
 }
 
+/* Lets a signed-in customer reuse their saved HotelGroupBook profile details. */
+function AccountPrefillPanel({
+  form,
+  setForm,
+}: {
+  form: FormState;
+  setForm: React.Dispatch<React.SetStateAction<FormState>>;
+}) {
+  const { session, profile } = useAuth();
+  const [prefilled, setPrefilled] = useState(false);
+  if (!session) return null;
+  const canPrefill = hasProfileDetails(profile);
+
+  const apply = () => {
+    const typed = form.contactPerson.trim() || form.email.trim() || form.company.trim();
+    if (
+      typed &&
+      typeof window !== "undefined" &&
+      !window.confirm("Replace the contact details you've already entered with your account details?")
+    )
+      return;
+    setForm((s) => ({
+      ...s,
+      contactPerson:
+        [profile?.first_name, profile?.last_name].filter(Boolean).join(" ").trim() ||
+        s.contactPerson,
+      email: profile?.email || s.email,
+      phone: profile?.phone || s.phone,
+      company: profile?.company_name || s.company,
+    }));
+    setPrefilled(true);
+  };
+
+  return (
+    <div
+      className="mt-6 flex flex-col gap-3 rounded-[12px] px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between"
+      style={{ backgroundColor: "#FBF7EE", border: "1px solid rgba(184,138,46,0.28)" }}
+    >
+      <div className="min-w-0">
+        <p className="text-[13.5px] font-semibold" style={{ color: "#0A1B2C" }}>
+          {canPrefill ? "Use your account details?" : "Complete your profile"}
+        </p>
+        <p className="mt-0.5 text-[12.5px]" style={{ color: "#4A5866" }}>
+          {canPrefill
+            ? "We can fill in your contact information from your HotelGroupBook profile."
+            : "Add your details once in your profile and reuse them on every request."}
+        </p>
+      </div>
+      {canPrefill ? (
+        prefilled ? (
+          <span className="shrink-0 text-[12.5px] font-semibold" style={{ color: "#B88A2E" }}>
+            ✓ Account details added
+          </span>
+        ) : (
+          <button
+            type="button"
+            onClick={apply}
+            className="shrink-0 rounded-[8px] px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.12em] transition-opacity hover:opacity-90"
+            style={{
+              background: "linear-gradient(180deg, #E7C878 0%, #C5A24B 55%, #A9853A 100%)",
+              color: "#20180A",
+            }}
+          >
+            Use my account details
+          </button>
+        )
+      ) : (
+        <Link
+          to="/account"
+          className="shrink-0 rounded-[8px] px-4 py-2 text-center text-[12px] font-semibold uppercase tracking-[0.12em]"
+          style={{ border: "1px solid rgba(184,138,46,0.5)", color: "#B88A2E" }}
+        >
+          Complete profile
+        </Link>
+      )}
+    </div>
+  );
+}
+
 /* --------- Step 1 --------- */
+
 
 function StepOne({
   form,
