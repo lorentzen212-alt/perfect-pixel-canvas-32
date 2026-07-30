@@ -6,27 +6,33 @@ import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking } from "@/lib/bookingsApi";
 import {
   Bell,
+  BedDouble,
   CalendarCheck,
   CalendarDays,
   Check,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ClipboardList,
   FileText,
   Gift,
   Grid2X2,
   Headphones,
   HelpCircle,
   LayoutList,
+  Mail,
   MapPin,
   Menu,
   Moon,
   MoreVertical,
   Plus,
   Search,
+  Users,
   X,
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
+import mountains from "@/assets/dashboard-mountains.jpg";
+
 import {
   STATUS_META,
   TONE_COLOR,
@@ -225,151 +231,221 @@ function ActionIcon({ booking }: { booking: Booking }) {
   );
 }
 
-/* ── booking card ────────────────────────────────────── */
+/* ── booking card (Reference 2) ──────────────────────── */
+
+const TRACK_STEPS = [
+  { key: "received", label: "Request\nreceived", icon: Mail },
+  { key: "sourcing", label: "Hotels\nsourcing", icon: Search },
+  { key: "offers", label: "Offers\nready", icon: ClipboardList },
+  { key: "confirmed", label: "Confirmed", icon: Check },
+] as const;
+
+function trackIndex(status: BookingStatus) {
+  switch (status) {
+    case "request_submitted":
+      return 0;
+    case "hotel_sourcing":
+      return 1;
+    case "offers_ready":
+    case "offer_selected":
+    case "contract_ready":
+      return 2;
+    default:
+      return 3;
+  }
+}
+
+function MetaItem({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-2 whitespace-nowrap text-[13.5px]" style={{ color: TEXT_2 }}>
+      <span style={{ color: GOLD }}>{icon}</span>
+      {children}
+    </span>
+  );
+}
 
 function BookingCard({ booking }: { booking: Booking }) {
   const meta = STATUS_META[booking.status];
-  const statusColor = TONE_COLOR[meta.tone];
-  const progress = roomingProgress(booking);
+  const active = trackIndex(booking.status);
+  const message =
+    booking.statusNote ??
+    booking.action.lines?.[0] ??
+    booking.action.title ??
+    meta.label;
 
   return (
     <article
-      className="grid grid-cols-1 gap-4 rounded-[10px] p-2.5 md:grid-cols-[184px_minmax(0,1.32fr)_minmax(0,0.78fr)_minmax(0,1.2fr)_auto] md:items-center md:gap-0"
+      className="grid grid-cols-1 gap-5 rounded-[18px] p-4 sm:p-5 md:grid-cols-[minmax(0,300px)_minmax(0,1fr)] md:gap-7"
       style={{
-        backgroundColor: CARD,
-        border: `1px solid ${CARD_BORDER}`,
-        boxShadow: CARD_SHADOW,
+        background: "linear-gradient(155deg, #223440 0%, #1D2C37 60%, #1A2833 100%)",
+        border: "1px solid rgba(154,176,192,0.14)",
+        boxShadow: "0 30px 60px -40px rgba(0,0,0,0.75)",
       }}
     >
       <img
         src={booking.image}
         alt={`${booking.destination} — ${booking.name}`}
         loading="lazy"
-        className="h-[124px] w-full rounded-[8px] object-cover md:h-[110px]"
-        style={{ filter: "saturate(0.94) contrast(1.02)" }}
+        className="h-[220px] w-full rounded-[12px] object-cover md:h-full md:min-h-[420px]"
+        style={{ filter: "saturate(0.92) brightness(0.92)" }}
       />
 
+      <div className="flex min-w-0 flex-col">
+        <div className="flex items-start justify-between gap-3">
+          <StatusChip type={booking.type} />
+          <button
+            type="button"
+            aria-label={`More actions for ${booking.name}`}
+            className="grid h-8 w-8 place-items-center rounded-md transition-colors hover:bg-white/5"
+            style={{ color: MUTED }}
+          >
+            <MoreVertical size={18} />
+          </button>
+        </div>
 
-
-      {/* 2. booking information */}
-      <div className="min-w-0 md:px-4">
-        <StatusChip type={booking.type} />
         <Link
           to="/bookings/$bookingId"
           params={{ bookingId: booking.id }}
-          className="mt-2 block truncate text-[20.5px] font-semibold leading-tight transition-opacity hover:opacity-80"
-          style={{ color: TEXT, fontFamily: SERIF }}
+          className="mt-3 block truncate transition-opacity hover:opacity-85"
         >
-          <h3 className="truncate">{booking.name}</h3>
-        </Link>
-        <div
-          className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12.5px]"
-          style={{ color: TEXT_2 }}
-        >
-          <span className="inline-flex items-center gap-1.5">
-            <MapPin size={13} style={{ color: MUTED }} /> {booking.destination}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <CalendarDays size={13} style={{ color: MUTED }} />{" "}
-            {formatRange(booking.startDate, booking.endDate)}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Moon size={13} style={{ color: MUTED }} /> {booking.nights} nights
-          </span>
-        </div>
-        {booking.hotel && (
-          <p className="mt-1.5 text-[12px]" style={{ color: MUTED }}>
-            {booking.hotel}
-          </p>
-        )}
-        <p className="mt-1 text-[12px]" style={{ color: MUTED }}>
-          {booking.type === "me"
-            ? `${booking.delegates} delegates  •  ${booking.meetingSpaces} meeting spaces`
-            : `${booking.rooms} rooms  •  ${booking.guests} guests`}
-        </p>
-      </div>
-
-      {/* 3. booking id + status */}
-      <div className="min-w-0 md:border-l md:px-4" style={{ borderColor: BORDER }}>
-        <p className="text-[12.5px]" style={{ color: TEXT }}>
-          {booking.reference}
-        </p>
-        <p className="mt-1.5 text-[12.5px] font-medium" style={{ color: statusColor }}>
-          {meta.label}
-        </p>
-        {booking.hotelReference ? (
-          <>
-            <p className="mt-2.5 text-[11.5px]" style={{ color: MUTED }}>
-              Hotel reference
-            </p>
-            <p className="mt-0.5 text-[12px]" style={{ color: TEXT_2 }}>
-              {booking.hotelReference}
-            </p>
-          </>
-        ) : (
-          booking.statusNote && (
-            <p className="mt-2.5 text-[12px]" style={{ color: MUTED }}>
-              {booking.statusNote}
-            </p>
-          )
-        )}
-      </div>
-
-      {/* 4. action panel */}
-      <div
-        className="flex min-w-0 items-center gap-4 self-stretch rounded-[8px] p-3 md:my-0 md:ml-2 md:px-4"
-        style={{
-          border: `1px solid ${CARD_BORDER}`,
-          backgroundColor: ACTION_PANEL,
-        }}
-      >
-
-
-        {booking.rooming ? <ProgressRing value={progress} /> : <ActionIcon booking={booking} />}
-        <div className="min-w-0">
-          <p
-            className="text-[13px] font-medium"
-            style={{ color: booking.action.kind === "review_offers" ? GOLD : TEXT }}
+          <h3
+            className="truncate text-[34px] leading-[1.1] sm:text-[42px]"
+            style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
           >
-            {booking.action.title}
-          </p>
-          {booking.rooming ? (
+            {booking.name}
+          </h3>
+        </Link>
+
+        <div className="mt-4 h-px w-full" style={{ backgroundColor: "rgba(154,176,192,0.16)" }} />
+
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 py-3.5">
+          <MetaItem icon={<MapPin size={15} />}>{booking.destination}</MetaItem>
+          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
+          <MetaItem icon={<CalendarDays size={15} />}>
+            {formatRange(booking.startDate, booking.endDate)}
+          </MetaItem>
+          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
+          <MetaItem icon={<Moon size={15} />}>{booking.nights} nights</MetaItem>
+          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
+          {booking.type === "me" ? (
             <>
-              <p className="mt-1 text-[12px]" style={{ color: TEXT_2 }}>
-                {booking.rooming.complete} / {booking.rooming.total} guests complete
-              </p>
-              <p className="text-[12px]" style={{ color: MUTED }}>
-                Due {formatDay(booking.rooming.due)}
-              </p>
+              <MetaItem icon={<BedDouble size={15} />}>
+                {booking.meetingSpaces ?? 0} meeting spaces
+              </MetaItem>
+              <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
+              <MetaItem icon={<Users size={15} />}>{booking.delegates ?? 0} delegates</MetaItem>
             </>
           ) : (
-            booking.action.lines?.map((l) => (
-              <p key={l} className="text-[12px] leading-snug" style={{ color: TEXT_2 }}>
-                {l}
-              </p>
-            ))
+            <>
+              <MetaItem icon={<BedDouble size={15} />}>{booking.rooms ?? 0} rooms</MetaItem>
+              <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
+              <MetaItem icon={<Users size={15} />}>{booking.guests ?? 0} guests</MetaItem>
+            </>
           )}
-          <div className="mt-2.5">
-            {booking.action.kind === "rooming_list" || booking.action.kind === "review_offers" ? (
-              <GoldButton label={booking.action.buttonLabel} />
-            ) : (
-              <QuietButton label={booking.action.buttonLabel} />
-            )}
+        </div>
+
+        <div className="h-px w-full" style={{ backgroundColor: "rgba(154,176,192,0.16)" }} />
+
+        {/* reference panel */}
+        <div
+          className="mt-5 grid grid-cols-1 rounded-[12px] sm:grid-cols-2"
+          style={{
+            backgroundColor: "rgba(255,255,255,0.025)",
+            border: "1px solid rgba(154,176,192,0.14)",
+          }}
+        >
+          <div className="px-5 py-4">
+            <p
+              className="text-[11.5px] font-medium uppercase tracking-[0.16em]"
+              style={{ color: GOLD }}
+            >
+              Your reference
+            </p>
+            <p className="mt-1.5 text-[19px]" style={{ color: TEXT }}>
+              {booking.reference}
+            </p>
+          </div>
+          <div
+            className="px-5 py-4 sm:border-l"
+            style={{ borderColor: "rgba(154,176,192,0.16)" }}
+          >
+            <p
+              className="text-[11.5px] font-medium uppercase tracking-[0.16em]"
+              style={{ color: GOLD }}
+            >
+              Hotel reference
+            </p>
+            <p className="mt-1.5 text-[19px]" style={{ color: booking.hotelReference ? TEXT : MUTED }}>
+              {booking.hotelReference ?? "Pending"}
+            </p>
           </div>
         </div>
-      </div>
 
-      <button
-        type="button"
-        aria-label={`More actions for ${booking.name}`}
-        className="hidden h-9 w-9 place-items-center rounded-md transition-colors hover:bg-white/5 md:grid md:mr-1"
-        style={{ color: MUTED }}
-      >
-        <MoreVertical size={18} />
-      </button>
+        {/* progress tracker */}
+        <div className="relative mt-7 grid grid-cols-4 gap-2">
+          <div
+            className="absolute left-[12.5%] right-[12.5%] top-[26px] h-px"
+            style={{ backgroundColor: "rgba(154,176,192,0.22)" }}
+            aria-hidden
+          />
+          <div
+            className="absolute left-[12.5%] top-[26px] h-px"
+            style={{
+              width: `${(active / 3) * 75}%`,
+              backgroundColor: GOLD_DEEP,
+            }}
+            aria-hidden
+          />
+          {TRACK_STEPS.map((s, i) => {
+            const done = i <= active;
+            const current = i === active;
+            return (
+              <div key={s.key} className="relative flex flex-col items-center gap-2.5">
+                <span
+                  className="grid h-[52px] w-[52px] place-items-center rounded-full"
+                  style={{
+                    backgroundColor: current ? "rgba(199,163,74,0.10)" : "#1D2C37",
+                    border: `1px solid ${done ? GOLD_DEEP : "rgba(154,176,192,0.28)"}`,
+                    color: done ? GOLD : TEXT_2,
+                    boxShadow: current ? "0 0 22px -6px rgba(199,163,74,0.55)" : "none",
+                  }}
+                >
+                  <s.icon size={20} />
+                </span>
+                <span
+                  className="whitespace-pre-line text-center text-[12.5px] leading-tight"
+                  style={{ color: current ? GOLD : TEXT_2 }}
+                >
+                  {s.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        <div
+          className="mt-7 h-px w-full"
+          style={{ backgroundColor: "rgba(154,176,192,0.16)" }}
+        />
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+          <p className="min-w-0 max-w-[420px] text-[13.5px]" style={{ color: TEXT_2 }}>
+            {message}
+          </p>
+          <Link
+            to="/bookings/$bookingId"
+            params={{ bookingId: booking.id }}
+            className="inline-flex items-center gap-3 rounded-[10px] px-6 py-3 text-[15px] transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+            style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
+          >
+            View booking <span aria-hidden>→</span>
+          </Link>
+        </div>
+      </div>
     </article>
   );
 }
+
 
 /* ── sidebar ─────────────────────────────────────────── */
 
@@ -415,11 +491,13 @@ function AccountMenu({
   displayName,
   email,
   onSignOut,
+  compact,
 }: {
   initials: string;
   displayName: string;
   email: string;
   onSignOut: () => void;
+  compact?: boolean;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -430,26 +508,44 @@ function AccountMenu({
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
+        aria-label="Account menu"
         className="flex items-center gap-2"
       >
         <span
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
-          style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
+          className={
+            compact
+              ? "grid h-11 w-11 shrink-0 place-items-center rounded-full text-[14px] font-medium"
+              : "grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
+          }
+          style={
+            compact
+              ? {
+                  backgroundColor: "rgba(12,30,42,0.45)",
+                  border: `1px solid ${GOLD_DEEP}`,
+                  color: GOLD,
+                }
+              : { backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }
+          }
         >
           {initials || "—"}
         </span>
-        <span className="hidden min-w-0 text-left sm:block">
-          <span className="block truncate text-[13px]" style={{ color: TEXT }}>
-            {displayName}
-          </span>
-          {email && displayName !== email && (
-            <span className="block truncate text-[11px]" style={{ color: MUTED }}>
-              {email}
+        {!compact && (
+          <>
+            <span className="hidden min-w-0 text-left sm:block">
+              <span className="block truncate text-[13px]" style={{ color: TEXT }}>
+                {displayName}
+              </span>
+              {email && displayName !== email && (
+                <span className="block truncate text-[11px]" style={{ color: MUTED }}>
+                  {email}
+                </span>
+              )}
             </span>
-          )}
-        </span>
-        <ChevronDown size={15} style={{ color: MUTED }} />
+            <ChevronDown size={15} style={{ color: MUTED }} />
+          </>
+        )}
       </button>
+
 
       {open && (
         <>
@@ -729,7 +825,7 @@ function ManageBookings() {
       <div className="lg:pl-[244px]">
         {/* top bar */}
         <header
-          className="sticky top-0 z-30 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:px-8"
+          className="sticky top-0 z-30 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:hidden"
           style={{ backgroundColor: TOPBAR, borderBottom: `1px solid ${BORDER}` }}
         >
           <div className="flex min-w-0 items-center gap-3">
@@ -785,31 +881,131 @@ function ManageBookings() {
         </header>
 
         <main
-          className="min-h-[calc(100vh-64px)] px-4 py-6 sm:px-6 lg:px-8"
+          className="relative min-h-[calc(100vh-64px)] overflow-hidden px-4 pb-6 pt-8 sm:px-6 lg:px-10 lg:pt-10"
           style={{ backgroundColor: BG_ALT }}
         >
-          {/* heading + stats */}
-          <section className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,330px)_minmax(0,1fr)] xl:items-center">
-            <div className="min-w-0">
-              <h1 className="text-[40px] leading-[1.05]" style={{ color: TEXT, fontFamily: SERIF }}>
-                My Bookings
-              </h1>
-              <p className="mt-2.5 text-[13.5px]" style={{ color: MUTED }}>
-                All your group stays and events in one place.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-              <StatCard value={String(bookings.length)} label="Total Bookings" icon={<CalendarDays size={16} />} tone="#B9A06B" />
-              <StatCard value={String(needsAttention.length)} label="Needs Attention" icon={<Bell size={16} />} tone={GOLD} />
-              <StatCard value={String(offersReady.length)} label="Offers Ready" icon={<Gift size={16} />} tone="#8FA98A" />
-              <StatCard value={String(upcoming.length)} label="Upcoming Stays" icon={<CalendarCheck size={16} />} tone="#8FA7BC" />
+          {/* atmospheric mountain backdrop — fades into the page */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[560px]" aria-hidden>
+            <img
+              src={mountains}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ filter: "saturate(0.8) brightness(0.7)" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background: `linear-gradient(180deg, rgba(30,44,54,0.55) 0%, rgba(30,44,54,0.72) 42%, rgba(34,48,58,0.94) 78%, ${BG_ALT} 100%)`,
+              }}
+            />
+          </div>
+
+          {/* heading + top-right actions */}
+          <section className="relative">
+            <div className="flex flex-wrap items-start justify-between gap-6">
+              <div className="min-w-0">
+                <h1
+                  className="text-[42px] leading-[1.05] sm:text-[52px]"
+                  style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
+                >
+                  My Bookings
+                </h1>
+                <p className="mt-3 text-[18px]" style={{ color: TEXT_2 }}>
+                  All your group stays and events in one place.
+                </p>
+              </div>
+
+              <div className="hidden shrink-0 items-center gap-5 lg:flex">
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2.5 rounded-[11px] px-5 py-3 text-[15px]"
+                  style={{
+                    backgroundColor: "rgba(12,30,42,0.45)",
+                    border: `1px solid ${GOLD_DEEP}`,
+                    color: GOLD,
+                  }}
+                >
+                  <Plus size={17} />
+                  New Booking
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Notifications"
+                  className="relative grid h-10 w-10 place-items-center rounded-md"
+                  style={{ color: "#EADFC6" }}
+                >
+                  <Bell size={20} />
+                  <span
+                    className="absolute -right-1 -top-1 grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[10.5px] font-semibold"
+                    style={{ backgroundColor: GOLD, color: "#1B2A33" }}
+                  >
+                    2
+                  </span>
+                </button>
+
+                <AccountMenu
+                  initials={initials}
+                  displayName={displayName}
+                  email={session?.user.email ?? ""}
+                  onSignOut={() => void signOut()}
+                  compact
+                />
+              </div>
             </div>
 
+            {/* open statistics — no container */}
+            <div className="mt-12 grid grid-cols-2 gap-y-8 sm:grid-cols-4">
+              {[
+                { value: bookings.length, label: "Total Bookings" },
+                { value: needsAttention.length, label: "Needs Attention" },
+                { value: offersReady.length, label: "Offers Ready" },
+                { value: upcoming.length, label: "Upcoming Stays" },
+              ].map((s, i) => (
+                <div
+                  key={s.label}
+                  className="min-w-0 px-2 text-center sm:px-6"
+                  style={
+                    i === 0
+                      ? undefined
+                      : {
+                          borderLeft: "1px solid rgba(199,163,74,0.30)",
+                        }
+                  }
+                >
+                  <p
+                    className="text-[38px] leading-none"
+                    style={{
+                      color: TEXT,
+                      fontFamily: SERIF,
+                      fontWeight: 400,
+                      fontVariantNumeric: "lining-nums",
+                    }}
+                  >
+                    {s.value}
+                  </p>
+                  <p className="mt-3 text-[14px]" style={{ color: TEXT_2 }}>
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* long gold divider */}
+            <div
+              className="mt-10 h-px w-full"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(199,163,74,0) 0%, rgba(199,163,74,0.45) 8%, rgba(199,163,74,0.45) 92%, rgba(199,163,74,0) 100%)",
+              }}
+              aria-hidden
+            />
           </section>
+
 
           {!isProfileComplete(profile) && (
             <section
-              className="mt-5 flex flex-col gap-3 rounded-xl px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+              className="relative mt-6 flex flex-col gap-3 rounded-xl px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
               style={{
                 backgroundColor: CARD,
                 border: `1px solid ${GOLD_DEEP}`,
@@ -839,20 +1035,24 @@ function ManageBookings() {
 
 
           {/* controls */}
-          <section className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1.4fr)_minmax(0,0.7fr)_minmax(0,0.7fr)_auto]">
+          <section className="relative mt-8 grid grid-cols-1 gap-3.5 md:grid-cols-[minmax(0,1.55fr)_minmax(0,0.78fr)_minmax(0,0.78fr)_auto]">
             <div className="relative">
               <Search
-                size={16}
+                size={18}
                 className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
-                style={{ color: MUTED }}
+                style={{ color: GOLD }}
               />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search bookings..."
                 aria-label="Search bookings by name, ID, destination or hotel"
-                className="w-full rounded-[8px] py-[9px] pl-11 pr-4 text-[13.5px] outline-none placeholder:text-[#98A3AA]"
-                style={{ backgroundColor: CARD, border: `1px solid ${BORDER}`, color: TEXT }}
+                className="w-full rounded-[13px] py-[14px] pl-12 pr-4 text-[15px] outline-none placeholder:text-[#8C9AA5]"
+                style={{
+                  backgroundColor: "rgba(18,32,42,0.55)",
+                  border: "1px solid rgba(126,152,174,0.20)",
+                  color: TEXT,
+                }}
               />
             </div>
             <Select label="Status filter" value={status} onChange={setStatus} options={statusOptions} />
@@ -867,7 +1067,7 @@ function ManageBookings() {
                 { value: "past", label: "Past stays" },
               ]}
             />
-            <div className="flex items-center gap-2 justify-self-start md:justify-self-end">
+            <div className="flex items-center gap-2.5 justify-self-start md:justify-self-end">
               {(
                 [
                   { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
@@ -882,24 +1082,28 @@ function ManageBookings() {
                     aria-label={label}
                     aria-pressed={on}
                     onClick={() => setView(key)}
-                    className="grid h-[38px] w-[42px] place-items-center rounded-[8px]"
+                    className="grid h-[50px] w-[56px] place-items-center rounded-[13px] transition-colors"
                     style={{
-                      backgroundColor: on ? "rgba(199,163,74,0.10)" : CARD,
-                      border: `1px solid ${on ? "rgba(199,163,74,0.55)" : BORDER}`,
-                      color: on ? GOLD : MUTED,
+                      background: on
+                        ? "linear-gradient(180deg, rgba(120,90,30,0.30) 0%, rgba(150,113,36,0.22) 100%)"
+                        : "rgba(18,32,42,0.55)",
+                      border: `1px solid ${on ? "rgba(199,163,74,0.55)" : "rgba(126,152,174,0.20)"}`,
+                      color: on ? GOLD_SOFT : "#A9B6C0",
+                      boxShadow: on ? "0 10px 26px -14px rgba(199,163,74,0.75)" : "none",
                     }}
                   >
-                    <Icon size={18} />
+                    <Icon size={20} />
                   </button>
                 );
               })}
             </div>
           </section>
 
+
           {/* needs your attention */}
           {needsAttention.length > 0 && (
             <section
-              className="mt-5 rounded-[10px] p-4 sm:px-5 sm:py-4"
+              className="relative mt-8 rounded-[10px] p-4 sm:px-5 sm:py-4"
               style={{
                 backgroundColor: ATTENTION,
                 border: `1px solid ${CARD_BORDER}`,
@@ -976,8 +1180,8 @@ function ManageBookings() {
           <section
             className={
               view === "list"
-                ? "mt-4 space-y-3"
-                : "mt-4 grid grid-cols-1 gap-3 xl:grid-cols-2"
+                ? "relative mt-6 space-y-5"
+                : "relative mt-6 grid grid-cols-1 gap-5 xl:grid-cols-2"
             }
           >
             {results.map((b) => (
@@ -995,7 +1199,7 @@ function ManageBookings() {
           </section>
 
           {/* footer */}
-          <footer className="mt-5 grid grid-cols-1 items-center gap-3 pb-4 sm:grid-cols-2">
+          <footer className="relative mt-5 grid grid-cols-1 items-center gap-3 pb-4 sm:grid-cols-2">
             <p className="text-[12.5px]" style={{ color: MUTED }}>
               Can&rsquo;t find a booking?{" "}
               <button type="button" className="inline-flex items-center gap-1.5" style={{ color: GOLD }}>
