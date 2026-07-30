@@ -1,4 +1,4 @@
-import { useNavigate } from "@tanstack/react-router";
+
 import { supabase } from "@/integrations/supabase/client";
 import { upsertProfile } from "@/lib/auth";
 import { createBooking, nightsBetween, type NewBookingInput } from "@/lib/bookingsApi";
