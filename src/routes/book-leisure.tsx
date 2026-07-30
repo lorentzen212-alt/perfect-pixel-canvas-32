@@ -2479,7 +2479,7 @@ function LeisureStep1Screen({
         color: "#F5F1E6",
       }}
     >
-      <BookingHeader currentStep={1} onStepGo={onStepGo} hideCurrentFlow="leisure" />
+      <BookingHeader background="transparent" currentStep={1} onStepGo={onStepGo} hideCurrentFlow="leisure" />
 
       {/* Title */}
       <div className="mx-auto max-w-[1600px] px-6 pt-6 text-center lg:px-10 lg:pt-10">
