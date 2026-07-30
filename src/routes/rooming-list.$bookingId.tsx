@@ -1551,6 +1551,10 @@ function AllocationRow({
   void hasRoomTypeChange(allocation);
 
 
+  const cancelled = isCancelled(allocation);
+  /* a cancelled allocation is inactive — no new edits are allowed on it */
+  const readOnly = locked || cancelled;
+
   const upgradeEligible = canUpgrade(allocation);
   const withdrawable =
     !!allocation.upgradeRequest &&
@@ -1558,12 +1562,19 @@ function AllocationRow({
     (allocation.upgradeRequest.status === "requested" ||
       allocation.upgradeRequest.status === "price_offered");
   const selectable =
-    !!upgradeMode && !locked && ((upgradeEligible && !allocation.upgradeRequest) || withdrawable);
+    !!upgradeMode && !readOnly && ((upgradeEligible && !allocation.upgradeRequest) || withdrawable);
 
 
-  const statusColor = status === "complete" ? R_GREEN : status === "attention" ? R_AMBER : RT_3;
-  const statusLabel =
-    status === "complete"
+  const statusColor = cancelled
+    ? CANCEL_TEXT
+    : status === "complete"
+      ? R_GREEN
+      : status === "attention"
+        ? R_AMBER
+        : RT_3;
+  const statusLabel = cancelled
+    ? "Cancelled"
+    : status === "complete"
       ? "Complete"
       : named.length === 0
         ? cap > 1
@@ -1581,21 +1592,26 @@ function AllocationRow({
       data-selected={selected ? "true" : "false"}
       className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:24%_36%_22%_14%_4%]"
       style={{
-        backgroundColor: "#173A5A",
-        backgroundImage: selected
-          ? `linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY}`
-          : CARD_NAVY,
-        border: selected
-          ? "1.5px solid rgba(231,185,79,0.62)"
-          : isActive
-            ? "1.5px solid #E7B94F"
-            : "1px solid rgba(255,255,255,0.07)",
+        backgroundColor: cancelled ? "#1E3348" : "#173A5A",
+        backgroundImage: cancelled
+          ? `linear-gradient(0deg, rgba(184,101,101,0.10), rgba(184,101,101,0.10)), ${CARD_NAVY}`
+          : selected
+            ? `linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY}`
+            : CARD_NAVY,
+        border: cancelled
+          ? "1px solid rgba(184,101,101,0.30)"
+          : selected || rowSelected
+            ? "1.5px solid rgba(231,185,79,0.62)"
+            : isActive
+              ? "1.5px solid #E7B94F"
+              : "1px solid rgba(255,255,255,0.07)",
         boxShadow: isActive
           ? "0 10px 26px rgba(10,26,46,0.26)"
           : "0 6px 18px rgba(10,26,46,0.18)",
-        opacity: upgradeMode && !selectable && !selected ? 0.78 : 1,
+        opacity: cancelled ? 0.88 : upgradeMode && !selectable && !selected ? 0.78 : 1,
       }}
     >
+
       {/* metallic gold left edge */}
       <span
         aria-hidden
