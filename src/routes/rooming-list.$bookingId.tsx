@@ -1088,9 +1088,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 )}
               </div>
 
-            {/* sticky action bar */}
+            {/* action bar — natural document flow, sits under the final room card */}
             <div
-              className="sticky bottom-3 z-20 mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-[12px] px-4 py-2.5"
+              className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-[12px] px-4 py-2.5"
               style={{ backgroundColor: "rgba(29,69,108,0.94)", border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW, backdropFilter: "blur(8px)" }}
             >
                 <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
