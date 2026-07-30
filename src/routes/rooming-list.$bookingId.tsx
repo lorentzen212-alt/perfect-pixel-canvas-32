@@ -1682,14 +1682,14 @@ function AllocationRow({
             <button
               ref={typeBtnRef}
               type="button"
-              disabled={locked}
+              disabled={readOnly}
               onClick={() => setTypeOpen((v) => !v)}
               className="flex w-full items-center gap-2 text-[13.5px]"
               style={{ color: RT }}
             >
               <Bed size={15} className="shrink-0" style={{ color: "rgba(230,196,122,0.9)" }} />
               <span className="min-w-0 flex-1 truncate text-left">{labelOf(allocation.type)}</span>
-              {!locked && <ChevronDown size={14} className="shrink-0" style={{ color: RT_3 }} />}
+              {!readOnly && <ChevronDown size={14} className="shrink-0" style={{ color: RT_3 }} />}
             </button>
             <div className="mt-2 flex">
               <span
@@ -1734,7 +1734,7 @@ function AllocationRow({
           <SavedGuestRow
             key={g.id}
             guest={guestDraft && guestDraft.id === g.id ? guestDraft : g}
-            locked={locked}
+            locked={readOnly}
             isSelected={openGuestId === g.id}
             showRequirementDetail={showRequirementDetail}
             onOpen={() => onOpenGuest(g.id)}
@@ -1745,7 +1745,7 @@ function AllocationRow({
         ))}
 
 
-        {!locked &&
+        {!readOnly &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) =>
             i === 0 && pending ? (
               pending.editing ? (
