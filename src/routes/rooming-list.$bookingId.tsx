@@ -1458,6 +1458,7 @@ function AllocationRow({
         boxShadow: isActive
           ? "0 10px 26px rgba(10,26,46,0.26)"
           : "0 6px 18px rgba(10,26,46,0.18)",
+        opacity: upgradeMode && !selectable && !selected ? 0.78 : 1,
       }}
     >
       {/* metallic gold left edge */}
