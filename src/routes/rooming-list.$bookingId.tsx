@@ -1402,6 +1402,9 @@ function AllocationRow({
   locked: boolean;
   active?: boolean;
   openGuestId?: string | null;
+  /** live shared draft for the currently selected guest (single source of truth) */
+  guestDraft?: Guest | null;
+  onGuestDraftName?: (guestId: string, name: string) => void;
   autoFocus?: boolean;
   onAutoFocused?: () => void;
   upgradeMode?: boolean;
