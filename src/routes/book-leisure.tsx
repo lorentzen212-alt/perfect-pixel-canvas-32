@@ -3927,7 +3927,7 @@ function S2StayCard({
     );
 
     const field = (
-      <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
+      <div className={`flex min-w-0 flex-col gap-[4px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
           style={{ color: "rgba(230,236,244,0.62)" }}
@@ -3965,7 +3965,7 @@ function S2StayCard({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-label={`${label} date`}
-        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-[9px] text-left transition-colors duration-200 disabled:cursor-default"
+        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-[5px] text-left transition-colors duration-200 disabled:cursor-default"
         style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
       >
         {field}
@@ -4011,7 +4011,7 @@ function S2StayCard({
 
   const dateTimeline = (
     <div
-      className="grid items-center px-[28px] py-[2px]"
+      className="grid items-center px-[28px] py-0"
       style={{
         width: compact ? "100%" : "92%",
         marginLeft: "auto",
@@ -4272,7 +4272,7 @@ function S2RoomCard({
       data-active={active ? "true" : "false"}
       style={{
         borderRadius: 20,
-        padding: 11,
+        padding: 10,
         backgroundColor: active ? "rgba(62,88,109,0.97)" : "rgba(52,74,92,0.95)",
         backgroundImage: active
           ? "linear-gradient(180deg, rgba(255,255,255,0.115) 0%, rgba(255,255,255,0.035) 44%, rgba(0,0,0,0.09) 100%)"
@@ -4303,10 +4303,10 @@ function S2RoomCard({
 
       {/* image */}
       <div
-        className="relative mt-2.5 overflow-hidden"
+        className="relative mt-2 overflow-hidden"
         style={{
           borderRadius: 13,
-          aspectRatio: "16 / 9.7",
+          aspectRatio: "16 / 10.6",
           boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06), 0 10px 22px -18px rgba(0,0,0,0.7)",
         }}
       >
@@ -4326,16 +4326,16 @@ function S2RoomCard({
 
       {/* counter */}
       <div
-        className="mt-2.5 pt-2.5"
+        className="mt-2 pt-2"
         style={{ borderTop: "1px solid rgba(214,226,236,0.08)" }}
       >
         <S2Counter value={value} onChange={onChange} label={meta.title} />
       </div>
 
 
-      <div className="mt-2" style={{ height: 1, background: "rgba(214,226,236,0.12)" }} />
+      <div className="mt-1.5" style={{ height: 1, background: "rgba(214,226,236,0.12)" }} />
       {categoryOptions ? (
-        <div className="relative z-10 mt-1.5" style={{ opacity: active ? 1 : 0.45 }}>
+        <div className="relative z-10 mt-1" style={{ opacity: active ? 1 : 0.45 }}>
           <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
             Category
           </div>
@@ -4348,7 +4348,7 @@ function S2RoomCard({
           />
         </div>
       ) : (
-        <div className="relative z-10 mt-1.5" style={{ opacity: active ? 1 : 0.45 }}>
+        <div className="relative z-10 mt-1" style={{ opacity: active ? 1 : 0.45 }}>
           <div className="text-[11px]" style={{ color: "rgba(232,238,244,0.5)" }}>
             Room category
           </div>
@@ -4723,13 +4723,13 @@ function AccommodationSummary({
 
 
 
-      <div className="mt-4 space-y-3">
+      <div className="mt-3 space-y-2.5">
         <S2SumRow icon={<BedDouble size={17} strokeWidth={1.9} />} label="Total rooms" value={totalRooms} />
         <S2SumRow icon={<Users size={20} strokeWidth={1.9} />} label="Total guests" value={totalGuests} />
         <S2SumRow icon={<CalendarDays size={17} strokeWidth={1.9} />} label="Total stays" value={totalStays} />
       </div>
 
-      <div className="my-5 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
+      <div className="my-4 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
 
       {stays.length === 0 && (
         <div className="text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.5)" }}>
@@ -4825,7 +4825,7 @@ function AccommodationSummary({
         })}
       </div>
 
-      <div className="my-7 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
+      <div className="my-5 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
 
       <div
         className="text-[11.5px] font-semibold uppercase tracking-[0.22em]"
@@ -4833,7 +4833,7 @@ function AccommodationSummary({
       >
         What happens next?
       </div>
-      <ul className="mt-5 space-y-3.5">
+      <ul className="mt-3.5 space-y-2.5">
         {[
           "Your request is reviewed by our group specialists",
           "Matching hotels prepare tailored offers",
@@ -4862,7 +4862,7 @@ function AccommodationSummary({
         type="button"
         onClick={onContinue}
         disabled={!nextEnabled}
-        className="s2-btn mt-7 flex w-full items-center justify-center gap-3 py-4 text-[15.5px] font-semibold hover:-translate-y-[2px]"
+        className="s2-btn mt-5 flex w-full items-center justify-center gap-3 py-3.5 text-[15.5px] font-semibold hover:-translate-y-[2px]"
         style={{
           borderRadius: 16,
           background: `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`,
