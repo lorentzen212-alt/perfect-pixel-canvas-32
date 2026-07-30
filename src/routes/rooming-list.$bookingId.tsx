@@ -1455,13 +1455,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               onClose={() => setConfirmCancel(null)}
             >
               <p className="text-[12.5px]" style={{ color: MUTED }}>
-                This allocation will stay visible in the rooming list for reference, but it will no longer count
-                toward your total rooms or room type totals. Allocation numbers are never renumbered.
+                This room will be removed from your active room allocation and moved to Cancelled Allocations. It
+                will no longer count toward your room totals. Nothing is deleted — allocation numbers are never
+                renumbered and it can be restored at any time.
               </p>
               {moving.length > 0 && (
                 <div className="mt-3 space-y-1.5">
                   <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
-                    {moving.length} guest{moving.length === 1 ? "" : "s"} will move to unassigned
+                    {moving.length} guest{moving.length === 1 ? "" : "s"} kept on the cancelled record
                   </p>
                   {moving.map((g) => (
                     <div
@@ -1474,6 +1475,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   ))}
                 </div>
               )}
+
               <div className="mt-4 flex items-center justify-end gap-2">
                 <button
                   type="button"
