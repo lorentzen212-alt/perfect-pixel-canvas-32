@@ -871,7 +871,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                                   fontWeight: 600,
                                   backgroundColor: "#FBF4E5",
                                   boxShadow: "inset 0 0 0 1px #D6AD55",
-                                  borderRadius: 9,
+                                  borderRadius: i === 0 ? "10px 0 0 10px" : 0,
                                   borderLeft: i === 0 ? undefined : "1px solid transparent",
                                 }
                               : {
