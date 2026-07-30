@@ -2709,11 +2709,11 @@ function StepSevenReview({
       }
 
       await upsertProfile(user.id, {
-        first_name: input.contact.firstName,
-        last_name: input.contact.lastName,
-        email: input.contact.email || user.email || "",
-        company_name: input.contact.company || null,
-        phone: input.contact.phone || null,
+        first_name: String(contactName).split(" ")[0] ?? "",
+        last_name: String(contactName).split(" ").slice(1).join(" "),
+        email: String(details.email ?? "") || user.email || "",
+        company_name: String(details.company ?? "") || null,
+        phone: String(details.phone ?? "") || null,
         country: loc.countryName ?? null,
       });
       await createBooking(user.id, input);
