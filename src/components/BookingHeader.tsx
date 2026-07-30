@@ -49,6 +49,13 @@ export function BookingHeader({
     profile?.email ||
     user?.email ||
     "My account";
+  const accountInitials =
+    accountLabel
+      .split(/[\s@.]+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((w) => w[0]?.toUpperCase() ?? "")
+      .join("") || "MA";
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -151,20 +158,22 @@ export function BookingHeader({
             })}
           </ol>
 
-          {/* Account state (global auth) */}
-          <div className="ml-auto hidden shrink-0 items-center sm:flex">
+          {/* Account state (global auth) — compact so it never crowds the stepper */}
+          <div className="ml-auto flex shrink-0 items-center">
             {isAuthenticated ? (
               <Link
                 to="/account"
-                className="max-w-[220px] truncate rounded-full px-3 py-1.5 text-[12.5px] transition-colors hover:bg-white/5"
-                style={{ color: IVORY, border: `1px solid ${GOLD}55` }}
+                title={accountLabel}
+                aria-label={`Account: ${accountLabel}`}
+                className="grid h-9 w-9 place-items-center rounded-full text-[11.5px] font-semibold tracking-[0.04em] transition-colors hover:bg-white/10"
+                style={{ color: GOLD_SOFT, border: `1px solid ${GOLD}66`, background: "rgba(255,255,255,0.04)" }}
               >
-                {accountLabel}
+                {accountInitials}
               </Link>
             ) : (
               <Link
                 to="/auth"
-                className="rounded-full px-3 py-1.5 text-[12.5px] transition-colors hover:bg-white/5"
+                className="hidden rounded-full px-3 py-1.5 text-[12px] transition-colors hover:bg-white/5 sm:inline-block"
                 style={{ color: GOLD_SOFT, border: `1px solid ${GOLD}55` }}
               >
                 Sign in
