@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   ChevronDown,
   Circle,
+  CircleSlash,
   Clock,
   Download,
   FileSpreadsheet,
@@ -57,6 +58,7 @@ import {
   hasRoomTypeChange,
   invalidForCategory,
   isAllergy,
+  isCancelled,
   isNamed,
   labelOf,
   loadRoomingList,
@@ -134,6 +136,11 @@ const RT_3 = "#B8BDC2"; // micro — muted neutral grey
 const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B94F";
+/* cancelled allocation palette — muted, never a bright warning red */
+const CANCEL_ACCENT = "#B86565";
+const CANCEL_TEXT = "#D68A8A";
+const CANCEL_EDGE =
+  "linear-gradient(180deg, #8F4A4A 0%, #B86565 32%, #D68A8A 58%, #A85B5B 100%)";
 
 /* premium room-card sub-surfaces — slightly lighter slate blue */
 
@@ -261,7 +268,7 @@ function RoomingListRoute() {
   return <RoomingWorkspace booking={booking} />;
 }
 
-type ViewFilter = "all" | "missing" | "complete" | "dietary" | "requests" | "upgrades";
+type ViewFilter = "all" | "missing" | "complete" | "dietary" | "requests" | "upgrades" | "cancelled";
 type UpgradeFilter = "all" | UpgradeStatus;
 
 function RoomingWorkspace({ booking }: { booking: Booking }) {
@@ -297,6 +304,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [manageMode, setManageMode] = useState(false);
   const [manageSelected, setManageSelected] = useState<string[]>([]);
   const [confirmRemove, setConfirmRemove] = useState<string[] | null>(null);
+  /* ── cancel / restore allocation ── */
+  const [selectedRow, setSelectedRow] = useState<string | null>(null);
+  const [confirmCancel, setConfirmCancel] = useState<string | null>(null);
 
   const firstRender = useRef(true);
 
@@ -337,14 +347,23 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     if (!list) return [];
     const q = query.trim().toLowerCase();
     return list.allocations.filter((a) => {
+      const cancelled = isCancelled(a);
+      /* cancelled rows are only ever shown in "All" (unless hidden) or their own view */
+      if (view === "cancelled") {
+        if (!cancelled) return false;
+      } else if (cancelled) {
+        if (view !== "all") return false;
+      }
       const status = allocationStatus(a);
-      if (view === "complete" && status !== "complete") return false;
-      if (view === "missing" && status === "complete") return false;
-      if (view === "dietary" && !allocationHasRequirements(a)) return false;
-      if (view === "requests" && a.requests.length === 0 && !a.upgradeRequest) return false;
-      if (view === "upgrades") {
-        if (!a.upgradeRequest) return false;
-        if (upgradeFilter !== "all" && a.upgradeRequest.status !== upgradeFilter) return false;
+      if (!cancelled) {
+        if (view === "complete" && status !== "complete") return false;
+        if (view === "missing" && status === "complete") return false;
+        if (view === "dietary" && !allocationHasRequirements(a)) return false;
+        if (view === "requests" && a.requests.length === 0 && !a.upgradeRequest) return false;
+        if (view === "upgrades") {
+          if (!a.upgradeRequest) return false;
+          if (upgradeFilter !== "all" && a.upgradeRequest.status !== upgradeFilter) return false;
+        }
       }
       if (q) {
         const hay = [
@@ -352,6 +371,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
           labelOf(a.type),
           String(a.index).padStart(2, "0"),
           ...a.requests,
+          cancelled ? "cancelled" : "",
           a.upgradeRequest ? categoryLabel(a.upgradeRequest.category) : "",
         ]
           .join(" ")
@@ -372,9 +392,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     [list, selected],
   );
   const upgradeRequests = useMemo(
-    () => (list ? list.allocations.filter((a) => a.upgradeRequest) : []),
+    () => (list ? list.allocations.filter((a) => a.upgradeRequest && !isCancelled(a)) : []),
     [list],
   );
+
 
   const isWithdrawable = (a: Allocation) =>
     !!a.upgradeRequest &&
@@ -400,7 +421,41 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     [update],
   );
 
+  /** Cancellation never deletes the row — guests move back to the unassigned pool. */
+  const cancelAllocation = useCallback(
+    (id: string) => {
+      update((l) => {
+        const target = l.allocations.find((a) => a.id === id);
+        const freed = target ? target.guests.filter(isNamed) : [];
+        return {
+          ...l,
+          unassigned: [...l.unassigned, ...freed],
+          allocations: l.allocations.map((a) =>
+            a.id === id
+              ? { ...a, status: "cancelled" as const, guests: [], upgradeRequest: null }
+              : a,
+          ),
+        };
+      });
+      setSelected((s) => s.filter((x) => x !== id));
+      setManageSelected((s) => s.filter((x) => x !== id));
+      setConfirmCancel(null);
+    },
+    [update],
+  );
+
+  const restoreAllocation = useCallback(
+    (id: string) => {
+      update((l) => ({
+        ...l,
+        allocations: l.allocations.map((a) => (a.id === id ? { ...a, status: "active" as const } : a)),
+      }));
+    },
+    [update],
+  );
+
   const toggleSelected = useCallback(
+
 
     (id: string) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id])),
     [],
@@ -1097,6 +1152,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     selected={manageMode ? manageSelected.includes(a.id) : selected.includes(a.id)}
                     onToggleSelected={() => (manageMode ? toggleManageSelected(a.id) : toggleSelected(a.id))}
                     onRemoveUpgrade={() => setConfirmRemove([a.id])}
+                    rowSelected={selectedRow === a.id}
+                    onSelectRow={() => setSelectedRow((s) => (s === a.id ? null : a.id))}
+                    onCancelAllocation={() => setConfirmCancel(a.id)}
+                    onRestoreAllocation={() => restoreAllocation(a.id)}
                     showRequirementDetail={view === "dietary"}
                     onPatch={(fn) => patchAllocation(a.id, fn)}
                     onOpenGuest={(guestId) => {
@@ -1319,6 +1378,62 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         </Modal>
       )}
 
+      {confirmCancel &&
+        (() => {
+          const target = list?.allocations.find((a) => a.id === confirmCancel);
+          if (!target) return null;
+          const moving = target.guests.filter(isNamed);
+          return (
+            <Modal
+              title={`Cancel Allocation ${String(target.index).padStart(2, "0")}?`}
+              onClose={() => setConfirmCancel(null)}
+            >
+              <p className="text-[12.5px]" style={{ color: MUTED }}>
+                This allocation will stay visible in the rooming list for reference, but it will no longer count
+                toward your total rooms or room type totals. Allocation numbers are never renumbered.
+              </p>
+              {moving.length > 0 && (
+                <div className="mt-3 space-y-1.5">
+                  <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                    {moving.length} guest{moving.length === 1 ? "" : "s"} will move to unassigned
+                  </p>
+                  {moving.map((g) => (
+                    <div
+                      key={g.id}
+                      className="rounded-[8px] px-3 py-[7px] text-[12.5px]"
+                      style={{ backgroundColor: ROW, border: `1px solid ${BORDER}`, color: TEXT_2 }}
+                    >
+                      {guestName(g)}
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="mt-4 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setConfirmCancel(null)}
+                  className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                  style={{ color: MUTED }}
+                >
+                  Keep allocation
+                </button>
+                <button
+                  type="button"
+                  onClick={() => cancelAllocation(target.id)}
+                  className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors"
+                  style={{
+                    color: "#E2A2A2",
+                    backgroundColor: "rgba(184,101,101,0.12)",
+                    border: `1px solid ${CANCEL_ACCENT}55`,
+                  }}
+                >
+                  Cancel allocation
+                </button>
+              </div>
+            </Modal>
+          );
+        })()}
+
       {confirmWithdraw && (
         <Modal title="Withdraw upgrade requests" onClose={() => setConfirmWithdraw(false)}>
           <p className="text-[12.5px]" style={{ color: MUTED }}>
@@ -1416,6 +1531,10 @@ function AllocationRow({
   selected,
   onToggleSelected,
   onRemoveUpgrade,
+  rowSelected,
+  onSelectRow,
+  onCancelAllocation,
+  onRestoreAllocation,
   showRequirementDetail,
   onPatch,
   onOpenGuest,
@@ -1443,6 +1562,11 @@ function AllocationRow({
   selected?: boolean;
   onToggleSelected?: () => void;
   onRemoveUpgrade?: () => void;
+  /** whole-row selection (independent from upgrade selection) */
+  rowSelected?: boolean;
+  onSelectRow?: () => void;
+  onCancelAllocation?: () => void;
+  onRestoreAllocation?: () => void;
   showRequirementDetail?: boolean;
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
@@ -1486,6 +1610,10 @@ function AllocationRow({
   void hasRoomTypeChange(allocation);
 
 
+  const cancelled = isCancelled(allocation);
+  /* a cancelled allocation is inactive — no new edits are allowed on it */
+  const readOnly = locked || cancelled;
+
   const upgradeEligible = canUpgrade(allocation);
   const withdrawable =
     !!allocation.upgradeRequest &&
@@ -1493,12 +1621,19 @@ function AllocationRow({
     (allocation.upgradeRequest.status === "requested" ||
       allocation.upgradeRequest.status === "price_offered");
   const selectable =
-    !!upgradeMode && !locked && ((upgradeEligible && !allocation.upgradeRequest) || withdrawable);
+    !!upgradeMode && !readOnly && ((upgradeEligible && !allocation.upgradeRequest) || withdrawable);
 
 
-  const statusColor = status === "complete" ? R_GREEN : status === "attention" ? R_AMBER : RT_3;
-  const statusLabel =
-    status === "complete"
+  const statusColor = cancelled
+    ? CANCEL_TEXT
+    : status === "complete"
+      ? R_GREEN
+      : status === "attention"
+        ? R_AMBER
+        : RT_3;
+  const statusLabel = cancelled
+    ? "Cancelled"
+    : status === "complete"
       ? "Complete"
       : named.length === 0
         ? cap > 1
@@ -1516,26 +1651,34 @@ function AllocationRow({
       data-selected={selected ? "true" : "false"}
       className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:24%_36%_22%_14%_4%]"
       style={{
-        backgroundColor: "#173A5A",
-        backgroundImage: selected
-          ? `linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY}`
-          : CARD_NAVY,
-        border: selected
-          ? "1.5px solid rgba(231,185,79,0.62)"
-          : isActive
-            ? "1.5px solid #E7B94F"
-            : "1px solid rgba(255,255,255,0.07)",
+        backgroundColor: cancelled ? "#1E3348" : "#173A5A",
+        backgroundImage: cancelled
+          ? `linear-gradient(0deg, rgba(184,101,101,0.10), rgba(184,101,101,0.10)), ${CARD_NAVY}`
+          : selected
+            ? `linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY}`
+            : CARD_NAVY,
+        border: cancelled
+          ? "1px solid rgba(184,101,101,0.30)"
+          : selected || rowSelected
+            ? "1.5px solid rgba(231,185,79,0.62)"
+            : isActive
+              ? "1.5px solid #E7B94F"
+              : "1px solid rgba(255,255,255,0.07)",
         boxShadow: isActive
           ? "0 10px 26px rgba(10,26,46,0.26)"
           : "0 6px 18px rgba(10,26,46,0.18)",
-        opacity: upgradeMode && !selectable && !selected ? 0.78 : 1,
+        opacity: cancelled ? 0.88 : upgradeMode && !selectable && !selected ? 0.78 : 1,
       }}
     >
+
       {/* metallic gold left edge */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-y-0 left-0 w-[5px]"
-        style={{ backgroundImage: GOLD_EDGE, boxShadow: "1px 0 6px rgba(231,185,79,0.18)" }}
+        style={{
+          backgroundImage: cancelled ? CANCEL_EDGE : GOLD_EDGE,
+          boxShadow: cancelled ? "1px 0 6px rgba(184,101,101,0.20)" : "1px 0 6px rgba(231,185,79,0.18)",
+        }}
       />
 
       {/* ── ALLOCATION ── */}
@@ -1543,7 +1686,7 @@ function AllocationRow({
         {manageMode && allocation.upgradeRequest ? (
           <RoomSelectCircle
             checked={!!selected}
-            disabled={locked}
+            disabled={readOnly}
             onChange={() => onToggleSelected?.()}
             title="Select this upgrade request"
           />
@@ -1566,12 +1709,20 @@ function AllocationRow({
           )
         )}
 
-        <p
-          className="w-[50px] shrink-0 text-[44px] leading-none tracking-[-0.02em]"
-          style={{ ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }}
+        <button
+          type="button"
+          onClick={() => onSelectRow?.()}
+          title={rowSelected ? "Deselect allocation" : "Select allocation"}
+          className="w-[50px] shrink-0 text-left text-[44px] leading-none tracking-[-0.02em] outline-none"
+          style={
+            cancelled
+              ? { color: CANCEL_TEXT, fontFamily: SERIF, fontWeight: 500 }
+              : { ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }
+          }
         >
           {String(allocation.index).padStart(2, "0")}
-        </p>
+        </button>
+
 
         <div className="min-w-0 flex-1">
           <div
@@ -1585,14 +1736,14 @@ function AllocationRow({
             <button
               ref={typeBtnRef}
               type="button"
-              disabled={locked}
+              disabled={readOnly}
               onClick={() => setTypeOpen((v) => !v)}
               className="flex w-full items-center gap-2 text-[13.5px]"
               style={{ color: RT }}
             >
               <Bed size={15} className="shrink-0" style={{ color: "rgba(230,196,122,0.9)" }} />
               <span className="min-w-0 flex-1 truncate text-left">{labelOf(allocation.type)}</span>
-              {!locked && <ChevronDown size={14} className="shrink-0" style={{ color: RT_3 }} />}
+              {!readOnly && <ChevronDown size={14} className="shrink-0" style={{ color: RT_3 }} />}
             </button>
             <div className="mt-2 flex">
               <span
@@ -1637,7 +1788,7 @@ function AllocationRow({
           <SavedGuestRow
             key={g.id}
             guest={guestDraft && guestDraft.id === g.id ? guestDraft : g}
-            locked={locked}
+            locked={readOnly}
             isSelected={openGuestId === g.id}
             showRequirementDetail={showRequirementDetail}
             onOpen={() => onOpenGuest(g.id)}
@@ -1648,7 +1799,7 @@ function AllocationRow({
         ))}
 
 
-        {!locked &&
+        {!readOnly &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) =>
             i === 0 && pending ? (
               pending.editing ? (
@@ -1743,7 +1894,7 @@ function AllocationRow({
             {allocation.requests.map((r) => (
               <span key={r} className="group/req flex items-center gap-1.5 text-[12.5px]" style={{ color: RT_2 }}>
                 {r}
-                {!locked && (
+                {!readOnly && (
                   <button
                     type="button"
                     aria-label={`Remove ${r}`}
@@ -1765,7 +1916,7 @@ function AllocationRow({
             request={allocation.upgradeRequest}
             bookedCategory={allocation.bookedRoomCategory}
             roomLabel={`Room ${String(allocation.index).padStart(2, "0")}`}
-            locked={locked}
+            locked={readOnly}
             onWithdraw={() => onPatch((a) => ({ ...a, upgradeRequest: null }))}
             onRequestChange={() =>
               onPatch((a) =>
@@ -1798,7 +1949,7 @@ function AllocationRow({
           />
         )}
 
-        {!locked && (
+        {!readOnly && (
           <div className="mt-[6px] flex w-full flex-col items-start">
             {allocation.requests.length === 0 && (
               <button
@@ -1881,7 +2032,11 @@ function AllocationRow({
             color: statusColor,
           }}
         >
-          {status === "complete" ? <Check size={13} strokeWidth={2.4} /> : null}
+          {cancelled ? (
+            <CircleSlash size={13} strokeWidth={2.2} />
+          ) : status === "complete" ? (
+            <Check size={13} strokeWidth={2.4} />
+          ) : null}
         </span>
         <div className="min-w-0">
           <p
@@ -1891,7 +2046,9 @@ function AllocationRow({
             {statusLabel}
           </p>
           <p className="mt-[3px] truncate text-[11.5px]" style={{ color: RT_3 }}>
-            {named.length} of {cap} guest{cap > 1 ? "s" : ""} assigned
+            {cancelled
+              ? "Not counted in totals"
+              : `${named.length} of ${cap} guest${cap > 1 ? "s" : ""} assigned`}
           </p>
         </div>
       </div>
@@ -1910,18 +2067,32 @@ function AllocationRow({
           <MoreVertical size={15} />
         </button>
         <FloatingPopover anchorRef={menuBtnRef} open={menuOpen} onClose={() => setMenuOpen(false)} width={190} align="end">
-          {[
-            { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
-            { label: "Change room type", run: () => setTypeOpen(true) },
-            { label: "Add room request", run: () => setRequestOpen(true) },
-            ...(upgradeEligible && !allocation.upgradeRequest
-              ? [{ label: "Request room upgrade", run: () => setUpgradeOpen(true) }]
-              : []),
-            ...(allocation.upgradeRequest
-              ? [{ label: "Remove upgrade request", run: () => onRemoveUpgrade?.() }]
-              : []),
-            { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
-          ].map((item) => (
+          {(cancelled
+            ? [
+                {
+                  label: "Restore allocation",
+                  tone: "#8FC79A",
+                  run: () => onRestoreAllocation?.(),
+                },
+              ]
+            : [
+                {
+                  label: "View details",
+                  tone: undefined as string | undefined,
+                  run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id),
+                },
+                { label: "Change room type", tone: undefined, run: () => setTypeOpen(true) },
+                { label: "Add room request", tone: undefined, run: () => setRequestOpen(true) },
+                ...(upgradeEligible && !allocation.upgradeRequest
+                  ? [{ label: "Request room upgrade", tone: undefined, run: () => setUpgradeOpen(true) }]
+                  : []),
+                ...(allocation.upgradeRequest
+                  ? [{ label: "Remove upgrade request", tone: undefined, run: () => onRemoveUpgrade?.() }]
+                  : []),
+                { label: "Clear allocation", tone: undefined, run: () => onPatch((a) => ({ ...a, guests: [] })) },
+                { label: "Cancel allocation", tone: CANCEL_TEXT, run: () => onCancelAllocation?.() },
+              ]
+          ).map((item) => (
             <button
               key={item.label}
               type="button"
@@ -1931,7 +2102,7 @@ function AllocationRow({
                 setMenuOpen(false);
               }}
               className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)] disabled:opacity-40"
-              style={{ color: "#D9DDE0" }}
+              style={{ color: item.tone ?? "#D9DDE0" }}
             >
               {item.label}
             </button>
@@ -3905,6 +4076,7 @@ function SecondaryFilterMenu({ view, onChange }: { view: ViewFilter; onChange: (
     { value: "dietary", label: "Dietary & allergies" },
     { value: "requests", label: "Requests" },
     { value: "upgrades", label: "Upgrades" },
+    { value: "cancelled", label: "Cancelled allocations" },
   ];
   const active = extras.find((e) => e.value === view);
 

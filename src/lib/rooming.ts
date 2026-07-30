@@ -142,10 +142,14 @@ export interface Guest {
   specialRequests?: string;
 }
 
+export type AllocationStatus = "active" | "cancelled";
+
 export interface Allocation {
   id: string;
-  /** sequential list position — NOT a hotel room number */
+  /** sequential list position — NOT a hotel room number. Never renumbered. */
   index: number;
+  /** cancelled allocations stay visible for auditability but never count */
+  status?: AllocationStatus;
   /** current (working) room type */
   type: RoomType;
   /** the confirmed/booked room type — never changed by the user */
@@ -165,6 +169,16 @@ export function hasRoomTypeChange(a: Allocation) {
   return a.type !== a.bookedRoomType;
 }
 
+/** cancelled allocations stay in the list but never count as active rooms */
+export function isCancelled(a: Allocation) {
+  return a.status === "cancelled";
+}
+
+/** every allocation that still counts toward the booking */
+export function activeAllocations(list: RoomingList) {
+  return list.allocations.filter((a) => !isCancelled(a));
+}
+
 /** Valid upgrade categories for a single allocation (strictly higher only). */
 export function upgradeOptionsFor(a: Allocation): RoomCategory[] {
   const rank = categoryRank(a.bookedRoomCategory);
@@ -172,8 +186,9 @@ export function upgradeOptionsFor(a: Allocation): RoomCategory[] {
 }
 
 export function canUpgrade(a: Allocation) {
-  return upgradeOptionsFor(a).length > 0;
+  return !isCancelled(a) && upgradeOptionsFor(a).length > 0;
 }
+
 
 /** Categories valid for EVERY allocation in the selection. */
 export function commonUpgradeOptions(list: Allocation[]): RoomCategory[] {
@@ -277,6 +292,7 @@ export function generateAllocations(dist: Distribution): Allocation[] {
       out.push({
         id: uid(),
         index: i,
+        status: "active",
         type,
         bookedRoomType: type,
         bookedRoomCategory,
@@ -412,7 +428,9 @@ export function statsOf(list: RoomingList): RoomingStats {
   let filled = 0;
   let complete = 0;
   const typeCounts = new Map<RoomType, number>();
-  for (const a of list.allocations) {
+  /* cancelled allocations never count toward any total */
+  const active = activeAllocations(list);
+  for (const a of active) {
     const cap = capacityOf(a.type, a.occupancy);
     totalSlots += cap;
     filled += Math.min(cap, a.guests.filter(isNamed).length);
@@ -426,8 +444,9 @@ export function statsOf(list: RoomingList): RoomingStats {
     missing,
     percent: totalSlots ? Math.round((filled / totalSlots) * 100) : 0,
     completeAllocations: complete,
-    incompleteAllocations: list.allocations.length - complete,
-    totalAllocations: list.allocations.length,
+    incompleteAllocations: active.length - complete,
+    totalAllocations: active.length,
+
     byType: ROOM_TYPES.filter((t) => typeCounts.get(t.value)).map((t) => ({
       type: t.value,
       label: t.label,
@@ -453,6 +472,7 @@ export function loadRoomingList(bookingId: string, dist: Distribution): RoomingL
           /* migrate older drafts that predate the booked-category model */
           allocations: parsed.allocations.map((a) => ({
             ...a,
+            status: a.status ?? "active",
             bookedRoomType: a.bookedRoomType ?? a.type,
             bookedRoomCategory:
               a.bookedRoomCategory ??
@@ -508,7 +528,7 @@ export interface RoomingIssue {
 export function roomingIssues(list: RoomingList): RoomingIssue[] {
   const out: RoomingIssue[] = [];
 
-  for (const a of list.allocations) {
+  for (const a of activeAllocations(list)) {
     const cap = capacityOf(a.type, a.occupancy);
     const named = a.guests.filter(isNamed).length;
     const label = `${labelOf(a.type)} ${String(a.index).padStart(2, "0")}`;
