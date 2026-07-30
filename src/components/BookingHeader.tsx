@@ -33,6 +33,8 @@ interface BookingHeaderProps {
   hideCurrentFlow?: "leisure" | "me" | "manage";
   /** Slightly tighter vertical padding (used by compact step layouts). */
   compact?: boolean;
+  /** Override the header surface so it can blend into the page beneath it. */
+  background?: string;
 }
 
 export function BookingHeader({
@@ -40,7 +42,9 @@ export function BookingHeader({
   onStepGo,
   hideCurrentFlow = "leisure",
   compact = false,
+  background,
 }: BookingHeaderProps) {
+
   const [menuOpen, setMenuOpen] = useState(false);
   // One global session — the same provider Manage My Bookings reads from.
   const { isAuthenticated, user, profile, signOut } = useAuth();
@@ -95,7 +99,7 @@ export function BookingHeader({
 
   return (
     <>
-      <header className="w-full" style={{ backgroundColor: NAVY }}>
+      <header className="w-full" style={{ background: background ?? NAVY }}>
         <div
           className={`relative mx-auto flex max-w-[1600px] items-center px-6 lg:px-10 ${
             compact ? "py-[19px] lg:py-[22px]" : "py-6 lg:py-7"

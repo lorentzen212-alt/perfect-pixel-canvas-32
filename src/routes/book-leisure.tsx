@@ -2479,7 +2479,7 @@ function LeisureStep1Screen({
         color: "#F5F1E6",
       }}
     >
-      <BookingHeader currentStep={1} onStepGo={onStepGo} hideCurrentFlow="leisure" />
+      <BookingHeader background="transparent" currentStep={1} onStepGo={onStepGo} hideCurrentFlow="leisure" />
 
       {/* Title */}
       <div className="mx-auto max-w-[1600px] px-6 pt-6 text-center lg:px-10 lg:pt-10">
@@ -2607,13 +2607,13 @@ function LeisureStepShell({
         color: "#F5F1E6",
       }}
     >
-      <div style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}>
-        <BookingHeader
-          currentStep={activeStep}
-          onStepGo={(s) => onStepGo(s as StepKey)}
-          hideCurrentFlow="leisure"
-        />
-      </div>
+      <BookingHeader
+        background="transparent"
+        currentStep={activeStep}
+        onStepGo={(s) => onStepGo(s as StepKey)}
+        hideCurrentFlow="leisure"
+      />
+
 
       <div className={`mx-auto grid ${hideHero ? "max-w-[1240px] py-4 lg:py-5" : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
 
@@ -3234,14 +3234,14 @@ function LeisureStep2Screen({
         color: S2_TEXT,
       }}
     >
-      <div style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}>
-        <BookingHeader
-          compact
-          currentStep={2}
-          onStepGo={(s) => onStepGo(s as StepKey)}
-          hideCurrentFlow="leisure"
-        />
-      </div>
+      <BookingHeader
+        background="transparent"
+        compact
+        currentStep={2}
+        onStepGo={(s) => onStepGo(s as StepKey)}
+        hideCurrentFlow="leisure"
+      />
+
 
       <div
         className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(363px,1.298fr)_minmax(0,2.86fr)_300px]"
@@ -5545,13 +5545,13 @@ function LeisureStep3Screen({
         color: S3_TEXT,
       }}
     >
-      <div style={{ borderBottom: `1px solid ${S3_BORDER}` }}>
-        <BookingHeader
-          currentStep={3}
-          onStepGo={(s) => onStepGo(s as StepKey)}
-          hideCurrentFlow="leisure"
-        />
-      </div>
+      <BookingHeader
+        background="transparent"
+        currentStep={3}
+        onStepGo={(s) => onStepGo(s as StepKey)}
+        hideCurrentFlow="leisure"
+      />
+
 
       <div className="mx-auto w-full max-w-[1360px] px-6 pb-6 pt-8 sm:px-10 lg:px-14 lg:pt-10">
         {/* Header row */}
