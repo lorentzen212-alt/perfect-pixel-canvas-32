@@ -491,11 +491,13 @@ function AccountMenu({
   displayName,
   email,
   onSignOut,
+  compact,
 }: {
   initials: string;
   displayName: string;
   email: string;
   onSignOut: () => void;
+  compact?: boolean;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -506,26 +508,44 @@ function AccountMenu({
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
+        aria-label="Account menu"
         className="flex items-center gap-2"
       >
         <span
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
-          style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
+          className={
+            compact
+              ? "grid h-11 w-11 shrink-0 place-items-center rounded-full text-[14px] font-medium"
+              : "grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
+          }
+          style={
+            compact
+              ? {
+                  backgroundColor: "rgba(12,30,42,0.45)",
+                  border: `1px solid ${GOLD_DEEP}`,
+                  color: GOLD,
+                }
+              : { backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }
+          }
         >
           {initials || "—"}
         </span>
-        <span className="hidden min-w-0 text-left sm:block">
-          <span className="block truncate text-[13px]" style={{ color: TEXT }}>
-            {displayName}
-          </span>
-          {email && displayName !== email && (
-            <span className="block truncate text-[11px]" style={{ color: MUTED }}>
-              {email}
+        {!compact && (
+          <>
+            <span className="hidden min-w-0 text-left sm:block">
+              <span className="block truncate text-[13px]" style={{ color: TEXT }}>
+                {displayName}
+              </span>
+              {email && displayName !== email && (
+                <span className="block truncate text-[11px]" style={{ color: MUTED }}>
+                  {email}
+                </span>
+              )}
             </span>
-          )}
-        </span>
-        <ChevronDown size={15} style={{ color: MUTED }} />
+            <ChevronDown size={15} style={{ color: MUTED }} />
+          </>
+        )}
       </button>
+
 
       {open && (
         <>
@@ -1010,20 +1030,24 @@ function ManageBookings() {
 
 
           {/* controls */}
-          <section className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1.4fr)_minmax(0,0.7fr)_minmax(0,0.7fr)_auto]">
+          <section className="relative mt-8 grid grid-cols-1 gap-3.5 md:grid-cols-[minmax(0,1.55fr)_minmax(0,0.78fr)_minmax(0,0.78fr)_auto]">
             <div className="relative">
               <Search
-                size={16}
+                size={18}
                 className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
-                style={{ color: MUTED }}
+                style={{ color: GOLD }}
               />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search bookings..."
                 aria-label="Search bookings by name, ID, destination or hotel"
-                className="w-full rounded-[8px] py-[9px] pl-11 pr-4 text-[13.5px] outline-none placeholder:text-[#98A3AA]"
-                style={{ backgroundColor: CARD, border: `1px solid ${BORDER}`, color: TEXT }}
+                className="w-full rounded-[13px] py-[14px] pl-12 pr-4 text-[15px] outline-none placeholder:text-[#8C9AA5]"
+                style={{
+                  backgroundColor: "rgba(18,32,42,0.55)",
+                  border: "1px solid rgba(126,152,174,0.20)",
+                  color: TEXT,
+                }}
               />
             </div>
             <Select label="Status filter" value={status} onChange={setStatus} options={statusOptions} />
@@ -1038,7 +1062,7 @@ function ManageBookings() {
                 { value: "past", label: "Past stays" },
               ]}
             />
-            <div className="flex items-center gap-2 justify-self-start md:justify-self-end">
+            <div className="flex items-center gap-2.5 justify-self-start md:justify-self-end">
               {(
                 [
                   { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
@@ -1053,19 +1077,23 @@ function ManageBookings() {
                     aria-label={label}
                     aria-pressed={on}
                     onClick={() => setView(key)}
-                    className="grid h-[38px] w-[42px] place-items-center rounded-[8px]"
+                    className="grid h-[50px] w-[56px] place-items-center rounded-[13px] transition-colors"
                     style={{
-                      backgroundColor: on ? "rgba(199,163,74,0.10)" : CARD,
-                      border: `1px solid ${on ? "rgba(199,163,74,0.55)" : BORDER}`,
-                      color: on ? GOLD : MUTED,
+                      background: on
+                        ? "linear-gradient(180deg, rgba(120,90,30,0.30) 0%, rgba(150,113,36,0.22) 100%)"
+                        : "rgba(18,32,42,0.55)",
+                      border: `1px solid ${on ? "rgba(199,163,74,0.55)" : "rgba(126,152,174,0.20)"}`,
+                      color: on ? GOLD_SOFT : "#A9B6C0",
+                      boxShadow: on ? "0 10px 26px -14px rgba(199,163,74,0.75)" : "none",
                     }}
                   >
-                    <Icon size={18} />
+                    <Icon size={20} />
                   </button>
                 );
               })}
             </div>
           </section>
+
 
           {/* needs your attention */}
           {needsAttention.length > 0 && (
