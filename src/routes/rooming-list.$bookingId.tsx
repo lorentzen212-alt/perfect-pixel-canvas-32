@@ -669,7 +669,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
   return (
     <div
-      className="min-h-screen"
+      className="hgb-route-in min-h-screen"
       style={{
         backgroundColor: "#EEF3F6",
         backgroundImage:
