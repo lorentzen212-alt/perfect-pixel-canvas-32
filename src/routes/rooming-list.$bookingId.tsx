@@ -2013,18 +2013,32 @@ function AllocationRow({
           <MoreVertical size={15} />
         </button>
         <FloatingPopover anchorRef={menuBtnRef} open={menuOpen} onClose={() => setMenuOpen(false)} width={190} align="end">
-          {[
-            { label: "View details", run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id) },
-            { label: "Change room type", run: () => setTypeOpen(true) },
-            { label: "Add room request", run: () => setRequestOpen(true) },
-            ...(upgradeEligible && !allocation.upgradeRequest
-              ? [{ label: "Request room upgrade", run: () => setUpgradeOpen(true) }]
-              : []),
-            ...(allocation.upgradeRequest
-              ? [{ label: "Remove upgrade request", run: () => onRemoveUpgrade?.() }]
-              : []),
-            { label: "Clear allocation", run: () => onPatch((a) => ({ ...a, guests: [] })) },
-          ].map((item) => (
+          {(cancelled
+            ? [
+                {
+                  label: "Restore allocation",
+                  tone: "#8FC79A",
+                  run: () => onRestoreAllocation?.(),
+                },
+              ]
+            : [
+                {
+                  label: "View details",
+                  tone: undefined as string | undefined,
+                  run: () => allocation.guests[0] && onOpenGuest(allocation.guests[0].id),
+                },
+                { label: "Change room type", tone: undefined, run: () => setTypeOpen(true) },
+                { label: "Add room request", tone: undefined, run: () => setRequestOpen(true) },
+                ...(upgradeEligible && !allocation.upgradeRequest
+                  ? [{ label: "Request room upgrade", tone: undefined, run: () => setUpgradeOpen(true) }]
+                  : []),
+                ...(allocation.upgradeRequest
+                  ? [{ label: "Remove upgrade request", tone: undefined, run: () => onRemoveUpgrade?.() }]
+                  : []),
+                { label: "Clear allocation", tone: undefined, run: () => onPatch((a) => ({ ...a, guests: [] })) },
+                { label: "Cancel allocation", tone: CANCEL_TEXT, run: () => onCancelAllocation?.() },
+              ]
+          ).map((item) => (
             <button
               key={item.label}
               type="button"
@@ -2034,7 +2048,7 @@ function AllocationRow({
                 setMenuOpen(false);
               }}
               className="block w-full px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)] disabled:opacity-40"
-              style={{ color: "#D9DDE0" }}
+              style={{ color: item.tone ?? "#D9DDE0" }}
             >
               {item.label}
             </button>
