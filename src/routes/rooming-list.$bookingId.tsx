@@ -307,6 +307,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   /* ── cancel / restore allocation ── */
   const [selectedRow, setSelectedRow] = useState<string | null>(null);
   const [confirmCancel, setConfirmCancel] = useState<string | null>(null);
+  const [showCancelled, setShowCancelled] = useState(false);
 
   const firstRender = useRef(true);
 
@@ -343,44 +344,55 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const stats = useMemo(() => (list ? statsOf(list) : null), [list]);
   const locked = Boolean(list?.submittedAt);
 
+  const matchesQuery = useCallback(
+    (a: Allocation) => {
+      const q = query.trim().toLowerCase();
+      if (!q) return true;
+      const hay = [
+        ...a.guests.map(guestName),
+        labelOf(a.type),
+        String(a.index).padStart(2, "0"),
+        ...a.requests,
+        isCancelled(a) ? "cancelled" : "",
+        a.upgradeRequest ? categoryLabel(a.upgradeRequest.category) : "",
+      ]
+        .join(" ")
+        .toLowerCase();
+      return hay.includes(q);
+    },
+    [query],
+  );
+
+  /* the active rooming list NEVER contains cancelled allocations */
   const visible = useMemo(() => {
     if (!list) return [];
-    const q = query.trim().toLowerCase();
+    if (view === "cancelled") return list.allocations.filter((a) => isCancelled(a) && matchesQuery(a));
     return list.allocations.filter((a) => {
-      const cancelled = isCancelled(a);
-      /* cancelled rows are only ever shown in "All" (unless hidden) or their own view */
-      if (view === "cancelled") {
-        if (!cancelled) return false;
-      } else if (cancelled) {
-        if (view !== "all") return false;
-      }
+      if (isCancelled(a)) return false;
       const status = allocationStatus(a);
-      if (!cancelled) {
-        if (view === "complete" && status !== "complete") return false;
-        if (view === "missing" && status === "complete") return false;
-        if (view === "dietary" && !allocationHasRequirements(a)) return false;
-        if (view === "requests" && a.requests.length === 0 && !a.upgradeRequest) return false;
-        if (view === "upgrades") {
-          if (!a.upgradeRequest) return false;
-          if (upgradeFilter !== "all" && a.upgradeRequest.status !== upgradeFilter) return false;
-        }
+      if (view === "complete" && status !== "complete") return false;
+      if (view === "missing" && status === "complete") return false;
+      if (view === "dietary" && !allocationHasRequirements(a)) return false;
+      if (view === "requests" && a.requests.length === 0 && !a.upgradeRequest) return false;
+      if (view === "upgrades") {
+        if (!a.upgradeRequest) return false;
+        if (upgradeFilter !== "all" && a.upgradeRequest.status !== upgradeFilter) return false;
       }
-      if (q) {
-        const hay = [
-          ...a.guests.map(guestName),
-          labelOf(a.type),
-          String(a.index).padStart(2, "0"),
-          ...a.requests,
-          cancelled ? "cancelled" : "",
-          a.upgradeRequest ? categoryLabel(a.upgradeRequest.category) : "",
-        ]
-          .join(" ")
-          .toLowerCase();
-        if (!hay.includes(q)) return false;
-      }
-      return true;
+      return matchesQuery(a);
     });
-  }, [list, view, query, upgradeFilter]);
+  }, [list, view, matchesQuery, upgradeFilter]);
+
+  /* archived allocations — kept for history, never part of any active total */
+  const cancelledAllocations = useMemo(
+    () => (list ? list.allocations.filter(isCancelled) : []),
+    [list],
+  );
+
+  /* the Cancelled filter only exists while something is cancelled */
+  useEffect(() => {
+    if (view === "cancelled" && cancelledAllocations.length === 0) setView("all");
+  }, [view, cancelledAllocations.length]);
+
 
   /* ── upgrade derived state ── */
   const eligible = useMemo(
@@ -421,28 +433,22 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     [update],
   );
 
-  /** Cancellation never deletes the row — guests move back to the unassigned pool. */
+  /** Cancellation never deletes anything — the record (and its guests) is archived. */
   const cancelAllocation = useCallback(
     (id: string) => {
-      update((l) => {
-        const target = l.allocations.find((a) => a.id === id);
-        const freed = target ? target.guests.filter(isNamed) : [];
-        return {
-          ...l,
-          unassigned: [...l.unassigned, ...freed],
-          allocations: l.allocations.map((a) =>
-            a.id === id
-              ? { ...a, status: "cancelled" as const, guests: [], upgradeRequest: null }
-              : a,
-          ),
-        };
-      });
+      update((l) => ({
+        ...l,
+        allocations: l.allocations.map((a) =>
+          a.id === id ? { ...a, status: "cancelled" as const, upgradeRequest: null } : a,
+        ),
+      }));
       setSelected((s) => s.filter((x) => x !== id));
       setManageSelected((s) => s.filter((x) => x !== id));
       setConfirmCancel(null);
     },
     [update],
   );
+
 
   const restoreAllocation = useCallback(
     (id: string) => {
@@ -913,7 +919,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         boxShadow: "0 1px 3px rgba(15, 23, 42, 0.03)",
                       }}
                     >
-                      {(["all", "missing", "complete"] as ViewFilter[]).map((v, i) => (
+                      {(cancelledAllocations.length > 0
+                        ? (["all", "missing", "complete", "cancelled"] as ViewFilter[])
+                        : (["all", "missing", "complete"] as ViewFilter[])
+                      ).map((v, i) => (
                         <button
                           key={v}
                           type="button"
@@ -1212,6 +1221,63 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 )}
               </div>
 
+            {/* ── archived: cancelled allocations (collapsed by default) ── */}
+            {view !== "cancelled" && cancelledAllocations.length > 0 && (
+              <div className="mt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowCancelled((s) => !s)}
+                  className="flex w-full items-center gap-3 rounded-[10px] px-4 py-[10px] text-left transition-colors"
+                  style={{
+                    backgroundColor: "rgba(32,58,82,0.55)",
+                    border: "1px solid rgba(184,101,101,0.20)",
+                  }}
+                >
+                  <span
+                    className="text-[11.5px] font-medium uppercase tracking-[0.16em]"
+                    style={{ color: CANCEL_TEXT }}
+                  >
+                    Cancelled allocations
+                  </span>
+                  <span
+                    className="rounded-full px-2 py-[1px] text-[11px]"
+                    style={{ backgroundColor: "rgba(184,101,101,0.16)", color: CANCEL_TEXT }}
+                  >
+                    {cancelledAllocations.length}
+                  </span>
+                  <span className="ml-auto inline-flex items-center gap-1.5 text-[12px]" style={{ color: MUTED }}>
+                    {showCancelled ? "Hide cancelled" : "Show cancelled"}
+                    <ChevronDown
+                      size={14}
+                      strokeWidth={2}
+                      style={{ transform: showCancelled ? "rotate(180deg)" : "none", transition: "transform 160ms ease" }}
+                    />
+                  </span>
+                </button>
+
+                {showCancelled && (
+                  <div className="mt-2 space-y-[8px]" style={{ opacity: 0.92 }}>
+                    {cancelledAllocations.map((a) => (
+                      <AllocationRow
+                        key={a.id}
+                        allocation={a}
+                        locked={locked}
+                        rowSelected={selectedRow === a.id}
+                        onSelectRow={() => setSelectedRow((s) => (s === a.id ? null : a.id))}
+                        onRestoreAllocation={() => restoreAllocation(a.id)}
+                        onPatch={(fn) => patchAllocation(a.id, fn)}
+                        onOpenGuest={() => {}}
+                        onAddGuest={() => {}}
+                        onRemoveGuest={() => {}}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+
+
             {/* action bar — natural document flow, sits under the final room card */}
             <div
               className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-[12px] px-4 py-2.5"
@@ -1389,13 +1455,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               onClose={() => setConfirmCancel(null)}
             >
               <p className="text-[12.5px]" style={{ color: MUTED }}>
-                This allocation will stay visible in the rooming list for reference, but it will no longer count
-                toward your total rooms or room type totals. Allocation numbers are never renumbered.
+                This room will be removed from your active room allocation and moved to Cancelled Allocations. It
+                will no longer count toward your room totals. Nothing is deleted — allocation numbers are never
+                renumbered and it can be restored at any time.
               </p>
               {moving.length > 0 && (
                 <div className="mt-3 space-y-1.5">
                   <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
-                    {moving.length} guest{moving.length === 1 ? "" : "s"} will move to unassigned
+                    {moving.length} guest{moving.length === 1 ? "" : "s"} kept on the cancelled record
                   </p>
                   {moving.map((g) => (
                     <div
@@ -1408,6 +1475,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   ))}
                 </div>
               )}
+
               <div className="mt-4 flex items-center justify-end gap-2">
                 <button
                   type="button"
@@ -1415,7 +1483,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
                   style={{ color: MUTED }}
                 >
-                  Keep allocation
+                  Keep room
                 </button>
                 <button
                   type="button"
@@ -4076,7 +4144,7 @@ function SecondaryFilterMenu({ view, onChange }: { view: ViewFilter; onChange: (
     { value: "dietary", label: "Dietary & allergies" },
     { value: "requests", label: "Requests" },
     { value: "upgrades", label: "Upgrades" },
-    { value: "cancelled", label: "Cancelled allocations" },
+    
   ];
   const active = extras.find((e) => e.value === view);
 
