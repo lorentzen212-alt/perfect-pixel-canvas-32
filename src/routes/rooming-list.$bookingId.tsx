@@ -11,7 +11,6 @@ import {
   ChevronDown,
   Circle,
   CircleSlash,
-  RotateCcw,
   Clock,
   Download,
   FileSpreadsheet,
@@ -308,7 +307,6 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   /* ── cancel / restore allocation ── */
   const [selectedRow, setSelectedRow] = useState<string | null>(null);
   const [confirmCancel, setConfirmCancel] = useState<string | null>(null);
-  const [hideCancelled, setHideCancelled] = useState(false);
 
   const firstRender = useRef(true);
 
@@ -354,7 +352,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       if (view === "cancelled") {
         if (!cancelled) return false;
       } else if (cancelled) {
-        if (view !== "all" || hideCancelled) return false;
+        if (view !== "all") return false;
       }
       const status = allocationStatus(a);
       if (!cancelled) {
@@ -382,7 +380,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       }
       return true;
     });
-  }, [list, view, query, upgradeFilter, hideCancelled]);
+  }, [list, view, query, upgradeFilter]);
 
   /* ── upgrade derived state ── */
   const eligible = useMemo(
