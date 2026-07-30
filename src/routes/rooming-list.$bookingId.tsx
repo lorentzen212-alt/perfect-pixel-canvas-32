@@ -535,22 +535,30 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         <div className="mx-auto flex w-full max-w-[1560px] items-start gap-4 px-4 pb-5 pt-2.5 sm:px-6 lg:px-7">
           <main className="min-w-0 flex-1">
 
-            {/* ── compact booking hero ── */}
-            <section className="relative overflow-hidden rounded-[12px]">
-              <div className="relative px-1 py-1">
+            {/* ── booking + rooming overview card ── */}
+            <section
+              className="relative overflow-visible rounded-[16px] px-5 py-5 sm:px-6"
+              style={{
+                backgroundColor: "#FBF8F3",
+                border: "1px solid rgba(16,35,63,0.08)",
+                boxShadow: "0 10px 34px rgba(16,35,63,0.08)",
+              }}
+            >
+              {/* row 1 — badges + actions */}
+              <div className="flex flex-wrap items-start justify-between gap-4">
                 <span className="inline-flex items-center gap-2">
                   <span
-                    className="inline-flex items-center rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
-                    style={{ color: HERO_INK_2, backgroundColor: "rgba(128,154,180,0.22)" }}
+                    className="inline-flex items-center rounded-[6px] px-2.5 py-[5px] text-[10.5px] font-semibold uppercase tracking-[0.16em]"
+                    style={{ color: HERO_INK_2, backgroundColor: "rgba(128,154,180,0.20)" }}
                   >
                     {booking.type === "leisure" ? "Leisure" : "M&E"}
                   </span>
                   <span
-                    className="inline-flex items-center gap-1.5 rounded-[5px] px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.18em]"
+                    className="inline-flex items-center gap-1.5 rounded-[6px] px-2.5 py-[5px] text-[10.5px] font-semibold uppercase tracking-[0.16em]"
                     style={
                       locked
-                        ? { color: GREEN, backgroundColor: "rgba(62,155,87,0.12)" }
-                        : { color: AMBER, backgroundColor: "rgba(176,128,15,0.12)" }
+                        ? { color: "#2F7C47", backgroundColor: "rgba(62,155,87,0.14)" }
+                        : { color: "#9A7113", backgroundColor: "rgba(231,185,79,0.22)" }
                     }
                   >
                     {locked ? (
@@ -568,196 +576,268 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   </span>
                 </span>
 
+                {!locked && (
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => setShowImport(true)}
+                      className="inline-flex items-center gap-2 rounded-[9px] px-4 py-[10px] text-[13px] font-medium transition-colors hover:bg-[rgba(16,35,63,0.04)]"
+                      style={{ color: HERO_INK, backgroundColor: "#FFFFFF", border: "1px solid rgba(16,35,63,0.14)" }}
+                    >
+                      <Upload size={14} style={{ color: HERO_INK_2 }} />
+                      Import file
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (upgradeMode) {
+                          exitUpgradeMode();
+                          return;
+                        }
+                        exitManageMode();
+                        setUpgradeMode(true);
+                      }}
+                      className="inline-flex items-center gap-2 rounded-[9px] px-4 py-[10px] text-[13px] font-medium transition-colors hover:bg-[rgba(16,35,63,0.04)]"
+                      style={{
+                        color: HERO_INK,
+                        backgroundColor: upgradeMode ? "rgba(231,185,79,0.14)" : "#FFFFFF",
+                        border: `1px solid ${upgradeMode ? "rgba(169,111,8,0.45)" : "rgba(16,35,63,0.14)"}`,
+                      }}
+                    >
+                      <ArrowUp size={14} style={{ color: HERO_INK_2 }} />
+                      {upgradeMode ? "Exit upgrade mode" : "Upgrade rooms"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const target = list.allocations.find(
+                          (a) => a.guests.filter(isNamed).length < capacityOf(a.type, a.occupancy),
+                        );
+                        if (target) setFocusAllocation(target.id);
+                      }}
+                      className="inline-flex items-center gap-2 rounded-[9px] px-4 py-[10px] text-[13px] font-medium transition-colors hover:bg-[rgba(231,185,79,0.10)]"
+                      style={{
+                        color: "#9A7113",
+                        backgroundColor: "#FFFFFF",
+                        border: "1px solid rgba(169,111,8,0.42)",
+                      }}
+                    >
+                      Add guest
+                      <Plus size={14} style={{ color: "#B47B10" }} />
+                    </button>
+                    <GoldButton onClick={() => saveRoomingList(list)}>
+                      <Download size={14} />
+                      Save
+                    </GoldButton>
+                  </div>
+                )}
+              </div>
 
-                <h1 className="mt-1.5 text-[26px] font-semibold leading-[1.06] tracking-[-0.01em]" style={{ color: HERO_INK }}>
-                  {booking.name}
-                </h1>
+              {/* title */}
+              <h1
+                className="mt-3.5 text-[30px] leading-[1.05] tracking-[-0.005em]"
+                style={{ color: HERO_INK, fontFamily: SERIF }}
+              >
+                {booking.name}
+              </h1>
 
-                <div className="mt-1.5 flex flex-wrap items-center gap-x-5 gap-y-1 text-[12.5px]" style={{ color: HERO_INK_2 }}>
-                  {booking.hotel && (
+              {/* meta */}
+              <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[12.5px]" style={{ color: HERO_INK_2 }}>
+                {booking.hotel && (
+                  <>
                     <span className="inline-flex items-center gap-2">
                       <MapPin size={13} style={{ color: HERO_ACCENT }} />
                       {booking.hotel}
                     </span>
-                  )}
-                  <span className="inline-flex items-center gap-2">
-                    <CalendarDays size={13} style={{ color: HERO_ACCENT }} />
-                    {new Date(booking.startDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} –{" "}
-                    {new Date(booking.endDate).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <Clock size={13} style={{ color: HERO_ACCENT }} />
-                    {nights} nights
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <Bed size={13} style={{ color: HERO_ACCENT }} />
-                    {stats.totalAllocations} rooms
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <Users size={13} style={{ color: HERO_ACCENT }} />
-                    {stats.totalSlots} guests
-                  </span>
-                </div>
+                    <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
+                  </>
+                )}
+                <span className="inline-flex items-center gap-2">
+                  <CalendarDays size={13} style={{ color: HERO_ACCENT }} />
+                  {new Date(booking.startDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} –{" "}
+                  {new Date(booking.endDate).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </span>
+                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
+                <span className="inline-flex items-center gap-2">
+                  <Clock size={13} style={{ color: HERO_ACCENT }} />
+                  {nights} nights
+                </span>
+                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
+                <span className="inline-flex items-center gap-2">
+                  <Bed size={13} style={{ color: HERO_ACCENT }} />
+                  {stats.totalAllocations} rooms
+                </span>
+                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
+                <span className="inline-flex items-center gap-2">
+                  <Users size={13} style={{ color: HERO_ACCENT }} />
+                  {stats.totalSlots} guests
+                </span>
               </div>
-            </section>
-
-            {/* ── workspace ── */}
-            {/* ── summary card ── */}
-            <section
-              className="mt-2 overflow-visible rounded-[13px]"
-              style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
-            >
 
               {locked ? (
-                <SubmittedBanner list={list} stats={stats} onRequestChange={() => setShowReview(true)} />
+                <div
+                  className="mt-4 overflow-hidden rounded-[13px]"
+                  style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
+                >
+                  <SubmittedBanner list={list} stats={stats} onRequestChange={() => setShowReview(true)} />
+                </div>
               ) : (
                 <>
-                  {/* header */}
-                  <div className="flex flex-wrap items-center gap-x-7 gap-y-3 px-5 pb-2.5 pt-3.5">
-                    <div className="min-w-[220px]">
-                      <h2 className="text-[19.5px] font-semibold leading-none" style={{ color: TEXT }}>
-                        Rooming List
-                      </h2>
-                      <span
-                        className="mt-1.5 block h-[2px] w-[34px] rounded-full"
-                        style={{ backgroundImage: GOLD_BAR }}
-                      />
-                      <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
-                        Add guest details for each room allocation.
-                      </p>
-                    </div>
-
-                    <div className="min-w-[240px] flex-1">
-                      <div className="flex items-baseline justify-between">
-                        <span className="text-[13px]" style={{ color: TEXT_2 }}>
-                          {stats.filled} / {stats.totalSlots} guests added
-                        </span>
-                        <span className="text-[13px] font-medium" style={{ color: GOLD_SOFT }}>
-                          {stats.percent}%
-                        </span>
-                      </div>
-                      <div className="mt-1.5 h-[5px] w-full overflow-hidden rounded-full" style={{ backgroundColor: "#8FA3B4" }}>
-                        <div
-                          className="h-full rounded-full transition-[width] duration-300 ease-out"
-                          style={{
-                            width: `${stats.percent}%`,
-                            backgroundImage: GOLD_BAR,
-                            boxShadow:
-                              "inset 0 1px 0 rgba(255,233,166,0.55), 0 0 4px rgba(201,147,34,0.30)",
-                          }}
-                        />
-                      </div>
-                    </div>
-
-
-                    <div className="flex items-center gap-2.5">
-                      <GhostButton onClick={() => setShowImport(true)}>
-                        <Upload size={14} />
-                        Import file
-                      </GhostButton>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (upgradeMode) {
-                            exitUpgradeMode();
-                            return;
-                          }
-                          exitManageMode();
-                          setUpgradeMode(true);
-                        }}
-                        className="inline-flex items-center gap-2 rounded-[8px] px-3.5 py-[8px] text-[12.5px] font-medium transition-colors duration-200 hover:bg-[rgba(231,185,79,0.10)]"
-                        style={{
-                          color: GOLD_SOFT,
-                          backgroundColor: upgradeMode ? "rgba(231,185,79,0.12)" : "rgba(255,255,255,0.04)",
-                          border: `1px solid ${upgradeMode ? "rgba(231,185,79,0.46)" : "rgba(231,185,79,0.26)"}`,
-                        }}
-                      >
-                        <ArrowUp size={14} />
-                        {upgradeMode ? "Exit upgrade mode" : "Upgrade rooms"}
-                      </button>
-                      <GoldButton
-                        onClick={() => {
-                          const target = list.allocations.find((a) => a.guests.filter(isNamed).length < capacityOf(a.type, a.occupancy));
-                          if (target) setFocusAllocation(target.id);
-                        }}
-                      >
-                        <Plus size={14} />
-                        Add guest
-                      </GoldButton>
-                    </div>
-
-                  </div>
-
-                  {/* allocation summary strip + filters */}
-                  <div
-                    className="flex flex-wrap items-center gap-x-3 gap-y-2.5 px-5 pb-3.5"
-                  >
-
+                  {/* ── navy stat panels ── */}
+                  <div className="mt-4 flex flex-col gap-3.5 lg:flex-row lg:items-stretch">
+                    {/* main panel */}
                     <div
-                      className="flex items-stretch overflow-hidden rounded-[9px]"
-                      style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
+                      className="flex flex-1 flex-wrap items-center gap-y-4 rounded-[14px] px-6 py-5"
+                      style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
                     >
-                      <div className="px-[15px] py-[7px] text-center">
-                        <p className="text-[17.5px] font-bold leading-none" style={{ color: TEXT }}>
-                          {stats.totalAllocations}
+                      <div className="min-w-[186px] pr-5">
+                        <p
+                          className="text-[13px] font-medium uppercase tracking-[0.22em]"
+                          style={{ color: TEXT }}
+                        >
+                          Rooming List
                         </p>
-                        <p className="mt-1 text-[10.5px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
-                          Total rooms
+                        <span
+                          className="mt-2 block h-[2px] w-[30px] rounded-full"
+                          style={{ backgroundImage: GOLD_BAR }}
+                        />
+                        <p className="mt-3 text-[12.5px]" style={{ color: TEXT_2 }}>
+                          {stats.filled} / {stats.totalSlots} guests added
                         </p>
+                        <div className="mt-2.5 flex items-center gap-2.5">
+                          <div
+                            className="h-[6px] w-[140px] overflow-hidden rounded-full"
+                            style={{ backgroundColor: "rgba(143,163,180,0.45)" }}
+                          >
+                            <div
+                              className="h-full rounded-full transition-[width] duration-300 ease-out"
+                              style={{
+                                width: `${stats.percent}%`,
+                                backgroundImage: GOLD_BAR,
+                                boxShadow: "inset 0 1px 0 rgba(255,233,166,0.55)",
+                              }}
+                            />
+                          </div>
+                          <span className="text-[12.5px] font-medium" style={{ color: TEXT_2 }}>
+                            {stats.percent}%
+                          </span>
+                        </div>
                       </div>
-                      {stats.byType.map((t) => (
+
+                      <div className="flex flex-1 flex-wrap items-stretch">
                         <div
-                          key={t.type}
-                          className="px-[15px] py-[7px] text-center"
+                          className="flex flex-1 min-w-[120px] flex-col items-center justify-center px-3"
                           style={{ borderLeft: `1px solid ${BORDER}` }}
                         >
-                          <p className="text-[16.5px] font-semibold leading-none" style={{ color: TEXT }}>
-                            {t.count}
-                          </p>
-                          <p className="mt-1 text-[10.5px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
-                            {t.label}
+                          <span className="flex items-center gap-2.5">
+                            <Bed size={20} style={{ color: GOLD }} />
+                            <span className="text-[27px] font-semibold leading-none" style={{ color: TEXT }}>
+                              {stats.totalAllocations}
+                            </span>
+                          </span>
+                          <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                            Total rooms
                           </p>
                         </div>
-                      ))}
+                        {stats.byType.map((t) => (
+                          <div
+                            key={t.type}
+                            className="flex flex-1 min-w-[92px] flex-col items-center justify-center px-2"
+                            style={{ borderLeft: `1px solid ${BORDER}` }}
+                          >
+                            <span className="flex items-center gap-2">
+                              <Users size={17} style={{ color: MUTED }} />
+                              <span className="text-[24px] font-semibold leading-none" style={{ color: TEXT }}>
+                                {t.count}
+                              </span>
+                            </span>
+                            <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                              {t.label}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
+                    {/* status panel */}
                     <div
-                      className="flex items-stretch overflow-hidden rounded-[9px]"
-                      style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
+                      className="flex items-stretch rounded-[14px] px-2 py-5 lg:w-[300px]"
+                      style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
                     >
-                      <div className="px-[15px] py-[7px] text-center">
-                        <p className="text-[16.5px] font-semibold leading-none" style={{ color: AMBER }}>
-                          {stats.missing}
-                        </p>
-                        <p className="mt-1 text-[10.5px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
+                      <div className="flex flex-1 flex-col items-center justify-center px-3">
+                        <span className="flex items-center gap-2">
+                          <AlertTriangle size={17} style={{ color: AMBER }} />
+                          <span className="text-[24px] font-semibold leading-none" style={{ color: AMBER }}>
+                            {stats.missing}
+                          </span>
+                        </span>
+                        <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                           Missing guests
                         </p>
                       </div>
-                      <div className="px-[15px] py-[7px] text-center" style={{ borderLeft: `1px solid ${BORDER}` }}>
-                        <p className="text-[16.5px] font-semibold leading-none" style={{ color: GREEN }}>
-                          {stats.completeAllocations}
-                        </p>
-                        <p className="mt-1 text-[10.5px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
+                      <div
+                        className="flex flex-1 flex-col items-center justify-center px-3"
+                        style={{ borderLeft: `1px solid ${BORDER}` }}
+                      >
+                        <span className="flex items-center gap-2">
+                          <CheckCircle2 size={17} style={{ color: GREEN }} />
+                          <span className="text-[24px] font-semibold leading-none" style={{ color: GREEN }}>
+                            {stats.completeAllocations}
+                          </span>
+                        </span>
+                        <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                           Complete
                         </p>
                       </div>
+                    </div>
+                  </div>
+
+                  {/* ── filters row ── */}
+                  <div
+                    className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2.5 pt-4"
+                    style={{ borderTop: "1px solid rgba(16,35,63,0.10)" }}
+                  >
+                    <span className="text-[12.5px]" style={{ color: HERO_INK_2 }}>
+                      View:
+                    </span>
+                    <div className="flex items-center gap-1">
+                      {(["all", "missing", "complete"] as ViewFilter[]).map((v) => (
+                        <button
+                          key={v}
+                          type="button"
+                          onClick={() => setView(v)}
+                          className="rounded-[8px] px-4 py-[8px] text-[12.5px] capitalize transition-colors"
+                          style={
+                            view === v
+                              ? {
+                                  color: "#9A7113",
+                                  backgroundColor: "rgba(231,185,79,0.20)",
+                                  border: "1px solid rgba(169,111,8,0.42)",
+                                }
+                              : { color: HERO_INK_2, border: "1px solid transparent" }
+                          }
+                        >
+                          {v}
+                        </button>
+                      ))}
+                      <SecondaryFilterMenu view={view} onChange={setView} />
                     </div>
 
                     <button
                       type="button"
                       onClick={() => setShowGroup(true)}
-                      className="inline-flex items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-                      style={{ color: GOLD_SOFT, border: `1px solid ${BORDER}` }}
+                      className="inline-flex items-center gap-2 rounded-[8px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(16,35,63,0.04)]"
+                      style={{ color: HERO_INK_2, border: "1px solid rgba(16,35,63,0.14)" }}
                     >
                       Group requests
                       {list.groupRequests.length > 0 && (
                         <span
                           className="rounded-full px-1.5 text-[10.5px]"
-                          style={{ backgroundColor: "rgba(40,93,145,0.14)", color: GOLD }}
+                          style={{ backgroundColor: "rgba(231,185,79,0.22)", color: "#9A7113" }}
                         >
                           {list.groupRequests.length}
                         </span>
@@ -777,11 +857,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           setUpgradeFilter("all");
                           enterManageMode();
                         }}
-                        className="inline-flex cursor-pointer items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-all duration-200 hover:-translate-y-[1px] hover:bg-[rgba(231,185,79,0.12)] hover:shadow-[0_4px_12px_rgba(16,35,63,0.14)]"
+                        className="inline-flex cursor-pointer items-center gap-2 rounded-[8px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(231,185,79,0.12)]"
                         style={{
-                          color: GOLD_SOFT,
-                          backgroundColor: manageMode || view === "upgrades" ? "rgba(231,185,79,0.12)" : "transparent",
-                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(231,185,79,0.42)" : BORDER}`,
+                          color: "#9A7113",
+                          backgroundColor: manageMode || view === "upgrades" ? "rgba(231,185,79,0.16)" : "transparent",
+                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(169,111,8,0.42)" : "rgba(16,35,63,0.14)"}`,
                         }}
                       >
                         <ArrowUp size={12} />
@@ -789,44 +869,21 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       </button>
                     )}
 
-                    <div className="ml-auto flex flex-wrap items-center gap-3">
-                      <span className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
-                        View
-                      </span>
-                      <div className="flex rounded-[8px] p-[3px]" style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}>
-                        {(["all", "missing", "complete"] as ViewFilter[]).map((v) => (
-                          <button
-                            key={v}
-                            type="button"
-                            onClick={() => setView(v)}
-                            className="rounded-[6px] px-3 py-[5px] text-[12px] capitalize transition-colors"
-                            style={
-                              view === v
-                                ? { color: GOLD, backgroundColor: SURFACE_2, border: `1px solid ${GOLD_DEEP}`, boxShadow: "0 1px 4px rgba(20,45,70,0.10)" }
-                                : { color: TEXT_2, border: "1px solid transparent" }
-                            }
-                          >
-                            {v}
-                          </button>
-                        ))}
-                        <SecondaryFilterMenu view={view} onChange={setView} />
-                      </div>
-
-                      <label
-                        className="flex items-center gap-2 rounded-[8px] px-3 py-[6px]"
-                        style={{ backgroundColor: ROW, border: `1px solid ${BORDER}` }}
-                      >
-                        <input
-                          value={query}
-                          onChange={(e) => setQuery(e.target.value)}
-                          placeholder="Search guests..."
-                          className="hgb-search w-[150px] bg-transparent text-[12.5px] outline-none"
-                          style={{ color: TEXT }}
-                        />
-                        <Search size={14} style={{ color: MUTED }} />
-                      </label>
-                    </div>
+                    <label
+                      className="ml-auto flex items-center gap-2 rounded-[9px] px-4 py-[9px]"
+                      style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(16,35,63,0.14)" }}
+                    >
+                      <input
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="Search guests..."
+                        className="hgb-search-light w-[190px] bg-transparent text-[12.5px] outline-none"
+                        style={{ color: HERO_INK }}
+                      />
+                      <Search size={15} style={{ color: HERO_INK_2 }} />
+                    </label>
                   </div>
+
 
                   {/* upgrade status sub-filter */}
                   {view === "upgrades" && upgradeRequests.length > 0 && (
