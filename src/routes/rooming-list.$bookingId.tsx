@@ -3550,8 +3550,6 @@ function UpgradeModePanel({
       className="px-5 py-3.5"
       style={{
         backgroundColor: "#274E6D",
-        borderTop: "1px solid rgba(212,175,55,0.55)",
-        borderBottom: "1px solid rgba(212,175,55,0.30)",
         boxShadow: "inset 3px 0 0 #D4AF37",
       }}
     >
