@@ -142,10 +142,14 @@ export interface Guest {
   specialRequests?: string;
 }
 
+export type AllocationStatus = "active" | "cancelled";
+
 export interface Allocation {
   id: string;
-  /** sequential list position — NOT a hotel room number */
+  /** sequential list position — NOT a hotel room number. Never renumbered. */
   index: number;
+  /** cancelled allocations stay visible for auditability but never count */
+  status?: AllocationStatus;
   /** current (working) room type */
   type: RoomType;
   /** the confirmed/booked room type — never changed by the user */
