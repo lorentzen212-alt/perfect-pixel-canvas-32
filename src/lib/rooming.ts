@@ -428,7 +428,9 @@ export function statsOf(list: RoomingList): RoomingStats {
   let filled = 0;
   let complete = 0;
   const typeCounts = new Map<RoomType, number>();
-  for (const a of list.allocations) {
+  /* cancelled allocations never count toward any total */
+  const active = activeAllocations(list);
+  for (const a of active) {
     const cap = capacityOf(a.type, a.occupancy);
     totalSlots += cap;
     filled += Math.min(cap, a.guests.filter(isNamed).length);
@@ -442,8 +444,9 @@ export function statsOf(list: RoomingList): RoomingStats {
     missing,
     percent: totalSlots ? Math.round((filled / totalSlots) * 100) : 0,
     completeAllocations: complete,
-    incompleteAllocations: list.allocations.length - complete,
-    totalAllocations: list.allocations.length,
+    incompleteAllocations: active.length - complete,
+    totalAllocations: active.length,
+
     byType: ROOM_TYPES.filter((t) => typeCounts.get(t.value)).map((t) => ({
       type: t.value,
       label: t.label,
