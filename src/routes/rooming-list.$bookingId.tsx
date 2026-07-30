@@ -59,6 +59,7 @@ import {
   hasRoomTypeChange,
   invalidForCategory,
   isAllergy,
+  isCancelled,
   isNamed,
   labelOf,
   loadRoomingList,
