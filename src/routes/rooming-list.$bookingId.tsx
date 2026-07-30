@@ -509,7 +509,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       .hgb-inline:focus{border-color:rgba(231,185,79,0.75) !important}
       .hgb-search::placeholder{color:#B8BDC2}
       .hgb-guest{transition:background-color 150ms ease,border-color 150ms ease}
-      .hgb-guest:hover{background-color:rgba(255,255,255,0.05) !important;border-color:rgba(230,196,122,0.34) !important}
+      .hgb-guest:not([data-guest-selected="true"]):hover{background-color:rgba(255,255,255,0.06) !important;border-color:rgba(230,196,122,0.40) !important}
+      .hgb-guest[data-guest-selected="true"] .hgb-edit{opacity:0.85}
       .hgb-guest .hgb-edit{opacity:0;transition:opacity 150ms ease}
       .hgb-guest:hover .hgb-edit{opacity:0.75}`}</style>
 
@@ -1025,6 +1026,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     allocation={a}
                     locked={locked}
                     active={openGuest?.allocationId === a.id || pendingGuest?.allocationId === a.id}
+                    openGuestId={openGuest?.allocationId === a.id ? openGuest.guestId : null}
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
                     upgradeMode={upgradeMode}
@@ -1340,6 +1342,7 @@ function AllocationRow({
   allocation,
   locked,
   active,
+  openGuestId,
   autoFocus,
   onAutoFocused,
   upgradeMode,
@@ -1363,6 +1366,7 @@ function AllocationRow({
   allocation: Allocation;
   locked: boolean;
   active?: boolean;
+  openGuestId?: string | null;
   autoFocus?: boolean;
   onAutoFocused?: () => void;
   upgradeMode?: boolean;
@@ -1455,6 +1459,7 @@ function AllocationRow({
         boxShadow: isActive
           ? "0 10px 26px rgba(10,26,46,0.26)"
           : "0 6px 18px rgba(10,26,46,0.18)",
+        opacity: upgradeMode && !selectable && !selected ? 0.78 : 1,
       }}
     >
       {/* metallic gold left edge */}
@@ -1564,6 +1569,7 @@ function AllocationRow({
             key={g.id}
             guest={g}
             locked={locked}
+            isSelected={openGuestId === g.id}
             showRequirementDetail={showRequirementDetail}
             onOpen={() => onOpenGuest(g.id)}
             onRename={(name) => onRenameGuest?.(g.id, name)}
@@ -1872,6 +1878,7 @@ function AllocationRow({
 function SavedGuestRow({
   guest,
   locked,
+  isSelected,
   showRequirementDetail,
   onOpen,
   onRename,
@@ -1879,6 +1886,7 @@ function SavedGuestRow({
 }: {
   guest: Guest;
   locked: boolean;
+  isSelected?: boolean;
   showRequirementDetail?: boolean;
   onOpen: () => void;
   onRename?: (name: string) => void;
@@ -1891,11 +1899,14 @@ function SavedGuestRow({
   const [editing, setEditing] = useState(false);
   const [draftName, setDraftName] = useState(displayName);
 
-  const startEdit = () => {
+  /** one shared handler for pill click + pencil click */
+  const editGuest = () => {
+    onOpen();
     if (locked) return;
     setDraftName(displayName);
     setEditing(true);
   };
+  const startEdit = editGuest;
   const commit = () => {
     setEditing(false);
     const v = draftName.trim();
@@ -1904,8 +1915,26 @@ function SavedGuestRow({
 
   return (
     <div
-      className="hgb-guest flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
-      style={{ minHeight: 46, backgroundColor: GUEST_BG, border: `1px solid ${GUEST_BORDER}` }}
+      role="button"
+      tabIndex={0}
+      onClick={() => {
+        if (!editing) editGuest();
+      }}
+      onKeyDown={(e) => {
+        if (!editing && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          editGuest();
+        }
+      }}
+      data-guest-selected={isSelected ? "true" : "false"}
+      className="hgb-guest flex w-full items-center gap-1.5 rounded-[10px] px-2.5 transition-colors"
+      style={{
+        minHeight: 46,
+        cursor: "pointer",
+        backgroundColor: isSelected ? "rgba(231,185,79,0.10)" : GUEST_BG,
+        border: `1px solid ${isSelected ? "rgba(231,185,79,0.62)" : GUEST_BORDER}`,
+        boxShadow: isSelected ? "inset 0 0 0 1px rgba(231,185,79,0.16)" : undefined,
+      }}
     >
       <div className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left">
         <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
@@ -1939,17 +1968,8 @@ function SavedGuestRow({
           />
         ) : (
           <span
-            role="button"
-            tabIndex={0}
-            onClick={(e) => {
-              e.stopPropagation();
-              onOpen();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") onOpen();
-            }}
-            title="Click to open guest details"
-            className="min-w-0 flex-1 truncate text-[13.5px] font-medium hover:opacity-90"
+            title="Click to edit this guest"
+            className="min-w-0 flex-1 truncate text-[13.5px] font-medium"
             style={{ color: RT, cursor: "pointer" }}
           >
             {displayName || "Unnamed guest"}
@@ -1961,7 +1981,7 @@ function SavedGuestRow({
             aria-label="Edit guest name"
             onClick={(e) => {
               e.stopPropagation();
-              startEdit();
+              editGuest();
             }}
             className="hgb-edit shrink-0 bg-transparent p-0 leading-none"
           >
@@ -1975,7 +1995,7 @@ function SavedGuestRow({
             title={req.tooltip}
             onClick={(e) => {
               e.stopPropagation();
-              onOpen();
+              editGuest();
             }}
             className="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-[6px] px-1.5 py-[2px] text-[10.5px] leading-[15px]"
             style={
@@ -2003,7 +2023,10 @@ function SavedGuestRow({
             ref={btnRef}
             type="button"
             aria-label={`Remove ${guestName(guest) || "guest"}`}
-            onClick={() => setConfirm((v) => !v)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setConfirm((v) => !v);
+            }}
             className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100"
             style={{ color: RT_3 }}
 
@@ -3047,12 +3070,14 @@ function UpgradeCheckbox({
       onClick={onChange}
       className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] transition-colors disabled:cursor-not-allowed"
       style={{
-        backgroundColor: checked ? "rgba(231,185,79,0.20)" : "rgba(255,255,255,0.05)",
-        border: `1px solid ${checked ? "rgba(231,185,79,0.70)" : "rgba(255,255,255,0.18)"}`,
-        opacity: disabled ? 0.35 : 1,
+        background: checked
+          ? "linear-gradient(180deg, #F4D675 0%, #D4AF37 52%, #A96F08 100%)"
+          : "rgba(8,24,40,0.35)",
+        border: `1px solid ${checked ? "#E7B94F" : "rgba(231,185,79,0.55)"}`,
+        opacity: disabled ? 0.45 : 1,
       }}
     >
-      {checked && <Check size={12} style={{ color: GOLD }} />}
+      {checked && <Check size={12} strokeWidth={3} style={{ color: "#12304C" }} />}
     </button>
   );
 }
@@ -3521,21 +3546,40 @@ function UpgradeModePanel({
   const ineligible = allocations.length - eligible.length;
 
   return (
-    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(231,185,79,0.05)" }}>
-      <div className="flex flex-wrap items-center gap-3">
-        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
+    <div
+      className="px-5 py-3.5"
+      style={{
+        backgroundColor: "#274E6D",
+        borderTop: "1px solid rgba(212,175,55,0.55)",
+        borderBottom: "1px solid rgba(212,175,55,0.30)",
+        boxShadow: "inset 3px 0 0 #D4AF37",
+      }}
+    >
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span
+          className="text-[11px] font-semibold uppercase tracking-[0.16em]"
+          style={{ color: "#F4D675" }}
+        >
+          Upgrade mode
+        </span>
+        <span className="inline-flex items-center gap-2 text-[13px]" style={{ color: "#FFFFFF" }}>
           <UpgradeCheckbox checked={allSelected} onChange={() => onSelectAll(!allSelected)} />
-          <button type="button" onClick={() => onSelectAll(!allSelected)} style={{ color: TEXT_2 }}>
+          <button
+            type="button"
+            onClick={() => onSelectAll(!allSelected)}
+            className="font-medium"
+            style={{ color: "#FFFFFF" }}
+          >
             Select all eligible rooms
           </button>
         </span>
-        <span className="text-[12px]" style={{ color: MUTED }}>
+        <span className="text-[12.5px]" style={{ color: "rgba(255,255,255,0.78)" }}>
           {selected.length} of {eligible.length} selected
           {ineligible > 0 ? ` · ${ineligible} not eligible` : ""}
         </span>
         {selectedForWithdraw.length > 0 && (
-          <span className="inline-flex items-center gap-2.5 text-[12px]" style={{ color: TEXT_2 }}>
-            <span style={{ color: MUTED }}>
+          <span className="inline-flex items-center gap-2.5 text-[12px]" style={{ color: "#FFFFFF" }}>
+            <span style={{ color: "rgba(255,255,255,0.78)" }}>
               {selectedForWithdraw.length} upgrade request{selectedForWithdraw.length === 1 ? "" : "s"} selected
             </span>
             <button
@@ -3555,8 +3599,8 @@ function UpgradeModePanel({
         <button
           type="button"
           onClick={onCancel}
-          className="ml-auto rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
-          style={{ color: MUTED }}
+          className="ml-auto rounded-[7px] px-3 py-[6px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.14)]"
+          style={{ color: "#FFFFFF", border: "1px solid rgba(244,214,117,0.55)" }}
         >
           Exit upgrade mode
         </button>
