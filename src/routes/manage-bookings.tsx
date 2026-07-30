@@ -684,6 +684,7 @@ function AccountMenu({
 const NAV = [
   { label: "Overview", icon: CalendarCheck },
   { label: "Bookings", icon: CalendarDays },
+  { label: "Rooming List", icon: ClipboardList },
   { label: "Documents", icon: FileText },
   { label: "Support", icon: HelpCircle },
 ];
@@ -692,7 +693,9 @@ function SidebarContent({ active }: { active: string }) {
   return (
     <div
       className="flex h-full flex-col px-5 py-6"
-      style={{ background: `linear-gradient(180deg, ${SIDEBAR} 0%, ${SIDEBAR_ALT} 100%)` }}
+      style={{
+        background: "linear-gradient(180deg, #0D1720 0%, #0B141C 55%, #091219 100%)",
+      }}
     >
       <Link to="/" className="block">
         <img
@@ -716,9 +719,12 @@ function SidebarContent({ active }: { active: string }) {
             <button
               key={item.label}
               type="button"
-              className="relative flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-[14px] transition-colors"
+              className="relative flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14px] transition-colors"
               style={{
-                backgroundColor: isActive ? "rgba(255,255,255,0.06)" : "transparent",
+                background: isActive
+                  ? "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%)"
+                  : "transparent",
+                border: `1px solid ${isActive ? "rgba(190,205,215,0.10)" : "transparent"}`,
                 color: isActive ? TEXT : TEXT_2,
               }}
             >
@@ -736,7 +742,13 @@ function SidebarContent({ active }: { active: string }) {
       </nav>
 
       <div className="mt-auto pt-8">
-        <div className="pt-5" style={{ borderTop: `1px solid ${BORDER}` }}>
+        <div
+          className="rounded-[12px] px-4 py-4"
+          style={{
+            background: "rgba(255,255,255,0.025)",
+            border: "1px solid rgba(190,205,215,0.09)",
+          }}
+        >
           <div className="flex items-start gap-3">
             <Headphones size={17} className="mt-0.5 shrink-0" style={{ color: GOLD_MID }} />
             <div className="min-w-0 text-[12.5px]" style={{ color: TEXT_2 }}>
