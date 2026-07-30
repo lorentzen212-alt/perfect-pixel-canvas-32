@@ -307,6 +307,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   /* ── cancel / restore allocation ── */
   const [selectedRow, setSelectedRow] = useState<string | null>(null);
   const [confirmCancel, setConfirmCancel] = useState<string | null>(null);
+  const [showCancelled, setShowCancelled] = useState(false);
 
   const firstRender = useRef(true);
 
