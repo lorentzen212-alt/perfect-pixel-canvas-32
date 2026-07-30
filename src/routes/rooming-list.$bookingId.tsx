@@ -432,28 +432,22 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     [update],
   );
 
-  /** Cancellation never deletes the row — guests move back to the unassigned pool. */
+  /** Cancellation never deletes anything — the record (and its guests) is archived. */
   const cancelAllocation = useCallback(
     (id: string) => {
-      update((l) => {
-        const target = l.allocations.find((a) => a.id === id);
-        const freed = target ? target.guests.filter(isNamed) : [];
-        return {
-          ...l,
-          unassigned: [...l.unassigned, ...freed],
-          allocations: l.allocations.map((a) =>
-            a.id === id
-              ? { ...a, status: "cancelled" as const, guests: [], upgradeRequest: null }
-              : a,
-          ),
-        };
-      });
+      update((l) => ({
+        ...l,
+        allocations: l.allocations.map((a) =>
+          a.id === id ? { ...a, status: "cancelled" as const, upgradeRequest: null } : a,
+        ),
+      }));
       setSelected((s) => s.filter((x) => x !== id));
       setManageSelected((s) => s.filter((x) => x !== id));
       setConfirmCancel(null);
     },
     [update],
   );
+
 
   const restoreAllocation = useCallback(
     (id: string) => {
