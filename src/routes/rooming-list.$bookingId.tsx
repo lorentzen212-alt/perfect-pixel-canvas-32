@@ -1518,8 +1518,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               {moving.length > 0 && (
                 <div className="mt-3 space-y-1.5">
                   <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
-                    {moving.length} guest{moving.length === 1 ? "" : "s"} kept on the cancelled record
+                    {moving.length} guest{moving.length === 1 ? "" : "s"} will move to Unassigned Guests — all
+                    details kept
                   </p>
+
                   {moving.map((g) => (
                     <div
                       key={g.id}
