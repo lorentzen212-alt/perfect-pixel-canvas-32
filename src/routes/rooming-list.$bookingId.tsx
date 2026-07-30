@@ -509,7 +509,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       .hgb-inline:focus{border-color:rgba(231,185,79,0.75) !important}
       .hgb-search::placeholder{color:#B8BDC2}
       .hgb-guest{transition:background-color 150ms ease,border-color 150ms ease}
-      .hgb-guest:hover{background-color:rgba(255,255,255,0.05) !important;border-color:rgba(230,196,122,0.34) !important}
+      .hgb-guest:not([data-guest-selected="true"]):hover{background-color:rgba(255,255,255,0.06) !important;border-color:rgba(230,196,122,0.40) !important}
+      .hgb-guest[data-guest-selected="true"] .hgb-edit{opacity:0.85}
       .hgb-guest .hgb-edit{opacity:0;transition:opacity 150ms ease}
       .hgb-guest:hover .hgb-edit{opacity:0.75}`}</style>
 
@@ -1925,6 +1926,7 @@ function SavedGuestRow({
           editGuest();
         }
       }}
+      data-guest-selected={isSelected ? "true" : "false"}
       className="hgb-guest flex w-full items-center gap-1.5 rounded-[10px] px-2.5 transition-colors"
       style={{
         minHeight: 46,
