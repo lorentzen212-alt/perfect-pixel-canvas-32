@@ -1503,6 +1503,11 @@ function AllocationRow({
   selected?: boolean;
   onToggleSelected?: () => void;
   onRemoveUpgrade?: () => void;
+  /** whole-row selection (independent from upgrade selection) */
+  rowSelected?: boolean;
+  onSelectRow?: () => void;
+  onCancelAllocation?: () => void;
+  onRestoreAllocation?: () => void;
   showRequirementDetail?: boolean;
   onPatch: (fn: (a: Allocation) => Allocation) => void;
   onOpenGuest: (guestId: string) => void;
