@@ -320,25 +320,25 @@ function BookingCard({ booking }: { booking: Booking }) {
 
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 py-3.5">
           <MetaItem icon={<MapPin size={15} />}>{booking.destination}</MetaItem>
-          <Divider className="hidden sm:block !h-4 self-center" />
+          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
           <MetaItem icon={<CalendarDays size={15} />}>
             {formatRange(booking.startDate, booking.endDate)}
           </MetaItem>
-          <Divider className="hidden sm:block !h-4 self-center" />
+          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
           <MetaItem icon={<Moon size={15} />}>{booking.nights} nights</MetaItem>
-          <Divider className="hidden sm:block !h-4 self-center" />
+          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
           {booking.type === "me" ? (
             <>
               <MetaItem icon={<BedDouble size={15} />}>
                 {booking.meetingSpaces ?? 0} meeting spaces
               </MetaItem>
-              <Divider className="hidden sm:block !h-4 self-center" />
+              <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
               <MetaItem icon={<Users size={15} />}>{booking.delegates ?? 0} delegates</MetaItem>
             </>
           ) : (
             <>
               <MetaItem icon={<BedDouble size={15} />}>{booking.rooms ?? 0} rooms</MetaItem>
-              <Divider className="hidden sm:block !h-4 self-center" />
+              <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
               <MetaItem icon={<Users size={15} />}>{booking.guests ?? 0} guests</MetaItem>
             </>
           )}
