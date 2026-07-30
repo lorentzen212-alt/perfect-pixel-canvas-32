@@ -1840,7 +1840,7 @@ function AllocationRow({
             {allocation.requests.map((r) => (
               <span key={r} className="group/req flex items-center gap-1.5 text-[12.5px]" style={{ color: RT_2 }}>
                 {r}
-                {!locked && (
+                {!readOnly && (
                   <button
                     type="button"
                     aria-label={`Remove ${r}`}
@@ -1862,7 +1862,7 @@ function AllocationRow({
             request={allocation.upgradeRequest}
             bookedCategory={allocation.bookedRoomCategory}
             roomLabel={`Room ${String(allocation.index).padStart(2, "0")}`}
-            locked={locked}
+            locked={readOnly}
             onWithdraw={() => onPatch((a) => ({ ...a, upgradeRequest: null }))}
             onRequestChange={() =>
               onPatch((a) =>
@@ -1895,7 +1895,7 @@ function AllocationRow({
           />
         )}
 
-        {!locked && (
+        {!readOnly && (
           <div className="mt-[6px] flex w-full flex-col items-start">
             {allocation.requests.length === 0 && (
               <button
