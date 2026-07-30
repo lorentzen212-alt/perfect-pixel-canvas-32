@@ -1380,6 +1380,62 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         </Modal>
       )}
 
+      {confirmCancel &&
+        (() => {
+          const target = list?.allocations.find((a) => a.id === confirmCancel);
+          if (!target) return null;
+          const moving = target.guests.filter(isNamed);
+          return (
+            <Modal
+              title={`Cancel Allocation ${String(target.index).padStart(2, "0")}?`}
+              onClose={() => setConfirmCancel(null)}
+            >
+              <p className="text-[12.5px]" style={{ color: MUTED }}>
+                This allocation will stay visible in the rooming list for reference, but it will no longer count
+                toward your total rooms or room type totals. Allocation numbers are never renumbered.
+              </p>
+              {moving.length > 0 && (
+                <div className="mt-3 space-y-1.5">
+                  <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                    {moving.length} guest{moving.length === 1 ? "" : "s"} will move to unassigned
+                  </p>
+                  {moving.map((g) => (
+                    <div
+                      key={g.id}
+                      className="rounded-[8px] px-3 py-[7px] text-[12.5px]"
+                      style={{ backgroundColor: ROW, border: `1px solid ${BORDER}`, color: TEXT_2 }}
+                    >
+                      {guestName(g)}
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="mt-4 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setConfirmCancel(null)}
+                  className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                  style={{ color: MUTED }}
+                >
+                  Keep allocation
+                </button>
+                <button
+                  type="button"
+                  onClick={() => cancelAllocation(target.id)}
+                  className="rounded-[8px] px-3 py-[7px] text-[12.5px] transition-colors"
+                  style={{
+                    color: "#E2A2A2",
+                    backgroundColor: "rgba(184,101,101,0.12)",
+                    border: `1px solid ${CANCEL_ACCENT}55`,
+                  }}
+                >
+                  Cancel allocation
+                </button>
+              </div>
+            </Modal>
+          );
+        })()}
+
       {confirmWithdraw && (
         <Modal title="Withdraw upgrade requests" onClose={() => setConfirmWithdraw(false)}>
           <p className="text-[12.5px]" style={{ color: MUTED }}>
