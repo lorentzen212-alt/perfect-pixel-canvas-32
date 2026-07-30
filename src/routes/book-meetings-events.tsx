@@ -2708,14 +2708,22 @@ function StepSevenReview({
         return;
       }
 
+      // Keep the customer's saved profile intact: only fill blanks.
+      const { data: existing } = await supabase
+        .from("profiles")
+        .select("first_name, last_name, email, company_name, phone, country")
+        .eq("user_id", user.id)
+        .maybeSingle();
       await upsertProfile(user.id, {
-        first_name: String(contactName).split(" ")[0] ?? "",
-        last_name: String(contactName).split(" ").slice(1).join(" "),
-        email: String(details.email ?? "") || user.email || "",
-        company_name: String(details.company ?? "") || null,
-        phone: String(details.phone ?? "") || null,
-        country: loc.countryName ?? null,
+        first_name: existing?.first_name?.trim() || (String(contactName).split(" ")[0] ?? ""),
+        last_name:
+          existing?.last_name?.trim() || String(contactName).split(" ").slice(1).join(" "),
+        email: existing?.email?.trim() || String(details.email ?? "") || user.email || "",
+        company_name: existing?.company_name?.trim() || String(details.company ?? "") || null,
+        phone: existing?.phone?.trim() || String(details.phone ?? "") || null,
+        country: existing?.country?.trim() || loc.countryName || null,
       });
+
       await createBooking(user.id, input);
       clearPendingRequest();
       setSubmitted(true);
