@@ -2724,6 +2724,8 @@ function StepSevenReview({
     return parts.join(", ");
   };
 
+  const { session: authSession } = useAuth();
+
   const handleSubmit = async () => {
     if (submitting || submitted) return;
     setSubmitting(true);
