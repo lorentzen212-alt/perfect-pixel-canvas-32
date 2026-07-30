@@ -292,6 +292,7 @@ export function generateAllocations(dist: Distribution): Allocation[] {
       out.push({
         id: uid(),
         index: i,
+        status: "active",
         type,
         bookedRoomType: type,
         bookedRoomCategory,
