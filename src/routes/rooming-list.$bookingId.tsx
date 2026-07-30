@@ -271,6 +271,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [upgradeFilter, setUpgradeFilter] = useState<UpgradeFilter>("all");
   const [query, setQuery] = useState("");
   const [openGuest, setOpenGuest] = useState<{ allocationId: string | null; guestId: string } | null>(null);
+  /* single source of truth for the currently selected (existing) guest while editing */
+  const [editDraft, setEditDraft] = useState<Guest | null>(null);
   const [pendingGuest, setPendingGuest] = useState<{
     allocationId: string | null;
     guest: Guest;
@@ -461,6 +463,39 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   );
 
 
+  /** the stored (committed) record for the currently selected existing guest */
+  const selectedStored = useMemo(() => {
+    if (!list || !openGuest) return null;
+    if (!openGuest.allocationId) {
+      const guest = list.unassigned.find((g) => g.id === openGuest.guestId);
+      return guest ? { alloc: null as Allocation | null, guest } : null;
+    }
+    const alloc = list.allocations.find((a) => a.id === openGuest.allocationId) ?? null;
+    const guest = alloc?.guests.find((g) => g.id === openGuest.guestId) ?? null;
+    return alloc && guest ? { alloc, guest } : null;
+  }, [list, openGuest]);
+
+  /* load the selected guest into the shared draft whenever the selection changes */
+  const selectedKey = openGuest ? `${openGuest.allocationId ?? "none"}:${openGuest.guestId}` : null;
+  const loadedKey = useRef<string | null>(null);
+  useEffect(() => {
+    if (!selectedKey || !selectedStored) {
+      loadedKey.current = null;
+      setEditDraft(null);
+      return;
+    }
+    if (loadedKey.current !== selectedKey) {
+      loadedKey.current = selectedKey;
+      setEditDraft(selectedStored.guest);
+    }
+  }, [selectedKey, selectedStored]);
+
+  /** the live draft for the selected guest (falls back to the stored record) */
+  const liveGuest = useMemo(() => {
+    if (!selectedStored) return null;
+    return editDraft && editDraft.id === selectedStored.guest.id ? editDraft : selectedStored.guest;
+  }, [editDraft, selectedStored]);
+
   const drawerGuest = useMemo(() => {
     if (!list) return null;
     if (pendingGuest) {
@@ -469,15 +504,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         : null;
       return { alloc, guest: pendingGuest.guest, isNew: true };
     }
-    if (!openGuest) return null;
-    if (!openGuest.allocationId) {
-      const guest = list.unassigned.find((g) => g.id === openGuest.guestId);
-      return guest ? { alloc: null, guest, isNew: false } : null;
-    }
-    const alloc = list.allocations.find((a) => a.id === openGuest.allocationId);
-    const guest = alloc?.guests.find((g) => g.id === openGuest.guestId);
-    return alloc && guest ? { alloc, guest, isNew: false } : null;
-  }, [list, openGuest, pendingGuest]);
+    if (!selectedStored || !liveGuest) return null;
+    return { alloc: selectedStored.alloc, guest: liveGuest, isNew: false };
+  }, [list, pendingGuest, selectedStored, liveGuest]);
 
   const issues = useMemo(() => (list ? roomingIssues(list) : []), [list]);
 
@@ -1027,6 +1056,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     locked={locked}
                     active={openGuest?.allocationId === a.id || pendingGuest?.allocationId === a.id}
                     openGuestId={openGuest?.allocationId === a.id ? openGuest.guestId : null}
+                    guestDraft={openGuest?.allocationId === a.id ? liveGuest : null}
+                    onGuestDraftName={(guestId, name) =>
+                      setEditDraft((d) => (d && d.id === guestId ? { ...d, ...splitName(name) } : d))
+                    }
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
                     upgradeMode={upgradeMode}
@@ -1140,7 +1173,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           `${p.guest.firstName ?? ""} ${p.guest.lastName ?? ""}`.trim() !== joined;
                         return { ...p, guest: g, raw: rawChanged ? joined : p.raw };
                       })
-                  : undefined
+                  : /* existing guest — the drawer edits the shared selected-guest draft */
+                    (g) => setEditDraft(g)
               }
               onClose={() => {
                 setOpenGuest(null);
@@ -1343,6 +1377,8 @@ function AllocationRow({
   locked,
   active,
   openGuestId,
+  guestDraft,
+  onGuestDraftName,
   autoFocus,
   onAutoFocused,
   upgradeMode,
@@ -1367,6 +1403,9 @@ function AllocationRow({
   locked: boolean;
   active?: boolean;
   openGuestId?: string | null;
+  /** live shared draft for the currently selected guest (single source of truth) */
+  guestDraft?: Guest | null;
+  onGuestDraftName?: (guestId: string, name: string) => void;
   autoFocus?: boolean;
   onAutoFocused?: () => void;
   upgradeMode?: boolean;
@@ -1567,11 +1606,12 @@ function AllocationRow({
         {allocation.guests.map((g) => (
           <SavedGuestRow
             key={g.id}
-            guest={g}
+            guest={guestDraft && guestDraft.id === g.id ? guestDraft : g}
             locked={locked}
             isSelected={openGuestId === g.id}
             showRequirementDetail={showRequirementDetail}
             onOpen={() => onOpenGuest(g.id)}
+            onDraftName={(name) => onGuestDraftName?.(g.id, name)}
             onRename={(name) => onRenameGuest?.(g.id, name)}
             onRemove={() => onRemoveGuest(g.id)}
           />
@@ -1881,6 +1921,7 @@ function SavedGuestRow({
   isSelected,
   showRequirementDetail,
   onOpen,
+  onDraftName,
   onRename,
   onRemove,
 }: {
@@ -1889,28 +1930,61 @@ function SavedGuestRow({
   isSelected?: boolean;
   showRequirementDetail?: boolean;
   onOpen: () => void;
+  /** live (uncommitted) name change — updates the shared selected-guest draft */
+  onDraftName?: (name: string) => void;
   onRename?: (name: string) => void;
   onRemove: () => void;
 }) {
   const [confirm, setConfirm] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
   const req = guestRequirementSummary(guest);
+  /* `guest` is already the live shared draft when this row is selected */
   const displayName = guestName(guest);
   const [editing, setEditing] = useState(false);
-  const [draftName, setDraftName] = useState(displayName);
+  const [raw, setRaw] = useState(displayName);
+  /** name as it was when editing started — used to restore on Escape */
+  const originalRef = useRef(displayName);
+  /** last value this input pushed into the shared draft */
+  const pushedRef = useRef(displayName);
+
+  /* keep the inline field in sync with the shared draft (e.g. Guest Details edits) */
+  useEffect(() => {
+    if (!editing) {
+      setRaw(displayName);
+      pushedRef.current = displayName;
+      return;
+    }
+    if (displayName !== pushedRef.current) {
+      setRaw(displayName);
+      pushedRef.current = displayName;
+    }
+  }, [displayName, editing]);
 
   /** one shared handler for pill click + pencil click */
   const editGuest = () => {
     onOpen();
     if (locked) return;
-    setDraftName(displayName);
+    originalRef.current = displayName;
+    pushedRef.current = displayName;
+    setRaw(displayName);
     setEditing(true);
   };
   const startEdit = editGuest;
+  const setName = (v: string) => {
+    setRaw(v);
+    pushedRef.current = v;
+    onDraftName?.(v);
+  };
   const commit = () => {
     setEditing(false);
-    const v = draftName.trim();
-    if (v && v !== displayName) onRename?.(v);
+    const v = raw.trim();
+    if (v && v !== originalRef.current) onRename?.(v);
+  };
+  const cancel = () => {
+    setEditing(false);
+    setRaw(originalRef.current);
+    pushedRef.current = originalRef.current;
+    onDraftName?.(originalRef.current);
   };
 
   return (
@@ -1941,8 +2015,8 @@ function SavedGuestRow({
         {editing ? (
           <input
             autoFocus
-            value={draftName}
-            onChange={(e) => setDraftName(e.target.value)}
+            value={raw}
+            onChange={(e) => setName(e.target.value)}
             onBlur={commit}
             onFocus={(e) => e.currentTarget.select()}
             onKeyDownCapture={(e) => {
@@ -1953,8 +2027,7 @@ function SavedGuestRow({
               }
               if (e.key === "Escape") {
                 e.preventDefault();
-                setDraftName(displayName);
-                setEditing(false);
+                cancel();
               }
             }}
             onKeyUpCapture={(e) => e.stopPropagation()}
