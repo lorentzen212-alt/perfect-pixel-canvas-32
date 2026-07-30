@@ -1376,6 +1376,8 @@ function AllocationRow({
   locked,
   active,
   openGuestId,
+  guestDraft,
+  onGuestDraftName,
   autoFocus,
   onAutoFocused,
   upgradeMode,
