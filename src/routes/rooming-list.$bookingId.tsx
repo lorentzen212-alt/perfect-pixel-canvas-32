@@ -3073,7 +3073,7 @@ function UpgradeCheckbox({
         background: checked
           ? "linear-gradient(180deg, #F4D675 0%, #D4AF37 52%, #A96F08 100%)"
           : "rgba(8,24,40,0.35)",
-        border: `1px solid ${checked ? "#E7B94F" : "rgba(231,185,79,0.55)"}`,
+        border: `1px solid ${checked ? "#E7B94F" : "rgba(231,185,79,0.40)"}`,
         opacity: disabled ? 0.45 : 1,
       }}
     >
@@ -3550,8 +3550,6 @@ function UpgradeModePanel({
       className="px-5 py-3.5"
       style={{
         backgroundColor: "#274E6D",
-        borderTop: "1px solid rgba(212,175,55,0.55)",
-        borderBottom: "1px solid rgba(212,175,55,0.30)",
         boxShadow: "inset 3px 0 0 #D4AF37",
       }}
     >
@@ -3599,8 +3597,8 @@ function UpgradeModePanel({
         <button
           type="button"
           onClick={onCancel}
-          className="ml-auto rounded-[7px] px-3 py-[6px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.14)]"
-          style={{ color: "#FFFFFF", border: "1px solid rgba(244,214,117,0.55)" }}
+          className="ml-auto rounded-[7px] px-3 py-[6px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(244,214,117,0.10)]"
+          style={{ color: "#FFFFFF", border: "1px solid rgba(231,185,79,0.28)" }}
         >
           Exit upgrade mode
         </button>
