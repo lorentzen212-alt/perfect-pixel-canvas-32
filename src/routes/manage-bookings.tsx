@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/lib/auth";
-import { fetchBookings } from "@/lib/bookingsApi";
+import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
+import { fetchBookings, createBooking } from "@/lib/bookingsApi";
 import {
   Bell,
   CalendarCheck,
@@ -538,11 +539,27 @@ function ManageBookings() {
     }
   }, [authLoading, session, navigate]);
 
+  const queryClient = useQueryClient();
   const { data: bookings = [], isLoading } = useQuery({
     queryKey: ["bookings"],
     queryFn: fetchBookings,
     enabled: Boolean(session),
   });
+
+  /* a request built before signing in is submitted automatically on arrival */
+  const pendingHandled = useRef(false);
+  useEffect(() => {
+    if (!session || pendingHandled.current) return;
+    const pending = readPendingRequest();
+    if (!pending) return;
+    pendingHandled.current = true;
+    void createBooking(session.user.id, pending)
+      .then(() => {
+        clearPendingRequest();
+        queryClient.invalidateQueries({ queryKey: ["bookings"] });
+      })
+      .catch((err) => console.error("[pending request]", err));
+  }, [session, queryClient]);
 
   const results = useMemo(
     () => filterBookings(bookings, { query, status, date: dateFilter }),
