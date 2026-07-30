@@ -3914,17 +3914,34 @@ function SecondaryFilterMenu({ view, onChange }: { view: ViewFilter; onChange: (
         ref={btnRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1 rounded-[6px] px-3 py-[5px] text-[12px] transition-colors"
+        className="flex items-center justify-center gap-1.5 px-5 text-[13.5px] transition-colors"
         style={
           active
-            ? { color: GOLD, backgroundColor: SURFACE_2, border: `1px solid ${GOLD_DEEP}` }
-            : { color: TEXT_2, border: "1px solid transparent" }
+            ? {
+                color: "#8A6A1C",
+                fontWeight: 600,
+                backgroundColor: "#FBF4E5",
+                boxShadow: "inset 0 0 0 1px #D6AD55",
+                borderRadius: 9,
+              }
+            : { color: "#34495E", fontWeight: 500, borderLeft: "1px solid #E1E6EB" }
         }
+        onMouseEnter={(e) => {
+          if (!active) e.currentTarget.style.backgroundColor = "rgba(40, 75, 105, 0.04)";
+        }}
+        onMouseLeave={(e) => {
+          if (!active) e.currentTarget.style.backgroundColor = "transparent";
+        }}
       >
         {active ? active.label : "More"}
-        <ChevronDown size={12} />
+        <ChevronDown
+          size={14}
+          strokeWidth={2}
+          style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 160ms ease" }}
+        />
       </button>
-      <FloatingPopover anchorRef={btnRef} open={open} onClose={() => setOpen(false)} width={210} align="end">
+      <FloatingPopover anchorRef={btnRef} open={open} onClose={() => setOpen(false)} width={210} align="start">
+
         {extras.map((e) => (
           <button
             key={e.value}
