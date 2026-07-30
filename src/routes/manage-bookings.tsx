@@ -805,7 +805,7 @@ function ManageBookings() {
       <div className="lg:pl-[244px]">
         {/* top bar */}
         <header
-          className="sticky top-0 z-30 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:px-8"
+          className="sticky top-0 z-30 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:hidden"
           style={{ backgroundColor: TOPBAR, borderBottom: `1px solid ${BORDER}` }}
         >
           <div className="flex min-w-0 items-center gap-3">
@@ -861,27 +861,122 @@ function ManageBookings() {
         </header>
 
         <main
-          className="min-h-[calc(100vh-64px)] px-4 py-6 sm:px-6 lg:px-8"
+          className="relative min-h-[calc(100vh-64px)] overflow-hidden px-4 pb-6 pt-8 sm:px-6 lg:px-10 lg:pt-10"
           style={{ backgroundColor: BG_ALT }}
         >
-          {/* heading + stats */}
-          <section className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,330px)_minmax(0,1fr)] xl:items-center">
-            <div className="min-w-0">
-              <h1 className="text-[40px] leading-[1.05]" style={{ color: TEXT, fontFamily: SERIF }}>
-                My Bookings
-              </h1>
-              <p className="mt-2.5 text-[13.5px]" style={{ color: MUTED }}>
-                All your group stays and events in one place.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-              <StatCard value={String(bookings.length)} label="Total Bookings" icon={<CalendarDays size={16} />} tone="#B9A06B" />
-              <StatCard value={String(needsAttention.length)} label="Needs Attention" icon={<Bell size={16} />} tone={GOLD} />
-              <StatCard value={String(offersReady.length)} label="Offers Ready" icon={<Gift size={16} />} tone="#8FA98A" />
-              <StatCard value={String(upcoming.length)} label="Upcoming Stays" icon={<CalendarCheck size={16} />} tone="#8FA7BC" />
+          {/* atmospheric mountain backdrop — fades into the page */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[560px]" aria-hidden>
+            <img
+              src={mountains}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ filter: "saturate(0.8) brightness(0.7)" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background: `linear-gradient(180deg, rgba(30,44,54,0.55) 0%, rgba(30,44,54,0.72) 42%, rgba(34,48,58,0.94) 78%, ${BG_ALT} 100%)`,
+              }}
+            />
+          </div>
+
+          {/* heading + top-right actions */}
+          <section className="relative">
+            <div className="flex flex-wrap items-start justify-between gap-6">
+              <div className="min-w-0">
+                <h1
+                  className="text-[42px] leading-[1.05] sm:text-[52px]"
+                  style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
+                >
+                  My Bookings
+                </h1>
+                <p className="mt-3 text-[18px]" style={{ color: TEXT_2 }}>
+                  All your group stays and events in one place.
+                </p>
+              </div>
+
+              <div className="hidden shrink-0 items-center gap-5 lg:flex">
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2.5 rounded-[11px] px-5 py-3 text-[15px]"
+                  style={{
+                    backgroundColor: "rgba(12,30,42,0.45)",
+                    border: `1px solid ${GOLD_DEEP}`,
+                    color: GOLD,
+                  }}
+                >
+                  <Plus size={17} />
+                  New Booking
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Notifications"
+                  className="relative grid h-10 w-10 place-items-center rounded-md"
+                  style={{ color: "#EADFC6" }}
+                >
+                  <Bell size={20} />
+                  <span
+                    className="absolute -right-1 -top-1 grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[10.5px] font-semibold"
+                    style={{ backgroundColor: GOLD, color: "#1B2A33" }}
+                  >
+                    2
+                  </span>
+                </button>
+
+                <AccountMenu
+                  initials={initials}
+                  displayName={displayName}
+                  email={session?.user.email ?? ""}
+                  onSignOut={() => void signOut()}
+                  compact
+                />
+              </div>
             </div>
 
+            {/* open statistics — no container */}
+            <div className="mt-12 grid grid-cols-2 gap-y-8 sm:grid-cols-4">
+              {[
+                { value: bookings.length, label: "Total Bookings" },
+                { value: needsAttention.length, label: "Needs Attention" },
+                { value: offersReady.length, label: "Offers Ready" },
+                { value: upcoming.length, label: "Upcoming Stays" },
+              ].map((s, i) => (
+                <div
+                  key={s.label}
+                  className="min-w-0 px-2 text-center sm:px-6"
+                  style={
+                    i === 0
+                      ? undefined
+                      : {
+                          borderLeft: "1px solid rgba(199,163,74,0.30)",
+                        }
+                  }
+                >
+                  <p
+                    className="text-[38px] leading-none"
+                    style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
+                  >
+                    {s.value}
+                  </p>
+                  <p className="mt-3 text-[14px]" style={{ color: TEXT_2 }}>
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* long gold divider */}
+            <div
+              className="mt-10 h-px w-full"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(199,163,74,0) 0%, rgba(199,163,74,0.45) 8%, rgba(199,163,74,0.45) 92%, rgba(199,163,74,0) 100%)",
+              }}
+              aria-hidden
+            />
           </section>
+
 
           {!isProfileComplete(profile) && (
             <section
