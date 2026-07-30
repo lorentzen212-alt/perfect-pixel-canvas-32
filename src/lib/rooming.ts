@@ -161,6 +161,8 @@ export interface Allocation {
   /** optional occupancy override for dynamic room types (e.g. family) */
   occupancy?: number;
   guests: Guest[];
+  /** historical record of who was assigned when the room was cancelled — never active */
+  previousGuests?: { id: string; name: string }[];
   requests: string[];
 }
 
