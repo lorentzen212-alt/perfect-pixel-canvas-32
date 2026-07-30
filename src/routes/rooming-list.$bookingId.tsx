@@ -1924,6 +1924,24 @@ function AllocationRow({
           />
         ))}
 
+        {cancelled && (allocation.previousGuests?.length ?? 0) > 0 && (
+          <div className="flex flex-col gap-[5px]">
+            <p className="text-[10px] uppercase tracking-[0.16em]" style={{ color: RT_3 }}>
+              Previously assigned
+            </p>
+            {allocation.previousGuests!.map((p) => (
+              <p key={p.id} className="truncate text-[12.5px]" style={{ color: RT_3, fontStyle: "italic" }}>
+                {p.name}
+              </p>
+            ))}
+            <p className="text-[10.5px]" style={{ color: RT_3, opacity: 0.75 }}>
+              Moved to unassigned guests
+            </p>
+          </div>
+        )}
+
+
+
 
         {!readOnly &&
           Array.from({ length: Math.max(0, cap - allocation.guests.length) }).map((_, i) =>
