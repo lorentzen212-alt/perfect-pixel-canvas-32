@@ -295,44 +295,6 @@ function Field({
   );
 }
 
-/* dark-safe shell shown while the rooming list resolves — keeps the sidebar,
-   header and page background painted so navigation never flashes white. */
-function RoomingShellSkeleton({ bookingId }: { bookingId?: string }) {
-  return (
-    <div
-      className="min-h-screen"
-      style={{
-        backgroundColor: "#EEF3F6",
-        backgroundImage:
-          "linear-gradient(180deg, #F1F5F7 0%, #EDF2F5 45%, #E9EFF3 100%)",
-        backgroundAttachment: "fixed",
-      }}
-    >
-      <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
-        <SidebarContent light active="Rooming List" bookingId={bookingId} />
-      </aside>
-      <div className="lg:pl-[244px]">
-        <TopBarLight onOpenNav={() => {}} />
-        <div className="mx-auto w-full max-w-[1560px] px-4 pb-5 pt-2.5 sm:px-6 lg:px-7">
-          <div
-            className="h-[132px] w-full rounded-[17px]"
-            style={{ backgroundColor: "rgba(20,45,73,0.06)" }}
-          />
-          <div className="mt-4 space-y-3">
-            {[0, 1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="h-[76px] w-full rounded-[14px]"
-                style={{ backgroundColor: "rgba(20,45,73,0.05)" }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /* ───────────────── route ───────────────── */
 
 function RoomingListRoute() {
@@ -347,17 +309,19 @@ function RoomingListRoute() {
   }, [authLoading, session, bookingId, navigate]);
 
   const { data: booking, isLoading } = useQuery({
-    queryKey: ["booking", bookingId],
-    queryFn: () => fetchBooking(bookingId),
-    enabled: Boolean(session),
+    ...bookingQueryOptions(bookingId),
+    enabled: Boolean(session) || authLoading,
   });
 
-  if (authLoading || isLoading || !session) {
-    return <RoomingShellSkeleton bookingId={bookingId} />;
+  /* no loading screen: the router keeps the previous page mounted while the
+     loader warms the cache, so this only renders once data is available. */
+  if (!booking) {
+    if (authLoading || isLoading || !session) return null;
+    throw notFound();
   }
-  if (!booking) throw notFound();
   return <RoomingWorkspace booking={booking} />;
 }
+
 
 type ViewFilter = "all" | "missing" | "complete" | "dietary" | "requests" | "upgrades" | "cancelled";
 type UpgradeFilter = "all" | UpgradeStatus;
