@@ -71,10 +71,26 @@
   * {
     border-color: var(--color-border);
   }
+  html,
+  body,
+  #root {
+    background-color: #0D1720;
+    min-height: 100%;
+  }
   body {
-    background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+  }
+  @keyframes hgbRouteIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .hgb-route-in {
+    animation: hgbRouteIn 150ms ease-out both;
   }
 }
 
