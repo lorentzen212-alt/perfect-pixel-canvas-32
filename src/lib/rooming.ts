@@ -169,6 +169,16 @@ export function hasRoomTypeChange(a: Allocation) {
   return a.type !== a.bookedRoomType;
 }
 
+/** cancelled allocations stay in the list but never count as active rooms */
+export function isCancelled(a: Allocation) {
+  return a.status === "cancelled";
+}
+
+/** every allocation that still counts toward the booking */
+export function activeAllocations(list: RoomingList) {
+  return list.allocations.filter((a) => !isCancelled(a));
+}
+
 /** Valid upgrade categories for a single allocation (strictly higher only). */
 export function upgradeOptionsFor(a: Allocation): RoomCategory[] {
   const rank = categoryRank(a.bookedRoomCategory);
@@ -176,8 +186,9 @@ export function upgradeOptionsFor(a: Allocation): RoomCategory[] {
 }
 
 export function canUpgrade(a: Allocation) {
-  return upgradeOptionsFor(a).length > 0;
+  return !isCancelled(a) && upgradeOptionsFor(a).length > 0;
 }
+
 
 /** Categories valid for EVERY allocation in the selection. */
 export function commonUpgradeOptions(list: Allocation[]): RoomCategory[] {
