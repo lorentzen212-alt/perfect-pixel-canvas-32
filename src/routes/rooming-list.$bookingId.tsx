@@ -471,21 +471,39 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     [update],
   );
 
-  /** Cancellation never deletes anything — the record (and its guests) is archived. */
+  /**
+   * Cancelling a room never deletes guest data: every guest is moved intact
+   * (dietary tags, requests, contact details) into the unassigned pool, and the
+   * cancelled record keeps a historical, non-active note of who was assigned.
+   */
   const cancelAllocation = useCallback(
     (id: string) => {
-      update((l) => ({
-        ...l,
-        allocations: l.allocations.map((a) =>
-          a.id === id ? { ...a, status: "cancelled" as const, upgradeRequest: null } : a,
-        ),
-      }));
+      update((l) => {
+        const target = l.allocations.find((a) => a.id === id);
+        const moving = target ? target.guests.filter(isNamed) : [];
+        return {
+          ...l,
+          allocations: l.allocations.map((a) =>
+            a.id === id
+              ? {
+                  ...a,
+                  status: "cancelled" as const,
+                  upgradeRequest: null,
+                  guests: [],
+                  previousGuests: moving.map((g) => ({ id: g.id, name: guestName(g) })),
+                }
+              : a,
+          ),
+          unassigned: [...l.unassigned, ...moving],
+        };
+      });
       setSelected((s) => s.filter((x) => x !== id));
       setManageSelected((s) => s.filter((x) => x !== id));
       setConfirmCancel(null);
     },
     [update],
   );
+
 
 
   const restoreAllocation = useCallback(
@@ -1500,8 +1518,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               {moving.length > 0 && (
                 <div className="mt-3 space-y-1.5">
                   <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
-                    {moving.length} guest{moving.length === 1 ? "" : "s"} kept on the cancelled record
+                    {moving.length} guest{moving.length === 1 ? "" : "s"} will move to Unassigned Guests — all
+                    details kept
                   </p>
+
                   {moving.map((g) => (
                     <div
                       key={g.id}
@@ -1903,6 +1923,24 @@ function AllocationRow({
             onRemove={() => onRemoveGuest(g.id)}
           />
         ))}
+
+        {cancelled && (allocation.previousGuests?.length ?? 0) > 0 && (
+          <div className="flex flex-col gap-[5px]">
+            <p className="text-[10px] uppercase tracking-[0.16em]" style={{ color: RT_3 }}>
+              Previously assigned
+            </p>
+            {allocation.previousGuests!.map((p) => (
+              <p key={p.id} className="truncate text-[12.5px]" style={{ color: RT_3, fontStyle: "italic" }}>
+                {p.name}
+              </p>
+            ))}
+            <p className="text-[10.5px]" style={{ color: RT_3, opacity: 0.75 }}>
+              Moved to unassigned guests
+            </p>
+          </div>
+        )}
+
+
 
 
         {!readOnly &&
