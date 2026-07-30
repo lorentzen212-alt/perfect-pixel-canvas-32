@@ -91,7 +91,7 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
 });
 
 /* Deep matte navy workspace tokens (names kept so existing markup keeps working) */
-const BG_ALT = "#E9EEF2";
+const BG_ALT = "#A0A0A0";
 const CARD = "#142D49";
 const SURFACE_2 = "#1B3B5E";
 const CARD_BORDER = "rgba(255,255,255,0.10)";
