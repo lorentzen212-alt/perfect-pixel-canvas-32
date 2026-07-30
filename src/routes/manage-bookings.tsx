@@ -741,7 +741,7 @@ function SidebarContent({ active, roomingBookingId }: { active: string; roomingB
               )}
               <item.icon size={17} style={{ color: isActive ? GOLD : MUTED }} />
               {item.label}
-            </button>
+            </Comp>
           );
         })}
       </nav>
