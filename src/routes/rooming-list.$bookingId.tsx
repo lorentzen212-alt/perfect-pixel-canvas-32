@@ -463,6 +463,39 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   );
 
 
+  /** the stored (committed) record for the currently selected existing guest */
+  const selectedStored = useMemo(() => {
+    if (!list || !openGuest) return null;
+    if (!openGuest.allocationId) {
+      const guest = list.unassigned.find((g) => g.id === openGuest.guestId);
+      return guest ? { alloc: null as Allocation | null, guest } : null;
+    }
+    const alloc = list.allocations.find((a) => a.id === openGuest.allocationId) ?? null;
+    const guest = alloc?.guests.find((g) => g.id === openGuest.guestId) ?? null;
+    return alloc && guest ? { alloc, guest } : null;
+  }, [list, openGuest]);
+
+  /* load the selected guest into the shared draft whenever the selection changes */
+  const selectedKey = openGuest ? `${openGuest.allocationId ?? "none"}:${openGuest.guestId}` : null;
+  const loadedKey = useRef<string | null>(null);
+  useEffect(() => {
+    if (!selectedKey || !selectedStored) {
+      loadedKey.current = null;
+      setEditDraft(null);
+      return;
+    }
+    if (loadedKey.current !== selectedKey) {
+      loadedKey.current = selectedKey;
+      setEditDraft(selectedStored.guest);
+    }
+  }, [selectedKey, selectedStored]);
+
+  /** the live draft for the selected guest (falls back to the stored record) */
+  const liveGuest = useMemo(() => {
+    if (!selectedStored) return null;
+    return editDraft && editDraft.id === selectedStored.guest.id ? editDraft : selectedStored.guest;
+  }, [editDraft, selectedStored]);
+
   const drawerGuest = useMemo(() => {
     if (!list) return null;
     if (pendingGuest) {
@@ -471,15 +504,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
         : null;
       return { alloc, guest: pendingGuest.guest, isNew: true };
     }
-    if (!openGuest) return null;
-    if (!openGuest.allocationId) {
-      const guest = list.unassigned.find((g) => g.id === openGuest.guestId);
-      return guest ? { alloc: null, guest, isNew: false } : null;
-    }
-    const alloc = list.allocations.find((a) => a.id === openGuest.allocationId);
-    const guest = alloc?.guests.find((g) => g.id === openGuest.guestId);
-    return alloc && guest ? { alloc, guest, isNew: false } : null;
-  }, [list, openGuest, pendingGuest]);
+    if (!selectedStored || !liveGuest) return null;
+    return { alloc: selectedStored.alloc, guest: liveGuest, isNew: false };
+  }, [list, pendingGuest, selectedStored, liveGuest]);
 
   const issues = useMemo(() => (list ? roomingIssues(list) : []), [list]);
 
