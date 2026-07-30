@@ -1173,7 +1173,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           `${p.guest.firstName ?? ""} ${p.guest.lastName ?? ""}`.trim() !== joined;
                         return { ...p, guest: g, raw: rawChanged ? joined : p.raw };
                       })
-                  : undefined
+                  : /* existing guest — the drawer edits the shared selected-guest draft */
+                    (g) => setEditDraft(g)
               }
               onClose={() => {
                 setOpenGuest(null);
