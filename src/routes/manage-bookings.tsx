@@ -142,11 +142,13 @@ function StatusChip({ type }: { type: Booking["type"] }) {
   const isLeisure = type === "leisure";
   return (
     <span
-      className="inline-flex items-center rounded px-2 py-[3px] text-[10px] font-semibold uppercase tracking-[0.14em]"
+      className="inline-flex items-center rounded-[4px] px-[7px] py-[2px] text-[9.5px] font-semibold uppercase tracking-[0.15em]"
       style={{
-        color: isLeisure ? GOLD : "#9FB6C8",
-        backgroundColor: isLeisure ? "rgba(199,163,74,0.12)" : "rgba(143,167,188,0.14)",
-        border: `1px solid ${isLeisure ? "rgba(199,163,74,0.32)" : "rgba(143,167,188,0.30)"}`,
+        color: isLeisure ? "#BE9C4E" : "#9FB6C8",
+        background: isLeisure
+          ? "linear-gradient(180deg, rgba(199,163,74,0.13) 0%, rgba(16,26,36,0.35) 100%)"
+          : "rgba(143,167,188,0.12)",
+        border: `1px solid ${isLeisure ? "rgba(199,163,74,0.30)" : "rgba(143,167,188,0.26)"}`,
       }}
     >
       {isLeisure ? "Leisure" : "M&E"}
