@@ -496,10 +496,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const nights = booking.nights;
 
   return (
-    <div
+      <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#E9EEF2",
+        backgroundColor: BG_ALT,
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
