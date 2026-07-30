@@ -472,6 +472,7 @@ export function loadRoomingList(bookingId: string, dist: Distribution): RoomingL
           /* migrate older drafts that predate the booked-category model */
           allocations: parsed.allocations.map((a) => ({
             ...a,
+            status: a.status ?? "active",
             bookedRoomType: a.bookedRoomType ?? a.type,
             bookedRoomCategory:
               a.bookedRoomCategory ??
