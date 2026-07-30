@@ -549,9 +549,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               className="relative overflow-visible rounded-[16px] px-5 py-5 sm:px-6"
               style={{
                 backgroundColor: HERO_CARD_BG,
-                border: "1px solid rgba(90,115,135,0.13)",
+                border: "1px solid rgba(72,91,110,0.13)",
                 boxShadow:
-                  "0 8px 24px rgba(39,61,78,0.07), 0 1px 3px rgba(39,61,78,0.04), inset 0 1px 0 rgba(255,255,255,0.65)",
+                  "0 1px 2px rgba(20,35,50,0.04), 0 8px 22px rgba(28,47,65,0.07), 0 22px 50px rgba(28,47,65,0.045), inset 0 1px 0 rgba(255,255,255,0.65)",
               }}
             >
               {/* row 1 — badges + actions */}
