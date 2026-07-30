@@ -116,7 +116,7 @@ const STAT_TEXT = "#FFFFFF";
 const STAT_HEAD = "#F7F8F8";
 const STAT_TEXT_2 = "rgba(255,255,255,0.78)";
 const STAT_SEP = "rgba(255,255,255,0.20)";
-const STAT_SHADOW = "0 8px 22px rgba(27,50,70,0.10)";
+const STAT_SHADOW = "0 5px 10px rgba(28,48,64,0.08), 0 12px 22px rgba(28,48,64,0.10)";
 
 /* light input-field tokens used inside the navy Guest Details panel */
 const FIELD_BG = "#EEF2F6"; // soft cool off-white / very light blue-grey
