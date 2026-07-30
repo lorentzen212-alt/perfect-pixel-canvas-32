@@ -1443,7 +1443,7 @@ function AllocationRow({
       data-selected={selected ? "true" : "false"}
       className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:24%_36%_22%_14%_4%]"
       style={{
-        backgroundColor: NAVY,
+        backgroundColor: "#173A5A",
         backgroundImage: selected
           ? `linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY}`
           : CARD_NAVY,
