@@ -193,7 +193,6 @@ type FormState = {
 const DRAFT_KEY = "hgb:me-draft-v1";
 
 function BookMeetingsEvents() {
-  const { session: authSession } = useAuth();
   const [hydrated, setHydrated] = useState(false);
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState<"forward" | "back">("forward");
