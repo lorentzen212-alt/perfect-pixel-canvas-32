@@ -5545,13 +5545,13 @@ function LeisureStep3Screen({
         color: S3_TEXT,
       }}
     >
-      <div style={{ borderBottom: `1px solid ${S3_BORDER}` }}>
-        <BookingHeader
-          currentStep={3}
-          onStepGo={(s) => onStepGo(s as StepKey)}
-          hideCurrentFlow="leisure"
-        />
-      </div>
+      <BookingHeader
+        background="transparent"
+        currentStep={3}
+        onStepGo={(s) => onStepGo(s as StepKey)}
+        hideCurrentFlow="leisure"
+      />
+
 
       <div className="mx-auto w-full max-w-[1360px] px-6 pb-6 pt-8 sm:px-10 lg:px-14 lg:pt-10">
         {/* Header row */}
