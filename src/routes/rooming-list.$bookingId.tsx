@@ -91,7 +91,7 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
 });
 
 /* Deep matte navy workspace tokens (names kept so existing markup keeps working) */
-const BG_ALT = "#E9EEF2";
+const BG_ALT = "#252B2B";
 const CARD = "#142D49";
 const SURFACE_2 = "#1B3B5E";
 const CARD_BORDER = "rgba(255,255,255,0.10)";
@@ -482,7 +482,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const issues = useMemo(() => (list ? roomingIssues(list) : []), [list]);
 
   if (!list || !stats) {
-    return <div className="min-h-screen" style={{ backgroundColor: BG_ALT }} />;
+    return <div className="min-h-screen" style={{ backgroundColor: BG_ALT, backgroundImage: "linear-gradient(135deg, #252A2A 0%, #282E2D 50%, #232929 100%)" }} />;
   }
 
   const nights = booking.nights;
@@ -491,7 +491,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#E9EEF2",
+        backgroundColor: "#252B2B",
+        backgroundImage:
+          "linear-gradient(135deg, #252A2A 0%, #282E2D 50%, #232929 100%)",
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
