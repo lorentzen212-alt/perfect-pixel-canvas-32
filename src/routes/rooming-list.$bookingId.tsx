@@ -107,7 +107,7 @@ const GREEN = "#74D97C";
 const AMBER = "#E7B94F";
 const ROW = "rgba(255,255,255,0.07)";
 const PANEL = "#142D49";
-const NAVY = "#142D49";
+const NAVY = "#46657E";
 
 /* overview header palette — cloudy off-white + muted slate blue */
 const HERO_CARD_BG = "#F4F6F7";
@@ -126,22 +126,22 @@ const FIELD_PLACEHOLDER = "#88A0B6"; // muted blue-grey placeholder
 const FIELD_LABEL = "#7C93A8"; // muted blue-grey label
 
 /* dark matte navy room-allocation card tokens */
-const CARD_NAVY = "linear-gradient(180deg, #142D49 0%, #0F2439 100%)";
-const CARD_NAVY_HOVER = "linear-gradient(180deg, #1A3A5C 0%, #132B45 100%)";
+const CARD_NAVY = "#46657E";
+const CARD_NAVY_HOVER = "#4B6A82";
 const RT = "#F7F7F5"; // primary — soft off-white (matches TEXT)
 const RT_2 = "#D9DDE0"; // secondary — light neutral grey
 const RT_3 = "#B8BDC2"; // micro — muted neutral grey
-const R_BORDER = "rgba(255,255,255,0.09)";
+const R_BORDER = "rgba(220,232,240,0.12)";
 const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B94F";
 
 /* premium room-card sub-surfaces */
 
-const CTRL_BG = "#1B3B5E";
+const CTRL_BG = "#56748B";
 
-const CTRL_BORDER = "rgba(255,255,255,0.11)";
-const GUEST_BG = "#1A3856";
-const GUEST_BORDER = "rgba(255,255,255,0.10)";
+const CTRL_BORDER = "rgba(220,232,240,0.14)";
+const GUEST_BG = "#56748B";
+const GUEST_BORDER = "rgba(220,232,240,0.13)";
 const GOLD_EDGE =
   "linear-gradient(180deg,#A96F08 0%,#C99322 18%,#FFE9A6 42%,#E7B94F 58%,#A96F08 100%)";
 const GOLD_METAL_TEXT: React.CSSProperties = {
@@ -498,10 +498,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
       .hgb-row{background:${CARD_NAVY} !important;background-color:${NAVY} !important;opacity:1 !important;transition:transform 170ms ease,box-shadow 170ms ease,background 170ms ease,border-color 170ms ease}
       .hgb-row[data-selected="true"]{background:linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY} !important}
-      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,35,63,0.16) !important}
+      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 4px 12px rgba(28,48,64,0.10) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
-      .hgb-cell{border-top:1px solid rgba(255,255,255,0.05)}
-      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(173,192,205,0.14)}}
+      .hgb-cell{border-top:1px solid rgba(220,232,240,0.10)}
+      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(220,232,240,0.12)}}
       .hgb-inline::placeholder{color:#9FB0BE}
       .hgb-inline:focus{border-color:rgba(231,185,79,0.75) !important}
       .hgb-search::placeholder{color:#B8BDC2}
