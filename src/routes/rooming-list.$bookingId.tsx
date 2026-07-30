@@ -622,6 +622,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       <h2 className="text-[19.5px] font-semibold leading-none" style={{ color: TEXT }}>
                         Rooming List
                       </h2>
+                      <span
+                        className="mt-1.5 block h-[2px] w-[34px] rounded-full"
+                        style={{ backgroundImage: GOLD_BAR }}
+                      />
                       <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
                         Add guest details for each room allocation.
                       </p>
@@ -636,13 +640,19 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           {stats.percent}%
                         </span>
                       </div>
-                      <div className="mt-1.5 h-[5px] w-full overflow-hidden rounded-full" style={{ backgroundColor: "#CBD7E2" }}>
+                      <div className="mt-1.5 h-[5px] w-full overflow-hidden rounded-full" style={{ backgroundColor: "#8FA3B4" }}>
                         <div
                           className="h-full rounded-full transition-[width] duration-300 ease-out"
-                          style={{ width: `${stats.percent}%`, background: GOLD_BAR }}
+                          style={{
+                            width: `${stats.percent}%`,
+                            backgroundImage: GOLD_BAR,
+                            boxShadow:
+                              "inset 0 1px 0 rgba(255,233,166,0.55), 0 0 4px rgba(201,147,34,0.30)",
+                          }}
                         />
                       </div>
                     </div>
+
 
                     <div className="flex items-center gap-2.5">
                       <GhostButton onClick={() => setShowImport(true)}>
