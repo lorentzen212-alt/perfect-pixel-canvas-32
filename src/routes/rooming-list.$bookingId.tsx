@@ -1056,6 +1056,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     locked={locked}
                     active={openGuest?.allocationId === a.id || pendingGuest?.allocationId === a.id}
                     openGuestId={openGuest?.allocationId === a.id ? openGuest.guestId : null}
+                    guestDraft={openGuest?.allocationId === a.id ? liveGuest : null}
+                    onGuestDraftName={(guestId, name) =>
+                      setEditDraft((d) => (d && d.id === guestId ? { ...d, ...splitName(name) } : d))
+                    }
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
                     upgradeMode={upgradeMode}
