@@ -271,6 +271,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const [upgradeFilter, setUpgradeFilter] = useState<UpgradeFilter>("all");
   const [query, setQuery] = useState("");
   const [openGuest, setOpenGuest] = useState<{ allocationId: string | null; guestId: string } | null>(null);
+  /* single source of truth for the currently selected (existing) guest while editing */
+  const [editDraft, setEditDraft] = useState<Guest | null>(null);
   const [pendingGuest, setPendingGuest] = useState<{
     allocationId: string | null;
     guest: Guest;
