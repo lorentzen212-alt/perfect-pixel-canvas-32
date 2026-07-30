@@ -3234,14 +3234,14 @@ function LeisureStep2Screen({
         color: S2_TEXT,
       }}
     >
-      <div style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}>
-        <BookingHeader
-          compact
-          currentStep={2}
-          onStepGo={(s) => onStepGo(s as StepKey)}
-          hideCurrentFlow="leisure"
-        />
-      </div>
+      <BookingHeader
+        background="transparent"
+        compact
+        currentStep={2}
+        onStepGo={(s) => onStepGo(s as StepKey)}
+        hideCurrentFlow="leisure"
+      />
+
 
       <div
         className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(363px,1.298fr)_minmax(0,2.86fr)_300px]"
