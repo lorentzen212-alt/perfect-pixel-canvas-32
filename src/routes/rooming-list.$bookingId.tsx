@@ -918,7 +918,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         boxShadow: "0 1px 3px rgba(15, 23, 42, 0.03)",
                       }}
                     >
-                      {(["all", "missing", "complete"] as ViewFilter[]).map((v, i) => (
+                      {(cancelledAllocations.length > 0
+                        ? (["all", "missing", "complete", "cancelled"] as ViewFilter[])
+                        : (["all", "missing", "complete"] as ViewFilter[])
+                      ).map((v, i) => (
                         <button
                           key={v}
                           type="button"
