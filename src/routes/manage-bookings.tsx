@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "@/lib/auth";
+import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking } from "@/lib/bookingsApi";
 import {
@@ -391,11 +391,11 @@ function SidebarAccount() {
         {initials || "—"}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[13px]" style={{ color: TEXT }}>
+        <Link to="/account" className="block truncate text-[13px]" style={{ color: TEXT }}>
           {name}
-        </span>
+        </Link>
         <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
-          {profile?.company_name ?? session?.user.email ?? ""}
+          {session?.user.email ?? ""}
         </span>
       </span>
       <button
@@ -409,6 +409,109 @@ function SidebarAccount() {
     </div>
   );
 }
+
+function AccountMenu({
+  initials,
+  displayName,
+  email,
+  onSignOut,
+}: {
+  initials: string;
+  displayName: string;
+  email: string;
+  onSignOut: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className="flex items-center gap-2"
+      >
+        <span
+          className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
+          style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
+        >
+          {initials || "—"}
+        </span>
+        <span className="hidden min-w-0 text-left sm:block">
+          <span className="block truncate text-[13px]" style={{ color: TEXT }}>
+            {displayName}
+          </span>
+          {email && displayName !== email && (
+            <span className="block truncate text-[11px]" style={{ color: MUTED }}>
+              {email}
+            </span>
+          )}
+        </span>
+        <ChevronDown size={15} style={{ color: MUTED }} />
+      </button>
+
+      {open && (
+        <>
+          <button
+            type="button"
+            aria-label="Close account menu"
+            className="fixed inset-0 z-40 cursor-default"
+            onClick={() => setOpen(false)}
+          />
+          <div
+            role="menu"
+            className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-xl py-1.5"
+            style={{
+              backgroundColor: CARD,
+              border: `1px solid ${BORDER}`,
+              boxShadow: "0 24px 50px -24px rgba(0,0,0,0.6)",
+            }}
+          >
+            <div className="px-4 py-2">
+              <p className="truncate text-[12.5px]" style={{ color: TEXT }}>
+                {displayName}
+              </p>
+              <p className="truncate text-[11.5px]" style={{ color: MUTED }}>
+                {email}
+              </p>
+            </div>
+            <div style={{ borderTop: `1px solid ${BORDER}` }} />
+            <Link
+              to="/account"
+              onClick={() => setOpen(false)}
+              className="block px-4 py-2.5 text-[13px] hover:bg-white/5"
+              style={{ color: TEXT }}
+            >
+              My Profile
+            </Link>
+            <Link
+              to="/account"
+              onClick={() => setOpen(false)}
+              className="block px-4 py-2.5 text-[13px] hover:bg-white/5"
+              style={{ color: TEXT }}
+            >
+              Account Details
+            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                onSignOut();
+              }}
+              className="block w-full px-4 py-2.5 text-left text-[13px] hover:bg-white/5"
+              style={{ color: MUTED }}
+            >
+              Sign Out
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+
 
 
 const NAV = [
@@ -671,18 +774,13 @@ function ManageBookings() {
               </span>
             </button>
 
-            <button type="button" onClick={() => void signOut()} className="flex items-center gap-2">
-              <span
-                className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
-                style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
-              >
-                {initials || "—"}
-              </span>
-              <span className="hidden text-[13px] sm:inline" style={{ color: TEXT }}>
-                {displayName}
-              </span>
-              <ChevronDown size={15} style={{ color: MUTED }} />
-            </button>
+            <AccountMenu
+              initials={initials}
+              displayName={displayName}
+              email={session?.user.email ?? ""}
+              onSignOut={() => void signOut()}
+            />
+
           </div>
         </header>
 
@@ -708,6 +806,37 @@ function ManageBookings() {
             </div>
 
           </section>
+
+          {!isProfileComplete(profile) && (
+            <section
+              className="mt-5 flex flex-col gap-3 rounded-xl px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+              style={{
+                backgroundColor: CARD,
+                border: `1px solid ${GOLD_DEEP}`,
+                boxShadow: CARD_SHADOW,
+              }}
+            >
+              <div className="min-w-0">
+                <p className="text-[14px] font-medium" style={{ color: TEXT }}>
+                  Complete your profile
+                </p>
+                <p className="mt-0.5 text-[12.5px]" style={{ color: MUTED }}>
+                  Add your contact details once and reuse them for future bookings.
+                </p>
+              </div>
+              <Link
+                to="/account"
+                className="shrink-0 rounded-lg px-4 py-2 text-center text-[12px] font-semibold uppercase tracking-[0.14em]"
+                style={{
+                  background: "linear-gradient(180deg, #D9BC72 0%, #C7A34A 55%, #A9853A 100%)",
+                  color: "#20180A",
+                }}
+              >
+                Complete profile
+              </Link>
+            </section>
+          )}
+
 
           {/* controls */}
           <section className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1.4fr)_minmax(0,0.7fr)_minmax(0,0.7fr)_auto]">

@@ -25,8 +25,32 @@ export interface AuthState {
   session: Session | null;
   user: User | null;
   profile: Profile | null;
+  profileLoading: boolean;
   refreshProfile: () => Promise<void>;
   signOut: () => Promise<void>;
+}
+
+/** True when the profile holds usable contact info beyond the login email. */
+export function isProfileComplete(profile: Profile | null): boolean {
+  if (!profile) return false;
+  return Boolean(
+    profile.first_name?.trim() &&
+      profile.last_name?.trim() &&
+      profile.phone?.trim() &&
+      profile.country?.trim(),
+  );
+}
+
+/** True when the profile has at least a name — enough to prefill something useful. */
+export function hasProfileDetails(profile: Profile | null): boolean {
+  if (!profile) return false;
+  return Boolean(
+    profile.first_name?.trim() ||
+      profile.last_name?.trim() ||
+      profile.phone?.trim() ||
+      profile.company_name?.trim() ||
+      profile.country?.trim(),
+  );
 }
 
 const AuthContext = createContext<AuthState>({
@@ -34,9 +58,11 @@ const AuthContext = createContext<AuthState>({
   session: null,
   user: null,
   profile: null,
+  profileLoading: false,
   refreshProfile: async () => {},
   signOut: async () => {},
 });
+
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
@@ -66,20 +92,59 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const userId = session?.user?.id ?? null;
+  const userEmail = session?.user?.email ?? "";
+  const [profileLoading, setProfileLoading] = useState(false);
 
-  const loadProfile = useCallback(async (id: string) => {
-    const { data } = await supabase
-      .from("profiles")
-      .select("user_id, first_name, last_name, email, company_name, phone, country")
-      .eq("user_id", id)
-      .maybeSingle();
-    setProfile((data as Profile) ?? null);
-  }, []);
+  /**
+   * Loads the profile for a signed-in user and, for accounts created before the
+   * profile system existed, provisions the missing row (user_id + auth email).
+   * The upsert on the user_id primary key makes repeated calls safe.
+   */
+  const loadProfile = useCallback(
+    async (id: string, email: string) => {
+      setProfileLoading(true);
+      try {
+        const { data } = await supabase
+          .from("profiles")
+          .select("user_id, first_name, last_name, email, company_name, phone, country")
+          .eq("user_id", id)
+          .maybeSingle();
+
+        if (data) {
+          // Backfill the email from auth when it is missing on an older row.
+          if (email && !data.email) {
+            await supabase
+              .from("profiles")
+              .upsert({ user_id: id, email }, { onConflict: "user_id" });
+            setProfile({ ...(data as Profile), email });
+          } else {
+            setProfile(data as Profile);
+          }
+          return;
+        }
+
+        const { data: created, error } = await supabase
+          .from("profiles")
+          .upsert({ user_id: id, email }, { onConflict: "user_id" })
+          .select("user_id, first_name, last_name, email, company_name, phone, country")
+          .single();
+        if (error) {
+          console.error("[profile] provisioning failed", error.message);
+          setProfile(null);
+          return;
+        }
+        setProfile(created as Profile);
+      } finally {
+        setProfileLoading(false);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!userId) return;
-    void loadProfile(userId);
-  }, [userId, loadProfile]);
+    void loadProfile(userId, userEmail);
+  }, [userId, userEmail, loadProfile]);
 
   const value = useMemo<AuthState>(
     () => ({
@@ -87,16 +152,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       session,
       user: session?.user ?? null,
       profile,
+      profileLoading,
       refreshProfile: async () => {
-        if (userId) await loadProfile(userId);
+        if (userId) await loadProfile(userId, userEmail);
       },
       signOut: async () => {
         await supabase.auth.signOut();
         setProfile(null);
       },
     }),
-    [loading, session, profile, userId, loadProfile],
+    [loading, session, profile, profileLoading, userId, userEmail, loadProfile],
   );
+
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
