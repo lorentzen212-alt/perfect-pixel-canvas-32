@@ -275,7 +275,7 @@ function BookingCard({ booking }: { booking: Booking }) {
 
   return (
     <article
-      className="grid grid-cols-1 gap-5 rounded-[18px] p-3.5 sm:p-4 md:grid-cols-[minmax(0,286px)_minmax(0,1fr)] md:gap-7"
+      className="grid grid-cols-1 gap-6 rounded-[20px] p-5 sm:p-7 md:grid-cols-[minmax(0,300px)_minmax(0,1fr)] md:gap-9"
       style={{
         background: "linear-gradient(155deg, #354553 0%, #31414F 55%, #2E3D4A 100%)",
         border: "1px solid rgba(174,196,212,0.16)",
@@ -287,9 +287,10 @@ function BookingCard({ booking }: { booking: Booking }) {
         src={booking.image}
         alt={`${booking.destination} — ${booking.name}`}
         loading="lazy"
-        className="h-[200px] w-full rounded-[12px] object-cover md:h-full md:max-h-[290px] md:min-h-[270px]"
+        className="h-[220px] w-full rounded-[14px] object-cover md:h-full md:min-h-[420px]"
         style={{ filter: "saturate(0.92) brightness(0.92)" }}
       />
+
 
       <div className="flex min-w-0 flex-col">
         <div className="flex items-start justify-between gap-3">
