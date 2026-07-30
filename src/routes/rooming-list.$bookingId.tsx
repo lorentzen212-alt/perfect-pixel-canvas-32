@@ -655,24 +655,24 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               {/* title */}
               <h1
                 className="mt-3.5 text-[30px] leading-[1.05] tracking-[-0.005em]"
-                style={{ color: HERO_INK, fontFamily: SERIF }}
+                style={{ color: HERO_SURFACE_TEXT, fontFamily: SERIF }}
               >
                 {booking.name}
               </h1>
 
               {/* meta */}
-              <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[12.5px]" style={{ color: HERO_INK_2 }}>
+              <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[12.5px]" style={{ color: HERO_SURFACE_TEXT_2 }}>
                 {booking.hotel && (
                   <>
                     <span className="inline-flex items-center gap-2">
-                      <MapPin size={13} style={{ color: HERO_ACCENT }} />
+                      <MapPin size={13} style={{ color: HERO_SURFACE_ICON }} />
                       {booking.hotel}
                     </span>
-                    <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
+                    <span style={{ color: HERO_SURFACE_DIV }}>·</span>
                   </>
                 )}
                 <span className="inline-flex items-center gap-2">
-                  <CalendarDays size={13} style={{ color: HERO_ACCENT }} />
+                  <CalendarDays size={13} style={{ color: HERO_SURFACE_ICON }} />
                   {new Date(booking.startDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} –{" "}
                   {new Date(booking.endDate).toLocaleDateString("en-GB", {
                     day: "2-digit",
@@ -680,19 +680,19 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     year: "numeric",
                   })}
                 </span>
-                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
+                <span style={{ color: HERO_SURFACE_DIV }}>·</span>
                 <span className="inline-flex items-center gap-2">
-                  <Clock size={13} style={{ color: HERO_ACCENT }} />
+                  <Clock size={13} style={{ color: HERO_SURFACE_ICON }} />
                   {nights} nights
                 </span>
-                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
+                <span style={{ color: HERO_SURFACE_DIV }}>·</span>
                 <span className="inline-flex items-center gap-2">
-                  <Bed size={13} style={{ color: HERO_ACCENT }} />
+                  <Bed size={13} style={{ color: HERO_SURFACE_ICON }} />
                   {stats.totalAllocations} rooms
                 </span>
-                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
+                <span style={{ color: HERO_SURFACE_DIV }}>·</span>
                 <span className="inline-flex items-center gap-2">
-                  <Users size={13} style={{ color: HERO_ACCENT }} />
+                  <Users size={13} style={{ color: HERO_SURFACE_ICON }} />
                   {stats.totalSlots} guests
                 </span>
               </div>
