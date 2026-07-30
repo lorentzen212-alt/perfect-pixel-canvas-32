@@ -3604,8 +3604,7 @@ function ManageUpgradesPanel({
         <button
           type="button"
           onClick={onDone}
-          className="ml-auto text-[14px] font-medium transition-colors hover:text-[#B05858]"
-          style={{ color: "#1E3A52" }}
+          className="ml-auto text-[14px] font-medium text-[#1E3A52] transition-colors hover:text-[#B05858]"
         >
           {count > 0 ? "Cancel selection" : "Done"}
         </button>
