@@ -73,9 +73,42 @@ import {
   upgradeOptionsFor,
 } from "@/lib/rooming";
 
+/* shared query definitions so the router loader can warm the cache before the
+   route renders — the workspace then paints instantly from cache. */
+export const bookingQueryOptions = (bookingId: string) => ({
+  queryKey: ["booking", bookingId] as const,
+  queryFn: () => fetchBooking(bookingId),
+});
+
+export const roomingQueryOptions = (bookingId: string, rooms?: number | null) => ({
+  queryKey: ["rooming", bookingId] as const,
+  queryFn: async () => {
+    const dist = await fetchRoomDistribution(bookingId);
+    return loadRoomingListFromDb(
+      bookingId,
+      Object.keys(dist).length ? (dist as Distribution) : distributionFor(bookingId, rooms ?? 12),
+    );
+  },
+  staleTime: 5 * 60_000,
+});
 
 export const Route = createFileRoute("/rooming-list/$bookingId")({
   component: RoomingListRoute,
+  loader: async ({ context, params }) => {
+    try {
+      const booking = await context.queryClient.ensureQueryData(
+        bookingQueryOptions(params.bookingId),
+      );
+      if (booking) {
+        await context.queryClient.ensureQueryData(
+          roomingQueryOptions(params.bookingId, booking.rooms),
+        );
+      }
+    } catch {
+      /* unauthenticated / prerender — the component handles it */
+    }
+  },
+
   head: () => ({
     meta: [
       { title: "Rooming List — HotelGroupBook" },
