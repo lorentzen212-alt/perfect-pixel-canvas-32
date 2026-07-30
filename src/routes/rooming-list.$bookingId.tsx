@@ -125,9 +125,9 @@ const FIELD_TEXT = "#10233F"; // dark navy entered text
 const FIELD_PLACEHOLDER = "#88A0B6"; // muted blue-grey placeholder
 const FIELD_LABEL = "#7C93A8"; // muted blue-grey label
 
-/* dark matte navy room-allocation card tokens */
-const CARD_NAVY = "linear-gradient(180deg, #142D49 0%, #0F2439 100%)";
-const CARD_NAVY_HOVER = "linear-gradient(180deg, #1A3A5C 0%, #132B45 100%)";
+/* dark matte navy room-allocation card tokens — deep muted Atlantic blue */
+const CARD_NAVY = "linear-gradient(180deg, #1B4162 0%, #163653 100%)";
+const CARD_NAVY_HOVER = "linear-gradient(180deg, #214A6C 0%, #1A3D5A 100%)";
 const RT = "#F7F7F5"; // primary — soft off-white (matches TEXT)
 const RT_2 = "#D9DDE0"; // secondary — light neutral grey
 const RT_3 = "#B8BDC2"; // micro — muted neutral grey
@@ -135,12 +135,12 @@ const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B94F";
 
-/* premium room-card sub-surfaces */
+/* premium room-card sub-surfaces — slightly lighter slate blue */
 
-const CTRL_BG = "#1B3B5E";
+const CTRL_BG = "#244E70";
 
 const CTRL_BORDER = "rgba(255,255,255,0.11)";
-const GUEST_BG = "#1A3856";
+const GUEST_BG = "#214A6C";
 const GUEST_BORDER = "rgba(255,255,255,0.10)";
 const GOLD_EDGE =
   "linear-gradient(180deg,#A96F08 0%,#C99322 18%,#FFE9A6 42%,#E7B94F 58%,#A96F08 100%)";
@@ -499,7 +499,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-      .hgb-row{background:${CARD_NAVY} !important;background-color:${NAVY} !important;opacity:1 !important;transition:transform 170ms ease,box-shadow 170ms ease,background 170ms ease,border-color 170ms ease}
+      .hgb-row{background:${CARD_NAVY} !important;background-color:#173A5A !important;opacity:1 !important;transition:transform 170ms ease,box-shadow 170ms ease,background 170ms ease,border-color 170ms ease}
       .hgb-row[data-selected="true"]{background:linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY} !important}
       .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,35,63,0.16) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
@@ -1443,7 +1443,7 @@ function AllocationRow({
       data-selected={selected ? "true" : "false"}
       className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:24%_36%_22%_14%_4%]"
       style={{
-        backgroundColor: NAVY,
+        backgroundColor: "#173A5A",
         backgroundImage: selected
           ? `linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY}`
           : CARD_NAVY,
