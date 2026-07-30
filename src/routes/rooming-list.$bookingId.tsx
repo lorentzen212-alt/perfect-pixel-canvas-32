@@ -125,9 +125,9 @@ const FIELD_TEXT = "#10233F"; // dark navy entered text
 const FIELD_PLACEHOLDER = "#88A0B6"; // muted blue-grey placeholder
 const FIELD_LABEL = "#7C93A8"; // muted blue-grey label
 
-/* dark matte navy room-allocation card tokens */
-const CARD_NAVY = "linear-gradient(180deg, #142D49 0%, #0F2439 100%)";
-const CARD_NAVY_HOVER = "linear-gradient(180deg, #1A3A5C 0%, #132B45 100%)";
+/* dark matte navy room-allocation card tokens — deep muted Atlantic blue */
+const CARD_NAVY = "linear-gradient(180deg, #1B4162 0%, #163653 100%)";
+const CARD_NAVY_HOVER = "linear-gradient(180deg, #214A6C 0%, #1A3D5A 100%)";
 const RT = "#F7F7F5"; // primary — soft off-white (matches TEXT)
 const RT_2 = "#D9DDE0"; // secondary — light neutral grey
 const RT_3 = "#B8BDC2"; // micro — muted neutral grey
@@ -135,12 +135,12 @@ const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B94F";
 
-/* premium room-card sub-surfaces */
+/* premium room-card sub-surfaces — slightly lighter slate blue */
 
-const CTRL_BG = "#1B3B5E";
+const CTRL_BG = "#244E70";
 
 const CTRL_BORDER = "rgba(255,255,255,0.11)";
-const GUEST_BG = "#1A3856";
+const GUEST_BG = "#214A6C";
 const GUEST_BORDER = "rgba(255,255,255,0.10)";
 const GOLD_EDGE =
   "linear-gradient(180deg,#A96F08 0%,#C99322 18%,#FFE9A6 42%,#E7B94F 58%,#A96F08 100%)";
