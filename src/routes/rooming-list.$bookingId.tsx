@@ -1621,7 +1621,10 @@ function AllocationRow({
       <span
         aria-hidden
         className="pointer-events-none absolute inset-y-0 left-0 w-[5px]"
-        style={{ backgroundImage: GOLD_EDGE, boxShadow: "1px 0 6px rgba(231,185,79,0.18)" }}
+        style={{
+          backgroundImage: cancelled ? CANCEL_EDGE : GOLD_EDGE,
+          boxShadow: cancelled ? "1px 0 6px rgba(184,101,101,0.20)" : "1px 0 6px rgba(231,185,79,0.18)",
+        }}
       />
 
       {/* ── ALLOCATION ── */}
@@ -1629,7 +1632,7 @@ function AllocationRow({
         {manageMode && allocation.upgradeRequest ? (
           <RoomSelectCircle
             checked={!!selected}
-            disabled={locked}
+            disabled={readOnly}
             onChange={() => onToggleSelected?.()}
             title="Select this upgrade request"
           />
@@ -1652,12 +1655,20 @@ function AllocationRow({
           )
         )}
 
-        <p
-          className="w-[50px] shrink-0 text-[44px] leading-none tracking-[-0.02em]"
-          style={{ ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }}
+        <button
+          type="button"
+          onClick={() => onSelectRow?.()}
+          title={rowSelected ? "Deselect allocation" : "Select allocation"}
+          className="w-[50px] shrink-0 text-left text-[44px] leading-none tracking-[-0.02em] outline-none"
+          style={
+            cancelled
+              ? { color: CANCEL_TEXT, fontFamily: SERIF, fontWeight: 500 }
+              : { ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }
+          }
         >
           {String(allocation.index).padStart(2, "0")}
-        </p>
+        </button>
+
 
         <div className="min-w-0 flex-1">
           <div
