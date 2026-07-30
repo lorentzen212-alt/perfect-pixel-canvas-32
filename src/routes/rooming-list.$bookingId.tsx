@@ -1149,6 +1149,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     selected={manageMode ? manageSelected.includes(a.id) : selected.includes(a.id)}
                     onToggleSelected={() => (manageMode ? toggleManageSelected(a.id) : toggleSelected(a.id))}
                     onRemoveUpgrade={() => setConfirmRemove([a.id])}
+                    rowSelected={selectedRow === a.id}
+                    onSelectRow={() => setSelectedRow((s) => (s === a.id ? null : a.id))}
+                    onCancelAllocation={() => setConfirmCancel(a.id)}
+                    onRestoreAllocation={() => restoreAllocation(a.id)}
                     showRequirementDetail={view === "dietary"}
                     onPatch={(fn) => patchAllocation(a.id, fn)}
                     onOpenGuest={(guestId) => {
