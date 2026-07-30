@@ -88,6 +88,7 @@ export interface Booking {
 export function formatRange(startISO: string, endISO: string) {
   const s = new Date(startISO);
   const e = new Date(endISO);
+  if (Number.isNaN(s.getTime()) || Number.isNaN(e.getTime())) return "Dates pending";
   const d = (x: Date) => String(x.getDate()).padStart(2, "0");
   const m = (x: Date) => x.toLocaleString("en-GB", { month: "short" });
   const sameMonth = s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear();
