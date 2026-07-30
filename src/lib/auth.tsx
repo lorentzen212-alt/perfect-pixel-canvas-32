@@ -24,6 +24,9 @@ export interface AuthState {
   loading: boolean;
   session: Session | null;
   user: User | null;
+  /** Convenience flag — true once a session has been restored. */
+  isAuthenticated: boolean;
+  userId: string | null;
   profile: Profile | null;
   profileLoading: boolean;
   refreshProfile: () => Promise<void>;
@@ -57,6 +60,8 @@ const AuthContext = createContext<AuthState>({
   loading: true,
   session: null,
   user: null,
+  isAuthenticated: false,
+  userId: null,
   profile: null,
   profileLoading: false,
   refreshProfile: async () => {},
@@ -151,6 +156,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loading,
       session,
       user: session?.user ?? null,
+      isAuthenticated: Boolean(session),
+      userId: session?.user?.id ?? null,
       profile,
       profileLoading,
       refreshProfile: async () => {

@@ -193,6 +193,13 @@ type FormState = {
 const DRAFT_KEY = "hgb:me-draft-v1";
 
 function BookMeetingsEvents() {
+  // Same global session the rest of the app uses.
+  const { isAuthenticated, user, profile } = useAuth();
+  const accountLabel =
+    [profile?.first_name, profile?.last_name].filter(Boolean).join(" ").trim() ||
+    profile?.email ||
+    user?.email ||
+    "My account";
   const [hydrated, setHydrated] = useState(false);
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState<"forward" | "back">("forward");
@@ -573,6 +580,23 @@ function BookMeetingsEvents() {
                 <CalendarIcon size={19} strokeWidth={2} style={{ color: "#E8C46A" }} />
                 Manage Bookings
               </Link>
+              {isAuthenticated ? (
+                <Link
+                  to="/account"
+                  className="max-w-[220px] truncate text-[15px] font-medium transition-colors hover:text-[#F2D477]"
+                  style={{ color: "#F5F5F0", textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
+                >
+                  {accountLabel}
+                </Link>
+              ) : (
+                <Link
+                  to="/auth"
+                  className="text-[15px] font-medium transition-colors hover:text-[#F2D477]"
+                  style={{ color: "#E8C46A", textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
+                >
+                  Sign in
+                </Link>
+              )}
             </nav>
 
           </header>
@@ -2723,6 +2747,8 @@ function StepSevenReview({
     return parts.join(", ");
   };
 
+  const { session: authSession } = useAuth();
+
   const handleSubmit = async () => {
     if (submitting || submitted) return;
     setSubmitting(true);
@@ -2783,8 +2809,9 @@ function StepSevenReview({
         ),
       };
 
-      const { data } = await supabase.auth.getSession();
-      const user = data.session?.user;
+      // Single global session (falls back to the shared client if not hydrated yet).
+      const user =
+        authSession?.user ?? (await supabase.auth.getSession()).data.session?.user;
       if (!user) {
         savePendingRequest(input);
         navigate({ to: "/auth", search: { next: "/manage-bookings", mode: "signup" } });

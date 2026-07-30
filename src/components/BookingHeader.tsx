@@ -9,6 +9,7 @@ import {
   Mail,
 } from "lucide-react";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
+import { useAuth } from "@/lib/auth";
 
 const NAVY = "#08131F";
 const GOLD = "#D4A64A";
@@ -41,6 +42,20 @@ export function BookingHeader({
   compact = false,
 }: BookingHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  // One global session — the same provider Manage My Bookings reads from.
+  const { isAuthenticated, user, profile, signOut } = useAuth();
+  const accountLabel =
+    [profile?.first_name, profile?.last_name].filter(Boolean).join(" ").trim() ||
+    profile?.email ||
+    user?.email ||
+    "My account";
+  const accountInitials =
+    accountLabel
+      .split(/[\s@.]+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((w) => w[0]?.toUpperCase() ?? "")
+      .join("") || "MA";
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -143,12 +158,35 @@ export function BookingHeader({
             })}
           </ol>
 
+          {/* Account state (global auth) — compact so it never crowds the stepper */}
+          <div className="ml-auto flex shrink-0 items-center">
+            {isAuthenticated ? (
+              <Link
+                to="/account"
+                title={accountLabel}
+                aria-label={`Account: ${accountLabel}`}
+                className="grid h-9 w-9 place-items-center rounded-full text-[11.5px] font-semibold tracking-[0.04em] transition-colors hover:bg-white/10"
+                style={{ color: GOLD_SOFT, border: `1px solid ${GOLD}66`, background: "rgba(255,255,255,0.04)" }}
+              >
+                {accountInitials}
+              </Link>
+            ) : (
+              <Link
+                to="/auth"
+                className="hidden rounded-full px-3 py-1.5 text-[12px] transition-colors hover:bg-white/5 sm:inline-block"
+                style={{ color: GOLD_SOFT, border: `1px solid ${GOLD}55` }}
+              >
+                Sign in
+              </Link>
+            )}
+          </div>
+
           {/* Menu (right) */}
           <button
             type="button"
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
-            className="ml-auto flex shrink-0 items-center gap-3 rounded-md px-2 py-1 transition-colors hover:bg-white/5"
+            className="ml-3 flex shrink-0 items-center gap-3 rounded-md px-2 py-1 transition-colors hover:bg-white/5"
           >
             <span className="flex flex-col items-center justify-center gap-[5px]">
               <span className="h-px w-6" style={{ background: GOLD }} />
@@ -283,6 +321,48 @@ export function BookingHeader({
           className="mx-7 mt-6 h-px"
           style={{ background: `linear-gradient(90deg, ${GOLD}00, ${GOLD}55, ${GOLD}00)` }}
         />
+        <div className="mt-6 px-7">
+          {isAuthenticated ? (
+            <>
+              <p className="text-[11px] tracking-[0.2em]" style={{ color: "rgba(245,241,230,0.45)" }}>
+                SIGNED IN
+              </p>
+              <p className="mt-1 truncate text-[13.5px]" style={{ color: IVORY }}>
+                {accountLabel}
+              </p>
+              <div className="mt-3 flex items-center gap-4">
+                <Link
+                  to="/account"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-[13px] underline"
+                  style={{ color: GOLD_SOFT }}
+                >
+                  My account
+                </Link>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    setMenuOpen(false);
+                    await signOut();
+                  }}
+                  className="text-[13px] underline"
+                  style={{ color: "rgba(245,241,230,0.65)" }}
+                >
+                  Sign out
+                </button>
+              </div>
+            </>
+          ) : (
+            <Link
+              to="/auth"
+              onClick={() => setMenuOpen(false)}
+              className="text-[13px] underline"
+              style={{ color: GOLD_SOFT }}
+            >
+              Sign in / Create account
+            </Link>
+          )}
+        </div>
         <div className="mt-auto px-7 pb-8 pt-6">
           <p className="text-[11.5px] tracking-[0.14em]" style={{ color: "rgba(245,241,230,0.55)" }}>
             HOTELGROUPBOOK · SCANDINAVIA

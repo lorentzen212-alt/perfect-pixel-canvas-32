@@ -303,6 +303,7 @@ const STEP_META: Record<StepKey, { title: string; kicker: string; headline: stri
 
 function BookLeisure() {
   const navigate = useNavigate();
+  const { session: authSession } = useAuth();
   const [step, setStep] = useState<StepKey>(1);
 
   // Step 1 - Destination
@@ -468,8 +469,9 @@ function BookLeisure() {
     setSubmitting(true);
     try {
       const input = buildRequestInput();
-      const { data } = await supabase.auth.getSession();
-      const user = data.session?.user;
+      // Single global session (falls back to the shared client if not hydrated yet).
+      const user =
+        authSession?.user ?? (await supabase.auth.getSession()).data.session?.user;
 
       if (!user) {
         /* the request is kept intact and submitted right after sign-in */
