@@ -367,23 +367,22 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const firstRender = useRef(true);
 
 
-  /* allocations are generated from the confirmed booking room distribution */
+  /* allocations are generated from the confirmed booking room distribution.
+     the router loader already primed this query, so it is normally instant. */
+  const queryClient = useQueryClient();
   useEffect(() => {
     let active = true;
     (async () => {
-      const dist = await fetchRoomDistribution(booking.id);
-      const loaded = await loadRoomingListFromDb(
-        booking.id,
-        Object.keys(dist).length
-          ? (dist as Distribution)
-          : distributionFor(booking.id, booking.rooms ?? 12),
+      const loaded = await queryClient.ensureQueryData(
+        roomingQueryOptions(booking.id, booking.rooms),
       );
       if (active) setList(loaded);
     })().catch((err) => console.error("[rooming]", err));
     return () => {
       active = false;
     };
-  }, [booking.id, booking.rooms]);
+  }, [booking.id, booking.rooms, queryClient]);
+
 
   /* autosave */
   useEffect(() => {
