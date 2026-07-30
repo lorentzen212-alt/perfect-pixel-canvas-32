@@ -327,8 +327,12 @@ type ViewFilter = "all" | "missing" | "complete" | "dietary" | "requests" | "upg
 type UpgradeFilter = "all" | UpgradeStatus;
 
 function RoomingWorkspace({ booking }: { booking: Booking }) {
+  const queryClient = useQueryClient();
   const [navOpen, setNavOpen] = useState(false);
-  const [list, setList] = useState<RoomingList | null>(null);
+  const [list, setList] = useState<RoomingList | null>(
+    () => queryClient.getQueryData<RoomingList>(["rooming", booking.id]) ?? null,
+  );
+
   const [view, setView] = useState<ViewFilter>("all");
   const [upgradeFilter, setUpgradeFilter] = useState<UpgradeFilter>("all");
   const [query, setQuery] = useState("");
