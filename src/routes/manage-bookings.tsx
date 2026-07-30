@@ -308,19 +308,20 @@ function BookingCard({ booking }: { booking: Booking }) {
         <Link
           to="/bookings/$bookingId"
           params={{ bookingId: booking.id }}
-          className="mt-1 block truncate transition-opacity hover:opacity-85"
+          className="mt-3 block truncate transition-opacity hover:opacity-85"
         >
           <h3
-            className="truncate text-[30px] leading-[1.08] sm:text-[38px]"
+            className="truncate text-[34px] leading-[1.06] sm:text-[48px]"
             style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
           >
             {booking.name}
           </h3>
         </Link>
 
-        <div className="mt-2 h-px w-full" style={{ backgroundColor: "rgba(174,196,212,0.16)" }} />
+        <div className="mt-4 h-px w-full" style={{ backgroundColor: "rgba(174,196,212,0.16)" }} />
 
-        <div className="flex flex-nowrap items-center gap-x-3 overflow-hidden py-2 lg:gap-x-4">
+        <div className="flex flex-nowrap items-center gap-x-3 overflow-hidden py-3.5 lg:gap-x-5">
+
           <MetaItem icon={<MapPin size={15} />}>{booking.destination}</MetaItem>
           <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(174,196,212,0.22)" }} aria-hidden />
           <MetaItem icon={<CalendarDays size={15} />}>
