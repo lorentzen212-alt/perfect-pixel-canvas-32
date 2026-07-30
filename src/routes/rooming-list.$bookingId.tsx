@@ -264,7 +264,7 @@ function RoomingListRoute() {
   return <RoomingWorkspace booking={booking} />;
 }
 
-type ViewFilter = "all" | "missing" | "complete" | "dietary" | "requests" | "upgrades";
+type ViewFilter = "all" | "missing" | "complete" | "dietary" | "requests" | "upgrades" | "cancelled";
 type UpgradeFilter = "all" | UpgradeStatus;
 
 function RoomingWorkspace({ booking }: { booking: Booking }) {
