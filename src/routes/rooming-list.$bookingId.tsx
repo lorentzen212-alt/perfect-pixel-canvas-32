@@ -1605,11 +1605,12 @@ function AllocationRow({
         {allocation.guests.map((g) => (
           <SavedGuestRow
             key={g.id}
-            guest={g}
+            guest={guestDraft && guestDraft.id === g.id ? guestDraft : g}
             locked={locked}
             isSelected={openGuestId === g.id}
             showRequirementDetail={showRequirementDetail}
             onOpen={() => onOpenGuest(g.id)}
+            onDraftName={(name) => onGuestDraftName?.(g.id, name)}
             onRename={(name) => onRenameGuest?.(g.id, name)}
             onRemove={() => onRemoveGuest(g.id)}
           />
