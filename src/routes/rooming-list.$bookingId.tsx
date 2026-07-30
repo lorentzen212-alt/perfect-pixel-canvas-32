@@ -488,13 +488,13 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
       .hgb-row{background:${CARD_NAVY} !important;background-color:${NAVY} !important;opacity:1 !important;transition:transform 170ms ease,box-shadow 170ms ease,background 170ms ease,border-color 170ms ease}
-      .hgb-row[data-selected="true"]{background:linear-gradient(0deg, rgba(197,162,75,0.07), rgba(197,162,75,0.07)), ${CARD_NAVY} !important}
+      .hgb-row[data-selected="true"]{background:linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY} !important}
       .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,35,63,0.16) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
       .hgb-cell{border-top:1px solid rgba(255,255,255,0.05)}
       @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(173,192,205,0.14)}}
       .hgb-inline::placeholder{color:#9FB0BE}
-      .hgb-inline:focus{border-color:rgba(197,162,75,0.75) !important}
+      .hgb-inline:focus{border-color:rgba(231,185,79,0.75) !important}
       .hgb-search::placeholder{color:#B8BDC2}
       .hgb-guest{transition:background-color 150ms ease,border-color 150ms ease}
       .hgb-guest:hover{background-color:rgba(255,255,255,0.05) !important;border-color:rgba(230,196,122,0.34) !important}
@@ -659,11 +659,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           exitManageMode();
                           setUpgradeMode(true);
                         }}
-                        className="inline-flex items-center gap-2 rounded-[8px] px-3.5 py-[8px] text-[12.5px] font-medium transition-colors duration-200 hover:bg-[rgba(197,162,75,0.10)]"
+                        className="inline-flex items-center gap-2 rounded-[8px] px-3.5 py-[8px] text-[12.5px] font-medium transition-colors duration-200 hover:bg-[rgba(231,185,79,0.10)]"
                         style={{
                           color: GOLD_SOFT,
-                          backgroundColor: upgradeMode ? "rgba(197,162,75,0.12)" : "rgba(255,255,255,0.04)",
-                          border: `1px solid ${upgradeMode ? "rgba(197,162,75,0.46)" : "rgba(197,162,75,0.26)"}`,
+                          backgroundColor: upgradeMode ? "rgba(231,185,79,0.12)" : "rgba(255,255,255,0.04)",
+                          border: `1px solid ${upgradeMode ? "rgba(231,185,79,0.46)" : "rgba(231,185,79,0.26)"}`,
                         }}
                       >
                         <ArrowUp size={14} />
@@ -767,11 +767,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           setUpgradeFilter("all");
                           enterManageMode();
                         }}
-                        className="inline-flex cursor-pointer items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-all duration-200 hover:-translate-y-[1px] hover:bg-[rgba(197,162,75,0.12)] hover:shadow-[0_4px_12px_rgba(16,35,63,0.14)]"
+                        className="inline-flex cursor-pointer items-center gap-2 rounded-[7px] px-3 py-[7px] text-[12px] transition-all duration-200 hover:-translate-y-[1px] hover:bg-[rgba(231,185,79,0.12)] hover:shadow-[0_4px_12px_rgba(16,35,63,0.14)]"
                         style={{
                           color: GOLD_SOFT,
-                          backgroundColor: manageMode || view === "upgrades" ? "rgba(197,162,75,0.12)" : "transparent",
-                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(197,162,75,0.42)" : BORDER}`,
+                          backgroundColor: manageMode || view === "upgrades" ? "rgba(231,185,79,0.12)" : "transparent",
+                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(231,185,79,0.42)" : BORDER}`,
                         }}
                       >
                         <ArrowUp size={12} />
@@ -1363,12 +1363,12 @@ function AllocationRow({
       style={{
         backgroundColor: NAVY,
         backgroundImage: selected
-          ? `linear-gradient(0deg, rgba(197,162,75,0.07), rgba(197,162,75,0.07)), ${CARD_NAVY}`
+          ? `linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY}`
           : CARD_NAVY,
         border: selected
-          ? "1.5px solid rgba(197,162,75,0.62)"
+          ? "1.5px solid rgba(231,185,79,0.62)"
           : isActive
-            ? "1.5px solid #C5A24B"
+            ? "1.5px solid #E7B94F"
             : "1px solid rgba(255,255,255,0.07)",
         boxShadow: isActive
           ? "0 10px 26px rgba(10,26,46,0.26)"
@@ -1379,7 +1379,7 @@ function AllocationRow({
       <span
         aria-hidden
         className="pointer-events-none absolute inset-y-0 left-0 w-[5px]"
-        style={{ backgroundImage: GOLD_EDGE, boxShadow: "1px 0 6px rgba(197,162,75,0.18)" }}
+        style={{ backgroundImage: GOLD_EDGE, boxShadow: "1px 0 6px rgba(231,185,79,0.18)" }}
       />
 
       {/* ── ALLOCATION ── */}
@@ -1443,8 +1443,8 @@ function AllocationRow({
                 className="inline-flex items-center rounded-full px-2.5 py-[3px] text-[9.5px] uppercase tracking-[0.18em]"
                 style={{
                   color: "#E6C47A",
-                  backgroundColor: "rgba(197,162,75,0.06)",
-                  border: "1px solid rgba(197,162,75,0.42)",
+                  backgroundColor: "rgba(231,185,79,0.06)",
+                  border: "1px solid rgba(231,185,79,0.42)",
                 }}
               >
                 {categoryLabel(allocation.bookedRoomCategory)}
@@ -2131,8 +2131,8 @@ function DietaryPopover({
               className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors disabled:opacity-40"
               style={{
                 color: GOLD,
-                backgroundColor: "rgba(197,162,75,0.14)",
-                border: "1px solid rgba(197,162,75,0.36)",
+                backgroundColor: "rgba(231,185,79,0.14)",
+                border: "1px solid rgba(231,185,79,0.36)",
               }}
             >
               Add
@@ -2742,7 +2742,7 @@ function UnassignedPanel({
               type="button"
               onClick={() => setAdding((v) => !v)}
               className="ml-auto inline-flex items-center gap-1.5 text-[12.5px]"
-              style={{ color: "#C5A24B" }}
+              style={{ color: "#E7B94F" }}
             >
               <Plus size={13} />
               Add guest without room
@@ -2965,8 +2965,8 @@ function UpgradeCheckbox({
       onClick={onChange}
       className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] transition-colors disabled:cursor-not-allowed"
       style={{
-        backgroundColor: checked ? "rgba(197,162,75,0.20)" : "rgba(255,255,255,0.05)",
-        border: `1px solid ${checked ? "rgba(197,162,75,0.70)" : "rgba(255,255,255,0.18)"}`,
+        backgroundColor: checked ? "rgba(231,185,79,0.20)" : "rgba(255,255,255,0.05)",
+        border: `1px solid ${checked ? "rgba(231,185,79,0.70)" : "rgba(255,255,255,0.18)"}`,
         opacity: disabled ? 0.35 : 1,
       }}
     >
@@ -2998,7 +2998,7 @@ function RoomSelectCircle({
       onClick={onChange}
       className="grid h-[20px] w-[20px] shrink-0 place-items-center rounded-full transition-colors disabled:cursor-not-allowed"
       style={{
-        backgroundColor: checked ? "rgba(197,162,75,0.18)" : "transparent",
+        backgroundColor: checked ? "rgba(231,185,79,0.18)" : "transparent",
         border: `1.2px solid ${checked ? "rgba(230,196,122,0.85)" : "rgba(255,255,255,0.24)"}`,
         opacity: disabled ? 0.32 : 1,
       }}
@@ -3069,8 +3069,8 @@ function WithdrawUpgradePopover({
               className="rounded-[7px] px-2.5 py-[6px] text-[12px] transition-colors"
               style={{
                 color: GOLD,
-                backgroundColor: "rgba(197,162,75,0.14)",
-                border: "1px solid rgba(197,162,75,0.36)",
+                backgroundColor: "rgba(231,185,79,0.14)",
+                border: "1px solid rgba(231,185,79,0.36)",
               }}
             >
               Request change
@@ -3176,8 +3176,8 @@ function UpgradeIndicator({
           className="mt-[2px] rounded-[6px] px-2 py-[4px] text-[11px] transition-colors"
           style={{
             color: GOLD,
-            backgroundColor: "rgba(197,162,75,0.12)",
-            border: "1px solid rgba(197,162,75,0.34)",
+            backgroundColor: "rgba(231,185,79,0.12)",
+            border: "1px solid rgba(231,185,79,0.34)",
           }}
         >
           Apply approved upgrade
@@ -3275,8 +3275,8 @@ function UpgradeForm({
             className="flex w-full items-center gap-2 rounded-[7px] px-2.5 py-[6px] text-left text-[12.5px] transition-colors"
             style={{
               color: preference === o.value ? "#F7F7F5" : "#D9DDE0",
-              backgroundColor: preference === o.value ? "rgba(197,162,75,0.12)" : "transparent",
-              border: `1px solid ${preference === o.value ? "rgba(197,162,75,0.34)" : "rgba(255,255,255,0.10)"}`,
+              backgroundColor: preference === o.value ? "rgba(231,185,79,0.12)" : "transparent",
+              border: `1px solid ${preference === o.value ? "rgba(231,185,79,0.34)" : "rgba(255,255,255,0.10)"}`,
             }}
           >
             {preference === o.value ? (
@@ -3325,8 +3325,8 @@ function UpgradeForm({
           className="rounded-[7px] px-3 py-[6px] text-[12px] transition-colors disabled:opacity-50"
           style={{
             color: GOLD,
-            backgroundColor: "rgba(197,162,75,0.14)",
-            border: "1px solid rgba(197,162,75,0.36)",
+            backgroundColor: "rgba(231,185,79,0.14)",
+            border: "1px solid rgba(231,185,79,0.36)",
           }}
         >
           {submitLabel}
@@ -3355,7 +3355,7 @@ function ManageUpgradesPanel({
   const some = count > 0 && !all;
 
   return (
-    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(197,162,75,0.05)" }}>
+    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(231,185,79,0.05)" }}>
       <div className="flex flex-wrap items-center gap-3">
         <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
           <button
@@ -3366,8 +3366,8 @@ function ManageUpgradesPanel({
             onClick={() => onSelectAll(!all)}
             className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] transition-colors"
             style={{
-              backgroundColor: count > 0 ? "rgba(197,162,75,0.20)" : "rgba(255,255,255,0.05)",
-              border: `1px solid ${count > 0 ? "rgba(197,162,75,0.70)" : "rgba(255,255,255,0.18)"}`,
+              backgroundColor: count > 0 ? "rgba(231,185,79,0.20)" : "rgba(255,255,255,0.05)",
+              border: `1px solid ${count > 0 ? "rgba(231,185,79,0.70)" : "rgba(255,255,255,0.18)"}`,
             }}
           >
             {all ? (
@@ -3439,7 +3439,7 @@ function UpgradeModePanel({
   const ineligible = allocations.length - eligible.length;
 
   return (
-    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(197,162,75,0.05)" }}>
+    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(231,185,79,0.05)" }}>
       <div className="flex flex-wrap items-center gap-3">
         <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
           <UpgradeCheckbox checked={allSelected} onChange={() => onSelectAll(!allSelected)} />
