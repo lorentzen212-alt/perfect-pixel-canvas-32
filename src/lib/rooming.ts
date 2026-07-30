@@ -528,7 +528,7 @@ export interface RoomingIssue {
 export function roomingIssues(list: RoomingList): RoomingIssue[] {
   const out: RoomingIssue[] = [];
 
-  for (const a of list.allocations) {
+  for (const a of activeAllocations(list)) {
     const cap = capacityOf(a.type, a.occupancy);
     const named = a.guests.filter(isNamed).length;
     const label = `${labelOf(a.type)} ${String(a.index).padStart(2, "0")}`;
