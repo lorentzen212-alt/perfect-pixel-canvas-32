@@ -3597,8 +3597,8 @@ function UpgradeModePanel({
         <button
           type="button"
           onClick={onCancel}
-          className="ml-auto rounded-[7px] px-3 py-[6px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.14)]"
-          style={{ color: "#FFFFFF", border: "1px solid rgba(244,214,117,0.55)" }}
+          className="ml-auto rounded-[7px] px-3 py-[6px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(244,214,117,0.10)]"
+          style={{ color: "#FFFFFF", border: "1px solid rgba(231,185,79,0.28)" }}
         >
           Exit upgrade mode
         </button>
