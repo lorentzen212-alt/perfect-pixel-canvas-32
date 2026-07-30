@@ -568,7 +568,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <span className="inline-flex items-center gap-2">
                   <span
                     className="inline-flex items-center rounded-[6px] px-2.5 py-[5px] text-[10.5px] font-semibold uppercase tracking-[0.16em]"
-                    style={{ color: HERO_INK_2, backgroundColor: "rgba(128,154,180,0.20)" }}
+                    style={{ color: HERO_SURFACE_TEXT_2, backgroundColor: "rgba(128,154,180,0.20)" }}
                   >
                     {booking.type === "leisure" ? "Leisure" : "M&E"}
                   </span>
@@ -818,9 +818,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   {/* ── filters row ── */}
                   <div
                     className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2.5 pt-4"
-                    style={{ borderTop: "1px solid rgba(16,35,63,0.10)" }}
+                    style={{ borderTop: `1px solid ${HERO_SURFACE_RULE}` }}
                   >
-                    <span className="text-[12.5px]" style={{ color: HERO_INK_2 }}>
+                    <span className="text-[12.5px]" style={{ color: HERO_SURFACE_TEXT_2 }}>
                       View:
                     </span>
                     <div className="flex items-center gap-1">
@@ -837,7 +837,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                                   backgroundColor: "rgba(231,185,79,0.20)",
                                   border: "1px solid rgba(169,111,8,0.42)",
                                 }
-                              : { color: HERO_INK_2, border: "1px solid transparent" }
+                              : { color: HERO_SURFACE_TEXT_2, border: "1px solid transparent" }
                           }
                         >
                           {v}
@@ -850,7 +850,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       type="button"
                       onClick={() => setShowGroup(true)}
                       className="inline-flex items-center gap-2 rounded-[8px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(16,35,63,0.04)]"
-                      style={{ color: HERO_INK_2, border: "1px solid rgba(16,35,63,0.14)" }}
+                      style={{ color: HERO_SURFACE_TEXT_2, border: `1px solid ${HERO_SURFACE_BORDER}` }}
                     >
                       Group requests
                       {list.groupRequests.length > 0 && (
@@ -880,7 +880,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         style={{
                           color: "#9A7113",
                           backgroundColor: manageMode || view === "upgrades" ? "rgba(231,185,79,0.16)" : "transparent",
-                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(169,111,8,0.42)" : "rgba(16,35,63,0.14)"}`,
+                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(169,111,8,0.42)" : HERO_SURFACE_BORDER}`,
                         }}
                       >
                         <ArrowUp size={12} />
@@ -1013,7 +1013,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <span
                   key={h.label}
                   className={`${h.cls} text-[12px] font-semibold uppercase leading-[15px] tracking-[0.16em]`}
-                  style={{ color: "#5A7286" }}
+                  style={{ color: "#2C3A47" }}
                 >
                   {h.label}
                 </span>
