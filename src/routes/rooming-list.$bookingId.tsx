@@ -110,7 +110,7 @@ const PANEL = "#142D49";
 const NAVY = "#142D49";
 
 /* overview header palette — cloudy off-white + muted slate blue */
-const HERO_CARD_BG = "#F7F9FB"; // soft pearl / cloudy gray with a tiny blue undertone
+const HERO_CARD_BG = "#FCFCFB"; // premium porcelain white
 const STAT_BG = "#718CA2";
 const STAT_TEXT = "#FFFFFF";
 const STAT_HEAD = "#F7F8F8";
