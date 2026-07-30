@@ -1,5 +1,8 @@
-import { useMemo, useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "@/lib/auth";
+import { fetchBookings } from "@/lib/bookingsApi";
 import {
   Bell,
   CalendarCheck,
@@ -24,7 +27,6 @@ import {
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import {
-  BOOKINGS,
   STATUS_META,
   TONE_COLOR,
   filterBookings,
@@ -370,6 +372,44 @@ function BookingCard({ booking }: { booking: Booking }) {
 
 /* ── sidebar ─────────────────────────────────────────── */
 
+function SidebarAccount() {
+  const { profile, session, signOut } = useAuth();
+  const name =
+    `${profile?.first_name ?? ""} ${profile?.last_name ?? ""}`.trim() ||
+    session?.user.email ||
+    "Your account";
+  const initials =
+    ((profile?.first_name?.[0] ?? name[0] ?? "") + (profile?.last_name?.[0] ?? "")).toUpperCase();
+
+  return (
+    <div className="mt-5 flex items-center gap-3 pt-5" style={{ borderTop: `1px solid ${BORDER}` }}>
+      <span
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
+        style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
+      >
+        {initials || "—"}
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-[13px]" style={{ color: TEXT }}>
+          {name}
+        </span>
+        <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
+          {profile?.company_name ?? session?.user.email ?? ""}
+        </span>
+      </span>
+      <button
+        type="button"
+        onClick={() => void signOut()}
+        className="text-[11.5px] underline-offset-4 hover:underline"
+        style={{ color: MUTED }}
+      >
+        Sign out
+      </button>
+    </div>
+  );
+}
+
+
 const NAV = [
   { label: "Overview", icon: CalendarCheck },
   { label: "Bookings", icon: CalendarDays },
@@ -436,26 +476,8 @@ function SidebarContent({ active }: { active: string }) {
           </div>
         </div>
 
-        <div
-          className="mt-5 flex items-center gap-3 pt-5"
-          style={{ borderTop: `1px solid ${BORDER}` }}
-        >
-          <span
-            className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
-            style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
-          >
-            EH
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block truncate text-[13px]" style={{ color: TEXT }}>
-              Emma Hansen
-            </span>
-            <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
-              Nordic Events AS
-            </span>
-          </span>
-          <ChevronDown size={15} style={{ color: MUTED }} />
-        </div>
+        <SidebarAccount />
+
       </div>
     </div>
   );
@@ -507,10 +529,42 @@ function ManageBookings() {
   const [view, setView] = useState<"grid" | "list">("list");
   const [navOpen, setNavOpen] = useState(false);
 
+  const navigate = useNavigate();
+  const { session, loading: authLoading, profile, signOut } = useAuth();
+
+  useEffect(() => {
+    if (!authLoading && !session) {
+      navigate({ to: "/auth", search: { next: "/manage-bookings" }, replace: true });
+    }
+  }, [authLoading, session, navigate]);
+
+  const { data: bookings = [], isLoading } = useQuery({
+    queryKey: ["bookings"],
+    queryFn: fetchBookings,
+    enabled: Boolean(session),
+  });
+
   const results = useMemo(
-    () => filterBookings(BOOKINGS, { query, status, date: dateFilter }),
-    [query, status, dateFilter],
+    () => filterBookings(bookings, { query, status, date: dateFilter }),
+    [bookings, query, status, dateFilter],
   );
+
+  const now = new Date();
+  const needsAttention = bookings.filter(
+    (b) => b.status === "rooming_list_required" || b.status === "offers_ready",
+  );
+  const offersReady = bookings.filter((b) => b.status === "offers_ready");
+  const upcoming = bookings.filter(
+    (b) => b.startDate && new Date(b.startDate) >= now && b.status !== "completed",
+  );
+
+  const displayName = profile
+    ? `${profile.first_name} ${profile.last_name}`.trim() || profile.email
+    : (session?.user.email ?? "");
+  const initials =
+    (profile?.first_name?.[0] ?? displayName[0] ?? "").toUpperCase() +
+    (profile?.last_name?.[0] ?? "").toUpperCase();
+
 
   const statusOptions = useMemo(
     () => [
@@ -600,15 +654,15 @@ function ManageBookings() {
               </span>
             </button>
 
-            <button type="button" className="flex items-center gap-2">
+            <button type="button" onClick={() => void signOut()} className="flex items-center gap-2">
               <span
                 className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
                 style={{ backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }}
               >
-                EH
+                {initials || "—"}
               </span>
               <span className="hidden text-[13px] sm:inline" style={{ color: TEXT }}>
-                Emma Hansen
+                {displayName}
               </span>
               <ChevronDown size={15} style={{ color: MUTED }} />
             </button>
@@ -630,10 +684,10 @@ function ManageBookings() {
               </p>
             </div>
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-              <StatCard value="7" label="Total Bookings" icon={<CalendarDays size={16} />} tone="#B9A06B" />
-              <StatCard value="2" label="Needs Attention" icon={<Bell size={16} />} tone={GOLD} />
-              <StatCard value="3" label="Offers Ready" icon={<Gift size={16} />} tone="#8FA98A" />
-              <StatCard value="4" label="Upcoming Stays" icon={<CalendarCheck size={16} />} tone="#8FA7BC" />
+              <StatCard value={String(bookings.length)} label="Total Bookings" icon={<CalendarDays size={16} />} tone="#B9A06B" />
+              <StatCard value={String(needsAttention.length)} label="Needs Attention" icon={<Bell size={16} />} tone={GOLD} />
+              <StatCard value={String(offersReady.length)} label="Offers Ready" icon={<Gift size={16} />} tone="#8FA98A" />
+              <StatCard value={String(upcoming.length)} label="Upcoming Stays" icon={<CalendarCheck size={16} />} tone="#8FA7BC" />
             </div>
 
           </section>
@@ -697,107 +751,80 @@ function ManageBookings() {
           </section>
 
           {/* needs your attention */}
-          <section
-            className="mt-5 rounded-[10px] p-4 sm:px-5 sm:py-4"
-            style={{
-              backgroundColor: ATTENTION,
-              border: `1px solid ${CARD_BORDER}`,
-              borderLeft: `2px solid ${GOLD_MID}`,
-              boxShadow: CARD_SHADOW,
-            }}
-          >
-            <h2 className="text-[14px] font-medium" style={{ color: TEXT }}>
-              Needs Your Attention
-            </h2>
-            <div className="mt-3.5 grid grid-cols-1 gap-4 lg:grid-cols-2">
-              <div className="flex flex-wrap items-center gap-4 lg:flex-nowrap">
-                <span
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full"
-                  style={{
-                    backgroundColor: "rgba(199,163,74,0.12)",
-                    color: GOLD,
-                    border: "1px solid rgba(199,163,74,0.28)",
-                  }}
-                >
-
-                  <Bell size={20} />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-[12px]" style={{ color: MUTED }}>
-                    HGB-2026-00124
-                  </p>
-                  <p className="text-[16px]" style={{ color: TEXT, fontFamily: SERIF }}>
-                    Oslo Group Stay
-                  </p>
-                </div>
-                <Divider className="hidden lg:block" />
-                <div className="min-w-0 lg:pl-1">
-                  <p className="text-[12.5px]" style={{ color: TEXT }}>
-                    Rooming list
-                  </p>
-                  <p className="mt-1 text-[12.5px]" style={{ color: TEXT_2 }}>
-                    42 / 58 guests complete
-                  </p>
-                  <p className="text-[12.5px]" style={{ color: MUTED }}>
-                    Due 04 Sep 2026
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  className="ml-auto inline-flex items-center gap-2 text-[12.5px] font-medium underline-offset-4 transition-colors hover:underline"
-                  style={{ color: GOLD_SOFT }}
-                >
-                  Continue <span aria-hidden>→</span>
-                </button>
+          {needsAttention.length > 0 && (
+            <section
+              className="mt-5 rounded-[10px] p-4 sm:px-5 sm:py-4"
+              style={{
+                backgroundColor: ATTENTION,
+                border: `1px solid ${CARD_BORDER}`,
+                borderLeft: `2px solid ${GOLD_MID}`,
+                boxShadow: CARD_SHADOW,
+              }}
+            >
+              <h2 className="text-[14px] font-medium" style={{ color: TEXT }}>
+                Needs Your Attention
+              </h2>
+              <div className="mt-3.5 grid grid-cols-1 gap-4 lg:grid-cols-2">
+                {needsAttention.slice(0, 2).map((b, i) => {
+                  const isOffers = b.status === "offers_ready";
+                  return (
+                    <div
+                      key={b.id}
+                      className={
+                        i === 0
+                          ? "flex flex-wrap items-center gap-4 lg:flex-nowrap"
+                          : "flex flex-wrap items-center gap-4 lg:flex-nowrap lg:border-l lg:pl-6"
+                      }
+                      style={i === 0 ? undefined : { borderColor: BORDER }}
+                    >
+                      <span
+                        className="grid h-11 w-11 shrink-0 place-items-center rounded-full"
+                        style={{
+                          backgroundColor: "rgba(199,163,74,0.12)",
+                          color: GOLD,
+                          border: "1px solid rgba(199,163,74,0.28)",
+                        }}
+                      >
+                        {isOffers ? <Gift size={20} /> : <Bell size={20} />}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-[12px]" style={{ color: MUTED }}>
+                          {b.reference}
+                        </p>
+                        <p className="text-[16px]" style={{ color: TEXT, fontFamily: SERIF }}>
+                          {b.name}
+                        </p>
+                      </div>
+                      <Divider className="hidden lg:block" />
+                      <div className="min-w-0 lg:pl-1">
+                        <p className="text-[12.5px]" style={{ color: TEXT }}>
+                          {isOffers ? b.action.title : "Rooming list"}
+                        </p>
+                        {!isOffers && b.rooming && (
+                          <p className="mt-1 text-[12.5px]" style={{ color: TEXT_2 }}>
+                            {b.rooming.complete} / {b.rooming.total} guests complete
+                          </p>
+                        )}
+                        {!isOffers && b.rooming?.due && (
+                          <p className="text-[12.5px]" style={{ color: MUTED }}>
+                            Due {formatDay(b.rooming.due)}
+                          </p>
+                        )}
+                      </div>
+                      <Link
+                        to={isOffers ? "/bookings/$bookingId" : "/rooming-list/$bookingId"}
+                        params={{ bookingId: b.id }}
+                        className="ml-auto inline-flex items-center gap-2 text-[12.5px] font-medium underline-offset-4 transition-colors hover:underline"
+                        style={{ color: GOLD_SOFT }}
+                      >
+                        {isOffers ? "Review offers" : "Continue"} <span aria-hidden>→</span>
+                      </Link>
+                    </div>
+                  );
+                })}
               </div>
-
-              <div
-                className="flex flex-wrap items-center gap-4 lg:flex-nowrap lg:border-l lg:pl-6"
-                style={{ borderColor: BORDER }}
-              >
-                <span
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full"
-                  style={{
-                    backgroundColor: "rgba(199,163,74,0.12)",
-                    color: GOLD,
-                    border: "1px solid rgba(199,163,74,0.28)",
-                  }}
-                >
-
-                  <Gift size={20} />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-[12px]" style={{ color: MUTED }}>
-                    HGB-2026-00136
-                  </p>
-                  <p className="text-[16px]" style={{ color: TEXT, fontFamily: SERIF }}>
-                    Stockholm City Break
-                  </p>
-                </div>
-                <Divider className="hidden lg:block" />
-                <div className="min-w-0 lg:pl-1">
-                  <p className="text-[12.5px]" style={{ color: TEXT }}>
-                    3 hotel offers ready
-                  </p>
-                  <button
-                    type="button"
-                    className="mt-1 inline-flex items-center gap-2 text-[12.5px] font-medium underline-offset-4 transition-colors hover:underline"
-                    style={{ color: GOLD_SOFT }}
-                  >
-                    Review offers <span aria-hidden>→</span>
-                  </button>
-                </div>
-                <button
-                  type="button"
-                  aria-label="More actions"
-                  className="ml-auto grid h-9 w-9 place-items-center rounded-md"
-                  style={{ color: MUTED }}
-                >
-                  <MoreVertical size={18} />
-                </button>
-              </div>
-            </div>
-          </section>
+            </section>
+          )}
 
           {/* bookings */}
           <section
@@ -812,7 +839,11 @@ function ManageBookings() {
             ))}
             {results.length === 0 && (
               <p className="py-10 text-center text-[13.5px]" style={{ color: MUTED }}>
-                No bookings match your filters.
+                {isLoading
+                  ? "Loading your bookings…"
+                  : bookings.length === 0
+                    ? "You have no bookings yet. Start a new request to see it here."
+                    : "No bookings match your filters."}
               </p>
             )}
           </section>
@@ -827,7 +858,7 @@ function ManageBookings() {
             </p>
             <div className="flex items-center gap-3 sm:justify-end">
               <span className="text-[12.5px]" style={{ color: MUTED }}>
-                Showing 1 – {results.length} of 7
+                Showing {results.length} of {bookings.length}
               </span>
               <div className="flex items-center gap-1.5">
                 {[

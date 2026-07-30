@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import {
   ArrowLeft,
   Bed,
@@ -25,8 +26,11 @@ import {
   CalendarDays,
 } from "lucide-react";
 import { PAL, SERIF, SidebarContent, TopBar } from "@/components/DashboardChrome";
-import { BOOKINGS, roomingProgress, type Booking } from "@/lib/bookings";
-import { distributionFor, loadRoomingList, statsOf } from "@/lib/rooming";
+import { roomingProgress, type Booking } from "@/lib/bookings";
+import { distributionFor, statsOf } from "@/lib/rooming";
+import { useAuth } from "@/lib/auth";
+import { fetchBooking, fetchRoomDistribution } from "@/lib/bookingsApi";
+import { loadRoomingListFromDb } from "@/lib/roomingApi";
 
 export const Route = createFileRoute("/bookings/$bookingId")({
   component: BookingWorkspace,
@@ -477,7 +481,28 @@ const inputStyle: React.CSSProperties = {
 
 function BookingWorkspace() {
   const { bookingId } = Route.useParams();
-  const booking = BOOKINGS.find((b) => b.id === bookingId || b.reference === bookingId);
+  const navigate = useNavigate();
+  const { session, loading: authLoading } = useAuth();
+
+  useEffect(() => {
+    if (!authLoading && !session) {
+      navigate({ to: "/auth", search: { next: `/bookings/${bookingId}` }, replace: true });
+    }
+  }, [authLoading, session, bookingId, navigate]);
+
+  const { data: booking, isLoading } = useQuery({
+    queryKey: ["booking", bookingId],
+    queryFn: () => fetchBooking(bookingId),
+    enabled: Boolean(session),
+  });
+
+  if (isLoading || authLoading || !session) {
+    return (
+      <div className="grid min-h-screen place-items-center" style={{ backgroundColor: PAL.BG, color: PAL.MUTED }}>
+        <p className="text-[13.5px]">Loading booking…</p>
+      </div>
+    );
+  }
   if (!booking) throw notFound();
   return <Workspace booking={booking} />;
 }
@@ -488,9 +513,22 @@ function Workspace({ booking }: { booking: Booking }) {
   /* rooming progress is derived from the live rooming list, never hardcoded */
   const [roomingStats, setRoomingStats] = useState<{ filled: number; total: number; percent: number } | null>(null);
   useEffect(() => {
-    const s = statsOf(loadRoomingList(booking.id, distributionFor(booking.id, booking.rooms ?? 12)));
-    setRoomingStats({ filled: s.filled, total: s.totalSlots, percent: s.percent });
+    let active = true;
+    (async () => {
+      const dist = await fetchRoomDistribution(booking.id);
+      const list = await loadRoomingListFromDb(
+        booking.id,
+        Object.keys(dist).length ? (dist as never) : distributionFor(booking.id, booking.rooms ?? 12),
+      );
+      if (!active) return;
+      const s = statsOf(list);
+      setRoomingStats({ filled: s.filled, total: s.totalSlots, percent: s.percent });
+    })().catch(() => {});
+    return () => {
+      active = false;
+    };
   }, [booking.id, booking.rooms]);
+
   const progress = roomingStats?.percent ?? roomingProgress(booking);
   const rooming = booking.rooming;
   const confirmed = booking.status === "confirmed" || booking.status === "upcoming";

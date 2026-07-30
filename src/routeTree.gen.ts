@@ -9,13 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ManageBookingsRouteImport } from './routes/manage-bookings'
 import { Route as BookMeetingsEventsRouteImport } from './routes/book-meetings-events'
 import { Route as BookLeisureRouteImport } from './routes/book-leisure'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RoomingListBookingIdRouteImport } from './routes/rooming-list.$bookingId'
 import { Route as BookingsBookingIdRouteImport } from './routes/bookings.$bookingId'
 
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ManageBookingsRoute = ManageBookingsRouteImport.update({
   id: '/manage-bookings',
   path: '/manage-bookings',
@@ -29,6 +36,11 @@ const BookMeetingsEventsRoute = BookMeetingsEventsRouteImport.update({
 const BookLeisureRoute = BookLeisureRouteImport.update({
   id: '/book-leisure',
   path: '/book-leisure',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,26 +61,32 @@ const BookingsBookingIdRoute = BookingsBookingIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/book-leisure': typeof BookLeisureRoute
   '/book-meetings-events': typeof BookMeetingsEventsRoute
   '/manage-bookings': typeof ManageBookingsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/bookings/$bookingId': typeof BookingsBookingIdRoute
   '/rooming-list/$bookingId': typeof RoomingListBookingIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/book-leisure': typeof BookLeisureRoute
   '/book-meetings-events': typeof BookMeetingsEventsRoute
   '/manage-bookings': typeof ManageBookingsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/bookings/$bookingId': typeof BookingsBookingIdRoute
   '/rooming-list/$bookingId': typeof RoomingListBookingIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/book-leisure': typeof BookLeisureRoute
   '/book-meetings-events': typeof BookMeetingsEventsRoute
   '/manage-bookings': typeof ManageBookingsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/bookings/$bookingId': typeof BookingsBookingIdRoute
   '/rooming-list/$bookingId': typeof RoomingListBookingIdRoute
 }
@@ -76,40 +94,55 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/book-leisure'
     | '/book-meetings-events'
     | '/manage-bookings'
+    | '/reset-password'
     | '/bookings/$bookingId'
     | '/rooming-list/$bookingId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/book-leisure'
     | '/book-meetings-events'
     | '/manage-bookings'
+    | '/reset-password'
     | '/bookings/$bookingId'
     | '/rooming-list/$bookingId'
   id:
     | '__root__'
     | '/'
+    | '/auth'
     | '/book-leisure'
     | '/book-meetings-events'
     | '/manage-bookings'
+    | '/reset-password'
     | '/bookings/$bookingId'
     | '/rooming-list/$bookingId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   BookLeisureRoute: typeof BookLeisureRoute
   BookMeetingsEventsRoute: typeof BookMeetingsEventsRoute
   ManageBookingsRoute: typeof ManageBookingsRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   BookingsBookingIdRoute: typeof BookingsBookingIdRoute
   RoomingListBookingIdRoute: typeof RoomingListBookingIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/manage-bookings': {
       id: '/manage-bookings'
       path: '/manage-bookings'
@@ -129,6 +162,13 @@ declare module '@tanstack/react-router' {
       path: '/book-leisure'
       fullPath: '/book-leisure'
       preLoaderRoute: typeof BookLeisureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -157,9 +197,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   BookLeisureRoute: BookLeisureRoute,
   BookMeetingsEventsRoute: BookMeetingsEventsRoute,
   ManageBookingsRoute: ManageBookingsRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   BookingsBookingIdRoute: BookingsBookingIdRoute,
   RoomingListBookingIdRoute: RoomingListBookingIdRoute,
 }
