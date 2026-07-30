@@ -116,7 +116,7 @@ const STAT_TEXT = "#FFFFFF";
 const STAT_HEAD = "#F7F8F8";
 const STAT_TEXT_2 = "rgba(255,255,255,0.78)";
 const STAT_SEP = "rgba(255,255,255,0.20)";
-const STAT_SHADOW = "0 8px 22px rgba(27,50,70,0.10)";
+const STAT_SHADOW = "0 5px 10px rgba(28,48,64,0.08), 0 12px 22px rgba(28,48,64,0.10)";
 
 /* light input-field tokens used inside the navy Guest Details panel */
 const FIELD_BG = "#EEF2F6"; // soft cool off-white / very light blue-grey
@@ -549,9 +549,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               className="relative overflow-visible rounded-[17px] px-5 py-5 sm:px-6"
               style={{
                 backgroundColor: HERO_CARD_BG,
-                border: "1px solid rgba(72,91,110,0.13)",
+                border: "1px solid rgba(91,113,129,0.12)",
+                borderBottom: "2px solid rgba(68,91,108,0.08)",
                 boxShadow:
-                  "0 1px 2px rgba(20,35,50,0.04), 0 8px 22px rgba(28,47,65,0.07), 0 22px 50px rgba(28,47,65,0.045), inset 0 1px 0 rgba(255,255,255,0.65)",
+                  "0 2px 3px rgba(31,50,66,0.05), 0 8px 18px rgba(31,50,66,0.08), 0 18px 38px rgba(31,50,66,0.10), inset 0 1px 0 rgba(255,255,255,0.75)",
               }}
             >
               {/* row 1 — badges + actions */}
