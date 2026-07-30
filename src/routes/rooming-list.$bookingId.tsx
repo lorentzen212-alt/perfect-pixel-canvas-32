@@ -846,25 +846,46 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2.5 pt-4"
                     style={{ borderTop: "1px solid rgba(16,35,63,0.10)" }}
                   >
-                    <span className="text-[12.5px]" style={{ color: HERO_INK_2 }}>
+                    <span className="text-[13.5px] font-medium" style={{ color: HERO_INK_2 }}>
                       View:
                     </span>
-                    <div className="flex items-center gap-1">
-                      {(["all", "missing", "complete"] as ViewFilter[]).map((v) => (
+                    <div
+                      className="ml-[4px] flex items-stretch overflow-hidden rounded-[10px]"
+                      style={{
+                        backgroundColor: "#FDFEFE",
+                        border: "1px solid #D8E0E7",
+                        height: 41,
+                        boxShadow: "0 1px 3px rgba(15, 23, 42, 0.03)",
+                      }}
+                    >
+                      {(["all", "missing", "complete"] as ViewFilter[]).map((v, i) => (
                         <button
                           key={v}
                           type="button"
                           onClick={() => setView(v)}
-                          className="rounded-[8px] px-4 py-[8px] text-[12.5px] capitalize transition-colors"
+                          className="flex items-center justify-center px-5 text-[13.5px] capitalize transition-colors"
                           style={
                             view === v
                               ? {
-                                  color: "#9A7113",
-                                  backgroundColor: "rgba(231,185,79,0.20)",
-                                  border: "1px solid rgba(169,111,8,0.42)",
+                                  color: "#8A6A1C",
+                                  fontWeight: 600,
+                                  backgroundColor: "#FBF4E5",
+                                  boxShadow: "inset 0 0 0 1px #D6AD55",
+                                  borderRadius: 9,
+                                  borderLeft: i === 0 ? undefined : "1px solid transparent",
                                 }
-                              : { color: HERO_INK_2, border: "1px solid transparent" }
+                              : {
+                                  color: "#34495E",
+                                  fontWeight: 500,
+                                  borderLeft: i === 0 ? undefined : "1px solid #E1E6EB",
+                                }
                           }
+                          onMouseEnter={(e) => {
+                            if (view !== v) e.currentTarget.style.backgroundColor = "rgba(40, 75, 105, 0.04)";
+                          }}
+                          onMouseLeave={(e) => {
+                            if (view !== v) e.currentTarget.style.backgroundColor = "transparent";
+                          }}
                         >
                           {v}
                         </button>
@@ -872,12 +893,20 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       <SecondaryFilterMenu view={view} onChange={setView} />
                     </div>
 
+                    <span className="mx-1.5 inline-block w-px" style={{ height: 24, backgroundColor: "#D8E0E7" }} />
+
                     <button
                       type="button"
                       onClick={() => setShowGroup(true)}
-                      className="inline-flex items-center gap-2 rounded-[8px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(16,35,63,0.04)]"
-                      style={{ color: HERO_INK_2, border: "1px solid rgba(16,35,63,0.14)" }}
+                      className="inline-flex items-center gap-2 rounded-[10px] px-4 text-[13.5px] transition-colors hover:bg-[rgba(40,75,105,0.04)]"
+                      style={{
+                        color: "#34495E",
+                        height: 41,
+                        backgroundColor: "#FFFFFF",
+                        border: "1px solid #D8E0E7",
+                      }}
                     >
+                      <Users size={15} strokeWidth={1.7} />
                       Group requests
                       {list.groupRequests.length > 0 && (
                         <span
@@ -888,6 +917,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         </span>
                       )}
                     </button>
+
 
                     {upgradeRequests.length > 0 && (
                       <button
@@ -3884,17 +3914,34 @@ function SecondaryFilterMenu({ view, onChange }: { view: ViewFilter; onChange: (
         ref={btnRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1 rounded-[6px] px-3 py-[5px] text-[12px] transition-colors"
+        className="flex items-center justify-center gap-1.5 px-5 text-[13.5px] transition-colors"
         style={
           active
-            ? { color: GOLD, backgroundColor: SURFACE_2, border: `1px solid ${GOLD_DEEP}` }
-            : { color: TEXT_2, border: "1px solid transparent" }
+            ? {
+                color: "#8A6A1C",
+                fontWeight: 600,
+                backgroundColor: "#FBF4E5",
+                boxShadow: "inset 0 0 0 1px #D6AD55",
+                borderRadius: 9,
+              }
+            : { color: "#34495E", fontWeight: 500, borderLeft: "1px solid #E1E6EB" }
         }
+        onMouseEnter={(e) => {
+          if (!active) e.currentTarget.style.backgroundColor = "rgba(40, 75, 105, 0.04)";
+        }}
+        onMouseLeave={(e) => {
+          if (!active) e.currentTarget.style.backgroundColor = "transparent";
+        }}
       >
         {active ? active.label : "More"}
-        <ChevronDown size={12} />
+        <ChevronDown
+          size={14}
+          strokeWidth={2}
+          style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 160ms ease" }}
+        />
       </button>
-      <FloatingPopover anchorRef={btnRef} open={open} onClose={() => setOpen(false)} width={210} align="end">
+      <FloatingPopover anchorRef={btnRef} open={open} onClose={() => setOpen(false)} width={210} align="start">
+
         {extras.map((e) => (
           <button
             key={e.value}
