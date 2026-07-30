@@ -1992,7 +1992,9 @@ function AllocationRow({
             {statusLabel}
           </p>
           <p className="mt-[3px] truncate text-[11.5px]" style={{ color: RT_3 }}>
-            {named.length} of {cap} guest{cap > 1 ? "s" : ""} assigned
+            {cancelled
+              ? "Not counted in totals"
+              : `${named.length} of ${cap} guest${cap > 1 ? "s" : ""} assigned`}
           </p>
         </div>
       </div>
