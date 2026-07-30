@@ -824,15 +824,15 @@ function Workspace({ booking }: { booking: Booking }) {
                 ))}
               </ol>
 
-              <button
-                type="button"
-                onClick={() => setTab("Rooming List")}
+              <Link
+                to="/rooming-list/$bookingId"
+                params={{ bookingId: booking.id }}
                 className="inline-flex shrink-0 items-center justify-center gap-2 self-start whitespace-nowrap rounded-[6px] px-4 py-[8px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)] lg:self-center"
                 style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
               >
                 Continue Rooming List
                 <span aria-hidden>→</span>
-              </button>
+              </Link>
             </div>
           </section>
 
@@ -1398,15 +1398,15 @@ function Workspace({ booking }: { booking: Booking }) {
                       </p>
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setTab("Rooming List")}
+                  <Link
+                    to="/rooming-list/$bookingId"
+                    params={{ bookingId: booking.id }}
                     className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-[6px] px-3 py-[8px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
                     style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
                   >
                     Continue
                     <span aria-hidden>→</span>
-                  </button>
+                  </Link>
                 </section>
 
                 {/* 2 — upcoming */}
