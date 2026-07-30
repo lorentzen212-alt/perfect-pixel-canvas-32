@@ -238,8 +238,8 @@ export const LIGHT = {
 
 const LIGHT_NAV = [
   { label: "Overview", icon: CalendarCheck },
-  { label: "Rooming List", icon: BedDouble },
   { label: "Bookings", icon: CalendarDays },
+  { label: "Rooming List", icon: BedDouble },
   { label: "Documents", icon: FileText },
   { label: "Activity", icon: Activity },
   { label: "Billing", icon: CreditCard },
