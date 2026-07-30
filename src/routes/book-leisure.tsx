@@ -2607,13 +2607,13 @@ function LeisureStepShell({
         color: "#F5F1E6",
       }}
     >
-      <div style={{ borderBottom: `1px solid ${S1_BORDER_SOFT}` }}>
-        <BookingHeader
-          currentStep={activeStep}
-          onStepGo={(s) => onStepGo(s as StepKey)}
-          hideCurrentFlow="leisure"
-        />
-      </div>
+      <BookingHeader
+        background="transparent"
+        currentStep={activeStep}
+        onStepGo={(s) => onStepGo(s as StepKey)}
+        hideCurrentFlow="leisure"
+      />
+
 
       <div className={`mx-auto grid ${hideHero ? "max-w-[1240px] py-4 lg:py-5" : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
 
