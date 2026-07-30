@@ -730,7 +730,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
                       <div className="flex flex-1 flex-wrap items-stretch">
                         <div
-                          className="flex flex-1 min-w-[104px] flex-col items-center justify-center px-3"
+                          className="flex flex-1 min-w-[120px] flex-col items-center justify-center px-3"
                           style={{ borderLeft: `1px solid ${BORDER}` }}
                         >
                           <span className="flex items-center gap-2.5">
@@ -746,7 +746,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         {stats.byType.map((t) => (
                           <div
                             key={t.type}
-                            className="flex flex-1 min-w-[82px] flex-col items-center justify-center px-2.5"
+                            className="flex flex-1 min-w-[92px] flex-col items-center justify-center px-2"
                             style={{ borderLeft: `1px solid ${BORDER}` }}
                           >
                             <span className="flex items-center gap-2">
@@ -765,7 +765,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
                     {/* status panel */}
                     <div
-                      className="flex items-stretch rounded-[14px] px-2 py-5 lg:w-[290px]"
+                      className="flex items-stretch rounded-[14px] px-2 py-5 lg:w-[300px]"
                       style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
                     >
                       <div className="flex flex-1 flex-col items-center justify-center px-3">
