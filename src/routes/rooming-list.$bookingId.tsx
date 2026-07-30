@@ -2288,7 +2288,7 @@ function GuestDrawer({
       >
         <div className="flex items-center justify-between px-4 pb-2 pt-4">
           <h3 className="text-[17px]" style={{ color: TEXT, fontFamily: SERIF }}>
-            Guest details
+            {isNew ? "New guest" : "Edit guest"}
           </h3>
           <button type="button" aria-label="Close" onClick={onClose} style={{ color: MUTED }}>
             <X size={17} />
