@@ -2549,6 +2549,7 @@ function StepSevenReview({
   const [submitted, setSubmitted] = useState(false);
 
   const draft = useMeDraft();
+  const navigate = useNavigate();
 
   const GOLD = "#D4AF6A";
   const GOLD_HI = "#F0D890";
@@ -2635,12 +2636,89 @@ function StepSevenReview({
     return parts.join(", ");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (submitting || submitted) return;
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+    try {
+      const firstStay = stays[0];
+      const lastStay = stays[stays.length - 1];
+      const startDate = firstStay?.checkIn || meetings[0]?.date || null;
+      const endDate = lastStay?.checkOut || meetings[meetings.length - 1]?.date || null;
+      const input: NewBookingInput = {
+        bookingType: "me",
+        name: details.eventName || (locationTitle ? `${locationTitle} Event` : "Meetings & Events Request"),
+        destination: locationTitle,
+        country: loc.countryName ?? null,
+        city: loc.destinationName ?? null,
+        startDate,
+        endDate,
+        nights: nightsBetween(startDate, endDate),
+        rooms: roomsTotalAll,
+        guests: guestsTotalAll,
+        delegates: meetings.reduce((n, m) => Math.max(n, m.delegates ?? 0), 0) || null,
+        meetingSpaces: meetings.length || null,
+        contact: {
+          firstName: (details.contactPerson ?? "").split(" ")[0] ?? "",
+          lastName: (details.contactPerson ?? "").split(" ").slice(1).join(" "),
+          email: details.email ?? "",
+          phone: details.phone ?? "",
+          company: details.company ?? "",
+        },
+        request: {
+          type: "me",
+          location: loc,
+          accommodationStays: stays,
+          meetingSpaces: meetings,
+          catering,
+          cateringExtras,
+          extras,
+          extrasNotes,
+          eventDetails: details,
+        },
+        roomLines: stays.flatMap((stay) =>
+          (
+            [
+              ["Single", stay.rooms.sgl],
+              ["Double", stay.rooms.dbl],
+              ["Twin", stay.rooms.twn],
+              ["Triple", stay.rooms.trp],
+              ["Suite", stay.rooms.ste],
+            ] as const
+          )
+            .filter(([, qty]) => qty > 0)
+            .map(([room_type, quantity]) => ({
+              room_type,
+              quantity,
+              check_in: stay.checkIn || null,
+              check_out: stay.checkOut || null,
+            })),
+        ),
+      };
+
+      const { data } = await supabase.auth.getSession();
+      const user = data.session?.user;
+      if (!user) {
+        savePendingRequest(input);
+        navigate({ to: "/auth", search: { next: "/manage-bookings", mode: "signup" } });
+        return;
+      }
+
+      await upsertProfile(user.id, {
+        first_name: input.contact.firstName,
+        last_name: input.contact.lastName,
+        email: input.contact.email || user.email || "",
+        company_name: input.contact.company || null,
+        phone: input.contact.phone || null,
+        country: loc.countryName ?? null,
+      });
+      await createBooking(user.id, input);
+      clearPendingRequest();
       setSubmitted(true);
-    }, 900);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   /* -------- Section row primitive -------- */
