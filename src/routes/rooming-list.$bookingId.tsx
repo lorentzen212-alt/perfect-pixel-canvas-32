@@ -2281,7 +2281,7 @@ function GuestDrawer({
       <div
         className="absolute inset-y-0 right-0 flex w-full max-w-[420px] flex-col overflow-y-auto lg:static lg:h-[calc(100vh-96px)] lg:max-w-none lg:rounded-[13px]"
         style={{
-          backgroundColor: "#142D49",
+          backgroundColor: "#173A5A",
           border: `1px solid ${CARD_BORDER}`,
           boxShadow: CARD_SHADOW,
         }}
