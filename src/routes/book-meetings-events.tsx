@@ -538,7 +538,7 @@ function BookMeetingsEvents() {
                 "to" in l ? (
                   <Link
                     key={l.label}
-                    to={l.to}
+                    to={l.to as string}
                     className="text-[17px] font-medium transition-colors hover:text-[#F2D477]"
                     style={{ color: "#F5F5F0", textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
                   >

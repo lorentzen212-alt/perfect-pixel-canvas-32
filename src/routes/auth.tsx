@@ -5,7 +5,9 @@ import { lovable } from "@/integrations/lovable/index";
 import { useAuth, upsertProfile } from "@/lib/auth";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (search: Record<string, unknown>) => ({
+  validateSearch: (
+    search: Record<string, unknown>,
+  ): { next?: string; mode?: "signup" } => ({
     next: typeof search.next === "string" ? search.next : undefined,
     mode: search.mode === "signup" ? ("signup" as const) : undefined,
   }),
