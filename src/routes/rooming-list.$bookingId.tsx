@@ -110,7 +110,7 @@ const PANEL = "#142D49";
 const NAVY = "#142D49";
 
 /* overview header palette — cloudy off-white + muted slate blue */
-const HERO_CARD_BG = "#F7F9FB"; // soft pearl / cloudy gray with a tiny blue undertone
+const HERO_CARD_BG = "#FCFCFB"; // premium porcelain white
 const STAT_BG = "#718CA2";
 const STAT_TEXT = "#FFFFFF";
 const STAT_HEAD = "#F7F8F8";
@@ -491,7 +491,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#E9EEF2",
+        backgroundColor: "#EEF3F6",
+        backgroundImage:
+          "linear-gradient(180deg, #F1F5F7 0%, #EDF2F5 45%, #E9EFF3 100%)",
+        backgroundAttachment: "fixed",
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
@@ -549,10 +552,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               className="relative overflow-visible rounded-[17px] px-5 py-5 sm:px-6"
               style={{
                 backgroundColor: HERO_CARD_BG,
-                border: "1px solid rgba(91,113,129,0.12)",
-                borderBottom: "2px solid rgba(68,91,108,0.08)",
+                backgroundImage:
+                  "linear-gradient(180deg, #FCFCFB 0%, #FAFBFA 55%, #F8F9F8 100%)",
+                border: "1px solid rgba(65,82,96,0.08)",
                 boxShadow:
-                  "0 2px 3px rgba(31,50,66,0.05), 0 8px 18px rgba(31,50,66,0.08), 0 18px 38px rgba(31,50,66,0.10), inset 0 1px 0 rgba(255,255,255,0.75)",
+                  "0 2px 4px rgba(15,32,48,0.05), 0 10px 24px rgba(15,32,48,0.10), 0 22px 50px rgba(15,32,48,0.08), inset 0 1px 0 rgba(255,255,255,0.75)",
               }}
             >
               {/* row 1 — badges + actions */}
