@@ -1266,6 +1266,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         onSelectRow={() => setSelectedRow((s) => (s === a.id ? null : a.id))}
                         onRestoreAllocation={() => restoreAllocation(a.id)}
                         onPatch={(fn) => patchAllocation(a.id, fn)}
+                        onOpenGuest={() => {}}
+                        onAddGuest={() => {}}
+                        onRemoveGuest={() => {}}
                       />
                     ))}
                   </div>
