@@ -24,6 +24,9 @@ export interface AuthState {
   loading: boolean;
   session: Session | null;
   user: User | null;
+  /** Convenience flag — true once a session has been restored. */
+  isAuthenticated: boolean;
+  userId: string | null;
   profile: Profile | null;
   profileLoading: boolean;
   refreshProfile: () => Promise<void>;
