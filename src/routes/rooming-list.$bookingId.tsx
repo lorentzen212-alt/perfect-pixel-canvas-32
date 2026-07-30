@@ -343,44 +343,55 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const stats = useMemo(() => (list ? statsOf(list) : null), [list]);
   const locked = Boolean(list?.submittedAt);
 
+  const matchesQuery = useCallback(
+    (a: Allocation) => {
+      const q = query.trim().toLowerCase();
+      if (!q) return true;
+      const hay = [
+        ...a.guests.map(guestName),
+        labelOf(a.type),
+        String(a.index).padStart(2, "0"),
+        ...a.requests,
+        isCancelled(a) ? "cancelled" : "",
+        a.upgradeRequest ? categoryLabel(a.upgradeRequest.category) : "",
+      ]
+        .join(" ")
+        .toLowerCase();
+      return hay.includes(q);
+    },
+    [query],
+  );
+
+  /* the active rooming list NEVER contains cancelled allocations */
   const visible = useMemo(() => {
     if (!list) return [];
-    const q = query.trim().toLowerCase();
+    if (view === "cancelled") return list.allocations.filter((a) => isCancelled(a) && matchesQuery(a));
     return list.allocations.filter((a) => {
-      const cancelled = isCancelled(a);
-      /* cancelled rows are only ever shown in "All" (unless hidden) or their own view */
-      if (view === "cancelled") {
-        if (!cancelled) return false;
-      } else if (cancelled) {
-        if (view !== "all") return false;
-      }
+      if (isCancelled(a)) return false;
       const status = allocationStatus(a);
-      if (!cancelled) {
-        if (view === "complete" && status !== "complete") return false;
-        if (view === "missing" && status === "complete") return false;
-        if (view === "dietary" && !allocationHasRequirements(a)) return false;
-        if (view === "requests" && a.requests.length === 0 && !a.upgradeRequest) return false;
-        if (view === "upgrades") {
-          if (!a.upgradeRequest) return false;
-          if (upgradeFilter !== "all" && a.upgradeRequest.status !== upgradeFilter) return false;
-        }
+      if (view === "complete" && status !== "complete") return false;
+      if (view === "missing" && status === "complete") return false;
+      if (view === "dietary" && !allocationHasRequirements(a)) return false;
+      if (view === "requests" && a.requests.length === 0 && !a.upgradeRequest) return false;
+      if (view === "upgrades") {
+        if (!a.upgradeRequest) return false;
+        if (upgradeFilter !== "all" && a.upgradeRequest.status !== upgradeFilter) return false;
       }
-      if (q) {
-        const hay = [
-          ...a.guests.map(guestName),
-          labelOf(a.type),
-          String(a.index).padStart(2, "0"),
-          ...a.requests,
-          cancelled ? "cancelled" : "",
-          a.upgradeRequest ? categoryLabel(a.upgradeRequest.category) : "",
-        ]
-          .join(" ")
-          .toLowerCase();
-        if (!hay.includes(q)) return false;
-      }
-      return true;
+      return matchesQuery(a);
     });
-  }, [list, view, query, upgradeFilter]);
+  }, [list, view, matchesQuery, upgradeFilter]);
+
+  /* archived allocations — kept for history, never part of any active total */
+  const cancelledAllocations = useMemo(
+    () => (list ? list.allocations.filter(isCancelled) : []),
+    [list],
+  );
+
+  /* the Cancelled filter only exists while something is cancelled */
+  useEffect(() => {
+    if (view === "cancelled" && cancelledAllocations.length === 0) setView("all");
+  }, [view, cancelledAllocations.length]);
+
 
   /* ── upgrade derived state ── */
   const eligible = useMemo(
