@@ -110,7 +110,15 @@ const PANEL = "#142D49";
 const NAVY = "#142D49";
 
 /* overview header palette — cloudy off-white + muted slate blue */
-const HERO_CARD_BG = "#F7F9FB"; // soft pearl / cloudy gray with a tiny blue undertone
+const HERO_CARD_BG = "#565C6A"; // muted slate / smoky blue-grey — large parent card surface
+/* light text/border tokens for elements sitting directly on the dark #565C6A surface
+   (nested white-bg buttons/inputs keep the original dark HERO_INK/HERO_INK_2) */
+const HERO_SURFACE_TEXT = "#F4F6F8";
+const HERO_SURFACE_TEXT_2 = "#C2CCD8";
+const HERO_SURFACE_ICON = "#A9BFD4";
+const HERO_SURFACE_DIV = "rgba(255,255,255,0.22)";
+const HERO_SURFACE_RULE = "rgba(255,255,255,0.12)";
+const HERO_SURFACE_BORDER = "rgba(255,255,255,0.18)";
 const STAT_BG = "#718CA2";
 const STAT_TEXT = "#FFFFFF";
 const STAT_HEAD = "#F7F8F8";
