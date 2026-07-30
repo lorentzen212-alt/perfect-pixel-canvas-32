@@ -1175,8 +1175,8 @@ function ManageBookings() {
           <section
             className={
               view === "list"
-                ? "mt-4 space-y-3"
-                : "mt-4 grid grid-cols-1 gap-3 xl:grid-cols-2"
+                ? "relative mt-6 space-y-5"
+                : "relative mt-6 grid grid-cols-1 gap-5 xl:grid-cols-2"
             }
           >
             {results.map((b) => (
