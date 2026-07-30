@@ -3141,16 +3141,17 @@ function UpgradeCheckbox({
       title={title}
       disabled={disabled}
       onClick={onChange}
-      className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] transition-colors disabled:cursor-not-allowed"
+      className="grid h-[19px] w-[19px] shrink-0 place-items-center rounded-[5px] transition-colors disabled:cursor-not-allowed"
       style={{
         background: checked
           ? "linear-gradient(180deg, #F4D675 0%, #D4AF37 52%, #A96F08 100%)"
-          : "rgba(8,24,40,0.35)",
-        border: `1px solid ${checked ? "#E7B94F" : "rgba(231,185,79,0.40)"}`,
+          : "#FFFFFF",
+        border: `1px solid ${checked ? "#C99322" : "rgba(184,134,11,0.42)"}`,
         opacity: disabled ? 0.45 : 1,
       }}
     >
-      {checked && <Check size={12} strokeWidth={3} style={{ color: "#12304C" }} />}
+      {checked && <Check size={12} strokeWidth={3} style={{ color: "#FFFFFF" }} />}
+
     </button>
   );
 }
