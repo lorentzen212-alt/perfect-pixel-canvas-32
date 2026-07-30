@@ -471,21 +471,39 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     [update],
   );
 
-  /** Cancellation never deletes anything — the record (and its guests) is archived. */
+  /**
+   * Cancelling a room never deletes guest data: every guest is moved intact
+   * (dietary tags, requests, contact details) into the unassigned pool, and the
+   * cancelled record keeps a historical, non-active note of who was assigned.
+   */
   const cancelAllocation = useCallback(
     (id: string) => {
-      update((l) => ({
-        ...l,
-        allocations: l.allocations.map((a) =>
-          a.id === id ? { ...a, status: "cancelled" as const, upgradeRequest: null } : a,
-        ),
-      }));
+      update((l) => {
+        const target = l.allocations.find((a) => a.id === id);
+        const moving = target ? target.guests.filter(isNamed) : [];
+        return {
+          ...l,
+          allocations: l.allocations.map((a) =>
+            a.id === id
+              ? {
+                  ...a,
+                  status: "cancelled" as const,
+                  upgradeRequest: null,
+                  guests: [],
+                  previousGuests: moving.map((g) => ({ id: g.id, name: guestName(g) })),
+                }
+              : a,
+          ),
+          unassigned: [...l.unassigned, ...moving],
+        };
+      });
       setSelected((s) => s.filter((x) => x !== id));
       setManageSelected((s) => s.filter((x) => x !== id));
       setConfirmCancel(null);
     },
     [update],
   );
+
 
 
   const restoreAllocation = useCallback(
