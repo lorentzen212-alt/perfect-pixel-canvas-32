@@ -1,6 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
-import { upsertProfile } from "@/lib/auth";
+import { upsertProfile, useAuth } from "@/lib/auth";
 import { createBooking, nightsBetween, type NewBookingInput } from "@/lib/bookingsApi";
 import { savePendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
@@ -6705,8 +6705,44 @@ function LeisureStep5Screen({
   const [dialCode, setDialCode] = useState("+47");
   const [country, setCountry] = useState("");
   const [commentsFocused, setCommentsFocused] = useState(false);
+  const { session, profile } = useAuth();
+  const [prefilled, setPrefilled] = useState(false);
 
   const dial = PHONE_COUNTRIES.find((p) => p.dial === dialCode) ?? PHONE_COUNTRIES[0];
+
+  const applyAccountDetails = () => {
+    if (!profile) return;
+    const hasTyped =
+      firstName.trim() || lastName.trim() || email.trim() || phone.trim() || organisation.trim();
+    if (hasTyped && !prefilled) {
+      const ok = window.confirm(
+        "Replace the contact details you have already entered with your account details?",
+      );
+      if (!ok) return;
+    }
+    setFirstName(profile.first_name ?? "");
+    setLastName(profile.last_name ?? "");
+    setEmail(profile.email ?? "");
+    if (profile.phone) {
+      const match = PHONE_COUNTRIES.find((p) => profile.phone!.trim().startsWith(p.dial));
+      if (match) {
+        setDialCode(match.dial);
+        setPhone(profile.phone.trim().slice(match.dial.length).trim());
+      } else {
+        setPhone(profile.phone);
+      }
+    }
+    setOrganisation(profile.company_name ?? "");
+    if (profile.country) {
+      const c = S5_COUNTRIES.find(
+        (x) =>
+          x.code.toLowerCase() === profile.country!.trim().toLowerCase() ||
+          x.name.toLowerCase() === profile.country!.trim().toLowerCase(),
+      );
+      if (c) setCountry(c.code);
+    }
+    setPrefilled(true);
+  };
 
   return (
     <LeisureStepShell
@@ -6739,6 +6775,46 @@ function LeisureStep5Screen({
         <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
           Who should we contact?
         </p>
+
+        {session && profile && (
+          <div
+            className="mt-5 flex flex-col gap-3 rounded-[14px] px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between"
+            style={{
+              backgroundColor: S1_NAVY,
+              border: `1px solid rgba(212,166,74,0.24)`,
+            }}
+          >
+            <div className="min-w-0">
+              <p className="text-[13.5px] font-medium" style={{ color: "#F5F1E6" }}>
+                Use your account details?
+              </p>
+              <p className="mt-0.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.52)" }}>
+                We can fill in your contact information from your HotelGroupBook profile.
+              </p>
+            </div>
+            {prefilled ? (
+              <span
+                className="shrink-0 text-[12.5px] font-medium tracking-[0.04em]"
+                style={{ color: S1_GOLD_SOFT }}
+              >
+                ✓ Account details added
+              </span>
+            ) : (
+              <button
+                type="button"
+                onClick={applyAccountDetails}
+                className="shrink-0 rounded-[10px] px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] transition-opacity hover:opacity-90"
+                style={{
+                  background: "linear-gradient(180deg, #E7C878 0%, #C5A24B 55%, #A9853A 100%)",
+                  color: "#20180A",
+                }}
+              >
+                Use my account details
+              </button>
+            )}
+          </div>
+        )}
+
 
         {/* Row 1 */}
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
