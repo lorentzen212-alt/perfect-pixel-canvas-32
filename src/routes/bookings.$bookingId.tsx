@@ -496,6 +496,18 @@ function BookingWorkspace() {
     enabled: Boolean(session),
   });
 
+  /* warm the rooming list route + its data so navigating there feels instant */
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  useEffect(() => {
+    if (!booking) return;
+    void router.preloadRoute({ to: "/rooming-list/$bookingId", params: { bookingId } });
+    void queryClient
+      .prefetchQuery(roomingQueryOptions(bookingId, booking.rooms))
+      .catch(() => {});
+  }, [booking, bookingId, queryClient, router]);
+
+
   if (isLoading || authLoading || !session) {
     return (
       <div className="grid min-h-screen place-items-center" style={{ backgroundColor: PAL.BG, color: PAL.MUTED }}>
