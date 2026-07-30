@@ -3073,7 +3073,7 @@ function UpgradeCheckbox({
         background: checked
           ? "linear-gradient(180deg, #F4D675 0%, #D4AF37 52%, #A96F08 100%)"
           : "rgba(8,24,40,0.35)",
-        border: `1px solid ${checked ? "#E7B94F" : "rgba(231,185,79,0.55)"}`,
+        border: `1px solid ${checked ? "#E7B94F" : "rgba(231,185,79,0.40)"}`,
         opacity: disabled ? 0.45 : 1,
       }}
     >
