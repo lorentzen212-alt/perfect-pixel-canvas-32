@@ -2014,8 +2014,8 @@ function SavedGuestRow({
         {editing ? (
           <input
             autoFocus
-            value={draftName}
-            onChange={(e) => setDraftName(e.target.value)}
+            value={raw}
+            onChange={(e) => setName(e.target.value)}
             onBlur={commit}
             onFocus={(e) => e.currentTarget.select()}
             onKeyDownCapture={(e) => {
@@ -2026,8 +2026,7 @@ function SavedGuestRow({
               }
               if (e.key === "Escape") {
                 e.preventDefault();
-                setDraftName(displayName);
-                setEditing(false);
+                cancel();
               }
             }}
             onKeyUpCapture={(e) => e.stopPropagation()}
