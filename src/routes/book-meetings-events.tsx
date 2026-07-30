@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
-import { upsertProfile } from "@/lib/auth";
+import { hasProfileDetails, upsertProfile, useAuth } from "@/lib/auth";
 import { createBooking, nightsBetween, type NewBookingInput } from "@/lib/bookingsApi";
 import { savePendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import React from "react";
