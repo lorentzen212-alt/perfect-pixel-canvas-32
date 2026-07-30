@@ -373,8 +373,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
   /* allocations are generated from the confirmed booking room distribution.
      the router loader already primed this query, so it is normally instant. */
-  const queryClient = useQueryClient();
   useEffect(() => {
+
     let active = true;
     (async () => {
       const loaded = await queryClient.ensureQueryData(
