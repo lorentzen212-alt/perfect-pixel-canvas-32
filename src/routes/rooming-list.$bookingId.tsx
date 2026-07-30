@@ -3536,55 +3536,80 @@ function ManageUpgradesPanel({
   const some = count > 0 && !all;
 
   return (
-    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(231,185,79,0.05)" }}>
-      <div className="flex flex-wrap items-center gap-3">
-        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
-          <button
-            type="button"
-            role="checkbox"
-            aria-checked={all ? true : some ? "mixed" : false}
-            aria-label="Select all upgrade requests"
-            onClick={() => onSelectAll(!all)}
-            className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] transition-colors"
-            style={{
-              backgroundColor: count > 0 ? "rgba(231,185,79,0.20)" : "rgba(255,255,255,0.05)",
-              border: `1px solid ${count > 0 ? "rgba(231,185,79,0.70)" : "rgba(255,255,255,0.18)"}`,
-            }}
-          >
-            {all ? (
-              <Check size={12} style={{ color: GOLD }} />
-            ) : some ? (
-              <span className="h-[2px] w-[9px] rounded-full" style={{ backgroundColor: GOLD }} />
-            ) : null}
-          </button>
-          <button type="button" onClick={() => onSelectAll(!all)} style={{ color: TEXT_2 }}>
-            Select all upgrade requests
-          </button>
+    <div
+      className="mt-4 overflow-hidden rounded-[12px] py-[10px] pl-[26px] pr-[28px]"
+      style={{
+        backgroundColor: "#FDFDFC",
+        boxShadow: "inset 2px 0 0 #C96F6F, 0 2px 8px rgba(15, 23, 42, 0.05)",
+      }}
+    >
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <button
+          type="button"
+          role="checkbox"
+          aria-checked={all ? true : some ? "mixed" : false}
+          aria-label="Select all upgrade requests"
+          onClick={() => onSelectAll(!all)}
+          className="grid h-[19px] w-[19px] shrink-0 place-items-center rounded-[5px] transition-colors"
+          style={{
+            background:
+              count > 0
+                ? "linear-gradient(180deg, #E8A4A4 0%, #C96F6F 52%, #A85050 100%)"
+                : "#FFFFFF",
+            border: `1px solid ${count > 0 ? "#B05858" : "rgba(176,88,88,0.42)"}`,
+          }}
+        >
+          {all ? (
+            <Check size={12} strokeWidth={3} style={{ color: "#FFFFFF" }} />
+          ) : some ? (
+            <span className="h-[2px] w-[9px] rounded-full" style={{ backgroundColor: "#C96F6F" }} />
+          ) : null}
+        </button>
+        <span className="text-[14px] font-semibold" style={{ color: "#B05858" }}>
+          Remove upgrades
         </span>
-        <span className="text-[12px]" style={{ color: MUTED }}>
-          {count} of {requests.length} selected
+        <span
+          aria-hidden
+          className="hidden h-[28px] w-px sm:block"
+          style={{ backgroundColor: "rgba(100, 122, 145, 0.22)" }}
+        />
+        <button
+          type="button"
+          onClick={() => onSelectAll(!all)}
+          className="text-[14px] font-normal"
+          style={{ color: "#1E3A52" }}
+        >
+          Select all upgrade requests
+        </button>
+        <span className="text-[14px]" style={{ color: "#7B8CA0" }}>
+          <span className="font-semibold" style={{ color: "#1E3A52" }}>
+            {count} of {requests.length}
+          </span>{" "}
+          selected
         </span>
-
         {count > 0 && (
-          <button
-            type="button"
-            onClick={onRemove}
-            className="rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(190,110,110,0.18)]"
-            style={{
-              color: "#E2A2A2",
-              backgroundColor: "rgba(190,110,110,0.10)",
-              border: "1px solid rgba(190,110,110,0.30)",
-            }}
-          >
-            {count === 1 ? "Remove upgrade request" : `Remove upgrade requests (${count})`}
-          </button>
+          <>
+            <span className="mx-1" style={{ color: "#A9B6C4" }}>
+              •
+            </span>
+            <button
+              type="button"
+              onClick={onRemove}
+              className="rounded-[8px] border px-2.5 py-[5px] text-[14px] font-medium text-[#B05858] transition-colors hover:bg-[rgba(201,111,111,0.16)] hover:border-[rgba(201,111,111,0.5)]"
+              style={{
+                backgroundColor: "rgba(201,111,111,0.08)",
+                borderColor: "rgba(201,111,111,0.28)",
+              }}
+            >
+              {count === 1 ? "Remove upgrade request" : `Remove upgrade requests (${count})`}
+            </button>
+          </>
         )}
-
         <button
           type="button"
           onClick={onDone}
-          className="ml-auto rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
-          style={{ color: MUTED }}
+          className="ml-auto text-[14px] font-medium transition-colors hover:text-[#B05858]"
+          style={{ color: "#1E3A52" }}
         >
           {count > 0 ? "Cancel selection" : "Done"}
         </button>
