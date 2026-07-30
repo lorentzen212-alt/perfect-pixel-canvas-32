@@ -2783,8 +2783,9 @@ function StepSevenReview({
         ),
       };
 
-      const { data } = await supabase.auth.getSession();
-      const user = data.session?.user;
+      // Single global session (falls back to the shared client if not hydrated yet).
+      const user =
+        authSession?.user ?? (await supabase.auth.getSession()).data.session?.user;
       if (!user) {
         savePendingRequest(input);
         navigate({ to: "/auth", search: { next: "/manage-bookings", mode: "signup" } });
