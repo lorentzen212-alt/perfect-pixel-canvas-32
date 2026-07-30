@@ -10,6 +10,8 @@ import {
   CheckCircle2,
   ChevronDown,
   Circle,
+  CircleSlash,
+  RotateCcw,
   Clock,
   Download,
   FileSpreadsheet,
