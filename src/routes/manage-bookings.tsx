@@ -1000,7 +1000,7 @@ function ManageBookings() {
 
           {!isProfileComplete(profile) && (
             <section
-              className="mt-5 flex flex-col gap-3 rounded-xl px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+              className="relative mt-6 flex flex-col gap-3 rounded-xl px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
               style={{
                 backgroundColor: CARD,
                 border: `1px solid ${GOLD_DEEP}`,
@@ -1098,7 +1098,7 @@ function ManageBookings() {
           {/* needs your attention */}
           {needsAttention.length > 0 && (
             <section
-              className="mt-5 rounded-[10px] p-4 sm:px-5 sm:py-4"
+              className="relative mt-8 rounded-[10px] p-4 sm:px-5 sm:py-4"
               style={{
                 backgroundColor: ATTENTION,
                 border: `1px solid ${CARD_BORDER}`,
@@ -1194,7 +1194,7 @@ function ManageBookings() {
           </section>
 
           {/* footer */}
-          <footer className="mt-5 grid grid-cols-1 items-center gap-3 pb-4 sm:grid-cols-2">
+          <footer className="relative mt-5 grid grid-cols-1 items-center gap-3 pb-4 sm:grid-cols-2">
             <p className="text-[12.5px]" style={{ color: MUTED }}>
               Can&rsquo;t find a booking?{" "}
               <button type="button" className="inline-flex items-center gap-1.5" style={{ color: GOLD }}>
