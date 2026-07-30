@@ -91,7 +91,7 @@ export const Route = createFileRoute("/rooming-list/$bookingId")({
 });
 
 /* Deep matte navy workspace tokens (names kept so existing markup keeps working) */
-const BG_ALT = "#A0A0A0";
+const BG_ALT = "#E9EEF2";
 const CARD = "#142D49";
 const SURFACE_2 = "#1B3B5E";
 const CARD_BORDER = "rgba(255,255,255,0.10)";
@@ -110,15 +110,7 @@ const PANEL = "#142D49";
 const NAVY = "#142D49";
 
 /* overview header palette — cloudy off-white + muted slate blue */
-const HERO_CARD_BG = "#565C6A"; // muted slate / smoky blue-grey — large parent card surface
-/* light text/border tokens for elements sitting directly on the dark #565C6A surface
-   (nested white-bg buttons/inputs keep the original dark HERO_INK/HERO_INK_2) */
-const HERO_SURFACE_TEXT = "#F4F6F8";
-const HERO_SURFACE_TEXT_2 = "#C2CCD8";
-const HERO_SURFACE_ICON = "#A9BFD4";
-const HERO_SURFACE_DIV = "rgba(255,255,255,0.22)";
-const HERO_SURFACE_RULE = "rgba(255,255,255,0.12)";
-const HERO_SURFACE_BORDER = "rgba(255,255,255,0.18)";
+const HERO_CARD_BG = "#F7F9FB"; // soft pearl / cloudy gray with a tiny blue undertone
 const STAT_BG = "#718CA2";
 const STAT_TEXT = "#FFFFFF";
 const STAT_HEAD = "#F7F8F8";
@@ -496,10 +488,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const nights = booking.nights;
 
   return (
-      <div
+    <div
       className="min-h-screen"
       style={{
-        backgroundColor: BG_ALT,
+        backgroundColor: "#E9EEF2",
       }}
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
@@ -568,7 +560,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <span className="inline-flex items-center gap-2">
                   <span
                     className="inline-flex items-center rounded-[6px] px-2.5 py-[5px] text-[10.5px] font-semibold uppercase tracking-[0.16em]"
-                    style={{ color: HERO_SURFACE_TEXT_2, backgroundColor: "rgba(128,154,180,0.20)" }}
+                    style={{ color: HERO_INK_2, backgroundColor: "rgba(128,154,180,0.20)" }}
                   >
                     {booking.type === "leisure" ? "Leisure" : "M&E"}
                   </span>
@@ -655,24 +647,24 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               {/* title */}
               <h1
                 className="mt-3.5 text-[30px] leading-[1.05] tracking-[-0.005em]"
-                style={{ color: HERO_SURFACE_TEXT, fontFamily: SERIF }}
+                style={{ color: HERO_INK, fontFamily: SERIF }}
               >
                 {booking.name}
               </h1>
 
               {/* meta */}
-              <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[12.5px]" style={{ color: HERO_SURFACE_TEXT_2 }}>
+              <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[12.5px]" style={{ color: HERO_INK_2 }}>
                 {booking.hotel && (
                   <>
                     <span className="inline-flex items-center gap-2">
-                      <MapPin size={13} style={{ color: HERO_SURFACE_ICON }} />
+                      <MapPin size={13} style={{ color: HERO_ACCENT }} />
                       {booking.hotel}
                     </span>
-                    <span style={{ color: HERO_SURFACE_DIV }}>·</span>
+                    <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
                   </>
                 )}
                 <span className="inline-flex items-center gap-2">
-                  <CalendarDays size={13} style={{ color: HERO_SURFACE_ICON }} />
+                  <CalendarDays size={13} style={{ color: HERO_ACCENT }} />
                   {new Date(booking.startDate).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} –{" "}
                   {new Date(booking.endDate).toLocaleDateString("en-GB", {
                     day: "2-digit",
@@ -680,19 +672,19 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     year: "numeric",
                   })}
                 </span>
-                <span style={{ color: HERO_SURFACE_DIV }}>·</span>
+                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
                 <span className="inline-flex items-center gap-2">
-                  <Clock size={13} style={{ color: HERO_SURFACE_ICON }} />
+                  <Clock size={13} style={{ color: HERO_ACCENT }} />
                   {nights} nights
                 </span>
-                <span style={{ color: HERO_SURFACE_DIV }}>·</span>
+                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
                 <span className="inline-flex items-center gap-2">
-                  <Bed size={13} style={{ color: HERO_SURFACE_ICON }} />
+                  <Bed size={13} style={{ color: HERO_ACCENT }} />
                   {stats.totalAllocations} rooms
                 </span>
-                <span style={{ color: HERO_SURFACE_DIV }}>·</span>
+                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
                 <span className="inline-flex items-center gap-2">
-                  <Users size={13} style={{ color: HERO_SURFACE_ICON }} />
+                  <Users size={13} style={{ color: HERO_ACCENT }} />
                   {stats.totalSlots} guests
                 </span>
               </div>
@@ -818,9 +810,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   {/* ── filters row ── */}
                   <div
                     className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2.5 pt-4"
-                    style={{ borderTop: `1px solid ${HERO_SURFACE_RULE}` }}
+                    style={{ borderTop: "1px solid rgba(16,35,63,0.10)" }}
                   >
-                    <span className="text-[12.5px]" style={{ color: HERO_SURFACE_TEXT_2 }}>
+                    <span className="text-[12.5px]" style={{ color: HERO_INK_2 }}>
                       View:
                     </span>
                     <div className="flex items-center gap-1">
@@ -837,7 +829,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                                   backgroundColor: "rgba(231,185,79,0.20)",
                                   border: "1px solid rgba(169,111,8,0.42)",
                                 }
-                              : { color: HERO_SURFACE_TEXT_2, border: "1px solid transparent" }
+                              : { color: HERO_INK_2, border: "1px solid transparent" }
                           }
                         >
                           {v}
@@ -850,7 +842,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       type="button"
                       onClick={() => setShowGroup(true)}
                       className="inline-flex items-center gap-2 rounded-[8px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(16,35,63,0.04)]"
-                      style={{ color: HERO_SURFACE_TEXT_2, border: `1px solid ${HERO_SURFACE_BORDER}` }}
+                      style={{ color: HERO_INK_2, border: "1px solid rgba(16,35,63,0.14)" }}
                     >
                       Group requests
                       {list.groupRequests.length > 0 && (
@@ -880,7 +872,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         style={{
                           color: "#9A7113",
                           backgroundColor: manageMode || view === "upgrades" ? "rgba(231,185,79,0.16)" : "transparent",
-                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(169,111,8,0.42)" : HERO_SURFACE_BORDER}`,
+                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(169,111,8,0.42)" : "rgba(16,35,63,0.14)"}`,
                         }}
                       >
                         <ArrowUp size={12} />
@@ -1013,7 +1005,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <span
                   key={h.label}
                   className={`${h.cls} text-[12px] font-semibold uppercase leading-[15px] tracking-[0.16em]`}
-                  style={{ color: "#2C3A47" }}
+                  style={{ color: "#5A7286" }}
                 >
                   {h.label}
                 </span>
