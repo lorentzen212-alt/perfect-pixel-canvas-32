@@ -975,7 +975,12 @@ function ManageBookings() {
                 >
                   <p
                     className="text-[38px] leading-none"
-                    style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
+                    style={{
+                      color: TEXT,
+                      fontFamily: SERIF,
+                      fontWeight: 400,
+                      fontVariantNumeric: "lining-nums",
+                    }}
                   >
                     {s.value}
                   </p>
