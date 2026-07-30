@@ -176,9 +176,11 @@ function GoldButton({
         small ? "px-3 py-[6px] text-[12px]" : "px-4 py-[8px] text-[12.5px]"
       }`}
       style={{
-        backgroundColor: NAVY,
-        border: "1px solid rgba(255,255,255,0.10)",
-        boxShadow: "0 2px 8px rgba(20,45,70,0.16)",
+        backgroundImage: GOLD_SURFACE,
+        border: "1px solid rgba(169,111,8,0.65)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,233,166,0.45), inset 0 -1px 0 rgba(120,78,6,0.35), 0 3px 10px rgba(120,78,6,0.28)",
+        textShadow: "0 1px 1px rgba(96,62,4,0.35)",
       }}
 
     >
