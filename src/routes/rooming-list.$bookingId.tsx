@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   AlertTriangle,
   ArrowLeft,
@@ -73,9 +73,42 @@ import {
   upgradeOptionsFor,
 } from "@/lib/rooming";
 
+/* shared query definitions so the router loader can warm the cache before the
+   route renders — the workspace then paints instantly from cache. */
+export const bookingQueryOptions = (bookingId: string) => ({
+  queryKey: ["booking", bookingId] as const,
+  queryFn: () => fetchBooking(bookingId),
+});
+
+export const roomingQueryOptions = (bookingId: string, rooms?: number | null) => ({
+  queryKey: ["rooming", bookingId] as const,
+  queryFn: async () => {
+    const dist = await fetchRoomDistribution(bookingId);
+    return loadRoomingListFromDb(
+      bookingId,
+      Object.keys(dist).length ? (dist as Distribution) : distributionFor(bookingId, rooms ?? 12),
+    );
+  },
+  staleTime: 5 * 60_000,
+});
 
 export const Route = createFileRoute("/rooming-list/$bookingId")({
   component: RoomingListRoute,
+  loader: async ({ context, params }) => {
+    try {
+      const booking = await context.queryClient.ensureQueryData(
+        bookingQueryOptions(params.bookingId),
+      );
+      if (booking) {
+        await context.queryClient.ensureQueryData(
+          roomingQueryOptions(params.bookingId, booking.rooms),
+        );
+      }
+    } catch {
+      /* unauthenticated / prerender — the component handles it */
+    }
+  },
+
   head: () => ({
     meta: [
       { title: "Rooming List — HotelGroupBook" },
@@ -262,44 +295,6 @@ function Field({
   );
 }
 
-/* dark-safe shell shown while the rooming list resolves — keeps the sidebar,
-   header and page background painted so navigation never flashes white. */
-function RoomingShellSkeleton({ bookingId }: { bookingId?: string }) {
-  return (
-    <div
-      className="min-h-screen"
-      style={{
-        backgroundColor: "#EEF3F6",
-        backgroundImage:
-          "linear-gradient(180deg, #F1F5F7 0%, #EDF2F5 45%, #E9EFF3 100%)",
-        backgroundAttachment: "fixed",
-      }}
-    >
-      <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
-        <SidebarContent light active="Rooming List" bookingId={bookingId} />
-      </aside>
-      <div className="lg:pl-[244px]">
-        <TopBarLight onOpenNav={() => {}} />
-        <div className="mx-auto w-full max-w-[1560px] px-4 pb-5 pt-2.5 sm:px-6 lg:px-7">
-          <div
-            className="h-[132px] w-full rounded-[17px]"
-            style={{ backgroundColor: "rgba(20,45,73,0.06)" }}
-          />
-          <div className="mt-4 space-y-3">
-            {[0, 1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="h-[76px] w-full rounded-[14px]"
-                style={{ backgroundColor: "rgba(20,45,73,0.05)" }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /* ───────────────── route ───────────────── */
 
 function RoomingListRoute() {
@@ -314,24 +309,30 @@ function RoomingListRoute() {
   }, [authLoading, session, bookingId, navigate]);
 
   const { data: booking, isLoading } = useQuery({
-    queryKey: ["booking", bookingId],
-    queryFn: () => fetchBooking(bookingId),
-    enabled: Boolean(session),
+    ...bookingQueryOptions(bookingId),
+    enabled: Boolean(session) || authLoading,
   });
 
-  if (authLoading || isLoading || !session) {
-    return <RoomingShellSkeleton bookingId={bookingId} />;
+  /* no loading screen: the router keeps the previous page mounted while the
+     loader warms the cache, so this only renders once data is available. */
+  if (!booking) {
+    if (authLoading || isLoading || !session) return null;
+    throw notFound();
   }
-  if (!booking) throw notFound();
   return <RoomingWorkspace booking={booking} />;
 }
+
 
 type ViewFilter = "all" | "missing" | "complete" | "dietary" | "requests" | "upgrades" | "cancelled";
 type UpgradeFilter = "all" | UpgradeStatus;
 
 function RoomingWorkspace({ booking }: { booking: Booking }) {
+  const queryClient = useQueryClient();
   const [navOpen, setNavOpen] = useState(false);
-  const [list, setList] = useState<RoomingList | null>(null);
+  const [list, setList] = useState<RoomingList | null>(
+    () => queryClient.getQueryData<RoomingList>(["rooming", booking.id]) ?? null,
+  );
+
   const [view, setView] = useState<ViewFilter>("all");
   const [upgradeFilter, setUpgradeFilter] = useState<UpgradeFilter>("all");
   const [query, setQuery] = useState("");
@@ -370,23 +371,22 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const firstRender = useRef(true);
 
 
-  /* allocations are generated from the confirmed booking room distribution */
+  /* allocations are generated from the confirmed booking room distribution.
+     the router loader already primed this query, so it is normally instant. */
   useEffect(() => {
+
     let active = true;
     (async () => {
-      const dist = await fetchRoomDistribution(booking.id);
-      const loaded = await loadRoomingListFromDb(
-        booking.id,
-        Object.keys(dist).length
-          ? (dist as Distribution)
-          : distributionFor(booking.id, booking.rooms ?? 12),
+      const loaded = await queryClient.ensureQueryData(
+        roomingQueryOptions(booking.id, booking.rooms),
       );
       if (active) setList(loaded);
     })().catch((err) => console.error("[rooming]", err));
     return () => {
       active = false;
     };
-  }, [booking.id, booking.rooms]);
+  }, [booking.id, booking.rooms, queryClient]);
+
 
   /* autosave */
   useEffect(() => {
@@ -662,8 +662,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const issues = useMemo(() => (list ? roomingIssues(list) : []), [list]);
 
   if (!list || !stats) {
-    return <RoomingShellSkeleton bookingId={booking.id} />;
+    return null;
   }
+
 
   const nights = booking.nights;
 

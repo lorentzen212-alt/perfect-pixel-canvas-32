@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { createFileRoute, Link, notFound, useNavigate, useRouter } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { roomingQueryOptions } from "./rooming-list.$bookingId";
 import {
   ArrowLeft,
   Bed,
@@ -495,6 +496,18 @@ function BookingWorkspace() {
     queryFn: () => fetchBooking(bookingId),
     enabled: Boolean(session),
   });
+
+  /* warm the rooming list route + its data so navigating there feels instant */
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  useEffect(() => {
+    if (!booking) return;
+    void router.preloadRoute({ to: "/rooming-list/$bookingId", params: { bookingId } });
+    void queryClient
+      .prefetchQuery(roomingQueryOptions(bookingId, booking.rooms))
+      .catch(() => {});
+  }, [booking, bookingId, queryClient, router]);
+
 
   if (isLoading || authLoading || !session) {
     return (
