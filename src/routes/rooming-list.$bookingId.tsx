@@ -344,14 +344,23 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     if (!list) return [];
     const q = query.trim().toLowerCase();
     return list.allocations.filter((a) => {
+      const cancelled = isCancelled(a);
+      /* cancelled rows are only ever shown in "All" (unless hidden) or their own view */
+      if (view === "cancelled") {
+        if (!cancelled) return false;
+      } else if (cancelled) {
+        if (view !== "all" || hideCancelled) return false;
+      }
       const status = allocationStatus(a);
-      if (view === "complete" && status !== "complete") return false;
-      if (view === "missing" && status === "complete") return false;
-      if (view === "dietary" && !allocationHasRequirements(a)) return false;
-      if (view === "requests" && a.requests.length === 0 && !a.upgradeRequest) return false;
-      if (view === "upgrades") {
-        if (!a.upgradeRequest) return false;
-        if (upgradeFilter !== "all" && a.upgradeRequest.status !== upgradeFilter) return false;
+      if (!cancelled) {
+        if (view === "complete" && status !== "complete") return false;
+        if (view === "missing" && status === "complete") return false;
+        if (view === "dietary" && !allocationHasRequirements(a)) return false;
+        if (view === "requests" && a.requests.length === 0 && !a.upgradeRequest) return false;
+        if (view === "upgrades") {
+          if (!a.upgradeRequest) return false;
+          if (upgradeFilter !== "all" && a.upgradeRequest.status !== upgradeFilter) return false;
+        }
       }
       if (q) {
         const hay = [
@@ -359,6 +368,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
           labelOf(a.type),
           String(a.index).padStart(2, "0"),
           ...a.requests,
+          cancelled ? "cancelled" : "",
           a.upgradeRequest ? categoryLabel(a.upgradeRequest.category) : "",
         ]
           .join(" ")
@@ -367,7 +377,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       }
       return true;
     });
-  }, [list, view, query, upgradeFilter]);
+  }, [list, view, query, upgradeFilter, hideCancelled]);
 
   /* ── upgrade derived state ── */
   const eligible = useMemo(
@@ -379,9 +389,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     [list, selected],
   );
   const upgradeRequests = useMemo(
-    () => (list ? list.allocations.filter((a) => a.upgradeRequest) : []),
+    () => (list ? list.allocations.filter((a) => a.upgradeRequest && !isCancelled(a)) : []),
     [list],
   );
+
 
   const isWithdrawable = (a: Allocation) =>
     !!a.upgradeRequest &&
