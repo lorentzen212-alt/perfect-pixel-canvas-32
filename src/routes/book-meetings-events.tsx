@@ -2644,13 +2644,14 @@ function StepSevenReview({
     if (submitting || submitted) return;
     setSubmitting(true);
     try {
+      const contactName = String(details.contactPerson ?? "");
       const firstStay = stays[0];
       const lastStay = stays[stays.length - 1];
       const startDate = firstStay?.checkIn || meetings[0]?.date || null;
       const endDate = lastStay?.checkOut || meetings[meetings.length - 1]?.date || null;
       const input: NewBookingInput = {
         bookingType: "me",
-        name: details.eventName || (locationTitle ? `${locationTitle} Event` : "Meetings & Events Request"),
+        name: String(details.eventName ?? "") || (locationTitle ? `${locationTitle} Event` : "Meetings & Events Request"),
         destination: locationTitle,
         country: loc.countryName ?? null,
         city: loc.destinationName ?? null,
@@ -2659,14 +2660,14 @@ function StepSevenReview({
         nights: nightsBetween(startDate, endDate),
         rooms: roomsTotalAll,
         guests: guestsTotalAll,
-        delegates: meetings.reduce((n, m) => Math.max(n, m.delegates ?? 0), 0) || null,
+        delegates: meetings.reduce((n, m) => Math.max(n, m.attendees ?? 0), 0) || null,
         meetingSpaces: meetings.length || null,
         contact: {
-          firstName: (details.contactPerson ?? "").split(" ")[0] ?? "",
-          lastName: (details.contactPerson ?? "").split(" ").slice(1).join(" "),
-          email: details.email ?? "",
-          phone: details.phone ?? "",
-          company: details.company ?? "",
+          firstName: String(contactName).split(" ")[0] ?? "",
+          lastName: String(contactName).split(" ").slice(1).join(" "),
+          email: String(details.email ?? ""),
+          phone: String(details.phone ?? ""),
+          company: String(details.company ?? ""),
         },
         request: {
           type: "me",
