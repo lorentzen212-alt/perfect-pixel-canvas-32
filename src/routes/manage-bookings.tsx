@@ -275,18 +275,19 @@ function BookingCard({ booking }: { booking: Booking }) {
 
   return (
     <article
-      className="grid grid-cols-1 gap-5 rounded-[18px] p-4 sm:p-5 md:grid-cols-[minmax(0,300px)_minmax(0,1fr)] md:gap-7"
+      className="grid grid-cols-1 gap-5 rounded-[18px] p-3.5 sm:p-4 md:grid-cols-[minmax(0,286px)_minmax(0,1fr)] md:gap-7"
       style={{
-        background: "linear-gradient(155deg, #223440 0%, #1D2C37 60%, #1A2833 100%)",
-        border: "1px solid rgba(154,176,192,0.14)",
-        boxShadow: "0 30px 60px -40px rgba(0,0,0,0.75)",
+        background: "linear-gradient(155deg, #354553 0%, #31414F 55%, #2E3D4A 100%)",
+        border: "1px solid rgba(174,196,212,0.16)",
+        boxShadow:
+          "0 26px 52px -34px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
       }}
     >
       <img
         src={booking.image}
         alt={`${booking.destination} — ${booking.name}`}
         loading="lazy"
-        className="h-[220px] w-full rounded-[12px] object-cover md:h-full md:min-h-[420px]"
+        className="h-[200px] w-full rounded-[12px] object-cover md:h-full md:max-h-[290px] md:min-h-[270px]"
         style={{ filter: "saturate(0.92) brightness(0.92)" }}
       />
 
@@ -296,7 +297,7 @@ function BookingCard({ booking }: { booking: Booking }) {
           <button
             type="button"
             aria-label={`More actions for ${booking.name}`}
-            className="grid h-8 w-8 place-items-center rounded-md transition-colors hover:bg-white/5"
+            className="grid h-7 w-7 place-items-center rounded-md transition-colors hover:bg-white/5"
             style={{ color: MUTED }}
           >
             <MoreVertical size={18} />
@@ -306,90 +307,90 @@ function BookingCard({ booking }: { booking: Booking }) {
         <Link
           to="/bookings/$bookingId"
           params={{ bookingId: booking.id }}
-          className="mt-3 block truncate transition-opacity hover:opacity-85"
+          className="mt-1 block truncate transition-opacity hover:opacity-85"
         >
           <h3
-            className="truncate text-[34px] leading-[1.1] sm:text-[42px]"
+            className="truncate text-[30px] leading-[1.08] sm:text-[38px]"
             style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
           >
             {booking.name}
           </h3>
         </Link>
 
-        <div className="mt-4 h-px w-full" style={{ backgroundColor: "rgba(154,176,192,0.16)" }} />
+        <div className="mt-2 h-px w-full" style={{ backgroundColor: "rgba(174,196,212,0.16)" }} />
 
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 py-3.5">
+        <div className="flex flex-nowrap items-center gap-x-3 overflow-hidden py-2 lg:gap-x-4">
           <MetaItem icon={<MapPin size={15} />}>{booking.destination}</MetaItem>
-          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
+          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(174,196,212,0.22)" }} aria-hidden />
           <MetaItem icon={<CalendarDays size={15} />}>
             {formatRange(booking.startDate, booking.endDate)}
           </MetaItem>
-          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
+          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(174,196,212,0.22)" }} aria-hidden />
           <MetaItem icon={<Moon size={15} />}>{booking.nights} nights</MetaItem>
-          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
+          <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(174,196,212,0.22)" }} aria-hidden />
           {booking.type === "me" ? (
             <>
               <MetaItem icon={<BedDouble size={15} />}>
                 {booking.meetingSpaces ?? 0} meeting spaces
               </MetaItem>
-              <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
+              <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(174,196,212,0.22)" }} aria-hidden />
               <MetaItem icon={<Users size={15} />}>{booking.delegates ?? 0} delegates</MetaItem>
             </>
           ) : (
             <>
               <MetaItem icon={<BedDouble size={15} />}>{booking.rooms ?? 0} rooms</MetaItem>
-              <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(154,176,192,0.22)" }} aria-hidden />
+              <span className="hidden h-4 w-px sm:block" style={{ backgroundColor: "rgba(174,196,212,0.22)" }} aria-hidden />
               <MetaItem icon={<Users size={15} />}>{booking.guests ?? 0} guests</MetaItem>
             </>
           )}
         </div>
 
-        <div className="h-px w-full" style={{ backgroundColor: "rgba(154,176,192,0.16)" }} />
+        <div className="h-px w-full" style={{ backgroundColor: "rgba(174,196,212,0.16)" }} />
 
         {/* reference panel */}
         <div
-          className="mt-5 grid grid-cols-1 rounded-[12px] sm:grid-cols-2"
+          className="mt-2.5 grid grid-cols-1 rounded-[12px] sm:grid-cols-2"
           style={{
-            backgroundColor: "rgba(255,255,255,0.025)",
-            border: "1px solid rgba(154,176,192,0.14)",
+            backgroundColor: "rgba(255,255,255,0.035)",
+            border: "1px solid rgba(174,196,212,0.14)",
           }}
         >
-          <div className="px-5 py-4">
+          <div className="px-5 py-2.5">
             <p
-              className="text-[11.5px] font-medium uppercase tracking-[0.16em]"
+              className="text-[10.5px] font-medium uppercase tracking-[0.16em]"
               style={{ color: GOLD }}
             >
               Your reference
             </p>
-            <p className="mt-1.5 text-[19px]" style={{ color: TEXT }}>
+            <p className="mt-0.5 text-[17px]" style={{ color: TEXT }}>
               {booking.reference}
             </p>
           </div>
           <div
-            className="px-5 py-4 sm:border-l"
-            style={{ borderColor: "rgba(154,176,192,0.16)" }}
+            className="px-5 py-2.5 sm:border-l"
+            style={{ borderColor: "rgba(174,196,212,0.16)" }}
           >
             <p
-              className="text-[11.5px] font-medium uppercase tracking-[0.16em]"
+              className="text-[10.5px] font-medium uppercase tracking-[0.16em]"
               style={{ color: GOLD }}
             >
               Hotel reference
             </p>
-            <p className="mt-1.5 text-[19px]" style={{ color: booking.hotelReference ? TEXT : MUTED }}>
+            <p className="mt-0.5 text-[17px]" style={{ color: booking.hotelReference ? TEXT : MUTED }}>
               {booking.hotelReference ?? "Pending"}
             </p>
           </div>
         </div>
 
         {/* progress tracker */}
-        <div className="relative mt-7 grid grid-cols-4 gap-2">
+        <div className="relative mt-3.5 grid grid-cols-4 gap-2">
           <div
-            className="absolute left-[12.5%] right-[12.5%] top-[26px] h-px"
-            style={{ backgroundColor: "rgba(154,176,192,0.22)" }}
+            className="absolute left-[12.5%] right-[12.5%] top-[22px] h-px"
+            style={{ backgroundColor: "rgba(174,196,212,0.22)" }}
             aria-hidden
           />
           <div
-            className="absolute left-[12.5%] top-[26px] h-px"
+            className="absolute left-[12.5%] top-[22px] h-px"
             style={{
               width: `${(active / 3) * 75}%`,
               backgroundColor: GOLD_DEEP,
@@ -400,20 +401,20 @@ function BookingCard({ booking }: { booking: Booking }) {
             const done = i <= active;
             const current = i === active;
             return (
-              <div key={s.key} className="relative flex flex-col items-center gap-2.5">
+              <div key={s.key} className="relative flex flex-col items-center gap-1.5">
                 <span
-                  className="grid h-[52px] w-[52px] place-items-center rounded-full"
+                  className="grid h-[44px] w-[44px] place-items-center rounded-full"
                   style={{
-                    backgroundColor: current ? "rgba(199,163,74,0.10)" : "#1D2C37",
-                    border: `1px solid ${done ? GOLD_DEEP : "rgba(154,176,192,0.28)"}`,
+                    backgroundColor: current ? "rgba(199,163,74,0.10)" : "#2B3A47",
+                    border: `1px solid ${done ? GOLD_DEEP : "rgba(174,196,212,0.28)"}`,
                     color: done ? GOLD : TEXT_2,
-                    boxShadow: current ? "0 0 22px -6px rgba(199,163,74,0.55)" : "none",
+                    boxShadow: current ? "0 0 20px -6px rgba(199,163,74,0.55)" : "none",
                   }}
                 >
-                  <s.icon size={20} />
+                  <s.icon size={18} />
                 </span>
                 <span
-                  className="whitespace-pre-line text-center text-[12.5px] leading-tight"
+                  className="whitespace-pre-line text-center text-[11.5px] leading-[1.15]"
                   style={{ color: current ? GOLD : TEXT_2 }}
                 >
                   {s.label}
@@ -424,18 +425,18 @@ function BookingCard({ booking }: { booking: Booking }) {
         </div>
 
         <div
-          className="mt-7 h-px w-full"
-          style={{ backgroundColor: "rgba(154,176,192,0.16)" }}
+          className="mt-3 h-px w-full"
+          style={{ backgroundColor: "rgba(174,196,212,0.16)" }}
         />
 
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
-          <p className="min-w-0 max-w-[420px] text-[13.5px]" style={{ color: TEXT_2 }}>
+        <div className="mt-2.5 flex flex-nowrap items-center justify-between gap-4">
+          <p className="min-w-0 max-w-[460px] truncate text-[13px]" style={{ color: TEXT_2 }}>
             {message}
           </p>
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="inline-flex items-center gap-3 rounded-[10px] px-6 py-3 text-[15px] transition-colors hover:bg-[rgba(199,163,74,0.10)]"
+            className="inline-flex shrink-0 items-center gap-3 rounded-[10px] px-5 py-2.5 text-[14px] transition-colors hover:bg-[rgba(199,163,74,0.10)]"
             style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
           >
             View booking <span aria-hidden>→</span>
@@ -445,6 +446,7 @@ function BookingCard({ booking }: { booking: Booking }) {
     </article>
   );
 }
+
 
 
 /* ── sidebar ─────────────────────────────────────────── */
