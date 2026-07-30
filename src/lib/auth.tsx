@@ -60,6 +60,8 @@ const AuthContext = createContext<AuthState>({
   loading: true,
   session: null,
   user: null,
+  isAuthenticated: false,
+  userId: null,
   profile: null,
   profileLoading: false,
   refreshProfile: async () => {},
@@ -154,6 +156,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loading,
       session,
       user: session?.user ?? null,
+      isAuthenticated: Boolean(session),
+      userId: session?.user?.id ?? null,
       profile,
       profileLoading,
       refreshProfile: async () => {
