@@ -261,7 +261,7 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
     <div
       className="flex h-full flex-col px-4 py-6"
       style={{
-        background: `linear-gradient(180deg, #142D49 0%, #0F2439 100%)`,
+        background: `linear-gradient(180deg, #1B4162 0%, #163653 100%)`,
       }}
     >
       <Link to="/" className="block px-1">
