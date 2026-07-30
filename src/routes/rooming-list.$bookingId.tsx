@@ -3067,12 +3067,14 @@ function UpgradeCheckbox({
       onClick={onChange}
       className="grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] transition-colors disabled:cursor-not-allowed"
       style={{
-        backgroundColor: checked ? "rgba(231,185,79,0.20)" : "rgba(255,255,255,0.05)",
-        border: `1px solid ${checked ? "rgba(231,185,79,0.70)" : "rgba(255,255,255,0.18)"}`,
-        opacity: disabled ? 0.35 : 1,
+        background: checked
+          ? "linear-gradient(180deg, #F4D675 0%, #D4AF37 52%, #A96F08 100%)"
+          : "rgba(8,24,40,0.35)",
+        border: `1px solid ${checked ? "#E7B94F" : "rgba(231,185,79,0.55)"}`,
+        opacity: disabled ? 0.45 : 1,
       }}
     >
-      {checked && <Check size={12} style={{ color: GOLD }} />}
+      {checked && <Check size={12} strokeWidth={3} style={{ color: "#12304C" }} />}
     </button>
   );
 }
@@ -3541,21 +3543,40 @@ function UpgradeModePanel({
   const ineligible = allocations.length - eligible.length;
 
   return (
-    <div className="border-t px-5 py-3.5" style={{ borderColor: BORDER, backgroundColor: "rgba(231,185,79,0.05)" }}>
-      <div className="flex flex-wrap items-center gap-3">
-        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
+    <div
+      className="px-5 py-3.5"
+      style={{
+        backgroundColor: "#274E6D",
+        borderTop: "1px solid rgba(212,175,55,0.55)",
+        borderBottom: "1px solid rgba(212,175,55,0.30)",
+        boxShadow: "inset 3px 0 0 #D4AF37",
+      }}
+    >
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span
+          className="text-[11px] font-semibold uppercase tracking-[0.16em]"
+          style={{ color: "#F4D675" }}
+        >
+          Upgrade mode
+        </span>
+        <span className="inline-flex items-center gap-2 text-[13px]" style={{ color: "#FFFFFF" }}>
           <UpgradeCheckbox checked={allSelected} onChange={() => onSelectAll(!allSelected)} />
-          <button type="button" onClick={() => onSelectAll(!allSelected)} style={{ color: TEXT_2 }}>
+          <button
+            type="button"
+            onClick={() => onSelectAll(!allSelected)}
+            className="font-medium"
+            style={{ color: "#FFFFFF" }}
+          >
             Select all eligible rooms
           </button>
         </span>
-        <span className="text-[12px]" style={{ color: MUTED }}>
+        <span className="text-[12.5px]" style={{ color: "rgba(255,255,255,0.78)" }}>
           {selected.length} of {eligible.length} selected
           {ineligible > 0 ? ` · ${ineligible} not eligible` : ""}
         </span>
         {selectedForWithdraw.length > 0 && (
-          <span className="inline-flex items-center gap-2.5 text-[12px]" style={{ color: TEXT_2 }}>
-            <span style={{ color: MUTED }}>
+          <span className="inline-flex items-center gap-2.5 text-[12px]" style={{ color: "#FFFFFF" }}>
+            <span style={{ color: "rgba(255,255,255,0.78)" }}>
               {selectedForWithdraw.length} upgrade request{selectedForWithdraw.length === 1 ? "" : "s"} selected
             </span>
             <button
@@ -3575,8 +3596,8 @@ function UpgradeModePanel({
         <button
           type="button"
           onClick={onCancel}
-          className="ml-auto rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
-          style={{ color: MUTED }}
+          className="ml-auto rounded-[7px] px-3 py-[6px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.14)]"
+          style={{ color: "#FFFFFF", border: "1px solid rgba(244,214,117,0.55)" }}
         >
           Exit upgrade mode
         </button>
