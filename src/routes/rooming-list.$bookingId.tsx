@@ -109,6 +109,15 @@ const ROW = "rgba(255,255,255,0.07)";
 const PANEL = "#142D49";
 const NAVY = "#142D49";
 
+/* overview header palette — cloudy off-white + muted slate blue */
+const HERO_CARD_BG = "#F4F6F7";
+const STAT_BG = "#718CA2";
+const STAT_TEXT = "#FFFFFF";
+const STAT_HEAD = "#F7F8F8";
+const STAT_TEXT_2 = "rgba(255,255,255,0.78)";
+const STAT_SEP = "rgba(255,255,255,0.20)";
+const STAT_SHADOW = "0 8px 22px rgba(27,50,70,0.10)";
+
 /* light input-field tokens used inside the navy Guest Details panel */
 const FIELD_BG = "#EEF2F6"; // soft cool off-white / very light blue-grey
 const FIELD_BORDER_LIGHT = "#CBD8E3"; // very subtle cool blue-grey
@@ -539,9 +548,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
             <section
               className="relative overflow-visible rounded-[16px] px-5 py-5 sm:px-6"
               style={{
-                backgroundColor: "#FBF8F3",
-                border: "1px solid rgba(16,35,63,0.08)",
-                boxShadow: "0 10px 34px rgba(16,35,63,0.08)",
+                backgroundColor: HERO_CARD_BG,
+                border: "1px solid rgba(27,50,70,0.08)",
+                boxShadow: STAT_SHADOW,
               }}
             >
               {/* row 1 — badges + actions */}
@@ -692,7 +701,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     {/* main panel */}
                     <div
                       className="flex flex-1 flex-wrap items-center gap-y-4 rounded-[14px] px-6 py-5"
-                      style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
+                      style={{ backgroundColor: STAT_BG, border: `1px solid ${STAT_SEP}`, boxShadow: STAT_SHADOW }}
                     >
                       <div className="min-w-[186px] pr-5">
                         <p
@@ -766,7 +775,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     {/* status panel */}
                     <div
                       className="flex items-stretch rounded-[14px] px-2 py-5 lg:w-[300px]"
-                      style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
+                      style={{ backgroundColor: STAT_BG, border: `1px solid ${STAT_SEP}`, boxShadow: STAT_SHADOW }}
                     >
                       <div className="flex flex-1 flex-col items-center justify-center px-3">
                         <span className="flex items-center gap-2">
