@@ -1978,7 +1978,11 @@ function AllocationRow({
             color: statusColor,
           }}
         >
-          {status === "complete" ? <Check size={13} strokeWidth={2.4} /> : null}
+          {cancelled ? (
+            <CircleSlash size={13} strokeWidth={2.2} />
+          ) : status === "complete" ? (
+            <Check size={13} strokeWidth={2.4} />
+          ) : null}
         </span>
         <div className="min-w-0">
           <p
