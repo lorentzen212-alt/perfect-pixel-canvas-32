@@ -659,8 +659,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const issues = useMemo(() => (list ? roomingIssues(list) : []), [list]);
 
   if (!list || !stats) {
-    return <RoomingShellSkeleton bookingId={booking.id} />;
+    return null;
   }
+
 
   const nights = booking.nights;
 
