@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import {
   AlertTriangle,
   ArrowLeft,
@@ -29,7 +30,10 @@ import {
 import { SERIF, SidebarContent, TopBarLight } from "@/components/DashboardChrome";
 import { FloatingPopover } from "@/components/FloatingPopover";
 
-import { BOOKINGS, type Booking } from "@/lib/bookings";
+import { type Booking } from "@/lib/bookings";
+import { useAuth } from "@/lib/auth";
+import { fetchBooking, fetchRoomDistribution } from "@/lib/bookingsApi";
+import { loadRoomingListFromDb, saveRoomingListToDb } from "@/lib/roomingApi";
 import {
   ALLERGY_TAGS,
   DIETARY_TAGS,
@@ -53,6 +57,7 @@ import {
   categoryLabel,
   commonUpgradeOptions,
   distributionFor,
+  type Distribution,
   guestName,
   guestRequirementSummary,
   hasRoomTypeChange,
@@ -61,11 +66,9 @@ import {
   isCancelled,
   isNamed,
   labelOf,
-  loadRoomingList,
   newGuest,
   newUpgradeRequest,
   roomingIssues,
-  saveRoomingList,
   statsOf,
   upgradeOptionsFor,
 } from "@/lib/rooming";
@@ -263,7 +266,28 @@ function Field({
 
 function RoomingListRoute() {
   const { bookingId } = Route.useParams();
-  const booking = BOOKINGS.find((b) => b.id === bookingId || b.reference === bookingId);
+  const navigate = useNavigate();
+  const { session, loading: authLoading } = useAuth();
+
+  useEffect(() => {
+    if (!authLoading && !session) {
+      navigate({ to: "/auth", search: { next: `/rooming-list/${bookingId}` }, replace: true });
+    }
+  }, [authLoading, session, bookingId, navigate]);
+
+  const { data: booking, isLoading } = useQuery({
+    queryKey: ["booking", bookingId],
+    queryFn: () => fetchBooking(bookingId),
+    enabled: Boolean(session),
+  });
+
+  if (authLoading || isLoading || !session) {
+    return (
+      <div className="grid min-h-screen place-items-center" style={{ color: "#5A6B78" }}>
+        <p className="text-[13.5px]">Loading rooming list…</p>
+      </div>
+    );
+  }
   if (!booking) throw notFound();
   return <RoomingWorkspace booking={booking} />;
 }
@@ -314,7 +338,20 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
   /* allocations are generated from the confirmed booking room distribution */
   useEffect(() => {
-    setList(loadRoomingList(booking.id, distributionFor(booking.id, booking.rooms ?? 12)));
+    let active = true;
+    (async () => {
+      const dist = await fetchRoomDistribution(booking.id);
+      const loaded = await loadRoomingListFromDb(
+        booking.id,
+        Object.keys(dist).length
+          ? (dist as Distribution)
+          : distributionFor(booking.id, booking.rooms ?? 12),
+      );
+      if (active) setList(loaded);
+    })().catch((err) => console.error("[rooming]", err));
+    return () => {
+      active = false;
+    };
   }, [booking.id, booking.rooms]);
 
   /* autosave */
@@ -325,8 +362,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
       return;
     }
     const t = setTimeout(() => {
-      saveRoomingList({ ...list, savedAt: new Date().toISOString() });
-      setSavedLabel("Just now");
+      void saveRoomingListToDb({ ...list, savedAt: new Date().toISOString() })
+        .then(() => setSavedLabel("Just now"))
+        .catch((err) => console.error("[rooming save]", err));
     }, 400);
     return () => clearTimeout(t);
   }, [list]);
@@ -731,7 +769,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       Add guest
                       <Plus size={14} style={{ color: "#B47B10" }} />
                     </button>
-                    <GoldButton onClick={() => saveRoomingList(list)}>
+                    <GoldButton onClick={() => void saveRoomingListToDb(list)}>
                       <Download size={14} />
                       Save
                     </GoldButton>

@@ -1,3 +1,8 @@
+
+import { supabase } from "@/integrations/supabase/client";
+import { upsertProfile } from "@/lib/auth";
+import { createBooking, nightsBetween, type NewBookingInput } from "@/lib/bookingsApi";
+import { savePendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
@@ -399,52 +404,87 @@ function BookLeisure() {
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSubmit = async () => {
-    if (submitting) return;
-    setSubmitting(true);
-    try {
-      const year = new Date().getFullYear();
-      const seq = Math.floor(Math.random() * 90000) + 10000;
-      const requestId = `HGB-${year}-${String(seq).padStart(5, "0")}`;
-      const payload = {
-        requestId,
+  const buildRequestInput = (): NewBookingInput => {
+    const cityName = customDestination.trim() || city;
+    const start = arrival ? format(arrival, "yyyy-MM-dd") : null;
+    const end = departure ? format(departure, "yyyy-MM-dd") : null;
+    return {
+      bookingType: "leisure",
+      name: cityName ? `${cityName} Group Stay` : "Group Stay",
+      destination: [cityName, country].filter(Boolean).join(", "),
+      country: country || null,
+      city: cityName || null,
+      startDate: start,
+      endDate: end,
+      nights: nightsBetween(start, end),
+      rooms: totalRooms,
+      guests,
+      contact: {
+        firstName,
+        lastName,
+        email,
+        phone,
+        company: organisation,
+      },
+      request: {
+        type: "leisure",
         country,
-        city: customDestination.trim() || city,
-        arrivalDate: arrival ? format(arrival, "yyyy-MM-dd") : null,
-        departureDate: departure ? format(departure, "yyyy-MM-dd") : null,
+        city: cityName,
+        arrivalDate: start,
+        departureDate: end,
         guests,
         rooms,
         totalRooms,
         stays,
         preferredHotel,
-        earlyCheckin,
-        lateCheckout,
-        connectingRooms,
         roomNotes,
         specialRequests: Array.from(selectedExtras),
+        extrasComments,
+        recommendExtras,
         experiences: Array.from(selectedExps),
         letUsRecommend,
         preferredExperienceDate: preferredExpDate ? format(preferredExpDate, "yyyy-MM-dd") : null,
         experienceDateFlexible: expDateFlexible,
         additionalExperienceRequests: additionalExpRequests,
         additionalInformation: additionalComments,
-        contactName: `${firstName} ${lastName}`.trim(),
-        firstName,
-        lastName,
-        company: organisation,
-        email,
-        phone,
-        status: "Finding matching hotels",
-        submittedAt: new Date().toISOString(),
-        type: "leisure",
-      };
-      if (typeof window !== "undefined") {
-        const existing = JSON.parse(window.localStorage.getItem("hgb_requests") || "[]");
-        existing.unshift(payload);
-        window.localStorage.setItem("hgb_requests", JSON.stringify(existing));
+      },
+      roomLines: Object.entries(rooms)
+        .filter(([, qty]) => qty > 0)
+        .map(([room_type, quantity]) => ({
+          room_type,
+          quantity,
+          check_in: start,
+          check_out: end,
+        })),
+    };
+  };
+
+  const handleSubmit = async () => {
+    if (submitting) return;
+    setSubmitting(true);
+    try {
+      const input = buildRequestInput();
+      const { data } = await supabase.auth.getSession();
+      const user = data.session?.user;
+
+      if (!user) {
+        /* the request is kept intact and submitted right after sign-in */
+        savePendingRequest(input);
+        navigate({ to: "/auth", search: { next: "/manage-bookings", mode: "signup" } });
+        return;
       }
-      await new Promise((r) => setTimeout(r, 900));
-      setConfirmation({ requestId });
+
+      await upsertProfile(user.id, {
+        first_name: firstName,
+        last_name: lastName,
+        email: email || user.email || "",
+        company_name: organisation || null,
+        phone: phone || null,
+        country: country || null,
+      });
+      const created = await createBooking(user.id, input);
+      clearPendingRequest();
+      setConfirmation({ requestId: created.reference });
       if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       console.error(err);
