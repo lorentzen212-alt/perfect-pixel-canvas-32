@@ -1,6 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
-import { upsertProfile, useAuth } from "@/lib/auth";
+import { hasProfileDetails, isProfileComplete, upsertProfile, useAuth } from "@/lib/auth";
 import { createBooking, nightsBetween, type NewBookingInput } from "@/lib/bookingsApi";
 import { savePendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
@@ -340,6 +340,7 @@ function BookLeisure() {
   const [phone, setPhone] = useState("");
   const [organisation, setOrganisation] = useState("");
   const [additionalComments, setAdditionalComments] = useState("");
+  const [contactCountry, setContactCountry] = useState("");
 
   // Submission
   const [submitting, setSubmitting] = useState(false);
@@ -425,7 +426,10 @@ function BookLeisure() {
         email,
         phone,
         company: organisation,
+        country:
+          S5_COUNTRIES.find((c) => c.code === contactCountry)?.name || contactCountry || null,
       },
+
       request: {
         type: "leisure",
         country,
@@ -474,14 +478,22 @@ function BookLeisure() {
         return;
       }
 
+      // Profile stays the customer's own reusable record: ensure it exists and
+      // only fill blanks — never overwrite details they already saved.
+      const { data: existing } = await supabase
+        .from("profiles")
+        .select("first_name, last_name, email, company_name, phone, country")
+        .eq("user_id", user.id)
+        .maybeSingle();
       await upsertProfile(user.id, {
-        first_name: firstName,
-        last_name: lastName,
-        email: email || user.email || "",
-        company_name: organisation || null,
-        phone: phone || null,
-        country: country || null,
+        first_name: existing?.first_name?.trim() || firstName,
+        last_name: existing?.last_name?.trim() || lastName,
+        email: existing?.email?.trim() || email || user.email || "",
+        company_name: existing?.company_name?.trim() || organisation || null,
+        phone: existing?.phone?.trim() || phone || null,
+        country: existing?.country?.trim() || contactCountry || country || null,
       });
+
       const created = await createBooking(user.id, input);
       clearPendingRequest();
       setConfirmation({ requestId: created.reference });
@@ -603,6 +615,8 @@ function BookLeisure() {
         setOrganisation={setOrganisation}
         additionalComments={additionalComments}
         setAdditionalComments={setAdditionalComments}
+        contactCountry={contactCountry}
+        setContactCountry={setContactCountry}
         canContinue={canContinue(5)}
         onNext={() => go(6)}
         onBack={() => go(4)}
@@ -6680,6 +6694,9 @@ function LeisureStep5Screen({
   setOrganisation,
   additionalComments,
   setAdditionalComments,
+  contactCountry,
+  setContactCountry,
+
   canContinue,
   onNext,
   onBack,
@@ -6697,16 +6714,24 @@ function LeisureStep5Screen({
   setOrganisation: (v: string) => void;
   additionalComments: string;
   setAdditionalComments: (v: string) => void;
+  contactCountry?: string;
+  setContactCountry?: (v: string) => void;
   canContinue: boolean;
   onNext: () => void;
   onBack: () => void;
   onStepGo: (s: StepKey) => void;
 }) {
   const [dialCode, setDialCode] = useState("+47");
-  const [country, setCountry] = useState("");
+  const [localCountry, setLocalCountry] = useState("");
+  const country = contactCountry ?? localCountry;
+  const setCountry = setContactCountry ?? setLocalCountry;
   const [commentsFocused, setCommentsFocused] = useState(false);
+
   const { session, profile } = useAuth();
   const [prefilled, setPrefilled] = useState(false);
+  const [saveToProfile, setSaveToProfile] = useState(false);
+  const canPrefill = hasProfileDetails(profile);
+  const profileComplete = isProfileComplete(profile);
 
   const dial = PHONE_COUNTRIES.find((p) => p.dial === dialCode) ?? PHONE_COUNTRIES[0];
 
@@ -6722,7 +6747,7 @@ function LeisureStep5Screen({
     }
     setFirstName(profile.first_name ?? "");
     setLastName(profile.last_name ?? "");
-    setEmail(profile.email ?? "");
+    setEmail(profile.email || session?.user.email || "");
     if (profile.phone) {
       const match = PHONE_COUNTRIES.find((p) => profile.phone!.trim().startsWith(p.dial));
       if (match) {
@@ -6743,6 +6768,22 @@ function LeisureStep5Screen({
     }
     setPrefilled(true);
   };
+
+  const handleContinue = () => {
+    if (session && saveToProfile) {
+      const countryName = S5_COUNTRIES.find((c) => c.code === country)?.name ?? country;
+      void upsertProfile(session.user.id, {
+        first_name: firstName.trim(),
+        last_name: lastName.trim(),
+        email: email.trim() || session.user.email || "",
+        phone: phone.trim() ? `${dialCode} ${phone.trim()}` : null,
+        company_name: organisation.trim() || null,
+        country: countryName || null,
+      });
+    }
+    onNext();
+  };
+
 
   return (
     <LeisureStepShell
@@ -6776,7 +6817,7 @@ function LeisureStep5Screen({
           Who should we contact?
         </p>
 
-        {session && profile && (
+        {session && (
           <div
             className="mt-5 flex flex-col gap-3 rounded-[14px] px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between"
             style={{
@@ -6786,34 +6827,47 @@ function LeisureStep5Screen({
           >
             <div className="min-w-0">
               <p className="text-[13.5px] font-medium" style={{ color: "#F5F1E6" }}>
-                Use your account details?
+                {canPrefill ? "Use your account details?" : "Complete your profile"}
               </p>
               <p className="mt-0.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.52)" }}>
-                We can fill in your contact information from your HotelGroupBook profile.
+                {canPrefill
+                  ? "We can fill in your contact information from your HotelGroupBook profile."
+                  : "Your account only has an email so far. Add your details once and reuse them — or just fill in the form below."}
               </p>
             </div>
-            {prefilled ? (
-              <span
-                className="shrink-0 text-[12.5px] font-medium tracking-[0.04em]"
-                style={{ color: S1_GOLD_SOFT }}
-              >
-                ✓ Account details added
-              </span>
+            {canPrefill ? (
+              prefilled ? (
+                <span
+                  className="shrink-0 text-[12.5px] font-medium tracking-[0.04em]"
+                  style={{ color: S1_GOLD_SOFT }}
+                >
+                  ✓ Account details added
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  onClick={applyAccountDetails}
+                  className="shrink-0 rounded-[10px] px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] transition-opacity hover:opacity-90"
+                  style={{
+                    background: "linear-gradient(180deg, #E7C878 0%, #C5A24B 55%, #A9853A 100%)",
+                    color: "#20180A",
+                  }}
+                >
+                  Use my account details
+                </button>
+              )
             ) : (
-              <button
-                type="button"
-                onClick={applyAccountDetails}
-                className="shrink-0 rounded-[10px] px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] transition-opacity hover:opacity-90"
-                style={{
-                  background: "linear-gradient(180deg, #E7C878 0%, #C5A24B 55%, #A9853A 100%)",
-                  color: "#20180A",
-                }}
+              <Link
+                to="/account"
+                className="shrink-0 rounded-[10px] px-4 py-2 text-center text-[12px] font-semibold uppercase tracking-[0.14em] transition-opacity hover:opacity-90"
+                style={{ border: `1px solid rgba(212,166,74,0.5)`, color: S1_GOLD_SOFT }}
               >
-                Use my account details
-              </button>
+                Complete profile
+              </Link>
             )}
           </div>
         )}
+
 
 
         {/* Row 1 */}
@@ -6943,7 +6997,22 @@ function LeisureStep5Screen({
           />
         </div>
 
+        {session && !profileComplete && (
+          <label className="mt-6 flex cursor-pointer items-start gap-3">
+            <input
+              type="checkbox"
+              checked={saveToProfile}
+              onChange={(e) => setSaveToProfile(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 accent-[#C5A24B]"
+            />
+            <span className="text-[13px]" style={{ color: "rgba(245,241,230,0.72)" }}>
+              Save these details to my HotelGroupBook profile
+            </span>
+          </label>
+        )}
+
         {/* Bottom nav */}
+
         <div className="mt-10 flex items-center justify-between gap-4">
           <button
             type="button"
@@ -6957,7 +7026,7 @@ function LeisureStep5Screen({
 
           <button
             type="button"
-            onClick={onNext}
+            onClick={handleContinue}
             disabled={!canContinue}
             className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
             style={{
