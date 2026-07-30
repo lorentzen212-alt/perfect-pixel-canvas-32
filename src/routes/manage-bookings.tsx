@@ -689,7 +689,7 @@ const NAV = [
   { label: "Support", icon: HelpCircle },
 ];
 
-function SidebarContent({ active }: { active: string }) {
+function SidebarContent({ active, roomingBookingId }: { active: string; roomingBookingId?: string }) {
   return (
     <div
       className="flex h-full flex-col px-5 py-6"
@@ -715,11 +715,16 @@ function SidebarContent({ active }: { active: string }) {
       <nav className="mt-4 space-y-1">
         {NAV.map((item) => {
           const isActive = item.label === active;
+          const isRooming = item.label === "Rooming List" && !!roomingBookingId;
+          const Comp: any = isRooming ? Link : "button";
+          const extra = isRooming
+            ? { to: "/rooming-list/$bookingId", params: { bookingId: roomingBookingId } }
+            : { type: "button" as const };
           return (
-            <button
+            <Comp
               key={item.label}
-              type="button"
-              className="relative flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14px] transition-colors"
+              {...extra}
+              className="relative flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left text-[14px] transition-colors"
               style={{
                 background: isActive
                   ? "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%)"
@@ -736,7 +741,7 @@ function SidebarContent({ active }: { active: string }) {
               )}
               <item.icon size={17} style={{ color: isActive ? GOLD : MUTED }} />
               {item.label}
-            </button>
+            </Comp>
           );
         })}
       </nav>
@@ -852,6 +857,8 @@ function ManageBookings() {
   const needsAttention = bookings.filter(
     (b) => b.status === "rooming_list_required" || b.status === "offers_ready",
   );
+  const roomingTarget =
+    bookings.find((b) => b.status === "rooming_list_required")?.id ?? bookings[0]?.id;
   const offersReady = bookings.filter((b) => b.status === "offers_ready");
   const upcoming = bookings.filter(
     (b) => b.startDate && new Date(b.startDate) >= now && b.status !== "completed",
@@ -880,7 +887,7 @@ function ManageBookings() {
     <div className="min-h-screen" style={{ backgroundColor: BG }}>
       {/* sidebar — desktop */}
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
-        <SidebarContent active="Overview" />
+        <SidebarContent active="Overview" roomingBookingId={roomingTarget} />
       </aside>
 
       {/* sidebar — mobile drawer */}
@@ -892,7 +899,7 @@ function ManageBookings() {
             onClick={() => setNavOpen(false)}
           />
           <div className="absolute inset-y-0 left-0 w-[268px]">
-            <SidebarContent active="Overview" />
+            <SidebarContent active="Overview" roomingBookingId={roomingTarget} />
             <button
               aria-label="Close navigation"
               onClick={() => setNavOpen(false)}
