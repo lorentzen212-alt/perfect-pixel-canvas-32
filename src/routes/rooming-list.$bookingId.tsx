@@ -126,8 +126,8 @@ const FIELD_PLACEHOLDER = "#88A0B6"; // muted blue-grey placeholder
 const FIELD_LABEL = "#7C93A8"; // muted blue-grey label
 
 /* dark matte navy room-allocation card tokens */
-const CARD_NAVY = "#46657E";
-const CARD_NAVY_HOVER = "#4B6A82";
+const CARD_NAVY = "linear-gradient(0deg,#46657E 0%,#46657E 100%)";
+const CARD_NAVY_HOVER = "linear-gradient(0deg,#4B6A82 0%,#4B6A82 100%)";
 const RT = "#F7F7F5"; // primary — soft off-white (matches TEXT)
 const RT_2 = "#D9DDE0"; // secondary — light neutral grey
 const RT_3 = "#B8BDC2"; // micro — muted neutral grey
