@@ -482,7 +482,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
   const issues = useMemo(() => (list ? roomingIssues(list) : []), [list]);
 
   if (!list || !stats) {
-    return <div className="min-h-screen" style={{ backgroundColor: BG_ALT }} />;
+    return <div className="min-h-screen" style={{ backgroundColor: BG_ALT, backgroundImage: "linear-gradient(135deg, #252A2A 0%, #282E2D 50%, #232929 100%)" }} />;
   }
 
   const nights = booking.nights;
