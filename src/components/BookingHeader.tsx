@@ -99,7 +99,7 @@ export function BookingHeader({
 
   return (
     <>
-      <header className="w-full" style={{ backgroundColor: NAVY }}>
+      <header className="w-full" style={{ background: background ?? NAVY }}>
         <div
           className={`relative mx-auto flex max-w-[1600px] items-center px-6 lg:px-10 ${
             compact ? "py-[19px] lg:py-[22px]" : "py-6 lg:py-7"
