@@ -694,7 +694,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       className="flex flex-1 flex-wrap items-center gap-y-4 rounded-[14px] px-6 py-5"
                       style={{ backgroundColor: PANEL, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
                     >
-                      <div className="min-w-[210px] pr-6">
+                      <div className="min-w-[186px] pr-5">
                         <p
                           className="text-[13px] font-medium uppercase tracking-[0.22em]"
                           style={{ color: TEXT }}
@@ -730,7 +730,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
                       <div className="flex flex-1 flex-wrap items-stretch">
                         <div
-                          className="flex flex-1 min-w-[132px] flex-col items-center justify-center px-5"
+                          className="flex flex-1 min-w-[104px] flex-col items-center justify-center px-3"
                           style={{ borderLeft: `1px solid ${BORDER}` }}
                         >
                           <span className="flex items-center gap-2.5">
@@ -739,14 +739,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                               {stats.totalAllocations}
                             </span>
                           </span>
-                          <p className="mt-2.5 text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                          <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                             Total rooms
                           </p>
                         </div>
                         {stats.byType.map((t) => (
                           <div
                             key={t.type}
-                            className="flex flex-1 min-w-[104px] flex-col items-center justify-center px-4"
+                            className="flex flex-1 min-w-[82px] flex-col items-center justify-center px-2.5"
                             style={{ borderLeft: `1px solid ${BORDER}` }}
                           >
                             <span className="flex items-center gap-2">
@@ -755,7 +755,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                                 {t.count}
                               </span>
                             </span>
-                            <p className="mt-2.5 text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                            <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                               {t.label}
                             </p>
                           </div>
@@ -775,7 +775,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                             {stats.missing}
                           </span>
                         </span>
-                        <p className="mt-2.5 text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                        <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                           Missing guests
                         </p>
                       </div>
@@ -789,7 +789,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                             {stats.completeAllocations}
                           </span>
                         </span>
-                        <p className="mt-2.5 text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                        <p className="mt-2.5 whitespace-nowrap text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
                           Complete
                         </p>
                       </div>
