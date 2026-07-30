@@ -1025,6 +1025,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     allocation={a}
                     locked={locked}
                     active={openGuest?.allocationId === a.id || pendingGuest?.allocationId === a.id}
+                    openGuestId={openGuest?.allocationId === a.id ? openGuest.guestId : null}
                     autoFocus={focusAllocation === a.id}
                     onAutoFocused={() => setFocusAllocation(null)}
                     upgradeMode={upgradeMode}
@@ -1340,6 +1341,7 @@ function AllocationRow({
   allocation,
   locked,
   active,
+  openGuestId,
   autoFocus,
   onAutoFocused,
   upgradeMode,
@@ -1363,6 +1365,7 @@ function AllocationRow({
   allocation: Allocation;
   locked: boolean;
   active?: boolean;
+  openGuestId?: string | null;
   autoFocus?: boolean;
   onAutoFocused?: () => void;
   upgradeMode?: boolean;
@@ -1564,6 +1567,7 @@ function AllocationRow({
             key={g.id}
             guest={g}
             locked={locked}
+            isSelected={openGuestId === g.id}
             showRequirementDetail={showRequirementDetail}
             onOpen={() => onOpenGuest(g.id)}
             onRename={(name) => onRenameGuest?.(g.id, name)}
@@ -1872,6 +1876,7 @@ function AllocationRow({
 function SavedGuestRow({
   guest,
   locked,
+  isSelected,
   showRequirementDetail,
   onOpen,
   onRename,
@@ -1879,6 +1884,7 @@ function SavedGuestRow({
 }: {
   guest: Guest;
   locked: boolean;
+  isSelected?: boolean;
   showRequirementDetail?: boolean;
   onOpen: () => void;
   onRename?: (name: string) => void;
@@ -1891,11 +1897,14 @@ function SavedGuestRow({
   const [editing, setEditing] = useState(false);
   const [draftName, setDraftName] = useState(displayName);
 
-  const startEdit = () => {
+  /** one shared handler for pill click + pencil click */
+  const editGuest = () => {
+    onOpen();
     if (locked) return;
     setDraftName(displayName);
     setEditing(true);
   };
+  const startEdit = editGuest;
   const commit = () => {
     setEditing(false);
     const v = draftName.trim();
@@ -1904,8 +1913,25 @@ function SavedGuestRow({
 
   return (
     <div
-      className="hgb-guest flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
-      style={{ minHeight: 46, backgroundColor: GUEST_BG, border: `1px solid ${GUEST_BORDER}` }}
+      role="button"
+      tabIndex={0}
+      onClick={() => {
+        if (!editing) editGuest();
+      }}
+      onKeyDown={(e) => {
+        if (!editing && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          editGuest();
+        }
+      }}
+      className="hgb-guest flex w-full items-center gap-1.5 rounded-[10px] px-2.5 transition-colors"
+      style={{
+        minHeight: 46,
+        cursor: "pointer",
+        backgroundColor: isSelected ? "rgba(231,185,79,0.10)" : GUEST_BG,
+        border: `1px solid ${isSelected ? "rgba(231,185,79,0.62)" : GUEST_BORDER}`,
+        boxShadow: isSelected ? "inset 0 0 0 1px rgba(231,185,79,0.16)" : undefined,
+      }}
     >
       <div className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left">
         <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
@@ -1939,17 +1965,8 @@ function SavedGuestRow({
           />
         ) : (
           <span
-            role="button"
-            tabIndex={0}
-            onClick={(e) => {
-              e.stopPropagation();
-              onOpen();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") onOpen();
-            }}
-            title="Click to open guest details"
-            className="min-w-0 flex-1 truncate text-[13.5px] font-medium hover:opacity-90"
+            title="Click to edit this guest"
+            className="min-w-0 flex-1 truncate text-[13.5px] font-medium"
             style={{ color: RT, cursor: "pointer" }}
           >
             {displayName || "Unnamed guest"}
@@ -1961,7 +1978,7 @@ function SavedGuestRow({
             aria-label="Edit guest name"
             onClick={(e) => {
               e.stopPropagation();
-              startEdit();
+              editGuest();
             }}
             className="hgb-edit shrink-0 bg-transparent p-0 leading-none"
           >
@@ -1975,7 +1992,7 @@ function SavedGuestRow({
             title={req.tooltip}
             onClick={(e) => {
               e.stopPropagation();
-              onOpen();
+              editGuest();
             }}
             className="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-[6px] px-1.5 py-[2px] text-[10.5px] leading-[15px]"
             style={
@@ -2003,7 +2020,10 @@ function SavedGuestRow({
             ref={btnRef}
             type="button"
             aria-label={`Remove ${guestName(guest) || "guest"}`}
-            onClick={() => setConfirm((v) => !v)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setConfirm((v) => !v);
+            }}
             className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100"
             style={{ color: RT_3 }}
 
