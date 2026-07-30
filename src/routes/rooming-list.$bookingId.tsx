@@ -4022,6 +4022,7 @@ function SecondaryFilterMenu({ view, onChange }: { view: ViewFilter; onChange: (
     { value: "dietary", label: "Dietary & allergies" },
     { value: "requests", label: "Requests" },
     { value: "upgrades", label: "Upgrades" },
+    { value: "cancelled", label: "Cancelled allocations" },
   ];
   const active = extras.find((e) => e.value === view);
 
