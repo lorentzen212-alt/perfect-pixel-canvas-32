@@ -3620,37 +3620,47 @@ function UpgradeModePanel({
 
   return (
     <div
-      className="px-5 py-3.5"
+      className="mt-4 overflow-hidden rounded-[12px] py-[10px] pl-[26px] pr-[28px]"
       style={{
-        backgroundColor: "#274E6D",
-        boxShadow: "inset 3px 0 0 #D4AF37",
+        backgroundColor: "#FDFDFC",
+        boxShadow: "inset 2px 0 0 #D4AF37, 0 2px 8px rgba(15, 23, 42, 0.05)",
       }}
     >
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <span
-          className="text-[11px] font-semibold uppercase tracking-[0.16em]"
-          style={{ color: "#F4D675" }}
-        >
+        <UpgradeCheckbox checked={allSelected} onChange={() => onSelectAll(!allSelected)} />
+        <span className="text-[14px] font-semibold" style={{ color: "#B8860B" }}>
           Upgrade mode
         </span>
-        <span className="inline-flex items-center gap-2 text-[13px]" style={{ color: "#FFFFFF" }}>
-          <UpgradeCheckbox checked={allSelected} onChange={() => onSelectAll(!allSelected)} />
-          <button
-            type="button"
-            onClick={() => onSelectAll(!allSelected)}
-            className="font-medium"
-            style={{ color: "#FFFFFF" }}
-          >
-            Select all eligible rooms
-          </button>
-        </span>
-        <span className="text-[12.5px]" style={{ color: "rgba(255,255,255,0.78)" }}>
-          {selected.length} of {eligible.length} selected
-          {ineligible > 0 ? ` · ${ineligible} not eligible` : ""}
+        <span
+          aria-hidden
+          className="hidden h-[28px] w-px sm:block"
+          style={{ backgroundColor: "rgba(100, 122, 145, 0.22)" }}
+        />
+        <button
+          type="button"
+          onClick={() => onSelectAll(!allSelected)}
+          className="text-[14px] font-normal"
+          style={{ color: "#1E3A52" }}
+        >
+          Select all eligible rooms
+        </button>
+        <span className="text-[14px]" style={{ color: "#7B8CA0" }}>
+          <span className="font-semibold" style={{ color: "#1E3A52" }}>
+            {selected.length} of {eligible.length}
+          </span>{" "}
+          selected
+          {ineligible > 0 ? (
+            <>
+              <span className="mx-2" style={{ color: "#A9B6C4" }}>
+                •
+              </span>
+              {ineligible} not eligible
+            </>
+          ) : null}
         </span>
         {selectedForWithdraw.length > 0 && (
-          <span className="inline-flex items-center gap-2.5 text-[12px]" style={{ color: "#FFFFFF" }}>
-            <span style={{ color: "rgba(255,255,255,0.78)" }}>
+          <span className="inline-flex items-center gap-2.5 text-[12px]" style={{ color: "#1E3A52" }}>
+            <span style={{ color: "#7B8CA0" }}>
               {selectedForWithdraw.length} upgrade request{selectedForWithdraw.length === 1 ? "" : "s"} selected
             </span>
             <button
@@ -3658,9 +3668,9 @@ function UpgradeModePanel({
               onClick={onWithdraw}
               className="rounded-[7px] px-2.5 py-[5px] text-[12px] transition-colors"
               style={{
-                color: "#E2A2A2",
-                backgroundColor: "rgba(190,110,110,0.10)",
-                border: "1px solid rgba(190,110,110,0.30)",
+                color: "#A8443F",
+                backgroundColor: "rgba(190,110,110,0.08)",
+                border: "1px solid rgba(190,110,110,0.24)",
               }}
             >
               Withdraw selected requests
@@ -3670,12 +3680,13 @@ function UpgradeModePanel({
         <button
           type="button"
           onClick={onCancel}
-          className="ml-auto rounded-[7px] px-3 py-[6px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(244,214,117,0.10)]"
-          style={{ color: "#FFFFFF", border: "1px solid rgba(231,185,79,0.28)" }}
+          className="ml-auto text-[14px] font-medium transition-colors hover:text-[#B8860B]"
+          style={{ color: "#1E3A52" }}
         >
           Exit upgrade mode
         </button>
       </div>
+
 
       {selectedForRequest.length > 0 && (
         <div
