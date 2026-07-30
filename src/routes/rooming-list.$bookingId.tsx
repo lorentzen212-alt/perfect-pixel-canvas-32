@@ -148,9 +148,9 @@ const GOLD_SURFACE =
 const GOLD_BAR =
   "linear-gradient(90deg,#B47B10 0%,#DCA62E 38%,#F3D56A 62%,#C58A16 100%)";
 
-const HERO_INK = "#F7F7F5";
-const HERO_INK_2 = "#B8BDC2";
-const HERO_ACCENT = "#E7B94F";
+const HERO_INK = "#10233F";
+const HERO_INK_2 = "#4A6076";
+const HERO_ACCENT = "#2C5B8C";
 
 
 
@@ -539,9 +539,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
             <section
               className="relative overflow-visible rounded-[16px] px-5 py-5 sm:px-6"
               style={{
-                backgroundColor: "#10233F",
-                border: "1px solid rgba(255,255,255,0.10)",
-                boxShadow: "0 8px 30px rgba(8,20,34,0.28)",
+                backgroundColor: "#FBF8F3",
+                border: "1px solid rgba(16,35,63,0.08)",
+                boxShadow: "0 10px 34px rgba(16,35,63,0.08)",
               }}
             >
               {/* row 1 — badges + actions */}
@@ -557,8 +557,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     className="inline-flex items-center gap-1.5 rounded-[6px] px-2.5 py-[5px] text-[10.5px] font-semibold uppercase tracking-[0.16em]"
                     style={
                       locked
-                        ? { color: "#7FD69B", backgroundColor: "rgba(62,155,87,0.14)" }
-                        : { color: "#E7B94F", backgroundColor: "rgba(231,185,79,0.22)" }
+                        ? { color: "#2F7C47", backgroundColor: "rgba(62,155,87,0.14)" }
+                        : { color: "#9A7113", backgroundColor: "rgba(231,185,79,0.22)" }
                     }
                   >
                     {locked ? (
@@ -581,8 +581,8 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     <button
                       type="button"
                       onClick={() => setShowImport(true)}
-                      className="inline-flex items-center gap-2 rounded-[9px] px-4 py-[10px] text-[13px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.07)]"
-                      style={{ color: HERO_INK, backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.16)" }}
+                      className="inline-flex items-center gap-2 rounded-[9px] px-4 py-[10px] text-[13px] font-medium transition-colors hover:bg-[rgba(16,35,63,0.04)]"
+                      style={{ color: HERO_INK, backgroundColor: "#FFFFFF", border: "1px solid rgba(16,35,63,0.14)" }}
                     >
                       <Upload size={14} style={{ color: HERO_INK_2 }} />
                       Import file
@@ -597,11 +597,11 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         exitManageMode();
                         setUpgradeMode(true);
                       }}
-                      className="inline-flex items-center gap-2 rounded-[9px] px-4 py-[10px] text-[13px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+                      className="inline-flex items-center gap-2 rounded-[9px] px-4 py-[10px] text-[13px] font-medium transition-colors hover:bg-[rgba(16,35,63,0.04)]"
                       style={{
                         color: HERO_INK,
                         backgroundColor: upgradeMode ? "rgba(231,185,79,0.14)" : "#FFFFFF",
-                        border: `1px solid ${upgradeMode ? "rgba(169,111,8,0.45)" : "rgba(255,255,255,0.16)"}`,
+                        border: `1px solid ${upgradeMode ? "rgba(169,111,8,0.45)" : "rgba(16,35,63,0.14)"}`,
                       }}
                     >
                       <ArrowUp size={14} style={{ color: HERO_INK_2 }} />
@@ -617,13 +617,13 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       }}
                       className="inline-flex items-center gap-2 rounded-[9px] px-4 py-[10px] text-[13px] font-medium transition-colors hover:bg-[rgba(231,185,79,0.10)]"
                       style={{
-                        color: "#E7B94F",
-                        backgroundColor: "rgba(255,255,255,0.06)",
+                        color: "#9A7113",
+                        backgroundColor: "#FFFFFF",
                         border: "1px solid rgba(169,111,8,0.42)",
                       }}
                     >
                       Add guest
-                      <Plus size={14} style={{ color: "#E7B94F" }} />
+                      <Plus size={14} style={{ color: "#B47B10" }} />
                     </button>
                     <GoldButton onClick={() => saveRoomingList(list)}>
                       <Download size={14} />
@@ -649,7 +649,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                       <MapPin size={13} style={{ color: HERO_ACCENT }} />
                       {booking.hotel}
                     </span>
-                    <span style={{ color: "rgba(255,255,255,0.28)" }}>·</span>
+                    <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
                   </>
                 )}
                 <span className="inline-flex items-center gap-2">
@@ -661,17 +661,17 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     year: "numeric",
                   })}
                 </span>
-                <span style={{ color: "rgba(255,255,255,0.28)" }}>·</span>
+                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
                 <span className="inline-flex items-center gap-2">
                   <Clock size={13} style={{ color: HERO_ACCENT }} />
                   {nights} nights
                 </span>
-                <span style={{ color: "rgba(255,255,255,0.28)" }}>·</span>
+                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
                 <span className="inline-flex items-center gap-2">
                   <Bed size={13} style={{ color: HERO_ACCENT }} />
                   {stats.totalAllocations} rooms
                 </span>
-                <span style={{ color: "rgba(255,255,255,0.28)" }}>·</span>
+                <span style={{ color: "rgba(16,35,63,0.28)" }}>·</span>
                 <span className="inline-flex items-center gap-2">
                   <Users size={13} style={{ color: HERO_ACCENT }} />
                   {stats.totalSlots} guests
@@ -799,7 +799,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   {/* ── filters row ── */}
                   <div
                     className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2.5 pt-4"
-                    style={{ borderTop: "1px solid rgba(255,255,255,0.10)" }}
+                    style={{ borderTop: "1px solid rgba(16,35,63,0.10)" }}
                   >
                     <span className="text-[12.5px]" style={{ color: HERO_INK_2 }}>
                       View:
@@ -814,7 +814,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                           style={
                             view === v
                               ? {
-                                  color: "#E7B94F",
+                                  color: "#9A7113",
                                   backgroundColor: "rgba(231,185,79,0.20)",
                                   border: "1px solid rgba(169,111,8,0.42)",
                                 }
@@ -830,14 +830,14 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                     <button
                       type="button"
                       onClick={() => setShowGroup(true)}
-                      className="inline-flex items-center gap-2 rounded-[8px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(255,255,255,0.07)]"
-                      style={{ color: HERO_INK_2, border: "1px solid rgba(255,255,255,0.16)" }}
+                      className="inline-flex items-center gap-2 rounded-[8px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(16,35,63,0.04)]"
+                      style={{ color: HERO_INK_2, border: "1px solid rgba(16,35,63,0.14)" }}
                     >
                       Group requests
                       {list.groupRequests.length > 0 && (
                         <span
                           className="rounded-full px-1.5 text-[10.5px]"
-                          style={{ backgroundColor: "rgba(231,185,79,0.22)", color: "#E7B94F" }}
+                          style={{ backgroundColor: "rgba(231,185,79,0.22)", color: "#9A7113" }}
                         >
                           {list.groupRequests.length}
                         </span>
@@ -859,9 +859,9 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                         }}
                         className="inline-flex cursor-pointer items-center gap-2 rounded-[8px] px-3 py-[7px] text-[12px] transition-colors hover:bg-[rgba(231,185,79,0.12)]"
                         style={{
-                          color: "#E7B94F",
+                          color: "#9A7113",
                           backgroundColor: manageMode || view === "upgrades" ? "rgba(231,185,79,0.16)" : "transparent",
-                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(169,111,8,0.42)" : "rgba(255,255,255,0.16)"}`,
+                          border: `1px solid ${manageMode || view === "upgrades" ? "rgba(169,111,8,0.42)" : "rgba(16,35,63,0.14)"}`,
                         }}
                       >
                         <ArrowUp size={12} />
@@ -871,7 +871,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
                     <label
                       className="ml-auto flex items-center gap-2 rounded-[9px] px-4 py-[9px]"
-                      style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.16)" }}
+                      style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(16,35,63,0.14)" }}
                     >
                       <input
                         value={query}
