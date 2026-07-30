@@ -124,7 +124,7 @@ const RT_2 = "#D9DDE0"; // secondary — light neutral grey
 const RT_3 = "#B8BDC2"; // micro — muted neutral grey
 const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
-const R_AMBER = "#C5A24B";
+const R_AMBER = "#E7B94F";
 
 /* premium room-card sub-surfaces */
 
@@ -134,15 +134,19 @@ const CTRL_BORDER = "rgba(255,255,255,0.11)";
 const GUEST_BG = "#1A3856";
 const GUEST_BORDER = "rgba(255,255,255,0.10)";
 const GOLD_EDGE =
-  "linear-gradient(180deg,#8F6A26 0%,#C99845 18%,#F4DEAA 42%,#E6C47A 58%,#B8873A 100%)";
+  "linear-gradient(180deg,#A96F08 0%,#C99322 18%,#FFE9A6 42%,#E7B94F 58%,#A96F08 100%)";
 const GOLD_METAL_TEXT: React.CSSProperties = {
-  backgroundImage: "linear-gradient(155deg,#B8873A 0%,#E6C47A 36%,#F4DEAA 54%,#C99845 100%)",
+  backgroundImage: "linear-gradient(155deg,#A96F08 0%,#E7B94F 36%,#FFE9A6 54%,#C99322 100%)",
   WebkitBackgroundClip: "text",
   backgroundClip: "text",
   color: "transparent",
 };
 
-const GOLD_BAR = "#C5A24B";
+/* champagne metallic surfaces */
+const GOLD_SURFACE =
+  "linear-gradient(135deg,#A96F08 0%,#D5A12B 32%,#F0C85B 52%,#C98D17 78%,#A96F08 100%)";
+const GOLD_BAR =
+  "linear-gradient(90deg,#B47B10 0%,#DCA62E 38%,#F3D56A 62%,#C58A16 100%)";
 
 const HERO_INK = "#10233F";
 const HERO_INK_2 = "#4A6076";
