@@ -137,6 +137,11 @@ const RT_3 = "#B8BDC2"; // micro — muted neutral grey
 const R_BORDER = "rgba(255,255,255,0.09)";
 const R_GREEN = "#74D97C";
 const R_AMBER = "#E7B94F";
+/* cancelled allocation palette — muted, never a bright warning red */
+const CANCEL_ACCENT = "#B86565";
+const CANCEL_TEXT = "#D68A8A";
+const CANCEL_EDGE =
+  "linear-gradient(180deg, #8F4A4A 0%, #B86565 32%, #D68A8A 58%, #A85B5B 100%)";
 
 /* premium room-card sub-surfaces — slightly lighter slate blue */
 
