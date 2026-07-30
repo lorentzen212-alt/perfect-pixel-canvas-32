@@ -3245,7 +3245,7 @@ function LeisureStep2Screen({
 
       <div
         className="mx-auto grid w-full grid-cols-1 lg:grid-cols-[minmax(363px,1.298fr)_minmax(0,2.86fr)_300px]"
-        style={{ maxWidth: 1780, padding: 22, gap: 20 }}
+        style={{ maxWidth: 1780, padding: "6px 22px 22px", gap: 20 }}
       >
         {/* ---------- LEFT: vertical hotel image ---------- */}
         <aside className="order-2 lg:order-none min-w-0 lg:pr-[10px] lg:self-start">
@@ -3284,10 +3284,10 @@ function LeisureStep2Screen({
               }}
             />
             <div
-              className="absolute bottom-9 left-9 right-9"
+              className="absolute bottom-7 left-9 right-9"
               style={{
                 borderRadius: 16,
-                padding: "16px 20px",
+                padding: "9px 20px 10px",
                 background:
                   "linear-gradient(180deg, rgba(8,16,24,0.42) 0%, rgba(6,13,20,0.62) 100%)",
                 backdropFilter: "blur(16px) saturate(120%)",
@@ -3302,7 +3302,7 @@ function LeisureStep2Screen({
                 Current stay
               </div>
               <div
-                className="mt-2 text-[15px] font-medium"
+                className="mt-1 text-[15px] font-medium"
                 style={{ color: "rgba(250,247,240,0.9)" }}
               >
                 {heroStayMeta}
@@ -3318,7 +3318,7 @@ function LeisureStep2Screen({
           style={{
             backgroundColor: "#263B4A",
             borderRadius: 24,
-            padding: 24,
+            padding: 20,
             paddingBottom: 18,
             border: "1px solid rgba(255,255,255,0.05)",
             boxShadow:
@@ -3342,7 +3342,7 @@ function LeisureStep2Screen({
           </div>
 
           {/* 1 — COMPACT DATE SELECTOR */}
-          <div className="mt-3">
+          <div className="mt-2">
             <div
               className="mb-2 text-[11.5px] font-semibold uppercase tracking-[0.28em]"
               style={{ color: "rgba(247,244,236,0.72)" }}
@@ -3381,7 +3381,7 @@ function LeisureStep2Screen({
 
 
           <div
-            className="mt-[24px] text-[11.5px] font-semibold uppercase tracking-[0.28em]"
+            className="mt-[14px] text-[11.5px] font-semibold uppercase tracking-[0.28em]"
             style={{ color: "rgba(253,251,246,0.94)" }}
           >
             Room Distribution
@@ -3398,7 +3398,7 @@ function LeisureStep2Screen({
             Choose the number and type of rooms required.
           </p>
 
-          <div className="mt-[16px] grid grid-cols-1 gap-x-3 gap-y-[14px] md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-[12px] grid grid-cols-1 gap-x-3 gap-y-[11px] md:grid-cols-2 xl:grid-cols-3">
             {STEP2_ROOMS_ORDER.map((key) => (
               <S2RoomCard
                 key={key}
@@ -4703,7 +4703,7 @@ function AccommodationSummary({
         borderRadius: 24,
         backgroundColor: S2_PANEL,
         border: "1px solid rgba(255,255,255,0.05)",
-        padding: 22,
+        padding: 20,
         boxShadow:
           "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -18px 34px -30px rgba(0,0,0,0.6), 0 30px 66px -38px rgba(6,13,20,0.72)",
       }}
