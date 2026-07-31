@@ -1075,6 +1075,7 @@ function ManageBookings() {
                       color: TEXT,
                       fontFamily: SERIF,
                       fontWeight: 400,
+                      letterSpacing: "-0.01em",
                       fontVariantNumeric: "lining-nums",
                     }}
                   >
