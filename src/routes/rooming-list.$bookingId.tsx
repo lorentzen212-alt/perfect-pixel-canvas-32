@@ -2097,7 +2097,7 @@ function AllocationRow({
                 key={`slot-${allocation.id}-${allocation.guests.length + i}`}
                 type="button"
                 onClick={onAddGuest}
-                className="flex w-fit items-center gap-1.5 rounded-[8px] px-1 py-[6px] text-left text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
+                className="flex w-fit items-center gap-1.5 px-1 py-[6px] text-left text-[12.5px] underline decoration-[#C5A059]/40 underline-offset-4 transition-colors hover:decoration-[#C5A059]"
                 style={{ color: "#2D2D2D" }}
               >
                 <Plus size={13} />
@@ -2179,7 +2179,7 @@ function AllocationRow({
                 ref={requestBtnRef}
                 type="button"
                 onClick={() => setRequestOpen((v) => !v)}
-                className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
+                className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] underline decoration-[#C5A059]/40 underline-offset-4 transition-colors hover:decoration-[#C5A059]"
                 style={{ color: "#2D2D2D" }}
               >
                 <Plus size={13} />
@@ -2190,7 +2190,7 @@ function AllocationRow({
               <>
                 {allocation.requests.length === 0 && (
                   <span
-                    className="my-[2px] block h-px w-[86%]"
+                    className="my-[3px] block h-px w-[34px]"
                     style={{ backgroundColor: "#E8E4DD" }}
                   />
                 )}
@@ -2198,7 +2198,7 @@ function AllocationRow({
                   ref={upgradeBtnRef}
                   type="button"
                   onClick={() => setUpgradeOpen((v) => !v)}
-                  className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
+                  className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] underline decoration-[#C5A059]/40 underline-offset-4 transition-colors hover:decoration-[#C5A059]"
                   style={{ color: "#2D2D2D" }}
                 >
                   <Plus size={13} />
