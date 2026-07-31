@@ -1253,7 +1253,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <span
                   key={h.label}
                   className={`${h.cls} text-[12px] font-semibold uppercase leading-[15px] tracking-[0.16em]`}
-                  style={{ color: "#5A7286" }}
+                  style={{ color: "rgba(45,45,45,0.55)", fontFamily: SANS_UI }}
                 >
                   {h.label}
                 </span>
@@ -1924,12 +1924,18 @@ function AllocationRow({
 
 
         <div className="min-w-0 flex-1">
+          <span
+            className="mb-[5px] block text-[9.5px] font-bold uppercase tracking-[0.18em]"
+            style={{ color: "rgba(45,45,45,0.55)" }}
+          >
+            Room type
+          </span>
           <div
-            className="relative w-full max-w-[172px] rounded-[11px] px-3 py-2.5"
+            className="relative w-full max-w-[172px] rounded-[4px] px-3 py-2.5"
             style={{
               backgroundColor: CTRL_BG,
               border: `1px solid ${CTRL_BORDER}`,
-              boxShadow: "0 1px 2px rgba(45,45,45,0.05)",
+              boxShadow: "0 1px 2px rgba(45,45,45,0.04)",
             }}
           >
             <button
@@ -2040,7 +2046,7 @@ function AllocationRow({
                     onKeyUpCapture={(e) => e.stopPropagation()}
                     onKeyPressCapture={(e) => e.stopPropagation()}
                     placeholder="Enter guest name..."
-                    className="hgb-inline h-[42px] w-full rounded-[10px] px-3 text-[13.5px] outline-none transition-colors"
+                    className="hgb-inline h-[42px] w-full rounded-[3px] px-3 text-[13.5px] outline-none transition-colors"
                     style={{
                       backgroundColor: GUEST_BG,
                       border: `1px solid ${GUEST_BORDER}`,
@@ -2061,7 +2067,7 @@ function AllocationRow({
               ) : (
                 <div
                   key={`pending-${allocation.id}`}
-                  className="flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
+                  className="flex w-full items-center gap-1.5 rounded-[3px] px-2.5"
                   style={{ minHeight: 46, backgroundColor: GUEST_BG, border: `1px solid ${GUEST_BORDER}` }}
                 >
                   <button
@@ -2419,7 +2425,7 @@ function SavedGuestRow({
         }
       }}
       data-guest-selected={isSelected ? "true" : "false"}
-      className="hgb-guest flex w-full items-center gap-1.5 rounded-[10px] px-2.5 transition-colors"
+      className="hgb-guest flex w-full items-center gap-1.5 rounded-[3px] px-2.5 transition-colors"
       style={{
         minHeight: 46,
         cursor: "pointer",
