@@ -1081,35 +1081,15 @@ function ManageBookings() {
               ))}
             </div>
 
-            {/* long gold divider — centre-lit glow */}
-            <div className="relative mt-10 h-px w-full" aria-hidden>
-              {/* base hairline across full width */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(90deg, rgba(199,163,74,0.10) 0%, rgba(214,178,96,0.30) 18%, rgba(240,209,132,0.85) 50%, rgba(214,178,96,0.30) 82%, rgba(199,163,74,0.10) 100%)",
-                }}
-              />
-              {/* bright core highlight */}
-              <div
-                className="absolute left-1/2 top-1/2 h-[2px] w-[26%] -translate-x-1/2 -translate-y-1/2 rounded-full"
-                style={{
-                  background:
-                    "linear-gradient(90deg, rgba(255,236,178,0) 0%, rgba(255,240,196,0.95) 50%, rgba(255,236,178,0) 100%)",
-                  filter: "blur(0.6px)",
-                }}
-              />
-              {/* soft halo */}
-              <div
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[14px] w-[46%] -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  background:
-                    "radial-gradient(50% 50% at 50% 50%, rgba(245,205,120,0.35) 0%, rgba(245,205,120,0) 70%)",
-                  filter: "blur(4px)",
-                }}
-              />
-            </div>
+            {/* long metallic gold divider — centre-lit reflective gradient */}
+            <div
+              className="mt-10 h-px w-full"
+              aria-hidden
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(120,90,24,0.35) 0%, rgba(164,126,35,0.55) 32%, rgba(201,168,74,0.75) 44%, rgba(241,215,122,1) 50%, rgba(201,168,74,0.75) 56%, rgba(164,126,35,0.55) 68%, rgba(120,90,24,0.35) 100%)",
+              }}
+            />
 
           </section>
 
