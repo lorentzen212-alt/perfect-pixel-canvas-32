@@ -1111,34 +1111,24 @@ function ManageBookings() {
               ))}
             </div>
 
-            {/* metallic-gold hairline with a bright focused centre flare */}
+            {/* subtle gold divider with a warm centre reflection */}
             <div className="relative mt-10 h-px w-full" aria-hidden>
-              {/* continuous hairline, fading at both ends */}
               <div
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(90deg, rgba(197,162,75,0) 0%, rgba(197,162,75,0.35) 6%, rgba(206,170,80,0.55) 20%, rgba(214,178,86,0.7) 38%, rgba(240,206,120,0.95) 48%, #FFE7A8 50%, rgba(240,206,120,0.95) 52%, rgba(214,178,86,0.7) 62%, rgba(206,170,80,0.55) 80%, rgba(197,162,75,0.35) 94%, rgba(197,162,75,0) 100%)",
+                    "linear-gradient(90deg, rgba(197,162,75,0) 0%, rgba(197,162,75,0.30) 8%, rgba(197,162,75,0.30) 34%, rgba(226,196,124,0.55) 46%, rgba(246,226,172,0.95) 50%, rgba(226,196,124,0.55) 54%, rgba(197,162,75,0.30) 66%, rgba(197,162,75,0.30) 92%, rgba(197,162,75,0) 100%)",
                 }}
               />
-              {/* narrow hot core at the centre */}
               <div
-                className="absolute left-1/2 top-1/2 h-[2px] w-[26%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 h-[5px] w-[30%] -translate-x-1/2 -translate-y-1/2"
                 style={{
                   background:
-                    "radial-gradient(ellipse at center, rgba(255,246,214,1) 0%, rgba(255,226,150,0.85) 22%, rgba(233,190,96,0.4) 55%, rgba(197,162,75,0) 100%)",
-                }}
-              />
-              {/* soft bloom around the centre */}
-              <div
-                className="absolute left-1/2 top-1/2 h-[10px] w-[46%] -translate-x-1/2 -translate-y-1/2 blur-[6px]"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at center, rgba(255,220,140,0.55) 0%, rgba(226,182,90,0.22) 45%, rgba(197,162,75,0) 100%)",
+                    "radial-gradient(ellipse at center, rgba(240,214,150,0.34) 0%, rgba(232,203,132,0.12) 42%, rgba(232,203,132,0) 100%)",
+                  filter: "blur(2px)",
                 }}
               />
             </div>
-
           </section>
 
 
