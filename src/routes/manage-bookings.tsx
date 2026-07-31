@@ -591,10 +591,11 @@ function AccountMenu({
           style={
             compact
               ? {
-                  backgroundColor: "rgba(12,30,42,0.45)",
-                  border: `1px solid ${GOLD_DEEP}`,
-                  color: GOLD,
+                  backgroundColor: "rgba(11,26,38,0.55)",
+                  border: "1px solid rgba(197,164,102,0.40)",
+                  color: "#DCC48A",
                 }
+
               : { backgroundColor: "rgba(199,163,74,0.16)", color: GOLD }
           }
         >
