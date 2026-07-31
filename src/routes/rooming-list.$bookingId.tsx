@@ -1844,22 +1844,22 @@ function AllocationRow({
       data-selected={selected ? "true" : "false"}
       className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:24%_36%_22%_14%_4%]"
       style={{
-        backgroundColor: cancelled ? "#1E3348" : "#173A5A",
+        backgroundColor: cancelled ? "#F7F2F0" : "#FCFBF9",
         backgroundImage: cancelled
-          ? `linear-gradient(0deg, rgba(184,101,101,0.10), rgba(184,101,101,0.10)), ${CARD_NAVY}`
+          ? `linear-gradient(0deg, rgba(168,91,91,0.06), rgba(168,91,91,0.06)), ${CARD_NAVY}`
           : selected
-            ? `linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY}`
+            ? `linear-gradient(0deg, rgba(197,160,89,0.07), rgba(197,160,89,0.07)), ${CARD_NAVY}`
             : CARD_NAVY,
         border: cancelled
-          ? "1px solid rgba(184,101,101,0.30)"
+          ? "1px solid rgba(168,91,91,0.35)"
           : selected || rowSelected
-            ? "1.5px solid rgba(231,185,79,0.62)"
+            ? "1.5px solid #C5A059"
             : isActive
-              ? "1.5px solid #E7B94F"
-              : "1px solid rgba(255,255,255,0.07)",
+              ? "1.5px solid #C5A059"
+              : "1px solid #E8E4DD",
         boxShadow: isActive
-          ? "0 10px 26px rgba(10,26,46,0.26)"
-          : "0 6px 18px rgba(10,26,46,0.18)",
+          ? "0 6px 18px rgba(45,45,45,0.10)"
+          : "0 1px 3px rgba(45,45,45,0.06)",
         opacity: cancelled ? 0.88 : upgradeMode && !selectable && !selected ? 0.78 : 1,
       }}
     >
@@ -1870,7 +1870,7 @@ function AllocationRow({
         className="pointer-events-none absolute inset-y-0 left-0 w-[5px]"
         style={{
           backgroundImage: cancelled ? CANCEL_EDGE : GOLD_EDGE,
-          boxShadow: cancelled ? "1px 0 6px rgba(184,101,101,0.20)" : "1px 0 6px rgba(231,185,79,0.18)",
+          boxShadow: cancelled ? "none" : "none",
         }}
       />
 
@@ -1923,7 +1923,7 @@ function AllocationRow({
             style={{
               backgroundColor: CTRL_BG,
               border: `1px solid ${CTRL_BORDER}`,
-              boxShadow: "0 2px 8px rgba(10,26,46,0.20)",
+              boxShadow: "0 1px 2px rgba(45,45,45,0.05)",
             }}
           >
             <button
@@ -1934,7 +1934,7 @@ function AllocationRow({
               className="flex w-full items-center gap-2 text-[13.5px]"
               style={{ color: RT }}
             >
-              <Bed size={15} className="shrink-0" style={{ color: "rgba(230,196,122,0.9)" }} />
+              <Bed size={15} className="shrink-0" style={{ color: "#C5A059" }} />
               <span className="min-w-0 flex-1 truncate text-left">{labelOf(allocation.type)}</span>
               {!readOnly && <ChevronDown size={14} className="shrink-0" style={{ color: RT_3 }} />}
             </button>
@@ -1942,9 +1942,9 @@ function AllocationRow({
               <span
                 className="inline-flex items-center rounded-full px-2.5 py-[3px] text-[9.5px] uppercase tracking-[0.18em]"
                 style={{
-                  color: "#E6C47A",
-                  backgroundColor: "rgba(231,185,79,0.06)",
-                  border: "1px solid rgba(231,185,79,0.42)",
+                  color: "#8A6D2F",
+                  backgroundColor: "rgba(197,160,89,0.08)",
+                  border: "1px solid rgba(197,160,89,0.45)",
                 }}
               >
                 {categoryLabel(allocation.bookedRoomCategory)}
@@ -2046,7 +2046,7 @@ function AllocationRow({
                     type="button"
                     aria-label="Cancel guest entry"
                     onClick={onPendingCancel}
-                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C]"
+                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(168,91,91,0.10)] hover:text-[#A85B5B]"
                     style={{ color: RT_3 }}
                   >
                     <X size={13} />
@@ -2064,7 +2064,7 @@ function AllocationRow({
                     title="Click to edit name"
                     className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left"
                   >
-                    <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
+                    <User size={14} className="shrink-0" style={{ color: "#C5A059" }} />
                     <span className="min-w-0 truncate text-[13.5px] font-medium" style={{ color: RT }}>
                       {pending.raw}
                     </span>
@@ -2073,7 +2073,7 @@ function AllocationRow({
                     type="button"
                     aria-label="Cancel guest entry"
                     onClick={onPendingCancel}
-                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100"
+                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(168,91,91,0.10)] hover:text-[#A85B5B] hover:opacity-100"
                     style={{ color: RT_3 }}
                   >
                     <X size={13} />
@@ -2086,7 +2086,7 @@ function AllocationRow({
                 type="button"
                 onClick={onAddGuest}
                 className="flex w-fit items-center gap-1.5 rounded-[8px] px-1 py-[6px] text-left text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
-                style={{ color: "#D8B463" }}
+                style={{ color: "#2D2D2D" }}
               >
                 <Plus size={13} />
                 <span>Add guest</span>
@@ -2168,7 +2168,7 @@ function AllocationRow({
                 type="button"
                 onClick={() => setRequestOpen((v) => !v)}
                 className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
-                style={{ color: "#D8B463" }}
+                style={{ color: "#2D2D2D" }}
               >
                 <Plus size={13} />
                 Add special request
@@ -2179,7 +2179,7 @@ function AllocationRow({
                 {allocation.requests.length === 0 && (
                   <span
                     className="my-[2px] block h-px w-[86%]"
-                    style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
+                    style={{ backgroundColor: "#E8E4DD" }}
                   />
                 )}
                 <button
@@ -2187,7 +2187,7 @@ function AllocationRow({
                   type="button"
                   onClick={() => setUpgradeOpen((v) => !v)}
                   className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
-                  style={{ color: "#D8B463" }}
+                  style={{ color: "#2D2D2D" }}
                 >
                   <Plus size={13} />
                   Request room upgrade
@@ -2235,10 +2235,10 @@ function AllocationRow({
         <span
           className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full"
           style={{
-            border: `1.4px solid ${status === "complete" ? "rgba(116,217,124,0.75)" : "rgba(230,196,122,0.55)"}`,
+            border: `1.4px solid ${status === "complete" ? "rgba(15,107,79,0.55)" : "rgba(197,160,89,0.55)"}`,
             boxShadow:
               status === "complete"
-                ? "0 0 10px rgba(116,217,124,0.22), inset 0 0 6px rgba(116,217,124,0.10)"
+                ? "inset 0 0 0 1px rgba(15,107,79,0.10)"
                 : "none",
             color: statusColor,
           }}
@@ -2272,7 +2272,7 @@ function AllocationRow({
           aria-label="Allocation actions"
           onClick={() => setMenuOpen((v) => !v)}
           className="grid h-7 w-7 place-items-center rounded-[6px] opacity-70 transition-opacity duration-200 hover:opacity-100"
-          style={{ color: "rgba(230,196,122,0.80)" }}
+          style={{ color: "#C5A059" }}
         >
 
           <MoreVertical size={15} />
@@ -2417,13 +2417,13 @@ function SavedGuestRow({
       style={{
         minHeight: 46,
         cursor: "pointer",
-        backgroundColor: isSelected ? "rgba(231,185,79,0.10)" : GUEST_BG,
-        border: `1px solid ${isSelected ? "rgba(231,185,79,0.62)" : GUEST_BORDER}`,
-        boxShadow: isSelected ? "inset 0 0 0 1px rgba(231,185,79,0.16)" : undefined,
+        backgroundColor: isSelected ? "rgba(197,160,89,0.12)" : GUEST_BG,
+        border: `1px solid ${isSelected ? "#C5A059" : GUEST_BORDER}`,
+        boxShadow: isSelected ? "inset 0 0 0 1px rgba(197,160,89,0.20)" : undefined,
       }}
     >
       <div className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left">
-        <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
+        <User size={14} className="shrink-0" style={{ color: "#C5A059" }} />
         {editing ? (
           <input
             autoFocus
@@ -2447,8 +2447,8 @@ function SavedGuestRow({
             className="hgb-inline min-w-0 flex-1 bg-transparent text-[13.5px] font-medium outline-none"
             style={{
               color: RT,
-              borderBottom: "1px solid rgba(230,196,122,0.75)",
-              caretColor: "#E6C47A",
+              borderBottom: "1px solid #C5A059",
+              caretColor: "#8A6D2F",
             }}
           />
         ) : (
@@ -2470,7 +2470,7 @@ function SavedGuestRow({
             }}
             className="hgb-edit shrink-0 bg-transparent p-0 leading-none"
           >
-            <Pencil size={11} style={{ color: "rgba(230,196,122,0.9)" }} />
+            <Pencil size={11} style={{ color: "#C5A059" }} />
           </button>
         )}
 
@@ -2485,8 +2485,8 @@ function SavedGuestRow({
             className="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-[6px] px-1.5 py-[2px] text-[10.5px] leading-[15px]"
             style={
               req.hasAllergy
-                ? { color: "#E6C47A", backgroundColor: "rgba(231,180,75,0.12)", border: "1px solid rgba(231,180,75,0.34)" }
-                : { color: RT_2, backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }
+                ? { color: "#8A6D2F", backgroundColor: "rgba(197,160,89,0.14)", border: "1px solid rgba(197,160,89,0.40)" }
+                : { color: RT_2, backgroundColor: "rgba(45,45,45,0.05)", border: "1px solid rgba(45,45,45,0.14)" }
             }
           >
             {req.hasAllergy ? <AlertTriangle size={9.5} /> : <Utensils size={9.5} />}
@@ -2512,7 +2512,7 @@ function SavedGuestRow({
               e.stopPropagation();
               setConfirm((v) => !v);
             }}
-            className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100"
+            className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(168,91,91,0.10)] hover:text-[#A85B5B] hover:opacity-100"
             style={{ color: RT_3 }}
 
           >
