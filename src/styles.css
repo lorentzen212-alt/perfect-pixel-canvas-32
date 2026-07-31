@@ -474,3 +474,72 @@
   border-color: rgba(243, 222, 168, 0.9);
 }
 .s2-addstay:hover { border-color: rgba(243, 222, 168, 0.9) !important; }
+
+/* ===== Rooming List — decorative paper sheet + navy backing board ===== */
+.hgb-doc-board {
+  position: relative;
+  margin: 0 -34px;
+  padding: 13px;
+  border-radius: 10px;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.05), transparent 60%),
+    linear-gradient(180deg, #1B4260 0%, #173B57 55%, #12314A 100%);
+  box-shadow: 0 26px 60px -28px rgba(4, 14, 24, 0.75), 0 6px 18px rgba(4, 14, 24, 0.35);
+}
+
+.hgb-doc-paper {
+  position: relative;
+  padding: 40px 21px 44px;
+  border-radius: 6px;
+  border: 1px solid rgba(120, 105, 80, 0.14);
+  background:
+    linear-gradient(180deg, #f7f4ee 0%, #f2eee6 50%, #eee9df 100%);
+  box-shadow:
+    0 3px 8px rgba(20, 30, 40, 0.10),
+    0 14px 35px rgba(10, 25, 40, 0.14),
+    0 30px 70px rgba(10, 25, 40, 0.08);
+}
+
+.hgb-doc-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: radial-gradient(rgba(120, 105, 80, 0.10) 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
+}
+
+.hgb-binder-clip {
+  position: absolute;
+  top: -22px;
+  left: 48px;
+  line-height: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(10, 25, 40, 0.32));
+  z-index: 2;
+}
+
+.hgb-paper-fold {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+  border-bottom-right-radius: 6px;
+  background: linear-gradient(315deg, #e2dccd 0%, #eae4d7 45%, transparent 46%);
+  box-shadow: -1px -1px 2px rgba(120, 105, 80, 0.10) inset;
+}
+
+/* rows sit physically on the sheet */
+.hgb-doc-paper .hgb-row {
+  box-shadow: 0 3px 8px rgba(8, 25, 40, 0.10);
+}
+
+@media (max-width: 1023px) {
+  .hgb-doc-board { margin: 0; padding: 10px; }
+  .hgb-doc-paper { padding: 32px 14px 34px; }
+  .hgb-binder-clip { left: 28px; }
+}
