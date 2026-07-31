@@ -1339,6 +1339,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   </p>
                 )}
               </div>
+              </div>
+            </div>
+
+
 
             {/* ── archived: cancelled allocations (collapsed by default) ── */}
             {view !== "cancelled" && cancelledAllocations.length > 0 && (
