@@ -1178,7 +1178,7 @@ function ManageBookings() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search bookings..."
                 aria-label="Search bookings by name, ID, destination or hotel"
-                className="w-full rounded-[13px] py-[14px] pl-12 pr-4 text-[15px] outline-none placeholder:text-[#8C9AA5]"
+                className="w-full rounded-[11px] py-[13px] pl-12 pr-4 text-[15px] outline-none placeholder:text-[#8C9AA5]"
                 style={{
                   backgroundColor: "rgba(18,32,42,0.55)",
                   border: "1px solid rgba(126,152,174,0.20)",
@@ -1213,7 +1213,7 @@ function ManageBookings() {
                     aria-label={label}
                     aria-pressed={on}
                     onClick={() => setView(key)}
-                    className="grid h-[50px] w-[56px] place-items-center rounded-[13px] transition-colors"
+                    className="grid h-[48px] w-[54px] place-items-center rounded-[11px] transition-colors"
                     style={{
                       background: on
                         ? "linear-gradient(180deg, rgba(120,90,30,0.30) 0%, rgba(150,113,36,0.22) 100%)"
