@@ -5,11 +5,8 @@ import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking } from "@/lib/bookingsApi";
 import {
-  AlertCircle,
   Bell,
   BedDouble,
-  Copy,
-
   CalendarCheck,
   CalendarDays,
   Check,
@@ -260,22 +257,19 @@ function trackIndex(status: BookingStatus) {
   }
 }
 
-function MetaItem({ icon, children }: { icon?: React.ReactNode; children: React.ReactNode }) {
+function MetaItem({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
   return (
     <span
-      className="inline-flex items-center gap-[7px] whitespace-nowrap text-[13px] font-light"
-      style={{ color: "#B9C5CE" }}
+      className="inline-flex items-center gap-[9px] whitespace-nowrap text-[14px] font-light"
+      style={{ color: "#C6D0D8" }}
     >
-      {icon && (
-        <span className="shrink-0" style={{ color: "#A98632" }}>
-          {icon}
-        </span>
-      )}
+      <span className="shrink-0" style={{ color: "#BE9C4E" }}>
+        {icon}
+      </span>
       {children}
     </span>
   );
 }
-
 
 const RULE = "rgba(190,205,215,0.18)";
 const RULE_SOFT = "rgba(190,205,215,0.12)";
@@ -290,133 +284,36 @@ function MetaSep() {
   );
 }
 
-/* status intelligence — one place that answers "what is happening / what next" */
-
-type StatusView = {
-  title: string;
-  description: string;
-  actionRequired: boolean;
-  cta: string;
-};
-
-function statusView(b: Booking): StatusView {
-  switch (b.status) {
-    case "request_submitted":
-      return {
-        title: "Request received",
-        description: "Your request is with our team and is being prepared for sourcing.",
-        actionRequired: false,
-        cta: "View request",
-      };
-    case "hotel_sourcing":
-      return {
-        title: "Hotels being sourced",
-        description: "We're currently collecting hotel offers for your group.",
-        actionRequired: false,
-        cta: "View booking",
-      };
-    case "offers_ready":
-      return {
-        title: "Offers ready to review",
-        description: "Compare the hotel offers we've secured and choose your preferred option.",
-        actionRequired: true,
-        cta: "Review offers",
-      };
-    case "offer_selected":
-      return {
-        title: "Offer selected",
-        description: "We're finalising the details with your chosen hotel.",
-        actionRequired: false,
-        cta: "View booking",
-      };
-    case "contract_ready":
-      return {
-        title: "Contract ready",
-        description: "Your contract is prepared and waiting for your approval.",
-        actionRequired: true,
-        cta: "Review contract",
-      };
-    case "rooming_list_required":
-      return {
-        title: "Rooming list required",
-        description: b.rooming?.due
-          ? `Complete your rooming list by ${formatDay(b.rooming.due)}.`
-          : "Add your guest names to complete the rooming list.",
-        actionRequired: true,
-        cta: "Complete rooming list",
-      };
-    case "confirmed":
-      return {
-        title: "Booking confirmed",
-        description: b.rooming
-          ? `${b.rooming.complete} of ${b.rooming.total} guests added to your rooming list.`
-          : "Your group stay is confirmed with the hotel.",
-        actionRequired: Boolean(b.rooming && b.rooming.complete < b.rooming.total),
-        cta: b.rooming && b.rooming.complete < b.rooming.total
-          ? "Complete rooming list"
-          : "View confirmation",
-      };
-    case "upcoming":
-      return {
-        title: "Upcoming stay",
-        description: "Everything is ready — we'll see you soon.",
-        actionRequired: false,
-        cta: "View stay",
-      };
-    case "completed":
-    default:
-      return {
-        title: "Stay completed",
-        description: "Thank you for travelling with us.",
-        actionRequired: false,
-        cta: "View details",
-      };
-  }
-}
-
-function CopyReference({ value }: { value: string }) {
-  const [copied, setCopied] = useState(false);
-  return (
-    <button
-      type="button"
-      aria-label={`Copy reference ${value}`}
-      onClick={() => {
-        void navigator.clipboard?.writeText(value);
-        setCopied(true);
-        window.setTimeout(() => setCopied(false), 1400);
-      }}
-      className="grid h-[22px] w-[22px] shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(214,232,246,0.08)]"
-      style={{ color: copied ? "#C4A257" : "#8C99A3" }}
-    >
-      {copied ? <Check size={13} /> : <Copy size={13} />}
-    </button>
-  );
-}
-
 function BookingCard({ booking }: { booking: Booking }) {
+  const meta = STATUS_META[booking.status];
   const active = trackIndex(booking.status);
-  const view = statusView(booking);
-  const isRoomingCta = view.cta.toLowerCase().includes("rooming");
+  const message =
+    booking.statusNote ??
+    booking.action.lines?.[0] ??
+    booking.action.title ??
+    meta.label;
 
   return (
     <article
-      className="group/card relative grid grid-cols-1 gap-4 rounded-[20px] p-4 sm:px-7 sm:py-5 md:grid-cols-[minmax(0,300px)_minmax(0,1fr)] md:gap-8"
+      className="group/card relative grid grid-cols-1 gap-4 rounded-[20px] p-4 sm:px-7 sm:py-4 md:grid-cols-[minmax(0,300px)_minmax(0,1fr)] md:gap-8"
       style={{
         background:
           "radial-gradient(120% 90% at 50% 0%, #3A4A58 0%, #33424F 46%, #2C3B48 78%, #27343F 100%)",
-        border: "1px solid rgba(174,196,212,0.13)",
+        border: "1px solid rgba(174,196,212,0.15)",
         boxShadow: [
-          "0 2px 4px -1px rgba(6,12,20,0.40)",
-          "0 18px 40px -26px rgba(6,12,20,0.65)",
+          "0 2px 4px -1px rgba(6,12,20,0.45)",
+          "0 10px 20px -10px rgba(6,12,20,0.55)",
+          "0 34px 60px -32px rgba(8,16,28,0.72)",
           "inset 0 1px 0 rgba(214,232,246,0.07)",
+          "inset 0 0 60px 12px rgba(12,20,30,0.22)",
         ].join(", "),
       }}
     >
       <div
-        className="relative overflow-hidden rounded-[12px]"
+        className="relative overflow-hidden rounded-[14px]"
         style={{
           boxShadow:
-            "0 14px 30px -18px rgba(6,12,20,0.9), inset 0 0 0 1px rgba(220,236,248,0.09)",
+            "0 10px 22px -14px rgba(6,12,20,0.85), inset 0 0 0 1px rgba(220,236,248,0.10)",
         }}
       >
         <img
@@ -424,27 +321,26 @@ function BookingCard({ booking }: { booking: Booking }) {
           alt={`${booking.destination} — ${booking.name}`}
           loading="lazy"
           className="h-[150px] w-full object-cover md:h-full md:min-h-0"
-          style={{ filter: "saturate(1.03) contrast(1.06) brightness(0.9)" }}
+          style={{ filter: "saturate(1.04) contrast(1.08) brightness(0.93)" }}
         />
         <span
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(115% 85% at 50% 42%, rgba(0,0,0,0) 55%, rgba(10,18,28,0.40) 100%), linear-gradient(90deg, rgba(0,0,0,0) 62%, rgba(20,32,44,0.35) 100%)",
+              "radial-gradient(115% 85% at 50% 42%, rgba(0,0,0,0) 52%, rgba(10,18,28,0.42) 100%), linear-gradient(180deg, rgba(24,38,56,0.18) 0%, rgba(0,0,0,0) 38%, rgba(16,26,38,0.30) 100%)",
           }}
           aria-hidden
         />
       </div>
 
       <div className="flex min-w-0 flex-col">
-        {/* 1 — booking identity */}
         <div className="flex items-start justify-between gap-3">
           <StatusChip type={booking.type} />
           <button
             type="button"
             aria-label={`More actions for ${booking.name}`}
             className="grid h-7 w-7 place-items-center rounded-full transition-colors hover:bg-[rgba(214,232,246,0.08)] hover:text-[#DCE5EC]"
-            style={{ color: "#7F8C96" }}
+            style={{ color: "#8C99A3" }}
           >
             <MoreVertical size={18} />
           </button>
@@ -463,75 +359,150 @@ function BookingCard({ booking }: { booking: Booking }) {
           </h3>
         </Link>
 
-        <div className="mt-1.5 flex flex-nowrap items-center gap-x-3 overflow-hidden lg:gap-x-4">
-          <MetaItem icon={<MapPin size={15} strokeWidth={1.6} />}>{booking.destination}</MetaItem>
+        <div className="mt-2 h-px w-full" style={{ backgroundColor: RULE }} />
+
+        <div className="flex flex-nowrap items-center gap-x-3 overflow-hidden py-[7px] lg:gap-x-5">
+          <MetaItem icon={<MapPin size={16} strokeWidth={1.6} />}>{booking.destination}</MetaItem>
           <MetaSep />
-          <MetaItem>{formatRange(booking.startDate, booking.endDate)}</MetaItem>
+          <MetaItem icon={<CalendarDays size={16} strokeWidth={1.6} />}>
+            {formatRange(booking.startDate, booking.endDate)}
+          </MetaItem>
           <MetaSep />
-          <MetaItem>{booking.nights} nights</MetaItem>
+          <MetaItem icon={<Moon size={16} strokeWidth={1.6} />}>{booking.nights} nights</MetaItem>
           <MetaSep />
           {booking.type === "me" ? (
             <>
-              <MetaItem>{booking.meetingSpaces ?? 0} meeting spaces</MetaItem>
+              <MetaItem icon={<BedDouble size={16} strokeWidth={1.6} />}>
+                {booking.meetingSpaces ?? 0} meeting spaces
+              </MetaItem>
               <MetaSep />
-              <MetaItem>{booking.delegates ?? 0} delegates</MetaItem>
+              <MetaItem icon={<Users size={16} strokeWidth={1.6} />}>{booking.delegates ?? 0} delegates</MetaItem>
             </>
           ) : (
             <>
-              <MetaItem>{booking.rooms ?? 0} rooms</MetaItem>
+              <MetaItem icon={<BedDouble size={16} strokeWidth={1.6} />}>{booking.rooms ?? 0} rooms</MetaItem>
               <MetaSep />
-              <MetaItem>{booking.guests ?? 0} guests</MetaItem>
+              <MetaItem icon={<Users size={16} strokeWidth={1.6} />}>{booking.guests ?? 0} guests</MetaItem>
             </>
           )}
         </div>
 
-        {/* 2/3/4 — current status, attention, next action */}
-        <div className="mt-4 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
-          <div className="min-w-0 flex-1">
-            {view.actionRequired && (
-              <p
-                className="mb-1 inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.16em]"
-                style={{ color: "#E2C66F" }}
-              >
-                <AlertCircle size={12} strokeWidth={2} />
-                Action required
-              </p>
-            )}
+        <div className="h-px w-full" style={{ backgroundColor: RULE }} />
+
+        {/* reference panel */}
+        <div
+          className="mt-2.5 grid grid-cols-1 rounded-[13px] sm:grid-cols-2"
+          style={{
+            background: "linear-gradient(180deg, rgba(16,26,36,0.42) 0%, rgba(16,26,36,0.28) 100%)",
+            border: "1px solid rgba(174,196,212,0.13)",
+            boxShadow:
+              "inset 0 2px 6px rgba(6,12,20,0.42), inset 0 -1px 0 rgba(214,232,246,0.045)",
+          }}
+        >
+          <div className="px-6 py-[9px]">
             <p
-              className="text-[15px] leading-tight"
+              className="text-[10.5px] font-medium uppercase tracking-[0.12em]"
+              style={{ color: "#BE9C4E" }}
+            >
+              Your reference
+            </p>
+            <p
+              className="mt-[3px] text-[16.5px] leading-[1.15]"
+              style={{ color: "#EFEDE7", fontWeight: 500, letterSpacing: "0.01em" }}
+            >
+              {booking.reference}
+            </p>
+          </div>
+          <div
+            className="px-6 py-[9px] sm:border-l"
+            style={{ borderColor: "rgba(190,205,215,0.20)" }}
+          >
+            <p
+              className="text-[10.5px] font-medium uppercase tracking-[0.12em]"
+              style={{ color: "#BE9C4E" }}
+            >
+              Hotel reference
+            </p>
+            <p
+              className="mt-[3px] text-[16.5px] leading-[1.15]"
               style={{
-                color: view.actionRequired ? "#E2C66F" : "#C5A24B",
-                fontWeight: 600,
-                letterSpacing: "0.005em",
+                color: booking.hotelReference ? "#EFEDE7" : "#A3B2BE",
+                fontWeight: 500,
+                letterSpacing: "0.01em",
               }}
             >
-              {view.title}
+              {booking.hotelReference ?? "Pending"}
             </p>
-            <p className="mt-1 text-[13px] font-light leading-snug" style={{ color: "#B4C1CB" }}>
-              {view.description}
-            </p>
-            {!view.actionRequired && (
-              <p
-                className="mt-1.5 inline-flex items-center gap-1.5 text-[11.5px]"
-                style={{ color: "#8FA0AC" }}
-              >
-                <Check size={12} strokeWidth={2} />
-                No action required
-              </p>
-            )}
           </div>
+        </div>
 
-          <Link
-            to={isRoomingCta ? "/rooming-list/$bookingId" : "/bookings/$bookingId"}
-            params={{ bookingId: booking.id }}
-            className="group/btn inline-flex shrink-0 items-center gap-2.5 rounded-[10px] px-5 py-[9px] text-[13.5px] transition-all duration-200 hover:-translate-y-px hover:border-[rgba(226,198,111,0.7)] hover:bg-[rgba(197,162,75,0.10)]"
+        {/* progress tracker */}
+        <div className="relative mt-3 grid grid-cols-4 gap-2">
+          <div
+            className="absolute left-[12.5%] right-[12.5%] top-[20px] h-px"
+            style={{ backgroundColor: "rgba(190,205,215,0.17)" }}
+            aria-hidden
+          />
+          <div
+            className="absolute left-[12.5%] top-[20px] h-px"
             style={{
-              color: view.actionRequired ? "#DCC177" : "#C5A24B",
-              border: `1px solid ${view.actionRequired ? "rgba(226,198,111,0.55)" : "rgba(169,134,50,0.45)"}`,
+              width: `${(active / 3) * 75}%`,
+              background:
+                "linear-gradient(90deg, rgba(199,163,74,0.75) 0%, rgba(199,163,74,0.35) 100%)",
+            }}
+            aria-hidden
+          />
+          {TRACK_STEPS.map((s, i) => {
+            const done = i <= active;
+            const current = i === active;
+            return (
+              <div key={s.key} className="relative flex flex-col items-center gap-[5px]">
+                <span
+                  className="relative grid h-[40px] w-[40px] place-items-center rounded-full"
+                  style={{
+                    background: current
+                      ? "linear-gradient(180deg, rgba(199,163,74,0.16) 0%, rgba(199,163,74,0.06) 100%)"
+                      : "linear-gradient(180deg, rgba(20,31,42,0.75) 0%, rgba(26,38,49,0.62) 100%)",
+                    border: `1px solid ${done ? "rgba(199,163,74,0.52)" : "rgba(190,205,215,0.22)"}`,
+                    color: done ? "#C9A659" : "#A9B7C2",
+                    boxShadow: current
+                      ? "0 0 18px 2px rgba(199,163,74,0.20), inset 0 1px 0 rgba(255,235,190,0.14)"
+                      : "inset 0 1px 0 rgba(214,232,246,0.05)",
+                  }}
+                >
+                  <s.icon size={17} strokeWidth={1.5} />
+                </span>
+                <span
+                  className="whitespace-pre-line text-center text-[11.5px] leading-[1.18]"
+                  style={{ color: current ? "#C4A257" : "#A7B4BE" }}
+                >
+                  {s.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-[11px] h-px w-full" style={{ backgroundColor: RULE_SOFT }} />
+
+        <div className="mt-[9px] flex flex-nowrap items-center justify-between gap-4">
+          <p
+            className="min-w-0 max-w-[520px] truncate text-[13.5px] font-light"
+            style={{ color: "#B4C1CB" }}
+          >
+            {message}
+          </p>
+          <Link
+            to="/bookings/$bookingId"
+            params={{ bookingId: booking.id }}
+            className="group/btn inline-flex shrink-0 items-center gap-3 rounded-[12px] px-7 py-2 text-[14.5px] transition-all duration-200 hover:-translate-y-px hover:border-[rgba(212,178,92,0.75)] hover:bg-[rgba(199,163,74,0.09)]"
+            style={{
+              color: "#CDAE5E",
+              border: "1px solid rgba(199,163,74,0.45)",
               background: "rgba(14,23,33,0.35)",
             }}
           >
-            {view.cta}
+            View booking
             <span
               aria-hidden
               className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1"
@@ -540,86 +511,10 @@ function BookingCard({ booking }: { booking: Booking }) {
             </span>
           </Link>
         </div>
-
-        {/* 5 — progress journey, quiet */}
-        <div className="relative mt-5 grid grid-cols-4 gap-2">
-          <div
-            className="absolute left-[12.5%] right-[12.5%] top-[7px] h-px"
-            style={{ backgroundColor: "rgba(190,205,215,0.13)" }}
-            aria-hidden
-          />
-          <div
-            className="absolute left-[12.5%] top-[7px] h-px"
-            style={{
-              width: `${(active / 3) * 75}%`,
-              background:
-                "linear-gradient(90deg, rgba(169,134,50,0.85) 0%, rgba(197,162,75,0.55) 100%)",
-            }}
-            aria-hidden
-          />
-          {TRACK_STEPS.map((s, i) => {
-            const done = i <= active;
-            const current = i === active;
-            return (
-              <div key={s.key} className="relative flex flex-col items-center gap-[7px]">
-                <span
-                  className="relative grid h-[14px] w-[14px] place-items-center rounded-full"
-                  style={{
-                    background: done
-                      ? "radial-gradient(circle, #E2C66F 0%, #A98632 75%)"
-                      : "rgba(28,40,52,0.9)",
-                    border: `1px solid ${done ? "rgba(226,198,111,0.55)" : "rgba(190,205,215,0.20)"}`,
-                    boxShadow: current ? "0 0 10px 1px rgba(197,162,75,0.35)" : "none",
-                  }}
-                />
-                <span
-                  className="whitespace-pre-line text-center text-[11px] leading-[1.2]"
-                  style={{
-                    color: current ? "#C4A257" : done ? "#9FADB7" : "#7E8C97",
-                    fontWeight: current ? 500 : 400,
-                  }}
-                >
-                  {s.label.replace("\n", " ")}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* 6 — compact reference strip */}
-        <div
-          className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-1.5 rounded-[10px] px-4 py-2"
-          style={{
-            background: "rgba(16,26,36,0.30)",
-            border: "1px solid rgba(174,196,212,0.09)",
-          }}
-        >
-          <span className="inline-flex items-center gap-2">
-            <span className="text-[11px]" style={{ color: "#8B98A2" }}>
-              Your reference
-            </span>
-            <span className="text-[13px]" style={{ color: "#E7E4DD", fontWeight: 500 }}>
-              {booking.reference}
-            </span>
-            <CopyReference value={booking.reference} />
-          </span>
-          <span className="inline-flex items-center gap-2">
-            <span className="text-[11px]" style={{ color: "#8B98A2" }}>
-              Hotel reference
-            </span>
-            <span
-              className="text-[13px]"
-              style={{ color: booking.hotelReference ? "#E7E4DD" : "#8B98A2", fontWeight: 500 }}
-            >
-              {booking.hotelReference ?? "Pending"}
-            </span>
-          </span>
-        </div>
       </div>
     </article>
   );
 }
-
 
 
 
@@ -1150,53 +1045,42 @@ function ManageBookings() {
               </div>
             </div>
 
-            {/* open statistics — no container, adaptive emphasis */}
+            {/* open statistics — no container */}
             <div className="mt-12 grid grid-cols-2 gap-y-8 sm:grid-cols-4">
               {[
-                { value: bookings.length, label: "Total Bookings", adaptive: false },
-                { value: needsAttention.length, label: "Needs Attention", adaptive: true },
-                { value: offersReady.length, label: "Offers Ready", adaptive: true },
-                { value: upcoming.length, label: "Upcoming Stays", adaptive: true },
-              ].map((s, i) => {
-                const lit = s.adaptive && s.value > 0;
-                return (
-                  <div
-                    key={s.label}
-                    className="min-w-0 px-2 text-center sm:px-6"
-                    style={
-                      i === 0
-                        ? undefined
-                        : {
-                            borderLeft: "1px solid rgba(199,163,74,0.30)",
-                          }
-                    }
+                { value: bookings.length, label: "Total Bookings" },
+                { value: needsAttention.length, label: "Needs Attention" },
+                { value: offersReady.length, label: "Offers Ready" },
+                { value: upcoming.length, label: "Upcoming Stays" },
+              ].map((s, i) => (
+                <div
+                  key={s.label}
+                  className="min-w-0 px-2 text-center sm:px-6"
+                  style={
+                    i === 0
+                      ? undefined
+                      : {
+                          borderLeft: "1px solid rgba(199,163,74,0.30)",
+                        }
+                  }
+                >
+                  <p
+                    className="text-[38px] leading-none"
+                    style={{
+                      color: TEXT,
+                      fontFamily: SERIF,
+                      fontWeight: 400,
+                      fontVariantNumeric: "lining-nums",
+                    }}
                   >
-                    <p
-                      className="text-[38px] leading-none"
-                      style={{
-                        color: lit ? "#E2C66F" : s.adaptive ? "#9CAAB4" : TEXT,
-                        fontFamily: SERIF,
-                        fontWeight: 400,
-                        fontVariantNumeric: "lining-nums",
-                        textShadow: lit ? "0 0 22px rgba(197,162,75,0.28)" : undefined,
-                      }}
-                    >
-                      {s.value}
-                    </p>
-                    <p
-                      className="mt-3 text-[14px]"
-                      style={{
-                        color: lit ? "#D8C489" : s.adaptive ? "#93A0AA" : TEXT_2,
-                        fontWeight: lit ? 500 : 400,
-                      }}
-                    >
-                      {s.label}
-                    </p>
-                  </div>
-                );
-              })}
+                    {s.value}
+                  </p>
+                  <p className="mt-3 text-[14px]" style={{ color: TEXT_2 }}>
+                    {s.label}
+                  </p>
+                </div>
+              ))}
             </div>
-
 
             {/* long metallic gold divider — centre-lit reflective gradient */}
             <div
