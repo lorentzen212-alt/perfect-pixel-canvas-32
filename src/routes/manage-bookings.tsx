@@ -90,6 +90,8 @@ const GOLD_SOFT = "#D0B05A";
 
 
 const SERIF = '"Cormorant Garamond", "EB Garamond", Georgia, serif';
+const SANS = 'Inter, "Helvetica Neue", Arial, sans-serif';
+
 
 /* ── small building blocks ───────────────────────────── */
 
@@ -1073,17 +1075,21 @@ function ManageBookings() {
                     className="text-[38px] leading-none"
                     style={{
                       color: TEXT,
-                      fontFamily: SERIF,
-                      fontWeight: 400,
-                      letterSpacing: "-0.01em",
+                      fontFamily: SANS,
+                      fontWeight: 300,
+                      letterSpacing: "0em",
                       fontVariantNumeric: "lining-nums",
                     }}
                   >
                     {s.value}
                   </p>
-                  <p className="mt-3 text-[14px]" style={{ color: TEXT_2 }}>
+                  <p
+                    className="mt-3 text-[14px]"
+                    style={{ color: TEXT_2, fontFamily: SANS, fontWeight: 400, letterSpacing: "0.01em" }}
+                  >
                     {s.label}
                   </p>
+
                 </div>
               ))}
             </div>
