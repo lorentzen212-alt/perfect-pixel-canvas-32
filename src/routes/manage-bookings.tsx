@@ -694,7 +694,7 @@ function SidebarContent({ active, roomingBookingId }: { active: string; roomingB
     <div
       className="flex h-full flex-col px-5 py-6"
       style={{
-        background: "#354451",
+        background: "#212F39",
         boxShadow: "inset -1px 0 0 rgba(255,255,255,0.04)",
       }}
     >
