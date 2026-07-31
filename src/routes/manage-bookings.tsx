@@ -5,8 +5,11 @@ import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking } from "@/lib/bookingsApi";
 import {
+  AlertCircle,
   Bell,
   BedDouble,
+  Copy,
+
   CalendarCheck,
   CalendarDays,
   Check,
@@ -257,19 +260,22 @@ function trackIndex(status: BookingStatus) {
   }
 }
 
-function MetaItem({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+function MetaItem({ icon, children }: { icon?: React.ReactNode; children: React.ReactNode }) {
   return (
     <span
-      className="inline-flex items-center gap-[9px] whitespace-nowrap text-[14px] font-light"
-      style={{ color: "#C6D0D8" }}
+      className="inline-flex items-center gap-[7px] whitespace-nowrap text-[13px] font-light"
+      style={{ color: "#B9C5CE" }}
     >
-      <span className="shrink-0" style={{ color: "#BE9C4E" }}>
-        {icon}
-      </span>
+      {icon && (
+        <span className="shrink-0" style={{ color: "#A98632" }}>
+          {icon}
+        </span>
+      )}
       {children}
     </span>
   );
 }
+
 
 const RULE = "rgba(190,205,215,0.18)";
 const RULE_SOFT = "rgba(190,205,215,0.12)";
