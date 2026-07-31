@@ -27,7 +27,7 @@ import {
   Utensils,
   X,
 } from "lucide-react";
-import { SERIF, SidebarContent, TopBarLight } from "@/components/DashboardChrome";
+import { SidebarContent, TopBarLight } from "@/components/DashboardChrome";
 import { FloatingPopover } from "@/components/FloatingPopover";
 
 import { type Booking } from "@/lib/bookings";
