@@ -1214,7 +1214,35 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
 
             {/* column headers */}
+            {/* ── decorative paper sheet + navy backing board (visual only) ── */}
+            <div className="hgb-doc-board">
+              <div className="hgb-doc-paper">
+                <span className="hgb-binder-clip" aria-hidden="true">
+                  <svg width="50" height="54" viewBox="0 0 50 54" fill="none">
+                    <defs>
+                      <linearGradient id="hgbClipBody" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#D1AC5A" />
+                        <stop offset="38%" stopColor="#B58A35" />
+                        <stop offset="100%" stopColor="#8C6928" />
+                      </linearGradient>
+                      <linearGradient id="hgbClipWire" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stopColor="#E0C283" />
+                        <stop offset="100%" stopColor="#8C6928" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M14 24 C14 10, 22 6, 25 6" stroke="url(#hgbClipWire)" strokeWidth="2" strokeLinecap="round" fill="none" />
+                    <path d="M36 24 C36 10, 28 6, 25 6" stroke="url(#hgbClipWire)" strokeWidth="2" strokeLinecap="round" fill="none" />
+                    <rect x="2" y="22" width="46" height="27" rx="4" fill="url(#hgbClipBody)" />
+                    <rect x="2.5" y="22.5" width="45" height="26" rx="3.5" stroke="rgba(60,42,10,0.55)" fill="none" />
+                    <rect x="5" y="24.5" width="40" height="2" rx="1" fill="rgba(255,241,208,0.5)" />
+                    <rect x="5" y="45" width="40" height="2" rx="1" fill="rgba(50,35,8,0.35)" />
+                  </svg>
+                </span>
+                <span className="hgb-paper-fold" aria-hidden="true" />
+
+            {/* column headers */}
             <div className="hidden lg:grid lg:[grid-template-columns:24%_36%_22%_14%_4%] px-0 pb-[7px]">
+
               {[
                 { label: "Allocation", cls: "pl-5 pr-2" },
                 { label: "Guests", cls: "px-4" },
@@ -1311,6 +1339,10 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                   </p>
                 )}
               </div>
+              </div>
+            </div>
+
+
 
             {/* ── archived: cancelled allocations (collapsed by default) ── */}
             {view !== "cancelled" && cancelledAllocations.length > 0 && (
