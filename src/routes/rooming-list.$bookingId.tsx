@@ -185,6 +185,7 @@ const CTRL_BG = "#F5F3EE";
 const CTRL_BORDER = "#E8E4DD";
 const GUEST_BG = "#FFFFFF";
 const GUEST_BORDER = "#E8E4DD";
+const SANS_UI = '"Karla", "Inter", system-ui, sans-serif';
 const GOLD_EDGE =
   "linear-gradient(180deg,#C5A059 0%,#C5A059 100%)";
 const GOLD_METAL_TEXT: React.CSSProperties = {
@@ -1911,12 +1912,12 @@ function AllocationRow({
           type="button"
           onClick={() => onSelectRow?.()}
           title={rowSelected ? "Deselect allocation" : "Select allocation"}
-          className="w-[50px] shrink-0 text-left text-[44px] leading-none tracking-[-0.02em] outline-none"
-          style={
-            cancelled
-              ? { color: CANCEL_TEXT, fontFamily: SERIF, fontWeight: 500 }
-              : { ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }
-          }
+          className="w-[54px] shrink-0 text-left text-[46px] leading-none tracking-[-0.01em] outline-none"
+          style={{
+            color: cancelled ? CANCEL_TEXT : "#0D0D0D",
+            fontFamily: SERIF,
+            fontWeight: 700,
+          }}
         >
           {String(allocation.index).padStart(2, "0")}
         </button>
