@@ -1150,42 +1150,53 @@ function ManageBookings() {
               </div>
             </div>
 
-            {/* open statistics — no container */}
+            {/* open statistics — no container, adaptive emphasis */}
             <div className="mt-12 grid grid-cols-2 gap-y-8 sm:grid-cols-4">
               {[
-                { value: bookings.length, label: "Total Bookings" },
-                { value: needsAttention.length, label: "Needs Attention" },
-                { value: offersReady.length, label: "Offers Ready" },
-                { value: upcoming.length, label: "Upcoming Stays" },
-              ].map((s, i) => (
-                <div
-                  key={s.label}
-                  className="min-w-0 px-2 text-center sm:px-6"
-                  style={
-                    i === 0
-                      ? undefined
-                      : {
-                          borderLeft: "1px solid rgba(199,163,74,0.30)",
-                        }
-                  }
-                >
-                  <p
-                    className="text-[38px] leading-none"
-                    style={{
-                      color: TEXT,
-                      fontFamily: SERIF,
-                      fontWeight: 400,
-                      fontVariantNumeric: "lining-nums",
-                    }}
+                { value: bookings.length, label: "Total Bookings", adaptive: false },
+                { value: needsAttention.length, label: "Needs Attention", adaptive: true },
+                { value: offersReady.length, label: "Offers Ready", adaptive: true },
+                { value: upcoming.length, label: "Upcoming Stays", adaptive: true },
+              ].map((s, i) => {
+                const lit = s.adaptive && s.value > 0;
+                return (
+                  <div
+                    key={s.label}
+                    className="min-w-0 px-2 text-center sm:px-6"
+                    style={
+                      i === 0
+                        ? undefined
+                        : {
+                            borderLeft: "1px solid rgba(199,163,74,0.30)",
+                          }
+                    }
                   >
-                    {s.value}
-                  </p>
-                  <p className="mt-3 text-[14px]" style={{ color: TEXT_2 }}>
-                    {s.label}
-                  </p>
-                </div>
-              ))}
+                    <p
+                      className="text-[38px] leading-none"
+                      style={{
+                        color: lit ? "#E2C66F" : s.adaptive ? "#9CAAB4" : TEXT,
+                        fontFamily: SERIF,
+                        fontWeight: 400,
+                        fontVariantNumeric: "lining-nums",
+                        textShadow: lit ? "0 0 22px rgba(197,162,75,0.28)" : undefined,
+                      }}
+                    >
+                      {s.value}
+                    </p>
+                    <p
+                      className="mt-3 text-[14px]"
+                      style={{
+                        color: lit ? "#D8C characters" : s.adaptive ? "#93A0AA" : TEXT_2,
+                        fontWeight: lit ? 500 : 400,
+                      }}
+                    >
+                      {s.label}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
+
 
             {/* long metallic gold divider — centre-lit reflective gradient */}
             <div
