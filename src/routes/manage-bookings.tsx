@@ -1186,7 +1186,7 @@ function ManageBookings() {
                     <p
                       className="mt-3 text-[14px]"
                       style={{
-                        color: lit ? "#D8C characters" : s.adaptive ? "#93A0AA" : TEXT_2,
+                        color: lit ? "#D8C489" : s.adaptive ? "#93A0AA" : TEXT_2,
                         fontWeight: lit ? 500 : 400,
                       }}
                     >
