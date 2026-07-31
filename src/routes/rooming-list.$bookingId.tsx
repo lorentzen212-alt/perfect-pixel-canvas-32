@@ -164,29 +164,29 @@ const FIELD_PLACEHOLDER = "#88A0B6"; // muted blue-grey placeholder
 const FIELD_LABEL = "#7C93A8"; // muted blue-grey label
 
 /* dark matte navy room-allocation card tokens — deep muted Atlantic blue */
-const CARD_NAVY = "linear-gradient(180deg, #1B4162 0%, #163653 100%)";
-const CARD_NAVY_HOVER = "linear-gradient(180deg, #214A6C 0%, #1A3D5A 100%)";
-const RT = "#F7F7F5"; // primary — soft off-white (matches TEXT)
-const RT_2 = "#D9DDE0"; // secondary — light neutral grey
-const RT_3 = "#B8BDC2"; // micro — muted neutral grey
+const CARD_NAVY = "linear-gradient(180deg, #FCFBF9 0%, #FAF8F4 100%)";
+const CARD_NAVY_HOVER = "linear-gradient(180deg, #FFFFFF 0%, #FCFBF9 100%)";
+const RT = "#0D0D0D"; // primary ink
+const RT_2 = "#2D2D2D"; // secondary ink
+const RT_3 = "rgba(45,45,45,0.62)"; // micro ink
 const R_BORDER = "rgba(255,255,255,0.09)";
-const R_GREEN = "#74D97C";
-const R_AMBER = "#E7B94F";
+const R_GREEN = "#0F6B4F";
+const R_AMBER = "#9A6A12";
 /* cancelled allocation palette — muted, never a bright warning red */
-const CANCEL_ACCENT = "#B86565";
-const CANCEL_TEXT = "#D68A8A";
+const CANCEL_ACCENT = "#A85B5B";
+const CANCEL_TEXT = "#8E4A4A";
 const CANCEL_EDGE =
-  "linear-gradient(180deg, #8F4A4A 0%, #B86565 32%, #D68A8A 58%, #A85B5B 100%)";
+  "linear-gradient(180deg, #C39A9A 0%, #A85B5B 100%)";
 
 /* premium room-card sub-surfaces — slightly lighter slate blue */
 
-const CTRL_BG = "#244E70";
+const CTRL_BG = "#F5F3EE";
 
-const CTRL_BORDER = "rgba(255,255,255,0.11)";
-const GUEST_BG = "#214A6C";
-const GUEST_BORDER = "rgba(255,255,255,0.10)";
+const CTRL_BORDER = "#E8E4DD";
+const GUEST_BG = "#FFFFFF";
+const GUEST_BORDER = "#E8E4DD";
 const GOLD_EDGE =
-  "linear-gradient(180deg,#A96F08 0%,#C99322 18%,#FFE9A6 42%,#E7B94F 58%,#A96F08 100%)";
+  "linear-gradient(180deg,#C5A059 0%,#C5A059 100%)";
 const GOLD_METAL_TEXT: React.CSSProperties = {
   backgroundImage: "linear-gradient(155deg,#A96F08 0%,#E7B94F 36%,#FFE9A6 54%,#C99322 100%)",
   WebkitBackgroundClip: "text",
@@ -680,17 +680,17 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-      .hgb-row{background:${CARD_NAVY} !important;background-color:#173A5A !important;opacity:1 !important;transition:transform 170ms ease,box-shadow 170ms ease,background 170ms ease,border-color 170ms ease}
-      .hgb-row[data-selected="true"]{background:linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY} !important}
-      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,35,63,0.16) !important}
+      .hgb-row{background:${CARD_NAVY} !important;background-color:#FCFBF9 !important;opacity:1 !important;transition:transform 200ms ease,box-shadow 200ms ease,background 300ms ease,border-color 300ms ease}
+      .hgb-row[data-selected="true"]{background:linear-gradient(0deg, rgba(197,160,89,0.07), rgba(197,160,89,0.07)), ${CARD_NAVY} !important}
+      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;border-color:#C5A059 !important;box-shadow:0 4px 14px rgba(45,45,45,0.07) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
-      .hgb-cell{border-top:1px solid rgba(255,255,255,0.05)}
-      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(173,192,205,0.14)}}
-      .hgb-inline::placeholder{color:#9FB0BE}
-      .hgb-inline:focus{border-color:rgba(231,185,79,0.75) !important}
+      .hgb-cell{border-top:1px solid rgba(232,228,221,0.8)}
+      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(232,228,221,0.9)}}
+      .hgb-inline::placeholder{color:rgba(45,45,45,0.42)}
+      .hgb-inline:focus{border-color:#C5A059 !important}
       .hgb-search::placeholder{color:#B8BDC2}
       .hgb-guest{transition:background-color 150ms ease,border-color 150ms ease}
-      .hgb-guest:not([data-guest-selected="true"]):hover{background-color:rgba(255,255,255,0.06) !important;border-color:rgba(230,196,122,0.40) !important}
+      .hgb-guest:not([data-guest-selected="true"]):hover{background-color:#F5F3EE !important;border-color:#C5A059 !important}
       .hgb-guest[data-guest-selected="true"] .hgb-edit{opacity:0.85}
       .hgb-guest .hgb-edit{opacity:0;transition:opacity 150ms ease}
       .hgb-guest:hover .hgb-edit{opacity:0.75}`}</style>
@@ -3758,7 +3758,7 @@ function UpgradeIndicator({
       )}
 
       {request.status === "price_offered" && (
-        <p className="text-[10.5px] leading-snug" style={{ color: RT_3 }}>
+        <p className="text-[10.5px] leading-snug" style={{ color: "#B8BDC2" }}>
           Your concierge will share the upgrade price for approval.
         </p>
       )}
@@ -3777,7 +3777,7 @@ function UpgradeIndicator({
         </button>
       )}
       {applied && (
-        <p className="text-[10.5px]" style={{ color: RT_3 }}>
+        <p className="text-[10.5px]" style={{ color: "#B8BDC2" }}>
           Booked as {categoryLabel(bookedCategory)}
         </p>
       )}
