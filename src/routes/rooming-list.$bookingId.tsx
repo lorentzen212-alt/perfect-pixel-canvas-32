@@ -1842,8 +1842,9 @@ function AllocationRow({
     <div
       id={`alloc-${allocation.id}`}
       data-selected={selected ? "true" : "false"}
-      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:24%_36%_22%_14%_4%]"
+      className="hgb-row relative grid overflow-hidden rounded-[3px] lg:[grid-template-columns:24%_36%_22%_14%_4%]"
       style={{
+        fontFamily: SANS_UI,
         backgroundColor: cancelled ? "#F7F2F0" : "#FCFBF9",
         backgroundImage: cancelled
           ? `linear-gradient(0deg, rgba(168,91,91,0.06), rgba(168,91,91,0.06)), ${CARD_NAVY}`
@@ -1853,9 +1854,9 @@ function AllocationRow({
         border: cancelled
           ? "1px solid rgba(168,91,91,0.35)"
           : selected || rowSelected
-            ? "1.5px solid #C5A059"
+            ? "1px solid #C5A059"
             : isActive
-              ? "1.5px solid #C5A059"
+              ? "1px solid #C5A059"
               : "1px solid #E8E4DD",
         boxShadow: isActive
           ? "0 6px 18px rgba(45,45,45,0.10)"
@@ -1864,15 +1865,19 @@ function AllocationRow({
       }}
     >
 
-      {/* metallic gold left edge */}
+      {/* stationery gold left edge */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 w-[5px]"
+        className="pointer-events-none absolute inset-y-0 left-0 w-[3px] transition-colors duration-300"
         style={{
-          backgroundImage: cancelled ? CANCEL_EDGE : GOLD_EDGE,
-          boxShadow: cancelled ? "none" : "none",
+          backgroundImage: cancelled
+            ? CANCEL_EDGE
+            : status === "complete" || isActive || selected || rowSelected
+              ? GOLD_EDGE
+              : "linear-gradient(180deg,#E8E4DD 0%,#E8E4DD 100%)",
         }}
       />
+
 
       {/* ── ALLOCATION ── */}
       <div className="flex items-center gap-2 py-[19px] pl-5 pr-2">
