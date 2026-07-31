@@ -975,24 +975,17 @@ function ManageBookings() {
           style={{ backgroundColor: BG_ALT }}
         >
           {/* atmospheric mountain backdrop — fades into the page */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px]" aria-hidden>
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[560px]" aria-hidden>
             <img
               src={mountains}
               alt=""
               className="h-full w-full object-cover"
-              style={{ filter: "saturate(0.72) brightness(0.6) contrast(1.06)" }}
+              style={{ filter: "saturate(0.8) brightness(0.7)" }}
             />
             <div
               className="absolute inset-0"
               style={{
-                background: `linear-gradient(180deg, rgba(11,23,33,0.72) 0%, rgba(13,26,37,0.80) 40%, rgba(24,38,48,0.94) 76%, ${BG_ALT} 100%)`,
-              }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(120% 90% at 12% 30%, rgba(10,20,30,0.55) 0%, rgba(10,20,30,0) 60%)",
+                background: `linear-gradient(180deg, rgba(30,44,54,0.55) 0%, rgba(30,44,54,0.72) 42%, rgba(34,48,58,0.94) 78%, ${BG_ALT} 100%)`,
               }}
             />
           </div>
@@ -1002,20 +995,12 @@ function ManageBookings() {
             <div className="flex flex-wrap items-start justify-between gap-6">
               <div className="min-w-0">
                 <h1
-                  className="text-[38px] leading-[1.04] sm:text-[49px]"
-                  style={{
-                    color: "#F5F2EC",
-                    fontFamily: SERIF,
-                    fontWeight: 400,
-                    letterSpacing: "0.005em",
-                  }}
+                  className="text-[42px] leading-[1.05] sm:text-[52px]"
+                  style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
                 >
                   My Bookings
                 </h1>
-                <p
-                  className="mt-2.5 text-[16px]"
-                  style={{ color: "rgba(214,222,229,0.80)" }}
-                >
+                <p className="mt-3 text-[18px]" style={{ color: TEXT_2 }}>
                   All your group stays and events in one place.
                 </p>
               </div>
@@ -1023,26 +1008,26 @@ function ManageBookings() {
               <div className="hidden shrink-0 items-center gap-5 lg:flex">
                 <button
                   type="button"
-                  className="inline-flex items-center gap-2.5 rounded-[11px] px-5 py-[11px] text-[14.5px]"
+                  className="inline-flex items-center gap-2.5 rounded-[11px] px-5 py-3 text-[15px]"
                   style={{
-                    backgroundColor: "rgba(9,20,29,0.38)",
-                    border: "1px solid rgba(197,162,75,0.45)",
-                    color: "#C9A85C",
+                    backgroundColor: "rgba(12,30,42,0.45)",
+                    border: `1px solid ${GOLD_DEEP}`,
+                    color: GOLD,
                   }}
                 >
-                  <Plus size={16} style={{ color: "#C9A85C" }} />
+                  <Plus size={17} />
                   New Booking
                 </button>
 
                 <button
                   type="button"
                   aria-label="Notifications"
-                  className="relative grid h-9 w-9 place-items-center rounded-md"
-                  style={{ color: "#E2DAC8" }}
+                  className="relative grid h-10 w-10 place-items-center rounded-md"
+                  style={{ color: "#EADFC6" }}
                 >
-                  <Bell size={19} />
+                  <Bell size={20} />
                   <span
-                    className="absolute -right-1 -top-1 grid h-[17px] min-w-[17px] place-items-center rounded-full px-1 text-[10px] font-semibold"
+                    className="absolute -right-1 -top-1 grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[10.5px] font-semibold"
                     style={{ backgroundColor: GOLD, color: "#1B2A33" }}
                   >
                     2
@@ -1059,41 +1044,29 @@ function ManageBookings() {
               </div>
             </div>
 
-            {/* open statistics — floating directly on the hero */}
-            <div className="mt-12 grid grid-cols-2 gap-y-9 sm:mt-14 sm:grid-cols-4">
+            {/* open statistics — no container */}
+            <div className="mt-12 grid grid-cols-2 gap-y-8 sm:grid-cols-4">
               {[
                 { value: bookings.length, label: "Total Bookings" },
                 { value: needsAttention.length, label: "Needs Attention" },
                 { value: offersReady.length, label: "Offers Ready" },
                 { value: upcoming.length, label: "Upcoming Stays" },
               ].map((s, i) => (
-                <div key={s.label} className="relative min-w-0 px-2 text-center sm:px-10">
-                  {i !== 0 && (
-                    <>
-                      <span
-                        className="pointer-events-none absolute left-0 top-1/2 hidden h-[60px] w-px -translate-y-1/2 sm:block"
-                        aria-hidden
-                        style={{
-                          background:
-                            "linear-gradient(180deg, rgba(197,162,75,0) 0%, rgba(197,162,75,0.30) 26%, rgba(197,162,75,0.34) 50%, rgba(197,162,75,0.30) 74%, rgba(197,162,75,0) 100%)",
-                        }}
-                      />
-                      {/* tiny reflected-light highlight at the exact centre */}
-                      <span
-                        className="pointer-events-none absolute left-0 top-1/2 hidden h-[3px] w-[3px] -translate-x-[1px] -translate-y-1/2 rounded-full sm:block"
-                        aria-hidden
-                        style={{
-                          backgroundColor: "rgba(240,214,150,0.9)",
-                          boxShadow:
-                            "0 0 7px 2px rgba(232,196,120,0.35), 0 0 3px 1px rgba(245,224,168,0.45)",
-                        }}
-                      />
-                    </>
-                  )}
+                <div
+                  key={s.label}
+                  className="min-w-0 px-2 text-center sm:px-6"
+                  style={
+                    i === 0
+                      ? undefined
+                      : {
+                          borderLeft: "1px solid rgba(199,163,74,0.30)",
+                        }
+                  }
+                >
                   <p
-                    className="text-[36px] leading-none sm:text-[41px]"
+                    className="text-[38px] leading-none"
                     style={{
-                      color: "#F5F2EC",
+                      color: TEXT,
                       fontFamily: SERIF,
                       fontWeight: 400,
                       fontVariantNumeric: "lining-nums",
@@ -1101,37 +1074,23 @@ function ManageBookings() {
                   >
                     {s.value}
                   </p>
-                  <p
-                    className="mt-3 text-[13.5px]"
-                    style={{ color: "rgba(210,219,226,0.76)" }}
-                  >
+                  <p className="mt-3 text-[14px]" style={{ color: TEXT_2 }}>
                     {s.label}
                   </p>
                 </div>
               ))}
             </div>
 
-            {/* subtle gold divider with a warm centre reflection */}
-            <div className="relative mt-10 h-px w-full" aria-hidden>
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(90deg, rgba(197,162,75,0) 0%, rgba(197,162,75,0.30) 8%, rgba(197,162,75,0.30) 34%, rgba(226,196,124,0.55) 46%, rgba(246,226,172,0.95) 50%, rgba(226,196,124,0.55) 54%, rgba(197,162,75,0.30) 66%, rgba(197,162,75,0.30) 92%, rgba(197,162,75,0) 100%)",
-                }}
-              />
-              <div
-                className="absolute left-1/2 top-1/2 h-[5px] w-[30%] -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at center, rgba(240,214,150,0.34) 0%, rgba(232,203,132,0.12) 42%, rgba(232,203,132,0) 100%)",
-                  filter: "blur(2px)",
-                }}
-              />
-            </div>
+            {/* long gold divider */}
+            <div
+              className="mt-10 h-px w-full"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(199,163,74,0) 0%, rgba(199,163,74,0.45) 8%, rgba(199,163,74,0.45) 92%, rgba(199,163,74,0) 100%)",
+              }}
+              aria-hidden
+            />
           </section>
-
-
 
 
           {!isProfileComplete(profile) && (
@@ -1178,7 +1137,7 @@ function ManageBookings() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search bookings..."
                 aria-label="Search bookings by name, ID, destination or hotel"
-                className="w-full rounded-[11px] py-[13px] pl-12 pr-4 text-[15px] outline-none placeholder:text-[#8C9AA5]"
+                className="w-full rounded-[13px] py-[14px] pl-12 pr-4 text-[15px] outline-none placeholder:text-[#8C9AA5]"
                 style={{
                   backgroundColor: "rgba(18,32,42,0.55)",
                   border: "1px solid rgba(126,152,174,0.20)",
@@ -1213,7 +1172,7 @@ function ManageBookings() {
                     aria-label={label}
                     aria-pressed={on}
                     onClick={() => setView(key)}
-                    className="grid h-[48px] w-[54px] place-items-center rounded-[11px] transition-colors"
+                    className="grid h-[50px] w-[56px] place-items-center rounded-[13px] transition-colors"
                     style={{
                       background: on
                         ? "linear-gradient(180deg, rgba(120,90,30,0.30) 0%, rgba(150,113,36,0.22) 100%)"
