@@ -185,7 +185,8 @@ const CTRL_BG = "#F5F3EE";
 const CTRL_BORDER = "#E8E4DD";
 const GUEST_BG = "#FFFFFF";
 const GUEST_BORDER = "#E8E4DD";
-const SANS_UI = '"Karla", "Inter", system-ui, sans-serif';
+const SANS_UI = '"IBM Plex Sans", "Inter", system-ui, sans-serif';
+const SERIF = '"Libre Baskerville", Georgia, serif';
 const GOLD_EDGE =
   "linear-gradient(180deg,#C5A059 0%,#C5A059 100%)";
 const GOLD_METAL_TEXT: React.CSSProperties = {
