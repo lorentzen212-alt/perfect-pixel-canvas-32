@@ -694,7 +694,8 @@ function SidebarContent({ active, roomingBookingId }: { active: string; roomingB
     <div
       className="flex h-full flex-col px-5 py-6"
       style={{
-        background: "linear-gradient(180deg, #0D1720 0%, #0B141C 55%, #091219 100%)",
+        background: "#354451",
+        boxShadow: "inset -1px 0 0 rgba(255,255,255,0.04)",
       }}
     >
       <Link to="/" className="block">
