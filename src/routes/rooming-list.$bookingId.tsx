@@ -164,29 +164,30 @@ const FIELD_PLACEHOLDER = "#88A0B6"; // muted blue-grey placeholder
 const FIELD_LABEL = "#7C93A8"; // muted blue-grey label
 
 /* dark matte navy room-allocation card tokens — deep muted Atlantic blue */
-const CARD_NAVY = "linear-gradient(180deg, #1B4162 0%, #163653 100%)";
-const CARD_NAVY_HOVER = "linear-gradient(180deg, #214A6C 0%, #1A3D5A 100%)";
-const RT = "#F7F7F5"; // primary — soft off-white (matches TEXT)
-const RT_2 = "#D9DDE0"; // secondary — light neutral grey
-const RT_3 = "#B8BDC2"; // micro — muted neutral grey
+const CARD_NAVY = "linear-gradient(180deg, #FCFBF9 0%, #FAF8F4 100%)";
+const CARD_NAVY_HOVER = "linear-gradient(180deg, #FFFFFF 0%, #FCFBF9 100%)";
+const RT = "#0D0D0D"; // primary ink
+const RT_2 = "#2D2D2D"; // secondary ink
+const RT_3 = "rgba(45,45,45,0.62)"; // micro ink
 const R_BORDER = "rgba(255,255,255,0.09)";
-const R_GREEN = "#74D97C";
-const R_AMBER = "#E7B94F";
+const R_GREEN = "#0F6B4F";
+const R_AMBER = "#9A6A12";
 /* cancelled allocation palette — muted, never a bright warning red */
-const CANCEL_ACCENT = "#B86565";
-const CANCEL_TEXT = "#D68A8A";
+const CANCEL_ACCENT = "#A85B5B";
+const CANCEL_TEXT = "#8E4A4A";
 const CANCEL_EDGE =
-  "linear-gradient(180deg, #8F4A4A 0%, #B86565 32%, #D68A8A 58%, #A85B5B 100%)";
+  "linear-gradient(180deg, #C39A9A 0%, #A85B5B 100%)";
 
 /* premium room-card sub-surfaces — slightly lighter slate blue */
 
-const CTRL_BG = "#244E70";
+const CTRL_BG = "#F5F3EE";
 
-const CTRL_BORDER = "rgba(255,255,255,0.11)";
-const GUEST_BG = "#214A6C";
-const GUEST_BORDER = "rgba(255,255,255,0.10)";
+const CTRL_BORDER = "#E8E4DD";
+const GUEST_BG = "#FFFFFF";
+const GUEST_BORDER = "#E8E4DD";
+const SANS_UI = '"Karla", "Inter", system-ui, sans-serif';
 const GOLD_EDGE =
-  "linear-gradient(180deg,#A96F08 0%,#C99322 18%,#FFE9A6 42%,#E7B94F 58%,#A96F08 100%)";
+  "linear-gradient(180deg,#C5A059 0%,#C5A059 100%)";
 const GOLD_METAL_TEXT: React.CSSProperties = {
   backgroundImage: "linear-gradient(155deg,#A96F08 0%,#E7B94F 36%,#FFE9A6 54%,#C99322 100%)",
   WebkitBackgroundClip: "text",
@@ -680,17 +681,17 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
     >
       <style>{`@keyframes hgbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
       @keyframes hgbSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-      .hgb-row{background:${CARD_NAVY} !important;background-color:#173A5A !important;opacity:1 !important;transition:transform 170ms ease,box-shadow 170ms ease,background 170ms ease,border-color 170ms ease}
-      .hgb-row[data-selected="true"]{background:linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY} !important}
-      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,35,63,0.16) !important}
+      .hgb-row{background:${CARD_NAVY} !important;background-color:#FCFBF9 !important;opacity:1 !important;transition:transform 200ms ease,box-shadow 200ms ease,background 300ms ease,border-color 300ms ease}
+      .hgb-row[data-selected="true"]{background:linear-gradient(0deg, rgba(197,160,89,0.07), rgba(197,160,89,0.07)), ${CARD_NAVY} !important}
+      .hgb-row:hover{background:${CARD_NAVY_HOVER} !important;border-color:#C5A059 !important;box-shadow:0 4px 14px rgba(45,45,45,0.07) !important}
       .hgb-row:hover .hgb-menu,.hgb-row:hover .hgb-req{opacity:1}
-      .hgb-cell{border-top:1px solid rgba(255,255,255,0.05)}
-      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(173,192,205,0.14)}}
-      .hgb-inline::placeholder{color:#9FB0BE}
-      .hgb-inline:focus{border-color:rgba(231,185,79,0.75) !important}
+      .hgb-cell{border-top:1px solid rgba(232,228,221,0.8)}
+      @media(min-width:1024px){.hgb-cell{border-top:none;border-left:1px solid rgba(232,228,221,0.9)}}
+      .hgb-inline::placeholder{color:rgba(45,45,45,0.42)}
+      .hgb-inline:focus{border-color:#C5A059 !important}
       .hgb-search::placeholder{color:#B8BDC2}
       .hgb-guest{transition:background-color 150ms ease,border-color 150ms ease}
-      .hgb-guest:not([data-guest-selected="true"]):hover{background-color:rgba(255,255,255,0.06) !important;border-color:rgba(230,196,122,0.40) !important}
+      .hgb-guest:not([data-guest-selected="true"]):hover{background-color:#F5F3EE !important;border-color:#C5A059 !important}
       .hgb-guest[data-guest-selected="true"] .hgb-edit{opacity:0.85}
       .hgb-guest .hgb-edit{opacity:0;transition:opacity 150ms ease}
       .hgb-guest:hover .hgb-edit{opacity:0.75}`}</style>
@@ -1252,7 +1253,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
                 <span
                   key={h.label}
                   className={`${h.cls} text-[12px] font-semibold uppercase leading-[15px] tracking-[0.16em]`}
-                  style={{ color: "#5A7286" }}
+                  style={{ color: "rgba(45,45,45,0.55)", fontFamily: SANS_UI }}
                 >
                   {h.label}
                 </span>
@@ -1842,37 +1843,42 @@ function AllocationRow({
     <div
       id={`alloc-${allocation.id}`}
       data-selected={selected ? "true" : "false"}
-      className="hgb-row relative grid overflow-hidden rounded-[15px] lg:[grid-template-columns:24%_36%_22%_14%_4%]"
+      className="hgb-row relative grid overflow-hidden rounded-[3px] lg:[grid-template-columns:24%_36%_22%_14%_4%]"
       style={{
-        backgroundColor: cancelled ? "#1E3348" : "#173A5A",
+        fontFamily: SANS_UI,
+        backgroundColor: cancelled ? "#F7F2F0" : "#FCFBF9",
         backgroundImage: cancelled
-          ? `linear-gradient(0deg, rgba(184,101,101,0.10), rgba(184,101,101,0.10)), ${CARD_NAVY}`
+          ? `linear-gradient(0deg, rgba(168,91,91,0.06), rgba(168,91,91,0.06)), ${CARD_NAVY}`
           : selected
-            ? `linear-gradient(0deg, rgba(231,185,79,0.07), rgba(231,185,79,0.07)), ${CARD_NAVY}`
+            ? `linear-gradient(0deg, rgba(197,160,89,0.07), rgba(197,160,89,0.07)), ${CARD_NAVY}`
             : CARD_NAVY,
         border: cancelled
-          ? "1px solid rgba(184,101,101,0.30)"
+          ? "1px solid rgba(168,91,91,0.35)"
           : selected || rowSelected
-            ? "1.5px solid rgba(231,185,79,0.62)"
+            ? "1px solid #C5A059"
             : isActive
-              ? "1.5px solid #E7B94F"
-              : "1px solid rgba(255,255,255,0.07)",
+              ? "1px solid #C5A059"
+              : "1px solid #E8E4DD",
         boxShadow: isActive
-          ? "0 10px 26px rgba(10,26,46,0.26)"
-          : "0 6px 18px rgba(10,26,46,0.18)",
+          ? "0 6px 18px rgba(45,45,45,0.10)"
+          : "0 1px 3px rgba(45,45,45,0.06)",
         opacity: cancelled ? 0.88 : upgradeMode && !selectable && !selected ? 0.78 : 1,
       }}
     >
 
-      {/* metallic gold left edge */}
+      {/* stationery gold left edge */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 w-[5px]"
+        className="pointer-events-none absolute inset-y-0 left-0 w-[3px] transition-colors duration-300"
         style={{
-          backgroundImage: cancelled ? CANCEL_EDGE : GOLD_EDGE,
-          boxShadow: cancelled ? "1px 0 6px rgba(184,101,101,0.20)" : "1px 0 6px rgba(231,185,79,0.18)",
+          backgroundImage: cancelled
+            ? CANCEL_EDGE
+            : status === "complete" || isActive || selected || rowSelected
+              ? GOLD_EDGE
+              : "linear-gradient(180deg,#E8E4DD 0%,#E8E4DD 100%)",
         }}
       />
+
 
       {/* ── ALLOCATION ── */}
       <div className="flex items-center gap-2 py-[19px] pl-5 pr-2">
@@ -1906,24 +1912,30 @@ function AllocationRow({
           type="button"
           onClick={() => onSelectRow?.()}
           title={rowSelected ? "Deselect allocation" : "Select allocation"}
-          className="w-[50px] shrink-0 text-left text-[44px] leading-none tracking-[-0.02em] outline-none"
-          style={
-            cancelled
-              ? { color: CANCEL_TEXT, fontFamily: SERIF, fontWeight: 500 }
-              : { ...GOLD_METAL_TEXT, fontFamily: SERIF, fontWeight: 500 }
-          }
+          className="w-[54px] shrink-0 text-left text-[46px] leading-none tracking-[-0.01em] outline-none"
+          style={{
+            color: cancelled ? CANCEL_TEXT : "#0D0D0D",
+            fontFamily: SERIF,
+            fontWeight: 700,
+          }}
         >
           {String(allocation.index).padStart(2, "0")}
         </button>
 
 
         <div className="min-w-0 flex-1">
+          <span
+            className="mb-[5px] block text-[9.5px] font-bold uppercase tracking-[0.18em]"
+            style={{ color: "rgba(45,45,45,0.55)" }}
+          >
+            Room type
+          </span>
           <div
-            className="relative w-full max-w-[172px] rounded-[11px] px-3 py-2.5"
+            className="relative w-full max-w-[172px] rounded-[4px] px-3 py-2.5"
             style={{
               backgroundColor: CTRL_BG,
               border: `1px solid ${CTRL_BORDER}`,
-              boxShadow: "0 2px 8px rgba(10,26,46,0.20)",
+              boxShadow: "0 1px 2px rgba(45,45,45,0.04)",
             }}
           >
             <button
@@ -1934,7 +1946,7 @@ function AllocationRow({
               className="flex w-full items-center gap-2 text-[13.5px]"
               style={{ color: RT }}
             >
-              <Bed size={15} className="shrink-0" style={{ color: "rgba(230,196,122,0.9)" }} />
+              <Bed size={15} className="shrink-0" style={{ color: "#C5A059" }} />
               <span className="min-w-0 flex-1 truncate text-left">{labelOf(allocation.type)}</span>
               {!readOnly && <ChevronDown size={14} className="shrink-0" style={{ color: RT_3 }} />}
             </button>
@@ -1942,9 +1954,9 @@ function AllocationRow({
               <span
                 className="inline-flex items-center rounded-full px-2.5 py-[3px] text-[9.5px] uppercase tracking-[0.18em]"
                 style={{
-                  color: "#E6C47A",
-                  backgroundColor: "rgba(231,185,79,0.06)",
-                  border: "1px solid rgba(231,185,79,0.42)",
+                  color: "#8A6D2F",
+                  backgroundColor: "rgba(197,160,89,0.08)",
+                  border: "1px solid rgba(197,160,89,0.45)",
                 }}
               >
                 {categoryLabel(allocation.bookedRoomCategory)}
@@ -2034,7 +2046,7 @@ function AllocationRow({
                     onKeyUpCapture={(e) => e.stopPropagation()}
                     onKeyPressCapture={(e) => e.stopPropagation()}
                     placeholder="Enter guest name..."
-                    className="hgb-inline h-[42px] w-full rounded-[10px] px-3 text-[13.5px] outline-none transition-colors"
+                    className="hgb-inline h-[42px] w-full rounded-[3px] px-3 text-[13.5px] outline-none transition-colors"
                     style={{
                       backgroundColor: GUEST_BG,
                       border: `1px solid ${GUEST_BORDER}`,
@@ -2046,7 +2058,7 @@ function AllocationRow({
                     type="button"
                     aria-label="Cancel guest entry"
                     onClick={onPendingCancel}
-                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C]"
+                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(168,91,91,0.10)] hover:text-[#A85B5B]"
                     style={{ color: RT_3 }}
                   >
                     <X size={13} />
@@ -2055,7 +2067,7 @@ function AllocationRow({
               ) : (
                 <div
                   key={`pending-${allocation.id}`}
-                  className="flex w-full items-center gap-1.5 rounded-[10px] px-2.5"
+                  className="flex w-full items-center gap-1.5 rounded-[3px] px-2.5"
                   style={{ minHeight: 46, backgroundColor: GUEST_BG, border: `1px solid ${GUEST_BORDER}` }}
                 >
                   <button
@@ -2064,7 +2076,7 @@ function AllocationRow({
                     title="Click to edit name"
                     className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left"
                   >
-                    <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
+                    <User size={14} className="shrink-0" style={{ color: "#C5A059" }} />
                     <span className="min-w-0 truncate text-[13.5px] font-medium" style={{ color: RT }}>
                       {pending.raw}
                     </span>
@@ -2073,7 +2085,7 @@ function AllocationRow({
                     type="button"
                     aria-label="Cancel guest entry"
                     onClick={onPendingCancel}
-                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100"
+                    className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(168,91,91,0.10)] hover:text-[#A85B5B] hover:opacity-100"
                     style={{ color: RT_3 }}
                   >
                     <X size={13} />
@@ -2085,8 +2097,8 @@ function AllocationRow({
                 key={`slot-${allocation.id}-${allocation.guests.length + i}`}
                 type="button"
                 onClick={onAddGuest}
-                className="flex w-fit items-center gap-1.5 rounded-[8px] px-1 py-[6px] text-left text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
-                style={{ color: "#D8B463" }}
+                className="flex w-fit items-center gap-1.5 px-1 py-[6px] text-left text-[12.5px] underline decoration-[#C5A059]/40 underline-offset-4 transition-colors hover:decoration-[#C5A059]"
+                style={{ color: "#2D2D2D" }}
               >
                 <Plus size={13} />
                 <span>Add guest</span>
@@ -2167,8 +2179,8 @@ function AllocationRow({
                 ref={requestBtnRef}
                 type="button"
                 onClick={() => setRequestOpen((v) => !v)}
-                className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
-                style={{ color: "#D8B463" }}
+                className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] underline decoration-[#C5A059]/40 underline-offset-4 transition-colors hover:decoration-[#C5A059]"
+                style={{ color: "#2D2D2D" }}
               >
                 <Plus size={13} />
                 Add special request
@@ -2178,16 +2190,16 @@ function AllocationRow({
               <>
                 {allocation.requests.length === 0 && (
                   <span
-                    className="my-[2px] block h-px w-[86%]"
-                    style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
+                    className="my-[3px] block h-px w-[34px]"
+                    style={{ backgroundColor: "#E8E4DD" }}
                   />
                 )}
                 <button
                   ref={upgradeBtnRef}
                   type="button"
                   onClick={() => setUpgradeOpen((v) => !v)}
-                  className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] opacity-90 transition-opacity hover:opacity-100"
-                  style={{ color: "#D8B463" }}
+                  className="inline-flex w-fit items-center gap-2 py-[5px] text-[12.5px] underline decoration-[#C5A059]/40 underline-offset-4 transition-colors hover:decoration-[#C5A059]"
+                  style={{ color: "#2D2D2D" }}
                 >
                   <Plus size={13} />
                   Request room upgrade
@@ -2235,10 +2247,10 @@ function AllocationRow({
         <span
           className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full"
           style={{
-            border: `1.4px solid ${status === "complete" ? "rgba(116,217,124,0.75)" : "rgba(230,196,122,0.55)"}`,
+            border: `1.4px solid ${status === "complete" ? "rgba(15,107,79,0.55)" : "rgba(197,160,89,0.55)"}`,
             boxShadow:
               status === "complete"
-                ? "0 0 10px rgba(116,217,124,0.22), inset 0 0 6px rgba(116,217,124,0.10)"
+                ? "inset 0 0 0 1px rgba(15,107,79,0.10)"
                 : "none",
             color: statusColor,
           }}
@@ -2272,7 +2284,7 @@ function AllocationRow({
           aria-label="Allocation actions"
           onClick={() => setMenuOpen((v) => !v)}
           className="grid h-7 w-7 place-items-center rounded-[6px] opacity-70 transition-opacity duration-200 hover:opacity-100"
-          style={{ color: "rgba(230,196,122,0.80)" }}
+          style={{ color: "#C5A059" }}
         >
 
           <MoreVertical size={15} />
@@ -2413,17 +2425,17 @@ function SavedGuestRow({
         }
       }}
       data-guest-selected={isSelected ? "true" : "false"}
-      className="hgb-guest flex w-full items-center gap-1.5 rounded-[10px] px-2.5 transition-colors"
+      className="hgb-guest flex w-full items-center gap-1.5 rounded-[3px] px-2.5 transition-colors"
       style={{
         minHeight: 46,
         cursor: "pointer",
-        backgroundColor: isSelected ? "rgba(231,185,79,0.10)" : GUEST_BG,
-        border: `1px solid ${isSelected ? "rgba(231,185,79,0.62)" : GUEST_BORDER}`,
-        boxShadow: isSelected ? "inset 0 0 0 1px rgba(231,185,79,0.16)" : undefined,
+        backgroundColor: isSelected ? "rgba(197,160,89,0.12)" : GUEST_BG,
+        border: `1px solid ${isSelected ? "#C5A059" : GUEST_BORDER}`,
+        boxShadow: isSelected ? "inset 0 0 0 1px rgba(197,160,89,0.20)" : undefined,
       }}
     >
       <div className="flex min-w-0 flex-1 items-center gap-2.5 py-2 text-left">
-        <User size={14} className="shrink-0" style={{ color: "rgba(230,196,122,0.85)" }} />
+        <User size={14} className="shrink-0" style={{ color: "#C5A059" }} />
         {editing ? (
           <input
             autoFocus
@@ -2447,8 +2459,8 @@ function SavedGuestRow({
             className="hgb-inline min-w-0 flex-1 bg-transparent text-[13.5px] font-medium outline-none"
             style={{
               color: RT,
-              borderBottom: "1px solid rgba(230,196,122,0.75)",
-              caretColor: "#E6C47A",
+              borderBottom: "1px solid #C5A059",
+              caretColor: "#8A6D2F",
             }}
           />
         ) : (
@@ -2470,7 +2482,7 @@ function SavedGuestRow({
             }}
             className="hgb-edit shrink-0 bg-transparent p-0 leading-none"
           >
-            <Pencil size={11} style={{ color: "rgba(230,196,122,0.9)" }} />
+            <Pencil size={11} style={{ color: "#C5A059" }} />
           </button>
         )}
 
@@ -2485,8 +2497,8 @@ function SavedGuestRow({
             className="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-[6px] px-1.5 py-[2px] text-[10.5px] leading-[15px]"
             style={
               req.hasAllergy
-                ? { color: "#E6C47A", backgroundColor: "rgba(231,180,75,0.12)", border: "1px solid rgba(231,180,75,0.34)" }
-                : { color: RT_2, backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }
+                ? { color: "#8A6D2F", backgroundColor: "rgba(197,160,89,0.14)", border: "1px solid rgba(197,160,89,0.40)" }
+                : { color: RT_2, backgroundColor: "rgba(45,45,45,0.05)", border: "1px solid rgba(45,45,45,0.14)" }
             }
           >
             {req.hasAllergy ? <AlertTriangle size={9.5} /> : <Utensils size={9.5} />}
@@ -2512,7 +2524,7 @@ function SavedGuestRow({
               e.stopPropagation();
               setConfirm((v) => !v);
             }}
-            className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(214,109,109,0.16)] hover:text-[#E08C8C] hover:opacity-100"
+            className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] opacity-70 transition-colors hover:bg-[rgba(168,91,91,0.10)] hover:text-[#A85B5B] hover:opacity-100"
             style={{ color: RT_3 }}
 
           >
@@ -3758,7 +3770,7 @@ function UpgradeIndicator({
       )}
 
       {request.status === "price_offered" && (
-        <p className="text-[10.5px] leading-snug" style={{ color: RT_3 }}>
+        <p className="text-[10.5px] leading-snug" style={{ color: "#B8BDC2" }}>
           Your concierge will share the upgrade price for approval.
         </p>
       )}
@@ -3777,7 +3789,7 @@ function UpgradeIndicator({
         </button>
       )}
       {applied && (
-        <p className="text-[10.5px]" style={{ color: RT_3 }}>
+        <p className="text-[10.5px]" style={{ color: "#B8BDC2" }}>
           Booked as {categoryLabel(bookedCategory)}
         </p>
       )}
