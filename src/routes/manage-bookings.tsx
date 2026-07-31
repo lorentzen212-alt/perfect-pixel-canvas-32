@@ -90,6 +90,8 @@ const GOLD_SOFT = "#D0B05A";
 
 
 const SERIF = '"Cormorant Garamond", "EB Garamond", Georgia, serif';
+const SANS = 'Inter, "Helvetica Neue", Arial, sans-serif';
+
 
 /* ── small building blocks ───────────────────────────── */
 
