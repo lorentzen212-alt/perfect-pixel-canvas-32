@@ -89,7 +89,7 @@ const GOLD_DEEP = "rgba(199,163,74,0.55)";
 const GOLD_SOFT = "#D0B05A";
 
 
-const SERIF = '"Cormorant Garamond", Georgia, serif';
+const SERIF = '"Cormorant Garamond", "EB Garamond", Georgia, serif';
 
 /* ── small building blocks ───────────────────────────── */
 
@@ -997,7 +997,12 @@ function ManageBookings() {
               <div className="min-w-0">
                 <h1
                   className="text-[42px] leading-[1.05] sm:text-[52px]"
-                  style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
+                  style={{
+                    color: TEXT,
+                    fontFamily: SERIF,
+                    fontWeight: 400,
+                    letterSpacing: "-0.015em",
+                  }}
                 >
                   My Bookings
                 </h1>
@@ -1070,6 +1075,7 @@ function ManageBookings() {
                       color: TEXT,
                       fontFamily: SERIF,
                       fontWeight: 400,
+                      letterSpacing: "-0.01em",
                       fontVariantNumeric: "lining-nums",
                     }}
                   >
