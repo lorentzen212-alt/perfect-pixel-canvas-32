@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import videoAsset from "@/assets/homepage-hero.mp4.asset.json";
 import posterAsset from "@/assets/homepage-bg-poster.jpg.asset.json";
+
+const HERO_VIDEO_URL =
+  "https://cdn.midjourney.com/video/2e36e690-7834-4694-9c7a-e44654f3eb24/1.mp4";
 
 /**
  * Full-bleed homepage background video.
