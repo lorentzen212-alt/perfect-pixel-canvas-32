@@ -69,19 +69,24 @@ export function HomeBackgroundVideo() {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           poster={posterAsset.url}
           onError={() => setUseVideo(false)}
           className="pointer-events-none absolute inset-0 h-full w-full"
           style={{
             objectFit: "cover",
             objectPosition: "center center",
-            filter: "brightness(1.18) contrast(1.02)",
+            filter: "none",
+            opacity: 1,
+            imageRendering: "auto",
+            transform: "translateZ(0)",
+            backfaceVisibility: "hidden",
           }}
         >
           <source src={videoAsset.url} type="video/mp4" />
         </video>
       )}
+
     </div>
   );
 }
