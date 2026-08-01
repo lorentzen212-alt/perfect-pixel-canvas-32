@@ -1,93 +1,72 @@
 import { useEffect, useRef, useState } from "react";
-import posterAsset from "@/assets/homepage-bg-poster.jpg.asset.json";
+import fjordAsset from "@/assets/fjord-hero.png.asset.json";
 
-const HERO_VIDEO_URL =
-  "https://cdn.midjourney.com/video/2e36e690-7834-4694-9c7a-e44654f3eb24/1.mp4";
+const OVERLAY =
+  "linear-gradient(180deg, rgba(7,16,28,0.32) 0%, rgba(7,16,28,0.18) 35%, rgba(7,16,28,0.22) 65%, rgba(7,16,28,0.36) 100%)";
 
 /**
- * Full-bleed homepage background video.
+ * Full-bleed homepage background image (Scandinavian fjord).
  * - Sits behind all content, never affects layout, never captures pointer events.
- * - Falls back to a still poster on reduced motion, very small screens, or load failure.
+ * - Fixed attachment + very slow parallax on desktop; static on touch/mobile.
  */
 export function HomeBackgroundVideo() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [useVideo, setUseVideo] = useState(false);
+  const layerRef = useRef<HTMLDivElement>(null);
+  const [desktop, setDesktop] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const smallScreen = window.matchMedia("(max-width: 640px)");
-
-    const sync = () => setUseVideo(!reduced.matches && !smallScreen.matches);
+    const sync = () => setDesktop(mq.matches && !reduced.matches);
     sync();
-
+    mq.addEventListener("change", sync);
     reduced.addEventListener("change", sync);
-    smallScreen.addEventListener("change", sync);
     return () => {
+      mq.removeEventListener("change", sync);
       reduced.removeEventListener("change", sync);
-      smallScreen.removeEventListener("change", sync);
     };
   }, []);
 
-  // Pause when scrolled out of view
   useEffect(() => {
-    if (!useVideo) return;
-    const el = containerRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const video = videoRef.current;
-        if (!video) return;
-        if (entry.isIntersecting) {
-          void video.play().catch(() => undefined);
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.01 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [useVideo]);
+    if (!desktop) return;
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const el = layerRef.current;
+        if (!el) return;
+        el.style.transform = `translate3d(0, ${window.scrollY * 0.12}px, 0) scale(1.06)`;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [desktop]);
 
   return (
     <div
-      ref={containerRef}
       aria-hidden
       className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
-      style={{
-        backgroundImage: `url(${posterAsset.url})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-        backgroundRepeat: "no-repeat",
-        backgroundColor: "#0A0B0D",
-      }}
+      style={{ backgroundColor: "#0A0B0D" }}
     >
-      {useVideo && (
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          onError={() => setUseVideo(false)}
-          className="pointer-events-none absolute inset-0 h-full w-full"
-          style={{
-            objectFit: "cover",
-            objectPosition: "center center",
-            filter: "none",
-            opacity: 1,
-            imageRendering: "auto",
-            transform: "translateZ(0)",
-            backfaceVisibility: "hidden",
-          }}
-        >
-          <source src={HERO_VIDEO_URL} type="video/mp4" />
-        </video>
-      )}
-
+      <div
+        ref={layerRef}
+        className="absolute inset-0 will-change-transform"
+        style={{
+          backgroundImage: `url(${fjordAsset.url})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: desktop ? "fixed" : "scroll",
+          transform: desktop ? "scale(1.06)" : undefined,
+          imageRendering: "auto",
+          backfaceVisibility: "hidden",
+        }}
+      />
+      <div className="absolute inset-0" style={{ backgroundImage: OVERLAY }} />
     </div>
   );
 }
