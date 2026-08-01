@@ -96,9 +96,18 @@ function Home() {
   return (
     <>
     <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
-      {/* Homepage background — supplied video, rendered unfiltered at native colors */}
+      {/* Homepage background — supplied video (poster fallback) + subtle overlay */}
       <HomeBackgroundVideo />
-
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-10"
+        style={{
+          background: `
+            radial-gradient(ellipse 65% 50% at center 34%, rgba(8, 15, 25, 0.12) 0%, transparent 58%),
+            linear-gradient(180deg, rgba(8, 15, 25, 0.35) 0%, rgba(14, 25, 39, 0.23) 45%, rgba(7, 14, 23, 0.42) 100%)
+          `,
+        }}
+      />
 
 
 
@@ -200,15 +209,26 @@ function Home() {
 
           {/* EXPERIENCE CARDS */}
           <div className="relative" style={{ marginTop: "clamp(14px, 1.9vh, 18px)" }}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-[44px]">
+            {/* Stage spotlight behind all three cards */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -inset-x-[12%] -top-[18%] -bottom-[22%] -z-10"
+              style={{
+                background:
+                  "radial-gradient(60% 55% at 50% 45%, rgba(255,246,226,0.09) 0%, rgba(255,244,220,0.05) 38%, rgba(255,240,215,0.02) 62%, rgba(0,0,0,0) 82%)",
+                filter: "blur(6px)",
+              }}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[32px]">
 
               <ExperienceCard
                 to="/book-leisure"
                 image={cardLeisureAsset.url}
                 imagePosition="center 35%"
-                label="LEISURE"
+                label="L E I S U R E"
                 tagline="Group Hotel Booking"
                 ctaText="Explore"
+                intensity={1.8}
               />
               <ExperienceCard
                 to="/book-meetings-events"
@@ -217,35 +237,44 @@ function Home() {
                 label="M & E"
                 tagline="Professional Event Planning"
                 ctaText="Plan event"
+                intensity={2}
+                imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
+                overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
+                bottomGradient={false}
+                borderGradient="linear-gradient(155deg, #F0D58A 0%, #D4AF55 14%, #B98A2E 32%, #8F681C 48%, #C09235 64%, #765116 80%, #E3C270 94%, #F0D58A 100%)"
+                disableCoolGrey={true}
               />
               <ExperienceCard
                 to="/manage-bookings"
                 image={cardManageAsset.url}
                 imagePosition="center center"
-                label="MANAGE"
+                label="M A N A G E"
                 tagline="Manage Your Bookings"
                 ctaText="Open dashboard"
+                intensity={1.8}
+                imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
+                overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
+                bottomGradient={false}
+                borderGradient="linear-gradient(155deg, #F0D58A 0%, #D4AF55 14%, #B98A2E 32%, #8F681C 48%, #C09235 64%, #765116 80%, #E3C270 94%, #F0D58A 100%)"
+                disableCoolGrey={true}
               />
             </div>
           </div>
-
 
 
           {/* TRUST BAR */}
           <section style={{ marginTop: "clamp(26px, 3.6vh, 35px)", paddingBottom: "clamp(28px, 5vh, 56px)" }}>
 
             <div
-              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[52px] gap-y-2 rounded-[5px] px-[44px] py-[10px]"
+              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[58px] gap-y-3 rounded-[14px] px-[54px] py-[17px]"
               style={{
-                backgroundColor: 'rgba(9,18,28,0.22)',
-                borderTop: '1px solid rgba(222,205,164,0.22)',
-                borderBottom: '1px solid rgba(222,205,164,0.22)',
-                backdropFilter: 'blur(3px)',
+                backgroundColor: 'rgba(9,18,28,0.55)',
+                border: '1px solid rgba(212,175,55,0.30)',
+                backdropFilter: 'blur(6px)',
               }}
             >
-
               {['One Request', 'One Team', 'One Contact', 'Total Simplicity'].map((item, i) => (
-                <div key={item} className="flex items-center gap-x-[52px]">
+                <div key={item} className="flex items-center gap-x-[58px]">
                   {i > 0 && (
                     <span
                       className="inline-flex items-center justify-center text-[13px] leading-none"
@@ -288,9 +317,16 @@ function ExperienceCard({
   to,
   image,
   imagePosition = "center center",
+  imageFilter = "brightness(1.075) contrast(1.12) saturate(0.87) hue-rotate(-6deg) sepia(0.05)",
+  overlay = "from-transparent via-transparent via-[86%] to-black/12",
+  bottomGradient = true,
+  borderGradient,
+  disableCoolGrey = false,
+
   label,
   tagline,
   ctaText,
+  intensity = 1,
 }: {
   to: string;
   image: string;
@@ -305,108 +341,268 @@ function ExperienceCard({
   ctaText: string;
   intensity?: number;
 }) {
-  const baseShadow =
-    "0 18px 40px rgba(4, 10, 15, 0.16), 0 2px 8px rgba(4, 10, 15, 0.10)";
-  const hoverShadow =
-    "0 24px 52px rgba(4, 10, 15, 0.22), 0 3px 10px rgba(4, 10, 15, 0.12)";
-  const ease = "400ms cubic-bezier(0.22, 1, 0.36, 1)";
+  const cardShadow = "0 28px 70px rgba(0, 0, 0, 0.42)";
+  const k = Math.min(intensity, 2.2);
+  const clamp = (v: number) => Math.min(v, 1);
+
 
   return (
-    <Link
-      to={to}
-      className="group/card relative block overflow-hidden"
-      style={{
-        borderRadius: "3px",
-        border: "1px solid rgba(222, 205, 164, 0.38)",
-        boxShadow: baseShadow,
-        transition: `transform ${ease}, box-shadow ${ease}, border-color ${ease}`,
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-3px)";
-        e.currentTarget.style.boxShadow = hoverShadow;
-        e.currentTarget.style.borderColor = "rgba(230, 210, 165, 0.52)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = baseShadow;
-        e.currentTarget.style.borderColor = "rgba(222, 205, 164, 0.38)";
-      }}
+    <div
+      className="relative"
+      style={{ isolation: "isolate", overflow: "visible" }}
     >
-      {/* Image panel — near-square vertical proportion */}
+      {/* Extremely soft radial glow behind the card */}
       <div
-        className="relative w-full overflow-hidden"
-        style={{ aspectRatio: "1 / 1.12" }}
-      >
-        <img
-          src={image}
-          alt=""
-          style={{
-            objectPosition: imagePosition,
-            transition: `transform ${ease}`,
-          }}
-          className="absolute inset-0 h-full w-full object-cover group-hover/card:scale-[1.015]"
-        />
+        aria-hidden
+        className="pointer-events-none absolute -inset-x-[14%] -inset-y-[10%] -z-10"
+        style={{
+          background:
+            "radial-gradient(52% 48% at 50% 50%, rgba(255,247,230,0.07) 0%, rgba(255,244,222,0.035) 45%, rgba(0,0,0,0) 78%)",
+          filter: "blur(18px)",
+        }}
+      />
 
-        {/* Subtle bottom readability gradient only */}
+      {/* Inner warm haze — pulled in tight, no side spill */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{
+          left: "50%",
+          bottom: "-2px",
+          transform: "translateX(-50%)",
+          width: "86%",
+          height: "10px",
+          borderRadius: "45%",
+          background:
+            `radial-gradient(ellipse at center, rgba(255, 254, 250, ${clamp(0.92 * k)}) 0%, rgba(255, 245, 220, ${clamp(0.68 * k)}) 45%, rgba(250, 220, 160, ${clamp(0.3 * k)}) 72%, transparent 92%)`,
+          filter: "blur(4px)",
+          opacity: 1,
+          zIndex: 0,
+        }}
+      />
+      {/* Bright warm-white bloom pressed to card base */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{
+          left: "50%",
+          bottom: "0px",
+          transform: "translateX(-50%)",
+          width: "88%",
+          height: "6px",
+          borderRadius: "45%",
+          background:
+            `radial-gradient(ellipse at center, rgba(255, 254, 248, ${clamp(1 * k)}) 0%, rgba(255, 248, 225, ${clamp(0.96 * k)}) 40%, rgba(255, 235, 190, ${clamp(0.58 * k)}) 72%, transparent 92%)`,
+          filter: "blur(2px)",
+          opacity: 1,
+          zIndex: 1,
+        }}
+      />
+      {/* Strong white light bar along bottom edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{
+          left: "50%",
+          bottom: "0px",
+          transform: "translateX(-50%)",
+          width: "90%",
+          height: "3px",
+          borderRadius: "6px",
+          background:
+            `linear-gradient(to right, transparent 0%, rgba(255, 255, 252, ${clamp(1 * k)}) 12%, rgba(255, 254, 245, ${clamp(1 * k)}) 50%, rgba(255, 255, 252, ${clamp(1 * k)}) 88%, transparent 100%)`,
+          filter: "blur(0.6px)",
+          opacity: 1,
+          zIndex: 1,
+        }}
+      />
+      {/* Hot white contact streak — the light source itself */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute"
+        style={{
+          left: "50%",
+          bottom: "1px",
+          transform: "translateX(-50%)",
+          width: "92%",
+          height: "1.5px",
+          borderRadius: "2px",
+          background:
+            `linear-gradient(to right, transparent 0%, rgba(255, 255, 255, ${clamp(1 * k)}) 10%, rgba(255, 255, 255, ${clamp(1 * k)}) 50%, rgba(255, 255, 255, ${clamp(1 * k)}) 90%, transparent 100%)`,
+          filter: "blur(0.2px)",
+          zIndex: 2,
+        }}
+      />
+
+
+
+
+
+      <Link
+        to={to}
+        className="group/card relative block overflow-hidden rounded-[22px] bg-[#0E1013] group"
+        style={{
+          position: "relative",
+          zIndex: 2,
+          border: "1px solid rgba(184, 138, 46, 0.55)",
+          boxShadow:
+            "0 14px 35px rgba(0,0,0,0.45), 0 28px 70px rgba(0,0,0,0.34), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12)",
+
+          transition:
+            "transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-8px)";
+          e.currentTarget.style.boxShadow = "0 36px 84px rgba(0, 0, 0, 0.48)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = cardShadow;
+        }}
+      >
+        {/* Brushed champagne-gold ring */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-10"
+          className="pointer-events-none absolute inset-0 z-20 rounded-[22px] opacity-90 transition-opacity duration-300 group-hover:opacity-100"
           style={{
+            padding: "1px",
             background:
-              "linear-gradient(180deg, rgba(5,9,12,0) 48%, rgba(5,9,12,0.22) 70%, rgba(5,9,12,0.72) 100%)",
+              borderGradient ||
+              "linear-gradient(155deg, #F0D58A 0%, #D4AF55 12%, #B98A2E 30%, #8F681C 46%, #C09235 62%, #765116 78%, #D4AF55 92%, #F0D58A 100%)",
+
+            WebkitMask:
+              "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
           }}
         />
-
-        {/* Editorial text block */}
+        {/* Soft gold reflection on border during hover */}
         <div
-          className="absolute inset-x-0 bottom-0 z-20 text-left"
-          style={{ paddingLeft: 28, paddingRight: 28, paddingBottom: 26 }}
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-20 rounded-[22px] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+          style={{
+            padding: "1px",
+            background:
+              "linear-gradient(145deg, rgba(255,250,235,0.55) 0%, rgba(232,212,167,0.22) 30%, rgba(150,120,72,0.08) 55%, rgba(246,231,196,0.42) 100%)",
+            WebkitMask:
+              "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
+        {/* Full-height background image */}
+        <div
+          className="relative w-full aspect-[12/13.6] overflow-hidden"
+          style={{ height: "clamp(300px, 52vh, 540px)", maxHeight: "none" }}
+
         >
-          <p
-            className="uppercase"
+          <img
+            src={image}
+            alt=""
+            style={{ objectPosition: imagePosition, filter: imageFilter }}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          {/* Unified cinematic grade: cool grey cast + champagne highlights */}
+          {!disableCoolGrey && (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(150,168,186,0.30) 0%, rgba(120,136,154,0.18) 48%, rgba(38,44,52,0.34) 100%)",
+              }}
+            />
+          )}
+          {/* Champagne highlight tint */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 mix-blend-overlay"
             style={{
-              color: "#FFFFFF",
-              fontSize: "18px",
-              fontWeight: 500,
-              letterSpacing: "0.28em",
-              lineHeight: 1.1,
-              whiteSpace: "nowrap",
+              background:
+                "radial-gradient(120% 80% at 50% 22%, rgba(226,206,166,0.16) 0%, rgba(226,206,166,0) 62%)",
             }}
-          >
-            {label}
-          </p>
-          <p
+          />
+          {/* Lifted charcoal blacks + subtle cinematic haze */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
             style={{
-              marginTop: "6px",
-              color: "rgba(255,255,255,0.76)",
-              fontSize: "13.5px",
-              fontWeight: 400,
-              lineHeight: 1.45,
+              background:
+                "linear-gradient(180deg, rgba(216,224,232,0.045) 0%, rgba(30,36,44,0.06) 100%)",
             }}
-          >
-            {tagline}
-          </p>
-          <span
-            className="flex items-center"
-            style={{
-              marginTop: "22px",
-              color: "#FFFFFF",
-              fontSize: "13.5px",
-              fontWeight: 500,
-              whiteSpace: "nowrap",
-            }}
-          >
-            {ctaText}
-            <span className="ml-[10px] inline-block transition-transform duration-[400ms] ease-out group-hover/card:translate-x-1">
-              →
+          />
+
+          {/* Cinematic gradient: lighter top, progressively darker bottom */}
+          <div className={cn("absolute inset-0 bg-gradient-to-b", overlay)} />
+          {/* Subtle bottom gradient purely for text legibility */}
+          {bottomGradient && (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-10"
+              style={{
+                background:
+                  "linear-gradient(to top, rgba(4,8,13,0.60) 0%, rgba(4,8,13,0.20) 30%, transparent 54%)",
+              }}
+            />
+          )}
+
+          {/* Content overlay — quiet editorial typography block */}
+          <div className="absolute inset-0 z-20">
+            <div
+              className="absolute text-left"
+              style={{ left: "41px", bottom: "76px" }}
+            >
+              <p
+                className="uppercase"
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: "17.46px",
+                  fontWeight: 600,
+                  letterSpacing: "0.28em",
+                  lineHeight: 1,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {label}
+              </p>
+              <p
+                style={{
+                  marginTop: "7px",
+                  color: "rgba(255,255,255,0.8)",
+                  fontSize: "14.55px",
+                  fontWeight: 400,
+                  lineHeight: 1.5,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {tagline}
+              </p>
+            </div>
+            <span
+              className="absolute flex items-center opacity-[0.9] transition-opacity duration-[250ms] ease-out group-hover/card:opacity-100"
+              style={{
+                left: "41px",
+                bottom: "26px",
+                color: "#FFFFFF",
+                fontSize: "14.55px",
+                fontWeight: 500,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {ctaText}
+              <span className="ml-[10px] inline-block transition-transform duration-[250ms] ease-out group-hover/card:translate-x-1">
+                →
+              </span>
             </span>
-          </span>
+          </div>
+
+
+
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
-
 
 
 
