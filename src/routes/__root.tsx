@@ -15,6 +15,7 @@ import { AuthProvider } from "../lib/auth";
 import { supabase } from "@/integrations/supabase/client";
 
 const DesignMode = lazy(() => import("../components/design-mode/DesignMode"));
+const InstantEdits = lazy(() => import("../components/instant-edits/InstantEdits"));
 
 function DesignModeMount() {
   const [mounted, setMounted] = useState(false);
@@ -23,6 +24,7 @@ function DesignModeMount() {
   return (
     <Suspense fallback={null}>
       <DesignMode />
+      <InstantEdits />
     </Suspense>
   );
 }
