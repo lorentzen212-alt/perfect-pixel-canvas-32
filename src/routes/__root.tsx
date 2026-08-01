@@ -95,13 +95,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "HotelGroupBook — Group hotel bookings made simple" },
-      { name: "description", content: "The easiest way to request hotel offers for groups. One request. Multiple hotels. The best choice for your group." },
+      { title: "HotelGroupBook — M&E - and Group hotel bookings made simple" },
+      { name: "description", content: "Request offers from multiple hotels with one submission. Compare prices, manage rooming lists, track bookings, and coordinate group stays in one professional pl" },
       { name: "author", content: "HotelGroupBook" },
-      { property: "og:title", content: "HotelGroupBook — Group hotel bookings made simple" },
-      { property: "og:description", content: "The easiest way to request hotel offers for groups." },
+      { property: "og:title", content: "HotelGroupBook — M&E - and Group hotel bookings made simple" },
+      { property: "og:description", content: "Request offers from multiple hotels with one submission. Compare prices, manage rooming lists, track bookings, and coordinate group stays in one professional pl" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "HotelGroupBook — M&E - and Group hotel bookings made simple" },
+      { name: "twitter:description", content: "Request offers from multiple hotels with one submission. Compare prices, manage rooming lists, track bookings, and coordinate group stays in one professional pl" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/2gT2j3HhgHVcltYeGgX2X2oViNw2/social-images/social-1785594653942-social-image.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/2gT2j3HhgHVcltYeGgX2X2oViNw2/social-images/social-1785594653942-social-image.webp" },
     ],
     links: [
       {
