@@ -245,7 +245,7 @@ function Home() {
             >
 
               {['One Request', 'One Team', 'One Contact', 'Total Simplicity'].map((item, i) => (
-                <div key={item} className="flex items-center gap-x-[58px]">
+                <div key={item} className="flex items-center gap-x-[52px]">
                   {i > 0 && (
                     <span
                       className="inline-flex items-center justify-center text-[13px] leading-none"
