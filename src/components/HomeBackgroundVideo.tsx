@@ -1,5 +1,5 @@
-import videoAsset from "@/assets/hero-earth.mp4.asset.json";
-import posterAsset from "@/assets/hero-earth-poster.jpg.asset.json";
+import videoAsset from "@/assets/hero-glitter.mp4.asset.json";
+import posterAsset from "@/assets/hero-glitter-poster.jpg.asset.json";
 
 const OVERLAY =
   "linear-gradient(180deg, rgba(8,18,30,0.22) 0%, rgba(8,18,30,0.10) 40%, rgba(8,18,30,0.18) 70%, rgba(8,18,30,0.28) 100%)";
