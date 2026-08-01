@@ -235,13 +235,15 @@ function Home() {
           <section style={{ marginTop: "clamp(26px, 3.6vh, 35px)", paddingBottom: "clamp(28px, 5vh, 56px)" }}>
 
             <div
-              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[58px] gap-y-3 rounded-[14px] px-[54px] py-[17px]"
+              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[52px] gap-y-2 rounded-[5px] px-[44px] py-[10px]"
               style={{
-                backgroundColor: 'rgba(9,18,28,0.55)',
-                border: '1px solid rgba(212,175,55,0.30)',
-                backdropFilter: 'blur(6px)',
+                backgroundColor: 'rgba(9,18,28,0.22)',
+                borderTop: '1px solid rgba(222,205,164,0.22)',
+                borderBottom: '1px solid rgba(222,205,164,0.22)',
+                backdropFilter: 'blur(3px)',
               }}
             >
+
               {['One Request', 'One Team', 'One Contact', 'Total Simplicity'].map((item, i) => (
                 <div key={item} className="flex items-center gap-x-[58px]">
                   {i > 0 && (
