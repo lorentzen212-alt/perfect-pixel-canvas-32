@@ -72,7 +72,6 @@ export function HomeBackgroundVideo() {
           loop
           playsInline
           preload="auto"
-          poster={posterAsset.url}
           onError={() => setUseVideo(false)}
           className="pointer-events-none absolute inset-0 h-full w-full"
           style={{
@@ -85,7 +84,7 @@ export function HomeBackgroundVideo() {
             backfaceVisibility: "hidden",
           }}
         >
-          <source src={videoAsset.url} type="video/mp4" />
+          <source src={HERO_VIDEO_URL} type="video/mp4" />
         </video>
       )}
 
