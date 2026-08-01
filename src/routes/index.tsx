@@ -200,26 +200,15 @@ function Home() {
 
           {/* EXPERIENCE CARDS */}
           <div className="relative" style={{ marginTop: "clamp(14px, 1.9vh, 18px)" }}>
-            {/* Stage spotlight behind all three cards */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -inset-x-[12%] -top-[18%] -bottom-[22%] -z-10"
-              style={{
-                background:
-                  "radial-gradient(60% 55% at 50% 45%, rgba(255,246,226,0.09) 0%, rgba(255,244,220,0.05) 38%, rgba(255,240,215,0.02) 62%, rgba(0,0,0,0) 82%)",
-                filter: "blur(6px)",
-              }}
-            />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[32px]">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-[44px]">
 
               <ExperienceCard
                 to="/book-leisure"
                 image={cardLeisureAsset.url}
                 imagePosition="center 35%"
-                label="L E I S U R E"
+                label="LEISURE"
                 tagline="Group Hotel Booking"
                 ctaText="Explore"
-                intensity={1.8}
               />
               <ExperienceCard
                 to="/book-meetings-events"
@@ -228,29 +217,18 @@ function Home() {
                 label="M & E"
                 tagline="Professional Event Planning"
                 ctaText="Plan event"
-                intensity={2}
-                imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
-                overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
-                bottomGradient={false}
-                borderGradient="linear-gradient(155deg, #F0D58A 0%, #D4AF55 14%, #B98A2E 32%, #8F681C 48%, #C09235 64%, #765116 80%, #E3C270 94%, #F0D58A 100%)"
-                disableCoolGrey={true}
               />
               <ExperienceCard
                 to="/manage-bookings"
                 image={cardManageAsset.url}
                 imagePosition="center center"
-                label="M A N A G E"
+                label="MANAGE"
                 tagline="Manage Your Bookings"
                 ctaText="Open dashboard"
-                intensity={1.8}
-                imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
-                overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
-                bottomGradient={false}
-                borderGradient="linear-gradient(155deg, #F0D58A 0%, #D4AF55 14%, #B98A2E 32%, #8F681C 48%, #C09235 64%, #765116 80%, #E3C270 94%, #F0D58A 100%)"
-                disableCoolGrey={true}
               />
             </div>
           </div>
+
 
 
           {/* TRUST BAR */}
