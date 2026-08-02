@@ -4267,7 +4267,6 @@ function S2StayCard({
                 placeholder="Select date"
                 open={arrivalOpen}
                 setOpen={setArrivalOpen}
-                onPicked={() => setDepartureOpen(true)}
               />
             </div>
             <ArrowRight
