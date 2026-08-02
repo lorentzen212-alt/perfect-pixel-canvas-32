@@ -556,35 +556,36 @@
 
 /* Step 2 — premium machined-metal controls (quantity selector + category dropdown) */
 .s2-metal {
-  background-image: linear-gradient(180deg, #16273D 0%, #0D1B2E 55%, #0A1626 100%);
-  border: 1px solid rgba(201, 167, 106, 0.55);
+  background-image: linear-gradient(180deg, #183754 0%, #15304A 55%, #132B44 100%);
+  border: 1px solid rgba(201, 164, 92, 0.26);
+  color: #f8f8f6;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
-    0 4px 12px -6px rgba(4, 10, 16, 0.65);
+    inset 0 -1px 0 rgba(5, 20, 34, 0.3),
+    0 4px 12px -6px rgba(5, 20, 34, 0.45);
   transition:
     background-image 200ms ease-out,
     border-color 200ms ease-out,
     box-shadow 200ms ease-out;
 }
 .s2-metal:hover:not(:disabled) {
-  background-image: linear-gradient(180deg, #1D3149 0%, #132437 55%, #0E1B2C 100%);
-  border-color: rgba(212, 182, 126, 0.85);
+  background-image: linear-gradient(180deg, #1F4265 0%, #1A3A58 55%, #17334E 100%);
+  border-color: rgba(201, 164, 92, 0.55);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
-    0 0 0 1px rgba(201, 167, 106, 0.12),
-    0 6px 18px -8px rgba(4, 10, 16, 0.7),
-    0 0 14px -2px rgba(201, 167, 106, 0.28);
+    inset 0 -1px 0 rgba(5, 20, 34, 0.3),
+    0 0 0 1px rgba(201, 164, 92, 0.12),
+    0 6px 18px -8px rgba(5, 20, 34, 0.5),
+    0 0 14px -2px rgba(201, 164, 92, 0.24);
 }
 .s2-metal:focus-visible,
 .s2-metal:focus-within {
   outline: none;
-  border-color: rgba(216, 189, 137, 0.95);
+  border-color: rgba(216, 189, 137, 0.9);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 0 0 2px rgba(201, 167, 106, 0.28),
-    0 6px 18px -8px rgba(4, 10, 16, 0.7);
+    0 0 0 2px rgba(201, 164, 92, 0.28),
+    0 6px 18px -8px rgba(5, 20, 34, 0.5);
 }
 
 .s5-input::placeholder {

@@ -2959,30 +2959,31 @@ function fmtStayRange(a: string, d: string): string {
 }
 
 /* Step 2 — matte blue-grey design tokens */
-const S2_BG = "#2B3E4E";
+const S2_BG = "#10263E";
 const S2_BG_GRADIENT =
-  "linear-gradient(180deg, #344B5E 0%, #3A5266 52%, #42596D 100%)";
-const S2_PANEL = "rgba(46,66,82,0.92)";
-const S2_SUNK = "rgba(19,31,42,0.55)";
-const S2_CARD = "rgba(46,66,82,0.92)";
-const S2_CARD_ACTIVE = "rgba(52,74,92,0.94)";
-const S2_FIELD = "#243746";
+  "linear-gradient(180deg, #10263E 0%, #0D2035 100%)";
+const S2_PANEL = "rgba(28,59,89,0.92)";
+const S2_SUNK = "rgba(15,30,48,0.55)";
+const S2_CARD = "rgba(28,59,89,0.92)";
+const S2_CARD_ACTIVE = "rgba(34,69,102,0.94)";
+const S2_FIELD = "#15304A";
 const S2_TEXT = "#F5F1E6";
 /* champagne palette (step 2 only) */
 const S2_GOLD = "#D9BF82";
 const S2_GOLD_SOFT = "#E7D3A4";
 const S2_GOLD_DEEP = "#B99C60";
 /* Step 2 redesign tokens — ivory / navy / champagne */
-const S2_INK = "#0B1520";
+const S2_INK = "#10263E";
 const S2_IVORY = "#F7F4ED";
 const S2_CREAM = "#FBF9F4";
-const S2_HAIR_GOLD = "rgba(179,146,84,0.30)";
+const S2_HAIR_GOLD = "rgba(201,164,92,0.22)";
 const S2_NAVY_TEXT = "#12212E";
 const S2_NAVY_MUTED = "rgba(18,33,46,0.58)";
-const S2_NAVY_BTN = "#0F1E2B";
-const S2_SUMMARY_BG = "#0C1926";
+const S2_NAVY_BTN = "#17334E";
+const S2_SUMMARY_BG = "#142E48";
 const S2_CARD_SHADOW =
-  "0 1px 0 rgba(255,255,255,0.06) inset, 0 -12px 24px -22px rgba(0,0,0,0.55) inset, 0 18px 38px -26px rgba(6,14,22,0.7)";
+  "0 1px 0 rgba(255,255,255,0.06) inset, 0 -12px 24px -22px rgba(5,20,34,0.4) inset, 0 14px 34px rgba(5,20,34,0.16)";
+
 
 
 
@@ -3233,8 +3234,8 @@ function LeisureStep2Screen({
       className="min-h-screen w-full"
       style={{
         overflowX: "clip",
-        backgroundColor: S2_INK,
-        backgroundImage: `radial-gradient(120% 80% at 50% 0%, #142434 0%, ${S2_INK} 70%)`,
+        backgroundColor: S2_BG,
+        backgroundImage: S2_BG_GRADIENT,
         backgroundRepeat: "no-repeat",
         fontFamily: "Inter, system-ui, sans-serif",
         color: S2_TEXT,
@@ -3270,7 +3271,7 @@ function LeisureStep2Screen({
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(8,17,26,0.62) 0%, rgba(8,17,26,0.34) 42%, rgba(6,13,20,0.66) 100%)",
+                  "linear-gradient(90deg, rgba(10,27,45,0.56) 0%, rgba(10,27,45,0.22) 58%, rgba(10,27,45,0.08) 100%)",
               }}
             />
             <div
@@ -3518,10 +3519,10 @@ function LeisureStep2Screen({
                   className="inline-flex items-center gap-2.5 px-7 py-3 text-[12.5px] font-medium uppercase tracking-[0.18em] transition-all duration-300 hover:-translate-y-[1px]"
                   style={{
                     borderRadius: 4,
-                    backgroundColor: S2_NAVY_BTN,
-                    border: "1px solid rgba(217,191,130,0.55)",
-                    color: S2_GOLD_SOFT,
-                    opacity: nextEnabled ? 1 : 0.42,
+                    backgroundColor: nextEnabled ? S2_NAVY_BTN : "#24384B",
+                    border: `1px solid rgba(201,164,92,${nextEnabled ? 0.55 : 0.2})`,
+                    color: nextEnabled ? S2_GOLD_SOFT : "#7F8C99",
+                    opacity: 1,
                     cursor: nextEnabled ? "pointer" : "not-allowed",
                   }}
                 >
@@ -4015,9 +4016,9 @@ function S2StayCard({
         className={animClass}
         style={{
           borderRadius: 8,
-          backgroundImage: "linear-gradient(180deg, #0F1E2B 0%, #0C1926 100%)",
-          border: "1px solid rgba(217,191,130,0.34)",
-          boxShadow: "0 18px 40px -30px rgba(6,13,20,0.9)",
+          backgroundImage: "linear-gradient(180deg, #183754 0%, #132B44 100%)",
+          border: "1px solid rgba(201,164,92,0.28)",
+          boxShadow: "0 12px 30px rgba(6,18,31,0.18)",
           overflow: "hidden",
         }}
       >
@@ -4836,7 +4837,9 @@ function AccommodationSummary({
       className="flex flex-col px-6 py-8 lg:py-9"
       style={{
         backgroundColor: S2_SUMMARY_BG,
+        backgroundImage: "linear-gradient(180deg, #142E48 0%, #10263D 100%)",
         borderLeft: `1px solid ${S2_HAIR_GOLD}`,
+        boxShadow: "inset 1px 0 0 rgba(201,164,92,0.18)",
       }}
     >
       <div
