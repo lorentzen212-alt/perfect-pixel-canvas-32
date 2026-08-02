@@ -3838,64 +3838,79 @@ function S2StayCard({
     const interactive = editable && !!onChange;
 
     const dateValue = selected ? (
-      <span
-        className="whitespace-nowrap leading-none text-[17.5px]"
-        style={{
-          marginLeft: align === "left" ? 3 : undefined,
-          marginRight: align === "right" ? 3 : undefined,
-          display: "inline-flex",
-          alignItems: "baseline",
-          gap: 5,
-        }}
-      >
+      compact ? (
         <span
+          className="whitespace-nowrap text-[26px] leading-none"
+          style={{ color: "#FFFFFF", fontWeight: 400, letterSpacing: "-0.01em" }}
+        >
+          {format(selected, "MMM d, yyyy")}
+        </span>
+      ) : (
+        <span
+          className="whitespace-nowrap leading-none text-[17.5px]"
           style={{
-            color: "#E8E4DC",
-            fontWeight: 600,
-            textShadow: "0 1px 1px rgba(0,0,0,.15)",
+            marginLeft: align === "left" ? 3 : undefined,
+            marginRight: align === "right" ? 3 : undefined,
+            display: "inline-flex",
+            alignItems: "baseline",
+            gap: 5,
           }}
         >
-          {format(selected, "d")}
+          <span
+            style={{
+              color: "#E8E4DC",
+              fontWeight: 600,
+              textShadow: "0 1px 1px rgba(0,0,0,.15)",
+            }}
+          >
+            {format(selected, "d")}
+          </span>
+          <span
+            style={{
+              color: "#E8E4DC",
+              fontWeight: 400,
+              letterSpacing: "0.01em",
+            }}
+          >
+            {format(selected, "MMM yyyy")}
+          </span>
         </span>
-        <span
-          style={{
-            color: "#E8E4DC",
-            fontWeight: 400,
-            letterSpacing: "0.01em",
-          }}
-        >
-          {format(selected, "MMM yyyy")}
-        </span>
-      </span>
+      )
     ) : (
       <span
-        className="whitespace-nowrap leading-none text-[15px] font-medium"
+        className={`whitespace-nowrap leading-none font-medium ${compact ? "text-[18px]" : "text-[15px]"}`}
         style={{
-          color: "#84909D",
-          marginLeft: align === "left" ? 3 : undefined,
-          marginRight: align === "right" ? 3 : undefined,
+          color: "#8FA0B0",
+          marginLeft: !compact && align === "left" ? 3 : undefined,
+          marginRight: !compact && align === "right" ? 3 : undefined,
         }}
       >
         {placeholder}
       </span>
     );
 
-    const icon = (
+    const icon = compact ? null : (
       <span aria-hidden className="shrink-0 leading-none" style={{ color: "#E8E4DC" }}>
         <CalendarDays size={16} strokeWidth={1.5} />
       </span>
     );
 
+    const alignCls = compact
+      ? "items-start text-left"
+      : align === "right"
+        ? "items-end text-right"
+        : "items-start text-left";
+
     const field = (
-      <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
+      <div className={`flex min-w-0 flex-col ${compact ? "gap-[10px]" : "gap-[6px]"} ${alignCls}`}>
         <span
-          className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none"
-          style={{ color: "#B99A60", letterSpacing: "0.18em" }}
+          className={`whitespace-nowrap font-medium uppercase leading-none ${compact ? "text-[11px]" : "text-[9.5px]"}`}
+          style={{ color: compact ? "#D9BF82" : "#B99A60", letterSpacing: compact ? "0.22em" : "0.18em" }}
         >
-          {label}
+          {compact ? (label === "Arrival" ? "Check-in" : "Check-out") : label}
         </span>
         <div className="flex items-center gap-[3px]">
-          {align === "right" ? (
+          {!compact && align === "right" ? (
             <>
               {dateValue}
               {icon}
@@ -3909,8 +3924,8 @@ function S2StayCard({
         </div>
         {selected ? (
           <span
-            className="whitespace-nowrap text-[12px] leading-none"
-            style={{ color: "#84909D", fontWeight: 400, letterSpacing: "0.01em" }}
+            className={`whitespace-nowrap leading-none ${compact ? "text-[14px]" : "text-[12px]"}`}
+            style={{ color: compact ? "rgba(216,226,236,0.62)" : "#84909D", fontWeight: 400, letterSpacing: "0.01em" }}
           >
             {format(selected, "EEEE")}
           </span>
@@ -3925,12 +3940,13 @@ function S2StayCard({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-label={`${label} date`}
-        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-[9px] text-left transition-colors duration-200 disabled:cursor-default"
-        style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
+        className={`s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent text-left transition-colors duration-200 disabled:cursor-default ${compact ? "px-0 py-0" : "px-2 py-[9px]"}`}
+        style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: !compact && align === "right" ? "flex-end" : "flex-start" }}
       >
         {field}
       </button>
     );
+
 
     if (!interactive) return <div className="min-w-0">{trigger}</div>;
 
