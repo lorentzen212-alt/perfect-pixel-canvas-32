@@ -219,7 +219,33 @@ function Home() {
                 filter: "blur(6px)",
               }}
             />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[32px]">
+
+            {/* Architectural side frames (brushed stone rails) */}
+            {(["left", "right"] as const).map((side) => (
+              <div
+                key={side}
+                aria-hidden
+                className="pointer-events-none absolute -top-[26px] -bottom-[26px] hidden w-[7px] rounded-[4px] md:block"
+                style={{
+                  [side]: "-34px",
+                  background:
+                    "linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(196,205,214,0.20) 22%, rgba(232,238,244,0.30) 46%, rgba(150,162,174,0.16) 72%, rgba(255,255,255,0.04) 100%)",
+                  boxShadow:
+                    "0 0 0 1px rgba(255,255,255,0.045), 0 18px 46px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.18)",
+                } as React.CSSProperties}
+              >
+                <div
+                  className="absolute inset-y-[8%] left-1/2 w-px -translate-x-1/2"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(226,190,122,0) 0%, rgba(226,190,122,0.38) 28%, rgba(240,213,138,0.55) 50%, rgba(226,190,122,0.38) 72%, rgba(226,190,122,0) 100%)",
+                  }}
+                />
+              </div>
+            ))}
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[38px]">
+
 
               <ExperienceCard
                 to="/book-leisure"
@@ -341,7 +367,7 @@ function ExperienceCard({
   ctaText: string;
   intensity?: number;
 }) {
-  const cardShadow = "0 28px 70px rgba(0, 0, 0, 0.42)";
+  
   const k = Math.min(intensity, 2.2);
   const clamp = (v: number) => Math.min(v, 1);
 
@@ -446,19 +472,22 @@ function ExperienceCard({
           zIndex: 2,
           border: "1px solid rgba(184, 138, 46, 0.55)",
           boxShadow:
-            "0 14px 35px rgba(0,0,0,0.45), 0 28px 70px rgba(0,0,0,0.34), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12)",
+            "0 14px 35px rgba(0,0,0,0.48), 0 34px 84px rgba(0,0,0,0.40), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12), inset 0 1px 0 rgba(255,255,255,0.10)",
 
           transition:
-            "transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1)",
+            "transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 420ms cubic-bezier(0.22, 0.61, 0.36, 1)",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-8px)";
-          e.currentTarget.style.boxShadow = "0 36px 84px rgba(0, 0, 0, 0.48)";
+          e.currentTarget.style.transform = "translateY(-10px)";
+          e.currentTarget.style.boxShadow =
+            "0 22px 48px rgba(0,0,0,0.50), 0 46px 110px rgba(0,0,0,0.46), 0 0 26px rgba(212,175,85,0.16), inset 0 1px 0 rgba(255,255,255,0.14)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = cardShadow;
+          e.currentTarget.style.boxShadow =
+            "0 14px 35px rgba(0,0,0,0.48), 0 34px 84px rgba(0,0,0,0.40), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12), inset 0 1px 0 rgba(255,255,255,0.10)";
         }}
+
       >
         {/* Brushed champagne-gold ring */}
         <div
