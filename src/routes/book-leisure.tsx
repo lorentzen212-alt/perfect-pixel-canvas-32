@@ -4914,14 +4914,14 @@ function AccommodationSummary({
 
   return (
     <aside
-      className="flex flex-col px-6 py-8 lg:py-9"
+      className="flex flex-col px-7 py-9 lg:px-8 lg:py-11"
       style={{
         backgroundColor: S2_SUMMARY_BG,
         borderLeft: `1px solid ${S2_HAIR_GOLD}`,
       }}
     >
       <div
-        className="text-[15px] font-normal leading-tight"
+        className="text-[19px] font-normal leading-[1.25]"
         style={{ fontFamily: SERIF, color: "#FFFDF8" }}
       >
         Accommodation
@@ -4930,18 +4930,21 @@ function AccommodationSummary({
       </div>
       <S2DiamondRule width={104} />
 
-      <div className="space-y-3.5">
+      <div className="mt-1 space-y-5">
         {[
           { label: "Total Rooms", value: totalRooms },
           { label: "Guests", value: totalGuests },
           { label: "Stays", value: totalStays },
         ].map((row) => (
           <div key={row.label} className="flex items-baseline justify-between gap-3">
-            <span className="text-[12.5px] font-light" style={{ color: "rgba(246,242,234,0.62)" }}>
+            <span
+              className="text-[10.5px] font-medium uppercase tracking-[0.2em]"
+              style={{ color: "rgba(246,242,234,0.6)" }}
+            >
               {row.label}
             </span>
             <span
-              className="text-[19px] tabular-nums"
+              className="text-[22px] tabular-nums"
               style={{ fontFamily: SERIF, color: S2_GOLD_SOFT }}
             >
               {row.value}
@@ -4951,7 +4954,7 @@ function AccommodationSummary({
       </div>
 
       <div
-        className="my-6 h-px w-full"
+        className="my-8 h-px w-full"
         style={{ background: "linear-gradient(90deg, rgba(217,191,130,0.42), rgba(217,191,130,0.06))" }}
       />
 
@@ -4961,17 +4964,17 @@ function AccommodationSummary({
       >
         Room Distribution
       </div>
-      <ul className="mt-4 space-y-3">
+      <ul className="mt-5 space-y-4">
         {distribution.map((r) => (
           <li key={r.key} className="flex items-baseline justify-between gap-3">
             <span
-              className="truncate text-[12.5px] font-light"
+              className="truncate text-[13px] font-light"
               style={{ color: r.count > 0 ? "rgba(246,242,234,0.86)" : "rgba(246,242,234,0.4)" }}
             >
               {r.label.endsWith("s") ? r.label : `${r.label}s`}
             </span>
             <span
-              className="text-[13.5px] tabular-nums"
+              className="text-[15px] tabular-nums"
               style={{ color: r.count > 0 ? S2_GOLD_SOFT : "rgba(246,242,234,0.32)" }}
             >
               {r.count}
@@ -4990,7 +4993,7 @@ function AccommodationSummary({
       )}
 
       <div
-        className="my-6 h-px w-full"
+        className="my-8 h-px w-full"
         style={{ background: "linear-gradient(90deg, rgba(217,191,130,0.42), rgba(217,191,130,0.06))" }}
       />
 
