@@ -6290,7 +6290,7 @@ function LeisureStep4Screen({
       wide
     >
       <div
-        className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[25fr_50fr_25fr]"
+        className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[25fr_51fr_24fr]"
         style={{
           background: "#F7F3EA",
           border: "1px solid rgba(201,164,92,0.30)",
@@ -6353,27 +6353,21 @@ function LeisureStep4Screen({
                 Create unforgettable moments for your group.
               </p>
             </div>
-
-            {/* seam: cream tint bleeding toward the content panel */}
-            <div
-              className="pointer-events-none absolute inset-y-0 right-0 hidden w-[26px] lg:block"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(247,243,233,0) 0%, rgba(247,243,233,0.10) 55%, rgba(247,243,233,0.26) 100%)",
-              }}
-            />
           </aside>
+
 
         {/* ---------- CENTER ---------- */}
         <section
-          className="relative order-1 min-w-0 px-6 py-9 sm:px-9 sm:py-10 lg:order-none lg:-ml-[8px] lg:px-11"
+          className="relative order-1 min-w-0 px-7 py-9 sm:px-10 sm:py-10 lg:order-none lg:px-[54px]"
           style={{
             background:
               "radial-gradient(120% 80% at 50% 0%, #FBF8F1 0%, #F5F1E7 60%, #EFEADE 100%)",
             boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8)",
+            borderLeft: "1px solid rgba(226,203,148,0.20)",
             color: S4_INK,
           }}
         >
+
 
           <header className="text-center">
             <h2
@@ -6385,7 +6379,7 @@ function LeisureStep4Screen({
             <p className="mx-auto mt-2.5 max-w-[520px] text-[14px]" style={{ color: S4_MUTED }}>
               Make your stay truly memorable with unique activities and experiences.
             </p>
-            <div className="mt-6 flex items-center justify-center gap-3">
+            <div className="mt-5 flex items-center justify-center gap-3">
               <span
                 className="h-px w-[100px]"
                 style={{ background: `linear-gradient(90deg, transparent, ${S4_GOLD})` }}
@@ -6402,7 +6396,7 @@ function LeisureStep4Screen({
           </header>
 
           {/* Category filters */}
-          <div className="mt-7 flex flex-wrap justify-center gap-2.5">
+          <div className="mt-5 flex flex-wrap justify-center gap-2.5">
             {STEP4_CATEGORIES.map((c) => {
               const active = c === category;
               return (
@@ -6436,7 +6430,7 @@ function LeisureStep4Screen({
 
           {/* Experience grid — two rows tall, scrolls beyond */}
           <div
-            className="mt-7 grid grid-cols-1 gap-4 overflow-y-auto pr-1 sm:grid-cols-2 xl:grid-cols-3"
+            className="s4-scroll mt-6 grid grid-cols-1 items-stretch gap-x-5 gap-y-5 overflow-y-auto pr-2 sm:grid-cols-2 xl:grid-cols-3"
             style={{ maxHeight: 452 }}
           >
             {filtered.map((e) => {
@@ -6635,11 +6629,11 @@ function LeisureStep4Screen({
         {/* ---------- RIGHT SUMMARY: right column of the same container ---------- */}
         <div className="order-3 min-w-0 lg:order-none">
           <aside
-            className="h-full px-[46px] pb-[52px] pt-[40px]"
+            className="flex h-full flex-col px-[38px] pb-[44px] pt-[40px] sm:px-[42px]"
             style={{
               background:
                 "linear-gradient(180deg, rgba(16,32,50,0.98) 0%, rgba(8,19,31,0.98) 100%)",
-              borderLeft: "1px solid rgba(232,199,117,0.28)",
+              borderLeft: "1px solid rgba(226,203,148,0.20)",
             }}
           >
 
@@ -6648,16 +6642,16 @@ function LeisureStep4Screen({
             </div>
             <div className="mt-3">{goldRule}</div>
 
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-5 flex items-center gap-3">
               <ShieldCheck size={15} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
               <span className="text-[13px]" style={{ color: "rgba(245,241,230,0.8)" }}>
                 Free &amp; non-binding request
               </span>
             </div>
 
-            <div className="mt-7">{summaryLines}</div>
+            <div className="mt-8">{summaryLines}</div>
 
-            <div className="mt-8">
+            <div className="mt-9">
               <div className="text-[16px] text-white" style={{ fontFamily: SERIF }}>
                 Recommended for your group
               </div>
@@ -6665,10 +6659,10 @@ function LeisureStep4Screen({
               <button
                 type="button"
                 onClick={() => onToggle(recommended.label)}
-                className="mt-4 flex w-full items-center gap-3 rounded-[16px] p-3 text-left transition-all hover:-translate-y-[1px]"
+                className="mt-4 flex w-full items-center gap-3.5 rounded-[16px] px-4 py-3.5 text-left transition-all hover:-translate-y-[1px]"
                 style={{
                   background: "rgba(255,255,255,0.035)",
-                  border: `1px solid ${recommendedActive ? "rgba(232,199,117,0.6)" : "rgba(232,199,117,0.22)"}`,
+                  border: `1px solid ${recommendedActive ? "rgba(226,203,148,0.55)" : "rgba(226,203,148,0.20)"}`,
                 }}
               >
                 <img
@@ -6689,6 +6683,7 @@ function LeisureStep4Screen({
             </div>
           </aside>
         </div>
+
       </div>
     </LeisureStepShell>
   );
