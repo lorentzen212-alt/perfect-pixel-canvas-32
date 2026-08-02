@@ -4555,7 +4555,7 @@ function S2CategorySelect({
   );
 
   return (
-    <div className="relative mt-[1px]">
+    <div className={light ? "relative" : "relative mt-[1px]"}>
       <button
         ref={triggerRef}
         type="button"
@@ -4566,16 +4566,43 @@ function S2CategorySelect({
         disabled={disabled}
         onClick={toggle}
         onKeyDown={onKeyDown}
-        className="flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
+        className={
+          light
+            ? "flex h-[28px] w-full cursor-pointer select-none items-center justify-between gap-1.5 px-2 text-left text-[11.5px] font-light outline-none transition-colors disabled:cursor-not-allowed"
+            : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
+        }
+        style={
+          light
+            ? {
+                borderRadius: 4,
+                border: `1px solid ${S2_HAIR_GOLD}`,
+                backgroundColor: open ? "rgba(179,146,84,0.08)" : "transparent",
+                color: S2_NAVY_TEXT,
+                opacity: disabled ? 0.55 : 1,
+              }
+            : undefined
+        }
       >
-        <span className="truncate" style={{ color: value ? "#FFFFFF" : "rgba(245,241,230,0.75)" }}>
+        <span
+          className="truncate"
+          style={{
+            color: light
+              ? value
+                ? S2_NAVY_TEXT
+                : S2_NAVY_MUTED
+              : value
+                ? "#FFFFFF"
+                : "rgba(245,241,230,0.75)",
+          }}
+        >
           {value || "Select category"}
         </span>
         <ChevronDown
-          size={16}
+          size={light ? 13 : 16}
           strokeWidth={2}
           style={{
-            color: "rgba(245,241,230,0.55)",
+            color: light ? "#B39254" : "rgba(245,241,230,0.55)",
+            flexShrink: 0,
             transform: open && !closing ? "rotate(180deg)" : "rotate(0deg)",
             transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1)",
           }}
