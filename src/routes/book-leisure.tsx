@@ -3459,6 +3459,29 @@ function LeisureStep2Screen({
               ))}
             </div>
 
+            {/* Disclaimer */}
+            <div className="mx-auto mt-[18px] mb-[22px] flex max-w-[680px] flex-col items-center gap-3">
+              <div className="h-px w-[120px]" style={{ background: "rgba(197,162,75,0.18)" }} />
+              <div
+                className="flex items-center justify-center gap-[7px] text-center text-[12px] font-normal leading-[1.5]"
+                style={{ color: "rgba(197,162,75,0.78)" }}
+              >
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  style={{ color: "rgba(197,162,75,0.78)", flexShrink: 0 }}
+                  aria-hidden
+                >
+                  <circle cx="12" cy="12" r="9.25" stroke="currentColor" strokeWidth="1.3" />
+                  <path d="M12 10.5v5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                  <circle cx="12" cy="7.6" r="0.9" fill="currentColor" />
+                </svg>
+                <span>Images are illustrative. Actual room appearance may vary depending on the selected hotel.</span>
+              </div>
+            </div>
+
             {/* Notes */}
             <div className="mt-6">
               <div className="text-[13px] font-light" style={{ color: S2_NAVY_TEXT }}>
