@@ -4019,7 +4019,7 @@ function S2StayCard({
         >
           {confirming ? (
             <>
-              <span className="text-[13px] font-light" style={{ color: "rgba(248,245,238,0.9)" }}>
+              <span className="text-[13px]" style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}>
                 Remove this stay?
               </span>
               <div className="flex items-center gap-4">
