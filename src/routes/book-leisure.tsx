@@ -3243,11 +3243,11 @@ function LeisureStep2Screen({
       />
 
       <div className="mx-auto w-full" style={{ maxWidth: 1720, padding: "0 20px 30px" }}>
-        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[26%_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[26%_minmax(0,1fr)]">
           {/* ---------- LEFT: hero panel ---------- */}
-          <aside className="min-w-0 lg:sticky" style={{ top: 20 }}>
+          <aside className="min-w-0 xl:sticky" style={{ top: 20 }}>
             <div
-              className="relative h-[420px] w-full overflow-hidden sm:h-[460px] lg:h-[760px]"
+              className="relative h-[420px] w-full overflow-hidden sm:h-[460px] xl:h-[760px]"
               style={{
                 borderRadius: 23,
                 border: `1px solid ${S2_HAIR_GOLD}`,
