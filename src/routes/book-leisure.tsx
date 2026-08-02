@@ -3404,7 +3404,7 @@ function LeisureStep2Screen({
 
               {/* Saved stays */}
               {stays.some((s) => s.id !== editingId) && (
-                <div className="mt-5">
+                <div className="mt-5" ref={staysSectionRef}>
                   <div
                     className="text-[11px] font-medium uppercase tracking-[0.22em]"
                     style={{ color: "rgba(246,242,234,0.62)" }}
