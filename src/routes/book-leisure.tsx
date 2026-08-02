@@ -4308,10 +4308,11 @@ function S2RoomCard({
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0"
           style={{
-            height: "34%",
+            height: "30%",
             background:
-              "linear-gradient(to top, rgba(8,23,34,0.55) 0%, rgba(8,23,34,0.26) 45%, rgba(8,23,34,0) 100%)",
+              "linear-gradient(to top, rgba(8,23,34,0.28) 0%, rgba(8,23,34,0.10) 50%, rgba(8,23,34,0) 100%)",
           }}
+
         />
         {roomKey === "double" && (
           <span
