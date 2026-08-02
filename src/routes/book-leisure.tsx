@@ -4442,7 +4442,7 @@ function S2RoomCard({
           </div>
         ) : (
           <div
-            className="s2-metal flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 whitespace-nowrap px-2.5 text-[13.5px] font-light"
+            className="s2-metal flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 truncate px-2.5 text-[13.5px] font-light"
             style={{
               borderRadius: 13,
               color: "rgba(247,246,242,0.72)",
@@ -4765,7 +4765,7 @@ function S2Counter({
       className={`flex items-center justify-between ${light ? "s2-metal h-[43px] shrink-0 px-1.5" : "h-[35px] px-1.5 transition-colors duration-200"}`}
       style={{
         borderRadius: light ? 13 : 999,
-        width: light ? 96 : undefined,
+        width: light ? 92 : undefined,
         backgroundColor: light ? undefined : "rgba(20,33,45,0.72)",
         border: light ? undefined : "1px solid rgba(214,226,236,0.10)",
       }}
