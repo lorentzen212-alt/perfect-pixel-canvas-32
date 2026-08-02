@@ -431,6 +431,23 @@
   color: transparent;
 }
 
+/* Review page — refined edit links */
+.s6-edit-link {
+  color: rgba(96, 90, 82, 0.72);
+  transition: color 280ms ease;
+}
+.s6-edit-link:hover {
+  color: #b08d3f;
+}
+.s6-edit-arrow {
+  transition: transform 280ms ease;
+}
+.s6-edit-link:hover .s6-edit-arrow {
+  transform: translateX(3px);
+}
+
+
+
 
 .s6-lux .s6-submit:hover:not(:disabled) {
   transform: translateY(-1px);
