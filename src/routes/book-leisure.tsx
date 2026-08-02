@@ -6857,7 +6857,7 @@ const S5_PLACEHOLDER = "rgba(226,218,200,0.42)";
 function S5FieldLabel({ children, optional }: { children: React.ReactNode; optional?: boolean }) {
   return (
     <label
-      className="mb-2.5 block text-[10.5px] font-medium uppercase tracking-[0.22em]"
+      className="mb-1.5 block text-[10.5px] font-medium uppercase tracking-[0.22em]"
       style={{ color: "rgba(245,241,230,0.72)" }}
     >
       {children}
