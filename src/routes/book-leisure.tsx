@@ -6809,10 +6809,11 @@ function LeisureStep4Screen({
           </div>
 
           {/* Experience grid — two rows tall, scrolls beyond */}
-          <div
-            className="s4-scroll mt-6 grid grid-cols-1 items-stretch gap-x-5 gap-y-6 overflow-y-auto pr-2 sm:grid-cols-2 xl:grid-cols-3"
-            style={{ maxHeight: 452 }}
-          >
+          <div className="relative mt-7">
+            <div
+              className="s4-scroll grid grid-cols-1 items-stretch gap-x-5 gap-y-7 overflow-y-auto pb-6 pr-1 sm:grid-cols-2 xl:grid-cols-3"
+              style={{ maxHeight: 470 }}
+            >
             {filtered.map((e) => {
               const active = selected.has(e.label);
               const featured = e.label === "Northern Lights";
@@ -6825,18 +6826,19 @@ function LeisureStep4Screen({
                   onMouseLeave={() =>
                     setHoveredExp((cur) => (cur?.label === e.label ? null : cur))
                   }
-                  className={`s4-card group relative flex cursor-pointer flex-col overflow-hidden rounded-[18px] text-left ${active ? "s4-selected" : ""} ${featured ? "s4-featured" : ""}`}
+                  className={`s4-card group relative flex cursor-pointer flex-col overflow-hidden rounded-[22px] text-left ${active ? "s4-selected" : ""} ${featured ? "s4-featured" : ""}`}
                   style={{
-                    background: "#FAF8F4",
-                    border: `1px solid ${active ? S4_GOLD : "rgba(197,162,75,0.18)"}`,
+                    background:
+                      "linear-gradient(180deg, #F8F5EF 0%, #F5F1EB 55%, #F1ECE3 100%)",
+                    border: `1px solid ${active ? S4_GOLD : "rgba(214,196,163,0.55)"}`,
                     boxShadow: active
-                      ? "0 12px 34px rgba(201,164,92,0.20), 0 3px 10px rgba(0,0,0,0.06)"
-                      : "0 10px 30px rgba(0,0,0,0.08)",
+                      ? "0 14px 32px -20px rgba(201,164,92,0.45), 0 3px 10px -6px rgba(18,33,46,0.10)"
+                      : "0 12px 28px -20px rgba(18,33,46,0.20), 0 2px 8px -6px rgba(18,33,46,0.08)",
                   }}
                 >
                   <div
-                    className="relative w-full overflow-hidden rounded-t-[17px]"
-                    style={{ height: 172 }}
+                    className="s4-card-media relative w-full overflow-hidden"
+                    style={{ height: 172, borderRadius: "21px 21px 0 0" }}
                   >
                     <img
                       src={e.img}
@@ -6868,23 +6870,27 @@ function LeisureStep4Screen({
                     )}
                   </div>
 
-                  <div className="flex flex-1 items-center justify-between gap-4 px-[22px] py-[18px]">
+                  <div className="flex flex-1 items-center justify-between gap-5 px-[24px] pb-[20px] pt-[22px]">
                     <div className="min-w-0">
                       <div
                         className="s4-card-title truncate"
                         style={{
                           fontFamily: SERIF,
-                          fontSize: 20,
+                          fontSize: 20.5,
                           fontWeight: 500,
                           lineHeight: 1.2,
+                          letterSpacing: "0.005em",
                           color: "#1F2328",
                         }}
                       >
                         {e.label}
                       </div>
                       <div
-                        className="s4-card-cat mt-[6px] truncate text-[12px] leading-[1.4]"
-                        style={{ color: "rgba(45,48,52,0.58)" }}
+                        className="s4-card-cat mt-[9px] truncate text-[11px] uppercase leading-[1.4]"
+                        style={{
+                          color: "rgba(45,48,52,0.52)",
+                          letterSpacing: "0.14em",
+                        }}
                       >
                         {e.category}
                       </div>
@@ -6894,23 +6900,33 @@ function LeisureStep4Screen({
                       style={{
                         background: active
                           ? `linear-gradient(135deg, ${S4_GOLD_LT} 0%, ${S4_GOLD} 70%)`
-                          : "#FFFFFF",
-                        border: `1px solid ${active ? S4_GOLD : "rgba(197,162,75,0.55)"}`,
+                          : "linear-gradient(180deg, #FCFAF6 0%, #F5F1EB 100%)",
+                        border: `1px solid ${active ? S4_GOLD : "rgba(197,162,75,0.50)"}`,
                         color: active ? "#FFFFFF" : S4_GOLD,
-                        boxShadow: "0 3px 10px rgba(0,0,0,0.07)",
+                        boxShadow: "0 2px 8px -4px rgba(18,33,46,0.12)",
                       }}
                     >
                       {active ? (
-                        <Check size={16} strokeWidth={2.6} />
+                        <Check size={14} strokeWidth={2.6} />
                       ) : (
-                        <Plus size={17} strokeWidth={1.6} />
+                        <Plus size={15} strokeWidth={1.6} />
                       )}
                     </span>
                   </div>
                 </button>
               );
             })}
+            </div>
+            {/* elegant catalogue fade instead of a scrollbar */}
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-[68px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(243,238,228,0) 0%, rgba(243,238,228,0.72) 55%, #F1ECE0 100%)",
+              }}
+            />
           </div>
+
 
           {/* Special Requests */}
           <div
