@@ -7023,7 +7023,7 @@ function LeisureStep4Screen({
 const S5_HERO =
   "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1600&q=80";
 
-const S5_PANEL_IMAGE = s5ConciergeHero.url;
+const S5_PANEL_IMAGE = s5BlackGoldHero.url;
 
 
 const PHONE_COUNTRIES: { code: string; dial: string; flag: string; name: string }[] = [
