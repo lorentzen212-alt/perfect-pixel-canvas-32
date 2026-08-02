@@ -3242,16 +3242,66 @@ function LeisureStep2Screen({
         hideCurrentFlow="leisure"
       />
 
-      <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 20px 30px" }}>
-        <div
-          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,1fr)_264px]"
-          style={{
-            borderRadius: 14,
-            border: `1px solid ${S2_HAIR_GOLD}`,
-            backgroundColor: "#F8F6F2",
-            boxShadow: "0 40px 90px -50px rgba(0,0,0,0.85)",
-          }}
-        >
+      <div className="mx-auto w-full" style={{ maxWidth: 1720, padding: "0 20px 30px" }}>
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[26%_minmax(0,1fr)]">
+          {/* ---------- LEFT: hero panel ---------- */}
+          <aside className="min-w-0 lg:sticky" style={{ top: 20 }}>
+            <div
+              className="relative h-[420px] w-full overflow-hidden sm:h-[460px] lg:h-[760px]"
+              style={{
+                borderRadius: 23,
+                border: `1px solid ${S2_HAIR_GOLD}`,
+                boxShadow: "0 40px 90px -50px rgba(0,0,0,0.85)",
+                backgroundColor: S2_INK,
+              }}
+            >
+              <img
+                src={s2StayHeroImg.url}
+                alt="Fireside lounge overlooking a Nordic fjord at dusk"
+                className="h-full w-full"
+                style={{ objectFit: "cover", objectPosition: "center" }}
+              />
+              <div
+                aria-hidden
+                className="absolute inset-x-0 bottom-0"
+                style={{
+                  height: "58%",
+                  background:
+                    "linear-gradient(to top, rgba(9,20,30,0.92) 0%, rgba(9,20,30,0.62) 38%, rgba(9,20,30,0) 100%)",
+                }}
+              />
+              <div className="absolute inset-x-0 bottom-0 px-8 pb-9 lg:px-9 lg:pb-11">
+                <div
+                  className="text-[10.5px] font-medium uppercase tracking-[0.30em]"
+                  style={{ color: "#D8BE85" }}
+                >
+                  Step 2 of 6
+                </div>
+                <h2
+                  className="mt-3 text-[34px] font-normal leading-[1.05] lg:text-[40px]"
+                  style={{ fontFamily: SERIF, color: "#FFFFFF" }}
+                >
+                  Accommodation
+                </h2>
+                <p
+                  className="mt-3 max-w-[24ch] text-[13.5px] font-light leading-relaxed"
+                  style={{ color: "rgba(243,238,229,0.86)" }}
+                >
+                  How many rooms will your group need?
+                </p>
+              </div>
+            </div>
+          </aside>
+
+          <div
+            className="grid min-w-0 grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,1fr)_264px]"
+            style={{
+              borderRadius: 14,
+              border: `1px solid ${S2_HAIR_GOLD}`,
+              backgroundColor: "#F8F6F2",
+              boxShadow: "0 40px 90px -50px rgba(0,0,0,0.85)",
+            }}
+          >
           {/* ---------- MAIN: working area ---------- */}
           <section
             className="min-w-0 px-6 py-8 lg:px-10 lg:py-9"
