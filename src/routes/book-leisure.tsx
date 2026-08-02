@@ -2550,7 +2550,7 @@ const STEP2_ROOMS: {
 ];
 
 /* Room categories */
-const ACCESSIBLE_CATEGORY_LABEL = "Based on available room type";
+const ACCESSIBLE_CATEGORY_LABEL = "Available room";
 
 const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
   single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
@@ -4352,25 +4352,25 @@ function S2RoomCard({
       style={{
         borderRadius: 19,
         backgroundColor: "#FCFAF7",
-        padding: 8,
+        padding: 7,
         border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
-          ? "0 14px 32px -24px rgba(8,23,34,0.30)"
-          : "0 8px 24px -20px rgba(8,23,34,0.22)",
+          ? "0 10px 26px -24px rgba(8,23,34,0.26)"
+          : "0 6px 20px -20px rgba(8,23,34,0.18)",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = "0 18px 38px -24px rgba(8,23,34,0.30)";
+        e.currentTarget.style.boxShadow = "0 14px 32px -24px rgba(8,23,34,0.28)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = active
-          ? "0 14px 32px -24px rgba(8,23,34,0.30)"
-          : "0 8px 24px -20px rgba(8,23,34,0.22)";
+          ? "0 10px 26px -24px rgba(8,23,34,0.26)"
+          : "0 6px 20px -20px rgba(8,23,34,0.18)";
       }}
     >
       {/* 1 — image (~60% of card) */}
       <div
         className="relative overflow-hidden"
-        style={{ aspectRatio: "16 / 12.3", borderRadius: 14 }}
+        style={{ aspectRatio: "16 / 12.3", borderRadius: 16, boxShadow: "0 3px 10px -4px rgba(8,23,34,0.35)" }}
       >
         <img
           src={meta.img}
@@ -4386,35 +4386,19 @@ function S2RoomCard({
               "linear-gradient(to top, rgba(8,23,34,0.28) 0%, rgba(8,23,34,0.10) 50%, rgba(8,23,34,0) 100%)",
           }}
         />
-        {roomKey === "double" && (
-          <span
-            className="absolute text-[11px] font-medium uppercase tracking-[0.16em]"
-            style={{
-              top: 14,
-              left: 14,
-              padding: "4px 11px",
-              borderRadius: 999,
-              backgroundColor: "#C6A967",
-              color: "#0B1A26",
-              boxShadow: "0 4px 12px -6px rgba(8,23,34,0.5)",
-            }}
-          >
-            Most popular
-          </span>
-        )}
       </div>
 
       {/* 2 — name + guest count */}
       <div className="flex items-start justify-between gap-2 pt-[5px]">
         <div className="min-w-0">
           <div
-            className="truncate text-[20px] font-medium leading-[1.2] tracking-[0.15px]"
+            className="truncate text-[18.8px] font-medium leading-[1.2] tracking-[0.15px]"
             style={{ fontFamily: SERIF, color: "#26313A" }}
           >
             {meta.title}
           </div>
           <div
-            className="mt-[1px] flex items-center gap-1.5 text-[14px] font-normal tracking-[0.03em] leading-snug"
+            className="mt-[4px] flex items-center gap-1.5 text-[13.3px] font-normal tracking-[0.03em] leading-snug"
             style={{ color: "#8A9099" }}
           >
             <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
@@ -4434,7 +4418,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-[5px] flex w-full items-center gap-2">
+      <div className="mt-[5px] flex w-full items-center gap-1.5">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
