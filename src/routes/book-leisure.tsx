@@ -2550,19 +2550,26 @@ const STEP2_ROOMS: {
 ];
 
 /* Room categories */
+const ACCESSIBLE_CATEGORY_LABEL = "Based on available room type";
+
 const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
   single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
   double: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
-  twin: ["Standard", "Superior", "Premium"],
+  twin: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
+  triple: ["Superior", "Premium", "Junior Suite", "Suite"],
   family: ["Family Room", "Junior Suite", "Suite"],
 };
 
 /* Default selected category per room type (first option, e.g. "Standard") */
 function defaultDraftCategories(): Record<string, string> {
-  return Object.fromEntries(
-    Object.entries(ROOM_CATEGORY_OPTIONS).map(([k, opts]) => [k, opts[0]]),
-  );
+  return {
+    ...Object.fromEntries(
+      Object.entries(ROOM_CATEGORY_OPTIONS).map(([k, opts]) => [k, opts[0]]),
+    ),
+    accessible: ACCESSIBLE_CATEGORY_LABEL,
+  };
 }
+
 
 function LeisureStepShell({
   activeStep,
@@ -4435,7 +4442,6 @@ function S2RoomCard({
               light
               value={category ?? categoryOptions[0]}
               options={categoryOptions}
-              disabled={!active}
               label={`${meta.title} category`}
               onChange={(v) => onCategoryChange?.(v)}
             />
@@ -4445,13 +4451,15 @@ function S2RoomCard({
             className="s2-metal flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 overflow-hidden px-2.5 text-[13.5px] font-light"
             style={{
               borderRadius: 13,
-              color: "rgba(247,246,242,0.72)",
-              opacity: active ? 1 : 0.88,
+              color: "#F7F6F2",
+              opacity: 1,
             }}
+            title={ACCESSIBLE_CATEGORY_LABEL}
           >
-            <span className="truncate">Standard Rooms</span>
+            <span className="truncate">{ACCESSIBLE_CATEGORY_LABEL}</span>
           </div>
         )}
+
       </div>
     </div>
   );
@@ -4465,14 +4473,12 @@ function S2CategorySelect({
   value,
   options,
   onChange,
-  disabled,
   label,
   light = false,
 }: {
   value: string;
   options: string[];
   onChange: (v: string) => void;
-  disabled?: boolean;
   label: string;
   light?: boolean;
 }) {
@@ -4548,7 +4554,6 @@ function S2CategorySelect({
   }, [open, measure, close]);
 
   const toggle = () => {
-    if (disabled) return;
     if (open) close();
     else {
       setActiveIdx(Math.max(0, items.indexOf(value)));
@@ -4557,9 +4562,8 @@ function S2CategorySelect({
       setOpen(true);
     }
   };
-
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (disabled) return;
+
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       if (open) {
@@ -4655,26 +4659,23 @@ function S2CategorySelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={label}
-        disabled={disabled}
         onClick={toggle}
         onKeyDown={onKeyDown}
         className={
             light
-              ? "s2-metal flex h-[43px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[13.5px] font-light outline-none disabled:cursor-not-allowed"
-              : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
+              ? "s2-metal flex h-[43px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[13.5px] font-light outline-none"
+              : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none"
         }
         style={
           light
             ? {
                 borderRadius: 13,
                 color: "#F7F6F2",
-                opacity: disabled ? 0.88 : 1,
+                opacity: 1,
               }
-
-
-
             : undefined
         }
+
       >
         <span
           className="truncate"
