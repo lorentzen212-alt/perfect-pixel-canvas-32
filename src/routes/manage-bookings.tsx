@@ -466,6 +466,7 @@ function StatusCard({
   count,
   description,
   tone,
+  overlay,
   image,
   icon,
   active,
@@ -475,6 +476,7 @@ function StatusCard({
   count: number;
   description: string;
   tone: string;
+  overlay: string;
   image: string;
   icon: React.ReactNode;
   active: boolean;
@@ -491,14 +493,13 @@ function StatusCard({
         boxShadow: active ? `0 0 0 1px ${tone}55` : "0 18px 36px -30px rgba(0,0,0,0.9)",
       }}
     >
-      <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.6) brightness(0.42)" }} />
+      <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.85) brightness(0.62)" }} />
       <span
         className="absolute inset-0"
         aria-hidden
-        style={{
-          background: `linear-gradient(160deg, ${tone}4D 0%, rgba(8,15,23,0.86) 62%, rgba(6,12,18,0.95) 100%)`,
-        }}
+        style={{ background: overlay }}
       />
+
       <span
         className="relative grid h-11 w-11 place-items-center rounded-full"
         style={{ border: `1px solid ${tone}`, color: tone }}
@@ -922,6 +923,7 @@ function ManageBookings() {
                 count={counts.proposal}
                 description="Proposal ready"
                 tone={GOLD}
+                overlay="linear-gradient(135deg, rgba(120, 72, 20, 0.75) 0%, rgba(40, 28, 18, 0.85) 100%)"
                 image={bookings.find((b) => groupOf(b) === "proposal")?.image ?? heroImage}
                 icon={<FileSignature size={19} />}
                 active={group === "proposal"}
@@ -932,6 +934,7 @@ function ManageBookings() {
                 count={counts.awaiting}
                 description="Hotels preparing"
                 tone={BLUE}
+                overlay="linear-gradient(135deg, rgba(30, 64, 120, 0.75) 0%, rgba(18, 24, 40, 0.85) 100%)"
                 image={bookings.find((b) => groupOf(b) === "awaiting")?.image ?? heroImage}
                 icon={<Hourglass size={19} />}
                 active={group === "awaiting"}
@@ -942,6 +945,7 @@ function ManageBookings() {
                 count={counts.confirmed}
                 description="Confirmed booking"
                 tone={GREEN}
+                overlay="linear-gradient(135deg, rgba(30, 90, 60, 0.75) 0%, rgba(18, 32, 24, 0.85) 100%)"
                 image={bookings.find((b) => groupOf(b) === "confirmed")?.image ?? heroImage}
                 icon={<Check size={19} />}
                 active={group === "confirmed"}
