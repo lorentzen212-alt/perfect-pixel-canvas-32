@@ -4376,7 +4376,7 @@ function S2RoomCard({
           </div>
         ) : (
           <div
-            className="flex h-[36px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-2.5 text-[11.5px] font-light transition-colors duration-200 hover:bg-[#F6F1E8]"
+            className="flex h-[36px] min-w-0 flex-1 items-center justify-center gap-1 whitespace-nowrap px-2 text-[11.5px] font-light transition-colors duration-200 hover:bg-[#F6F1E8]"
             style={{
               borderRadius: 12,
               border: "1px solid #E2D6BE",
@@ -4596,7 +4596,7 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[36px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[11.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
+            ? "flex h-[36px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap px-2 text-left text-[11.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
@@ -4702,7 +4702,7 @@ function S2Counter({
       className={`flex items-center justify-between transition-colors duration-200 ${light ? "h-[36px] shrink-0 px-1 hover:bg-[#F6F1E8]" : "h-[35px] px-1.5"}`}
       style={{
         borderRadius: light ? 12 : 999,
-        width: light ? 84 : undefined,
+        width: light ? 74 : undefined,
         backgroundColor: light ? "#FCFAF7" : "rgba(20,33,45,0.72)",
         border: light ? "1px solid #E2D6BE" : "1px solid rgba(214,226,236,0.10)",
       }}
