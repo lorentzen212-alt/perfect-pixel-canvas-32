@@ -240,6 +240,17 @@ function Home() {
               </span>
             </a>
           </div>
+
+          {/* Cinematic dissolve — Hero fades into the warm off-white page
+              background over the last ~170px, no hard edge. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[170px]"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(8,17,28,0) 0%, rgba(12,20,31,0.14) 34%, rgba(245,243,239,0.42) 70%, #F5F3EF 100%)",
+            }}
+          />
         </section>
       </main>
 
