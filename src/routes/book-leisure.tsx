@@ -6291,6 +6291,7 @@ function LeisureStep4Screen({
       subtext={null}
       hideHero
       wide
+      ultraWide
     >
       <div
         className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[25fr_51fr_24fr]"
