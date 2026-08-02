@@ -6372,6 +6372,11 @@ type Step4Exp = { label: string; category: string; img: string };
 
 const STEP4_EXPERIENCES: Step4Exp[] = [
   {
+    label: "Northern Lights",
+    category: "Winter",
+    img: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=80",
+  },
+  {
     label: "Fjord Cruise",
     category: "Nature & Adventure",
     img: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=900&q=80",
@@ -6380,11 +6385,6 @@ const STEP4_EXPERIENCES: Step4Exp[] = [
     label: "Hiking Adventure",
     category: "Nature & Adventure",
     img: "https://images.unsplash.com/photo-1533240332313-0db49b459ad6?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    label: "Northern Lights",
-    category: "Winter",
-    img: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=80",
   },
   {
     label: "Ski Experience",
@@ -6450,6 +6450,7 @@ function LeisureStep4Screen({
     (e) => category === "All" || e.category === category,
   );
   const dateInputRef = useRef<HTMLInputElement>(null);
+  const [hoveredExp, setHoveredExp] = useState<Step4Exp | null>(null);
 
   const S4_INK = "#12212E";
   const S4_MUTED = "rgba(18,33,46,0.60)";
@@ -6488,14 +6489,23 @@ function LeisureStep4Screen({
             strokeWidth={1.6}
             style={{ color: S1_GOLD_SOFT, margin: "0 auto" }}
           />
-          <div className="mt-3 text-[13.5px] text-white">
-            No experiences added yet
+          <div
+            className="mt-3 text-[15px] text-white"
+            style={{ fontFamily: SERIF }}
+          >
+            Your itinerary
           </div>
           <div
-            className="mt-2 text-[12px] leading-[1.55]"
+            className="mt-1.5 text-[12px] uppercase tracking-[0.16em]"
+            style={{ color: "rgba(232,199,117,0.72)" }}
+          >
+            0 experiences selected
+          </div>
+          <div
+            className="mt-2.5 text-[12px] leading-[1.6]"
             style={{ color: "rgba(245,241,230,0.55)" }}
           >
-            Add experiences to make your stay even more memorable.
+            Choose experiences to personalise your group&rsquo;s stay.
           </div>
         </div>
       ) : (
@@ -6633,6 +6643,15 @@ function LeisureStep4Screen({
               alt="Northern lights over a fjord terrace with fire pit"
               className="absolute inset-0 h-full w-full object-cover"
             />
+            {hoveredExp && hoveredExp.label !== "Northern Lights" && (
+              <img
+                key={hoveredExp.label}
+                src={hoveredExp.img}
+                alt=""
+                aria-hidden
+                className="s4-hero-swap absolute inset-0 h-full w-full object-cover"
+              />
+            )}
             {/* subtle navy readability veil (~22%) */}
             <div
               className="absolute inset-0"
@@ -6730,16 +6749,16 @@ function LeisureStep4Screen({
                   key={c}
                   type="button"
                   onClick={() => setCategory(c)}
-                  className="inline-flex items-center gap-2 rounded-full px-[18px] py-[9px] text-[12.5px] font-medium transition-all duration-200 hover:-translate-y-[1px]"
+                  className="s4-filter inline-flex items-center gap-2 rounded-full px-[18px] py-[9px] text-[12.5px] font-medium"
                   style={{
                     background: active
-                      ? "linear-gradient(180deg, #16293C 0%, #0C1A29 100%)"
-                      : "rgba(255,255,255,0.82)",
-                    color: active ? "#FFFDF8" : S4_INK,
-                    border: `1px solid ${active ? "rgba(232,199,117,0.55)" : "rgba(201,164,92,0.34)"}`,
+                      ? "linear-gradient(180deg, #16293C 0%, #0B1826 100%)"
+                      : "#F7F3EA",
+                    color: active ? "#E7D3A7" : S4_INK,
+                    border: `1px solid ${active ? "rgba(232,199,117,0.62)" : "rgba(201,164,92,0.30)"}`,
                     boxShadow: active
-                      ? "0 14px 26px -16px rgba(8,19,31,0.75)"
-                      : "0 8px 18px -14px rgba(8,19,31,0.45)",
+                      ? "inset 0 2px 6px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07), 0 10px 22px -16px rgba(8,19,31,0.7)"
+                      : "0 4px 12px -10px rgba(8,19,31,0.35)",
                     letterSpacing: "0.01em",
                   }}
                 >
@@ -6761,20 +6780,30 @@ function LeisureStep4Screen({
           >
             {filtered.map((e) => {
               const active = selected.has(e.label);
+              const featured = e.label === "Northern Lights";
               return (
                 <button
                   key={e.label}
                   type="button"
                   onClick={() => onToggle(e.label)}
-                  className={`s4-card group relative overflow-hidden rounded-[19px] text-left ${active ? "s4-selected" : ""}`}
+                  onMouseEnter={() => setHoveredExp(e)}
+                  onMouseLeave={() =>
+                    setHoveredExp((cur) => (cur?.label === e.label ? null : cur))
+                  }
+                  className={`s4-card group relative cursor-pointer overflow-hidden rounded-[23px] text-left ${active ? "s4-selected" : ""} ${featured ? "s4-featured" : ""}`}
                   style={{
                     border: `1px solid ${active ? S4_GOLD : "rgba(18,33,46,0.10)"}`,
                     boxShadow: active
-                      ? "0 26px 50px -26px rgba(201,164,92,0.6)"
-                      : "0 22px 44px -30px rgba(8,19,31,0.55)",
+                      ? "0 16px 38px rgba(201,164,92,0.22), 0 3px 10px rgba(0,0,0,0.06)"
+                      : featured
+                      ? "0 16px 40px rgba(10,20,35,0.16), 0 4px 12px rgba(0,0,0,0.08)"
+                      : "0 12px 32px rgba(10,20,35,0.12), 0 3px 10px rgba(0,0,0,0.06)",
                   }}
                 >
-                  <div className="relative h-[210px] w-full overflow-hidden">
+                  <div
+                    className="relative w-full overflow-hidden"
+                    style={{ height: featured ? 227 : 210 }}
+                  >
                     <img
                       src={e.img}
                       alt={e.label}
@@ -6787,29 +6816,50 @@ function LeisureStep4Screen({
                           "linear-gradient(180deg, rgba(8,19,31,0) 40%, rgba(8,19,31,0.88) 100%)",
                       }}
                     />
+                    {featured && (
+                      <span
+                        className="absolute left-4 top-4 rounded-full px-3 py-[5px] text-[9px] font-medium uppercase tracking-[0.18em]"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, rgba(12,24,38,0.62) 0%, rgba(8,19,31,0.48) 100%)",
+                          border: "1px solid rgba(226,203,148,0.42)",
+                          color: "rgba(231,211,167,0.92)",
+                          backdropFilter: "blur(6px)",
+                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)",
+                        }}
+                      >
+                        Featured Experience
+                      </span>
+                    )}
                     <div className="absolute bottom-4 left-5 right-16">
                       <div
-                        className="text-white"
-                        style={{ fontFamily: SERIF, fontSize: 19.5, lineHeight: 1.15 }}
+                        className="s4-card-title"
+                        style={{
+                          fontFamily: SERIF,
+                          fontSize: 19.5,
+                          lineHeight: 1.15,
+                          color: "rgba(255,255,255,0.92)",
+                        }}
                       >
                         {e.label}
                       </div>
                       <div
-                        className="mt-1 text-[11.5px] leading-[1.45]"
+                        className="s4-card-cat mt-1 text-[11.5px] leading-[1.45]"
                         style={{ color: "rgba(245,241,230,0.72)" }}
                       >
                         {e.category}
                       </div>
                     </div>
                     <span
-                      className="absolute bottom-4 right-4 grid h-9 w-9 place-items-center rounded-full transition-all"
+                      className={`s4-plus ${active ? "s4-plus-active" : ""} absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full`}
                       style={{
                         background: active
                           ? `linear-gradient(135deg, ${S4_GOLD_LT} 0%, ${S4_GOLD} 70%)`
-                          : "rgba(8,19,31,0.5)",
-                        border: `1px solid ${active ? S4_GOLD : "rgba(232,199,117,0.6)"}`,
+                          : "linear-gradient(145deg, rgba(20,34,50,0.62) 0%, rgba(8,19,31,0.55) 100%)",
+                        border: `2px solid ${active ? S4_GOLD : "rgba(226,203,148,0.72)"}`,
                         color: active ? S1_NAVY : "#EBCB7A",
                         backdropFilter: "blur(6px)",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14)",
                       }}
                     >
                       {active ? (
