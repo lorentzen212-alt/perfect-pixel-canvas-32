@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
+import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
 
 import {
@@ -936,7 +937,7 @@ function ManageBookings() {
                 description="Hotels preparing"
                 tone={BLUE}
                 overlay="linear-gradient(135deg, rgba(30, 64, 120, 0.75) 0%, rgba(18, 24, 40, 0.85) 100%)"
-                image={bookings.find((b) => groupOf(b) === "awaiting")?.image ?? heroImage}
+                image={signingAsset.url}
                 icon={<Hourglass size={19} />}
                 active={group === "awaiting"}
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
