@@ -3318,13 +3318,13 @@ function LeisureStep2Screen({
           >
             {/* ===== Your Stay premium module ===== */}
             <div
-              className="s2-stay-module -mx-6 -mt-8 lg:-mx-6 lg:-mt-9"
+              className="s2-stay-module"
               style={{
                 background: "linear-gradient(160deg, #0F2237 0%, #102943 100%)",
-                borderRadius: 0,
-                border: "none",
+                borderRadius: 28,
+                border: "1px solid rgba(255,255,255,0.06)",
                 boxShadow: "0 24px 60px rgba(0,0,0,0.22)",
-                padding: "40px 40px 34px",
+                padding: "36px 40px 32px",
               }}
             >
               {/* Stay heading */}
