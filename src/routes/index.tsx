@@ -225,19 +225,46 @@ function Home() {
               aria-label="Explore"
             >
               <span
-                className="flex h-[38px] w-[38px] items-center justify-center rounded-full transition-transform duration-500 group-hover/explore:translate-y-1"
-                style={{ border: "1px solid rgba(226,190,122,0.55)" }}
+                className="relative flex h-[38px] w-[38px] items-center justify-center rounded-full transition-transform duration-500 group-hover/explore:translate-y-1"
+                style={{
+                  border: "1px solid transparent",
+                  backgroundImage:
+                    "linear-gradient(rgba(10,16,24,0.15), rgba(10,16,24,0.15)), linear-gradient(135deg, #FFE9A6 0%, #E7B94F 22%, #A96F08 45%, #F4D675 62%, #C99322 82%, #FFE9A6 100%)",
+                  backgroundOrigin: "border-box",
+                  backgroundClip: "padding-box, border-box",
+                  boxShadow:
+                    "0 0 14px rgba(231,185,79,0.35), inset 0 1px 2px rgba(255,233,166,0.35)",
+                }}
               >
-                <span className="text-[15px] leading-none" style={{ color: "#E2B473" }}>
+                <span
+                  className="text-[15px] leading-none"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(135deg, #FFF4CF 0%, #F4D675 30%, #C99322 55%, #FFE9A6 78%, #E7B94F 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                    filter: "drop-shadow(0 0 6px rgba(231,185,79,0.45))",
+                  }}
+                >
                   ↓
                 </span>
               </span>
               <span
                 className="text-[10.5px] uppercase tracking-[0.34em]"
-                style={{ color: "rgba(226,180,115,0.9)", fontFamily: "Inter, sans-serif" }}
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  backgroundImage:
+                    "linear-gradient(100deg, #A96F08 0%, #E7B94F 18%, #FFF4CF 34%, #F4D675 48%, #C99322 66%, #FFE9A6 84%, #A96F08 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                  filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.5))",
+                }}
               >
                 Explore
               </span>
+
             </a>
           </div>
         </section>
