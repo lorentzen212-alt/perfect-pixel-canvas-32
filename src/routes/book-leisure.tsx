@@ -4983,19 +4983,22 @@ function AccommodationSummary({
       }}
     >
       <div
-        className="text-[21px] font-normal leading-[1.15]"
+        className="text-[26px] font-normal leading-[1.1]"
         style={{ fontFamily: SERIF, color: "#FFFDF8" }}
       >
         Accommodation
-        <br />
-        Summary
       </div>
-      <S2DiamondRule width={260} />
+      <div
+        className="mt-2.5 text-[10px] font-medium uppercase tracking-[0.26em]"
+        style={{ color: S2_GOLD_SOFT }}
+      >
+        Live Summary
+      </div>
 
       {/* Key metrics */}
-      <div className="mt-1 grid grid-cols-3">
+      <div className="mt-7 grid grid-cols-3">
         {[
-          { label: "Total Rooms", value: totalRooms },
+          { label: "Rooms", value: totalRooms },
           { label: "Guests", value: totalGuests },
           { label: "Stays", value: totalStays },
         ].map((row, i) => (
@@ -5009,13 +5012,13 @@ function AccommodationSummary({
             }
           >
             <span
-              className="text-[30px] leading-none tabular-nums font-light"
+              className="text-[34px] leading-none tabular-nums font-light"
               style={{ fontFamily: SERIF, color: "#FFFDF8" }}
             >
               {row.value}
             </span>
             <span
-              className="mt-2.5 text-[9.5px] font-medium uppercase tracking-[0.18em]"
+              className="mt-3 text-[9.5px] font-medium uppercase tracking-[0.20em]"
               style={{ color: "rgba(246,242,234,0.55)" }}
             >
               {row.label}
@@ -5028,10 +5031,11 @@ function AccommodationSummary({
 
       <div
         className="text-[10.5px] font-medium uppercase tracking-[0.24em]"
-        style={{ color: "rgba(246,242,234,0.5)" }}
+        style={{ color: S2_GOLD_SOFT }}
       >
         Room Distribution
       </div>
+
       <ul className="mt-4">
         {distribution.map((r, i) => (
           <li
