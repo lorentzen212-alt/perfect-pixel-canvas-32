@@ -4407,7 +4407,7 @@ function S2RoomCard({
             {meta.title}
           </div>
           <div
-            className="mt-0.5 flex items-center gap-1.5 text-[15.2px] font-light tracking-[0.03em]"
+            className="mt-0.5 flex items-center gap-1.5 text-[14px] font-normal tracking-[0.03em] leading-snug"
             style={{ color: "#8A9099" }}
           >
             <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
