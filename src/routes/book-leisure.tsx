@@ -2589,6 +2589,7 @@ function LeisureStepShell({
   heroOverlay,
   hideHero = false,
   wide = false,
+  ultraWide = false,
 }: {
   activeStep: StepKey;
   onStepGo: (s: StepKey) => void;
@@ -2603,6 +2604,8 @@ function LeisureStepShell({
   heroOverlay?: React.ReactNode;
   hideHero?: boolean;
   wide?: boolean;
+  ultraWide?: boolean;
+
 
 }) {
   const gridCols = hideHero
@@ -2628,7 +2631,7 @@ function LeisureStepShell({
       />
 
 
-      <div className={`mx-auto grid ${hideHero ? (wide ? "max-w-[1500px] py-8 lg:py-10" : "max-w-[1240px] py-4 lg:py-5") : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
+      <div className={`mx-auto grid ${hideHero ? (ultraWide ? "max-w-[1780px] py-8 lg:py-10" : wide ? "max-w-[1500px] py-8 lg:py-10" : "max-w-[1240px] py-4 lg:py-5") : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
 
         {!hideHero && (
         <aside
@@ -6288,9 +6291,10 @@ function LeisureStep4Screen({
       subtext={null}
       hideHero
       wide
+      ultraWide
     >
       <div
-        className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[25fr_51fr_24fr]"
+        className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[24.9fr_54.6fr_20.5fr]"
         style={{
           background: "#F7F3EA",
           border: "1px solid rgba(201,164,92,0.30)",
@@ -6396,7 +6400,7 @@ function LeisureStep4Screen({
           </header>
 
           {/* Category filters */}
-          <div className="mt-5 flex flex-wrap justify-center gap-2.5">
+          <div className="mt-5 flex flex-wrap justify-center gap-x-4 gap-y-3">
             {STEP4_CATEGORIES.map((c) => {
               const active = c === category;
               return (
@@ -6430,7 +6434,7 @@ function LeisureStep4Screen({
 
           {/* Experience grid — two rows tall, scrolls beyond */}
           <div
-            className="s4-scroll mt-6 grid grid-cols-1 items-stretch gap-x-5 gap-y-5 overflow-y-auto pr-2 sm:grid-cols-2 xl:grid-cols-3"
+            className="s4-scroll mt-6 grid grid-cols-1 items-stretch gap-x-7 gap-y-5 overflow-y-auto pr-2 sm:grid-cols-2 xl:grid-cols-3"
             style={{ maxHeight: 452 }}
           >
             {filtered.map((e) => {
