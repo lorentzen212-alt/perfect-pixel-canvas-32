@@ -4771,7 +4771,7 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
             light
-              ? "flex h-[46px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap text-left text-[15px] font-medium outline-none transition-colors duration-200"
+              ? "flex h-[42px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap text-left text-[15px] font-medium outline-none transition-colors duration-200"
               : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none"
         }
         style={
