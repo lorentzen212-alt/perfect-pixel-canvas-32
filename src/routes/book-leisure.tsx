@@ -4479,7 +4479,7 @@ function S2RoomCard({
         style={{
           display: "block",
           width: "100%",
-          height: 220,
+          height: 190,
           objectFit: "cover",
           objectPosition: "center",
           margin: 0,
@@ -4490,7 +4490,7 @@ function S2RoomCard({
       />
 
       {/* 2 — name + guest count + learn more */}
-      <div className="flex flex-1 flex-col" style={{ padding: 22 }}>
+      <div className="flex flex-1 flex-col" style={{ padding: "22px 22px 16px" }}>
         <div className="flex items-start justify-between gap-2">
           <div
             className="truncate text-[18px] leading-[1.15]"
