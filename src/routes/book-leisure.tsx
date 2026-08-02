@@ -3292,7 +3292,7 @@ function LeisureStep2Screen({
               >
                 Accommodation
               </h1>
-              <S2DiamondRule />
+              <S2DiamondRule refined />
               <p
                 className="mt-1 max-w-[260px] text-[15px] font-light leading-[1.9]"
                 style={{ color: "rgba(246,242,234,0.9)" }}
