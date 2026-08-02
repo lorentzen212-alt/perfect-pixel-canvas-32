@@ -3424,6 +3424,7 @@ function LeisureStep2Screen({
                           rooms={stayRoomsTotal(s.rooms)}
                           guests={stayGuestsTotal(s.rooms)}
                           animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
+                          highlight={justAddedId === s.id}
                           onEdit={() => editStay(s.id)}
                           onRemove={() => requestRemoveStay(s.id)}
                           confirming={pendingRemoveId === s.id}
