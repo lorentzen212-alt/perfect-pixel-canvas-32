@@ -4473,7 +4473,6 @@ function S2CategorySelect({
   value,
   options,
   onChange,
-  disabled,
   label,
   light = false,
 }: {
