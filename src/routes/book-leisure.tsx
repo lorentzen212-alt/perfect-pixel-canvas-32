@@ -4272,7 +4272,37 @@ function S2StayCard({
 }
 
 
+function S2LuxeStat({
+  icon,
+  value,
+  label,
+  first = false,
+}: {
+  icon: React.ReactNode;
+  value: number;
+  label: string;
+  first?: boolean;
+}) {
+  return (
+    <div
+      className="flex min-w-[86px] flex-col items-center justify-center gap-2 px-5"
+      style={{ borderLeft: first ? undefined : "1px solid rgba(217,191,130,0.18)" }}
+    >
+      <span aria-hidden className="leading-none" style={{ color: "#D9BF82" }}>
+        {icon}
+      </span>
+      <span className="text-[24px] leading-none" style={{ color: "#FFFFFF", fontWeight: 300 }}>
+        {value}
+      </span>
+      <span className="text-[13px] leading-none" style={{ color: "rgba(216,226,236,0.6)" }}>
+        {label}
+      </span>
+    </div>
+  );
+}
+
 function S2StayDivider() {
+
   return (
     <span
       aria-hidden
