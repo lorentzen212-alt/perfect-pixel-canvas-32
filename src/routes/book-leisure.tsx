@@ -4507,7 +4507,7 @@ function S2RoomCard({
       <div className="mx-[18px] mt-[7px] mb-[6px] h-px" style={{ backgroundColor: "rgba(198,169,103,0.4)" }} />
 
       {/* 2 — name + guest count */}
-      <div className="flex items-start justify-between gap-2">
+      <div className="flex min-h-[46px] items-start justify-between gap-2">
         <div className="min-w-0">
           <div
             className="truncate text-[17.9px] font-medium leading-[1.15] tracking-[0.15px]"
