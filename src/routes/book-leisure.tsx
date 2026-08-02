@@ -4673,7 +4673,7 @@ function S2Counter({
       className={`flex items-center justify-between ${light ? "h-[28px] shrink-0 px-1" : "h-[35px] px-1.5"}`}
       style={{
         borderRadius: light ? 4 : 10,
-        width: light ? 82 : undefined,
+        width: light ? 72 : undefined,
         backgroundColor: light ? "transparent" : "rgba(20,33,45,0.72)",
         border: light ? `1px solid ${S2_HAIR_GOLD}` : "1px solid rgba(214,226,236,0.10)",
       }}
