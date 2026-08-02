@@ -4381,11 +4381,11 @@ function S2RoomCard({
         />
         {roomKey === "double" && (
           <span
-            className="absolute text-[9px] font-medium uppercase tracking-[0.16em]"
+            className="absolute text-[11px] font-medium uppercase tracking-[0.16em]"
             style={{
-              top: 12,
-              left: 12,
-              padding: "3px 9px",
+              top: 14,
+              left: 14,
+              padding: "4px 11px",
               borderRadius: 999,
               backgroundColor: "#C6A967",
               color: "#0B1A26",
