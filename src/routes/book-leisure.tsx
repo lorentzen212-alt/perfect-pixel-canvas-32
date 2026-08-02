@@ -8360,14 +8360,11 @@ function S6ReviewRow({
       }}
     >
       <span
-        className="relative grid h-[44px] w-[44px] shrink-0 place-items-center rounded-full"
+        className="relative grid h-[39px] w-[39px] shrink-0 place-items-center rounded-full"
         style={{
-          border: "1px solid transparent",
+          border: "1px solid rgba(176,141,63,0.55)",
+          background: "transparent",
           color: "#B08D3F",
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.10), rgba(255,255,255,0)), linear-gradient(150deg, rgba(226,203,152,0.75) 0%, rgba(192,155,72,0.45) 48%, rgba(178,144,68,0.32) 100%)",
-          backgroundOrigin: "border-box",
-          backgroundClip: "padding-box, border-box",
         }}
       >
         {icon}
