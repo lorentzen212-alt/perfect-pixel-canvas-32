@@ -4418,7 +4418,7 @@ function S2RoomCard({
           <span
             title={meta.desc}
             aria-label={meta.desc}
-            className="mt-[2px] grid h-[16px] w-[16px] shrink-0 place-items-center rounded-full text-[9.5px] font-medium opacity-45 transition-opacity duration-200 hover:opacity-100"
+            className="mt-[3px] grid h-[19px] w-[19px] shrink-0 place-items-center rounded-full text-[11.5px] font-medium opacity-45 transition-opacity duration-200 hover:opacity-100"
             style={{ border: "1px solid #C6A967", color: "#B39254" }}
           >
             i
