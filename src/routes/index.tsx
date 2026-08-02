@@ -28,7 +28,7 @@ import heroAsset from "@/assets/hero-bg.png.asset.json";
 import homeHeroAsset from "@/assets/homepage-hero-bg.png.asset.json";
 import heroVideoAsset from "@/assets/hero-video.mp4.asset.json";
 import cardLeisureAsset from "@/assets/card-leisure-fjord.png.asset.json";
-import cardMeAsset from "@/assets/card-me-new.png.asset.json";
+import cardMeAsset from "@/assets/card-me-fjord.png.asset.json";
 import cardManageAsset from "@/assets/card-manage-new.png.asset.json";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
 
