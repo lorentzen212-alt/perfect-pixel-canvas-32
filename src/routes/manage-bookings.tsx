@@ -923,6 +923,7 @@ function ManageBookings() {
                 count={counts.proposal}
                 description="Proposal ready"
                 tone={GOLD}
+                overlay="linear-gradient(135deg, rgba(120, 72, 20, 0.75) 0%, rgba(40, 28, 18, 0.85) 100%)"
                 image={bookings.find((b) => groupOf(b) === "proposal")?.image ?? heroImage}
                 icon={<FileSignature size={19} />}
                 active={group === "proposal"}
@@ -933,6 +934,7 @@ function ManageBookings() {
                 count={counts.awaiting}
                 description="Hotels preparing"
                 tone={BLUE}
+                overlay="linear-gradient(135deg, rgba(30, 64, 120, 0.75) 0%, rgba(18, 24, 40, 0.85) 100%)"
                 image={bookings.find((b) => groupOf(b) === "awaiting")?.image ?? heroImage}
                 icon={<Hourglass size={19} />}
                 active={group === "awaiting"}
@@ -943,6 +945,7 @@ function ManageBookings() {
                 count={counts.confirmed}
                 description="Confirmed booking"
                 tone={GREEN}
+                overlay="linear-gradient(135deg, rgba(30, 90, 60, 0.75) 0%, rgba(18, 32, 24, 0.85) 100%)"
                 image={bookings.find((b) => groupOf(b) === "confirmed")?.image ?? heroImage}
                 icon={<Check size={19} />}
                 active={group === "confirmed"}
