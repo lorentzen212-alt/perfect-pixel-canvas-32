@@ -4022,7 +4022,8 @@ function S2StayCard({
 
   const dateTimeline = (
     <div
-      className={light ? "grid items-center px-[26px] py-[16px]" : "grid items-center px-[22px] py-[10px]"}
+      className={light ? "grid items-center px-[30px] py-[22px]" : "grid items-center px-[22px] py-[10px]"}
+
       style={{
         width: compact ? "100%" : "92%",
         marginLeft: "auto",
