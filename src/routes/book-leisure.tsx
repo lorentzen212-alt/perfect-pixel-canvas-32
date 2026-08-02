@@ -3585,9 +3585,9 @@ function LeisureStep2Screen({
             lastAddedId={lastAddedId}
             removingIds={removingIds}
           />
-          </div>
         </div>
       </div>
+
     </main>
   );
 }
