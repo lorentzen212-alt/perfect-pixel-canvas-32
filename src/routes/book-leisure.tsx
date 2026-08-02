@@ -3253,9 +3253,9 @@ function LeisureStep2Screen({
         hideCurrentFlow="leisure"
       />
 
-      <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 20px 30px" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: 1800, padding: "40px 20px 30px" }}>
         <div
-          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[26.2%_minmax(0,1fr)_262px]"
+          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[25%_minmax(0,55%)_minmax(0,20%)]"
           style={{
             borderRadius: 14,
             border: `1px solid ${S2_HAIR_GOLD}`,
@@ -3312,7 +3312,7 @@ function LeisureStep2Screen({
 
           {/* ---------- CENTER: working area ---------- */}
           <section
-            className="min-w-0 px-6 py-8 lg:px-3 lg:py-9"
+            className="min-w-0 px-6 py-8 lg:px-9 lg:py-9"
             style={{ backgroundColor: S2_IVORY }}
           >
             {/* Stay heading */}
@@ -3411,7 +3411,7 @@ function LeisureStep2Screen({
             </p>
 
 
-            <div className="mt-6 grid grid-cols-1 items-stretch gap-x-[7px] gap-y-[9px] px-0 sm:grid-cols-2 lg:grid-cols-3 lg:px-[22px]">
+            <div className="mt-6 grid grid-cols-1 items-stretch gap-x-[12px] gap-y-[13px] px-0 sm:grid-cols-2 lg:grid-cols-3 lg:px-0">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
