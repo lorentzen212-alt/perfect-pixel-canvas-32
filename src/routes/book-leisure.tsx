@@ -4134,22 +4134,19 @@ function S2StayCard({
   if (compact)
     return (
       <div
-        className={`${animClass} s2-stay-luxe`}
+        className={animClass}
         style={{
-          borderRadius: 21,
+          borderRadius: 14,
           backgroundImage:
-            "linear-gradient(180deg, #243A50 0%, #21354A 55%, #1F3246 100%)",
-          border: "1px solid rgba(196,168,114,0.30)",
+            "linear-gradient(180deg, #1C3653 0%, #152C45 100%)",
+          border: "1px solid rgba(178,150,96,0.32)",
           boxShadow:
             "inset 0 1px 0 rgba(255,255,255,0.09), inset 0 0 0 1px rgba(190,162,108,0.05), inset 0 0 70px -24px rgba(0,0,0,0.28), 0 24px 60px -42px rgba(6,16,27,0.72), 0 12px 32px -22px rgba(0,0,0,0.42)",
           overflow: "hidden",
         }}
       >
-        <span aria-hidden className="s2-stay-inlay" />
-        <span aria-hidden className="s2-stay-sheen" />
         {/* Upper zone — dates + statistics */}
-        <div className="flex flex-col gap-2 pl-[27px] pr-[20px] py-[9px] sm:pr-6 lg:flex-row lg:items-center lg:gap-5">
-
+        <div className="flex flex-col gap-2 px-[20px] py-[9px] sm:px-6 lg:flex-row lg:items-center lg:gap-5">
           {/* Circular calendar mark — opens the check-in picker */}
 
           <button
@@ -4244,13 +4241,8 @@ function S2StayCard({
 
         {/* Lower zone — actions */}
         <div
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 pl-[25px] pr-[18px] py-[5px]"
-          style={{
-            borderTop: "1px solid transparent",
-            borderImage:
-              "linear-gradient(90deg, rgba(217,191,130,0.05) 0%, rgba(233,210,158,0.30) 45%, rgba(217,191,130,0.08) 100%) 1",
-          }}
-
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 px-[18px] py-[5px]"
+          style={{ borderTop: "1px solid rgba(217,191,130,0.10)" }}
 
         >
           {confirming ? (
@@ -4283,47 +4275,22 @@ function S2StayCard({
               <button
                 type="button"
                 onClick={onEdit ?? onAddAnother}
-                className="s2-luxe-action inline-flex items-center gap-2.5 px-[18px] py-[6px] text-[15px] transition-all duration-300"
-                style={{
-                  color: "#F6F1E6",
-                  fontWeight: 400,
-                  borderRadius: 999,
-                  border: "1px solid rgba(203,174,118,0.42)",
-                  backgroundColor: "rgba(20,38,56,0.55)",
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(228,203,150,0.75)";
-                  e.currentTarget.style.boxShadow =
-                    "inset 0 1px 0 rgba(255,255,255,0.09), 0 0 18px -6px rgba(216,188,132,0.55)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(203,174,118,0.42)";
-                  e.currentTarget.style.boxShadow = "inset 0 1px 0 rgba(255,255,255,0.06)";
-                }}
+                className="s2-luxe-action inline-flex items-center gap-2.5 bg-transparent p-0 text-[15px] transition-opacity duration-200 hover:opacity-75"
+                style={{ color: "#FFFFFF", fontWeight: 400, border: "none" }}
               >
                 Edit stay
                 <Pencil size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
               </button>
-              <span
-                aria-hidden
-                style={{
-                  width: 1,
-                  height: 18,
-                  backgroundImage:
-                    "linear-gradient(180deg, rgba(217,191,130,0) 0%, rgba(224,199,146,0.45) 50%, rgba(217,191,130,0) 100%)",
-                }}
-              />
+              <span aria-hidden style={{ width: 1, height: 18, backgroundColor: "rgba(217,191,130,0.28)" }} />
               <button
                 type="button"
                 onClick={onRemove}
-                className="s2-luxe-action inline-flex items-center gap-2.5 bg-transparent p-0 text-[15px] transition-opacity duration-200 hover:opacity-100"
-                style={{ color: "rgba(233,238,244,0.66)", fontWeight: 400, border: "none" }}
+                className="s2-luxe-action inline-flex items-center gap-2.5 bg-transparent p-0 text-[15px] transition-opacity duration-200 hover:opacity-75"
+                style={{ color: "#FFFFFF", fontWeight: 400, border: "none" }}
               >
                 Remove stay
-                <Trash2 size={17} strokeWidth={1.4} style={{ color: "#C9AB74" }} />
+                <Trash2 size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
               </button>
-
             </>
           )}
         </div>
