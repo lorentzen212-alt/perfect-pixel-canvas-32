@@ -3291,7 +3291,7 @@ function LeisureStep2Screen({
 
           {/* ---------- CENTER: working area ---------- */}
           <section
-            className="min-w-0 px-6 py-8 lg:px-6 lg:py-9"
+            className="min-w-0 px-6 py-8 lg:px-4 lg:py-9"
             style={{ backgroundColor: S2_IVORY }}
           >
             {/* Stay heading */}
@@ -3388,7 +3388,7 @@ function LeisureStep2Screen({
               Select the number of rooms and the preferred category for your group.
             </p>
 
-            <div className="mt-6 grid grid-cols-1 gap-x-2 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-x-1.5 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
