@@ -3255,7 +3255,7 @@ function LeisureStep2Screen({
 
       <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 20px 30px" }}>
         <div
-          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[24%_minmax(0,1fr)_262px]"
+          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[26.2%_minmax(0,1fr)_262px]"
           style={{
             borderRadius: 14,
             border: `1px solid ${S2_HAIR_GOLD}`,
@@ -3411,7 +3411,7 @@ function LeisureStep2Screen({
             </p>
 
 
-            <div className="mt-6 grid grid-cols-1 gap-x-1 gap-y-4 px-0 sm:grid-cols-2 lg:grid-cols-3 lg:px-[22px]">
+            <div className="mt-6 grid grid-cols-1 items-stretch gap-x-[7px] gap-y-[9px] px-0 sm:grid-cols-2 lg:grid-cols-3 lg:px-[22px]">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
@@ -4462,12 +4462,12 @@ function S2RoomCard({
 
   return (
     <div
-      className="group s2-room-card flex flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1"
+      className="group s2-room-card flex h-full flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1"
       data-active={active ? "true" : "false"}
       style={{
         borderRadius: 19,
         backgroundColor: "#FCFAF7",
-        padding: 6,
+        padding: 11,
         border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
           ? "0 10px 26px -24px rgba(8,23,34,0.26)"
@@ -4482,10 +4482,10 @@ function S2RoomCard({
           : "0 6px 20px -20px rgba(8,23,34,0.18)";
       }}
     >
-      {/* 1 — image (~60% of card) */}
+      {/* 1 — image (dominant visual element) */}
       <div
-        className="relative overflow-hidden"
-        style={{ aspectRatio: "16 / 12.3", borderRadius: 16, boxShadow: "0 3px 10px -4px rgba(8,23,34,0.35)" }}
+        className="relative w-full overflow-hidden"
+        style={{ aspectRatio: "16 / 11.4", borderRadius: 16, boxShadow: "0 3px 10px -4px rgba(8,23,34,0.35)" }}
       >
         <img
           src={meta.img}
@@ -4504,10 +4504,10 @@ function S2RoomCard({
       </div>
 
       {/* editorial champagne-gold divider — inset, not full width */}
-      <div className="mx-[18px] mt-[9px] mb-[9px] h-px" style={{ backgroundColor: "rgba(198,169,103,0.4)" }} />
+      <div className="mx-[18px] mt-[7px] mb-[6px] h-px" style={{ backgroundColor: "rgba(198,169,103,0.4)" }} />
 
       {/* 2 — name + guest count */}
-      <div className="flex items-start justify-between gap-2">
+      <div className="flex min-h-[46px] items-start justify-between gap-2">
         <div className="min-w-0">
           <div
             className="truncate text-[17.9px] font-medium leading-[1.15] tracking-[0.15px]"
@@ -4536,7 +4536,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-[9px] flex w-full items-center gap-2">
+      <div className="mt-auto flex w-full items-center gap-2 pt-[7px]">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
