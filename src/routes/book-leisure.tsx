@@ -4765,10 +4765,10 @@ function S2Counter({
 
   return (
     <div
-      className={`flex items-center justify-between transition-colors duration-200 ${light ? "h-[36px] shrink-0 px-1 hover:bg-[#F6F1E8]" : "h-[35px] px-1.5"}`}
+      className={`flex items-center justify-between transition-colors duration-200 ${light ? "h-[43px] shrink-0 px-1 hover:bg-[#F6F1E8]" : "h-[35px] px-1.5"}`}
       style={{
         borderRadius: light ? 12 : 999,
-        width: light ? 74 : undefined,
+        width: light ? 90 : undefined,
         backgroundColor: light ? "#FCFAF7" : "rgba(20,33,45,0.72)",
         border: light ? "1px solid #E2D6BE" : "1px solid rgba(214,226,236,0.10)",
       }}
