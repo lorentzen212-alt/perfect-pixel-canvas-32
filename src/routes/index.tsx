@@ -104,7 +104,7 @@ function Home() {
     <>
       <main className="relative w-full bg-[#0A0B0D]">
         {/* ---------------------------- HERO ---------------------------- */}
-        <section className="relative h-screen min-h-[620px] w-full overflow-hidden">
+        <section className="relative h-screen min-h-[620px] w-full overflow-hidden lg:h-[calc(100vh+60px)] lg:min-h-[680px]">
           <video
             autoPlay
             muted
