@@ -8111,7 +8111,15 @@ function LeisureStep6Screen({
               </defs>
             </svg>
 
-            <div className="flex flex-col items-center">
+            <div className="relative flex flex-col items-center">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-6 left-1/2 h-[120px] w-[220px] -translate-x-1/2 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(closest-side, rgba(231,211,167,0.10), rgba(231,211,167,0))",
+                }}
+              />
               <div
                 className="s6-champagne-text text-[30px] leading-none"
                 style={{ fontFamily: SERIF }}
