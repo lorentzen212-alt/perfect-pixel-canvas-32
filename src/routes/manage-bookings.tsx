@@ -466,6 +466,7 @@ function StatusCard({
   count,
   description,
   tone,
+  overlay,
   image,
   icon,
   active,
@@ -475,6 +476,7 @@ function StatusCard({
   count: number;
   description: string;
   tone: string;
+  overlay: string;
   image: string;
   icon: React.ReactNode;
   active: boolean;
@@ -491,14 +493,13 @@ function StatusCard({
         boxShadow: active ? `0 0 0 1px ${tone}55` : "0 18px 36px -30px rgba(0,0,0,0.9)",
       }}
     >
-      <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.6) brightness(0.42)" }} />
+      <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.85) brightness(0.62)" }} />
       <span
         className="absolute inset-0"
         aria-hidden
-        style={{
-          background: `linear-gradient(160deg, ${tone}4D 0%, rgba(8,15,23,0.86) 62%, rgba(6,12,18,0.95) 100%)`,
-        }}
+        style={{ background: overlay }}
       />
+
       <span
         className="relative grid h-11 w-11 place-items-center rounded-full"
         style={{ border: `1px solid ${tone}`, color: tone }}
