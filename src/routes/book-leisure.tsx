@@ -3238,7 +3238,7 @@ function LeisureStep2Screen({
 
       <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 20px 30px" }}>
         <div
-          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[30%_minmax(0,1fr)_264px]"
+          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[22%_minmax(0,1fr)_244px]"
           style={{
             borderRadius: 14,
             border: `1px solid ${S2_HAIR_GOLD}`,
@@ -4345,7 +4345,7 @@ function S2RoomCard({
       style={{
         borderRadius: 19,
         backgroundColor: "#FCFAF7",
-        padding: 11,
+        padding: 12,
         border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
           ? "0 14px 32px -24px rgba(8,23,34,0.30)"
@@ -4363,7 +4363,7 @@ function S2RoomCard({
       {/* 1 — image (~60% of card) */}
       <div
         className="relative overflow-hidden"
-        style={{ aspectRatio: "16 / 15.5", borderRadius: 14 }}
+        style={{ aspectRatio: "16 / 13.8", borderRadius: 14 }}
       >
         <img
           src={meta.img}
@@ -4398,16 +4398,16 @@ function S2RoomCard({
       </div>
 
       {/* 2 — name + guest count */}
-      <div className="flex items-start justify-between gap-2 pt-3">
+      <div className="flex items-start justify-between gap-2 pt-2.5">
         <div className="min-w-0">
           <div
-            className="truncate text-[21.5px] font-medium leading-tight"
+            className="truncate text-[22.5px] font-medium leading-tight"
             style={{ fontFamily: SERIF, color: "#26313A" }}
           >
             {meta.title}
           </div>
           <div
-            className="mt-1 flex items-center gap-1.5 text-[14.5px] font-light tracking-[0.03em]"
+            className="mt-0.5 flex items-center gap-1.5 text-[15.2px] font-light tracking-[0.03em]"
             style={{ color: "#8A9099" }}
           >
             <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
@@ -4427,7 +4427,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-3 flex items-center gap-1.5">
+      <div className="mt-2.5 flex items-center gap-1.5">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
