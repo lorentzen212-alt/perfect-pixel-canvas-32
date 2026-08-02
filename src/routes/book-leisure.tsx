@@ -4715,16 +4715,17 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[44px] w-full cursor-pointer select-none items-center justify-between gap-2 px-4 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
+            ? "flex h-[46px] w-full cursor-pointer select-none items-center justify-between gap-2 px-[18px] text-left text-[12.5px] font-light outline-none transition-all duration-200 hover:border-[rgba(179,146,84,0.5)] disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
           light
             ? {
                 borderRadius: 999,
-                border: `1px solid rgba(8,23,34,0.16)`,
-                backgroundColor: "#FFFFFF",
+                border: `1px solid rgba(179,146,84,0.30)`,
+                backgroundImage: "linear-gradient(180deg, #FFFFFF 0%, #FAF8F3 100%)",
                 color: S2_NAVY_TEXT,
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9)",
                 opacity: disabled ? 0.55 : 1,
               }
 
