@@ -7365,7 +7365,6 @@ function LeisureStep5Screen({
             </div>
           </div>
         </div>
-        </div>
       </section>
     </LeisureStepShell>
   );
