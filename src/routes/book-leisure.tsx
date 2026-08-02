@@ -4056,7 +4056,7 @@ function S2StayCard({
       <div
         className={animClass}
         style={{
-          borderRadius: 22,
+          borderRadius: 14,
           backgroundImage:
             "radial-gradient(120% 160% at 18% 0%, rgba(38,63,92,0.85) 0%, rgba(13,32,52,1) 55%, rgba(10,25,41,1) 100%)",
           border: "1px solid rgba(217,191,130,0.42)",
@@ -4066,24 +4066,24 @@ function S2StayCard({
         }}
       >
         {/* Upper zone — dates + statistics */}
-        <div className="flex flex-col gap-5 px-7 py-[26px] sm:px-10 lg:flex-row lg:items-center lg:gap-7">
+        <div className="flex flex-col gap-3 px-[18px] py-[11px] sm:px-5 lg:flex-row lg:items-center lg:gap-5">
           {/* Circular calendar mark */}
           <span
             aria-hidden
-            className="grid h-[58px] w-[58px] shrink-0 place-items-center"
+            className="grid h-[38px] w-[38px] shrink-0 place-items-center"
             style={{
               borderRadius: 999,
               border: "1px solid rgba(217,191,130,0.55)",
               color: "#E4C88A",
-              boxShadow: "0 0 22px -6px rgba(228,200,138,0.45), inset 0 0 14px -8px rgba(228,200,138,0.5)",
+              boxShadow: "0 0 16px -6px rgba(228,200,138,0.45), inset 0 0 12px -8px rgba(228,200,138,0.5)",
             }}
           >
-            <CalendarDays size={24} strokeWidth={1.3} />
+            <CalendarDays size={19} strokeWidth={1.3} />
           </span>
 
 
           {/* Dates */}
-          <div className="flex min-w-0 flex-1 items-center gap-6 sm:gap-9">
+          <div className="flex min-w-0 flex-1 items-center gap-4 sm:gap-6">
             <div className="min-w-0 flex-1">
               <DateCol
                 label="Arrival"
@@ -4094,7 +4094,7 @@ function S2StayCard({
               />
             </div>
             <ArrowRight
-              size={30}
+              size={20}
               strokeWidth={1.1}
               className="shrink-0"
               style={{ color: "#D9BF82" }}
@@ -4126,17 +4126,18 @@ function S2StayCard({
               first
             />
             <S2LuxeStat
-              icon={<BedDouble size={22} strokeWidth={1.3} />}
+              icon={<BedDouble size={15} strokeWidth={1.3} />}
               value={rooms}
               label={rooms === 1 ? "Room" : "Rooms"}
             />
             <S2LuxeStat
-              icon={<UserRound size={22} strokeWidth={1.3} />}
+              icon={<UserRound size={15} strokeWidth={1.3} />}
               value={guests}
               label={guests === 1 ? "Guest" : "Guests"}
             />
           </div>
         </div>
+
 
         {/* Lower zone — actions */}
         <div
