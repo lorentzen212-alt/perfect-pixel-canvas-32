@@ -4358,36 +4358,33 @@ function S2RoomCard({
       </div>
 
       {/* body — controls only, with room to breathe */}
-      <div className="flex flex-1 flex-col justify-center px-5 pb-6 pt-6">
-        <div className="flex items-center gap-3">
-          <S2Counter light value={value} onChange={onChange} label={meta.title} />
-          {categoryOptions ? (
-            <div className="min-w-0 flex-1">
-              <S2CategorySelect
-                light
-                value={category ?? categoryOptions[0]}
-                options={categoryOptions}
-                disabled={!active}
-                label={`${meta.title} category`}
-                onChange={(v) => onCategoryChange?.(v)}
-              />
-            </div>
-          ) : (
-            <div
-              className="flex h-[44px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-5 text-[12px] font-light"
-              style={{
-                borderRadius: 999,
-                border: "1px solid rgba(8,23,34,0.16)",
-                backgroundColor: "#FFFFFF",
-                color: S2_NAVY_MUTED,
-                opacity: active ? 1 : 0.65,
-              }}
-            >
-              Standard Room
-            </div>
-          )}
-        </div>
+      <div className="flex flex-1 flex-col gap-3 px-5 pb-6 pt-5">
+        <S2Counter light value={value} onChange={onChange} label={meta.title} />
+        {categoryOptions ? (
+          <S2CategorySelect
+            light
+            value={category ?? categoryOptions[0]}
+            options={categoryOptions}
+            disabled={!active}
+            label={`${meta.title} category`}
+            onChange={(v) => onCategoryChange?.(v)}
+          />
+        ) : (
+          <div
+            className="flex h-[44px] w-full items-center justify-center whitespace-nowrap px-5 text-[12px] font-light"
+            style={{
+              borderRadius: 999,
+              border: "1px solid rgba(8,23,34,0.16)",
+              backgroundColor: "#FFFFFF",
+              color: S2_NAVY_MUTED,
+              opacity: active ? 1 : 0.65,
+            }}
+          >
+            Standard Room
+          </div>
+        )}
       </div>
+
     </div>
   );
 }
