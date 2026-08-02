@@ -3361,7 +3361,7 @@ function LeisureStep2Screen({
               </div>
 
               {/* Stay card (dates + meta + edit/remove) */}
-              <div className="mt-7">
+              <div className="mt-[22px]">
 
                 <S2StayCard
                   compact
@@ -4138,10 +4138,10 @@ function S2StayCard({
         style={{
           borderRadius: 14,
           backgroundImage:
-            "radial-gradient(120% 160% at 18% 0%, rgba(38,63,92,0.85) 0%, rgba(13,32,52,1) 55%, rgba(10,25,41,1) 100%)",
-          border: "1px solid rgba(217,191,130,0.42)",
+            "linear-gradient(180deg, #1C3653 0%, #152C45 100%)",
+          border: "1px solid rgba(178,150,96,0.32)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.07), 0 26px 60px -34px rgba(6,16,27,0.85), 0 8px 22px -16px rgba(0,0,0,0.4)",
+            "inset 0 1px 0 rgba(255,255,255,0.09), inset 0 0 0 1px rgba(190,162,108,0.05), inset 0 0 70px -24px rgba(0,0,0,0.28), 0 24px 60px -42px rgba(6,16,27,0.72), 0 12px 32px -22px rgba(0,0,0,0.42)",
           overflow: "hidden",
         }}
       >
