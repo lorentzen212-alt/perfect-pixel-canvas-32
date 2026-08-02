@@ -225,16 +225,34 @@ function Home() {
               aria-label="Explore"
             >
               <span
-                className="flex h-[38px] w-[38px] items-center justify-center rounded-full transition-transform duration-500 group-hover/explore:translate-y-1"
-                style={{ border: "1px solid rgba(226,190,122,0.55)" }}
+                className="explore-circle flex h-[38px] w-[38px] items-center justify-center rounded-full transition-transform duration-500 group-hover/explore:-translate-y-[2px]"
+                style={{
+                  border: "1.5px solid transparent",
+                  borderImage:
+                    "linear-gradient(160deg, #E3C98A 0%, #C8A65A 45%, #987538 100%) 1",
+                  background:
+                    "radial-gradient(120% 120% at 50% 30%, rgba(226,201,138,0.12) 0%, rgba(152,117,56,0.04) 70%, transparent 100%)",
+                  boxShadow:
+                    "0 2px 8px rgba(120,90,40,0.22), inset 0 1px 0 rgba(255,240,210,0.18)",
+                }}
               >
-                <span className="text-[15px] leading-none" style={{ color: "#E2B473" }}>
+                <span
+                  className="explore-arrow text-[15px] leading-none transition-colors duration-300"
+                  style={{
+                    color: "#EBCB86",
+                    textShadow: "0 1px 2px rgba(120,90,40,0.35)",
+                  }}
+                >
                   ↓
                 </span>
               </span>
               <span
-                className="text-[10.5px] uppercase tracking-[0.34em]"
-                style={{ color: "rgba(226,180,115,0.9)", fontFamily: "Inter, sans-serif" }}
+                className="text-[10.5px] uppercase tracking-[0.34em] transition-colors duration-300 group-hover/explore:text-[#E8C77E]"
+                style={{
+                  color: "#D8B26E",
+                  fontFamily: "Inter, sans-serif",
+                  textShadow: "0 1px 2px rgba(80,55,20,0.28)",
+                }}
               >
                 Explore
               </span>
