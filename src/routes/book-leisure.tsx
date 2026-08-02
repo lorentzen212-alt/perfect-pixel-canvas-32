@@ -7302,9 +7302,9 @@ function LeisureStep5Screen({
           >
             <img
               src={S5_PANEL_IMAGE}
-              alt="Minimal luxury lounge interior with brass accents"
+              alt="Matte black architectural wall with champagne gold light strip and gold branch arrangement"
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: "center center" }}
+              style={{ objectPosition: "58% 78%" }}
             />
             <div
               className="pointer-events-none absolute inset-0"
