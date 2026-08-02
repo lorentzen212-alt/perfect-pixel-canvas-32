@@ -7080,10 +7080,10 @@ function LeisureStep5Screen({
           boxShadow: "0 50px 110px -50px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-[28%_72%]">
+        <div className="grid grid-cols-1 lg:grid-cols-[24%_76%]">
           {/* ---------- LEFT: editorial ---------- */}
           <div
-            className="relative flex min-h-[420px] flex-col overflow-hidden px-[52px] py-[52px] lg:min-h-[860px]"
+            className="relative flex min-h-[300px] flex-col justify-start overflow-hidden px-[34px] py-[36px] lg:min-h-full"
             style={{ borderRight: `1px solid ${S5_BORDER}` }}
           >
             <img
@@ -7096,11 +7096,10 @@ function LeisureStep5Screen({
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(6,10,16,0.20) 0%, rgba(6,10,16,0.10) 28%, rgba(6,10,16,0) 55%)",
+                  "linear-gradient(180deg, rgba(6,10,16,0.28) 0%, rgba(6,10,16,0.12) 30%, rgba(6,10,16,0) 60%)",
               }}
             />
             <div className="relative z-10 max-w-[230px]">
-
               <div
                 className="text-[10.5px] font-medium uppercase tracking-[0.38em]"
                 style={{ color: S5_GOLD }}
@@ -7108,17 +7107,17 @@ function LeisureStep5Screen({
                 Chapter V
               </div>
               <h1
-                className="mt-8 text-[40px] leading-[1.06] font-medium text-white lg:text-[46px]"
+                className="mt-4 text-[32px] leading-[1.07] font-medium text-white lg:text-[36px]"
                 style={{ fontFamily: SERIF }}
               >
                 Who should<br />we write to?
               </h1>
               <div
-                className="mt-9 h-px w-[70px]"
+                className="mt-5 h-px w-[62px]"
                 style={{ background: `linear-gradient(90deg, ${S5_GOLD}, rgba(201,164,92,0))` }}
               />
               <p
-                className="mt-8 max-w-[260px] text-[15px] leading-[1.75]"
+                className="mt-5 max-w-[240px] text-[14px] leading-[1.6]"
                 style={{ color: "rgba(240,235,224,0.62)" }}
               >
                 We'll send tailored offers to this person.
@@ -7128,41 +7127,44 @@ function LeisureStep5Screen({
 
 
           {/* ---------- RIGHT: form ---------- */}
-          <div className="px-7 py-12 sm:px-12 lg:px-16 lg:py-16">
+          <div className="px-7 py-8 sm:px-10 lg:px-12 lg:py-9">
             <h2
-              className="text-[34px] leading-tight font-medium text-white lg:text-[38px]"
+              className="text-[28px] leading-tight font-medium text-white lg:text-[31px]"
               style={{ fontFamily: SERIF }}
             >
               Step 5 – Contact
             </h2>
-            <p className="mt-3 text-[14.5px]" style={{ color: "rgba(240,235,224,0.55)" }}>
+            <p className="mt-1.5 text-[13.5px]" style={{ color: "rgba(240,235,224,0.55)" }}>
               Who should we contact?
             </p>
 
             {session && (
               <div
-                className="mt-10 flex flex-col gap-5 rounded-[16px] px-6 py-6 sm:flex-row sm:items-center sm:justify-between"
+                className="mt-5 flex flex-col gap-3 rounded-[14px] px-5 py-3 sm:h-[64px] sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:py-0"
                 style={{
                   backgroundColor: "rgba(8,17,28,0.75)",
                   border: `1px solid ${S5_BORDER}`,
                   boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
                 }}
               >
-                <div className="min-w-0">
-                  <p
-                    className="text-[15px] font-medium"
-                    style={{ color: S5_GOLD_LIGHT, fontFamily: SERIF }}
-                  >
-                    {canPrefill ? "Use your account details?" : "Complete your profile"}
-                  </p>
-                  <p
-                    className="mt-1.5 max-w-[420px] text-[13.5px] leading-relaxed"
-                    style={{ color: "rgba(240,235,224,0.55)" }}
-                  >
-                    {canPrefill
-                      ? "We can fill in your contact information from your HotelGroupBook profile."
-                      : "Your account only has an email so far. Add your details once and reuse them — or just fill in the form below."}
-                  </p>
+                <div className="flex min-w-0 items-center gap-3">
+                  <User size={20} strokeWidth={1.6} className="shrink-0" style={{ color: S5_GOLD }} />
+                  <div className="min-w-0">
+                    <p
+                      className="text-[13.5px] font-medium leading-tight"
+                      style={{ color: S5_GOLD_LIGHT, fontFamily: SERIF }}
+                    >
+                      {canPrefill ? "Use your account details" : "Complete your profile"}
+                    </p>
+                    <p
+                      className="mt-0.5 truncate text-[12.5px] leading-tight"
+                      style={{ color: "rgba(240,235,224,0.55)" }}
+                    >
+                      {canPrefill
+                        ? "Fill the form using your HotelGroupBook profile."
+                        : "Add your details once and reuse them — or just fill in the form below."}
+                    </p>
+                  </div>
                 </div>
                 {canPrefill ? (
                   prefilled ? (
@@ -7176,23 +7178,19 @@ function LeisureStep5Screen({
                     <button
                       type="button"
                       onClick={applyAccountDetails}
-                      className="shrink-0 rounded-[12px] px-7 py-4 text-[11.5px] font-semibold uppercase tracking-[0.18em]"
+                      className="shrink-0 rounded-[10px] px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.16em]"
                       style={{
                         background:
                           "linear-gradient(180deg, #EBD08A 0%, #D3B063 48%, #B58F42 100%)",
                         color: "#1B1408",
-                        boxShadow: "0 14px 30px -16px rgba(201,164,92,0.7), inset 0 1px 0 rgba(255,255,255,0.45)",
+                        boxShadow: "0 12px 26px -16px rgba(201,164,92,0.7), inset 0 1px 0 rgba(255,255,255,0.45)",
                         transition: "all 250ms ease",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = "translateY(-2px)";
-                        e.currentTarget.style.boxShadow =
-                          "0 22px 40px -16px rgba(201,164,92,0.8), inset 0 1px 0 rgba(255,255,255,0.5)";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = "translateY(0)";
-                        e.currentTarget.style.boxShadow =
-                          "0 14px 30px -16px rgba(201,164,92,0.7), inset 0 1px 0 rgba(255,255,255,0.45)";
                       }}
                     >
                       Use my account details
@@ -7201,7 +7199,7 @@ function LeisureStep5Screen({
                 ) : (
                   <Link
                     to="/account"
-                    className="shrink-0 rounded-[12px] px-6 py-3.5 text-center text-[11.5px] font-semibold uppercase tracking-[0.18em] transition-all duration-[250ms] hover:-translate-y-[2px]"
+                    className="shrink-0 rounded-[10px] px-5 py-2.5 text-center text-[11px] font-semibold uppercase tracking-[0.16em] transition-all duration-[250ms] hover:-translate-y-[2px]"
                     style={{ border: `1px solid rgba(201,164,92,0.5)`, color: S5_GOLD_LIGHT }}
                   >
                     Complete profile
@@ -7210,8 +7208,8 @@ function LeisureStep5Screen({
               </div>
             )}
 
-            {/* Row 1 */}
-            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7">
+            {/* Fields grid: 20px column gap / 16px row gap */}
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2" style={{ columnGap: 20, rowGap: 16 }}>
               <div>
                 <S5FieldLabel>First Name</S5FieldLabel>
                 <S5Input value={firstName} onChange={setFirstName} placeholder="Enter first name" />
@@ -7220,10 +7218,7 @@ function LeisureStep5Screen({
                 <S5FieldLabel>Last Name</S5FieldLabel>
                 <S5Input value={lastName} onChange={setLastName} placeholder="Enter last name" />
               </div>
-            </div>
 
-            {/* Row 2 */}
-            <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7">
               <div>
                 <S5FieldLabel>Email</S5FieldLabel>
                 <S5Input value={email} onChange={setEmail} placeholder="Enter email address" type="email" />
@@ -7231,7 +7226,7 @@ function LeisureStep5Screen({
               <div>
                 <S5FieldLabel>Phone</S5FieldLabel>
                 <div
-                  className="flex h-[52px] items-stretch overflow-hidden rounded-[12px]"
+                  className="flex h-[50px] items-stretch overflow-hidden rounded-[12px]"
                   style={s5FieldStyle(false)}
                 >
                   <div
@@ -7266,62 +7261,58 @@ function LeisureStep5Screen({
                   />
                 </div>
               </div>
-            </div>
 
-            {/* Row 3 */}
-            <div className="mt-7">
-              <S5FieldLabel optional>Organisation / Group Name</S5FieldLabel>
-              <S5Input
-                value={organisation}
-                onChange={setOrganisation}
-                placeholder="Enter organisation or group name"
-              />
-            </div>
-
-            {/* Row 4 - Country */}
-            <div className="mt-7">
-              <S5FieldLabel>Country</S5FieldLabel>
-              <div className="relative h-[52px] rounded-[12px]" style={s5FieldStyle(false)}>
-                <select
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  className="h-full w-full cursor-pointer appearance-none bg-transparent px-5 pr-12 text-[14.5px] outline-none"
-                  style={{ color: country ? "#F5F1E6" : S5_PLACEHOLDER }}
-                >
-                  <option value="" style={{ color: "#000" }}>
-                    Select country
-                  </option>
-                  {S5_COUNTRIES.map((c) => (
-                    <option key={c.code} value={c.code} style={{ color: "#000" }}>
-                      {c.flag}  {c.name}
+              <div>
+                <S5FieldLabel optional>Organisation / Group Name</S5FieldLabel>
+                <S5Input
+                  value={organisation}
+                  onChange={setOrganisation}
+                  placeholder="Enter organisation or group name"
+                />
+              </div>
+              <div>
+                <S5FieldLabel>Country</S5FieldLabel>
+                <div className="relative h-[50px] rounded-[12px]" style={s5FieldStyle(false)}>
+                  <select
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    className="h-full w-full cursor-pointer appearance-none bg-transparent px-5 pr-12 text-[14.5px] outline-none"
+                    style={{ color: country ? "#F5F1E6" : S5_PLACEHOLDER }}
+                  >
+                    <option value="" style={{ color: "#000" }}>
+                      Select country
                     </option>
-                  ))}
-                </select>
-                <ChevronDown
-                  size={18}
-                  className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2"
-                  style={{ color: S5_GOLD }}
+                    {S5_COUNTRIES.map((c) => (
+                      <option key={c.code} value={c.code} style={{ color: "#000" }}>
+                        {c.flag}  {c.name}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown
+                    size={18}
+                    className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2"
+                    style={{ color: S5_GOLD }}
+                  />
+                </div>
+              </div>
+
+              <div className="sm:col-span-2">
+                <S5FieldLabel optional>Additional Comments</S5FieldLabel>
+                <textarea
+                  value={additionalComments}
+                  onChange={(e) => setAdditionalComments(e.target.value)}
+                  onFocus={() => setCommentsFocused(true)}
+                  onBlur={() => setCommentsFocused(false)}
+                  placeholder="Let us know anything we should know…"
+                  rows={4}
+                  className="s5-input w-full resize-y rounded-[12px] px-5 py-3 text-[14.5px] leading-relaxed outline-none"
+                  style={{ ...s5FieldStyle(commentsFocused), height: 120, minHeight: 120 }}
                 />
               </div>
             </div>
 
-            {/* Row 5 - Additional Comments */}
-            <div className="mt-7">
-              <S5FieldLabel optional>Additional Comments</S5FieldLabel>
-              <textarea
-                value={additionalComments}
-                onChange={(e) => setAdditionalComments(e.target.value)}
-                onFocus={() => setCommentsFocused(true)}
-                onBlur={() => setCommentsFocused(false)}
-                placeholder="Let us know anything we should know…"
-                rows={7}
-                className="s5-input w-full resize-y rounded-[12px] px-5 py-4 text-[14.5px] leading-relaxed outline-none"
-                style={{ ...s5FieldStyle(commentsFocused), minHeight: 190 }}
-              />
-            </div>
-
             {session && !profileComplete && (
-              <label className="mt-7 flex cursor-pointer items-start gap-3">
+              <label className="mt-4 flex cursor-pointer items-start gap-3">
                 <input
                   type="checkbox"
                   checked={saveToProfile}
@@ -7334,23 +7325,33 @@ function LeisureStep5Screen({
               </label>
             )}
 
-            {/* Bottom nav */}
-            <div className="mt-12 flex items-center justify-between gap-4">
+            {/* Footer row: back / reassurance / continue */}
+            <div className="mt-6 flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
               <button
                 type="button"
                 onClick={onBack}
-                className="inline-flex items-center gap-2.5 text-[14.5px] transition-all duration-[250ms] hover:opacity-80"
+                className="inline-flex shrink-0 items-center gap-2.5 text-[14.5px] transition-all duration-[250ms] hover:opacity-80"
                 style={{ color: S5_GOLD }}
               >
                 <ArrowLeft size={16} strokeWidth={2} />
                 Back
               </button>
 
+              <div className="flex min-w-0 flex-1 flex-col items-center gap-0.5 text-center">
+                <div className="flex items-center gap-2 text-[13px]">
+                  <ShieldCheck size={15} strokeWidth={1.8} style={{ color: S5_GOLD }} />
+                  <span style={{ color: S5_GOLD }}>Your request is free and non-binding.</span>
+                </div>
+                <div className="text-[12px]" style={{ color: "rgba(240,235,224,0.42)" }}>
+                  We find the best hotel options so you can choose what suits your group.
+                </div>
+              </div>
+
               <button
                 type="button"
                 onClick={handleContinue}
                 disabled={!canContinue}
-                className="inline-flex items-center gap-3 rounded-[14px] px-9 py-[18px] text-[12.5px] font-semibold uppercase tracking-[0.18em] transition-all duration-[250ms] hover:-translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:translate-y-0"
+                className="inline-flex shrink-0 items-center gap-3 rounded-[14px] px-8 py-[15px] text-[12.5px] font-semibold uppercase tracking-[0.18em] transition-all duration-[250ms] hover:-translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:translate-y-0"
                 style={{
                   background: "linear-gradient(180deg, #EBD08A 0%, #D3B063 48%, #B58F42 100%)",
                   color: "#1B1408",
@@ -7362,17 +7363,8 @@ function LeisureStep5Screen({
                 <ArrowRight size={17} strokeWidth={2.2} />
               </button>
             </div>
-
-            <div className="mt-10 flex flex-col items-center gap-1 text-center">
-              <div className="flex items-center gap-2 text-[13px]">
-                <ShieldCheck size={15} strokeWidth={1.8} style={{ color: S5_GOLD }} />
-                <span style={{ color: S5_GOLD }}>Your request is free and non-binding</span>
-              </div>
-              <div className="text-[12.5px]" style={{ color: "rgba(240,235,224,0.42)" }}>
-                We find the best options so you can choose what suits your group.
-              </div>
-            </div>
           </div>
+        </div>
         </div>
       </section>
     </LeisureStepShell>
