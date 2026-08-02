@@ -7538,12 +7538,43 @@ function LeisureStep6Screen({
 
 
 
+  const destinationLabel =
+    [data.city, data.country].filter(Boolean).join(", ") || "To be confirmed";
+
+  const roomBreakdown = Object.entries(data.rooms)
+    .filter(([, v]) => v > 0)
+    .map(([k, v]) => `${v} ${ROOM_TITLE[k] ?? k}`);
+
+  const serviceLines = [
+    ...data.extras,
+    ...(data.letUsRecommend ? ["Concierge recommendations"] : data.experiences),
+  ];
+
+  const specialRequestLines = [
+    data.earlyCheckin ? "Early check-in if possible" : null,
+    data.lateCheckout ? "Late check-out if possible" : null,
+    data.connectingRooms ? "Connecting rooms preferred" : null,
+    data.additionalComments.trim() || null,
+  ].filter(Boolean) as string[];
+
+  const summaryStats = [
+    { icon: <Users2 size={24} strokeWidth={1.2} />, value: String(data.guests), label: "Guests" },
+    { icon: <CalendarDays size={24} strokeWidth={1.2} />, value: String(totalRooms), label: "Rooms" },
+    { icon: <Clock size={24} strokeWidth={1.2} />, value: String(nights), label: "Nights" },
+    {
+      icon: <ConciergeBell size={24} strokeWidth={1.2} />,
+      value: String(serviceLines.length),
+      label: "Services",
+    },
+  ];
+
   return (
     <LeisureStepShell
       activeStep={6}
       onStepGo={onStepGo}
       pageBg="radial-gradient(120% 80% at 50% -10%, #1B2B3D 0%, #14202E 45%, #0D1723 100%) fixed"
       hideHero
+      wide
       hero={S6_HERO}
       chapter="CHAPTER VI"
       headline={
@@ -7555,213 +7586,328 @@ function LeisureStep6Screen({
         <>Review your details before we start finding the best hotel offers for your group.</>
       }
     >
-      <section className="s6-lux relative mx-auto w-full max-w-[1180px] px-4 py-2 sm:px-8 lg:px-10">
-
-        {/* OUTER LUXURY CONTAINER */}
+      <section className="relative mx-auto w-full max-w-[1500px] px-2 pb-28 sm:px-4">
         <div
-          className="relative mx-auto w-full max-w-[1100px] overflow-hidden rounded-[22px] px-5 py-4 sm:px-9 sm:py-5"
-
+          className="grid grid-cols-1 overflow-hidden rounded-[20px] lg:grid-cols-[22%_56%_22%]"
           style={{
-            background:
-              "linear-gradient(180deg, rgba(32,45,62,0.97) 0%, rgba(25,37,52,0.98) 55%, rgba(20,31,44,0.99) 100%)",
-            border: "1px solid rgba(231,201,107,0.34)",
-            boxShadow:
-              "0 40px 110px -50px rgba(0,0,0,0.85), inset 0 1px 0 rgba(247,232,190,0.10), inset 0 0 60px -10px rgba(231,201,107,0.10)",
+            boxShadow: "0 50px 120px -60px rgba(0,0,0,0.9)",
+            border: "1px solid rgba(231,201,107,0.18)",
           }}
         >
-          {/* subtle gold corner details */}
-          <span
-            className="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rotate-45"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(231,201,107,0.35), transparent 60%)",
-              maskImage:
-                "linear-gradient(180deg, rgba(0,0,0,1), transparent 70%)",
-              opacity: 0.5,
-            }}
-          />
-          <span
-            className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 -rotate-45"
-            style={{
-              background:
-                "linear-gradient(270deg, rgba(231,201,107,0.35), transparent 60%)",
-              maskImage:
-                "linear-gradient(180deg, rgba(0,0,0,1), transparent 70%)",
-              opacity: 0.5,
-            }}
-          />
-          <span
-            className="pointer-events-none absolute bottom-0 left-0 h-32 w-64"
-            style={{
-              background:
-                "radial-gradient(circle at 0% 100%, rgba(231,201,107,0.18), transparent 70%)",
-            }}
-          />
-          <span
-            className="pointer-events-none absolute bottom-0 right-0 h-32 w-64"
-            style={{
-              background:
-                "radial-gradient(circle at 100% 100%, rgba(231,201,107,0.18), transparent 70%)",
-            }}
-          />
-
-          <div className="relative">
-            {/* HEADER */}
-            <div className="flex flex-col items-center text-center">
-              <span
-                className="text-[13px] font-medium uppercase tracking-[0.28em]"
-                style={{ color: S6_GOLD, fontFamily: SERIF }}
+          {/* LEFT — ivory intro */}
+          <div
+            className="flex flex-col justify-between px-8 py-12 lg:px-9 lg:py-14"
+            style={{ background: "#F7F5F2" }}
+          >
+            <div>
+              <div
+                className="text-[11px] font-medium uppercase tracking-[0.28em]"
+                style={{ color: "#B08D3F" }}
               >
-                3. Concierge Review
-              </span>
-              <div className="mt-2 flex w-full max-w-[520px] items-center gap-4">
-                <span
-                  className="h-px flex-1"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, transparent, rgba(231,201,107,0.55))",
-                  }}
-                />
-                <ConciergeBell size={24} strokeWidth={1.2} style={{ color: S6_GOLD }} />
-                <span
-                  className="h-px flex-1"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(231,201,107,0.55), transparent)",
-                  }}
-                />
+                Step 6 of 6
               </div>
               <h2
-                className="mt-2 text-[30px] leading-[1.05] font-normal uppercase tracking-[0.03em] text-[#F7F1E3] sm:text-[40px]"
-                style={{ fontFamily: SERIF }}
+                className="mt-6 text-[34px] leading-[1.08] lg:text-[40px]"
+                style={{ fontFamily: SERIF, color: "#16202B" }}
               >
-                Your Journey at a Glance
+                Your request<br />is ready
               </h2>
+              <div
+                className="mt-7 h-px w-[64px]"
+                style={{ background: "linear-gradient(90deg,#C7A34A,rgba(199,163,74,0))" }}
+              />
               <p
-                className="mt-1.5 text-[14px] sm:text-[15px]"
-                style={{ color: "rgba(236,229,214,0.72)" }}
+                className="mt-7 max-w-[230px] text-[14.5px] leading-[1.7]"
+                style={{ color: "rgba(22,32,43,0.68)" }}
               >
-                Please review your request details before submitting.
+                Please review the details below before we submit your request to our hotel
+                partners.
               </p>
             </div>
 
-            {/* REVIEW CARDS */}
-            <div className="mt-4 space-y-[10px]">
-              {reviewCards.map((c, i) => (
-                <S6LuxCard key={c.title} {...c} index={i} />
-              ))}
+            <div className="mt-14">
+              <div
+                className="text-[30px] italic leading-none"
+                style={{ fontFamily: "Cormorant Garamond, serif", color: "#B08D3F" }}
+              >
+                Thank you
+              </div>
+              <div className="mt-4 text-[13.5px]" style={{ color: "rgba(22,32,43,0.72)" }}>
+                HotelGroupBook Concierge
+              </div>
+            </div>
+          </div>
+
+          {/* CENTER — review grid */}
+          <div
+            className="px-7 py-12 lg:px-12 lg:py-14"
+            style={{ background: "#FCFBF9" }}
+          >
+            <div
+              className="text-[11px] font-medium uppercase tracking-[0.26em]"
+              style={{ color: "#B08D3F" }}
+            >
+              Request Details
+            </div>
+            <div className="mt-4 h-px w-full" style={{ background: "rgba(199,163,74,0.35)" }} />
+
+            <div className="grid grid-cols-1 gap-x-12 md:grid-cols-2">
+              <div>
+                <S6ReviewRow
+                  icon={<MapPin size={20} strokeWidth={1.3} />}
+                  label="Destination"
+                  primary={destinationLabel}
+                  onEdit={() => onEdit(1)}
+                />
+                <S6ReviewRow
+                  icon={<CalendarDays size={20} strokeWidth={1.3} />}
+                  label="Stay"
+                  primary={dateRange}
+                  secondary={nights > 0 ? [`${nights} ${nights === 1 ? "Night" : "Nights"}`] : []}
+                  onEdit={() => onEdit(2)}
+                />
+                <S6ReviewRow
+                  icon={<BedDouble size={20} strokeWidth={1.3} />}
+                  label="Accommodation"
+                  primary={`${totalRooms} ${totalRooms === 1 ? "Room" : "Rooms"}  •  ${data.guests} ${
+                    data.guests === 1 ? "Guest" : "Guests"
+                  }`}
+                  secondary={roomBreakdown.length ? [roomBreakdown.join("  •  ")] : []}
+                  onEdit={() => onEdit(2)}
+                />
+              </div>
+
+              <div>
+                <S6ReviewRow
+                  icon={<ConciergeBell size={20} strokeWidth={1.3} />}
+                  label="Services & Extras"
+                  primary={serviceLines[0] ?? "No selections"}
+                  secondary={serviceLines.slice(1)}
+                  onEdit={() => onEdit(3)}
+                />
+                <S6ReviewRow
+                  icon={<UserRound size={20} strokeWidth={1.3} />}
+                  label="Contact Details"
+                  primary={data.contactName || "To be confirmed"}
+                  secondary={[data.email, data.phone].filter(Boolean)}
+                  onEdit={() => onEdit(5)}
+                />
+                <S6ReviewRow
+                  icon={<MessageSquare size={20} strokeWidth={1.3} />}
+                  label="Special Requests"
+                  primary={specialRequestLines[0] ?? "None"}
+                  secondary={specialRequestLines.slice(1)}
+                  onEdit={() => onEdit(5)}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT — executive summary */}
+          <div
+            className="px-8 py-12 lg:px-7 lg:py-14"
+            style={{ background: "#162638" }}
+          >
+            <div className="flex flex-col items-center">
+              <div
+                className="text-[30px] leading-none"
+                style={{ fontFamily: SERIF, color: S6_GOLD }}
+              >
+                H
+              </div>
+              <div
+                className="mt-5 text-[11.5px] font-medium uppercase tracking-[0.26em]"
+                style={{ color: "#EFE8DA" }}
+              >
+                Executive Summary
+              </div>
+              <div className="mt-4 flex w-full items-center gap-3">
+                <span
+                  className="h-px flex-1"
+                  style={{ background: "linear-gradient(90deg,transparent,rgba(231,201,107,0.55))" }}
+                />
+                <span
+                  className="h-[5px] w-[5px] rotate-45"
+                  style={{ background: S6_GOLD }}
+                />
+                <span
+                  className="h-px flex-1"
+                  style={{ background: "linear-gradient(90deg,rgba(231,201,107,0.55),transparent)" }}
+                />
+              </div>
             </div>
 
-
-            {/* BOTTOM INFORMATION PANEL */}
-            <div
-              className="mt-[10px] grid grid-cols-1 gap-3 rounded-[16px] px-6 py-[12px] sm:px-8 md:grid-cols-2 md:gap-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(38,52,70,0.96), rgba(28,41,57,0.96))",
-                border: "1px solid rgba(231,201,107,0.22)",
-                boxShadow: "0 24px 60px -40px rgba(0,0,0,0.7)",
-              }}
-            >
-              <div className="flex items-center gap-4 md:pr-8">
-                <span
-                  className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-full"
-                  style={{ border: "1px solid rgba(231,201,107,0.4)" }}
+            <div className="mt-8">
+              {summaryStats.map((s) => (
+                <div
+                  key={s.label}
+                  className="flex items-center gap-5 py-6"
+                  style={{ borderBottom: "1px solid rgba(231,201,107,0.22)" }}
                 >
-                  <Users size={20} strokeWidth={1.4} style={{ color: S6_GOLD }} />
+                  <span style={{ color: S6_GOLD }}>{s.icon}</span>
+                  <div className="min-w-0">
+                    <div
+                      className="text-[30px] leading-none"
+                      style={{ fontFamily: SERIF, color: "#F7F1E3" }}
+                    >
+                      {s.value}
+                    </div>
+                    <div
+                      className="mt-1.5 text-[13px]"
+                      style={{ color: "rgba(236,229,214,0.72)" }}
+                    >
+                      {s.label}
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              <div className="flex items-center gap-5 py-6">
+                <span style={{ color: S6_GOLD }}>
+                  <MapPin size={24} strokeWidth={1.2} />
                 </span>
                 <div className="min-w-0">
                   <div
-                    className="text-[11.5px] font-medium uppercase tracking-[0.14em]"
-                    style={{ color: S6_GOLD }}
+                    className="truncate text-[19px] leading-tight"
+                    style={{ fontFamily: SERIF, color: "#F7F1E3" }}
                   >
-                    A Dedicated Concierge Specialist
+                    {destinationLabel}
                   </div>
-                  <p
-                    className="mt-1 text-[13px] leading-snug"
-                    style={{ color: "rgba(236,229,214,0.76)" }}
-                  >
-                    will personally handle your request
-                    <br className="hidden sm:block" /> and find the perfect match for you.
-                  </p>
-                </div>
-              </div>
-
-              <div
-                className="flex items-center justify-between gap-4 md:justify-end md:pl-8"
-                style={{ borderLeft: "1px solid rgba(231,201,107,0.16)" }}
-              >
-                <div className="min-w-0 md:text-right">
-                  <div
-                    className="text-[11.5px] font-medium uppercase tracking-[0.14em]"
-                    style={{ color: S6_GOLD }}
-                  >
-                    Estimated Reply
-                  </div>
-                  <div
-                    className="mt-1 text-[22px] leading-none text-[#F7F1E3] sm:text-[25px]"
-                    style={{ fontFamily: SERIF }}
-                  >
-                    Within 24 Hours
+                  <div className="mt-1.5 text-[13px]" style={{ color: "rgba(236,229,214,0.72)" }}>
+                    Destination
                   </div>
                 </div>
-                <span
-                  className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-full"
-                  style={{ border: "1px solid rgba(231,201,107,0.4)" }}
-                >
-                  <Clock size={20} strokeWidth={1.4} style={{ color: S6_GOLD }} />
-                </span>
               </div>
             </div>
-
-            {/* SUBMIT */}
-            <button
-              type="button"
-              onClick={onSubmit}
-              disabled={!canSubmit}
-              className="s6-submit mt-[12px] flex h-[58px] w-full items-center justify-center gap-3 rounded-[12px] text-[15px] font-semibold uppercase tracking-[0.22em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
-              style={{
-                background:
-                  "linear-gradient(180deg, #F7E4A6 0%, #F3D987 26%, #E7C96B 52%, #D4AF37 78%, #C5962D 100%)",
-                color: "#1A2331",
-                fontFamily: SERIF,
-                border: "1px solid rgba(243,217,135,0.75)",
-                boxShadow: "0 16px 36px -26px rgba(231,201,107,0.65)",
-              }}
-            >
-              {submitting ? (
-                <>
-                  <Loader2 size={18} strokeWidth={2.2} className="animate-spin" />
-                  Sending…
-                </>
-              ) : (
-                "Submit Request"
-              )}
-            </button>
           </div>
         </div>
 
-        {/* OUTSIDE THE REVIEW CONTAINER */}
-        <div className="mt-4 flex flex-col items-center gap-2 text-center">
+        {/* STICKY FOOTER */}
+        <div
+          className="sticky bottom-0 z-20 mt-5 flex flex-col items-stretch gap-4 rounded-[16px] px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-8"
+          style={{
+            background: "linear-gradient(180deg,#122032,#0D1826)",
+            border: "1px solid rgba(231,201,107,0.22)",
+            boxShadow: "0 -20px 60px -40px rgba(0,0,0,0.9)",
+          }}
+        >
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 text-[14px] font-medium transition-opacity hover:opacity-80"
+            className="inline-flex items-center gap-3 text-[15px] font-medium transition-opacity hover:opacity-80"
             style={{ color: S6_GOLD_LIGHT }}
           >
-            <ArrowLeft size={15} strokeWidth={2} />
+            <ArrowLeft size={17} strokeWidth={1.8} />
             Back
           </button>
-          <div className="flex items-center gap-2 text-[12.5px]">
-            <ShieldCheck size={14} strokeWidth={1.8} style={{ color: S6_GOLD_LIGHT }} />
-            <span style={{ color: "rgba(236,229,214,0.62)" }}>
-              Your request is free and non-binding
-            </span>
+
+          <div className="flex items-start gap-3">
+            <ShieldCheck size={22} strokeWidth={1.4} style={{ color: S6_GOLD }} className="mt-0.5 shrink-0" />
+            <div className="min-w-0">
+              <div
+                className="text-[11px] font-medium uppercase tracking-[0.22em]"
+                style={{ color: S6_GOLD }}
+              >
+                Secure &amp; Confidential
+              </div>
+              <div className="mt-1 text-[13px]" style={{ color: "rgba(236,229,214,0.70)" }}>
+                We only share your request with carefully selected hotels.
+              </div>
+            </div>
           </div>
+
+          <button
+            type="button"
+            onClick={onSubmit}
+            disabled={!canSubmit}
+            className="s6-submit group flex h-[58px] w-full items-center justify-center gap-3 rounded-[12px] text-[14px] font-semibold uppercase tracking-[0.22em] transition-all duration-300 hover:brightness-[1.05] disabled:cursor-not-allowed disabled:opacity-50 sm:w-[360px]"
+            style={{
+              background:
+                "linear-gradient(180deg, #F7E4A6 0%, #F3D987 26%, #E7C96B 52%, #D4AF37 78%, #C5962D 100%)",
+              color: "#1A2331",
+              fontFamily: SERIF,
+              border: "1px solid rgba(243,217,135,0.75)",
+              boxShadow: "0 16px 36px -26px rgba(231,201,107,0.65)",
+            }}
+          >
+            {submitting ? (
+              <>
+                <Loader2 size={18} strokeWidth={2.2} className="animate-spin" />
+                Sending…
+              </>
+            ) : (
+              <>
+                Submit Request
+                <ArrowRight
+                  size={18}
+                  strokeWidth={1.8}
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </>
+            )}
+          </button>
         </div>
       </section>
-
-
     </LeisureStepShell>
+  );
+}
+
+function S6ReviewRow({
+  icon,
+  label,
+  primary,
+  secondary = [],
+  onEdit,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  primary: string;
+  secondary?: string[];
+  onEdit: () => void;
+}) {
+  return (
+    <div
+      className="flex items-start gap-5 py-7"
+      style={{ borderBottom: "1px solid rgba(22,32,43,0.10)" }}
+    >
+      <span
+        className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
+        style={{ border: "1px solid rgba(199,163,74,0.45)", color: "#B08D3F" }}
+      >
+        {icon}
+      </span>
+      <div className="min-w-0 flex-1">
+        <div
+          className="text-[10.5px] font-medium uppercase tracking-[0.22em]"
+          style={{ color: "#B08D3F" }}
+        >
+          {label}
+        </div>
+        <div
+          className="mt-2 text-[16px] leading-[1.5]"
+          style={{ color: "#16202B" }}
+        >
+          {primary}
+        </div>
+        {secondary.map((line) => (
+          <div
+            key={line}
+            className="mt-1 text-[13.5px] leading-[1.6]"
+            style={{ color: "rgba(22,32,43,0.60)" }}
+          >
+            {line}
+          </div>
+        ))}
+      </div>
+      <button
+        type="button"
+        onClick={onEdit}
+        className="mt-1 inline-flex shrink-0 items-center gap-1.5 text-[13.5px] transition-opacity hover:opacity-70"
+        style={{ color: "#16202B" }}
+      >
+        Edit
+        <ChevronRight size={15} strokeWidth={1.6} />
+      </button>
+    </div>
   );
 }
