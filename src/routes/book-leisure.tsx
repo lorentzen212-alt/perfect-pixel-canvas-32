@@ -8071,20 +8071,20 @@ function LeisureStep6Screen({
             <div className="grid grid-cols-1 gap-x-12 md:grid-cols-2">
               <div>
                 <S6ReviewRow
-                  icon={<MapPin size={18} strokeWidth={1.15} />}
+                  icon={<MapPin size={17} strokeWidth={1.4} />}
                   label="Destination"
                   primary={destinationLabel}
                   onEdit={() => onEdit(1)}
                 />
                 <S6ReviewRow
-                  icon={<CalendarDays size={18} strokeWidth={1.15} />}
+                  icon={<CalendarDays size={17} strokeWidth={1.4} />}
                   label="Stay"
                   primary={dateRange}
                   secondary={nights > 0 ? [`${nights} ${nights === 1 ? "Night" : "Nights"}`] : []}
                   onEdit={() => onEdit(2)}
                 />
                 <S6ReviewRow
-                  icon={<BedDouble size={18} strokeWidth={1.15} />}
+                  icon={<BedDouble size={17} strokeWidth={1.4} />}
                   label="Accommodation"
                   primary={`${totalRooms} ${totalRooms === 1 ? "Room" : "Rooms"}  •  ${data.guests} ${
                     data.guests === 1 ? "Guest" : "Guests"
@@ -8096,21 +8096,21 @@ function LeisureStep6Screen({
 
               <div>
                 <S6ReviewRow
-                  icon={<ConciergeBell size={18} strokeWidth={1.15} />}
+                  icon={<ConciergeBell size={17} strokeWidth={1.4} />}
                   label="Services & Extras"
                   primary={serviceLines[0] ?? "No selections"}
                   secondary={serviceLines.slice(1)}
                   onEdit={() => onEdit(3)}
                 />
                 <S6ReviewRow
-                  icon={<UserRound size={18} strokeWidth={1.15} />}
+                  icon={<UserRound size={17} strokeWidth={1.4} />}
                   label="Contact Details"
                   primary={data.contactName || "To be confirmed"}
                   secondary={[data.email, data.phone].filter(Boolean)}
                   onEdit={() => onEdit(5)}
                 />
                 <S6ReviewRow
-                  icon={<MessageSquare size={18} strokeWidth={1.15} />}
+                  icon={<MessageSquare size={17} strokeWidth={1.4} />}
                   label="Special Requests"
                   primary={specialRequestLines[0] ?? "None"}
                   secondary={specialRequestLines.slice(1)}
