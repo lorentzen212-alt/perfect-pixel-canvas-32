@@ -4800,7 +4800,7 @@ function S2Counter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className={`no-spin w-full min-w-0 bg-transparent text-center outline-none ${light ? "text-[13.5px] font-normal" : "text-[18px] font-medium text-white"}`}
+        className={`no-spin w-full min-w-0 bg-transparent text-center outline-none ${light ? "text-[16px] font-normal" : "text-[18px] font-medium text-white"}`}
         style={{ fontFamily: SERIF, color: light ? S2_NAVY_TEXT : undefined }}
       />
       {btn("inc")}
