@@ -219,7 +219,33 @@ function Home() {
                 filter: "blur(6px)",
               }}
             />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[32px]">
+
+            {/* Architectural side frames (brushed stone rails) */}
+            {(["left", "right"] as const).map((side) => (
+              <div
+                key={side}
+                aria-hidden
+                className="pointer-events-none absolute -top-[26px] -bottom-[26px] hidden w-[7px] rounded-[4px] md:block"
+                style={{
+                  [side]: "-34px",
+                  background:
+                    "linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(196,205,214,0.20) 22%, rgba(232,238,244,0.30) 46%, rgba(150,162,174,0.16) 72%, rgba(255,255,255,0.04) 100%)",
+                  boxShadow:
+                    "0 0 0 1px rgba(255,255,255,0.045), 0 18px 46px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.18)",
+                } as React.CSSProperties}
+              >
+                <div
+                  className="absolute inset-y-[8%] left-1/2 w-px -translate-x-1/2"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(226,190,122,0) 0%, rgba(226,190,122,0.38) 28%, rgba(240,213,138,0.55) 50%, rgba(226,190,122,0.38) 72%, rgba(226,190,122,0) 100%)",
+                  }}
+                />
+              </div>
+            ))}
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[38px]">
+
 
               <ExperienceCard
                 to="/book-leisure"
