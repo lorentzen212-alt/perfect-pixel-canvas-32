@@ -3705,6 +3705,7 @@ function S2CompletedStayCard({
   onConfirmRemove?: () => void;
   onCancelRemove?: () => void;
   animClass?: string;
+  highlight?: boolean;
 }) {
   const fmtLong = (iso: string) => {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
