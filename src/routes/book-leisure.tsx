@@ -4681,8 +4681,8 @@ function S2CategorySelect({
           style={{
             color: light
               ? value
-                ? S2_NAVY_TEXT
-                : S2_NAVY_MUTED
+                ? "#F7F6F2"
+                : "rgba(247,246,242,0.62)"
               : value
                 ? "#FFFFFF"
                 : "rgba(245,241,230,0.75)",
