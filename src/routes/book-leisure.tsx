@@ -3294,9 +3294,10 @@ function LeisureStep2Screen({
                 >
                   Accommodation
                 </h2>
-                <div style={{ marginTop: 26, marginBottom: 26 }}>
-                  <S2DiamondRule width={168} refined />
+                <div style={{ marginTop: 30, marginBottom: 30 }}>
+                  <S2DiamondRule width={168} />
                 </div>
+
                 <p
                   className="max-w-[26ch] text-[15px] font-light leading-[1.65]"
                   style={{ color: "rgba(243,238,229,0.88)" }}
