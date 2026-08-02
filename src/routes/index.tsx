@@ -243,7 +243,7 @@ function Home() {
         </section>
 
         {/* ------------------- ENTRANCE CARDS (overlap hero) ------------------- */}
-        <section className="relative bg-[#F5F3EE] pb-16 lg:pb-20">
+        <section className="relative bg-[#F5F3EE] pb-16 lg:pb-20 lg:pt-[36px]">
           <div
             className="hero-cards-offset relative z-20 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-[60px]"
           >
