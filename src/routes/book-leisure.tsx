@@ -6353,16 +6353,8 @@ function LeisureStep4Screen({
                 Create unforgettable moments for your group.
               </p>
             </div>
-
-            {/* seam: cream tint bleeding toward the content panel */}
-            <div
-              className="pointer-events-none absolute inset-y-0 right-0 hidden w-[26px] lg:block"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(247,243,233,0) 0%, rgba(247,243,233,0.10) 55%, rgba(247,243,233,0.26) 100%)",
-              }}
-            />
           </aside>
+
 
         {/* ---------- CENTER ---------- */}
         <section
