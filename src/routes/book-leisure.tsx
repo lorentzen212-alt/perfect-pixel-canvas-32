@@ -4554,7 +4554,7 @@ function S2RoomCard({
             </div>
           ) : (
             <div
-              className="flex h-[46px] min-w-0 flex-1 items-center justify-between gap-1 overflow-hidden text-[15px] font-medium"
+              className="flex h-[42px] min-w-0 flex-1 items-center justify-between gap-1 overflow-hidden text-[15px] font-medium"
               style={{
                 borderRadius: 12,
                 padding: "0 18px",
