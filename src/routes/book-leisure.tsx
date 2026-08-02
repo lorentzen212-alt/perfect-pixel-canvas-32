@@ -3316,9 +3316,9 @@ function LeisureStep2Screen({
             style={{ backgroundColor: S2_IVORY }}
           >
             {/* Stay heading */}
-            <div className="flex flex-wrap items-baseline justify-between gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-6">
               <h2
-                className="text-[24px] font-normal leading-none"
+                className="text-[34px] font-normal leading-none"
                 style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
               >
                 {editingId ? `Editing Stay ${stayNumber}` : "Stay"}
@@ -3326,7 +3326,7 @@ function LeisureStep2Screen({
               <button
                 type="button"
                 onClick={commitAndStartNext}
-                className="bg-transparent p-0 text-[13.5px] font-light transition-opacity hover:opacity-80"
+                className="bg-transparent p-0 text-[15px] font-light transition-opacity hover:opacity-75"
                 style={{ color: S2_GOLD_DEEP, border: "none" }}
               >
                 + Add another stay
@@ -3334,7 +3334,8 @@ function LeisureStep2Screen({
             </div>
 
             {/* Stay card (dates + meta + edit/remove) */}
-            <div className="mt-3.5">
+            <div className="mt-6">
+
               <S2StayCard
                 compact
                 title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
