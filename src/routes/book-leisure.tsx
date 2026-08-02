@@ -6900,7 +6900,7 @@ function S5Input({
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
       placeholder={placeholder}
-      className="s5-input h-[52px] w-full rounded-[12px] px-5 text-[14.5px] outline-none"
+      className="s5-input h-[50px] w-full rounded-[12px] px-5 text-[14.5px] outline-none"
       style={s5FieldStyle(focused)}
     />
   );
