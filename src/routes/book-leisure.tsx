@@ -3859,9 +3859,9 @@ function S2StayCard({
           className="whitespace-nowrap text-[21px] leading-none"
           style={{
             color: "#F4EFE6",
-            fontWeight: 400,
-            fontFamily: '"Playfair Display", "Cormorant Garamond", serif',
-            letterSpacing: "0.005em",
+            fontWeight: 500,
+            fontFamily: '"Inter Display", "Inter", "SF Pro Display", system-ui, -apple-system, sans-serif',
+            letterSpacing: "0.01em",
           }}
         >
           {format(selected, "dd MMMM yyyy")}
@@ -3945,34 +3945,48 @@ function S2StayCard({
           )}
         </div>
         {selected ? (
-          <span
-            className={`whitespace-nowrap leading-none ${compact ? "text-[10.5px] uppercase" : "text-[12px]"}`}
-            style={{
-              color: compact ? "#C7AB77" : "#84909D",
-              fontWeight: 400,
-              letterSpacing: compact ? "0.18em" : "0.01em",
-            }}
-          >
-            {format(selected, "EEEE")}
-          </span>
+          compact ? (
+            <span
+              className="whitespace-nowrap leading-none text-[9px] uppercase"
+              style={{
+                marginTop: 3,
+                color: "rgba(199,171,119,0.72)",
+                fontWeight: 500,
+                letterSpacing: "0.24em",
+              }}
+            >
+              {format(selected, "EEEE")}
+            </span>
+          ) : (
+            <span
+              className="whitespace-nowrap leading-none text-[12px]"
+              style={{
+                color: "#84909D",
+                fontWeight: 400,
+                letterSpacing: "0.01em",
+              }}
+            >
+              {format(selected, "EEEE")}
+            </span>
+          )
         ) : null}
         {compact && selected ? (
-          <span aria-hidden className="mt-[3px] flex items-center gap-[6px]">
+          <span aria-hidden className="mt-[4px] flex items-center gap-[5px]">
             <span
               style={{
                 display: "block",
-                width: 64,
+                width: 51,
                 height: 1,
-                backgroundColor: "rgba(199,171,119,0.55)",
+                backgroundColor: "rgba(199,171,119,0.42)",
               }}
             />
             <span
               style={{
                 display: "block",
-                width: 5,
-                height: 5,
+                width: 4,
+                height: 4,
                 transform: "rotate(45deg)",
-                border: "1px solid rgba(199,171,119,0.7)",
+                border: "1px solid rgba(199,171,119,0.55)",
               }}
             />
           </span>
