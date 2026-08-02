@@ -4016,9 +4016,9 @@ function S2StayCard({
         className={animClass}
         style={{
           borderRadius: 8,
-          backgroundImage: "linear-gradient(180deg, #0F1E2B 0%, #0C1926 100%)",
-          border: "1px solid rgba(217,191,130,0.34)",
-          boxShadow: "0 18px 40px -30px rgba(6,13,20,0.9)",
+          backgroundImage: "linear-gradient(180deg, #183754 0%, #132B44 100%)",
+          border: "1px solid rgba(201,164,92,0.28)",
+          boxShadow: "0 12px 30px rgba(6,18,31,0.18)",
           overflow: "hidden",
         }}
       >
