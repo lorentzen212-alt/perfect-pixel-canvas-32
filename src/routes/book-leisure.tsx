@@ -3713,14 +3713,21 @@ function S2CompletedStayCard({
           Stay {roman(index)}
         </span>
         <span
-          className="rounded-full px-3 py-[3px] text-[11px] font-semibold"
+          className="flex items-center gap-[5px] rounded-full px-3 py-[3px] text-[11px] font-semibold"
           style={{
-            backgroundImage: "linear-gradient(180deg, #F4DCA2 0%, #D3AF63 55%, #A9832F 100%)",
-            color: "#20180A",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 8px -4px rgba(0,0,0,0.6)",
+            backgroundImage:
+              "linear-gradient(180deg, #F4DCA2 0%, #E4C376 30%, #C9A24E 62%, #A9832F 100%)",
+            color: "#F4ECDB",
+            border: "1px solid rgba(168,131,47,0.55)",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 2px rgba(120,86,28,0.45), 0 2px 8px -4px rgba(0,0,0,0.6)",
+            textShadow: "0 1px 1px rgba(120,86,28,0.4)",
           }}
         >
-          Draft
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style={{ color: "#F4ECDB" }} aria-hidden>
+            <path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Saved
         </span>
       </div>
 
