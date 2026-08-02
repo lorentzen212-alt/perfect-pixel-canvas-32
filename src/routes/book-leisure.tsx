@@ -4388,7 +4388,7 @@ function S2RoomCard({
           )}
         </div>
       </div>
-
+    </div>
   );
 }
 
