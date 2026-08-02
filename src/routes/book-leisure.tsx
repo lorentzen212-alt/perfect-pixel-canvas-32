@@ -3829,7 +3829,7 @@ function S2StayCard({
       >
         <span
           style={{
-            color: "#F2EEE7",
+            color: "#E8E4DC",
             fontWeight: 600,
             textShadow: "0 1px 1px rgba(0,0,0,.15)",
           }}
@@ -3838,7 +3838,7 @@ function S2StayCard({
         </span>
         <span
           style={{
-            color: "#D8D1C7",
+            color: "#E8E4DC",
             fontWeight: 400,
             letterSpacing: "0.01em",
           }}
@@ -3850,7 +3850,7 @@ function S2StayCard({
       <span
         className="whitespace-nowrap leading-none text-[15px] font-medium"
         style={{
-          color: "rgba(226,216,198,0.5)",
+          color: "#84909D",
           marginLeft: align === "left" ? 3 : undefined,
           marginRight: align === "right" ? 3 : undefined,
         }}
@@ -3860,7 +3860,7 @@ function S2StayCard({
     );
 
     const icon = (
-      <span aria-hidden className="shrink-0 leading-none" style={{ color: "rgba(217,191,130,0.9)" }}>
+      <span aria-hidden className="shrink-0 leading-none" style={{ color: "#E8E4DC" }}>
         <CalendarDays size={16} strokeWidth={1.5} />
       </span>
     );
