@@ -5059,17 +5059,21 @@ function AccommodationSummary({
       >
         Room Distribution
       </div>
-      <ul className="mt-4 space-y-3.5">
-        {distribution.map((r) => (
-          <li key={r.key} className="flex items-baseline justify-between gap-3">
+      <ul className="mt-4">
+        {distribution.map((r, i) => (
+          <li
+            key={r.key}
+            className="flex items-baseline justify-between gap-3 py-3"
+            style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.07)" } : undefined}
+          >
             <span
-              className="truncate text-[13px] font-light"
-              style={{ color: r.count > 0 ? "rgba(246,242,234,0.88)" : "rgba(246,242,234,0.55)" }}
+              className="truncate text-[13.5px] font-light"
+              style={{ color: r.count > 0 ? "rgba(246,242,234,0.92)" : "rgba(246,242,234,0.55)" }}
             >
-              {r.label.endsWith("s") ? r.label : `${r.label}s`}
+              {r.label}
             </span>
             <span
-              className="text-[13px] tabular-nums font-light"
+              className="text-[13.5px] tabular-nums font-light"
               style={{ color: r.count > 0 ? S2_GOLD_SOFT : "rgba(246,242,234,0.45)" }}
             >
               {r.count}
@@ -5077,6 +5081,7 @@ function AccommodationSummary({
           </li>
         ))}
       </ul>
+
 
       {isEmpty && (
         <p
