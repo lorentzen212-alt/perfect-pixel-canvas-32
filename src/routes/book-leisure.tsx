@@ -3216,20 +3216,7 @@ function LeisureStep2Screen({
   // A fresh empty stay form always stays visible, so it must not block continuing.
   const nextEnabled = canContinue && stays.length > 0 && !editingId;
 
-  /* Live caption for the left hero image */
-  const heroSource = stays[0]
-    ? {
-        index: 1,
-        arrival: stays[0].arrival,
-        departure: stays[0].departure,
-      }
-    : { index: stayNumber, arrival: draftArrival, departure: draftDeparture };
-  const heroNights = stayNights(heroSource.arrival, heroSource.departure);
-  const heroStayLabel = `Stay ${heroSource.index}`;
-  const heroStayMeta =
-    heroSource.arrival && heroSource.departure && heroNights > 0
-      ? `${fmtStayRange(heroSource.arrival, heroSource.departure)}  |  ${heroNights} ${heroNights === 1 ? "night" : "nights"}`
-      : "Select your dates to begin";
+   /* Live caption for the left hero image */
 
   return (
     <main
