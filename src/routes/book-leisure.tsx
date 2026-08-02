@@ -6749,16 +6749,16 @@ function LeisureStep4Screen({
                   key={c}
                   type="button"
                   onClick={() => setCategory(c)}
-                  className="inline-flex items-center gap-2 rounded-full px-[18px] py-[9px] text-[12.5px] font-medium transition-all duration-200 hover:-translate-y-[1px]"
+                  className="s4-filter inline-flex items-center gap-2 rounded-full px-[18px] py-[9px] text-[12.5px] font-medium"
                   style={{
                     background: active
-                      ? "linear-gradient(180deg, #16293C 0%, #0C1A29 100%)"
-                      : "rgba(255,255,255,0.82)",
-                    color: active ? "#FFFDF8" : S4_INK,
-                    border: `1px solid ${active ? "rgba(232,199,117,0.55)" : "rgba(201,164,92,0.34)"}`,
+                      ? "linear-gradient(180deg, #16293C 0%, #0B1826 100%)"
+                      : "#F7F3EA",
+                    color: active ? "#E7D3A7" : S4_INK,
+                    border: `1px solid ${active ? "rgba(232,199,117,0.62)" : "rgba(201,164,92,0.30)"}`,
                     boxShadow: active
-                      ? "0 14px 26px -16px rgba(8,19,31,0.75)"
-                      : "0 8px 18px -14px rgba(8,19,31,0.45)",
+                      ? "inset 0 2px 6px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07), 0 10px 22px -16px rgba(8,19,31,0.7)"
+                      : "0 4px 12px -10px rgba(8,19,31,0.35)",
                     letterSpacing: "0.01em",
                   }}
                 >
