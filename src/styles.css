@@ -654,3 +654,10 @@
 .s2-stay-module > .mt-7 > * {
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16) !important;
 }
+
+/* Step 4 – itinerary summary rows */
+@keyframes s4-sum-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.s4-sum-row { animation: s4-sum-in 320ms cubic-bezier(.22,1,.36,1) both; transition: background 250ms ease, border-color 250ms ease; }
+.s4-sum-row:hover { background: rgba(212,166,74,0.13) !important; border-color: rgba(232,199,117,0.40) !important; }
+.s4-sum-remove { transition: color 250ms ease, border-color 250ms ease, background 250ms ease; }
+.s4-sum-remove:hover { color: #F5F1E6 !important; border-color: rgba(232,199,117,0.6) !important; background: rgba(232,199,117,0.14); }
