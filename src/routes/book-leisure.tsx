@@ -3875,17 +3875,17 @@ function S2StayCard({
 
     const dateValue = (
       <span
-        className={`whitespace-nowrap leading-none ${selected ? "text-[17.5px] font-semibold" : "text-[15px] font-medium"}`}
+        className={`whitespace-nowrap leading-none ${selected ? "text-[21px]" : "text-[16px]"}`}
         style={{
           color: light
             ? selected
-              ? "#12222F"
-              : "rgba(18,34,47,0.42)"
+              ? "#FFFCF5"
+              : "rgba(240,236,226,0.45)"
             : selected
               ? "#FFFCF5"
               : "rgba(226,216,198,0.5)",
           fontFamily: light ? SERIF : undefined,
-          fontWeight: light ? 400 : undefined,
+          fontWeight: light ? 400 : selected ? 600 : 500,
           marginLeft: align === "left" ? 3 : undefined,
           marginRight: align === "right" ? 3 : undefined,
         }}
@@ -3903,27 +3903,40 @@ function S2StayCard({
     const badge = (
       <span
         aria-hidden
-        className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
-        style={{ backgroundColor: "#12222F", color: "#D8BE85" }}
+        className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-full"
+        style={{
+          backgroundColor: "rgba(216,190,133,0.06)",
+          border: "1px solid rgba(216,190,133,0.45)",
+          color: "#D8BE85",
+        }}
       >
-        <CalendarDays size={17} strokeWidth={1.4} />
+        <CalendarDays size={18} strokeWidth={1.3} />
       </span>
     );
 
     const field = light ? (
-      <div className={`flex min-w-0 items-center gap-3.5 ${align === "right" ? "flex-row" : "flex-row"}`}>
+      <div className="flex min-w-0 flex-row items-center gap-4">
         {badge}
-        <div className="flex min-w-0 flex-col gap-[6px] text-left">
+        <div className="flex min-w-0 flex-col gap-[8px] text-left">
           <span
-            className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.2em]"
-            style={{ color: "rgba(18,34,47,0.52)" }}
+            className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.24em]"
+            style={{ color: "rgba(231,211,164,0.62)" }}
           >
             {label}
           </span>
           {dateValue}
+          {selected ? (
+            <span
+              className="whitespace-nowrap text-[12.5px] font-light leading-none"
+              style={{ color: "rgba(240,236,226,0.52)" }}
+            >
+              {format(selected, "EEEE")}
+            </span>
+          ) : null}
         </div>
       </div>
     ) : (
+
       <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
