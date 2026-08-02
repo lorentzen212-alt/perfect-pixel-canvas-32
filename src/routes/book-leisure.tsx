@@ -2584,6 +2584,7 @@ function LeisureStepShell({
   pageBg,
   heroOverlay,
   hideHero = false,
+  wide = false,
 }: {
   activeStep: StepKey;
   onStepGo: (s: StepKey) => void;
@@ -2597,6 +2598,7 @@ function LeisureStepShell({
   pageBg?: string;
   heroOverlay?: React.ReactNode;
   hideHero?: boolean;
+  wide?: boolean;
 
 }) {
   const gridCols = hideHero
@@ -2622,7 +2624,7 @@ function LeisureStepShell({
       />
 
 
-      <div className={`mx-auto grid ${hideHero ? "max-w-[1240px] py-4 lg:py-5" : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
+      <div className={`mx-auto grid ${hideHero ? (wide ? "max-w-[1500px] py-8 lg:py-10" : "max-w-[1240px] py-4 lg:py-5") : "max-w-[1680px] py-10 lg:py-14"} grid-cols-1 gap-6 px-6 ${gridCols} lg:gap-7 lg:px-8`}>
 
         {!hideHero && (
         <aside
@@ -6911,6 +6913,7 @@ function LeisureStep5Screen({
       activeStep={5}
       onStepGo={onStepGo}
       hideHero
+      wide
       hero={S5_HERO}
       chapter="CHAPTER V"
       headline={

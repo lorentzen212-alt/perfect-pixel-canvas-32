@@ -586,3 +586,8 @@
     0 0 0 2px rgba(201, 167, 106, 0.28),
     0 6px 18px -8px rgba(4, 10, 16, 0.7);
 }
+
+.s5-input::placeholder {
+  color: rgba(226, 218, 200, 0.42);
+  font-weight: 400;
+}
