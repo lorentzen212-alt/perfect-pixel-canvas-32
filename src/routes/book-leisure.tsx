@@ -8399,8 +8399,9 @@ function S6ReviewRow({
       <button
         type="button"
         onClick={onEdit}
-        className="s6-edit-link mt-1 inline-flex shrink-0 items-center gap-1.5 text-[13.5px] font-normal"
+        className="s6-edit-link mt-1 inline-flex shrink-0 items-center gap-1.5 text-[13.5px] font-medium"
       >
+
         Edit
         <ChevronRight className="s6-edit-arrow" size={15} strokeWidth={1.6} />
       </button>
