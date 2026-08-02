@@ -3869,7 +3869,7 @@ function S2StayCard({
       <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none"
-          style={{ color: "rgba(201,167,106,0.85)", letterSpacing: "0.18em" }}
+          style={{ color: "#B99A60", letterSpacing: "0.18em" }}
         >
           {label}
         </span>
