@@ -218,74 +218,18 @@ function Home() {
               ))}
             </nav>
 
-            {/* Explore indicator — precision-machined champagne gold */}
+            {/* Explore indicator */}
             <a
               href="#how"
               className="group/explore mt-16 flex flex-col items-center gap-3"
               aria-label="Explore"
             >
-              <span className="explore-ring-wrap relative flex h-[38px] w-[38px] items-center justify-center">
-                {/* Soft warm glow (6% opacity) */}
-                <span
-                  aria-hidden
-                  className="explore-glow pointer-events-none absolute -inset-[6px] rounded-full opacity-100"
-                  style={{
-                    background:
-                      "radial-gradient(circle at 50% 42%, rgba(214,168,92,0.10) 0%, rgba(190,142,70,0.05) 46%, rgba(0,0,0,0) 74%)",
-                    filter: "blur(3px)",
-                  }}
-                />
-                {/* Machined ring — brushed champagne gold */}
-                <span
-                  className="explore-ring relative flex h-[38px] w-[38px] items-center justify-center rounded-full"
-                  style={{
-                    // 15% thicker than the original 1px outline
-                    padding: "1.15px",
-                    background:
-                      "conic-gradient(from 210deg, #8a6a2e 0%, #b8923f 14%, #e9c878 30%, #f4dd9a 38%, #e9c878 46%, #c9a454 62%, #9c7833 80%, #7d5e28 92%, #8a6a2e 100%)",
-                    boxShadow:
-                      "0 1px 2px rgba(4,10,16,0.30), 0 2px 7px rgba(4,10,16,0.18), inset 0 1px 1px rgba(255,244,214,0.45), inset 0 -1px 1px rgba(60,40,12,0.55)",
-                    transition:
-                      "transform 360ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 360ms ease, filter 360ms ease",
-                  }}
-                >
-                  {/* Specular highlight at ~1 o'clock */}
-                  <span
-                    aria-hidden
-                    className="explore-specular pointer-events-none absolute h-[7px] w-[7px] rounded-full"
-                    style={{
-                      top: "3.5px",
-                      right: "6px",
-                      background:
-                        "radial-gradient(circle, rgba(255,250,232,0.92) 0%, rgba(255,242,200,0.42) 48%, rgba(255,240,196,0) 100%)",
-                      filter: "blur(0.6px)",
-                      transform: "rotate(0deg)",
-                      transformOrigin: "center 16px",
-                      transition: "transform 360ms cubic-bezier(0.22,0.61,0.36,1), opacity 360ms ease",
-                    }}
-                  />
-                  {/* Inner well — recessed face with depth */}
-                  <span
-                    className="explore-well relative flex h-full w-full items-center justify-center rounded-full"
-                    style={{
-                      background:
-                        "radial-gradient(circle at 50% 40%, rgba(40,30,14,0.10) 0%, rgba(20,14,6,0.32) 64%, rgba(8,6,3,0.50) 100%)",
-                      boxShadow: "inset 0 1.5px 3px rgba(8,6,3,0.55), inset 0 -1px 2px rgba(255,240,210,0.22)",
-                    }}
-                  >
-                    {/* Arrow — slightly darker gold for contrast */}
-                    <span
-                      className="explore-arrow leading-none"
-                      style={{
-                        fontSize: "14px",
-                        color: "#b8923f",
-                        textShadow: "0 1px 2px rgba(8,6,3,0.5)",
-                        transition: "color 360ms ease, transform 360ms ease",
-                      }}
-                    >
-                      ↓
-                    </span>
-                  </span>
+              <span
+                className="flex h-[38px] w-[38px] items-center justify-center rounded-full transition-transform duration-500 group-hover/explore:translate-y-1"
+                style={{ border: "1px solid rgba(226,190,122,0.55)" }}
+              >
+                <span className="text-[15px] leading-none" style={{ color: "#E2B473" }}>
+                  ↓
                 </span>
               </span>
               <span
