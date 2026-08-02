@@ -8008,7 +8008,7 @@ function LeisureStep6Screen({
           {/* CENTER — review grid */}
           <div
             className="px-7 py-12 lg:px-12 lg:py-14"
-            style={{ background: "#EEEAE3" }}
+            style={{ background: "#F5F1EB" }}
           >
             <div
               className="text-[11px] font-medium uppercase tracking-[0.26em]"
@@ -8016,7 +8016,7 @@ function LeisureStep6Screen({
             >
               Request Details
             </div>
-            <div className="mt-4 h-px w-full" style={{ background: "rgba(199,163,74,0.35)" }} />
+            <div className="mt-4 h-px w-full" style={{ background: "rgba(199,163,74,0.22)" }} />
 
             <div className="grid grid-cols-1 gap-x-12 md:grid-cols-2">
               <div>
@@ -8305,11 +8305,11 @@ function S6ReviewRow({
   return (
     <div
       className="flex items-start gap-5 py-7"
-      style={{ borderBottom: "1px solid rgba(22,32,43,0.10)" }}
+      style={{ borderBottom: "1px solid rgba(22,32,43,0.07)" }}
     >
       <span
         className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
-        style={{ border: "1px solid rgba(199,163,74,0.45)", color: "#B08D3F" }}
+        style={{ border: "1px solid rgba(199,163,74,0.32)", color: "#B08D3F" }}
       >
         {icon}
       </span>
