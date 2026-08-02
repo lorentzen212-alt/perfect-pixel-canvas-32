@@ -6508,22 +6508,57 @@ function LeisureStep4Screen({
           </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-2">
-          {Array.from(selected).map((label) => (
-            <span
-              key={label}
-              className="inline-flex items-center gap-2 rounded-[12px] px-3 py-2 text-[13px]"
-              style={{
-                background: "rgba(212,166,74,0.10)",
-                border: "1px solid rgba(232,199,117,0.30)",
-                color: "#F5F1E6",
-              }}
-            >
-              <Check size={12} strokeWidth={2.8} style={{ color: S1_GOLD_SOFT }} />
-              {label}
-            </span>
-          ))}
+        <div className="flex flex-col gap-2.5">
+          {Array.from(selected).map((label) => {
+            const exp = STEP4_EXPERIENCES.find((x) => x.label === label);
+            return (
+              <div
+                key={label}
+                className="s4-sum-row flex items-center gap-3 rounded-[14px] p-2.5 pr-3"
+                style={{
+                  background: "rgba(212,166,74,0.08)",
+                  border: "1px solid rgba(232,199,117,0.26)",
+                }}
+              >
+                {exp && (
+                  <img
+                    src={exp.img}
+                    alt=""
+                    className="h-11 w-11 shrink-0 rounded-[10px] object-cover"
+                    style={{ border: "1px solid rgba(232,199,117,0.30)" }}
+                  />
+                )}
+                <div className="min-w-0 flex-1">
+                  <div
+                    className="truncate text-[13.5px] leading-[1.3] text-white"
+                    style={{ fontFamily: SERIF }}
+                  >
+                    {label}
+                  </div>
+                  <div
+                    className="mt-[3px] truncate text-[10.5px] uppercase tracking-[0.14em]"
+                    style={{ color: "rgba(232,199,117,0.66)" }}
+                  >
+                    {exp?.category ?? "Experience"} · ×1
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  aria-label={`Remove ${label}`}
+                  onClick={() => onToggle(label)}
+                  className="s4-sum-remove grid h-7 w-7 shrink-0 place-items-center rounded-full"
+                  style={{
+                    border: "1px solid rgba(232,199,117,0.30)",
+                    color: "rgba(245,241,230,0.6)",
+                  }}
+                >
+                  <X size={13} strokeWidth={2} />
+                </button>
+              </div>
+            );
+          })}
         </div>
+
       )}
 
       {(preferredDate || dateFlexible || additionalRequests.trim().length > 0) && (
