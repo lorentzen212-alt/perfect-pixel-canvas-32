@@ -4283,22 +4283,47 @@ function S2StayCard({
               <button
                 type="button"
                 onClick={onEdit ?? onAddAnother}
-                className="s2-luxe-action inline-flex items-center gap-2.5 bg-transparent p-0 text-[15px] transition-opacity duration-200 hover:opacity-75"
-                style={{ color: "#FFFFFF", fontWeight: 400, border: "none" }}
+                className="s2-luxe-action inline-flex items-center gap-2.5 px-[18px] py-[6px] text-[15px] transition-all duration-300"
+                style={{
+                  color: "#F6F1E6",
+                  fontWeight: 400,
+                  borderRadius: 999,
+                  border: "1px solid rgba(203,174,118,0.42)",
+                  backgroundColor: "rgba(20,38,56,0.55)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(228,203,150,0.75)";
+                  e.currentTarget.style.boxShadow =
+                    "inset 0 1px 0 rgba(255,255,255,0.09), 0 0 18px -6px rgba(216,188,132,0.55)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(203,174,118,0.42)";
+                  e.currentTarget.style.boxShadow = "inset 0 1px 0 rgba(255,255,255,0.06)";
+                }}
               >
                 Edit stay
                 <Pencil size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
               </button>
-              <span aria-hidden style={{ width: 1, height: 18, backgroundColor: "rgba(217,191,130,0.28)" }} />
+              <span
+                aria-hidden
+                style={{
+                  width: 1,
+                  height: 18,
+                  backgroundImage:
+                    "linear-gradient(180deg, rgba(217,191,130,0) 0%, rgba(224,199,146,0.45) 50%, rgba(217,191,130,0) 100%)",
+                }}
+              />
               <button
                 type="button"
                 onClick={onRemove}
-                className="s2-luxe-action inline-flex items-center gap-2.5 bg-transparent p-0 text-[15px] transition-opacity duration-200 hover:opacity-75"
-                style={{ color: "#FFFFFF", fontWeight: 400, border: "none" }}
+                className="s2-luxe-action inline-flex items-center gap-2.5 bg-transparent p-0 text-[15px] transition-opacity duration-200 hover:opacity-100"
+                style={{ color: "rgba(233,238,244,0.66)", fontWeight: 400, border: "none" }}
               >
                 Remove stay
-                <Trash2 size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
+                <Trash2 size={17} strokeWidth={1.4} style={{ color: "#C9AB74" }} />
               </button>
+
             </>
           )}
         </div>
