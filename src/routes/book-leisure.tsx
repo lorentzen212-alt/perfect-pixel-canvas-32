@@ -4244,8 +4244,13 @@ function S2StayCard({
 
         {/* Lower zone — actions */}
         <div
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 px-[18px] py-[5px]"
-          style={{ borderTop: "1px solid rgba(217,191,130,0.10)" }}
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 pl-[25px] pr-[18px] py-[5px]"
+          style={{
+            borderTop: "1px solid transparent",
+            borderImage:
+              "linear-gradient(90deg, rgba(217,191,130,0.05) 0%, rgba(233,210,158,0.30) 45%, rgba(217,191,130,0.08) 100%) 1",
+          }}
+
 
         >
           {confirming ? (
