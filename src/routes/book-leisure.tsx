@@ -2589,6 +2589,7 @@ function LeisureStepShell({
   heroOverlay,
   hideHero = false,
   wide = false,
+  ultraWide = false,
 }: {
   activeStep: StepKey;
   onStepGo: (s: StepKey) => void;
