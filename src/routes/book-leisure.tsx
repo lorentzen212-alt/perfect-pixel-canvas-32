@@ -8208,7 +8208,7 @@ function LeisureStep6Screen({
               </div>
             </div>
 
-            <div className="relative mt-8">
+            <div className="relative mt-6">
               {summaryStats.map((s) => (
                 <div
                   key={s.label}
