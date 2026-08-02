@@ -6126,6 +6126,43 @@ function LeisureStep4Screen({
   );
   const dateInputRef = useRef<HTMLInputElement>(null);
 
+  const S4_IVORY = "#F5F1EA";
+  const S4_NAVY = "#10263E";
+  const S4_NAVY_2 = "#173B59";
+  const S4_GOLD = "#C9A45C";
+  const S4_TEXT = "#1D2430";
+  const S4_MUTED = "#6F7782";
+  const S4_HAIRLINE = "rgba(201,164,92,0.32)";
+
+  const catIcon = (c: string, size = 14) => {
+    const p = { size, strokeWidth: 1.7 } as const;
+    if (c === "All") return <Sparkles {...p} />;
+    if (c === "Nature & Adventure") return <Mountain {...p} />;
+    if (c === "Winter") return <Snowflake {...p} />;
+    if (c === "Culture & Sightseeing") return <Landmark {...p} />;
+    if (c === "Food & Drink") return <Wine {...p} />;
+    return <Users {...p} />;
+  };
+
+  const recommended = STEP4_EXPERIENCES[2];
+
+  const Divider = () => (
+    <div className="flex items-center gap-3">
+      <span
+        className="h-px flex-1"
+        style={{ background: `linear-gradient(90deg,transparent,${S4_HAIRLINE})` }}
+      />
+      <span
+        className="h-[6px] w-[6px] rotate-45"
+        style={{ background: `linear-gradient(135deg,#EBD9AE,${S4_GOLD})` }}
+      />
+      <span
+        className="h-px flex-1"
+        style={{ background: `linear-gradient(90deg,${S4_HAIRLINE},transparent)` }}
+      />
+    </div>
+  );
+
   return (
     <LeisureStepShell
       activeStep={4}
@@ -6142,152 +6179,150 @@ function LeisureStep4Screen({
           Create memories your<br />group will talk about<br />for years to come.
         </>
       }
-      enhancedHero
+      hideHero
+      wide
+      pageBg={S4_NAVY}
     >
-
-      <section
-        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
-        style={{
-          backgroundColor: S1_NAVY_SOFT,
-          border: `1px solid ${S1_BORDER}`,
-          boxShadow:
-            "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
-        }}
-      >
-        <h2
-          className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
-          style={{ fontFamily: SERIF }}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[26fr_54fr_20fr] lg:gap-7">
+        {/* LEFT HERO */}
+        <aside
+          className="relative order-2 min-h-[420px] overflow-hidden rounded-[22px] lg:order-none lg:min-h-[880px]"
+          style={{ border: `1px solid rgba(201,164,92,0.28)` }}
         >
-          Step 4 – Experiences
-        </h2>
-        <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
-          What would your group like to experience?
-        </p>
-
-        {/* Category filters */}
-        <div className="mt-6 flex flex-wrap gap-2.5">
-          {STEP4_CATEGORIES.map((c) => {
-            const active = c === category;
-            return (
-              <button
-                key={c}
-                type="button"
-                onClick={() => setCategory(c)}
-                className="rounded-full px-4 py-2 text-[13px] font-medium transition-all"
-                style={{
-                  background: active
-                    ? `linear-gradient(135deg, ${S1_GOLD_SOFT}, ${S1_GOLD})`
-                    : S1_NAVY,
-                  color: active ? S1_NAVY : "#F5F1E6",
-                  border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.18)"}`,
-                  boxShadow: active
-                    ? "0 10px 22px -14px rgba(212,166,74,0.55)"
-                    : "none",
-                }}
-              >
-                {c}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Experience grid */}
-        <div className="relative mt-7">
+          <img src={S4_HERO} alt="" className="absolute inset-0 h-full w-full object-cover" />
           <div
-            aria-hidden
-            className="pointer-events-none absolute -inset-8 -z-10"
+            className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(70% 55% at 50% 40%, rgba(212,166,74,0.08), transparent 70%)",
-              filter: "blur(6px)",
+                "linear-gradient(180deg, rgba(16,38,62,0.28) 0%, rgba(16,38,62,0.34) 50%, rgba(16,38,62,0.72) 100%)",
             }}
           />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="relative z-10 flex h-full flex-col justify-center p-10 lg:p-12">
+            <div
+              className="text-[12px] tracking-[0.24em]"
+              style={{ color: "#E3C98F", fontFamily: "Inter, sans-serif" }}
+            >
+              Step 4 of 6
+            </div>
+            <h1
+              className="mt-6 text-[46px] leading-[1.02] text-white lg:text-[56px]"
+              style={{ fontFamily: SERIF, fontWeight: 400 }}
+            >
+              Experiences
+            </h1>
+            <div
+              className="mt-7 h-px w-[86px]"
+              style={{ background: `linear-gradient(90deg,${S4_GOLD},rgba(201,164,92,0))` }}
+            />
+            <p className="mt-7 max-w-[280px] text-[16px] leading-[1.7] text-white/85">
+              Create unforgettable
+              <br />
+              moments for your group.
+            </p>
+          </div>
+        </aside>
+
+        {/* MAIN */}
+        <section
+          className="order-1 rounded-[22px] px-6 py-12 sm:px-10 lg:order-none lg:px-14 lg:py-16"
+          style={{ background: S4_IVORY, color: S4_TEXT }}
+        >
+          <div className="mx-auto max-w-[820px] text-center">
+            <h2
+              className="text-[34px] leading-[1.12] lg:text-[40px]"
+              style={{ fontFamily: SERIF, color: S4_NAVY, fontWeight: 400 }}
+            >
+              Add experiences for your group
+            </h2>
+            <p className="mt-4 text-[15px]" style={{ color: S4_MUTED }}>
+              Make your stay truly memorable with unique activities and experiences.
+            </p>
+            <div className="mx-auto mt-8 w-[240px]">
+              <Divider />
+            </div>
+          </div>
+
+          {/* FILTER BAR */}
+          <div className="mt-12 flex flex-wrap justify-center gap-2.5">
+            {STEP4_CATEGORIES.map((c) => {
+              const active = c === category;
+              return (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setCategory(c)}
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-[7px] text-[12.5px] transition-all duration-200"
+                  style={{
+                    background: active ? S4_NAVY : "#FFFDF9",
+                    color: active ? "#FFFFFF" : S4_TEXT,
+                    border: `1px solid ${active ? S4_NAVY : "rgba(201,164,92,0.42)"}`,
+                    boxShadow: active ? "0 10px 22px -14px rgba(16,38,62,0.6)" : "none",
+                  }}
+                >
+                  <span style={{ color: active ? "#E3C98F" : S4_GOLD }}>{catIcon(c)}</span>
+                  {c}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* EXPERIENCE GRID */}
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((e) => {
               const active = selected.has(e.label);
-              const isSignature = e.label === "Northern Lights";
               return (
                 <button
                   key={e.label}
                   type="button"
                   onClick={() => onToggle(e.label)}
-                  className={`s4-card group relative overflow-hidden rounded-[18px] text-left ${active ? "s4-selected s4-selected-glow" : ""}`}
+                  className="s4-lux-card group relative overflow-hidden rounded-[18px] text-left"
                   style={{
-                    border: `1px solid ${active ? S1_GOLD : S1_BORDER}`,
+                    background: "#FFFFFF",
+                    border: `1px solid ${active ? S4_GOLD : "rgba(29,36,48,0.08)"}`,
                     boxShadow: active
-                      ? "0 22px 46px -20px rgba(212,166,74,0.55), 0 2px 0 rgba(255,255,255,0.03) inset"
-                      : "0 16px 34px -22px rgba(0,0,0,0.65), 0 1px 0 rgba(255,255,255,0.03) inset",
+                      ? "0 22px 46px -26px rgba(201,164,92,0.65)"
+                      : "0 18px 40px -30px rgba(16,38,62,0.55)",
                   }}
                 >
-                  <div className="relative h-[170px] w-full overflow-hidden">
+                  <div className="relative h-[220px] w-full overflow-hidden">
                     <img
                       src={e.img}
                       alt={e.label}
-                      className="s4-card-img h-full w-full object-cover"
+                      className="s4-lux-img h-full w-full object-cover"
                     />
                     <div
-                      className="s4-card-overlay pointer-events-none absolute inset-0"
+                      className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%]"
                       style={{
                         background:
-                          "linear-gradient(180deg, rgba(8,19,31,0) 40%, rgba(8,19,31,0.92) 100%), radial-gradient(120% 80% at 50% 45%, transparent 55%, rgba(0,0,0,0.35) 100%)",
+                          "linear-gradient(180deg, rgba(16,38,62,0) 0%, rgba(16,38,62,0.55) 45%, rgba(16,38,62,0.92) 100%)",
                       }}
                     />
-                    {isSignature && (
-                      <span
-                        className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full px-3 py-[3px] text-[9.5px] font-semibold tracking-[0.22em]"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, rgba(8,19,31,0.78) 0%, rgba(8,19,31,0.62) 100%)",
-                          border: `1px solid rgba(232,199,117,0.75)`,
-                          boxShadow:
-                            "inset 0 0 0 1px rgba(255,235,180,0.18), 0 6px 14px -6px rgba(212,166,74,0.45)",
-                          color: "transparent",
-                          backgroundImage:
-                            "linear-gradient(135deg, rgba(8,19,31,0.78) 0%, rgba(8,19,31,0.62) 100%)",
-                          backdropFilter: "blur(8px)",
-                          textTransform: "uppercase",
-                          lineHeight: 1.4,
-                        }}
-                      >
-                        <Sparkles size={9.5} strokeWidth={2.5} style={{ color: "#EBCB7A" }} />
-                        <span
-                          style={{
-                            background:
-                              "linear-gradient(135deg, #F4DB94 0%, #E8C775 45%, #C99A44 100%)",
-                            WebkitBackgroundClip: "text",
-                            backgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                          }}
-                        >
-                          Signature
-                        </span>
-                      </span>
-                    )}
-                    <div className="absolute bottom-3 left-3.5 right-14">
+                    <div className="absolute bottom-4 left-5 right-16">
                       <div
                         className="text-white"
-                        style={{ fontFamily: SERIF, fontSize: 17.5, lineHeight: 1.15 }}
+                        style={{ fontFamily: SERIF, fontSize: 19, lineHeight: 1.15 }}
                       >
                         {e.label}
                       </div>
+                      <div className="mt-1.5 text-[12.5px] leading-snug text-white/72">
+                        {e.category}
+                      </div>
                     </div>
                     <span
-                      className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full transition-all"
+                      className="absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full transition-all"
                       style={{
                         background: active
-                          ? `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 60%, #B88C2F 100%)`
-                          : "rgba(8,19,31,0.72)",
-                        border: `1px solid ${active ? S1_GOLD : "rgba(245,241,230,0.35)"}`,
-                        color: active ? S1_NAVY : "#F5F1E6",
-                        boxShadow: active
-                          ? "0 10px 20px -8px rgba(212,166,74,0.7), inset 0 1px 0 rgba(255,255,255,0.5)"
-                          : "none",
+                          ? `linear-gradient(135deg,#EBD9AE 0%,${S4_GOLD} 60%,#A9833F 100%)`
+                          : "rgba(16,38,62,0.55)",
+                        border: `1px solid ${active ? S4_GOLD : "rgba(255,255,255,0.55)"}`,
+                        color: active ? S4_NAVY : "#FFFFFF",
+                        backdropFilter: "blur(4px)",
                       }}
                     >
                       {active ? (
-                        <Check size={16} strokeWidth={2.8} />
+                        <Check size={17} strokeWidth={2.6} />
                       ) : (
-                        <Plus size={18} strokeWidth={2.2} />
+                        <Plus size={18} strokeWidth={2} />
                       )}
                     </span>
                   </div>
@@ -6295,377 +6330,296 @@ function LeisureStep4Screen({
               );
             })}
           </div>
-        </div>
 
-
-        {/* Preferred Experience Date */}
-        <div
-          className="mt-8 rounded-[16px] p-5 sm:p-6"
-          style={{
-            backgroundColor: S1_NAVY,
-            border: `1px solid ${S1_BORDER}`,
-          }}
-        >
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <h3
-                className="text-[18px] font-medium text-white"
-                style={{ fontFamily: SERIF }}
-              >
-                Preferred Experience Date
-              </h3>
-              <p
-                className="mt-1.5 text-[13.5px]"
-                style={{ color: "rgba(245,241,230,0.62)" }}
-              >
-                When would you ideally like to enjoy your selected experience?
-              </p>
-            </div>
-            <div className="flex flex-col gap-3">
-              <button
-                type="button"
-                onClick={() => dateInputRef.current?.showPicker?.()}
-                className="inline-flex items-center gap-3 rounded-[12px] px-4 py-3 text-left transition-all hover:-translate-y-[1px]"
-                style={{
-                  backgroundColor: S1_NAVY_SOFT,
-                  border: `1px solid ${S1_BORDER}`,
-                  color: preferredDate ? "#F5F1E6" : "rgba(245,241,230,0.55)",
-                  minWidth: 220,
-                }}
-              >
-                <CalendarDays size={18} style={{ color: S1_GOLD_SOFT }} />
-                <span className="text-[14.5px] font-medium">
-                  {preferredDate ? format(preferredDate, "PPP") : "Select a date"}
-                </span>
-              </button>
-              <input
-                ref={dateInputRef}
-                type="date"
-                className="sr-only"
-                value={preferredDate ? format(preferredDate, "yyyy-MM-dd") : ""}
-                onChange={(e) => {
-                  const v = e.target.value;
-                  setPreferredDate(v ? new Date(v) : undefined);
-                }}
-              />
-              <label
-                className="inline-flex cursor-pointer items-center gap-2.5 text-[13.5px]"
-                style={{ color: "rgba(245,241,230,0.8)" }}
-              >
-                <span
-                  className="grid h-5 w-5 place-items-center rounded-[5px] transition-colors"
+          {/* PREFERRED DATE */}
+          <div
+            className="mt-14 rounded-[18px] px-7 py-7"
+            style={{ background: "#FFFFFF", border: "1px solid rgba(29,36,48,0.08)" }}
+          >
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h3 className="text-[20px]" style={{ fontFamily: SERIF, color: S4_NAVY }}>
+                  Preferred Experience Date
+                </h3>
+                <p className="mt-2 text-[13.5px]" style={{ color: S4_MUTED }}>
+                  When would you ideally like to enjoy your selected experience?
+                </p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => dateInputRef.current?.showPicker?.()}
+                  className="inline-flex items-center gap-3 rounded-[12px] px-4 py-3 text-left transition-all hover:-translate-y-[1px]"
                   style={{
-                    backgroundColor: dateFlexible ? S1_GOLD : "transparent",
-                    border: `1.5px solid ${dateFlexible ? S1_GOLD : "rgba(245,241,230,0.45)"}`,
+                    background: S4_IVORY,
+                    border: `1px solid ${S4_HAIRLINE}`,
+                    color: preferredDate ? S4_TEXT : S4_MUTED,
+                    minWidth: 220,
                   }}
                 >
-                  {dateFlexible && (
-                    <Check size={12} strokeWidth={3} style={{ color: S1_NAVY }} />
-                  )}
-                </span>
+                  <CalendarDays size={18} style={{ color: S4_GOLD }} />
+                  <span className="text-[14px] font-medium">
+                    {preferredDate ? format(preferredDate, "PPP") : "Select a date"}
+                  </span>
+                </button>
                 <input
-                  type="checkbox"
+                  ref={dateInputRef}
+                  type="date"
                   className="sr-only"
-                  checked={dateFlexible}
-                  onChange={(e) => setDateFlexible(e.target.checked)}
+                  value={preferredDate ? format(preferredDate, "yyyy-MM-dd") : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setPreferredDate(v ? new Date(v) : undefined);
+                  }}
                 />
-                We are flexible with dates
-              </label>
-            </div>
-          </div>
-          <p
-            className="mt-4 text-[12.5px]"
-            style={{ color: "rgba(245,241,230,0.5)" }}
-          >
-            If no date is selected, our hotel partners will recommend the best available option during your stay.
-          </p>
-        </div>
-
-        {/* Additional Experience Requests */}
-        <div
-          className="mt-8 rounded-[16px] px-5 py-4 sm:px-6 sm:py-5"
-          style={{
-            background: "linear-gradient(180deg, rgba(9,21,34,0.96) 0%, rgba(6,16,26,0.96) 100%)",
-            border: `1px solid ${S1_BORDER}`,
-          }}
-        >
-          <h3
-            className="text-[17.5px] font-medium text-white"
-            style={{ fontFamily: SERIF }}
-          >
-            Additional Experience Requests
-          </h3>
-          <p
-            className="mt-1 text-[13px] leading-relaxed"
-            style={{ color: "rgba(245,241,230,0.6)" }}
-          >
-            Tell us if you&apos;re looking for an experience that isn&apos;t listed above, or if you have any special wishes for your group.
-          </p>
-          <textarea
-            value={additionalRequests}
-            onChange={(e) => setAdditionalRequests(e.target.value)}
-            placeholder={`Looking for something unique?\n\nPrivate boat charter · Hike · Photography tour\nDog sledding · Wine tasting · Brewery visit`}
-            rows={4}
-            className="mt-3.5 w-full resize-y rounded-[13px] px-4 py-3.5 text-[14px] outline-none transition-all duration-200 focus:border-[#D4A64A] focus:ring-4 focus:ring-[rgba(212,166,74,0.12)]"
-            style={{
-              background: "linear-gradient(180deg, rgba(24,42,62,0.72) 0%, rgba(18,33,50,0.72) 100%)",
-              color: "#F5F1E6",
-              border: `1px solid rgba(255,255,255,0.09)`,
-              boxShadow: "inset 0 2px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
-              minHeight: 104,
-            }}
-          />
-
-        </div>
-
-        {/* Experience Availability */}
-        <div
-          className="mt-6 rounded-[14px] px-5 py-4 sm:px-6"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(22,40,60,0.78) 0%, rgba(16,31,48,0.72) 100%)",
-            border: `1px solid rgba(255,255,255,0.09)`,
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
-          }}
-        >
-          <div
-            className="h-px w-full"
-            style={{
-              background: `linear-gradient(90deg, transparent 0%, rgba(232,199,117,0.5) 18%, rgba(212,166,74,0.8) 50%, rgba(232,199,117,0.5) 82%, transparent 100%)`,
-              marginBottom: 14,
-            }}
-          />
-          <div className="flex items-center gap-4">
-            <span
-              className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-full"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(232,199,117,0.18), rgba(212,166,74,0.10))",
-                border: `1px solid rgba(232,199,117,0.35)`,
-                color: S1_GOLD_SOFT,
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
-              }}
-            >
-              <Info size={16} strokeWidth={2} />
-            </span>
-            <div className="flex-1">
-              <div
-                className="font-medium text-white"
-                style={{ fontFamily: SERIF, fontSize: 15.5, letterSpacing: "0.01em" }}
-              >
-                Experience Availability
+                <label
+                  className="inline-flex cursor-pointer items-center gap-2.5 text-[13.5px]"
+                  style={{ color: S4_TEXT }}
+                >
+                  <span
+                    className="grid h-5 w-5 place-items-center rounded-[5px] transition-colors"
+                    style={{
+                      backgroundColor: dateFlexible ? S4_GOLD : "transparent",
+                      border: `1.5px solid ${dateFlexible ? S4_GOLD : "rgba(29,36,48,0.28)"}`,
+                    }}
+                  >
+                    {dateFlexible && <Check size={12} strokeWidth={3} style={{ color: "#FFF" }} />}
+                  </span>
+                  <input
+                    type="checkbox"
+                    className="sr-only"
+                    checked={dateFlexible}
+                    onChange={(e) => setDateFlexible(e.target.checked)}
+                  />
+                  We are flexible with dates
+                </label>
               </div>
-              <p
-                className="mt-1 text-[12.5px] leading-[1.55]"
-                style={{ color: "rgba(245,241,230,0.62)" }}
-              >
-                Experiences vary by destination, season and local availability. If one of your selected experiences isn&apos;t available, our team will recommend the closest premium alternative.
+            </div>
+            <p className="mt-5 text-[12.5px]" style={{ color: S4_MUTED }}>
+              If no date is selected, our hotel partners will recommend the best available option
+              during your stay.
+            </p>
+          </div>
+
+          {/* ADDITIONAL REQUESTS */}
+          <div
+            className="mt-8 rounded-[18px] px-7 py-7"
+            style={{ background: "#FFFFFF", border: "1px solid rgba(29,36,48,0.08)" }}
+          >
+            <h3 className="text-[20px]" style={{ fontFamily: SERIF, color: S4_NAVY }}>
+              Additional Experience Requests
+            </h3>
+            <p className="mt-2 text-[13.5px] leading-relaxed" style={{ color: S4_MUTED }}>
+              Tell us if you&apos;re looking for an experience that isn&apos;t listed above, or if
+              you have any special wishes for your group.
+            </p>
+            <textarea
+              value={additionalRequests}
+              onChange={(e) => setAdditionalRequests(e.target.value)}
+              placeholder={`Looking for something unique?\n\nPrivate boat charter · Hike · Photography tour\nDog sledding · Wine tasting · Brewery visit`}
+              rows={4}
+              className="mt-4 w-full resize-y rounded-[13px] px-4 py-3.5 text-[14px] outline-none transition-all duration-200 focus:ring-4"
+              style={{
+                background: S4_IVORY,
+                color: S4_TEXT,
+                border: `1px solid ${S4_HAIRLINE}`,
+                minHeight: 104,
+              }}
+            />
+            <div className="mt-6 flex items-start gap-3">
+              <Info size={16} strokeWidth={1.8} style={{ color: S4_GOLD, marginTop: 2 }} />
+              <p className="text-[12.5px] leading-[1.6]" style={{ color: S4_MUTED }}>
+                Experiences vary by destination, season and local availability. If one of your
+                selected experiences isn&apos;t available, our team will recommend the closest
+                premium alternative.
               </p>
             </div>
           </div>
 
-        </div>
-
-        {/* Experience Wishlist Summary */}
-        {(selected.size > 0 || preferredDate || dateFlexible || additionalRequests.trim().length > 0) && (
+          {/* BESPOKE / CONCIERGE */}
           <div
-            className="mt-6 rounded-[16px] p-5"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(20,38,56,0.9) 0%, rgba(8,19,31,0.9) 100%)",
-              border: `1px solid ${S1_BORDER}`,
-              boxShadow:
-                "0 20px 40px -24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
-            }}
+            className="mt-14 flex flex-col gap-4 rounded-[16px] px-7 py-6 sm:flex-row sm:items-center sm:justify-between"
+            style={{ background: "#FFFDF9", border: `1px solid ${S4_HAIRLINE}` }}
           >
-            <div className="flex items-center gap-2.5">
-              <span
-                className="h-px flex-1"
-                style={{
-                  background: `linear-gradient(90deg, transparent, ${S1_GOLD}, transparent)`,
-                }}
-              />
-              <span
-                className="text-[10.5px] font-semibold tracking-[0.28em]"
-                style={{ color: S1_GOLD_SOFT, textTransform: "uppercase" }}
-              >
-                Your experience wishlist
-              </span>
-              <span
-                className="h-px flex-1"
-                style={{
-                  background: `linear-gradient(90deg, transparent, ${S1_GOLD}, transparent)`,
-                }}
-              />
+            <div className="flex items-center gap-5">
+              <Sparkles size={26} strokeWidth={1.3} style={{ color: S4_GOLD }} />
+              <div>
+                <div
+                  className="text-[17px] italic"
+                  style={{ fontFamily: SERIF, color: S4_NAVY }}
+                >
+                  Need something special?
+                </div>
+                <div className="mt-1 text-[13.5px]" style={{ color: S4_MUTED }}>
+                  Our team can arrange bespoke experiences tailored to your group.
+                </div>
+              </div>
             </div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {selected.size > 0 && (
-                <div className="flex items-start gap-2.5 sm:col-span-2">
-                  <Check size={14} strokeWidth={2.6} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
-                  <div className="min-w-0">
-                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
-                      {selected.size} {selected.size === 1 ? "experience" : "experiences"} selected
-                    </div>
-                    <div className="mt-1.5 flex flex-wrap gap-1.5">
-                      {Array.from(selected).map((label) => (
-                        <span
-                          key={label}
-                          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px]"
-                          style={{
-                            background: "rgba(212,166,74,0.10)",
-                            border: `1px solid rgba(232,199,117,0.35)`,
-                            color: "#F5F1E6",
-                          }}
-                        >
-                          <Check size={11} strokeWidth={2.8} style={{ color: S1_GOLD_SOFT }} />
-                          {label}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-              {preferredDate && (
-                <div className="flex items-start gap-2.5">
-                  <CalendarDays size={14} strokeWidth={2.2} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
-                  <div>
-                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
-                      Preferred date
-                    </div>
-                    <div className="mt-1 text-[13.5px] text-white">{format(preferredDate, "PPP")}</div>
-                  </div>
-                </div>
-              )}
-              {dateFlexible && (
-                <div className="flex items-start gap-2.5">
-                  <Sparkles size={14} strokeWidth={2.2} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
-                  <div>
-                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
-                      Flexibility
-                    </div>
-                    <div className="mt-1 text-[13.5px] text-white">Open to alternative dates</div>
-                  </div>
-                </div>
-              )}
-              {additionalRequests.trim().length > 0 && (
-                <div className="flex items-start gap-2.5 sm:col-span-2">
-                  <Info size={14} strokeWidth={2.2} style={{ color: S1_GOLD_SOFT, marginTop: 3 }} />
-                  <div className="min-w-0">
-                    <div className="text-[11.5px] font-semibold tracking-[0.16em]" style={{ color: "rgba(245,241,230,0.55)", textTransform: "uppercase" }}>
-                      Concierge notes
-                    </div>
-                    <div className="mt-1 line-clamp-2 text-[13.5px] text-white" style={{ lineHeight: 1.5 }}>
-                      {additionalRequests.trim()}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+            <button
+              type="button"
+              onClick={() => setLetUsRecommend(!letUsRecommend)}
+              className="inline-flex shrink-0 items-center gap-2 text-[14px] transition-opacity hover:opacity-75"
+              style={{ color: S4_GOLD }}
+            >
+              {letUsRecommend ? "We'll surprise you" : "Contact us"}
+              <ArrowRight size={16} strokeWidth={1.9} />
+            </button>
           </div>
-        )}
 
-        {/* Recommendation panel */}
-        <div
-          className="relative mt-6 flex flex-col gap-5 overflow-hidden rounded-[16px] px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-7"
-          style={{
-            background: "linear-gradient(180deg, rgba(26,46,68,0.96) 0%, rgba(15,30,47,0.96) 100%)",
-            border: `1px solid rgba(255,255,255,0.11)`,
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
-          }}
-        >
-          <div
-            className="pointer-events-none absolute right-0 top-1/2 h-[280px] w-[380px] -translate-y-1/2"
-            style={{
-              background: "radial-gradient(50% 50% at 70% 50%, rgba(212,166,74,0.16), transparent 72%)",
-              filter: "blur(6px)",
-            }}
-          />
-          <div className="relative flex items-center gap-4">
-            <span
-              className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full"
+          {/* BOTTOM ACTIONS */}
+          <div className="mt-14 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <button
+              type="button"
+              onClick={onBack}
+              className="inline-flex h-[56px] w-full items-center justify-center gap-3 rounded-[14px] px-10 text-[14px] transition-all hover:-translate-y-[1px] sm:w-auto sm:min-w-[190px]"
               style={{
-                border: `1.5px solid rgba(245,241,230,0.6)`,
-                color: "#F5F1E6",
+                background: "#FFFFFF",
+                color: S4_TEXT,
+                border: `1px solid ${S4_HAIRLINE}`,
+                boxShadow: "0 16px 34px -28px rgba(16,38,62,0.6)",
               }}
             >
-              <Check size={18} strokeWidth={2.2} />
-            </span>
-            <div>
-              <div
-                className="font-medium text-white"
-                style={{ fontFamily: SERIF, fontSize: 18, lineHeight: 1.28 }}
-              >
-                Let HotelGroupBook curate the perfect experience package for your group.
-              </div>
-              <div className="mt-1.5 text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.6)" }}>
-                We&apos;ll recommend the best experiences based on your destination, travel dates and group profile.
-              </div>
+              <ArrowLeft size={16} strokeWidth={1.9} style={{ color: S4_GOLD }} />
+              BACK
+            </button>
+            <button
+              type="button"
+              onClick={onNext}
+              className="inline-flex h-[56px] w-full items-center justify-center gap-3 rounded-[14px] px-10 text-[14px] font-medium transition-all hover:-translate-y-[1px] sm:w-auto sm:min-w-[190px]"
+              style={{
+                background: `linear-gradient(180deg,${S4_NAVY_2},${S4_NAVY})`,
+                color: "#FFFFFF",
+                border: `1px solid ${S4_NAVY}`,
+                boxShadow: "0 22px 44px -24px rgba(16,38,62,0.8)",
+              }}
+            >
+              NEXT
+              <ArrowRight size={16} strokeWidth={1.9} style={{ color: "#E3C98F" }} />
+            </button>
+          </div>
+
+          <div className="mt-8 flex flex-col items-center gap-1 text-center">
+            <div className="flex items-center gap-2 text-[13px]">
+              <ShieldCheck size={15} strokeWidth={1.8} style={{ color: S4_GOLD }} />
+              <span style={{ color: S4_TEXT }}>Your request is free and non-binding</span>
+            </div>
+            <div className="text-[12.5px]" style={{ color: S4_MUTED }}>
+              We find the best options so you can choose what suits your group.
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => setLetUsRecommend(!letUsRecommend)}
-            className="s4-shimmer s4-surprise relative inline-flex flex-shrink-0 items-center justify-center gap-2.5 whitespace-nowrap rounded-[13px] px-7 py-[14px] text-[14.5px] font-semibold transition-all duration-300 hover:-translate-y-[2px]"
-            style={{
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B88C2F 100%)`,
-              color: S1_NAVY,
-              border: `1px solid ${S1_GOLD}`,
-              minWidth: 196,
-              boxShadow: letUsRecommend
-                ? "0 32px 56px -18px rgba(212,166,74,0.85), 0 8px 18px -8px rgba(212,166,74,0.5), inset 0 1px 0 rgba(255,255,255,0.55)"
-                : "0 22px 40px -14px rgba(212,166,74,0.6), 0 6px 14px -6px rgba(212,166,74,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
-            }}
-          >
-            <Sparkles size={17.5} strokeWidth={2} className="s4-surprise-icon" />
-            {letUsRecommend ? "We'll surprise you" : "Surprise me"}
-          </button>
-        </div>
+        </section>
 
-        {/* Bottom nav */}
-        <div className="mt-6 flex items-center justify-between gap-4">
-          <button
-            type="button"
-            onClick={onBack}
-            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
-            style={{ color: S1_GOLD_SOFT }}
-          >
-            <ArrowLeft size={16} strokeWidth={2.2} />
-            Back
-          </button>
-
-          <button
-            type="button"
-            onClick={onNext}
-            className="s4-shimmer inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px]"
-            style={{
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 55%, #B88C2F 100%)`,
-              color: S1_NAVY,
-              border: `1px solid ${S1_GOLD}`,
-              boxShadow:
-                "0 20px 42px -16px rgba(212,166,74,0.6), inset 0 1px 0 rgba(255,255,255,0.45)",
-            }}
-          >
-            Next step
-            <ArrowRight size={17} strokeWidth={2.4} />
-          </button>
-        </div>
-
-        <div className="mt-5 flex flex-col items-center gap-1 text-center">
-          <div className="flex items-center gap-2 text-[13.5px]">
-            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
-            <span style={{ color: S1_GOLD_SOFT }}>
-              Your request is free and non-binding
-            </span>
+        {/* RIGHT SUMMARY */}
+        <aside
+          className="order-3 rounded-[22px] px-7 py-10"
+          style={{
+            background: `linear-gradient(180deg,${S4_NAVY_2} 0%,${S4_NAVY} 100%)`,
+            border: "1px solid rgba(201,164,92,0.26)",
+          }}
+        >
+          <div className="text-[21px] text-white" style={{ fontFamily: SERIF }}>
+            Your Request
           </div>
-          <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
-            We find the best options so you can choose what suits your group.
-          </div>
-        </div>
+          <div className="mt-4"><Divider /></div>
 
-      </section>
+          <div className="mt-7 space-y-5">
+            <div className="flex items-center gap-3.5">
+              <CalendarDays size={18} strokeWidth={1.4} style={{ color: S4_GOLD }} />
+              <span className="text-[13.5px] text-white/85">
+                {preferredDate ? format(preferredDate, "d MMM yyyy") : "Date to be confirmed"}
+              </span>
+            </div>
+            <div className="flex items-center gap-3.5">
+              <Sparkles size={18} strokeWidth={1.4} style={{ color: S4_GOLD }} />
+              <span className="text-[13.5px] text-white/85">
+                {dateFlexible ? "Flexible with dates" : "Fixed dates"}
+              </span>
+            </div>
+            <div className="flex items-center gap-3.5">
+              <Compass size={18} strokeWidth={1.4} style={{ color: S4_GOLD }} />
+              <span className="text-[13.5px] text-white/85">
+                {selected.size} {selected.size === 1 ? "Experience" : "Experiences"}
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-9"><Divider /></div>
+
+          <div className="mt-8 text-[19px] text-white" style={{ fontFamily: SERIF }}>
+            Selected Experiences
+          </div>
+
+          {selected.size === 0 ? (
+            <div className="mt-5 text-center">
+              <Sparkles size={22} strokeWidth={1.2} style={{ color: S4_GOLD }} className="mx-auto" />
+              <div className="mt-3 text-[13.5px] text-white/85">No experiences added yet</div>
+              <div className="mt-2 text-[12.5px] leading-relaxed text-white/55">
+                Add experiences to make your stay even more memorable.
+              </div>
+            </div>
+          ) : (
+            <ul className="mt-5 space-y-3.5">
+              {Array.from(selected).map((label) => (
+                <li key={label} className="flex items-start gap-3">
+                  <Check size={14} strokeWidth={2.4} style={{ color: S4_GOLD, marginTop: 3 }} />
+                  <span className="text-[13.5px] leading-snug text-white/90">{label}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {additionalRequests.trim().length > 0 && (
+            <>
+              <div className="mt-9"><Divider /></div>
+              <div className="mt-6 text-[12px] tracking-[0.2em] text-white/55">
+                CONCIERGE NOTES
+              </div>
+              <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-white/85">
+                {additionalRequests.trim()}
+              </p>
+            </>
+          )}
+
+          <div className="mt-9"><Divider /></div>
+
+          <div className="mt-8 text-[19px] text-white" style={{ fontFamily: SERIF }}>
+            Recommended for your group
+          </div>
+          <button
+            type="button"
+            onClick={() => onToggle(recommended.label)}
+            className="mt-5 flex w-full items-center gap-4 text-left transition-opacity hover:opacity-85"
+          >
+            <img
+              src={recommended.img}
+              alt={recommended.label}
+              className="h-[62px] w-[62px] shrink-0 rounded-[10px] object-cover"
+              style={{ border: "1px solid rgba(201,164,92,0.35)" }}
+            />
+            <div className="min-w-0">
+              <div className="text-[14.5px] text-white" style={{ fontFamily: SERIF }}>
+                {recommended.label}
+              </div>
+              <div className="mt-1 flex items-center gap-1">
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <Star key={i} size={11} strokeWidth={0} fill={S4_GOLD} />
+                ))}
+                <span className="ml-1 text-[11.5px] text-white/65">5.0</span>
+              </div>
+              <div
+                className="mt-1.5 text-[11.5px] italic leading-snug text-white/70"
+                style={{ fontFamily: SERIF }}
+              >
+                “An unforgettable once-in-a-lifetime experience”
+              </div>
+            </div>
+          </button>
+        </aside>
+      </div>
     </LeisureStepShell>
   );
 }
+
 
 /* =========================================================
    STEP 5 - Contact (redesigned)
