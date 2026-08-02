@@ -4019,23 +4019,23 @@ function S2StayCard({
         >
           {confirming ? (
             <>
-              <span className="text-[13px]" style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}>
+              <span className="text-[13px]" style={{ color: "#84909D", fontWeight: 400 }}>
                 Remove this stay?
               </span>
               <div className="flex items-center gap-4">
                 <button
                   type="button"
                   onClick={onConfirmRemove}
-                  className="bg-transparent p-0 text-[13px] font-medium"
-                  style={{ color: "#E3A08C", border: "none" }}
+                  className="bg-transparent p-0 text-[13px]"
+                  style={{ color: "#E8E4DC", fontWeight: 500, border: "none" }}
                 >
                   Yes, remove
                 </button>
                 <button
                   type="button"
                   onClick={onCancelRemove}
-                  className="bg-transparent p-0 text-[13px] font-light"
-                  style={{ color: "rgba(245,241,230,0.6)", border: "none" }}
+                  className="bg-transparent p-0 text-[13px]"
+                  style={{ color: "rgba(132,144,157,0.7)", fontWeight: 400, border: "none" }}
                 >
                   Cancel
                 </button>
