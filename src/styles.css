@@ -356,9 +356,10 @@
 
 .s2-room-card:hover {
   transform: translateY(-6px) !important;
-  border-color: #E0D6C4 !important;
-  box-shadow: 0 20px 48px rgba(8,19,31,0.12) !important;
+  border-color: rgba(205,173,96,0.34) !important;
+  box-shadow: 0 2px 5px rgba(8,19,31,0.04), 0 26px 50px -14px rgba(8,19,31,0.20) !important;
 }
+
 
 .s2-room-card[data-active="true"]:hover {
   border-color: rgba(217,191,130,0.62) !important;

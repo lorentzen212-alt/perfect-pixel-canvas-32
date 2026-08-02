@@ -4674,10 +4674,11 @@ function S2RoomCard({
       data-active={active ? "true" : "false"}
       style={{
         borderRadius: 20,
-        backgroundColor: "#FCFAF7",
+        backgroundColor: "#F8F5F0",
         padding: 0,
-        border: `1px solid ${active ? "rgba(198,169,103,0.5)" : "#E9E3DA"}`,
-        boxShadow: "0 12px 40px rgba(8,19,31,0.08)",
+        border: `1px solid ${active ? "rgba(198,169,103,0.5)" : "rgba(205,173,96,0.18)"}`,
+        boxShadow:
+          "0 2px 4px rgba(8,19,31,0.03), 0 18px 34px -12px rgba(8,19,31,0.16)",
       }}
     >
       {/* 1 — full-bleed image */}
@@ -4697,8 +4698,25 @@ function S2RoomCard({
         }}
       />
 
+      {/* metallic champagne divider between image and content */}
+      <div
+        style={{
+          height: 1,
+          background:
+            "linear-gradient(90deg, rgba(205,173,96,0.10) 0%, rgba(214,187,124,0.55) 50%, rgba(205,173,96,0.10) 100%)",
+        }}
+      />
+
       {/* 2 — name + guest count + learn more */}
-      <div className="flex flex-1 flex-col" style={{ padding: "22px 22px 16px" }}>
+      <div
+        className="flex flex-1 flex-col"
+        style={{
+          padding: "22px 22px 16px",
+          backgroundImage:
+            "linear-gradient(180deg, rgba(240,232,219,0.55) 0%, rgba(248,245,240,0) 90px)",
+        }}
+      >
+
         <div className="flex items-start justify-between gap-2">
           <div
             className="truncate text-[18px] leading-[1.15]"
