@@ -104,7 +104,7 @@ function Home() {
     <>
       <main className="relative w-full bg-[#0A0B0D]">
         {/* ---------------------------- HERO ---------------------------- */}
-        <section className="relative h-screen min-h-[620px] w-full overflow-hidden">
+        <section className="relative h-screen min-h-[620px] w-full overflow-hidden lg:h-[calc(100vh+60px)] lg:min-h-[680px]">
           <video
             autoPlay
             muted
@@ -245,8 +245,7 @@ function Home() {
         {/* ------------------- ENTRANCE CARDS (overlap hero) ------------------- */}
         <section className="relative bg-[#F5F3EE] pb-16 lg:pb-20">
           <div
-            className="relative z-20 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-[60px]"
-            style={{ marginTop: `calc(${CARD_HEIGHT} * -0.38)` }}
+            className="hero-cards-offset relative z-20 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-[60px]"
           >
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-[38px]">
               <ExperienceCard
