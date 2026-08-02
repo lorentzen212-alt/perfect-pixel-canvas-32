@@ -4694,7 +4694,7 @@ function S2CategorySelect({
           {value || "Select category"}
         </span>
         <ChevronDown
-          size={light ? 13 : 16}
+          size={light ? 15 : 16}
           strokeWidth={2}
           style={{
             color: light ? "#B39254" : "rgba(245,241,230,0.55)",
