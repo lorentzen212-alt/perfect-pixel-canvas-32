@@ -6949,7 +6949,7 @@ function LeisureStep5Screen({
               className="absolute inset-0 h-full w-full object-cover"
               style={{ objectPosition: "22% 20%" }}
             />
-            <div className="relative z-10">
+            <div className="relative z-10 max-w-[230px]">
               <div
                 className="text-[10.5px] font-medium uppercase tracking-[0.38em]"
                 style={{ color: S5_GOLD }}
