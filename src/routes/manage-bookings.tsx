@@ -926,7 +926,7 @@ function ManageBookings() {
                 count={counts.proposal}
                 description="Proposal ready"
                 tone={GOLD}
-                overlay="linear-gradient(135deg, rgba(120, 72, 20, 0.75) 0%, rgba(40, 28, 18, 0.85) 100%)"
+                overlay="linear-gradient(95deg, rgba(20,14,8,0.6) 0%, rgba(120,72,20,0.28) 52%, rgba(0,0,0,0) 100%)"
                 image={bellAsset.url}
                 icon={<FileSignature size={19} />}
                 active={group === "proposal"}
@@ -937,7 +937,7 @@ function ManageBookings() {
                 count={counts.awaiting}
                 description="Hotels preparing"
                 tone={BLUE}
-                overlay="linear-gradient(135deg, rgba(30, 64, 120, 0.75) 0%, rgba(18, 24, 40, 0.85) 100%)"
+                overlay="linear-gradient(95deg, rgba(8,12,24,0.58) 0%, rgba(30,64,120,0.26) 52%, rgba(0,0,0,0) 100%)"
                 image={signingAsset.url}
                 icon={<Hourglass size={19} />}
                 active={group === "awaiting"}
@@ -948,7 +948,7 @@ function ManageBookings() {
                 count={counts.confirmed}
                 description="Confirmed booking"
                 tone={GREEN}
-                overlay="linear-gradient(135deg, rgba(30, 90, 60, 0.75) 0%, rgba(18, 32, 24, 0.85) 100%)"
+                overlay="linear-gradient(95deg, rgba(8,18,14,0.58) 0%, rgba(30,90,60,0.26) 52%, rgba(0,0,0,0) 100%)"
                 image={keyAsset.url}
                 icon={<Check size={19} />}
                 active={group === "confirmed"}
