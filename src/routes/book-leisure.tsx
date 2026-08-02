@@ -4962,6 +4962,43 @@ function AccommodationSummary({
     count: stays.reduce((sum, s) => sum + (s.rooms[k] ?? 0), 0),
   }));
 
+  const goal = (n: number) => Math.max(5, Math.ceil((n || 1) / 5) * 5);
+  const roomsGoal = goal(totalRooms);
+  const guestsGoal = goal(totalGuests);
+
+  const divider = (
+    <div
+      className="my-6 h-px w-full"
+      style={{ background: "linear-gradient(90deg, rgba(217,191,130,0.30), rgba(217,191,130,0.05))" }}
+    />
+  );
+
+  const bar = (label: string, value: number, max: number) => (
+    <div>
+      <div className="flex items-baseline justify-between gap-3">
+        <span className="text-[13px] font-light" style={{ color: "rgba(246,242,234,0.88)" }}>
+          {label}
+        </span>
+        <span className="text-[13px] tabular-nums font-light" style={{ color: "rgba(246,242,234,0.88)" }}>
+          {value} / {max}
+        </span>
+      </div>
+      <div
+        className="mt-2 h-[3px] w-full overflow-hidden"
+        style={{ borderRadius: 2, backgroundColor: "rgba(255,255,255,0.10)" }}
+      >
+        <div
+          className="h-full transition-all duration-500"
+          style={{
+            width: `${Math.min(100, max ? (value / max) * 100 : 0)}%`,
+            borderRadius: 2,
+            background: "linear-gradient(90deg, #D9BF82, #E7D3A4)",
+          }}
+        />
+      </div>
+    </div>
+  );
+
   return (
     <aside
       className="flex flex-col px-6 py-8 lg:py-9"
@@ -4973,39 +5010,48 @@ function AccommodationSummary({
       }}
     >
       <div
-        className="text-[15px] font-normal leading-tight"
+        className="text-[21px] font-normal leading-[1.15]"
         style={{ fontFamily: SERIF, color: "#FFFDF8" }}
       >
         Accommodation
         <br />
         Summary
       </div>
-      <S2DiamondRule width={104} />
+      <S2DiamondRule width={260} />
 
-      <div className="space-y-3.5">
+      {/* Key metrics */}
+      <div className="mt-1 grid grid-cols-3">
         {[
           { label: "Total Rooms", value: totalRooms },
           { label: "Guests", value: totalGuests },
           { label: "Stays", value: totalStays },
-        ].map((row) => (
-          <div key={row.label} className="flex items-baseline justify-between gap-3">
-            <span className="text-[12.5px] font-light" style={{ color: "rgba(246,242,234,0.62)" }}>
-              {row.label}
-            </span>
+        ].map((row, i) => (
+          <div
+            key={row.label}
+            className="flex flex-col items-center px-1 text-center"
+            style={
+              i > 0
+                ? { borderLeft: "1px solid rgba(255,255,255,0.10)" }
+                : undefined
+            }
+          >
             <span
-              className="text-[19px] tabular-nums"
-              style={{ fontFamily: SERIF, color: S2_GOLD_SOFT }}
+              className="text-[30px] leading-none tabular-nums font-light"
+              style={{ fontFamily: SERIF, color: "#FFFDF8" }}
             >
               {row.value}
+            </span>
+            <span
+              className="mt-2.5 text-[9.5px] font-medium uppercase tracking-[0.18em]"
+              style={{ color: "rgba(246,242,234,0.55)" }}
+            >
+              {row.label}
             </span>
           </div>
         ))}
       </div>
 
-      <div
-        className="my-6 h-px w-full"
-        style={{ background: "linear-gradient(90deg, rgba(217,191,130,0.42), rgba(217,191,130,0.06))" }}
-      />
+      {divider}
 
       <div
         className="text-[10.5px] font-medium uppercase tracking-[0.24em]"
@@ -5013,18 +5059,18 @@ function AccommodationSummary({
       >
         Room Distribution
       </div>
-      <ul className="mt-4 space-y-3">
+      <ul className="mt-4 space-y-3.5">
         {distribution.map((r) => (
           <li key={r.key} className="flex items-baseline justify-between gap-3">
             <span
-              className="truncate text-[12.5px] font-light"
-              style={{ color: r.count > 0 ? "rgba(246,242,234,0.86)" : "rgba(246,242,234,0.4)" }}
+              className="truncate text-[13px] font-light"
+              style={{ color: r.count > 0 ? "rgba(246,242,234,0.88)" : "rgba(246,242,234,0.55)" }}
             >
               {r.label.endsWith("s") ? r.label : `${r.label}s`}
             </span>
             <span
-              className="text-[13.5px] tabular-nums"
-              style={{ color: r.count > 0 ? S2_GOLD_SOFT : "rgba(246,242,234,0.32)" }}
+              className="text-[13px] tabular-nums font-light"
+              style={{ color: r.count > 0 ? S2_GOLD_SOFT : "rgba(246,242,234,0.45)" }}
             >
               {r.count}
             </span>
@@ -5032,55 +5078,45 @@ function AccommodationSummary({
         ))}
       </ul>
 
-      {stays.length === 0 && (
-        <p
-          className="mt-6 text-[12px] font-light leading-relaxed"
-          style={{ color: "rgba(246,242,234,0.45)" }}
-        >
-          No stays added yet. Choose your dates and rooms, then press Add this stay.
-        </p>
-      )}
+      {divider}
 
       <div
-        className="my-6 h-px w-full"
-        style={{ background: "linear-gradient(90deg, rgba(217,191,130,0.42), rgba(217,191,130,0.06))" }}
-      />
+        className="text-[10.5px] font-medium uppercase tracking-[0.24em]"
+        style={{ color: "rgba(246,242,234,0.5)" }}
+      >
+        Progress
+      </div>
+      <div className="mt-4 space-y-4">
+        {bar("Rooms", totalRooms, roomsGoal)}
+        {bar("Guests", totalGuests, guestsGoal)}
+      </div>
 
-      <ul className="space-y-4">
-        {stays.map((s, idx) => {
-          const nights = stayNights(s.arrival, s.departure);
-          return (
-            <li
-              key={s.id}
-              className={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds?.has(s.id) ? "stay-removing" : ""}`}
-            >
-              <div
-                className="text-[10.5px] font-medium uppercase tracking-[0.2em]"
-                style={{ color: "rgba(231,211,164,0.78)" }}
-              >
-                Stay {idx + 1}
-              </div>
-              <div className="mt-1 text-[12px] font-light" style={{ color: "rgba(246,242,234,0.62)" }}>
-                {fmtStayRange(s.arrival, s.departure)} · {nights} {nights === 1 ? "night" : "nights"}
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      {stays.length === 0 && (
+        <>
+          {divider}
+          <p
+            className="text-[12.5px] font-light leading-relaxed"
+            style={{ color: "rgba(246,242,234,0.50)" }}
+          >
+            No stays added yet. Choose your dates and rooms, then press Add this stay.
+          </p>
+        </>
+      )}
 
       <button
         type="button"
         onClick={onContinue}
         disabled={!nextEnabled}
-        className="mt-auto flex w-full items-center justify-center gap-2.5 pt-4 text-[11.5px] font-medium uppercase tracking-[0.18em] transition-transform duration-300 hover:-translate-y-[1px]"
+        className="mt-auto flex w-full items-center justify-center gap-2.5 text-[11.5px] font-medium uppercase tracking-[0.18em] transition-transform duration-300 hover:-translate-y-[1px]"
         style={{
           marginTop: 32,
           borderRadius: 4,
-          paddingTop: 13,
-          paddingBottom: 13,
-          backgroundColor: "rgba(217,191,130,0.10)",
+          paddingTop: 15,
+          paddingBottom: 15,
+          backgroundColor: "transparent",
           border: `1px solid ${nextEnabled ? "rgba(217,191,130,0.55)" : "rgba(217,191,130,0.22)"}`,
-          color: nextEnabled ? S2_GOLD_SOFT : "rgba(231,211,164,0.45)",
+          color: nextEnabled ? S2_GOLD_SOFT : "rgba(231,211,164,0.40)",
+          opacity: nextEnabled ? 1 : 0.7,
           cursor: nextEnabled ? "pointer" : "not-allowed",
         }}
       >
