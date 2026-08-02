@@ -4186,8 +4186,6 @@ function S2StayCard({
         open={arrivalOpen}
         setOpen={setArrivalOpen}
       />
-
-      />
       <ArrowRight
         size={34}
         strokeWidth={1.1}
