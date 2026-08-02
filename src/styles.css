@@ -544,12 +544,12 @@
   .hgb-binder-clip { left: 28px; }
 }
 
-/* Homepage entrance cards — overlap hero on tablet/mobile, cream gap on desktop */
+/* Homepage entrance cards — overlap hero on tablet/mobile, sit in cream on desktop */
 .hero-cards-offset {
   margin-top: calc(clamp(300px, 52vh, 540px) * -0.38);
 }
 @media (min-width: 1024px) {
   .hero-cards-offset {
-    margin-top: 30px;
+    margin-top: 0;
   }
 }
