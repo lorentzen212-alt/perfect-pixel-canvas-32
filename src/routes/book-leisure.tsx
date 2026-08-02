@@ -3291,7 +3291,7 @@ function LeisureStep2Screen({
 
           {/* ---------- CENTER: working area ---------- */}
           <section
-            className="min-w-0 px-6 py-8 lg:px-4 lg:py-9"
+            className="min-w-0 px-6 py-8 lg:px-3 lg:py-9"
             style={{ backgroundColor: S2_IVORY }}
           >
             {/* Stay heading */}
@@ -3388,7 +3388,7 @@ function LeisureStep2Screen({
               Select the number of rooms and the preferred category for your group.
             </p>
 
-            <div className="mt-6 grid grid-cols-1 gap-x-1.5 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-x-1 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
@@ -4343,9 +4343,9 @@ function S2RoomCard({
       className="group s2-room-card flex flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1"
       data-active={active ? "true" : "false"}
       style={{
-        borderRadius: 16,
+        borderRadius: 19,
         backgroundColor: "#FCFAF7",
-        padding: 9,
+        padding: 11,
         border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
           ? "0 14px 32px -24px rgba(8,23,34,0.30)"
@@ -4363,7 +4363,7 @@ function S2RoomCard({
       {/* 1 — image (~60% of card) */}
       <div
         className="relative overflow-hidden"
-        style={{ aspectRatio: "16 / 13.1", borderRadius: 12 }}
+        style={{ aspectRatio: "16 / 15.5", borderRadius: 14 }}
       >
         <img
           src={meta.img}
@@ -4381,11 +4381,11 @@ function S2RoomCard({
         />
         {roomKey === "double" && (
           <span
-            className="absolute text-[9px] font-medium uppercase tracking-[0.16em]"
+            className="absolute text-[11px] font-medium uppercase tracking-[0.16em]"
             style={{
-              top: 12,
-              left: 12,
-              padding: "3px 9px",
+              top: 14,
+              left: 14,
+              padding: "4px 11px",
               borderRadius: 999,
               backgroundColor: "#C6A967",
               color: "#0B1A26",
@@ -4398,16 +4398,16 @@ function S2RoomCard({
       </div>
 
       {/* 2 — name + guest count */}
-      <div className="flex items-start justify-between gap-2 pt-2.5">
+      <div className="flex items-start justify-between gap-2 pt-3">
         <div className="min-w-0">
           <div
-            className="truncate text-[18px] font-medium leading-tight"
+            className="truncate text-[21.5px] font-medium leading-tight"
             style={{ fontFamily: SERIF, color: "#26313A" }}
           >
             {meta.title}
           </div>
           <div
-            className="mt-0.5 flex items-center gap-1.5 text-[12.5px] font-light tracking-[0.03em]"
+            className="mt-1 flex items-center gap-1.5 text-[14.5px] font-light tracking-[0.03em]"
             style={{ color: "#8A9099" }}
           >
             <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
@@ -4418,7 +4418,7 @@ function S2RoomCard({
           <span
             title={meta.desc}
             aria-label={meta.desc}
-            className="mt-[2px] grid h-[16px] w-[16px] shrink-0 place-items-center rounded-full text-[9.5px] font-medium opacity-45 transition-opacity duration-200 hover:opacity-100"
+            className="mt-[3px] grid h-[19px] w-[19px] shrink-0 place-items-center rounded-full text-[11.5px] font-medium opacity-45 transition-opacity duration-200 hover:opacity-100"
             style={{ border: "1px solid #C6A967", color: "#B39254" }}
           >
             i
@@ -4427,7 +4427,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-2.5 flex items-center gap-1.5">
+      <div className="mt-3 flex items-center gap-1.5">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
@@ -4442,7 +4442,7 @@ function S2RoomCard({
           </div>
         ) : (
           <div
-            className="flex h-[36px] min-w-0 flex-1 items-center justify-center gap-1 whitespace-nowrap px-2 text-[11.5px] font-light transition-colors duration-200 hover:bg-[#F6F1E8]"
+            className="flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 whitespace-nowrap px-2 text-[13.5px] font-light transition-colors duration-200 hover:bg-[#F6F1E8]"
             style={{
               borderRadius: 12,
               border: "1px solid #E2D6BE",
@@ -4661,9 +4661,9 @@ function S2CategorySelect({
         onClick={toggle}
         onKeyDown={onKeyDown}
         className={
-          light
-            ? "flex h-[36px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap px-2 text-left text-[11.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
-            : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
+            light
+              ? "flex h-[43px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap px-2 text-left text-[13.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
+              : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
           light
@@ -4694,7 +4694,7 @@ function S2CategorySelect({
           {value || "Select category"}
         </span>
         <ChevronDown
-          size={light ? 13 : 16}
+          size={light ? 15 : 16}
           strokeWidth={2}
           style={{
             color: light ? "#B39254" : "rgba(245,241,230,0.55)",
@@ -4751,13 +4751,13 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[28px] w-[28px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
+      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[34px] w-[34px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
       style={{ borderRadius: 999, color: light ? "#26313A" : "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? (
-        <Minus size={light ? 14 : 16} strokeWidth={1.8} />
+        <Minus size={light ? 17 : 16} strokeWidth={1.8} />
       ) : (
-        <Plus size={light ? 14 : 16} strokeWidth={1.8} />
+        <Plus size={light ? 17 : 16} strokeWidth={1.8} />
       )}
     </button>
   );
@@ -4765,10 +4765,10 @@ function S2Counter({
 
   return (
     <div
-      className={`flex items-center justify-between transition-colors duration-200 ${light ? "h-[36px] shrink-0 px-1 hover:bg-[#F6F1E8]" : "h-[35px] px-1.5"}`}
+      className={`flex items-center justify-between transition-colors duration-200 ${light ? "h-[43px] shrink-0 px-1 hover:bg-[#F6F1E8]" : "h-[35px] px-1.5"}`}
       style={{
         borderRadius: light ? 12 : 999,
-        width: light ? 74 : undefined,
+        width: light ? 90 : undefined,
         backgroundColor: light ? "#FCFAF7" : "rgba(20,33,45,0.72)",
         border: light ? "1px solid #E2D6BE" : "1px solid rgba(214,226,236,0.10)",
       }}
@@ -4800,7 +4800,7 @@ function S2Counter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className={`no-spin w-full min-w-0 bg-transparent text-center outline-none ${light ? "text-[13.5px] font-normal" : "text-[18px] font-medium text-white"}`}
+        className={`no-spin w-full min-w-0 bg-transparent text-center outline-none ${light ? "text-[16px] font-normal" : "text-[18px] font-medium text-white"}`}
         style={{ fontFamily: SERIF, color: light ? S2_NAVY_TEXT : undefined }}
       />
       {btn("inc")}
