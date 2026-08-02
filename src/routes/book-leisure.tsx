@@ -6290,7 +6290,7 @@ function LeisureStep4Screen({
       wide
     >
       <div
-        className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[25fr_50fr_25fr]"
+        className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[25fr_51fr_24fr]"
         style={{
           background: "#F7F3EA",
           border: "1px solid rgba(201,164,92,0.30)",
