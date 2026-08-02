@@ -7041,24 +7041,25 @@ const PHONE_COUNTRIES: { code: string; dial: string; flag: string; name: string 
   { code: "US", dial: "+1", flag: "🇺🇸", name: "United States" },
 ];
 
-const S5_COUNTRIES: { code: string; name: string; flag: string }[] = [
-  { code: "NO", name: "Norway", flag: "🇳🇴" },
-  { code: "SE", name: "Sweden", flag: "🇸🇪" },
-  { code: "DK", name: "Denmark", flag: "🇩🇰" },
-  { code: "FI", name: "Finland", flag: "🇫🇮" },
-  { code: "IS", name: "Iceland", flag: "🇮🇸" },
-  { code: "GB", name: "United Kingdom", flag: "🇬🇧" },
-  { code: "IE", name: "Ireland", flag: "🇮🇪" },
-  { code: "DE", name: "Germany", flag: "🇩🇪" },
-  { code: "NL", name: "Netherlands", flag: "🇳🇱" },
-  { code: "BE", name: "Belgium", flag: "🇧🇪" },
-  { code: "FR", name: "France", flag: "🇫🇷" },
-  { code: "ES", name: "Spain", flag: "🇪🇸" },
-  { code: "IT", name: "Italy", flag: "🇮🇹" },
-  { code: "CH", name: "Switzerland", flag: "🇨🇭" },
-  { code: "AT", name: "Austria", flag: "🇦🇹" },
-  { code: "US", name: "United States", flag: "🇺🇸" },
-  { code: "CA", name: "Canada", flag: "🇨🇦" },
+const S5_COUNTRIES: { code: string; name: string }[] = [
+  { code: "AT", name: "Austria" },
+  { code: "BE", name: "Belgium" },
+  { code: "CA", name: "Canada" },
+  { code: "DK", name: "Denmark" },
+  { code: "FI", name: "Finland" },
+  { code: "FR", name: "France" },
+  { code: "DE", name: "Germany" },
+  { code: "IS", name: "Iceland" },
+  { code: "IE", name: "Ireland" },
+  { code: "IT", name: "Italy" },
+  { code: "NL", name: "Netherlands" },
+  { code: "NO", name: "Norway" },
+  { code: "ES", name: "Spain" },
+  { code: "SE", name: "Sweden" },
+  { code: "CH", name: "Switzerland" },
+  { code: "GB", name: "United Kingdom" },
+  { code: "US", name: "United States" },
+  { code: "Other", name: "Other" },
 ];
 
 const S5_SHELL = "#0B1624";
@@ -7485,7 +7486,7 @@ function LeisureStep5Screen({
                 />
               </div>
               <div>
-                <S5FieldLabel>Country</S5FieldLabel>
+                <S5FieldLabel optional>Country (Optional)</S5FieldLabel>
                 <div className="relative h-[50px] rounded-[12px]" style={s5FieldStyle(false)}>
                   <select
                     value={country}
@@ -7498,7 +7499,7 @@ function LeisureStep5Screen({
                     </option>
                     {S5_COUNTRIES.map((c) => (
                       <option key={c.code} value={c.code} style={{ color: "#000" }}>
-                        {c.flag}  {c.name}
+                        {c.name}
                       </option>
                     ))}
                   </select>
