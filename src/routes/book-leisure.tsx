@@ -3243,7 +3243,7 @@ function LeisureStep2Screen({
       />
 
       <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 28px 40px" }}>
-        <div className="grid grid-cols-1 items-start gap-[22px] xl:grid-cols-[320px_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 items-start gap-[22px] xl:grid-cols-[268px_minmax(0,1fr)] 2xl:grid-cols-[320px_minmax(0,1fr)]">
           {/* ---------- LEFT: hero panel ---------- */}
           <aside className="min-w-0 xl:sticky" style={{ top: 20 }}>
             <div
