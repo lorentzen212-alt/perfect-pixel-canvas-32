@@ -7574,15 +7574,16 @@ function LeisureStep6Screen({
   ].filter(Boolean) as string[];
 
   const summaryStats = [
-    { icon: <Users2 size={24} strokeWidth={1.2} />, value: String(data.guests), label: "Guests" },
-    { icon: <CalendarDays size={24} strokeWidth={1.2} />, value: String(totalRooms), label: "Rooms" },
-    { icon: <Clock size={24} strokeWidth={1.2} />, value: String(nights), label: "Nights" },
+    { icon: <Users2 size={26} strokeWidth={1.2} />, value: String(data.guests), label: "Guests" },
+    { icon: <CalendarDays size={26} strokeWidth={1.2} />, value: String(totalRooms), label: "Rooms" },
+    { icon: <Clock size={26} strokeWidth={1.2} />, value: String(nights), label: "Nights" },
     {
-      icon: <ConciergeBell size={24} strokeWidth={1.2} />,
+      icon: <ConciergeBell size={26} strokeWidth={1.2} />,
       value: String(serviceLines.length),
       label: "Services",
     },
   ];
+
 
   return (
     <LeisureStepShell
