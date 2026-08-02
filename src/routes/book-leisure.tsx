@@ -3519,10 +3519,10 @@ function LeisureStep2Screen({
                   className="inline-flex items-center gap-2.5 px-7 py-3 text-[12.5px] font-medium uppercase tracking-[0.18em] transition-all duration-300 hover:-translate-y-[1px]"
                   style={{
                     borderRadius: 4,
-                    backgroundColor: S2_NAVY_BTN,
-                    border: "1px solid rgba(217,191,130,0.55)",
-                    color: S2_GOLD_SOFT,
-                    opacity: nextEnabled ? 1 : 0.42,
+                    backgroundColor: nextEnabled ? S2_NAVY_BTN : "#24384B",
+                    border: `1px solid rgba(201,164,92,${nextEnabled ? 0.55 : 0.2})`,
+                    color: nextEnabled ? S2_GOLD_SOFT : "#7F8C99",
+                    opacity: 1,
                     cursor: nextEnabled ? "pointer" : "not-allowed",
                   }}
                 >
