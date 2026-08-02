@@ -6910,6 +6910,7 @@ function LeisureStep5Screen({
     <LeisureStepShell
       activeStep={5}
       onStepGo={onStepGo}
+      hideHero
       hero={S5_HERO}
       chapter="CHAPTER V"
       headline={
@@ -6920,263 +6921,304 @@ function LeisureStep5Screen({
       subtext={<>We'll send tailored offers to this person.</>}
     >
       <section
-        className="rounded-[24px] p-6 sm:p-8 lg:p-10"
+        className="mx-auto w-full max-w-[1450px] overflow-hidden rounded-[24px]"
         style={{
-          backgroundColor: S1_NAVY_SOFT,
-          border: `1px solid ${S1_BORDER}`,
-          boxShadow:
-            "0 40px 80px -40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03)",
+          backgroundColor: S5_SHELL,
+          border: `1px solid ${S5_BORDER}`,
+          boxShadow: "0 50px 110px -50px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
-        <h2
-          className="text-[28px] sm:text-[32px] leading-tight font-medium text-white"
-          style={{ fontFamily: SERIF }}
-        >
-          Step 5 – Contact
-        </h2>
-        <p className="mt-2 text-[14.5px]" style={{ color: "rgba(245,241,230,0.62)" }}>
-          Who should we contact?
-        </p>
-
-        {session && (
+        <div className="grid grid-cols-1 lg:grid-cols-[28%_72%]">
+          {/* ---------- LEFT: editorial ---------- */}
           <div
-            className="mt-5 flex flex-col gap-3 rounded-[14px] px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between"
+            className="relative flex min-h-[420px] flex-col overflow-hidden px-8 py-12 sm:px-12 lg:min-h-[860px] lg:py-16"
             style={{
-              backgroundColor: S1_NAVY,
-              border: `1px solid rgba(212,166,74,0.24)`,
+              borderRight: `1px solid ${S5_BORDER}`,
+              background:
+                "radial-gradient(120% 80% at 20% 10%, rgba(20,38,58,0.55) 0%, rgba(11,22,36,0) 60%)",
             }}
           >
-            <div className="min-w-0">
-              <p className="text-[13.5px] font-medium" style={{ color: "#F5F1E6" }}>
-                {canPrefill ? "Use your account details?" : "Complete your profile"}
-              </p>
-              <p className="mt-0.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.52)" }}>
-                {canPrefill
-                  ? "We can fill in your contact information from your HotelGroupBook profile."
-                  : "Your account only has an email so far. Add your details once and reuse them — or just fill in the form below."}
+            <div className="relative z-10">
+              <div
+                className="text-[10.5px] font-medium uppercase tracking-[0.38em]"
+                style={{ color: S5_GOLD }}
+              >
+                Chapter V
+              </div>
+              <h1
+                className="mt-8 text-[40px] leading-[1.06] font-medium text-white lg:text-[46px]"
+                style={{ fontFamily: SERIF }}
+              >
+                Who should<br />we write to?
+              </h1>
+              <div
+                className="mt-9 h-px w-[70px]"
+                style={{ background: `linear-gradient(90deg, ${S5_GOLD}, rgba(201,164,92,0))` }}
+              />
+              <p
+                className="mt-8 max-w-[260px] text-[15px] leading-[1.75]"
+                style={{ color: "rgba(240,235,224,0.62)" }}
+              >
+                We'll send tailored offers to this person.
               </p>
             </div>
-            {canPrefill ? (
-              prefilled ? (
-                <span
-                  className="shrink-0 text-[12.5px] font-medium tracking-[0.04em]"
-                  style={{ color: S1_GOLD_SOFT }}
-                >
-                  ✓ Account details added
-                </span>
-              ) : (
-                <button
-                  type="button"
-                  onClick={applyAccountDetails}
-                  className="shrink-0 rounded-[10px] px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] transition-opacity hover:opacity-90"
-                  style={{
-                    background: "linear-gradient(180deg, #E7C878 0%, #C5A24B 55%, #A9853A 100%)",
-                    color: "#20180A",
-                  }}
-                >
-                  Use my account details
-                </button>
-              )
-            ) : (
-              <Link
-                to="/account"
-                className="shrink-0 rounded-[10px] px-4 py-2 text-center text-[12px] font-semibold uppercase tracking-[0.14em] transition-opacity hover:opacity-90"
-                style={{ border: `1px solid rgba(212,166,74,0.5)`, color: S1_GOLD_SOFT }}
-              >
-                Complete profile
-              </Link>
-            )}
+            <div className="relative mt-auto h-[220px]">
+              <S5Decoration />
+            </div>
           </div>
-        )}
 
-
-
-        {/* Row 1 */}
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
-          <div>
-            <S5FieldLabel>First Name</S5FieldLabel>
-            <S5Input value={firstName} onChange={setFirstName} placeholder="Enter first name" />
-          </div>
-          <div>
-            <S5FieldLabel>Last Name</S5FieldLabel>
-            <S5Input value={lastName} onChange={setLastName} placeholder="Enter last name" />
-          </div>
-        </div>
-
-        {/* Row 2 */}
-        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
-          <div>
-            <S5FieldLabel>Email</S5FieldLabel>
-            <S5Input value={email} onChange={setEmail} placeholder="Enter email address" type="email" />
-          </div>
-          <div>
-            <S5FieldLabel>Phone</S5FieldLabel>
-            <div
-              className="flex items-stretch overflow-hidden rounded-[14px] transition-all duration-200"
-              style={{
-                backgroundColor: S1_NAVY,
-                border: `1px solid rgba(212,166,74,0.28)`,
-              }}
+          {/* ---------- RIGHT: form ---------- */}
+          <div className="px-7 py-12 sm:px-12 lg:px-16 lg:py-16">
+            <h2
+              className="text-[34px] leading-tight font-medium text-white lg:text-[38px]"
+              style={{ fontFamily: SERIF }}
             >
+              Step 5 – Contact
+            </h2>
+            <p className="mt-3 text-[14.5px]" style={{ color: "rgba(240,235,224,0.55)" }}>
+              Who should we contact?
+            </p>
+
+            {session && (
               <div
-                className="relative flex items-center gap-2 pl-4 pr-2"
-                style={{ borderRight: `1px solid rgba(212,166,74,0.22)` }}
+                className="mt-10 flex flex-col gap-5 rounded-[16px] px-6 py-6 sm:flex-row sm:items-center sm:justify-between"
+                style={{
+                  backgroundColor: "rgba(8,17,28,0.75)",
+                  border: `1px solid ${S5_BORDER}`,
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+                }}
               >
-                <span className="text-[18px] leading-none">{dial.flag}</span>
-                <span className="text-[14px] font-medium" style={{ color: "#F5F1E6" }}>
-                  {dial.dial}
-                </span>
-                <ChevronDown size={14} style={{ color: S1_GOLD_SOFT }} />
-                <select
-                  value={dialCode}
-                  onChange={(e) => setDialCode(e.target.value)}
-                  className="absolute inset-0 cursor-pointer opacity-0"
-                  aria-label="Country code"
+                <div className="min-w-0">
+                  <p
+                    className="text-[15px] font-medium"
+                    style={{ color: S5_GOLD_LIGHT, fontFamily: SERIF }}
+                  >
+                    {canPrefill ? "Use your account details?" : "Complete your profile"}
+                  </p>
+                  <p
+                    className="mt-1.5 max-w-[420px] text-[13.5px] leading-relaxed"
+                    style={{ color: "rgba(240,235,224,0.55)" }}
+                  >
+                    {canPrefill
+                      ? "We can fill in your contact information from your HotelGroupBook profile."
+                      : "Your account only has an email so far. Add your details once and reuse them — or just fill in the form below."}
+                  </p>
+                </div>
+                {canPrefill ? (
+                  prefilled ? (
+                    <span
+                      className="shrink-0 text-[12.5px] font-medium tracking-[0.06em]"
+                      style={{ color: S5_GOLD }}
+                    >
+                      ✓ Account details added
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={applyAccountDetails}
+                      className="shrink-0 rounded-[12px] px-7 py-4 text-[11.5px] font-semibold uppercase tracking-[0.18em]"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, #EBD08A 0%, #D3B063 48%, #B58F42 100%)",
+                        color: "#1B1408",
+                        boxShadow: "0 14px 30px -16px rgba(201,164,92,0.7), inset 0 1px 0 rgba(255,255,255,0.45)",
+                        transition: "all 250ms ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-2px)";
+                        e.currentTarget.style.boxShadow =
+                          "0 22px 40px -16px rgba(201,164,92,0.8), inset 0 1px 0 rgba(255,255,255,0.5)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow =
+                          "0 14px 30px -16px rgba(201,164,92,0.7), inset 0 1px 0 rgba(255,255,255,0.45)";
+                      }}
+                    >
+                      Use my account details
+                    </button>
+                  )
+                ) : (
+                  <Link
+                    to="/account"
+                    className="shrink-0 rounded-[12px] px-6 py-3.5 text-center text-[11.5px] font-semibold uppercase tracking-[0.18em] transition-all duration-[250ms] hover:-translate-y-[2px]"
+                    style={{ border: `1px solid rgba(201,164,92,0.5)`, color: S5_GOLD_LIGHT }}
+                  >
+                    Complete profile
+                  </Link>
+                )}
+              </div>
+            )}
+
+            {/* Row 1 */}
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7">
+              <div>
+                <S5FieldLabel>First Name</S5FieldLabel>
+                <S5Input value={firstName} onChange={setFirstName} placeholder="Enter first name" />
+              </div>
+              <div>
+                <S5FieldLabel>Last Name</S5FieldLabel>
+                <S5Input value={lastName} onChange={setLastName} placeholder="Enter last name" />
+              </div>
+            </div>
+
+            {/* Row 2 */}
+            <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7">
+              <div>
+                <S5FieldLabel>Email</S5FieldLabel>
+                <S5Input value={email} onChange={setEmail} placeholder="Enter email address" type="email" />
+              </div>
+              <div>
+                <S5FieldLabel>Phone</S5FieldLabel>
+                <div
+                  className="flex h-[52px] items-stretch overflow-hidden rounded-[12px]"
+                  style={s5FieldStyle(false)}
                 >
-                  {PHONE_COUNTRIES.map((p) => (
-                    <option key={p.code} value={p.dial} style={{ color: "#000" }}>
-                      {p.flag} {p.name} ({p.dial})
+                  <div
+                    className="relative flex items-center gap-2 pl-5 pr-3"
+                    style={{ borderRight: `1px solid ${S5_BORDER}` }}
+                  >
+                    <span className="text-[17px] leading-none">{dial.flag}</span>
+                    <span className="text-[13.5px] font-medium tracking-[0.04em]" style={{ color: "#F5F1E6" }}>
+                      {dial.dial}
+                    </span>
+                    <ChevronDown size={14} style={{ color: S5_GOLD }} />
+                    <select
+                      value={dialCode}
+                      onChange={(e) => setDialCode(e.target.value)}
+                      className="absolute inset-0 cursor-pointer opacity-0"
+                      aria-label="Country code"
+                    >
+                      {PHONE_COUNTRIES.map((p) => (
+                        <option key={p.code} value={p.dial} style={{ color: "#000" }}>
+                          {p.flag} {p.name} ({p.dial})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Enter number"
+                    className="s5-input flex-1 bg-transparent px-5 text-[14.5px] outline-none"
+                    style={{ color: "#F5F1E6" }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Row 3 */}
+            <div className="mt-7">
+              <S5FieldLabel optional>Organisation / Group Name</S5FieldLabel>
+              <S5Input
+                value={organisation}
+                onChange={setOrganisation}
+                placeholder="Enter organisation or group name"
+              />
+            </div>
+
+            {/* Row 4 - Country */}
+            <div className="mt-7">
+              <S5FieldLabel>Country</S5FieldLabel>
+              <div className="relative h-[52px] rounded-[12px]" style={s5FieldStyle(false)}>
+                <select
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="h-full w-full cursor-pointer appearance-none bg-transparent px-5 pr-12 text-[14.5px] outline-none"
+                  style={{ color: country ? "#F5F1E6" : S5_PLACEHOLDER }}
+                >
+                  <option value="" style={{ color: "#000" }}>
+                    Select country
+                  </option>
+                  {S5_COUNTRIES.map((c) => (
+                    <option key={c.code} value={c.code} style={{ color: "#000" }}>
+                      {c.flag}  {c.name}
                     </option>
                   ))}
                 </select>
+                <ChevronDown
+                  size={18}
+                  className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2"
+                  style={{ color: S5_GOLD }}
+                />
               </div>
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="Enter phone number"
-                className="flex-1 bg-transparent px-4 py-4 text-[15px] outline-none"
-                style={{ color: "#F5F1E6" }}
+            </div>
+
+            {/* Row 5 - Additional Comments */}
+            <div className="mt-7">
+              <S5FieldLabel optional>Additional Comments</S5FieldLabel>
+              <textarea
+                value={additionalComments}
+                onChange={(e) => setAdditionalComments(e.target.value)}
+                onFocus={() => setCommentsFocused(true)}
+                onBlur={() => setCommentsFocused(false)}
+                placeholder="Let us know anything we should know…"
+                rows={7}
+                className="s5-input w-full resize-y rounded-[12px] px-5 py-4 text-[14.5px] leading-relaxed outline-none"
+                style={{ ...s5FieldStyle(commentsFocused), minHeight: 190 }}
               />
             </div>
-          </div>
-        </div>
 
-        {/* Row 3 */}
-        <div className="mt-6">
-          <S5FieldLabel optional>Organisation / Group Name</S5FieldLabel>
-          <S5Input
-            value={organisation}
-            onChange={setOrganisation}
-            placeholder="Enter organisation or group name"
-          />
-        </div>
+            {session && !profileComplete && (
+              <label className="mt-7 flex cursor-pointer items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={saveToProfile}
+                  onChange={(e) => setSaveToProfile(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 shrink-0 accent-[#C9A45C]"
+                />
+                <span className="text-[13px]" style={{ color: "rgba(240,235,224,0.65)" }}>
+                  Save these details to my HotelGroupBook profile
+                </span>
+              </label>
+            )}
 
-        {/* Row 4 - Country */}
-        <div className="mt-6">
-          <S5FieldLabel>Country</S5FieldLabel>
-          <div
-            className="relative rounded-[14px] transition-all duration-200"
-            style={{
-              backgroundColor: S1_NAVY,
-              border: `1px solid rgba(212,166,74,0.28)`,
-            }}
-          >
-            <select
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              className="w-full cursor-pointer appearance-none bg-transparent px-5 py-4 pr-12 text-[15px] outline-none"
-              style={{ color: country ? "#F5F1E6" : "rgba(245,241,230,0.55)" }}
-            >
-              <option value="" style={{ color: "#000" }}>
-                Select country
-              </option>
-              {S5_COUNTRIES.map((c) => (
-                <option key={c.code} value={c.code} style={{ color: "#000" }}>
-                  {c.flag}  {c.name}
-                </option>
-              ))}
-            </select>
-            <ChevronDown
-              size={18}
-              className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2"
-              style={{ color: S1_GOLD_SOFT }}
-            />
-          </div>
-        </div>
+            {/* Bottom nav */}
+            <div className="mt-12 flex items-center justify-between gap-4">
+              <button
+                type="button"
+                onClick={onBack}
+                className="inline-flex items-center gap-2.5 text-[14.5px] transition-all duration-[250ms] hover:opacity-80"
+                style={{ color: S5_GOLD }}
+              >
+                <ArrowLeft size={16} strokeWidth={2} />
+                Back
+              </button>
 
-        {/* Row 5 - Additional Comments */}
-        <div className="mt-6">
-          <S5FieldLabel optional>Additional Comments</S5FieldLabel>
-          <textarea
-            value={additionalComments}
-            onChange={(e) => setAdditionalComments(e.target.value)}
-            onFocus={() => setCommentsFocused(true)}
-            onBlur={() => setCommentsFocused(false)}
-            placeholder="Tell us anything else we should know…"
-            rows={4}
-            className="w-full resize-y rounded-[14px] px-5 py-4 text-[15px] outline-none transition-all duration-200"
-            style={{
-              backgroundColor: S1_NAVY,
-              color: "#F5F1E6",
-              border: `1px solid ${commentsFocused ? S1_GOLD : "rgba(212,166,74,0.28)"}`,
-              boxShadow: commentsFocused
-                ? "0 0 0 4px rgba(212,166,74,0.12), 0 10px 24px -18px rgba(212,166,74,0.55)"
-                : "inset 0 1px 0 rgba(255,255,255,0.02)",
-              minHeight: 120,
-            }}
-          />
-        </div>
+              <button
+                type="button"
+                onClick={handleContinue}
+                disabled={!canContinue}
+                className="inline-flex items-center gap-3 rounded-[14px] px-9 py-[18px] text-[12.5px] font-semibold uppercase tracking-[0.18em] transition-all duration-[250ms] hover:-translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:translate-y-0"
+                style={{
+                  background: "linear-gradient(180deg, #EBD08A 0%, #D3B063 48%, #B58F42 100%)",
+                  color: "#1B1408",
+                  boxShadow:
+                    "0 22px 48px -20px rgba(201,164,92,0.75), inset 0 1px 0 rgba(255,255,255,0.45)",
+                }}
+              >
+                Continue to review
+                <ArrowRight size={17} strokeWidth={2.2} />
+              </button>
+            </div>
 
-        {session && !profileComplete && (
-          <label className="mt-6 flex cursor-pointer items-start gap-3">
-            <input
-              type="checkbox"
-              checked={saveToProfile}
-              onChange={(e) => setSaveToProfile(e.target.checked)}
-              className="mt-0.5 h-4 w-4 shrink-0 accent-[#C5A24B]"
-            />
-            <span className="text-[13px]" style={{ color: "rgba(245,241,230,0.72)" }}>
-              Save these details to my HotelGroupBook profile
-            </span>
-          </label>
-        )}
-
-        {/* Bottom nav */}
-
-        <div className="mt-10 flex items-center justify-between gap-4">
-          <button
-            type="button"
-            onClick={onBack}
-            className="inline-flex items-center gap-2 text-[14.5px] font-medium transition-colors"
-            style={{ color: S1_GOLD_SOFT }}
-          >
-            <ArrowLeft size={16} strokeWidth={2.2} />
-            Back
-          </button>
-
-          <button
-            type="button"
-            onClick={handleContinue}
-            disabled={!canContinue}
-            className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-4 text-[14.5px] font-semibold transition-all hover:-translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
-            style={{
-              background: `linear-gradient(135deg, ${S1_GOLD_SOFT} 0%, ${S1_GOLD} 100%)`,
-              color: S1_NAVY,
-              boxShadow:
-                "0 18px 40px -16px rgba(212,166,74,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
-            }}
-          >
-            Next step
-            <ArrowRight size={17} strokeWidth={2.4} />
-          </button>
-        </div>
-
-        <div className="mt-8 flex flex-col items-center gap-1 text-center">
-          <div className="flex items-center gap-2 text-[13.5px]">
-            <ShieldCheck size={16} strokeWidth={2} style={{ color: S1_GOLD_SOFT }} />
-            <span style={{ color: S1_GOLD_SOFT }}>
-              Your request is free and non-binding
-            </span>
-          </div>
-          <div className="text-[12.5px]" style={{ color: "rgba(245,241,230,0.5)" }}>
-            We find the best options so you can choose what suits your group.
+            <div className="mt-10 flex flex-col items-center gap-1 text-center">
+              <div className="flex items-center gap-2 text-[13px]">
+                <ShieldCheck size={15} strokeWidth={1.8} style={{ color: S5_GOLD }} />
+                <span style={{ color: S5_GOLD }}>Your request is free and non-binding</span>
+              </div>
+              <div className="text-[12.5px]" style={{ color: "rgba(240,235,224,0.42)" }}>
+                We find the best options so you can choose what suits your group.
+              </div>
+            </div>
           </div>
         </div>
       </section>
     </LeisureStepShell>
   );
 }
+
 
 /* =========================================================
    STEP 6 - Review (redesigned)
