@@ -4872,7 +4872,7 @@ function S2Counter({
 
   return (
     <div
-      className={`flex items-center justify-between ${light ? "h-[46px] shrink-0 px-2" : "h-[35px] px-1.5 transition-colors duration-200"}`}
+      className={`flex items-center justify-between ${light ? "h-[42px] shrink-0 px-2" : "h-[35px] px-1.5 transition-colors duration-200"}`}
       style={{
         borderRadius: light ? 12 : 999,
         width: light ? 104 : undefined,
