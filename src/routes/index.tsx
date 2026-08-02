@@ -151,7 +151,7 @@ function Home() {
           </header>
 
           {/* HERO CONTENT — vertically centred */}
-          <div className="relative z-20 flex h-full flex-col items-center justify-center px-5 text-center sm:px-8 lg:pt-[110px]">
+          <div className="relative z-20 flex h-full flex-col items-center justify-center px-5 text-center sm:px-8 lg:pt-[25px]">
             <span
               className="text-[11px] uppercase tracking-[0.42em]"
               style={{ color: "#E5A93C", fontWeight: 600 }}
