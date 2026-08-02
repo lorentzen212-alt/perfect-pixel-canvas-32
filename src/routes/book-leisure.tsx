@@ -3271,7 +3271,7 @@ function LeisureStep2Screen({
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(8,17,26,0.62) 0%, rgba(8,17,26,0.34) 42%, rgba(6,13,20,0.66) 100%)",
+                  "linear-gradient(90deg, rgba(10,27,45,0.56) 0%, rgba(10,27,45,0.22) 58%, rgba(10,27,45,0.08) 100%)",
               }}
             />
             <div
