@@ -6941,12 +6941,14 @@ function LeisureStep5Screen({
           {/* ---------- LEFT: editorial ---------- */}
           <div
             className="relative flex min-h-[420px] flex-col overflow-hidden px-8 py-12 sm:px-12 lg:min-h-[860px] lg:py-16"
-            style={{
-              borderRight: `1px solid ${S5_BORDER}`,
-              background:
-                "radial-gradient(120% 80% at 20% 10%, rgba(20,38,58,0.55) 0%, rgba(11,22,36,0) 60%)",
-            }}
+            style={{ borderRight: `1px solid ${S5_BORDER}` }}
           >
+            <img
+              src={S5_PANEL_IMAGE}
+              alt="Hotel concierge welcoming guests at the reception desk"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: "88% 28%" }}
+            />
             <div className="relative z-10">
               <div
                 className="text-[10.5px] font-medium uppercase tracking-[0.38em]"
@@ -6971,10 +6973,8 @@ function LeisureStep5Screen({
                 We'll send tailored offers to this person.
               </p>
             </div>
-            <div className="relative mt-auto h-[300px]">
-              <S5Decoration />
-            </div>
           </div>
+
 
           {/* ---------- RIGHT: form ---------- */}
           <div className="px-7 py-12 sm:px-12 lg:px-16 lg:py-16">
