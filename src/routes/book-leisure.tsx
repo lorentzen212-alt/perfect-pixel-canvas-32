@@ -6772,6 +6772,16 @@ function LeisureStep4Screen({
                   "linear-gradient(180deg, rgba(8,19,31,0) 0%, rgba(8,19,31,0.18) 55%, rgba(8,19,31,0.42) 100%)",
               }}
             />
+            {/* Right-edge dissolve: hero melts into the warm ivory page background.
+                Left stays sharp; only the trailing ~120px fades. Sits beneath the
+                z-10 text so it never softens the headline. */}
+            <div
+              className="pointer-events-none absolute inset-y-0 right-0 z-[1] w-[120px]"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(247,243,234,0) 0%, rgba(247,243,234,0.12) 28%, rgba(247,243,234,0.42) 58%, rgba(247,243,234,0.78) 82%, #F7F3EA 100%)",
+              }}
+            />
             <div className="relative z-10 flex h-full flex-col justify-end p-9 lg:p-11">
               <div
                 className="text-[11px] font-medium uppercase tracking-[0.30em]"
