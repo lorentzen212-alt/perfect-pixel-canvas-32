@@ -3816,16 +3816,46 @@ function S2StayCard({
     const selected = toDate(value);
     const interactive = editable && !!onChange;
 
-    const dateValue = (
+    const dateValue = selected ? (
       <span
-        className={`whitespace-nowrap leading-none ${selected ? "text-[17.5px] font-semibold" : "text-[15px] font-medium"}`}
+        className="whitespace-nowrap leading-none text-[17.5px]"
         style={{
-          color: selected ? "#FFFCF5" : "rgba(226,216,198,0.5)",
+          marginLeft: align === "left" ? 3 : undefined,
+          marginRight: align === "right" ? 3 : undefined,
+          display: "inline-flex",
+          alignItems: "baseline",
+          gap: 5,
+        }}
+      >
+        <span
+          style={{
+            color: "#F2EEE7",
+            fontWeight: 600,
+            textShadow: "0 1px 1px rgba(0,0,0,.15)",
+          }}
+        >
+          {format(selected, "d")}
+        </span>
+        <span
+          style={{
+            color: "#D8D1C7",
+            fontWeight: 400,
+            letterSpacing: "0.01em",
+          }}
+        >
+          {format(selected, "MMM yyyy")}
+        </span>
+      </span>
+    ) : (
+      <span
+        className="whitespace-nowrap leading-none text-[15px] font-medium"
+        style={{
+          color: "rgba(226,216,198,0.5)",
           marginLeft: align === "left" ? 3 : undefined,
           marginRight: align === "right" ? 3 : undefined,
         }}
       >
-        {selected ? format(selected, "d MMM yyyy") : placeholder}
+        {placeholder}
       </span>
     );
 
