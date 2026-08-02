@@ -27,7 +27,7 @@ import {
 import heroAsset from "@/assets/hero-bg.png.asset.json";
 import homeHeroAsset from "@/assets/homepage-hero-bg.png.asset.json";
 import heroVideoAsset from "@/assets/hero-video.mp4.asset.json";
-import cardLeisureAsset from "@/assets/card-leisure-new.png.asset.json";
+import cardLeisureAsset from "@/assets/card-leisure-fjord.png.asset.json";
 import cardMeAsset from "@/assets/card-me-new.png.asset.json";
 import cardManageAsset from "@/assets/card-manage-new.png.asset.json";
 import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
@@ -257,11 +257,15 @@ function Home() {
               <ExperienceCard
                 to="/book-leisure"
                 image={cardLeisureAsset.url}
-                imagePosition="center 35%"
+                imagePosition="center 46%"
                 label="L E I S U R E"
                 tagline="Group Hotel Booking"
                 ctaText="Explore"
                 intensity={1.8}
+                refined
+                disableCoolGrey
+                imageFilter="brightness(1.02) contrast(1.06) saturate(0.94)"
+                overlay="from-transparent via-transparent via-[80%] to-black/10"
               />
               <ExperienceCard
                 to="/book-meetings-events"
@@ -351,6 +355,7 @@ function ExperienceCard({
   bottomGradient = true,
   borderGradient,
   disableCoolGrey = false,
+  refined = false,
 
   label,
   tagline,
@@ -365,6 +370,7 @@ function ExperienceCard({
   bottomGradient?: boolean;
   borderGradient?: string;
   disableCoolGrey?: boolean;
+  refined?: boolean;
   label: string;
   tagline: React.ReactNode;
   ctaText: string;
@@ -473,31 +479,39 @@ function ExperienceCard({
         style={{
           position: "relative",
           zIndex: 2,
-          border: "1px solid rgba(184, 138, 46, 0.55)",
-          boxShadow:
-            "0 14px 35px rgba(0,0,0,0.48), 0 34px 84px rgba(0,0,0,0.40), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12), inset 0 1px 0 rgba(255,255,255,0.10)",
+          border: refined
+            ? "1px solid rgba(184, 138, 46, 0.34)"
+            : "1px solid rgba(184, 138, 46, 0.55)",
+          boxShadow: refined
+            ? "0 10px 28px rgba(5,10,16,0.34), 0 26px 66px rgba(5,10,16,0.28), inset 0 1px 0 rgba(255,255,255,0.07)"
+            : "0 14px 35px rgba(0,0,0,0.48), 0 34px 84px rgba(0,0,0,0.40), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12), inset 0 1px 0 rgba(255,255,255,0.10)",
 
           transition:
             "transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 420ms cubic-bezier(0.22, 0.61, 0.36, 1)",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "translateY(-10px)";
-          e.currentTarget.style.boxShadow =
-            "0 22px 48px rgba(0,0,0,0.50), 0 46px 110px rgba(0,0,0,0.46), 0 0 26px rgba(212,175,85,0.16), inset 0 1px 0 rgba(255,255,255,0.14)";
+          e.currentTarget.style.boxShadow = refined
+            ? "0 16px 38px rgba(5,10,16,0.38), 0 34px 88px rgba(5,10,16,0.32), inset 0 1px 0 rgba(255,255,255,0.10)"
+            : "0 22px 48px rgba(0,0,0,0.50), 0 46px 110px rgba(0,0,0,0.46), 0 0 26px rgba(212,175,85,0.16), inset 0 1px 0 rgba(255,255,255,0.14)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow =
-            "0 14px 35px rgba(0,0,0,0.48), 0 34px 84px rgba(0,0,0,0.40), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12), inset 0 1px 0 rgba(255,255,255,0.10)";
+          e.currentTarget.style.boxShadow = refined
+            ? "0 10px 28px rgba(5,10,16,0.34), 0 26px 66px rgba(5,10,16,0.28), inset 0 1px 0 rgba(255,255,255,0.07)"
+            : "0 14px 35px rgba(0,0,0,0.48), 0 34px 84px rgba(0,0,0,0.40), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12), inset 0 1px 0 rgba(255,255,255,0.10)";
         }}
 
       >
         {/* Brushed champagne-gold ring */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-20 rounded-[22px] opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+          className={cn(
+            "pointer-events-none absolute inset-0 z-20 rounded-[22px] transition-opacity duration-300 group-hover:opacity-100",
+            refined ? "opacity-60" : "opacity-90",
+          )}
           style={{
-            padding: "1px",
+            padding: refined ? "0.5px" : "1px",
             background:
               borderGradient ||
               "linear-gradient(155deg, #F0D58A 0%, #D4AF55 12%, #B98A2E 30%, #8F681C 46%, #C09235 62%, #765116 78%, #D4AF55 92%, #F0D58A 100%)",
@@ -572,8 +586,9 @@ function ExperienceCard({
               aria-hidden
               className="pointer-events-none absolute inset-0 z-10"
               style={{
-                background:
-                  "linear-gradient(to top, rgba(4,8,13,0.60) 0%, rgba(4,8,13,0.20) 30%, transparent 54%)",
+                background: refined
+                  ? "linear-gradient(to top, rgba(2,6,11,0.72) 0%, rgba(2,6,11,0.46) 16%, rgba(2,6,11,0.20) 28%, rgba(2,6,11,0.06) 36%, transparent 42%)"
+                  : "linear-gradient(to top, rgba(4,8,13,0.60) 0%, rgba(4,8,13,0.20) 30%, transparent 54%)",
               }}
             />
           )}
@@ -582,29 +597,32 @@ function ExperienceCard({
           <div className="absolute inset-0 z-20">
             <div
               className="absolute text-left"
-              style={{ left: "41px", bottom: "76px" }}
+              style={{ left: "41px", bottom: refined ? "84px" : "76px" }}
             >
               <p
                 className="uppercase"
                 style={{
                   color: "#FFFFFF",
-                  fontSize: "17.46px",
-                  fontWeight: 600,
-                  letterSpacing: "0.28em",
+                  fontSize: refined ? "21px" : "17.46px",
+                  fontWeight: refined ? 500 : 600,
+                  letterSpacing: refined ? "0.34em" : "0.28em",
                   lineHeight: 1,
                   whiteSpace: "nowrap",
+                  textShadow: refined ? "0 2px 18px rgba(2,6,11,0.45)" : undefined,
                 }}
               >
                 {label}
               </p>
               <p
                 style={{
-                  marginTop: "7px",
-                  color: "rgba(255,255,255,0.8)",
-                  fontSize: "14.55px",
-                  fontWeight: 400,
+                  marginTop: refined ? "12px" : "7px",
+                  color: refined ? "rgba(255,255,255,0.74)" : "rgba(255,255,255,0.8)",
+                  fontSize: refined ? "13.5px" : "14.55px",
+                  fontWeight: refined ? 300 : 400,
+                  letterSpacing: refined ? "0.045em" : undefined,
                   lineHeight: 1.5,
                   whiteSpace: "nowrap",
+                  textShadow: refined ? "0 1px 14px rgba(2,6,11,0.4)" : undefined,
                 }}
               >
                 {tagline}
@@ -614,11 +632,13 @@ function ExperienceCard({
               className="absolute flex items-center opacity-[0.9] transition-opacity duration-[250ms] ease-out group-hover/card:opacity-100"
               style={{
                 left: "41px",
-                bottom: "26px",
+                bottom: refined ? "30px" : "26px",
                 color: "#FFFFFF",
-                fontSize: "14.55px",
-                fontWeight: 500,
+                fontSize: refined ? "13px" : "14.55px",
+                fontWeight: refined ? 400 : 500,
+                letterSpacing: refined ? "0.09em" : undefined,
                 whiteSpace: "nowrap",
+                textShadow: refined ? "0 1px 14px rgba(2,6,11,0.4)" : undefined,
               }}
             >
               {ctaText}
