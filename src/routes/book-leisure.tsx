@@ -3894,7 +3894,7 @@ function S2StayCard({
       )
     ) : (
       <span
-        className={`whitespace-nowrap leading-none font-medium ${compact ? "text-[18px]" : "text-[15px]"}`}
+        className={`whitespace-nowrap leading-none font-medium ${compact ? "text-[15px]" : "text-[15px]"}`}
         style={{
           color: "#8FA0B0",
           marginLeft: !compact && align === "left" ? 3 : undefined,
