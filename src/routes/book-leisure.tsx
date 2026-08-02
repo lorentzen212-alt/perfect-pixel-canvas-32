@@ -3253,9 +3253,9 @@ function LeisureStep2Screen({
         hideCurrentFlow="leisure"
       />
 
-      <div className="mx-auto w-full" style={{ maxWidth: 1800, padding: "40px 20px 30px" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: 1920, padding: "40px 20px 30px" }}>
         <div
-          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[25%_minmax(0,55%)_minmax(0,20%)]"
+          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[22%_minmax(0,59%)_minmax(0,19%)]"
           style={{
             borderRadius: 14,
             border: `1px solid ${S2_HAIR_GOLD}`,
