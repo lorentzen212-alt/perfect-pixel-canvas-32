@@ -3388,7 +3388,7 @@ function LeisureStep2Screen({
               Select the number of rooms and the preferred category for your group.
             </p>
 
-            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
@@ -4279,7 +4279,7 @@ function S2RoomCard({
       style={{
         borderRadius: 16,
         backgroundColor: "#FCFAF7",
-        padding: 10,
+        padding: 8,
         border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
           ? "0 14px 32px -24px rgba(8,23,34,0.30)"
@@ -4297,7 +4297,7 @@ function S2RoomCard({
       {/* 1 — image (~60% of card) */}
       <div
         className="relative overflow-hidden"
-        style={{ aspectRatio: "16 / 10", borderRadius: 12 }}
+        style={{ aspectRatio: "16 / 11.9", borderRadius: 11 }}
       >
         <img
           src={meta.img}
@@ -4332,7 +4332,7 @@ function S2RoomCard({
       </div>
 
       {/* 2 — name + guest count */}
-      <div className="flex items-start justify-between gap-2 pt-2.5">
+      <div className="flex items-start justify-between gap-2 pt-2">
         <div className="min-w-0">
           <div
             className="truncate text-[17px] font-medium leading-tight"
@@ -4341,7 +4341,7 @@ function S2RoomCard({
             {meta.title}
           </div>
           <div
-            className="mt-1 flex items-center gap-1.5 text-[11.5px] font-light tracking-[0.03em]"
+            className="mt-0.5 flex items-center gap-1.5 text-[11.5px] font-light tracking-[0.03em]"
             style={{ color: "#8A9099" }}
           >
             <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
@@ -4361,7 +4361,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-2.5 flex items-center gap-2">
+      <div className="mt-2 flex items-center gap-1.5">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
@@ -4376,7 +4376,7 @@ function S2RoomCard({
           </div>
         ) : (
           <div
-            className="flex h-[36px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-2.5 text-[11.5px] font-light transition-colors duration-200 hover:bg-[#F6F1E8]"
+            className="flex h-[36px] min-w-0 flex-1 items-center justify-center gap-1 whitespace-nowrap px-2 text-[11.5px] font-light transition-colors duration-200 hover:bg-[#F6F1E8]"
             style={{
               borderRadius: 12,
               border: "1px solid #E2D6BE",
@@ -4596,7 +4596,7 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[36px] w-full min-w-[132px] cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[11.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
+            ? "flex h-[36px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap px-2 text-left text-[11.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
@@ -4644,7 +4644,7 @@ function S2CategorySelect({
 }
 
 function roomIcon(key: string) {
-  const p = { size: 19, strokeWidth: 1.7 } as const;
+  const p = { size: 15, strokeWidth: 1.7 } as const;
   switch (key) {
     case "single":
       return <UserIcon {...p} />;
@@ -4702,7 +4702,7 @@ function S2Counter({
       className={`flex items-center justify-between transition-colors duration-200 ${light ? "h-[36px] shrink-0 px-1 hover:bg-[#F6F1E8]" : "h-[35px] px-1.5"}`}
       style={{
         borderRadius: light ? 12 : 999,
-        width: light ? 92 : undefined,
+        width: light ? 74 : undefined,
         backgroundColor: light ? "#FCFAF7" : "rgba(20,33,45,0.72)",
         border: light ? "1px solid #E2D6BE" : "1px solid rgba(214,226,236,0.10)",
       }}
@@ -4734,7 +4734,7 @@ function S2Counter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className={`no-spin w-full bg-transparent text-center outline-none ${light ? "text-[13.5px] font-normal" : "text-[18px] font-medium text-white"}`}
+        className={`no-spin w-full min-w-0 bg-transparent text-center outline-none ${light ? "text-[13.5px] font-normal" : "text-[18px] font-medium text-white"}`}
         style={{ fontFamily: SERIF, color: light ? S2_NAVY_TEXT : undefined }}
       />
       {btn("inc")}
