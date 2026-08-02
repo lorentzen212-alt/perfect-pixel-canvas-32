@@ -4352,7 +4352,7 @@ function S2RoomCard({
       style={{
         borderRadius: 19,
         backgroundColor: "#FCFAF7",
-        padding: 9,
+        padding: 8,
         border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
           ? "0 14px 32px -24px rgba(8,23,34,0.30)"
@@ -4405,7 +4405,7 @@ function S2RoomCard({
       </div>
 
       {/* 2 — name + guest count */}
-      <div className="flex items-start justify-between gap-2 pt-1.5">
+      <div className="flex items-start justify-between gap-2 pt-[5px]">
         <div className="min-w-0">
           <div
             className="truncate text-[20px] font-medium leading-[1.2] tracking-[0.15px]"
@@ -4414,7 +4414,7 @@ function S2RoomCard({
             {meta.title}
           </div>
           <div
-            className="mt-0.5 flex items-center gap-1.5 text-[14px] font-normal tracking-[0.03em] leading-snug"
+            className="mt-[1px] flex items-center gap-1.5 text-[14px] font-normal tracking-[0.03em] leading-snug"
             style={{ color: "#8A9099" }}
           >
             <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
@@ -4434,7 +4434,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-1.5 flex items-center gap-1.5">
+      <div className="mt-[5px] flex w-full items-center gap-2">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
