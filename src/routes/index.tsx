@@ -329,7 +329,7 @@ function Home() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-0 right-0 top-0 w-[8px]"
+          className="pointer-events-none absolute bottom-0 right-0 top-0 w-[13px]"
           style={{ backgroundColor: "#0D1621" }}
         />
       </div>
