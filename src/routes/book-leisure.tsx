@@ -3829,7 +3829,7 @@ function S2StayCard({
       >
         <span
           style={{
-            color: "#F2EEE7",
+            color: "#E8E4DC",
             fontWeight: 600,
             textShadow: "0 1px 1px rgba(0,0,0,.15)",
           }}
@@ -3838,7 +3838,7 @@ function S2StayCard({
         </span>
         <span
           style={{
-            color: "#D8D1C7",
+            color: "#E8E4DC",
             fontWeight: 400,
             letterSpacing: "0.01em",
           }}
@@ -3850,7 +3850,7 @@ function S2StayCard({
       <span
         className="whitespace-nowrap leading-none text-[15px] font-medium"
         style={{
-          color: "rgba(226,216,198,0.5)",
+          color: "#84909D",
           marginLeft: align === "left" ? 3 : undefined,
           marginRight: align === "right" ? 3 : undefined,
         }}
@@ -3860,7 +3860,7 @@ function S2StayCard({
     );
 
     const icon = (
-      <span aria-hidden className="shrink-0 leading-none" style={{ color: "rgba(217,191,130,0.9)" }}>
+      <span aria-hidden className="shrink-0 leading-none" style={{ color: "#E8E4DC" }}>
         <CalendarDays size={16} strokeWidth={1.5} />
       </span>
     );
@@ -3869,7 +3869,7 @@ function S2StayCard({
       <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none"
-          style={{ color: "rgba(201,167,106,0.85)", letterSpacing: "0.18em" }}
+          style={{ color: "#B99A60", letterSpacing: "0.18em" }}
         >
           {label}
         </span>
@@ -3889,7 +3889,7 @@ function S2StayCard({
         {selected ? (
           <span
             className="whitespace-nowrap text-[12px] leading-none"
-            style={{ color: "#8F98A5", fontWeight: 400, letterSpacing: "0.01em" }}
+            style={{ color: "#84909D", fontWeight: 400, letterSpacing: "0.01em" }}
           >
             {format(selected, "EEEE")}
           </span>
@@ -3978,7 +3978,7 @@ function S2StayCard({
         size={34}
         strokeWidth={1.1}
         className="mx-3 shrink-0 self-center"
-        style={{ color: "rgba(217,191,130,0.9)" }}
+        style={{ color: "#B99A60" }}
       />
       <DateCol
         label="Departure"
@@ -4019,23 +4019,23 @@ function S2StayCard({
         >
           {confirming ? (
             <>
-              <span className="text-[13px]" style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}>
+              <span className="text-[13px]" style={{ color: "#84909D", fontWeight: 400 }}>
                 Remove this stay?
               </span>
               <div className="flex items-center gap-4">
                 <button
                   type="button"
                   onClick={onConfirmRemove}
-                  className="bg-transparent p-0 text-[13px] font-medium"
-                  style={{ color: "#E3A08C", border: "none" }}
+                  className="bg-transparent p-0 text-[13px]"
+                  style={{ color: "#E8E4DC", fontWeight: 500, border: "none" }}
                 >
                   Yes, remove
                 </button>
                 <button
                   type="button"
                   onClick={onCancelRemove}
-                  className="bg-transparent p-0 text-[13px] font-light"
-                  style={{ color: "rgba(245,241,230,0.6)", border: "none" }}
+                  className="bg-transparent p-0 text-[13px]"
+                  style={{ color: "rgba(132,144,157,0.7)", fontWeight: 400, border: "none" }}
                 >
                   Cancel
                 </button>
@@ -4045,16 +4045,16 @@ function S2StayCard({
             <>
               <div
                 className="flex items-center gap-3 text-[12.5px]"
-                style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}
+                style={{ color: "#E8E4DC", fontWeight: 500 }}
               >
                 <span>
                   {nights} {nights === 1 ? "Night" : "Nights"}
                 </span>
-                <span style={{ color: "rgba(217,191,130,0.4)" }}>|</span>
+                <span style={{ color: "rgba(132,144,157,0.5)" }}>|</span>
                 <span>
                   {rooms} {rooms === 1 ? "Room" : "Rooms"}
                 </span>
-                <span style={{ color: "rgba(217,191,130,0.4)" }}>|</span>
+                <span style={{ color: "rgba(132,144,157,0.5)" }}>|</span>
                 <span>
                   {guests} {guests === 1 ? "Guest" : "Guests"}
                 </span>
@@ -4064,8 +4064,8 @@ function S2StayCard({
                   <button
                     type="button"
                     onClick={onEdit}
-                    className="bg-transparent p-0 text-[12.5px] font-light"
-                    style={{ color: "rgba(246,242,234,0.75)", border: "none" }}
+                    className="bg-transparent p-0 text-[12.5px]"
+                    style={{ color: "#E8E4DC", fontWeight: 500, border: "none" }}
                   >
                     Edit
                   </button>
@@ -4073,8 +4073,10 @@ function S2StayCard({
                 <button
                   type="button"
                   onClick={onRemove}
-                  className="bg-transparent p-0 text-[12.5px] font-light"
-                  style={{ color: S2_GOLD_SOFT, border: "none" }}
+                  className="s2-remove-btn bg-transparent p-0 text-[12.5px]"
+                  style={{ color: "rgba(232,228,220,0.75)", fontWeight: 500, border: "none" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#B99A60")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(232,228,220,0.75)")}
                 >
                   Remove
                 </button>
@@ -4108,7 +4110,7 @@ function S2StayCard({
       <div className="flex items-baseline justify-between gap-4">
         <h3
           className="text-[32px] leading-none"
-          style={{ fontFamily: SERIF, color: "#F2EEE7", fontWeight: 600 }}
+          style={{ fontFamily: SERIF, color: "#E8E4DC", fontWeight: 600 }}
         >
           {title}
         </h3>
@@ -4116,7 +4118,7 @@ function S2StayCard({
           type="button"
           onClick={onAddAnother}
           className="inline-flex items-baseline gap-2 bg-transparent p-0 text-[14px] font-extralight leading-none transition-opacity duration-200 hover:opacity-100"
-          style={{ color: S2_GOLD_SOFT, opacity: 0.92, border: "none" }}
+          style={{ color: "#B99A60", border: "none" }}
         >
           <Plus size={15} strokeWidth={1.3} className="translate-y-[2px]" />
           Add another stay
@@ -4142,7 +4144,7 @@ function S2StayCard({
           <>
             <span
               className="flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px]"
-              style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}
+              style={{ color: "#84909D", fontWeight: 400 }}
             >
               Remove this stay?
             </span>
@@ -4169,7 +4171,7 @@ function S2StayCard({
               </>
             )}
             <S2StayDivider />
-            <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
+            <S2StayInfo tone="remove" icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
           </>
         )}
       </div>
@@ -4194,23 +4196,57 @@ function S2StayInfo({
   icon,
   text,
   onClick,
+  tone = "primary",
 }: {
   icon: React.ReactNode;
   text: string;
   onClick?: () => void;
+  tone?: "primary" | "remove";
 }) {
+  const isRemove = tone === "remove";
   const content = (
     <>
-      <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: "rgba(217,191,130,0.8)", opacity: 1 }}>
+      <span
+        className="s2-stay-info-icon transition-colors duration-200"
+        style={{ color: isRemove ? "rgba(232,228,220,0.75)" : "#E8E4DC", opacity: 1 }}
+      >
         {icon}
       </span>
-      <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}>
+      <span
+        className="s2-stay-info-text transition-colors duration-200"
+        style={{
+          color: isRemove ? "rgba(232,228,220,0.75)" : "#E8E4DC",
+          fontWeight: 500,
+        }}
+      >
         {text}
       </span>
     </>
   );
   const cls =
     "s2-stay-info group flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px]";
+
+  if (isRemove) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={cls}
+        onMouseEnter={(e) => {
+          e.currentTarget.querySelectorAll<HTMLElement>(".s2-stay-info-icon, .s2-stay-info-text").forEach((el) => {
+            el.style.color = "#B99A60";
+          });
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.querySelectorAll<HTMLElement>(".s2-stay-info-icon, .s2-stay-info-text").forEach((el) => {
+            el.style.color = "rgba(232,228,220,0.75)";
+          });
+        }}
+      >
+        {content}
+      </button>
+    );
+  }
 
   return onClick ? (
     <button type="button" onClick={onClick} className={cls}>
