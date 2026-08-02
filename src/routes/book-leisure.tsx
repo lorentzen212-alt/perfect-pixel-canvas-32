@@ -6289,72 +6289,82 @@ function LeisureStep4Screen({
       hideHero
       wide
     >
-      <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-[27fr_53fr_20fr]">
-        {/* ---------- LEFT HERO ---------- */}
-        <aside
-          className="relative order-2 min-h-[380px] overflow-hidden rounded-[26px] lg:order-none"
+      <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-[80fr_20fr]">
+        {/* ---------- HERO + CENTER: one premium composition ---------- */}
+        <div
+          className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[27fr_53fr]"
           style={{
-            border: "1px solid rgba(232,199,117,0.22)",
-            boxShadow: "0 50px 100px -50px rgba(6,16,26,0.75)",
+            border: "1px solid rgba(201,164,92,0.30)",
+            boxShadow:
+              "0 60px 120px -55px rgba(6,16,26,0.72), 0 18px 44px -34px rgba(6,16,26,0.45)",
           }}
         >
-          <img
-            src={S4_HERO}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ filter: "saturate(1.05) contrast(1.03)" }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(8,19,31,0.42) 0%, rgba(8,19,31,0.30) 42%, rgba(8,19,31,0.80) 100%)",
-            }}
-          />
-          <div className="relative z-10 flex h-full flex-col justify-center p-9 lg:p-11">
+          {/* ---------- LEFT HERO ---------- */}
+          <aside className="relative order-2 min-h-[380px] overflow-hidden lg:order-none">
+            <img
+              src={S4_HERO}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ filter: "saturate(1.05) contrast(1.03)" }}
+            />
             <div
-              className="text-[11px] font-medium uppercase tracking-[0.30em]"
-              style={{ color: S4_GOLD_LT }}
-            >
-              Step 4 of 6
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(8,19,31,0.42) 0%, rgba(8,19,31,0.30) 42%, rgba(8,19,31,0.80) 100%)",
+              }}
+            />
+            <div className="relative z-10 flex h-full flex-col justify-center p-9 lg:p-11">
+              <div
+                className="text-[11px] font-medium uppercase tracking-[0.30em]"
+                style={{ color: S4_GOLD_LT }}
+              >
+                Step 4 of 6
+              </div>
+              <h1
+                className="mt-5 text-[40px] leading-[1.04] text-white lg:text-[46px]"
+                style={{ fontFamily: SERIF, fontWeight: 500 }}
+              >
+                Experiences
+              </h1>
+              <div className="mt-6 flex items-center gap-2.5">
+                <span
+                  className="h-px w-[70px]"
+                  style={{ background: `linear-gradient(90deg, ${S4_GOLD_LT}, transparent)` }}
+                />
+                <span
+                  className="block h-[6px] w-[6px] rotate-45"
+                  style={{ background: `linear-gradient(135deg, ${S4_GOLD_LT}, ${S4_GOLD})` }}
+                />
+              </div>
+              <p
+                className="mt-6 max-w-[300px] text-[15px] leading-[1.7]"
+                style={{ color: "rgba(255,255,255,0.84)" }}
+              >
+                Create unforgettable moments for your group.
+              </p>
             </div>
-            <h1
-              className="mt-5 text-[40px] leading-[1.04] text-white lg:text-[46px]"
-              style={{ fontFamily: SERIF, fontWeight: 500 }}
-            >
-              Experiences
-            </h1>
-            <div className="mt-6 flex items-center gap-2.5">
-              <span
-                className="h-px w-[70px]"
-                style={{ background: `linear-gradient(90deg, ${S4_GOLD_LT}, transparent)` }}
-              />
-              <span
-                className="block h-[6px] w-[6px] rotate-45"
-                style={{ background: `linear-gradient(135deg, ${S4_GOLD_LT}, ${S4_GOLD})` }}
-              />
-            </div>
-            <p
-              className="mt-6 max-w-[300px] text-[15px] leading-[1.7]"
-              style={{ color: "rgba(255,255,255,0.84)" }}
-            >
-              Create unforgettable moments for your group.
-            </p>
-          </div>
-        </aside>
+            {/* seam: cream tint bleeding toward the content panel */}
+            <div
+              className="pointer-events-none absolute inset-y-0 right-0 hidden w-[26px] lg:block"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(247,243,233,0) 0%, rgba(247,243,233,0.10) 55%, rgba(247,243,233,0.26) 100%)",
+              }}
+            />
+          </aside>
 
         {/* ---------- CENTER ---------- */}
         <section
-          className="order-1 min-w-0 rounded-[26px] px-6 py-9 sm:px-9 sm:py-10 lg:order-none lg:px-11"
+          className="relative order-1 min-w-0 px-6 py-9 sm:px-9 sm:py-10 lg:order-none lg:-ml-[8px] lg:px-11"
           style={{
             background:
               "radial-gradient(120% 80% at 50% 0%, #FBF8F1 0%, #F5F1E7 60%, #EFEADE 100%)",
-            border: "1px solid rgba(201,164,92,0.24)",
-            boxShadow:
-              "0 50px 100px -50px rgba(6,16,26,0.6), inset 0 1px 0 rgba(255,255,255,0.8)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8)",
             color: S4_INK,
           }}
         >
+
           <header className="text-center">
             <h2
               className="text-[32px] leading-[1.1] sm:text-[38px]"
