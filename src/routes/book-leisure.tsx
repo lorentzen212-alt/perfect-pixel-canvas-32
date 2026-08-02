@@ -3314,15 +3314,6 @@ function LeisureStep2Screen({
                 Accommodation
               </h1>
               <S2DiamondRule refined />
-              <p
-                className="mt-4 max-w-[260px] text-[15px] font-light leading-[2.05] text-left"
-                style={{ color: "#FFFDF8" }}
-              >
-                Build your group&rsquo;s
-                <br />
-                <span style={{ color: "#D9BF82" }}>perfect stay.</span>
-              </p>
-
             </div>
 
           </aside>
