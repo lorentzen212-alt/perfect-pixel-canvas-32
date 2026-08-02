@@ -3273,44 +3273,53 @@ function LeisureStep2Screen({
               className="absolute inset-0 h-full w-full"
               style={{
                 objectFit: "cover",
-                objectPosition: "60% 62%",
-                filter: "brightness(1.08) contrast(1.04) saturate(1.05)",
+                objectPosition: "54% 74%",
+                filter:
+                  "brightness(1.06) contrast(1.05) saturate(1.04) hue-rotate(-6deg)",
+              }}
+            />
+            {/* Cool blue tone lift (~10%) — soft-light preserves warm interior */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundColor: "rgba(40,72,120,0.14)",
+                mixBlendMode: "soft-light",
               }}
             />
             <div
               className="absolute inset-0"
-              style={{ backgroundColor: "rgba(0,0,0,0.20)" }}
+              style={{ backgroundColor: "rgba(0,0,0,0.19)" }}
             />
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(6,14,24,0.34) 0%, rgba(6,14,24,0.18) 42%, rgba(6,14,24,0.06) 75%, rgba(6,14,24,0.00) 100%)",
+                  "linear-gradient(90deg, rgba(6,14,24,0.40) 0%, rgba(6,14,24,0.20) 42%, rgba(6,14,24,0.07) 75%, rgba(6,14,24,0.00) 100%)",
               }}
             />
             <div
-              className="relative flex h-full flex-col items-start justify-start px-8 pb-12 pt-[22%] text-left lg:px-11"
+              className="relative flex h-full flex-col items-start justify-start px-8 pb-12 pt-[17%] text-left lg:px-11"
             >
               <div
-                className="text-[11px] font-light tracking-[0.28em]"
-                style={{ color: "rgba(247,242,232,0.78)", fontFamily: SERIF }}
+                className="text-[11px] font-light tracking-[0.30em]"
+                style={{ color: "rgba(247,242,232,0.80)", fontFamily: SERIF }}
               >
                 Step 2 of 6
               </div>
               <h1
-                className="mt-3 text-[34px] font-light leading-[1.1] lg:text-[38px]"
+                className="mt-5 text-[34px] font-light leading-[1.1] lg:text-[38px]"
                 style={{ fontFamily: SERIF, color: "#FFFDF8" }}
               >
                 Accommodation
               </h1>
               <S2DiamondRule refined />
               <p
-                className="mt-1 max-w-[260px] text-[15px] font-light leading-[1.9]"
-                style={{ color: "rgba(246,242,234,0.9)" }}
+                className="mt-4 max-w-[260px] text-[15px] font-light leading-[2.05] text-left"
+                style={{ color: "#FFFDF8" }}
               >
                 Build your group&rsquo;s
                 <br />
-                perfect stay.
+                <span style={{ color: "#D9BF82" }}>perfect stay.</span>
               </p>
 
             </div>
