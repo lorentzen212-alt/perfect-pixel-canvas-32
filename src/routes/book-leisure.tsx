@@ -8305,7 +8305,7 @@ function S6ReviewRow({
   return (
     <div
       className="flex items-start gap-5 py-7"
-      style={{ borderBottom: "1px solid rgba(22,32,43,0.10)" }}
+      style={{ borderBottom: "1px solid rgba(22,32,43,0.07)" }}
     >
       <span
         className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
