@@ -475,22 +475,27 @@ function ExperienceCard({
         style={{
           position: "relative",
           zIndex: 2,
-          border: "1px solid rgba(184, 138, 46, 0.55)",
-          boxShadow:
-            "0 14px 35px rgba(0,0,0,0.48), 0 34px 84px rgba(0,0,0,0.40), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12), inset 0 1px 0 rgba(255,255,255,0.10)",
+          border: refined
+            ? "1px solid rgba(184, 138, 46, 0.34)"
+            : "1px solid rgba(184, 138, 46, 0.55)",
+          boxShadow: refined
+            ? "0 10px 28px rgba(5,10,16,0.34), 0 26px 66px rgba(5,10,16,0.28), inset 0 1px 0 rgba(255,255,255,0.07)"
+            : "0 14px 35px rgba(0,0,0,0.48), 0 34px 84px rgba(0,0,0,0.40), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12), inset 0 1px 0 rgba(255,255,255,0.10)",
 
           transition:
             "transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 420ms cubic-bezier(0.22, 0.61, 0.36, 1)",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "translateY(-10px)";
-          e.currentTarget.style.boxShadow =
-            "0 22px 48px rgba(0,0,0,0.50), 0 46px 110px rgba(0,0,0,0.46), 0 0 26px rgba(212,175,85,0.16), inset 0 1px 0 rgba(255,255,255,0.14)";
+          e.currentTarget.style.boxShadow = refined
+            ? "0 16px 38px rgba(5,10,16,0.38), 0 34px 88px rgba(5,10,16,0.32), inset 0 1px 0 rgba(255,255,255,0.10)"
+            : "0 22px 48px rgba(0,0,0,0.50), 0 46px 110px rgba(0,0,0,0.46), 0 0 26px rgba(212,175,85,0.16), inset 0 1px 0 rgba(255,255,255,0.14)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow =
-            "0 14px 35px rgba(0,0,0,0.48), 0 34px 84px rgba(0,0,0,0.40), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12), inset 0 1px 0 rgba(255,255,255,0.10)";
+          e.currentTarget.style.boxShadow = refined
+            ? "0 10px 28px rgba(5,10,16,0.34), 0 26px 66px rgba(5,10,16,0.28), inset 0 1px 0 rgba(255,255,255,0.07)"
+            : "0 14px 35px rgba(0,0,0,0.48), 0 34px 84px rgba(0,0,0,0.40), 0 0 18px rgba(212,175,85,0.10), 0 3px 8px rgba(224,185,90,0.12), inset 0 1px 0 rgba(255,255,255,0.10)";
         }}
 
       >
