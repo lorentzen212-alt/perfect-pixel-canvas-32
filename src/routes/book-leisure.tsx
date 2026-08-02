@@ -3238,7 +3238,7 @@ function LeisureStep2Screen({
 
       <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 20px 30px" }}>
         <div
-          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[22%_minmax(0,1fr)_244px]"
+          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[24%_minmax(0,1fr)_262px]"
           style={{
             borderRadius: 14,
             border: `1px solid ${S2_HAIR_GOLD}`,
@@ -4401,13 +4401,13 @@ function S2RoomCard({
       <div className="flex items-start justify-between gap-2 pt-1.5">
         <div className="min-w-0">
           <div
-            className="truncate text-[22.5px] font-medium leading-tight"
+            className="truncate text-[20px] font-medium leading-[1.2] tracking-[0.15px]"
             style={{ fontFamily: SERIF, color: "#26313A" }}
           >
             {meta.title}
           </div>
           <div
-            className="mt-0.5 flex items-center gap-1.5 text-[15.2px] font-light tracking-[0.03em]"
+            className="mt-0.5 flex items-center gap-1.5 text-[14px] font-normal tracking-[0.03em] leading-snug"
             style={{ color: "#8A9099" }}
           >
             <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
