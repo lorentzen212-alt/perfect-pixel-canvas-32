@@ -4098,24 +4098,24 @@ function S2StayCard({
         }}
       >
         {/* Upper zone — dates + statistics */}
-        <div className="flex flex-col gap-3 px-[18px] py-[11px] sm:px-5 lg:flex-row lg:items-center lg:gap-5">
+        <div className="flex flex-col gap-4 px-[20px] py-[16px] sm:px-6 lg:flex-row lg:items-center lg:gap-7">
           {/* Circular calendar mark */}
           <span
             aria-hidden
-            className="grid h-[38px] w-[38px] shrink-0 place-items-center"
+            className="grid h-[46px] w-[46px] shrink-0 place-items-center"
             style={{
               borderRadius: 999,
-              border: "1px solid rgba(217,191,130,0.55)",
-              color: "#E4C88A",
-              boxShadow: "0 0 16px -6px rgba(228,200,138,0.45), inset 0 0 12px -8px rgba(228,200,138,0.5)",
+              border: "1px solid rgba(199,171,119,0.55)",
+              color: "#C7AB77",
+              boxShadow: "0 0 18px -7px rgba(199,171,119,0.45), inset 0 0 14px -9px rgba(199,171,119,0.5)",
             }}
           >
-            <CalendarDays size={19} strokeWidth={1.3} />
+            <CalendarDays size={21} strokeWidth={1.2} />
           </span>
 
 
           {/* Dates */}
-          <div className="flex min-w-0 flex-1 items-center gap-4 sm:gap-6">
+          <div className="flex min-w-0 flex-1 items-center gap-5 sm:gap-7">
             <div className="min-w-0 flex-1">
               <DateCol
                 label="Arrival"
@@ -4126,11 +4126,12 @@ function S2StayCard({
               />
             </div>
             <ArrowRight
-              size={20}
-              strokeWidth={1.1}
+              size={24}
+              strokeWidth={1}
               className="shrink-0"
-              style={{ color: "#D9BF82" }}
+              style={{ color: "#C7AB77" }}
             />
+
             <div className="min-w-0 flex-1">
               <DateCol
                 label="Departure"
