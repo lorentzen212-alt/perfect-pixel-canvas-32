@@ -4048,11 +4048,12 @@ function S2StayCard({
         placeholder="Select arrival date"
       />
       <ArrowRight
-        size={light ? 26 : 34}
-        strokeWidth={1.1}
-        className="mx-3 shrink-0 self-center"
-        style={{ color: light ? "#C09A57" : "rgba(217,191,130,0.9)" }}
+        size={light ? 30 : 34}
+        strokeWidth={1}
+        className="mx-4 shrink-0 self-center"
+        style={{ color: light ? "rgba(216,190,133,0.92)" : "rgba(217,191,130,0.9)" }}
       />
+
 
       <DateCol
         label="Departure"
