@@ -3270,7 +3270,7 @@ function LeisureStep2Screen({
                     "linear-gradient(to top, rgba(9,20,30,0.92) 0%, rgba(9,20,30,0.62) 38%, rgba(9,20,30,0) 100%)",
                 }}
               />
-              <div className="absolute inset-x-0 bottom-0 px-8 pb-9 lg:px-9 lg:pb-11">
+              <div className="absolute inset-x-0 bottom-0 px-6 pb-8 2xl:px-8 2xl:pb-10">
                 <div
                   className="text-[10.5px] font-medium uppercase tracking-[0.30em]"
                   style={{ color: "#D8BE85" }}
@@ -3278,7 +3278,7 @@ function LeisureStep2Screen({
                   Step 2 of 6
                 </div>
                 <h2
-                  className="mt-3 text-[30px] font-normal leading-[1.05] sm:text-[34px] 2xl:text-[38px]"
+                  className="mt-3 text-[28px] font-normal leading-[1.05] 2xl:text-[34px]"
                   style={{ fontFamily: SERIF, color: "#FFFFFF" }}
                 >
                   Accommodation
