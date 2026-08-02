@@ -4771,15 +4771,16 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
             light
-              ? "flex h-[44px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-0.5 whitespace-nowrap px-2 text-left text-[11.5px] font-normal outline-none transition-colors duration-200"
+              ? "flex h-[46px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap text-left text-[15px] font-medium outline-none transition-colors duration-200"
               : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none"
         }
         style={
           light
             ? {
-                borderRadius: 10,
-                color: "#F4F1EA",
-                backgroundColor: "#173049",
+                borderRadius: 12,
+                padding: "0 18px",
+                color: "#FFFFFF",
+                backgroundColor: "#0F2946",
               }
             : undefined
         }
@@ -4790,8 +4791,8 @@ function S2CategorySelect({
           style={{
             color: light
               ? value
-                ? "#F4F1EA"
-                : "rgba(247,246,242,0.62)"
+                ? "#FFFFFF"
+                : "rgba(255,255,255,0.7)"
               : value
                 ? "#FFFFFF"
                 : "rgba(245,241,230,0.75)",
@@ -4800,7 +4801,7 @@ function S2CategorySelect({
           {value || "Select category"}
         </span>
         <ChevronDown
-          size={light ? 13 : 16}
+          size={light ? 16 : 16}
           strokeWidth={2}
           style={{
             color: light ? "#C9A76A" : "rgba(245,241,230,0.55)",
