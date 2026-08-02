@@ -3242,12 +3242,12 @@ function LeisureStep2Screen({
         hideCurrentFlow="leisure"
       />
 
-      <div className="mx-auto w-full" style={{ maxWidth: 1720, padding: "0 20px 30px" }}>
-        <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[26%_minmax(0,1fr)]">
+      <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 28px 40px" }}>
+        <div className="grid grid-cols-1 items-start gap-[22px] xl:grid-cols-[320px_minmax(0,1fr)]">
           {/* ---------- LEFT: hero panel ---------- */}
           <aside className="min-w-0 xl:sticky" style={{ top: 20 }}>
             <div
-              className="relative h-[420px] w-full overflow-hidden sm:h-[460px] xl:h-[760px]"
+              className="relative h-[420px] w-full overflow-hidden sm:h-[460px] xl:h-[700px]"
               style={{
                 borderRadius: 23,
                 border: `1px solid ${S2_HAIR_GOLD}`,
