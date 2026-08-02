@@ -3415,7 +3415,7 @@ function LeisureStep2Screen({
 
             {/* Room distribution */}
             <h3
-              className="mt-11 text-[26px] font-normal leading-none"
+              className="mt-9 text-[26px] font-normal leading-none"
               style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
             >
               Room distribution
