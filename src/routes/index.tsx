@@ -26,6 +26,7 @@ import {
 } from "@/components/PremiumIcons";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
 import homeHeroAsset from "@/assets/homepage-hero-bg.png.asset.json";
+import heroVideoAsset from "@/assets/hero-video.mp4.asset.json";
 import cardLeisureAsset from "@/assets/card-leisure-new.png.asset.json";
 import cardMeAsset from "@/assets/card-me-new.png.asset.json";
 import cardManageAsset from "@/assets/card-manage-new.png.asset.json";
@@ -104,12 +105,19 @@ function Home() {
       <main className="relative w-full bg-[#0A0B0D]">
         {/* ---------------------------- HERO ---------------------------- */}
         <section className="relative h-screen min-h-[620px] w-full overflow-hidden">
-          <img
-            src={homeHeroAsset.url}
-            alt="Nordic fjord landscape at dawn"
-            className="absolute inset-0 h-full w-full object-cover"
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster={homeHeroAsset.url}
+            aria-hidden
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
             style={{ objectPosition: "center center" }}
-          />
+          >
+            <source src={heroVideoAsset.url} type="video/mp4" />
+          </video>
 
           {/* Cinematic overlay — soft navy gradient + gentle vignette */}
           <div
