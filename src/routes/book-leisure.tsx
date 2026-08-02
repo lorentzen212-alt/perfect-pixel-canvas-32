@@ -4044,7 +4044,9 @@ function S2StayCard({
               if (!d) return;
               onChange?.(toISO(d));
               setOpen(false);
+              onPicked?.();
             }}
+
             initialFocus
             className="pointer-events-auto p-3 text-[#F2EDE3]"
           />
