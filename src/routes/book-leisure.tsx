@@ -4524,32 +4524,45 @@ function S2RoomCard({
 
   return (
     <div
-      className="group s2-room-card flex h-full flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out"
+      className="group s2-room-card s2-room-card-lux flex h-full flex-col overflow-hidden"
       data-active={active ? "true" : "false"}
       style={{
         borderRadius: 20,
-        backgroundColor: "#FCFAF7",
+        backgroundImage:
+          "linear-gradient(180deg, #F6F2EB 0%, #FCFAF7 22%, #FDFBF8 100%)",
         padding: 0,
-        border: `1px solid ${active ? "rgba(198,169,103,0.5)" : "#E9E3DA"}`,
-        boxShadow: "0 12px 40px rgba(8,19,31,0.08)",
+        border: `1px solid ${active ? "rgba(198,169,103,0.5)" : "rgba(233,227,218,0.95)"}`,
+        boxShadow:
+          "0 1px 2px rgba(8,19,31,0.04), 0 18px 48px -22px rgba(8,19,31,0.20), 0 32px 70px -40px rgba(8,19,31,0.18)",
       }}
     >
       {/* 1 — full-bleed image */}
-      <img
-        src={meta.img}
-        alt={meta.title}
+      <div
+        className="s2-room-imgwrap"
         style={{
-          display: "block",
-          width: "100%",
+          position: "relative",
           height: 190,
-          objectFit: "cover",
-          objectPosition: "center",
-          margin: 0,
-          padding: 0,
+          overflow: "hidden",
           borderTopLeftRadius: 19,
           borderTopRightRadius: 19,
+          flexShrink: 0,
         }}
-      />
+      >
+        <img
+          src={meta.img}
+          alt={meta.title}
+          className="s2-room-img"
+          style={{
+            display: "block",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+            transform: "scale(1.05)",
+          }}
+        />
+      </div>
+
 
       {/* 2 — name + guest count + learn more */}
       <div className="flex flex-1 flex-col" style={{ padding: "22px 22px 16px" }}>
