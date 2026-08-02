@@ -18,6 +18,7 @@ import roomTripleImg from "@/assets/rooms/room-triple.jpg";
 import roomFamilyImg from "@/assets/rooms/room-family.jpg";
 import roomAccessibleImg from "@/assets/rooms/room-accessible.jpg";
 import s2StayHeroImg from "@/assets/s2-lounge-fjord.png.asset.json";
+import s4AuroraHeroImg from "@/assets/s4-aurora-hero.png.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
@@ -6031,8 +6032,7 @@ function LeisureStep3Screen({
    STEP 4 - Experiences (redesigned)
    ========================================================= */
 
-const S4_HERO =
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80";
+const S4_HERO = s4AuroraHeroImg.url;
 
 const STEP4_CATEGORIES = [
   "All",
@@ -6303,31 +6303,39 @@ function LeisureStep4Screen({
           <aside className="relative order-2 min-h-[380px] overflow-hidden lg:order-none">
             <img
               src={S4_HERO}
-              alt=""
+              alt="Northern lights over a fjord terrace with fire pit"
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ filter: "saturate(1.05) contrast(1.03)" }}
             />
+            {/* subtle navy readability veil (~22%) */}
             <div
               className="absolute inset-0"
+              style={{ background: "rgba(8,19,31,0.22)" }}
+            />
+            <div
+              className="absolute inset-x-0 bottom-0 h-[52%]"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(8,19,31,0.42) 0%, rgba(8,19,31,0.30) 42%, rgba(8,19,31,0.80) 100%)",
+                  "linear-gradient(180deg, rgba(8,19,31,0) 0%, rgba(8,19,31,0.18) 55%, rgba(8,19,31,0.42) 100%)",
               }}
             />
-            <div className="relative z-10 flex h-full flex-col justify-center p-9 lg:p-11">
+            <div className="relative z-10 flex h-full flex-col justify-end p-9 lg:p-11">
               <div
                 className="text-[11px] font-medium uppercase tracking-[0.30em]"
-                style={{ color: S4_GOLD_LT }}
+                style={{ color: S4_GOLD_LT, textShadow: "0 1px 8px rgba(4,12,20,0.7)" }}
               >
                 Step 4 of 6
               </div>
               <h1
-                className="mt-5 text-[40px] leading-[1.04] text-white lg:text-[46px]"
-                style={{ fontFamily: SERIF, fontWeight: 500 }}
+                className="mt-4 text-[40px] leading-[1.04] text-white lg:text-[46px]"
+                style={{
+                  fontFamily: SERIF,
+                  fontWeight: 500,
+                  textShadow: "0 2px 18px rgba(4,12,20,0.6)",
+                }}
               >
                 Experiences
               </h1>
-              <div className="mt-6 flex items-center gap-2.5">
+              <div className="mt-5 flex items-center gap-2.5">
                 <span
                   className="h-px w-[70px]"
                   style={{ background: `linear-gradient(90deg, ${S4_GOLD_LT}, transparent)` }}
@@ -6338,12 +6346,13 @@ function LeisureStep4Screen({
                 />
               </div>
               <p
-                className="mt-6 max-w-[300px] text-[15px] leading-[1.7]"
-                style={{ color: "rgba(255,255,255,0.84)" }}
+                className="mt-5 max-w-[300px] text-[15px] leading-[1.7]"
+                style={{ color: "rgba(255,255,255,0.9)", textShadow: "0 1px 10px rgba(4,12,20,0.6)" }}
               >
                 Create unforgettable moments for your group.
               </p>
             </div>
+
             {/* seam: cream tint bleeding toward the content panel */}
             <div
               className="pointer-events-none absolute inset-y-0 right-0 hidden w-[26px] lg:block"
