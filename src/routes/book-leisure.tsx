@@ -3234,8 +3234,8 @@ function LeisureStep2Screen({
       className="min-h-screen w-full"
       style={{
         overflowX: "clip",
-        backgroundColor: S2_INK,
-        backgroundImage: `radial-gradient(120% 80% at 50% 0%, #142434 0%, ${S2_INK} 70%)`,
+        backgroundColor: S2_BG,
+        backgroundImage: S2_BG_GRADIENT,
         backgroundRepeat: "no-repeat",
         fontFamily: "Inter, system-ui, sans-serif",
         color: S2_TEXT,
