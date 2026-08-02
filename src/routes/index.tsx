@@ -257,11 +257,15 @@ function Home() {
               <ExperienceCard
                 to="/book-leisure"
                 image={cardLeisureAsset.url}
-                imagePosition="center 35%"
+                imagePosition="center 46%"
                 label="L E I S U R E"
                 tagline="Group Hotel Booking"
                 ctaText="Explore"
                 intensity={1.8}
+                refined
+                disableCoolGrey
+                imageFilter="brightness(1.02) contrast(1.06) saturate(0.94)"
+                overlay="from-transparent via-transparent via-[80%] to-black/10"
               />
               <ExperienceCard
                 to="/book-meetings-events"
