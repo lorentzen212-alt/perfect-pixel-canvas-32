@@ -1933,7 +1933,7 @@ import rovaniemiImg from "@/assets/leisure/rovaniemi.jpg.asset.json";
 import tampereImg from "@/assets/leisure/tampere.jpg.asset.json";
 import turkuImg from "@/assets/leisure/turku.jpg.asset.json";
 import leviImg from "@/assets/leisure/levi.jpg.asset.json";
-import s5ConciergeHero from "@/assets/s5-lounge-hero.png.asset.json";
+import s5BlackGoldHero from "@/assets/s5-black-gold-hero.png.asset.json";
 import s6MarbleAsset from "@/assets/s6-marble-texture.png.asset.json";
 
 
@@ -7023,7 +7023,7 @@ function LeisureStep4Screen({
 const S5_HERO =
   "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1600&q=80";
 
-const S5_PANEL_IMAGE = s5ConciergeHero.url;
+const S5_PANEL_IMAGE = s5BlackGoldHero.url;
 
 
 const PHONE_COUNTRIES: { code: string; dial: string; flag: string; name: string }[] = [
@@ -7302,9 +7302,9 @@ function LeisureStep5Screen({
           >
             <img
               src={S5_PANEL_IMAGE}
-              alt="Minimal luxury lounge interior with brass accents"
+              alt="Matte black architectural wall with champagne gold light strip and gold branch arrangement"
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: "center center" }}
+              style={{ objectPosition: "58% 78%" }}
             />
             <div
               className="pointer-events-none absolute inset-0"
