@@ -6530,13 +6530,13 @@ function LeisureStep4Screen({
                 )}
                 <div className="min-w-0 flex-1">
                   <div
-                    className="truncate text-[13.5px] leading-[1.3] text-white"
+                    className="line-clamp-2 text-[13.5px] leading-[1.3] text-white"
                     style={{ fontFamily: SERIF }}
                   >
                     {label}
                   </div>
                   <div
-                    className="mt-[3px] truncate text-[10.5px] uppercase tracking-[0.14em]"
+                    className="mt-[3px] text-[10.5px] uppercase tracking-[0.14em]"
                     style={{ color: "rgba(232,199,117,0.66)" }}
                   >
                     {exp?.category ?? "Experience"} · ×1
@@ -6873,7 +6873,7 @@ function LeisureStep4Screen({
                   <div className="flex flex-1 items-center justify-between gap-5 px-[24px] pb-[20px] pt-[22px]">
                     <div className="min-w-0">
                       <div
-                        className="s4-card-title truncate"
+                        className="s4-card-title"
                         style={{
                           fontFamily: SERIF,
                           fontSize: 20.5,
@@ -6886,7 +6886,7 @@ function LeisureStep4Screen({
                         {e.label}
                       </div>
                       <div
-                        className="s4-card-cat mt-[9px] truncate text-[11px] uppercase leading-[1.4]"
+                        className="s4-card-cat mt-[9px] text-[11px] uppercase leading-[1.4]"
                         style={{
                           color: "rgba(45,48,52,0.52)",
                           letterSpacing: "0.14em",
