@@ -4377,12 +4377,14 @@ function S2CategorySelect({
   onChange,
   disabled,
   label,
+  light = false,
 }: {
   value: string;
   options: string[];
   onChange: (v: string) => void;
   disabled?: boolean;
   label: string;
+  light?: boolean;
 }) {
   const idRef = useRef(++s2OpenDropdownId);
   const [open, setOpen] = useState(false);
