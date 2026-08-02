@@ -6814,7 +6814,7 @@ function LeisureStep4Screen({
           className="relative z-[2] order-1 min-w-0 px-7 py-9 sm:px-10 sm:py-10 lg:order-none lg:px-[54px]"
           style={{
             background:
-              "linear-gradient(90deg, rgba(247,243,234,0) 0%, rgba(245,241,231,0.35) 50px, rgba(243,239,227,0.86) 104px, rgba(243,239,227,0) 168px), radial-gradient(120% 80% at 50% 0%, #FBF8F1 0%, #F5F1E7 60%, #EFEADE 100%)",
+              "linear-gradient(90deg, rgba(247,243,234,0) 0%, rgba(245,241,231,0.12) 70px, rgba(243,239,227,0.5) 150px, rgba(243,239,227,0.86) 230px, rgba(243,239,227,0) 320px), radial-gradient(120% 80% at 50% 0%, #FBF8F1 0%, #F5F1E7 60%, #EFEADE 100%)",
             boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8)",
             color: S4_INK,
           }}
