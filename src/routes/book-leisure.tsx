@@ -3918,7 +3918,7 @@ function S2StayCard({
         : "items-start text-left";
 
     const field = (
-      <div className={`flex min-w-0 flex-col ${compact ? "gap-[10px]" : "gap-[6px]"} ${alignCls}`}>
+      <div className={`flex min-w-0 flex-col ${compact ? "gap-[7px]" : "gap-[6px]"} ${alignCls}`}>
         <span
           className={`whitespace-nowrap font-medium uppercase leading-none ${compact ? "text-[11px]" : "text-[9.5px]"}`}
           style={{ color: compact ? "#D9BF82" : "#B99A60", letterSpacing: compact ? "0.22em" : "0.18em" }}
@@ -4065,19 +4065,21 @@ function S2StayCard({
         }}
       >
         {/* Upper zone — dates + statistics */}
-        <div className="flex flex-col gap-7 px-7 py-8 sm:px-10 lg:flex-row lg:items-center lg:gap-8">
+        <div className="flex flex-col gap-5 px-7 py-[26px] sm:px-10 lg:flex-row lg:items-center lg:gap-7">
           {/* Circular calendar mark */}
           <span
             aria-hidden
-            className="grid h-[70px] w-[70px] shrink-0 place-items-center"
+            className="grid h-[58px] w-[58px] shrink-0 place-items-center"
             style={{
               borderRadius: 999,
               border: "1px solid rgba(217,191,130,0.55)",
               color: "#E4C88A",
+              boxShadow: "0 0 22px -6px rgba(228,200,138,0.45), inset 0 0 14px -8px rgba(228,200,138,0.5)",
             }}
           >
-            <CalendarDays size={28} strokeWidth={1.3} />
+            <CalendarDays size={24} strokeWidth={1.3} />
           </span>
+
 
           {/* Dates */}
           <div className="flex min-w-0 flex-1 items-center gap-6 sm:gap-9">
@@ -4137,8 +4139,9 @@ function S2StayCard({
 
         {/* Lower zone — actions */}
         <div
-          className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 px-7 py-[18px]"
+          className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 px-7 py-[14px]"
           style={{ borderTop: "1px solid rgba(217,191,130,0.16)" }}
+
         >
           {confirming ? (
             <>
@@ -4301,7 +4304,7 @@ function S2LuxeStat({
 }) {
   return (
     <div
-      className="flex min-w-[86px] flex-col items-center justify-center gap-2 px-5"
+      className="flex min-w-[86px] flex-col items-center justify-center gap-1.5 px-5"
       style={{ borderLeft: first ? undefined : "1px solid rgba(217,191,130,0.18)" }}
     >
       <span aria-hidden className="leading-none" style={{ color: "#D9BF82" }}>
