@@ -4962,9 +4962,7 @@ function AccommodationSummary({
     count: stays.reduce((sum, s) => sum + (s.rooms[k] ?? 0), 0),
   }));
 
-  const goal = (n: number) => Math.max(5, Math.ceil((n || 1) / 5) * 5);
-  const roomsGoal = goal(totalRooms);
-  const guestsGoal = goal(totalGuests);
+  const isEmpty = totalRooms === 0 && totalGuests === 0 && totalStays === 0;
 
   const divider = (
     <div
@@ -4973,31 +4971,6 @@ function AccommodationSummary({
     />
   );
 
-  const bar = (label: string, value: number, max: number) => (
-    <div>
-      <div className="flex items-baseline justify-between gap-3">
-        <span className="text-[13px] font-light" style={{ color: "rgba(246,242,234,0.88)" }}>
-          {label}
-        </span>
-        <span className="text-[13px] tabular-nums font-light" style={{ color: "rgba(246,242,234,0.88)" }}>
-          {value} / {max}
-        </span>
-      </div>
-      <div
-        className="mt-2 h-[3px] w-full overflow-hidden"
-        style={{ borderRadius: 2, backgroundColor: "rgba(255,255,255,0.10)" }}
-      >
-        <div
-          className="h-full transition-all duration-500"
-          style={{
-            width: `${Math.min(100, max ? (value / max) * 100 : 0)}%`,
-            borderRadius: 2,
-            background: "linear-gradient(90deg, #D9BF82, #E7D3A4)",
-          }}
-        />
-      </div>
-    </div>
-  );
 
   return (
     <aside
