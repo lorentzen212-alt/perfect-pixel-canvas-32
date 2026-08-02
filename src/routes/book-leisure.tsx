@@ -4193,7 +4193,7 @@ function S2StayCard({
               size={24}
               strokeWidth={1}
               className="shrink-0"
-              style={{ color: "#C7AB77" }}
+              style={{ color: "#D4B683" }}
             />
 
             <div className="min-w-0 flex-1">
@@ -4409,7 +4409,7 @@ function S2LuxeStat({
       className="flex flex-col items-center justify-center gap-[5px] px-[16px]"
       style={{ borderLeft: first ? undefined : "1px solid rgba(199,171,119,0.15)" }}
     >
-      <span aria-hidden className="leading-none" style={{ color: "#C7AB77" }}>
+      <span aria-hidden className="leading-none" style={{ color: "#D4B683" }}>
         {icon}
       </span>
       <span
