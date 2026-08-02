@@ -3975,7 +3975,94 @@ function S2StayCard({
     </div>
   );
 
-  if (compact) return <div className={animClass}>{dateTimeline}</div>;
+  if (compact)
+    return (
+      <div
+        className={animClass}
+        style={{
+          borderRadius: 8,
+          backgroundImage: "linear-gradient(180deg, #0F1E2B 0%, #0C1926 100%)",
+          border: "1px solid rgba(217,191,130,0.34)",
+          boxShadow: "0 18px 40px -30px rgba(6,13,20,0.9)",
+          overflow: "hidden",
+        }}
+      >
+        {dateTimeline}
+        <div
+          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[22px] py-[10px]"
+          style={{
+            borderTop: "1px solid rgba(217,191,130,0.22)",
+            backgroundColor: "rgba(255,255,255,0.02)",
+          }}
+        >
+          {confirming ? (
+            <>
+              <span className="text-[13px] font-light" style={{ color: "rgba(248,245,238,0.9)" }}>
+                Remove this stay?
+              </span>
+              <div className="flex items-center gap-4">
+                <button
+                  type="button"
+                  onClick={onConfirmRemove}
+                  className="bg-transparent p-0 text-[13px] font-medium"
+                  style={{ color: "#E3A08C", border: "none" }}
+                >
+                  Yes, remove
+                </button>
+                <button
+                  type="button"
+                  onClick={onCancelRemove}
+                  className="bg-transparent p-0 text-[13px] font-light"
+                  style={{ color: "rgba(245,241,230,0.6)", border: "none" }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div
+                className="flex items-center gap-3 text-[12.5px] font-light"
+                style={{ color: "rgba(246,242,234,0.82)" }}
+              >
+                <span>
+                  {nights} {nights === 1 ? "Night" : "Nights"}
+                </span>
+                <span style={{ color: "rgba(217,191,130,0.4)" }}>|</span>
+                <span>
+                  {rooms} {rooms === 1 ? "Room" : "Rooms"}
+                </span>
+                <span style={{ color: "rgba(217,191,130,0.4)" }}>|</span>
+                <span>
+                  {guests} {guests === 1 ? "Guest" : "Guests"}
+                </span>
+              </div>
+              <div className="flex items-center gap-5">
+                {onEdit && (
+                  <button
+                    type="button"
+                    onClick={onEdit}
+                    className="bg-transparent p-0 text-[12.5px] font-light"
+                    style={{ color: "rgba(246,242,234,0.75)", border: "none" }}
+                  >
+                    Edit
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={onRemove}
+                  className="bg-transparent p-0 text-[12.5px] font-light"
+                  style={{ color: S2_GOLD_SOFT, border: "none" }}
+                >
+                  Remove
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    );
+
 
   return (
     <div
