@@ -6947,7 +6947,7 @@ function LeisureStep5Screen({
               src={S5_PANEL_IMAGE}
               alt="Hotel concierge welcoming guests at the reception desk"
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: "88% 28%" }}
+              style={{ objectPosition: "30% 22%" }}
             />
             <div className="relative z-10">
               <div
