@@ -4962,9 +4962,7 @@ function AccommodationSummary({
     count: stays.reduce((sum, s) => sum + (s.rooms[k] ?? 0), 0),
   }));
 
-  const goal = (n: number) => Math.max(5, Math.ceil((n || 1) / 5) * 5);
-  const roomsGoal = goal(totalRooms);
-  const guestsGoal = goal(totalGuests);
+  const isEmpty = totalRooms === 0 && totalGuests === 0 && totalStays === 0;
 
   const divider = (
     <div
@@ -4973,31 +4971,6 @@ function AccommodationSummary({
     />
   );
 
-  const bar = (label: string, value: number, max: number) => (
-    <div>
-      <div className="flex items-baseline justify-between gap-3">
-        <span className="text-[13px] font-light" style={{ color: "rgba(246,242,234,0.88)" }}>
-          {label}
-        </span>
-        <span className="text-[13px] tabular-nums font-light" style={{ color: "rgba(246,242,234,0.88)" }}>
-          {value} / {max}
-        </span>
-      </div>
-      <div
-        className="mt-2 h-[3px] w-full overflow-hidden"
-        style={{ borderRadius: 2, backgroundColor: "rgba(255,255,255,0.10)" }}
-      >
-        <div
-          className="h-full transition-all duration-500"
-          style={{
-            width: `${Math.min(100, max ? (value / max) * 100 : 0)}%`,
-            borderRadius: 2,
-            background: "linear-gradient(90deg, #D9BF82, #E7D3A4)",
-          }}
-        />
-      </div>
-    </div>
-  );
 
   return (
     <aside
@@ -5059,17 +5032,21 @@ function AccommodationSummary({
       >
         Room Distribution
       </div>
-      <ul className="mt-4 space-y-3.5">
-        {distribution.map((r) => (
-          <li key={r.key} className="flex items-baseline justify-between gap-3">
+      <ul className="mt-4">
+        {distribution.map((r, i) => (
+          <li
+            key={r.key}
+            className="flex items-baseline justify-between gap-3 py-3"
+            style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.07)" } : undefined}
+          >
             <span
-              className="truncate text-[13px] font-light"
-              style={{ color: r.count > 0 ? "rgba(246,242,234,0.88)" : "rgba(246,242,234,0.55)" }}
+              className="truncate text-[13.5px] font-light"
+              style={{ color: r.count > 0 ? "rgba(246,242,234,0.92)" : "rgba(246,242,234,0.55)" }}
             >
-              {r.label.endsWith("s") ? r.label : `${r.label}s`}
+              {r.label}
             </span>
             <span
-              className="text-[13px] tabular-nums font-light"
+              className="text-[13.5px] tabular-nums font-light"
               style={{ color: r.count > 0 ? S2_GOLD_SOFT : "rgba(246,242,234,0.45)" }}
             >
               {r.count}
@@ -5078,30 +5055,18 @@ function AccommodationSummary({
         ))}
       </ul>
 
-      {divider}
 
-      <div
-        className="text-[10.5px] font-medium uppercase tracking-[0.24em]"
-        style={{ color: "rgba(246,242,234,0.5)" }}
-      >
-        Progress
-      </div>
-      <div className="mt-4 space-y-4">
-        {bar("Rooms", totalRooms, roomsGoal)}
-        {bar("Guests", totalGuests, guestsGoal)}
-      </div>
-
-      {stays.length === 0 && (
-        <>
-          {divider}
-          <p
-            className="text-[12.5px] font-light leading-relaxed"
-            style={{ color: "rgba(246,242,234,0.50)" }}
-          >
-            No stays added yet. Choose your dates and rooms, then press Add this stay.
-          </p>
-        </>
+      {isEmpty && (
+        <p
+          className="mt-6 text-[12.5px] font-light leading-relaxed"
+          style={{ color: "rgba(246,242,234,0.50)" }}
+        >
+          No stays added yet.
+          <br />
+          Choose your dates and rooms to begin.
+        </p>
       )}
+
 
       <button
         type="button"
