@@ -8354,55 +8354,54 @@ function S6ReviewRow({
 }) {
   return (
     <div
-      className="my-[6px] flex items-start gap-5 rounded-[12px] px-[10px] py-[34px]"
+      className="flex items-start gap-6 px-[6px] py-[40px]"
       style={{
-        background: "rgba(255,255,255,0.18)",
-        border: "1px solid rgba(255,255,255,0.35)",
-        borderBottom: "1px solid rgba(22,32,43,0.045)",
+        borderBottom: "1px solid rgba(120,108,92,0.10)",
       }}
     >
       <span
-        className="relative grid h-[56px] w-[56px] shrink-0 place-items-center rounded-full"
+        className="relative grid h-[50px] w-[50px] shrink-0 place-items-center rounded-full"
         style={{
-          border: "2px solid transparent",
+          border: "1px solid transparent",
           color: "#B08D3F",
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.22), rgba(255,255,255,0)), linear-gradient(145deg, rgba(231,211,167,0.85) 0%, rgba(199,163,74,0.55) 45%, rgba(160,124,52,0.45) 100%)",
+            "linear-gradient(rgba(255,255,255,0.14), rgba(255,255,255,0)), linear-gradient(145deg, rgba(226,203,152,0.9) 0%, rgba(192,155,72,0.6) 50%, rgba(160,124,52,0.45) 100%)",
           backgroundOrigin: "border-box",
           backgroundClip: "padding-box, border-box",
-          boxShadow: "inset 0 1px 1px rgba(255,255,255,0.55)",
         }}
       >
         {icon}
       </span>
       <div className="min-w-0 flex-1">
         <div
-          className="text-[10.5px] font-medium uppercase tracking-[0.22em]"
+          className="text-[10.5px] font-light uppercase tracking-[0.26em]"
           style={{ color: "#B08D3F" }}
         >
           {label}
         </div>
         <div
-          className="mt-2 text-[16px] leading-[1.5]"
-          style={{ color: "#16202B" }}
+          className="mt-2.5 text-[17px] font-medium leading-[1.45]"
+          style={{ color: "#22282E" }}
         >
           {primary}
         </div>
         {secondary.map((line) => (
           <div
             key={line}
-            className="mt-1 text-[13.5px] leading-[1.6]"
-            style={{ color: "rgba(22,32,43,0.60)" }}
+            className="mt-1 text-[13.5px] font-light leading-[1.6]"
+            style={{ color: "rgba(34,40,46,0.55)" }}
           >
             {line}
           </div>
         ))}
       </div>
+
       <button
         type="button"
         onClick={onEdit}
-        className="s6-edit-link mt-1 inline-flex shrink-0 items-center gap-1.5 text-[13.5px] font-normal"
+        className="s6-edit-link mt-1 inline-flex shrink-0 items-center gap-1.5 text-[13.5px] font-medium"
       >
+
         Edit
         <ChevronRight className="s6-edit-arrow" size={15} strokeWidth={1.6} />
       </button>
