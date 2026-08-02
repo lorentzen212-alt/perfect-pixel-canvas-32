@@ -4339,19 +4339,27 @@ function S2LuxeStat({
 }) {
   return (
     <div
-      className="flex items-center justify-center gap-[7px] px-[13px]"
-      style={{ borderLeft: first ? undefined : "1px solid rgba(217,191,130,0.14)" }}
+      className="flex flex-col items-center justify-center gap-[5px] px-[16px]"
+      style={{ borderLeft: first ? undefined : "1px solid rgba(199,171,119,0.15)" }}
     >
-      <span aria-hidden className="leading-none" style={{ color: "#D9BF82" }}>
+      <span aria-hidden className="leading-none" style={{ color: "#C7AB77" }}>
         {icon}
       </span>
-      <span className="text-[15px] leading-none" style={{ color: "#FFFFFF", fontWeight: 300 }}>
+      <span
+        className="text-[19px] leading-none"
+        style={{
+          color: "#F4EFE6",
+          fontWeight: 400,
+          fontFamily: '"Playfair Display", "Cormorant Garamond", serif',
+        }}
+      >
         {value}
       </span>
-      <span className="text-[11px] leading-none" style={{ color: "rgba(216,226,236,0.6)" }}>
+      <span className="text-[10.5px] leading-none" style={{ color: "#C7AB77", letterSpacing: "0.08em" }}>
         {label}
       </span>
     </div>
+
 
   );
 }
