@@ -4134,19 +4134,22 @@ function S2StayCard({
   if (compact)
     return (
       <div
-        className={animClass}
+        className={`${animClass} s2-stay-luxe`}
         style={{
-          borderRadius: 14,
+          borderRadius: 21,
           backgroundImage:
-            "linear-gradient(180deg, #1C3653 0%, #152C45 100%)",
-          border: "1px solid rgba(178,150,96,0.32)",
+            "linear-gradient(180deg, #243A50 0%, #21354A 55%, #1F3246 100%)",
+          border: "1px solid rgba(196,168,114,0.30)",
           boxShadow:
             "inset 0 1px 0 rgba(255,255,255,0.09), inset 0 0 0 1px rgba(190,162,108,0.05), inset 0 0 70px -24px rgba(0,0,0,0.28), 0 24px 60px -42px rgba(6,16,27,0.72), 0 12px 32px -22px rgba(0,0,0,0.42)",
           overflow: "hidden",
         }}
       >
+        <span aria-hidden className="s2-stay-inlay" />
+        <span aria-hidden className="s2-stay-sheen" />
         {/* Upper zone — dates + statistics */}
-        <div className="flex flex-col gap-2 px-[20px] py-[9px] sm:px-6 lg:flex-row lg:items-center lg:gap-5">
+        <div className="flex flex-col gap-2 pl-[27px] pr-[20px] py-[9px] sm:pr-6 lg:flex-row lg:items-center lg:gap-5">
+
           {/* Circular calendar mark — opens the check-in picker */}
 
           <button
