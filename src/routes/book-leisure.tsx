@@ -6273,7 +6273,7 @@ function LeisureStep4Screen({
       chapter="CHAPTER IV"
       headline={
         <>
-          Curate<br />unforgettable<br />experiences.
+          Curate<br />experiences.
         </>
       }
       subtext={
