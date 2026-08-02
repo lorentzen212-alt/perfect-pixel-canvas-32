@@ -2603,7 +2603,9 @@ function LeisureStepShell({
   pageBg?: string;
   heroOverlay?: React.ReactNode;
   hideHero?: boolean;
+  wide?: boolean;
   ultraWide?: boolean;
+
 
 }) {
   const gridCols = hideHero
