@@ -4354,7 +4354,7 @@ function S2RoomCard({
       style={{
         borderRadius: 19,
         backgroundColor: "#FCFAF7",
-        padding: 7,
+        padding: 6,
         border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
           ? "0 10px 26px -24px rgba(8,23,34,0.26)"
@@ -4391,19 +4391,19 @@ function S2RoomCard({
       </div>
 
       {/* editorial champagne-gold divider — inset, not full width */}
-      <div className="mx-[18px] mt-[11px] mb-[11px] h-px" style={{ backgroundColor: "rgba(198,169,103,0.4)" }} />
+      <div className="mx-[18px] mt-[9px] mb-[9px] h-px" style={{ backgroundColor: "rgba(198,169,103,0.4)" }} />
 
       {/* 2 — name + guest count */}
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <div
-            className="truncate text-[18.8px] font-medium leading-[1.2] tracking-[0.15px]"
+            className="truncate text-[17.9px] font-medium leading-[1.15] tracking-[0.15px]"
             style={{ fontFamily: SERIF, color: "#26313A" }}
           >
             {meta.title}
           </div>
           <div
-            className="mt-[4px] flex items-center gap-1.5 text-[13.3px] font-normal tracking-[0.03em] leading-snug"
+            className="mt-[3px] flex items-center gap-1.5 text-[13.3px] font-normal tracking-[0.03em] leading-[1.2]"
             style={{ color: "#8A9099" }}
           >
             <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
@@ -4423,7 +4423,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-[5px] flex w-full items-center gap-1.5">
+      <div className="mt-[9px] flex w-full items-center gap-2">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
