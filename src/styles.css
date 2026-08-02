@@ -619,3 +619,112 @@
 .s2-stay-module > .mt-7 > * {
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16) !important;
 }
+
+/* ── Step 2 · Completed Stay card — brushed brass luxury treatment ───────── */
+.s2-stay-luxe {
+  position: relative;
+  isolation: isolate;
+  transition:
+    transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 420ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 420ms ease;
+}
+
+/* Brushed metal inlay running the full height of the left edge */
+.s2-stay-luxe .s2-stay-inlay {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 7px;
+  z-index: 2;
+  overflow: hidden;
+  background-image: linear-gradient(
+    90deg,
+    #5c451d 0%,
+    #8d6d33 14%,
+    #d9be86 34%,
+    #f2e0b6 46%,
+    #cdae74 60%,
+    #9a7838 82%,
+    #6b5024 100%
+  );
+  box-shadow:
+    1px 0 10px -2px rgba(214, 184, 124, 0.32),
+    inset -1px 0 0 rgba(0, 0, 0, 0.28),
+    inset 1px 0 0 rgba(255, 240, 208, 0.22);
+}
+
+/* fine brushed grain */
+.s2-stay-luxe .s2-stay-inlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.07) 0px,
+    rgba(255, 255, 255, 0.07) 1px,
+    rgba(0, 0, 0, 0.06) 1px,
+    rgba(0, 0, 0, 0.06) 3px
+  );
+  opacity: 0.5;
+}
+
+/* travelling reflection, plays once on hover */
+.s2-stay-luxe .s2-stay-inlay::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -40%;
+  height: 34%;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 248, 226, 0) 0%,
+    rgba(255, 248, 226, 0.75) 50%,
+    rgba(255, 248, 226, 0) 100%
+  );
+  opacity: 0;
+}
+
+.s2-stay-luxe:hover .s2-stay-inlay::after {
+  animation: s2-stay-shimmer 1000ms cubic-bezier(0.4, 0, 0.2, 1) 1 both;
+}
+
+@keyframes s2-stay-shimmer {
+  0% { top: -40%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 106%; opacity: 0; }
+}
+
+/* upper-left light wash + faint bottom-edge metal highlight */
+.s2-stay-luxe .s2-stay-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(120% 90% at 4% -10%, rgba(255, 250, 238, 0.075) 0%, rgba(255, 250, 238, 0) 58%),
+    linear-gradient(0deg, rgba(226, 196, 140, 0.11) 0%, rgba(226, 196, 140, 0) 6%);
+}
+
+.s2-stay-luxe > *:not(.s2-stay-inlay):not(.s2-stay-sheen) { position: relative; z-index: 3; }
+
+.s2-stay-luxe:hover {
+  transform: translateY(-3px);
+  border-color: rgba(206, 176, 120, 0.46) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.11),
+    inset 0 0 70px -24px rgba(0, 0, 0, 0.3),
+    0 32px 74px -44px rgba(6, 16, 27, 0.82),
+    0 16px 40px -24px rgba(0, 0, 0, 0.5) !important;
+}
+
+.s2-stay-luxe:hover .s2-stay-inlay {
+  filter: brightness(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s2-stay-luxe,
+  .s2-stay-luxe:hover .s2-stay-inlay::after { transition: none; animation: none; }
+  .s2-stay-luxe:hover { transform: none; }
+}
