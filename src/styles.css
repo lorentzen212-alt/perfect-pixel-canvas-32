@@ -296,6 +296,14 @@
 .s4-card .s4-card-overlay { transition: opacity 500ms ease; }
 .s4-card:hover .s4-card-overlay { opacity: 1.08; }
 
+/* Thin, low-contrast champagne scrollbar for the Step 4 experience grid */
+.s4-scroll { scrollbar-width: thin; scrollbar-color: rgba(176,152,110,0.32) transparent; }
+.s4-scroll::-webkit-scrollbar { width: 4px; }
+.s4-scroll::-webkit-scrollbar-track { background: transparent; }
+.s4-scroll::-webkit-scrollbar-thumb { background: rgba(176,152,110,0.32); border-radius: 999px; }
+.s4-scroll::-webkit-scrollbar-thumb:hover { background: rgba(176,152,110,0.5); }
+
+
 /* Hero premium overlays for Step 4 */
 .s4-hero-img { filter: saturate(1.08) contrast(1.05) brightness(1.02); }
 .s4-hero-vignette {
