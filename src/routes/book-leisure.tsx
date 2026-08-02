@@ -4131,18 +4131,30 @@ function S2StayCard({
         {/* Upper zone — dates + statistics */}
         <div className="flex flex-col gap-4 px-[20px] py-[16px] sm:px-6 lg:flex-row lg:items-center lg:gap-7">
           {/* Circular calendar mark */}
-          <span
-            aria-hidden
-            className="grid h-[46px] w-[46px] shrink-0 place-items-center"
+          {/* Circular calendar mark — opens the check-in picker */}
+          <button
+            type="button"
+            aria-label="Open check-in date picker"
+            disabled={!(editable && !!onArrival)}
+            onClick={() => setArrivalOpen(true)}
+            className="grid h-[46px] w-[46px] shrink-0 place-items-center transition-colors duration-200 disabled:cursor-default"
             style={{
               borderRadius: 999,
               border: "1px solid rgba(199,171,119,0.55)",
               color: "#C7AB77",
+              backgroundColor: "transparent",
+              cursor: editable && onArrival ? "pointer" : "default",
               boxShadow: "0 0 18px -7px rgba(199,171,119,0.45), inset 0 0 14px -9px rgba(199,171,119,0.5)",
+            }}
+            onMouseEnter={(e) => {
+              if (editable && onArrival) e.currentTarget.style.backgroundColor = "rgba(199,171,119,0.10)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
             }}
           >
             <CalendarDays size={21} strokeWidth={1.2} />
-          </span>
+          </button>
 
 
           {/* Dates */}
@@ -4154,6 +4166,9 @@ function S2StayCard({
                 onChange={onArrival}
                 align="left"
                 placeholder="Select date"
+                open={arrivalOpen}
+                setOpen={setArrivalOpen}
+                onPicked={() => setDepartureOpen(true)}
               />
             </div>
             <ArrowRight
@@ -4168,6 +4183,8 @@ function S2StayCard({
                 label="Departure"
                 value={departure}
                 onChange={onDeparture}
+                open={departureOpen}
+                setOpen={setDepartureOpen}
                 minDate={(() => {
                   const a = toDate(arrival);
                   if (!a) return undefined;
@@ -4175,6 +4192,7 @@ function S2StayCard({
                   n.setDate(n.getDate() + 1);
                   return n;
                 })()}
+
                 align="left"
                 placeholder="Select date"
               />
