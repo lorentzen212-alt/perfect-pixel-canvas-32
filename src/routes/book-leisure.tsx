@@ -2541,12 +2541,12 @@ const STEP2_ROOMS: {
   desc: string;
   img: string;
 }[] = [
-  { key: "single", title: "Single Room", desc: "1 person", img: roomSingleImg.url },
-  { key: "triple", title: "Triple Room", desc: "3 people", img: roomTripleImg.url },
-  { key: "twin", title: "Twin Room", desc: "2 separate beds", img: roomTwinImg.url },
-  { key: "family", title: "Family Room", desc: "4+ people", img: roomFamilyImg.url },
-  { key: "double", title: "Double Room", desc: "1 double bed", img: roomDoubleImg.url },
-  { key: "accessible", title: "Accessible Room", desc: "Wheelchair friendly", img: roomAccessibleImg.url },
+  { key: "single", title: "Single Room", desc: "1 person", img: roomSingleImg },
+  { key: "triple", title: "Triple Room", desc: "3 people", img: roomTripleImg },
+  { key: "twin", title: "Twin Room", desc: "2 separate beds", img: roomTwinImg },
+  { key: "family", title: "Family Room", desc: "4+ people", img: roomFamilyImg },
+  { key: "double", title: "Double Room", desc: "1 double bed", img: roomDoubleImg },
+  { key: "accessible", title: "Accessible Room", desc: "Wheelchair friendly", img: roomAccessibleImg },
 ];
 
 /* Room categories */
