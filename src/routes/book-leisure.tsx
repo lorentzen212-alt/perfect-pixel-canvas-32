@@ -3353,7 +3353,7 @@ function LeisureStep2Screen({
               </div>
 
               {/* Stay card (dates + meta + edit/remove) */}
-              <div className="mt-[14px]">
+              <div className="mt-[6px]">
 
                 <S2StayCard
                   compact
