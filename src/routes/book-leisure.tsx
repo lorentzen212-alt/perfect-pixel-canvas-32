@@ -3316,89 +3316,102 @@ function LeisureStep2Screen({
             className="min-w-0 px-6 py-8 lg:px-6 lg:py-9"
             style={{ backgroundColor: S2_IVORY }}
           >
-            {/* Stay heading */}
-            <div className="flex flex-wrap items-center justify-between gap-6">
-              <h2
-                className="text-[34px] font-normal leading-none"
-                style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
-              >
-                {editingId ? `Editing Stay ${stayNumber}` : "Your Stay"}
-              </h2>
-              <button
-                type="button"
-                onClick={commitAndStartNext}
-                className="bg-transparent p-0 text-[15px] font-light transition-opacity hover:opacity-75"
-                style={{ color: S2_GOLD_DEEP, border: "none" }}
-              >
-                + Add another stay
-              </button>
-            </div>
-
-            {/* Stay card (dates + meta + edit/remove) */}
-            <div className="mt-6">
-
-              <S2StayCard
-                compact
-                title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
-                arrival={draftArrival}
-                departure={draftDeparture}
-                nights={draftNights}
-                rooms={draftRoomsCount}
-                guests={draftGuestsCount}
-                editable
-                onArrival={(v: string) => {
-                  setDraftArrival(v);
-                  if (v && (!draftDeparture || new Date(draftDeparture) <= new Date(v))) {
-                    const next = new Date(`${v}T00:00:00`);
-                    next.setDate(next.getDate() + 1);
-                    setDraftDeparture(next.toISOString().slice(0, 10));
-                  }
-                }}
-                onDeparture={setDraftDeparture}
-                onAddAnother={commitAndStartNext}
-                onRemove={handleEditorRemove}
-                confirming={
-                  pendingRemoveId === DRAFT_REMOVE_ID ||
-                  (!!editingId && pendingRemoveId === editingId)
-                }
-                onConfirmRemove={confirmPendingRemove}
-                onCancelRemove={cancelPendingRemove}
-              />
-            </div>
-
-            {/* Saved stays */}
-            {stays.some((s) => s.id !== editingId) && (
-              <div className="mt-5">
-                <div
-                  className="text-[11px] font-medium uppercase tracking-[0.22em]"
-                  style={{ color: S2_NAVY_MUTED }}
+            {/* ===== Your Stay premium module ===== */}
+            <div
+              className="s2-stay-module"
+              style={{
+                background: "linear-gradient(160deg, #0F2237 0%, #102943 100%)",
+                borderRadius: 28,
+                border: "1px solid rgba(255,255,255,0.06)",
+                boxShadow: "0 24px 60px rgba(0,0,0,0.22)",
+                padding: "36px 40px 32px",
+              }}
+            >
+              {/* Stay heading */}
+              <div className="flex flex-wrap items-center justify-between gap-6">
+                <h2
+                  className="text-[34px] font-normal leading-none"
+                  style={{ fontFamily: SERIF, color: "#FFFDF8" }}
                 >
-                  Your stays
-                </div>
-                <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {stays.map((s, idx) => {
-                    if (s.id === editingId) return null;
-                    return (
-                      <S2CompletedStayCard
-                        key={s.id}
-                        index={idx + 1}
-                        arrival={s.arrival}
-                        departure={s.departure}
-                        nights={stayNights(s.arrival, s.departure)}
-                        rooms={stayRoomsTotal(s.rooms)}
-                        guests={stayGuestsTotal(s.rooms)}
-                        animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
-                        onEdit={() => editStay(s.id)}
-                        onRemove={() => requestRemoveStay(s.id)}
-                        confirming={pendingRemoveId === s.id}
-                        onConfirmRemove={confirmPendingRemove}
-                        onCancelRemove={cancelPendingRemove}
-                      />
-                    );
-                  })}
-                </div>
+                  {editingId ? `Editing Stay ${stayNumber}` : "Your Stay"}
+                </h2>
+                <button
+                  type="button"
+                  onClick={commitAndStartNext}
+                  className="bg-transparent p-0 text-[15px] font-light transition-opacity hover:opacity-75"
+                  style={{ color: "#D9BF82", border: "none" }}
+                >
+                  + Add another stay
+                </button>
               </div>
-            )}
+
+              {/* Stay card (dates + meta + edit/remove) */}
+              <div className="mt-7">
+
+                <S2StayCard
+                  compact
+                  title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
+                  arrival={draftArrival}
+                  departure={draftDeparture}
+                  nights={draftNights}
+                  rooms={draftRoomsCount}
+                  guests={draftGuestsCount}
+                  editable
+                  onArrival={(v: string) => {
+                    setDraftArrival(v);
+                    if (v && (!draftDeparture || new Date(draftDeparture) <= new Date(v))) {
+                      const next = new Date(`${v}T00:00:00`);
+                      next.setDate(next.getDate() + 1);
+                      setDraftDeparture(next.toISOString().slice(0, 10));
+                    }
+                  }}
+                  onDeparture={setDraftDeparture}
+                  onAddAnother={commitAndStartNext}
+                  onRemove={handleEditorRemove}
+                  confirming={
+                    pendingRemoveId === DRAFT_REMOVE_ID ||
+                    (!!editingId && pendingRemoveId === editingId)
+                  }
+                  onConfirmRemove={confirmPendingRemove}
+                  onCancelRemove={cancelPendingRemove}
+                />
+              </div>
+
+              {/* Saved stays */}
+              {stays.some((s) => s.id !== editingId) && (
+                <div className="mt-5">
+                  <div
+                    className="text-[11px] font-medium uppercase tracking-[0.22em]"
+                    style={{ color: "rgba(246,242,234,0.62)" }}
+                  >
+                    Your stays
+                  </div>
+                  <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {stays.map((s, idx) => {
+                      if (s.id === editingId) return null;
+                      return (
+                        <S2CompletedStayCard
+                          key={s.id}
+                          index={idx + 1}
+                          arrival={s.arrival}
+                          departure={s.departure}
+                          nights={stayNights(s.arrival, s.departure)}
+                          rooms={stayRoomsTotal(s.rooms)}
+                          guests={stayGuestsTotal(s.rooms)}
+                          animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
+                          onEdit={() => editStay(s.id)}
+                          onRemove={() => requestRemoveStay(s.id)}
+                          confirming={pendingRemoveId === s.id}
+                          onConfirmRemove={confirmPendingRemove}
+                          onCancelRemove={cancelPendingRemove}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+
 
             {/* Room distribution */}
             <h3
