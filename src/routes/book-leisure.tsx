@@ -3816,16 +3816,46 @@ function S2StayCard({
     const selected = toDate(value);
     const interactive = editable && !!onChange;
 
-    const dateValue = (
+    const dateValue = selected ? (
       <span
-        className={`whitespace-nowrap leading-none ${selected ? "text-[17.5px] font-semibold" : "text-[15px] font-medium"}`}
+        className="whitespace-nowrap leading-none text-[17.5px]"
         style={{
-          color: selected ? "#FFFCF5" : "rgba(226,216,198,0.5)",
+          marginLeft: align === "left" ? 3 : undefined,
+          marginRight: align === "right" ? 3 : undefined,
+          display: "inline-flex",
+          alignItems: "baseline",
+          gap: 5,
+        }}
+      >
+        <span
+          style={{
+            color: "#F2EEE7",
+            fontWeight: 600,
+            textShadow: "0 1px 1px rgba(0,0,0,.15)",
+          }}
+        >
+          {format(selected, "d")}
+        </span>
+        <span
+          style={{
+            color: "#D8D1C7",
+            fontWeight: 400,
+            letterSpacing: "0.01em",
+          }}
+        >
+          {format(selected, "MMM yyyy")}
+        </span>
+      </span>
+    ) : (
+      <span
+        className="whitespace-nowrap leading-none text-[15px] font-medium"
+        style={{
+          color: "rgba(226,216,198,0.5)",
           marginLeft: align === "left" ? 3 : undefined,
           marginRight: align === "right" ? 3 : undefined,
         }}
       >
-        {selected ? format(selected, "d MMM yyyy") : placeholder}
+        {placeholder}
       </span>
     );
 
@@ -3838,8 +3868,8 @@ function S2StayCard({
     const field = (
       <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
-          className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
-          style={{ color: "rgba(230,236,244,0.62)" }}
+          className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none"
+          style={{ color: "rgba(201,167,106,0.85)", letterSpacing: "0.18em" }}
         >
           {label}
         </span>
@@ -3858,8 +3888,8 @@ function S2StayCard({
         </div>
         {selected ? (
           <span
-            className="whitespace-nowrap text-[12px] font-light leading-none"
-            style={{ color: "rgba(226,232,240,0.34)" }}
+            className="whitespace-nowrap text-[12px] leading-none"
+            style={{ color: "#8F98A5", fontWeight: 400, letterSpacing: "0.01em" }}
           >
             {format(selected, "EEEE")}
           </span>
@@ -3989,7 +4019,7 @@ function S2StayCard({
         >
           {confirming ? (
             <>
-              <span className="text-[13px] font-light" style={{ color: "rgba(248,245,238,0.9)" }}>
+              <span className="text-[13px]" style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}>
                 Remove this stay?
               </span>
               <div className="flex items-center gap-4">
@@ -4014,8 +4044,8 @@ function S2StayCard({
           ) : (
             <>
               <div
-                className="flex items-center gap-3 text-[12.5px] font-light"
-                style={{ color: "rgba(246,242,234,0.82)" }}
+                className="flex items-center gap-3 text-[12.5px]"
+                style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}
               >
                 <span>
                   {nights} {nights === 1 ? "Night" : "Nights"}
@@ -4077,8 +4107,8 @@ function S2StayCard({
       {/* SECTION 1 — header */}
       <div className="flex items-baseline justify-between gap-4">
         <h3
-          className="text-[32px] font-medium leading-none"
-          style={{ fontFamily: SERIF, color: "#FDFBF6" }}
+          className="text-[32px] leading-none"
+          style={{ fontFamily: SERIF, color: "#F2EEE7", fontWeight: 600 }}
         >
           {title}
         </h3>
@@ -4111,8 +4141,8 @@ function S2StayCard({
         {confirming ? (
           <>
             <span
-              className="flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px] font-light"
-              style={{ color: "rgba(248,245,238,0.92)" }}
+              className="flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px]"
+              style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}
             >
               Remove this stay?
             </span>
@@ -4174,13 +4204,13 @@ function S2StayInfo({
       <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: "rgba(217,191,130,0.8)", opacity: 1 }}>
         {icon}
       </span>
-      <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(248,245,238,0.92)" }}>
+      <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}>
         {text}
       </span>
     </>
   );
   const cls =
-    "s2-stay-info group flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px] font-light";
+    "s2-stay-info group flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px]";
 
   return onClick ? (
     <button type="button" onClick={onClick} className={cls}>
