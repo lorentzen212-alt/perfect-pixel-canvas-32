@@ -3320,7 +3320,7 @@ function LeisureStep2Screen({
 
           {/* ---------- CENTER: working area ---------- */}
           <section
-            className="min-w-0 px-6 py-8 lg:px-6 lg:py-9"
+            className="min-w-0 px-6 py-8 lg:px-6 lg:pt-[26px] lg:pb-9"
             style={{ backgroundColor: S2_IVORY }}
           >
             {/* ===== Your Stay premium module ===== */}
