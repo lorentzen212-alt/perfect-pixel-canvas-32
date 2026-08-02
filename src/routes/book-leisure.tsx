@@ -4116,7 +4116,7 @@ function S2StayCard({
           type="button"
           onClick={onAddAnother}
           className="inline-flex items-baseline gap-2 bg-transparent p-0 text-[14px] font-extralight leading-none transition-opacity duration-200 hover:opacity-100"
-          style={{ color: S2_GOLD_SOFT, opacity: 0.92, border: "none" }}
+          style={{ color: "#B99A60", border: "none" }}
         >
           <Plus size={15} strokeWidth={1.3} className="translate-y-[2px]" />
           Add another stay
