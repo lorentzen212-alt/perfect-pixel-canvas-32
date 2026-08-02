@@ -4044,8 +4044,8 @@ function S2StayCard({
           ) : (
             <>
               <div
-                className="flex items-center gap-3 text-[12.5px] font-light"
-                style={{ color: "rgba(246,242,234,0.82)" }}
+                className="flex items-center gap-3 text-[12.5px]"
+                style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}
               >
                 <span>
                   {nights} {nights === 1 ? "Night" : "Nights"}
