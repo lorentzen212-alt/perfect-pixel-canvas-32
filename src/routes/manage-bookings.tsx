@@ -491,7 +491,7 @@ function StatusCard({
         boxShadow: active ? `0 0 0 1px ${tone}55` : "0 18px 36px -30px rgba(0,0,0,0.9)",
       }}
     >
-      <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+      <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.6) brightness(0.42)" }} />
       <span
         className="absolute inset-0"
         aria-hidden
@@ -770,7 +770,7 @@ function ManageBookings() {
     () =>
       bookings
         .filter((b) => b.statusNote || b.status)
-        .slice(0, 3)
+        .slice(0, 2)
         .map((b) => ({
           id: b.id,
           title: b.statusNote ?? STATUS_META[b.status]?.label ?? "Booking update",
