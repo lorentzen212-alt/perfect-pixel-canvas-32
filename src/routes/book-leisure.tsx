@@ -6851,7 +6851,7 @@ function LeisureStep4Screen({
                       </div>
                     </div>
                     <span
-                      className="s4-plus absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full"
+                      className={`s4-plus ${active ? "s4-plus-active" : ""} absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full`}
                       style={{
                         background: active
                           ? `linear-gradient(135deg, ${S4_GOLD_LT} 0%, ${S4_GOLD} 70%)`
