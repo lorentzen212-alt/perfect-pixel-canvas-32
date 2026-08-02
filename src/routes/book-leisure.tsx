@@ -8121,23 +8121,23 @@ function LeisureStep6Screen({
                 }}
               />
               <div
-                className="s6-champagne-text text-[30px] leading-none"
+                className="s6-champagne-text text-[38px] leading-none"
                 style={{ fontFamily: SERIF }}
               >
                 H
               </div>
               <div
-                className="mt-5 text-[11.5px] font-medium uppercase tracking-[0.26em]"
+                className="mt-5 text-[11.5px] font-medium uppercase tracking-[0.30em]"
                 style={{ color: "#EFE8DA" }}
               >
                 Executive Summary
               </div>
-              <div className="mt-4 flex w-full items-center gap-3">
+              <div className="mt-4 flex w-[86%] items-center gap-3">
                 <span
                   className="h-px flex-1"
                   style={{
                     background:
-                      "linear-gradient(90deg,rgba(201,174,121,0) 0%,rgba(201,174,121,0.45) 45%,rgba(251,241,218,0.85) 100%)",
+                      "linear-gradient(90deg,rgba(197,162,75,0) 0%,rgba(197,162,75,0.45) 60%,rgba(231,211,167,0.75) 100%)",
                   }}
                 />
                 <span
@@ -8152,34 +8152,39 @@ function LeisureStep6Screen({
                   className="h-px flex-1"
                   style={{
                     background:
-                      "linear-gradient(90deg,rgba(251,241,218,0.85) 0%,rgba(201,174,121,0.45) 55%,rgba(201,174,121,0) 100%)",
+                      "linear-gradient(90deg,rgba(231,211,167,0.75) 0%,rgba(197,162,75,0.45) 40%,rgba(197,162,75,0) 100%)",
                   }}
                 />
               </div>
             </div>
 
-            <div className="mt-8">
+            <div className="relative mt-8">
               {summaryStats.map((s) => (
                 <div
                   key={s.label}
                   className="flex items-center gap-5 py-6"
-                  style={{
-                    borderBottom: "1px solid transparent",
-                    borderImage:
-                      "linear-gradient(90deg,rgba(201,174,121,0.18) 0%,rgba(240,225,190,0.55) 50%,rgba(201,174,121,0.18) 100%) 1",
-                  }}
+                  style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
                 >
-                  <span className="s6-metal-icon flex shrink-0 items-center">{s.icon}</span>
-                  <div className="flex min-w-0 items-baseline gap-[9px]">
+                  <span
+                    className="flex w-[30px] shrink-0 items-center justify-center"
+                    style={{ color: "#C5A24B" }}
+                  >
+                    {s.icon}
+                  </span>
+                  <div className="flex min-w-0 items-baseline gap-[12px]">
                     <span
-                      className="text-[34px] font-semibold leading-none"
-                      style={{ fontFamily: SERIF, color: "#F9F4E8" }}
+                      className="text-[34px] leading-none"
+                      style={{
+                        fontFamily: SERIF,
+                        color: "#FFFFFF",
+                        textShadow: "0 1px 12px rgba(0,0,0,0.35)",
+                      }}
                     >
                       {s.value}
                     </span>
                     <span
-                      className="text-[13px] leading-none"
-                      style={{ color: "rgba(236,229,214,0.72)" }}
+                      className="text-[14px] font-light leading-none"
+                      style={{ color: "rgba(255,255,255,0.72)" }}
                     >
                       {s.label}
                     </span>
@@ -8188,22 +8193,25 @@ function LeisureStep6Screen({
               ))}
 
               <div className="flex items-center gap-5 py-6">
-                <span className="s6-metal-icon flex shrink-0 items-center">
+                <span
+                  className="flex w-[30px] shrink-0 items-center justify-center"
+                  style={{ color: "#C5A24B" }}
+                >
                   <MapPin size={26} strokeWidth={1.2} />
                 </span>
-                <div className="flex min-w-0 items-baseline gap-[9px]">
-                  <span
-                    className="truncate text-[21px] font-semibold leading-none"
-                    style={{ fontFamily: SERIF, color: "#F9F4E8" }}
+                <div className="min-w-0">
+                  <div
+                    className="truncate text-[22px] leading-none"
+                    style={{ fontFamily: SERIF, color: "#FFFFFF" }}
                   >
                     {destinationLabel}
-                  </span>
-                  <span
-                    className="shrink-0 text-[13px] leading-none"
-                    style={{ color: "rgba(236,229,214,0.72)" }}
+                  </div>
+                  <div
+                    className="mt-[7px] text-[14px] font-light leading-none"
+                    style={{ color: "rgba(255,255,255,0.72)" }}
                   >
                     Destination
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
