@@ -4277,24 +4277,28 @@ function S2RoomCard({
       className="group s2-room-card flex flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1"
       data-active={active ? "true" : "false"}
       style={{
-        borderRadius: 18,
-        backgroundColor: "#FFFFFF",
-        border: `1px solid ${active ? "rgba(179,146,84,0.55)" : "rgba(179,146,84,0.22)"}`,
+        borderRadius: 16,
+        backgroundColor: "#FCFAF7",
+        padding: 16,
+        border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
-          ? "0 18px 40px -26px rgba(8,23,34,0.38)"
-          : "0 10px 30px -22px rgba(8,23,34,0.30)",
+          ? "0 14px 32px -24px rgba(8,23,34,0.30)"
+          : "0 8px 24px -20px rgba(8,23,34,0.22)",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = "0 26px 52px -26px rgba(8,23,34,0.42)";
+        e.currentTarget.style.boxShadow = "0 18px 38px -24px rgba(8,23,34,0.30)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = active
-          ? "0 18px 40px -26px rgba(8,23,34,0.38)"
-          : "0 10px 30px -22px rgba(8,23,34,0.30)";
+          ? "0 14px 32px -24px rgba(8,23,34,0.30)"
+          : "0 8px 24px -20px rgba(8,23,34,0.22)";
       }}
     >
-      {/* image — ~62% of card height */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 11.6" }}>
+      {/* image — ~58% of card height */}
+      <div
+        className="relative overflow-hidden"
+        style={{ aspectRatio: "16 / 10.6", borderRadius: 12 }}
+      >
         <img
           src={meta.img}
           alt={meta.title}
