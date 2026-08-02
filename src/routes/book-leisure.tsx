@@ -4293,20 +4293,21 @@ function S2RoomCard({
           : "0 10px 30px -22px rgba(8,23,34,0.30)";
       }}
     >
-      {/* image — ~62% of card height */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 11.6" }}>
+      {/* image — taller, gallery-like proportions */}
+      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 13.2" }}>
         <img
           src={meta.img}
           alt={meta.title}
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
           style={{ objectPosition: "center" }}
         />
+        {/* soft navy fade over the bottom third for legibility */}
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0"
           style={{
-            height: "34%",
+            height: "44%",
             background:
-              "linear-gradient(to top, rgba(8,23,34,0.55) 0%, rgba(8,23,34,0.26) 45%, rgba(8,23,34,0) 100%)",
+              "linear-gradient(to top, rgba(8,23,34,0.92) 0%, rgba(8,23,34,0.72) 30%, rgba(8,23,34,0.36) 62%, rgba(8,23,34,0) 100%)",
           }}
         />
         {roomKey === "double" && (
@@ -4325,23 +4326,21 @@ function S2RoomCard({
             Most popular
           </span>
         )}
-      </div>
 
-      {/* body */}
-      <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
-        <div className="flex items-start justify-between gap-2">
+        {/* title + capacity sitting inside the gradient */}
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 px-5 pb-4">
           <div className="min-w-0">
             <div
-              className="truncate text-[17px] font-normal leading-tight"
-              style={{ fontFamily: SERIF, color: "#081722" }}
+              className="truncate text-[18px] font-normal leading-tight"
+              style={{ fontFamily: SERIF, color: "#FFFFFF" }}
             >
               {meta.title}
             </div>
             <div
-              className="mt-2.5 flex items-center gap-2 text-[11.5px] font-light tracking-[0.02em]"
-              style={{ color: S2_NAVY_MUTED }}
+              className="mt-2 flex items-center gap-2 text-[11.5px] font-light tracking-[0.03em]"
+              style={{ color: "rgba(240,244,248,0.78)" }}
             >
-              <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
+              <span style={{ color: "#D8BE85" }}>{roomIcon(roomKey)}</span>
               {capacity}
             </div>
           </div>
@@ -4349,44 +4348,43 @@ function S2RoomCard({
             <span
               title={meta.desc}
               aria-label={meta.desc}
-              className="mt-[2px] grid h-[16px] w-[16px] shrink-0 place-items-center rounded-full text-[9.5px] font-medium opacity-45 transition-opacity duration-200 hover:opacity-100"
-              style={{ border: "1px solid #C6A967", color: "#B39254" }}
+              className="mb-[3px] grid h-[17px] w-[17px] shrink-0 place-items-center rounded-full text-[9.5px] font-medium opacity-70 transition-opacity duration-200 hover:opacity-100"
+              style={{ border: "1px solid rgba(216,190,133,0.8)", color: "#EBD9AE" }}
             >
               i
             </span>
           )}
         </div>
-
-        {/* controls */}
-        <div className="mt-5 flex items-center gap-2.5">
-          <S2Counter light value={value} onChange={onChange} label={meta.title} />
-          {categoryOptions ? (
-            <div className="min-w-0 flex-1">
-              <S2CategorySelect
-                light
-                value={category ?? categoryOptions[0]}
-                options={categoryOptions}
-                disabled={!active}
-                label={`${meta.title} category`}
-                onChange={(v) => onCategoryChange?.(v)}
-              />
-            </div>
-          ) : (
-            <div
-              className="flex h-[38px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-3 text-[11px] font-light"
-              style={{
-                borderRadius: 999,
-                border: "1px solid rgba(8,23,34,0.16)",
-                backgroundColor: "#FFFFFF",
-                color: S2_NAVY_MUTED,
-                opacity: active ? 1 : 0.65,
-              }}
-            >
-              Standard Rooms
-            </div>
-          )}
-        </div>
       </div>
+
+      {/* body — controls only, with room to breathe */}
+      <div className="flex flex-1 flex-col gap-3 px-5 pb-6 pt-5">
+        <S2Counter light value={value} onChange={onChange} label={meta.title} />
+        {categoryOptions ? (
+          <S2CategorySelect
+            light
+            value={category ?? categoryOptions[0]}
+            options={categoryOptions}
+            disabled={!active}
+            label={`${meta.title} category`}
+            onChange={(v) => onCategoryChange?.(v)}
+          />
+        ) : (
+          <div
+            className="flex h-[44px] w-full items-center justify-center whitespace-nowrap px-5 text-[12px] font-light"
+            style={{
+              borderRadius: 999,
+              border: "1px solid rgba(8,23,34,0.16)",
+              backgroundColor: "#FFFFFF",
+              color: S2_NAVY_MUTED,
+              opacity: active ? 1 : 0.65,
+            }}
+          >
+            Standard Room
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }
@@ -4594,7 +4592,7 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[38px] w-full cursor-pointer select-none items-center justify-between gap-1.5 px-3.5 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
+            ? "flex h-[44px] w-full cursor-pointer select-none items-center justify-between gap-2 px-5 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
@@ -4611,7 +4609,7 @@ function S2CategorySelect({
         }
       >
         <span
-          className="truncate"
+          className={light ? "whitespace-nowrap" : "truncate"}
           style={{
             color: light
               ? value
@@ -4682,7 +4680,7 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[30px] w-[30px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
+      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[34px] w-[34px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
       style={{ borderRadius: 999, color: light ? "#0B1A26" : "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? (
@@ -4695,10 +4693,10 @@ function S2Counter({
 
   return (
     <div
-      className={`flex items-center justify-between ${light ? "h-[38px] shrink-0 px-1" : "h-[35px] px-1.5"}`}
+      className={`flex items-center justify-between ${light ? "h-[44px] shrink-0 px-1.5" : "h-[35px] px-1.5"}`}
       style={{
         borderRadius: 999,
-        width: light ? 96 : undefined,
+        width: light ? 112 : undefined,
         backgroundColor: light ? "#FFFFFF" : "rgba(20,33,45,0.72)",
         border: light ? "1px solid rgba(8,23,34,0.16)" : "1px solid rgba(214,226,236,0.10)",
       }}
