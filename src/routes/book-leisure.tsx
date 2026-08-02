@@ -8008,7 +8008,7 @@ function LeisureStep6Screen({
           {/* CENTER — review grid */}
           <div
             className="px-7 py-12 lg:px-12 lg:py-14"
-            style={{ background: "#FCFBF9" }}
+            style={{ background: "#EEEAE3" }}
           >
             <div
               className="text-[11px] font-medium uppercase tracking-[0.26em]"
