@@ -6635,7 +6635,7 @@ function LeisureStep4Screen({
         {/* ---------- RIGHT SUMMARY: right column of the same container ---------- */}
         <div className="order-3 min-w-0 lg:order-none">
           <aside
-            className="h-full p-7 pl-[52px] pr-[46px] pt-[46px] pb-[46px]"
+            className="h-full px-[46px] pb-[52px] pt-[40px]"
             style={{
               background:
                 "linear-gradient(180deg, rgba(16,32,50,0.98) 0%, rgba(8,19,31,0.98) 100%)",
