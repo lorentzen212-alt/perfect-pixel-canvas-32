@@ -605,7 +605,7 @@ function BookMeetingsEvents() {
             <nav className="lg:hidden mx-5 sm:mx-8 flex flex-col gap-3 rounded-xl bg-[rgba(255,255,255,0.92)] p-4">
               {NAV_LINKS.map((l) =>
                 "to" in l ? (
-                  <Link key={l.label} to={l.to} className="text-[#0A1B2C] text-base">
+                  <Link key={l.label} to={l.to ?? "/"} className="text-[#0A1B2C] text-base">
                     {l.label}
                   </Link>
                 ) : (
