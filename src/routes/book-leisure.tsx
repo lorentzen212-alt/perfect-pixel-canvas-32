@@ -6643,6 +6643,15 @@ function LeisureStep4Screen({
               alt="Northern lights over a fjord terrace with fire pit"
               className="absolute inset-0 h-full w-full object-cover"
             />
+            {hoveredExp && hoveredExp.label !== "Northern Lights" && (
+              <img
+                key={hoveredExp.label}
+                src={hoveredExp.img}
+                alt=""
+                aria-hidden
+                className="s4-hero-swap absolute inset-0 h-full w-full object-cover"
+              />
+            )}
             {/* subtle navy readability veil (~22%) */}
             <div
               className="absolute inset-0"
