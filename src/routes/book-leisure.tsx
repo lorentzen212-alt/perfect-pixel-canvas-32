@@ -4077,13 +4077,14 @@ function S2StayCard({
       <div
         className={animClass}
         style={{
-          borderRadius: light ? 16 : 8,
+          borderRadius: light ? 20 : 8,
+          backgroundColor: light ? "#08131F" : undefined,
           backgroundImage: light
-            ? "linear-gradient(180deg, #FFFFFF 0%, #FDFCFA 100%)"
+            ? "radial-gradient(120% 140% at 12% 0%, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0) 58%), linear-gradient(180deg, #0C1B29 0%, #08131F 100%)"
             : "linear-gradient(180deg, #0F1E2B 0%, #0C1926 100%)",
-          border: light ? "1px solid rgba(18,34,47,0.10)" : "1px solid rgba(217,191,130,0.34)",
+          border: light ? "1px solid rgba(216,190,133,0.32)" : "1px solid rgba(217,191,130,0.34)",
           boxShadow: light
-            ? "0 10px 30px -24px rgba(8,23,34,0.35)"
+            ? "inset 0 1px 0 rgba(255,255,255,0.06), 0 26px 60px -38px rgba(4,10,16,0.9)"
             : "0 18px 40px -30px rgba(6,13,20,0.9)",
           overflow: "hidden",
         }}
@@ -4092,14 +4093,15 @@ function S2StayCard({
         <div
           className={
             light
-              ? "flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[26px] py-[12px]"
+              ? "flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[30px] py-[16px]"
               : "flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[22px] py-[10px]"
           }
           style={{
-            borderTop: light ? "1px solid rgba(18,34,47,0.08)" : "1px solid rgba(217,191,130,0.22)",
-            backgroundColor: light ? "transparent" : "rgba(255,255,255,0.02)",
+            borderTop: light ? "1px solid rgba(216,190,133,0.20)" : "1px solid rgba(217,191,130,0.22)",
+            backgroundColor: light ? "rgba(255,255,255,0.015)" : "rgba(255,255,255,0.02)",
           }}
         >
+
           {confirming ? (
             <>
               <span className="text-[13px] font-light" style={{ color: light ? "rgba(18,34,47,0.85)" : "rgba(248,245,238,0.9)" }}>
