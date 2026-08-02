@@ -3253,9 +3253,9 @@ function LeisureStep2Screen({
         hideCurrentFlow="leisure"
       />
 
-      <div className="mx-auto w-full" style={{ maxWidth: 1800, padding: "40px 20px 30px" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: 1920, padding: "40px 20px 30px" }}>
         <div
-          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[25%_minmax(0,55%)_minmax(0,20%)]"
+          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[22%_minmax(0,59%)_minmax(0,19%)]"
           style={{
             borderRadius: 14,
             border: `1px solid ${S2_HAIR_GOLD}`,
@@ -3312,7 +3312,7 @@ function LeisureStep2Screen({
 
           {/* ---------- CENTER: working area ---------- */}
           <section
-            className="min-w-0 px-6 py-8 lg:px-9 lg:py-9"
+            className="min-w-0 px-6 py-8 lg:px-6 lg:py-9"
             style={{ backgroundColor: S2_IVORY }}
           >
             {/* Stay heading */}
@@ -4479,7 +4479,7 @@ function S2RoomCard({
         style={{
           display: "block",
           width: "100%",
-          height: 220,
+          height: 190,
           objectFit: "cover",
           objectPosition: "center",
           margin: 0,
@@ -4490,7 +4490,7 @@ function S2RoomCard({
       />
 
       {/* 2 — name + guest count + learn more */}
-      <div className="flex flex-1 flex-col" style={{ padding: 22 }}>
+      <div className="flex flex-1 flex-col" style={{ padding: "22px 22px 16px" }}>
         <div className="flex items-start justify-between gap-2">
           <div
             className="truncate text-[18px] leading-[1.15]"
@@ -4509,7 +4509,7 @@ function S2RoomCard({
             </span>
           )}
         </div>
-        <div className="mt-[10px] flex items-center justify-between gap-2">
+        <div className="mt-[6px] flex items-center justify-between gap-2">
           <div
             className="flex items-center gap-[8px] text-[15px] font-medium leading-none"
             style={{ color: "#7D8188" }}
@@ -4536,7 +4536,7 @@ function S2RoomCard({
         {/* hairline divider */}
         <div
           className="h-px"
-          style={{ backgroundColor: "#ECE5DB", marginTop: 18, marginBottom: 18 }}
+          style={{ backgroundColor: "#ECE5DB", marginTop: 12, marginBottom: 10 }}
         />
 
         {/* 3 — control row */}
@@ -4554,7 +4554,7 @@ function S2RoomCard({
             </div>
           ) : (
             <div
-              className="flex h-[46px] min-w-0 flex-1 items-center justify-between gap-1 overflow-hidden text-[15px] font-medium"
+              className="flex h-[42px] min-w-0 flex-1 items-center justify-between gap-1 overflow-hidden text-[15px] font-medium"
               style={{
                 borderRadius: 12,
                 padding: "0 18px",
@@ -4771,7 +4771,7 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
             light
-              ? "flex h-[46px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap text-left text-[15px] font-medium outline-none transition-colors duration-200"
+              ? "flex h-[42px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap text-left text-[15px] font-medium outline-none transition-colors duration-200"
               : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none"
         }
         style={
@@ -4872,7 +4872,7 @@ function S2Counter({
 
   return (
     <div
-      className={`flex items-center justify-between ${light ? "h-[46px] shrink-0 px-2" : "h-[35px] px-1.5 transition-colors duration-200"}`}
+      className={`flex items-center justify-between ${light ? "h-[42px] shrink-0 px-2" : "h-[35px] px-1.5 transition-colors duration-200"}`}
       style={{
         borderRadius: light ? 12 : 999,
         width: light ? 104 : undefined,
