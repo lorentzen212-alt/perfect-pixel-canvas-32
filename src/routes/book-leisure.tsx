@@ -3322,7 +3322,7 @@ function LeisureStep2Screen({
                 className="text-[34px] font-normal leading-none"
                 style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
               >
-                {editingId ? `Editing Stay ${stayNumber}` : "Stay"}
+                {editingId ? `Editing Stay ${stayNumber}` : "Your Stay"}
               </h2>
               <button
                 type="button"
