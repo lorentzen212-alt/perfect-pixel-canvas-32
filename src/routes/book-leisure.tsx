@@ -3859,9 +3859,9 @@ function S2StayCard({
           className="whitespace-nowrap text-[21px] leading-none"
           style={{
             color: "#F4EFE6",
-            fontWeight: 400,
-            fontFamily: '"Playfair Display", "Cormorant Garamond", serif',
-            letterSpacing: "0.005em",
+            fontWeight: 500,
+            fontFamily: '"Inter Display", "Inter", "SF Pro Display", system-ui, -apple-system, sans-serif',
+            letterSpacing: "0.01em",
           }}
         >
           {format(selected, "dd MMMM yyyy")}
