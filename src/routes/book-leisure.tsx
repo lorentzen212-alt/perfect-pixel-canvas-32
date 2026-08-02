@@ -3276,9 +3276,12 @@ function LeisureStep2Screen({
                   "linear-gradient(180deg, rgba(8,17,26,0.62) 0%, rgba(8,17,26,0.34) 42%, rgba(6,13,20,0.66) 100%)",
               }}
             />
-            <div className="relative flex h-full flex-col justify-center px-8 py-12 lg:px-11">
+            <div
+              className="relative flex h-full flex-col items-center justify-center px-8 py-12 text-center lg:px-11"
+              style={{ transform: "translateY(-20px)" }}
+            >
               <div
-                className="text-[12px] font-light tracking-[0.2em]"
+                className="text-[11px] font-light tracking-[0.28em]"
                 style={{ color: "rgba(247,242,232,0.78)", fontFamily: SERIF }}
               >
                 Step 2 of 6
@@ -3291,15 +3294,12 @@ function LeisureStep2Screen({
               </h1>
               <S2DiamondRule />
               <p
-                className="mt-1 max-w-[260px] text-[14.5px] font-light leading-relaxed"
-                style={{ color: "rgba(246,242,234,0.86)" }}
+                className="mt-1 max-w-[260px] text-[15px] font-light leading-[1.9]"
+                style={{ color: "rgba(246,242,234,0.9)" }}
               >
-                How many rooms
+                Choose the rooms
                 <br />
-                will your group need?
-              </p>
-              <p className="mt-6 text-[12.5px] font-light" style={{ color: "rgba(246,242,234,0.55)" }}>
-                {heroStayLabel} · {heroStayMeta}
+                that fit your group.
               </p>
             </div>
           </aside>
