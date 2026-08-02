@@ -730,7 +730,7 @@ function SectionEyebrowDivider() {
 
 function HowItWorks() {
   return (
-    <section id="how" className="bg-[#F5F3EE] py-20 lg:py-24 px-5 sm:px-8 lg:px-[60px]">
+    <section id="how" className="bg-[#F5F3EE] pb-20 lg:pb-24 pt-2 lg:pt-6 px-5 sm:px-8 lg:px-[60px]">
       <div className="mx-auto max-w-6xl text-center">
         <h2
           className="text-[#04111A] text-3xl sm:text-4xl lg:text-[44px] font-normal"
