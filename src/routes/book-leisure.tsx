@@ -4509,7 +4509,7 @@ function S2RoomCard({
             </span>
           )}
         </div>
-        <div className="mt-[10px] flex items-center justify-between gap-2">
+        <div className="mt-[6px] flex items-center justify-between gap-2">
           <div
             className="flex items-center gap-[8px] text-[15px] font-medium leading-none"
             style={{ color: "#7D8188" }}
