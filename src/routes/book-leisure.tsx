@@ -18,6 +18,7 @@ import roomTripleImg from "@/assets/rooms/room-triple.jpg";
 import roomFamilyImg from "@/assets/rooms/room-family.jpg";
 import roomAccessibleImg from "@/assets/rooms/room-accessible.jpg";
 import s2StayHeroImg from "@/assets/s2-lounge-fjord.png.asset.json";
+import s4AuroraHeroImg from "@/assets/s4-aurora-hero.png.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
