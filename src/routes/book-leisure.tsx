@@ -2550,7 +2550,7 @@ const STEP2_ROOMS: {
 ];
 
 /* Room categories */
-const ACCESSIBLE_CATEGORY_LABEL = "Based on available room type";
+const ACCESSIBLE_CATEGORY_LABEL = "Available room";
 
 const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
   single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
