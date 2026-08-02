@@ -4872,17 +4872,6 @@ function AccommodationSummary({
   );
 }
 
-function S2SumRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
-  return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-3 text-[14px]" style={{ color: "rgba(245,241,230,0.8)" }}>
-        <span style={{ color: S2_GOLD_SOFT }}>{icon}</span>
-        {label}
-      </div>
-      <span className="text-[17px] font-medium tabular-nums text-white">{value}</span>
-    </div>
-  );
-}
 
 
 
