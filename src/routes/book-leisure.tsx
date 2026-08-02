@@ -3834,6 +3834,9 @@ function S2StayCard({
     return t;
   }, []);
 
+  const [arrivalOpen, setArrivalOpen] = React.useState(false);
+  const [departureOpen, setDepartureOpen] = React.useState(false);
+
   const DateCol = ({
     label,
     value,
@@ -3841,6 +3844,9 @@ function S2StayCard({
     minDate,
     align,
     placeholder,
+    open,
+    setOpen,
+    onPicked,
   }: {
     label: string;
     value: string;
@@ -3848,10 +3854,13 @@ function S2StayCard({
     minDate?: Date;
     align: "left" | "right";
     placeholder: string;
+    open: boolean;
+    setOpen: (v: boolean) => void;
+    onPicked?: () => void;
   }) => {
-    const [open, setOpen] = React.useState(false);
     const selected = toDate(value);
     const interactive = editable && !!onChange;
+
 
     const dateValue = selected ? (
       compact ? (
