@@ -6032,8 +6032,7 @@ function LeisureStep3Screen({
    STEP 4 - Experiences (redesigned)
    ========================================================= */
 
-const S4_HERO =
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80";
+const S4_HERO = s4AuroraHeroImg.url;
 
 const STEP4_CATEGORIES = [
   "All",
