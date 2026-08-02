@@ -351,6 +351,7 @@ function ExperienceCard({
   bottomGradient = true,
   borderGradient,
   disableCoolGrey = false,
+  refined = false,
 
   label,
   tagline,
@@ -365,6 +366,7 @@ function ExperienceCard({
   bottomGradient?: boolean;
   borderGradient?: string;
   disableCoolGrey?: boolean;
+  refined?: boolean;
   label: string;
   tagline: React.ReactNode;
   ctaText: string;
