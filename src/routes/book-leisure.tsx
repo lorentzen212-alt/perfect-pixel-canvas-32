@@ -3971,22 +3971,22 @@ function S2StayCard({
           )
         ) : null}
         {compact && selected ? (
-          <span aria-hidden className="mt-[3px] flex items-center gap-[6px]">
+          <span aria-hidden className="mt-[4px] flex items-center gap-[5px]">
             <span
               style={{
                 display: "block",
-                width: 64,
+                width: 51,
                 height: 1,
-                backgroundColor: "rgba(199,171,119,0.55)",
+                backgroundColor: "rgba(199,171,119,0.42)",
               }}
             />
             <span
               style={{
                 display: "block",
-                width: 5,
-                height: 5,
+                width: 4,
+                height: 4,
                 transform: "rotate(45deg)",
-                border: "1px solid rgba(199,171,119,0.7)",
+                border: "1px solid rgba(199,171,119,0.55)",
               }}
             />
           </span>
