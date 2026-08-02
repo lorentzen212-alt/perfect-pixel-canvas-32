@@ -4554,7 +4554,6 @@ function S2CategorySelect({
   }, [open, measure, close]);
 
   const toggle = () => {
-    if (disabled) return;
     if (open) close();
     else {
       setActiveIdx(Math.max(0, items.indexOf(value)));
@@ -4564,7 +4563,6 @@ function S2CategorySelect({
     }
   };
 
-  const onKeyDown = (e: React.KeyboardEvent) => {
     if (disabled) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
