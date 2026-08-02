@@ -3401,14 +3401,15 @@ function LeisureStep2Screen({
 
             {/* Room distribution */}
             <h3
-              className="mt-8 text-[21px] font-normal leading-none"
+              className="mt-11 text-[26px] font-normal leading-none"
               style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
             >
               Room distribution
             </h3>
-            <p className="mt-2 text-[12.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
+            <p className="mt-3 text-[13.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
               Select the number of rooms and the preferred category for your group.
             </p>
+
 
             <div className="mt-6 grid grid-cols-1 gap-x-1 gap-y-4 px-0 sm:grid-cols-2 lg:grid-cols-3 lg:px-[22px]">
               {STEP2_ROOMS_ORDER.map((key) => (
