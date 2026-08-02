@@ -6402,7 +6402,7 @@ function LeisureStep4Screen({
           </header>
 
           {/* Category filters */}
-          <div className="mt-7 flex flex-wrap justify-center gap-2.5">
+          <div className="mt-5 flex flex-wrap justify-center gap-2.5">
             {STEP4_CATEGORIES.map((c) => {
               const active = c === category;
               return (
