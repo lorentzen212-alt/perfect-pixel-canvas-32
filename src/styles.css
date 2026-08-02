@@ -605,20 +605,3 @@
   color: rgba(226, 218, 200, 0.42);
   font-weight: 400;
 }
-
-/* Step 4 – Experiences luxury cards */
-.s4-lux-card {
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease,
-    border-color 0.35s ease;
-}
-.s4-lux-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(201, 164, 92, 0.65);
-  box-shadow: 0 26px 54px -28px rgba(16, 38, 62, 0.5), 0 0 0 1px rgba(201, 164, 92, 0.28);
-}
-.s4-lux-img {
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.s4-lux-card:hover .s4-lux-img {
-  transform: scale(1.05);
-}
