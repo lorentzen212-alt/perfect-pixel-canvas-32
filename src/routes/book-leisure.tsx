@@ -3316,9 +3316,9 @@ function LeisureStep2Screen({
             style={{ backgroundColor: S2_IVORY }}
           >
             {/* Stay heading */}
-            <div className="flex flex-wrap items-baseline justify-between gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-6">
               <h2
-                className="text-[24px] font-normal leading-none"
+                className="text-[34px] font-normal leading-none"
                 style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
               >
                 {editingId ? `Editing Stay ${stayNumber}` : "Stay"}
@@ -3326,7 +3326,7 @@ function LeisureStep2Screen({
               <button
                 type="button"
                 onClick={commitAndStartNext}
-                className="bg-transparent p-0 text-[13.5px] font-light transition-opacity hover:opacity-80"
+                className="bg-transparent p-0 text-[15px] font-light transition-opacity hover:opacity-75"
                 style={{ color: S2_GOLD_DEEP, border: "none" }}
               >
                 + Add another stay
@@ -3334,7 +3334,8 @@ function LeisureStep2Screen({
             </div>
 
             {/* Stay card (dates + meta + edit/remove) */}
-            <div className="mt-3.5">
+            <div className="mt-6">
+
               <S2StayCard
                 compact
                 title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
@@ -3400,14 +3401,15 @@ function LeisureStep2Screen({
 
             {/* Room distribution */}
             <h3
-              className="mt-8 text-[21px] font-normal leading-none"
+              className="mt-11 text-[26px] font-normal leading-none"
               style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
             >
               Room distribution
             </h3>
-            <p className="mt-2 text-[12.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
+            <p className="mt-3 text-[13.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
               Select the number of rooms and the preferred category for your group.
             </p>
+
 
             <div className="mt-6 grid grid-cols-1 gap-x-1 gap-y-4 px-0 sm:grid-cols-2 lg:grid-cols-3 lg:px-[22px]">
               {STEP2_ROOMS_ORDER.map((key) => (
@@ -3838,64 +3840,79 @@ function S2StayCard({
     const interactive = editable && !!onChange;
 
     const dateValue = selected ? (
-      <span
-        className="whitespace-nowrap leading-none text-[17.5px]"
-        style={{
-          marginLeft: align === "left" ? 3 : undefined,
-          marginRight: align === "right" ? 3 : undefined,
-          display: "inline-flex",
-          alignItems: "baseline",
-          gap: 5,
-        }}
-      >
+      compact ? (
         <span
+          className="whitespace-nowrap text-[26px] leading-none"
+          style={{ color: "#FFFFFF", fontWeight: 400, letterSpacing: "-0.01em" }}
+        >
+          {format(selected, "MMM d, yyyy")}
+        </span>
+      ) : (
+        <span
+          className="whitespace-nowrap leading-none text-[17.5px]"
           style={{
-            color: "#E8E4DC",
-            fontWeight: 600,
-            textShadow: "0 1px 1px rgba(0,0,0,.15)",
+            marginLeft: align === "left" ? 3 : undefined,
+            marginRight: align === "right" ? 3 : undefined,
+            display: "inline-flex",
+            alignItems: "baseline",
+            gap: 5,
           }}
         >
-          {format(selected, "d")}
+          <span
+            style={{
+              color: "#E8E4DC",
+              fontWeight: 600,
+              textShadow: "0 1px 1px rgba(0,0,0,.15)",
+            }}
+          >
+            {format(selected, "d")}
+          </span>
+          <span
+            style={{
+              color: "#E8E4DC",
+              fontWeight: 400,
+              letterSpacing: "0.01em",
+            }}
+          >
+            {format(selected, "MMM yyyy")}
+          </span>
         </span>
-        <span
-          style={{
-            color: "#E8E4DC",
-            fontWeight: 400,
-            letterSpacing: "0.01em",
-          }}
-        >
-          {format(selected, "MMM yyyy")}
-        </span>
-      </span>
+      )
     ) : (
       <span
-        className="whitespace-nowrap leading-none text-[15px] font-medium"
+        className={`whitespace-nowrap leading-none font-medium ${compact ? "text-[18px]" : "text-[15px]"}`}
         style={{
-          color: "#84909D",
-          marginLeft: align === "left" ? 3 : undefined,
-          marginRight: align === "right" ? 3 : undefined,
+          color: "#8FA0B0",
+          marginLeft: !compact && align === "left" ? 3 : undefined,
+          marginRight: !compact && align === "right" ? 3 : undefined,
         }}
       >
         {placeholder}
       </span>
     );
 
-    const icon = (
+    const icon = compact ? null : (
       <span aria-hidden className="shrink-0 leading-none" style={{ color: "#E8E4DC" }}>
         <CalendarDays size={16} strokeWidth={1.5} />
       </span>
     );
 
+    const alignCls = compact
+      ? "items-start text-left"
+      : align === "right"
+        ? "items-end text-right"
+        : "items-start text-left";
+
     const field = (
-      <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
+      <div className={`flex min-w-0 flex-col ${compact ? "gap-[10px]" : "gap-[6px]"} ${alignCls}`}>
         <span
-          className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none"
-          style={{ color: "#B99A60", letterSpacing: "0.18em" }}
+          className={`whitespace-nowrap font-medium uppercase leading-none ${compact ? "text-[11px]" : "text-[9.5px]"}`}
+          style={{ color: compact ? "#D9BF82" : "#B99A60", letterSpacing: compact ? "0.22em" : "0.18em" }}
         >
-          {label}
+          {compact ? (label === "Arrival" ? "Check-in" : "Check-out") : label}
         </span>
         <div className="flex items-center gap-[3px]">
-          {align === "right" ? (
+          {!compact && align === "right" ? (
             <>
               {dateValue}
               {icon}
@@ -3909,8 +3926,8 @@ function S2StayCard({
         </div>
         {selected ? (
           <span
-            className="whitespace-nowrap text-[12px] leading-none"
-            style={{ color: "#84909D", fontWeight: 400, letterSpacing: "0.01em" }}
+            className={`whitespace-nowrap leading-none ${compact ? "text-[14px]" : "text-[12px]"}`}
+            style={{ color: compact ? "rgba(216,226,236,0.62)" : "#84909D", fontWeight: 400, letterSpacing: "0.01em" }}
           >
             {format(selected, "EEEE")}
           </span>
@@ -3925,12 +3942,13 @@ function S2StayCard({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-label={`${label} date`}
-        className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-[9px] text-left transition-colors duration-200 disabled:cursor-default"
-        style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
+        className={`s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent text-left transition-colors duration-200 disabled:cursor-default ${compact ? "px-0 py-0" : "px-2 py-[9px]"}`}
+        style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: !compact && align === "right" ? "flex-end" : "flex-start" }}
       >
         {field}
       </button>
     );
+
 
     if (!interactive) return <div className="min-w-0">{trigger}</div>;
 
@@ -4023,90 +4041,143 @@ function S2StayCard({
       <div
         className={animClass}
         style={{
-          borderRadius: 8,
-          backgroundImage: "linear-gradient(180deg, #183754 0%, #132B44 100%)",
-          border: "1px solid rgba(201,164,92,0.28)",
-          boxShadow: "0 12px 30px rgba(6,18,31,0.18)",
+          borderRadius: 22,
+          backgroundImage:
+            "radial-gradient(120% 160% at 18% 0%, rgba(38,63,92,0.85) 0%, rgba(13,32,52,1) 55%, rgba(10,25,41,1) 100%)",
+          border: "1px solid rgba(217,191,130,0.42)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.07), 0 26px 60px -34px rgba(6,16,27,0.85), 0 8px 22px -16px rgba(0,0,0,0.4)",
           overflow: "hidden",
         }}
       >
-        {dateTimeline}
+        {/* Upper zone — dates + statistics */}
+        <div className="flex flex-col gap-7 px-7 py-8 sm:px-10 lg:flex-row lg:items-center lg:gap-8">
+          {/* Circular calendar mark */}
+          <span
+            aria-hidden
+            className="grid h-[70px] w-[70px] shrink-0 place-items-center"
+            style={{
+              borderRadius: 999,
+              border: "1px solid rgba(217,191,130,0.55)",
+              color: "#E4C88A",
+            }}
+          >
+            <CalendarDays size={28} strokeWidth={1.3} />
+          </span>
+
+          {/* Dates */}
+          <div className="flex min-w-0 flex-1 items-center gap-6 sm:gap-9">
+            <div className="min-w-0 flex-1">
+              <DateCol
+                label="Arrival"
+                value={arrival}
+                onChange={onArrival}
+                align="left"
+                placeholder="Select date"
+              />
+            </div>
+            <ArrowRight
+              size={30}
+              strokeWidth={1.1}
+              className="shrink-0"
+              style={{ color: "#D9BF82" }}
+            />
+            <div className="min-w-0 flex-1">
+              <DateCol
+                label="Departure"
+                value={departure}
+                onChange={onDeparture}
+                minDate={(() => {
+                  const a = toDate(arrival);
+                  if (!a) return undefined;
+                  const n = new Date(a);
+                  n.setDate(n.getDate() + 1);
+                  return n;
+                })()}
+                align="left"
+                placeholder="Select date"
+              />
+            </div>
+          </div>
+
+          {/* Statistics */}
+          <div className="flex shrink-0 items-stretch">
+            <S2LuxeStat
+              icon={<MoonIcon />}
+              value={nights}
+              label={nights === 1 ? "Night" : "Nights"}
+              first
+            />
+            <S2LuxeStat
+              icon={<BedDouble size={22} strokeWidth={1.3} />}
+              value={rooms}
+              label={rooms === 1 ? "Room" : "Rooms"}
+            />
+            <S2LuxeStat
+              icon={<UserRound size={22} strokeWidth={1.3} />}
+              value={guests}
+              label={guests === 1 ? "Guest" : "Guests"}
+            />
+          </div>
+        </div>
+
+        {/* Lower zone — actions */}
         <div
-          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[22px] py-[10px]"
-          style={{
-            borderTop: "1px solid rgba(217,191,130,0.22)",
-            backgroundColor: "rgba(255,255,255,0.02)",
-          }}
+          className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 px-7 py-[18px]"
+          style={{ borderTop: "1px solid rgba(217,191,130,0.16)" }}
         >
           {confirming ? (
             <>
-              <span className="text-[13px]" style={{ color: "#84909D", fontWeight: 400 }}>
+              <span className="text-[14px]" style={{ color: "rgba(216,226,236,0.65)" }}>
                 Remove this stay?
               </span>
-              <div className="flex items-center gap-4">
-                <button
-                  type="button"
-                  onClick={onConfirmRemove}
-                  className="bg-transparent p-0 text-[13px]"
-                  style={{ color: "#E8E4DC", fontWeight: 500, border: "none" }}
-                >
-                  Yes, remove
-                </button>
-                <button
-                  type="button"
-                  onClick={onCancelRemove}
-                  className="bg-transparent p-0 text-[13px]"
-                  style={{ color: "rgba(132,144,157,0.7)", fontWeight: 400, border: "none" }}
-                >
-                  Cancel
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={onConfirmRemove}
+                className="s2-luxe-action inline-flex items-center gap-2 bg-transparent p-0 text-[15px]"
+                style={{ color: "#FFFFFF", fontWeight: 400, border: "none" }}
+              >
+                <Trash2 size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
+                Yes, remove
+              </button>
+              <span aria-hidden style={{ width: 1, height: 18, backgroundColor: "rgba(217,191,130,0.28)" }} />
+              <button
+                type="button"
+                onClick={onCancelRemove}
+                className="s2-luxe-action inline-flex items-center gap-2 bg-transparent p-0 text-[15px]"
+                style={{ color: "rgba(216,226,236,0.7)", fontWeight: 400, border: "none" }}
+              >
+                <X size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
+                Cancel
+              </button>
             </>
           ) : (
             <>
-              <div
-                className="flex items-center gap-3 text-[12.5px]"
-                style={{ color: "#E8E4DC", fontWeight: 500 }}
+              <button
+                type="button"
+                onClick={onEdit ?? onAddAnother}
+                className="s2-luxe-action inline-flex items-center gap-2.5 bg-transparent p-0 text-[15px] transition-opacity duration-200 hover:opacity-75"
+                style={{ color: "#FFFFFF", fontWeight: 400, border: "none" }}
               >
-                <span>
-                  {nights} {nights === 1 ? "Night" : "Nights"}
-                </span>
-                <span style={{ color: "rgba(132,144,157,0.5)" }}>|</span>
-                <span>
-                  {rooms} {rooms === 1 ? "Room" : "Rooms"}
-                </span>
-                <span style={{ color: "rgba(132,144,157,0.5)" }}>|</span>
-                <span>
-                  {guests} {guests === 1 ? "Guest" : "Guests"}
-                </span>
-              </div>
-              <div className="flex items-center gap-5">
-                {onEdit && (
-                  <button
-                    type="button"
-                    onClick={onEdit}
-                    className="bg-transparent p-0 text-[12.5px]"
-                    style={{ color: "#E8E4DC", fontWeight: 500, border: "none" }}
-                  >
-                    Edit
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={onRemove}
-                  className="s2-remove-btn bg-transparent p-0 text-[12.5px]"
-                  style={{ color: "rgba(232,228,220,0.75)", fontWeight: 500, border: "none" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#B99A60")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(232,228,220,0.75)")}
-                >
-                  Remove
-                </button>
-              </div>
+                Edit stay
+                <Pencil size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
+              </button>
+              <span aria-hidden style={{ width: 1, height: 18, backgroundColor: "rgba(217,191,130,0.28)" }} />
+              <button
+                type="button"
+                onClick={onRemove}
+                className="s2-luxe-action inline-flex items-center gap-2.5 bg-transparent p-0 text-[15px] transition-opacity duration-200 hover:opacity-75"
+                style={{ color: "#FFFFFF", fontWeight: 400, border: "none" }}
+              >
+                Remove stay
+                <Trash2 size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
+              </button>
             </>
           )}
         </div>
       </div>
     );
+
 
 
   return (
@@ -4203,7 +4274,37 @@ function S2StayCard({
 }
 
 
+function S2LuxeStat({
+  icon,
+  value,
+  label,
+  first = false,
+}: {
+  icon: React.ReactNode;
+  value: number;
+  label: string;
+  first?: boolean;
+}) {
+  return (
+    <div
+      className="flex min-w-[86px] flex-col items-center justify-center gap-2 px-5"
+      style={{ borderLeft: first ? undefined : "1px solid rgba(217,191,130,0.18)" }}
+    >
+      <span aria-hidden className="leading-none" style={{ color: "#D9BF82" }}>
+        {icon}
+      </span>
+      <span className="text-[24px] leading-none" style={{ color: "#FFFFFF", fontWeight: 300 }}>
+        {value}
+      </span>
+      <span className="text-[13px] leading-none" style={{ color: "rgba(216,226,236,0.6)" }}>
+        {label}
+      </span>
+    </div>
+  );
+}
+
 function S2StayDivider() {
+
   return (
     <span
       aria-hidden
