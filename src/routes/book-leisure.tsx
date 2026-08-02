@@ -3739,17 +3739,30 @@ function S2CompletedStayCard({
 
   return (
     <div
-      className={`${animClass} relative flex h-full flex-col overflow-hidden`}
+      className={`${animClass} ${highlight ? "s2-stay-justadded" : ""} relative flex h-full flex-col overflow-hidden`}
       style={{
         borderRadius: 20,
         maxWidth: 520,
         backgroundImage: "linear-gradient(165deg, #16293D 0%, #0F1F30 100%)",
-        border: "1px solid rgba(217,191,130,0.34)",
+        border: `1px solid ${highlight ? "rgba(233,208,150,0.85)" : "rgba(217,191,130,0.34)"}`,
         padding: "18px 22px 16px 26px",
-        boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.06), 0 26px 54px -28px rgba(3,8,14,0.8), 0 8px 20px -14px rgba(0,0,0,0.5)",
+        transition: "border-color 600ms ease, box-shadow 600ms ease, transform 600ms ease",
+        boxShadow: highlight
+          ? "inset 0 1px 0 rgba(255,255,255,0.09), 0 0 0 1px rgba(233,208,150,0.22), 0 34px 70px -30px rgba(3,8,14,0.85), 0 0 28px -8px rgba(217,191,130,0.35)"
+          : "inset 0 1px 0 rgba(255,255,255,0.06), 0 26px 54px -28px rgba(3,8,14,0.8), 0 8px 20px -14px rgba(0,0,0,0.5)",
       }}
     >
+      {highlight && (
+        <div
+          className="s2-added-note absolute right-5 top-[46px] flex items-center gap-[6px] text-[11.5px]"
+          style={{ color: "rgba(150,205,165,0.95)" }}
+        >
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Stay added successfully
+        </div>
+      )}
       {/* metallic gold left strip */}
       <span
         aria-hidden
