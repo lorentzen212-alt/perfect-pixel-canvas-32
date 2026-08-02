@@ -8161,7 +8161,7 @@ function LeisureStep6Screen({
               </defs>
             </svg>
 
-            <div className="relative flex flex-col items-center">
+            <div className="relative flex flex-col items-center -mt-[18px]">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -top-6 left-1/2 h-[120px] w-[220px] -translate-x-1/2 rounded-full"
@@ -8171,18 +8171,18 @@ function LeisureStep6Screen({
                 }}
               />
               <div
-                className="s6-champagne-text text-[38px] leading-none"
+                className="s6-champagne-text text-[40px] leading-none"
                 style={{ fontFamily: SERIF }}
               >
                 H
               </div>
               <div
-                className="mt-5 text-[11.5px] font-medium uppercase tracking-[0.30em]"
+                className="mt-[6px] text-[11.5px] font-medium uppercase tracking-[0.30em]"
                 style={{ color: "#EFE8DA" }}
               >
                 Executive Summary
               </div>
-              <div className="mt-4 flex w-[86%] items-center gap-3">
+              <div className="mt-3 flex w-[86%] items-center gap-3">
                 <span
                   className="h-px flex-1"
                   style={{
