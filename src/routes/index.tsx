@@ -242,13 +242,27 @@ function Home() {
           </div>
 
           {/* Cinematic dissolve — Hero fades into the warm off-white page
-              background over the last ~170px, no hard edge. */}
+              background over the last ~160px. Dark blue-grey mid-band bridges
+              the Nordic tones of the video into the cream content below. */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[170px]"
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[160px]"
             style={{
               background:
-                "linear-gradient(180deg, rgba(8,17,28,0) 0%, rgba(12,20,31,0.14) 34%, rgba(245,243,239,0.42) 70%, #F5F3EF 100%)",
+                "linear-gradient(180deg, rgba(8,17,28,0) 0%, rgba(11,19,31,0.22) 32%, rgba(245,243,239,0.34) 66%, #F5F3EF 100%)",
+            }}
+          />
+          {/* Atmospheric mist — a barely-there blue-grey fog band sitting right
+              at the seam where the Hero meets the light section. Opacity stays
+              well below 8% so it only softens the edge; it lives inside the
+              Hero bounds, so it never covers the cards or text. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-[15] h-[120px]"
+            style={{
+              background:
+                "radial-gradient(130% 100% at 50% 100%, rgba(150,168,184,0.07) 0%, rgba(150,168,184,0.04) 38%, rgba(150,168,184,0) 72%)",
+              filter: "blur(6px)",
             }}
           />
         </section>
