@@ -218,23 +218,17 @@ function Home() {
               ))}
             </nav>
 
-            {/* Explore indicator — precision-machined champagne gold control */}
+            {/* Explore indicator */}
             <a
               href="#how"
               className="group/explore mt-16 flex flex-col items-center gap-3"
               aria-label="Explore"
             >
-              <span className="explore-dial relative flex h-[38px] w-[38px] items-center justify-center rounded-full">
-                {/* metallic ring (masked annulus) */}
-                <span className="explore-dial__ring" aria-hidden="true" />
-                {/* soft bevel + inner shadow */}
-                <span className="explore-dial__bevel" aria-hidden="true" />
-                {/* specular highlight ~1–2 o'clock */}
-                <span className="explore-dial__spec" aria-hidden="true" />
-                <span
-                  className="explore-dial__arrow relative text-[15px] leading-none"
-                  aria-hidden="true"
-                >
+              <span
+                className="flex h-[38px] w-[38px] items-center justify-center rounded-full transition-transform duration-500 group-hover/explore:translate-y-1"
+                style={{ border: "1px solid rgba(226,190,122,0.55)" }}
+              >
+                <span className="text-[15px] leading-none" style={{ color: "#E2B473" }}>
                   ↓
                 </span>
               </span>
@@ -245,7 +239,6 @@ function Home() {
                 Explore
               </span>
             </a>
-
           </div>
         </section>
       </main>
