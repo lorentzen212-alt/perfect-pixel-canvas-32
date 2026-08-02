@@ -14,7 +14,6 @@ import {
   ClipboardList,
   FileText,
   Grid2X2,
-  HelpCircle,
   Hourglass,
   LayoutList,
   LifeBuoy,
@@ -69,7 +68,6 @@ export const Route = createFileRoute("/manage-bookings")({
 });
 
 /* ── palette ─────────────────────────────────────────── */
-const INK = "#070E15";
 const SIDEBAR = "#060C12";
 const PAGE = "#080F17";
 const PANEL = "rgba(16,26,37,0.72)";
@@ -1140,7 +1138,3 @@ function ManageBookings() {
     </div>
   );
 }
-
-/* keep referenced for future statuses */
-export const DASHBOARD_INK = INK;
-export const DASHBOARD_HELP_ICON = HelpCircle;
