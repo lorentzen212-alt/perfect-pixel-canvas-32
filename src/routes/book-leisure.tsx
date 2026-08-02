@@ -11,12 +11,12 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
 import s2HeroImg from "@/assets/s2-accommodation-hero.jpg";
-import roomSingleImg from "@/assets/room-single.jpg.asset.json";
-import roomDoubleImg from "@/assets/room-double.jpg.asset.json";
-import roomTwinImg from "@/assets/room-twin.jpg.asset.json";
-import roomTripleImg from "@/assets/room-triple.jpg.asset.json";
-import roomFamilyImg from "@/assets/room-family.jpg.asset.json";
-import roomAccessibleImg from "@/assets/room-accessible.jpg.asset.json";
+import roomSingleImg from "@/assets/rooms/room-single.jpg";
+import roomDoubleImg from "@/assets/rooms/room-double.jpg";
+import roomTwinImg from "@/assets/rooms/room-twin.jpg";
+import roomTripleImg from "@/assets/rooms/room-triple.jpg";
+import roomFamilyImg from "@/assets/rooms/room-family.jpg";
+import roomAccessibleImg from "@/assets/rooms/room-accessible.jpg";
 import s2StayHeroImg from "@/assets/s2-lounge-fjord.png.asset.json";
 import {
   ArrowLeft,
@@ -2541,12 +2541,12 @@ const STEP2_ROOMS: {
   desc: string;
   img: string;
 }[] = [
-  { key: "single", title: "Single Room", desc: "1 person", img: roomSingleImg.url },
-  { key: "triple", title: "Triple Room", desc: "3 people", img: roomTripleImg.url },
-  { key: "twin", title: "Twin Room", desc: "2 separate beds", img: roomTwinImg.url },
-  { key: "family", title: "Family Room", desc: "4+ people", img: roomFamilyImg.url },
-  { key: "double", title: "Double Room", desc: "1 double bed", img: roomDoubleImg.url },
-  { key: "accessible", title: "Accessible Room", desc: "Wheelchair friendly", img: roomAccessibleImg.url },
+  { key: "single", title: "Single Room", desc: "1 person", img: roomSingleImg },
+  { key: "triple", title: "Triple Room", desc: "3 people", img: roomTripleImg },
+  { key: "twin", title: "Twin Room", desc: "2 separate beds", img: roomTwinImg },
+  { key: "family", title: "Family Room", desc: "4+ people", img: roomFamilyImg },
+  { key: "double", title: "Double Room", desc: "1 double bed", img: roomDoubleImg },
+  { key: "accessible", title: "Accessible Room", desc: "Wheelchair friendly", img: roomAccessibleImg },
 ];
 
 /* Room categories */
@@ -3388,7 +3388,7 @@ function LeisureStep2Screen({
               Select the number of rooms and the preferred category for your group.
             </p>
 
-            <div className="mt-4 grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
@@ -4274,44 +4274,74 @@ function S2RoomCard({
 
   return (
     <div
-      className="group s2-room-card flex flex-col overflow-hidden"
+      className="group s2-room-card flex flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1"
       data-active={active ? "true" : "false"}
       style={{
-        borderRadius: 6,
-        backgroundColor: S2_CREAM,
-        border: `1px solid ${active ? "rgba(179,146,84,0.62)" : S2_HAIR_GOLD}`,
+        borderRadius: 18,
+        backgroundColor: "#FFFFFF",
+        border: `1px solid ${active ? "rgba(179,146,84,0.55)" : "rgba(179,146,84,0.22)"}`,
         boxShadow: active
-          ? "0 10px 24px -18px rgba(18,33,46,0.42)"
-          : "0 4px 12px -10px rgba(18,33,46,0.3)",
-        transition:
-          "transform 200ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 200ms ease-out, border-color 200ms ease-out",
+          ? "0 18px 40px -26px rgba(8,23,34,0.38)"
+          : "0 10px 30px -22px rgba(8,23,34,0.30)",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = "0 26px 52px -26px rgba(8,23,34,0.42)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = active
+          ? "0 18px 40px -26px rgba(8,23,34,0.38)"
+          : "0 10px 30px -22px rgba(8,23,34,0.30)";
       }}
     >
-      {/* image */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9.4" }}>
+      {/* image — ~62% of card height */}
+      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 11.6" }}>
         <img
           src={meta.img}
           alt={meta.title}
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
           style={{ objectPosition: "center" }}
         />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0"
+          style={{
+            height: "34%",
+            background:
+              "linear-gradient(to top, rgba(8,23,34,0.55) 0%, rgba(8,23,34,0.26) 45%, rgba(8,23,34,0) 100%)",
+          }}
+        />
+        {roomKey === "double" && (
+          <span
+            className="absolute text-[9px] font-medium uppercase tracking-[0.16em]"
+            style={{
+              top: 16,
+              left: 16,
+              padding: "4px 10px",
+              borderRadius: 999,
+              backgroundColor: "#C6A967",
+              color: "#0B1A26",
+              boxShadow: "0 4px 12px -6px rgba(8,23,34,0.5)",
+            }}
+          >
+            Most popular
+          </span>
+        )}
       </div>
 
       {/* body */}
-      <div className="flex flex-1 flex-col px-3.5 pb-3 pt-2.5">
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             <div
-              className="truncate text-[14.5px] font-normal leading-tight"
-              style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
+              className="truncate text-[17px] font-normal leading-tight"
+              style={{ fontFamily: SERIF, color: "#081722" }}
             >
               {meta.title}
             </div>
             <div
-              className="mt-[3px] flex items-center gap-1.5 text-[11.5px] font-light"
+              className="mt-2.5 flex items-center gap-2 text-[11.5px] font-light tracking-[0.02em]"
               style={{ color: S2_NAVY_MUTED }}
             >
-              <span style={{ color: "rgba(179,146,84,0.9)" }}>{roomIcon(roomKey)}</span>
+              <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
               {capacity}
             </div>
           </div>
@@ -4319,8 +4349,8 @@ function S2RoomCard({
             <span
               title={meta.desc}
               aria-label={meta.desc}
-              className="mt-[2px] grid h-[15px] w-[15px] shrink-0 place-items-center rounded-full text-[10px] font-medium"
-              style={{ backgroundColor: "#B39254", color: "#FFF8E6" }}
+              className="mt-[2px] grid h-[16px] w-[16px] shrink-0 place-items-center rounded-full text-[9.5px] font-medium opacity-45 transition-opacity duration-200 hover:opacity-100"
+              style={{ border: "1px solid #C6A967", color: "#B39254" }}
             >
               i
             </span>
@@ -4328,7 +4358,7 @@ function S2RoomCard({
         </div>
 
         {/* controls */}
-        <div className="mt-3 flex items-center gap-2">
+        <div className="mt-5 flex items-center gap-2.5">
           <S2Counter light value={value} onChange={onChange} label={meta.title} />
           {categoryOptions ? (
             <div className="min-w-0 flex-1">
@@ -4343,12 +4373,13 @@ function S2RoomCard({
             </div>
           ) : (
             <div
-              className="flex min-w-0 flex-1 items-center justify-center gap-1.5 px-2 py-[6px] text-[11.5px] font-light"
+              className="flex h-[38px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-3 text-[11px] font-light"
               style={{
-                borderRadius: 4,
-                border: `1px solid ${S2_HAIR_GOLD}`,
+                borderRadius: 999,
+                border: "1px solid rgba(8,23,34,0.16)",
+                backgroundColor: "#FFFFFF",
                 color: S2_NAVY_MUTED,
-                opacity: active ? 1 : 0.6,
+                opacity: active ? 1 : 0.65,
               }}
             >
               Standard Rooms
@@ -4359,6 +4390,7 @@ function S2RoomCard({
     </div>
   );
 }
+
 
 /* ---- Step 2 premium custom category dropdown (portal / floating) ---- */
 let s2OpenDropdownId = 0;
@@ -4562,18 +4594,19 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[28px] w-full cursor-pointer select-none items-center justify-between gap-1.5 px-2 text-left text-[11.5px] font-light outline-none transition-colors disabled:cursor-not-allowed"
+            ? "flex h-[38px] w-full cursor-pointer select-none items-center justify-between gap-1.5 px-3.5 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
           light
             ? {
-                borderRadius: 4,
-                border: `1px solid ${S2_HAIR_GOLD}`,
-                backgroundColor: open ? "rgba(179,146,84,0.08)" : "transparent",
+                borderRadius: 999,
+                border: `1px solid rgba(8,23,34,0.16)`,
+                backgroundColor: "#FFFFFF",
                 color: S2_NAVY_TEXT,
                 opacity: disabled ? 0.55 : 1,
               }
+
             : undefined
         }
       >
@@ -4649,27 +4682,28 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[24px] w-[22px] hover:bg-black/[0.05]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
-      style={{ borderRadius: light ? 4 : 9, color: light ? "#B39254" : "rgba(217,191,130,0.9)" }}
+      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[30px] w-[30px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
+      style={{ borderRadius: 999, color: light ? "#0B1A26" : "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? (
-        <Minus size={light ? 13 : 16} strokeWidth={2} />
+        <Minus size={light ? 14 : 16} strokeWidth={1.8} />
       ) : (
-        <Plus size={light ? 13 : 16} strokeWidth={2} />
+        <Plus size={light ? 14 : 16} strokeWidth={1.8} />
       )}
     </button>
   );
 
   return (
     <div
-      className={`flex items-center justify-between ${light ? "h-[28px] shrink-0 px-1" : "h-[35px] px-1.5"}`}
+      className={`flex items-center justify-between ${light ? "h-[38px] shrink-0 px-1" : "h-[35px] px-1.5"}`}
       style={{
-        borderRadius: light ? 4 : 10,
-        width: light ? 72 : undefined,
-        backgroundColor: light ? "transparent" : "rgba(20,33,45,0.72)",
-        border: light ? `1px solid ${S2_HAIR_GOLD}` : "1px solid rgba(214,226,236,0.10)",
+        borderRadius: 999,
+        width: light ? 96 : undefined,
+        backgroundColor: light ? "#FFFFFF" : "rgba(20,33,45,0.72)",
+        border: light ? "1px solid rgba(8,23,34,0.16)" : "1px solid rgba(214,226,236,0.10)",
       }}
     >
+
       {btn("dec")}
       <input
         type="text"
