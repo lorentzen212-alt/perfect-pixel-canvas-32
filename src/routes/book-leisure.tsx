@@ -6635,11 +6635,11 @@ function LeisureStep4Screen({
         {/* ---------- RIGHT SUMMARY: right column of the same container ---------- */}
         <div className="order-3 min-w-0 lg:order-none">
           <aside
-            className="h-full px-[46px] pb-[52px] pt-[40px]"
+            className="flex h-full flex-col px-[38px] pb-[44px] pt-[40px] sm:px-[42px]"
             style={{
               background:
                 "linear-gradient(180deg, rgba(16,32,50,0.98) 0%, rgba(8,19,31,0.98) 100%)",
-              borderLeft: "1px solid rgba(232,199,117,0.28)",
+              borderLeft: "1px solid rgba(226,203,148,0.20)",
             }}
           >
 
@@ -6648,16 +6648,16 @@ function LeisureStep4Screen({
             </div>
             <div className="mt-3">{goldRule}</div>
 
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-5 flex items-center gap-3">
               <ShieldCheck size={15} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
               <span className="text-[13px]" style={{ color: "rgba(245,241,230,0.8)" }}>
                 Free &amp; non-binding request
               </span>
             </div>
 
-            <div className="mt-7">{summaryLines}</div>
+            <div className="mt-8">{summaryLines}</div>
 
-            <div className="mt-8">
+            <div className="mt-9">
               <div className="text-[16px] text-white" style={{ fontFamily: SERIF }}>
                 Recommended for your group
               </div>
@@ -6665,10 +6665,10 @@ function LeisureStep4Screen({
               <button
                 type="button"
                 onClick={() => onToggle(recommended.label)}
-                className="mt-4 flex w-full items-center gap-3 rounded-[16px] p-3 text-left transition-all hover:-translate-y-[1px]"
+                className="mt-4 flex w-full items-center gap-3.5 rounded-[16px] px-4 py-3.5 text-left transition-all hover:-translate-y-[1px]"
                 style={{
                   background: "rgba(255,255,255,0.035)",
-                  border: `1px solid ${recommendedActive ? "rgba(232,199,117,0.6)" : "rgba(232,199,117,0.22)"}`,
+                  border: `1px solid ${recommendedActive ? "rgba(226,203,148,0.55)" : "rgba(226,203,148,0.20)"}`,
                 }}
               >
                 <img
@@ -6689,6 +6689,7 @@ function LeisureStep4Screen({
             </div>
           </aside>
         </div>
+
       </div>
     </LeisureStepShell>
   );
