@@ -3090,11 +3090,25 @@ function LeisureStep2Screen({
       );
       setAddError(false);
       setLastAddedId(id);
+      setJustAddedId(id);
       setStayAddedFlash(true);
       window.setTimeout(() => setStayAddedFlash(false), 1100);
       window.setTimeout(() => {
         setLastAddedId((cur) => (cur === id ? null : cur));
       }, 320);
+      window.setTimeout(() => {
+        setJustAddedId((cur) => (cur === id ? null : cur));
+      }, 2200);
+      // Calm, concierge-like reveal of the newly saved stay.
+      if (typeof window !== "undefined") {
+        window.requestAnimationFrame(() => {
+          window.setTimeout(() => {
+            const el = staysSectionRef.current;
+            if (el) smoothScrollToElement(el, 96, 500);
+          }, 60);
+        });
+      }
+
       // Reset only after the stay has been saved, and keep a fresh form visible.
       const prev = editingId ? preEditDraftRef.current : null;
       preEditDraftRef.current = null;
