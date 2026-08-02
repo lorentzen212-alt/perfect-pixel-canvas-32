@@ -4142,7 +4142,7 @@ function S2StayCard({
           <>
             <span
               className="flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px]"
-              style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}
+              style={{ color: "#84909D", fontWeight: 400 }}
             >
               Remove this stay?
             </span>
