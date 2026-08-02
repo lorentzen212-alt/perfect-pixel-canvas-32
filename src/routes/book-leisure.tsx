@@ -6775,7 +6775,7 @@ function LeisureStep4Screen({
 
           {/* Experience grid — two rows tall, scrolls beyond */}
           <div
-            className="s4-scroll mt-6 grid grid-cols-1 items-stretch gap-x-7 gap-y-5 overflow-y-auto pr-2 sm:grid-cols-2 xl:grid-cols-3"
+            className="s4-scroll mt-6 grid grid-cols-1 items-stretch gap-x-5 gap-y-6 overflow-y-auto pr-2 sm:grid-cols-2 xl:grid-cols-3"
             style={{ maxHeight: 452 }}
           >
             {filtered.map((e) => {
@@ -6790,19 +6790,18 @@ function LeisureStep4Screen({
                   onMouseLeave={() =>
                     setHoveredExp((cur) => (cur?.label === e.label ? null : cur))
                   }
-                  className={`s4-card group relative cursor-pointer overflow-hidden rounded-[23px] text-left ${active ? "s4-selected" : ""} ${featured ? "s4-featured" : ""}`}
+                  className={`s4-card group relative flex cursor-pointer flex-col overflow-hidden rounded-[18px] text-left ${active ? "s4-selected" : ""} ${featured ? "s4-featured" : ""}`}
                   style={{
-                    border: `1px solid ${active ? S4_GOLD : "rgba(18,33,46,0.10)"}`,
+                    background: "#FAF8F4",
+                    border: `1px solid ${active ? S4_GOLD : "rgba(197,162,75,0.18)"}`,
                     boxShadow: active
-                      ? "0 16px 38px rgba(201,164,92,0.22), 0 3px 10px rgba(0,0,0,0.06)"
-                      : featured
-                      ? "0 16px 40px rgba(10,20,35,0.16), 0 4px 12px rgba(0,0,0,0.08)"
-                      : "0 12px 32px rgba(10,20,35,0.12), 0 3px 10px rgba(0,0,0,0.06)",
+                      ? "0 12px 34px rgba(201,164,92,0.20), 0 3px 10px rgba(0,0,0,0.06)"
+                      : "0 10px 30px rgba(0,0,0,0.08)",
                   }}
                 >
                   <div
-                    className="relative w-full overflow-hidden"
-                    style={{ height: featured ? 227 : 210 }}
+                    className="relative w-full overflow-hidden rounded-t-[17px]"
+                    style={{ height: 172 }}
                   >
                     <img
                       src={e.img}
@@ -6810,10 +6809,11 @@ function LeisureStep4Screen({
                       className="s4-card-img h-full w-full object-cover"
                     />
                     <div
-                      className="s4-card-overlay pointer-events-none absolute inset-0"
+                      className="s4-card-overlay pointer-events-none absolute inset-x-0 bottom-0"
                       style={{
+                        height: "38%",
                         background:
-                          "linear-gradient(180deg, rgba(8,19,31,0) 40%, rgba(8,19,31,0.88) 100%)",
+                          "linear-gradient(180deg, rgba(8,19,31,0) 0%, rgba(8,19,31,0.30) 100%)",
                       }}
                     />
                     {featured && (
@@ -6828,44 +6828,47 @@ function LeisureStep4Screen({
                           boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)",
                         }}
                       >
-                        Featured Experience
+                        Featured
                       </span>
                     )}
-                    <div className="absolute bottom-4 left-5 right-16">
+                  </div>
+
+                  <div className="flex flex-1 items-center justify-between gap-4 px-[22px] py-[18px]">
+                    <div className="min-w-0">
                       <div
-                        className="s4-card-title"
+                        className="s4-card-title truncate"
                         style={{
                           fontFamily: SERIF,
-                          fontSize: 19.5,
-                          lineHeight: 1.15,
-                          color: "rgba(255,255,255,0.92)",
+                          fontSize: 20,
+                          fontWeight: 500,
+                          lineHeight: 1.2,
+                          color: "#1F2328",
                         }}
                       >
                         {e.label}
                       </div>
                       <div
-                        className="s4-card-cat mt-1 text-[11.5px] leading-[1.45]"
-                        style={{ color: "rgba(245,241,230,0.72)" }}
+                        className="s4-card-cat mt-[6px] truncate text-[12px] leading-[1.4]"
+                        style={{ color: "rgba(45,48,52,0.58)" }}
                       >
                         {e.category}
                       </div>
                     </div>
                     <span
-                      className={`s4-plus ${active ? "s4-plus-active" : ""} absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full`}
+                      className={`s4-plus ${active ? "s4-plus-active" : ""} grid h-10 w-10 shrink-0 place-items-center rounded-full`}
                       style={{
                         background: active
                           ? `linear-gradient(135deg, ${S4_GOLD_LT} 0%, ${S4_GOLD} 70%)`
-                          : "linear-gradient(145deg, rgba(20,34,50,0.62) 0%, rgba(8,19,31,0.55) 100%)",
-                        border: `2px solid ${active ? S4_GOLD : "rgba(226,203,148,0.72)"}`,
-                        color: active ? S1_NAVY : "#EBCB7A",
-                        backdropFilter: "blur(6px)",
-                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14)",
+                          : "#FFFFFF",
+                        border: `1px solid ${active ? S4_GOLD : "rgba(197,162,75,0.55)"}`,
+                        color: active ? "#FFFFFF" : S4_GOLD,
+                        boxShadow: "0 3px 10px rgba(0,0,0,0.07)",
                       }}
                     >
                       {active ? (
-                        <Check size={16} strokeWidth={2.8} />
+                        <Check size={16} strokeWidth={2.6} />
                       ) : (
-                        <Plus size={17} strokeWidth={2} />
+                        <Plus size={17} strokeWidth={1.6} />
                       )}
                     </span>
                   </div>
