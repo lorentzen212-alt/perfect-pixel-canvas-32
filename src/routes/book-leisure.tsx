@@ -3411,7 +3411,7 @@ function LeisureStep2Screen({
             </p>
 
 
-            <div className="mt-6 grid grid-cols-1 gap-x-1 gap-y-4 px-0 sm:grid-cols-2 lg:grid-cols-3 lg:px-[22px]">
+            <div className="mt-6 grid grid-cols-1 items-stretch gap-x-[7px] gap-y-[9px] px-0 sm:grid-cols-2 lg:grid-cols-3 lg:px-[22px]">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
