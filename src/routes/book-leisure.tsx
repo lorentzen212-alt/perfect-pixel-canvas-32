@@ -7916,7 +7916,7 @@ function LeisureStep6Screen({
 
   const summaryStats = [
     { icon: <Users2 size={26} strokeWidth={1.2} />, value: String(data.guests), label: "Guests" },
-    { icon: <CalendarDays size={26} strokeWidth={1.2} />, value: String(totalRooms), label: "Rooms" },
+    { icon: <BedDouble size={26} strokeWidth={1.2} />, value: String(totalRooms), label: "Rooms" },
     { icon: <Clock size={26} strokeWidth={1.2} />, value: String(nights), label: "Nights" },
     {
       icon: <ConciergeBell size={26} strokeWidth={1.2} />,
@@ -8072,9 +8072,32 @@ function LeisureStep6Screen({
 
           {/* RIGHT — executive summary */}
           <div
-            className="s6-exec px-8 py-12 lg:px-7 lg:py-14"
-            style={{ background: "#162638" }}
+            className="s6-exec relative overflow-hidden px-8 py-12 lg:px-7 lg:py-14"
+            style={{
+              background:
+                "linear-gradient(180deg,#183253 0%,#132C49 42%,#0F2440 100%)",
+              borderLeft: "1px solid rgba(197,162,75,0.35)",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -60px 90px -60px rgba(0,0,0,0.65), 0 28px 70px -50px rgba(0,0,0,0.85)",
+            }}
           >
+            {/* vignette + micro texture */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 55%), radial-gradient(100% 80% at 50% 100%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 60%)",
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>\")",
+              }}
+            />
             {/* champagne metallic gradients for icons */}
             <svg width="0" height="0" aria-hidden="true" className="absolute">
               <defs>
@@ -8088,25 +8111,33 @@ function LeisureStep6Screen({
               </defs>
             </svg>
 
-            <div className="flex flex-col items-center">
+            <div className="relative flex flex-col items-center">
               <div
-                className="s6-champagne-text text-[30px] leading-none"
+                aria-hidden
+                className="pointer-events-none absolute -top-6 left-1/2 h-[120px] w-[220px] -translate-x-1/2 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(closest-side, rgba(231,211,167,0.10), rgba(231,211,167,0))",
+                }}
+              />
+              <div
+                className="s6-champagne-text text-[38px] leading-none"
                 style={{ fontFamily: SERIF }}
               >
                 H
               </div>
               <div
-                className="mt-5 text-[11.5px] font-medium uppercase tracking-[0.26em]"
+                className="mt-5 text-[11.5px] font-medium uppercase tracking-[0.30em]"
                 style={{ color: "#EFE8DA" }}
               >
                 Executive Summary
               </div>
-              <div className="mt-4 flex w-full items-center gap-3">
+              <div className="mt-4 flex w-[86%] items-center gap-3">
                 <span
                   className="h-px flex-1"
                   style={{
                     background:
-                      "linear-gradient(90deg,rgba(201,174,121,0) 0%,rgba(201,174,121,0.45) 45%,rgba(251,241,218,0.85) 100%)",
+                      "linear-gradient(90deg,rgba(197,162,75,0) 0%,rgba(197,162,75,0.45) 60%,rgba(231,211,167,0.75) 100%)",
                   }}
                 />
                 <span
@@ -8121,34 +8152,39 @@ function LeisureStep6Screen({
                   className="h-px flex-1"
                   style={{
                     background:
-                      "linear-gradient(90deg,rgba(251,241,218,0.85) 0%,rgba(201,174,121,0.45) 55%,rgba(201,174,121,0) 100%)",
+                      "linear-gradient(90deg,rgba(231,211,167,0.75) 0%,rgba(197,162,75,0.45) 40%,rgba(197,162,75,0) 100%)",
                   }}
                 />
               </div>
             </div>
 
-            <div className="mt-8">
+            <div className="relative mt-8">
               {summaryStats.map((s) => (
                 <div
                   key={s.label}
                   className="flex items-center gap-5 py-6"
-                  style={{
-                    borderBottom: "1px solid transparent",
-                    borderImage:
-                      "linear-gradient(90deg,rgba(201,174,121,0.18) 0%,rgba(240,225,190,0.55) 50%,rgba(201,174,121,0.18) 100%) 1",
-                  }}
+                  style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
                 >
-                  <span className="s6-metal-icon flex shrink-0 items-center">{s.icon}</span>
-                  <div className="flex min-w-0 items-baseline gap-[9px]">
+                  <span
+                    className="flex w-[30px] shrink-0 items-center justify-center"
+                    style={{ color: "#C5A24B" }}
+                  >
+                    {s.icon}
+                  </span>
+                  <div className="flex min-w-0 items-baseline gap-[12px]">
                     <span
-                      className="text-[34px] font-semibold leading-none"
-                      style={{ fontFamily: SERIF, color: "#F9F4E8" }}
+                      className="text-[34px] leading-none"
+                      style={{
+                        fontFamily: SERIF,
+                        color: "#FFFFFF",
+                        textShadow: "0 1px 12px rgba(0,0,0,0.35)",
+                      }}
                     >
                       {s.value}
                     </span>
                     <span
-                      className="text-[13px] leading-none"
-                      style={{ color: "rgba(236,229,214,0.72)" }}
+                      className="text-[14px] font-light leading-none"
+                      style={{ color: "rgba(255,255,255,0.72)" }}
                     >
                       {s.label}
                     </span>
@@ -8157,22 +8193,25 @@ function LeisureStep6Screen({
               ))}
 
               <div className="flex items-center gap-5 py-6">
-                <span className="s6-metal-icon flex shrink-0 items-center">
+                <span
+                  className="flex w-[30px] shrink-0 items-center justify-center"
+                  style={{ color: "#C5A24B" }}
+                >
                   <MapPin size={26} strokeWidth={1.2} />
                 </span>
-                <div className="flex min-w-0 items-baseline gap-[9px]">
-                  <span
-                    className="truncate text-[21px] font-semibold leading-none"
-                    style={{ fontFamily: SERIF, color: "#F9F4E8" }}
+                <div className="min-w-0">
+                  <div
+                    className="truncate text-[22px] leading-none"
+                    style={{ fontFamily: SERIF, color: "#FFFFFF" }}
                   >
                     {destinationLabel}
-                  </span>
-                  <span
-                    className="shrink-0 text-[13px] leading-none"
-                    style={{ color: "rgba(236,229,214,0.72)" }}
+                  </div>
+                  <div
+                    className="mt-[7px] text-[14px] font-light leading-none"
+                    style={{ color: "rgba(255,255,255,0.72)" }}
                   >
                     Destination
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
