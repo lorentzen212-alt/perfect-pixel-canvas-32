@@ -241,7 +241,13 @@ function Home() {
             </a>
           </div>
         </section>
+      </main>
 
+      {/* ===== Framed light section: entrance cards + How It Works =====
+           Two 8px #0D1621 architectural side panels run flush from the
+           bottom edge of the hero to the top edge of Popular Group
+           Destinations, framing the cream content between them. */}
+      <div className="relative">
         {/* ------------------- ENTRANCE CARDS (overlap hero) ------------------- */}
         <section className="relative bg-[#F5F3EE] pb-16 lg:pb-20 lg:pt-[32px]">
           <div
