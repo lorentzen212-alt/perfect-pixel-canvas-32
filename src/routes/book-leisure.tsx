@@ -4398,16 +4398,16 @@ function S2RoomCard({
       </div>
 
       {/* 2 — name + guest count */}
-      <div className="flex items-start justify-between gap-2 pt-2.5">
+      <div className="flex items-start justify-between gap-2 pt-3">
         <div className="min-w-0">
           <div
-            className="truncate text-[18px] font-medium leading-tight"
+            className="truncate text-[21.5px] font-medium leading-tight"
             style={{ fontFamily: SERIF, color: "#26313A" }}
           >
             {meta.title}
           </div>
           <div
-            className="mt-0.5 flex items-center gap-1.5 text-[12.5px] font-light tracking-[0.03em]"
+            className="mt-1 flex items-center gap-1.5 text-[14.5px] font-light tracking-[0.03em]"
             style={{ color: "#8A9099" }}
           >
             <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
