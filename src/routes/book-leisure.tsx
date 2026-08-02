@@ -6436,7 +6436,7 @@ function LeisureStep4Screen({
 
           {/* Experience grid — two rows tall, scrolls beyond */}
           <div
-            className="mt-7 grid grid-cols-1 gap-4 overflow-y-auto pr-1 sm:grid-cols-2 xl:grid-cols-3"
+            className="s4-scroll mt-6 grid grid-cols-1 items-stretch gap-x-5 gap-y-5 overflow-y-auto pr-2 sm:grid-cols-2 xl:grid-cols-3"
             style={{ maxHeight: 452 }}
           >
             {filtered.map((e) => {
