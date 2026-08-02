@@ -4442,7 +4442,6 @@ function S2RoomCard({
               light
               value={category ?? categoryOptions[0]}
               options={categoryOptions}
-              disabled={!active}
               label={`${meta.title} category`}
               onChange={(v) => onCategoryChange?.(v)}
             />
@@ -4452,13 +4451,15 @@ function S2RoomCard({
             className="s2-metal flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 overflow-hidden px-2.5 text-[13.5px] font-light"
             style={{
               borderRadius: 13,
-              color: "rgba(247,246,242,0.72)",
-              opacity: active ? 1 : 0.88,
+              color: "#F7F6F2",
+              opacity: 1,
             }}
+            title={ACCESSIBLE_CATEGORY_LABEL}
           >
-            <span className="truncate">Standard Rooms</span>
+            <span className="truncate">{ACCESSIBLE_CATEGORY_LABEL}</span>
           </div>
         )}
+
       </div>
     </div>
   );
