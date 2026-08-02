@@ -4595,7 +4595,7 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[38px] w-full cursor-pointer select-none items-center justify-between gap-1.5 px-3.5 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
+            ? "flex h-[44px] w-full cursor-pointer select-none items-center justify-between gap-2 px-5 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
@@ -4612,7 +4612,7 @@ function S2CategorySelect({
         }
       >
         <span
-          className="truncate"
+          className={light ? "whitespace-nowrap" : "truncate"}
           style={{
             color: light
               ? value
@@ -4683,7 +4683,7 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[30px] w-[30px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
+      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[34px] w-[34px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
       style={{ borderRadius: 999, color: light ? "#0B1A26" : "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? (
@@ -4696,10 +4696,10 @@ function S2Counter({
 
   return (
     <div
-      className={`flex items-center justify-between ${light ? "h-[38px] shrink-0 px-1" : "h-[35px] px-1.5"}`}
+      className={`flex items-center justify-between ${light ? "h-[44px] shrink-0 px-1.5" : "h-[35px] px-1.5"}`}
       style={{
         borderRadius: 999,
-        width: light ? 96 : undefined,
+        width: light ? 112 : undefined,
         backgroundColor: light ? "#FFFFFF" : "rgba(20,33,45,0.72)",
         border: light ? "1px solid rgba(8,23,34,0.16)" : "1px solid rgba(214,226,236,0.10)",
       }}
