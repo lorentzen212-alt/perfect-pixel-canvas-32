@@ -4663,26 +4663,23 @@ function S2CategorySelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={label}
-        disabled={disabled}
         onClick={toggle}
         onKeyDown={onKeyDown}
         className={
             light
-              ? "s2-metal flex h-[43px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[13.5px] font-light outline-none disabled:cursor-not-allowed"
-              : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
+              ? "s2-metal flex h-[43px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[13.5px] font-light outline-none"
+              : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none"
         }
         style={
           light
             ? {
                 borderRadius: 13,
                 color: "#F7F6F2",
-                opacity: disabled ? 0.88 : 1,
+                opacity: 1,
               }
-
-
-
             : undefined
         }
+
       >
         <span
           className="truncate"
