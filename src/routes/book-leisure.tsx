@@ -6385,7 +6385,7 @@ function LeisureStep4Screen({
             <p className="mx-auto mt-2.5 max-w-[520px] text-[14px]" style={{ color: S4_MUTED }}>
               Make your stay truly memorable with unique activities and experiences.
             </p>
-            <div className="mt-6 flex items-center justify-center gap-3">
+            <div className="mt-5 flex items-center justify-center gap-3">
               <span
                 className="h-px w-[100px]"
                 style={{ background: `linear-gradient(90deg, transparent, ${S4_GOLD})` }}
