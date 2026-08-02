@@ -6745,11 +6745,11 @@ function LeisureStep4Screen({
         {/* ---------- HERO + CENTER + SUMMARY: one premium composition ---------- */}
 
           {/* ---------- LEFT HERO ---------- */}
-          <aside className="relative order-2 min-h-[380px] overflow-hidden lg:order-none">
+          <aside className="relative order-2 min-h-[380px] overflow-hidden lg:order-none lg:overflow-visible">
             <img
               src={S4_HERO}
               alt="Northern lights over a fjord terrace with fire pit"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute top-0 left-0 h-full w-full object-cover lg:w-[calc(100%+80px)]"
             />
             {hoveredExp && hoveredExp.label !== "Northern Lights" && (
               <img
@@ -6757,29 +6757,19 @@ function LeisureStep4Screen({
                 src={hoveredExp.img}
                 alt=""
                 aria-hidden
-                className="s4-hero-swap absolute inset-0 h-full w-full object-cover"
+                className="s4-hero-swap absolute top-0 left-0 h-full w-full object-cover lg:w-[calc(100%+80px)]"
               />
             )}
             {/* subtle navy readability veil (~22%) */}
             <div
-              className="absolute inset-0"
+              className="absolute top-0 left-0 h-full w-full lg:w-[calc(100%+80px)]"
               style={{ background: "rgba(8,19,31,0.22)" }}
             />
             <div
-              className="absolute inset-x-0 bottom-0 h-[52%]"
+              className="absolute bottom-0 left-0 h-[52%] w-full lg:w-[calc(100%+80px)]"
               style={{
                 background:
                   "linear-gradient(180deg, rgba(8,19,31,0) 0%, rgba(8,19,31,0.18) 55%, rgba(8,19,31,0.42) 100%)",
-              }}
-            />
-            {/* Right-edge dissolve: hero melts into the warm ivory page background.
-                Left stays sharp; only the trailing ~120px fades. Sits beneath the
-                z-10 text so it never softens the headline. */}
-            <div
-              className="pointer-events-none absolute inset-y-0 right-0 z-[1] w-[120px]"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(247,243,234,0) 0%, rgba(247,243,234,0.12) 28%, rgba(247,243,234,0.42) 58%, rgba(247,243,234,0.78) 82%, #F7F3EA 100%)",
               }}
             />
             <div className="relative z-10 flex h-full flex-col justify-end p-9 lg:p-11">
@@ -6821,12 +6811,11 @@ function LeisureStep4Screen({
 
         {/* ---------- CENTER ---------- */}
         <section
-          className="relative order-1 min-w-0 px-7 py-9 sm:px-10 sm:py-10 lg:order-none lg:px-[54px]"
+          className="relative z-[2] order-1 min-w-0 px-7 py-9 sm:px-10 sm:py-10 lg:order-none lg:px-[54px]"
           style={{
             background:
-              "radial-gradient(120% 80% at 50% 0%, #FBF8F1 0%, #F5F1E7 60%, #EFEADE 100%)",
+              "linear-gradient(90deg, rgba(247,243,234,0) 0%, rgba(245,241,231,0.12) 70px, rgba(243,239,227,0.5) 150px, rgba(243,239,227,0.86) 230px, rgba(243,239,227,0) 320px), radial-gradient(120% 80% at 50% 0%, #FBF8F1 0%, #F5F1E7 60%, #EFEADE 100%)",
             boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8)",
-            borderLeft: "1px solid rgba(226,203,148,0.20)",
             color: S4_INK,
           }}
         >
