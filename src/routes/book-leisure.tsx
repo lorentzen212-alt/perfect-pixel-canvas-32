@@ -4803,8 +4803,8 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[34px] w-[34px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
-      style={{ borderRadius: 999, color: light ? "#0B1A26" : "rgba(217,191,130,0.9)" }}
+      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[36px] w-[36px] hover:bg-[rgba(179,146,84,0.14)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
+      style={{ borderRadius: 999, color: light ? "#8E7134" : "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? (
         <Minus size={light ? 14 : 16} strokeWidth={1.8} />
@@ -4816,12 +4816,16 @@ function S2Counter({
 
   return (
     <div
-      className={`flex items-center justify-between ${light ? "h-[44px] shrink-0 px-1.5" : "h-[35px] px-1.5"}`}
+      className={`flex items-center justify-between ${light ? "h-[46px] shrink-0 px-1.5" : "h-[35px] px-1.5"}`}
       style={{
         borderRadius: 999,
-        width: light ? 112 : undefined,
-        backgroundColor: light ? "#FFFFFF" : "rgba(20,33,45,0.72)",
-        border: light ? "1px solid rgba(8,23,34,0.16)" : "1px solid rgba(214,226,236,0.10)",
+        width: light ? 118 : undefined,
+        backgroundImage: light ? "linear-gradient(180deg, #FFFFFF 0%, #FAF8F3 100%)" : undefined,
+        backgroundColor: light ? undefined : "rgba(20,33,45,0.72)",
+        border: light ? "1px solid rgba(179,146,84,0.32)" : "1px solid rgba(214,226,236,0.10)",
+        boxShadow: light
+          ? "inset 0 1px 0 rgba(255,255,255,0.9), 0 6px 14px -12px rgba(8,23,34,0.5)"
+          : undefined,
       }}
     >
 
