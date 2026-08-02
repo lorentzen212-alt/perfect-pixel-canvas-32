@@ -3216,21 +3216,6 @@ function LeisureStep2Screen({
   // A fresh empty stay form always stays visible, so it must not block continuing.
   const nextEnabled = canContinue && stays.length > 0 && !editingId;
 
-  /* Live caption for the left hero image */
-  const heroSource = stays[0]
-    ? {
-        index: 1,
-        arrival: stays[0].arrival,
-        departure: stays[0].departure,
-      }
-    : { index: stayNumber, arrival: draftArrival, departure: draftDeparture };
-  const heroNights = stayNights(heroSource.arrival, heroSource.departure);
-  const heroStayLabel = `Stay ${heroSource.index}`;
-  const heroStayMeta =
-    heroSource.arrival && heroSource.departure && heroNights > 0
-      ? `${fmtStayRange(heroSource.arrival, heroSource.departure)}  |  ${heroNights} ${heroNights === 1 ? "night" : "nights"}`
-      : "Select your dates to begin";
-
   return (
     <main
       className="min-h-screen w-full"
@@ -3276,9 +3261,12 @@ function LeisureStep2Screen({
                   "linear-gradient(180deg, rgba(8,17,26,0.62) 0%, rgba(8,17,26,0.34) 42%, rgba(6,13,20,0.66) 100%)",
               }}
             />
-            <div className="relative flex h-full flex-col justify-center px-8 py-12 lg:px-11">
+            <div
+              className="relative flex h-full flex-col items-center justify-center px-8 py-12 text-center lg:px-11"
+              style={{ transform: "translateY(-20px)" }}
+            >
               <div
-                className="text-[12px] font-light tracking-[0.2em]"
+                className="text-[11px] font-light tracking-[0.28em]"
                 style={{ color: "rgba(247,242,232,0.78)", fontFamily: SERIF }}
               >
                 Step 2 of 6
@@ -3289,17 +3277,14 @@ function LeisureStep2Screen({
               >
                 Accommodation
               </h1>
-              <S2DiamondRule />
+              <S2DiamondRule refined />
               <p
-                className="mt-1 max-w-[260px] text-[14.5px] font-light leading-relaxed"
-                style={{ color: "rgba(246,242,234,0.86)" }}
+                className="mt-1 max-w-[260px] text-[15px] font-light leading-[1.9]"
+                style={{ color: "rgba(246,242,234,0.9)" }}
               >
-                How many rooms
+                Choose the rooms
                 <br />
-                will your group need?
-              </p>
-              <p className="mt-6 text-[12.5px] font-light" style={{ color: "rgba(246,242,234,0.55)" }}>
-                {heroStayLabel} · {heroStayMeta}
+                that fit your group.
               </p>
             </div>
           </aside>
@@ -3560,20 +3545,27 @@ function LeisureStep2Screen({
 }
 
 /* Thin champagne rule with a small centred diamond. */
-function S2DiamondRule({ width = 120 }: { width?: number }) {
+function S2DiamondRule({ width = 120, refined = false }: { width?: number; refined?: boolean }) {
   return (
-    <div className="my-4 flex items-center" style={{ width }}>
-      <span className="h-px flex-1" style={{ background: "rgba(217,191,130,0.55)" }} />
+    <div
+      className="flex items-center"
+      style={{
+        width,
+        marginTop: refined ? 40 : undefined,
+        marginBottom: refined ? 40 : undefined,
+      }}
+    >
+      <span className="h-px flex-1" style={{ background: refined ? "rgba(217,191,130,0.38)" : "rgba(217,191,130,0.55)" }} />
       <span
         className="mx-2 block"
         style={{
-          width: 5,
-          height: 5,
+          width: refined ? 3.5 : 5,
+          height: refined ? 3.5 : 5,
           transform: "rotate(45deg)",
-          border: "1px solid rgba(231,211,164,0.9)",
+          border: refined ? "1px solid rgba(231,211,164,0.7)" : "1px solid rgba(231,211,164,0.9)",
         }}
       />
-      <span className="h-px flex-1" style={{ background: "rgba(217,191,130,0.55)" }} />
+      <span className="h-px flex-1" style={{ background: refined ? "rgba(217,191,130,0.38)" : "rgba(217,191,130,0.55)" }} />
     </div>
   );
 }
