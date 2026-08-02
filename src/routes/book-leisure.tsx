@@ -3691,6 +3691,7 @@ function S2CompletedStayCard({
   onConfirmRemove,
   onCancelRemove,
   animClass = "",
+  highlight = false,
 }: {
   index: number;
   arrival: string;
