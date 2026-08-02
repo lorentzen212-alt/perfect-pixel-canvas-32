@@ -4130,8 +4130,8 @@ function S2StayCard({
       >
         {/* Upper zone — dates + statistics */}
         <div className="flex flex-col gap-4 px-[20px] py-[16px] sm:px-6 lg:flex-row lg:items-center lg:gap-7">
-          {/* Circular calendar mark */}
           {/* Circular calendar mark — opens the check-in picker */}
+
           <button
             type="button"
             aria-label="Open check-in date picker"
