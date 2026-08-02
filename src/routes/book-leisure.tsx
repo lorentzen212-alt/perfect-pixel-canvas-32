@@ -4378,17 +4378,18 @@ function S2RoomCard({
             </div>
           ) : (
             <div
-              className="flex h-[38px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-3 text-[11px] font-light"
+              className="flex h-[40px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-3.5 text-[12px] font-light transition-colors duration-200 hover:bg-[#F6F1E8]"
               style={{
-                borderRadius: 999,
-                border: "1px solid rgba(8,23,34,0.16)",
-                backgroundColor: "#FFFFFF",
-                color: S2_NAVY_MUTED,
-                opacity: active ? 1 : 0.65,
+                borderRadius: 12,
+                border: "1px solid #E2D6BE",
+                backgroundColor: "#FCFAF7",
+                color: "#6E767E",
+                opacity: active ? 1 : 0.7,
               }}
             >
               Standard Rooms
             </div>
+
           )}
         </div>
       </div>
