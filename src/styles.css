@@ -615,7 +615,6 @@
 }
 
 /* Step 2 – "Your Stay" module: inner booking card sits inside a navy container */
-.s2-stay-module > div > [class] { }
 .s2-stay-module .s2-stay-card,
 .s2-stay-module > .mt-7 > * {
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16) !important;
