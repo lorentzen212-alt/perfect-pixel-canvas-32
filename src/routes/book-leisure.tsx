@@ -4107,8 +4107,8 @@ function S2StayCard({
       {/* SECTION 1 — header */}
       <div className="flex items-baseline justify-between gap-4">
         <h3
-          className="text-[32px] font-medium leading-none"
-          style={{ fontFamily: SERIF, color: "#FDFBF6" }}
+          className="text-[32px] leading-none"
+          style={{ fontFamily: SERIF, color: "#F2EEE7", fontWeight: 600 }}
         >
           {title}
         </h3>
