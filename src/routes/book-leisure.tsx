@@ -3868,7 +3868,7 @@ function S2StayCard({
         aria-expanded={open}
         aria-label={`${label} date`}
         className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-[9px] text-left transition-colors duration-200 disabled:cursor-default"
-        style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
+        style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: light ? "flex-start" : align === "right" ? "flex-end" : "flex-start" }}
       >
         {field}
       </button>
