@@ -3868,8 +3868,8 @@ function S2StayCard({
     const field = (
       <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
-          className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
-          style={{ color: "rgba(230,236,244,0.62)" }}
+          className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none"
+          style={{ color: "rgba(201,167,106,0.85)", letterSpacing: "0.18em" }}
         >
           {label}
         </span>
@@ -3888,8 +3888,8 @@ function S2StayCard({
         </div>
         {selected ? (
           <span
-            className="whitespace-nowrap text-[12px] font-light leading-none"
-            style={{ color: "rgba(226,232,240,0.34)" }}
+            className="whitespace-nowrap text-[12px] leading-none"
+            style={{ color: "#8F98A5", fontWeight: 400, letterSpacing: "0.01em" }}
           >
             {format(selected, "EEEE")}
           </span>
