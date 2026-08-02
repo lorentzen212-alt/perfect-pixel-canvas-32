@@ -6294,7 +6294,7 @@ function LeisureStep4Screen({
       ultraWide
     >
       <div
-        className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[25fr_51fr_24fr]"
+        className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[24.9fr_54.6fr_20.5fr]"
         style={{
           background: "#F7F3EA",
           border: "1px solid rgba(201,164,92,0.30)",
