@@ -1929,6 +1929,8 @@ import rovaniemiImg from "@/assets/leisure/rovaniemi.jpg.asset.json";
 import tampereImg from "@/assets/leisure/tampere.jpg.asset.json";
 import turkuImg from "@/assets/leisure/turku.jpg.asset.json";
 import leviImg from "@/assets/leisure/levi.jpg.asset.json";
+import s5ConciergeHero from "@/assets/s5-concierge-hero.png.asset.json";
+
 
 const DEST_IMG: Record<string, string> = {
   Oslo: osloImg.url,
@@ -6664,6 +6666,9 @@ function LeisureStep4Screen({
 const S5_HERO =
   "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1600&q=80";
 
+const S5_PANEL_IMAGE = s5ConciergeHero.url;
+
+
 const PHONE_COUNTRIES: { code: string; dial: string; flag: string; name: string }[] = [
   { code: "NO", dial: "+47", flag: "🇳🇴", name: "Norway" },
   { code: "SE", dial: "+46", flag: "🇸🇪", name: "Sweden" },
@@ -6936,13 +6941,15 @@ function LeisureStep5Screen({
           {/* ---------- LEFT: editorial ---------- */}
           <div
             className="relative flex min-h-[420px] flex-col overflow-hidden px-8 py-12 sm:px-12 lg:min-h-[860px] lg:py-16"
-            style={{
-              borderRight: `1px solid ${S5_BORDER}`,
-              background:
-                "radial-gradient(120% 80% at 20% 10%, rgba(20,38,58,0.55) 0%, rgba(11,22,36,0) 60%)",
-            }}
+            style={{ borderRight: `1px solid ${S5_BORDER}` }}
           >
-            <div className="relative z-10">
+            <img
+              src={S5_PANEL_IMAGE}
+              alt="Hotel concierge welcoming guests at the reception desk"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: "22% 20%" }}
+            />
+            <div className="relative z-10 max-w-[230px]">
               <div
                 className="text-[10.5px] font-medium uppercase tracking-[0.38em]"
                 style={{ color: S5_GOLD }}
@@ -6966,10 +6973,8 @@ function LeisureStep5Screen({
                 We'll send tailored offers to this person.
               </p>
             </div>
-            <div className="relative mt-auto h-[300px]">
-              <S5Decoration />
-            </div>
           </div>
+
 
           {/* ---------- RIGHT: form ---------- */}
           <div className="px-7 py-12 sm:px-12 lg:px-16 lg:py-16">
