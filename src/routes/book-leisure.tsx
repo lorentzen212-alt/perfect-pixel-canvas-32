@@ -11,12 +11,12 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import leisureStep1HeroAsset from "@/assets/leisure-step1-hero-v3.png.asset.json";
 import s2HeroImg from "@/assets/s2-accommodation-hero.jpg";
-import roomSingleImg from "@/assets/room-single.jpg.asset.json";
-import roomDoubleImg from "@/assets/room-double.jpg.asset.json";
-import roomTwinImg from "@/assets/room-twin.jpg.asset.json";
-import roomTripleImg from "@/assets/room-triple.jpg.asset.json";
-import roomFamilyImg from "@/assets/room-family.jpg.asset.json";
-import roomAccessibleImg from "@/assets/room-accessible.jpg.asset.json";
+import roomSingleImg from "@/assets/rooms/room-single.jpg";
+import roomDoubleImg from "@/assets/rooms/room-double.jpg";
+import roomTwinImg from "@/assets/rooms/room-twin.jpg";
+import roomTripleImg from "@/assets/rooms/room-triple.jpg";
+import roomFamilyImg from "@/assets/rooms/room-family.jpg";
+import roomAccessibleImg from "@/assets/rooms/room-accessible.jpg";
 import s2StayHeroImg from "@/assets/s2-lounge-fjord.png.asset.json";
 import {
   ArrowLeft,
