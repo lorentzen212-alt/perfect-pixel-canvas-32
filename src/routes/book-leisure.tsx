@@ -7916,7 +7916,7 @@ function LeisureStep6Screen({
 
   const summaryStats = [
     { icon: <Users2 size={26} strokeWidth={1.2} />, value: String(data.guests), label: "Guests" },
-    { icon: <CalendarDays size={26} strokeWidth={1.2} />, value: String(totalRooms), label: "Rooms" },
+    { icon: <BedDouble size={26} strokeWidth={1.2} />, value: String(totalRooms), label: "Rooms" },
     { icon: <Clock size={26} strokeWidth={1.2} />, value: String(nights), label: "Nights" },
     {
       icon: <ConciergeBell size={26} strokeWidth={1.2} />,
