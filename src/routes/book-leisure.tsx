@@ -4401,7 +4401,7 @@ function S2RoomCard({
       <div className="flex items-start justify-between gap-2 pt-1.5">
         <div className="min-w-0">
           <div
-            className="truncate text-[22.5px] font-medium leading-tight"
+            className="truncate text-[20px] font-medium leading-[1.2] tracking-[0.15px]"
             style={{ fontFamily: SERIF, color: "#26313A" }}
           >
             {meta.title}
