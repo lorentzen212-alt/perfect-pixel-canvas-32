@@ -2550,19 +2550,26 @@ const STEP2_ROOMS: {
 ];
 
 /* Room categories */
+const ACCESSIBLE_CATEGORY_LABEL = "Based on available room type";
+
 const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
   single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
   double: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
-  twin: ["Standard", "Superior", "Premium"],
+  twin: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
+  triple: ["Superior", "Premium", "Junior Suite", "Suite"],
   family: ["Family Room", "Junior Suite", "Suite"],
 };
 
 /* Default selected category per room type (first option, e.g. "Standard") */
 function defaultDraftCategories(): Record<string, string> {
-  return Object.fromEntries(
-    Object.entries(ROOM_CATEGORY_OPTIONS).map(([k, opts]) => [k, opts[0]]),
-  );
+  return {
+    ...Object.fromEntries(
+      Object.entries(ROOM_CATEGORY_OPTIONS).map(([k, opts]) => [k, opts[0]]),
+    ),
+    accessible: ACCESSIBLE_CATEGORY_LABEL,
+  };
 }
+
 
 function LeisureStepShell({
   activeStep,
