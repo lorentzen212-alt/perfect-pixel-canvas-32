@@ -6372,6 +6372,11 @@ type Step4Exp = { label: string; category: string; img: string };
 
 const STEP4_EXPERIENCES: Step4Exp[] = [
   {
+    label: "Northern Lights",
+    category: "Winter",
+    img: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=80",
+  },
+  {
     label: "Fjord Cruise",
     category: "Nature & Adventure",
     img: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=900&q=80",
@@ -6380,11 +6385,6 @@ const STEP4_EXPERIENCES: Step4Exp[] = [
     label: "Hiking Adventure",
     category: "Nature & Adventure",
     img: "https://images.unsplash.com/photo-1533240332313-0db49b459ad6?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    label: "Northern Lights",
-    category: "Winter",
-    img: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=80",
   },
   {
     label: "Ski Experience",
