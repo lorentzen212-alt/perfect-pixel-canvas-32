@@ -8072,9 +8072,32 @@ function LeisureStep6Screen({
 
           {/* RIGHT — executive summary */}
           <div
-            className="s6-exec px-8 py-12 lg:px-7 lg:py-14"
-            style={{ background: "#162638" }}
+            className="s6-exec relative overflow-hidden px-8 py-12 lg:px-7 lg:py-14"
+            style={{
+              background:
+                "linear-gradient(180deg,#183253 0%,#132C49 42%,#0F2440 100%)",
+              borderLeft: "1px solid rgba(197,162,75,0.35)",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -60px 90px -60px rgba(0,0,0,0.65), 0 28px 70px -50px rgba(0,0,0,0.85)",
+            }}
           >
+            {/* vignette + micro texture */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 55%), radial-gradient(100% 80% at 50% 100%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 60%)",
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>\")",
+              }}
+            />
             {/* champagne metallic gradients for icons */}
             <svg width="0" height="0" aria-hidden="true" className="absolute">
               <defs>
