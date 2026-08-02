@@ -4335,20 +4335,31 @@ function S2RoomCard({
           </span>
         )}
 
-        {/* title + capacity sitting inside the gradient */}
+        {/* icon + title + capacity sitting inside the gradient */}
         <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 px-5 pb-4">
           <div className="min-w-0">
+            <span
+              aria-hidden
+              className="mb-2.5 grid h-[34px] w-[34px] place-items-center rounded-full"
+              style={{
+                border: "1px solid rgba(216,190,133,0.75)",
+                color: "#E4CB96",
+                backgroundColor: "rgba(9,22,33,0.42)",
+              }}
+            >
+              {roomIcon(roomKey)}
+            </span>
             <div
-              className="truncate text-[18px] font-normal leading-tight"
+              className="truncate text-[19px] font-normal leading-tight"
               style={{ fontFamily: SERIF, color: "#FFFFFF" }}
             >
               {meta.title}
             </div>
             <div
-              className="mt-2 flex items-center gap-2 text-[11.5px] font-light tracking-[0.03em]"
-              style={{ color: "rgba(240,244,248,0.78)" }}
+              className="mt-1.5 flex items-center gap-1.5 text-[11.5px] font-light tracking-[0.03em]"
+              style={{ color: "rgba(240,244,248,0.80)" }}
             >
-              <span style={{ color: "#D8BE85" }}>{roomIcon(roomKey)}</span>
+              <Users size={12} strokeWidth={1.6} style={{ color: "#D8BE85" }} />
               {capacity}
             </div>
           </div>
@@ -4365,33 +4376,36 @@ function S2RoomCard({
         </div>
       </div>
 
-      {/* body — controls only, with room to breathe */}
-      <div className="flex flex-1 flex-col gap-3 px-5 pb-6 pt-5">
+      {/* body — one control row: quantity left, category right */}
+      <div className="flex flex-1 items-center gap-3 px-4 pb-5 pt-4">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
-          <S2CategorySelect
-            light
-            value={category ?? categoryOptions[0]}
-            options={categoryOptions}
-            disabled={!active}
-            label={`${meta.title} category`}
-            onChange={(v) => onCategoryChange?.(v)}
-          />
+          <div className="min-w-0 flex-1">
+            <S2CategorySelect
+              light
+              value={category ?? categoryOptions[0]}
+              options={categoryOptions}
+              disabled={!active}
+              label={`${meta.title} category`}
+              onChange={(v) => onCategoryChange?.(v)}
+            />
+          </div>
         ) : (
           <div
-            className="flex h-[44px] w-full items-center justify-center whitespace-nowrap px-5 text-[12px] font-light"
+            className="flex h-[44px] min-w-0 flex-1 items-center justify-center truncate px-4 text-[12px] font-light"
             style={{
               borderRadius: 999,
-              border: "1px solid rgba(8,23,34,0.16)",
+              border: "1px solid rgba(8,23,34,0.14)",
               backgroundColor: "#FFFFFF",
               color: S2_NAVY_MUTED,
-              opacity: active ? 1 : 0.65,
+              opacity: active ? 1 : 0.75,
             }}
           >
-            Standard Room
+            {ROOM_FIXED_CATEGORY[roomKey] ?? "Standard Room"}
           </div>
         )}
       </div>
+
 
     </div>
   );
