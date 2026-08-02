@@ -324,7 +324,7 @@ function Home() {
         {/* Architectural side panels — flush from hero bottom to Destinations top */}
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-0 left-0 top-0 w-[8px]"
+          className="pointer-events-none absolute bottom-0 left-0 top-0 w-[13px]"
           style={{ backgroundColor: "#0D1621" }}
         />
         <div
