@@ -3313,7 +3313,7 @@ function LeisureStep2Screen({
 
           {/* ---------- MAIN: working area ---------- */}
           <section
-            className="min-w-0 px-6 py-8 lg:px-[30px] lg:pb-10 lg:pt-7"
+            className="min-w-0 px-7 py-10 lg:px-[42px] lg:pb-14 lg:pt-10"
             style={{ backgroundColor: "#F8F6F2" }}
           >
 
@@ -3328,8 +3328,21 @@ function LeisureStep2Screen({
               <button
                 type="button"
                 onClick={commitAndStartNext}
-                className="inline-flex items-center gap-1.5 bg-transparent p-0 text-[13.5px] font-normal transition-opacity hover:opacity-80"
-                style={{ color: "#B08D47", border: "none" }}
+                className="s2-btn inline-flex items-center gap-2 px-[18px] py-[10px] text-[12.5px] font-normal"
+                style={{
+                  color: "#8E7134",
+                  borderRadius: 999,
+                  border: "1px solid rgba(179,146,84,0.42)",
+                  backgroundColor: "rgba(179,146,84,0.05)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = "0 0 0 4px rgba(179,146,84,0.10)";
+                  e.currentTarget.style.backgroundColor = "rgba(179,146,84,0.10)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.backgroundColor = "rgba(179,146,84,0.05)";
+                }}
               >
                 <Plus size={14} strokeWidth={1.6} />
                 Add another stay
@@ -3337,7 +3350,7 @@ function LeisureStep2Screen({
             </div>
 
             {/* Stay card (dates + meta + edit/remove) */}
-            <div className="mt-3.5">
+            <div className="mt-5">
               <S2StayCard
                 compact
                 light
@@ -3404,7 +3417,7 @@ function LeisureStep2Screen({
 
             {/* Room distribution */}
             <h3
-              className="mt-9 text-[27px] font-normal leading-none"
+              className="mt-12 text-[28px] font-normal leading-none"
               style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
             >
               Room distribution
@@ -3413,7 +3426,7 @@ function LeisureStep2Screen({
               Choose the number of rooms and your preferred category for your group.
             </p>
 
-            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 2xl:grid-cols-3">
+            <div className="mt-8 grid grid-cols-1 gap-7 sm:grid-cols-2 2xl:grid-cols-3">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
@@ -3431,7 +3444,7 @@ function LeisureStep2Screen({
 
             {/* Bottom information bar */}
             <div
-              className="mt-6 flex items-center gap-3.5 px-5 py-3.5"
+              className="mt-8 flex items-center gap-3.5 px-6 py-4"
               style={{
                 borderRadius: 12,
                 backgroundColor: "#FBF9F5",
@@ -3459,7 +3472,7 @@ function LeisureStep2Screen({
 
 
             {/* Notes */}
-            <div className="mt-6">
+            <div className="mt-8">
               <div className="text-[13px] font-light" style={{ color: S2_NAVY_TEXT }}>
                 Anything else we should know?{" "}
                 <span style={{ color: S2_NAVY_MUTED }}>(optional)</span>
@@ -3487,7 +3500,7 @@ function LeisureStep2Screen({
             </div>
 
             {/* Add this stay */}
-            <div className="mt-7 flex flex-col items-center gap-2">
+            <div className="mt-10 flex flex-col items-center gap-3">
               {addError && !canAddStay && (
                 <span className="text-[12.5px]" style={{ color: "#A9563F" }}>
                   Please select arrival and departure dates and at least one room.
@@ -3499,13 +3512,15 @@ function LeisureStep2Screen({
                 onClick={() => commitStay()}
                 aria-disabled={!canAddStay}
                 disabled={saving}
-                className="group inline-flex w-full max-w-[300px] items-center justify-center gap-3 px-8 py-3.5 text-[12.5px] font-medium uppercase tracking-[0.18em] transition-all duration-300 hover:-translate-y-[1px]"
+                className="group inline-flex w-full max-w-[420px] items-center justify-center gap-3.5 px-14 py-[19px] text-[12.5px] font-medium uppercase tracking-[0.22em] transition-all duration-300 hover:-translate-y-[2px]"
                 style={{
-                  borderRadius: 4,
-                  backgroundColor: S2_NAVY_BTN,
+                  borderRadius: 10,
+                  backgroundImage: "linear-gradient(180deg, #0F2333 0%, #08131F 100%)",
                   border: `1px solid ${canAddStay ? "rgba(217,191,130,0.55)" : "rgba(217,191,130,0.25)"}`,
                   color: canAddStay ? S2_GOLD_SOFT : "rgba(231,211,164,0.45)",
-                  boxShadow: "0 12px 26px -18px rgba(8,19,31,0.7)",
+                  boxShadow: canAddStay
+                    ? "inset 0 1px 0 rgba(255,255,255,0.06), 0 18px 40px -24px rgba(8,19,31,0.8), 0 0 26px -14px rgba(217,191,130,0.5)"
+                    : "0 12px 26px -18px rgba(8,19,31,0.7)",
                   cursor: canAddStay ? "pointer" : "not-allowed",
                 }}
               >
