@@ -6469,6 +6469,11 @@ function LeisureStep4Screen({
   const dateInputRef = useRef<HTMLInputElement>(null);
   const [hoveredExp, setHoveredExp] = useState<Step4Exp | null>(null);
 
+  const handleToggleExp = (label: string) => {
+    if (!selected.has(label) && letUsRecommend) setLetUsRecommend(false);
+    onToggle(label);
+  };
+
   const S4_INK = "#12212E";
   const S4_MUTED = "rgba(18,33,46,0.60)";
   const S4_HAIR = "rgba(201,164,92,0.28)";
@@ -6495,7 +6500,8 @@ function LeisureStep4Screen({
 
       {selected.size === 0 ? (
         <div
-          className="rounded-[16px] px-5 py-7 text-center"
+          key={letUsRecommend ? "concierge" : "empty"}
+          className="s4-sum-state flex min-h-[168px] flex-col items-center justify-center rounded-[16px] px-5 py-7 text-center"
           style={{
             background: "rgba(255,255,255,0.035)",
             border: "1px solid rgba(232,199,117,0.22)",
@@ -6504,27 +6510,33 @@ function LeisureStep4Screen({
           <Sparkles
             size={20}
             strokeWidth={1.6}
+            className={letUsRecommend ? "s4-sum-sparkle" : undefined}
             style={{ color: S1_GOLD_SOFT, margin: "0 auto" }}
           />
           <div
             className="mt-3 text-[15px] text-white"
             style={{ fontFamily: SERIF }}
           >
-            Your itinerary
+            {letUsRecommend ? "Concierge Curation" : "Your itinerary"}
           </div>
-          <div
-            className="mt-1.5 text-[12px] uppercase tracking-[0.16em]"
-            style={{ color: "rgba(232,199,117,0.72)" }}
-          >
-            0 experiences selected
-          </div>
+          {!letUsRecommend && (
+            <div
+              className="mt-1.5 text-[12px] uppercase tracking-[0.16em]"
+              style={{ color: "rgba(232,199,117,0.72)" }}
+            >
+              0 experiences selected
+            </div>
+          )}
           <div
             className="mt-2.5 text-[12px] leading-[1.6]"
             style={{ color: "rgba(245,241,230,0.55)" }}
           >
-            Choose experiences to personalise your group&rsquo;s stay.
+            {letUsRecommend
+              ? "Our specialists will hand-pick the perfect experiences for your group."
+              : "Choose experiences to personalise your group’s stay."}
           </div>
         </div>
+
       ) : (
         <div className="flex flex-col gap-2.5">
           {Array.from(selected).map((label) => {
@@ -6839,7 +6851,7 @@ function LeisureStep4Screen({
                 <button
                   key={e.label}
                   type="button"
-                  onClick={() => onToggle(e.label)}
+                  onClick={() => handleToggleExp(e.label)}
                   onMouseEnter={() => setHoveredExp(e)}
                   onMouseLeave={() =>
                     setHoveredExp((cur) => (cur?.label === e.label ? null : cur))
@@ -7121,7 +7133,7 @@ function LeisureStep4Screen({
               <div className="mt-3">{goldRule}</div>
               <button
                 type="button"
-                onClick={() => onToggle(recommended.label)}
+                onClick={() => handleToggleExp(recommended.label)}
                 className="mt-4 flex w-full items-center gap-3.5 rounded-[16px] px-4 py-3.5 text-left transition-all hover:-translate-y-[1px]"
                 style={{
                   background: "rgba(255,255,255,0.035)",
