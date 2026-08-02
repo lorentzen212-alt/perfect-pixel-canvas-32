@@ -6941,16 +6941,24 @@ function LeisureStep5Screen({
         <div className="grid grid-cols-1 lg:grid-cols-[28%_72%]">
           {/* ---------- LEFT: editorial ---------- */}
           <div
-            className="relative flex min-h-[420px] flex-col overflow-hidden px-8 py-12 sm:px-12 lg:min-h-[860px] lg:py-16"
+            className="relative flex min-h-[420px] flex-col overflow-hidden px-[52px] py-[52px] lg:min-h-[860px]"
             style={{ borderRight: `1px solid ${S5_BORDER}` }}
           >
             <img
               src={S5_PANEL_IMAGE}
-              alt="Hotel concierge welcoming guests at the reception desk"
+              alt="Minimal luxury lounge interior with brass accents"
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: "62% 40%" }}
+              style={{ objectPosition: "center center" }}
+            />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(6,10,16,0.20) 0%, rgba(6,10,16,0.10) 28%, rgba(6,10,16,0) 55%)",
+              }}
             />
             <div className="relative z-10 max-w-[230px]">
+
               <div
                 className="text-[10.5px] font-medium uppercase tracking-[0.38em]"
                 style={{ color: S5_GOLD }}
