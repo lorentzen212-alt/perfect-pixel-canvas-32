@@ -8137,9 +8137,141 @@ function LeisureStep6Screen({
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 55%), radial-gradient(100% 80% at 50% 100%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 60%)",
+                  "radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0) 55%), radial-gradient(100% 80% at 50% 100%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 60%)",
               }}
             />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>\")",
+              }}
+            />
+            {/* champagne metallic gradients for icons */}
+            <svg width="0" height="0" aria-hidden="true" className="absolute">
+              <defs>
+                <linearGradient id="s6Champagne" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#FBF1DA" />
+                  <stop offset="22%" stopColor="#E7D3A7" />
+                  <stop offset="48%" stopColor="#C9AE79" />
+                  <stop offset="70%" stopColor="#E3CEA0" />
+                  <stop offset="100%" stopColor="#A98C57" />
+                </linearGradient>
+              </defs>
+            </svg>
+
+            <div className="relative flex flex-col items-center -mt-[33px]">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-6 left-1/2 h-[120px] w-[220px] -translate-x-1/2 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(closest-side, rgba(231,211,167,0.10), rgba(231,211,167,0))",
+                }}
+              />
+              <div
+                className="s6-champagne-text text-[43px] leading-none"
+                style={{ fontFamily: SERIF }}
+              >
+                H
+              </div>
+              <div
+                className="mt-[2px] text-[11.5px] font-medium uppercase tracking-[0.30em]"
+                style={{ color: "#EFE8DA" }}
+              >
+                Executive Summary
+              </div>
+              <div className="mt-3 flex w-[86%] items-center gap-3">
+                <span
+                  className="h-px flex-1"
+                  style={{
+                    background:
+                      "linear-gradient(90deg,rgba(197,162,75,0) 0%,rgba(197,162,75,0.45) 60%,rgba(231,211,167,0.75) 100%)",
+                  }}
+                />
+                <span
+                  className="h-[6px] w-[6px] rotate-45"
+                  style={{
+                    background:
+                      "linear-gradient(135deg,#FBF1DA 0%,#E3CEA0 45%,#C9AE79 70%,#A98C57 100%)",
+                    boxShadow: "0 0 6px rgba(231,211,167,0.45)",
+                  }}
+                />
+                <span
+                  className="h-px flex-1"
+                  style={{
+                    background:
+                      "linear-gradient(90deg,rgba(231,211,167,0.75) 0%,rgba(197,162,75,0.45) 40%,rgba(197,162,75,0) 100%)",
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="relative mt-[34px] pl-[10px]">
+              {summaryStats.map((s) => (
+                <div
+                  key={s.label}
+                  className="flex items-center gap-5 py-6"
+                  style={{
+                    borderBottom: "1px solid rgba(255,255,255,0.08)",
+                    marginRight: "-10px",
+                  }}
+                >
+                  <span
+                    className="flex w-[30px] shrink-0 items-center justify-center"
+                    style={{ color: "#C5A24B" }}
+                  >
+                    {s.icon}
+                  </span>
+                  <div className="flex min-w-0 items-baseline gap-[12px]">
+                    <span
+                      className="text-[37px] leading-none"
+                      style={{
+                        fontFamily: SERIF,
+                        color: "#FFFFFF",
+                        textShadow: "0 1px 12px rgba(0,0,0,0.35)",
+                      }}
+                    >
+                      {s.value}
+                    </span>
+                    <span
+                      className="text-[14.7px] font-light leading-none"
+                      style={{ color: "rgba(255,255,255,0.72)" }}
+                    >
+                      {s.label}
+                    </span>
+                  </div>
+                </div>
+              ))}
+
+              <div
+                className="flex items-center gap-5 py-6"
+                style={{ marginRight: "-10px" }}
+              >
+                <span
+                  className="flex w-[30px] shrink-0 items-center justify-center"
+                  style={{ color: "#C5A24B" }}
+                >
+                  <MapPin size={26} strokeWidth={1.2} />
+                </span>
+                <div className="min-w-0">
+                  <div
+                    className="text-[14.7px] font-light leading-none"
+                    style={{ color: "rgba(255,255,255,0.72)" }}
+                  >
+                    Destination
+                  </div>
+                  <div
+                    className="mt-[7px] truncate text-[23px] leading-none"
+                    style={{ fontFamily: SERIF, color: "#FFFFFF" }}
+                  >
+                    {destinationLabel}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay"
