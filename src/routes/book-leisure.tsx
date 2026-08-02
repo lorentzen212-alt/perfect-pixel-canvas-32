@@ -4169,7 +4169,7 @@ function S2StayCard({
               </>
             )}
             <S2StayDivider />
-            <S2StayInfo icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
+            <S2StayInfo tone="remove" icon={<Trash2 size={18} strokeWidth={1.6} />} text="Remove" onClick={onRemove} />
           </>
         )}
       </div>
