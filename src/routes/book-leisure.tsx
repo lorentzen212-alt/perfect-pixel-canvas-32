@@ -1929,7 +1929,7 @@ import rovaniemiImg from "@/assets/leisure/rovaniemi.jpg.asset.json";
 import tampereImg from "@/assets/leisure/tampere.jpg.asset.json";
 import turkuImg from "@/assets/leisure/turku.jpg.asset.json";
 import leviImg from "@/assets/leisure/levi.jpg.asset.json";
-import s5ConciergeHero from "@/assets/s5-concierge-hero-v2.png.asset.json";
+import s5ConciergeHero from "@/assets/s5-lounge-hero.png.asset.json";
 import s6MarbleAsset from "@/assets/s6-marble-texture.png.asset.json";
 
 
