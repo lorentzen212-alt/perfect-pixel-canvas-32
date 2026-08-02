@@ -6469,6 +6469,11 @@ function LeisureStep4Screen({
   const dateInputRef = useRef<HTMLInputElement>(null);
   const [hoveredExp, setHoveredExp] = useState<Step4Exp | null>(null);
 
+  const handleToggleExp = (label: string) => {
+    if (!selected.has(label) && letUsRecommend) setLetUsRecommend(false);
+    onToggle(label);
+  };
+
   const S4_INK = "#12212E";
   const S4_MUTED = "rgba(18,33,46,0.60)";
   const S4_HAIR = "rgba(201,164,92,0.28)";
@@ -6846,7 +6851,7 @@ function LeisureStep4Screen({
                 <button
                   key={e.label}
                   type="button"
-                  onClick={() => onToggle(e.label)}
+                  onClick={() => handleToggleExp(e.label)}
                   onMouseEnter={() => setHoveredExp(e)}
                   onMouseLeave={() =>
                     setHoveredExp((cur) => (cur?.label === e.label ? null : cur))
@@ -7128,7 +7133,7 @@ function LeisureStep4Screen({
               <div className="mt-3">{goldRule}</div>
               <button
                 type="button"
-                onClick={() => onToggle(recommended.label)}
+                onClick={() => handleToggleExp(recommended.label)}
                 className="mt-4 flex w-full items-center gap-3.5 rounded-[16px] px-4 py-3.5 text-left transition-all hover:-translate-y-[1px]"
                 style={{
                   background: "rgba(255,255,255,0.035)",
