@@ -8354,18 +8354,18 @@ function S6ReviewRow({
 }) {
   return (
     <div
-      className="flex items-start gap-6 px-[6px] py-[40px]"
+      className="flex items-start gap-7 px-[6px] py-[46px]"
       style={{
-        borderBottom: "1px solid rgba(120,108,92,0.10)",
+        borderBottom: "1px solid rgba(163,150,131,0.16)",
       }}
     >
       <span
-        className="relative grid h-[50px] w-[50px] shrink-0 place-items-center rounded-full"
+        className="relative grid h-[44px] w-[44px] shrink-0 place-items-center rounded-full"
         style={{
           border: "1px solid transparent",
           color: "#B08D3F",
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.14), rgba(255,255,255,0)), linear-gradient(145deg, rgba(226,203,152,0.9) 0%, rgba(192,155,72,0.6) 50%, rgba(160,124,52,0.45) 100%)",
+            "linear-gradient(rgba(255,255,255,0.10), rgba(255,255,255,0)), linear-gradient(150deg, rgba(226,203,152,0.75) 0%, rgba(192,155,72,0.45) 48%, rgba(178,144,68,0.32) 100%)",
           backgroundOrigin: "border-box",
           backgroundClip: "padding-box, border-box",
         }}
@@ -8374,22 +8374,22 @@ function S6ReviewRow({
       </span>
       <div className="min-w-0 flex-1">
         <div
-          className="text-[10.5px] font-light uppercase tracking-[0.26em]"
+          className="text-[9.8px] font-medium uppercase tracking-[0.3em]"
           style={{ color: "#B08D3F" }}
         >
           {label}
         </div>
         <div
-          className="mt-2.5 text-[17px] font-medium leading-[1.45]"
-          style={{ color: "#22282E" }}
+          className="mt-3 text-[17.5px] font-medium leading-[1.4]"
+          style={{ color: "#1F2328" }}
         >
           {primary}
         </div>
         {secondary.map((line) => (
           <div
             key={line}
-            className="mt-1 text-[13.5px] font-light leading-[1.6]"
-            style={{ color: "rgba(34,40,46,0.55)" }}
+            className="mt-1.5 text-[12.5px] font-normal leading-[1.6]"
+            style={{ color: "rgba(70,74,80,0.62)" }}
           >
             {line}
           </div>
@@ -8399,11 +8399,10 @@ function S6ReviewRow({
       <button
         type="button"
         onClick={onEdit}
-        className="s6-edit-link mt-1 inline-flex shrink-0 items-center gap-1.5 text-[13.5px] font-medium"
+        className="s6-edit-link mt-[18px] inline-flex shrink-0 items-center gap-2.5 text-[12.5px] font-normal"
       >
-
         Edit
-        <ChevronRight className="s6-edit-arrow" size={15} strokeWidth={1.6} />
+        <ChevronRight className="s6-edit-arrow" size={13} strokeWidth={1.3} />
       </button>
     </div>
   );
