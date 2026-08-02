@@ -4392,81 +4392,75 @@ function S2RoomCard({
       className="group s2-room-card flex flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1"
       data-active={active ? "true" : "false"}
       style={{
-        borderRadius: 18,
+        borderRadius: 16,
         backgroundColor: "#FFFFFF",
-        border: `1px solid ${active ? "rgba(179,146,84,0.55)" : "rgba(179,146,84,0.22)"}`,
+        border: `1px solid ${active ? "rgba(179,146,84,0.55)" : "rgba(179,146,84,0.20)"}`,
         boxShadow: active
-          ? "0 18px 40px -26px rgba(8,23,34,0.38)"
-          : "0 10px 30px -22px rgba(8,23,34,0.30)",
+          ? "0 20px 44px -28px rgba(8,23,34,0.34)"
+          : "0 12px 34px -26px rgba(8,23,34,0.26)",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = "0 26px 52px -26px rgba(8,23,34,0.42)";
+        e.currentTarget.style.boxShadow = "0 28px 56px -28px rgba(8,23,34,0.38)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = active
-          ? "0 18px 40px -26px rgba(8,23,34,0.38)"
-          : "0 10px 30px -22px rgba(8,23,34,0.30)";
+          ? "0 20px 44px -28px rgba(8,23,34,0.34)"
+          : "0 12px 34px -26px rgba(8,23,34,0.26)";
       }}
     >
-      {/* image — taller, gallery-like proportions */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 13.2" }}>
+      {/* image — larger, gallery-like proportions */}
+      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 11.4" }}>
         <img
           src={meta.img}
           alt={meta.title}
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
-          style={{ objectPosition: "center" }}
-        />
-        {/* soft navy fade over the bottom third for legibility */}
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0"
           style={{
-            height: "44%",
+            objectPosition: "center",
+            filter: "saturate(0.86) contrast(1.04) brightness(0.95) hue-rotate(-8deg)",
+          }}
+        />
+        {/* deep navy tone wash so bedding matches the page palette */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
             background:
-              "linear-gradient(to top, rgba(8,23,34,0.92) 0%, rgba(8,23,34,0.72) 30%, rgba(8,23,34,0.36) 62%, rgba(8,23,34,0) 100%)",
+              "linear-gradient(180deg, rgba(8,19,31,0.18) 0%, rgba(8,19,31,0.10) 45%, rgba(8,19,31,0.30) 100%)",
+            mixBlendMode: "multiply",
           }}
         />
         {roomKey === "double" && (
           <span
             className="absolute text-[9px] font-medium uppercase tracking-[0.16em]"
             style={{
-              top: 16,
-              left: 16,
-              padding: "4px 10px",
+              top: 14,
+              left: 14,
+              padding: "5px 11px",
               borderRadius: 999,
               backgroundColor: "#C6A967",
               color: "#0B1A26",
-              boxShadow: "0 4px 12px -6px rgba(8,23,34,0.5)",
+              boxShadow: "0 6px 14px -8px rgba(8,23,34,0.6)",
             }}
           >
             Most popular
           </span>
         )}
+      </div>
 
-        {/* icon + title + capacity sitting inside the gradient */}
-        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 px-5 pb-4">
+      {/* body — name, capacity, then controls */}
+      <div className="flex flex-1 flex-col px-5 pb-6 pt-5">
+        <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <span
-              aria-hidden
-              className="mb-2.5 grid h-[34px] w-[34px] place-items-center rounded-full"
-              style={{
-                border: "1px solid rgba(216,190,133,0.75)",
-                color: "#E4CB96",
-                backgroundColor: "rgba(9,22,33,0.42)",
-              }}
-            >
-              {roomIcon(roomKey)}
-            </span>
             <div
               className="truncate text-[19px] font-normal leading-tight"
-              style={{ fontFamily: SERIF, color: "#FFFFFF" }}
+              style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
             >
               {meta.title}
             </div>
             <div
-              className="mt-1.5 flex items-center gap-1.5 text-[11.5px] font-light tracking-[0.03em]"
-              style={{ color: "rgba(240,244,248,0.80)" }}
+              className="mt-2 flex items-center gap-1.5 text-[11.5px] font-light tracking-[0.03em]"
+              style={{ color: S2_NAVY_MUTED }}
             >
-              <Users size={12} strokeWidth={1.6} style={{ color: "#D8BE85" }} />
+              <Users size={12} strokeWidth={1.6} style={{ color: "#B3925A" }} />
               {capacity}
             </div>
           </div>
@@ -4474,44 +4468,44 @@ function S2RoomCard({
             <span
               title={meta.desc}
               aria-label={meta.desc}
-              className="mb-[3px] grid h-[17px] w-[17px] shrink-0 place-items-center rounded-full text-[9.5px] font-medium opacity-70 transition-opacity duration-200 hover:opacity-100"
-              style={{ border: "1px solid rgba(216,190,133,0.8)", color: "#EBD9AE" }}
+              className="mt-1 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full text-[9.5px] font-medium opacity-70 transition-opacity duration-200 hover:opacity-100"
+              style={{ border: "1px solid rgba(179,146,84,0.7)", color: "#8E7134" }}
             >
               i
             </span>
           )}
         </div>
+
+        <div className="mt-5 flex items-center gap-3">
+          <S2Counter light value={value} onChange={onChange} label={meta.title} />
+          {categoryOptions ? (
+            <div className="min-w-0 flex-1">
+              <S2CategorySelect
+                light
+                value={category ?? categoryOptions[0]}
+                options={categoryOptions}
+                disabled={!active}
+                label={`${meta.title} category`}
+                onChange={(v) => onCategoryChange?.(v)}
+              />
+            </div>
+          ) : (
+            <div
+              className="flex h-[46px] min-w-0 flex-1 items-center justify-center truncate px-4 text-[12px] font-light"
+              style={{
+                borderRadius: 999,
+                border: "1px solid rgba(8,23,34,0.12)",
+                backgroundColor: "#FCFBF8",
+                color: S2_NAVY_MUTED,
+                opacity: active ? 1 : 0.75,
+              }}
+            >
+              {ROOM_FIXED_CATEGORY[roomKey] ?? "Standard Room"}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* body — one control row: quantity left, category right */}
-      <div className="flex flex-1 items-center gap-3 px-4 pb-5 pt-4">
-        <S2Counter light value={value} onChange={onChange} label={meta.title} />
-        {categoryOptions ? (
-          <div className="min-w-0 flex-1">
-            <S2CategorySelect
-              light
-              value={category ?? categoryOptions[0]}
-              options={categoryOptions}
-              disabled={!active}
-              label={`${meta.title} category`}
-              onChange={(v) => onCategoryChange?.(v)}
-            />
-          </div>
-        ) : (
-          <div
-            className="flex h-[44px] min-w-0 flex-1 items-center justify-center truncate px-4 text-[12px] font-light"
-            style={{
-              borderRadius: 999,
-              border: "1px solid rgba(8,23,34,0.14)",
-              backgroundColor: "#FFFFFF",
-              color: S2_NAVY_MUTED,
-              opacity: active ? 1 : 0.75,
-            }}
-          >
-            {ROOM_FIXED_CATEGORY[roomKey] ?? "Standard Room"}
-          </div>
-        )}
-      </div>
 
 
     </div>
