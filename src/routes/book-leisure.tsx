@@ -3913,7 +3913,7 @@ function S2StayCard({
 
   const dateTimeline = (
     <div
-      className="grid items-center px-[22px] py-[10px]"
+      className={light ? "grid items-center px-[26px] py-[16px]" : "grid items-center px-[22px] py-[10px]"}
       style={{
         width: compact ? "100%" : "92%",
         marginLeft: "auto",
@@ -3938,11 +3938,12 @@ function S2StayCard({
         placeholder="Select arrival date"
       />
       <ArrowRight
-        size={34}
+        size={light ? 26 : 34}
         strokeWidth={1.1}
         className="mx-3 shrink-0 self-center"
-        style={{ color: "rgba(217,191,130,0.9)" }}
+        style={{ color: light ? "#C09A57" : "rgba(217,191,130,0.9)" }}
       />
+
       <DateCol
         label="Departure"
         value={departure}
