@@ -4084,6 +4084,9 @@ function S2StayCard({
         onChange={onArrival}
         align="left"
         placeholder="Select arrival date"
+        open={arrivalOpen}
+        setOpen={setArrivalOpen}
+        onPicked={() => setDepartureOpen(true)}
       />
       <ArrowRight
         size={34}
@@ -4095,6 +4098,8 @@ function S2StayCard({
         label="Departure"
         value={departure}
         onChange={onDeparture}
+        open={departureOpen}
+        setOpen={setDepartureOpen}
         minDate={(() => {
           const a = toDate(arrival);
           if (!a) return undefined;
@@ -4104,6 +4109,7 @@ function S2StayCard({
         })()}
         align="right"
         placeholder="Select departure date"
+
       />
     </div>
   );
