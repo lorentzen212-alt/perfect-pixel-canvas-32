@@ -4293,20 +4293,21 @@ function S2RoomCard({
           : "0 10px 30px -22px rgba(8,23,34,0.30)";
       }}
     >
-      {/* image — ~62% of card height */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 11.6" }}>
+      {/* image — taller, gallery-like proportions */}
+      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 13.2" }}>
         <img
           src={meta.img}
           alt={meta.title}
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
           style={{ objectPosition: "center" }}
         />
+        {/* soft navy fade over the bottom third for legibility */}
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0"
           style={{
             height: "34%",
             background:
-              "linear-gradient(to top, rgba(8,23,34,0.55) 0%, rgba(8,23,34,0.26) 45%, rgba(8,23,34,0) 100%)",
+              "linear-gradient(to top, rgba(8,23,34,0.86) 0%, rgba(8,23,34,0.60) 38%, rgba(8,23,34,0.26) 70%, rgba(8,23,34,0) 100%)",
           }}
         />
         {roomKey === "double" && (
@@ -4325,23 +4326,21 @@ function S2RoomCard({
             Most popular
           </span>
         )}
-      </div>
 
-      {/* body */}
-      <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
-        <div className="flex items-start justify-between gap-2">
+        {/* title + capacity sitting inside the gradient */}
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 px-5 pb-4">
           <div className="min-w-0">
             <div
-              className="truncate text-[17px] font-normal leading-tight"
-              style={{ fontFamily: SERIF, color: "#081722" }}
+              className="truncate text-[18px] font-normal leading-tight"
+              style={{ fontFamily: SERIF, color: "#FFFFFF" }}
             >
               {meta.title}
             </div>
             <div
-              className="mt-2.5 flex items-center gap-2 text-[11.5px] font-light tracking-[0.02em]"
-              style={{ color: S2_NAVY_MUTED }}
+              className="mt-2 flex items-center gap-2 text-[11.5px] font-light tracking-[0.03em]"
+              style={{ color: "rgba(240,244,248,0.78)" }}
             >
-              <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
+              <span style={{ color: "#D8BE85" }}>{roomIcon(roomKey)}</span>
               {capacity}
             </div>
           </div>
@@ -4349,16 +4348,18 @@ function S2RoomCard({
             <span
               title={meta.desc}
               aria-label={meta.desc}
-              className="mt-[2px] grid h-[16px] w-[16px] shrink-0 place-items-center rounded-full text-[9.5px] font-medium opacity-45 transition-opacity duration-200 hover:opacity-100"
-              style={{ border: "1px solid #C6A967", color: "#B39254" }}
+              className="mb-[3px] grid h-[17px] w-[17px] shrink-0 place-items-center rounded-full text-[9.5px] font-medium opacity-70 transition-opacity duration-200 hover:opacity-100"
+              style={{ border: "1px solid rgba(216,190,133,0.8)", color: "#EBD9AE" }}
             >
               i
             </span>
           )}
         </div>
+      </div>
 
-        {/* controls */}
-        <div className="mt-5 flex items-center gap-2.5">
+      {/* body — controls only, with room to breathe */}
+      <div className="flex flex-1 flex-col justify-center px-5 pb-6 pt-6">
+        <div className="flex items-center gap-3">
           <S2Counter light value={value} onChange={onChange} label={meta.title} />
           {categoryOptions ? (
             <div className="min-w-0 flex-1">
@@ -4373,7 +4374,7 @@ function S2RoomCard({
             </div>
           ) : (
             <div
-              className="flex h-[38px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-3 text-[11px] font-light"
+              className="flex h-[44px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-5 text-[12px] font-light"
               style={{
                 borderRadius: 999,
                 border: "1px solid rgba(8,23,34,0.16)",
@@ -4382,12 +4383,12 @@ function S2RoomCard({
                 opacity: active ? 1 : 0.65,
               }}
             >
-              Standard Rooms
+              Standard Room
             </div>
           )}
         </div>
       </div>
-    </div>
+
   );
 }
 
