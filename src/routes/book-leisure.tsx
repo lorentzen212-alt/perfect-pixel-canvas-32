@@ -4536,7 +4536,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-[9px] flex w-full items-center gap-2">
+      <div className="mt-auto flex w-full items-center gap-2 pt-[7px]">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
