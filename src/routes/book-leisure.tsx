@@ -4462,41 +4462,39 @@ function S2RoomCard({
 
   return (
     <div
-      className="group s2-room-card flex h-full flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1"
+      className="group s2-room-card flex h-full flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out"
       data-active={active ? "true" : "false"}
       style={{
-        borderRadius: 18,
-        backgroundColor: "#FCFAF6",
-        padding: 10,
-        border: `1px solid ${active ? "rgba(198,169,103,0.5)" : "rgba(24,38,50,0.07)"}`,
-        boxShadow: "0 10px 26px -22px rgba(8,23,34,0.30)",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = "0 16px 34px -24px rgba(8,23,34,0.34)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = "0 10px 26px -22px rgba(8,23,34,0.30)";
+        borderRadius: 20,
+        backgroundColor: "#FCFAF7",
+        padding: 0,
+        border: `1px solid ${active ? "rgba(198,169,103,0.5)" : "#E9E3DA"}`,
+        boxShadow: "0 12px 40px rgba(8,19,31,0.08)",
       }}
     >
-      {/* 1 — image */}
-      <div
-        className="relative w-full overflow-hidden"
-        style={{ aspectRatio: "16 / 11", borderRadius: 12 }}
-      >
-        <img
-          src={meta.img}
-          alt={meta.title}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
-          style={{ objectPosition: "center" }}
-        />
-      </div>
+      {/* 1 — full-bleed image */}
+      <img
+        src={meta.img}
+        alt={meta.title}
+        style={{
+          display: "block",
+          width: "100%",
+          height: 220,
+          objectFit: "cover",
+          objectPosition: "center",
+          margin: 0,
+          padding: 0,
+          borderTopLeftRadius: 19,
+          borderTopRightRadius: 19,
+        }}
+      />
 
       {/* 2 — name + guest count + learn more */}
-      <div className="mt-[13px] px-[6px]">
+      <div className="flex flex-1 flex-col" style={{ padding: 22 }}>
         <div className="flex items-start justify-between gap-2">
           <div
-            className="truncate text-[19px] font-normal leading-[1.1]"
-            style={{ fontFamily: SERIF, color: "#1B3A52" }}
+            className="truncate text-[18px] leading-[1.15]"
+            style={{ fontFamily: SERIF, fontWeight: 500, color: "#182333" }}
           >
             {meta.title}
           </div>
@@ -4511,64 +4509,69 @@ function S2RoomCard({
             </span>
           )}
         </div>
-        <div className="mt-[7px] flex items-end justify-between gap-2">
+        <div className="mt-[10px] flex items-center justify-between gap-2">
           <div
-            className="flex items-center gap-[7px] text-[13.5px] font-normal leading-none"
-            style={{ color: "#5E6A74" }}
+            className="flex items-center gap-[8px] text-[15px] font-medium leading-none"
+            style={{ color: "#7D8188" }}
           >
-            <span style={{ color: "#B08D4B" }}>{roomIcon(roomKey)}</span>
+            <span style={{ color: "#C0A062", display: "inline-flex" }}>{roomIcon(roomKey)}</span>
             {capacity}
           </div>
           {!showInfo && (
             <span
               title={meta.desc}
-              className="flex shrink-0 cursor-default items-center gap-[5px] text-[12.5px] font-normal leading-none transition-colors duration-200 hover:text-[#1B3A52]"
-              style={{ color: "#6C7883" }}
+              className="flex shrink-0 cursor-default items-center gap-[5px] text-[14px] font-medium leading-none transition-opacity duration-200 hover:opacity-75"
+              style={{ color: "#8B6A2F" }}
             >
               Learn more
               <ChevronDown
-                size={13}
-                strokeWidth={2}
-                style={{ transform: "rotate(-90deg)", color: "#8C99A4" }}
+                size={14}
+                strokeWidth={1.9}
+                style={{ transform: "rotate(-90deg)", color: "#8B6A2F" }}
               />
             </span>
           )}
         </div>
-      </div>
 
-      {/* hairline divider */}
-      <div className="mx-[6px] mt-[11px] h-px" style={{ backgroundColor: "rgba(24,38,50,0.10)" }} />
+        {/* hairline divider */}
+        <div
+          className="h-px"
+          style={{ backgroundColor: "#ECE5DB", marginTop: 18, marginBottom: 18 }}
+        />
 
-      {/* 3 — control row */}
-      <div className="mt-auto flex w-full items-center gap-[6px] px-[2px] pt-[13px]">
-        <S2Counter light value={value} onChange={onChange} label={meta.title} />
-        {categoryOptions ? (
-          <div className="min-w-0 flex-1">
-            <S2CategorySelect
-              light
-              value={category ?? categoryOptions[0]}
-              options={categoryOptions}
-              label={`${meta.title} category`}
-              onChange={(v) => onCategoryChange?.(v)}
-            />
-          </div>
-        ) : (
-          <div
-            className="flex h-[44px] min-w-0 flex-1 items-center justify-between gap-1 overflow-hidden px-2 text-[11.5px] font-normal"
-            style={{
-              borderRadius: 10,
-              color: "#F4F1EA",
-              backgroundColor: "#173049",
-            }}
-            title={ACCESSIBLE_CATEGORY_LABEL}
-          >
-            <span className="truncate">{ACCESSIBLE_CATEGORY_LABEL}</span>
-          </div>
-        )}
+        {/* 3 — control row */}
+        <div className="mt-auto flex w-full items-center gap-[10px]">
+          <S2Counter light value={value} onChange={onChange} label={meta.title} />
+          {categoryOptions ? (
+            <div className="min-w-0 flex-1">
+              <S2CategorySelect
+                light
+                value={category ?? categoryOptions[0]}
+                options={categoryOptions}
+                label={`${meta.title} category`}
+                onChange={(v) => onCategoryChange?.(v)}
+              />
+            </div>
+          ) : (
+            <div
+              className="flex h-[46px] min-w-0 flex-1 items-center justify-between gap-1 overflow-hidden text-[15px] font-medium"
+              style={{
+                borderRadius: 12,
+                padding: "0 18px",
+                color: "#FFFFFF",
+                backgroundColor: "#0F2946",
+              }}
+              title={ACCESSIBLE_CATEGORY_LABEL}
+            >
+              <span className="truncate">{ACCESSIBLE_CATEGORY_LABEL}</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 }
+
 
 
 /* ---- Step 2 premium custom category dropdown (portal / floating) ---- */
