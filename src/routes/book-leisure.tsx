@@ -3263,7 +3263,7 @@ function LeisureStep2Screen({
                 type="button"
                 onClick={commitAndStartNext}
                 className="inline-flex items-center gap-1.5 bg-transparent p-0 text-[13.5px] font-normal transition-opacity hover:opacity-80"
-                style={{ color: "#B08D४7".replace("४", "4"), border: "none" }}
+                style={{ color: "#B08D47", border: "none" }}
               >
                 <Plus size={14} strokeWidth={1.6} />
                 Add another stay
