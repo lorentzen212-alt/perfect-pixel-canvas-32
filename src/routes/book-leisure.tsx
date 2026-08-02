@@ -4482,10 +4482,10 @@ function S2RoomCard({
           : "0 6px 20px -20px rgba(8,23,34,0.18)";
       }}
     >
-      {/* 1 — image (~60% of card) */}
+      {/* 1 — image (dominant visual element) */}
       <div
-        className="relative overflow-hidden"
-        style={{ aspectRatio: "16 / 12.3", borderRadius: 16, boxShadow: "0 3px 10px -4px rgba(8,23,34,0.35)" }}
+        className="relative w-full overflow-hidden"
+        style={{ aspectRatio: "16 / 11.4", borderRadius: 16, boxShadow: "0 3px 10px -4px rgba(8,23,34,0.35)" }}
       >
         <img
           src={meta.img}
@@ -4504,7 +4504,7 @@ function S2RoomCard({
       </div>
 
       {/* editorial champagne-gold divider — inset, not full width */}
-      <div className="mx-[18px] mt-[9px] mb-[9px] h-px" style={{ backgroundColor: "rgba(198,169,103,0.4)" }} />
+      <div className="mx-[18px] mt-[7px] mb-[6px] h-px" style={{ backgroundColor: "rgba(198,169,103,0.4)" }} />
 
       {/* 2 — name + guest count */}
       <div className="flex items-start justify-between gap-2">
