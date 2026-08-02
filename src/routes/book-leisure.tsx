@@ -4596,7 +4596,7 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[36px] w-full min-w-[132px] cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[11.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
+            ? "flex h-[36px] w-full min-w-[140px] cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[11.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
@@ -4644,7 +4644,7 @@ function S2CategorySelect({
 }
 
 function roomIcon(key: string) {
-  const p = { size: 19, strokeWidth: 1.7 } as const;
+  const p = { size: 15, strokeWidth: 1.7 } as const;
   switch (key) {
     case "single":
       return <UserIcon {...p} />;
