@@ -3281,26 +3281,32 @@ function LeisureStep2Screen({
                     "linear-gradient(to top, rgba(9,20,30,0.92) 0%, rgba(9,20,30,0.62) 38%, rgba(9,20,30,0) 100%)",
                 }}
               />
-              <div className="absolute inset-x-0 bottom-0 px-6 pb-8 2xl:px-8 2xl:pb-10">
+              <div className="absolute inset-x-0 bottom-0 px-7 pb-[52px] 2xl:px-9">
                 <div
-                  className="text-[10.5px] font-medium uppercase tracking-[0.30em]"
+                  className="text-[9.5px] font-medium uppercase tracking-[0.34em]"
                   style={{ color: "#D8BE85" }}
                 >
                   Step 2 of 6
                 </div>
                 <h2
-                  className="mt-3 text-[28px] font-normal leading-[1.05]"
+                  className="mt-4 text-[34px] font-normal leading-[1.02]"
                   style={{ fontFamily: SERIF, color: "#FFFFFF" }}
                 >
                   Accommodation
                 </h2>
+                <div style={{ marginTop: 26, marginBottom: 26 }}>
+                  <S2DiamondRule width={168} refined />
+                </div>
                 <p
-                  className="mt-3 max-w-[24ch] text-[13.5px] font-light leading-relaxed"
-                  style={{ color: "rgba(243,238,229,0.86)" }}
+                  className="max-w-[26ch] text-[15px] font-light leading-[1.65]"
+                  style={{ color: "rgba(243,238,229,0.88)" }}
                 >
-                  How many rooms will your group need?
+                  Choose the rooms
+                  <br />
+                  that fit your group.
                 </p>
               </div>
+
             </div>
           </aside>
 
