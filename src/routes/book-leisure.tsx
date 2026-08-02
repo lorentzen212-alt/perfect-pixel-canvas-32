@@ -72,6 +72,7 @@ import {
   MessageSquare,
   Tag,
   Trash2,
+  Moon,
   Lightbulb,
 
   Headphones,
@@ -3653,64 +3654,110 @@ function S2CompletedStayCard({
   onCancelRemove?: () => void;
   animClass?: string;
 }) {
-  const fmt = (iso: string) => {
+  const fmtLong = (iso: string) => {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
-    if (!m) return "—";
-    return format(new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])), "d MMM yyyy");
+    if (!m) return { date: "—", day: "" };
+    const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    return { date: format(d, "dd MMMM yyyy"), day: format(d, "EEEE").toUpperCase() };
   };
+  const roman = (n: number) =>
+    ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"][n] ?? String(n);
+  const inn = fmtLong(arrival);
+  const out = fmtLong(departure);
+
+  const GOLD_STRIP =
+    "linear-gradient(180deg, #6E5527 0%, #C9A65C 12%, #F3DCA4 32%, #D8B872 52%, #9C7B36 78%, #E2C98F 100%)";
+  const GOLD_TEXT = "#E3C68C";
+  const IVORY = "#F7F1E3";
+
+  const stat = (icon: React.ReactNode, value: number, label: string) => (
+    <div className="flex flex-1 items-center justify-center gap-2">
+      <span style={{ color: GOLD_TEXT }}>{icon}</span>
+      <span className="leading-none">
+        <span className="block text-[18px] font-medium leading-none" style={{ fontFamily: SERIF, color: IVORY }}>
+          {value}
+        </span>
+        <span className="mt-1 block text-[11px]" style={{ color: "rgba(240,245,251,0.55)" }}>
+          {label}
+        </span>
+      </span>
+    </div>
+  );
 
   return (
     <div
-      className={`${animClass} flex h-full flex-col`}
+      className={`${animClass} relative flex h-full flex-col overflow-hidden`}
       style={{
-        borderRadius: 22,
-        minHeight: 196,
-        backgroundImage: "linear-gradient(165deg, rgba(38,56,72,0.95) 0%, rgba(31,48,63,0.95) 100%)",
+        borderRadius: 20,
+        maxWidth: 520,
+        backgroundImage: "linear-gradient(165deg, #16293D 0%, #0F1F30 100%)",
         border: "1px solid rgba(217,191,130,0.34)",
-        padding: "20px 24px",
+        padding: "18px 22px 16px 26px",
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.09), 0 30px 60px -30px rgba(4,10,16,0.7), 0 10px 22px -16px rgba(0,0,0,0.45)",
+          "inset 0 1px 0 rgba(255,255,255,0.06), 0 26px 54px -28px rgba(3,8,14,0.8), 0 8px 20px -14px rgba(0,0,0,0.5)",
       }}
     >
-      <div className="flex items-center gap-3.5">
+      {/* metallic gold left strip */}
+      <span
+        aria-hidden
+        className="absolute left-0 top-0 h-full"
+        style={{ width: 6, backgroundImage: GOLD_STRIP, boxShadow: "1px 0 6px -2px rgba(217,191,130,0.45)" }}
+      />
+
+      {/* top row */}
+      <div className="flex items-start justify-between gap-3">
         <span
-          className="grid h-10 w-10 shrink-0 place-items-center text-[15px] font-semibold"
+          className="text-[11px] font-medium uppercase tracking-[0.28em]"
+          style={{ color: GOLD_TEXT }}
+        >
+          Stay {roman(index)}
+        </span>
+        <span
+          className="rounded-full px-3 py-[3px] text-[11px] font-semibold"
           style={{
-            borderRadius: 999,
-            border: "1.5px solid rgba(240,219,163,0.8)",
-            backgroundColor: "rgba(7,15,23,0.96)",
-            color: "#FFF2CE",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14), 0 0 16px -6px rgba(217,191,130,0.6)",
+            backgroundImage: "linear-gradient(180deg, #F4DCA2 0%, #D3AF63 55%, #A9832F 100%)",
+            color: "#20180A",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 8px -4px rgba(0,0,0,0.6)",
           }}
         >
-          {index}
-        </span>
-        <span
-          className="text-[19px] font-medium leading-none"
-          style={{ fontFamily: SERIF, color: "#FFFDF8" }}
-        >
-          Stay {index}
+          Draft
         </span>
       </div>
 
-      <div className="mt-4 min-w-0">
-        <div className="text-[15.5px] font-medium" style={{ color: "#FCF8EF" }}>
-          {fmt(arrival)} → {fmt(departure)}
+      {/* dates */}
+      <div className="mt-4 flex items-center gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="truncate text-[17px] font-medium leading-tight" style={{ fontFamily: SERIF, color: IVORY }}>
+            {inn.date}
+          </div>
+          <div className="mt-1 text-[10.5px] uppercase tracking-[0.16em]" style={{ color: GOLD_TEXT }}>
+            {inn.day}
+          </div>
         </div>
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]" style={{ color: "rgba(240,245,251,0.9)" }}>
-          <span>{nights} {nights === 1 ? "night" : "nights"}</span>
-          <span aria-hidden style={{ color: "rgba(233,239,246,0.4)" }}>·</span>
-          <span>{guests} {guests === 1 ? "guest" : "guests"}</span>
-          <span aria-hidden style={{ color: "rgba(233,239,246,0.4)" }}>·</span>
-          <span>{rooms} {rooms === 1 ? "room" : "rooms"}</span>
+        <ArrowRight size={20} strokeWidth={1.4} style={{ color: GOLD_TEXT, flexShrink: 0 }} />
+        <div className="min-w-0 flex-1 text-right">
+          <div className="truncate text-[17px] font-medium leading-tight" style={{ fontFamily: SERIF, color: IVORY }}>
+            {out.date}
+          </div>
+          <div className="mt-1 text-[10.5px] uppercase tracking-[0.16em]" style={{ color: GOLD_TEXT }}>
+            {out.day}
+          </div>
         </div>
       </div>
 
+      <div className="mt-3.5 h-px w-full" style={{ background: "rgba(217,191,130,0.28)" }} />
 
-      <div
-        className="mt-auto pt-4"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
-      >
+      {/* stats */}
+      <div className="mt-3 flex items-center">
+        {stat(<BedDouble size={17} strokeWidth={1.6} />, rooms, rooms === 1 ? "Room" : "Rooms")}
+        <span className="h-7 w-px" style={{ background: "rgba(217,191,130,0.2)" }} />
+        {stat(<Users size={17} strokeWidth={1.6} />, guests, guests === 1 ? "Guest" : "Guests")}
+        <span className="h-7 w-px" style={{ background: "rgba(217,191,130,0.2)" }} />
+        {stat(<Moon size={17} strokeWidth={1.6} />, nights, nights === 1 ? "Night" : "Nights")}
+      </div>
+
+      {/* actions */}
+      <div className="mt-auto pt-3.5">
         {confirming ? (
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <span className="text-[13px]" style={{ color: "rgba(245,241,230,0.7)" }}>
@@ -3734,23 +3781,29 @@ function S2CompletedStayCard({
             </button>
           </div>
         ) : (
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={onEdit}
-              className="inline-flex items-center gap-2 bg-transparent p-0 text-[13.5px] font-medium"
-              style={{ color: S2_GOLD_SOFT, border: "none" }}
+              className="inline-flex flex-1 items-center justify-center gap-2 bg-transparent text-[13.5px] font-medium transition-colors duration-200"
+              style={{
+                color: GOLD_TEXT,
+                border: "1px solid rgba(217,191,130,0.45)",
+                borderRadius: 12,
+                padding: "9px 14px",
+              }}
             >
               <Pencil size={15} strokeWidth={1.7} />
-              Edit
+              Continue editing
             </button>
+            <span className="h-6 w-px" style={{ background: "rgba(217,191,130,0.18)" }} />
             <button
               type="button"
               onClick={onRemove}
-              className="inline-flex items-center gap-2 bg-transparent p-0 text-[13.5px]"
-              style={{ color: "rgba(245,241,230,0.72)", border: "none" }}
+              className="inline-flex items-center gap-2 bg-transparent p-0 text-[13px]"
+              style={{ color: "rgba(245,241,230,0.6)", border: "none" }}
             >
-              <Trash2 size={15} strokeWidth={1.7} />
+              <Trash2 size={14} strokeWidth={1.6} />
               Remove
             </button>
           </div>
