@@ -4600,12 +4600,13 @@ function S2CategorySelect({
         style={
           light
             ? {
-                borderRadius: 4,
-                border: `1px solid ${S2_HAIR_GOLD}`,
-                backgroundColor: open ? "rgba(179,146,84,0.08)" : "transparent",
+                borderRadius: 999,
+                border: `1px solid rgba(8,23,34,0.16)`,
+                backgroundColor: "#FFFFFF",
                 color: S2_NAVY_TEXT,
                 opacity: disabled ? 0.55 : 1,
               }
+
             : undefined
         }
       >
