@@ -3291,7 +3291,7 @@ function LeisureStep2Screen({
 
           {/* ---------- CENTER: working area ---------- */}
           <section
-            className="min-w-0 px-6 py-8 lg:px-10 lg:py-9"
+            className="min-w-0 px-6 py-8 lg:px-6 lg:py-9"
             style={{ backgroundColor: S2_IVORY }}
           >
             {/* Stay heading */}
@@ -3388,7 +3388,7 @@ function LeisureStep2Screen({
               Select the number of rooms and the preferred category for your group.
             </p>
 
-            <div className="mt-6 grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-x-2 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
@@ -4279,7 +4279,7 @@ function S2RoomCard({
       style={{
         borderRadius: 16,
         backgroundColor: "#FCFAF7",
-        padding: 8,
+        padding: 9,
         border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
           ? "0 14px 32px -24px rgba(8,23,34,0.30)"
@@ -4297,7 +4297,7 @@ function S2RoomCard({
       {/* 1 — image (~60% of card) */}
       <div
         className="relative overflow-hidden"
-        style={{ aspectRatio: "16 / 11.9", borderRadius: 11 }}
+        style={{ aspectRatio: "16 / 13.1", borderRadius: 12 }}
       >
         <img
           src={meta.img}
@@ -4332,16 +4332,16 @@ function S2RoomCard({
       </div>
 
       {/* 2 — name + guest count */}
-      <div className="flex items-start justify-between gap-2 pt-2">
+      <div className="flex items-start justify-between gap-2 pt-2.5">
         <div className="min-w-0">
           <div
-            className="truncate text-[17px] font-medium leading-tight"
+            className="truncate text-[18px] font-medium leading-tight"
             style={{ fontFamily: SERIF, color: "#26313A" }}
           >
             {meta.title}
           </div>
           <div
-            className="mt-0.5 flex items-center gap-1.5 text-[11.5px] font-light tracking-[0.03em]"
+            className="mt-0.5 flex items-center gap-1.5 text-[12.5px] font-light tracking-[0.03em]"
             style={{ color: "#8A9099" }}
           >
             <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
@@ -4361,7 +4361,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-2 flex items-center gap-1.5">
+      <div className="mt-2.5 flex items-center gap-1.5">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
