@@ -50,6 +50,7 @@ import {
   Compass,
   Wine,
   Users,
+  User,
   Waves,
   Camera,
   Flame,
