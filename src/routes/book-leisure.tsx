@@ -3966,24 +3966,32 @@ function S2StayCard({
       <div
         className={animClass}
         style={{
-          borderRadius: 8,
-          backgroundImage: "linear-gradient(180deg, #0F1E2B 0%, #0C1926 100%)",
-          border: "1px solid rgba(217,191,130,0.34)",
-          boxShadow: "0 18px 40px -30px rgba(6,13,20,0.9)",
+          borderRadius: light ? 16 : 8,
+          backgroundImage: light
+            ? "linear-gradient(180deg, #FFFFFF 0%, #FDFCFA 100%)"
+            : "linear-gradient(180deg, #0F1E2B 0%, #0C1926 100%)",
+          border: light ? "1px solid rgba(18,34,47,0.10)" : "1px solid rgba(217,191,130,0.34)",
+          boxShadow: light
+            ? "0 10px 30px -24px rgba(8,23,34,0.35)"
+            : "0 18px 40px -30px rgba(6,13,20,0.9)",
           overflow: "hidden",
         }}
       >
         {dateTimeline}
         <div
-          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[22px] py-[10px]"
+          className={
+            light
+              ? "flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[26px] py-[12px]"
+              : "flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[22px] py-[10px]"
+          }
           style={{
-            borderTop: "1px solid rgba(217,191,130,0.22)",
-            backgroundColor: "rgba(255,255,255,0.02)",
+            borderTop: light ? "1px solid rgba(18,34,47,0.08)" : "1px solid rgba(217,191,130,0.22)",
+            backgroundColor: light ? "transparent" : "rgba(255,255,255,0.02)",
           }}
         >
           {confirming ? (
             <>
-              <span className="text-[13px] font-light" style={{ color: "rgba(248,245,238,0.9)" }}>
+              <span className="text-[13px] font-light" style={{ color: light ? "rgba(18,34,47,0.85)" : "rgba(248,245,238,0.9)" }}>
                 Remove this stay?
               </span>
               <div className="flex items-center gap-4">
@@ -3999,7 +4007,7 @@ function S2StayCard({
                   type="button"
                   onClick={onCancelRemove}
                   className="bg-transparent p-0 text-[13px] font-light"
-                  style={{ color: "rgba(245,241,230,0.6)", border: "none" }}
+                  style={{ color: light ? "rgba(18,34,47,0.55)" : "rgba(245,241,230,0.6)", border: "none" }}
                 >
                   Cancel
                 </button>
@@ -4009,16 +4017,16 @@ function S2StayCard({
             <>
               <div
                 className="flex items-center gap-3 text-[12.5px] font-light"
-                style={{ color: "rgba(246,242,234,0.82)" }}
+                style={{ color: light ? "rgba(18,34,47,0.80)" : "rgba(246,242,234,0.82)" }}
               >
                 <span>
                   {nights} {nights === 1 ? "Night" : "Nights"}
                 </span>
-                <span style={{ color: "rgba(217,191,130,0.4)" }}>|</span>
+                <span style={{ color: light ? "rgba(192,154,87,0.55)" : "rgba(217,191,130,0.4)" }}>|</span>
                 <span>
                   {rooms} {rooms === 1 ? "Room" : "Rooms"}
                 </span>
-                <span style={{ color: "rgba(217,191,130,0.4)" }}>|</span>
+                <span style={{ color: light ? "rgba(192,154,87,0.55)" : "rgba(217,191,130,0.4)" }}>|</span>
                 <span>
                   {guests} {guests === 1 ? "Guest" : "Guests"}
                 </span>
@@ -4029,7 +4037,7 @@ function S2StayCard({
                     type="button"
                     onClick={onEdit}
                     className="bg-transparent p-0 text-[12.5px] font-light"
-                    style={{ color: "rgba(246,242,234,0.75)", border: "none" }}
+                    style={{ color: light ? "#B08D47" : "rgba(246,242,234,0.75)", border: "none" }}
                   >
                     Edit
                   </button>
@@ -4038,7 +4046,7 @@ function S2StayCard({
                   type="button"
                   onClick={onRemove}
                   className="bg-transparent p-0 text-[12.5px] font-light"
-                  style={{ color: S2_GOLD_SOFT, border: "none" }}
+                  style={{ color: light ? "#B08D47" : S2_GOLD_SOFT, border: "none" }}
                 >
                   Remove
                 </button>
