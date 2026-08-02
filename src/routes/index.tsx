@@ -270,17 +270,17 @@ function Home() {
               <ExperienceCard
                 to="/book-meetings-events"
                 image={cardMeAsset.url}
-                imagePosition="center center"
+                imagePosition="center 42%"
                 label="M & E"
                 tagline="Professional Event Planning"
                 ctaText="Plan event"
-                intensity={2}
-                imageFilter="brightness(1.65) contrast(1.08) saturate(0.82) hue-rotate(-3deg) sepia(0.06)"
-                overlay="from-black/0 via-black/[0.18] via-[50%] to-black/[0.58]"
-                bottomGradient={false}
-                borderGradient="linear-gradient(155deg, #F0D58A 0%, #D4AF55 14%, #B98A2E 32%, #8F681C 48%, #C09235 64%, #765116 80%, #E3C270 94%, #F0D58A 100%)"
-                disableCoolGrey={true}
+                intensity={1.8}
+                refined
+                disableCoolGrey
+                imageFilter="brightness(1.34) contrast(1.05) saturate(0.92)"
+                overlay="from-transparent via-transparent via-[80%] to-black/10"
               />
+
               <ExperienceCard
                 to="/manage-bookings"
                 image={cardManageAsset.url}
