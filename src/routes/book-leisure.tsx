@@ -3262,8 +3262,7 @@ function LeisureStep2Screen({
               }}
             />
             <div
-              className="relative flex h-full flex-col items-center justify-center px-8 py-12 text-center lg:px-11"
-              style={{ transform: "translateY(-20px)" }}
+              className="relative flex h-full flex-col items-start justify-start px-8 pb-12 pt-[22%] text-left lg:px-11"
             >
               <div
                 className="text-[11px] font-light tracking-[0.28em]"
@@ -3282,11 +3281,12 @@ function LeisureStep2Screen({
                 className="mt-1 max-w-[260px] text-[15px] font-light leading-[1.9]"
                 style={{ color: "rgba(246,242,234,0.9)" }}
               >
-                Choose the rooms
+                How many rooms
                 <br />
-                that fit your group.
+                will your group need?
               </p>
             </div>
+
           </aside>
 
           {/* ---------- CENTER: working area ---------- */}
