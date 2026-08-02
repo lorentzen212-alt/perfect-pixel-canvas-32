@@ -7900,7 +7900,7 @@ function LeisureStep6Screen({
 
   const roomBreakdown = Object.entries(data.rooms)
     .filter(([, v]) => v > 0)
-    .map(([k, v]) => `${v} ${ROOM_TITLE[k] ?? k}`);
+    .map(([k, v]) => `${v} × ${ROOM_TITLE[k] ?? k} Rooms`);
 
   const serviceLines = [
     ...data.extras,
@@ -7973,7 +7973,7 @@ function LeisureStep6Screen({
                 className="mt-[40px] text-[40px] leading-[1.06] font-normal"
                 style={{ fontFamily: SERIF, color: "#16233A" }}
               >
-                Your request<br />is ready
+                Your request<br />is ready for review
               </h2>
               <div
                 className="mt-[30px] h-px w-[50px]"
@@ -8304,12 +8304,24 @@ function S6ReviewRow({
 }) {
   return (
     <div
-      className="flex items-start gap-5 py-7"
-      style={{ borderBottom: "1px solid rgba(22,32,43,0.07)" }}
+      className="my-[6px] flex items-start gap-5 rounded-[12px] px-[10px] py-[34px]"
+      style={{
+        background: "rgba(255,255,255,0.18)",
+        border: "1px solid rgba(255,255,255,0.35)",
+        borderBottom: "1px solid rgba(22,32,43,0.045)",
+      }}
     >
       <span
-        className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
-        style={{ border: "1px solid rgba(199,163,74,0.32)", color: "#B08D3F" }}
+        className="relative grid h-[56px] w-[56px] shrink-0 place-items-center rounded-full"
+        style={{
+          border: "2px solid transparent",
+          color: "#B08D3F",
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.22), rgba(255,255,255,0)), linear-gradient(145deg, rgba(231,211,167,0.85) 0%, rgba(199,163,74,0.55) 45%, rgba(160,124,52,0.45) 100%)",
+          backgroundOrigin: "border-box",
+          backgroundClip: "padding-box, border-box",
+          boxShadow: "inset 0 1px 1px rgba(255,255,255,0.55)",
+        }}
       >
         {icon}
       </span>
@@ -8339,11 +8351,10 @@ function S6ReviewRow({
       <button
         type="button"
         onClick={onEdit}
-        className="mt-1 inline-flex shrink-0 items-center gap-1.5 text-[13.5px] transition-opacity hover:opacity-70"
-        style={{ color: "#16202B" }}
+        className="s6-edit-link mt-1 inline-flex shrink-0 items-center gap-1.5 text-[13.5px] font-normal"
       >
         Edit
-        <ChevronRight size={15} strokeWidth={1.6} />
+        <ChevronRight className="s6-edit-arrow" size={15} strokeWidth={1.6} />
       </button>
     </div>
   );
