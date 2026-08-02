@@ -3242,16 +3242,27 @@ function LeisureStep2Screen({
         hideCurrentFlow="leisure"
       />
 
-      <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 28px 40px" }}>
-        <div className="grid grid-cols-1 items-start gap-[22px] xl:grid-cols-[268px_minmax(0,1fr)] 2xl:grid-cols-[320px_minmax(0,1fr)]">
-          {/* ---------- LEFT: hero panel ---------- */}
-          <aside className="min-w-0 xl:sticky" style={{ top: 20 }}>
+      <div className="mx-auto w-full" style={{ maxWidth: 1540, padding: "0 28px 40px" }}>
+        <div
+          className="grid min-w-0 grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,1fr)_264px] xl:grid-cols-[300px_minmax(0,1fr)_264px]"
+          style={{
+            borderRadius: 20,
+            border: `1px solid ${S2_HAIR_GOLD}`,
+            backgroundColor: "#F8F6F2",
+            boxShadow: "0 40px 90px -50px rgba(0,0,0,0.85)",
+          }}
+        >
+          {/* ---------- LEFT: hero column (inside the workspace) ---------- */}
+          <aside
+            className="min-w-0 lg:col-span-2 xl:col-span-1"
+            style={{ backgroundColor: "#F8F6F2", padding: 18 }}
+          >
             <div
-              className="relative h-[420px] w-full overflow-hidden sm:h-[460px] xl:h-[700px]"
+              className="relative h-[380px] w-full overflow-hidden sm:h-[440px] xl:h-[664px]"
               style={{
-                borderRadius: 23,
+                borderRadius: 20,
                 border: `1px solid ${S2_HAIR_GOLD}`,
-                boxShadow: "0 40px 90px -50px rgba(0,0,0,0.85)",
+                boxShadow: "0 30px 60px -45px rgba(0,0,0,0.8)",
                 backgroundColor: S2_INK,
               }}
             >
@@ -3278,7 +3289,7 @@ function LeisureStep2Screen({
                   Step 2 of 6
                 </div>
                 <h2
-                  className="mt-3 text-[28px] font-normal leading-[1.05] 2xl:text-[34px]"
+                  className="mt-3 text-[28px] font-normal leading-[1.05]"
                   style={{ fontFamily: SERIF, color: "#FFFFFF" }}
                 >
                   Accommodation
@@ -3293,20 +3304,12 @@ function LeisureStep2Screen({
             </div>
           </aside>
 
-          <div
-            className="grid min-w-0 grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,1fr)_264px]"
-            style={{
-              borderRadius: 14,
-              border: `1px solid ${S2_HAIR_GOLD}`,
-              backgroundColor: "#F8F6F2",
-              boxShadow: "0 40px 90px -50px rgba(0,0,0,0.85)",
-            }}
-          >
           {/* ---------- MAIN: working area ---------- */}
           <section
-            className="min-w-0 px-6 py-8 lg:px-10 lg:py-9"
+            className="min-w-0 px-6 py-8 lg:px-[30px] lg:pb-10 lg:pt-7"
             style={{ backgroundColor: "#F8F6F2" }}
           >
+
             {/* Stay heading */}
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <h2
@@ -3582,9 +3585,9 @@ function LeisureStep2Screen({
             lastAddedId={lastAddedId}
             removingIds={removingIds}
           />
-          </div>
         </div>
       </div>
+
     </main>
   );
 }
