@@ -3781,7 +3781,15 @@ function S2StayCard({
       <span
         className={`whitespace-nowrap leading-none ${selected ? "text-[17.5px] font-semibold" : "text-[15px] font-medium"}`}
         style={{
-          color: selected ? "#FFFCF5" : "rgba(226,216,198,0.5)",
+          color: light
+            ? selected
+              ? "#12222F"
+              : "rgba(18,34,47,0.42)"
+            : selected
+              ? "#FFFCF5"
+              : "rgba(226,216,198,0.5)",
+          fontFamily: light ? SERIF : undefined,
+          fontWeight: light ? 400 : undefined,
           marginLeft: align === "left" ? 3 : undefined,
           marginRight: align === "right" ? 3 : undefined,
         }}
@@ -3796,7 +3804,30 @@ function S2StayCard({
       </span>
     );
 
-    const field = (
+    const badge = (
+      <span
+        aria-hidden
+        className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
+        style={{ backgroundColor: "#12222F", color: "#D8BE85" }}
+      >
+        <CalendarDays size={17} strokeWidth={1.4} />
+      </span>
+    );
+
+    const field = light ? (
+      <div className={`flex min-w-0 items-center gap-3.5 ${align === "right" ? "flex-row" : "flex-row"}`}>
+        {badge}
+        <div className="flex min-w-0 flex-col gap-[6px] text-left">
+          <span
+            className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.2em]"
+            style={{ color: "rgba(18,34,47,0.52)" }}
+          >
+            {label}
+          </span>
+          {dateValue}
+        </div>
+      </div>
+    ) : (
       <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
@@ -3827,6 +3858,7 @@ function S2StayCard({
         ) : null}
       </div>
     );
+
 
     const trigger = (
       <button
