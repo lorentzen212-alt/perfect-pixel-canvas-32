@@ -4157,14 +4157,15 @@ function S2StayCard({
             className="grid h-[46px] w-[46px] shrink-0 place-items-center transition-colors duration-200 disabled:cursor-default"
             style={{
               borderRadius: 999,
-              border: "1px solid rgba(199,171,119,0.55)",
-              color: "#C7AB77",
+              border: "1px solid rgba(196,168,114,0.58)",
+              color: "#D4B683",
               backgroundColor: "transparent",
               cursor: editable && onArrival ? "pointer" : "default",
-              boxShadow: "0 0 18px -7px rgba(199,171,119,0.45), inset 0 0 14px -9px rgba(199,171,119,0.5)",
+              boxShadow:
+                "0 0 18px -7px rgba(196,168,114,0.5), inset 0 0 14px -9px rgba(196,168,114,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
             }}
             onMouseEnter={(e) => {
-              if (editable && onArrival) e.currentTarget.style.backgroundColor = "rgba(199,171,119,0.10)";
+              if (editable && onArrival) e.currentTarget.style.backgroundColor = "rgba(196,168,114,0.12)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "transparent";
