@@ -34,6 +34,7 @@ import {
   FileSignature,
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
+import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
 
 import {
