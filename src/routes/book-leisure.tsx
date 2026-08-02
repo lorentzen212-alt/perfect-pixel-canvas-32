@@ -7574,15 +7574,16 @@ function LeisureStep6Screen({
   ].filter(Boolean) as string[];
 
   const summaryStats = [
-    { icon: <Users2 size={24} strokeWidth={1.2} />, value: String(data.guests), label: "Guests" },
-    { icon: <CalendarDays size={24} strokeWidth={1.2} />, value: String(totalRooms), label: "Rooms" },
-    { icon: <Clock size={24} strokeWidth={1.2} />, value: String(nights), label: "Nights" },
+    { icon: <Users2 size={26} strokeWidth={1.2} />, value: String(data.guests), label: "Guests" },
+    { icon: <CalendarDays size={26} strokeWidth={1.2} />, value: String(totalRooms), label: "Rooms" },
+    { icon: <Clock size={26} strokeWidth={1.2} />, value: String(nights), label: "Nights" },
     {
-      icon: <ConciergeBell size={24} strokeWidth={1.2} />,
+      icon: <ConciergeBell size={26} strokeWidth={1.2} />,
       value: String(serviceLines.length),
       label: "Services",
     },
   ];
+
 
   return (
     <LeisureStepShell
@@ -7730,13 +7731,26 @@ function LeisureStep6Screen({
 
           {/* RIGHT — executive summary */}
           <div
-            className="px-8 py-12 lg:px-7 lg:py-14"
+            className="s6-exec px-8 py-12 lg:px-7 lg:py-14"
             style={{ background: "#162638" }}
           >
+            {/* champagne metallic gradients for icons */}
+            <svg width="0" height="0" aria-hidden="true" className="absolute">
+              <defs>
+                <linearGradient id="s6Champagne" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#FBF1DA" />
+                  <stop offset="22%" stopColor="#E7D3A7" />
+                  <stop offset="48%" stopColor="#C9AE79" />
+                  <stop offset="70%" stopColor="#E3CEA0" />
+                  <stop offset="100%" stopColor="#A98C57" />
+                </linearGradient>
+              </defs>
+            </svg>
+
             <div className="flex flex-col items-center">
               <div
-                className="text-[30px] leading-none"
-                style={{ fontFamily: SERIF, color: S6_GOLD }}
+                className="s6-champagne-text text-[30px] leading-none"
+                style={{ fontFamily: SERIF }}
               >
                 H
               </div>
@@ -7749,15 +7763,25 @@ function LeisureStep6Screen({
               <div className="mt-4 flex w-full items-center gap-3">
                 <span
                   className="h-px flex-1"
-                  style={{ background: "linear-gradient(90deg,transparent,rgba(231,201,107,0.55))" }}
+                  style={{
+                    background:
+                      "linear-gradient(90deg,rgba(201,174,121,0) 0%,rgba(201,174,121,0.45) 45%,rgba(251,241,218,0.85) 100%)",
+                  }}
                 />
                 <span
-                  className="h-[5px] w-[5px] rotate-45"
-                  style={{ background: S6_GOLD }}
+                  className="h-[6px] w-[6px] rotate-45"
+                  style={{
+                    background:
+                      "linear-gradient(135deg,#FBF1DA 0%,#E3CEA0 45%,#C9AE79 70%,#A98C57 100%)",
+                    boxShadow: "0 0 6px rgba(231,211,167,0.45)",
+                  }}
                 />
                 <span
                   className="h-px flex-1"
-                  style={{ background: "linear-gradient(90deg,rgba(231,201,107,0.55),transparent)" }}
+                  style={{
+                    background:
+                      "linear-gradient(90deg,rgba(251,241,218,0.85) 0%,rgba(201,174,121,0.45) 55%,rgba(201,174,121,0) 100%)",
+                  }}
                 />
               </div>
             </div>
@@ -7767,44 +7791,52 @@ function LeisureStep6Screen({
                 <div
                   key={s.label}
                   className="flex items-center gap-5 py-6"
-                  style={{ borderBottom: "1px solid rgba(231,201,107,0.22)" }}
+                  style={{
+                    borderBottom: "1px solid transparent",
+                    borderImage:
+                      "linear-gradient(90deg,rgba(201,174,121,0.18) 0%,rgba(240,225,190,0.55) 50%,rgba(201,174,121,0.18) 100%) 1",
+                  }}
                 >
-                  <span style={{ color: S6_GOLD }}>{s.icon}</span>
-                  <div className="min-w-0">
-                    <div
-                      className="text-[30px] leading-none"
-                      style={{ fontFamily: SERIF, color: "#F7F1E3" }}
+                  <span className="s6-metal-icon flex shrink-0 items-center">{s.icon}</span>
+                  <div className="flex min-w-0 items-baseline gap-[9px]">
+                    <span
+                      className="text-[34px] font-semibold leading-none"
+                      style={{ fontFamily: SERIF, color: "#F9F4E8" }}
                     >
                       {s.value}
-                    </div>
-                    <div
-                      className="mt-1.5 text-[13px]"
+                    </span>
+                    <span
+                      className="text-[13px] leading-none"
                       style={{ color: "rgba(236,229,214,0.72)" }}
                     >
                       {s.label}
-                    </div>
+                    </span>
                   </div>
                 </div>
               ))}
 
               <div className="flex items-center gap-5 py-6">
-                <span style={{ color: S6_GOLD }}>
-                  <MapPin size={24} strokeWidth={1.2} />
+                <span className="s6-metal-icon flex shrink-0 items-center">
+                  <MapPin size={26} strokeWidth={1.2} />
                 </span>
-                <div className="min-w-0">
-                  <div
-                    className="truncate text-[19px] leading-tight"
-                    style={{ fontFamily: SERIF, color: "#F7F1E3" }}
+                <div className="flex min-w-0 items-baseline gap-[9px]">
+                  <span
+                    className="truncate text-[21px] font-semibold leading-none"
+                    style={{ fontFamily: SERIF, color: "#F9F4E8" }}
                   >
                     {destinationLabel}
-                  </div>
-                  <div className="mt-1.5 text-[13px]" style={{ color: "rgba(236,229,214,0.72)" }}>
+                  </span>
+                  <span
+                    className="shrink-0 text-[13px] leading-none"
+                    style={{ color: "rgba(236,229,214,0.72)" }}
+                  >
                     Destination
-                  </div>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
 
         {/* STICKY FOOTER */}
