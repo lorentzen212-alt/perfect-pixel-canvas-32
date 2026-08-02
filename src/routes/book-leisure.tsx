@@ -3924,10 +3924,10 @@ function S2StayCard({
         : "items-start text-left";
 
     const field = (
-      <div className={`flex min-w-0 flex-col ${compact ? "gap-[4px]" : "gap-[6px]"} ${alignCls}`}>
+      <div className={`flex min-w-0 flex-col ${compact ? "gap-[5px]" : "gap-[6px]"} ${alignCls}`}>
         <span
-          className={`whitespace-nowrap font-medium uppercase leading-none ${compact ? "text-[9.5px]" : "text-[9.5px]"}`}
-          style={{ color: compact ? "#D9BF82" : "#B99A60", letterSpacing: compact ? "0.2em" : "0.18em" }}
+          className={`whitespace-nowrap font-medium uppercase leading-none ${compact ? "text-[11px]" : "text-[9.5px]"}`}
+          style={{ color: compact ? "#C7AB77" : "#B99A60", letterSpacing: compact ? "0.25em" : "0.18em" }}
         >
           {compact ? (label === "Arrival" ? "Check-in" : "Check-out") : label}
         </span>
@@ -3944,15 +3944,41 @@ function S2StayCard({
             </>
           )}
         </div>
-        {selected && !compact ? (
+        {selected ? (
           <span
-            className="whitespace-nowrap text-[12px] leading-none"
-            style={{ color: "#84909D", fontWeight: 400, letterSpacing: "0.01em" }}
+            className={`whitespace-nowrap leading-none ${compact ? "text-[10.5px] uppercase" : "text-[12px]"}`}
+            style={{
+              color: compact ? "#C7AB77" : "#84909D",
+              fontWeight: 400,
+              letterSpacing: compact ? "0.18em" : "0.01em",
+            }}
           >
             {format(selected, "EEEE")}
           </span>
         ) : null}
+        {compact && selected ? (
+          <span aria-hidden className="mt-[3px] flex items-center gap-[6px]">
+            <span
+              style={{
+                display: "block",
+                width: 64,
+                height: 1,
+                backgroundColor: "rgba(199,171,119,0.55)",
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: 5,
+                height: 5,
+                transform: "rotate(45deg)",
+                border: "1px solid rgba(199,171,119,0.7)",
+              }}
+            />
+          </span>
+        ) : null}
       </div>
+
 
     );
 
