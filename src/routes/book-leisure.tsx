@@ -6783,18 +6783,19 @@ function LeisureStep4Screen({
                   key={c}
                   type="button"
                   onClick={() => setCategory(c)}
-                  className="s4-filter inline-flex items-center gap-2 rounded-full px-[18px] py-[9px] text-[12.5px] font-medium"
+                  className="s4-filter inline-flex items-center gap-2 rounded-[999px] px-[23px] py-[10.5px] text-[12.5px] font-medium"
                   style={{
                     background: active
-                      ? "linear-gradient(180deg, #16293C 0%, #0B1826 100%)"
+                      ? "linear-gradient(180deg, #142536 0%, #08131F 100%)"
                       : "#F7F3EA",
                     color: active ? "#E7D3A7" : S4_INK,
-                    border: `1px solid ${active ? "rgba(232,199,117,0.62)" : "rgba(201,164,92,0.30)"}`,
+                    border: `1px solid ${active ? "rgba(232,199,117,0.55)" : "rgba(201,164,92,0.22)"}`,
                     boxShadow: active
-                      ? "inset 0 2px 6px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07), 0 10px 22px -16px rgba(8,19,31,0.7)"
-                      : "0 4px 12px -10px rgba(8,19,31,0.35)",
-                    letterSpacing: "0.01em",
+                      ? "inset 0 1px 0 rgba(255,255,255,0.07), 0 0 0 3px rgba(201,164,92,0.10), 0 10px 24px -18px rgba(8,19,31,0.7)"
+                      : "0 4px 12px -10px rgba(8,19,31,0.30)",
+                    letterSpacing: "0.015em",
                   }}
+
                 >
                   <Sparkles
                     size={12.5}
