@@ -3945,17 +3945,30 @@ function S2StayCard({
           )}
         </div>
         {selected ? (
-          <span
-            className="whitespace-nowrap leading-none text-[9px] uppercase"
-            style={{
-              marginTop: 3,
-              color: "rgba(199,171,119,0.72)",
-              fontWeight: 500,
-              letterSpacing: "0.24em",
-            }}
-          >
-            {format(selected, "EEEE")}
-          </span>
+          compact ? (
+            <span
+              className="whitespace-nowrap leading-none text-[9px] uppercase"
+              style={{
+                marginTop: 3,
+                color: "rgba(199,171,119,0.72)",
+                fontWeight: 500,
+                letterSpacing: "0.24em",
+              }}
+            >
+              {format(selected, "EEEE")}
+            </span>
+          ) : (
+            <span
+              className="whitespace-nowrap leading-none text-[12px]"
+              style={{
+                color: "#84909D",
+                fontWeight: 400,
+                letterSpacing: "0.01em",
+              }}
+            >
+              {format(selected, "EEEE")}
+            </span>
+          )
         ) : null}
         {compact && selected ? (
           <span aria-hidden className="mt-[3px] flex items-center gap-[6px]">
