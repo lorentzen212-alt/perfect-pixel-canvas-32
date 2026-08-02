@@ -3388,7 +3388,7 @@ function LeisureStep2Screen({
               Select the number of rooms and the preferred category for your group.
             </p>
 
-            <div className="mt-6 grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2 xl:grid-cols-3">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
@@ -4361,7 +4361,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-2 flex items-center gap-2">
+      <div className="mt-2 flex items-center gap-1.5">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
@@ -4596,7 +4596,7 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[36px] w-full min-w-[140px] cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[11.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
+            ? "flex h-[36px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[11.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
@@ -4702,7 +4702,7 @@ function S2Counter({
       className={`flex items-center justify-between transition-colors duration-200 ${light ? "h-[36px] shrink-0 px-1 hover:bg-[#F6F1E8]" : "h-[35px] px-1.5"}`}
       style={{
         borderRadius: light ? 12 : 999,
-        width: light ? 92 : undefined,
+        width: light ? 84 : undefined,
         backgroundColor: light ? "#FCFAF7" : "rgba(20,33,45,0.72)",
         border: light ? "1px solid #E2D6BE" : "1px solid rgba(214,226,236,0.10)",
       }}
