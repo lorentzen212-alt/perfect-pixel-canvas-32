@@ -6621,6 +6621,9 @@ function LeisureStep4Screen({
             </button>
           </div>
         </section>
+        </div>
+
+
 
         {/* ---------- RIGHT SIDEBAR ---------- */}
         <div className="order-3 min-w-0 lg:order-none">
