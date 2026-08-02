@@ -3918,7 +3918,7 @@ function S2StayCard({
         : "items-start text-left";
 
     const field = (
-      <div className={`flex min-w-0 flex-col ${compact ? "gap-[10px]" : "gap-[6px]"} ${alignCls}`}>
+      <div className={`flex min-w-0 flex-col ${compact ? "gap-[7px]" : "gap-[6px]"} ${alignCls}`}>
         <span
           className={`whitespace-nowrap font-medium uppercase leading-none ${compact ? "text-[11px]" : "text-[9.5px]"}`}
           style={{ color: compact ? "#D9BF82" : "#B99A60", letterSpacing: compact ? "0.22em" : "0.18em" }}
