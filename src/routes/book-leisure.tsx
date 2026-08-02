@@ -4446,7 +4446,7 @@ function S2RoomCard({
             style={{
               borderRadius: 13,
               color: "rgba(247,246,242,0.72)",
-              opacity: active ? 1 : 0.7,
+              opacity: active ? 1 : 0.88,
             }}
           >
             <span className="truncate">Standard Rooms</span>
@@ -4668,7 +4668,7 @@ function S2CategorySelect({
             ? {
                 borderRadius: 13,
                 color: "#F7F6F2",
-                opacity: disabled ? 0.6 : 1,
+                opacity: disabled ? 0.88 : 1,
               }
 
 
