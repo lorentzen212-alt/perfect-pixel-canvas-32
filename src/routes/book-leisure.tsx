@@ -3918,10 +3918,10 @@ function S2StayCard({
         : "items-start text-left";
 
     const field = (
-      <div className={`flex min-w-0 flex-col ${compact ? "gap-[7px]" : "gap-[6px]"} ${alignCls}`}>
+      <div className={`flex min-w-0 flex-col ${compact ? "gap-[4px]" : "gap-[6px]"} ${alignCls}`}>
         <span
-          className={`whitespace-nowrap font-medium uppercase leading-none ${compact ? "text-[11px]" : "text-[9.5px]"}`}
-          style={{ color: compact ? "#D9BF82" : "#B99A60", letterSpacing: compact ? "0.22em" : "0.18em" }}
+          className={`whitespace-nowrap font-medium uppercase leading-none ${compact ? "text-[9.5px]" : "text-[9.5px]"}`}
+          style={{ color: compact ? "#D9BF82" : "#B99A60", letterSpacing: compact ? "0.2em" : "0.18em" }}
         >
           {compact ? (label === "Arrival" ? "Check-in" : "Check-out") : label}
         </span>
@@ -3938,15 +3938,16 @@ function S2StayCard({
             </>
           )}
         </div>
-        {selected ? (
+        {selected && !compact ? (
           <span
-            className={`whitespace-nowrap leading-none ${compact ? "text-[14px]" : "text-[12px]"}`}
-            style={{ color: compact ? "rgba(216,226,236,0.62)" : "#84909D", fontWeight: 400, letterSpacing: "0.01em" }}
+            className="whitespace-nowrap text-[12px] leading-none"
+            style={{ color: "#84909D", fontWeight: 400, letterSpacing: "0.01em" }}
           >
             {format(selected, "EEEE")}
           </span>
         ) : null}
       </div>
+
     );
 
     const trigger = (
