@@ -4305,9 +4305,9 @@ function S2RoomCard({
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0"
           style={{
-            height: "34%",
+            height: "44%",
             background:
-              "linear-gradient(to top, rgba(8,23,34,0.86) 0%, rgba(8,23,34,0.60) 38%, rgba(8,23,34,0.26) 70%, rgba(8,23,34,0) 100%)",
+              "linear-gradient(to top, rgba(8,23,34,0.92) 0%, rgba(8,23,34,0.72) 30%, rgba(8,23,34,0.36) 62%, rgba(8,23,34,0) 100%)",
           }}
         />
         {roomKey === "double" && (
