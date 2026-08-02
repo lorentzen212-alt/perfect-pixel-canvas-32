@@ -104,7 +104,7 @@ function Home() {
     <>
       <main className="relative w-full bg-[#0A0B0D]">
         {/* ---------------------------- HERO ---------------------------- */}
-        <section className="relative h-screen min-h-[620px] w-full overflow-hidden lg:h-[calc(100vh-230px)] lg:min-h-[460px]">
+        <section className="relative h-screen min-h-[620px] w-full overflow-hidden lg:h-[calc(100vh-370px)] lg:min-h-[320px]">
           <video
             autoPlay
             muted
@@ -243,7 +243,7 @@ function Home() {
         </section>
 
         {/* ------------------- ENTRANCE CARDS (overlap hero) ------------------- */}
-        <section className="relative bg-[#F5F3EE] pb-16 lg:pb-20 lg:pt-[28px]">
+        <section className="relative bg-[#F5F3EE] pb-16 lg:pb-20 lg:pt-[32px]">
           <div
             className="hero-cards-offset relative z-20 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-[60px]"
           >
