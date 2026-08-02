@@ -1930,6 +1930,7 @@ import tampereImg from "@/assets/leisure/tampere.jpg.asset.json";
 import turkuImg from "@/assets/leisure/turku.jpg.asset.json";
 import leviImg from "@/assets/leisure/levi.jpg.asset.json";
 import s5ConciergeHero from "@/assets/s5-concierge-hero.png.asset.json";
+import s6MarbleAsset from "@/assets/s6-marble-texture.png.asset.json";
 
 
 const DEST_IMG: Record<string, string> = {
@@ -7596,29 +7597,34 @@ function LeisureStep6Screen({
         >
           {/* LEFT — ivory intro */}
           <div
-            className="flex flex-col justify-between px-8 py-12 lg:px-9 lg:py-14"
-            style={{ background: "#F7F5F2" }}
+            className="relative flex flex-col justify-between overflow-hidden px-[11%] pt-[21%] pb-[9%] lg:pt-[20%]"
+            style={{
+              backgroundImage: `url(${s6MarbleAsset.url})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundColor: "#F4F2ED",
+            }}
           >
             <div>
               <div
-                className="text-[11px] font-medium uppercase tracking-[0.28em]"
-                style={{ color: "#B08D3F" }}
+                className="text-[11px] font-semibold uppercase tracking-[0.22em]"
+                style={{ color: "#B08D3F", fontFamily: "Karla, Inter, sans-serif" }}
               >
                 Step 6 of 6
               </div>
               <h2
-                className="mt-6 text-[34px] leading-[1.08] lg:text-[40px]"
-                style={{ fontFamily: SERIF, color: "#16202B" }}
+                className="mt-[26px] text-[35px] leading-[1.14] font-normal"
+                style={{ fontFamily: SERIF, color: "#16233A" }}
               >
                 Your request<br />is ready
               </h2>
               <div
-                className="mt-7 h-px w-[64px]"
-                style={{ background: "linear-gradient(90deg,#C7A34A,rgba(199,163,74,0))" }}
+                className="mt-[26px] h-px w-[46px]"
+                style={{ background: "#C7A34A" }}
               />
               <p
-                className="mt-7 max-w-[230px] text-[14.5px] leading-[1.7]"
-                style={{ color: "rgba(22,32,43,0.68)" }}
+                className="mt-[26px] max-w-[215px] text-[13.5px] leading-[1.85]"
+                style={{ color: "rgba(22,35,58,0.72)", fontFamily: "Karla, Inter, sans-serif" }}
               >
                 Please review the details below before we submit your request to our hotel
                 partners.
@@ -7627,16 +7633,20 @@ function LeisureStep6Screen({
 
             <div className="mt-14">
               <div
-                className="text-[30px] italic leading-none"
-                style={{ fontFamily: "Cormorant Garamond, serif", color: "#B08D3F" }}
+                className="text-[42px] leading-none"
+                style={{ fontFamily: "'Mrs Saint Delafield', cursive", color: "#B08D3F" }}
               >
                 Thank you
               </div>
-              <div className="mt-4 text-[13.5px]" style={{ color: "rgba(22,32,43,0.72)" }}>
+              <div
+                className="mt-[18px] text-[13.5px]"
+                style={{ color: "#16233A", fontFamily: "Karla, Inter, sans-serif" }}
+              >
                 HotelGroupBook Concierge
               </div>
             </div>
           </div>
+
 
           {/* CENTER — review grid */}
           <div
