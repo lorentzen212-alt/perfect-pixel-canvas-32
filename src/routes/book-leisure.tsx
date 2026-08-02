@@ -6450,6 +6450,7 @@ function LeisureStep4Screen({
     (e) => category === "All" || e.category === category,
   );
   const dateInputRef = useRef<HTMLInputElement>(null);
+  const [hoveredExp, setHoveredExp] = useState<Step4Exp | null>(null);
 
   const S4_INK = "#12212E";
   const S4_MUTED = "rgba(18,33,46,0.60)";
