@@ -4442,12 +4442,10 @@ function S2RoomCard({
           </div>
         ) : (
           <div
-            className="flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 whitespace-nowrap px-2 text-[13.5px] font-light transition-colors duration-200 hover:bg-[#F6F1E8]"
+            className="s2-metal flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 whitespace-nowrap px-3.5 text-[13.5px] font-light"
             style={{
-              borderRadius: 12,
-              border: "1px solid #E2D6BE",
-              backgroundColor: "#FCFAF7",
-              color: "#6E767E",
+              borderRadius: 13,
+              color: "rgba(247,246,242,0.72)",
               opacity: active ? 1 : 0.7,
             }}
           >
