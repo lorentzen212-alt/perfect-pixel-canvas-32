@@ -3238,61 +3238,18 @@ function LeisureStep2Screen({
 
       <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 20px 30px" }}>
         <div
-          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[30%_minmax(0,1fr)_264px]"
+          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,1fr)_264px]"
           style={{
             borderRadius: 14,
             border: `1px solid ${S2_HAIR_GOLD}`,
-            backgroundColor: S2_IVORY,
+            backgroundColor: "#F8F6F2",
             boxShadow: "0 40px 90px -50px rgba(0,0,0,0.85)",
           }}
         >
-          {/* ---------- LEFT: cinematic image ---------- */}
-          <aside className="relative min-h-[280px] lg:min-h-[720px]">
-            <img
-              src={s2StayHeroImg.url}
-              alt="Premium hotel room with fjord view"
-              className="absolute inset-0 h-full w-full"
-              style={{ objectFit: "cover", objectPosition: "center center" }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(8,17,26,0.62) 0%, rgba(8,17,26,0.34) 42%, rgba(6,13,20,0.66) 100%)",
-              }}
-            />
-            <div
-              className="relative flex h-full flex-col items-center justify-center px-8 py-12 text-center lg:px-11"
-              style={{ transform: "translateY(-20px)" }}
-            >
-              <div
-                className="text-[11px] font-light tracking-[0.28em]"
-                style={{ color: "rgba(247,242,232,0.78)", fontFamily: SERIF }}
-              >
-                Step 2 of 6
-              </div>
-              <h1
-                className="mt-3 text-[34px] font-light leading-[1.1] lg:text-[38px]"
-                style={{ fontFamily: SERIF, color: "#FFFDF8" }}
-              >
-                Accommodation
-              </h1>
-              <S2DiamondRule refined />
-              <p
-                className="mt-1 max-w-[260px] text-[15px] font-light leading-[1.9]"
-                style={{ color: "rgba(246,242,234,0.9)" }}
-              >
-                Choose the rooms
-                <br />
-                that fit your group.
-              </p>
-            </div>
-          </aside>
-
-          {/* ---------- CENTER: working area ---------- */}
+          {/* ---------- MAIN: working area ---------- */}
           <section
             className="min-w-0 px-6 py-8 lg:px-10 lg:py-9"
-            style={{ backgroundColor: S2_IVORY }}
+            style={{ backgroundColor: "#F8F6F2" }}
           >
             {/* Stay heading */}
             <div className="flex flex-wrap items-baseline justify-between gap-3">
