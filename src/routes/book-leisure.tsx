@@ -4755,9 +4755,9 @@ function S2Counter({
       style={{ borderRadius: 999, color: light ? "#26313A" : "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? (
-        <Minus size={light ? 14 : 16} strokeWidth={1.8} />
+        <Minus size={light ? 17 : 16} strokeWidth={1.8} />
       ) : (
-        <Plus size={light ? 14 : 16} strokeWidth={1.8} />
+        <Plus size={light ? 17 : 16} strokeWidth={1.8} />
       )}
     </button>
   );
