@@ -4694,7 +4694,7 @@ function S2CategorySelect({
           size={light ? 15 : 16}
           strokeWidth={2}
           style={{
-            color: light ? "#B39254" : "rgba(245,241,230,0.55)",
+            color: light ? "#C9A76A" : "rgba(245,241,230,0.55)",
             flexShrink: 0,
             transform: open && !closing ? "rotate(180deg)" : "rotate(0deg)",
             transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1)",
