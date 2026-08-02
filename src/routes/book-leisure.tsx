@@ -17,7 +17,8 @@ import roomTwinImg from "@/assets/rooms/room-twin.jpg";
 import roomTripleImg from "@/assets/rooms/room-triple.jpg";
 import roomFamilyImg from "@/assets/rooms/room-family.jpg";
 import roomAccessibleImg from "@/assets/rooms/room-accessible.jpg";
-import s2StayHeroImg from "@/assets/s2-lounge-fjord.png.asset.json";
+
+import s2SuiteFjordImg from "@/assets/s2-suite-fjord.png.asset.json";
 import s4AuroraHeroImg from "@/assets/s4-aurora-hero.png.asset.json";
 import {
   ArrowLeft,
@@ -3267,20 +3268,24 @@ function LeisureStep2Screen({
           {/* ---------- LEFT: cinematic image ---------- */}
           <aside className="relative min-h-[280px] lg:min-h-[720px]">
             <img
-              src={s2StayHeroImg.url}
-              alt="Premium hotel room with fjord view"
+              src={s2SuiteFjordImg.url}
+              alt="Luxury suite with panoramic fjord view, fireplace and lounge seating"
               className="absolute inset-0 h-full w-full"
               style={{
                 objectFit: "cover",
-                objectPosition: "center center",
-                filter: "brightness(1.08) contrast(1.04) sepia(0.03) saturate(1.03)",
+                objectPosition: "60% 62%",
+                filter: "brightness(1.08) contrast(1.04) saturate(1.05)",
               }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ backgroundColor: "rgba(0,0,0,0.20)" }}
             />
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(16,38,62,0.12) 0%, rgba(16,38,62,0.06) 35%, rgba(16,38,62,0.02) 65%, rgba(16,38,62,0.00) 100%)",
+                  "linear-gradient(90deg, rgba(6,14,24,0.34) 0%, rgba(6,14,24,0.18) 42%, rgba(6,14,24,0.06) 75%, rgba(6,14,24,0.00) 100%)",
               }}
             />
             <div
@@ -3303,10 +3308,11 @@ function LeisureStep2Screen({
                 className="mt-1 max-w-[260px] text-[15px] font-light leading-[1.9]"
                 style={{ color: "rgba(246,242,234,0.9)" }}
               >
-                How many rooms
+                Build your group&rsquo;s
                 <br />
-                will your group need?
+                perfect stay.
               </p>
+
             </div>
 
           </aside>
