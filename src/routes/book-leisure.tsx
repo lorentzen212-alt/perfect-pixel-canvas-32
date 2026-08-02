@@ -3562,18 +3562,18 @@ function LeisureStep2Screen({
 /* Thin champagne rule with a small centred diamond. */
 function S2DiamondRule({ width = 120 }: { width?: number }) {
   return (
-    <div className="my-4 flex items-center" style={{ width }}>
-      <span className="h-px flex-1" style={{ background: "rgba(217,191,130,0.55)" }} />
+    <div className="my-[40px] flex items-center" style={{ width }}>
+      <span className="h-px flex-1" style={{ background: "rgba(217,191,130,0.38)" }} />
       <span
         className="mx-2 block"
         style={{
-          width: 5,
-          height: 5,
+          width: 3.5,
+          height: 3.5,
           transform: "rotate(45deg)",
-          border: "1px solid rgba(231,211,164,0.9)",
+          border: "1px solid rgba(231,211,164,0.7)",
         }}
       />
-      <span className="h-px flex-1" style={{ background: "rgba(217,191,130,0.55)" }} />
+      <span className="h-px flex-1" style={{ background: "rgba(217,191,130,0.38)" }} />
     </div>
   );
 }
