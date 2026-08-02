@@ -4871,12 +4871,12 @@ function S2Counter({
 
   return (
     <div
-      className={`flex items-center justify-between ${light ? "h-[44px] shrink-0 px-1.5" : "h-[35px] px-1.5 transition-colors duration-200"}`}
+      className={`flex items-center justify-between ${light ? "h-[46px] shrink-0 px-2" : "h-[35px] px-1.5 transition-colors duration-200"}`}
       style={{
-        borderRadius: light ? 10 : 999,
-        width: light ? 84 : undefined,
-        backgroundColor: light ? "#FBF8F2" : "rgba(20,33,45,0.72)",
-        border: light ? "1px solid rgba(176,141,75,0.35)" : "1px solid rgba(214,226,236,0.10)",
+        borderRadius: light ? 12 : 999,
+        width: light ? 104 : undefined,
+        backgroundColor: light ? "#FFFFFF" : "rgba(20,33,45,0.72)",
+        border: light ? "1px solid #E4DDD2" : "1px solid rgba(214,226,236,0.10)",
       }}
     >
 
