@@ -4479,7 +4479,6 @@ function S2CategorySelect({
   value: string;
   options: string[];
   onChange: (v: string) => void;
-  disabled?: boolean;
   label: string;
   light?: boolean;
 }) {
