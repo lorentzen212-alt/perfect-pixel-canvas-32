@@ -4562,8 +4562,8 @@ function S2CategorySelect({
       setOpen(true);
     }
   };
+  const onKeyDown = (e: React.KeyboardEvent) => {
 
-    if (disabled) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       if (open) {
