@@ -4204,13 +4204,13 @@ function S2StayInfo({
       <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: "rgba(217,191,130,0.8)", opacity: 1 }}>
         {icon}
       </span>
-      <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(248,245,238,0.92)" }}>
+      <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}>
         {text}
       </span>
     </>
   );
   const cls =
-    "s2-stay-info group flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px] font-light";
+    "s2-stay-info group flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px]";
 
   return onClick ? (
     <button type="button" onClick={onClick} className={cls}>
