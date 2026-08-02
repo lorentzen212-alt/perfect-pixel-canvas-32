@@ -4442,16 +4442,14 @@ function S2RoomCard({
           </div>
         ) : (
           <div
-            className="flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 whitespace-nowrap px-2 text-[13.5px] font-light transition-colors duration-200 hover:bg-[#F6F1E8]"
+            className="s2-metal flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 overflow-hidden px-2.5 text-[13.5px] font-light"
             style={{
-              borderRadius: 12,
-              border: "1px solid #E2D6BE",
-              backgroundColor: "#FCFAF7",
-              color: "#6E767E",
-              opacity: active ? 1 : 0.7,
+              borderRadius: 13,
+              color: "rgba(247,246,242,0.72)",
+              opacity: active ? 1 : 0.88,
             }}
           >
-            Standard Rooms
+            <span className="truncate">Standard Rooms</span>
           </div>
         )}
       </div>
@@ -4662,18 +4660,17 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
             light
-              ? "flex h-[43px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap px-2 text-left text-[13.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
+              ? "s2-metal flex h-[43px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[13.5px] font-light outline-none disabled:cursor-not-allowed"
               : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
           light
             ? {
-                borderRadius: 12,
-                border: `1px solid #E2D6BE`,
-                backgroundColor: "#FCFAF7",
-                color: S2_NAVY_TEXT,
-                opacity: disabled ? 0.6 : 1,
+                borderRadius: 13,
+                color: "#F7F6F2",
+                opacity: disabled ? 0.88 : 1,
               }
+
 
 
             : undefined
@@ -4684,8 +4681,8 @@ function S2CategorySelect({
           style={{
             color: light
               ? value
-                ? S2_NAVY_TEXT
-                : S2_NAVY_MUTED
+                ? "#F7F6F2"
+                : "rgba(247,246,242,0.62)"
               : value
                 ? "#FFFFFF"
                 : "rgba(245,241,230,0.75)",
@@ -4697,7 +4694,7 @@ function S2CategorySelect({
           size={light ? 15 : 16}
           strokeWidth={2}
           style={{
-            color: light ? "#B39254" : "rgba(245,241,230,0.55)",
+            color: light ? "#C9A76A" : "rgba(245,241,230,0.55)",
             flexShrink: 0,
             transform: open && !closing ? "rotate(180deg)" : "rotate(0deg)",
             transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1)",
@@ -4751,8 +4748,8 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[34px] w-[34px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
-      style={{ borderRadius: 999, color: light ? "#26313A" : "rgba(217,191,130,0.9)" }}
+      className={`grid shrink-0 place-items-center outline-none transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[32px] w-[32px] hover:bg-[rgba(201,167,106,0.14)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
+      style={{ borderRadius: 999, color: light ? "#C9A76A" : "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? (
         <Minus size={light ? 17 : 16} strokeWidth={1.8} />
@@ -4765,12 +4762,12 @@ function S2Counter({
 
   return (
     <div
-      className={`flex items-center justify-between transition-colors duration-200 ${light ? "h-[43px] shrink-0 px-1 hover:bg-[#F6F1E8]" : "h-[35px] px-1.5"}`}
+      className={`flex items-center justify-between ${light ? "s2-metal h-[43px] shrink-0 px-1.5" : "h-[35px] px-1.5 transition-colors duration-200"}`}
       style={{
-        borderRadius: light ? 12 : 999,
-        width: light ? 90 : undefined,
-        backgroundColor: light ? "#FCFAF7" : "rgba(20,33,45,0.72)",
-        border: light ? "1px solid #E2D6BE" : "1px solid rgba(214,226,236,0.10)",
+        borderRadius: light ? 13 : 999,
+        width: light ? 92 : undefined,
+        backgroundColor: light ? undefined : "rgba(20,33,45,0.72)",
+        border: light ? undefined : "1px solid rgba(214,226,236,0.10)",
       }}
     >
 
@@ -4801,7 +4798,7 @@ function S2Counter({
           }
         }}
         className={`no-spin w-full min-w-0 bg-transparent text-center outline-none ${light ? "text-[16px] font-normal" : "text-[18px] font-medium text-white"}`}
-        style={{ fontFamily: SERIF, color: light ? S2_NAVY_TEXT : undefined }}
+        style={{ fontFamily: SERIF, color: light ? "#F7F6F2" : undefined }}
       />
       {btn("inc")}
     </div>
