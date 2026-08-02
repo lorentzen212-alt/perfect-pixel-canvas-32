@@ -4039,90 +4039,143 @@ function S2StayCard({
       <div
         className={animClass}
         style={{
-          borderRadius: 8,
-          backgroundImage: "linear-gradient(180deg, #183754 0%, #132B44 100%)",
-          border: "1px solid rgba(201,164,92,0.28)",
-          boxShadow: "0 12px 30px rgba(6,18,31,0.18)",
+          borderRadius: 22,
+          backgroundImage:
+            "radial-gradient(120% 160% at 18% 0%, rgba(38,63,92,0.85) 0%, rgba(13,32,52,1) 55%, rgba(10,25,41,1) 100%)",
+          border: "1px solid rgba(217,191,130,0.42)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.07), 0 26px 60px -34px rgba(6,16,27,0.85), 0 8px 22px -16px rgba(0,0,0,0.4)",
           overflow: "hidden",
         }}
       >
-        {dateTimeline}
+        {/* Upper zone — dates + statistics */}
+        <div className="flex flex-col gap-7 px-7 py-8 sm:px-10 lg:flex-row lg:items-center lg:gap-8">
+          {/* Circular calendar mark */}
+          <span
+            aria-hidden
+            className="grid h-[70px] w-[70px] shrink-0 place-items-center"
+            style={{
+              borderRadius: 999,
+              border: "1px solid rgba(217,191,130,0.55)",
+              color: "#E4C88A",
+            }}
+          >
+            <CalendarDays size={28} strokeWidth={1.3} />
+          </span>
+
+          {/* Dates */}
+          <div className="flex min-w-0 flex-1 items-center gap-6 sm:gap-9">
+            <div className="min-w-0 flex-1">
+              <DateCol
+                label="Arrival"
+                value={arrival}
+                onChange={onArrival}
+                align="left"
+                placeholder="Select date"
+              />
+            </div>
+            <ArrowRight
+              size={30}
+              strokeWidth={1.1}
+              className="shrink-0"
+              style={{ color: "#D9BF82" }}
+            />
+            <div className="min-w-0 flex-1">
+              <DateCol
+                label="Departure"
+                value={departure}
+                onChange={onDeparture}
+                minDate={(() => {
+                  const a = toDate(arrival);
+                  if (!a) return undefined;
+                  const n = new Date(a);
+                  n.setDate(n.getDate() + 1);
+                  return n;
+                })()}
+                align="left"
+                placeholder="Select date"
+              />
+            </div>
+          </div>
+
+          {/* Statistics */}
+          <div className="flex shrink-0 items-stretch">
+            <S2LuxeStat
+              icon={<MoonIcon />}
+              value={nights}
+              label={nights === 1 ? "Night" : "Nights"}
+              first
+            />
+            <S2LuxeStat
+              icon={<BedDouble size={22} strokeWidth={1.3} />}
+              value={rooms}
+              label={rooms === 1 ? "Room" : "Rooms"}
+            />
+            <S2LuxeStat
+              icon={<UserRound size={22} strokeWidth={1.3} />}
+              value={guests}
+              label={guests === 1 ? "Guest" : "Guests"}
+            />
+          </div>
+        </div>
+
+        {/* Lower zone — actions */}
         <div
-          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[22px] py-[10px]"
-          style={{
-            borderTop: "1px solid rgba(217,191,130,0.22)",
-            backgroundColor: "rgba(255,255,255,0.02)",
-          }}
+          className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 px-7 py-[18px]"
+          style={{ borderTop: "1px solid rgba(217,191,130,0.16)" }}
         >
           {confirming ? (
             <>
-              <span className="text-[13px]" style={{ color: "#84909D", fontWeight: 400 }}>
+              <span className="text-[14px]" style={{ color: "rgba(216,226,236,0.65)" }}>
                 Remove this stay?
               </span>
-              <div className="flex items-center gap-4">
-                <button
-                  type="button"
-                  onClick={onConfirmRemove}
-                  className="bg-transparent p-0 text-[13px]"
-                  style={{ color: "#E8E4DC", fontWeight: 500, border: "none" }}
-                >
-                  Yes, remove
-                </button>
-                <button
-                  type="button"
-                  onClick={onCancelRemove}
-                  className="bg-transparent p-0 text-[13px]"
-                  style={{ color: "rgba(132,144,157,0.7)", fontWeight: 400, border: "none" }}
-                >
-                  Cancel
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={onConfirmRemove}
+                className="s2-luxe-action inline-flex items-center gap-2 bg-transparent p-0 text-[15px]"
+                style={{ color: "#FFFFFF", fontWeight: 400, border: "none" }}
+              >
+                <Trash2 size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
+                Yes, remove
+              </button>
+              <span aria-hidden style={{ width: 1, height: 18, backgroundColor: "rgba(217,191,130,0.28)" }} />
+              <button
+                type="button"
+                onClick={onCancelRemove}
+                className="s2-luxe-action inline-flex items-center gap-2 bg-transparent p-0 text-[15px]"
+                style={{ color: "rgba(216,226,236,0.7)", fontWeight: 400, border: "none" }}
+              >
+                <X size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
+                Cancel
+              </button>
             </>
           ) : (
             <>
-              <div
-                className="flex items-center gap-3 text-[12.5px]"
-                style={{ color: "#E8E4DC", fontWeight: 500 }}
+              <button
+                type="button"
+                onClick={onEdit ?? onAddAnother}
+                className="s2-luxe-action inline-flex items-center gap-2.5 bg-transparent p-0 text-[15px] transition-opacity duration-200 hover:opacity-75"
+                style={{ color: "#FFFFFF", fontWeight: 400, border: "none" }}
               >
-                <span>
-                  {nights} {nights === 1 ? "Night" : "Nights"}
-                </span>
-                <span style={{ color: "rgba(132,144,157,0.5)" }}>|</span>
-                <span>
-                  {rooms} {rooms === 1 ? "Room" : "Rooms"}
-                </span>
-                <span style={{ color: "rgba(132,144,157,0.5)" }}>|</span>
-                <span>
-                  {guests} {guests === 1 ? "Guest" : "Guests"}
-                </span>
-              </div>
-              <div className="flex items-center gap-5">
-                {onEdit && (
-                  <button
-                    type="button"
-                    onClick={onEdit}
-                    className="bg-transparent p-0 text-[12.5px]"
-                    style={{ color: "#E8E4DC", fontWeight: 500, border: "none" }}
-                  >
-                    Edit
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={onRemove}
-                  className="s2-remove-btn bg-transparent p-0 text-[12.5px]"
-                  style={{ color: "rgba(232,228,220,0.75)", fontWeight: 500, border: "none" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#B99A60")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(232,228,220,0.75)")}
-                >
-                  Remove
-                </button>
-              </div>
+                Edit stay
+                <Pencil size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
+              </button>
+              <span aria-hidden style={{ width: 1, height: 18, backgroundColor: "rgba(217,191,130,0.28)" }} />
+              <button
+                type="button"
+                onClick={onRemove}
+                className="s2-luxe-action inline-flex items-center gap-2.5 bg-transparent p-0 text-[15px] transition-opacity duration-200 hover:opacity-75"
+                style={{ color: "#FFFFFF", fontWeight: 400, border: "none" }}
+              >
+                Remove stay
+                <Trash2 size={17} strokeWidth={1.4} style={{ color: "#D9BF82" }} />
+              </button>
             </>
           )}
         </div>
       </div>
     );
+
 
 
   return (
