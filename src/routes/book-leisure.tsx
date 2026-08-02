@@ -20,6 +20,7 @@ import roomAccessibleImg from "@/assets/rooms/room-accessible.jpg";
 
 import s2SuiteFjordImg from "@/assets/s2-suite-fjord.png.asset.json";
 import s4AuroraHeroImg from "@/assets/s4-aurora-hero.png.asset.json";
+import s5BlackGoldHero from "@/assets/s5-black-gold-hero.png.asset.json";
 import {
   ArrowLeft,
   ArrowRight,
@@ -1933,7 +1934,6 @@ import rovaniemiImg from "@/assets/leisure/rovaniemi.jpg.asset.json";
 import tampereImg from "@/assets/leisure/tampere.jpg.asset.json";
 import turkuImg from "@/assets/leisure/turku.jpg.asset.json";
 import leviImg from "@/assets/leisure/levi.jpg.asset.json";
-import s5BlackGoldHero from "@/assets/s5-black-gold-hero.png.asset.json";
 import s6MarbleAsset from "@/assets/s6-marble-texture.png.asset.json";
 
 
