@@ -3946,11 +3946,12 @@ function S2StayCard({
         </div>
         {selected ? (
           <span
-            className={`whitespace-nowrap leading-none ${compact ? "text-[10.5px] uppercase" : "text-[12px]"}`}
+            className="whitespace-nowrap leading-none text-[9px] uppercase"
             style={{
-              color: compact ? "#C7AB77" : "#84909D",
-              fontWeight: 400,
-              letterSpacing: compact ? "0.18em" : "0.01em",
+              marginTop: 3,
+              color: "rgba(199,171,119,0.72)",
+              fontWeight: 500,
+              letterSpacing: "0.24em",
             }}
           >
             {format(selected, "EEEE")}
