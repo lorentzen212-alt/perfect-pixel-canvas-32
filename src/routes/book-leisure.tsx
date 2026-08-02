@@ -6489,14 +6489,23 @@ function LeisureStep4Screen({
             strokeWidth={1.6}
             style={{ color: S1_GOLD_SOFT, margin: "0 auto" }}
           />
-          <div className="mt-3 text-[13.5px] text-white">
-            No experiences added yet
+          <div
+            className="mt-3 text-[15px] text-white"
+            style={{ fontFamily: SERIF }}
+          >
+            Your itinerary
           </div>
           <div
-            className="mt-2 text-[12px] leading-[1.55]"
+            className="mt-1.5 text-[12px] uppercase tracking-[0.16em]"
+            style={{ color: "rgba(232,199,117,0.72)" }}
+          >
+            0 experiences selected
+          </div>
+          <div
+            className="mt-2.5 text-[12px] leading-[1.6]"
             style={{ color: "rgba(245,241,230,0.55)" }}
           >
-            Add experiences to make your stay even more memorable.
+            Choose experiences to personalise your group&rsquo;s stay.
           </div>
         </div>
       ) : (
