@@ -6764,9 +6764,10 @@ function S5Decoration() {
     <div className="pointer-events-none absolute inset-x-0 bottom-0 select-none" aria-hidden>
       <svg
         viewBox="0 0 420 300"
-        className="w-full"
+        className="block h-[240px] w-full"
+        preserveAspectRatio="none"
         fill="none"
-        style={{ opacity: 0.5 }}
+        style={{ opacity: 0.55 }}
       >
         <g stroke={S5_GOLD} strokeWidth="0.6" opacity="0.55">
           {Array.from({ length: 16 }).map((_, i) => (
@@ -6778,7 +6779,7 @@ function S5Decoration() {
           ))}
         </g>
       </svg>
-      <div className="absolute left-10 top-0 -translate-y-[130%]">
+      <div className="absolute left-2 top-0 -translate-y-[85%]">
         <svg width="92" height="92" viewBox="0 0 100 100" fill="none" style={{ opacity: 0.6 }}>
           <g stroke={S5_GOLD} strokeWidth="0.8">
             <circle cx="50" cy="50" r="26" />
@@ -6965,7 +6966,7 @@ function LeisureStep5Screen({
                 We'll send tailored offers to this person.
               </p>
             </div>
-            <div className="relative mt-auto h-[220px]">
+            <div className="relative mt-auto h-[300px]">
               <S5Decoration />
             </div>
           </div>
