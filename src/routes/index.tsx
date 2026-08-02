@@ -502,9 +502,12 @@ function ExperienceCard({
         {/* Brushed champagne-gold ring */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-20 rounded-[22px] opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+          className={cn(
+            "pointer-events-none absolute inset-0 z-20 rounded-[22px] transition-opacity duration-300 group-hover:opacity-100",
+            refined ? "opacity-60" : "opacity-90",
+          )}
           style={{
-            padding: "1px",
+            padding: refined ? "0.5px" : "1px",
             background:
               borderGradient ||
               "linear-gradient(155deg, #F0D58A 0%, #D4AF55 12%, #B98A2E 30%, #8F681C 46%, #C09235 62%, #765116 78%, #D4AF55 92%, #F0D58A 100%)",
