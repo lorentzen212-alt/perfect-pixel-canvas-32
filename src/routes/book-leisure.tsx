@@ -3242,12 +3242,12 @@ function LeisureStep2Screen({
         hideCurrentFlow="leisure"
       />
 
-      <div className="mx-auto w-full" style={{ maxWidth: 1720, padding: "0 20px 30px" }}>
-        <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[26%_minmax(0,1fr)]">
+      <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 28px 40px" }}>
+        <div className="grid grid-cols-1 items-start gap-[22px] xl:grid-cols-[268px_minmax(0,1fr)] 2xl:grid-cols-[320px_minmax(0,1fr)]">
           {/* ---------- LEFT: hero panel ---------- */}
           <aside className="min-w-0 xl:sticky" style={{ top: 20 }}>
             <div
-              className="relative h-[420px] w-full overflow-hidden sm:h-[460px] xl:h-[760px]"
+              className="relative h-[420px] w-full overflow-hidden sm:h-[460px] xl:h-[700px]"
               style={{
                 borderRadius: 23,
                 border: `1px solid ${S2_HAIR_GOLD}`,
@@ -3270,7 +3270,7 @@ function LeisureStep2Screen({
                     "linear-gradient(to top, rgba(9,20,30,0.92) 0%, rgba(9,20,30,0.62) 38%, rgba(9,20,30,0) 100%)",
                 }}
               />
-              <div className="absolute inset-x-0 bottom-0 px-8 pb-9 lg:px-9 lg:pb-11">
+              <div className="absolute inset-x-0 bottom-0 px-6 pb-8 2xl:px-8 2xl:pb-10">
                 <div
                   className="text-[10.5px] font-medium uppercase tracking-[0.30em]"
                   style={{ color: "#D8BE85" }}
@@ -3278,7 +3278,7 @@ function LeisureStep2Screen({
                   Step 2 of 6
                 </div>
                 <h2
-                  className="mt-3 text-[34px] font-normal leading-[1.05] lg:text-[40px]"
+                  className="mt-3 text-[28px] font-normal leading-[1.05] 2xl:text-[34px]"
                   style={{ fontFamily: SERIF, color: "#FFFFFF" }}
                 >
                   Accommodation
@@ -3403,7 +3403,7 @@ function LeisureStep2Screen({
               Choose the number of rooms and your preferred category for your group.
             </p>
 
-            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 2xl:grid-cols-3">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
@@ -4694,7 +4694,7 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[44px] w-full cursor-pointer select-none items-center justify-between gap-2 px-5 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
+            ? "flex h-[44px] w-full cursor-pointer select-none items-center justify-between gap-2 px-4 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
@@ -4711,7 +4711,7 @@ function S2CategorySelect({
         }
       >
         <span
-          className={light ? "whitespace-nowrap" : "truncate"}
+          className="truncate"
           style={{
             color: light
               ? value
