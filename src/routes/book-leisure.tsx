@@ -3287,65 +3287,27 @@ function LeisureStep2Screen({
               className="relative flex h-full flex-col items-start justify-start px-8 pb-12 pt-[22%] text-left lg:px-11"
             >
               <div
-                className="text-[10.5px] font-light uppercase tracking-[0.42em]"
-                style={{ color: "rgba(247,242,232,0.62)", fontFamily: "Inter, system-ui, sans-serif" }}
+                className="text-[11px] font-light tracking-[0.28em]"
+                style={{ color: "rgba(247,242,232,0.78)", fontFamily: SERIF }}
               >
                 Step 2 of 6
               </div>
               <h1
-                className="mt-6 text-[34px] font-light leading-[1.08] lg:text-[38px]"
-                style={{ fontFamily: SERIF, color: "#FFFDF8", letterSpacing: "0.005em" }}
+                className="mt-3 text-[34px] font-light leading-[1.1] lg:text-[38px]"
+                style={{ fontFamily: SERIF, color: "#FFFDF8" }}
               >
                 Accommodation
               </h1>
-
-              {/* thin metallic gold rule with centred dot */}
-              <div className="relative mt-7 flex w-[132px] items-center" aria-hidden>
-                <div
-                  className="h-px w-full"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(226,201,140,0) 0%, rgba(226,201,140,0.85) 50%, rgba(226,201,140,0) 100%)",
-                  }}
-                />
-                <span
-                  className="absolute left-1/2 h-[4px] w-[4px] -translate-x-1/2 rounded-full"
-                  style={{
-                    background: "linear-gradient(180deg,#F2E1B4,#C7A461)",
-                    boxShadow: "0 0 6px -1px rgba(226,201,140,0.7)",
-                  }}
-                />
-              </div>
-
+              <S2DiamondRule refined />
               <p
-                className="mt-7 max-w-[248px] text-[14.5px] font-light leading-[2.05]"
-                style={{ color: "rgba(246,242,234,0.86)", letterSpacing: "0.012em" }}
+                className="mt-1 max-w-[260px] text-[15px] font-light leading-[1.9]"
+                style={{ color: "rgba(246,242,234,0.9)" }}
               >
-                Choose how your group will stay.
+                How many rooms
                 <br />
-                Select room types, preferred
-                <br />
-                room categories, and any
-                <br />
-                accommodation preferences.
+                will your group need?
               </p>
-
-              <div className="mt-auto pt-16">
-                <div
-                  className="text-[9.5px] font-light uppercase tracking-[0.34em]"
-                  style={{ color: "rgba(240,234,222,0.5)" }}
-                >
-                  Estimated time
-                </div>
-                <div
-                  className="mt-[7px] text-[17px] font-light leading-none"
-                  style={{ fontFamily: SERIF, color: "rgba(250,246,238,0.92)" }}
-                >
-                  1–2 minutes
-                </div>
-              </div>
             </div>
-
 
           </aside>
 
@@ -4092,21 +4054,17 @@ function S2StayCard({
   if (compact)
     return (
       <div
-        className={`relative ${animClass}`}
+        className={animClass}
         style={{
           borderRadius: 14,
-          backgroundImage: [
-            "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 12%, rgba(255,255,255,0) 20%)",
-            "linear-gradient(115deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.012) 26%, rgba(255,255,255,0) 46%)",
-            "linear-gradient(180deg, #193555 0%, #163050 46%, #112846 100%)",
-          ].join(", "),
-          border: "1px solid rgba(255,255,255,0.08)",
+          backgroundImage:
+            "radial-gradient(120% 160% at 18% 0%, rgba(38,63,92,0.85) 0%, rgba(13,32,52,1) 55%, rgba(10,25,41,1) 100%)",
+          border: "1px solid rgba(217,191,130,0.42)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.25), 0 34px 74px -38px rgba(4,12,22,0.92), 0 12px 28px -18px rgba(0,0,0,0.5)",
+            "inset 0 1px 0 rgba(255,255,255,0.07), 0 26px 60px -34px rgba(6,16,27,0.85), 0 8px 22px -16px rgba(0,0,0,0.4)",
           overflow: "hidden",
         }}
       >
-
         {/* Upper zone — dates + statistics */}
         <div className="flex flex-col gap-3 px-[18px] py-[11px] sm:px-5 lg:flex-row lg:items-center lg:gap-5">
           {/* Circular calendar mark */}
@@ -4524,45 +4482,32 @@ function S2RoomCard({
 
   return (
     <div
-      className="group s2-room-card s2-room-card-lux flex h-full flex-col overflow-hidden"
+      className="group s2-room-card flex h-full flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out"
       data-active={active ? "true" : "false"}
       style={{
         borderRadius: 20,
-        backgroundImage:
-          "linear-gradient(180deg, #F6F2EB 0%, #FCFAF7 22%, #FDFBF8 100%)",
+        backgroundColor: "#FCFAF7",
         padding: 0,
-        border: `1px solid ${active ? "rgba(198,169,103,0.5)" : "rgba(233,227,218,0.95)"}`,
-        boxShadow:
-          "0 1px 2px rgba(8,19,31,0.04), 0 18px 48px -22px rgba(8,19,31,0.20), 0 32px 70px -40px rgba(8,19,31,0.18)",
+        border: `1px solid ${active ? "rgba(198,169,103,0.5)" : "#E9E3DA"}`,
+        boxShadow: "0 12px 40px rgba(8,19,31,0.08)",
       }}
     >
       {/* 1 — full-bleed image */}
-      <div
-        className="s2-room-imgwrap"
+      <img
+        src={meta.img}
+        alt={meta.title}
         style={{
-          position: "relative",
+          display: "block",
+          width: "100%",
           height: 190,
-          overflow: "hidden",
+          objectFit: "cover",
+          objectPosition: "center",
+          margin: 0,
+          padding: 0,
           borderTopLeftRadius: 19,
           borderTopRightRadius: 19,
-          flexShrink: 0,
         }}
-      >
-        <img
-          src={meta.img}
-          alt={meta.title}
-          className="s2-room-img"
-          style={{
-            display: "block",
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center",
-            transform: "scale(1.05)",
-          }}
-        />
-      </div>
-
+      />
 
       {/* 2 — name + guest count + learn more */}
       <div className="flex flex-1 flex-col" style={{ padding: "22px 22px 16px" }}>
