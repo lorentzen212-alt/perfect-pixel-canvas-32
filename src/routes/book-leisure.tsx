@@ -4146,7 +4146,7 @@ function S2StayCard({
         }}
       >
         {/* Upper zone — dates + statistics */}
-        <div className="flex flex-col gap-4 px-[20px] py-[16px] sm:px-6 lg:flex-row lg:items-center lg:gap-7">
+        <div className="flex flex-col gap-3 px-[20px] py-[14px] sm:px-6 lg:flex-row lg:items-center lg:gap-6">
           {/* Circular calendar mark — opens the check-in picker */}
 
           <button
