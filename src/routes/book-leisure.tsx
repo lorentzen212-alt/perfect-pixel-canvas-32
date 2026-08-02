@@ -4388,8 +4388,11 @@ function S2RoomCard({
         />
       </div>
 
+      {/* editorial champagne-gold divider — inset, not full width */}
+      <div className="mx-[18px] mt-[11px] mb-[11px] h-px" style={{ backgroundColor: "rgba(198,169,103,0.4)" }} />
+
       {/* 2 — name + guest count */}
-      <div className="flex items-start justify-between gap-2 pt-[5px]">
+      <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <div
             className="truncate text-[18.8px] font-medium leading-[1.2] tracking-[0.15px]"
