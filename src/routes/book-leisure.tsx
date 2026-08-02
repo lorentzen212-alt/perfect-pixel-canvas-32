@@ -4241,7 +4241,7 @@ function S2StayCard({
 
         {/* Lower zone — actions */}
         <div
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-[18px] py-[9px]"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-[18px] py-[7px]"
           style={{ borderTop: "1px solid rgba(217,191,130,0.10)" }}
 
         >
