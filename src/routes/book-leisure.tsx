@@ -3856,12 +3856,18 @@ function S2StayCard({
     const dateValue = selected ? (
       compact ? (
         <span
-          className="whitespace-nowrap text-[26px] leading-none"
-          style={{ color: "#FFFFFF", fontWeight: 400, letterSpacing: "-0.01em" }}
+          className="whitespace-nowrap text-[21px] leading-none"
+          style={{
+            color: "#F4EFE6",
+            fontWeight: 400,
+            fontFamily: '"Playfair Display", "Cormorant Garamond", serif',
+            letterSpacing: "0.005em",
+          }}
         >
-          {format(selected, "MMM d, yyyy")}
+          {format(selected, "dd MMMM yyyy")}
         </span>
       ) : (
+
         <span
           className="whitespace-nowrap leading-none text-[17.5px]"
           style={{
