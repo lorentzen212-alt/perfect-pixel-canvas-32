@@ -4092,17 +4092,21 @@ function S2StayCard({
   if (compact)
     return (
       <div
-        className={animClass}
+        className={`relative ${animClass}`}
         style={{
           borderRadius: 14,
-          backgroundImage:
-            "radial-gradient(120% 160% at 18% 0%, rgba(38,63,92,0.85) 0%, rgba(13,32,52,1) 55%, rgba(10,25,41,1) 100%)",
-          border: "1px solid rgba(217,191,130,0.42)",
+          backgroundImage: [
+            "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 12%, rgba(255,255,255,0) 20%)",
+            "linear-gradient(115deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.012) 26%, rgba(255,255,255,0) 46%)",
+            "linear-gradient(180deg, #193555 0%, #163050 46%, #112846 100%)",
+          ].join(", "),
+          border: "1px solid rgba(255,255,255,0.08)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.07), 0 26px 60px -34px rgba(6,16,27,0.85), 0 8px 22px -16px rgba(0,0,0,0.4)",
+            "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.25), 0 34px 74px -38px rgba(4,12,22,0.92), 0 12px 28px -18px rgba(0,0,0,0.5)",
           overflow: "hidden",
         }}
       >
+
         {/* Upper zone — dates + statistics */}
         <div className="flex flex-col gap-3 px-[18px] py-[11px] sm:px-5 lg:flex-row lg:items-center lg:gap-5">
           {/* Circular calendar mark */}
