@@ -3359,11 +3359,13 @@ function LeisureStep2Screen({
                   editable
                   onArrival={(v: string) => {
                     setDraftArrival(v);
-                    if (v && (!draftDeparture || new Date(draftDeparture) <= new Date(v))) {
-                      const next = new Date(`${v}T00:00:00`);
-                      next.setDate(next.getDate() + 1);
-                      setDraftDeparture(next.toISOString().slice(0, 10));
-                    }
+                    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v || "");
+                    if (!m) return;
+                    // Calendar-day arithmetic in local time (no ms math, no UTC shift)
+                    const next = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+                    next.setDate(next.getDate() + 1);
+                    const nextISO = `${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, "0")}-${String(next.getDate()).padStart(2, "0")}`;
+                    setDraftDeparture(nextISO);
                   }}
                   onDeparture={setDraftDeparture}
                   onAddAnother={commitAndStartNext}
