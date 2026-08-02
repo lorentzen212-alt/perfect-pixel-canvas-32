@@ -4661,9 +4661,9 @@ function S2CategorySelect({
         onClick={toggle}
         onKeyDown={onKeyDown}
         className={
-          light
-            ? "flex h-[36px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap px-2 text-left text-[11.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
-            : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
+            light
+              ? "flex h-[43px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1 whitespace-nowrap px-2 text-left text-[13.5px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
+              : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
           light
