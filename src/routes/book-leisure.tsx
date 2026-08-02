@@ -4682,27 +4682,28 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[24px] w-[22px] hover:bg-black/[0.05]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
-      style={{ borderRadius: light ? 4 : 9, color: light ? "#B39254" : "rgba(217,191,130,0.9)" }}
+      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[30px] w-[30px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
+      style={{ borderRadius: 999, color: light ? "#0B1A26" : "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? (
-        <Minus size={light ? 13 : 16} strokeWidth={2} />
+        <Minus size={light ? 14 : 16} strokeWidth={1.8} />
       ) : (
-        <Plus size={light ? 13 : 16} strokeWidth={2} />
+        <Plus size={light ? 14 : 16} strokeWidth={1.8} />
       )}
     </button>
   );
 
   return (
     <div
-      className={`flex items-center justify-between ${light ? "h-[28px] shrink-0 px-1" : "h-[35px] px-1.5"}`}
+      className={`flex items-center justify-between ${light ? "h-[38px] shrink-0 px-1" : "h-[35px] px-1.5"}`}
       style={{
-        borderRadius: light ? 4 : 10,
-        width: light ? 72 : undefined,
-        backgroundColor: light ? "transparent" : "rgba(20,33,45,0.72)",
-        border: light ? `1px solid ${S2_HAIR_GOLD}` : "1px solid rgba(214,226,236,0.10)",
+        borderRadius: 999,
+        width: light ? 96 : undefined,
+        backgroundColor: light ? "#FFFFFF" : "rgba(20,33,45,0.72)",
+        border: light ? "1px solid rgba(8,23,34,0.16)" : "1px solid rgba(214,226,236,0.10)",
       }}
     >
+
       {btn("dec")}
       <input
         type="text"
