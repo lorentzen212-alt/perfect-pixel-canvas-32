@@ -4928,9 +4928,11 @@ function AccommodationSummary({
         <br />
         Summary
       </div>
-      <S2DiamondRule width={104} />
+      <div style={{ marginTop: 22, marginBottom: 26 }}>
+        <S2DiamondRule width={120} />
+      </div>
 
-      <div className="mt-1 space-y-5">
+      <div className="space-y-5">
         {[
           { label: "Total Rooms", value: totalRooms },
           { label: "Guests", value: totalGuests },
