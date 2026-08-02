@@ -5078,30 +5078,17 @@ function AccommodationSummary({
         ))}
       </ul>
 
-      {divider}
-
-      <div
-        className="text-[10.5px] font-medium uppercase tracking-[0.24em]"
-        style={{ color: "rgba(246,242,234,0.5)" }}
-      >
-        Progress
-      </div>
-      <div className="mt-4 space-y-4">
-        {bar("Rooms", totalRooms, roomsGoal)}
-        {bar("Guests", totalGuests, guestsGoal)}
-      </div>
-
-      {stays.length === 0 && (
-        <>
-          {divider}
-          <p
-            className="text-[12.5px] font-light leading-relaxed"
-            style={{ color: "rgba(246,242,234,0.50)" }}
-          >
-            No stays added yet. Choose your dates and rooms, then press Add this stay.
-          </p>
-        </>
+      {isEmpty && (
+        <p
+          className="mt-6 text-[12.5px] font-light leading-relaxed"
+          style={{ color: "rgba(246,242,234,0.50)" }}
+        >
+          No stays added yet.
+          <br />
+          Choose your dates and rooms to begin.
+        </p>
       )}
+
 
       <button
         type="button"
