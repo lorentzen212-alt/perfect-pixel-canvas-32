@@ -582,8 +582,9 @@ function ExperienceCard({
               aria-hidden
               className="pointer-events-none absolute inset-0 z-10"
               style={{
-                background:
-                  "linear-gradient(to top, rgba(4,8,13,0.60) 0%, rgba(4,8,13,0.20) 30%, transparent 54%)",
+                background: refined
+                  ? "linear-gradient(to top, rgba(2,6,11,0.72) 0%, rgba(2,6,11,0.46) 16%, rgba(2,6,11,0.20) 28%, rgba(2,6,11,0.06) 36%, transparent 42%)"
+                  : "linear-gradient(to top, rgba(4,8,13,0.60) 0%, rgba(4,8,13,0.20) 30%, transparent 54%)",
               }}
             />
           )}
@@ -592,29 +593,32 @@ function ExperienceCard({
           <div className="absolute inset-0 z-20">
             <div
               className="absolute text-left"
-              style={{ left: "41px", bottom: "76px" }}
+              style={{ left: "41px", bottom: refined ? "84px" : "76px" }}
             >
               <p
                 className="uppercase"
                 style={{
                   color: "#FFFFFF",
-                  fontSize: "17.46px",
-                  fontWeight: 600,
-                  letterSpacing: "0.28em",
+                  fontSize: refined ? "21px" : "17.46px",
+                  fontWeight: refined ? 500 : 600,
+                  letterSpacing: refined ? "0.34em" : "0.28em",
                   lineHeight: 1,
                   whiteSpace: "nowrap",
+                  textShadow: refined ? "0 2px 18px rgba(2,6,11,0.45)" : undefined,
                 }}
               >
                 {label}
               </p>
               <p
                 style={{
-                  marginTop: "7px",
-                  color: "rgba(255,255,255,0.8)",
-                  fontSize: "14.55px",
-                  fontWeight: 400,
+                  marginTop: refined ? "12px" : "7px",
+                  color: refined ? "rgba(255,255,255,0.74)" : "rgba(255,255,255,0.8)",
+                  fontSize: refined ? "13.5px" : "14.55px",
+                  fontWeight: refined ? 300 : 400,
+                  letterSpacing: refined ? "0.045em" : undefined,
                   lineHeight: 1.5,
                   whiteSpace: "nowrap",
+                  textShadow: refined ? "0 1px 14px rgba(2,6,11,0.4)" : undefined,
                 }}
               >
                 {tagline}
