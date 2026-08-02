@@ -4837,7 +4837,9 @@ function AccommodationSummary({
       className="flex flex-col px-6 py-8 lg:py-9"
       style={{
         backgroundColor: S2_SUMMARY_BG,
+        backgroundImage: "linear-gradient(180deg, #142E48 0%, #10263D 100%)",
         borderLeft: `1px solid ${S2_HAIR_GOLD}`,
+        boxShadow: "inset 1px 0 0 rgba(201,164,92,0.18)",
       }}
     >
       <div
