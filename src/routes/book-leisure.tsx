@@ -3254,7 +3254,7 @@ function LeisureStep2Screen({
             {/* Stay heading */}
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <h2
-                className="text-[24px] font-normal leading-none"
+                className="text-[30px] font-normal leading-none"
                 style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
               >
                 {editingId ? `Editing Stay ${stayNumber}` : "Stay"}
@@ -3262,10 +3262,11 @@ function LeisureStep2Screen({
               <button
                 type="button"
                 onClick={commitAndStartNext}
-                className="bg-transparent p-0 text-[13.5px] font-light transition-opacity hover:opacity-80"
-                style={{ color: S2_GOLD_DEEP, border: "none" }}
+                className="inline-flex items-center gap-1.5 bg-transparent p-0 text-[13.5px] font-normal transition-opacity hover:opacity-80"
+                style={{ color: "#B08D४7".replace("४", "4"), border: "none" }}
               >
-                + Add another stay
+                <Plus size={14} strokeWidth={1.6} />
+                Add another stay
               </button>
             </div>
 
@@ -3273,6 +3274,7 @@ function LeisureStep2Screen({
             <div className="mt-3.5">
               <S2StayCard
                 compact
+                light
                 title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
                 arrival={draftArrival}
                 departure={draftDeparture}
