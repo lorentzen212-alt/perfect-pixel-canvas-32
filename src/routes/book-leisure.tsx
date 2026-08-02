@@ -3978,7 +3978,7 @@ function S2StayCard({
         size={34}
         strokeWidth={1.1}
         className="mx-3 shrink-0 self-center"
-        style={{ color: "rgba(217,191,130,0.9)" }}
+        style={{ color: "#B99A60" }}
       />
       <DateCol
         label="Departure"
