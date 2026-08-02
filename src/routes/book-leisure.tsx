@@ -3216,8 +3216,6 @@ function LeisureStep2Screen({
   // A fresh empty stay form always stays visible, so it must not block continuing.
   const nextEnabled = canContinue && stays.length > 0 && !editingId;
 
-   /* Live caption for the left hero image */
-
   return (
     <main
       className="min-h-screen w-full"
