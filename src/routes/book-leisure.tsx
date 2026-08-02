@@ -7597,7 +7597,7 @@ function LeisureStep6Screen({
         >
           {/* LEFT — ivory intro */}
           <div
-            className="relative flex flex-col justify-between overflow-hidden px-[11%] pt-[21%] pb-[9%] lg:pt-[20%]"
+            className="relative flex flex-col justify-between overflow-hidden px-[45px] pt-[60px] pb-[38px]"
             style={{
               backgroundImage: `url(${s6MarbleAsset.url})`,
               backgroundSize: "cover",
@@ -7613,33 +7613,33 @@ function LeisureStep6Screen({
                 Step 6 of 6
               </div>
               <h2
-                className="mt-[26px] text-[35px] leading-[1.14] font-normal"
+                className="mt-[40px] text-[40px] leading-[1.06] font-normal"
                 style={{ fontFamily: SERIF, color: "#16233A" }}
               >
                 Your request<br />is ready
               </h2>
               <div
-                className="mt-[26px] h-px w-[46px]"
+                className="mt-[30px] h-px w-[50px]"
                 style={{ background: "#C7A34A" }}
               />
               <p
-                className="mt-[26px] max-w-[215px] text-[13.5px] leading-[1.85]"
-                style={{ color: "rgba(22,35,58,0.72)", fontFamily: "Karla, Inter, sans-serif" }}
+                className="mt-[32px] max-w-[215px] text-[13.5px] leading-[2]"
+                style={{ color: "rgba(22,35,58,0.68)", fontFamily: "Karla, Inter, sans-serif" }}
               >
                 Please review the details below before we submit your request to our hotel
                 partners.
               </p>
             </div>
 
-            <div className="mt-14">
+            <div className="mt-[110px]">
               <div
-                className="text-[42px] leading-none"
+                className="text-[46px] leading-none"
                 style={{ fontFamily: "'Mrs Saint Delafield', cursive", color: "#B08D3F" }}
               >
                 Thank you
               </div>
               <div
-                className="mt-[18px] text-[13.5px]"
+                className="mt-[18px] text-[13px]"
                 style={{ color: "#16233A", fontFamily: "Karla, Inter, sans-serif" }}
               >
                 HotelGroupBook Concierge
