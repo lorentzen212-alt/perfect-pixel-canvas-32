@@ -4798,7 +4798,7 @@ function S2Counter({
           }
         }}
         className={`no-spin w-full min-w-0 bg-transparent text-center outline-none ${light ? "text-[16px] font-normal" : "text-[18px] font-medium text-white"}`}
-        style={{ fontFamily: SERIF, color: light ? S2_NAVY_TEXT : undefined }}
+        style={{ fontFamily: SERIF, color: light ? "#F7F6F2" : undefined }}
       />
       {btn("inc")}
     </div>
