@@ -4139,8 +4139,9 @@ function S2StayCard({
             defaultMonth={selected ?? minDate ?? today}
             disabled={{ before: minDate ?? today }}
             onSelect={(d: Date | undefined) => {
-              if (!d) return;
-              onChange?.(toISO(d));
+              // Re-clicking the already selected day yields undefined —
+              // keep the value and simply dismiss the calendar.
+              if (d) onChange?.(toISO(d));
               setOpen(false);
               onPicked?.();
             }}
@@ -4184,7 +4185,6 @@ function S2StayCard({
         placeholder="Select arrival date"
         open={arrivalOpen}
         setOpen={setArrivalOpen}
-        onPicked={() => setDepartureOpen(true)}
       />
       <ArrowRight
         size={34}
@@ -4267,7 +4267,6 @@ function S2StayCard({
                 placeholder="Select date"
                 open={arrivalOpen}
                 setOpen={setArrivalOpen}
-                onPicked={() => setDepartureOpen(true)}
               />
             </div>
             <ArrowRight
