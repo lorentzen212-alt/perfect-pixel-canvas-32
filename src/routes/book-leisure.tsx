@@ -6289,16 +6289,17 @@ function LeisureStep4Screen({
       hideHero
       wide
     >
-      <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-[80fr_20fr]">
-        {/* ---------- HERO + CENTER: one premium composition ---------- */}
-        <div
-          className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[27fr_53fr]"
-          style={{
-            border: "1px solid rgba(201,164,92,0.30)",
-            boxShadow:
-              "0 60px 120px -55px rgba(6,16,26,0.72), 0 18px 44px -34px rgba(6,16,26,0.45)",
-          }}
-        >
+      <div
+        className="relative grid grid-cols-1 items-stretch overflow-hidden rounded-[26px] lg:grid-cols-[25fr_50fr_25fr]"
+        style={{
+          background: "#F7F3EA",
+          border: "1px solid rgba(201,164,92,0.30)",
+          boxShadow:
+            "0 60px 120px -55px rgba(6,16,26,0.72), 0 18px 44px -34px rgba(6,16,26,0.45)",
+        }}
+      >
+        {/* ---------- HERO + CENTER + SUMMARY: one premium composition ---------- */}
+
           {/* ---------- LEFT HERO ---------- */}
           <aside className="relative order-2 min-h-[380px] overflow-hidden lg:order-none">
             <img
@@ -6630,22 +6631,18 @@ function LeisureStep4Screen({
             </button>
           </div>
         </section>
-        </div>
 
-
-
-        {/* ---------- RIGHT SIDEBAR ---------- */}
+        {/* ---------- RIGHT SUMMARY: right column of the same container ---------- */}
         <div className="order-3 min-w-0 lg:order-none">
           <aside
-            className="rounded-[26px] p-7 lg:sticky lg:top-6"
+            className="h-full px-[46px] pb-[52px] pt-[40px]"
             style={{
               background:
                 "linear-gradient(180deg, rgba(16,32,50,0.98) 0%, rgba(8,19,31,0.98) 100%)",
-              border: "1px solid rgba(232,199,117,0.22)",
-              boxShadow:
-                "0 40px 80px -44px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
+              borderLeft: "1px solid rgba(232,199,117,0.28)",
             }}
           >
+
             <div className="text-[19px] font-medium text-white" style={{ fontFamily: SERIF }}>
               Your Request
             </div>
