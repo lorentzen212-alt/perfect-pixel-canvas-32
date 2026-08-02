@@ -226,18 +226,45 @@ function Home() {
             >
               <span
                 className="flex h-[38px] w-[38px] items-center justify-center rounded-full transition-transform duration-500 group-hover/explore:translate-y-1"
-                style={{ border: "1px solid rgba(226,190,122,0.55)" }}
+                style={{
+                  border: "1.5px solid transparent",
+                  background:
+                    "linear-gradient(transparent,transparent) padding-box, linear-gradient(145deg,#FFE9A6 0%,#F4D675 22%,#E7B94F 45%,#C99322 70%,#A96F08 100%) border-box",
+                  boxShadow: "0 0 12px rgba(231,185,79,0.28)",
+                }}
               >
-                <span className="text-[15px] leading-none" style={{ color: "#E2B473" }}>
-                  ↓
-                </span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="exploreArrowGold" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#FFE9A6" />
+                      <stop offset="40%" stopColor="#F4D675" />
+                      <stop offset="75%" stopColor="#E7B94F" />
+                      <stop offset="100%" stopColor="#C99322" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M12 5v13M6.5 12.5L12 18.5l5.5-6"
+                    stroke="url(#exploreArrowGold)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </span>
               <span
                 className="text-[10.5px] uppercase tracking-[0.34em]"
-                style={{ color: "rgba(226,180,115,0.9)", fontFamily: "Inter, sans-serif" }}
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  backgroundImage:
+                    "linear-gradient(100deg,#FFE9A6 0%,#F4D675 25%,#E7B94F 50%,#F4D675 72%,#C99322 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                }}
               >
                 Explore
               </span>
+
             </a>
           </div>
         </section>
