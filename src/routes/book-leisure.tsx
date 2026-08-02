@@ -3265,13 +3265,17 @@ function LeisureStep2Screen({
               src={s2StayHeroImg.url}
               alt="Premium hotel room with fjord view"
               className="absolute inset-0 h-full w-full"
-              style={{ objectFit: "cover", objectPosition: "center center" }}
+              style={{
+                objectFit: "cover",
+                objectPosition: "center center",
+                filter: "brightness(1.08) contrast(1.04) sepia(0.03) saturate(1.03)",
+              }}
             />
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(10,27,45,0.56) 0%, rgba(10,27,45,0.22) 58%, rgba(10,27,45,0.08) 100%)",
+                  "linear-gradient(90deg, rgba(16,38,62,0.12) 0%, rgba(16,38,62,0.06) 35%, rgba(16,38,62,0.02) 65%, rgba(16,38,62,0.00) 100%)",
               }}
             />
             <div
