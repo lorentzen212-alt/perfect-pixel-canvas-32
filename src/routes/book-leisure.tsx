@@ -4304,7 +4304,7 @@ function S2LuxeStat({
 }) {
   return (
     <div
-      className="flex min-w-[86px] flex-col items-center justify-center gap-2 px-5"
+      className="flex min-w-[86px] flex-col items-center justify-center gap-1.5 px-5"
       style={{ borderLeft: first ? undefined : "1px solid rgba(217,191,130,0.18)" }}
     >
       <span aria-hidden className="leading-none" style={{ color: "#D9BF82" }}>
