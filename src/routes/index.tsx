@@ -247,9 +247,15 @@ function Home() {
            Two 8px #0D1621 architectural side panels run flush from the
            bottom edge of the hero to the top edge of Popular Group
            Destinations, framing the cream content between them. */}
-      <div className="relative">
+      <div
+        className="relative"
+        style={{
+          background:
+            "radial-gradient(125% 95% at 50% 24%, #F8F6F2 0%, #F6F3ED 32%, #F2EEE7 58%, #EDE9E2 80%, #ECE8E1 100%)",
+        }}
+      >
         {/* ------------------- ENTRANCE CARDS (overlap hero) ------------------- */}
-        <section className="relative bg-[#F5F3EE] pb-16 lg:pb-20 lg:pt-[32px]">
+        <section className="relative pb-16 lg:pb-20 lg:pt-[32px]">
           <div
             className="hero-cards-offset relative z-20 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-[60px]"
           >
