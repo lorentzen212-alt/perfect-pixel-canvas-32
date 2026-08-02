@@ -3025,8 +3025,10 @@ function LeisureStep2Screen({
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
+  const [justAddedId, setJustAddedId] = useState<string | null>(null);
   const [stayAddedFlash, setStayAddedFlash] = useState(false);
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
+  const staysSectionRef = useRef<HTMLDivElement | null>(null);
   const [addError, setAddError] = useState(false);
   const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
