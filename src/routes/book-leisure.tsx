@@ -72,6 +72,7 @@ import {
   MessageSquare,
   Tag,
   Trash2,
+  Moon,
   Lightbulb,
 
   Headphones,
@@ -3653,12 +3654,6 @@ function S2CompletedStayCard({
   onCancelRemove?: () => void;
   animClass?: string;
 }) {
-  const fmt = (iso: string) => {
-    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
-    if (!m) return "—";
-    return format(new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])), "d MMM yyyy");
-  };
-
   const fmtLong = (iso: string) => {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
     if (!m) return { date: "—", day: "" };
