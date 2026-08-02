@@ -6630,22 +6630,18 @@ function LeisureStep4Screen({
             </button>
           </div>
         </section>
-        </div>
 
-
-
-        {/* ---------- RIGHT SIDEBAR ---------- */}
+        {/* ---------- RIGHT SUMMARY: right column of the same container ---------- */}
         <div className="order-3 min-w-0 lg:order-none">
           <aside
-            className="rounded-[26px] p-7 lg:sticky lg:top-6"
+            className="h-full p-7 pl-[52px] pr-[46px] pt-[46px] pb-[46px]"
             style={{
               background:
                 "linear-gradient(180deg, rgba(16,32,50,0.98) 0%, rgba(8,19,31,0.98) 100%)",
-              border: "1px solid rgba(232,199,117,0.22)",
-              boxShadow:
-                "0 40px 80px -44px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
+              borderLeft: "1px solid rgba(232,199,117,0.28)",
             }}
           >
+
             <div className="text-[19px] font-medium text-white" style={{ fontFamily: SERIF }}>
               Your Request
             </div>
