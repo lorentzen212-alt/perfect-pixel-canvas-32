@@ -367,7 +367,7 @@ function ExperienceCard({
   ctaText: string;
   intensity?: number;
 }) {
-  const cardShadow = "0 28px 70px rgba(0, 0, 0, 0.42)";
+  
   const k = Math.min(intensity, 2.2);
   const clamp = (v: number) => Math.min(v, 1);
 
