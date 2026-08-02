@@ -4465,27 +4465,23 @@ function S2RoomCard({
       className="group s2-room-card flex h-full flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1"
       data-active={active ? "true" : "false"}
       style={{
-        borderRadius: 19,
-        backgroundColor: "#FCFAF7",
-        padding: 11,
-        border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
-        boxShadow: active
-          ? "0 10px 26px -24px rgba(8,23,34,0.26)"
-          : "0 6px 20px -20px rgba(8,23,34,0.18)",
+        borderRadius: 18,
+        backgroundColor: "#FCFAF6",
+        padding: 10,
+        border: `1px solid ${active ? "rgba(198,169,103,0.5)" : "rgba(24,38,50,0.07)"}`,
+        boxShadow: "0 10px 26px -22px rgba(8,23,34,0.30)",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = "0 14px 32px -24px rgba(8,23,34,0.28)";
+        e.currentTarget.style.boxShadow = "0 16px 34px -24px rgba(8,23,34,0.34)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = active
-          ? "0 10px 26px -24px rgba(8,23,34,0.26)"
-          : "0 6px 20px -20px rgba(8,23,34,0.18)";
+        e.currentTarget.style.boxShadow = "0 10px 26px -22px rgba(8,23,34,0.30)";
       }}
     >
-      {/* 1 — image (dominant visual element) */}
+      {/* 1 — image */}
       <div
         className="relative w-full overflow-hidden"
-        style={{ aspectRatio: "16 / 11.4", borderRadius: 16, boxShadow: "0 3px 10px -4px rgba(8,23,34,0.35)" }}
+        style={{ aspectRatio: "16 / 11", borderRadius: 12 }}
       >
         <img
           src={meta.img}
@@ -4493,50 +4489,58 @@ function S2RoomCard({
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
           style={{ objectPosition: "center" }}
         />
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0"
-          style={{
-            height: "30%",
-            background:
-              "linear-gradient(to top, rgba(8,23,34,0.28) 0%, rgba(8,23,34,0.10) 50%, rgba(8,23,34,0) 100%)",
-          }}
-        />
       </div>
 
-      {/* editorial champagne-gold divider — inset, not full width */}
-      <div className="mx-[18px] mt-[7px] mb-[6px] h-px" style={{ backgroundColor: "rgba(198,169,103,0.4)" }} />
-
-      {/* 2 — name + guest count */}
-      <div className="flex min-h-[46px] items-start justify-between gap-2">
-        <div className="min-w-0">
+      {/* 2 — name + guest count + learn more */}
+      <div className="mt-[13px] px-[6px]">
+        <div className="flex items-start justify-between gap-2">
           <div
-            className="truncate text-[17.9px] font-medium leading-[1.15] tracking-[0.15px]"
-            style={{ fontFamily: SERIF, color: "#26313A" }}
+            className="truncate text-[19px] font-normal leading-[1.1]"
+            style={{ fontFamily: SERIF, color: "#1B3A52" }}
           >
             {meta.title}
           </div>
+          {showInfo && (
+            <span
+              title={meta.desc}
+              aria-label={meta.desc}
+              className="mt-[2px] grid h-[20px] w-[20px] shrink-0 place-items-center rounded-full text-[12px] font-normal transition-colors duration-200"
+              style={{ border: "1px solid rgba(198,169,103,0.75)", color: "#B39254", fontFamily: SERIF }}
+            >
+              i
+            </span>
+          )}
+        </div>
+        <div className="mt-[7px] flex items-end justify-between gap-2">
           <div
-            className="mt-[3px] flex items-center gap-1.5 text-[13.3px] font-normal tracking-[0.03em] leading-[1.2]"
-            style={{ color: "#8A9099" }}
+            className="flex items-center gap-[7px] text-[13.5px] font-normal leading-none"
+            style={{ color: "#5E6A74" }}
           >
-            <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
+            <span style={{ color: "#B08D4B" }}>{roomIcon(roomKey)}</span>
             {capacity}
           </div>
+          {!showInfo && (
+            <span
+              title={meta.desc}
+              className="flex shrink-0 cursor-default items-center gap-[5px] text-[12.5px] font-normal leading-none transition-colors duration-200 hover:text-[#1B3A52]"
+              style={{ color: "#6C7883" }}
+            >
+              Learn more
+              <ChevronDown
+                size={13}
+                strokeWidth={2}
+                style={{ transform: "rotate(-90deg)", color: "#8C99A4" }}
+              />
+            </span>
+          )}
         </div>
-        {showInfo && (
-          <span
-            title={meta.desc}
-            aria-label={meta.desc}
-            className="mt-[3px] grid h-[19px] w-[19px] shrink-0 place-items-center rounded-full text-[11.5px] font-medium opacity-45 transition-opacity duration-200 hover:opacity-100"
-            style={{ border: "1px solid #C6A967", color: "#B39254" }}
-          >
-            i
-          </span>
-        )}
       </div>
 
+      {/* hairline divider */}
+      <div className="mx-[6px] mt-[11px] h-px" style={{ backgroundColor: "rgba(24,38,50,0.10)" }} />
+
       {/* 3 — control row */}
-      <div className="mt-auto flex w-full items-center gap-2 pt-[7px]">
+      <div className="mt-auto flex w-full items-center gap-[6px] px-[2px] pt-[13px]">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
@@ -4550,18 +4554,17 @@ function S2RoomCard({
           </div>
         ) : (
           <div
-            className="s2-metal flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 overflow-hidden px-2.5 text-[13.5px] font-light"
+            className="flex h-[44px] min-w-0 flex-1 items-center justify-between gap-1 overflow-hidden px-2 text-[11.5px] font-normal"
             style={{
-              borderRadius: 13,
-              color: "#F7F6F2",
-              opacity: 1,
+              borderRadius: 10,
+              color: "#F4F1EA",
+              backgroundColor: "#173049",
             }}
             title={ACCESSIBLE_CATEGORY_LABEL}
           >
             <span className="truncate">{ACCESSIBLE_CATEGORY_LABEL}</span>
           </div>
         )}
-
       </div>
     </div>
   );
@@ -4765,15 +4768,15 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
             light
-              ? "s2-metal flex h-[43px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-2.5 text-left text-[13.5px] font-light outline-none"
+              ? "flex h-[44px] w-full min-w-0 cursor-pointer select-none items-center justify-between gap-0.5 whitespace-nowrap px-2 text-left text-[11.5px] font-normal outline-none transition-colors duration-200"
               : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none"
         }
         style={
           light
             ? {
-                borderRadius: 13,
-                color: "#F7F6F2",
-                opacity: 1,
+                borderRadius: 10,
+                color: "#F4F1EA",
+                backgroundColor: "#173049",
               }
             : undefined
         }
@@ -4784,7 +4787,7 @@ function S2CategorySelect({
           style={{
             color: light
               ? value
-                ? "#F7F6F2"
+                ? "#F4F1EA"
                 : "rgba(247,246,242,0.62)"
               : value
                 ? "#FFFFFF"
@@ -4794,7 +4797,7 @@ function S2CategorySelect({
           {value || "Select category"}
         </span>
         <ChevronDown
-          size={light ? 15 : 16}
+          size={light ? 13 : 16}
           strokeWidth={2}
           style={{
             color: light ? "#C9A76A" : "rgba(245,241,230,0.55)",
@@ -4851,13 +4854,13 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className={`grid shrink-0 place-items-center outline-none transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[32px] w-[32px] hover:bg-[rgba(201,167,106,0.14)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
+      className={`grid shrink-0 place-items-center outline-none transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[24px] w-[24px] hover:bg-[rgba(201,167,106,0.14)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
       style={{ borderRadius: 999, color: light ? "#C9A76A" : "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? (
-        <Minus size={light ? 17 : 16} strokeWidth={1.8} />
+        <Minus size={light ? 15 : 16} strokeWidth={1.8} />
       ) : (
-        <Plus size={light ? 17 : 16} strokeWidth={1.8} />
+        <Plus size={light ? 15 : 16} strokeWidth={1.8} />
       )}
     </button>
   );
@@ -4865,12 +4868,12 @@ function S2Counter({
 
   return (
     <div
-      className={`flex items-center justify-between ${light ? "s2-metal h-[43px] shrink-0 px-1.5" : "h-[35px] px-1.5 transition-colors duration-200"}`}
+      className={`flex items-center justify-between ${light ? "h-[44px] shrink-0 px-1.5" : "h-[35px] px-1.5 transition-colors duration-200"}`}
       style={{
-        borderRadius: light ? 13 : 999,
-        width: light ? 92 : undefined,
-        backgroundColor: light ? undefined : "rgba(20,33,45,0.72)",
-        border: light ? undefined : "1px solid rgba(214,226,236,0.10)",
+        borderRadius: light ? 10 : 999,
+        width: light ? 84 : undefined,
+        backgroundColor: light ? "#FBF8F2" : "rgba(20,33,45,0.72)",
+        border: light ? "1px solid rgba(176,141,75,0.35)" : "1px solid rgba(214,226,236,0.10)",
       }}
     >
 
@@ -4900,8 +4903,8 @@ function S2Counter({
             onChange(Math.max(0, value - 1));
           }
         }}
-        className={`no-spin w-full min-w-0 bg-transparent text-center outline-none ${light ? "text-[16px] font-normal" : "text-[18px] font-medium text-white"}`}
-        style={{ fontFamily: SERIF, color: light ? "#F7F6F2" : undefined }}
+        className={`no-spin w-full min-w-0 bg-transparent text-center outline-none ${light ? "text-[15px] font-normal" : "text-[18px] font-medium text-white"}`}
+        style={{ fontFamily: light ? "Inter, sans-serif" : SERIF, color: light ? "#1B3A52" : undefined }}
       />
       {btn("inc")}
     </div>
