@@ -4801,7 +4801,7 @@ function AccommodationSummary({
               className="truncate text-[12.5px] font-light"
               style={{ color: r.count > 0 ? "rgba(246,242,234,0.86)" : "rgba(246,242,234,0.4)" }}
             >
-              {r.label}s
+              {r.label.endsWith("s") ? r.label : `${r.label}s`}
             </span>
             <span
               className="text-[13.5px] tabular-nums"
