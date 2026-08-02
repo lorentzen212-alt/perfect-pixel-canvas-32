@@ -4045,16 +4045,16 @@ function S2StayCard({
             <>
               <div
                 className="flex items-center gap-3 text-[12.5px]"
-                style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}
+                style={{ color: "#E8E4DC", fontWeight: 500 }}
               >
                 <span>
                   {nights} {nights === 1 ? "Night" : "Nights"}
                 </span>
-                <span style={{ color: "rgba(217,191,130,0.4)" }}>|</span>
+                <span style={{ color: "rgba(132,144,157,0.5)" }}>|</span>
                 <span>
                   {rooms} {rooms === 1 ? "Room" : "Rooms"}
                 </span>
-                <span style={{ color: "rgba(217,191,130,0.4)" }}>|</span>
+                <span style={{ color: "rgba(132,144,157,0.5)" }}>|</span>
                 <span>
                   {guests} {guests === 1 ? "Guest" : "Guests"}
                 </span>
@@ -4064,8 +4064,8 @@ function S2StayCard({
                   <button
                     type="button"
                     onClick={onEdit}
-                    className="bg-transparent p-0 text-[12.5px] font-light"
-                    style={{ color: "rgba(246,242,234,0.75)", border: "none" }}
+                    className="bg-transparent p-0 text-[12.5px]"
+                    style={{ color: "#E8E4DC", fontWeight: 500, border: "none" }}
                   >
                     Edit
                   </button>
@@ -4073,8 +4073,10 @@ function S2StayCard({
                 <button
                   type="button"
                   onClick={onRemove}
-                  className="bg-transparent p-0 text-[12.5px] font-light"
-                  style={{ color: S2_GOLD_SOFT, border: "none" }}
+                  className="s2-remove-btn bg-transparent p-0 text-[12.5px]"
+                  style={{ color: "rgba(232,228,220,0.75)", fontWeight: 500, border: "none" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#B99A60")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(232,228,220,0.75)")}
                 >
                   Remove
                 </button>
