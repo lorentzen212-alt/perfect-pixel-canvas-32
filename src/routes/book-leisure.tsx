@@ -6366,14 +6366,16 @@ function LeisureStep4Screen({
 
         {/* ---------- CENTER ---------- */}
         <section
-          className="relative order-1 min-w-0 px-6 py-9 sm:px-9 sm:py-10 lg:order-none lg:-ml-[8px] lg:px-11"
+          className="relative order-1 min-w-0 px-7 py-9 sm:px-10 sm:py-10 lg:order-none lg:px-[54px]"
           style={{
             background:
               "radial-gradient(120% 80% at 50% 0%, #FBF8F1 0%, #F5F1E7 60%, #EFEADE 100%)",
             boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8)",
+            borderLeft: "1px solid rgba(226,203,148,0.20)",
             color: S4_INK,
           }}
         >
+
 
           <header className="text-center">
             <h2
