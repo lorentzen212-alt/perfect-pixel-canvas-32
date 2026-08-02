@@ -6780,20 +6780,30 @@ function LeisureStep4Screen({
           >
             {filtered.map((e) => {
               const active = selected.has(e.label);
+              const featured = e.label === "Northern Lights";
               return (
                 <button
                   key={e.label}
                   type="button"
                   onClick={() => onToggle(e.label)}
-                  className={`s4-card group relative overflow-hidden rounded-[19px] text-left ${active ? "s4-selected" : ""}`}
+                  onMouseEnter={() => setHoveredExp(e)}
+                  onMouseLeave={() =>
+                    setHoveredExp((cur) => (cur?.label === e.label ? null : cur))
+                  }
+                  className={`s4-card group relative cursor-pointer overflow-hidden rounded-[23px] text-left ${active ? "s4-selected" : ""} ${featured ? "s4-featured" : ""}`}
                   style={{
                     border: `1px solid ${active ? S4_GOLD : "rgba(18,33,46,0.10)"}`,
                     boxShadow: active
-                      ? "0 26px 50px -26px rgba(201,164,92,0.6)"
-                      : "0 22px 44px -30px rgba(8,19,31,0.55)",
+                      ? "0 16px 38px rgba(201,164,92,0.22), 0 3px 10px rgba(0,0,0,0.06)"
+                      : featured
+                      ? "0 16px 40px rgba(10,20,35,0.16), 0 4px 12px rgba(0,0,0,0.08)"
+                      : "0 12px 32px rgba(10,20,35,0.12), 0 3px 10px rgba(0,0,0,0.06)",
                   }}
                 >
-                  <div className="relative h-[210px] w-full overflow-hidden">
+                  <div
+                    className="relative w-full overflow-hidden"
+                    style={{ height: featured ? 227 : 210 }}
+                  >
                     <img
                       src={e.img}
                       alt={e.label}
@@ -6806,29 +6816,50 @@ function LeisureStep4Screen({
                           "linear-gradient(180deg, rgba(8,19,31,0) 40%, rgba(8,19,31,0.88) 100%)",
                       }}
                     />
+                    {featured && (
+                      <span
+                        className="absolute left-4 top-4 rounded-full px-3 py-[5px] text-[9px] font-medium uppercase tracking-[0.18em]"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, rgba(12,24,38,0.62) 0%, rgba(8,19,31,0.48) 100%)",
+                          border: "1px solid rgba(226,203,148,0.42)",
+                          color: "rgba(231,211,167,0.92)",
+                          backdropFilter: "blur(6px)",
+                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)",
+                        }}
+                      >
+                        Featured Experience
+                      </span>
+                    )}
                     <div className="absolute bottom-4 left-5 right-16">
                       <div
-                        className="text-white"
-                        style={{ fontFamily: SERIF, fontSize: 19.5, lineHeight: 1.15 }}
+                        className="s4-card-title"
+                        style={{
+                          fontFamily: SERIF,
+                          fontSize: 19.5,
+                          lineHeight: 1.15,
+                          color: "rgba(255,255,255,0.92)",
+                        }}
                       >
                         {e.label}
                       </div>
                       <div
-                        className="mt-1 text-[11.5px] leading-[1.45]"
+                        className="s4-card-cat mt-1 text-[11.5px] leading-[1.45]"
                         style={{ color: "rgba(245,241,230,0.72)" }}
                       >
                         {e.category}
                       </div>
                     </div>
                     <span
-                      className="absolute bottom-4 right-4 grid h-9 w-9 place-items-center rounded-full transition-all"
+                      className="s4-plus absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full"
                       style={{
                         background: active
                           ? `linear-gradient(135deg, ${S4_GOLD_LT} 0%, ${S4_GOLD} 70%)`
-                          : "rgba(8,19,31,0.5)",
-                        border: `1px solid ${active ? S4_GOLD : "rgba(232,199,117,0.6)"}`,
+                          : "linear-gradient(145deg, rgba(20,34,50,0.62) 0%, rgba(8,19,31,0.55) 100%)",
+                        border: `2px solid ${active ? S4_GOLD : "rgba(226,203,148,0.72)"}`,
                         color: active ? S1_NAVY : "#EBCB7A",
                         backdropFilter: "blur(6px)",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14)",
                       }}
                     >
                       {active ? (
