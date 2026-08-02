@@ -4277,24 +4277,28 @@ function S2RoomCard({
       className="group s2-room-card flex flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1"
       data-active={active ? "true" : "false"}
       style={{
-        borderRadius: 18,
-        backgroundColor: "#FFFFFF",
-        border: `1px solid ${active ? "rgba(179,146,84,0.55)" : "rgba(179,146,84,0.22)"}`,
+        borderRadius: 16,
+        backgroundColor: "#FCFAF7",
+        padding: 16,
+        border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
-          ? "0 18px 40px -26px rgba(8,23,34,0.38)"
-          : "0 10px 30px -22px rgba(8,23,34,0.30)",
+          ? "0 14px 32px -24px rgba(8,23,34,0.30)"
+          : "0 8px 24px -20px rgba(8,23,34,0.22)",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = "0 26px 52px -26px rgba(8,23,34,0.42)";
+        e.currentTarget.style.boxShadow = "0 18px 38px -24px rgba(8,23,34,0.30)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = active
-          ? "0 18px 40px -26px rgba(8,23,34,0.38)"
-          : "0 10px 30px -22px rgba(8,23,34,0.30)";
+          ? "0 14px 32px -24px rgba(8,23,34,0.30)"
+          : "0 8px 24px -20px rgba(8,23,34,0.22)";
       }}
     >
-      {/* image — ~62% of card height */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 11.6" }}>
+      {/* image — ~58% of card height */}
+      <div
+        className="relative overflow-hidden"
+        style={{ aspectRatio: "16 / 10.6", borderRadius: 12 }}
+      >
         <img
           src={meta.img}
           alt={meta.title}
@@ -4304,10 +4308,11 @@ function S2RoomCard({
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0"
           style={{
-            height: "34%",
+            height: "30%",
             background:
-              "linear-gradient(to top, rgba(8,23,34,0.55) 0%, rgba(8,23,34,0.26) 45%, rgba(8,23,34,0) 100%)",
+              "linear-gradient(to top, rgba(8,23,34,0.28) 0%, rgba(8,23,34,0.10) 50%, rgba(8,23,34,0) 100%)",
           }}
+
         />
         {roomKey === "double" && (
           <span
@@ -4328,18 +4333,18 @@ function S2RoomCard({
       </div>
 
       {/* body */}
-      <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
+      <div className="flex flex-1 flex-col pt-4">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             <div
-              className="truncate text-[17px] font-normal leading-tight"
-              style={{ fontFamily: SERIF, color: "#081722" }}
+              className="truncate text-[20px] font-medium leading-tight"
+              style={{ fontFamily: SERIF, color: "#26313A" }}
             >
               {meta.title}
             </div>
             <div
-              className="mt-2.5 flex items-center gap-2 text-[11.5px] font-light tracking-[0.02em]"
-              style={{ color: S2_NAVY_MUTED }}
+              className="mt-2 flex items-center gap-2 text-[12px] font-light tracking-[0.03em]"
+              style={{ color: "#8A9099" }}
             >
               <span style={{ color: "#C6A967" }}>{roomIcon(roomKey)}</span>
               {capacity}
@@ -4358,10 +4363,11 @@ function S2RoomCard({
         </div>
 
         {/* controls */}
-        <div className="mt-5 flex items-center gap-2.5">
+        <div className="mt-4 flex items-center gap-2.5">
           <S2Counter light value={value} onChange={onChange} label={meta.title} />
           {categoryOptions ? (
             <div className="min-w-0 flex-1">
+
               <S2CategorySelect
                 light
                 value={category ?? categoryOptions[0]}
@@ -4373,17 +4379,18 @@ function S2RoomCard({
             </div>
           ) : (
             <div
-              className="flex h-[38px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-3 text-[11px] font-light"
+              className="flex h-[40px] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap px-3.5 text-[12px] font-light transition-colors duration-200 hover:bg-[#F6F1E8]"
               style={{
-                borderRadius: 999,
-                border: "1px solid rgba(8,23,34,0.16)",
-                backgroundColor: "#FFFFFF",
-                color: S2_NAVY_MUTED,
-                opacity: active ? 1 : 0.65,
+                borderRadius: 12,
+                border: "1px solid #E2D6BE",
+                backgroundColor: "#FCFAF7",
+                color: "#6E767E",
+                opacity: active ? 1 : 0.7,
               }}
             >
               Standard Rooms
             </div>
+
           )}
         </div>
       </div>
@@ -4594,18 +4601,19 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[38px] w-full cursor-pointer select-none items-center justify-between gap-1.5 px-3.5 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
+            ? "flex h-[40px] w-full cursor-pointer select-none items-center justify-between gap-1.5 whitespace-nowrap px-3.5 text-left text-[12px] font-light outline-none transition-colors duration-200 hover:bg-[#F6F1E8] disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
           light
             ? {
-                borderRadius: 999,
-                border: `1px solid rgba(8,23,34,0.16)`,
-                backgroundColor: "#FFFFFF",
+                borderRadius: 12,
+                border: `1px solid #E2D6BE`,
+                backgroundColor: "#FCFAF7",
                 color: S2_NAVY_TEXT,
-                opacity: disabled ? 0.55 : 1,
+                opacity: disabled ? 0.6 : 1,
               }
+
 
             : undefined
         }
@@ -4682,8 +4690,8 @@ function S2Counter({
       aria-label={`${dir === "dec" ? "Decrease" : "Increase"} ${label}`}
       disabled={dir === "dec" && value === 0}
       onClick={() => onChange(dir === "dec" ? Math.max(0, value - 1) : value + 1)}
-      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[30px] w-[30px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
-      style={{ borderRadius: 999, color: light ? "#0B1A26" : "rgba(217,191,130,0.9)" }}
+      className={`grid shrink-0 place-items-center transition-all duration-200 active:scale-95 disabled:opacity-30 ${light ? "h-[32px] w-[32px] hover:bg-[rgba(198,169,103,0.16)]" : "h-[30px] w-[30px] hover:bg-white/[0.07]"}`}
+      style={{ borderRadius: 999, color: light ? "#26313A" : "rgba(217,191,130,0.9)" }}
     >
       {dir === "dec" ? (
         <Minus size={light ? 14 : 16} strokeWidth={1.8} />
@@ -4693,14 +4701,15 @@ function S2Counter({
     </button>
   );
 
+
   return (
     <div
-      className={`flex items-center justify-between ${light ? "h-[38px] shrink-0 px-1" : "h-[35px] px-1.5"}`}
+      className={`flex items-center justify-between transition-colors duration-200 ${light ? "h-[40px] shrink-0 px-1 hover:bg-[#F6F1E8]" : "h-[35px] px-1.5"}`}
       style={{
-        borderRadius: 999,
-        width: light ? 96 : undefined,
-        backgroundColor: light ? "#FFFFFF" : "rgba(20,33,45,0.72)",
-        border: light ? "1px solid rgba(8,23,34,0.16)" : "1px solid rgba(214,226,236,0.10)",
+        borderRadius: light ? 12 : 999,
+        width: light ? 100 : undefined,
+        backgroundColor: light ? "#FCFAF7" : "rgba(20,33,45,0.72)",
+        border: light ? "1px solid #E2D6BE" : "1px solid rgba(214,226,236,0.10)",
       }}
     >
 
