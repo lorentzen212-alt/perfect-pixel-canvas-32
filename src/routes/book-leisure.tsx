@@ -2960,6 +2960,15 @@ const S2_TEXT = "#F5F1E6";
 const S2_GOLD = "#D9BF82";
 const S2_GOLD_SOFT = "#E7D3A4";
 const S2_GOLD_DEEP = "#B99C60";
+/* Step 2 redesign tokens — ivory / navy / champagne */
+const S2_INK = "#0B1520";
+const S2_IVORY = "#F7F4ED";
+const S2_CREAM = "#FBF9F4";
+const S2_HAIR_GOLD = "rgba(179,146,84,0.30)";
+const S2_NAVY_TEXT = "#12212E";
+const S2_NAVY_MUTED = "rgba(18,33,46,0.58)";
+const S2_NAVY_BTN = "#0F1E2B";
+const S2_SUMMARY_BG = "#0C1926";
 const S2_CARD_SHADOW =
   "0 1px 0 rgba(255,255,255,0.06) inset, 0 -12px 24px -22px rgba(0,0,0,0.55) inset, 0 18px 38px -26px rgba(6,14,22,0.7)";
 
