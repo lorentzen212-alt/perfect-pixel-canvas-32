@@ -34,6 +34,7 @@ import {
   FileSignature,
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
+import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
 
 import {
@@ -924,7 +925,7 @@ function ManageBookings() {
                 description="Proposal ready"
                 tone={GOLD}
                 overlay="linear-gradient(135deg, rgba(120, 72, 20, 0.75) 0%, rgba(40, 28, 18, 0.85) 100%)"
-                image={bookings.find((b) => groupOf(b) === "proposal")?.image ?? heroImage}
+                image={bellAsset.url}
                 icon={<FileSignature size={19} />}
                 active={group === "proposal"}
                 onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
