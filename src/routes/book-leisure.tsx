@@ -6265,427 +6265,416 @@ function LeisureStep4Screen({
     </div>
   );
 
+  const recommended = STEP4_EXPERIENCES.find((e) => e.label === "Northern Lights")!;
+  const recommendedActive = selected.has(recommended.label);
+
+  const goldRule = (
+    <div
+      className="h-px w-full"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(232,199,117,0.62), rgba(232,199,117,0.16) 62%, transparent)",
+      }}
+    />
+  );
+
   return (
     <LeisureStepShell
       activeStep={4}
       onStepGo={onStepGo}
       hero={S4_HERO}
       chapter="CHAPTER IV"
-      headline={
-        <span
-          className="block"
-          style={{ fontSize: 38, lineHeight: 1.08, letterSpacing: "-0.005em" }}
-        >
-          Curate<br />experiences.
-        </span>
-      }
-      subtext={
-        <span className="block" style={{ fontSize: 14.5, lineHeight: 1.65 }}>
-          Create unforgettable moments for your group.
-        </span>
-      }
-      enhancedHero
-      rightSidebar={
+      headline={null}
+      subtext={null}
+      hideHero
+      wide
+    >
+      <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-[27fr_53fr_20fr]">
+        {/* ---------- LEFT HERO ---------- */}
         <aside
-          className="rounded-[24px] p-7 lg:sticky lg:top-8"
+          className="relative order-2 min-h-[380px] overflow-hidden rounded-[26px] lg:order-none"
+          style={{
+            border: "1px solid rgba(232,199,117,0.22)",
+            boxShadow: "0 50px 100px -50px rgba(6,16,26,0.75)",
+          }}
+        >
+          <img
+            src={S4_HERO}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ filter: "saturate(1.05) contrast(1.03)" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(8,19,31,0.42) 0%, rgba(8,19,31,0.30) 42%, rgba(8,19,31,0.80) 100%)",
+            }}
+          />
+          <div className="relative z-10 flex h-full flex-col justify-center p-9 lg:p-11">
+            <div
+              className="text-[11px] font-medium uppercase tracking-[0.30em]"
+              style={{ color: S4_GOLD_LT }}
+            >
+              Step 4 of 6
+            </div>
+            <h1
+              className="mt-5 text-[40px] leading-[1.04] text-white lg:text-[46px]"
+              style={{ fontFamily: SERIF, fontWeight: 500 }}
+            >
+              Experiences
+            </h1>
+            <div className="mt-6 flex items-center gap-2.5">
+              <span
+                className="h-px w-[70px]"
+                style={{ background: `linear-gradient(90deg, ${S4_GOLD_LT}, transparent)` }}
+              />
+              <span
+                className="block h-[6px] w-[6px] rotate-45"
+                style={{ background: `linear-gradient(135deg, ${S4_GOLD_LT}, ${S4_GOLD})` }}
+              />
+            </div>
+            <p
+              className="mt-6 max-w-[300px] text-[15px] leading-[1.7]"
+              style={{ color: "rgba(255,255,255,0.84)" }}
+            >
+              Create unforgettable moments for your group.
+            </p>
+          </div>
+        </aside>
+
+        {/* ---------- CENTER ---------- */}
+        <section
+          className="order-1 min-w-0 rounded-[26px] px-6 py-9 sm:px-9 sm:py-10 lg:order-none lg:px-11"
           style={{
             background:
-              "linear-gradient(180deg, rgba(16,32,50,0.98) 0%, rgba(8,19,31,0.98) 100%)",
-            border: "1px solid rgba(232,199,117,0.22)",
+              "radial-gradient(120% 80% at 50% 0%, #FBF8F1 0%, #F5F1E7 60%, #EFEADE 100%)",
+            border: "1px solid rgba(201,164,92,0.24)",
             boxShadow:
-              "0 40px 80px -44px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
+              "0 50px 100px -50px rgba(6,16,26,0.6), inset 0 1px 0 rgba(255,255,255,0.8)",
+            color: S4_INK,
           }}
         >
-          {summaryLines}
-        </aside>
-      }
-    >
+          <header className="text-center">
+            <h2
+              className="text-[32px] leading-[1.1] sm:text-[38px]"
+              style={{ fontFamily: SERIF, color: S4_INK, fontWeight: 500 }}
+            >
+              Add experiences for your group
+            </h2>
+            <p className="mx-auto mt-2.5 max-w-[520px] text-[14px]" style={{ color: S4_MUTED }}>
+              Make your stay truly memorable with unique activities and experiences.
+            </p>
+            <div className="mt-6 flex items-center justify-center gap-3">
+              <span
+                className="h-px w-[100px]"
+                style={{ background: `linear-gradient(90deg, transparent, ${S4_GOLD})` }}
+              />
+              <span
+                className="block h-[7px] w-[7px] rotate-45"
+                style={{ background: `linear-gradient(135deg, ${S4_GOLD_LT}, ${S4_GOLD})` }}
+              />
+              <span
+                className="h-px w-[100px]"
+                style={{ background: `linear-gradient(90deg, ${S4_GOLD}, transparent)` }}
+              />
+            </div>
+          </header>
 
-      <section
-        className="rounded-[26px] px-6 py-9 sm:px-10 sm:py-12 lg:px-14 lg:py-14"
-        style={{
-          background:
-            "radial-gradient(120% 80% at 50% 0%, #FBF8F1 0%, #F5F1E7 60%, #EFEADE 100%)",
-          border: "1px solid rgba(201,164,92,0.24)",
-          boxShadow:
-            "0 50px 100px -50px rgba(6,16,26,0.6), inset 0 1px 0 rgba(255,255,255,0.8)",
-          color: S4_INK,
-        }}
-      >
-        <header className="text-center">
-          <h2
-            className="text-[34px] leading-[1.1] sm:text-[42px]"
-            style={{ fontFamily: SERIF, color: S4_INK, fontWeight: 500 }}
-          >
-            Add experiences for your group
-          </h2>
-          <p className="mx-auto mt-3 max-w-[560px] text-[14.5px]" style={{ color: S4_MUTED }}>
-            Make your stay truly memorable with unique activities and experiences.
-          </p>
-          <div className="mt-7 flex items-center justify-center gap-3">
-            <span
-              className="h-px w-[110px]"
-              style={{
-                background: `linear-gradient(90deg, transparent, ${S4_GOLD})`,
-              }}
-            />
-            <span
-              className="block h-[7px] w-[7px] rotate-45"
-              style={{
-                background: `linear-gradient(135deg, ${S4_GOLD_LT}, ${S4_GOLD})`,
-              }}
-            />
-            <span
-              className="h-px w-[110px]"
-              style={{
-                background: `linear-gradient(90deg, ${S4_GOLD}, transparent)`,
-              }}
-            />
+          {/* Category filters */}
+          <div className="mt-7 flex flex-wrap justify-center gap-2.5">
+            {STEP4_CATEGORIES.map((c) => {
+              const active = c === category;
+              return (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setCategory(c)}
+                  className="inline-flex items-center gap-2 rounded-full px-[18px] py-[9px] text-[12.5px] font-medium transition-all duration-200 hover:-translate-y-[1px]"
+                  style={{
+                    background: active
+                      ? "linear-gradient(180deg, #16293C 0%, #0C1A29 100%)"
+                      : "rgba(255,255,255,0.82)",
+                    color: active ? "#FFFDF8" : S4_INK,
+                    border: `1px solid ${active ? "rgba(232,199,117,0.55)" : "rgba(201,164,92,0.34)"}`,
+                    boxShadow: active
+                      ? "0 14px 26px -16px rgba(8,19,31,0.75)"
+                      : "0 8px 18px -14px rgba(8,19,31,0.45)",
+                    letterSpacing: "0.01em",
+                  }}
+                >
+                  <Sparkles
+                    size={12.5}
+                    strokeWidth={2}
+                    style={{ color: active ? S4_GOLD_LT : "rgba(201,164,92,0.85)" }}
+                  />
+                  {c === "All" ? "All Experiences" : c}
+                </button>
+              );
+            })}
           </div>
-        </header>
 
-        {/* Category filters */}
-        <div className="mt-9 flex flex-wrap justify-center gap-2.5">
-          {STEP4_CATEGORIES.map((c) => {
-            const active = c === category;
-            return (
-              <button
-                key={c}
-                type="button"
-                onClick={() => setCategory(c)}
-                className="rounded-full px-5 py-[9px] text-[12.5px] font-medium transition-all duration-200 hover:-translate-y-[1px]"
-                style={{
-                  background: active
-                    ? "linear-gradient(180deg, #16293C 0%, #0C1A29 100%)"
-                    : "rgba(255,255,255,0.72)",
-                  color: active ? "#F6EFDF" : S4_INK,
-                  border: `1px solid ${active ? "rgba(232,199,117,0.5)" : "rgba(18,33,46,0.14)"}`,
-                  boxShadow: active
-                    ? "0 14px 26px -16px rgba(8,19,31,0.75)"
-                    : "0 6px 14px -12px rgba(8,19,31,0.4)",
-                  letterSpacing: "0.01em",
-                }}
-              >
-                {c}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Experience grid */}
-        <div className="mt-9 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {filtered.map((e) => {
-            const active = selected.has(e.label);
-            const isSignature = e.label === "Northern Lights";
-            return (
-              <button
-                key={e.label}
-                type="button"
-                onClick={() => onToggle(e.label)}
-                className={`s4-card group relative overflow-hidden rounded-[18px] text-left ${active ? "s4-selected" : ""}`}
-                style={{
-                  border: `1px solid ${active ? S4_GOLD : "rgba(18,33,46,0.10)"}`,
-                  boxShadow: active
-                    ? "0 26px 50px -26px rgba(201,164,92,0.6)"
-                    : "0 22px 44px -28px rgba(8,19,31,0.55)",
-                }}
-              >
-                <div className="relative h-[236px] w-full overflow-hidden">
-                  <img
-                    src={e.img}
-                    alt={e.label}
-                    className="s4-card-img h-full w-full object-cover"
-                  />
-                  <div
-                    className="s4-card-overlay pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, rgba(8,19,31,0) 42%, rgba(8,19,31,0.88) 100%)",
-                    }}
-                  />
-                  {isSignature && (
-                    <span
-                      className="absolute left-3.5 top-3.5 inline-flex items-center gap-1.5 rounded-full px-3 py-[3px] text-[9.5px] font-semibold uppercase tracking-[0.22em]"
+          {/* Experience grid — two rows tall, scrolls beyond */}
+          <div
+            className="mt-7 grid grid-cols-1 gap-4 overflow-y-auto pr-1 sm:grid-cols-2 xl:grid-cols-3"
+            style={{ maxHeight: 452 }}
+          >
+            {filtered.map((e) => {
+              const active = selected.has(e.label);
+              return (
+                <button
+                  key={e.label}
+                  type="button"
+                  onClick={() => onToggle(e.label)}
+                  className={`s4-card group relative overflow-hidden rounded-[19px] text-left ${active ? "s4-selected" : ""}`}
+                  style={{
+                    border: `1px solid ${active ? S4_GOLD : "rgba(18,33,46,0.10)"}`,
+                    boxShadow: active
+                      ? "0 26px 50px -26px rgba(201,164,92,0.6)"
+                      : "0 22px 44px -30px rgba(8,19,31,0.55)",
+                  }}
+                >
+                  <div className="relative h-[210px] w-full overflow-hidden">
+                    <img
+                      src={e.img}
+                      alt={e.label}
+                      className="s4-card-img h-full w-full object-cover"
+                    />
+                    <div
+                      className="s4-card-overlay pointer-events-none absolute inset-0"
                       style={{
-                        background: "rgba(8,19,31,0.62)",
-                        border: "1px solid rgba(232,199,117,0.7)",
-                        backdropFilter: "blur(8px)",
-                        lineHeight: 1.4,
+                        background:
+                          "linear-gradient(180deg, rgba(8,19,31,0) 40%, rgba(8,19,31,0.88) 100%)",
+                      }}
+                    />
+                    <div className="absolute bottom-4 left-5 right-16">
+                      <div
+                        className="text-white"
+                        style={{ fontFamily: SERIF, fontSize: 19.5, lineHeight: 1.15 }}
+                      >
+                        {e.label}
+                      </div>
+                      <div
+                        className="mt-1 text-[11.5px] leading-[1.45]"
+                        style={{ color: "rgba(245,241,230,0.72)" }}
+                      >
+                        {e.category}
+                      </div>
+                    </div>
+                    <span
+                      className="absolute bottom-4 right-4 grid h-9 w-9 place-items-center rounded-full transition-all"
+                      style={{
+                        background: active
+                          ? `linear-gradient(135deg, ${S4_GOLD_LT} 0%, ${S4_GOLD} 70%)`
+                          : "rgba(8,19,31,0.5)",
+                        border: `1px solid ${active ? S4_GOLD : "rgba(232,199,117,0.6)"}`,
+                        color: active ? S1_NAVY : "#EBCB7A",
+                        backdropFilter: "blur(6px)",
                       }}
                     >
-                      <Sparkles size={9.5} strokeWidth={2.5} style={{ color: "#EBCB7A" }} />
-                      <span style={{ color: "#EBCB7A" }}>Signature</span>
+                      {active ? (
+                        <Check size={16} strokeWidth={2.8} />
+                      ) : (
+                        <Plus size={17} strokeWidth={2} />
+                      )}
                     </span>
-                  )}
-                  <div className="absolute bottom-4 left-5 right-16">
-                    <div
-                      className="text-white"
-                      style={{ fontFamily: SERIF, fontSize: 20, lineHeight: 1.15 }}
-                    >
-                      {e.label}
-                    </div>
-                    <div
-                      className="mt-1 text-[12px] leading-[1.45]"
-                      style={{ color: "rgba(245,241,230,0.72)" }}
-                    >
-                      {e.category}
-                    </div>
                   </div>
-                  <span
-                    className="absolute bottom-4 right-4 grid h-9 w-9 place-items-center rounded-full transition-all"
-                    style={{
-                      background: active
-                        ? `linear-gradient(135deg, ${S4_GOLD_LT} 0%, ${S4_GOLD} 70%)`
-                        : "rgba(8,19,31,0.5)",
-                      border: `1px solid ${active ? S4_GOLD : "rgba(232,199,117,0.6)"}`,
-                      color: active ? S1_NAVY : "#EBCB7A",
-                      backdropFilter: "blur(6px)",
-                    }}
-                  >
-                    {active ? (
-                      <Check size={16} strokeWidth={2.8} />
-                    ) : (
-                      <Plus size={17} strokeWidth={2} />
-                    )}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
-        </div>
+                </button>
+              );
+            })}
+          </div>
 
-        {/* Preferred Experience Date */}
-        <div
-          className="mt-10 rounded-[18px] p-6 sm:p-7"
-          style={{
-            background: "rgba(255,255,255,0.6)",
-            border: `1px solid ${S4_HAIR}`,
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9)",
-          }}
-        >
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <h3
-                className="text-[21px]"
-                style={{ fontFamily: SERIF, color: S4_INK, fontWeight: 500 }}
-              >
-                Preferred Experience Date
-              </h3>
-              <p className="mt-1.5 text-[13.5px]" style={{ color: S4_MUTED }}>
-                When would you ideally like to enjoy your selected experience?
-              </p>
-            </div>
-            <div className="flex flex-col gap-3">
+          {/* Special Requests */}
+          <div
+            className="mt-7 rounded-[18px] p-6"
+            style={{
+              background: "rgba(255,255,255,0.66)",
+              border: `1px solid ${S4_HAIR}`,
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9)",
+            }}
+          >
+            <h3
+              className="text-[20px]"
+              style={{ fontFamily: SERIF, color: S4_INK, fontWeight: 500 }}
+            >
+              Special Requests or Questions?
+            </h3>
+            <p className="mt-1.5 text-[13px] leading-relaxed" style={{ color: S4_MUTED }}>
+              Have any requests, accessibility needs or questions? Let us know and we&apos;ll do
+              our best to arrange everything for your group.
+            </p>
+            <textarea
+              value={additionalRequests}
+              onChange={(ev) => setAdditionalRequests(ev.target.value)}
+              placeholder="Tell us anything you'd like us to know..."
+              className="s5-input mt-4 w-full resize-none rounded-[14px] px-4 py-3.5 text-[14px] outline-none transition-all duration-200 focus:border-[#C9A45C] focus:ring-4 focus:ring-[rgba(201,164,92,0.12)]"
+              style={{
+                background: "#FFFDF8",
+                color: S4_INK,
+                border: `1px solid ${S4_HAIR}`,
+                height: 120,
+              }}
+            />
+
+            {/* Preferred date + flexibility + concierge (functionality preserved) */}
+            <div className="mt-4 flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={() => dateInputRef.current?.showPicker?.()}
-                className="inline-flex items-center gap-3 rounded-[12px] px-4 py-3 text-left transition-all hover:-translate-y-[1px]"
+                className="inline-flex items-center gap-2.5 rounded-full px-4 py-2.5 text-left text-[13px] font-medium transition-all hover:-translate-y-[1px]"
                 style={{
-                  background: "#FFFFFF",
+                  background: "#FFFDF8",
                   border: `1px solid ${S4_HAIR}`,
                   color: preferredDate ? S4_INK : S4_MUTED,
-                  minWidth: 220,
-                  boxShadow: "0 10px 22px -18px rgba(8,19,31,0.5)",
                 }}
               >
-                <CalendarDays size={18} style={{ color: S4_GOLD }} />
-                <span className="text-[14.5px] font-medium">
-                  {preferredDate ? format(preferredDate, "PPP") : "Select a date"}
-                </span>
+                <CalendarDays size={15} style={{ color: S4_GOLD }} />
+                {preferredDate ? format(preferredDate, "PPP") : "Preferred date"}
               </button>
               <input
                 ref={dateInputRef}
                 type="date"
                 className="sr-only"
                 value={preferredDate ? format(preferredDate, "yyyy-MM-dd") : ""}
-                onChange={(e) => {
-                  const v = e.target.value;
+                onChange={(ev) => {
+                  const v = ev.target.value;
                   setPreferredDate(v ? new Date(v) : undefined);
                 }}
               />
               <label
-                className="inline-flex cursor-pointer items-center gap-2.5 text-[13.5px]"
+                className="inline-flex cursor-pointer items-center gap-2 text-[13px]"
                 style={{ color: S4_INK }}
               >
                 <span
-                  className="grid h-5 w-5 place-items-center rounded-[5px] transition-colors"
+                  className="grid h-[18px] w-[18px] place-items-center rounded-[5px] transition-colors"
                   style={{
-                    backgroundColor: dateFlexible ? S4_GOLD : "#FFFFFF",
+                    backgroundColor: dateFlexible ? S4_GOLD : "#FFFDF8",
                     border: `1.5px solid ${dateFlexible ? S4_GOLD : "rgba(18,33,46,0.25)"}`,
                   }}
                 >
-                  {dateFlexible && (
-                    <Check size={12} strokeWidth={3} style={{ color: "#FFFFFF" }} />
-                  )}
+                  {dateFlexible && <Check size={11} strokeWidth={3} style={{ color: "#FFF" }} />}
                 </span>
                 <input
                   type="checkbox"
                   className="sr-only"
                   checked={dateFlexible}
-                  onChange={(e) => setDateFlexible(e.target.checked)}
+                  onChange={(ev) => setDateFlexible(ev.target.checked)}
                 />
-                We are flexible with dates
+                Flexible with dates
               </label>
+              <button
+                type="button"
+                onClick={() => setLetUsRecommend(!letUsRecommend)}
+                className="s4-surprise ml-auto inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium transition-all duration-300 hover:-translate-y-[1px]"
+                style={{
+                  background: letUsRecommend
+                    ? `linear-gradient(135deg, ${S4_GOLD_LT} 0%, ${S4_GOLD} 70%)`
+                    : "transparent",
+                  color: letUsRecommend ? "#12212E" : "#A8823C",
+                  border: `1px solid ${letUsRecommend ? S4_GOLD : "rgba(201,164,92,0.5)"}`,
+                }}
+              >
+                {letUsRecommend ? "We'll surprise you" : "Surprise me"}
+                <ArrowRight size={15} strokeWidth={2} className="s4-surprise-icon" />
+              </button>
             </div>
           </div>
-          <p className="mt-4 text-[12.5px]" style={{ color: "rgba(18,33,46,0.48)" }}>
-            If no date is selected, our hotel partners will recommend the best available option during your stay.
-          </p>
-        </div>
 
-        {/* Additional Experience Requests */}
-        <div
-          className="mt-6 rounded-[18px] p-6 sm:p-7"
-          style={{
-            background: "rgba(255,255,255,0.6)",
-            border: `1px solid ${S4_HAIR}`,
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9)",
-          }}
-        >
-          <h3
-            className="text-[21px]"
-            style={{ fontFamily: SERIF, color: S4_INK, fontWeight: 500 }}
-          >
-            Additional Experience Requests
-          </h3>
-          <p className="mt-1 text-[13px] leading-relaxed" style={{ color: S4_MUTED }}>
-            Tell us if you&apos;re looking for an experience that isn&apos;t listed above, or if you have any special wishes for your group.
-          </p>
-          <textarea
-            value={additionalRequests}
-            onChange={(e) => setAdditionalRequests(e.target.value)}
-            placeholder={`Looking for something unique?\n\nPrivate boat charter · Hike · Photography tour\nDog sledding · Wine tasting · Brewery visit`}
-            rows={4}
-            className="mt-4 w-full resize-y rounded-[14px] px-4 py-3.5 text-[14px] outline-none transition-all duration-200 focus:border-[#C9A45C] focus:ring-4 focus:ring-[rgba(201,164,92,0.14)]"
-            style={{
-              background: "#FFFFFF",
-              color: S4_INK,
-              border: `1px solid ${S4_HAIR}`,
-              boxShadow: "inset 0 2px 6px rgba(8,19,31,0.05)",
-              minHeight: 112,
-            }}
-          />
-        </div>
-
-        {/* Experience Availability */}
-        <div
-          className="mt-6 rounded-[18px] px-6 py-5"
-          style={{
-            background: "rgba(255,255,255,0.45)",
-            border: `1px solid ${S4_HAIR}`,
-          }}
-        >
-          <div className="flex items-center gap-4">
-            <span
-              className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-full"
+          {/* Bottom nav */}
+          <div className="mt-8 flex items-center justify-center gap-4">
+            <button
+              type="button"
+              onClick={onBack}
+              className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-[14px] text-[13px] font-medium uppercase tracking-[0.14em] transition-all hover:-translate-y-[1px]"
               style={{
-                background: "rgba(201,164,92,0.10)",
+                background: "rgba(255,255,255,0.78)",
+                color: S4_INK,
                 border: `1px solid ${S4_HAIR}`,
-                color: S4_GOLD,
               }}
             >
-              <Info size={16} strokeWidth={1.8} />
-            </span>
-            <div className="flex-1">
-              <div
-                style={{ fontFamily: SERIF, fontSize: 18, color: S4_INK, fontWeight: 500 }}
-              >
-                Experience Availability
-              </div>
-              <p className="mt-1 text-[12.5px] leading-[1.55]" style={{ color: S4_MUTED }}>
-                Experiences vary by destination, season and local availability. If one of your selected experiences isn&apos;t available, our team will recommend the closest premium alternative.
-              </p>
+              <ArrowLeft size={16} strokeWidth={2} style={{ color: S4_GOLD }} />
+              Back
+            </button>
+            <button
+              type="button"
+              onClick={onNext}
+              className="inline-flex items-center gap-2.5 rounded-[14px] px-10 py-[14px] text-[13px] font-medium uppercase tracking-[0.14em] transition-all hover:-translate-y-[1px]"
+              style={{
+                background: "linear-gradient(180deg, #16293C 0%, #0B1826 100%)",
+                color: "#F6EFDF",
+                border: "1px solid rgba(232,199,117,0.4)",
+                boxShadow: "0 22px 44px -22px rgba(8,19,31,0.8)",
+              }}
+            >
+              Next
+              <ArrowRight size={17} strokeWidth={2} style={{ color: S4_GOLD_LT }} />
+            </button>
+          </div>
+        </section>
+
+        {/* ---------- RIGHT SIDEBAR ---------- */}
+        <div className="order-3 min-w-0 lg:order-none">
+          <aside
+            className="rounded-[26px] p-7 lg:sticky lg:top-6"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(16,32,50,0.98) 0%, rgba(8,19,31,0.98) 100%)",
+              border: "1px solid rgba(232,199,117,0.22)",
+              boxShadow:
+                "0 40px 80px -44px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
+            }}
+          >
+            <div className="text-[19px] font-medium text-white" style={{ fontFamily: SERIF }}>
+              Your Request
             </div>
-          </div>
-        </div>
+            <div className="mt-3">{goldRule}</div>
 
-        {/* Concierge / recommendation panel */}
-        <div
-          className="mt-6 flex flex-col gap-5 rounded-[18px] px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8"
-          style={{
-            background: "rgba(255,255,255,0.72)",
-            border: `1px solid ${S4_HAIR}`,
-            boxShadow: "0 20px 44px -34px rgba(8,19,31,0.5), inset 0 1px 0 rgba(255,255,255,0.9)",
-          }}
-        >
-          <div className="flex items-center gap-4">
-            <Sparkles size={26} strokeWidth={1.2} style={{ color: S4_GOLD, flexShrink: 0 }} />
-            <div>
-              <div
-                style={{ fontFamily: SERIF, fontSize: 20, color: S4_INK, fontStyle: "italic" }}
-              >
-                Need something special?
-              </div>
-              <div className="mt-1 text-[13px] leading-relaxed" style={{ color: S4_MUTED }}>
-                Our team can arrange bespoke experiences tailored to your group.
-              </div>
+            <div className="mt-6 flex items-center gap-3">
+              <ShieldCheck size={15} strokeWidth={1.8} style={{ color: S1_GOLD_SOFT }} />
+              <span className="text-[13px]" style={{ color: "rgba(245,241,230,0.8)" }}>
+                Free &amp; non-binding request
+              </span>
             </div>
-          </div>
-          <button
-            type="button"
-            onClick={() => setLetUsRecommend(!letUsRecommend)}
-            className="s4-surprise inline-flex flex-shrink-0 items-center justify-center gap-2.5 whitespace-nowrap rounded-full px-6 py-3 text-[13.5px] font-medium transition-all duration-300 hover:-translate-y-[1px]"
-            style={{
-              background: letUsRecommend
-                ? `linear-gradient(135deg, ${S4_GOLD_LT} 0%, ${S4_GOLD} 70%)`
-                : "transparent",
-              color: letUsRecommend ? "#12212E" : "#A8823C",
-              border: `1px solid ${letUsRecommend ? S4_GOLD : "rgba(201,164,92,0.5)"}`,
-            }}
-          >
-            {letUsRecommend ? "We'll surprise you" : "Surprise me"}
-            <ArrowRight size={16} strokeWidth={2} className="s4-surprise-icon" />
-          </button>
+
+            <div className="mt-7">{summaryLines}</div>
+
+            <div className="mt-8">
+              <div className="text-[16px] text-white" style={{ fontFamily: SERIF }}>
+                Recommended for your group
+              </div>
+              <div className="mt-3">{goldRule}</div>
+              <button
+                type="button"
+                onClick={() => onToggle(recommended.label)}
+                className="mt-4 flex w-full items-center gap-3 rounded-[16px] p-3 text-left transition-all hover:-translate-y-[1px]"
+                style={{
+                  background: "rgba(255,255,255,0.035)",
+                  border: `1px solid ${recommendedActive ? "rgba(232,199,117,0.6)" : "rgba(232,199,117,0.22)"}`,
+                }}
+              >
+                <img
+                  src={recommended.img}
+                  alt={recommended.label}
+                  className="h-[52px] w-[52px] flex-shrink-0 rounded-[10px] object-cover"
+                />
+                <div className="min-w-0">
+                  <div className="truncate text-[13.5px] text-white">{recommended.label}</div>
+                  <div
+                    className="mt-1 text-[11.5px] italic leading-[1.45]"
+                    style={{ color: "rgba(245,241,230,0.6)" }}
+                  >
+                    An unforgettable once-in-a-lifetime experience
+                  </div>
+                </div>
+              </button>
+            </div>
+          </aside>
         </div>
-
-        {/* Bottom nav */}
-        <div className="mt-10 flex items-center justify-center gap-4">
-          <button
-            type="button"
-            onClick={onBack}
-            className="inline-flex items-center gap-2.5 rounded-[14px] px-8 py-[15px] text-[13.5px] font-medium tracking-[0.14em] uppercase transition-all hover:-translate-y-[1px]"
-            style={{
-              background: "rgba(255,255,255,0.7)",
-              color: S4_INK,
-              border: `1px solid ${S4_HAIR}`,
-            }}
-          >
-            <ArrowLeft size={16} strokeWidth={2} style={{ color: S4_GOLD }} />
-            Back
-          </button>
-
-          <button
-            type="button"
-            onClick={onNext}
-            className="inline-flex items-center gap-2.5 rounded-[14px] px-10 py-[15px] text-[13.5px] font-medium tracking-[0.14em] uppercase transition-all hover:-translate-y-[1px]"
-            style={{
-              background: "linear-gradient(180deg, #16293C 0%, #0B1826 100%)",
-              color: "#F6EFDF",
-              border: "1px solid rgba(232,199,117,0.4)",
-              boxShadow: "0 22px 44px -22px rgba(8,19,31,0.8)",
-            }}
-          >
-            Next
-            <ArrowRight size={17} strokeWidth={2} style={{ color: S4_GOLD_LT }} />
-          </button>
-        </div>
-
-        <div className="mt-6 flex flex-col items-center gap-1 text-center">
-          <div className="flex items-center gap-2 text-[13px]">
-            <ShieldCheck size={16} strokeWidth={1.8} style={{ color: S4_GOLD }} />
-            <span style={{ color: "rgba(18,33,46,0.7)" }}>
-              Your request is free and non-binding
-            </span>
-          </div>
-          <div className="text-[12.5px]" style={{ color: "rgba(18,33,46,0.48)" }}>
-            We find the best options so you can choose what suits your group.
-          </div>
-        </div>
-
-      </section>
+      </div>
     </LeisureStepShell>
   );
 }
+
 
 /* =========================================================
    STEP 5 - Contact (redesigned)
