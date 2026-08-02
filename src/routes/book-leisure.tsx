@@ -3928,18 +3928,21 @@ function S2StayCard({
 
   const dateTimeline = (
     <div
-      className="grid items-center px-[28px] py-[2px]"
+      className="grid items-center px-[22px] py-[10px]"
       style={{
         width: compact ? "100%" : "92%",
         marginLeft: "auto",
         marginRight: "auto",
         marginTop: compact ? 0 : 24,
         gridTemplateColumns: "minmax(0,1fr) auto minmax(0,1fr)",
-        borderRadius: 15,
-        backgroundImage: "linear-gradient(180deg, #2E4759 0%, #294152 52%, #253C4D 100%)",
-        border: "1.5px solid rgba(217,191,130,0.42)",
-        boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.09), inset 0 -1px 0 rgba(0,0,0,0.22), 0 0 0 4px rgba(217,191,130,0.05), 0 0 34px -6px rgba(217,191,130,0.08), 0 22px 50px -34px rgba(6,13,20,0.85)",
+        borderRadius: compact ? 0 : 15,
+        backgroundImage: compact
+          ? "none"
+          : "linear-gradient(180deg, #2E4759 0%, #294152 52%, #253C4D 100%)",
+        border: compact ? "none" : "1.5px solid rgba(217,191,130,0.42)",
+        boxShadow: compact
+          ? "none"
+          : "inset 0 1px 0 rgba(255,255,255,0.09), inset 0 -1px 0 rgba(0,0,0,0.22), 0 0 0 4px rgba(217,191,130,0.05), 0 0 34px -6px rgba(217,191,130,0.08), 0 22px 50px -34px rgba(6,13,20,0.85)",
       }}
     >
       <DateCol
