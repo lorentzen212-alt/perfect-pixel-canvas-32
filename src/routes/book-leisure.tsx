@@ -3255,7 +3255,7 @@ function LeisureStep2Screen({
 
       <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 20px 30px" }}>
         <div
-          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[24%_minmax(0,1fr)_262px]"
+          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[26.2%_minmax(0,1fr)_262px]"
           style={{
             borderRadius: 14,
             border: `1px solid ${S2_HAIR_GOLD}`,
