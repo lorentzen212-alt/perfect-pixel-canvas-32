@@ -3710,6 +3710,7 @@ function S2StayCard({
   guests,
   editable = false,
   compact = false,
+  light = false,
   onArrival,
   onDeparture,
   onAddAnother,
