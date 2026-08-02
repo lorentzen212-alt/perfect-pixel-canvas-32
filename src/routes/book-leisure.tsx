@@ -4194,23 +4194,57 @@ function S2StayInfo({
   icon,
   text,
   onClick,
+  tone = "primary",
 }: {
   icon: React.ReactNode;
   text: string;
   onClick?: () => void;
+  tone?: "primary" | "remove";
 }) {
+  const isRemove = tone === "remove";
   const content = (
     <>
-      <span className="s2-stay-info-icon transition-opacity duration-200" style={{ color: "rgba(217,191,130,0.8)", opacity: 1 }}>
+      <span
+        className="s2-stay-info-icon transition-colors duration-200"
+        style={{ color: isRemove ? "rgba(232,228,220,0.75)" : "#E8E4DC", opacity: 1 }}
+      >
         {icon}
       </span>
-      <span className="s2-stay-info-text transition-colors duration-200" style={{ color: "rgba(242,238,231,0.82)", fontWeight: 500 }}>
+      <span
+        className="s2-stay-info-text transition-colors duration-200"
+        style={{
+          color: isRemove ? "rgba(232,228,220,0.75)" : "#E8E4DC",
+          fontWeight: 500,
+        }}
+      >
         {text}
       </span>
     </>
   );
   const cls =
     "s2-stay-info group flex min-w-0 flex-1 basis-0 items-center justify-center gap-2.5 whitespace-nowrap py-1 text-[14.5px]";
+
+  if (isRemove) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={cls}
+        onMouseEnter={(e) => {
+          e.currentTarget.querySelectorAll<HTMLElement>(".s2-stay-info-icon, .s2-stay-info-text").forEach((el) => {
+            el.style.color = "#B99A60";
+          });
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.querySelectorAll<HTMLElement>(".s2-stay-info-icon, .s2-stay-info-text").forEach((el) => {
+            el.style.color = "rgba(232,228,220,0.75)";
+          });
+        }}
+      >
+        {content}
+      </button>
+    );
+  }
 
   return onClick ? (
     <button type="button" onClick={onClick} className={cls}>
