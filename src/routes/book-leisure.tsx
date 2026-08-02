@@ -8309,7 +8309,7 @@ function S6ReviewRow({
     >
       <span
         className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
-        style={{ border: "1px solid rgba(199,163,74,0.45)", color: "#B08D3F" }}
+        style={{ border: "1px solid rgba(199,163,74,0.32)", color: "#B08D3F" }}
       >
         {icon}
       </span>
