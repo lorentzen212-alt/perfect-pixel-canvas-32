@@ -4442,14 +4442,14 @@ function S2RoomCard({
           </div>
         ) : (
           <div
-            className="s2-metal flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 truncate px-2.5 text-[13.5px] font-light"
+            className="s2-metal flex h-[43px] min-w-0 flex-1 items-center justify-center gap-1 overflow-hidden px-2.5 text-[13.5px] font-light"
             style={{
               borderRadius: 13,
               color: "rgba(247,246,242,0.72)",
               opacity: active ? 1 : 0.7,
             }}
           >
-            Standard Rooms
+            <span className="truncate">Standard Rooms</span>
           </div>
         )}
       </div>
