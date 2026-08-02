@@ -3889,7 +3889,7 @@ function S2StayCard({
         {selected ? (
           <span
             className="whitespace-nowrap text-[12px] leading-none"
-            style={{ color: "#8F98A5", fontWeight: 400, letterSpacing: "0.01em" }}
+            style={{ color: "#84909D", fontWeight: 400, letterSpacing: "0.01em" }}
           >
             {format(selected, "EEEE")}
           </span>
