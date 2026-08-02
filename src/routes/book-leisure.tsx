@@ -3025,8 +3025,10 @@ function LeisureStep2Screen({
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showEditor, setShowEditor] = useState<boolean>(stays.length === 0);
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
+  const [justAddedId, setJustAddedId] = useState<string | null>(null);
   const [stayAddedFlash, setStayAddedFlash] = useState(false);
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
+  const staysSectionRef = useRef<HTMLDivElement | null>(null);
   const [addError, setAddError] = useState(false);
   const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -3088,11 +3090,25 @@ function LeisureStep2Screen({
       );
       setAddError(false);
       setLastAddedId(id);
+      setJustAddedId(id);
       setStayAddedFlash(true);
       window.setTimeout(() => setStayAddedFlash(false), 1100);
       window.setTimeout(() => {
         setLastAddedId((cur) => (cur === id ? null : cur));
       }, 320);
+      window.setTimeout(() => {
+        setJustAddedId((cur) => (cur === id ? null : cur));
+      }, 2200);
+      // Calm, concierge-like reveal of the newly saved stay.
+      if (typeof window !== "undefined") {
+        window.requestAnimationFrame(() => {
+          window.setTimeout(() => {
+            const el = staysSectionRef.current;
+            if (el) smoothScrollToElement(el, 96, 500);
+          }, 60);
+        });
+      }
+
       // Reset only after the stay has been saved, and keep a fresh form visible.
       const prev = editingId ? preEditDraftRef.current : null;
       preEditDraftRef.current = null;
@@ -3388,7 +3404,7 @@ function LeisureStep2Screen({
 
               {/* Saved stays */}
               {stays.some((s) => s.id !== editingId) && (
-                <div className="mt-5">
+                <div className="mt-5" ref={staysSectionRef}>
                   <div
                     className="text-[11px] font-medium uppercase tracking-[0.22em]"
                     style={{ color: "rgba(246,242,234,0.62)" }}
@@ -3408,6 +3424,7 @@ function LeisureStep2Screen({
                           rooms={stayRoomsTotal(s.rooms)}
                           guests={stayGuestsTotal(s.rooms)}
                           animClass={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds.has(s.id) ? "stay-removing" : ""}`}
+                          highlight={justAddedId === s.id}
                           onEdit={() => editStay(s.id)}
                           onRemove={() => requestRemoveStay(s.id)}
                           confirming={pendingRemoveId === s.id}
@@ -3641,6 +3658,27 @@ function S2DiamondRule({ width = 120, refined = false }: { width?: number; refin
 
 /* ---- Step 2 Stay card (single premium component) ---- */
 /** Compact, read-only summary of a saved stay. Used ONLY below "Add this stay". */
+/** Calm, eased page scroll (default 500ms ease-in-out). */
+function smoothScrollToElement(el: HTMLElement, offset = 96, duration = 500) {
+  const startY = window.scrollY;
+  const targetY = Math.max(0, el.getBoundingClientRect().top + startY - offset);
+  const delta = targetY - startY;
+  if (Math.abs(delta) < 2) return;
+  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) {
+    window.scrollTo(0, targetY);
+    return;
+  }
+  const start = performance.now();
+  const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+  const step = (now: number) => {
+    const t = Math.min(1, (now - start) / duration);
+    window.scrollTo(0, startY + delta * ease(t));
+    if (t < 1) window.requestAnimationFrame(step);
+  };
+  window.requestAnimationFrame(step);
+}
+
 function S2CompletedStayCard({
   index,
   arrival,
@@ -3654,6 +3692,7 @@ function S2CompletedStayCard({
   onConfirmRemove,
   onCancelRemove,
   animClass = "",
+  highlight = false,
 }: {
   index: number;
   arrival: string;
@@ -3667,6 +3706,7 @@ function S2CompletedStayCard({
   onConfirmRemove?: () => void;
   onCancelRemove?: () => void;
   animClass?: string;
+  highlight?: boolean;
 }) {
   const fmtLong = (iso: string) => {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
@@ -3700,17 +3740,30 @@ function S2CompletedStayCard({
 
   return (
     <div
-      className={`${animClass} relative flex h-full flex-col overflow-hidden`}
+      className={`${animClass} ${highlight ? "s2-stay-justadded" : ""} relative flex h-full flex-col overflow-hidden`}
       style={{
         borderRadius: 20,
         maxWidth: 520,
         backgroundImage: "linear-gradient(165deg, #16293D 0%, #0F1F30 100%)",
-        border: "1px solid rgba(217,191,130,0.34)",
+        border: `1px solid ${highlight ? "rgba(233,208,150,0.85)" : "rgba(217,191,130,0.34)"}`,
         padding: "18px 22px 16px 26px",
-        boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.06), 0 26px 54px -28px rgba(3,8,14,0.8), 0 8px 20px -14px rgba(0,0,0,0.5)",
+        transition: "border-color 600ms ease, box-shadow 600ms ease, transform 600ms ease",
+        boxShadow: highlight
+          ? "inset 0 1px 0 rgba(255,255,255,0.09), 0 0 0 1px rgba(233,208,150,0.22), 0 34px 70px -30px rgba(3,8,14,0.85), 0 0 28px -8px rgba(217,191,130,0.35)"
+          : "inset 0 1px 0 rgba(255,255,255,0.06), 0 26px 54px -28px rgba(3,8,14,0.8), 0 8px 20px -14px rgba(0,0,0,0.5)",
       }}
     >
+      {highlight && (
+        <div
+          className="s2-added-note absolute right-5 top-[46px] flex items-center gap-[6px] text-[11.5px]"
+          style={{ color: "rgba(150,205,165,0.95)" }}
+        >
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Stay added successfully
+        </div>
+      )}
       {/* metallic gold left strip */}
       <span
         aria-hidden
