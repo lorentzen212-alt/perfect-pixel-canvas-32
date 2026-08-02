@@ -628,11 +628,13 @@ function ExperienceCard({
               className="absolute flex items-center opacity-[0.9] transition-opacity duration-[250ms] ease-out group-hover/card:opacity-100"
               style={{
                 left: "41px",
-                bottom: "26px",
+                bottom: refined ? "30px" : "26px",
                 color: "#FFFFFF",
-                fontSize: "14.55px",
-                fontWeight: 500,
+                fontSize: refined ? "13px" : "14.55px",
+                fontWeight: refined ? 400 : 500,
+                letterSpacing: refined ? "0.09em" : undefined,
                 whiteSpace: "nowrap",
+                textShadow: refined ? "0 1px 14px rgba(2,6,11,0.4)" : undefined,
               }}
             >
               {ctaText}
