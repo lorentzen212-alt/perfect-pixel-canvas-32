@@ -25,7 +25,7 @@ import {
   GroupPremium,
 } from "@/components/PremiumIcons";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
-import { HomeBackgroundVideo } from "@/components/HomeBackgroundVideo";
+import homeHeroAsset from "@/assets/homepage-hero-bg.png.asset.json";
 import cardLeisureAsset from "@/assets/card-leisure-new.png.asset.json";
 import cardMeAsset from "@/assets/card-me-new.png.asset.json";
 import cardManageAsset from "@/assets/card-manage-new.png.asset.json";
@@ -90,163 +90,157 @@ function GoldLineWithDiamond({
 }
 
 
+const HERO_LINKS = [
+  { label: "Book Leisure", to: "/book-leisure" },
+  { label: "Meetings & Events", to: "/book-meetings-events" },
+  { label: "Manage Bookings", to: "/manage-bookings" },
+] as const;
+
+const CARD_HEIGHT = "clamp(300px, 52vh, 540px)";
+
 function Home() {
-
-
   return (
     <>
-    <main className="relative min-h-screen w-full overflow-hidden bg-[#0A0B0D]">
-      {/* Homepage background — supplied video (poster fallback) + subtle overlay */}
-      <HomeBackgroundVideo />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-10"
-        style={{
-          background: `
-            radial-gradient(ellipse 65% 50% at center 34%, rgba(8, 15, 25, 0.12) 0%, transparent 58%),
-            linear-gradient(180deg, rgba(8, 15, 25, 0.35) 0%, rgba(14, 25, 39, 0.23) 45%, rgba(7, 14, 23, 0.42) 100%)
-          `,
-        }}
-      />
+      <main className="relative w-full bg-[#0A0B0D]">
+        {/* ---------------------------- HERO ---------------------------- */}
+        <section className="relative h-screen min-h-[620px] w-full overflow-hidden">
+          <img
+            src={homeHeroAsset.url}
+            alt="Nordic fjord landscape at dawn"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: "center center" }}
+          />
 
+          {/* Cinematic overlay — soft navy gradient + gentle vignette */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(8,17,28,0.52) 0%, rgba(10,20,32,0.16) 34%, rgba(9,18,29,0.20) 62%, rgba(7,14,23,0.62) 100%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(120% 90% at 50% 45%, rgba(0,0,0,0) 42%, rgba(4,10,17,0.34) 82%, rgba(3,8,14,0.52) 100%)",
+            }}
+          />
 
+          {/* HEADER */}
+          <header className="absolute inset-x-0 top-0 z-30 flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
+            <a href="/" aria-label="HotelGroupBook" className="logo-hover-wrap relative flex items-center">
+              <span className="logo-mist" aria-hidden="true" />
+              <img
+                src={logoAsset.url}
+                alt="HotelGroupBook"
+                className="relative h-[46px] sm:h-[56px] lg:h-[68px] w-auto"
+              />
+            </a>
+            <SiteMenu items={MENU_ITEMS} variant="outline" />
+          </header>
 
-
-
-
-      <div className="relative z-20 w-full">
-        {/* HEADER */}
-        <header className="flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
-
-          <a href="/" aria-label="HotelGroupBook" className="logo-hover-wrap relative flex items-center">
-            <span className="logo-mist" aria-hidden="true" />
-            <img
-              src={logoAsset.url}
-              alt="HotelGroupBook"
-              className="relative h-[46px] sm:h-[56px] lg:h-[68px] w-auto"
-            />
-          </a>
-
-          <SiteMenu items={MENU_ITEMS} variant="outline" />
-        </header>
-
-
-        {/* CENTERED HERO CONTENT */}
-        <section className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-6 pt-0 pb-0 text-center lg:min-h-[calc(100vh-88px)] flex flex-col justify-center -translate-y-[35px]">
-          {/* Eyebrow */}
-          <div className="flex items-center justify-center">
+          {/* HERO CONTENT — vertically centred */}
+          <div className="relative z-20 flex h-full flex-col items-center justify-center px-5 text-center sm:px-8">
             <span
-              className="text-[11.25px] tracking-[0.4em] uppercase"
-              style={{
-                color: "#E5A93C",
-                fontWeight: 600,
-                WebkitFontSmoothing: "antialiased",
-                textRendering: "optimizeLegibility",
-              }}
+              className="text-[11px] uppercase tracking-[0.42em]"
+              style={{ color: "#E5A93C", fontWeight: 600 }}
             >
               The Experience
             </span>
-          </div>
 
-          {/* Headline */}
-          <h1
-            className="mx-auto max-w-[980px] font-light text-white leading-[1.16] text-[40px] sm:text-[54px] lg:text-[clamp(42px,3.6vh_+_1.5vw,62px)]"
-            style={{
-              marginTop: "clamp(14px, 1.8vh, 18px)",
-              fontFamily: '"Cormorant Garamond", Georgia, serif',
-              letterSpacing: "0.012em",
-              fontWeight: 300,
-              WebkitFontSmoothing: "antialiased",
-              MozOsxFontSmoothing: "grayscale",
-              textRendering: "optimizeLegibility",
-              fontKerning: "normal",
-              fontVariantLigatures: "common-ligatures",
-            }}
-          >
-            <span className="block">Three ways to</span>
-            <span className="block">
-              <em className="italic" style={{ color: "#E2921F", fontWeight: 400 }}>
-                exceptional
-              </em>{" "}
-              group stays
-            </span>
-          </h1>
-
-          {/* Gold divider */}
-          <div
-            className="flex items-center justify-center"
-            style={{ marginTop: "clamp(10px, 1.4vh, 14px)" }}
-          >
-            <div
-              className="h-px w-[110px] lg:w-[130px]"
+            <h1
+              className="mx-auto mt-5 max-w-[1000px] text-white text-[38px] leading-[1.1] sm:text-[56px] lg:text-[clamp(52px,5.2vw,80px)]"
               style={{
-                background:
-                  "linear-gradient(to right, rgba(214,172,106,0) 0%, rgba(224,183,112,0.75) 45%, rgba(232,190,120,0.98) 100%)",
+                fontFamily: '"Cormorant Garamond", Georgia, serif',
+                fontWeight: 300,
+                letterSpacing: "0.015em",
+                textShadow: "0 2px 30px rgba(4,10,18,0.45)",
               }}
-            />
-            <div
-              className="mx-[14px] h-[7px] w-[7px] rotate-45"
-              style={{ background: "#E2B473" }}
-            />
-            <div
-              className="h-px w-[110px] lg:w-[130px]"
-              style={{
-                background:
-                  "linear-gradient(to left, rgba(214,172,106,0) 0%, rgba(224,183,112,0.75) 45%, rgba(232,190,120,0.98) 100%)",
-              }}
-            />
-          </div>
+            >
+              <span className="block">Group travel,</span>
+              <span className="block">
+                <em className="italic" style={{ fontWeight: 400 }}>
+                  beautifully
+                </em>{" "}
+                arranged
+              </span>
+            </h1>
 
-          <p
-            className="text-white/80 text-[15px] lg:text-[16px] font-light tracking-[0.02em]"
-            style={{ marginTop: "clamp(8px, 1.1vh, 10px)" }}
-          >
-            One request. Everything handled.
-          </p>
+            <p
+              className="mx-auto mt-6 max-w-[620px] text-[15px] font-light leading-[1.7] tracking-[0.015em] text-white/85 lg:text-[17px]"
+              style={{ fontFamily: "Inter, sans-serif" }}
+            >
+              One refined platform for leisure groups, meetings, events and hotel
+              booking management across the Nordics.
+            </p>
 
+            {/* Three premium text links with metallic gold dividers */}
+            <nav className="mt-10 flex flex-wrap items-center justify-center gap-y-4">
+              {HERO_LINKS.map((link, i) => (
+                <div key={link.to} className="flex items-center">
+                  {i > 0 && (
+                    <span
+                      aria-hidden
+                      className="mx-6 hidden h-[26px] w-px sm:mx-9 sm:inline-block"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, rgba(226,190,122,0) 0%, rgba(238,206,140,0.78) 50%, rgba(226,190,122,0) 100%)",
+                      }}
+                    />
+                  )}
+                  <Link
+                    to={link.to}
+                    className="group/link relative px-3 text-[12.5px] uppercase tracking-[0.24em] text-white/92 transition-colors duration-300 hover:text-white lg:text-[13.5px]"
+                    style={{ fontFamily: "Inter, sans-serif", fontWeight: 500 }}
+                  >
+                    {link.label}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute -bottom-[7px] left-3 right-3 h-px origin-left scale-x-0 transition-transform duration-[420ms] ease-out group-hover/link:scale-x-100"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, rgba(226,190,122,0) 0%, rgba(240,213,138,0.95) 50%, rgba(226,190,122,0) 100%)",
+                      }}
+                    />
+                  </Link>
+                </div>
+              ))}
+            </nav>
 
-
-
-          {/* EXPERIENCE CARDS */}
-          <div className="relative" style={{ marginTop: "clamp(14px, 1.9vh, 18px)" }}>
-            {/* Stage spotlight behind all three cards */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -inset-x-[12%] -top-[18%] -bottom-[22%] -z-10"
-              style={{
-                background:
-                  "radial-gradient(60% 55% at 50% 45%, rgba(255,246,226,0.09) 0%, rgba(255,244,220,0.05) 38%, rgba(255,240,215,0.02) 62%, rgba(0,0,0,0) 82%)",
-                filter: "blur(6px)",
-              }}
-            />
-
-            {/* Architectural side frames (brushed stone rails) */}
-            {(["left", "right"] as const).map((side) => (
-              <div
-                key={side}
-                aria-hidden
-                className="pointer-events-none absolute -top-[26px] -bottom-[26px] hidden w-[7px] rounded-[4px] md:block"
-                style={{
-                  [side]: "-34px",
-                  background:
-                    "linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(196,205,214,0.20) 22%, rgba(232,238,244,0.30) 46%, rgba(150,162,174,0.16) 72%, rgba(255,255,255,0.04) 100%)",
-                  boxShadow:
-                    "0 0 0 1px rgba(255,255,255,0.045), 0 18px 46px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.18)",
-                } as React.CSSProperties}
+            {/* Explore indicator */}
+            <a
+              href="#how"
+              className="group/explore mt-16 flex flex-col items-center gap-3"
+              aria-label="Explore"
+            >
+              <span
+                className="flex h-[38px] w-[38px] items-center justify-center rounded-full transition-transform duration-500 group-hover/explore:translate-y-1"
+                style={{ border: "1px solid rgba(226,190,122,0.55)" }}
               >
-                <div
-                  className="absolute inset-y-[8%] left-1/2 w-px -translate-x-1/2"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, rgba(226,190,122,0) 0%, rgba(226,190,122,0.38) 28%, rgba(240,213,138,0.55) 50%, rgba(226,190,122,0.38) 72%, rgba(226,190,122,0) 100%)",
-                  }}
-                />
-              </div>
-            ))}
+                <span className="text-[15px] leading-none" style={{ color: "#E2B473" }}>
+                  ↓
+                </span>
+              </span>
+              <span
+                className="text-[10.5px] uppercase tracking-[0.34em]"
+                style={{ color: "rgba(226,180,115,0.9)", fontFamily: "Inter, sans-serif" }}
+              >
+                Explore
+              </span>
+            </a>
+          </div>
+        </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-[38px]">
-
-
+        {/* ------------------- ENTRANCE CARDS (overlap hero) ------------------- */}
+        <section className="relative bg-[#F5F3EE] pb-16 lg:pb-20">
+          <div
+            className="relative z-20 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-[60px]"
+            style={{ marginTop: `calc(${CARD_HEIGHT} * -0.38)` }}
+          >
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-[38px]">
               <ExperienceCard
                 to="/book-leisure"
                 image={cardLeisureAsset.url}
@@ -285,56 +279,38 @@ function Home() {
                 disableCoolGrey={true}
               />
             </div>
-          </div>
 
-
-          {/* TRUST BAR */}
-          <section style={{ marginTop: "clamp(26px, 3.6vh, 35px)", paddingBottom: "clamp(28px, 5vh, 56px)" }}>
-
-            <div
-              className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-[58px] gap-y-3 rounded-[14px] px-[54px] py-[17px]"
-              style={{
-                backgroundColor: 'rgba(9,18,28,0.55)',
-                border: '1px solid rgba(212,175,55,0.30)',
-                backdropFilter: 'blur(6px)',
-              }}
-            >
-              {['One Request', 'One Team', 'One Contact', 'Total Simplicity'].map((item, i) => (
-                <div key={item} className="flex items-center gap-x-[58px]">
+            {/* Quiet editorial promise line */}
+            <div className="mt-12 flex flex-wrap items-center justify-center gap-y-3">
+              {["One Request", "One Team", "One Contact", "Total Simplicity"].map((item, i) => (
+                <div key={item} className="flex items-center">
                   {i > 0 && (
                     <span
-                      className="inline-flex items-center justify-center text-[13px] leading-none"
-                      style={{ color: '#E9A63C', transform: 'translateY(-0.5px)' }}
                       aria-hidden
-                    >
-                      &#10022;
-                    </span>
+                      className="mx-5 h-[14px] w-px sm:mx-8"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, rgba(176,140,72,0) 0%, rgba(176,140,72,0.6) 50%, rgba(176,140,72,0) 100%)",
+                      }}
+                    />
                   )}
-
                   <span
-                    className="whitespace-nowrap text-[14px] leading-none tracking-[0.045em]"
-                    style={{
-                      color: 'rgba(248,246,242,0.97)',
-                      fontFamily: 'Inter, sans-serif',
-                      fontWeight: 400,
-                    }}
+                    className="whitespace-nowrap text-[12px] uppercase tracking-[0.22em] text-[#3B4A56]"
+                    style={{ fontFamily: "Inter, sans-serif", fontWeight: 400 }}
                   >
                     {item}
                   </span>
                 </div>
               ))}
             </div>
-
-          </section>
-
+          </div>
         </section>
-      </div>
-    </main>
-    <HowItWorks />
-    <Destinations />
-    <WhyChoose />
-    <FinalCTA />
-    <SiteFooter />
+      </main>
+      <HowItWorks />
+      <Destinations />
+      <WhyChoose />
+      <FinalCTA />
+      <SiteFooter />
     </>
   );
 }
