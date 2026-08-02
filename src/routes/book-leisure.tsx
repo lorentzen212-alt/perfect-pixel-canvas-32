@@ -2551,10 +2551,16 @@ const STEP2_ROOMS: {
 
 /* Room categories */
 const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
-  single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
-  double: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
-  twin: ["Standard", "Superior", "Premium"],
+  single: ["Standard Room", "Superior Room", "Premium Room", "Junior Suite", "Suite"],
+  double: ["Standard Room", "Superior Room", "Premium Room", "Junior Suite", "Suite"],
+  twin: ["Standard Room", "Superior Room", "Premium Room", "Junior Suite", "Suite"],
   family: ["Family Room", "Junior Suite", "Suite"],
+};
+
+/** Room types without a selectable category show a fixed label instead. */
+const ROOM_FIXED_CATEGORY: Record<string, string> = {
+  triple: "Hotel assigned",
+  accessible: "Accessible Room",
 };
 
 /* Default selected category per room type (first option, e.g. "Standard") */
@@ -3344,7 +3350,7 @@ function LeisureStep2Screen({
               Room distribution
             </h3>
             <p className="mt-2 text-[12.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
-              Select the number of rooms and the preferred category for your group.
+              Choose the number of rooms and your preferred category for your group.
             </p>
 
             <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
