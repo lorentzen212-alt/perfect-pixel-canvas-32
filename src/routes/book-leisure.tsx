@@ -3361,7 +3361,7 @@ function LeisureStep2Screen({
               </div>
 
               {/* Stay card (dates + meta + edit/remove) */}
-              <div className="mt-7">
+              <div className="mt-[22px]">
 
                 <S2StayCard
                   compact
@@ -4138,10 +4138,10 @@ function S2StayCard({
         style={{
           borderRadius: 14,
           backgroundImage:
-            "radial-gradient(120% 160% at 18% 0%, rgba(38,63,92,0.85) 0%, rgba(13,32,52,1) 55%, rgba(10,25,41,1) 100%)",
-          border: "1px solid rgba(217,191,130,0.42)",
+            "linear-gradient(180deg, #1C3653 0%, #152C45 100%)",
+          border: "1px solid rgba(178,150,96,0.32)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.07), 0 26px 60px -34px rgba(6,16,27,0.85), 0 8px 22px -16px rgba(0,0,0,0.4)",
+            "inset 0 1px 0 rgba(255,255,255,0.09), inset 0 0 0 1px rgba(190,162,108,0.05), inset 0 0 70px -24px rgba(0,0,0,0.28), 0 24px 60px -42px rgba(6,16,27,0.72), 0 12px 32px -22px rgba(0,0,0,0.42)",
           overflow: "hidden",
         }}
       >
@@ -4157,14 +4157,15 @@ function S2StayCard({
             className="grid h-[46px] w-[46px] shrink-0 place-items-center transition-colors duration-200 disabled:cursor-default"
             style={{
               borderRadius: 999,
-              border: "1px solid rgba(199,171,119,0.55)",
-              color: "#C7AB77",
+              border: "1px solid rgba(196,168,114,0.58)",
+              color: "#D4B683",
               backgroundColor: "transparent",
               cursor: editable && onArrival ? "pointer" : "default",
-              boxShadow: "0 0 18px -7px rgba(199,171,119,0.45), inset 0 0 14px -9px rgba(199,171,119,0.5)",
+              boxShadow:
+                "0 0 18px -7px rgba(196,168,114,0.5), inset 0 0 14px -9px rgba(196,168,114,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
             }}
             onMouseEnter={(e) => {
-              if (editable && onArrival) e.currentTarget.style.backgroundColor = "rgba(199,171,119,0.10)";
+              if (editable && onArrival) e.currentTarget.style.backgroundColor = "rgba(196,168,114,0.12)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "transparent";
@@ -4192,7 +4193,7 @@ function S2StayCard({
               size={24}
               strokeWidth={1}
               className="shrink-0"
-              style={{ color: "#C7AB77" }}
+              style={{ color: "#D4B683" }}
             />
 
             <div className="min-w-0 flex-1">
@@ -4408,7 +4409,7 @@ function S2LuxeStat({
       className="flex flex-col items-center justify-center gap-[5px] px-[16px]"
       style={{ borderLeft: first ? undefined : "1px solid rgba(199,171,119,0.15)" }}
     >
-      <span aria-hidden className="leading-none" style={{ color: "#C7AB77" }}>
+      <span aria-hidden className="leading-none" style={{ color: "#D4B683" }}>
         {icon}
       </span>
       <span
