@@ -6272,14 +6272,17 @@ function LeisureStep4Screen({
       hero={S4_HERO}
       chapter="CHAPTER IV"
       headline={
-        <>
+        <span
+          className="block"
+          style={{ fontSize: 38, lineHeight: 1.08, letterSpacing: "-0.005em" }}
+        >
           Curate<br />experiences.
-        </>
+        </span>
       }
       subtext={
-        <>
-          Create memories your<br />group will talk about<br />for years to come.
-        </>
+        <span className="block" style={{ fontSize: 14.5, lineHeight: 1.65 }}>
+          Create unforgettable moments for your group.
+        </span>
       }
       enhancedHero
       rightSidebar={
