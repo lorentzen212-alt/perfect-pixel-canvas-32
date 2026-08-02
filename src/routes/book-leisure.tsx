@@ -3388,7 +3388,7 @@ function LeisureStep2Screen({
               Select the number of rooms and the preferred category for your group.
             </p>
 
-            <div className="mt-6 grid grid-cols-1 gap-x-1 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-x-1 gap-y-4 px-0 sm:grid-cols-2 lg:grid-cols-3 lg:px-[22px]">
               {STEP2_ROOMS_ORDER.map((key) => (
                 <S2RoomCard
                   key={key}
@@ -4345,7 +4345,7 @@ function S2RoomCard({
       style={{
         borderRadius: 19,
         backgroundColor: "#FCFAF7",
-        padding: 12,
+        padding: 9,
         border: `1px solid ${active ? "rgba(198,169,103,0.45)" : "#E8E2D8"}`,
         boxShadow: active
           ? "0 14px 32px -24px rgba(8,23,34,0.30)"
@@ -4363,7 +4363,7 @@ function S2RoomCard({
       {/* 1 — image (~60% of card) */}
       <div
         className="relative overflow-hidden"
-        style={{ aspectRatio: "16 / 13.8", borderRadius: 14 }}
+        style={{ aspectRatio: "16 / 12.3", borderRadius: 14 }}
       >
         <img
           src={meta.img}
@@ -4398,7 +4398,7 @@ function S2RoomCard({
       </div>
 
       {/* 2 — name + guest count */}
-      <div className="flex items-start justify-between gap-2 pt-2.5">
+      <div className="flex items-start justify-between gap-2 pt-1.5">
         <div className="min-w-0">
           <div
             className="truncate text-[22.5px] font-medium leading-tight"
@@ -4427,7 +4427,7 @@ function S2RoomCard({
       </div>
 
       {/* 3 — control row */}
-      <div className="mt-2.5 flex items-center gap-1.5">
+      <div className="mt-1.5 flex items-center gap-1.5">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
           <div className="min-w-0 flex-1">
