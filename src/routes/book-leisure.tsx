@@ -3344,12 +3344,12 @@ function LeisureStep2Screen({
 
             {/* Room distribution */}
             <h3
-              className="mt-8 text-[21px] font-normal leading-none"
+              className="mt-9 text-[27px] font-normal leading-none"
               style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
             >
               Room distribution
             </h3>
-            <p className="mt-2 text-[12.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
+            <p className="mt-2.5 text-[12.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
               Choose the number of rooms and your preferred category for your group.
             </p>
 
@@ -3368,6 +3368,35 @@ function LeisureStep2Screen({
                 />
               ))}
             </div>
+
+            {/* Bottom information bar */}
+            <div
+              className="mt-6 flex items-center gap-3.5 px-5 py-3.5"
+              style={{
+                borderRadius: 12,
+                backgroundColor: "#FBF9F5",
+                border: "1px solid rgba(18,34,47,0.08)",
+                boxShadow: "0 8px 24px -22px rgba(8,23,34,0.35)",
+              }}
+            >
+              <span
+                aria-hidden
+                className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
+                style={{ backgroundColor: "#12222F", color: "#D8BE85" }}
+              >
+                <ConciergeBell size={17} strokeWidth={1.4} />
+              </span>
+              <div className="min-w-0">
+                <div className="text-[13px] font-medium" style={{ color: S2_NAVY_TEXT }}>
+                  Need something specific?
+                </div>
+                <div className="mt-0.5 text-[12.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
+                  You’ll be able to add requests in the next step.
+                </div>
+              </div>
+            </div>
+
+
 
             {/* Notes */}
             <div className="mt-6">
