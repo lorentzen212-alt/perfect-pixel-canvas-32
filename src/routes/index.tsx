@@ -104,7 +104,7 @@ function Home() {
     <>
       <main className="relative w-full bg-[#0A0B0D]">
         {/* ---------------------------- HERO ---------------------------- */}
-        <section className="relative h-screen min-h-[620px] w-full overflow-hidden">
+        <section className="relative h-screen min-h-[620px] w-full overflow-hidden lg:h-[calc(100vh-90px)] lg:min-h-[600px]">
           <video
             autoPlay
             muted
@@ -151,7 +151,7 @@ function Home() {
           </header>
 
           {/* HERO CONTENT — vertically centred */}
-          <div className="relative z-20 flex h-full flex-col items-center justify-center px-5 text-center sm:px-8">
+          <div className="relative z-20 flex h-full flex-col items-center justify-center px-5 text-center sm:px-8 lg:pt-[110px]">
             <span
               className="text-[11px] uppercase tracking-[0.42em]"
               style={{ color: "#E5A93C", fontWeight: 600 }}
@@ -243,7 +243,7 @@ function Home() {
         </section>
 
         {/* ------------------- ENTRANCE CARDS (overlap hero) ------------------- */}
-        <section className="relative bg-[#F5F3EE] pb-16 lg:pb-20 lg:pt-[36px]">
+        <section className="relative bg-[#F5F3EE] pb-16 lg:pb-20 lg:pt-[56px]">
           <div
             className="hero-cards-offset relative z-20 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-[60px]"
           >
