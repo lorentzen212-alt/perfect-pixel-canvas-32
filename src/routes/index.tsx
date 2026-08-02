@@ -153,17 +153,8 @@ function Home() {
           {/* HERO CONTENT — vertically centred */}
           <div className="relative z-20 flex h-full flex-col items-center justify-center px-5 text-center sm:px-8 lg:pt-[25px]">
             <span
-              className="text-[11px] uppercase tracking-[0.441em]"
-              style={{
-                fontFamily: "Inter, sans-serif",
-                fontWeight: 600,
-                background:
-                  "linear-gradient(180deg, #D8BC7A 0%, #C8A65A 52%, #A8853C 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                color: "#C8A65A",
-              }}
+              className="text-[11px] uppercase tracking-[0.42em]"
+              style={{ color: "#E5A93C", fontWeight: 600 }}
             >
               The Experience
             </span>
