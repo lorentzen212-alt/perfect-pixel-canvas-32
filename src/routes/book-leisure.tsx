@@ -2551,10 +2551,16 @@ const STEP2_ROOMS: {
 
 /* Room categories */
 const ROOM_CATEGORY_OPTIONS: Record<string, string[]> = {
-  single: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
-  double: ["Standard", "Superior", "Premium", "Junior Suite", "Suite"],
-  twin: ["Standard", "Superior", "Premium"],
+  single: ["Standard Room", "Superior Room", "Premium Room", "Junior Suite", "Suite"],
+  double: ["Standard Room", "Superior Room", "Premium Room", "Junior Suite", "Suite"],
+  twin: ["Standard Room", "Superior Room", "Premium Room", "Junior Suite", "Suite"],
   family: ["Family Room", "Junior Suite", "Suite"],
+};
+
+/** Room types without a selectable category show a fixed label instead. */
+const ROOM_FIXED_CATEGORY: Record<string, string> = {
+  triple: "Hotel assigned",
+  accessible: "Accessible Room",
 };
 
 /* Default selected category per room type (first option, e.g. "Standard") */
@@ -3238,66 +3244,23 @@ function LeisureStep2Screen({
 
       <div className="mx-auto w-full" style={{ maxWidth: 1560, padding: "0 20px 30px" }}>
         <div
-          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[30%_minmax(0,1fr)_264px]"
+          className="grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,1fr)_264px]"
           style={{
             borderRadius: 14,
             border: `1px solid ${S2_HAIR_GOLD}`,
-            backgroundColor: S2_IVORY,
+            backgroundColor: "#F8F6F2",
             boxShadow: "0 40px 90px -50px rgba(0,0,0,0.85)",
           }}
         >
-          {/* ---------- LEFT: cinematic image ---------- */}
-          <aside className="relative min-h-[280px] lg:min-h-[720px]">
-            <img
-              src={s2StayHeroImg.url}
-              alt="Premium hotel room with fjord view"
-              className="absolute inset-0 h-full w-full"
-              style={{ objectFit: "cover", objectPosition: "center center" }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(8,17,26,0.62) 0%, rgba(8,17,26,0.34) 42%, rgba(6,13,20,0.66) 100%)",
-              }}
-            />
-            <div
-              className="relative flex h-full flex-col items-center justify-center px-8 py-12 text-center lg:px-11"
-              style={{ transform: "translateY(-20px)" }}
-            >
-              <div
-                className="text-[11px] font-light tracking-[0.28em]"
-                style={{ color: "rgba(247,242,232,0.78)", fontFamily: SERIF }}
-              >
-                Step 2 of 6
-              </div>
-              <h1
-                className="mt-3 text-[34px] font-light leading-[1.1] lg:text-[38px]"
-                style={{ fontFamily: SERIF, color: "#FFFDF8" }}
-              >
-                Accommodation
-              </h1>
-              <S2DiamondRule refined />
-              <p
-                className="mt-1 max-w-[260px] text-[15px] font-light leading-[1.9]"
-                style={{ color: "rgba(246,242,234,0.9)" }}
-              >
-                Choose the rooms
-                <br />
-                that fit your group.
-              </p>
-            </div>
-          </aside>
-
-          {/* ---------- CENTER: working area ---------- */}
+          {/* ---------- MAIN: working area ---------- */}
           <section
             className="min-w-0 px-6 py-8 lg:px-10 lg:py-9"
-            style={{ backgroundColor: S2_IVORY }}
+            style={{ backgroundColor: "#F8F6F2" }}
           >
             {/* Stay heading */}
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <h2
-                className="text-[24px] font-normal leading-none"
+                className="text-[30px] font-normal leading-none"
                 style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
               >
                 {editingId ? `Editing Stay ${stayNumber}` : "Stay"}
@@ -3305,10 +3268,11 @@ function LeisureStep2Screen({
               <button
                 type="button"
                 onClick={commitAndStartNext}
-                className="bg-transparent p-0 text-[13.5px] font-light transition-opacity hover:opacity-80"
-                style={{ color: S2_GOLD_DEEP, border: "none" }}
+                className="inline-flex items-center gap-1.5 bg-transparent p-0 text-[13.5px] font-normal transition-opacity hover:opacity-80"
+                style={{ color: "#B08D47", border: "none" }}
               >
-                + Add another stay
+                <Plus size={14} strokeWidth={1.6} />
+                Add another stay
               </button>
             </div>
 
@@ -3316,6 +3280,7 @@ function LeisureStep2Screen({
             <div className="mt-3.5">
               <S2StayCard
                 compact
+                light
                 title={editingId ? `Editing Stay ${stayNumber}` : `Stay ${stayNumber}`}
                 arrival={draftArrival}
                 departure={draftDeparture}
@@ -3379,13 +3344,13 @@ function LeisureStep2Screen({
 
             {/* Room distribution */}
             <h3
-              className="mt-8 text-[21px] font-normal leading-none"
+              className="mt-9 text-[27px] font-normal leading-none"
               style={{ fontFamily: SERIF, color: S2_NAVY_TEXT }}
             >
               Room distribution
             </h3>
-            <p className="mt-2 text-[12.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
-              Select the number of rooms and the preferred category for your group.
+            <p className="mt-2.5 text-[12.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
+              Choose the number of rooms and your preferred category for your group.
             </p>
 
             <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -3403,6 +3368,35 @@ function LeisureStep2Screen({
                 />
               ))}
             </div>
+
+            {/* Bottom information bar */}
+            <div
+              className="mt-6 flex items-center gap-3.5 px-5 py-3.5"
+              style={{
+                borderRadius: 12,
+                backgroundColor: "#FBF9F5",
+                border: "1px solid rgba(18,34,47,0.08)",
+                boxShadow: "0 8px 24px -22px rgba(8,23,34,0.35)",
+              }}
+            >
+              <span
+                aria-hidden
+                className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
+                style={{ backgroundColor: "#12222F", color: "#D8BE85" }}
+              >
+                <ConciergeBell size={17} strokeWidth={1.4} />
+              </span>
+              <div className="min-w-0">
+                <div className="text-[13px] font-medium" style={{ color: S2_NAVY_TEXT }}>
+                  Need something specific?
+                </div>
+                <div className="mt-0.5 text-[12.5px] font-light" style={{ color: S2_NAVY_MUTED }}>
+                  You’ll be able to add requests in the next step.
+                </div>
+              </div>
+            </div>
+
+
 
             {/* Notes */}
             <div className="mt-6">
@@ -3751,6 +3745,7 @@ function S2StayCard({
   guests,
   editable = false,
   compact = false,
+  light = false,
   onArrival,
   onDeparture,
   onAddAnother,
@@ -3769,6 +3764,7 @@ function S2StayCard({
   guests: number;
   editable?: boolean;
   compact?: boolean;
+  light?: boolean;
 
   onArrival?: (v: string) => void;
   onDeparture?: (v: string) => void;
@@ -3820,7 +3816,15 @@ function S2StayCard({
       <span
         className={`whitespace-nowrap leading-none ${selected ? "text-[17.5px] font-semibold" : "text-[15px] font-medium"}`}
         style={{
-          color: selected ? "#FFFCF5" : "rgba(226,216,198,0.5)",
+          color: light
+            ? selected
+              ? "#12222F"
+              : "rgba(18,34,47,0.42)"
+            : selected
+              ? "#FFFCF5"
+              : "rgba(226,216,198,0.5)",
+          fontFamily: light ? SERIF : undefined,
+          fontWeight: light ? 400 : undefined,
           marginLeft: align === "left" ? 3 : undefined,
           marginRight: align === "right" ? 3 : undefined,
         }}
@@ -3835,7 +3839,30 @@ function S2StayCard({
       </span>
     );
 
-    const field = (
+    const badge = (
+      <span
+        aria-hidden
+        className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
+        style={{ backgroundColor: "#12222F", color: "#D8BE85" }}
+      >
+        <CalendarDays size={17} strokeWidth={1.4} />
+      </span>
+    );
+
+    const field = light ? (
+      <div className={`flex min-w-0 items-center gap-3.5 ${align === "right" ? "flex-row" : "flex-row"}`}>
+        {badge}
+        <div className="flex min-w-0 flex-col gap-[6px] text-left">
+          <span
+            className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.2em]"
+            style={{ color: "rgba(18,34,47,0.52)" }}
+          >
+            {label}
+          </span>
+          {dateValue}
+        </div>
+      </div>
+    ) : (
       <div className={`flex min-w-0 flex-col gap-[6px] ${align === "right" ? "items-end text-right" : "items-start text-left"}`}>
         <span
           className="whitespace-nowrap text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]"
@@ -3867,6 +3894,7 @@ function S2StayCard({
       </div>
     );
 
+
     const trigger = (
       <button
         type="button"
@@ -3875,7 +3903,7 @@ function S2StayCard({
         aria-expanded={open}
         aria-label={`${label} date`}
         className="s2-date-field flex w-full min-w-0 items-center rounded-[12px] bg-transparent px-2 py-[9px] text-left transition-colors duration-200 disabled:cursor-default"
-        style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: align === "right" ? "flex-end" : "flex-start" }}
+        style={{ border: "1px solid transparent", cursor: interactive ? "pointer" : "default", justifyContent: light ? "flex-start" : align === "right" ? "flex-end" : "flex-start" }}
       >
         {field}
       </button>
@@ -3920,7 +3948,7 @@ function S2StayCard({
 
   const dateTimeline = (
     <div
-      className="grid items-center px-[22px] py-[10px]"
+      className={light ? "grid items-center px-[26px] py-[16px]" : "grid items-center px-[22px] py-[10px]"}
       style={{
         width: compact ? "100%" : "92%",
         marginLeft: "auto",
@@ -3945,11 +3973,12 @@ function S2StayCard({
         placeholder="Select arrival date"
       />
       <ArrowRight
-        size={34}
+        size={light ? 26 : 34}
         strokeWidth={1.1}
         className="mx-3 shrink-0 self-center"
-        style={{ color: "rgba(217,191,130,0.9)" }}
+        style={{ color: light ? "#C09A57" : "rgba(217,191,130,0.9)" }}
       />
+
       <DateCol
         label="Departure"
         value={departure}
@@ -3972,24 +4001,32 @@ function S2StayCard({
       <div
         className={animClass}
         style={{
-          borderRadius: 8,
-          backgroundImage: "linear-gradient(180deg, #0F1E2B 0%, #0C1926 100%)",
-          border: "1px solid rgba(217,191,130,0.34)",
-          boxShadow: "0 18px 40px -30px rgba(6,13,20,0.9)",
+          borderRadius: light ? 16 : 8,
+          backgroundImage: light
+            ? "linear-gradient(180deg, #FFFFFF 0%, #FDFCFA 100%)"
+            : "linear-gradient(180deg, #0F1E2B 0%, #0C1926 100%)",
+          border: light ? "1px solid rgba(18,34,47,0.10)" : "1px solid rgba(217,191,130,0.34)",
+          boxShadow: light
+            ? "0 10px 30px -24px rgba(8,23,34,0.35)"
+            : "0 18px 40px -30px rgba(6,13,20,0.9)",
           overflow: "hidden",
         }}
       >
         {dateTimeline}
         <div
-          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[22px] py-[10px]"
+          className={
+            light
+              ? "flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[26px] py-[12px]"
+              : "flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-[22px] py-[10px]"
+          }
           style={{
-            borderTop: "1px solid rgba(217,191,130,0.22)",
-            backgroundColor: "rgba(255,255,255,0.02)",
+            borderTop: light ? "1px solid rgba(18,34,47,0.08)" : "1px solid rgba(217,191,130,0.22)",
+            backgroundColor: light ? "transparent" : "rgba(255,255,255,0.02)",
           }}
         >
           {confirming ? (
             <>
-              <span className="text-[13px] font-light" style={{ color: "rgba(248,245,238,0.9)" }}>
+              <span className="text-[13px] font-light" style={{ color: light ? "rgba(18,34,47,0.85)" : "rgba(248,245,238,0.9)" }}>
                 Remove this stay?
               </span>
               <div className="flex items-center gap-4">
@@ -4005,7 +4042,7 @@ function S2StayCard({
                   type="button"
                   onClick={onCancelRemove}
                   className="bg-transparent p-0 text-[13px] font-light"
-                  style={{ color: "rgba(245,241,230,0.6)", border: "none" }}
+                  style={{ color: light ? "rgba(18,34,47,0.55)" : "rgba(245,241,230,0.6)", border: "none" }}
                 >
                   Cancel
                 </button>
@@ -4015,16 +4052,16 @@ function S2StayCard({
             <>
               <div
                 className="flex items-center gap-3 text-[12.5px] font-light"
-                style={{ color: "rgba(246,242,234,0.82)" }}
+                style={{ color: light ? "rgba(18,34,47,0.80)" : "rgba(246,242,234,0.82)" }}
               >
                 <span>
                   {nights} {nights === 1 ? "Night" : "Nights"}
                 </span>
-                <span style={{ color: "rgba(217,191,130,0.4)" }}>|</span>
+                <span style={{ color: light ? "rgba(192,154,87,0.55)" : "rgba(217,191,130,0.4)" }}>|</span>
                 <span>
                   {rooms} {rooms === 1 ? "Room" : "Rooms"}
                 </span>
-                <span style={{ color: "rgba(217,191,130,0.4)" }}>|</span>
+                <span style={{ color: light ? "rgba(192,154,87,0.55)" : "rgba(217,191,130,0.4)" }}>|</span>
                 <span>
                   {guests} {guests === 1 ? "Guest" : "Guests"}
                 </span>
@@ -4035,7 +4072,7 @@ function S2StayCard({
                     type="button"
                     onClick={onEdit}
                     className="bg-transparent p-0 text-[12.5px] font-light"
-                    style={{ color: "rgba(246,242,234,0.75)", border: "none" }}
+                    style={{ color: light ? "#B08D47" : "rgba(246,242,234,0.75)", border: "none" }}
                   >
                     Edit
                   </button>
@@ -4044,7 +4081,7 @@ function S2StayCard({
                   type="button"
                   onClick={onRemove}
                   className="bg-transparent p-0 text-[12.5px] font-light"
-                  style={{ color: S2_GOLD_SOFT, border: "none" }}
+                  style={{ color: light ? "#B08D47" : S2_GOLD_SOFT, border: "none" }}
                 >
                   Remove
                 </button>
@@ -4327,20 +4364,31 @@ function S2RoomCard({
           </span>
         )}
 
-        {/* title + capacity sitting inside the gradient */}
+        {/* icon + title + capacity sitting inside the gradient */}
         <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 px-5 pb-4">
           <div className="min-w-0">
+            <span
+              aria-hidden
+              className="mb-2.5 grid h-[34px] w-[34px] place-items-center rounded-full"
+              style={{
+                border: "1px solid rgba(216,190,133,0.75)",
+                color: "#E4CB96",
+                backgroundColor: "rgba(9,22,33,0.42)",
+              }}
+            >
+              {roomIcon(roomKey)}
+            </span>
             <div
-              className="truncate text-[18px] font-normal leading-tight"
+              className="truncate text-[19px] font-normal leading-tight"
               style={{ fontFamily: SERIF, color: "#FFFFFF" }}
             >
               {meta.title}
             </div>
             <div
-              className="mt-2 flex items-center gap-2 text-[11.5px] font-light tracking-[0.03em]"
-              style={{ color: "rgba(240,244,248,0.78)" }}
+              className="mt-1.5 flex items-center gap-1.5 text-[11.5px] font-light tracking-[0.03em]"
+              style={{ color: "rgba(240,244,248,0.80)" }}
             >
-              <span style={{ color: "#D8BE85" }}>{roomIcon(roomKey)}</span>
+              <Users size={12} strokeWidth={1.6} style={{ color: "#D8BE85" }} />
               {capacity}
             </div>
           </div>
@@ -4357,33 +4405,36 @@ function S2RoomCard({
         </div>
       </div>
 
-      {/* body — controls only, with room to breathe */}
-      <div className="flex flex-1 flex-col gap-3 px-5 pb-6 pt-5">
+      {/* body — one control row: quantity left, category right */}
+      <div className="flex flex-1 items-center gap-3 px-4 pb-5 pt-4">
         <S2Counter light value={value} onChange={onChange} label={meta.title} />
         {categoryOptions ? (
-          <S2CategorySelect
-            light
-            value={category ?? categoryOptions[0]}
-            options={categoryOptions}
-            disabled={!active}
-            label={`${meta.title} category`}
-            onChange={(v) => onCategoryChange?.(v)}
-          />
+          <div className="min-w-0 flex-1">
+            <S2CategorySelect
+              light
+              value={category ?? categoryOptions[0]}
+              options={categoryOptions}
+              disabled={!active}
+              label={`${meta.title} category`}
+              onChange={(v) => onCategoryChange?.(v)}
+            />
+          </div>
         ) : (
           <div
-            className="flex h-[44px] w-full items-center justify-center whitespace-nowrap px-5 text-[12px] font-light"
+            className="flex h-[44px] min-w-0 flex-1 items-center justify-center truncate px-4 text-[12px] font-light"
             style={{
               borderRadius: 999,
-              border: "1px solid rgba(8,23,34,0.16)",
+              border: "1px solid rgba(8,23,34,0.14)",
               backgroundColor: "#FFFFFF",
               color: S2_NAVY_MUTED,
-              opacity: active ? 1 : 0.65,
+              opacity: active ? 1 : 0.75,
             }}
           >
-            Standard Room
+            {ROOM_FIXED_CATEGORY[roomKey] ?? "Standard Room"}
           </div>
         )}
       </div>
+
 
     </div>
   );
