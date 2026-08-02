@@ -4146,7 +4146,7 @@ function S2StayCard({
         }}
       >
         {/* Upper zone — dates + statistics */}
-        <div className="flex flex-col gap-3 px-[20px] py-[14px] sm:px-6 lg:flex-row lg:items-center lg:gap-6">
+        <div className="flex flex-col gap-2 px-[20px] py-[9px] sm:px-6 lg:flex-row lg:items-center lg:gap-5">
           {/* Circular calendar mark — opens the check-in picker */}
 
           <button
@@ -4154,7 +4154,7 @@ function S2StayCard({
             aria-label="Open check-in date picker"
             disabled={!(editable && !!onArrival)}
             onClick={() => setArrivalOpen(true)}
-            className="grid h-[46px] w-[46px] shrink-0 place-items-center transition-colors duration-200 disabled:cursor-default"
+            className="grid h-[40px] w-[40px] shrink-0 place-items-center transition-colors duration-200 disabled:cursor-default"
             style={{
               borderRadius: 999,
               border: "1px solid rgba(196,168,114,0.58)",
@@ -4241,7 +4241,7 @@ function S2StayCard({
 
         {/* Lower zone — actions */}
         <div
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-[18px] py-[7px]"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 px-[18px] py-[5px]"
           style={{ borderTop: "1px solid rgba(217,191,130,0.10)" }}
 
         >
@@ -4406,7 +4406,7 @@ function S2LuxeStat({
 }) {
   return (
     <div
-      className="flex flex-col items-center justify-center gap-[5px] px-[16px]"
+      className="flex flex-col items-center justify-center gap-[3px] px-[16px]"
       style={{ borderLeft: first ? undefined : "1px solid rgba(199,171,119,0.15)" }}
     >
       <span aria-hidden className="leading-none" style={{ color: "#D4B683" }}>
