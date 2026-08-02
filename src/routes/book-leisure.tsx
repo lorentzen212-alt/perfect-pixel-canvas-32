@@ -3856,12 +3856,18 @@ function S2StayCard({
     const dateValue = selected ? (
       compact ? (
         <span
-          className="whitespace-nowrap text-[26px] leading-none"
-          style={{ color: "#FFFFFF", fontWeight: 400, letterSpacing: "-0.01em" }}
+          className="whitespace-nowrap text-[21px] leading-none"
+          style={{
+            color: "#F4EFE6",
+            fontWeight: 400,
+            fontFamily: '"Playfair Display", "Cormorant Garamond", serif',
+            letterSpacing: "0.005em",
+          }}
         >
-          {format(selected, "MMM d, yyyy")}
+          {format(selected, "dd MMMM yyyy")}
         </span>
       ) : (
+
         <span
           className="whitespace-nowrap leading-none text-[17.5px]"
           style={{
@@ -3918,10 +3924,10 @@ function S2StayCard({
         : "items-start text-left";
 
     const field = (
-      <div className={`flex min-w-0 flex-col ${compact ? "gap-[4px]" : "gap-[6px]"} ${alignCls}`}>
+      <div className={`flex min-w-0 flex-col ${compact ? "gap-[5px]" : "gap-[6px]"} ${alignCls}`}>
         <span
-          className={`whitespace-nowrap font-medium uppercase leading-none ${compact ? "text-[9.5px]" : "text-[9.5px]"}`}
-          style={{ color: compact ? "#D9BF82" : "#B99A60", letterSpacing: compact ? "0.2em" : "0.18em" }}
+          className={`whitespace-nowrap font-medium uppercase leading-none ${compact ? "text-[11px]" : "text-[9.5px]"}`}
+          style={{ color: compact ? "#C7AB77" : "#B99A60", letterSpacing: compact ? "0.25em" : "0.18em" }}
         >
           {compact ? (label === "Arrival" ? "Check-in" : "Check-out") : label}
         </span>
@@ -3938,15 +3944,41 @@ function S2StayCard({
             </>
           )}
         </div>
-        {selected && !compact ? (
+        {selected ? (
           <span
-            className="whitespace-nowrap text-[12px] leading-none"
-            style={{ color: "#84909D", fontWeight: 400, letterSpacing: "0.01em" }}
+            className={`whitespace-nowrap leading-none ${compact ? "text-[10.5px] uppercase" : "text-[12px]"}`}
+            style={{
+              color: compact ? "#C7AB77" : "#84909D",
+              fontWeight: 400,
+              letterSpacing: compact ? "0.18em" : "0.01em",
+            }}
           >
             {format(selected, "EEEE")}
           </span>
         ) : null}
+        {compact && selected ? (
+          <span aria-hidden className="mt-[3px] flex items-center gap-[6px]">
+            <span
+              style={{
+                display: "block",
+                width: 64,
+                height: 1,
+                backgroundColor: "rgba(199,171,119,0.55)",
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: 5,
+                height: 5,
+                transform: "rotate(45deg)",
+                border: "1px solid rgba(199,171,119,0.7)",
+              }}
+            />
+          </span>
+        ) : null}
       </div>
+
 
     );
 
@@ -4066,24 +4098,24 @@ function S2StayCard({
         }}
       >
         {/* Upper zone — dates + statistics */}
-        <div className="flex flex-col gap-3 px-[18px] py-[11px] sm:px-5 lg:flex-row lg:items-center lg:gap-5">
+        <div className="flex flex-col gap-4 px-[20px] py-[16px] sm:px-6 lg:flex-row lg:items-center lg:gap-7">
           {/* Circular calendar mark */}
           <span
             aria-hidden
-            className="grid h-[38px] w-[38px] shrink-0 place-items-center"
+            className="grid h-[46px] w-[46px] shrink-0 place-items-center"
             style={{
               borderRadius: 999,
-              border: "1px solid rgba(217,191,130,0.55)",
-              color: "#E4C88A",
-              boxShadow: "0 0 16px -6px rgba(228,200,138,0.45), inset 0 0 12px -8px rgba(228,200,138,0.5)",
+              border: "1px solid rgba(199,171,119,0.55)",
+              color: "#C7AB77",
+              boxShadow: "0 0 18px -7px rgba(199,171,119,0.45), inset 0 0 14px -9px rgba(199,171,119,0.5)",
             }}
           >
-            <CalendarDays size={19} strokeWidth={1.3} />
+            <CalendarDays size={21} strokeWidth={1.2} />
           </span>
 
 
           {/* Dates */}
-          <div className="flex min-w-0 flex-1 items-center gap-4 sm:gap-6">
+          <div className="flex min-w-0 flex-1 items-center gap-5 sm:gap-7">
             <div className="min-w-0 flex-1">
               <DateCol
                 label="Arrival"
@@ -4094,11 +4126,12 @@ function S2StayCard({
               />
             </div>
             <ArrowRight
-              size={20}
-              strokeWidth={1.1}
+              size={24}
+              strokeWidth={1}
               className="shrink-0"
-              style={{ color: "#D9BF82" }}
+              style={{ color: "#C7AB77" }}
             />
+
             <div className="min-w-0 flex-1">
               <DateCol
                 label="Departure"
@@ -4306,19 +4339,27 @@ function S2LuxeStat({
 }) {
   return (
     <div
-      className="flex items-center justify-center gap-[7px] px-[13px]"
-      style={{ borderLeft: first ? undefined : "1px solid rgba(217,191,130,0.14)" }}
+      className="flex flex-col items-center justify-center gap-[5px] px-[16px]"
+      style={{ borderLeft: first ? undefined : "1px solid rgba(199,171,119,0.15)" }}
     >
-      <span aria-hidden className="leading-none" style={{ color: "#D9BF82" }}>
+      <span aria-hidden className="leading-none" style={{ color: "#C7AB77" }}>
         {icon}
       </span>
-      <span className="text-[15px] leading-none" style={{ color: "#FFFFFF", fontWeight: 300 }}>
+      <span
+        className="text-[19px] leading-none"
+        style={{
+          color: "#F4EFE6",
+          fontWeight: 400,
+          fontFamily: '"Playfair Display", "Cormorant Garamond", serif',
+        }}
+      >
         {value}
       </span>
-      <span className="text-[11px] leading-none" style={{ color: "rgba(216,226,236,0.6)" }}>
+      <span className="text-[10.5px] leading-none" style={{ color: "#C7AB77", letterSpacing: "0.08em" }}>
         {label}
       </span>
     </div>
+
 
   );
 }
