@@ -4536,7 +4536,7 @@ function S2RoomCard({
         {/* hairline divider */}
         <div
           className="h-px"
-          style={{ backgroundColor: "#ECE5DB", marginTop: 18, marginBottom: 18 }}
+          style={{ backgroundColor: "#ECE5DB", marginTop: 12, marginBottom: 10 }}
         />
 
         {/* 3 — control row */}
