@@ -6846,8 +6846,9 @@ function LeisureStep4Screen({
                   }
                   className={`s4-card group relative flex cursor-pointer flex-col overflow-hidden rounded-[22px] text-left ${active ? "s4-selected" : ""} ${featured ? "s4-featured" : ""}`}
                   style={{
-                    background:
-                      "linear-gradient(180deg, #F8F5EF 0%, #F5F1EB 55%, #F1ECE3 100%)",
+                    background: featured
+                      ? "linear-gradient(180deg, #FBF9F5 0%, #F7F4EE 55%, #F3EFE7 100%)"
+                      : "linear-gradient(180deg, #F8F5EF 0%, #F5F1EB 55%, #F1ECE3 100%)",
                     border: `1px solid ${active ? S4_GOLD : "rgba(214,196,163,0.55)"}`,
                     boxShadow: active
                       ? "0 14px 32px -20px rgba(201,164,92,0.45), 0 3px 10px -6px rgba(18,33,46,0.10)"
@@ -6863,6 +6864,15 @@ function LeisureStep4Screen({
                       alt={e.label}
                       className="s4-card-img h-full w-full object-cover"
                     />
+                    {featured && (
+                      <div
+                        className="pointer-events-none absolute inset-0"
+                        style={{
+                          background:
+                            "radial-gradient(70% 55% at 50% 22%, rgba(255,240,210,0.20) 0%, rgba(255,240,210,0.07) 45%, transparent 75%)",
+                        }}
+                      />
+                    )}
                     <div
                       className="s4-card-overlay pointer-events-none absolute inset-x-0 bottom-0"
                       style={{
@@ -6873,14 +6883,12 @@ function LeisureStep4Screen({
                     />
                     {featured && (
                       <span
-                        className="absolute left-4 top-4 rounded-full px-3 py-[5px] text-[9px] font-medium uppercase tracking-[0.18em]"
+                        className="absolute left-4 top-4 rounded-full px-[7px] py-[2px] text-[7px] font-normal uppercase tracking-[0.22em]"
                         style={{
-                          background:
-                            "linear-gradient(180deg, rgba(12,24,38,0.62) 0%, rgba(8,19,31,0.48) 100%)",
-                          border: "1px solid rgba(226,203,148,0.42)",
-                          color: "rgba(231,211,167,0.92)",
-                          backdropFilter: "blur(6px)",
-                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)",
+                          background: "rgba(10,20,32,0.34)",
+                          border: "1px solid rgba(226,203,148,0.28)",
+                          color: "rgba(236,220,186,0.88)",
+                          backdropFilter: "blur(5px)",
                         }}
                       >
                         Featured
@@ -6888,7 +6896,14 @@ function LeisureStep4Screen({
                     )}
                   </div>
 
-                  <div className="flex flex-1 items-center justify-between gap-5 px-[24px] pb-[20px] pt-[22px]">
+                  <div
+                    className="flex flex-1 items-center justify-between gap-5 px-[24px]"
+                    style={{
+                      paddingTop: featured ? 13 : 22,
+                      paddingBottom: featured ? 20 : 20,
+                    }}
+                  >
+
                     <div className="min-w-0">
                       <div
                         className="s4-card-title"
