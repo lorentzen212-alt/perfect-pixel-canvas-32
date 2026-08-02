@@ -4739,183 +4739,134 @@ function AccommodationSummary({
   lastAddedId?: string | null;
   removingIds?: Set<string>;
 }) {
+  const distribution = STEP2_ROOMS_ORDER.map((k) => ({
+    key: k,
+    label: ROOM_LABELS[k],
+    count: stays.reduce((sum, s) => sum + (s.rooms[k] ?? 0), 0),
+  }));
+
   return (
     <aside
+      className="flex flex-col px-6 py-8 lg:py-9"
       style={{
-        borderRadius: 24,
-        backgroundColor: S2_PANEL,
-        border: "1px solid rgba(255,255,255,0.05)",
-        padding: 22,
-        boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -18px 34px -30px rgba(0,0,0,0.6), 0 30px 66px -38px rgba(6,13,20,0.72)",
+        backgroundColor: S2_SUMMARY_BG,
+        borderLeft: `1px solid ${S2_HAIR_GOLD}`,
       }}
     >
       <div
-        className="text-[11.5px] font-semibold uppercase tracking-[0.28em]"
-        style={{ color: S2_GOLD_SOFT }}
+        className="text-[15px] font-normal leading-tight"
+        style={{ fontFamily: SERIF, color: "#FFFDF8" }}
       >
-        Accommodation Summary
+        Accommodation
+        <br />
+        Summary
       </div>
+      <S2DiamondRule width={104} />
+
+      <div className="space-y-3.5">
+        {[
+          { label: "Total Rooms", value: totalRooms },
+          { label: "Guests", value: totalGuests },
+          { label: "Stays", value: totalStays },
+        ].map((row) => (
+          <div key={row.label} className="flex items-baseline justify-between gap-3">
+            <span className="text-[12.5px] font-light" style={{ color: "rgba(246,242,234,0.62)" }}>
+              {row.label}
+            </span>
+            <span
+              className="text-[19px] tabular-nums"
+              style={{ fontFamily: SERIF, color: S2_GOLD_SOFT }}
+            >
+              {row.value}
+            </span>
+          </div>
+        ))}
+      </div>
+
       <div
-        className="mt-3 h-px w-full"
-        style={{
-          background: `linear-gradient(90deg, rgba(217,191,130,0.55) 0%, ${S2_GOLD_SOFT} 22%, rgba(217,191,130,0.10) 100%)`,
-        }}
+        className="my-6 h-px w-full"
+        style={{ background: "linear-gradient(90deg, rgba(217,191,130,0.42), rgba(217,191,130,0.06))" }}
       />
 
-
-
-      <div className="mt-4 space-y-3">
-        <S2SumRow icon={<BedDouble size={17} strokeWidth={1.9} />} label="Total rooms" value={totalRooms} />
-        <S2SumRow icon={<Users size={20} strokeWidth={1.9} />} label="Total guests" value={totalGuests} />
-        <S2SumRow icon={<CalendarDays size={17} strokeWidth={1.9} />} label="Total stays" value={totalStays} />
-      </div>
-
-      <div className="my-5 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
-
-      {stays.length === 0 && (
-        <div className="text-[13px] leading-relaxed" style={{ color: "rgba(245,241,230,0.5)" }}>
-          No stays added yet. Choose your dates and room types, then press{" "}
-          <span style={{ color: S2_GOLD_SOFT }}>Add this stay</span>.
-        </div>
-      )}
-
-      <div className="space-y-7">
-        {stays.map((s, idx) => {
-          const nights = stayNights(s.arrival, s.departure);
-          return (
-            <div
-              key={s.id}
-              className={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds?.has(s.id) ? "stay-removing" : ""}`}
-            >
-              <div className="flex items-center gap-2.5">
-                <span
-                  className="h-[6px] w-[6px] shrink-0 rounded-full"
-                  style={{
-                    background: `linear-gradient(135deg, #F3E2B0, ${S2_GOLD})`,
-                    boxShadow: "0 0 8px -2px rgba(217,191,130,0.75)",
-                  }}
-                />
-                <div
-                  className="text-[11.5px] font-semibold uppercase tracking-[0.2em]"
-                  style={{ color: "#F0DCA6" }}
-                >
-                  Stay {idx + 1}
-                </div>
-              </div>
-              <div className="mt-1.5 text-[12.5px]" style={{ color: "rgba(245,241,230,0.7)" }}>
-                {fmtStayRange(s.arrival, s.departure)} • {nights} {nights === 1 ? "night" : "nights"}
-              </div>
-              <div
-                className="mt-3 h-px w-full"
-                style={{
-                  background:
-                    "linear-gradient(90deg, rgba(217,191,130,0.42) 0%, rgba(217,191,130,0.14) 55%, rgba(217,191,130,0) 100%)",
-                }}
-              />
-
-
-              <ul className="mt-4 space-y-3.5">
-                {STEP2_ROOMS_ORDER.map((k) => {
-                  const v = s.rooms[k] ?? 0;
-                  if (v === 0) return null;
-                  const cat = s.roomCategories?.[k];
-                  return (
-                    <li key={k} className="s2-sum-row flex items-start justify-between gap-3">
-                      <div className="flex min-w-0 items-start gap-2.5">
-                        <span
-                          className="mt-1 h-[16px] w-px shrink-0 rounded-full"
-                          style={{ background: `linear-gradient(180deg, ${S2_GOLD_SOFT}, rgba(217,191,130,0.15))` }}
-                        />
-                        <span className="mt-0.5 shrink-0" style={{ color: S2_GOLD_SOFT }}>
-                          {k === "single" ? (
-                            <UserRound size={16} strokeWidth={1.8} />
-                          ) : k === "double" || k === "twin" ? (
-                            <BedDouble size={16} strokeWidth={1.8} />
-                          ) : (
-                            <Users size={16} strokeWidth={1.8} />
-                          )}
-                        </span>
-                        <div className="min-w-0">
-                          <div className="text-[13.5px] font-medium text-white">{ROOM_LABELS[k]}</div>
-                          {cat && (
-                            <div className="mt-0.5 text-[12px]" style={{ color: "rgba(231,211,164,0.72)" }}>
-                              {cat}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      <span
-                        className="grid h-[30px] min-w-[42px] shrink-0 place-items-center text-[13.5px] tabular-nums"
-                        style={{
-                          borderRadius: 9,
-                          color: S2_GOLD_SOFT,
-                          backgroundColor: "rgba(217,191,130,0.10)",
-                          border: "1px solid rgba(217,191,130,0.28)",
-                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
-                        }}
-                      >
-                        {v}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="my-7 h-px w-full" style={{ background: "rgba(217,191,130,0.18)" }} />
-
       <div
-        className="text-[11.5px] font-semibold uppercase tracking-[0.22em]"
-        style={{ color: "rgba(245,241,230,0.55)" }}
+        className="text-[10.5px] font-medium uppercase tracking-[0.24em]"
+        style={{ color: "rgba(246,242,234,0.5)" }}
       >
-        What happens next?
+        Room Distribution
       </div>
-      <ul className="mt-5 space-y-3.5">
-        {[
-          "Your request is reviewed by our group specialists",
-          "Matching hotels prepare tailored offers",
-          "You'll receive your hotel proposal within 24 hours",
-          "Expert support every step of the way",
-        ].map((text) => (
-          <li key={text} className="flex items-start gap-3">
+      <ul className="mt-4 space-y-3">
+        {distribution.map((r) => (
+          <li key={r.key} className="flex items-baseline justify-between gap-3">
             <span
-              className="mt-0.5 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full"
-              style={{
-                color: "#10202F",
-                background: `linear-gradient(135deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 100%)`,
-                boxShadow: "0 0 0 1px rgba(217,191,130,0.35)",
-              }}
+              className="truncate text-[12.5px] font-light"
+              style={{ color: r.count > 0 ? "rgba(246,242,234,0.86)" : "rgba(246,242,234,0.4)" }}
             >
-              <Check size={11} strokeWidth={3.2} />
+              {r.label}s
             </span>
-            <span className="text-[13.5px] leading-snug" style={{ color: "rgba(245,241,230,0.82)" }}>
-              {text}
+            <span
+              className="text-[13.5px] tabular-nums"
+              style={{ color: r.count > 0 ? S2_GOLD_SOFT : "rgba(246,242,234,0.32)" }}
+            >
+              {r.count}
             </span>
           </li>
         ))}
+      </ul>
+
+      {stays.length === 0 && (
+        <p
+          className="mt-6 text-[12px] font-light leading-relaxed"
+          style={{ color: "rgba(246,242,234,0.45)" }}
+        >
+          No stays added yet. Choose your dates and rooms, then press Add this stay.
+        </p>
+      )}
+
+      <div
+        className="my-6 h-px w-full"
+        style={{ background: "linear-gradient(90deg, rgba(217,191,130,0.42), rgba(217,191,130,0.06))" }}
+      />
+
+      <ul className="space-y-4">
+        {stays.map((s, idx) => {
+          const nights = stayNights(s.arrival, s.departure);
+          return (
+            <li
+              key={s.id}
+              className={`${lastAddedId === s.id ? "stay-slide-in" : ""} ${removingIds?.has(s.id) ? "stay-removing" : ""}`}
+            >
+              <div
+                className="text-[10.5px] font-medium uppercase tracking-[0.2em]"
+                style={{ color: "rgba(231,211,164,0.78)" }}
+              >
+                Stay {idx + 1}
+              </div>
+              <div className="mt-1 text-[12px] font-light" style={{ color: "rgba(246,242,234,0.62)" }}>
+                {fmtStayRange(s.arrival, s.departure)} · {nights} {nights === 1 ? "night" : "nights"}
+              </div>
+            </li>
+          );
+        })}
       </ul>
 
       <button
         type="button"
         onClick={onContinue}
         disabled={!nextEnabled}
-        className="s2-btn mt-7 flex w-full items-center justify-center gap-3 py-4 text-[15.5px] font-semibold hover:-translate-y-[2px]"
+        className="mt-auto flex w-full items-center justify-center gap-2.5 pt-4 text-[11.5px] font-medium uppercase tracking-[0.18em] transition-transform duration-300 hover:-translate-y-[1px]"
         style={{
-          borderRadius: 16,
-          background: `linear-gradient(180deg, ${S2_GOLD_SOFT} 0%, ${S2_GOLD} 52%, ${S2_GOLD_DEEP} 100%)`,
-          color: "#10202F",
-          boxShadow: "0 18px 38px -18px rgba(20,14,4,0.55), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(120,95,45,0.35)",
-          opacity: nextEnabled ? 1 : 0.4,
+          marginTop: 32,
+          borderRadius: 4,
+          paddingTop: 13,
+          paddingBottom: 13,
+          backgroundColor: "rgba(217,191,130,0.10)",
+          border: `1px solid ${nextEnabled ? "rgba(217,191,130,0.55)" : "rgba(217,191,130,0.22)"}`,
+          color: nextEnabled ? S2_GOLD_SOFT : "rgba(231,211,164,0.45)",
           cursor: nextEnabled ? "pointer" : "not-allowed",
         }}
       >
-        Continue to extras
-        <ArrowRight size={18} strokeWidth={2.4} />
+        Continue
+        <ArrowRight size={15} strokeWidth={1.7} />
       </button>
     </aside>
   );
