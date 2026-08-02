@@ -3287,27 +3287,65 @@ function LeisureStep2Screen({
               className="relative flex h-full flex-col items-start justify-start px-8 pb-12 pt-[22%] text-left lg:px-11"
             >
               <div
-                className="text-[11px] font-light tracking-[0.28em]"
-                style={{ color: "rgba(247,242,232,0.78)", fontFamily: SERIF }}
+                className="text-[10.5px] font-light uppercase tracking-[0.42em]"
+                style={{ color: "rgba(247,242,232,0.62)", fontFamily: "Inter, system-ui, sans-serif" }}
               >
                 Step 2 of 6
               </div>
               <h1
-                className="mt-3 text-[34px] font-light leading-[1.1] lg:text-[38px]"
-                style={{ fontFamily: SERIF, color: "#FFFDF8" }}
+                className="mt-6 text-[34px] font-light leading-[1.08] lg:text-[38px]"
+                style={{ fontFamily: SERIF, color: "#FFFDF8", letterSpacing: "0.005em" }}
               >
                 Accommodation
               </h1>
-              <S2DiamondRule refined />
+
+              {/* thin metallic gold rule with centred dot */}
+              <div className="relative mt-7 flex w-[132px] items-center" aria-hidden>
+                <div
+                  className="h-px w-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(226,201,140,0) 0%, rgba(226,201,140,0.85) 50%, rgba(226,201,140,0) 100%)",
+                  }}
+                />
+                <span
+                  className="absolute left-1/2 h-[4px] w-[4px] -translate-x-1/2 rounded-full"
+                  style={{
+                    background: "linear-gradient(180deg,#F2E1B4,#C7A461)",
+                    boxShadow: "0 0 6px -1px rgba(226,201,140,0.7)",
+                  }}
+                />
+              </div>
+
               <p
-                className="mt-1 max-w-[260px] text-[15px] font-light leading-[1.9]"
-                style={{ color: "rgba(246,242,234,0.9)" }}
+                className="mt-7 max-w-[248px] text-[14.5px] font-light leading-[2.05]"
+                style={{ color: "rgba(246,242,234,0.86)", letterSpacing: "0.012em" }}
               >
-                How many rooms
+                Choose how your group will stay.
                 <br />
-                will your group need?
+                Select room types, preferred
+                <br />
+                room categories, and any
+                <br />
+                accommodation preferences.
               </p>
+
+              <div className="mt-auto pt-16">
+                <div
+                  className="text-[9.5px] font-light uppercase tracking-[0.34em]"
+                  style={{ color: "rgba(240,234,222,0.5)" }}
+                >
+                  Estimated time
+                </div>
+                <div
+                  className="mt-[7px] text-[17px] font-light leading-none"
+                  style={{ fontFamily: SERIF, color: "rgba(250,246,238,0.92)" }}
+                >
+                  1–2 minutes
+                </div>
+              </div>
             </div>
+
 
           </aside>
 
