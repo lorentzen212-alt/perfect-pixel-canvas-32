@@ -448,8 +448,9 @@
 
 /* Review page — refined edit links */
 .s6-edit-link {
-  color: rgba(122, 114, 104, 0.85);
+  color: rgba(134, 126, 114, 0.9);
   transition: color 280ms ease;
+
 }
 .s6-edit-link:hover {
   color: #b08d3f;
