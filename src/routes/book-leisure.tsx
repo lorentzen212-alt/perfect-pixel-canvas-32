@@ -3278,7 +3278,7 @@ function LeisureStep2Screen({
                   Step 2 of 6
                 </div>
                 <h2
-                  className="mt-3 text-[34px] font-normal leading-[1.05] lg:text-[40px]"
+                  className="mt-3 text-[30px] font-normal leading-[1.05] sm:text-[34px] 2xl:text-[38px]"
                   style={{ fontFamily: SERIF, color: "#FFFFFF" }}
                 >
                   Accommodation
@@ -4694,7 +4694,7 @@ function S2CategorySelect({
         onKeyDown={onKeyDown}
         className={
           light
-            ? "flex h-[44px] w-full cursor-pointer select-none items-center justify-between gap-2 px-5 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
+            ? "flex h-[44px] w-full cursor-pointer select-none items-center justify-between gap-2 px-4 text-left text-[12px] font-light outline-none transition-colors disabled:cursor-not-allowed"
             : "flex w-full cursor-pointer select-none items-center justify-between gap-2 bg-transparent pr-0 text-left text-[14px] font-normal text-white outline-none disabled:cursor-not-allowed"
         }
         style={
@@ -4711,7 +4711,7 @@ function S2CategorySelect({
         }
       >
         <span
-          className={light ? "whitespace-nowrap" : "truncate"}
+          className="truncate"
           style={{
             color: light
               ? value
