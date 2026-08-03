@@ -38,6 +38,7 @@ import {
   FileSignature,
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
+import sidebarAtmos from "@/assets/sidebar-atmos.png.asset.json";
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
@@ -823,35 +824,18 @@ function Sidebar({
     <div
       className={`relative flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
       style={{
-        background: SIDEBAR_LAYERS,
+        backgroundImage: `url("${sidebarAtmos.url}")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         borderRight: "none",
         boxShadow:
           "inset -1px 0 0 rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.08), 1px 0 30px -16px rgba(20,28,36,0.28)",
         transition: `padding ${RAIL_MS}ms ${RAIL_EASE}`,
       }}
     >
-      {/* fine matte grain — keeps the panel from reading as flat colour */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: `url("data:image/svg+xml;utf8,${encodeURIComponent(
-            '<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="220" height="220" filter="url(%23g)" opacity="0.5"/></svg>',
-          )}")`,
-          backgroundSize: "220px 220px",
-          opacity: 0.05,
-          mixBlendMode: "overlay",
-        }}
-      />
-      {/* gentle vignette around the outer edges */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(125% 105% at 50% 45%, rgba(0,0,0,0) 52%, rgba(6,11,17,0.20) 84%, rgba(6,11,17,0.34) 100%)",
-        }}
-      />
+
+
 
 
 
