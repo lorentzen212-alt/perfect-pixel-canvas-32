@@ -71,7 +71,12 @@ export const Route = createFileRoute("/manage-bookings")({
 });
 
 /* ── palette ─────────────────────────────────────────── */
-const SIDEBAR = "#060C12";
+const SIDEBAR = "#F4F2EE";
+const SIDE_TEXT = "#141C24";
+const SIDE_TEXT_2 = "#4C5A66";
+const SIDE_MUTED = "#8A959E";
+const SIDE_LINE = "rgba(20,28,36,0.09)";
+const GOLD_DEEP = "#A9853A";
 const PAGE = "#080F17";
 const PANEL = "rgba(16,26,37,0.72)";
 const HAIRLINE = "rgba(140,166,190,0.14)";
