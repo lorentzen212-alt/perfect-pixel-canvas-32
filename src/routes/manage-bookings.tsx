@@ -754,13 +754,13 @@ function Sidebar({
         style={{
           backgroundImage: SIDEBAR_CLOUD,
           backgroundSize: "700px 1400px",
-          backgroundРepeatFallback: undefined,
           backgroundRepeat: "repeat",
           opacity: 0.05,
           mixBlendMode: "soft-light",
-        } as React.CSSProperties}
+        }}
       />
-      <div className="relative flex flex-col h-full min-h-0">
+
+
 
       <div className={`flex items-center ${collapsed ? "flex-col gap-3" : "justify-between gap-2 px-3"}`}>
         <Link to="/" className="block min-w-0 py-2" aria-label="HotelGroupBook">
