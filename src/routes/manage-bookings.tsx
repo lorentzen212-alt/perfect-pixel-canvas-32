@@ -5,7 +5,7 @@ import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking } from "@/lib/bookingsApi";
 import slateTextureAsset from "@/assets/sidebar-slate-texture.png.asset.json";
-import pageTextureAsset from "@/assets/marble-stone-bg.jpg.asset.json";
+import pageTextureAsset from "@/assets/page-stone-texture.png.asset.json";
 
 
 import {
@@ -1156,11 +1156,13 @@ function ManageBookings() {
               top: 370,
               backgroundImage: `url("${pageTextureAsset.url}")`,
               backgroundSize: "cover",
-              backgroundPosition: "center top",
+              backgroundPosition: "top center",
               backgroundRepeat: "no-repeat",
               backgroundAttachment: "scroll",
             }}
-          />
+          >
+            <div className="absolute inset-0" style={{ background: "rgba(70,82,94,0.04)" }} />
+          </div>
 
           {/* cinematic hero backdrop */}
           <div
