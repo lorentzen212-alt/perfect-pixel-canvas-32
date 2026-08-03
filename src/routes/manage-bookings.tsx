@@ -861,6 +861,27 @@ function ManageBookings() {
   const [view, setView] = useState<"grid" | "list">("list");
   const [navOpen, setNavOpen] = useState(false);
 
+  /* luxury rail: labels fade out before the width animates, and fade in after it opens */
+  const [railCollapsed, setRailCollapsed] = useState(false);
+  const [railLabels, setRailLabels] = useState(true);
+  const railTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  useEffect(() => () => railTimers.current.forEach(clearTimeout), []);
+  const toggleRail = () => {
+    railTimers.current.forEach(clearTimeout);
+    railTimers.current = [];
+    setRailCollapsed((wasCollapsed) => {
+      if (wasCollapsed) {
+        railTimers.current.push(setTimeout(() => setRailLabels(true), 240));
+        return false;
+      }
+      setRailLabels(false);
+      railTimers.current.push(setTimeout(() => setRailCollapsed(true), 160));
+      return false;
+    });
+  };
+
+
+
   const navigate = useNavigate();
   const { session, loading: authLoading, profile, signOut } = useAuth();
 
