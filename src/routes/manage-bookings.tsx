@@ -576,8 +576,10 @@ function Sidebar({
   ) => {
     const isActive = item.label === active;
     const style = {
-      background: isActive ? "rgba(255,255,255,0.055)" : "transparent",
-      color: isActive ? TEXT : TEXT_2,
+      background: isActive ? "#FFFFFF" : "transparent",
+      color: isActive ? SIDE_TEXT : SIDE_TEXT_2,
+      boxShadow: isActive ? "0 6px 16px -12px rgba(20,28,36,0.55)" : "none",
+      border: `1px solid ${isActive ? "rgba(20,28,36,0.07)" : "transparent"}`,
     };
     const inner = (
       <>
@@ -587,7 +589,7 @@ function Sidebar({
             style={{ backgroundColor: GOLD }}
           />
         )}
-        <item.icon size={17} style={{ color: isActive ? GOLD : MUTED }} />
+        <item.icon size={17} style={{ color: isActive ? GOLD_DEEP : SIDE_MUTED }} />
         {item.label}
       </>
     );
@@ -613,7 +615,10 @@ function Sidebar({
   };
 
   return (
-    <div className="flex h-full flex-col px-4 py-7" style={{ background: SIDEBAR }}>
+    <div
+      className="flex h-full flex-col px-4 py-7"
+      style={{ background: SIDEBAR, borderRight: `1px solid ${SIDE_LINE}` }}
+    >
       <Link to="/" className="block px-2 py-2">
         <img src={logo.url} alt="HotelGroupBook" className="h-12 w-auto object-contain object-left" />
       </Link>
@@ -637,23 +642,23 @@ function Sidebar({
 
       <div
         className="mt-6 flex items-center gap-3 pt-5"
-        style={{ borderTop: `1px solid rgba(255,255,255,0.07)` }}
+        style={{ borderTop: `1px solid ${SIDE_LINE}` }}
       >
         <span
           className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
-          style={{ backgroundColor: "rgba(201,162,75,0.16)", color: GOLD }}
+          style={{ backgroundColor: "rgba(169,133,58,0.14)", color: GOLD_DEEP }}
         >
           {initials || "—"}
         </span>
         <span className="min-w-0 flex-1">
-          <Link to="/account" className="block truncate text-[12.5px]" style={{ color: TEXT }}>
+          <Link to="/account" className="block truncate text-[12.5px]" style={{ color: SIDE_TEXT }}>
             {displayName || email}
           </Link>
           <button
             type="button"
             onClick={onSignOut}
             className="mt-0.5 inline-flex items-center gap-1.5 text-[11.5px]"
-            style={{ color: GOLD }}
+            style={{ color: GOLD_DEEP }}
           >
             <LogOut size={12} /> Log out
           </button>
@@ -662,6 +667,7 @@ function Sidebar({
     </div>
   );
 }
+
 
 /* ── select ──────────────────────────────────────────── */
 
