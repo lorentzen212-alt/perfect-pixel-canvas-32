@@ -75,24 +75,14 @@ export const Route = createFileRoute("/manage-bookings")({
 });
 
 /* ── palette ─────────────────────────────────────────── */
-const SIDEBAR = "linear-gradient(180deg, #495562 0%, #434F5C 52%, #3E4955 100%)";
+const SIDEBAR = "#46525E";
 
-/* soft cloudy mineral texture — low-frequency fractal clouds, blurred, ~5% strength */
-const SIDEBAR_CLOUD_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="700" height="1400" viewBox="0 0 700 1400"><defs><filter id="c" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="4" seed="17" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feGaussianBlur stdDeviation="6"/><feComponentTransfer><feFuncA type="linear" slope="0.5" intercept="-0.06"/></feComponentTransfer></filter></defs><rect width="700" height="1400" filter="url(#c)"/></svg>`;
-const SIDEBAR_CLOUD = `url("data:image/svg+xml,${encodeURIComponent(SIDEBAR_CLOUD_SVG)}")`;
-
-/* cloudy mineral texture + diffuse upper-left light + tonal variation, layered over SIDEBAR */
+/* base colour under the texture + very soft top/bottom lighting */
 const SIDEBAR_LAYERS = [
-  /* diffuse light from upper left */
-  "radial-gradient(135% 78% at 4% -4%, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.05) 34%, rgba(255,255,255,0.014) 62%, rgba(255,255,255,0) 82%)",
-  /* irregular tonal variation — no repeating pattern */
-  "radial-gradient(58% 26% at 72% 14%, rgba(255,255,255,0.030) 0%, rgba(255,255,255,0) 100%)",
-  "radial-gradient(66% 30% at 14% 46%, rgba(255,255,255,0.024) 0%, rgba(255,255,255,0) 100%)",
-  "radial-gradient(50% 22% at 86% 58%, rgba(0,0,0,0.026) 0%, rgba(0,0,0,0) 100%)",
-  "radial-gradient(74% 34% at 30% 82%, rgba(255,255,255,0.018) 0%, rgba(255,255,255,0) 100%)",
-  "radial-gradient(80% 40% at 94% 100%, rgba(0,0,0,0.038) 0%, rgba(0,0,0,0) 100%)",
+  "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 38%, rgba(0,0,0,0.02) 72%, rgba(0,0,0,0.06) 100%)",
   SIDEBAR,
 ].join(", ");
+
 
 const SIDE_TEXT = "rgba(255,255,255,0.90)";
 const SIDE_TEXT_2 = "rgba(255,255,255,0.90)";
