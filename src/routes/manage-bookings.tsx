@@ -5,7 +5,7 @@ import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking } from "@/lib/bookingsApi";
 import slateTextureAsset from "@/assets/sidebar-slate-texture.png.asset.json";
-import pageTextureAsset from "@/assets/page-wood-texture.jpg.asset.json";
+import pageTextureAsset from "@/assets/limestone-texture.jpg.asset.json";
 
 
 import {
@@ -97,7 +97,8 @@ const GOLD_DEEP = "#A9853A";
 const PAGE = "#646D75";
 const CARD = "#31414F";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
-const CARD_SHADOW = "0 20px 45px rgba(0,0,0,0.20)";
+const CARD_SHADOW =
+  "0 2px 6px rgba(0,0,0,0.10), 0 12px 28px rgba(0,0,0,0.16), 0 32px 64px rgba(0,0,0,0.20)";
 const PANEL = "#2F3842";
 const HAIRLINE = "rgba(255,255,255,0.08)";
 const TEXT = "#F1EFE9";
@@ -1148,19 +1149,52 @@ function ManageBookings() {
               "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
           }}
         >
-          {/* wooden texture surface — starts at the hero's bottom edge */}
+          {/* architectural limestone surface — base tone + near-invisible grain + lighting */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0"
+            className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
             style={{
               top: 370,
-              backgroundImage: `url("${pageTextureAsset.url}")`,
-              backgroundSize: "cover",
-              backgroundPosition: "top center",
-              backgroundRepeat: "no-repeat",
-              backgroundAttachment: "scroll",
+              background:
+                "linear-gradient(180deg, #3C4650 0%, #434D58 22%, #48525D 62%, #4B5561 100%)",
             }}
-          />
+          >
+            {/* limestone grain — 4% visibility, softened, low contrast */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url("${pageTextureAsset.url}")`,
+                backgroundSize: "1100px auto",
+                backgroundRepeat: "repeat",
+                mixBlendMode: "overlay",
+                opacity: 0.045,
+                filter: "blur(1.5px) contrast(0.3) saturate(0)",
+                transform: "scale(1.02)",
+              }}
+            />
+            {/* cool blue-grey unifying veil */}
+            <div
+              className="absolute inset-0"
+              style={{ background: "rgba(67,77,88,0.35)", mixBlendMode: "multiply" }}
+            />
+            {/* lighting: darker near hero, brighter toward cards */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(12,18,26,0.30) 0%, rgba(12,18,26,0.10) 180px, rgba(255,255,255,0.028) 620px, rgba(255,255,255,0.012) 100%)",
+              }}
+            />
+            {/* subtle edge vignette */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(115% 85% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.10) 82%, rgba(0,0,0,0.20) 100%)",
+              }}
+            />
+          </div>
+
 
 
           {/* cinematic hero backdrop */}
