@@ -857,7 +857,15 @@ function ManageBookings() {
   const heroImage = bookings[0]?.image ?? mountains;
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: PAGE, fontFamily: SANS }}>
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundColor: PAGE,
+        backgroundImage:
+          "linear-gradient(180deg, #5E6770 0%, #646D75 38%, #69727A 72%, #707981 100%)",
+        fontFamily: SANS,
+      }}
+    >
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[236px] lg:block">
         <Sidebar
           active="My Bookings"
