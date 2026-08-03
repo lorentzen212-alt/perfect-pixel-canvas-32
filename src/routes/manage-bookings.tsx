@@ -80,7 +80,7 @@ const GOLD_DEEP = "#A9853A";
 const PAGE = "#646D75";
 const CARD = "#2F3842";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
-const CARD_SHADOW = "0 20px 55px rgba(0,0,0,0.22)";
+const CARD_SHADOW = "0 20px 45px rgba(0,0,0,0.20)";
 const PANEL = "#2F3842";
 const HAIRLINE = "rgba(255,255,255,0.08)";
 const TEXT = "#F1EFE9";
@@ -444,7 +444,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   );
 
   const shell = {
-    background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 34%), ${CARD}`,
+    background: CARD,
     border: `1px solid ${CARD_BORDER}`,
     boxShadow: CARD_SHADOW,
   } as const;
@@ -862,7 +862,7 @@ function ManageBookings() {
       style={{
         backgroundColor: PAGE,
         backgroundImage:
-          "linear-gradient(180deg, #5E6770 0%, #646D75 38%, #69727A 72%, #707981 100%)",
+          "linear-gradient(180deg, #6A737B 0%, #646D75 35%, #5F6870 100%)",
         fontFamily: SANS,
       }}
     >
@@ -1069,7 +1069,7 @@ function ManageBookings() {
               <div
                 className="flex h-[235px] flex-col rounded-[22px] p-[22px]"
                 style={{
-                  background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 34%), ${PANEL}`,
+                  background: PANEL,
                   border: `1px solid ${CARD_BORDER}`,
                   boxShadow: CARD_SHADOW,
                 }}
@@ -1168,7 +1168,7 @@ function ManageBookings() {
             <section
               className="mt-7 grid grid-cols-1 gap-3 rounded-[16px] p-3 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]"
               style={{
-                background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 40%), rgba(47,56,66,0.86)`,
+                background: CARD,
                 border: `1px solid ${CARD_BORDER}`,
                 boxShadow: CARD_SHADOW,
                 backdropFilter: "blur(8px)",
