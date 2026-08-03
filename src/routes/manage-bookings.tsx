@@ -38,6 +38,7 @@ import {
   FileSignature,
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
+import sidebarAtmos from "@/assets/sidebar-atmos.png.asset.json";
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
