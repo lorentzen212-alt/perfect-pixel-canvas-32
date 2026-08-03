@@ -862,7 +862,7 @@ function ManageBookings() {
       style={{
         backgroundColor: PAGE,
         backgroundImage:
-          "linear-gradient(180deg, #5E6770 0%, #646D75 38%, #69727A 72%, #707981 100%)",
+          "linear-gradient(180deg, #6A737B 0%, #646D75 35%, #5F6870 100%)",
         fontFamily: SANS,
       }}
     >
