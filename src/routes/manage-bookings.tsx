@@ -918,8 +918,8 @@ function ManageBookings() {
               "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
           }}
         >
-          {/* ── HERO ─────────────────────────────────────────── */}
-          <section className="relative h-[440px] overflow-hidden">
+          {/* cinematic hero backdrop */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[430px]" aria-hidden>
             <video
               src={heroVideoAsset.url}
               autoPlay
@@ -928,20 +928,24 @@ function ManageBookings() {
               playsInline
               preload="metadata"
               poster={lobbyHeroAsset.url}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="h-full w-full object-cover"
               style={{ objectPosition: "center center" }}
             />
             <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.12)" }} />
             {/* soft fade into the page background */}
             <div
-              className="absolute inset-x-0 bottom-0 h-[110px]"
+              className="absolute inset-x-0 bottom-0 h-[100px]"
               style={{
                 background: `linear-gradient(180deg, rgba(100,109,117,0) 0%, rgba(100,109,117,0.55) 45%, ${PAGE} 100%)`,
               }}
             />
+          </div>
 
+
+
+          <div className="relative px-4 pb-14 pt-6 sm:px-6 lg:px-10">
             {/* mobile bar */}
-            <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 py-4 lg:hidden">
+            <div className="mb-4 flex items-center justify-between lg:hidden">
               <button
                 type="button"
                 aria-label="Open navigation"
@@ -954,8 +958,8 @@ function ManageBookings() {
               <img src={logo.url} alt="HotelGroupBook" className="h-7 w-auto" />
             </div>
 
-            {/* upper-right action bar */}
-            <div className="absolute right-4 top-6 z-10 hidden items-center gap-3 lg:right-10 lg:top-7 lg:flex">
+            {/* top action bar */}
+            <div className="mb-7 hidden items-center justify-end gap-3 lg:flex">
               <Link
                 to="/book-leisure"
                 className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] transition-colors hover:bg-white/5"
@@ -998,51 +1002,42 @@ function ManageBookings() {
               </Link>
             </div>
 
-            {/* centered welcome */}
-            <div className="relative flex h-full flex-col justify-center px-4 sm:px-6 lg:px-10">
-              <header className="max-w-[760px]">
-                <div className="flex items-end gap-5">
-                  <h1
-                    className="text-[44px] leading-[1.02] sm:text-[58px]"
-                    style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
-                  >
-                    Welcome {firstName}
-                  </h1>
-                  <span
-                    className="mb-3.5 hidden h-px flex-1 sm:block"
-                    style={{
-                      background:
-                        "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(201,162,75,0.06) 100%)",
-                    }}
-                    aria-hidden
-                  />
-                </div>
-                <p className="mt-5 text-[15.5px] tracking-[0.01em]" style={{ color: TEXT_2 }}>
-                  Here&rsquo;s what&rsquo;s happening with your group stays.
-                </p>
+            {/* greeting */}
+            <header className="mt-[50px] max-w-[720px]">
+              <div className="flex items-end gap-5">
+                <h1
+                  className="text-[40px] leading-[1.02] sm:text-[52px]"
+                  style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
+                >
+                  Welcome {firstName}
+                </h1>
+                <span
+                  className="mb-3 hidden h-px flex-1 sm:block"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(201,162,75,0.06) 100%)",
+                  }}
+                  aria-hidden
+                />
+              </div>
+              <p className="mt-3 text-[14.5px]" style={{ color: TEXT_2 }}>
+                Here&rsquo;s what&rsquo;s happening with your group stays.
+              </p>
 
-                <div className="mt-7 flex items-center gap-3 lg:hidden">
-                  <Link
-                    to="/book-leisure"
-                    className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px]"
-                    style={{
-                      backgroundColor: "rgba(10,18,27,0.45)",
-                      border: `1px solid ${GOLD}88`,
-                      color: GOLD_SOFT,
-                      backdropFilter: "blur(6px)",
-                    }}
-                  >
-                    <Plus size={15} /> New booking
-                  </Link>
-                </div>
-              </header>
-            </div>
-          </section>
+              <div className="mt-5 flex items-center gap-3 lg:hidden">
+                <Link
+                  to="/book-leisure"
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px]"
+                  style={{ border: `1px solid ${GOLD}88`, color: GOLD_SOFT }}
+                >
+                  <Plus size={15} /> New booking
+                </Link>
+              </div>
+            </header>
 
-          {/* ── BODY (below the hero) ───────────────────────── */}
-          <div className="relative px-4 pb-14 sm:px-6 lg:px-10">
+
             {/* status cards + activity */}
-            <section className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.95fr)]">
+            <section className="mt-[62px] grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.95fr)]">
               <StatusCard
                 label="Proposal ready"
                 count={counts.proposal}
