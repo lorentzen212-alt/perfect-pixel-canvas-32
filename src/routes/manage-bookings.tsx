@@ -4,7 +4,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking } from "@/lib/bookingsApi";
-import slateTextureAsset from "@/assets/sidebar-slate-texture.png.asset.json";
 import pageTextureAsset from "@/assets/limestone-texture.jpg.asset.json";
 
 
