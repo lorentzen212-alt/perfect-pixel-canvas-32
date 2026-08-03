@@ -823,7 +823,10 @@ function Sidebar({
     <div
       className={`relative flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
       style={{
-        background: SIDEBAR_LAYERS,
+        backgroundImage: `url("${sidebarAtmos.url}")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         borderRight: "none",
         boxShadow:
           "inset -1px 0 0 rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.08), 1px 0 30px -16px rgba(20,28,36,0.28)",
