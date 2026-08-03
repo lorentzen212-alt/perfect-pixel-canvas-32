@@ -1052,8 +1052,12 @@ function ManageBookings() {
               />
 
               <div
-                className="flex h-[210px] flex-col rounded-[15px] p-5"
-                style={{ background: PANEL, border: `1px solid ${HAIRLINE}` }}
+                className="flex h-[235px] flex-col rounded-[22px] p-[22px]"
+                style={{
+                  background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 34%), ${PANEL}`,
+                  border: `1px solid ${CARD_BORDER}`,
+                  boxShadow: CARD_SHADOW,
+                }}
               >
                 <p
                   className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
@@ -1061,18 +1065,31 @@ function ManageBookings() {
                 >
                   Since your last visit
                 </p>
-                <div className="mt-3 min-h-0 flex-1 space-y-2.5 overflow-hidden">
+                <span
+                  aria-hidden
+                  className="mt-2.5 block h-px w-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
+                  }}
+                />
+                <div className="mt-3 min-h-0 flex-1 overflow-hidden">
                   {activity.length === 0 && (
                     <p className="text-[12.5px]" style={{ color: MUTED }}>
                       No recent updates yet.
                     </p>
                   )}
-                  {activity.map((a) => (
+                  {activity.map((a, i) => (
                     <Link
                       key={a.id}
                       to="/bookings/$bookingId"
                       params={{ bookingId: a.id }}
-                      className="flex items-center gap-3"
+                      className="flex items-center gap-3 py-[9px]"
+                      style={
+                        i > 0
+                          ? { borderTop: "1px solid rgba(255,255,255,0.045)" }
+                          : undefined
+                      }
                     >
                       <span
                         className="grid h-8 w-8 shrink-0 place-items-center rounded-full"
@@ -1084,13 +1101,17 @@ function ManageBookings() {
                         <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
                           {a.title}
                         </span>
-                        <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
+                        <span
+                          className="block truncate text-[11.5px]"
+                          style={{ color: MUTED, opacity: 0.78 }}
+                        >
                           {a.sub}
                         </span>
                       </span>
                     </Link>
                   ))}
                 </div>
+
                 <button
                   type="button"
                   onClick={() => setGroup("all")}
