@@ -849,20 +849,27 @@ function ManageBookings() {
       <div className="lg:pl-[236px]">
         <main className="relative min-h-screen" style={{ backgroundColor: PAGE }}>
           {/* cinematic hero backdrop */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-[520px]" aria-hidden>
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[430px]" aria-hidden>
             <img
               src={mountains}
               alt=""
               className="h-full w-full object-cover"
-              style={{ filter: "saturate(0.7) brightness(0.45)" }}
+              style={{ filter: "saturate(0.62) brightness(0.52) contrast(1.02)" }}
             />
             <div
               className="absolute inset-0"
               style={{
-                background: `linear-gradient(180deg, rgba(6,12,18,0.55) 0%, rgba(7,14,21,0.78) 45%, ${PAGE} 100%)`,
+                background: `linear-gradient(180deg, rgba(6,12,18,0.32) 0%, rgba(7,14,21,0.66) 42%, rgba(8,15,23,0.92) 78%, ${PAGE} 100%)`,
+              }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background: `linear-gradient(90deg, rgba(6,12,18,0.72) 0%, rgba(6,12,18,0.22) 48%, rgba(6,12,18,0) 100%)`,
               }}
             />
           </div>
+
 
           <div className="relative px-4 pb-14 pt-6 sm:px-6 lg:px-10">
             {/* mobile bar */}
