@@ -1008,7 +1008,7 @@ function ManageBookings() {
             </div>
 
             {/* greeting */}
-            <header className="max-w-[720px]">
+            <header className="mt-[50px] max-w-[720px]">
               <div className="flex items-end gap-5">
                 <h1
                   className="text-[40px] leading-[1.02] sm:text-[52px]"
