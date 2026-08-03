@@ -5,7 +5,7 @@ import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking } from "@/lib/bookingsApi";
 import slateTextureAsset from "@/assets/sidebar-slate-texture.png.asset.json";
-import pageTextureAsset from "@/assets/page-stone-texture.png.asset.json";
+import pageTextureAsset from "@/assets/page-wood-texture.jpg.asset.json";
 
 
 import {
