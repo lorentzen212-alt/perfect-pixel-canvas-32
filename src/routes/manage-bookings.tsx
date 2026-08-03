@@ -77,9 +77,12 @@ const SIDE_TEXT_2 = "#4C5A66";
 const SIDE_MUTED = "#8A959E";
 const SIDE_LINE = "rgba(20,28,36,0.09)";
 const GOLD_DEEP = "#A9853A";
-const PAGE = "#080F17";
-const PANEL = "rgba(16,26,37,0.72)";
-const HAIRLINE = "rgba(140,166,190,0.14)";
+const PAGE = "#646D75";
+const CARD = "#2F3842";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const CARD_SHADOW = "0 20px 55px rgba(0,0,0,0.22)";
+const PANEL = "#2F3842";
+const HAIRLINE = "rgba(255,255,255,0.08)";
 const TEXT = "#F1EFE9";
 const TEXT_2 = "#B6C3CE";
 const MUTED = "#7F8F9C";
@@ -441,9 +444,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   );
 
   const shell = {
-    background: `linear-gradient(180deg, rgba(19,30,42,0.78) 0%, rgba(14,23,33,0.72) 100%)`,
-    border: `1px solid ${HAIRLINE}`,
-    boxShadow: "0 26px 52px -38px rgba(0,0,0,0.95)",
+    background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 34%), ${CARD}`,
+    border: `1px solid ${CARD_BORDER}`,
+    boxShadow: CARD_SHADOW,
   } as const;
 
   const media = (
@@ -473,7 +476,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="group overflow-hidden rounded-[18px] transition-transform hover:-translate-y-px" style={shell}>
+      <article className="group overflow-hidden rounded-[22px] transition-transform hover:-translate-y-px" style={shell}>
         {media}
         <div className="p-5">{info}</div>
       </article>
@@ -482,7 +485,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="group grid grid-cols-1 overflow-hidden rounded-[18px] transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,196px)_minmax(0,1fr)]"
+      className="group grid grid-cols-1 overflow-hidden rounded-[22px] transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,196px)_minmax(0,1fr)]"
       style={shell}
     >
       {media}
@@ -520,10 +523,12 @@ function StatusCard({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex h-[210px] flex-col overflow-hidden rounded-[15px] p-5 text-left transition-transform hover:-translate-y-px"
+      className="relative flex h-[235px] flex-col overflow-hidden rounded-[22px] p-[22px] text-left transition-transform hover:-translate-y-px"
       style={{
         border: `1px solid ${active ? tone : `${tone}55`}`,
-        boxShadow: active ? `0 0 0 1px ${tone}55` : "0 18px 36px -30px rgba(0,0,0,0.9)",
+        boxShadow: active
+          ? `0 0 0 1px ${tone}55, 0 22px 60px rgba(0,0,0,0.26)`
+          : "0 22px 60px rgba(0,0,0,0.26)",
       }}
     >
       <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.86) brightness(0.90) contrast(1.04)" }} />
@@ -532,6 +537,22 @@ function StatusCard({
         aria-hidden
         style={{ background: overlay }}
       />
+      {/* glass reflection across the top */}
+      <span
+        className="pointer-events-none absolute inset-x-0 top-0 h-2/5"
+        aria-hidden
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.035) 46%, rgba(255,255,255,0) 100%)",
+        }}
+      />
+      {/* faint inner highlight */}
+      <span
+        className="pointer-events-none absolute inset-0 rounded-[22px]"
+        aria-hidden
+        style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 0 1px rgba(255,255,255,0.04)" }}
+      />
+
 
       <span
         className="relative grid h-11 w-11 place-items-center rounded-full"
@@ -723,11 +744,11 @@ function Select<T extends string>({
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="w-full appearance-none rounded-[11px] px-4 py-[11px] pr-9 text-[13.5px] outline-none"
-        style={{ backgroundColor: "rgba(14,23,33,0.8)", border: `1px solid ${HAIRLINE}`, color: TEXT_2 }}
+        className="hgb-field w-full appearance-none rounded-[11px] px-4 py-[11px] pr-9 text-[13.5px] outline-none"
+        style={{ backgroundColor: "#333C46", border: `1px solid rgba(255,255,255,0.06)`, color: TEXT_2 }}
       >
         {options.map((o) => (
-          <option key={o.value} value={o.value} style={{ backgroundColor: "#101A24" }}>
+          <option key={o.value} value={o.value} style={{ backgroundColor: "#333C46" }}>
             {o.label}
           </option>
         ))}
@@ -836,7 +857,15 @@ function ManageBookings() {
   const heroImage = bookings[0]?.image ?? mountains;
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: PAGE, fontFamily: SANS }}>
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundColor: PAGE,
+        backgroundImage:
+          "linear-gradient(180deg, #5E6770 0%, #646D75 38%, #69727A 72%, #707981 100%)",
+        fontFamily: SANS,
+      }}
+    >
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[236px] lg:block">
         <Sidebar
           active="My Bookings"
@@ -877,7 +906,14 @@ function ManageBookings() {
       )}
 
       <div className="lg:pl-[236px]">
-        <main className="relative min-h-screen" style={{ backgroundColor: PAGE }}>
+        <main
+          className="relative min-h-screen"
+          style={{
+            backgroundColor: "transparent",
+            backgroundImage:
+              "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
+          }}
+        >
           {/* cinematic hero backdrop */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[430px]" aria-hidden>
             <img
@@ -889,13 +925,13 @@ function ManageBookings() {
             <div
               className="absolute inset-0"
               style={{
-                background: `linear-gradient(180deg, rgba(6,12,18,0.32) 0%, rgba(7,14,21,0.66) 42%, rgba(8,15,23,0.92) 78%, ${PAGE} 100%)`,
+                background: `linear-gradient(180deg, rgba(24,32,40,0.30) 0%, rgba(38,47,55,0.58) 42%, rgba(78,86,94,0.86) 78%, ${PAGE} 100%)`,
               }}
             />
             <div
               className="absolute inset-0"
               style={{
-                background: `linear-gradient(90deg, rgba(6,12,18,0.72) 0%, rgba(6,12,18,0.22) 48%, rgba(6,12,18,0) 100%)`,
+                background: `linear-gradient(90deg, rgba(20,27,34,0.62) 0%, rgba(28,36,44,0.20) 48%, rgba(28,36,44,0) 100%)`,
               }}
             />
           </div>
@@ -1031,8 +1067,12 @@ function ManageBookings() {
               />
 
               <div
-                className="flex h-[210px] flex-col rounded-[15px] p-5"
-                style={{ background: PANEL, border: `1px solid ${HAIRLINE}` }}
+                className="flex h-[235px] flex-col rounded-[22px] p-[22px]"
+                style={{
+                  background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 34%), ${PANEL}`,
+                  border: `1px solid ${CARD_BORDER}`,
+                  boxShadow: CARD_SHADOW,
+                }}
               >
                 <p
                   className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
@@ -1040,18 +1080,31 @@ function ManageBookings() {
                 >
                   Since your last visit
                 </p>
-                <div className="mt-3 min-h-0 flex-1 space-y-2.5 overflow-hidden">
+                <span
+                  aria-hidden
+                  className="mt-2.5 block h-px w-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
+                  }}
+                />
+                <div className="mt-3 min-h-0 flex-1 overflow-hidden">
                   {activity.length === 0 && (
                     <p className="text-[12.5px]" style={{ color: MUTED }}>
                       No recent updates yet.
                     </p>
                   )}
-                  {activity.map((a) => (
+                  {activity.map((a, i) => (
                     <Link
                       key={a.id}
                       to="/bookings/$bookingId"
                       params={{ bookingId: a.id }}
-                      className="flex items-center gap-3"
+                      className="flex items-center gap-3 py-[9px]"
+                      style={
+                        i > 0
+                          ? { borderTop: "1px solid rgba(255,255,255,0.045)" }
+                          : undefined
+                      }
                     >
                       <span
                         className="grid h-8 w-8 shrink-0 place-items-center rounded-full"
@@ -1063,13 +1116,17 @@ function ManageBookings() {
                         <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
                           {a.title}
                         </span>
-                        <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
+                        <span
+                          className="block truncate text-[11.5px]"
+                          style={{ color: MUTED, opacity: 0.78 }}
+                        >
                           {a.sub}
                         </span>
                       </span>
                     </Link>
                   ))}
                 </div>
+
                 <button
                   type="button"
                   onClick={() => setGroup("all")}
@@ -1111,9 +1168,9 @@ function ManageBookings() {
             <section
               className="mt-7 grid grid-cols-1 gap-3 rounded-[16px] p-3 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]"
               style={{
-                background: "rgba(13,22,32,0.62)",
-                border: `1px solid ${HAIRLINE}`,
-                boxShadow: "0 24px 48px -40px rgba(0,0,0,0.9)",
+                background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 40%), rgba(47,56,66,0.86)`,
+                border: `1px solid ${CARD_BORDER}`,
+                boxShadow: CARD_SHADOW,
                 backdropFilter: "blur(8px)",
               }}
             >
@@ -1128,10 +1185,10 @@ function ManageBookings() {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search bookings..."
                   aria-label="Search bookings by name, destination, hotel or reference"
-                  className="w-full rounded-[11px] py-[11px] pl-11 pr-4 text-[14px] outline-none placeholder:text-[#7C8B98]"
+                  className="hgb-field w-full rounded-[11px] py-[11px] pl-11 pr-4 text-[14px] outline-none placeholder:text-[#9AA5AF]"
                   style={{
-                    backgroundColor: "rgba(14,23,33,0.8)",
-                    border: `1px solid ${HAIRLINE}`,
+                    backgroundColor: "#333C46",
+                    border: `1px solid rgba(255,255,255,0.06)`,
                     color: TEXT,
                   }}
                 />
@@ -1178,10 +1235,10 @@ function ManageBookings() {
                       onClick={() => setView(key)}
                       className="grid h-[44px] w-[48px] place-items-center rounded-[11px] transition-colors"
                       style={{
-                        background: on ? "rgba(201,162,75,0.12)" : "rgba(14,23,33,0.8)",
-                        border: `1px solid ${on ? `${GOLD}99` : HAIRLINE}`,
-                        color: on ? GOLD_SOFT : "#8A98A4",
-                        boxShadow: on ? "0 8px 20px -16px rgba(201,162,75,0.9)" : "none",
+                        background: on ? "rgba(201,162,75,0.14)" : "#333C46",
+                        border: `1px solid ${on ? `${GOLD}99` : "rgba(255,255,255,0.06)"}`,
+                        color: on ? GOLD_SOFT : "#A2ADB7",
+                        boxShadow: on ? "0 10px 24px -14px rgba(201,162,75,0.75)" : "0 8px 20px rgba(0,0,0,0.14)",
                       }}
                     >
                       <Icon size={18} />

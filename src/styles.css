@@ -701,3 +701,19 @@
   .s2-stay-justadded { animation: none; }
   .s2-added-note { animation: none; opacity: 1; }
 }
+
+/* Manage · My Bookings — premium field materials */
+.hgb-field {
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+.hgb-field:hover {
+  background-color: #39434d !important;
+}
+.hgb-field:focus,
+.hgb-field:focus-visible {
+  border-color: rgba(197, 162, 75, 0.45) !important;
+  box-shadow: 0 0 0 3px rgba(197, 162, 75, 0.1);
+}
