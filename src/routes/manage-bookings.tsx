@@ -922,7 +922,7 @@ function ManageBookings() {
               alt=""
               className="h-full w-full object-cover"
               style={{
-                objectPosition: "center 42%",
+                objectPosition: "center center",
                 filter: "saturate(0.7) brightness(0.66) contrast(1.02)",
               }}
             />
