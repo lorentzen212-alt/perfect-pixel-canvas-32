@@ -1159,19 +1159,23 @@ function ManageBookings() {
                 "linear-gradient(180deg, #3C4650 0%, #434D58 22%, #48525D 62%, #4B5561 100%)",
             }}
           >
-            {/* limestone grain — 4% visibility, softened, low contrast */}
+            {/* limestone grain — scaled 235%, rotated 8°, ~7% visibility */}
             <div
-              className="absolute inset-0"
+              className="absolute"
               style={{
+                inset: "-25%",
                 backgroundImage: `url("${pageTextureAsset.url}")`,
-                backgroundSize: "1100px auto",
+                backgroundSize: "235% auto",
                 backgroundRepeat: "repeat",
+                backgroundPosition: "center top",
                 mixBlendMode: "overlay",
-                opacity: 0.045,
-                filter: "blur(1.5px) contrast(0.3) saturate(0)",
-                transform: "scale(1.02)",
+                opacity: 0.07,
+                filter: "blur(1.5px) contrast(0.4) saturate(0.7)",
+                transform: "rotate(8deg)",
+                transformOrigin: "center",
               }}
             />
+
             {/* cool blue-grey unifying veil */}
             <div
               className="absolute inset-0"
