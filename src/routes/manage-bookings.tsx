@@ -730,9 +730,10 @@ function Sidebar({
     <div
       className={`flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
       style={{
-        background: SIDEBAR,
-        borderRight: `1px solid ${SIDE_LINE}`,
-        boxShadow: "1px 0 24px -12px rgba(20,28,36,0.22)",
+        background: SIDEBAR_LAYERS,
+        borderRight: "none",
+        boxShadow:
+          "inset -1px 0 0 rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.08), 1px 0 30px -16px rgba(20,28,36,0.28)",
         transition: `padding ${RAIL_MS}ms ${RAIL_EASE}`,
       }}
     >
@@ -742,9 +743,9 @@ function Sidebar({
             <span
               className="grid h-9 w-9 place-items-center rounded-[12px] text-[12.5px] font-semibold tracking-[0.06em]"
               style={{
-                color: "#F1EFE9",
-                border: "1px solid rgba(216,190,114,0.42)",
-                background: "rgba(255,255,255,0.06)",
+                color: "#FFFFFF",
+                border: "1px solid rgba(255,255,255,0.18)",
+                background: "rgba(255,255,255,0.08)",
               }}
             >
               HGB
@@ -754,9 +755,11 @@ function Sidebar({
               src={logo.url}
               alt="HotelGroupBook"
               className="h-11 w-auto object-contain object-left"
+              style={{ filter: "brightness(0) invert(1)" }}
             />
           )}
         </Link>
+
 
         {onToggle && (
           <button
