@@ -31,6 +31,7 @@ import {
   Users,
   X,
   ArrowRight,
+  ArrowLeft,
   FileSignature,
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
@@ -606,6 +607,9 @@ const SECONDARY_NAV = [
   { label: "Support", icon: LifeBuoy },
 ];
 
+const RAIL_EASE = "cubic-bezier(0.4, 0.0, 0.2, 1)";
+const RAIL_MS = 400;
+
 function Sidebar({
   active,
   roomingBookingId,
@@ -613,6 +617,9 @@ function Sidebar({
   initials,
   email,
   onSignOut,
+  collapsed = false,
+  showLabels = true,
+  onToggle,
 }: {
   active: string;
   roomingBookingId?: string;
@@ -620,11 +627,11 @@ function Sidebar({
   initials: string;
   email: string;
   onSignOut: () => void;
+  collapsed?: boolean;
+  showLabels?: boolean;
+  onToggle?: () => void;
 }) {
   const GOLD_LINE = "linear-gradient(180deg, #D8BE72 0%, #C7A24B 50%, #A97E2E 100%)";
-
-  const row =
-    "hgb-side-item relative flex w-full items-center gap-3 rounded-[19px] px-4 text-left text-[13.5px]";
 
   const renderItem = (
     item: { label: string; icon: typeof User },
@@ -637,28 +644,56 @@ function Sidebar({
       fontWeight: isActive ? 600 : 400,
       boxShadow: isActive ? "0 3px 10px -6px rgba(20,28,36,0.30)" : "none",
       border: `1px solid ${isActive ? "rgba(169,133,58,0.12)" : "transparent"}`,
-      padding: isActive ? "8px 16px" : "9px 16px",
+      padding: collapsed ? "9px 0" : isActive ? "8px 16px" : "9px 16px",
+      justifyContent: collapsed ? "center" : "flex-start",
+      transition: `padding ${RAIL_MS}ms ${RAIL_EASE}, background-color 230ms ease, box-shadow 230ms ease, color 230ms ease`,
     };
+    const row = `hgb-side-item hgb-rail-item group relative flex w-full items-center rounded-[19px] text-left text-[13.5px] ${
+      collapsed ? "gap-0" : "gap-3"
+    }`;
     const inner = (
       <>
-        {isActive && (
+        {isActive && !collapsed && (
           <span
             aria-hidden
             className="pointer-events-none absolute left-[6px] top-[9px] bottom-[9px] w-[3px] rounded-full"
             style={{ background: GOLD_LINE }}
           />
         )}
+        {isActive && collapsed && (
+          <span
+            aria-hidden
+            className="pointer-events-none absolute left-[7px] top-[10px] bottom-[10px] w-[3px] rounded-full"
+            style={{ background: GOLD_LINE }}
+          />
+        )}
         <item.icon
           size={17}
           strokeWidth={isActive ? 2 : 1.7}
+          className="shrink-0"
           style={{ color: isActive ? "#A97E2E" : SIDE_MUTED }}
         />
-        {item.label}
+        <span
+          className="hgb-rail-label truncate"
+          style={{
+            opacity: showLabels ? 1 : 0,
+            width: showLabels ? "auto" : 0,
+            transition: `opacity ${showLabels ? 220 : 150}ms ease`,
+            overflow: "hidden",
+          }}
+        >
+          {item.label}
+        </span>
+        {collapsed && (
+          <span className="hgb-rail-tip pointer-events-none" role="tooltip">
+            {item.label}
+          </span>
+        )}
       </>
     );
     if (opts.to === "/rooming-list/$bookingId" && opts.params) {
       return (
-        <Link key={item.label} to={opts.to} params={opts.params} className={row} style={style}>
+        <Link key={item.label} to={opts.to} params={opts.params} className={row} style={style} title="">
           {inner}
         </Link>
       );
@@ -679,20 +714,54 @@ function Sidebar({
 
   return (
     <div
-      className="flex h-full flex-col px-4 py-7"
-      style={{ background: SIDEBAR, borderRight: `1px solid ${SIDE_LINE}` }}
+      className={`flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
+      style={{
+        background: SIDEBAR,
+        borderRight: `1px solid ${SIDE_LINE}`,
+        boxShadow: "1px 0 24px -12px rgba(20,28,36,0.22)",
+        transition: `padding ${RAIL_MS}ms ${RAIL_EASE}`,
+      }}
     >
-      <Link to="/" className="block px-3 py-3">
-        <img
-          src={logo.url}
-          alt="HotelGroupBook"
-          className="h-11 w-auto object-contain object-left"
-          style={{ filter: "invert(1) brightness(0.18)" }}
-        />
-      </Link>
+      <div className={`flex items-center ${collapsed ? "flex-col gap-3" : "justify-between gap-2 px-3"}`}>
+        <Link to="/" className="block min-w-0 py-2" aria-label="HotelGroupBook">
+          {collapsed ? (
+            <span
+              className="grid h-9 w-9 place-items-center rounded-[12px] text-[12.5px] font-semibold tracking-[0.06em]"
+              style={{
+                color: "#1B242C",
+                border: "1px solid rgba(169,133,58,0.35)",
+                background: "#F7F5F1",
+              }}
+            >
+              HGB
+            </span>
+          ) : (
+            <img
+              src={logo.url}
+              alt="HotelGroupBook"
+              className="h-11 w-auto object-contain object-left"
+              style={{ filter: "invert(1) brightness(0.18)" }}
+            />
+          )}
+        </Link>
 
+        {onToggle && (
+          <button
+            type="button"
+            onClick={onToggle}
+            aria-label={collapsed ? "Expand navigation" : "Collapse navigation"}
+            className="hgb-rail-toggle grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full"
+          >
+            {collapsed ? (
+              <ArrowRight size={15} strokeWidth={1.8} />
+            ) : (
+              <ArrowLeft size={15} strokeWidth={1.8} />
+            )}
+          </button>
+        )}
+      </div>
 
-      <nav className="mt-10 space-y-1">
+      <nav className="mt-10 space-y-1.5">
         {PRIMARY_NAV.map((item) =>
           renderItem(
             item,
@@ -703,14 +772,14 @@ function Sidebar({
         )}
       </nav>
 
-      <div className="mt-auto space-y-1 pt-10">
+      <div className="mt-auto space-y-1.5 pt-10">
         {SECONDARY_NAV.map((item) =>
           renderItem(item, item.label === "Profile" ? { to: "/account" } : {}),
         )}
       </div>
 
       <div
-        className="mt-6 flex items-center gap-3 pt-5"
+        className={`mt-6 flex items-center gap-3 pt-5 ${collapsed ? "justify-center" : ""}`}
         style={{ borderTop: `1px solid ${SIDE_LINE}` }}
       >
         <span
@@ -719,23 +788,29 @@ function Sidebar({
         >
           {initials || "—"}
         </span>
-        <span className="min-w-0 flex-1">
-          <Link to="/account" className="block truncate text-[12.5px]" style={{ color: SIDE_TEXT }}>
-            {displayName || email}
-          </Link>
-          <button
-            type="button"
-            onClick={onSignOut}
-            className="mt-0.5 inline-flex items-center gap-1.5 text-[11.5px]"
-            style={{ color: GOLD_DEEP }}
+        {!collapsed && (
+          <span
+            className="min-w-0 flex-1"
+            style={{ opacity: showLabels ? 1 : 0, transition: "opacity 200ms ease" }}
           >
-            <LogOut size={12} /> Log out
-          </button>
-        </span>
+            <Link to="/account" className="block truncate text-[12.5px]" style={{ color: SIDE_TEXT }}>
+              {displayName || email}
+            </Link>
+            <button
+              type="button"
+              onClick={onSignOut}
+              className="mt-0.5 inline-flex items-center gap-1.5 text-[11.5px]"
+              style={{ color: GOLD_DEEP }}
+            >
+              <LogOut size={12} /> Log out
+            </button>
+          </span>
+        )}
       </div>
     </div>
   );
 }
+
 
 
 /* ── select ──────────────────────────────────────────── */
@@ -785,6 +860,25 @@ function ManageBookings() {
   const [dateChoice, setDateChoice] = useState<DateChoice>("all");
   const [view, setView] = useState<"grid" | "list">("list");
   const [navOpen, setNavOpen] = useState(false);
+
+  /* luxury rail: labels fade out before the width animates, and fade in after it opens */
+  const [railCollapsed, setRailCollapsed] = useState(false);
+  const [railLabels, setRailLabels] = useState(true);
+  const railTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  useEffect(() => () => railTimers.current.forEach(clearTimeout), []);
+  const toggleRail = () => {
+    railTimers.current.forEach(clearTimeout);
+    railTimers.current = [];
+    if (railCollapsed) {
+      setRailCollapsed(false);
+      railTimers.current.push(setTimeout(() => setRailLabels(true), 240));
+    } else {
+      setRailLabels(false);
+      railTimers.current.push(setTimeout(() => setRailCollapsed(true), 160));
+    }
+  };
+
+
 
   const navigate = useNavigate();
   const { session, loading: authLoading, profile, signOut } = useAuth();
@@ -868,6 +962,8 @@ function ManageBookings() {
     (profile?.last_name?.[0] ?? "").toUpperCase();
 
   const heroImage = bookings[0]?.image ?? mountains;
+  const railWidth = railCollapsed ? 76 : 240;
+
 
   return (
     <div
@@ -879,7 +975,13 @@ function ManageBookings() {
         fontFamily: SANS,
       }}
     >
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[236px] lg:block">
+      <aside
+        className="fixed inset-y-0 left-0 z-40 hidden lg:block"
+        style={{
+          width: railWidth,
+          transition: `width ${RAIL_MS}ms ${RAIL_EASE}`,
+        }}
+      >
         <Sidebar
           active="My Bookings"
           roomingBookingId={roomingTarget}
@@ -887,6 +989,9 @@ function ManageBookings() {
           initials={initials}
           email={session?.user.email ?? ""}
           onSignOut={() => void signOut()}
+          collapsed={railCollapsed}
+          showLabels={railLabels}
+          onToggle={toggleRail}
         />
       </aside>
 
@@ -918,7 +1023,7 @@ function ManageBookings() {
         </div>
       )}
 
-      <div className="lg:pl-[236px]">
+      <div className="hgb-rail-shift" style={{ ["--rail-w" as string]: `${railWidth}px` }}>
         <main
           className="relative min-h-screen"
           style={{
