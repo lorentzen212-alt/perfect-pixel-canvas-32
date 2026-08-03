@@ -954,7 +954,13 @@ function ManageBookings() {
         fontFamily: SANS,
       }}
     >
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[236px] lg:block">
+      <aside
+        className="fixed inset-y-0 left-0 z-40 hidden lg:block"
+        style={{
+          width: railWidth,
+          transition: `width ${RAIL_MS}ms ${RAIL_EASE}`,
+        }}
+      >
         <Sidebar
           active="My Bookings"
           roomingBookingId={roomingTarget}
@@ -962,6 +968,9 @@ function ManageBookings() {
           initials={initials}
           email={session?.user.email ?? ""}
           onSignOut={() => void signOut()}
+          collapsed={railCollapsed}
+          showLabels={railLabels}
+          onToggle={toggleRail}
         />
       </aside>
 
