@@ -83,9 +83,18 @@ const SIDEBAR = "#46525E";
 
 /* base colour under the texture + very soft top/bottom lighting */
 const SIDEBAR_LAYERS = [
-  "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 38%, rgba(0,0,0,0.02) 72%, rgba(0,0,0,0.06) 100%)",
-  SIDEBAR,
+  // soft atmospheric glow emerging from the lower-right corner
+  "radial-gradient(120% 70% at 108% 92%, rgba(150,178,205,0.30) 0%, rgba(126,155,182,0.16) 26%, rgba(90,116,142,0.06) 52%, rgba(27,38,50,0) 78%)",
+  // secondary, wider ambient bounce so the glow fades naturally
+  "radial-gradient(150% 95% at 96% 78%, rgba(120,150,178,0.12) 0%, rgba(27,38,50,0) 70%)",
+  // darker top-left behind the logo
+  "radial-gradient(110% 80% at 0% 0%, rgba(9,16,24,0.55) 0%, rgba(9,16,24,0.22) 38%, rgba(9,16,24,0) 72%)",
+  // gentle vertical light transition
+  "linear-gradient(170deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0) 42%, rgba(0,0,0,0.05) 100%)",
+  // deep navy base
+  "linear-gradient(180deg, #1B2632 0%, #1D2937 46%, #202D3B 100%)",
 ].join(", ");
+
 
 
 const SIDE_TEXT = "rgba(255,255,255,0.90)";
