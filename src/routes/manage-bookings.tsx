@@ -737,18 +737,19 @@ function Sidebar({
         transition: `padding ${RAIL_MS}ms ${RAIL_EASE}`,
       }}
     >
-      {/* soft cloudy mineral grain — barely perceptible depth */}
+      {/* uploaded slate texture — the actual sidebar material */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage: SIDEBAR_CLOUD,
-          backgroundSize: "700px 1400px",
-          backgroundRepeat: "repeat",
-          opacity: 0.05,
-          mixBlendMode: "soft-light",
+          backgroundImage: `url("${slateTextureAsset.url}")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.65,
         }}
       />
+
 
 
 
