@@ -929,25 +929,9 @@ function ManageBookings() {
               preload="metadata"
               poster={lobbyHeroAsset.url}
               className="h-full w-full object-cover"
-              style={{
-                objectPosition: "center center",
-                filter: "saturate(0.7) brightness(0.66) contrast(1.02)",
-              }}
+              style={{ objectPosition: "center center" }}
             />
-            <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.4)" }} />
-
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `linear-gradient(180deg, rgba(24,32,40,0.24) 0%, rgba(38,47,55,0.46) 42%, rgba(78,86,94,0.70) 78%, rgba(100,109,117,0.92) 100%)`,
-              }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `linear-gradient(90deg, rgba(20,27,34,0.50) 0%, rgba(28,36,44,0.16) 48%, rgba(28,36,44,0) 100%)`,
-              }}
-            />
+            <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.12)" }} />
             {/* soft fade into the page background */}
             <div
               className="absolute inset-x-0 bottom-0 h-[100px]"
