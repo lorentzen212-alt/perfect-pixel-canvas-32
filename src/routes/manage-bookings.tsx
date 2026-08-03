@@ -480,7 +480,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="inline-flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[8px] px-6 py-3 text-[14px] transition-colors hover:bg-[rgba(201,162,75,0.10)]"
+          className="inline-flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[8px] px-6 py-2.5 text-[14px] transition-colors hover:bg-[rgba(201,162,75,0.10)]"
           style={{
             color: GOLD,
             border: `1px solid ${GOLD}`,
@@ -509,7 +509,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[150px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[200px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+            : "h-[190px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[282px]"
         }
         style={{ filter: "saturate(0.92) brightness(0.8)" }}
       />
@@ -536,7 +536,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="group grid grid-cols-1 gap-6 overflow-hidden rounded-[22px] p-6 transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,240px)_minmax(0,1fr)]"
+      className="group grid grid-cols-1 items-start gap-6 overflow-hidden rounded-[22px] p-5 transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,285px)_minmax(0,1fr)]"
       style={shell}
     >
       {media}
