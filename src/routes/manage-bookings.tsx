@@ -203,37 +203,45 @@ function Timeline({ booking }: { booking: Booking }) {
   return (
     <div className="relative grid grid-cols-4 gap-1">
       <div
-        className="absolute left-[12.5%] right-[12.5%] top-[13px] h-px"
-        style={{ backgroundColor: "rgba(140,166,190,0.20)" }}
+        className="absolute left-[12.5%] right-[12.5%] top-[15px] h-px"
+        style={{ backgroundColor: "rgba(190,205,215,0.16)" }}
         aria-hidden
       />
       <div
-        className="absolute left-[12.5%] top-[13px] h-px"
-        style={{ width: `${(active / 3) * 75}%`, background: tone, opacity: 0.7 }}
+        className="absolute left-[12.5%] top-[15px] h-px"
+        style={{
+          width: `${(active / 3) * 75}%`,
+          background: `linear-gradient(90deg, rgba(201,162,75,0.15) 0%, ${GOLD} 100%)`,
+        }}
         aria-hidden
       />
       {TRACK_STEPS.map((s, i) => {
         const done = i < active;
         const current = i === active;
         return (
-          <div key={s.key} className="relative flex flex-col items-center gap-[6px]">
+          <div key={s.key} className="relative flex flex-col items-center gap-[5px]">
             <span
-              className="grid h-[27px] w-[27px] place-items-center rounded-full"
+              className="relative grid h-[31px] w-[31px] place-items-center rounded-full"
               style={{
                 background: done
                   ? tone
                   : current
-                    ? "rgba(201,162,75,0.10)"
-                    : "rgba(12,20,29,0.85)",
-                border: `1px solid ${done || current ? tone : "rgba(140,166,190,0.26)"}`,
-                color: done ? "#0A121A" : current ? tone : "#7C8B98",
+                    ? "rgba(201,162,75,0.09)"
+                    : "rgba(19,29,40,0.55)",
+                border: `1px solid ${done || current ? tone : "rgba(190,205,215,0.20)"}`,
+                color: done ? "#0A121A" : current ? GOLD_SOFT : "#8494A1",
+                boxShadow: current
+                  ? "0 0 18px rgba(201,162,75,0.22), inset 0 1px 0 rgba(255,255,255,0.06)"
+                  : done
+                    ? "0 0 14px rgba(201,162,75,0.14)"
+                    : "inset 0 1px 0 rgba(255,255,255,0.04)",
               }}
             >
-              <s.icon size={13} strokeWidth={1.8} />
+              <s.icon size={14} strokeWidth={1.6} />
             </span>
             <span
-              className="whitespace-pre-line text-center text-[10.5px] leading-[1.2]"
-              style={{ color: done || current ? tone : "#71818E" }}
+              className="whitespace-pre-line text-center text-[10.5px] leading-[1.2] tracking-[0.02em]"
+              style={{ color: done || current ? GOLD_SOFT : "#8B9AA6" }}
             >
               {s.label}
             </span>
@@ -241,23 +249,25 @@ function Timeline({ booking }: { booking: Booking }) {
         );
       })}
     </div>
+
   );
 }
 
 function TypeChip({ type }: { type: Booking["type"] }) {
   return (
     <span
-      className="inline-flex items-center rounded-[4px] px-[7px] py-[2px] text-[9.5px] font-semibold uppercase tracking-[0.18em]"
+      className="inline-flex items-center rounded-[4px] px-[7px] py-[2px] text-[9px] font-semibold uppercase tracking-[0.2em]"
       style={{
-        color: GOLD_SOFT,
-        border: `1px solid ${GOLD}44`,
-        background: "rgba(201,162,75,0.07)",
+        color: "#C6AC72",
+        border: "1px solid rgba(201,162,75,0.34)",
+        background: "linear-gradient(180deg, rgba(201,162,75,0.10) 0%, rgba(14,22,31,0.45) 100%)",
       }}
     >
       {type === "leisure" ? "Leisure" : "M&E"}
     </span>
   );
 }
+
 
 function MetaItem({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
   return (
