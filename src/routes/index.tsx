@@ -219,26 +219,29 @@ function Home() {
             </nav>
 
             {/* Explore indicator */}
-            <a
-              href="#how"
-              className="group/explore mt-16 flex flex-col items-center gap-3"
-              aria-label="Explore"
-            >
-              <span
-                className="flex h-[38px] w-[38px] items-center justify-center rounded-full transition-transform duration-500 group-hover/explore:translate-y-1"
-                style={{ border: "1px solid rgba(226,190,122,0.55)" }}
+            <a href="#how" className="group/explore mt-16 block" aria-label="Explore">
+              <LiquidCursorHover
+                as="div"
+                radius={20}
+                className="flex flex-col items-center gap-3 px-7 py-4"
               >
-                <span className="text-[15px] leading-none" style={{ color: "#E2B473" }}>
-                  ↓
+                <span
+                  className="flex h-[38px] w-[38px] items-center justify-center rounded-full transition-transform duration-500 group-hover/explore:translate-y-1"
+                  style={{ border: "1px solid rgba(226,190,122,0.55)" }}
+                >
+                  <span className="text-[15px] leading-none" style={{ color: "#E2B473" }}>
+                    ↓
+                  </span>
                 </span>
-              </span>
-              <span
-                className="text-[10.5px] uppercase tracking-[0.34em]"
-                style={{ color: "rgba(226,180,115,0.9)", fontFamily: "Inter, sans-serif" }}
-              >
-                Explore
-              </span>
+                <span
+                  className="text-[10.5px] uppercase tracking-[0.34em]"
+                  style={{ color: "rgba(226,180,115,0.9)", fontFamily: "Inter, sans-serif" }}
+                >
+                  Explore
+                </span>
+              </LiquidCursorHover>
             </a>
+
           </div>
         </section>
       </main>
