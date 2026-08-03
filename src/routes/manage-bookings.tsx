@@ -621,29 +621,38 @@ function Sidebar({
   email: string;
   onSignOut: () => void;
 }) {
+  const GOLD_LINE = "linear-gradient(180deg, #D8BE72 0%, #C7A24B 50%, #A97E2E 100%)";
+
   const row =
-    "relative flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left text-[13.5px] transition-colors";
+    "hgb-side-item relative flex w-full items-center gap-3 rounded-[19px] px-4 text-left text-[13.5px]";
 
   const renderItem = (
     item: { label: string; icon: typeof User },
     opts: { to?: "/rooming-list/$bookingId" | "/account"; params?: { bookingId: string } },
   ) => {
     const isActive = item.label === active;
-    const style = {
-      background: isActive ? "#FFFFFF" : "transparent",
-      color: isActive ? SIDE_TEXT : SIDE_TEXT_2,
-      boxShadow: isActive ? "0 6px 16px -12px rgba(20,28,36,0.55)" : "none",
-      border: `1px solid ${isActive ? "rgba(20,28,36,0.07)" : "transparent"}`,
+    const style: React.CSSProperties = {
+      background: isActive ? "#F7F5F1" : "transparent",
+      color: isActive ? "#3A464F" : SIDE_TEXT_2,
+      fontWeight: isActive ? 600 : 400,
+      boxShadow: isActive ? "0 3px 10px -6px rgba(20,28,36,0.30)" : "none",
+      border: `1px solid ${isActive ? "rgba(169,133,58,0.12)" : "transparent"}`,
+      padding: isActive ? "8px 16px" : "9px 16px",
     };
     const inner = (
       <>
         {isActive && (
           <span
-            className="absolute left-0 top-1.5 bottom-1.5 w-[2px] rounded-full"
-            style={{ backgroundColor: GOLD }}
+            aria-hidden
+            className="pointer-events-none absolute left-[6px] top-[9px] bottom-[9px] w-[3px] rounded-full"
+            style={{ background: GOLD_LINE }}
           />
         )}
-        <item.icon size={17} style={{ color: isActive ? GOLD_DEEP : SIDE_MUTED }} />
+        <item.icon
+          size={17}
+          strokeWidth={isActive ? 2 : 1.7}
+          style={{ color: isActive ? "#A97E2E" : SIDE_MUTED }}
+        />
         {item.label}
       </>
     );

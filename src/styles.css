@@ -717,3 +717,15 @@
   border-color: rgba(197, 162, 75, 0.45) !important;
   box-shadow: 0 0 0 3px rgba(197, 162, 75, 0.1);
 }
+
+/* Manage · sidebar nav — understated luxury active/hover states */
+.hgb-side-item {
+  transition: background-color 230ms ease, box-shadow 230ms ease, transform 230ms ease, color 230ms ease;
+  border: 1px solid transparent;
+}
+.hgb-side-item:not(:where([aria-current])):hover {
+  background-color: #F7F5F1;
+  box-shadow: 0 2px 8px -4px rgba(20,28,36,0.18);
+  transform: translateY(-1px);
+  color: #3A464F;
+}
