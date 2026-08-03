@@ -77,9 +77,12 @@ const SIDE_TEXT_2 = "#4C5A66";
 const SIDE_MUTED = "#8A959E";
 const SIDE_LINE = "rgba(20,28,36,0.09)";
 const GOLD_DEEP = "#A9853A";
-const PAGE = "#080F17";
-const PANEL = "rgba(16,26,37,0.72)";
-const HAIRLINE = "rgba(140,166,190,0.14)";
+const PAGE = "#646D75";
+const CARD = "#2F3842";
+const CARD_BORDER = "rgba(255,255,255,0.06)";
+const CARD_SHADOW = "0 20px 55px rgba(0,0,0,0.22)";
+const PANEL = "#2F3842";
+const HAIRLINE = "rgba(255,255,255,0.08)";
 const TEXT = "#F1EFE9";
 const TEXT_2 = "#B6C3CE";
 const MUTED = "#7F8F9C";
@@ -441,9 +444,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   );
 
   const shell = {
-    background: `linear-gradient(180deg, rgba(19,30,42,0.78) 0%, rgba(14,23,33,0.72) 100%)`,
-    border: `1px solid ${HAIRLINE}`,
-    boxShadow: "0 26px 52px -38px rgba(0,0,0,0.95)",
+    background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 34%), ${CARD}`,
+    border: `1px solid ${CARD_BORDER}`,
+    boxShadow: CARD_SHADOW,
   } as const;
 
   const media = (
@@ -473,7 +476,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="group overflow-hidden rounded-[18px] transition-transform hover:-translate-y-px" style={shell}>
+      <article className="group overflow-hidden rounded-[22px] transition-transform hover:-translate-y-px" style={shell}>
         {media}
         <div className="p-5">{info}</div>
       </article>
@@ -482,7 +485,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="group grid grid-cols-1 overflow-hidden rounded-[18px] transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,196px)_minmax(0,1fr)]"
+      className="group grid grid-cols-1 overflow-hidden rounded-[22px] transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,196px)_minmax(0,1fr)]"
       style={shell}
     >
       {media}
@@ -520,10 +523,12 @@ function StatusCard({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex h-[210px] flex-col overflow-hidden rounded-[15px] p-5 text-left transition-transform hover:-translate-y-px"
+      className="relative flex h-[235px] flex-col overflow-hidden rounded-[22px] p-[22px] text-left transition-transform hover:-translate-y-px"
       style={{
         border: `1px solid ${active ? tone : `${tone}55`}`,
-        boxShadow: active ? `0 0 0 1px ${tone}55` : "0 18px 36px -30px rgba(0,0,0,0.9)",
+        boxShadow: active
+          ? `0 0 0 1px ${tone}55, 0 22px 60px rgba(0,0,0,0.26)`
+          : "0 22px 60px rgba(0,0,0,0.26)",
       }}
     >
       <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.86) brightness(0.90) contrast(1.04)" }} />
@@ -532,6 +537,22 @@ function StatusCard({
         aria-hidden
         style={{ background: overlay }}
       />
+      {/* glass reflection across the top */}
+      <span
+        className="pointer-events-none absolute inset-x-0 top-0 h-2/5"
+        aria-hidden
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.035) 46%, rgba(255,255,255,0) 100%)",
+        }}
+      />
+      {/* faint inner highlight */}
+      <span
+        className="pointer-events-none absolute inset-0 rounded-[22px]"
+        aria-hidden
+        style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 0 1px rgba(255,255,255,0.04)" }}
+      />
+
 
       <span
         className="relative grid h-11 w-11 place-items-center rounded-full"
@@ -723,8 +744,8 @@ function Select<T extends string>({
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="w-full appearance-none rounded-[11px] px-4 py-[11px] pr-9 text-[13.5px] outline-none"
-        style={{ backgroundColor: "rgba(14,23,33,0.8)", border: `1px solid ${HAIRLINE}`, color: TEXT_2 }}
+        className="hgb-field w-full appearance-none rounded-[11px] px-4 py-[11px] pr-9 text-[13.5px] outline-none"
+        style={{ backgroundColor: "#333C46", border: `1px solid rgba(255,255,255,0.06)`, color: TEXT_2 }}
       >
         {options.map((o) => (
           <option key={o.value} value={o.value} style={{ backgroundColor: "#101A24" }}>
