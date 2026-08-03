@@ -636,7 +636,7 @@ function Sidebar({
       color: isActive ? "#3A464F" : SIDE_TEXT_2,
       fontWeight: isActive ? 600 : 400,
       boxShadow: isActive ? "0 3px 10px -6px rgba(20,28,36,0.30)" : "none",
-      border: `1px solid ${isActive ? "rgba(169,133,58,0.12)" : "1px solid transparent"}`,
+      border: `1px solid ${isActive ? "rgba(169,133,58,0.12)" : "transparent"}`,
       padding: isActive ? "8px 16px" : "9px 16px",
     };
     const inner = (
