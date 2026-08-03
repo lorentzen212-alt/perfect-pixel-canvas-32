@@ -39,7 +39,7 @@ import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
 import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
-import heroVideoAsset from "@/assets/manage-hero.mp4.asset.json";
+import heroVideoAsset from "@/assets/manage-hero-v2.mp4.asset.json";
 
 
 import {
