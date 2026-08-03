@@ -1148,7 +1148,7 @@ function ManageBookings() {
               "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
           }}
         >
-          {/* stone texture surface — starts at the hero's bottom edge */}
+          {/* wooden texture surface — starts at the hero's bottom edge */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0"
@@ -1160,9 +1160,8 @@ function ManageBookings() {
               backgroundRepeat: "no-repeat",
               backgroundAttachment: "scroll",
             }}
-          >
-            <div className="absolute inset-0" style={{ background: "rgba(70,82,94,0.04)" }} />
-          </div>
+          />
+
 
           {/* cinematic hero backdrop */}
           <div
