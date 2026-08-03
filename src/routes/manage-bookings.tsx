@@ -831,18 +831,29 @@ function Sidebar({
         transition: `padding ${RAIL_MS}ms ${RAIL_EASE}`,
       }}
     >
-      {/* uploaded slate texture — the actual sidebar material */}
+      {/* fine matte grain — keeps the panel from reading as flat colour */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage: `url("${slateTextureAsset.url}")`,
-          backgroundSize: "cover",
-          backgroundPosition: "center top",
-          backgroundRepeat: "no-repeat",
-          opacity: 0.65,
+          backgroundImage: `url("data:image/svg+xml;utf8,${encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="220" height="220" filter="url(%23g)" opacity="0.5"/></svg>',
+          )}")`,
+          backgroundSize: "220px 220px",
+          opacity: 0.05,
+          mixBlendMode: "overlay",
         }}
       />
+      {/* gentle vignette around the outer edges */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(125% 105% at 50% 45%, rgba(0,0,0,0) 52%, rgba(6,11,17,0.20) 84%, rgba(6,11,17,0.34) 100%)",
+        }}
+      />
+
 
 
 
