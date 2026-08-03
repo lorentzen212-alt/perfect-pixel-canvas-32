@@ -649,9 +649,14 @@ function Sidebar({
       className="flex h-full flex-col px-4 py-7"
       style={{ background: SIDEBAR, borderRight: `1px solid ${SIDE_LINE}` }}
     >
-      <Link to="/" className="block px-2 py-2">
-        <img src={logo.url} alt="HotelGroupBook" className="h-12 w-auto object-contain object-left" />
+      <Link
+        to="/"
+        className="block rounded-[12px] px-3 py-3"
+        style={{ background: "#0B131B", border: `1px solid rgba(201,162,75,0.22)` }}
+      >
+        <img src={logo.url} alt="HotelGroupBook" className="h-11 w-auto object-contain object-left" />
       </Link>
+
 
       <nav className="mt-10 space-y-1">
         {PRIMARY_NAV.map((item) =>
