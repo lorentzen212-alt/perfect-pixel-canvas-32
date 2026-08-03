@@ -720,15 +720,15 @@
 
 /* Manage · sidebar nav — understated luxury active/hover states */
 .hgb-side-item {
-  transition: background-color 230ms ease, box-shadow 230ms ease, transform 230ms ease, color 230ms ease;
+  transition: background-color 220ms ease, box-shadow 220ms ease, transform 220ms ease, color 220ms ease;
   border: 1px solid transparent;
 }
 .hgb-side-item:not(:where([aria-current])):hover {
-  background-color: rgba(255,255,255,0.07);
-  box-shadow: 0 2px 10px -6px rgba(0,0,0,0.35);
+  background-color: rgba(255,255,255,0.08);
   transform: translateY(-1px);
-  color: #F1EFE9;
+  color: rgba(255,255,255,0.96);
 }
+
 
 /* Manage · luxury rail navigation */
 .hgb-rail-shift {

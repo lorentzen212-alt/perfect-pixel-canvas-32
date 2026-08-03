@@ -75,11 +75,20 @@ export const Route = createFileRoute("/manage-bookings")({
 });
 
 /* ── palette ─────────────────────────────────────────── */
-const SIDEBAR = "linear-gradient(180deg, #4A5561 0%, #444F5A 55%, #3F4A55 100%)";
-const SIDE_TEXT = "#F1EFE9";
-const SIDE_TEXT_2 = "#D5D9DD";
-const SIDE_MUTED = "#B4BBC2";
-const SIDE_LINE = "rgba(255,255,255,0.10)";
+const SIDEBAR = "linear-gradient(180deg, #56616E 0%, #515C69 35%, #4A5562 70%, #434E5B 100%)";
+/* soft cloudy brushed-stone texture + upper-left light source, layered over SIDEBAR */
+const SIDEBAR_LAYERS = [
+  "radial-gradient(120% 70% at 8% 0%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 38%, rgba(255,255,255,0) 72%)",
+  "radial-gradient(70% 42% at 78% 22%, rgba(255,255,255,0.028) 0%, rgba(255,255,255,0) 100%)",
+  "radial-gradient(80% 40% at 18% 64%, rgba(255,255,255,0.022) 0%, rgba(255,255,255,0) 100%)",
+  "radial-gradient(90% 45% at 92% 88%, rgba(0,0,0,0.030) 0%, rgba(0,0,0,0) 100%)",
+  SIDEBAR,
+].join(", ");
+const SIDE_TEXT = "rgba(255,255,255,0.90)";
+const SIDE_TEXT_2 = "rgba(255,255,255,0.90)";
+const SIDE_MUTED = "rgba(255,255,255,0.90)";
+const SIDE_LINE = "rgba(255,255,255,0.06)";
+
 const GOLD_DEEP = "#A9853A";
 const PAGE = "#646D75";
 const CARD = "#2F3842";
@@ -639,16 +648,20 @@ function Sidebar({
   ) => {
     const isActive = item.label === active;
     const style: React.CSSProperties = {
-      background: isActive ? "#F7F5F1" : "transparent",
-      color: isActive ? "#3A464F" : SIDE_TEXT_2,
+      background: isActive ? "rgba(255,255,255,0.16)" : "transparent",
+      color: "rgba(255,255,255,0.90)",
       fontWeight: isActive ? 600 : 400,
-      boxShadow: isActive ? "0 3px 10px -6px rgba(20,28,36,0.30)" : "none",
-      border: `1px solid ${isActive ? "rgba(169,133,58,0.12)" : "transparent"}`,
+      boxShadow: isActive ? "0 8px 18px rgba(0,0,0,0.12)" : "none",
+      border: `1px solid ${isActive ? "rgba(255,255,255,0.12)" : "transparent"}`,
+      backdropFilter: isActive ? "blur(8px)" : undefined,
+      WebkitBackdropFilter: isActive ? "blur(8px)" : undefined,
+      borderRadius: 14,
       padding: collapsed ? "9px 0" : isActive ? "8px 16px" : "9px 16px",
       justifyContent: collapsed ? "center" : "flex-start",
-      transition: `padding ${RAIL_MS}ms ${RAIL_EASE}, background-color 230ms ease, box-shadow 230ms ease, color 230ms ease`,
+      transition: `padding ${RAIL_MS}ms ${RAIL_EASE}, background-color 220ms ease, box-shadow 220ms ease, transform 220ms ease, color 220ms ease`,
     };
-    const row = `hgb-side-item hgb-rail-item group relative flex w-full items-center rounded-[19px] text-left text-[13.5px] ${
+
+    const row = `hgb-side-item hgb-rail-item group relative flex w-full items-center rounded-[14px] text-left text-[13.5px] ${
       collapsed ? "gap-0" : "gap-3"
     }`;
     const inner = (
@@ -656,23 +669,24 @@ function Sidebar({
         {isActive && !collapsed && (
           <span
             aria-hidden
-            className="pointer-events-none absolute left-[6px] top-[9px] bottom-[9px] w-[3px] rounded-full"
-            style={{ background: GOLD_LINE }}
+            className="pointer-events-none absolute left-[6px] top-[9px] bottom-[9px] w-[2px] rounded-full"
+            style={{ background: "#D4AF37" }}
           />
         )}
         {isActive && collapsed && (
           <span
             aria-hidden
-            className="pointer-events-none absolute left-[7px] top-[10px] bottom-[10px] w-[3px] rounded-full"
-            style={{ background: GOLD_LINE }}
+            className="pointer-events-none absolute left-[7px] top-[10px] bottom-[10px] w-[2px] rounded-full"
+            style={{ background: "#D4AF37" }}
           />
         )}
         <item.icon
           size={17}
-          strokeWidth={isActive ? 2 : 1.7}
+          strokeWidth={1.8}
           className="shrink-0"
-          style={{ color: isActive ? "#A97E2E" : SIDE_MUTED }}
+          style={{ color: "rgba(255,255,255,0.90)" }}
         />
+
         <span
           className="hgb-rail-label truncate"
           style={{
@@ -716,9 +730,10 @@ function Sidebar({
     <div
       className={`flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
       style={{
-        background: SIDEBAR,
-        borderRight: `1px solid ${SIDE_LINE}`,
-        boxShadow: "1px 0 24px -12px rgba(20,28,36,0.22)",
+        background: SIDEBAR_LAYERS,
+        borderRight: "none",
+        boxShadow:
+          "inset -1px 0 0 rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.08), 1px 0 30px -16px rgba(20,28,36,0.28)",
         transition: `padding ${RAIL_MS}ms ${RAIL_EASE}`,
       }}
     >
@@ -728,9 +743,9 @@ function Sidebar({
             <span
               className="grid h-9 w-9 place-items-center rounded-[12px] text-[12.5px] font-semibold tracking-[0.06em]"
               style={{
-                color: "#F1EFE9",
-                border: "1px solid rgba(216,190,114,0.42)",
-                background: "rgba(255,255,255,0.06)",
+                color: "#FFFFFF",
+                border: "1px solid rgba(255,255,255,0.18)",
+                background: "rgba(255,255,255,0.08)",
               }}
             >
               HGB
@@ -740,9 +755,11 @@ function Sidebar({
               src={logo.url}
               alt="HotelGroupBook"
               className="h-11 w-auto object-contain object-left"
+              style={{ filter: "brightness(0) invert(1)" }}
             />
           )}
         </Link>
+
 
         {onToggle && (
           <button
