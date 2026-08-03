@@ -1069,7 +1069,7 @@ function ManageBookings() {
               <div
                 className="flex h-[235px] flex-col rounded-[22px] p-[22px]"
                 style={{
-                  background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 34%), ${PANEL}`,
+                  background: PANEL,
                   border: `1px solid ${CARD_BORDER}`,
                   boxShadow: CARD_SHADOW,
                 }}
