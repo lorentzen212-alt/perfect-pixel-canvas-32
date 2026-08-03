@@ -748,7 +748,7 @@ function Select<T extends string>({
         style={{ backgroundColor: "#333C46", border: `1px solid rgba(255,255,255,0.06)`, color: TEXT_2 }}
       >
         {options.map((o) => (
-          <option key={o.value} value={o.value} style={{ backgroundColor: "#101A24" }}>
+          <option key={o.value} value={o.value} style={{ backgroundColor: "#333C46" }}>
             {o.label}
           </option>
         ))}
@@ -1233,7 +1233,7 @@ function ManageBookings() {
                       aria-label={label}
                       aria-pressed={on}
                       onClick={() => setView(key)}
-                      className="hgb-field grid h-[44px] w-[48px] place-items-center rounded-[11px] transition-colors"
+                      className="grid h-[44px] w-[48px] place-items-center rounded-[11px] transition-colors"
                       style={{
                         background: on ? "rgba(201,162,75,0.14)" : "#333C46",
                         border: `1px solid ${on ? `${GOLD}99` : "rgba(255,255,255,0.06)"}`,
