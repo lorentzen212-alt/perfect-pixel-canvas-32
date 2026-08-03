@@ -71,7 +71,12 @@ export const Route = createFileRoute("/manage-bookings")({
 });
 
 /* ── palette ─────────────────────────────────────────── */
-const SIDEBAR = "#060C12";
+const SIDEBAR = "#F4F2EE";
+const SIDE_TEXT = "#141C24";
+const SIDE_TEXT_2 = "#4C5A66";
+const SIDE_MUTED = "#8A959E";
+const SIDE_LINE = "rgba(20,28,36,0.09)";
+const GOLD_DEEP = "#A9853A";
 const PAGE = "#080F17";
 const PANEL = "rgba(16,26,37,0.72)";
 const HAIRLINE = "rgba(140,166,190,0.14)";
@@ -332,25 +337,34 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             </h3>
           </Link>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-3">
           <span
-            className="hidden text-[11px] font-semibold uppercase tracking-[0.14em] sm:inline"
+            className="hidden items-center gap-2 text-[10.5px] font-semibold uppercase tracking-[0.18em] sm:inline-flex"
             style={{ color: tone }}
           >
+            <span
+              className="inline-block h-[6px] w-[6px] rounded-full"
+              style={{ backgroundColor: tone, boxShadow: `0 0 0 3px ${tone}22` }}
+            />
             {GROUP_LABEL[g]}
           </span>
           <Link
             to={action.to}
             params={{ bookingId: booking.id }}
-            className="inline-flex items-center gap-2 whitespace-nowrap rounded-[10px] px-4 py-2 text-[12.5px] transition-colors hover:bg-white/5"
-            style={{ color: TEXT, border: `1px solid ${HAIRLINE}` }}
+            className="inline-flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-[7px] text-[12px] transition-colors hover:bg-white/[0.07]"
+            style={{
+              color: TEXT,
+              border: `1px solid ${HAIRLINE}`,
+              background: "rgba(255,255,255,0.03)",
+            }}
           >
             {action.label}
-            <ArrowRight size={14} style={{ color: tone }} />
+            <ArrowRight size={13} style={{ color: tone }} />
           </Link>
           <RowMenu booking={booking} />
         </div>
       </div>
+
 
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5">
         <MetaItem icon={<MapPin size={14} strokeWidth={1.6} />}>{booking.destination}</MetaItem>
@@ -382,9 +396,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       <div
         className={
           compact
-            ? "mt-4 grid grid-cols-2 gap-4"
-            : "mt-4 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
+            ? "mt-4 grid grid-cols-2 gap-4 pt-4"
+            : "mt-4 grid grid-cols-1 gap-5 pt-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
         }
+        style={{
+          borderTop: `1px solid rgba(201,162,75,0.14)`,
+        }}
       >
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -423,19 +440,41 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     </>
   );
 
+  const shell = {
+    background: `linear-gradient(180deg, rgba(19,30,42,0.78) 0%, rgba(14,23,33,0.72) 100%)`,
+    border: `1px solid ${HAIRLINE}`,
+    boxShadow: "0 26px 52px -38px rgba(0,0,0,0.95)",
+  } as const;
+
+  const media = (
+    <div className="relative overflow-hidden">
+      <img
+        src={booking.image}
+        alt={`${booking.destination} — ${booking.name}`}
+        loading="lazy"
+        className={
+          compact
+            ? "h-[150px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+            : "h-[160px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+        }
+        style={{ filter: "saturate(0.92) brightness(0.8)" }}
+      />
+      <span
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background: compact
+            ? "linear-gradient(180deg, rgba(8,15,23,0) 40%, rgba(14,23,33,0.7) 100%)"
+            : "linear-gradient(90deg, rgba(8,15,23,0) 55%, rgba(14,23,33,0.75) 100%)",
+        }}
+      />
+    </div>
+  );
+
   if (compact) {
     return (
-      <article
-        className="overflow-hidden rounded-[16px]"
-        style={{ background: PANEL, border: `1px solid ${HAIRLINE}` }}
-      >
-        <img
-          src={booking.image}
-          alt={`${booking.destination} — ${booking.name}`}
-          loading="lazy"
-          className="h-[150px] w-full object-cover"
-          style={{ filter: "saturate(0.95) brightness(0.82)" }}
-        />
+      <article className="group overflow-hidden rounded-[18px] transition-transform hover:-translate-y-px" style={shell}>
+        {media}
         <div className="p-5">{info}</div>
       </article>
     );
@@ -443,24 +482,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="grid grid-cols-1 overflow-hidden rounded-[16px] sm:grid-cols-[minmax(0,180px)_minmax(0,1fr)]"
-      style={{
-        background: PANEL,
-        border: `1px solid ${HAIRLINE}`,
-        boxShadow: "0 20px 40px -32px rgba(0,0,0,0.85)",
-      }}
+      className="group grid grid-cols-1 overflow-hidden rounded-[18px] transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,196px)_minmax(0,1fr)]"
+      style={shell}
     >
-      <img
-        src={booking.image}
-        alt={`${booking.destination} — ${booking.name}`}
-        loading="lazy"
-        className="h-[150px] w-full object-cover sm:h-full"
-        style={{ filter: "saturate(0.95) brightness(0.82)" }}
-      />
+      {media}
       <div className="min-w-0 p-5 sm:p-6">{info}</div>
     </article>
   );
 }
+
 
 /* ── status cards ────────────────────────────────────── */
 
@@ -576,8 +606,10 @@ function Sidebar({
   ) => {
     const isActive = item.label === active;
     const style = {
-      background: isActive ? "rgba(255,255,255,0.055)" : "transparent",
-      color: isActive ? TEXT : TEXT_2,
+      background: isActive ? "#FFFFFF" : "transparent",
+      color: isActive ? SIDE_TEXT : SIDE_TEXT_2,
+      boxShadow: isActive ? "0 6px 16px -12px rgba(20,28,36,0.55)" : "none",
+      border: `1px solid ${isActive ? "rgba(20,28,36,0.07)" : "transparent"}`,
     };
     const inner = (
       <>
@@ -587,7 +619,7 @@ function Sidebar({
             style={{ backgroundColor: GOLD }}
           />
         )}
-        <item.icon size={17} style={{ color: isActive ? GOLD : MUTED }} />
+        <item.icon size={17} style={{ color: isActive ? GOLD_DEEP : SIDE_MUTED }} />
         {item.label}
       </>
     );
@@ -613,10 +645,18 @@ function Sidebar({
   };
 
   return (
-    <div className="flex h-full flex-col px-4 py-7" style={{ background: SIDEBAR }}>
-      <Link to="/" className="block px-2 py-2">
-        <img src={logo.url} alt="HotelGroupBook" className="h-12 w-auto object-contain object-left" />
+    <div
+      className="flex h-full flex-col px-4 py-7"
+      style={{ background: SIDEBAR, borderRight: `1px solid ${SIDE_LINE}` }}
+    >
+      <Link
+        to="/"
+        className="block rounded-[12px] px-3 py-3"
+        style={{ background: "#0B131B", border: `1px solid rgba(201,162,75,0.22)` }}
+      >
+        <img src={logo.url} alt="HotelGroupBook" className="h-11 w-auto object-contain object-left" />
       </Link>
+
 
       <nav className="mt-10 space-y-1">
         {PRIMARY_NAV.map((item) =>
@@ -637,23 +677,23 @@ function Sidebar({
 
       <div
         className="mt-6 flex items-center gap-3 pt-5"
-        style={{ borderTop: `1px solid rgba(255,255,255,0.07)` }}
+        style={{ borderTop: `1px solid ${SIDE_LINE}` }}
       >
         <span
           className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
-          style={{ backgroundColor: "rgba(201,162,75,0.16)", color: GOLD }}
+          style={{ backgroundColor: "rgba(169,133,58,0.14)", color: GOLD_DEEP }}
         >
           {initials || "—"}
         </span>
         <span className="min-w-0 flex-1">
-          <Link to="/account" className="block truncate text-[12.5px]" style={{ color: TEXT }}>
+          <Link to="/account" className="block truncate text-[12.5px]" style={{ color: SIDE_TEXT }}>
             {displayName || email}
           </Link>
           <button
             type="button"
             onClick={onSignOut}
             className="mt-0.5 inline-flex items-center gap-1.5 text-[11.5px]"
-            style={{ color: GOLD }}
+            style={{ color: GOLD_DEEP }}
           >
             <LogOut size={12} /> Log out
           </button>
@@ -662,6 +702,7 @@ function Sidebar({
     </div>
   );
 }
+
 
 /* ── select ──────────────────────────────────────────── */
 
@@ -827,7 +868,7 @@ function ManageBookings() {
               aria-label="Close navigation"
               onClick={() => setNavOpen(false)}
               className="absolute right-3 top-4 grid h-9 w-9 place-items-center rounded-md"
-              style={{ color: TEXT_2 }}
+              style={{ color: SIDE_TEXT_2 }}
             >
               <X size={18} />
             </button>
@@ -838,20 +879,27 @@ function ManageBookings() {
       <div className="lg:pl-[236px]">
         <main className="relative min-h-screen" style={{ backgroundColor: PAGE }}>
           {/* cinematic hero backdrop */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-[520px]" aria-hidden>
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[430px]" aria-hidden>
             <img
               src={mountains}
               alt=""
               className="h-full w-full object-cover"
-              style={{ filter: "saturate(0.7) brightness(0.45)" }}
+              style={{ filter: "saturate(0.62) brightness(0.52) contrast(1.02)" }}
             />
             <div
               className="absolute inset-0"
               style={{
-                background: `linear-gradient(180deg, rgba(6,12,18,0.55) 0%, rgba(7,14,21,0.78) 45%, ${PAGE} 100%)`,
+                background: `linear-gradient(180deg, rgba(6,12,18,0.32) 0%, rgba(7,14,21,0.66) 42%, rgba(8,15,23,0.92) 78%, ${PAGE} 100%)`,
+              }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background: `linear-gradient(90deg, rgba(6,12,18,0.72) 0%, rgba(6,12,18,0.22) 48%, rgba(6,12,18,0) 100%)`,
               }}
             />
           </div>
+
 
           <div className="relative px-4 pb-14 pt-6 sm:px-6 lg:px-10">
             {/* mobile bar */}
@@ -868,56 +916,83 @@ function ManageBookings() {
               <img src={logo.url} alt="HotelGroupBook" className="h-7 w-auto" />
             </div>
 
+            {/* top action bar */}
+            <div className="mb-7 hidden items-center justify-end gap-3 lg:flex">
+              <Link
+                to="/book-leisure"
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] transition-colors hover:bg-white/5"
+                style={{
+                  backgroundColor: "rgba(10,18,27,0.45)",
+                  border: `1px solid ${GOLD}88`,
+                  color: GOLD_SOFT,
+                  backdropFilter: "blur(6px)",
+                }}
+              >
+                <Plus size={15} /> New booking
+              </Link>
+              <button
+                type="button"
+                aria-label="Notifications"
+                className="relative grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-white/5"
+                style={{
+                  border: `1px solid ${HAIRLINE}`,
+                  color: TEXT_2,
+                  backgroundColor: "rgba(10,18,27,0.4)",
+                }}
+              >
+                <Bell size={16} />
+                <span
+                  className="absolute right-[9px] top-[9px] h-[6px] w-[6px] rounded-full"
+                  style={{ backgroundColor: "#C6584F" }}
+                />
+              </button>
+              <Link
+                to="/account"
+                aria-label="Your account"
+                className="grid h-10 w-10 place-items-center rounded-full text-[11.5px] font-semibold tracking-[0.06em]"
+                style={{
+                  border: `1px solid ${HAIRLINE}`,
+                  color: GOLD_SOFT,
+                  backgroundColor: "rgba(10,18,27,0.4)",
+                }}
+              >
+                {initials || "—"}
+              </Link>
+            </div>
+
             {/* greeting */}
-            <header className="flex flex-wrap items-start justify-between gap-5">
-              <div className="min-w-0">
-                <p
-                  className="text-[11px] font-semibold uppercase tracking-[0.28em]"
-                  style={{ color: TEXT_2 }}
-                >
-                  Dark Luxe
-                </p>
+            <header className="max-w-[720px]">
+              <div className="flex items-end gap-5">
                 <h1
-                  className="mt-3 text-[42px] leading-[1.02] sm:text-[54px]"
+                  className="text-[40px] leading-[1.02] sm:text-[52px]"
                   style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
                 >
                   Welcome {firstName}
                 </h1>
-                <p className="mt-2 text-[15px]" style={{ color: TEXT_2 }}>
-                  Here&rsquo;s what&rsquo;s happening with your group stays.
-                </p>
+                <span
+                  className="mb-3 hidden h-px flex-1 sm:block"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(201,162,75,0.06) 100%)",
+                  }}
+                  aria-hidden
+                />
               </div>
+              <p className="mt-3 text-[14.5px]" style={{ color: TEXT_2 }}>
+                Here&rsquo;s what&rsquo;s happening with your group stays.
+              </p>
 
-              <div className="flex shrink-0 items-center gap-3">
+              <div className="mt-5 flex items-center gap-3 lg:hidden">
                 <Link
                   to="/book-leisure"
-                  className="inline-flex items-center gap-2 rounded-[11px] px-4 py-2.5 text-[13.5px]"
-                  style={{
-                    backgroundColor: "rgba(12,22,32,0.6)",
-                    border: `1px solid ${GOLD}77`,
-                    color: GOLD_SOFT,
-                  }}
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px]"
+                  style={{ border: `1px solid ${GOLD}88`, color: GOLD_SOFT }}
                 >
-                  <Plus size={16} /> New booking
-                </Link>
-                <button
-                  type="button"
-                  aria-label="Notifications"
-                  className="grid h-10 w-10 place-items-center rounded-full"
-                  style={{ border: `1px solid ${HAIRLINE}`, color: TEXT_2 }}
-                >
-                  <Bell size={17} />
-                </button>
-                <Link
-                  to="/account"
-                  aria-label="Your account"
-                  className="grid h-10 w-10 place-items-center rounded-full text-[12px] font-semibold"
-                  style={{ border: `1px solid ${HAIRLINE}`, color: GOLD }}
-                >
-                  {initials || "—"}
+                  <Plus size={15} /> New booking
                 </Link>
               </div>
             </header>
+
 
             {/* status cards + activity */}
             <section className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.95fr)]">
@@ -1033,7 +1108,15 @@ function ManageBookings() {
             )}
 
             {/* toolbar */}
-            <section className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]">
+            <section
+              className="mt-7 grid grid-cols-1 gap-3 rounded-[16px] p-3 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]"
+              style={{
+                background: "rgba(13,22,32,0.62)",
+                border: `1px solid ${HAIRLINE}`,
+                boxShadow: "0 24px 48px -40px rgba(0,0,0,0.9)",
+                backdropFilter: "blur(8px)",
+              }}
+            >
               <div className="relative">
                 <Search
                   size={17}
