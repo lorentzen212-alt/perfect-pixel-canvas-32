@@ -1078,7 +1078,15 @@ function ManageBookings() {
             )}
 
             {/* toolbar */}
-            <section className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]">
+            <section
+              className="mt-7 grid grid-cols-1 gap-3 rounded-[16px] p-3 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]"
+              style={{
+                background: "rgba(13,22,32,0.62)",
+                border: `1px solid ${HAIRLINE}`,
+                boxShadow: "0 24px 48px -40px rgba(0,0,0,0.9)",
+                backdropFilter: "blur(8px)",
+              }}
+            >
               <div className="relative">
                 <Search
                   size={17}
