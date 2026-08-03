@@ -838,7 +838,7 @@ function ManageBookings() {
               aria-label="Close navigation"
               onClick={() => setNavOpen(false)}
               className="absolute right-3 top-4 grid h-9 w-9 place-items-center rounded-md"
-              style={{ color: TEXT_2 }}
+              style={{ color: SIDE_TEXT_2 }}
             >
               <X size={18} />
             </button>
