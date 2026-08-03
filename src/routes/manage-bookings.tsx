@@ -337,25 +337,34 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             </h3>
           </Link>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-3">
           <span
-            className="hidden text-[11px] font-semibold uppercase tracking-[0.14em] sm:inline"
+            className="hidden items-center gap-2 text-[10.5px] font-semibold uppercase tracking-[0.18em] sm:inline-flex"
             style={{ color: tone }}
           >
+            <span
+              className="inline-block h-[6px] w-[6px] rounded-full"
+              style={{ backgroundColor: tone, boxShadow: `0 0 0 3px ${tone}22` }}
+            />
             {GROUP_LABEL[g]}
           </span>
           <Link
             to={action.to}
             params={{ bookingId: booking.id }}
-            className="inline-flex items-center gap-2 whitespace-nowrap rounded-[10px] px-4 py-2 text-[12.5px] transition-colors hover:bg-white/5"
-            style={{ color: TEXT, border: `1px solid ${HAIRLINE}` }}
+            className="inline-flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-[7px] text-[12px] transition-colors hover:bg-white/[0.07]"
+            style={{
+              color: TEXT,
+              border: `1px solid ${HAIRLINE}`,
+              background: "rgba(255,255,255,0.03)",
+            }}
           >
             {action.label}
-            <ArrowRight size={14} style={{ color: tone }} />
+            <ArrowRight size={13} style={{ color: tone }} />
           </Link>
           <RowMenu booking={booking} />
         </div>
       </div>
+
 
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5">
         <MetaItem icon={<MapPin size={14} strokeWidth={1.6} />}>{booking.destination}</MetaItem>
