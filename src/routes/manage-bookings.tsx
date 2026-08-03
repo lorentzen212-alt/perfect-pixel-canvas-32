@@ -910,13 +910,13 @@ function ManageBookings() {
             <div
               className="absolute inset-0"
               style={{
-                background: `linear-gradient(180deg, rgba(6,12,18,0.32) 0%, rgba(7,14,21,0.66) 42%, rgba(8,15,23,0.92) 78%, ${PAGE} 100%)`,
+                background: `linear-gradient(180deg, rgba(24,32,40,0.30) 0%, rgba(38,47,55,0.58) 42%, rgba(78,86,94,0.86) 78%, ${PAGE} 100%)`,
               }}
             />
             <div
               className="absolute inset-0"
               style={{
-                background: `linear-gradient(90deg, rgba(6,12,18,0.72) 0%, rgba(6,12,18,0.22) 48%, rgba(6,12,18,0) 100%)`,
+                background: `linear-gradient(90deg, rgba(20,27,34,0.62) 0%, rgba(28,36,44,0.20) 48%, rgba(28,36,44,0) 100%)`,
               }}
             />
           </div>
@@ -1153,9 +1153,9 @@ function ManageBookings() {
             <section
               className="mt-7 grid grid-cols-1 gap-3 rounded-[16px] p-3 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]"
               style={{
-                background: "rgba(13,22,32,0.62)",
-                border: `1px solid ${HAIRLINE}`,
-                boxShadow: "0 24px 48px -40px rgba(0,0,0,0.9)",
+                background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 40%), rgba(47,56,66,0.86)`,
+                border: `1px solid ${CARD_BORDER}`,
+                boxShadow: CARD_SHADOW,
                 backdropFilter: "blur(8px)",
               }}
             >
@@ -1170,10 +1170,10 @@ function ManageBookings() {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search bookings..."
                   aria-label="Search bookings by name, destination, hotel or reference"
-                  className="w-full rounded-[11px] py-[11px] pl-11 pr-4 text-[14px] outline-none placeholder:text-[#7C8B98]"
+                  className="hgb-field w-full rounded-[11px] py-[11px] pl-11 pr-4 text-[14px] outline-none placeholder:text-[#9AA5AF]"
                   style={{
-                    backgroundColor: "rgba(14,23,33,0.8)",
-                    border: `1px solid ${HAIRLINE}`,
+                    backgroundColor: "#333C46",
+                    border: `1px solid rgba(255,255,255,0.06)`,
                     color: TEXT,
                   }}
                 />
@@ -1218,12 +1218,12 @@ function ManageBookings() {
                       aria-label={label}
                       aria-pressed={on}
                       onClick={() => setView(key)}
-                      className="grid h-[44px] w-[48px] place-items-center rounded-[11px] transition-colors"
+                      className="hgb-field grid h-[44px] w-[48px] place-items-center rounded-[11px] transition-colors"
                       style={{
-                        background: on ? "rgba(201,162,75,0.12)" : "rgba(14,23,33,0.8)",
-                        border: `1px solid ${on ? `${GOLD}99` : HAIRLINE}`,
-                        color: on ? GOLD_SOFT : "#8A98A4",
-                        boxShadow: on ? "0 8px 20px -16px rgba(201,162,75,0.9)" : "none",
+                        background: on ? "rgba(201,162,75,0.14)" : "#333C46",
+                        border: `1px solid ${on ? `${GOLD}99` : "rgba(255,255,255,0.06)"}`,
+                        color: on ? GOLD_SOFT : "#A2ADB7",
+                        boxShadow: on ? "0 10px 24px -14px rgba(201,162,75,0.75)" : "0 8px 20px rgba(0,0,0,0.14)",
                       }}
                     >
                       <Icon size={18} />
