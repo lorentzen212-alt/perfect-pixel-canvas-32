@@ -869,15 +869,13 @@ function ManageBookings() {
   const toggleRail = () => {
     railTimers.current.forEach(clearTimeout);
     railTimers.current = [];
-    setRailCollapsed((wasCollapsed) => {
-      if (wasCollapsed) {
-        railTimers.current.push(setTimeout(() => setRailLabels(true), 240));
-        return false;
-      }
+    if (railCollapsed) {
+      setRailCollapsed(false);
+      railTimers.current.push(setTimeout(() => setRailLabels(true), 240));
+    } else {
       setRailLabels(false);
       railTimers.current.push(setTimeout(() => setRailCollapsed(true), 160));
-      return false;
-    });
+    }
   };
 
 
