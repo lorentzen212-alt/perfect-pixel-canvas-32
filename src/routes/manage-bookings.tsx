@@ -95,7 +95,7 @@ const SIDE_LINE = "rgba(255,255,255,0.06)";
 
 const GOLD_DEEP = "#A9853A";
 const PAGE = "#646D75";
-const CARD = "#2F3842";
+const CARD = "#31414F";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
 const CARD_SHADOW = "0 20px 45px rgba(0,0,0,0.20)";
 const PANEL = "#2F3842";
@@ -374,7 +374,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="mt-3 block truncate transition-opacity hover:opacity-85"
+            className="mt-1.5 block truncate transition-opacity hover:opacity-85"
           >
             <h3
               className="truncate text-[30px] leading-[1.08]"
@@ -401,7 +401,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* meta strip with hairline rules above and below */}
       <div
-        className="mt-4 flex flex-wrap items-center gap-y-2 py-3"
+        className="mt-3 flex flex-wrap items-center gap-y-1.5 py-2"
         style={{
           borderTop: `1px solid ${HAIRLINE}`,
           borderBottom: `1px solid ${HAIRLINE}`,
@@ -431,24 +431,24 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-4 grid grid-cols-1 overflow-hidden rounded-[12px] sm:grid-cols-2"
+        className="mt-3 grid grid-cols-1 overflow-hidden rounded-[12px] sm:grid-cols-2"
         style={{
           border: `1px solid ${HAIRLINE}`,
           background: "rgba(255,255,255,0.018)",
         }}
       >
-        <div className="px-5 py-4">
+        <div className="px-5 py-2.5">
           <p
             className="text-[10px] font-semibold uppercase tracking-[0.16em]"
             style={{ color: GOLD }}
           >
             Your reference
           </p>
-          <p className="mt-1.5 text-[16px]" style={{ color: TEXT }}>
+          <p className="mt-0.5 text-[15px]" style={{ color: TEXT }}>
             {booking.reference}
           </p>
         </div>
-        <div className="px-5 py-4" style={{ borderLeft: `1px solid ${HAIRLINE}` }}>
+        <div className="px-5 py-2.5" style={{ borderLeft: `1px solid ${HAIRLINE}` }}>
           <p
             className="text-[10px] font-semibold uppercase tracking-[0.16em]"
             style={{ color: GOLD }}
@@ -456,7 +456,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             Hotel reference
           </p>
           <p
-            className="mt-1.5 text-[16px]"
+            className="mt-0.5 text-[15px]"
             style={{ color: booking.hotelReference ? TEXT : MUTED }}
           >
             {booking.hotelReference ?? "—"}
@@ -465,13 +465,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* progress track */}
-      <div className="mt-6">
+      <div className="mt-3.5">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4"
+        className="mt-3.5 flex flex-nowrap items-center justify-between gap-4 pt-3"
         style={{ borderTop: `1px solid ${HAIRLINE}` }}
       >
         <p className="min-w-0 flex-1 truncate text-[13px]" style={{ color: TEXT_2 }}>
@@ -480,7 +480,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="inline-flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[8px] px-6 py-3 text-[14px] transition-colors hover:bg-[rgba(201,162,75,0.10)]"
+          className="inline-flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[8px] px-6 py-2.5 text-[14px] transition-colors hover:bg-[rgba(201,162,75,0.10)]"
           style={{
             color: GOLD,
             border: `1px solid ${GOLD}`,
@@ -509,7 +509,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[150px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[200px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+            : "h-[190px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[282px]"
         }
         style={{ filter: "saturate(0.92) brightness(0.8)" }}
       />
@@ -536,7 +536,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="group grid grid-cols-1 gap-6 overflow-hidden rounded-[22px] p-6 transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,240px)_minmax(0,1fr)]"
+      className="group grid grid-cols-1 items-start gap-6 overflow-hidden rounded-[22px] p-5 transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,285px)_minmax(0,1fr)]"
       style={shell}
     >
       {media}
