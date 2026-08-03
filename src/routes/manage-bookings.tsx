@@ -1149,44 +1149,34 @@ function ManageBookings() {
               "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
           }}
         >
-          {/* architectural limestone surface — base tone + near-invisible grain + lighting */}
+          {/* limestone surface — real image, cool navy grading, grain kept visible */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
-            style={{
-              top: 370,
-              background:
-                "linear-gradient(180deg, #3C4650 0%, #434D58 22%, #48525D 62%, #4B5561 100%)",
-            }}
+            style={{ top: 370, backgroundColor: "#3C4650" }}
           >
-            {/* limestone grain — scaled 235%, rotated 8°, ~7% visibility */}
-            <div
-              className="absolute"
-              style={{
-                inset: "-25%",
-                backgroundImage: `url("${pageTextureAsset.url}")`,
-                backgroundSize: "235% auto",
-                backgroundRepeat: "repeat",
-                backgroundPosition: "center top",
-                mixBlendMode: "overlay",
-                opacity: 0.07,
-                filter: "blur(1.5px) contrast(0.4) saturate(0.7)",
-                transform: "rotate(8deg)",
-                transformOrigin: "center",
-              }}
-            />
-
-            {/* cool blue-grey unifying veil */}
+            {/* the limestone photograph */}
             <div
               className="absolute inset-0"
-              style={{ background: "rgba(67,77,88,0.35)", mixBlendMode: "multiply" }}
+              style={{
+                backgroundImage: `url("${pageTextureAsset.url}")`,
+                backgroundSize: "cover",
+                backgroundPosition: "center top",
+                backgroundRepeat: "no-repeat",
+                filter: "saturate(0.85) contrast(1.1)",
+              }}
             />
-            {/* lighting: darker near hero, brighter toward cards */}
+            {/* cool navy grading overlay */}
+            <div
+              className="absolute inset-0"
+              style={{ backgroundColor: "rgba(38,55,70,0.45)" }}
+            />
+            {/* lighting: darker beneath hero, gently brighter further down */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(12,18,26,0.30) 0%, rgba(12,18,26,0.10) 180px, rgba(255,255,255,0.028) 620px, rgba(255,255,255,0.012) 100%)",
+                  "linear-gradient(180deg, rgba(14,22,31,0.28) 0%, rgba(14,22,31,0.10) 200px, rgba(255,255,255,0.03) 680px, rgba(255,255,255,0.05) 100%)",
               }}
             />
             {/* subtle edge vignette */}
@@ -1194,10 +1184,11 @@ function ManageBookings() {
               className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(115% 85% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.10) 82%, rgba(0,0,0,0.20) 100%)",
+                  "radial-gradient(115% 85% at 50% 45%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.10) 84%, rgba(0,0,0,0.18) 100%)",
               }}
             />
           </div>
+
 
 
 
