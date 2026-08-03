@@ -741,17 +741,17 @@
 }
 
 .hgb-rail-toggle {
-  color: #4C5A66;
-  background: rgba(255, 255, 255, 0.55);
+  color: #E4E7EA;
+  background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(20, 28, 36, 0.09);
-  box-shadow: 0 4px 14px -8px rgba(20, 28, 36, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18);
   transition: background-color 240ms ease, box-shadow 240ms ease, transform 240ms ease, color 240ms ease;
 }
 .hgb-rail-toggle:hover {
-  background: rgba(255, 255, 255, 0.85);
-  color: #A97E2E;
-  box-shadow: 0 8px 20px -10px rgba(20, 28, 36, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.18);
+  color: #E7C978;
+  box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.26);
   transform: translateY(-1px);
 }
 
