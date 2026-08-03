@@ -661,7 +661,7 @@ function Sidebar({
       transition: `padding ${RAIL_MS}ms ${RAIL_EASE}, background-color 220ms ease, box-shadow 220ms ease, transform 220ms ease, color 220ms ease`,
     };
 
-    const row = `hgb-side-item hgb-rail-item group relative flex w-full items-center rounded-[19px] text-left text-[13.5px] ${
+    const row = `hgb-side-item hgb-rail-item group relative flex w-full items-center rounded-[14px] text-left text-[13.5px] ${
       collapsed ? "gap-0" : "gap-3"
     }`;
     const inner = (
@@ -669,23 +669,24 @@ function Sidebar({
         {isActive && !collapsed && (
           <span
             aria-hidden
-            className="pointer-events-none absolute left-[6px] top-[9px] bottom-[9px] w-[3px] rounded-full"
-            style={{ background: GOLD_LINE }}
+            className="pointer-events-none absolute left-[6px] top-[9px] bottom-[9px] w-[2px] rounded-full"
+            style={{ background: "#D4AF37" }}
           />
         )}
         {isActive && collapsed && (
           <span
             aria-hidden
-            className="pointer-events-none absolute left-[7px] top-[10px] bottom-[10px] w-[3px] rounded-full"
-            style={{ background: GOLD_LINE }}
+            className="pointer-events-none absolute left-[7px] top-[10px] bottom-[10px] w-[2px] rounded-full"
+            style={{ background: "#D4AF37" }}
           />
         )}
         <item.icon
           size={17}
-          strokeWidth={isActive ? 2 : 1.7}
+          strokeWidth={1.8}
           className="shrink-0"
-          style={{ color: isActive ? "#A97E2E" : SIDE_MUTED }}
+          style={{ color: "rgba(255,255,255,0.90)" }}
         />
+
         <span
           className="hgb-rail-label truncate"
           style={{
