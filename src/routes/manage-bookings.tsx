@@ -738,7 +738,7 @@ function Sidebar({
 
   return (
     <div
-      className={`flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
+      className={`relative flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
       style={{
         background: SIDEBAR_LAYERS,
         borderRight: "none",
@@ -747,6 +747,21 @@ function Sidebar({
         transition: `padding ${RAIL_MS}ms ${RAIL_EASE}`,
       }}
     >
+      {/* soft cloudy mineral grain — barely perceptible depth */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: SIDEBAR_CLOUD,
+          backgroundSize: "700px 1400px",
+          backgroundРepeatFallback: undefined,
+          backgroundRepeat: "repeat",
+          opacity: 0.05,
+          mixBlendMode: "soft-light",
+        } as React.CSSProperties}
+      />
+      <div className="relative flex flex-col h-full min-h-0">
+
       <div className={`flex items-center ${collapsed ? "flex-col gap-3" : "justify-between gap-2 px-3"}`}>
         <Link to="/" className="block min-w-0 py-2" aria-label="HotelGroupBook">
           {collapsed ? (
