@@ -105,6 +105,8 @@ const TEXT_2 = "#B6C3CE";
 const MUTED = "#7F8F9C";
 const GOLD = "#C9A24B";
 const GOLD_SOFT = "#E0BE6B";
+const PEARL = "#F4F1EA";
+const RULE = "rgba(190,205,215,0.20)";
 const BLUE = "#4F86C6";
 const GREEN = "#5E9C6A";
 const RED = "#B4636A";
@@ -430,7 +432,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
               className="inline-flex items-center gap-[9px] whitespace-nowrap pr-3 text-[14px] font-light sm:pr-0"
               style={{ color: TEXT_2 }}
             >
-              <span className="shrink-0" style={{ color: "#C2A costs" }}>
+              <span className="shrink-0" style={{ color: "#BFA05C" }}>
                 {m.icon}
               </span>
               {m.text}
@@ -451,7 +453,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <div className="px-5 py-2.5">
           <p
             className="text-[10.5px] font-semibold uppercase tracking-[0.12em]"
-            style={{ color: "#C2A costs" }}
+            style={{ color: "#BFA05C" }}
           >
             Your reference
           </p>
@@ -465,7 +467,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         >
           <p
             className="text-[10.5px] font-semibold uppercase tracking-[0.12em]"
-            style={{ color: "#C2A costs" }}
+            style={{ color: "#BFA05C" }}
           >
             Hotel reference
           </p>
