@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { LiquidCursorHover } from "@/components/LiquidCursorHover";
+
 
 import {
   ArrowRight,
