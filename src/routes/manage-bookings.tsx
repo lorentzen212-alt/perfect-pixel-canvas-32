@@ -918,7 +918,7 @@ function ManageBookings() {
           {/* cinematic hero backdrop */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[430px]" aria-hidden>
             <img
-              src={mountains}
+              src={lobbyHeroAsset.url}
               alt=""
               className="h-full w-full object-cover"
               style={{
