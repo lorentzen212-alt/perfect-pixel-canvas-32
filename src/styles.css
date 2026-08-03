@@ -781,3 +781,18 @@
   transition-delay: 120ms;
 }
 
+
+/* Booking card — View booking button */
+.hgb-view-btn {
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease,
+    transform 240ms ease,
+    box-shadow 240ms ease;
+}
+.hgb-view-btn:hover {
+  background: rgba(201, 162, 75, 0.09);
+  border-color: rgba(201, 162, 75, 0.78);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(6, 12, 20, 0.28);
+}
