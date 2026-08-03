@@ -75,11 +75,11 @@ export const Route = createFileRoute("/manage-bookings")({
 });
 
 /* ── palette ─────────────────────────────────────────── */
-const SIDEBAR = "#F4F2EE";
-const SIDE_TEXT = "#141C24";
-const SIDE_TEXT_2 = "#4C5A66";
-const SIDE_MUTED = "#8A959E";
-const SIDE_LINE = "rgba(20,28,36,0.09)";
+const SIDEBAR = "linear-gradient(180deg, #4A5561 0%, #444F5A 55%, #3F4A55 100%)";
+const SIDE_TEXT = "#F1EFE9";
+const SIDE_TEXT_2 = "#D5D9DD";
+const SIDE_MUTED = "#B4BBC2";
+const SIDE_LINE = "rgba(255,255,255,0.10)";
 const GOLD_DEEP = "#A9853A";
 const PAGE = "#646D75";
 const CARD = "#2F3842";
