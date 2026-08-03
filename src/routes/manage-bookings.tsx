@@ -97,7 +97,8 @@ const GOLD_DEEP = "#A9853A";
 const PAGE = "#646D75";
 const CARD = "#31414F";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
-const CARD_SHADOW = "0 20px 45px rgba(0,0,0,0.20)";
+const CARD_SHADOW =
+  "0 2px 6px rgba(0,0,0,0.10), 0 12px 28px rgba(0,0,0,0.16), 0 32px 64px rgba(0,0,0,0.20)";
 const PANEL = "#2F3842";
 const HAIRLINE = "rgba(255,255,255,0.08)";
 const TEXT = "#F1EFE9";
