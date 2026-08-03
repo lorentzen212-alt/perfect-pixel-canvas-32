@@ -444,7 +444,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   );
 
   const shell = {
-    background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 34%), ${CARD}`,
+    background: CARD,
     border: `1px solid ${CARD_BORDER}`,
     boxShadow: CARD_SHADOW,
   } as const;
