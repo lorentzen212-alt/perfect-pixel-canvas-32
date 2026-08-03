@@ -993,7 +993,7 @@ function ManageBookings() {
         </div>
       )}
 
-      <div className="lg:pl-[236px]">
+      <div className="hgb-rail-shift" style={{ ["--rail-w" as string]: `${railWidth}px` }}>
         <main
           className="relative min-h-screen"
           style={{
