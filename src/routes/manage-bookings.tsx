@@ -387,8 +387,8 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             className="mt-1.5 block truncate transition-opacity hover:opacity-85"
           >
             <h3
-              className="truncate text-[30px] leading-[1.08]"
-              style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
+              className="truncate text-[32px] leading-[1.05] tracking-[0.002em]"
+              style={{ color: PEARL, fontFamily: SERIF, fontWeight: 400 }}
             >
               {booking.name}
             </h3>
@@ -413,8 +413,8 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       <div
         className="mt-3 flex flex-wrap items-center gap-y-1.5 py-2"
         style={{
-          borderTop: `1px solid ${HAIRLINE}`,
-          borderBottom: `1px solid ${HAIRLINE}`,
+          borderTop: `1px solid ${RULE}`,
+          borderBottom: `1px solid ${RULE}`,
         }}
       >
         {metas.map((m, i) => (
@@ -422,15 +422,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             {i > 0 && (
               <span
                 aria-hidden
-                className="mx-3 hidden h-[15px] w-px sm:block"
-                style={{ background: HAIRLINE }}
+                className="mx-3 hidden h-[12px] w-px sm:block"
+                style={{ background: "rgba(190,205,215,0.18)" }}
               />
             )}
             <span
-              className="inline-flex items-center gap-[7px] whitespace-nowrap pr-3 text-[13px] sm:pr-0"
+              className="inline-flex items-center gap-[9px] whitespace-nowrap pr-3 text-[14px] font-light sm:pr-0"
               style={{ color: TEXT_2 }}
             >
-              <span className="shrink-0" style={{ color: GOLD }}>
+              <span className="shrink-0" style={{ color: "#C2A costs" }}>
                 {m.icon}
               </span>
               {m.text}
@@ -441,35 +441,39 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-3 grid grid-cols-1 overflow-hidden rounded-[12px] sm:grid-cols-2"
+        className="mt-3 grid grid-cols-1 overflow-hidden rounded-[13px] sm:grid-cols-2"
         style={{
-          border: `1px solid ${HAIRLINE}`,
-          background: "rgba(255,255,255,0.018)",
+          border: "1px solid rgba(190,205,215,0.13)",
+          background: "linear-gradient(180deg, rgba(12,20,29,0.30) 0%, rgba(12,20,29,0.20) 100%)",
+          boxShadow: "inset 0 2px 6px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
         <div className="px-5 py-2.5">
           <p
-            className="text-[10px] font-semibold uppercase tracking-[0.16em]"
-            style={{ color: GOLD }}
+            className="text-[10.5px] font-semibold uppercase tracking-[0.12em]"
+            style={{ color: "#C2A costs" }}
           >
             Your reference
           </p>
-          <p className="mt-0.5 text-[15px]" style={{ color: TEXT }}>
+          <p className="mt-[3px] text-[16.5px]" style={{ color: PEARL, fontWeight: 500 }}>
             {booking.reference}
           </p>
         </div>
-        <div className="px-5 py-2.5" style={{ borderLeft: `1px solid ${HAIRLINE}` }}>
+        <div
+          className="px-5 py-2.5"
+          style={{ borderLeft: "1px solid rgba(190,205,215,0.16)" }}
+        >
           <p
-            className="text-[10px] font-semibold uppercase tracking-[0.16em]"
-            style={{ color: GOLD }}
+            className="text-[10.5px] font-semibold uppercase tracking-[0.12em]"
+            style={{ color: "#C2A costs" }}
           >
             Hotel reference
           </p>
           <p
-            className="mt-0.5 text-[15px]"
-            style={{ color: booking.hotelReference ? TEXT : MUTED }}
+            className="mt-[3px] text-[16.5px]"
+            style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 500 }}
           >
-            {booking.hotelReference ?? "—"}
+            {booking.hotelReference ?? "Pending"}
           </p>
         </div>
       </div>
@@ -482,36 +486,54 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {/* footer */}
       <div
         className="mt-3.5 flex flex-nowrap items-center justify-between gap-4 pt-3"
-        style={{ borderTop: `1px solid ${HAIRLINE}` }}
+        style={{ borderTop: `1px solid ${RULE}` }}
       >
-        <p className="min-w-0 flex-1 truncate text-[13px]" style={{ color: TEXT_2 }}>
+        <p
+          className="min-w-0 flex-1 truncate text-[13.5px] font-light"
+          style={{ color: "#AFC0CD" }}
+        >
           {booking.statusNote ?? ""}
         </p>
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="inline-flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[8px] px-6 py-2.5 text-[14px] transition-colors hover:bg-[rgba(201,162,75,0.10)]"
+          className="hgb-view-btn group/btn inline-flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[12px] px-7 py-2.5 text-[14px]"
           style={{
-            color: GOLD,
-            border: `1px solid ${GOLD}`,
-            background: "transparent",
+            color: GOLD_SOFT,
+            border: "1px solid rgba(201,162,75,0.55)",
+            background: "rgba(12,20,29,0.30)",
           }}
         >
           {action.label}
-          <ArrowRight size={16} />
+          <ArrowRight
+            size={16}
+            className="transition-transform duration-300 group-hover/btn:translate-x-[3px]"
+          />
         </Link>
       </div>
     </>
   );
 
   const shell = {
-    background: CARD,
-    border: `1px solid ${CARD_BORDER}`,
-    boxShadow: CARD_SHADOW,
+    background: `radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0) 60%), radial-gradient(110% 120% at 50% 120%, rgba(8,14,21,0.30) 0%, rgba(8,14,21,0) 62%), ${CARD}`,
+    border: "1px solid rgba(190,205,215,0.12)",
+    boxShadow:
+      "0 2px 6px rgba(0,0,0,0.22), 0 6px 16px rgba(6,12,20,0.26), 0 26px 60px rgba(6,12,20,0.34), inset 0 1px 0 rgba(255,255,255,0.07)",
   } as const;
 
   const media = (
-    <div className={compact ? "relative overflow-hidden" : "relative overflow-hidden rounded-[14px]"}>
+    <div
+      className={
+        compact
+          ? "relative overflow-hidden"
+          : "relative overflow-hidden rounded-[14px]"
+      }
+      style={
+        compact
+          ? undefined
+          : { boxShadow: "0 10px 26px rgba(6,12,20,0.38)" }
+      }
+    >
       <img
         src={booking.image}
         alt={`${booking.destination} — ${booking.name}`}
@@ -521,7 +543,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             ? "h-[150px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             : "h-[190px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[282px]"
         }
-        style={{ filter: "saturate(0.92) brightness(0.8)" }}
+        style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.82)" }}
       />
       <span
         aria-hidden
@@ -529,9 +551,19 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         style={{
           background: compact
             ? "linear-gradient(180deg, rgba(8,15,23,0) 40%, rgba(14,23,33,0.7) 100%)"
-            : "linear-gradient(90deg, rgba(8,15,23,0) 62%, rgba(14,23,33,0.55) 100%)",
+            : "linear-gradient(90deg, rgba(8,15,23,0) 62%, rgba(14,23,33,0.55) 100%), radial-gradient(120% 100% at 50% 50%, rgba(10,17,25,0) 52%, rgba(10,17,25,0.42) 100%)",
         }}
       />
+      {!compact && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-[14px]"
+          style={{
+            boxShadow:
+              "inset 0 0 0 1px rgba(255,255,255,0.07), inset 0 1px 0 rgba(255,255,255,0.10)",
+          }}
+        />
+      )}
     </div>
   );
 
@@ -554,6 +586,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     </article>
   );
 }
+
 
 
 
