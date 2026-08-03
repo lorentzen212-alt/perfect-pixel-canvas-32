@@ -39,6 +39,8 @@ import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
 import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
+import heroVideoAsset from "@/assets/manage-hero.mp4.asset.json";
+
 
 import {
   STATUS_META,
@@ -917,15 +919,22 @@ function ManageBookings() {
         >
           {/* cinematic hero backdrop */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[430px]" aria-hidden>
-            <img
-              src={lobbyHeroAsset.url}
-              alt=""
+            <video
+              src={heroVideoAsset.url}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster={lobbyHeroAsset.url}
               className="h-full w-full object-cover"
               style={{
                 objectPosition: "center center",
                 filter: "saturate(0.7) brightness(0.66) contrast(1.02)",
               }}
             />
+            <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.4)" }} />
+
             <div
               className="absolute inset-0"
               style={{
