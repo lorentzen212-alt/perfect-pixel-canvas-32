@@ -396,9 +396,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       <div
         className={
           compact
-            ? "mt-4 grid grid-cols-2 gap-4"
-            : "mt-4 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
+            ? "mt-4 grid grid-cols-2 gap-4 pt-4"
+            : "mt-4 grid grid-cols-1 gap-5 pt-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
         }
+        style={{
+          borderTop: `1px solid rgba(201,162,75,0.14)`,
+        }}
       >
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -437,19 +440,41 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     </>
   );
 
+  const shell = {
+    background: `linear-gradient(180deg, rgba(19,30,42,0.78) 0%, rgba(14,23,33,0.72) 100%)`,
+    border: `1px solid ${HAIRLINE}`,
+    boxShadow: "0 26px 52px -38px rgba(0,0,0,0.95)",
+  } as const;
+
+  const media = (
+    <div className="relative overflow-hidden">
+      <img
+        src={booking.image}
+        alt={`${booking.destination} — ${booking.name}`}
+        loading="lazy"
+        className={
+          compact
+            ? "h-[150px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+            : "h-[160px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+        }
+        style={{ filter: "saturate(0.92) brightness(0.8)" }}
+      />
+      <span
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background: compact
+            ? "linear-gradient(180deg, rgba(8,15,23,0) 40%, rgba(14,23,33,0.7) 100%)"
+            : "linear-gradient(90deg, rgba(8,15,23,0) 55%, rgba(14,23,33,0.75) 100%)",
+        }}
+      />
+    </div>
+  );
+
   if (compact) {
     return (
-      <article
-        className="overflow-hidden rounded-[16px]"
-        style={{ background: PANEL, border: `1px solid ${HAIRLINE}` }}
-      >
-        <img
-          src={booking.image}
-          alt={`${booking.destination} — ${booking.name}`}
-          loading="lazy"
-          className="h-[150px] w-full object-cover"
-          style={{ filter: "saturate(0.95) brightness(0.82)" }}
-        />
+      <article className="group overflow-hidden rounded-[18px] transition-transform hover:-translate-y-px" style={shell}>
+        {media}
         <div className="p-5">{info}</div>
       </article>
     );
@@ -457,24 +482,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="grid grid-cols-1 overflow-hidden rounded-[16px] sm:grid-cols-[minmax(0,180px)_minmax(0,1fr)]"
-      style={{
-        background: PANEL,
-        border: `1px solid ${HAIRLINE}`,
-        boxShadow: "0 20px 40px -32px rgba(0,0,0,0.85)",
-      }}
+      className="group grid grid-cols-1 overflow-hidden rounded-[18px] transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,196px)_minmax(0,1fr)]"
+      style={shell}
     >
-      <img
-        src={booking.image}
-        alt={`${booking.destination} — ${booking.name}`}
-        loading="lazy"
-        className="h-[150px] w-full object-cover sm:h-full"
-        style={{ filter: "saturate(0.95) brightness(0.82)" }}
-      />
+      {media}
       <div className="min-w-0 p-5 sm:p-6">{info}</div>
     </article>
   );
 }
+
 
 /* ── status cards ────────────────────────────────────── */
 
