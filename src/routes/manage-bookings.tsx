@@ -906,7 +906,14 @@ function ManageBookings() {
       )}
 
       <div className="lg:pl-[236px]">
-        <main className="relative min-h-screen" style={{ backgroundColor: PAGE }}>
+        <main
+          className="relative min-h-screen"
+          style={{
+            backgroundColor: "transparent",
+            backgroundImage:
+              "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
+          }}
+        >
           {/* cinematic hero backdrop */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[430px]" aria-hidden>
             <img
