@@ -5,6 +5,8 @@ import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking } from "@/lib/bookingsApi";
 import slateTextureAsset from "@/assets/sidebar-slate-texture.png.asset.json";
+import pageTextureAsset from "@/assets/page-stone-texture.png.asset.json";
+
 
 import {
   Bell,
@@ -1066,8 +1068,33 @@ function ManageBookings() {
               "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
           }}
         >
+          {/* stone texture surface — starts at the hero's bottom edge */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0"
+            style={{
+              top: 370,
+              backgroundImage: `url("${pageTextureAsset.url}")`,
+              backgroundSize: "cover",
+              backgroundPosition: "top center",
+              backgroundRepeat: "no-repeat",
+              backgroundAttachment: "scroll",
+            }}
+          >
+            <div className="absolute inset-0" style={{ background: "rgba(70,82,94,0.04)" }} />
+          </div>
+
           {/* cinematic hero backdrop */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-[430px]" aria-hidden>
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-[430px]"
+            aria-hidden
+            style={{
+              maskImage:
+                "linear-gradient(180deg, #000 0%, #000 calc(100% - 60px), rgba(0,0,0,0) 100%)",
+              WebkitMaskImage:
+                "linear-gradient(180deg, #000 0%, #000 calc(100% - 60px), rgba(0,0,0,0) 100%)",
+            }}
+          >
             <video
               src={heroVideoAsset.url}
               autoPlay
@@ -1080,14 +1107,8 @@ function ManageBookings() {
               style={{ objectPosition: "center center" }}
             />
             <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.12)" }} />
-            {/* soft fade into the page background */}
-            <div
-              className="absolute inset-x-0 bottom-0 h-[100px]"
-              style={{
-                background: `linear-gradient(180deg, rgba(100,109,117,0) 0%, rgba(100,109,117,0.55) 45%, ${PAGE} 100%)`,
-              }}
-            />
           </div>
+
 
 
 
