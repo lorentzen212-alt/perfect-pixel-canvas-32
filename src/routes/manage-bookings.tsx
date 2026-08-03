@@ -943,6 +943,8 @@ function ManageBookings() {
     (profile?.last_name?.[0] ?? "").toUpperCase();
 
   const heroImage = bookings[0]?.image ?? mountains;
+  const railWidth = railCollapsed ? 76 : 240;
+
 
   return (
     <div
