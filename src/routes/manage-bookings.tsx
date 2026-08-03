@@ -1042,7 +1042,7 @@ function ManageBookings() {
 
 
             {/* status cards + activity */}
-            <section className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.95fr)]">
+            <section className="mt-[62px] grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.95fr)]">
               <StatusCard
                 label="Proposal ready"
                 count={counts.proposal}
