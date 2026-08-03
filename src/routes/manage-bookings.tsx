@@ -75,11 +75,20 @@ export const Route = createFileRoute("/manage-bookings")({
 });
 
 /* ── palette ─────────────────────────────────────────── */
-const SIDEBAR = "linear-gradient(180deg, #4A5561 0%, #444F5A 55%, #3F4A55 100%)";
-const SIDE_TEXT = "#F1EFE9";
-const SIDE_TEXT_2 = "#D5D9DD";
-const SIDE_MUTED = "#B4BBC2";
-const SIDE_LINE = "rgba(255,255,255,0.10)";
+const SIDEBAR = "linear-gradient(180deg, #56616E 0%, #515C69 35%, #4A5562 70%, #434E5B 100%)";
+/* soft cloudy brushed-stone texture + upper-left light source, layered over SIDEBAR */
+const SIDEBAR_LAYERS = [
+  "radial-gradient(120% 70% at 8% 0%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 38%, rgba(255,255,255,0) 72%)",
+  "radial-gradient(70% 42% at 78% 22%, rgba(255,255,255,0.028) 0%, rgba(255,255,255,0) 100%)",
+  "radial-gradient(80% 40% at 18% 64%, rgba(255,255,255,0.022) 0%, rgba(255,255,255,0) 100%)",
+  "radial-gradient(90% 45% at 92% 88%, rgba(0,0,0,0.030) 0%, rgba(0,0,0,0) 100%)",
+  SIDEBAR,
+].join(", ");
+const SIDE_TEXT = "rgba(255,255,255,0.90)";
+const SIDE_TEXT_2 = "rgba(255,255,255,0.90)";
+const SIDE_MUTED = "rgba(255,255,255,0.90)";
+const SIDE_LINE = "rgba(255,255,255,0.06)";
+
 const GOLD_DEEP = "#A9853A";
 const PAGE = "#646D75";
 const CARD = "#2F3842";
