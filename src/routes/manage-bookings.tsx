@@ -648,15 +648,19 @@ function Sidebar({
   ) => {
     const isActive = item.label === active;
     const style: React.CSSProperties = {
-      background: isActive ? "#F7F5F1" : "transparent",
-      color: isActive ? "#3A464F" : SIDE_TEXT_2,
+      background: isActive ? "rgba(255,255,255,0.16)" : "transparent",
+      color: "rgba(255,255,255,0.90)",
       fontWeight: isActive ? 600 : 400,
-      boxShadow: isActive ? "0 3px 10px -6px rgba(20,28,36,0.30)" : "none",
-      border: `1px solid ${isActive ? "rgba(169,133,58,0.12)" : "transparent"}`,
+      boxShadow: isActive ? "0 8px 18px rgba(0,0,0,0.12)" : "none",
+      border: `1px solid ${isActive ? "rgba(255,255,255,0.12)" : "transparent"}`,
+      backdropFilter: isActive ? "blur(8px)" : undefined,
+      WebkitBackdropFilter: isActive ? "blur(8px)" : undefined,
+      borderRadius: 14,
       padding: collapsed ? "9px 0" : isActive ? "8px 16px" : "9px 16px",
       justifyContent: collapsed ? "center" : "flex-start",
-      transition: `padding ${RAIL_MS}ms ${RAIL_EASE}, background-color 230ms ease, box-shadow 230ms ease, color 230ms ease`,
+      transition: `padding ${RAIL_MS}ms ${RAIL_EASE}, background-color 220ms ease, box-shadow 220ms ease, transform 220ms ease, color 220ms ease`,
     };
+
     const row = `hgb-side-item hgb-rail-item group relative flex w-full items-center rounded-[19px] text-left text-[13.5px] ${
       collapsed ? "gap-0" : "gap-3"
     }`;
