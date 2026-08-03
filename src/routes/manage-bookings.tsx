@@ -339,6 +339,33 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   const tone = GROUP_COLOR[g];
   const action = primaryAction(booking);
 
+  const metas = (
+    booking.type === "me"
+      ? [
+          { icon: <MapPin size={14} strokeWidth={1.7} />, text: booking.destination },
+          {
+            icon: <CalendarDays size={14} strokeWidth={1.7} />,
+            text: formatRange(booking.startDate, booking.endDate),
+          },
+          { icon: <Moon size={14} strokeWidth={1.7} />, text: `${booking.nights} nights` },
+          {
+            icon: <BedDouble size={14} strokeWidth={1.7} />,
+            text: `${booking.meetingSpaces ?? 0} meeting spaces`,
+          },
+          { icon: <Users size={14} strokeWidth={1.7} />, text: `${booking.delegates ?? 0} delegates` },
+        ]
+      : [
+          { icon: <MapPin size={14} strokeWidth={1.7} />, text: booking.destination },
+          {
+            icon: <CalendarDays size={14} strokeWidth={1.7} />,
+            text: formatRange(booking.startDate, booking.endDate),
+          },
+          { icon: <Moon size={14} strokeWidth={1.7} />, text: `${booking.nights} nights` },
+          { icon: <BedDouble size={14} strokeWidth={1.7} />, text: `${booking.rooms ?? 0} rooms` },
+          { icon: <Users size={14} strokeWidth={1.7} />, text: `${booking.guests ?? 0} guests` },
+        ]
+  );
+
   const info = (
     <>
       <div className="flex items-start justify-between gap-3">
@@ -347,19 +374,19 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="mt-1.5 block truncate transition-opacity hover:opacity-85"
+            className="mt-3 block truncate transition-opacity hover:opacity-85"
           >
             <h3
-              className="truncate text-[25px] leading-[1.1]"
+              className="truncate text-[30px] leading-[1.08]"
               style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
             >
               {booking.name}
             </h3>
           </Link>
         </div>
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-start gap-2">
           <span
-            className="hidden items-center gap-2 text-[10.5px] font-semibold uppercase tracking-[0.18em] sm:inline-flex"
+            className="mt-1 hidden items-center gap-2 text-[10.5px] font-semibold uppercase tracking-[0.18em] xl:inline-flex"
             style={{ color: tone }}
           >
             <span
@@ -368,95 +395,102 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             />
             {GROUP_LABEL[g]}
           </span>
-          <Link
-            to={action.to}
-            params={{ bookingId: booking.id }}
-            className="inline-flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-[7px] text-[12px] transition-colors hover:bg-white/[0.07]"
-            style={{
-              color: TEXT,
-              border: `1px solid ${HAIRLINE}`,
-              background: "rgba(255,255,255,0.03)",
-            }}
-          >
-            {action.label}
-            <ArrowRight size={13} style={{ color: tone }} />
-          </Link>
           <RowMenu booking={booking} />
         </div>
       </div>
 
-
-      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-        <MetaItem icon={<MapPin size={14} strokeWidth={1.6} />}>{booking.destination}</MetaItem>
-        <MetaItem icon={<CalendarDays size={14} strokeWidth={1.6} />}>
-          {formatRange(booking.startDate, booking.endDate)}
-        </MetaItem>
-        <MetaItem icon={<Moon size={14} strokeWidth={1.6} />}>{booking.nights} nights</MetaItem>
-        {booking.type === "me" ? (
-          <>
-            <MetaItem icon={<BedDouble size={14} strokeWidth={1.6} />}>
-              {booking.meetingSpaces ?? 0} meeting spaces
-            </MetaItem>
-            <MetaItem icon={<Users size={14} strokeWidth={1.6} />}>
-              {booking.delegates ?? 0} delegates
-            </MetaItem>
-          </>
-        ) : (
-          <>
-            <MetaItem icon={<BedDouble size={14} strokeWidth={1.6} />}>
-              {booking.rooms ?? 0} rooms
-            </MetaItem>
-            <MetaItem icon={<Users size={14} strokeWidth={1.6} />}>
-              {booking.guests ?? 0} guests
-            </MetaItem>
-          </>
-        )}
-      </div>
-
+      {/* meta strip with hairline rules above and below */}
       <div
-        className={
-          compact
-            ? "mt-4 grid grid-cols-2 gap-4 pt-4"
-            : "mt-4 grid grid-cols-1 gap-5 pt-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
-        }
+        className="mt-4 flex flex-wrap items-center gap-y-2 py-3"
         style={{
-          borderTop: `1px solid rgba(201,162,75,0.14)`,
+          borderTop: `1px solid ${HAIRLINE}`,
+          borderBottom: `1px solid ${HAIRLINE}`,
         }}
       >
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p
-              className="text-[9.5px] font-semibold uppercase tracking-[0.16em]"
-              style={{ color: GOLD }}
+        {metas.map((m, i) => (
+          <span key={i} className="flex items-center">
+            {i > 0 && (
+              <span
+                aria-hidden
+                className="mx-3 hidden h-[15px] w-px sm:block"
+                style={{ background: HAIRLINE }}
+              />
+            )}
+            <span
+              className="inline-flex items-center gap-[7px] whitespace-nowrap pr-3 text-[13px] sm:pr-0"
+              style={{ color: TEXT_2 }}
             >
-              Your reference
-            </p>
-            <p className="mt-1 text-[13.5px]" style={{ color: TEXT_2 }}>
-              {booking.reference}
-            </p>
-          </div>
-          <div>
-            <p
-              className="text-[9.5px] font-semibold uppercase tracking-[0.16em]"
-              style={{ color: MUTED }}
-            >
-              Hotel reference
-            </p>
-            <p className="mt-1 text-[13.5px]" style={{ color: booking.hotelReference ? TEXT_2 : MUTED }}>
-              {booking.hotelReference ?? "—"}
-            </p>
-          </div>
+              <span className="shrink-0" style={{ color: GOLD }}>
+                {m.icon}
+              </span>
+              {m.text}
+            </span>
+          </span>
+        ))}
+      </div>
+
+      {/* reference panel */}
+      <div
+        className="mt-4 grid grid-cols-1 overflow-hidden rounded-[12px] sm:grid-cols-2"
+        style={{
+          border: `1px solid ${HAIRLINE}`,
+          background: "rgba(255,255,255,0.018)",
+        }}
+      >
+        <div className="px-5 py-4">
+          <p
+            className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+            style={{ color: GOLD }}
+          >
+            Your reference
+          </p>
+          <p className="mt-1.5 text-[16px]" style={{ color: TEXT }}>
+            {booking.reference}
+          </p>
         </div>
-        <div className={compact ? "col-span-2" : ""}>
-          <Timeline booking={booking} />
+        <div className="px-5 py-4" style={{ borderLeft: `1px solid ${HAIRLINE}` }}>
+          <p
+            className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+            style={{ color: GOLD }}
+          >
+            Hotel reference
+          </p>
+          <p
+            className="mt-1.5 text-[16px]"
+            style={{ color: booking.hotelReference ? TEXT : MUTED }}
+          >
+            {booking.hotelReference ?? "—"}
+          </p>
         </div>
       </div>
 
-      {booking.statusNote && (
-        <p className="mt-3 truncate text-[12.5px]" style={{ color: MUTED }}>
-          {booking.statusNote}
+      {/* progress track */}
+      <div className="mt-6">
+        <Timeline booking={booking} />
+      </div>
+
+      {/* footer */}
+      <div
+        className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4"
+        style={{ borderTop: `1px solid ${HAIRLINE}` }}
+      >
+        <p className="min-w-0 flex-1 truncate text-[13px]" style={{ color: TEXT_2 }}>
+          {booking.statusNote ?? ""}
         </p>
-      )}
+        <Link
+          to={action.to}
+          params={{ bookingId: booking.id }}
+          className="inline-flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[8px] px-6 py-3 text-[14px] transition-colors hover:bg-[rgba(201,162,75,0.10)]"
+          style={{
+            color: GOLD,
+            border: `1px solid ${GOLD}`,
+            background: "transparent",
+          }}
+        >
+          {action.label}
+          <ArrowRight size={16} />
+        </Link>
+      </div>
     </>
   );
 
@@ -467,7 +501,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   } as const;
 
   const media = (
-    <div className="relative overflow-hidden">
+    <div className={compact ? "relative overflow-hidden" : "relative overflow-hidden rounded-[14px]"}>
       <img
         src={booking.image}
         alt={`${booking.destination} — ${booking.name}`}
@@ -475,7 +509,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[150px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[160px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+            : "h-[200px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
         }
         style={{ filter: "saturate(0.92) brightness(0.8)" }}
       />
@@ -485,7 +519,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         style={{
           background: compact
             ? "linear-gradient(180deg, rgba(8,15,23,0) 40%, rgba(14,23,33,0.7) 100%)"
-            : "linear-gradient(90deg, rgba(8,15,23,0) 55%, rgba(14,23,33,0.75) 100%)",
+            : "linear-gradient(90deg, rgba(8,15,23,0) 62%, rgba(14,23,33,0.55) 100%)",
         }}
       />
     </div>
@@ -502,14 +536,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="group grid grid-cols-1 overflow-hidden rounded-[22px] transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,196px)_minmax(0,1fr)]"
+      className="group grid grid-cols-1 gap-6 overflow-hidden rounded-[22px] p-6 transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,240px)_minmax(0,1fr)]"
       style={shell}
     >
       {media}
-      <div className="min-w-0 p-5 sm:p-6">{info}</div>
+      <div className="min-w-0">{info}</div>
     </article>
   );
 }
+
 
 
 /* ── status cards ────────────────────────────────────── */
