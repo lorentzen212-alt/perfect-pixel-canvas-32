@@ -38,6 +38,7 @@ import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
+import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 
 import {
   STATUS_META,
@@ -917,11 +918,11 @@ function ManageBookings() {
           {/* cinematic hero backdrop */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[430px]" aria-hidden>
             <img
-              src={mountains}
+              src={lobbyHeroAsset.url}
               alt=""
               className="h-full w-full object-cover"
               style={{
-                objectPosition: "center 42%",
+                objectPosition: "center center",
                 filter: "saturate(0.7) brightness(0.66) contrast(1.02)",
               }}
             />
