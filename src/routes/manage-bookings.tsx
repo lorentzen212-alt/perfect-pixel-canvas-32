@@ -1168,7 +1168,7 @@ function ManageBookings() {
             <section
               className="mt-7 grid grid-cols-1 gap-3 rounded-[16px] p-3 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]"
               style={{
-                background: `linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 40%), rgba(47,56,66,0.86)`,
+                background: CARD,
                 border: `1px solid ${CARD_BORDER}`,
                 boxShadow: CARD_SHADOW,
                 backdropFilter: "blur(8px)",
