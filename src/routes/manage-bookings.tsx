@@ -75,11 +75,11 @@ export const Route = createFileRoute("/manage-bookings")({
 });
 
 /* ── palette ─────────────────────────────────────────── */
-const SIDEBAR = "#F4F2EE";
-const SIDE_TEXT = "#141C24";
-const SIDE_TEXT_2 = "#4C5A66";
-const SIDE_MUTED = "#8A959E";
-const SIDE_LINE = "rgba(20,28,36,0.09)";
+const SIDEBAR = "linear-gradient(180deg, #4A5561 0%, #444F5A 55%, #3F4A55 100%)";
+const SIDE_TEXT = "#F1EFE9";
+const SIDE_TEXT_2 = "#D5D9DD";
+const SIDE_MUTED = "#B4BBC2";
+const SIDE_LINE = "rgba(255,255,255,0.10)";
 const GOLD_DEEP = "#A9853A";
 const PAGE = "#646D75";
 const CARD = "#2F3842";
@@ -728,9 +728,9 @@ function Sidebar({
             <span
               className="grid h-9 w-9 place-items-center rounded-[12px] text-[12.5px] font-semibold tracking-[0.06em]"
               style={{
-                color: "#1B242C",
-                border: "1px solid rgba(169,133,58,0.35)",
-                background: "#F7F5F1",
+                color: "#F1EFE9",
+                border: "1px solid rgba(216,190,114,0.42)",
+                background: "rgba(255,255,255,0.06)",
               }}
             >
               HGB
@@ -740,7 +740,6 @@ function Sidebar({
               src={logo.url}
               alt="HotelGroupBook"
               className="h-11 w-auto object-contain object-left"
-              style={{ filter: "invert(1) brightness(0.18)" }}
             />
           )}
         </Link>
