@@ -724,10 +724,10 @@
   border: 1px solid transparent;
 }
 .hgb-side-item:not(:where([aria-current])):hover {
-  background-color: #F7F5F1;
-  box-shadow: 0 2px 8px -4px rgba(20,28,36,0.18);
+  background-color: rgba(255,255,255,0.07);
+  box-shadow: 0 2px 10px -6px rgba(0,0,0,0.35);
   transform: translateY(-1px);
-  color: #3A464F;
+  color: #F1EFE9;
 }
 
 /* Manage · luxury rail navigation */
