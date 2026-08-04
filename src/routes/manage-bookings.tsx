@@ -461,9 +461,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(255,255,255,0.022)",
-          background: "linear-gradient(180deg, #090F18 0%, #0B111B 100%)",
+          background: "linear-gradient(180deg, #2A3644 0%, #26313E 100%)",
           boxShadow:
-            "inset 0 3px 8px rgba(0,0,0,0.58), inset 0 1px 3px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.06), 0 1px 0 rgba(255,255,255,0.02)",
+            "inset 0 3px 8px rgba(0,0,0,0.34), inset 0 1px 3px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.07), 0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
         <div className="px-[20px] py-[11px]">
