@@ -539,13 +539,54 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   const shell = {
     background:
-      "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%) padding-box, linear-gradient(180deg, #B8902E 0%, #E3B653 24%, #F0D28C 50%, #E3B653 76%, #9A7322 100%) border-box",
-    border: "1.5px solid transparent",
+      "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
+    border: "1px solid rgba(255,255,255,0.055)",
     borderRadius: 12,
     /* precision-machined surface — subtle highlights + deep base shadow */
     boxShadow:
-      "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), 0 0 18px rgba(227,162,60,0.10), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -6px 16px rgba(0,0,0,0.50), inset 0 0 0 1px rgba(255,255,255,0.018)",
+      "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
   } as const;
+
+  /* structural brushed-anodized gold insert on the left edge */
+  const goldInsert = (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-y-0 left-0 w-[14px]"
+      style={{
+        background:
+          "linear-gradient(90deg, #4A3A17 0%, #7A6127 14%, #A8873C 34%, #C4A254 46%, #9E7F36 58%, #705824 78%, #3E3013 100%)",
+        boxShadow:
+          "inset -1px 0 2px rgba(0,0,0,0.55), inset 1px 0 0 rgba(255,255,255,0.06)",
+      }}
+    >
+      {/* fine vertical brushed grain */}
+      <span
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, rgba(0,0,0,0.05) 1px, rgba(0,0,0,0.05) 2px)",
+          opacity: 0.5,
+        }}
+      />
+      {/* one subtle vertical reflection */}
+      <span
+        className="absolute inset-y-0 left-[38%] w-[2px]"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(255,240,205,0) 0%, rgba(255,240,205,0.42) 50%, rgba(255,240,205,0) 100%)",
+        }}
+      />
+      {/* soft top/bottom luminance falloff for machined depth */}
+      <span
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 82%, rgba(0,0,0,0.32) 100%)",
+        }}
+      />
+    </span>
+  );
+
 
 
   const media = (
@@ -610,27 +651,25 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="hgb-booking-card group overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
-        {media}
-        <div className="p-4">{info}</div>
+      <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
+        {goldInsert}
+        <div className="pl-[14px]">{media}</div>
+        <div className="p-4 pl-[22px]">{info}</div>
       </article>
     );
   }
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[26px] pl-[42px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[26px] pl-[40px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
       style={shell}
     >
-
-
-
-
-
+      {goldInsert}
       {media}
       <div className="min-w-0">{info}</div>
     </article>
   );
+
 
 
 }
