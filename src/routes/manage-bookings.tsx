@@ -1467,9 +1467,21 @@ function ManageBookings() {
               </section>
             )}
 
-            {/* toolbar — single integrated anodised bar */}
+            {/* premium container enclosing toolbar + bookings list */}
             <section
-              className="mt-5 flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
+              className="mt-6 rounded-[20px] p-[24px] md:p-[28px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, #1B222A 0%, #151B22 55%, #121820 100%)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                boxShadow:
+                  "0 1px 0 rgba(255,255,255,0.04) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 40px 90px -55px rgba(0,0,0,0.85)",
+              }}
+            >
+            {/* toolbar — single integrated anodised bar */}
+            <div
+              className="flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
+
               style={{
                 background: "linear-gradient(180deg, #1E252D 0%, #181E25 100%)",
                 border: "1px solid rgba(214,182,124,0.10)",
