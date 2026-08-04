@@ -613,18 +613,28 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         style={{
           background:
             GOLD_BRUSHED,
+          /* anodized, understated — no bright glow */
           boxShadow:
-            "inset -1px 0 2px rgba(0,0,0,0.45), inset 1px 0 0 rgba(255,255,255,0.26), 0 0 10px rgba(227,162,60,0.26)",
+            "inset -1px 0 2px rgba(0,0,0,0.5), inset 1px 0 0 rgba(255,255,255,0.18), 0 0 6px rgba(180,140,70,0.16)",
         }}
       >
-        {/* brushed-metal reflection */}
+        {/* subtle vertical brushed-metal reflection */}
         <span
           aria-hidden
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 22%, rgba(0,0,0,0.20) 48%, rgba(255,255,255,0.14) 70%, rgba(0,0,0,0.28) 100%)",
+              "linear-gradient(90deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.03) 24%, rgba(0,0,0,0.18) 50%, rgba(255,255,255,0.10) 74%, rgba(0,0,0,0.22) 100%)",
             mixBlendMode: "overlay",
+          }}
+        />
+        {/* faint vertical anodized banding for a brushed finish */}
+        <span
+          aria-hidden
+          className="absolute inset-0 opacity-40"
+          style={{
+            background:
+              "repeating-linear-gradient(180deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px)",
           }}
         />
       </span>
