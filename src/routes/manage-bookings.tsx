@@ -944,14 +944,14 @@ function GoldDivider() {
       className="hidden shrink-0 self-stretch md:block"
       style={{
         width: 1,
-        margin: "9px 0",
+        margin: "10px 0",
         background:
-          "linear-gradient(180deg, rgba(227,192,119,0) 0%, #E3C077 22%, #F3DCA6 50%, #A9853A 80%, rgba(169,133,58,0) 100%)",
-        boxShadow: "0 0 6px rgba(227,192,119,0.28)",
+          "linear-gradient(180deg, rgba(214,182,124,0) 0%, rgba(214,182,124,0.42) 30%, rgba(233,209,158,0.55) 50%, rgba(169,133,58,0.40) 72%, rgba(169,133,58,0) 100%)",
       }}
     />
   );
 }
+
 
 function Select<T extends string>({
   value,
@@ -965,13 +965,15 @@ function Select<T extends string>({
   label: string;
 }) {
   return (
-    <div className="relative flex-1">
+    <div
+      className="group relative flex-1 rounded-[10px] transition-colors duration-200 hover:bg-[rgba(255,255,255,0.025)]"
+    >
       <select
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="w-full cursor-pointer appearance-none bg-transparent px-5 py-[10px] pr-10 text-center text-[14px] outline-none"
-        style={{ color: "#EDEFF2", letterSpacing: "0.005em" }}
+        className="w-full cursor-pointer appearance-none bg-transparent py-[11px] pl-5 pr-10 text-left text-[14.5px] outline-none"
+        style={{ color: "rgba(255,255,255,0.92)", letterSpacing: "0.005em" }}
       >
         {options.map((o) => (
           <option key={o.value} value={o.value} style={{ backgroundColor: "#12151A" }}>
@@ -981,11 +983,13 @@ function Select<T extends string>({
       </select>
       <ChevronDown
         size={17}
+        strokeWidth={1.8}
         className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2"
-        style={{ color: "#C9CDD3" }}
+        style={{ color: "rgba(255,255,255,0.62)" }}
       />
     </div>
   );
+
 }
 
 
@@ -1463,41 +1467,34 @@ function ManageBookings() {
               </section>
             )}
 
-            {/* toolbar — unified obsidian bar with brushed champagne-gold trim */}
+            {/* toolbar — single integrated anodised bar */}
             <section
-              className="mt-5 rounded-[26px] p-[9px]"
+              className="mt-5 flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
               style={{
-                background: "linear-gradient(180deg, #14171C 0%, #090B0E 100%)",
-                border: "1px solid rgba(255,255,255,0.055)",
+                background: "linear-gradient(180deg, #1E252D 0%, #181E25 100%)",
+                border: "1px solid rgba(214,182,124,0.10)",
                 boxShadow:
-                  "0 26px 60px -28px rgba(0,0,0,0.85), 0 2px 0 rgba(255,255,255,0.04) inset, 0 -1px 0 rgba(0,0,0,0.6) inset",
+                  "0 18px 44px -30px rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.045) inset, 0 -1px 0 rgba(0,0,0,0.35) inset",
               }}
             >
-              <div
-                className="flex flex-col gap-1 rounded-[19px] md:flex-row md:items-stretch md:gap-0"
-                style={{
-                  background: "linear-gradient(180deg, #101317 0%, #0A0C10 100%)",
-                  border: "1px solid rgba(255,255,255,0.045)",
-                  boxShadow: "0 1px 0 rgba(255,255,255,0.03) inset, 0 -14px 30px -22px rgba(255,255,255,0.06) inset",
-                }}
-              >
-                {/* search */}
-                <div className="relative flex min-w-0 flex-1 items-center">
-                  <Search
-                    size={19}
-                    strokeWidth={2.1}
-                    className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2"
-                    style={{ color: "#E3C077", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.6))" }}
-                  />
-                  <input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search bookings..."
-                    aria-label="Search bookings by name, destination, hotel or reference"
-                    className="w-full bg-transparent py-[13px] pl-[52px] pr-4 text-[14.5px] outline-none placeholder:text-[#9BA3AC]"
-                    style={{ color: "#EDEFF2" }}
-                  />
-                </div>
+              {/* search */}
+              <div className="relative flex min-w-0 flex-1 items-center">
+                <Search
+                  size={19}
+                  strokeWidth={2}
+                  className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2"
+                  style={{ color: "#DCBE84", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.45))" }}
+                />
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search bookings..."
+                  aria-label="Search bookings by name, destination, hotel or reference"
+                  className="w-full bg-transparent py-[14px] pl-[52px] pr-4 text-[14.5px] outline-none placeholder:text-[rgba(255,255,255,0.55)]"
+                  style={{ color: "rgba(255,255,255,0.92)" }}
+                />
+              </div>
+
 
                 <GoldDivider />
 
@@ -1536,50 +1533,46 @@ function ManageBookings() {
 
                 <GoldDivider />
 
-                {/* view toggles */}
-                <div className="flex items-center gap-2 px-3 py-2">
-                  {(
-                    [
-                      { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
-                      { key: "list" as const, icon: LayoutList, label: "List view" },
-                    ]
-                  ).map(({ key, icon: Icon, label }) => {
-                    const on = view === key;
-                    return (
-                      <button
-                        key={key}
-                        type="button"
-                        aria-label={label}
-                        aria-pressed={on}
-                        onClick={() => setView(key)}
-                        className="grid h-[42px] w-[50px] place-items-center rounded-[11px] transition-all duration-200"
-                        style={
-                          on
-                            ? {
-                                background:
-                                  "linear-gradient(180deg, rgba(227,192,119,0.13) 0%, rgba(169,133,58,0.07) 100%)",
-                                border: "1px solid transparent",
-                                borderImage:
-                                  "linear-gradient(160deg,#F3DCA6 0%,#D9BC72 28%,#A9853A 62%,#E7C98F 100%) 1",
-                                borderRadius: 11,
-                                color: "#EBCE93",
-                                boxShadow:
-                                  "0 0 0 1px rgba(227,192,119,0.35), 0 10px 22px -14px rgba(227,192,119,0.55), 0 1px 0 rgba(255,255,255,0.08) inset",
-                              }
-                            : {
-                                background: "rgba(255,255,255,0.02)",
-                                border: "1px solid rgba(255,255,255,0.07)",
-                                color: "#C6CBD1",
-                              }
-                        }
-                      >
-                        <Icon size={19} strokeWidth={1.9} />
-                      </button>
-                    );
-                  })}
-                </div>
+              {/* view toggles */}
+              <div className="flex items-center gap-2 px-3 py-2">
+                {(
+                  [
+                    { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
+                    { key: "list" as const, icon: LayoutList, label: "List view" },
+                  ]
+                ).map(({ key, icon: Icon, label }) => {
+                  const on = view === key;
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      aria-label={label}
+                      aria-pressed={on}
+                      onClick={() => setView(key)}
+                      className="grid h-[42px] w-[50px] place-items-center rounded-[11px] transition-all duration-200"
+                      style={
+                        on
+                          ? {
+                              background:
+                                "linear-gradient(180deg, rgba(220,190,132,0.10) 0%, rgba(169,133,58,0.05) 100%)",
+                              border: "1px solid rgba(220,190,132,0.55)",
+                              color: "#E4CB98",
+                              boxShadow: "0 1px 0 rgba(255,255,255,0.07) inset",
+                            }
+                          : {
+                              background: "rgba(255,255,255,0.02)",
+                              border: "1px solid rgba(255,255,255,0.05)",
+                              color: "rgba(255,255,255,0.72)",
+                            }
+                      }
+                    >
+                      <Icon size={19} strokeWidth={1.9} />
+                    </button>
+                  );
+                })}
               </div>
             </section>
+
 
 
             {/* bookings */}
