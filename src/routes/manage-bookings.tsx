@@ -437,9 +437,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             style={{
               color: "#E6EDF3",
               border: "1px solid rgba(255,255,255,0.055)",
-              background: "#18212C",
+              background: "linear-gradient(180deg, #1C2632 0%, #161E29 100%)",
+              /* subtle raised effect — soft top highlight + bottom drop shadow, ~1px lifted */
               boxShadow:
-                "inset 0 1px 2px rgba(0,0,0,0.45), inset 0 -1px 0 rgba(255,255,255,0.03)",
+                "inset 0 1px 0 rgba(255,255,255,0.07), 0 1px 2px rgba(0,0,0,0.30), 0 2px 5px rgba(0,0,0,0.20)",
             }}
           >
             <span className="shrink-0" style={{ color: "#E3A23C" }}>
