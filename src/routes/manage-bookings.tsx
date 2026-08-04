@@ -1603,7 +1603,8 @@ function ManageBookings() {
                       : "No bookings match your filters."}
                 </p>
               )}
-            </section>
+            </div>
+
 
               <footer className="mt-5 flex flex-wrap items-center justify-between gap-3">
                 <p className="text-[12.5px]" style={{ color: MUTED }}>
