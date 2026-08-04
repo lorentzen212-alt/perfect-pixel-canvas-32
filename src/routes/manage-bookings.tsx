@@ -114,11 +114,18 @@ const HAIRLINE = "rgba(255,255,255,0.08)";
 const TEXT = "#F1EFE9";
 const TEXT_2 = "#B6C3CE";
 const MUTED = "#7F8F9C";
-const GOLD = "#C9A24B";
-const GOLD_SOFT = "#E0BE6B";
+const GOLD = "#C9972F";
+const GOLD_SOFT = "#D9B860";
 const PEARL = "#F4F1EA";
 const RULE = "rgba(190,205,215,0.20)";
-const BLUE = "#4F86C6";
+const BLUE = "#3F6BAE";
+/* premium brushed / anodized gold */
+const GOLD_METAL = "#C9972F";
+const GOLD_LIGHT = "#E8CE7E";
+const GOLD_BRUSHED =
+  "linear-gradient(180deg, #6F4B12 0%, #9B6A19 14%, #C9972F 32%, #F7E08D 47%, #FFF3C4 52%, #F7E08D 58%, #D4AF37 74%, #A5741E 90%, #6B4914 100%)";
+const GOLD_BRUSHED_H =
+  "linear-gradient(140deg, #6B4914 0%, #9B6A19 18%, #C9972F 38%, #F7E08D 52%, #D4AF37 68%, #A5741E 86%, #6F4B12 100%)";
 const GREEN = "#5E9C6A";
 const RED = "#B4636A";
 
