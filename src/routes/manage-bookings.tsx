@@ -268,7 +268,7 @@ function Timeline({ booking }: { booking: Booking }) {
 function TypeChip({ type }: { type: Booking["type"] }) {
   return (
     <span
-      className="inline-flex items-center rounded-[4px] px-[7px] py-[2px] text-[9px] font-semibold uppercase tracking-[0.2em]"
+      className="inline-flex items-center rounded-[6px] px-[7px] py-[2px] text-[9px] font-semibold uppercase tracking-[0.2em]"
       style={{
         color: "#C6AC72",
         border: "1px solid rgba(201,162,75,0.34)",
@@ -427,7 +427,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[11px] px-[13px] py-[8px] text-[13px] font-light"
+            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[7px] px-[13px] py-[8px] text-[13px] font-light"
             style={{
               color: "#E6EDF3",
               border: "1px solid rgba(255,255,255,0.055)",
@@ -453,7 +453,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           border: "1px solid rgba(255,255,255,0.035)",
           background: "#0C131D",
           boxShadow:
-            "inset 0 3px 8px rgba(0,0,0,0.60), inset 0 1px 0 rgba(255,255,255,0.055), 0 1px 0 rgba(255,255,255,0.02)",
+            "inset 0 2px 5px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
         <div className="px-[20px] py-[11px]">
@@ -507,7 +507,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[10px] px-[18px] py-[10px] text-[15px]"
+          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[7px] px-[18px] py-[10px] text-[15px]"
           style={{
             color: "#F0D68A",
             border: "1.5px solid transparent",
@@ -532,7 +532,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   const shell = {
     background: "#111923",
     border: "1px solid rgba(255,255,255,0.05)",
-    borderRadius: 14,
+    borderRadius: 9,
     boxShadow:
       "0 12px 34px rgba(0,0,0,0.50), inset 0 1px 0 rgba(255,255,255,0.035), inset 0 -3px 10px rgba(0,0,0,0.45)",
   } as const;
@@ -540,7 +540,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   const media = (
     <div
       className={
-        compact ? "relative overflow-hidden" : "relative overflow-hidden rounded-[12px]"
+        compact
+          ? "relative overflow-hidden"
+          : "relative overflow-hidden rounded-[8px] sm:self-center"
       }
       style={
         compact
