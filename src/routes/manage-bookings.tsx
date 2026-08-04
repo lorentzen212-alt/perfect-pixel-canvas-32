@@ -563,7 +563,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[186px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[313px]"
+            : "h-[173px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[291px]"
         }
         style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
       />
