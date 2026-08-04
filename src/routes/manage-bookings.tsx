@@ -553,7 +553,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       style={
         compact
           ? undefined
-          : { boxShadow: "0 2px 6px rgba(0,0,0,0.28)" }
+          : { boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }
       }
     >
       <img
