@@ -1447,89 +1447,124 @@ function ManageBookings() {
               </section>
             )}
 
-            {/* toolbar */}
+            {/* toolbar — unified obsidian bar with brushed champagne-gold trim */}
             <section
-              className="mt-5 grid grid-cols-1 gap-2.5 rounded-[16px] p-2.5 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]"
+              className="mt-5 rounded-[26px] p-[9px]"
               style={{
-                background: CARD,
-                border: `1px solid ${CARD_BORDER}`,
-                boxShadow: CARD_SHADOW,
-                backdropFilter: "blur(8px)",
+                background: "linear-gradient(180deg, #14171C 0%, #090B0E 100%)",
+                border: "1px solid rgba(255,255,255,0.055)",
+                boxShadow:
+                  "0 26px 60px -28px rgba(0,0,0,0.85), 0 2px 0 rgba(255,255,255,0.04) inset, 0 -1px 0 rgba(0,0,0,0.6) inset",
               }}
             >
-              <div className="relative">
-                <Search
-                  size={17}
-                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
-                  style={{ color: GOLD }}
-                />
-                <input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search bookings..."
-                  aria-label="Search bookings by name, destination, hotel or reference"
-                  className="hgb-field w-full rounded-[10px] py-[9px] pl-11 pr-4 text-[13.5px] outline-none placeholder:text-[#9AA5AF]"
-                  style={{
-                    backgroundColor: "#333C46",
-                    border: `1px solid rgba(255,255,255,0.06)`,
-                    color: TEXT,
-                  }}
-                />
-              </div>
-              <Select
-                label="Status filter"
-                value={group}
-                onChange={setGroup}
-                options={[
-                  { value: "all", label: "All Status" },
-                  { value: "proposal", label: "Proposal Ready" },
-                  { value: "awaiting", label: "Awaiting Response" },
-                  { value: "confirmed", label: "Confirmed" },
-                  { value: "attention", label: "Needs Attention" },
-                  { value: "cancelled", label: "Cancelled" },
-                ]}
-              />
-              <Select
-                label="Date filter"
-                value={dateChoice}
-                onChange={setDateChoice}
-                options={[
-                  { value: "all", label: "All Dates" },
-                  { value: "upcoming", label: "Upcoming" },
-                  { value: "this_month", label: "This Month" },
-                  { value: "next_90", label: "Next 3 Months" },
-                  { value: "past", label: "Past Stays" },
-                ]}
-              />
-              <div className="flex items-center gap-2 justify-self-start md:justify-self-end">
-                {(
-                  [
-                    { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
-                    { key: "list" as const, icon: LayoutList, label: "List view" },
-                  ]
-                ).map(({ key, icon: Icon, label }) => {
-                  const on = view === key;
-                  return (
-                    <button
-                      key={key}
-                      type="button"
-                      aria-label={label}
-                      aria-pressed={on}
-                      onClick={() => setView(key)}
-                      className="grid h-[38px] w-[44px] place-items-center rounded-[10px] transition-colors"
-                      style={{
-                        background: on ? "rgba(201,162,75,0.14)" : "#333C46",
-                        border: `1px solid ${on ? `${GOLD}99` : "rgba(255,255,255,0.06)"}`,
-                        color: on ? GOLD_SOFT : "#A2ADB7",
-                        boxShadow: on ? "0 10px 24px -14px rgba(201,162,75,0.75)" : "0 8px 20px rgba(0,0,0,0.14)",
-                      }}
-                    >
-                      <Icon size={18} />
-                    </button>
-                  );
-                })}
+              <div
+                className="flex flex-col gap-1 rounded-[19px] md:flex-row md:items-stretch md:gap-0"
+                style={{
+                  background: "linear-gradient(180deg, #101317 0%, #0A0C10 100%)",
+                  border: "1px solid rgba(255,255,255,0.045)",
+                  boxShadow: "0 1px 0 rgba(255,255,255,0.03) inset, 0 -14px 30px -22px rgba(255,255,255,0.06) inset",
+                }}
+              >
+                {/* search */}
+                <div className="relative flex min-w-0 flex-1 items-center">
+                  <Search
+                    size={19}
+                    strokeWidth={2.1}
+                    className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2"
+                    style={{ color: "#E3C077", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.6))" }}
+                  />
+                  <input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search bookings..."
+                    aria-label="Search bookings by name, destination, hotel or reference"
+                    className="w-full bg-transparent py-[13px] pl-[52px] pr-4 text-[14.5px] outline-none placeholder:text-[#9BA3AC]"
+                    style={{ color: "#EDEFF2" }}
+                  />
+                </div>
+
+                <GoldDivider />
+
+                <div className="flex min-w-0 items-center md:w-[280px]">
+                  <Select
+                    label="Status filter"
+                    value={group}
+                    onChange={setGroup}
+                    options={[
+                      { value: "all", label: "All Status" },
+                      { value: "proposal", label: "Proposal Ready" },
+                      { value: "awaiting", label: "Awaiting Response" },
+                      { value: "confirmed", label: "Confirmed" },
+                      { value: "attention", label: "Needs Attention" },
+                      { value: "cancelled", label: "Cancelled" },
+                    ]}
+                  />
+                </div>
+
+                <GoldDivider />
+
+                <div className="flex min-w-0 items-center md:w-[280px]">
+                  <Select
+                    label="Date filter"
+                    value={dateChoice}
+                    onChange={setDateChoice}
+                    options={[
+                      { value: "all", label: "All Dates" },
+                      { value: "upcoming", label: "Upcoming" },
+                      { value: "this_month", label: "This Month" },
+                      { value: "next_90", label: "Next 3 Months" },
+                      { value: "past", label: "Past Stays" },
+                    ]}
+                  />
+                </div>
+
+                <GoldDivider />
+
+                {/* view toggles */}
+                <div className="flex items-center gap-2 px-3 py-2">
+                  {(
+                    [
+                      { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
+                      { key: "list" as const, icon: LayoutList, label: "List view" },
+                    ]
+                  ).map(({ key, icon: Icon, label }) => {
+                    const on = view === key;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        aria-label={label}
+                        aria-pressed={on}
+                        onClick={() => setView(key)}
+                        className="grid h-[42px] w-[50px] place-items-center rounded-[11px] transition-all duration-200"
+                        style={
+                          on
+                            ? {
+                                background:
+                                  "linear-gradient(180deg, rgba(227,192,119,0.13) 0%, rgba(169,133,58,0.07) 100%)",
+                                border: "1px solid transparent",
+                                borderImage:
+                                  "linear-gradient(160deg,#F3DCA6 0%,#D9BC72 28%,#A9853A 62%,#E7C98F 100%) 1",
+                                borderRadius: 11,
+                                color: "#EBCE93",
+                                boxShadow:
+                                  "0 0 0 1px rgba(227,192,119,0.35), 0 10px 22px -14px rgba(227,192,119,0.55), 0 1px 0 rgba(255,255,255,0.08) inset",
+                              }
+                            : {
+                                background: "rgba(255,255,255,0.02)",
+                                border: "1px solid rgba(255,255,255,0.07)",
+                                color: "#C6CBD1",
+                              }
+                        }
+                      >
+                        <Icon size={19} strokeWidth={1.9} />
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </section>
+
 
             {/* bookings */}
             <section
