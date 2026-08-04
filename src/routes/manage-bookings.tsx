@@ -617,15 +617,16 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     return (
       <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
         {goldInsert}
-        <div className="pl-[14px]">{media}</div>
-        <div className="p-4 pl-[22px]">{info}</div>
+        <div>{media}</div>
+        <div className="py-4 pr-4">{info}</div>
       </article>
     );
   }
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[26px] pl-[40px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[26px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
+
       style={shell}
     >
       {goldInsert}
