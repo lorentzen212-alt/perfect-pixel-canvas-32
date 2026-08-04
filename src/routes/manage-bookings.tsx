@@ -1577,26 +1577,35 @@ function ManageBookings() {
               </div>
             </div>
 
-            {/* bookings */}
-            <div
-              className={
-                view === "list" ? "mt-4 space-y-3" : "mt-4 grid grid-cols-1 gap-3.5 xl:grid-cols-2"
-              }
+            {/* bookings — premium workspace panel */}
+            <section
+              className="mt-[18px] rounded-[18px] p-[22px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, #1B222A 0%, #151B22 55%, #121820 100%)",
+                border: "1px solid rgba(255,255,255,0.05)",
+                boxShadow:
+                  "0 1px 0 rgba(255,255,255,0.035) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 24px 60px -45px rgba(0,0,0,0.7)",
+              }}
             >
-              {results.map((b) => (
-                <BookingCard key={b.id} booking={b} compact={view === "grid"} />
-              ))}
-              {results.length === 0 && (
-                <p className="py-12 text-center text-[13.5px]" style={{ color: MUTED }}>
-                  {isLoading
-                    ? "Loading your bookings…"
-                    : bookings.length === 0
-                      ? "You have no bookings yet. Start a new request to see it here."
-                      : "No bookings match your filters."}
-                </p>
-              )}
-            </div>
-
+              <div
+                className={
+                  view === "list" ? "space-y-4" : "grid grid-cols-1 gap-4 xl:grid-cols-2"
+                }
+              >
+                {results.map((b) => (
+                  <BookingCard key={b.id} booking={b} compact={view === "grid"} />
+                ))}
+                {results.length === 0 && (
+                  <p className="py-12 text-center text-[13.5px]" style={{ color: MUTED }}>
+                    {isLoading
+                      ? "Loading your bookings…"
+                      : bookings.length === 0
+                        ? "You have no bookings yet. Start a new request to see it here."
+                        : "No bookings match your filters."}
+                  </p>
+                )}
+              </div>
 
               <footer className="mt-5 flex flex-wrap items-center justify-between gap-3">
                 <p className="text-[12.5px]" style={{ color: MUTED }}>
@@ -1610,6 +1619,7 @@ function ManageBookings() {
                 </span>
               </footer>
             </section>
+
 
           </div>
         </main>
