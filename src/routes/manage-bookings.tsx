@@ -526,10 +526,11 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
               "0 2px 8px rgba(0,0,0,0.45), 0 0 14px rgba(227,162,60,0.22), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
-          {action.label}
+          <span className="hgb-gold-metal">{action.label}</span>
           <ArrowRight
             size={18}
             className="transition-transform duration-300 group-hover/btn:translate-x-[3px]"
+            style={{ color: "#F0D08C" }}
           />
         </Link>
       </div>
