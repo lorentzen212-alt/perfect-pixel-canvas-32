@@ -613,7 +613,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {/* metallic gold accent strip — full height, top to bottom */}
       <span
         aria-hidden
-        className="hgb-brass-bar pointer-events-none absolute inset-y-0 left-0 z-10 w-[16px] overflow-hidden"
+        className="hgb-brass-bar pointer-events-none absolute inset-y-0 left-0 z-10 w-[12px] overflow-hidden"
         style={{
           background: GOLD_BRUSHED,
           borderRadius: 0,
