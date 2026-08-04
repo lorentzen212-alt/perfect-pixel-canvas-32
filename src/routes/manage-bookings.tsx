@@ -222,15 +222,16 @@ function Timeline({ booking }: { booking: Booking }) {
   return (
     <div className="relative grid grid-cols-4 gap-1">
       <div
-        className="absolute left-[12.5%] right-[12.5%] top-[21px] h-px"
-        style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+        className="absolute left-[12.5%] right-[12.5%] top-[21px]"
+        style={{ height: "0.5px", backgroundColor: "rgba(255,255,255,0.054)" }}
         aria-hidden
       />
       <div
-        className="absolute left-[12.5%] top-[21px] h-px"
+        className="absolute left-[12.5%] top-[21px]"
         style={{
+          height: "0.5px",
           width: `${(active / 3) * 75}%`,
-          background: `linear-gradient(90deg, rgba(169,122,32,0.15) 0%, #A97A20 35%, #E3A23C 70%, #FBDD9B 100%)`,
+          background: `linear-gradient(90deg, rgba(169,122,32,0.13) 0%, rgba(169,122,32,0.9) 35%, rgba(227,162,60,0.9) 70%, rgba(251,221,155,0.9) 100%)`,
         }}
         aria-hidden
       />
@@ -238,30 +239,31 @@ function Timeline({ booking }: { booking: Booking }) {
         const done = i < active;
         const current = i === active;
         return (
-          <div key={s.key} className="relative flex flex-col items-center gap-[9px]">
+          <div key={s.key} className="relative flex flex-col items-center gap-[12px]">
             <span
               className="relative grid h-[42px] w-[42px] place-items-center rounded-full"
               style={{
                 background: current
-                  ? "radial-gradient(80% 80% at 50% 30%, rgba(212,175,55,0.12) 0%, rgba(13,20,32,0.95) 100%)"
-                  : "rgba(13,20,32,0.95)",
-                border: `1px solid ${done || current ? "#E3A23C" : "rgba(160,174,192,0.32)"}`,
-                color: done || current ? "#F2C46A" : "#A0AEC0",
+                  ? "radial-gradient(80% 80% at 50% 28%, rgba(227,196,130,0.13) 0%, rgba(13,20,32,0.96) 100%)"
+                  : "linear-gradient(180deg, rgba(20,28,40,0.96) 0%, rgba(13,20,32,0.96) 100%)",
+                border: `1px solid ${done || current ? "rgba(227,178,96,0.85)" : "rgba(168,182,199,0.34)"}`,
+                color: done || current ? "#EFCB8A" : "#A9B7C6",
                 boxShadow:
                   done || current
-                    ? "0 0 10px rgba(227,162,60,0.42), inset 0 1px 0 rgba(255,255,255,0.06)"
-                    : "inset 0 1px 0 rgba(255,255,255,0.03)",
+                    ? "0 0 6px rgba(227,162,60,0.30), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -2px 5px rgba(0,0,0,0.40)"
+                    : "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -2px 5px rgba(0,0,0,0.35)",
               }}
             >
-              <s.icon size={17} strokeWidth={1.5} />
+              <s.icon size={17} strokeWidth={1.65} />
             </span>
             <span
               className="whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]"
-              style={{ color: current || done ? "#F2C46A" : "#A0AEC0" }}
+              style={{ color: current || done ? "#EFCB8A" : "#A9B7C6" }}
             >
               {s.label}
             </span>
           </div>
+
         );
       })}
     </div>
