@@ -217,14 +217,14 @@ function Timeline({ booking }: { booking: Booking }) {
     <div className="relative grid grid-cols-4 gap-1">
       <div
         className="absolute left-[12.5%] right-[12.5%] top-[21px] h-px"
-        style={{ backgroundColor: "rgba(190,205,215,0.14)" }}
+        style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
         aria-hidden
       />
       <div
         className="absolute left-[12.5%] top-[21px] h-px"
         style={{
           width: `${(active / 3) * 75}%`,
-          background: `linear-gradient(90deg, rgba(201,162,75,0.15) 0%, ${GOLD} 100%)`,
+          background: `linear-gradient(90deg, rgba(212,175,55,0.10) 0%, #D4AF37 100%)`,
         }}
         aria-hidden
       />
@@ -237,20 +237,21 @@ function Timeline({ booking }: { booking: Booking }) {
               className="relative grid h-[42px] w-[42px] place-items-center rounded-full"
               style={{
                 background: current
-                  ? "radial-gradient(80% 80% at 50% 30%, rgba(212,175,55,0.14) 0%, rgba(15,23,34,0.85) 100%)"
-                  : "rgba(15,23,34,0.85)",
-                border: `1px solid ${done ? "rgba(212,175,55,0.55)" : current ? tone : "rgba(190,205,215,0.20)"}`,
-                color: done ? GOLD_SOFT : current ? GOLD_SOFT : "#8494A1",
-                boxShadow: current
-                  ? "0 0 22px rgba(212,175,55,0.28), inset 0 1px 0 rgba(255,255,255,0.07)"
-                  : "inset 0 1px 0 rgba(255,255,255,0.04)",
+                  ? "radial-gradient(80% 80% at 50% 30%, rgba(212,175,55,0.12) 0%, rgba(13,20,32,0.95) 100%)"
+                  : "rgba(13,20,32,0.95)",
+                border: `1px solid ${done || current ? "#D4AF37" : "rgba(160,174,192,0.32)"}`,
+                color: done || current ? "#D4AF37" : "#A0AEC0",
+                boxShadow:
+                  done || current
+                    ? "0 0 10px rgba(212,175,55,0.45), inset 0 1px 0 rgba(255,255,255,0.06)"
+                    : "inset 0 1px 0 rgba(255,255,255,0.03)",
               }}
             >
               <s.icon size={17} strokeWidth={1.5} />
             </span>
             <span
               className="whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]"
-              style={{ color: current ? GOLD_SOFT : done ? "#B9C6D1" : "#8B9AA6" }}
+              style={{ color: current || done ? "#D4AF37" : "#A0AEC0" }}
             >
               {s.label}
             </span>
@@ -258,6 +259,7 @@ function Timeline({ booking }: { booking: Booking }) {
         );
       })}
     </div>
+
 
 
   );
@@ -421,19 +423,16 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* metadata chips */}
-      <div className="mt-4 flex flex-wrap items-center gap-[8px]">
+      <div className="mt-4 flex flex-wrap items-center gap-[13px]">
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex h-[42px] items-center gap-[8px] whitespace-nowrap rounded-[12px] px-[12px] text-[13px] font-light"
+            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[8px] px-[14px] py-[10px] text-[13px] font-light"
             style={{
-              color: TEXT_2,
-              border: "1px solid rgba(255,255,255,0.08)",
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(12,20,29,0.34) 100%)",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
+              color: "#E6EDF3",
+              border: "1px solid rgba(255,255,255,0.06)",
+              background: "#151E2B",
+              boxShadow: "inset 0 1px 2px rgba(0,0,0,0.35)",
             }}
           >
             <span className="shrink-0" style={{ color: "#D4AF37" }}>
@@ -447,13 +446,11 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[14px] grid grid-cols-1 overflow-hidden rounded-[14px] sm:grid-cols-2"
+        className="mt-[14px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
         style={{
-          border: "1px solid rgba(255,255,255,0.07)",
-          background: "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(12,20,29,0.34) 100%)",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 2px 8px rgba(0,0,0,0.20)",
-          backdropFilter: "blur(6px)",
-          WebkitBackdropFilter: "blur(6px)",
+          border: "1px solid rgba(255,255,255,0.05)",
+          background: "#121A26",
+          boxShadow: "inset 0 1px 3px rgba(0,0,0,0.35)",
         }}
       >
         <div className="px-[20px] py-[14px]">
@@ -469,7 +466,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         </div>
         <div
           className="px-[20px] py-[14px]"
-          style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
+          style={{ borderLeft: "1px solid rgba(255,255,255,0.06)" }}
         >
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.14em]"
@@ -486,6 +483,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         </div>
       </div>
 
+
       {/* progress track */}
       <div className="mt-[22px]">
         <Timeline booking={booking} />
@@ -494,7 +492,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {/* footer */}
       <div
         className="mt-[20px] flex flex-nowrap items-center justify-between gap-4 pt-[18px]"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
       >
         <p
           className="min-w-0 flex-1 truncate text-[14px] font-light"
@@ -505,13 +503,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn group/btn inline-flex h-[48px] shrink-0 items-center gap-4 whitespace-nowrap rounded-[12px] px-[26px] text-[15px]"
+          className="hgb-view-btn group/btn inline-flex shrink-0 items-center gap-4 whitespace-nowrap rounded-[10px] px-[18px] py-[10px] text-[15px]"
           style={{
-            color: GOLD_SOFT,
-            border: "1px solid rgba(212,175,55,0.62)",
-            background:
-              "linear-gradient(180deg, rgba(212,175,55,0.07) 0%, rgba(12,20,29,0.35) 100%)",
-            boxShadow: "0 0 22px rgba(212,175,55,0.16), inset 0 1px 0 rgba(255,255,255,0.05)",
+            color: "#D4AF37",
+            border: "1px solid #D4AF37",
+            background: "linear-gradient(180deg, rgba(212,175,55,0.06) 0%, rgba(13,20,32,0.6) 100%)",
+            boxShadow: "0 0 12px rgba(212,175,55,0.35), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
           {action.label}
@@ -525,23 +522,17 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   );
 
   const shell = {
-    background: `radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0) 60%), radial-gradient(110% 120% at 50% 120%, rgba(8,14,21,0.30) 0%, rgba(8,14,21,0) 62%), ${CARD}`,
-    border: "1px solid rgba(255,255,255,0.08)",
+    background: "#0D1420",
+    border: "1px solid rgba(255,255,255,0.06)",
+    borderRadius: 14,
     boxShadow:
-      "0 2px 6px rgba(0,0,0,0.22), 0 6px 16px rgba(6,12,20,0.26), 0 26px 60px rgba(6,12,20,0.34), inset 0 1px 0 rgba(255,255,255,0.07)",
+      "0 10px 30px rgba(0,0,0,0.45), inset 0 2px 6px rgba(0,0,0,0.35)",
   } as const;
 
   const media = (
     <div
       className={
-        compact
-          ? "relative overflow-hidden"
-          : "relative overflow-hidden rounded-[19px]"
-      }
-      style={
-        compact
-          ? undefined
-          : { boxShadow: "0 18px 40px rgba(6,12,20,0.45)" }
+        compact ? "relative overflow-hidden" : "relative overflow-hidden rounded-[12px]"
       }
     >
       <img
@@ -567,10 +558,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {!compact && (
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[19px]"
+          className="pointer-events-none absolute inset-0 rounded-[12px]"
           style={{
             boxShadow:
-              "inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.12)",
+              "inset 0 2px 4px rgba(0,0,0,0.40), inset 0 0 0 1px rgba(255,255,255,0.06)",
           }}
         />
       )}
@@ -579,7 +570,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="hgb-booking-card group overflow-hidden rounded-[13px] transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
+      <article className="hgb-booking-card group overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
         {media}
         <div className="p-4">{info}</div>
       </article>
@@ -588,18 +579,19 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden rounded-[16px] py-[22px] pl-[26px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden py-[22px] pl-[26px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
       style={shell}
     >
-      {/* metallic gold accent strip on the far left edge */}
+      {/* metallic gold accent strip — full height, top to bottom */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-[18px] left-0 z-10 w-[5px] rounded-r-[3px]"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[6px]"
         style={{
           background:
-            "linear-gradient(180deg, #E7CB74 0%, #D4AF37 45%, #C29A2E 70%, #8E6B22 100%)",
-          boxShadow: "0 0 22px rgba(212,175,55,0.35)",
+            "linear-gradient(180deg, #FFE082 0%, #D4AF37 40%, #B8860B 60%, #FFE082 100%)",
+          boxShadow: "0 0 12px rgba(212,175,55,0.40)",
         }}
+
       />
       {media}
       <div className="min-w-0">{info}</div>
