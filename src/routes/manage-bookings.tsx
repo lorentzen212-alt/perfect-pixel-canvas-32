@@ -554,7 +554,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       style={
         compact
           ? undefined
-          : { boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }
+          : { boxShadow: "0 1px 2px rgba(0,0,0,0.12)" }
       }
     >
       <img
@@ -564,7 +564,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[173px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+            : "h-[173px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[calc(100%-5px)] sm:my-[2.5px]"
         }
         style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
       />
@@ -582,8 +582,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-[14px]"
           style={{
+            /* deeper inset — image pressed ~2px into the card */
             boxShadow:
-              "inset 0 2px 5px rgba(255,255,255,0.05), inset 0 -4px 11px rgba(0,0,0,0.6), inset 0 5px 14px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.05)",
+              "inset 0 2px 4px rgba(255,255,255,0.04), inset 0 -5px 13px rgba(0,0,0,0.66), inset 0 6px 16px rgba(0,0,0,0.78), inset 0 0 0 1px rgba(255,255,255,0.05)",
           }}
         />
       )}
