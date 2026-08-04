@@ -1472,8 +1472,6 @@ function ManageBookings() {
             <div
               className="mt-[22px] flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
 
-              className="flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
-
               style={{
                 background: "linear-gradient(180deg, #1E252D 0%, #181E25 100%)",
                 border: "1px solid rgba(214,182,124,0.10)",
