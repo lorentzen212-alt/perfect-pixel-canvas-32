@@ -622,36 +622,46 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[26px] pl-[38px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
       style={shell}
     >
-      {/* polished metallic gold accent strip — rounded ends, mirror reflection */}
+      {/* polished metallic gold accent strip — satin body, single crisp mirror line */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-[6px] left-[5px] z-10 w-[15px] overflow-hidden rounded-full"
+        className="pointer-events-none absolute inset-y-[10px] left-[6px] z-10 w-[18px] overflow-hidden rounded-full"
         style={{
           background:
-            "linear-gradient(90deg, #6E4A0A 0%, #A9761A 14%, #E0AE3A 32%, #FBE39C 47%, #FFF6D2 52%, #F0C55A 58%, #C08F22 74%, #8A6112 88%, #5A3C08 100%)",
+            "linear-gradient(90deg, #4A3106 0%, #7A560F 10%, #A9791A 24%, #D9A932 40%, #F3D57F 50%, #E0B443 60%, #B98A20 76%, #7E5A10 90%, #4A3106 100%)",
           boxShadow:
-            "0 1px 3px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,225,150,0.22)",
+            "0 1px 3px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,220,140,0.16)",
         }}
       >
-        {/* vertical luminance falloff — brighter through the middle */}
+        {/* vertical luminance falloff — warm amber ends, luminous mid-body */}
         <span
           aria-hidden
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.10) 16%, rgba(255,246,214,0.20) 48%, rgba(0,0,0,0.10) 82%, rgba(0,0,0,0.45) 100%)",
+              "linear-gradient(180deg, rgba(255,240,190,0.16) 0%, rgba(255,246,214,0.10) 8%, rgba(0,0,0,0.06) 30%, rgba(255,246,214,0.12) 52%, rgba(0,0,0,0.12) 78%, rgba(90,55,5,0.42) 100%)",
           }}
         />
-        {/* crisp specular mirror line */}
+        {/* single precise vertical specular reflection, just left of centre */}
         <span
           aria-hidden
-          className="absolute inset-y-0 left-[46%] w-[9%]"
+          className="absolute inset-y-[3px] left-[40%] w-[10%] rounded-full"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,252,232,0) 0%, rgba(255,252,232,0.75) 50%, rgba(255,252,232,0) 100%)",
+              "linear-gradient(90deg, rgba(255,250,225,0) 0%, rgba(255,250,225,0.62) 45%, rgba(255,250,225,0.82) 55%, rgba(255,250,225,0) 100%)",
+          }}
+        />
+        {/* soft satin sheen on the outer left shoulder */}
+        <span
+          aria-hidden
+          className="absolute inset-y-0 left-0 w-[22%]"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,235,180,0.18) 0%, rgba(255,235,180,0) 100%)",
           }}
         />
       </span>
+
 
       {media}
       <div className="min-w-0">{info}</div>
