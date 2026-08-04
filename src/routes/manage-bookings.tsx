@@ -423,16 +423,17 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* metadata chips */}
-      <div className="mt-4 flex flex-wrap items-center gap-[13px]">
+      <div className="mt-[13px] flex flex-wrap items-center gap-[10px]">
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[8px] px-[14px] py-[10px] text-[13px] font-light"
+            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[11px] px-[13px] py-[8px] text-[13px] font-light"
             style={{
               color: "#E6EDF3",
-              border: "1px solid rgba(255,255,255,0.06)",
-              background: "#151E2B",
-              boxShadow: "inset 0 1px 2px rgba(0,0,0,0.35)",
+              border: "1px solid rgba(255,255,255,0.055)",
+              background: "#131C27",
+              boxShadow:
+                "inset 0 1px 2px rgba(0,0,0,0.45), inset 0 -1px 0 rgba(255,255,255,0.03)",
             }}
           >
             <span className="shrink-0" style={{ color: "#D4AF37" }}>
@@ -444,29 +445,31 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
 
+
       {/* reference panel */}
       <div
-        className="mt-[14px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
+        className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
         style={{
-          border: "1px solid rgba(255,255,255,0.05)",
-          background: "#121A26",
-          boxShadow: "inset 0 1px 3px rgba(0,0,0,0.35)",
+          border: "1px solid rgba(255,255,255,0.035)",
+          background: "#0C131D",
+          boxShadow:
+            "inset 0 3px 8px rgba(0,0,0,0.60), inset 0 1px 0 rgba(255,255,255,0.055), 0 1px 0 rgba(255,255,255,0.02)",
         }}
       >
-        <div className="px-[20px] py-[14px]">
+        <div className="px-[20px] py-[11px]">
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.14em]"
             style={{ color: "#D4AF37" }}
           >
             Your reference
           </p>
-          <p className="mt-[6px] text-[20px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
+          <p className="mt-[5px] text-[20px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
             {booking.reference}
           </p>
         </div>
         <div
-          className="px-[20px] py-[14px]"
-          style={{ borderLeft: "1px solid rgba(255,255,255,0.06)" }}
+          className="px-[20px] py-[11px]"
+          style={{ borderLeft: "1px solid rgba(255,255,255,0.05)" }}
         >
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.14em]"
@@ -475,7 +478,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             Hotel reference
           </p>
           <p
-            className="mt-[6px] text-[20px] leading-none"
+            className="mt-[5px] text-[20px] leading-none"
             style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 400 }}
           >
             {booking.hotelReference ?? "Pending"}
@@ -485,15 +488,16 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
       {/* progress track */}
-      <div className="mt-[22px]">
+      <div className="mt-[16px]">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-[20px] flex flex-nowrap items-center justify-between gap-4 pt-[18px]"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        className="mt-[14px] flex flex-nowrap items-center justify-between gap-4 pt-[13px]"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.055)" }}
       >
+
         <p
           className="min-w-0 flex-1 truncate text-[14px] font-light"
           style={{ color: "#AFC0CD" }}
@@ -503,12 +507,16 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn group/btn inline-flex shrink-0 items-center gap-4 whitespace-nowrap rounded-[10px] px-[18px] py-[10px] text-[15px]"
+          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[10px] px-[18px] py-[10px] text-[15px]"
           style={{
-            color: "#D4AF37",
-            border: "1px solid #D4AF37",
-            background: "linear-gradient(180deg, rgba(212,175,55,0.06) 0%, rgba(13,20,32,0.6) 100%)",
-            boxShadow: "0 0 12px rgba(212,175,55,0.35), inset 0 1px 0 rgba(255,255,255,0.05)",
+            color: "#F0D68A",
+            border: "1.5px solid transparent",
+            backgroundImage:
+              "linear-gradient(180deg, rgba(212,175,55,0.07) 0%, rgba(13,20,32,0.65) 100%), linear-gradient(140deg, #7A5615 0%, #A7771F 18%, #D4AF37 38%, #FFE58A 52%, #D4AF37 66%, #9A6A18 100%)",
+            backgroundOrigin: "border-box",
+            backgroundClip: "padding-box, border-box",
+            boxShadow:
+              "0 0 8px rgba(212,175,55,0.16), inset 0 1px 0 rgba(255,255,255,0.06)",
           }}
         >
           {action.label}
@@ -522,17 +530,22 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   );
 
   const shell = {
-    background: "#0D1420",
-    border: "1px solid rgba(255,255,255,0.06)",
+    background: "#111923",
+    border: "1px solid rgba(255,255,255,0.05)",
     borderRadius: 14,
     boxShadow:
-      "0 10px 30px rgba(0,0,0,0.45), inset 0 2px 6px rgba(0,0,0,0.35)",
+      "0 12px 34px rgba(0,0,0,0.50), inset 0 1px 0 rgba(255,255,255,0.035), inset 0 -3px 10px rgba(0,0,0,0.45)",
   } as const;
 
   const media = (
     <div
       className={
         compact ? "relative overflow-hidden" : "relative overflow-hidden rounded-[12px]"
+      }
+      style={
+        compact
+          ? undefined
+          : { boxShadow: "0 2px 6px rgba(0,0,0,0.28)" }
       }
     >
       <img
@@ -542,9 +555,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[240px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[404px]"
+            : "h-[210px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[352px]"
         }
-        style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.86)" }}
+        style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
       />
       <span
         aria-hidden
@@ -561,7 +574,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           className="pointer-events-none absolute inset-0 rounded-[12px]"
           style={{
             boxShadow:
-              "inset 0 2px 4px rgba(0,0,0,0.40), inset 0 0 0 1px rgba(255,255,255,0.06)",
+              "inset 0 2px 4px rgba(255,255,255,0.05), inset 0 -3px 8px rgba(0,0,0,0.45), inset 0 3px 10px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.045)",
           }}
         />
       )}
@@ -579,7 +592,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden py-[22px] pl-[26px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[24px] overflow-hidden py-[18px] pl-[24px] pr-[24px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
       style={shell}
     >
       {/* metallic gold accent strip — full height, top to bottom */}
@@ -588,11 +601,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[6px]"
         style={{
           background:
-            "linear-gradient(180deg, #FFE082 0%, #D4AF37 40%, #B8860B 60%, #FFE082 100%)",
-          boxShadow: "0 0 12px rgba(212,175,55,0.40)",
+            "linear-gradient(180deg, #7A5615 0%, #A7771F 12%, #D4AF37 30%, #FFE58A 44%, #FFF4CC 50%, #FFE58A 56%, #D4AF37 72%, #A7771F 88%, #9A6A18 100%)",
+          boxShadow:
+            "inset -1px 0 2px rgba(0,0,0,0.45), inset 1px 0 0 rgba(255,255,255,0.28), 0 0 10px rgba(212,175,55,0.28)",
         }}
-
       />
+
       {media}
       <div className="min-w-0">{info}</div>
     </article>
