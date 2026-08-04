@@ -425,7 +425,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex h-[44px] items-center gap-[10px] whitespace-nowrap rounded-[12px] px-[16px] text-[14px] font-light"
+            className="inline-flex h-[42px] items-center gap-[9px] whitespace-nowrap rounded-[12px] px-[13px] text-[13.5px] font-light"
             style={{
               color: TEXT_2,
               border: "1px solid rgba(255,255,255,0.08)",
