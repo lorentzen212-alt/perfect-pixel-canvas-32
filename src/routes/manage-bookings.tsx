@@ -432,7 +432,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[7px] px-[13px] py-[8px] text-[13px] font-light"
+            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[5px] px-[13px] py-[8px] text-[13px] font-light"
             style={{
               color: "#E6EDF3",
               border: "1px solid rgba(255,255,255,0.055)",
@@ -512,13 +512,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[7px] px-[18px] py-[10px] text-[15px]"
+          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[5px] px-[18px] py-[10px] text-[15px]"
           style={{
             color: "#E7D8B4",
-            marginRight: -1,
+            marginRight: 0,
             border: "1.5px solid transparent",
             backgroundImage:
-              `linear-gradient(180deg, rgba(194,165,116,0.10) 0%, rgba(13,20,32,0.62) 100%), ${GOLD_BRUSHED_H}`,
+              `linear-gradient(180deg, rgba(194,165,116,0.13) 0%, rgba(24,33,46,0.72) 100%), ${GOLD_BRUSHED_H}`,
             backgroundOrigin: "border-box",
             backgroundClip: "padding-box, border-box",
             boxShadow:
@@ -548,7 +548,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className={
         compact
           ? "relative overflow-hidden"
-          : "relative overflow-hidden rounded-[8px] sm:self-center"
+          : "relative overflow-hidden rounded-[5px] sm:self-center"
       }
       style={
         compact
@@ -563,7 +563,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[173px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[291px]"
+            : "h-[173px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[270px]"
         }
         style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
       />
@@ -579,10 +579,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {!compact && (
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[8px]"
+          className="pointer-events-none absolute inset-0 rounded-[5px]"
           style={{
             boxShadow:
-              "inset 0 2px 5px rgba(255,255,255,0.055), inset 0 -4px 10px rgba(0,0,0,0.55), inset 0 4px 13px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(255,255,255,0.05)",
+              "inset 0 2px 5px rgba(255,255,255,0.05), inset 0 -4px 11px rgba(0,0,0,0.6), inset 0 5px 14px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.05)",
           }}
         />
       )}
@@ -600,13 +600,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden py-[26px] pl-[38px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,24.5%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden py-[26px] pl-[38px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
       style={shell}
     >
       {/* metallic gold accent strip — full height, top to bottom */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[12px] overflow-hidden"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[10px] overflow-hidden"
         style={{
           background:
             GOLD_BRUSHED,
