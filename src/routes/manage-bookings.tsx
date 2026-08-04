@@ -594,7 +594,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {/* metallic gold accent strip on the far left edge */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-[10px] left-0 w-[4px] rounded-r-[4px]"
+        className="pointer-events-none absolute inset-y-[10px] left-0 z-10 w-[4px] rounded-r-[4px]"
         style={{
           background:
             "linear-gradient(180deg, rgba(212,175,55,0.15) 0%, #E7CB74 18%, #D4AF37 50%, #A9822C 82%, rgba(212,175,55,0.15) 100%)",
