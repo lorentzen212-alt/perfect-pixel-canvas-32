@@ -1595,17 +1595,19 @@ function ManageBookings() {
               )}
             </section>
 
-            <footer className="mt-5 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-[12.5px]" style={{ color: MUTED }}>
-                Can&rsquo;t find a booking?{" "}
-                <Link to="/account" style={{ color: GOLD }}>
-                  Contact us →
-                </Link>
-              </p>
-              <span className="text-[12.5px]" style={{ color: MUTED }}>
-                Showing {results.length} of {bookings.length}
-              </span>
-            </footer>
+              <footer className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                <p className="text-[12.5px]" style={{ color: MUTED }}>
+                  Can&rsquo;t find a booking?{" "}
+                  <Link to="/account" style={{ color: GOLD }}>
+                    Contact us →
+                  </Link>
+                </p>
+                <span className="text-[12.5px]" style={{ color: MUTED }}>
+                  Showing {results.length} of {bookings.length}
+                </span>
+              </footer>
+            </section>
+
           </div>
         </main>
       </div>
