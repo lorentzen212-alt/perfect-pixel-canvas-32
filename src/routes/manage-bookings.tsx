@@ -1161,7 +1161,7 @@ function ManageBookings() {
             style={{
               top: 370,
               backgroundColor: "#0C121A",
-              backgroundImage: `url("${contentAtmos.url}")`,
+              backgroundImage: `url("${contentArc.url}")`,
               backgroundSize: "cover",
               backgroundPosition: "center top",
               backgroundRepeat: "no-repeat",
