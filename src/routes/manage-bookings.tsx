@@ -553,46 +553,58 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className={
         compact
           ? "relative overflow-hidden"
-          : "relative overflow-hidden rounded-[14px] sm:h-full sm:self-stretch"
+          : "relative rounded-[16px] p-[10px] sm:h-full sm:self-stretch"
       }
       style={
         compact
           ? undefined
-          : { boxShadow: "0 1px 2px rgba(0,0,0,0.12)" }
+          : {
+              background: "linear-gradient(180deg, #18212C 0%, #131B25 100%)",
+              border: "1px solid rgba(255,255,255,0.055)",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -4px 12px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.35)",
+            }
       }
     >
-      <img
-        src={booking.image}
-        alt={`${booking.destination} — ${booking.name}`}
-        loading="lazy"
+      <div
         className={
           compact
-            ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[168px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[calc(100%-5px)] sm:my-[2.5px]"
+            ? "relative overflow-hidden"
+            : "relative h-full overflow-hidden rounded-[10px]"
         }
-        style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
-      />
-      <span
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          background: compact
-            ? "linear-gradient(180deg, rgba(8,15,23,0) 40%, rgba(14,23,33,0.7) 100%)"
-            : "linear-gradient(90deg, rgba(8,15,23,0) 68%, rgba(14,23,33,0.45) 100%), radial-gradient(120% 100% at 50% 50%, rgba(10,17,25,0) 58%, rgba(10,17,25,0.36) 100%)",
-        }}
-      />
-      {!compact && (
+        style={
+          compact
+            ? undefined
+            : {
+                border: "1px solid rgba(0,0,0,0.55)",
+                boxShadow:
+                  "inset 0 2px 8px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04)",
+              }
+        }
+      >
+        <img
+          src={booking.image}
+          alt={`${booking.destination} — ${booking.name}`}
+          loading="lazy"
+          className={
+            compact
+              ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              : "h-[173px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+          }
+          style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
+        />
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[14px]"
+          className="absolute inset-0"
           style={{
-            /* deeper inset — image mounted into the card */
-            boxShadow:
-              "inset 0 2px 4px rgba(255,255,255,0.035), inset 0 -7px 17px rgba(0,0,0,0.74), inset 0 9px 21px rgba(0,0,0,0.86), inset 0 0 0 1px rgba(255,255,255,0.05)",
+            background: compact
+              ? "linear-gradient(180deg, rgba(8,15,23,0) 40%, rgba(14,23,33,0.7) 100%)"
+              : "radial-gradient(120% 100% at 50% 50%, rgba(10,17,25,0) 62%, rgba(10,17,25,0.30) 100%)",
           }}
         />
-      )}
+      </div>
     </div>
+
 
   );
 
