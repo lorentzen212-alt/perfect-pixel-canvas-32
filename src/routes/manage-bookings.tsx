@@ -122,7 +122,7 @@ const RULE = "rgba(190,205,215,0.20)";
 const BLUE = "#4C8AE0";
 /* polished brass — richer metallic gold with reflection bands */
 const GOLD_BRUSHED =
-  "linear-gradient(90deg, #6B4A14 0%, #A87C2C 12%, #D8AE5E 26%, #F5DC9E 40%, #FFF3CE 48%, #E2BC72 58%, #B98C34 74%, #8A6420 88%, #5C3F10 100%)";
+  "linear-gradient(90deg, #7A5406 0%, #C08D12 10%, #E9B622 22%, #FFD754 34%, #FFF0B0 46%, #FFD34A 56%, #E0A415 70%, #A9760C 86%, #6B4703 100%)";
 const GOLD_BRUSHED_H =
   "linear-gradient(140deg, #6B4A14 0%, #A87C2C 18%, #D8AE5E 38%, #F3D89A 52%, #D2A85E 66%, #96702A 84%, #6B4A14 100%)";
 const GREEN = "#5E9C6A";
@@ -613,12 +613,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {/* metallic gold accent strip — full height, top to bottom */}
       <span
         aria-hidden
-        className="hgb-brass-bar pointer-events-none absolute inset-y-0 left-0 z-10 w-[12px] overflow-hidden"
+        className="hgb-brass-bar pointer-events-none absolute inset-y-0 left-0 z-10 w-[16px] overflow-hidden"
         style={{
           background: GOLD_BRUSHED,
           borderRadius: 0,
           boxShadow:
-            "inset -1px 0 3px rgba(0,0,0,0.55), inset 1px 0 0 rgba(255,248,226,0.30), 0 0 10px rgba(214,170,90,0.22)",
+            "inset -1px 0 4px rgba(0,0,0,0.55), inset 1px 0 0 rgba(255,252,224,0.55), 0 0 18px rgba(255,200,60,0.35)",
         }}
       >
         {/* polished brass reflection bands */}
@@ -627,19 +627,29 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.05) 22%, rgba(0,0,0,0.24) 48%, rgba(255,255,255,0.18) 72%, rgba(0,0,0,0.28) 100%)",
+              "linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.06) 20%, rgba(0,0,0,0.26) 46%, rgba(255,255,255,0.24) 70%, rgba(0,0,0,0.30) 100%)",
             mixBlendMode: "overlay",
+          }}
+        />
+        {/* hot specular highlight, like light hitting polished metal */}
+        <span
+          aria-hidden
+          className="absolute inset-x-0 top-[28%] h-[26%]"
+          style={{
+            background:
+              "radial-gradient(60% 50% at 45% 50%, rgba(255,255,255,0.78) 0%, rgba(255,246,200,0.35) 45%, rgba(255,255,255,0) 100%)",
           }}
         />
         {/* faint vertical anodized banding for a brushed finish */}
         <span
           aria-hidden
-          className="absolute inset-0 opacity-35"
+          className="absolute inset-0 opacity-25"
           style={{
             background:
               "repeating-linear-gradient(180deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px)",
           }}
         />
+
       </span>
 
       {media}
