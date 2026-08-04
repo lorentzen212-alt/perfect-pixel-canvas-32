@@ -1467,41 +1467,34 @@ function ManageBookings() {
               </section>
             )}
 
-            {/* toolbar — unified obsidian bar with brushed champagne-gold trim */}
+            {/* toolbar — single integrated anodised bar */}
             <section
-              className="mt-5 rounded-[26px] p-[9px]"
+              className="mt-5 flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
               style={{
-                background: "linear-gradient(180deg, #14171C 0%, #090B0E 100%)",
-                border: "1px solid rgba(255,255,255,0.055)",
+                background: "linear-gradient(180deg, #1E252D 0%, #181E25 100%)",
+                border: "1px solid rgba(214,182,124,0.10)",
                 boxShadow:
-                  "0 26px 60px -28px rgba(0,0,0,0.85), 0 2px 0 rgba(255,255,255,0.04) inset, 0 -1px 0 rgba(0,0,0,0.6) inset",
+                  "0 18px 44px -30px rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.045) inset, 0 -1px 0 rgba(0,0,0,0.35) inset",
               }}
             >
-              <div
-                className="flex flex-col gap-1 rounded-[19px] md:flex-row md:items-stretch md:gap-0"
-                style={{
-                  background: "linear-gradient(180deg, #101317 0%, #0A0C10 100%)",
-                  border: "1px solid rgba(255,255,255,0.045)",
-                  boxShadow: "0 1px 0 rgba(255,255,255,0.03) inset, 0 -14px 30px -22px rgba(255,255,255,0.06) inset",
-                }}
-              >
-                {/* search */}
-                <div className="relative flex min-w-0 flex-1 items-center">
-                  <Search
-                    size={19}
-                    strokeWidth={2.1}
-                    className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2"
-                    style={{ color: "#E3C077", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.6))" }}
-                  />
-                  <input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search bookings..."
-                    aria-label="Search bookings by name, destination, hotel or reference"
-                    className="w-full bg-transparent py-[13px] pl-[52px] pr-4 text-[14.5px] outline-none placeholder:text-[#9BA3AC]"
-                    style={{ color: "#EDEFF2" }}
-                  />
-                </div>
+              {/* search */}
+              <div className="relative flex min-w-0 flex-1 items-center">
+                <Search
+                  size={19}
+                  strokeWidth={2}
+                  className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2"
+                  style={{ color: "#DCBE84", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.45))" }}
+                />
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search bookings..."
+                  aria-label="Search bookings by name, destination, hotel or reference"
+                  className="w-full bg-transparent py-[14px] pl-[52px] pr-4 text-[14.5px] outline-none placeholder:text-[rgba(255,255,255,0.55)]"
+                  style={{ color: "rgba(255,255,255,0.92)" }}
+                />
+              </div>
+
 
                 <GoldDivider />
 
