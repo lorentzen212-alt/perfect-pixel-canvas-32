@@ -216,12 +216,12 @@ function Timeline({ booking }: { booking: Booking }) {
   return (
     <div className="relative grid grid-cols-4 gap-1">
       <div
-        className="absolute left-[12.5%] right-[12.5%] top-[14px] h-px"
-        style={{ backgroundColor: "rgba(190,205,215,0.16)" }}
+        className="absolute left-[12.5%] right-[12.5%] top-[21px] h-px"
+        style={{ backgroundColor: "rgba(190,205,215,0.14)" }}
         aria-hidden
       />
       <div
-        className="absolute left-[12.5%] top-[14px] h-px"
+        className="absolute left-[12.5%] top-[21px] h-px"
         style={{
           width: `${(active / 3) * 75}%`,
           background: `linear-gradient(90deg, rgba(201,162,75,0.15) 0%, ${GOLD} 100%)`,
@@ -232,29 +232,25 @@ function Timeline({ booking }: { booking: Booking }) {
         const done = i < active;
         const current = i === active;
         return (
-          <div key={s.key} className="relative flex flex-col items-center gap-[4px]">
+          <div key={s.key} className="relative flex flex-col items-center gap-[9px]">
             <span
-              className="relative grid h-[28px] w-[28px] place-items-center rounded-full"
+              className="relative grid h-[42px] w-[42px] place-items-center rounded-full"
               style={{
-                background: done
-                  ? tone
-                  : current
-                    ? "rgba(201,162,75,0.09)"
-                    : "rgba(19,29,40,0.55)",
-                border: `1px solid ${done || current ? tone : "rgba(190,205,215,0.20)"}`,
-                color: done ? "#0A121A" : current ? GOLD_SOFT : "#8494A1",
+                background: current
+                  ? "radial-gradient(80% 80% at 50% 30%, rgba(212,175,55,0.14) 0%, rgba(15,23,34,0.85) 100%)"
+                  : "rgba(15,23,34,0.85)",
+                border: `1px solid ${done ? "rgba(212,175,55,0.55)" : current ? tone : "rgba(190,205,215,0.20)"}`,
+                color: done ? GOLD_SOFT : current ? GOLD_SOFT : "#8494A1",
                 boxShadow: current
-                  ? "0 0 18px rgba(201,162,75,0.22), inset 0 1px 0 rgba(255,255,255,0.06)"
-                  : done
-                    ? "0 0 14px rgba(201,162,75,0.14)"
-                    : "inset 0 1px 0 rgba(255,255,255,0.04)",
+                  ? "0 0 22px rgba(212,175,55,0.28), inset 0 1px 0 rgba(255,255,255,0.07)"
+                  : "inset 0 1px 0 rgba(255,255,255,0.04)",
               }}
             >
-              <s.icon size={14} strokeWidth={1.6} />
+              <s.icon size={17} strokeWidth={1.5} />
             </span>
             <span
-              className="whitespace-pre-line text-center text-[10.5px] leading-[1.2] tracking-[0.02em]"
-              style={{ color: done || current ? GOLD_SOFT : "#8B9AA6" }}
+              className="whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]"
+              style={{ color: current ? GOLD_SOFT : done ? "#B9C6D1" : "#8B9AA6" }}
             >
               {s.label}
             </span>
@@ -262,6 +258,7 @@ function Timeline({ booking }: { booking: Booking }) {
         );
       })}
     </div>
+
 
   );
 }
@@ -397,10 +394,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="mt-1.5 block truncate transition-opacity hover:opacity-85"
+            className="mt-2 block truncate transition-opacity hover:opacity-85"
           >
             <h3
-              className="truncate text-[30px] leading-[1.05] tracking-[0.002em]"
+              className="truncate text-[38px] leading-[1.05] tracking-[0.002em]"
               style={{ color: PEARL, fontFamily: SERIF, fontWeight: 400 }}
             >
               {booking.name}
@@ -409,82 +406,80 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         </div>
         <div className="flex shrink-0 items-start gap-2">
           <span
-            className="mt-1 hidden items-center gap-2 text-[10.5px] font-semibold uppercase tracking-[0.18em] xl:inline-flex"
+            className="mt-1.5 hidden items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] sm:inline-flex"
             style={{ color: tone }}
           >
             <span
-              className="inline-block h-[6px] w-[6px] rounded-full"
+              className="inline-block h-[7px] w-[7px] rounded-full"
               style={{ backgroundColor: tone, boxShadow: `0 0 0 3px ${tone}22` }}
             />
             {GROUP_LABEL[g]}
           </span>
+
           <RowMenu booking={booking} />
         </div>
       </div>
 
-      {/* meta strip with hairline rules above and below */}
-      <div
-        className="mt-2.5 flex flex-wrap items-center gap-y-1 py-[6px]"
-        style={{
-          borderTop: `1px solid ${RULE}`,
-          borderBottom: `1px solid ${RULE}`,
-        }}
-      >
+      {/* metadata chips */}
+      <div className="mt-4 flex flex-wrap items-center gap-[8px]">
         {metas.map((m, i) => (
-          <span key={i} className="flex items-center">
-            {i > 0 && (
-              <span
-                aria-hidden
-                className="mx-3 hidden h-[12px] w-px sm:block"
-                style={{ background: "rgba(190,205,215,0.18)" }}
-              />
-            )}
-            <span
-              className="inline-flex items-center gap-[9px] whitespace-nowrap pr-3 text-[14px] font-light sm:pr-0"
-              style={{ color: TEXT_2 }}
-            >
-              <span className="shrink-0" style={{ color: "#BFA05C" }}>
-                {m.icon}
-              </span>
-              {m.text}
+          <span
+            key={i}
+            className="inline-flex h-[42px] items-center gap-[8px] whitespace-nowrap rounded-[12px] px-[12px] text-[13px] font-light"
+            style={{
+              color: TEXT_2,
+              border: "1px solid rgba(255,255,255,0.08)",
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(12,20,29,0.34) 100%)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+            }}
+          >
+            <span className="shrink-0" style={{ color: "#D4AF37" }}>
+              {m.icon}
             </span>
+            {m.text}
           </span>
         ))}
       </div>
 
+
       {/* reference panel */}
       <div
-        className="mt-2.5 grid grid-cols-1 overflow-hidden rounded-[13px] sm:grid-cols-2"
+        className="mt-[14px] grid grid-cols-1 overflow-hidden rounded-[14px] sm:grid-cols-2"
         style={{
-          border: "1px solid rgba(190,205,215,0.13)",
-          background: "linear-gradient(180deg, rgba(12,20,29,0.30) 0%, rgba(12,20,29,0.20) 100%)",
-          boxShadow: "inset 0 2px 6px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.03)",
+          border: "1px solid rgba(255,255,255,0.07)",
+          background: "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(12,20,29,0.34) 100%)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 2px 8px rgba(0,0,0,0.20)",
+          backdropFilter: "blur(6px)",
+          WebkitBackdropFilter: "blur(6px)",
         }}
       >
-        <div className="px-4 py-2">
+        <div className="px-[20px] py-[14px]">
           <p
-            className="text-[10.5px] font-semibold uppercase tracking-[0.12em]"
-            style={{ color: "#BFA05C" }}
+            className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+            style={{ color: "#D4AF37" }}
           >
             Your reference
           </p>
-          <p className="mt-[2px] text-[16px]" style={{ color: PEARL, fontWeight: 500 }}>
+          <p className="mt-[6px] text-[20px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
             {booking.reference}
           </p>
         </div>
         <div
-          className="px-4 py-2"
-          style={{ borderLeft: "1px solid rgba(190,205,215,0.16)" }}
+          className="px-[20px] py-[14px]"
+          style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
         >
           <p
-            className="text-[10.5px] font-semibold uppercase tracking-[0.12em]"
-            style={{ color: "#BFA05C" }}
+            className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+            style={{ color: "#D4AF37" }}
           >
             Hotel reference
           </p>
           <p
-            className="mt-[2px] text-[16px]"
-            style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 500 }}
+            className="mt-[6px] text-[20px] leading-none"
+            style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 400 }}
           >
             {booking.hotelReference ?? "Pending"}
           </p>
@@ -492,17 +487,17 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* progress track */}
-      <div className="mt-2.5">
+      <div className="mt-[22px]">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-2.5 flex flex-nowrap items-center justify-between gap-4 pt-2.5"
-        style={{ borderTop: `1px solid ${RULE}` }}
+        className="mt-[20px] flex flex-nowrap items-center justify-between gap-4 pt-[18px]"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
       >
         <p
-          className="min-w-0 flex-1 truncate text-[13.5px] font-light"
+          className="min-w-0 flex-1 truncate text-[14px] font-light"
           style={{ color: "#AFC0CD" }}
         >
           {booking.statusNote ?? ""}
@@ -510,16 +505,18 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn group/btn inline-flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[12px] px-6 py-2 text-[13.5px]"
+          className="hgb-view-btn group/btn inline-flex h-[48px] shrink-0 items-center gap-4 whitespace-nowrap rounded-[12px] px-[26px] text-[15px]"
           style={{
             color: GOLD_SOFT,
-            border: "1px solid rgba(201,162,75,0.55)",
-            background: "rgba(12,20,29,0.30)",
+            border: "1px solid rgba(212,175,55,0.62)",
+            background:
+              "linear-gradient(180deg, rgba(212,175,55,0.07) 0%, rgba(12,20,29,0.35) 100%)",
+            boxShadow: "0 0 22px rgba(212,175,55,0.16), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
           {action.label}
           <ArrowRight
-            size={16}
+            size={18}
             className="transition-transform duration-300 group-hover/btn:translate-x-[3px]"
           />
         </Link>
@@ -529,7 +526,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   const shell = {
     background: `radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0) 60%), radial-gradient(110% 120% at 50% 120%, rgba(8,14,21,0.30) 0%, rgba(8,14,21,0) 62%), ${CARD}`,
-    border: "1px solid rgba(190,205,215,0.12)",
+    border: "1px solid rgba(255,255,255,0.08)",
     boxShadow:
       "0 2px 6px rgba(0,0,0,0.22), 0 6px 16px rgba(6,12,20,0.26), 0 26px 60px rgba(6,12,20,0.34), inset 0 1px 0 rgba(255,255,255,0.07)",
   } as const;
@@ -539,12 +536,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className={
         compact
           ? "relative overflow-hidden"
-          : "relative overflow-hidden rounded-[14px]"
+          : "relative overflow-hidden rounded-[19px]"
       }
       style={
         compact
           ? undefined
-          : { boxShadow: "0 10px 26px rgba(6,12,20,0.38)" }
+          : { boxShadow: "0 18px 40px rgba(6,12,20,0.45)" }
       }
     >
       <img
@@ -554,9 +551,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[190px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[232px]"
+            : "h-[240px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[404px]"
         }
-        style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.82)" }}
+        style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.86)" }}
       />
       <span
         aria-hidden
@@ -564,16 +561,16 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         style={{
           background: compact
             ? "linear-gradient(180deg, rgba(8,15,23,0) 40%, rgba(14,23,33,0.7) 100%)"
-            : "linear-gradient(90deg, rgba(8,15,23,0) 62%, rgba(14,23,33,0.55) 100%), radial-gradient(120% 100% at 50% 50%, rgba(10,17,25,0) 52%, rgba(10,17,25,0.42) 100%)",
+            : "linear-gradient(90deg, rgba(8,15,23,0) 68%, rgba(14,23,33,0.45) 100%), radial-gradient(120% 100% at 50% 50%, rgba(10,17,25,0) 58%, rgba(10,17,25,0.36) 100%)",
         }}
       />
       {!compact && (
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[14px]"
+          className="pointer-events-none absolute inset-0 rounded-[19px]"
           style={{
             boxShadow:
-              "inset 0 0 0 1px rgba(255,255,255,0.07), inset 0 1px 0 rgba(255,255,255,0.10)",
+              "inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.12)",
           }}
         />
       )}
@@ -591,13 +588,24 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group grid grid-cols-1 items-start gap-5 overflow-hidden rounded-[13px] p-4 transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,262px)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden rounded-[16px] py-[22px] pl-[26px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
       style={shell}
     >
+      {/* metallic gold accent strip on the far left edge */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-y-[18px] left-0 z-10 w-[5px] rounded-r-[3px]"
+        style={{
+          background:
+            "linear-gradient(180deg, #E7CB74 0%, #D4AF37 45%, #C29A2E 70%, #8E6B22 100%)",
+          boxShadow: "0 0 22px rgba(212,175,55,0.35)",
+        }}
+      />
       {media}
       <div className="min-w-0">{info}</div>
     </article>
   );
+
 
 }
 
