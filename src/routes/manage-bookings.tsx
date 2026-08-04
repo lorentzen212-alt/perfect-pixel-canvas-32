@@ -462,18 +462,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       <div
         className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
         style={{
-          border: "1px solid rgba(255,255,255,0.035)",
-          background: "linear-gradient(180deg, #19222D 0%, #141C26 100%)",
-          /* carved-into-card inset — deeper inner shadow + soft top highlight */
+          border: "1px solid rgba(0,0,0,0.45)",
+          background: "linear-gradient(180deg, #0D141C 0%, #0A1017 100%)",
+          /* deeply carved into the card — stronger inset walls */
           boxShadow:
-            "inset 0 3px 7px rgba(0,0,0,0.52), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -2px 3px rgba(0,0,0,0.30), 0 1px 0 rgba(255,255,255,0.03)",
+            "inset 0 8px 14px rgba(0,0,0,0.72), inset 0 2px 4px rgba(0,0,0,0.60), inset 0 -4px 8px rgba(0,0,0,0.48), inset 2px 0 5px rgba(0,0,0,0.45), inset -2px 0 5px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.055)",
         }}
       >
         <div className="px-[20px] py-[11px]">
-          <p
-            className="text-[11px] font-semibold uppercase tracking-[0.14em]"
-            style={{ color: "#E3A23C" }}
-          >
+          <p className="hgb-gold-metal text-[11px] font-semibold uppercase tracking-[0.14em]">
             Your reference
           </p>
           <p className="mt-[5px] text-[20px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
@@ -482,12 +479,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         </div>
         <div
           className="px-[20px] py-[11px]"
-          style={{ borderLeft: "1px solid rgba(255,255,255,0.05)" }}
+          style={{ borderLeft: "1px solid rgba(0,0,0,0.5)" }}
         >
-          <p
-            className="text-[11px] font-semibold uppercase tracking-[0.14em]"
-            style={{ color: "#E3A23C" }}
-          >
+          <p className="hgb-gold-metal text-[11px] font-semibold uppercase tracking-[0.14em]">
             Hotel reference
           </p>
           <p
