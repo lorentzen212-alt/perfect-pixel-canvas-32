@@ -619,48 +619,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[26px] pl-[38px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden p-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
       style={shell}
     >
-      {/* polished metallic gold accent strip — satin body, single crisp mirror line */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-y-[10px] left-[6px] z-10 w-[18px] overflow-hidden rounded-full"
-        style={{
-          background:
-            "linear-gradient(90deg, #4A3106 0%, #7A560F 10%, #A9791A 24%, #D9A932 40%, #F3D57F 50%, #E0B443 60%, #B98A20 76%, #7E5A10 90%, #4A3106 100%)",
-          boxShadow:
-            "0 1px 3px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,220,140,0.16)",
-        }}
-      >
-        {/* vertical luminance falloff — warm amber ends, luminous mid-body */}
-        <span
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(255,240,190,0.16) 0%, rgba(255,246,214,0.10) 8%, rgba(0,0,0,0.06) 30%, rgba(255,246,214,0.12) 52%, rgba(0,0,0,0.12) 78%, rgba(90,55,5,0.42) 100%)",
-          }}
-        />
-        {/* single precise vertical specular reflection, just left of centre */}
-        <span
-          aria-hidden
-          className="absolute inset-y-[3px] left-[40%] w-[10%] rounded-full"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(255,250,225,0) 0%, rgba(255,250,225,0.62) 45%, rgba(255,250,225,0.82) 55%, rgba(255,250,225,0) 100%)",
-          }}
-        />
-        {/* soft satin sheen on the outer left shoulder */}
-        <span
-          aria-hidden
-          className="absolute inset-y-0 left-0 w-[22%]"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(255,235,180,0.18) 0%, rgba(255,235,180,0) 100%)",
-          }}
-        />
-      </span>
+
 
 
       {media}
