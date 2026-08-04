@@ -394,10 +394,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="mt-1.5 block truncate transition-opacity hover:opacity-85"
+            className="mt-2 block truncate transition-opacity hover:opacity-85"
           >
             <h3
-              className="truncate text-[30px] leading-[1.05] tracking-[0.002em]"
+              className="truncate text-[38px] leading-[1.05] tracking-[0.002em]"
               style={{ color: PEARL, fontFamily: SERIF, fontWeight: 400 }}
             >
               {booking.name}
@@ -406,15 +406,16 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         </div>
         <div className="flex shrink-0 items-start gap-2">
           <span
-            className="mt-1 hidden items-center gap-2 text-[10.5px] font-semibold uppercase tracking-[0.18em] xl:inline-flex"
+            className="mt-1.5 hidden items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] sm:inline-flex"
             style={{ color: tone }}
           >
             <span
-              className="inline-block h-[6px] w-[6px] rounded-full"
+              className="inline-block h-[7px] w-[7px] rounded-full"
               style={{ backgroundColor: tone, boxShadow: `0 0 0 3px ${tone}22` }}
             />
             {GROUP_LABEL[g]}
           </span>
+
           <RowMenu booking={booking} />
         </div>
       </div>
