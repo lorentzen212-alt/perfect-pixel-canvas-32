@@ -244,21 +244,23 @@ function Timeline({ booking }: { booking: Booking }) {
               className="relative grid h-[42px] w-[42px] place-items-center rounded-full"
               style={{
                 background: current
-                  ? "radial-gradient(80% 80% at 50% 28%, rgba(227,196,130,0.13) 0%, rgba(13,20,32,0.96) 100%)"
+                  ? "radial-gradient(80% 80% at 50% 28%, rgba(245,220,158,0.17) 0%, rgba(13,20,32,0.96) 100%)"
                   : "linear-gradient(180deg, rgba(20,28,40,0.96) 0%, rgba(13,20,32,0.96) 100%)",
-                border: `1px solid ${done || current ? "rgba(227,178,96,0.85)" : "rgba(168,182,199,0.34)"}`,
-                color: done || current ? "#EFCB8A" : "#A9B7C6",
+                border: `1px solid ${done || current ? "rgba(240,208,140,0.92)" : "rgba(168,182,199,0.34)"}`,
+                color: done || current ? "#F5DC9E" : "#A9B7C6",
                 boxShadow:
                   done || current
-                    ? "0 0 6px rgba(227,162,60,0.30), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -2px 5px rgba(0,0,0,0.40)"
+                    ? "0 0 6px rgba(240,208,140,0.34), inset 0 1px 0 rgba(255,246,220,0.16), inset 0 -2px 5px rgba(0,0,0,0.42)"
                     : "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -2px 5px rgba(0,0,0,0.35)",
               }}
             >
               <s.icon size={17} strokeWidth={1.65} />
             </span>
             <span
-              className="whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]"
-              style={{ color: current || done ? "#EFCB8A" : "#A9B7C6" }}
+              className={`whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]${
+                current || done ? " hgb-gold-metal" : ""
+              }`}
+              style={current || done ? undefined : { color: "#A9B7C6" }}
             >
               {s.label}
             </span>
