@@ -610,33 +610,33 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[26px] pl-[38px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
       style={shell}
     >
-      {/* metallic gold accent strip — full height, top to bottom */}
+      {/* polished metallic gold accent strip — rounded ends, mirror reflection */}
       <span
         aria-hidden
-        className="hgb-brass-bar pointer-events-none absolute inset-y-0 left-0 z-10 w-[12px] overflow-hidden"
+        className="pointer-events-none absolute inset-y-[6px] left-[5px] z-10 w-[15px] overflow-hidden rounded-full"
         style={{
-          background: GOLD_BRUSHED,
-          borderRadius: 0,
+          background:
+            "linear-gradient(90deg, #6E4A0A 0%, #A9761A 14%, #E0AE3A 32%, #FBE39C 47%, #FFF6D2 52%, #F0C55A 58%, #C08F22 74%, #8A6112 88%, #5A3C08 100%)",
           boxShadow:
-            "inset -1px 0 3px rgba(0,0,0,0.5), inset 1px 0 0 rgba(255,226,160,0.16)",
+            "0 1px 3px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,225,150,0.22)",
         }}
       >
-        {/* one very subtle vertical satin reflection */}
+        {/* vertical luminance falloff — brighter through the middle */}
         <span
           aria-hidden
-          className="absolute inset-y-0 left-[38%] w-[16%]"
+          className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,238,190,0) 0%, rgba(255,238,190,0.16) 50%, rgba(255,238,190,0) 100%)",
+              "linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.10) 16%, rgba(255,246,214,0.20) 48%, rgba(0,0,0,0.10) 82%, rgba(0,0,0,0.45) 100%)",
           }}
         />
-        {/* fine vertical brushed banding for a satin anodized finish */}
+        {/* crisp specular mirror line */}
         <span
           aria-hidden
-          className="absolute inset-0 opacity-[0.10]"
+          className="absolute inset-y-0 left-[46%] w-[9%]"
           style={{
             background:
-              "repeating-linear-gradient(180deg, rgba(255,240,200,0.06) 0px, rgba(255,240,200,0.06) 1px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px)",
+              "linear-gradient(90deg, rgba(255,252,232,0) 0%, rgba(255,252,232,0.75) 50%, rgba(255,252,232,0) 100%)",
           }}
         />
       </span>
