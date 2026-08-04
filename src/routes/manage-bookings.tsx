@@ -702,7 +702,7 @@ function StatusCard({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex h-[204px] flex-col overflow-hidden rounded-[22px] p-[18px] text-left transition-transform hover:-translate-y-px"
+      className="relative flex h-[224px] flex-col overflow-hidden rounded-[14px] p-[20px] text-left transition-transform hover:-translate-y-px"
       style={{
         border: `1px solid ${active ? tone : `${tone}55`}`,
         boxShadow: active
@@ -727,7 +727,7 @@ function StatusCard({
       />
       {/* faint inner highlight */}
       <span
-        className="pointer-events-none absolute inset-0 rounded-[22px]"
+        className="pointer-events-none absolute inset-0 rounded-[14px]"
         aria-hidden
         style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 0 1px rgba(255,255,255,0.04)" }}
       />
@@ -1405,7 +1405,7 @@ function ManageBookings() {
 
 
             {/* status cards + activity */}
-            <section className="mt-[38px] grid grid-cols-1 gap-3.5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.95fr)]">
+            <section className="mt-[38px] grid grid-cols-1 items-stretch gap-4 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,1.06fr)_minmax(0,1.06fr)_minmax(0,0.82fr)]">
               <StatusCard
                 label="Proposal ready"
                 count={counts.proposal}
@@ -1441,7 +1441,7 @@ function ManageBookings() {
               />
 
               <div
-                className="flex h-[204px] flex-col rounded-[22px] p-[18px]"
+                className="flex h-[224px] flex-col rounded-[14px] p-[20px]"
                 style={{
                   background: PANEL,
                   border: `1px solid ${CARD_BORDER}`,
@@ -1540,7 +1540,7 @@ function ManageBookings() {
 
             {/* toolbar — independent control bar, no surrounding container */}
             <div
-              className="mt-[22px] flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
+              className="mt-[8px] flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
 
               style={{
                 background: "linear-gradient(180deg, #1E252D 0%, #181E25 100%)",
