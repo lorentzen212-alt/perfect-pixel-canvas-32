@@ -438,7 +438,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[10px] px-[14px] py-[8px] text-[13px] font-light"
+            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[5px] px-[14px] py-[8px] text-[13px] font-light"
             style={{
               color: "#E6EDF3",
               border: "1px solid rgba(255,255,255,0.055)",
@@ -460,13 +460,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
+        className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[6px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(0,0,0,0.30)",
-          background: "linear-gradient(180deg, #121A25 0%, #101821 100%)",
+          background: "linear-gradient(180deg, #1C242E 0%, #18202A 100%)",
           /* carved into the card — soft inset walls, not painted black */
           boxShadow:
-            "inset 0 4px 9px rgba(0,0,0,0.42), inset 0 1px 2px rgba(0,0,0,0.34), inset 0 -3px 6px rgba(0,0,0,0.24), inset 2px 0 4px rgba(0,0,0,0.22), inset -2px 0 4px rgba(0,0,0,0.22), 0 1px 0 rgba(255,255,255,0.05)",
+            "inset 0 4px 9px rgba(0,0,0,0.34), inset 0 1px 2px rgba(0,0,0,0.28), inset 0 -3px 6px rgba(0,0,0,0.18), inset 2px 0 4px rgba(0,0,0,0.16), inset -2px 0 4px rgba(0,0,0,0.16), 0 1px 0 rgba(255,255,255,0.055)",
         }}
       >
         <div className="px-[20px] py-[11px]">
