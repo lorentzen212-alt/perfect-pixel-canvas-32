@@ -541,13 +541,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   );
 
   const shell = {
-    background: "#111923",
-    border: "1px solid rgba(255,255,255,0.05)",
+    background:
+      "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
+    border: "1px solid rgba(255,255,255,0.045)",
     borderRadius: 9,
     /* precision-machined surface — subtle highlights + deep base shadow */
     boxShadow:
-      "0 10px 30px rgba(0,0,0,0.46), 0 1px 0 rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -4px 12px rgba(0,0,0,0.50), inset 0 0 0 1px rgba(255,255,255,0.018)",
+      "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.055), inset 0 -5px 14px rgba(0,0,0,0.52), inset 0 0 0 1px rgba(255,255,255,0.015)",
   } as const;
+
 
   const media = (
     <div
