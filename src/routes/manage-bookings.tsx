@@ -613,29 +613,28 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {/* metallic gold accent strip — full height, top to bottom */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[10px] overflow-hidden"
+        className="hgb-brass-bar pointer-events-none absolute inset-y-0 left-0 z-10 w-[12px] overflow-hidden"
         style={{
-          background:
-            GOLD_BRUSHED,
-          /* anodized, understated — no bright glow */
+          background: GOLD_BRUSHED,
+          borderRadius: 0,
           boxShadow:
-            "inset -1px 0 2px rgba(0,0,0,0.5), inset 1px 0 0 rgba(255,255,255,0.18), 0 0 6px rgba(180,140,70,0.16)",
+            "inset -1px 0 3px rgba(0,0,0,0.55), inset 1px 0 0 rgba(255,248,226,0.30), 0 0 10px rgba(214,170,90,0.22)",
         }}
       >
-        {/* subtle vertical brushed-metal reflection */}
+        {/* polished brass reflection bands */}
         <span
           aria-hidden
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.03) 24%, rgba(0,0,0,0.18) 50%, rgba(255,255,255,0.10) 74%, rgba(0,0,0,0.22) 100%)",
+              "linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.05) 22%, rgba(0,0,0,0.24) 48%, rgba(255,255,255,0.18) 72%, rgba(0,0,0,0.28) 100%)",
             mixBlendMode: "overlay",
           }}
         />
         {/* faint vertical anodized banding for a brushed finish */}
         <span
           aria-hidden
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-35"
           style={{
             background:
               "repeating-linear-gradient(180deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px)",
