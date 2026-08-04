@@ -539,12 +539,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   const shell = {
     background:
-      "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
-    border: "1px solid rgba(255,255,255,0.045)",
-    borderRadius: 9,
+      "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%) padding-box, linear-gradient(180deg, #B8902E 0%, #E3B653 24%, #F0D28C 50%, #E3B653 76%, #9A7322 100%) border-box",
+    border: "1.5px solid transparent",
+    borderRadius: 12,
     /* precision-machined surface — subtle highlights + deep base shadow */
     boxShadow:
-      "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -6px 16px rgba(0,0,0,0.50), inset 0 0 0 1px rgba(255,255,255,0.018)",
+      "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), 0 0 18px rgba(227,162,60,0.10), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -6px 16px rgba(0,0,0,0.50), inset 0 0 0 1px rgba(255,255,255,0.018)",
   } as const;
 
 
