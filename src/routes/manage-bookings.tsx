@@ -1533,50 +1533,46 @@ function ManageBookings() {
 
                 <GoldDivider />
 
-                {/* view toggles */}
-                <div className="flex items-center gap-2 px-3 py-2">
-                  {(
-                    [
-                      { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
-                      { key: "list" as const, icon: LayoutList, label: "List view" },
-                    ]
-                  ).map(({ key, icon: Icon, label }) => {
-                    const on = view === key;
-                    return (
-                      <button
-                        key={key}
-                        type="button"
-                        aria-label={label}
-                        aria-pressed={on}
-                        onClick={() => setView(key)}
-                        className="grid h-[42px] w-[50px] place-items-center rounded-[11px] transition-all duration-200"
-                        style={
-                          on
-                            ? {
-                                background:
-                                  "linear-gradient(180deg, rgba(227,192,119,0.13) 0%, rgba(169,133,58,0.07) 100%)",
-                                border: "1px solid transparent",
-                                borderImage:
-                                  "linear-gradient(160deg,#F3DCA6 0%,#D9BC72 28%,#A9853A 62%,#E7C98F 100%) 1",
-                                borderRadius: 11,
-                                color: "#EBCE93",
-                                boxShadow:
-                                  "0 0 0 1px rgba(227,192,119,0.35), 0 10px 22px -14px rgba(227,192,119,0.55), 0 1px 0 rgba(255,255,255,0.08) inset",
-                              }
-                            : {
-                                background: "rgba(255,255,255,0.02)",
-                                border: "1px solid rgba(255,255,255,0.07)",
-                                color: "#C6CBD1",
-                              }
-                        }
-                      >
-                        <Icon size={19} strokeWidth={1.9} />
-                      </button>
-                    );
-                  })}
-                </div>
+              {/* view toggles */}
+              <div className="flex items-center gap-2 px-3 py-2">
+                {(
+                  [
+                    { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
+                    { key: "list" as const, icon: LayoutList, label: "List view" },
+                  ]
+                ).map(({ key, icon: Icon, label }) => {
+                  const on = view === key;
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      aria-label={label}
+                      aria-pressed={on}
+                      onClick={() => setView(key)}
+                      className="grid h-[42px] w-[50px] place-items-center rounded-[11px] transition-all duration-200"
+                      style={
+                        on
+                          ? {
+                              background:
+                                "linear-gradient(180deg, rgba(220,190,132,0.10) 0%, rgba(169,133,58,0.05) 100%)",
+                              border: "1px solid rgba(220,190,132,0.55)",
+                              color: "#E4CB98",
+                              boxShadow: "0 1px 0 rgba(255,255,255,0.07) inset",
+                            }
+                          : {
+                              background: "rgba(255,255,255,0.02)",
+                              border: "1px solid rgba(255,255,255,0.05)",
+                              color: "rgba(255,255,255,0.72)",
+                            }
+                      }
+                    >
+                      <Icon size={19} strokeWidth={1.9} />
+                    </button>
+                  );
+                })}
               </div>
             </section>
+
 
 
             {/* bookings */}
