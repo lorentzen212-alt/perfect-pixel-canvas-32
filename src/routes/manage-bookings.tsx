@@ -582,7 +582,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           className="pointer-events-none absolute inset-0 rounded-[8px]"
           style={{
             boxShadow:
-              "inset 0 2px 4px rgba(255,255,255,0.05), inset 0 -3px 8px rgba(0,0,0,0.45), inset 0 3px 10px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.045)",
+              "inset 0 2px 5px rgba(255,255,255,0.055), inset 0 -4px 10px rgba(0,0,0,0.55), inset 0 4px 13px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(255,255,255,0.05)",
           }}
         />
       )}
