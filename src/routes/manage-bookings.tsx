@@ -622,36 +622,6 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[26px] pl-[42px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
       style={shell}
     >
-      {/* polished metallic gold accent bar */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-y-[14px] left-[12px] z-10 w-[16px] overflow-hidden rounded-full"
-        style={{
-          background:
-            "linear-gradient(90deg, #3A2604 0%, #8A6210 12%, #D9A93A 26%, #FBE9AE 36%, #F2CE6A 46%, #C08F1E 62%, #8A6210 78%, #4A3106 92%, #1E1403 100%)",
-          boxShadow:
-            "0 2px 10px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,224,150,0.18)",
-        }}
-      >
-        {/* vertical luminance falloff — brighter mid-body, darker ends */}
-        <span
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(0,0,0,0.34) 0%, rgba(255,246,214,0.10) 14%, rgba(255,250,225,0.16) 45%, rgba(255,246,214,0.06) 72%, rgba(0,0,0,0.42) 100%)",
-          }}
-        />
-        {/* single crisp specular mirror line */}
-        <span
-          aria-hidden
-          className="absolute inset-y-[6px] left-[30%] w-[12%] rounded-full"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(255,252,235,0) 0%, rgba(255,252,235,0.85) 50%, rgba(255,252,235,0) 100%)",
-          }}
-        />
-      </span>
 
 
 
