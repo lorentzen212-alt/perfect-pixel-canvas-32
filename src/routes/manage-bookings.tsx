@@ -458,9 +458,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(255,255,255,0.035)",
-          background: "#18212C",
+          background: "linear-gradient(180deg, #19222D 0%, #141C26 100%)",
+          /* carved-into-card inset — deeper inner shadow + soft top highlight */
           boxShadow:
-            "inset 0 2px 5px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 0 rgba(255,255,255,0.03)",
+            "inset 0 3px 7px rgba(0,0,0,0.52), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -2px 3px rgba(0,0,0,0.30), 0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
         <div className="px-[20px] py-[11px]">
