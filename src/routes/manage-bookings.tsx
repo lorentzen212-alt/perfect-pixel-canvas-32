@@ -216,12 +216,12 @@ function Timeline({ booking }: { booking: Booking }) {
   return (
     <div className="relative grid grid-cols-4 gap-1">
       <div
-        className="absolute left-[12.5%] right-[12.5%] top-[15px] h-px"
+        className="absolute left-[12.5%] right-[12.5%] top-[14px] h-px"
         style={{ backgroundColor: "rgba(190,205,215,0.16)" }}
         aria-hidden
       />
       <div
-        className="absolute left-[12.5%] top-[15px] h-px"
+        className="absolute left-[12.5%] top-[14px] h-px"
         style={{
           width: `${(active / 3) * 75}%`,
           background: `linear-gradient(90deg, rgba(201,162,75,0.15) 0%, ${GOLD} 100%)`,
@@ -232,9 +232,9 @@ function Timeline({ booking }: { booking: Booking }) {
         const done = i < active;
         const current = i === active;
         return (
-          <div key={s.key} className="relative flex flex-col items-center gap-[5px]">
+          <div key={s.key} className="relative flex flex-col items-center gap-[4px]">
             <span
-              className="relative grid h-[31px] w-[31px] place-items-center rounded-full"
+              className="relative grid h-[28px] w-[28px] place-items-center rounded-full"
               style={{
                 background: done
                   ? tone
@@ -400,7 +400,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             className="mt-1.5 block truncate transition-opacity hover:opacity-85"
           >
             <h3
-              className="truncate text-[32px] leading-[1.05] tracking-[0.002em]"
+              className="truncate text-[30px] leading-[1.05] tracking-[0.002em]"
               style={{ color: PEARL, fontFamily: SERIF, fontWeight: 400 }}
             >
               {booking.name}
@@ -424,7 +424,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* meta strip with hairline rules above and below */}
       <div
-        className="mt-3 flex flex-wrap items-center gap-y-1.5 py-2"
+        className="mt-2.5 flex flex-wrap items-center gap-y-1 py-[6px]"
         style={{
           borderTop: `1px solid ${RULE}`,
           borderBottom: `1px solid ${RULE}`,
@@ -454,26 +454,26 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-3 grid grid-cols-1 overflow-hidden rounded-[13px] sm:grid-cols-2"
+        className="mt-2.5 grid grid-cols-1 overflow-hidden rounded-[13px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(190,205,215,0.13)",
           background: "linear-gradient(180deg, rgba(12,20,29,0.30) 0%, rgba(12,20,29,0.20) 100%)",
           boxShadow: "inset 0 2px 6px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
-        <div className="px-5 py-2.5">
+        <div className="px-4 py-2">
           <p
             className="text-[10.5px] font-semibold uppercase tracking-[0.12em]"
             style={{ color: "#BFA05C" }}
           >
             Your reference
           </p>
-          <p className="mt-[3px] text-[16.5px]" style={{ color: PEARL, fontWeight: 500 }}>
+          <p className="mt-[2px] text-[16px]" style={{ color: PEARL, fontWeight: 500 }}>
             {booking.reference}
           </p>
         </div>
         <div
-          className="px-5 py-2.5"
+          className="px-4 py-2"
           style={{ borderLeft: "1px solid rgba(190,205,215,0.16)" }}
         >
           <p
@@ -483,7 +483,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             Hotel reference
           </p>
           <p
-            className="mt-[3px] text-[16.5px]"
+            className="mt-[2px] text-[16px]"
             style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 500 }}
           >
             {booking.hotelReference ?? "Pending"}
@@ -492,13 +492,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* progress track */}
-      <div className="mt-3.5">
+      <div className="mt-2.5">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-3.5 flex flex-nowrap items-center justify-between gap-4 pt-3"
+        className="mt-2.5 flex flex-nowrap items-center justify-between gap-4 pt-2.5"
         style={{ borderTop: `1px solid ${RULE}` }}
       >
         <p
@@ -510,7 +510,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn group/btn inline-flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[12px] px-7 py-2.5 text-[14px]"
+          className="hgb-view-btn group/btn inline-flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[12px] px-6 py-2 text-[13.5px]"
           style={{
             color: GOLD_SOFT,
             border: "1px solid rgba(201,162,75,0.55)",
@@ -553,8 +553,8 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         loading="lazy"
         className={
           compact
-            ? "h-[150px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[190px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[282px]"
+            ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+            : "h-[190px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[232px]"
         }
         style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.82)" }}
       />
@@ -584,14 +584,14 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     return (
       <article className="group overflow-hidden rounded-[22px] transition-transform hover:-translate-y-px" style={shell}>
         {media}
-        <div className="p-5">{info}</div>
+        <div className="p-4">{info}</div>
       </article>
     );
   }
 
   return (
     <article
-      className="group grid grid-cols-1 items-start gap-6 overflow-hidden rounded-[22px] p-5 transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,285px)_minmax(0,1fr)]"
+      className="group grid grid-cols-1 items-start gap-5 overflow-hidden rounded-[22px] p-4 transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,262px)_minmax(0,1fr)]"
       style={shell}
     >
       {media}
@@ -631,7 +631,7 @@ function StatusCard({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex h-[235px] flex-col overflow-hidden rounded-[22px] p-[22px] text-left transition-transform hover:-translate-y-px"
+      className="relative flex h-[204px] flex-col overflow-hidden rounded-[22px] p-[18px] text-left transition-transform hover:-translate-y-px"
       style={{
         border: `1px solid ${active ? tone : `${tone}55`}`,
         boxShadow: active
@@ -663,19 +663,19 @@ function StatusCard({
 
 
       <span
-        className="relative grid h-11 w-11 place-items-center rounded-full"
+        className="relative grid h-10 w-10 place-items-center rounded-full"
         style={{ border: `1px solid ${tone}`, color: tone }}
       >
         {icon}
       </span>
       <span
-        className="relative mt-4 block text-[11px] font-semibold uppercase tracking-[0.18em]"
+        className="relative mt-3 block text-[11px] font-semibold uppercase tracking-[0.18em]"
         style={{ color: tone }}
       >
         {label}
       </span>
       <span
-        className="relative mt-1 block text-[44px] leading-none"
+        className="relative mt-1 block text-[40px] leading-none"
         style={{ color: TEXT, fontFamily: SERIF }}
       >
         {count}
@@ -685,7 +685,7 @@ function StatusCard({
           {description}
         </span>
         <span
-          className="grid h-9 w-9 place-items-center rounded-full"
+          className="grid h-8 w-8 place-items-center rounded-full"
           style={{ border: `1px solid ${tone}`, color: tone }}
         >
           <ArrowRight size={16} />
@@ -954,7 +954,7 @@ function Select<T extends string>({
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="hgb-field w-full appearance-none rounded-[11px] px-4 py-[11px] pr-9 text-[13.5px] outline-none"
+        className="hgb-field w-full appearance-none rounded-[10px] px-4 py-[9px] pr-9 text-[13.5px] outline-none"
         style={{ backgroundColor: "#333C46", border: `1px solid rgba(255,255,255,0.06)`, color: TEXT_2 }}
       >
         {options.map((o) => (
@@ -1159,7 +1159,7 @@ function ManageBookings() {
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
             style={{
-              top: 370,
+              top: 300,
               backgroundColor: "#0C121A",
               backgroundImage: `url("${contentArc.url}")`,
               backgroundSize: "cover",
@@ -1193,7 +1193,7 @@ function ManageBookings() {
 
           {/* cinematic hero backdrop */}
           <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-[430px]"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[358px]"
             aria-hidden
             style={{
               maskImage:
@@ -1219,7 +1219,7 @@ function ManageBookings() {
 
 
 
-          <div className="relative px-4 pb-14 pt-6 sm:px-6 lg:px-10">
+          <div className="relative px-4 pb-10 pt-5 sm:px-6 lg:px-10">
             {/* mobile bar */}
             <div className="mb-4 flex items-center justify-between lg:hidden">
               <button
@@ -1235,7 +1235,7 @@ function ManageBookings() {
             </div>
 
             {/* top action bar */}
-            <div className="mb-7 hidden items-center justify-end gap-3 lg:flex">
+            <div className="mb-5 hidden items-center justify-end gap-3 lg:flex">
               <Link
                 to="/book-leisure"
                 className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] transition-colors hover:bg-white/5"
@@ -1279,10 +1279,10 @@ function ManageBookings() {
             </div>
 
             {/* greeting */}
-            <header className="mt-[50px] max-w-[720px]">
+            <header className="mt-[26px] max-w-[720px]">
               <div className="flex items-end gap-5">
                 <h1
-                  className="text-[40px] leading-[1.02] sm:text-[52px]"
+                  className="text-[38px] leading-[1.02] sm:text-[50px]"
                   style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
                 >
                   Welcome {firstName}
@@ -1296,7 +1296,7 @@ function ManageBookings() {
                   aria-hidden
                 />
               </div>
-              <p className="mt-3 text-[14.5px]" style={{ color: TEXT_2 }}>
+              <p className="mt-2 text-[14px]" style={{ color: TEXT_2 }}>
                 Here&rsquo;s what&rsquo;s happening with your group stays.
               </p>
 
@@ -1313,7 +1313,7 @@ function ManageBookings() {
 
 
             {/* status cards + activity */}
-            <section className="mt-[62px] grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.95fr)]">
+            <section className="mt-[38px] grid grid-cols-1 gap-3.5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.95fr)]">
               <StatusCard
                 label="Proposal ready"
                 count={counts.proposal}
@@ -1349,7 +1349,7 @@ function ManageBookings() {
               />
 
               <div
-                className="flex h-[235px] flex-col rounded-[22px] p-[22px]"
+                className="flex h-[204px] flex-col rounded-[22px] p-[18px]"
                 style={{
                   background: PANEL,
                   border: `1px solid ${CARD_BORDER}`,
@@ -1381,7 +1381,7 @@ function ManageBookings() {
                       key={a.id}
                       to="/bookings/$bookingId"
                       params={{ bookingId: a.id }}
-                      className="flex items-center gap-3 py-[9px]"
+                      className="flex items-center gap-3 py-[7px]"
                       style={
                         i > 0
                           ? { borderTop: "1px solid rgba(255,255,255,0.045)" }
@@ -1412,7 +1412,7 @@ function ManageBookings() {
                 <button
                   type="button"
                   onClick={() => setGroup("all")}
-                  className="mt-3 flex items-center justify-between pt-3 text-[12.5px]"
+                  className="mt-2 flex items-center justify-between pt-2.5 text-[12.5px]"
                   style={{ borderTop: `1px solid ${HAIRLINE}`, color: TEXT }}
                 >
                   View all activity <ArrowRight size={15} style={{ color: GOLD }} />
@@ -1422,7 +1422,7 @@ function ManageBookings() {
 
             {!isProfileComplete(profile) && (
               <section
-                className="mt-6 flex flex-col gap-3 rounded-[14px] px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+                className="mt-4 flex flex-col gap-3 rounded-[14px] px-5 py-3 sm:flex-row sm:items-center sm:justify-between"
                 style={{ background: PANEL, border: `1px solid ${GOLD}55` }}
               >
                 <div className="min-w-0">
@@ -1448,7 +1448,7 @@ function ManageBookings() {
 
             {/* toolbar */}
             <section
-              className="mt-7 grid grid-cols-1 gap-3 rounded-[16px] p-3 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]"
+              className="mt-5 grid grid-cols-1 gap-2.5 rounded-[16px] p-2.5 md:grid-cols-[minmax(0,1.7fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto]"
               style={{
                 background: CARD,
                 border: `1px solid ${CARD_BORDER}`,
@@ -1467,7 +1467,7 @@ function ManageBookings() {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search bookings..."
                   aria-label="Search bookings by name, destination, hotel or reference"
-                  className="hgb-field w-full rounded-[11px] py-[11px] pl-11 pr-4 text-[14px] outline-none placeholder:text-[#9AA5AF]"
+                  className="hgb-field w-full rounded-[10px] py-[9px] pl-11 pr-4 text-[13.5px] outline-none placeholder:text-[#9AA5AF]"
                   style={{
                     backgroundColor: "#333C46",
                     border: `1px solid rgba(255,255,255,0.06)`,
@@ -1515,7 +1515,7 @@ function ManageBookings() {
                       aria-label={label}
                       aria-pressed={on}
                       onClick={() => setView(key)}
-                      className="grid h-[44px] w-[48px] place-items-center rounded-[11px] transition-colors"
+                      className="grid h-[38px] w-[44px] place-items-center rounded-[10px] transition-colors"
                       style={{
                         background: on ? "rgba(201,162,75,0.14)" : "#333C46",
                         border: `1px solid ${on ? `${GOLD}99` : "rgba(255,255,255,0.06)"}`,
@@ -1533,7 +1533,7 @@ function ManageBookings() {
             {/* bookings */}
             <section
               className={
-                view === "list" ? "mt-5 space-y-4" : "mt-5 grid grid-cols-1 gap-4 xl:grid-cols-2"
+                view === "list" ? "mt-4 space-y-3" : "mt-4 grid grid-cols-1 gap-3.5 xl:grid-cols-2"
               }
             >
               {results.map((b) => (
@@ -1550,7 +1550,7 @@ function ManageBookings() {
               )}
             </section>
 
-            <footer className="mt-6 flex flex-wrap items-center justify-between gap-3">
+            <footer className="mt-5 flex flex-wrap items-center justify-between gap-3">
               <p className="text-[12.5px]" style={{ color: MUTED }}>
                 Can&rsquo;t find a booking?{" "}
                 <Link to="/account" style={{ color: GOLD }}>
