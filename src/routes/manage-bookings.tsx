@@ -419,35 +419,30 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         </div>
       </div>
 
-      {/* meta strip with hairline rules above and below */}
-      <div
-        className="mt-2.5 flex flex-wrap items-center gap-y-1 py-[6px]"
-        style={{
-          borderTop: `1px solid ${RULE}`,
-          borderBottom: `1px solid ${RULE}`,
-        }}
-      >
+      {/* metadata chips */}
+      <div className="mt-4 flex flex-wrap items-center gap-[10px]">
         {metas.map((m, i) => (
-          <span key={i} className="flex items-center">
-            {i > 0 && (
-              <span
-                aria-hidden
-                className="mx-3 hidden h-[12px] w-px sm:block"
-                style={{ background: "rgba(190,205,215,0.18)" }}
-              />
-            )}
-            <span
-              className="inline-flex items-center gap-[9px] whitespace-nowrap pr-3 text-[14px] font-light sm:pr-0"
-              style={{ color: TEXT_2 }}
-            >
-              <span className="shrink-0" style={{ color: "#BFA05C" }}>
-                {m.icon}
-              </span>
-              {m.text}
+          <span
+            key={i}
+            className="inline-flex h-[44px] items-center gap-[10px] whitespace-nowrap rounded-[12px] px-[16px] text-[14px] font-light"
+            style={{
+              color: TEXT_2,
+              border: "1px solid rgba(255,255,255,0.08)",
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(12,20,29,0.34) 100%)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+            }}
+          >
+            <span className="shrink-0" style={{ color: "#D4AF37" }}>
+              {m.icon}
             </span>
+            {m.text}
           </span>
         ))}
       </div>
+
 
       {/* reference panel */}
       <div
