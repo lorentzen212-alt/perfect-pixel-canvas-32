@@ -827,7 +827,7 @@ function Sidebar({
       style={{
         backgroundColor: "transparent",
         backgroundImage: `url("${sidebarAtmos.url}")`,
-        backgroundSize: "cover",
+        backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         borderRight: "none",
