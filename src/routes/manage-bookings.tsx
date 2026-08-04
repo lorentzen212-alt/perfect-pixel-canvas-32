@@ -1583,12 +1583,10 @@ function ManageBookings() {
                   );
                 })}
               </div>
-            </section>
-
-
+            </div>
 
             {/* bookings */}
-            <section
+            <div
               className={
                 view === "list" ? "mt-4 space-y-3" : "mt-4 grid grid-cols-1 gap-3.5 xl:grid-cols-2"
               }
