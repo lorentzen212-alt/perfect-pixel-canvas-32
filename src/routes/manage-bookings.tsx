@@ -438,7 +438,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[10px] px-[14px] py-[8px] text-[13px] font-light"
+            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[5px] px-[14px] py-[8px] text-[13px] font-light"
             style={{
               color: "#E6EDF3",
               border: "1px solid rgba(255,255,255,0.055)",
@@ -460,13 +460,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
+        className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[6px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(0,0,0,0.30)",
-          background: "linear-gradient(180deg, #121A25 0%, #101821 100%)",
+          background: "linear-gradient(180deg, #1C242E 0%, #18202A 100%)",
           /* carved into the card — soft inset walls, not painted black */
           boxShadow:
-            "inset 0 4px 9px rgba(0,0,0,0.42), inset 0 1px 2px rgba(0,0,0,0.34), inset 0 -3px 6px rgba(0,0,0,0.24), inset 2px 0 4px rgba(0,0,0,0.22), inset -2px 0 4px rgba(0,0,0,0.22), 0 1px 0 rgba(255,255,255,0.05)",
+            "inset 0 4px 9px rgba(0,0,0,0.34), inset 0 1px 2px rgba(0,0,0,0.28), inset 0 -3px 6px rgba(0,0,0,0.18), inset 2px 0 4px rgba(0,0,0,0.16), inset -2px 0 4px rgba(0,0,0,0.16), 0 1px 0 rgba(255,255,255,0.055)",
         }}
       >
         <div className="px-[20px] py-[11px]">
@@ -553,46 +553,58 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className={
         compact
           ? "relative overflow-hidden"
-          : "relative overflow-hidden rounded-[14px] sm:h-full sm:self-stretch"
+          : "relative rounded-[16px] p-[10px] sm:h-full sm:self-stretch"
       }
       style={
         compact
           ? undefined
-          : { boxShadow: "0 1px 2px rgba(0,0,0,0.12)" }
+          : {
+              background: "linear-gradient(180deg, #18212C 0%, #131B25 100%)",
+              border: "1px solid rgba(255,255,255,0.055)",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -4px 12px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.35)",
+            }
       }
     >
-      <img
-        src={booking.image}
-        alt={`${booking.destination} — ${booking.name}`}
-        loading="lazy"
+      <div
         className={
           compact
-            ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[168px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[calc(100%-5px)] sm:my-[2.5px]"
+            ? "relative overflow-hidden"
+            : "relative h-full overflow-hidden rounded-[10px]"
         }
-        style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
-      />
-      <span
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          background: compact
-            ? "linear-gradient(180deg, rgba(8,15,23,0) 40%, rgba(14,23,33,0.7) 100%)"
-            : "linear-gradient(90deg, rgba(8,15,23,0) 68%, rgba(14,23,33,0.45) 100%), radial-gradient(120% 100% at 50% 50%, rgba(10,17,25,0) 58%, rgba(10,17,25,0.36) 100%)",
-        }}
-      />
-      {!compact && (
+        style={
+          compact
+            ? undefined
+            : {
+                border: "1px solid rgba(0,0,0,0.55)",
+                boxShadow:
+                  "inset 0 2px 8px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04)",
+              }
+        }
+      >
+        <img
+          src={booking.image}
+          alt={`${booking.destination} — ${booking.name}`}
+          loading="lazy"
+          className={
+            compact
+              ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              : "h-[173px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+          }
+          style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
+        />
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[14px]"
+          className="absolute inset-0"
           style={{
-            /* deeper inset — image mounted into the card */
-            boxShadow:
-              "inset 0 2px 4px rgba(255,255,255,0.035), inset 0 -7px 17px rgba(0,0,0,0.74), inset 0 9px 21px rgba(0,0,0,0.86), inset 0 0 0 1px rgba(255,255,255,0.05)",
+            background: compact
+              ? "linear-gradient(180deg, rgba(8,15,23,0) 40%, rgba(14,23,33,0.7) 100%)"
+              : "radial-gradient(120% 100% at 50% 50%, rgba(10,17,25,0) 62%, rgba(10,17,25,0.30) 100%)",
           }}
         />
-      )}
+      </div>
     </div>
+
 
   );
 
@@ -610,33 +622,33 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[26px] pl-[38px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
       style={shell}
     >
-      {/* metallic gold accent strip — full height, top to bottom */}
+      {/* polished metallic gold accent strip — rounded ends, mirror reflection */}
       <span
         aria-hidden
-        className="hgb-brass-bar pointer-events-none absolute inset-y-0 left-0 z-10 w-[12px] overflow-hidden"
+        className="pointer-events-none absolute inset-y-[6px] left-[5px] z-10 w-[15px] overflow-hidden rounded-full"
         style={{
-          background: GOLD_BRUSHED,
-          borderRadius: 0,
+          background:
+            "linear-gradient(90deg, #6E4A0A 0%, #A9761A 14%, #E0AE3A 32%, #FBE39C 47%, #FFF6D2 52%, #F0C55A 58%, #C08F22 74%, #8A6112 88%, #5A3C08 100%)",
           boxShadow:
-            "inset -1px 0 3px rgba(0,0,0,0.5), inset 1px 0 0 rgba(255,226,160,0.16)",
+            "0 1px 3px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,225,150,0.22)",
         }}
       >
-        {/* one very subtle vertical satin reflection */}
+        {/* vertical luminance falloff — brighter through the middle */}
         <span
           aria-hidden
-          className="absolute inset-y-0 left-[38%] w-[16%]"
+          className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,238,190,0) 0%, rgba(255,238,190,0.16) 50%, rgba(255,238,190,0) 100%)",
+              "linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.10) 16%, rgba(255,246,214,0.20) 48%, rgba(0,0,0,0.10) 82%, rgba(0,0,0,0.45) 100%)",
           }}
         />
-        {/* fine vertical brushed banding for a satin anodized finish */}
+        {/* crisp specular mirror line */}
         <span
           aria-hidden
-          className="absolute inset-0 opacity-[0.10]"
+          className="absolute inset-y-0 left-[46%] w-[9%]"
           style={{
             background:
-              "repeating-linear-gradient(180deg, rgba(255,240,200,0.06) 0px, rgba(255,240,200,0.06) 1px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px)",
+              "linear-gradient(90deg, rgba(255,252,232,0) 0%, rgba(255,252,232,0.75) 50%, rgba(255,252,232,0) 100%)",
           }}
         />
       </span>
