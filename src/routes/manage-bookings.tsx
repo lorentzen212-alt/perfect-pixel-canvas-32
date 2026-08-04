@@ -119,10 +119,10 @@ const GOLD_SOFT = "#F2C46A";
 const PEARL = "#F4F1EA";
 const RULE = "rgba(190,205,215,0.20)";
 /* deeper, richer premium royal blue (awaiting) — no cyan */
-const BLUE = "#4C8AE0";
+const BLUE = "#4881D5";
 /* polished brass — deeper, richer premium gold without glossy near-white peaks */
 const GOLD_BRUSHED =
-  "linear-gradient(90deg, #5C3E06 0%, #8A6010 9%, #B9871A 20%, #D9A21F 32%, #E8B42A 44%, #DCA82A 54%, #C0911C 66%, #966C12 80%, #5C3E06 100%)";
+  "linear-gradient(90deg, #6A4C10 0%, #8B6716 22%, #A87F1E 42%, #B98D24 52%, #A2791C 66%, #7E5C13 84%, #5E430B 100%)";
 const GOLD_BRUSHED_H =
   "linear-gradient(140deg, #5C3E06 0%, #8A6010 16%, #B9871A 34%, #D2A23E 50%, #B9871A 66%, #8A6010 84%, #5C3E06 100%)";
 const GREEN = "#5E9C6A";
@@ -424,7 +424,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           >
             <span
               className="inline-block h-[7px] w-[7px] rounded-full"
-              style={{ backgroundColor: tone, boxShadow: `0 0 0 3px ${tone}22, 0 0 7px ${tone}99` }}
+              style={{ backgroundColor: tone, boxShadow: `0 0 0 3px ${tone}1F, 0 0 5px ${tone}80` }}
             />
             {GROUP_LABEL[g]}
           </span>
@@ -445,7 +445,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
               background: "linear-gradient(180deg, #1C2632 0%, #161E29 100%)",
               /* subtle raised effect — soft top highlight + bottom drop shadow, ~1px lifted */
               boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.07), 0 1px 2px rgba(0,0,0,0.30), 0 2px 5px rgba(0,0,0,0.20)",
+                "inset 0 1px 0 rgba(255,255,255,0.085), 0 1px 1px rgba(0,0,0,0.34), 0 2px 4px rgba(0,0,0,0.22)",
             }}
           >
             <span className="shrink-0" style={{ color: "#E3A23C" }}>
@@ -462,11 +462,11 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       <div
         className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
         style={{
-          border: "1px solid rgba(0,0,0,0.45)",
-          background: "linear-gradient(180deg, #0D141C 0%, #0A1017 100%)",
-          /* deeply carved into the card — stronger inset walls */
+          border: "1px solid rgba(0,0,0,0.30)",
+          background: "linear-gradient(180deg, #121A25 0%, #101821 100%)",
+          /* carved into the card — soft inset walls, not painted black */
           boxShadow:
-            "inset 0 8px 14px rgba(0,0,0,0.72), inset 0 2px 4px rgba(0,0,0,0.60), inset 0 -4px 8px rgba(0,0,0,0.48), inset 2px 0 5px rgba(0,0,0,0.45), inset -2px 0 5px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.055)",
+            "inset 0 4px 9px rgba(0,0,0,0.42), inset 0 1px 2px rgba(0,0,0,0.34), inset 0 -3px 6px rgba(0,0,0,0.24), inset 2px 0 4px rgba(0,0,0,0.22), inset -2px 0 4px rgba(0,0,0,0.22), 0 1px 0 rgba(255,255,255,0.05)",
         }}
       >
         <div className="px-[20px] py-[11px]">
@@ -479,7 +479,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         </div>
         <div
           className="px-[20px] py-[11px]"
-          style={{ borderLeft: "1px solid rgba(0,0,0,0.5)" }}
+          style={{ borderLeft: "1px solid rgba(0,0,0,0.34)" }}
         >
           <p className="hgb-gold-metal text-[11px] font-semibold uppercase tracking-[0.14em]">
             Hotel reference
@@ -544,7 +544,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     borderRadius: 9,
     /* precision-machined surface — subtle highlights + deep base shadow */
     boxShadow:
-      "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.055), inset 0 -5px 14px rgba(0,0,0,0.52), inset 0 0 0 1px rgba(255,255,255,0.015)",
+      "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -6px 16px rgba(0,0,0,0.50), inset 0 0 0 1px rgba(255,255,255,0.018)",
   } as const;
 
 
@@ -568,7 +568,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[168px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[calc(100%-10px)] sm:my-[5px]"
+            : "h-[168px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[calc(100%-5px)] sm:my-[2.5px]"
         }
         style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
       />
@@ -588,7 +588,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           style={{
             /* deeper inset — image mounted into the card */
             boxShadow:
-              "inset 0 2px 4px rgba(255,255,255,0.035), inset 0 -6px 15px rgba(0,0,0,0.70), inset 0 7px 18px rgba(0,0,0,0.82), inset 0 0 0 1px rgba(255,255,255,0.045)",
+              "inset 0 2px 4px rgba(255,255,255,0.035), inset 0 -7px 17px rgba(0,0,0,0.74), inset 0 9px 21px rgba(0,0,0,0.86), inset 0 0 0 1px rgba(255,255,255,0.05)",
           }}
         />
       )}
@@ -618,38 +618,27 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           background: GOLD_BRUSHED,
           borderRadius: 0,
           boxShadow:
-            "inset -1px 0 4px rgba(0,0,0,0.6), inset 1px 0 0 rgba(255,228,150,0.4), 0 0 14px rgba(200,150,40,0.28)",
+            "inset -1px 0 3px rgba(0,0,0,0.5), inset 1px 0 0 rgba(255,226,160,0.16)",
         }}
       >
-        {/* precise vertical reflection — a single thin specular sheen line */}
+        {/* one very subtle vertical satin reflection */}
         <span
           aria-hidden
-          className="absolute inset-0"
+          className="absolute inset-y-0 left-[38%] w-[16%]"
           style={{
             background:
-              "linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(255,236,160,0.22) 38%, rgba(255,244,200,0.32) 50%, rgba(255,236,160,0.22) 62%, rgba(0,0,0,0.42) 100%)",
-            mixBlendMode: "screen",
+              "linear-gradient(90deg, rgba(255,238,190,0) 0%, rgba(255,238,190,0.16) 50%, rgba(255,238,190,0) 100%)",
           }}
         />
-        {/* soft central glow, not a hot white spot — refined specular */}
+        {/* fine vertical brushed banding for a satin anodized finish */}
         <span
           aria-hidden
-          className="absolute inset-x-0 top-[30%] h-[40%]"
+          className="absolute inset-0 opacity-[0.10]"
           style={{
             background:
-              "radial-gradient(56% 60% at 50% 50%, rgba(255,238,180,0.4) 0%, rgba(255,222,140,0.14) 50%, rgba(255,255,255,0) 100%)",
+              "repeating-linear-gradient(180deg, rgba(255,240,200,0.06) 0px, rgba(255,240,200,0.06) 1px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px)",
           }}
         />
-        {/* fine vertical brushed banding for anodized finish */}
-        <span
-          aria-hidden
-          className="absolute inset-0 opacity-[0.16]"
-          style={{
-            background:
-              "repeating-linear-gradient(180deg, rgba(255,240,190,0.08) 0px, rgba(255,240,190,0.08) 1px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 3px)",
-          }}
-        />
-
       </span>
 
       {media}
