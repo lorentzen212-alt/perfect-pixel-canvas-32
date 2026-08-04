@@ -824,6 +824,7 @@ function Sidebar({
     <div
       className={`relative flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
       style={{
+        backgroundColor: "transparent",
         backgroundImage: `url("${sidebarAtmos.url}")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
