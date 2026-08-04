@@ -582,7 +582,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="group overflow-hidden rounded-[22px] transition-transform hover:-translate-y-px" style={shell}>
+      <article className="hgb-booking-card group overflow-hidden rounded-[13px] transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
         {media}
         <div className="p-4">{info}</div>
       </article>
@@ -591,13 +591,14 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="group grid grid-cols-1 items-start gap-5 overflow-hidden rounded-[22px] p-4 transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,262px)_minmax(0,1fr)]"
+      className="hgb-booking-card group grid grid-cols-1 items-start gap-5 overflow-hidden rounded-[13px] p-4 transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,262px)_minmax(0,1fr)]"
       style={shell}
     >
       {media}
       <div className="min-w-0">{info}</div>
     </article>
   );
+
 }
 
 
@@ -1467,20 +1468,9 @@ function ManageBookings() {
               </section>
             )}
 
-            {/* premium container enclosing toolbar + bookings list */}
-            <section
-              className="mt-6 rounded-[20px] p-[24px] md:p-[28px]"
-              style={{
-                background:
-                  "linear-gradient(180deg, #1B222A 0%, #151B22 55%, #121820 100%)",
-                border: "1px solid rgba(255,255,255,0.06)",
-                boxShadow:
-                  "0 1px 0 rgba(255,255,255,0.04) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 40px 90px -55px rgba(0,0,0,0.85)",
-              }}
-            >
-            {/* toolbar — single integrated anodised bar */}
+            {/* toolbar — independent control bar, no surrounding container */}
             <div
-              className="flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
+              className="mt-[22px] flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
 
               style={{
                 background: "linear-gradient(180deg, #1E252D 0%, #181E25 100%)",
@@ -1585,26 +1575,35 @@ function ManageBookings() {
               </div>
             </div>
 
-            {/* bookings */}
-            <div
-              className={
-                view === "list" ? "mt-4 space-y-3" : "mt-4 grid grid-cols-1 gap-3.5 xl:grid-cols-2"
-              }
+            {/* bookings — premium workspace panel */}
+            <section
+              className="mt-[18px] rounded-[18px] p-[22px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, #1B222A 0%, #151B22 55%, #121820 100%)",
+                border: "1px solid rgba(255,255,255,0.05)",
+                boxShadow:
+                  "0 1px 0 rgba(255,255,255,0.035) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 24px 60px -45px rgba(0,0,0,0.7)",
+              }}
             >
-              {results.map((b) => (
-                <BookingCard key={b.id} booking={b} compact={view === "grid"} />
-              ))}
-              {results.length === 0 && (
-                <p className="py-12 text-center text-[13.5px]" style={{ color: MUTED }}>
-                  {isLoading
-                    ? "Loading your bookings…"
-                    : bookings.length === 0
-                      ? "You have no bookings yet. Start a new request to see it here."
-                      : "No bookings match your filters."}
-                </p>
-              )}
-            </div>
-
+              <div
+                className={
+                  view === "list" ? "space-y-4" : "grid grid-cols-1 gap-4 xl:grid-cols-2"
+                }
+              >
+                {results.map((b) => (
+                  <BookingCard key={b.id} booking={b} compact={view === "grid"} />
+                ))}
+                {results.length === 0 && (
+                  <p className="py-12 text-center text-[13.5px]" style={{ color: MUTED }}>
+                    {isLoading
+                      ? "Loading your bookings…"
+                      : bookings.length === 0
+                        ? "You have no bookings yet. Start a new request to see it here."
+                        : "No bookings match your filters."}
+                  </p>
+                )}
+              </div>
 
               <footer className="mt-5 flex flex-wrap items-center justify-between gap-3">
                 <p className="text-[12.5px]" style={{ color: MUTED }}>
@@ -1618,6 +1617,7 @@ function ManageBookings() {
                 </span>
               </footer>
             </section>
+
 
           </div>
         </main>

@@ -796,3 +796,13 @@
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(6, 12, 20, 0.28);
 }
+
+/* Booking card hover elevation (Manage Bookings) */
+.hgb-booking-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hgb-booking-card:hover {
+  box-shadow:
+    0 22px 46px -26px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.07);
+}
