@@ -217,14 +217,14 @@ function Timeline({ booking }: { booking: Booking }) {
     <div className="relative grid grid-cols-4 gap-1">
       <div
         className="absolute left-[12.5%] right-[12.5%] top-[21px] h-px"
-        style={{ backgroundColor: "rgba(190,205,215,0.14)" }}
+        style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
         aria-hidden
       />
       <div
         className="absolute left-[12.5%] top-[21px] h-px"
         style={{
           width: `${(active / 3) * 75}%`,
-          background: `linear-gradient(90deg, rgba(201,162,75,0.15) 0%, ${GOLD} 100%)`,
+          background: `linear-gradient(90deg, rgba(212,175,55,0.10) 0%, #D4AF37 100%)`,
         }}
         aria-hidden
       />
@@ -237,20 +237,21 @@ function Timeline({ booking }: { booking: Booking }) {
               className="relative grid h-[42px] w-[42px] place-items-center rounded-full"
               style={{
                 background: current
-                  ? "radial-gradient(80% 80% at 50% 30%, rgba(212,175,55,0.14) 0%, rgba(15,23,34,0.85) 100%)"
-                  : "rgba(15,23,34,0.85)",
-                border: `1px solid ${done ? "rgba(212,175,55,0.55)" : current ? tone : "rgba(190,205,215,0.20)"}`,
-                color: done ? GOLD_SOFT : current ? GOLD_SOFT : "#8494A1",
-                boxShadow: current
-                  ? "0 0 22px rgba(212,175,55,0.28), inset 0 1px 0 rgba(255,255,255,0.07)"
-                  : "inset 0 1px 0 rgba(255,255,255,0.04)",
+                  ? "radial-gradient(80% 80% at 50% 30%, rgba(212,175,55,0.12) 0%, rgba(13,20,32,0.95) 100%)"
+                  : "rgba(13,20,32,0.95)",
+                border: `1px solid ${done || current ? "#D4AF37" : "rgba(160,174,192,0.32)"}`,
+                color: done || current ? "#D4AF37" : "#A0AEC0",
+                boxShadow:
+                  done || current
+                    ? "0 0 10px rgba(212,175,55,0.45), inset 0 1px 0 rgba(255,255,255,0.06)"
+                    : "inset 0 1px 0 rgba(255,255,255,0.03)",
               }}
             >
               <s.icon size={17} strokeWidth={1.5} />
             </span>
             <span
               className="whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]"
-              style={{ color: current ? GOLD_SOFT : done ? "#B9C6D1" : "#8B9AA6" }}
+              style={{ color: current || done ? "#D4AF37" : "#A0AEC0" }}
             >
               {s.label}
             </span>
@@ -258,6 +259,7 @@ function Timeline({ booking }: { booking: Booking }) {
         );
       })}
     </div>
+
 
 
   );
