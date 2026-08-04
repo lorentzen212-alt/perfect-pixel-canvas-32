@@ -216,12 +216,12 @@ function Timeline({ booking }: { booking: Booking }) {
   return (
     <div className="relative grid grid-cols-4 gap-1">
       <div
-        className="absolute left-[12.5%] right-[12.5%] top-[14px] h-px"
-        style={{ backgroundColor: "rgba(190,205,215,0.16)" }}
+        className="absolute left-[12.5%] right-[12.5%] top-[21px] h-px"
+        style={{ backgroundColor: "rgba(190,205,215,0.14)" }}
         aria-hidden
       />
       <div
-        className="absolute left-[12.5%] top-[14px] h-px"
+        className="absolute left-[12.5%] top-[21px] h-px"
         style={{
           width: `${(active / 3) * 75}%`,
           background: `linear-gradient(90deg, rgba(201,162,75,0.15) 0%, ${GOLD} 100%)`,
@@ -232,29 +232,25 @@ function Timeline({ booking }: { booking: Booking }) {
         const done = i < active;
         const current = i === active;
         return (
-          <div key={s.key} className="relative flex flex-col items-center gap-[4px]">
+          <div key={s.key} className="relative flex flex-col items-center gap-[9px]">
             <span
-              className="relative grid h-[28px] w-[28px] place-items-center rounded-full"
+              className="relative grid h-[42px] w-[42px] place-items-center rounded-full"
               style={{
-                background: done
-                  ? tone
-                  : current
-                    ? "rgba(201,162,75,0.09)"
-                    : "rgba(19,29,40,0.55)",
-                border: `1px solid ${done || current ? tone : "rgba(190,205,215,0.20)"}`,
-                color: done ? "#0A121A" : current ? GOLD_SOFT : "#8494A1",
+                background: current
+                  ? "radial-gradient(80% 80% at 50% 30%, rgba(212,175,55,0.14) 0%, rgba(15,23,34,0.85) 100%)"
+                  : "rgba(15,23,34,0.85)",
+                border: `1px solid ${done ? "rgba(212,175,55,0.55)" : current ? tone : "rgba(190,205,215,0.20)"}`,
+                color: done ? GOLD_SOFT : current ? GOLD_SOFT : "#8494A1",
                 boxShadow: current
-                  ? "0 0 18px rgba(201,162,75,0.22), inset 0 1px 0 rgba(255,255,255,0.06)"
-                  : done
-                    ? "0 0 14px rgba(201,162,75,0.14)"
-                    : "inset 0 1px 0 rgba(255,255,255,0.04)",
+                  ? "0 0 22px rgba(212,175,55,0.28), inset 0 1px 0 rgba(255,255,255,0.07)"
+                  : "inset 0 1px 0 rgba(255,255,255,0.04)",
               }}
             >
-              <s.icon size={14} strokeWidth={1.6} />
+              <s.icon size={17} strokeWidth={1.5} />
             </span>
             <span
-              className="whitespace-pre-line text-center text-[10.5px] leading-[1.2] tracking-[0.02em]"
-              style={{ color: done || current ? GOLD_SOFT : "#8B9AA6" }}
+              className="whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]"
+              style={{ color: current ? GOLD_SOFT : done ? "#B9C6D1" : "#8B9AA6" }}
             >
               {s.label}
             </span>
@@ -262,6 +258,7 @@ function Timeline({ booking }: { booking: Booking }) {
         );
       })}
     </div>
+
 
   );
 }
