@@ -122,7 +122,7 @@ const RULE = "rgba(190,205,215,0.20)";
 const BLUE = "#4C8AE0";
 /* polished brass — richer metallic gold with reflection bands */
 const GOLD_BRUSHED =
-  "linear-gradient(90deg, #6B4A14 0%, #A87C2C 12%, #D8AE5E 26%, #F5DC9E 40%, #FFF3CE 48%, #E2BC72 58%, #B98C34 74%, #8A6420 88%, #5C3F10 100%)";
+  "linear-gradient(90deg, #7A5406 0%, #C08D12 10%, #E9B622 22%, #FFD754 34%, #FFF0B0 46%, #FFD34A 56%, #E0A415 70%, #A9760C 86%, #6B4703 100%)";
 const GOLD_BRUSHED_H =
   "linear-gradient(140deg, #6B4A14 0%, #A87C2C 18%, #D8AE5E 38%, #F3D89A 52%, #D2A85E 66%, #96702A 84%, #6B4A14 100%)";
 const GREEN = "#5E9C6A";
