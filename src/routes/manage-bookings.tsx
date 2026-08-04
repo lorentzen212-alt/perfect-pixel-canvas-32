@@ -118,7 +118,7 @@ const GOLD = "#C9A24B";
 const GOLD_SOFT = "#E0BE6B";
 const PEARL = "#F4F1EA";
 const RULE = "rgba(190,205,215,0.20)";
-const BLUE = "#3478F6";
+const BLUE = "#2C6FE8";
 
 /* brushed anodized gold system */
 const GOLD_METAL =
@@ -242,7 +242,7 @@ function Timeline({ booking }: { booking: Booking }) {
         return (
           <div key={s.key} className="relative flex flex-col items-center gap-[9px]">
             <span
-              className="relative grid h-[42px] w-[42px] place-items-center rounded-full"
+              className="relative grid h-[42px] w-[42px] place-items-center rounded-[8px]"
               style={{
                 background: current
                   ? "radial-gradient(80% 80% at 50% 30%, rgba(212,175,55,0.12) 0%, rgba(13,20,32,0.95) 100%)"
@@ -276,7 +276,7 @@ function Timeline({ booking }: { booking: Booking }) {
 function TypeChip({ type }: { type: Booking["type"] }) {
   return (
     <span
-      className="inline-flex items-center rounded-[4px] px-[7px] py-[2px] text-[9px] font-semibold uppercase tracking-[0.2em]"
+      className="inline-flex items-center rounded-[6px] px-[8px] py-[2px] text-[9px] font-semibold uppercase tracking-[0.2em]"
       style={{
         color: "#EBD69B",
         border: "1px solid rgba(201,151,47,0.42)",
@@ -437,7 +437,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[9px] px-[13px] py-[8px] text-[13px] font-light"
+            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[7px] px-[13px] py-[8px] text-[13px] font-light"
             style={{
               color: "#EDF3F8",
               border: "1px solid rgba(255,255,255,0.075)",
@@ -463,7 +463,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           border: "1px solid rgba(255,255,255,0.022)",
           background: "linear-gradient(180deg, #090F18 0%, #0B111B 100%)",
           boxShadow:
-            "inset 0 5px 12px rgba(0,0,0,0.72), inset 0 2px 4px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07), 0 1px 0 rgba(255,255,255,0.02)",
+            "inset 0 3px 8px rgba(0,0,0,0.58), inset 0 1px 3px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.06), 0 1px 0 rgba(255,255,255,0.02)",
         }}
       >
         <div className="px-[20px] py-[11px]">
@@ -517,7 +517,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[10px] px-[18px] py-[10px] text-[15px]"
+          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[18px] py-[10px] text-[15px]"
           style={{
             color: "#EBD69B",
             border: "1.5px solid transparent",
@@ -542,7 +542,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   const shell = {
     background: "#111923",
     border: "1px solid rgba(255,255,255,0.05)",
-    borderRadius: 14,
+    borderRadius: 9,
     boxShadow:
       "0 12px 34px rgba(0,0,0,0.50), inset 0 1px 0 rgba(255,255,255,0.035), inset 0 -3px 10px rgba(0,0,0,0.45)",
   } as const;
@@ -550,7 +550,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   const media = (
     <div
       className={
-        compact ? "relative overflow-hidden" : "relative overflow-hidden rounded-[12px]"
+        compact ? "relative overflow-hidden" : "relative h-full overflow-hidden rounded-[12px]"
       }
       style={
         compact
@@ -565,7 +565,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[179px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[300px]"
+            : "h-[179px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full sm:min-h-[300px]"
         }
         style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
       />
@@ -602,13 +602,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden py-[30px] pl-[30px] pr-[30px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[24px] pl-[30px] pr-[30px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
       style={shell}
     >
       {/* metallic gold accent strip — full height, top to bottom */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[6px]"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[9px]"
         style={{
           background: `${GOLD_METAL}, linear-gradient(90deg, rgba(0,0,0,0.35) 0%, rgba(255,255,255,0.22) 38%, rgba(255,255,255,0.05) 55%, rgba(0,0,0,0.32) 100%)`,
           backgroundBlendMode: "overlay, normal",
