@@ -39,3 +39,7 @@ The current architecture does **not** prevent an identical result. Geometry, pla
 - Grain, if kept at all, drops to 0.08 opacity inside the base layer — the reference shows no banding.
 
 Nothing else on the booking card changes: no layout, no padding beyond the token, no glow, no bloom, no border gradient.
+
+## Acceptance rule
+
+The reference image is the source of truth. Where a measured value conflicts with how the reference *looks*, the visual match wins. After implementing, the rendered strip is captured again and compared against the reference; the material (and only the material) is iterated until the two are visually indistinguishable.
