@@ -39,7 +39,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-atmos.png.asset.json";
-import contentAtmos from "@/assets/content-atmos.png.asset.json";
+import contentArc from "@/assets/content-arc.png.asset.json";
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
@@ -1161,7 +1161,7 @@ function ManageBookings() {
             style={{
               top: 370,
               backgroundColor: "#0C121A",
-              backgroundImage: `url("${contentAtmos.url}")`,
+              backgroundImage: `url("${contentArc.url}")`,
               backgroundSize: "cover",
               backgroundPosition: "center top",
               backgroundRepeat: "no-repeat",
