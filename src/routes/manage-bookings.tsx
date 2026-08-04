@@ -517,10 +517,8 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             color: "#F3C979",
             marginRight: 0,
             border: "1.5px solid transparent",
-            backgroundImage:
-              `linear-gradient(180deg, #1A2330 0%, #131C27 100%), ${GOLD_BRUSHED_H}`,
-            backgroundOrigin: "border-box",
-            backgroundClip: "padding-box, border-box",
+            background:
+              `linear-gradient(180deg, #1A2330 0%, #131C27 100%) padding-box, ${GOLD_BRUSHED_H} border-box`,
             boxShadow:
               "0 2px 8px rgba(0,0,0,0.45), 0 0 14px rgba(227,162,60,0.22), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
