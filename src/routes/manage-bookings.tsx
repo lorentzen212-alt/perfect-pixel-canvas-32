@@ -423,19 +423,16 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* metadata chips */}
-      <div className="mt-4 flex flex-wrap items-center gap-[8px]">
+      <div className="mt-4 flex flex-wrap items-center gap-[13px]">
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex h-[42px] items-center gap-[8px] whitespace-nowrap rounded-[12px] px-[12px] text-[13px] font-light"
+            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[8px] px-[14px] py-[10px] text-[13px] font-light"
             style={{
-              color: TEXT_2,
-              border: "1px solid rgba(255,255,255,0.08)",
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(12,20,29,0.34) 100%)",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
+              color: "#E6EDF3",
+              border: "1px solid rgba(255,255,255,0.06)",
+              background: "#151E2B",
+              boxShadow: "inset 0 1px 2px rgba(0,0,0,0.35)",
             }}
           >
             <span className="shrink-0" style={{ color: "#D4AF37" }}>
@@ -449,13 +446,11 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[14px] grid grid-cols-1 overflow-hidden rounded-[14px] sm:grid-cols-2"
+        className="mt-[14px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
         style={{
-          border: "1px solid rgba(255,255,255,0.07)",
-          background: "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(12,20,29,0.34) 100%)",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 2px 8px rgba(0,0,0,0.20)",
-          backdropFilter: "blur(6px)",
-          WebkitBackdropFilter: "blur(6px)",
+          border: "1px solid rgba(255,255,255,0.05)",
+          background: "#121A26",
+          boxShadow: "inset 0 1px 3px rgba(0,0,0,0.35)",
         }}
       >
         <div className="px-[20px] py-[14px]">
@@ -471,7 +466,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         </div>
         <div
           className="px-[20px] py-[14px]"
-          style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
+          style={{ borderLeft: "1px solid rgba(255,255,255,0.06)" }}
         >
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.14em]"
@@ -487,6 +482,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           </p>
         </div>
       </div>
+
 
       {/* progress track */}
       <div className="mt-[22px]">
