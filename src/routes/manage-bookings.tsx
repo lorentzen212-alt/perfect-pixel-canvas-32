@@ -119,12 +119,12 @@ const GOLD_SOFT = "#F2C46A";
 const PEARL = "#F4F1EA";
 const RULE = "rgba(190,205,215,0.20)";
 /* deeper, richer premium royal blue (awaiting) — no cyan */
-const BLUE = "#335F9F";
-/* brushed anodized champagne gold — understated, not glossy/bright yellow */
+const BLUE = "#4C8AE0";
+/* polished brass — richer metallic gold with reflection bands */
 const GOLD_BRUSHED =
-  "linear-gradient(180deg, #5E4010 0%, #8C6A24 14%, #B89046 30%, #D8B574 46%, #E8C98F 52%, #D0AC68 60%, #B89046 74%, #8C6A24 88%, #5E4010 100%)";
+  "linear-gradient(90deg, #6B4A14 0%, #A87C2C 12%, #D8AE5E 26%, #F5DC9E 40%, #FFF3CE 48%, #EBC madeup 0%, #E2BC72 58%, #B98C34 74%, #8A6420 88%, #5C3F10 100%)";
 const GOLD_BRUSHED_H =
-  "linear-gradient(140deg, #5E4010 0%, #8C6A24 18%, #B89046 38%, #D8B574 52%, #C49F5C 66%, #8C6A24 84%, #5E4010 100%)";
+  "linear-gradient(140deg, #6B4A14 0%, #A87C2C 18%, #D8AE5E 38%, #F3D89A 52%, #D2A85E 66%, #96702A 84%, #6B4A14 100%)";
 const GREEN = "#5E9C6A";
 const RED = "#B4636A";
 
