@@ -448,27 +448,28 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[14px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
+        className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[10px] sm:grid-cols-2"
         style={{
-          border: "1px solid rgba(255,255,255,0.05)",
-          background: "#121A26",
-          boxShadow: "inset 0 1px 3px rgba(0,0,0,0.35)",
+          border: "1px solid rgba(255,255,255,0.035)",
+          background: "#0C131D",
+          boxShadow:
+            "inset 0 3px 8px rgba(0,0,0,0.60), inset 0 1px 0 rgba(255,255,255,0.055), 0 1px 0 rgba(255,255,255,0.02)",
         }}
       >
-        <div className="px-[20px] py-[14px]">
+        <div className="px-[20px] py-[11px]">
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.14em]"
             style={{ color: "#D4AF37" }}
           >
             Your reference
           </p>
-          <p className="mt-[6px] text-[20px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
+          <p className="mt-[5px] text-[20px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
             {booking.reference}
           </p>
         </div>
         <div
-          className="px-[20px] py-[14px]"
-          style={{ borderLeft: "1px solid rgba(255,255,255,0.06)" }}
+          className="px-[20px] py-[11px]"
+          style={{ borderLeft: "1px solid rgba(255,255,255,0.05)" }}
         >
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.14em]"
@@ -477,7 +478,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             Hotel reference
           </p>
           <p
-            className="mt-[6px] text-[20px] leading-none"
+            className="mt-[5px] text-[20px] leading-none"
             style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 400 }}
           >
             {booking.hotelReference ?? "Pending"}
@@ -487,15 +488,16 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
       {/* progress track */}
-      <div className="mt-[22px]">
+      <div className="mt-[16px]">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-[20px] flex flex-nowrap items-center justify-between gap-4 pt-[18px]"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        className="mt-[14px] flex flex-nowrap items-center justify-between gap-4 pt-[13px]"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.055)" }}
       >
+
         <p
           className="min-w-0 flex-1 truncate text-[14px] font-light"
           style={{ color: "#AFC0CD" }}
