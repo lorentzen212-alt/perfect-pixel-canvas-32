@@ -1153,29 +1153,82 @@ function ManageBookings() {
               "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
           }}
         >
-          {/* architectural surface — layered slate, natural light pools, plaster grain */}
+          {/* atmospheric surface — deep navy, layered light, rolling mist */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
             style={{
               top: 370,
               background:
-                "linear-gradient(178deg, #313C47 0%, #38434F 14%, #414C58 40%, #47525E 68%, #414B57 88%, #3A4450 100%)",
+                "linear-gradient(178deg, #10161F 0%, #141C26 22%, #18212C 46%, #151D28 72%, #111821 100%)",
             }}
           >
-            {/* broad natural light pools — cool steel with warm hints */}
+            {/* primary glow — slightly right of centre */}
             <div
               className="absolute inset-0"
               style={{
                 background: [
-                  "radial-gradient(90% 42% at 62% 8%, rgba(10,16,24,0.34) 0%, rgba(10,16,24,0) 70%)",
-                  "radial-gradient(70% 38% at 22% 30%, rgba(150,178,205,0.10) 0%, rgba(150,178,205,0) 68%)",
-                  "radial-gradient(85% 45% at 78% 56%, rgba(198,175,128,0.055) 0%, rgba(198,175,128,0) 70%)",
-                  "radial-gradient(65% 34% at 38% 82%, rgba(214,226,238,0.075) 0%, rgba(214,226,238,0) 72%)",
+                  "radial-gradient(95% 60% at 60% 34%, rgba(176,199,224,0.20) 0%, rgba(150,175,203,0.10) 34%, rgba(120,145,175,0.035) 60%, rgba(0,0,0,0) 80%)",
+                  "radial-gradient(46% 30% at 61% 33%, rgba(206,224,244,0.14) 0%, rgba(206,224,244,0) 72%)",
                 ].join(", "),
               }}
             />
-            {/* limestone plaster material — soft, non-repeating read */}
+            {/* secondary glow — upper left */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(70% 46% at 18% 14%, rgba(138,166,198,0.115) 0%, rgba(138,166,198,0.04) 42%, rgba(0,0,0,0) 74%)",
+              }}
+            />
+            {/* ambient glow — lower left */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(62% 40% at 14% 84%, rgba(124,152,184,0.075) 0%, rgba(124,152,184,0.025) 45%, rgba(0,0,0,0) 76%)",
+              }}
+            />
+            {/* rolling landscape curves — overlapping soft sweeps */}
+            <div
+              className="absolute inset-x-[-12%] top-[6%] h-[70%]"
+              style={{
+                background:
+                  "radial-gradient(58% 92% at 50% 128%, rgba(190,212,236,0.13) 0%, rgba(160,186,214,0.05) 40%, rgba(0,0,0,0) 70%)",
+                filter: "blur(38px)",
+                transform: "rotate(-3deg)",
+              }}
+            />
+            <div
+              className="absolute inset-x-[-18%] top-[18%] h-[68%]"
+              style={{
+                background:
+                  "radial-gradient(64% 90% at 40% 132%, rgba(150,176,206,0.075) 0%, rgba(0,0,0,0) 66%)",
+                filter: "blur(46px)",
+                transform: "rotate(2.5deg)",
+              }}
+            />
+            <div
+              className="absolute inset-x-[-10%] top-[34%] h-[62%]"
+              style={{
+                background:
+                  "radial-gradient(60% 88% at 66% 130%, rgba(132,158,190,0.055) 0%, rgba(0,0,0,0) 66%)",
+                filter: "blur(52px)",
+                transform: "rotate(-1.5deg)",
+              }}
+            />
+            {/* distant mist / atmospheric perspective */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: [
+                  "linear-gradient(184deg, rgba(146,172,200,0.055) 0%, rgba(146,172,200,0.02) 32%, rgba(0,0,0,0) 58%)",
+                  "linear-gradient(0deg, rgba(8,12,18,0.42) 0%, rgba(8,12,18,0.10) 26%, rgba(0,0,0,0) 52%)",
+                ].join(", "),
+                filter: "blur(2px)",
+              }}
+            />
+            {/* soft fog veil from the limestone plate — no pattern read */}
             <div
               className="absolute inset-0"
               style={{
@@ -1184,27 +1237,19 @@ function ManageBookings() {
                 backgroundPosition: "center top",
                 backgroundRepeat: "no-repeat",
                 mixBlendMode: "soft-light",
-                opacity: 0.5,
-                filter: "saturate(0) contrast(0.75) blur(0.6px)",
+                opacity: 0.16,
+                filter: "saturate(0) contrast(0.5) blur(9px)",
               }}
             />
-            {/* extremely fine film grain */}
+            {/* ultra-fine matte grain */}
             <div
               className="absolute inset-0"
               style={{
                 backgroundImage:
-                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E\")",
+                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E\")",
                 backgroundSize: "180px 180px",
                 mixBlendMode: "overlay",
-                opacity: 0.05,
-              }}
-            />
-            {/* lighting: darker under hero, lifting toward the cards */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(12,19,27,0.30) 0%, rgba(12,19,27,0.10) 190px, rgba(255,255,255,0.035) 640px, rgba(255,255,255,0.02) 100%)",
+                opacity: 0.045,
               }}
             />
             {/* quiet vignette */}
@@ -1212,10 +1257,11 @@ function ManageBookings() {
               className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(120% 88% at 50% 42%, rgba(0,0,0,0) 56%, rgba(0,0,0,0.09) 82%, rgba(0,0,0,0.19) 100%)",
+                  "radial-gradient(118% 90% at 56% 36%, rgba(0,0,0,0) 50%, rgba(4,7,11,0.18) 80%, rgba(4,7,11,0.34) 100%)",
               }}
             />
           </div>
+
 
 
 
