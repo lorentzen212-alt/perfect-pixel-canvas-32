@@ -57,3 +57,16 @@ Make the strip a structural, tokenised layer of the card rather than an ad-hoc d
 - `src/routes/manage-bookings.tsx` — replace the inline `goldInsert` JSX with `<span aria-hidden className="hgb-card-insert" />`, drop `border-left` from `shell`, and switch both card variants' left padding to the token-based calc.
 
 Nothing else on the card (image frame, chips, reference panel, timeline, footer button) changes.
+
+## Confirmed implementation spec (approved details)
+
+- `.hgb-booking-card` gets `--insert-w: 16px`, `padding-left: calc(var(--insert-w) + 26px)`, and a transparent left border (no pale hairline).
+- `.hgb-card-insert`: `position:absolute; inset:-1px auto -1px -1px;` fully opaque, gradient
+  `#6B4E17 → #B08F3E → #E2C57C → #F1D996 (peak slightly left of centre) → #A8853A → #5C4212`,
+  plus `inset -1px 0 2px rgba(0,0,0,0.55)` machined seam on the right edge.
+- `::before` = horizontal brushed grain at 0.2 opacity. `::after` = one continuous 3px satin reflection at 36%.
+- No top/bottom darkening, no glow, no bloom, no veil, no border gradient.
+- Both the full and compact card variants render `<span aria-hidden className="hgb-card-insert" />` and drop their hardcoded left padding, so the token drives both.
+- Verified afterwards in the live preview: full-height metal, flush to the true card edges, no pale 1px border, no taper beyond the natural corner radius.
+
+Nothing else on the card changes.
