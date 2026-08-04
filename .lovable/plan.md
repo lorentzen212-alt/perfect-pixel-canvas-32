@@ -1,95 +1,59 @@
-# Step 2 – Location (M&E)
+# Left metallic gold insert — diagnosis and structural rebuild
 
-Implement a real `StepTwoLocation` component in `src/routes/book-meetings-events.tsx` matching the reference. Steps 1 and 3–7 unchanged.
+## What I checked
 
-## Scope
+I read the `BookingCard` component in `src/routes/manage-bookings.tsx` (lines 369–675), the card CSS in `src/styles.css` (`.hgb-booking-card`, `.hgb-gold-metal`), and inspected the live rendered card in your preview.
 
-Only `src/routes/book-meetings-events.tsx` is modified. No new routes, no changes to Leisure flow, homepage, hero, progress bar, credibility bar, or footer benefits.
-
-## Routing inside the page
-
-In the step-body slot (currently lines ~282–293):
-
-- `step === 1` → existing `StepOne`
-- `step === 2` → new `StepTwoLocation`
-- `step >= 3` → existing `StepPlaceholder`
-
-## New `StepTwoLocation` component
-
-Layout: single premium white panel (`bg-rgba(255,255,255,0.72)`, `1px solid #E7EAF0`, radius 10px) inside the existing main card.
-
-Content:
-
-1. Header row (2 columns on desktop, stacks on mobile):
-   - Left: "Step 2 – Location" (Cormorant Garamond) + "Where would you like to host your event?" subtitle
-   - Right: "Select country" label + country dropdown (Norway default, Norwegian flag, chevron)
-
-2. "Popular destinations in {country}" grid:
-   - Desktop 4 cols / tablet 2 cols / mobile 1 col
-   - 8 cards in this order: Oslo, Bergen, Tromsø, Stavanger, Trondheim, Bodø, Lofoten, Anywhere in Norway
-   - Cards 1–7: image bg + bottom navy gradient + white icon + white name
-   - Card 8 ("Anywhere in Norway"): solid navy + white globe icon
-   - Selected: 2px gold border (#F5AE00) + soft shadow. Hover: subtle scale + elevation.
-
-3. Lower two-column area (desktop `1fr 320px`, stacks on mobile):
-   - Left column:
-     - "Or search for any destination" label + search input with left search icon, placeholder "Type city, region or venue"
-     - "Hotel category" row: ★★★ / ★★★★ / ★★★★★ / No preference (single-select, gold border when selected; "No preference" always uses gold outline + gold ban icon)
-     - "Hotel style" row: City hotel, Waterfront, Airport, Resort, Historic hotel, Boutique, No preferences (7 tiles with lucide icons; selected tile = navy gradient bg + white text + gold icon)
-   - Right column: existing `HelpCard` reused inside a small white sub-card matching current styling
-
-4. Footer row inside the panel:
-   - Back button (white, grey border, navy text) → `go(1)`
-   - `NextButton` (existing gold component) → `handleNext()` which advances to step 3
-
-## State (inside `StepTwoLocation`)
-
-Local `useState` for: `country` (default `"NO"`), `destination` (string | null), `searchQuery` (string), `category` (`"3"|"4"|"5"|"none"` | null), `style` (string | null). No form submission wiring yet.
-
-## Data structures
-
-```ts
-const COUNTRIES = [{ code: "NO", name: "Norway", flag: <FlagNO/> }]; // extendable
-const DESTINATIONS_BY_COUNTRY: Record<string, {name:string; image:string; icon:LucideIcon}[]> = { NO: [...] };
-const HOTEL_STYLES = [
-  { id: "city", label: "City hotel", icon: Building2 },
-  { id: "waterfront", label: "Waterfront", icon: Waves },
-  { id: "airport", label: "Airport", icon: Plane },
-  { id: "resort", label: "Resort", icon: Palmtree },
-  { id: "historic", label: "Historic hotel", icon: Landmark },
-  { id: "boutique", label: "Boutique", icon: Gem },
-  { id: "none", label: "No preferences", icon: Ban },
-];
-```
-
-## Destination images
-
-Generate 7 destination images via `imagegen--generate_image` (fast tier, ~800×600 jpg) into `src/assets/destinations/`:
+## 1. How the card is structured today
 
 ```text
-oslo.jpg, bergen.jpg, tromso.jpg, stavanger.jpg,
-trondheim.jpg, bodo.jpg, lofoten.jpg
+<article class="hgb-booking-card ...">   <- grid, overflow:hidden, radius 12, pl-40 pr-26 py-26
+   <span goldInsert />                   <- absolute inset-y-0 left-0 w-14
+   <div media />                          <- image frame (grid col 1)
+   <div info />                           <- text column (grid col 2)
+</article>
 ```
 
-Import each as an ES6 asset and reference via `image`. "Anywhere in Norway" uses no image (navy tile + `Globe` icon).
+The whole card is one `<article>`; the gold insert is an absolutely positioned `<span>` inside it, and the left padding (`pl-[40px]`) is what keeps content off the strip.
 
-## Icons (lucide-react)
+## 2. Which element paints the card background
 
-`ChevronDown`, `Search`, `Building2`, `Waves`, `Plane`, `Palmtree`, `Landmark`, `Gem`, `Ban`, `Globe`, `Star` (for category rows).
+The `<article>` itself, via the inline `shell` object: `linear-gradient(180deg,#131C27,#111923,#0F1620)`, `1px solid rgba(255,255,255,0.055)` border, radius 12. No inner wrapper paints a background — media and info are transparent.
 
-## Styling rules
+## 3. Is an inner wrapper covering the left edge?
 
-- Card: `#FCFCFB`, `1px solid rgba(15,35,60,0.08)`, radius 20, `0 22px 70px rgba(4,25,48,0.14)`.
-- Inputs / option buttons: white, `1px solid #DFE4EB`, navy text, hover slightly darker border, selected `border-[#F5AE00]`, `focus-visible:ring-2 ring-[#F5AE00]/40`, no default blue ring.
-- Selected hotel-style tile: `linear-gradient(180deg,#16385A,#0F2A47)`, white text, gold icon, soft shadow.
-- Everything accessible: real `<button>` elements, `aria-pressed`, visible focus.
+No. Live measurement: card starts at x=303, insert at x=304 with width 14 and height 442 of the card's 444 — it is rendering, full height, unobstructed, and nothing overlaps it. Media column starts at x=344.
 
-## Responsive
+## 4. Overflow / z-index / radius / masking
 
-- Destinations: `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4`
-- Lower area: single column below `lg`, `1fr 320px` at `lg+`
-- Hotel style row: horizontal scroll disabled; wraps via `grid-cols-2 sm:grid-cols-3 lg:grid-cols-7`
+- `overflow:hidden` on the article is fine and actually gives the strip the card's corner radius.
+- No stacking conflict: the insert is the first child, siblings are non-positioned or `position:relative` without z-index, so nothing paints over it.
+- The only geometric issue: the insert is inside the border box, so the card's 1px light border draws a pale hairline down the left, and the strip sits 1px in from the true card edge instead of being flush.
 
-## Verification
+## Root cause
 
-After implementation, curl `http://localhost:8080/book-meetings-events`, then advance to step 2 in a Playwright script and screenshot the panel to confirm layout matches the reference.
+The strip is not clipped or hidden — it is rendering, but it does not read as a solid metallic champagne insert because of how it is painted:
+
+- The base gradient tops out at `#C4A254` and is dark at both edges (`#4A3A17` / `#3E3013`), so on a near-black card it reads as a dim sliver, not metal.
+- Three stacked overlays subtract further light: a repeating grain at 0.5 opacity, a top/bottom luminance falloff up to 32% black, and a 2px reflection too narrow to register at 14px.
+- 14px inside a 12px-radius, 1px-bordered box means the top and bottom ~12px are clipped away by the corner curve, so the strip visibly tapers.
+- The material is defined inline inside the render body, so every iteration rewrites component JSX instead of one token.
+
+So: it is a material/geometry problem, not a visibility bug. A width bump alone would not fix it.
+
+## 5. Cleanest long-term architecture
+
+Make the strip a structural, tokenised layer of the card rather than an ad-hoc decorative span:
+
+1. **Single CSS component class** `.hgb-card-insert` in `src/styles.css`, with the metal defined in CSS custom properties (`--insert-w`, `--insert-base`, `--insert-peak`, `--insert-shadow`). The gradient, brushed grain and reflection become `::before` / `::after` on that one class — no inline style objects in the component.
+2. **Insert lives on the card's own padding box, flush to the edge**: keep `overflow:hidden` + radius on the `<article>`, position the insert at `inset: 0 auto 0 0` with a negative 1px inset so it sits under the card border rather than behind a lighter hairline. Suppress `border-left` on the article so the strip is the left edge.
+3. **Content offset driven by the same token**: `padding-left: calc(var(--insert-w) + 26px)`, so widening the metal never desynchronises the layout. Same class and token used by both the full and `compact` variants — today they duplicate padding values.
+4. **Material rebuild** so it reads as brushed anodized gold: 16px wide, gradient anchored on saturated champagne (roughly `#6B4E17 → #B08F3E → #E2C57C → #A8853A → #5C4212`) with the peak slightly left of centre, one continuous 3px satin reflection at ~36%, grain reduced to ~0.22 opacity, and the vertical falloff removed so it stays consistent top to bottom. A hard `inset -1px 0 2px rgba(0,0,0,0.55)` on the right side gives the machined seam where metal meets card.
+5. **No glow, no bloom, no border-gradient, no overlay veil** — the insert is opaque and sits in the card's own box.
+
+## Files to change
+
+- `src/styles.css` — add `.hgb-card-insert` (+ tokens, `::before` grain, `::after` reflection) near the existing `.hgb-booking-card` block.
+- `src/routes/manage-bookings.tsx` — replace the inline `goldInsert` JSX with `<span aria-hidden className="hgb-card-insert" />`, drop `border-left` from `shell`, and switch both card variants' left padding to the token-based calc.
+
+Nothing else on the card (image frame, chips, reference panel, timeline, footer button) changes.
