@@ -423,16 +423,17 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* metadata chips */}
-      <div className="mt-4 flex flex-wrap items-center gap-[13px]">
+      <div className="mt-[13px] flex flex-wrap items-center gap-[10px]">
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[8px] px-[14px] py-[10px] text-[13px] font-light"
+            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[11px] px-[13px] py-[8px] text-[13px] font-light"
             style={{
               color: "#E6EDF3",
-              border: "1px solid rgba(255,255,255,0.06)",
-              background: "#151E2B",
-              boxShadow: "inset 0 1px 2px rgba(0,0,0,0.35)",
+              border: "1px solid rgba(255,255,255,0.055)",
+              background: "#131C27",
+              boxShadow:
+                "inset 0 1px 2px rgba(0,0,0,0.45), inset 0 -1px 0 rgba(255,255,255,0.03)",
             }}
           >
             <span className="shrink-0" style={{ color: "#D4AF37" }}>
@@ -442,6 +443,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           </span>
         ))}
       </div>
+
 
 
       {/* reference panel */}
