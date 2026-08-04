@@ -582,7 +582,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="group overflow-hidden rounded-[22px] transition-transform hover:-translate-y-px" style={shell}>
+      <article className="hgb-booking-card group overflow-hidden rounded-[13px] transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
         {media}
         <div className="p-4">{info}</div>
       </article>
@@ -591,13 +591,14 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="group grid grid-cols-1 items-start gap-5 overflow-hidden rounded-[22px] p-4 transition-transform hover:-translate-y-px sm:grid-cols-[minmax(0,262px)_minmax(0,1fr)]"
+      className="hgb-booking-card group grid grid-cols-1 items-start gap-5 overflow-hidden rounded-[13px] p-4 transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,262px)_minmax(0,1fr)]"
       style={shell}
     >
       {media}
       <div className="min-w-0">{info}</div>
     </article>
   );
+
 }
 
 
