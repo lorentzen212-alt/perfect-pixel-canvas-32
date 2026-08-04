@@ -965,13 +965,15 @@ function Select<T extends string>({
   label: string;
 }) {
   return (
-    <div className="relative flex-1">
+    <div
+      className="group relative flex-1 rounded-[10px] transition-colors duration-200 hover:bg-[rgba(255,255,255,0.025)]"
+    >
       <select
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="w-full cursor-pointer appearance-none bg-transparent px-5 py-[10px] pr-10 text-center text-[14px] outline-none"
-        style={{ color: "#EDEFF2", letterSpacing: "0.005em" }}
+        className="w-full cursor-pointer appearance-none bg-transparent py-[11px] pl-5 pr-10 text-left text-[14.5px] outline-none"
+        style={{ color: "rgba(255,255,255,0.92)", letterSpacing: "0.005em" }}
       >
         {options.map((o) => (
           <option key={o.value} value={o.value} style={{ backgroundColor: "#12151A" }}>
@@ -981,11 +983,13 @@ function Select<T extends string>({
       </select>
       <ChevronDown
         size={17}
+        strokeWidth={1.8}
         className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2"
-        style={{ color: "#C9CDD3" }}
+        style={{ color: "rgba(255,255,255,0.62)" }}
       />
     </div>
   );
+
 }
 
 
