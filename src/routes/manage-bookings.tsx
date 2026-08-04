@@ -553,7 +553,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       style={
         compact
           ? undefined
-          : { boxShadow: "0 2px 6px rgba(0,0,0,0.28)" }
+          : { boxShadow: "0 1px 3px rgba(0,0,0,0.18)" }
       }
     >
       <img
@@ -563,7 +563,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[186px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[313px]"
+            : "h-[173px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[291px]"
         }
         style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
       />
@@ -582,7 +582,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           className="pointer-events-none absolute inset-0 rounded-[8px]"
           style={{
             boxShadow:
-              "inset 0 2px 4px rgba(255,255,255,0.05), inset 0 -3px 8px rgba(0,0,0,0.45), inset 0 3px 10px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.045)",
+              "inset 0 2px 5px rgba(255,255,255,0.055), inset 0 -4px 10px rgba(0,0,0,0.55), inset 0 4px 13px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(255,255,255,0.05)",
           }}
         />
       )}
@@ -600,13 +600,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[24px] overflow-hidden py-[18px] pl-[24px] pr-[24px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden py-[26px] pl-[38px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,24.5%)_minmax(0,1fr)]"
       style={shell}
     >
       {/* metallic gold accent strip — full height, top to bottom */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[9px] overflow-hidden"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[12px] overflow-hidden"
         style={{
           background:
             GOLD_BRUSHED,
