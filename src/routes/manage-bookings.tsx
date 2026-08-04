@@ -120,8 +120,6 @@ const PEARL = "#F4F1EA";
 const RULE = "rgba(190,205,215,0.20)";
 const BLUE = "#3F6BAE";
 /* premium brushed / anodized gold */
-const GOLD_METAL = "#C9972F";
-const GOLD_LIGHT = "#E8CE7E";
 const GOLD_BRUSHED =
   "linear-gradient(180deg, #6F4B12 0%, #9B6A19 14%, #C9972F 32%, #F7E08D 47%, #FFF3C4 52%, #F7E08D 58%, #D4AF37 74%, #A5741E 90%, #6B4914 100%)";
 const GOLD_BRUSHED_H =
@@ -517,6 +515,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[7px] px-[18px] py-[10px] text-[15px]"
           style={{
             color: "#E8CE7E",
+            marginRight: -1,
             border: "1.5px solid transparent",
             backgroundImage:
               `linear-gradient(180deg, rgba(201,151,47,0.10) 0%, rgba(13,20,32,0.62) 100%), ${GOLD_BRUSHED_H}`,
@@ -612,7 +611,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           background:
             GOLD_BRUSHED,
           boxShadow:
-            "inset -1px 0 2px rgba(0,0,0,0.45), inset 1px 0 0 rgba(255,255,255,0.28), 0 0 10px rgba(212,175,55,0.28)",
+            "inset -1px 0 2px rgba(0,0,0,0.45), inset 1px 0 0 rgba(255,255,255,0.26), 0 0 10px rgba(201,151,47,0.26)",
         }}
       >
         {/* brushed-metal reflection */}
