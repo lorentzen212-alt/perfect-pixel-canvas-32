@@ -492,7 +492,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {/* footer */}
       <div
         className="mt-[20px] flex flex-nowrap items-center justify-between gap-4 pt-[18px]"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
       >
         <p
           className="min-w-0 flex-1 truncate text-[14px] font-light"
@@ -503,13 +503,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn group/btn inline-flex h-[48px] shrink-0 items-center gap-4 whitespace-nowrap rounded-[12px] px-[26px] text-[15px]"
+          className="hgb-view-btn group/btn inline-flex shrink-0 items-center gap-4 whitespace-nowrap rounded-[10px] px-[18px] py-[10px] text-[15px]"
           style={{
-            color: GOLD_SOFT,
-            border: "1px solid rgba(212,175,55,0.62)",
-            background:
-              "linear-gradient(180deg, rgba(212,175,55,0.07) 0%, rgba(12,20,29,0.35) 100%)",
-            boxShadow: "0 0 22px rgba(212,175,55,0.16), inset 0 1px 0 rgba(255,255,255,0.05)",
+            color: "#D4AF37",
+            border: "1px solid #D4AF37",
+            background: "linear-gradient(180deg, rgba(212,175,55,0.06) 0%, rgba(13,20,32,0.6) 100%)",
+            boxShadow: "0 0 12px rgba(212,175,55,0.35), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
           {action.label}
@@ -523,23 +522,17 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   );
 
   const shell = {
-    background: `radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0) 60%), radial-gradient(110% 120% at 50% 120%, rgba(8,14,21,0.30) 0%, rgba(8,14,21,0) 62%), ${CARD}`,
-    border: "1px solid rgba(255,255,255,0.08)",
+    background: "#0D1420",
+    border: "1px solid rgba(255,255,255,0.06)",
+    borderRadius: 14,
     boxShadow:
-      "0 2px 6px rgba(0,0,0,0.22), 0 6px 16px rgba(6,12,20,0.26), 0 26px 60px rgba(6,12,20,0.34), inset 0 1px 0 rgba(255,255,255,0.07)",
+      "0 10px 30px rgba(0,0,0,0.45), inset 0 2px 6px rgba(0,0,0,0.35)",
   } as const;
 
   const media = (
     <div
       className={
-        compact
-          ? "relative overflow-hidden"
-          : "relative overflow-hidden rounded-[19px]"
-      }
-      style={
-        compact
-          ? undefined
-          : { boxShadow: "0 18px 40px rgba(6,12,20,0.45)" }
+        compact ? "relative overflow-hidden" : "relative overflow-hidden rounded-[12px]"
       }
     >
       <img
@@ -565,10 +558,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {!compact && (
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[19px]"
+          className="pointer-events-none absolute inset-0 rounded-[12px]"
           style={{
             boxShadow:
-              "inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.12)",
+              "inset 0 2px 4px rgba(0,0,0,0.40), inset 0 0 0 1px rgba(255,255,255,0.06)",
           }}
         />
       )}
@@ -577,7 +570,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="hgb-booking-card group overflow-hidden rounded-[13px] transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
+      <article className="hgb-booking-card group overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
         {media}
         <div className="p-4">{info}</div>
       </article>
@@ -586,18 +579,19 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden rounded-[16px] py-[22px] pl-[26px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden py-[22px] pl-[26px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
       style={shell}
     >
-      {/* metallic gold accent strip on the far left edge */}
+      {/* metallic gold accent strip — full height, top to bottom */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-[18px] left-0 z-10 w-[5px] rounded-r-[3px]"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[6px]"
         style={{
           background:
-            "linear-gradient(180deg, #E7CB74 0%, #D4AF37 45%, #C29A2E 70%, #8E6B22 100%)",
-          boxShadow: "0 0 22px rgba(212,175,55,0.35)",
+            "linear-gradient(180deg, #FFE082 0%, #D4AF37 40%, #B8860B 60%, #FFE082 100%)",
+          boxShadow: "0 0 12px rgba(212,175,55,0.40)",
         }}
+
       />
       {media}
       <div className="min-w-0">{info}</div>
