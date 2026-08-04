@@ -424,7 +424,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           >
             <span
               className="inline-block h-[7px] w-[7px] rounded-full"
-              style={{ backgroundColor: tone, boxShadow: `0 0 0 3px ${tone}22` }}
+              style={{ backgroundColor: tone, boxShadow: `0 0 0 3px ${tone}22, 0 0 7px ${tone}99` }}
             />
             {GROUP_LABEL[g]}
           </span>
