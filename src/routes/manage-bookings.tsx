@@ -600,13 +600,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[24px] overflow-hidden py-[18px] pl-[24px] pr-[24px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,27%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-start gap-[26px] overflow-hidden py-[26px] pl-[38px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,24.5%)_minmax(0,1fr)]"
       style={shell}
     >
       {/* metallic gold accent strip — full height, top to bottom */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[9px] overflow-hidden"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[12px] overflow-hidden"
         style={{
           background:
             GOLD_BRUSHED,
