@@ -118,7 +118,15 @@ const GOLD = "#C9A24B";
 const GOLD_SOFT = "#E0BE6B";
 const PEARL = "#F4F1EA";
 const RULE = "rgba(190,205,215,0.20)";
-const BLUE = "#4F86C6";
+const BLUE = "#3478F6";
+
+/* brushed anodized gold system */
+const GOLD_METAL =
+  "linear-gradient(180deg, #6F4B12 0%, #9B6A19 14%, #C9972F 32%, #F7E08D 48%, #FFF1C2 52%, #F7E08D 58%, #D4AF37 72%, #A5741E 88%, #6B4914 100%)";
+const GOLD_METAL_H =
+  "linear-gradient(100deg, #6F4B12 0%, #9B6A19 16%, #C9972F 34%, #F7E08D 50%, #D4AF37 66%, #A5741E 84%, #6B4914 100%)";
+const GOLD_TEXT = "#D9B657";
+const GOLD_ICON = "#C9972F";
 const GREEN = "#5E9C6A";
 const RED = "#B4636A";
 
