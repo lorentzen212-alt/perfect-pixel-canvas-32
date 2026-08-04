@@ -861,7 +861,7 @@
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 248, 226, 0.34) 46%,
+    rgba(255, 238, 180, 0.22) 46%,
     rgba(255, 255, 255, 0) 100%
   );
   animation: hgb-brass-sheen 7s ease-in-out infinite;
