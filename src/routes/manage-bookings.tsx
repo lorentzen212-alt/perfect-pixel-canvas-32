@@ -518,11 +518,11 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             marginRight: 0,
             border: "1.5px solid transparent",
             backgroundImage:
-              `linear-gradient(180deg, rgba(227,162,60,0.13) 0%, rgba(24,33,46,0.72) 100%), ${GOLD_BRUSHED_H}`,
+              `linear-gradient(180deg, #1A2330 0%, #131C27 100%), ${GOLD_BRUSHED_H}`,
             backgroundOrigin: "border-box",
             backgroundClip: "padding-box, border-box",
             boxShadow:
-              "0 2px 6px rgba(0,0,0,0.42), 0 0 9px rgba(227,162,60,0.18), inset 0 1px 0 rgba(255,255,255,0.07)",
+              "0 2px 8px rgba(0,0,0,0.45), 0 0 14px rgba(227,162,60,0.22), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
           {action.label}
