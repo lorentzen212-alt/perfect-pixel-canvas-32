@@ -937,6 +937,22 @@ function Sidebar({
 
 /* ── select ──────────────────────────────────────────── */
 
+function GoldDivider() {
+  return (
+    <div
+      aria-hidden
+      className="hidden shrink-0 self-stretch md:block"
+      style={{
+        width: 1,
+        margin: "9px 0",
+        background:
+          "linear-gradient(180deg, rgba(227,192,119,0) 0%, #E3C077 22%, #F3DCA6 50%, #A9853A 80%, rgba(169,133,58,0) 100%)",
+        boxShadow: "0 0 6px rgba(227,192,119,0.28)",
+      }}
+    />
+  );
+}
+
 function Select<T extends string>({
   value,
   onChange,
