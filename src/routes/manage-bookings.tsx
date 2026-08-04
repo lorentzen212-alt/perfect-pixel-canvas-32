@@ -540,8 +540,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     background: "#111923",
     border: "1px solid rgba(255,255,255,0.05)",
     borderRadius: 9,
+    /* precision-machined surface — subtle highlights + deep base shadow */
     boxShadow:
-      "0 12px 34px rgba(0,0,0,0.50), inset 0 1px 0 rgba(255,255,255,0.035), inset 0 -3px 10px rgba(0,0,0,0.45)",
+      "0 10px 30px rgba(0,0,0,0.46), 0 1px 0 rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -4px 12px rgba(0,0,0,0.50), inset 0 0 0 1px rgba(255,255,255,0.018)",
   } as const;
 
   const media = (
