@@ -618,35 +618,35 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           background: GOLD_BRUSHED,
           borderRadius: 0,
           boxShadow:
-            "inset -1px 0 4px rgba(0,0,0,0.55), inset 1px 0 0 rgba(255,252,224,0.55), 0 0 18px rgba(255,200,60,0.35)",
+            "inset -1px 0 4px rgba(0,0,0,0.6), inset 1px 0 0 rgba(255,228,150,0.4), 0 0 14px rgba(200,150,40,0.28)",
         }}
       >
-        {/* polished brass reflection bands */}
+        {/* precise vertical reflection — a single thin specular sheen line */}
         <span
           aria-hidden
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.06) 20%, rgba(0,0,0,0.26) 46%, rgba(255,255,255,0.24) 70%, rgba(0,0,0,0.30) 100%)",
-            mixBlendMode: "overlay",
+              "linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(255,236,160,0.22) 38%, rgba(255,244,200,0.32) 50%, rgba(255,236,160,0.22) 62%, rgba(0,0,0,0.42) 100%)",
+            mixBlendMode: "screen",
           }}
         />
-        {/* hot specular highlight, like light hitting polished metal */}
+        {/* soft central glow, not a hot white spot — refined specular */}
         <span
           aria-hidden
-          className="absolute inset-x-0 top-[28%] h-[26%]"
+          className="absolute inset-x-0 top-[30%] h-[40%]"
           style={{
             background:
-              "radial-gradient(60% 50% at 45% 50%, rgba(255,255,255,0.78) 0%, rgba(255,246,200,0.35) 45%, rgba(255,255,255,0) 100%)",
+              "radial-gradient(56% 60% at 50% 50%, rgba(255,238,180,0.4) 0%, rgba(255,222,140,0.14) 50%, rgba(255,255,255,0) 100%)",
           }}
         />
-        {/* faint vertical anodized banding for a brushed finish */}
+        {/* fine vertical brushed banding for anodized finish */}
         <span
           aria-hidden
-          className="absolute inset-0 opacity-25"
+          className="absolute inset-0 opacity-[0.16]"
           style={{
             background:
-              "repeating-linear-gradient(180deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px)",
+              "repeating-linear-gradient(180deg, rgba(255,240,190,0.08) 0px, rgba(255,240,190,0.08) 1px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 3px)",
           }}
         />
 
