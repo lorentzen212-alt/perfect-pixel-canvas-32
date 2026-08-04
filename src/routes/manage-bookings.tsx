@@ -557,7 +557,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            : "h-[210px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[352px]"
+            : "h-[186px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-[313px]"
         }
         style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
       />
@@ -573,7 +573,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {!compact && (
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[12px]"
+          className="pointer-events-none absolute inset-0 rounded-[8px]"
           style={{
             boxShadow:
               "inset 0 2px 4px rgba(255,255,255,0.05), inset 0 -3px 8px rgba(0,0,0,0.45), inset 0 3px 10px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.045)",
@@ -600,14 +600,25 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       {/* metallic gold accent strip — full height, top to bottom */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[6px]"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[9px] overflow-hidden"
         style={{
           background:
             "linear-gradient(180deg, #7A5615 0%, #A7771F 12%, #D4AF37 30%, #FFE58A 44%, #FFF4CC 50%, #FFE58A 56%, #D4AF37 72%, #A7771F 88%, #9A6A18 100%)",
           boxShadow:
             "inset -1px 0 2px rgba(0,0,0,0.45), inset 1px 0 0 rgba(255,255,255,0.28), 0 0 10px rgba(212,175,55,0.28)",
         }}
-      />
+      >
+        {/* brushed-metal reflection */}
+        <span
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 22%, rgba(0,0,0,0.20) 48%, rgba(255,255,255,0.14) 70%, rgba(0,0,0,0.28) 100%)",
+            mixBlendMode: "overlay",
+          }}
+        />
+      </span>
 
       {media}
       <div className="min-w-0">{info}</div>
