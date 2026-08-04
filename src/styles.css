@@ -790,12 +790,41 @@
     transform 240ms ease,
     box-shadow 240ms ease;
 }
-.hgb-view-btn:hover {
+.hgb-view-btn:not(.hgb-gold-sheen):hover {
   background: rgba(201, 162, 75, 0.09);
   border-color: rgba(201, 162, 75, 0.78);
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(6, 12, 20, 0.28);
 }
+
+/* Soft moving metallic reflection across gold-bordered buttons */
+.hgb-gold-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 38%,
+    rgba(255, 240, 200, 0.14) 50%,
+    rgba(255, 255, 255, 0) 62%
+  );
+  background-size: 260% 100%;
+  animation: hgb-sheen 6.5s ease-in-out infinite;
+}
+.hgb-gold-sheen:hover {
+  transform: translateY(-1px);
+}
+@keyframes hgb-sheen {
+  0%,
+  100% {
+    background-position: 140% 0;
+  }
+  55% {
+    background-position: -40% 0;
+  }
+}
+
 
 /* Booking card hover elevation (Manage Bookings) */
 .hgb-booking-card {
