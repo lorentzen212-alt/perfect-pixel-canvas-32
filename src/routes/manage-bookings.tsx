@@ -949,28 +949,29 @@ function Select<T extends string>({
   label: string;
 }) {
   return (
-    <div className="relative">
+    <div className="relative flex-1">
       <select
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="hgb-field w-full appearance-none rounded-[10px] px-4 py-[9px] pr-9 text-[13.5px] outline-none"
-        style={{ backgroundColor: "#333C46", border: `1px solid rgba(255,255,255,0.06)`, color: TEXT_2 }}
+        className="w-full cursor-pointer appearance-none bg-transparent px-5 py-[10px] pr-10 text-center text-[14px] outline-none"
+        style={{ color: "#EDEFF2", letterSpacing: "0.005em" }}
       >
         {options.map((o) => (
-          <option key={o.value} value={o.value} style={{ backgroundColor: "#333C46" }}>
+          <option key={o.value} value={o.value} style={{ backgroundColor: "#12151A" }}>
             {o.label}
           </option>
         ))}
       </select>
       <ChevronDown
-        size={16}
-        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
-        style={{ color: MUTED }}
+        size={17}
+        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2"
+        style={{ color: "#C9CDD3" }}
       />
     </div>
   );
 }
+
 
 /* ── page ────────────────────────────────────────────── */
 
