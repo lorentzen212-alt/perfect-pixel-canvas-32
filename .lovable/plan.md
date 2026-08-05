@@ -1,23 +1,35 @@
-# Refine left image section proportions
+# Instant Edits: lagre endringer permanent
 
-Geometry-only pass on the booking card's left area. No redesign, no material, shadow or background changes.
+I dag lagrer Instant Edits kun i din egen nettleser (localStorage), så endringene forsvinner i andre nettlesere og for besøkende. Denne planen gjør endringene til ekte, lagrede endringer i databasen med umiddelbar effekt etter at du trykker **Save**.
 
-## Changes
+## Slik blir opplevelsen
 
-1. **Metallic strip moves inward** — inset changes from flush (`-1px`) to `3px` from the card's left edge, so it reads as embedded in the card rather than glued to the outer edge.
-2. **Strip shortened vertically** — top and bottom inset become `3px` each (was `-1px`), so it stops short of the card's rounded corners and respects the radius. Small radius (2px) on the strip ends keeps it continuous but softly terminated.
-3. **Image module shifts right by ~5px** — the card's left padding token grows accordingly, creating breathing room between strip and image frame without changing image size or card layout.
-4. **Everything else untouched** — gradients, specular line, grain pass, inset image shadow, card background and all other spacing stay byte-identical.
+1. Du åpner Instant Edits og redigerer tekst/stil som i dag (fortsatt umiddelbar visuell effekt lokalt).
+2. Panelet viser en tydelig statuslinje: "Ulagrede endringer (N)".
+3. Du trykker **Save changes** → endringene lagres i databasen, og statusen blir "Lagret".
+4. Alle besøkende på siden ser endringene med én gang de laster siden — også etter publisering.
+5. **Discard** forkaster ulagrede endringer og går tilbake til sist lagrede versjon.
+6. "Reset this element" / "Reset all edits on this page" blir også lagringsbare handlinger (sletter lagrede endringer når du trykker Save).
 
-## Technical detail
+## Hvem kan redigere
 
-In `src/styles.css`:
+Bare innloggede brukere med `admin`-rollen kan lagre. Alle andre (inkludert utloggede besøkende) ser resultatet, men får ikke redigeringsknappen. Er du ikke admin når du trykker Save, får du en tydelig melding om at du må logge inn som admin.
 
-- `.hgb-booking-card`: `padding-left: calc(var(--insert-w) + 34px)` (was `+ 26px`) — 3px strip offset + ~5px extra breathing room.
-- `.hgb-card-insert`: `inset: 3px auto 3px 3px;` (was `-1px auto -1px -1px`), plus `border-radius: 2px`.
+## Teknisk
 
-No changes in `src/routes/manage-bookings.tsx`.
+**Database (migrasjon)**
+- Ny tabell `public.site_edits`: `id`, `route text not null`, `element_path text not null`, `edit jsonb not null`, `updated_by uuid`, `created_at`, `updated_at` + unik nøkkel `(route, element_path)` og trigger `set_updated_at`.
+- GRANT: `SELECT` til `anon` og `authenticated`; `SELECT, INSERT, UPDATE, DELETE` til `authenticated`; `ALL` til `service_role`.
+- RLS på: `SELECT` for alle (`using (true)`), skrive-policyer (`INSERT/UPDATE/DELETE`) kun for `has_role(auth.uid(), 'admin')`.
 
-## Verification
+**Server**
+- `src/lib/siteEdits.functions.ts`:
+  - `listSiteEdits` (offentlig, server publishable client) — henter alle edits for en rute.
+  - `saveSiteEdits` (`.middleware([requireSupabaseAuth])`) — sjekker `has_role(..., 'admin')` via `context.supabase`, upserter endrede rader og sletter fjernede for ruten.
 
-Screenshot the card at `/manage-bookings` and compare strip offset, strip end positions against the card radius, and the gap to the image frame with the reference.
+**Klient**
+- `src/lib/instantEdits/store.ts`: behold localStorage som "arbeidskopi" (ulagret utkast), men legg til henting/skriving mot serveren og en `dirty`-sammenligning mot sist lagrede sett.
+- `src/components/instant-edits/InstantEdits.tsx`: legg til Save/Discard-knapper med statusindikator og toast (sonner) ved suksess/feil. Knappen for å åpne verktøyet vises kun for admin (i tillegg til dagens dev/`?edit`-regel).
+- Ny liten komponent `SiteEditsApplier` montert i `src/routes/__root.tsx`: laster lagrede edits for gjeldende rute og påfører dem for *alle* besøkende, med samme retry-løkke som i dag (for elementer som rendres sent).
+
+**Merk om robusthet:** edits identifiseres i dag med en DOM-sti (barne-indekser fra `<body>`). Når vi senere endrer sidenes struktur i kode, kan en lagret sti peke på feil element. Planen beholder samme metode, men lagrer i tillegg `tagName` + tekst-signatur som en enkel sanity-sjekk, slik at en edit hoppes over hvis elementet åpenbart ikke matcher.
