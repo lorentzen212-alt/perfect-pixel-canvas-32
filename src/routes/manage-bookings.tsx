@@ -50,6 +50,7 @@ import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
 import darkNavyFabric from "@/assets/dark-navy-fabric.png.asset.json";
+import darkNavyFabricV2 from "@/assets/dark-navy-fabric-v2.png.asset.json";
 
 
 
