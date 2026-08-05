@@ -319,14 +319,42 @@ function MetaItem({ icon, children }: { icon: React.ReactNode; children: React.R
 
 function RowMenu({ booking }: { booking: Booking }) {
   const [open, setOpen] = useState(false);
-  const items = [
-    { label: "Booking details", to: "/bookings/$bookingId" as const },
-    { label: "Edit booking", to: "/bookings/$bookingId" as const },
-    { label: "Request change", to: "/bookings/$bookingId" as const },
-    { label: "Rooming list", to: "/rooming-list/$bookingId" as const },
-    { label: "Documents & contract", to: "/bookings/$bookingId" as const },
-    { label: "Cancel booking", to: "/bookings/$bookingId" as const },
-  ];
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pending, setPending] = useState(false);
+  const queryClient = useQueryClient();
+  const cancelled = booking.status === "cancelled";
+  const completed = booking.status === "completed";
+
+  const items = cancelled
+    ? [
+        { label: "Booking details", to: "/bookings/$bookingId" as const },
+        { label: "Documents & contract", to: "/bookings/$bookingId" as const },
+      ]
+    : [
+        { label: "Booking details", to: "/bookings/$bookingId" as const },
+        { label: "Edit booking", to: "/bookings/$bookingId" as const },
+        { label: "Request change", to: "/bookings/$bookingId" as const },
+        { label: "Rooming list", to: "/rooming-list/$bookingId" as const },
+        { label: "Documents & contract", to: "/bookings/$bookingId" as const },
+      ];
+
+  const showCancel = !cancelled && !completed;
+
+  async function runCancel() {
+    if (pending) return;
+    setPending(true);
+    try {
+      await cancelBooking(booking.id);
+      await queryClient.invalidateQueries({ queryKey: ["bookings"] });
+      setConfirmOpen(false);
+      toast("Booking cancelled");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not cancel booking");
+    } finally {
+      setPending(false);
+    }
+  }
+
   return (
     <div className="relative">
       <button
