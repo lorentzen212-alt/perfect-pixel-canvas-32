@@ -542,14 +542,17 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     /* the gold edge is part of the card's own shell: a solid-metal left band
        painted in the card background itself, clipped by the card radius */
     backgroundImage: [
-      "linear-gradient(90deg, #3A280B 0%, #E2C071 5%, #A87732 13%, #9C6D2C 38%, #BE8F3C 60%, #D9AC4E 76%, #F2DC97 87%, #FDF3CC 91%, #CFA24A 96%, #231806 100%)",
-      "linear-gradient(180deg, rgba(255,246,214,0.34) 0%, rgba(255,232,176,0.16) 8%, rgba(0,0,0,0) 20%, rgba(255,250,225,0.30) 33%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.26) 62%, rgba(0,0,0,0.38) 82%, rgba(0,0,0,0.10) 100%)",
+      /* wide, soft diagonal reflections sampled from the reference metal */
+      "linear-gradient(158deg, #55481E 0%, #6E5D26 12%, #A28B37 28%, #D8B84C 40%, #F2CF56 46%, #C1A442 54%, #7C6A2B 66%, #6B5B24 78%, #A08A36 90%, #594B1F 100%)",
+      /* gentle cross-section shading so the band reads as solid metal, not paint */
+      "linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.10) 10%, rgba(255,255,255,0.06) 34%, rgba(255,255,255,0.10) 62%, rgba(0,0,0,0.12) 86%, rgba(0,0,0,0.52) 100%)",
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
     ].join(", "),
     backgroundRepeat: "no-repeat",
     backgroundPosition: "left top, left top, left top",
     backgroundSize: "var(--insert-w) 100%, var(--insert-w) 100%, 100% 100%",
-    backgroundBlendMode: "normal, overlay, normal",
+    backgroundBlendMode: "normal, soft-light, normal",
+
     border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
     borderRadius: 12,
