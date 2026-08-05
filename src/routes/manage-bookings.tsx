@@ -1881,15 +1881,6 @@ function ManageBookings() {
                     </Link>
                   ))}
                 </div>
-
-                <button
-                  type="button"
-                  onClick={() => setGroup("all")}
-                  className="mt-2 flex items-center justify-between pt-2.5 text-[12.5px]"
-                  style={{ borderTop: `1px solid ${HAIRLINE}`, color: TEXT }}
-                >
-                  View all activity <ArrowRight size={15} style={{ color: GOLD }} />
-                </button>
               </div>
 
               {/* Upcoming deadlines */}
