@@ -41,9 +41,9 @@ export const PAL = {
 export const SERIF = '"Cormorant Garamond", Georgia, serif';
 
 const NAV = [
-  { label: "Overview", icon: CalendarCheck },
+  { label: "Dashboard", icon: CalendarCheck },
   { label: "Rooming List", icon: BedDouble },
-  { label: "Bookings", icon: CalendarDays },
+  { label: "My Bookings", icon: CalendarDays },
   { label: "Documents", icon: FileText },
   { label: "Support", icon: HelpCircle },
 ];
@@ -237,8 +237,8 @@ export const LIGHT = {
 } as const;
 
 const LIGHT_NAV = [
-  { label: "Overview", icon: CalendarCheck },
-  { label: "Bookings", icon: CalendarDays },
+  { label: "Dashboard", icon: CalendarCheck },
+  { label: "My Bookings", icon: CalendarDays },
   { label: "Rooming List", icon: BedDouble },
   { label: "Documents", icon: FileText },
   { label: "Activity", icon: Activity },
