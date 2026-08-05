@@ -1284,6 +1284,38 @@ function ManageBookings() {
     [bookings],
   );
 
+  /* upcoming stays within the next 7 days + the nearest deadlines */
+  const upcoming = useMemo(() => {
+    const now = Date.now();
+    return bookings
+      .filter((b) => b.status !== "cancelled")
+      .map((b) => ({ b, t: new Date(b.startDate).getTime() }))
+      .filter((x) => !Number.isNaN(x.t) && x.t >= now)
+      .sort((a, z) => a.t - z.t);
+  }, [bookings]);
+
+  const next7 = useMemo(() => {
+    const now = Date.now();
+    const week = now + 7 * 864e5;
+    return upcoming.filter((x) => x.t <= week).length;
+  }, [upcoming]);
+
+  const deadlines = useMemo(
+    () =>
+      upcoming.slice(0, 3).map(({ b, t }) => {
+        const d = new Date(t);
+        return {
+          id: b.id,
+          day: String(d.getDate()).padStart(2, "0"),
+          month: d.toLocaleString("en-GB", { month: "short" }).toUpperCase(),
+          title: STATUS_META[b.status]?.label ?? "Upcoming stay",
+          sub: b.name,
+          remaining: `${Math.max(0, Math.ceil((t - Date.now()) / 864e5))} days remaining`,
+        };
+      }),
+    [upcoming],
+  );
+
   const displayName = profile
     ? `${profile.first_name} ${profile.last_name}`.trim() || profile.email
     : (session?.user.email ?? "");
