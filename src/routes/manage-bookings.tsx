@@ -574,12 +574,14 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className={
         compact
           ? "relative overflow-hidden"
-          : "relative rounded-[16px] p-[7px] sm:h-full sm:self-stretch"
+          : "relative rounded-[16px] p-[9px] sm:h-full sm:self-stretch"
       }
       style={
         compact
           ? undefined
           : {
+              /* pulled closer to the machined gold edge without moving any other content */
+              marginLeft: -5,
               background: "linear-gradient(180deg, #18212C 0%, #131B25 100%)",
               border: "1px solid rgba(255,255,255,0.055)",
               boxShadow:
@@ -591,7 +593,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         className={
           compact
             ? "relative overflow-hidden"
-            : "relative h-full overflow-hidden rounded-[10px]"
+            : "relative h-full overflow-hidden rounded-[8px]"
         }
         style={
           compact
