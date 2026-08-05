@@ -239,9 +239,9 @@ function Timeline({ booking }: { booking: Booking }) {
         const done = i < active;
         const current = i === active;
         return (
-          <div key={s.key} className="relative flex flex-col items-center gap-[12px]">
+          <div key={s.key} className="relative flex flex-col items-center gap-[7px]">
             <span
-              className="relative grid h-[42px] w-[42px] place-items-center rounded-full"
+              className="relative grid h-[32px] w-[32px] place-items-center rounded-full"
               style={{
                 background: current
                   ? "radial-gradient(80% 80% at 50% 28%, rgba(245,220,158,0.17) 0%, rgba(13,20,32,0.96) 100%)"
