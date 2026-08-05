@@ -144,7 +144,7 @@ const SANS = 'Inter, "Helvetica Neue", Arial, sans-serif';
 type Group = "all" | "proposal" | "awaiting" | "confirmed" | "attention" | "cancelled";
 
 function groupOf(b: Booking): Exclude<Group, "all"> {
-  const s = b.status as string;
+  const s = b.status;
   if (s === "cancelled") return "cancelled";
   if (b.status === "rooming_list_required") return "attention";
   if (
@@ -215,7 +215,7 @@ function trackIndex(status: BookingStatus) {
 /* ── small pieces ────────────────────────────────────── */
 
 function Timeline({ booking }: { booking: Booking }) {
-  const cancelled = (booking.status as string) === "cancelled";
+  const cancelled = booking.status === "cancelled";
   const active = trackIndex(booking.status);
   const tone = GROUP_COLOR[groupOf(booking)];
 
