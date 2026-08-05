@@ -945,27 +945,22 @@
    graphite, no extra fill — only inset lighting suggests the 3px step down */
 .hgb-card-recess {
   position: relative;
-  padding: 12px;
-  border-radius: 24px;
-  /* same material as the plate — the walls are the plate itself */
-  background-color: #3F464E;
-  background-image:
-    linear-gradient(160deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0) 38%),
-    linear-gradient(340deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0) 42%);
+  /* the 8px milled channel around the card */
+  padding: 8px;
+  border-radius: 20px;
+  background-color: #272B31;
+  background-image: none;
   box-shadow:
-    /* machined bevel: light from upper-left, shade lower-right */
-    inset 0 2px 1px -1px rgba(255, 255, 255, 0.10),
-    inset 2px 0 1px -1px rgba(255, 255, 255, 0.055),
-    inset 0 -2px 1px -1px rgba(0, 0, 0, 0.42),
-    inset -2px 0 1px -1px rgba(0, 0, 0, 0.30),
-    /* cavity falloff — smooth, no hard edges */
-    inset 0 4px 8px -2px rgba(0, 0, 0, 0.38),
-    inset 0 -3px 7px -3px rgba(0, 0, 0, 0.22),
-    /* thin lip catching light on the top surface of the plate */
-    0 1px 0 rgba(255, 255, 255, 0.045);
+    /* plate lip catching light at the top of the cut */
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    /* depth of the pocket */
+    inset 0 3px 8px rgba(0, 0, 0, 0.35),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.22),
+    inset 3px 0 7px -2px rgba(0, 0, 0, 0.26),
+    inset -3px 0 7px -2px rgba(0, 0, 0, 0.26);
 }
 
-/* smooth inner wall gradient so the surface reads as stepping down */
+/* soft falloff so the channel reads as milled, not painted */
 .hgb-card-recess::before {
   content: "";
   position: absolute;
@@ -973,16 +968,10 @@
   border-radius: inherit;
   pointer-events: none;
   background:
-    radial-gradient(120% 100% at 50% 0%, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0) 30%);
-  /* evenly darker groove around the card — soft, no hard lines */
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.10),
-    inset 0 2px 6px rgba(0, 0, 0, 0.20),
-    inset 0 0 8px rgba(0, 0, 0, 0.16);
+    radial-gradient(120% 100% at 50% 0%, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0) 42%);
 }
 
-
-/* the card itself sits flush at the bottom of the cavity */
+/* the card itself sits at the bottom of the cavity */
 .hgb-card-recess > * {
   position: relative;
   border-radius: 12px;
@@ -990,4 +979,5 @@
     0 1px 1px rgba(0, 0, 0, 0.28),
     0 2px 6px -3px rgba(0, 0, 0, 0.30) !important;
 }
+
 
