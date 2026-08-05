@@ -544,13 +544,14 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
        painted in the card background itself, clipped by the card radius */
     backgroundImage: [
       /* clear coat gloss */
-      "linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 6%, rgba(255,255,255,0) 26%, rgba(0,0,0,0.10) 100%)",
-      /* fine brushed micro texture (5%) */
-      "repeating-linear-gradient(180deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, rgba(0,0,0,0.045) 1px, rgba(0,0,0,0.045) 2px)",
-      /* environmental reflection bands down the length */
-      "linear-gradient(180deg, rgba(255,250,232,0.42) 0%, rgba(255,238,190,0.16) 7%, rgba(0,0,0,0.22) 17%, rgba(255,252,238,0.38) 30%, rgba(0,0,0,0.10) 40%, rgba(0,0,0,0.34) 56%, rgba(255,246,214,0.24) 68%, rgba(0,0,0,0.42) 84%, rgba(255,244,208,0.18) 100%)",
-      /* polished metal profile across the width */
-      "linear-gradient(90deg, #2C1D06 0%, #6E4E13 4%, #B58B33 9%, #EFD79B 14%, #FFFBEF 16.5%, #D6AE55 21%, #967024 33%, #C8A047 46%, #F4E3B4 52%, #FFFDF4 55%, #DCB863 60%, #8A6520 72%, #BE9438 82%, #F7EBC6 88%, #FFFEF8 90%, #C69D45 94%, #6B4A12 97%, #1F1404 100%)",
+      "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 10%, rgba(255,255,255,0) 40%, rgba(0,0,0,0.10) 100%)",
+      /* extremely fine micro texture (~2%) */
+      "repeating-linear-gradient(180deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, rgba(0,0,0,0.02) 1px, rgba(0,0,0,0.02) 2px)",
+      /* smooth, continuous length-wise reflection falloff */
+      "linear-gradient(180deg, rgba(255,248,226,0.22) 0%, rgba(255,244,214,0.06) 22%, rgba(0,0,0,0.10) 52%, rgba(0,0,0,0.20) 78%, rgba(0,0,0,0.26) 100%)",
+      /* polished metal profile across the width: warm base, one crisp champagne highlight, one soft secondary reflection */
+      "linear-gradient(90deg, #4A3310 0%, #7C5A1D 10%, #B08635 20%, #F3E1B4 26%, #FFFAEC 29%, #D9B565 34%, #A87F2C 46%, #C39A44 60%, #E4CB8C 68%, #B4893A 78%, #8A6522 88%, #5A3F12 96%, #38260A 100%)",
+
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
     ].join(", "),
     backgroundRepeat: "no-repeat",
