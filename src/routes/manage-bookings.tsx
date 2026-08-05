@@ -46,6 +46,7 @@ import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
 import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
+import goldEdgeAsset from "@/assets/gold-edge.png.asset.json";
 
 
 import {
@@ -542,10 +543,11 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     /* the gold edge is part of the card's own shell: a solid-metal left band
        painted in the card background itself, clipped by the card radius */
     backgroundImage: [
-      /* wide, soft diagonal reflections sampled from the reference metal */
-      "linear-gradient(158deg, #8C7A3F 0%, #9C8946 8%, #B39C51 18%, #CBB260 30%, #DCC46E 40%, #E4CD75 48%, #D0B863 57%, #A89448 68%, #94823E 76%, #B09B50 88%, #8A783E 100%)",
+      /* the actual reference metal photograph, rotated so its wide diagonal
+         reflections run down the edge — real polished metal, not a gradient */
+      `url(${goldEdgeAsset.url})`,
       /* gentle cross-section shading so the band reads as solid metal, not paint */
-      "linear-gradient(90deg, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.06) 12%, rgba(255,255,255,0.05) 38%, rgba(255,255,255,0.07) 64%, rgba(0,0,0,0.08) 86%, rgba(0,0,0,0.34) 100%)",
+      "linear-gradient(90deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.05) 12%, rgba(255,255,255,0.05) 38%, rgba(255,255,255,0.06) 64%, rgba(0,0,0,0.07) 86%, rgba(0,0,0,0.30) 100%)",
 
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
     ].join(", "),
@@ -553,6 +555,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     backgroundPosition: "left top, left top, left top",
     backgroundSize: "var(--insert-w) 100%, var(--insert-w) 100%, 100% 100%",
     backgroundBlendMode: "normal, soft-light, normal",
+
 
     border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
