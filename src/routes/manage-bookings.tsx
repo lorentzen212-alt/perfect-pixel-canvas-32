@@ -125,10 +125,15 @@ const BLUE = "#4881D5";
 /* polished brass — deeper, richer premium gold without glossy near-white peaks */
 const GOLD_BRUSHED =
   "linear-gradient(90deg, #6A4C10 0%, #8B6716 22%, #A87F1E 42%, #B98D24 52%, #A2791C 66%, #7E5C13 84%, #5E430B 100%)";
+/* brushed champagne metal — richer, less orange, more depth */
 const GOLD_BRUSHED_H =
-  "linear-gradient(140deg, #5C3E06 0%, #8A6010 16%, #B9871A 34%, #D2A23E 50%, #B9871A 66%, #8A6010 84%, #5C3E06 100%)";
-const GREEN = "#5E9C6A";
-const RED = "#B4636A";
+  "linear-gradient(140deg, #B88E43 0%, #C8A55A 18%, #E2C984 38%, #EBD7A2 50%, #E2C984 62%, #C8A55A 82%, #B88E43 100%)";
+const GREEN = "#6DBB83";
+const RED = "#C96A6A";
+/* calm champagne used for labels, hairlines and small accents */
+const CHAMPAGNE = "#D8C58E";
+const CHAMPAGNE_LINE = "rgba(216,197,142,0.35)";
+const IVORY = "#ECE7DD";
 
 const SERIF = '"Cormorant Garamond", "EB Garamond", Georgia, serif';
 const SANS = 'Inter, "Helvetica Neue", Arial, sans-serif';
@@ -160,10 +165,10 @@ const GROUP_LABEL: Record<Exclude<Group, "all">, string> = {
 };
 
 const GROUP_COLOR: Record<Exclude<Group, "all">, string> = {
-  proposal: GOLD,
-  awaiting: BLUE,
+  proposal: CHAMPAGNE,
+  awaiting: "#5A88E8",
   confirmed: GREEN,
-  attention: "#D69A4E",
+  attention: "#C9A177",
   cancelled: RED,
 };
 
@@ -233,7 +238,7 @@ function Timeline({ booking }: { booking: Booking }) {
         style={{
           height: "0.5px",
           width: `${(active / 3) * 75}%`,
-          background: `linear-gradient(90deg, rgba(169,122,32,0.13) 0%, rgba(169,122,32,0.9) 35%, rgba(227,162,60,0.9) 70%, rgba(251,221,155,0.9) 100%)`,
+          background: `linear-gradient(90deg, rgba(216,197,142,0.16) 0%, rgba(216,197,142,0.62) 35%, rgba(226,201,132,0.80) 70%, rgba(235,215,162,0.88) 100%)`,
         }}
         aria-hidden
       />
@@ -248,21 +253,26 @@ function Timeline({ booking }: { booking: Booking }) {
                 background: current
                   ? "radial-gradient(80% 80% at 50% 28%, rgba(245,220,158,0.17) 0%, rgba(13,20,32,0.96) 100%)"
                   : "linear-gradient(180deg, rgba(20,28,40,0.96) 0%, rgba(13,20,32,0.96) 100%)",
-                border: `1px solid ${done || current ? "rgba(240,208,140,0.92)" : "rgba(168,182,199,0.34)"}`,
-                color: done || current ? "#F5DC9E" : "#A9B7C6",
-                boxShadow:
-                  done || current
-                    ? "0 0 6px rgba(240,208,140,0.34), inset 0 1px 0 rgba(255,246,220,0.16), inset 0 -2px 5px rgba(0,0,0,0.42)"
-                    : "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -2px 5px rgba(0,0,0,0.35)",
+                border: `1px solid ${
+                  current
+                    ? "rgba(216,197,142,0.85)"
+                    : done
+                      ? "rgba(236,231,221,0.30)"
+                      : "rgba(168,182,199,0.28)"
+                }`,
+                color: current ? CHAMPAGNE : done ? IVORY : "#A9B7C6",
+                boxShadow: current
+                  ? "0 0 6px rgba(216,197,142,0.26), inset 0 1px 0 rgba(255,246,220,0.14), inset 0 -2px 5px rgba(0,0,0,0.42)"
+                  : "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -2px 5px rgba(0,0,0,0.35)",
               }}
             >
               <s.icon size={14} strokeWidth={1.65} />
             </span>
             <span
               className={`whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]${
-                current || done ? " hgb-gold-metal" : ""
+                current ? " hgb-champagne-metal" : ""
               }`}
-              style={current || done ? undefined : { color: "#A9B7C6" }}
+              style={current ? undefined : { color: done ? IVORY : "#A9B7C6" }}
             >
               {s.label}
             </span>
@@ -282,9 +292,9 @@ function TypeChip({ type }: { type: Booking["type"] }) {
     <span
       className="inline-flex items-center rounded-[8px] px-[13px] py-[6px] text-[12px] font-semibold uppercase tracking-[0.14em]"
       style={{
-        color: "#F0B44E",
-        border: "1px solid rgba(227,162,60,0.62)",
-        background: "linear-gradient(140deg, rgba(111,75,18,0.35) 0%, rgba(227,162,60,0.22) 38%, rgba(247,224,141,0.16) 52%, rgba(107,73,20,0.30) 100%)",
+        color: "#E4D3A2",
+        border: `1px solid ${CHAMPAGNE_LINE}`,
+        background: "linear-gradient(140deg, rgba(184,142,67,0.20) 0%, rgba(216,197,142,0.16) 38%, rgba(235,215,162,0.13) 52%, rgba(184,142,67,0.18) 100%)",
       }}
     >
       {type === "leisure" ? "Leisure" : "M&E"}
@@ -450,7 +460,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
                 "inset 0 1px 0 rgba(255,255,255,0.085), 0 1px 1px rgba(0,0,0,0.34), 0 2px 4px rgba(0,0,0,0.22)",
             }}
           >
-            <span className="shrink-0" style={{ color: "#E3A23C" }}>
+            <span className="shrink-0" style={{ color: IVORY }}>
               {m.icon}
             </span>
             {m.text}
@@ -472,10 +482,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         }}
       >
         <div className="px-[20px] py-[8px]">
-          <p className="hgb-gold-metal text-[11px] font-semibold uppercase tracking-[0.14em]">
+          <p
+            className="text-[10px] uppercase"
+            style={{ color: CHAMPAGNE, fontWeight: 650, letterSpacing: "0.10em" }}
+          >
             Your reference
           </p>
-          <p className="mt-[3px] text-[17px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
+          <p className="mt-[3px] text-[17px] leading-none" style={{ color: "#FFFFFF", fontWeight: 700 }}>
             {booking.reference}
           </p>
         </div>
@@ -484,12 +497,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
         >
 
-          <p className="hgb-gold-metal text-[11px] font-semibold uppercase tracking-[0.14em]">
+          <p
+            className="text-[10px] uppercase"
+            style={{ color: CHAMPAGNE, fontWeight: 650, letterSpacing: "0.10em" }}
+          >
             Hotel reference
           </p>
           <p
             className="mt-[3px] text-[17px] leading-none"
-            style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 400 }}
+            style={{ color: booking.hotelReference ? "#FFFFFF" : "#9DAEBB", fontWeight: 700 }}
           >
             {booking.hotelReference ?? "Pending"}
           </p>
@@ -520,20 +536,20 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           params={{ bookingId: booking.id }}
           className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[20px] py-[9px] text-[15px]"
           style={{
-            color: "#F3C979",
+            color: "#E4D3A2",
             marginRight: 0,
             border: "1.5px solid transparent",
             background:
               `linear-gradient(180deg, #1A2330 0%, #131C27 100%) padding-box, ${GOLD_BRUSHED_H} border-box`,
             boxShadow:
-              "0 2px 8px rgba(0,0,0,0.45), 0 0 14px rgba(227,162,60,0.22), inset 0 1px 0 rgba(255,255,255,0.05)",
+              "0 2px 8px rgba(0,0,0,0.45), 0 0 12px rgba(216,197,142,0.14), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
-          <span className="hgb-gold-metal">{action.label}</span>
+          <span className="hgb-champagne-metal">{action.label}</span>
           <ArrowRight
             size={18}
             className="transition-transform duration-300 group-hover/btn:translate-x-[3px]"
-            style={{ color: "#F0D08C" }}
+            style={{ color: CHAMPAGNE }}
           />
         </Link>
       </div>
