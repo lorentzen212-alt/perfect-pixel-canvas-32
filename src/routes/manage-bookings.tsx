@@ -120,11 +120,12 @@ const PEARL = "#F4F1EA";
 const RULE = "rgba(190,205,215,0.20)";
 /* deeper, richer premium royal blue (awaiting) — no cyan */
 const BLUE = "#4881D5";
-/* polished brass — deeper, richer premium gold without glossy near-white peaks */
+/* polished luxury gold — high-contrast mirror bands, champagne highlights */
 const GOLD_BRUSHED =
-  "linear-gradient(90deg, #6A4C10 0%, #8B6716 22%, #A87F1E 42%, #B98D24 52%, #A2791C 66%, #7E5C13 84%, #5E430B 100%)";
+  "linear-gradient(90deg, #4A340B 0%, #9A7326 12%, #D8B45F 22%, #FBF1D2 27%, #C79E45 36%, #8A6620 50%, #C9A249 62%, #F7EAC4 68%, #D3AB55 76%, #8E6A21 88%, #4A340B 100%)";
 const GOLD_BRUSHED_H =
-  "linear-gradient(140deg, #5C3E06 0%, #8A6010 16%, #B9871A 34%, #D2A23E 50%, #B9871A 66%, #8A6010 84%, #5C3E06 100%)";
+  "linear-gradient(140deg, #432F09 0%, #8E6A21 14%, #D5B15C 26%, #FCF4DC 32%, #C09842 44%, #85621E 56%, #D2AB55 70%, #F8EDCB 76%, #A17A2A 88%, #432F09 100%)";
+
 const GREEN = "#5E9C6A";
 const RED = "#B4636A";
 
