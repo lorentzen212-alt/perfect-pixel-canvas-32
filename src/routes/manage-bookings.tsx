@@ -685,8 +685,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     borderLeft: "none",
     borderRadius: 12,
     /* precision-machined surface — subtle highlights + deep base shadow */
+    /* nearly flush in its machined pocket: tiny ambient + contact shadow only */
     boxShadow:
-      "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
+      "0 2px 5px rgba(0,0,0,0.20), 0 1px 1px rgba(0,0,0,0.16), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
   } as const;
 
 
@@ -757,22 +758,26 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
-        <div>{media}</div>
-        <div className="py-3 pr-3">{info}</div>
-      </article>
+      <div className="hgb-card-recess">
+        <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
+          <div>{media}</div>
+          <div className="py-3 pr-3">{info}</div>
+        </article>
+      </div>
     );
   }
 
   return (
-    <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[16px] pr-[18px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
+    <div className="hgb-card-recess">
+      <article
+        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[16px] pr-[18px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
 
-      style={shell}
-    >
-      {media}
-      <div className="min-w-0">{info}</div>
-    </article>
+        style={shell}
+      >
+        {media}
+        <div className="min-w-0">{info}</div>
+      </article>
+    </div>
   );
 
 
