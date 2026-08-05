@@ -655,7 +655,7 @@ function Workspace({ booking }: { booking: Booking }) {
               style={{ color: GOLD_SOFT }}
             >
               <ArrowLeft size={16} />
-              Back to My Bookings
+              Back to Dashboard
             </Link>
           }
         />

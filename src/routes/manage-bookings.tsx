@@ -64,13 +64,13 @@ export const Route = createFileRoute("/manage-bookings")({
   component: ManageBookings,
   head: () => ({
     meta: [
-      { title: "My Bookings — HotelGroupBook Dashboard" },
+      { title: "Dashboard — HotelGroupBook" },
       {
         name: "description",
         content:
           "Manage every group stay and event in one calm dashboard: statuses, offers, rooming lists and documents.",
       },
-      { property: "og:title", content: "My Bookings — HotelGroupBook Dashboard" },
+      { property: "og:title", content: "Dashboard — HotelGroupBook" },
       {
         property: "og:description",
         content:
@@ -1370,7 +1370,7 @@ function ManageBookings() {
         }}
       >
         <Sidebar
-          active="My Bookings"
+          active="Dashboard"
           roomingBookingId={roomingTarget}
           displayName={displayName}
           initials={initials}
@@ -1391,7 +1391,7 @@ function ManageBookings() {
           />
           <div className="absolute inset-y-0 left-0 w-[268px]">
             <Sidebar
-              active="My Bookings"
+              active="Dashboard"
               roomingBookingId={roomingTarget}
               displayName={displayName}
               initials={initials}
