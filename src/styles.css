@@ -945,8 +945,8 @@
    graphite, no extra fill — only inset lighting suggests the 3px step down */
 .hgb-card-recess {
   position: relative;
-  padding: 4px;
-  border-radius: 16px;
+  padding: 12px;
+  border-radius: 24px;
   /* same material as the plate — the walls are the plate itself */
   background-color: #3F464E;
   background-image:
