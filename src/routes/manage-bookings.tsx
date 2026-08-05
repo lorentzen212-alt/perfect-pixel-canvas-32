@@ -1817,50 +1817,8 @@ function ManageBookings() {
             </div>
 
             {/* right sidebar column */}
-            <aside className="flex min-w-0 flex-col gap-6">
-              {/* Next 7 days */}
-              <div
-                className="flex h-[224px] flex-col rounded-[14px] p-[20px]"
-                style={{
-                  background: PANEL,
-                  border: `1px solid ${CARD_BORDER}`,
-                  boxShadow: CARD_SHADOW,
-                }}
-              >
-                <p
-                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: TEXT_2 }}
-                >
-                  Next 7 days
-                </p>
-                <span
-                  aria-hidden
-                  className="mt-2.5 block h-px w-full"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
-                  }}
-                />
-                <div className="mt-3 flex min-h-0 flex-1 items-center gap-4">
-                  <span
-                    className="text-[44px] leading-none"
-                    style={{ color: PEARL, fontFamily: SERIF }}
-                  >
-                    {next7}
-                  </span>
-                  <span className="min-w-0 text-[12.5px]" style={{ color: MUTED }}>
-                    {next7 === 1 ? "Stay starting this week" : "Stays starting this week"}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setDateChoice("upcoming")}
-                  className="mt-2 flex items-center justify-between pt-2.5 text-[12.5px]"
-                  style={{ borderTop: `1px solid ${HAIRLINE}`, color: TEXT }}
-                >
-                  View upcoming <ArrowRight size={15} style={{ color: GOLD }} />
-                </button>
-              </div>
+            <aside className="flex min-w-0 flex-col gap-[18px]">
+
 
               {/* Recent activity */}
               <div
