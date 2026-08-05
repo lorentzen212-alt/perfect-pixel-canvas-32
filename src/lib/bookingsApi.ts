@@ -242,3 +242,20 @@ export async function fetchRoomDistribution(bookingId: string) {
   }
   return dist;
 }
+
+/**
+ * Cancel a booking. Keeps the record and every related row (rooms, guests,
+ * rooming lists, documents, history) — only the booking status changes.
+ * RLS scopes the update to bookings owned by the signed-in user.
+ */
+export async function cancelBooking(bookingId: string): Promise<void> {
+  const { error } = await supabase
+    .from("bookings")
+    .update({
+      status: "cancelled",
+      cancelled_at: new Date().toISOString(),
+      status_note: "Cancelled by customer",
+    })
+    .eq("id", bookingId);
+  if (error) throw new Error(`Could not cancel booking: ${error.message}`);
+}
