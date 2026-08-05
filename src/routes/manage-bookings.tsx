@@ -714,6 +714,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     <div
       className={
         compact
+          ? "relative overflow-hidden"
           : "relative rounded-[12px] p-[8px] sm:h-full sm:self-stretch"
       }
       style={
