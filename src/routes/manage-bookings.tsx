@@ -801,7 +801,7 @@ function StatusCard({
   description: string;
   tone: string;
   overlay: string;
-  image: string;
+  image?: string;
   icon: React.ReactNode;
   active: boolean;
   onClick: () => void;
@@ -813,13 +813,15 @@ function StatusCard({
       aria-pressed={active}
       className="relative flex h-[224px] flex-col overflow-hidden rounded-[14px] p-[20px] text-left transition-transform hover:-translate-y-px"
       style={{
+        background: image ? undefined : PANEL,
         border: `1px solid ${active ? tone : `${tone}55`}`,
         boxShadow: active
           ? `0 0 0 1px ${tone}55, 0 22px 60px rgba(0,0,0,0.26)`
           : "0 22px 60px rgba(0,0,0,0.26)",
       }}
     >
-      <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.86) brightness(0.90) contrast(1.04)" }} />
+      {image && <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.86) brightness(0.90) contrast(1.04)" }} />}
+
       <span
         className="absolute inset-0"
         aria-hidden
