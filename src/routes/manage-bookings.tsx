@@ -581,7 +581,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           ? undefined
           : {
               /* pulled closer to the machined gold edge without moving any other content */
-              marginLeft: -8,
+              marginLeft: -10,
               background: "linear-gradient(180deg, #18212C 0%, #131B25 100%)",
               border: "1px solid rgba(255,255,255,0.055)",
               boxShadow:
