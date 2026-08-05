@@ -1752,13 +1752,16 @@ function ManageBookings() {
               className="rounded-[18px] p-[22px]"
 
               style={{
-                background:
-                  "linear-gradient(180deg, #1B222A 0%, #151B22 55%, #121820 100%)",
+                backgroundImage: `linear-gradient(180deg, rgba(20,28,38,0.68) 0%, rgba(15,21,29,0.76) 55%, rgba(11,17,25,0.82) 100%), url(${darkNavyFabric.url})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
                 border: "1px solid rgba(255,255,255,0.05)",
                 boxShadow:
                   "0 1px 0 rgba(255,255,255,0.035) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 24px 60px -45px rgba(0,0,0,0.7)",
               }}
             >
+
               {/* booking list view selector */}
               <div className="mb-[16px] flex flex-wrap items-center gap-2">
                 {(
