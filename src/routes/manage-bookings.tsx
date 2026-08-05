@@ -1750,11 +1750,23 @@ function ManageBookings() {
               className="rounded-[18px] p-[22px]"
 
               style={{
-                background:
-                  "linear-gradient(180deg, #1B222A 0%, #151B22 55%, #121820 100%)",
-                border: "1px solid rgba(255,255,255,0.05)",
-                boxShadow:
-                  "0 1px 0 rgba(255,255,255,0.035) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 24px 60px -45px rgba(0,0,0,0.7)",
+                background: [
+                  // soft cool top highlight for dimensional inner light
+                  "linear-gradient(180deg, rgba(130,160,195,0.07) 0%, rgba(130,160,195,0.02) 18%, transparent 42%)",
+                  // deep navy-blue charcoal backing, cooler than the cards
+                  "linear-gradient(180deg, #0B1A2C 0%, #081426 45%, #0C1A2E 100%)",
+                ].join(","),
+                border: "1px solid rgba(130,160,195,0.14)",
+                boxShadow: [
+                  // soft inner top highlight
+                  "inset 0 1px 0 rgba(255,255,255,0.04)",
+                  // subtle inner perimeter shadow
+                  "inset 0 0 28px rgba(4,10,20,0.30)",
+                  // soft outer lift
+                  "0 16px 40px rgba(0,0,0,0.24)",
+                  // cool-blue ambient glow along lower and side edges
+                  "0 0 32px rgba(35,90,160,0.08)",
+                ].join(","),
               }}
             >
               {/* booking list view selector */}
