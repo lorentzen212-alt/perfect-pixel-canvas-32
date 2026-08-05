@@ -1749,17 +1749,13 @@ function ManageBookings() {
 
             {/* bookings — premium workspace panel */}
             <section
-              className="rounded-[18px] p-[22px]"
-
+              className="booking-fabric-panel rounded-[18px] p-[22px]"
               style={{
-                backgroundImage: `linear-gradient(180deg, rgba(20,28,38,0.68) 0%, rgba(15,21,29,0.76) 55%, rgba(11,17,25,0.82) 100%), url(${darkNavyFabric.url})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
+                "--fabric-url": `url(${darkNavyFabric.url})`,
                 border: "1px solid rgba(255,255,255,0.05)",
                 boxShadow:
                   "0 1px 0 rgba(255,255,255,0.035) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 24px 60px -45px rgba(0,0,0,0.7)",
-              }}
+              } as React.CSSProperties}
             >
 
               {/* booking list view selector */}
