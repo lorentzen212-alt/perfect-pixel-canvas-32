@@ -841,23 +841,27 @@
 /* gold edge is painted in the card's own background (see shell in manage-bookings) */
 
 
-/* ── booking card: premium metallic gold finishes ── */
+/* ── booking card: premium metallic gold finishes ──
+   Material sampled directly from the polished gold reference: warm bronze
+   flanks, saturated gold body, bright champagne specular core. */
+:root {
+  --hgb-gold-img: url("/__l5e/assets-v1/be4a8331-476a-4433-8fc2-b918a1f99fc8/gold-material.png");
+  --hgb-gold-stops: #feea59 0%, #e5a413 5%, #c1800f 10%, #b57910 15%, #c68810 20%,
+    #d99b16 25%, #e9b01f 30%, #f3bf29 35%, #f8d044 40%, #fbe068 45%, #fef9b8 50%,
+    #fdfdf6 55%, #fae87d 60%, #f4ca3f 65%, #e6af1f 70%, #d4991a 75%, #ba8013 80%,
+    #a36a0b 85%, #93600c 90%, #84590a 95%, #855a08 100%;
+  --hgb-gold-h: linear-gradient(90deg, var(--hgb-gold-stops));
+  --hgb-gold-v: linear-gradient(172deg, var(--hgb-gold-stops));
+}
+
 .hgb-gold-metal {
-  background-image: linear-gradient(
-    172deg,
-    #6B4A14 0%,
-    #A87C2C 16%,
-    #D2A23E 34%,
-    #E8C170 48%,
-    #D2A23E 60%,
-    #A87C2C 80%,
-    #6B4A14 100%
-  );
+  background-image: var(--hgb-gold-v);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+
 
 .hgb-brass-bar::before {
   content: "";
