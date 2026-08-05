@@ -659,10 +659,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   const goldStrip = (
     <span
       aria-hidden
-      className="pointer-events-none absolute left-0 top-0 bottom-0 z-[2]"
+      className="pointer-events-none absolute left-0 z-[2]"
       style={{
+        top: 3,
+        bottom: 3,
         width: "var(--insert-w)",
-        height: "100%",
+        borderRadius: 2,
+
         backgroundImage: [
           /* the reference metal, resampled crisp and denoised so the broad diagonal
              reflections stay clean and machined at this narrow width */
