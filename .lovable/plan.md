@@ -15,6 +15,21 @@ I dag lagrer Instant Edits kun i din egen nettleser (localStorage), så endringe
 
 Bare innloggede brukere med `admin`-rollen kan lagre. Alle andre (inkludert utloggede besøkende) ser resultatet, men får ikke redigeringsknappen. Er du ikke admin når du trykker Save, får du en tydelig melding om at du må logge inn som admin.
 
+## Ny: metallisk farge-funksjon
+
+I panelet får både "Text colour" og "Background" en **Metallic**-bryter ved siden av fargevelgeren, pluss to fine kontroller:
+
+- **Metallic-nivå** (0–100 %): hvor sterke refleksjonene er.
+- **Lysvinkel** (0–360°): retningen på refleksjonen.
+
+Når Metallic er på, bygges det automatisk en flerlags metallgradient ut fra fargen du valgte — mørkere skygge i kantene, en bred myk høylys-bane i midten og en svakere sekundær refleksjon — samme materialspråk som champagne-gullet på bookingkortene. Fargen din blir altså ikke byttet ut, den blir "polert".
+
+- På tekst brukes gradienten med `background-clip: text` (som dagens `.hgb-champagne-metal`).
+- På bakgrunn brukes gradienten som `background-image`, med valgfri myk innvendig kant for dybde.
+- Slår du av bryteren, går elementet tilbake til den flate fargen.
+
+Innstillingene lagres sammen med resten av endringene og trer i kraft for alle når du trykker Save.
+
 ## Teknisk
 
 **Database (migrasjon)**
@@ -31,5 +46,6 @@ Bare innloggede brukere med `admin`-rollen kan lagre. Alle andre (inkludert utlo
 - `src/lib/instantEdits/store.ts`: behold localStorage som "arbeidskopi" (ulagret utkast), men legg til henting/skriving mot serveren og en `dirty`-sammenligning mot sist lagrede sett.
 - `src/components/instant-edits/InstantEdits.tsx`: legg til Save/Discard-knapper med statusindikator og toast (sonner) ved suksess/feil. Knappen for å åpne verktøyet vises kun for admin (i tillegg til dagens dev/`?edit`-regel).
 - Ny liten komponent `SiteEditsApplier` montert i `src/routes/__root.tsx`: laster lagrede edits for gjeldende rute og påfører dem for *alle* besøkende, med samme retry-løkke som i dag (for elementer som rendres sent).
+- Metallic: nye felter i `InstantEdit`-typen (`colorMetallic`, `bgMetallic`, `metallicStrength`, `metallicAngle`). En ren hjelpefunksjon `metallicGradient(hex, strength, angle)` i `src/lib/instantEdits/metal.ts` konverterer fargen til OKLCH-lignende lys/mørk-stopp og bygger gradientstrengen; `applyInstantEdit` setter `backgroundImage` + tekst-clip-egenskapene i stedet for flat `color`/`background` når metallic er på.
 
 **Merk om robusthet:** edits identifiseres i dag med en DOM-sti (barne-indekser fra `<body>`). Når vi senere endrer sidenes struktur i kode, kan en lagret sti peke på feil element. Planen beholder samme metode, men lagrer i tillegg `tagName` + tekst-signatur som en enkel sanity-sjekk, slik at en edit hoppes over hvis elementet åpenbart ikke matcher.
