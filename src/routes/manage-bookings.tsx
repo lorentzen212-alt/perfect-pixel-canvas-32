@@ -40,7 +40,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-navy-glow.png.asset.json";
-import contentArc from "@/assets/content-slate-glow.png.asset.json";
+import pageSlate from "@/assets/page-slate-texture.png.asset.json";
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
@@ -1408,29 +1408,35 @@ function ManageBookings() {
             style={{
               top: 300,
               backgroundColor: "#0C121A",
-              backgroundImage: `url("${contentArc.url}")`,
+              backgroundImage: `url("${pageSlate.url}")`,
               backgroundSize: "cover",
-              backgroundPosition: "center top",
+              backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
           >
-            {/* soft readability veil */}
+            {/* navy tint so the slate matches the palette */}
+            <div
+              className="absolute inset-0"
+              style={{ background: "rgba(8,14,22,0.22)" }}
+            />
+            {/* ambient blue glow, lower corners (reduced ~35%) */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(10,15,22,0.18) 0%, rgba(10,15,22,0.10) 40%, rgba(10,15,22,0.26) 100%)",
+                  "radial-gradient(85% 60% at 100% 100%, rgba(126,155,182,0.13) 0%, rgba(90,116,142,0.05) 42%, rgba(27,38,50,0) 74%), radial-gradient(80% 55% at 0% 100%, rgba(110,142,172,0.09) 0%, rgba(27,38,50,0) 70%)",
               }}
             />
-            {/* quiet vignette */}
+            {/* very soft vignette */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(118% 90% at 56% 36%, rgba(0,0,0,0) 52%, rgba(4,7,11,0.16) 82%, rgba(4,7,11,0.30) 100%)",
+                  "radial-gradient(118% 92% at 50% 42%, rgba(0,0,0,0) 54%, rgba(4,7,11,0.14) 82%, rgba(4,7,11,0.28) 100%)",
               }}
             />
           </div>
+
 
 
 
