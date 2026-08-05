@@ -878,7 +878,7 @@ function StatusCard({
 /* ── sidebar ─────────────────────────────────────────── */
 
 const PRIMARY_NAV = [
-  { label: "Overview", icon: CalendarCheck },
+  { label: "Dashboard", icon: CalendarCheck },
   { label: "My Bookings", icon: CalendarDays },
   { label: "Rooming Lists", icon: ClipboardList },
   { label: "Documents", icon: FileText },
