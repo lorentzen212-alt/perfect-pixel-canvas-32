@@ -1395,11 +1395,17 @@ function ManageBookings() {
         <main
           className="relative min-h-screen"
           style={{
-            backgroundColor: "transparent",
-            backgroundImage:
-              "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
+            backgroundColor: "#0D131B",
+            backgroundImage: [
+              `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.018'/%3E%3C/svg%3E")`,
+              "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.028) 0%, rgba(255,255,255,0.010) 42%, rgba(255,255,255,0) 72%)",
+            ].join(", "),
+            backgroundSize: "256px 256px, 100% 100%",
+            backgroundRepeat: "repeat, no-repeat",
+            backgroundBlendMode: "soft-light, normal",
           }}
         >
+
           {/* layered atmospheric surface — angular light composition */}
           <div
             aria-hidden
