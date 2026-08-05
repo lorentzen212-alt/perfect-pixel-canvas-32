@@ -15,6 +15,21 @@ I dag lagrer Instant Edits kun i din egen nettleser (localStorage), så endringe
 
 Bare innloggede brukere med `admin`-rollen kan lagre. Alle andre (inkludert utloggede besøkende) ser resultatet, men får ikke redigeringsknappen. Er du ikke admin når du trykker Save, får du en tydelig melding om at du må logge inn som admin.
 
+## Ny: metallisk farge-funksjon
+
+I panelet får både "Text colour" og "Background" en **Metallic**-bryter ved siden av fargevelgeren, pluss to fine kontroller:
+
+- **Metallic-nivå** (0–100 %): hvor sterke refleksjonene er.
+- **Lysvinkel** (0–360°): retningen på refleksjonen.
+
+Når Metallic er på, bygges det automatisk en flerlags metallgradient ut fra fargen du valgte — mørkere skygge i kantene, en bred myk høylys-bane i midten og en svakere sekundær refleksjon — samme materialspråk som champagne-gullet på bookingkortene. Fargen din blir altså ikke byttet ut, den blir "polert".
+
+- På tekst brukes gradienten med `background-clip: text` (som dagens `.hgb-champagne-metal`).
+- På bakgrunn brukes gradienten som `background-image`, med valgfri myk innvendig kant for dybde.
+- Slår du av bryteren, går elementet tilbake til den flate fargen.
+
+Innstillingene lagres sammen med resten av endringene og trer i kraft for alle når du trykker Save.
+
 ## Teknisk
 
 **Database (migrasjon)**
