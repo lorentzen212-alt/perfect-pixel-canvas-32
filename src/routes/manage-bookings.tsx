@@ -654,16 +654,32 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     </>
   );
 
-  const shell = {
-    /* the gold edge is part of the card's own shell: a solid-metal left band
-       painted in the card background itself, clipped by the card radius */
-    backgroundImage: [
-      /* the reference metal, resampled crisp and denoised so the broad diagonal
-         reflections stay clean and machined at this narrow width */
-      `url(${goldEdgeAsset.url})`,
-      /* gentle cross-section shading so the band reads as solid metal, not paint */
-      "linear-gradient(90deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.03) 14%, rgba(255,255,255,0.07) 40%, rgba(255,255,255,0.05) 66%, rgba(0,0,0,0.06) 88%, rgba(0,0,0,0.28) 100%)",
+  /* the metallic gold strip is its own element inside the card, so it moves
+     with the card into the machined pocket and is clipped by the card radius */
+  const goldStrip = (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute left-0 top-0 bottom-0 z-[2]"
+      style={{
+        width: "var(--insert-w)",
+        height: "100%",
+        backgroundImage: [
+          /* the reference metal, resampled crisp and denoised so the broad diagonal
+             reflections stay clean and machined at this narrow width */
+          `url(${goldEdgeAsset.url})`,
+          /* gentle cross-section shading so the band reads as solid metal, not paint */
+          "linear-gradient(90deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.03) 14%, rgba(255,255,255,0.07) 40%, rgba(255,255,255,0.05) 66%, rgba(0,0,0,0.06) 88%, rgba(0,0,0,0.28) 100%)",
+        ].join(", "),
+        backgroundRepeat: "no-repeat, no-repeat",
+        backgroundPosition: "left top, left top",
+        backgroundSize: "100% 100%, 100% 100%",
+        backgroundBlendMode: "normal, soft-light",
+      }}
+    />
+  );
 
+  const shell = {
+    backgroundImage: [
       /* soft dark slate tint above the stone so the UI stays clean and readable */
       "linear-gradient(180deg, rgba(46,53,62,0.34) 0%, rgba(41,47,56,0.42) 100%)",
       /* architectural stone / micro-cement texture — starts after the gold edge */
@@ -671,15 +687,11 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       "radial-gradient(120% 110% at 8% 0%, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 34%, rgba(0,0,0,0.00) 62%, rgba(0,0,0,0.10) 100%)",
       "linear-gradient(152deg, #434A55 0%, #3B424C 46%, #333A44 78%, #2E353E 100%)",
     ].join(", "),
-    backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
-    backgroundPosition:
-      "left top, left top, var(--insert-w) top, var(--insert-w) top, left top, left top",
+    backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat",
+    backgroundPosition: "var(--insert-w) top, var(--insert-w) top, left top, left top",
     backgroundSize:
-      "var(--insert-w) 100%, var(--insert-w) 100%, calc(100% - var(--insert-w)) 100%, cover, 100% 100%, 100% 100%",
-    backgroundBlendMode: "normal, soft-light, normal, soft-light, normal, normal",
-
-
-
+      "calc(100% - var(--insert-w)) 100%, cover, 100% 100%, 100% 100%",
+    backgroundBlendMode: "normal, soft-light, normal, normal",
 
     border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
@@ -689,6 +701,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     boxShadow:
       "0 2px 5px rgba(0,0,0,0.20), 0 1px 1px rgba(0,0,0,0.16), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
   } as const;
+
 
 
 
@@ -760,6 +773,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     return (
       <div className="hgb-card-recess">
         <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300" style={shell}>
+          {goldStrip}
           <div>{media}</div>
           <div className="py-3 pr-3">{info}</div>
         </article>
@@ -774,6 +788,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
         style={shell}
       >
+        {goldStrip}
         {media}
         <div className="min-w-0">{info}</div>
       </article>
