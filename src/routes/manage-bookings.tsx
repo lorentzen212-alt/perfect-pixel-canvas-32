@@ -287,9 +287,9 @@ function TypeChip({ type }: { type: Booking["type"] }) {
     <span
       className="inline-flex items-center rounded-[8px] px-[13px] py-[6px] text-[12px] font-semibold uppercase tracking-[0.14em]"
       style={{
-        color: "#F0B44E",
-        border: "1px solid rgba(227,162,60,0.62)",
-        background: "linear-gradient(140deg, rgba(111,75,18,0.35) 0%, rgba(227,162,60,0.22) 38%, rgba(247,224,141,0.16) 52%, rgba(107,73,20,0.30) 100%)",
+        color: "#E4D3A2",
+        border: `1px solid ${CHAMPAGNE_LINE}`,
+        background: "linear-gradient(140deg, rgba(184,142,67,0.20) 0%, rgba(216,197,142,0.16) 38%, rgba(235,215,162,0.13) 52%, rgba(184,142,67,0.18) 100%)",
       }}
     >
       {type === "leisure" ? "Leisure" : "M&E"}
