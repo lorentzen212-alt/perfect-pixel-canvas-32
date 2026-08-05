@@ -932,7 +932,7 @@
 /* Large booking-list panel: matte navy architectural surface */
 .booking-fabric-panel {
   position: relative;
-  background-color: #0d1726;
+  background-color: #10161f;
 }
 
 .booking-fabric-panel::before {
@@ -955,15 +955,15 @@
   border-radius: 18px;
   background:
     radial-gradient(
-      120% 90% at 50% 42%,
-      rgba(120, 165, 220, 0.1) 0%,
-      rgba(120, 165, 220, 0.04) 38%,
-      rgba(6, 11, 20, 0) 62%
+      110% 85% at 50% 44%,
+      rgba(255, 255, 255, 0.065) 0%,
+      rgba(255, 255, 255, 0.028) 40%,
+      rgba(255, 255, 255, 0) 68%
     ),
     radial-gradient(
-      130% 110% at 50% 50%,
-      rgba(6, 10, 18, 0) 52%,
-      rgba(6, 10, 18, 0.28) 100%
+      130% 115% at 50% 50%,
+      rgba(5, 9, 15, 0) 58%,
+      rgba(5, 9, 15, 0.22) 100%
     );
   z-index: 1;
 }
