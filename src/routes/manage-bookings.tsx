@@ -5,7 +5,6 @@ import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking } from "@/lib/bookingsApi";
 import pageTextureAsset from "@/assets/limestone-texture.jpg.asset.json";
-import goldMaterial from "@/assets/gold-material.png.asset.json";
 
 
 import {
@@ -104,7 +103,7 @@ const SIDE_TEXT_2 = "rgba(255,255,255,0.90)";
 const SIDE_MUTED = "rgba(255,255,255,0.90)";
 const SIDE_LINE = "rgba(255,255,255,0.06)";
 
-const GOLD_DEEP = "#A36A0B";
+const GOLD_DEEP = "#A9853A";
 const PAGE = "#646D75";
 const CARD = "#31414F";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
@@ -115,17 +114,17 @@ const HAIRLINE = "rgba(255,255,255,0.08)";
 const TEXT = "#F1EFE9";
 const TEXT_2 = "#B6C3CE";
 const MUTED = "#7F8F9C";
-const GOLD = "#E9B01F";
-const GOLD_SOFT = "#FBE068";
+const GOLD = "#E3A23C";
+const GOLD_SOFT = "#F2C46A";
 const PEARL = "#F4F1EA";
 const RULE = "rgba(190,205,215,0.20)";
 /* deeper, richer premium royal blue (awaiting) — no cyan */
 const BLUE = "#4881D5";
 /* polished brass — deeper, richer premium gold without glossy near-white peaks */
-const GOLD_STOPS =
-  "#FEEA59 0%, #E5A413 5%, #C1800F 10%, #B57910 15%, #C68810 20%, #D99B16 25%, #E9B01F 30%, #F3BF29 35%, #F8D044 40%, #FBE068 45%, #FEF9B8 50%, #FDFDF6 55%, #FAE87D 60%, #F4CA3F 65%, #E6AF1F 70%, #D4991A 75%, #BA8013 80%, #A36A0B 85%, #93600C 90%, #84590A 95%, #855A08 100%";
-const GOLD_BRUSHED = `linear-gradient(90deg, ${GOLD_STOPS})`;
-const GOLD_BRUSHED_H = `linear-gradient(140deg, ${GOLD_STOPS})`;
+const GOLD_BRUSHED =
+  "linear-gradient(90deg, #6A4C10 0%, #8B6716 22%, #A87F1E 42%, #B98D24 52%, #A2791C 66%, #7E5C13 84%, #5E430B 100%)";
+const GOLD_BRUSHED_H =
+  "linear-gradient(140deg, #5C3E06 0%, #8A6010 16%, #B9871A 34%, #D2A23E 50%, #B9871A 66%, #8A6010 84%, #5C3E06 100%)";
 const GREEN = "#5E9C6A";
 const RED = "#B4636A";
 
@@ -540,17 +539,17 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   );
 
   const shell = {
-    /* the gold edge is part of the card's own shell: the polished reference
-       material itself, painted into the card background and clipped by the
-       card radius — no overlay, no stripes, no brushed pass */
+    /* the gold edge is part of the card's own shell: a solid-metal left band
+       painted in the card background itself, clipped by the card radius */
     backgroundImage: [
-      `url(${goldMaterial.url})`,
+      "linear-gradient(90deg, #3A280B 0%, #E2C071 5%, #A87732 13%, #9C6D2C 38%, #BE8F3C 60%, #D9AC4E 76%, #F2DC97 87%, #FDF3CC 91%, #CFA24A 96%, #231806 100%)",
+      "linear-gradient(180deg, rgba(255,246,214,0.34) 0%, rgba(255,232,176,0.16) 8%, rgba(0,0,0,0) 20%, rgba(255,250,225,0.30) 33%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.26) 62%, rgba(0,0,0,0.38) 82%, rgba(0,0,0,0.10) 100%)",
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
     ].join(", "),
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "left top, left top",
-    backgroundSize: "var(--insert-w) 100%, 100% 100%",
-
+    backgroundPosition: "left top, left top, left top",
+    backgroundSize: "var(--insert-w) 100%, var(--insert-w) 100%, 100% 100%",
+    backgroundBlendMode: "normal, overlay, normal",
     border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
     borderRadius: 12,
@@ -783,7 +782,7 @@ function Sidebar({
   showLabels?: boolean;
   onToggle?: () => void;
 }) {
-  const GOLD_LINE = `linear-gradient(180deg, ${GOLD_STOPS})`;
+  const GOLD_LINE = "linear-gradient(180deg, #D8BE72 0%, #C7A24B 50%, #A97E2E 100%)";
 
   const renderItem = (
     item: { label: string; icon: typeof User },
@@ -994,8 +993,7 @@ function GoldDivider() {
         width: 1,
         margin: "10px 0",
         background:
-          `linear-gradient(180deg, ${GOLD_STOPS})`,
-        opacity: 0.7,
+          "linear-gradient(180deg, rgba(214,182,124,0) 0%, rgba(214,182,124,0.42) 30%, rgba(233,209,158,0.55) 50%, rgba(169,133,58,0.40) 72%, rgba(169,133,58,0) 100%)",
       }}
     />
   );
