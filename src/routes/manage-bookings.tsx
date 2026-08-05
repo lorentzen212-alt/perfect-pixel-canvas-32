@@ -460,32 +460,33 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[6px] sm:grid-cols-2"
+        className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
         style={{
-          border: "1px solid rgba(0,0,0,0.30)",
-          background: "linear-gradient(180deg, #1C242E 0%, #18202A 100%)",
-          /* carved into the card — soft inset walls, not painted black */
+          border: "1px solid rgba(255,255,255,0.055)",
+          background: "linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.09) 100%)",
+          /* shallow imprint: soft top wall + faint bottom rim light */
           boxShadow:
-            "inset 0 4px 9px rgba(0,0,0,0.34), inset 0 1px 2px rgba(0,0,0,0.28), inset 0 -3px 6px rgba(0,0,0,0.18), inset 2px 0 4px rgba(0,0,0,0.16), inset -2px 0 4px rgba(0,0,0,0.16), 0 1px 0 rgba(255,255,255,0.055)",
+            "inset 0 2px 4px rgba(0,0,0,0.22), inset 0 -1px 0 rgba(255,255,255,0.035), 0 1px 0 rgba(255,255,255,0.04)",
         }}
       >
-        <div className="px-[20px] py-[11px]">
+        <div className="px-[20px] py-[13px]">
           <p className="hgb-gold-metal text-[11px] font-semibold uppercase tracking-[0.14em]">
             Your reference
           </p>
-          <p className="mt-[5px] text-[20px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
+          <p className="mt-[6px] text-[20px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
             {booking.reference}
           </p>
         </div>
         <div
-          className="px-[20px] py-[11px]"
-          style={{ borderLeft: "1px solid rgba(0,0,0,0.34)" }}
+          className="px-[20px] py-[13px]"
+          style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
         >
+
           <p className="hgb-gold-metal text-[11px] font-semibold uppercase tracking-[0.14em]">
             Hotel reference
           </p>
           <p
-            className="mt-[5px] text-[20px] leading-none"
+            className="mt-[6px] text-[20px] leading-none"
             style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 400 }}
           >
             {booking.hotelReference ?? "Pending"}
