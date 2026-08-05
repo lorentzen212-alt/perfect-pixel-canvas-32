@@ -134,7 +134,7 @@ function AccountRoute() {
           className="inline-flex items-center gap-2 text-[13.5px] font-medium"
           style={{ color: GOLD_SOFT }}
         >
-          <ArrowLeft size={16} /> Back to My Bookings
+          <ArrowLeft size={16} /> Back to Dashboard
         </Link>
 
         <section
