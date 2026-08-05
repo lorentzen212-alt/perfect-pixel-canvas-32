@@ -165,10 +165,10 @@ const GROUP_LABEL: Record<Exclude<Group, "all">, string> = {
 };
 
 const GROUP_COLOR: Record<Exclude<Group, "all">, string> = {
-  proposal: GOLD,
-  awaiting: BLUE,
+  proposal: CHAMPAGNE,
+  awaiting: "#5A88E8",
   confirmed: GREEN,
-  attention: "#D69A4E",
+  attention: "#C9A177",
   cancelled: RED,
 };
 
