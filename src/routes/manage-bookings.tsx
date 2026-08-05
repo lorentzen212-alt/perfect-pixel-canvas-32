@@ -48,6 +48,7 @@ import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
+import cardGraphiteAtmos from "@/assets/card-graphite-atmos.png.asset.json";
 
 
 import {
@@ -550,19 +551,71 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       /* gentle cross-section shading so the band reads as solid metal, not paint */
       "linear-gradient(90deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.03) 14%, rgba(255,255,255,0.07) 40%, rgba(255,255,255,0.05) 66%, rgba(0,0,0,0.06) 88%, rgba(0,0,0,0.28) 100%)",
 
-      /* soft dark slate tint above the stone so the UI stays clean and readable */
+      /* ── premium graphite composite, layered light → material → base ── */
+      /* soft glow behind the image module (left) */
+      "radial-gradient(58% 78% at 16% 44%, rgba(214,226,240,0.07) 0%, rgba(214,226,240,0.03) 46%, rgba(0,0,0,0) 74%)",
+      /* subtle glow behind the title */
+      "radial-gradient(46% 46% at 48% 26%, rgba(226,234,245,0.055) 0%, rgba(0,0,0,0) 72%)",
+      /* very soft glow behind the bottom action row */
+      "radial-gradient(60% 42% at 66% 96%, rgba(210,222,238,0.045) 0%, rgba(0,0,0,0) 76%)",
+      /* large curved highlight flowing from the bottom-right corner */
+      "radial-gradient(85% 120% at 108% 116%, rgba(232,240,250,0.075) 0%, rgba(232,240,250,0.03) 30%, rgba(0,0,0,0) 58%)",
+      /* secondary faded curved highlight from the upper-left */
+      "radial-gradient(70% 95% at -8% -14%, rgba(226,236,248,0.055) 0%, rgba(226,236,248,0.02) 34%, rgba(0,0,0,0) 62%)",
+      /* atmospheric cloudy material — the reference graphite surface */
+      `url("${cardGraphiteAtmos.url}")`,
+      /* soft dark slate tint so the UI stays clean and readable */
       "linear-gradient(180deg, rgba(46,53,62,0.34) 0%, rgba(41,47,56,0.42) 100%)",
-      /* architectural stone / micro-cement texture — starts after the gold edge */
+      /* almost invisible fine paper grain */
       `url("${cardStoneTexture.url}")`,
-      "radial-gradient(120% 110% at 8% 0%, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 34%, rgba(0,0,0,0.00) 62%, rgba(0,0,0,0.10) 100%)",
+      /* convex sculpting — centre slightly darker, outer edges lifted */
+      "radial-gradient(78% 86% at 50% 52%, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.08) 52%, rgba(255,255,255,0.045) 88%, rgba(255,255,255,0.06) 100%)",
       "linear-gradient(152deg, #434A55 0%, #3B424C 46%, #333A44 78%, #2E353E 100%)",
     ].join(", "),
-    backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
-    backgroundPosition:
-      "left top, left top, var(--insert-w) top, var(--insert-w) top, left top, left top",
-    backgroundSize:
-      "var(--insert-w) 100%, var(--insert-w) 100%, calc(100% - var(--insert-w)) 100%, cover, 100% 100%, 100% 100%",
-    backgroundBlendMode: "normal, soft-light, normal, soft-light, normal, normal",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: [
+      "left top",
+      "left top",
+      "var(--insert-w) top",
+      "var(--insert-w) top",
+      "var(--insert-w) top",
+      "var(--insert-w) top",
+      "var(--insert-w) top",
+      "var(--insert-w) top",
+      "var(--insert-w) top",
+      "var(--insert-w) top",
+      "var(--insert-w) top",
+      "left top",
+    ].join(", "),
+    backgroundSize: [
+      "var(--insert-w) 100%",
+      "var(--insert-w) 100%",
+      "calc(100% - var(--insert-w)) 100%",
+      "calc(100% - var(--insert-w)) 100%",
+      "calc(100% - var(--insert-w)) 100%",
+      "calc(100% - var(--insert-w)) 100%",
+      "calc(100% - var(--insert-w)) 100%",
+      "cover",
+      "calc(100% - var(--insert-w)) 100%",
+      "cover",
+      "calc(100% - var(--insert-w)) 100%",
+      "100% 100%",
+    ].join(", "),
+    backgroundBlendMode: [
+      "normal",
+      "soft-light",
+      "screen",
+      "screen",
+      "screen",
+      "screen",
+      "screen",
+      "soft-light",
+      "normal",
+      "soft-light",
+      "overlay",
+      "normal",
+    ].join(", "),
+
 
 
 
