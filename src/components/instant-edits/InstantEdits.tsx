@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+
+import { supabase } from "@/integrations/supabase/client";
+import { listSiteEdits, saveSiteEdits } from "@/lib/siteEdits.functions";
 import {
+  docsEqual,
+  signatureOf,
   applyInstantEdit,
   emptyInstantDoc,
   instantEditsAllowed,
@@ -40,12 +46,64 @@ export default function InstantEdits() {
   const [hoverRect, setHoverRect] = useState<DOMRect | null>(null);
   const [selRect, setSelRect] = useState<DOMRect | null>(null);
   const [inlineEditing, setInlineEditing] = useState(false);
+  const [savedDoc, setSavedDoc] = useState<InstantDoc>(emptyInstantDoc());
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [status, setStatus] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
   const appliedRef = useRef<Set<HTMLElement>>(new Set());
+  const fetchEdits = useServerFn(listSiteEdits);
+  const pushEdits = useServerFn(saveSiteEdits);
 
   useEffect(() => {
     setAllowed(instantEditsAllowed());
     setEnabled(isInstantEnabled());
   }, []);
+
+  /* admin detection — only admins may publish edits */
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data: auth } = await supabase.auth.getUser();
+      const uid = auth.user?.id;
+      if (!uid) return;
+      const { data: roles } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", uid)
+        .eq("role", "admin")
+        .maybeSingle();
+      if (!cancelled) setIsAdmin(!!roles);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  /* what is currently stored on the server for this route */
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const rows = await fetchEdits({ data: { route: routePath } });
+        if (cancelled) return;
+        const remote: InstantDoc = {};
+        rows.forEach((r) => {
+          remote[r.element_path] = r.edit as InstantEdit;
+        });
+        setSavedDoc(remote);
+        // no local working copy yet → adopt the published version
+        if (Object.keys(loadInstantDoc(routePath)).length === 0 && Object.keys(remote).length) {
+          setDoc(remote);
+          saveInstantDoc(routePath, remote);
+        }
+      } catch {
+        /* offline / not available — keep working locally */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [routePath, fetchEdits]);
 
   /* load + apply saved edits for the route */
   useEffect(() => {
@@ -102,6 +160,43 @@ export default function InstantEdits() {
     saveInstantDoc(routePath, {});
     window.location.reload();
   }, [routePath]);
+
+  const dirty = useMemo(() => !docsEqual(doc, savedDoc), [doc, savedDoc]);
+
+  const save = useCallback(async () => {
+    setSaving(true);
+    setStatus(null);
+    try {
+      const payload = Object.entries(doc).map(([element_path, edit]) => {
+        const el = instantElementAt(element_path);
+        return {
+          element_path,
+          edit,
+          signature: el ? signatureOf(el) : null,
+        };
+      });
+      const res = await pushEdits({ data: { route: routePath, edits: payload } });
+      if (res.ok) {
+        setSavedDoc(doc);
+        setStatus("Saved — live for everyone");
+      } else {
+        setStatus(
+          res.reason === "forbidden"
+            ? "You need to be signed in as an admin to save."
+            : `Could not save: ${res.reason}`,
+        );
+      }
+    } catch {
+      setStatus("Could not save — please sign in as an admin and try again.");
+    } finally {
+      setSaving(false);
+    }
+  }, [doc, routePath, pushEdits]);
+
+  const discard = useCallback(() => {
+    saveInstantDoc(routePath, savedDoc);
+    window.location.reload();
+  }, [routePath, savedDoc]);
 
   /* pointer interaction while enabled */
   useEffect(() => {
@@ -271,6 +366,13 @@ export default function InstantEdits() {
             onResetElement={() => selected && resetElement(selected)}
             onResetPage={resetPage}
             onClose={() => setSelected(null)}
+            dirty={dirty}
+            saving={saving}
+            status={status}
+            isAdmin={isAdmin}
+            dirtyCount={Object.keys(doc).length}
+            onSave={save}
+            onDiscard={discard}
           />
         </>
       )}
@@ -291,6 +393,13 @@ function Panel({
   onResetElement,
   onResetPage,
   onClose,
+  dirty,
+  saving,
+  status,
+  isAdmin,
+  dirtyCount,
+  onSave,
+  onDiscard,
 }: {
   selected: string | null;
   selectedEl: HTMLElement | null;
@@ -302,6 +411,13 @@ function Panel({
   onResetElement: () => void;
   onResetPage: () => void;
   onClose: () => void;
+  dirty: boolean;
+  saving: boolean;
+  status: string | null;
+  isAdmin: boolean;
+  dirtyCount: number;
+  onSave: () => void;
+  onDiscard: () => void;
 }) {
   const shell: React.CSSProperties = {
     position: "fixed",
@@ -332,6 +448,15 @@ function Panel({
         <button style={ghostBtn} onClick={onResetPage}>
           Reset all edits on this page
         </button>
+      <SaveBar
+        dirty={dirty}
+        saving={saving}
+        status={status}
+        isAdmin={isAdmin}
+        count={dirtyCount}
+        onSave={onSave}
+        onDiscard={onDiscard}
+      />
       </div>
     );
   }
@@ -450,6 +575,60 @@ function Panel({
       </Row>
 
       <Row>
+        <Field label="Metallic text">
+          <button
+            onClick={() => onChange({ colorMetallic: !edit.colorMetallic })}
+            style={{
+              ...chip,
+              width: "100%",
+              borderColor: edit.colorMetallic ? "#C99322" : "rgba(255,255,255,0.14)",
+              color: edit.colorMetallic ? "#F1D77A" : "#EAF1F8",
+            }}
+          >
+            {edit.colorMetallic ? "On" : "Off"}
+          </button>
+        </Field>
+        <Field label="Metallic background">
+          <button
+            onClick={() => onChange({ bgMetallic: !edit.bgMetallic })}
+            style={{
+              ...chip,
+              width: "100%",
+              borderColor: edit.bgMetallic ? "#C99322" : "rgba(255,255,255,0.14)",
+              color: edit.bgMetallic ? "#F1D77A" : "#EAF1F8",
+            }}
+          >
+            {edit.bgMetallic ? "On" : "Off"}
+          </button>
+        </Field>
+      </Row>
+
+      {(edit.colorMetallic || edit.bgMetallic) && (
+        <Row>
+          <Field label={`Polish ${edit.metallicStrength ?? 60}%`}>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={edit.metallicStrength ?? 60}
+              onChange={(e) => onChange({ metallicStrength: Number(e.target.value) })}
+              style={{ width: "100%" }}
+            />
+          </Field>
+          <Field label={`Light ${edit.metallicAngle ?? 155}°`}>
+            <input
+              type="range"
+              min={0}
+              max={360}
+              value={edit.metallicAngle ?? 155}
+              onChange={(e) => onChange({ metallicAngle: Number(e.target.value) })}
+              style={{ width: "100%" }}
+            />
+          </Field>
+        </Row>
+      )}
+
+      <Row>
         <Field label="Padding">
           <input
             type="number"
@@ -487,6 +666,89 @@ function Panel({
       <button style={ghostBtn} onClick={onResetPage}>
         Reset all edits on this page
       </button>
+      <SaveBar
+        dirty={dirty}
+        saving={saving}
+        status={status}
+        isAdmin={isAdmin}
+        count={dirtyCount}
+        onSave={onSave}
+        onDiscard={onDiscard}
+      />
+    </div>
+  );
+}
+
+function SaveBar({
+  dirty,
+  saving,
+  status,
+  isAdmin,
+  count,
+  onSave,
+  onDiscard,
+}: {
+  dirty: boolean;
+  saving: boolean;
+  status: string | null;
+  isAdmin: boolean;
+  count: number;
+  onSave: () => void;
+  onDiscard: () => void;
+}) {
+  return (
+    <div
+      style={{
+        marginTop: 12,
+        paddingTop: 10,
+        borderTop: "1px solid rgba(201,147,34,0.28)",
+      }}
+    >
+      <div style={{ fontSize: 11, opacity: 0.75, marginBottom: 8 }}>
+        {dirty ? `Unsaved changes (${count})` : count > 0 ? "All changes saved" : "No changes yet"}
+      </div>
+      <div style={{ display: "flex", gap: 8 }}>
+        <button
+          onClick={onSave}
+          disabled={saving || !dirty}
+          style={{
+            flex: 1,
+            padding: "8px 10px",
+            borderRadius: 8,
+            border: "1px solid rgba(201,147,34,0.5)",
+            cursor: saving || !dirty ? "default" : "pointer",
+            opacity: saving || !dirty ? 0.5 : 1,
+            fontWeight: 600,
+            color: "#1B2A38",
+            background: "linear-gradient(180deg,#F1D77A,#C99322)",
+          }}
+        >
+          {saving ? "Saving…" : "Save changes"}
+        </button>
+        <button
+          onClick={onDiscard}
+          disabled={saving || !dirty}
+          style={{
+            padding: "8px 10px",
+            borderRadius: 8,
+            border: "1px solid rgba(255,255,255,0.16)",
+            background: "transparent",
+            color: "#EAF1F8",
+            cursor: saving || !dirty ? "default" : "pointer",
+            opacity: saving || !dirty ? 0.5 : 1,
+          }}
+        >
+          Discard
+        </button>
+      </div>
+      {!isAdmin && (
+        <div style={{ fontSize: 10.5, opacity: 0.6, marginTop: 8, lineHeight: 1.5 }}>
+          Sign in as an admin to publish these changes to all visitors.
+        </div>
+      )}
+      {status && (
+        <div style={{ fontSize: 11, marginTop: 8, color: "#F1D77A", lineHeight: 1.5 }}>{status}</div>
+      )}
     </div>
   );
 }

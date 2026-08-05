@@ -363,6 +363,39 @@ export type Database = {
         }
         Relationships: []
       }
+      site_edits: {
+        Row: {
+          created_at: string
+          edit: Json
+          element_path: string
+          id: string
+          route: string
+          signature: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          edit?: Json
+          element_path: string
+          id?: string
+          route: string
+          signature?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          edit?: Json
+          element_path?: string
+          id?: string
+          route?: string
+          signature?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
