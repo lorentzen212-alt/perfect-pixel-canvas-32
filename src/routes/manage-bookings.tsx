@@ -1749,10 +1749,10 @@ function ManageBookings() {
             <section
               className="rounded-[18px] p-[22px] relative overflow-hidden isolate"
               style={{
-                backgroundColor: "#0C1726",
-                border: "1px solid rgba(150,175,205,0.20)",
+                backgroundColor: "#3F464E",
+                border: "1px solid rgba(255,255,255,0.10)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.055), inset 0 0 0 1px rgba(70,100,140,0.06), 0 14px 36px rgba(0,0,0,0.30)",
+                  "inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px rgba(0,0,0,0.26)",
               }}
             >
               {/* booking list view selector */}
