@@ -5,7 +5,7 @@ import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking, cancelBooking } from "@/lib/bookingsApi";
 import { toast } from "sonner";
-
+import pageTextureAsset from "@/assets/limestone-texture.jpg.asset.json";
 
 
 import {
@@ -40,7 +40,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-navy-glow.png.asset.json";
-
+import contentArc from "@/assets/content-slate-glow.png.asset.json";
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
@@ -107,8 +107,8 @@ const SIDE_MUTED = "rgba(255,255,255,0.90)";
 const SIDE_LINE = "rgba(255,255,255,0.06)";
 
 const GOLD_DEEP = "#A9853A";
+const PAGE = "#646D75";
 const CARD = "#31414F";
-
 const CARD_BORDER = "rgba(255,255,255,0.06)";
 const CARD_SHADOW =
   "0 2px 6px rgba(0,0,0,0.10), 0 12px 28px rgba(0,0,0,0.16), 0 32px 64px rgba(0,0,0,0.20)";
@@ -1336,13 +1336,12 @@ function ManageBookings() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#0D131B",
+        backgroundColor: PAGE,
         backgroundImage:
-          "linear-gradient(180deg, #121A24 0%, #0D131B 100%)",
+          "linear-gradient(180deg, #6A737B 0%, #646D75 35%, #5F6870 100%)",
         fontFamily: SANS,
       }}
     >
-
       <aside
         className="fixed inset-y-0 left-0 z-40 hidden lg:block"
         style={{
@@ -1395,38 +1394,41 @@ function ManageBookings() {
         <main
           className="relative min-h-screen"
           style={{
-            backgroundColor: "#0D131B",
-            backgroundImage: [
-              `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.018'/%3E%3C/svg%3E")`,
-              "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.028) 0%, rgba(255,255,255,0.010) 42%, rgba(255,255,255,0) 72%)",
-            ].join(", "),
-            backgroundSize: "256px 256px, 100% 100%",
-            backgroundRepeat: "repeat, no-repeat",
-            backgroundBlendMode: "soft-light, normal",
+            backgroundColor: "transparent",
+            backgroundImage:
+              "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
           }}
         >
-
           {/* layered atmospheric surface — angular light composition */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
             style={{
               top: 300,
-              backgroundColor: "#0D131B",
-              backgroundImage: [
-                `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.018'/%3E%3C/svg%3E")`,
-                "radial-gradient(130% 80% at 50% 26%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.016) 36%, rgba(255,255,255,0) 68%)",
-                "radial-gradient(150% 100% at 50% 50%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.22) 78%, rgba(0,0,0,0.46) 100%)",
-                "linear-gradient(180deg, rgba(13,19,27,0) 0%, rgba(8,12,17,0.55) 100%)",
-                "linear-gradient(180deg, #121A24 0%, #0D131B 100%)",
-              ].join(", "),
-              backgroundSize: "256px 256px, 100% 100%, 100% 100%, 100% 100%, 100% 100%",
-              backgroundPosition: "0 0, 0 0, 0 0, 0 0, 0 0",
-              backgroundRepeat: "repeat, no-repeat, no-repeat, no-repeat, no-repeat",
-              backgroundBlendMode: "soft-light, normal, normal, normal, normal",
+              backgroundColor: "#0C121A",
+              backgroundImage: `url("${contentArc.url}")`,
+              backgroundSize: "cover",
+              backgroundPosition: "center top",
+              backgroundRepeat: "no-repeat",
             }}
-          />
-
+          >
+            {/* soft readability veil */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(10,15,22,0.18) 0%, rgba(10,15,22,0.10) 40%, rgba(10,15,22,0.26) 100%)",
+              }}
+            />
+            {/* quiet vignette */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(118% 90% at 56% 36%, rgba(0,0,0,0) 52%, rgba(4,7,11,0.16) 82%, rgba(4,7,11,0.30) 100%)",
+              }}
+            />
+          </div>
 
 
 
