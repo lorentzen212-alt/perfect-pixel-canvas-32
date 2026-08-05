@@ -549,18 +549,20 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       /* gentle cross-section shading so the band reads as solid metal, not paint */
       "linear-gradient(90deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.03) 14%, rgba(255,255,255,0.07) 40%, rgba(255,255,255,0.05) 66%, rgba(0,0,0,0.06) 88%, rgba(0,0,0,0.28) 100%)",
 
-      /* Storm Stone surface: micro grain + soft natural variation over a matte slate base */
-      `url("data:image/svg+xml;utf8,${encodeURIComponent(
-        `<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="220" height="220" filter="url(%23n)" opacity="0.5"/></svg>`,
-      )}")`,
+      /* soft dark slate tint above the stone so the UI stays clean and readable */
+      "linear-gradient(180deg, rgba(46,53,62,0.34) 0%, rgba(41,47,56,0.42) 100%)",
+      /* architectural stone / micro-cement texture — starts after the gold edge */
+      `url("${cardStoneTexture.url}")`,
       "radial-gradient(120% 110% at 8% 0%, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 34%, rgba(0,0,0,0.00) 62%, rgba(0,0,0,0.10) 100%)",
       "linear-gradient(152deg, #434A55 0%, #3B424C 46%, #333A44 78%, #2E353E 100%)",
     ].join(", "),
-    backgroundRepeat: "no-repeat, no-repeat, repeat, no-repeat, no-repeat",
-    backgroundPosition: "left top, left top, left top, left top, left top",
+    backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
+    backgroundPosition:
+      "left top, left top, var(--insert-w) top, var(--insert-w) top, left top, left top",
     backgroundSize:
-      "var(--insert-w) 100%, var(--insert-w) 100%, 220px 220px, 100% 100%, 100% 100%",
-    backgroundBlendMode: "normal, soft-light, overlay, normal, normal",
+      "var(--insert-w) 100%, var(--insert-w) 100%, calc(100% - var(--insert-w)) 100%, cover, 100% 100%, 100% 100%",
+    backgroundBlendMode: "normal, soft-light, normal, soft-light, normal, normal",
+
 
 
 
