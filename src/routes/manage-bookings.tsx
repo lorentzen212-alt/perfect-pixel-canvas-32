@@ -5,7 +5,7 @@ import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking, cancelBooking } from "@/lib/bookingsApi";
 import { toast } from "sonner";
-import pageTextureAsset from "@/assets/limestone-texture.jpg.asset.json";
+
 
 
 import {
