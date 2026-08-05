@@ -474,11 +474,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       <div
         className="mt-[8px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
         style={{
-          border: "1px solid rgba(255,255,255,0.055)",
-          background: "linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.09) 100%)",
-          /* shallow imprint: soft top wall + faint bottom rim light */
+          /* recessed machined panel: pulled ~2px deeper via margin/border + darker fill */
+          margin: "2px",
+          border: "1px solid rgba(255,255,255,0.035)",
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.14) 100%)",
           boxShadow:
-            "inset 0 2px 4px rgba(0,0,0,0.22), inset 0 -1px 0 rgba(255,255,255,0.035), 0 1px 0 rgba(255,255,255,0.04)",
+            "inset 0 1px 2px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.03), inset 0 -1px 0 rgba(255,255,255,0.02)",
         }}
       >
         <div className="px-[20px] py-[8px]">
@@ -494,7 +496,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         </div>
         <div
           className="px-[20px] py-[8px]"
-          style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
+          style={{ borderLeft: "1px solid rgba(255,255,255,0.045)" }}
         >
 
           <p
