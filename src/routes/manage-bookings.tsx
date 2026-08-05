@@ -1590,7 +1590,18 @@ function ManageBookings() {
                 active={group === "confirmed"}
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
               />
+              <StatusCard
+                label="Next 7 days"
+                count={next7}
+                description={next7 === 1 ? "Stay starting soon" : "Stays starting soon"}
+                tone={GOLD_SOFT}
+                overlay="linear-gradient(90deg, rgba(10,14,18,0.35) 0%, rgba(18,26,34,0.28) 45%, rgba(0,0,0,0.18) 100%)"
+                icon={<CalendarDays size={19} />}
+                active={dateChoice === "upcoming"}
+                onClick={() => setDateChoice(dateChoice === "upcoming" ? "all" : "upcoming")}
+              />
             </section>
+
 
 
             {!isProfileComplete(profile) && (
