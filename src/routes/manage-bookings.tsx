@@ -486,7 +486,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             Hotel reference
           </p>
           <p
-            className="mt-[5px] text-[20px] leading-none"
+            className="mt-[6px] text-[20px] leading-none"
             style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 400 }}
           >
             {booking.hotelReference ?? "Pending"}
