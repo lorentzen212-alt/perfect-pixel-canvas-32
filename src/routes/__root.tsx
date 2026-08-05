@@ -174,6 +174,8 @@ function RootComponent() {
       </AuthProvider>
       <SiteEditsMount />
       <DesignModeMount />
+      <Toaster />
+
     </QueryClientProvider>
   );
 }
