@@ -36,8 +36,8 @@ const SECONDARY_NAV = [
   { label: "Support", icon: LifeBuoy },
 ];
 
-const RAIL_EASE = "cubic-bezier(0.4, 0.0, 0.2, 1)";
-const RAIL_MS = 400;
+export const RAIL_EASE = "cubic-bezier(0.4, 0.0, 0.2, 1)";
+export const RAIL_MS = 400;
 
 export function GlobalSidebar({
   active,
