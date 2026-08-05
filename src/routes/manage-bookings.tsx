@@ -517,24 +517,22 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-status-btn group/btn relative inline-flex shrink-0 items-center gap-4 whitespace-nowrap px-[20px] py-[9px] text-[15px]"
-          style={{ color: "#F3C979", marginRight: 0 }}
+          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[20px] py-[9px] text-[15px]"
+          style={{
+            color: "#F3C979",
+            marginRight: 0,
+            border: "1.5px solid transparent",
+            background:
+              `linear-gradient(180deg, #1A2330 0%, #131C27 100%) padding-box, ${GOLD_BRUSHED_H} border-box`,
+            boxShadow:
+              "0 2px 8px rgba(0,0,0,0.45), 0 0 14px rgba(227,162,60,0.22), inset 0 1px 0 rgba(255,255,255,0.05)",
+          }}
         >
-          <span
-            className="hgb-gold-metal font-medium"
-            style={{
-              WebkitFontSmoothing: "antialiased",
-              textRendering: "geometricPrecision",
-              letterSpacing: "0.005em",
-            }}
-          >
-            {action.label}
-          </span>
+          <span className="hgb-gold-metal">{action.label}</span>
           <ArrowRight
-            size={17}
-            strokeWidth={1.6}
-            className="relative top-[0.5px] transition-transform duration-200 ease-out group-hover/btn:translate-x-[3px]"
-            style={{ color: "#E3BE79" }}
+            size={18}
+            className="transition-transform duration-300 group-hover/btn:translate-x-[3px]"
+            style={{ color: "#F0D08C" }}
           />
         </Link>
       </div>
