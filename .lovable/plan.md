@@ -1,37 +1,30 @@
-# Investigation: "You need to be signed in as an admin to save."
+# One-time admin role grant
 
-No code, data, policies or roles were changed.
+Give the existing account **lorentzen212@gmail.com** the `admin` role so the Instant Edits Save bar works.
 
-## Current admin-check mechanism
+## The single change
 
-Two independent checks, both backed by the **`user_roles` database table** — not app_metadata, not user_metadata, not profiles, not an email allowlist, not a hardcoded ID, not a Lovable workspace role.
+One data insert into `public.user_roles`:
 
-1. UI check (`src/components/instant-edits/InstantEdits.tsx`, lines ~62-80): reads the signed-in user, then queries `user_roles` for a row with `user_id = <you>` and `role = 'admin'`. Controls whether the Save bar is offered.
-2. Server check (`src/lib/siteEdits.functions.ts`, `saveSiteEdits`, lines 62-68): after validating the bearer token, calls the database function `has_role(_user_id, 'admin')`. If false it returns `{ ok:false, reason:'forbidden' }` — this is the exact source of the message you see.
+```sql
+INSERT INTO public.user_roles (user_id, role)
+SELECT u.id, 'admin'::app_role FROM auth.users u
+WHERE u.email = 'lorentzen212@gmail.com'
+ON CONFLICT (user_id, role) DO NOTHING;
+```
 
-RLS also enforces it independently: `site_edits` INSERT/UPDATE/DELETE policies require `has_role(auth.uid(),'admin')`; SELECT is public, which is why saved edits render for all visitors.
+The user id is looked up by email, so no id is hardcoded, and `ON CONFLICT DO NOTHING` guarantees no duplicate row.
 
-## Root cause found
+## Explicitly not touched
 
-Your account exists (`lorentzen212@gmail.com`, last sign-in 2026-08-05 15:14 UTC), but the `user_roles` table contains **no rows at all** — so no one is an admin yet. The check is working correctly; the grant is simply missing.
+- No application code
+- No RLS policies, database functions or triggers
+- No schema changes
+- No other users, no `staff` or `customer` roles
+- No auth settings, no secrets
 
-## Required value
+## After it runs
 
-A row in `public.user_roles`:
-- `user_id` = your auth user id
-- `role` = `admin` (enum `app_role`: admin | staff | customer)
+I will verify that exactly one `admin` row exists for that account and that `user_roles` contains nothing else. You then only need to reload the page — the role is read live from the database on each check, so no sign-out or token refresh is needed.
 
-## Session refresh needed?
-
-No. The role is read live from the database on every check, not from a JWT claim. After the row exists you only need to reload the page (the UI admin check runs on mount). A full sign-out/sign-in is not required.
-
-## Safest way to grant it
-
-`user_roles` intentionally has **no INSERT policy** (denied for all app users), so the row cannot be created from the app or by a signed-in user — that is the anti-privilege-escalation design. It must be inserted server-side with elevated access, which I can do as a one-row, one-time data change scoped to your user id only:
-
-- Insert exactly one row: your user id + `admin`.
-- Nothing else touched: no policy changes, no schema changes, no new grants, no other users.
-
-## Recommended next step
-
-Approve this and I will insert that single `user_roles` row for `lorentzen212@gmail.com`, then you reload the page and the Instant Edits Save bar becomes active. If you'd rather grant admin to a different account, tell me which email first.
+This is a data change, so it needs build mode (or approval) before I can apply it.
