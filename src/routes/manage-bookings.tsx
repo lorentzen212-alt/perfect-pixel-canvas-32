@@ -1747,26 +1747,12 @@ function ManageBookings() {
 
             {/* bookings — premium workspace panel */}
             <section
-              className="rounded-[18px] p-[22px]"
-
+              className="rounded-[18px] p-[22px] relative overflow-hidden isolate"
               style={{
-                background: [
-                  // soft cool top highlight for dimensional inner light
-                  "linear-gradient(180deg, rgba(130,160,195,0.07) 0%, rgba(130,160,195,0.02) 18%, transparent 42%)",
-                  // deep navy-blue charcoal backing, cooler than the cards
-                  "linear-gradient(180deg, #0B1A2C 0%, #081426 45%, #0C1A2E 100%)",
-                ].join(","),
-                border: "1px solid rgba(130,160,195,0.14)",
-                boxShadow: [
-                  // soft inner top highlight
-                  "inset 0 1px 0 rgba(255,255,255,0.04)",
-                  // subtle inner perimeter shadow
-                  "inset 0 0 28px rgba(4,10,20,0.30)",
-                  // soft outer lift
-                  "0 16px 40px rgba(0,0,0,0.24)",
-                  // cool-blue ambient glow along lower and side edges
-                  "0 0 32px rgba(35,90,160,0.08)",
-                ].join(","),
+                backgroundColor: "#0C1726",
+                border: "1px solid rgba(150,175,205,0.20)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.055), inset 0 0 0 1px rgba(70,100,140,0.06), 0 14px 36px rgba(0,0,0,0.30)",
               }}
             >
               {/* booking list view selector */}
