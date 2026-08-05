@@ -828,7 +828,7 @@
 
 /* Booking card hover elevation (Manage Bookings) */
 .hgb-booking-card {
-  --insert-w: 16px;
+  --insert-w: 20px;
   padding-left: calc(var(--insert-w) + 30px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
