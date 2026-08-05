@@ -1747,9 +1747,8 @@ function ManageBookings() {
 
             {/* bookings — premium workspace panel */}
             <section
-              className="rounded-[18px] p-[22px] relative overflow-hidden isolate"
+              className="rounded-[18px] p-[22px] relative overflow-hidden isolate bg-[#3F464E]"
               style={{
-                backgroundColor: "#3F464E",
                 border: "1px solid rgba(255,255,255,0.10)",
                 boxShadow:
                   "inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px rgba(0,0,0,0.26)",
