@@ -792,6 +792,7 @@ function StatusCard({
   tone,
   overlay,
   image,
+  stone,
   icon,
   active,
   onClick,
@@ -802,6 +803,7 @@ function StatusCard({
   tone: string;
   overlay: string;
   image?: string;
+  stone?: boolean;
   icon: React.ReactNode;
   active: boolean;
   onClick: () => void;
@@ -811,9 +813,9 @@ function StatusCard({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex h-[224px] flex-col overflow-hidden rounded-[14px] p-[20px] text-left transition-transform hover:-translate-y-px"
+      className={`relative flex h-[224px] flex-col overflow-hidden rounded-[14px] p-[20px] text-left transition-transform hover:-translate-y-px${stone ? " stone-surface" : ""}`}
       style={{
-        background: image ? undefined : PANEL,
+        background: image || stone ? undefined : PANEL,
         border: `1px solid ${active ? tone : `${tone}55`}`,
         boxShadow: active
           ? `0 0 0 1px ${tone}55, 0 22px 60px rgba(0,0,0,0.26)`
@@ -1598,6 +1600,7 @@ function ManageBookings() {
                 description={next7 === 1 ? "Stay starting soon" : "Stays starting soon"}
                 tone={GOLD_SOFT}
                 overlay="linear-gradient(90deg, rgba(10,14,18,0.35) 0%, rgba(18,26,34,0.28) 45%, rgba(0,0,0,0.18) 100%)"
+                stone
                 icon={<CalendarDays size={19} />}
                 active={dateChoice === "upcoming"}
                 onClick={() => setDateChoice(dateChoice === "upcoming" ? "all" : "upcoming")}
@@ -1837,9 +1840,8 @@ function ManageBookings() {
 
               {/* Recent activity */}
               <div
-                className="flex flex-col rounded-[14px] p-[20px]"
+                className="stone-surface flex flex-col rounded-[14px] p-[20px]"
                 style={{
-                  background: PANEL,
                   border: `1px solid ${CARD_BORDER}`,
                   boxShadow: CARD_SHADOW,
                 }}
@@ -1911,9 +1913,8 @@ function ManageBookings() {
 
               {/* Upcoming deadlines */}
               <div
-                className="flex flex-col rounded-[14px] p-[20px]"
+                className="stone-surface flex flex-col rounded-[14px] p-[20px]"
                 style={{
-                  background: PANEL,
                   border: `1px solid ${CARD_BORDER}`,
                   boxShadow: CARD_SHADOW,
                 }}

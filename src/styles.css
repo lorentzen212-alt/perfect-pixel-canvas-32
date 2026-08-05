@@ -892,3 +892,17 @@
   pointer-events: none;
 }
 
+
+/* Carved stone material for dashboard sidebar/KPI cards */
+.stone-surface {
+  background-color: #2f3842;
+  background-image:
+    radial-gradient(120% 95% at 0% 0%, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 58%),
+    radial-gradient(135% 115% at 55% 118%, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0) 62%),
+    url("/__l5e/assets-v1/42871978-fa9a-4f0a-9609-8fdfb9993143/moody-charcoal-stone.png"),
+    linear-gradient(180deg, #313b46 0%, #2c343e 100%);
+  background-size: 100% 100%, 100% 100%, 880px auto, 100% 100%;
+  background-position: center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-blend-mode: soft-light, multiply, soft-light, normal;
+}
