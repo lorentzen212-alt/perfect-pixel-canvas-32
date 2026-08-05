@@ -114,17 +114,17 @@ const HAIRLINE = "rgba(255,255,255,0.08)";
 const TEXT = "#F1EFE9";
 const TEXT_2 = "#B6C3CE";
 const MUTED = "#7F8F9C";
-const GOLD = "#E3A23C";
-const GOLD_SOFT = "#F2C46A";
+const GOLD = "#D9A93A";
+const GOLD_SOFT = "#E6C15A";
 const PEARL = "#F4F1EA";
 const RULE = "rgba(190,205,215,0.20)";
 /* deeper, richer premium royal blue (awaiting) — no cyan */
 const BLUE = "#4881D5";
-/* polished brass — deeper, richer premium gold without glossy near-white peaks */
+/* polished brass — mirror-like reflections, deep bronze shadows, champagne highlights */
 const GOLD_BRUSHED =
-  "linear-gradient(90deg, #6A4C10 0%, #8B6716 22%, #A87F1E 42%, #B98D24 52%, #A2791C 66%, #7E5C13 84%, #5E430B 100%)";
+  "linear-gradient(90deg, #5B3A0A 0%, #A66A11 14%, #D9A93A 30%, #F5DE8E 40%, #C99224 52%, #E6C15A 66%, #A66A11 84%, #5B3A0A 100%)";
 const GOLD_BRUSHED_H =
-  "linear-gradient(140deg, #5C3E06 0%, #8A6010 16%, #B9871A 34%, #D2A23E 50%, #B9871A 66%, #8A6010 84%, #5C3E06 100%)";
+  "linear-gradient(140deg, #5B3A0A 0%, #A66A11 15%, #C99224 30%, #F5DE8E 46%, #D9A93A 58%, #A66A11 78%, #5B3A0A 100%)";
 const GREEN = "#5E9C6A";
 const RED = "#B4636A";
 
