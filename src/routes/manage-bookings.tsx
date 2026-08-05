@@ -244,13 +244,13 @@ function Timeline({ booking }: { booking: Booking }) {
               className="relative grid h-[32px] w-[32px] place-items-center rounded-full"
               style={{
                 background: current
-                  ? "radial-gradient(80% 80% at 50% 28%, rgba(245,220,158,0.17) 0%, rgba(13,20,32,0.96) 100%)"
+                  ? "radial-gradient(80% 80% at 50% 28%, rgba(245,222,142,0.17) 0%, rgba(13,20,32,0.96) 100%)"
                   : "linear-gradient(180deg, rgba(20,28,40,0.96) 0%, rgba(13,20,32,0.96) 100%)",
-                border: `1px solid ${done || current ? "rgba(240,208,140,0.92)" : "rgba(168,182,199,0.34)"}`,
-                color: done || current ? "#F5DC9E" : "#A9B7C6",
+                border: `1px solid ${done || current ? "rgba(245,222,142,0.92)" : "rgba(168,182,199,0.34)"}`,
+                color: done || current ? "#F5DE8E" : "#A9B7C6",
                 boxShadow:
                   done || current
-                    ? "0 0 6px rgba(240,208,140,0.34), inset 0 1px 0 rgba(255,246,220,0.16), inset 0 -2px 5px rgba(0,0,0,0.42)"
+                    ? "0 0 6px rgba(230,193,90,0.34), inset 0 1px 0 rgba(255,246,220,0.16), inset 0 -2px 5px rgba(0,0,0,0.42)"
                     : "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -2px 5px rgba(0,0,0,0.35)",
               }}
             >
@@ -280,9 +280,9 @@ function TypeChip({ type }: { type: Booking["type"] }) {
     <span
       className="inline-flex items-center rounded-[8px] px-[13px] py-[6px] text-[12px] font-semibold uppercase tracking-[0.14em]"
       style={{
-        color: "#F0B44E",
-        border: "1px solid rgba(227,162,60,0.62)",
-        background: "linear-gradient(140deg, rgba(111,75,18,0.35) 0%, rgba(227,162,60,0.22) 38%, rgba(247,224,141,0.16) 52%, rgba(107,73,20,0.30) 100%)",
+        color: "#E6C15A",
+        border: "1px solid rgba(217,169,58,0.62)",
+        background: "linear-gradient(140deg, rgba(91,58,10,0.38) 0%, rgba(201,146,36,0.22) 38%, rgba(245,222,142,0.18) 52%, rgba(91,58,10,0.32) 100%)",
       }}
     >
       {type === "leisure" ? "Leisure" : "M&E"}
@@ -448,7 +448,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
                 "inset 0 1px 0 rgba(255,255,255,0.085), 0 1px 1px rgba(0,0,0,0.34), 0 2px 4px rgba(0,0,0,0.22)",
             }}
           >
-            <span className="shrink-0" style={{ color: "#E3A23C" }}>
+            <span className="shrink-0" style={{ color: GOLD }}>
               {m.icon}
             </span>
             {m.text}
@@ -518,7 +518,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           params={{ bookingId: booking.id }}
           className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[20px] py-[9px] text-[15px]"
           style={{
-            color: "#F3C979",
+            color: "#E6C15A",
             marginRight: 0,
             border: "1.5px solid transparent",
             background:
@@ -531,7 +531,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           <ArrowRight
             size={18}
             className="transition-transform duration-300 group-hover/btn:translate-x-[3px]"
-            style={{ color: "#F0D08C" }}
+            style={{ color: "#F5DE8E" }}
           />
         </Link>
       </div>
@@ -782,7 +782,7 @@ function Sidebar({
   showLabels?: boolean;
   onToggle?: () => void;
 }) {
-  const GOLD_LINE = "linear-gradient(180deg, #D8BE72 0%, #C7A24B 50%, #A97E2E 100%)";
+  const GOLD_LINE = "linear-gradient(180deg, #F5DE8E 0%, #D9A93A 50%, #A66A11 100%)";
 
   const renderItem = (
     item: { label: string; icon: typeof User },
@@ -812,14 +812,14 @@ function Sidebar({
           <span
             aria-hidden
             className="pointer-events-none absolute left-[6px] top-[9px] bottom-[9px] w-[2px] rounded-full"
-            style={{ background: "#C9B489" }}
+            style={{ background: "#E6C15A" }}
           />
         )}
         {isActive && collapsed && (
           <span
             aria-hidden
             className="pointer-events-none absolute left-[7px] top-[10px] bottom-[10px] w-[2px] rounded-full"
-            style={{ background: "#C9B489" }}
+            style={{ background: "#E6C15A" }}
           />
         )}
         <item.icon
@@ -1505,7 +1505,7 @@ function ManageBookings() {
                   to="/account"
                   className="shrink-0 rounded-lg px-4 py-2 text-center text-[12px] font-semibold uppercase tracking-[0.14em]"
                   style={{
-                    background: "linear-gradient(180deg, #D9BC72 0%, #C7A34A 55%, #A9853A 100%)",
+                    background: "linear-gradient(180deg, #F5DE8E 0%, #D9A93A 55%, #A66A11 100%)",
                     color: "#20180A",
                   }}
                 >
@@ -1531,7 +1531,7 @@ function ManageBookings() {
                   size={19}
                   strokeWidth={2}
                   className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2"
-                  style={{ color: "#DCBE84", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.45))" }}
+                  style={{ color: "#E6C15A", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.45))" }}
                 />
                 <input
                   value={query}
@@ -1604,7 +1604,7 @@ function ManageBookings() {
                               background:
                                 "linear-gradient(180deg, rgba(220,190,132,0.10) 0%, rgba(169,133,58,0.05) 100%)",
                               border: "1px solid rgba(220,190,132,0.55)",
-                              color: "#E4CB98",
+                              color: "#E6C15A",
                               boxShadow: "0 1px 0 rgba(255,255,255,0.07) inset",
                             }
                           : {
