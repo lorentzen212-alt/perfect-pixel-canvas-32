@@ -1393,14 +1393,7 @@ function ManageBookings() {
       )}
 
       <div className="hgb-rail-shift" style={{ ["--rail-w" as string]: `${railWidth}px` }}>
-        <main
-          className="relative min-h-screen"
-          style={{
-            backgroundColor: "transparent",
-            backgroundImage:
-              "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
-          }}
-        >
+        <main className="relative min-h-screen">
           {/* main page background — premium royal navy architectural surface */}
           <div
             aria-hidden
