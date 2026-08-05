@@ -40,7 +40,6 @@ import {
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-navy-glow.png.asset.json";
-import contentArc from "@/assets/content-slate-glow.png.asset.json";
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
@@ -1401,36 +1400,49 @@ function ManageBookings() {
               "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
           }}
         >
-          {/* layered atmospheric surface — angular light composition */}
+          {/* main page surface — refined midnight-blue environment */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
             style={{
               top: 300,
-              backgroundColor: "#0C121A",
-              backgroundImage: `url("${contentArc.url}")`,
-              backgroundSize: "cover",
-              backgroundPosition: "center top",
+              backgroundColor: "#071426",
+              backgroundImage: [
+                // broad soft light bloom behind central booking area
+                "radial-gradient(95% 62% at 50% 34%, rgba(33,74,120,0.55) 0%, rgba(23,52,90,0.34) 38%, rgba(11,27,50,0.12) 66%, rgba(7,20,38,0) 84%)",
+                // controlled atmospheric glow, lower-right
+                "radial-gradient(70% 55% at 92% 88%, rgba(33,74,120,0.26) 0%, rgba(23,52,90,0.12) 42%, rgba(7,20,38,0) 76%)",
+                // darker navy toward top corners
+                "radial-gradient(80% 60% at 0% 0%, rgba(4,10,20,0.72) 0%, rgba(4,10,20,0.28) 44%, rgba(4,10,20,0) 78%)",
+                "radial-gradient(80% 60% at 100% 0%, rgba(4,10,20,0.66) 0%, rgba(4,10,20,0.24) 46%, rgba(4,10,20,0) 80%)",
+                // base navy field
+                "linear-gradient(180deg, #071426 0%, #0B1B32 46%, #071426 100%)",
+              ].join(", "),
               backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
             }}
           >
-            {/* soft readability veil */}
+            {/* matte grain ~1.5% */}
             <div
               className="absolute inset-0"
               style={{
-                background:
-                  "linear-gradient(180deg, rgba(10,15,22,0.18) 0%, rgba(10,15,22,0.10) 40%, rgba(10,15,22,0.26) 100%)",
+                opacity: 0.015,
+                backgroundImage:
+                  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>\")",
+                backgroundSize: "160px 160px",
+                mixBlendMode: "overlay",
               }}
             />
-            {/* quiet vignette */}
+            {/* restrained vignette */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(118% 90% at 56% 36%, rgba(0,0,0,0) 52%, rgba(4,7,11,0.16) 82%, rgba(4,7,11,0.30) 100%)",
+                  "radial-gradient(115% 88% at 50% 40%, rgba(0,0,0,0) 54%, rgba(3,7,14,0.22) 82%, rgba(3,7,14,0.42) 100%)",
               }}
             />
           </div>
+
 
 
 
