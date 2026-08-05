@@ -773,6 +773,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     return (
       <div className="hgb-card-recess">
         <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300" style={shell}>
+          {goldStrip}
           <div>{media}</div>
           <div className="py-3 pr-3">{info}</div>
         </article>
