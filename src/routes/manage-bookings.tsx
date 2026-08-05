@@ -547,8 +547,6 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
   } as const;
 
-  /* structural brushed-anodized gold insert on the left edge */
-  const goldInsert = <span aria-hidden className="hgb-card-insert" />;
 
 
 
@@ -616,7 +614,6 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   if (compact) {
     return (
       <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
-        {goldInsert}
         <div>{media}</div>
         <div className="py-4 pr-4">{info}</div>
       </article>
@@ -629,7 +626,6 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       style={shell}
     >
-      {goldInsert}
       {media}
       <div className="min-w-0">{info}</div>
     </article>
