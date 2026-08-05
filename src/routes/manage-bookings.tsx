@@ -125,10 +125,15 @@ const BLUE = "#4881D5";
 /* polished brass — deeper, richer premium gold without glossy near-white peaks */
 const GOLD_BRUSHED =
   "linear-gradient(90deg, #6A4C10 0%, #8B6716 22%, #A87F1E 42%, #B98D24 52%, #A2791C 66%, #7E5C13 84%, #5E430B 100%)";
+/* brushed champagne metal — richer, less orange, more depth */
 const GOLD_BRUSHED_H =
-  "linear-gradient(140deg, #5C3E06 0%, #8A6010 16%, #B9871A 34%, #D2A23E 50%, #B9871A 66%, #8A6010 84%, #5C3E06 100%)";
-const GREEN = "#5E9C6A";
-const RED = "#B4636A";
+  "linear-gradient(140deg, #B88E43 0%, #C8A55A 18%, #E2C984 38%, #EBD7A2 50%, #E2C984 62%, #C8A55A 82%, #B88E43 100%)";
+const GREEN = "#6DBB83";
+const RED = "#C96A6A";
+/* calm champagne used for labels, hairlines and small accents */
+const CHAMPAGNE = "#D8C58E";
+const CHAMPAGNE_LINE = "rgba(216,197,142,0.35)";
+const IVORY = "#ECE7DD";
 
 const SERIF = '"Cormorant Garamond", "EB Garamond", Georgia, serif';
 const SANS = 'Inter, "Helvetica Neue", Arial, sans-serif';
