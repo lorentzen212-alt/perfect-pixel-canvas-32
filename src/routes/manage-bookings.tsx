@@ -1829,12 +1829,22 @@ function ManageBookings() {
                   boxShadow: CARD_SHADOW,
                 }}
               >
-                <p
-                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: TEXT_2 }}
-                >
-                  Since your last visit
-                </p>
+                <div className="flex items-center justify-between gap-3">
+                  <p
+                    className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: TEXT_2 }}
+                  >
+                    Recent activity
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setGroup("all")}
+                    className="shrink-0 text-[11.5px]"
+                    style={{ color: GOLD }}
+                  >
+                    View all
+                  </button>
+                </div>
                 <span
                   aria-hidden
                   className="mt-2.5 block h-px w-full"
@@ -1843,6 +1853,7 @@ function ManageBookings() {
                       "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
                   }}
                 />
+
                 <div className="mt-3 min-h-0 flex-1 overflow-hidden">
                   {activity.length === 0 && (
                     <p className="text-[12.5px]" style={{ color: MUTED }}>
