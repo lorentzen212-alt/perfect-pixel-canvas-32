@@ -1,3 +1,5 @@
+import { metallicGradient } from "./metal";
+
 /**
  * Instant Edits store — lightweight on-the-fly text & style editing.
  * Persists per-route edits in localStorage. Independent from Design Mode.
@@ -17,6 +19,14 @@ export type InstantEdit = {
   radius?: number;
   /** raw tailwind class string appended to the element */
   classes?: string;
+  /** render the text colour as a polished metal gradient */
+  colorMetallic?: boolean;
+  /** render the background as a polished metal gradient */
+  bgMetallic?: boolean;
+  /** 0..100 reflection intensity */
+  metallicStrength?: number;
+  /** 0..360 light direction */
+  metallicAngle?: number;
 };
 
 export type InstantDoc = Record<string, InstantEdit>;
@@ -101,8 +111,38 @@ export function applyInstantEdit(el: HTMLElement, e: InstantEdit) {
   el.style.letterSpacing = e.letterSpacing != null ? `${e.letterSpacing}px` : "";
   el.style.lineHeight = e.lineHeight != null ? String(e.lineHeight) : "";
   el.style.textAlign = e.align ?? "";
-  el.style.color = e.color ?? "";
-  el.style.background = e.background ?? "";
+  const strength = e.metallicStrength ?? 60;
+  const angle = e.metallicAngle ?? 155;
+
+  // reset metal artefacts from a previous apply
+  el.style.backgroundImage = "";
+  el.style.webkitBackgroundClip = "";
+  el.style.backgroundClip = "";
+  el.style.webkitTextFillColor = "";
+
+  if (e.bgMetallic && e.background) {
+    el.style.background = "";
+    el.style.backgroundImage = metallicGradient(e.background, strength, angle);
+  } else {
+    el.style.background = e.background ?? "";
+  }
+
+  if (e.colorMetallic && e.color) {
+    el.style.color = "transparent";
+    if (!e.bgMetallic) {
+      el.style.backgroundImage = metallicGradient(e.color, strength, angle);
+      el.style.webkitBackgroundClip = "text";
+      el.style.backgroundClip = "text";
+    }
+    el.style.webkitTextFillColor = "transparent";
+    if (e.bgMetallic) {
+      // background already used by the metal fill — fall back to a flat light tone
+      el.style.webkitTextFillColor = "";
+      el.style.color = e.color;
+    }
+  } else {
+    el.style.color = e.color ?? "";
+  }
   el.style.padding = e.padding != null ? `${e.padding}px` : "";
   el.style.borderRadius = e.radius != null ? `${e.radius}px` : "";
 
