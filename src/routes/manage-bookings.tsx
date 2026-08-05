@@ -574,18 +574,18 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className={
         compact
           ? "relative overflow-hidden"
-          : "relative rounded-[16px] p-[8px] sm:h-full sm:self-stretch"
+          : "relative rounded-[16px] p-[7px] sm:h-full sm:self-stretch"
       }
       style={
         compact
           ? undefined
           : {
               /* pulled closer to the machined gold edge without moving any other content */
-              marginLeft: -10,
+              marginLeft: -15,
               background: "linear-gradient(180deg, #18212C 0%, #131B25 100%)",
-              border: "1px solid rgba(255,255,255,0.055)",
+              border: "1px solid rgba(255,255,255,0.05)",
               boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -4px 12px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.35)",
+                "inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -4px 12px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.3)",
             }
       }
     >
