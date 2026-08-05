@@ -625,7 +625,6 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   if (compact) {
     return (
       <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
-        <span aria-hidden className="hgb-card-insert" />
         <div>{media}</div>
         <div className="py-4 pr-4">{info}</div>
       </article>
@@ -638,7 +637,6 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       style={shell}
     >
-      <span aria-hidden className="hgb-card-insert" />
       {media}
       <div className="min-w-0">{info}</div>
     </article>
