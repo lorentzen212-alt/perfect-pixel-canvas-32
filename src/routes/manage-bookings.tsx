@@ -175,6 +175,9 @@ const GROUP_COLOR: Record<Exclude<Group, "all">, string> = {
 
 /* primary action follows the real booking status and keeps its destination */
 function primaryAction(b: Booking) {
+  /* cancelled bookings keep read-only access only */
+  if (b.status === "cancelled")
+    return { label: "View booking", to: "/bookings/$bookingId" as const };
   switch (b.action.kind) {
     case "rooming_list":
       return { label: "Complete Rooming List", to: "/rooming-list/$bookingId" as const };
