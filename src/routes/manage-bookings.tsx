@@ -1773,6 +1773,49 @@ function ManageBookings() {
                   "0 1px 0 rgba(255,255,255,0.035) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 24px 60px -45px rgba(0,0,0,0.7)",
               }}
             >
+              {/* booking list view selector */}
+              <div className="mb-[16px] flex flex-wrap items-center gap-2">
+                {(
+                  [
+                    { key: "active" as const, label: "Active Bookings", n: scopeCounts.active },
+                    {
+                      key: "cancelled" as const,
+                      label: "Cancelled Bookings",
+                      n: scopeCounts.cancelled,
+                    },
+                    { key: "all" as const, label: "All Bookings", n: scopeCounts.all },
+                  ]
+                ).map(({ key, label, n }) => {
+                  const on = scope === key;
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => setScope(key)}
+                      className="rounded-[11px] px-[14px] py-[8px] text-[12.5px] font-medium transition-all duration-200"
+                      style={
+                        on
+                          ? {
+                              background:
+                                "linear-gradient(180deg, rgba(220,190,132,0.10) 0%, rgba(169,133,58,0.05) 100%)",
+                              border: "1px solid rgba(220,190,132,0.55)",
+                              color: "#E4CB98",
+                              boxShadow: "0 1px 0 rgba(255,255,255,0.07) inset",
+                            }
+                          : {
+                              background: "rgba(255,255,255,0.02)",
+                              border: "1px solid rgba(255,255,255,0.05)",
+                              color: "rgba(255,255,255,0.72)",
+                            }
+                      }
+                    >
+                      {label} ({n})
+                    </button>
+                  );
+                })}
+              </div>
+
               <div
                 className={
                   view === "list" ? "space-y-4" : "grid grid-cols-1 gap-4 xl:grid-cols-2"
