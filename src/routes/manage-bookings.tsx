@@ -40,7 +40,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-navy-glow.png.asset.json";
-import pageSlate from "@/assets/page-navy-arch-glow.png.asset.json";
+import contentArc from "@/assets/content-slate-glow.png.asset.json";
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
@@ -49,8 +49,6 @@ import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
-import navyArchWall from "@/assets/panel-slate-material.png.asset.json";
-
 
 
 import {
@@ -683,12 +681,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
 
-    border: "1px solid rgba(255,255,255,0.04)",
+    border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
     borderRadius: 12,
-    /* floating above the slate panel: contact shadow + layered ambient depth */
+    /* precision-machined surface — subtle highlights + deep base shadow */
     boxShadow:
-      "0 2px 6px rgba(0,0,0,0.18), 0 8px 14px -6px rgba(0,0,0,0.30), 0 12px 28px rgba(0,0,0,0.22), 0 28px 60px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -6px 16px rgba(0,0,0,0.42)",
+      "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
   } as const;
 
 
@@ -759,7 +757,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300" style={shell}>
+      <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
         <div>{media}</div>
         <div className="py-3 pr-3">{info}</div>
       </article>
@@ -768,7 +766,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[16px] pr-[18px] transition-all duration-300 sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[16px] pr-[18px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
 
       style={shell}
     >
@@ -1393,20 +1391,44 @@ function ManageBookings() {
       )}
 
       <div className="hgb-rail-shift" style={{ ["--rail-w" as string]: `${railWidth}px` }}>
-        <main className="relative min-h-screen">
-          {/* main page background — premium royal navy architectural surface */}
+        <main
+          className="relative min-h-screen"
+          style={{
+            backgroundColor: "transparent",
+            backgroundImage:
+              "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
+          }}
+        >
+          {/* layered atmospheric surface — angular light composition */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
             style={{
               top: 300,
-              backgroundImage: `url("${pageSlate.url}")`,
+              backgroundColor: "#0C121A",
+              backgroundImage: `url("${contentArc.url}")`,
               backgroundSize: "cover",
-              backgroundPosition: "center",
+              backgroundPosition: "center top",
               backgroundRepeat: "no-repeat",
             }}
-          />
-
+          >
+            {/* soft readability veil */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(10,15,22,0.18) 0%, rgba(10,15,22,0.10) 40%, rgba(10,15,22,0.26) 100%)",
+              }}
+            />
+            {/* quiet vignette */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(118% 90% at 56% 36%, rgba(0,0,0,0) 52%, rgba(4,7,11,0.16) 82%, rgba(4,7,11,0.30) 100%)",
+              }}
+            />
+          </div>
 
 
 
@@ -1725,15 +1747,16 @@ function ManageBookings() {
 
             {/* bookings — premium workspace panel */}
             <section
-              className="booking-fabric-panel rounded-[18px] p-[22px]"
+              className="rounded-[18px] p-[22px]"
+
               style={{
-                "--fabric-url": `url(${navyArchWall.url})`,
+                background:
+                  "linear-gradient(180deg, #1B222A 0%, #151B22 55%, #121820 100%)",
                 border: "1px solid rgba(255,255,255,0.05)",
                 boxShadow:
                   "0 1px 0 rgba(255,255,255,0.035) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 24px 60px -45px rgba(0,0,0,0.7)",
-              } as React.CSSProperties}
+              }}
             >
-
               {/* booking list view selector */}
               <div className="mb-[16px] flex flex-wrap items-center gap-2">
                 {(
