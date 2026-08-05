@@ -723,7 +723,7 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
               style={{ color: HERO_ACCENT }}
             >
               <ArrowLeft size={16} />
-              Back to Overview
+              Back to Dashboard
             </Link>
           }
         />

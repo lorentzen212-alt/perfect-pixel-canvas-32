@@ -70,7 +70,7 @@ const {
   GREEN,
 } = PAL;
 
-const TABS = ["Overview", "Rooming List", "Documents", "Activity"];
+const TABS = ["Dashboard", "Rooming List", "Documents", "Activity"];
 
 type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 
@@ -523,7 +523,7 @@ function BookingWorkspace() {
 function Workspace({ booking }: { booking: Booking }) {
   const navigate = useNavigate();
   const [navOpen, setNavOpen] = useState(false);
-  const [tab, setTab] = useState("Overview");
+  const [tab, setTab] = useState("Dashboard");
   /* rooming progress is derived from the live rooming list, never hardcoded */
   const [roomingStats, setRoomingStats] = useState<{ filled: number; total: number; percent: number } | null>(null);
   useEffect(() => {
@@ -621,7 +621,7 @@ function Workspace({ booking }: { booking: Booking }) {
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
       <aside className="fixed inset-y-0 left-0 hidden w-[244px] lg:block">
-        <SidebarContent active="Overview" />
+        <SidebarContent active="Dashboard" />
       </aside>
 
       {navOpen && (
@@ -632,7 +632,7 @@ function Workspace({ booking }: { booking: Booking }) {
             onClick={() => setNavOpen(false)}
           />
           <div className="absolute inset-y-0 left-0 w-[268px]">
-            <SidebarContent active="Overview" />
+            <SidebarContent active="Dashboard" />
             <button
               aria-label="Close navigation"
               onClick={() => setNavOpen(false)}
@@ -892,7 +892,7 @@ function Workspace({ booking }: { booking: Booking }) {
           </nav>
 
           {/* ── content ──────────────────────────── */}
-          {tab !== "Overview" ? (
+          {tab !== "Dashboard" ? (
             <section
               className="mt-4 rounded-[13px] p-8 text-center"
               style={{ backgroundColor: CARD, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
