@@ -167,3 +167,27 @@ export function instantEditsAllowed() {
   }
   return window.localStorage.getItem("hgb:instant-edits:allowed") === "1";
 }
+
+/* ------------------------------------------------------------------ */
+/* Remote persistence (saved edits, visible to every visitor)          */
+/* ------------------------------------------------------------------ */
+
+/** Cheap sanity signature so a stale DOM path doesn't restyle the wrong node. */
+export function signatureOf(el: HTMLElement): string {
+  const text = (el.textContent ?? "").trim().slice(0, 40);
+  return `${el.tagName.toLowerCase()}|${text}`;
+}
+
+/** True when the stored signature clearly doesn't match the element. */
+export function signatureMismatch(el: HTMLElement, signature?: string | null): boolean {
+  if (!signature) return false;
+  const [tag] = signature.split("|");
+  return !!tag && tag !== el.tagName.toLowerCase();
+}
+
+export function docsEqual(a: InstantDoc, b: InstantDoc): boolean {
+  const ka = Object.keys(a).sort();
+  const kb = Object.keys(b).sort();
+  if (ka.length !== kb.length || ka.some((k, i) => k !== kb[i])) return false;
+  return ka.every((k) => JSON.stringify(a[k]) === JSON.stringify(b[k]));
+}
