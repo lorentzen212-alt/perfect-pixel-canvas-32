@@ -1553,8 +1553,13 @@ function ManageBookings() {
             </header>
 
 
-            {/* status cards + activity */}
-            <section className="mt-[38px] grid grid-cols-1 items-stretch gap-4 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,1.06fr)_minmax(0,1.06fr)_minmax(0,0.82fr)]">
+            {/* main content + right sidebar */}
+            <div className="mt-[38px] grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
+            <div className="min-w-0">
+
+            {/* status cards */}
+            <section className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+
               <StatusCard
                 label="Proposal ready"
                 count={counts.proposal}
