@@ -16,6 +16,18 @@ import { supabase } from "@/integrations/supabase/client";
 
 const DesignMode = lazy(() => import("../components/design-mode/DesignMode"));
 const InstantEdits = lazy(() => import("../components/instant-edits/InstantEdits"));
+const SiteEditsApplier = lazy(() => import("../components/instant-edits/SiteEditsApplier"));
+
+function SiteEditsMount() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return (
+    <Suspense fallback={null}>
+      <SiteEditsApplier />
+    </Suspense>
+  );
+}
 
 function DesignModeMount() {
   const [mounted, setMounted] = useState(false);
@@ -160,6 +172,7 @@ function RootComponent() {
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </AuthProvider>
+      <SiteEditsMount />
       <DesignModeMount />
     </QueryClientProvider>
   );
