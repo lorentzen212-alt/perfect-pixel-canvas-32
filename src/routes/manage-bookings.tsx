@@ -47,7 +47,6 @@ import mountains from "@/assets/dashboard-mountains.jpg";
 import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
-import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
 
 
 import {
