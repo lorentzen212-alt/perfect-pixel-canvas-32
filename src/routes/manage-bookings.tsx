@@ -543,9 +543,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
        painted in the card background itself, clipped by the card radius */
     backgroundImage: [
       /* wide, soft diagonal reflections sampled from the reference metal */
-      "linear-gradient(158deg, #55481E 0%, #6E5D26 12%, #A28B37 28%, #D8B84C 40%, #F2CF56 46%, #C1A442 54%, #7C6A2B 66%, #6B5B24 78%, #A08A36 90%, #594B1F 100%)",
+      "linear-gradient(158deg, #8C7A3F 0%, #9C8946 8%, #B39C51 18%, #CBB260 30%, #DCC46E 40%, #E4CD75 48%, #D0B863 57%, #A89448 68%, #94823E 76%, #B09B50 88%, #8A783E 100%)",
       /* gentle cross-section shading so the band reads as solid metal, not paint */
-      "linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.10) 10%, rgba(255,255,255,0.06) 34%, rgba(255,255,255,0.10) 62%, rgba(0,0,0,0.12) 86%, rgba(0,0,0,0.52) 100%)",
+      "linear-gradient(90deg, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.06) 12%, rgba(255,255,255,0.05) 38%, rgba(255,255,255,0.07) 64%, rgba(0,0,0,0.08) 86%, rgba(0,0,0,0.34) 100%)",
+
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
     ].join(", "),
     backgroundRepeat: "no-repeat",
