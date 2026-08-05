@@ -238,7 +238,7 @@ function Timeline({ booking }: { booking: Booking }) {
         style={{
           height: "0.5px",
           width: `${(active / 3) * 75}%`,
-          background: `linear-gradient(90deg, rgba(169,122,32,0.13) 0%, rgba(169,122,32,0.9) 35%, rgba(227,162,60,0.9) 70%, rgba(251,221,155,0.9) 100%)`,
+          background: `linear-gradient(90deg, rgba(216,197,142,0.16) 0%, rgba(216,197,142,0.62) 35%, rgba(226,201,132,0.80) 70%, rgba(235,215,162,0.88) 100%)`,
         }}
         aria-hidden
       />
