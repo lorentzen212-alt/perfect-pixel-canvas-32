@@ -1401,41 +1401,18 @@ function ManageBookings() {
               "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
           }}
         >
-          {/* layered atmospheric surface — premium dark slate wall */}
+          {/* main page background — premium royal navy architectural surface */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
             style={{
               top: 300,
-              backgroundColor: "#0C121A",
               backgroundImage: `url("${pageSlate.url}")`,
-              backgroundSize: "140%",
+              backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
-          >
-            {/* navy tint so the slate integrates with the HotelGroupBook palette */}
-            <div
-              className="absolute inset-0"
-              style={{ background: "rgba(8,16,28,0.18)" }}
-            />
-            {/* very soft ambient illumination: slightly brighter centre, darker edges */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(120% 90% at 50% 42%, rgba(255,255,255,0.028) 0%, rgba(255,255,255,0.01) 32%, rgba(255,255,255,0) 52%)",
-              }}
-            />
-            {/* smooth vignette — extremely subtle */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(135% 110% at 50% 45%, rgba(0,0,0,0) 48%, rgba(4,7,11,0.18) 80%, rgba(4,7,11,0.32) 100%)",
-              }}
-            />
-          </div>
+          />
 
 
 
