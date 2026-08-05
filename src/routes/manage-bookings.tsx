@@ -434,11 +434,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* metadata chips */}
-      <div className="mt-[13px] flex flex-wrap items-center gap-[10px]">
+      <div className="mt-[13px] flex flex-wrap items-center gap-[8px]">
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[5px] px-[14px] py-[8px] text-[13px] font-light"
+            className="inline-flex items-center gap-[8px] whitespace-nowrap rounded-[5px] px-[12px] py-[8px] text-[12.5px] font-light"
+
             style={{
               color: "#E6EDF3",
               border: "1px solid rgba(255,255,255,0.055)",
@@ -515,24 +516,18 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[24px] py-[13px] text-[15px]"
-          style={{
-            color: "#F3C979",
-            marginRight: 0,
-            border: "1.5px solid transparent",
-            background:
-              `linear-gradient(180deg, #1A2330 0%, #131C27 100%) padding-box, ${GOLD_BRUSHED_H} border-box`,
-            boxShadow:
-              "0 2px 8px rgba(0,0,0,0.45), 0 0 14px rgba(227,162,60,0.22), inset 0 1px 0 rgba(255,255,255,0.05)",
-          }}
+          className="hgb-gold-cta hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[9px] px-[26px] py-[13px] text-[15px]"
         >
-          <span className="hgb-gold-metal">{action.label}</span>
+          <span className="relative" style={{ color: "#2A1B04", fontWeight: 500 }}>
+            {action.label}
+          </span>
           <ArrowRight
             size={18}
-            className="transition-transform duration-300 group-hover/btn:translate-x-[3px]"
-            style={{ color: "#F0D08C" }}
+            className="relative transition-transform duration-300 group-hover/btn:translate-x-[3px]"
+            style={{ color: "#2A1B04" }}
           />
         </Link>
+
       </div>
     </>
   );
