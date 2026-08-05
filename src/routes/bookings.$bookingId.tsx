@@ -523,6 +523,13 @@ function BookingWorkspace() {
 
 function Workspace({ booking }: { booking: Booking }) {
   const navigate = useNavigate();
+  const { session, profile, signOut } = useAuth();
+  const displayName = profile
+    ? `${profile.first_name} ${profile.last_name}`.trim() || profile.email
+    : (session?.user.email ?? "");
+  const initials =
+    (profile?.first_name?.[0] ?? displayName[0] ?? "").toUpperCase() +
+    (profile?.last_name?.[0] ?? "").toUpperCase();
   const [navOpen, setNavOpen] = useState(false);
   const [tab, setTab] = useState("Booking Overview");
   /* rooming progress is derived from the live rooming list, never hardcoded */
