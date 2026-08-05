@@ -4,10 +4,15 @@ import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { Database } from "@/integrations/supabase/types";
 
+export type SiteEditPayload = {
+  text?: string | null;
+  styles?: Record<string, string>;
+};
+
 export type SiteEditRow = {
   route: string;
   element_path: string;
-  edit: Record<string, unknown>;
+  edit: SiteEditPayload;
   signature: string | null;
 };
 
@@ -42,7 +47,7 @@ export const listSiteEdits = createServerFn({ method: "GET" })
 
 type SavePayload = {
   route: string;
-  edits: { element_path: string; edit: Record<string, unknown>; signature?: string | null }[];
+  edits: { element_path: string; edit: SiteEditPayload; signature?: string | null }[];
 };
 
 /** Admin-only write — replaces the stored edit set for one route. */
