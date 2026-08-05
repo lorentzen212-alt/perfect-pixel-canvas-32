@@ -1406,10 +1406,10 @@ function ManageBookings() {
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
             style={{
-              top: 0,
+              top: 300,
               backgroundColor: "#0C121A",
               backgroundImage: `url("${pageSlate.url}")`,
-              backgroundSize: "cover",
+              backgroundSize: "140%",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
