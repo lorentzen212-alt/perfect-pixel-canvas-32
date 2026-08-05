@@ -797,7 +797,7 @@
   box-shadow: 0 6px 16px rgba(6, 12, 20, 0.28);
 }
 
-/* Soft moving metallic reflection across gold-bordered buttons */
+/* Moving specular reflection across gold-bordered buttons */
 .hgb-gold-sheen::after {
   content: "";
   position: absolute;
@@ -805,9 +805,11 @@
   pointer-events: none;
   background: linear-gradient(
     115deg,
-    rgba(255, 255, 255, 0) 38%,
-    rgba(255, 240, 200, 0.14) 50%,
-    rgba(255, 255, 255, 0) 62%
+    rgba(255, 255, 255, 0) 34%,
+    rgba(255, 245, 214, 0.10) 44%,
+    rgba(255, 253, 240, 0.34) 50%,
+    rgba(255, 245, 214, 0.10) 56%,
+    rgba(255, 255, 255, 0) 66%
   );
   background-size: 260% 100%;
   animation: hgb-sheen 6.5s ease-in-out infinite;
@@ -826,6 +828,7 @@
 }
 
 
+
 /* Booking card hover elevation (Manage Bookings) */
 .hgb-booking-card {
   --insert-w: 20px;
@@ -841,16 +844,18 @@
 /* gold edge is painted in the card's own background (see shell in manage-bookings) */
 
 
-/* ── booking card: premium metallic gold finishes ── */
+/* ── booking card: mirror-polished metallic gold finishes ── */
 .hgb-gold-metal {
   background-image: linear-gradient(
     172deg,
-    #6B4A14 0%,
-    #A87C2C 16%,
-    #D2A23E 34%,
-    #E8C170 48%,
-    #D2A23E 60%,
-    #A87C2C 80%,
+    #4E3406 0%,
+    #A87C2C 12%,
+    #F0D492 26%,
+    #FFFAE6 36%,
+    #C99A34 48%,
+    #9A6E18 58%,
+    #E5BE63 72%,
+    #FFF6D6 82%,
     #6B4A14 100%
   );
   -webkit-background-clip: text;
@@ -865,10 +870,12 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.14) 0%,
-    rgba(255, 238, 190, 0.05) 45%,
-    rgba(0, 0, 0, 0.16) 100%
+    rgba(0, 0, 0, 0.22) 0%,
+    rgba(255, 246, 214, 0.28) 34%,
+    rgba(255, 255, 255, 0.06) 46%,
+    rgba(0, 0, 0, 0.30) 100%
   );
   pointer-events: none;
 }
+
 
