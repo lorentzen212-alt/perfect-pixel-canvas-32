@@ -788,6 +788,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
         style={shell}
       >
+        {goldStrip}
         {media}
         <div className="min-w-0">{info}</div>
       </article>
