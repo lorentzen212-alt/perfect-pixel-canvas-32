@@ -103,7 +103,7 @@ const SIDE_TEXT_2 = "rgba(255,255,255,0.90)";
 const SIDE_MUTED = "rgba(255,255,255,0.90)";
 const SIDE_LINE = "rgba(255,255,255,0.06)";
 
-const GOLD_DEEP = "#A9853A";
+const GOLD_DEEP = "#A66A11";
 const PAGE = "#646D75";
 const CARD = "#31414F";
 const CARD_BORDER = "rgba(255,255,255,0.06)";
