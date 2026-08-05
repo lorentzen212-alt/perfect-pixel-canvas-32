@@ -120,12 +120,11 @@ const PEARL = "#F4F1EA";
 const RULE = "rgba(190,205,215,0.20)";
 /* deeper, richer premium royal blue (awaiting) — no cyan */
 const BLUE = "#4881D5";
-/* polished luxury gold — high-contrast mirror bands, champagne highlights */
+/* polished brass — deeper, richer premium gold without glossy near-white peaks */
 const GOLD_BRUSHED =
-  "linear-gradient(90deg, #4A340B 0%, #9A7326 12%, #D8B45F 22%, #FBF1D2 27%, #C79E45 36%, #8A6620 50%, #C9A249 62%, #F7EAC4 68%, #D3AB55 76%, #8E6A21 88%, #4A340B 100%)";
+  "linear-gradient(90deg, #6A4C10 0%, #8B6716 22%, #A87F1E 42%, #B98D24 52%, #A2791C 66%, #7E5C13 84%, #5E430B 100%)";
 const GOLD_BRUSHED_H =
-  "linear-gradient(140deg, #432F09 0%, #8E6A21 14%, #D5B15C 26%, #FCF4DC 32%, #C09842 44%, #85621E 56%, #D2AB55 70%, #F8EDCB 76%, #A17A2A 88%, #432F09 100%)";
-
+  "linear-gradient(140deg, #5C3E06 0%, #8A6010 16%, #B9871A 34%, #D2A23E 50%, #B9871A 66%, #8A6010 84%, #5C3E06 100%)";
 const GREEN = "#5E9C6A";
 const RED = "#B4636A";
 
@@ -543,22 +542,14 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     /* the gold edge is part of the card's own shell: a solid-metal left band
        painted in the card background itself, clipped by the card radius */
     backgroundImage: [
-      /* clear coat gloss */
-      "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 10%, rgba(255,255,255,0) 40%, rgba(0,0,0,0.10) 100%)",
-      /* extremely fine micro texture (~2%) */
-      "repeating-linear-gradient(180deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, rgba(0,0,0,0.02) 1px, rgba(0,0,0,0.02) 2px)",
-      /* smooth, continuous length-wise reflection falloff */
-      "linear-gradient(180deg, rgba(255,248,226,0.22) 0%, rgba(255,244,214,0.06) 22%, rgba(0,0,0,0.10) 52%, rgba(0,0,0,0.20) 78%, rgba(0,0,0,0.26) 100%)",
-      /* polished metal profile across the width: warm base, one crisp champagne highlight, one soft secondary reflection */
-      "linear-gradient(90deg, #4A3310 0%, #7C5A1D 10%, #B08635 20%, #F3E1B4 26%, #FFFAEC 29%, #D9B565 34%, #A87F2C 46%, #C39A44 60%, #E4CB8C 68%, #B4893A 78%, #8A6522 88%, #5A3F12 96%, #38260A 100%)",
-
+      "linear-gradient(90deg, #3A280B 0%, #E2C071 5%, #A87732 13%, #9C6D2C 38%, #BE8F3C 60%, #D9AC4E 76%, #F2DC97 87%, #FDF3CC 91%, #CFA24A 96%, #231806 100%)",
+      "linear-gradient(180deg, rgba(255,246,214,0.34) 0%, rgba(255,232,176,0.16) 8%, rgba(0,0,0,0) 20%, rgba(255,250,225,0.30) 33%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.26) 62%, rgba(0,0,0,0.38) 82%, rgba(0,0,0,0.10) 100%)",
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
     ].join(", "),
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "left top, left top, left top, left top, left top",
-    backgroundSize:
-      "var(--insert-w) 100%, var(--insert-w) 100%, var(--insert-w) 100%, var(--insert-w) 100%, 100% 100%",
-    backgroundBlendMode: "overlay, soft-light, overlay, normal, normal",
+    backgroundPosition: "left top, left top, left top",
+    backgroundSize: "var(--insert-w) 100%, var(--insert-w) 100%, 100% 100%",
+    backgroundBlendMode: "normal, overlay, normal",
     border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
     borderRadius: 12,
@@ -566,7 +557,6 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     boxShadow:
       "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
   } as const;
-
 
 
 
@@ -792,7 +782,7 @@ function Sidebar({
   showLabels?: boolean;
   onToggle?: () => void;
 }) {
-  const GOLD_LINE = "linear-gradient(180deg, #F3E4B8 0%, #D2AB55 22%, #A87F2E 48%, #E4CC8C 62%, #B0872F 82%, #7E5C1B 100%)";
+  const GOLD_LINE = "linear-gradient(180deg, #D8BE72 0%, #C7A24B 50%, #A97E2E 100%)";
 
   const renderItem = (
     item: { label: string; icon: typeof User },
@@ -1515,7 +1505,7 @@ function ManageBookings() {
                   to="/account"
                   className="shrink-0 rounded-lg px-4 py-2 text-center text-[12px] font-semibold uppercase tracking-[0.14em]"
                   style={{
-                    background: "linear-gradient(180deg, #FBF2D8 0%, #DDB966 14%, #C09B41 42%, #E6CE92 58%, #B08830 80%, #8A6821 100%)",
+                    background: "linear-gradient(180deg, #D9BC72 0%, #C7A34A 55%, #A9853A 100%)",
                     color: "#20180A",
                   }}
                 >
