@@ -550,7 +550,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       /* environmental reflection bands down the length */
       "linear-gradient(180deg, rgba(255,250,232,0.42) 0%, rgba(255,238,190,0.16) 7%, rgba(0,0,0,0.22) 17%, rgba(255,252,238,0.38) 30%, rgba(0,0,0,0.10) 40%, rgba(0,0,0,0.34) 56%, rgba(255,246,214,0.24) 68%, rgba(0,0,0,0.42) 84%, rgba(255,244,208,0.18) 100%)",
       /* polished metal profile across the width */
-      "linear-gradient(90deg, #2C1D06 0%, #6E4E13 4%, #B58B33 9%, #EFD79B 14%, #FFFBEF 16.5%, #D6AE55 21%, #96702440 0%, #967024 33%, #C8A047 46%, #F4E3B4 52%, #FFFDF4 55%, #DCB863 60%, #8A6520 72%, #BE9438 82%, #F7EBC6 88%, #FFFEF8 90%, #C69D45 94%, #6B4A12 97%, #1F1404 100%)",
+      "linear-gradient(90deg, #2C1D06 0%, #6E4E13 4%, #B58B33 9%, #EFD79B 14%, #FFFBEF 16.5%, #D6AE55 21%, #967024 33%, #C8A047 46%, #F4E3B4 52%, #FFFDF4 55%, #DCB863 60%, #8A6520 72%, #BE9438 82%, #F7EBC6 88%, #FFFEF8 90%, #C69D45 94%, #6B4A12 97%, #1F1404 100%)",
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
     ].join(", "),
     backgroundRepeat: "no-repeat",
@@ -791,7 +791,7 @@ function Sidebar({
   showLabels?: boolean;
   onToggle?: () => void;
 }) {
-  const GOLD_LINE = "linear-gradient(180deg, #D8BE72 0%, #C7A24B 50%, #A97E2E 100%)";
+  const GOLD_LINE = "linear-gradient(180deg, #F3E4B8 0%, #D2AB55 22%, #A87F2E 48%, #E4CC8C 62%, #B0872F 82%, #7E5C1B 100%)";
 
   const renderItem = (
     item: { label: string; icon: typeof User },
@@ -1514,7 +1514,7 @@ function ManageBookings() {
                   to="/account"
                   className="shrink-0 rounded-lg px-4 py-2 text-center text-[12px] font-semibold uppercase tracking-[0.14em]"
                   style={{
-                    background: "linear-gradient(180deg, #D9BC72 0%, #C7A34A 55%, #A9853A 100%)",
+                    background: "linear-gradient(180deg, #FBF2D8 0%, #DDB966 14%, #C09B41 42%, #E6CE92 58%, #B08830 80%, #8A6821 100%)",
                     color: "#20180A",
                   }}
                 >
