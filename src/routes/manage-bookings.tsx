@@ -1752,7 +1752,7 @@ function ManageBookings() {
             <section
               className="booking-fabric-panel rounded-[18px] p-[22px]"
               style={{
-                "--fabric-url": `url(${darkNavyFabric.url})`,
+                "--fabric-url": `url(${darkNavyFabricV2.url})`,
                 border: "1px solid rgba(255,255,255,0.05)",
                 boxShadow:
                   "0 1px 0 rgba(255,255,255,0.035) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 24px 60px -45px rgba(0,0,0,0.7)",
