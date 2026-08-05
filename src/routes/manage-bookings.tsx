@@ -47,6 +47,7 @@ import mountains from "@/assets/dashboard-mountains.jpg";
 import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
+import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
 
 
 import {
@@ -549,37 +550,19 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       /* gentle cross-section shading so the band reads as solid metal, not paint */
       "linear-gradient(90deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.03) 14%, rgba(255,255,255,0.07) 40%, rgba(255,255,255,0.05) 66%, rgba(0,0,0,0.06) 88%, rgba(0,0,0,0.28) 100%)",
 
-      /* ——— atmospheric background layers (all start after the gold edge) ——— */
-      /* fine premium film grain (~2.5%) */
-      `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E")`,
-      /* slight vignette around the edges */
-      "radial-gradient(130% 130% at 50% 50%, rgba(0,0,0,0) 52%, rgba(0,0,0,0.18) 82%, rgba(0,0,0,0.34) 100%)",
-      /* translucent curved light ribbons of varying thickness */
-      "radial-gradient(140% 26% at 18% 88%, rgba(150,185,235,0.10) 0%, rgba(150,185,235,0.04) 42%, rgba(0,0,0,0) 72%)",
-      "radial-gradient(120% 16% at 82% 20%, rgba(140,175,225,0.07) 0%, rgba(0,0,0,0) 68%)",
-      "radial-gradient(160% 40% at 60% 108%, rgba(120,160,215,0.08) 0%, rgba(0,0,0,0) 66%)",
-      /* gentle diagonal light sweep crossing the card */
-      "linear-gradient(118deg, rgba(0,0,0,0) 24%, rgba(170,200,240,0.045) 46%, rgba(190,215,245,0.02) 56%, rgba(0,0,0,0) 74%)",
-      /* faint cool-blue highlight near the bottom-right */
-      "radial-gradient(46% 70% at 92% 92%, rgba(120,165,225,0.11) 0%, rgba(120,165,225,0.03) 45%, rgba(0,0,0,0) 78%)",
-      /* soft glow behind the booking title */
-      "radial-gradient(38% 52% at 44% 30%, rgba(160,190,235,0.075) 0%, rgba(0,0,0,0) 76%)",
-      /* larger ambient glow behind the image area */
-      "radial-gradient(58% 80% at 12% 42%, rgba(130,170,225,0.10) 0%, rgba(130,170,225,0.035) 42%, rgba(0,0,0,0) 80%)",
-      /* soft atmospheric mist / volumetric haze between the light layers */
-      "linear-gradient(196deg, rgba(30,52,86,0.30) 0%, rgba(16,30,52,0.10) 42%, rgba(10,20,36,0.28) 100%)",
-      /* deep navy base */
-      "linear-gradient(152deg, #0C1627 0%, #0A1320 52%, #08111D 100%)",
+      /* soft dark slate tint above the stone so the UI stays clean and readable */
+      "linear-gradient(180deg, rgba(46,53,62,0.34) 0%, rgba(41,47,56,0.42) 100%)",
+      /* architectural stone / micro-cement texture — starts after the gold edge */
+      `url("${cardStoneTexture.url}")`,
+      "radial-gradient(120% 110% at 8% 0%, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 34%, rgba(0,0,0,0.00) 62%, rgba(0,0,0,0.10) 100%)",
+      "linear-gradient(152deg, #434A55 0%, #3B424C 46%, #333A44 78%, #2E353E 100%)",
     ].join(", "),
-    backgroundRepeat:
-      "no-repeat, no-repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
+    backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
     backgroundPosition:
-      "left top, left top, var(--insert-w) top, var(--insert-w) top, var(--insert-w) top, var(--insert-w) top, var(--insert-w) top, var(--insert-w) top, var(--insert-w) top, var(--insert-w) top, var(--insert-w) top, var(--insert-w) top, var(--insert-w) top",
+      "left top, left top, var(--insert-w) top, var(--insert-w) top, left top, left top",
     backgroundSize:
-      "var(--insert-w) 100%, var(--insert-w) 100%, 140px 140px, calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%",
-    backgroundBlendMode:
-      "normal, soft-light, overlay, normal, screen, screen, screen, screen, screen, screen, screen, normal, normal",
-
+      "var(--insert-w) 100%, var(--insert-w) 100%, calc(100% - var(--insert-w)) 100%, cover, 100% 100%, 100% 100%",
+    backgroundBlendMode: "normal, soft-light, normal, soft-light, normal, normal",
 
 
 
