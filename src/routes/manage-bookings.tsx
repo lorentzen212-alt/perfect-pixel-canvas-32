@@ -1284,6 +1284,38 @@ function ManageBookings() {
     [bookings],
   );
 
+  /* upcoming stays within the next 7 days + the nearest deadlines */
+  const upcoming = useMemo(() => {
+    const now = Date.now();
+    return bookings
+      .filter((b) => b.status !== "cancelled")
+      .map((b) => ({ b, t: new Date(b.startDate).getTime() }))
+      .filter((x) => !Number.isNaN(x.t) && x.t >= now)
+      .sort((a, z) => a.t - z.t);
+  }, [bookings]);
+
+  const next7 = useMemo(() => {
+    const now = Date.now();
+    const week = now + 7 * 864e5;
+    return upcoming.filter((x) => x.t <= week).length;
+  }, [upcoming]);
+
+  const deadlines = useMemo(
+    () =>
+      upcoming.slice(0, 3).map(({ b, t }) => {
+        const d = new Date(t);
+        return {
+          id: b.id,
+          day: String(d.getDate()).padStart(2, "0"),
+          month: d.toLocaleString("en-GB", { month: "short" }).toUpperCase(),
+          title: STATUS_META[b.status]?.label ?? "Upcoming stay",
+          sub: b.name,
+          remaining: `${Math.max(0, Math.ceil((t - Date.now()) / 864e5))} days remaining`,
+        };
+      }),
+    [upcoming],
+  );
+
   const displayName = profile
     ? `${profile.first_name} ${profile.last_name}`.trim() || profile.email
     : (session?.user.email ?? "");
@@ -1521,8 +1553,13 @@ function ManageBookings() {
             </header>
 
 
-            {/* status cards + activity */}
-            <section className="mt-[38px] grid grid-cols-1 items-stretch gap-4 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,1.06fr)_minmax(0,1.06fr)_minmax(0,0.82fr)]">
+            {/* main content + right sidebar */}
+            <div className="mt-[38px] grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
+            <div className="min-w-0">
+
+            {/* status cards */}
+            <section className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+
               <StatusCard
                 label="Proposal ready"
                 count={counts.proposal}
@@ -1556,78 +1593,8 @@ function ManageBookings() {
                 active={group === "confirmed"}
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
               />
-
-              <div
-                className="flex h-[224px] flex-col rounded-[14px] p-[20px]"
-                style={{
-                  background: PANEL,
-                  border: `1px solid ${CARD_BORDER}`,
-                  boxShadow: CARD_SHADOW,
-                }}
-              >
-                <p
-                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: TEXT_2 }}
-                >
-                  Since your last visit
-                </p>
-                <span
-                  aria-hidden
-                  className="mt-2.5 block h-px w-full"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
-                  }}
-                />
-                <div className="mt-3 min-h-0 flex-1 overflow-hidden">
-                  {activity.length === 0 && (
-                    <p className="text-[12.5px]" style={{ color: MUTED }}>
-                      No recent updates yet.
-                    </p>
-                  )}
-                  {activity.map((a, i) => (
-                    <Link
-                      key={a.id}
-                      to="/bookings/$bookingId"
-                      params={{ bookingId: a.id }}
-                      className="flex items-center gap-3 py-[7px]"
-                      style={
-                        i > 0
-                          ? { borderTop: "1px solid rgba(255,255,255,0.045)" }
-                          : undefined
-                      }
-                    >
-                      <span
-                        className="grid h-8 w-8 shrink-0 place-items-center rounded-full"
-                        style={{ border: `1px solid ${a.tone}66`, color: a.tone }}
-                      >
-                        <FileText size={14} />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
-                          {a.title}
-                        </span>
-                        <span
-                          className="block truncate text-[11.5px]"
-                          style={{ color: MUTED, opacity: 0.78 }}
-                        >
-                          {a.sub}
-                        </span>
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setGroup("all")}
-                  className="mt-2 flex items-center justify-between pt-2.5 text-[12.5px]"
-                  style={{ borderTop: `1px solid ${HAIRLINE}`, color: TEXT }}
-                >
-                  View all activity <ArrowRight size={15} style={{ color: GOLD }} />
-                </button>
-              </div>
             </section>
+
 
             {!isProfileComplete(profile) && (
               <section
@@ -1847,6 +1814,211 @@ function ManageBookings() {
                 </span>
               </footer>
             </section>
+            </div>
+
+            {/* right sidebar column */}
+            <aside className="flex min-w-0 flex-col gap-6">
+              {/* Next 7 days */}
+              <div
+                className="flex h-[224px] flex-col rounded-[14px] p-[20px]"
+                style={{
+                  background: PANEL,
+                  border: `1px solid ${CARD_BORDER}`,
+                  boxShadow: CARD_SHADOW,
+                }}
+              >
+                <p
+                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: TEXT_2 }}
+                >
+                  Next 7 days
+                </p>
+                <span
+                  aria-hidden
+                  className="mt-2.5 block h-px w-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
+                  }}
+                />
+                <div className="mt-3 flex min-h-0 flex-1 items-center gap-4">
+                  <span
+                    className="text-[44px] leading-none"
+                    style={{ color: PEARL, fontFamily: SERIF }}
+                  >
+                    {next7}
+                  </span>
+                  <span className="min-w-0 text-[12.5px]" style={{ color: MUTED }}>
+                    {next7 === 1 ? "Stay starting this week" : "Stays starting this week"}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setDateChoice("upcoming")}
+                  className="mt-2 flex items-center justify-between pt-2.5 text-[12.5px]"
+                  style={{ borderTop: `1px solid ${HAIRLINE}`, color: TEXT }}
+                >
+                  View upcoming <ArrowRight size={15} style={{ color: GOLD }} />
+                </button>
+              </div>
+
+              {/* Recent activity */}
+              <div
+                className="flex flex-col rounded-[14px] p-[20px]"
+                style={{
+                  background: PANEL,
+                  border: `1px solid ${CARD_BORDER}`,
+                  boxShadow: CARD_SHADOW,
+                }}
+              >
+                <p
+                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: TEXT_2 }}
+                >
+                  Since your last visit
+                </p>
+                <span
+                  aria-hidden
+                  className="mt-2.5 block h-px w-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
+                  }}
+                />
+                <div className="mt-3 min-h-0 flex-1 overflow-hidden">
+                  {activity.length === 0 && (
+                    <p className="text-[12.5px]" style={{ color: MUTED }}>
+                      No recent updates yet.
+                    </p>
+                  )}
+                  {activity.map((a, i) => (
+                    <Link
+                      key={a.id}
+                      to="/bookings/$bookingId"
+                      params={{ bookingId: a.id }}
+                      className="flex items-center gap-3 py-[7px]"
+                      style={
+                        i > 0
+                          ? { borderTop: "1px solid rgba(255,255,255,0.045)" }
+                          : undefined
+                      }
+                    >
+                      <span
+                        className="grid h-8 w-8 shrink-0 place-items-center rounded-full"
+                        style={{ border: `1px solid ${a.tone}66`, color: a.tone }}
+                      >
+                        <FileText size={14} />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
+                          {a.title}
+                        </span>
+                        <span
+                          className="block truncate text-[11.5px]"
+                          style={{ color: MUTED, opacity: 0.78 }}
+                        >
+                          {a.sub}
+                        </span>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setGroup("all")}
+                  className="mt-2 flex items-center justify-between pt-2.5 text-[12.5px]"
+                  style={{ borderTop: `1px solid ${HAIRLINE}`, color: TEXT }}
+                >
+                  View all activity <ArrowRight size={15} style={{ color: GOLD }} />
+                </button>
+              </div>
+
+              {/* Upcoming deadlines */}
+              <div
+                className="flex flex-col rounded-[14px] p-[20px]"
+                style={{
+                  background: PANEL,
+                  border: `1px solid ${CARD_BORDER}`,
+                  boxShadow: CARD_SHADOW,
+                }}
+              >
+                <p
+                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: TEXT_2 }}
+                >
+                  Upcoming deadlines
+                </p>
+                <span
+                  aria-hidden
+                  className="mt-2.5 block h-px w-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
+                  }}
+                />
+                <div className="mt-3 min-h-0 flex-1">
+                  {deadlines.length === 0 && (
+                    <p className="text-[12.5px]" style={{ color: MUTED }}>
+                      No upcoming deadlines.
+                    </p>
+                  )}
+                  {deadlines.map((d, i) => (
+                    <Link
+                      key={d.id}
+                      to="/bookings/$bookingId"
+                      params={{ bookingId: d.id }}
+                      className="flex items-center gap-3 py-[7px]"
+                      style={
+                        i > 0
+                          ? { borderTop: "1px solid rgba(255,255,255,0.045)" }
+                          : undefined
+                      }
+                    >
+                      <span
+                        className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] text-center leading-[1.05]"
+                        style={{
+                          border: `1px solid ${CARD_BORDER}`,
+                          background: "rgba(255,255,255,0.03)",
+                        }}
+                      >
+                        <span className="block">
+                          <span className="block text-[11.5px]" style={{ color: TEXT }}>
+                            {d.day}
+                          </span>
+                          <span
+                            className="block text-[8px] tracking-[0.12em]"
+                            style={{ color: MUTED }}
+                          >
+                            {d.month}
+                          </span>
+                        </span>
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
+                          {d.title}
+                        </span>
+                        <span
+                          className="block truncate text-[11.5px]"
+                          style={{ color: MUTED, opacity: 0.78 }}
+                        >
+                          {d.sub}
+                        </span>
+                      </span>
+                      <span
+                        className="shrink-0 text-[11.5px]"
+                        style={{ color: GOLD_SOFT }}
+                      >
+                        {d.remaining}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </aside>
+            </div>
+
+
 
 
           </div>
