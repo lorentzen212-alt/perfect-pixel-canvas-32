@@ -1553,12 +1553,9 @@ function ManageBookings() {
             </header>
 
 
-            {/* main content + right sidebar */}
-            <div className="mt-[38px] grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
-            <div className="min-w-0">
-
             {/* status cards */}
-            <section className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+            <section className="mt-[38px] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4">
+
 
               <StatusCard
                 label="Proposal ready"
