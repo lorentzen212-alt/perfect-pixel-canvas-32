@@ -292,7 +292,7 @@ function TypeChip({ type }: { type: Booking["type"] }) {
     <span
       className="inline-flex items-center rounded-[8px] px-[13px] py-[6px] text-[12px] font-semibold uppercase tracking-[0.14em]"
       style={{
-        color: "#E4D3A2",
+        color: "#EEBE44",
         border: `1px solid ${CHAMPAGNE_LINE}`,
         background: "linear-gradient(140deg, rgba(184,142,67,0.20) 0%, rgba(216,197,142,0.16) 38%, rgba(235,215,162,0.13) 52%, rgba(184,142,67,0.18) 100%)",
       }}
