@@ -47,8 +47,7 @@ import mountains from "@/assets/dashboard-mountains.jpg";
 import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
-import cardSilkTextureJson from "@/assets/card-blue-silk.png.asset.json";
-const cardSilkTextureUrl: string = cardSilkTextureJson.url;
+import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
 
 
 import {
@@ -551,10 +550,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       /* gentle cross-section shading so the band reads as solid metal, not paint */
       "linear-gradient(90deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.03) 14%, rgba(255,255,255,0.07) 40%, rgba(255,255,255,0.05) 66%, rgba(0,0,0,0.06) 88%, rgba(0,0,0,0.28) 100%)",
 
-      /* soft dark slate tint above the texture so the UI stays clean and readable */
-      "linear-gradient(180deg, rgba(44,50,59,0.86) 0%, rgba(38,44,53,0.90) 100%)",
-      /* new architectural texture — starts after the gold edge, kept understated */
-      `url("${cardSilkTextureUrl}")`,
+      /* soft dark slate tint above the stone so the UI stays clean and readable */
+      "linear-gradient(180deg, rgba(46,53,62,0.34) 0%, rgba(41,47,56,0.42) 100%)",
+      /* architectural stone / micro-cement texture — starts after the gold edge */
+      `url("${cardStoneTexture.url}")`,
       "radial-gradient(120% 110% at 8% 0%, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 34%, rgba(0,0,0,0.00) 62%, rgba(0,0,0,0.10) 100%)",
       "linear-gradient(152deg, #434A55 0%, #3B424C 46%, #333A44 78%, #2E353E 100%)",
     ].join(", "),
