@@ -392,13 +392,79 @@ function RowMenu({ booking }: { booking: Booking }) {
                 params={{ bookingId: booking.id }}
                 onClick={() => setOpen(false)}
                 className="block px-4 py-2.5 text-[13px] hover:bg-white/5"
-                style={{ color: it.label.startsWith("Cancel") ? RED : TEXT_2 }}
+                style={{ color: TEXT_2 }}
               >
                 {it.label}
               </Link>
             ))}
+            {showCancel && (
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => {
+                  setOpen(false);
+                  setConfirmOpen(true);
+                }}
+                className="block w-full px-4 py-2.5 text-left text-[13px] hover:bg-white/5"
+                style={{ color: RED }}
+              >
+                Cancel booking
+              </button>
+            )}
           </div>
         </>
+      )}
+
+      {confirmOpen && (
+        <div
+          className="fixed inset-0 z-[100] grid place-items-center p-4"
+          style={{ background: "rgba(6,10,14,0.62)", backdropFilter: "blur(3px)" }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Cancel booking"
+        >
+          <div
+            className="w-full max-w-[420px] rounded-[14px] p-6"
+            style={{
+              backgroundColor: "#101A24",
+              border: `1px solid ${HAIRLINE}`,
+              boxShadow: "0 40px 80px -30px rgba(0,0,0,0.8)",
+            }}
+          >
+            <h2 className="text-[19px]" style={{ color: "#ECE7DF" }}>
+              Cancel booking?
+            </h2>
+            <p className="mt-3 text-[14px]" style={{ color: TEXT_2 }}>
+              {booking.name}
+            </p>
+            <p className="text-[12.5px]" style={{ color: MUTED }}>
+              {booking.reference}
+            </p>
+            <p className="mt-4 text-[13px] leading-relaxed" style={{ color: TEXT_2 }}>
+              This booking will be moved to Cancelled Bookings. Its history and documents will be
+              preserved.
+            </p>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmOpen(false)}
+                className="rounded-[8px] px-4 py-2 text-[13px] hover:bg-white/5"
+                style={{ color: TEXT_2, border: `1px solid ${HAIRLINE}` }}
+              >
+                Keep booking
+              </button>
+              <button
+                type="button"
+                onClick={() => void runCancel()}
+                disabled={pending}
+                className="rounded-[8px] px-4 py-2 text-[13px] disabled:opacity-60"
+                style={{ color: RED, border: `1px solid ${RED}55`, background: "rgba(180,99,106,0.10)" }}
+              >
+                {pending ? "Cancelling…" : "Cancel booking"}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
