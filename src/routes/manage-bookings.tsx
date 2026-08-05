@@ -48,7 +48,7 @@ import mountains from "@/assets/dashboard-mountains.jpg";
 import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
-import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
+import cardStoneTexture from "@/assets/booking-card-slate.png.asset.json";
 
 
 import {
@@ -673,7 +673,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     ].join(", "),
     backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
     backgroundPosition:
-      "left top, left top, var(--insert-w) top, var(--insert-w) top, left top, left top",
+      "left top, left top, var(--insert-w) top, var(--insert-w) center, left top, left top",
     backgroundSize:
       "var(--insert-w) 100%, var(--insert-w) 100%, calc(100% - var(--insert-w)) 100%, cover, 100% 100%, 100% 100%",
     backgroundBlendMode: "normal, soft-light, normal, soft-light, normal, normal",
