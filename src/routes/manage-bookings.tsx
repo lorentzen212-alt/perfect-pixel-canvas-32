@@ -801,7 +801,7 @@ function StatusCard({
   description: string;
   tone: string;
   overlay: string;
-  image: string;
+  image?: string;
   icon: React.ReactNode;
   active: boolean;
   onClick: () => void;
@@ -813,13 +813,15 @@ function StatusCard({
       aria-pressed={active}
       className="relative flex h-[224px] flex-col overflow-hidden rounded-[14px] p-[20px] text-left transition-transform hover:-translate-y-px"
       style={{
+        background: image ? undefined : PANEL,
         border: `1px solid ${active ? tone : `${tone}55`}`,
         boxShadow: active
           ? `0 0 0 1px ${tone}55, 0 22px 60px rgba(0,0,0,0.26)`
           : "0 22px 60px rgba(0,0,0,0.26)",
       }}
     >
-      <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.86) brightness(0.90) contrast(1.04)" }} />
+      {image && <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.86) brightness(0.90) contrast(1.04)" }} />}
+
       <span
         className="absolute inset-0"
         aria-hidden
@@ -1553,12 +1555,9 @@ function ManageBookings() {
             </header>
 
 
-            {/* main content + right sidebar */}
-            <div className="mt-[38px] grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
-            <div className="min-w-0">
-
             {/* status cards */}
-            <section className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+            <section className="mt-[38px] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4">
+
 
               <StatusCard
                 label="Proposal ready"
@@ -1593,7 +1592,18 @@ function ManageBookings() {
                 active={group === "confirmed"}
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
               />
+              <StatusCard
+                label="Next 7 days"
+                count={next7}
+                description={next7 === 1 ? "Stay starting soon" : "Stays starting soon"}
+                tone={GOLD_SOFT}
+                overlay="linear-gradient(90deg, rgba(10,14,18,0.35) 0%, rgba(18,26,34,0.28) 45%, rgba(0,0,0,0.18) 100%)"
+                icon={<CalendarDays size={19} />}
+                active={dateChoice === "upcoming"}
+                onClick={() => setDateChoice(dateChoice === "upcoming" ? "all" : "upcoming")}
+              />
             </section>
+
 
 
             {!isProfileComplete(profile) && (
@@ -1729,9 +1739,14 @@ function ManageBookings() {
               </div>
             </div>
 
+            {/* booking list + right sidebar */}
+            <div className="mt-[18px] grid grid-cols-1 items-start gap-[18px] xl:grid-cols-[minmax(0,1fr)_340px]">
+            <div className="min-w-0">
+
             {/* bookings — premium workspace panel */}
             <section
-              className="mt-[18px] rounded-[18px] p-[22px]"
+              className="rounded-[18px] p-[22px]"
+
               style={{
                 background:
                   "linear-gradient(180deg, #1B222A 0%, #151B22 55%, #121820 100%)",
@@ -1817,50 +1832,8 @@ function ManageBookings() {
             </div>
 
             {/* right sidebar column */}
-            <aside className="flex min-w-0 flex-col gap-6">
-              {/* Next 7 days */}
-              <div
-                className="flex h-[224px] flex-col rounded-[14px] p-[20px]"
-                style={{
-                  background: PANEL,
-                  border: `1px solid ${CARD_BORDER}`,
-                  boxShadow: CARD_SHADOW,
-                }}
-              >
-                <p
-                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: TEXT_2 }}
-                >
-                  Next 7 days
-                </p>
-                <span
-                  aria-hidden
-                  className="mt-2.5 block h-px w-full"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
-                  }}
-                />
-                <div className="mt-3 flex min-h-0 flex-1 items-center gap-4">
-                  <span
-                    className="text-[44px] leading-none"
-                    style={{ color: PEARL, fontFamily: SERIF }}
-                  >
-                    {next7}
-                  </span>
-                  <span className="min-w-0 text-[12.5px]" style={{ color: MUTED }}>
-                    {next7 === 1 ? "Stay starting this week" : "Stays starting this week"}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setDateChoice("upcoming")}
-                  className="mt-2 flex items-center justify-between pt-2.5 text-[12.5px]"
-                  style={{ borderTop: `1px solid ${HAIRLINE}`, color: TEXT }}
-                >
-                  View upcoming <ArrowRight size={15} style={{ color: GOLD }} />
-                </button>
-              </div>
+            <aside className="flex min-w-0 flex-col gap-[18px]">
+
 
               {/* Recent activity */}
               <div
@@ -1871,12 +1844,22 @@ function ManageBookings() {
                   boxShadow: CARD_SHADOW,
                 }}
               >
-                <p
-                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: TEXT_2 }}
-                >
-                  Since your last visit
-                </p>
+                <div className="flex items-center justify-between gap-3">
+                  <p
+                    className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: TEXT_2 }}
+                  >
+                    Recent activity
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setGroup("all")}
+                    className="shrink-0 text-[11.5px]"
+                    style={{ color: GOLD }}
+                  >
+                    View all
+                  </button>
+                </div>
                 <span
                   aria-hidden
                   className="mt-2.5 block h-px w-full"
@@ -1885,6 +1868,7 @@ function ManageBookings() {
                       "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
                   }}
                 />
+
                 <div className="mt-3 min-h-0 flex-1 overflow-hidden">
                   {activity.length === 0 && (
                     <p className="text-[12.5px]" style={{ color: MUTED }}>
@@ -1923,15 +1907,6 @@ function ManageBookings() {
                     </Link>
                   ))}
                 </div>
-
-                <button
-                  type="button"
-                  onClick={() => setGroup("all")}
-                  className="mt-2 flex items-center justify-between pt-2.5 text-[12.5px]"
-                  style={{ borderTop: `1px solid ${HAIRLINE}`, color: TEXT }}
-                >
-                  View all activity <ArrowRight size={15} style={{ color: GOLD }} />
-                </button>
               </div>
 
               {/* Upcoming deadlines */}
@@ -1943,12 +1918,23 @@ function ManageBookings() {
                   boxShadow: CARD_SHADOW,
                 }}
               >
-                <p
-                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: TEXT_2 }}
-                >
-                  Upcoming deadlines
-                </p>
+                <div className="flex items-center justify-between gap-3">
+                  <p
+                    className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: TEXT_2 }}
+                  >
+                    Upcoming deadlines
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setDateChoice("upcoming")}
+                    className="shrink-0 text-[11.5px]"
+                    style={{ color: GOLD }}
+                  >
+                    View all
+                  </button>
+                </div>
+
                 <span
                   aria-hidden
                   className="mt-2.5 block h-px w-full"
