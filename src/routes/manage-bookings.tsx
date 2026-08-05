@@ -351,7 +351,7 @@ function RowMenu({ booking }: { booking: Booking }) {
       await cancelBooking(booking.id);
       await queryClient.invalidateQueries({ queryKey: ["bookings"] });
       setConfirmOpen(false);
-      toast("Booking cancelled");
+      toast("Booking cancelled and moved to Cancelled Bookings.");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not cancel booking");
     } finally {
@@ -1182,6 +1182,7 @@ function ManageBookings() {
   const [group, setGroup] = useState<Group>("all");
   const [dateChoice, setDateChoice] = useState<DateChoice>("all");
   const [view, setView] = useState<"grid" | "list">("list");
+  const [scope, setScope] = useState<"active" | "cancelled" | "all">("active");
   const [navOpen, setNavOpen] = useState(false);
 
   /* luxury rail: labels fade out before the width animates, and fade in after it opens */
