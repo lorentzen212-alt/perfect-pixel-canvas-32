@@ -539,9 +539,19 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   );
 
   const shell = {
-    background:
+    /* the gold edge is part of the card's own shell: a solid-metal left band
+       painted in the card background itself, clipped by the card radius */
+    backgroundImage: [
+      "linear-gradient(90deg, #2A1D08 0%, #C9A055 4%, #8A5E28 12%, #7C5423 40%, #96682C 62%, #B98A3B 78%, #E7CE86 88%, #F6EBBC 92%, #B98A3B 96%, #1E1405 100%)",
+      "linear-gradient(180deg, rgba(255,246,214,0.34) 0%, rgba(255,232,176,0.16) 8%, rgba(0,0,0,0) 20%, rgba(255,250,225,0.30) 33%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.26) 62%, rgba(0,0,0,0.38) 82%, rgba(0,0,0,0.10) 100%)",
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
+    ].join(", "),
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "left top, left top, left top",
+    backgroundSize: "var(--insert-w) 100%, var(--insert-w) 100%, 100% 100%",
+    backgroundBlendMode: "normal, overlay, normal",
     border: "1px solid rgba(255,255,255,0.055)",
+    borderLeft: "none",
     borderRadius: 12,
     /* precision-machined surface — subtle highlights + deep base shadow */
     boxShadow:
