@@ -1879,6 +1879,211 @@ function ManageBookings() {
                 </span>
               </footer>
             </section>
+            </div>
+
+            {/* right sidebar column */}
+            <aside className="flex min-w-0 flex-col gap-6">
+              {/* Next 7 days */}
+              <div
+                className="flex h-[224px] flex-col rounded-[14px] p-[20px]"
+                style={{
+                  background: PANEL,
+                  border: `1px solid ${CARD_BORDER}`,
+                  boxShadow: CARD_SHADOW,
+                }}
+              >
+                <p
+                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: TEXT_2 }}
+                >
+                  Next 7 days
+                </p>
+                <span
+                  aria-hidden
+                  className="mt-2.5 block h-px w-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
+                  }}
+                />
+                <div className="mt-3 flex min-h-0 flex-1 items-center gap-4">
+                  <span
+                    className="text-[44px] leading-none"
+                    style={{ color: PEARL, fontFamily: SERIF }}
+                  >
+                    {next7}
+                  </span>
+                  <span className="min-w-0 text-[12.5px]" style={{ color: MUTED }}>
+                    {next7 === 1 ? "Stay starting this week" : "Stays starting this week"}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setDateChoice("upcoming")}
+                  className="mt-2 flex items-center justify-between pt-2.5 text-[12.5px]"
+                  style={{ borderTop: `1px solid ${HAIRLINE}`, color: TEXT }}
+                >
+                  View upcoming <ArrowRight size={15} style={{ color: GOLD }} />
+                </button>
+              </div>
+
+              {/* Recent activity */}
+              <div
+                className="flex flex-col rounded-[14px] p-[20px]"
+                style={{
+                  background: PANEL,
+                  border: `1px solid ${CARD_BORDER}`,
+                  boxShadow: CARD_SHADOW,
+                }}
+              >
+                <p
+                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: TEXT_2 }}
+                >
+                  Since your last visit
+                </p>
+                <span
+                  aria-hidden
+                  className="mt-2.5 block h-px w-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
+                  }}
+                />
+                <div className="mt-3 min-h-0 flex-1 overflow-hidden">
+                  {activity.length === 0 && (
+                    <p className="text-[12.5px]" style={{ color: MUTED }}>
+                      No recent updates yet.
+                    </p>
+                  )}
+                  {activity.map((a, i) => (
+                    <Link
+                      key={a.id}
+                      to="/bookings/$bookingId"
+                      params={{ bookingId: a.id }}
+                      className="flex items-center gap-3 py-[7px]"
+                      style={
+                        i > 0
+                          ? { borderTop: "1px solid rgba(255,255,255,0.045)" }
+                          : undefined
+                      }
+                    >
+                      <span
+                        className="grid h-8 w-8 shrink-0 place-items-center rounded-full"
+                        style={{ border: `1px solid ${a.tone}66`, color: a.tone }}
+                      >
+                        <FileText size={14} />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
+                          {a.title}
+                        </span>
+                        <span
+                          className="block truncate text-[11.5px]"
+                          style={{ color: MUTED, opacity: 0.78 }}
+                        >
+                          {a.sub}
+                        </span>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setGroup("all")}
+                  className="mt-2 flex items-center justify-between pt-2.5 text-[12.5px]"
+                  style={{ borderTop: `1px solid ${HAIRLINE}`, color: TEXT }}
+                >
+                  View all activity <ArrowRight size={15} style={{ color: GOLD }} />
+                </button>
+              </div>
+
+              {/* Upcoming deadlines */}
+              <div
+                className="flex flex-col rounded-[14px] p-[20px]"
+                style={{
+                  background: PANEL,
+                  border: `1px solid ${CARD_BORDER}`,
+                  boxShadow: CARD_SHADOW,
+                }}
+              >
+                <p
+                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: TEXT_2 }}
+                >
+                  Upcoming deadlines
+                </p>
+                <span
+                  aria-hidden
+                  className="mt-2.5 block h-px w-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
+                  }}
+                />
+                <div className="mt-3 min-h-0 flex-1">
+                  {deadlines.length === 0 && (
+                    <p className="text-[12.5px]" style={{ color: MUTED }}>
+                      No upcoming deadlines.
+                    </p>
+                  )}
+                  {deadlines.map((d, i) => (
+                    <Link
+                      key={d.id}
+                      to="/bookings/$bookingId"
+                      params={{ bookingId: d.id }}
+                      className="flex items-center gap-3 py-[7px]"
+                      style={
+                        i > 0
+                          ? { borderTop: "1px solid rgba(255,255,255,0.045)" }
+                          : undefined
+                      }
+                    >
+                      <span
+                        className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] text-center leading-[1.05]"
+                        style={{
+                          border: `1px solid ${CARD_BORDER}`,
+                          background: "rgba(255,255,255,0.03)",
+                        }}
+                      >
+                        <span className="block">
+                          <span className="block text-[11.5px]" style={{ color: TEXT }}>
+                            {d.day}
+                          </span>
+                          <span
+                            className="block text-[8px] tracking-[0.12em]"
+                            style={{ color: MUTED }}
+                          >
+                            {d.month}
+                          </span>
+                        </span>
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
+                          {d.title}
+                        </span>
+                        <span
+                          className="block truncate text-[11.5px]"
+                          style={{ color: MUTED, opacity: 0.78 }}
+                        >
+                          {d.sub}
+                        </span>
+                      </span>
+                      <span
+                        className="shrink-0 text-[11.5px]"
+                        style={{ color: GOLD_SOFT }}
+                      >
+                        {d.remaining}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </aside>
+            </div>
+
+
 
 
           </div>
