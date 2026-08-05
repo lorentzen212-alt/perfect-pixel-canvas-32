@@ -130,10 +130,10 @@ const GOLD_BRUSHED_H =
   "linear-gradient(140deg, #B88E43 0%, #C8A55A 18%, #E2C984 38%, #EBD7A2 50%, #E2C984 62%, #C8A55A 82%, #B88E43 100%)";
 const GREEN = "#6DBB83";
 const RED = "#C96A6A";
-/* calm champagne used for labels, hairlines and small accents */
-const CHAMPAGNE = "#D8C58E";
-const CHAMPAGNE_LINE = "rgba(216,197,142,0.35)";
-const IVORY = "#ECE7DD";
+/* calm champagne used for labels, icons, hairlines and small accents */
+const CHAMPAGNE = "#D6C089";
+const CHAMPAGNE_LINE = "rgba(214,192,137,0.35)";
+const IVORY = "#ECE7DF";
 
 const SERIF = '"Cormorant Garamond", "EB Garamond", Georgia, serif';
 const SANS = 'Inter, "Helvetica Neue", Arial, sans-serif';
@@ -460,7 +460,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
                 "inset 0 1px 0 rgba(255,255,255,0.085), 0 1px 1px rgba(0,0,0,0.34), 0 2px 4px rgba(0,0,0,0.22)",
             }}
           >
-            <span className="shrink-0" style={{ color: IVORY }}>
+            <span className="shrink-0" style={{ color: CHAMPAGNE }}>
               {m.icon}
             </span>
             {m.text}
@@ -483,12 +483,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       >
         <div className="px-[20px] py-[8px]">
           <p
-            className="text-[10px] uppercase"
-            style={{ color: CHAMPAGNE, fontWeight: 650, letterSpacing: "0.10em" }}
+            className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+            style={{ color: CHAMPAGNE }}
           >
             Your reference
           </p>
-          <p className="mt-[3px] text-[17px] leading-none" style={{ color: "#FFFFFF", fontWeight: 700 }}>
+          <p className="mt-[3px] text-[17px] leading-none" style={{ color: IVORY, fontWeight: 400 }}>
             {booking.reference}
           </p>
         </div>
@@ -498,14 +498,14 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         >
 
           <p
-            className="text-[10px] uppercase"
-            style={{ color: CHAMPAGNE, fontWeight: 650, letterSpacing: "0.10em" }}
+            className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+            style={{ color: CHAMPAGNE }}
           >
             Hotel reference
           </p>
           <p
             className="mt-[3px] text-[17px] leading-none"
-            style={{ color: booking.hotelReference ? "#FFFFFF" : "#9DAEBB", fontWeight: 700 }}
+            style={{ color: booking.hotelReference ? IVORY : "#93A5B2", fontWeight: 400 }}
           >
             {booking.hotelReference ?? "Pending"}
           </p>
