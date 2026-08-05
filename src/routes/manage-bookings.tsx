@@ -1637,17 +1637,16 @@ function ManageBookings() {
 
             {/* toolbar — independent control bar, no surrounding container */}
             <div
-              className="mt-[8px] flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
+              className="stone-toolbar mt-[8px] flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
 
               style={{
-                background: "linear-gradient(180deg, #1E252D 0%, #181E25 100%)",
-                border: "1px solid rgba(214,182,124,0.10)",
+                border: "1px solid rgba(168,184,200,0.13)",
                 boxShadow:
                   "0 18px 44px -30px rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.045) inset, 0 -1px 0 rgba(0,0,0,0.35) inset",
               }}
             >
               {/* search */}
-              <div className="relative flex min-w-0 flex-1 items-center">
+              <div className="stone-inset relative flex min-w-0 flex-1 items-center rounded-[14px]">
                 <Search
                   size={19}
                   strokeWidth={2}
@@ -1667,7 +1666,7 @@ function ManageBookings() {
 
                 <GoldDivider />
 
-                <div className="flex min-w-0 items-center md:w-[280px]">
+                <div className="stone-inset flex min-w-0 items-center rounded-[14px] md:w-[280px]">
                   <Select
                     label="Status filter"
                     value={group}
@@ -1685,7 +1684,7 @@ function ManageBookings() {
 
                 <GoldDivider />
 
-                <div className="flex min-w-0 items-center md:w-[280px]">
+                <div className="stone-inset flex min-w-0 items-center rounded-[14px] md:w-[280px]">
                   <Select
                     label="Date filter"
                     value={dateChoice}
