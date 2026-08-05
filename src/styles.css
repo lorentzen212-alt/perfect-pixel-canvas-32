@@ -892,6 +892,36 @@
   background: rgba(255, 250, 225, 0.9);
 }
 
+/* solid machined-gold CTA (matches reference) */
+.hgb-gold-cta {
+  background-image: linear-gradient(
+    180deg,
+    #F6D179 0%,
+    #E7B44E 22%,
+    #D79E33 48%,
+    #C98E28 62%,
+    #E3B75B 86%,
+    #F2CE79 100%
+  );
+  border: 1px solid rgba(255, 236, 178, 0.55);
+  box-shadow:
+    0 0 22px rgba(230, 176, 74, 0.35),
+    0 8px 20px -8px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 250, 220, 0.75),
+    inset 0 -1px 0 rgba(120, 78, 12, 0.5);
+  transition: box-shadow 260ms ease, transform 260ms ease, filter 260ms ease;
+}
+.hgb-gold-cta:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 0 30px rgba(236, 186, 88, 0.5),
+    0 10px 24px -8px rgba(0, 0, 0, 0.72),
+    inset 0 1px 0 rgba(255, 252, 232, 0.85),
+    inset 0 -1px 0 rgba(120, 78, 12, 0.55);
+}
+
+
 
 
 /* ── booking card: premium metallic gold finishes ── */
