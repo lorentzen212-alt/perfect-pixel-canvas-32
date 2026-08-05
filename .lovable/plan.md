@@ -13,7 +13,7 @@ Geometry-only pass on the booking card's left area. No redesign, no material, sh
 
 In `src/styles.css`:
 
-- `.hgb-booking-card`: `padding-left: calc(var(--insert-w) + 31px)` (was `+ 26px`) — 3px strip offset + ~5px breathing room, image not pushed too far.
+- `.hgb-booking-card`: `padding-left: calc(var(--insert-w) + 34px)` (was `+ 26px`) — 3px strip offset + ~5px extra breathing room.
 - `.hgb-card-insert`: `inset: 3px auto 3px 3px;` (was `-1px auto -1px -1px`), plus `border-radius: 2px`.
 
 No changes in `src/routes/manage-bookings.tsx`.
