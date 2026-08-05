@@ -1239,6 +1239,8 @@ function ManageBookings() {
     const dateFilter: DateFilter =
       dateChoice === "this_month" ? "all" : (dateChoice as DateFilter);
     let list = filterBookings(bookings, { query, status: "all", date: dateFilter });
+    if (scope === "active") list = list.filter((b) => b.status !== "cancelled");
+    if (scope === "cancelled") list = list.filter((b) => b.status === "cancelled");
     if (dateChoice === "this_month") {
       const now = new Date();
       list = list.filter((b) => {
@@ -1252,12 +1254,17 @@ function ManageBookings() {
     }
     if (group !== "all") list = list.filter((b) => groupOf(b) === group);
     return list;
-  }, [bookings, query, group, dateChoice]);
+  }, [bookings, query, group, dateChoice, scope]);
 
   const counts = useMemo(() => {
     const c = { proposal: 0, awaiting: 0, confirmed: 0, attention: 0, cancelled: 0 };
     for (const b of bookings) c[groupOf(b)] += 1;
     return c;
+  }, [bookings]);
+
+  const scopeCounts = useMemo(() => {
+    const cancelled = bookings.filter((b) => b.status === "cancelled").length;
+    return { active: bookings.length - cancelled, cancelled, all: bookings.length };
   }, [bookings]);
 
   const roomingTarget =
