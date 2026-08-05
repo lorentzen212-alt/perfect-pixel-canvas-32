@@ -714,8 +714,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     <div
       className={
         compact
-          ? "relative overflow-hidden"
-          : "relative rounded-[16px] p-[8px] sm:h-full sm:self-stretch"
+          : "relative rounded-[12px] p-[8px] sm:h-full sm:self-stretch"
       }
       style={
         compact
@@ -723,10 +722,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           : {
               /* pulled closer to the machined gold edge without moving any other content */
               marginLeft: -10,
-              background: "linear-gradient(180deg, #18212C 0%, #131B25 100%)",
-              border: "1px solid rgba(255,255,255,0.055)",
+              /* recessed well milled into the card material itself */
+              background: "transparent",
               boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -4px 12px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.35)",
+                "inset 0 1px 0 rgba(255,255,255,0.055), inset 0 2px 3px rgba(0,0,0,0.28), inset 0 -1px 2px rgba(0,0,0,0.16)",
             }
       }
     >
@@ -740,12 +739,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           compact
             ? undefined
             : {
-                border: "1px solid rgba(0,0,0,0.55)",
-                boxShadow:
-                  "inset 0 2px 8px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04)",
+                border: "1px solid #2B3138",
+                boxShadow: "none",
               }
         }
       >
+
         <img
           src={booking.image}
           alt={`${booking.destination} — ${booking.name}`}
