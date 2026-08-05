@@ -542,23 +542,14 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     /* the gold edge is part of the card's own shell: a solid-metal left band
        painted in the card background itself, clipped by the card radius */
     backgroundImage: [
-      /* 1 — fine vertical brushed striations (anodized brass grain) */
-      "repeating-linear-gradient(90deg, rgba(255,255,255,0.085) 0px, rgba(255,255,255,0) 1px, rgba(0,0,0,0.075) 2px, rgba(255,255,255,0) 3px)",
-      /* 2 — narrow polished specular running vertically through the metal */
-      "linear-gradient(90deg, rgba(255,255,255,0) 58%, rgba(255,251,232,0.55) 72%, rgba(255,255,255,0.9) 76%, rgba(255,246,214,0.35) 80%, rgba(255,255,255,0) 92%)",
-      /* 3 — internal environmental reflections along the length */
-      "linear-gradient(180deg, rgba(255,248,222,0.32) 0%, rgba(255,232,176,0.14) 9%, rgba(0,0,0,0.10) 22%, rgba(255,250,228,0.26) 36%, rgba(0,0,0,0.06) 50%, rgba(255,243,205,0.16) 64%, rgba(0,0,0,0.26) 82%, rgba(0,0,0,0.12) 100%)",
-      /* 4 — base metal: bronze outer edges, champagne-gold core */
-      "linear-gradient(90deg, #2E1F08 0%, #7A5518 4%, #C9A254 9%, #8C6224 16%, #A9772E 30%, #C79A45 46%, #E6C685 58%, #F5E2AC 66%, #D2A64E 82%, #96682690 92%, #1F1505 100%)",
-      /* 5 — card body */
+      "linear-gradient(90deg, #3A280B 0%, #E2C071 5%, #A87732 13%, #9C6D2C 38%, #BE8F3C 60%, #D9AC4E 76%, #F2DC97 87%, #FDF3CC 91%, #CFA24A 96%, #231806 100%)",
+      "linear-gradient(180deg, rgba(255,246,214,0.34) 0%, rgba(255,232,176,0.16) 8%, rgba(0,0,0,0) 20%, rgba(255,250,225,0.30) 33%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.26) 62%, rgba(0,0,0,0.38) 82%, rgba(0,0,0,0.10) 100%)",
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
     ].join(", "),
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "left top",
-    backgroundSize:
-      "var(--insert-w) 100%, var(--insert-w) 100%, var(--insert-w) 100%, var(--insert-w) 100%, 100% 100%",
-    backgroundBlendMode: "soft-light, screen, overlay, normal, normal",
-
+    backgroundPosition: "left top, left top, left top",
+    backgroundSize: "var(--insert-w) 100%, var(--insert-w) 100%, 100% 100%",
+    backgroundBlendMode: "normal, overlay, normal",
     border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
     borderRadius: 12,
