@@ -131,8 +131,8 @@ const GOLD_BRUSHED_H =
 const GREEN = "#6DBB83";
 const RED = "#C96A6A";
 /* calm champagne used for labels, icons, hairlines and small accents */
-const CHAMPAGNE = "#D6C089";
-const CHAMPAGNE_LINE = "rgba(214,192,137,0.35)";
+const CHAMPAGNE = "#EEBE44";
+const CHAMPAGNE_LINE = "rgba(238,190,68,0.35)";
 const IVORY = "#ECE7DF";
 
 const SERIF = '"Cormorant Garamond", "EB Garamond", Georgia, serif';
