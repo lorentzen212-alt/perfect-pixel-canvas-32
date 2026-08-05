@@ -829,7 +829,7 @@
 /* Booking card hover elevation (Manage Bookings) */
 .hgb-booking-card {
   --insert-w: 20px;
-  padding-left: calc(var(--insert-w) + 26px);
+  padding-left: calc(var(--insert-w) + 31px);
   border-left-color: transparent !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -842,7 +842,8 @@
 /* structural brushed-anodized gold insert, flush to the card's left edge */
 .hgb-card-insert {
   position: absolute;
-  inset: -1px auto -1px -1px;
+  inset: 3px auto 3px 3px;
+  border-radius: 2px;
   width: var(--insert-w, 20px);
   pointer-events: none;
   overflow: hidden;
