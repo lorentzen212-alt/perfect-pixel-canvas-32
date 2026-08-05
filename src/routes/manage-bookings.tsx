@@ -531,20 +531,20 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           params={{ bookingId: booking.id }}
           className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[20px] py-[9px] text-[15px]"
           style={{
-            color: "#F3C979",
+            color: "#E4D3A2",
             marginRight: 0,
             border: "1.5px solid transparent",
             background:
               `linear-gradient(180deg, #1A2330 0%, #131C27 100%) padding-box, ${GOLD_BRUSHED_H} border-box`,
             boxShadow:
-              "0 2px 8px rgba(0,0,0,0.45), 0 0 14px rgba(227,162,60,0.22), inset 0 1px 0 rgba(255,255,255,0.05)",
+              "0 2px 8px rgba(0,0,0,0.45), 0 0 12px rgba(216,197,142,0.14), inset 0 1px 0 rgba(255,255,255,0.05)",
           }}
         >
-          <span className="hgb-gold-metal">{action.label}</span>
+          <span className="hgb-champagne-metal">{action.label}</span>
           <ArrowRight
             size={18}
             className="transition-transform duration-300 group-hover/btn:translate-x-[3px]"
-            style={{ color: "#F0D08C" }}
+            style={{ color: CHAMPAGNE }}
           />
         </Link>
       </div>
