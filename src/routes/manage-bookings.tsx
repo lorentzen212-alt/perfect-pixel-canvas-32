@@ -1729,9 +1729,14 @@ function ManageBookings() {
               </div>
             </div>
 
+            {/* booking list + right sidebar */}
+            <div className="mt-[18px] grid grid-cols-1 items-start gap-[18px] xl:grid-cols-[minmax(0,1fr)_340px]">
+            <div className="min-w-0">
+
             {/* bookings — premium workspace panel */}
             <section
-              className="mt-[18px] rounded-[18px] p-[22px]"
+              className="rounded-[18px] p-[22px]"
+
               style={{
                 background:
                   "linear-gradient(180deg, #1B222A 0%, #151B22 55%, #121820 100%)",
