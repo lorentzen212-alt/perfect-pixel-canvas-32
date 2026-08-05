@@ -543,14 +543,21 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     /* the gold edge is part of the card's own shell: a solid-metal left band
        painted in the card background itself, clipped by the card radius */
     backgroundImage: [
-      "linear-gradient(90deg, #3A280B 0%, #E2C071 5%, #A87732 13%, #9C6D2C 38%, #BE8F3C 60%, #D9AC4E 76%, #F2DC97 87%, #FDF3CC 91%, #CFA24A 96%, #231806 100%)",
-      "linear-gradient(180deg, rgba(255,246,214,0.34) 0%, rgba(255,232,176,0.16) 8%, rgba(0,0,0,0) 20%, rgba(255,250,225,0.30) 33%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.26) 62%, rgba(0,0,0,0.38) 82%, rgba(0,0,0,0.10) 100%)",
+      /* clear coat gloss */
+      "linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 6%, rgba(255,255,255,0) 26%, rgba(0,0,0,0.10) 100%)",
+      /* fine brushed micro texture (5%) */
+      "repeating-linear-gradient(180deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, rgba(0,0,0,0.045) 1px, rgba(0,0,0,0.045) 2px)",
+      /* environmental reflection bands down the length */
+      "linear-gradient(180deg, rgba(255,250,232,0.42) 0%, rgba(255,238,190,0.16) 7%, rgba(0,0,0,0.22) 17%, rgba(255,252,238,0.38) 30%, rgba(0,0,0,0.10) 40%, rgba(0,0,0,0.34) 56%, rgba(255,246,214,0.24) 68%, rgba(0,0,0,0.42) 84%, rgba(255,244,208,0.18) 100%)",
+      /* polished metal profile across the width */
+      "linear-gradient(90deg, #2C1D06 0%, #6E4E13 4%, #B58B33 9%, #EFD79B 14%, #FFFBEF 16.5%, #D6AE55 21%, #96702440 0%, #967024 33%, #C8A047 46%, #F4E3B4 52%, #FFFDF4 55%, #DCB863 60%, #8A6520 72%, #BE9438 82%, #F7EBC6 88%, #FFFEF8 90%, #C69D45 94%, #6B4A12 97%, #1F1404 100%)",
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
     ].join(", "),
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "left top, left top, left top",
-    backgroundSize: "var(--insert-w) 100%, var(--insert-w) 100%, 100% 100%",
-    backgroundBlendMode: "normal, overlay, normal",
+    backgroundPosition: "left top, left top, left top, left top, left top",
+    backgroundSize:
+      "var(--insert-w) 100%, var(--insert-w) 100%, var(--insert-w) 100%, var(--insert-w) 100%, 100% 100%",
+    backgroundBlendMode: "overlay, soft-light, overlay, normal, normal",
     border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
     borderRadius: 12,
@@ -558,6 +565,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     boxShadow:
       "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
   } as const;
+
 
 
 
