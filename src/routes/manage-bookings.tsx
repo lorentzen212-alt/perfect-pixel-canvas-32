@@ -49,7 +49,7 @@ import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
-import darkNavyFabricV2 from "@/assets/dark-navy-fabric-v2.png.asset.json";
+import darkNavyFabricV3 from "@/assets/dark-navy-fabric-v3.png.asset.json";
 
 
 
@@ -1751,7 +1751,7 @@ function ManageBookings() {
             <section
               className="booking-fabric-panel rounded-[18px] p-[22px]"
               style={{
-                "--fabric-url": `url(${darkNavyFabricV2.url})`,
+                "--fabric-url": `url(${darkNavyFabricV3.url})`,
                 border: "1px solid rgba(255,255,255,0.05)",
                 boxShadow:
                   "0 1px 0 rgba(255,255,255,0.035) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 24px 60px -45px rgba(0,0,0,0.7)",
