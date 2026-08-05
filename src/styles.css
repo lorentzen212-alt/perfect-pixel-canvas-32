@@ -929,10 +929,10 @@
     inset 0 -1px 0 rgba(255, 255, 255, 0.035);
 }
 
-/* Large booking-list panel: uploaded dark navy fabric background, fully visible */
+/* Large booking-list panel: matte navy architectural surface */
 .booking-fabric-panel {
   position: relative;
-  background-color: transparent;
+  background-color: #0d1726;
 }
 
 .booking-fabric-panel::before {
@@ -953,9 +953,21 @@
   position: absolute;
   inset: 0;
   border-radius: 18px;
-  background: rgba(10, 14, 20, 0.15);
+  background:
+    radial-gradient(
+      120% 90% at 50% 42%,
+      rgba(120, 165, 220, 0.1) 0%,
+      rgba(120, 165, 220, 0.04) 38%,
+      rgba(6, 11, 20, 0) 62%
+    ),
+    radial-gradient(
+      130% 110% at 50% 50%,
+      rgba(6, 10, 18, 0) 52%,
+      rgba(6, 10, 18, 0.28) 100%
+    );
   z-index: 1;
 }
+
 
 .booking-fabric-panel > * {
   position: relative;
