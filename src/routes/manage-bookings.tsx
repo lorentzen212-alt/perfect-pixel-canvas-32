@@ -1336,12 +1336,13 @@ function ManageBookings() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: PAGE,
+        backgroundColor: "#0D131B",
         backgroundImage:
-          "linear-gradient(180deg, #6A737B 0%, #646D75 35%, #5F6870 100%)",
+          "linear-gradient(180deg, #121A24 0%, #0D131B 100%)",
         fontFamily: SANS,
       }}
     >
+
       <aside
         className="fixed inset-y-0 left-0 z-40 hidden lg:block"
         style={{
