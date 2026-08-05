@@ -222,12 +222,12 @@ function Timeline({ booking }: { booking: Booking }) {
   return (
     <div className="relative grid grid-cols-4 gap-1">
       <div
-        className="absolute left-[12.5%] right-[12.5%] top-[21px]"
+        className="absolute left-[12.5%] right-[12.5%] top-[16px]"
         style={{ height: "0.5px", backgroundColor: "rgba(255,255,255,0.054)" }}
         aria-hidden
       />
       <div
-        className="absolute left-[12.5%] top-[21px]"
+        className="absolute left-[12.5%] top-[16px]"
         style={{
           height: "0.5px",
           width: `${(active / 3) * 75}%`,
@@ -239,9 +239,9 @@ function Timeline({ booking }: { booking: Booking }) {
         const done = i < active;
         const current = i === active;
         return (
-          <div key={s.key} className="relative flex flex-col items-center gap-[12px]">
+          <div key={s.key} className="relative flex flex-col items-center gap-[7px]">
             <span
-              className="relative grid h-[42px] w-[42px] place-items-center rounded-full"
+              className="relative grid h-[32px] w-[32px] place-items-center rounded-full"
               style={{
                 background: current
                   ? "radial-gradient(80% 80% at 50% 28%, rgba(245,220,158,0.17) 0%, rgba(13,20,32,0.96) 100%)"
@@ -254,7 +254,7 @@ function Timeline({ booking }: { booking: Booking }) {
                     : "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -2px 5px rgba(0,0,0,0.35)",
               }}
             >
-              <s.icon size={17} strokeWidth={1.65} />
+              <s.icon size={14} strokeWidth={1.65} />
             </span>
             <span
               className={`whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]${
@@ -406,10 +406,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="mt-[12px] block truncate transition-opacity hover:opacity-85"
+            className="mt-[7px] block truncate transition-opacity hover:opacity-85"
           >
             <h3
-              className="truncate text-[38px] leading-[1.05] tracking-[0.002em]"
+              className="truncate text-[28px] leading-[1.05] tracking-[0.002em]"
               style={{ color: PEARL, fontFamily: SERIF, fontWeight: 500 }}
             >
               {booking.name}
@@ -434,11 +434,11 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* metadata chips */}
-      <div className="mt-[13px] flex flex-wrap items-center gap-[10px]">
+      <div className="mt-[9px] flex flex-wrap items-center gap-[7px]">
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[5px] px-[14px] py-[8px] text-[13px] font-light"
+            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[5px] px-[12px] py-[5px] text-[13px] font-light"
             style={{
               color: "#E6EDF3",
               border: "1px solid rgba(255,255,255,0.055)",
@@ -460,7 +460,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[12px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
+        className="mt-[8px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(255,255,255,0.055)",
           background: "linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.09) 100%)",
@@ -469,16 +469,16 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             "inset 0 2px 4px rgba(0,0,0,0.22), inset 0 -1px 0 rgba(255,255,255,0.035), 0 1px 0 rgba(255,255,255,0.04)",
         }}
       >
-        <div className="px-[20px] py-[13px]">
+        <div className="px-[20px] py-[8px]">
           <p className="hgb-gold-metal text-[11px] font-semibold uppercase tracking-[0.14em]">
             Your reference
           </p>
-          <p className="mt-[6px] text-[20px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
+          <p className="mt-[3px] text-[17px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
             {booking.reference}
           </p>
         </div>
         <div
-          className="px-[20px] py-[13px]"
+          className="px-[20px] py-[8px]"
           style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
         >
 
@@ -486,7 +486,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             Hotel reference
           </p>
           <p
-            className="mt-[6px] text-[20px] leading-none"
+            className="mt-[3px] text-[17px] leading-none"
             style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 400 }}
           >
             {booking.hotelReference ?? "Pending"}
@@ -496,13 +496,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
       {/* progress track */}
-      <div className="mt-[16px]">
+      <div className="mt-[10px]">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-[14px] flex flex-nowrap items-center justify-between gap-4 pt-[13px]"
+        className="mt-[9px] flex flex-nowrap items-center justify-between gap-4 pt-[8px]"
         style={{ borderTop: "1px solid rgba(255,255,255,0.038)" }}
 
       >
@@ -516,7 +516,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[24px] py-[13px] text-[15px]"
+          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[20px] py-[9px] text-[15px]"
           style={{
             color: "#F3C979",
             marginRight: 0,
@@ -567,7 +567,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       className={
         compact
           ? "relative overflow-hidden"
-          : "relative rounded-[16px] p-[10px] sm:h-full sm:self-stretch"
+          : "relative rounded-[16px] p-[7px] sm:h-full sm:self-stretch"
       }
       style={
         compact
@@ -602,8 +602,8 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           loading="lazy"
           className={
             compact
-              ? "h-[132px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-              : "h-[173px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+              ? "h-[88px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              : "h-[112px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
           }
           style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
         />
@@ -626,14 +626,14 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     return (
       <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300 hover:-translate-y-[2px]" style={shell}>
         <div>{media}</div>
-        <div className="py-4 pr-4">{info}</div>
+        <div className="py-3 pr-3">{info}</div>
       </article>
     );
   }
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[26px] overflow-hidden py-[26px] pr-[26px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[16px] pr-[18px] transition-all duration-300 hover:-translate-y-[2px] sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
 
       style={shell}
     >
