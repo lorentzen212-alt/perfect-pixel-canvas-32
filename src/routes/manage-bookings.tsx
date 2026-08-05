@@ -477,10 +477,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         }}
       >
         <div className="px-[20px] py-[8px]">
-          <p className="hgb-gold-metal text-[11px] font-semibold uppercase tracking-[0.14em]">
+          <p
+            className="text-[10px] uppercase"
+            style={{ color: CHAMPAGNE, fontWeight: 650, letterSpacing: "0.10em" }}
+          >
             Your reference
           </p>
-          <p className="mt-[3px] text-[17px] leading-none" style={{ color: PEARL, fontWeight: 400 }}>
+          <p className="mt-[3px] text-[17px] leading-none" style={{ color: "#FFFFFF", fontWeight: 700 }}>
             {booking.reference}
           </p>
         </div>
@@ -489,12 +492,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
         >
 
-          <p className="hgb-gold-metal text-[11px] font-semibold uppercase tracking-[0.14em]">
+          <p
+            className="text-[10px] uppercase"
+            style={{ color: CHAMPAGNE, fontWeight: 650, letterSpacing: "0.10em" }}
+          >
             Hotel reference
           </p>
           <p
             className="mt-[3px] text-[17px] leading-none"
-            style={{ color: booking.hotelReference ? PEARL : "#93A5B2", fontWeight: 400 }}
+            style={{ color: booking.hotelReference ? "#FFFFFF" : "#9DAEBB", fontWeight: 700 }}
           >
             {booking.hotelReference ?? "Pending"}
           </p>
