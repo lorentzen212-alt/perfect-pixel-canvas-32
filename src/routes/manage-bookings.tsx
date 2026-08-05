@@ -1903,12 +1903,23 @@ function ManageBookings() {
                   boxShadow: CARD_SHADOW,
                 }}
               >
-                <p
-                  className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: TEXT_2 }}
-                >
-                  Upcoming deadlines
-                </p>
+                <div className="flex items-center justify-between gap-3">
+                  <p
+                    className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: TEXT_2 }}
+                  >
+                    Upcoming deadlines
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setDateChoice("upcoming")}
+                    className="shrink-0 text-[11.5px]"
+                    style={{ color: GOLD }}
+                  >
+                    View all
+                  </button>
+                </div>
+
                 <span
                   aria-hidden
                   className="mt-2.5 block h-px w-full"
