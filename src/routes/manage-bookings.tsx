@@ -1412,30 +1412,21 @@ function ManageBookings() {
             className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
             style={{
               top: 300,
-              backgroundColor: "#0C121A",
-              backgroundImage: `url("${contentArc.url}")`,
-              backgroundSize: "cover",
-              backgroundPosition: "center top",
-              backgroundRepeat: "no-repeat",
+              backgroundColor: "#0D131B",
+              backgroundImage: [
+                `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.018'/%3E%3C/svg%3E")`,
+                "radial-gradient(130% 80% at 50% 26%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.016) 36%, rgba(255,255,255,0) 68%)",
+                "radial-gradient(150% 100% at 50% 50%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.22) 78%, rgba(0,0,0,0.46) 100%)",
+                "linear-gradient(180deg, rgba(13,19,27,0) 0%, rgba(8,12,17,0.55) 100%)",
+                "linear-gradient(180deg, #121A24 0%, #0D131B 100%)",
+              ].join(", "),
+              backgroundSize: "256px 256px, 100% 100%, 100% 100%, 100% 100%, 100% 100%",
+              backgroundPosition: "0 0, 0 0, 0 0, 0 0, 0 0",
+              backgroundRepeat: "repeat, no-repeat, no-repeat, no-repeat, no-repeat",
+              backgroundBlendMode: "soft-light, normal, normal, normal, normal",
             }}
-          >
-            {/* soft readability veil */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(10,15,22,0.18) 0%, rgba(10,15,22,0.10) 40%, rgba(10,15,22,0.26) 100%)",
-              }}
-            />
-            {/* quiet vignette */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(118% 90% at 56% 36%, rgba(0,0,0,0) 52%, rgba(4,7,11,0.16) 82%, rgba(4,7,11,0.30) 100%)",
-              }}
-            />
-          </div>
+          />
+
 
 
 
