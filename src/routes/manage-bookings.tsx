@@ -543,8 +543,8 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     /* the gold edge is part of the card's own shell: a solid-metal left band
        painted in the card background itself, clipped by the card radius */
     backgroundImage: [
-      "linear-gradient(90deg, #3A280B 0%, #E2C071 5%, #A87732 13%, #9C6D2C 38%, #BE8F3C 60%, #D9AC4E 76%, #F2DC97 87%, #FDF3CC 91%, #CFA24A 96%, #231806 100%)",
-      "linear-gradient(180deg, rgba(255,246,214,0.34) 0%, rgba(255,232,176,0.16) 8%, rgba(0,0,0,0) 20%, rgba(255,250,225,0.30) 33%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.26) 62%, rgba(0,0,0,0.38) 82%, rgba(0,0,0,0.10) 100%)",
+      "linear-gradient(90deg, #2A1C04 0%, #FFF3CE 4%, #E0B356 9%, #8A5F1E 16%, #6E4A14 26%, #B2842F 44%, #E7C063 58%, #FFFBE8 66%, #D9A63F 74%, #F7E3A8 86%, #FFFDF0 90%, #B3812C 95%, #1C1203 100%)",
+      "linear-gradient(180deg, rgba(255,252,230,0.55) 0%, rgba(255,236,180,0.22) 7%, rgba(0,0,0,0.10) 18%, rgba(255,253,238,0.52) 31%, rgba(255,230,170,0.10) 40%, rgba(0,0,0,0.30) 52%, rgba(255,248,215,0.34) 63%, rgba(0,0,0,0.44) 78%, rgba(255,244,205,0.26) 90%, rgba(0,0,0,0.30) 100%)",
       "linear-gradient(180deg, #131C27 0%, #111923 46%, #0F1620 100%)",
     ].join(", "),
     backgroundRepeat: "no-repeat",
