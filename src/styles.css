@@ -859,6 +859,26 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* calmer champagne text metal — less orange, brushed rather than glossy */
+.hgb-champagne-metal {
+  background-image: linear-gradient(
+    172deg,
+    #B88E43 0%,
+    #C8A55A 18%,
+    #E2C984 40%,
+    #EBD7A2 50%,
+    #E2C984 62%,
+    #C8A55A 82%,
+    #B88E43 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+
+
 .hgb-brass-bar::before {
   content: "";
   position: absolute;
