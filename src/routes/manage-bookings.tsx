@@ -614,7 +614,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
               ? "h-[88px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               : "h-[112px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
           }
-          style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
+          style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)", objectPosition: compact ? undefined : "center calc(50% + 1px)" }}
         />
         <span
           aria-hidden
