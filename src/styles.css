@@ -830,12 +830,18 @@
 .hgb-booking-card {
   --insert-w: 17px;
   padding-left: calc(var(--insert-w) + 33px);
+  transform: translateY(-5px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .hgb-booking-card:hover {
+  transform: translateY(-7px);
   box-shadow:
-    0 22px 46px -26px rgba(0, 0, 0, 0.75),
-    0 0 0 1px rgba(255, 255, 255, 0.07);
+    0 3px 8px rgba(0, 0, 0, 0.20),
+    0 10px 18px -6px rgba(0, 0, 0, 0.32),
+    0 16px 36px rgba(0, 0, 0, 0.24),
+    0 34px 70px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    inset 0 -6px 16px rgba(0, 0, 0, 0.42);
 }
 
 /* gold edge is painted in the card's own background (see shell in manage-bookings) */

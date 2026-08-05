@@ -683,12 +683,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
 
-    border: "1px solid rgba(255,255,255,0.055)",
+    border: "1px solid rgba(255,255,255,0.04)",
     borderLeft: "none",
     borderRadius: 12,
-    /* precision-machined surface — subtle highlights + deep base shadow */
+    /* floating above the slate panel: contact shadow + layered ambient depth */
     boxShadow:
-      "0 12px 32px rgba(0,0,0,0.48), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
+      "0 2px 6px rgba(0,0,0,0.18), 0 8px 14px -6px rgba(0,0,0,0.30), 0 12px 28px rgba(0,0,0,0.22), 0 28px 60px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -6px 16px rgba(0,0,0,0.42)",
   } as const;
 
 
