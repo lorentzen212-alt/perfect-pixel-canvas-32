@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+
+import { supabase } from "@/integrations/supabase/client";
+import { listSiteEdits, saveSiteEdits } from "@/lib/siteEdits.functions";
 import {
+  docsEqual,
+  signatureOf,
   applyInstantEdit,
   emptyInstantDoc,
   instantEditsAllowed,
@@ -40,12 +46,64 @@ export default function InstantEdits() {
   const [hoverRect, setHoverRect] = useState<DOMRect | null>(null);
   const [selRect, setSelRect] = useState<DOMRect | null>(null);
   const [inlineEditing, setInlineEditing] = useState(false);
+  const [savedDoc, setSavedDoc] = useState<InstantDoc>(emptyInstantDoc());
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [status, setStatus] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
   const appliedRef = useRef<Set<HTMLElement>>(new Set());
+  const fetchEdits = useServerFn(listSiteEdits);
+  const pushEdits = useServerFn(saveSiteEdits);
 
   useEffect(() => {
     setAllowed(instantEditsAllowed());
     setEnabled(isInstantEnabled());
   }, []);
+
+  /* admin detection — only admins may publish edits */
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data: auth } = await supabase.auth.getUser();
+      const uid = auth.user?.id;
+      if (!uid) return;
+      const { data: roles } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", uid)
+        .eq("role", "admin")
+        .maybeSingle();
+      if (!cancelled) setIsAdmin(!!roles);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  /* what is currently stored on the server for this route */
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const rows = await fetchEdits({ data: { route: routePath } });
+        if (cancelled) return;
+        const remote: InstantDoc = {};
+        rows.forEach((r) => {
+          remote[r.element_path] = r.edit as InstantEdit;
+        });
+        setSavedDoc(remote);
+        // no local working copy yet → adopt the published version
+        if (Object.keys(loadInstantDoc(routePath)).length === 0 && Object.keys(remote).length) {
+          setDoc(remote);
+          saveInstantDoc(routePath, remote);
+        }
+      } catch {
+        /* offline / not available — keep working locally */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [routePath, fetchEdits]);
 
   /* load + apply saved edits for the route */
   useEffect(() => {
@@ -102,6 +160,43 @@ export default function InstantEdits() {
     saveInstantDoc(routePath, {});
     window.location.reload();
   }, [routePath]);
+
+  const dirty = useMemo(() => !docsEqual(doc, savedDoc), [doc, savedDoc]);
+
+  const save = useCallback(async () => {
+    setSaving(true);
+    setStatus(null);
+    try {
+      const payload = Object.entries(doc).map(([element_path, edit]) => {
+        const el = instantElementAt(element_path);
+        return {
+          element_path,
+          edit,
+          signature: el ? signatureOf(el) : null,
+        };
+      });
+      const res = await pushEdits({ data: { route: routePath, edits: payload } });
+      if (res.ok) {
+        setSavedDoc(doc);
+        setStatus("Saved — live for everyone");
+      } else {
+        setStatus(
+          res.reason === "forbidden"
+            ? "You need to be signed in as an admin to save."
+            : `Could not save: ${res.reason}`,
+        );
+      }
+    } catch {
+      setStatus("Could not save — please sign in as an admin and try again.");
+    } finally {
+      setSaving(false);
+    }
+  }, [doc, routePath, pushEdits]);
+
+  const discard = useCallback(() => {
+    saveInstantDoc(routePath, savedDoc);
+    window.location.reload();
+  }, [routePath, savedDoc]);
 
   /* pointer interaction while enabled */
   useEffect(() => {
@@ -271,6 +366,13 @@ export default function InstantEdits() {
             onResetElement={() => selected && resetElement(selected)}
             onResetPage={resetPage}
             onClose={() => setSelected(null)}
+            dirty={dirty}
+            saving={saving}
+            status={status}
+            isAdmin={isAdmin}
+            dirtyCount={Object.keys(doc).length}
+            onSave={save}
+            onDiscard={discard}
           />
         </>
       )}
@@ -291,6 +393,13 @@ function Panel({
   onResetElement,
   onResetPage,
   onClose,
+  dirty,
+  saving,
+  status,
+  isAdmin,
+  dirtyCount,
+  onSave,
+  onDiscard,
 }: {
   selected: string | null;
   selectedEl: HTMLElement | null;
@@ -302,6 +411,13 @@ function Panel({
   onResetElement: () => void;
   onResetPage: () => void;
   onClose: () => void;
+  dirty: boolean;
+  saving: boolean;
+  status: string | null;
+  isAdmin: boolean;
+  dirtyCount: number;
+  onSave: () => void;
+  onDiscard: () => void;
 }) {
   const shell: React.CSSProperties = {
     position: "fixed",
