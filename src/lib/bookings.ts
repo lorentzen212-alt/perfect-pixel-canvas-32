@@ -12,7 +12,8 @@ export type BookingStatus =
   | "confirmed"
   | "rooming_list_required"
   | "upcoming"
-  | "completed";
+  | "completed"
+  | "cancelled";
 
 export type StatusTone = "gold" | "sage" | "steel" | "muted";
 
@@ -31,6 +32,7 @@ export const STATUS_META: Record<BookingStatus, StatusMeta> = {
   rooming_list_required: { label: "Rooming List Required", tone: "gold" },
   upcoming: { label: "Upcoming", tone: "steel" },
   completed: { label: "Completed", tone: "sage" },
+  cancelled: { label: "Cancelled", tone: "muted" },
 };
 
 export const TONE_COLOR: Record<StatusTone, string> = {

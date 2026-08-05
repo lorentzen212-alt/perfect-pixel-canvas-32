@@ -3,7 +3,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { isProfileComplete, useAuth } from "@/lib/auth";
 import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
-import { fetchBookings, createBooking } from "@/lib/bookingsApi";
+import { fetchBookings, createBooking, cancelBooking } from "@/lib/bookingsApi";
+import { toast } from "sonner";
 import pageTextureAsset from "@/assets/limestone-texture.jpg.asset.json";
 
 
@@ -143,7 +144,7 @@ const SANS = 'Inter, "Helvetica Neue", Arial, sans-serif';
 type Group = "all" | "proposal" | "awaiting" | "confirmed" | "attention" | "cancelled";
 
 function groupOf(b: Booking): Exclude<Group, "all"> {
-  const s = b.status as string;
+  const s = b.status;
   if (s === "cancelled") return "cancelled";
   if (b.status === "rooming_list_required") return "attention";
   if (
@@ -174,6 +175,9 @@ const GROUP_COLOR: Record<Exclude<Group, "all">, string> = {
 
 /* primary action follows the real booking status and keeps its destination */
 function primaryAction(b: Booking) {
+  /* cancelled bookings keep read-only access only */
+  if (b.status === "cancelled")
+    return { label: "View booking", to: "/bookings/$bookingId" as const };
   switch (b.action.kind) {
     case "rooming_list":
       return { label: "Complete Rooming List", to: "/rooming-list/$bookingId" as const };
@@ -211,7 +215,7 @@ function trackIndex(status: BookingStatus) {
 /* ── small pieces ────────────────────────────────────── */
 
 function Timeline({ booking }: { booking: Booking }) {
-  const cancelled = (booking.status as string) === "cancelled";
+  const cancelled = booking.status === "cancelled";
   const active = trackIndex(booking.status);
   const tone = GROUP_COLOR[groupOf(booking)];
 
@@ -319,14 +323,42 @@ function MetaItem({ icon, children }: { icon: React.ReactNode; children: React.R
 
 function RowMenu({ booking }: { booking: Booking }) {
   const [open, setOpen] = useState(false);
-  const items = [
-    { label: "Booking details", to: "/bookings/$bookingId" as const },
-    { label: "Edit booking", to: "/bookings/$bookingId" as const },
-    { label: "Request change", to: "/bookings/$bookingId" as const },
-    { label: "Rooming list", to: "/rooming-list/$bookingId" as const },
-    { label: "Documents & contract", to: "/bookings/$bookingId" as const },
-    { label: "Cancel booking", to: "/bookings/$bookingId" as const },
-  ];
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pending, setPending] = useState(false);
+  const queryClient = useQueryClient();
+  const cancelled = booking.status === "cancelled";
+  const completed = booking.status === "completed";
+
+  const items = cancelled
+    ? [
+        { label: "Booking details", to: "/bookings/$bookingId" as const },
+        { label: "Documents & contract", to: "/bookings/$bookingId" as const },
+      ]
+    : [
+        { label: "Booking details", to: "/bookings/$bookingId" as const },
+        { label: "Edit booking", to: "/bookings/$bookingId" as const },
+        { label: "Request change", to: "/bookings/$bookingId" as const },
+        { label: "Rooming list", to: "/rooming-list/$bookingId" as const },
+        { label: "Documents & contract", to: "/bookings/$bookingId" as const },
+      ];
+
+  const showCancel = !cancelled && !completed;
+
+  async function runCancel() {
+    if (pending) return;
+    setPending(true);
+    try {
+      await cancelBooking(booking.id);
+      await queryClient.invalidateQueries({ queryKey: ["bookings"] });
+      setConfirmOpen(false);
+      toast("Booking cancelled");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not cancel booking");
+    } finally {
+      setPending(false);
+    }
+  }
+
   return (
     <div className="relative">
       <button
@@ -364,13 +396,79 @@ function RowMenu({ booking }: { booking: Booking }) {
                 params={{ bookingId: booking.id }}
                 onClick={() => setOpen(false)}
                 className="block px-4 py-2.5 text-[13px] hover:bg-white/5"
-                style={{ color: it.label.startsWith("Cancel") ? RED : TEXT_2 }}
+                style={{ color: TEXT_2 }}
               >
                 {it.label}
               </Link>
             ))}
+            {showCancel && (
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => {
+                  setOpen(false);
+                  setConfirmOpen(true);
+                }}
+                className="block w-full px-4 py-2.5 text-left text-[13px] hover:bg-white/5"
+                style={{ color: RED }}
+              >
+                Cancel booking
+              </button>
+            )}
           </div>
         </>
+      )}
+
+      {confirmOpen && (
+        <div
+          className="fixed inset-0 z-[100] grid place-items-center p-4"
+          style={{ background: "rgba(6,10,14,0.62)", backdropFilter: "blur(3px)" }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Cancel booking"
+        >
+          <div
+            className="w-full max-w-[420px] rounded-[14px] p-6"
+            style={{
+              backgroundColor: "#101A24",
+              border: `1px solid ${HAIRLINE}`,
+              boxShadow: "0 40px 80px -30px rgba(0,0,0,0.8)",
+            }}
+          >
+            <h2 className="text-[19px]" style={{ color: "#ECE7DF" }}>
+              Cancel booking?
+            </h2>
+            <p className="mt-3 text-[14px]" style={{ color: TEXT_2 }}>
+              {booking.name}
+            </p>
+            <p className="text-[12.5px]" style={{ color: MUTED }}>
+              {booking.reference}
+            </p>
+            <p className="mt-4 text-[13px] leading-relaxed" style={{ color: TEXT_2 }}>
+              This booking will be moved to Cancelled Bookings. Its history and documents will be
+              preserved.
+            </p>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmOpen(false)}
+                className="rounded-[8px] px-4 py-2 text-[13px] hover:bg-white/5"
+                style={{ color: TEXT_2, border: `1px solid ${HAIRLINE}` }}
+              >
+                Keep booking
+              </button>
+              <button
+                type="button"
+                onClick={() => void runCancel()}
+                disabled={pending}
+                className="rounded-[8px] px-4 py-2 text-[13px] disabled:opacity-60"
+                style={{ color: RED, border: `1px solid ${RED}55`, background: "rgba(180,99,106,0.10)" }}
+              >
+                {pending ? "Cancelling…" : "Cancel booking"}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
