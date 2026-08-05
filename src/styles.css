@@ -828,7 +828,8 @@
 
 /* Booking card hover elevation (Manage Bookings) */
 .hgb-booking-card {
-  padding-left: 26px;
+  --insert-w: 16px;
+  padding-left: calc(var(--insert-w) + 30px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .hgb-booking-card:hover {
@@ -836,6 +837,53 @@
     0 22px 46px -26px rgba(0, 0, 0, 0.75),
     0 0 0 1px rgba(255, 255, 255, 0.07);
 }
+
+/* ── polished gold edge insert (matches reference) ── */
+.hgb-card-insert {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 5px;
+  width: var(--insert-w);
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    #2A1D08 0%,
+    #B58D51 6%,
+    #825726 12%,
+    #835926 46%,
+    #916029 62%,
+    #A87332 74%,
+    #D09D45 84%,
+    #EEDF91 90%,
+    #C89A45 95%,
+    #221703 100%
+  );
+  box-shadow:
+    inset -1px 0 0 rgba(0, 0, 0, 0.85),
+    0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.hgb-card-insert::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  mix-blend-mode: overlay;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 246, 220, 0.5) 0%,
+    rgba(255, 232, 176, 0.28) 8%,
+    rgba(0, 0, 0, 0) 18%,
+    rgba(255, 250, 225, 0.55) 33%,
+    rgba(0, 0, 0, 0) 44%,
+    rgba(0, 0, 0, 0.3) 60%,
+    rgba(0, 0, 0, 0.42) 80%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+}
+
 
 /* ── booking card: premium metallic gold finishes ── */
 .hgb-gold-metal {
