@@ -253,21 +253,26 @@ function Timeline({ booking }: { booking: Booking }) {
                 background: current
                   ? "radial-gradient(80% 80% at 50% 28%, rgba(245,220,158,0.17) 0%, rgba(13,20,32,0.96) 100%)"
                   : "linear-gradient(180deg, rgba(20,28,40,0.96) 0%, rgba(13,20,32,0.96) 100%)",
-                border: `1px solid ${done || current ? "rgba(240,208,140,0.92)" : "rgba(168,182,199,0.34)"}`,
-                color: done || current ? "#F5DC9E" : "#A9B7C6",
-                boxShadow:
-                  done || current
-                    ? "0 0 6px rgba(240,208,140,0.34), inset 0 1px 0 rgba(255,246,220,0.16), inset 0 -2px 5px rgba(0,0,0,0.42)"
-                    : "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -2px 5px rgba(0,0,0,0.35)",
+                border: `1px solid ${
+                  current
+                    ? "rgba(216,197,142,0.85)"
+                    : done
+                      ? "rgba(236,231,221,0.30)"
+                      : "rgba(168,182,199,0.28)"
+                }`,
+                color: current ? CHAMPAGNE : done ? IVORY : "#A9B7C6",
+                boxShadow: current
+                  ? "0 0 6px rgba(216,197,142,0.26), inset 0 1px 0 rgba(255,246,220,0.14), inset 0 -2px 5px rgba(0,0,0,0.42)"
+                  : "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -2px 5px rgba(0,0,0,0.35)",
               }}
             >
               <s.icon size={14} strokeWidth={1.65} />
             </span>
             <span
               className={`whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]${
-                current || done ? " hgb-gold-metal" : ""
+                current ? " hgb-champagne-metal" : ""
               }`}
-              style={current || done ? undefined : { color: "#A9B7C6" }}
+              style={current ? undefined : { color: done ? IVORY : "#A9B7C6" }}
             >
               {s.label}
             </span>
