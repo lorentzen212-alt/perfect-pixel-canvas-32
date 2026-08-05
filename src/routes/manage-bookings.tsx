@@ -351,7 +351,7 @@ function RowMenu({ booking }: { booking: Booking }) {
       await cancelBooking(booking.id);
       await queryClient.invalidateQueries({ queryKey: ["bookings"] });
       setConfirmOpen(false);
-      toast("Booking cancelled");
+      toast("Booking cancelled and moved to Cancelled Bookings.");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not cancel booking");
     } finally {
@@ -1182,6 +1182,7 @@ function ManageBookings() {
   const [group, setGroup] = useState<Group>("all");
   const [dateChoice, setDateChoice] = useState<DateChoice>("all");
   const [view, setView] = useState<"grid" | "list">("list");
+  const [scope, setScope] = useState<"active" | "cancelled" | "all">("active");
   const [navOpen, setNavOpen] = useState(false);
 
   /* luxury rail: labels fade out before the width animates, and fade in after it opens */
@@ -1238,6 +1239,8 @@ function ManageBookings() {
     const dateFilter: DateFilter =
       dateChoice === "this_month" ? "all" : (dateChoice as DateFilter);
     let list = filterBookings(bookings, { query, status: "all", date: dateFilter });
+    if (scope === "active") list = list.filter((b) => b.status !== "cancelled");
+    if (scope === "cancelled") list = list.filter((b) => b.status === "cancelled");
     if (dateChoice === "this_month") {
       const now = new Date();
       list = list.filter((b) => {
@@ -1251,12 +1254,17 @@ function ManageBookings() {
     }
     if (group !== "all") list = list.filter((b) => groupOf(b) === group);
     return list;
-  }, [bookings, query, group, dateChoice]);
+  }, [bookings, query, group, dateChoice, scope]);
 
   const counts = useMemo(() => {
     const c = { proposal: 0, awaiting: 0, confirmed: 0, attention: 0, cancelled: 0 };
     for (const b of bookings) c[groupOf(b)] += 1;
     return c;
+  }, [bookings]);
+
+  const scopeCounts = useMemo(() => {
+    const cancelled = bookings.filter((b) => b.status === "cancelled").length;
+    return { active: bookings.length - cancelled, cancelled, all: bookings.length };
   }, [bookings]);
 
   const roomingTarget =
@@ -1765,6 +1773,49 @@ function ManageBookings() {
                   "0 1px 0 rgba(255,255,255,0.035) inset, 0 -1px 0 rgba(0,0,0,0.35) inset, 0 24px 60px -45px rgba(0,0,0,0.7)",
               }}
             >
+              {/* booking list view selector */}
+              <div className="mb-[16px] flex flex-wrap items-center gap-2">
+                {(
+                  [
+                    { key: "active" as const, label: "Active Bookings", n: scopeCounts.active },
+                    {
+                      key: "cancelled" as const,
+                      label: "Cancelled Bookings",
+                      n: scopeCounts.cancelled,
+                    },
+                    { key: "all" as const, label: "All Bookings", n: scopeCounts.all },
+                  ]
+                ).map(({ key, label, n }) => {
+                  const on = scope === key;
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => setScope(key)}
+                      className="rounded-[11px] px-[14px] py-[8px] text-[12.5px] font-medium transition-all duration-200"
+                      style={
+                        on
+                          ? {
+                              background:
+                                "linear-gradient(180deg, rgba(220,190,132,0.10) 0%, rgba(169,133,58,0.05) 100%)",
+                              border: "1px solid rgba(220,190,132,0.55)",
+                              color: "#E4CB98",
+                              boxShadow: "0 1px 0 rgba(255,255,255,0.07) inset",
+                            }
+                          : {
+                              background: "rgba(255,255,255,0.02)",
+                              border: "1px solid rgba(255,255,255,0.05)",
+                              color: "rgba(255,255,255,0.72)",
+                            }
+                      }
+                    >
+                      {label} ({n})
+                    </button>
+                  );
+                })}
+              </div>
+
               <div
                 className={
                   view === "list" ? "space-y-4" : "grid grid-cols-1 gap-4 xl:grid-cols-2"
