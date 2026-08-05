@@ -455,7 +455,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
                 "inset 0 1px 0 rgba(255,255,255,0.085), 0 1px 1px rgba(0,0,0,0.34), 0 2px 4px rgba(0,0,0,0.22)",
             }}
           >
-            <span className="shrink-0" style={{ color: "#E3A23C" }}>
+            <span className="shrink-0" style={{ color: IVORY }}>
               {m.icon}
             </span>
             {m.text}
