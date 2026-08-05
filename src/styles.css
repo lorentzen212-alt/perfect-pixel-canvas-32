@@ -834,7 +834,7 @@
 }
 .hgb-booking-card:hover {
   box-shadow:
-    0 22px 46px -26px rgba(0, 0, 0, 0.75),
+    0 5px 12px -6px rgba(0, 0, 0, 0.42),
     0 0 0 1px rgba(255, 255, 255, 0.07);
 }
 
