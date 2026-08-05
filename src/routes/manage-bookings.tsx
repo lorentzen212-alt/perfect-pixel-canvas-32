@@ -47,7 +47,8 @@ import mountains from "@/assets/dashboard-mountains.jpg";
 import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
-import cardSilkTexture from "@/assets/card-blue-silk.png.asset.json";
+import cardSilkTextureJson from "@/assets/card-blue-silk.png.asset.json";
+const cardSilkTextureUrl: string = cardSilkTextureJson.url;
 
 
 import {
@@ -553,7 +554,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       /* soft dark slate tint above the texture so the UI stays clean and readable */
       "linear-gradient(180deg, rgba(44,50,59,0.86) 0%, rgba(38,44,53,0.90) 100%)",
       /* new architectural texture — starts after the gold edge, kept understated */
-      `url("${cardSilkTexture.url}")`,
+      `url("${cardSilkTextureUrl}")`,
       "radial-gradient(120% 110% at 8% 0%, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 34%, rgba(0,0,0,0.00) 62%, rgba(0,0,0,0.10) 100%)",
       "linear-gradient(152deg, #434A55 0%, #3B424C 46%, #333A44 78%, #2E353E 100%)",
     ].join(", "),
