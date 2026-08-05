@@ -581,7 +581,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           ? undefined
           : {
               /* pulled closer to the machined gold edge without moving any other content */
-              marginLeft: -8,
+              marginLeft: -10,
               background: "linear-gradient(180deg, #18212C 0%, #131B25 100%)",
               border: "1px solid rgba(255,255,255,0.055)",
               boxShadow:
@@ -614,7 +614,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
               ? "h-[88px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               : "h-[112px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
           }
-          style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)" }}
+          style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)", objectPosition: compact ? undefined : "center calc(50% + 1px)" }}
         />
         <span
           aria-hidden
