@@ -21,7 +21,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
+import { SERIF, TopBar } from "@/components/DashboardChrome";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 import { type Booking } from "@/lib/bookings";
 import { useAuth } from "@/lib/auth";
@@ -498,7 +498,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <Link {...editorLink} className="hgb-gold-btn" style={goldBtn}>
                 <Pencil size={14} /> Continue editing
               </Link>
-              <Link {...editorLink} search={undefined} style={ghostBtn}>
+              <Link {...editorLink} style={ghostBtn}>
                 <Plus size={14} /> Create new version
               </Link>
             </div>
@@ -861,7 +861,7 @@ function Panel({
       >
         <h3
           className="text-[11px] font-semibold uppercase tracking-[0.16em]"
-          style={{ color: PAL?.TEXT ?? TEXT }}
+          style={{ color: TEXT }}
         >
           {title}
         </h3>
