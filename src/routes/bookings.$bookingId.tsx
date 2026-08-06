@@ -89,6 +89,14 @@ const GOLD_MET_MID = "#C5962D";
 const GOLD_MET_LOW = "#A97816";
 const GOLD_CALM = "#CBAE6B";
 
+/* shared navy material — matches the Rooming List Workspace anodized panels */
+const NAVY_TEXTURE =
+  "radial-gradient(1100px 420px at 18% -10%, rgba(255,255,255,0.045), transparent 62%), radial-gradient(700px 360px at 88% 108%, rgba(120,160,195,0.05), transparent 60%)";
+const NAVY_PANEL = `${NAVY_TEXTURE}, linear-gradient(180deg, #24445E 0%, #203D55 55%, #1C374D 100%)`;
+const NAVY_INNER =
+  "inset 0 1px 0 rgba(255,255,255,0.03), inset 0 -1px 0 rgba(0,0,0,0.12), inset 0 8px 22px -18px rgba(0,0,0,0.35), 0 0 0 1px rgba(8,18,28,0.25)";
+const NAVY_BORDER = "rgba(255,255,255,0.06)";
+
 function GoldAction({
   label,
   onClick,
@@ -206,9 +214,9 @@ function PanelShell({
     <section
       className="rounded-[13px] p-5"
       style={{
-        backgroundColor: "#30404C",
-        border: `1px solid rgba(199,163,74,0.34)`,
-        boxShadow: `${CARD_SHADOW}, 0 14px 34px -24px rgba(199,163,74,0.5)`,
+        background: NAVY_PANEL,
+        border: `1px solid ${NAVY_BORDER}`,
+        boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
         animation: "hgbPanelIn 200ms ease-out",
       }}
     >
@@ -279,7 +287,7 @@ function Stepper({
   return (
     <div
       className="inline-flex items-center rounded-[8px]"
-      style={{ border: `1px solid ${BORDER}`, backgroundColor: "rgba(12,30,42,0.4)" }}
+      style={{ border: `1px solid ${NAVY_BORDER}`, background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)` }}
     >
       <button
         type="button"
@@ -333,8 +341,8 @@ function Field({
 }
 
 const inputStyle: React.CSSProperties = {
-  backgroundColor: "rgba(12,30,42,0.45)",
-  border: `1px solid ${BORDER}`,
+  background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`,
+  border: `1px solid ${NAVY_BORDER}`,
   color: TEXT,
 };
 
@@ -570,7 +578,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <li
                 key={r.type}
                 className="flex items-center justify-between gap-4 rounded-[9px] px-3.5 py-2.5"
-                style={{ backgroundColor: "rgba(12,30,42,0.34)", border: `1px solid ${BORDER}` }}
+                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`, border: `1px solid ${NAVY_BORDER}` }}
               >
                 <div className="min-w-0">
                   <p className="text-[13.5px]" style={{ color: TEXT }}>
@@ -621,8 +629,8 @@ function Workspace({ booking }: { booking: Booking }) {
                   className="inline-flex items-center gap-2 rounded-[8px] px-3 py-2 text-[12.5px] transition-all duration-200"
                   style={{
                     color: on ? TEXT : MUTED,
-                    border: `1px solid ${on ? "rgba(199,163,74,0.4)" : BORDER}`,
-                    backgroundColor: on ? "rgba(199,163,74,0.08)" : "rgba(12,30,42,0.34)",
+                    border: `1px solid ${on ? "rgba(199,163,74,0.4)" : NAVY_BORDER}`,
+                    background: on ? "rgba(199,163,74,0.08)" : `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`,
                   }}
                 >
                   {on && <Check size={13} style={{ color: GOLD }} />}
@@ -693,7 +701,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <li
                 key={`${s.name}-${i}`}
                 className="flex items-center gap-3 rounded-[9px] px-3.5 py-2.5"
-                style={{ backgroundColor: "rgba(12,30,42,0.34)", border: `1px solid ${BORDER}` }}
+                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`, border: `1px solid ${NAVY_BORDER}` }}
               >
                 <input
                   value={s.name}
@@ -979,7 +987,7 @@ function Workspace({ booking }: { booking: Booking }) {
           {tab !== "Overview" ? (
             <section
               className="rounded-[16px] px-8 py-16 text-center"
-              style={{ backgroundColor: INK, border: "1px solid rgba(255,255,255,0.06)" }}
+              style={{ background: INK, border: `1px solid ${NAVY_BORDER}` }}
             >
               <h3 className="text-[24px]" style={{ color: TEXT, fontFamily: SERIF }}>
                 {tab}
@@ -1053,7 +1061,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 <InkCard title="Current action">
                   <div
                     className="mt-4 flex flex-col gap-6 rounded-[14px] p-5 sm:flex-row sm:items-center"
-                    style={{ backgroundColor: INK_2, border: "1px solid rgba(255,255,255,0.06)" }}
+                    style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
                   >
                     <span
                       className="grid h-[104px] w-[104px] shrink-0 place-items-center rounded-full"
@@ -1247,7 +1255,7 @@ function Workspace({ booking }: { booking: Booking }) {
                       <li
                         key={d.n}
                         className="flex items-center gap-3 rounded-[11px] px-3.5 py-3"
-                        style={{ backgroundColor: INK_2, border: "1px solid rgba(255,255,255,0.05)" }}
+                        style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
                       >
                         <span className="shrink-0" style={{ color: d.c }}>
                           {d.i}
@@ -1277,7 +1285,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 <InkCard title="Notes" action={<GoldAction label="View all" onClick={() => setTab("Notes")} />}>
                   <div
                     className="mt-3 flex items-start gap-3 rounded-[11px] px-3.5 py-3"
-                    style={{ backgroundColor: INK_2, border: "1px solid rgba(255,255,255,0.05)" }}
+                    style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
                   >
                     <span className="mt-[2px] shrink-0" style={{ color: GOLD_SOFT }}>
                       <StickyNote size={15} />
@@ -1354,8 +1362,8 @@ function Workspace({ booking }: { booking: Booking }) {
 /* ───────────────────────── workspace primitives ───────────────────────── */
 
 const PLATE = "#F4F0E8";
-const INK = "#101D28";
-const INK_2 = "#16232F";
+const INK = NAVY_PANEL;
+const INK_2 = `${NAVY_TEXTURE}, linear-gradient(180deg, #2A4B64 0%, #26455C 55%, #223F54 100%)`;
 
 
 function InkCard({
@@ -1373,9 +1381,9 @@ function InkCard({
     <section
       className="rounded-[16px] p-5 sm:p-6"
       style={{
-        backgroundColor: INK,
-        border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: "0 18px 40px -30px rgba(9,20,29,0.9)",
+        background: INK,
+        border: `1px solid ${NAVY_BORDER}`,
+        boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
       }}
     >
       <div className="flex items-baseline justify-between gap-5">
