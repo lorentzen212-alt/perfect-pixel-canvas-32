@@ -1285,7 +1285,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 <InkCard title="Notes" action={<GoldAction label="View all" onClick={() => setTab("Notes")} />}>
                   <div
                     className="mt-3 flex items-start gap-3 rounded-[11px] px-3.5 py-3"
-                    style={{ backgroundColor: INK_2, border: "1px solid rgba(255,255,255,0.05)" }}
+                    style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
                   >
                     <span className="mt-[2px] shrink-0" style={{ color: GOLD_SOFT }}>
                       <StickyNote size={15} />
