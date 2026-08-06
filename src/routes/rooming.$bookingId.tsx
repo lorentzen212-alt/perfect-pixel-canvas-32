@@ -529,8 +529,11 @@ function Workspace({ booking }: { booking: Booking }) {
                       {...editorLink}
                       className="flex items-center gap-3 rounded-[12px] px-3.5 py-3 transition-colors"
                       style={{
-                        backgroundColor: v.current ? INK_2 : "rgba(255,255,255,0.03)",
-                        border: `1px solid ${v.current ? "rgba(216,190,114,0.35)" : LINE}`,
+                        background: v.current
+                          ? "linear-gradient(180deg, #FBF3DF 0%, #F7EFE0 100%)"
+                          : "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                        border: `1px solid ${v.current ? "rgba(197,150,45,0.42)" : LINE_SOFT}`,
+                        boxShadow: CARD_SHADOW,
                       }}
                     >
                       <FileText size={15} style={{ color: GOLD_SOFT }} />
@@ -542,7 +545,7 @@ function Workspace({ booking }: { booking: Booking }) {
                           {v.current && (
                             <span
                               className="rounded-full px-2 py-[1px] text-[10px]"
-                              style={{ backgroundColor: "rgba(127,180,138,0.16)", color: GREEN }}
+                              style={{ backgroundColor: "rgba(79,138,98,0.14)", color: GREEN }}
                             >
                               Current
                             </span>
@@ -630,7 +633,11 @@ function Workspace({ booking }: { booking: Booking }) {
                     <div
                       key={t.value}
                       className="rounded-[12px] px-4 py-3.5"
-                      style={{ backgroundColor: "rgba(255,255,255,0.035)", border: `1px solid ${LINE}` }}
+                      style={{
+                        background: "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                        border: `1px solid ${LINE_SOFT}`,
+                        boxShadow: CARD_SHADOW,
+                      }}
                     >
                       <span className="flex items-center gap-2.5">
                         <Bed size={17} style={{ color: GOLD_SOFT }} />
@@ -654,7 +661,11 @@ function Workspace({ booking }: { booking: Booking }) {
                     <div
                       key={g.label}
                       className="rounded-[12px] px-4 py-3.5"
-                      style={{ backgroundColor: "rgba(255,255,255,0.035)", border: `1px solid ${LINE}` }}
+                      style={{
+                        background: "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                        border: `1px solid ${LINE_SOFT}`,
+                        boxShadow: CARD_SHADOW,
+                      }}
                     >
                       <p className="text-[12.5px] font-semibold" style={{ color: TEXT }}>
                         {g.label}{" "}
@@ -733,8 +744,8 @@ function Workspace({ booking }: { booking: Booking }) {
                       <span
                         className="mt-[2px] grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full"
                         style={{
-                          border: `1px solid ${s.done ? GREEN : "rgba(255,255,255,0.22)"}`,
-                          backgroundColor: s.done ? "rgba(127,180,138,0.18)" : "transparent",
+                          border: `1px solid ${s.done ? GREEN : "rgba(123,136,150,0.35)"}`,
+                          backgroundColor: s.done ? "rgba(79,138,98,0.16)" : "transparent",
                           color: GREEN,
                         }}
                       >
@@ -794,15 +805,22 @@ const ghostBtn: React.CSSProperties = {
   borderRadius: 12,
   padding: "11px 18px",
   fontSize: 13.5,
-  color: GOLD_SOFT,
-  border: `1px solid rgba(216,190,114,0.42)`,
-  backgroundColor: "rgba(216,190,114,0.06)",
+  color: "#6E5518",
+  border: `1px solid rgba(169,133,47,0.42)`,
+  backgroundColor: "rgba(212,175,55,0.08)",
 };
 
 function Kpi({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div>
-      <p className="text-[10px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+    <div
+      className="rounded-[14px] px-4 py-3.5"
+      style={{
+        background: "linear-gradient(180deg, #FFFDF8 0%, #FBF7F0 100%)",
+        border: `1px solid ${LINE}`,
+        boxShadow: CARD_SHADOW,
+      }}
+    >
+      <p className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
         {label}
       </p>
       <div className="mt-2.5">{children}</div>
@@ -820,7 +838,7 @@ function Ring({ percent }: { percent: number }) {
   return (
     <span className="relative grid h-[56px] w-[56px] place-items-center">
       <svg width="56" height="56" className="absolute inset-0 -rotate-90">
-        <circle cx="28" cy="28" r={r} fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="4" />
+        <circle cx="28" cy="28" r={r} fill="none" stroke="rgba(158,136,100,0.22)" strokeWidth="4" />
         <circle
           cx="28"
           cy="28"
@@ -841,7 +859,7 @@ function Ring({ percent }: { percent: number }) {
 
 function SummaryRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-3 border-b pb-2" style={{ borderColor: LINE }}>
+    <div className="flex items-center justify-between gap-3 border-b pb-2" style={{ borderColor: LINE_SOFT }}>
       <dt style={{ color: MUTED }}>{label}</dt>
       <dd style={{ color: TEXT }}>{value}</dd>
     </div>
@@ -865,12 +883,12 @@ function Panel({
       style={{
         backgroundColor: INK,
         border: `1px solid ${LINE}`,
-        boxShadow: "0 18px 40px -30px rgba(9,20,29,0.9)",
+        boxShadow: CARD_SHADOW,
       }}
     >
       <div
         className="flex items-center justify-between gap-4 px-5 py-3"
-        style={{ backgroundColor: INK_2, borderBottom: `1px solid ${LINE}` }}
+        style={{ backgroundColor: "transparent", borderBottom: `1px solid ${LINE_SOFT}` }}
       >
         <h3
           className="text-[11px] font-semibold uppercase tracking-[0.16em]"
