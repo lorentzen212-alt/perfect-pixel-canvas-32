@@ -447,13 +447,18 @@ function Workspace({ booking }: { booking: Booking }) {
         >
           {/* KPI strip */}
           <section
-            className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_248px]"
+            className="grid gap-4 rounded-[18px] px-4 py-4 lg:grid-cols-[minmax(0,1fr)_248px]"
+            style={{
+              background: NAVY_PANEL,
+              border: `1px solid ${NAVY_BORDER}`,
+              boxShadow: `${NAVY_INNER}, 0 20px 44px -30px rgba(6,16,26,0.85)`,
+            }}
           >
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+            <div className="grid gap-0 sm:grid-cols-2 xl:grid-cols-5">
               <Kpi label="Rooming list progress">
                 <div className="flex items-center gap-3">
                   <Ring percent={percent} />
-                  <span className="text-[12px]" style={{ color: TEXT_2 }}>
+                  <span className="text-[12px]" style={{ color: ON_NAVY_2 }}>
                     {stats?.filled ?? 0} of {stats?.totalSlots ?? 0}
                     <br />
                     completed
@@ -463,12 +468,12 @@ function Workspace({ booking }: { booking: Booking }) {
 
               <Kpi label="Deadline">
                 <div className="flex items-center gap-3">
-                  <CalendarDays size={20} style={{ color: GOLD_SOFT }} />
+                  <CalendarDays size={20} style={{ color: GOLD_HI }} />
                   <span>
-                    <span className="block text-[15px]" style={{ color: TEXT }}>
+                    <span className="block text-[15px]" style={{ color: ON_NAVY }}>
                       {daysLeft === null ? "Not set" : `${Math.max(0, daysLeft)} days`}
                     </span>
-                    <span className="text-[11.5px]" style={{ color: MUTED }}>
+                    <span className="text-[11.5px]" style={{ color: ON_NAVY_MUTED }}>
                       {dueISO ? `Due ${fmtDay(dueISO)}` : "No deadline yet"}
                     </span>
                   </span>
@@ -477,12 +482,12 @@ function Workspace({ booking }: { booking: Booking }) {
 
               <Kpi label="Rooms & guests">
                 <div className="flex items-center gap-3">
-                  <Bed size={20} style={{ color: GOLD_SOFT }} />
+                  <Bed size={20} style={{ color: GOLD_HI }} />
                   <span>
-                    <span className="block text-[15px]" style={{ color: TEXT }}>
+                    <span className="block text-[15px]" style={{ color: ON_NAVY }}>
                       {active.length} rooms
                     </span>
-                    <span className="text-[11.5px]" style={{ color: MUTED }}>
+                    <span className="text-[11.5px]" style={{ color: ON_NAVY_MUTED }}>
                       {totalGuests} guests
                     </span>
                   </span>
@@ -490,27 +495,27 @@ function Workspace({ booking }: { booking: Booking }) {
               </Kpi>
 
               <Kpi label="Rooms status">
-                <ul className="space-y-[3px] text-[11.5px]" style={{ color: TEXT_2 }}>
+                <ul className="space-y-[3px] text-[11.5px]" style={{ color: ON_NAVY_2 }}>
                   <li className="flex items-center gap-2">
-                    <Dot color={GREEN} /> {statusCounts.complete} Completed
+                    <Dot color="#5FBF87" /> {statusCounts.complete} Completed
                   </li>
                   <li className="flex items-center gap-2">
-                    <Dot color={AMBER} /> {statusCounts.pending} Pending
+                    <Dot color="#E0A93F" /> {statusCounts.pending} Pending
                   </li>
                   <li className="flex items-center gap-2">
-                    <Dot color={RED} /> {statusCounts.missing} Missing
+                    <Dot color="#D3766A" /> {statusCounts.missing} Missing
                   </li>
                 </ul>
               </Kpi>
 
-              <Kpi label="Last updated">
+              <Kpi label="Last updated" last>
                 <div className="flex items-center gap-3">
-                  <Clock size={20} style={{ color: GOLD_SOFT }} />
+                  <Clock size={20} style={{ color: GOLD_HI }} />
                   <span>
-                    <span className="block text-[13.5px]" style={{ color: TEXT }}>
+                    <span className="block text-[13.5px]" style={{ color: ON_NAVY }}>
                       {fmtDateTime(list?.savedAt)}
                     </span>
-                    <span className="text-[11.5px]" style={{ color: MUTED }}>
+                    <span className="text-[11.5px]" style={{ color: ON_NAVY_MUTED }}>
                       By {displayName || "you"}
                     </span>
                   </span>
