@@ -457,7 +457,7 @@ function Workspace({ booking }: { booking: Booking }) {
             style={{
               background: NAVY_PANEL,
               border: `1px solid ${NAVY_BORDER}`,
-              boxShadow: `${NAVY_INNER}, 0 20px 44px -30px rgba(6,16,26,0.85)`,
+              boxShadow: `${NAVY_INNER}, 0 18px 40px -28px rgba(10,22,34,0.55)`,
             }}
           >
             <div className="grid gap-0 sm:grid-cols-2 xl:grid-cols-5">
