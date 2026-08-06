@@ -629,8 +629,8 @@ function Workspace({ booking }: { booking: Booking }) {
                   className="inline-flex items-center gap-2 rounded-[8px] px-3 py-2 text-[12.5px] transition-all duration-200"
                   style={{
                     color: on ? TEXT : MUTED,
-                    border: `1px solid ${on ? "rgba(199,163,74,0.4)" : BORDER}`,
-                    backgroundColor: on ? "rgba(199,163,74,0.08)" : "rgba(12,30,42,0.34)",
+                    border: `1px solid ${on ? "rgba(199,163,74,0.4)" : NAVY_BORDER}`,
+                    background: on ? "rgba(199,163,74,0.08)" : `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`,
                   }}
                 >
                   {on && <Check size={13} style={{ color: GOLD }} />}
