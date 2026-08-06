@@ -433,13 +433,12 @@ function Workspace({ booking }: { booking: Booking }) {
         </header>
 
         {/* ══ plate ══ */}
-        <div className="relative px-5 pb-14 pt-5 sm:px-9" style={{ backgroundColor: PLATE }}>
+        <div className="relative px-5 pb-14 pt-5 sm:px-9" style={{ background: PLATE_TEXTURE }}>
           {/* KPI strip */}
           <section
-            className="grid gap-4 rounded-[16px] p-5 lg:grid-cols-[minmax(0,1fr)_248px]"
-            style={{ backgroundColor: INK, border: `1px solid ${LINE}` }}
+            className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_248px]"
           >
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-5">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
               <Kpi label="Rooming list progress">
                 <div className="flex items-center gap-3">
                   <Ring percent={percent} />
