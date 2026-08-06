@@ -1061,7 +1061,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 <InkCard title="Current action">
                   <div
                     className="mt-4 flex flex-col gap-6 rounded-[14px] p-5 sm:flex-row sm:items-center"
-                    style={{ backgroundColor: INK_2, border: "1px solid rgba(255,255,255,0.06)" }}
+                    style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
                   >
                     <span
                       className="grid h-[104px] w-[104px] shrink-0 place-items-center rounded-full"
