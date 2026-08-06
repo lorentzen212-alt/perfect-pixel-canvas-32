@@ -89,11 +89,11 @@ const CARD_SHADOW = "0 1px 2px rgba(58,44,20,0.06), 0 16px 34px -26px rgba(58,44
 /* dark navy panel (KPI band + section header bars) — anodized aluminium material */
 const NAVY_TEXTURE =
   "radial-gradient(1100px 420px at 18% -10%, rgba(255,255,255,0.045), transparent 62%), radial-gradient(700px 360px at 88% 108%, rgba(120,160,195,0.05), transparent 60%)";
-const NAVY_PANEL = `${NAVY_TEXTURE}, linear-gradient(180deg, #1A3146 0%, #173047 55%, #142A3E 100%)`;
-const NAVY_BAR = `${NAVY_TEXTURE}, linear-gradient(180deg, #1A3146 0%, #152D42 100%)`;
+const NAVY_PANEL = `${NAVY_TEXTURE}, linear-gradient(180deg, #24445E 0%, #203D55 55%, #1C374D 100%)`;
+const NAVY_BAR = `${NAVY_TEXTURE}, linear-gradient(180deg, #24445E 0%, #203D55 100%)`;
 const NAVY_BORDER = "rgba(255,255,255,0.06)";
 const NAVY_INNER =
-  "inset 0 1px 0 rgba(255,255,255,0.03), inset 0 -1px 0 rgba(0,0,0,0.18), inset 0 8px 22px -18px rgba(0,0,0,0.55), 0 0 0 1px rgba(8,18,28,0.35)";
+  "inset 0 1px 0 rgba(255,255,255,0.03), inset 0 -1px 0 rgba(0,0,0,0.12), inset 0 8px 22px -18px rgba(0,0,0,0.35), 0 0 0 1px rgba(8,18,28,0.25)";
 
 const ON_NAVY = "#F3F7FA";
 const ON_NAVY_2 = "rgba(221,232,241,0.84)";
