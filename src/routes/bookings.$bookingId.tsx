@@ -214,9 +214,9 @@ function PanelShell({
     <section
       className="rounded-[13px] p-5"
       style={{
-        backgroundColor: "#30404C",
-        border: `1px solid rgba(199,163,74,0.34)`,
-        boxShadow: `${CARD_SHADOW}, 0 14px 34px -24px rgba(199,163,74,0.5)`,
+        background: NAVY_PANEL,
+        border: `1px solid ${NAVY_BORDER}`,
+        boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
         animation: "hgbPanelIn 200ms ease-out",
       }}
     >
