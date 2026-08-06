@@ -656,7 +656,7 @@ function Workspace({ booking }: { booking: Booking }) {
                       }}
                     >
                       <span className="flex items-center gap-2.5">
-                        <Bed size={17} style={{ color: GOLD_SOFT }} />
+                        <Bed size={17} style={{ color: ROOM_ICON_COLORS[i % ROOM_ICON_COLORS.length] }} />
                         <span className="text-[13px]" style={{ color: TEXT }}>
                           {t.label}
                         </span>
