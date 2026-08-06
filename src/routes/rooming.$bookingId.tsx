@@ -76,25 +76,31 @@ export const Route = createFileRoute("/rooming/$bookingId")({
   }),
 });
 
-/* ── tokens (matching the booking workspace language) ── */
-const PAGE = "#0C1A25";
-const PLATE = "#0E2130";
-const INK = "#132A3C";
-const INK_2 = "#16334A";
-const LINE = "rgba(255,255,255,0.08)";
-const TEXT = "#F3F1EB";
-const TEXT_2 = "rgba(226,233,239,0.80)";
-const MUTED = "rgba(214,224,232,0.58)";
+/* ── tokens — warm ivory "premium paper" workspace ── */
+const PLATE = "#F6F2EA"; // warm ivory workspace
+const PLATE_TEXTURE =
+  "radial-gradient(1200px 480px at 12% -8%, rgba(212,175,55,0.10), transparent 62%), radial-gradient(900px 420px at 92% 4%, rgba(198,171,120,0.10), transparent 60%), linear-gradient(180deg, #F7F3EC 0%, #F5F1EA 100%)";
+const INK = "#FCFAF5"; // card surface
+const LINE = "rgba(158,136,100,0.22)"; // warm 1px border
+const LINE_SOFT = "rgba(158,136,100,0.14)";
+const CARD_SHADOW = "0 1px 2px rgba(58,44,20,0.05), 0 14px 32px -26px rgba(58,44,20,0.35)";
+const TEXT = "#16293A"; // dark navy
+const TEXT_2 = "#3D5468";
+const MUTED = "#7B8896";
+/* hero (dark image) text */
+const HERO_TEXT = "rgba(226,233,239,0.88)";
+const HERO_MUTED = "rgba(214,224,232,0.62)";
 const GOLD_HI = "#F3D987";
 const GOLD_MET = "#D4AF37";
 const GOLD_MET_MID = "#C5962D";
 const GOLD_MET_LOW = "#A97816";
-const GOLD_SOFT = "#D8BE72";
-const GREEN = "#7FB48A";
-const AMBER = "#D9A441";
-const RED = "#C97C6E";
+const GOLD_SOFT = "#A9852F";
+const GREEN = "#4F8A62";
+const AMBER = "#B67C1E";
+const RED = "#B4584A";
 
 const GOLD_BAR = `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 45%, ${GOLD_MET_MID})`;
+
 
 const TABS = [
   "Overview",
@@ -281,7 +287,7 @@ function Workspace({ booking }: { booking: Booking }) {
   const editorLink = { to: "/rooming-list/$bookingId" as const, params: { bookingId: booking.id } };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: PAGE }}>
+    <div className="min-h-screen" style={{ backgroundColor: PLATE }}>
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] lg:block">
         <GlobalSidebar
           active="Rooming Lists"
@@ -313,7 +319,7 @@ function Workspace({ booking }: { booking: Booking }) {
               aria-label="Close navigation"
               onClick={() => setNavOpen(false)}
               className="absolute right-3 top-4 grid h-9 w-9 place-items-center rounded-md"
-              style={{ color: TEXT_2 }}
+              style={{ color: HERO_TEXT }}
             >
               <X size={18} />
             </button>
@@ -329,7 +335,7 @@ function Workspace({ booking }: { booking: Booking }) {
               to="/bookings/$bookingId"
               params={{ bookingId: booking.id }}
               className="inline-flex items-center gap-2 text-[13px] transition-opacity hover:opacity-80"
-              style={{ color: TEXT_2 }}
+              style={{ color: HERO_TEXT }}
             >
               <ArrowLeft size={15} />
               Back to booking
@@ -353,7 +359,7 @@ function Workspace({ booking }: { booking: Booking }) {
             }}
           />
           <div className="relative px-5 pt-7 sm:px-9">
-            <p className="flex items-center gap-1.5 text-[12.5px]" style={{ color: MUTED }}>
+            <p className="flex items-center gap-1.5 text-[12.5px]" style={{ color: HERO_MUTED }}>
               <Link
                 to="/bookings/$bookingId"
                 params={{ bookingId: booking.id }}
@@ -362,7 +368,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 Booking workspace
               </Link>
               <ChevronRight size={13} />
-              <span style={{ color: TEXT_2 }}>{booking.name}</span>
+              <span style={{ color: HERO_TEXT }}>{booking.name}</span>
             </p>
             <h1
               className="mt-1 truncate text-[30px] leading-[1.1] sm:text-[34px]"
@@ -370,7 +376,7 @@ function Workspace({ booking }: { booking: Booking }) {
             >
               Rooming List
             </h1>
-            <p className="mt-1 text-[13px]" style={{ color: MUTED }}>
+            <p className="mt-1 text-[13px]" style={{ color: HERO_MUTED }}>
               Manage, review and submit your rooming list
             </p>
 
@@ -380,13 +386,19 @@ function Workspace({ booking }: { booking: Booking }) {
                 const cls =
                   "relative whitespace-nowrap rounded-t-[13px] px-5 pb-[13px] pt-[11px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
                 const st: React.CSSProperties = isActive
-                  ? { backgroundColor: PLATE, color: TEXT, fontWeight: 600 }
+                  ? {
+                      background: "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
+                      color: TEXT,
+                      fontWeight: 600,
+                      boxShadow: "0 -6px 18px -12px rgba(58,44,20,0.45)",
+                    }
                   : {
-                      backgroundColor: "rgba(12,26,36,0.62)",
+                      backgroundColor: "rgba(12,26,36,0.55)",
                       color: "rgba(226,233,239,0.78)",
-                      border: `1px solid ${LINE}`,
+                      border: "1px solid rgba(255,255,255,0.10)",
                       borderBottom: "none",
                     };
+
                 const inner = (
                   <>
                     <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.62)" }}>
@@ -419,13 +431,15 @@ function Workspace({ booking }: { booking: Booking }) {
         </header>
 
         {/* ══ plate ══ */}
-        <div className="relative px-5 pb-14 pt-5 sm:px-9" style={{ backgroundColor: PLATE }}>
+        <div
+          className="relative min-h-[75vh] px-5 pb-14 pt-5 sm:px-9"
+          style={{ background: PLATE_TEXTURE }}
+        >
           {/* KPI strip */}
           <section
-            className="grid gap-4 rounded-[16px] p-5 lg:grid-cols-[minmax(0,1fr)_248px]"
-            style={{ backgroundColor: INK, border: `1px solid ${LINE}` }}
+            className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_248px]"
           >
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-5">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
               <Kpi label="Rooming list progress">
                 <div className="flex items-center gap-3">
                   <Ring percent={percent} />
@@ -516,8 +530,11 @@ function Workspace({ booking }: { booking: Booking }) {
                       {...editorLink}
                       className="flex items-center gap-3 rounded-[12px] px-3.5 py-3 transition-colors"
                       style={{
-                        backgroundColor: v.current ? INK_2 : "rgba(255,255,255,0.03)",
-                        border: `1px solid ${v.current ? "rgba(216,190,114,0.35)" : LINE}`,
+                        background: v.current
+                          ? "linear-gradient(180deg, #FBF3DF 0%, #F7EFE0 100%)"
+                          : "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                        border: `1px solid ${v.current ? "rgba(197,150,45,0.42)" : LINE_SOFT}`,
+                        boxShadow: CARD_SHADOW,
                       }}
                     >
                       <FileText size={15} style={{ color: GOLD_SOFT }} />
@@ -529,7 +546,7 @@ function Workspace({ booking }: { booking: Booking }) {
                           {v.current && (
                             <span
                               className="rounded-full px-2 py-[1px] text-[10px]"
-                              style={{ backgroundColor: "rgba(127,180,138,0.16)", color: GREEN }}
+                              style={{ backgroundColor: "rgba(79,138,98,0.14)", color: GREEN }}
                             >
                               Current
                             </span>
@@ -617,7 +634,11 @@ function Workspace({ booking }: { booking: Booking }) {
                     <div
                       key={t.value}
                       className="rounded-[12px] px-4 py-3.5"
-                      style={{ backgroundColor: "rgba(255,255,255,0.035)", border: `1px solid ${LINE}` }}
+                      style={{
+                        background: "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                        border: `1px solid ${LINE_SOFT}`,
+                        boxShadow: CARD_SHADOW,
+                      }}
                     >
                       <span className="flex items-center gap-2.5">
                         <Bed size={17} style={{ color: GOLD_SOFT }} />
@@ -641,7 +662,11 @@ function Workspace({ booking }: { booking: Booking }) {
                     <div
                       key={g.label}
                       className="rounded-[12px] px-4 py-3.5"
-                      style={{ backgroundColor: "rgba(255,255,255,0.035)", border: `1px solid ${LINE}` }}
+                      style={{
+                        background: "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                        border: `1px solid ${LINE_SOFT}`,
+                        boxShadow: CARD_SHADOW,
+                      }}
                     >
                       <p className="text-[12.5px] font-semibold" style={{ color: TEXT }}>
                         {g.label}{" "}
@@ -720,8 +745,8 @@ function Workspace({ booking }: { booking: Booking }) {
                       <span
                         className="mt-[2px] grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full"
                         style={{
-                          border: `1px solid ${s.done ? GREEN : "rgba(255,255,255,0.22)"}`,
-                          backgroundColor: s.done ? "rgba(127,180,138,0.18)" : "transparent",
+                          border: `1px solid ${s.done ? GREEN : "rgba(123,136,150,0.35)"}`,
+                          backgroundColor: s.done ? "rgba(79,138,98,0.16)" : "transparent",
                           color: GREEN,
                         }}
                       >
@@ -781,15 +806,22 @@ const ghostBtn: React.CSSProperties = {
   borderRadius: 12,
   padding: "11px 18px",
   fontSize: 13.5,
-  color: GOLD_SOFT,
-  border: `1px solid rgba(216,190,114,0.42)`,
-  backgroundColor: "rgba(216,190,114,0.06)",
+  color: "#6E5518",
+  border: `1px solid rgba(169,133,47,0.42)`,
+  backgroundColor: "rgba(212,175,55,0.08)",
 };
 
 function Kpi({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div>
-      <p className="text-[10px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+    <div
+      className="rounded-[14px] px-4 py-3.5"
+      style={{
+        background: "linear-gradient(180deg, #FFFDF8 0%, #FBF7F0 100%)",
+        border: `1px solid ${LINE}`,
+        boxShadow: CARD_SHADOW,
+      }}
+    >
+      <p className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
         {label}
       </p>
       <div className="mt-2.5">{children}</div>
@@ -807,7 +839,7 @@ function Ring({ percent }: { percent: number }) {
   return (
     <span className="relative grid h-[56px] w-[56px] place-items-center">
       <svg width="56" height="56" className="absolute inset-0 -rotate-90">
-        <circle cx="28" cy="28" r={r} fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="4" />
+        <circle cx="28" cy="28" r={r} fill="none" stroke="rgba(158,136,100,0.22)" strokeWidth="4" />
         <circle
           cx="28"
           cy="28"
@@ -828,7 +860,7 @@ function Ring({ percent }: { percent: number }) {
 
 function SummaryRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-3 border-b pb-2" style={{ borderColor: LINE }}>
+    <div className="flex items-center justify-between gap-3 border-b pb-2" style={{ borderColor: LINE_SOFT }}>
       <dt style={{ color: MUTED }}>{label}</dt>
       <dd style={{ color: TEXT }}>{value}</dd>
     </div>
@@ -852,12 +884,12 @@ function Panel({
       style={{
         backgroundColor: INK,
         border: `1px solid ${LINE}`,
-        boxShadow: "0 18px 40px -30px rgba(9,20,29,0.9)",
+        boxShadow: CARD_SHADOW,
       }}
     >
       <div
         className="flex items-center justify-between gap-4 px-5 py-3"
-        style={{ backgroundColor: INK_2, borderBottom: `1px solid ${LINE}` }}
+        style={{ backgroundColor: "transparent", borderBottom: `1px solid ${LINE_SOFT}` }}
       >
         <h3
           className="text-[11px] font-semibold uppercase tracking-[0.16em]"
