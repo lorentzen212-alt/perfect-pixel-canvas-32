@@ -77,12 +77,10 @@ export const Route = createFileRoute("/rooming/$bookingId")({
 });
 
 /* ── tokens — warm ivory "premium paper" workspace ── */
-const PAGE = "#0C1A25"; // page shell behind the hero (sidebar/topbar stay dark)
 const PLATE = "#F6F2EA"; // warm ivory workspace
 const PLATE_TEXTURE =
   "radial-gradient(1200px 480px at 12% -8%, rgba(212,175,55,0.10), transparent 62%), radial-gradient(900px 420px at 92% 4%, rgba(198,171,120,0.10), transparent 60%), linear-gradient(180deg, #F7F3EC 0%, #F5F1EA 100%)";
 const INK = "#FCFAF5"; // card surface
-const INK_2 = "#F2ECE1"; // subtle inner surface
 const LINE = "rgba(158,136,100,0.22)"; // warm 1px border
 const LINE_SOFT = "rgba(158,136,100,0.14)";
 const CARD_SHADOW = "0 1px 2px rgba(58,44,20,0.05), 0 14px 32px -26px rgba(58,44,20,0.35)";
