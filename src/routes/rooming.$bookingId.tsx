@@ -111,6 +111,9 @@ const RED = "#B4584A";
 
 const GOLD_BAR = `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 45%, ${GOLD_MET_MID})`;
 
+/* soft coloured icons for the room-type cards (reference material) */
+const ROOM_ICON_COLORS = ["#2F6FA8", "#3E8C74", "#A9852F", "#8A5FA8", "#C0743F", "#4A6B8A"];
+
 
 const TABS = [
   "Overview",
