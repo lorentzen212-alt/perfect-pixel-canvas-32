@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
 import { BookingDocumentsView } from "@/components/BookingDocuments";
+import { BookingMessagesView } from "@/components/BookingMessages";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 import { roomingProgress, type Booking } from "@/lib/bookings";
@@ -1006,6 +1007,13 @@ function Workspace({ booking }: { booking: Booking }) {
             />
           ) : tab === "Documents" ? (
             <BookingDocumentsView reference={booking.reference} />
+          ) : tab === "Messages" ? (
+            <BookingMessagesView
+              bookingId={booking.id}
+              reference={booking.reference}
+              bookingName={booking.name}
+              stayDates={`${dateShort(stay.arrival)} – ${fmtDate(stay.departure, { day: "numeric", month: "short", year: "numeric" })}`}
+            />
           ) : tab !== "Overview" ? (
             <section
               className="rounded-[16px] px-8 py-16 text-center"
