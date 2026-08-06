@@ -1343,6 +1343,8 @@ function Workspace({ booking }: { booking: Booking }) {
               </aside>
             </div>
           )}
+          </div>
+
         </div>
       </div>
     </div>
