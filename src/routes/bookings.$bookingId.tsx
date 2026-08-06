@@ -987,7 +987,7 @@ function Workspace({ booking }: { booking: Booking }) {
           {tab !== "Overview" ? (
             <section
               className="rounded-[16px] px-8 py-16 text-center"
-              style={{ backgroundColor: INK, border: "1px solid rgba(255,255,255,0.06)" }}
+              style={{ background: INK, border: `1px solid ${NAVY_BORDER}` }}
             >
               <h3 className="text-[24px]" style={{ color: TEXT, fontFamily: SERIF }}>
                 {tab}
