@@ -361,7 +361,7 @@ function Workspace({ booking }: { booking: Booking }) {
             }}
           />
           <div className="relative px-5 pt-7 sm:px-9">
-            <p className="flex items-center gap-1.5 text-[12.5px]" style={{ color: MUTED }}>
+            <p className="flex items-center gap-1.5 text-[12.5px]" style={{ color: HERO_MUTED }}>
               <Link
                 to="/bookings/$bookingId"
                 params={{ bookingId: booking.id }}
@@ -370,7 +370,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 Booking workspace
               </Link>
               <ChevronRight size={13} />
-              <span style={{ color: TEXT_2 }}>{booking.name}</span>
+              <span style={{ color: HERO_TEXT }}>{booking.name}</span>
             </p>
             <h1
               className="mt-1 truncate text-[30px] leading-[1.1] sm:text-[34px]"
@@ -378,7 +378,7 @@ function Workspace({ booking }: { booking: Booking }) {
             >
               Rooming List
             </h1>
-            <p className="mt-1 text-[13px]" style={{ color: MUTED }}>
+            <p className="mt-1 text-[13px]" style={{ color: HERO_MUTED }}>
               Manage, review and submit your rooming list
             </p>
 
@@ -388,13 +388,19 @@ function Workspace({ booking }: { booking: Booking }) {
                 const cls =
                   "relative whitespace-nowrap rounded-t-[13px] px-5 pb-[13px] pt-[11px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
                 const st: React.CSSProperties = isActive
-                  ? { backgroundColor: PLATE, color: TEXT, fontWeight: 600 }
+                  ? {
+                      background: "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
+                      color: TEXT,
+                      fontWeight: 600,
+                      boxShadow: "0 -6px 18px -12px rgba(58,44,20,0.45)",
+                    }
                   : {
-                      backgroundColor: "rgba(12,26,36,0.62)",
+                      backgroundColor: "rgba(12,26,36,0.55)",
                       color: "rgba(226,233,239,0.78)",
-                      border: `1px solid ${LINE}`,
+                      border: "1px solid rgba(255,255,255,0.10)",
                       borderBottom: "none",
                     };
+
                 const inner = (
                   <>
                     <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.62)" }}>
