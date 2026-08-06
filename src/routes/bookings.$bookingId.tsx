@@ -5,10 +5,8 @@ import { roomingQueryOptions } from "./rooming-list.$bookingId";
 import {
   ArrowLeft,
   Bed,
-  Building2,
   Check,
   ChevronRight,
-  Clock,
   Copy,
   Download,
   FileText,
@@ -22,9 +20,7 @@ import {
   Trash2,
   UtensilsCrossed,
   ConciergeBell,
-  Users,
   X,
-  CalendarDays,
 } from "lucide-react";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
@@ -136,155 +132,9 @@ function GoldAction({
   );
 }
 
-function IconBubble({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="relative grid h-[32px] w-[32px] shrink-0 place-items-center">
-      <span
-        aria-hidden
-        className="absolute -inset-2 rounded-full"
-        style={{
-          background: "radial-gradient(circle, rgba(243,217,135,0.05), rgba(243,217,135,0) 70%)",
-        }}
-      />
-      <span
-        className="relative grid h-full w-full place-items-center rounded-full"
-        style={{
-          backgroundColor: "rgba(12,30,42,0.5)",
-          border: `1px solid rgba(212,175,55,0.26)`,
-          color: GOLD_MET,
-        }}
-      >
-        {children}
-      </span>
-    </span>
-  );
-}
 
 
-function CardMenu({ visible }: { visible: boolean }) {
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    if (!visible) setOpen(false);
-  }, [visible]);
-  return (
-    <span className="relative">
-      <button
-        type="button"
-        aria-label="More actions"
-        onClick={(e) => {
-          e.stopPropagation();
-          setOpen((o) => !o);
-        }}
-        className="grid h-[24px] w-[24px] place-items-center rounded-[6px]"
-        style={{
-          color: MUTED,
-          opacity: visible || open ? 1 : 0,
-          pointerEvents: visible || open ? "auto" : "none",
-          transition: "opacity 200ms ease-out, color 200ms ease-out",
-        }}
-      >
-        <MoreHorizontal size={16} />
-      </button>
-      {open && (
-        <span
-          className="absolute right-0 top-[26px] z-20 grid w-[150px] overflow-hidden rounded-[8px] py-1"
-          style={{
-            backgroundColor: "#26333E",
-            border: `1px solid rgba(199,163,74,0.22)`,
-            boxShadow: "0 14px 30px -18px rgba(0,0,0,0.8)",
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {["View details", "Request change", "View history"].map((l) => (
-            <button
-              key={l}
-              type="button"
-              onClick={() => setOpen(false)}
-              className="px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-white/5"
-              style={{ color: TEXT_2 }}
-            >
-              {l}
-            </button>
-          ))}
-        </span>
-      )}
-    </span>
-  );
-}
 
-function OverviewCard({
-  icon,
-  title,
-  badge,
-  children,
-  action,
-  onAction,
-  dimmed,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  badge?: string;
-  children: React.ReactNode;
-  action?: string;
-  onAction?: () => void;
-  dimmed?: boolean;
-}) {
-  const [hover, setHover] = useState(false);
-  const interactive = Boolean(onAction);
-  return (
-    <article
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onClick={onAction}
-      className="flex h-full flex-col rounded-[11px] px-4 py-3.5"
-      style={{
-        minHeight: 148,
-        background: `linear-gradient(180deg, rgba(255,255,255,0.028), rgba(0,0,0,0.03)), ${CARD}`,
-        border: `1px solid ${
-          hover && interactive ? "rgba(212,175,55,0.22)" : "rgba(255,255,255,0.08)"
-        }`,
-        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.035), ${CARD_SHADOW}`,
-        transition:
-          "border-color 200ms ease, background-color 200ms ease, opacity 200ms ease",
-        cursor: interactive ? "pointer" : "default",
-        opacity: dimmed ? 0.55 : 1,
-      }}
-    >
-      <div className="flex items-center gap-3">
-        <IconBubble>{icon}</IconBubble>
-        <h3
-          className="text-[11.5px] font-semibold uppercase tracking-[0.2em]"
-          style={{ color: TEXT_2 }}
-        >
-          {title}
-        </h3>
-
-        <span className="ml-auto flex items-center gap-2">
-          {badge && (
-            <span
-              className="rounded-[5px] px-2 py-[2px] text-[10.5px]"
-              style={{ backgroundColor: "rgba(141,168,138,0.14)", color: GREEN }}
-            >
-              {badge}
-            </span>
-          )}
-          <CardMenu visible={hover} />
-        </span>
-      </div>
-      <div
-        className="mt-2.5 min-h-0 flex-1 overflow-hidden text-[12.5px] leading-[1.5]"
-        style={{ color: "rgba(146,157,165,0.86)" }}
-      >
-        {children}
-      </div>
-      {action && (
-        <div className="mt-3">
-          <GoldAction label={action} bright={hover} />
-        </div>
-      )}
-    </article>
-  );
-}
 
 
 
@@ -1565,99 +1415,5 @@ function LedgerRow({
 
 /* ───────────────────────── workspace primitives ───────────────────────── */
 
-function Fact({
-  icon,
-  value,
-  label,
-  divider,
-  tone,
-}: {
-  icon: React.ReactNode;
-  value: string;
-  label: string;
-  divider?: boolean;
-  tone?: string;
-}) {
-  return (
-    <div
-      className="flex items-center gap-3.5 px-1 xl:px-5"
-      style={divider ? { borderLeft: "1px solid rgba(255,255,255,0.06)" } : undefined}
-    >
-      <span className="shrink-0" style={{ color: GOLD_MET }}>
-        {icon}
-      </span>
-      <span className="min-w-0">
-        <span className="block truncate text-[14px] font-medium" style={{ color: tone ?? "#F1EFE9" }}>
-          {value}
-        </span>
-        <span className="mt-0.5 block truncate text-[11.5px]" style={{ color: MUTED }}>
-          {label}
-        </span>
-      </span>
-    </div>
-  );
-}
 
-function Module({
-  icon,
-  title,
-  lead,
-  children,
-  action,
-  onAction,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  lead: string;
-  children?: React.ReactNode;
-  action: string;
-  onAction: () => void;
-}) {
-  const [hover, setHover] = useState(false);
-  return (
-    <article
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onClick={onAction}
-      className="flex min-h-[176px] cursor-pointer flex-col rounded-[14px] px-6 py-6"
-      style={{
-        backgroundColor: hover ? "rgba(255,255,255,0.028)" : "transparent",
-        transition: "background-color 200ms ease",
-      }}
-    >
-      <div className="flex items-center gap-2.5">
-        <span style={{ color: GOLD_MET }}>{icon}</span>
-        <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.22em]" style={{ color: TEXT_2 }}>
-          {title}
-        </h3>
-      </div>
-      <p className="mt-3.5 text-[17px] leading-tight" style={{ color: "#F3F1EB", fontFamily: SERIF }}>
-        {lead}
-      </p>
-      <div className="mt-2 flex-1 text-[12.5px] leading-[1.6]" style={{ color: "rgba(146,157,165,0.88)" }}>
-        {children}
-      </div>
-      <div className="mt-4">
-        <GoldAction label={action} bright={hover} />
-      </div>
-    </article>
-  );
-}
 
-function RailCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section
-      className="rounded-[16px] px-5 py-5"
-      style={{
-        background: `linear-gradient(180deg, rgba(255,255,255,0.026), rgba(0,0,0,0.03)), ${CARD}`,
-        border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: CARD_SHADOW,
-      }}
-    >
-      <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.22em]" style={{ color: TEXT_2 }}>
-        {title}
-      </h3>
-      <div className="mt-3.5">{children}</div>
-    </section>
-  );
-}
