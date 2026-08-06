@@ -80,6 +80,16 @@ const {
 
 type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 
+export type RoomLineUI = { type: string; note: string; qty: number; perRoom: number };
+
+/** Baseline (currently booked) room distribution — the "Current" column on Changes. */
+const BASE_ROOMS: RoomLineUI[] = [
+  { type: "Twin Rooms", note: "Two separate beds", qty: 17, perRoom: 2 },
+  { type: "Single Rooms", note: "One guest", qty: 8, perRoom: 1 },
+  { type: "Triple Rooms", note: "Three guests", qty: 7, perRoom: 3 },
+];
+
+
 /* ───────────────────────── primitives ───────────────────────── */
 
 /* metallic gold ramp – used sparingly for decorative accents */
