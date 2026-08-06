@@ -862,19 +862,19 @@ function Ring({ percent }: { percent: number }) {
   return (
     <span className="relative grid h-[56px] w-[56px] place-items-center">
       <svg width="56" height="56" className="absolute inset-0 -rotate-90">
-        <circle cx="28" cy="28" r={r} fill="none" stroke="rgba(158,136,100,0.22)" strokeWidth="4" />
+        <circle cx="28" cy="28" r={r} fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="4" />
         <circle
           cx="28"
           cy="28"
           r={r}
           fill="none"
-          stroke={GOLD_MET}
+          stroke={GOLD_HI}
           strokeWidth="4"
           strokeLinecap="round"
           strokeDasharray={`${(c * percent) / 100} ${c}`}
         />
       </svg>
-      <span className="text-[13px] font-semibold" style={{ color: TEXT }}>
+      <span className="text-[13px] font-semibold" style={{ color: ON_NAVY }}>
         {percent}%
       </span>
     </span>
