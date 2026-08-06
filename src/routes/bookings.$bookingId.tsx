@@ -370,7 +370,7 @@ function BookingWorkspace() {
   const router = useRouter();
   useEffect(() => {
     if (!booking) return;
-    void router.preloadRoute({ to: "/rooming-list/$bookingId", params: { bookingId } });
+    void router.preloadRoute({ to: "/rooming/$bookingId", params: { bookingId } });
     void queryClient
       .prefetchQuery(roomingQueryOptions(bookingId, booking.rooms))
       .catch(() => {});
@@ -1044,7 +1044,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   return (
                     <Link
                       key={t}
-                      to="/rooming-list/$bookingId"
+                      to="/rooming/$bookingId"
                       params={{ bookingId: booking.id }}
                       className={cls}
                       style={st}
@@ -1206,7 +1206,7 @@ function Workspace({ booking }: { booking: Booking }) {
                           />
                         </div>
                         <Link
-                          to="/rooming-list/$bookingId"
+                          to="/rooming/$bookingId"
                           params={{ bookingId: booking.id }}
                           className="inline-flex shrink-0 items-center gap-2.5 rounded-full px-6 py-[11px] text-[13.5px] font-semibold transition-transform hover:-translate-y-[1px]"
                           style={{
@@ -1331,7 +1331,7 @@ function Workspace({ booking }: { booking: Booking }) {
                     </ul>
                   </div>
                   <Link
-                    to="/rooming-list/$bookingId"
+                    to="/rooming/$bookingId"
                     params={{ bookingId: booking.id }}
                     className="mt-5 flex items-center justify-between gap-3 rounded-[11px] px-4 py-[12px] text-[13.5px] font-medium"
                     style={{
@@ -1423,7 +1423,7 @@ function Workspace({ booking }: { booking: Booking }) {
                           type="button"
                           onClick={() =>
                             it.go === "Rooming List"
-                              ? navigate({ to: "/rooming-list/$bookingId", params: { bookingId: booking.id } })
+                              ? navigate({ to: "/rooming/$bookingId", params: { bookingId: booking.id } })
                               : setTab(it.go)
                           }
                           className="flex w-full items-center gap-3.5 py-3 text-left transition-opacity hover:opacity-90"
