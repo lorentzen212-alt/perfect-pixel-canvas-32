@@ -821,22 +821,30 @@ const ghostBtn: React.CSSProperties = {
   borderRadius: 12,
   padding: "11px 18px",
   fontSize: 13.5,
-  color: "#6E5518",
-  border: `1px solid rgba(169,133,47,0.42)`,
-  backgroundColor: "rgba(212,175,55,0.08)",
+  color: GOLD_HI,
+  border: `1px solid rgba(212,175,55,0.45)`,
+  backgroundColor: "rgba(212,175,55,0.10)",
+  boxShadow: NAVY_INNER,
 };
 
-function Kpi({ label, children }: { label: string; children: React.ReactNode }) {
+function Kpi({
+  label,
+  last,
+  children,
+}: {
+  label: string;
+  last?: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <div
-      className="rounded-[14px] px-4 py-3.5"
-      style={{
-        background: "linear-gradient(180deg, #FFFDF8 0%, #FBF7F0 100%)",
-        border: `1px solid ${LINE}`,
-        boxShadow: CARD_SHADOW,
-      }}
+      className="px-4 py-2"
+      style={{ borderRight: last ? "none" : `1px solid rgba(255,255,255,0.08)` }}
     >
-      <p className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+      <p
+        className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+        style={{ color: ON_NAVY_MUTED }}
+      >
         {label}
       </p>
       <div className="mt-2.5">{children}</div>
