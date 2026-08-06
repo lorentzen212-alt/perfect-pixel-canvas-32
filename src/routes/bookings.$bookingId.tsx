@@ -32,6 +32,7 @@ import {
   ConciergeBell,
   X,
 } from "lucide-react";
+import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 import { roomingProgress, type Booking } from "@/lib/bookings";
@@ -76,15 +77,6 @@ const {
   GOLD_SOFT,
   GREEN,
 } = PAL;
-
-const TABS = [
-  "Booking Overview",
-  "Rooming List",
-  "Changes",
-  "Documents",
-  "Messages",
-  "Notes",
-];
 
 type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 
@@ -1362,14 +1354,6 @@ const PLATE = "#F4F0E8";
 const INK = "#101D28";
 const INK_2 = "#16232F";
 
-const TAB_ICON: Record<string, React.ReactNode> = {
-  "Booking Overview": <Home size={15} />,
-  "Rooming List": <Users size={15} />,
-  Changes: <ArrowLeftRight size={15} />,
-  Documents: <FileSpreadsheet size={15} />,
-  Messages: <MessageSquare size={15} />,
-  Notes: <StickyNote size={15} />,
-};
 
 function InkCard({
   title,
