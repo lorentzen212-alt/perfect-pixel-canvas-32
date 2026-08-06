@@ -398,7 +398,7 @@ function Workspace({ booking }: { booking: Booking }) {
     (profile?.first_name?.[0] ?? displayName[0] ?? "").toUpperCase() +
     (profile?.last_name?.[0] ?? "").toUpperCase();
   const [navOpen, setNavOpen] = useState(false);
-  const [tab, setTab] = useState("Booking Overview");
+  const [tab, setTab] = useState<WorkspaceTab>("Overview");
   /* rooming progress is derived from the live rooming list, never hardcoded */
   const [roomingStats, setRoomingStats] = useState<{ filled: number; total: number; percent: number } | null>(null);
   useEffect(() => {
@@ -983,7 +983,7 @@ function Workspace({ booking }: { booking: Booking }) {
             ))}
           </div>
 
-          {tab !== "Booking Overview" ? (
+          {tab !== "Overview" ? (
             <section
               className="rounded-[16px] px-8 py-16 text-center"
               style={{ backgroundColor: INK, border: "1px solid rgba(255,255,255,0.06)" }}
