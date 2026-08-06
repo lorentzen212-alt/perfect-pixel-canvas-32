@@ -905,6 +905,7 @@ function Panel({
     <section
       className="overflow-hidden rounded-[16px]"
       style={{
+        background: CARD_GRAD,
         backgroundColor: INK,
         border: `1px solid ${LINE}`,
         boxShadow: CARD_SHADOW,
@@ -912,15 +913,19 @@ function Panel({
     >
       <div
         className="flex items-center justify-between gap-4 px-5 py-3"
-        style={{ backgroundColor: "transparent", borderBottom: `1px solid ${LINE_SOFT}` }}
+        style={{
+          background: NAVY_BAR,
+          borderBottom: `1px solid rgba(212,175,55,0.28)`,
+          boxShadow: NAVY_INNER,
+        }}
       >
         <h3
           className="text-[11px] font-semibold uppercase tracking-[0.16em]"
-          style={{ color: TEXT }}
+          style={{ color: ON_NAVY }}
         >
           {title}
         </h3>
-        {action ?? (right ? <span className="text-[11.5px]" style={{ color: MUTED }}>{right}</span> : null)}
+        {action ?? (right ? <span className="text-[11.5px]" style={{ color: ON_NAVY_MUTED }}>{right}</span> : null)}
       </div>
       <div className="px-5 py-4">{children}</div>
     </section>
