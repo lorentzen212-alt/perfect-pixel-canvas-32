@@ -5,10 +5,8 @@ import { roomingQueryOptions } from "./rooming-list.$bookingId";
 import {
   ArrowLeft,
   Bed,
-  Building2,
   Check,
   ChevronRight,
-  Clock,
   Copy,
   Download,
   FileText,
@@ -22,9 +20,7 @@ import {
   Trash2,
   UtensilsCrossed,
   ConciergeBell,
-  Users,
   X,
-  CalendarDays,
 } from "lucide-react";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
@@ -136,155 +132,9 @@ function GoldAction({
   );
 }
 
-function IconBubble({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="relative grid h-[32px] w-[32px] shrink-0 place-items-center">
-      <span
-        aria-hidden
-        className="absolute -inset-2 rounded-full"
-        style={{
-          background: "radial-gradient(circle, rgba(243,217,135,0.05), rgba(243,217,135,0) 70%)",
-        }}
-      />
-      <span
-        className="relative grid h-full w-full place-items-center rounded-full"
-        style={{
-          backgroundColor: "rgba(12,30,42,0.5)",
-          border: `1px solid rgba(212,175,55,0.26)`,
-          color: GOLD_MET,
-        }}
-      >
-        {children}
-      </span>
-    </span>
-  );
-}
 
 
-function CardMenu({ visible }: { visible: boolean }) {
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    if (!visible) setOpen(false);
-  }, [visible]);
-  return (
-    <span className="relative">
-      <button
-        type="button"
-        aria-label="More actions"
-        onClick={(e) => {
-          e.stopPropagation();
-          setOpen((o) => !o);
-        }}
-        className="grid h-[24px] w-[24px] place-items-center rounded-[6px]"
-        style={{
-          color: MUTED,
-          opacity: visible || open ? 1 : 0,
-          pointerEvents: visible || open ? "auto" : "none",
-          transition: "opacity 200ms ease-out, color 200ms ease-out",
-        }}
-      >
-        <MoreHorizontal size={16} />
-      </button>
-      {open && (
-        <span
-          className="absolute right-0 top-[26px] z-20 grid w-[150px] overflow-hidden rounded-[8px] py-1"
-          style={{
-            backgroundColor: "#26333E",
-            border: `1px solid rgba(199,163,74,0.22)`,
-            boxShadow: "0 14px 30px -18px rgba(0,0,0,0.8)",
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {["View details", "Request change", "View history"].map((l) => (
-            <button
-              key={l}
-              type="button"
-              onClick={() => setOpen(false)}
-              className="px-3 py-[7px] text-left text-[12.5px] transition-colors hover:bg-white/5"
-              style={{ color: TEXT_2 }}
-            >
-              {l}
-            </button>
-          ))}
-        </span>
-      )}
-    </span>
-  );
-}
 
-function OverviewCard({
-  icon,
-  title,
-  badge,
-  children,
-  action,
-  onAction,
-  dimmed,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  badge?: string;
-  children: React.ReactNode;
-  action?: string;
-  onAction?: () => void;
-  dimmed?: boolean;
-}) {
-  const [hover, setHover] = useState(false);
-  const interactive = Boolean(onAction);
-  return (
-    <article
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onClick={onAction}
-      className="flex h-full flex-col rounded-[11px] px-4 py-3.5"
-      style={{
-        minHeight: 148,
-        background: `linear-gradient(180deg, rgba(255,255,255,0.028), rgba(0,0,0,0.03)), ${CARD}`,
-        border: `1px solid ${
-          hover && interactive ? "rgba(212,175,55,0.22)" : "rgba(255,255,255,0.08)"
-        }`,
-        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.035), ${CARD_SHADOW}`,
-        transition:
-          "border-color 200ms ease, background-color 200ms ease, opacity 200ms ease",
-        cursor: interactive ? "pointer" : "default",
-        opacity: dimmed ? 0.55 : 1,
-      }}
-    >
-      <div className="flex items-center gap-3">
-        <IconBubble>{icon}</IconBubble>
-        <h3
-          className="text-[11.5px] font-semibold uppercase tracking-[0.2em]"
-          style={{ color: TEXT_2 }}
-        >
-          {title}
-        </h3>
-
-        <span className="ml-auto flex items-center gap-2">
-          {badge && (
-            <span
-              className="rounded-[5px] px-2 py-[2px] text-[10.5px]"
-              style={{ backgroundColor: "rgba(141,168,138,0.14)", color: GREEN }}
-            >
-              {badge}
-            </span>
-          )}
-          <CardMenu visible={hover} />
-        </span>
-      </div>
-      <div
-        className="mt-2.5 min-h-0 flex-1 overflow-hidden text-[12.5px] leading-[1.5]"
-        style={{ color: "rgba(146,157,165,0.86)" }}
-      >
-        {children}
-      </div>
-      {action && (
-        <div className="mt-3">
-          <GoldAction label={action} bright={hover} />
-        </div>
-      )}
-    </article>
-  );
-}
 
 
 
@@ -929,6 +779,85 @@ function Workspace({ booking }: { booking: Booking }) {
     </PanelShell>
   );
 
+  const arrivalMs = new Date(stay.arrival).getTime();
+  const arrivalDays = Number.isNaN(arrivalMs)
+    ? null
+    : Math.max(0, Math.ceil((arrivalMs - Date.now()) / 86400000));
+
+  const ledger: {
+    key: Exclude<PanelKey, null>;
+    icon: React.ReactNode;
+    label: string;
+    lead: string;
+    detail: string;
+    action: string;
+  }[] = [
+    {
+      key: "stay",
+      icon: <MapPin size={15} />,
+      label: "Stay",
+      lead: Number.isNaN(new Date(stay.arrival).getTime())
+        ? "Dates to confirm"
+        : `${fmtDate(stay.arrival, { day: "numeric", month: "long" })} – ${fmtDate(stay.departure, { day: "numeric", month: "long", year: "numeric" })}`,
+      detail: `${stay.location} · ${nightsLabel}`,
+      action: "Adjust",
+    },
+    {
+      key: "rooms",
+      icon: <Bed size={15} />,
+      label: "Rooms",
+      lead: `${totalRooms} rooms · ${totalGuests} guests`,
+      detail: rooms.map((r) => `${r.qty} × ${r.type}`).join("  ·  "),
+      action: "Manage",
+    },
+    {
+      key: "dining",
+      icon: <UtensilsCrossed size={15} />,
+      label: "Dining",
+      lead: dining.breakfast ? "Breakfast included" : "Room only",
+      detail: dining.groupDinner
+        ? `Group dinner · ${fmtDate(dining.date, { day: "numeric", month: "long" })} · ${dining.time} · ${dining.guests} guests`
+        : "No group dinner planned",
+      action: "Manage",
+    },
+    {
+      key: "services",
+      icon: <ConciergeBell size={15} />,
+      label: "Services",
+      lead: services.length ? `${services.length} arranged` : "None yet",
+      detail: services.map((s) => s.name).join("  ·  ") || "Add porter service, transfers, amenities",
+      action: "Manage",
+    },
+    {
+      key: "requests",
+      icon: <Star size={15} />,
+      label: "Special requests",
+      lead: requests.length ? `${requests.length} noted` : "None yet",
+      detail: requests.filter(Boolean).join("  ·  ") || "Tell the hotel anything that matters",
+      action: "Update",
+    },
+  ];
+
+  const journey = [
+    { label: "Request sent", sub: "28 Jul", state: "done" as const },
+    { label: "Hotel confirmed", sub: "29 Jul", state: "done" as const },
+    { label: "Deposit received", sub: "29 Jul", state: "done" as const },
+    { label: "Rooming list", sub: "Due in 6 days", state: "active" as const },
+    { label: "Final confirmation", sub: "Due in 10 days", state: "todo" as const },
+    { label: "Arrival", sub: dateShort(stay.arrival), state: "todo" as const },
+  ];
+
+  const metaLine = ([
+    `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`.includes("—")
+      ? null
+      : `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
+    nightsLabel,
+    `${totalRooms} rooms`,
+    `${totalGuests} guests`,
+    confirmed ? "Deposit paid" : "Awaiting deposit",
+    `${services.length} services`,
+  ] as (string | null)[]).filter(Boolean) as string[];
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: BG_ALT }}>
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
@@ -978,481 +907,290 @@ function Workspace({ booking }: { booking: Booking }) {
           left={
             <Link
               to="/manage-bookings"
-              className="inline-flex items-center gap-2 text-[13.5px] font-medium transition-opacity hover:opacity-80"
-              style={{ color: GOLD_SOFT }}
+              className="inline-flex items-center gap-2 text-[13px] transition-opacity hover:opacity-80"
+              style={{ color: TEXT_2 }}
             >
-              <ArrowLeft size={16} />
+              <ArrowLeft size={15} />
               Back to Dashboard
             </Link>
           }
         />
 
-        <main className="px-4 pb-12 pt-4 sm:px-7 lg:px-10" style={{ backgroundColor: BG_ALT }}>
-          {/* ── 1 · hero ─────────────────────────── */}
-          <section className="relative overflow-hidden rounded-[20px]" style={{ boxShadow: CARD_SHADOW }}>
-            <img
-              src={booking.image}
-              alt={`${booking.destination} landscape`}
-              className="absolute inset-0 h-full w-full object-cover"
-              style={{ filter: "saturate(1.02) contrast(1.05)" }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(95deg, rgba(10,22,32,0.92) 0%, rgba(12,26,37,0.74) 42%, rgba(14,30,42,0.30) 74%, rgba(16,32,45,0.24) 100%), linear-gradient(180deg, rgba(9,20,29,0.25) 0%, rgba(9,20,29,0.72) 100%)",
-              }}
-            />
+        {/* ══ 1 · cinematic masthead — full bleed, no card ══ */}
+        <header className="relative isolate overflow-hidden">
+          <img
+            src={booking.image}
+            alt={`${booking.destination} landscape`}
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ filter: "saturate(0.92) contrast(1.06)" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(9,20,29,0.55) 0%, rgba(9,20,29,0.60) 40%, rgba(34,48,58,0.96) 92%, #22303A 100%)",
+            }}
+          />
+          <div className="relative mx-auto w-full max-w-[1240px] px-5 pb-9 pt-16 sm:px-9 sm:pt-24">
+            <div className="flex items-center gap-3">
+              <span
+                aria-hidden
+                className="h-[6px] w-[6px] rounded-full"
+                style={{
+                  backgroundColor: confirmed ? GREEN : GOLD_SOFT,
+                  boxShadow: `0 0 12px ${confirmed ? "rgba(141,168,138,0.9)" : "rgba(208,176,90,0.9)"}`,
+                }}
+              />
+              <span
+                className="text-[10.5px] font-medium uppercase tracking-[0.3em]"
+                style={{ color: confirmed ? GREEN : GOLD_SOFT }}
+              >
+                {confirmed ? "Confirmed" : "In progress"}
+              </span>
+              <span className="text-[10.5px] uppercase tracking-[0.3em]" style={{ color: "rgba(198,209,218,0.5)" }}>
+                ·
+              </span>
+              <span
+                className="text-[10.5px] uppercase tracking-[0.3em]"
+                style={{ color: "rgba(198,209,218,0.62)" }}
+              >
+                {booking.type === "leisure" ? "Leisure" : "Meetings & Events"}
+              </span>
+            </div>
 
-            <div className="relative flex min-h-[268px] flex-col justify-between px-7 pb-6 pt-7 sm:px-9 sm:pb-7 sm:pt-9">
-              <div>
-                <p
-                  className="text-[12px] font-light tracking-[0.06em]"
-                  style={{ color: "rgba(232,238,243,0.72)" }}
-                >
-                  Booking workspace
-                </p>
-                <h1
-                  className="mt-1 text-[40px] leading-[1.02] sm:text-[46px]"
-                  style={{ color: "#F6F3EC", fontFamily: SERIF }}
-                >
-                  {booking.name}
-                </h1>
+            <h1
+              className="mt-4 max-w-[15ch] text-[46px] leading-[0.98] sm:text-[68px]"
+              style={{ color: "#F7F4ED", fontFamily: SERIF, fontWeight: 300 }}
+            >
+              {booking.name}
+            </h1>
 
-                <div className="mt-3.5 flex flex-wrap items-center gap-x-3 gap-y-2">
-                  <span
-                    className="inline-flex items-center gap-2 rounded-full px-3 py-[5px] text-[11px] font-semibold uppercase tracking-[0.16em]"
-                    style={
-                      confirmed
-                        ? {
-                            color: GREEN,
-                            backgroundColor: "rgba(109,187,131,0.12)",
-                            border: "1px solid rgba(109,187,131,0.34)",
-                          }
-                        : {
-                            color: GOLD_SOFT,
-                            backgroundColor: "rgba(199,163,74,0.12)",
-                            border: "1px solid rgba(199,163,74,0.34)",
-                          }
-                    }
-                  >
-                    {confirmed ? "Confirmed" : "In progress"}
-                  </span>
-                  <span
-                    className="inline-flex items-center rounded-full px-3 py-[5px] text-[11px] uppercase tracking-[0.16em]"
-                    style={{
-                      color: "rgba(232,238,243,0.78)",
-                      border: "1px solid rgba(255,255,255,0.14)",
-                    }}
-                  >
-                    {booking.type === "leisure" ? "Leisure" : "Meetings & Events"}
-                  </span>
-                </div>
-              </div>
+            <p
+              className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[12.5px]"
+              style={{ color: "rgba(216,226,233,0.72)" }}
+            >
+              {metaLine.map((m, i) => (
+                <span key={m + i} className="flex items-center gap-3">
+                  {i > 0 && (
+                    <span aria-hidden style={{ color: "rgba(216,226,233,0.28)" }}>
+                      /
+                    </span>
+                  )}
+                  {m}
+                </span>
+              ))}
+            </p>
 
-              <div className="mt-7 flex flex-wrap items-end gap-x-10 gap-y-4">
-                <div>
-                  <p className="text-[9.5px] uppercase tracking-[0.24em]" style={{ color: "rgba(198,209,218,0.62)" }}>
-                    Hotel reference
-                  </p>
-                  <p className="mt-1 text-[14.5px] font-medium" style={{ color: "#F1EFE9" }}>
-                    {hotelRef || "Not yet assigned"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-[9.5px] uppercase tracking-[0.24em]" style={{ color: "rgba(198,209,218,0.62)" }}>
-                    Booking reference
-                  </p>
-                  <p className="mt-1 flex items-center gap-2 text-[14.5px] font-medium" style={{ color: "#F1EFE9" }}>
-                    {booking.reference}
-                    <button
-                      type="button"
-                      aria-label="Copy booking reference"
-                      onClick={() => {
-                        navigator.clipboard?.writeText(booking.reference);
-                        setCopied(true);
-                        setTimeout(() => setCopied(false), 1500);
-                      }}
-                      className="transition-opacity hover:opacity-80"
-                      style={{ color: copied ? GREEN : GOLD_SOFT }}
-                    >
-                      {copied ? <Check size={13} /> : <Copy size={12} />}
-                    </button>
-                  </p>
-                </div>
+            <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3">
+              <span className="text-[11.5px]" style={{ color: "rgba(198,209,218,0.55)" }}>
+                Hotel ref{" "}
+                <span style={{ color: "#E9E5DA", letterSpacing: "0.04em" }}>{hotelRef || "—"}</span>
+              </span>
+              <span className="inline-flex items-center gap-2 text-[11.5px]" style={{ color: "rgba(198,209,218,0.55)" }}>
+                Booking ref{" "}
+                <span style={{ color: "#E9E5DA", letterSpacing: "0.04em" }}>{booking.reference}</span>
                 <button
                   type="button"
-                  className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-[9px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.12)]"
-                  style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
+                  aria-label="Copy booking reference"
+                  onClick={() => {
+                    navigator.clipboard?.writeText(booking.reference);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 1500);
+                  }}
+                  className="transition-opacity hover:opacity-80"
+                  style={{ color: copied ? GREEN : GOLD_SOFT }}
                 >
-                  <FileText size={14} />
-                  View contract
+                  {copied ? <Check size={13} /> : <Copy size={12} />}
                 </button>
-              </div>
+              </span>
             </div>
-          </section>
+          </div>
+        </header>
 
-          {/* ── tabs ─────────────────────────────── */}
-          <nav className="mt-5 flex items-center gap-8 overflow-x-auto" style={{ borderBottom: `1px solid ${BORDER}` }}>
+        <main className="mx-auto w-full max-w-[1240px] px-5 pb-20 sm:px-9">
+          {/* ══ tabs — quiet segmented rail ══ */}
+          <nav
+            className="flex items-center gap-1 overflow-x-auto rounded-full p-1"
+            style={{
+              width: "fit-content",
+              maxWidth: "100%",
+              backgroundColor: "rgba(11,25,35,0.55)",
+              border: "1px solid rgba(255,255,255,0.06)",
+            }}
+          >
             {TABS.map((t) => {
               const active = t === tab;
+              const cls =
+                "whitespace-nowrap rounded-full px-4 py-[7px] text-[12.5px] transition-all duration-200";
+              const st: React.CSSProperties = active
+                ? { color: "#1E1706", background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`, fontWeight: 600 }
+                : { color: MUTED };
               if (t === "Rooming List") {
                 return (
                   <Link
                     key={t}
                     to="/rooming-list/$bookingId"
                     params={{ bookingId: booking.id }}
-                    className="relative whitespace-nowrap pb-3 pt-0.5 text-[13.5px] transition-colors"
-                    style={{ color: MUTED }}
+                    className={cls}
+                    style={st}
                   >
                     {t}
                   </Link>
                 );
               }
               return (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => setTab(t)}
-                  className="relative whitespace-nowrap pb-3 pt-0.5 text-[13.5px] transition-colors"
-                  style={{ color: active ? TEXT : MUTED }}
-                >
+                <button key={t} type="button" onClick={() => setTab(t)} className={cls} style={st}>
                   {t}
-                  {active && (
-                    <span
-                      className="absolute inset-x-0 -bottom-px h-[2px] rounded-full"
-                      style={{ background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 45%, ${GOLD_MET_MID})` }}
-                    />
-                  )}
                 </button>
               );
             })}
           </nav>
 
           {tab !== "Booking Overview" ? (
-            <section
-              className="mt-6 rounded-[16px] p-10 text-center"
-              style={{ backgroundColor: CARD, border: `1px solid ${CARD_BORDER}`, boxShadow: CARD_SHADOW }}
-            >
-              <h3 className="text-[19px]" style={{ color: TEXT, fontFamily: SERIF }}>
+            <section className="mt-14 py-16 text-center">
+              <h3 className="text-[26px]" style={{ color: TEXT, fontFamily: SERIF }}>
                 {tab}
               </h3>
-              <p className="mt-1.5 text-[13px]" style={{ color: MUTED }}>
+              <p className="mt-2 text-[13px]" style={{ color: MUTED }}>
                 {tab} for {booking.reference} will appear here.
               </p>
             </section>
           ) : (
             <>
-              {/* ── 2 · quick information bar ──────── */}
+              {/* ══ 2 · focus band — the one thing that matters now ══ */}
               <section
-                className="mt-6 grid grid-cols-2 gap-y-6 rounded-[16px] px-7 py-6 sm:grid-cols-3 xl:grid-cols-6"
-                style={{
-                  background: `linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02)), ${CARD}`,
-                  border: `1px solid rgba(255,255,255,0.07)`,
-                  boxShadow: CARD_SHADOW,
-                }}
+                className="mt-10 grid gap-10 border-y py-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16"
+                style={{ borderColor: "rgba(255,255,255,0.07)" }}
               >
-                <Fact
-                  icon={<CalendarDays size={17} />}
-                  value={`${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`}
-                  label={nightsLabel}
-                />
-                <Fact icon={<Bed size={17} />} value={`${totalRooms} rooms`} label="Allocated" divider />
-                <Fact icon={<Users size={17} />} value={`${totalGuests} guests`} label="Travelling" divider />
-                <Fact
-                  icon={<FileText size={17} />}
-                  value={confirmed ? "Deposit paid" : "Awaiting deposit"}
-                  label="Payment status"
-                  divider
-                />
-                <Fact icon={<Star size={17} />} value={`${services.length} services`} label="Added" divider />
-                <Fact
-                  icon={<Check size={17} />}
-                  value={confirmed ? "Confirmed" : "In progress"}
-                  label="Booking status"
-                  divider
-                  tone={confirmed ? GREEN : GOLD_SOFT}
-                />
-              </section>
-
-              {/* ── 3 · booking journey ────────────── */}
-              <section
-                className="mt-5 rounded-[18px] px-7 py-7 sm:px-9"
-                style={{
-                  background: `linear-gradient(180deg, rgba(255,255,255,0.028), rgba(0,0,0,0.03)), ${ACTION_PANEL}`,
-                  border: `1px solid rgba(255,255,255,0.06)`,
-                  boxShadow: CARD_SHADOW,
-                }}
-              >
-                <h2 className="text-[20px]" style={{ color: TEXT, fontFamily: SERIF }}>
-                  Booking journey
-                </h2>
-
-                <ol className="mt-7 flex items-start">
-                  {[
-                    { label: "Request sent", sub: "28 Jul", state: "done" as const },
-                    { label: "Hotel confirmed", sub: "29 Jul", state: "done" as const },
-                    { label: "Deposit received", sub: "29 Jul", state: "done" as const },
-                    { label: "Rooming list", sub: "Due in 6 days", state: "active" as const },
-                    { label: "Final confirmation", sub: "Due in 10 days", state: "todo" as const },
-                    { label: "Arrival", sub: dateShort(stay.arrival), state: "todo" as const },
-                  ].map((m, i, arr) => (
-                    <li key={m.label} className="flex min-w-0 flex-1 items-start">
-                      <div className="flex min-w-0 flex-1 flex-col items-center px-1 text-center">
-                        <span
-                          className="grid h-[42px] w-[42px] place-items-center rounded-full text-[14px] font-medium"
-                          style={
-                            m.state === "done"
-                              ? {
-                                  backgroundColor: "rgba(109,187,131,0.16)",
-                                  border: "1px solid rgba(109,187,131,0.5)",
-                                  color: GREEN,
-                                }
-                              : m.state === "active"
-                                ? {
-                                    background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
-                                    color: "#241C08",
-                                    boxShadow: "0 6px 18px -8px rgba(212,175,55,0.7)",
-                                  }
-                                : {
-                                    border: "1px solid rgba(255,255,255,0.14)",
-                                    color: MUTED,
-                                  }
-                          }
-                        >
-                          {m.state === "done" ? <Check size={17} /> : i + 1}
-                        </span>
-                        <span
-                          className="mt-3 truncate text-[13px]"
-                          style={{
-                            color: m.state === "active" ? "#F3EFE6" : m.state === "done" ? TEXT_2 : MUTED,
-                            fontWeight: m.state === "active" ? 500 : 400,
-                          }}
-                        >
-                          {m.label}
-                        </span>
-                        <span
-                          className="mt-1 text-[11.5px]"
-                          style={{ color: m.state === "active" ? GOLD_SOFT : MUTED }}
-                        >
-                          {m.sub}
-                        </span>
-                      </div>
-                      {i < arr.length - 1 && (
-                        <span
-                          aria-hidden
-                          className="mt-[21px] h-px min-w-[18px] flex-1"
-                          style={{
-                            background:
-                              m.state === "done"
-                                ? "linear-gradient(90deg, rgba(109,187,131,0.45), rgba(109,187,131,0.22))"
-                                : "rgba(255,255,255,0.08)",
-                          }}
-                        />
-                      )}
-                    </li>
-                  ))}
-                </ol>
-              </section>
-
-              {/* ── 4–7 · action + modules + sidebar ── */}
-              <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1fr)_340px]">
-                <div className="grid content-start gap-5">
-                  {/* current action */}
-                  <section
-                    className="overflow-hidden rounded-[18px] px-7 py-7"
-                    style={{
-                      background: `radial-gradient(120% 140% at 0% 0%, rgba(212,175,55,0.10), rgba(212,175,55,0) 55%), linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.04)), ${CARD}`,
-                      border: `1px solid rgba(212,175,55,0.20)`,
-                      boxShadow: CARD_SHADOW,
-                    }}
+                <div className="min-w-0">
+                  <p
+                    className="text-[10px] font-semibold uppercase tracking-[0.32em]"
+                    style={{ color: GOLD_SOFT }}
                   >
-                    <p className="text-[10.5px] font-semibold uppercase tracking-[0.24em]" style={{ color: GOLD_SOFT }}>
-                      Current action
+                    Needs your attention
+                  </p>
+                  <h2
+                    className="mt-4 text-[32px] leading-[1.12] sm:text-[40px]"
+                    style={{ color: "#F5F2EA", fontFamily: SERIF, fontWeight: 300 }}
+                  >
+                    Your rooming list is{" "}
+                    <span style={{ color: GOLD_HI }}>{progress}% complete</span>
+                    <span style={{ color: MUTED }}> — </span>
+                    <span className="whitespace-nowrap">6 days remaining</span>
+                  </h2>
+                  <p className="mt-4 text-[13.5px]" style={{ color: TEXT_2 }}>
+                    {roomingStats
+                      ? `${roomingStats.filled} of ${roomingStats.total} guest names submitted`
+                      : rooming
+                        ? `${rooming.complete} of ${rooming.total} guest names submitted`
+                        : "Guest names not yet submitted"}
+                    . The hotel needs the full list before final confirmation.
+                  </p>
+
+                  <div
+                    className="mt-7 h-[3px] w-full max-w-[520px] overflow-hidden rounded-full"
+                    style={{ backgroundColor: "rgba(255,255,255,0.09)" }}
+                  >
+                    <span
+                      className="block h-full rounded-full"
+                      style={{
+                        width: `${progress}%`,
+                        background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 60%, ${GOLD_MET_MID})`,
+                        transition: "width 600ms cubic-bezier(0.22,1,0.36,1)",
+                      }}
+                    />
+                  </div>
+
+                  <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+                    <Link
+                      to="/rooming-list/$bookingId"
+                      params={{ bookingId: booking.id }}
+                      className="inline-flex items-center gap-2.5 rounded-full px-8 py-[14px] text-[14px] font-semibold transition-transform hover:-translate-y-[1px]"
+                      style={{
+                        background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
+                        color: "#231B06",
+                        boxShadow: "0 18px 40px -20px rgba(212,175,55,0.9)",
+                      }}
+                    >
+                      Continue rooming list
+                      <span aria-hidden>→</span>
+                    </Link>
+                    <GoldAction label="Request a change" onClick={() => setPanel("stay")} />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-10 lg:flex-col lg:items-end lg:gap-8">
+                  <div className="text-right">
+                    <p
+                      className="text-[56px] leading-none sm:text-[72px]"
+                      style={{ color: "#F3F0E8", fontFamily: SERIF, fontWeight: 300 }}
+                    >
+                      {arrivalDays ?? "—"}
                     </p>
+                    <p className="mt-2 text-[10px] uppercase tracking-[0.3em]" style={{ color: MUTED }}>
+                      {arrivalDays === null ? "Arrival to confirm" : "Days to arrival"}
+                    </p>
+                  </div>
+                  <Ring value={progress} size={104} />
+                </div>
+              </section>
 
-                    <div className="mt-5 flex flex-col gap-6 sm:flex-row sm:items-center">
-                      <Ring value={progress} size={92} />
+              {/* ══ 3 · workspace ledger + rail ══ */}
+              <div className="mt-14 grid gap-14 xl:grid-cols-[minmax(0,1fr)_300px] xl:gap-20">
+                <div className="min-w-0">
+                  <div className="flex items-baseline justify-between gap-6">
+                    <h2 className="text-[24px]" style={{ color: TEXT, fontFamily: SERIF, fontWeight: 300 }}>
+                      The stay
+                    </h2>
+                    <span className="text-[11.5px]" style={{ color: MUTED }}>
+                      {booking.hotel ?? "Hotel to be assigned"}
+                    </span>
+                  </div>
 
-                      <div className="min-w-0 flex-1">
-                        <h2 className="text-[26px] leading-tight" style={{ color: "#F5F2EA", fontFamily: SERIF }}>
-                          Rooming list
-                        </h2>
-                        <p className="mt-1 text-[12.5px]" style={{ color: MUTED }}>
-                          Name submission deadline
-                        </p>
-                        <p className="mt-2 text-[17px] font-medium" style={{ color: GOLD_SOFT }}>
-                          6 days remaining
-                        </p>
-                        <div
-                          className="mt-4 h-[6px] w-full overflow-hidden rounded-full"
-                          style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
+                  <ul className="mt-6">
+                    {ledger.map((row, i) => {
+                      const open = panel === row.key;
+                      return (
+                        <li
+                          key={row.key}
+                          style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.06)" } : undefined}
                         >
-                          <span
-                            className="block h-full rounded-full"
-                            style={{
-                              width: `${progress}%`,
-                              background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 60%, ${GOLD_MET_MID})`,
-                            }}
+                          <LedgerRow
+                            icon={row.icon}
+                            label={row.label}
+                            lead={row.lead}
+                            detail={row.detail}
+                            action={row.action}
+                            open={open}
+                            dimmed={panel !== null && !open}
+                            onOpen={() => setPanel(open ? null : row.key)}
                           />
-                        </div>
-                        <p className="mt-2 text-[12px]" style={{ color: TEXT_2 }}>
-                          {roomingStats
-                            ? `${roomingStats.filled} / ${roomingStats.total} guests complete`
-                            : rooming
-                              ? `${rooming.complete} / ${rooming.total} guests complete`
-                              : `${progress}% completed`}
-                        </p>
-                      </div>
+                          {open && <div className="pb-7">{editor}</div>}
+                        </li>
+                      );
+                    })}
+                  </ul>
 
-                      <Link
-                        to="/rooming-list/$bookingId"
-                        params={{ bookingId: booking.id }}
-                        className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-7 py-[13px] text-[14px] font-semibold transition-transform hover:-translate-y-[1px]"
-                        style={{
-                          background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
-                          color: "#231B06",
-                          boxShadow: "0 14px 30px -16px rgba(212,175,55,0.85)",
-                        }}
-                      >
-                        Continue
-                        <span aria-hidden>→</span>
-                      </Link>
-                    </div>
-                  </section>
-
-                  {/* editor panel */}
-                  {editor}
-
-                  {/* workspace modules */}
-                  <section
-                    className="rounded-[18px] px-2 py-2"
-                    style={{
-                      background: `linear-gradient(180deg, rgba(255,255,255,0.024), rgba(0,0,0,0.03)), ${CARD}`,
-                      border: `1px solid rgba(255,255,255,0.06)`,
-                      boxShadow: CARD_SHADOW,
-                      opacity: panel ? 0.55 : 1,
-                      transition: "opacity 220ms ease",
-                    }}
-                  >
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3">
-                      <Module
-                        icon={<MapPin size={16} />}
-                        title="Stay"
-                        action="Adjust stay"
-                        onAction={() => setPanel("stay")}
-                        lead={stay.location}
-                      >
-                        <p>
-                          {fmtDate(stay.arrival, { day: "numeric", month: "long" })} –{" "}
-                          {fmtDate(stay.departure, { day: "numeric", month: "long", year: "numeric" })}
-                        </p>
-                        <p className="mt-1">{nightsLabel}</p>
-                      </Module>
-
-                      <Module
-                        icon={<Building2 size={16} />}
-                        title="Hotel"
-                        action={confirmed ? "Hotel details" : "Change hotel"}
-                        onAction={() => {}}
-                        lead={booking.hotel ?? "To be assigned"}
-                      >
-                        <p>4-star hotel</p>
-                        <p className="mt-1">Reference {hotelRef || "—"}</p>
-                      </Module>
-
-                      <Module
-                        icon={<Bed size={16} />}
-                        title="Rooms"
-                        action="Manage rooms"
-                        onAction={() => setPanel("rooms")}
-                        lead={`${totalRooms} rooms`}
-                      >
-                        {rooms.map((r) => (
-                          <p key={r.type} className="mt-0.5 first:mt-0">
-                            {r.qty} × {r.type}
-                          </p>
-                        ))}
-                      </Module>
-
-                      <Module
-                        icon={<UtensilsCrossed size={16} />}
-                        title="Dining"
-                        action="Manage dining"
-                        onAction={() => setPanel("dining")}
-                        lead={dining.breakfast ? "Breakfast included" : "No breakfast"}
-                      >
-                        {dining.groupDinner ? (
-                          <p>
-                            Group dinner{"  •  "}
-                            {fmtDate(dining.date, { day: "numeric", month: "long" })}
-                            {"  •  "}
-                            {dining.guests} guests
-                          </p>
-                        ) : (
-                          <p>No group dinner planned</p>
-                        )}
-                      </Module>
-
-                      <Module
-                        icon={<ConciergeBell size={16} />}
-                        title="Services"
-                        action="Manage services"
-                        onAction={() => setPanel("services")}
-                        lead={services[0]?.name ?? "No services yet"}
-                      >
-                        {services.slice(1, 3).map((s) => (
-                          <p key={s.name} className="mt-0.5 first:mt-0">
-                            {s.name}
-                          </p>
-                        ))}
-                        {services.length > 3 && <p className="mt-0.5">+ {services.length - 3} more</p>}
-                      </Module>
-
-                      <Module
-                        icon={<Star size={16} />}
-                        title="Special requests"
-                        action="Update requests"
-                        onAction={() => setPanel("requests")}
-                        lead={requests.length ? `${requests.length} noted` : "None yet"}
-                      >
-                        {requests.slice(0, 2).map((r, i) => (
-                          <p key={i} className="mt-0.5 first:mt-0">
-                            {r || "—"}
-                          </p>
-                        ))}
-                      </Module>
-                    </div>
-                  </section>
-
-                  {/* ── 7 · recent activity ─────────── */}
-                  <section
-                    className="rounded-[18px] px-7 py-6"
-                    style={{
-                      background: `linear-gradient(180deg, rgba(255,255,255,0.022), rgba(0,0,0,0.05)), ${ACTION_PANEL}`,
-                      border: `1px solid rgba(255,255,255,0.06)`,
-                      boxShadow: CARD_SHADOW,
-                    }}
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <h2 className="text-[20px]" style={{ color: TEXT, fontFamily: SERIF }}>
-                        Recent activity
+                  {/* ══ 4 · recent activity — quiet ledger ══ */}
+                  <div className="mt-16">
+                    <div className="flex items-baseline justify-between gap-6">
+                      <h2 className="text-[24px]" style={{ color: TEXT, fontFamily: SERIF, fontWeight: 300 }}>
+                        Activity
                       </h2>
                       <GoldAction label="View all" onClick={() => setTab("Activity")} />
                     </div>
-
                     <ul className="mt-5">
                       {[
-                        { icon: <Check size={14} />, tone: GREEN, t: "Hotel approved changes", when: "Today, 09:15" },
-                        { icon: <FileText size={14} />, tone: GOLD_SOFT, t: "Contract uploaded", when: "Yesterday, 14:22" },
+                        { icon: <Check size={13} />, tone: GREEN, t: "Hotel approved changes", when: "Today, 09:15" },
+                        { icon: <FileText size={13} />, tone: GOLD_SOFT, t: "Contract uploaded", when: "Yesterday, 14:22" },
                         {
-                          icon: <Download size={14} />,
+                          icon: <Download size={13} />,
                           tone: GOLD_SOFT,
                           t: "Rooming list template downloaded",
                           when: "2 Aug, 11:03",
                         },
                         {
-                          icon: <MessageSquare size={14} />,
+                          icon: <MessageSquare size={13} />,
                           tone: TEXT_2,
                           t: "Message from the hotel coordinator",
                           when: "1 Aug, 16:40",
@@ -1463,56 +1201,90 @@ function Workspace({ booking }: { booking: Booking }) {
                           className="flex items-center gap-4 py-3.5"
                           style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.05)" } : undefined}
                         >
-                          <span
-                            className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-full"
-                            style={{ border: `1px solid ${a.tone}44`, color: a.tone }}
-                          >
+                          <span className="shrink-0" style={{ color: a.tone }}>
                             {a.icon}
                           </span>
-                          <span className="min-w-0 flex-1 truncate text-[13.5px]" style={{ color: TEXT_2 }}>
+                          <span className="min-w-0 flex-1 truncate text-[13px]" style={{ color: TEXT_2 }}>
                             {a.t}
                           </span>
-                          <span className="shrink-0 text-[12px]" style={{ color: MUTED }}>
+                          <span className="shrink-0 text-[11.5px]" style={{ color: MUTED }}>
                             {a.when}
                           </span>
                         </li>
                       ))}
                     </ul>
-                  </section>
+                  </div>
                 </div>
 
-                {/* ── 6 · workspace sidebar ─────────── */}
-                <aside className="grid content-start gap-5 self-start">
-                  <RailCard title="Next step">
-                    <div className="flex items-center gap-4">
-                      <Ring value={progress} size={56} />
-                      <div className="min-w-0">
-                        <p className="text-[14.5px] font-medium" style={{ color: TEXT }}>
-                          Rooming list
-                        </p>
-                        <p className="mt-0.5 text-[12px]" style={{ color: MUTED }}>
-                          {roomingStats
-                            ? `${roomingStats.filled} / ${roomingStats.total}`
-                            : rooming
-                              ? `${rooming.complete} / ${rooming.total}`
-                              : "—"}{" "}
-                          guests complete
-                        </p>
-                      </div>
-                    </div>
-                    <Link
-                      to="/rooming-list/$bookingId"
-                      params={{ bookingId: booking.id }}
-                      className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full px-4 py-[9px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
-                      style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
-                    >
-                      Open rooming list
-                      <span aria-hidden>→</span>
-                    </Link>
-                  </RailCard>
+                {/* ══ 5 · vertical journey rail ══ */}
+                <aside className="min-w-0 self-start xl:sticky xl:top-[84px]">
+                  <h2
+                    className="text-[10px] font-semibold uppercase tracking-[0.3em]"
+                    style={{ color: MUTED }}
+                  >
+                    Booking journey
+                  </h2>
 
-                  <RailCard title="Upcoming deadlines">
-                    <ul>
+                  <ol className="mt-6">
+                    {journey.map((m, i) => (
+                      <li key={m.label} className="relative flex gap-4 pb-7 last:pb-0">
+                        {i < journey.length - 1 && (
+                          <span
+                            aria-hidden
+                            className="absolute left-[9px] top-[20px] w-px"
+                            style={{
+                              bottom: 2,
+                              background:
+                                m.state === "done"
+                                  ? "rgba(141,168,138,0.4)"
+                                  : "rgba(255,255,255,0.09)",
+                            }}
+                          />
+                        )}
+                        <span
+                          className="relative mt-[3px] grid h-[19px] w-[19px] shrink-0 place-items-center rounded-full"
+                          style={
+                            m.state === "done"
+                              ? { border: `1px solid rgba(141,168,138,0.55)`, color: GREEN }
+                              : m.state === "active"
+                                ? {
+                                    background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
+                                    boxShadow: "0 0 0 4px rgba(212,175,55,0.12)",
+                                  }
+                                : { border: "1px solid rgba(255,255,255,0.16)" }
+                          }
+                        >
+                          {m.state === "done" && <Check size={11} />}
+                        </span>
+                        <span className="min-w-0">
+                          <span
+                            className="block text-[13px]"
+                            style={{
+                              color: m.state === "active" ? "#F3EFE6" : m.state === "done" ? TEXT_2 : MUTED,
+                              fontWeight: m.state === "active" ? 500 : 400,
+                            }}
+                          >
+                            {m.label}
+                          </span>
+                          <span
+                            className="mt-0.5 block text-[11.5px]"
+                            style={{ color: m.state === "active" ? GOLD_SOFT : MUTED }}
+                          >
+                            {m.sub}
+                          </span>
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+
+                  <div
+                    className="mt-9 pt-8"
+                    style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+                  >
+                    <h2 className="text-[10px] font-semibold uppercase tracking-[0.3em]" style={{ color: MUTED }}>
+                      Deadlines
+                    </h2>
+                    <ul className="mt-4">
                       {[
                         { d: "04", m: "Sep", t: "Rooming list", s: "Due in 6 days", go: "Rooming List" },
                         { d: "08", m: "Sep", t: "Final guest details", s: "Due in 10 days", go: "Activity" },
@@ -1528,64 +1300,55 @@ function Workspace({ booking }: { booking: Booking }) {
                             className="flex w-full items-center gap-3.5 py-3 text-left transition-opacity hover:opacity-90"
                             style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.06)" } : undefined}
                           >
-                            <span className="grid w-[34px] shrink-0 text-center">
-                              <span className="text-[16px] font-medium leading-none" style={{ color: TEXT }}>
+                            <span className="grid w-[30px] shrink-0 text-center">
+                              <span className="text-[15px] leading-none" style={{ color: TEXT }}>
                                 {it.d}
                               </span>
-                              <span className="mt-1 text-[9.5px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+                              <span className="mt-1 text-[9px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
                                 {it.m}
                               </span>
                             </span>
                             <span className="min-w-0 flex-1">
-                              <span className="block truncate text-[13px]" style={{ color: TEXT }}>
+                              <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
                                 {it.t}
                               </span>
-                              <span className="block truncate text-[11.5px]" style={{ color: GOLD_SOFT }}>
+                              <span className="block truncate text-[11px]" style={{ color: GOLD_SOFT }}>
                                 {it.s}
                               </span>
                             </span>
-                            <ChevronRight size={16} style={{ color: MUTED }} />
+                            <ChevronRight size={15} style={{ color: MUTED }} />
                           </button>
                         </li>
                       ))}
                     </ul>
-                  </RailCard>
+                  </div>
 
-                  <RailCard title="Booking summary">
-                    <dl className="space-y-[9px] text-[12.5px]">
-                      {[
-                        ["Stay", `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`],
-                        ["Hotel", booking.hotel ?? "—"],
-                        ["Rooms", `${totalRooms} rooms`],
-                        ["Guests", `${totalGuests} guests`],
-                        ["Meal plan", dining.breakfast ? "Breakfast included" : "Room only"],
-                      ].map(([k, v]) => (
-                        <div key={k} className="flex items-start justify-between gap-4">
-                          <dt style={{ color: MUTED }}>{k}</dt>
-                          <dd className="text-right" style={{ color: TEXT_2 }}>
-                            {v}
-                          </dd>
-                        </div>
-                      ))}
-                    </dl>
-                    <button
-                      type="button"
-                      className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full px-4 py-[8px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(199,163,74,0.10)]"
-                      style={{ color: GOLD_SOFT, border: `1px solid ${GOLD_DEEP}` }}
-                    >
-                      Download summary
-                      <Download size={13} />
-                    </button>
-                  </RailCard>
-
-                  <RailCard title="Need help?">
-                    <p className="text-[12.5px]" style={{ color: TEXT_2 }}>
-                      Your group coordinator is here for you.
-                    </p>
-                    <div className="mt-3">
-                      <GoldAction label="Contact support" />
+                  <div className="mt-9 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                    <h2 className="text-[10px] font-semibold uppercase tracking-[0.3em]" style={{ color: MUTED }}>
+                      Documents
+                    </h2>
+                    <div className="mt-4 grid gap-3">
+                      <button
+                        type="button"
+                        className="inline-flex items-center justify-between gap-3 text-left text-[12.5px] transition-opacity hover:opacity-80"
+                        style={{ color: TEXT_2 }}
+                      >
+                        Booking contract
+                        <Download size={13} style={{ color: GOLD_SOFT }} />
+                      </button>
+                      <button
+                        type="button"
+                        className="inline-flex items-center justify-between gap-3 text-left text-[12.5px] transition-opacity hover:opacity-80"
+                        style={{ color: TEXT_2 }}
+                      >
+                        Stay summary
+                        <Download size={13} style={{ color: GOLD_SOFT }} />
+                      </button>
                     </div>
-                  </RailCard>
+                    <div className="mt-6">
+                      <GoldAction label="Contact your coordinator" />
+                    </div>
+                  </div>
                 </aside>
               </div>
             </>
@@ -1596,101 +1359,65 @@ function Workspace({ booking }: { booking: Booking }) {
   );
 }
 
-/* ───────────────────────── workspace primitives ───────────────────────── */
-
-function Fact({
+function LedgerRow({
   icon,
-  value,
   label,
-  divider,
-  tone,
-}: {
-  icon: React.ReactNode;
-  value: string;
-  label: string;
-  divider?: boolean;
-  tone?: string;
-}) {
-  return (
-    <div
-      className="flex items-center gap-3.5 px-1 xl:px-5"
-      style={divider ? { borderLeft: "1px solid rgba(255,255,255,0.06)" } : undefined}
-    >
-      <span className="shrink-0" style={{ color: GOLD_MET }}>
-        {icon}
-      </span>
-      <span className="min-w-0">
-        <span className="block truncate text-[14px] font-medium" style={{ color: tone ?? "#F1EFE9" }}>
-          {value}
-        </span>
-        <span className="mt-0.5 block truncate text-[11.5px]" style={{ color: MUTED }}>
-          {label}
-        </span>
-      </span>
-    </div>
-  );
-}
-
-function Module({
-  icon,
-  title,
   lead,
-  children,
+  detail,
   action,
-  onAction,
+  open,
+  dimmed,
+  onOpen,
 }: {
   icon: React.ReactNode;
-  title: string;
+  label: string;
   lead: string;
-  children?: React.ReactNode;
+  detail: string;
   action: string;
-  onAction: () => void;
+  open: boolean;
+  dimmed: boolean;
+  onOpen: () => void;
 }) {
   const [hover, setHover] = useState(false);
   return (
-    <article
+    <button
+      type="button"
+      onClick={onOpen}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={onAction}
-      className="flex min-h-[176px] cursor-pointer flex-col rounded-[14px] px-6 py-6"
-      style={{
-        backgroundColor: hover ? "rgba(255,255,255,0.028)" : "transparent",
-        transition: "background-color 200ms ease",
-      }}
+      className="grid w-full grid-cols-[132px_minmax(0,1fr)_auto] items-baseline gap-6 py-7 text-left"
+      style={{ opacity: dimmed ? 0.4 : 1, transition: "opacity 220ms ease" }}
     >
-      <div className="flex items-center gap-2.5">
-        <span style={{ color: GOLD_MET }}>{icon}</span>
-        <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.22em]" style={{ color: TEXT_2 }}>
-          {title}
-        </h3>
-      </div>
-      <p className="mt-3.5 text-[17px] leading-tight" style={{ color: "#F3F1EB", fontFamily: SERIF }}>
-        {lead}
-      </p>
-      <div className="mt-2 flex-1 text-[12.5px] leading-[1.6]" style={{ color: "rgba(146,157,165,0.88)" }}>
-        {children}
-      </div>
-      <div className="mt-4">
-        <GoldAction label={action} bright={hover} />
-      </div>
-    </article>
+      <span className="flex items-center gap-2.5" style={{ color: open || hover ? GOLD_SOFT : MUTED, transition: "color 200ms ease" }}>
+        <span className="shrink-0">{icon}</span>
+        <span className="truncate text-[10.5px] font-semibold uppercase tracking-[0.2em]">{label}</span>
+      </span>
+      <span className="min-w-0">
+        <span
+          className="block text-[19px] leading-tight"
+          style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 300 }}
+        >
+          {lead}
+        </span>
+        <span className="mt-1.5 block truncate text-[12.5px]" style={{ color: "rgba(146,157,165,0.9)" }}>
+          {detail}
+        </span>
+      </span>
+      <span
+        className="shrink-0 text-[12px]"
+        style={{
+          color: open ? GOLD_SOFT : GOLD_CALM,
+          opacity: open || hover ? 1 : 0.35,
+          transition: "opacity 200ms ease, color 200ms ease",
+        }}
+      >
+        {open ? "Close" : action} <span aria-hidden>{open ? "×" : "→"}</span>
+      </span>
+    </button>
   );
 }
 
-function RailCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section
-      className="rounded-[16px] px-5 py-5"
-      style={{
-        background: `linear-gradient(180deg, rgba(255,255,255,0.026), rgba(0,0,0,0.03)), ${CARD}`,
-        border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: CARD_SHADOW,
-      }}
-    >
-      <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.22em]" style={{ color: TEXT_2 }}>
-        {title}
-      </h3>
-      <div className="mt-3.5">{children}</div>
-    </section>
-  );
-}
+/* ───────────────────────── workspace primitives ───────────────────────── */
+
+
+
