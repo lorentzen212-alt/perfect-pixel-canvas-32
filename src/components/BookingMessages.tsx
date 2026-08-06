@@ -680,10 +680,18 @@ export function BookingMessagesView({
       <div className="min-w-0 space-y-4 lg:col-span-2 xl:col-span-1">
         <Panel title="Conversation details">
           <DetailRow label="Hotel" value={hotelName} />
-          <DetailRow label="Contact person" value={active.contact.person} />
-          <p className="-mt-3 text-[11.5px]" style={{ color: MUTED }}>
-            {active.contact.role}
-          </p>
+          <DetailRow
+            label="Contact person"
+            value={
+              <>
+                {active.contact.person}
+                <span className="mt-0.5 block text-[11.5px] font-normal" style={{ color: MUTED }}>
+                  {active.contact.role}
+                </span>
+              </>
+            }
+          />
+
           <DetailRow label="Email" value={active.contact.email} />
           <DetailRow label="Phone" value={active.contact.phone} />
           <GoldButton
