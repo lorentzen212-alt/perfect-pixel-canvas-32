@@ -999,3 +999,14 @@
 }
 
 .hgb-doc-row:hover td { background: rgba(255,255,255,0.035); }
+
+/* Notes workspace — slide-over panel */
+@keyframes hgb-note-slide-in {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.hgb-note-slide { animation: hgb-note-slide-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hgb-note-row { animation: hgb-ws-panel-in 200ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .hgb-note-slide, .hgb-note-row { animation: none; }
+}
