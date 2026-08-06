@@ -674,7 +674,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 </div>
               </Panel>
 
-              <Panel title="Rooming list preview" action={<span className="text-[11.5px]" style={{ color: GOLD_SOFT }}>View full preview</span>}>
+              <Panel title="Rooming list preview" action={<span className="text-[11.5px]" style={{ color: GOLD_HI }}>View full preview</span>}>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {previewGroups.map((g) => (
                     <div
