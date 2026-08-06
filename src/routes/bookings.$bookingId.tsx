@@ -796,7 +796,9 @@ function Workspace({ booking }: { booking: Booking }) {
       key: "stay",
       icon: <MapPin size={15} />,
       label: "Stay",
-      lead: `${fmtDate(stay.arrival, { day: "numeric", month: "long" })} – ${fmtDate(stay.departure, { day: "numeric", month: "long", year: "numeric" })}`,
+      lead: Number.isNaN(new Date(stay.arrival).getTime())
+        ? "Dates to confirm"
+        : `${fmtDate(stay.arrival, { day: "numeric", month: "long" })} – ${fmtDate(stay.departure, { day: "numeric", month: "long", year: "numeric" })}`,
       detail: `${stay.location} · ${nightsLabel}`,
       action: "Adjust",
     },
