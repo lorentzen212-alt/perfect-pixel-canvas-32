@@ -326,15 +326,19 @@ function GoldButton({
 function DetailRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="mt-3.5 first:mt-0">
-      <p className="text-[11px]" style={{ color: MUTED }}>
+      <p className="text-[11px] leading-[1.4]" style={{ color: MUTED }}>
         {label}
       </p>
-      <p className="mt-0.5 break-words text-[13px] font-semibold" style={{ color: TEXT }}>
+      <div
+        className="mt-0.5 break-words text-[13px] font-semibold leading-[1.45]"
+        style={{ color: TEXT }}
+      >
         {value}
-      </p>
+      </div>
     </div>
   );
 }
+
 
 function FileCard({ name, size, meta }: { name: string; size: string; meta?: string }) {
   return (
