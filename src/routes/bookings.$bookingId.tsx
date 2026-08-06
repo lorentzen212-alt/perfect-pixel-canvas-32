@@ -1255,7 +1255,7 @@ function Workspace({ booking }: { booking: Booking }) {
                       <li
                         key={d.n}
                         className="flex items-center gap-3 rounded-[11px] px-3.5 py-3"
-                        style={{ backgroundColor: INK_2, border: "1px solid rgba(255,255,255,0.05)" }}
+                        style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
                       >
                         <span className="shrink-0" style={{ color: d.c }}>
                           {d.i}
