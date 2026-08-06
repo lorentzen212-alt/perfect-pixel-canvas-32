@@ -645,7 +645,7 @@ function Workspace({ booking }: { booking: Booking }) {
             <div className="min-w-0 space-y-4">
               <Panel title="Room overview" right={`${active.length} rooms`}>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {byType.map((t) => (
+                  {byType.map((t, i) => (
                     <div
                       key={t.value}
                       className="rounded-[12px] px-4 py-3.5"
