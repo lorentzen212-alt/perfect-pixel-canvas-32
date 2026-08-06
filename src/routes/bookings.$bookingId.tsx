@@ -975,6 +975,7 @@ function Workspace({ booking }: { booking: Booking }) {
             ))}
           </div>
 
+          <div key={tab} className="hgb-ws-panel">
           {tab !== "Overview" ? (
             <section
               className="rounded-[16px] px-8 py-16 text-center"
