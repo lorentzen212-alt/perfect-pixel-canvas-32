@@ -431,11 +431,8 @@ function Workspace({ booking }: { booking: Booking }) {
   const [copied, setCopied] = useState(false);
 
   /* domain state (kept live across panels) */
-  const [rooms, setRooms] = useState([
-    { type: "Twin Rooms", note: "Two separate beds", qty: 17, perRoom: 2 },
-    { type: "Single Rooms", note: "One guest", qty: 8, perRoom: 1 },
-    { type: "Triple Rooms", note: "Three guests", qty: 7, perRoom: 3 },
-  ]);
+  const [rooms, setRooms] = useState<RoomLineUI[]>(BASE_ROOMS);
+
   const [stay, setStay] = useState({
     arrival: booking.startDate.slice(0, 10),
     departure: booking.endDate.slice(0, 10),
