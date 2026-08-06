@@ -547,7 +547,7 @@ function Workspace({ booking }: { booking: Booking }) {
                       style={{
                         background: v.current
                           ? "linear-gradient(180deg, #FBF3DF 0%, #F7EFE0 100%)"
-                          : "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                          : "linear-gradient(180deg, #FBF8F1 0%, #F5F0E6 100%)",
                         border: `1px solid ${v.current ? "rgba(197,150,45,0.42)" : LINE_SOFT}`,
                         boxShadow: CARD_SHADOW,
                       }}
@@ -650,7 +650,7 @@ function Workspace({ booking }: { booking: Booking }) {
                       key={t.value}
                       className="rounded-[12px] px-4 py-3.5"
                       style={{
-                        background: "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                        background: "linear-gradient(180deg, #FBF8F1 0%, #F5F0E6 100%)",
                         border: `1px solid ${LINE_SOFT}`,
                         boxShadow: CARD_SHADOW,
                       }}
@@ -678,7 +678,7 @@ function Workspace({ booking }: { booking: Booking }) {
                       key={g.label}
                       className="rounded-[12px] px-4 py-3.5"
                       style={{
-                        background: "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                        background: "linear-gradient(180deg, #FBF8F1 0%, #F5F0E6 100%)",
                         border: `1px solid ${LINE_SOFT}`,
                         boxShadow: CARD_SHADOW,
                       }}
