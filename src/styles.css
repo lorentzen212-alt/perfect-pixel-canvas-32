@@ -1006,4 +1006,7 @@
   to { transform: translateX(0); opacity: 1; }
 }
 .hgb-note-slide { animation: hgb-note-slide-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both; }
-.hgb-note-row { animation: hgb-ws-fade 200ms ease both; }
+.hgb-note-row { animation: hgb-ws-panel-in 200ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .hgb-note-slide, .hgb-note-row { animation: none; }
+}
