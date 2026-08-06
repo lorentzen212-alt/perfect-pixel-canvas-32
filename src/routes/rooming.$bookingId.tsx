@@ -289,7 +289,7 @@ function Workspace({ booking }: { booking: Booking }) {
   const editorLink = { to: "/rooming-list/$bookingId" as const, params: { bookingId: booking.id } };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: PAGE }}>
+    <div className="min-h-screen" style={{ backgroundColor: PLATE }}>
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] lg:block">
         <GlobalSidebar
           active="Rooming Lists"
@@ -433,7 +433,10 @@ function Workspace({ booking }: { booking: Booking }) {
         </header>
 
         {/* ══ plate ══ */}
-        <div className="relative px-5 pb-14 pt-5 sm:px-9" style={{ background: PLATE_TEXTURE }}>
+        <div
+          className="relative min-h-[75vh] px-5 pb-14 pt-5 sm:px-9"
+          style={{ background: PLATE_TEXTURE }}
+        >
           {/* KPI strip */}
           <section
             className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_248px]"
