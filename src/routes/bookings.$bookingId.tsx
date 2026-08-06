@@ -89,6 +89,14 @@ const GOLD_MET_MID = "#C5962D";
 const GOLD_MET_LOW = "#A97816";
 const GOLD_CALM = "#CBAE6B";
 
+/* shared navy material — matches the Rooming List Workspace anodized panels */
+const NAVY_TEXTURE =
+  "radial-gradient(1100px 420px at 18% -10%, rgba(255,255,255,0.045), transparent 62%), radial-gradient(700px 360px at 88% 108%, rgba(120,160,195,0.05), transparent 60%)";
+const NAVY_PANEL = `${NAVY_TEXTURE}, linear-gradient(180deg, #24445E 0%, #203D55 55%, #1C374D 100%)`;
+const NAVY_INNER =
+  "inset 0 1px 0 rgba(255,255,255,0.03), inset 0 -1px 0 rgba(0,0,0,0.12), inset 0 8px 22px -18px rgba(0,0,0,0.35), 0 0 0 1px rgba(8,18,28,0.25)";
+const NAVY_BORDER = "rgba(255,255,255,0.06)";
+
 function GoldAction({
   label,
   onClick,
