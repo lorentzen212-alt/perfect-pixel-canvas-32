@@ -396,7 +396,7 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                     setActive(c);
                     setPage(1);
                   }}
-                  className="flex min-w-[112px] flex-1 flex-col items-center gap-2 rounded-[13px] px-3 py-4 transition-colors"
+                  className="flex min-w-[96px] flex-1 flex-col items-center gap-2 rounded-[13px] px-3 py-4 transition-colors"
                   style={{
                     background: on ? INK_2 : "rgba(12,26,36,0.28)",
                     border: `1px solid ${on ? "rgba(199,163,74,0.55)" : NAVY_BORDER}`,
@@ -496,13 +496,13 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
           {/* table / grid */}
           {view === "list" ? (
             <div className="mt-4 min-w-0 overflow-x-auto">
-              <table className="w-full min-w-[620px] border-collapse text-left">
+              <table className="w-full min-w-[560px] border-collapse text-left">
                 <thead>
                   <tr>
                     {["Document name", "Category", "Uploaded by", "Uploaded", "Size", "Actions"].map((h) => (
                       <th
                         key={h}
-                        className="pb-3 text-[10.5px] uppercase tracking-[0.14em] font-medium"
+                        className="pb-3 pr-3 text-[10.5px] uppercase tracking-[0.14em] font-medium"
                         style={{ color: MUTED, borderBottom: "1px solid rgba(255,255,255,0.08)" }}
                       >
                         {h}
@@ -513,7 +513,7 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                 <tbody>
                   {slice.map((d) => (
                     <tr key={d.id} className="hgb-doc-row">
-                      <td className="py-3.5 pr-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                      <td className="py-3.5 pr-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                         <div className="flex min-w-0 items-center gap-3">
                           <span
                             className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[8px]"
@@ -535,7 +535,7 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                           </span>
                         </div>
                       </td>
-                      <td className="py-3.5 pr-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                      <td className="py-3.5 pr-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                         <span
                           className="inline-block whitespace-nowrap rounded-full px-2.5 py-1 text-[11px]"
                           style={{
@@ -548,19 +548,19 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                         </span>
                       </td>
                       <td
-                        className="py-3.5 pr-4 text-[12.5px]"
+                        className="py-3.5 pr-3 text-[12.5px]"
                         style={{ color: TEXT_2, borderBottom: "1px solid rgba(255,255,255,0.06)" }}
                       >
                         {d.uploadedBy}
                       </td>
                       <td
-                        className="whitespace-nowrap py-3.5 pr-4 text-[12.5px]"
+                        className="whitespace-nowrap py-3.5 pr-3 text-[12.5px]"
                         style={{ color: TEXT_2, borderBottom: "1px solid rgba(255,255,255,0.06)" }}
                       >
                         {d.uploadedLabel}
                       </td>
                       <td
-                        className="whitespace-nowrap py-3.5 pr-4 text-[12.5px]"
+                        className="whitespace-nowrap py-3.5 pr-3 text-[12.5px]"
                         style={{ color: TEXT_2, borderBottom: "1px solid rgba(255,255,255,0.06)" }}
                       >
                         {formatSize(d.size)}
