@@ -1065,7 +1065,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
         {/* ══ 2 · large light workspace plate ══ */}
         <div
-          className="relative rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+          className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           style={{ backgroundColor: PLATE }}
         >
           {/* ══ 3 · information strip ══ */}
