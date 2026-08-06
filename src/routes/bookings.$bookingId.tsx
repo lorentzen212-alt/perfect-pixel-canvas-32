@@ -4,20 +4,30 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { roomingQueryOptions } from "./rooming-list.$bookingId";
 import {
   ArrowLeft,
+  ArrowLeftRight,
+  ArrowRight,
   Bed,
+  CalendarDays,
   Check,
   ChevronRight,
+  ClipboardList,
   Copy,
+  CreditCard,
   Download,
+  FileSpreadsheet,
   FileText,
-
+  Home,
+  Info,
   MapPin,
   MessageSquare,
   MoreHorizontal,
-  
   Plus,
   Star,
+  StickyNote,
   Trash2,
+  Upload,
+  UserCheck,
+  Users,
   UtensilsCrossed,
   ConciergeBell,
   X,
@@ -67,7 +77,14 @@ const {
   GREEN,
 } = PAL;
 
-const TABS = ["Booking Overview", "Rooming List", "Documents", "Activity"];
+const TABS = [
+  "Booking Overview",
+  "Rooming List",
+  "Changes",
+  "Documents",
+  "Messages",
+  "Notes",
+];
 
 type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 
@@ -847,16 +864,25 @@ function Workspace({ booking }: { booking: Booking }) {
     { label: "Arrival", sub: dateShort(stay.arrival), state: "todo" as const },
   ];
 
-  const metaLine = ([
-    `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`.includes("—")
-      ? null
-      : `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
-    nightsLabel,
-    `${totalRooms} rooms`,
-    `${totalGuests} guests`,
-    confirmed ? "Deposit paid" : "Awaiting deposit",
-    `${services.length} services`,
-  ] as (string | null)[]).filter(Boolean) as string[];
+  const strip: { icon: React.ReactNode; lead: string; sub: string }[] = [
+    {
+      icon: <CalendarDays size={17} />,
+      lead: `${dateShort(stay.arrival)} – ${fmtDate(stay.departure, { day: "numeric", month: "short", year: "numeric" })}`,
+      sub: nightsLabel,
+    },
+    { icon: <Bed size={17} />, lead: `${totalRooms} rooms`, sub: `${totalGuests} guests` },
+    {
+      icon: <CreditCard size={17} />,
+      lead: confirmed ? "Deposit paid" : "Deposit pending",
+      sub: "Payment status",
+    },
+    { icon: <Star size={17} />, lead: `${services.length} services`, sub: "Added" },
+    {
+      icon: <UserCheck size={17} />,
+      lead: confirmed ? "Confirmed" : "In progress",
+      sub: "Booking status",
+    },
+  ];
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: BG_ALT }}>
@@ -916,79 +942,47 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         />
 
-        {/* ══ 1 · cinematic masthead — full bleed, no card ══ */}
-        <header className="relative isolate overflow-hidden">
+        {/* ══ 1 · compact hero + folder tabs ══ */}
+        <header className="relative isolate">
           <img
             src={booking.image}
             alt={`${booking.destination} landscape`}
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ filter: "saturate(0.92) contrast(1.06)" }}
+            style={{ filter: "saturate(0.9) contrast(1.05)" }}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(9,20,29,0.55) 0%, rgba(9,20,29,0.60) 40%, rgba(34,48,58,0.96) 92%, #22303A 100%)",
+                "linear-gradient(180deg, rgba(9,20,29,0.62) 0%, rgba(9,20,29,0.45) 45%, rgba(9,20,29,0.72) 100%)",
             }}
           />
-          <div className="relative mx-auto w-full max-w-[1240px] px-5 pb-9 pt-16 sm:px-9 sm:pt-24">
-            <div className="flex items-center gap-3">
-              <span
-                aria-hidden
-                className="h-[6px] w-[6px] rounded-full"
-                style={{
-                  backgroundColor: confirmed ? GREEN : GOLD_SOFT,
-                  boxShadow: `0 0 12px ${confirmed ? "rgba(141,168,138,0.9)" : "rgba(208,176,90,0.9)"}`,
-                }}
-              />
-              <span
-                className="text-[10.5px] font-medium uppercase tracking-[0.3em]"
-                style={{ color: confirmed ? GREEN : GOLD_SOFT }}
-              >
-                {confirmed ? "Confirmed" : "In progress"}
-              </span>
-              <span className="text-[10.5px] uppercase tracking-[0.3em]" style={{ color: "rgba(198,209,218,0.5)" }}>
-                ·
-              </span>
-              <span
-                className="text-[10.5px] uppercase tracking-[0.3em]"
-                style={{ color: "rgba(198,209,218,0.62)" }}
-              >
-                {booking.type === "leisure" ? "Leisure" : "Meetings & Events"}
-              </span>
-            </div>
 
-            <h1
-              className="mt-4 max-w-[15ch] text-[46px] leading-[0.98] sm:text-[68px]"
-              style={{ color: "#F7F4ED", fontFamily: SERIF, fontWeight: 300 }}
-            >
-              {booking.name}
-            </h1>
+          <div className="relative px-5 pt-8 sm:px-9">
+            <div className="flex items-start justify-between gap-6">
+              <div className="min-w-0">
+                <p
+                  className="text-[13px]"
+                  style={{ color: "rgba(226,233,239,0.78)" }}
+                >
+                  Booking workspace
+                </p>
+                <h1
+                  className="mt-1 truncate text-[32px] leading-[1.1] sm:text-[38px]"
+                  style={{ color: "#F7F4ED", fontFamily: SERIF, fontWeight: 400 }}
+                >
+                  {booking.name}
+                </h1>
+              </div>
 
-            <p
-              className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[12.5px]"
-              style={{ color: "rgba(216,226,233,0.72)" }}
-            >
-              {metaLine.map((m, i) => (
-                <span key={m + i} className="flex items-center gap-3">
-                  {i > 0 && (
-                    <span aria-hidden style={{ color: "rgba(216,226,233,0.28)" }}>
-                      /
-                    </span>
-                  )}
-                  {m}
+              <div className="hidden shrink-0 items-center gap-3 sm:flex">
+                <span
+                  className="text-[11.5px]"
+                  style={{ color: "rgba(226,233,239,0.7)" }}
+                >
+                  Ref{" "}
+                  <span style={{ color: "#F1EDE2", letterSpacing: "0.04em" }}>{booking.reference}</span>
                 </span>
-              ))}
-            </p>
-
-            <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3">
-              <span className="text-[11.5px]" style={{ color: "rgba(198,209,218,0.55)" }}>
-                Hotel ref{" "}
-                <span style={{ color: "#E9E5DA", letterSpacing: "0.04em" }}>{hotelRef || "—"}</span>
-              </span>
-              <span className="inline-flex items-center gap-2 text-[11.5px]" style={{ color: "rgba(198,209,218,0.55)" }}>
-                Booking ref{" "}
-                <span style={{ color: "#E9E5DA", letterSpacing: "0.04em" }}>{booking.reference}</span>
                 <button
                   type="button"
                   aria-label="Copy booking reference"
@@ -997,58 +991,112 @@ function Workspace({ booking }: { booking: Booking }) {
                     setCopied(true);
                     setTimeout(() => setCopied(false), 1500);
                   }}
-                  className="transition-opacity hover:opacity-80"
-                  style={{ color: copied ? GREEN : GOLD_SOFT }}
+                  className="grid h-[34px] w-[34px] place-items-center rounded-full"
+                  style={{
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    background: "rgba(10,22,31,0.4)",
+                    color: copied ? GREEN : GOLD_SOFT,
+                  }}
                 >
-                  {copied ? <Check size={13} /> : <Copy size={12} />}
+                  {copied ? <Check size={14} /> : <Copy size={13} />}
                 </button>
-              </span>
+                <span
+                  className="grid h-[34px] w-[34px] place-items-center rounded-full text-[11.5px] font-semibold"
+                  style={{
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    background: "rgba(10,22,31,0.4)",
+                    color: "#F1EDE2",
+                  }}
+                >
+                  {initials || "—"}
+                </span>
+              </div>
             </div>
+
+            {/* folder tabs */}
+            <nav className="mt-7 flex items-end gap-[6px] overflow-x-auto pb-0">
+              {TABS.map((t) => {
+                const isActive = t === tab;
+                const cls =
+                  "relative whitespace-nowrap rounded-t-[13px] px-5 pb-[15px] pt-[13px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
+                const st: React.CSSProperties = isActive
+                  ? {
+                      backgroundColor: PLATE,
+                      color: "#22303A",
+                      fontWeight: 600,
+                      boxShadow: "0 -1px 0 rgba(0,0,0,0.05)",
+                    }
+                  : {
+                      backgroundColor: "rgba(12,26,36,0.62)",
+                      color: "rgba(226,233,239,0.82)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      borderBottom: "none",
+                    };
+                const inner = (
+                  <>
+                    <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.7)" }}>
+                      {TAB_ICON[t]}
+                    </span>
+                    {t}
+                  </>
+                );
+                if (t === "Rooming List") {
+                  return (
+                    <Link
+                      key={t}
+                      to="/rooming-list/$bookingId"
+                      params={{ bookingId: booking.id }}
+                      className={cls}
+                      style={st}
+                    >
+                      {inner}
+                    </Link>
+                  );
+                }
+                return (
+                  <button key={t} type="button" onClick={() => setTab(t)} className={cls} style={st}>
+                    {inner}
+                  </button>
+                );
+              })}
+            </nav>
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-[1240px] px-5 pb-20 sm:px-9">
-          {/* ══ tabs — quiet segmented rail ══ */}
-          <nav
-            className="flex items-center gap-1 overflow-x-auto rounded-full p-1"
-            style={{
-              width: "fit-content",
-              maxWidth: "100%",
-              backgroundColor: "rgba(11,25,35,0.55)",
-              border: "1px solid rgba(255,255,255,0.06)",
-            }}
-          >
-            {TABS.map((t) => {
-              const active = t === tab;
-              const cls =
-                "whitespace-nowrap rounded-full px-4 py-[7px] text-[12.5px] transition-all duration-200";
-              const st: React.CSSProperties = active
-                ? { color: "#1E1706", background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`, fontWeight: 600 }
-                : { color: MUTED };
-              if (t === "Rooming List") {
-                return (
-                  <Link
-                    key={t}
-                    to="/rooming-list/$bookingId"
-                    params={{ bookingId: booking.id }}
-                    className={cls}
-                    style={st}
-                  >
-                    {t}
-                  </Link>
-                );
-              }
-              return (
-                <button key={t} type="button" onClick={() => setTab(t)} className={cls} style={st}>
-                  {t}
-                </button>
-              );
-            })}
-          </nav>
+        {/* ══ 2 · large light workspace plate ══ */}
+        <div
+          className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+          style={{ backgroundColor: PLATE }}
+        >
+          {/* ══ 3 · information strip ══ */}
+          <div className="flex flex-wrap items-center gap-y-5 py-6">
+            {strip.map((s, i) => (
+              <div
+                key={s.lead + i}
+                className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
+                style={i > 0 ? { borderLeft: "1px solid rgba(34,48,58,0.13)" } : undefined}
+              >
+                <span className="shrink-0" style={{ color: GOLD_MET_MID }}>
+                  {s.icon}
+                </span>
+                <span className="min-w-0">
+                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#1E2C36" }}>
+                    {s.lead}
+                  </span>
+                  <span className="block truncate text-[12px]" style={{ color: "rgba(30,44,54,0.6)" }}>
+                    {s.sub}
+                  </span>
+                </span>
+              </div>
+            ))}
+          </div>
 
           {tab !== "Booking Overview" ? (
-            <section className="mt-14 py-16 text-center">
-              <h3 className="text-[26px]" style={{ color: TEXT, fontFamily: SERIF }}>
+            <section
+              className="rounded-[16px] px-8 py-16 text-center"
+              style={{ backgroundColor: INK, border: "1px solid rgba(255,255,255,0.06)" }}
+            >
+              <h3 className="text-[24px]" style={{ color: TEXT, fontFamily: SERIF }}>
                 {tab}
               </h3>
               <p className="mt-2 text-[13px]" style={{ color: MUTED }}>
@@ -1056,98 +1104,135 @@ function Workspace({ booking }: { booking: Booking }) {
               </p>
             </section>
           ) : (
-            <>
-              {/* ══ 2 · focus band — the one thing that matters now ══ */}
-              <section
-                className="mt-10 grid gap-10 border-y py-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16"
-                style={{ borderColor: "rgba(255,255,255,0.07)" }}
-              >
-                <div className="min-w-0">
-                  <p
-                    className="text-[10px] font-semibold uppercase tracking-[0.32em]"
-                    style={{ color: GOLD_SOFT }}
-                  >
-                    Needs your attention
-                  </p>
-                  <h2
-                    className="mt-4 text-[32px] leading-[1.12] sm:text-[40px]"
-                    style={{ color: "#F5F2EA", fontFamily: SERIF, fontWeight: 300 }}
-                  >
-                    Your rooming list is{" "}
-                    <span style={{ color: GOLD_HI }}>{progress}% complete</span>
-                    <span style={{ color: MUTED }}> — </span>
-                    <span className="whitespace-nowrap">6 days remaining</span>
-                  </h2>
-                  <p className="mt-4 text-[13.5px]" style={{ color: TEXT_2 }}>
-                    {roomingStats
-                      ? `${roomingStats.filled} of ${roomingStats.total} guest names submitted`
-                      : rooming
-                        ? `${rooming.complete} of ${rooming.total} guest names submitted`
-                        : "Guest names not yet submitted"}
-                    . The hotel needs the full list before final confirmation.
-                  </p>
+            <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_378px]">
+              {/* ── left column ── */}
+              <div className="min-w-0 space-y-4">
+                {/* Booking journey */}
+                <InkCard title="Booking journey">
+                  <ol className="mt-6 flex items-start justify-between gap-1">
+                    {journey.map((m, i) => (
+                      <li key={m.label} className="relative flex min-w-0 flex-1 flex-col items-center text-center">
+                        {i < journey.length - 1 && (
+                          <span
+                            aria-hidden
+                            className="absolute top-[15px] h-px"
+                            style={{
+                              left: "calc(50% + 20px)",
+                              right: "calc(-50% + 20px)",
+                              background:
+                                m.state === "done"
+                                  ? "rgba(141,168,138,0.5)"
+                                  : m.state === "active"
+                                    ? `linear-gradient(90deg, ${GOLD_MET_MID}, rgba(255,255,255,0.1))`
+                                    : "rgba(255,255,255,0.1)",
+                            }}
+                          />
+                        )}
+                        <span
+                          className="relative grid h-[31px] w-[31px] shrink-0 place-items-center rounded-full text-[12px] font-semibold"
+                          style={
+                            m.state === "done"
+                              ? { backgroundColor: "#2E7D52", color: "#EAF6EE" }
+                              : m.state === "active"
+                                ? {
+                                    background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
+                                    color: "#241B06",
+                                    boxShadow: "0 0 0 4px rgba(212,175,55,0.14)",
+                                  }
+                                : { border: "1px solid rgba(255,255,255,0.22)", color: "rgba(226,233,239,0.72)" }
+                          }
+                        >
+                          {m.state === "done" ? <Check size={14} /> : i + 1}
+                        </span>
+                        <span
+                          className="mt-3 block max-w-full truncate px-1 text-[12px]"
+                          style={{
+                            color: m.state === "active" ? "#F3EFE6" : "rgba(226,233,239,0.82)",
+                            fontWeight: m.state === "active" ? 600 : 400,
+                          }}
+                        >
+                          {m.label}
+                        </span>
+                        <span
+                          className="mt-1 block max-w-full truncate px-1 text-[11px]"
+                          style={{ color: m.state === "active" ? GOLD_SOFT : "rgba(146,157,165,0.9)" }}
+                        >
+                          {m.sub}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </InkCard>
 
+                {/* Current action */}
+                <InkCard title="Current action">
                   <div
-                    className="mt-7 h-[3px] w-full max-w-[520px] overflow-hidden rounded-full"
-                    style={{ backgroundColor: "rgba(255,255,255,0.09)" }}
+                    className="mt-4 flex flex-col gap-6 rounded-[14px] p-5 sm:flex-row sm:items-center"
+                    style={{ backgroundColor: INK_2, border: "1px solid rgba(255,255,255,0.06)" }}
                   >
                     <span
-                      className="block h-full rounded-full"
-                      style={{
-                        width: `${progress}%`,
-                        background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 60%, ${GOLD_MET_MID})`,
-                        transition: "width 600ms cubic-bezier(0.22,1,0.36,1)",
-                      }}
-                    />
-                  </div>
-
-                  <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
-                    <Link
-                      to="/rooming-list/$bookingId"
-                      params={{ bookingId: booking.id }}
-                      className="inline-flex items-center gap-2.5 rounded-full px-8 py-[14px] text-[14px] font-semibold transition-transform hover:-translate-y-[1px]"
-                      style={{
-                        background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
-                        color: "#231B06",
-                        boxShadow: "0 18px 40px -20px rgba(212,175,55,0.9)",
-                      }}
+                      className="grid h-[104px] w-[104px] shrink-0 place-items-center rounded-full"
+                      style={{ border: `1px solid rgba(212,175,55,0.35)`, color: GOLD_MET }}
                     >
-                      Continue rooming list
-                      <span aria-hidden>→</span>
-                    </Link>
-                    <GoldAction label="Request a change" onClick={() => setPanel("stay")} />
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-10 lg:flex-col lg:items-end lg:gap-8">
-                  <div className="text-right">
-                    <p
-                      className="text-[56px] leading-none sm:text-[72px]"
-                      style={{ color: "#F3F0E8", fontFamily: SERIF, fontWeight: 300 }}
-                    >
-                      {arrivalDays ?? "—"}
-                    </p>
-                    <p className="mt-2 text-[10px] uppercase tracking-[0.3em]" style={{ color: MUTED }}>
-                      {arrivalDays === null ? "Arrival to confirm" : "Days to arrival"}
-                    </p>
-                  </div>
-                  <Ring value={progress} size={104} />
-                </div>
-              </section>
-
-              {/* ══ 3 · workspace ledger + rail ══ */}
-              <div className="mt-14 grid gap-14 xl:grid-cols-[minmax(0,1fr)_300px] xl:gap-20">
-                <div className="min-w-0">
-                  <div className="flex items-baseline justify-between gap-6">
-                    <h2 className="text-[24px]" style={{ color: TEXT, fontFamily: SERIF, fontWeight: 300 }}>
-                      The stay
-                    </h2>
-                    <span className="text-[11.5px]" style={{ color: MUTED }}>
-                      {booking.hotel ?? "Hotel to be assigned"}
+                      <ClipboardList size={40} strokeWidth={1.3} />
                     </span>
-                  </div>
 
-                  <ul className="mt-6">
+                    <div className="min-w-0 flex-1">
+                      <h4
+                        className="text-[19px] leading-tight"
+                        style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}
+                      >
+                        Rooming list
+                      </h4>
+                      <p className="mt-1 text-[12.5px]" style={{ color: TEXT_2 }}>
+                        Name submission deadline
+                      </p>
+                      <p className="mt-1 text-[17px] font-semibold" style={{ color: GOLD_HI }}>
+                        6 days remaining
+                      </p>
+
+                      <div className="mt-4 flex items-center gap-5">
+                        <div
+                          className="h-[6px] min-w-0 flex-1 overflow-hidden rounded-full"
+                          style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+                        >
+                          <span
+                            className="block h-full rounded-full"
+                            style={{
+                              width: `${progress}%`,
+                              background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 60%, ${GOLD_MET_MID})`,
+                              transition: "width 600ms cubic-bezier(0.22,1,0.36,1)",
+                            }}
+                          />
+                        </div>
+                        <Link
+                          to="/rooming-list/$bookingId"
+                          params={{ bookingId: booking.id }}
+                          className="inline-flex shrink-0 items-center gap-2.5 rounded-full px-6 py-[11px] text-[13.5px] font-semibold transition-transform hover:-translate-y-[1px]"
+                          style={{
+                            background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
+                            color: "#241B06",
+                          }}
+                        >
+                          Continue
+                          <ArrowRight size={15} />
+                        </Link>
+                      </div>
+                      <p className="mt-2.5 text-[12px]" style={{ color: TEXT_2 }}>
+                        {progress}% completed
+                        {roomingStats
+                          ? ` · ${roomingStats.filled} of ${roomingStats.total} names`
+                          : rooming
+                            ? ` · ${rooming.complete} of ${rooming.total} names`
+                            : ""}
+                      </p>
+                    </div>
+                  </div>
+                </InkCard>
+
+                {/* Booking details ledger — existing editors */}
+                <InkCard title="Booking details" right={booking.hotel ?? "Hotel to be assigned"}>
+                  <ul className="mt-2">
                     {ledger.map((row, i) => {
                       const open = panel === row.key;
                       return (
@@ -1165,197 +1250,263 @@ function Workspace({ booking }: { booking: Booking }) {
                             dimmed={panel !== null && !open}
                             onOpen={() => setPanel(open ? null : row.key)}
                           />
-                          {open && <div className="pb-7">{editor}</div>}
+                          {open && <div className="pb-5">{editor}</div>}
                         </li>
                       );
                     })}
                   </ul>
+                </InkCard>
 
-                  {/* ══ 4 · recent activity — quiet ledger ══ */}
-                  <div className="mt-16">
-                    <div className="flex items-baseline justify-between gap-6">
-                      <h2 className="text-[24px]" style={{ color: TEXT, fontFamily: SERIF, fontWeight: 300 }}>
-                        Activity
-                      </h2>
-                      <GoldAction label="View all" onClick={() => setTab("Activity")} />
-                    </div>
-                    <ul className="mt-5">
-                      {[
-                        { icon: <Check size={13} />, tone: GREEN, t: "Hotel approved changes", when: "Today, 09:15" },
-                        { icon: <FileText size={13} />, tone: GOLD_SOFT, t: "Contract uploaded", when: "Yesterday, 14:22" },
-                        {
-                          icon: <Download size={13} />,
-                          tone: GOLD_SOFT,
-                          t: "Rooming list template downloaded",
-                          when: "2 Aug, 11:03",
-                        },
-                        {
-                          icon: <MessageSquare size={13} />,
-                          tone: TEXT_2,
-                          t: "Message from the hotel coordinator",
-                          when: "1 Aug, 16:40",
-                        },
-                      ].map((a, i) => (
-                        <li
-                          key={a.t}
-                          className="flex items-center gap-4 py-3.5"
-                          style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.05)" } : undefined}
-                        >
-                          <span className="shrink-0" style={{ color: a.tone }}>
-                            {a.icon}
-                          </span>
-                          <span className="min-w-0 flex-1 truncate text-[13px]" style={{ color: TEXT_2 }}>
-                            {a.t}
-                          </span>
-                          <span className="shrink-0 text-[11.5px]" style={{ color: MUTED }}>
-                            {a.when}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* ══ 5 · vertical journey rail ══ */}
-                <aside className="min-w-0 self-start xl:sticky xl:top-[84px]">
-                  <h2
-                    className="text-[10px] font-semibold uppercase tracking-[0.3em]"
-                    style={{ color: MUTED }}
-                  >
-                    Booking journey
-                  </h2>
-
-                  <ol className="mt-6">
-                    {journey.map((m, i) => (
-                      <li key={m.label} className="relative flex gap-4 pb-7 last:pb-0">
-                        {i < journey.length - 1 && (
-                          <span
-                            aria-hidden
-                            className="absolute left-[9px] top-[20px] w-px"
-                            style={{
-                              bottom: 2,
-                              background:
-                                m.state === "done"
-                                  ? "rgba(141,168,138,0.4)"
-                                  : "rgba(255,255,255,0.09)",
-                            }}
-                          />
-                        )}
+                {/* Recent activity */}
+                <InkCard
+                  title="Recent activity"
+                  action={<GoldAction label="View all" onClick={() => setTab("Notes")} />}
+                >
+                  <ul className="mt-3">
+                    {[
+                      { icon: <Check size={13} />, tone: GREEN, t: "Hotel approved changes", when: "Today, 09:15" },
+                      { icon: <Upload size={13} />, tone: "#7FA7D4", t: "Contract uploaded", when: "Yesterday, 14:22" },
+                      {
+                        icon: <Download size={13} />,
+                        tone: GOLD_SOFT,
+                        t: "Rooming list template downloaded",
+                        when: "2 Aug, 11:03",
+                      },
+                      {
+                        icon: <MessageSquare size={13} />,
+                        tone: TEXT_2,
+                        t: "Message from the hotel coordinator",
+                        when: "1 Aug, 16:40",
+                      },
+                    ].map((a, i) => (
+                      <li
+                        key={a.t}
+                        className="flex items-center gap-4 py-3.5"
+                        style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.05)" } : undefined}
+                      >
                         <span
-                          className="relative mt-[3px] grid h-[19px] w-[19px] shrink-0 place-items-center rounded-full"
-                          style={
-                            m.state === "done"
-                              ? { border: `1px solid rgba(141,168,138,0.55)`, color: GREEN }
-                              : m.state === "active"
-                                ? {
-                                    background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
-                                    boxShadow: "0 0 0 4px rgba(212,175,55,0.12)",
-                                  }
-                                : { border: "1px solid rgba(255,255,255,0.16)" }
-                          }
+                          className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full"
+                          style={{ border: `1px solid ${a.tone}55`, color: a.tone }}
                         >
-                          {m.state === "done" && <Check size={11} />}
+                          {a.icon}
                         </span>
-                        <span className="min-w-0">
-                          <span
-                            className="block text-[13px]"
-                            style={{
-                              color: m.state === "active" ? "#F3EFE6" : m.state === "done" ? TEXT_2 : MUTED,
-                              fontWeight: m.state === "active" ? 500 : 400,
-                            }}
-                          >
-                            {m.label}
-                          </span>
-                          <span
-                            className="mt-0.5 block text-[11.5px]"
-                            style={{ color: m.state === "active" ? GOLD_SOFT : MUTED }}
-                          >
-                            {m.sub}
-                          </span>
+                        <span className="min-w-0 flex-1 truncate text-[13px]" style={{ color: TEXT_2 }}>
+                          {a.t}
+                        </span>
+                        <span className="shrink-0 text-[11.5px]" style={{ color: MUTED }}>
+                          {a.when}
                         </span>
                       </li>
                     ))}
-                  </ol>
+                  </ul>
+                </InkCard>
+              </div>
 
-                  <div
-                    className="mt-9 pt-8"
-                    style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
-                  >
-                    <h2 className="text-[10px] font-semibold uppercase tracking-[0.3em]" style={{ color: MUTED }}>
-                      Deadlines
-                    </h2>
-                    <ul className="mt-4">
+              {/* ── right column ── */}
+              <aside className="min-w-0 space-y-4">
+                {/* Rooming list progress */}
+                <InkCard title="Rooming list progress">
+                  <div className="mt-5 flex items-center gap-6">
+                    <Ring value={progress} size={116} />
+                    <ul className="min-w-0 flex-1 space-y-3">
                       {[
-                        { d: "04", m: "Sep", t: "Rooming list", s: "Due in 6 days", go: "Rooming List" },
-                        { d: "08", m: "Sep", t: "Final guest details", s: "Due in 10 days", go: "Activity" },
-                      ].map((it, i) => (
-                        <li key={it.t}>
-                          <button
-                            type="button"
-                            onClick={() =>
-                              it.go === "Rooming List"
-                                ? navigate({ to: "/rooming-list/$bookingId", params: { bookingId: booking.id } })
-                                : setTab(it.go)
-                            }
-                            className="flex w-full items-center gap-3.5 py-3 text-left transition-opacity hover:opacity-90"
-                            style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.06)" } : undefined}
-                          >
-                            <span className="grid w-[30px] shrink-0 text-center">
-                              <span className="text-[15px] leading-none" style={{ color: TEXT }}>
-                                {it.d}
-                              </span>
-                              <span className="mt-1 text-[9px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
-                                {it.m}
-                              </span>
-                            </span>
-                            <span className="min-w-0 flex-1">
-                              <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
-                                {it.t}
-                              </span>
-                              <span className="block truncate text-[11px]" style={{ color: GOLD_SOFT }}>
-                                {it.s}
-                              </span>
-                            </span>
-                            <ChevronRight size={15} style={{ color: MUTED }} />
-                          </button>
+                        { n: roomingStats?.filled ?? rooming?.complete ?? 0, l: "Completed" },
+                        {
+                          n: Math.max(
+                            0,
+                            (roomingStats?.total ?? rooming?.total ?? 0) -
+                              (roomingStats?.filled ?? rooming?.complete ?? 0),
+                          ),
+                          l: "Pending",
+                        },
+                        { n: 0, l: "Missing" },
+                      ].map((x) => (
+                        <li key={x.l} className="flex items-center gap-4 text-[13px]">
+                          <span className="w-[26px] shrink-0 text-right" style={{ color: TEXT }}>
+                            {x.n}
+                          </span>
+                          <span style={{ color: TEXT_2 }}>{x.l}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
+                  <Link
+                    to="/rooming-list/$bookingId"
+                    params={{ bookingId: booking.id }}
+                    className="mt-5 flex items-center justify-between gap-3 rounded-[11px] px-4 py-[12px] text-[13.5px] font-medium"
+                    style={{
+                      border: `1px solid rgba(212,175,55,0.4)`,
+                      backgroundColor: "rgba(212,175,55,0.08)",
+                      color: GOLD_HI,
+                    }}
+                  >
+                    <span className="inline-flex items-center gap-2.5">
+                      <Users size={15} />
+                      Open rooming list
+                    </span>
+                    <ArrowRight size={15} />
+                  </Link>
+                </InkCard>
 
-                  <div className="mt-9 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                    <h2 className="text-[10px] font-semibold uppercase tracking-[0.3em]" style={{ color: MUTED }}>
-                      Documents
-                    </h2>
-                    <div className="mt-4 grid gap-3">
-                      <button
-                        type="button"
-                        className="inline-flex items-center justify-between gap-3 text-left text-[12.5px] transition-opacity hover:opacity-80"
-                        style={{ color: TEXT_2 }}
+                {/* Latest documents */}
+                <InkCard
+                  title="Latest documents"
+                  action={<GoldAction label="View all" onClick={() => setTab("Documents")} />}
+                >
+                  <ul className="mt-3 space-y-2">
+                    {[
+                      { n: "Contract.pdf", d: "Uploaded yesterday", i: <FileText size={15} />, c: "#D08A7A" },
+                      { n: "RoomingList_v2.xlsx", d: "2 Aug 2026", i: <FileSpreadsheet size={15} />, c: "#7FB48F" },
+                      { n: "Invoice.pdf", d: "28 Jul 2026", i: <FileText size={15} />, c: "#D08A7A" },
+                    ].map((d) => (
+                      <li
+                        key={d.n}
+                        className="flex items-center gap-3 rounded-[11px] px-3.5 py-3"
+                        style={{ backgroundColor: INK_2, border: "1px solid rgba(255,255,255,0.05)" }}
                       >
-                        Booking contract
-                        <Download size={13} style={{ color: GOLD_SOFT }} />
-                      </button>
-                      <button
-                        type="button"
-                        className="inline-flex items-center justify-between gap-3 text-left text-[12.5px] transition-opacity hover:opacity-80"
-                        style={{ color: TEXT_2 }}
-                      >
-                        Stay summary
-                        <Download size={13} style={{ color: GOLD_SOFT }} />
-                      </button>
-                    </div>
-                    <div className="mt-6">
-                      <GoldAction label="Contact your coordinator" />
-                    </div>
+                        <span className="shrink-0" style={{ color: d.c }}>
+                          {d.i}
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-[13px]" style={{ color: TEXT }}>
+                            {d.n}
+                          </span>
+                          <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
+                            {d.d}
+                          </span>
+                        </span>
+                        <button
+                          type="button"
+                          aria-label={`Download ${d.n}`}
+                          className="shrink-0 transition-opacity hover:opacity-80"
+                          style={{ color: TEXT_2 }}
+                        >
+                          <Download size={15} />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </InkCard>
+
+                {/* Notes */}
+                <InkCard title="Notes" action={<GoldAction label="View all" onClick={() => setTab("Notes")} />}>
+                  <div
+                    className="mt-3 flex items-start gap-3 rounded-[11px] px-3.5 py-3"
+                    style={{ backgroundColor: INK_2, border: "1px solid rgba(255,255,255,0.05)" }}
+                  >
+                    <span className="mt-[2px] shrink-0" style={{ color: GOLD_SOFT }}>
+                      <StickyNote size={15} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-[13px]" style={{ color: TEXT }}>
+                        Hotel promises
+                      </span>
+                      <span className="mt-0.5 block text-[12px]" style={{ color: TEXT_2 }}>
+                        Early check-in for VIP guests
+                      </span>
+                      <span className="mt-1 block text-[11.5px]" style={{ color: MUTED }}>
+                        2 Aug 2026
+                      </span>
+                    </span>
                   </div>
-                </aside>
-              </div>
-            </>
+                </InkCard>
+
+                {/* Deadlines */}
+                <InkCard title="Deadlines">
+                  <ul className="mt-2">
+                    {[
+                      { d: "04", m: "Sep", t: "Rooming list", s: "Due in 6 days", go: "Rooming List" },
+                      { d: "08", m: "Sep", t: "Final guest details", s: "Due in 10 days", go: "Changes" },
+                    ].map((it, i) => (
+                      <li key={it.t}>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            it.go === "Rooming List"
+                              ? navigate({ to: "/rooming-list/$bookingId", params: { bookingId: booking.id } })
+                              : setTab(it.go)
+                          }
+                          className="flex w-full items-center gap-3.5 py-3 text-left transition-opacity hover:opacity-90"
+                          style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.06)" } : undefined}
+                        >
+                          <span className="grid w-[30px] shrink-0 text-center">
+                            <span className="text-[15px] leading-none" style={{ color: TEXT }}>
+                              {it.d}
+                            </span>
+                            <span className="mt-1 text-[9px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+                              {it.m}
+                            </span>
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
+                              {it.t}
+                            </span>
+                            <span className="block truncate text-[11px]" style={{ color: GOLD_SOFT }}>
+                              {it.s}
+                            </span>
+                          </span>
+                          <ChevronRight size={15} style={{ color: MUTED }} />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-3 flex items-center gap-2 text-[11.5px]" style={{ color: MUTED }}>
+                    <Info size={13} />
+                    Arrival in {arrivalDays ?? "—"} days
+                  </div>
+                </InkCard>
+              </aside>
+            </div>
           )}
-        </main>
+        </div>
       </div>
     </div>
+  );
+}
+
+/* ───────────────────────── workspace primitives ───────────────────────── */
+
+const PLATE = "#F4F0E8";
+const INK = "#101D28";
+const INK_2 = "#16232F";
+
+const TAB_ICON: Record<string, React.ReactNode> = {
+  "Booking Overview": <Home size={15} />,
+  "Rooming List": <Users size={15} />,
+  Changes: <ArrowLeftRight size={15} />,
+  Documents: <FileSpreadsheet size={15} />,
+  Messages: <MessageSquare size={15} />,
+  Notes: <StickyNote size={15} />,
+};
+
+function InkCard({
+  title,
+  right,
+  action,
+  children,
+}: {
+  title: string;
+  right?: string;
+  action?: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <section
+      className="rounded-[16px] p-5 sm:p-6"
+      style={{
+        backgroundColor: INK,
+        border: "1px solid rgba(255,255,255,0.06)",
+        boxShadow: "0 18px 40px -30px rgba(9,20,29,0.9)",
+      }}
+    >
+      <div className="flex items-baseline justify-between gap-5">
+        <h3 className="text-[16px]" style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}>
+          {title}
+        </h3>
+        {action ?? (right ? <span className="truncate text-[11.5px]" style={{ color: PAL.MUTED }}>{right}</span> : null)}
+      </div>
+      {children}
+    </section>
   );
 }
 
@@ -1385,21 +1536,21 @@ function LedgerRow({
       onClick={onOpen}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="grid w-full grid-cols-[132px_minmax(0,1fr)_auto] items-baseline gap-6 py-7 text-left"
-      style={{ opacity: dimmed ? 0.4 : 1, transition: "opacity 220ms ease" }}
+      className="grid w-full grid-cols-[120px_minmax(0,1fr)_auto] items-center gap-5 py-4 text-left"
+      style={{ opacity: dimmed ? 0.45 : 1, transition: "opacity 220ms ease" }}
     >
-      <span className="flex items-center gap-2.5" style={{ color: open || hover ? GOLD_SOFT : MUTED, transition: "color 200ms ease" }}>
+      <span
+        className="flex items-center gap-2.5"
+        style={{ color: open || hover ? GOLD_SOFT : MUTED, transition: "color 200ms ease" }}
+      >
         <span className="shrink-0">{icon}</span>
-        <span className="truncate text-[10.5px] font-semibold uppercase tracking-[0.2em]">{label}</span>
+        <span className="truncate text-[10.5px] font-semibold uppercase tracking-[0.18em]">{label}</span>
       </span>
       <span className="min-w-0">
-        <span
-          className="block text-[19px] leading-tight"
-          style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 300 }}
-        >
+        <span className="block truncate text-[13.5px]" style={{ color: "#F3F1EB" }}>
           {lead}
         </span>
-        <span className="mt-1.5 block truncate text-[12.5px]" style={{ color: "rgba(146,157,165,0.9)" }}>
+        <span className="mt-0.5 block truncate text-[12px]" style={{ color: "rgba(146,157,165,0.9)" }}>
           {detail}
         </span>
       </span>
@@ -1417,7 +1568,6 @@ function LedgerRow({
   );
 }
 
-/* ───────────────────────── workspace primitives ───────────────────────── */
 
 
 
