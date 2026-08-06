@@ -321,7 +321,7 @@ function Workspace({ booking }: { booking: Booking }) {
               aria-label="Close navigation"
               onClick={() => setNavOpen(false)}
               className="absolute right-3 top-4 grid h-9 w-9 place-items-center rounded-md"
-              style={{ color: TEXT_2 }}
+              style={{ color: HERO_TEXT }}
             >
               <X size={18} />
             </button>
@@ -337,7 +337,7 @@ function Workspace({ booking }: { booking: Booking }) {
               to="/bookings/$bookingId"
               params={{ bookingId: booking.id }}
               className="inline-flex items-center gap-2 text-[13px] transition-opacity hover:opacity-80"
-              style={{ color: TEXT_2 }}
+              style={{ color: HERO_TEXT }}
             >
               <ArrowLeft size={15} />
               Back to booking
