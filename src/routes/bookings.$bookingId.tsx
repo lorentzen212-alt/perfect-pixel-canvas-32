@@ -67,7 +67,14 @@ const {
   GREEN,
 } = PAL;
 
-const TABS = ["Booking Overview", "Rooming List", "Documents", "Activity"];
+const TABS = [
+  "Booking Overview",
+  "Rooming List",
+  "Changes",
+  "Documents",
+  "Messages",
+  "Notes",
+];
 
 type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 
