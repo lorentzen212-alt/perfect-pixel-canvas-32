@@ -779,10 +779,10 @@ function Workspace({ booking }: { booking: Booking }) {
     </PanelShell>
   );
 
-  const arrivalDays = Math.max(
-    0,
-    Math.ceil((new Date(stay.arrival).getTime() - Date.now()) / 86400000),
-  );
+  const arrivalMs = new Date(stay.arrival).getTime();
+  const arrivalDays = Number.isNaN(arrivalMs)
+    ? null
+    : Math.max(0, Math.ceil((arrivalMs - Date.now()) / 86400000));
 
   const ledger: {
     key: Exclude<PanelKey, null>;
@@ -845,14 +845,16 @@ function Workspace({ booking }: { booking: Booking }) {
     { label: "Arrival", sub: dateShort(stay.arrival), state: "todo" as const },
   ];
 
-  const metaLine = [
-    `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
+  const metaLine = ([
+    `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`.includes("—")
+      ? null
+      : `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
     nightsLabel,
     `${totalRooms} rooms`,
     `${totalGuests} guests`,
     confirmed ? "Deposit paid" : "Awaiting deposit",
     `${services.length} services`,
-  ];
+  ] as (string | null)[]).filter(Boolean) as string[];
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: BG_ALT }}>
@@ -1121,10 +1123,10 @@ function Workspace({ booking }: { booking: Booking }) {
                       className="text-[56px] leading-none sm:text-[72px]"
                       style={{ color: "#F3F0E8", fontFamily: SERIF, fontWeight: 300 }}
                     >
-                      {arrivalDays}
+                      {arrivalDays ?? "—"}
                     </p>
                     <p className="mt-2 text-[10px] uppercase tracking-[0.3em]" style={{ color: MUTED }}>
-                      Days to arrival
+                      {arrivalDays === null ? "Arrival to confirm" : "Days to arrival"}
                     </p>
                   </div>
                   <Ring value={progress} size={104} />
