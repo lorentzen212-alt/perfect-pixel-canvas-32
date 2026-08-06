@@ -632,8 +632,12 @@ function Workspace({ booking }: { booking: Booking }) {
     requests: "Special requests",
   };
 
-  const dateShort = (d: string) =>
-    new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  const fmtDate = (d: string, opts: Intl.DateTimeFormatOptions) => {
+    const t = new Date(d);
+    return Number.isNaN(t.getTime()) ? "—" : t.toLocaleDateString("en-GB", opts);
+  };
+  const dateShort = (d: string) => fmtDate(d, { day: "numeric", month: "short" });
+  const nightsLabel = Number.isFinite(nights) && nights > 0 ? `${nights} nights` : "Dates to confirm";
 
   const editor = panel && (
     <PanelShell
@@ -1151,7 +1155,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 <Fact
                   icon={<CalendarDays size={17} />}
                   value={`${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`}
-                  label={`${nights} nights`}
+                  label={nightsLabel}
                 />
                 <Fact icon={<Bed size={17} />} value={`${totalRooms} rooms`} label="Allocated" divider />
                 <Fact icon={<Users size={17} />} value={`${totalGuests} guests`} label="Travelling" divider />
@@ -1340,14 +1344,10 @@ function Workspace({ booking }: { booking: Booking }) {
                         lead={stay.location}
                       >
                         <p>
-                          {new Date(stay.arrival).toLocaleDateString("en-GB", { day: "numeric", month: "long" })} –{" "}
-                          {new Date(stay.departure).toLocaleDateString("en-GB", {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric",
-                          })}
+                          {fmtDate(stay.arrival, { day: "numeric", month: "long" })} –{" "}
+                          {fmtDate(stay.departure, { day: "numeric", month: "long", year: "numeric" })}
                         </p>
-                        <p className="mt-1">{nights} nights</p>
+                        <p className="mt-1">{nightsLabel}</p>
                       </Module>
 
                       <Module
@@ -1385,7 +1385,7 @@ function Workspace({ booking }: { booking: Booking }) {
                         {dining.groupDinner ? (
                           <p>
                             Group dinner{"  •  "}
-                            {new Date(dining.date).toLocaleDateString("en-GB", { day: "numeric", month: "long" })}
+                            {fmtDate(dining.date, { day: "numeric", month: "long" })}
                             {"  •  "}
                             {dining.guests} guests
                           </p>
