@@ -80,10 +80,20 @@ export const Route = createFileRoute("/rooming/$bookingId")({
 const PLATE = "#F6F2EA"; // warm ivory workspace
 const PLATE_TEXTURE =
   "radial-gradient(1200px 480px at 12% -8%, rgba(212,175,55,0.10), transparent 62%), radial-gradient(900px 420px at 92% 4%, rgba(198,171,120,0.10), transparent 60%), linear-gradient(180deg, #F7F3EC 0%, #F5F1EA 100%)";
-const INK = "#FCFAF5"; // card surface
+const INK = "#F8F4ED"; // warm ivory card surface
+const CARD_GRAD = "linear-gradient(180deg, #FBF8F1 0%, #F6F1E7 100%)"; // soft champagne
 const LINE = "rgba(158,136,100,0.22)"; // warm 1px border
 const LINE_SOFT = "rgba(158,136,100,0.14)";
-const CARD_SHADOW = "0 1px 2px rgba(58,44,20,0.05), 0 14px 32px -26px rgba(58,44,20,0.35)";
+const CARD_SHADOW = "0 1px 2px rgba(58,44,20,0.06), 0 16px 34px -26px rgba(58,44,20,0.42)";
+/* dark navy panel (KPI band + section header bars) */
+const NAVY_PANEL =
+  "linear-gradient(180deg, #17324A 0%, #12283C 55%, #102336 100%)";
+const NAVY_BAR = "linear-gradient(180deg, #17324A 0%, #13293D 100%)";
+const NAVY_BORDER = "rgba(255,255,255,0.10)";
+const NAVY_INNER = "inset 0 1px 0 rgba(255,255,255,0.10)";
+const ON_NAVY = "#F3F7FA";
+const ON_NAVY_2 = "rgba(221,232,241,0.84)";
+const ON_NAVY_MUTED = "rgba(196,211,224,0.60)";
 const TEXT = "#16293A"; // dark navy
 const TEXT_2 = "#3D5468";
 const MUTED = "#7B8896";
@@ -100,6 +110,9 @@ const AMBER = "#B67C1E";
 const RED = "#B4584A";
 
 const GOLD_BAR = `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 45%, ${GOLD_MET_MID})`;
+
+/* soft coloured icons for the room-type cards (reference material) */
+const ROOM_ICON_COLORS = ["#2F6FA8", "#3E8C74", "#A9852F", "#8A5FA8", "#C0743F", "#4A6B8A"];
 
 
 const TABS = [
@@ -437,13 +450,18 @@ function Workspace({ booking }: { booking: Booking }) {
         >
           {/* KPI strip */}
           <section
-            className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_248px]"
+            className="grid gap-4 rounded-[18px] px-4 py-4 lg:grid-cols-[minmax(0,1fr)_248px]"
+            style={{
+              background: NAVY_PANEL,
+              border: `1px solid ${NAVY_BORDER}`,
+              boxShadow: `${NAVY_INNER}, 0 20px 44px -30px rgba(6,16,26,0.85)`,
+            }}
           >
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+            <div className="grid gap-0 sm:grid-cols-2 xl:grid-cols-5">
               <Kpi label="Rooming list progress">
                 <div className="flex items-center gap-3">
                   <Ring percent={percent} />
-                  <span className="text-[12px]" style={{ color: TEXT_2 }}>
+                  <span className="text-[12px]" style={{ color: ON_NAVY_2 }}>
                     {stats?.filled ?? 0} of {stats?.totalSlots ?? 0}
                     <br />
                     completed
@@ -453,12 +471,12 @@ function Workspace({ booking }: { booking: Booking }) {
 
               <Kpi label="Deadline">
                 <div className="flex items-center gap-3">
-                  <CalendarDays size={20} style={{ color: GOLD_SOFT }} />
+                  <CalendarDays size={20} style={{ color: GOLD_HI }} />
                   <span>
-                    <span className="block text-[15px]" style={{ color: TEXT }}>
+                    <span className="block text-[15px]" style={{ color: ON_NAVY }}>
                       {daysLeft === null ? "Not set" : `${Math.max(0, daysLeft)} days`}
                     </span>
-                    <span className="text-[11.5px]" style={{ color: MUTED }}>
+                    <span className="text-[11.5px]" style={{ color: ON_NAVY_MUTED }}>
                       {dueISO ? `Due ${fmtDay(dueISO)}` : "No deadline yet"}
                     </span>
                   </span>
@@ -467,12 +485,12 @@ function Workspace({ booking }: { booking: Booking }) {
 
               <Kpi label="Rooms & guests">
                 <div className="flex items-center gap-3">
-                  <Bed size={20} style={{ color: GOLD_SOFT }} />
+                  <Bed size={20} style={{ color: GOLD_HI }} />
                   <span>
-                    <span className="block text-[15px]" style={{ color: TEXT }}>
+                    <span className="block text-[15px]" style={{ color: ON_NAVY }}>
                       {active.length} rooms
                     </span>
-                    <span className="text-[11.5px]" style={{ color: MUTED }}>
+                    <span className="text-[11.5px]" style={{ color: ON_NAVY_MUTED }}>
                       {totalGuests} guests
                     </span>
                   </span>
@@ -480,27 +498,27 @@ function Workspace({ booking }: { booking: Booking }) {
               </Kpi>
 
               <Kpi label="Rooms status">
-                <ul className="space-y-[3px] text-[11.5px]" style={{ color: TEXT_2 }}>
+                <ul className="space-y-[3px] text-[11.5px]" style={{ color: ON_NAVY_2 }}>
                   <li className="flex items-center gap-2">
-                    <Dot color={GREEN} /> {statusCounts.complete} Completed
+                    <Dot color="#5FBF87" /> {statusCounts.complete} Completed
                   </li>
                   <li className="flex items-center gap-2">
-                    <Dot color={AMBER} /> {statusCounts.pending} Pending
+                    <Dot color="#E0A93F" /> {statusCounts.pending} Pending
                   </li>
                   <li className="flex items-center gap-2">
-                    <Dot color={RED} /> {statusCounts.missing} Missing
+                    <Dot color="#D3766A" /> {statusCounts.missing} Missing
                   </li>
                 </ul>
               </Kpi>
 
-              <Kpi label="Last updated">
+              <Kpi label="Last updated" last>
                 <div className="flex items-center gap-3">
-                  <Clock size={20} style={{ color: GOLD_SOFT }} />
+                  <Clock size={20} style={{ color: GOLD_HI }} />
                   <span>
-                    <span className="block text-[13.5px]" style={{ color: TEXT }}>
+                    <span className="block text-[13.5px]" style={{ color: ON_NAVY }}>
                       {fmtDateTime(list?.savedAt)}
                     </span>
-                    <span className="text-[11.5px]" style={{ color: MUTED }}>
+                    <span className="text-[11.5px]" style={{ color: ON_NAVY_MUTED }}>
                       By {displayName || "you"}
                     </span>
                   </span>
@@ -532,7 +550,7 @@ function Workspace({ booking }: { booking: Booking }) {
                       style={{
                         background: v.current
                           ? "linear-gradient(180deg, #FBF3DF 0%, #F7EFE0 100%)"
-                          : "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                          : "linear-gradient(180deg, #FBF8F1 0%, #F5F0E6 100%)",
                         border: `1px solid ${v.current ? "rgba(197,150,45,0.42)" : LINE_SOFT}`,
                         boxShadow: CARD_SHADOW,
                       }}
@@ -630,18 +648,18 @@ function Workspace({ booking }: { booking: Booking }) {
             <div className="min-w-0 space-y-4">
               <Panel title="Room overview" right={`${active.length} rooms`}>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {byType.map((t) => (
+                  {byType.map((t, i) => (
                     <div
                       key={t.value}
                       className="rounded-[12px] px-4 py-3.5"
                       style={{
-                        background: "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                        background: "linear-gradient(180deg, #FBF8F1 0%, #F5F0E6 100%)",
                         border: `1px solid ${LINE_SOFT}`,
                         boxShadow: CARD_SHADOW,
                       }}
                     >
                       <span className="flex items-center gap-2.5">
-                        <Bed size={17} style={{ color: GOLD_SOFT }} />
+                        <Bed size={17} style={{ color: ROOM_ICON_COLORS[i % ROOM_ICON_COLORS.length] }} />
                         <span className="text-[13px]" style={{ color: TEXT }}>
                           {t.label}
                         </span>
@@ -656,14 +674,14 @@ function Workspace({ booking }: { booking: Booking }) {
                 </div>
               </Panel>
 
-              <Panel title="Rooming list preview" action={<span className="text-[11.5px]" style={{ color: GOLD_SOFT }}>View full preview</span>}>
+              <Panel title="Rooming list preview" action={<span className="text-[11.5px]" style={{ color: GOLD_HI }}>View full preview</span>}>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {previewGroups.map((g) => (
                     <div
                       key={g.label}
                       className="rounded-[12px] px-4 py-3.5"
                       style={{
-                        background: "linear-gradient(180deg, #FFFDF8 0%, #FAF6EF 100%)",
+                        background: "linear-gradient(180deg, #FBF8F1 0%, #F5F0E6 100%)",
                         border: `1px solid ${LINE_SOFT}`,
                         boxShadow: CARD_SHADOW,
                       }}
@@ -806,22 +824,30 @@ const ghostBtn: React.CSSProperties = {
   borderRadius: 12,
   padding: "11px 18px",
   fontSize: 13.5,
-  color: "#6E5518",
-  border: `1px solid rgba(169,133,47,0.42)`,
-  backgroundColor: "rgba(212,175,55,0.08)",
+  color: GOLD_HI,
+  border: `1px solid rgba(212,175,55,0.45)`,
+  backgroundColor: "rgba(212,175,55,0.10)",
+  boxShadow: NAVY_INNER,
 };
 
-function Kpi({ label, children }: { label: string; children: React.ReactNode }) {
+function Kpi({
+  label,
+  last,
+  children,
+}: {
+  label: string;
+  last?: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <div
-      className="rounded-[14px] px-4 py-3.5"
-      style={{
-        background: "linear-gradient(180deg, #FFFDF8 0%, #FBF7F0 100%)",
-        border: `1px solid ${LINE}`,
-        boxShadow: CARD_SHADOW,
-      }}
+      className="px-4 py-2"
+      style={{ borderRight: last ? "none" : `1px solid rgba(255,255,255,0.08)` }}
     >
-      <p className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+      <p
+        className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+        style={{ color: ON_NAVY_MUTED }}
+      >
         {label}
       </p>
       <div className="mt-2.5">{children}</div>
@@ -839,19 +865,19 @@ function Ring({ percent }: { percent: number }) {
   return (
     <span className="relative grid h-[56px] w-[56px] place-items-center">
       <svg width="56" height="56" className="absolute inset-0 -rotate-90">
-        <circle cx="28" cy="28" r={r} fill="none" stroke="rgba(158,136,100,0.22)" strokeWidth="4" />
+        <circle cx="28" cy="28" r={r} fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="4" />
         <circle
           cx="28"
           cy="28"
           r={r}
           fill="none"
-          stroke={GOLD_MET}
+          stroke={GOLD_HI}
           strokeWidth="4"
           strokeLinecap="round"
           strokeDasharray={`${(c * percent) / 100} ${c}`}
         />
       </svg>
-      <span className="text-[13px] font-semibold" style={{ color: TEXT }}>
+      <span className="text-[13px] font-semibold" style={{ color: ON_NAVY }}>
         {percent}%
       </span>
     </span>
@@ -882,6 +908,7 @@ function Panel({
     <section
       className="overflow-hidden rounded-[16px]"
       style={{
+        background: CARD_GRAD,
         backgroundColor: INK,
         border: `1px solid ${LINE}`,
         boxShadow: CARD_SHADOW,
@@ -889,15 +916,19 @@ function Panel({
     >
       <div
         className="flex items-center justify-between gap-4 px-5 py-3"
-        style={{ backgroundColor: "transparent", borderBottom: `1px solid ${LINE_SOFT}` }}
+        style={{
+          background: NAVY_BAR,
+          borderBottom: `1px solid rgba(212,175,55,0.28)`,
+          boxShadow: NAVY_INNER,
+        }}
       >
         <h3
           className="text-[11px] font-semibold uppercase tracking-[0.16em]"
-          style={{ color: TEXT }}
+          style={{ color: ON_NAVY }}
         >
           {title}
         </h3>
-        {action ?? (right ? <span className="text-[11.5px]" style={{ color: MUTED }}>{right}</span> : null)}
+        {action ?? (right ? <span className="text-[11.5px]" style={{ color: ON_NAVY_MUTED }}>{right}</span> : null)}
       </div>
       <div className="px-5 py-4">{children}</div>
     </section>
