@@ -35,6 +35,7 @@ import {
 import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
 import { BookingDocumentsView } from "@/components/BookingDocuments";
 import { BookingMessagesView } from "@/components/BookingMessages";
+import { BookingNotesView } from "@/components/BookingNotes";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 import { roomingProgress, type Booking } from "@/lib/bookings";
