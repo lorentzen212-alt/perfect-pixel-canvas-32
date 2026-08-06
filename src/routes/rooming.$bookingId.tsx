@@ -359,92 +359,17 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         />
 
-        {/* ══ compact header + folder tabs ══ */}
-        <header className="relative isolate">
-          <img
-            src={booking.image}
-            alt={`${booking.destination} landscape`}
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ filter: "saturate(0.85) contrast(1.05)" }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(9,20,29,0.78) 0%, rgba(9,20,29,0.66) 45%, rgba(12,26,37,0.92) 100%)",
-            }}
-          />
-          <div className="relative px-5 pt-7 sm:px-9">
-            <p className="flex items-center gap-1.5 text-[12.5px]" style={{ color: HERO_MUTED }}>
-              <Link
-                to="/bookings/$bookingId"
-                params={{ bookingId: booking.id }}
-                className="transition-opacity hover:opacity-80"
-              >
-                Booking workspace
-              </Link>
-              <ChevronRight size={13} />
-              <span style={{ color: HERO_TEXT }}>{booking.name}</span>
-            </p>
-            <h1
-              className="mt-1 truncate text-[30px] leading-[1.1] sm:text-[34px]"
-              style={{ color: "#F7F4ED", fontFamily: SERIF, fontWeight: 400 }}
-            >
-              Rooming List
-            </h1>
-            <p className="mt-1 text-[13px]" style={{ color: HERO_MUTED }}>
-              Manage, review and submit your rooming list
-            </p>
+        {/* ══ persistent workspace header (hero + folder tabs) ══ */}
+        <BookingWorkspaceHeader
+          bookingId={booking.id}
+          bookingName={booking.name}
+          image={booking.image}
+          destination={booking.destination}
+          reference={booking.reference}
+          initials={initials}
+          active="Rooming List"
+        />
 
-            <nav className="mt-6 flex items-end gap-[6px] overflow-x-auto">
-              {TABS.map((t) => {
-                const isActive = t === "Rooming List";
-                const cls =
-                  "relative whitespace-nowrap rounded-t-[13px] px-5 pb-[13px] pt-[11px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
-                const st: React.CSSProperties = isActive
-                  ? {
-                      background: "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
-                      color: TEXT,
-                      fontWeight: 600,
-                      boxShadow: "0 -6px 18px -12px rgba(58,44,20,0.45)",
-                    }
-                  : {
-                      backgroundColor: "rgba(12,26,36,0.55)",
-                      color: "rgba(226,233,239,0.78)",
-                      border: "1px solid rgba(255,255,255,0.10)",
-                      borderBottom: "none",
-                    };
-
-                const inner = (
-                  <>
-                    <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.62)" }}>
-                      {TAB_ICON[t]}
-                    </span>
-                    {t}
-                  </>
-                );
-                if (t === "Overview") {
-                  return (
-                    <Link
-                      key={t}
-                      to="/bookings/$bookingId"
-                      params={{ bookingId: booking.id }}
-                      className={cls}
-                      style={st}
-                    >
-                      {inner}
-                    </Link>
-                  );
-                }
-                return (
-                  <span key={t} className={cls} style={st}>
-                    {inner}
-                  </span>
-                );
-              })}
-            </nav>
-          </div>
-        </header>
 
         {/* ══ plate ══ */}
         <div
