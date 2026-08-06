@@ -16,6 +16,7 @@ import { Route as BookLeisureRouteImport } from './routes/book-leisure'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RoomingBookingIdRouteImport } from './routes/rooming.$bookingId'
 import { Route as RoomingListBookingIdRouteImport } from './routes/rooming-list.$bookingId'
 import { Route as BookingsBookingIdRouteImport } from './routes/bookings.$bookingId'
 
@@ -54,6 +55,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RoomingBookingIdRoute = RoomingBookingIdRouteImport.update({
+  id: '/rooming/$bookingId',
+  path: '/rooming/$bookingId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RoomingListBookingIdRoute = RoomingListBookingIdRouteImport.update({
   id: '/rooming-list/$bookingId',
   path: '/rooming-list/$bookingId',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/bookings/$bookingId': typeof BookingsBookingIdRoute
   '/rooming-list/$bookingId': typeof RoomingListBookingIdRoute
+  '/rooming/$bookingId': typeof RoomingBookingIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/bookings/$bookingId': typeof BookingsBookingIdRoute
   '/rooming-list/$bookingId': typeof RoomingListBookingIdRoute
+  '/rooming/$bookingId': typeof RoomingBookingIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/bookings/$bookingId': typeof BookingsBookingIdRoute
   '/rooming-list/$bookingId': typeof RoomingListBookingIdRoute
+  '/rooming/$bookingId': typeof RoomingBookingIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/bookings/$bookingId'
     | '/rooming-list/$bookingId'
+    | '/rooming/$bookingId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/bookings/$bookingId'
     | '/rooming-list/$bookingId'
+    | '/rooming/$bookingId'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/bookings/$bookingId'
     | '/rooming-list/$bookingId'
+    | '/rooming/$bookingId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,6 +157,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   BookingsBookingIdRoute: typeof BookingsBookingIdRoute
   RoomingListBookingIdRoute: typeof RoomingListBookingIdRoute
+  RoomingBookingIdRoute: typeof RoomingBookingIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -198,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rooming/$bookingId': {
+      id: '/rooming/$bookingId'
+      path: '/rooming/$bookingId'
+      fullPath: '/rooming/$bookingId'
+      preLoaderRoute: typeof RoomingBookingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rooming-list/$bookingId': {
       id: '/rooming-list/$bookingId'
       path: '/rooming-list/$bookingId'
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   BookingsBookingIdRoute: BookingsBookingIdRoute,
   RoomingListBookingIdRoute: RoomingListBookingIdRoute,
+  RoomingBookingIdRoute: RoomingBookingIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

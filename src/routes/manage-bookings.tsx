@@ -180,7 +180,7 @@ function primaryAction(b: Booking) {
     return { label: "View booking", to: "/bookings/$bookingId" as const };
   switch (b.action.kind) {
     case "rooming_list":
-      return { label: "Complete Rooming List", to: "/rooming-list/$bookingId" as const };
+      return { label: "Complete Rooming List", to: "/rooming/$bookingId" as const };
     case "review_offers":
       return { label: "View proposal", to: "/bookings/$bookingId" as const };
     case "on_track":
@@ -338,7 +338,7 @@ function RowMenu({ booking }: { booking: Booking }) {
         { label: "Booking details", to: "/bookings/$bookingId" as const },
         { label: "Edit booking", to: "/bookings/$bookingId" as const },
         { label: "Request change", to: "/bookings/$bookingId" as const },
-        { label: "Rooming list", to: "/rooming-list/$bookingId" as const },
+        { label: "Rooming list", to: "/rooming/$bookingId" as const },
         { label: "Documents & contract", to: "/bookings/$bookingId" as const },
       ];
 

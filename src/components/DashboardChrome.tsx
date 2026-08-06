@@ -101,7 +101,7 @@ export function SidebarContent({
           return rooming ? (
             <Link
               key={item.label}
-              to="/rooming-list/$bookingId"
+              to="/rooming/$bookingId"
               params={{ bookingId: bookingId ?? "1" }}
               className={className}
               style={style}
@@ -304,7 +304,7 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
           return rooming ? (
             <Link
               key={item.label}
-              to="/rooming-list/$bookingId"
+              to="/rooming/$bookingId"
               params={{ bookingId: bookingId ?? "1" }}
               className={className}
               style={style}
