@@ -997,3 +997,5 @@
     animation: none;
   }
 }
+
+.hgb-doc-row:hover td { background: rgba(255,255,255,0.035); }
