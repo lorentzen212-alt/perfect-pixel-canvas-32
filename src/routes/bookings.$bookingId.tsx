@@ -32,6 +32,7 @@ import {
   ConciergeBell,
   X,
 } from "lucide-react";
+import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 import { roomingProgress, type Booking } from "@/lib/bookings";
@@ -76,15 +77,6 @@ const {
   GOLD_SOFT,
   GREEN,
 } = PAL;
-
-const TABS = [
-  "Booking Overview",
-  "Rooming List",
-  "Changes",
-  "Documents",
-  "Messages",
-  "Notes",
-];
 
 type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 
@@ -398,7 +390,7 @@ function Workspace({ booking }: { booking: Booking }) {
     (profile?.first_name?.[0] ?? displayName[0] ?? "").toUpperCase() +
     (profile?.last_name?.[0] ?? "").toUpperCase();
   const [navOpen, setNavOpen] = useState(false);
-  const [tab, setTab] = useState("Booking Overview");
+  const [tab, setTab] = useState<WorkspaceTab>("Overview");
   /* rooming progress is derived from the live rooming list, never hardcoded */
   const [roomingStats, setRoomingStats] = useState<{ filled: number; total: number; percent: number } | null>(null);
   useEffect(() => {
@@ -942,126 +934,18 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         />
 
-        {/* ══ 1 · compact hero + folder tabs ══ */}
-        <header className="relative isolate">
-          <img
-            src={booking.image}
-            alt={`${booking.destination} landscape`}
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ filter: "saturate(0.9) contrast(1.05)" }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(9,20,29,0.62) 0%, rgba(9,20,29,0.45) 45%, rgba(9,20,29,0.72) 100%)",
-            }}
-          />
+        {/* ══ 1 · persistent workspace header (hero + folder tabs) ══ */}
+        <BookingWorkspaceHeader
+          bookingId={booking.id}
+          bookingName={booking.name}
+          image={booking.image}
+          destination={booking.destination}
+          reference={booking.reference}
+          initials={initials}
+          active={tab as WorkspaceTab}
+          onSelect={(t) => setTab(t)}
+        />
 
-          <div className="relative px-5 pt-8 sm:px-9">
-            <div className="flex items-start justify-between gap-6">
-              <div className="min-w-0">
-                <p
-                  className="text-[13px]"
-                  style={{ color: "rgba(226,233,239,0.78)" }}
-                >
-                  Booking workspace
-                </p>
-                <h1
-                  className="mt-1 truncate text-[32px] leading-[1.1] sm:text-[38px]"
-                  style={{ color: "#F7F4ED", fontFamily: SERIF, fontWeight: 400 }}
-                >
-                  {booking.name}
-                </h1>
-              </div>
-
-              <div className="hidden shrink-0 items-center gap-3 sm:flex">
-                <span
-                  className="text-[11.5px]"
-                  style={{ color: "rgba(226,233,239,0.7)" }}
-                >
-                  Ref{" "}
-                  <span style={{ color: "#F1EDE2", letterSpacing: "0.04em" }}>{booking.reference}</span>
-                </span>
-                <button
-                  type="button"
-                  aria-label="Copy booking reference"
-                  onClick={() => {
-                    navigator.clipboard?.writeText(booking.reference);
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 1500);
-                  }}
-                  className="grid h-[34px] w-[34px] place-items-center rounded-full"
-                  style={{
-                    border: "1px solid rgba(255,255,255,0.16)",
-                    background: "rgba(10,22,31,0.4)",
-                    color: copied ? GREEN : GOLD_SOFT,
-                  }}
-                >
-                  {copied ? <Check size={14} /> : <Copy size={13} />}
-                </button>
-                <span
-                  className="grid h-[34px] w-[34px] place-items-center rounded-full text-[11.5px] font-semibold"
-                  style={{
-                    border: "1px solid rgba(255,255,255,0.16)",
-                    background: "rgba(10,22,31,0.4)",
-                    color: "#F1EDE2",
-                  }}
-                >
-                  {initials || "—"}
-                </span>
-              </div>
-            </div>
-
-            {/* folder tabs */}
-            <nav className="mt-7 flex items-end gap-[6px] overflow-x-auto pb-0">
-              {TABS.map((t) => {
-                const isActive = t === tab;
-                const cls =
-                  "relative whitespace-nowrap rounded-t-[13px] px-5 pb-[15px] pt-[13px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
-                const st: React.CSSProperties = isActive
-                  ? {
-                      backgroundColor: PLATE,
-                      color: "#22303A",
-                      fontWeight: 600,
-                      boxShadow: "0 -1px 0 rgba(0,0,0,0.05)",
-                    }
-                  : {
-                      backgroundColor: "rgba(12,26,36,0.62)",
-                      color: "rgba(226,233,239,0.82)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      borderBottom: "none",
-                    };
-                const inner = (
-                  <>
-                    <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.7)" }}>
-                      {TAB_ICON[t]}
-                    </span>
-                    {t}
-                  </>
-                );
-                if (t === "Rooming List") {
-                  return (
-                    <Link
-                      key={t}
-                      to="/rooming/$bookingId"
-                      params={{ bookingId: booking.id }}
-                      className={cls}
-                      style={st}
-                    >
-                      {inner}
-                    </Link>
-                  );
-                }
-                return (
-                  <button key={t} type="button" onClick={() => setTab(t)} className={cls} style={st}>
-                    {inner}
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-        </header>
 
         {/* ══ 2 · large light workspace plate ══ */}
         <div
@@ -1091,7 +975,8 @@ function Workspace({ booking }: { booking: Booking }) {
             ))}
           </div>
 
-          {tab !== "Booking Overview" ? (
+          <div key={tab} className="hgb-ws-panel">
+          {tab !== "Overview" ? (
             <section
               className="rounded-[16px] px-8 py-16 text-center"
               style={{ backgroundColor: INK, border: "1px solid rgba(255,255,255,0.06)" }}
@@ -1424,7 +1309,7 @@ function Workspace({ booking }: { booking: Booking }) {
                           onClick={() =>
                             it.go === "Rooming List"
                               ? navigate({ to: "/rooming/$bookingId", params: { bookingId: booking.id } })
-                              : setTab(it.go)
+                              : setTab(it.go as WorkspaceTab)
                           }
                           className="flex w-full items-center gap-3.5 py-3 text-left transition-opacity hover:opacity-90"
                           style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.06)" } : undefined}
@@ -1458,6 +1343,8 @@ function Workspace({ booking }: { booking: Booking }) {
               </aside>
             </div>
           )}
+          </div>
+
         </div>
       </div>
     </div>
@@ -1470,14 +1357,6 @@ const PLATE = "#F4F0E8";
 const INK = "#101D28";
 const INK_2 = "#16232F";
 
-const TAB_ICON: Record<string, React.ReactNode> = {
-  "Booking Overview": <Home size={15} />,
-  "Rooming List": <Users size={15} />,
-  Changes: <ArrowLeftRight size={15} />,
-  Documents: <FileSpreadsheet size={15} />,
-  Messages: <MessageSquare size={15} />,
-  Notes: <StickyNote size={15} />,
-};
 
 function InkCard({
   title,
