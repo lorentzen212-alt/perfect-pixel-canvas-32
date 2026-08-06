@@ -496,13 +496,13 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
           {/* table / grid */}
           {view === "list" ? (
             <div className="mt-4 min-w-0 overflow-x-auto">
-              <table className="w-full min-w-[560px] border-collapse text-left">
+              <table className="w-full min-w-[520px] border-collapse text-left">
                 <thead>
                   <tr>
                     {["Document name", "Category", "Uploaded by", "Uploaded", "Size", "Actions"].map((h) => (
                       <th
                         key={h}
-                        className="pb-3 pr-3 text-[10.5px] uppercase tracking-[0.14em] font-medium"
+                        className={`pb-3 pr-3 text-[10.5px] uppercase tracking-[0.14em] font-medium${h === "Uploaded by" ? " hidden 2xl:table-cell" : ""}`}
                         style={{ color: MUTED, borderBottom: "1px solid rgba(255,255,255,0.08)" }}
                       >
                         {h}
@@ -531,6 +531,7 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                             </span>
                             <span className="block text-[11px]" style={{ color: MUTED }}>
                               Version {d.version}
+                              <span className="2xl:hidden"> · {d.uploadedBy}</span>
                             </span>
                           </span>
                         </div>
@@ -548,7 +549,7 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                         </span>
                       </td>
                       <td
-                        className="py-3.5 pr-3 text-[12.5px]"
+                        className="hidden py-3.5 pr-3 text-[12.5px] 2xl:table-cell"
                         style={{ color: TEXT_2, borderBottom: "1px solid rgba(255,255,255,0.06)" }}
                       >
                         {d.uploadedBy}
