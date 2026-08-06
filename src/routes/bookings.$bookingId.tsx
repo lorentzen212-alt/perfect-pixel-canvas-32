@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
 import { BookingDocumentsView } from "@/components/BookingDocuments";
+import { BookingMessagesView } from "@/components/BookingMessages";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 import { roomingProgress, type Booking } from "@/lib/bookings";
