@@ -341,8 +341,8 @@ function Field({
 }
 
 const inputStyle: React.CSSProperties = {
-  backgroundColor: "rgba(12,30,42,0.45)",
-  border: `1px solid ${BORDER}`,
+  background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`,
+  border: `1px solid ${NAVY_BORDER}`,
   color: TEXT,
 };
 
