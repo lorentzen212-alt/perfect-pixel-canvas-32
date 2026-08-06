@@ -1308,7 +1308,7 @@ function Workspace({ booking }: { booking: Booking }) {
                           onClick={() =>
                             it.go === "Rooming List"
                               ? navigate({ to: "/rooming/$bookingId", params: { bookingId: booking.id } })
-                              : setTab(it.go)
+                              : setTab(it.go as WorkspaceTab)
                           }
                           className="flex w-full items-center gap-3.5 py-3 text-left transition-opacity hover:opacity-90"
                           style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.06)" } : undefined}

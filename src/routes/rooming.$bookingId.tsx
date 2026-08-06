@@ -21,6 +21,7 @@ import {
   Users,
   X,
 } from "lucide-react";
+import { BookingWorkspaceHeader } from "@/components/BookingWorkspaceHeader";
 import { SERIF, TopBar } from "@/components/DashboardChrome";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 import { type Booking } from "@/lib/bookings";
