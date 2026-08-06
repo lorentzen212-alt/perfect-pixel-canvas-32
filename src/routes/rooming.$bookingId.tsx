@@ -76,25 +76,33 @@ export const Route = createFileRoute("/rooming/$bookingId")({
   }),
 });
 
-/* ── tokens (matching the booking workspace language) ── */
-const PAGE = "#0C1A25";
-const PLATE = "#0E2130";
-const INK = "#132A3C";
-const INK_2 = "#16334A";
-const LINE = "rgba(255,255,255,0.08)";
-const TEXT = "#F3F1EB";
-const TEXT_2 = "rgba(226,233,239,0.80)";
-const MUTED = "rgba(214,224,232,0.58)";
+/* ── tokens — warm ivory "premium paper" workspace ── */
+const PAGE = "#0C1A25"; // page shell behind the hero (sidebar/topbar stay dark)
+const PLATE = "#F6F2EA"; // warm ivory workspace
+const PLATE_TEXTURE =
+  "radial-gradient(1200px 480px at 12% -8%, rgba(212,175,55,0.10), transparent 62%), radial-gradient(900px 420px at 92% 4%, rgba(198,171,120,0.10), transparent 60%), linear-gradient(180deg, #F7F3EC 0%, #F5F1EA 100%)";
+const INK = "#FCFAF5"; // card surface
+const INK_2 = "#F2ECE1"; // subtle inner surface
+const LINE = "rgba(158,136,100,0.22)"; // warm 1px border
+const LINE_SOFT = "rgba(158,136,100,0.14)";
+const CARD_SHADOW = "0 1px 2px rgba(58,44,20,0.05), 0 14px 32px -26px rgba(58,44,20,0.35)";
+const TEXT = "#16293A"; // dark navy
+const TEXT_2 = "#3D5468";
+const MUTED = "#7B8896";
+/* hero (dark image) text */
+const HERO_TEXT = "rgba(226,233,239,0.88)";
+const HERO_MUTED = "rgba(214,224,232,0.62)";
 const GOLD_HI = "#F3D987";
 const GOLD_MET = "#D4AF37";
 const GOLD_MET_MID = "#C5962D";
 const GOLD_MET_LOW = "#A97816";
-const GOLD_SOFT = "#D8BE72";
-const GREEN = "#7FB48A";
-const AMBER = "#D9A441";
-const RED = "#C97C6E";
+const GOLD_SOFT = "#A9852F";
+const GREEN = "#4F8A62";
+const AMBER = "#B67C1E";
+const RED = "#B4584A";
 
 const GOLD_BAR = `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 45%, ${GOLD_MET_MID})`;
+
 
 const TABS = [
   "Overview",
