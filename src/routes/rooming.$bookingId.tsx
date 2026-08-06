@@ -80,10 +80,20 @@ export const Route = createFileRoute("/rooming/$bookingId")({
 const PLATE = "#F6F2EA"; // warm ivory workspace
 const PLATE_TEXTURE =
   "radial-gradient(1200px 480px at 12% -8%, rgba(212,175,55,0.10), transparent 62%), radial-gradient(900px 420px at 92% 4%, rgba(198,171,120,0.10), transparent 60%), linear-gradient(180deg, #F7F3EC 0%, #F5F1EA 100%)";
-const INK = "#FCFAF5"; // card surface
+const INK = "#F8F4ED"; // warm ivory card surface
+const CARD_GRAD = "linear-gradient(180deg, #FBF8F1 0%, #F6F1E7 100%)"; // soft champagne
 const LINE = "rgba(158,136,100,0.22)"; // warm 1px border
 const LINE_SOFT = "rgba(158,136,100,0.14)";
-const CARD_SHADOW = "0 1px 2px rgba(58,44,20,0.05), 0 14px 32px -26px rgba(58,44,20,0.35)";
+const CARD_SHADOW = "0 1px 2px rgba(58,44,20,0.06), 0 16px 34px -26px rgba(58,44,20,0.42)";
+/* dark navy panel (KPI band + section header bars) */
+const NAVY_PANEL =
+  "linear-gradient(180deg, #17324A 0%, #12283C 55%, #102336 100%)";
+const NAVY_BAR = "linear-gradient(180deg, #17324A 0%, #13293D 100%)";
+const NAVY_BORDER = "rgba(255,255,255,0.10)";
+const NAVY_INNER = "inset 0 1px 0 rgba(255,255,255,0.10)";
+const ON_NAVY = "#F3F7FA";
+const ON_NAVY_2 = "rgba(221,232,241,0.84)";
+const ON_NAVY_MUTED = "rgba(196,211,224,0.60)";
 const TEXT = "#16293A"; // dark navy
 const TEXT_2 = "#3D5468";
 const MUTED = "#7B8896";
