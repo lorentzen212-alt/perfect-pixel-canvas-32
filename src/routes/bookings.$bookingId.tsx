@@ -984,7 +984,19 @@ function Workspace({ booking }: { booking: Booking }) {
           </div>
 
           <div key={tab} className="hgb-ws-panel">
-          {tab !== "Overview" ? (
+          {tab === "Changes" ? (
+            <ChangesView
+              rooms={rooms}
+              baseRooms={BASE_ROOMS}
+              onRoomsChange={(next) => {
+                setRooms(next);
+                markDirty("rooms");
+              }}
+              panel={panel}
+              onPanel={(k) => setPanel((cur) => (cur === k ? null : k))}
+              editor={editor}
+            />
+          ) : tab !== "Overview" ? (
             <section
               className="rounded-[16px] px-8 py-16 text-center"
               style={{ background: INK, border: `1px solid ${NAVY_BORDER}` }}
@@ -996,6 +1008,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 {tab} for {booking.reference} will appear here.
               </p>
             </section>
+
           ) : (
             <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_378px]">
               {/* ── left column ── */}
