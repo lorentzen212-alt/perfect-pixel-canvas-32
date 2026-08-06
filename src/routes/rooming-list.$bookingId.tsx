@@ -717,14 +717,15 @@ function RoomingWorkspace({ booking }: { booking: Booking }) {
 
           left={
             <Link
-              to="/bookings/$bookingId"
+              to="/rooming/$bookingId"
               params={{ bookingId: booking.id }}
               className="inline-flex items-center gap-2 text-[13.5px] font-medium transition-opacity hover:opacity-80"
               style={{ color: HERO_ACCENT }}
             >
               <ArrowLeft size={16} />
-              Back to Dashboard
+              Back to rooming workspace
             </Link>
+
           }
         />
 
