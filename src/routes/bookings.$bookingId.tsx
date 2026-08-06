@@ -33,6 +33,7 @@ import {
   X,
 } from "lucide-react";
 import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
+import { BookingDocumentsView } from "@/components/BookingDocuments";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 import { roomingProgress, type Booking } from "@/lib/bookings";
@@ -1003,6 +1004,8 @@ function Workspace({ booking }: { booking: Booking }) {
               onPanel={(k) => setPanel((cur) => (cur === k ? null : k))}
               editor={editor}
             />
+          ) : tab === "Documents" ? (
+            <BookingDocumentsView reference={booking.reference} />
           ) : tab !== "Overview" ? (
             <section
               className="rounded-[16px] px-8 py-16 text-center"
@@ -1015,6 +1018,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 {tab} for {booking.reference} will appear here.
               </p>
             </section>
+
 
           ) : (
             <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_378px]">
