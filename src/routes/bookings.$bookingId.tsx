@@ -1422,7 +1422,7 @@ function InkCard({
       style={{
         background: CARD_BG,
         border: `1px solid ${CARD_BORDER_SOFT}`,
-        boxShadow: "0 14px 34px -26px rgba(0,0,0,0.55)",
+        boxShadow: "0 10px 26px -18px rgba(15,22,32,0.45)",
       }}
     >
       <div className="flex items-baseline justify-between gap-5">
