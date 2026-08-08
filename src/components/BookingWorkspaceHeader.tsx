@@ -80,9 +80,10 @@ export function BookingWorkspaceHeader({
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(9,20,29,0.78) 0%, rgba(9,20,29,0.66) 45%, rgba(12,26,37,0.92) 100%)",
+            "linear-gradient(180deg, rgba(13,29,45,0.86) 0%, rgba(23,57,87,0.74) 45%, rgba(23,57,87,0.96) 100%)",
         }}
       />
+
 
       <div className="relative px-5 pt-7 sm:px-9">
         <div className="flex items-start justify-between gap-6">
