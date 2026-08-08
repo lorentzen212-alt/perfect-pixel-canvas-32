@@ -144,6 +144,12 @@ const SANS = 'Inter, "Helvetica Neue", Arial, sans-serif';
 
 type Group = "all" | "proposal" | "awaiting" | "confirmed" | "attention" | "cancelled";
 
+/** Country segment of a booking destination, e.g. "Bergen, Norway" → "Norway". */
+function countryOf(b: Booking): string {
+  const parts = (b.destination ?? "").split(",");
+  return (parts.length > 1 ? parts[parts.length - 1] : "").trim();
+}
+
 function groupOf(b: Booking): Exclude<Group, "all"> {
   const s = b.status;
   if (s === "cancelled") return "cancelled";
@@ -517,10 +523,10 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="mt-[7px] block truncate transition-opacity hover:opacity-85"
+            className="mt-[7px] block transition-opacity hover:opacity-85"
           >
             <h3
-              className="truncate text-[28px] leading-[1.05] tracking-[0.002em]"
+              className="text-[28px] leading-[1.05] tracking-[0.002em]"
               style={{ color: PEARL, fontFamily: SERIF, fontWeight: 500 }}
             >
               {booking.name}
@@ -915,6 +921,7 @@ type DateChoice = "all" | "upcoming" | "this_month" | "next_90" | "past";
 function ManageBookings() {
   const [query, setQuery] = useState("");
   const [group, setGroup] = useState<Group>("all");
+  const [country, setCountry] = useState<string>("all");
   const [dateChoice, setDateChoice] = useState<DateChoice>("all");
   const [view, setView] = useState<"grid" | "list">("list");
   const [scope, setScope] = useState<"active" | "cancelled" | "all">("active");
@@ -988,8 +995,21 @@ function ManageBookings() {
       });
     }
     if (group !== "all") list = list.filter((b) => groupOf(b) === group);
+    if (country !== "all") list = list.filter((b) => countryOf(b) === country);
     return list;
-  }, [bookings, query, group, dateChoice, scope]);
+  }, [bookings, query, group, country, dateChoice, scope]);
+
+  const countryOptions = useMemo(() => {
+    const set = new Set<string>();
+    for (const b of bookings) {
+      const c = countryOf(b);
+      if (c) set.add(c);
+    }
+    return [
+      { value: "all", label: "Country" },
+      ...[...set].sort().map((c) => ({ value: c, label: c })),
+    ];
+  }, [bookings]);
 
   const counts = useMemo(() => {
     const c = { proposal: 0, awaiting: 0, confirmed: 0, attention: 0, cancelled: 0 };
@@ -1082,7 +1102,7 @@ function ManageBookings() {
         }}
       >
         <Sidebar
-          active="Dashboard"
+          active="My Bookings"
           roomingBookingId={roomingTarget}
           displayName={displayName}
           initials={initials}
@@ -1103,7 +1123,7 @@ function ManageBookings() {
           />
           <div className="absolute inset-y-0 left-0 w-[268px]">
             <Sidebar
-              active="Dashboard"
+              active="My Bookings"
               roomingBookingId={roomingTarget}
               displayName={displayName}
               initials={initials}
@@ -1404,9 +1424,9 @@ function ManageBookings() {
               </div>
 
               {/* search + filter row */}
-              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:items-center">
+              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:flex-nowrap md:items-center">
                 <div
-                  className="relative flex min-w-0 flex-1 items-center rounded-[11px]"
+                  className="relative flex flex-1 basis-[200px] items-center rounded-[11px]"
                   style={{
                     background: "rgba(255,255,255,0.52)",
                     border: "1px solid rgba(110,106,96,0.20)",
@@ -1429,8 +1449,8 @@ function ManageBookings() {
                   />
                 </div>
 
-                <div className="flex min-w-0 items-center gap-2.5">
-                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
+                <div className="flex min-w-0 flex-wrap items-center gap-2.5">
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
                     <Select
                       label="Status filter"
                       value={group}
@@ -1446,7 +1466,18 @@ function ManageBookings() {
                     />
                   </div>
 
-                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
+                    <Select
+                      label="Country filter"
+                      value={country}
+                      onChange={setCountry}
+                      options={countryOptions}
+                    />
+                  </div>
+
+
+
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
                     <Select
                       label="Date filter"
                       value={dateChoice}
@@ -1501,6 +1532,7 @@ function ManageBookings() {
                     onClick={() => {
                       setGroup("all");
                       setDateChoice("all");
+                      setCountry("all");
                       setQuery("");
                     }}
                     className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px]"
