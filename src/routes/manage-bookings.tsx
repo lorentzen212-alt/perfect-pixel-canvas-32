@@ -877,10 +877,10 @@ function Select<T extends string>({
 }) {
   return (
     <div
-      className="group relative flex-1 rounded-[12px]"
+      className="group relative flex-1 rounded-[11px]"
       style={{
-        background: "#F4F1E8",
-        border: "1px solid rgba(120,110,90,0.20)",
+        background: "rgba(255,255,255,0.42)",
+        border: "1px solid rgba(110,106,96,0.20)",
       }}
     >
       <select
