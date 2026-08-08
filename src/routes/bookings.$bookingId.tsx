@@ -65,6 +65,22 @@ export const Route = createFileRoute("/bookings/$bookingId")({
   }),
 });
 
+const LOCAL_PAL = {
+  BG_ALT: "#F6F4EB",
+  CARD: "#15202B",
+  CARD_BORDER: "rgba(154,176,192,0.13)",
+  CARD_SHADOW: "0 1px 2px rgba(0,0,0,0.18), 0 8px 20px -14px rgba(0,0,0,0.45)",
+  ACTION_PANEL: "#1B2836",
+  BORDER: "#2A3A4A",
+  TEXT: "#F8FAFC",
+  TEXT_2: "#BFC7CD",
+  MUTED: "#94A3B8",
+  GOLD: "#C5A059",
+  GOLD_DEEP: "rgba(199,163,74,0.55)",
+  GOLD_SOFT: "#D0B05A",
+  GREEN: "#8DA88A",
+} as const;
+
 const {
   BG_ALT,
   CARD,
@@ -79,7 +95,7 @@ const {
   GOLD_DEEP,
   GOLD_SOFT,
   GREEN,
-} = PAL;
+} = LOCAL_PAL;
 
 type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 
