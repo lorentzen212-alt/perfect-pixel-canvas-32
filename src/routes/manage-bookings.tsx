@@ -1458,14 +1458,27 @@ function ManageBookings() {
                     style={{ color: "#7B786C" }}
                   />
                   <input
+                    ref={searchRef}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search bookings..."
+                    placeholder="Search bookings, references, destinations…"
                     aria-label="Search bookings by name, destination, hotel or reference"
-                    className="w-full bg-transparent py-[11px] pl-[44px] pr-4 text-[14px] outline-none placeholder:text-[rgba(60,58,50,0.45)]"
+                    className="w-full bg-transparent py-[11px] pl-[44px] pr-[62px] text-[14px] outline-none placeholder:text-[rgba(60,58,50,0.45)]"
                     style={{ color: "#2E3138" }}
                   />
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded-[6px] px-[7px] py-[2px] text-[11px] tracking-[0.04em]"
+                    style={{
+                      color: "#6B6858",
+                      border: "1px solid rgba(110,106,96,0.24)",
+                      background: "rgba(255,255,255,0.55)",
+                    }}
+                  >
+                    ⌘K
+                  </span>
                 </div>
+
 
                 <div className="flex min-w-0 flex-wrap items-center gap-2.5">
                   <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
