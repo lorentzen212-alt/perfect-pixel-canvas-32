@@ -143,7 +143,7 @@ export function BookingWorkspaceHeader({
           {WORKSPACE_TABS.map((t) => {
             const isActive = t === active;
             const cls =
-              "hgb-ws-tab relative whitespace-nowrap rounded-t-[13px] px-5 pb-[13px] pt-[11px] text-[13px] transition-all duration-200 flex items-center gap-2.5 hover:[&_span]:text-[#DAA520]";
+              "hgb-ws-tab relative whitespace-nowrap rounded-t-[13px] px-5 pb-[13px] pt-[11px] text-[13px] transition-all duration-200 flex items-center gap-2.5";
             const st: React.CSSProperties = isActive
               ? {
                   background: "#173957",
