@@ -1418,9 +1418,9 @@ function InkCard({
     <section
       className="rounded-[16px] p-5 sm:p-6"
       style={{
-        background: INK,
-        border: `1px solid ${NAVY_BORDER}`,
-        boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
+        background: CARD_BG,
+        border: `1px solid ${CARD_BORDER_SOFT}`,
+        boxShadow: "0 14px 34px -26px rgba(0,0,0,0.55)",
       }}
     >
       <div className="flex items-baseline justify-between gap-5">
