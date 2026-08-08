@@ -150,11 +150,14 @@ export function GlobalSidebar({
     <div
       className={`relative flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
       style={{
-        backgroundColor: "transparent",
-        backgroundImage: `url("${sidebarAtmos.url}")`,
-        backgroundSize: "100% 100%",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        backgroundColor: "#1B2632",
+        backgroundImage: [
+          "radial-gradient(120% 70% at 108% 92%, rgba(150,178,205,0.30) 0%, rgba(126,155,182,0.16) 26%, rgba(90,116,142,0.06) 52%, rgba(27,38,50,0) 78%)",
+          "radial-gradient(150% 95% at 96% 78%, rgba(120,150,178,0.12) 0%, rgba(27,38,50,0) 70%)",
+          "radial-gradient(110% 80% at 0% 0%, rgba(9,16,24,0.55) 0%, rgba(9,16,24,0.22) 38%, rgba(9,16,24,0) 72%)",
+          "linear-gradient(170deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0) 42%, rgba(0,0,0,0.05) 100%)",
+          "linear-gradient(180deg, #1B2632 0%, #1D2937 46%, #202D3B 100%)",
+        ].join(", "),
         borderRight: "none",
         boxShadow:
           "inset -1px 0 0 rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.08), 1px 0 30px -16px rgba(20,28,36,0.28)",
