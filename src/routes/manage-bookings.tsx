@@ -1449,7 +1449,7 @@ function ManageBookings() {
                   />
                 </div>
 
-                <div className="flex min-w-0 items-center gap-2.5">
+                <div className="flex min-w-0 flex-wrap items-center gap-2.5">
                   <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
                     <Select
                       label="Status filter"
