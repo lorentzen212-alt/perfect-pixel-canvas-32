@@ -146,25 +146,27 @@ export function BookingWorkspaceHeader({
               "hgb-ws-tab relative whitespace-nowrap rounded-t-[13px] px-5 pb-[13px] pt-[11px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
             const st: React.CSSProperties = isActive
               ? {
-                  background: "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
-                  color: TAB_INK,
+                  background: "linear-gradient(180deg, #FFFFFF 0%, #FBFAF7 100%)",
+                  color: "#A9822B",
                   fontWeight: 600,
-                  boxShadow: "0 -6px 18px -12px rgba(58,44,20,0.45)",
+                  borderBottom: "3px solid #DAA520",
+                  boxShadow: "0 -8px 20px -14px rgba(23,57,87,0.55)",
                 }
               : {
-                  backgroundColor: "rgba(12,26,36,0.55)",
-                  color: "rgba(226,233,239,0.78)",
-                  border: "1px solid rgba(255,255,255,0.10)",
+                  backgroundColor: "#8A99AD",
+                  color: "rgba(20,32,44,0.66)",
+                  border: "1px solid rgba(255,255,255,0.18)",
                   borderBottom: "none",
                 };
             const inner = (
               <>
-                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.62)" }}>
+                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(20,32,44,0.52)" }}>
                   {TAB_ICON[t]}
                 </span>
                 {t}
               </>
             );
+
 
             if (isActive) {
               return (
