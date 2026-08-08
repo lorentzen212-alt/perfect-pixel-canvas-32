@@ -1386,15 +1386,17 @@ function ManageBookings() {
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className="relative isolate overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
+              className="relative isolate overflow-hidden rounded-[18px] p-[22px] sm:p-[26px]"
               style={{
-                background:
-                  "linear-gradient(180deg, #E3E2DD 0%, #DCDBD6 42%, #D3D5D5 100%)",
-                border: "1px solid rgba(120,116,104,0.22)",
+                backgroundColor: "#D9D7D2",
+                backgroundImage:
+                  "radial-gradient(120% 80% at 12% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.12) 42%, rgba(255,255,255,0) 72%), linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(0,0,0,0.02) 55%, rgba(0,0,0,0.045) 100%)",
+                border: "1px solid rgba(255,255,255,0.55)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.62), inset 0 -1px 0 rgba(0,0,0,0.06), 0 26px 60px -28px rgba(6,10,15,0.62)",
+                  "inset 0 1px 0 rgba(255,255,255,0.70), inset 0 -1px 0 rgba(0,0,0,0.06), 0 26px 60px -28px rgba(6,10,15,0.62)",
               }}
             >
+
               {/* booking category switcher */}
               <div className="mb-[14px] flex flex-wrap items-center gap-2">
                 {(
