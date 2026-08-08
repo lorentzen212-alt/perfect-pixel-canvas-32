@@ -47,7 +47,6 @@ import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
-import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
 import warmLobbyHeroAsset from "@/assets/manage-hero-warm-lobby.jpg.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
