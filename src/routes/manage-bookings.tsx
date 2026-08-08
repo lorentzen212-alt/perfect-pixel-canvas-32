@@ -1521,8 +1521,9 @@ function ManageBookings() {
 
               <div
                 className={
-                  view === "list" ? "space-y-4" : "grid grid-cols-1 gap-4 xl:grid-cols-2"
+                  view === "list" ? "space-y-[14px]" : "grid grid-cols-1 gap-[14px] xl:grid-cols-2"
                 }
+              
               >
                 {results.map((b) => (
                   <BookingCard key={b.id} booking={b} compact={view === "grid"} />
