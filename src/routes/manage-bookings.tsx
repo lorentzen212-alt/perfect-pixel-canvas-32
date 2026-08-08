@@ -489,27 +489,27 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   const metas = (
     booking.type === "me"
       ? [
-          { icon: <MapPin size={16} strokeWidth={1.6} />, text: booking.destination },
+          { icon: <MapPin size={13} strokeWidth={1.6} />, text: booking.destination },
           {
-            icon: <CalendarDays size={16} strokeWidth={1.6} />,
+            icon: <CalendarDays size={13} strokeWidth={1.6} />,
             text: formatRange(booking.startDate, booking.endDate),
           },
-          { icon: <Moon size={16} strokeWidth={1.6} />, text: `${booking.nights} nights` },
+          { icon: <Moon size={13} strokeWidth={1.6} />, text: `${booking.nights} nights` },
           {
-            icon: <BedDouble size={16} strokeWidth={1.6} />,
+            icon: <BedDouble size={13} strokeWidth={1.6} />,
             text: `${booking.meetingSpaces ?? 0} meeting spaces`,
           },
-          { icon: <Users size={16} strokeWidth={1.6} />, text: `${booking.delegates ?? 0} delegates` },
+          { icon: <Users size={13} strokeWidth={1.6} />, text: `${booking.delegates ?? 0} delegates` },
         ]
       : [
-          { icon: <MapPin size={16} strokeWidth={1.6} />, text: booking.destination },
+          { icon: <MapPin size={13} strokeWidth={1.6} />, text: booking.destination },
           {
-            icon: <CalendarDays size={16} strokeWidth={1.6} />,
+            icon: <CalendarDays size={13} strokeWidth={1.6} />,
             text: formatRange(booking.startDate, booking.endDate),
           },
-          { icon: <Moon size={16} strokeWidth={1.6} />, text: `${booking.nights} nights` },
-          { icon: <BedDouble size={16} strokeWidth={1.6} />, text: `${booking.rooms ?? 0} rooms` },
-          { icon: <Users size={16} strokeWidth={1.6} />, text: `${booking.guests ?? 0} guests` },
+          { icon: <Moon size={13} strokeWidth={1.6} />, text: `${booking.nights} nights` },
+          { icon: <BedDouble size={13} strokeWidth={1.6} />, text: `${booking.rooms ?? 0} rooms` },
+          { icon: <Users size={13} strokeWidth={1.6} />, text: `${booking.guests ?? 0} guests` },
         ]
   );
 
