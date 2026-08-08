@@ -1426,7 +1426,7 @@ function ManageBookings() {
               {/* search + filter row */}
               <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center">
                 <div
-                  className="relative flex min-w-0 flex-1 items-center rounded-[11px] md:min-w-[260px]"
+                  className="relative flex flex-1 basis-[260px] items-center rounded-[11px]"
                   style={{
                     background: "rgba(255,255,255,0.52)",
                     border: "1px solid rgba(110,106,96,0.20)",
