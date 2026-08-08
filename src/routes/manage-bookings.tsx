@@ -681,27 +681,22 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   const shell = {
     backgroundImage: [
-      /* soft dark slate tint above the stone so the UI stays clean and readable */
-      "linear-gradient(180deg, rgba(46,53,62,0.34) 0%, rgba(41,47,56,0.42) 100%)",
-      /* architectural stone / micro-cement texture — starts after the gold edge */
-      `url("${cardStoneTexture.url}")`,
-      "radial-gradient(120% 110% at 8% 0%, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 34%, rgba(0,0,0,0.00) 62%, rgba(0,0,0,0.10) 100%)",
-      "linear-gradient(152deg, #434A55 0%, #3B424C 46%, #333A44 78%, #2E353E 100%)",
+      /* quiet architectural light so the coated navy reads dimensional, not flat */
+      "radial-gradient(120% 110% at 10% 0%, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 32%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.14) 100%)",
+      "linear-gradient(158deg, #17222E 0%, #141E29 52%, #111A24 100%)",
     ].join(", "),
-    backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat",
-    backgroundPosition: "var(--insert-w) top, var(--insert-w) top, left top, left top",
-    backgroundSize:
-      "calc(100% - var(--insert-w)) 100%, cover, 100% 100%, 100% 100%",
-    backgroundBlendMode: "normal, soft-light, normal, normal",
+    backgroundRepeat: "no-repeat, no-repeat",
+    backgroundPosition: "var(--insert-w) top, left top",
+    backgroundSize: "calc(100% - var(--insert-w)) 100%, 100% 100%",
 
     border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
     borderRadius: 12,
-    /* precision-machined surface — subtle highlights + deep base shadow */
-    /* nearly flush in its machined pocket: tiny ambient + contact shadow only */
+    /* seated into the stone workspace: soft outer shadow + fine inner edge light */
     boxShadow:
-      "0 2px 5px rgba(0,0,0,0.20), 0 1px 1px rgba(0,0,0,0.16), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
+      "0 10px 24px rgba(12,16,22,0.34), 0 2px 4px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.055), inset 0 -8px 20px rgba(0,0,0,0.42)",
   } as const;
+
 
 
 
