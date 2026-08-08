@@ -1185,14 +1185,11 @@ function ManageBookings() {
                 "linear-gradient(180deg, #000 0%, #000 calc(100% - 60px), rgba(0,0,0,0) 100%)",
             }}
           >
-            <video
-              src={heroVideoAsset.url}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              poster={lobbyHeroAsset.url}
+            <img
+              src={warmLobbyHeroAsset.url}
+              alt=""
+              width={1920}
+              height={720}
               className="h-full w-full object-cover"
               style={{ objectPosition: "center center" }}
             />
