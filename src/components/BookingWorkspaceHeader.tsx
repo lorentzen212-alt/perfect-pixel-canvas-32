@@ -160,7 +160,7 @@ export function BookingWorkspaceHeader({
 
             const inner = (
               <>
-                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.62)" }}>
+                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(15,22,32,0.72)" }}>
                   {TAB_ICON[t]}
                 </span>
                 {t}
