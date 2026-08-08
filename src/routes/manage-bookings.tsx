@@ -1295,53 +1295,39 @@ function ManageBookings() {
             </header>
 
 
-            {/* status cards */}
-            <section className="mt-[38px] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4">
-
-
-              <StatusCard
-                label="Proposal ready"
-                count={counts.proposal}
-                description="Proposal ready"
-                tone={GOLD}
-                overlay="linear-gradient(90deg, rgba(20,14,8,0.15) 0%, rgba(120,72,20,0.09) 45%, rgba(0,0,0,0.03) 100%)"
-                image={bellAsset.url}
-                icon={<FileSignature size={19} />}
-                active={group === "proposal"}
-                onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
-              />
-              <StatusCard
+            {/* stat tiles */}
+            <section className="mt-[34px] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <StatTile
                 label="Awaiting response"
                 count={counts.awaiting}
-                description="Hotels preparing"
-                tone={BLUE}
-                overlay="linear-gradient(90deg, rgba(8,12,24,0.15) 0%, rgba(30,64,120,0.09) 45%, rgba(0,0,0,0.03) 100%)"
-                image={signingAsset.url}
-                icon={<Hourglass size={19} />}
+                icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
               />
-              <StatusCard
+              <StatTile
+                label="Proposal ready"
+                count={counts.proposal}
+                icon={<FileSignature size={30} strokeWidth={1.4} />}
+                action
+                active={group === "proposal"}
+                onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
+              />
+              <StatTile
                 label="Confirmed"
                 count={counts.confirmed}
-                description="Confirmed booking"
-                tone={GREEN}
-                overlay="linear-gradient(90deg, rgba(8,18,14,0.15) 0%, rgba(30,90,60,0.09) 45%, rgba(0,0,0,0.03) 100%)"
-                image={keyAsset.url}
-                icon={<Check size={19} />}
+                icon={<Check size={30} strokeWidth={1.4} />}
                 active={group === "confirmed"}
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
               />
-              <StatusCard
-                label="Next 7 days"
-                count={next7}
-                description={next7 === 1 ? "Stay starting soon" : "Stays starting soon"}
-                tone={GOLD_SOFT}
-                overlay="linear-gradient(90deg, rgba(10,14,18,0.35) 0%, rgba(18,26,34,0.28) 45%, rgba(0,0,0,0.18) 100%)"
-                stone
-                icon={<CalendarDays size={19} />}
-                active={dateChoice === "upcoming"}
-                onClick={() => setDateChoice(dateChoice === "upcoming" ? "all" : "upcoming")}
+              <StatTile
+                label="Total bookings"
+                count={bookings.length}
+                icon={<Briefcase size={30} strokeWidth={1.4} />}
+                active={group === "all" && scope === "all"}
+                onClick={() => {
+                  setGroup("all");
+                  setScope("all");
+                }}
               />
             </section>
 
