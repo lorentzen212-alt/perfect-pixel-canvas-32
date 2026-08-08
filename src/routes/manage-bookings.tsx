@@ -550,11 +550,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* metadata chips */}
-      <div className="mt-[9px] flex flex-wrap items-center gap-[7px]">
+      <div className="mt-[7px] flex flex-wrap items-center gap-[6px]">
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[5px] px-[12px] py-[5px] text-[13px] font-light"
+            className="inline-flex items-center gap-[7px] whitespace-nowrap rounded-[5px] px-[10px] py-[3px] text-[12px] font-light"
+
             style={{
               color: "#E6EDF3",
               border: "1px solid rgba(255,255,255,0.055)",
