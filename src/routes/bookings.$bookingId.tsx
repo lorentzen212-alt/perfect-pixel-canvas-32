@@ -895,7 +895,7 @@ function Workspace({ booking }: { booking: Booking }) {
   ];
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#173957" }}>
+    <div className="min-h-screen" style={{ backgroundColor: BG_ALT }}>
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] lg:block">
@@ -967,7 +967,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
         {/* ══ 2 · large light workspace plate ══ */}
         <div
-          className="relative min-h-[80vh] rounded-b-[22px] rounded-tr-[22px] px-5 pb-14 pt-0 sm:px-9"
+          className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           style={{ backgroundColor: PLATE }}
         >
           {/* ══ 3 · information strip ══ */}
@@ -976,16 +976,16 @@ function Workspace({ booking }: { booking: Booking }) {
               <div
                 key={s.lead + i}
                 className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
-                style={i > 0 ? { borderLeft: "1px solid rgba(22,41,58,0.13)" } : undefined}
+                style={i > 0 ? { borderLeft: "1px solid rgba(255,255,255,0.13)" } : undefined}
               >
                 <span className="shrink-0" style={{ color: GOLD_MET_MID }}>
                   {s.icon}
                 </span>
                 <span className="min-w-0">
-                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#16293A" }}>
+                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#FFFFFF" }}>
                     {s.lead}
                   </span>
-                  <span className="block truncate text-[12px]" style={{ color: "rgba(22,41,58,0.62)" }}>
+                  <span className="block truncate text-[12px]" style={{ color: "rgba(255,255,255,0.6)" }}>
                     {s.sub}
                   </span>
                 </span>
@@ -1396,7 +1396,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
 /* ───────────────────────── workspace primitives ───────────────────────── */
 
-const PLATE = "#FAF9F5";
+const PLATE = "#173957";
 const CARD_BG = "#1A2332";
 const CARD_BORDER_SOFT = "rgba(255,255,255,0.08)";
 const INK = NAVY_PANEL;
