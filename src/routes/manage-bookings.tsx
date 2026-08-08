@@ -1493,39 +1493,8 @@ function ManageBookings() {
                     />
                   </div>
 
-                  {(
-                    [
-                      { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
-                      { key: "list" as const, icon: LayoutList, label: "List view" },
-                    ]
-                  ).map(({ key, icon: Icon, label }) => {
-                    const on = view === key;
-                    return (
-                      <button
-                        key={key}
-                        type="button"
-                        aria-label={label}
-                        aria-pressed={on}
-                        onClick={() => setView(key)}
-                        className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px] transition-all duration-200"
-                        style={
-                          on
-                            ? {
-                                background: "rgba(255,255,255,0.72)",
-                                border: "1px solid rgba(184,142,67,0.7)",
-                                color: "#8A6A24",
-                              }
-                            : {
-                                background: "rgba(255,255,255,0.42)",
-                                border: "1px solid rgba(110,106,96,0.20)",
-                                color: "#6B6858",
-                              }
-                        }
-                      >
-                        <Icon size={17} strokeWidth={1.9} />
-                      </button>
-                    );
-                  })}
+
+
 
                   <button
                     type="button"
