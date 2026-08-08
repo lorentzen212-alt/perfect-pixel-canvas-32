@@ -784,7 +784,8 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   return (
     <div className="hgb-card-recess">
       <article
-        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[22px] pr-[24px] transition-all duration-300 sm:grid-cols-[230px_minmax(0,1fr)] lg:grid-cols-[258px_minmax(0,1fr)]"
+        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[14px] pr-[18px] transition-all duration-300 sm:grid-cols-[168px_minmax(0,1fr)] lg:grid-cols-[184px_minmax(0,1fr)]"
+
 
         style={shell}
       >
