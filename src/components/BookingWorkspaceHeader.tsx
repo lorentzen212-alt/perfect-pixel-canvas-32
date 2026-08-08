@@ -170,7 +170,7 @@ export function BookingWorkspaceHeader({
 
             if (isActive) {
               return (
-                <span key={t} className={cls} style={st}>
+                <span key={t} className={cls} style={st} data-active="true">
                   {inner}
                 </span>
               );
