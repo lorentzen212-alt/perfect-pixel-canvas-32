@@ -16,6 +16,8 @@ import {
   Check,
   ChevronDown,
   ClipboardList,
+  Copy,
+
   Hourglass,
 
   LifeBuoy,
