@@ -1532,6 +1532,7 @@ function ManageBookings() {
                     onClick={() => {
                       setGroup("all");
                       setDateChoice("all");
+                      setCountry("all");
                       setQuery("");
                     }}
                     className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px]"
