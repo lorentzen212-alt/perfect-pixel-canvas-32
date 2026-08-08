@@ -1413,6 +1413,8 @@ function Workspace({ booking }: { booking: Booking }) {
 /* ───────────────────────── workspace primitives ───────────────────────── */
 
 const PLATE = "#F6F4EB";
+const CARD_BG = "#15202B";
+const CARD_BORDER_SOFT = "#2A3A4A";
 const INK = NAVY_PANEL;
 const INK_2 = `${NAVY_TEXTURE}, linear-gradient(180deg, #223040 0%, #1E2A38 55%, #1A2530 100%)`;
 
