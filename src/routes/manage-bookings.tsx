@@ -1228,79 +1228,68 @@ function ManageBookings() {
               <img src={logo.url} alt="HotelGroupBook" className="h-7 w-auto" />
             </div>
 
-            {/* top action bar */}
-            <div className="mb-5 hidden items-center justify-end gap-3 lg:flex">
-              <Link
-                to="/book-leisure"
-                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] transition-colors hover:bg-white/5"
-                style={{
-                  backgroundColor: "rgba(10,18,27,0.45)",
-                  border: `1px solid ${GOLD}88`,
-                  color: GOLD_SOFT,
-                  backdropFilter: "blur(6px)",
-                }}
-              >
-                <Plus size={15} /> New booking
-              </Link>
-              <button
-                type="button"
-                aria-label="Notifications"
-                className="relative grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-white/5"
-                style={{
-                  border: `1px solid ${HAIRLINE}`,
-                  color: TEXT_2,
-                  backgroundColor: "rgba(10,18,27,0.4)",
-                }}
-              >
-                <Bell size={16} />
-                <span
-                  className="absolute right-[9px] top-[9px] h-[6px] w-[6px] rounded-full"
-                  style={{ backgroundColor: "#C6584F" }}
-                />
-              </button>
-              <Link
-                to="/account"
-                aria-label="Your account"
-                className="grid h-10 w-10 place-items-center rounded-full text-[11.5px] font-semibold tracking-[0.06em]"
-                style={{
-                  border: `1px solid ${HAIRLINE}`,
-                  color: GOLD_SOFT,
-                  backgroundColor: "rgba(10,18,27,0.4)",
-                }}
-              >
-                {initials || "—"}
-              </Link>
-            </div>
-
-            {/* greeting */}
-            <header className="mt-[26px] max-w-[720px]">
-              <div className="flex items-end gap-5">
+            {/* hero header */}
+            <header className="mt-[18px] flex items-start justify-between gap-6">
+              <div className="min-w-0">
                 <h1
-                  className="text-[38px] leading-[1.02] sm:text-[50px]"
+                  className="text-[42px] leading-[1.02] sm:text-[56px]"
                   style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
                 >
-                  Welcome {firstName}
+                  My Bookings
                 </h1>
-                <span
-                  className="mb-3 hidden h-px flex-1 sm:block"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(201,162,75,0.06) 100%)",
-                  }}
-                  aria-hidden
-                />
+                <p className="mt-2 text-[16px]" style={{ color: "#CBD5DF" }}>
+                  Stay on top of every group, every stay.
+                </p>
               </div>
-              <p className="mt-2 text-[14px]" style={{ color: TEXT_2 }}>
-                Here&rsquo;s what&rsquo;s happening with your group stays.
-              </p>
 
-              <div className="mt-5 flex items-center gap-3 lg:hidden">
+              <div className="hidden shrink-0 items-center gap-5 lg:flex">
+                <button
+                  type="button"
+                  aria-label="Notifications"
+                  className="relative grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-white/5"
+                  style={{ color: "#E5E9EE" }}
+                >
+                  <Bell size={20} strokeWidth={1.7} />
+                  {notificationCount > 0 && (
+                    <span
+                      className="absolute -right-0.5 -top-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full px-[4px] text-[10.5px] font-semibold"
+                      style={{ backgroundColor: GOLD, color: "#20180A" }}
+                    >
+                      {notificationCount}
+                    </span>
+                  )}
+                </button>
+
+                <Link to="/account" className="flex items-center gap-3">
+                  <span
+                    className="grid h-11 w-11 place-items-center overflow-hidden rounded-full text-[13px] font-semibold tracking-[0.06em]"
+                    style={{
+                      border: "1px solid rgba(226,190,110,0.45)",
+                      color: GOLD_SOFT,
+                      backgroundColor: "rgba(10,18,27,0.45)",
+                    }}
+                  >
+                    {initials || "—"}
+                  </span>
+                  <span className="min-w-0 text-left">
+                    <span className="block truncate text-[15px]" style={{ color: "#F1EFE9" }}>
+                      {displayName || "Your account"}
+                    </span>
+                    <span className="block truncate text-[12.5px]" style={{ color: "#A9B7C3" }}>
+                      Group Coordinator
+                    </span>
+                  </span>
+                  <ChevronDown size={18} style={{ color: "#A9B7C3" }} />
+                </Link>
+              </div>
+
+              <div className="flex items-center gap-3 lg:hidden">
                 <Link
                   to="/book-leisure"
                   className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px]"
                   style={{ border: `1px solid ${GOLD}88`, color: GOLD_SOFT }}
                 >
-                  <Plus size={15} /> New booking
+                  <Plus size={15} /> New
                 </Link>
               </div>
             </header>
