@@ -1025,19 +1025,8 @@ function ManageBookings() {
   const roomingTarget =
     bookings.find((b) => b.status === "rooming_list_required")?.id ?? bookings[0]?.id;
 
-  const activity = useMemo(
-    () =>
-      bookings
-        .filter((b) => b.statusNote || b.status)
-        .slice(0, 2)
-        .map((b) => ({
-          id: b.id,
-          title: b.statusNote ?? STATUS_META[b.status]?.label ?? "Booking update",
-          sub: b.name,
-          tone: GROUP_COLOR[groupOf(b)],
-        })),
-    [bookings],
-  );
+
+
 
   /* upcoming stays within the next 7 days + the nearest deadlines */
   const upcoming = useMemo(() => {
