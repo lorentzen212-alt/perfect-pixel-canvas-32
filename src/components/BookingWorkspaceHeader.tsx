@@ -138,7 +138,10 @@ export function BookingWorkspaceHeader({
           </div>
         </div>
 
-        <nav className="mt-6 flex items-end gap-[6px] overflow-x-auto">
+        <nav
+          className="-mx-5 mt-6 flex items-end gap-[6px] overflow-x-auto rounded-t-[22px] px-5 pt-3 sm:-mx-9 sm:px-9"
+          style={{ backgroundColor: "#FAF9F5" }}
+        >
           {WORKSPACE_TABS.map((t) => {
             const isActive = t === active;
             const cls =
@@ -147,19 +150,20 @@ export function BookingWorkspaceHeader({
             const st: React.CSSProperties = isActive
               ? {
                   background: "#FFFFFF",
-                  color: "#173957",
-                  fontWeight: 600,
-                  boxShadow: "0 -6px 18px -12px rgba(0,0,0,0.45)",
+                  color: TAB_INK,
+                  fontWeight: 700,
+                  borderTop: `2px solid ${GOLD_MET_MID}`,
+                  boxShadow: "0 -6px 18px -12px rgba(58,44,20,0.45)",
                 }
               : {
-                  backgroundColor: "#0F1620",
-                  color: "rgba(255,255,255,0.6)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  backgroundColor: "#8A99AD",
+                  color: "#26313D",
+                  border: "1px solid rgba(22,41,58,0.12)",
                   borderBottom: "none",
                 };
             const inner = (
               <>
-                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.62)" }}>
+                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(22,41,58,0.65)" }}>
                   {TAB_ICON[t]}
                 </span>
                 {t}
