@@ -31,6 +31,8 @@ import {
   Plus,
   Search,
   Settings,
+  SlidersHorizontal,
+  Briefcase,
   User,
   Users,
   X,
@@ -750,7 +752,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           className={
             compact
               ? "h-[88px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-              : "h-[112px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+              : "h-[148px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
           }
           style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)", objectPosition: compact ? undefined : "center calc(50% + 1px)" }}
         />
@@ -784,7 +786,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   return (
     <div className="hgb-card-recess">
       <article
-        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[16px] pr-[18px] transition-all duration-300 sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
+        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[22px] pr-[24px] transition-all duration-300 sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
 
         style={shell}
       >
@@ -803,29 +805,21 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
 
-/* ── status cards ────────────────────────────────────── */
+/* ── stat tiles ──────────────────────────────────────── */
 
-function StatusCard({
+function StatTile({
   label,
   count,
-  description,
-  tone,
-  overlay,
-  image,
-  stone,
   icon,
   active,
+  action,
   onClick,
 }: {
   label: string;
   count: number;
-  description: string;
-  tone: string;
-  overlay: string;
-  image?: string;
-  stone?: boolean;
   icon: React.ReactNode;
   active: boolean;
+  action?: boolean;
   onClick: () => void;
 }) {
   return (
@@ -833,66 +827,38 @@ function StatusCard({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`relative flex h-[224px] flex-col overflow-hidden rounded-[14px] p-[20px] text-left transition-transform hover:-translate-y-px${stone ? " stone-surface" : ""}`}
+      className="relative flex h-[112px] w-full items-center gap-[18px] overflow-hidden rounded-[14px] px-[22px] text-left transition-transform hover:-translate-y-px"
       style={{
-        background: image || stone ? undefined : PANEL,
-        border: `1px solid ${active ? tone : `${tone}55`}`,
-        boxShadow: active
-          ? `0 0 0 1px ${tone}55, 0 22px 60px rgba(0,0,0,0.26)`
-          : "0 22px 60px rgba(0,0,0,0.26)",
+        background: "linear-gradient(180deg, #2B3746 0%, #232E3B 100%)",
+        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.09)"}`,
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px rgba(0,0,0,0.30)",
       }}
     >
-      {image && <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.86) brightness(0.90) contrast(1.04)" }} />}
-
-      <span
-        className="absolute inset-0"
-        aria-hidden
-        style={{ background: overlay }}
-      />
-      {/* glass reflection across the top */}
-      <span
-        className="pointer-events-none absolute inset-x-0 top-0 h-2/5"
-        aria-hidden
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.035) 46%, rgba(255,255,255,0) 100%)",
-        }}
-      />
-      {/* faint inner highlight */}
-      <span
-        className="pointer-events-none absolute inset-0 rounded-[14px]"
-        aria-hidden
-        style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 0 1px rgba(255,255,255,0.04)" }}
-      />
-
-
-      <span
-        className="relative grid h-10 w-10 place-items-center rounded-full"
-        style={{ border: `1px solid ${tone}`, color: tone }}
-      >
+      {action && (
+        <span
+          className="absolute right-[14px] top-[12px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[11px]"
+          style={{
+            color: "#E9CB8C",
+            border: "1px solid rgba(226,190,110,0.5)",
+            background: "rgba(226,190,110,0.08)",
+          }}
+        >
+          action <ArrowRight size={12} />
+        </span>
+      )}
+      <span className="shrink-0" style={{ color: active || action ? "#E2BE6E" : "#9FB0BF" }}>
         {icon}
       </span>
-      <span
-        className="relative mt-3 block text-[11px] font-semibold uppercase tracking-[0.18em]"
-        style={{ color: tone }}
-      >
-        {label}
-      </span>
-      <span
-        className="relative mt-1 block text-[40px] leading-none"
-        style={{ color: TEXT, fontFamily: SERIF }}
-      >
-        {count}
-      </span>
-      <span className="relative mt-auto flex items-center justify-between">
-        <span className="text-[13px]" style={{ color: TEXT_2 }}>
-          {description}
-        </span>
+      <span className="min-w-0">
         <span
-          className="grid h-8 w-8 place-items-center rounded-full"
-          style={{ border: `1px solid ${tone}`, color: tone }}
+          className="block text-[38px] leading-none"
+          style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 400 }}
         >
-          <ArrowRight size={16} />
+          {count}
+        </span>
+        <span className="mt-[6px] block truncate text-[14px]" style={{ color: "#B9C6D2" }}>
+          {label}
         </span>
       </span>
     </button>
@@ -903,22 +869,6 @@ import { GlobalSidebar as Sidebar, RAIL_MS, RAIL_EASE } from "@/components/Globa
 
 
 /* ── select ──────────────────────────────────────────── */
-
-function GoldDivider() {
-  return (
-    <div
-      aria-hidden
-      className="hidden shrink-0 self-stretch md:block"
-      style={{
-        width: 1,
-        margin: "10px 0",
-        background:
-          "linear-gradient(180deg, rgba(214,182,124,0) 0%, rgba(214,182,124,0.42) 30%, rgba(233,209,158,0.55) 50%, rgba(169,133,58,0.40) 72%, rgba(169,133,58,0) 100%)",
-      }}
-    />
-  );
-}
-
 
 function Select<T extends string>({
   value,
@@ -933,17 +883,21 @@ function Select<T extends string>({
 }) {
   return (
     <div
-      className="group relative flex-1 rounded-[10px] transition-colors duration-200 hover:bg-[rgba(255,255,255,0.025)]"
+      className="group relative flex-1 rounded-[12px]"
+      style={{
+        background: "#F4F1E8",
+        border: "1px solid rgba(120,110,90,0.20)",
+      }}
     >
       <select
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="w-full cursor-pointer appearance-none bg-transparent py-[11px] pl-5 pr-10 text-left text-[14.5px] outline-none"
-        style={{ color: "rgba(255,255,255,0.92)", letterSpacing: "0.005em" }}
+        className="w-full cursor-pointer appearance-none bg-transparent py-[12px] pl-4 pr-10 text-left text-[14px] outline-none"
+        style={{ color: "#3B3B34", letterSpacing: "0.005em" }}
       >
         {options.map((o) => (
-          <option key={o.value} value={o.value} style={{ backgroundColor: "#12151A" }}>
+          <option key={o.value} value={o.value} style={{ backgroundColor: "#FBF9F4", color: "#2C3038" }}>
             {o.label}
           </option>
         ))}
@@ -951,8 +905,8 @@ function Select<T extends string>({
       <ChevronDown
         size={17}
         strokeWidth={1.8}
-        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2"
-        style={{ color: "rgba(255,255,255,0.62)" }}
+        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+        style={{ color: "#6B6858" }}
       />
     </div>
   );
@@ -1111,6 +1065,7 @@ function ManageBookings() {
     (profile?.first_name?.[0] ?? displayName[0] ?? "").toUpperCase() +
     (profile?.last_name?.[0] ?? "").toUpperCase();
 
+  const notificationCount = counts.proposal + counts.attention;
   const heroImage = bookings[0]?.image ?? mountains;
   const railWidth = railCollapsed ? 76 : 240;
 
@@ -1262,131 +1217,106 @@ function ManageBookings() {
               <img src={logo.url} alt="HotelGroupBook" className="h-7 w-auto" />
             </div>
 
-            {/* top action bar */}
-            <div className="mb-5 hidden items-center justify-end gap-3 lg:flex">
-              <Link
-                to="/book-leisure"
-                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] transition-colors hover:bg-white/5"
-                style={{
-                  backgroundColor: "rgba(10,18,27,0.45)",
-                  border: `1px solid ${GOLD}88`,
-                  color: GOLD_SOFT,
-                  backdropFilter: "blur(6px)",
-                }}
-              >
-                <Plus size={15} /> New booking
-              </Link>
-              <button
-                type="button"
-                aria-label="Notifications"
-                className="relative grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-white/5"
-                style={{
-                  border: `1px solid ${HAIRLINE}`,
-                  color: TEXT_2,
-                  backgroundColor: "rgba(10,18,27,0.4)",
-                }}
-              >
-                <Bell size={16} />
-                <span
-                  className="absolute right-[9px] top-[9px] h-[6px] w-[6px] rounded-full"
-                  style={{ backgroundColor: "#C6584F" }}
-                />
-              </button>
-              <Link
-                to="/account"
-                aria-label="Your account"
-                className="grid h-10 w-10 place-items-center rounded-full text-[11.5px] font-semibold tracking-[0.06em]"
-                style={{
-                  border: `1px solid ${HAIRLINE}`,
-                  color: GOLD_SOFT,
-                  backgroundColor: "rgba(10,18,27,0.4)",
-                }}
-              >
-                {initials || "—"}
-              </Link>
-            </div>
-
-            {/* greeting */}
-            <header className="mt-[26px] max-w-[720px]">
-              <div className="flex items-end gap-5">
+            {/* hero header */}
+            <header className="mt-[46px] flex items-start justify-between gap-6">
+              <div className="min-w-0">
                 <h1
-                  className="text-[38px] leading-[1.02] sm:text-[50px]"
+                  className="text-[42px] leading-[1.02] sm:text-[56px]"
                   style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
                 >
-                  Welcome {firstName}
+                  My Bookings
                 </h1>
-                <span
-                  className="mb-3 hidden h-px flex-1 sm:block"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(201,162,75,0.06) 100%)",
-                  }}
-                  aria-hidden
-                />
+                <p className="mt-2 text-[16px]" style={{ color: "#CBD5DF" }}>
+                  Stay on top of every group, every stay.
+                </p>
               </div>
-              <p className="mt-2 text-[14px]" style={{ color: TEXT_2 }}>
-                Here&rsquo;s what&rsquo;s happening with your group stays.
-              </p>
 
-              <div className="mt-5 flex items-center gap-3 lg:hidden">
+              <div className="hidden shrink-0 items-center gap-5 lg:flex">
+                <button
+                  type="button"
+                  aria-label="Notifications"
+                  className="relative grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-white/5"
+                  style={{ color: "#E5E9EE" }}
+                >
+                  <Bell size={20} strokeWidth={1.7} />
+                  {notificationCount > 0 && (
+                    <span
+                      className="absolute -right-0.5 -top-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full px-[4px] text-[10.5px] font-semibold"
+                      style={{ backgroundColor: GOLD, color: "#20180A" }}
+                    >
+                      {notificationCount}
+                    </span>
+                  )}
+                </button>
+
+                <Link to="/account" className="flex items-center gap-3">
+                  <span
+                    className="grid h-11 w-11 place-items-center overflow-hidden rounded-full text-[13px] font-semibold tracking-[0.06em]"
+                    style={{
+                      border: "1px solid rgba(226,190,110,0.45)",
+                      color: GOLD_SOFT,
+                      backgroundColor: "rgba(10,18,27,0.45)",
+                    }}
+                  >
+                    {initials || "—"}
+                  </span>
+                  <span className="min-w-0 text-left">
+                    <span className="block truncate text-[15px]" style={{ color: "#F1EFE9" }}>
+                      {displayName || "Your account"}
+                    </span>
+                    <span className="block truncate text-[12.5px]" style={{ color: "#A9B7C3" }}>
+                      Group Coordinator
+                    </span>
+                  </span>
+                  <ChevronDown size={18} style={{ color: "#A9B7C3" }} />
+                </Link>
+              </div>
+
+              <div className="flex items-center gap-3 lg:hidden">
                 <Link
                   to="/book-leisure"
                   className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px]"
                   style={{ border: `1px solid ${GOLD}88`, color: GOLD_SOFT }}
                 >
-                  <Plus size={15} /> New booking
+                  <Plus size={15} /> New
                 </Link>
               </div>
             </header>
 
 
-            {/* status cards */}
-            <section className="mt-[38px] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4">
-
-
-              <StatusCard
-                label="Proposal ready"
-                count={counts.proposal}
-                description="Proposal ready"
-                tone={GOLD}
-                overlay="linear-gradient(90deg, rgba(20,14,8,0.15) 0%, rgba(120,72,20,0.09) 45%, rgba(0,0,0,0.03) 100%)"
-                image={bellAsset.url}
-                icon={<FileSignature size={19} />}
-                active={group === "proposal"}
-                onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
-              />
-              <StatusCard
+            {/* stat tiles */}
+            <section className="mt-[34px] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <StatTile
                 label="Awaiting response"
                 count={counts.awaiting}
-                description="Hotels preparing"
-                tone={BLUE}
-                overlay="linear-gradient(90deg, rgba(8,12,24,0.15) 0%, rgba(30,64,120,0.09) 45%, rgba(0,0,0,0.03) 100%)"
-                image={signingAsset.url}
-                icon={<Hourglass size={19} />}
+                icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
               />
-              <StatusCard
+              <StatTile
+                label="Proposal ready"
+                count={counts.proposal}
+                icon={<FileSignature size={30} strokeWidth={1.4} />}
+                action
+                active={group === "proposal"}
+                onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
+              />
+              <StatTile
                 label="Confirmed"
                 count={counts.confirmed}
-                description="Confirmed booking"
-                tone={GREEN}
-                overlay="linear-gradient(90deg, rgba(8,18,14,0.15) 0%, rgba(30,90,60,0.09) 45%, rgba(0,0,0,0.03) 100%)"
-                image={keyAsset.url}
-                icon={<Check size={19} />}
+                icon={<Check size={30} strokeWidth={1.4} />}
                 active={group === "confirmed"}
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
               />
-              <StatusCard
-                label="Next 7 days"
-                count={next7}
-                description={next7 === 1 ? "Stay starting soon" : "Stays starting soon"}
-                tone={GOLD_SOFT}
-                overlay="linear-gradient(90deg, rgba(10,14,18,0.35) 0%, rgba(18,26,34,0.28) 45%, rgba(0,0,0,0.18) 100%)"
-                stone
-                icon={<CalendarDays size={19} />}
-                active={dateChoice === "upcoming"}
-                onClick={() => setDateChoice(dateChoice === "upcoming" ? "all" : "upcoming")}
+              <StatTile
+                label="Total bookings"
+                count={bookings.length}
+                icon={<Briefcase size={30} strokeWidth={1.4} />}
+                active={group === "all" && scope === "all"}
+                onClick={() => {
+                  setGroup("all");
+                  setScope("all");
+                }}
               />
             </section>
 
@@ -1418,44 +1348,48 @@ function ManageBookings() {
               </section>
             )}
 
-            {/* toolbar — independent control bar, no surrounding container */}
+            {/* toolbar — light stone control bar */}
             <div
-              className="stone-toolbar mt-[8px] flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
-
+              className="mt-[16px] flex flex-col gap-3 rounded-[16px] p-[14px] md:flex-row md:items-center"
               style={{
-                border: "1px solid rgba(168,184,200,0.13)",
-                boxShadow:
-                  "0 18px 44px -30px rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.045) inset, 0 -1px 0 rgba(0,0,0,0.35) inset",
+                background: "linear-gradient(180deg, #F1EDE3 0%, #E7E2D6 100%)",
+                border: "1px solid rgba(120,110,90,0.18)",
+                boxShadow: "0 14px 34px -24px rgba(0,0,0,0.55)",
               }}
             >
               {/* search */}
-              <div className="stone-inset relative flex min-w-0 flex-1 items-center rounded-[14px]">
+              <div
+                className="relative flex min-w-0 flex-1 items-center rounded-[12px]"
+                style={{
+                  background: "#FBF9F4",
+                  border: "1px solid rgba(120,110,90,0.22)",
+                  boxShadow: "inset 0 1px 2px rgba(0,0,0,0.06)",
+                }}
+              >
                 <Search
-                  size={19}
+                  size={18}
                   strokeWidth={2}
-                  className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2"
-                  style={{ color: "#DCBE84", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.45))" }}
+                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
+                  style={{ color: "#8A7C60" }}
                 />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search bookings..."
                   aria-label="Search bookings by name, destination, hotel or reference"
-                  className="w-full bg-transparent py-[14px] pl-[52px] pr-4 text-[14.5px] outline-none placeholder:text-[rgba(255,255,255,0.55)]"
-                  style={{ color: "rgba(255,255,255,0.92)" }}
+                  className="w-full bg-transparent py-[12px] pl-[46px] pr-4 text-[14.5px] outline-none placeholder:text-[rgba(60,55,45,0.45)]"
+                  style={{ color: "#2C3038" }}
                 />
               </div>
 
-
-                <GoldDivider />
-
-                <div className="stone-inset flex min-w-0 items-center rounded-[14px] md:w-[280px]">
+              <div className="flex min-w-0 items-center gap-3">
+                <div className="hgb-filter-pill flex min-w-0 items-center rounded-[12px] md:w-[190px]">
                   <Select
                     label="Status filter"
                     value={group}
                     onChange={setGroup}
                     options={[
-                      { value: "all", label: "All Status" },
+                      { value: "all", label: "Status" },
                       { value: "proposal", label: "Proposal Ready" },
                       { value: "awaiting", label: "Awaiting Response" },
                       { value: "confirmed", label: "Confirmed" },
@@ -1465,15 +1399,13 @@ function ManageBookings() {
                   />
                 </div>
 
-                <GoldDivider />
-
-                <div className="stone-inset flex min-w-0 items-center rounded-[14px] md:w-[280px]">
+                <div className="hgb-filter-pill flex min-w-0 items-center rounded-[12px] md:w-[190px]">
                   <Select
                     label="Date filter"
                     value={dateChoice}
                     onChange={setDateChoice}
                     options={[
-                      { value: "all", label: "All Dates" },
+                      { value: "all", label: "Arrival" },
                       { value: "upcoming", label: "Upcoming" },
                       { value: "this_month", label: "This Month" },
                       { value: "next_90", label: "Next 3 Months" },
@@ -1482,10 +1414,7 @@ function ManageBookings() {
                   />
                 </div>
 
-                <GoldDivider />
-
-              {/* view toggles */}
-              <div className="flex items-center gap-2 px-3 py-2">
+                {/* view toggles + filter options */}
                 {(
                   [
                     { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
@@ -1500,27 +1429,43 @@ function ManageBookings() {
                       aria-label={label}
                       aria-pressed={on}
                       onClick={() => setView(key)}
-                      className="grid h-[42px] w-[50px] place-items-center rounded-[11px] transition-all duration-200"
+                      className="grid h-[44px] w-[46px] shrink-0 place-items-center rounded-[12px] transition-all duration-200"
                       style={
                         on
                           ? {
-                              background:
-                                "linear-gradient(180deg, rgba(220,190,132,0.10) 0%, rgba(169,133,58,0.05) 100%)",
-                              border: "1px solid rgba(220,190,132,0.55)",
-                              color: "#E4CB98",
-                              boxShadow: "0 1px 0 rgba(255,255,255,0.07) inset",
+                              background: "#FBF9F4",
+                              border: "1px solid rgba(184,142,67,0.75)",
+                              color: "#8A6A24",
                             }
                           : {
-                              background: "rgba(255,255,255,0.02)",
-                              border: "1px solid rgba(255,255,255,0.05)",
-                              color: "rgba(255,255,255,0.72)",
+                              background: "#F4F1E8",
+                              border: "1px solid rgba(120,110,90,0.20)",
+                              color: "#6B6858",
                             }
                       }
                     >
-                      <Icon size={19} strokeWidth={1.9} />
+                      <Icon size={18} strokeWidth={1.9} />
                     </button>
                   );
                 })}
+
+                <button
+                  type="button"
+                  aria-label="More filters"
+                  onClick={() => {
+                    setGroup("all");
+                    setDateChoice("all");
+                    setQuery("");
+                  }}
+                  className="grid h-[44px] w-[46px] shrink-0 place-items-center rounded-[12px]"
+                  style={{
+                    background: "#F4F1E8",
+                    border: "1px solid rgba(120,110,90,0.20)",
+                    color: "#6B6858",
+                  }}
+                >
+                  <SlidersHorizontal size={18} strokeWidth={1.9} />
+                </button>
               </div>
             </div>
 
@@ -1530,11 +1475,12 @@ function ManageBookings() {
 
             {/* bookings — premium workspace panel */}
             <section
-              className="rounded-[18px] p-[22px] relative overflow-hidden isolate bg-[#3F464E]"
+              className="rounded-[18px] p-[22px] relative overflow-hidden isolate"
               style={{
-                border: "1px solid rgba(255,255,255,0.10)",
+                background: "linear-gradient(180deg, #F1EDE3 0%, #E6E1D5 100%)",
+                border: "1px solid rgba(120,110,90,0.18)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px rgba(0,0,0,0.26)",
+                  "inset 0 1px 0 rgba(255,255,255,0.55), 0 14px 34px rgba(0,0,0,0.22)",
               }}
             >
               {/* booking list view selector */}
@@ -1557,20 +1503,18 @@ function ManageBookings() {
                       type="button"
                       aria-pressed={on}
                       onClick={() => setScope(key)}
-                      className="rounded-[11px] px-[14px] py-[8px] text-[12.5px] font-medium transition-all duration-200"
+                      className="rounded-[12px] px-[18px] py-[10px] text-[14px] font-medium transition-all duration-200"
                       style={
                         on
                           ? {
-                              background:
-                                "linear-gradient(180deg, rgba(220,190,132,0.10) 0%, rgba(169,133,58,0.05) 100%)",
-                              border: "1px solid rgba(220,190,132,0.55)",
-                              color: "#E4CB98",
-                              boxShadow: "0 1px 0 rgba(255,255,255,0.07) inset",
+                              background: "#FBF9F4",
+                              border: "1px solid rgba(184,142,67,0.8)",
+                              color: "#8A6A24",
                             }
                           : {
-                              background: "rgba(255,255,255,0.02)",
-                              border: "1px solid rgba(255,255,255,0.05)",
-                              color: "rgba(255,255,255,0.72)",
+                              background: "#F4F1E8",
+                              border: "1px solid rgba(120,110,90,0.20)",
+                              color: "#5C5B52",
                             }
                       }
                     >
@@ -1589,7 +1533,7 @@ function ManageBookings() {
                   <BookingCard key={b.id} booking={b} compact={view === "grid"} />
                 ))}
                 {results.length === 0 && (
-                  <p className="py-12 text-center text-[13.5px]" style={{ color: MUTED }}>
+                  <p className="py-12 text-center text-[13.5px]" style={{ color: "#6B6858" }}>
                     {isLoading
                       ? "Loading your bookings…"
                       : bookings.length === 0
@@ -1600,13 +1544,13 @@ function ManageBookings() {
               </div>
 
               <footer className="mt-5 flex flex-wrap items-center justify-between gap-3">
-                <p className="text-[12.5px]" style={{ color: MUTED }}>
+                <p className="text-[12.5px]" style={{ color: "#6B6858" }}>
                   Can&rsquo;t find a booking?{" "}
-                  <Link to="/account" style={{ color: GOLD }}>
+                  <Link to="/account" style={{ color: "#8A6A24" }}>
                     Contact us →
                   </Link>
                 </p>
-                <span className="text-[12.5px]" style={{ color: MUTED }}>
+                <span className="text-[12.5px]" style={{ color: "#6B6858" }}>
                   Showing {results.length} of {bookings.length}
                 </span>
               </footer>
