@@ -22,7 +22,7 @@ export const PAL = {
   BG_ALT: "#22303A",
   SIDEBAR: "#0B1D29",
   SIDEBAR_ALT: "#0E2331",
-  TOPBAR: "#0C1E2A",
+  TOPBAR: "#173957",
   CARD: "#2B3A45",
   CARD_BORDER: "rgba(154,176,192,0.13)",
   CARD_SHADOW: "0 1px 2px rgba(0,0,0,0.18), 0 8px 20px -14px rgba(0,0,0,0.45)",

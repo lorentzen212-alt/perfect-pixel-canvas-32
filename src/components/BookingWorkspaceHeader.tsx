@@ -43,7 +43,6 @@ const HERO_MUTED = "rgba(214,224,232,0.62)";
 const GOLD_MET_MID = "#C5962D";
 const GOLD_SOFT = "#D9BE74";
 const GREEN = "#7FBE96";
-const TAB_INK = "#16293A";
 
 export function BookingWorkspaceHeader({
   bookingId,
