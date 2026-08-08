@@ -1170,7 +1170,7 @@ function ManageBookings() {
 
           {/* cinematic hero backdrop */}
           <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-[358px]"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[240px] sm:h-[300px] lg:h-[332px]"
             aria-hidden
             style={{
               maskImage:
@@ -1187,13 +1187,17 @@ function ManageBookings() {
               className="h-full w-full object-cover"
               style={{ objectPosition: "center center" }}
             />
-            <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.12)" }} />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(6,10,15,0.42) 0%, rgba(6,10,15,0.18) 45%, rgba(6,10,15,0.34) 100%)",
+              }}
+            />
           </div>
 
+          <div className="relative mx-auto w-full max-w-[1580px] px-4 pb-10 pt-5 sm:px-6 lg:px-8 xl:px-10">
 
-
-
-          <div className="relative px-4 pb-10 pt-5 sm:px-6 lg:px-10">
             {/* mobile bar */}
             <div className="mb-4 flex items-center justify-between lg:hidden">
               <button
