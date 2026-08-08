@@ -967,7 +967,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
         {/* ══ 2 · large light workspace plate ══ */}
         <div
-          className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+          className="relative min-h-[80vh] rounded-[24px] px-5 pb-14 pt-0 sm:px-9"
           style={{ backgroundColor: PLATE }}
         >
           {/* ══ 3 · information strip ══ */}
@@ -976,16 +976,16 @@ function Workspace({ booking }: { booking: Booking }) {
               <div
                 key={s.lead + i}
                 className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
-                style={i > 0 ? { borderLeft: "1px solid rgba(255,255,255,0.13)" } : undefined}
+                style={i > 0 ? { borderLeft: "1px solid rgba(23,57,87,0.14)" } : undefined}
               >
-                <span className="shrink-0" style={{ color: GOLD_MET_MID }}>
+                <span className="shrink-0" style={{ color: "#B8860B" }}>
                   {s.icon}
                 </span>
                 <span className="min-w-0">
-                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#FFFFFF" }}>
+                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#173957" }}>
                     {s.lead}
                   </span>
-                  <span className="block truncate text-[12px]" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  <span className="block truncate text-[12px]" style={{ color: "rgba(23,57,87,0.62)" }}>
                     {s.sub}
                   </span>
                 </span>
