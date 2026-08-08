@@ -1515,20 +1515,18 @@ function ManageBookings() {
                       type="button"
                       aria-pressed={on}
                       onClick={() => setScope(key)}
-                      className="rounded-[11px] px-[14px] py-[8px] text-[12.5px] font-medium transition-all duration-200"
+                      className="rounded-[12px] px-[18px] py-[10px] text-[14px] font-medium transition-all duration-200"
                       style={
                         on
                           ? {
-                              background:
-                                "linear-gradient(180deg, rgba(220,190,132,0.10) 0%, rgba(169,133,58,0.05) 100%)",
-                              border: "1px solid rgba(220,190,132,0.55)",
-                              color: "#E4CB98",
-                              boxShadow: "0 1px 0 rgba(255,255,255,0.07) inset",
+                              background: "#FBF9F4",
+                              border: "1px solid rgba(184,142,67,0.8)",
+                              color: "#8A6A24",
                             }
                           : {
-                              background: "rgba(255,255,255,0.02)",
-                              border: "1px solid rgba(255,255,255,0.05)",
-                              color: "rgba(255,255,255,0.72)",
+                              background: "#F4F1E8",
+                              border: "1px solid rgba(120,110,90,0.20)",
+                              color: "#5C5B52",
                             }
                       }
                     >
@@ -1547,7 +1545,7 @@ function ManageBookings() {
                   <BookingCard key={b.id} booking={b} compact={view === "grid"} />
                 ))}
                 {results.length === 0 && (
-                  <p className="py-12 text-center text-[13.5px]" style={{ color: MUTED }}>
+                  <p className="py-12 text-center text-[13.5px]" style={{ color: "#6B6858" }}>
                     {isLoading
                       ? "Loading your bookings…"
                       : bookings.length === 0
@@ -1558,13 +1556,13 @@ function ManageBookings() {
               </div>
 
               <footer className="mt-5 flex flex-wrap items-center justify-between gap-3">
-                <p className="text-[12.5px]" style={{ color: MUTED }}>
+                <p className="text-[12.5px]" style={{ color: "#6B6858" }}>
                   Can&rsquo;t find a booking?{" "}
-                  <Link to="/account" style={{ color: GOLD }}>
+                  <Link to="/account" style={{ color: "#8A6A24" }}>
                     Contact us →
                   </Link>
                 </p>
-                <span className="text-[12.5px]" style={{ color: MUTED }}>
+                <span className="text-[12.5px]" style={{ color: "#6B6858" }}>
                   Showing {results.length} of {bookings.length}
                 </span>
               </footer>
