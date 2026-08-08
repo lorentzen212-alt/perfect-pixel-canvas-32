@@ -814,6 +814,7 @@ function StatTile({
   icon,
   active,
   action,
+  footer,
   onClick,
 }: {
   label: string;
@@ -821,6 +822,7 @@ function StatTile({
   icon: React.ReactNode;
   active: boolean;
   action?: boolean;
+  footer?: string;
   onClick: () => void;
 }) {
   return (
@@ -828,43 +830,58 @@ function StatTile({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex h-[112px] w-full items-center gap-[18px] overflow-hidden rounded-[14px] px-[22px] text-left transition-transform hover:-translate-y-px"
+      className="relative flex w-full flex-col justify-between overflow-hidden rounded-[16px] px-[22px] pb-[13px] pt-[18px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
-        background: "linear-gradient(180deg, #2B3746 0%, #232E3B 100%)",
-        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.09)"}`,
+        background:
+          "linear-gradient(180deg, rgba(43,55,70,0.94) 0%, rgba(30,40,52,0.94) 100%)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.10)"}`,
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px rgba(0,0,0,0.30)",
+          "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 48px -20px rgba(4,8,13,0.72)",
       }}
     >
       {action && (
         <span
-          className="absolute right-[14px] top-[12px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[11px]"
+          className="absolute right-[14px] top-[13px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[10.5px] font-medium uppercase tracking-[0.10em]"
           style={{
             color: "#E9CB8C",
             border: "1px solid rgba(226,190,110,0.5)",
             background: "rgba(226,190,110,0.08)",
           }}
         >
-          action <ArrowRight size={12} />
+          Action needed
         </span>
       )}
-      <span className="shrink-0" style={{ color: active || action ? "#E2BE6E" : "#9FB0BF" }}>
-        {icon}
+      <span className="flex items-center gap-[18px]">
+        <span className="shrink-0" style={{ color: active || action ? "#E2BE6E" : "#9FB0BF" }}>
+          {icon}
+        </span>
+        <span className="min-w-0">
+          <span
+            className="block text-[38px] leading-none"
+            style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 400 }}
+          >
+            {count}
+          </span>
+          <span className="mt-[6px] block truncate text-[14px]" style={{ color: "#B9C6D2" }}>
+            {label}
+          </span>
+        </span>
       </span>
-      <span className="min-w-0">
-        <span
-          className="block text-[38px] leading-none"
-          style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 400 }}
-        >
-          {count}
-        </span>
-        <span className="mt-[6px] block truncate text-[14px]" style={{ color: "#B9C6D2" }}>
-          {label}
-        </span>
+      <span
+        className="mt-[14px] flex items-center gap-1.5 pt-[10px] text-[12px]"
+        style={{
+          borderTop: "1px solid rgba(255,255,255,0.07)",
+          color: active || action ? "#E2BE6E" : "#93A3B1",
+        }}
+      >
+        {footer ?? "View bookings"} <ArrowRight size={12} />
       </span>
     </button>
   );
 }
+
 
 import { GlobalSidebar as Sidebar, RAIL_MS, RAIL_EASE } from "@/components/GlobalSidebar";
 
