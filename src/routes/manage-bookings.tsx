@@ -16,6 +16,8 @@ import {
   Check,
   ChevronDown,
   ClipboardList,
+  Copy,
+
   Hourglass,
 
   LifeBuoy,
@@ -593,9 +595,26 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           >
             Your reference
           </p>
-          <p className="mt-[2px] text-[14px] leading-none" style={{ color: IVORY, fontWeight: 400 }}>
-            {booking.reference}
-          </p>
+          <span className="mt-[2px] flex items-center gap-2">
+            <span className="text-[14px] leading-none" style={{ color: IVORY, fontWeight: 400 }}>
+              {booking.reference}
+            </span>
+            <button
+              type="button"
+              aria-label={`Copy reference ${booking.reference}`}
+              onClick={() => {
+                void navigator.clipboard
+                  ?.writeText(booking.reference)
+                  .then(() => toast("Reference copied"))
+                  .catch(() => toast.error("Could not copy reference"));
+              }}
+              className="grid h-[20px] w-[20px] shrink-0 place-items-center rounded-[5px] transition-colors hover:bg-white/10"
+              style={{ color: "#93A5B2" }}
+            >
+              <Copy size={12} strokeWidth={1.8} />
+            </button>
+          </span>
+
         </div>
         <div
           className="px-[14px] py-[6px]"
@@ -814,6 +833,7 @@ function StatTile({
   icon,
   active,
   action,
+  footer,
   onClick,
 }: {
   label: string;
@@ -821,6 +841,7 @@ function StatTile({
   icon: React.ReactNode;
   active: boolean;
   action?: boolean;
+  footer?: string;
   onClick: () => void;
 }) {
   return (
@@ -828,43 +849,58 @@ function StatTile({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex h-[112px] w-full items-center gap-[18px] overflow-hidden rounded-[14px] px-[22px] text-left transition-transform hover:-translate-y-px"
+      className="relative flex w-full flex-col justify-between overflow-hidden rounded-[16px] px-[22px] pb-[13px] pt-[18px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
-        background: "linear-gradient(180deg, #2B3746 0%, #232E3B 100%)",
-        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.09)"}`,
+        background:
+          "linear-gradient(180deg, rgba(43,55,70,0.94) 0%, rgba(30,40,52,0.94) 100%)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.10)"}`,
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px rgba(0,0,0,0.30)",
+          "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 48px -20px rgba(4,8,13,0.72)",
       }}
     >
       {action && (
         <span
-          className="absolute right-[14px] top-[12px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[11px]"
+          className="absolute right-[14px] top-[13px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[10.5px] font-medium uppercase tracking-[0.10em]"
           style={{
             color: "#E9CB8C",
             border: "1px solid rgba(226,190,110,0.5)",
             background: "rgba(226,190,110,0.08)",
           }}
         >
-          action <ArrowRight size={12} />
+          Action needed
         </span>
       )}
-      <span className="shrink-0" style={{ color: active || action ? "#E2BE6E" : "#9FB0BF" }}>
-        {icon}
+      <span className="flex items-center gap-[18px]">
+        <span className="shrink-0" style={{ color: active || action ? "#E2BE6E" : "#9FB0BF" }}>
+          {icon}
+        </span>
+        <span className="min-w-0">
+          <span
+            className="block text-[38px] leading-none"
+            style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 400 }}
+          >
+            {count}
+          </span>
+          <span className="mt-[6px] block truncate text-[14px]" style={{ color: "#B9C6D2" }}>
+            {label}
+          </span>
+        </span>
       </span>
-      <span className="min-w-0">
-        <span
-          className="block text-[38px] leading-none"
-          style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 400 }}
-        >
-          {count}
-        </span>
-        <span className="mt-[6px] block truncate text-[14px]" style={{ color: "#B9C6D2" }}>
-          {label}
-        </span>
+      <span
+        className="mt-[14px] flex items-center gap-1.5 pt-[10px] text-[12px]"
+        style={{
+          borderTop: "1px solid rgba(255,255,255,0.07)",
+          color: active || action ? "#E2BE6E" : "#93A3B1",
+        }}
+      >
+        {footer ?? "View bookings"} <ArrowRight size={12} />
       </span>
     </button>
   );
 }
+
 
 import { GlobalSidebar as Sidebar, RAIL_MS, RAIL_EASE } from "@/components/GlobalSidebar";
 
@@ -927,6 +963,20 @@ function ManageBookings() {
   const [view, setView] = useState<"grid" | "list">("list");
   const [scope, setScope] = useState<"active" | "cancelled" | "all">("active");
   const [navOpen, setNavOpen] = useState(false);
+
+  /* ⌘K / Ctrl+K focuses the workspace search */
+  const searchRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
 
   /* luxury rail: labels fade out before the width animates, and fade in after it opens */
   const [railCollapsed, setRailCollapsed] = useState(false);
@@ -1188,10 +1238,18 @@ function ManageBookings() {
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(6,10,15,0.42) 0%, rgba(6,10,15,0.18) 45%, rgba(6,10,15,0.34) 100%)",
+                  "linear-gradient(90deg, rgba(6,10,15,0.86) 0%, rgba(6,10,15,0.62) 34%, rgba(6,10,15,0.24) 62%, rgba(6,10,15,0.10) 100%)",
+              }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(6,10,15,0.24) 0%, rgba(6,10,15,0.06) 44%, rgba(6,10,15,0.30) 100%)",
               }}
             />
           </div>
+
 
           <div className="relative mx-auto w-full max-w-[1580px] px-4 pb-10 pt-5 sm:px-6 lg:px-8 xl:px-10">
 
@@ -1212,6 +1270,12 @@ function ManageBookings() {
             {/* hero header */}
             <header className="mt-[28px] flex items-start justify-between gap-6">
               <div className="min-w-0">
+                <p
+                  className="mb-[10px] text-[11px] font-semibold uppercase tracking-[0.30em]"
+                  style={{ color: "#E2BE6E" }}
+                >
+                  Dashboard
+                </p>
                 <h1
                   className="text-[42px] leading-[1.02] sm:text-[56px]"
                   style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
@@ -1222,6 +1286,7 @@ function ManageBookings() {
                   Stay on top of every group, every stay.
                 </p>
               </div>
+
 
               <div className="hidden shrink-0 items-center gap-5 lg:flex">
                 <button
@@ -1277,12 +1342,13 @@ function ManageBookings() {
 
 
             {/* stat tiles */}
-            <section className="mt-[34px] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <section className="mt-[46px] grid grid-cols-2 items-stretch gap-4 xl:grid-cols-4">
               <StatTile
                 label="Awaiting response"
                 count={counts.awaiting}
                 icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
+                footer="View bookings"
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
               />
               <StatTile
@@ -1291,6 +1357,7 @@ function ManageBookings() {
                 icon={<FileSignature size={30} strokeWidth={1.4} />}
                 action
                 active={group === "proposal"}
+                footer="Review proposals"
                 onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
               />
               <StatTile
@@ -1298,6 +1365,7 @@ function ManageBookings() {
                 count={counts.confirmed}
                 icon={<Check size={30} strokeWidth={1.4} />}
                 active={group === "confirmed"}
+                footer="View bookings"
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
               />
               <StatTile
@@ -1305,12 +1373,15 @@ function ManageBookings() {
                 count={bookings.length}
                 icon={<Briefcase size={30} strokeWidth={1.4} />}
                 active={group === "all" && scope === "all"}
+                footer="View all"
                 onClick={() => {
                   setGroup("all");
                   setScope("all");
                 }}
               />
             </section>
+
+
 
 
 
@@ -1348,15 +1419,17 @@ function ManageBookings() {
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className="relative isolate overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
+              className="relative isolate overflow-hidden rounded-[18px] p-[22px] sm:p-[26px]"
               style={{
-                background:
-                  "linear-gradient(180deg, #E3E2DD 0%, #DCDBD6 42%, #D3D5D5 100%)",
-                border: "1px solid rgba(120,116,104,0.22)",
+                backgroundColor: "#D9D7D2",
+                backgroundImage:
+                  "radial-gradient(120% 80% at 12% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.12) 42%, rgba(255,255,255,0) 72%), linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(0,0,0,0.02) 55%, rgba(0,0,0,0.045) 100%)",
+                border: "1px solid rgba(255,255,255,0.55)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.62), inset 0 -1px 0 rgba(0,0,0,0.06), 0 26px 60px -28px rgba(6,10,15,0.62)",
+                  "inset 0 1px 0 rgba(255,255,255,0.70), inset 0 -1px 0 rgba(0,0,0,0.06), 0 26px 60px -28px rgba(6,10,15,0.62)",
               }}
             >
+
               {/* booking category switcher */}
               <div className="mb-[14px] flex flex-wrap items-center gap-2">
                 {(
@@ -1418,14 +1491,27 @@ function ManageBookings() {
                     style={{ color: "#7B786C" }}
                   />
                   <input
+                    ref={searchRef}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search bookings..."
+                    placeholder="Search bookings, references, destinations…"
                     aria-label="Search bookings by name, destination, hotel or reference"
-                    className="w-full bg-transparent py-[11px] pl-[44px] pr-4 text-[14px] outline-none placeholder:text-[rgba(60,58,50,0.45)]"
+                    className="w-full bg-transparent py-[11px] pl-[44px] pr-[62px] text-[14px] outline-none placeholder:text-[rgba(60,58,50,0.45)]"
                     style={{ color: "#2E3138" }}
                   />
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded-[6px] px-[7px] py-[2px] text-[11px] tracking-[0.04em]"
+                    style={{
+                      color: "#6B6858",
+                      border: "1px solid rgba(110,106,96,0.24)",
+                      background: "rgba(255,255,255,0.55)",
+                    }}
+                  >
+                    ⌘K
+                  </span>
                 </div>
+
 
                 <div className="flex min-w-0 flex-wrap items-center gap-2.5">
                   <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
