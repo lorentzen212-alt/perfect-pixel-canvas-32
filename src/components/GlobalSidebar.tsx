@@ -150,7 +150,7 @@ export function GlobalSidebar({
     <div
       className={`relative flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
       style={{
-        backgroundColor: "transparent",
+        backgroundColor: "#173957",
         backgroundImage: `url("${sidebarAtmos.url}")`,
         backgroundSize: "100% 100%",
         backgroundPosition: "center",
