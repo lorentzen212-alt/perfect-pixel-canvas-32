@@ -144,6 +144,12 @@ const SANS = 'Inter, "Helvetica Neue", Arial, sans-serif';
 
 type Group = "all" | "proposal" | "awaiting" | "confirmed" | "attention" | "cancelled";
 
+/** Country segment of a booking destination, e.g. "Bergen, Norway" → "Norway". */
+function countryOf(b: Booking): string {
+  const parts = (b.destination ?? "").split(",");
+  return (parts.length > 1 ? parts[parts.length - 1] : "").trim();
+}
+
 function groupOf(b: Booking): Exclude<Group, "all"> {
   const s = b.status;
   if (s === "cancelled") return "cancelled";
