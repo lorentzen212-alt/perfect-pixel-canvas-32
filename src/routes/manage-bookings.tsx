@@ -489,27 +489,27 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   const metas = (
     booking.type === "me"
       ? [
-          { icon: <MapPin size={16} strokeWidth={1.6} />, text: booking.destination },
+          { icon: <MapPin size={13} strokeWidth={1.6} />, text: booking.destination },
           {
-            icon: <CalendarDays size={16} strokeWidth={1.6} />,
+            icon: <CalendarDays size={13} strokeWidth={1.6} />,
             text: formatRange(booking.startDate, booking.endDate),
           },
-          { icon: <Moon size={16} strokeWidth={1.6} />, text: `${booking.nights} nights` },
+          { icon: <Moon size={13} strokeWidth={1.6} />, text: `${booking.nights} nights` },
           {
-            icon: <BedDouble size={16} strokeWidth={1.6} />,
+            icon: <BedDouble size={13} strokeWidth={1.6} />,
             text: `${booking.meetingSpaces ?? 0} meeting spaces`,
           },
-          { icon: <Users size={16} strokeWidth={1.6} />, text: `${booking.delegates ?? 0} delegates` },
+          { icon: <Users size={13} strokeWidth={1.6} />, text: `${booking.delegates ?? 0} delegates` },
         ]
       : [
-          { icon: <MapPin size={16} strokeWidth={1.6} />, text: booking.destination },
+          { icon: <MapPin size={13} strokeWidth={1.6} />, text: booking.destination },
           {
-            icon: <CalendarDays size={16} strokeWidth={1.6} />,
+            icon: <CalendarDays size={13} strokeWidth={1.6} />,
             text: formatRange(booking.startDate, booking.endDate),
           },
-          { icon: <Moon size={16} strokeWidth={1.6} />, text: `${booking.nights} nights` },
-          { icon: <BedDouble size={16} strokeWidth={1.6} />, text: `${booking.rooms ?? 0} rooms` },
-          { icon: <Users size={16} strokeWidth={1.6} />, text: `${booking.guests ?? 0} guests` },
+          { icon: <Moon size={13} strokeWidth={1.6} />, text: `${booking.nights} nights` },
+          { icon: <BedDouble size={13} strokeWidth={1.6} />, text: `${booking.rooms ?? 0} rooms` },
+          { icon: <Users size={13} strokeWidth={1.6} />, text: `${booking.guests ?? 0} guests` },
         ]
   );
 
@@ -521,14 +521,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="mt-[7px] block transition-opacity hover:opacity-85"
+            className="mt-[4px] block transition-opacity hover:opacity-85"
           >
             <h3
-              className="text-[28px] leading-[1.05] tracking-[0.002em]"
+              className="text-[21px] leading-[1.05] tracking-[0.002em]"
               style={{ color: PEARL, fontFamily: SERIF, fontWeight: 500 }}
             >
               {booking.name}
             </h3>
+
 
           </Link>
         </div>
@@ -549,11 +550,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* metadata chips */}
-      <div className="mt-[9px] flex flex-wrap items-center gap-[7px]">
+      <div className="mt-[7px] flex flex-wrap items-center gap-[6px]">
         {metas.map((m, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-[9px] whitespace-nowrap rounded-[5px] px-[12px] py-[5px] text-[13px] font-light"
+            className="inline-flex items-center gap-[7px] whitespace-nowrap rounded-[5px] px-[10px] py-[3px] text-[12px] font-light"
+
             style={{
               color: "#E6EDF3",
               border: "1px solid rgba(255,255,255,0.055)",
@@ -575,7 +577,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[8px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
+        className="mt-[7px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(255,255,255,0.055)",
           background: "linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.09) 100%)",
@@ -584,19 +586,19 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             "inset 0 2px 4px rgba(0,0,0,0.22), inset 0 -1px 0 rgba(255,255,255,0.035), 0 1px 0 rgba(255,255,255,0.04)",
         }}
       >
-        <div className="px-[20px] py-[8px]">
+        <div className="px-[14px] py-[6px]">
           <p
-            className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+            className="text-[10px] font-semibold uppercase tracking-[0.14em]"
             style={{ color: CHAMPAGNE }}
           >
             Your reference
           </p>
-          <p className="mt-[3px] text-[17px] leading-none" style={{ color: IVORY, fontWeight: 400 }}>
+          <p className="mt-[2px] text-[14px] leading-none" style={{ color: IVORY, fontWeight: 400 }}>
             {booking.reference}
           </p>
         </div>
         <div
-          className="px-[20px] py-[8px]"
+          className="px-[14px] py-[6px]"
           style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
         >
 
@@ -607,7 +609,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             Hotel reference
           </p>
           <p
-            className="mt-[3px] text-[17px] leading-none"
+            className="mt-[2px] text-[14px] leading-none"
             style={{ color: booking.hotelReference ? IVORY : "#93A5B2", fontWeight: 400 }}
           >
             {booking.hotelReference ?? "Pending"}
@@ -617,19 +619,19 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
       {/* progress track */}
-      <div className="mt-[10px]">
+      <div className="mt-[8px]">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-[9px] flex flex-nowrap items-center justify-between gap-4 pt-[8px]"
+        className="mt-[7px] flex flex-nowrap items-center justify-between gap-4 pt-[7px]"
         style={{ borderTop: "1px solid rgba(255,255,255,0.038)" }}
 
       >
 
         <p
-          className="min-w-0 flex-1 truncate text-[14px] font-light"
+          className="min-w-0 flex-1 truncate text-[13px] font-light"
           style={{ color: "#AFC0CD" }}
         >
           {booking.statusNote ?? ""}
@@ -637,7 +639,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[20px] py-[9px] text-[15px]"
+          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-3 overflow-hidden whitespace-nowrap rounded-[8px] px-[16px] py-[6px] text-[13px]"
           style={{
             color: "#E4D3A2",
             marginRight: 0,
@@ -650,7 +652,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         >
           <span className="hgb-champagne-metal">{action.label}</span>
           <ArrowRight
-            size={18}
+            size={15}
             className="transition-transform duration-300 group-hover/btn:translate-x-[3px]"
             style={{ color: CHAMPAGNE }}
           />
@@ -784,7 +786,8 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   return (
     <div className="hgb-card-recess">
       <article
-        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[22px] pr-[24px] transition-all duration-300 sm:grid-cols-[230px_minmax(0,1fr)] lg:grid-cols-[258px_minmax(0,1fr)]"
+        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[14px] pr-[18px] transition-all duration-300 sm:grid-cols-[168px_minmax(0,1fr)] lg:grid-cols-[184px_minmax(0,1fr)]"
+
 
         style={shell}
       >
