@@ -1188,10 +1188,18 @@ function ManageBookings() {
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(6,10,15,0.42) 0%, rgba(6,10,15,0.18) 45%, rgba(6,10,15,0.34) 100%)",
+                  "linear-gradient(90deg, rgba(6,10,15,0.86) 0%, rgba(6,10,15,0.62) 34%, rgba(6,10,15,0.24) 62%, rgba(6,10,15,0.10) 100%)",
+              }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(6,10,15,0.24) 0%, rgba(6,10,15,0.06) 44%, rgba(6,10,15,0.30) 100%)",
               }}
             />
           </div>
+
 
           <div className="relative mx-auto w-full max-w-[1580px] px-4 pb-10 pt-5 sm:px-6 lg:px-8 xl:px-10">
 
