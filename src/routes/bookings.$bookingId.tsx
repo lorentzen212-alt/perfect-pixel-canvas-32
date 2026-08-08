@@ -976,19 +976,18 @@ function Workspace({ booking }: { booking: Booking }) {
               <div
                 key={s.lead + i}
                 className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
-                style={i > 0 ? { borderLeft: "1px solid rgba(23,57,87,0.14)" } : undefined}
+                style={i > 0 ? { borderLeft: "1px solid rgba(34,48,58,0.13)" } : undefined}
               >
                 <span className="shrink-0" style={{ color: GOLD_MET_MID }}>
                   {s.icon}
                 </span>
                 <span className="min-w-0">
-                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#173957" }}>
+                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#1E2C36" }}>
                     {s.lead}
                   </span>
-                  <span className="block truncate text-[12px]" style={{ color: "rgba(23,57,87,0.62)" }}>
+                  <span className="block truncate text-[12px]" style={{ color: "rgba(30,44,54,0.6)" }}>
                     {s.sub}
                   </span>
-
                 </span>
               </div>
             ))}
@@ -1397,10 +1396,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
 /* ───────────────────────── workspace primitives ───────────────────────── */
 
-const PLATE = "#F5F1EB";
-const CARD_BG = "#1A2332";
-const CARD_BORDER_SOFT = "rgba(255,255,255,0.08)";
-
+const PLATE = "#F4F0E8";
 const INK = NAVY_PANEL;
 const INK_2 = `${NAVY_TEXTURE}, linear-gradient(180deg, #2A4B64 0%, #26455C 55%, #223F54 100%)`;
 
@@ -1420,9 +1416,9 @@ function InkCard({
     <section
       className="rounded-[16px] p-5 sm:p-6"
       style={{
-        background: CARD_BG,
-        border: `1px solid ${CARD_BORDER_SOFT}`,
-        boxShadow: "0 10px 26px -18px rgba(15,22,32,0.45)",
+        background: INK,
+        border: `1px solid ${NAVY_BORDER}`,
+        boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
       }}
     >
       <div className="flex items-baseline justify-between gap-5">

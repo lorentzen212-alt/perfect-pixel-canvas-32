@@ -1010,13 +1010,3 @@
 @media (prefers-reduced-motion: reduce) {
   .hgb-note-slide, .hgb-note-row { animation: none; }
 }
-
-/* Booking workspace tab hover (inactive tabs) */
-.hgb-ws-tab--inactive {
-  transition: background-color 200ms ease, color 200ms ease;
-}
-.hgb-ws-tab--inactive:hover {
-  background-color: #7a899d !important;
-  color: #0f1620 !important;
-}
-
