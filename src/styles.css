@@ -976,13 +976,8 @@
 
 
 /* ── persistent Booking Workspace: tabs + content transition ── */
-.hgb-ws-tab {
-  /* hover only applies to inactive tabs (active has opacity:1 + own bg) */
-}
-.hgb-ws-tab:not([data-active="true"]):hover {
-  background-color: #FAF7F0 !important;
-  border-color: #DAA520 !important;
-  opacity: 0.9 !important;
+.hgb-ws-tab:hover {
+  filter: brightness(1.06);
 }
 @keyframes hgb-ws-panel-in {
   from {
