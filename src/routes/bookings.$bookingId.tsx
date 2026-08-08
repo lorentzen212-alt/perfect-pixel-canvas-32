@@ -1396,7 +1396,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
 /* ───────────────────────── workspace primitives ───────────────────────── */
 
-const PLATE = "#173957";
+const PLATE = "#F5F1EB";
 const CARD_BG = "#1A2332";
 const CARD_BORDER_SOFT = "rgba(255,255,255,0.08)";
 const INK = NAVY_PANEL;
