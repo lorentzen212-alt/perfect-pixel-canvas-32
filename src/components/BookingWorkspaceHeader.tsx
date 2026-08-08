@@ -152,14 +152,14 @@ export function BookingWorkspaceHeader({
                   boxShadow: "0 -6px 18px -12px rgba(0,0,0,0.45)",
                 }
               : {
-                  backgroundColor: "#8A99AD",
-                  color: "rgba(15,22,32,0.78)",
-                  border: "1px solid rgba(255,255,255,0.14)",
+                  backgroundColor: "#0F1620",
+                  color: "rgba(255,255,255,0.6)",
+                  border: "1px solid rgba(255,255,255,0.08)",
                   borderBottom: "none",
                 };
             const inner = (
               <>
-                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(15,22,32,0.65)" }}>
+                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.62)" }}>
                   {TAB_ICON[t]}
                 </span>
                 {t}

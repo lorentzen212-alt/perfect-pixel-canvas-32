@@ -967,7 +967,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
         {/* ══ 2 · large light workspace plate ══ */}
         <div
-          className="relative min-h-[80vh] rounded-[24px] px-5 pb-14 pt-0 sm:px-9"
+          className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           style={{ backgroundColor: PLATE }}
         >
           {/* ══ 3 · information strip ══ */}
@@ -976,16 +976,16 @@ function Workspace({ booking }: { booking: Booking }) {
               <div
                 key={s.lead + i}
                 className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
-                style={i > 0 ? { borderLeft: "1px solid rgba(23,57,87,0.14)" } : undefined}
+                style={i > 0 ? { borderLeft: "1px solid rgba(255,255,255,0.13)" } : undefined}
               >
-                <span className="shrink-0" style={{ color: "#B8860B" }}>
+                <span className="shrink-0" style={{ color: GOLD_MET_MID }}>
                   {s.icon}
                 </span>
                 <span className="min-w-0">
-                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#173957" }}>
+                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#FFFFFF" }}>
                     {s.lead}
                   </span>
-                  <span className="block truncate text-[12px]" style={{ color: "rgba(23,57,87,0.62)" }}>
+                  <span className="block truncate text-[12px]" style={{ color: "rgba(255,255,255,0.6)" }}>
                     {s.sub}
                   </span>
                 </span>
@@ -1396,7 +1396,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
 /* ───────────────────────── workspace primitives ───────────────────────── */
 
-const PLATE = "#F5F1EB";
+const PLATE = "#173957";
 const CARD_BG = "#1A2332";
 const CARD_BORDER_SOFT = "rgba(255,255,255,0.08)";
 const INK = NAVY_PANEL;
@@ -1420,7 +1420,7 @@ function InkCard({
       style={{
         background: CARD_BG,
         border: `1px solid ${CARD_BORDER_SOFT}`,
-        boxShadow: "0 10px 26px -18px rgba(15,22,32,0.45)",
+        boxShadow: "0 14px 34px -26px rgba(0,0,0,0.55)",
       }}
     >
       <div className="flex items-baseline justify-between gap-5">
