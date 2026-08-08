@@ -1220,6 +1220,12 @@ function ManageBookings() {
             {/* hero header */}
             <header className="mt-[28px] flex items-start justify-between gap-6">
               <div className="min-w-0">
+                <p
+                  className="mb-[10px] text-[11px] font-semibold uppercase tracking-[0.30em]"
+                  style={{ color: "#E2BE6E" }}
+                >
+                  Dashboard
+                </p>
                 <h1
                   className="text-[42px] leading-[1.02] sm:text-[56px]"
                   style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
@@ -1230,6 +1236,7 @@ function ManageBookings() {
                   Stay on top of every group, every stay.
                 </p>
               </div>
+
 
               <div className="hidden shrink-0 items-center gap-5 lg:flex">
                 <button
