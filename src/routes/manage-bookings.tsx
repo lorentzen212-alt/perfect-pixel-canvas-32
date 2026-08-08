@@ -681,27 +681,22 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   const shell = {
     backgroundImage: [
-      /* soft dark slate tint above the stone so the UI stays clean and readable */
-      "linear-gradient(180deg, rgba(46,53,62,0.34) 0%, rgba(41,47,56,0.42) 100%)",
-      /* architectural stone / micro-cement texture — starts after the gold edge */
-      `url("${cardStoneTexture.url}")`,
-      "radial-gradient(120% 110% at 8% 0%, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 34%, rgba(0,0,0,0.00) 62%, rgba(0,0,0,0.10) 100%)",
-      "linear-gradient(152deg, #434A55 0%, #3B424C 46%, #333A44 78%, #2E353E 100%)",
+      /* quiet architectural light so the coated navy reads dimensional, not flat */
+      "radial-gradient(120% 110% at 10% 0%, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 32%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.14) 100%)",
+      "linear-gradient(158deg, #17222E 0%, #141E29 52%, #111A24 100%)",
     ].join(", "),
-    backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat",
-    backgroundPosition: "var(--insert-w) top, var(--insert-w) top, left top, left top",
-    backgroundSize:
-      "calc(100% - var(--insert-w)) 100%, cover, 100% 100%, 100% 100%",
-    backgroundBlendMode: "normal, soft-light, normal, normal",
+    backgroundRepeat: "no-repeat, no-repeat",
+    backgroundPosition: "var(--insert-w) top, left top",
+    backgroundSize: "calc(100% - var(--insert-w)) 100%, 100% 100%",
 
     border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
     borderRadius: 12,
-    /* precision-machined surface — subtle highlights + deep base shadow */
-    /* nearly flush in its machined pocket: tiny ambient + contact shadow only */
+    /* seated into the stone workspace: soft outer shadow + fine inner edge light */
     boxShadow:
-      "0 2px 5px rgba(0,0,0,0.20), 0 1px 1px rgba(0,0,0,0.16), 0 1px 0 rgba(255,255,255,0.035), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -6px 16px rgba(0,0,0,0.50)",
+      "0 10px 24px rgba(12,16,22,0.34), 0 2px 4px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.055), inset 0 -8px 20px rgba(0,0,0,0.42)",
   } as const;
+
 
 
 
@@ -785,7 +780,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   return (
     <div className="hgb-card-recess">
       <article
-        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[22px] pr-[24px] transition-all duration-300 sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
+        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[22px] pr-[24px] transition-all duration-300 sm:grid-cols-[230px_minmax(0,1fr)] lg:grid-cols-[258px_minmax(0,1fr)]"
 
         style={shell}
       >
@@ -882,10 +877,10 @@ function Select<T extends string>({
 }) {
   return (
     <div
-      className="group relative flex-1 rounded-[12px]"
+      className="group relative flex-1 rounded-[11px]"
       style={{
-        background: "#F4F1E8",
-        border: "1px solid rgba(120,110,90,0.20)",
+        background: "rgba(255,255,255,0.42)",
+        border: "1px solid rgba(110,106,96,0.20)",
       }}
     >
       <select
@@ -1175,7 +1170,7 @@ function ManageBookings() {
 
           {/* cinematic hero backdrop */}
           <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-[358px]"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[240px] sm:h-[300px] lg:h-[332px]"
             aria-hidden
             style={{
               maskImage:
@@ -1192,13 +1187,17 @@ function ManageBookings() {
               className="h-full w-full object-cover"
               style={{ objectPosition: "center center" }}
             />
-            <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.12)" }} />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(6,10,15,0.42) 0%, rgba(6,10,15,0.18) 45%, rgba(6,10,15,0.34) 100%)",
+              }}
+            />
           </div>
 
+          <div className="relative mx-auto w-full max-w-[1580px] px-4 pb-10 pt-5 sm:px-6 lg:px-8 xl:px-10">
 
-
-
-          <div className="relative px-4 pb-10 pt-5 sm:px-6 lg:px-10">
             {/* mobile bar */}
             <div className="mb-4 flex items-center justify-between lg:hidden">
               <button
@@ -1214,7 +1213,7 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[46px] flex items-start justify-between gap-6">
+            <header className="mt-[28px] flex items-start justify-between gap-6">
               <div className="min-w-0">
                 <h1
                   className="text-[42px] leading-[1.02] sm:text-[56px]"
@@ -1344,143 +1343,24 @@ function ManageBookings() {
               </section>
             )}
 
-            {/* toolbar — light stone control bar */}
-            <div
-              className="mt-[16px] flex flex-col gap-3 rounded-[16px] p-[14px] md:flex-row md:items-center"
-              style={{
-                background: "linear-gradient(180deg, #F1EDE3 0%, #E7E2D6 100%)",
-                border: "1px solid rgba(120,110,90,0.18)",
-                boxShadow: "0 14px 34px -24px rgba(0,0,0,0.55)",
-              }}
-            >
-              {/* search */}
-              <div
-                className="relative flex min-w-0 flex-1 items-center rounded-[12px]"
-                style={{
-                  background: "#FBF9F4",
-                  border: "1px solid rgba(120,110,90,0.22)",
-                  boxShadow: "inset 0 1px 2px rgba(0,0,0,0.06)",
-                }}
-              >
-                <Search
-                  size={18}
-                  strokeWidth={2}
-                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
-                  style={{ color: "#8A7C60" }}
-                />
-                <input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search bookings..."
-                  aria-label="Search bookings by name, destination, hotel or reference"
-                  className="w-full bg-transparent py-[12px] pl-[46px] pr-4 text-[14.5px] outline-none placeholder:text-[rgba(60,55,45,0.45)]"
-                  style={{ color: "#2C3038" }}
-                />
-              </div>
-
-              <div className="flex min-w-0 items-center gap-3">
-                <div className="hgb-filter-pill flex min-w-0 items-center rounded-[12px] md:w-[190px]">
-                  <Select
-                    label="Status filter"
-                    value={group}
-                    onChange={setGroup}
-                    options={[
-                      { value: "all", label: "Status" },
-                      { value: "proposal", label: "Proposal Ready" },
-                      { value: "awaiting", label: "Awaiting Response" },
-                      { value: "confirmed", label: "Confirmed" },
-                      { value: "attention", label: "Needs Attention" },
-                      { value: "cancelled", label: "Cancelled" },
-                    ]}
-                  />
-                </div>
-
-                <div className="hgb-filter-pill flex min-w-0 items-center rounded-[12px] md:w-[190px]">
-                  <Select
-                    label="Date filter"
-                    value={dateChoice}
-                    onChange={setDateChoice}
-                    options={[
-                      { value: "all", label: "Arrival" },
-                      { value: "upcoming", label: "Upcoming" },
-                      { value: "this_month", label: "This Month" },
-                      { value: "next_90", label: "Next 3 Months" },
-                      { value: "past", label: "Past Stays" },
-                    ]}
-                  />
-                </div>
-
-                {/* view toggles + filter options */}
-                {(
-                  [
-                    { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
-                    { key: "list" as const, icon: LayoutList, label: "List view" },
-                  ]
-                ).map(({ key, icon: Icon, label }) => {
-                  const on = view === key;
-                  return (
-                    <button
-                      key={key}
-                      type="button"
-                      aria-label={label}
-                      aria-pressed={on}
-                      onClick={() => setView(key)}
-                      className="grid h-[44px] w-[46px] shrink-0 place-items-center rounded-[12px] transition-all duration-200"
-                      style={
-                        on
-                          ? {
-                              background: "#FBF9F4",
-                              border: "1px solid rgba(184,142,67,0.75)",
-                              color: "#8A6A24",
-                            }
-                          : {
-                              background: "#F4F1E8",
-                              border: "1px solid rgba(120,110,90,0.20)",
-                              color: "#6B6858",
-                            }
-                      }
-                    >
-                      <Icon size={18} strokeWidth={1.9} />
-                    </button>
-                  );
-                })}
-
-                <button
-                  type="button"
-                  aria-label="More filters"
-                  onClick={() => {
-                    setGroup("all");
-                    setDateChoice("all");
-                    setQuery("");
-                  }}
-                  className="grid h-[44px] w-[46px] shrink-0 place-items-center rounded-[12px]"
-                  style={{
-                    background: "#F4F1E8",
-                    border: "1px solid rgba(120,110,90,0.20)",
-                    color: "#6B6858",
-                  }}
-                >
-                  <SlidersHorizontal size={18} strokeWidth={1.9} />
-                </button>
-              </div>
-            </div>
 
             {/* booking list + right sidebar */}
             <div className="mt-[18px] grid grid-cols-1 items-start gap-[18px] xl:grid-cols-[minmax(0,1fr)_340px]">
             <div className="min-w-0">
 
-            {/* bookings — premium workspace panel */}
+            {/* bookings — premium stone workspace panel */}
             <section
-              className="rounded-[18px] p-[22px] relative overflow-hidden isolate"
+              className="relative isolate overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
               style={{
-                background: "linear-gradient(180deg, #F1EDE3 0%, #E6E1D5 100%)",
-                border: "1px solid rgba(120,110,90,0.18)",
+                background:
+                  "linear-gradient(180deg, #E3E2DD 0%, #DCDBD6 42%, #D3D5D5 100%)",
+                border: "1px solid rgba(120,116,104,0.22)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.55), 0 14px 34px rgba(0,0,0,0.22)",
+                  "inset 0 1px 0 rgba(255,255,255,0.62), inset 0 -1px 0 rgba(0,0,0,0.06), 0 26px 60px -28px rgba(6,10,15,0.62)",
               }}
             >
-              {/* booking list view selector */}
-              <div className="mb-[16px] flex flex-wrap items-center gap-2">
+              {/* booking category switcher */}
+              <div className="mb-[14px] flex flex-wrap items-center gap-2">
                 {(
                   [
                     { key: "active" as const, label: "Active Bookings", n: scopeCounts.active },
@@ -1499,18 +1379,21 @@ function ManageBookings() {
                       type="button"
                       aria-pressed={on}
                       onClick={() => setScope(key)}
-                      className="rounded-[12px] px-[18px] py-[10px] text-[14px] font-medium transition-all duration-200"
+                      className="rounded-[10px] px-[15px] py-[8px] text-[13px] font-medium transition-all duration-200"
                       style={
                         on
                           ? {
-                              background: "#FBF9F4",
-                              border: "1px solid rgba(184,142,67,0.8)",
-                              color: "#8A6A24",
+                              background:
+                                "linear-gradient(180deg, rgba(24,33,44,0.94) 0%, rgba(17,25,34,0.94) 100%)",
+                              border: "1px solid rgba(197,155,69,0.72)",
+                              color: "#E3C583",
+                              boxShadow:
+                                "inset 0 1px 0 rgba(255,255,255,0.08), 0 6px 14px -8px rgba(0,0,0,0.55)",
                             }
                           : {
-                              background: "#F4F1E8",
-                              border: "1px solid rgba(120,110,90,0.20)",
-                              color: "#5C5B52",
+                              background: "rgba(255,255,255,0.42)",
+                              border: "1px solid rgba(110,106,96,0.20)",
+                              color: "#5B5A53",
                             }
                       }
                     >
@@ -1520,10 +1403,124 @@ function ManageBookings() {
                 })}
               </div>
 
+              {/* search + filter row */}
+              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:items-center">
+                <div
+                  className="relative flex min-w-0 flex-1 items-center rounded-[11px]"
+                  style={{
+                    background: "rgba(255,255,255,0.52)",
+                    border: "1px solid rgba(110,106,96,0.20)",
+                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+                  }}
+                >
+                  <Search
+                    size={17}
+                    strokeWidth={1.9}
+                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
+                    style={{ color: "#7B786C" }}
+                  />
+                  <input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search bookings..."
+                    aria-label="Search bookings by name, destination, hotel or reference"
+                    className="w-full bg-transparent py-[11px] pl-[44px] pr-4 text-[14px] outline-none placeholder:text-[rgba(60,58,50,0.45)]"
+                    style={{ color: "#2E3138" }}
+                  />
+                </div>
+
+                <div className="flex min-w-0 items-center gap-2.5">
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
+                    <Select
+                      label="Status filter"
+                      value={group}
+                      onChange={setGroup}
+                      options={[
+                        { value: "all", label: "Status" },
+                        { value: "proposal", label: "Proposal Ready" },
+                        { value: "awaiting", label: "Awaiting Response" },
+                        { value: "confirmed", label: "Confirmed" },
+                        { value: "attention", label: "Needs Attention" },
+                        { value: "cancelled", label: "Cancelled" },
+                      ]}
+                    />
+                  </div>
+
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
+                    <Select
+                      label="Date filter"
+                      value={dateChoice}
+                      onChange={setDateChoice}
+                      options={[
+                        { value: "all", label: "Arrival" },
+                        { value: "upcoming", label: "Upcoming" },
+                        { value: "this_month", label: "This Month" },
+                        { value: "next_90", label: "Next 3 Months" },
+                        { value: "past", label: "Past Stays" },
+                      ]}
+                    />
+                  </div>
+
+                  {(
+                    [
+                      { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
+                      { key: "list" as const, icon: LayoutList, label: "List view" },
+                    ]
+                  ).map(({ key, icon: Icon, label }) => {
+                    const on = view === key;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        aria-label={label}
+                        aria-pressed={on}
+                        onClick={() => setView(key)}
+                        className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px] transition-all duration-200"
+                        style={
+                          on
+                            ? {
+                                background: "rgba(255,255,255,0.72)",
+                                border: "1px solid rgba(184,142,67,0.7)",
+                                color: "#8A6A24",
+                              }
+                            : {
+                                background: "rgba(255,255,255,0.42)",
+                                border: "1px solid rgba(110,106,96,0.20)",
+                                color: "#6B6858",
+                              }
+                        }
+                      >
+                        <Icon size={17} strokeWidth={1.9} />
+                      </button>
+                    );
+                  })}
+
+                  <button
+                    type="button"
+                    aria-label="More filters"
+                    onClick={() => {
+                      setGroup("all");
+                      setDateChoice("all");
+                      setQuery("");
+                    }}
+                    className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px]"
+                    style={{
+                      background: "rgba(255,255,255,0.42)",
+                      border: "1px solid rgba(110,106,96,0.20)",
+                      color: "#6B6858",
+                    }}
+                  >
+                    <SlidersHorizontal size={17} strokeWidth={1.9} />
+                  </button>
+                </div>
+              </div>
+
+
               <div
                 className={
-                  view === "list" ? "space-y-4" : "grid grid-cols-1 gap-4 xl:grid-cols-2"
+                  view === "list" ? "space-y-[14px]" : "grid grid-cols-1 gap-[14px] xl:grid-cols-2"
                 }
+              
               >
                 {results.map((b) => (
                   <BookingCard key={b.id} booking={b} compact={view === "grid"} />
