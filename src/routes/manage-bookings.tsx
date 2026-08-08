@@ -1077,6 +1077,7 @@ function ManageBookings() {
     (profile?.first_name?.[0] ?? displayName[0] ?? "").toUpperCase() +
     (profile?.last_name?.[0] ?? "").toUpperCase();
 
+  const notificationCount = counts.proposal + counts.attention;
   const heroImage = bookings[0]?.image ?? mountains;
   const railWidth = railCollapsed ? 76 : 240;
 
