@@ -945,6 +945,20 @@ function ManageBookings() {
   const [scope, setScope] = useState<"active" | "cancelled" | "all">("active");
   const [navOpen, setNavOpen] = useState(false);
 
+  /* ⌘K / Ctrl+K focuses the workspace search */
+  const searchRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+
   /* luxury rail: labels fade out before the width animates, and fade in after it opens */
   const [railCollapsed, setRailCollapsed] = useState(false);
   const [railLabels, setRailLabels] = useState(true);
