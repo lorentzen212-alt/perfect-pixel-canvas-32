@@ -870,22 +870,6 @@ import { GlobalSidebar as Sidebar, RAIL_MS, RAIL_EASE } from "@/components/Globa
 
 /* ── select ──────────────────────────────────────────── */
 
-function GoldDivider() {
-  return (
-    <div
-      aria-hidden
-      className="hidden shrink-0 self-stretch md:block"
-      style={{
-        width: 1,
-        margin: "10px 0",
-        background:
-          "linear-gradient(180deg, rgba(214,182,124,0) 0%, rgba(214,182,124,0.42) 30%, rgba(233,209,158,0.55) 50%, rgba(169,133,58,0.40) 72%, rgba(169,133,58,0) 100%)",
-      }}
-    />
-  );
-}
-
-
 function Select<T extends string>({
   value,
   onChange,
@@ -899,17 +883,21 @@ function Select<T extends string>({
 }) {
   return (
     <div
-      className="group relative flex-1 rounded-[10px] transition-colors duration-200 hover:bg-[rgba(255,255,255,0.025)]"
+      className="group relative flex-1 rounded-[12px]"
+      style={{
+        background: "#F4F1E8",
+        border: "1px solid rgba(120,110,90,0.20)",
+      }}
     >
       <select
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="w-full cursor-pointer appearance-none bg-transparent py-[11px] pl-5 pr-10 text-left text-[14.5px] outline-none"
-        style={{ color: "rgba(255,255,255,0.92)", letterSpacing: "0.005em" }}
+        className="w-full cursor-pointer appearance-none bg-transparent py-[12px] pl-4 pr-10 text-left text-[14px] outline-none"
+        style={{ color: "#3B3B34", letterSpacing: "0.005em" }}
       >
         {options.map((o) => (
-          <option key={o.value} value={o.value} style={{ backgroundColor: "#12151A" }}>
+          <option key={o.value} value={o.value} style={{ backgroundColor: "#FBF9F4", color: "#2C3038" }}>
             {o.label}
           </option>
         ))}
@@ -917,8 +905,8 @@ function Select<T extends string>({
       <ChevronDown
         size={17}
         strokeWidth={1.8}
-        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2"
-        style={{ color: "rgba(255,255,255,0.62)" }}
+        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+        style={{ color: "#6B6858" }}
       />
     </div>
   );
