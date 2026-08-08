@@ -1468,18 +1468,19 @@ function ManageBookings() {
             <div className="mt-[18px] grid grid-cols-1 items-start gap-[18px] xl:grid-cols-[minmax(0,1fr)_340px]">
             <div className="min-w-0">
 
-            {/* bookings — premium workspace panel */}
+            {/* bookings — premium stone workspace panel */}
             <section
-              className="rounded-[18px] p-[22px] relative overflow-hidden isolate"
+              className="relative isolate overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
               style={{
-                background: "linear-gradient(180deg, #F1EDE3 0%, #E6E1D5 100%)",
-                border: "1px solid rgba(120,110,90,0.18)",
+                background:
+                  "linear-gradient(180deg, #E3E2DD 0%, #DCDBD6 42%, #D3D5D5 100%)",
+                border: "1px solid rgba(120,116,104,0.22)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.55), 0 14px 34px rgba(0,0,0,0.22)",
+                  "inset 0 1px 0 rgba(255,255,255,0.62), inset 0 -1px 0 rgba(0,0,0,0.06), 0 26px 60px -28px rgba(6,10,15,0.62)",
               }}
             >
-              {/* booking list view selector */}
-              <div className="mb-[16px] flex flex-wrap items-center gap-2">
+              {/* booking category switcher */}
+              <div className="mb-[14px] flex flex-wrap items-center gap-2">
                 {(
                   [
                     { key: "active" as const, label: "Active Bookings", n: scopeCounts.active },
@@ -1498,18 +1499,21 @@ function ManageBookings() {
                       type="button"
                       aria-pressed={on}
                       onClick={() => setScope(key)}
-                      className="rounded-[12px] px-[18px] py-[10px] text-[14px] font-medium transition-all duration-200"
+                      className="rounded-[10px] px-[15px] py-[8px] text-[13px] font-medium transition-all duration-200"
                       style={
                         on
                           ? {
-                              background: "#FBF9F4",
-                              border: "1px solid rgba(184,142,67,0.8)",
-                              color: "#8A6A24",
+                              background:
+                                "linear-gradient(180deg, rgba(24,33,44,0.94) 0%, rgba(17,25,34,0.94) 100%)",
+                              border: "1px solid rgba(197,155,69,0.72)",
+                              color: "#E3C583",
+                              boxShadow:
+                                "inset 0 1px 0 rgba(255,255,255,0.08), 0 6px 14px -8px rgba(0,0,0,0.55)",
                             }
                           : {
-                              background: "#F4F1E8",
-                              border: "1px solid rgba(120,110,90,0.20)",
-                              color: "#5C5B52",
+                              background: "rgba(255,255,255,0.42)",
+                              border: "1px solid rgba(110,106,96,0.20)",
+                              color: "#5B5A53",
                             }
                       }
                     >
@@ -1518,6 +1522,119 @@ function ManageBookings() {
                   );
                 })}
               </div>
+
+              {/* search + filter row */}
+              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:items-center">
+                <div
+                  className="relative flex min-w-0 flex-1 items-center rounded-[11px]"
+                  style={{
+                    background: "rgba(255,255,255,0.52)",
+                    border: "1px solid rgba(110,106,96,0.20)",
+                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+                  }}
+                >
+                  <Search
+                    size={17}
+                    strokeWidth={1.9}
+                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
+                    style={{ color: "#7B786C" }}
+                  />
+                  <input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search bookings..."
+                    aria-label="Search bookings by name, destination, hotel or reference"
+                    className="w-full bg-transparent py-[11px] pl-[44px] pr-4 text-[14px] outline-none placeholder:text-[rgba(60,58,50,0.45)]"
+                    style={{ color: "#2E3138" }}
+                  />
+                </div>
+
+                <div className="flex min-w-0 items-center gap-2.5">
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
+                    <Select
+                      label="Status filter"
+                      value={group}
+                      onChange={setGroup}
+                      options={[
+                        { value: "all", label: "Status" },
+                        { value: "proposal", label: "Proposal Ready" },
+                        { value: "awaiting", label: "Awaiting Response" },
+                        { value: "confirmed", label: "Confirmed" },
+                        { value: "attention", label: "Needs Attention" },
+                        { value: "cancelled", label: "Cancelled" },
+                      ]}
+                    />
+                  </div>
+
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
+                    <Select
+                      label="Date filter"
+                      value={dateChoice}
+                      onChange={setDateChoice}
+                      options={[
+                        { value: "all", label: "Arrival" },
+                        { value: "upcoming", label: "Upcoming" },
+                        { value: "this_month", label: "This Month" },
+                        { value: "next_90", label: "Next 3 Months" },
+                        { value: "past", label: "Past Stays" },
+                      ]}
+                    />
+                  </div>
+
+                  {(
+                    [
+                      { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
+                      { key: "list" as const, icon: LayoutList, label: "List view" },
+                    ]
+                  ).map(({ key, icon: Icon, label }) => {
+                    const on = view === key;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        aria-label={label}
+                        aria-pressed={on}
+                        onClick={() => setView(key)}
+                        className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px] transition-all duration-200"
+                        style={
+                          on
+                            ? {
+                                background: "rgba(255,255,255,0.72)",
+                                border: "1px solid rgba(184,142,67,0.7)",
+                                color: "#8A6A24",
+                              }
+                            : {
+                                background: "rgba(255,255,255,0.42)",
+                                border: "1px solid rgba(110,106,96,0.20)",
+                                color: "#6B6858",
+                              }
+                        }
+                      >
+                        <Icon size={17} strokeWidth={1.9} />
+                      </button>
+                    );
+                  })}
+
+                  <button
+                    type="button"
+                    aria-label="More filters"
+                    onClick={() => {
+                      setGroup("all");
+                      setDateChoice("all");
+                      setQuery("");
+                    }}
+                    className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px]"
+                    style={{
+                      background: "rgba(255,255,255,0.42)",
+                      border: "1px solid rgba(110,106,96,0.20)",
+                      color: "#6B6858",
+                    }}
+                  >
+                    <SlidersHorizontal size={17} strokeWidth={1.9} />
+                  </button>
+                </div>
+              </div>
+
 
               <div
                 className={
