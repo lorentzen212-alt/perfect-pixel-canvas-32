@@ -1348,7 +1348,7 @@ function ManageBookings() {
               />
             </section>
 
-            </section>
+
 
 
 
