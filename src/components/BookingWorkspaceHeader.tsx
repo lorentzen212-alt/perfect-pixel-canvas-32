@@ -150,7 +150,7 @@ export function BookingWorkspaceHeader({
             const st: React.CSSProperties = isActive
               ? {
                   background: "#FFFFFF",
-                  color: TAB_INK,
+                  color: "#173957",
                   fontWeight: 700,
                   borderTop: `2px solid ${GOLD_MET_MID}`,
                   boxShadow: "0 -6px 18px -12px rgba(58,44,20,0.45)",
