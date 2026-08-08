@@ -43,7 +43,7 @@ const HERO_MUTED = "rgba(214,224,232,0.62)";
 const GOLD_MET_MID = "#C5962D";
 const GOLD_SOFT = "#D9BE74";
 const GREEN = "#7FBE96";
-const TAB_INK = "#16293A";
+
 
 export function BookingWorkspaceHeader({
   bookingId,
@@ -80,9 +80,10 @@ export function BookingWorkspaceHeader({
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(9,20,29,0.78) 0%, rgba(9,20,29,0.66) 45%, rgba(12,26,37,0.92) 100%)",
+            "linear-gradient(180deg, rgba(13,29,45,0.86) 0%, rgba(23,57,87,0.74) 45%, rgba(23,57,87,0.96) 100%)",
         }}
       />
+
 
       <div className="relative px-5 pt-7 sm:px-9">
         <div className="flex items-start justify-between gap-6">
@@ -146,25 +147,27 @@ export function BookingWorkspaceHeader({
               "hgb-ws-tab relative whitespace-nowrap rounded-t-[13px] px-5 pb-[13px] pt-[11px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
             const st: React.CSSProperties = isActive
               ? {
-                  background: "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
-                  color: TAB_INK,
+                  background: "linear-gradient(180deg, #FFFFFF 0%, #FBFAF7 100%)",
+                  color: "#A9822B",
                   fontWeight: 600,
-                  boxShadow: "0 -6px 18px -12px rgba(58,44,20,0.45)",
+                  borderBottom: "3px solid #DAA520",
+                  boxShadow: "0 -8px 20px -14px rgba(23,57,87,0.55)",
                 }
               : {
-                  backgroundColor: "rgba(12,26,36,0.55)",
-                  color: "rgba(226,233,239,0.78)",
-                  border: "1px solid rgba(255,255,255,0.10)",
+                  backgroundColor: "#8A99AD",
+                  color: "rgba(20,32,44,0.66)",
+                  border: "1px solid rgba(255,255,255,0.18)",
                   borderBottom: "none",
                 };
             const inner = (
               <>
-                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.62)" }}>
+                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(20,32,44,0.52)" }}>
                   {TAB_ICON[t]}
                 </span>
                 {t}
               </>
             );
+
 
             if (isActive) {
               return (

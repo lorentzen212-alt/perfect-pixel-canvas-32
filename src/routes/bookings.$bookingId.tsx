@@ -102,13 +102,18 @@ const GOLD_MET_MID = "#C5962D";
 const GOLD_MET_LOW = "#A97816";
 const GOLD_CALM = "#CBAE6B";
 
-/* shared navy material — matches the Rooming List Workspace anodized panels */
+/* shared navy material — deep ink cards inside the cream workspace plate */
 const NAVY_TEXTURE =
-  "radial-gradient(1100px 420px at 18% -10%, rgba(255,255,255,0.045), transparent 62%), radial-gradient(700px 360px at 88% 108%, rgba(120,160,195,0.05), transparent 60%)";
-const NAVY_PANEL = `${NAVY_TEXTURE}, linear-gradient(180deg, #24445E 0%, #203D55 55%, #1C374D 100%)`;
+  "radial-gradient(1100px 420px at 18% -10%, rgba(255,255,255,0.05), transparent 62%), radial-gradient(700px 360px at 88% 108%, rgba(120,160,195,0.055), transparent 60%)";
+const NAVY_PANEL = `${NAVY_TEXTURE}, linear-gradient(180deg, #17222E 0%, #131C26 55%, #0F1620 100%)`;
 const NAVY_INNER =
-  "inset 0 1px 0 rgba(255,255,255,0.03), inset 0 -1px 0 rgba(0,0,0,0.12), inset 0 8px 22px -18px rgba(0,0,0,0.35), 0 0 0 1px rgba(8,18,28,0.25)";
-const NAVY_BORDER = "rgba(255,255,255,0.06)";
+  "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -1px 0 rgba(0,0,0,0.28), inset 0 8px 22px -18px rgba(0,0,0,0.5), 0 0 0 1px rgba(6,12,19,0.35)";
+const NAVY_BORDER = "rgba(255,255,255,0.07)";
+/* shine gold — the premium metallic ramp used on primary accents */
+const SHINE_GOLD = "linear-gradient(180deg, #F0D878 0%, #DAA520 55%, #B8860B 100%)";
+const SHINE_GOLD_BAR = "linear-gradient(90deg, #B8860B 0%, #DAA520 55%, #F0D878 100%)";
+const PAGE_NAVY = "#173957";
+
 
 function GoldAction({
   label,
@@ -300,7 +305,7 @@ function Stepper({
   return (
     <div
       className="inline-flex items-center rounded-[8px]"
-      style={{ border: `1px solid ${NAVY_BORDER}`, background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)` }}
+      style={{ border: `1px solid ${NAVY_BORDER}`, background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1A2733 0%, #111A24 100%)` }}
     >
       <button
         type="button"
@@ -354,7 +359,7 @@ function Field({
 }
 
 const inputStyle: React.CSSProperties = {
-  background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`,
+  background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1A2733 0%, #111A24 100%)`,
   border: `1px solid ${NAVY_BORDER}`,
   color: TEXT,
 };
@@ -588,7 +593,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <li
                 key={r.type}
                 className="flex items-center justify-between gap-4 rounded-[9px] px-3.5 py-2.5"
-                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`, border: `1px solid ${NAVY_BORDER}` }}
+                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1A2733 0%, #111A24 100%)`, border: `1px solid ${NAVY_BORDER}` }}
               >
                 <div className="min-w-0">
                   <p className="text-[13.5px]" style={{ color: TEXT }}>
@@ -640,7 +645,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   style={{
                     color: on ? TEXT : MUTED,
                     border: `1px solid ${on ? "rgba(199,163,74,0.4)" : NAVY_BORDER}`,
-                    background: on ? "rgba(199,163,74,0.08)" : `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`,
+                    background: on ? "rgba(199,163,74,0.08)" : `${NAVY_TEXTURE}, linear-gradient(180deg, #1A2733 0%, #111A24 100%)`,
                   }}
                 >
                   {on && <Check size={13} style={{ color: GOLD }} />}
@@ -711,7 +716,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <li
                 key={`${s.name}-${i}`}
                 className="flex items-center gap-3 rounded-[9px] px-3.5 py-2.5"
-                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`, border: `1px solid ${NAVY_BORDER}` }}
+                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1A2733 0%, #111A24 100%)`, border: `1px solid ${NAVY_BORDER}` }}
               >
                 <input
                   value={s.name}
@@ -895,7 +900,7 @@ function Workspace({ booking }: { booking: Booking }) {
   ];
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: BG_ALT }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#FFFFFF" }}>
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] lg:block">
@@ -952,24 +957,29 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         />
 
-        {/* ══ 1 · persistent workspace header (hero + folder tabs) ══ */}
-        <BookingWorkspaceHeader
-          bookingId={booking.id}
-          bookingName={booking.name}
-          image={booking.image}
-          destination={booking.destination}
-          reference={booking.reference}
-          initials={initials}
-          active={tab as WorkspaceTab}
-          onSelect={(t) => setTab(t)}
-        />
+        {/* ══ white frame ══ */}
+        <div className="px-4 pb-8 sm:px-7 sm:pb-10" style={{ backgroundColor: "#FFFFFF" }}>
+          {/* ══ navy page field ══ */}
+          <div className="overflow-hidden rounded-[24px]" style={{ backgroundColor: PAGE_NAVY }}>
+            {/* ══ 1 · persistent workspace header (hero + folder tabs) ══ */}
+            <BookingWorkspaceHeader
+              bookingId={booking.id}
+              bookingName={booking.name}
+              image={booking.image}
+              destination={booking.destination}
+              reference={booking.reference}
+              initials={initials}
+              active={tab as WorkspaceTab}
+              onSelect={(t) => setTab(t)}
+            />
 
-
+            <div className="px-3 pb-3 sm:px-4 sm:pb-4">
         {/* ══ 2 · large light workspace plate ══ */}
         <div
-          className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
-          style={{ backgroundColor: PLATE }}
+          className="relative min-h-[80vh] rounded-[18px] px-5 pb-14 pt-0 sm:px-9"
+          style={{ backgroundColor: PLATE, boxShadow: "0 24px 60px -40px rgba(6,14,22,0.6)" }}
         >
+
           {/* ══ 3 · information strip ══ */}
           <div className="flex flex-wrap items-center gap-y-5 py-6">
             {strip.map((s, i) => (
@@ -1128,7 +1138,8 @@ function Workspace({ booking }: { booking: Booking }) {
                             className="block h-full rounded-full"
                             style={{
                               width: `${progress}%`,
-                              background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 60%, ${GOLD_MET_MID})`,
+                              background: SHINE_GOLD_BAR,
+                              boxShadow: "0 0 12px -2px rgba(218,165,32,0.55)",
                               transition: "width 600ms cubic-bezier(0.22,1,0.36,1)",
                             }}
                           />
@@ -1138,13 +1149,16 @@ function Workspace({ booking }: { booking: Booking }) {
                           params={{ bookingId: booking.id }}
                           className="inline-flex shrink-0 items-center gap-2.5 rounded-full px-6 py-[11px] text-[13.5px] font-semibold transition-transform hover:-translate-y-[1px]"
                           style={{
-                            background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
+                            background: SHINE_GOLD,
                             color: "#241B06",
+                            boxShadow:
+                              "inset 0 1px 0 rgba(255,255,255,0.5), 0 10px 22px -14px rgba(184,134,11,0.9)",
                           }}
                         >
                           Continue
                           <ArrowRight size={15} />
                         </Link>
+
                       </div>
                       <p className="mt-2.5 text-[12px]" style={{ color: TEXT_2 }}>
                         {progress}% completed
@@ -1389,6 +1403,10 @@ function Workspace({ booking }: { booking: Booking }) {
           </div>
 
         </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
@@ -1398,7 +1416,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
 const PLATE = "#F4F0E8";
 const INK = NAVY_PANEL;
-const INK_2 = `${NAVY_TEXTURE}, linear-gradient(180deg, #2A4B64 0%, #26455C 55%, #223F54 100%)`;
+const INK_2 = `${NAVY_TEXTURE}, linear-gradient(180deg, #1C2937 0%, #16202B 55%, #121B25 100%)`;
 
 
 function InkCard({
