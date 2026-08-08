@@ -1082,7 +1082,7 @@ function ManageBookings() {
         }}
       >
         <Sidebar
-          active="Dashboard"
+          active="My Bookings"
           roomingBookingId={roomingTarget}
           displayName={displayName}
           initials={initials}
@@ -1103,7 +1103,7 @@ function ManageBookings() {
           />
           <div className="absolute inset-y-0 left-0 w-[268px]">
             <Sidebar
-              active="Dashboard"
+              active="My Bookings"
               roomingBookingId={roomingTarget}
               displayName={displayName}
               initials={initials}
