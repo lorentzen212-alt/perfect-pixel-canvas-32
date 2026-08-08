@@ -1487,11 +1487,12 @@ function ManageBookings() {
 
             {/* bookings — premium workspace panel */}
             <section
-              className="rounded-[18px] p-[22px] relative overflow-hidden isolate bg-[#3F464E]"
+              className="rounded-[18px] p-[22px] relative overflow-hidden isolate"
               style={{
-                border: "1px solid rgba(255,255,255,0.10)",
+                background: "linear-gradient(180deg, #F1EDE3 0%, #E6E1D5 100%)",
+                border: "1px solid rgba(120,110,90,0.18)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px rgba(0,0,0,0.26)",
+                  "inset 0 1px 0 rgba(255,255,255,0.55), 0 14px 34px rgba(0,0,0,0.22)",
               }}
             >
               {/* booking list view selector */}
