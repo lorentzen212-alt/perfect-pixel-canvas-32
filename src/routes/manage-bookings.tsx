@@ -989,8 +989,21 @@ function ManageBookings() {
       });
     }
     if (group !== "all") list = list.filter((b) => groupOf(b) === group);
+    if (country !== "all") list = list.filter((b) => countryOf(b) === country);
     return list;
-  }, [bookings, query, group, dateChoice, scope]);
+  }, [bookings, query, group, country, dateChoice, scope]);
+
+  const countryOptions = useMemo(() => {
+    const set = new Set<string>();
+    for (const b of bookings) {
+      const c = countryOf(b);
+      if (c) set.add(c);
+    }
+    return [
+      { value: "all", label: "Country" },
+      ...[...set].sort().map((c) => ({ value: c, label: c })),
+    ];
+  }, [bookings]);
 
   const counts = useMemo(() => {
     const c = { proposal: 0, awaiting: 0, confirmed: 0, attention: 0, cancelled: 0 };
