@@ -1138,7 +1138,8 @@ function Workspace({ booking }: { booking: Booking }) {
                             className="block h-full rounded-full"
                             style={{
                               width: `${progress}%`,
-                              background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 60%, ${GOLD_MET_MID})`,
+                              background: SHINE_GOLD_BAR,
+                              boxShadow: "0 0 12px -2px rgba(218,165,32,0.55)",
                               transition: "width 600ms cubic-bezier(0.22,1,0.36,1)",
                             }}
                           />
@@ -1148,13 +1149,16 @@ function Workspace({ booking }: { booking: Booking }) {
                           params={{ bookingId: booking.id }}
                           className="inline-flex shrink-0 items-center gap-2.5 rounded-full px-6 py-[11px] text-[13.5px] font-semibold transition-transform hover:-translate-y-[1px]"
                           style={{
-                            background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
+                            background: SHINE_GOLD,
                             color: "#241B06",
+                            boxShadow:
+                              "inset 0 1px 0 rgba(255,255,255,0.5), 0 10px 22px -14px rgba(184,134,11,0.9)",
                           }}
                         >
                           Continue
                           <ArrowRight size={15} />
                         </Link>
+
                       </div>
                       <p className="mt-2.5 text-[12px]" style={{ color: TEXT_2 }}>
                         {progress}% completed
