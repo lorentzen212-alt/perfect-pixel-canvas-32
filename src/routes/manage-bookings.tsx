@@ -1309,12 +1309,13 @@ function ManageBookings() {
 
 
             {/* stat tiles */}
-            <section className="mt-[34px] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <section className="mt-[46px] grid grid-cols-2 items-stretch gap-4 xl:grid-cols-4">
               <StatTile
                 label="Awaiting response"
                 count={counts.awaiting}
                 icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
+                footer="View bookings"
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
               />
               <StatTile
@@ -1323,6 +1324,7 @@ function ManageBookings() {
                 icon={<FileSignature size={30} strokeWidth={1.4} />}
                 action
                 active={group === "proposal"}
+                footer="Review proposals"
                 onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
               />
               <StatTile
@@ -1330,6 +1332,7 @@ function ManageBookings() {
                 count={counts.confirmed}
                 icon={<Check size={30} strokeWidth={1.4} />}
                 active={group === "confirmed"}
+                footer="View bookings"
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
               />
               <StatTile
@@ -1337,11 +1340,14 @@ function ManageBookings() {
                 count={bookings.length}
                 icon={<Briefcase size={30} strokeWidth={1.4} />}
                 active={group === "all" && scope === "all"}
+                footer="View all"
                 onClick={() => {
                   setGroup("all");
                   setScope("all");
                 }}
               />
+            </section>
+
             </section>
 
 
