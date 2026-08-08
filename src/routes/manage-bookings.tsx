@@ -16,10 +16,8 @@ import {
   Check,
   ChevronDown,
   ClipboardList,
-  FileText,
-  Grid2X2,
   Hourglass,
-  LayoutList,
+
   LifeBuoy,
   LogOut,
   Mail,
