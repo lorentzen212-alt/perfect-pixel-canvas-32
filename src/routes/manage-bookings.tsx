@@ -1364,9 +1364,10 @@ function ManageBookings() {
             )}
 
 
-            {/* booking list + right sidebar */}
-            <div className="mt-[18px] grid grid-cols-1 items-start gap-[18px] xl:grid-cols-[minmax(0,1fr)_340px]">
+            {/* booking list — full width */}
+            <div className="mt-[18px]">
             <div className="min-w-0">
+
 
             {/* bookings — premium stone workspace panel */}
             <section
