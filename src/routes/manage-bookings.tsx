@@ -31,6 +31,8 @@ import {
   Plus,
   Search,
   Settings,
+  SlidersHorizontal,
+  Briefcase,
   User,
   Users,
   X,
@@ -750,7 +752,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           className={
             compact
               ? "h-[88px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-              : "h-[112px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+              : "h-[148px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
           }
           style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)", objectPosition: compact ? undefined : "center calc(50% + 1px)" }}
         />
@@ -784,7 +786,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   return (
     <div className="hgb-card-recess">
       <article
-        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[16px] pr-[18px] transition-all duration-300 sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
+        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[18px] overflow-hidden py-[22px] pr-[24px] transition-all duration-300 sm:grid-cols-[minmax(0,22.8%)_minmax(0,1fr)]"
 
         style={shell}
       >
@@ -803,29 +805,21 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
 
-/* ── status cards ────────────────────────────────────── */
+/* ── stat tiles ──────────────────────────────────────── */
 
-function StatusCard({
+function StatTile({
   label,
   count,
-  description,
-  tone,
-  overlay,
-  image,
-  stone,
   icon,
   active,
+  action,
   onClick,
 }: {
   label: string;
   count: number;
-  description: string;
-  tone: string;
-  overlay: string;
-  image?: string;
-  stone?: boolean;
   icon: React.ReactNode;
   active: boolean;
+  action?: boolean;
   onClick: () => void;
 }) {
   return (
@@ -833,66 +827,38 @@ function StatusCard({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`relative flex h-[224px] flex-col overflow-hidden rounded-[14px] p-[20px] text-left transition-transform hover:-translate-y-px${stone ? " stone-surface" : ""}`}
+      className="relative flex h-[112px] w-full items-center gap-[18px] overflow-hidden rounded-[14px] px-[22px] text-left transition-transform hover:-translate-y-px"
       style={{
-        background: image || stone ? undefined : PANEL,
-        border: `1px solid ${active ? tone : `${tone}55`}`,
-        boxShadow: active
-          ? `0 0 0 1px ${tone}55, 0 22px 60px rgba(0,0,0,0.26)`
-          : "0 22px 60px rgba(0,0,0,0.26)",
+        background: "linear-gradient(180deg, #2B3746 0%, #232E3B 100%)",
+        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.09)"}`,
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.05), 0 14px 34px rgba(0,0,0,0.30)",
       }}
     >
-      {image && <img src={image} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ filter: "saturate(0.86) brightness(0.90) contrast(1.04)" }} />}
-
-      <span
-        className="absolute inset-0"
-        aria-hidden
-        style={{ background: overlay }}
-      />
-      {/* glass reflection across the top */}
-      <span
-        className="pointer-events-none absolute inset-x-0 top-0 h-2/5"
-        aria-hidden
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.035) 46%, rgba(255,255,255,0) 100%)",
-        }}
-      />
-      {/* faint inner highlight */}
-      <span
-        className="pointer-events-none absolute inset-0 rounded-[14px]"
-        aria-hidden
-        style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 0 1px rgba(255,255,255,0.04)" }}
-      />
-
-
-      <span
-        className="relative grid h-10 w-10 place-items-center rounded-full"
-        style={{ border: `1px solid ${tone}`, color: tone }}
-      >
+      {action && (
+        <span
+          className="absolute right-[14px] top-[12px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[11px]"
+          style={{
+            color: "#E9CB8C",
+            border: "1px solid rgba(226,190,110,0.5)",
+            background: "rgba(226,190,110,0.08)",
+          }}
+        >
+          action <ArrowRight size={12} />
+        </span>
+      )}
+      <span className="shrink-0" style={{ color: active || action ? "#E2BE6E" : "#9FB0BF" }}>
         {icon}
       </span>
-      <span
-        className="relative mt-3 block text-[11px] font-semibold uppercase tracking-[0.18em]"
-        style={{ color: tone }}
-      >
-        {label}
-      </span>
-      <span
-        className="relative mt-1 block text-[40px] leading-none"
-        style={{ color: TEXT, fontFamily: SERIF }}
-      >
-        {count}
-      </span>
-      <span className="relative mt-auto flex items-center justify-between">
-        <span className="text-[13px]" style={{ color: TEXT_2 }}>
-          {description}
-        </span>
+      <span className="min-w-0">
         <span
-          className="grid h-8 w-8 place-items-center rounded-full"
-          style={{ border: `1px solid ${tone}`, color: tone }}
+          className="block text-[38px] leading-none"
+          style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 400 }}
         >
-          <ArrowRight size={16} />
+          {count}
+        </span>
+        <span className="mt-[6px] block truncate text-[14px]" style={{ color: "#B9C6D2" }}>
+          {label}
         </span>
       </span>
     </button>
