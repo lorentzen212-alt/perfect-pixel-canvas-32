@@ -24,3 +24,27 @@ Ingen andre farger, typografi, avstander, komponenter eller innhold endres. Endr
 
 - Fil: `src/components/BookingWorkspaceHeader.tsx` — bytt om `isActive`-grenene i style-objektet for fanene.
 - Ingen ruting-, data- eller funksjonsendringer.
+
+# Fanestyling — detaljerte krav
+
+## Aktiv fane
+
+- Bakgrunn: `#173957` (mørk marineblå)
+- Tekst: hvit `#FFFFFF`
+- Ikon: dempet gull `#DAA520` for kontrast
+- Behold samme form, border-radius, og padding som i dag
+- Ikke reduser opacity
+
+## Inaktive faner
+
+- Bakgrunn: `#F7F3EC` (cream)
+- Tekst: mørk `#16293A`
+- Kant: `1px solid #E1DCD4` (subtil)
+- Opacity: `0.75` (lavere enn aktiv, så aktiv fane tydeligst)
+- Hover: lysere cream `#FAF7F0`, opacity `0.9`, subtil gull-kant-hint `#DAA520`
+
+## Hva som IKKE endres
+
+Alt annet på siden forblir nøyaktig det samme — statistikk-rad, booking journey, current action-boks, høyre sidebar, og alt innhold. Kun fane-fargene skal endres.
+
+Siden dette er en delt header-komponent, vil endringen automatisk gjelde for alle workspace-faner (Overview, Rooming List, Changes, Documents, Messages, Notes).
