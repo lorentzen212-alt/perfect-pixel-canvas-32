@@ -1360,44 +1360,48 @@ function ManageBookings() {
               </section>
             )}
 
-            {/* toolbar — independent control bar, no surrounding container */}
+            {/* toolbar — light stone control bar */}
             <div
-              className="stone-toolbar mt-[8px] flex flex-col gap-1 rounded-[16px] md:flex-row md:items-stretch md:gap-0"
-
+              className="mt-[16px] flex flex-col gap-3 rounded-[16px] p-[14px] md:flex-row md:items-center"
               style={{
-                border: "1px solid rgba(168,184,200,0.13)",
-                boxShadow:
-                  "0 18px 44px -30px rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.045) inset, 0 -1px 0 rgba(0,0,0,0.35) inset",
+                background: "linear-gradient(180deg, #F1EDE3 0%, #E7E2D6 100%)",
+                border: "1px solid rgba(120,110,90,0.18)",
+                boxShadow: "0 14px 34px -24px rgba(0,0,0,0.55)",
               }}
             >
               {/* search */}
-              <div className="stone-inset relative flex min-w-0 flex-1 items-center rounded-[14px]">
+              <div
+                className="relative flex min-w-0 flex-1 items-center rounded-[12px]"
+                style={{
+                  background: "#FBF9F4",
+                  border: "1px solid rgba(120,110,90,0.22)",
+                  boxShadow: "inset 0 1px 2px rgba(0,0,0,0.06)",
+                }}
+              >
                 <Search
-                  size={19}
+                  size={18}
                   strokeWidth={2}
-                  className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2"
-                  style={{ color: "#DCBE84", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.45))" }}
+                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
+                  style={{ color: "#8A7C60" }}
                 />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search bookings..."
                   aria-label="Search bookings by name, destination, hotel or reference"
-                  className="w-full bg-transparent py-[14px] pl-[52px] pr-4 text-[14.5px] outline-none placeholder:text-[rgba(255,255,255,0.55)]"
-                  style={{ color: "rgba(255,255,255,0.92)" }}
+                  className="w-full bg-transparent py-[12px] pl-[46px] pr-4 text-[14.5px] outline-none placeholder:text-[rgba(60,55,45,0.45)]"
+                  style={{ color: "#2C3038" }}
                 />
               </div>
 
-
-                <GoldDivider />
-
-                <div className="stone-inset flex min-w-0 items-center rounded-[14px] md:w-[280px]">
+              <div className="flex min-w-0 items-center gap-3">
+                <div className="hgb-filter-pill flex min-w-0 items-center rounded-[12px] md:w-[190px]">
                   <Select
                     label="Status filter"
                     value={group}
                     onChange={setGroup}
                     options={[
-                      { value: "all", label: "All Status" },
+                      { value: "all", label: "Status" },
                       { value: "proposal", label: "Proposal Ready" },
                       { value: "awaiting", label: "Awaiting Response" },
                       { value: "confirmed", label: "Confirmed" },
@@ -1407,15 +1411,13 @@ function ManageBookings() {
                   />
                 </div>
 
-                <GoldDivider />
-
-                <div className="stone-inset flex min-w-0 items-center rounded-[14px] md:w-[280px]">
+                <div className="hgb-filter-pill flex min-w-0 items-center rounded-[12px] md:w-[190px]">
                   <Select
                     label="Date filter"
                     value={dateChoice}
                     onChange={setDateChoice}
                     options={[
-                      { value: "all", label: "All Dates" },
+                      { value: "all", label: "Arrival" },
                       { value: "upcoming", label: "Upcoming" },
                       { value: "this_month", label: "This Month" },
                       { value: "next_90", label: "Next 3 Months" },
@@ -1424,10 +1426,7 @@ function ManageBookings() {
                   />
                 </div>
 
-                <GoldDivider />
-
-              {/* view toggles */}
-              <div className="flex items-center gap-2 px-3 py-2">
+                {/* view toggles + filter options */}
                 {(
                   [
                     { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
@@ -1442,27 +1441,43 @@ function ManageBookings() {
                       aria-label={label}
                       aria-pressed={on}
                       onClick={() => setView(key)}
-                      className="grid h-[42px] w-[50px] place-items-center rounded-[11px] transition-all duration-200"
+                      className="grid h-[44px] w-[46px] shrink-0 place-items-center rounded-[12px] transition-all duration-200"
                       style={
                         on
                           ? {
-                              background:
-                                "linear-gradient(180deg, rgba(220,190,132,0.10) 0%, rgba(169,133,58,0.05) 100%)",
-                              border: "1px solid rgba(220,190,132,0.55)",
-                              color: "#E4CB98",
-                              boxShadow: "0 1px 0 rgba(255,255,255,0.07) inset",
+                              background: "#FBF9F4",
+                              border: "1px solid rgba(184,142,67,0.75)",
+                              color: "#8A6A24",
                             }
                           : {
-                              background: "rgba(255,255,255,0.02)",
-                              border: "1px solid rgba(255,255,255,0.05)",
-                              color: "rgba(255,255,255,0.72)",
+                              background: "#F4F1E8",
+                              border: "1px solid rgba(120,110,90,0.20)",
+                              color: "#6B6858",
                             }
                       }
                     >
-                      <Icon size={19} strokeWidth={1.9} />
+                      <Icon size={18} strokeWidth={1.9} />
                     </button>
                   );
                 })}
+
+                <button
+                  type="button"
+                  aria-label="More filters"
+                  onClick={() => {
+                    setGroup("all");
+                    setDateChoice("all");
+                    setQuery("");
+                  }}
+                  className="grid h-[44px] w-[46px] shrink-0 place-items-center rounded-[12px]"
+                  style={{
+                    background: "#F4F1E8",
+                    border: "1px solid rgba(120,110,90,0.20)",
+                    color: "#6B6858",
+                  }}
+                >
+                  <SlidersHorizontal size={18} strokeWidth={1.9} />
+                </button>
               </div>
             </div>
 
