@@ -915,6 +915,7 @@ type DateChoice = "all" | "upcoming" | "this_month" | "next_90" | "past";
 function ManageBookings() {
   const [query, setQuery] = useState("");
   const [group, setGroup] = useState<Group>("all");
+  const [country, setCountry] = useState<string>("all");
   const [dateChoice, setDateChoice] = useState<DateChoice>("all");
   const [view, setView] = useState<"grid" | "list">("list");
   const [scope, setScope] = useState<"active" | "cancelled" | "all">("active");
