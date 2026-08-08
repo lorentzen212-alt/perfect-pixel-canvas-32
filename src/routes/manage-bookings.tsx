@@ -47,8 +47,7 @@ import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
-import lobbyHeroAsset from "@/assets/manage-hero-lobby.png.asset.json";
-import heroVideoAsset from "@/assets/manage-hero-v3.mp4.asset.json";
+import warmLobbyHeroAsset from "@/assets/manage-hero-warm-lobby.jpg.asset.json";
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
 
@@ -1185,14 +1184,11 @@ function ManageBookings() {
                 "linear-gradient(180deg, #000 0%, #000 calc(100% - 60px), rgba(0,0,0,0) 100%)",
             }}
           >
-            <video
-              src={heroVideoAsset.url}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              poster={lobbyHeroAsset.url}
+            <img
+              src={warmLobbyHeroAsset.url}
+              alt=""
+              width={1920}
+              height={720}
               className="h-full w-full object-cover"
               style={{ objectPosition: "center center" }}
             />
