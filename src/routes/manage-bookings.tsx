@@ -593,9 +593,26 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           >
             Your reference
           </p>
-          <p className="mt-[2px] text-[14px] leading-none" style={{ color: IVORY, fontWeight: 400 }}>
-            {booking.reference}
-          </p>
+          <span className="mt-[2px] flex items-center gap-2">
+            <span className="text-[14px] leading-none" style={{ color: IVORY, fontWeight: 400 }}>
+              {booking.reference}
+            </span>
+            <button
+              type="button"
+              aria-label={`Copy reference ${booking.reference}`}
+              onClick={() => {
+                void navigator.clipboard
+                  ?.writeText(booking.reference)
+                  .then(() => toast("Reference copied"))
+                  .catch(() => toast.error("Could not copy reference"));
+              }}
+              className="grid h-[20px] w-[20px] shrink-0 place-items-center rounded-[5px] transition-colors hover:bg-white/10"
+              style={{ color: "#93A5B2" }}
+            >
+              <Copy size={12} strokeWidth={1.8} />
+            </button>
+          </span>
+
         </div>
         <div
           className="px-[14px] py-[6px]"
