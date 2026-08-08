@@ -67,13 +67,15 @@ export function GlobalSidebar({
   ) => {
     const isActive = item.label === active;
     const style: React.CSSProperties = {
-      background: isActive ? "rgba(255,255,255,0.16)" : "transparent",
-      color: "rgba(255,255,255,0.90)",
+      background: isActive
+        ? "linear-gradient(180deg, #F6F3EC 0%, #EBE7DD 100%)"
+        : "transparent",
+      color: isActive ? "#17293A" : "rgba(255,255,255,0.90)",
       fontWeight: isActive ? 600 : 400,
-      boxShadow: isActive ? "0 8px 18px rgba(0,0,0,0.12)" : "none",
-      border: `1px solid ${isActive ? "rgba(255,255,255,0.12)" : "transparent"}`,
-      backdropFilter: isActive ? "blur(8px)" : undefined,
-      WebkitBackdropFilter: isActive ? "blur(8px)" : undefined,
+      boxShadow: isActive
+        ? "0 10px 22px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.9)"
+        : "none",
+      border: `1px solid ${isActive ? "rgba(201,180,137,0.55)" : "transparent"}`,
       borderRadius: 14,
       padding: collapsed ? "9px 0" : isActive ? "8px 16px" : "9px 16px",
       justifyContent: collapsed ? "center" : "flex-start",
@@ -89,22 +91,23 @@ export function GlobalSidebar({
           <span
             aria-hidden
             className="pointer-events-none absolute left-[6px] top-[9px] bottom-[9px] w-[2px] rounded-full"
-            style={{ background: "#C9B489" }}
+            style={{ background: GOLD_LINE }}
           />
         )}
         {isActive && collapsed && (
           <span
             aria-hidden
             className="pointer-events-none absolute left-[7px] top-[10px] bottom-[10px] w-[2px] rounded-full"
-            style={{ background: "#C9B489" }}
+            style={{ background: GOLD_LINE }}
           />
         )}
         <item.icon
           size={17}
-          strokeWidth={1.8}
+          strokeWidth={1.6}
           className="shrink-0"
-          style={{ color: "rgba(255,255,255,0.90)" }}
+          style={{ color: isActive ? "#A9853A" : "rgba(255,255,255,0.90)" }}
         />
+
 
         <span
           className="hgb-rail-label truncate"
