@@ -16,10 +16,8 @@ import {
   Check,
   ChevronDown,
   ClipboardList,
-  FileText,
-  Grid2X2,
   Hourglass,
-  LayoutList,
+
   LifeBuoy,
   LogOut,
   Mail,
@@ -1025,19 +1023,8 @@ function ManageBookings() {
   const roomingTarget =
     bookings.find((b) => b.status === "rooming_list_required")?.id ?? bookings[0]?.id;
 
-  const activity = useMemo(
-    () =>
-      bookings
-        .filter((b) => b.statusNote || b.status)
-        .slice(0, 2)
-        .map((b) => ({
-          id: b.id,
-          title: b.statusNote ?? STATUS_META[b.status]?.label ?? "Booking update",
-          sub: b.name,
-          tone: GROUP_COLOR[groupOf(b)],
-        })),
-    [bookings],
-  );
+
+
 
   /* upcoming stays within the next 7 days + the nearest deadlines */
   const upcoming = useMemo(() => {
@@ -1055,21 +1042,8 @@ function ManageBookings() {
     return upcoming.filter((x) => x.t <= week).length;
   }, [upcoming]);
 
-  const deadlines = useMemo(
-    () =>
-      upcoming.slice(0, 3).map(({ b, t }) => {
-        const d = new Date(t);
-        return {
-          id: b.id,
-          day: String(d.getDate()).padStart(2, "0"),
-          month: d.toLocaleString("en-GB", { month: "short" }).toUpperCase(),
-          title: STATUS_META[b.status]?.label ?? "Upcoming stay",
-          sub: b.name,
-          remaining: `${Math.max(0, Math.ceil((t - Date.now()) / 864e5))} days remaining`,
-        };
-      }),
-    [upcoming],
-  );
+
+
 
   const displayName = profile
     ? `${profile.first_name} ${profile.last_name}`.trim() || profile.email
@@ -1364,9 +1338,10 @@ function ManageBookings() {
             )}
 
 
-            {/* booking list + right sidebar */}
-            <div className="mt-[18px] grid grid-cols-1 items-start gap-[18px] xl:grid-cols-[minmax(0,1fr)_340px]">
+            {/* booking list — full width */}
+            <div className="mt-[18px]">
             <div className="min-w-0">
+
 
             {/* bookings — premium stone workspace panel */}
             <section
@@ -1492,39 +1467,8 @@ function ManageBookings() {
                     />
                   </div>
 
-                  {(
-                    [
-                      { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
-                      { key: "list" as const, icon: LayoutList, label: "List view" },
-                    ]
-                  ).map(({ key, icon: Icon, label }) => {
-                    const on = view === key;
-                    return (
-                      <button
-                        key={key}
-                        type="button"
-                        aria-label={label}
-                        aria-pressed={on}
-                        onClick={() => setView(key)}
-                        className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px] transition-all duration-200"
-                        style={
-                          on
-                            ? {
-                                background: "rgba(255,255,255,0.72)",
-                                border: "1px solid rgba(184,142,67,0.7)",
-                                color: "#8A6A24",
-                              }
-                            : {
-                                background: "rgba(255,255,255,0.42)",
-                                border: "1px solid rgba(110,106,96,0.20)",
-                                color: "#6B6858",
-                              }
-                        }
-                      >
-                        <Icon size={17} strokeWidth={1.9} />
-                      </button>
-                    );
-                  })}
+
+
 
                   <button
                     type="button"
@@ -1582,175 +1526,8 @@ function ManageBookings() {
             </section>
             </div>
 
-            {/* right sidebar column */}
-            <aside className="flex min-w-0 flex-col gap-[18px]">
+            {/* right sidebar column removed — booking list spans full width */}
 
-
-              {/* Recent activity */}
-              <div
-                className="stone-surface flex flex-col rounded-[14px] p-[20px]"
-                style={{
-                  border: `1px solid ${CARD_BORDER}`,
-                  boxShadow: CARD_SHADOW,
-                }}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <p
-                    className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-                    style={{ color: TEXT_2 }}
-                  >
-                    Recent activity
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setGroup("all")}
-                    className="shrink-0 text-[11.5px]"
-                    style={{ color: GOLD }}
-                  >
-                    View all
-                  </button>
-                </div>
-                <span
-                  aria-hidden
-                  className="mt-2.5 block h-px w-full"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
-                  }}
-                />
-
-                <div className="mt-3 min-h-0 flex-1 overflow-hidden">
-                  {activity.length === 0 && (
-                    <p className="text-[12.5px]" style={{ color: MUTED }}>
-                      No recent updates yet.
-                    </p>
-                  )}
-                  {activity.map((a, i) => (
-                    <Link
-                      key={a.id}
-                      to="/bookings/$bookingId"
-                      params={{ bookingId: a.id }}
-                      className="flex items-center gap-3 py-[7px]"
-                      style={
-                        i > 0
-                          ? { borderTop: "1px solid rgba(255,255,255,0.045)" }
-                          : undefined
-                      }
-                    >
-                      <span
-                        className="grid h-8 w-8 shrink-0 place-items-center rounded-full"
-                        style={{ border: `1px solid ${a.tone}66`, color: a.tone }}
-                      >
-                        <FileText size={14} />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
-                          {a.title}
-                        </span>
-                        <span
-                          className="block truncate text-[11.5px]"
-                          style={{ color: MUTED, opacity: 0.78 }}
-                        >
-                          {a.sub}
-                        </span>
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Upcoming deadlines */}
-              <div
-                className="stone-surface flex flex-col rounded-[14px] p-[20px]"
-                style={{
-                  border: `1px solid ${CARD_BORDER}`,
-                  boxShadow: CARD_SHADOW,
-                }}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <p
-                    className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-                    style={{ color: TEXT_2 }}
-                  >
-                    Upcoming deadlines
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setDateChoice("upcoming")}
-                    className="shrink-0 text-[11.5px]"
-                    style={{ color: GOLD }}
-                  >
-                    View all
-                  </button>
-                </div>
-
-                <span
-                  aria-hidden
-                  className="mt-2.5 block h-px w-full"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(201,162,75,0.55) 0%, rgba(224,190,107,0.28) 45%, rgba(201,162,75,0.04) 100%)",
-                  }}
-                />
-                <div className="mt-3 min-h-0 flex-1">
-                  {deadlines.length === 0 && (
-                    <p className="text-[12.5px]" style={{ color: MUTED }}>
-                      No upcoming deadlines.
-                    </p>
-                  )}
-                  {deadlines.map((d, i) => (
-                    <Link
-                      key={d.id}
-                      to="/bookings/$bookingId"
-                      params={{ bookingId: d.id }}
-                      className="flex items-center gap-3 py-[7px]"
-                      style={
-                        i > 0
-                          ? { borderTop: "1px solid rgba(255,255,255,0.045)" }
-                          : undefined
-                      }
-                    >
-                      <span
-                        className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] text-center leading-[1.05]"
-                        style={{
-                          border: `1px solid ${CARD_BORDER}`,
-                          background: "rgba(255,255,255,0.03)",
-                        }}
-                      >
-                        <span className="block">
-                          <span className="block text-[11.5px]" style={{ color: TEXT }}>
-                            {d.day}
-                          </span>
-                          <span
-                            className="block text-[8px] tracking-[0.12em]"
-                            style={{ color: MUTED }}
-                          >
-                            {d.month}
-                          </span>
-                        </span>
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
-                          {d.title}
-                        </span>
-                        <span
-                          className="block truncate text-[11.5px]"
-                          style={{ color: MUTED, opacity: 0.78 }}
-                        >
-                          {d.sub}
-                        </span>
-                      </span>
-                      <span
-                        className="shrink-0 text-[11.5px]"
-                        style={{ color: GOLD_SOFT }}
-                      >
-                        {d.remaining}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </aside>
             </div>
 
 
