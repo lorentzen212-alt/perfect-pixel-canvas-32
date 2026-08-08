@@ -1468,6 +1468,17 @@ function ManageBookings() {
 
                   <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
                     <Select
+                      label="Country filter"
+                      value={country}
+                      onChange={setCountry}
+                      options={countryOptions}
+                    />
+                  </div>
+
+
+
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
+                    <Select
                       label="Date filter"
                       value={dateChoice}
                       onChange={setDateChoice}
