@@ -1213,7 +1213,7 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[46px] flex items-start justify-between gap-6">
+            <header className="mt-[28px] flex items-start justify-between gap-6">
               <div className="min-w-0">
                 <h1
                   className="text-[42px] leading-[1.02] sm:text-[56px]"
