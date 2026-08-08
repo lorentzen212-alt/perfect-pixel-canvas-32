@@ -1424,9 +1424,9 @@ function ManageBookings() {
               </div>
 
               {/* search + filter row */}
-              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center">
+              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:flex-nowrap md:items-center">
                 <div
-                  className="relative flex flex-1 basis-[260px] items-center rounded-[11px]"
+                  className="relative flex flex-1 basis-[200px] items-center rounded-[11px]"
                   style={{
                     background: "rgba(255,255,255,0.52)",
                     border: "1px solid rgba(110,106,96,0.20)",
@@ -1450,7 +1450,7 @@ function ManageBookings() {
                 </div>
 
                 <div className="flex min-w-0 flex-wrap items-center gap-2.5">
-                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
                     <Select
                       label="Status filter"
                       value={group}
@@ -1466,7 +1466,7 @@ function ManageBookings() {
                     />
                   </div>
 
-                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
                     <Select
                       label="Country filter"
                       value={country}
@@ -1477,7 +1477,7 @@ function ManageBookings() {
 
 
 
-                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[168px]">
+                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
                     <Select
                       label="Date filter"
                       value={dateChoice}
