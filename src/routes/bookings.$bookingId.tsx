@@ -957,24 +957,29 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         />
 
-        {/* ══ 1 · persistent workspace header (hero + folder tabs) ══ */}
-        <BookingWorkspaceHeader
-          bookingId={booking.id}
-          bookingName={booking.name}
-          image={booking.image}
-          destination={booking.destination}
-          reference={booking.reference}
-          initials={initials}
-          active={tab as WorkspaceTab}
-          onSelect={(t) => setTab(t)}
-        />
+        {/* ══ white frame ══ */}
+        <div className="px-4 pb-8 sm:px-7 sm:pb-10" style={{ backgroundColor: "#FFFFFF" }}>
+          {/* ══ navy page field ══ */}
+          <div className="overflow-hidden rounded-[24px]" style={{ backgroundColor: PAGE_NAVY }}>
+            {/* ══ 1 · persistent workspace header (hero + folder tabs) ══ */}
+            <BookingWorkspaceHeader
+              bookingId={booking.id}
+              bookingName={booking.name}
+              image={booking.image}
+              destination={booking.destination}
+              reference={booking.reference}
+              initials={initials}
+              active={tab as WorkspaceTab}
+              onSelect={(t) => setTab(t)}
+            />
 
-
+            <div className="px-3 pb-3 sm:px-4 sm:pb-4">
         {/* ══ 2 · large light workspace plate ══ */}
         <div
-          className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
-          style={{ backgroundColor: PLATE }}
+          className="relative min-h-[80vh] rounded-[18px] px-5 pb-14 pt-0 sm:px-9"
+          style={{ backgroundColor: PLATE, boxShadow: "0 24px 60px -40px rgba(6,14,22,0.6)" }}
         >
+
           {/* ══ 3 · information strip ══ */}
           <div className="flex flex-wrap items-center gap-y-5 py-6">
             {strip.map((s, i) => (
