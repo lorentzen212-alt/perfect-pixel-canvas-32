@@ -305,7 +305,7 @@ function Stepper({
   return (
     <div
       className="inline-flex items-center rounded-[8px]"
-      style={{ border: `1px solid ${NAVY_BORDER}`, background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)` }}
+      style={{ border: `1px solid ${NAVY_BORDER}`, background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1A2733 0%, #111A24 100%)` }}
     >
       <button
         type="button"
@@ -359,7 +359,7 @@ function Field({
 }
 
 const inputStyle: React.CSSProperties = {
-  background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`,
+  background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1A2733 0%, #111A24 100%)`,
   border: `1px solid ${NAVY_BORDER}`,
   color: TEXT,
 };
@@ -593,7 +593,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <li
                 key={r.type}
                 className="flex items-center justify-between gap-4 rounded-[9px] px-3.5 py-2.5"
-                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`, border: `1px solid ${NAVY_BORDER}` }}
+                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1A2733 0%, #111A24 100%)`, border: `1px solid ${NAVY_BORDER}` }}
               >
                 <div className="min-w-0">
                   <p className="text-[13.5px]" style={{ color: TEXT }}>
@@ -645,7 +645,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   style={{
                     color: on ? TEXT : MUTED,
                     border: `1px solid ${on ? "rgba(199,163,74,0.4)" : NAVY_BORDER}`,
-                    background: on ? "rgba(199,163,74,0.08)" : `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`,
+                    background: on ? "rgba(199,163,74,0.08)" : `${NAVY_TEXTURE}, linear-gradient(180deg, #1A2733 0%, #111A24 100%)`,
                   }}
                 >
                   {on && <Check size={13} style={{ color: GOLD }} />}
@@ -716,7 +716,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <li
                 key={`${s.name}-${i}`}
                 className="flex items-center gap-3 rounded-[9px] px-3.5 py-2.5"
-                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #264B66 0%, #203D55 100%)`, border: `1px solid ${NAVY_BORDER}` }}
+                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1A2733 0%, #111A24 100%)`, border: `1px solid ${NAVY_BORDER}` }}
               >
                 <input
                   value={s.name}
@@ -1403,7 +1403,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
 const PLATE = "#F4F0E8";
 const INK = NAVY_PANEL;
-const INK_2 = `${NAVY_TEXTURE}, linear-gradient(180deg, #2A4B64 0%, #26455C 55%, #223F54 100%)`;
+const INK_2 = `${NAVY_TEXTURE}, linear-gradient(180deg, #1C2937 0%, #16202B 55%, #121B25 100%)`;
 
 
 function InkCard({
