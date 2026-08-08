@@ -577,7 +577,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[8px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
+        className="mt-[7px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(255,255,255,0.055)",
           background: "linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.09) 100%)",
@@ -586,19 +586,19 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             "inset 0 2px 4px rgba(0,0,0,0.22), inset 0 -1px 0 rgba(255,255,255,0.035), 0 1px 0 rgba(255,255,255,0.04)",
         }}
       >
-        <div className="px-[20px] py-[8px]">
+        <div className="px-[14px] py-[6px]">
           <p
-            className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+            className="text-[10px] font-semibold uppercase tracking-[0.14em]"
             style={{ color: CHAMPAGNE }}
           >
             Your reference
           </p>
-          <p className="mt-[3px] text-[17px] leading-none" style={{ color: IVORY, fontWeight: 400 }}>
+          <p className="mt-[2px] text-[14px] leading-none" style={{ color: IVORY, fontWeight: 400 }}>
             {booking.reference}
           </p>
         </div>
         <div
-          className="px-[20px] py-[8px]"
+          className="px-[14px] py-[6px]"
           style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
         >
 
@@ -609,7 +609,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             Hotel reference
           </p>
           <p
-            className="mt-[3px] text-[17px] leading-none"
+            className="mt-[2px] text-[14px] leading-none"
             style={{ color: booking.hotelReference ? IVORY : "#93A5B2", fontWeight: 400 }}
           >
             {booking.hotelReference ?? "Pending"}
@@ -619,19 +619,19 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
       {/* progress track */}
-      <div className="mt-[10px]">
+      <div className="mt-[8px]">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-[9px] flex flex-nowrap items-center justify-between gap-4 pt-[8px]"
+        className="mt-[7px] flex flex-nowrap items-center justify-between gap-4 pt-[7px]"
         style={{ borderTop: "1px solid rgba(255,255,255,0.038)" }}
 
       >
 
         <p
-          className="min-w-0 flex-1 truncate text-[14px] font-light"
+          className="min-w-0 flex-1 truncate text-[13px] font-light"
           style={{ color: "#AFC0CD" }}
         >
           {booking.statusNote ?? ""}
@@ -639,7 +639,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[20px] py-[9px] text-[15px]"
+          className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-3 overflow-hidden whitespace-nowrap rounded-[8px] px-[16px] py-[6px] text-[13px]"
           style={{
             color: "#E4D3A2",
             marginRight: 0,
@@ -652,7 +652,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         >
           <span className="hgb-champagne-metal">{action.label}</span>
           <ArrowRight
-            size={18}
+            size={15}
             className="transition-transform duration-300 group-hover/btn:translate-x-[3px]"
             style={{ color: CHAMPAGNE }}
           />
