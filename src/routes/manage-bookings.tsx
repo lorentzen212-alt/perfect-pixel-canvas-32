@@ -42,12 +42,12 @@ import {
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-navy-glow.png.asset.json";
-import contentArc from "@/assets/content-slate-glow.png.asset.json";
+
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
 import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
-import warmLobbyHeroAsset from "@/assets/manage-hero-warm-lobby.jpg.asset.json";
+
 import goldEdgeAsset from "@/assets/gold-edge-crisp.png.asset.json";
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
 
@@ -1178,36 +1178,15 @@ function ManageBookings() {
               "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
           }}
         >
-          {/* layered atmospheric surface — angular light composition */}
+          {/* layered atmospheric surface — solid navy */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden"
+            className="pointer-events-none absolute inset-x-0 bottom-0"
             style={{
               top: 300,
               backgroundColor: "#0C121A",
-              backgroundImage: `url("${contentArc.url}")`,
-              backgroundSize: "cover",
-              backgroundPosition: "center top",
-              backgroundRepeat: "no-repeat",
             }}
-          >
-            {/* soft readability veil */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(10,15,22,0.18) 0%, rgba(10,15,22,0.10) 40%, rgba(10,15,22,0.26) 100%)",
-              }}
-            />
-            {/* quiet vignette */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(118% 90% at 56% 36%, rgba(0,0,0,0) 52%, rgba(4,7,11,0.16) 82%, rgba(4,7,11,0.30) 100%)",
-              }}
-            />
-          </div>
+          />
 
 
 
@@ -1215,40 +1194,18 @@ function ManageBookings() {
 
 
 
-          {/* cinematic hero backdrop */}
+          {/* solid navy hero backdrop */}
           <div
             className="pointer-events-none absolute inset-x-0 top-0 h-[240px] sm:h-[300px] lg:h-[332px]"
             aria-hidden
             style={{
+              backgroundColor: "#0C121A",
               maskImage:
                 "linear-gradient(180deg, #000 0%, #000 calc(100% - 60px), rgba(0,0,0,0) 100%)",
               WebkitMaskImage:
                 "linear-gradient(180deg, #000 0%, #000 calc(100% - 60px), rgba(0,0,0,0) 100%)",
             }}
-          >
-            <img
-              src={warmLobbyHeroAsset.url}
-              alt=""
-              width={1920}
-              height={720}
-              className="h-full w-full object-cover"
-              style={{ objectPosition: "center center" }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(6,10,15,0.86) 0%, rgba(6,10,15,0.62) 34%, rgba(6,10,15,0.24) 62%, rgba(6,10,15,0.10) 100%)",
-              }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(6,10,15,0.24) 0%, rgba(6,10,15,0.06) 44%, rgba(6,10,15,0.30) 100%)",
-              }}
-            />
-          </div>
+          />
 
 
           <div className="relative mx-auto w-full max-w-[1580px] px-4 pb-10 pt-5 sm:px-6 lg:px-8 xl:px-10">
