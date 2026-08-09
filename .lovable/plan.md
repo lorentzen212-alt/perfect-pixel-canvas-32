@@ -1,7 +1,9 @@
 # Overlap the light booking panel behind the status cards
 
-Recover ~32px of page height by letting the ivory booking panel start behind the
-bottom of the four dark status cards. No component is resized or moved.
+Recover ~20–25px of REAL page height by letting the ivory booking panel start
+behind the bottom of the four dark status cards. No component is resized.
+The panel's own content (tabs, search, first booking card) moves up too — the
+overlap is not cancelled out by extra padding.
 
 ## Current state (verified in `src/routes/manage-bookings.tsx`)
 
@@ -13,14 +15,15 @@ bottom of the four dark status cards. No component is resized or moved.
 
 1. Status card row (line 1553): add `relative z-[2]` so the cards render above the panel. Nothing else on that row changes.
 
-2. Panel section (line 1637): keep `relative isolate`, add `z-[1]`, and at the desktop breakpoint where all four cards are in one row (`xl:`) apply:
-   - `xl:-mt-[32px]` (replaces the effective gap; the negative margin lives on the panel/section relationship, not on the cards)
-   - `xl:pt-[48px]` on top of the current `sm:pt-[19px]` so the tabs keep their exact clearance below the overlapping cards (19 + 32 ≈ 51 → 48px keeps the visual gap identical after the ~3px the current 10px wrapper gap contributes)
-   - below `xl`, no negative margin and no extra padding — the cards wrap into 2×2 there, so the layout stays as it is today.
+2. Overlap — exactly one source. The negative margin goes on the wrapper `div` at line 1631 only (it is also where the profile-strip condition is easiest to manage): `xl:-mt-[32px]`. The panel `<section>` keeps its own `mt-[10px]` untouched and does NOT get a negative margin.
 
-3. Contact shadow: not part of the first pass. Build the overlap first, then inspect the cards against the ivory panel. Only if they need more separation, append (never replace, never make it noticeably stronger) `0 8px 14px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.08)` to the existing card shadow.
+3. Panel section (line 1637): keep `relative isolate`, add `z-[1]`, and bump top padding only slightly — from `sm:pt-[19px]` to `xl:pt-[28px]` (+9px), not 48px. Net effect: 32px pulled up minus ~9px padding ≈ 23px of real recovered height. Side/bottom padding and radius unchanged.
 
-4. When the "Complete your profile" strip is visible, it sits between the two sections and would collide with the overlap — the overlap classes go on the same element as that strip's sibling wrapper only when the strip is absent, so the negative margin is applied to the `div` at line 1631 conditionally (`!isProfileComplete(profile) ? "" : "xl:-mt-[32px]"`) and the panel padding follows the same condition.
+4. Below `xl`: no negative margin, no extra padding — the cards wrap to 2×2 there, so the layout stays exactly as today.
+
+5. Profile strip: when "Complete your profile" is visible, no overlap at all — the `xl:-mt-[32px]` and `xl:pt-[28px]` classes are applied conditionally on the same `isProfileComplete(profile)` check, so the strip never collides with the panel.
+
+6. Contact shadow: not part of the first pass. Build the overlap first, then inspect. Only if the cards need more separation from the ivory panel, append (never replace, never noticeably stronger) `0 8px 14px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.08)`.
 
 ## Not touched
 
@@ -28,12 +31,11 @@ Hero, Welcome block and gold line, sidebar, profile/bell, status card sizes/cont
 
 ## Validation
 
-Measured in the live preview at 1216px wide:
+Measured with real rendered Y positions in the live preview at 1216px wide, before vs after:
 
-1. Status cards sit at exactly the same position as before.
-2. Status card size is unchanged.
-3. The ivory panel's top edge is ~32px above the cards' bottom edge.
-4. Tabs / search / filters stay fully visible and never slide under the cards.
-5. The first booking card starts ~30–32px higher than before.
-6. No compensating margin or padding is added anywhere else.
-7. Total document height actually dropped by ~32px — if not, inspect the wrapper margins between the two sections, since recovering real vertical space is the point of the change.
+1. Status cards: identical position and size.
+2. Ivory panel top edge: ~30–32px higher than before.
+3. Tabs: allowed to move up; must stay clearly separated from the overlapping cards (no visual collision with Active / Cancelled / All Bookings).
+4. Search/filter row: moves up naturally with the tabs.
+5. First booking card: starts ~20–25px higher than before.
+6. Total document/content height: actually decreased by ~20–25px. If it did not, the padding compensation is too large — reduce it rather than claiming the saving.
