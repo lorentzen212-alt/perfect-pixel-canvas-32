@@ -1375,7 +1375,7 @@ function ManageBookings() {
             <section
               className="relative isolate overflow-hidden rounded-[17px] p-[16px] sm:p-[18px]"
               style={{
-                backgroundColor: "#3B4048",
+                backgroundColor: "#232A33",
                 backgroundImage: `url(${workspaceStone.url})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
