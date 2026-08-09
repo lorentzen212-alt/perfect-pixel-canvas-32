@@ -18,8 +18,7 @@ bottom of the four dark status cards. No component is resized or moved.
    - `xl:pt-[48px]` on top of the current `sm:pt-[19px]` so the tabs keep their exact clearance below the overlapping cards (19 + 32 ≈ 51 → 48px keeps the visual gap identical after the ~3px the current 10px wrapper gap contributes)
    - below `xl`, no negative margin and no extra padding — the cards wrap into 2×2 there, so the layout stays as it is today.
 
-3. Contact shadow: add the subtle two-layer shadow to each status card's existing box-shadow, appended (not replacing) so the current material stays intact:
-   `0 8px 14px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.08)`.
+3. Contact shadow: not part of the first pass. Build the overlap first, then inspect the cards against the ivory panel. Only if they need more separation, append (never replace, never make it noticeably stronger) `0 8px 14px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.08)` to the existing card shadow.
 
 4. When the "Complete your profile" strip is visible, it sits between the two sections and would collide with the overlap — the overlap classes go on the same element as that strip's sibling wrapper only when the strip is absent, so the negative margin is applied to the `div` at line 1631 conditionally (`!isProfileComplete(profile) ? "" : "xl:-mt-[32px]"`) and the panel padding follows the same condition.
 
