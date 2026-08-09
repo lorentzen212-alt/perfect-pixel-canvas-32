@@ -1634,7 +1634,7 @@ function ManageBookings() {
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className="hgb-stone-surface relative isolate mt-[18px] overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
+              className="hgb-stone-surface relative isolate mt-[10px] overflow-hidden rounded-[22px] pt-[16px] pb-[22px] pl-[22px] pr-[22px] sm:pt-[19px] sm:pb-[26px] sm:pl-[26px] sm:pr-[26px]"
               style={{
                 border: "1px solid rgba(120,116,104,0.22)",
                 boxShadow:
@@ -1642,7 +1642,7 @@ function ManageBookings() {
               }}
             >
               {/* Rad 1 — Active / Cancelled / All */}
-              <div className="mb-[14px] flex flex-wrap items-center gap-2">
+              <div className="mb-[8px] flex flex-wrap items-center gap-2">
                 {(
                   [
                     { key: "active" as const, label: "Active Bookings", n: scopeCounts.active },
@@ -1681,7 +1681,7 @@ function ManageBookings() {
               </div>
 
               {/* Rad 2 — søk, filtre, visningsvalg */}
-              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:items-center">
+              <div className="mb-[12px] flex flex-col gap-3 md:flex-row md:items-center">
                 <div
                   className="relative flex min-w-0 flex-1 items-center rounded-[11px]"
                   style={{
