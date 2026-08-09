@@ -1229,10 +1229,10 @@ function ManageBookings() {
               }}
             />
             <div
-              className="absolute inset-x-0 bottom-0 h-[150px]"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-[150px]"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(28,43,54,0) 0%, rgba(28,43,54,0.16) 32%, rgba(28,43,54,0.55) 66%, rgba(28,43,54,0.88) 88%, #1C2B36 100%)",
+                  "linear-gradient(to bottom, rgba(38,52,64,0) 0%, rgba(38,52,64,0.10) 18%, rgba(38,52,64,0.28) 38%, rgba(38,52,64,0.55) 62%, rgba(38,52,64,0.82) 82%, #263440 100%)",
               }}
             />
           </div>
