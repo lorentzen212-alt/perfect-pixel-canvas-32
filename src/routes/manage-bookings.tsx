@@ -1681,7 +1681,7 @@ function ManageBookings() {
               </div>
 
               {/* Rad 2 — søk, filtre, visningsvalg */}
-              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:items-center">
+              <div className="mb-[12px] flex flex-col gap-3 md:flex-row md:items-center">
                 <div
                   className="relative flex min-w-0 flex-1 items-center rounded-[11px]"
                   style={{
