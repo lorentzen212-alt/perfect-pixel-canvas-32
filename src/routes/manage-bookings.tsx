@@ -1225,7 +1225,7 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[190px] lg:mt-[165px]">
+            <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[190px] lg:mt-[205px]">
               <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
                 <p
                   className="mb-[10px] text-[11px] font-semibold uppercase tracking-[0.30em]"
