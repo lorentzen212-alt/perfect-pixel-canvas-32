@@ -1176,34 +1176,19 @@ function ManageBookings() {
             backgroundColor: "#0B141D",
           }}
         >
-          {/* cinematic lobby hero — dissolves into the page background */}
+          {/* lobby hero — ungraded, no overlays */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[320px] sm:h-[420px] lg:h-[500px] overflow-hidden"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[380px] sm:h-[480px] lg:h-[560px] overflow-hidden"
           >
             <img
               src={lobbyHeroAsset.url}
               alt=""
               className="h-full w-full object-cover"
-              style={{ objectPosition: "center" }}
-            />
-            {/* long fade into the page navy over the bottom ~40% */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(11,20,29,0.18) 0%, rgba(11,20,29,0.10) 34%, rgba(11,20,29,0.42) 58%, rgba(11,20,29,0.80) 78%, rgba(11,20,29,0.96) 92%, #0B141D 100%)",
-              }}
-            />
-            {/* subtle localized darkening behind the title / top-right user area */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(11,20,29,0.42) 0%, rgba(11,20,29,0.12) 46%, rgba(11,20,29,0.30) 100%)",
-              }}
+              style={{ objectPosition: "center 42%" }}
             />
           </div>
+
 
 
 
@@ -1224,24 +1209,25 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[220px] lg:mt-[290px]">
-              <div className="min-w-0">
+            <header className="mt-[210px] flex items-start justify-between gap-6 sm:mt-[300px] lg:mt-[368px]">
+              <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
                 <p
                   className="mb-[10px] text-[11px] font-semibold uppercase tracking-[0.30em]"
-                  style={{ color: "#E2BE6E" }}
+                  style={{ color: "#F0D08A" }}
                 >
                   Dashboard
                 </p>
                 <h1
-                  className="text-[42px] leading-[1.02] sm:text-[56px]"
-                  style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
+                  className="text-[42px] leading-[1.02] sm:text-[60px]"
+                  style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
                 >
                   My Bookings
                 </h1>
-                <p className="mt-2 text-[16px]" style={{ color: "#CBD5DF" }}>
+                <p className="mt-2 text-[16px]" style={{ color: "#EAEFF4" }}>
                   Stay on top of every group, every stay.
                 </p>
               </div>
+
 
 
               <div className="absolute right-4 top-6 z-10 hidden shrink-0 items-center gap-5 sm:right-6 lg:right-8 lg:flex xl:right-10">
