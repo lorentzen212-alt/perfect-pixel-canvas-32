@@ -6,6 +6,7 @@ import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking, cancelBooking } from "@/lib/bookingsApi";
 import { toast } from "sonner";
 import pageTextureAsset from "@/assets/limestone-texture.jpg.asset.json";
+import lobbyHeroAsset from "@/assets/manage-hero-lake-lobby.png.asset.json";
 
 
 import {
@@ -1115,9 +1116,8 @@ function ManageBookings() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: PAGE,
-        backgroundImage:
-          "linear-gradient(180deg, #6A737B 0%, #646D75 35%, #5F6870 100%)",
+        backgroundColor: "#0B141D",
+        backgroundImage: "none",
         fontFamily: SANS,
       }}
     >
@@ -1173,39 +1173,38 @@ function ManageBookings() {
         <main
           className="relative min-h-screen"
           style={{
-            backgroundColor: "transparent",
-            backgroundImage:
-              "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
+            backgroundColor: "#0B141D",
           }}
         >
-          {/* layered atmospheric surface — solid navy */}
+          {/* cinematic lobby hero — dissolves into the page background */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0"
-            style={{
-              top: 300,
-              backgroundColor: "#0C121A",
-            }}
-          />
+            className="pointer-events-none absolute inset-x-0 top-0 h-[320px] sm:h-[420px] lg:h-[500px] overflow-hidden"
+          >
+            <img
+              src={lobbyHeroAsset.url}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ objectPosition: "center" }}
+            />
+            {/* long fade into the page navy over the bottom ~40% */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(11,20,29,0.18) 0%, rgba(11,20,29,0.10) 34%, rgba(11,20,29,0.42) 58%, rgba(11,20,29,0.80) 78%, rgba(11,20,29,0.96) 92%, #0B141D 100%)",
+              }}
+            />
+            {/* subtle localized darkening behind the title / top-right user area */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(11,20,29,0.42) 0%, rgba(11,20,29,0.12) 46%, rgba(11,20,29,0.30) 100%)",
+              }}
+            />
+          </div>
 
-
-
-
-
-
-
-          {/* solid navy hero backdrop */}
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-[240px] sm:h-[300px] lg:h-[332px]"
-            aria-hidden
-            style={{
-              backgroundColor: "#0C121A",
-              maskImage:
-                "linear-gradient(180deg, #000 0%, #000 calc(100% - 60px), rgba(0,0,0,0) 100%)",
-              WebkitMaskImage:
-                "linear-gradient(180deg, #000 0%, #000 calc(100% - 60px), rgba(0,0,0,0) 100%)",
-            }}
-          />
 
 
           <div className="relative mx-auto w-full max-w-[1580px] px-4 pb-10 pt-5 sm:px-6 lg:px-8 xl:px-10">
@@ -1225,7 +1224,7 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[28px] flex items-start justify-between gap-6">
+            <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[220px] lg:mt-[290px]">
               <div className="min-w-0">
                 <p
                   className="mb-[10px] text-[11px] font-semibold uppercase tracking-[0.30em]"
@@ -1245,7 +1244,7 @@ function ManageBookings() {
               </div>
 
 
-              <div className="hidden shrink-0 items-center gap-5 lg:flex">
+              <div className="absolute right-4 top-6 z-10 hidden shrink-0 items-center gap-5 sm:right-6 lg:right-8 lg:flex xl:right-10">
                 <button
                   type="button"
                   aria-label="Notifications"
