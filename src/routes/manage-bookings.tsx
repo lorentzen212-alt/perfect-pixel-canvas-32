@@ -1391,9 +1391,9 @@ function ManageBookings() {
         <main
           className="relative min-h-screen lg:pt-10"
           style={{
-            backgroundColor: "#05101A",
+            backgroundColor: "#06141F",
             backgroundImage:
-              "linear-gradient(180deg, #05101A 0px, #05101A 160px, #05101A 100%)",
+              "linear-gradient(180deg, #06141F 0px, #06141F 160px, #06141F 100%)",
           }}
 
         >
