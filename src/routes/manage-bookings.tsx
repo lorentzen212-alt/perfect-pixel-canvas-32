@@ -1209,24 +1209,25 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[220px] lg:mt-[290px]">
-              <div className="min-w-0">
+            <header className="mt-[210px] flex items-start justify-between gap-6 sm:mt-[300px] lg:mt-[368px]">
+              <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
                 <p
                   className="mb-[10px] text-[11px] font-semibold uppercase tracking-[0.30em]"
-                  style={{ color: "#E2BE6E" }}
+                  style={{ color: "#F0D08A" }}
                 >
                   Dashboard
                 </p>
                 <h1
-                  className="text-[42px] leading-[1.02] sm:text-[56px]"
-                  style={{ color: TEXT, fontFamily: SERIF, fontWeight: 400 }}
+                  className="text-[42px] leading-[1.02] sm:text-[60px]"
+                  style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
                 >
                   My Bookings
                 </h1>
-                <p className="mt-2 text-[16px]" style={{ color: "#CBD5DF" }}>
+                <p className="mt-2 text-[16px]" style={{ color: "#EAEFF4" }}>
                   Stay on top of every group, every stay.
                 </p>
               </div>
+
 
 
               <div className="absolute right-4 top-6 z-10 hidden shrink-0 items-center gap-5 sm:right-6 lg:right-8 lg:flex xl:right-10">
