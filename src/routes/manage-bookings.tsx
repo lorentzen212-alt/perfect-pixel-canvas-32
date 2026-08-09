@@ -42,6 +42,10 @@ import {
   ArrowRight,
   ArrowLeft,
   FileSignature,
+  Building2,
+  FileText,
+  Send,
+  BadgeCheck,
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-navy-glow.png.asset.json";
