@@ -892,22 +892,28 @@ function StatTile({
         <span className="flex shrink-0 items-center justify-center" style={{ color: accent, width: 30, height: 30 }}>
           {icon}
         </span>
-        <span className="flex min-w-0 flex-col items-start" style={{ gap: 5 }}>
+        <span className="flex min-w-0 flex-col items-start">
           <span
-            className="block text-[32px]"
+            className="status-number block text-[32px]"
             style={{
               color: "rgba(250,248,243,0.97)",
               fontFamily: SERIF,
               fontWeight: 400,
-              lineHeight: 0.95,
+              lineHeight: 1,
               letterSpacing: "-0.02em",
+              margin: 0,
+              padding: 0,
             }}
           >
             {count}
           </span>
           <span
-            className="block truncate text-[14px] font-medium"
-            style={{ color: "rgba(239,243,246,0.92)", lineHeight: 1.25 }}
+            className="status-label block truncate text-[14px] font-medium"
+            style={{
+              color: "rgba(239,243,246,0.92)",
+              lineHeight: 1.2,
+              marginTop: 8,
+            }}
           >
             {label}
           </span>
