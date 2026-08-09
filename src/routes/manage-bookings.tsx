@@ -1176,7 +1176,7 @@ function ManageBookings() {
             backgroundColor: "#05101A",
           }}
         >
-          {/* lobby hero — full-width photograph fading into the dashboard */}
+          {/* lobby hero — wide landscape photograph fading into the dashboard */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 h-[300px] sm:h-[350px] lg:h-[390px] overflow-hidden"
@@ -1184,13 +1184,21 @@ function ManageBookings() {
             <img
               src={lobbyHeroAsset.url}
               alt=""
-              className="h-full w-full object-cover object-[center_58%] sm:object-[center_52%] lg:object-[center_50%]"
+              className="h-full w-full object-cover object-[38%_center] sm:object-[45%_center] lg:object-center"
+            />
+            {/* subtle localized readability veil behind the left headline only */}
+            <div
+              className="absolute inset-y-0 left-0 w-full"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(6,20,31,0.28) 0%, rgba(6,20,31,0.12) 30%, rgba(6,20,31,0) 55%)",
+              }}
             />
             <div
               className="absolute inset-x-0 bottom-0 h-[125px]"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(6,20,31,0) 0%, rgba(6,20,31,0.05) 25%, rgba(6,20,31,0.20) 50%, rgba(6,20,31,0.55) 75%, rgba(6,20,31,0.88) 92%, #06141F 100%)",
+                  "linear-gradient(to bottom, rgba(6,20,31,0) 0%, rgba(6,20,31,0.04) 25%, rgba(6,20,31,0.16) 45%, rgba(6,20,31,0.42) 65%, rgba(6,20,31,0.75) 82%, #06141F 100%)",
               }}
             />
           </div>
