@@ -583,7 +583,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[6px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
+        className="mt-[9px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(255,255,255,0.055)",
           background: "linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.09) 100%)",
@@ -642,13 +642,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
       {/* progress track */}
-      <div className="mt-[6px]">
+      <div className="mt-[9px]">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-[6px] flex flex-nowrap items-center justify-between gap-4 pt-[6px]"
+        className="mt-[8px] flex flex-nowrap items-center justify-between gap-4 pt-[7px]"
         style={{ borderTop: "1px solid rgba(255,255,255,0.038)" }}
 
       >
@@ -778,7 +778,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="hgb-booking-card group relative overflow-hidden py-[22px] pr-[24px] transition-all duration-300" style={shell}>
+      <article className="hgb-booking-card group relative overflow-hidden py-[25px] pr-[24px] transition-all duration-300" style={shell}>
         {goldStrip}
         <div>{media}</div>
         <div className="py-3 pr-3">{info}</div>
@@ -788,7 +788,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[22px] pr-[24px] transition-all duration-300 sm:grid-cols-[168px_minmax(0,1fr)] lg:grid-cols-[184px_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[25px] pr-[24px] transition-all duration-300 sm:grid-cols-[168px_minmax(0,1fr)] lg:grid-cols-[184px_minmax(0,1fr)]"
       style={shell}
     >
       {goldStrip}
@@ -1275,7 +1275,7 @@ function ManageBookings() {
 
 
 
-              <div className="absolute right-4 top-6 z-10 hidden shrink-0 items-center gap-5 sm:right-6 lg:right-8 lg:flex xl:right-10">
+              <div className="absolute right-4 top-6 z-10 hidden shrink-0 items-center gap-5 sm:right-6 lg:right-8 lg:-top-4 lg:flex xl:right-10">
                 <button
                   type="button"
                   aria-label="Notifications"
