@@ -673,7 +673,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           params={{ bookingId: booking.id }}
           className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[20px] py-[9px] text-[15px]"
           style={{
-            marginTop: 5,
+            marginTop: 12,
             color: "#E4D3A2",
             border: "1.5px solid transparent",
             background: `linear-gradient(180deg, #1A2330 0%, #131C27 100%) padding-box, ${GOLD_BRUSHED_H} border-box`,
