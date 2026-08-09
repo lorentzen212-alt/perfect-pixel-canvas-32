@@ -59,3 +59,75 @@ Desktop 4 slots in one row; tablet 2 columns; mobile stacked — the wall grows 
 ## Validation
 
 Render the page and compare against the reference: visible dark graphite band under the hero, four clearly darker cutouts, cards inserted ~a third of their height with the top rising above the wall, light ivory workspace starting below the wall, no gold rails or floating cards.
+
+FINAL CHECK:
+
+==================================================
+
+19. CRITICAL CLARIFICATION — VERIFY THE CONNECTOR SHAPE AGAINST THE IMAGE
+
+==================================================
+
+Before implementing sections 3–5, look very closely at the small shape that
+
+connects the BOTTOM of each KPI card to the surface below it in the
+
+reference image.
+
+Based on close visual inspection, this connector is NOT a dark cutout sunk
+
+into a black stone wall. It appears to be the OPPOSITE:
+
+- a LIGHT, marble/ivory-colored trapezoid or wedge shape
+
+- narrower where it meets the bottom of the dark card
+
+- flaring outward and wider toward its base
+
+- outlined with a thin champagne/gold rim
+
+- sitting ON TOP of the lighter stone counter surface, like a small
+
+  decorative plinth or foot the card rests on — not a hole cut into a dark
+
+  wall.
+
+If your own visual analysis of the attached reference image confirms this
+
+(a light, gold-rimmed flared foot/plinth under each card, rather than a
+
+dark recess), THEN:
+
+- Discard the dark recess/cutout approach described in sections 3–5
+
+  (the near-black #17191B–#0B0D0F recess colors do NOT apply).
+
+- Instead, implement each connector as a light marble-colored trapezoid
+
+  (matching the light workspace tone, e.g. #ECEAE5–#E5E3DD) with a thin
+
+  1–2px gold/champagne gradient outline (reuse the existing brushed-gold
+
+  accent color already used elsewhere on the cards/buttons).
+
+- This trapezoid sits at the boundary between the dark stone wall and the
+
+  light workspace below, appearing to physically support/anchor the card
+
+  from underneath, flaring down onto the lighter surface.
+
+- Keep everything else in this spec (stone wall height/color, KPI card
+
+  styling, grid alignment, spacing) exactly as already described.
+
+THE ATTACHED REFERENCE IMAGE ALWAYS WINS. If anything in sections 3–5
+
+conflicts with what the image actually shows for this connector shape,
+
+follow the image, not the earlier written description.
+
+Do not guess. Zoom into the reference image mentally before deciding which
+
+version (dark cutout vs. light gold-rimmed foot) matches, and implement
+
+that one precisely — including its exact color tone and flare angle.
