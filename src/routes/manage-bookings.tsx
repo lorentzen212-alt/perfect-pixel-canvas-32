@@ -857,54 +857,63 @@ function StatTile({
       aria-pressed={active}
       className="hgb-stat-tile relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
-        backgroundColor: "#0F1B28",
-        border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: "none",
+        background:
+          "linear-gradient(145deg, #132231 0%, #0E1B27 55%, #091520 100%)",
+        border: "1px solid rgba(255,255,255,0.14)",
+        boxShadow:
+          "0 8px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.035)",
       }}
     >
       {action && (
         <span
-          className="absolute right-[14px] top-[13px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[10px] font-medium uppercase tracking-[0.16em]"
+          className="absolute right-[14px] top-[11px] inline-flex items-center gap-1 rounded-full px-[9px] py-[2.5px] text-[9.5px] font-medium uppercase tracking-[0.16em]"
           style={{
             color: accent,
-            border: `1px solid ${accent}80`,
-            background: "rgba(6,20,31,0.45)",
+            border: `1px solid ${accent}66`,
+            background: "rgba(6,20,31,0.55)",
           }}
         >
           Action needed
         </span>
       )}
-      <span className="flex items-center gap-[14px]">
+      <span className="flex items-center gap-[13px]">
         <span
-          className="shrink-0"
-          style={{
-            color: accent,
-            filter: `drop-shadow(0 0 10px ${accent}40)`,
-          }}
+          className="flex w-[44px] shrink-0 items-center justify-center"
+          style={{ color: accent }}
         >
           {icon}
         </span>
         <span className="min-w-0">
           <span
-            className="block text-[28px] leading-none"
-            style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
+            className="block text-[31px] leading-none"
+            style={{
+              color: "rgba(255,255,255,0.96)",
+              fontFamily: SERIF,
+              fontWeight: 400,
+              letterSpacing: "-0.02em",
+            }}
           >
             {count}
           </span>
-          <span className="mt-[3px] block truncate text-[12.5px]" style={{ color: "#E6EDF3" }}>
+          <span
+            className="mt-[5px] block truncate text-[14px] font-medium leading-[1.3]"
+            style={{ color: "rgba(235,241,246,0.90)" }}
+          >
             {label}
           </span>
         </span>
       </span>
       <span
-        className="hgb-stat-link mt-[7px] flex items-center gap-1.5 pt-[6px] text-[11.5px]"
+        className="hgb-stat-link flex items-center gap-1.5 pt-[11px] text-[13px] font-medium"
         style={{
-          borderTop: "1px solid rgba(255,255,255,0.08)",
+          marginTop: 15,
+          borderTop: "1px solid rgba(255,255,255,0.10)",
           color: "#A7B6C6",
         }}
       >
-        {footer ?? "View bookings"} <ArrowRight size={12} />
+        {footer ?? "View bookings"} <ArrowRight size={13} />
       </span>
+
 
     </button>
   );
