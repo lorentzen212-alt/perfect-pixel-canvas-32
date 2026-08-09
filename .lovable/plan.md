@@ -15,13 +15,15 @@ overlap is not cancelled out by extra padding.
 
 1. Status card row (line 1553): add `relative z-[2]` so the cards render above the panel. Nothing else on that row changes.
 
-2. Overlap — exactly one source. The negative margin goes on the wrapper `div` at line 1631 only (it is also where the profile-strip condition is easiest to manage): `xl:-mt-[32px]`. The panel `<section>` keeps its own `mt-[10px]` untouched and does NOT get a negative margin.
+2. Overlap — exactly one source. The negative margin goes on the wrapper `div` at line 1631 only (it is also where the profile-strip condition is easiest to manage): `xl:-mt-[22px]`, which overrides its base `mt-[10px]` at `xl` and up. The panel `<section>` keeps its own `mt-[10px]` untouched and does NOT get a negative margin.
 
-3. Panel section (line 1637): keep `relative isolate`, add `z-[1]`, and bump top padding only slightly — from `sm:pt-[19px]` to `xl:pt-[28px]` (+9px), not 48px. Net effect: 32px pulled up minus ~9px padding ≈ 23px of real recovered height. Side/bottom padding and radius unchanged.
+   Margin math: today the panel top sits at wrapper `+10` + panel `+10` = `+20px`. With the wrapper at `-22` it becomes `-22 + 10 = -12px` — a real upward shift of exactly 32px. (Using `-32px` on the wrapper would move it 42px, too much.)
+
+3. Panel section (line 1637): keep `relative isolate` and its `mt-[10px]`, add `z-[1]`, and bump top padding only slightly — from `sm:pt-[19px]` to `xl:pt-[28px]` (+9px), not 48px. Net effect: 32px pulled up minus ~9px padding ≈ 23px of real recovered height for tabs/search/booking content. Side/bottom padding and radius unchanged.
 
 4. Below `xl`: no negative margin, no extra padding — the cards wrap to 2×2 there, so the layout stays exactly as today.
 
-5. Profile strip: when "Complete your profile" is visible, no overlap at all — the `xl:-mt-[32px]` and `xl:pt-[28px]` classes are applied conditionally on the same `isProfileComplete(profile)` check, so the strip never collides with the panel.
+5. Profile strip: when "Complete your profile" is visible, no overlap at all — the `xl:-mt-[22px]` and `xl:pt-[28px]` classes are applied conditionally on the same `isProfileComplete(profile)` check, so the strip never collides with the panel.
 
 6. Contact shadow: not part of the first pass. Build the overlap first, then inspect. Only if the cards need more separation from the ivory panel, append (never replace, never noticeably stronger) `0 8px 14px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.08)`.
 
