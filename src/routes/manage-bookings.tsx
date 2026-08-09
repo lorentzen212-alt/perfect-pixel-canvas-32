@@ -32,7 +32,6 @@ import {
   Plus,
   Grid2X2,
   LayoutList,
-  ChevronDown,
   Search,
   Settings,
   SlidersHorizontal,
