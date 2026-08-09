@@ -1523,7 +1523,10 @@ function ManageBookings() {
               
               >
                 {results.map((b) => (
-                  <BookingCard key={b.id} booking={b} compact={view === "grid"} />
+                  <div key={b.id} className="hgb-card-recess">
+                    <BookingCard booking={b} compact={view === "grid"} />
+                  </div>
+
                 ))}
                 {results.length === 0 && (
                   <p className="py-12 text-center text-[13.5px]" style={{ color: "#C3C8CD" }}>
