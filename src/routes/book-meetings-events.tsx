@@ -82,7 +82,7 @@ import {
   type MeAccommodationStay,
   type MeMeetingSpace,
 } from "@/lib/meDraftStore";
-import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
 const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
