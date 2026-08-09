@@ -1628,7 +1628,7 @@ function ManageBookings() {
 
 
             {/* booking list — full width */}
-            <div className="mt-[10px]">
+            <div className="mt-[10px] lg:mt-[15px]">
             <div className="min-w-0">
 
 
