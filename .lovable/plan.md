@@ -28,4 +28,12 @@ Hero, Welcome block and gold line, sidebar, profile/bell, status card sizes/cont
 
 ## Validation
 
-In the live preview at 1216px wide: measure the panel's top edge vs the cards' bottom edge (expect ~30–35px of overlap), confirm the tabs' distance to the cards is unchanged, confirm the cards paint above the ivory surface, and confirm total document height dropped by ~32px.
+Measured in the live preview at 1216px wide:
+
+1. Status cards sit at exactly the same position as before.
+2. Status card size is unchanged.
+3. The ivory panel's top edge is ~32px above the cards' bottom edge.
+4. Tabs / search / filters stay fully visible and never slide under the cards.
+5. The first booking card starts ~30–32px higher than before.
+6. No compensating margin or padding is added anywhere else.
+7. Total document height actually dropped by ~32px — if not, inspect the wrapper margins between the two sections, since recovering real vertical space is the point of the change.
