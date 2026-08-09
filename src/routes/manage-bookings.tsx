@@ -850,24 +850,36 @@ function StatTile({
   bgPos: string;
   onClick: () => void;
 }) {
+  const linkColor =
+    footer === "Review proposals"
+      ? "#EAB43C"
+      : footer === "Review now"
+        ? "rgba(210,217,223,0.78)"
+        : "#66B8F2";
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="hgb-stat-tile relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
+      className="hgb-stat-tile relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
         background:
           "linear-gradient(145deg, #132231 0%, #0E1B27 55%, #091520 100%)",
-        border: "1px solid rgba(255,255,255,0.14)",
+        border: "1px solid rgba(150,170,185,0.32)",
         boxShadow:
           "0 8px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.035)",
+        paddingLeft: 30,
+        paddingRight: 28,
+        paddingTop: 21,
+        paddingBottom: 16,
       }}
     >
       {action && (
         <span
-          className="absolute right-[14px] top-[11px] inline-flex items-center gap-1 rounded-full px-[9px] py-[2.5px] text-[9.5px] font-medium uppercase tracking-[0.16em]"
+          className="absolute inline-flex items-center gap-1 rounded-full px-[9px] py-[2.5px] text-[9.5px] font-medium uppercase tracking-[0.16em]"
           style={{
+            top: 13,
+            right: 14,
             color: accent,
             border: `1px solid ${accent}66`,
             background: "rgba(6,20,31,0.55)",
@@ -876,48 +888,47 @@ function StatTile({
           Action needed
         </span>
       )}
-      <span className="flex items-center gap-[13px]">
-        <span
-          className="flex w-[44px] shrink-0 items-center justify-center"
-          style={{ color: accent }}
-        >
+      <span className="flex items-center" style={{ gap: 18 }}>
+        <span className="flex shrink-0 items-center justify-center" style={{ color: accent, width: 30, height: 30 }}>
           {icon}
         </span>
-        <span className="min-w-0">
+        <span className="flex min-w-0 flex-col items-start" style={{ gap: 5 }}>
           <span
-            className="block text-[31px] leading-none"
+            className="block text-[32px]"
             style={{
-              color: "rgba(255,255,255,0.96)",
+              color: "rgba(250,248,243,0.97)",
               fontFamily: SERIF,
               fontWeight: 400,
+              lineHeight: 0.95,
               letterSpacing: "-0.02em",
             }}
           >
             {count}
           </span>
           <span
-            className="mt-[5px] block truncate text-[14px] font-medium leading-[1.3]"
-            style={{ color: "rgba(235,241,246,0.90)" }}
+            className="block truncate text-[14px] font-medium"
+            style={{ color: "rgba(239,243,246,0.92)", lineHeight: 1.25 }}
           >
             {label}
           </span>
         </span>
       </span>
       <span
-        className="hgb-stat-link flex items-center gap-1.5 pt-[11px] text-[13px] font-medium"
+        className="hgb-stat-link flex items-center text-[13.5px] font-medium"
         style={{
-          marginTop: 15,
+          gap: 7,
+          marginTop: 17,
+          paddingTop: 12,
           borderTop: "1px solid rgba(255,255,255,0.10)",
-          color: "#A7B6C6",
+          color: linkColor,
         }}
       >
         {footer ?? "View bookings"} <ArrowRight size={13} />
       </span>
-
-
     </button>
   );
 }
+
 
 
 
@@ -1534,7 +1545,7 @@ function ManageBookings() {
             {/* stat tiles */}
             <section className="mt-[1px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
               <StatTile
-                label="Awaiting Response"
+                label="Awaiting response"
                 count={counts.awaiting}
                 icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
@@ -1544,7 +1555,7 @@ function ManageBookings() {
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
               />
               <StatTile
-                label="Proposal Ready"
+                label="Proposal ready"
                 count={counts.proposal}
                 icon={<FileSignature size={30} strokeWidth={1.4} />}
                 action={counts.proposal > 0}
@@ -1565,9 +1576,9 @@ function ManageBookings() {
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
               />
               <StatTile
-                label="Needs Attention"
+                label="Needs attention"
                 count={needsAttention}
-                icon={<BellRing size={28} strokeWidth={1.4} />}
+                icon={<BellRing size={30} strokeWidth={1.4} />}
                 active={group === "attention"}
                 action={needsAttention > 0}
                 accent={needsAttention > 0 ? "#B8C1CA" : "#8C9AA6"}
