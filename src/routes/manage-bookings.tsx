@@ -1173,7 +1173,7 @@ function ManageBookings() {
         <main
           className="relative min-h-screen"
           style={{
-            backgroundColor: "#05101A",
+            backgroundColor: "#06141F",
           }}
         >
           {/* lobby hero — wide landscape photograph fading into the dashboard */}
