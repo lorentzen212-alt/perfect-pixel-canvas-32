@@ -871,7 +871,7 @@ function StatTile({
         paddingLeft: 30,
         paddingRight: 28,
         paddingTop: 6,
-        paddingBottom: 0,
+        paddingBottom: 3,
       }}
     >
       {action && (
