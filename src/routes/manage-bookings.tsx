@@ -532,14 +532,17 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     <>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <TypeChip type={booking.type} />
+          <span className="block" style={{ position: "relative", top: -5 }}>
+            <TypeChip type={booking.type} />
+          </span>
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
             className="mt-[5px] block transition-opacity hover:opacity-85"
+            style={{ position: "relative", top: -3, marginBottom: -2 }}
           >
             <h3
-              className="text-[26px] leading-[1.05] tracking-[0.002em]"
+              className="text-[28px] leading-[1.05] tracking-[0.002em]"
               style={{ color: PEARL, fontFamily: SERIF, fontWeight: 500 }}
             >
               {booking.name}
@@ -854,54 +857,63 @@ function StatTile({
       aria-pressed={active}
       className="hgb-stat-tile relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
-        backgroundColor: "#0F1B28",
-        border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: "none",
+        background:
+          "linear-gradient(145deg, #132231 0%, #0E1B27 55%, #091520 100%)",
+        border: "1px solid rgba(255,255,255,0.14)",
+        boxShadow:
+          "0 8px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.035)",
       }}
     >
       {action && (
         <span
-          className="absolute right-[14px] top-[13px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[10px] font-medium uppercase tracking-[0.16em]"
+          className="absolute right-[14px] top-[11px] inline-flex items-center gap-1 rounded-full px-[9px] py-[2.5px] text-[9.5px] font-medium uppercase tracking-[0.16em]"
           style={{
             color: accent,
-            border: `1px solid ${accent}80`,
-            background: "rgba(6,20,31,0.45)",
+            border: `1px solid ${accent}66`,
+            background: "rgba(6,20,31,0.55)",
           }}
         >
           Action needed
         </span>
       )}
-      <span className="flex items-center gap-[14px]">
+      <span className="flex items-center gap-[13px]">
         <span
-          className="shrink-0"
-          style={{
-            color: accent,
-            filter: `drop-shadow(0 0 10px ${accent}40)`,
-          }}
+          className="flex w-[44px] shrink-0 items-center justify-center"
+          style={{ color: accent }}
         >
           {icon}
         </span>
         <span className="min-w-0">
           <span
-            className="block text-[28px] leading-none"
-            style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
+            className="block text-[31px] leading-none"
+            style={{
+              color: "rgba(255,255,255,0.96)",
+              fontFamily: SERIF,
+              fontWeight: 400,
+              letterSpacing: "-0.02em",
+            }}
           >
             {count}
           </span>
-          <span className="mt-[3px] block truncate text-[12.5px]" style={{ color: "#E6EDF3" }}>
+          <span
+            className="mt-[5px] block truncate text-[14px] font-medium leading-[1.3]"
+            style={{ color: "rgba(235,241,246,0.90)" }}
+          >
             {label}
           </span>
         </span>
       </span>
       <span
-        className="hgb-stat-link mt-[7px] flex items-center gap-1.5 pt-[6px] text-[11.5px]"
+        className="hgb-stat-link flex items-center gap-1.5 pt-[11px] text-[13px] font-medium"
         style={{
-          borderTop: "1px solid rgba(255,255,255,0.08)",
+          marginTop: 15,
+          borderTop: "1px solid rgba(255,255,255,0.10)",
           color: "#A7B6C6",
         }}
       >
-        {footer ?? "View bookings"} <ArrowRight size={12} />
+        {footer ?? "View bookings"} <ArrowRight size={13} />
       </span>
+
 
     </button>
   );
@@ -1429,17 +1441,40 @@ function ManageBookings() {
 
             {/* hero header */}
             <header className="mt-[96px] flex items-start justify-between gap-6 sm:mt-[137px] lg:mt-[149px]">
-              <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
+              <div
+                className="relative min-w-0"
+                style={{ position: "relative", top: -20, left: 28, textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
+              >
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute"
+                  style={{
+                    left: -40,
+                    right: -80,
+                    top: -34,
+                    bottom: -26,
+                    background:
+                      "linear-gradient(90deg, rgba(6,20,31,0.60) 0%, rgba(6,20,31,0.30) 45%, rgba(6,20,31,0) 100%)",
+                    filter: "blur(6px)",
+                  }}
+                />
+                <span
+                  aria-hidden
+                  className="absolute"
+                  style={{ left: 0, top: -16, width: 44, height: 2, background: "#C5A24B" }}
+                />
+
                 <h1
-                  className="text-[34px] leading-[1.04] sm:text-[44px]"
+                  className="relative text-[34px] leading-[1.1] sm:text-[45px]"
                   style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
                 >
                   Welcome, {firstName.charAt(0).toUpperCase() + firstName.slice(1)}
                 </h1>
-                <p className="mt-1.5 text-[14px]" style={{ color: "#E7EDF3" }}>
+                <p className="relative mt-1.5 text-[16px]" style={{ color: "rgba(255,255,255,0.85)" }}>
                   Your groups, stays and next steps — all in one place.
                 </p>
               </div>
+
 
 
 
@@ -1497,13 +1532,13 @@ function ManageBookings() {
 
 
             {/* stat tiles */}
-            <section className="mt-[8px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
+            <section className="mt-[1px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
               <StatTile
                 label="Awaiting Response"
                 count={counts.awaiting}
                 icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
-                accent="#4DA3FF"
+                accent="#58AFFF"
                 bgPos="15% center"
                 footer="View bookings"
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
@@ -1514,7 +1549,7 @@ function ManageBookings() {
                 icon={<FileSignature size={30} strokeWidth={1.4} />}
                 action={counts.proposal > 0}
                 active={group === "proposal"}
-                accent="#F5AE00"
+                accent="#F2B632"
                 bgPos="40% center"
                 footer="Review proposals"
                 onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
@@ -1524,7 +1559,7 @@ function ManageBookings() {
                 count={counts.confirmed}
                 icon={<Check size={30} strokeWidth={1.4} />}
                 active={group === "confirmed"}
-                accent="#6FCF97"
+                accent="#7DD59B"
                 bgPos="65% center"
                 footer="View bookings"
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
@@ -1535,7 +1570,7 @@ function ManageBookings() {
                 icon={<BellRing size={28} strokeWidth={1.4} />}
                 active={group === "attention"}
                 action={needsAttention > 0}
-                accent={needsAttention > 0 ? "#FFB74D" : "#8C9AA6"}
+                accent={needsAttention > 0 ? "#B8C1CA" : "#8C9AA6"}
                 bgPos="85% center"
                 footer="Review now"
                 onClick={() => setGroup(group === "attention" ? "all" : "attention")}
