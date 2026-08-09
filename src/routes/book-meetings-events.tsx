@@ -82,7 +82,7 @@ import {
   type MeAccommodationStay,
   type MeMeetingSpace,
 } from "@/lib/meDraftStore";
-import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
 const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
@@ -525,12 +525,9 @@ function BookMeetingsEvents() {
           {/* HEADER */}
           <header className="flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
             <Link to="/" aria-label="HotelGroupBook" className="flex items-center">
-              <img
-                src={logoAsset.url}
-                alt="HotelGroupBook"
-                className="h-[46px] sm:h-[56px] lg:h-[68px] w-auto"
-              />
+              <BrandLogo size="lg" tone="light" />
             </Link>
+
 
             <button
               onClick={() => setMobileOpen((v) => !v)}

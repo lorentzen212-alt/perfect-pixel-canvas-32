@@ -32,7 +32,7 @@ import heroVideoAsset from "@/assets/hero-video.mp4.asset.json";
 import cardLeisureAsset from "@/assets/card-leisure-fjord.png.asset.json";
 import cardMeAsset from "@/assets/card-me-fjord.png.asset.json";
 import cardManageAsset from "@/assets/card-manage-concierge.png.asset.json";
-import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
 
 import lofotenImg from "@/assets/dest-lofoten.jpg";
 import tromsoImg from "@/assets/dest-tromso.jpg";
@@ -143,12 +143,9 @@ function Home() {
           <header className="absolute inset-x-0 top-0 z-30 flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
             <a href="/" aria-label="HotelGroupBook" className="logo-hover-wrap relative flex items-center">
               <span className="logo-mist" aria-hidden="true" />
-              <img
-                src={logoAsset.url}
-                alt="HotelGroupBook"
-                className="relative h-[46px] sm:h-[56px] lg:h-[68px] w-auto"
-              />
+              <BrandLogo size="lg" tone="dark" className="relative" />
             </a>
+
             <SiteMenu items={MENU_ITEMS} variant="outline" />
           </header>
 
@@ -984,7 +981,7 @@ function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2">
             <a href="/" aria-label="HotelGroupBook" className="inline-flex items-center">
-              <img src={logoAsset.url} alt="HotelGroupBook" className="h-10 w-auto" />
+              <BrandLogo size="md" tone="dark" />
             </a>
 
             <p className="mt-3 text-[#8A96A2] text-sm">

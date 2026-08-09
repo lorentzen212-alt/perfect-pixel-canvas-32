@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate, useSearch, Link } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
+import { BrandLogo } from "@/components/BrandLogo";
 import { lovable } from "@/integrations/lovable/index";
 import { useAuth, upsertProfile } from "@/lib/auth";
 
@@ -168,8 +169,8 @@ function AuthPage() {
           boxShadow: "0 26px 60px rgba(6,16,26,0.45)",
         }}
       >
-        <Link to="/" className="text-[11px] uppercase tracking-[0.28em]" style={{ color: GOLD }}>
-          HotelGroupBook
+        <Link to="/" aria-label="HotelGroupBook" className="inline-flex items-center">
+          <BrandLogo size="sm" tone="dark" />
         </Link>
         <h1
           className="mt-3 text-[30px] leading-tight text-white"

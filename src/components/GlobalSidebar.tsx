@@ -13,6 +13,8 @@ import {
   Settings,
   User,
 } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
+
 
 const SIDE_TEXT = "rgba(255,255,255,0.90)";
 const SIDE_LINE = "rgba(255,255,255,0.06)";
@@ -171,50 +173,9 @@ export function GlobalSidebar({
 
       <div className={`flex items-center ${collapsed ? "flex-col gap-3" : "justify-between gap-2 px-3"}`}>
         <Link to="/" className="block min-w-0 py-2" aria-label="HotelGroupBook">
-          {collapsed ? (
-            <span
-              className="grid h-9 w-9 place-items-center rounded-[12px] text-[12.5px] font-semibold tracking-[0.06em]"
-              style={{
-                color: "#FFFFFF",
-                border: "1px solid rgba(255,255,255,0.18)",
-                background: "rgba(255,255,255,0.08)",
-              }}
-            >
-              HGB
-            </span>
-          ) : (
-            <span className="flex items-center gap-2.5">
-              <span
-                className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] text-[10.5px] font-semibold tracking-[0.06em]"
-                style={{
-                  color: "#FFFFFF",
-                  border: "1px solid rgba(255,255,255,0.16)",
-                  background: "rgba(255,255,255,0.06)",
-                }}
-              >
-                HGB
-              </span>
-              <span
-                className="whitespace-nowrap text-[16.5px] font-semibold tracking-[-0.01em]"
-                style={{ color: "#FFFFFF" }}
-              >
-                Hotel
-                <span
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(180deg, #8B621C 0%, #C38B2B 28%, #F0C467 52%, #D49328 76%, #8B5B16 100%)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                  }}
-                >
-                  Group
-                </span>
-                Book
-              </span>
-            </span>
-          )}
+          <BrandLogo variant={collapsed ? "badge" : "full"} size="md" tone="dark" />
         </Link>
+
 
 
 
