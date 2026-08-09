@@ -810,13 +810,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 /* ── stat tiles ──────────────────────────────────────── */
 
-/* one KPI seat: the card plus the two brass feet anchoring it to the ledge */
+/* one KPI seat: the card plus a single flared connector bridging it down to the workspace */
 function KpiSlot({ children }: { children: React.ReactNode }) {
   return (
     <div className="hgb-kpi-slot flex">
       {children}
-      <span className="hgb-kpi-foot hgb-kpi-foot--l" aria-hidden />
-      <span className="hgb-kpi-foot hgb-kpi-foot--r" aria-hidden />
+      <span className="hgb-kpi-connector" aria-hidden />
     </div>
   );
 }
@@ -1345,7 +1344,7 @@ function ManageBookings() {
 
             {/* KPI stone wall — cards seated on the counter ledge */}
             <section className="hgb-kpi-wall mt-[16px] flex min-h-[110px] flex-col justify-end px-4 pb-[44px] sm:px-6 xl:mt-[82px] xl:min-h-0">
-              <div className="hgb-kpi-ledge" aria-hidden />
+              
               <div className="relative z-[3] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:-mt-[68px] xl:grid-cols-4 xl:gap-6">
                 <KpiSlot>
                   <StatTile
