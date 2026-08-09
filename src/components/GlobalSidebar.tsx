@@ -13,7 +13,6 @@ import {
   Settings,
   User,
 } from "lucide-react";
-import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 
 const SIDE_TEXT = "rgba(255,255,255,0.90)";
 const SIDE_LINE = "rgba(255,255,255,0.06)";
