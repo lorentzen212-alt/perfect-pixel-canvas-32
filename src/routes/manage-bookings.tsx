@@ -1417,7 +1417,7 @@ function ManageBookings() {
               }}
             >
               {/* Rad 1 — Active / Cancelled / All */}
-              <div className="mb-[14px] flex flex-wrap items-center gap-2">
+              <div className="mb-[14px] flex flex-wrap items-center gap-2 px-[16px]">
                 {(
                   [
                     { key: "active" as const, label: "Active Bookings", n: scopeCounts.active },
@@ -1455,7 +1455,7 @@ function ManageBookings() {
               </div>
 
               {/* Rad 2 — søk, filtre, visningsvalg */}
-              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:items-center">
+              <div className="mb-[18px] flex flex-col gap-3 px-[16px] md:flex-row md:items-center">
                 <div
                   className="relative flex min-w-0 flex-1 items-center rounded-[11px]"
                   style={{
