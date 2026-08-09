@@ -691,16 +691,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         width: "var(--insert-w)",
         height: "100%",
         backgroundImage: [
-          /* the reference metal, resampled crisp and denoised so the broad diagonal
-             reflections stay clean and machined at this narrow width */
-          `url(${goldEdgeAsset.url})`,
-          /* gentle cross-section shading so the band reads as solid metal, not paint */
-          "linear-gradient(90deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.03) 14%, rgba(255,255,255,0.07) 40%, rgba(255,255,255,0.05) 66%, rgba(0,0,0,0.06) 88%, rgba(0,0,0,0.28) 100%)",
+          /* cross-section shading so the band reads as a solid machined insert */
+          "linear-gradient(90deg, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.04) 16%, rgba(255,255,255,0.06) 42%, rgba(255,255,255,0.04) 66%, rgba(0,0,0,0.08) 88%, rgba(0,0,0,0.30) 100%)",
+          /* deep champagne metal */
+          "linear-gradient(180deg, #7A5518 0%, #B47E28 25%, #D9B45C 48%, #B27B25 72%, #684515 100%)",
         ].join(", "),
         backgroundRepeat: "no-repeat, no-repeat",
         backgroundPosition: "left top, left top",
         backgroundSize: "100% 100%, 100% 100%",
-        backgroundBlendMode: "normal, soft-light",
+        backgroundBlendMode: "soft-light, normal",
       }}
     />
   );
@@ -850,7 +849,7 @@ function StatTile({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex w-full flex-col justify-between overflow-hidden rounded-[16px] px-[22px] pb-[13px] pt-[18px] text-left transition-all duration-200 hover:-translate-y-[2px]"
+      className="relative flex w-full flex-col justify-between overflow-hidden rounded-[16px] px-[22px] pb-[11px] pt-[14px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
         background:
           "linear-gradient(180deg, rgba(43,55,70,0.94) 0%, rgba(30,40,52,0.94) 100%)",
@@ -879,18 +878,18 @@ function StatTile({
         </span>
         <span className="min-w-0">
           <span
-            className="block text-[38px] leading-none"
+            className="block text-[32px] leading-none"
             style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 400 }}
           >
             {count}
           </span>
-          <span className="mt-[6px] block truncate text-[14px]" style={{ color: "#B9C6D2" }}>
+          <span className="mt-[5px] block truncate text-[13.5px]" style={{ color: "#B9C6D2" }}>
             {label}
           </span>
         </span>
       </span>
       <span
-        className="mt-[14px] flex items-center gap-1.5 pt-[10px] text-[12px]"
+        className="mt-[10px] flex items-center gap-1.5 pt-[8px] text-[12px]"
         style={{
           borderTop: "1px solid rgba(255,255,255,0.07)",
           color: active || action ? "#E2BE6E" : "#93A3B1",
@@ -1129,7 +1128,7 @@ function ManageBookings() {
         }}
       >
         <Sidebar
-          active="My Bookings"
+          active="Dashboard"
           roomingBookingId={roomingTarget}
           displayName={displayName}
           initials={initials}
@@ -1150,7 +1149,7 @@ function ManageBookings() {
           />
           <div className="absolute inset-y-0 left-0 w-[268px]">
             <Sidebar
-              active="My Bookings"
+              active="Dashboard"
               roomingBookingId={roomingTarget}
               displayName={displayName}
               initials={initials}
@@ -1185,20 +1184,21 @@ function ManageBookings() {
               src={lobbyHeroAsset.url}
               alt=""
               className="h-full w-full object-cover object-[62%_center] sm:object-[55%_center] lg:object-center"
+              style={{ filter: "brightness(1.11) contrast(0.985)" }}
             />
             {/* subtle localized readability veil behind the left headline only */}
             <div
               className="absolute inset-y-0 left-0 w-full"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(6,20,31,0.24) 0%, rgba(6,20,31,0.10) 30%, rgba(6,20,31,0) 55%)",
+                  "linear-gradient(90deg, rgba(6,20,31,0.12) 0%, rgba(6,20,31,0.04) 30%, rgba(6,20,31,0) 55%)",
               }}
             />
             <div
               className="absolute inset-x-0 bottom-0 h-[125px]"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(6,20,31,0) 0%, rgba(6,20,31,0.25) 35%, rgba(6,20,31,0.7) 78%, #06141F 100%)",
+                  "linear-gradient(to bottom, rgba(6,20,31,0) 0%, rgba(6,20,31,0.18) 35%, rgba(6,20,31,0.66) 78%, #06141F 100%)",
               }}
             />
           </div>
@@ -1225,22 +1225,16 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[190px] lg:mt-[205px]">
+            <header className="mt-[120px] flex items-start justify-between gap-6 sm:mt-[160px] lg:mt-[175px]">
               <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
-                <p
-                  className="mb-[10px] text-[11px] font-semibold uppercase tracking-[0.30em]"
-                  style={{ color: "#F0D08A" }}
-                >
-                  Dashboard
-                </p>
                 <h1
-                  className="text-[42px] leading-[1.02] sm:text-[60px]"
+                  className="text-[42px] leading-[1.06] sm:text-[58px]"
                   style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
                 >
-                  My Bookings
+                  Welcome, {firstName.charAt(0).toUpperCase() + firstName.slice(1)}
                 </h1>
-                <p className="mt-2 text-[16px]" style={{ color: "#EAEFF4" }}>
-                  Stay on top of every group, every stay.
+                <p className="mt-3 text-[16px]" style={{ color: "#E7EDF3" }}>
+                  Your groups, stays and next steps — all in one place.
                 </p>
               </div>
 
@@ -1300,7 +1294,7 @@ function ManageBookings() {
 
 
             {/* stat tiles */}
-            <section className="mt-[4px] grid grid-cols-2 items-stretch gap-4 xl:grid-cols-4">
+            <section className="mt-[0px] grid grid-cols-2 items-stretch gap-4 xl:grid-cols-4">
               <StatTile
                 label="Awaiting response"
                 count={counts.awaiting}
@@ -1371,7 +1365,7 @@ function ManageBookings() {
 
 
             {/* booking list — full width */}
-            <div className="mt-[18px]">
+            <div className="mt-[14px]">
             <div className="min-w-0">
 
 
@@ -1379,10 +1373,10 @@ function ManageBookings() {
             <section
               className="relative isolate overflow-hidden rounded-[18px] p-[22px] sm:p-[26px]"
               style={{
-                backgroundColor: "#D9D7D2",
+                backgroundColor: "#D5D6D4",
                 backgroundImage:
-                  "radial-gradient(120% 80% at 12% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.12) 42%, rgba(255,255,255,0) 72%), linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(0,0,0,0.02) 55%, rgba(0,0,0,0.045) 100%)",
-                border: "1px solid rgba(255,255,255,0.55)",
+                  "radial-gradient(120% 80% at 12% 0%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.07) 44%, rgba(255,255,255,0) 74%), linear-gradient(145deg, #DADBD9 0%, #D2D4D3 48%, #CBCDCC 100%)",
+                border: "1px solid rgba(255,255,255,0.42)",
                 boxShadow:
                   "inset 0 1px 0 rgba(255,255,255,0.70), inset 0 -1px 0 rgba(0,0,0,0.06), 0 26px 60px -28px rgba(6,10,15,0.62)",
               }}
