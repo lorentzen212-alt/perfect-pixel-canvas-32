@@ -1116,9 +1116,8 @@ function ManageBookings() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: PAGE,
-        backgroundImage:
-          "linear-gradient(180deg, #6A737B 0%, #646D75 35%, #5F6870 100%)",
+        backgroundColor: "#0B141D",
+        backgroundImage: "none",
         fontFamily: SANS,
       }}
     >
