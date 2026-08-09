@@ -1460,9 +1460,10 @@ function ManageBookings() {
                 />
                 <span
                   aria-hidden
-                  className="relative block"
-                  style={{ width: 44, height: 2, background: "#C5A24B", marginBottom: 14 }}
+                  className="absolute"
+                  style={{ left: 0, top: -16, width: 44, height: 2, background: "#C5A24B" }}
                 />
+
                 <h1
                   className="relative text-[34px] leading-[1.1] sm:text-[45px]"
                   style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
