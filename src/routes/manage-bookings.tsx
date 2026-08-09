@@ -776,7 +776,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300" style={shell}>
+      <article className="hgb-booking-card group relative overflow-hidden py-[22px] pr-[24px] transition-all duration-300" style={shell}>
         {goldStrip}
         <div>{media}</div>
         <div className="py-3 pr-3">{info}</div>
