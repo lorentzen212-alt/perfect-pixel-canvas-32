@@ -770,7 +770,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           className={
             compact
               ? "h-[88px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-              : "h-[148px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
+              : "h-[124px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] sm:h-full"
           }
           style={{ filter: "saturate(0.95) contrast(1.06) brightness(0.84)", objectPosition: compact ? undefined : "center calc(50% + 1px)" }}
         />
@@ -804,7 +804,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
   return (
     <div className="hgb-card-recess">
       <article
-        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[14px] pr-[18px] transition-all duration-300 sm:grid-cols-[168px_minmax(0,1fr)] lg:grid-cols-[184px_minmax(0,1fr)]"
+        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[12px] overflow-hidden py-[12px] pr-[16px] transition-all duration-300 sm:grid-cols-[168px_minmax(0,1fr)] lg:grid-cols-[184px_minmax(0,1fr)]"
 
 
         style={shell}
@@ -929,7 +929,7 @@ function Select<T extends string>({
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
-        className="w-full cursor-pointer appearance-none bg-transparent py-[12px] pl-4 pr-10 text-left text-[14px] outline-none"
+        className="w-full cursor-pointer appearance-none bg-transparent py-[10px] pl-4 pr-10 text-left text-[13.5px] outline-none"
         style={{ color: "#3B3B34", letterSpacing: "0.005em" }}
       >
         {options.map((o) => (
@@ -1447,7 +1447,7 @@ function ManageBookings() {
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search bookings, references, destinations…"
                     aria-label="Search bookings by name, destination, hotel or reference"
-                    className="w-full bg-transparent py-[11px] pl-[44px] pr-[62px] text-[14px] outline-none placeholder:text-[rgba(60,58,50,0.45)]"
+                    className="w-full bg-transparent py-[9px] pl-[44px] pr-[62px] text-[13.5px] outline-none placeholder:text-[rgba(60,58,50,0.45)]"
                     style={{ color: "#2E3138" }}
                   />
                   <span
