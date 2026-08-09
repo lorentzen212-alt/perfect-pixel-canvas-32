@@ -1116,7 +1116,7 @@ function ManageBookings() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#0B141D",
+        backgroundColor: "#05101A",
         backgroundImage: "none",
         fontFamily: SANS,
       }}
@@ -1173,21 +1173,29 @@ function ManageBookings() {
         <main
           className="relative min-h-screen"
           style={{
-            backgroundColor: "#0B141D",
+            backgroundColor: "#05101A",
           }}
         >
-          {/* lobby hero — ungraded, no overlays */}
+          {/* lobby hero — soft fade into page background */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[380px] sm:h-[480px] lg:h-[560px] overflow-hidden"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[320px] sm:h-[400px] lg:h-[460px] overflow-hidden"
           >
             <img
               src={lobbyHeroAsset.url}
               alt=""
               className="h-full w-full object-cover"
-              style={{ objectPosition: "center 58%" }}
+              style={{ objectPosition: "center 35%" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(5,16,26,0) 0%, rgba(5,16,26,0.35) 55%, rgba(5,16,26,0.75) 85%, rgba(5,16,26,1) 100%)",
+              }}
             />
           </div>
+
 
 
 
@@ -1209,7 +1217,7 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[210px] flex items-start justify-between gap-6 sm:mt-[300px] lg:mt-[368px]">
+            <header className="mt-[170px] flex items-start justify-between gap-6 sm:mt-[230px] lg:mt-[268px]">
               <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
                 <p
                   className="mb-[10px] text-[11px] font-semibold uppercase tracking-[0.30em]"
