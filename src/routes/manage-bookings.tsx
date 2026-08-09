@@ -6,7 +6,7 @@ import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking, cancelBooking } from "@/lib/bookingsApi";
 import { toast } from "sonner";
 import pageTextureAsset from "@/assets/limestone-texture.jpg.asset.json";
-import lobbyHeroAsset from "@/assets/manage-hero-lobby-wide.png.asset.json";
+import lobbyHeroAsset from "@/assets/manage-hero-reception-cinematic.png.asset.json";
 
 
 import {
@@ -1182,17 +1182,17 @@ function ManageBookings() {
             <img
               src={lobbyHeroAsset.url}
               alt=""
-              className="h-full w-full object-cover object-center"
+              className="h-full w-full object-cover object-[62%_center] sm:object-[55%_center] lg:object-center"
+              style={{ filter: "brightness(1.11) contrast(0.985)" }}
             />
-            {/* subtle left-side navy gradient behind the welcome text */}
+            {/* subtle localized readability veil behind the left headline only */}
             <div
               className="absolute inset-y-0 left-0 w-full"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(4,18,30,0.52) 0%, rgba(4,18,30,0.22) 32%, rgba(4,18,30,0.04) 58%, rgba(4,18,30,0) 75%)",
+                  "linear-gradient(90deg, rgba(6,20,31,0.12) 0%, rgba(6,20,31,0.04) 30%, rgba(6,20,31,0) 55%)",
               }}
             />
-
             <div
               className="absolute inset-x-0 bottom-0 h-[125px]"
               style={{
