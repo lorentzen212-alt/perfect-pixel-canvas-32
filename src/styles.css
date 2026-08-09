@@ -1090,9 +1090,9 @@
 /* brass flared feet anchoring each card onto the marble ledge */
 .hgb-kpi-foot {
   position: absolute;
-  bottom: -13px;
-  width: 30px;
-  height: 15px;
+  bottom: -12px;
+  width: 26px;
+  height: 13px;
   z-index: 2;
   background: linear-gradient(180deg, #E4C583 0%, #C29A48 42%, #8A6524 100%);
   box-shadow: 0 3px 6px rgba(0,0,0,0.45);

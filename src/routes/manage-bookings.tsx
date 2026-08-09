@@ -1344,7 +1344,7 @@ function ManageBookings() {
 
 
             {/* KPI stone wall — cards seated on the counter ledge */}
-            <section className="hgb-kpi-wall mt-[16px] flex min-h-[128px] flex-col justify-end px-4 pb-[26px] sm:px-6 xl:mt-[82px]">
+            <section className="hgb-kpi-wall mt-[16px] flex min-h-[110px] flex-col justify-end px-4 pb-[26px] sm:px-6 xl:mt-[82px] xl:min-h-0">
               <div className="hgb-kpi-ledge" aria-hidden />
               <div className="relative z-[3] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:-mt-[74px] xl:grid-cols-4 xl:gap-6">
                 <KpiSlot>
@@ -1433,7 +1433,7 @@ function ManageBookings() {
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className="hgb-stone-surface relative isolate mt-[18px] overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
+              className="hgb-stone-surface relative isolate mt-[6px] overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
               style={{
                 border: "1px solid rgba(120,116,104,0.22)",
                 boxShadow:
