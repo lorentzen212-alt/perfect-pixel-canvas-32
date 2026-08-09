@@ -73,8 +73,8 @@ function ResetPassword() {
           boxShadow: "0 26px 60px rgba(6,16,26,0.45)",
         }}
       >
-        <Link to="/" className="text-[11px] uppercase tracking-[0.28em]" style={{ color: GOLD }}>
-          HotelGroupBook
+        <Link to="/" aria-label="HotelGroupBook" className="inline-flex items-center">
+          <BrandLogo size="sm" tone="dark" />
         </Link>
         <h1
           className="mt-3 text-[28px] leading-tight text-white"
