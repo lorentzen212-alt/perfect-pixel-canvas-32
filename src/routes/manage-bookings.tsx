@@ -852,15 +852,11 @@ function StatTile({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
+      className="hgb-stat-tile relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
-        backgroundImage: `linear-gradient(rgba(6,20,31,0.60), rgba(6,20,31,0.74)), url(${statStone.url})`,
-        backgroundSize: "cover, 320% auto",
-        backgroundPosition: `center, ${bgPos}`,
-        backgroundRepeat: "no-repeat, no-repeat",
-        border: `1px solid ${active || action ? "rgba(216,180,92,0.7)" : "rgba(255,255,255,0.10)"}`,
-        boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -14px 26px -18px rgba(0,0,0,0.7), 0 18px 40px -22px rgba(4,8,13,0.7)",
+        backgroundColor: "#0F1B28",
+        border: "1px solid rgba(255,255,255,0.06)",
+        boxShadow: "none",
       }}
     >
       {action && (
@@ -880,7 +876,7 @@ function StatTile({
           className="shrink-0"
           style={{
             color: accent,
-            filter: `drop-shadow(0 0 7px ${accent}26)`,
+            filter: `drop-shadow(0 0 10px ${accent}40)`,
           }}
         >
           {icon}
@@ -888,24 +884,25 @@ function StatTile({
         <span className="min-w-0">
           <span
             className="block text-[28px] leading-none"
-            style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 400 }}
+            style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
           >
             {count}
           </span>
-          <span className="mt-[3px] block truncate text-[12.5px]" style={{ color: "#B9C6D2" }}>
+          <span className="mt-[3px] block truncate text-[12.5px]" style={{ color: "#E6EDF3" }}>
             {label}
           </span>
         </span>
       </span>
       <span
-        className="mt-[7px] flex items-center gap-1.5 pt-[6px] text-[11.5px]"
+        className="hgb-stat-link mt-[7px] flex items-center gap-1.5 pt-[6px] text-[11.5px]"
         style={{
           borderTop: "1px solid rgba(255,255,255,0.08)",
-          color: active || action ? accent : "#93A3B1",
+          color: "#A7B6C6",
         }}
       >
         {footer ?? "View bookings"} <ArrowRight size={12} />
       </span>
+
     </button>
   );
 }
@@ -1368,7 +1365,7 @@ function ManageBookings() {
                 count={counts.awaiting}
                 icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
-                accent="#9FB7C8"
+                accent="#4DA3FF"
                 bgPos="15% center"
                 footer="View bookings"
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
@@ -1379,7 +1376,7 @@ function ManageBookings() {
                 icon={<FileSignature size={30} strokeWidth={1.4} />}
                 action={counts.proposal > 0}
                 active={group === "proposal"}
-                accent="#D8B45C"
+                accent="#F5AE00"
                 bgPos="40% center"
                 footer="Review proposals"
                 onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
@@ -1389,7 +1386,7 @@ function ManageBookings() {
                 count={counts.confirmed}
                 icon={<Check size={30} strokeWidth={1.4} />}
                 active={group === "confirmed"}
-                accent="#87A98D"
+                accent="#6FCF97"
                 bgPos="65% center"
                 footer="View bookings"
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
@@ -1400,7 +1397,7 @@ function ManageBookings() {
                 icon={<BellRing size={28} strokeWidth={1.4} />}
                 active={group === "attention"}
                 action={needsAttention > 0}
-                accent={needsAttention > 0 ? "#D6A64B" : "#8C9AA6"}
+                accent={needsAttention > 0 ? "#FFB74D" : "#8C9AA6"}
                 bgPos="85% center"
                 footer="Review now"
                 onClick={() => setGroup(group === "attention" ? "all" : "attention")}
