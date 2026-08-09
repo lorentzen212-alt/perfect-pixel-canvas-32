@@ -961,6 +961,10 @@
 
 
 /* the card itself sits flush at the bottom of the cavity */
+/* Booking scope filter tabs — idle hover (no gold) */
+.hgb-scope-tab--idle:hover {
+  background-color: #e3e1dc !important;
+}
 .hgb-card-recess > * {
   position: relative;
   border-radius: 12px;
