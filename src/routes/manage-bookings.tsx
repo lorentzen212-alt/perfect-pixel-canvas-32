@@ -50,7 +50,7 @@ import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
 
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
-import workspaceStone from "@/assets/workspace-slate-stone.png.asset.json";
+import workspaceStone from "@/assets/workspace-gold-vein-stone.png.asset.json";
 
 
 
@@ -1375,7 +1375,7 @@ function ManageBookings() {
             <section
               className="relative isolate overflow-hidden rounded-[17px] p-[16px] sm:p-[18px]"
               style={{
-                backgroundColor: "#3B4048",
+                backgroundColor: "#232A33",
                 backgroundImage: `url(${workspaceStone.url})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
