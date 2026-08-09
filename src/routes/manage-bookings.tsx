@@ -49,6 +49,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-navy-glow.png.asset.json";
+import cardStone from "@/assets/card-stone-surface.png.asset.json";
 
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
@@ -703,8 +704,15 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     backgroundImage: [
       /* quiet architectural light so the coated navy reads dimensional, not flat */
       "radial-gradient(120% 110% at 10% 0%, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 32%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.14) 100%)",
+      /* readability veil above the material */
+      "linear-gradient(180deg, rgba(6,20,31,0.62) 0%, rgba(6,20,31,0.72) 100%)",
+      /* embedded stone material */
+      `url(${cardStone.url})`,
       "linear-gradient(158deg, #17222E 0%, #141E29 52%, #111A24 100%)",
     ].join(", "),
+    backgroundSize: "auto, auto, cover, auto",
+    backgroundPosition: "center, center, center, center",
+    backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat",
     border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
     borderRadius: 12,
