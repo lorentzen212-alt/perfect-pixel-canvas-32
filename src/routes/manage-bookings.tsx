@@ -1184,7 +1184,7 @@ function ManageBookings() {
             <img
               src={lobbyHeroAsset.url}
               alt=""
-              className="h-full w-full object-cover object-[center_58%] sm:object-[center_52%] lg:object-[center_46%]"
+              className="h-full w-full object-cover object-[center_58%] sm:object-[center_52%] lg:object-[center_50%]"
             />
             <div
               className="absolute inset-x-0 bottom-0 h-[125px]"
