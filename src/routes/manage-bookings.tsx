@@ -1192,7 +1192,7 @@ function ManageBookings() {
 
       <div className="hgb-rail-shift" style={{ ["--rail-w" as string]: `${railWidth}px` }}>
         <main
-          className="relative min-h-screen"
+          className="relative min-h-screen lg:pt-10"
           style={{
             backgroundColor: "#263440",
             backgroundImage:
@@ -1203,7 +1203,7 @@ function ManageBookings() {
           {/* lobby hero — wide landscape photograph fading into the dashboard */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[240px] sm:h-[300px] lg:h-[332px] overflow-hidden"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[240px] sm:h-[300px] lg:h-[372px] overflow-hidden"
           >
             <img
               src={lobbyHeroAsset.url}
