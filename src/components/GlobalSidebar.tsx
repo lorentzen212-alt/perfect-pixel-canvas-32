@@ -200,7 +200,7 @@ export function GlobalSidebar({
                 HGB
               </span>
               <span
-                className="whitespace-nowrap text-[19px] font-semibold tracking-[-0.01em]"
+                className="whitespace-nowrap text-[16.5px] font-semibold tracking-[-0.01em]"
                 style={{ color: "#FFFFFF" }}
               >
                 Hotel

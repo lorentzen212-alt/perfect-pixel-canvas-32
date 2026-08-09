@@ -1293,7 +1293,7 @@ function ManageBookings() {
 
 
             {/* stat tiles */}
-            <section className="mt-[0px] grid grid-cols-2 items-stretch gap-4 xl:grid-cols-4">
+            <section className="mt-[10px] grid grid-cols-2 items-stretch gap-4 xl:grid-cols-4">
               <StatTile
                 label="Awaiting response"
                 count={counts.awaiting}
