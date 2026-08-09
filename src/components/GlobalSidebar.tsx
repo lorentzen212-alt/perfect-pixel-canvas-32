@@ -218,21 +218,24 @@ export function GlobalSidebar({
 
 
 
-        {onToggle && (
-          <button
-            type="button"
-            onClick={onToggle}
-            aria-label={collapsed ? "Expand navigation" : "Collapse navigation"}
-            className="hgb-rail-toggle grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full"
-          >
-            {collapsed ? (
-              <ArrowRight size={15} strokeWidth={1.8} />
-            ) : (
-              <ArrowLeft size={15} strokeWidth={1.8} />
-            )}
-          </button>
-        )}
       </div>
+
+      {onToggle && (
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-label={collapsed ? "Expand navigation" : "Collapse navigation"}
+          className="hgb-edge-tab"
+        >
+          <span className="hgb-edge-tab-label">{collapsed ? "Open" : "Close"}</span>
+          {collapsed ? (
+            <ArrowRight size={15} strokeWidth={1.8} style={{ color: "#F5F7F8" }} />
+          ) : (
+            <ArrowLeft size={15} strokeWidth={1.8} style={{ color: "#F5F7F8" }} />
+          )}
+        </button>
+      )}
+
 
       <nav className="mt-10 space-y-1.5">
         {PRIMARY_NAV.map((item) =>
