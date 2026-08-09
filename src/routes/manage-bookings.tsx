@@ -1545,7 +1545,7 @@ function ManageBookings() {
             {/* stat tiles */}
             <section className="mt-[1px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
               <StatTile
-                label="Awaiting Response"
+                label="Awaiting response"
                 count={counts.awaiting}
                 icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
@@ -1555,7 +1555,7 @@ function ManageBookings() {
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
               />
               <StatTile
-                label="Proposal Ready"
+                label="Proposal ready"
                 count={counts.proposal}
                 icon={<FileSignature size={30} strokeWidth={1.4} />}
                 action={counts.proposal > 0}
@@ -1576,9 +1576,9 @@ function ManageBookings() {
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
               />
               <StatTile
-                label="Needs Attention"
+                label="Needs attention"
                 count={needsAttention}
-                icon={<BellRing size={28} strokeWidth={1.4} />}
+                icon={<BellRing size={30} strokeWidth={1.4} />}
                 active={group === "attention"}
                 action={needsAttention > 0}
                 accent={needsAttention > 0 ? "#B8C1CA" : "#8C9AA6"}
