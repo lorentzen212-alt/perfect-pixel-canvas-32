@@ -1470,15 +1470,16 @@ function ManageBookings() {
                       style={
                         on
                           ? {
-                              background:
-                                "linear-gradient(180deg, rgba(24,33,44,0.94) 0%, rgba(17,25,34,0.94) 100%)",
-                              border: "1px solid rgba(197,155,69,0.72)",
-                              color: "#E3C583",
+                              backgroundColor: "#2A3442",
+                              border: "1px solid rgba(255,255,255,0.10)",
+                              color: "#F2F3F3",
+                              boxShadow:
+                                "inset 0 1px 0 rgba(255,255,255,0.07), 0 2px 5px rgba(6,20,31,0.10)",
                             }
                           : {
-                              background: "rgba(255,255,255,0.42)",
-                              border: "1px solid rgba(110,106,96,0.20)",
-                              color: "#5B5A53",
+                              backgroundColor: "#EEEDE9",
+                              border: "1px solid rgba(15,22,32,0.09)",
+                              color: "#59616A",
                             }
                       }
                     >
