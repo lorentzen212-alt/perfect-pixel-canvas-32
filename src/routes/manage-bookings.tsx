@@ -1419,10 +1419,11 @@ function ManageBookings() {
                                 "inset 0 1px 0 rgba(255,255,255,0.08), 0 6px 14px -8px rgba(0,0,0,0.55)",
                             }
                           : {
-                              background: "rgba(255,255,255,0.42)",
-                              border: "1px solid rgba(110,106,96,0.20)",
-                              color: "#5B5A53",
+                              background: "rgba(214,221,228,0.88)",
+                              border: "1px solid rgba(255,255,255,0.16)",
+                              color: "#2B3138",
                             }
+
                       }
                     >
                       {label} ({n})
@@ -1436,16 +1437,17 @@ function ManageBookings() {
                 <div
                   className="relative flex flex-1 basis-[200px] items-center rounded-[11px]"
                   style={{
-                    background: "rgba(255,255,255,0.52)",
-                    border: "1px solid rgba(110,106,96,0.20)",
-                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+                    background: "rgba(216,222,228,0.92)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.10)",
                   }}
                 >
                   <Search
                     size={17}
                     strokeWidth={1.9}
                     className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
-                    style={{ color: "#7B786C" }}
+                    style={{ color: "#4A525B" }}
+
                   />
                   <input
                     ref={searchRef}
