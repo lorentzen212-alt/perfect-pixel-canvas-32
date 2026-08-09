@@ -206,10 +206,10 @@ function primaryAction(b: Booking) {
 }
 
 const TRACK_STEPS = [
-  { key: "received", label: "Request\nreceived", icon: Mail },
-  { key: "sourcing", label: "Hotels\nsourcing", icon: Search },
-  { key: "proposal", label: "Proposal\nready", icon: ClipboardList },
-  { key: "confirmed", label: "Confirmed", icon: Check },
+  { key: "sent", label: "Request Sent", icon: Send },
+  { key: "waiting", label: "Waiting for Hotel", icon: Building2 },
+  { key: "proposal", label: "Proposal Ready", icon: FileText },
+  { key: "confirmed", label: "Confirmed", icon: BadgeCheck },
 ] as const;
 
 function trackIndex(status: BookingStatus) {
