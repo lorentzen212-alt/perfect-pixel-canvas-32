@@ -50,6 +50,8 @@ import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
 
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
+import workspaceStone from "@/assets/workspace-charcoal-stone.png.asset.json";
+
 
 
 import {
@@ -921,8 +923,8 @@ function Select<T extends string>({
     <div
       className="group relative flex-1 rounded-[11px]"
       style={{
-        background: "rgba(255,255,255,0.42)",
-        border: "1px solid rgba(110,106,96,0.20)",
+        background: "rgba(216,222,228,0.90)",
+        border: "1px solid rgba(255,255,255,0.16)",
       }}
     >
       <select
@@ -930,7 +932,7 @@ function Select<T extends string>({
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
         className="w-full cursor-pointer appearance-none bg-transparent py-[10px] pl-4 pr-10 text-left text-[13.5px] outline-none"
-        style={{ color: "#3B3B34", letterSpacing: "0.005em" }}
+        style={{ color: "#242A31", letterSpacing: "0.005em" }}
       >
         {options.map((o) => (
           <option key={o.value} value={o.value} style={{ backgroundColor: "#FBF9F4", color: "#2C3038" }}>
@@ -942,8 +944,9 @@ function Select<T extends string>({
         size={17}
         strokeWidth={1.8}
         className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
-        style={{ color: "#6B6858" }}
+        style={{ color: "#4A525B" }}
       />
+
     </div>
   );
 
