@@ -50,6 +50,8 @@ import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
 
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
+import workspaceStone from "@/assets/workspace-charcoal-stone.png.asset.json";
+
 
 
 import {
@@ -921,8 +923,8 @@ function Select<T extends string>({
     <div
       className="group relative flex-1 rounded-[11px]"
       style={{
-        background: "rgba(255,255,255,0.42)",
-        border: "1px solid rgba(110,106,96,0.20)",
+        background: "rgba(216,222,228,0.90)",
+        border: "1px solid rgba(255,255,255,0.16)",
       }}
     >
       <select
@@ -930,7 +932,7 @@ function Select<T extends string>({
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
         className="w-full cursor-pointer appearance-none bg-transparent py-[10px] pl-4 pr-10 text-left text-[13.5px] outline-none"
-        style={{ color: "#3B3B34", letterSpacing: "0.005em" }}
+        style={{ color: "#242A31", letterSpacing: "0.005em" }}
       >
         {options.map((o) => (
           <option key={o.value} value={o.value} style={{ backgroundColor: "#FBF9F4", color: "#2C3038" }}>
@@ -942,8 +944,9 @@ function Select<T extends string>({
         size={17}
         strokeWidth={1.8}
         className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
-        style={{ color: "#6B6858" }}
+        style={{ color: "#4A525B" }}
       />
+
     </div>
   );
 
@@ -1370,16 +1373,19 @@ function ManageBookings() {
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className="relative isolate overflow-hidden rounded-[16px] p-[16px] sm:p-[18px]"
+              className="relative isolate overflow-hidden rounded-[17px] p-[16px] sm:p-[18px]"
               style={{
-                backgroundColor: "#d3d5d5",
-                backgroundImage:
-                  "linear-gradient(180deg, #e3e2dd 0%, #dcdbd6 42%, #d3d5d5 100%)",
-                border: "1px solid rgba(255,255,255,0.34)",
+                backgroundColor: "#3A3F45",
+                backgroundImage: `url(${workspaceStone.url})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                border: "1px solid rgba(255,255,255,0.07)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255, 255, 255, 0.62), inset 0 -1px 0 rgba(0, 0, 0, 0.06)",
+                  "inset 0 1px 0 rgba(255,255,255,0.13), inset 0 -1px 0 rgba(0,0,0,0.36), inset -1px 0 0 rgba(0,0,0,0.20), 0 18px 40px -26px rgba(0,0,0,0.55)",
               }}
             >
+
 
               {/* booking category switcher */}
               <div className="mb-[10px] flex flex-wrap items-center gap-2">
@@ -1413,10 +1419,11 @@ function ManageBookings() {
                                 "inset 0 1px 0 rgba(255,255,255,0.08), 0 6px 14px -8px rgba(0,0,0,0.55)",
                             }
                           : {
-                              background: "rgba(255,255,255,0.42)",
-                              border: "1px solid rgba(110,106,96,0.20)",
-                              color: "#5B5A53",
+                              background: "rgba(214,221,228,0.88)",
+                              border: "1px solid rgba(255,255,255,0.16)",
+                              color: "#2B3138",
                             }
+
                       }
                     >
                       {label} ({n})
@@ -1430,16 +1437,17 @@ function ManageBookings() {
                 <div
                   className="relative flex flex-1 basis-[200px] items-center rounded-[11px]"
                   style={{
-                    background: "rgba(255,255,255,0.52)",
-                    border: "1px solid rgba(110,106,96,0.20)",
-                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+                    background: "rgba(216,222,228,0.92)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.10)",
                   }}
                 >
                   <Search
                     size={17}
                     strokeWidth={1.9}
                     className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
-                    style={{ color: "#7B786C" }}
+                    style={{ color: "#4A525B" }}
+
                   />
                   <input
                     ref={searchRef}
@@ -1454,10 +1462,11 @@ function ManageBookings() {
                     aria-hidden
                     className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded-[6px] px-[7px] py-[2px] text-[11px] tracking-[0.04em]"
                     style={{
-                      color: "#6B6858",
-                      border: "1px solid rgba(110,106,96,0.24)",
+                      color: "#4A525B",
+                      border: "1px solid rgba(74,82,91,0.24)",
                       background: "rgba(255,255,255,0.55)",
                     }}
+
                   >
                     ⌘K
                   </span>
@@ -1521,10 +1530,11 @@ function ManageBookings() {
                     }}
                     className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px]"
                     style={{
-                      background: "rgba(255,255,255,0.42)",
-                      border: "1px solid rgba(110,106,96,0.20)",
-                      color: "#6B6858",
+                      background: "rgba(214,221,228,0.88)",
+                      border: "1px solid rgba(255,255,255,0.16)",
+                      color: "#3A424B",
                     }}
+
                   >
                     <SlidersHorizontal size={17} strokeWidth={1.9} />
                   </button>
@@ -1542,7 +1552,7 @@ function ManageBookings() {
                   <BookingCard key={b.id} booking={b} compact={view === "grid"} />
                 ))}
                 {results.length === 0 && (
-                  <p className="py-12 text-center text-[13.5px]" style={{ color: "#6B6858" }}>
+                  <p className="py-12 text-center text-[13.5px]" style={{ color: "#C3C8CD" }}>
                     {isLoading
                       ? "Loading your bookings…"
                       : bookings.length === 0
@@ -1553,15 +1563,16 @@ function ManageBookings() {
               </div>
 
               <footer className="mt-5 flex flex-wrap items-center justify-between gap-3">
-                <p className="text-[12.5px]" style={{ color: "#6B6858" }}>
+                <p className="text-[12.5px]" style={{ color: "#C3C8CD" }}>
                   Can&rsquo;t find a booking?{" "}
-                  <Link to="/account" style={{ color: "#8A6A24" }}>
+                  <Link to="/account" style={{ color: "#E3C583" }}>
                     Contact us →
                   </Link>
                 </p>
-                <span className="text-[12.5px]" style={{ color: "#6B6858" }}>
+                <span className="text-[12.5px]" style={{ color: "#C3C8CD" }}>
                   Showing {results.length} of {bookings.length}
                 </span>
+
               </footer>
             </section>
             </div>
