@@ -810,18 +810,6 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 /* ── stat tiles ──────────────────────────────────────── */
 
-/* one KPI seat: the card plus a single flared connector bridging it down to the workspace */
-function KpiSlot({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="hgb-kpi-slot flex">
-      {children}
-      <span className="hgb-kpi-connector" aria-hidden />
-    </div>
-  );
-}
-
-
-
 function StatTile({
   label,
   count,
@@ -847,12 +835,13 @@ function StatTile({
       className="relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
         background:
-          "linear-gradient(155deg, #263545 0%, #1D2A38 48%, #15212D 100%)",
-        border: `1px solid ${active || action ? "rgba(194,154,72,0.70)" : "rgba(194,154,72,0.34)"}`,
+          "linear-gradient(180deg, rgba(43,55,70,0.94) 0%, rgba(30,40,52,0.94) 100%)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.10)"}`,
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.05), 0 6px 14px -6px rgba(4,8,13,0.65)",
+          "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 48px -20px rgba(4,8,13,0.72)",
       }}
-
     >
       {action && (
         <span
@@ -1342,57 +1331,45 @@ function ManageBookings() {
             </header>
 
 
-            {/* KPI stone wall — cards seated on the counter ledge */}
-            <section className="hgb-kpi-wall mt-[16px] flex min-h-[110px] flex-col justify-end px-4 pb-[30px] sm:px-6 xl:mt-[82px] xl:min-h-0">
-              
-              <div className="relative z-[3] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:-mt-[68px] xl:grid-cols-4 xl:gap-6">
-                <KpiSlot>
-                  <StatTile
-                    label="Awaiting response"
-                    count={counts.awaiting}
-                    icon={<Hourglass size={30} strokeWidth={1.4} />}
-                    active={group === "awaiting"}
-                    footer="View bookings"
-                    onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
-                  />
-                </KpiSlot>
-                <KpiSlot>
-                  <StatTile
-                    label="Proposal ready"
-                    count={counts.proposal}
-                    icon={<FileSignature size={30} strokeWidth={1.4} />}
-                    action
-                    active={group === "proposal"}
-                    footer="Review proposals"
-                    onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
-                  />
-                </KpiSlot>
-                <KpiSlot>
-                  <StatTile
-                    label="Confirmed"
-                    count={counts.confirmed}
-                    icon={<Check size={30} strokeWidth={1.4} />}
-                    active={group === "confirmed"}
-                    footer="View bookings"
-                    onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
-                  />
-                </KpiSlot>
-                <KpiSlot>
-                  <StatTile
-                    label="Total bookings"
-                    count={bookings.length}
-                    icon={<Briefcase size={30} strokeWidth={1.4} />}
-                    active={group === "all" && scope === "all"}
-                    footer="View all"
-                    onClick={() => {
-                      setGroup("all");
-                      setScope("all");
-                    }}
-                  />
-                </KpiSlot>
-              </div>
+            {/* stat tiles */}
+            <section className="mt-[8px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
+              <StatTile
+                label="Awaiting response"
+                count={counts.awaiting}
+                icon={<Hourglass size={30} strokeWidth={1.4} />}
+                active={group === "awaiting"}
+                footer="View bookings"
+                onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
+              />
+              <StatTile
+                label="Proposal ready"
+                count={counts.proposal}
+                icon={<FileSignature size={30} strokeWidth={1.4} />}
+                action
+                active={group === "proposal"}
+                footer="Review proposals"
+                onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
+              />
+              <StatTile
+                label="Confirmed"
+                count={counts.confirmed}
+                icon={<Check size={30} strokeWidth={1.4} />}
+                active={group === "confirmed"}
+                footer="View bookings"
+                onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
+              />
+              <StatTile
+                label="Total bookings"
+                count={bookings.length}
+                icon={<Briefcase size={30} strokeWidth={1.4} />}
+                active={group === "all" && scope === "all"}
+                footer="View all"
+                onClick={() => {
+                  setGroup("all");
+                  setScope("all");
+                }}
+              />
             </section>
-
 
 
 
@@ -1432,7 +1409,7 @@ function ManageBookings() {
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className="hgb-stone-surface relative isolate mt-[6px] overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
+              className="hgb-stone-surface relative isolate mt-[18px] overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
               style={{
                 border: "1px solid rgba(120,116,104,0.22)",
                 boxShadow:
