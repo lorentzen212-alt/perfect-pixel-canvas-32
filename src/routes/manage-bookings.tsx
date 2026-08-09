@@ -1532,13 +1532,13 @@ function ManageBookings() {
 
 
             {/* stat tiles */}
-            <section className="mt-[8px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
+            <section className="mt-[1px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
               <StatTile
                 label="Awaiting Response"
                 count={counts.awaiting}
                 icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
-                accent="#4DA3FF"
+                accent="#58AFFF"
                 bgPos="15% center"
                 footer="View bookings"
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
@@ -1549,7 +1549,7 @@ function ManageBookings() {
                 icon={<FileSignature size={30} strokeWidth={1.4} />}
                 action={counts.proposal > 0}
                 active={group === "proposal"}
-                accent="#F5AE00"
+                accent="#F2B632"
                 bgPos="40% center"
                 footer="Review proposals"
                 onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
@@ -1559,7 +1559,7 @@ function ManageBookings() {
                 count={counts.confirmed}
                 icon={<Check size={30} strokeWidth={1.4} />}
                 active={group === "confirmed"}
-                accent="#6FCF97"
+                accent="#7DD59B"
                 bgPos="65% center"
                 footer="View bookings"
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
@@ -1570,7 +1570,7 @@ function ManageBookings() {
                 icon={<BellRing size={28} strokeWidth={1.4} />}
                 active={group === "attention"}
                 action={needsAttention > 0}
-                accent={needsAttention > 0 ? "#FFB74D" : "#8C9AA6"}
+                accent={needsAttention > 0 ? "#B8C1CA" : "#8C9AA6"}
                 bgPos="85% center"
                 footer="Review now"
                 onClick={() => setGroup(group === "attention" ? "all" : "attention")}
