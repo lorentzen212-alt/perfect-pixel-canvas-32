@@ -8,7 +8,7 @@ import {
   Info,
   Mail,
 } from "lucide-react";
-import logoAsset from "@/assets/hotelgroupbook-logo.png.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
 import { useAuth } from "@/lib/auth";
 
 const NAVY = "#08131F";
