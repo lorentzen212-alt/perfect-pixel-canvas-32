@@ -931,6 +931,47 @@ function Select<T extends string>({
 
 }
 
+function FilterSelect<T extends string>({
+  value,
+  onChange,
+  options,
+  label,
+}: {
+  value: T;
+  onChange: (v: T) => void;
+  options: { value: T; label: string }[];
+  label: string;
+}) {
+  return (
+    <div
+      className="group relative flex min-w-0 flex-1 items-center rounded-[11px] md:w-[168px] md:flex-none"
+      style={{ background: "rgba(255,255,255,0.42)", border: "1px solid rgba(110,106,96,0.20)" }}
+    >
+      <select
+        aria-label={label}
+        value={value}
+        onChange={(e) => onChange(e.target.value as T)}
+        className="w-full cursor-pointer appearance-none bg-transparent py-[12px] pl-4 pr-10 text-left text-[14px] outline-none"
+        style={{ color: "#3B3B34", letterSpacing: "0.005em" }}
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value} style={{ backgroundColor: "#FBF9F4", color: "#2C3038" }}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+      <ChevronDown
+        size={17}
+        strokeWidth={1.8}
+        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+        style={{ color: "#6B6858" }}
+      />
+    </div>
+  );
+}
+
+
+
 
 /* ── page ────────────────────────────────────────────── */
 
