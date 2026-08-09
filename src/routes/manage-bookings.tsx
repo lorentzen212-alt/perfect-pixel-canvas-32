@@ -1334,7 +1334,7 @@ function ManageBookings() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#05101A",
+        backgroundColor: "#06141F",
         backgroundImage: "none",
         fontFamily: SANS,
       }}
