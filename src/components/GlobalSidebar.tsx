@@ -66,15 +66,11 @@ export function GlobalSidebar({
   ) => {
     const isActive = item.label === active;
     const style: React.CSSProperties = {
-      background: isActive
-        ? "linear-gradient(180deg, #F6F3EC 0%, #EBE7DD 100%)"
-        : "transparent",
-      color: isActive ? "#17293A" : "rgba(255,255,255,0.90)",
+      background: isActive ? "rgba(255,255,255,0.16)" : "transparent",
+      color: "rgba(255,255,255,0.90)",
       fontWeight: isActive ? 600 : 400,
-      boxShadow: isActive
-        ? "0 10px 22px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.9)"
-        : "none",
-      border: `1px solid ${isActive ? "rgba(201,180,137,0.55)" : "transparent"}`,
+      boxShadow: isActive ? "0 8px 18px rgba(0,0,0,0.12)" : "none",
+      border: `1px solid ${isActive ? "rgba(255,255,255,0.12)" : "transparent"}`,
       borderRadius: 14,
       padding: collapsed ? "9px 0" : isActive ? "8px 16px" : "9px 16px",
       justifyContent: collapsed ? "center" : "flex-start",
