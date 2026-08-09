@@ -42,6 +42,10 @@ import {
   ArrowRight,
   ArrowLeft,
   FileSignature,
+  Building2,
+  FileText,
+  Send,
+  BadgeCheck,
 } from "lucide-react";
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-navy-glow.png.asset.json";
@@ -202,10 +206,10 @@ function primaryAction(b: Booking) {
 }
 
 const TRACK_STEPS = [
-  { key: "received", label: "Request\nreceived", icon: Mail },
-  { key: "sourcing", label: "Hotels\nsourcing", icon: Search },
-  { key: "proposal", label: "Proposal\nready", icon: ClipboardList },
-  { key: "confirmed", label: "Confirmed", icon: Check },
+  { key: "sent", label: "Request Sent", icon: Send },
+  { key: "waiting", label: "Waiting for Hotel", icon: Building2 },
+  { key: "proposal", label: "Proposal Ready", icon: FileText },
+  { key: "confirmed", label: "Confirmed", icon: BadgeCheck },
 ] as const;
 
 function trackIndex(status: BookingStatus) {
@@ -243,62 +247,64 @@ function Timeline({ booking }: { booking: Booking }) {
 
   return (
     <div className="relative grid grid-cols-4 gap-1">
+      {/* base rail */}
       <div
-        className="absolute left-[12.5%] right-[12.5%] top-[14px]"
-        style={{ height: "0.5px", backgroundColor: "rgba(255,255,255,0.054)" }}
+        className="absolute left-[12.5%] right-[12.5%] top-[13px] sm:top-[14px]"
+        style={{ height: "1px", backgroundColor: "rgba(138,158,180,0.18)" }}
         aria-hidden
       />
-      <div
-        className="absolute left-[12.5%] top-[14px]"
-        style={{
-          height: "0.5px",
-          width: `${(active / 3) * 75}%`,
-          background: `linear-gradient(90deg, rgba(216,197,142,0.16) 0%, rgba(216,197,142,0.62) 35%, rgba(226,201,132,0.80) 70%, rgba(235,215,162,0.88) 100%)`,
-        }}
-        aria-hidden
-      />
+      {/* completed rail (muted gold), segment-precise */}
+      {active > 0 && (
+        <div
+          className="absolute left-[12.5%] top-[13px] sm:top-[14px]"
+          style={{
+            height: "1px",
+            width: `${(active / 3) * 75}%`,
+            background:
+              "linear-gradient(90deg, rgba(198,178,126,0.42) 0%, rgba(210,190,138,0.55) 60%, rgba(216,197,142,0.68) 100%)",
+          }}
+          aria-hidden
+        />
+      )}
       {TRACK_STEPS.map((s, i) => {
         const done = i < active;
         const current = i === active;
+        const Icon = done ? Check : s.icon;
         return (
           <div key={s.key} className="relative flex flex-col items-center gap-[5px]">
             <span
-              className="relative grid h-[28px] w-[28px] place-items-center rounded-full"
+              className="relative grid h-[24px] w-[24px] place-items-center rounded-full sm:h-[27px] sm:w-[27px]"
               style={{
                 background: current
-                  ? "radial-gradient(80% 80% at 50% 28%, rgba(245,220,158,0.17) 0%, rgba(13,20,32,0.96) 100%)"
+                  ? "radial-gradient(80% 80% at 50% 28%, rgba(245,220,158,0.15) 0%, rgba(13,20,32,0.97) 100%)"
                   : "linear-gradient(180deg, rgba(20,28,40,0.96) 0%, rgba(13,20,32,0.96) 100%)",
                 border: `1px solid ${
                   current
-                    ? "rgba(216,197,142,0.85)"
+                    ? "rgba(226,206,150,0.92)"
                     : done
-                      ? "rgba(236,231,221,0.30)"
-                      : "rgba(168,182,199,0.28)"
+                      ? "rgba(198,178,126,0.45)"
+                      : "rgba(138,158,180,0.30)"
                 }`,
-                color: current ? CHAMPAGNE : done ? IVORY : "#A9B7C6",
+                color: current ? CHAMPAGNE : done ? "rgba(206,186,134,0.88)" : "#8FA0B3",
                 boxShadow: current
-                  ? "0 0 6px rgba(216,197,142,0.26), inset 0 1px 0 rgba(255,246,220,0.14), inset 0 -2px 5px rgba(0,0,0,0.42)"
-                  : "inset 0 1px 0 rgba(255,255,255,0.045), inset 0 -2px 5px rgba(0,0,0,0.35)",
+                  ? "0 0 7px rgba(216,197,142,0.22), inset 0 1px 0 rgba(255,246,220,0.13), inset 0 -2px 5px rgba(0,0,0,0.42)"
+                  : "inset 0 1px 0 rgba(255,255,255,0.04), inset 0 -2px 5px rgba(0,0,0,0.35)",
               }}
             >
-              <s.icon size={14} strokeWidth={1.65} />
+              <Icon size={13} strokeWidth={1.6} />
             </span>
             <span
-              className={`whitespace-pre-line text-center text-[12px] font-light leading-[1.25] tracking-[0.01em]${
+              className={`text-center text-[10.5px] font-light leading-[1.25] tracking-[0.01em] sm:text-[11.5px]${
                 current ? " hgb-champagne-metal" : ""
               }`}
-              style={current ? undefined : { color: done ? IVORY : "#A9B7C6" }}
+              style={current ? undefined : { color: done ? "rgba(203,186,146,0.82)" : "#8FA0B3" }}
             >
               {s.label}
             </span>
           </div>
-
         );
       })}
     </div>
-
-
-
   );
 }
 
