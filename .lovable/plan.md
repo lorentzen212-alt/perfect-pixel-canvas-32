@@ -35,5 +35,8 @@ The photograph spans roughly the right 70–75% of the hero width and still domi
 ## Technical notes
 
 - File touched: `src/routes/manage-bookings.tsx` only (hero container, image element, gradient layers, page background token, KPI row offset).
-- Responsive `object-position` handled with breakpoint classes rather than one fixed value.
+- The hero image is an absolutely positioned visual layer, not a cover background: `position: absolute; right: <tuned>; top: 50%; transform: translateY(-50%); height: ~280% of the hero; width: auto; max-width: none`. Aspect ratio is preserved, the image may extend past the right edge, and its rendered scale is controlled explicitly. Height and right offset are tuned per breakpoint (smaller scale on tablet/mobile so the receptionist is never cropped).
+- Vertical centring at that scale lands the visible band on roughly 40–73% of the source frame: mountain base, lake, window frame, lamp, vase, full head with space above it, face and upper torso, laptop, and a substantial run of the reception desk — all visible at once on desktop, with comfortable breathing room between the receptionist and the right edge.
+- Navy space on the left is intentional and is not removed by scaling the image up.
 - Hero image asset stays `manage-hero-concierge.png`; no new assets.
+
