@@ -848,13 +848,12 @@ function StatTile({
       className="relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
         background:
-          "linear-gradient(180deg, rgba(43,55,70,0.94) 0%, rgba(30,40,52,0.94) 100%)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.10)"}`,
+          "linear-gradient(155deg, #263545 0%, #1D2A38 48%, #15212D 100%)",
+        border: `1px solid ${active || action ? "rgba(194,154,72,0.70)" : "rgba(194,154,72,0.34)"}`,
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 48px -20px rgba(4,8,13,0.72)",
+          "inset 0 1px 0 rgba(255,255,255,0.05), 0 6px 14px -6px rgba(4,8,13,0.65)",
       }}
+
     >
       {action && (
         <span
