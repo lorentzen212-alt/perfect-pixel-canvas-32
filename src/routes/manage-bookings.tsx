@@ -1177,7 +1177,7 @@ function ManageBookings() {
           {/* lobby hero — wide landscape photograph fading into the dashboard */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[300px] sm:h-[350px] lg:h-[390px] overflow-hidden"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[240px] sm:h-[300px] lg:h-[332px] overflow-hidden"
           >
             <img
               src={lobbyHeroAsset.url}
@@ -1224,7 +1224,7 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[120px] flex items-start justify-between gap-6 sm:mt-[160px] lg:mt-[175px]">
+            <header className="mt-[96px] flex items-start justify-between gap-6 sm:mt-[137px] lg:mt-[149px]">
               <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
                 <h1
                   className="text-[34px] leading-[1.04] sm:text-[44px]"
