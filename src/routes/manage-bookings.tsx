@@ -691,19 +691,14 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       style={{
         width: "var(--insert-w)",
         height: "100%",
-        backgroundImage: [
-          /* cross-section shading so the band reads as a solid machined insert */
-          "linear-gradient(90deg, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.04) 16%, rgba(255,255,255,0.06) 42%, rgba(255,255,255,0.04) 66%, rgba(0,0,0,0.08) 88%, rgba(0,0,0,0.30) 100%)",
-          /* deep champagne metal */
-          "linear-gradient(180deg, #7A5518 0%, #B47E28 25%, #D9B45C 48%, #B27B25 72%, #684515 100%)",
-        ].join(", "),
-        backgroundRepeat: "no-repeat, no-repeat",
-        backgroundPosition: "left top, left top",
-        backgroundSize: "100% 100%, 100% 100%",
-        backgroundBlendMode: "soft-light, normal",
+        background:
+          "linear-gradient(90deg, #B88E43 0%, #C8A55A 18%, #E2C984 38%, #F3E2AF 50%, #E2C984 62%, #C8A55A 82%, #B88E43 100%)",
+        boxShadow: "inset -1px 0 0 rgba(255,245,210,0.30)",
+        borderRadius: "10px 0 0 10px",
       }}
     />
   );
+
 
   const shell = {
     backgroundImage: [
