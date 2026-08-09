@@ -828,21 +828,25 @@ function StatTile({
   onClick: () => void;
 }) {
   return (
+    <div className="relative">
+      {/* champagne-gold mounting slot — metal hardware set into the stone */}
+      <span
+        aria-hidden
+        className="hgb-kpi-slot pointer-events-none absolute -left-[10px] -right-[10px] bottom-[-9px] z-0 h-[12px] rounded-b-[7px]"
+      />
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
+      className="relative z-[1] flex w-full flex-col justify-between overflow-hidden rounded-[13px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
-        background:
-          "linear-gradient(180deg, rgba(43,55,70,0.94) 0%, rgba(30,40,52,0.94) 100%)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.10)"}`,
+        background: "linear-gradient(155deg, #263545 0%, #1D2A38 45%, #15212D 100%)",
+        border: `1px solid ${active || action ? "rgba(226,190,110,0.85)" : "rgba(197,162,75,0.75)"}`,
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 48px -20px rgba(4,8,13,0.72)",
+          "0 10px 24px rgba(0,0,0,0.28), 0 2px 5px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.05)",
       }}
     >
+
       {action && (
         <span
           className="absolute right-[14px] top-[13px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[10.5px] font-medium uppercase tracking-[0.10em]"
