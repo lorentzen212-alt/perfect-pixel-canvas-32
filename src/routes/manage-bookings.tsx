@@ -50,7 +50,7 @@ import keyAsset from "@/assets/status-confirmed-key.png.asset.json";
 import mountains from "@/assets/dashboard-mountains.jpg";
 
 import cardStoneTexture from "@/assets/card-stone-texture.png.asset.json";
-import workspaceStone from "@/assets/workspace-navy-paper-stone.jpg.asset.json";
+import workspaceStone from "@/assets/workspace-burnt-timber.jpg.asset.json";
 
 
 
