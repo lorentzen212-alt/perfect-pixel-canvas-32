@@ -306,10 +306,6 @@ function Timeline({ booking }: { booking: Booking }) {
       })}
     </div>
   );
-
-
-
-  );
 }
 
 function TypeChip({ type }: { type: Booking["type"] }) {
