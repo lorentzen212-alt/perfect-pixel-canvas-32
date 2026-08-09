@@ -1462,10 +1462,11 @@ function ManageBookings() {
                     aria-hidden
                     className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded-[6px] px-[7px] py-[2px] text-[11px] tracking-[0.04em]"
                     style={{
-                      color: "#6B6858",
-                      border: "1px solid rgba(110,106,96,0.24)",
+                      color: "#4A525B",
+                      border: "1px solid rgba(74,82,91,0.24)",
                       background: "rgba(255,255,255,0.55)",
                     }}
+
                   >
                     ⌘K
                   </span>
