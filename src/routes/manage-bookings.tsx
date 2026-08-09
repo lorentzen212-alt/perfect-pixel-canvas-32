@@ -682,33 +682,22 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     </>
   );
 
-  /* the metallic gold strip is its own element inside the card, so it moves
-     with the card into the machined pocket and is clipped by the card radius */
-  const goldStrip = (
-    <span
-      aria-hidden
-      className="pointer-events-none absolute left-0 top-0 bottom-0 z-[2]"
-      style={{
-        width: "var(--insert-w)",
-        height: "100%",
-        background:
-          "linear-gradient(90deg, #B88E43 0%, #C8A55A 18%, #E2C984 38%, #F3E2AF 50%, #E2C984 62%, #C8A55A 82%, #B88E43 100%)",
-        boxShadow: "inset -1px 0 0 rgba(255,245,210,0.30)",
-        borderRadius: "10px 0 0 10px",
-      }}
-    />
-  );
-
+  /* the gold is the card background on the far left — not a separate element:
+     no inner line, no shadow, no strip. Rounded on the outer edge only. */
+  const goldStrip = null;
 
   const shell = {
     backgroundImage: [
       /* quiet architectural light so the coated navy reads dimensional, not flat */
       "radial-gradient(120% 110% at 10% 0%, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 32%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.14) 100%)",
       "linear-gradient(158deg, #17222E 0%, #141E29 52%, #111A24 100%)",
+      /* far-left champagne metal — same surface as the card */
+      "linear-gradient(90deg, #B88E43 0%, #C8A55A 18%, #E2C984 38%, #F3E2AF 50%, #E2C984 62%, #C8A55A 82%, #B88E43 100%)",
     ].join(", "),
-    backgroundRepeat: "no-repeat, no-repeat",
-    backgroundPosition: "var(--insert-w) top, left top",
-    backgroundSize: "calc(100% - var(--insert-w)) 100%, 100% 100%",
+    backgroundRepeat: "no-repeat, no-repeat, no-repeat",
+    backgroundPosition: "var(--insert-w) top, var(--insert-w) top, left top",
+    backgroundSize:
+      "calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%, var(--insert-w) 100%",
 
     border: "1px solid rgba(255,255,255,0.09)",
     borderLeft: "none",
@@ -717,6 +706,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     boxShadow:
       "0 5px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04)",
   } as const;
+
 
 
 
