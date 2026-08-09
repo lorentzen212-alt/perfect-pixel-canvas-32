@@ -1069,39 +1069,37 @@
     radial-gradient(70% 120% at 30% 20%, rgba(255,255,255,0.030) 0%, rgba(255,255,255,0) 70%),
     radial-gradient(60% 110% at 78% 70%, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0) 70%);
 }
-/* light marble ledge the cards physically rest on */
-.hgb-kpi-ledge {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 44px;
-  border-radius: 0 0 4px 4px;
-  background: linear-gradient(180deg, #EFEDE8 0%, #E7E5DF 55%, #DCD9D2 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.75),
-    0 -6px 14px rgba(0,0,0,0.35);
-}
-
 .hgb-kpi-slot {
   position: relative;
   z-index: 3;
 }
-/* brass flared feet anchoring each card onto the marble ledge */
-.hgb-kpi-foot {
+/* single flared marble-and-gold connector bridging each card down into the workspace below */
+.hgb-kpi-connector {
   position: absolute;
-  bottom: -12px;
-  width: 26px;
-  height: 13px;
-  z-index: 2;
-  background: linear-gradient(180deg, #E4C583 0%, #C29A48 42%, #8A6524 100%);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.45);
+  left: 12%;
+  right: 12%;
+  bottom: -22px;
+  height: 34px;
+  z-index: 1;
+  clip-path: polygon(16% 0%, 84% 0%, 100% 100%, 0% 100%);
+  background: linear-gradient(180deg, #F2F0EB 0%, #E7E5DF 55%, #DCD9D2 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.75),
+    0 6px 14px rgba(0,0,0,0.30);
 }
-.hgb-kpi-foot--l {
-  left: 6px;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 22% 100%);
-}
-.hgb-kpi-foot--r {
-  right: 6px;
-  clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
+.hgb-kpi-connector::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(211,168,78,0.55),
+    rgba(238,204,126,0.85),
+    rgba(211,168,78,0.55),
+    transparent
+  );
 }
