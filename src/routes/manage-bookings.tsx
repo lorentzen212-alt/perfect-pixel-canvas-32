@@ -1441,17 +1441,39 @@ function ManageBookings() {
 
             {/* hero header */}
             <header className="mt-[96px] flex items-start justify-between gap-6 sm:mt-[137px] lg:mt-[149px]">
-              <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
+              <div
+                className="relative min-w-0"
+                style={{ position: "relative", top: -20, left: 28, textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
+              >
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute"
+                  style={{
+                    left: -40,
+                    right: -80,
+                    top: -34,
+                    bottom: -26,
+                    background:
+                      "linear-gradient(90deg, rgba(6,20,31,0.60) 0%, rgba(6,20,31,0.30) 45%, rgba(6,20,31,0) 100%)",
+                    filter: "blur(6px)",
+                  }}
+                />
+                <span
+                  aria-hidden
+                  className="relative block"
+                  style={{ width: 44, height: 2, background: "#C5A24B", marginBottom: 14 }}
+                />
                 <h1
-                  className="text-[34px] leading-[1.04] sm:text-[44px]"
+                  className="relative text-[34px] leading-[1.1] sm:text-[45px]"
                   style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
                 >
                   Welcome, {firstName.charAt(0).toUpperCase() + firstName.slice(1)}
                 </h1>
-                <p className="mt-1.5 text-[14px]" style={{ color: "#E7EDF3" }}>
+                <p className="relative mt-1.5 text-[16px]" style={{ color: "rgba(255,255,255,0.85)" }}>
                   Your groups, stays and next steps — all in one place.
                 </p>
               </div>
+
 
 
 
