@@ -532,14 +532,17 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     <>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <TypeChip type={booking.type} />
+          <span className="block" style={{ position: "relative", top: -5 }}>
+            <TypeChip type={booking.type} />
+          </span>
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
             className="mt-[5px] block transition-opacity hover:opacity-85"
+            style={{ position: "relative", top: -3, marginBottom: -2 }}
           >
             <h3
-              className="text-[26px] leading-[1.05] tracking-[0.002em]"
+              className="text-[28px] leading-[1.05] tracking-[0.002em]"
               style={{ color: PEARL, fontFamily: SERIF, fontWeight: 500 }}
             >
               {booking.name}
