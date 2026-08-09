@@ -957,9 +957,9 @@
     inset 0 -3px 7px -3px rgba(0, 0, 0, 0.22),
     /* thin lip catching light on the top surface of the plate */
     0 1px 0 rgba(255, 255, 255, 0.045),
-    /* floating effect — soft diffuse drop shadow lifting the card ~4px above the stone plate */
-    0 4px 10px rgba(20, 24, 30, 0.30),
-    0 14px 26px -10px rgba(20, 24, 30, 0.38);
+    /* floating effect — soft diffuse drop shadow lifting the card ~4px above the light stone plate */
+    0 4px 10px rgba(20, 24, 30, 0.35),
+    0 16px 30px -10px rgba(20, 24, 30, 0.45);
 }
 
 /* smooth inner wall gradient so the surface reads as stepping down */
