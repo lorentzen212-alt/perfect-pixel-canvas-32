@@ -1429,7 +1429,7 @@ function ManageBookings() {
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(5,16,26,0) 0%, rgba(5,16,26,0.35) 55%, rgba(5,16,26,0.75) 85%, rgba(5,16,26,1) 100%)",
+                  "linear-gradient(to bottom, rgba(6,20,31,0) 0%, rgba(6,20,31,0.35) 55%, rgba(6,20,31,0.75) 85%, rgba(6,20,31,1) 100%)",
               }}
             />
           </div>
