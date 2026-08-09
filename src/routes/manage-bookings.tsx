@@ -1550,7 +1550,7 @@ function ManageBookings() {
 
 
             {/* stat tiles */}
-            <section className="relative z-[2] mt-[1px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
+            <section className="mt-[1px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
               <StatTile
                 label="Awaiting response"
                 count={counts.awaiting}
@@ -1628,13 +1628,13 @@ function ManageBookings() {
 
 
             {/* booking list — full width */}
-            <div className={`mt-[10px] ${isProfileComplete(profile) ? "xl:-mt-[22px]" : ""}`}>
+            <div className="mt-[10px]">
             <div className="min-w-0">
 
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className={`hgb-stone-surface relative isolate z-[1] mt-[10px] overflow-hidden rounded-[22px] pt-[16px] pb-[22px] pl-[22px] pr-[22px] sm:pt-[19px] sm:pb-[26px] sm:pl-[26px] sm:pr-[26px] ${isProfileComplete(profile) ? "xl:pt-[28px]" : ""}`}
+              className="hgb-stone-surface relative isolate mt-[10px] overflow-hidden rounded-[22px] pt-[16px] pb-[22px] pl-[22px] pr-[22px] sm:pt-[19px] sm:pb-[26px] sm:pl-[26px] sm:pr-[26px]"
               style={{
                 border: "1px solid rgba(120,116,104,0.22)",
                 boxShadow:
