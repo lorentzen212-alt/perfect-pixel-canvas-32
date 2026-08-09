@@ -682,30 +682,28 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     </>
   );
 
-  /* the gold is the card background on the far left — not a separate element:
-     no inner line, no shadow, no strip. Rounded on the outer edge only. */
-  const goldStrip = null;
+  /* brushed champagne metal strip, flush along the card's left edge */
+  const goldStrip = (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute bottom-0 left-0 top-0 z-[2]"
+      style={{ width: 17, background: GOLD_BRUSHED_H }}
+    />
+  );
 
   const shell = {
     backgroundImage: [
       /* quiet architectural light so the coated navy reads dimensional, not flat */
       "radial-gradient(120% 110% at 10% 0%, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 32%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.14) 100%)",
       "linear-gradient(158deg, #17222E 0%, #141E29 52%, #111A24 100%)",
-      /* far-left champagne metal — same surface as the card */
-      "linear-gradient(90deg, #B88E43 0%, #C8A55A 18%, #E2C984 38%, #F3E2AF 50%, #E2C984 62%, #C8A55A 82%, #B88E43 100%)",
     ].join(", "),
-    backgroundRepeat: "no-repeat, no-repeat, no-repeat",
-    backgroundPosition: "var(--insert-w) top, var(--insert-w) top, left top",
-    backgroundSize:
-      "calc(100% - var(--insert-w)) 100%, calc(100% - var(--insert-w)) 100%, var(--insert-w) 100%",
-
-    border: "1px solid rgba(255,255,255,0.09)",
+    border: "1px solid rgba(255,255,255,0.055)",
     borderLeft: "none",
     borderRadius: 12,
-    /* clean, subtle separation from the plate — no recessed frame */
     boxShadow:
-      "0 5px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04)",
+      "0 10px 24px rgba(12,16,22,0.34), 0 2px 4px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.055), inset 0 -8px 20px rgba(0,0,0,0.42)",
   } as const;
+
 
 
 
