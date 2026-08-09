@@ -1194,8 +1194,11 @@ function ManageBookings() {
         <main
           className="relative min-h-screen"
           style={{
-            backgroundColor: "#06141F",
+            backgroundColor: "#263440",
+            backgroundImage:
+              "linear-gradient(180deg, #1C2B36 0px, #22313D 120px, #263440 280px, #263440 100%)",
           }}
+
         >
           {/* lobby hero — wide landscape photograph fading into the dashboard */}
           <div
@@ -1222,17 +1225,18 @@ function ManageBookings() {
               className="absolute inset-y-0 left-0 w-full"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(6,20,31,0.12) 0%, rgba(6,20,31,0.04) 30%, rgba(6,20,31,0) 55%)",
+                  "linear-gradient(90deg, rgba(28,43,54,0.12) 0%, rgba(28,43,54,0.04) 30%, rgba(28,43,54,0) 55%)",
               }}
             />
             <div
-              className="absolute inset-x-0 bottom-0 h-[125px]"
+              className="absolute inset-x-0 bottom-0 h-[150px]"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(6,20,31,0) 0%, rgba(6,20,31,0.18) 35%, rgba(6,20,31,0.66) 78%, #06141F 100%)",
+                  "linear-gradient(to bottom, rgba(28,43,54,0) 0%, rgba(28,43,54,0.16) 32%, rgba(28,43,54,0.55) 66%, rgba(28,43,54,0.88) 88%, #1C2B36 100%)",
               }}
             />
           </div>
+
 
 
 
