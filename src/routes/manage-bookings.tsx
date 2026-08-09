@@ -36,6 +36,7 @@ import {
   Settings,
   SlidersHorizontal,
   Briefcase,
+  BellRing,
   User,
   Users,
   X,
@@ -50,6 +51,7 @@ import {
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-navy-glow.png.asset.json";
 import cardStone from "@/assets/card-stone-surface.png.asset.json";
+import statStone from "@/assets/stat-card-stone.png.asset.json";
 
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
@@ -1117,6 +1119,9 @@ function ManageBookings() {
     for (const b of bookings) c[groupOf(b)] += 1;
     return c;
   }, [bookings]);
+
+  // bookings where the user must act (review a proposal, supply a rooming list, etc.)
+  const needsAttention = counts.proposal + counts.attention;
 
   const scopeCounts = useMemo(() => {
     const cancelled = bookings.filter((b) => b.status === "cancelled").length;
