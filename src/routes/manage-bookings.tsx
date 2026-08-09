@@ -923,8 +923,8 @@ function StatTile({
         className="hgb-stat-link flex items-center text-[13.5px] font-medium"
         style={{
           gap: 7,
-          marginTop: 9,
-          paddingTop: 8,
+          marginTop: 5,
+          paddingTop: 6,
           borderTop: "1px solid rgba(255,255,255,0.10)",
           color: linkColor,
         }}
