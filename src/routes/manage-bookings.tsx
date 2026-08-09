@@ -1334,9 +1334,9 @@ function ManageBookings() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#162B3A",
+        backgroundColor: "#263440",
         backgroundImage:
-          "linear-gradient(180deg, #132938 0%, #162B3A 45%, #142936 100%)",
+          "linear-gradient(180deg, #233140 0%, #263440 45%, #243341 100%)",
         fontFamily: SANS,
       }}
     >
@@ -1392,9 +1392,9 @@ function ManageBookings() {
         <main
           className="relative min-h-screen lg:pt-10"
           style={{
-            backgroundColor: "#162B3A",
+            backgroundColor: "#263440",
             backgroundImage:
-              "linear-gradient(180deg, #132938 0px, #162B3A 45%, #142936 100%)",
+              "linear-gradient(180deg, #233140 0px, #263440 45%, #243341 100%)",
           }}
 
         >
@@ -1423,14 +1423,14 @@ function ManageBookings() {
               className="absolute inset-y-0 left-0 w-full"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(22,43,58,0.16) 0%, rgba(22,43,58,0.06) 30%, rgba(22,43,58,0) 55%)",
+                  "linear-gradient(90deg, rgba(38,52,64,0.16) 0%, rgba(38,52,64,0.06) 30%, rgba(38,52,64,0) 55%)",
               }}
             />
             <div
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(22,43,58,0) 0%, rgba(22,43,58,0.08) 25%, rgba(22,43,58,0.30) 55%, rgba(22,43,58,0.70) 82%, #162B3A 100%)",
+                  "linear-gradient(to bottom, rgba(38,52,64,0) 0%, rgba(38,52,64,0.08) 25%, rgba(38,52,64,0.30) 55%, rgba(38,52,64,0.70) 82%, #263440 100%)",
               }}
             />
           </div>
@@ -1472,7 +1472,7 @@ function ManageBookings() {
                     top: -34,
                     bottom: -26,
                     background:
-                      "linear-gradient(90deg, rgba(22,43,58,0.60) 0%, rgba(22,43,58,0.30) 45%, rgba(22,43,58,0) 100%)",
+                      "linear-gradient(90deg, rgba(38,52,64,0.60) 0%, rgba(38,52,64,0.30) 45%, rgba(38,52,64,0) 100%)",
                     filter: "blur(6px)",
                   }}
                 />
