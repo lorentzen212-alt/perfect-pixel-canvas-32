@@ -107,13 +107,9 @@ export function BookingHeader({
         >
           {/* Logo (left) */}
           <Link to="/" className="flex shrink-0 items-center" aria-label="HotelGroupBook home">
-            <img
-              src={logoAsset.url}
-              alt="HotelGroupBook"
-              className="h-9 w-auto sm:h-10 lg:h-11"
-              style={{ filter: "brightness(0) invert(1)" }}
-            />
+            <BrandLogo size="md" tone="dark" />
           </Link>
+
 
           {/* Stepper (absolutely centred so logo/menu width can't push it) */}
           <ol className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-x-3 md:flex lg:gap-x-5">
