@@ -6,7 +6,7 @@ import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking, cancelBooking } from "@/lib/bookingsApi";
 import { toast } from "sonner";
 import pageTextureAsset from "@/assets/limestone-texture.jpg.asset.json";
-import lobbyHeroAsset from "@/assets/manage-hero-concierge.png.asset.json";
+import lobbyHeroAsset from "@/assets/manage-hero-reception-wide.png.asset.json";
 
 
 import {
@@ -1173,10 +1173,10 @@ function ManageBookings() {
         <main
           className="relative min-h-screen"
           style={{
-            backgroundColor: "#05101A",
+            backgroundColor: "#06141F",
           }}
         >
-          {/* lobby hero — full-width photograph fading into the dashboard */}
+          {/* lobby hero — wide landscape photograph fading into the dashboard */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 h-[300px] sm:h-[350px] lg:h-[390px] overflow-hidden"
@@ -1184,13 +1184,21 @@ function ManageBookings() {
             <img
               src={lobbyHeroAsset.url}
               alt=""
-              className="h-full w-full object-cover object-[center_58%] sm:object-[center_52%] lg:object-[center_50%]"
+              className="h-full w-full object-cover object-[38%_center] sm:object-[45%_center] lg:object-center"
+            />
+            {/* subtle localized readability veil behind the left headline only */}
+            <div
+              className="absolute inset-y-0 left-0 w-full"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(6,20,31,0.28) 0%, rgba(6,20,31,0.12) 30%, rgba(6,20,31,0) 55%)",
+              }}
             />
             <div
               className="absolute inset-x-0 bottom-0 h-[125px]"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(6,20,31,0) 0%, rgba(6,20,31,0.05) 25%, rgba(6,20,31,0.20) 50%, rgba(6,20,31,0.55) 75%, rgba(6,20,31,0.88) 92%, #06141F 100%)",
+                  "linear-gradient(to bottom, rgba(6,20,31,0) 0%, rgba(6,20,31,0.04) 25%, rgba(6,20,31,0.16) 45%, rgba(6,20,31,0.42) 65%, rgba(6,20,31,0.75) 82%, #06141F 100%)",
               }}
             />
           </div>
@@ -1217,7 +1225,7 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[190px] lg:mt-[205px]">
+            <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[190px] lg:mt-[165px]">
               <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
                 <p
                   className="mb-[10px] text-[11px] font-semibold uppercase tracking-[0.30em]"
@@ -1292,7 +1300,7 @@ function ManageBookings() {
 
 
             {/* stat tiles */}
-            <section className="mt-[46px] grid grid-cols-2 items-stretch gap-4 xl:grid-cols-4">
+            <section className="mt-[4px] grid grid-cols-2 items-stretch gap-4 xl:grid-cols-4">
               <StatTile
                 label="Awaiting response"
                 count={counts.awaiting}
