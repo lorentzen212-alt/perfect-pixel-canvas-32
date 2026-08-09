@@ -1334,7 +1334,7 @@ function ManageBookings() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#05101A",
+        backgroundColor: "#06141F",
         backgroundImage: "none",
         fontFamily: SANS,
       }}
@@ -1391,9 +1391,9 @@ function ManageBookings() {
         <main
           className="relative min-h-screen lg:pt-10"
           style={{
-            backgroundColor: "#05101A",
+            backgroundColor: "#06141F",
             backgroundImage:
-              "linear-gradient(180deg, #05101A 0px, #05101A 160px, #05101A 100%)",
+              "linear-gradient(180deg, #06141F 0px, #06141F 160px, #06141F 100%)",
           }}
 
         >
@@ -1422,14 +1422,14 @@ function ManageBookings() {
               className="absolute inset-y-0 left-0 w-full"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(5,16,26,0.14) 0%, rgba(5,16,26,0.05) 30%, rgba(5,16,26,0) 55%)",
+                  "linear-gradient(90deg, rgba(6,20,31,0.14) 0%, rgba(6,20,31,0.05) 30%, rgba(6,20,31,0) 55%)",
               }}
             />
             <div
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(5,16,26,0) 0%, rgba(5,16,26,0.35) 55%, rgba(5,16,26,0.75) 85%, rgba(5,16,26,1) 100%)",
+                  "linear-gradient(to bottom, rgba(6,20,31,0) 0%, rgba(6,20,31,0.35) 55%, rgba(6,20,31,0.75) 85%, rgba(6,20,31,1) 100%)",
               }}
             />
           </div>
