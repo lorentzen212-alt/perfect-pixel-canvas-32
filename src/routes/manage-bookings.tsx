@@ -1116,7 +1116,7 @@ function ManageBookings() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#0B141D",
+        backgroundColor: "#05101A",
         backgroundImage: "none",
         fontFamily: SANS,
       }}
@@ -1173,7 +1173,7 @@ function ManageBookings() {
         <main
           className="relative min-h-screen"
           style={{
-            backgroundColor: "#0B141D",
+            backgroundColor: "#05101A",
           }}
         >
           {/* lobby hero — soft fade into page background */}
@@ -1217,7 +1217,7 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[210px] flex items-start justify-between gap-6 sm:mt-[300px] lg:mt-[368px]">
+            <header className="mt-[170px] flex items-start justify-between gap-6 sm:mt-[230px] lg:mt-[268px]">
               <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
                 <p
                   className="mb-[10px] text-[11px] font-semibold uppercase tracking-[0.30em]"
