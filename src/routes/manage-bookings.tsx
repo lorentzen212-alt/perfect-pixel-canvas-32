@@ -1185,7 +1185,7 @@ function ManageBookings() {
               src={lobbyHeroAsset.url}
               alt=""
               className="h-full w-full object-cover"
-              style={{ objectPosition: "center 42%" }}
+              style={{ objectPosition: "center 58%" }}
             />
           </div>
 
