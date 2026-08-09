@@ -831,6 +831,8 @@ function StatTile({
   active,
   action,
   footer,
+  accent,
+  bgPos,
   onClick,
 }: {
   label: string;
@@ -839,6 +841,8 @@ function StatTile({
   active: boolean;
   action?: boolean;
   footer?: string;
+  accent: string;
+  bgPos: string;
   onClick: () => void;
 }) {
   return (
@@ -848,29 +852,35 @@ function StatTile({
       aria-pressed={active}
       className="relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
-        background:
-          "linear-gradient(180deg, rgba(43,55,70,0.94) 0%, rgba(30,40,52,0.94) 100%)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.10)"}`,
+        backgroundImage: `linear-gradient(rgba(6,20,31,0.60), rgba(6,20,31,0.74)), url(${statStone.url})`,
+        backgroundSize: "cover, 320% auto",
+        backgroundPosition: `center, ${bgPos}`,
+        backgroundRepeat: "no-repeat, no-repeat",
+        border: `1px solid ${active || action ? "rgba(216,180,92,0.7)" : "rgba(255,255,255,0.10)"}`,
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 48px -20px rgba(4,8,13,0.72)",
+          "inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -14px 26px -18px rgba(0,0,0,0.7), 0 18px 40px -22px rgba(4,8,13,0.7)",
       }}
     >
       {action && (
         <span
-          className="absolute right-[14px] top-[13px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[10.5px] font-medium uppercase tracking-[0.10em]"
+          className="absolute right-[14px] top-[13px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[10px] font-medium uppercase tracking-[0.16em]"
           style={{
-            color: "#E9CB8C",
-            border: "1px solid rgba(226,190,110,0.5)",
-            background: "rgba(226,190,110,0.08)",
+            color: accent,
+            border: `1px solid ${accent}80`,
+            background: "rgba(6,20,31,0.45)",
           }}
         >
           Action needed
         </span>
       )}
       <span className="flex items-center gap-[14px]">
-        <span className="shrink-0" style={{ color: active || action ? "#E2BE6E" : "#9FB0BF" }}>
+        <span
+          className="shrink-0"
+          style={{
+            color: accent,
+            filter: `drop-shadow(0 0 7px ${accent}26)`,
+          }}
+        >
           {icon}
         </span>
         <span className="min-w-0">
@@ -888,8 +898,8 @@ function StatTile({
       <span
         className="mt-[7px] flex items-center gap-1.5 pt-[6px] text-[11.5px]"
         style={{
-          borderTop: "1px solid rgba(255,255,255,0.07)",
-          color: active || action ? "#E2BE6E" : "#93A3B1",
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          color: active || action ? accent : "#93A3B1",
         }}
       >
         {footer ?? "View bookings"} <ArrowRight size={12} />
@@ -897,6 +907,7 @@ function StatTile({
     </button>
   );
 }
+
 
 
 import { GlobalSidebar as Sidebar, RAIL_MS, RAIL_EASE } from "@/components/GlobalSidebar";
