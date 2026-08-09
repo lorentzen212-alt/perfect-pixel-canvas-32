@@ -1414,13 +1414,14 @@ function ManageBookings() {
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className="hgb-stone-surface relative isolate mt-[18px] overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
+              className="hgb-stone-surface relative z-[1] -mt-[32px] overflow-hidden rounded-t-[20px] rounded-b-[22px] px-[22px] pb-[22px] pt-[64px] sm:px-[26px] sm:pb-[26px]"
               style={{
                 border: "1px solid rgba(120,116,104,0.22)",
                 boxShadow:
                   "inset 0 1px 0 rgba(255,255,255,0.62), inset 0 -1px 0 rgba(0,0,0,0.06), 0 26px 60px -28px rgba(6,10,15,0.62)",
               }}
             >
+
               {/* Rad 1 — Active / Cancelled / All */}
               <div className="mb-[14px] flex flex-wrap items-center gap-2">
                 {(
