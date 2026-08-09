@@ -1343,7 +1343,7 @@ function ManageBookings() {
 
 
             {/* KPI stone wall — cards seated on the counter ledge */}
-            <section className="hgb-kpi-wall mt-[16px] flex min-h-[110px] flex-col justify-end px-4 pb-[44px] sm:px-6 xl:mt-[82px] xl:min-h-0">
+            <section className="hgb-kpi-wall mt-[16px] flex min-h-[110px] flex-col justify-end px-4 pb-[30px] sm:px-6 xl:mt-[82px] xl:min-h-0">
               
               <div className="relative z-[3] grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:-mt-[68px] xl:grid-cols-4 xl:gap-6">
                 <KpiSlot>
