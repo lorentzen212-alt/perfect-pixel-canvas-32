@@ -1046,3 +1046,5 @@
   text-transform: uppercase;
   color: #F5F7F8;
 }
+
+.hgb-stat-tile:hover .hgb-stat-link { color: #FFFFFF; }

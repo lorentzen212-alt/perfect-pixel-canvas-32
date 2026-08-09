@@ -1365,7 +1365,7 @@ function ManageBookings() {
                 count={counts.awaiting}
                 icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
-                accent="#9FB7C8"
+                accent="#4DA3FF"
                 bgPos="15% center"
                 footer="View bookings"
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
@@ -1376,7 +1376,7 @@ function ManageBookings() {
                 icon={<FileSignature size={30} strokeWidth={1.4} />}
                 action={counts.proposal > 0}
                 active={group === "proposal"}
-                accent="#D8B45C"
+                accent="#F5AE00"
                 bgPos="40% center"
                 footer="Review proposals"
                 onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
@@ -1386,7 +1386,7 @@ function ManageBookings() {
                 count={counts.confirmed}
                 icon={<Check size={30} strokeWidth={1.4} />}
                 active={group === "confirmed"}
-                accent="#87A98D"
+                accent="#6FCF97"
                 bgPos="65% center"
                 footer="View bookings"
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
@@ -1397,7 +1397,7 @@ function ManageBookings() {
                 icon={<BellRing size={28} strokeWidth={1.4} />}
                 active={group === "attention"}
                 action={needsAttention > 0}
-                accent={needsAttention > 0 ? "#D6A64B" : "#8C9AA6"}
+                accent={needsAttention > 0 ? "#FFB74D" : "#8C9AA6"}
                 bgPos="85% center"
                 footer="Review now"
                 onClick={() => setGroup(group === "attention" ? "all" : "attention")}
