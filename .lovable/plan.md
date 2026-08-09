@@ -1,39 +1,21 @@
-# My Bookings — hero/header fix only
+# Replace the My Bookings hero image
 
-Only the hero image, its height/crop, and the fade into the dashboard background change. Sidebar, KPI card design, filters, booking workspace, typography and functionality stay untouched.
+Swap the portrait concierge photo for the new wide landscape reception image, position it naturally, and tune only the hero transition. Nothing else on the page changes.
 
-## The crop problem
+## What changes
 
-The source photo is portrait (1024x1536). In a full-width hero, `object-fit: cover` scales it up to ~1580px wide, so only about 18% of the image height is ever visible — no crop position can show the receptionist's head, the desk, the lamp, the vase and the mountain/lake at the same time. Zooming out inside a full-bleed cover layout is mathematically impossible.
-
-So the hero becomes **one cinematic composition** — not two columns — which is what unlocks the requested zoom-out:
-
-```text
-+--------------------------------------------------------------+
-| navy |<-- 180-300px soft blend -->|   photograph (~70-75%)    |
-|                                                               |
-|  DASHBOARD              mountain / lake emerging from navy    |
-|  My Bookings                 lamp + vase                      |
-|  Stay on top of...                receptionist + full desk    |
-+--------------------------------------------------------------+
-        bottom-only gradient dissolving into #06141F
-```
-
-The photograph spans roughly the right 70–75% of the hero width and still dominates it, but at a reduced scale so ~40% of the original frame is visible instead of ~18%: full head with breathing room above it, upper body, most of the desk, lamp, vase, window, mountain and lake — none of these sacrificed for size. Only the far-left 25–30% is deep navy for the headline; the mountain/lake reaches into that zone through a very wide horizontal blend (180–300px depending on viewport) that runs navy → semi-transparent navy → transparent, so there is no vertical seam anywhere.
-
-## Changes
-
-1. **Height** — `clamp(380px, 41vh, 420px)` on desktop, held at the low end for a compact, premium feel; shorter on mobile. Hero, all 4 KPI tiles, filters and the top of the first booking card fit on a normal desktop screen without scrolling.
-2. **Image** — real `<img>` inside an `overflow: hidden` container, `object-fit: cover`, `object-position` tuned per breakpoint. Scale is reduced so the vertical composition survives; the receptionist stays fully visible from wide desktop down to tablet, and on mobile the image narrows to the desk/window band.
-3. **No darkening of the source image** — every full-image overlay, tint, filter and vignette is removed. Blue-grey mountains, lake detail, warm lamp and desk light, natural skin tone and stone/wood texture all stay intact. Only the left blend and the bottom fade darken edges.
-4. **Bottom gradient** — a ~180px bottom-only overlay: transparent → `0.08` 20% → `0.28` 45% → `0.62` 70% → `0.90` 90% → solid `#06141F` at 100%. Starts almost invisibly, no dark band, no hard edge.
-5. **Background colour** — the page/dashboard background moves from `#05101A` to exactly `#06141F`, matching the gradient endpoint so there is no visible boundary.
-6. **KPI row** — same card design, pulled further into the transition (around `-45px` to `-55px`, fine-tuned visually) so it feels integrated with the hero, while staying clear of the receptionist and desk.
-7. **Headline block** — same text and typography, kept in the left navy/blended zone at roughly 64–72px from the content edge, vertically centred around 48–55% of the hero. Never over the desk or receptionist.
-
+1. **New hero image** — the uploaded wide image is registered as a CDN asset and becomes the single hero image. The old portrait asset import is removed from this page; no layering, no split, no blurred duplicate.
+2. **Natural framing** — `object-cover` at `center center` on desktop, no scale transform. Slight responsive shifts only: mobile/tablet nudge toward the left–center so mountain, lake and the receptionist all stay readable.
+3. **Hero heights unchanged** — 300 / 350 / 390px.
+4. **Headline block moves up ~40px on desktop** as one unit (lg top margin ~205px → ~165px); mobile/sm keep their current spacing.
+5. **KPI row moves up ~45px** as one unit (top margin 46px → 0/negative offset so the cards overlap the lower hero). Card size, gaps, colors and content untouched.
+6. **Bottom fade** — 125px gradient into `#06141F`, using the exact stop values from your spec so the fade is imperceptible and only turns solid at the very bottom; the receptionist's head, face and upper body stay clear while the desk base melts into the background.
+7. **Optional left readability veil** — a narrow left-to-transparent gradient (max 0.28 alpha, gone by 55% width) behind the headline only. No full-hero overlay, no filters, no tint, no vignette — the image keeps its original colors.
+8. **Layer order** — image → bottom gradient → headline → profile controls → KPI cards, so nothing above the gradient gets dimmed.
 
 ## Technical notes
 
-- File touched: `src/routes/manage-bookings.tsx` only (hero container, image element, gradient layers, page background token, KPI row offset).
-- Responsive `object-position` handled with breakpoint classes rather than one fixed value.
-- Hero image asset stays `manage-hero-concierge.png`; no new assets.
+- Asset created with `lovable-assets create` from the upload, imported as `manage-hero-reception-wide.png.asset.json` in `src/routes/manage-bookings.tsx`.
+- Only three regions of `src/routes/manage-bookings.tsx` are edited: the hero `<div>` (~lines 1179–1196), the `<header>` margin (~line 1220), and the stat-tile `<section>` margin (~line 1295).
+- Page background stays `#06141F` at the hero transition.
+- Verified visually at desktop width after the change.
