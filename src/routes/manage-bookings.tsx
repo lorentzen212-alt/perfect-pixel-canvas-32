@@ -1372,12 +1372,12 @@ function ManageBookings() {
             <section
               className="relative isolate overflow-hidden rounded-[16px] p-[16px] sm:p-[18px]"
               style={{
-                backgroundColor: "#C6C5C0",
+                backgroundColor: "#d3d5d5",
                 backgroundImage:
-                  "radial-gradient(120% 80% at 12% 0%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 44%, rgba(255,255,255,0) 74%), linear-gradient(180deg, #CAC9C4 0%, #C3C2BD 42%, #BABCBC 100%)",
+                  "linear-gradient(180deg, #e3e2dd 0%, #dcdbd6 42%, #d3d5d5 100%)",
                 border: "1px solid rgba(255,255,255,0.34)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.50), inset 0 -1px 0 rgba(0,0,0,0.10), 0 26px 60px -28px rgba(6,10,15,0.62)",
+                  "inset 0 1px 0 rgba(255, 255, 255, 0.62), inset 0 -1px 0 rgba(0, 0, 0, 0.06)",
               }}
             >
 
