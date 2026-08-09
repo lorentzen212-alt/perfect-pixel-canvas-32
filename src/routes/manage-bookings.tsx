@@ -871,7 +871,7 @@ function StatTile({
         paddingLeft: 30,
         paddingRight: 28,
         paddingTop: 6,
-        paddingBottom: 2,
+        paddingBottom: 0,
       }}
     >
       {action && (
@@ -923,7 +923,7 @@ function StatTile({
         className="hgb-stat-link flex items-center text-[13.5px] font-medium"
         style={{
           gap: 7,
-          marginTop: 5,
+          marginTop: 2,
           paddingTop: 6,
           borderTop: "1px solid rgba(255,255,255,0.10)",
           color: linkColor,
@@ -1483,7 +1483,7 @@ function ManageBookings() {
 
 
                 <h1
-                  className="relative text-[34px] leading-[1.1] sm:text-[45px]"
+                  className="relative text-[34px] leading-[1.1] sm:text-[43px]"
                   style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
                 >
                   Welcome, {firstName.charAt(0).toUpperCase() + firstName.slice(1)}
@@ -1628,7 +1628,7 @@ function ManageBookings() {
 
 
             {/* booking list — full width */}
-            <div className="mt-[10px] lg:mt-[15px]">
+            <div className="mt-[9px] lg:mt-[14px]">
             <div className="min-w-0">
 
 
