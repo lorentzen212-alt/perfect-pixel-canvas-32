@@ -1185,7 +1185,7 @@ function ManageBookings() {
             <img
               src={lobbyHeroAsset.url}
               alt=""
-              className="absolute right-[-16%] top-1/2 h-[210%] w-auto max-w-none -translate-y-1/2 sm:right-[-6%] sm:h-[245%] lg:right-[48px] lg:h-[280%]"
+              className="absolute right-[-16%] top-1/2 h-[210%] w-auto max-w-none -translate-y-1/2 sm:right-[-6%] sm:h-[245%] lg:right-[104px] lg:h-[280%]"
             />
             {/* soft horizontal blend — navy dissolves into the photograph */}
             <div
