@@ -871,7 +871,7 @@ function StatTile({
         paddingLeft: 30,
         paddingRight: 28,
         paddingTop: 6,
-        paddingBottom: 3,
+        paddingBottom: 0,
       }}
     >
       {action && (
@@ -1628,7 +1628,7 @@ function ManageBookings() {
 
 
             {/* booking list — full width */}
-            <div className="mt-[6px] lg:mt-[11px]">
+            <div className="mt-[9px] lg:mt-[14px]">
             <div className="min-w-0">
 
 
