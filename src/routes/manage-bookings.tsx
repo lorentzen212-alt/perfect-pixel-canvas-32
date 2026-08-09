@@ -870,8 +870,8 @@ function StatTile({
           "0 8px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.035)",
         paddingLeft: 30,
         paddingRight: 28,
-        paddingTop: 21,
-        paddingBottom: 16,
+        paddingTop: 16,
+        paddingBottom: 10,
       }}
     >
       {action && (
@@ -923,8 +923,8 @@ function StatTile({
         className="hgb-stat-link flex items-center text-[13.5px] font-medium"
         style={{
           gap: 7,
-          marginTop: 17,
-          paddingTop: 12,
+          marginTop: 12,
+          paddingTop: 10,
           borderTop: "1px solid rgba(255,255,255,0.10)",
           color: linkColor,
         }}
