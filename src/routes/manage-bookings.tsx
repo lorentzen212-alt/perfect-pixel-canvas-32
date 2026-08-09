@@ -1459,8 +1459,8 @@ function ManageBookings() {
             {/* hero header */}
             <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[210px] lg:mt-[225px]">
               <div
-                className="relative min-w-0"
-                style={{ position: "relative", top: -20, left: 0, textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
+                className="relative min-w-0 top-[-20px] lg:top-[-35px]"
+                style={{ position: "relative", left: 0, textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
               >
                 <span
                   aria-hidden
@@ -1550,7 +1550,7 @@ function ManageBookings() {
 
 
             {/* stat tiles */}
-            <section className="mt-[1px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
+            <section className="mt-[1px] grid grid-cols-2 items-stretch gap-3 lg:mt-[-19px] xl:grid-cols-4">
               <StatTile
                 label="Awaiting response"
                 count={counts.awaiting}
@@ -1628,7 +1628,7 @@ function ManageBookings() {
 
 
             {/* booking list — full width */}
-            <div className="mt-[10px]">
+            <div className="mt-[10px] lg:mt-[15px]">
             <div className="min-w-0">
 
 
