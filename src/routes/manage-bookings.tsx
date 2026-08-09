@@ -1176,25 +1176,35 @@ function ManageBookings() {
             backgroundColor: "#05101A",
           }}
         >
-          {/* lobby hero — soft fade into page background */}
+          {/* lobby hero — scaled visual layer dissolving into the dashboard */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[320px] sm:h-[400px] lg:h-[460px] overflow-hidden"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[300px] overflow-hidden sm:h-[360px] lg:h-[clamp(390px,41vh,420px)]"
+            style={{ backgroundColor: "#06141F" }}
           >
             <img
               src={lobbyHeroAsset.url}
               alt=""
-              className="h-full w-full object-cover"
-              style={{ objectPosition: "center 35%" }}
+              className="absolute right-[-16%] top-1/2 h-[210%] w-auto max-w-none -translate-y-1/2 sm:right-[-6%] sm:h-[245%] lg:right-[48px] lg:h-[280%]"
             />
+            {/* soft horizontal blend — navy dissolves into the photograph */}
             <div
-              className="absolute inset-0"
+              className="absolute inset-y-0 left-0 w-full"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(5,16,26,0) 0%, rgba(5,16,26,0.35) 55%, rgba(5,16,26,0.75) 85%, rgba(5,16,26,1) 100%)",
+                  "linear-gradient(90deg, #06141F 0%, rgba(6,20,31,0.94) 12%, rgba(6,20,31,0.70) 24%, rgba(6,20,31,0.34) 36%, rgba(6,20,31,0.10) 45%, rgba(6,20,31,0) 54%)",
+              }}
+            />
+            {/* bottom-only fade into the dashboard background */}
+            <div
+              className="absolute inset-x-0 bottom-0 h-[180px]"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(6,20,31,0) 0%, rgba(6,20,31,0.08) 20%, rgba(6,20,31,0.28) 45%, rgba(6,20,31,0.62) 70%, rgba(6,20,31,0.90) 90%, #06141F 100%)",
               }}
             />
           </div>
+
 
 
 
