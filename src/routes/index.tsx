@@ -143,12 +143,9 @@ function Home() {
           <header className="absolute inset-x-0 top-0 z-30 flex h-[88px] items-center justify-between px-5 sm:px-8 lg:px-[50px] xl:px-[60px]">
             <a href="/" aria-label="HotelGroupBook" className="logo-hover-wrap relative flex items-center">
               <span className="logo-mist" aria-hidden="true" />
-              <img
-                src={logoAsset.url}
-                alt="HotelGroupBook"
-                className="relative h-[46px] sm:h-[56px] lg:h-[68px] w-auto"
-              />
+              <BrandLogo size="lg" tone="dark" className="relative" />
             </a>
+
             <SiteMenu items={MENU_ITEMS} variant="outline" />
           </header>
 
