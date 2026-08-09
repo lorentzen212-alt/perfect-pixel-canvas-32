@@ -1173,39 +1173,38 @@ function ManageBookings() {
         <main
           className="relative min-h-screen"
           style={{
-            backgroundColor: "transparent",
-            backgroundImage:
-              "radial-gradient(120% 70% at 50% 34%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 42%, rgba(255,255,255,0) 72%)",
+            backgroundColor: "#0B141D",
           }}
         >
-          {/* layered atmospheric surface — solid navy */}
+          {/* cinematic lobby hero — dissolves into the page background */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0"
-            style={{
-              top: 300,
-              backgroundColor: "#0C121A",
-            }}
-          />
+            className="pointer-events-none absolute inset-x-0 top-0 h-[320px] sm:h-[420px] lg:h-[500px] overflow-hidden"
+          >
+            <img
+              src={lobbyHeroAsset.url}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ objectPosition: "center" }}
+            />
+            {/* long fade into the page navy over the bottom ~40% */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(11,20,29,0.18) 0%, rgba(11,20,29,0.10) 34%, rgba(11,20,29,0.42) 58%, rgba(11,20,29,0.80) 78%, rgba(11,20,29,0.96) 92%, #0B141D 100%)",
+              }}
+            />
+            {/* subtle localized darkening behind the title / top-right user area */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(11,20,29,0.42) 0%, rgba(11,20,29,0.12) 46%, rgba(11,20,29,0.30) 100%)",
+              }}
+            />
+          </div>
 
-
-
-
-
-
-
-          {/* solid navy hero backdrop */}
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-[240px] sm:h-[300px] lg:h-[332px]"
-            aria-hidden
-            style={{
-              backgroundColor: "#0C121A",
-              maskImage:
-                "linear-gradient(180deg, #000 0%, #000 calc(100% - 60px), rgba(0,0,0,0) 100%)",
-              WebkitMaskImage:
-                "linear-gradient(180deg, #000 0%, #000 calc(100% - 60px), rgba(0,0,0,0) 100%)",
-            }}
-          />
 
 
           <div className="relative mx-auto w-full max-w-[1580px] px-4 pb-10 pt-5 sm:px-6 lg:px-8 xl:px-10">
