@@ -1176,34 +1176,19 @@ function ManageBookings() {
             backgroundColor: "#0B141D",
           }}
         >
-          {/* cinematic lobby hero — dissolves into the page background */}
+          {/* lobby hero — ungraded, no overlays */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[320px] sm:h-[420px] lg:h-[500px] overflow-hidden"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[380px] sm:h-[480px] lg:h-[560px] overflow-hidden"
           >
             <img
               src={lobbyHeroAsset.url}
               alt=""
               className="h-full w-full object-cover"
-              style={{ objectPosition: "center" }}
-            />
-            {/* long fade into the page navy over the bottom ~40% */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(11,20,29,0.18) 0%, rgba(11,20,29,0.10) 34%, rgba(11,20,29,0.42) 58%, rgba(11,20,29,0.80) 78%, rgba(11,20,29,0.96) 92%, #0B141D 100%)",
-              }}
-            />
-            {/* subtle localized darkening behind the title / top-right user area */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(11,20,29,0.42) 0%, rgba(11,20,29,0.12) 46%, rgba(11,20,29,0.30) 100%)",
-              }}
+              style={{ objectPosition: "center 42%" }}
             />
           </div>
+
 
 
 
