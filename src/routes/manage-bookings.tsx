@@ -36,6 +36,7 @@ import {
   Settings,
   SlidersHorizontal,
   Briefcase,
+  BellRing,
   User,
   Users,
   X,
@@ -50,6 +51,7 @@ import {
 import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
 import sidebarAtmos from "@/assets/sidebar-navy-glow.png.asset.json";
 import cardStone from "@/assets/card-stone-surface.png.asset.json";
+import statStone from "@/assets/stat-card-stone.png.asset.json";
 
 import bellAsset from "@/assets/status-proposal-bell.jpg.asset.json";
 import signingAsset from "@/assets/status-awaiting-signing.png.asset.json";
@@ -831,6 +833,8 @@ function StatTile({
   active,
   action,
   footer,
+  accent,
+  bgPos,
   onClick,
 }: {
   label: string;
@@ -839,6 +843,8 @@ function StatTile({
   active: boolean;
   action?: boolean;
   footer?: string;
+  accent: string;
+  bgPos: string;
   onClick: () => void;
 }) {
   return (
@@ -848,29 +854,35 @@ function StatTile({
       aria-pressed={active}
       className="relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
-        background:
-          "linear-gradient(180deg, rgba(43,55,70,0.94) 0%, rgba(30,40,52,0.94) 100%)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        border: `1px solid ${active || action ? "rgba(226,190,110,0.75)" : "rgba(255,255,255,0.10)"}`,
+        backgroundImage: `linear-gradient(rgba(6,20,31,0.60), rgba(6,20,31,0.74)), url(${statStone.url})`,
+        backgroundSize: "cover, 320% auto",
+        backgroundPosition: `center, ${bgPos}`,
+        backgroundRepeat: "no-repeat, no-repeat",
+        border: `1px solid ${active || action ? "rgba(216,180,92,0.7)" : "rgba(255,255,255,0.10)"}`,
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 48px -20px rgba(4,8,13,0.72)",
+          "inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -14px 26px -18px rgba(0,0,0,0.7), 0 18px 40px -22px rgba(4,8,13,0.7)",
       }}
     >
       {action && (
         <span
-          className="absolute right-[14px] top-[13px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[10.5px] font-medium uppercase tracking-[0.10em]"
+          className="absolute right-[14px] top-[13px] inline-flex items-center gap-1 rounded-full px-[10px] py-[3px] text-[10px] font-medium uppercase tracking-[0.16em]"
           style={{
-            color: "#E9CB8C",
-            border: "1px solid rgba(226,190,110,0.5)",
-            background: "rgba(226,190,110,0.08)",
+            color: accent,
+            border: `1px solid ${accent}80`,
+            background: "rgba(6,20,31,0.45)",
           }}
         >
           Action needed
         </span>
       )}
       <span className="flex items-center gap-[14px]">
-        <span className="shrink-0" style={{ color: active || action ? "#E2BE6E" : "#9FB0BF" }}>
+        <span
+          className="shrink-0"
+          style={{
+            color: accent,
+            filter: `drop-shadow(0 0 7px ${accent}26)`,
+          }}
+        >
           {icon}
         </span>
         <span className="min-w-0">
@@ -888,8 +900,8 @@ function StatTile({
       <span
         className="mt-[7px] flex items-center gap-1.5 pt-[6px] text-[11.5px]"
         style={{
-          borderTop: "1px solid rgba(255,255,255,0.07)",
-          color: active || action ? "#E2BE6E" : "#93A3B1",
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          color: active || action ? accent : "#93A3B1",
         }}
       >
         {footer ?? "View bookings"} <ArrowRight size={12} />
@@ -897,6 +909,7 @@ function StatTile({
     </button>
   );
 }
+
 
 
 import { GlobalSidebar as Sidebar, RAIL_MS, RAIL_EASE } from "@/components/GlobalSidebar";
@@ -1106,6 +1119,9 @@ function ManageBookings() {
     for (const b of bookings) c[groupOf(b)] += 1;
     return c;
   }, [bookings]);
+
+  // bookings where the user must act (review a proposal, supply a rooming list, etc.)
+  const needsAttention = counts.proposal + counts.attention;
 
   const scopeCounts = useMemo(() => {
     const cancelled = bookings.filter((b) => b.status === "cancelled").length;
@@ -1348,19 +1364,23 @@ function ManageBookings() {
             {/* stat tiles */}
             <section className="mt-[8px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
               <StatTile
-                label="Awaiting response"
+                label="Awaiting Response"
                 count={counts.awaiting}
                 icon={<Hourglass size={30} strokeWidth={1.4} />}
                 active={group === "awaiting"}
+                accent="#9FB7C8"
+                bgPos="15% center"
                 footer="View bookings"
                 onClick={() => setGroup(group === "awaiting" ? "all" : "awaiting")}
               />
               <StatTile
-                label="Proposal ready"
+                label="Proposal Ready"
                 count={counts.proposal}
                 icon={<FileSignature size={30} strokeWidth={1.4} />}
-                action
+                action={counts.proposal > 0}
                 active={group === "proposal"}
+                accent="#D8B45C"
+                bgPos="40% center"
                 footer="Review proposals"
                 onClick={() => setGroup(group === "proposal" ? "all" : "proposal")}
               />
@@ -1369,20 +1389,23 @@ function ManageBookings() {
                 count={counts.confirmed}
                 icon={<Check size={30} strokeWidth={1.4} />}
                 active={group === "confirmed"}
+                accent="#87A98D"
+                bgPos="65% center"
                 footer="View bookings"
                 onClick={() => setGroup(group === "confirmed" ? "all" : "confirmed")}
               />
               <StatTile
-                label="Total bookings"
-                count={bookings.length}
-                icon={<Briefcase size={30} strokeWidth={1.4} />}
-                active={group === "all" && scope === "all"}
-                footer="View all"
-                onClick={() => {
-                  setGroup("all");
-                  setScope("all");
-                }}
+                label="Needs Attention"
+                count={needsAttention}
+                icon={<BellRing size={28} strokeWidth={1.4} />}
+                active={group === "attention"}
+                action={needsAttention > 0}
+                accent={needsAttention > 0 ? "#D6A64B" : "#8C9AA6"}
+                bgPos="85% center"
+                footer="Review now"
+                onClick={() => setGroup(group === "attention" ? "all" : "attention")}
               />
+
             </section>
 
 
