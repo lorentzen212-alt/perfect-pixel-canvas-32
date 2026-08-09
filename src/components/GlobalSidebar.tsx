@@ -100,7 +100,7 @@ export function GlobalSidebar({
           size={17}
           strokeWidth={1.6}
           className="shrink-0"
-          style={{ color: isActive ? "#A9853A" : "rgba(255,255,255,0.90)" }}
+          style={{ color: "rgba(255,255,255,0.90)" }}
         />
 
 
@@ -147,14 +147,13 @@ export function GlobalSidebar({
     <div
       className={`relative flex h-full flex-col py-7 ${collapsed ? "px-[13px]" : "px-4"}`}
       style={{
-        backgroundColor: "#0A1D2E",
+        backgroundColor: "#1B2632",
         backgroundImage: [
-          /* soft Nordic mountain tone rising from the base */
-          "linear-gradient(155deg, rgba(0,0,0,0) 62%, rgba(122,152,180,0.10) 78%, rgba(0,0,0,0) 92%)",
-          "radial-gradient(120% 46% at 50% 104%, rgba(138,168,196,0.22) 0%, rgba(96,126,154,0.10) 40%, rgba(10,29,46,0) 76%)",
-          "radial-gradient(120% 70% at 108% 92%, rgba(150,178,205,0.20) 0%, rgba(126,155,182,0.10) 26%, rgba(90,116,142,0.04) 52%, rgba(10,29,46,0) 78%)",
-          "radial-gradient(110% 80% at 0% 0%, rgba(4,10,17,0.60) 0%, rgba(4,10,17,0.24) 38%, rgba(4,10,17,0) 72%)",
-          "linear-gradient(180deg, #08192A 0%, #0A1D2E 46%, #0D2437 100%)",
+          "radial-gradient(120% 70% at 108% 92%, rgba(150,178,205,0.30) 0%, rgba(126,155,182,0.16) 26%, rgba(90,116,142,0.06) 52%, rgba(27,38,50,0) 78%)",
+          "radial-gradient(150% 95% at 96% 78%, rgba(120,150,178,0.12) 0%, rgba(27,38,50,0) 70%)",
+          "radial-gradient(110% 80% at 0% 0%, rgba(9,16,24,0.55) 0%, rgba(9,16,24,0.22) 38%, rgba(9,16,24,0) 72%)",
+          "linear-gradient(170deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0) 42%, rgba(0,0,0,0.05) 100%)",
+          "linear-gradient(180deg, #1B2632 0%, #1D2937 46%, #202D3B 100%)",
         ].join(", "),
         borderRight: "none",
         boxShadow:
