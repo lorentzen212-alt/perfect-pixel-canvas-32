@@ -671,16 +671,18 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
         <Link
           to={action.to}
           params={{ bookingId: booking.id }}
-          className="hgb-view-btn group/btn relative inline-flex shrink-0 items-center gap-3 overflow-hidden whitespace-nowrap rounded-[8px] px-[16px] py-[6px] text-[13px]"
+          className="hgb-view-btn group/btn relative inline-flex shrink-0 items-center gap-3 overflow-hidden whitespace-nowrap rounded-[8px] px-[16px] py-[8px] text-[13px]"
           style={{
             color: "#F2F2F2",
             marginRight: 0,
             marginTop: 4,
             border: "1px solid #D8B45C",
-            background: "linear-gradient(180deg, #1A2330 0%, #131C27 100%)",
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.015) 46%, rgba(0,0,0,0.10) 100%), linear-gradient(180deg, #1A2330 0%, #131C27 100%)",
             boxShadow:
-              "0 0 10px rgba(216,180,92,0.22), 0 2px 8px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05)",
+              "0 0 10px rgba(216,180,92,0.22), 0 2px 8px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06)",
           }}
+
         >
           <span style={{ color: "#F2F2F2" }}>{action.label}</span>
           <ArrowRight
