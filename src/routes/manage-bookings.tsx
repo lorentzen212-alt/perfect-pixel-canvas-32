@@ -1466,7 +1466,7 @@ function ManageBookings() {
                       type="button"
                       aria-pressed={on}
                       onClick={() => setScope(key)}
-                      className="rounded-[10px] px-[15px] py-[8px] text-[13px] font-medium transition-all duration-200"
+                      className="hgb-scope-tab rounded-[10px] px-[15px] py-[8px] text-[13px] font-medium transition-all duration-200"
                       style={
                         on
                           ? {
