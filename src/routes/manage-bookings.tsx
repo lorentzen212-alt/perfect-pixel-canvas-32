@@ -1642,7 +1642,7 @@ function ManageBookings() {
               }}
             >
               {/* Rad 1 — Active / Cancelled / All */}
-              <div className="mb-[14px] flex flex-wrap items-center gap-2">
+              <div className="mb-[8px] flex flex-wrap items-center gap-2">
                 {(
                   [
                     { key: "active" as const, label: "Active Bookings", n: scopeCounts.active },
