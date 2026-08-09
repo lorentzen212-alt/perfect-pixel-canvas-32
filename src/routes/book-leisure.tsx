@@ -1,5 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
+import { BrandLogo } from "@/components/BrandLogo";
 import { hasProfileDetails, isProfileComplete, upsertProfile, useAuth } from "@/lib/auth";
 import { createBooking, nightsBetween, type NewBookingInput } from "@/lib/bookingsApi";
 import { savePendingRequest, clearPendingRequest } from "@/lib/pendingRequest";

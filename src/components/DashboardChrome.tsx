@@ -14,7 +14,7 @@ import {
   Menu,
   Plus,
 } from "lucide-react";
-import logo from "@/assets/hotelgroupbook-logo.png.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
 
 /* Shared HotelGroupBook dashboard palette (matches /manage-bookings) */
 export const PAL = {
@@ -65,7 +65,7 @@ export function SidebarContent({
       style={{ background: `linear-gradient(180deg, ${SIDEBAR} 0%, ${SIDEBAR_ALT} 100%)` }}
     >
       <Link to="/" className="block">
-        <img src={logo.url} alt="HotelGroupBook" className="h-11 w-auto object-contain object-left" />
+        <BrandLogo size="md" tone="dark" />
       </Link>
 
 
@@ -265,13 +265,7 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
       }}
     >
       <Link to="/" className="block px-1">
-        <img
-          src={logo.url}
-          alt="HotelGroupBook"
-          className="h-11 w-auto object-contain object-left"
-          // ensure the white logo stays clearly visible on the navy background
-          style={{ filter: "brightness(1.05) contrast(1.02)" }}
-        />
+        <BrandLogo size="md" tone="dark" />
       </Link>
 
       <p
