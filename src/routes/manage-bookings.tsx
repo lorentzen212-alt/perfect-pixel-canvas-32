@@ -1448,7 +1448,7 @@ function ManageBookings() {
                             }
                       }
                     >
-                      {label} ({n})
+                      {label} {n}
                     </button>
                   );
                 })}
