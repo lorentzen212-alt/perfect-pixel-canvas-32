@@ -1530,10 +1530,11 @@ function ManageBookings() {
                     }}
                     className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px]"
                     style={{
-                      background: "rgba(255,255,255,0.42)",
-                      border: "1px solid rgba(110,106,96,0.20)",
-                      color: "#6B6858",
+                      background: "rgba(214,221,228,0.88)",
+                      border: "1px solid rgba(255,255,255,0.16)",
+                      color: "#3A424B",
                     }}
+
                   >
                     <SlidersHorizontal size={17} strokeWidth={1.9} />
                   </button>
@@ -1551,7 +1552,7 @@ function ManageBookings() {
                   <BookingCard key={b.id} booking={b} compact={view === "grid"} />
                 ))}
                 {results.length === 0 && (
-                  <p className="py-12 text-center text-[13.5px]" style={{ color: "#6B6858" }}>
+                  <p className="py-12 text-center text-[13.5px]" style={{ color: "#C3C8CD" }}>
                     {isLoading
                       ? "Loading your bookings…"
                       : bookings.length === 0
@@ -1562,15 +1563,16 @@ function ManageBookings() {
               </div>
 
               <footer className="mt-5 flex flex-wrap items-center justify-between gap-3">
-                <p className="text-[12.5px]" style={{ color: "#6B6858" }}>
+                <p className="text-[12.5px]" style={{ color: "#C3C8CD" }}>
                   Can&rsquo;t find a booking?{" "}
-                  <Link to="/account" style={{ color: "#8A6A24" }}>
+                  <Link to="/account" style={{ color: "#E3C583" }}>
                     Contact us →
                   </Link>
                 </p>
-                <span className="text-[12.5px]" style={{ color: "#6B6858" }}>
+                <span className="text-[12.5px]" style={{ color: "#C3C8CD" }}>
                   Showing {results.length} of {bookings.length}
                 </span>
+
               </footer>
             </section>
             </div>
