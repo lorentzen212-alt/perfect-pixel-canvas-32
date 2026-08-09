@@ -1459,8 +1459,8 @@ function ManageBookings() {
             {/* hero header */}
             <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[210px] lg:mt-[225px]">
               <div
-                className="relative min-w-0"
-                style={{ position: "relative", top: -20, left: 0, textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
+                className="relative min-w-0 top-[-20px] lg:top-[-35px]"
+                style={{ position: "relative", left: 0, textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
               >
                 <span
                   aria-hidden
