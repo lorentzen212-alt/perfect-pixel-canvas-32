@@ -1634,7 +1634,7 @@ function ManageBookings() {
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className="hgb-stone-surface relative isolate mt-[18px] overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
+              className="hgb-stone-surface relative isolate mt-[10px] overflow-hidden rounded-[22px] pt-[16px] pb-[22px] pl-[22px] pr-[22px] sm:pt-[19px] sm:pb-[26px] sm:pl-[26px] sm:pr-[26px]"
               style={{
                 border: "1px solid rgba(120,116,104,0.22)",
                 boxShadow:
