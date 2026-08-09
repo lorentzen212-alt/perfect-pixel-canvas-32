@@ -829,11 +829,12 @@ function StatTile({
 }) {
   return (
     <div className="relative">
-      {/* champagne-gold mounting slot — metal hardware set into the stone */}
+      {/* narrow dark recess where the panel enters the stone */}
       <span
         aria-hidden
-        className="hgb-kpi-slot pointer-events-none absolute -left-[10px] -right-[10px] bottom-[-9px] z-0 h-[12px] rounded-b-[7px]"
+        className="hgb-kpi-slot pointer-events-none absolute -left-[4px] -right-[4px] bottom-[-5px] z-0 h-[11px]"
       />
+
     <button
       type="button"
       onClick={onClick}
