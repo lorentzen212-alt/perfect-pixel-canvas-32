@@ -885,6 +885,7 @@ function StatTile({
         {footer ?? "View bookings"} <ArrowRight size={12} />
       </span>
     </button>
+    </div>
   );
 }
 
