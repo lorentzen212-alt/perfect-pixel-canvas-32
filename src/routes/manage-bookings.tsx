@@ -727,6 +727,9 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           : {
               /* pulled closer to the machined gold edge without moving any other content */
               marginLeft: -10,
+              /* +8px total height, kept vertically centred inside the card */
+              marginTop: -4,
+              marginBottom: -4,
               background: "linear-gradient(180deg, #18212C 0%, #131B25 100%)",
               border: "1px solid rgba(255,255,255,0.055)",
               boxShadow:
@@ -788,7 +791,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[25px] pr-[24px] transition-all duration-300 sm:grid-cols-[168px_minmax(0,1fr)] lg:grid-cols-[184px_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[25px] pr-[24px] transition-all duration-300 sm:grid-cols-[198px_minmax(0,1fr)] lg:grid-cols-[214px_minmax(0,1fr)]"
       style={shell}
     >
       {goldStrip}
