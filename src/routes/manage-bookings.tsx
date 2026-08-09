@@ -1655,6 +1655,8 @@ function ManageBookings() {
 
                 <FilterSelect
                   label="Status filter"
+                  menuWidth={196}
+
                   value={group}
                   onChange={setGroup}
                   options={[
