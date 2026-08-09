@@ -1402,27 +1402,19 @@ function ManageBookings() {
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className="relative isolate overflow-hidden rounded-[17px] p-[16px] sm:p-[18px]"
+              className="hgb-stone-surface relative isolate mt-[18px] overflow-hidden rounded-[22px] p-[22px] sm:p-[26px]"
               style={{
-                backgroundColor: "#E2E1DC",
-                backgroundImage: "none",
-                border: "1px solid rgba(0,0,0,0.06)",
+                border: "1px solid rgba(120,116,104,0.22)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.50), 0 16px 34px -24px rgba(0,0,0,0.18)",
+                  "inset 0 1px 0 rgba(255,255,255,0.62), inset 0 -1px 0 rgba(0,0,0,0.06), 0 26px 60px -28px rgba(6,10,15,0.62)",
               }}
             >
-
-
-              {/* booking category switcher */}
-              <div className="mb-[10px] flex flex-wrap items-center gap-2">
+              {/* Rad 1 — Active / Cancelled / All */}
+              <div className="mb-[14px] flex flex-wrap items-center gap-2">
                 {(
                   [
                     { key: "active" as const, label: "Active Bookings", n: scopeCounts.active },
-                    {
-                      key: "cancelled" as const,
-                      label: "Cancelled Bookings",
-                      n: scopeCounts.cancelled,
-                    },
+                    { key: "cancelled" as const, label: "Cancelled Bookings", n: scopeCounts.cancelled },
                     { key: "all" as const, label: "All Bookings", n: scopeCounts.all },
                   ]
                 ).map(({ key, label, n }) => {
@@ -1433,7 +1425,7 @@ function ManageBookings() {
                       type="button"
                       aria-pressed={on}
                       onClick={() => setScope(key)}
-                      className="rounded-[10px] px-[13px] py-[6px] text-[12.5px] font-medium transition-all duration-200"
+                      className="rounded-[10px] px-[15px] py-[8px] text-[13px] font-medium transition-all duration-200"
                       style={
                         on
                           ? {
@@ -1441,15 +1433,12 @@ function ManageBookings() {
                                 "linear-gradient(180deg, rgba(24,33,44,0.94) 0%, rgba(17,25,34,0.94) 100%)",
                               border: "1px solid rgba(197,155,69,0.72)",
                               color: "#E3C583",
-                              boxShadow:
-                                "inset 0 1px 0 rgba(255,255,255,0.08), 0 6px 14px -8px rgba(0,0,0,0.55)",
                             }
                           : {
-                              background: "rgba(214,221,228,0.88)",
-                              border: "1px solid rgba(255,255,255,0.16)",
-                              color: "#2B3138",
+                              background: "rgba(255,255,255,0.42)",
+                              border: "1px solid rgba(110,106,96,0.20)",
+                              color: "#5B5A53",
                             }
-
                       }
                     >
                       {label} ({n})
@@ -1458,114 +1447,119 @@ function ManageBookings() {
                 })}
               </div>
 
-              {/* search + filter row */}
-              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:flex-nowrap md:items-center">
+              {/* Rad 2 — søk, filtre, visningsvalg */}
+              <div className="mb-[18px] flex flex-col gap-3 md:flex-row md:items-center">
                 <div
-                  className="relative flex flex-1 basis-[200px] items-center rounded-[11px]"
+                  className="relative flex min-w-0 flex-1 items-center rounded-[11px]"
                   style={{
-                    background: "rgba(216,222,228,0.92)",
-                    border: "1px solid rgba(255,255,255,0.16)",
-                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.10)",
+                    background: "rgba(255,255,255,0.52)",
+                    border: "1px solid rgba(110,106,96,0.20)",
                   }}
                 >
                   <Search
                     size={17}
                     strokeWidth={1.9}
                     className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
-                    style={{ color: "#4A525B" }}
-
+                    style={{ color: "#7B786C" }}
                   />
                   <input
                     ref={searchRef}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search bookings, references, destinations…"
+                    placeholder="Search bookings..."
                     aria-label="Search bookings by name, destination, hotel or reference"
-                    className="w-full bg-transparent py-[9px] pl-[44px] pr-[62px] text-[13.5px] outline-none placeholder:text-[rgba(60,58,50,0.45)]"
+                    className="w-full bg-transparent py-[11px] pl-[44px] pr-4 text-[14px] outline-none"
                     style={{ color: "#2E3138" }}
                   />
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded-[6px] px-[7px] py-[2px] text-[11px] tracking-[0.04em]"
-                    style={{
-                      color: "#4A525B",
-                      border: "1px solid rgba(74,82,91,0.24)",
-                      background: "rgba(255,255,255,0.55)",
-                    }}
-
-                  >
-                    ⌘K
-                  </span>
                 </div>
 
+                <FilterSelect
+                  label="Status filter"
+                  value={group}
+                  onChange={setGroup}
+                  options={[
+                    { value: "all", label: "Status" },
+                    { value: "awaiting", label: "Awaiting Response" },
+                    { value: "proposal", label: "Proposal Ready" },
+                    { value: "confirmed", label: "Confirmed" },
+                    { value: "attention", label: "Needs Attention" },
+                    { value: "cancelled", label: "Cancelled" },
+                  ]}
+                />
+                <FilterSelect
+                  label="Country filter"
+                  value={country}
+                  onChange={setCountry}
+                  options={countryOptions}
+                />
+                <FilterSelect
+                  label="Arrival filter"
+                  value={dateChoice}
+                  onChange={setDateChoice}
+                  options={[
+                    { value: "all", label: "Arrival" },
+                    { value: "upcoming", label: "Upcoming" },
+                    { value: "this_month", label: "This Month" },
+                    { value: "next_90", label: "Next 3 Months" },
+                    { value: "past", label: "Past Stays" },
+                  ]}
+                />
 
-                <div className="flex min-w-0 flex-wrap items-center gap-2.5">
-                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
-                    <Select
-                      label="Status filter"
-                      value={group}
-                      onChange={setGroup}
-                      options={[
-                        { value: "all", label: "Status" },
-                        { value: "proposal", label: "Proposal Ready" },
-                        { value: "awaiting", label: "Awaiting Response" },
-                        { value: "confirmed", label: "Confirmed" },
-                        { value: "attention", label: "Needs Attention" },
-                        { value: "cancelled", label: "Cancelled" },
-                      ]}
-                    />
-                  </div>
-
-                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
-                    <Select
-                      label="Country filter"
-                      value={country}
-                      onChange={setCountry}
-                      options={countryOptions}
-                    />
-                  </div>
-
-
-
-                  <div className="hgb-filter-pill flex min-w-0 items-center rounded-[11px] md:w-[134px]">
-                    <Select
-                      label="Date filter"
-                      value={dateChoice}
-                      onChange={setDateChoice}
-                      options={[
-                        { value: "all", label: "Arrival" },
-                        { value: "upcoming", label: "Upcoming" },
-                        { value: "this_month", label: "This Month" },
-                        { value: "next_90", label: "Next 3 Months" },
-                        { value: "past", label: "Past Stays" },
-                      ]}
-                    />
-                  </div>
-
-
-
-
+                <div className="flex min-w-0 items-center gap-2.5">
+                  {(
+                    [
+                      { key: "grid" as const, icon: Grid2X2, label: "Grid view" },
+                      { key: "list" as const, icon: LayoutList, label: "List view" },
+                    ]
+                  ).map(({ key, icon: Icon, label }) => {
+                    const on = view === key;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        aria-label={label}
+                        aria-pressed={on}
+                        onClick={() => setView(key)}
+                        className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px] transition-all duration-200"
+                        style={
+                          on
+                            ? {
+                                background: "rgba(255,255,255,0.72)",
+                                border: "1px solid rgba(184,142,67,0.7)",
+                                color: "#8A6A24",
+                              }
+                            : {
+                                background: "rgba(255,255,255,0.42)",
+                                border: "1px solid rgba(110,106,96,0.20)",
+                                color: "#6B6858",
+                              }
+                        }
+                      >
+                        <Icon size={17} strokeWidth={1.9} />
+                      </button>
+                    );
+                  })}
                   <button
                     type="button"
                     aria-label="More filters"
                     onClick={() => {
-                      setGroup("all");
-                      setDateChoice("all");
-                      setCountry("all");
                       setQuery("");
+                      setGroup("all");
+                      setCountry("all");
+                      setDateChoice("all");
                     }}
                     className="grid h-[42px] w-[44px] shrink-0 place-items-center rounded-[11px]"
                     style={{
-                      background: "rgba(214,221,228,0.88)",
-                      border: "1px solid rgba(255,255,255,0.16)",
-                      color: "#3A424B",
+                      background: "rgba(255,255,255,0.42)",
+                      border: "1px solid rgba(110,106,96,0.20)",
+                      color: "#6B6858",
                     }}
-
                   >
                     <SlidersHorizontal size={17} strokeWidth={1.9} />
                   </button>
                 </div>
               </div>
+
 
 
               <div
