@@ -1374,21 +1374,21 @@ function ManageBookings() {
         <main
           className="relative min-h-screen lg:pt-10"
           style={{
-            backgroundColor: "#263440",
+            backgroundColor: "#05101A",
             backgroundImage:
-              "linear-gradient(180deg, #263440 0px, #263440 160px, #263440 100%)",
+              "linear-gradient(180deg, #05101A 0px, #05101A 160px, #05101A 100%)",
           }}
 
         >
           {/* lobby hero — wide landscape photograph fading into the dashboard */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-[240px] sm:h-[300px] lg:h-[372px] overflow-hidden"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[300px] sm:h-[380px] lg:h-[440px] overflow-hidden"
           >
             <img
               src={lobbyHeroAsset.url}
               alt=""
-              className="h-full w-full object-cover object-[58%_center] sm:object-[54%_center] lg:object-[50%_center]"
+              className="h-full w-full object-cover object-[58%_35%] sm:object-[54%_35%] lg:object-[center_35%]"
               style={{ filter: "brightness(1.09) contrast(0.94) saturate(0.96)" }}
             />
             {/* shadow lift — softens the deepest blacks without washing out */}
@@ -1405,14 +1405,14 @@ function ManageBookings() {
               className="absolute inset-y-0 left-0 w-full"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(28,43,54,0.12) 0%, rgba(28,43,54,0.04) 30%, rgba(28,43,54,0) 55%)",
+                  "linear-gradient(90deg, rgba(5,16,26,0.14) 0%, rgba(5,16,26,0.05) 30%, rgba(5,16,26,0) 55%)",
               }}
             />
             <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-[150px]"
+              className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(38,52,64,0) 0%, rgba(38,52,64,0.10) 18%, rgba(38,52,64,0.28) 38%, rgba(38,52,64,0.55) 62%, rgba(38,52,64,0.82) 82%, #263440 100%)",
+                  "linear-gradient(to bottom, rgba(5,16,26,0) 0%, rgba(5,16,26,0.35) 55%, rgba(5,16,26,0.75) 85%, rgba(5,16,26,1) 100%)",
               }}
             />
           </div>
@@ -1440,7 +1440,7 @@ function ManageBookings() {
             </div>
 
             {/* hero header */}
-            <header className="mt-[96px] flex items-start justify-between gap-6 sm:mt-[137px] lg:mt-[149px]">
+            <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[210px] lg:mt-[225px]">
               <div
                 className="relative min-w-0"
                 style={{ position: "relative", top: -20, left: 28, textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
