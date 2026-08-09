@@ -715,12 +715,12 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
     backgroundPosition: "var(--insert-w) top, left top",
     backgroundSize: "calc(100% - var(--insert-w)) 100%, 100% 100%",
 
-    border: "1px solid rgba(255,255,255,0.055)",
+    border: "1px solid rgba(255,255,255,0.09)",
     borderLeft: "none",
     borderRadius: 12,
-    /* seated into the stone workspace: soft outer shadow + fine inner edge light */
+    /* clean, subtle separation from the plate — no recessed frame */
     boxShadow:
-      "0 10px 24px rgba(12,16,22,0.34), 0 2px 4px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.055), inset 0 -8px 20px rgba(0,0,0,0.42)",
+      "0 5px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04)",
   } as const;
 
 
@@ -793,29 +793,23 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <div className="hgb-card-recess">
-        <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300" style={shell}>
-          {goldStrip}
-          <div>{media}</div>
-          <div className="py-3 pr-3">{info}</div>
-        </article>
-      </div>
+      <article className="hgb-booking-card group relative overflow-hidden transition-all duration-300" style={shell}>
+        {goldStrip}
+        <div>{media}</div>
+        <div className="py-3 pr-3">{info}</div>
+      </article>
     );
   }
 
   return (
-    <div className="hgb-card-recess">
-      <article
-        className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[12px] overflow-hidden py-[12px] pr-[16px] transition-all duration-300 sm:grid-cols-[168px_minmax(0,1fr)] lg:grid-cols-[184px_minmax(0,1fr)]"
-
-
-        style={shell}
-      >
-        {goldStrip}
-        {media}
-        <div className="min-w-0">{info}</div>
-      </article>
-    </div>
+    <article
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[15px] pr-[16px] transition-all duration-300 sm:grid-cols-[168px_minmax(0,1fr)] lg:grid-cols-[184px_minmax(0,1fr)]"
+      style={shell}
+    >
+      {goldStrip}
+      {media}
+      <div className="min-w-0">{info}</div>
+    </article>
   );
 
 
