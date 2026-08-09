@@ -57,7 +57,7 @@ export function BrandLogo({
           borderRadius: b.badgeRadius,
           fontSize: b.badgeText,
           color: badgeColor,
-          border: tone === "light" ? "1px solid rgba(18,34,47,0.18)" : "1px solid rgba(255,255,255,0.18)",
+          border: badgeBorder,
           background: badgeBg,
           boxShadow: badgeBoxShadow,
         }}
