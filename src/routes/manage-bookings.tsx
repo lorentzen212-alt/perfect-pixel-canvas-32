@@ -1244,7 +1244,7 @@ function ManageBookings() {
               </div>
 
 
-              <div className="hidden shrink-0 items-center gap-5 lg:flex">
+              <div className="absolute right-4 top-6 z-10 hidden shrink-0 items-center gap-5 sm:right-6 lg:right-8 lg:flex xl:right-10">
                 <button
                   type="button"
                   aria-label="Notifications"
