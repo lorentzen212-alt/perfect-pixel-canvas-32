@@ -6,7 +6,7 @@ import { readPendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
 import { fetchBookings, createBooking, cancelBooking } from "@/lib/bookingsApi";
 import { toast } from "sonner";
 import pageTextureAsset from "@/assets/limestone-texture.jpg.asset.json";
-import lobbyHeroAsset from "@/assets/manage-hero-reception-cinematic.png.asset.json";
+import lobbyHeroAsset from "@/assets/manage-hero-fjord-reception.png.asset.json";
 
 
 import {
