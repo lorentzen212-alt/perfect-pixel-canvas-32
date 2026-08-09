@@ -38,13 +38,13 @@ export function BrandLogo({
   const s = SIZES[size];
   const inkColor = tone === "light" ? "#12222F" : "#FFFFFF";
   const badgeColor = "#FFFFFF";
-  const badgeBorder =
-    tone === "light" ? "1px solid rgba(18,34,47,0.16)" : "1px solid rgba(255,255,255,0.16)";
+  // Crisp cool-white / silver-white outline — clearly defines the navy plate over photography.
+  const badgeBorder = "1px solid rgba(245,248,250,0.72)";
   // Solid premium navy brand plate — opaque so photography does not show through.
   const badgeBg = "#142433";
-  // Restrained dimensional treatment: faint top highlight + subtle lift shadow.
+  // Restrained dimensional treatment: faint inner top highlight + ultra-subtle outer definition.
   const badgeBoxShadow =
-    "inset 0 1px 0 rgba(255,255,255,0.05), 0 2px 6px rgba(0,0,0,0.18)";
+    "inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 0.5px rgba(255,255,255,0.06)";
 
   if (variant === "badge") {
     const b = size === "md" ? COLLAPSED : { badge: s.badge, badgeRadius: s.badgeRadius, badgeText: s.badgeText };
@@ -57,7 +57,7 @@ export function BrandLogo({
           borderRadius: b.badgeRadius,
           fontSize: b.badgeText,
           color: badgeColor,
-          border: tone === "light" ? "1px solid rgba(18,34,47,0.18)" : "1px solid rgba(255,255,255,0.18)",
+          border: badgeBorder,
           background: badgeBg,
           boxShadow: badgeBoxShadow,
         }}
