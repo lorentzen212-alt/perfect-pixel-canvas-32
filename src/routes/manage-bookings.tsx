@@ -1196,7 +1196,7 @@ function ManageBookings() {
           style={{
             backgroundColor: "#263440",
             backgroundImage:
-              "linear-gradient(180deg, #1C2B36 0px, #22313D 120px, #263440 280px, #263440 100%)",
+              "linear-gradient(180deg, #263440 0px, #263440 160px, #263440 100%)",
           }}
 
         >
