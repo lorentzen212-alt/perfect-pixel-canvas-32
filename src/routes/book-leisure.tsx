@@ -680,22 +680,10 @@ function BookLeisure() {
         style={{ borderColor: HAIR, backgroundColor: IVORY_SOFT }}
       >
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-4 lg:px-10">
-          <Link to="/" className="flex items-center gap-3">
-            <div
-              className="grid h-9 w-9 place-items-center rounded-[8px]"
-              style={{ backgroundColor: NAVY, color: GOLD, fontFamily: SERIF }}
-            >
-              <span className="text-[15px] font-medium leading-none">HGB</span>
-            </div>
-            <div className="leading-tight">
-              <div style={{ fontFamily: SERIF }} className="text-[17px] font-medium text-[color:var(--ink)]">
-                HotelGroupBook
-              </div>
-              <div className="text-[11px] tracking-[0.14em] uppercase" style={{ color: MUTED }}>
-                Group journeys, made simple
-              </div>
-            </div>
+          <Link to="/" className="flex items-center gap-3" aria-label="HotelGroupBook">
+            <BrandLogo size="md" tone="light" />
           </Link>
+
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-[13px] font-medium transition-colors"
