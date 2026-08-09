@@ -848,7 +848,7 @@ function StatTile({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative flex w-full flex-col justify-between overflow-hidden rounded-[16px] px-[22px] pb-[11px] pt-[14px] text-left transition-all duration-200 hover:-translate-y-[2px]"
+      className="relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] px-[18px] pb-[8px] pt-[11px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
         background:
           "linear-gradient(180deg, rgba(43,55,70,0.94) 0%, rgba(30,40,52,0.94) 100%)",
@@ -871,24 +871,24 @@ function StatTile({
           Action needed
         </span>
       )}
-      <span className="flex items-center gap-[18px]">
+      <span className="flex items-center gap-[14px]">
         <span className="shrink-0" style={{ color: active || action ? "#E2BE6E" : "#9FB0BF" }}>
           {icon}
         </span>
         <span className="min-w-0">
           <span
-            className="block text-[32px] leading-none"
+            className="block text-[28px] leading-none"
             style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 400 }}
           >
             {count}
           </span>
-          <span className="mt-[5px] block truncate text-[13.5px]" style={{ color: "#B9C6D2" }}>
+          <span className="mt-[3px] block truncate text-[12.5px]" style={{ color: "#B9C6D2" }}>
             {label}
           </span>
         </span>
       </span>
       <span
-        className="mt-[10px] flex items-center gap-1.5 pt-[8px] text-[12px]"
+        className="mt-[7px] flex items-center gap-1.5 pt-[6px] text-[11.5px]"
         style={{
           borderTop: "1px solid rgba(255,255,255,0.07)",
           color: active || action ? "#E2BE6E" : "#93A3B1",
@@ -1227,12 +1227,12 @@ function ManageBookings() {
             <header className="mt-[120px] flex items-start justify-between gap-6 sm:mt-[160px] lg:mt-[175px]">
               <div className="min-w-0" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
                 <h1
-                  className="text-[42px] leading-[1.06] sm:text-[58px]"
+                  className="text-[34px] leading-[1.04] sm:text-[44px]"
                   style={{ color: "#FFFFFF", fontFamily: SERIF, fontWeight: 400 }}
                 >
                   Welcome, {firstName.charAt(0).toUpperCase() + firstName.slice(1)}
                 </h1>
-                <p className="mt-3 text-[16px]" style={{ color: "#E7EDF3" }}>
+                <p className="mt-1.5 text-[14px]" style={{ color: "#E7EDF3" }}>
                   Your groups, stays and next steps — all in one place.
                 </p>
               </div>
@@ -1293,7 +1293,7 @@ function ManageBookings() {
 
 
             {/* stat tiles */}
-            <section className="mt-[10px] grid grid-cols-2 items-stretch gap-4 xl:grid-cols-4">
+            <section className="mt-[8px] grid grid-cols-2 items-stretch gap-3 xl:grid-cols-4">
               <StatTile
                 label="Awaiting response"
                 count={counts.awaiting}
@@ -1364,25 +1364,25 @@ function ManageBookings() {
 
 
             {/* booking list — full width */}
-            <div className="mt-[14px]">
+            <div className="mt-[10px]">
             <div className="min-w-0">
 
 
             {/* bookings — premium stone workspace panel */}
             <section
-              className="relative isolate overflow-hidden rounded-[18px] p-[22px] sm:p-[26px]"
+              className="relative isolate overflow-hidden rounded-[16px] p-[16px] sm:p-[18px]"
               style={{
-                backgroundColor: "#D5D6D4",
+                backgroundColor: "#C6C5C0",
                 backgroundImage:
-                  "radial-gradient(120% 80% at 12% 0%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.07) 44%, rgba(255,255,255,0) 74%), linear-gradient(145deg, #DADBD9 0%, #D2D4D3 48%, #CBCDCC 100%)",
-                border: "1px solid rgba(255,255,255,0.42)",
+                  "radial-gradient(120% 80% at 12% 0%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 44%, rgba(255,255,255,0) 74%), linear-gradient(180deg, #CAC9C4 0%, #C3C2BD 42%, #BABCBC 100%)",
+                border: "1px solid rgba(255,255,255,0.34)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.70), inset 0 -1px 0 rgba(0,0,0,0.06), 0 26px 60px -28px rgba(6,10,15,0.62)",
+                  "inset 0 1px 0 rgba(255,255,255,0.50), inset 0 -1px 0 rgba(0,0,0,0.10), 0 26px 60px -28px rgba(6,10,15,0.62)",
               }}
             >
 
               {/* booking category switcher */}
-              <div className="mb-[14px] flex flex-wrap items-center gap-2">
+              <div className="mb-[10px] flex flex-wrap items-center gap-2">
                 {(
                   [
                     { key: "active" as const, label: "Active Bookings", n: scopeCounts.active },
@@ -1401,7 +1401,7 @@ function ManageBookings() {
                       type="button"
                       aria-pressed={on}
                       onClick={() => setScope(key)}
-                      className="rounded-[10px] px-[15px] py-[8px] text-[13px] font-medium transition-all duration-200"
+                      className="rounded-[10px] px-[13px] py-[6px] text-[12.5px] font-medium transition-all duration-200"
                       style={
                         on
                           ? {
@@ -1534,7 +1534,7 @@ function ManageBookings() {
 
               <div
                 className={
-                  view === "list" ? "space-y-[14px]" : "grid grid-cols-1 gap-[14px] xl:grid-cols-2"
+                  view === "list" ? "space-y-[10px]" : "grid grid-cols-1 gap-[10px] xl:grid-cols-2"
                 }
               
               >
