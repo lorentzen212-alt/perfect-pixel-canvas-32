@@ -1460,7 +1460,7 @@ function ManageBookings() {
             <header className="mt-[150px] flex items-start justify-between gap-6 sm:mt-[210px] lg:mt-[225px]">
               <div
                 className="relative min-w-0"
-                style={{ position: "relative", top: -20, left: 28, textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
+                style={{ position: "relative", top: -20, left: 0, textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
               >
                 <span
                   aria-hidden
@@ -1478,8 +1478,9 @@ function ManageBookings() {
                 <span
                   aria-hidden
                   className="absolute"
-                  style={{ left: 0, top: -16, width: 44, height: 2, background: "#C5A24B" }}
+                  style={{ left: 0, top: -16, width: 64, height: 2, background: "#C5A24B" }}
                 />
+
 
                 <h1
                   className="relative text-[34px] leading-[1.1] sm:text-[45px]"
