@@ -261,7 +261,7 @@ function DetailsCard({
             return (
               <div
                 key={row.k}
-                className="grid grid-cols-[28px_150px_minmax(0,1fr)] items-center gap-x-[10px] py-[3.5px]"
+                className="grid grid-cols-[28px_150px_minmax(0,1fr)] items-center gap-x-[10px] py-[4px]"
               >
                 <span
                   className="grid h-[27px] w-[27px] shrink-0 place-items-center rounded-[7px]"
@@ -283,8 +283,8 @@ function DetailsCard({
                     fontWeight: 600,
                     letterSpacing: "0.05em",
                     borderTop: rule,
-                    paddingTop: i > 0 ? 3.5 : undefined,
-                    marginTop: i > 0 ? -3.5 : undefined,
+                    paddingTop: i > 0 ? 4 : undefined,
+                    marginTop: i > 0 ? -4 : undefined,
                     alignSelf: "stretch",
                     display: "flex",
                     alignItems: "center",
@@ -296,8 +296,8 @@ function DetailsCard({
                   className="min-w-0"
                   style={{
                     borderTop: rule,
-                    paddingTop: i > 0 ? 3.5 : undefined,
-                    marginTop: i > 0 ? -3.5 : undefined,
+                    paddingTop: i > 0 ? 4 : undefined,
+                    marginTop: i > 0 ? -4 : undefined,
                   }}
                 >
                   {isPaymentPill ? (
