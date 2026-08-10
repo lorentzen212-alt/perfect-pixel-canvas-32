@@ -235,12 +235,8 @@ function DetailsCard({
           "0 8px 20px rgba(20,32,40,0.10), 0 2px 5px rgba(20,32,40,0.07), inset 0 1px 0 rgba(255,255,255,0.85)",
       }}
     >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-[9px] rounded-[9px]"
-        style={{ border: "1px solid rgba(105,110,110,0.16)" }}
-      />
       <div className="relative px-6 py-[18px]">
+
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
@@ -265,21 +261,22 @@ function DetailsCard({
             return (
               <div
                 key={row.k}
-                className="grid grid-cols-[28px_150px_minmax(0,1fr)] items-center gap-x-[10px] py-[4px]"
+                className="grid grid-cols-[36px_160px_minmax(0,1fr)] items-center gap-x-[14px] py-[6px]"
               >
                 <span
-                  className="grid h-[27px] w-[27px] shrink-0 place-items-center rounded-[7px]"
+                  className="grid h-[36px] w-[36px] shrink-0 place-items-center rounded-[10px]"
                   style={{
-                    background: "#F7F3EA",
-                    border: "1px solid #DDD2BE",
+                    background: "#FFFFFF",
+                    border: "1px solid rgba(120,110,95,0.10)",
                     boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.90), 0 1px 2px rgba(20,30,35,0.07)",
+                      "0 2px 5px rgba(20,30,35,0.08), 0 1px 1px rgba(20,30,35,0.04)",
                     color: "#A97824",
                     visibility: row.icon ? undefined : "hidden",
                   }}
                 >
                   {row.icon}
                 </span>
+
                 <dt
                   className="self-center truncate text-[11px] uppercase"
                   style={{
@@ -287,8 +284,9 @@ function DetailsCard({
                     fontWeight: 600,
                     letterSpacing: "0.05em",
                     borderTop: rule,
-                    paddingTop: i > 0 ? 4 : undefined,
-                    marginTop: i > 0 ? -4 : undefined,
+                    paddingTop: i > 0 ? 6 : undefined,
+                    marginTop: i > 0 ? -6 : undefined,
+
                     alignSelf: "stretch",
                     display: "flex",
                     alignItems: "center",
@@ -300,8 +298,9 @@ function DetailsCard({
                   className="min-w-0"
                   style={{
                     borderTop: rule,
-                    paddingTop: i > 0 ? 4 : undefined,
-                    marginTop: i > 0 ? -4 : undefined,
+                    paddingTop: i > 0 ? 6 : undefined,
+                    marginTop: i > 0 ? -6 : undefined,
+
                   }}
                 >
                   {isPaymentPill ? (
