@@ -81,7 +81,7 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="flex h-full flex-col px-6 py-5">
+    <Card className="flex flex-col px-6 py-5">
       <Eyebrow>What happens next</Eyebrow>
       <ol className="mt-4 flex-1">
         {steps.map((s, i) => {
@@ -132,7 +132,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
           );
         })}
       </ol>
-      <GoldLink label="View full timeline" onClick={onViewAll} className="mt-5" />
+      <GoldLink label="View full timeline" onClick={onViewAll} className="mt-4" />
     </Card>
   );
 }
