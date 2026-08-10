@@ -81,7 +81,7 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="relative flex h-full flex-col px-5 pb-6 pt-4 sm:px-6">
+    <Card className="relative flex h-full flex-col px-5 pb-5 pt-4 sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -89,7 +89,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
         What happens next
       </span>
 
-      <ol className="relative mt-1.5 flex min-h-0 flex-1 flex-col gap-[13px]">
+      <ol className="relative mt-1.5 flex min-h-0 flex-1 flex-col gap-[5px]">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
@@ -123,7 +123,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
           return (
             <li
               key={s.label}
-              className="relative flex items-center gap-[14px] py-[10px]"
+              className="relative flex items-center gap-[14px] py-[7px]"
             >
               {active && (
                 <span
@@ -145,7 +145,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
                   aria-hidden
                   className="absolute left-[14px] top-1/2 w-[2px] -translate-x-1/2"
                   style={{
-                    height: "calc(100% + 13px)",
+                    height: "calc(100% + 5px)",
                     background: done || active ? "#2E7D55" : "#D4D2CC",
                   }}
                 />
@@ -197,7 +197,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
       <button
         type="button"
         onClick={onViewAll}
-        className="group relative inline-flex w-fit items-center gap-2.5 pt-[36px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
+        className="group relative inline-flex w-fit items-center gap-2.5 pt-[30px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
         style={{ color: "#A98232" }}
       >
         View full timeline
@@ -229,15 +229,13 @@ function DetailsCard({
       className="relative self-start"
       style={{
         background: "#F7F5EF",
-        border: "1px solid rgba(100,110,115,0.25)",
-        borderRadius: 15,
+        border: "1px solid rgba(75,85,92,0.30)",
+        borderRadius: 14,
         boxShadow:
-          "0 8px 20px rgba(20,32,40,0.10), 0 2px 5px rgba(20,32,40,0.07), inset 0 1px 0 rgba(255,255,255,0.85)",
+          "0 2px 3px rgba(20,30,36,0.08), 0 7px 14px rgba(20,30,36,0.10), inset 0 1px 0 rgba(255,255,255,0.92), inset 0 0 0 1px rgba(255,255,255,0.50)",
       }}
     >
-      <div className="relative px-6 py-[18px]">
-
-
+      <div className="relative px-6 py-[13px]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
           {status && (
@@ -254,22 +252,18 @@ function DetailsCard({
             </span>
           )}
         </div>
-        <dl className="mt-2">
+        <dl className="mt-[6px]">
           {rows.map((row, i) => {
             const isPaymentPill = row.k === "Payment terms" && /pending/i.test(row.v);
-            const rule = i > 0 ? "1px solid rgba(80,90,95,0.14)" : undefined;
             return (
-              <div
-                key={row.k}
-                className="grid grid-cols-[36px_160px_minmax(0,1fr)] items-center gap-x-[14px] py-[6px]"
-              >
+              <div key={row.k} className="flex items-center gap-x-[14px]">
                 <span
-                  className="grid h-[36px] w-[36px] shrink-0 place-items-center rounded-[10px]"
+                  className="grid h-[36px] w-[36px] shrink-0 place-items-center rounded-[8px]"
                   style={{
-                    background: "#FFFFFF",
-                    border: "1px solid rgba(120,110,95,0.10)",
+                    background: "#FCFBF8",
+                    border: "1px solid rgba(125,125,115,0.16)",
                     boxShadow:
-                      "0 2px 5px rgba(20,30,35,0.08), 0 1px 1px rgba(20,30,35,0.04)",
+                      "0 2px 5px rgba(25,35,40,0.09), 0 1px 2px rgba(25,35,40,0.05), inset 0 1px 0 rgba(255,255,255,0.95)",
                     color: "#A97824",
                     visibility: row.icon ? undefined : "hidden",
                   }}
@@ -277,72 +271,60 @@ function DetailsCard({
                   {row.icon}
                 </span>
 
-                <dt
-                  className="self-center truncate text-[11px] uppercase"
+                <div
+                  className="grid min-h-[37px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[2px]"
                   style={{
-                    color: "#59636A",
-                    fontWeight: 600,
-                    letterSpacing: "0.05em",
-                    borderTop: rule,
-                    paddingTop: i > 0 ? 6 : undefined,
-                    marginTop: i > 0 ? -6 : undefined,
-
-                    alignSelf: "stretch",
-                    display: "flex",
-                    alignItems: "center",
+                    borderBottom:
+                      i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
                   }}
                 >
-                  {row.k}
-                </dt>
-                <dd
-                  className="min-w-0"
-                  style={{
-                    borderTop: rule,
-                    paddingTop: i > 0 ? 6 : undefined,
-                    marginTop: i > 0 ? -6 : undefined,
-
-                  }}
-                >
-                  {isPaymentPill ? (
-                    <span
-                      className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.04em]"
-                      style={{
-                        color: "#A97824",
-                        background: "#F5EBD8",
-                        border: "1px solid rgba(169,120,36,0.12)",
-                      }}
-                    >
-                      <Clock size={13} />
-                      {row.v}
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-2">
-                      <span className="truncate text-[14px] font-medium" style={{ color: "#17232C" }}>
+                  <dt
+                    className="truncate text-[11px] uppercase"
+                    style={{ color: "#59636A", fontWeight: 600, letterSpacing: "0.05em" }}
+                  >
+                    {row.k}
+                  </dt>
+                  <dd className="min-w-0">
+                    {isPaymentPill ? (
+                      <span
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11.5px] font-semibold uppercase tracking-[0.04em]"
+                        style={{
+                          color: "#A97824",
+                          background: "#F5EBD8",
+                          border: "1px solid rgba(169,120,36,0.12)",
+                        }}
+                      >
+                        <Clock size={13} />
                         {row.v}
                       </span>
-                      {row.stars ? (
-                        <span className="shrink-0 text-[11px]" style={{ color: GOLD }}>
-                          {"★".repeat(row.stars)}
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        <span className="truncate text-[14px] font-medium" style={{ color: "#17232C" }}>
+                          {row.v}
                         </span>
-                      ) : null}
-                    </span>
-                  )}
-                  {row.v2 && (
-                    <span className="block truncate text-[11.5px]" style={{ color: "#8A9195" }}>
-                      {row.v2}
-                    </span>
-                  )}
-                </dd>
+                        {row.stars ? (
+                          <span className="shrink-0 text-[11px]" style={{ color: GOLD }}>
+                            {"★".repeat(row.stars)}
+                          </span>
+                        ) : null}
+                      </span>
+                    )}
+                    {row.v2 && (
+                      <span className="block truncate text-[11.5px]" style={{ color: "#8A9195" }}>
+                        {row.v2}
+                      </span>
+                    )}
+                  </dd>
+                </div>
               </div>
             );
           })}
         </dl>
 
         {footer && (
-          <div className="mt-[7px] flex justify-center pt-[7px]" style={{ borderTop: `1px solid ${HAIR}` }}>
-            {footer}
-          </div>
+          <div className="mt-[13px] flex justify-center pb-[1px]">{footer}</div>
         )}
+
         {children}
       </div>
     </div>
