@@ -748,7 +748,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
               marginLeft: -10,
               /* top edge stays fixed; bottom extends ~6px downward only */
               marginTop: -8,
-              marginBottom: -14,
+              marginBottom: -10,
               background: "linear-gradient(180deg, #18212C 0%, #131B25 100%)",
               border: "1px solid rgba(255,255,255,0.055)",
               boxShadow:
