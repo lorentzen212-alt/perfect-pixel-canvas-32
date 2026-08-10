@@ -538,8 +538,8 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="mt-[5px] block transition-opacity hover:opacity-85"
-            style={{ position: "relative", top: -3, marginBottom: -2 }}
+            className="mt-[7px] block transition-opacity hover:opacity-85"
+            style={{ position: "relative", top: -3, marginBottom: 0 }}
           >
             <h3
               className="text-[28px] leading-[1.05] tracking-[0.002em]"
