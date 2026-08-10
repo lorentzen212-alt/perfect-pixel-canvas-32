@@ -32,6 +32,7 @@ import {
   ConciergeBell,
   Building2,
   Mail,
+  Phone,
 
   X,
 } from "lucide-react";
