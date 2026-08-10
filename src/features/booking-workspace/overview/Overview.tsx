@@ -234,7 +234,7 @@ function DetailsCard({
         className="pointer-events-none absolute inset-[9px] rounded-[9px]"
         style={{ border: "1px solid rgba(105,110,110,0.16)" }}
       />
-      <div className="relative px-7 py-6">
+      <div className="relative px-6 py-5">
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
