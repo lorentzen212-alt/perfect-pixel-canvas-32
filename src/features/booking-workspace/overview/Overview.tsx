@@ -89,7 +89,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
         What happens next
       </span>
 
-      <ol className="relative mt-4 flex min-h-0 flex-1 flex-col gap-[10px]">
+      <ol className="relative mt-4 flex min-h-0 flex-1 flex-col gap-[12px]">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
@@ -141,7 +141,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
                   aria-hidden
                   className="absolute left-[14.5px] top-1/2 w-[1.5px]"
                   style={{
-                    height: "calc(100% + 10px)",
+                    height: "calc(100% + 12px)",
                     background: done || active ? "#2F7650" : "#D4D2CC",
                   }}
                 />
@@ -192,7 +192,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
       <button
         type="button"
         onClick={onViewAll}
-        className="group relative inline-flex w-fit items-center gap-2.5 pt-[26px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
+        className="group relative inline-flex w-fit items-center gap-2.5 pt-[16px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
         style={{ color: "#A98232" }}
       >
         View full timeline
