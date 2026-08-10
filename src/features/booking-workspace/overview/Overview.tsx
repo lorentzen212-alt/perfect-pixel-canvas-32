@@ -152,9 +152,8 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[14.5px] top-1/2 w-[1.5px]"
+                  className="absolute left-[14.5px] top-1/2 h-full w-[1.5px]"
                   style={{
-                    bottom: -2,
                     background: done || active ? "#2F7650" : "#D4D2CC",
                   }}
                 />
