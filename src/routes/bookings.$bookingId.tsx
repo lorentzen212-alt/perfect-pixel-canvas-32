@@ -1007,7 +1007,7 @@ function Workspace({ booking }: { booking: Booking }) {
               style={{ color: TEXT_2 }}
             >
               <ArrowLeft size={15} />
-              Back to Dashboard
+              Back to My Bookings
             </Link>
           }
         />
@@ -1020,6 +1020,11 @@ function Workspace({ booking }: { booking: Booking }) {
           destination={booking.destination}
           reference={booking.reference}
           initials={initials}
+          stayDates={`${dateShort(stay.arrival)} – ${fmtDate(stay.departure, { day: "numeric", month: "short", year: "numeric" })}`}
+          roomsLabel={`${totalRooms} rooms`}
+          guestsLabel={`${totalGuests} guests`}
+          statusLabel={confirmed ? "Confirmed" : "Pending"}
+          statusTone={confirmed ? "#1E5B39" : "#7A5A12"}
           active={tab as WorkspaceTab}
           onSelect={(t) => setTab(t)}
           surface={tab === "Overview" ? FOLDER_TOP_SURFACE : undefined}
