@@ -200,7 +200,8 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
           className="transition-transform duration-200 group-hover:translate-x-[3px]"
         />
       </button>
-    </div>
+    </Card>
+
   );
 }
 
