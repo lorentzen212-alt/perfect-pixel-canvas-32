@@ -1,6 +1,9 @@
 import * as React from "react";
 import { ArrowRight } from "lucide-react";
 import {
+  AMBER,
+  AMBER_DEEP,
+  FOLDER_BREAK,
   FOLDER_CONTACT,
   FOLDER_DEPTH,
   FOLDER_EDGE,
@@ -14,7 +17,10 @@ import {
   IVORY,
   IVORY_BORDER,
   IVORY_SHADOW,
+  SAND,
   SLOT_BG,
+  SLOT_CARD_SHADOW,
+  SLOT_GROOVE,
   SLOT_SHADOW,
 } from "./materials";
 
@@ -25,16 +31,16 @@ export function Plate({ children }: { children: React.ReactNode }) {
       className="relative"
       style={{
         background: `linear-gradient(180deg, ${FOLDER_EDGE} 0%, ${FOLDER_EDGE_DEEP} 100%)`,
-        borderRadius: "14px 14px 16px 16px",
-        padding: `0 3px ${FOLDER_DEPTH}px`,
+        borderRadius: "16px 16px 20px 20px",
+        padding: `0 4px ${FOLDER_DEPTH}px`,
         boxShadow: FOLDER_CONTACT,
       }}
     >
       <div
         style={{
           background: FOLDER_TOP_SURFACE,
-          borderRadius: "12px 12px 14px 14px",
-          boxShadow: `inset 0 1px 0 ${FOLDER_RIM}, inset 0 -1px 0 rgba(255,255,255,0.30)`,
+          borderRadius: "13px 13px 16px 16px",
+          boxShadow: `inset 0 1px 0 ${FOLDER_RIM}, inset 0 -1px 0 ${FOLDER_BREAK}, inset 1px 0 0 rgba(255,255,255,0.45), inset -1px 0 0 rgba(38,44,50,0.06)`,
         }}
       >
         {children}
@@ -43,7 +49,7 @@ export function Plate({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ── ivory card resting on the folder (2–3px lift) ── */
+/* ── ivory card resting 2–3px above the folder ── */
 export function Card({
   children,
   className = "",
@@ -59,7 +65,7 @@ export function Card({
       style={{
         background: IVORY,
         border: IVORY_BORDER,
-        borderRadius: 10,
+        borderRadius: 12,
         boxShadow: IVORY_SHADOW,
         ...style,
       }}
@@ -82,13 +88,74 @@ export function Slot({
       className={className}
       style={{
         background: SLOT_BG,
-        borderRadius: 12,
+        borderRadius: 14,
         boxShadow: SLOT_SHADOW,
-        padding: 7,
+        padding: SLOT_GROOVE,
+      }}
+    >
+      <div
+        style={{
+          background: IVORY,
+          borderRadius: 9,
+          boxShadow: SLOT_CARD_SHADOW,
+          border: "1px solid rgba(38,44,50,0.06)",
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/* ── soft sand medallion ── */
+export function Medallion({
+  children,
+  size = 48,
+}: {
+  children: React.ReactNode;
+  size?: number;
+}) {
+  return (
+    <span
+      className="grid shrink-0 place-items-center rounded-full"
+      style={{
+        height: size,
+        width: size,
+        background: SAND,
+        color: "#8A6A3A",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.85), 0 1px 1px rgba(24,30,36,0.06)",
       }}
     >
       {children}
-    </div>
+    </span>
+  );
+}
+
+/* ── solid amber action ── */
+export function SolidButton({
+  children,
+  onClick,
+  className = "",
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`inline-flex items-center justify-center gap-2 px-5 py-[11px] text-[13px] font-semibold transition-transform hover:-translate-y-[1px] ${className}`}
+      style={{
+        background: `linear-gradient(180deg, ${AMBER} 0%, ${AMBER_DEEP} 100%)`,
+        color: "#FFF9EE",
+        borderRadius: 6,
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.28), 0 1px 2px rgba(24,30,36,0.28), 0 4px 10px rgba(24,30,36,0.16)",
+      }}
+    >
+      {children}
+    </button>
   );
 }
 
@@ -96,7 +163,7 @@ export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
       className="block text-[10px] font-semibold uppercase"
-      style={{ color: INK_3, letterSpacing: "0.2em" }}
+      style={{ color: INK_3, letterSpacing: "0.18em" }}
     >
       {children}
     </span>
