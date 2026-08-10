@@ -954,7 +954,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
   return (
     <div
-      className="min-h-screen"
+      className="flex min-h-screen flex-col"
       style={{ backgroundColor: tab === "Overview" ? PAGE_UNDER : BG_ALT }}
     >
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
