@@ -328,7 +328,7 @@ function DetailsCard({
 /* ── 2c · need help ────────────────────────────────────────── */
 function NeedHelp({ onMessage }: { onMessage?: () => void }) {
   return (
-    <Card className="px-5 py-3.5">
+    <Card className="px-5 py-3">
       <Eyebrow>Need help?</Eyebrow>
       <p className="mt-1 text-[12.5px]" style={{ color: INK_2 }}>
         Questions or changes to your booking?
