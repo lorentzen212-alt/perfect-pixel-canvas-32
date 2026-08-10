@@ -261,7 +261,7 @@ function DetailsCard({
                 key={row.k}
                 className="-mx-1.5 grid grid-cols-[34px_minmax(0,1fr)] items-center gap-x-[12px] px-1.5"
                 style={{
-                  minHeight: 38,
+                  minHeight: 37,
                   background: i % 2 === 1 ? "rgba(90,95,90,0.022)" : "transparent",
                 }}
               >
