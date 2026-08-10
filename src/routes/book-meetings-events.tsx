@@ -1,131 +1,17 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { supabase } from "@/integrations/supabase/client";
-import { hasProfileDetails, upsertProfile, useAuth } from "@/lib/auth";
-import { createBooking, nightsBetween, type NewBookingInput } from "@/lib/bookingsApi";
-import { savePendingRequest, clearPendingRequest } from "@/lib/pendingRequest";
-import React from "react";
-import { useState, useEffect, useMemo, useRef } from "react";
-import {
-  Menu,
-  X,
-  ShieldCheck,
-  Clock,
-  Headphones,
-  Lock,
-  Calendar as CalendarIcon,
-  Phone,
-  Mail,
-  ArrowRight,
-  ArrowLeft,
-  ChevronDown,
-  ChevronUp,
-  Users,
-  Building2,
-  Waves,
-  Plane,
-  Palmtree,
-  Landmark,
-  Globe,
-  Check,
-  Minus,
-  Plus,
-  Pencil,
-  Trash2,
-  Coffee,
-  BedDouble,
-  Bed,
-  User,
-  UsersRound,
-  Sparkles,
-  Utensils,
-  UtensilsCrossed,
-  Croissant,
-  Apple,
-  Nut,
-  CakeSlice,
-  Wine,
-  GlassWater,
-  MapPin,
-  Info,
-  ChefHat,
-  ChevronLeft,
-  ChevronRight,
-  Bus,
-  ClipboardCheck,
-  Package,
-  Luggage,
-  Shirt,
-  Gift,
-  Star,
-  Gem,
-} from "lucide-react";
-import airportTransferImg from "@/assets/extras/airport-transfer.jpg";
-import coachParkingImg from "@/assets/extras/coach-parking.jpg";
-import registrationDeskImg from "@/assets/extras/registration-desk.jpg";
-import packageHandlingImg from "@/assets/extras/package-handling.jpg";
-import porterServiceImg from "@/assets/extras/porter-service.jpg";
-import cloakroomImg from "@/assets/extras/cloakroom.jpg";
-import welcomePackageImg from "@/assets/extras/welcome-package.jpg";
-import accommodationBannerImg from "@/assets/rooms/accommodation-banner.jpg";
-import singleRoomImg from "@/assets/rooms/single.jpg";
-import doubleRoomImg from "@/assets/rooms/double.jpg";
-import twinRoomImg from "@/assets/rooms/twin.jpg";
-import tripleRoomImg from "@/assets/rooms/triple.jpg";
-import roomOnlyImg from "@/assets/rooms/room-only.jpg";
-import breakfastImg from "@/assets/rooms/breakfast.jpg";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useAuth } from "@/lib/auth";
+import { useState, useEffect } from "react";
+import { Menu, X, Calendar as CalendarIcon, Users, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { TrustShield, TrustClock, TrustHeadset, TrustLock } from "@/components/TrustIcons";
 import { StepThreeMeetingSpaces } from "@/components/StepThreeMeetingSpaces";
-import {
-  useMeDraft,
-  setMeSection,
-  type MeAccommodationStay,
-  type MeMeetingSpace,
-} from "@/lib/meDraftStore";
+import { setMeSection } from "@/lib/meDraftStore";
 import { BrandLogo } from "@/components/BrandLogo";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
 const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
 void loungeImg;
 
-import osloImg from "@/assets/destinations/oslo.jpg";
-import bergenImg from "@/assets/destinations/bergen.jpg";
-import tromsoImg from "@/assets/destinations/tromso.jpg";
-import stavangerImg from "@/assets/destinations/stavanger.jpg";
-import trondheimImg from "@/assets/destinations/trondheim.jpg";
-import bodoImg from "@/assets/destinations/bodo.jpg";
-import lofotenImg from "@/assets/destinations/lofoten.jpg";
-import stockholmImg from "@/assets/destinations/stockholm.jpg";
-import gothenburgImg from "@/assets/destinations/gothenburg.jpg";
-import malmoImg from "@/assets/destinations/malmo.jpg";
-import uppsalaImg from "@/assets/destinations/uppsala.jpg";
-import kirunaImg from "@/assets/destinations/kiruna.jpg";
-import visbyImg from "@/assets/destinations/visby.jpg";
-import areImg from "@/assets/destinations/are.jpg";
-import copenhagenImg from "@/assets/destinations/copenhagen.jpg";
-import aarhusImg from "@/assets/destinations/aarhus.jpg";
-import odenseImg from "@/assets/destinations/odense.jpg";
-import aalborgImg from "@/assets/destinations/aalborg.jpg";
-import roskildeImg from "@/assets/destinations/roskilde.jpg";
-import skagenImg from "@/assets/destinations/skagen.jpg";
-import billundImg from "@/assets/destinations/billund.jpg";
-import helsinkiImg from "@/assets/destinations/helsinki.jpg";
-import tampereImg from "@/assets/destinations/tampere.jpg";
-import turkuImg from "@/assets/destinations/turku.jpg";
-import rovaniemiImg from "@/assets/destinations/rovaniemi.jpg";
-import ouluImg from "@/assets/destinations/oulu.jpg";
-import porvooImg from "@/assets/destinations/porvoo.jpg";
-import leviImg from "@/assets/destinations/levi.jpg";
 
-import coffeeCateringImg from "@/assets/catering/coffee.jpg";
-import fruitCateringImg from "@/assets/catering/fruit.jpg";
-import snacksCateringImg from "@/assets/catering/snacks.jpg";
-import morningBreakImg from "@/assets/catering/morning-break.jpg";
-import lunchCateringImg from "@/assets/catering/lunch.jpg";
-import afternoonBreakImg from "@/assets/catering/afternoon-break.jpg";
-import dinnerCateringImg from "@/assets/catering/dinner.jpg";
-import barDrinksImg from "@/assets/catering/bar-drinks.jpg";
-import galaDinnerImg from "@/assets/catering/gala-dinner.jpg";
 
 
 export const Route = createFileRoute("/book-meetings-events")({
@@ -147,18 +33,15 @@ export const Route = createFileRoute("/book-meetings-events")({
   }),
 });
 
-import { SERIF, SANS, GOLD, NAVY, NAVY_DEEP } from "@/features/me/tokens";
+import { SERIF, GOLD, NAVY_DEEP } from "@/features/me/tokens";
 import { NAV_LINKS, TRUST, STEPS, DRAFT_KEY } from "@/features/me/data";
 import type { FormState } from "@/features/me/types";
-import { NextButton, ContinueButton } from "@/features/me/common/buttons";
-import { GoldStarDivider, PremiumDivider, GoldDivider } from "@/features/me/common/dividers";
+import { PremiumDivider } from "@/features/me/common/dividers";
 import { HelpCard } from "@/features/me/shell/HelpCard";
 import { StepFiveExtras } from "@/features/me/step5/StepFiveExtras";
 import { VellumSwitcher } from "@/features/me/shell/VellumSwitcher";
 import { StepProgress } from "@/features/me/shell/StepProgress";
-import { Field } from "@/features/me/common/Field";
-import { StepPlaceholder } from "@/features/me/common/StepPlaceholder";
-import { StepOne, AccountPrefillPanel } from "@/features/me/step1/StepOne";
+import { StepOne } from "@/features/me/step1/StepOne";
 import { StepTwoLocation } from "@/features/me/step2/StepTwoLocation";
 import { StepThreeAccommodation } from "@/features/me/step3/StepThreeAccommodation";
 import { StepFourCatering } from "@/features/me/step4/StepFourCatering";

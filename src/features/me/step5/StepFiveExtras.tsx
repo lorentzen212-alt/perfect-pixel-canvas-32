@@ -255,4 +255,3 @@ export function StepFiveExtras({
 
 /* --------- Step 7 – Review & Submit (pixel-target premium layout) --------- */
 
-import reviewNotebookImg from "@/assets/review-notebook.jpg";
