@@ -1,13 +1,30 @@
-# Match the Booking Overview folder to the reference
+# Rebuild the Booking Overview as a physical folder
 
-Rebuild the presentation of the Overview folder so it reads exactly like the reference image: a light grey folder plate carrying three white information cards, with generous, calm spacing.
+Match the reference layout and information architecture, but with real material depth. The current flat treatment is discarded, not preserved. Physical hierarchy must read even with all text removed: dark hero → thick grey folder → raised ivory cards → one inset business card.
 
-## What changes
+## Material depth (primary goal)
+
+### The folder — a rigid object
+- 5-7px of visible material thickness on the side and bottom faces, darker than the top surface.
+- Light rim highlight along the top edge, darker line where the top surface meets the side face.
+- Rounded physical corners (top and bottom radii differ slightly so the edge reads as a real bevel).
+- Tight, short contact shadow directly beneath the object, plus a wider soft ambient shadow — no generic drop shadow halo.
+- The active Overview tab shares the folder's top-surface colour and rim so it reads as part of the same moulded object.
+
+### Raised ivory cards (Current Action, What Happens Next, Need Help, Summary Strip)
+- Sit 2-3px above the folder surface: a thin lighter top rim, a faint darker bottom edge, and a tight contact shadow with a soft secondary shadow.
+- Refined visible edge thickness — premium mounted stationery, not flat divs, and not neumorphic puffiness.
+
+### Booking Details — the one inset element
+- Seated inside a precisely cut recess: a 5-7px groove visible on all sides, slightly darker than the folder surface.
+- Groove carries an inner shadow at the top and a light catch at the bottom, so the card reads as sitting below the folder plane.
+- The ivory card itself stays flat and slightly recessed, like a business card slotted into die-cut board.
+
+## Layout and content
 
 ### Folder plate
-- Lighter, near-neutral grey surface with a soft outer edge and no visible blue tint.
-- Larger inner padding and rounded corners so cards float clearly on the plate.
-- Active tab keeps merging into the plate top (unchanged behaviour).
+- Neutral grey top surface (no blue cast), generous inner padding so cards float clearly.
+
 
 ### Current action band
 - Circular medallion becomes a soft beige/sand filled disc with a subtle icon (guests/people), no gold ring.
