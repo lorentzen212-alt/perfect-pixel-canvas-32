@@ -37,6 +37,23 @@ import { BookingDocumentsView } from "@/components/BookingDocuments";
 import { BookingMessagesView } from "@/components/BookingMessages";
 import { BookingNotesView } from "@/components/BookingNotes";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
+import {
+  RaisedCard,
+  InsetCard,
+  SummaryStrip,
+  NextTimeline,
+  FolderAction,
+  FolderSection,
+  CardTitle,
+  CardEyebrow as FolderEyebrow,
+  FOLDER_SURFACE,
+  INK as F_INK,
+  INK_SOFT as F_INK_SOFT,
+  INK_FAINT as F_INK_FAINT,
+  HAIR as F_HAIR,
+  GOLD_MET as F_GOLD,
+  GOLD_DEEP_MET as F_GOLD_DEEP,
+} from "@/features/booking-workspace/folder";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 import { roomingProgress, type Booking } from "@/lib/bookings";
 import { distributionFor, statsOf } from "@/lib/rooming";
@@ -458,6 +475,8 @@ function Workspace({ booking }: { booking: Booking }) {
   const [hotelRef] = useState(booking.hotelReference ?? "");
 
   const [copied, setCopied] = useState(false);
+  /* Booking details inset card — "Show more details" disclosure */
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   /* domain state (kept live across panels) */
   const [rooms, setRooms] = useState<RoomLineUI[]>(BASE_ROOMS);
@@ -978,36 +997,50 @@ function Workspace({ booking }: { booking: Booking }) {
           initials={initials}
           active={tab as WorkspaceTab}
           onSelect={(t) => setTab(t)}
+          surface={tab === "Overview" ? FOLDER_SURFACE : undefined}
         />
 
 
-        {/* ══ 2 · large light workspace plate ══ */}
+        {/* ══ 2 · workspace plate — stone folder on Overview, ivory elsewhere ══ */}
         <div
           className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
-          style={{ backgroundColor: PLATE }}
+          style={
+            tab === "Overview"
+              ? {
+                  background: FOLDER_SURFACE,
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.6), inset 1px 0 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(20,30,38,0.10)",
+                }
+              : { backgroundColor: PLATE }
+          }
         >
-          {/* ══ 3 · information strip ══ */}
-          <div className="flex flex-wrap items-center gap-y-5 py-6">
-            {strip.map((s, i) => (
-              <div
-                key={s.lead + i}
-                className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
-                style={i > 0 ? { borderLeft: "1px solid rgba(21,32,43,0.13)" } : undefined}
-              >
-                <span className="shrink-0" style={{ color: GOLD_MET_MID }}>
-                  {s.icon}
-                </span>
-                <span className="min-w-0">
-                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#15202B" }}>
-                    {s.lead}
+          {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
+          {tab === "Overview" ? (
+            <div className="h-[26px]" />
+          ) : (
+            <div className="flex flex-wrap items-center gap-y-5 py-6">
+              {strip.map((s, i) => (
+                <div
+                  key={s.lead + i}
+                  className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
+                  style={i > 0 ? { borderLeft: "1px solid rgba(21,32,43,0.13)" } : undefined}
+                >
+                  <span className="shrink-0" style={{ color: GOLD_MET_MID }}>
+                    {s.icon}
                   </span>
-                  <span className="block truncate text-[12px]" style={{ color: "rgba(21,32,43,0.6)" }}>
-                    {s.sub}
+                  <span className="min-w-0">
+                    <span className="block truncate text-[14px] font-semibold" style={{ color: "#15202B" }}>
+                      {s.lead}
+                    </span>
+                    <span className="block truncate text-[12px]" style={{ color: "rgba(21,32,43,0.6)" }}>
+                      {s.sub}
+                    </span>
                   </span>
-                </span>
-              </div>
-            ))}
-          </div>
+                </div>
+              ))}
+            </div>
+          )}
+
 
           <div key={tab} className="hgb-ws-panel">
           {tab === "Changes" ? (
@@ -1048,360 +1081,429 @@ function Workspace({ booking }: { booking: Booking }) {
 
 
           ) : (
-            <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_378px]">
-              {/* ── left column ── */}
-              <div className="min-w-0 space-y-4">
-                {/* Booking journey */}
-                <InkCard title="Booking journey">
-                  <ol className="mt-6 flex items-start justify-between gap-1">
-                    {journey.map((m, i) => (
-                      <li key={m.label} className="relative flex min-w-0 flex-1 flex-col items-center text-center">
-                        {i < journey.length - 1 && (
-                          <span
-                            aria-hidden
-                            className="absolute top-[15px] h-px"
-                            style={{
-                              left: "calc(50% + 20px)",
-                              right: "calc(-50% + 20px)",
-                              background:
-                                m.state === "done"
-                                  ? "rgba(141,168,138,0.5)"
-                                  : m.state === "active"
-                                    ? `linear-gradient(90deg, ${GOLD_MET_MID}, rgba(255,255,255,0.1))`
-                                    : "rgba(255,255,255,0.1)",
-                            }}
-                          />
-                        )}
-                        <span
-                          className="relative grid h-[31px] w-[31px] shrink-0 place-items-center rounded-full text-[12px] font-semibold"
-                          style={
-                            m.state === "done"
-                              ? { backgroundColor: "#2E7D52", color: "#EAF6EE" }
-                              : m.state === "active"
-                                ? {
-                                    background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
-                                    color: "#241B06",
-                                    boxShadow: "0 0 0 4px rgba(212,175,55,0.14)",
-                                  }
-                                : { border: "1px solid rgba(255,255,255,0.22)", color: "rgba(226,233,239,0.72)" }
-                          }
-                        >
-                          {m.state === "done" ? <Check size={14} /> : i + 1}
-                        </span>
-                        <span
-                          className="mt-3 block max-w-full truncate px-1 text-[12px]"
-                          style={{
-                            color: m.state === "active" ? "#F3EFE6" : "rgba(226,233,239,0.82)",
-                            fontWeight: m.state === "active" ? 600 : 400,
-                          }}
-                        >
-                          {m.label}
-                        </span>
-                        <span
-                          className="mt-1 block max-w-full truncate px-1 text-[11px]"
-                          style={{ color: m.state === "active" ? GOLD_SOFT : "rgba(146,157,165,0.9)" }}
-                        >
-                          {m.sub}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
-                </InkCard>
-
-                {/* Current action */}
-                <InkCard title="Current action">
-                  <div
-                    className="mt-4 flex flex-col gap-6 rounded-[14px] p-5 sm:flex-row sm:items-center"
-                    style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
+            <div className="space-y-4 pb-2">
+              {/* ── 1 · current action ─────────────────────────── */}
+              <RaisedCard className="p-5 sm:p-6">
+                <FolderEyebrow>Current action</FolderEyebrow>
+                <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-center">
+                  <span
+                    className="grid h-[92px] w-[92px] shrink-0 place-items-center rounded-full"
+                    style={{
+                      boxShadow:
+                        "inset 0 0 0 1px rgba(192,147,47,0.45), inset 0 1px 0 rgba(255,255,255,0.8), 0 1px 2px rgba(15,25,35,0.12)",
+                      color: F_GOLD,
+                    }}
                   >
-                    <span
-                      className="grid h-[104px] w-[104px] shrink-0 place-items-center rounded-full"
-                      style={{ border: `1px solid rgba(212,175,55,0.35)`, color: GOLD_MET }}
-                    >
-                      <ClipboardList size={40} strokeWidth={1.3} />
-                    </span>
+                    <ClipboardList size={36} strokeWidth={1.3} />
+                  </span>
 
-                    <div className="min-w-0 flex-1">
-                      <h4
-                        className="text-[19px] leading-tight"
-                        style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}
-                      >
-                        Rooming list
-                      </h4>
-                      <p className="mt-1 text-[12.5px]" style={{ color: TEXT_2 }}>
-                        Name submission deadline
-                      </p>
-                      <p className="mt-1 text-[17px] font-semibold" style={{ color: GOLD_HI }}>
-                        6 days remaining
-                      </p>
+                  <div className="min-w-0 flex-1">
+                    <CardTitle>Add rooming list</CardTitle>
+                    <p className="mt-1.5 text-[13px]" style={{ color: F_INK_SOFT }}>
+                      Add guest names and room assignments so the hotel can prepare your arrival.
+                    </p>
+                    <p className="mt-1 text-[13px] font-semibold" style={{ color: F_GOLD_DEEP }}>
+                      Name submission deadline · 6 days remaining
+                    </p>
 
-                      <div className="mt-4 flex items-center gap-5">
-                        <div
-                          className="h-[6px] min-w-0 flex-1 overflow-hidden rounded-full"
-                          style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
-                        >
-                          <span
-                            className="block h-full rounded-full"
-                            style={{
-                              width: `${progress}%`,
-                              background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 60%, ${GOLD_MET_MID})`,
-                              transition: "width 600ms cubic-bezier(0.22,1,0.36,1)",
-                            }}
-                          />
-                        </div>
-                        <Link
-                          to="/rooming/$bookingId"
-                          params={{ bookingId: booking.id }}
-                          className="inline-flex shrink-0 items-center gap-2.5 rounded-full px-6 py-[11px] text-[13.5px] font-semibold transition-transform hover:-translate-y-[1px]"
-                          style={{
-                            background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
-                            color: "#241B06",
-                          }}
-                        >
-                          Continue
-                          <ArrowRight size={15} />
-                        </Link>
-                      </div>
-                      <p className="mt-2.5 text-[12px]" style={{ color: TEXT_2 }}>
-                        {progress}% completed
-                        {roomingStats
-                          ? ` · ${roomingStats.filled} of ${roomingStats.total} names`
-                          : rooming
-                            ? ` · ${rooming.complete} of ${rooming.total} names`
-                            : ""}
-                      </p>
-                    </div>
-                  </div>
-                </InkCard>
-
-                {/* Booking details ledger — existing editors */}
-                <InkCard title="Booking details" right={booking.hotel ?? "Hotel to be assigned"}>
-                  <ul className="mt-2">
-                    {ledger.map((row, i) => {
-                      const open = panel === row.key;
-                      return (
-                        <li
-                          key={row.key}
-                          style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.06)" } : undefined}
-                        >
-                          <LedgerRow
-                            icon={row.icon}
-                            label={row.label}
-                            lead={row.lead}
-                            detail={row.detail}
-                            action={row.action}
-                            open={open}
-                            dimmed={panel !== null && !open}
-                            onOpen={() => setPanel(open ? null : row.key)}
-                          />
-                          {open && <div className="pb-5">{editor}</div>}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </InkCard>
-
-                {/* Recent activity */}
-                <InkCard
-                  title="Recent activity"
-                  action={<GoldAction label="View all" onClick={() => setTab("Notes")} />}
-                >
-                  <ul className="mt-3">
-                    {[
-                      { icon: <Check size={13} />, tone: GREEN, t: "Hotel approved changes", when: "Today, 09:15" },
-                      { icon: <Upload size={13} />, tone: "#7FA7D4", t: "Contract uploaded", when: "Yesterday, 14:22" },
-                      {
-                        icon: <Download size={13} />,
-                        tone: GOLD_SOFT,
-                        t: "Rooming list template downloaded",
-                        when: "2 Aug, 11:03",
-                      },
-                      {
-                        icon: <MessageSquare size={13} />,
-                        tone: TEXT_2,
-                        t: "Message from the hotel coordinator",
-                        when: "1 Aug, 16:40",
-                      },
-                    ].map((a, i) => (
-                      <li
-                        key={a.t}
-                        className="flex items-center gap-4 py-3.5"
-                        style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.05)" } : undefined}
+                    <div className="mt-4 flex flex-wrap items-center gap-5">
+                      <div
+                        className="h-[6px] min-w-[160px] flex-1 overflow-hidden rounded-full"
+                        style={{ backgroundColor: "rgba(22,36,47,0.12)" }}
                       >
                         <span
-                          className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full"
-                          style={{ border: `1px solid ${a.tone}55`, color: a.tone }}
+                          className="block h-full rounded-full"
+                          style={{
+                            width: `${progress}%`,
+                            background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 60%, ${GOLD_MET_MID})`,
+                            transition: "width 600ms cubic-bezier(0.22,1,0.36,1)",
+                          }}
+                        />
+                      </div>
+                      <Link
+                        to="/rooming/$bookingId"
+                        params={{ bookingId: booking.id }}
+                        className="inline-flex shrink-0 items-center gap-2.5 rounded-full px-6 py-[11px] text-[13.5px] font-semibold transition-transform hover:-translate-y-[1px]"
+                        style={{
+                          background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
+                          color: "#241B06",
+                          boxShadow: "0 1px 2px rgba(15,25,35,0.18), inset 0 1px 0 rgba(255,255,255,0.55)",
+                        }}
+                      >
+                        Create rooming list
+                        <ArrowRight size={15} />
+                      </Link>
+                    </div>
+                    <p className="mt-2.5 text-[12px]" style={{ color: F_INK_SOFT }}>
+                      {progress}% completed
+                      {roomingStats
+                        ? ` · ${roomingStats.filled} of ${roomingStats.total} names`
+                        : rooming
+                          ? ` · ${rooming.complete} of ${rooming.total} names`
+                          : ""}
+                    </p>
+                  </div>
+                </div>
+              </RaisedCard>
+
+              {/* ── 2 · what happens next · booking details / help ── */}
+              <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_390px]">
+                <RaisedCard className="p-5 sm:p-6">
+                  <FolderEyebrow>What happens next</FolderEyebrow>
+                  <NextTimeline steps={journey} />
+                  <div className="mt-1">
+                    <FolderAction label="View full timeline" onClick={() => setTab("Changes")} />
+                  </div>
+                </RaisedCard>
+
+                <div className="min-w-0 space-y-4">
+                  <InsetCard className="p-5">
+                    <FolderEyebrow>Booking details</FolderEyebrow>
+                    <dl className="mt-3.5">
+                      {[
+                        { k: "Hotel", v: booking.hotel ?? "Hotel to be assigned" },
+                        { k: "Destination", v: booking.destination },
+                        { k: "Contact", v: displayName || "—" },
+                        { k: "Email", v: session?.user.email ?? "—" },
+                        { k: "Hotel reference", v: hotelRef || booking.reference },
+                        { k: "Payment terms", v: confirmed ? "Deposit paid" : "Deposit pending" },
+                      ].map((row, i) => (
+                        <div
+                          key={row.k}
+                          className="grid grid-cols-[118px_minmax(0,1fr)] items-baseline gap-3 py-[9px]"
+                          style={i > 0 ? { borderTop: `1px solid ${F_HAIR}` } : undefined}
                         >
-                          {a.icon}
-                        </span>
-                        <span className="min-w-0 flex-1 truncate text-[13px]" style={{ color: TEXT_2 }}>
-                          {a.t}
-                        </span>
-                        <span className="shrink-0 text-[11.5px]" style={{ color: MUTED }}>
-                          {a.when}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </InkCard>
+                          <dt
+                            className="text-[10.5px] font-semibold uppercase tracking-[0.16em]"
+                            style={{ color: F_INK_FAINT }}
+                          >
+                            {row.k}
+                          </dt>
+                          <dd className="truncate text-[13.5px]" style={{ color: F_INK }}>
+                            {row.v}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+
+                    <div className="mt-3" style={{ borderTop: `1px solid ${F_HAIR}` }}>
+                      <FolderAction
+                        label={detailsOpen ? "Hide details" : "Show more details"}
+                        arrow={detailsOpen ? "↑" : "↓"}
+                        onClick={() => setDetailsOpen((v) => !v)}
+                        className="mt-3"
+                      />
+                    </div>
+
+                    {detailsOpen && (
+                      <ul className="mt-1">
+                        {ledger.map((row, i) => {
+                          const open = panel === row.key;
+                          return (
+                            <li
+                              key={row.key}
+                              style={{ borderTop: i >= 0 ? `1px solid ${F_HAIR}` : undefined }}
+                            >
+                              <LedgerRow
+                                icon={row.icon}
+                                label={row.label}
+                                lead={row.lead}
+                                detail={row.detail}
+                                action={row.action}
+                                open={open}
+                                dimmed={panel !== null && !open}
+                                onOpen={() => setPanel(open ? null : row.key)}
+                                onIvory
+                              />
+                              {open && <div className="pb-4">{editor}</div>}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </InsetCard>
+
+                  <RaisedCard className="p-5">
+                    <FolderEyebrow>Need help?</FolderEyebrow>
+                    <p className="mt-2.5 text-[13px] leading-relaxed" style={{ color: F_INK_SOFT }}>
+                      Your group coordinator answers within one business day — booking changes,
+                      invoices or anything on-site.
+                    </p>
+                    <FolderAction
+                      label="Message HotelGroupBook"
+                      onClick={() => setTab("Messages")}
+                      className="mt-3"
+                    />
+                  </RaisedCard>
+                </div>
               </div>
 
-              {/* ── right column ── */}
-              <aside className="min-w-0 space-y-4">
-                {/* Rooming list progress */}
-                <InkCard title="Rooming list progress">
-                  <div className="mt-5 flex items-center gap-6">
-                    <Ring value={progress} size={116} />
-                    <ul className="min-w-0 flex-1 space-y-3">
+              {/* ── 3 · closing summary strip ───────────────────── */}
+              <SummaryStrip
+                cells={[
+                  {
+                    icon: <Users size={16} />,
+                    lead: `${totalGuests} guests`,
+                    label: "Travelling party",
+                    actionLabel: "View details",
+                    onAction: () => setPanel("rooms"),
+                  },
+                  {
+                    icon: <Bed size={16} />,
+                    lead: `${totalRooms} rooms`,
+                    label: "Room allocation",
+                    actionLabel: "View details",
+                    onAction: () => setPanel("rooms"),
+                  },
+                  {
+                    icon: <CalendarDays size={16} />,
+                    lead: `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
+                    label: nightsLabel,
+                    actionLabel: "View details",
+                    onAction: () => setPanel("stay"),
+                  },
+                  {
+                    icon: <FileText size={16} />,
+                    lead: "3 documents",
+                    label: "Uploaded",
+                    actionLabel: "View details",
+                    onAction: () => setTab("Documents"),
+                  },
+                ]}
+              />
+
+              {/* ── 4 · more booking information ────────────────── */}
+              <div className="flex items-center gap-4 pt-4">
+                <span
+                  className="text-[10.5px] font-semibold uppercase tracking-[0.2em]"
+                  style={{ color: "rgba(22,36,47,0.5)" }}
+                >
+                  More booking information
+                </span>
+                <span
+                  aria-hidden
+                  className="h-px flex-1"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(22,36,47,0.16), rgba(22,36,47,0.04))",
+                  }}
+                />
+              </div>
+
+              <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_390px]">
+                <div className="min-w-0 space-y-4">
+                  <FolderSection title="Rooming list progress">
+                    <div className="mt-3.5 flex flex-wrap items-center gap-x-8 gap-y-3">
+                      <span
+                        className="text-[30px] leading-none"
+                        style={{ color: F_INK, fontFamily: SERIF, fontWeight: 500 }}
+                      >
+                        {progress}%
+                      </span>
+                      <ul className="flex min-w-0 flex-1 flex-wrap gap-x-7 gap-y-1.5">
+                        {[
+                          { n: roomingStats?.filled ?? rooming?.complete ?? 0, l: "Completed" },
+                          {
+                            n: Math.max(
+                              0,
+                              (roomingStats?.total ?? rooming?.total ?? 0) -
+                                (roomingStats?.filled ?? rooming?.complete ?? 0),
+                            ),
+                            l: "Pending",
+                          },
+                          { n: 0, l: "Missing" },
+                        ].map((x) => (
+                          <li key={x.l} className="text-[13px]" style={{ color: F_INK_SOFT }}>
+                            <span style={{ color: F_INK, fontWeight: 600 }}>{x.n}</span> {x.l}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div
+                      className="mt-4 h-[6px] overflow-hidden rounded-full"
+                      style={{ backgroundColor: "rgba(22,36,47,0.12)" }}
+                    >
+                      <span
+                        className="block h-full rounded-full"
+                        style={{
+                          width: `${progress}%`,
+                          background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 60%, ${GOLD_MET_MID})`,
+                        }}
+                      />
+                    </div>
+                    <Link
+                      to="/rooming/$bookingId"
+                      params={{ bookingId: booking.id }}
+                      className="mt-4 inline-flex items-center gap-2.5 text-[12.5px] font-medium"
+                      style={{ color: F_GOLD_DEEP }}
+                    >
+                      <Users size={15} />
+                      Open rooming list
+                      <ArrowRight size={14} />
+                    </Link>
+                  </FolderSection>
+
+                  <FolderSection
+                    title="Recent activity"
+                    action={<FolderAction label="View all" onClick={() => setTab("Notes")} />}
+                  >
+                    <ul className="mt-2">
                       {[
-                        { n: roomingStats?.filled ?? rooming?.complete ?? 0, l: "Completed" },
+                        { icon: <Check size={13} />, t: "Hotel approved changes", when: "Today, 09:15" },
+                        { icon: <Upload size={13} />, t: "Contract uploaded", when: "Yesterday, 14:22" },
                         {
-                          n: Math.max(
-                            0,
-                            (roomingStats?.total ?? rooming?.total ?? 0) -
-                              (roomingStats?.filled ?? rooming?.complete ?? 0),
-                          ),
-                          l: "Pending",
+                          icon: <Download size={13} />,
+                          t: "Rooming list template downloaded",
+                          when: "2 Aug, 11:03",
                         },
-                        { n: 0, l: "Missing" },
-                      ].map((x) => (
-                        <li key={x.l} className="flex items-center gap-4 text-[13px]">
-                          <span className="w-[26px] shrink-0 text-right" style={{ color: TEXT }}>
-                            {x.n}
+                        {
+                          icon: <MessageSquare size={13} />,
+                          t: "Message from the hotel coordinator",
+                          when: "1 Aug, 16:40",
+                        },
+                      ].map((a, i) => (
+                        <li
+                          key={a.t}
+                          className="flex items-center gap-3.5 py-3"
+                          style={i > 0 ? { borderTop: `1px solid ${F_HAIR}` } : undefined}
+                        >
+                          <span
+                            className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full"
+                            style={{ boxShadow: "inset 0 0 0 1px rgba(22,36,47,0.18)", color: F_GOLD }}
+                          >
+                            {a.icon}
                           </span>
-                          <span style={{ color: TEXT_2 }}>{x.l}</span>
+                          <span className="min-w-0 flex-1 truncate text-[13px]" style={{ color: F_INK }}>
+                            {a.t}
+                          </span>
+                          <span className="shrink-0 text-[11.5px]" style={{ color: F_INK_FAINT }}>
+                            {a.when}
+                          </span>
                         </li>
                       ))}
                     </ul>
-                  </div>
-                  <Link
-                    to="/rooming/$bookingId"
-                    params={{ bookingId: booking.id }}
-                    className="mt-5 flex items-center justify-between gap-3 rounded-[11px] px-4 py-[12px] text-[13.5px] font-medium"
-                    style={{
-                      border: `1px solid rgba(212,175,55,0.4)`,
-                      backgroundColor: "rgba(212,175,55,0.08)",
-                      color: GOLD_HI,
-                    }}
+                  </FolderSection>
+                </div>
+
+                <div className="min-w-0 space-y-4">
+                  <FolderSection
+                    title="Documents"
+                    action={<FolderAction label="View all" onClick={() => setTab("Documents")} />}
                   >
-                    <span className="inline-flex items-center gap-2.5">
-                      <Users size={15} />
-                      Open rooming list
-                    </span>
-                    <ArrowRight size={15} />
-                  </Link>
-                </InkCard>
-
-                {/* Latest documents */}
-                <InkCard
-                  title="Latest documents"
-                  action={<GoldAction label="View all" onClick={() => setTab("Documents")} />}
-                >
-                  <ul className="mt-3 space-y-2">
-                    {[
-                      { n: "Contract.pdf", d: "Uploaded yesterday", i: <FileText size={15} />, c: "#D08A7A" },
-                      { n: "RoomingList_v2.xlsx", d: "2 Aug 2026", i: <FileSpreadsheet size={15} />, c: "#7FB48F" },
-                      { n: "Invoice.pdf", d: "28 Jul 2026", i: <FileText size={15} />, c: "#D08A7A" },
-                    ].map((d) => (
-                      <li
-                        key={d.n}
-                        className="flex items-center gap-3 rounded-[11px] px-3.5 py-3"
-                        style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
-                      >
-                        <span className="shrink-0" style={{ color: d.c }}>
-                          {d.i}
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="block truncate text-[13px]" style={{ color: TEXT }}>
-                            {d.n}
-                          </span>
-                          <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
-                            {d.d}
-                          </span>
-                        </span>
-                        <button
-                          type="button"
-                          aria-label={`Download ${d.n}`}
-                          className="shrink-0 transition-opacity hover:opacity-80"
-                          style={{ color: TEXT_2 }}
+                    <ul className="mt-2">
+                      {[
+                        { n: "Contract.pdf", d: "Uploaded yesterday", i: <FileText size={15} /> },
+                        { n: "RoomingList_v2.xlsx", d: "2 Aug 2026", i: <FileSpreadsheet size={15} /> },
+                        { n: "Invoice.pdf", d: "28 Jul 2026", i: <FileText size={15} /> },
+                      ].map((d, i) => (
+                        <li
+                          key={d.n}
+                          className="flex items-center gap-3 py-3"
+                          style={i > 0 ? { borderTop: `1px solid ${F_HAIR}` } : undefined}
                         >
-                          <Download size={15} />
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </InkCard>
-
-                {/* Notes */}
-                <InkCard title="Notes" action={<GoldAction label="View all" onClick={() => setTab("Notes")} />}>
-                  <div
-                    className="mt-3 flex items-start gap-3 rounded-[11px] px-3.5 py-3"
-                    style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
-                  >
-                    <span className="mt-[2px] shrink-0" style={{ color: GOLD_SOFT }}>
-                      <StickyNote size={15} />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-[13px]" style={{ color: TEXT }}>
-                        Hotel promises
-                      </span>
-                      <span className="mt-0.5 block text-[12px]" style={{ color: TEXT_2 }}>
-                        Early check-in for VIP guests
-                      </span>
-                      <span className="mt-1 block text-[11.5px]" style={{ color: MUTED }}>
-                        2 Aug 2026
-                      </span>
-                    </span>
-                  </div>
-                </InkCard>
-
-                {/* Deadlines */}
-                <InkCard title="Deadlines">
-                  <ul className="mt-2">
-                    {[
-                      { d: "04", m: "Sep", t: "Rooming list", s: "Due in 6 days", go: "Rooming List" },
-                      { d: "08", m: "Sep", t: "Final guest details", s: "Due in 10 days", go: "Changes" },
-                    ].map((it, i) => (
-                      <li key={it.t}>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            it.go === "Rooming List"
-                              ? navigate({ to: "/rooming/$bookingId", params: { bookingId: booking.id } })
-                              : setTab(it.go as WorkspaceTab)
-                          }
-                          className="flex w-full items-center gap-3.5 py-3 text-left transition-opacity hover:opacity-90"
-                          style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.06)" } : undefined}
-                        >
-                          <span className="grid w-[30px] shrink-0 text-center">
-                            <span className="text-[15px] leading-none" style={{ color: TEXT }}>
-                              {it.d}
-                            </span>
-                            <span className="mt-1 text-[9px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
-                              {it.m}
-                            </span>
+                          <span className="shrink-0" style={{ color: F_GOLD }}>
+                            {d.i}
                           </span>
                           <span className="min-w-0 flex-1">
-                            <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
-                              {it.t}
+                            <span className="block truncate text-[13px]" style={{ color: F_INK }}>
+                              {d.n}
                             </span>
-                            <span className="block truncate text-[11px]" style={{ color: GOLD_SOFT }}>
-                              {it.s}
+                            <span className="block truncate text-[11.5px]" style={{ color: F_INK_FAINT }}>
+                              {d.d}
                             </span>
                           </span>
-                          <ChevronRight size={15} style={{ color: MUTED }} />
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-3 flex items-center gap-2 text-[11.5px]" style={{ color: MUTED }}>
-                    <Info size={13} />
-                    Arrival in {arrivalDays ?? "—"} days
-                  </div>
-                </InkCard>
-              </aside>
+                          <button
+                            type="button"
+                            aria-label={`Download ${d.n}`}
+                            className="shrink-0 transition-opacity hover:opacity-70"
+                            style={{ color: F_INK_SOFT }}
+                          >
+                            <Download size={15} />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </FolderSection>
+
+                  <FolderSection
+                    title="Notes"
+                    action={<FolderAction label="View all" onClick={() => setTab("Notes")} />}
+                  >
+                    <div className="mt-3 flex items-start gap-3">
+                      <span className="mt-[2px] shrink-0" style={{ color: F_GOLD }}>
+                        <StickyNote size={15} />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-[13px]" style={{ color: F_INK }}>
+                          Hotel promises
+                        </span>
+                        <span className="mt-0.5 block text-[12.5px]" style={{ color: F_INK_SOFT }}>
+                          Early check-in for VIP guests
+                        </span>
+                        <span className="mt-1 block text-[11.5px]" style={{ color: F_INK_FAINT }}>
+                          2 Aug 2026
+                        </span>
+                      </span>
+                    </div>
+                  </FolderSection>
+
+                  <FolderSection title="Deadlines">
+                    <ul className="mt-1">
+                      {[
+                        { d: "04", m: "Sep", t: "Rooming list", s: "Due in 6 days", go: "Rooming List" },
+                        { d: "08", m: "Sep", t: "Final guest details", s: "Due in 10 days", go: "Changes" },
+                      ].map((it, i) => (
+                        <li key={it.t}>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              it.go === "Rooming List"
+                                ? navigate({ to: "/rooming/$bookingId", params: { bookingId: booking.id } })
+                                : setTab(it.go as WorkspaceTab)
+                            }
+                            className="flex w-full items-center gap-3.5 py-3 text-left transition-opacity hover:opacity-80"
+                            style={i > 0 ? { borderTop: `1px solid ${F_HAIR}` } : undefined}
+                          >
+                            <span className="grid w-[30px] shrink-0 text-center">
+                              <span
+                                className="text-[16px] leading-none"
+                                style={{ color: F_INK, fontFamily: SERIF }}
+                              >
+                                {it.d}
+                              </span>
+                              <span
+                                className="mt-1 text-[9px] uppercase tracking-[0.16em]"
+                                style={{ color: F_INK_FAINT }}
+                              >
+                                {it.m}
+                              </span>
+                            </span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block truncate text-[12.5px]" style={{ color: F_INK }}>
+                                {it.t}
+                              </span>
+                              <span className="block truncate text-[11px]" style={{ color: F_GOLD_DEEP }}>
+                                {it.s}
+                              </span>
+                            </span>
+                            <ChevronRight size={15} style={{ color: F_INK_FAINT }} />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                    <div
+                      className="mt-2 flex items-center gap-2 text-[11.5px]"
+                      style={{ color: F_INK_FAINT }}
+                    >
+                      <Info size={13} />
+                      Arrival in {arrivalDays ?? "—"} days
+                    </div>
+                  </FolderSection>
+                </div>
+              </div>
             </div>
           )}
+
           </div>
 
         </div>
@@ -1459,6 +1561,7 @@ function LedgerRow({
   open,
   dimmed,
   onOpen,
+  onIvory,
 }: {
   icon: React.ReactNode;
   label: string;
@@ -1468,6 +1571,8 @@ function LedgerRow({
   open: boolean;
   dimmed: boolean;
   onOpen: () => void;
+  /** ivory variant used inside the booking folder */
+  onIvory?: boolean;
 }) {
   const [hover, setHover] = useState(false);
   return (
@@ -1476,29 +1581,45 @@ function LedgerRow({
       onClick={onOpen}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="grid w-full grid-cols-[120px_minmax(0,1fr)_auto] items-center gap-5 py-4 text-left"
+      className={`grid w-full grid-cols-[110px_minmax(0,1fr)_auto] items-center gap-4 text-left ${onIvory ? "py-3" : "py-4"}`}
       style={{ opacity: dimmed ? 0.45 : 1, transition: "opacity 220ms ease" }}
     >
       <span
         className="flex items-center gap-2.5"
-        style={{ color: open || hover ? GOLD_SOFT : MUTED, transition: "color 200ms ease" }}
+        style={{
+          color: onIvory
+            ? open || hover
+              ? F_GOLD_DEEP
+              : F_INK_FAINT
+            : open || hover
+              ? GOLD_SOFT
+              : MUTED,
+          transition: "color 200ms ease",
+        }}
       >
         <span className="shrink-0">{icon}</span>
         <span className="truncate text-[10.5px] font-semibold uppercase tracking-[0.18em]">{label}</span>
       </span>
       <span className="min-w-0">
-        <span className="block truncate text-[13.5px]" style={{ color: "#F3F1EB" }}>
+        <span
+          className="block truncate text-[13.5px]"
+          style={{ color: onIvory ? F_INK : "#F3F1EB" }}
+        >
           {lead}
         </span>
-        <span className="mt-0.5 block truncate text-[12px]" style={{ color: "rgba(146,157,165,0.9)" }}>
+        <span
+          className="mt-0.5 block truncate text-[12px]"
+          style={{ color: onIvory ? F_INK_SOFT : "rgba(146,157,165,0.9)" }}
+        >
           {detail}
         </span>
       </span>
+
       <span
         className="shrink-0 text-[12px]"
         style={{
-          color: open ? GOLD_SOFT : GOLD_CALM,
-          opacity: open || hover ? 1 : 0.35,
+          color: onIvory ? F_GOLD_DEEP : open ? GOLD_SOFT : GOLD_CALM,
+          opacity: open || hover ? 1 : onIvory ? 0.6 : 0.35,
           transition: "opacity 200ms ease, color 200ms ease",
         }}
       >

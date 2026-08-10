@@ -55,6 +55,7 @@ export function BookingWorkspaceHeader({
   subtitle = "Manage every detail of this group booking in one workspace",
   active,
   onSelect,
+  surface,
 }: {
   bookingId: string;
   bookingName: string;
@@ -65,8 +66,11 @@ export function BookingWorkspaceHeader({
   subtitle?: string;
   active: WorkspaceTab;
   onSelect?: (tab: WorkspaceTab) => void;
+  /** surface the active tab must merge into (folder plate below) */
+  surface?: string;
 }) {
   const [copied, setCopied] = useState(false);
+
 
   return (
     <header className="relative isolate">
@@ -84,7 +88,7 @@ export function BookingWorkspaceHeader({
         }}
       />
 
-      <div className="relative px-5 pt-7 sm:px-9">
+      <div className="relative px-5 pt-10 sm:px-9 sm:pt-12">
         <div className="flex items-start justify-between gap-6">
           <div className="min-w-0">
             <p className="flex items-center gap-1.5 text-[12.5px]" style={{ color: HERO_MUTED }}>
@@ -139,23 +143,28 @@ export function BookingWorkspaceHeader({
           </div>
         </div>
 
-        <nav className="mt-6 flex items-end gap-[6px] overflow-x-auto">
+        <nav className="mt-9 flex items-end gap-[6px] overflow-x-auto">
           {WORKSPACE_TABS.map((t) => {
             const isActive = t === active;
             const cls =
               "hgb-ws-tab relative whitespace-nowrap rounded-t-[13px] px-5 pb-[13px] pt-[11px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
             const st: React.CSSProperties = isActive
               ? {
-                  background: "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
+                  background: surface ?? "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
                   color: TAB_INK,
                   fontWeight: 600,
-                  boxShadow: "0 -6px 18px -12px rgba(58,44,20,0.45)",
+                  marginBottom: -1,
+                  paddingBottom: 14,
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.7), 0 -6px 18px -12px rgba(20,32,42,0.45)",
                 }
               : {
-                  backgroundColor: "rgba(12,26,36,0.55)",
-                  color: "rgba(226,233,239,0.78)",
-                  border: "1px solid rgba(255,255,255,0.10)",
+                  backgroundColor: "rgba(12,26,36,0.62)",
+                  color: "rgba(226,233,239,0.74)",
+                  border: "1px solid rgba(255,255,255,0.08)",
                   borderBottom: "none",
+                  boxShadow:
+                    "inset 0 2px 3px -1px rgba(0,0,0,0.45), inset 0 -1px 0 rgba(255,255,255,0.05)",
                 };
             const inner = (
               <>
