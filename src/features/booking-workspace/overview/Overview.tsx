@@ -81,27 +81,14 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <div
-      className="relative flex flex-col self-start px-7 pb-7 pt-7"
-      style={{
-        background: "#F7F5EF",
-        border: "1px solid rgba(100,110,115,0.25)",
-        borderRadius: 15,
-        boxShadow:
-          "0 8px 20px rgba(20,32,40,0.10), 0 2px 5px rgba(20,32,40,0.07), inset 0 1px 0 rgba(255,255,255,0.85)",
-      }}
-    >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-[9px] rounded-[9px]"
-        style={{ border: "1px solid rgba(105,110,110,0.16)" }}
-      />
+    <Card className="relative flex flex-col self-start px-5 py-4 sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
       >
         What happens next
       </span>
+
       <ol className="relative mt-4">
         {steps.map((s, i) => {
           const done = s.state === "done";
