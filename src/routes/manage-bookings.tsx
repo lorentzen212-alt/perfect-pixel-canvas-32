@@ -538,8 +538,8 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           <Link
             to="/bookings/$bookingId"
             params={{ bookingId: booking.id }}
-            className="mt-[5px] block transition-opacity hover:opacity-85"
-            style={{ position: "relative", top: -3, marginBottom: -2 }}
+            className="mt-[7px] block transition-opacity hover:opacity-85"
+            style={{ position: "relative", top: -3, marginBottom: 0 }}
           >
             <h3
               className="text-[28px] leading-[1.05] tracking-[0.002em]"
@@ -568,7 +568,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* metadata chips */}
-      <div className="mt-[4px] flex flex-wrap items-center gap-[6px]">
+      <div className="mt-[6px] flex flex-wrap items-center gap-[6px]">
         {metas.map((m, i) => (
           <span
             key={i}
@@ -595,7 +595,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[6px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
+        className="mt-[9px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(255,255,255,0.055)",
           background: "linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.09) 100%)",
@@ -654,13 +654,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
       {/* progress track */}
-      <div className="mt-[6px]">
+      <div className="mt-[9px]">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-[6px] flex flex-nowrap items-center justify-between gap-4 pt-[6px]"
+        className="mt-[9px] flex flex-nowrap items-center justify-between gap-4 pt-[8px]"
         style={{ borderTop: "1px solid rgba(255,255,255,0.038)" }}
 
       >
@@ -748,7 +748,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
               marginLeft: -10,
               /* top edge stays fixed; bottom extends ~6px downward only */
               marginTop: -8,
-              marginBottom: -14,
+              marginBottom: -10,
               background: "linear-gradient(180deg, #18212C 0%, #131B25 100%)",
               border: "1px solid rgba(255,255,255,0.055)",
               boxShadow:
@@ -810,7 +810,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[13px] pr-[24px] transition-all duration-300 sm:grid-cols-[278px_minmax(0,1fr)] lg:grid-cols-[294px_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[15px] pr-[24px] transition-all duration-300 sm:grid-cols-[278px_minmax(0,1fr)] lg:grid-cols-[294px_minmax(0,1fr)]"
       style={shell}
     >
       {goldStrip}
