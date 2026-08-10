@@ -1617,8 +1617,8 @@ function LedgerRow({
       <span
         className="shrink-0 text-[12px]"
         style={{
-          color: open ? GOLD_SOFT : GOLD_CALM,
-          opacity: open || hover ? 1 : 0.35,
+          color: onIvory ? F_GOLD_DEEP : open ? GOLD_SOFT : GOLD_CALM,
+          opacity: open || hover ? 1 : onIvory ? 0.6 : 0.35,
           transition: "opacity 200ms ease, color 200ms ease",
         }}
       >
