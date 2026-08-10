@@ -31,15 +31,15 @@ export function Plate({ children }: { children: React.ReactNode }) {
       className="relative"
       style={{
         background: `linear-gradient(180deg, ${FOLDER_EDGE} 0%, ${FOLDER_EDGE_DEEP} 100%)`,
-        borderRadius: "16px 16px 20px 20px",
-        padding: `0 4px ${FOLDER_DEPTH}px`,
+        borderRadius: 16,
+        padding: `0 5px ${FOLDER_DEPTH}px`,
         boxShadow: FOLDER_CONTACT,
       }}
     >
       <div
         style={{
           background: FOLDER_TOP_SURFACE,
-          borderRadius: "13px 13px 16px 16px",
+          borderRadius: "12px 12px 13px 13px",
           boxShadow: `inset 0 1px 0 ${FOLDER_RIM}, inset 0 -1px 0 ${FOLDER_BREAK}, inset 1px 0 0 rgba(255,255,255,0.45), inset -1px 0 0 rgba(38,44,50,0.06)`,
         }}
       >

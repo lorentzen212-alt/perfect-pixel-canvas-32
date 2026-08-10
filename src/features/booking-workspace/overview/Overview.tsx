@@ -288,16 +288,16 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="space-y-4 px-4 pb-7 pt-6 sm:px-7 sm:pb-9">
+      <div className="space-y-5 px-5 pb-8 pt-7 sm:px-8 sm:pb-9">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}
           description={actionDescription}
         />
 
-        <div className="grid items-start gap-4 xl:grid-cols-[54fr_46fr]">
+        <div className="grid items-start gap-5 lg:grid-cols-[54fr_46fr]">
           <NextSteps steps={journey} onViewAll={onViewTimeline} />
-          <div className="space-y-4">
+          <div className="space-y-5">
             <DetailsCard rows={detailRows} footer={detailsFooter}>
               {detailsExtra}
             </DetailsCard>
