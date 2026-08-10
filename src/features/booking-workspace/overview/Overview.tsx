@@ -9,7 +9,7 @@ import {
   Medallion,
   Plate,
   SectionRule,
-  Slot,
+
   SolidButton,
 } from "./primitives";
 import { GOLD, GOLD_2, GREEN, HAIR, INK, INK_2, INK_3 } from "./materials";
