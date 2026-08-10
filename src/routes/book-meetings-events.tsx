@@ -1652,92 +1652,7 @@ function Field({
   );
 }
 
-function NextButton({ onClick, label, disabled = false }: { onClick: () => void; label: string; disabled?: boolean }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-      aria-disabled={disabled}
-      className={cn(
-        "group inline-flex items-center justify-center gap-2 rounded-md text-[16px] font-semibold text-[#0A1B2C] transition-all duration-200",
-        disabled
-          ? "opacity-50 cursor-not-allowed"
-          : "hover:brightness-105",
-      )}
-      style={{
-        height: 52,
-        minWidth: 220,
-        background: `linear-gradient(180deg, #F7D07A 0%, ${GOLD} 55%, #C89A3A 100%)`,
-        boxShadow: disabled
-          ? "none"
-          : "0 18px 40px -18px rgba(200,154,58,0.55), 0 4px 10px -4px rgba(200,154,58,0.35), inset 0 1px 0 rgba(255,255,255,0.5)",
-        border: "1px solid rgba(184,138,46,0.45)",
-      }}
-    >
-      {label}
-      <ArrowRight size={18} strokeWidth={2.2} />
-    </button>
-  );
-}
 
-function ContinueButton({ onClick, label, disabled = false }: { onClick: () => void; label: string; disabled?: boolean }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-      aria-disabled={disabled}
-      className={cn(
-        "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-md text-[16px] font-bold text-[#1A1A1A] transition-all duration-200",
-        disabled
-          ? "opacity-50 cursor-not-allowed"
-          : "hover:brightness-105",
-      )}
-      style={{
-        height: 54,
-        minWidth: 207,
-        padding: "0 28px",
-        background: `
-          linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 20%),
-          linear-gradient(180deg, #FFF1B8 0%, #F7D976 10%, #E6B840 32%, #C89726 58%, #9C6F16 88%, #7A5410 100%)
-        `,
-        boxShadow: disabled
-          ? "none"
-          : "0 34px 60px -18px rgba(120,80,20,0.75), 0 16px 28px -10px rgba(120,80,20,0.55), 0 4px 8px -2px rgba(90,60,10,0.45), inset 0 2px 0 rgba(255,255,255,0.95), inset 0 -2px 0 rgba(80,55,15,0.38), inset 0 0 0 1px rgba(255,235,170,0.35)",
-        border: "1px solid #8F6314",
-        WebkitFontSmoothing: "antialiased",
-        textShadow: "0 1px 0 rgba(255,255,255,0.55)",
-      }}
-    >
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          backgroundSize: "110px 110px",
-          mixBlendMode: "overlay",
-        }}
-      />
-      <span aria-hidden="true" className="pointer-events-none absolute left-3 right-3 top-0 h-[2px] rounded-full" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0) 100%)" }} />
-      <span aria-hidden="true" className="pointer-events-none absolute bottom-0 left-0 right-0 h-[1px] bg-[#6A4A18] opacity-35" />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 w-[45%]"
-        style={{
-          background:
-            "linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0) 100%)",
-          transform: "translateX(-30%) skewX(-18deg)",
-          opacity: 0.35,
-        }}
-      />
-      <span className="relative z-10 tracking-[-0.01em]">{label}</span>
-      <ArrowRight size={18} strokeWidth={2} className="relative z-10" />
-    </button>
-  );
-}
-
-/* --------- Step 5 – Extras --------- */
 
 type ExtraId =
   | "airport-transfer"
@@ -3705,49 +3620,6 @@ function StepPlaceholder({
 
 /* --------- Help Card --------- */
 
-function HelpCard() {
-  return (
-    <div>
-      <h3
-        className="text-[#0A1B2C] text-[26px] leading-tight"
-        style={{ fontFamily: SERIF }}
-      >
-        Need help?
-      </h3>
-      <p className="mt-3 text-[#4A5866] text-[15px] leading-relaxed">
-        Our M&amp;E specialists are ready
-        <br />
-        to assist you.
-      </p>
-      <div className="mt-6 flex flex-col gap-4">
-        <a
-          href="tel:+4721002100"
-          className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors"
-        >
-          <span
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border"
-            style={{ borderColor: "rgba(184,138,46,0.4)" }}
-          >
-            <Phone size={16} strokeWidth={1.8} style={{ color: "#B88A2E" }} />
-          </span>
-          +47 21 00 21 00
-        </a>
-        <a
-          href="mailto:meetings@hotelgroupbook.com"
-          className="flex items-center gap-3 text-[#0A1B2C] text-[15px] hover:text-[#B88A2E] transition-colors whitespace-nowrap"
-        >
-          <span
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border"
-            style={{ borderColor: "rgba(184,138,46,0.4)" }}
-          >
-            <Mail size={16} strokeWidth={1.8} style={{ color: "#B88A2E" }} />
-          </span>
-          meetings@hotelgroupbook.com
-        </a>
-      </div>
-    </div>
-  );
-}
 
 function FlagNO() {
   return (
@@ -4064,32 +3936,6 @@ function BudgetPreference({
   );
 }
 
-function GoldStarDivider() {
-  return (
-    <div className="flex items-center gap-3" aria-hidden="true">
-      <span
-        className="h-px flex-1"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(200,160,80,0) 0%, rgba(200,160,80,0.55) 50%, rgba(200,160,80,0) 100%)",
-        }}
-      />
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-        <path
-          d="M6 0.5l1.3 3.2 3.2 1.3-3.2 1.3L6 9.5 4.7 6.3 1.5 5l3.2-1.3z"
-          fill="#D4AF37"
-        />
-      </svg>
-      <span
-        className="h-px flex-1"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(200,160,80,0) 0%, rgba(200,160,80,0.55) 50%, rgba(200,160,80,0) 100%)",
-        }}
-      />
-    </div>
-  );
-}
 
 
 
@@ -4630,46 +4476,6 @@ function StepTwoLocation({
   );
 }
 
-function PremiumDivider() {
-  return (
-    <div className="pt-4 lg:pt-10 pb-6 lg:pb-8">
-      <div className="relative flex items-center justify-center">
-        <div
-          className="absolute inset-x-0 h-px"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent 0%, rgba(199,154,50,0.22) 12%, rgba(199,154,50,0.85) 50%, rgba(199,154,50,0.22) 88%, transparent 100%)",
-          }}
-        />
-        <div
-          className="relative z-10 flex h-5 w-5 items-center justify-center"
-          style={{
-            background:
-              "linear-gradient(135deg, #F7E9B8 0%, #E4C77A 45%, #C79A32 100%)",
-            transform: "rotate(45deg)",
-            boxShadow:
-              "0 0 0 4px #F7F7F5, 0 0 10px rgba(199,154,50,0.35)",
-          }}
-        >
-          <div
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ backgroundColor: "#F7F7F5" }}
-          />
-        </div>
-      </div>
-      <p
-        className="mt-5 text-center text-[17px] lg:text-[18px] italic tracking-[0.01em]"
-        style={{ fontFamily: SERIF, color: "#2A2A2A" }}
-      >
-        Professional planning. Premium results.
-      </p>
-    </div>
-  );
-}
-
-
-
-/* --------- Step 3: Accommodation --------- */
 
 type RoomMix = { sgl: number; dbl: number; twn: number; trp: number; ste: number };
 type MealPlan = "room" | "breakfast";
@@ -5863,17 +5669,6 @@ function SummaryRow({
   );
 }
 
-function GoldDivider() {
-  return (
-    <div
-      className="my-6 h-px w-full"
-      style={{
-        background:
-          "linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.55) 50%, rgba(212,175,55,0) 100%)",
-      }}
-    />
-  );
-}
 
 /**
  * LuxIconBadge — premium matte-black container with champagne-gold icon.
