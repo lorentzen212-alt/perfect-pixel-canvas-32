@@ -997,6 +997,7 @@ function Workspace({ booking }: { booking: Booking }) {
           initials={initials}
           active={tab as WorkspaceTab}
           onSelect={(t) => setTab(t)}
+          surface={tab === "Overview" ? FOLDER_SURFACE : undefined}
         />
 
 
