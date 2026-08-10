@@ -152,6 +152,9 @@ export const Route = createFileRoute("/book-meetings-events")({
 import { SERIF, SANS, GOLD, NAVY, NAVY_DEEP } from "@/features/me/tokens";
 import { NAV_LINKS, TRUST, STEPS, DRAFT_KEY } from "@/features/me/data";
 import type { FormState } from "@/features/me/types";
+import { NextButton, ContinueButton } from "@/features/me/common/buttons";
+import { GoldStarDivider, PremiumDivider, GoldDivider } from "@/features/me/common/dividers";
+import { HelpCard } from "@/features/me/shell/HelpCard";
 
 
 function BookMeetingsEvents() {
