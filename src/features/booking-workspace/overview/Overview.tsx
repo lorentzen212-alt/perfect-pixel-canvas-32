@@ -50,7 +50,7 @@ function CurrentAction({
   description: string;
 }) {
   return (
-    <Card className="flex flex-col gap-4 px-5 py-5 sm:flex-row sm:items-center sm:gap-6 sm:px-7">
+    <Card className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:gap-5 sm:px-6">
       <Medallion size={56}>
         <Users size={24} strokeWidth={1.5} />
       </Medallion>
@@ -81,14 +81,14 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="flex flex-col px-6 py-5">
+    <Card className="flex flex-col px-6 py-4">
       <Eyebrow>What happens next</Eyebrow>
-      <ol className="mt-4 flex-1">
+      <ol className="mt-3 flex-1">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
           return (
-            <li key={s.label} className="relative flex gap-4 pb-5 last:pb-0">
+            <li key={s.label} className="relative flex gap-4 pb-4 last:pb-0">
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
@@ -149,13 +149,13 @@ function DetailsCard({
 }) {
   return (
     <Slot>
-      <div className="px-5 py-5">
+      <div className="px-5 py-4">
         <Eyebrow>Booking details</Eyebrow>
-        <dl className="mt-3">
+        <dl className="mt-2.5">
           {rows.map((row, i) => (
             <div
               key={row.k}
-              className="grid grid-cols-[minmax(0,132px)_minmax(0,1fr)] items-start gap-4 py-[9px]"
+              className="grid grid-cols-[minmax(0,132px)_minmax(0,1fr)] items-start gap-4 py-[7px]"
               style={i > 0 ? { borderTop: `1px solid ${HAIR}` } : undefined}
             >
               <dt className="flex items-center gap-2.5 text-[12.5px]" style={{ color: INK_2 }}>
@@ -200,15 +200,15 @@ function DetailsCard({
 /* ── 2c · need help ────────────────────────────────────────── */
 function NeedHelp({ onMessage }: { onMessage?: () => void }) {
   return (
-    <Card className="px-5 py-4">
+    <Card className="px-5 py-3.5">
       <Eyebrow>Need help?</Eyebrow>
-      <p className="mt-1.5 text-[12.5px]" style={{ color: INK_2 }}>
+      <p className="mt-1 text-[12.5px]" style={{ color: INK_2 }}>
         Questions or changes to your booking?
       </p>
       <button
         type="button"
         onClick={onMessage}
-        className="mt-3 flex w-full items-center justify-center gap-2.5 rounded-[6px] py-[10px] text-[13px] font-semibold transition-opacity hover:opacity-80"
+        className="mt-2.5 flex w-full items-center justify-center gap-2.5 rounded-[6px] py-[9px] text-[13px] font-semibold transition-opacity hover:opacity-80"
         style={{
           color: GOLD,
           boxShadow: "inset 0 0 0 1px rgba(176,112,15,0.45)",
@@ -230,7 +230,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
       {cells.map((c, i) => (
         <div
           key={c.label + i}
-          className="flex items-center gap-3.5 px-5 py-[18px]"
+          className="flex items-center gap-3.5 px-5 py-[13px]"
           style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
         >
           <Medallion size={40}>{c.icon}</Medallion>
@@ -288,16 +288,16 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="space-y-5 px-5 pb-8 pt-7 sm:px-8 sm:pb-9">
+      <div className="space-y-4 px-5 pb-6 pt-5 sm:px-7 sm:pb-6">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}
           description={actionDescription}
         />
 
-        <div className="grid items-start gap-5 lg:grid-cols-[54fr_46fr]">
+        <div className="grid items-start gap-4 lg:grid-cols-[54fr_46fr]">
           <NextSteps steps={journey} onViewAll={onViewTimeline} />
-          <div className="space-y-5">
+          <div className="space-y-4">
             <DetailsCard rows={detailRows} footer={detailsFooter}>
               {detailsExtra}
             </DetailsCard>
