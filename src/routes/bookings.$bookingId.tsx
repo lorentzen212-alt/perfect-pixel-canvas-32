@@ -37,6 +37,23 @@ import { BookingDocumentsView } from "@/components/BookingDocuments";
 import { BookingMessagesView } from "@/components/BookingMessages";
 import { BookingNotesView } from "@/components/BookingNotes";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
+import {
+  RaisedCard,
+  InsetCard,
+  SummaryStrip,
+  NextTimeline,
+  FolderAction,
+  FolderSection,
+  CardTitle,
+  CardEyebrow as FolderEyebrow,
+  FOLDER_SURFACE,
+  INK as F_INK,
+  INK_SOFT as F_INK_SOFT,
+  INK_FAINT as F_INK_FAINT,
+  HAIR as F_HAIR,
+  GOLD_MET as F_GOLD,
+  GOLD_DEEP_MET as F_GOLD_DEEP,
+} from "@/features/booking-workspace/folder";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 import { roomingProgress, type Booking } from "@/lib/bookings";
 import { distributionFor, statsOf } from "@/lib/rooming";
