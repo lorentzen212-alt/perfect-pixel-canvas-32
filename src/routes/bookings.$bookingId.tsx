@@ -998,7 +998,7 @@ function Workspace({ booking }: { booking: Booking }) {
         </div>
       )}
 
-      <div className="lg:pl-[240px]">
+      <div className="flex flex-1 flex-col lg:pl-[240px]">
         <TopBar
           onOpenNav={() => setNavOpen(true)}
           left={
