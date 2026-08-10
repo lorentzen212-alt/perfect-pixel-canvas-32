@@ -315,7 +315,7 @@ function DetailsCard({
           })}
         </dl>
         {footer && (
-          <div className="mt-2.5 flex justify-center pt-2.5" style={{ borderTop: `1px solid ${HAIR}` }}>
+          <div className="mt-2 flex justify-center pt-2" style={{ borderTop: `1px solid ${HAIR}` }}>
             {footer}
           </div>
         )}
