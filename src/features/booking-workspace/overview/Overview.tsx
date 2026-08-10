@@ -229,18 +229,13 @@ function DetailsCard({
       className="relative self-start"
       style={{
         background: "#F7F5EF",
-        border: "1px solid rgba(100,110,115,0.25)",
-        borderRadius: 15,
+        border: "1px solid rgba(90,100,105,0.30)",
+        borderRadius: 13,
         boxShadow:
-          "0 8px 20px rgba(20,32,40,0.10), 0 2px 5px rgba(20,32,40,0.07), inset 0 1px 0 rgba(255,255,255,0.85)",
+          "0 2px 3px rgba(25,35,40,0.08), 0 7px 14px rgba(25,35,40,0.10), inset 0 1px 0 rgba(255,255,255,0.90), inset 0 0 0 1px rgba(255,255,255,0.55)",
       }}
     >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-[9px] rounded-[9px]"
-        style={{ border: "1px solid rgba(105,110,110,0.16)" }}
-      />
-      <div className="relative px-6 py-[18px]">
+      <div className="relative px-5 py-[13px]">
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
@@ -250,7 +245,7 @@ function DetailsCard({
               style={
                 status.tone === "confirmed"
                   ? { color: GREEN, background: "rgba(46,107,69,0.08)", border: "1px solid rgba(46,107,69,0.24)" }
-                  : { color: GOLD_2, background: "rgba(195,138,32,0.08)", border: "1px solid rgba(195,138,32,0.28)" }
+                  : { color: "#A98232", background: "rgba(169,130,50,0.08)", border: "1px solid rgba(169,130,50,0.28)" }
               }
             >
               <ShieldCheck size={13} />
@@ -258,91 +253,89 @@ function DetailsCard({
             </span>
           )}
         </div>
-        <dl className="mt-2">
+        <dl className="mt-[9px]">
           {rows.map((row, i) => {
             const isPaymentPill = row.k === "Payment terms" && /pending/i.test(row.v);
-            const rule = i > 0 ? "1px solid rgba(80,90,95,0.14)" : undefined;
             return (
               <div
                 key={row.k}
-                className="grid grid-cols-[28px_150px_minmax(0,1fr)] items-center gap-x-[10px] py-[4px]"
+                className="-mx-1.5 grid grid-cols-[34px_minmax(0,1fr)] items-center gap-x-[12px] px-1.5"
+                style={{
+                  minHeight: 38,
+                  background: i % 2 === 1 ? "rgba(90,95,90,0.022)" : "transparent",
+                }}
               >
                 <span
-                  className="grid h-[27px] w-[27px] shrink-0 place-items-center rounded-[7px]"
+                  className="grid h-[33px] w-[33px] shrink-0 place-items-center rounded-[8px]"
                   style={{
-                    background: "#F7F3EA",
-                    border: "1px solid #DDD2BE",
+                    background: "#FBFAF6",
+                    border: "1px solid rgba(150,135,105,0.18)",
                     boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.90), 0 1px 2px rgba(20,30,35,0.07)",
-                    color: "#A97824",
+                      "0 2px 4px rgba(30,40,45,0.07), inset 0 1px 0 rgba(255,255,255,0.95)",
+                    color: "#B18428",
                     visibility: row.icon ? undefined : "hidden",
                   }}
                 >
                   {row.icon}
                 </span>
-                <dt
-                  className="self-center truncate text-[11px] uppercase"
+                <div
+                  className="grid min-w-0 grid-cols-[146px_minmax(0,1fr)] items-center gap-x-[16px] self-stretch"
                   style={{
-                    color: "#59636A",
-                    fontWeight: 600,
-                    letterSpacing: "0.05em",
-                    borderTop: rule,
-                    paddingTop: i > 0 ? 4 : undefined,
-                    marginTop: i > 0 ? -4 : undefined,
-                    alignSelf: "stretch",
-                    display: "flex",
-                    alignItems: "center",
+                    borderBottom:
+                      i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
                   }}
                 >
-                  {row.k}
-                </dt>
-                <dd
-                  className="min-w-0"
-                  style={{
-                    borderTop: rule,
-                    paddingTop: i > 0 ? 4 : undefined,
-                    marginTop: i > 0 ? -4 : undefined,
-                  }}
-                >
-                  {isPaymentPill ? (
-                    <span
-                      className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.04em]"
-                      style={{
-                        color: "#A97824",
-                        background: "#F5EBD8",
-                        border: "1px solid rgba(169,120,36,0.12)",
-                      }}
-                    >
-                      <Clock size={13} />
-                      {row.v}
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-2">
-                      <span className="truncate text-[14px] font-medium" style={{ color: "#17232C" }}>
+                  <dt
+                    className="truncate text-[10.5px] uppercase"
+                    style={{ color: "#A98232", fontWeight: 600, letterSpacing: "0.06em" }}
+                  >
+                    {row.k}
+                  </dt>
+                  <dd className="min-w-0">
+                    {isPaymentPill ? (
+                      <span
+                        className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.04em]"
+                        style={{
+                          color: "#A98232",
+                          background: "#F5EBD8",
+                          border: "1px solid rgba(169,130,50,0.16)",
+                        }}
+                      >
+                        <Clock size={12} />
                         {row.v}
                       </span>
-                      {row.stars ? (
-                        <span className="shrink-0 text-[11px]" style={{ color: GOLD }}>
-                          {"★".repeat(row.stars)}
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        <span
+                          className="truncate text-[13.5px]"
+                          style={{ color: "#10253A", fontWeight: 500 }}
+                        >
+                          {row.v}
                         </span>
-                      ) : null}
-                    </span>
-                  )}
-                  {row.v2 && (
-                    <span className="block truncate text-[11.5px]" style={{ color: "#8A9195" }}>
-                      {row.v2}
-                    </span>
-                  )}
-                </dd>
+                        {row.stars ? (
+                          <span className="shrink-0 text-[11px]" style={{ color: GOLD }}>
+                            {"★".repeat(row.stars)}
+                          </span>
+                        ) : null}
+                      </span>
+                    )}
+                    {row.v2 && (
+                      <span
+                        className="block truncate text-[10.5px] leading-tight"
+                        style={{ color: "#8A949B" }}
+                      >
+                        {row.v2}
+                      </span>
+                    )}
+                  </dd>
+                </div>
               </div>
             );
           })}
         </dl>
 
         {footer && (
-          <div className="mt-[7px] flex justify-center pt-[7px]" style={{ borderTop: `1px solid ${HAIR}` }}>
-            {footer}
-          </div>
+          <div className="mt-[15px] flex justify-center pb-[1px]">{footer}</div>
         )}
         {children}
       </div>
