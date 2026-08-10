@@ -933,7 +933,10 @@ function Workspace({ booking }: { booking: Booking }) {
   ];
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: BG_ALT }}>
+    <div
+      className="min-h-screen"
+      style={{ backgroundColor: tab === "Overview" ? PAGE_UNDER : BG_ALT }}
+    >
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] lg:block">
