@@ -336,7 +336,7 @@ function NeedHelp({ onMessage }: { onMessage?: () => void }) {
       <button
         type="button"
         onClick={onMessage}
-        className="mt-2.5 flex w-full items-center justify-center gap-2.5 rounded-[6px] py-[9px] text-[13px] font-semibold transition-opacity hover:opacity-80"
+        className="mt-2 flex w-full items-center justify-center gap-2.5 rounded-[6px] py-[8px] text-[13px] font-semibold transition-opacity hover:opacity-80"
         style={{
           color: GOLD,
           boxShadow: "inset 0 0 0 1px rgba(176,112,15,0.45)",
