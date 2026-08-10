@@ -155,6 +155,7 @@ import type { FormState } from "@/features/me/types";
 import { NextButton, ContinueButton } from "@/features/me/common/buttons";
 import { GoldStarDivider, PremiumDivider, GoldDivider } from "@/features/me/common/dividers";
 import { HelpCard } from "@/features/me/shell/HelpCard";
+import { StepFiveExtras } from "@/features/me/step5/StepFiveExtras";
 
 
 function BookMeetingsEvents() {
