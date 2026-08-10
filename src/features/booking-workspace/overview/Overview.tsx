@@ -5,7 +5,7 @@ import { SERIF } from "@/components/DashboardChrome";
 import {
   Card,
   Eyebrow,
-  GoldLink,
+  
   Medallion,
   Plate,
   SectionRule,
@@ -81,19 +81,28 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="relative flex flex-col px-7 pb-6 pt-7">
+    <div
+      className="relative flex flex-col self-start px-7 pb-7 pt-7"
+      style={{
+        background: "#F7F5EF",
+        border: "1px solid rgba(100,110,115,0.25)",
+        borderRadius: 15,
+        boxShadow:
+          "0 8px 20px rgba(20,32,40,0.10), 0 2px 5px rgba(20,32,40,0.07), inset 0 1px 0 rgba(255,255,255,0.85)",
+      }}
+    >
       <span
         aria-hidden
         className="pointer-events-none absolute inset-[9px] rounded-[9px]"
         style={{ border: "1px solid rgba(105,110,110,0.16)" }}
       />
       <span
-        className="relative text-[11px] font-semibold uppercase"
-        style={{ color: GOLD_2, letterSpacing: "0.14em" }}
+        className="relative text-[11.5px] font-semibold uppercase"
+        style={{ color: "#A98232", letterSpacing: "0.14em" }}
       >
         What happens next
       </span>
-      <ol className="relative mt-5 flex-1">
+      <ol className="relative mt-4">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
@@ -110,8 +119,8 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
               ? {
                   height: 31,
                   width: 31,
-                  background: GOLD,
-                  color: "#FFF9EE",
+                  background: "#B67B08",
+                  color: "#FFFFFF",
                   fontSize: 13,
                   boxShadow: "0 2px 5px rgba(150,100,10,0.18)",
                 }
@@ -124,11 +133,15 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
                   fontSize: 11,
                 };
           return (
-            <li key={s.label} className="relative flex gap-4 pb-4 last:pb-0">
+            <li
+              key={s.label}
+              className="relative flex items-center gap-4"
+              style={{ minHeight: active ? 62 : 54 }}
+            >
               {active && (
                 <span
                   aria-hidden
-                  className="absolute -inset-x-3 -top-2 -bottom-1 rounded-[9px]"
+                  className="absolute -inset-x-3 inset-y-[3px] rounded-[9px]"
                   style={{
                     background: "rgba(184,134,32,0.055)",
                     border: "1px solid rgba(184,134,32,0.25)",
@@ -139,11 +152,16 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[15px] top-[30px] bottom-[2px] w-px"
-                  style={{ background: done || active ? "#2F7650" : "#D4D2CC" }}
+                  className="absolute left-[14.5px] top-1/2 h-full w-[1.5px]"
+                  style={{
+                    background: done || active ? "#2F7650" : "#D4D2CC",
+                  }}
                 />
               )}
-              <span className="relative z-[1] grid shrink-0 place-items-center rounded-full font-semibold" style={circle}>
+              <span
+                className="relative z-[1] grid shrink-0 place-items-center rounded-full font-semibold"
+                style={circle}
+              >
                 {done ? <Check size={13} strokeWidth={3} /> : i + 1}
               </span>
 
@@ -183,10 +201,22 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
           );
         })}
       </ol>
-      <GoldLink label="View full timeline" onClick={onViewAll} className="relative mt-6" />
-    </Card>
+      <button
+        type="button"
+        onClick={onViewAll}
+        className="group relative mt-6 inline-flex w-fit items-center gap-2.5 text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
+        style={{ color: "#A98232" }}
+      >
+        View full timeline
+        <ArrowRight
+          size={13}
+          className="transition-transform duration-200 group-hover:translate-x-[3px]"
+        />
+      </button>
+    </div>
   );
 }
+
 
 /* ── 2b · booking details — business card inset in a recess ── */
 function DetailsCard({
