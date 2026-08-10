@@ -151,7 +151,7 @@ function DetailsCard({
 }) {
   return (
     <Slot>
-      <div className="px-6 py-5">
+      <div className="px-5 py-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <span aria-hidden className="h-[16px] w-[3px] rounded-full" style={{ background: GOLD_2 }} />
@@ -171,22 +171,22 @@ function DetailsCard({
             </span>
           )}
         </div>
-        <dl className="mt-4">
+        <dl className="mt-3">
           {rows.map((row, i) => {
             const isPaymentPill = row.k === "Payment terms" && /pending/i.test(row.v);
             return (
               <div
                 key={row.k}
-                className="grid grid-cols-[minmax(0,140px)_minmax(0,1fr)] items-center gap-4 py-[11px]"
+                className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] items-center gap-3 py-[8px]"
                 style={i > 0 ? { borderTop: `1px solid ${HAIR}` } : undefined}
               >
                 <dt
-                  className="flex items-center gap-3 text-[11px] font-semibold uppercase"
-                  style={{ color: GOLD_2, letterSpacing: "0.08em" }}
+                  className="flex items-center gap-2.5 text-[11px] font-semibold uppercase"
+                  style={{ color: GOLD_2, letterSpacing: "0.05em" }}
                 >
                   {row.icon && (
                     <span
-                      className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px]"
+                      className="grid h-8 w-8 shrink-0 place-items-center rounded-[9px]"
                       style={{
                         background: "rgba(195,138,32,0.08)",
                         border: "1px solid rgba(195,138,32,0.18)",
