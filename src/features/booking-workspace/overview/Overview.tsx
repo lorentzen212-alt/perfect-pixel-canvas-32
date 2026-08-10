@@ -81,7 +81,7 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="relative flex h-full flex-col px-5 pb-6 pt-4 sm:px-6">
+    <Card className="relative flex h-full flex-col px-5 pb-5 pt-4 sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -89,7 +89,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
         What happens next
       </span>
 
-      <ol className="relative mt-1.5 flex min-h-0 flex-1 flex-col gap-[13px]">
+      <ol className="relative mt-1.5 flex min-h-0 flex-1 flex-col gap-[5px]">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
@@ -123,7 +123,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
           return (
             <li
               key={s.label}
-              className="relative flex items-center gap-[14px] py-[10px]"
+              className="relative flex items-center gap-[14px] py-[7px]"
             >
               {active && (
                 <span
@@ -145,7 +145,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
                   aria-hidden
                   className="absolute left-[14px] top-1/2 w-[2px] -translate-x-1/2"
                   style={{
-                    height: "calc(100% + 13px)",
+                    height: "calc(100% + 5px)",
                     background: done || active ? "#2E7D55" : "#D4D2CC",
                   }}
                 />
@@ -197,7 +197,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
       <button
         type="button"
         onClick={onViewAll}
-        className="group relative inline-flex w-fit items-center gap-2.5 pt-[36px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
+        className="group relative inline-flex w-fit items-center gap-2.5 pt-[30px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
         style={{ color: "#A98232" }}
       >
         View full timeline
