@@ -1,11 +1,25 @@
-# Stretch "What happens next" to match the right column
+# Fix exact height matching in Booking Overview
 
-Right now the timeline card stops early, leaving an empty gap above the summary strip (image 2). It should end at the same line as the "Need help" card below "Booking details".
+The current two-column grid uses `items-start`, and the timeline card uses `self-start`, so its bottom edge cannot align with the combined Booking Details + Need Help column.
 
-## Changes (all in `src/features/booking-workspace/overview/Overview.tsx`)
+## Changes
 
-1. Grid row: change `items-start` to `items-stretch` on the two-column grid so both columns share the same height.
-2. `NextSteps` card: remove `self-start` and add `h-full` so the card fills the row height.
-3. Keep the timeline steps at their current compact heights, and push the "View full timeline" link to the bottom of the card (`mt-auto` with a small top spacing) so the extra height is absorbed as breathing room under the last step instead of stretching each row.
+All changes stay inside `src/features/booking-workspace/overview/Overview.tsx`:
 
-No other cards, colors, or spacing change.
+1. Change the two-column grid to `items-stretch`, preserving the existing 54/46 column proportions and 16px gap above the summary strip.
+2. Make `NextSteps` a full-height flex-column card by replacing `self-start` with `h-full`.
+3. Keep every timeline row and step gap unchanged; apply `mt-auto` to the “View full timeline” footer so spare height is placed between the timeline and footer, with the existing compact card bottom padding.
+4. Compress Booking Details by roughly 8–10% through smaller vertical container/row/footer padding only.
+5. Compress Need Help by roughly 10–15% through smaller vertical padding and button spacing only.
+6. Keep the timeline’s shared raised `Card` material unchanged: no inner frame, no new outline, and no fixed heights.
+
+No changes to content, widths, colors, icons, active-state styling, Current Action, summary strip, navigation, tabs, or page background.
+
+## Verification
+
+Check the live Booking Overview at the current laptop viewport and confirm:
+
+- the left card and Need Help end on the exact same horizontal line;
+- the summary strip remains 12–16px below both columns;
+- timeline rows retain their current compact heights;
+- no empty gray gap remains below the timeline card.
