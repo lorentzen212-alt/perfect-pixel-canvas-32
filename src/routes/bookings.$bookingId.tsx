@@ -1560,6 +1560,7 @@ function LedgerRow({
   open,
   dimmed,
   onOpen,
+  onIvory,
 }: {
   icon: React.ReactNode;
   label: string;
@@ -1569,6 +1570,8 @@ function LedgerRow({
   open: boolean;
   dimmed: boolean;
   onOpen: () => void;
+  /** ivory variant used inside the booking folder */
+  onIvory?: boolean;
 }) {
   const [hover, setHover] = useState(false);
   return (
@@ -1577,24 +1580,40 @@ function LedgerRow({
       onClick={onOpen}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="grid w-full grid-cols-[120px_minmax(0,1fr)_auto] items-center gap-5 py-4 text-left"
+      className={`grid w-full grid-cols-[110px_minmax(0,1fr)_auto] items-center gap-4 text-left ${onIvory ? "py-3" : "py-4"}`}
       style={{ opacity: dimmed ? 0.45 : 1, transition: "opacity 220ms ease" }}
     >
       <span
         className="flex items-center gap-2.5"
-        style={{ color: open || hover ? GOLD_SOFT : MUTED, transition: "color 200ms ease" }}
+        style={{
+          color: onIvory
+            ? open || hover
+              ? F_GOLD_DEEP
+              : F_INK_FAINT
+            : open || hover
+              ? GOLD_SOFT
+              : MUTED,
+          transition: "color 200ms ease",
+        }}
       >
         <span className="shrink-0">{icon}</span>
         <span className="truncate text-[10.5px] font-semibold uppercase tracking-[0.18em]">{label}</span>
       </span>
       <span className="min-w-0">
-        <span className="block truncate text-[13.5px]" style={{ color: "#F3F1EB" }}>
+        <span
+          className="block truncate text-[13.5px]"
+          style={{ color: onIvory ? F_INK : "#F3F1EB" }}
+        >
           {lead}
         </span>
-        <span className="mt-0.5 block truncate text-[12px]" style={{ color: "rgba(146,157,165,0.9)" }}>
+        <span
+          className="mt-0.5 block truncate text-[12px]"
+          style={{ color: onIvory ? F_INK_SOFT : "rgba(146,157,165,0.9)" }}
+        >
           {detail}
         </span>
       </span>
+
       <span
         className="shrink-0 text-[12px]"
         style={{
