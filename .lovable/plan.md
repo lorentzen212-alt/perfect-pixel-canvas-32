@@ -37,4 +37,4 @@ The outer card keeps its exact current width and height. The larger 33px icon ti
 
 ## Technical notes
 
-All edits live in `DetailsCard` in `src/features/booking-workspace/overview/Overview.tsx`. Row separators move to a `border-bottom` on a wrapper spanning the label+value columns so the line is continuous. Total card height is checked with a live capture afterwards; the taller rows are offset by tighter row padding so the card grows only marginally.
+All edits live in `DetailsCard` in `src/features/booking-workspace/overview/Overview.tsx`. Row separators move to a `border-bottom` on a wrapper spanning the label+value columns so the line is continuous. The current card height is measured before the change with a live capture, and re-measured after; row padding is tuned until the height matches exactly.
