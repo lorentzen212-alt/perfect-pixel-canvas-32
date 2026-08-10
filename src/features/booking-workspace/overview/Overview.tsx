@@ -123,7 +123,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
             <li
               key={s.label}
               className="relative flex items-center gap-4"
-              style={{ minHeight: active ? 62 : 54 }}
+              style={{ minHeight: active ? 54 : 46 }}
             >
               {active && (
                 <span
