@@ -3,39 +3,35 @@
    carrying raised ivory cards and one inset business card.
    Tokens only — no layout. */
 
-export const FOLDER_TOP = "#E4E3DF";
+export const FOLDER_TOP = "#D1D4D4";
 export const FOLDER_TOP_SURFACE =
-  "linear-gradient(180deg, #E9E8E4 0%, #E4E3DF 52%, #DEDDD8 100%)";
+  "linear-gradient(180deg, #D7DADA 0%, #D1D4D4 55%, #CBCFD0 100%)";
 /** exposed side / bottom face of the folder — darker than the top */
-export const FOLDER_EDGE = "#CBC9C3";
-export const FOLDER_EDGE_DEEP = "#B9B7B1";
-export const FOLDER_RIM = "rgba(255,255,255,0.85)";
+export const FOLDER_EDGE = "#BBC1C4";
+export const FOLDER_EDGE_DEEP = "#AEB4B8";
+export const FOLDER_RIM = "rgba(255,255,255,0.75)";
 /** hard line where the top surface breaks into the side face */
-export const FOLDER_BREAK = "rgba(38,44,50,0.16)";
+export const FOLDER_BREAK = "rgba(0,0,0,0.08)";
 /** tight contact shadow + wider ambient — no generic halo */
-export const FOLDER_CONTACT =
-  "0 2px 3px rgba(10,18,26,0.30), 0 10px 22px rgba(10,18,26,0.24), 0 30px 60px rgba(10,18,26,0.20)";
+export const FOLDER_CONTACT = "0 6px 12px rgba(12,22,30,0.16)";
 /** perceived thickness of the folder material */
-export const FOLDER_DEPTH = 6;
+export const FOLDER_DEPTH = 9;
 
-export const IVORY = "#F8F7F4";
-export const IVORY_BORDER = "1px solid rgba(255,255,255,0.9)";
+export const IVORY = "#F5F3EE";
+export const IVORY_BORDER = "1px solid rgba(255,255,255,0.70)";
 /** raised 2–3px: top rim, bottom edge, tight contact + soft ambient */
 export const IVORY_SHADOW = [
-  "inset 0 1px 0 rgba(255,255,255,0.95)",
-  "inset 0 -1px 0 rgba(38,44,50,0.07)",
-  "0 1px 0 rgba(255,255,255,0.55)",
-  "0 2px 2px rgba(20,28,36,0.13)",
-  "0 6px 14px rgba(20,28,36,0.10)",
+  "inset 0 1px 0 rgba(255,255,255,0.85)",
+  "0 2px 3px rgba(16,26,34,0.12)",
+  "0 7px 14px rgba(16,26,34,0.035)",
 ].join(", ");
 
 /** precision-cut recess the booking-details card is inserted into */
-export const SLOT_BG = "linear-gradient(180deg, #D3D1CB 0%, #DAD8D3 100%)";
+export const SLOT_BG = "linear-gradient(180deg, #C7CCCE 0%, #CDD1D2 100%)";
 export const SLOT_SHADOW = [
-  "inset 0 3px 5px rgba(24,30,36,0.22)",
-  "inset 0 1px 0 rgba(24,30,36,0.14)",
-  "inset 0 -1px 0 rgba(255,255,255,0.70)",
-  "0 1px 0 rgba(255,255,255,0.55)",
+  "inset 1px 1px 2px rgba(0,0,0,0.08)",
+  "inset 0 2px 4px rgba(24,30,36,0.14)",
+  "inset 0 -1px 0 rgba(255,255,255,0.55)",
 ].join(", ");
 /** the seated card sits slightly below the folder plane */
 export const SLOT_CARD_SHADOW = [
