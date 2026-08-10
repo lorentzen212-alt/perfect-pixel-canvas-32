@@ -1072,7 +1072,7 @@ function Workspace({ booking }: { booking: Booking }) {
           )}
 
 
-          <div key={tab} className="hgb-ws-panel">
+          <div key={tab} className={`hgb-ws-panel${tab === "Overview" ? " flex flex-1 flex-col" : ""}`}>
           {tab === "Changes" ? (
             <ChangesView
               rooms={rooms}
