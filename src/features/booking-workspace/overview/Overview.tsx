@@ -261,21 +261,22 @@ function DetailsCard({
             return (
               <div
                 key={row.k}
-                className="grid grid-cols-[28px_150px_minmax(0,1fr)] items-center gap-x-[10px] py-[4px]"
+                className="grid grid-cols-[36px_160px_minmax(0,1fr)] items-center gap-x-[14px] py-[6px]"
               >
                 <span
-                  className="grid h-[27px] w-[27px] shrink-0 place-items-center rounded-[7px]"
+                  className="grid h-[36px] w-[36px] shrink-0 place-items-center rounded-[10px]"
                   style={{
-                    background: "#F7F3EA",
-                    border: "1px solid #DDD2BE",
+                    background: "#FFFFFF",
+                    border: "1px solid rgba(120,110,95,0.10)",
                     boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.90), 0 1px 2px rgba(20,30,35,0.07)",
+                      "0 2px 5px rgba(20,30,35,0.08), 0 1px 1px rgba(20,30,35,0.04)",
                     color: "#A97824",
                     visibility: row.icon ? undefined : "hidden",
                   }}
                 >
                   {row.icon}
                 </span>
+
                 <dt
                   className="self-center truncate text-[11px] uppercase"
                   style={{
