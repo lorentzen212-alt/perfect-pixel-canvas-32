@@ -89,60 +89,64 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
         What happens next
       </span>
 
-      <ol className="relative mt-4 flex min-h-0 flex-1 flex-col gap-[21px]">
+      <ol className="relative mt-1.5 flex min-h-0 flex-1 flex-col gap-[13px]">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
           const circle: React.CSSProperties = done
             ? {
-                height: 26,
-                width: 26,
-                background: "#2F7650",
-                color: "#F9F6EF",
+                height: 28,
+                width: 28,
+                background: "#2E7D55",
+                color: "#FFFFFF",
                 fontSize: 11,
-                boxShadow: "0 1px 3px rgba(20,40,30,0.15), inset 0 1px 0 rgba(255,255,255,0.15)",
+                boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
               }
             : active
               ? {
-                  height: 26,
-                  width: 26,
-                  background: "#B67B08",
+                  height: 28,
+                  width: 28,
+                  background: "linear-gradient(135deg, #B8860B, #DAA520)",
                   color: "#FFFFFF",
                   fontSize: 12,
-                  boxShadow: "0 2px 5px rgba(150,100,10,0.18)",
+                  boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
                 }
               : {
-                  height: 26,
-                  width: 26,
-                  background: "#F8F7F3",
-                  border: "1px solid #C9CBCB",
-                  color: "#77818A",
+                  height: 28,
+                  width: 28,
+                  background: "#F7F7F7",
+                  border: "1px solid #DADDE0",
+                  color: "#6B7177",
                   fontSize: 11,
                 };
           const isDash = !s.sub || s.sub.trim() === "—" || s.sub.trim() === "-";
           return (
             <li
               key={s.label}
-              className="relative flex items-center gap-4"
-              style={{ minHeight: 44 }}
+              className="relative flex items-center gap-[14px] py-[10px]"
             >
               {active && (
                 <span
                   aria-hidden
-                  className="absolute -inset-x-3 -inset-y-[2px] rounded-[9px]"
+                  className="absolute -inset-x-3 inset-y-0 overflow-hidden rounded-[9px]"
                   style={{
-                    background: "rgba(184,134,32,0.045)",
-                    border: "1px solid rgba(184,134,32,0.26)",
+                    background: "#F7F1E5",
+                    border: "1px solid #E2CFB1",
                   }}
-                />
+                >
+                  <span
+                    className="absolute inset-y-0 left-0 w-[4px]"
+                    style={{ background: "#D4AF37" }}
+                  />
+                </span>
               )}
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[13px] top-1/2 w-[1.5px] -translate-x-1/2"
+                  className="absolute left-[14px] top-1/2 w-[2px] -translate-x-1/2"
                   style={{
-                    height: "calc(100% + 21px)",
-                    background: done || active ? "#2F7650" : "#D4D2CC",
+                    height: "calc(100% + 13px)",
+                    background: done || active ? "#2E7D55" : "#D4D2CC",
                   }}
                 />
               )}
@@ -155,11 +159,11 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
 
               <span className="relative z-[1] flex min-w-0 flex-1 items-center justify-between gap-4">
                 <span className="min-w-0">
-                  <span className="block text-[14.5px] font-semibold leading-snug" style={{ color: "#10253A" }}>
+                  <span className="block text-[14.5px] font-semibold leading-snug" style={{ color: "#17232C" }}>
                     {s.label}
                   </span>
                   {s.desc && (
-                    <span className="mt-[3px] block text-[12.5px] leading-snug" style={{ color: "#74818B" }}>
+                    <span className="mt-[3px] block text-[12.5px] leading-snug" style={{ color: "#6B7177" }}>
                       {s.desc}
                     </span>
                   )}
@@ -168,12 +172,12 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
                   (active ? (
                     <span
                       className="shrink-0 whitespace-nowrap rounded-full px-3 py-[6px] text-[11.5px] font-semibold"
-                      style={{ background: "rgba(184,134,32,0.04)", border: "1px solid rgba(184,134,32,0.55)", color: "#A66F08" }}
+                      style={{ background: "#FFFFFF00", border: "1px solid #D4AF37", color: "#A97824" }}
                     >
                       {s.sub}
                     </span>
                   ) : done || isDash ? (
-                    <span className="shrink-0 whitespace-nowrap text-[12.5px]" style={{ color: "#64727D" }}>
+                    <span className="shrink-0 whitespace-nowrap text-[12.5px]" style={{ color: "#8A9195" }}>
                       {s.sub}
                     </span>
                   ) : (
@@ -193,7 +197,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
       <button
         type="button"
         onClick={onViewAll}
-        className="group relative inline-flex w-fit items-center gap-2.5 pt-[16px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
+        className="group relative inline-flex w-fit items-center gap-2.5 pt-[36px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
         style={{ color: "#A98232" }}
       >
         View full timeline
