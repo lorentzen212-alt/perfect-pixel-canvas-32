@@ -1,7 +1,7 @@
 import { Utensils, Wine, Coffee, Briefcase, DoorOpen, Gift, Car, Bus, ShieldCheck, Home as HomeIcon, Mountain, Waves, Sparkles, Snowflake, Landmark, Compass, Camera, Flame } from "lucide-react";
 import type { CountryCode, ExtraGroup, ExpItem, StepKey } from "./types";
 
-   ============================================================= */
+
 
 export const HERO = {
   1: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80", // fjord sunrise

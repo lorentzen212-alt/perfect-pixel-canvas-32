@@ -1,5 +1,3 @@
-/* ---- Step 2 Stay card (single premium component) ---- */
-/** Compact, read-only summary of a saved stay. Used ONLY below "Add this stay". */
 /** Calm, eased page scroll (default 500ms ease-in-out). */
 export function smoothScrollToElement(el: HTMLElement, offset = 96, duration = 500) {
   const startY = window.scrollY;
