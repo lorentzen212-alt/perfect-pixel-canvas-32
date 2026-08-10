@@ -202,7 +202,7 @@ export function BookingWorkspaceHeader({
           {WORKSPACE_TABS.map((t) => {
             const isActive = t === active;
             const cls =
-              "hgb-ws-tab relative whitespace-nowrap rounded-t-[13px] px-5 pb-[13px] pt-[11px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
+              "hgb-ws-tab relative whitespace-nowrap rounded-t-[16px] px-5 pb-[13px] pt-[11px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
             const st: React.CSSProperties = isActive
               ? {
                   background: surface ?? "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
@@ -211,7 +211,7 @@ export function BookingWorkspaceHeader({
                   marginBottom: -1,
                   paddingBottom: 14,
                   boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.7), 0 -6px 18px -12px rgba(20,32,42,0.45)",
+                    "inset 0 1px 0 rgba(255,255,255,0.85), inset 1px 0 0 rgba(255,255,255,0.55), inset -1px 0 0 rgba(20,32,42,0.10), 0 -2px 0 rgba(20,32,42,0.08), 0 -10px 20px -10px rgba(20,32,42,0.55), 0 3px 5px rgba(20,32,42,0.20)",
                 }
               : {
                   backgroundColor: "rgba(12,26,36,0.62)",
