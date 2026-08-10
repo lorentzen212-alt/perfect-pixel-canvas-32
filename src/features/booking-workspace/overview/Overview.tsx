@@ -81,7 +81,7 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="relative flex h-full flex-col px-5 py-4 sm:px-6">
+    <Card className="relative flex h-full flex-col px-5 pb-6 pt-4 sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -89,7 +89,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
         What happens next
       </span>
 
-      <ol className="relative mt-4">
+      <ol className="relative mt-4 flex min-h-0 flex-1 flex-col gap-[14px]">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
@@ -123,7 +123,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
             <li
               key={s.label}
               className="relative flex items-center gap-4"
-              style={{ minHeight: active ? 54 : 46 }}
+              style={{ minHeight: active ? 50 : 44 }}
             >
               {active && (
                 <span
@@ -139,8 +139,9 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[14.5px] top-1/2 h-full w-[1.5px]"
+                  className="absolute left-[14.5px] top-1/2 w-[1.5px]"
                   style={{
+                    height: "calc(100% + 14px)",
                     background: done || active ? "#2F7650" : "#D4D2CC",
                   }}
                 />
@@ -191,7 +192,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
       <button
         type="button"
         onClick={onViewAll}
-        className="group relative mt-auto inline-flex w-fit items-center gap-2.5 pt-3.5 text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
+        className="group relative inline-flex w-fit items-center gap-2.5 pt-[16px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
         style={{ color: "#A98232" }}
       >
         View full timeline
