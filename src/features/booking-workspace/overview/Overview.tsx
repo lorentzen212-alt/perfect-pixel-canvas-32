@@ -284,8 +284,9 @@ function DetailsCard({
                     fontWeight: 600,
                     letterSpacing: "0.05em",
                     borderTop: rule,
-                    paddingTop: i > 0 ? 4 : undefined,
-                    marginTop: i > 0 ? -4 : undefined,
+                    paddingTop: i > 0 ? 6 : undefined,
+                    marginTop: i > 0 ? -6 : undefined,
+
                     alignSelf: "stretch",
                     display: "flex",
                     alignItems: "center",
