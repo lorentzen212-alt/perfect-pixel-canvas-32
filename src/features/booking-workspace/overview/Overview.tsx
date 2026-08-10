@@ -333,7 +333,7 @@ function DetailsCard({
         )}
         {children}
       </div>
-    </Slot>
+    </div>
   );
 }
 
