@@ -5,7 +5,7 @@ import { SERIF } from "@/components/DashboardChrome";
 import {
   Card,
   Eyebrow,
-  GoldLink,
+  
   Medallion,
   Plate,
   SectionRule,
