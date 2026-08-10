@@ -81,27 +81,14 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <div
-      className="relative flex flex-col self-start px-7 pb-7 pt-7"
-      style={{
-        background: "#F7F5EF",
-        border: "1px solid rgba(100,110,115,0.25)",
-        borderRadius: 15,
-        boxShadow:
-          "0 8px 20px rgba(20,32,40,0.10), 0 2px 5px rgba(20,32,40,0.07), inset 0 1px 0 rgba(255,255,255,0.85)",
-      }}
-    >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-[9px] rounded-[9px]"
-        style={{ border: "1px solid rgba(105,110,110,0.16)" }}
-      />
+    <Card className="relative flex flex-col self-start px-5 py-4 sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
       >
         What happens next
       </span>
+
       <ol className="relative mt-4">
         {steps.map((s, i) => {
           const done = s.state === "done";
@@ -136,7 +123,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
             <li
               key={s.label}
               className="relative flex items-center gap-4"
-              style={{ minHeight: active ? 62 : 54 }}
+              style={{ minHeight: active ? 54 : 46 }}
             >
               {active && (
                 <span
@@ -204,7 +191,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
       <button
         type="button"
         onClick={onViewAll}
-        className="group relative mt-6 inline-flex w-fit items-center gap-2.5 text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
+        className="group relative mt-3.5 inline-flex w-fit items-center gap-2.5 text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
         style={{ color: "#A98232" }}
       >
         View full timeline
@@ -213,7 +200,8 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
           className="transition-transform duration-200 group-hover:translate-x-[3px]"
         />
       </button>
-    </div>
+    </Card>
+
   );
 }
 
@@ -246,7 +234,7 @@ function DetailsCard({
         className="pointer-events-none absolute inset-[9px] rounded-[9px]"
         style={{ border: "1px solid rgba(105,110,110,0.16)" }}
       />
-      <div className="relative px-7 py-6">
+      <div className="relative px-6 py-5">
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
@@ -270,7 +258,7 @@ function DetailsCard({
             return (
               <div
                 key={row.k}
-                className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] items-center gap-2.5 py-[5px]"
+                className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] items-center gap-2.5 py-[4px]"
                 style={{
                   background: i % 2 === 1 ? "#F3F1EB" : "transparent",
                   borderTop: i > 0 ? `1px solid ${HAIR}` : undefined,
@@ -327,7 +315,7 @@ function DetailsCard({
           })}
         </dl>
         {footer && (
-          <div className="mt-2.5 flex justify-center pt-2.5" style={{ borderTop: `1px solid ${HAIR}` }}>
+          <div className="mt-2 flex justify-center pt-2" style={{ borderTop: `1px solid ${HAIR}` }}>
             {footer}
           </div>
         )}
@@ -340,7 +328,7 @@ function DetailsCard({
 /* ── 2c · need help ────────────────────────────────────────── */
 function NeedHelp({ onMessage }: { onMessage?: () => void }) {
   return (
-    <Card className="px-5 py-3.5">
+    <Card className="px-5 py-3">
       <Eyebrow>Need help?</Eyebrow>
       <p className="mt-1 text-[12.5px]" style={{ color: INK_2 }}>
         Questions or changes to your booking?
@@ -348,7 +336,7 @@ function NeedHelp({ onMessage }: { onMessage?: () => void }) {
       <button
         type="button"
         onClick={onMessage}
-        className="mt-2.5 flex w-full items-center justify-center gap-2.5 rounded-[6px] py-[9px] text-[13px] font-semibold transition-opacity hover:opacity-80"
+        className="mt-2 flex w-full items-center justify-center gap-2.5 rounded-[6px] py-[8px] text-[13px] font-semibold transition-opacity hover:opacity-80"
         style={{
           color: GOLD,
           boxShadow: "inset 0 0 0 1px rgba(176,112,15,0.45)",
