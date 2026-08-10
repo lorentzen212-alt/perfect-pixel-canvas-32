@@ -54,7 +54,10 @@ import {
   GOLD_MET as F_GOLD,
   GOLD_DEEP_MET as F_GOLD_DEEP,
 } from "@/features/booking-workspace/folder";
+import { OverviewFolder } from "@/features/booking-workspace/overview/Overview";
+import { FOLDER_TOP_SURFACE, PAGE_UNDER } from "@/features/booking-workspace/overview/materials";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
+
 import { roomingProgress, type Booking } from "@/lib/bookings";
 import { distributionFor, statsOf } from "@/lib/rooming";
 import { useAuth } from "@/lib/auth";
@@ -930,7 +933,10 @@ function Workspace({ booking }: { booking: Booking }) {
   ];
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: BG_ALT }}>
+    <div
+      className="min-h-screen"
+      style={{ backgroundColor: tab === "Overview" ? PAGE_UNDER : BG_ALT }}
+    >
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] lg:block">
@@ -997,27 +1003,26 @@ function Workspace({ booking }: { booking: Booking }) {
           initials={initials}
           active={tab as WorkspaceTab}
           onSelect={(t) => setTab(t)}
-          surface={tab === "Overview" ? FOLDER_SURFACE : undefined}
+          surface={tab === "Overview" ? FOLDER_TOP_SURFACE : undefined}
         />
 
 
-        {/* ══ 2 · workspace plate — stone folder on Overview, ivory elsewhere ══ */}
+        {/* ══ 2 · workspace plate — physical folder on Overview, ivory elsewhere ══ */}
         <div
-          className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+          className={
+            tab === "Overview"
+              ? "relative min-h-[80vh] px-5 pb-14 pt-0 sm:px-9"
+              : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+          }
           style={
             tab === "Overview"
-              ? {
-                  background: FOLDER_SURFACE,
-                  boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.6), inset 1px 0 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(20,30,38,0.10)",
-                }
+              ? { backgroundColor: PAGE_UNDER }
               : { backgroundColor: PLATE }
           }
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
-          {tab === "Overview" ? (
-            <div className="h-[26px]" />
-          ) : (
+          {tab === "Overview" ? null : (
+
             <div className="flex flex-wrap items-center gap-y-5 py-6">
               {strip.map((s, i) => (
                 <div
@@ -1081,214 +1086,82 @@ function Workspace({ booking }: { booking: Booking }) {
 
 
           ) : (
-            <div className="space-y-4 pb-2">
-              {/* ── 1 · current action ─────────────────────────── */}
-              <RaisedCard className="p-5 sm:p-6">
-                <FolderEyebrow>Current action</FolderEyebrow>
-                <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-center">
-                  <span
-                    className="grid h-[92px] w-[92px] shrink-0 place-items-center rounded-full"
-                    style={{
-                      boxShadow:
-                        "inset 0 0 0 1px rgba(192,147,47,0.45), inset 0 1px 0 rgba(255,255,255,0.8), 0 1px 2px rgba(15,25,35,0.12)",
-                      color: F_GOLD,
-                    }}
-                  >
-                    <ClipboardList size={36} strokeWidth={1.3} />
-                  </span>
-
-                  <div className="min-w-0 flex-1">
-                    <CardTitle>Add rooming list</CardTitle>
-                    <p className="mt-1.5 text-[13px]" style={{ color: F_INK_SOFT }}>
-                      Add guest names and room assignments so the hotel can prepare your arrival.
-                    </p>
-                    <p className="mt-1 text-[13px] font-semibold" style={{ color: F_GOLD_DEEP }}>
-                      Name submission deadline · 6 days remaining
-                    </p>
-
-                    <div className="mt-4 flex flex-wrap items-center gap-5">
-                      <div
-                        className="h-[6px] min-w-[160px] flex-1 overflow-hidden rounded-full"
-                        style={{ backgroundColor: "rgba(22,36,47,0.12)" }}
-                      >
-                        <span
-                          className="block h-full rounded-full"
-                          style={{
-                            width: `${progress}%`,
-                            background: `linear-gradient(90deg, ${GOLD_MET_LOW}, ${GOLD_HI} 60%, ${GOLD_MET_MID})`,
-                            transition: "width 600ms cubic-bezier(0.22,1,0.36,1)",
-                          }}
-                        />
-                      </div>
-                      <Link
-                        to="/rooming/$bookingId"
-                        params={{ bookingId: booking.id }}
-                        className="inline-flex shrink-0 items-center gap-2.5 rounded-full px-6 py-[11px] text-[13.5px] font-semibold transition-transform hover:-translate-y-[1px]"
-                        style={{
-                          background: `linear-gradient(180deg, ${GOLD_HI}, ${GOLD_MET_MID})`,
-                          color: "#241B06",
-                          boxShadow: "0 1px 2px rgba(15,25,35,0.18), inset 0 1px 0 rgba(255,255,255,0.55)",
-                        }}
-                      >
-                        Create rooming list
-                        <ArrowRight size={15} />
-                      </Link>
-                    </div>
-                    <p className="mt-2.5 text-[12px]" style={{ color: F_INK_SOFT }}>
-                      {progress}% completed
-                      {roomingStats
-                        ? ` · ${roomingStats.filled} of ${roomingStats.total} names`
-                        : rooming
-                          ? ` · ${rooming.complete} of ${rooming.total} names`
-                          : ""}
-                    </p>
-                  </div>
-                </div>
-              </RaisedCard>
-
-              {/* ── 2 · what happens next · booking details / help ── */}
-              <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_390px]">
-                <RaisedCard className="p-5 sm:p-6">
-                  <FolderEyebrow>What happens next</FolderEyebrow>
-                  <NextTimeline steps={journey} />
-                  <div className="mt-1">
-                    <FolderAction label="View full timeline" onClick={() => setTab("Changes")} />
-                  </div>
-                </RaisedCard>
-
-                <div className="min-w-0 space-y-4">
-                  <InsetCard className="p-5">
-                    <FolderEyebrow>Booking details</FolderEyebrow>
-                    <dl className="mt-3.5">
-                      {[
-                        { k: "Hotel", v: booking.hotel ?? "Hotel to be assigned" },
-                        { k: "Destination", v: booking.destination },
-                        { k: "Contact", v: displayName || "—" },
-                        { k: "Email", v: session?.user.email ?? "—" },
-                        { k: "Hotel reference", v: hotelRef || booking.reference },
-                        { k: "Payment terms", v: confirmed ? "Deposit paid" : "Deposit pending" },
-                      ].map((row, i) => (
-                        <div
-                          key={row.k}
-                          className="grid grid-cols-[118px_minmax(0,1fr)] items-baseline gap-3 py-[9px]"
-                          style={i > 0 ? { borderTop: `1px solid ${F_HAIR}` } : undefined}
-                        >
-                          <dt
-                            className="text-[10.5px] font-semibold uppercase tracking-[0.16em]"
-                            style={{ color: F_INK_FAINT }}
-                          >
-                            {row.k}
-                          </dt>
-                          <dd className="truncate text-[13.5px]" style={{ color: F_INK }}>
-                            {row.v}
-                          </dd>
-                        </div>
-                      ))}
-                    </dl>
-
-                    <div className="mt-3" style={{ borderTop: `1px solid ${F_HAIR}` }}>
-                      <FolderAction
-                        label={detailsOpen ? "Hide details" : "Show more details"}
-                        arrow={detailsOpen ? "↑" : "↓"}
-                        onClick={() => setDetailsOpen((v) => !v)}
-                        className="mt-3"
-                      />
-                    </div>
-
-                    {detailsOpen && (
-                      <ul className="mt-1">
-                        {ledger.map((row, i) => {
-                          const open = panel === row.key;
-                          return (
-                            <li
-                              key={row.key}
-                              style={{ borderTop: i >= 0 ? `1px solid ${F_HAIR}` : undefined }}
-                            >
-                              <LedgerRow
-                                icon={row.icon}
-                                label={row.label}
-                                lead={row.lead}
-                                detail={row.detail}
-                                action={row.action}
-                                open={open}
-                                dimmed={panel !== null && !open}
-                                onOpen={() => setPanel(open ? null : row.key)}
-                                onIvory
-                              />
-                              {open && <div className="pb-4">{editor}</div>}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </InsetCard>
-
-                  <RaisedCard className="p-5">
-                    <FolderEyebrow>Need help?</FolderEyebrow>
-                    <p className="mt-2.5 text-[13px] leading-relaxed" style={{ color: F_INK_SOFT }}>
-                      Your group coordinator answers within one business day — booking changes,
-                      invoices or anything on-site.
-                    </p>
-                    <FolderAction
-                      label="Message HotelGroupBook"
-                      onClick={() => setTab("Messages")}
-                      className="mt-3"
-                    />
-                  </RaisedCard>
-                </div>
-              </div>
-
-              {/* ── 3 · closing summary strip ───────────────────── */}
-              <SummaryStrip
-                cells={[
-                  {
-                    icon: <Users size={16} />,
-                    lead: `${totalGuests} guests`,
-                    label: "Travelling party",
-                    actionLabel: "View details",
-                    onAction: () => setPanel("rooms"),
-                  },
-                  {
-                    icon: <Bed size={16} />,
-                    lead: `${totalRooms} rooms`,
-                    label: "Room allocation",
-                    actionLabel: "View details",
-                    onAction: () => setPanel("rooms"),
-                  },
-                  {
-                    icon: <CalendarDays size={16} />,
-                    lead: `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
-                    label: nightsLabel,
-                    actionLabel: "View details",
-                    onAction: () => setPanel("stay"),
-                  },
-                  {
-                    icon: <FileText size={16} />,
-                    lead: "3 documents",
-                    label: "Uploaded",
-                    actionLabel: "View details",
-                    onAction: () => setTab("Documents"),
-                  },
-                ]}
-              />
-
-              {/* ── 4 · more booking information ────────────────── */}
-              <div className="flex items-center gap-4 pt-4">
-                <span
-                  className="text-[10.5px] font-semibold uppercase tracking-[0.2em]"
-                  style={{ color: "rgba(22,36,47,0.5)" }}
-                >
-                  More booking information
-                </span>
-                <span
-                  aria-hidden
-                  className="h-px flex-1"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(22,36,47,0.16), rgba(22,36,47,0.04))",
-                  }}
+            <OverviewFolder
+              bookingId={booking.id}
+              progress={progress}
+              namesFilled={roomingStats?.filled ?? rooming?.complete ?? 0}
+              namesTotal={roomingStats?.total ?? rooming?.total ?? 0}
+              deadline="Deadline in 6 days"
+              journey={journey}
+              onViewTimeline={() => setTab("Changes")}
+              detailRows={[
+                { k: "Hotel", v: booking.hotel ?? "Hotel to be assigned" },
+                { k: "Destination", v: booking.destination },
+                { k: "Contact", v: displayName || "—" },
+                { k: "Email", v: session?.user.email ?? "—" },
+                { k: "Hotel ref", v: hotelRef || booking.reference },
+                { k: "Payment", v: confirmed ? "Deposit paid" : "Deposit pending" },
+              ]}
+              detailsFooter={
+                <FolderAction
+                  label={detailsOpen ? "Hide details" : "Show more details"}
+                  arrow={detailsOpen ? "↑" : "↓"}
+                  onClick={() => setDetailsOpen((v) => !v)}
                 />
-              </div>
+              }
+              detailsExtra={
+                detailsOpen ? (
+                  <ul className="mt-1">
+                    {ledger.map((row) => {
+                      const open = panel === row.key;
+                      return (
+                        <li key={row.key} style={{ borderTop: `1px solid ${F_HAIR}` }}>
+                          <LedgerRow
+                            icon={row.icon}
+                            label={row.label}
+                            lead={row.lead}
+                            detail={row.detail}
+                            action={row.action}
+                            open={open}
+                            dimmed={panel !== null && !open}
+                            onOpen={() => setPanel(open ? null : row.key)}
+                            onIvory
+                          />
+                          {open && <div className="pb-4">{editor}</div>}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : null
+              }
+              summary={[
+                {
+                  icon: <Users size={16} />,
+                  lead: `${totalGuests} guests`,
+                  label: "Travelling party",
+                  onAction: () => setPanel("rooms"),
+                },
+                {
+                  icon: <Bed size={16} />,
+                  lead: `${totalRooms} rooms`,
+                  label: "Room allocation",
+                  onAction: () => setPanel("rooms"),
+                },
+                {
+                  icon: <CalendarDays size={16} />,
+                  lead: `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
+                  label: nightsLabel,
+                  onAction: () => setPanel("stay"),
+                },
+                {
+                  icon: <FileText size={16} />,
+                  lead: "3 documents",
+                  label: "Uploaded",
+                  onAction: () => setTab("Documents"),
+                },
+              ]}
+              secondary={
+
 
               <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_390px]">
                 <div className="min-w-0 space-y-4">
@@ -1501,7 +1374,9 @@ function Workspace({ booking }: { booking: Booking }) {
                   </FolderSection>
                 </div>
               </div>
-            </div>
+              }
+            />
+
           )}
 
           </div>
