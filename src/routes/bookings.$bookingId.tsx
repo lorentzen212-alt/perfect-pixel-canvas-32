@@ -1000,27 +1000,26 @@ function Workspace({ booking }: { booking: Booking }) {
           initials={initials}
           active={tab as WorkspaceTab}
           onSelect={(t) => setTab(t)}
-          surface={tab === "Overview" ? FOLDER_SURFACE : undefined}
+          surface={tab === "Overview" ? FOLDER_TOP_SURFACE : undefined}
         />
 
 
-        {/* ══ 2 · workspace plate — stone folder on Overview, ivory elsewhere ══ */}
+        {/* ══ 2 · workspace plate — physical folder on Overview, ivory elsewhere ══ */}
         <div
-          className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+          className={
+            tab === "Overview"
+              ? "relative min-h-[80vh] px-5 pb-14 pt-0 sm:px-9"
+              : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+          }
           style={
             tab === "Overview"
-              ? {
-                  background: FOLDER_SURFACE,
-                  boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.6), inset 1px 0 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(20,30,38,0.10)",
-                }
+              ? { backgroundColor: PAGE_UNDER }
               : { backgroundColor: PLATE }
           }
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
-          {tab === "Overview" ? (
-            <div className="h-[26px]" />
-          ) : (
+          {tab === "Overview" ? null : (
+
             <div className="flex flex-wrap items-center gap-y-5 py-6">
               {strip.map((s, i) => (
                 <div
