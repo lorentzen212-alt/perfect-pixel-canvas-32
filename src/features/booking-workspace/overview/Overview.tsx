@@ -10,7 +10,7 @@ import {
   Plate,
   SectionRule,
 
-  SolidButton,
+  ShineGoldButton,
 } from "./primitives";
 import { GOLD, GOLD_2, GREEN, HAIR, INK, INK_2, INK_3 } from "./materials";
 
