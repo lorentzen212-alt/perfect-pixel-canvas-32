@@ -257,46 +257,64 @@ function DetailsCard({
         <dl className="mt-2">
           {rows.map((row, i) => {
             const isPaymentPill = row.k === "Payment terms" && /pending/i.test(row.v);
+            const rule = i > 0 ? "1px solid rgba(80,90,95,0.14)" : undefined;
             return (
               <div
                 key={row.k}
-                className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] items-center gap-2.5 py-[3.5px]"
-                style={{
-                  background: i % 2 === 1 ? "#F3F1EB" : "transparent",
-                  borderTop: i > 0 ? `1px solid ${HAIR}` : undefined,
-                }}
+                className="grid grid-cols-[28px_150px_minmax(0,1fr)] items-center gap-x-[10px] py-[4px]"
               >
-                <dt
-                  className="flex items-center gap-2 text-[11px] font-semibold uppercase"
-                  style={{ color: GOLD_2, letterSpacing: "0.05em" }}
+                <span
+                  className="grid h-[27px] w-[27px] shrink-0 place-items-center rounded-[7px]"
+                  style={{
+                    background: "#F7F3EA",
+                    border: "1px solid #DDD2BE",
+                    boxShadow:
+                      "inset 0 1px 0 rgba(255,255,255,0.90), 0 1px 2px rgba(20,30,35,0.07)",
+                    color: "#A97824",
+                    visibility: row.icon ? undefined : "hidden",
+                  }}
                 >
-                  {row.icon && (
-                    <span
-                      className="grid h-7 w-7 shrink-0 place-items-center rounded-[8px]"
-                      style={{
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(195,138,32,0.18)",
-                        boxShadow: "0 2px 4px rgba(20,32,40,0.04), 0 1px 2px rgba(20,32,40,0.03)",
-                        color: GOLD_2,
-                      }}
-                    >
-                      {row.icon}
-                    </span>
-                  )}
-                  <span className="truncate">{row.k}</span>
+                  {row.icon}
+                </span>
+                <dt
+                  className="self-center truncate text-[11px] uppercase"
+                  style={{
+                    color: "#59636A",
+                    fontWeight: 600,
+                    letterSpacing: "0.05em",
+                    borderTop: rule,
+                    paddingTop: i > 0 ? 4 : undefined,
+                    marginTop: i > 0 ? -4 : undefined,
+                    alignSelf: "stretch",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {row.k}
                 </dt>
-                <dd className="min-w-0">
+                <dd
+                  className="min-w-0"
+                  style={{
+                    borderTop: rule,
+                    paddingTop: i > 0 ? 4 : undefined,
+                    marginTop: i > 0 ? -4 : undefined,
+                  }}
+                >
                   {isPaymentPill ? (
                     <span
                       className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.04em]"
-                      style={{ color: GOLD_2, background: "rgba(195,138,32,0.10)" }}
+                      style={{
+                        color: "#A97824",
+                        background: "#F5EBD8",
+                        border: "1px solid rgba(169,120,36,0.12)",
+                      }}
                     >
                       <Clock size={13} />
                       {row.v}
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
-                      <span className="truncate text-[14px] font-medium" style={{ color: INK }}>
+                      <span className="truncate text-[14px] font-medium" style={{ color: "#17232C" }}>
                         {row.v}
                       </span>
                       {row.stars ? (
@@ -307,7 +325,7 @@ function DetailsCard({
                     </span>
                   )}
                   {row.v2 && (
-                    <span className="block truncate text-[11.5px]" style={{ color: INK_3 }}>
+                    <span className="block truncate text-[11.5px]" style={{ color: "#8A9195" }}>
                       {row.v2}
                     </span>
                   )}
@@ -316,6 +334,7 @@ function DetailsCard({
             );
           })}
         </dl>
+
         {footer && (
           <div className="mt-[7px] flex justify-center pt-[7px]" style={{ borderTop: `1px solid ${HAIR}` }}>
             {footer}
