@@ -660,7 +660,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* footer */}
       <div
-        className="mt-[6px] flex flex-nowrap items-center justify-between gap-4 pt-[6px]"
+        className="mt-[9px] flex flex-nowrap items-center justify-between gap-4 pt-[8px]"
         style={{ borderTop: "1px solid rgba(255,255,255,0.038)" }}
 
       >
