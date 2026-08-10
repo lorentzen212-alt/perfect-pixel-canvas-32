@@ -1007,7 +1007,7 @@ function Workspace({ booking }: { booking: Booking }) {
               style={{ color: TEXT_2 }}
             >
               <ArrowLeft size={15} />
-              Back to My Bookings
+              Back to Dashboard
             </Link>
           }
         />
@@ -1116,7 +1116,12 @@ function Workspace({ booking }: { booking: Booking }) {
               onViewTimeline={() => setTab("Changes")}
               onMessage={() => setTab("Messages")}
               detailRows={[
-                { k: "Hotel", icon: <Building2 size={15} />, v: booking.hotel ?? "Hotel to be assigned" },
+                {
+                  k: "Hotel",
+                  icon: <Building2 size={15} />,
+                  v: booking.hotel ?? "Hotel to be assigned",
+                  stars: booking.hotel ? 5 : undefined,
+                },
                 { k: "Destination", icon: <MapPin size={15} />, v: booking.destination },
                 {
                   k: "Contact",
@@ -1125,6 +1130,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   v2: "Group Sales Manager",
                 },
                 { k: "Email", icon: <Mail size={15} />, v: session?.user.email ?? "—" },
+                { k: "Phone", icon: <Phone size={15} />, v: "+47 55 33 44 55" },
                 { k: "Hotel reference", icon: <FileText size={15} />, v: hotelRef || booking.reference },
                 {
                   k: "Payment terms",
