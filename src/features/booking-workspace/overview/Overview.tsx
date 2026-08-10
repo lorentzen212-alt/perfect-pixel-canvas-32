@@ -335,7 +335,7 @@ function DetailsCard({
         </dl>
 
         {footer && (
-          <div className="mt-[15px] flex justify-center pb-[1px]">{footer}</div>
+          <div className="mt-[8px] flex justify-center pb-[1px]">{footer}</div>
         )}
         {children}
       </div>
