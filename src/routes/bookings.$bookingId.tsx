@@ -1123,23 +1123,23 @@ function Workspace({ booking }: { booking: Booking }) {
               detailRows={[
                 {
                   k: "Hotel",
-                  icon: <Building2 size={15} strokeWidth={1.6} />,
+                  icon: <Building2 size={18} strokeWidth={1.6} />,
                   v: booking.hotel ?? "Hotel to be assigned",
                   stars: booking.hotel ? 5 : undefined,
                 },
-                { k: "Destination", icon: <MapPin size={15} strokeWidth={1.6} />, v: booking.destination },
+                { k: "Destination", icon: <MapPin size={18} strokeWidth={1.6} />, v: booking.destination },
                 {
                   k: "Contact",
-                  icon: <UserCheck size={15} strokeWidth={1.6} />,
+                  icon: <UserCheck size={18} strokeWidth={1.6} />,
                   v: displayName || "—",
                   v2: "Group Sales Manager",
                 },
-                { k: "Email", icon: <Mail size={15} strokeWidth={1.6} />, v: session?.user.email ?? "—" },
-                { k: "Phone", icon: <Phone size={15} strokeWidth={1.6} />, v: "+47 55 33 44 55" },
-                { k: "Hotel reference", icon: <FileText size={15} strokeWidth={1.6} />, v: hotelRef || booking.reference },
+                { k: "Email", icon: <Mail size={18} strokeWidth={1.6} />, v: session?.user.email ?? "—" },
+                { k: "Phone", icon: <Phone size={18} strokeWidth={1.6} />, v: "+47 55 33 44 55" },
+                { k: "Hotel reference", icon: <FileText size={18} strokeWidth={1.6} />, v: hotelRef || booking.reference },
                 {
                   k: "Payment terms",
-                  icon: <CreditCard size={15} strokeWidth={1.6} />,
+                  icon: <CreditCard size={18} strokeWidth={1.6} />,
                   v: confirmed ? "Deposit paid" : "Deposit pending",
                 },
               ]}
