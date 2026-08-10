@@ -46,7 +46,7 @@ Tablet: two columns collapse to one, details/help move under the timeline, strip
 ## Hero and tabs (`BookingWorkspaceHeader.tsx`)
 
 - Hero content, tabs included, targets 230–260px. Existing image kept, controlled dark navy overlay, more prominent booking title, then meta row (location · dates · rooms · guests · reference) and the status badge.
-- Active Overview tab uses the folder material itself — no bottom border, no shadow between tab and folder, with a small shoulder where the tab meets the plate, so the folder reads as one object without any text.
+- Active Overview tab is part of the same physical object: same `#CDD1D2` top surface, the same darker exposed edge along its top/side before it merges seamlessly into the plate, no bottom border, no shadow between tab and folder, and a small shoulder at the junction — the folder reads as one object even with all text removed.
 - Inactive tabs: `#152938`, slightly thicker, subtly recessed with restrained borders and small inset shadows — not navigation pills.
 
 ## Sidebar
