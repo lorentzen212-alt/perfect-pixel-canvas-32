@@ -89,14 +89,14 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
         What happens next
       </span>
 
-      <ol className="relative mt-4 flex min-h-0 flex-1 flex-col gap-[11px]">
+      <ol className="relative mt-4 flex min-h-0 flex-1 flex-col gap-[14px]">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
           const circle = done
             ? {
-                height: 26,
-                width: 26,
+                height: 28,
+                width: 28,
                 background: "#2F7650",
                 color: "#F9F6EF",
                 fontSize: 11,
@@ -104,16 +104,16 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
               }
             : active
               ? {
-                  height: 26,
-                  width: 26,
+                  height: 31,
+                  width: 31,
                   background: "#B67B08",
                   color: "#FFFFFF",
-                  fontSize: 12,
+                  fontSize: 13,
                   boxShadow: "0 2px 5px rgba(150,100,10,0.18)",
                 }
               : {
-                  height: 26,
-                  width: 26,
+                  height: 28,
+                  width: 28,
                   background: "#F8F7F3",
                   border: "1px solid #C9CBCB",
                   color: "#77818A",
@@ -123,24 +123,25 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
             <li
               key={s.label}
               className="relative flex items-center gap-4"
-              style={{ minHeight: 44 }}
+              style={{ minHeight: active ? 50 : 44 }}
             >
               {active && (
                 <span
                   aria-hidden
-                  className="absolute -inset-x-3 inset-y-[-2px] rounded-[9px]"
+                  className="absolute -inset-x-3 inset-y-[3px] rounded-[9px]"
                   style={{
-                    background: "rgba(184,134,32,0.045)",
-                    border: "1px solid rgba(184,134,32,0.26)",
+                    background: "rgba(184,134,32,0.055)",
+                    border: "1px solid rgba(184,134,32,0.25)",
+                    boxShadow: "inset 2px 0 0 #B18428",
                   }}
                 />
               )}
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[13.25px] top-1/2 w-[1.5px]"
+                  className="absolute left-[14.5px] top-1/2 w-[1.5px]"
                   style={{
-                    height: "calc(100% + 11px)",
+                    height: "calc(100% + 14px)",
                     background: done || active ? "#2F7650" : "#D4D2CC",
                   }}
                 />
@@ -171,11 +172,10 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
                     >
                       {s.sub}
                     </span>
-                  ) : done || /^[—–-]$/.test(s.sub.trim()) ? (
+                  ) : done ? (
                     <span className="shrink-0 whitespace-nowrap text-[12.5px]" style={{ color: "#64727D" }}>
                       {s.sub}
                     </span>
-
                   ) : (
                     <span
                       className="shrink-0 whitespace-nowrap rounded-full px-3 py-[6px] text-[11.5px] font-semibold"
