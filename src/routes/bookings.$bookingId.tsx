@@ -981,33 +981,46 @@ function Workspace({ booking }: { booking: Booking }) {
         />
 
 
-        {/* ══ 2 · large light workspace plate ══ */}
+        {/* ══ 2 · workspace plate — stone folder on Overview, ivory elsewhere ══ */}
         <div
           className="relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
-          style={{ backgroundColor: PLATE }}
+          style={
+            tab === "Overview"
+              ? {
+                  background: FOLDER_SURFACE,
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.6), inset 1px 0 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(20,30,38,0.10)",
+                }
+              : { backgroundColor: PLATE }
+          }
         >
-          {/* ══ 3 · information strip ══ */}
-          <div className="flex flex-wrap items-center gap-y-5 py-6">
-            {strip.map((s, i) => (
-              <div
-                key={s.lead + i}
-                className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
-                style={i > 0 ? { borderLeft: "1px solid rgba(21,32,43,0.13)" } : undefined}
-              >
-                <span className="shrink-0" style={{ color: GOLD_MET_MID }}>
-                  {s.icon}
-                </span>
-                <span className="min-w-0">
-                  <span className="block truncate text-[14px] font-semibold" style={{ color: "#15202B" }}>
-                    {s.lead}
+          {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
+          {tab === "Overview" ? (
+            <div className="h-[26px]" />
+          ) : (
+            <div className="flex flex-wrap items-center gap-y-5 py-6">
+              {strip.map((s, i) => (
+                <div
+                  key={s.lead + i}
+                  className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
+                  style={i > 0 ? { borderLeft: "1px solid rgba(21,32,43,0.13)" } : undefined}
+                >
+                  <span className="shrink-0" style={{ color: GOLD_MET_MID }}>
+                    {s.icon}
                   </span>
-                  <span className="block truncate text-[12px]" style={{ color: "rgba(21,32,43,0.6)" }}>
-                    {s.sub}
+                  <span className="min-w-0">
+                    <span className="block truncate text-[14px] font-semibold" style={{ color: "#15202B" }}>
+                      {s.lead}
+                    </span>
+                    <span className="block truncate text-[12px]" style={{ color: "rgba(21,32,43,0.6)" }}>
+                      {s.sub}
+                    </span>
                   </span>
-                </span>
-              </div>
-            ))}
-          </div>
+                </div>
+              ))}
+            </div>
+          )}
+
 
           <div key={tab} className="hgb-ws-panel">
           {tab === "Changes" ? (
