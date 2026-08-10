@@ -28,7 +28,7 @@ import {
 export function Plate({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="relative flex h-full flex-col"
+      className="relative flex flex-col"
       style={{
         background: `linear-gradient(180deg, ${FOLDER_EDGE} 0%, ${FOLDER_EDGE_DEEP} 100%)`,
         borderRadius: 16,
@@ -37,7 +37,7 @@ export function Plate({ children }: { children: React.ReactNode }) {
       }}
     >
       <div
-        className="flex h-full flex-col"
+        className="flex flex-col"
         style={{
           background: FOLDER_TOP_SURFACE,
           borderRadius: "12px 12px 13px 13px",
