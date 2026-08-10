@@ -350,28 +350,84 @@ function DetailsCard({
   );
 }
 
-/* ── 2c · need help ────────────────────────────────────────── */
-function NeedHelp({ onMessage }: { onMessage?: () => void }) {
+/* ── 2c · booking extras ───────────────────────────────────── */
+export interface ExtraItem {
+  label: string;
+  status: string;
+  tone: "positive" | "muted";
+  icon: React.ReactNode;
+}
+
+const DEFAULT_EXTRAS: ExtraItem[] = [
+  { label: "Breakfast", status: "Included", tone: "positive", icon: <Coffee size={19} strokeWidth={1.5} /> },
+  { label: "Dinner", status: "Not added", tone: "muted", icon: <Utensils size={19} strokeWidth={1.5} /> },
+  { label: "Coach parking", status: "Confirmed", tone: "positive", icon: <Bus size={19} strokeWidth={1.5} /> },
+];
+
+function BookingExtras({
+  items = DEFAULT_EXTRAS,
+  onView,
+}: {
+  items?: ExtraItem[];
+  onView?: () => void;
+}) {
+  const includedCount = items.filter((i) => i.tone === "positive").length;
   return (
-    <Card className="px-5 py-[10px]">
-      <Eyebrow>Need help?</Eyebrow>
-      <p className="mt-1 text-[12.5px]" style={{ color: INK_2 }}>
-        Questions or changes to your booking?
-      </p>
-      <button
-        type="button"
-        onClick={onMessage}
-        className="mt-[7px] flex w-full items-center justify-center gap-2.5 rounded-[6px] py-[7px] text-[13px] font-semibold transition-opacity hover:opacity-80"
-        style={{
-          color: GOLD,
-          boxShadow: "inset 0 0 0 1px rgba(176,112,15,0.45)",
-          background: "rgba(255,255,255,0.5)",
-        }}
-      >
-        <MessageSquare size={15} />
-        Message HotelGroupBook
-        <ArrowRight size={14} />
-      </button>
+    <Card className="px-5 py-[13px]">
+      <div className="flex items-center justify-between gap-3">
+        <Eyebrow>Booking extras</Eyebrow>
+        <span
+          className="shrink-0 rounded-full px-2.5 py-[3px] text-[10px] font-semibold uppercase tracking-[0.1em]"
+          style={{ color: GOLD, background: "rgba(176,112,15,0.07)", border: "1px solid rgba(176,112,15,0.20)" }}
+        >
+          {includedCount} included
+        </span>
+      </div>
+
+      <ul className="mt-[11px] grid grid-cols-3">
+        {items.map((item, i) => (
+          <li
+            key={item.label}
+            className="flex flex-col items-center gap-[7px] px-2"
+            style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
+          >
+            <span
+              className="grid h-[38px] w-[38px] place-items-center rounded-[10px]"
+              style={{
+                background: "#FBFAF6",
+                border: "1px solid rgba(150,125,80,0.20)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9)",
+                color: "#A98232",
+              }}
+            >
+              {item.icon}
+            </span>
+            <span className="text-center">
+              <span className="block text-[13px] font-semibold leading-tight" style={{ color: INK }}>
+                {item.label}
+              </span>
+              <span
+                className="mt-[2px] block text-[11.5px] leading-tight"
+                style={{ color: item.tone === "positive" ? GREEN : INK_2 }}
+              >
+                {item.status}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-[11px] flex justify-center pt-[9px]" style={{ borderTop: `1px solid ${HAIR}` }}>
+        <button
+          type="button"
+          onClick={onView}
+          className="group inline-flex items-center gap-2 text-[12.5px] font-medium transition-colors hover:text-[#8C6A22]"
+          style={{ color: "#A98232" }}
+        >
+          View booking extras
+          <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-[3px]" />
+        </button>
+      </div>
     </Card>
   );
 }
