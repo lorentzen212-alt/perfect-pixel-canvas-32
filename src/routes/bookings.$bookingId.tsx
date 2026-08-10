@@ -475,6 +475,8 @@ function Workspace({ booking }: { booking: Booking }) {
   const [hotelRef] = useState(booking.hotelReference ?? "");
 
   const [copied, setCopied] = useState(false);
+  /* Booking details inset card — "Show more details" disclosure */
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   /* domain state (kept live across panels) */
   const [rooms, setRooms] = useState<RoomLineUI[]>(BASE_ROOMS);
