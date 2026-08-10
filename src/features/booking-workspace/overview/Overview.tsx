@@ -155,7 +155,7 @@ function DetailsCard({
           {rows.map((row, i) => (
             <div
               key={row.k}
-              className="grid grid-cols-[minmax(0,110px)_minmax(0,1fr)] items-start gap-4 py-[9px]"
+              className="grid grid-cols-[minmax(0,132px)_minmax(0,1fr)] items-start gap-4 py-[9px]"
               style={i > 0 ? { borderTop: `1px solid ${HAIR}` } : undefined}
             >
               <dt className="flex items-center gap-2.5 text-[12.5px]" style={{ color: INK_2 }}>
