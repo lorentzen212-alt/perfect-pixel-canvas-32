@@ -1,4 +1,4 @@
-import { TrustShield, TrustClock, TrustHeadset, TrustLock } from "@/components/TrustIcons";
+import { TrustClock, TrustHeadset, TrustLock, TrustShield } from "@/components/TrustIcons";
 
 export const NAV_LINKS = [
   { label: "Home", to: "/" as const },

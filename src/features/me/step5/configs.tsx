@@ -1,5 +1,6 @@
 import type { ExtraConfigs } from "@/features/me/step5/data";
 import { CheckOption, FieldLabel, NumberStepper, RadioOption, inputStyle } from "@/features/me/step5/parts";
+import { Bus, Gift, Wine } from "lucide-react";
 
 /* Service-specific config panels */
 export function ConfigAirportTransfer({ cfg, set }: { cfg: ExtraConfigs["airport-transfer"]; set: (v: ExtraConfigs["airport-transfer"]) => void }) {

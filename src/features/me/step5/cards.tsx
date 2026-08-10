@@ -1,6 +1,7 @@
 import { ConfigAirportTransfer, ConfigCloakroom, ConfigCoachParking, ConfigPackage, ConfigPorter, ConfigRegistration, ConfigWelcome } from "@/features/me/step5/configs";
 import type { ExtraConfigs, ExtraDef, ExtraId } from "@/features/me/step5/data";
 import { GOLD, SERIF } from "@/features/me/tokens";
+import { Check, ChevronUp } from "lucide-react";
 import React from "react";
 
 export function ExtraCard({

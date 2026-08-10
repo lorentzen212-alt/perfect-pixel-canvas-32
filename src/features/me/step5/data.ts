@@ -5,6 +5,7 @@ import packageHandlingImg from "@/assets/extras/package-handling.jpg";
 import porterServiceImg from "@/assets/extras/porter-service.jpg";
 import registrationDeskImg from "@/assets/extras/registration-desk.jpg";
 import welcomePackageImg from "@/assets/extras/welcome-package.jpg";
+import { Bus, ClipboardCheck, Gift, Luggage, Package, Plane, Shirt } from "lucide-react";
 import React from "react";
 
 export type ExtraId =

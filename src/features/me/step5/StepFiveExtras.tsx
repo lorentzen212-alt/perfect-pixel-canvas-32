@@ -1,9 +1,10 @@
-import reviewNotebookImg from "@/assets/review-notebook.jpg";
 import { HelpCard } from "@/features/me/shell/HelpCard";
 import { ExtraAccordion, ExtraCard } from "@/features/me/step5/cards";
 import type { ExtraConfigs, ExtraId } from "@/features/me/step5/data";
 import { DEFAULT_CONFIGS, EXTRAS_DEFS, summaryFor } from "@/features/me/step5/data";
 import { GOLD, SERIF } from "@/features/me/tokens";
+import { setMeSection } from "@/lib/meDraftStore";
+import { ArrowLeft, ArrowRight, Pencil } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function StepFiveExtras({

@@ -1,5 +1,5 @@
-import { Phone, Mail } from "lucide-react";
 import { SERIF } from "@/features/me/tokens";
+import { Mail, Phone } from "lucide-react";
 
 export function HelpCard() {
   return (

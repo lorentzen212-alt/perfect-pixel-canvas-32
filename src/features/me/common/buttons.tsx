@@ -1,6 +1,6 @@
-import { ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { GOLD } from "@/features/me/tokens";
+import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 
 export function NextButton({ onClick, label, disabled = false }: { onClick: () => void; label: string; disabled?: boolean }) {
   return (

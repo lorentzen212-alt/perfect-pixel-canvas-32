@@ -1,4 +1,5 @@
 import { GOLD } from "@/features/me/tokens";
+import { Check } from "lucide-react";
 import React from "react";
 
 /* Premium radio option pill (ivory card style) */
