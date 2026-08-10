@@ -81,58 +81,109 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="flex flex-col px-6 py-4">
-      <Eyebrow>What happens next</Eyebrow>
-      <ol className="mt-3 flex-1">
+    <Card className="relative flex flex-col px-7 pb-6 pt-7">
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-[9px] rounded-[9px]"
+        style={{ border: "1px solid rgba(105,110,110,0.16)" }}
+      />
+      <span
+        className="relative text-[11px] font-semibold uppercase"
+        style={{ color: GOLD_2, letterSpacing: "0.14em" }}
+      >
+        What happens next
+      </span>
+      <ol className="relative mt-5 flex-1">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
+          const circle = done
+            ? {
+                height: 28,
+                width: 28,
+                background: "#2F7650",
+                color: "#F9F6EF",
+                fontSize: 11,
+                boxShadow: "0 1px 3px rgba(20,40,30,0.15), inset 0 1px 0 rgba(255,255,255,0.15)",
+              }
+            : active
+              ? {
+                  height: 31,
+                  width: 31,
+                  background: GOLD,
+                  color: "#FFF9EE",
+                  fontSize: 13,
+                  boxShadow: "0 2px 5px rgba(150,100,10,0.18)",
+                }
+              : {
+                  height: 28,
+                  width: 28,
+                  background: "#F8F7F3",
+                  border: "1px solid #C9CBCB",
+                  color: "#77818A",
+                  fontSize: 11,
+                };
           return (
             <li key={s.label} className="relative flex gap-4 pb-4 last:pb-0">
+              {active && (
+                <span
+                  aria-hidden
+                  className="absolute -inset-x-3 -top-2 -bottom-1 rounded-[9px]"
+                  style={{
+                    background: "rgba(184,134,32,0.055)",
+                    border: "1px solid rgba(184,134,32,0.25)",
+                    boxShadow: "inset 2px 0 0 #B18428",
+                  }}
+                />
+              )}
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[12px] top-[25px] bottom-[2px] w-px"
-                  style={{ background: done ? "rgba(46,107,69,0.35)" : "rgba(27,37,48,0.18)" }}
+                  className="absolute left-[15px] top-[30px] bottom-[2px] w-px"
+                  style={{ background: done || active ? "#2F7650" : "#D4D2CC" }}
                 />
               )}
-              <span
-                className="relative grid h-[25px] w-[25px] shrink-0 place-items-center rounded-full text-[11px] font-semibold"
-                style={{
-                  background: done ? GREEN : active ? GOLD : "transparent",
-                  boxShadow: done || active ? "none" : `inset 0 0 0 1px rgba(27,37,48,0.25)`,
-                  color: done || active ? "#F9F6EF" : INK_3,
-                }}
-              >
+              <span className="relative z-[1] grid shrink-0 place-items-center rounded-full font-semibold" style={circle}>
                 {done ? <Check size={13} strokeWidth={3} /> : i + 1}
               </span>
 
-              <span className="flex min-w-0 flex-1 items-start justify-between gap-4">
+              <span className="relative z-[1] flex min-w-0 flex-1 items-center justify-between gap-4">
                 <span className="min-w-0">
-                  <span
-                    className="block text-[13.5px] font-semibold leading-snug"
-                    style={{ color: INK }}
-                  >
+                  <span className="block text-[14.5px] font-semibold leading-snug" style={{ color: "#10253A" }}>
                     {s.label}
                   </span>
                   {s.desc && (
-                    <span className="mt-0.5 block text-[12px] leading-snug" style={{ color: INK_2 }}>
+                    <span className="mt-[3px] block text-[12.5px] leading-snug" style={{ color: "#74818B" }}>
                       {s.desc}
                     </span>
                   )}
                 </span>
-                <span
-                  className="shrink-0 pt-[1px] text-[12px]"
-                  style={{ color: active ? GOLD : INK_2, fontWeight: active ? 600 : 400 }}
-                >
-                  {s.sub}
-                </span>
+                {s.sub &&
+                  (active ? (
+                    <span
+                      className="shrink-0 whitespace-nowrap rounded-full px-3 py-[6px] text-[11.5px] font-semibold"
+                      style={{ background: "rgba(184,134,32,0.04)", border: "1px solid rgba(184,134,32,0.55)", color: "#A66F08" }}
+                    >
+                      {s.sub}
+                    </span>
+                  ) : done ? (
+                    <span className="shrink-0 whitespace-nowrap text-[12.5px]" style={{ color: "#64727D" }}>
+                      {s.sub}
+                    </span>
+                  ) : (
+                    <span
+                      className="shrink-0 whitespace-nowrap rounded-full px-3 py-[6px] text-[11.5px] font-semibold"
+                      style={{ background: "rgba(100,110,115,0.025)", border: "1px solid rgba(100,110,115,0.22)", color: "#66737D" }}
+                    >
+                      {s.sub}
+                    </span>
+                  ))}
               </span>
             </li>
           );
         })}
       </ol>
-      <GoldLink label="View full timeline" onClick={onViewAll} className="mt-4" />
+      <GoldLink label="View full timeline" onClick={onViewAll} className="relative mt-6" />
     </Card>
   );
 }
