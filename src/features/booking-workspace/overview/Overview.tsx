@@ -235,12 +235,8 @@ function DetailsCard({
           "0 8px 20px rgba(20,32,40,0.10), 0 2px 5px rgba(20,32,40,0.07), inset 0 1px 0 rgba(255,255,255,0.85)",
       }}
     >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-[9px] rounded-[9px]"
-        style={{ border: "1px solid rgba(105,110,110,0.16)" }}
-      />
       <div className="relative px-6 py-[18px]">
+
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
