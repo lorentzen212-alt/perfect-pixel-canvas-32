@@ -81,7 +81,7 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="relative flex flex-col self-start px-5 py-4 sm:px-6">
+    <Card className="relative flex h-full flex-col px-5 py-4 sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -191,7 +191,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
       <button
         type="button"
         onClick={onViewAll}
-        className="group relative mt-3.5 inline-flex w-fit items-center gap-2.5 text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
+        className="group relative mt-auto inline-flex w-fit items-center gap-2.5 pt-3.5 text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
         style={{ color: "#A98232" }}
       >
         View full timeline
@@ -234,7 +234,7 @@ function DetailsCard({
         className="pointer-events-none absolute inset-[9px] rounded-[9px]"
         style={{ border: "1px solid rgba(105,110,110,0.16)" }}
       />
-      <div className="relative px-6 py-5">
+      <div className="relative px-6 py-[18px]">
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
@@ -258,7 +258,7 @@ function DetailsCard({
             return (
               <div
                 key={row.k}
-                className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] items-center gap-2.5 py-[4px]"
+                className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] items-center gap-2.5 py-[3.5px]"
                 style={{
                   background: i % 2 === 1 ? "#F3F1EB" : "transparent",
                   borderTop: i > 0 ? `1px solid ${HAIR}` : undefined,
@@ -315,7 +315,7 @@ function DetailsCard({
           })}
         </dl>
         {footer && (
-          <div className="mt-2 flex justify-center pt-2" style={{ borderTop: `1px solid ${HAIR}` }}>
+          <div className="mt-[7px] flex justify-center pt-[7px]" style={{ borderTop: `1px solid ${HAIR}` }}>
             {footer}
           </div>
         )}
@@ -328,7 +328,7 @@ function DetailsCard({
 /* ── 2c · need help ────────────────────────────────────────── */
 function NeedHelp({ onMessage }: { onMessage?: () => void }) {
   return (
-    <Card className="px-5 py-3">
+    <Card className="px-5 py-[10px]">
       <Eyebrow>Need help?</Eyebrow>
       <p className="mt-1 text-[12.5px]" style={{ color: INK_2 }}>
         Questions or changes to your booking?
@@ -336,7 +336,7 @@ function NeedHelp({ onMessage }: { onMessage?: () => void }) {
       <button
         type="button"
         onClick={onMessage}
-        className="mt-2 flex w-full items-center justify-center gap-2.5 rounded-[6px] py-[8px] text-[13px] font-semibold transition-opacity hover:opacity-80"
+        className="mt-[7px] flex w-full items-center justify-center gap-2.5 rounded-[6px] py-[7px] text-[13px] font-semibold transition-opacity hover:opacity-80"
         style={{
           color: GOLD,
           boxShadow: "inset 0 0 0 1px rgba(176,112,15,0.45)",
@@ -425,7 +425,7 @@ export function OverviewFolder({
           description={actionDescription}
         />
 
-        <div className="grid items-start gap-4 lg:grid-cols-[54fr_46fr]">
+        <div className="grid items-stretch gap-4 lg:grid-cols-[54fr_46fr]">
           <NextSteps steps={journey} onViewAll={onViewTimeline} />
           <div className="space-y-4">
             <DetailsCard rows={detailRows} footer={detailsFooter} status={detailsStatus}>
