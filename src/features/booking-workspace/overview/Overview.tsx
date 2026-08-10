@@ -192,7 +192,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
       <button
         type="button"
         onClick={onViewAll}
-        className="group relative mt-auto inline-flex w-fit items-center gap-2.5 pt-3.5 text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
+        className="group relative inline-flex w-fit items-center gap-2.5 pt-[26px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
         style={{ color: "#A98232" }}
       >
         View full timeline
