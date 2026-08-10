@@ -88,60 +88,100 @@ export function BookingWorkspaceHeader({
         }}
       />
 
-      <div className="relative px-5 pt-10 sm:px-9 sm:pt-12">
+      <div className="relative px-5 pt-8 sm:px-9 sm:pt-9">
         <div className="flex items-start justify-between gap-6">
           <div className="min-w-0">
-            <p className="flex items-center gap-1.5 text-[12.5px]" style={{ color: HERO_MUTED }}>
-              <Link to="/manage-bookings" className="transition-opacity hover:opacity-80">
-                Booking workspace
-              </Link>
-              <ChevronRight size={13} />
-              <span style={{ color: HERO_TEXT }}>{bookingName}</span>
-            </p>
+            <Link
+              to="/manage-bookings"
+              className="inline-flex items-center gap-2 text-[13px] font-medium transition-opacity hover:opacity-80"
+              style={{ color: GOLD_SOFT }}
+            >
+              <ArrowLeft size={15} />
+              Back to My Bookings
+            </Link>
             <h1
-              className="mt-1 truncate text-[30px] leading-[1.1] sm:text-[34px]"
+              className="mt-3 truncate text-[32px] leading-[1.08] sm:text-[38px]"
               style={{ color: "#F7F4ED", fontFamily: SERIF, fontWeight: 400 }}
             >
               {bookingName}
             </h1>
-            <p className="mt-1 text-[13px]" style={{ color: HERO_MUTED }}>
-              {subtitle}
-            </p>
+
+            <div
+              className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]"
+              style={{ color: HERO_TEXT }}
+            >
+              <span className="inline-flex items-center gap-2">
+                <MapPin size={14} style={{ color: HERO_MUTED }} />
+                {destination}
+              </span>
+              {stayDates && (
+                <span className="inline-flex items-center gap-2">
+                  <CalendarDays size={14} style={{ color: HERO_MUTED }} />
+                  {stayDates}
+                </span>
+              )}
+              {roomsLabel && (
+                <span className="inline-flex items-center gap-2">
+                  <Bed size={14} style={{ color: HERO_MUTED }} />
+                  {roomsLabel}
+                </span>
+              )}
+              {guestsLabel && (
+                <span className="inline-flex items-center gap-2">
+                  <Users size={14} style={{ color: HERO_MUTED }} />
+                  {guestsLabel}
+                </span>
+              )}
+              <span style={{ color: HERO_TEXT }}>Ref {reference}</span>
+            </div>
+
+            <span
+              className="mt-4 inline-flex items-center rounded-[4px] px-3 py-[6px] text-[11.5px] font-semibold uppercase"
+              style={{
+                background: statusTone,
+                color: "#EAF6EE",
+                letterSpacing: "0.09em",
+              }}
+            >
+              {statusLabel}
+            </span>
           </div>
 
           <div className="hidden shrink-0 items-center gap-3 sm:flex">
-            <span className="text-[11.5px]" style={{ color: HERO_MUTED }}>
-              Ref <span style={{ color: "#F1EDE2", letterSpacing: "0.04em" }}>{reference}</span>
-            </span>
             <button
               type="button"
-              aria-label="Copy booking reference"
               onClick={() => {
                 navigator.clipboard?.writeText(reference);
                 setCopied(true);
                 setTimeout(() => setCopied(false), 1500);
               }}
-              className="grid h-[34px] w-[34px] place-items-center rounded-full"
+              className="inline-flex items-center gap-2 rounded-[7px] px-4 py-[9px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
               style={{
-                border: "1px solid rgba(255,255,255,0.16)",
-                background: "rgba(10,22,31,0.4)",
-                color: copied ? GREEN : GOLD_SOFT,
+                border: "1px solid rgba(255,255,255,0.18)",
+                background: "rgba(10,22,31,0.45)",
+                color: copied ? GREEN : "#F1EDE2",
               }}
             >
-              {copied ? <Check size={14} /> : <Copy size={13} />}
+              {copied ? <Check size={14} /> : <Download size={14} />}
+              {copied ? "Reference copied" : "Download summary"}
             </button>
+            <span className="relative grid h-[34px] w-[34px] place-items-center" style={{ color: "rgba(226,233,239,0.8)" }}>
+              <Bell size={17} />
+            </span>
             <span
               className="grid h-[34px] w-[34px] place-items-center rounded-full text-[11.5px] font-semibold"
               style={{
-                border: "1px solid rgba(255,255,255,0.16)",
+                border: `1px solid ${GOLD_MET_MID}`,
                 background: "rgba(10,22,31,0.4)",
-                color: "#F1EDE2",
+                color: GOLD_SOFT,
               }}
             >
               {initials || "—"}
             </span>
           </div>
         </div>
+
+
 
         <nav className="mt-9 flex items-end gap-[6px] overflow-x-auto">
           {WORKSPACE_TABS.map((t) => {
