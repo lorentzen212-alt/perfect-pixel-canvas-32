@@ -595,7 +595,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[6px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
+        className="mt-[9px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(255,255,255,0.055)",
           background: "linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.09) 100%)",
