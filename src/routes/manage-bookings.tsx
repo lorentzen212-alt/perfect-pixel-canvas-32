@@ -850,12 +850,7 @@ function StatTile({
   bgPos: string;
   onClick: () => void;
 }) {
-  const linkColor =
-    footer === "Review proposals"
-      ? "#EAB43C"
-      : footer === "Review now"
-        ? "rgba(210,217,223,0.78)"
-        : "#66B8F2";
+  const linkColor = "rgba(255,255,255,0.66)";
   return (
     <button
       type="button"
@@ -863,15 +858,15 @@ function StatTile({
       aria-pressed={active}
       className="hgb-stat-tile relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
-        background:
-          "linear-gradient(145deg, #132231 0%, #0E1B27 55%, #091520 100%)",
+        background: "#28353F",
+        backgroundImage: "none",
         border: "1px solid rgba(150,170,185,0.32)",
         boxShadow:
           "0 8px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.035)",
         paddingLeft: 30,
         paddingRight: 28,
-        paddingTop: 6,
-        paddingBottom: 3,
+        paddingTop: 2,
+        paddingBottom: 0,
       }}
     >
       {action && (
