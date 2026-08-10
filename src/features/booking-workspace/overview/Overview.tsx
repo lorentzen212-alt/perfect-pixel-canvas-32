@@ -171,10 +171,11 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
                     >
                       {s.sub}
                     </span>
-                  ) : done ? (
+                  ) : done || /^[—–-]$/.test(s.sub.trim()) ? (
                     <span className="shrink-0 whitespace-nowrap text-[12.5px]" style={{ color: "#64727D" }}>
                       {s.sub}
                     </span>
+
                   ) : (
                     <span
                       className="shrink-0 whitespace-nowrap rounded-full px-3 py-[6px] text-[11.5px] font-semibold"
