@@ -232,12 +232,9 @@ function DetailsCard({
 }) {
   return (
     <Slot>
-      <div className="px-5 py-3.5">
+      <div className="px-5 py-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <span aria-hidden className="h-[16px] w-[3px] rounded-full" style={{ background: GOLD_2 }} />
-            <Eyebrow>Booking details</Eyebrow>
-          </div>
+          <Eyebrow>Booking details</Eyebrow>
           {status && (
             <span
               className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10.5px] font-semibold uppercase tracking-[0.1em]"
@@ -252,14 +249,17 @@ function DetailsCard({
             </span>
           )}
         </div>
-        <dl className="mt-2.5">
+        <dl className="mt-2">
           {rows.map((row, i) => {
             const isPaymentPill = row.k === "Payment terms" && /pending/i.test(row.v);
             return (
               <div
                 key={row.k}
-                className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] items-center gap-2.5 py-[6px]"
-                style={i > 0 ? { borderTop: `1px solid ${HAIR}` } : undefined}
+                className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] items-center gap-2.5 py-[5px]"
+                style={{
+                  background: i % 2 === 1 ? "#F3F1EB" : "transparent",
+                  borderTop: i > 0 ? `1px solid ${HAIR}` : undefined,
+                }}
               >
                 <dt
                   className="flex items-center gap-2 text-[11px] font-semibold uppercase"
@@ -269,8 +269,9 @@ function DetailsCard({
                     <span
                       className="grid h-7 w-7 shrink-0 place-items-center rounded-[8px]"
                       style={{
-                        background: "rgba(195,138,32,0.08)",
+                        background: "#FFFFFF",
                         border: "1px solid rgba(195,138,32,0.18)",
+                        boxShadow: "0 2px 4px rgba(20,32,40,0.04), 0 1px 2px rgba(20,32,40,0.03)",
                         color: GOLD_2,
                       }}
                     >
@@ -311,7 +312,7 @@ function DetailsCard({
           })}
         </dl>
         {footer && (
-          <div className="mt-3 flex justify-center pt-3" style={{ borderTop: `1px solid ${HAIR}` }}>
+          <div className="mt-2.5 flex justify-center pt-2.5" style={{ borderTop: `1px solid ${HAIR}` }}>
             {footer}
           </div>
         )}
