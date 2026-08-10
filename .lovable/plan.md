@@ -11,7 +11,13 @@ The Overview tab gets a brand-new component tree with its own layout primitives.
 The current `folder.tsx` primitives are replaced by a new, self-contained set — the old ones no longer dictate geometry.
 
 - `materials.ts` — tokens only: ivory `#F5F3EE`, folder `#C9CED0`/`#CDD1D2`, ink `#18232C`, secondary `#637079`, gold `#B77B13`/`#C38A20`, inactive tab `#152938`, sidebar `#1B2D3D`, plus the exact raised shadow stack (`0 2px 3px rgba(16,26,34,0.12), 0 7px 14px rgba(16,26,34,0.035), inset 0 1px 0 rgba(255,255,255,0.85)`, 1px `rgba(255,255,255,0.70)` border) — never exceeded.
-- `Plate.tsx` — the folder object: 16px radius, 1px light upper rim, darker side/bottom rim, 3–5px apparent thickness, tight underneath shadow, 24–28px internal padding. Smooth material, no texture/noise.
+- `Plate.tsx` — the folder as a rigid physical object with real edge thickness, built from layered surfaces rather than a big blurry shadow:
+  - top surface `#CDD1D2`, 16px radius, 1px `rgba(255,255,255,0.65)` top edge highlight, 24–28px internal padding, smooth material with no texture or noise
+  - an underlying edge layer in `#BFC5C8`/`#C3C9CB` offset so 5–7px of thickness is visible along the left, right and bottom edges, following the exact same corner geometry
+  - a very tight contact shadow under that edge: `0 4px 7px rgba(12,22,30,0.14)` — nothing larger
+  - subtle thickness carried around the upper shoulder where the active tab meets the plate
+  - reads as a rigid presentation folder or thin architectural material sample; never paper-thin, flat, neumorphic, bevelled-plastic or exaggerated 3D
+
 - `CurrentAction.tsx` — 115–130px desktop, single horizontal row: 44px medallion / eyebrow + title + one supporting line / gold `Create rooming list →` on the right. The wide progress bar is deleted; progress appears only as one tiny line, e.g. `6% completed · 4 of 67 names`, from live `roomingStats`.
 - `NextSteps.tsx` — dense vertical timeline, 340–390px, height driven by content. Each row: 22px status circle, title, one supporting line, right-aligned date/deadline. Built from the existing journey data, not from the old Booking Journey markup.
 - `DetailsCard.tsx` — the business card: an outer slot (5–7px inset ring, slightly darker than the folder, subtle inner shadow) holding an ivory card sitting 1–2px below the folder plane. 26–30px padding, comfortable label/value rows, no condensed type, labels quiet. `Show more details ↓` reveals the remaining ledger rows with their existing edit-panel callbacks.
@@ -40,7 +46,7 @@ Tablet: two columns collapse to one, details/help move under the timeline, strip
 ## Hero and tabs (`BookingWorkspaceHeader.tsx`)
 
 - Hero content, tabs included, targets 230–260px. Existing image kept, controlled dark navy overlay, more prominent booking title, then meta row (location · dates · rooms · guests · reference) and the status badge.
-- Active Overview tab uses the folder material itself — no bottom border, no shadow between tab and folder, with a small shoulder where the tab meets the plate, so the folder reads as one object without any text.
+- Active Overview tab is part of the same physical object: same `#CDD1D2` top surface, the same darker exposed edge along its top/side before it merges seamlessly into the plate, no bottom border, no shadow between tab and folder, and a small shoulder at the junction — the folder reads as one object even with all text removed.
 - Inactive tabs: `#152938`, slightly thicker, subtly recessed with restrained borders and small inset shadows — not navigation pills.
 
 ## Sidebar
