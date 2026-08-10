@@ -9,7 +9,7 @@ import {
   Medallion,
   Plate,
   SectionRule,
-  Slot,
+
   SolidButton,
 } from "./primitives";
 import { GOLD, GOLD_2, GREEN, HAIR, INK, INK_2, INK_3 } from "./materials";
@@ -231,8 +231,23 @@ function DetailsCard({
   status?: { label: string; tone: "pending" | "confirmed" };
 }) {
   return (
-    <Slot>
-      <div className="px-5 py-3">
+    <div
+      className="relative self-start"
+      style={{
+        background: "#F7F5EF",
+        border: "1px solid rgba(100,110,115,0.25)",
+        borderRadius: 15,
+        boxShadow:
+          "0 8px 20px rgba(20,32,40,0.10), 0 2px 5px rgba(20,32,40,0.07), inset 0 1px 0 rgba(255,255,255,0.85)",
+      }}
+    >
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-[9px] rounded-[9px]"
+        style={{ border: "1px solid rgba(105,110,110,0.16)" }}
+      />
+      <div className="relative px-7 py-6">
+
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
           {status && (
@@ -318,7 +333,7 @@ function DetailsCard({
         )}
         {children}
       </div>
-    </Slot>
+    </div>
   );
 }
 
