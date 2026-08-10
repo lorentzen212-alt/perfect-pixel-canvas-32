@@ -298,8 +298,9 @@ function DetailsCard({
                   className="min-w-0"
                   style={{
                     borderTop: rule,
-                    paddingTop: i > 0 ? 4 : undefined,
-                    marginTop: i > 0 ? -4 : undefined,
+                    paddingTop: i > 0 ? 6 : undefined,
+                    marginTop: i > 0 ? -6 : undefined,
+
                   }}
                 >
                   {isPaymentPill ? (
