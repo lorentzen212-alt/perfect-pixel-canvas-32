@@ -231,10 +231,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
         <div
           key={c.label + i}
           className="flex items-center gap-3.5 px-5 py-[18px]"
-          style={{
-            borderLeft: i % (typeof window !== "undefined" ? 4 : 4) === 0 ? undefined : `1px solid ${HAIR}`,
-            borderTop: i >= 2 ? undefined : undefined,
-          }}
+          style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
         >
           <Medallion size={40}>{c.icon}</Medallion>
           <span className="min-w-0">
