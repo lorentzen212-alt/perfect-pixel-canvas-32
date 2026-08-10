@@ -443,7 +443,7 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="space-y-4 px-5 pb-6 pt-5 sm:px-7 sm:pb-6">
+      <div className="flex flex-1 flex-col space-y-4 px-5 pb-10 pt-5 sm:px-7">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}

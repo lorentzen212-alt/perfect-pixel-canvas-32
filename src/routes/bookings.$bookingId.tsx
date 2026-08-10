@@ -954,7 +954,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
   return (
     <div
-      className="min-h-screen"
+      className="flex min-h-screen flex-col"
       style={{ backgroundColor: tab === "Overview" ? PAGE_UNDER : BG_ALT }}
     >
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
@@ -998,7 +998,7 @@ function Workspace({ booking }: { booking: Booking }) {
         </div>
       )}
 
-      <div className="lg:pl-[240px]">
+      <div className="flex flex-1 flex-col lg:pl-[240px]">
         <TopBar
           onOpenNav={() => setNavOpen(true)}
           left={
@@ -1036,7 +1036,7 @@ function Workspace({ booking }: { booking: Booking }) {
         <div
           className={
             tab === "Overview"
-              ? "relative px-0 pb-8 pt-0"
+              ? "relative flex flex-1 flex-col px-0 pb-0 pt-0"
               : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
           style={
@@ -1072,7 +1072,7 @@ function Workspace({ booking }: { booking: Booking }) {
           )}
 
 
-          <div key={tab} className="hgb-ws-panel">
+          <div key={tab} className={`hgb-ws-panel${tab === "Overview" ? " flex flex-1 flex-col" : ""}`}>
           {tab === "Changes" ? (
             <ChangesView
               rooms={rooms}
