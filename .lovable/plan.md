@@ -1,23 +1,26 @@
 # Match the inside of "What happens next" to the reference
 
-Only the interior of the timeline card changes. Card size, position, material, the header label and the surrounding layout stay exactly as they are.
+Only the interior of the timeline card changes. Card height, width, material, shadow, header position, colors, typography, the right column and the summary strip stay exactly as they are.
 
-## Differences to fix
+## What changes
 
-1. **Active step is oversized.** The gold circle (31px) is bigger than the completed circles (28px), which pushes "Rooming list" and its description a few pixels to the right so the labels no longer line up in one column. In the reference every circle is the same diameter and all six titles start on the same vertical line.
-2. **Circles are slightly too large relative to the text.** Reference circles are a bit smaller compared to the title size; they should read as neat markers, not heavy dots.
-3. **Active row highlight** should be a soft, full-bleed rounded band across the card interior with a touch more vertical padding, matching the reference's calmer band (same gold tint, same left accent).
-4. **Arrival's trailing "—"** is currently rendered inside a pill/circle. In the reference it is plain muted text with no border.
-5. **Row rhythm and footer gap**: keep the even step distribution, but recheck it after the circle change so center-to-center spacing and the distance from Arrival down to "View full timeline" match the reference proportions.
+1. **One circle size for every state.** Completed, active and upcoming markers all become ~26px with identical geometry; only fill, border and content differ. This puts all six titles on the exact same vertical line.
+2. **Connector recentered.** The line's left offset is recalculated for the new diameter so it sits perfectly behind all six markers, green through completed and current, light gray after.
+3. **Active Rooming List row**: keeps the soft full-width champagne band, but the vertical gold stripe on the left is removed. Band is `rgba(184,134,32,0.045)` with a `1px solid rgba(184,134,32,0.26)` outline and 8–10px radius, no inset left border. Active state is carried by the gold circle, the band, the outline and the "Due in 6 days" pill.
+4. **Arrival's "—"** renders as plain muted text — no circle, pill or border around it.
+5. **Consistent row rhythm.** No extra `min-height` on the active row; the highlight band may read slightly larger visually, but rows share one height.
+6. **Footer stays anchored.** "View full timeline →" keeps its current position near the bottom of the card; the Arrival-to-footer distance is not aggressively reduced. Extra breathing room goes into the row rhythm, not into pulling the footer up.
+7. **Row gap fine-tuned only**, targeting roughly 54–56px center-to-center between markers on a typical laptop viewport, with the card's outer height unchanged.
 
 ## Technical notes
 
-All edits inside `NextSteps` in `src/features/booking-workspace/overview/Overview.tsx`:
+All edits live in `NextSteps` in `src/features/booking-workspace/overview/Overview.tsx`:
 
-- Unify circle geometry: 26px for every state (done, active, upcoming); keep the distinct fills, border and shadows. Adjust the connector's `left` offset to stay centered on the new diameter.
-- Remove the active row's extra `minHeight` bump so all rows share one height; the highlight band alone marks the active step.
-- Active highlight: same tint/border/left accent, slightly larger inset so it reads as a full-width band with even padding.
-- Upcoming steps whose `sub` is a dash (`—`) render as plain muted text instead of the outlined pill.
-- After the change, measure the rendered card in the live booking view and fine-tune only the single row `gap` and footer `pt` so the card's outer height stays identical to today.
+- Circle style objects: `height: 26, width: 26` for all three states; keep green fill + check, gold fill + number, and the light fill with gray border + number.
+- Connector: `left` becomes the new circle center (~13px + row padding) and `height` stays `calc(100% + gap)` so it bridges each gap unbroken.
+- Active band: drop `boxShadow: inset 2px 0 0 …`, apply the specified background/border/radius, keep the horizontal bleed.
+- Trailing value: when `sub` is `—` (or the step is neither done nor active with a dash), render a plain `<span>` with the muted text color instead of the outlined pill.
+- Rows: single `minHeight` for all `li` items; distribute space through the list `gap` only.
+- After the edit, measure the rendered card live and adjust only the gap so center-to-center lands in 54–56px and the card's total height matches today's value exactly.
 
-No other component, file or card is touched.
+No other file or component is touched.
