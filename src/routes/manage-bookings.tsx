@@ -654,7 +654,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
       {/* progress track */}
-      <div className="mt-[6px]">
+      <div className="mt-[9px]">
         <Timeline booking={booking} />
       </div>
 
