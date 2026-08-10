@@ -17,6 +17,7 @@ Transform only the Bergen Group Stay → Overview tab from a dark widget dashboa
 - Folder: cool stone grey, 16px outer radius, 1px rim, top edge highlight, very soft outer shadow, visible edge thickness. It replaces the current flat ivory plate and is the only container — no white box inside it.
 - Type A raised card (ivory #F6F4EF): 1px edge, `inset 0 1px 0 rgba(255,255,255,0.65)`, `0 2px 4px rgba(15,25,35,0.10)`.
 - Type B inset card (Booking Details only): 1px grey outline plus `inset 1px 1px 2px rgba(20,30,35,0.09), inset -1px -1px 1px rgba(255,255,255,0.6)`, sitting in a thin groove cut into the folder.
+- Physical depth is not simplified away: folder rim and edge thickness, ivory card edge highlights, tight 2–3px lift shadows and the inset groove around Booking Details are all kept. Target is a premium hotel booking dossier, never a generic dashboard.
 
 ## Layout inside the folder
 
