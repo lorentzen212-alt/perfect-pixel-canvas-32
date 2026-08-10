@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Clock, MessageSquare, ShieldCheck, Users } from "lucide-react";
+import { ArrowRight, Bus, Check, Clock, Coffee, ShieldCheck, Users, Utensils } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import {
   Card,
@@ -439,7 +439,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
       {cells.map((c, i) => (
         <div
           key={c.label + i}
-          className="flex items-center gap-3.5 px-5 py-[13px]"
+          className="flex items-center gap-3.5 px-5 py-[33px]"
           style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
         >
           <Medallion size={40}>{c.icon}</Medallion>
@@ -499,7 +499,7 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="flex flex-1 flex-col space-y-4 px-5 pb-10 pt-5 sm:px-7">
+      <div className="flex flex-1 flex-col space-y-4 px-5 pb-[14px] pt-5 sm:px-7">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}
@@ -512,7 +512,7 @@ export function OverviewFolder({
             <DetailsCard rows={detailRows} footer={detailsFooter} status={detailsStatus}>
               {detailsExtra}
             </DetailsCard>
-            <NeedHelp onMessage={onMessage} />
+            <BookingExtras onView={onMessage} />
           </div>
         </div>
 
