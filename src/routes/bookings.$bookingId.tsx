@@ -30,6 +30,9 @@ import {
   Users,
   UtensilsCrossed,
   ConciergeBell,
+  Building2,
+  Mail,
+
   X,
 } from "lucide-react";
 import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
@@ -904,13 +907,29 @@ function Workspace({ booking }: { booking: Booking }) {
   ];
 
   const journey = [
-    { label: "Request sent", sub: "28 Jul", state: "done" as const },
-    { label: "Hotel confirmed", sub: "29 Jul", state: "done" as const },
-    { label: "Deposit received", sub: "29 Jul", state: "done" as const },
-    { label: "Rooming list", sub: "Due in 6 days", state: "active" as const },
-    { label: "Final confirmation", sub: "Due in 10 days", state: "todo" as const },
-    { label: "Arrival", sub: dateShort(stay.arrival), state: "todo" as const },
+    { label: "Request sent", desc: "Sent to the hotel", sub: "28 Jul", state: "done" as const },
+    { label: "Hotel confirmed", desc: "Confirmed by the hotel", sub: "29 Jul", state: "done" as const },
+    { label: "Deposit received", desc: "Payment registered", sub: "29 Jul", state: "done" as const },
+    {
+      label: "Rooming list",
+      desc: "Add guest names and room assignments",
+      sub: "Due in 6 days",
+      state: "active" as const,
+    },
+    {
+      label: "Final confirmation",
+      desc: "Confirm arrival details and special requests",
+      sub: "Due in 10 days",
+      state: "todo" as const,
+    },
+    {
+      label: "Arrival",
+      desc: `Check-in from ${dateShort(stay.arrival)}`,
+      sub: dateShort(stay.arrival),
+      state: "todo" as const,
+    },
   ];
+
 
   const strip: { icon: React.ReactNode; lead: string; sub: string }[] = [
     {
@@ -1088,20 +1107,27 @@ function Workspace({ booking }: { booking: Booking }) {
           ) : (
             <OverviewFolder
               bookingId={booking.id}
-              progress={progress}
-              namesFilled={roomingStats?.filled ?? rooming?.complete ?? 0}
-              namesTotal={roomingStats?.total ?? rooming?.total ?? 0}
-              deadline="Deadline in 6 days"
               journey={journey}
               onViewTimeline={() => setTab("Changes")}
+              onMessage={() => setTab("Messages")}
               detailRows={[
-                { k: "Hotel", v: booking.hotel ?? "Hotel to be assigned" },
-                { k: "Destination", v: booking.destination },
-                { k: "Contact", v: displayName || "—" },
-                { k: "Email", v: session?.user.email ?? "—" },
-                { k: "Hotel ref", v: hotelRef || booking.reference },
-                { k: "Payment", v: confirmed ? "Deposit paid" : "Deposit pending" },
+                { k: "Hotel", icon: <Building2 size={15} />, v: booking.hotel ?? "Hotel to be assigned" },
+                { k: "Destination", icon: <MapPin size={15} />, v: booking.destination },
+                {
+                  k: "Contact",
+                  icon: <UserCheck size={15} />,
+                  v: displayName || "—",
+                  v2: "Group Sales Manager",
+                },
+                { k: "Email", icon: <Mail size={15} />, v: session?.user.email ?? "—" },
+                { k: "Hotel reference", icon: <FileText size={15} />, v: hotelRef || booking.reference },
+                {
+                  k: "Payment terms",
+                  icon: <CreditCard size={15} />,
+                  v: confirmed ? "Deposit paid" : "Deposit pending",
+                },
               ]}
+
               detailsFooter={
                 <FolderAction
                   label={detailsOpen ? "Hide details" : "Show more details"}
@@ -1136,30 +1162,32 @@ function Workspace({ booking }: { booking: Booking }) {
               }
               summary={[
                 {
-                  icon: <Users size={16} />,
-                  lead: `${totalGuests} guests`,
-                  label: "Travelling party",
+                  icon: <Users size={17} />,
+                  lead: `${totalGuests}`,
+                  label: "Guests",
                   onAction: () => setPanel("rooms"),
                 },
                 {
-                  icon: <Bed size={16} />,
-                  lead: `${totalRooms} rooms`,
-                  label: "Room allocation",
+                  icon: <Bed size={17} />,
+                  lead: `${totalRooms}`,
+                  label: "Rooms",
                   onAction: () => setPanel("rooms"),
                 },
                 {
-                  icon: <CalendarDays size={16} />,
+                  icon: <CalendarDays size={17} />,
                   lead: `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
-                  label: nightsLabel,
+                  label: "Stay dates",
                   onAction: () => setPanel("stay"),
                 },
                 {
-                  icon: <FileText size={16} />,
-                  lead: "3 documents",
-                  label: "Uploaded",
+                  icon: <FileText size={17} />,
+                  lead: "3",
+                  label: "Documents uploaded",
+                  actionLabel: "View documents",
                   onAction: () => setTab("Documents"),
                 },
               ]}
+
               secondary={
 
 
