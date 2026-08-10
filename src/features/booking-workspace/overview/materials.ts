@@ -22,8 +22,9 @@ export const IVORY_BORDER = "1px solid rgba(255,255,255,0.70)";
 /** raised 2–3px: top rim, bottom edge, tight contact + soft ambient */
 export const IVORY_SHADOW = [
   "inset 0 1px 0 rgba(255,255,255,0.85)",
-  "0 2px 3px rgba(16,26,34,0.12)",
-  "0 7px 14px rgba(16,26,34,0.035)",
+  "inset 0 -1px 0 rgba(31,44,56,0.10)",
+  "0 1px 1px rgba(15,25,35,0.12)",
+  "0 4px 8px -2px rgba(15,25,35,0.22)",
 ].join(", ");
 
 /** precision-cut recess the booking-details card is inserted into */
