@@ -145,12 +145,12 @@ export function ShineGoldButton({
     <button
       type="button"
       onClick={onClick}
-      className={`shine-gold-cta inline-flex items-center justify-center gap-2 rounded-full px-6 py-[10px] text-[14px] font-medium transition-all duration-200 hover:-translate-y-[1px] ${className}`}
+      className={`shine-gold-cta inline-flex items-center justify-center gap-2 rounded-full px-6 py-[10px] text-[14px] font-medium ${className}`}
       style={{
         background:
-          "linear-gradient(135deg, #B8860B 0%, #DAA520 28%, #F0D878 50%, #DAA520 68%, #8B6914 100%)",
+          "linear-gradient(135deg, #A87508 0%, #C58B14 38%, #D29B25 58%, #B77A0E 100%)",
         color: "#1A0F00",
-        boxShadow: "0 2px 8px rgba(139,105,20,0.30)",
+        boxShadow: "0 2px 8px rgba(139,105,20,0.28)",
       }}
     >
       {children}
