@@ -834,10 +834,7 @@ function StatTile({
   count,
   icon,
   active,
-  action,
-  footer,
   accent,
-  bgPos,
   onClick,
 }: {
   label: string;
@@ -847,9 +844,10 @@ function StatTile({
   action?: boolean;
   footer?: string;
   accent: string;
-  bgPos: string;
+  bgPos?: string;
   onClick: () => void;
 }) {
+
   return (
     <button
       type="button"
