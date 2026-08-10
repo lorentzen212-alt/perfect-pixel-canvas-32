@@ -1162,30 +1162,32 @@ function Workspace({ booking }: { booking: Booking }) {
               }
               summary={[
                 {
-                  icon: <Users size={16} />,
-                  lead: `${totalGuests} guests`,
-                  label: "Travelling party",
+                  icon: <Users size={17} />,
+                  lead: `${totalGuests}`,
+                  label: "Guests",
                   onAction: () => setPanel("rooms"),
                 },
                 {
-                  icon: <Bed size={16} />,
-                  lead: `${totalRooms} rooms`,
-                  label: "Room allocation",
+                  icon: <Bed size={17} />,
+                  lead: `${totalRooms}`,
+                  label: "Rooms",
                   onAction: () => setPanel("rooms"),
                 },
                 {
-                  icon: <CalendarDays size={16} />,
+                  icon: <CalendarDays size={17} />,
                   lead: `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
-                  label: nightsLabel,
+                  label: "Stay dates",
                   onAction: () => setPanel("stay"),
                 },
                 {
-                  icon: <FileText size={16} />,
-                  lead: "3 documents",
-                  label: "Uploaded",
+                  icon: <FileText size={17} />,
+                  lead: "3",
+                  label: "Documents uploaded",
+                  actionLabel: "View documents",
                   onAction: () => setTab("Documents"),
                 },
               ]}
+
               secondary={
 
 
