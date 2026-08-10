@@ -140,9 +140,8 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
                 <span
                   aria-hidden
                   className="absolute left-[14.5px] top-1/2 w-[1.5px]"
-                  // eslint-disable-next-line
-                  data-connector
                   style={{
+                    height: "calc(100% + 10px)",
                     background: done || active ? "#2F7650" : "#D4D2CC",
                   }}
                 />
