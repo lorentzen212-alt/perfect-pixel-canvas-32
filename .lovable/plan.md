@@ -6,7 +6,11 @@ Changes are limited to the `DetailsCard` component in the Booking Overview. Card
 
 - Restructure each row so it is one grid unit: `34px` icon / `146px` label / `1fr` value, with 12px after the icon and 16px between label and value.
 - Replace today's split `border-top` on the label and value cells with a single continuous `1px solid rgba(50,60,65,0.10)` line that starts just after the icon column and runs to the right card edge.
-- Row height ~40–44px, with icon, label and value vertically centered; values keep one shared left axis.
+- Row height ~38–40px, with icon, label and value vertically centered; values keep one shared left axis.
+
+## Size lock
+
+The outer card keeps its exact current width and height. The larger 33px icon tiles are absorbed by tightening row padding and internal vertical spacing — header, footer and total footprint do not grow by a single pixel. If the numbers conflict, row padding is reduced rather than the card being allowed to expand.
 
 ## Icons
 
