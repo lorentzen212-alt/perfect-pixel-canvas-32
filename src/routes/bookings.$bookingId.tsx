@@ -54,7 +54,10 @@ import {
   GOLD_MET as F_GOLD,
   GOLD_DEEP_MET as F_GOLD_DEEP,
 } from "@/features/booking-workspace/folder";
+import { OverviewFolder } from "@/features/booking-workspace/overview/Overview";
+import { FOLDER_TOP_SURFACE, PAGE_UNDER } from "@/features/booking-workspace/overview/materials";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
+
 import { roomingProgress, type Booking } from "@/lib/bookings";
 import { distributionFor, statsOf } from "@/lib/rooming";
 import { useAuth } from "@/lib/auth";
