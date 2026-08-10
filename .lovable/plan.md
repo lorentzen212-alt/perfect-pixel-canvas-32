@@ -17,6 +17,7 @@ Transform only the Bergen Group Stay → Overview tab from a dark widget dashboa
 - Folder: cool stone grey, 16px outer radius, 1px rim, top edge highlight, very soft outer shadow, visible edge thickness. It replaces the current flat ivory plate and is the only container — no white box inside it.
 - Type A raised card (ivory #F6F4EF): 1px edge, `inset 0 1px 0 rgba(255,255,255,0.65)`, `0 2px 4px rgba(15,25,35,0.10)`.
 - Type B inset card (Booking Details only): 1px grey outline plus `inset 1px 1px 2px rgba(20,30,35,0.09), inset -1px -1px 1px rgba(255,255,255,0.6)`, sitting in a thin groove cut into the folder.
+- Physical depth is not simplified away: folder rim and edge thickness, ivory card edge highlights, tight 2–3px lift shadows and the inset groove around Booking Details are all kept. Target is a premium hotel booking dossier, never a generic dashboard.
 
 ## Layout inside the folder
 
@@ -25,13 +26,14 @@ Transform only the Bergen Group Stay → Overview tab from a dark widget dashboa
    - Left — **WHAT HAPPENS NEXT**: the current horizontal `Booking journey` becomes a vertical timeline built from the same journey data (confirmed / rooming list / payment / final details / stay dates) with thin champagne connecting lines, muted green for done, metallic amber for current, ivory + gold ring for future, and `View full timeline →` at the bottom.
    - Right — **BOOKING DETAILS** as the inset card: hotel, contact, email, phone, hotel reference, payment terms, drawn from the existing booking record; where a field is unassigned it keeps today's real text (e.g. "Hotel to be assigned"). `Show more details ↓` expands the remaining ledger rows, which keep their existing edit-panel behaviour.
    - Right, below — **NEED HELP?** raised card with `Message HotelGroupBook →` wired to the existing Messages tab.
-3. **Booking summary strip** — one horizontal ivory raised strip split into four equal cells with thin vertical dividers: guests, rooms, stay dates, documents uploaded, each with a medallion icon and a `View details →` link to the existing panel/tab. This replaces the current KPI strip that sits above the tabs today.
-4. **More booking information** — everything currently below (rooms, dining, services, special requests, rooming list progress, recent activity, latest documents, notes, deadlines) moves underneath the primary section as compact ivory sections under a "More booking information" disclosure. No functionality or editor panel is removed; only their position and skin change.
+3. **More booking information** — a natural continuation of the same folder, directly under the two-column composition: compact ivory-on-stone sections (rooms, dining, services, special requests, rooming list progress, recent activity, latest documents, notes, deadlines) with calm spacing and no SaaS accordion chrome. Disclosure is used only where a section is long; everything keeps its current functionality and edit panels.
+4. **Booking summary strip** — the closing element at the very BOTTOM of the folder overview, below everything above it: one horizontal ivory raised strip split into four equal cells with thin dividers (guests, rooms, stay dates, documents uploaded), each with a medallion icon and a `View details →` link to the existing panel/tab. The KPI strip that currently sits above the tabs is removed from that position.
 
 ## Hero and tabs
 
-- Hero gets more vertical breathing room, a softer navy photographic overlay (image stays readable, not crushed), left block = back link, serif "Bergen Group Stay", meta row (destination, dates, rooms, guests, ref) and the CONFIRMED badge; right block = Download summary, notifications, profile.
-- Active Overview tab becomes an ivory folder tab that merges seamlessly into the folder below (shared surface, no seam, 10–12px top radius, small shoulder). Inactive tabs stay dark blue-grey and read as 1–2px recessed.
+- Hero grows only moderately (a modest padding increase, no oversized banner) so the stone folder and its first ivory card stay clearly visible in the initial desktop viewport. Softer navy photographic overlay, left block = back link, serif "Bergen Group Stay", meta row (destination, dates, rooms, guests, ref) and status badge; right block = reference copy, notifications, profile.
+- Active Overview tab is physically merged into the folder — same stone surface, no seam, 10–12px top radius, small shoulder. Inactive tabs stay dark blue-grey and read as 1–2px recessed. Non-Overview tabs keep their current ivory plate and content untouched.
+
 
 ## Sidebar
 
