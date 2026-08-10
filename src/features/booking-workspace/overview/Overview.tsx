@@ -95,8 +95,8 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
           const active = s.state === "active";
           const circle = done
             ? {
-                height: 28,
-                width: 28,
+                height: 26,
+                width: 26,
                 background: "#2F7650",
                 color: "#F9F6EF",
                 fontSize: 11,
@@ -104,16 +104,16 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
               }
             : active
               ? {
-                  height: 31,
-                  width: 31,
+                  height: 26,
+                  width: 26,
                   background: "#B67B08",
                   color: "#FFFFFF",
-                  fontSize: 13,
+                  fontSize: 12,
                   boxShadow: "0 2px 5px rgba(150,100,10,0.18)",
                 }
               : {
-                  height: 28,
-                  width: 28,
+                  height: 26,
+                  width: 26,
                   background: "#F8F7F3",
                   border: "1px solid #C9CBCB",
                   color: "#77818A",
@@ -123,23 +123,22 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
             <li
               key={s.label}
               className="relative flex items-center gap-4"
-              style={{ minHeight: active ? 50 : 44 }}
+              style={{ minHeight: 44 }}
             >
               {active && (
                 <span
                   aria-hidden
-                  className="absolute -inset-x-3 inset-y-[3px] rounded-[9px]"
+                  className="absolute -inset-x-3 inset-y-[-2px] rounded-[9px]"
                   style={{
-                    background: "rgba(184,134,32,0.055)",
-                    border: "1px solid rgba(184,134,32,0.25)",
-                    boxShadow: "inset 2px 0 0 #B18428",
+                    background: "rgba(184,134,32,0.045)",
+                    border: "1px solid rgba(184,134,32,0.26)",
                   }}
                 />
               )}
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[14.5px] top-1/2 w-[1.5px]"
+                  className="absolute left-[13.25px] top-1/2 w-[1.5px]"
                   style={{
                     height: "calc(100% + 14px)",
                     background: done || active ? "#2F7650" : "#D4D2CC",
