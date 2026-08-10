@@ -30,6 +30,9 @@ import {
   Users,
   UtensilsCrossed,
   ConciergeBell,
+  Building2,
+  Mail,
+
   X,
 } from "lucide-react";
 import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
