@@ -235,7 +235,7 @@ function DetailsCard({
           "0 2px 3px rgba(25,35,40,0.08), 0 7px 14px rgba(25,35,40,0.10), inset 0 1px 0 rgba(255,255,255,0.90), inset 0 0 0 1px rgba(255,255,255,0.55)",
       }}
     >
-      <div className="relative px-5 py-[13px]">
+      <div className="relative px-5 py-[15px]">
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
@@ -335,7 +335,7 @@ function DetailsCard({
         </dl>
 
         {footer && (
-          <div className="mt-[8px] flex justify-center pb-[1px]">{footer}</div>
+          <div className="mt-[15px] flex justify-center pb-[1px]">{footer}</div>
         )}
         {children}
       </div>
