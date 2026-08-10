@@ -89,7 +89,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
         What happens next
       </span>
 
-      <ol className="relative mt-4 flex min-h-0 flex-1 flex-col gap-[15px]">
+      <ol className="relative mt-4 flex min-h-0 flex-1 flex-col gap-[21px]">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
@@ -141,7 +141,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
                   aria-hidden
                   className="absolute left-[13px] top-1/2 w-[1.5px] -translate-x-1/2"
                   style={{
-                    height: "calc(100% + 15px)",
+                    height: "calc(100% + 21px)",
                     background: done || active ? "#2F7650" : "#D4D2CC",
                   }}
                 />
