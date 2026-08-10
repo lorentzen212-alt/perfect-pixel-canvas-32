@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, MessageSquare, Users } from "lucide-react";
+import { ArrowRight, Check, Clock, MessageSquare, ShieldCheck, Users } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import {
   Card,
@@ -12,7 +12,7 @@ import {
   Slot,
   SolidButton,
 } from "./primitives";
-import { GOLD, GREEN, HAIR, INK, INK_2, INK_3 } from "./materials";
+import { GOLD, GOLD_2, GREEN, HAIR, INK, INK_2, INK_3 } from "./materials";
 
 export interface JourneyStep {
   label: string;
@@ -142,49 +142,92 @@ function DetailsCard({
   rows,
   footer,
   children,
+  status,
 }: {
   rows: DetailRow[];
   footer?: React.ReactNode;
   children?: React.ReactNode;
+  status?: { label: string; tone: "pending" | "confirmed" };
 }) {
   return (
     <Slot>
-      <div className="px-5 py-4">
-        <Eyebrow>Booking details</Eyebrow>
-        <dl className="mt-2.5">
-          {rows.map((row, i) => (
-            <div
-              key={row.k}
-              className="grid grid-cols-[minmax(0,132px)_minmax(0,1fr)] items-start gap-4 py-[7px]"
-              style={i > 0 ? { borderTop: `1px solid ${HAIR}` } : undefined}
+      <div className="px-6 py-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span aria-hidden className="h-[16px] w-[3px] rounded-full" style={{ background: GOLD_2 }} />
+            <Eyebrow>Booking details</Eyebrow>
+          </div>
+          {status && (
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10.5px] font-semibold uppercase tracking-[0.1em]"
+              style={
+                status.tone === "confirmed"
+                  ? { color: GREEN, background: "rgba(46,107,69,0.08)", border: "1px solid rgba(46,107,69,0.24)" }
+                  : { color: GOLD_2, background: "rgba(195,138,32,0.08)", border: "1px solid rgba(195,138,32,0.28)" }
+              }
             >
-              <dt className="flex items-center gap-2.5 text-[12.5px]" style={{ color: INK_2 }}>
-                {row.icon && (
-                  <span className="shrink-0" style={{ color: "rgba(27,37,48,0.45)" }}>
-                    {row.icon}
-                  </span>
-                )}
-                <span className="truncate">{row.k}</span>
-              </dt>
-              <dd className="min-w-0">
-                <span className="flex items-center gap-2">
-                  <span className="truncate text-[12.5px] font-medium" style={{ color: INK }}>
-                    {row.v}
-                  </span>
-                  {row.stars ? (
-                    <span className="shrink-0 text-[11px]" style={{ color: GOLD }}>
-                      {"★".repeat(row.stars)}
+              <ShieldCheck size={13} />
+              {status.label}
+            </span>
+          )}
+        </div>
+        <dl className="mt-4">
+          {rows.map((row, i) => {
+            const isPaymentPill = row.k === "Payment terms" && /pending/i.test(row.v);
+            return (
+              <div
+                key={row.k}
+                className="grid grid-cols-[minmax(0,140px)_minmax(0,1fr)] items-center gap-4 py-[11px]"
+                style={i > 0 ? { borderTop: `1px solid ${HAIR}` } : undefined}
+              >
+                <dt
+                  className="flex items-center gap-3 text-[11px] font-semibold uppercase"
+                  style={{ color: GOLD_2, letterSpacing: "0.08em" }}
+                >
+                  {row.icon && (
+                    <span
+                      className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px]"
+                      style={{
+                        background: "rgba(195,138,32,0.08)",
+                        border: "1px solid rgba(195,138,32,0.18)",
+                        color: GOLD_2,
+                      }}
+                    >
+                      {row.icon}
                     </span>
-                  ) : null}
-                </span>
-                {row.v2 && (
-                  <span className="block truncate text-[11.5px]" style={{ color: INK_3 }}>
-                    {row.v2}
-                  </span>
-                )}
-              </dd>
-            </div>
-          ))}
+                  )}
+                  <span className="truncate">{row.k}</span>
+                </dt>
+                <dd className="min-w-0">
+                  {isPaymentPill ? (
+                    <span
+                      className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.04em]"
+                      style={{ color: GOLD_2, background: "rgba(195,138,32,0.10)" }}
+                    >
+                      <Clock size={13} />
+                      {row.v}
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      <span className="truncate text-[14px] font-medium" style={{ color: INK }}>
+                        {row.v}
+                      </span>
+                      {row.stars ? (
+                        <span className="shrink-0 text-[11px]" style={{ color: GOLD }}>
+                          {"★".repeat(row.stars)}
+                        </span>
+                      ) : null}
+                    </span>
+                  )}
+                  {row.v2 && (
+                    <span className="block truncate text-[11.5px]" style={{ color: INK_3 }}>
+                      {row.v2}
+                    </span>
+                  )}
+                </dd>
+              </div>
+            );
+          })}
         </dl>
         {footer && (
           <div className="mt-3 flex justify-center pt-3" style={{ borderTop: `1px solid ${HAIR}` }}>
@@ -269,6 +312,7 @@ export function OverviewFolder({
   detailRows,
   detailsFooter,
   detailsExtra,
+  detailsStatus,
   summary,
   onViewTimeline,
   onMessage,
@@ -281,6 +325,7 @@ export function OverviewFolder({
   detailRows: DetailRow[];
   detailsFooter?: React.ReactNode;
   detailsExtra?: React.ReactNode;
+  detailsStatus?: { label: string; tone: "pending" | "confirmed" };
   summary: SummaryCell[];
   onViewTimeline?: () => void;
   onMessage?: () => void;
@@ -298,7 +343,7 @@ export function OverviewFolder({
         <div className="grid items-stretch gap-4 lg:grid-cols-[54fr_46fr]">
           <NextSteps steps={journey} onViewAll={onViewTimeline} />
           <div className="space-y-4">
-            <DetailsCard rows={detailRows} footer={detailsFooter}>
+            <DetailsCard rows={detailRows} footer={detailsFooter} status={detailsStatus}>
               {detailsExtra}
             </DetailsCard>
             <NeedHelp onMessage={onMessage} />

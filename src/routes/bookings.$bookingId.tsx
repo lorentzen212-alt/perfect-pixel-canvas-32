@@ -1116,6 +1116,10 @@ function Workspace({ booking }: { booking: Booking }) {
               journey={journey}
               onViewTimeline={() => setTab("Changes")}
               onMessage={() => setTab("Messages")}
+              detailsStatus={{
+                label: confirmed ? "Confirmed" : "Awaiting hotel confirmation",
+                tone: confirmed ? "confirmed" : "pending",
+              }}
               detailRows={[
                 {
                   k: "Hotel",
