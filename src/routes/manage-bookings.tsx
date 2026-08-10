@@ -568,7 +568,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
       </div>
 
       {/* metadata chips */}
-      <div className="mt-[6px] flex flex-wrap items-center gap-[6px]">
+      <div className="mt-[4px] flex flex-wrap items-center gap-[6px]">
         {metas.map((m, i) => (
           <span
             key={i}
@@ -595,7 +595,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
       {/* reference panel */}
       <div
-        className="mt-[9px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
+        className="mt-[6px] grid grid-cols-1 overflow-hidden rounded-[8px] sm:grid-cols-2"
         style={{
           border: "1px solid rgba(255,255,255,0.055)",
           background: "linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.09) 100%)",
@@ -604,7 +604,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
             "inset 0 2px 4px rgba(0,0,0,0.22), inset 0 -1px 0 rgba(255,255,255,0.035), 0 1px 0 rgba(255,255,255,0.04)",
         }}
       >
-        <div className="px-[14px] py-[5px]">
+        <div className="px-[14px] py-[3px]">
           <p
             className="text-[10px] font-semibold uppercase tracking-[0.14em]"
             style={{ color: CHAMPAGNE }}
@@ -633,7 +633,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
         </div>
         <div
-          className="px-[14px] py-[5px]"
+          className="px-[14px] py-[3px]"
           style={{ borderLeft: "1px solid rgba(255,255,255,0.07)" }}
         >
 
@@ -654,13 +654,13 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
 
       {/* progress track */}
-      <div className="mt-[9px]">
+      <div className="mt-[6px]">
         <Timeline booking={booking} />
       </div>
 
       {/* footer */}
       <div
-        className="mt-[8px] flex flex-nowrap items-center justify-between gap-4 pt-[7px]"
+        className="mt-[6px] flex flex-nowrap items-center justify-between gap-4 pt-[6px]"
         style={{ borderTop: "1px solid rgba(255,255,255,0.038)" }}
 
       >
@@ -676,7 +676,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
           params={{ bookingId: booking.id }}
           className="hgb-view-btn hgb-gold-sheen group/btn relative inline-flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-[8px] px-[20px] py-[9px] text-[15px]"
           style={{
-            marginTop: 12,
+            marginTop: 2,
             color: "#E4D3A2",
             border: "1.5px solid transparent",
             background: `linear-gradient(180deg, #1A2330 0%, #131C27 100%) padding-box, ${GOLD_BRUSHED_H} border-box`,
@@ -800,7 +800,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   if (compact) {
     return (
-      <article className="hgb-booking-card group relative overflow-hidden py-[25px] pr-[24px] transition-all duration-300" style={shell}>
+      <article className="hgb-booking-card group relative overflow-hidden py-[13px] pr-[24px] transition-all duration-300" style={shell}>
         {goldStrip}
         <div>{media}</div>
         <div className="py-3 pr-3">{info}</div>
@@ -810,7 +810,7 @@ function BookingCard({ booking, compact }: { booking: Booking; compact?: boolean
 
   return (
     <article
-      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[25px] pr-[24px] transition-all duration-300 sm:grid-cols-[278px_minmax(0,1fr)] lg:grid-cols-[294px_minmax(0,1fr)]"
+      className="hgb-booking-card group relative grid grid-cols-1 items-stretch gap-[14px] overflow-hidden py-[13px] pr-[24px] transition-all duration-300 sm:grid-cols-[278px_minmax(0,1fr)] lg:grid-cols-[294px_minmax(0,1fr)]"
       style={shell}
     >
       {goldStrip}
