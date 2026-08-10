@@ -69,10 +69,10 @@ function CurrentAction({
       </div>
 
       <Link to="/rooming/$bookingId" params={{ bookingId }} className="shrink-0 self-start sm:self-auto">
-        <SolidButton>
+        <ShineGoldButton>
           Create rooming list
           <ArrowRight size={14} />
-        </SolidButton>
+        </ShineGoldButton>
       </Link>
     </Card>
   );
