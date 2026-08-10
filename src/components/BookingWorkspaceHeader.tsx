@@ -55,6 +55,7 @@ export function BookingWorkspaceHeader({
   subtitle = "Manage every detail of this group booking in one workspace",
   active,
   onSelect,
+  surface,
 }: {
   bookingId: string;
   bookingName: string;
@@ -65,8 +66,11 @@ export function BookingWorkspaceHeader({
   subtitle?: string;
   active: WorkspaceTab;
   onSelect?: (tab: WorkspaceTab) => void;
+  /** surface the active tab must merge into (folder plate below) */
+  surface?: string;
 }) {
   const [copied, setCopied] = useState(false);
+
 
   return (
     <header className="relative isolate">
