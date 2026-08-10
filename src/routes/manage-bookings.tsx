@@ -850,13 +850,12 @@ function StatTile({
   bgPos: string;
   onClick: () => void;
 }) {
-  const linkColor = "rgba(255,255,255,0.66)";
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="hgb-stat-tile relative flex w-full flex-col justify-between overflow-hidden rounded-[14px] text-left transition-all duration-200 hover:-translate-y-[2px]"
+      className="hgb-stat-tile relative flex w-full flex-col justify-center overflow-hidden rounded-[14px] text-left transition-all duration-200 hover:-translate-y-[2px]"
       style={{
         background: "#28353F",
         backgroundImage: "none",
@@ -865,24 +864,10 @@ function StatTile({
           "0 8px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.035)",
         paddingLeft: 30,
         paddingRight: 28,
-        paddingTop: 2,
-        paddingBottom: 0,
+        paddingTop: 18,
+        paddingBottom: 18,
       }}
     >
-      {action && (
-        <span
-          className="absolute inline-flex items-center gap-1 rounded-full px-[9px] py-[2.5px] text-[9.5px] font-medium uppercase tracking-[0.16em]"
-          style={{
-            top: 13,
-            right: 14,
-            color: accent,
-            border: `1px solid ${accent}66`,
-            background: "rgba(6,20,31,0.55)",
-          }}
-        >
-          Action needed
-        </span>
-      )}
       <span className="flex items-center" style={{ gap: 18 }}>
         <span className="flex shrink-0 items-center justify-center" style={{ color: accent, width: 30, height: 30 }}>
           {icon}
@@ -914,21 +899,10 @@ function StatTile({
           </span>
         </span>
       </span>
-      <span
-        className="hgb-stat-link flex items-center text-[13.5px] font-medium"
-        style={{
-          gap: 7,
-          marginTop: 0,
-          paddingTop: 4,
-          borderTop: "1px solid rgba(255,255,255,0.10)",
-          color: linkColor,
-        }}
-      >
-        {footer ?? "View bookings"} <ArrowRight size={13} />
-      </span>
     </button>
   );
 }
+
 
 
 
