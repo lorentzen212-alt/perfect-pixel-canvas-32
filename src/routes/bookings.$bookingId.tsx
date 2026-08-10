@@ -1369,7 +1369,9 @@ function Workspace({ booking }: { booking: Booking }) {
                   </FolderSection>
                 </div>
               </div>
-            </div>
+              }
+            />
+
           )}
 
           </div>
