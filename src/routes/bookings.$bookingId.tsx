@@ -1036,7 +1036,7 @@ function Workspace({ booking }: { booking: Booking }) {
         <div
           className={
             tab === "Overview"
-              ? "relative min-h-[80vh] px-0 pb-14 pt-0"
+              ? "relative px-0 pb-8 pt-0"
               : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
           style={

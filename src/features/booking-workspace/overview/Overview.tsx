@@ -295,7 +295,7 @@ export function OverviewFolder({
           description={actionDescription}
         />
 
-        <div className="grid items-start gap-4 lg:grid-cols-[54fr_46fr]">
+        <div className="grid items-stretch gap-4 lg:grid-cols-[54fr_46fr]">
           <NextSteps steps={journey} onViewAll={onViewTimeline} />
           <div className="space-y-4">
             <DetailsCard rows={detailRows} footer={detailsFooter}>
