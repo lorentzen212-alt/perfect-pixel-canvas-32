@@ -907,7 +907,7 @@ function StatTile({
             style={{
               color: "rgba(239,243,246,0.92)",
               lineHeight: 1.2,
-              marginTop: 8,
+              marginTop: 4,
             }}
           >
             {label}
@@ -918,8 +918,8 @@ function StatTile({
         className="hgb-stat-link flex items-center text-[13.5px] font-medium"
         style={{
           gap: 7,
-          marginTop: 2,
-          paddingTop: 6,
+          marginTop: 0,
+          paddingTop: 4,
           borderTop: "1px solid rgba(255,255,255,0.10)",
           color: linkColor,
         }}
