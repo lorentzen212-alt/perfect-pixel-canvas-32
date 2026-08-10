@@ -227,6 +227,12 @@ export function BookingWorkspaceHeader({
                   {TAB_ICON[t]}
                 </span>
                 {t}
+                {isActive && (
+                  <>
+                    <span className="hgb-tab-shoulder hgb-tab-shoulder--l" aria-hidden />
+                    <span className="hgb-tab-shoulder hgb-tab-shoulder--r" aria-hidden />
+                  </>
+                )}
               </>
             );
 
