@@ -2,8 +2,15 @@ import * as React from "react";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
+  ArrowLeft,
+  Bed,
+  Bell,
+  CalendarDays,
   Check,
   ChevronRight,
+  Download,
+  MapPin,
+  Users,
   ClipboardList,
   Copy,
   FileText,
@@ -53,6 +60,11 @@ export function BookingWorkspaceHeader({
   reference,
   initials,
   subtitle = "Manage every detail of this group booking in one workspace",
+  stayDates,
+  roomsLabel,
+  guestsLabel,
+  statusLabel = "Confirmed",
+  statusTone = "#1E5B39",
   active,
   onSelect,
   surface,
@@ -64,6 +76,11 @@ export function BookingWorkspaceHeader({
   reference: string;
   initials: string;
   subtitle?: string;
+  stayDates?: string;
+  roomsLabel?: string;
+  guestsLabel?: string;
+  statusLabel?: string;
+  statusTone?: string;
   active: WorkspaceTab;
   onSelect?: (tab: WorkspaceTab) => void;
   /** surface the active tab must merge into (folder plate below) */
