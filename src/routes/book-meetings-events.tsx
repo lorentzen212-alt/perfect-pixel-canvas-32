@@ -86,8 +86,6 @@ import { BrandLogo } from "@/components/BrandLogo";
 import heroAsset from "@/assets/me-hero-conference.png.asset.json";
 const heroImg = heroAsset.url;
 import loungeImg from "@/assets/luxury-lounge.jpg";
-import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
-const helpCardBg = helpCardBgAsset.url;
 void loungeImg;
 
 import osloImg from "@/assets/destinations/oslo.jpg";

@@ -1,3 +1,4 @@
+import helpCardBgAsset from "@/assets/need-help-bg.png.asset.json";
 import { ContinueButton } from "@/features/me/common/buttons";
 import { GoldStarDivider } from "@/features/me/common/dividers";
 import { BudgetPreference } from "@/features/me/step2/BudgetPreference";
@@ -10,6 +11,7 @@ import { Check, Globe, Mail, Pencil, Phone, Sparkles } from "lucide-react";
 import React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
+const helpCardBg = helpCardBgAsset.url;
 export function StepTwoLocation({
   onBack,
   onNext,
