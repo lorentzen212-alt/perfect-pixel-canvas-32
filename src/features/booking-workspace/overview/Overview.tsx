@@ -258,7 +258,7 @@ function DetailsCard({
             return (
               <div
                 key={row.k}
-                className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] items-center gap-2.5 py-[5px]"
+                className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] items-center gap-2.5 py-[4px]"
                 style={{
                   background: i % 2 === 1 ? "#F3F1EB" : "transparent",
                   borderTop: i > 0 ? `1px solid ${HAIR}` : undefined,
