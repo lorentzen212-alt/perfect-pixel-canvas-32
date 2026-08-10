@@ -1,5 +1,6 @@
 import { Field } from "@/features/me/common/Field";
 import { NextButton } from "@/features/me/common/buttons";
+import { FlagNO } from "@/features/me/common/flags";
 import { GOLD, SERIF } from "@/features/me/tokens";
 import type { FormState } from "@/features/me/types";
 import { hasProfileDetails, useAuth } from "@/lib/auth";
