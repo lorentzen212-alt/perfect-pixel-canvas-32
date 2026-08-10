@@ -149,48 +149,10 @@ export const Route = createFileRoute("/book-meetings-events")({
   }),
 });
 
-const SERIF = '"Cormorant Garamond", Georgia, serif';
-const SANS = '"Inter", ui-sans-serif, system-ui, sans-serif';
-const GOLD = "#F5C25A";
-const NAVY = "#0A1B2C";
-const NAVY_DEEP = "#04111A";
+import { SERIF, SANS, GOLD, NAVY, NAVY_DEEP } from "@/features/me/tokens";
+import { NAV_LINKS, TRUST, STEPS, DRAFT_KEY } from "@/features/me/data";
+import type { FormState } from "@/features/me/types";
 
-const NAV_LINKS = [
-  { label: "Home", to: "/" as const },
-  { label: "About us", href: "/#about" },
-  { label: "How it works", href: "/#how" },
-  { label: "Destinations", href: "/#destinations" },
-  { label: "Contact", href: "/#contact" },
-];
-
-const TRUST = [
-  { Icon: TrustShield, label: "No commitment" },
-  { Icon: TrustClock, label: "Fast and free" },
-  { Icon: TrustHeadset, label: "Expert support" },
-  { Icon: TrustLock, label: "Secure & trusted" },
-];
-
-const STEPS = [
-  "Location",
-  "Accommodation",
-  "Meeting Spaces",
-  "Catering",
-  "Extras",
-  "Event Details",
-  "Review & Submit",
-
-];
-
-type FormState = {
-  eventName: string;
-  company: string;
-  contactPerson: string;
-  email: string;
-  phone: string;
-  countryCode: string;
-};
-
-const DRAFT_KEY = "hgb:me-draft-v1";
 
 function BookMeetingsEvents() {
   // Same global session the rest of the app uses.
