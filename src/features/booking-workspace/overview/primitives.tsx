@@ -131,6 +131,41 @@ export function Medallion({
   );
 }
 
+/* ── shine gold action — polished champagne/metallic gold ── */
+export function ShineGoldButton({
+  children,
+  onClick,
+  className = "",
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`group inline-flex items-center justify-center gap-2 rounded-full px-6 py-[10px] text-[14px] font-medium transition-all duration-200 hover:-translate-y-[1px] ${className}`}
+      style={{
+        background:
+          "linear-gradient(135deg, #B8860B 0%, #DAA520 28%, #F0D878 50%, #DAA520 68%, #8B6914 100%)",
+        color: "#1A0F00",
+        boxShadow: "0 2px 8px rgba(139,105,20,0.30)",
+      }}
+    >
+      <span
+        className="contents transition-all duration-200 group-hover:brightness-110"
+        style={{
+          filter: "brightness(1)",
+        }}
+      >
+        {children}
+      </span>
+      <span className="sr-only">primary action</span>
+    </button>
+  );
+}
+
 /* ── solid amber action ── */
 export function SolidButton({
   children,
