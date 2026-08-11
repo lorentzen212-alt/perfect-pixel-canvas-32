@@ -1631,7 +1631,7 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-const inputStyle: React.CSSProperties = {
+const ivoryInput: React.CSSProperties = {
   background: INSET_BG,
   border: INSET_BORDER,
   color: C_INK,
@@ -1926,7 +1926,7 @@ function ChangesView({
                       disabled={scope !== "specific"}
                       onChange={(e) => setScopeDate(e.target.value)}
                       className="w-full rounded-[7px] px-3 py-[7px] pr-8 text-[12.5px] outline-none sm:w-[190px]"
-                      style={inputStyle}
+                      style={ivoryInput}
                     />
                     <CalendarDays
                       size={14}
@@ -2024,7 +2024,7 @@ function ChangesView({
                   onChange={(e) => setComment(e.target.value)}
                   placeholder="Type your message here…"
                   className="mt-1.5 w-full resize-none rounded-[8px] px-3 py-2.5 text-[13px] outline-none"
-                  style={inputStyle}
+                  style={ivoryInput}
                 />
                 <span className="mt-1 block text-right text-[11px]" style={{ color: C_INK_3 }}>
                   {comment.length}/1000
@@ -2093,7 +2093,7 @@ function ChangesView({
                   value={otherCategory}
                   onChange={(e) => setOtherCategory(e.target.value)}
                   className="w-full rounded-[7px] px-3 py-[8px] text-[12.5px] outline-none sm:w-[240px]"
-                  style={inputStyle}
+                  style={ivoryInput}
                 >
                   {["General", "Rooming list", "Special requests", "Billing", "Dates"].map((c) => (
                     <option key={c}>{c}</option>
@@ -2110,7 +2110,7 @@ function ChangesView({
                   onChange={(e) => setOtherText(e.target.value)}
                   placeholder="Type your message here…"
                   className="w-full resize-none rounded-[8px] px-3 py-2.5 text-[13px] outline-none"
-                  style={inputStyle}
+                  style={ivoryInput}
                 />
                 <span className="mt-1 block text-right text-[11px]" style={{ color: C_INK_3 }}>
                   {otherText.length}/1000
@@ -2168,23 +2168,23 @@ function ChangesView({
                     <div className="mt-3 grid grid-cols-2 gap-2.5">
                       <label className="block">
                         <FieldLabel>Date</FieldLabel>
-                        <input type="date" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={inputStyle} />
+                        <input type="date" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={ivoryInput} />
                       </label>
                       <label className="block">
                         <FieldLabel>Preferred time</FieldLabel>
-                        <input type="time" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={inputStyle} />
+                        <input type="time" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={ivoryInput} />
                       </label>
                       <label className="col-span-2 block">
                         <FieldLabel>Number of guests</FieldLabel>
-                        <input type="number" min={0} placeholder="0" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={inputStyle} />
+                        <input type="number" min={0} placeholder="0" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={ivoryInput} />
                       </label>
                       <label className="block">
                         <FieldLabel>Type</FieldLabel>
-                        <input placeholder="e.g. 3-course dinner" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={inputStyle} />
+                        <input placeholder="e.g. 3-course dinner" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={ivoryInput} />
                       </label>
                       <label className="block">
                         <FieldLabel>Dietary requirements</FieldLabel>
-                        <input placeholder="e.g. 4 vegetarian" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={inputStyle} />
+                        <input placeholder="e.g. 4 vegetarian" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={ivoryInput} />
                       </label>
                     </div>
 
@@ -2197,7 +2197,7 @@ function ChangesView({
                         onChange={(e) => setSvcNotes(e.target.value)}
                         placeholder="Type your message here…"
                         className="w-full resize-none rounded-[8px] px-3 py-2.5 text-[12.5px] outline-none"
-                        style={inputStyle}
+                        style={ivoryInput}
                       />
                       <span className="mt-1 block text-right text-[11px]" style={{ color: C_INK_3 }}>
                         {svcNotes.length}/500
