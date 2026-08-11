@@ -161,7 +161,7 @@ function RowMenu({ booking }: { booking: Booking }) {
         { label: "Booking details", to: "/bookings/$bookingId" as const },
         { label: "Edit booking", to: "/bookings/$bookingId" as const },
         { label: "Request change", to: "/bookings/$bookingId" as const },
-        { label: "Rooming list", to: "/rooming/$bookingId" as const },
+        { label: "Rooming list", to: "/bookings/$bookingId" as const },
         { label: "Documents & contract", to: "/bookings/$bookingId" as const },
       ];
 

@@ -432,7 +432,7 @@ function BookingWorkspace() {
   const router = useRouter();
   useEffect(() => {
     if (!booking) return;
-    void router.preloadRoute({ to: "/rooming/$bookingId", params: { bookingId } });
+    void router.preloadRoute({ to: "/bookings/$bookingId", params: { bookingId }, search: { tab: "Rooming List" } });
     void queryClient
       .prefetchQuery(roomingQueryOptions(bookingId, booking.rooms))
       .catch(() => {});

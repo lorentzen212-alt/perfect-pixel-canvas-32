@@ -68,7 +68,7 @@ function CurrentAction({
         </p>
       </div>
 
-      <Link to="/rooming/$bookingId" params={{ bookingId }} className="shrink-0 self-start sm:self-auto">
+      <Link to="/bookings/$bookingId" params={{ bookingId }} search={{ tab: "Rooming List" }} className="shrink-0 self-start sm:self-auto">
         <ShineGoldButton>
           Create rooming list
           <ArrowRight size={14} />

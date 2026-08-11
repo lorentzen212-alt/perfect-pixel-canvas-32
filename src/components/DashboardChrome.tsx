@@ -101,7 +101,8 @@ export function SidebarContent({
           return rooming ? (
             <Link
               key={item.label}
-              to="/rooming/$bookingId"
+              to="/bookings/$bookingId"
+              search={{ tab: "Rooming List" }}
               params={{ bookingId: bookingId ?? "1" }}
               className={className}
               style={style}
@@ -298,7 +299,8 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
           return rooming ? (
             <Link
               key={item.label}
-              to="/rooming/$bookingId"
+              to="/bookings/$bookingId"
+              search={{ tab: "Rooming List" }}
               params={{ bookingId: bookingId ?? "1" }}
               className={className}
               style={style}
