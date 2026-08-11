@@ -77,6 +77,8 @@ import {
   IVORY as C_IVORY,
   GOLD as C_GOLD,
   GOLD_2 as C_GOLD_2,
+  AMBER as C_AMBER,
+  AMBER_DEEP as C_AMBER_DEEP,
 } from "@/features/booking-workspace/overview/materials";
 import {
   Card,
@@ -1576,7 +1578,7 @@ function ChangeSubmit({ children, disabled }: { children: React.ReactNode; disab
       disabled={disabled}
       className="inline-flex w-full items-center justify-center gap-2 text-[13px] font-semibold"
       style={{
-        background: `linear-gradient(180deg, ${AMBER} 0%, ${AMBER_DEEP} 100%)`,
+        background: `linear-gradient(180deg, ${C_AMBER} 0%, ${C_AMBER_DEEP} 100%)`,
         color: "#FFF9EE",
         borderRadius: 6,
         padding: "13px 20px",
