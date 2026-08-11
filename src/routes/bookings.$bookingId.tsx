@@ -1810,19 +1810,19 @@ function ChangesView({
   ];
 
   const SummaryCard = (
-    <Card className="sticky top-6 px-5 py-4 sm:px-6">
+    <ChangeCard className="sticky top-6 px-5 py-4 sm:px-6">
       <Eyebrow>Change summary</Eyebrow>
       <ul className="mt-2.5">
         {summaryRows.map((r, i) => (
           <li
             key={r.k}
-            className="flex items-center gap-3 py-[9px]"
-            style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
+            className="flex h-[40px] items-center gap-3"
+            style={i > 0 ? { borderTop: `1px solid rgba(27,37,48,0.10)` } : undefined}
           >
             <span className="shrink-0" style={{ color: C_GOLD_2 }}>
               {r.icon}
             </span>
-            <span className="min-w-0 flex-1 truncate text-[12.5px]" style={{ color: C_INK_2 }}>
+            <span className="min-w-0 flex-1 truncate text-[13px]" style={{ color: C_INK_2 }}>
               {r.k}
             </span>
             <span className="shrink-0 text-[13px] font-medium" style={{ color: C_INK }}>
@@ -1834,24 +1834,21 @@ function ChangesView({
 
       <div
         className="mt-3 flex items-start gap-2.5 rounded-[8px] px-3.5 py-2.5 text-[11.5px]"
-        style={{ background: "rgba(237,228,214,0.45)", border: `1px solid ${C_HAIR}`, color: C_INK_2 }}
+        style={{ background: "#F7F1E4", border: `1px solid rgba(27,37,48,0.10)`, color: C_INK_2 }}
       >
         <Info size={14} className="mt-[1px] shrink-0" style={{ color: C_GOLD }} />
         <span>We&rsquo;ll review your request and respond as soon as possible.</span>
       </div>
 
-      <div
-        className="mt-3"
-        style={changed.length === 0 ? { opacity: 0.45, pointerEvents: "none" as const } : undefined}
-      >
-        <SolidButton className="w-full">
+      <div className="mt-3">
+        <ChangeSubmit disabled={changed.length === 0}>
           Submit change request <ArrowRight size={14} />
-        </SolidButton>
+        </ChangeSubmit>
       </div>
       <p className="mt-2 flex items-center justify-center gap-1.5 text-[11px]" style={{ color: C_INK_3 }}>
         <Lock size={11} /> Your request is sent securely
       </p>
-    </Card>
+    </ChangeCard>
   );
 
   return (
