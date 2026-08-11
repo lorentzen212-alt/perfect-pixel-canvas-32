@@ -197,7 +197,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
             key={r.label}
             className="grid items-center gap-2 px-2 py-[6px]"
             style={{
-              gridTemplateColumns: "1fr 70px 78px 16px",
+              gridTemplateColumns: "48fr 22fr 22fr 16px",
               background: i % 2 === 1 ? "#FAF8F5" : undefined,
               borderBottom: i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
             }}
@@ -207,17 +207,17 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
             </span>
             <span
               className="text-[12.5px] tabular-nums"
-              style={{ color: INK_2, textAlign: "center" }}
+              style={{ color: INK_2, textAlign: "left" }}
             >
               {r.rooms} rooms
             </span>
             <span
               className="text-[12.5px] tabular-nums"
-              style={{ color: INK_2, textAlign: "center" }}
+              style={{ color: INK_2, textAlign: "left" }}
             >
               {r.guests} guests
             </span>
-            <ChevronRight size={15} style={{ color: "rgba(27,37,48,0.35)", justifySelf: "end" }} />
+            <ChevronDown size={15} style={{ color: "rgba(27,37,48,0.35)", justifySelf: "end" }} />
           </li>
         ))}
       </ul>
