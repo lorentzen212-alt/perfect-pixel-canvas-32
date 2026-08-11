@@ -503,7 +503,7 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="flex flex-1 flex-col space-y-[14px] px-5 pb-[8px] pt-5 sm:px-7">
+      <div className="flex flex-1 flex-col space-y-[12px] px-5 pb-[6px] pt-4 sm:px-7">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}
