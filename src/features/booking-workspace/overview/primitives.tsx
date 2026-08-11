@@ -31,7 +31,7 @@ export function Plate({ children }: { children: React.ReactNode }) {
       style={{
         background: FOLDER_TOP_SURFACE,
         borderRadius: "16px 16px 0 0",
-        boxShadow: `inset 0 1px 0 ${FOLDER_RIM}, inset 9px 0 13px -6px rgba(6,14,22,0.22)`,
+        boxShadow: `inset 0 1px 0 ${FOLDER_RIM}, inset 9px 0 13px -8px rgba(6,14,22,0.10)`,
       }}
     >
       {children}
