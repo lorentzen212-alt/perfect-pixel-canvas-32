@@ -616,7 +616,7 @@ function Actions({
         Rooming list actions
       </span>
 
-      <ul className="mt-2 flex flex-col">
+      <ul className="mt-2 flex flex-1 flex-col justify-around">
         {rows.map((r, i) => (
           <li
             key={r.title}
