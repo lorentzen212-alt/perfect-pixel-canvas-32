@@ -1854,7 +1854,7 @@ function ChangesView({
   return (
     <div className="space-y-3 pb-8">
       {/* ── intro + mode selector ── */}
-      <Card className="px-5 py-4 sm:px-6">
+      <ChangeCard className="px-5 py-4 sm:px-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex min-w-0 items-center gap-3.5">
             <Medallion size={42}>
