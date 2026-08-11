@@ -22,6 +22,13 @@ import {
   MessageSquare,
   MoreHorizontal,
   Plus,
+  SlidersHorizontal,
+  History,
+  Lock,
+  Clock,
+  Luggage,
+  Gift,
+  LogOut,
   Star,
   StickyNote,
   Trash2,
@@ -69,7 +76,7 @@ import {
   HAIR as C_HAIR,
   IVORY as C_IVORY,
   GOLD as C_GOLD,
-  GREEN as C_GREEN,
+  GOLD_2 as C_GOLD_2,
 } from "@/features/booking-workspace/overview/materials";
 import {
   Card,
@@ -1207,6 +1214,12 @@ function Workspace({ booking }: { booking: Booking }) {
               panel={panel}
               onPanel={(k) => setPanel((cur) => (cur === k ? null : k))}
               editor={editor}
+              stayDates={`${dateShort(stay.arrival)} – ${fmtDate(stay.departure, { day: "numeric", month: "short", year: "numeric" })}`}
+              totalRooms={totalRooms}
+              totalGuests={totalGuests}
+              reference={booking.reference}
+              paymentTerms={confirmed ? "Deposit paid" : "Deposit pending"}
+              onMessage={() => setTab("Messages")}
             />
           ) : tab === "Documents" ? (
             <BookingDocumentsView reference={booking.reference} />
