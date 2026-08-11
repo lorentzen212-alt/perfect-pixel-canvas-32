@@ -64,7 +64,7 @@ export function GlobalSidebar({
 
   const renderItem = (
     item: { label: string; icon: typeof User },
-    opts: { to?: "/bookings/$bookingId" | "/account"; params?: { bookingId: string }; search?: { tab: string } },
+    opts: { to?: "/bookings/$bookingId" | "/account"; params?: { bookingId: string }; search?: { tab: "Rooming List" } },
   ) => {
     const isActive = item.label === active;
     const style: React.CSSProperties = {
