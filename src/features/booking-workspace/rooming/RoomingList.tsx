@@ -183,7 +183,7 @@ function StatusStrip({
 /* ── 3a · preview ─────────────────────────────────────────────── */
 function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: string }) {
   return (
-    <Card className="flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6">
+    <Card className="flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
       <span
         className="text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -195,25 +195,29 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         {rows.map((r, i) => (
           <li
             key={r.label}
-            className="flex items-center gap-3 px-2 py-[9px]"
+            className="grid items-center gap-2 px-2 py-[6px]"
             style={{
+              gridTemplateColumns: "1fr 70px 78px 16px",
               background: i % 2 === 1 ? "#FAF8F5" : undefined,
               borderBottom: i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
             }}
           >
-            <span className="min-w-0 flex-1 truncate text-[14px] font-medium" style={{ color: INK }}>
+            <span className="min-w-0 truncate text-[14px] font-medium" style={{ color: INK }}>
               {r.label}
             </span>
-            <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
+            <span
+              className="text-[12.5px] tabular-nums"
+              style={{ color: INK_2, textAlign: "center" }}
+            >
               {r.rooms} rooms
             </span>
             <span
-              className="shrink-0 text-[12.5px] tabular-nums"
-              style={{ color: INK_2, minWidth: 66, textAlign: "right" }}
+              className="text-[12.5px] tabular-nums"
+              style={{ color: INK_2, textAlign: "center" }}
             >
               {r.guests} guests
             </span>
-            <ChevronRight size={15} style={{ color: "rgba(27,37,48,0.35)" }} />
+            <ChevronRight size={15} style={{ color: "rgba(27,37,48,0.35)", justifySelf: "end" }} />
           </li>
         ))}
       </ul>
