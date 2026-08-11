@@ -13,7 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
-import { Card, Eyebrow, Medallion, Plate, ShineGoldButton } from "../overview/primitives";
+import { Card, Eyebrow, Medallion, Plate } from "../overview/primitives";
 import { GOLD, INK, INK_2 } from "../overview/materials";
 
 export interface RoomingTypeRow {
