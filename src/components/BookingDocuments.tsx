@@ -519,12 +519,8 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                 )}
               </div>
             </div>
-
-            <p className="mt-4 flex items-center gap-2 text-[11.5px]" style={{ color: INK_3 }}>
-              <Lock size={12} style={{ color: GOLD }} />
-              Securely stored, visible only to authorized users.
-            </p>
           </div>
+
 
           {/* ── RIGHT: the reading area shell ── */}
           <div className="min-w-0">
