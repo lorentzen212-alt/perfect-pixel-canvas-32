@@ -1,44 +1,34 @@
 import * as React from "react";
 import { useMemo, useRef, useState } from "react";
 import {
-  ChevronLeft,
-  ChevronRight,
+  ClipboardList,
   Download,
   FileSpreadsheet,
   FileText,
-  Files,
-  Grid2X2,
   Layers,
   Lock,
-  MoreHorizontal,
+  MoreVertical,
   Receipt,
   ScrollText,
-  Search,
   Ticket,
-  Upload,
-  UploadCloud,
-  ClipboardList,
-  List,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
+import { Plate } from "@/features/booking-workspace/overview/primitives";
+import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
 
-/* ── shared navy material (identical to Booking Overview / Changes) ── */
-const NAVY_TEXTURE =
-  "radial-gradient(1100px 420px at 18% -10%, rgba(255,255,255,0.045), transparent 62%), radial-gradient(700px 360px at 88% 108%, rgba(120,160,195,0.05), transparent 60%)";
-const INK = `${NAVY_TEXTURE}, linear-gradient(180deg, #24445E 0%, #203D55 55%, #1C374D 100%)`;
-const INK_2 = `${NAVY_TEXTURE}, linear-gradient(180deg, #2A4B64 0%, #26455C 55%, #223F54 100%)`;
-const NAVY_INNER =
-  "inset 0 1px 0 rgba(255,255,255,0.03), inset 0 -1px 0 rgba(0,0,0,0.12), inset 0 8px 22px -18px rgba(0,0,0,0.35), 0 0 0 1px rgba(8,18,28,0.25)";
-const NAVY_BORDER = "rgba(255,255,255,0.06)";
-const TEXT = "#F3F1EB";
-const TEXT_2 = "rgba(233,238,243,0.78)";
-const MUTED = "rgba(206,218,228,0.55)";
-const GOLD_MET_MID = "#C5962D";
-const GOLD_SOFT = "#D9BE74";
+/* ── warm document-desk surfaces ── */
+const PAPER = "#FAF9F6";
+const GROUND = "#F4F1EB";
+const HOVER = "#F1EFE9";
+const BEHIND = "#ECEAE4";
+const EDGE = "rgba(27,37,48,0.12)";
+const EDGE_SOFT = "rgba(27,37,48,0.08)";
+const SELECTED = "#FAF6EC";
 
 export type DocCategory =
   | "Contracts"
   | "Proposals"
+  | "Confirmation"
   | "Invoices"
   | "Vouchers"
   | "Rooming lists"
@@ -49,39 +39,26 @@ export type BookingDoc = {
   name: string;
   version: string;
   category: DocCategory;
+  /** the type shown on the row's second line — "Proposal", "Confirmation", "PDF" */
+  kind: string;
   uploadedBy: "Hotel" | "You";
   uploadedLabel: string;
   uploadedAt: number;
   size: number; // bytes
   url?: string;
-};
-
-const CAT_COLOR: Record<DocCategory, string> = {
-  Contracts: "#D9A441",
-  Proposals: "#7FA7D4",
-  Invoices: "#8DA88A",
-  Vouchers: "#D08A7A",
-  "Rooming lists": "#9A8FD0",
-  Other: "#9BA9B4",
+  /** kept out of the primary list until "Show all documents" */
+  archived?: boolean;
 };
 
 const CAT_ICON: Record<DocCategory, React.ReactNode> = {
-  Contracts: <ScrollText size={17} />,
-  Proposals: <FileText size={17} />,
-  Invoices: <Receipt size={17} />,
-  Vouchers: <Ticket size={17} />,
-  "Rooming lists": <ClipboardList size={17} />,
-  Other: <Layers size={17} />,
+  Contracts: <ScrollText size={15} />,
+  Proposals: <FileText size={15} />,
+  Confirmation: <FileText size={15} />,
+  Invoices: <Receipt size={15} />,
+  Vouchers: <Ticket size={15} />,
+  "Rooming lists": <ClipboardList size={15} />,
+  Other: <Layers size={15} />,
 };
-
-const CATEGORIES: DocCategory[] = [
-  "Contracts",
-  "Proposals",
-  "Invoices",
-  "Vouchers",
-  "Rooming lists",
-  "Other",
-];
 
 export function formatSize(bytes: number) {
   if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
@@ -90,214 +67,224 @@ export function formatSize(bytes: number) {
 
 const MAX_BYTES = 25 * 1024 * 1024;
 const ACCEPT = ".pdf,.doc,.docx,.xls,.xlsx,.csv,.png,.jpg,.jpeg";
-const PAGE_SIZE = 6;
 
 /* ── seeded document library for a booking (replaced by real data when a
       documents backend exists — the shape stays identical) ── */
 export function seedDocuments(reference: string): BookingDoc[] {
-  const now = Date.UTC(2026, 6, 27);
-  const day = 86400000;
   const mk = (
     i: number,
     name: string,
-    version: string,
+    kind: string,
     category: DocCategory,
     uploadedBy: "Hotel" | "You",
-    ago: number,
     label: string,
+    at: number,
     size: number,
+    archived = false,
   ): BookingDoc => ({
     id: `${reference}-doc-${i}`,
     name,
-    version,
+    version: "1.0",
     category,
+    kind,
     uploadedBy,
     uploadedLabel: label,
-    uploadedAt: now - ago * day,
+    uploadedAt: at,
     size,
+    archived,
   });
 
-  const base: BookingDoc[] = [
-    mk(1, "Contract.pdf", "1.2", "Contracts", "Hotel", 1, "Yesterday, 14:22", 1.2 * 1024 * 1024),
-    mk(2, "Group Proposal.pdf", "1.0", "Proposals", "Hotel", 2, "25 Jul 2026", 2.4 * 1024 * 1024),
-    mk(3, `Invoice_${reference.replace("HGB-", "")}.pdf`, "1.0", "Invoices", "Hotel", 4, "23 Jul 2026", 856 * 1024),
-    mk(4, "RoomingList_v2.xlsx", "2.0", "Rooming lists", "You", 5, "22 Jul 2026", 45 * 1024),
-    mk(5, "Breakfast_Voucher.pdf", "1.0", "Vouchers", "Hotel", 9, "18 Jul 2026", 612 * 1024),
-    mk(6, "Payment_Confirmation.pdf", "1.0", "Other", "You", 12, "15 Jul 2026", 730 * 1024),
-  ];
-
-  /* the remaining library — same categories, older */
-  const extras: Array<[string, string, DocCategory, "Hotel" | "You", number, string, number]> = [
-    ["Contract_Addendum.pdf", "1.0", "Contracts", "Hotel", 14, "13 Jul 2026", 480 * 1024],
-    ["Contract_Signed.pdf", "1.1", "Contracts", "You", 16, "11 Jul 2026", 990 * 1024],
-    ["Proposal_Revision_A.pdf", "1.1", "Proposals", "Hotel", 18, "09 Jul 2026", 1.8 * 1024 * 1024],
-    ["Proposal_Meeting_Rooms.pdf", "1.0", "Proposals", "Hotel", 19, "08 Jul 2026", 1.1 * 1024 * 1024],
-    ["Proposal_Dining.pdf", "1.0", "Proposals", "Hotel", 20, "07 Jul 2026", 640 * 1024],
-    ["Invoice_Deposit.pdf", "1.0", "Invoices", "Hotel", 21, "06 Jul 2026", 320 * 1024],
-    ["Invoice_Services.pdf", "1.0", "Invoices", "Hotel", 22, "05 Jul 2026", 410 * 1024],
-    ["Invoice_Dining.pdf", "1.0", "Invoices", "Hotel", 23, "04 Jul 2026", 288 * 1024],
-    ["Invoice_Balance.pdf", "1.0", "Invoices", "Hotel", 24, "03 Jul 2026", 356 * 1024],
-    ["Dinner_Voucher.pdf", "1.0", "Vouchers", "Hotel", 25, "02 Jul 2026", 520 * 1024],
-    ["RoomingList_v1.xlsx", "1.0", "Rooming lists", "You", 26, "01 Jul 2026", 38 * 1024],
-    ["RoomingList_Template.xlsx", "1.0", "Rooming lists", "Hotel", 28, "29 Jun 2026", 22 * 1024],
-    ["Transfer_Schedule.pdf", "1.0", "Other", "Hotel", 29, "28 Jun 2026", 180 * 1024],
-    ["Arrival_Instructions.pdf", "1.0", "Other", "Hotel", 30, "27 Jun 2026", 210 * 1024],
-    ["Allergy_Overview.xlsx", "1.0", "Other", "You", 31, "26 Jun 2026", 30 * 1024],
-    ["Insurance_Certificate.pdf", "1.0", "Other", "You", 32, "25 Jun 2026", 460 * 1024],
-    ["Group_Photo_Consent.pdf", "1.0", "Other", "You", 33, "24 Jun 2026", 140 * 1024],
-    ["Hotel_Map.pdf", "1.0", "Other", "Hotel", 34, "23 Jun 2026", 520 * 1024],
-  ];
+  const d = (day: number, month = 7) => Date.UTC(2026, month, day);
 
   return [
-    ...base,
-    ...extras.map((e, i) => mk(100 + i, e[0], e[1], e[2], e[3], e[4], e[5], e[6])),
-  ];
-}
+    /* ── primary hotel documents ── */
+    mk(1, "Hotel proposal #01", "Proposal", "Proposals", "Hotel", "11 Aug 2026", d(11), 2.4 * 1024 * 1024),
+    mk(2, "Booking Confirmation", "Confirmation", "Confirmation", "Hotel", "10 Aug 2026", d(10), 640 * 1024),
+    mk(3, "Proforma invoice", "PDF", "Invoices", "Hotel", "11 Aug 2026", d(11), 856 * 1024),
+    mk(4, "Terms & Conditions", "PDF", "Contracts", "Hotel", "10 Aug 2026", d(10), 480 * 1024),
+    mk(5, "Hotel information", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 520 * 1024),
+    mk(6, "Rate details", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 310 * 1024),
 
-function fileIcon(name: string) {
-  const spreadsheet = /\.(xlsx|xls|csv)$/i.test(name);
-  return spreadsheet ? <FileSpreadsheet size={16} /> : <FileText size={16} />;
+    /* ── your documents ── */
+    mk(20, "Rooming list v2", "Spreadsheet", "Rooming lists", "You", "8 Aug 2026", d(8), 45 * 1024),
+    mk(21, "Payment confirmation", "PDF", "Other", "You", "7 Aug 2026", d(7), 730 * 1024),
+    mk(22, "Signed contract", "PDF", "Contracts", "You", "6 Aug 2026", d(6), 990 * 1024),
+
+    /* ── archive — hidden until "Show all documents" ── */
+    mk(40, "Hotel proposal draft", "Proposal", "Proposals", "Hotel", "4 Aug 2026", d(4), 1.8 * 1024 * 1024, true),
+    mk(41, "Deposit invoice", "PDF", "Invoices", "Hotel", "2 Aug 2026", d(2), 320 * 1024, true),
+    mk(42, "Transfer schedule", "PDF", "Other", "Hotel", "28 Jul 2026", d(28, 6), 180 * 1024, true),
+    mk(43, "Rooming list v1", "Spreadsheet", "Rooming lists", "You", "27 Jul 2026", d(27, 6), 38 * 1024, true),
+    mk(44, "Allergy overview", "Spreadsheet", "Other", "You", "26 Jul 2026", d(26, 6), 30 * 1024, true),
+  ];
 }
 
 function categorize(name: string): DocCategory {
   const n = name.toLowerCase();
   if (n.includes("contract")) return "Contracts";
   if (n.includes("proposal")) return "Proposals";
+  if (n.includes("confirmation")) return "Confirmation";
   if (n.includes("invoice")) return "Invoices";
   if (n.includes("voucher")) return "Vouchers";
   if (n.includes("rooming")) return "Rooming lists";
   return "Other";
 }
 
-/* ── donut ── */
-function Donut({ slices, total }: { slices: Array<{ color: string; value: number }>; total: number }) {
-  const r = 38;
-  const c = 2 * Math.PI * r;
-  let offset = 0;
-  return (
-    <div className="relative shrink-0" style={{ width: 96, height: 96 }}>
-      <svg width={96} height={96} viewBox="0 0 112 112" aria-hidden>
-        <circle cx="56" cy="56" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="11" />
-        {slices.map((s, i) => {
-          const len = total > 0 ? (s.value / total) * c : 0;
-          const el = (
-            <circle
-              key={i}
-              cx="56"
-              cy="56"
-              r={r}
-              fill="none"
-              stroke={s.color}
-              strokeWidth="11"
-              strokeLinecap="butt"
-              strokeDasharray={`${Math.max(len - 2, 0)} ${c}`}
-              strokeDashoffset={-offset}
-              transform="rotate(-90 56 56)"
-            />
-          );
-          offset += len;
-          return el;
-        })}
-      </svg>
-      <span className="absolute inset-0 grid place-content-center text-center">
-        <span className="text-[22px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
-          {total}
-        </span>
-        <span className="mt-1 text-[10.5px] uppercase tracking-[0.16em]" style={{ color: MUTED }}>
-          Total
-        </span>
-      </span>
-    </div>
-  );
+function docIcon(d: BookingDoc) {
+  const spreadsheet = /\.(xlsx|xls|csv)$/i.test(d.name) || d.kind === "Spreadsheet";
+  return spreadsheet ? <FileSpreadsheet size={15} /> : CAT_ICON[d.category];
 }
 
-function Panel({
-  title,
-  action,
-  subtitle,
-  children,
+/* ══════════════════ folder tabs ══════════════════ */
+
+type Section = "hotel" | "you";
+
+function FolderTab({
+  label,
+  count,
+  active,
+  behind,
+  onClick,
 }: {
-  title: string;
-  action?: React.ReactNode;
-  subtitle?: string;
-  children: React.ReactNode;
+  label: string;
+  count: number;
+  active: boolean;
+  behind: boolean;
+  onClick: () => void;
 }) {
   return (
-    <section
-      className="rounded-[16px] p-5 sm:p-6"
+    <button
+      type="button"
+      onClick={onClick}
+      className="relative inline-flex items-center gap-2 px-4 transition-colors duration-200"
       style={{
-        background: INK,
-        border: `1px solid ${NAVY_BORDER}`,
-        boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
+        height: active ? 38 : 35,
+        marginTop: active ? 0 : 3,
+        marginBottom: active ? -1 : 0,
+        marginLeft: behind ? -8 : 0,
+        zIndex: active ? 2 : 1,
+        background: active ? PAPER : BEHIND,
+        borderTop: `1px solid ${EDGE}`,
+        borderLeft: `1px solid ${EDGE}`,
+        borderRight: `1px solid ${EDGE}`,
+        borderBottom: active ? "none" : `1px solid ${EDGE}`,
+        borderRadius: "10px 10px 0 0",
+        boxShadow: active ? `inset 0 2px 0 ${GOLD}` : undefined,
       }}
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
-        <div className="min-w-0">
-          <h3 className="truncate text-[16px]" style={{ color: TEXT, fontFamily: SERIF, fontWeight: 500 }}>
-            {title}
-          </h3>
-          {subtitle && (
-            <p className="mt-1 text-[12.5px]" style={{ color: MUTED }}>
-              {subtitle}
-            </p>
-          )}
-        </div>
-        {action}
-      </div>
-      {children}
-    </section>
+      <span
+        className="text-[12.5px]"
+        style={{ color: active ? INK : INK_2, fontWeight: active ? 500 : 400 }}
+      >
+        {label}
+      </span>
+      <span
+        className="grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[10px]"
+        style={{
+          background: active ? "rgba(27,37,48,0.08)" : "rgba(27,37,48,0.06)",
+          color: active ? INK_2 : INK_3,
+        }}
+      >
+        {count}
+      </span>
+    </button>
   );
 }
 
-/* ────────────────────────── main view ────────────────────────── */
+/* ══════════════════ document rows ══════════════════ */
+
+function DocRow({
+  doc,
+  selected,
+  last,
+  onSelect,
+}: {
+  doc: BookingDoc;
+  selected: boolean;
+  last: boolean;
+  onSelect: () => void;
+}) {
+  const [hover, setHover] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      className="relative grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 py-[13px] text-left transition-colors duration-200"
+      style={{
+        background: selected ? SELECTED : hover ? HOVER : "transparent",
+        borderBottom: last ? "none" : `1px solid ${HAIR}`,
+      }}
+    >
+      {selected && (
+        <span
+          aria-hidden
+          className="absolute inset-y-[6px] left-0 w-[2px] rounded-full"
+          style={{ background: GOLD }}
+        />
+      )}
+      <span className="flex min-w-0 items-center gap-3">
+        <span className="shrink-0" style={{ color: selected ? GOLD : INK_3 }}>
+          {docIcon(doc)}
+        </span>
+        <span className="min-w-0">
+          <span className="flex items-center gap-2">
+            <span
+              className="truncate text-[13px]"
+              style={{ color: INK, fontWeight: selected ? 600 : 450 }}
+            >
+              {doc.name}
+            </span>
+            {selected && (
+              <span
+                className="shrink-0 text-[9px] uppercase tracking-[0.16em]"
+                style={{ color: GOLD }}
+              >
+                Current
+              </span>
+            )}
+          </span>
+          <span className="mt-[2px] block truncate text-[11.5px]" style={{ color: INK_3 }}>
+            {doc.kind}
+          </span>
+        </span>
+      </span>
+      <span className="shrink-0 whitespace-nowrap text-[11.5px]" style={{ color: INK_2 }}>
+        {doc.uploadedLabel}
+      </span>
+    </button>
+  );
+}
+
+/* ══════════════════ main view ══════════════════ */
 
 export function BookingDocumentsView({ reference }: { reference: string }) {
   const [docs, setDocs] = useState<BookingDoc[]>(() => seedDocuments(reference));
-  const [active, setActive] = useState<DocCategory | "All documents">("All documents");
-  const [query, setQuery] = useState("");
-  const [filterCat, setFilterCat] = useState<"all" | DocCategory>("all");
-  const [sort, setSort] = useState<"new" | "old" | "name" | "size">("new");
-  const [view, setView] = useState<"list" | "grid">("list");
-  const [page, setPage] = useState(1);
+  const [section, setSection] = useState<Section>("hotel");
+  const [showAll, setShowAll] = useState(false);
+  const [selectedId, setSelectedId] = useState<string>(() => seedDocuments(reference)[0].id);
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const counts = useMemo(() => {
-    const map = Object.fromEntries(CATEGORIES.map((c) => [c, 0])) as Record<DocCategory, number>;
-    docs.forEach((d) => (map[d.category] += 1));
-    return map;
-  }, [docs]);
+  const hotelDocs = useMemo(() => docs.filter((d) => d.uploadedBy === "Hotel"), [docs]);
+  const yourDocs = useMemo(() => docs.filter((d) => d.uploadedBy === "You"), [docs]);
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    let out = docs.filter((d) => {
-      if (active !== "All documents" && d.category !== active) return false;
-      if (filterCat !== "all" && d.category !== filterCat) return false;
-      if (q && !d.name.toLowerCase().includes(q)) return false;
-      return true;
-    });
-    out = [...out].sort((a, b) => {
-      if (sort === "new") return b.uploadedAt - a.uploadedAt;
-      if (sort === "old") return a.uploadedAt - b.uploadedAt;
-      if (sort === "name") return a.name.localeCompare(b.name);
-      return b.size - a.size;
-    });
-    return out;
-  }, [docs, active, filterCat, query, sort]);
+  const list = useMemo(() => {
+    const source = section === "hotel" ? hotelDocs : yourDocs;
+    return showAll ? source : source.filter((d) => !d.archived);
+  }, [section, hotelDocs, yourDocs, showAll]);
 
-  const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const current = Math.min(page, pages);
-  const slice = filtered.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);
-  const from = filtered.length === 0 ? 0 : (current - 1) * PAGE_SIZE + 1;
-  const to = Math.min(current * PAGE_SIZE, filtered.length);
+  const hasArchive = useMemo(
+    () => (section === "hotel" ? hotelDocs : yourDocs).some((d) => d.archived),
+    [section, hotelDocs, yourDocs],
+  );
 
-  const reset = () => {
-    setActive("All documents");
-    setFilterCat("all");
-    setQuery("");
-    setPage(1);
-  };
+  const selected = useMemo(
+    () => docs.find((d) => d.id === selectedId) ?? docs[0],
+    [docs, selectedId],
+  );
 
   function addFiles(files: FileList | null) {
     if (!files || files.length === 0) return;
@@ -317,6 +304,7 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
         name: f.name,
         version: "1.0",
         category: categorize(f.name),
+        kind: /\.(xlsx|xls|csv)$/i.test(f.name) ? "Spreadsheet" : "PDF",
         uploadedBy: "You",
         uploadedLabel: "Just now",
         uploadedAt: Date.now(),
@@ -327,7 +315,7 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
     if (accepted.length) {
       setError(null);
       setDocs((d) => [...accepted, ...d]);
-      setPage(1);
+      setSection("you");
     }
   }
 
@@ -339,472 +327,211 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
     a.click();
   }
 
-  const important = useMemo(
-    () =>
-      [...docs]
-        .filter((d) => ["Contracts", "Proposals", "Invoices"].includes(d.category))
-        .sort((a, b) => b.uploadedAt - a.uploadedAt)
-        .slice(0, 3),
-    [docs],
-  );
-
   return (
-    <div className="space-y-4">
-      <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_322px]">
-        {/* ── LEFT: documents library ── */}
-        <Panel
-          title="Documents"
-          subtitle="All documents related to your booking in one place."
-          action={
-            <button
-              type="button"
-              onClick={() => inputRef.current?.click()}
-              className="inline-flex shrink-0 items-center gap-2 rounded-[10px] px-4 py-2.5 text-[12.5px] font-semibold transition-opacity hover:opacity-90"
-              style={{
-                background: "linear-gradient(180deg, #E7C777 0%, #C5962D 100%)",
-                color: "#22180A",
-                boxShadow: "0 10px 24px -18px rgba(197,150,45,0.9)",
-              }}
-            >
-              <Upload size={14} /> Upload document
-            </button>
-          }
-        >
-          <input
-            ref={inputRef}
-            type="file"
-            multiple
-            accept={ACCEPT}
-            className="hidden"
-            onChange={(e) => {
-              addFiles(e.target.files);
-              e.target.value = "";
-            }}
-          />
+    <Plate>
+      <div className="flex flex-1 flex-col px-5 pb-[22px] pt-[18px] sm:px-7">
+        <input
+          ref={inputRef}
+          type="file"
+          multiple
+          accept={ACCEPT}
+          className="hidden"
+          onChange={(e) => {
+            addFiles(e.target.files);
+            e.target.value = "";
+          }}
+        />
 
-          {/* category cards */}
-          <div className="-mx-1 mt-5 flex gap-2.5 overflow-x-auto px-1 pb-1">
-            {(["All documents", ...CATEGORIES] as const).map((c) => {
-              const isAll = c === "All documents";
-              const on = active === c;
-              const n = isAll ? docs.length : counts[c as DocCategory];
-              return (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => {
-                    setActive(c);
-                    setPage(1);
-                  }}
-                  className="flex min-w-[96px] flex-1 flex-col items-center gap-2 rounded-[13px] px-3 py-4 transition-colors"
-                  style={{
-                    background: on ? INK_2 : "rgba(12,26,36,0.28)",
-                    border: `1px solid ${on ? "rgba(199,163,74,0.55)" : NAVY_BORDER}`,
-                    boxShadow: on ? "inset 0 1px 0 rgba(255,255,255,0.06)" : undefined,
-                  }}
-                >
-                  <span style={{ color: on ? GOLD_SOFT : "rgba(226,233,239,0.6)" }}>
-                    {isAll ? <Files size={17} /> : CAT_ICON[c as DocCategory]}
-                  </span>
-                  <span className="whitespace-nowrap text-[12px]" style={{ color: on ? TEXT : TEXT_2 }}>
-                    {c}
-                  </span>
-                  <span className="text-[12.5px] font-semibold" style={{ color: on ? GOLD_SOFT : MUTED }}>
-                    {n}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* toolbar */}
-          <div className="mt-5 grid gap-2.5 lg:grid-cols-[minmax(0,1fr)_auto]">
-            <div className="flex min-w-0 flex-wrap gap-2.5">
-              <label className="relative min-w-0 flex-1" style={{ minWidth: 180 }}>
-                <Search
-                  size={14}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2"
-                  style={{ color: MUTED }}
-                />
-                <input
-                  value={query}
-                  onChange={(e) => {
-                    setQuery(e.target.value);
-                    setPage(1);
-                  }}
-                  placeholder="Search documents..."
-                  aria-label="Search documents"
-                  className="w-full rounded-[10px] py-2.5 pl-9 pr-3 text-[12.5px] outline-none"
-                  style={{ background: "rgba(12,26,36,0.32)", border: `1px solid ${NAVY_BORDER}`, color: TEXT }}
-                />
-              </label>
-              <select
-                value={filterCat}
-                onChange={(e) => {
-                  setFilterCat(e.target.value as "all" | DocCategory);
-                  setPage(1);
-                }}
-                aria-label="Filter by category"
-                className="rounded-[10px] px-3 py-2.5 text-[12.5px] outline-none"
-                style={{ background: "rgba(12,26,36,0.32)", border: `1px solid ${NAVY_BORDER}`, color: TEXT }}
-              >
-                <option value="all">All categories</option>
-                {CATEGORIES.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
+        <div className="grid min-w-0 items-start gap-[30px] lg:grid-cols-[36fr_64fr]">
+          {/* ── LEFT: the physical folder ── */}
+          <div className="min-w-0">
+            <div className="flex items-end">
+              {section === "hotel" ? (
+                <>
+                  <FolderTab
+                    label="Booking documents"
+                    count={hotelDocs.length}
+                    active
+                    behind={false}
+                    onClick={() => setSection("hotel")}
+                  />
+                  <FolderTab
+                    label="Your documents"
+                    count={yourDocs.length}
+                    active={false}
+                    behind
+                    onClick={() => setSection("you")}
+                  />
+                </>
+              ) : (
+                <>
+                  <FolderTab
+                    label="Your documents"
+                    count={yourDocs.length}
+                    active
+                    behind={false}
+                    onClick={() => setSection("you")}
+                  />
+                  <FolderTab
+                    label="Booking documents"
+                    count={hotelDocs.length}
+                    active={false}
+                    behind
+                    onClick={() => setSection("hotel")}
+                  />
+                </>
+              )}
             </div>
-            <div className="flex flex-wrap items-center gap-2.5">
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value as typeof sort)}
-                aria-label="Sort documents"
-                className="rounded-[10px] px-3 py-2.5 text-[12.5px] outline-none"
-                style={{ background: "rgba(12,26,36,0.32)", border: `1px solid ${NAVY_BORDER}`, color: TEXT }}
-              >
-                <option value="new">Sort by: Newest first</option>
-                <option value="old">Sort by: Oldest first</option>
-                <option value="name">Sort by: Name</option>
-                <option value="size">Sort by: Size</option>
-              </select>
+
+            {/* body + the second sheet behind it */}
+            <div className="relative">
+              <span
+                aria-hidden
+                className="absolute inset-x-[3px] bottom-[-4px] top-[8px]"
+                style={{ background: BEHIND, borderRadius: "0 0 10px 10px" }}
+              />
               <div
-                className="flex shrink-0 items-center gap-1 rounded-[10px] p-1"
-                style={{ background: "rgba(12,26,36,0.32)", border: `1px solid ${NAVY_BORDER}` }}
+                className="relative p-5"
+                style={{
+                  background: PAPER,
+                  border: `1px solid ${EDGE}`,
+                  borderRadius: "0 10px 10px 10px",
+                  boxShadow: "0 1px 2px rgba(20,30,36,0.04)",
+                }}
               >
-                {(["list", "grid"] as const).map((v) => (
-                  <button
-                    key={v}
-                    type="button"
-                    aria-label={`${v} view`}
-                    aria-pressed={view === v}
-                    onClick={() => setView(v)}
-                    className="grid h-[30px] w-[32px] place-items-center rounded-[7px]"
+                <div
+                  className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-3 pb-2 text-[9.5px] uppercase tracking-[0.18em]"
+                  style={{ color: INK_3 }}
+                >
+                  <span>Document name</span>
+                  <span>Date</span>
+                </div>
+
+                <div className="-mx-3">
+                  {list.map((d, i) => (
+                    <DocRow
+                      key={d.id}
+                      doc={d}
+                      selected={d.id === selected?.id}
+                      last={i === list.length - 1}
+                      onSelect={() => setSelectedId(d.id)}
+                    />
+                  ))}
+                  {list.length === 0 && (
+                    <p className="px-3 py-8 text-center text-[12.5px]" style={{ color: INK_3 }}>
+                      No documents here yet.
+                    </p>
+                  )}
+                </div>
+
+                {section === "you" && (
+                  <div
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setDragging(true);
+                    }}
+                    onDragLeave={() => setDragging(false)}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      setDragging(false);
+                      addFiles(e.dataTransfer.files);
+                    }}
+                    onClick={() => inputRef.current?.click()}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && inputRef.current?.click()}
+                    className="mt-3 cursor-pointer rounded-[8px] px-4 py-4 text-center transition-colors duration-200"
                     style={{
-                      background: view === v ? "rgba(199,163,74,0.16)" : "transparent",
-                      color: view === v ? GOLD_SOFT : MUTED,
+                      border: `1px dashed ${dragging ? GOLD : EDGE}`,
+                      background: dragging ? SELECTED : "transparent",
                     }}
                   >
-                    {v === "list" ? <List size={15} /> : <Grid2X2 size={15} />}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* table / grid */}
-          {view === "list" ? (
-            <div className="mt-4 min-w-0 overflow-x-auto">
-              <table className="w-full min-w-[520px] border-collapse text-left">
-                <thead>
-                  <tr>
-                    {["Document name", "Category", "Uploaded by", "Uploaded", "Size", "Actions"].map((h) => (
-                      <th
-                        key={h}
-                        className={`pb-3 pr-3 text-[10.5px] uppercase tracking-[0.14em] font-medium${h === "Uploaded by" ? " hidden 2xl:table-cell" : ""}`}
-                        style={{ color: MUTED, borderBottom: "1px solid rgba(255,255,255,0.08)" }}
-                      >
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {slice.map((d) => (
-                    <tr key={d.id} className="hgb-doc-row">
-                      <td className="py-3.5 pr-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                        <div className="flex min-w-0 items-center gap-3">
-                          <span
-                            className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[8px]"
-                            style={{
-                              background: "rgba(12,26,36,0.4)",
-                              border: `1px solid ${NAVY_BORDER}`,
-                              color: CAT_COLOR[d.category],
-                            }}
-                          >
-                            {fileIcon(d.name)}
-                          </span>
-                          <span className="min-w-0">
-                            <span className="block truncate text-[13px]" style={{ color: TEXT }}>
-                              {d.name}
-                            </span>
-                            <span className="block text-[11px]" style={{ color: MUTED }}>
-                              Version {d.version}
-                              <span className="2xl:hidden"> · {d.uploadedBy}</span>
-                            </span>
-                          </span>
-                        </div>
-                      </td>
-                      <td className="py-3.5 pr-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                        <span
-                          className="inline-block whitespace-nowrap rounded-full px-2.5 py-1 text-[11px]"
-                          style={{
-                            color: CAT_COLOR[d.category],
-                            border: `1px solid ${CAT_COLOR[d.category]}55`,
-                            background: `${CAT_COLOR[d.category]}14`,
-                          }}
-                        >
-                          {d.category}
-                        </span>
-                      </td>
-                      <td
-                        className="hidden py-3.5 pr-3 text-[12.5px] 2xl:table-cell"
-                        style={{ color: TEXT_2, borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-                      >
-                        {d.uploadedBy}
-                      </td>
-                      <td
-                        className="whitespace-nowrap py-3.5 pr-3 text-[12.5px]"
-                        style={{ color: TEXT_2, borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-                      >
-                        {d.uploadedLabel}
-                      </td>
-                      <td
-                        className="whitespace-nowrap py-3.5 pr-3 text-[12.5px]"
-                        style={{ color: TEXT_2, borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-                      >
-                        {formatSize(d.size)}
-                      </td>
-                      <td className="py-3.5" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                        <div className="flex items-center gap-1.5">
-                          <button
-                            type="button"
-                            aria-label={`Download ${d.name}`}
-                            onClick={() => download(d)}
-                            disabled={!d.url}
-                            title={d.url ? "Download" : "Available from the hotel"}
-                            className="grid h-[28px] w-[28px] place-items-center rounded-[8px] transition-colors disabled:opacity-45"
-                            style={{ color: GOLD_SOFT }}
-                          >
-                            <Download size={15} />
-                          </button>
-                          <button
-                            type="button"
-                            aria-label={`More options for ${d.name}`}
-                            className="grid h-[28px] w-[28px] place-items-center rounded-[8px]"
-                            style={{ color: MUTED }}
-                          >
-                            <MoreHorizontal size={15} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              {slice.length === 0 && (
-                <p className="py-10 text-center text-[13px]" style={{ color: MUTED }}>
-                  No documents match your filters.
-                </p>
-              )}
-            </div>
-          ) : (
-            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {slice.map((d) => (
-                <div
-                  key={d.id}
-                  className="rounded-[13px] p-4"
-                  style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <span style={{ color: CAT_COLOR[d.category] }}>{fileIcon(d.name)}</span>
-                    <button
-                      type="button"
-                      aria-label={`Download ${d.name}`}
-                      onClick={() => download(d)}
-                      disabled={!d.url}
-                      className="disabled:opacity-45"
-                      style={{ color: GOLD_SOFT }}
-                    >
-                      <Download size={15} />
-                    </button>
+                    <p className="text-[12px]" style={{ color: INK_2 }}>
+                      Drop a file here or{" "}
+                      <span style={{ color: GOLD }}>browse</span>
+                      <span style={{ color: INK_3 }}> · max 25 MB</span>
+                    </p>
                   </div>
-                  <p className="mt-3 truncate text-[13px]" style={{ color: TEXT }}>
-                    {d.name}
+                )}
+
+                {error && (
+                  <p className="mt-2 text-[11.5px]" style={{ color: "#A44A38" }}>
+                    {error}
                   </p>
-                  <p className="mt-1 text-[11px]" style={{ color: MUTED }}>
-                    Version {d.version} · {d.uploadedLabel} · {formatSize(d.size)}
-                  </p>
-                </div>
-              ))}
-              {slice.length === 0 && (
-                <p className="py-10 text-center text-[13px] sm:col-span-2 lg:col-span-3" style={{ color: MUTED }}>
-                  No documents match your filters.
-                </p>
-              )}
-            </div>
-          )}
+                )}
 
-          {/* pagination */}
-          <div className="mt-5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 pt-4"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
-          >
-            <p className="truncate text-[12px]" style={{ color: MUTED }}>
-              Showing {from} to {to} of {filtered.length} documents
-            </p>
-            <div className="flex items-center gap-1.5">
-              <PagerBtn label="Previous" disabled={current === 1} onClick={() => setPage(current - 1)}>
-                <ChevronLeft size={15} />
-              </PagerBtn>
-              {Array.from({ length: pages }, (_, i) => i + 1).map((p) => (
-                <button
-                  key={p}
-                  type="button"
-                  onClick={() => setPage(p)}
-                  aria-current={p === current ? "page" : undefined}
-                  className="grid h-[30px] min-w-[30px] place-items-center rounded-[8px] px-2 text-[12px]"
-                  style={{
-                    background: p === current ? "rgba(199,163,74,0.16)" : "rgba(12,26,36,0.3)",
-                    border: `1px solid ${p === current ? "rgba(199,163,74,0.5)" : NAVY_BORDER}`,
-                    color: p === current ? GOLD_SOFT : TEXT_2,
-                  }}
-                >
-                  {p}
-                </button>
-              ))}
-              <PagerBtn label="Next" disabled={current === pages} onClick={() => setPage(current + 1)}>
-                <ChevronRight size={15} />
-              </PagerBtn>
-            </div>
-          </div>
-        </Panel>
-
-        {/* ── RIGHT: support column ── */}
-        <aside className="min-w-0 space-y-4">
-          <Panel title="Document summary">
-            <div className="mt-4 flex items-center gap-4">
-              <Donut
-                total={docs.length}
-                slices={CATEGORIES.map((c) => ({ color: CAT_COLOR[c], value: counts[c] }))}
-              />
-              <ul className="min-w-0 flex-1 space-y-2">
-                {CATEGORIES.map((c) => (
-                  <li key={c} className="flex items-center gap-2 text-[12px]">
-                    <span
-                      className="h-[7px] w-[7px] shrink-0 rounded-full"
-                      style={{ background: CAT_COLOR[c] }}
-                    />
-                    <span className="min-w-0 flex-1 truncate" style={{ color: TEXT_2 }}>
-                      {c}
-                    </span>
-                    <span style={{ color: TEXT }}>{counts[c]}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Panel>
-
-          <Panel title="Upload new document">
-            <div
-              onDragOver={(e) => {
-                e.preventDefault();
-                setDragging(true);
-              }}
-              onDragLeave={() => setDragging(false)}
-              onDrop={(e) => {
-                e.preventDefault();
-                setDragging(false);
-                addFiles(e.dataTransfer.files);
-              }}
-              onClick={() => inputRef.current?.click()}
-              className="mt-4 cursor-pointer rounded-[13px] px-4 py-7 text-center transition-colors"
-              style={{
-                border: `1px dashed ${dragging ? "rgba(199,163,74,0.7)" : "rgba(255,255,255,0.16)"}`,
-                background: dragging ? "rgba(199,163,74,0.07)" : "rgba(12,26,36,0.26)",
-              }}
-            >
-              <UploadCloud size={22} style={{ color: GOLD_SOFT }} className="mx-auto" />
-              <p className="mt-2.5 text-[12.5px]" style={{ color: TEXT_2 }}>
-                Drag and drop files here
-              </p>
-              <p className="mt-0.5 text-[12px]" style={{ color: MUTED }}>
-                or <span style={{ color: GOLD_SOFT, textDecoration: "underline" }}>browse files</span>
-              </p>
-              <p className="mt-2 text-[11px]" style={{ color: MUTED }}>
-                Max file size: 25 MB
-              </p>
-            </div>
-            {error && (
-              <p className="mt-2 text-[11.5px]" style={{ color: "#D08A7A" }}>
-                {error}
-              </p>
-            )}
-          </Panel>
-
-          <Panel title="Important documents">
-            <ul className="mt-4 space-y-2">
-              {important.map((d) => (
-                <li
-                  key={d.id}
-                  className="flex items-center gap-3 rounded-[11px] px-3 py-2.5"
-                  style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
-                >
-                  <span className="shrink-0" style={{ color: CAT_COLOR[d.category] }}>
-                    {fileIcon(d.name)}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
-                      {d.name}
-                    </span>
-                    <span className="block truncate text-[11px]" style={{ color: MUTED }}>
-                      Version {d.version} · {d.uploadedLabel}
-                    </span>
-                  </span>
+                {hasArchive && (
                   <button
                     type="button"
-                    aria-label={`Download ${d.name}`}
-                    onClick={() => download(d)}
-                    disabled={!d.url}
-                    className="shrink-0 disabled:opacity-45"
-                    style={{ color: GOLD_SOFT }}
+                    onClick={() => setShowAll((v) => !v)}
+                    className="mt-3 text-[12px] transition-opacity hover:opacity-75"
+                    style={{ color: GOLD }}
                   >
-                    <Download size={15} />
+                    {showAll ? "Show fewer documents" : "Show all documents"}
                   </button>
-                </li>
-              ))}
-            </ul>
-            <button
-              type="button"
-              onClick={reset}
-              className="mt-3 flex w-full items-center justify-center gap-2 rounded-[10px] py-2.5 text-[12.5px] transition-opacity hover:opacity-90"
-              style={{ background: "rgba(12,26,36,0.32)", border: `1px solid ${NAVY_BORDER}`, color: GOLD_SOFT }}
+                )}
+              </div>
+            </div>
+
+            <p className="mt-4 flex items-center gap-2 text-[11.5px]" style={{ color: INK_3 }}>
+              <Lock size={12} style={{ color: GOLD }} />
+              Securely stored, visible only to authorized users.
+            </p>
+          </div>
+
+          {/* ── RIGHT: the reading area shell ── */}
+          <div className="min-w-0">
+            <div className="mb-3 flex items-start justify-between gap-4">
+              <div className="min-w-0">
+                <h3
+                  className="truncate text-[19px] leading-tight"
+                  style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
+                >
+                  {selected?.name}
+                </h3>
+                <p className="mt-1 text-[11.5px]" style={{ color: INK_3 }}>
+                  {selected?.uploadedLabel} · {selected?.kind}
+                </p>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => selected && download(selected)}
+                  className="inline-flex items-center gap-2 rounded-[7px] px-3.5 py-2 text-[12px] font-medium transition-opacity hover:opacity-90"
+                  style={{ background: INK, color: PAPER }}
+                >
+                  <Download size={13} /> Download PDF
+                </button>
+                <button
+                  type="button"
+                  aria-label="More document options"
+                  className="grid h-[32px] w-[30px] place-items-center rounded-[7px]"
+                  style={{ border: `1px solid ${EDGE}`, background: PAPER, color: INK_2 }}
+                >
+                  <MoreVertical size={15} />
+                </button>
+              </div>
+            </div>
+
+            <div
+              className="grid min-h-[620px] place-content-center rounded-[10px] px-8 py-16 text-center"
+              style={{
+                background: "#FDFCFA",
+                border: `1px solid ${EDGE_SOFT}`,
+                boxShadow: "0 1px 3px rgba(20,30,36,0.05)",
+              }}
             >
-              View all documents <ChevronRight size={14} />
-            </button>
-          </Panel>
-        </aside>
+              <p className="text-[15px]" style={{ color: INK_2, fontFamily: SERIF }}>
+                {selected?.name}
+              </p>
+              <p className="mt-1 text-[12px]" style={{ color: INK_3 }}>
+                {selected?.kind}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <p className="flex items-center gap-2 px-1 text-[11.5px]" style={{ color: "rgba(30,44,54,0.6)" }}>
-        <Lock size={13} style={{ color: GOLD_MET_MID }} />
-        All documents are securely stored and only visible to authorized users.
-      </p>
-    </div>
-  );
-}
-
-function PagerBtn({
-  label,
-  disabled,
-  onClick,
-  children,
-}: {
-  label: string;
-  disabled: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      disabled={disabled}
-      onClick={onClick}
-      className="grid h-[30px] w-[30px] place-items-center rounded-[8px] disabled:opacity-35"
-      style={{ background: "rgba(12,26,36,0.3)", border: `1px solid ${NAVY_BORDER}`, color: TEXT_2 }}
-    >
-      {children}
-    </button>
+      <span aria-hidden className="hidden" style={{ background: GROUND }} />
+    </Plate>
   );
 }
