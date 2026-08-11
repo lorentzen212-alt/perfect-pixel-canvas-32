@@ -18,7 +18,6 @@ import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/over
 
 /* ── warm document-desk surfaces ── */
 const PAPER = "#FAF9F6";
-const GROUND = "#F4F1EB";
 const HOVER = "#F1EFE9";
 const BEHIND = "#ECEAE4";
 const EDGE = "rgba(27,37,48,0.12)";
@@ -531,7 +530,6 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
           </div>
         </div>
       </div>
-      <span aria-hidden className="hidden" style={{ background: GROUND }} />
     </Plate>
   );
 }
