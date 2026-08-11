@@ -77,7 +77,7 @@ function IconTile({ children }: { children: React.ReactNode }) {
 /* ── 1 · header action ────────────────────────────────────────── */
 function HeaderAction({ bookingId }: { bookingId: string }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[11px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
+    <Card className="flex flex-col gap-3 px-5 py-[11px] sm:flex-row sm:items-center sm:gap-5 sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
       <Medallion size={48}>
         <ClipboardList size={24} strokeWidth={1.5} />
       </Medallion>
