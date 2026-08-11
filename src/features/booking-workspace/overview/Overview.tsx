@@ -433,7 +433,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
       {cells.map((c, i) => (
         <div
           key={c.label + i}
-          className="flex items-center gap-3.5 px-5 py-[11px]"
+          className="flex items-center gap-3.5 px-5 py-[9px]"
           style={{ borderLeft: i === 0 ? undefined : "1px solid rgba(27,37,48,0.12)" }}
         >
           <span
