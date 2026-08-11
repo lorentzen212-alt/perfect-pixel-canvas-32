@@ -325,7 +325,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
   const totalGuests = rows.reduce((s, r) => s + r.guests, 0);
 
   return (
-    <Card className="flex flex-col px-5 pb-3 pt-[13px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
+    <Card className="flex flex-col px-5 pb-4 pt-[15px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
       <span
         className="text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
