@@ -6,7 +6,6 @@ import {
   FileSpreadsheet,
   FileText,
   Layers,
-  Lock,
   MoreVertical,
   Receipt,
   ScrollText,
@@ -17,9 +16,9 @@ import { Plate } from "@/features/booking-workspace/overview/primitives";
 import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
 
 /* ── warm document-desk surfaces ── */
-const PAPER = "#FAF9F6";
+const PAPER = "#FAF8F3";
 const HOVER = "#F1EFE9";
-const BEHIND = "#ECEAE4";
+const BEHIND = "#ECE8E0";
 const EDGE = "rgba(27,37,48,0.12)";
 const EDGE_SOFT = "rgba(27,37,48,0.08)";
 const SELECTED = "#FAF6EC";
