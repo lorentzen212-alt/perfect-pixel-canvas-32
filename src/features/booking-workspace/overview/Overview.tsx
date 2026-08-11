@@ -284,7 +284,7 @@ function DetailsCard({
                 </span>
 
                 <div
-                  className="grid min-h-[40px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[7px]"
+                  className="grid min-h-[38px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[6px]"
                   style={{
                     borderBottom:
                       i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
