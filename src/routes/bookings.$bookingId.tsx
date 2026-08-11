@@ -1795,55 +1795,24 @@ function ChangesView({
     onPanel(SERVICE_PANEL[s.key]);
   };
 
-  const summaryRows = [
-    { icon: <CalendarDays size={14} />, k: "Stay dates", v: stayDates },
-    { icon: <Bed size={14} />, k: "Rooms", v: `${totalRooms} rooms` },
-    { icon: <Users size={14} />, k: "Guests", v: `${totalGuests} guests` },
-    { icon: <FileText size={14} />, k: "Reference", v: reference },
-    { icon: <CreditCard size={14} />, k: "Payment terms", v: paymentTerms },
+  const summaryRows: { icon: React.ReactNode; k: string; v: string; from?: string }[] = [
+    { icon: <CalendarDays size={13} />, k: "Stay dates", v: stayDates },
+    {
+      icon: <Bed size={13} />,
+      k: "Rooms",
+      v: `${afterRooms} rooms`,
+      from: afterRooms !== currentRooms ? String(currentRooms) : undefined,
+    },
+    {
+      icon: <Users size={13} />,
+      k: "Guests",
+      v: `${afterGuests} guests`,
+      from: afterGuests !== currentGuests ? String(currentGuests) : undefined,
+    },
+    { icon: <FileText size={13} />, k: "Reference", v: reference },
+    { icon: <CreditCard size={13} />, k: "Payment terms", v: paymentTerms },
   ];
 
-  const SummaryCard = (
-    <Card className="sticky top-6 px-5 py-4 sm:px-6">
-      <Eyebrow>Change summary</Eyebrow>
-      <ul className="mt-2.5">
-        {summaryRows.map((r, i) => (
-          <li
-            key={r.k}
-            className="flex h-[40px] items-center gap-3"
-            style={i > 0 ? { borderTop: `1px solid rgba(27,37,48,0.10)` } : undefined}
-          >
-            <span className="shrink-0" style={{ color: C_GOLD_2 }}>
-              {r.icon}
-            </span>
-            <span className="min-w-0 flex-1 truncate text-[13px]" style={{ color: C_INK_2 }}>
-              {r.k}
-            </span>
-            <span className="shrink-0 text-[13px] font-medium" style={{ color: C_INK }}>
-              {r.v}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <div
-        className="mt-3 flex items-start gap-2.5 rounded-[8px] px-3.5 py-2.5 text-[11.5px]"
-        style={{ background: "#F7F1E4", border: `1px solid rgba(27,37,48,0.10)`, color: C_INK_2 }}
-      >
-        <Info size={14} className="mt-[1px] shrink-0" style={{ color: C_GOLD }} />
-        <span>We&rsquo;ll review your request and respond as soon as possible.</span>
-      </div>
-
-      <div className="mt-3">
-        <ChangeSubmit disabled={changed.length === 0}>
-          Submit change request <ArrowRight size={14} />
-        </ChangeSubmit>
-      </div>
-      <p className="mt-2 flex items-center justify-center gap-1.5 text-[11px]" style={{ color: C_INK_3 }}>
-        <Lock size={11} /> Your request is sent securely
-      </p>
-    </Card>
-  );
 
   const stepper = (l: (typeof lines)[number]) => (
     <IvoryStepper
