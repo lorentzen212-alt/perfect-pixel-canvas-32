@@ -1682,6 +1682,12 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+const underlineInput: React.CSSProperties = {
+  background: "transparent",
+  borderBottom: "1px solid rgba(27,37,48,0.12)",
+  color: "#1B2530",
+};
+
 const ivoryInput: React.CSSProperties = {
   background: INSET_BG,
   border: INSET_BORDER,
