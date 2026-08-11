@@ -47,18 +47,21 @@ function OutlineButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-4 py-[8px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(176,112,15,0.06)] ${className}`}
-      style={{ color: "#A97824", border: "1px solid rgba(169,120,36,0.42)", background: "transparent" }}
+      className={`inline-flex items-center justify-center gap-2 rounded-[5px] px-4 py-[8px] text-[12.5px] font-semibold transition-colors hover:bg-[rgba(176,112,15,0.06)] ${className}`}
+      style={{ color: "#A97824", border: "1px solid rgba(169,120,36,0.70)", background: "transparent" }}
     >
       {children}
     </button>
   );
 }
 
+/* shared square-ish card radius override for the Rooming tab */
+const CARD_RADIUS = 6;
+
 function IconTile({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[11px]"
+      className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[6px]"
       style={{
         background: "#FFFFFF",
         border: "1px solid rgba(125,125,115,0.14)",
