@@ -1044,7 +1044,7 @@ function Workspace({ booking }: { booking: Booking }) {
           }
           style={
             tab === "Overview"
-              ? { backgroundColor: "#AEB4B8" }
+              ? { backgroundColor: PAGE_UNDER }
               : { backgroundColor: PLATE }
           }
         >
