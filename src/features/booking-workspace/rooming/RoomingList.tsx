@@ -152,11 +152,11 @@ function StatusStrip({
   ];
 
   return (
-    <Card className="grid grid-cols-2 sm:grid-cols-4">
+    <Card className="grid grid-cols-2 sm:grid-cols-4" style={{ borderRadius: CARD_RADIUS }}>
       {cells.map((c, i) => (
         <div
           key={c.label}
-          className="flex items-center gap-3.5 px-5 py-[9px]"
+          className="flex items-center gap-3.5 px-5 py-[16px]"
           style={{ borderLeft: i === 0 ? undefined : "1px solid rgba(27,37,48,0.12)" }}
         >
           <IconTile>{c.icon}</IconTile>
