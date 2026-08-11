@@ -82,6 +82,7 @@ import {
 } from "@/features/booking-workspace/overview/materials";
 import {
   Card,
+  Plate,
   Medallion,
   Eyebrow,
   GoldLink,
@@ -1070,7 +1071,7 @@ function Workspace({ booking }: { booking: Booking }) {
     },
   ];
 
-  const isFolder = tab === "Overview" || tab === "Rooming List";
+  const isFolder = tab === "Overview" || tab === "Rooming List" || tab === "Changes";
 
   return (
     <div
@@ -1169,7 +1170,7 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
-          {isFolder || tab === "Changes" ? null : (
+          {isFolder ? null : (
 
             <div className="flex flex-wrap items-center gap-y-5 py-6">
               {strip.map((s, i) => (
@@ -1535,35 +1536,8 @@ const MODE_OF_PANEL: Record<Exclude<PanelKey, null>, ChangeMode> = {
 /* ── small ivory primitives, local to the Changes tab ── */
 
 /* nested/inset surfaces sit slightly warmer/darker than the near-white card */
-const INSET_BG = "#F7F5EF";
+const INSET_BG = "#FFFDF8";
 const INSET_BORDER = "1px solid rgba(27,37,48,0.16)";
-
-/* near-white card, local to the Changes tab, so it lifts off the #F6F4EB plate */
-const CHANGE_CARD_BG = "#FCFBF8";
-function ChangeCard({
-  children,
-  className = "",
-  style,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-}) {
-  return (
-    <div
-      className={className}
-      style={{
-        background: CHANGE_CARD_BG,
-        border: "1px solid rgba(27,37,48,0.14)",
-        borderRadius: 12,
-        boxShadow: "0 1px 2px rgba(20,30,36,0.06), 0 6px 14px -8px rgba(20,30,36,0.16)",
-        ...style,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
 
 /* "Twin Rooms" → "Twin rooms" */
 function sentenceCase(s: string) {
@@ -1810,7 +1784,7 @@ function ChangesView({
   ];
 
   const SummaryCard = (
-    <ChangeCard className="sticky top-6 px-5 py-4 sm:px-6">
+    <Card className="sticky top-6 px-5 py-4 sm:px-6">
       <Eyebrow>Change summary</Eyebrow>
       <ul className="mt-2.5">
         {summaryRows.map((r, i) => (
@@ -1848,13 +1822,14 @@ function ChangesView({
       <p className="mt-2 flex items-center justify-center gap-1.5 text-[11px]" style={{ color: C_INK_3 }}>
         <Lock size={11} /> Your request is sent securely
       </p>
-    </ChangeCard>
+    </Card>
   );
 
   return (
-    <div className="space-y-3 pb-8">
+    <Plate>
+      <div className="flex flex-1 flex-col space-y-[12px] px-5 pb-[6px] pt-4 sm:px-7">
       {/* ── intro + mode selector ── */}
-      <ChangeCard className="px-5 py-4 sm:px-6">
+      <Card className="px-5 py-4 sm:px-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex min-w-0 items-center gap-3.5">
             <Medallion size={42}>
@@ -1887,11 +1862,11 @@ function ChangesView({
             </button>
           </div>
         </div>
-      </ChangeCard>
+      </Card>
 
       {/* ── change history (tracker + recent requests), hidden by default ── */}
       {historyOpen && (
-        <ChangeCard className="px-5 py-4 sm:px-6">
+        <Card className="px-5 py-4 sm:px-6">
           <Eyebrow>Request status tracker</Eyebrow>
           <div className="mt-3 grid gap-2 sm:grid-cols-3 xl:grid-cols-5">
             {tracker.map((t) => (
@@ -1952,14 +1927,14 @@ function ChangesView({
               ))}
             </ul>
           </div>
-        </ChangeCard>
+        </Card>
       )}
 
       {/* ── workspace + summary ── */}
       <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(380px,440px)]">
         <div className="min-w-0 space-y-3">
           {mode === "rooms" && (
-            <ChangeCard className="px-5 py-4 sm:px-6">
+            <Card className="px-5 py-4 sm:px-6">
               <Eyebrow>What would you like to change?</Eyebrow>
 
               {/* 1 · apply changes to */}
@@ -2041,7 +2016,7 @@ function ChangesView({
               {/* 3 · totals */}
               <div
                 className="mt-3 grid grid-cols-2 rounded-[8px]"
-                style={{ background: "#F7F5EF", border: `1px solid rgba(27,37,48,0.10)` }}
+                style={{ background: INSET_BG, border: `1px solid rgba(27,37,48,0.10)` }}
               >
                 {[
                   { icon: <Bed size={13} />, label: "Total rooms", from: currentRooms, to: afterRooms },
@@ -2083,7 +2058,7 @@ function ChangesView({
                   {comment.length}/1000
                 </span>
               </div>
-            </ChangeCard>
+            </Card>
           )}
 
           {mode === "addons" && (
@@ -2353,6 +2328,8 @@ function ChangesView({
           Message HotelGroupBook <ArrowRight size={13} />
         </OutlineGold>
       </Card>
-    </div>
+      </div>
+    </Plate>
   );
+
 }
