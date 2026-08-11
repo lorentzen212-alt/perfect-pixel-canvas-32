@@ -235,7 +235,7 @@ function DetailsCard({
           "0 2px 3px rgba(20,30,36,0.08), 0 7px 14px rgba(20,30,36,0.10), inset 0 1px 0 rgba(255,255,255,0.92), inset 0 0 0 1px rgba(255,255,255,0.50)",
       }}
     >
-      <div className="relative px-6 py-[7px]">
+      <div className="relative px-6 py-[5px]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
           {status && (
@@ -272,7 +272,7 @@ function DetailsCard({
                 </span>
 
                 <div
-                  className="grid min-h-[25px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[2px]"
+                  className="grid min-h-[24px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[2px]"
                   style={{
                     borderBottom:
                       i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
@@ -354,7 +354,7 @@ function BookingExtras({
 }) {
   const includedCount = items.filter((i) => i.tone === "positive").length;
   return (
-    <Card className="px-5 py-[7px]">
+    <Card className="px-5 py-[5px]">
       <div className="flex items-center justify-between gap-3">
         <Eyebrow>Booking extras</Eyebrow>
         <span
@@ -420,7 +420,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
       {cells.map((c, i) => (
         <div
           key={c.label + i}
-          className="flex items-center gap-3.5 px-5 py-[10px]"
+          className="flex items-center gap-3.5 px-5 py-[7px]"
           style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
         >
           <Medallion size={40}>{c.icon}</Medallion>
