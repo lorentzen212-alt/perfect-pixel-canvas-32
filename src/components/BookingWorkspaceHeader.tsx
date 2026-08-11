@@ -240,19 +240,6 @@ export function BookingWorkspaceHeader({
                 </span>
               );
             }
-            if (t === "Rooming List") {
-              return (
-                <Link
-                  key={t}
-                  to="/rooming/$bookingId"
-                  params={{ bookingId }}
-                  className={cls}
-                  style={st}
-                >
-                  {inner}
-                </Link>
-              );
-            }
             if (onSelect) {
               return (
                 <button key={t} type="button" onClick={() => onSelect(t)} className={cls} style={st}>
