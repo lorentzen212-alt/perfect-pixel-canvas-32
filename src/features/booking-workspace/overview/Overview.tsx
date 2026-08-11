@@ -256,7 +256,11 @@ function DetailsCard({
           {rows.map((row, i) => {
             const isPaymentPill = row.k === "Payment terms" && /pending/i.test(row.v);
             return (
-              <div key={row.k} className="flex items-center gap-x-[14px]">
+              <div
+                key={row.k}
+                className="flex items-center gap-x-[14px]"
+                style={i % 2 === 1 ? { background: "#FAF8F5" } : undefined}
+              >
                 <span
                   className="grid h-[32px] w-[32px] shrink-0 place-items-center rounded-[8px]"
                   style={{
