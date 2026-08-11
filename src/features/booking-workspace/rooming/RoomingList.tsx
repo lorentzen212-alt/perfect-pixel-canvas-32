@@ -371,7 +371,8 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
       </div>
 
       <Link
-        to="/rooming/$bookingId"
+        to="/bookings/$bookingId"
+              search={{ tab: "Rooming List" }}
         params={{ bookingId }}
         className="mt-[12px] block"
       >
@@ -634,7 +635,8 @@ function Actions({
               </span>
             </span>
             {r.link ? (
-              <Link to="/rooming/$bookingId" params={{ bookingId }} className="shrink-0">
+              <Link to="/bookings/$bookingId"
+              search={{ tab: "Rooming List" }} params={{ bookingId }} className="shrink-0">
                 <GoldFillButton className="w-[176px]">
                   {r.label}
                   <ArrowRight size={13} />

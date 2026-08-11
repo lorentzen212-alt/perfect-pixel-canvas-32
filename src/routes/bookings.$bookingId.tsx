@@ -79,6 +79,9 @@ import { loadRoomingListFromDb } from "@/lib/roomingApi";
 
 export const Route = createFileRoute("/bookings/$bookingId")({
   component: BookingWorkspace,
+  validateSearch: (search: Record<string, unknown>): { tab?: WorkspaceTab } => ({
+    tab: typeof search.tab === "string" ? (search.tab as WorkspaceTab) : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Booking Workspace — HotelGroupBook" },
@@ -432,7 +435,7 @@ function BookingWorkspace() {
   const router = useRouter();
   useEffect(() => {
     if (!booking) return;
-    void router.preloadRoute({ to: "/rooming/$bookingId", params: { bookingId } });
+    void router.preloadRoute({ to: "/bookings/$bookingId", params: { bookingId }, search: { tab: "Rooming List" } });
     void queryClient
       .prefetchQuery(roomingQueryOptions(bookingId, booking.rooms))
       .catch(() => {});
@@ -460,7 +463,8 @@ function Workspace({ booking }: { booking: Booking }) {
     (profile?.first_name?.[0] ?? displayName[0] ?? "").toUpperCase() +
     (profile?.last_name?.[0] ?? "").toUpperCase();
   const [navOpen, setNavOpen] = useState(false);
-  const [tab, setTab] = useState<WorkspaceTab>("Overview");
+  const { tab: tabParam } = Route.useSearch();
+  const [tab, setTab] = useState<WorkspaceTab>(tabParam ?? "Overview");
   /* rooming progress is derived from the live rooming list, never hardcoded */
   const [roomingStats, setRoomingStats] = useState<{ filled: number; total: number; percent: number } | null>(null);
   const [roomingList, setRoomingList] = useState<RoomingList | null>(null);
@@ -1170,7 +1174,7 @@ function Workspace({ booking }: { booking: Booking }) {
               bookingId={booking.id}
               data={roomingData}
               onHistory={() => setTab("Changes")}
-              onNewVersion={() => navigate({ to: "/rooming/$bookingId", params: { bookingId: booking.id } })}
+              onNewVersion={() => navigate({ to: "/rooming-list/$bookingId", params: { bookingId: booking.id } })}
               onUpload={() => setTab("Documents")}
               onMessage={() => setTab("Messages")}
             />
