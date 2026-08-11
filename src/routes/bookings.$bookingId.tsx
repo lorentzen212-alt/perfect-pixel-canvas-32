@@ -605,6 +605,27 @@ function Workspace({ booking }: { booking: Booking }) {
     const deadlineIso = rooming?.due ?? derivedDeadline;
     const deadlineMs = deadlineIso ? new Date(deadlineIso).getTime() : NaN;
     const savedAt = roomingList?.savedAt ?? roomingList?.submittedAt ?? null;
+    const savedMs = savedAt ? new Date(savedAt).getTime() : NaN;
+    const versionNo = (roomingList?.changeLog?.length ?? 0) + 1;
+    const stamp = Number.isFinite(savedMs)
+      ? `Updated ${fmtDate(savedAt as string, { day: "numeric", month: "short", year: "numeric" })} at ${new Date(
+          savedMs,
+        ).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`
+      : "Not yet saved";
+    /* only the live version exists in the data model today — historical
+       records can be appended to this array once versioning is stored. */
+    const versions = [
+      {
+        id: `v${versionNo}`,
+        short: `V${versionNo}`,
+        name: versionNo > 1 ? `Version ${versionNo}` : "Original version",
+        timestamp: stamp,
+        guests: guestsAdded,
+        guestsTotal,
+        rooms: allocs.length || totalRooms,
+        current: true,
+      },
+    ];
     return {
       status: guestsAdded >= guestsTotal && guestsTotal > 0 ? "Complete" : "In progress",
       lastUpdated:
@@ -616,7 +637,9 @@ function Workspace({ booking }: { booking: Booking }) {
       guestsAdded,
       guestsTotal,
       roomsAssigned: allocs.length || totalRooms,
-      version: (roomingList?.changeLog?.length ?? 0) + 1,
+      version: versionNo,
+      versions,
+
       rows: rows.filter((r) => r.rooms > 0).length ? rows : rows,
     };
   }, [roomingList, roomingStats, rooming, stay.arrival, totalGuests, totalRooms]);
