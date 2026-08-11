@@ -1167,7 +1167,7 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
-          {isFolder ? null : (
+          {isFolder || tab === "Changes" ? null : (
 
             <div className="flex flex-wrap items-center gap-y-5 py-6">
               {strip.map((s, i) => (
@@ -1532,8 +1532,63 @@ const MODE_OF_PANEL: Record<Exclude<PanelKey, null>, ChangeMode> = {
 
 /* ── small ivory primitives, local to the Changes tab ── */
 
-const INSET_BG = "#FFFDF8";
+/* nested/inset surfaces sit slightly warmer/darker than the near-white card */
+const INSET_BG = "#F7F5EF";
 const INSET_BORDER = "1px solid rgba(27,37,48,0.16)";
+
+/* near-white card, local to the Changes tab, so it lifts off the #F6F4EB plate */
+const CHANGE_CARD_BG = "#FCFBF8";
+function ChangeCard({
+  children,
+  className = "",
+  style,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div
+      className={className}
+      style={{
+        background: CHANGE_CARD_BG,
+        border: "1px solid rgba(27,37,48,0.14)",
+        borderRadius: 12,
+        boxShadow: "0 1px 2px rgba(20,30,36,0.06), 0 6px 14px -8px rgba(20,30,36,0.16)",
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* "Twin Rooms" → "Twin rooms" */
+function sentenceCase(s: string) {
+  const [first, ...rest] = s.split(" ");
+  return [first, ...rest.map((w) => (w === "/" ? w : w.toLowerCase()))].join(" ");
+}
+
+function ChangeSubmit({ children, disabled }: { children: React.ReactNode; disabled?: boolean }) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      className="inline-flex w-full items-center justify-center gap-2 text-[13px] font-semibold"
+      style={{
+        background: `linear-gradient(180deg, ${AMBER} 0%, ${AMBER_DEEP} 100%)`,
+        color: "#FFF9EE",
+        borderRadius: 6,
+        padding: "13px 20px",
+        cursor: disabled ? "not-allowed" : "pointer",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.28), 0 1px 2px rgba(24,30,36,0.28), 0 4px 10px rgba(24,30,36,0.16)",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
 
 function ModeTile({
   icon,
