@@ -1887,11 +1887,11 @@ function ChangesView({
             </button>
           </div>
         </div>
-      </Card>
+      </ChangeCard>
 
       {/* ── change history (tracker + recent requests), hidden by default ── */}
       {historyOpen && (
-        <Card className="px-5 py-4 sm:px-6">
+        <ChangeCard className="px-5 py-4 sm:px-6">
           <Eyebrow>Request status tracker</Eyebrow>
           <div className="mt-3 grid gap-2 sm:grid-cols-3 xl:grid-cols-5">
             {tracker.map((t) => (
@@ -1952,7 +1952,7 @@ function ChangesView({
               ))}
             </ul>
           </div>
-        </Card>
+        </ChangeCard>
       )}
 
       {/* ── workspace + summary ── */}
