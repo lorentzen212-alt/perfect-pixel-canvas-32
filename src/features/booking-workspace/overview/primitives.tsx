@@ -3,11 +3,6 @@ import { ArrowRight } from "lucide-react";
 import {
   AMBER,
   AMBER_DEEP,
-  FOLDER_BREAK,
-  FOLDER_CONTACT,
-  FOLDER_DEPTH,
-  FOLDER_EDGE,
-  FOLDER_EDGE_DEEP,
   FOLDER_RIM,
   FOLDER_TOP_SURFACE,
   GOLD,
