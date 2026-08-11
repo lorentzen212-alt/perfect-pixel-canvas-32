@@ -60,7 +60,25 @@ import {
 } from "@/features/booking-workspace/folder";
 import { OverviewFolder } from "@/features/booking-workspace/overview/Overview";
 import { RoomingFolder } from "@/features/booking-workspace/rooming/RoomingList";
-import { FOLDER_TOP_SURFACE, PAGE_UNDER } from "@/features/booking-workspace/overview/materials";
+import {
+  FOLDER_TOP_SURFACE,
+  PAGE_UNDER,
+  INK as C_INK,
+  INK_2 as C_INK_2,
+  INK_3 as C_INK_3,
+  HAIR as C_HAIR,
+  IVORY as C_IVORY,
+  GOLD as C_GOLD,
+  GREEN as C_GREEN,
+} from "@/features/booking-workspace/overview/materials";
+import {
+  Card,
+  Medallion,
+  Eyebrow,
+  GoldLink,
+  SectionRule,
+  SolidButton,
+} from "@/features/booking-workspace/overview/primitives";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 
 import { roomingProgress, type Booking } from "@/lib/bookings";
@@ -1443,14 +1461,6 @@ function LedgerRow({
 
 /* ───────────────────────── Changes workspace ───────────────────────── */
 
-const STATUS_TONE = {
-  submitted: { line: "#6FA8DC", bg: "linear-gradient(180deg, #27506F 0%, #22445F 100%)" },
-  review: { line: "#E0B75C", bg: "linear-gradient(180deg, #5B4A21 0%, #4C3D19 100%)" },
-  approved: { line: "#7FBE96", bg: "linear-gradient(180deg, #23503C 0%, #1D4433 100%)" },
-  declined: { line: "#D98A8A", bg: "linear-gradient(180deg, #59292C 0%, #4B2225 100%)" },
-  expired: { line: "rgba(200,211,220,0.72)", bg: INK_2 },
-} as const;
-
 /* ink-side equivalents of STATUS_TONE, for the ivory surfaces */
 const STATUS_INK = {
   submitted: "#2E5F86",
@@ -1459,21 +1469,6 @@ const STATUS_INK = {
   declined: "#8C3B3B",
   expired: C_INK_2,
 } as const;
-
-const QUICK_ACTIONS: {
-  key: Exclude<PanelKey, null>;
-  label: string;
-  sub: string;
-  icon: React.ReactNode;
-}[] = [
-  { key: "stay", label: "Stay", sub: "Change dates", icon: <CalendarDays size={17} /> },
-  { key: "rooms", label: "Rooms", sub: "Add or remove", icon: <Bed size={17} /> },
-  { key: "rooms", label: "Guests", sub: "Update details", icon: <Users size={17} /> },
-  { key: "dining", label: "Dining", sub: "Meals & preferences", icon: <UtensilsCrossed size={17} /> },
-  { key: "services", label: "Services", sub: "Add or adjust", icon: <ConciergeBell size={17} /> },
-  { key: "requests", label: "Rooming List", sub: "Update guests", icon: <ClipboardList size={17} /> },
-  { key: "requests", label: "Special Requests", sub: "Other requests", icon: <Star size={17} /> },
-];
 
 const RECENT_REQUESTS = [
   {
@@ -2002,9 +1997,18 @@ function ChangesView({
               </span>
             </label>
 
-            <SolidButton className="mt-1 w-full">
-              <Upload size={15} /> Submit request
-            </SolidButton>
+            <div
+              className="mt-1"
+              style={
+                changed.length === 0
+                  ? { opacity: 0.45, pointerEvents: "none" as const }
+                  : undefined
+              }
+            >
+              <SolidButton className="w-full">
+                <Upload size={15} /> Submit request
+              </SolidButton>
+            </div>
             <button
               type="button"
               className="mt-2 w-full rounded-[6px] px-4 py-[9px] text-[13px] font-medium transition-opacity hover:opacity-80"
