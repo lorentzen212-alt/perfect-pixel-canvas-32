@@ -50,7 +50,7 @@ function CurrentAction({
   description: string;
 }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[13px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
+    <Card className="flex flex-col gap-3 px-5 py-[11px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
       <Medallion size={48}>
         <Users size={24} strokeWidth={1.5} />
       </Medallion>
