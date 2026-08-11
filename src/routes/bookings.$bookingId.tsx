@@ -2328,6 +2328,8 @@ function ChangesView({
           Message HotelGroupBook <ArrowRight size={13} />
         </OutlineGold>
       </Card>
-    </div>
+      </div>
+    </Plate>
   );
+
 }
