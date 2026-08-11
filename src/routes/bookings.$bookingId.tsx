@@ -2083,7 +2083,7 @@ function ChangesView({
                   {comment.length}/1000
                 </span>
               </div>
-            </Card>
+            </ChangeCard>
           )}
 
           {mode === "addons" && (
