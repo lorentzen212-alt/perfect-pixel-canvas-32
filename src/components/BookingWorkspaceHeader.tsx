@@ -202,16 +202,16 @@ export function BookingWorkspaceHeader({
           {WORKSPACE_TABS.map((t) => {
             const isActive = t === active;
             const cls =
-              "hgb-ws-tab relative whitespace-nowrap rounded-t-[9px] px-5 pb-[10px] pt-[9px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
+              "hgb-ws-tab relative whitespace-nowrap rounded-t-[10px] px-[22px] pb-[12px] pt-[11px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
             const st: React.CSSProperties = isActive
               ? {
                   background: surface ?? "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
                   color: TAB_INK,
                   fontWeight: 600,
                   marginBottom: -1,
-                  paddingBottom: 11,
+                  paddingBottom: 13,
                   boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.85), inset 1px 0 0 rgba(255,255,255,0.55), inset -1px 0 0 rgba(20,32,42,0.10), 0 -2px 0 rgba(20,32,42,0.08), 0 -10px 20px -10px rgba(20,32,42,0.55), 0 3px 5px rgba(20,32,42,0.20)",
+                    "inset 0 2px 0 rgba(255,255,255,0.95), inset 1px 0 0 rgba(255,255,255,0.55), inset -1px 0 0 rgba(20,32,42,0.10), inset 0 -5px 7px -3px rgba(20,32,42,0.26), 0 -2px 0 rgba(20,32,42,0.08), 0 -10px 22px -10px rgba(20,32,42,0.55), 0 4px 8px rgba(20,32,42,0.24)",
                 }
               : {
                   backgroundColor: "rgba(12,26,36,0.62)",
