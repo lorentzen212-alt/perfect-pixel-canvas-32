@@ -959,7 +959,10 @@ function Workspace({ booking }: { booking: Booking }) {
     >
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[240px] lg:block">
+      <aside
+        className="fixed inset-y-0 left-0 z-40 hidden w-[240px] lg:block"
+        style={tab === "Overview" ? { boxShadow: "16px 0 28px -14px rgba(6,12,20,0.42)" } : undefined}
+      >
         <GlobalSidebar
           active="My Bookings"
           roomingBookingId={booking.id}
