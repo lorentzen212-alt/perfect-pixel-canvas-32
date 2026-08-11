@@ -6,9 +6,13 @@ import {
   CalendarClock,
   ChevronDown,
   ClipboardList,
+  Eye,
   History,
+  Info,
   LifeBuoy,
   Layers,
+  MoreVertical,
+  Plus,
   Upload,
   Users,
 } from "lucide-react";
@@ -22,6 +26,21 @@ export interface RoomingTypeRow {
   guests: number;
 }
 
+export interface RoomingVersionRow {
+  id: string;
+  /** short badge label, e.g. "V2" */
+  short: string;
+  /** display name, e.g. "Version 2" or "Original version" */
+  name: string;
+  /** e.g. "Updated 4 Aug 2026 at 14:20" */
+  timestamp: string;
+  guests: number;
+  guestsTotal: number;
+  rooms: number;
+  current?: boolean;
+  restorable?: boolean;
+}
+
 export interface RoomingSummaryData {
   status: string;
   lastUpdated: string;
@@ -32,7 +51,9 @@ export interface RoomingSummaryData {
   roomsAssigned: number;
   version: number;
   rows: RoomingTypeRow[];
+  versions?: RoomingVersionRow[];
 }
+
 
 /* ── shared outlined action ───────────────────────────────────── */
 function OutlineButton({
