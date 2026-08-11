@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   CalendarClock,
-  ChevronRight,
+  ChevronDown,
   ClipboardList,
   History,
   LifeBuoy,
