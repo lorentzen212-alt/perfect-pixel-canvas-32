@@ -243,7 +243,7 @@ function DetailsCard({
           borderRadius: 10,
         }}
       >
-      <div className="relative px-6 py-[9px]">
+      <div className="relative px-6 py-[7px]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
           {status && (
