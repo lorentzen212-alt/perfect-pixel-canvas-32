@@ -50,7 +50,7 @@ function CurrentAction({
   description: string;
 }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[6px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
+    <Card className="flex flex-col gap-3 px-5 py-[10px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
       <Medallion size={48}>
         <Users size={24} strokeWidth={1.5} />
       </Medallion>
@@ -81,7 +81,7 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="relative flex h-full flex-col px-5 pb-2.5 pt-[9px] sm:px-6">
+    <Card className="relative flex h-full flex-col px-5 pb-3.5 pt-[12px] sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -358,7 +358,7 @@ function BookingExtras({
 }) {
   const includedCount = items.filter((i) => i.tone === "positive").length;
   return (
-    <Card className="px-5 py-[5px]">
+    <Card className="px-5 py-[8px]">
       <div className="flex items-center justify-between gap-3">
         <Eyebrow>Booking extras</Eyebrow>
         <span
@@ -424,7 +424,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
       {cells.map((c, i) => (
         <div
           key={c.label + i}
-          className="flex items-center gap-3.5 px-5 py-[5px]"
+          className="flex items-center gap-3.5 px-5 py-[8px]"
           style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
         >
           <Medallion size={40}>{c.icon}</Medallion>
@@ -484,7 +484,7 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="flex flex-1 flex-col space-y-[9px] px-5 pb-[4px] pt-2 sm:px-7">
+      <div className="flex flex-1 flex-col space-y-[12px] px-5 pb-[6px] pt-4 sm:px-7">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}
