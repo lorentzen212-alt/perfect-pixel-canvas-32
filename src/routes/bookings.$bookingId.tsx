@@ -1566,7 +1566,18 @@ function ChangeSubmit({ children, disabled }: { children: React.ReactNode; disab
   );
 }
 
-function ModeTile({
+/* bed descriptions, presentation-only lookup keyed by room type */
+const BED_DESC: Record<string, string> = {
+  "twin rooms": "2 single beds",
+  "double rooms": "1 double bed",
+  "single rooms": "1 single bed",
+  "triple rooms": "3 single beds",
+  "family / accessible": "Accessible rooms",
+  "family rooms": "Family rooms",
+  "accessible rooms": "Accessible rooms",
+};
+
+function SegItem({
   icon,
   label,
   on,
@@ -1581,20 +1592,29 @@ function ModeTile({
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-[7px] px-3.5 py-[9px] text-[12.5px] font-medium transition-all duration-200 sm:flex-none"
+      className="relative inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-[6px] px-4 py-[9px] text-[12.5px] transition-colors duration-200"
       style={{
-        background: INSET_BG,
-        border: on ? `1px solid ${C_GOLD_2}` : INSET_BORDER,
-        color: on ? C_GOLD : C_INK_2,
+        background: on ? "#FBF9F4" : "transparent",
+        color: C_INK,
+        fontWeight: on ? 600 : 400,
+        boxShadow: on ? "0 1px 2px rgba(20,30,36,0.06)" : undefined,
       }}
     >
       <span className="shrink-0" style={{ color: on ? C_GOLD : C_INK_3 }}>
         {icon}
       </span>
       {label}
+      {on && (
+        <span
+          aria-hidden
+          className="absolute bottom-[5px] left-1/2 h-[2px] w-[26px] -translate-x-1/2 rounded-full"
+          style={{ background: C_GOLD }}
+        />
+      )}
     </button>
   );
 }
+
 
 function IvoryStepper({ value, onChange }: { value: number; onChange: (n: number) => void }) {
   return (
