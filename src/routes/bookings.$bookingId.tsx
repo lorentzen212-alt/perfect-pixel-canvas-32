@@ -1956,14 +1956,14 @@ function ChangesView({
       )}
 
       {/* ── workspace + summary ── */}
-      <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_400px]">
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(380px,440px)]">
         <div className="min-w-0 space-y-3">
           {mode === "rooms" && (
-            <Card className="px-5 py-4 sm:px-6">
+            <ChangeCard className="px-5 py-4 sm:px-6">
               <Eyebrow>What would you like to change?</Eyebrow>
 
               {/* 1 · apply changes to */}
-              <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div className="mt-3 grid grid-cols-1 items-end gap-x-10 gap-y-3 sm:grid-cols-[auto_minmax(0,300px)] sm:justify-start">
                 <div>
                   <FieldLabel>Apply changes to</FieldLabel>
                   <div className="flex items-center gap-5">
@@ -1979,7 +1979,7 @@ function ChangesView({
                       value={scopeDate}
                       disabled={scope !== "specific"}
                       onChange={(e) => setScopeDate(e.target.value)}
-                      className="w-full rounded-[7px] px-3 py-[7px] pr-8 text-[12.5px] outline-none sm:w-[190px]"
+                      className="w-full rounded-[7px] px-3 py-[7px] pr-8 text-[12.5px] outline-none"
                       style={ivoryInput}
                     />
                     <CalendarDays
@@ -1995,7 +1995,7 @@ function ChangesView({
 
               {/* 2 · room changes */}
               <div className="mt-4">
-                <div className="flex items-end justify-between gap-4">
+                <div className="grid grid-cols-[minmax(0,1fr)_90px_150px] items-end gap-x-2">
                   <div>
                     <p className="text-[13.5px] font-medium" style={{ color: C_INK }}>
                       Room changes
@@ -2004,30 +2004,28 @@ function ChangesView({
                       Adjust the number of rooms
                     </p>
                   </div>
-                  <div className="hidden shrink-0 items-center gap-3 sm:flex">
-                    <span className="w-[62px] text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
-                      Current
-                    </span>
-                    <span className="w-[104px] text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
-                      Requested
-                    </span>
-                  </div>
+                  <span className="text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
+                    Current
+                  </span>
+                  <span className="text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
+                    Requested
+                  </span>
                 </div>
 
                 <ul className="mt-1.5">
                   {lines.map((l, i) => (
                     <li
                       key={l.type}
-                      className="flex items-center gap-3 py-[9px]"
-                      style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
+                      className="grid grid-cols-[minmax(0,1fr)_90px_150px] items-center gap-x-2 py-2"
+                      style={i > 0 ? { borderTop: `1px solid rgba(27,37,48,0.10)` } : undefined}
                     >
-                      <span className="min-w-0 flex-1 truncate text-[13.5px]" style={{ color: C_INK }}>
-                        {l.type}
+                      <span className="min-w-0 truncate text-[13px]" style={{ color: C_INK }}>
+                        {sentenceCase(l.type)}
                       </span>
-                      <span className="w-[62px] shrink-0 text-right text-[13px]" style={{ color: C_INK_2 }}>
+                      <span className="text-right text-[13px]" style={{ color: C_INK_2 }}>
                         {l.base}
                       </span>
-                      <span className="flex w-[104px] shrink-0 justify-end">
+                      <span className="flex justify-end">
                         <IvoryStepper
                           value={l.qty}
                           onChange={(n) => onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)))}
@@ -2043,18 +2041,18 @@ function ChangesView({
               {/* 3 · totals */}
               <div
                 className="mt-3 grid grid-cols-2 rounded-[8px]"
-                style={{ background: "rgba(27,37,48,0.035)", border: `1px solid ${C_HAIR}` }}
+                style={{ background: "#F7F5EF", border: `1px solid rgba(27,37,48,0.10)` }}
               >
                 {[
                   { icon: <Bed size={13} />, label: "Total rooms", from: currentRooms, to: afterRooms },
                   { icon: <Users size={13} />, label: "Total guests", from: currentGuests, to: afterGuests },
                 ].map((m, i) => (
-                  <div key={m.label} className="min-w-0 px-4 py-3" style={i === 1 ? { borderLeft: `1px solid ${C_HAIR}` } : undefined}>
+                  <div key={m.label} className="min-w-0 px-4 py-[9px]" style={i === 1 ? { borderLeft: `1px solid rgba(27,37,48,0.10)` } : undefined}>
                     <p className="flex items-center gap-1.5 truncate text-[11px]" style={{ color: C_INK_3 }}>
                       <span style={{ color: C_GOLD_2 }}>{m.icon}</span>
                       {m.label}
                     </p>
-                    <p className="mt-1 flex items-baseline gap-2 text-[18px] leading-none" style={{ color: C_INK, fontFamily: SERIF, fontWeight: 500 }}>
+                    <p className="mt-0.5 flex items-center gap-2 text-[15px] font-medium leading-none" style={{ color: C_INK }}>
                       {m.from}
                       <ArrowRight size={12} style={{ color: C_INK_3 }} />
                       <span style={{ color: m.to === m.from ? C_INK : C_GOLD }}>{m.to}</span>
@@ -2062,6 +2060,7 @@ function ChangesView({
                   </div>
                 ))}
               </div>
+
 
               {/* 4 · other changes */}
               <div className="mt-4">
