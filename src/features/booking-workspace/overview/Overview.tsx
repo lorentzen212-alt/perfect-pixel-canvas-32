@@ -425,9 +425,19 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
         <div
           key={c.label + i}
           className="flex items-center gap-3.5 px-5 py-[11px]"
-          style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
+          style={{ borderLeft: i === 0 ? undefined : "1px solid rgba(27,37,48,0.12)" }}
         >
-          <Medallion size={40}>{c.icon}</Medallion>
+          <span
+            className="grid h-[40px] w-[40px] shrink-0 place-items-center rounded-[9px]"
+            style={{
+              background: "#FFFFFF",
+              border: "1px solid rgba(27,37,48,0.14)",
+              color: INK,
+              boxShadow: "0 1px 2px rgba(24,30,36,0.05), inset 0 1px 0 rgba(255,255,255,0.9)",
+            }}
+          >
+            {c.icon}
+          </span>
           <span className="min-w-0">
             <span
               className="block truncate text-[19px] leading-tight"
