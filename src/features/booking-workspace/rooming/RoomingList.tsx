@@ -318,7 +318,7 @@ function Actions({
 /* ── 4 · need help ────────────────────────────────────────────── */
 function NeedHelp({ onMessage }: { onMessage?: () => void }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[11px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
+    <Card className="flex flex-col gap-3 px-5 py-[11px] sm:flex-row sm:items-center sm:gap-5 sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
       <Medallion size={40}>
         <LifeBuoy size={20} strokeWidth={1.5} />
       </Medallion>
