@@ -377,12 +377,12 @@ function BookingExtras({
             style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
           >
             <span
-              className="grid h-[30px] w-[30px] place-items-center rounded-[10px]"
+              className="grid h-[30px] w-[30px] place-items-center rounded-full"
               style={{
                 background: "#FBFAF6",
                 border: "1px solid rgba(150,125,80,0.20)",
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9)",
-                color: "#A98232",
+                color: INK,
               }}
             >
               {item.icon}
@@ -428,7 +428,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
           style={{ borderLeft: i === 0 ? undefined : "1px solid rgba(27,37,48,0.12)" }}
         >
           <span
-            className="grid h-[40px] w-[40px] shrink-0 place-items-center rounded-[9px]"
+            className="grid h-[40px] w-[40px] shrink-0 place-items-center rounded-full"
             style={{
               background: "#FFFFFF",
               border: "1px solid rgba(27,37,48,0.14)",
