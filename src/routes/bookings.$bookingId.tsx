@@ -1845,137 +1845,173 @@ function ChangesView({
     </Card>
   );
 
+  const stepper = (l: (typeof lines)[number]) => (
+    <IvoryStepper
+      value={l.qty}
+      onChange={(n) => onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)))}
+    />
+  );
+
+  const SummaryPanel = (
+    <div className="sticky top-6">
+      <Eyebrow>Change summary</Eyebrow>
+      <ul className="mt-3">
+        {summaryRows.map((r, i) => (
+          <li
+            key={r.k}
+            className="flex items-center gap-3 py-[13px]"
+            style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
+          >
+            <span className="shrink-0" style={{ color: C_INK_3 }}>
+              {r.icon}
+            </span>
+            <span className="min-w-0 flex-1 truncate text-[12.5px]" style={{ color: C_INK_2 }}>
+              {r.k}
+            </span>
+            {r.from ? (
+              <span className="shrink-0 text-[13px]" style={{ color: C_INK_2 }}>
+                {r.from} <span style={{ color: C_INK_3 }}>→</span>{" "}
+                <span style={{ color: C_GOLD, fontWeight: 600 }}>{r.v}</span>
+              </span>
+            ) : (
+              <span className="shrink-0 text-[13px]" style={{ color: C_INK }}>
+                {r.v}
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      <p className="mt-4 text-[11.5px] leading-relaxed" style={{ color: C_INK_2 }}>
+        We&rsquo;ll review your request and respond as soon as possible.
+      </p>
+
+      <div className="mt-3">
+        <ChangeSubmit disabled={changed.length === 0}>
+          Submit change request <ArrowRight size={14} />
+        </ChangeSubmit>
+      </div>
+      <p className="mt-2.5 flex items-center justify-center gap-1.5 text-[11px]" style={{ color: C_INK_3 }}>
+        <Lock size={11} /> Your request is sent securely
+      </p>
+    </div>
+  );
+
   return (
     <Plate>
-      <div className="flex flex-1 flex-col space-y-[12px] px-5 pb-[6px] pt-4 sm:px-7">
-      {/* ── intro + mode selector ── */}
-      <Card className="px-5 py-4 sm:px-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex min-w-0 items-center gap-3.5">
-            <Medallion size={42}>
-              <SlidersHorizontal size={18} />
-            </Medallion>
-            <div className="min-w-0">
-              <h3 className="text-[23px] leading-tight" style={{ color: C_INK, fontFamily: SERIF, fontWeight: 500 }}>
-                Make changes to your booking
-              </h3>
-              <p className="mt-0.5 max-w-[440px] text-[12.5px]" style={{ color: C_INK_2 }}>
-                Request changes to dates, rooms or add services. We&rsquo;ll review and respond as soon as possible.
-              </p>
-            </div>
+      <div className="flex flex-1 flex-col px-6 pb-8 pt-7 sm:px-10">
+        {/* ── introduction — plain type, no card ── */}
+        <h3 className="text-[27px] leading-tight" style={{ color: C_INK, fontFamily: SERIF, fontWeight: 500 }}>
+          Make changes to your booking
+        </h3>
+        <p className="mt-1.5 max-w-[520px] text-[13px] leading-relaxed" style={{ color: C_INK_2 }}>
+          Update your stay, rooms or services. Review your changes before sending them to the hotel.
+        </p>
+
+        {/* ── mode selector ── */}
+        <div className="mt-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div
+            className="flex w-full items-center gap-1 rounded-[8px] p-[3px] lg:w-auto"
+            style={{ background: "rgba(27,37,48,0.045)" }}
+          >
+            <SegItem icon={<Bed size={14} />} label="Rooms & dates" on={mode === "rooms"} onClick={() => setMode("rooms")} />
+            <SegItem icon={<ConciergeBell size={14} />} label="Add-ons & services" on={mode === "addons"} onClick={() => setMode("addons")} />
+            <SegItem icon={<MessageSquare size={14} />} label="Other request" on={mode === "other"} onClick={() => setMode("other")} />
           </div>
-          <div className="flex shrink-0 flex-col items-stretch gap-2 lg:items-end">
-            <div className="flex items-center gap-2">
-              <ModeTile icon={<Bed size={14} />} label="Rooms & dates" on={mode === "rooms"} onClick={() => setMode("rooms")} />
-              <ModeTile icon={<ConciergeBell size={14} />} label="Add-ons & services" on={mode === "addons"} onClick={() => setMode("addons")} />
-              <ModeTile icon={<MessageSquare size={14} />} label="Other request" on={mode === "other"} onClick={() => setMode("other")} />
-            </div>
-            <button
-              type="button"
-              onClick={() => setHistoryOpen((v) => !v)}
-              className="inline-flex items-center gap-1.5 self-end text-[12px] font-medium transition-opacity hover:opacity-70"
-              style={{ color: C_GOLD }}
-            >
-              <History size={13} />
-              {historyOpen ? "Hide change history" : "View change history"}
-              <ArrowRight size={12} />
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setHistoryOpen((v) => !v)}
+            className="group inline-flex shrink-0 items-center gap-1.5 self-start text-[12px] transition-colors lg:self-auto"
+            style={{ color: C_INK_2 }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = C_GOLD)}
+            onMouseLeave={(e) => (e.currentTarget.style.color = C_INK_2)}
+          >
+            <History size={13} />
+            {historyOpen ? "Hide change history" : "View change history"}
+          </button>
         </div>
-      </Card>
 
-      {/* ── change history (tracker + recent requests), hidden by default ── */}
-      {historyOpen && (
-        <Card className="px-5 py-4 sm:px-6">
-          <Eyebrow>Request status tracker</Eyebrow>
-          <div className="mt-3 grid gap-2 sm:grid-cols-3 xl:grid-cols-5">
-            {tracker.map((t) => (
-              <div
-                key={t.title}
-                className="flex min-w-0 items-center gap-3 rounded-[8px] px-3.5 py-2.5"
-                style={{ background: INSET_BG, border: `1px solid ${C_HAIR}` }}
-              >
-                <span className="text-[22px] leading-none" style={{ color: C_INK, fontFamily: SERIF, fontWeight: 500 }}>
-                  {t.n}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[12.5px] font-medium" style={{ color: C_INK }}>
-                    {t.title}
+        {/* ── change history ── */}
+        {historyOpen && (
+          <div className="mt-6">
+            <Eyebrow>Request status tracker</Eyebrow>
+            <div className="mt-3 grid gap-x-8 gap-y-3 sm:grid-cols-3 xl:grid-cols-5">
+              {tracker.map((t) => (
+                <div key={t.title} className="flex min-w-0 items-center gap-3">
+                  <span className="text-[22px] leading-none" style={{ color: C_INK, fontFamily: SERIF, fontWeight: 500 }}>
+                    {t.n}
                   </span>
-                  <span className="block truncate text-[11.5px]" style={{ color: STATUS_INK[t.tone] }}>
-                    {t.sub}
-                  </span>
-                </span>
-                <span className="shrink-0" style={{ color: STATUS_INK[t.tone] }}>
-                  {t.icon}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4">
-            <SectionRule label="Recent change requests" />
-            <ul className="mt-1">
-              {RECENT_REQUESTS.map((r, i) => (
-                <li
-                  key={r.title}
-                  className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-2.5 sm:grid-cols-[minmax(0,1.6fr)_110px_110px_150px_130px_auto]"
-                  style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
-                >
-                  <span className="flex min-w-0 items-center gap-3">
-                    <span className="shrink-0" style={{ color: C_GOLD }}>
-                      {r.icon}
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-[12.5px] font-medium" style={{ color: C_INK }}>
+                      {t.title}
                     </span>
-                    <span className="truncate text-[13px]" style={{ color: C_INK }}>
-                      {r.title}
+                    <span className="block truncate text-[11.5px]" style={{ color: STATUS_INK[t.tone] }}>
+                      {t.sub}
                     </span>
                   </span>
-                  <span className="hidden truncate text-[12px] sm:block" style={{ color: C_INK_2 }}>
-                    {r.category}
+                  <span className="shrink-0" style={{ color: STATUS_INK[t.tone] }}>
+                    {t.icon}
                   </span>
-                  <span className="hidden truncate text-[12px] font-medium sm:block" style={{ color: STATUS_INK[r.tone] }}>
-                    {r.status}
-                  </span>
-                  <span className="hidden truncate text-[12px] sm:block" style={{ color: C_INK_2 }}>
-                    {r.submitted}
-                  </span>
-                  <span className="hidden truncate text-[12px] sm:block" style={{ color: C_INK_2 }}>
-                    {r.updated}
-                  </span>
-                  <ChevronRight size={15} style={{ color: C_INK_3 }} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Card>
-      )}
-
-      {/* ── workspace + summary ── */}
-      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(380px,440px)]">
-        <div className="min-w-0 space-y-3">
-          {mode === "rooms" && (
-            <Card className="px-5 py-4 sm:px-6">
-              <Eyebrow>What would you like to change?</Eyebrow>
-
-              {/* 1 · apply changes to */}
-              <div className="mt-3 grid grid-cols-1 items-end gap-x-10 gap-y-3 sm:grid-cols-[auto_minmax(0,300px)] sm:justify-start">
-                <div>
-                  <FieldLabel>Apply changes to</FieldLabel>
-                  <div className="flex items-center gap-5">
-                    <Radio checked={scope === "original"} label="Original stay" onClick={() => setScope("original")} />
-                    <Radio checked={scope === "specific"} label="Specific dates" onClick={() => setScope("specific")} />
-                  </div>
                 </div>
-                <div style={{ opacity: scope === "specific" ? 1 : 0.5 }}>
-                  <FieldLabel>Select dates (optional)</FieldLabel>
-                  <div className="relative">
+              ))}
+            </div>
+
+            <div className="mt-5">
+              <SectionRule label="Recent change requests" />
+              <ul className="mt-1">
+                {RECENT_REQUESTS.map((r, i) => (
+                  <li
+                    key={r.title}
+                    className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-2.5 sm:grid-cols-[minmax(0,1.6fr)_110px_110px_150px_130px_auto]"
+                    style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
+                  >
+                    <span className="flex min-w-0 items-center gap-3">
+                      <span className="shrink-0" style={{ color: C_INK_3 }}>
+                        {r.icon}
+                      </span>
+                      <span className="truncate text-[13px]" style={{ color: C_INK }}>
+                        {r.title}
+                      </span>
+                    </span>
+                    <span className="hidden truncate text-[12px] sm:block" style={{ color: C_INK_2 }}>
+                      {r.category}
+                    </span>
+                    <span className="hidden truncate text-[12px] font-medium sm:block" style={{ color: STATUS_INK[r.tone] }}>
+                      {r.status}
+                    </span>
+                    <span className="hidden truncate text-[12px] sm:block" style={{ color: C_INK_2 }}>
+                      {r.submitted}
+                    </span>
+                    <span className="hidden truncate text-[12px] sm:block" style={{ color: C_INK_2 }}>
+                      {r.updated}
+                    </span>
+                    <ChevronRight size={15} style={{ color: C_INK_3 }} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* ── workspace + summary ── */}
+        <div className="mt-7 grid gap-10 lg:grid-cols-[minmax(0,70fr)_minmax(280px,30fr)]">
+          <div className="min-w-0">
+            {mode === "rooms" && (
+              <>
+                {/* apply changes to */}
+                <Eyebrow>Apply changes to</Eyebrow>
+                <div className="mt-2.5 flex flex-wrap items-center gap-6">
+                  <Radio checked={scope === "original"} label="Original stay" onClick={() => setScope("original")} />
+                  <Radio checked={scope === "specific"} label="Specific dates" onClick={() => setScope("specific")} />
+                </div>
+                {scope === "specific" && (
+                  <div className="relative mt-3 w-full sm:w-[280px]">
                     <input
                       type="date"
                       value={scopeDate}
-                      disabled={scope !== "specific"}
                       onChange={(e) => setScopeDate(e.target.value)}
-                      className="w-full rounded-[7px] px-3 py-[7px] pr-8 text-[12.5px] outline-none"
-                      style={ivoryInput}
+                      className="w-full rounded-[7px] px-3 py-[8px] pr-8 text-[12.5px] outline-none"
+                      style={{ background: "transparent", border: `1px solid ${C_HAIR}`, color: C_INK }}
                     />
                     <CalendarDays
                       size={14}
@@ -1983,224 +2019,227 @@ function ChangesView({
                       style={{ color: C_INK_3 }}
                     />
                   </div>
-                </div>
-              </div>
+                )}
 
-              {panel === "stay" && <div className="mt-3">{editor}</div>}
+                {panel === "stay" && <div className="mt-4">{editor}</div>}
 
-              {/* 2 · room changes */}
-              <div className="mt-4">
-                <div className="grid grid-cols-[minmax(0,1fr)_90px_150px] items-end gap-x-2">
-                  <div>
-                    <p className="text-[13.5px] font-medium" style={{ color: C_INK }}>
-                      Room changes
-                    </p>
-                    <p className="text-[11.5px]" style={{ color: C_INK_2 }}>
-                      Adjust the number of rooms
-                    </p>
+                {/* room editor */}
+                <div className="mt-8">
+                  <div className="grid grid-cols-[minmax(0,1fr)_70px_130px_52px] items-end gap-x-4">
+                    <Eyebrow>Rooms</Eyebrow>
+                    <span className="text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
+                      Current
+                    </span>
+                    <span className="text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
+                      Requested
+                    </span>
+                    <span />
                   </div>
-                  <span className="text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
-                    Current
-                  </span>
-                  <span className="text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
-                    Requested
-                  </span>
+
+                  <ul className="mt-2">
+                    {lines.map((l, i) => (
+                      <li
+                        key={l.type}
+                        className="grid grid-cols-[minmax(0,1fr)_70px_130px_52px] items-center gap-x-4 px-2 py-[11px]"
+                        style={{
+                          marginLeft: -8,
+                          marginRight: -8,
+                          borderTop: i > 0 ? `1px solid ${C_HAIR}` : undefined,
+                          background: l.diff !== 0 ? "rgba(195,138,32,0.05)" : undefined,
+                          borderRadius: l.diff !== 0 ? 6 : undefined,
+                        }}
+                      >
+                        <span className="min-w-0">
+                          <span className="block truncate text-[13.5px]" style={{ color: C_INK }}>
+                            {sentenceCase(l.type)}
+                          </span>
+                          <span className="block truncate text-[11.5px]" style={{ color: C_INK_2 }}>
+                            {BED_DESC[l.type.toLowerCase()] ?? ""}
+                          </span>
+                        </span>
+                        <span className="text-right text-[13px]" style={{ color: C_INK_2 }}>
+                          {l.base}
+                        </span>
+                        <span className="flex justify-end">{stepper(l)}</span>
+                        <span
+                          className="text-right text-[12px] font-medium"
+                          style={{ color: l.diff > 0 ? C_GOLD : C_INK_2 }}
+                        >
+                          {l.diff === 0 ? "" : l.diff > 0 ? `+${l.diff}` : l.diff}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <ul className="mt-1.5">
-                  {lines.map((l, i) => (
+                {panel === "rooms" && <div className="mt-4">{editor}</div>}
+
+                {/* totals — typographic only */}
+                <div className="mt-7 flex flex-wrap gap-x-20 gap-y-5">
+                  {[
+                    { label: "Rooms", from: currentRooms, to: afterRooms },
+                    { label: "Guests", from: currentGuests, to: afterGuests },
+                  ].map((m) => {
+                    const d = m.to - m.from;
+                    return (
+                      <div key={m.label} className="min-w-0">
+                        <Eyebrow>{m.label}</Eyebrow>
+                        <p
+                          className="mt-1 flex items-baseline gap-2.5 text-[22px] leading-none"
+                          style={{ color: C_INK, fontFamily: SERIF, fontWeight: 500 }}
+                        >
+                          {d === 0 ? (
+                            m.to
+                          ) : (
+                            <>
+                              <span style={{ color: C_INK_2 }}>{m.from}</span>
+                              <span className="text-[15px]" style={{ color: C_INK_3 }}>
+                                →
+                              </span>
+                              <span>{m.to}</span>
+                              <span className="text-[11.5px] font-sans" style={{ color: C_GOLD }}>
+                                {d > 0 ? `+${d}` : d}
+                              </span>
+                            </>
+                          )}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* other changes */}
+                <div className="mt-8">
+                  <Eyebrow>Other changes</Eyebrow>
+                  <textarea
+                    rows={3}
+                    value={comment}
+                    maxLength={1000}
+                    onChange={(e) => setComment(e.target.value)}
+                    placeholder="Add a note for the hotel…"
+                    className="mt-2 w-full resize-none px-0 py-2 text-[13px] outline-none"
+                    style={{ background: "transparent", borderBottom: `1px solid ${C_HAIR}`, color: C_INK }}
+                  />
+                  <span className="mt-1 block text-right text-[10.5px]" style={{ color: C_INK_3 }}>
+                    {comment.length}/1000
+                  </span>
+                </div>
+              </>
+            )}
+
+            {mode === "addons" && (
+              <>
+                <Eyebrow>Add-ons &amp; services</Eyebrow>
+                <p className="mt-1.5 text-[12.5px]" style={{ color: C_INK_2 }}>
+                  Choose the services you need and add them to your request.
+                </p>
+                <ul className="mt-3">
+                  {SERVICES.map((s, i) => (
                     <li
-                      key={l.type}
-                      className="grid grid-cols-[minmax(0,1fr)_90px_150px] items-center gap-x-2 py-2"
-                      style={i > 0 ? { borderTop: `1px solid rgba(27,37,48,0.10)` } : undefined}
+                      key={s.key}
+                      className="flex items-center gap-3.5 py-[11px]"
+                      style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
                     >
-                      <span className="min-w-0 truncate text-[13px]" style={{ color: C_INK }}>
-                        {sentenceCase(l.type)}
+                      <span className="shrink-0" style={{ color: service?.key === s.key ? C_GOLD : C_INK_3 }}>
+                        {s.icon}
                       </span>
-                      <span className="text-right text-[13px]" style={{ color: C_INK_2 }}>
-                        {l.base}
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-[13.5px]" style={{ color: C_INK }}>
+                          {s.name}
+                        </span>
+                        <span className="block truncate text-[11.5px]" style={{ color: C_INK_2 }}>
+                          {s.detail}
+                        </span>
                       </span>
-                      <span className="flex justify-end">
-                        <IvoryStepper
-                          value={l.qty}
-                          onChange={(n) => onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)))}
-                        />
-                      </span>
+                      <GoldLink label="Configure" onClick={() => openService(s)} />
                     </li>
                   ))}
                 </ul>
-              </div>
-
-              {panel === "rooms" && <div className="mt-3">{editor}</div>}
-
-              {/* 3 · totals */}
-              <div
-                className="mt-3 grid grid-cols-2 rounded-[8px]"
-                style={{ background: INSET_BG, border: `1px solid rgba(27,37,48,0.10)` }}
-              >
-                {[
-                  { icon: <Bed size={13} />, label: "Total rooms", from: currentRooms, to: afterRooms },
-                  { icon: <Users size={13} />, label: "Total guests", from: currentGuests, to: afterGuests },
-                ].map((m, i) => (
-                  <div key={m.label} className="min-w-0 px-4 py-[9px]" style={i === 1 ? { borderLeft: `1px solid rgba(27,37,48,0.10)` } : undefined}>
-                    <p className="flex items-center gap-1.5 truncate text-[11px]" style={{ color: C_INK_3 }}>
-                      <span style={{ color: C_GOLD_2 }}>{m.icon}</span>
-                      {m.label}
-                    </p>
-                    <p className="mt-0.5 flex items-center gap-2 text-[15px] font-medium leading-none" style={{ color: C_INK }}>
-                      {m.from}
-                      <ArrowRight size={12} style={{ color: C_INK_3 }} />
-                      <span style={{ color: m.to === m.from ? C_INK : C_GOLD }}>{m.to}</span>
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-
-              {/* 4 · other changes */}
-              <div className="mt-4">
-                <p className="text-[13.5px] font-medium" style={{ color: C_INK }}>
-                  Other changes
-                </p>
-                <p className="text-[11.5px]" style={{ color: C_INK_2 }}>
-                  Add any other details or requests
-                </p>
-                <textarea
-                  rows={3}
-                  value={comment}
-                  maxLength={1000}
-                  onChange={(e) => setComment(e.target.value)}
-                  placeholder="Type your message here…"
-                  className="mt-1.5 w-full resize-none rounded-[8px] px-3 py-2.5 text-[13px] outline-none"
-                  style={ivoryInput}
-                />
-                <span className="mt-1 block text-right text-[11px]" style={{ color: C_INK_3 }}>
-                  {comment.length}/1000
-                </span>
-              </div>
-            </Card>
-          )}
-
-          {mode === "addons" && (
-            <Card className="px-5 py-4 sm:px-6">
-              <Eyebrow>Add-ons &amp; services</Eyebrow>
-              <p className="mt-1 text-[12px]" style={{ color: C_INK_2 }}>
-                Choose the services you need and add them to your request.
-              </p>
-              <ul className="mt-2">
-                {SERVICES.map((s, i) => (
-                  <li
-                    key={s.key}
-                    className="flex items-center gap-3.5 py-[10px]"
-                    style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
-                  >
-                    <span className="shrink-0" style={{ color: C_GOLD_2 }}>
-                      {s.icon}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13.5px] font-medium" style={{ color: C_INK }}>
-                        {s.name}
-                      </span>
-                      <span className="block truncate text-[11.5px]" style={{ color: C_INK_2 }}>
-                        {s.detail}
-                      </span>
-                    </span>
-                    <OutlineGold onClick={() => openService(s)}>Configure</OutlineGold>
-                  </li>
-                ))}
-              </ul>
-              <button
-                type="button"
-                onClick={() => setMode("other")}
-                className="mt-3 flex w-full items-center gap-3 rounded-[8px] px-3.5 py-2.5 text-left"
-                style={{ border: `1px dashed rgba(27,37,48,0.22)`, background: INSET_BG }}
-              >
-                <Plus size={15} style={{ color: C_GOLD }} />
-                <span className="min-w-0">
-                  <span className="block text-[13px] font-medium" style={{ color: C_INK }}>
-                    Add a custom request
-                  </span>
-                  <span className="block text-[11.5px]" style={{ color: C_INK_2 }}>
-                    Can&rsquo;t find what you need? Tell us in your own words.
-                  </span>
-                </span>
-              </button>
-            </Card>
-          )}
-
-          {mode === "other" && (
-            <Card className="px-5 py-4 sm:px-6">
-              <Eyebrow>Other request</Eyebrow>
-              <p className="mt-1 text-[12px]" style={{ color: C_INK_2 }}>
-                Tell us what you would like to change.
-              </p>
-
-              <label className="mt-3 block">
-                <FieldLabel>Category (optional)</FieldLabel>
-                <select
-                  value={otherCategory}
-                  onChange={(e) => setOtherCategory(e.target.value)}
-                  className="w-full rounded-[7px] px-3 py-[8px] text-[12.5px] outline-none sm:w-[240px]"
-                  style={ivoryInput}
+                <button
+                  type="button"
+                  onClick={() => setMode("other")}
+                  className="mt-4 inline-flex items-center gap-2 text-[12.5px]"
+                  style={{ color: C_GOLD }}
                 >
-                  {["General", "Rooming list", "Special requests", "Billing", "Dates"].map((c) => (
-                    <option key={c}>{c}</option>
-                  ))}
-                </select>
-              </label>
+                  <Plus size={14} /> Add a custom request
+                </button>
+              </>
+            )}
 
-              <label className="mt-3 block">
-                <FieldLabel>Your request</FieldLabel>
-                <textarea
-                  rows={5}
-                  value={otherText}
-                  maxLength={1000}
-                  onChange={(e) => setOtherText(e.target.value)}
-                  placeholder="Type your message here…"
-                  className="w-full resize-none rounded-[8px] px-3 py-2.5 text-[13px] outline-none"
-                  style={ivoryInput}
-                />
-                <span className="mt-1 block text-right text-[11px]" style={{ color: C_INK_3 }}>
-                  {otherText.length}/1000
-                </span>
-              </label>
+            {mode === "other" && (
+              <>
+                <Eyebrow>Other request</Eyebrow>
+                <p className="mt-1.5 text-[12.5px]" style={{ color: C_INK_2 }}>
+                  Tell us what you would like to change.
+                </p>
 
-              <div className="mt-2 flex flex-wrap items-center gap-3">
-                <GoldLink label="Rooming list &amp; special requests" onClick={() => onPanel("requests")} />
-              </div>
-              {panel === "requests" && <div className="mt-3">{editor}</div>}
+                <label className="mt-4 block">
+                  <FieldLabel>Category (optional)</FieldLabel>
+                  <select
+                    value={otherCategory}
+                    onChange={(e) => setOtherCategory(e.target.value)}
+                    className="w-full rounded-[7px] px-3 py-[8px] text-[12.5px] outline-none sm:w-[240px]"
+                    style={{ background: "transparent", border: `1px solid ${C_HAIR}`, color: C_INK }}
+                  >
+                    {["General", "Rooming list", "Special requests", "Billing", "Dates"].map((c) => (
+                      <option key={c}>{c}</option>
+                    ))}
+                  </select>
+                </label>
 
-              <div className="mt-3">
-                <SolidButton className="w-full">
-                  Add to change request <ArrowRight size={14} />
-                </SolidButton>
-              </div>
-            </Card>
-          )}
-        </div>
+                <label className="mt-5 block">
+                  <FieldLabel>Your request</FieldLabel>
+                  <textarea
+                    rows={5}
+                    value={otherText}
+                    maxLength={1000}
+                    onChange={(e) => setOtherText(e.target.value)}
+                    placeholder="Add a note for the hotel…"
+                    className="w-full resize-none px-0 py-2 text-[13px] outline-none"
+                    style={{ background: "transparent", borderBottom: `1px solid ${C_HAIR}`, color: C_INK }}
+                  />
+                  <span className="mt-1 block text-right text-[10.5px]" style={{ color: C_INK_3 }}>
+                    {otherText.length}/1000
+                  </span>
+                </label>
 
-        {/* ── right column ── */}
-        <aside className="min-w-0 space-y-3">
-          {mode === "addons" ? (
-            <>
-              <Card className="px-5 py-4 sm:px-6">
+                <div className="mt-3 flex flex-wrap items-center gap-3">
+                  <GoldLink label="Rooming list &amp; special requests" onClick={() => onPanel("requests")} />
+                </div>
+                {panel === "requests" && <div className="mt-4">{editor}</div>}
+
+                <div className="mt-5 sm:max-w-[280px]">
+                  <SolidButton className="w-full">
+                    Add to change request <ArrowRight size={14} />
+                  </SolidButton>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* ── right column ── */}
+          <aside className="min-w-0">
+            {mode === "addons" ? (
+              <div className="sticky top-6">
                 <div className="flex items-start justify-between gap-3">
                   <Eyebrow>Configure service</Eyebrow>
-                  <button
-                    type="button"
-                    onClick={() => setService(null)}
-                    className="shrink-0 transition-opacity hover:opacity-70"
-                    style={{ color: C_INK_3 }}
-                    aria-label="Close"
-                  >
-                    <X size={15} />
-                  </button>
+                  {service && (
+                    <button
+                      type="button"
+                      onClick={() => setService(null)}
+                      className="shrink-0 transition-opacity hover:opacity-70"
+                      style={{ color: C_INK_3 }}
+                      aria-label="Close"
+                    >
+                      <X size={15} />
+                    </button>
+                  )}
                 </div>
 
                 {service ? (
                   <>
-                    <div className="mt-2.5 flex items-center gap-3">
-                      <span className="shrink-0" style={{ color: C_GOLD_2 }}>
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="shrink-0" style={{ color: C_GOLD }}>
                         {service.icon}
                       </span>
                       <span className="min-w-0">
@@ -2213,143 +2252,118 @@ function ChangesView({
                       </span>
                     </div>
 
-                    <div className="mt-3 grid grid-cols-2 gap-2.5">
+                    <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
                       <label className="block">
                         <FieldLabel>Date</FieldLabel>
-                        <input type="date" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={ivoryInput} />
+                        <input type="date" className="w-full px-0 py-[6px] text-[12.5px] outline-none" style={underlineInput} />
                       </label>
                       <label className="block">
                         <FieldLabel>Preferred time</FieldLabel>
-                        <input type="time" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={ivoryInput} />
+                        <input type="time" className="w-full px-0 py-[6px] text-[12.5px] outline-none" style={underlineInput} />
                       </label>
                       <label className="col-span-2 block">
                         <FieldLabel>Number of guests</FieldLabel>
-                        <input type="number" min={0} placeholder="0" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={ivoryInput} />
+                        <input type="number" min={0} placeholder="0" className="w-full px-0 py-[6px] text-[12.5px] outline-none" style={underlineInput} />
                       </label>
                       <label className="block">
                         <FieldLabel>Type</FieldLabel>
-                        <input placeholder="e.g. 3-course dinner" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={ivoryInput} />
+                        <input placeholder="e.g. 3-course dinner" className="w-full px-0 py-[6px] text-[12.5px] outline-none" style={underlineInput} />
                       </label>
                       <label className="block">
                         <FieldLabel>Dietary requirements</FieldLabel>
-                        <input placeholder="e.g. 4 vegetarian" className="w-full rounded-[7px] px-2.5 py-[7px] text-[12.5px] outline-none" style={ivoryInput} />
+                        <input placeholder="e.g. 4 vegetarian" className="w-full px-0 py-[6px] text-[12.5px] outline-none" style={underlineInput} />
                       </label>
                     </div>
 
-                    <label className="mt-2.5 block">
+                    <label className="mt-4 block">
                       <FieldLabel>Notes / Special requests (optional)</FieldLabel>
                       <textarea
                         rows={3}
                         value={svcNotes}
                         maxLength={500}
                         onChange={(e) => setSvcNotes(e.target.value)}
-                        placeholder="Type your message here…"
-                        className="w-full resize-none rounded-[8px] px-3 py-2.5 text-[12.5px] outline-none"
-                        style={ivoryInput}
+                        placeholder="Add a note for the hotel…"
+                        className="w-full resize-none px-0 py-2 text-[12.5px] outline-none"
+                        style={underlineInput}
                       />
-                      <span className="mt-1 block text-right text-[11px]" style={{ color: C_INK_3 }}>
+                      <span className="mt-1 block text-right text-[10.5px]" style={{ color: C_INK_3 }}>
                         {svcNotes.length}/500
                       </span>
                     </label>
 
-                    {panel && (panel === "dining" || panel === "services") && <div className="mt-2">{editor}</div>}
+                    {(panel === "dining" || panel === "services") && <div className="mt-3">{editor}</div>}
 
-                    <div className="mt-3">
+                    <div className="mt-4">
                       <SolidButton className="w-full">
                         Add to booking request <ArrowRight size={14} />
                       </SolidButton>
                     </div>
                   </>
                 ) : (
-                  <p className="mt-2 text-[12.5px]" style={{ color: C_INK_3 }}>
+                  <p className="mt-2.5 text-[12.5px]" style={{ color: C_INK_3 }}>
                     Select a service on the left to configure it.
                   </p>
                 )}
-              </Card>
 
-              <Card className="px-5 py-4 sm:px-6">
-                <div className="flex items-center justify-between gap-3">
+                <div className="mt-7">
                   <Eyebrow>Your request so far</Eyebrow>
-                  <span
-                    className="shrink-0 rounded-full px-2.5 py-[3px] text-[11px] font-medium"
-                    style={{ background: INSET_BG, border: `1px solid ${C_HAIR}`, color: C_INK_2 }}
-                  >
-                    {changed.length} {changed.length === 1 ? "change" : "changes"}
-                  </span>
+                  <ul className="mt-2">
+                    {changed.length === 0 && (
+                      <li className="text-[12.5px]" style={{ color: C_INK_3 }}>
+                        Nothing added yet.
+                      </li>
+                    )}
+                    {changed.map((l, i) => (
+                      <li
+                        key={l.type}
+                        className="flex items-center gap-3 py-[10px]"
+                        style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
+                      >
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-[13px]" style={{ color: C_INK }}>
+                            {sentenceCase(l.type)}
+                          </span>
+                          <span className="block truncate text-[11.5px]" style={{ color: C_INK_2 }}>
+                            {l.base} → {l.qty} rooms · {l.diff > 0 ? `+${l.diff}` : l.diff}
+                          </span>
+                        </span>
+                        <span className="flex shrink-0 items-center gap-3 text-[11.5px]" style={{ color: C_GOLD }}>
+                          <button type="button" onClick={() => setMode("rooms")} className="transition-opacity hover:opacity-70">
+                            Edit
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: l.base } : x)))}
+                            className="transition-opacity hover:opacity-70"
+                          >
+                            Remove
+                          </button>
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="mt-2">
-                  {changed.length === 0 && (
-                    <li className="text-[12.5px]" style={{ color: C_INK_3 }}>
-                      Nothing added yet.
-                    </li>
-                  )}
-                  {changed.map((l, i) => (
-                    <li
-                      key={l.type}
-                      className="flex items-center gap-3 py-[9px]"
-                      style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
-                    >
-                      <span className="shrink-0" style={{ color: C_GOLD_2 }}>
-                        <Bed size={14} />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[13px] font-medium" style={{ color: C_INK }}>
-                          {l.type}
-                        </span>
-                        <span className="block truncate text-[11.5px]" style={{ color: C_INK_2 }}>
-                          {l.base} → {l.qty} rooms · {l.diff > 0 ? `+${l.diff}` : l.diff}
-                        </span>
-                      </span>
-                      <span className="flex shrink-0 items-center gap-2.5 text-[11.5px] font-medium" style={{ color: C_GOLD }}>
-                        <button type="button" onClick={() => setMode("rooms")} className="transition-opacity hover:opacity-70">
-                          Edit
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: l.base } : x)))}
-                          className="transition-opacity hover:opacity-70"
-                        >
-                          Remove
-                        </button>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  type="button"
-                  onClick={() => setService(null)}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-[8px] px-3.5 py-2.5 text-[12.5px] font-medium"
-                  style={{ border: `1px dashed rgba(27,37,48,0.22)`, background: INSET_BG, color: C_GOLD }}
-                >
-                  <Plus size={14} /> Add another service or change
-                </button>
-              </Card>
-            </>
-          ) : (
-            SummaryCard
-          )}
-        </aside>
-      </div>
-
-      {/* ── need help ── */}
-      <Card className="flex flex-col gap-3 px-5 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <div className="flex min-w-0 items-center gap-3">
-          <Medallion size={34}>
-            <MessageSquare size={15} />
-          </Medallion>
-          <div className="min-w-0">
-            <Eyebrow>Need help?</Eyebrow>
-            <p className="text-[12.5px]" style={{ color: C_INK_2 }}>
-              Questions or changes to your booking?
-            </p>
-          </div>
+              </div>
+            ) : (
+              SummaryPanel
+            )}
+          </aside>
         </div>
-        <OutlineGold className="shrink-0" onClick={onMessage}>
-          Message HotelGroupBook <ArrowRight size={13} />
-        </OutlineGold>
-      </Card>
+
+        {/* ── help, demoted to a text line ── */}
+        <p className="mt-10 text-[12.5px]" style={{ color: C_INK_2 }}>
+          Need help with your changes?{" "}
+          <button
+            type="button"
+            onClick={onMessage}
+            className="inline-flex items-center gap-1 transition-opacity hover:opacity-70"
+            style={{ color: C_GOLD }}
+          >
+            Message HotelGroupBook <ArrowRight size={12} />
+          </button>
+        </p>
       </div>
     </Plate>
   );
-
 }
+
