@@ -134,61 +134,106 @@ function docIcon(d: BookingDoc) {
   return spreadsheet ? <FileSpreadsheet size={15} /> : CAT_ICON[d.category];
 }
 
-/* ══════════════════ folder tabs ══════════════════ */
+/* ══════════════════ folder index tabs ══════════════════ */
 
 type Section = "hotel" | "you";
 
-function FolderTab({
+const TAB_H = 42;
+
+function TabLabel({
   label,
   count,
   active,
-  behind,
-  onClick,
 }: {
   label: string;
   count: number;
   active: boolean;
-  behind: boolean;
+}) {
+  return (
+    <>
+      <span
+        className="truncate text-[12.5px] transition-colors duration-200"
+        style={{ color: active ? INK : INK_3, fontWeight: active ? 500 : 400 }}
+      >
+        {label}
+      </span>
+      <span
+        className="ml-3 grid h-[19px] min-w-[19px] shrink-0 place-items-center rounded-full px-1 text-[10px] transition-colors duration-200"
+        style={{
+          background: active ? "rgba(27,37,48,0.07)" : "rgba(27,37,48,0.06)",
+          color: active ? INK_2 : INK_3,
+        }}
+      >
+        {count}
+      </span>
+    </>
+  );
+}
+
+/** the wide raised index section on the left — physically continuous with the body */
+function FrontTab({
+  label,
+  count,
+  onClick,
+}: {
+  label: string;
+  count: number;
   onClick: () => void;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="relative inline-flex items-center gap-2 px-4 transition-colors duration-200"
+      className="absolute left-0 top-0 z-[3] flex items-center justify-between px-4 transition-colors duration-200"
       style={{
-        height: active ? 38 : 35,
-        marginTop: active ? 0 : 3,
-        marginBottom: active ? -1 : 0,
-        marginLeft: behind ? -8 : 0,
-        zIndex: active ? 2 : 1,
-        background: active ? PAPER : BEHIND,
-        borderTop: `1px solid ${EDGE}`,
-        borderLeft: `1px solid ${EDGE}`,
-        borderRight: `1px solid ${EDGE}`,
-        borderBottom: active ? "none" : `1px solid ${EDGE}`,
+        width: "62%",
+        height: TAB_H + 1,
+        background: PAPER,
+        borderTop: `1px solid ${EDGE_SOFT}`,
+        borderLeft: `1px solid ${EDGE_SOFT}`,
+        borderRight: `1px solid ${EDGE_SOFT}`,
         borderRadius: "10px 10px 0 0",
-        boxShadow: active ? `inset 0 2px 0 ${GOLD}` : undefined,
+        boxShadow: "2px 0 4px -2px rgba(20,30,36,0.10)",
       }}
     >
-      <span
-        className="text-[12.5px]"
-        style={{ color: active ? INK : INK_2, fontWeight: active ? 500 : 400 }}
-      >
-        {label}
-      </span>
-      <span
-        className="grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[10px]"
-        style={{
-          background: active ? "rgba(27,37,48,0.08)" : "rgba(27,37,48,0.06)",
-          color: active ? INK_2 : INK_3,
-        }}
-      >
-        {count}
+      <TabLabel label={label} count={count} active />
+    </button>
+  );
+}
+
+/** the layer behind — starts lower, tucks under the front tab, clipped by the body */
+function RearTab({
+  label,
+  count,
+  onClick,
+}: {
+  label: string;
+  count: number;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="absolute right-0 z-[1] flex items-center justify-between px-4 transition-colors duration-200"
+      style={{
+        left: "calc(62% - 16px)",
+        top: 5,
+        height: TAB_H + 8,
+        background: BEHIND,
+        borderTop: `1px solid ${EDGE_SOFT}`,
+        borderLeft: `1px solid ${EDGE_SOFT}`,
+        borderRight: `1px solid ${EDGE_SOFT}`,
+        borderRadius: "10px 10px 0 0",
+      }}
+    >
+      <span className="ml-3 flex min-w-0 flex-1 items-center justify-between pb-[8px]">
+        <TabLabel label={label} count={count} active={false} />
       </span>
     </button>
   );
 }
+
 
 /* ══════════════════ document rows ══════════════════ */
 
