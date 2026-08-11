@@ -110,12 +110,11 @@ function GoldFillButton({
     <button
       type="button"
       onClick={onClick}
-      className={`shine-gold-cta inline-flex items-center justify-center gap-2 rounded-[5px] px-4 py-[8px] text-[12.5px] font-semibold ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-[5px] px-4 py-[8px] text-[12.5px] font-semibold ${className}`}
       style={{
-        background:
-          "linear-gradient(135deg, #B8860B 0%, #DAA520 28%, #F0D878 50%, #DAA520 68%, #8B6914 100%)",
+        background: "linear-gradient(180deg, #C9A23A 0%, #BC9530 50%, #B08628 100%)",
         color: "#1A0F00",
-        boxShadow: "0 2px 8px rgba(139,105,20,0.30)",
+        boxShadow: "0 1px 3px rgba(139,105,20,0.22)",
       }}
     >
       {children}
@@ -535,7 +534,7 @@ function Versions({
 }) {
   if (!versions.length) return null;
   return (
-    <div className="mt-[14px] pt-[14px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
+    <div className="mt-[22px] pt-[18px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span
           className="text-[11.5px] font-semibold uppercase"
@@ -617,11 +616,11 @@ function Actions({
         Rooming list actions
       </span>
 
-      <ul className="mt-2 flex flex-col">
+      <ul className="mt-2 flex flex-1 flex-col justify-around">
         {rows.map((r, i) => (
           <li
             key={r.title}
-            className="flex items-center gap-3.5 py-[12px]"
+            className="flex items-center gap-3.5 py-[18px]"
             style={{ borderTop: i === 0 ? undefined : "1px solid rgba(50,60,65,0.10)" }}
           >
             <Medallion size={38}>{r.icon}</Medallion>
@@ -635,13 +634,13 @@ function Actions({
             </span>
             {r.link ? (
               <Link to="/rooming/$bookingId" params={{ bookingId }} className="shrink-0">
-                <GoldFillButton>
+                <GoldFillButton className="w-[176px]">
                   {r.label}
                   <ArrowRight size={13} />
                 </GoldFillButton>
               </Link>
             ) : (
-              <GoldFillButton className="shrink-0" onClick={r.onClick}>
+              <GoldFillButton className="w-[176px] shrink-0" onClick={r.onClick}>
                 {r.label}
                 <ArrowRight size={13} />
               </GoldFillButton>
