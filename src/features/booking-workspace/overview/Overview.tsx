@@ -260,7 +260,7 @@ function DetailsCard({
             </span>
           )}
         </div>
-        <dl className="mt-[10px]">
+        <dl className="mt-[8px]">
           {rows.map((row, i) => {
             const isPaymentPill = row.k === "Payment terms" && /pending/i.test(row.v);
             return (
