@@ -535,7 +535,7 @@ function Versions({
 }) {
   if (!versions.length) return null;
   return (
-    <div className="mt-[14px] pt-[14px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
+    <div className="mt-[22px] pt-[18px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span
           className="text-[11.5px] font-semibold uppercase"
@@ -621,7 +621,7 @@ function Actions({
         {rows.map((r, i) => (
           <li
             key={r.title}
-            className="flex items-center gap-3.5 py-[12px]"
+            className="flex items-center gap-3.5 py-[18px]"
             style={{ borderTop: i === 0 ? undefined : "1px solid rgba(50,60,65,0.10)" }}
           >
             <Medallion size={38}>{r.icon}</Medallion>
@@ -635,13 +635,13 @@ function Actions({
             </span>
             {r.link ? (
               <Link to="/rooming/$bookingId" params={{ bookingId }} className="shrink-0">
-                <GoldFillButton>
+                <GoldFillButton className="w-[176px]">
                   {r.label}
                   <ArrowRight size={13} />
                 </GoldFillButton>
               </Link>
             ) : (
-              <GoldFillButton className="shrink-0" onClick={r.onClick}>
+              <GoldFillButton className="w-[176px] shrink-0" onClick={r.onClick}>
                 {r.label}
                 <ArrowRight size={13} />
               </GoldFillButton>
