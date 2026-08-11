@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
+  Bed,
   CalendarClock,
   ChevronDown,
   ClipboardList,
@@ -180,10 +181,71 @@ function StatusStrip({
   );
 }
 
+/* ── total medallion (light rounded, gold icon) ───────────────── */
+function TotalMedallion({ children, size = 40 }: { children: React.ReactNode; size?: number }) {
+  return (
+    <span
+      className="grid shrink-0 place-items-center rounded-full"
+      style={{
+        height: size,
+        width: size,
+        background: "linear-gradient(180deg, #FAF8F3 0%, #F2EEE6 100%)",
+        border: "1px solid rgba(169,120,36,0.22)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(24,30,36,0.05)",
+        color: "#A97824",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+/* ── total tile ───────────────────────────────────────────────── */
+function TotalTile({
+  icon,
+  value,
+  label,
+}: {
+  icon: React.ReactNode;
+  value: number;
+  label: string;
+}) {
+  return (
+    <div
+      className="flex items-center gap-3 px-4 py-[12px]"
+      style={{
+        background: "#FBFAF7",
+        border: "1px solid rgba(50,60,65,0.10)",
+        borderRadius: CARD_RADIUS,
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8)",
+      }}
+    >
+      <TotalMedallion>{icon}</TotalMedallion>
+      <span className="min-w-0">
+        <span
+          className="block leading-none tabular-nums"
+          style={{ color: "#1B2530", fontSize: 34, fontWeight: 700, fontFamily: SERIF }}
+        >
+          {value}
+        </span>
+        <span
+          className="mt-1 block text-[9.5px] font-semibold uppercase"
+          style={{ color: "rgba(27,37,48,0.46)", letterSpacing: "0.16em" }}
+        >
+          {label}
+        </span>
+      </span>
+    </div>
+  );
+}
+
 /* ── 3a · preview ─────────────────────────────────────────────── */
 function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: string }) {
+  const totalRooms = rows.reduce((s, r) => s + r.rooms, 0);
+  const totalGuests = rows.reduce((s, r) => s + r.guests, 0);
+
   return (
-    <Card className="flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
+    <Card className="flex flex-col px-5 pb-3 pt-[13px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
       <span
         className="text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -191,18 +253,18 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         Rooming list preview
       </span>
 
-      <ul className="mt-2 flex-1">
+      <ul className="mt-2">
         {rows.map((r, i) => (
           <li
             key={r.label}
-            className="grid items-center gap-2 px-2 py-[6px]"
+            className="grid items-center gap-2 px-2 py-[13px]"
             style={{
               gridTemplateColumns: "48fr 22fr 22fr 16px",
               background: i % 2 === 1 ? "#FAF8F5" : undefined,
-              borderBottom: i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
+              borderBottom: "1px solid rgba(50,60,65,0.10)",
             }}
           >
-            <span className="min-w-0 truncate text-[14px] font-medium" style={{ color: INK }}>
+            <span className="min-w-0 truncate text-[15.5px] font-medium" style={{ color: INK }}>
               {r.label}
             </span>
             <span
@@ -222,12 +284,18 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         ))}
       </ul>
 
+      {/* totals section */}
+      <div className="mt-[12px] grid grid-cols-2 gap-[10px]">
+        <TotalTile icon={<Bed size={20} strokeWidth={1.5} />} value={totalRooms} label="Total rooms" />
+        <TotalTile icon={<Users size={20} strokeWidth={1.5} />} value={totalGuests} label="Total guests" />
+      </div>
+
       <Link
         to="/rooming/$bookingId"
         params={{ bookingId }}
-        className="mt-[10px] block"
+        className="mt-[12px] block"
       >
-        <OutlineButton className="w-full">
+        <OutlineButton className="w-full !py-[12px]">
           View full rooming list
           <ArrowRight size={13} />
         </OutlineButton>
@@ -357,7 +425,7 @@ export function RoomingFolder({
       <div className="flex flex-1 flex-col space-y-[12px] px-5 pb-[1px] pt-4 sm:px-7">
         <HeaderAction bookingId={bookingId} />
         <StatusStrip data={data} onHistory={onHistory} />
-        <div className="grid items-stretch gap-[9px] lg:grid-cols-[54fr_46fr]">
+        <div className="grid items-start gap-[9px] lg:grid-cols-[54fr_46fr]">
           <Preview rows={data.rows} bookingId={bookingId} />
           <Actions bookingId={bookingId} onNewVersion={onNewVersion} onUpload={onUpload} />
         </div>
