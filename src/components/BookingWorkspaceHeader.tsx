@@ -115,7 +115,7 @@ export function BookingWorkspaceHeader({
               Back to My Bookings
             </Link>
             <h1
-              className="mt-2 truncate text-[28px] leading-[1.08] sm:text-[32px]"
+              className="mt-2 truncate text-[28px] leading-[1.08] sm:text-[30px]"
               style={{ color: "#F7F4ED", fontFamily: SERIF, fontWeight: 400 }}
             >
               {bookingName}
@@ -198,7 +198,7 @@ export function BookingWorkspaceHeader({
 
 
 
-        <nav className="mt-4 flex items-end gap-[6px] overflow-x-auto">
+        <nav className="mt-3 flex items-end gap-[6px] overflow-x-auto">
           {WORKSPACE_TABS.map((t) => {
             const isActive = t === active;
             const cls =

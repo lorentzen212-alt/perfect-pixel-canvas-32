@@ -50,15 +50,15 @@ function CurrentAction({
   description: string;
 }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[10px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
-      <Medallion size={56}>
+    <Card className="flex flex-col gap-3 px-5 py-[8px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
+      <Medallion size={48}>
         <Users size={24} strokeWidth={1.5} />
       </Medallion>
 
       <div className="min-w-0 flex-1">
         <Eyebrow>Current action</Eyebrow>
         <p
-          className="mt-1 text-[19.5px] leading-tight"
+          className="mt-0.5 text-[18px] leading-tight"
           style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
         >
           {title}
@@ -81,7 +81,7 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="relative flex h-full flex-col px-5 pb-3 pt-[11px] sm:px-6">
+    <Card className="relative flex h-full flex-col px-5 pb-2.5 pt-[9px] sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -235,7 +235,7 @@ function DetailsCard({
           "0 2px 3px rgba(20,30,36,0.08), 0 7px 14px rgba(20,30,36,0.10), inset 0 1px 0 rgba(255,255,255,0.92), inset 0 0 0 1px rgba(255,255,255,0.50)",
       }}
     >
-      <div className="relative px-6 py-[9px]">
+      <div className="relative px-6 py-[7px]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
           {status && (
@@ -258,7 +258,7 @@ function DetailsCard({
             return (
               <div key={row.k} className="flex items-center gap-x-[14px]">
                 <span
-                  className="grid h-[36px] w-[36px] shrink-0 place-items-center rounded-[8px]"
+                  className="grid h-[32px] w-[32px] shrink-0 place-items-center rounded-[8px]"
                   style={{
                     background: "#FCFBF8",
                     border: "1px solid rgba(125,125,115,0.16)",
@@ -272,7 +272,7 @@ function DetailsCard({
                 </span>
 
                 <div
-                  className="grid min-h-[31px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[2px]"
+                  className="grid min-h-[27px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[2px]"
                   style={{
                     borderBottom:
                       i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
@@ -322,7 +322,7 @@ function DetailsCard({
         </dl>
 
         {footer && (
-          <div className="mt-[10px] flex justify-center pb-[1px]">{footer}</div>
+          <div className="mt-[5px] flex justify-center pb-[1px]">{footer}</div>
         )}
 
         {children}
@@ -354,7 +354,7 @@ function BookingExtras({
 }) {
   const includedCount = items.filter((i) => i.tone === "positive").length;
   return (
-    <Card className="px-5 py-[9px]">
+    <Card className="px-5 py-[7px]">
       <div className="flex items-center justify-between gap-3">
         <Eyebrow>Booking extras</Eyebrow>
         <span
@@ -365,15 +365,15 @@ function BookingExtras({
         </span>
       </div>
 
-      <ul className="mt-[9px] grid grid-cols-3">
+      <ul className="mt-[7px] grid grid-cols-3">
         {items.map((item, i) => (
           <li
             key={item.label}
-            className="flex flex-col items-center gap-[7px] px-2"
+            className="flex flex-col items-center gap-[5px] px-2"
             style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
           >
             <span
-              className="grid h-[38px] w-[38px] place-items-center rounded-[10px]"
+              className="grid h-[34px] w-[34px] place-items-center rounded-[10px]"
               style={{
                 background: "#FBFAF6",
                 border: "1px solid rgba(150,125,80,0.20)",
@@ -398,7 +398,7 @@ function BookingExtras({
         ))}
       </ul>
 
-      <div className="mt-[9px] flex justify-center pt-[8px]" style={{ borderTop: `1px solid ${HAIR}` }}>
+      <div className="mt-[7px] flex justify-center pt-[6px]" style={{ borderTop: `1px solid ${HAIR}` }}>
         <button
           type="button"
           onClick={onView}
@@ -420,7 +420,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
       {cells.map((c, i) => (
         <div
           key={c.label + i}
-          className="flex items-center gap-3.5 px-5 py-[20px]"
+          className="flex items-center gap-3.5 px-5 py-[14px]"
           style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
         >
           <Medallion size={40}>{c.icon}</Medallion>
@@ -480,16 +480,16 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="flex flex-1 flex-col space-y-[11px] px-5 pb-[10px] pt-3 sm:px-7">
+      <div className="flex flex-1 flex-col space-y-[9px] px-5 pb-[8px] pt-2.5 sm:px-7">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}
           description={actionDescription}
         />
 
-        <div className="grid items-stretch gap-[11px] lg:grid-cols-[54fr_46fr]">
+        <div className="grid items-stretch gap-[9px] lg:grid-cols-[54fr_46fr]">
           <NextSteps steps={journey} onViewAll={onViewTimeline} />
-          <div className="space-y-[11px]">
+          <div className="space-y-[9px]">
             <DetailsCard rows={detailRows} footer={detailsFooter} status={detailsStatus}>
               {detailsExtra}
             </DetailsCard>
