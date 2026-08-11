@@ -232,10 +232,18 @@ function DetailsCard({
         border: "1px solid rgba(75,85,92,0.30)",
         borderRadius: 14,
         boxShadow:
-          "0 2px 3px rgba(20,30,36,0.08), 0 7px 14px rgba(20,30,36,0.10), inset 0 1px 0 rgba(255,255,255,0.92)",
+          "0 2px 4px rgba(20,30,36,0.10), 0 10px 22px rgba(20,30,36,0.13), inset 0 1px 0 rgba(255,255,255,0.92)",
+        padding: 4,
       }}
     >
-      <div className="relative px-6 py-[5px]">
+      <div
+        className="relative"
+        style={{
+          border: "1px solid rgba(75,85,92,0.16)",
+          borderRadius: 10,
+        }}
+      >
+      <div className="relative px-6 py-[9px]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
           {status && (
@@ -252,7 +260,7 @@ function DetailsCard({
             </span>
           )}
         </div>
-        <dl className="mt-[6px]">
+        <dl className="mt-[10px]">
           {rows.map((row, i) => {
             const isPaymentPill = row.k === "Payment terms" && /pending/i.test(row.v);
             return (
@@ -262,12 +270,12 @@ function DetailsCard({
                 style={i % 2 === 1 ? { background: "#FAF8F5" } : undefined}
               >
                 <span
-                  className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[8px]"
+                  className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[11px]"
                   style={{
-                    background: "#FCFBF8",
-                    border: "1px solid rgba(125,125,115,0.16)",
+                    background: "#FFFFFF",
+                    border: "1px solid rgba(125,125,115,0.14)",
                     boxShadow:
-                      "0 2px 5px rgba(25,35,40,0.09), 0 1px 2px rgba(25,35,40,0.05), inset 0 1px 0 rgba(255,255,255,0.95)",
+                      "0 1px 2px rgba(25,35,40,0.06), inset 0 1px 0 rgba(255,255,255,0.95)",
                     color: "#A97824",
                     visibility: row.icon ? undefined : "hidden",
                   }}
@@ -276,7 +284,7 @@ function DetailsCard({
                 </span>
 
                 <div
-                  className="grid min-h-[30px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[5px]"
+                  className="grid min-h-[40px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[7px]"
                   style={{
                     borderBottom:
                       i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
@@ -326,10 +334,11 @@ function DetailsCard({
         </dl>
 
         {footer && (
-          <div className="mt-[5px] flex justify-center pb-[1px]">{footer}</div>
+          <div className="mt-[8px] flex justify-center pb-[1px]">{footer}</div>
         )}
 
         {children}
+      </div>
       </div>
     </div>
   );
