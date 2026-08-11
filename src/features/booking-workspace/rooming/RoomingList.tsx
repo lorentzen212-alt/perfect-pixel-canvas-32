@@ -47,18 +47,21 @@ function OutlineButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-4 py-[8px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(176,112,15,0.06)] ${className}`}
-      style={{ color: "#A97824", border: "1px solid rgba(169,120,36,0.42)", background: "transparent" }}
+      className={`inline-flex items-center justify-center gap-2 rounded-[5px] px-4 py-[8px] text-[12.5px] font-semibold transition-colors hover:bg-[rgba(176,112,15,0.06)] ${className}`}
+      style={{ color: "#A97824", border: "1px solid rgba(169,120,36,0.70)", background: "transparent" }}
     >
       {children}
     </button>
   );
 }
 
+/* shared square-ish card radius override for the Rooming tab */
+const CARD_RADIUS = 6;
+
 function IconTile({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[11px]"
+      className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[6px]"
       style={{
         background: "#FFFFFF",
         border: "1px solid rgba(125,125,115,0.14)",
@@ -74,7 +77,7 @@ function IconTile({ children }: { children: React.ReactNode }) {
 /* ── 1 · header action ────────────────────────────────────────── */
 function HeaderAction({ bookingId }: { bookingId: string }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[11px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
+    <Card className="flex flex-col gap-3 px-5 py-[11px] sm:flex-row sm:items-center sm:gap-5 sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
       <Medallion size={48}>
         <ClipboardList size={24} strokeWidth={1.5} />
       </Medallion>
@@ -149,11 +152,11 @@ function StatusStrip({
   ];
 
   return (
-    <Card className="grid grid-cols-2 sm:grid-cols-4">
+    <Card className="grid grid-cols-2 sm:grid-cols-4" style={{ borderRadius: CARD_RADIUS }}>
       {cells.map((c, i) => (
         <div
           key={c.label}
-          className="flex items-center gap-3.5 px-5 py-[9px]"
+          className="flex items-center gap-3.5 px-5 py-[16px]"
           style={{ borderLeft: i === 0 ? undefined : "1px solid rgba(27,37,48,0.12)" }}
         >
           <IconTile>{c.icon}</IconTile>
@@ -180,7 +183,7 @@ function StatusStrip({
 /* ── 3a · preview ─────────────────────────────────────────────── */
 function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: string }) {
   return (
-    <Card className="flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6">
+    <Card className="flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
       <span
         className="text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -192,25 +195,29 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         {rows.map((r, i) => (
           <li
             key={r.label}
-            className="flex items-center gap-3 px-2 py-[9px]"
+            className="grid items-center gap-2 px-2 py-[6px]"
             style={{
+              gridTemplateColumns: "1fr 70px 78px 16px",
               background: i % 2 === 1 ? "#FAF8F5" : undefined,
               borderBottom: i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
             }}
           >
-            <span className="min-w-0 flex-1 truncate text-[14px] font-medium" style={{ color: INK }}>
+            <span className="min-w-0 truncate text-[14px] font-medium" style={{ color: INK }}>
               {r.label}
             </span>
-            <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
+            <span
+              className="text-[12.5px] tabular-nums"
+              style={{ color: INK_2, textAlign: "center" }}
+            >
               {r.rooms} rooms
             </span>
             <span
-              className="shrink-0 text-[12.5px] tabular-nums"
-              style={{ color: INK_2, minWidth: 66, textAlign: "right" }}
+              className="text-[12.5px] tabular-nums"
+              style={{ color: INK_2, textAlign: "center" }}
             >
               {r.guests} guests
             </span>
-            <ChevronRight size={15} style={{ color: "rgba(27,37,48,0.35)" }} />
+            <ChevronRight size={15} style={{ color: "rgba(27,37,48,0.35)", justifySelf: "end" }} />
           </li>
         ))}
       </ul>
@@ -264,7 +271,7 @@ function Actions({
   ];
 
   return (
-    <Card className="flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6">
+    <Card className="flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
       <span
         className="text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -311,7 +318,7 @@ function Actions({
 /* ── 4 · need help ────────────────────────────────────────────── */
 function NeedHelp({ onMessage }: { onMessage?: () => void }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[11px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
+    <Card className="flex flex-col gap-3 px-5 py-[11px] sm:flex-row sm:items-center sm:gap-5 sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
       <Medallion size={40}>
         <LifeBuoy size={20} strokeWidth={1.5} />
       </Medallion>
@@ -347,7 +354,7 @@ export function RoomingFolder({
 }) {
   return (
     <Plate>
-      <div className="flex flex-1 flex-col space-y-[12px] px-5 pb-[6px] pt-4 sm:px-7">
+      <div className="flex flex-1 flex-col space-y-[12px] px-5 pb-[1px] pt-4 sm:px-7">
         <HeaderAction bookingId={bookingId} />
         <StatusStrip data={data} onHistory={onHistory} />
         <div className="grid items-stretch gap-[9px] lg:grid-cols-[54fr_46fr]">
