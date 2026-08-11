@@ -1631,7 +1631,7 @@ function IvoryStepper({ value, onChange }: { value: number; onChange: (n: number
       <button
         type="button"
         onClick={() => onChange(Math.max(0, value - 1))}
-        className="grid h-[26px] w-[26px] place-items-center text-[14px] transition-opacity hover:opacity-70"
+        className="grid h-[28px] w-[28px] place-items-center text-[14px] transition-opacity hover:opacity-70"
         style={{ color: C_INK_2, borderRight: `1px solid ${C_HAIR}` }}
         aria-label="Decrease"
       >
@@ -1642,13 +1642,13 @@ function IvoryStepper({ value, onChange }: { value: number; onChange: (n: number
         value={value}
         min={0}
         onChange={(e) => onChange(Math.max(0, Number(e.target.value) || 0))}
-        className="w-[38px] bg-transparent text-center text-[13px] font-medium outline-none"
+        className="w-[44px] bg-transparent text-center text-[13px] font-medium outline-none"
         style={{ color: C_INK }}
       />
       <button
         type="button"
         onClick={() => onChange(value + 1)}
-        className="grid h-[26px] w-[26px] place-items-center text-[14px] transition-opacity hover:opacity-70"
+        className="grid h-[28px] w-[28px] place-items-center text-[14px] transition-opacity hover:opacity-70"
         style={{ color: C_INK_2, borderLeft: `1px solid ${C_HAIR}` }}
         aria-label="Increase"
       >
