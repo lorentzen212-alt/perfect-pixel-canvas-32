@@ -425,7 +425,7 @@ export function RoomingFolder({
       <div className="flex flex-1 flex-col space-y-[12px] px-5 pb-[1px] pt-4 sm:px-7">
         <HeaderAction bookingId={bookingId} />
         <StatusStrip data={data} onHistory={onHistory} />
-        <div className="grid items-stretch gap-[9px] lg:grid-cols-[54fr_46fr]">
+        <div className="grid items-start gap-[9px] lg:grid-cols-[54fr_46fr]">
           <Preview rows={data.rows} bookingId={bookingId} />
           <Actions bookingId={bookingId} onNewVersion={onNewVersion} onUpload={onUpload} />
         </div>
