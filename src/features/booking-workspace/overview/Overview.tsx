@@ -232,7 +232,7 @@ function DetailsCard({
         border: "1px solid rgba(75,85,92,0.30)",
         borderRadius: 14,
         boxShadow:
-          "0 2px 3px rgba(20,30,36,0.08), 0 7px 14px rgba(20,30,36,0.10), inset 0 1px 0 rgba(255,255,255,0.92), inset 0 0 0 1px rgba(255,255,255,0.50)",
+          "0 2px 3px rgba(20,30,36,0.08), 0 7px 14px rgba(20,30,36,0.10), inset 0 1px 0 rgba(255,255,255,0.92)",
       }}
     >
       <div className="relative px-6 py-[5px]">
