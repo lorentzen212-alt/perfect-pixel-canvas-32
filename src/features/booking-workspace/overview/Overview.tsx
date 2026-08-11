@@ -50,7 +50,7 @@ function CurrentAction({
   description: string;
 }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[8px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
+    <Card className="flex flex-col gap-3 px-5 py-[6px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
       <Medallion size={48}>
         <Users size={24} strokeWidth={1.5} />
       </Medallion>
@@ -272,7 +272,7 @@ function DetailsCard({
                 </span>
 
                 <div
-                  className="grid min-h-[27px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[2px]"
+                  className="grid min-h-[25px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[2px]"
                   style={{
                     borderBottom:
                       i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
@@ -373,7 +373,7 @@ function BookingExtras({
             style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
           >
             <span
-              className="grid h-[34px] w-[34px] place-items-center rounded-[10px]"
+              className="grid h-[30px] w-[30px] place-items-center rounded-[10px]"
               style={{
                 background: "#FBFAF6",
                 border: "1px solid rgba(150,125,80,0.20)",
@@ -420,7 +420,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
       {cells.map((c, i) => (
         <div
           key={c.label + i}
-          className="flex items-center gap-3.5 px-5 py-[14px]"
+          className="flex items-center gap-3.5 px-5 py-[10px]"
           style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
         >
           <Medallion size={40}>{c.icon}</Medallion>
@@ -480,7 +480,7 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="flex flex-1 flex-col space-y-[9px] px-5 pb-[8px] pt-2.5 sm:px-7">
+      <div className="flex flex-1 flex-col space-y-[9px] px-5 pb-[6px] pt-2 sm:px-7">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}
