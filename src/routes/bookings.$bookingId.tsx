@@ -77,6 +77,8 @@ import {
   IVORY as C_IVORY,
   GOLD as C_GOLD,
   GOLD_2 as C_GOLD_2,
+  AMBER as C_AMBER,
+  AMBER_DEEP as C_AMBER_DEEP,
 } from "@/features/booking-workspace/overview/materials";
 import {
   Card,
@@ -1167,7 +1169,7 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
-          {isFolder ? null : (
+          {isFolder || tab === "Changes" ? null : (
 
             <div className="flex flex-wrap items-center gap-y-5 py-6">
               {strip.map((s, i) => (
@@ -1532,8 +1534,63 @@ const MODE_OF_PANEL: Record<Exclude<PanelKey, null>, ChangeMode> = {
 
 /* ── small ivory primitives, local to the Changes tab ── */
 
-const INSET_BG = "#FFFDF8";
+/* nested/inset surfaces sit slightly warmer/darker than the near-white card */
+const INSET_BG = "#F7F5EF";
 const INSET_BORDER = "1px solid rgba(27,37,48,0.16)";
+
+/* near-white card, local to the Changes tab, so it lifts off the #F6F4EB plate */
+const CHANGE_CARD_BG = "#FCFBF8";
+function ChangeCard({
+  children,
+  className = "",
+  style,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div
+      className={className}
+      style={{
+        background: CHANGE_CARD_BG,
+        border: "1px solid rgba(27,37,48,0.14)",
+        borderRadius: 12,
+        boxShadow: "0 1px 2px rgba(20,30,36,0.06), 0 6px 14px -8px rgba(20,30,36,0.16)",
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* "Twin Rooms" → "Twin rooms" */
+function sentenceCase(s: string) {
+  const [first, ...rest] = s.split(" ");
+  return [first, ...rest.map((w) => (w === "/" ? w : w.toLowerCase()))].join(" ");
+}
+
+function ChangeSubmit({ children, disabled }: { children: React.ReactNode; disabled?: boolean }) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      className="inline-flex w-full items-center justify-center gap-2 text-[13px] font-semibold"
+      style={{
+        background: `linear-gradient(180deg, ${C_AMBER} 0%, ${C_AMBER_DEEP} 100%)`,
+        color: "#FFF9EE",
+        borderRadius: 6,
+        padding: "13px 20px",
+        cursor: disabled ? "not-allowed" : "pointer",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.28), 0 1px 2px rgba(24,30,36,0.28), 0 4px 10px rgba(24,30,36,0.16)",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
 
 function ModeTile({
   icon,
@@ -1574,7 +1631,7 @@ function IvoryStepper({ value, onChange }: { value: number; onChange: (n: number
       <button
         type="button"
         onClick={() => onChange(Math.max(0, value - 1))}
-        className="grid h-[26px] w-[26px] place-items-center text-[14px] transition-opacity hover:opacity-70"
+        className="grid h-[28px] w-[28px] place-items-center text-[14px] transition-opacity hover:opacity-70"
         style={{ color: C_INK_2, borderRight: `1px solid ${C_HAIR}` }}
         aria-label="Decrease"
       >
@@ -1585,13 +1642,13 @@ function IvoryStepper({ value, onChange }: { value: number; onChange: (n: number
         value={value}
         min={0}
         onChange={(e) => onChange(Math.max(0, Number(e.target.value) || 0))}
-        className="w-[38px] bg-transparent text-center text-[13px] font-medium outline-none"
+        className="w-[44px] bg-transparent text-center text-[13px] font-medium outline-none"
         style={{ color: C_INK }}
       />
       <button
         type="button"
         onClick={() => onChange(value + 1)}
-        className="grid h-[26px] w-[26px] place-items-center text-[14px] transition-opacity hover:opacity-70"
+        className="grid h-[28px] w-[28px] place-items-center text-[14px] transition-opacity hover:opacity-70"
         style={{ color: C_INK_2, borderLeft: `1px solid ${C_HAIR}` }}
         aria-label="Increase"
       >
@@ -1753,19 +1810,19 @@ function ChangesView({
   ];
 
   const SummaryCard = (
-    <Card className="sticky top-6 px-5 py-4 sm:px-6">
+    <ChangeCard className="sticky top-6 px-5 py-4 sm:px-6">
       <Eyebrow>Change summary</Eyebrow>
       <ul className="mt-2.5">
         {summaryRows.map((r, i) => (
           <li
             key={r.k}
-            className="flex items-center gap-3 py-[9px]"
-            style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
+            className="flex h-[40px] items-center gap-3"
+            style={i > 0 ? { borderTop: `1px solid rgba(27,37,48,0.10)` } : undefined}
           >
             <span className="shrink-0" style={{ color: C_GOLD_2 }}>
               {r.icon}
             </span>
-            <span className="min-w-0 flex-1 truncate text-[12.5px]" style={{ color: C_INK_2 }}>
+            <span className="min-w-0 flex-1 truncate text-[13px]" style={{ color: C_INK_2 }}>
               {r.k}
             </span>
             <span className="shrink-0 text-[13px] font-medium" style={{ color: C_INK }}>
@@ -1777,30 +1834,27 @@ function ChangesView({
 
       <div
         className="mt-3 flex items-start gap-2.5 rounded-[8px] px-3.5 py-2.5 text-[11.5px]"
-        style={{ background: "rgba(237,228,214,0.45)", border: `1px solid ${C_HAIR}`, color: C_INK_2 }}
+        style={{ background: "#F7F1E4", border: `1px solid rgba(27,37,48,0.10)`, color: C_INK_2 }}
       >
         <Info size={14} className="mt-[1px] shrink-0" style={{ color: C_GOLD }} />
         <span>We&rsquo;ll review your request and respond as soon as possible.</span>
       </div>
 
-      <div
-        className="mt-3"
-        style={changed.length === 0 ? { opacity: 0.45, pointerEvents: "none" as const } : undefined}
-      >
-        <SolidButton className="w-full">
+      <div className="mt-3">
+        <ChangeSubmit disabled={changed.length === 0}>
           Submit change request <ArrowRight size={14} />
-        </SolidButton>
+        </ChangeSubmit>
       </div>
       <p className="mt-2 flex items-center justify-center gap-1.5 text-[11px]" style={{ color: C_INK_3 }}>
         <Lock size={11} /> Your request is sent securely
       </p>
-    </Card>
+    </ChangeCard>
   );
 
   return (
     <div className="space-y-3 pb-8">
       {/* ── intro + mode selector ── */}
-      <Card className="px-5 py-4 sm:px-6">
+      <ChangeCard className="px-5 py-4 sm:px-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex min-w-0 items-center gap-3.5">
             <Medallion size={42}>
@@ -1833,11 +1887,11 @@ function ChangesView({
             </button>
           </div>
         </div>
-      </Card>
+      </ChangeCard>
 
       {/* ── change history (tracker + recent requests), hidden by default ── */}
       {historyOpen && (
-        <Card className="px-5 py-4 sm:px-6">
+        <ChangeCard className="px-5 py-4 sm:px-6">
           <Eyebrow>Request status tracker</Eyebrow>
           <div className="mt-3 grid gap-2 sm:grid-cols-3 xl:grid-cols-5">
             {tracker.map((t) => (
@@ -1898,18 +1952,18 @@ function ChangesView({
               ))}
             </ul>
           </div>
-        </Card>
+        </ChangeCard>
       )}
 
       {/* ── workspace + summary ── */}
-      <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_400px]">
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(380px,440px)]">
         <div className="min-w-0 space-y-3">
           {mode === "rooms" && (
-            <Card className="px-5 py-4 sm:px-6">
+            <ChangeCard className="px-5 py-4 sm:px-6">
               <Eyebrow>What would you like to change?</Eyebrow>
 
               {/* 1 · apply changes to */}
-              <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div className="mt-3 grid grid-cols-1 items-end gap-x-10 gap-y-3 sm:grid-cols-[auto_minmax(0,300px)] sm:justify-start">
                 <div>
                   <FieldLabel>Apply changes to</FieldLabel>
                   <div className="flex items-center gap-5">
@@ -1925,7 +1979,7 @@ function ChangesView({
                       value={scopeDate}
                       disabled={scope !== "specific"}
                       onChange={(e) => setScopeDate(e.target.value)}
-                      className="w-full rounded-[7px] px-3 py-[7px] pr-8 text-[12.5px] outline-none sm:w-[190px]"
+                      className="w-full rounded-[7px] px-3 py-[7px] pr-8 text-[12.5px] outline-none"
                       style={ivoryInput}
                     />
                     <CalendarDays
@@ -1941,7 +1995,7 @@ function ChangesView({
 
               {/* 2 · room changes */}
               <div className="mt-4">
-                <div className="flex items-end justify-between gap-4">
+                <div className="grid grid-cols-[minmax(0,1fr)_90px_150px] items-end gap-x-2">
                   <div>
                     <p className="text-[13.5px] font-medium" style={{ color: C_INK }}>
                       Room changes
@@ -1950,30 +2004,28 @@ function ChangesView({
                       Adjust the number of rooms
                     </p>
                   </div>
-                  <div className="hidden shrink-0 items-center gap-3 sm:flex">
-                    <span className="w-[62px] text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
-                      Current
-                    </span>
-                    <span className="w-[104px] text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
-                      Requested
-                    </span>
-                  </div>
+                  <span className="text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
+                    Current
+                  </span>
+                  <span className="text-right text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: C_INK_3 }}>
+                    Requested
+                  </span>
                 </div>
 
                 <ul className="mt-1.5">
                   {lines.map((l, i) => (
                     <li
                       key={l.type}
-                      className="flex items-center gap-3 py-[9px]"
-                      style={i > 0 ? { borderTop: `1px solid ${C_HAIR}` } : undefined}
+                      className="grid grid-cols-[minmax(0,1fr)_90px_150px] items-center gap-x-2 py-2"
+                      style={i > 0 ? { borderTop: `1px solid rgba(27,37,48,0.10)` } : undefined}
                     >
-                      <span className="min-w-0 flex-1 truncate text-[13.5px]" style={{ color: C_INK }}>
-                        {l.type}
+                      <span className="min-w-0 truncate text-[13px]" style={{ color: C_INK }}>
+                        {sentenceCase(l.type)}
                       </span>
-                      <span className="w-[62px] shrink-0 text-right text-[13px]" style={{ color: C_INK_2 }}>
+                      <span className="text-right text-[13px]" style={{ color: C_INK_2 }}>
                         {l.base}
                       </span>
-                      <span className="flex w-[104px] shrink-0 justify-end">
+                      <span className="flex justify-end">
                         <IvoryStepper
                           value={l.qty}
                           onChange={(n) => onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)))}
@@ -1989,18 +2041,18 @@ function ChangesView({
               {/* 3 · totals */}
               <div
                 className="mt-3 grid grid-cols-2 rounded-[8px]"
-                style={{ background: "rgba(27,37,48,0.035)", border: `1px solid ${C_HAIR}` }}
+                style={{ background: "#F7F5EF", border: `1px solid rgba(27,37,48,0.10)` }}
               >
                 {[
                   { icon: <Bed size={13} />, label: "Total rooms", from: currentRooms, to: afterRooms },
                   { icon: <Users size={13} />, label: "Total guests", from: currentGuests, to: afterGuests },
                 ].map((m, i) => (
-                  <div key={m.label} className="min-w-0 px-4 py-3" style={i === 1 ? { borderLeft: `1px solid ${C_HAIR}` } : undefined}>
+                  <div key={m.label} className="min-w-0 px-4 py-[9px]" style={i === 1 ? { borderLeft: `1px solid rgba(27,37,48,0.10)` } : undefined}>
                     <p className="flex items-center gap-1.5 truncate text-[11px]" style={{ color: C_INK_3 }}>
                       <span style={{ color: C_GOLD_2 }}>{m.icon}</span>
                       {m.label}
                     </p>
-                    <p className="mt-1 flex items-baseline gap-2 text-[18px] leading-none" style={{ color: C_INK, fontFamily: SERIF, fontWeight: 500 }}>
+                    <p className="mt-0.5 flex items-center gap-2 text-[15px] font-medium leading-none" style={{ color: C_INK }}>
                       {m.from}
                       <ArrowRight size={12} style={{ color: C_INK_3 }} />
                       <span style={{ color: m.to === m.from ? C_INK : C_GOLD }}>{m.to}</span>
@@ -2008,6 +2060,7 @@ function ChangesView({
                   </div>
                 ))}
               </div>
+
 
               {/* 4 · other changes */}
               <div className="mt-4">
@@ -2030,7 +2083,7 @@ function ChangesView({
                   {comment.length}/1000
                 </span>
               </div>
-            </Card>
+            </ChangeCard>
           )}
 
           {mode === "addons" && (
