@@ -271,7 +271,7 @@ function Actions({
   ];
 
   return (
-    <Card className="flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6">
+    <Card className="flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
       <span
         className="text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
