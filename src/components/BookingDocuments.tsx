@@ -6,7 +6,6 @@ import {
   FileSpreadsheet,
   FileText,
   Layers,
-  Lock,
   MoreVertical,
   Receipt,
   ScrollText,
@@ -17,9 +16,9 @@ import { Plate } from "@/features/booking-workspace/overview/primitives";
 import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
 
 /* ── warm document-desk surfaces ── */
-const PAPER = "#FAF9F6";
+const PAPER = "#FAF8F3";
 const HOVER = "#F1EFE9";
-const BEHIND = "#ECEAE4";
+const BEHIND = "#ECE8E0";
 const EDGE = "rgba(27,37,48,0.12)";
 const EDGE_SOFT = "rgba(27,37,48,0.08)";
 const SELECTED = "#FAF6EC";
@@ -134,61 +133,106 @@ function docIcon(d: BookingDoc) {
   return spreadsheet ? <FileSpreadsheet size={15} /> : CAT_ICON[d.category];
 }
 
-/* ══════════════════ folder tabs ══════════════════ */
+/* ══════════════════ folder index tabs ══════════════════ */
 
 type Section = "hotel" | "you";
 
-function FolderTab({
+const TAB_H = 42;
+
+function TabLabel({
   label,
   count,
   active,
-  behind,
-  onClick,
 }: {
   label: string;
   count: number;
   active: boolean;
-  behind: boolean;
+}) {
+  return (
+    <>
+      <span
+        className="truncate text-[12.5px] transition-colors duration-200"
+        style={{ color: active ? INK : INK_3, fontWeight: active ? 500 : 400 }}
+      >
+        {label}
+      </span>
+      <span
+        className="ml-3 grid h-[19px] min-w-[19px] shrink-0 place-items-center rounded-full px-1 text-[10px] transition-colors duration-200"
+        style={{
+          background: active ? "rgba(27,37,48,0.07)" : "rgba(27,37,48,0.06)",
+          color: active ? INK_2 : INK_3,
+        }}
+      >
+        {count}
+      </span>
+    </>
+  );
+}
+
+/** the wide raised index section on the left — physically continuous with the body */
+function FrontTab({
+  label,
+  count,
+  onClick,
+}: {
+  label: string;
+  count: number;
   onClick: () => void;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="relative inline-flex items-center gap-2 px-4 transition-colors duration-200"
+      className="absolute left-0 top-0 z-[3] flex items-center justify-between px-4 transition-colors duration-200"
       style={{
-        height: active ? 38 : 35,
-        marginTop: active ? 0 : 3,
-        marginBottom: active ? -1 : 0,
-        marginLeft: behind ? -8 : 0,
-        zIndex: active ? 2 : 1,
-        background: active ? PAPER : BEHIND,
-        borderTop: `1px solid ${EDGE}`,
-        borderLeft: `1px solid ${EDGE}`,
-        borderRight: `1px solid ${EDGE}`,
-        borderBottom: active ? "none" : `1px solid ${EDGE}`,
+        width: "62%",
+        height: TAB_H + 1,
+        background: PAPER,
+        borderTop: `1px solid ${EDGE_SOFT}`,
+        borderLeft: `1px solid ${EDGE_SOFT}`,
+        borderRight: `1px solid ${EDGE_SOFT}`,
         borderRadius: "10px 10px 0 0",
-        boxShadow: active ? `inset 0 2px 0 ${GOLD}` : undefined,
+        boxShadow: "2px 0 4px -2px rgba(20,30,36,0.10)",
       }}
     >
-      <span
-        className="text-[12.5px]"
-        style={{ color: active ? INK : INK_2, fontWeight: active ? 500 : 400 }}
-      >
-        {label}
-      </span>
-      <span
-        className="grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[10px]"
-        style={{
-          background: active ? "rgba(27,37,48,0.08)" : "rgba(27,37,48,0.06)",
-          color: active ? INK_2 : INK_3,
-        }}
-      >
-        {count}
+      <TabLabel label={label} count={count} active />
+    </button>
+  );
+}
+
+/** the layer behind — starts lower, tucks under the front tab, clipped by the body */
+function RearTab({
+  label,
+  count,
+  onClick,
+}: {
+  label: string;
+  count: number;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="absolute right-0 z-[1] flex items-center justify-between px-4 transition-colors duration-200"
+      style={{
+        left: "calc(62% - 16px)",
+        top: 5,
+        height: TAB_H + 8,
+        background: BEHIND,
+        borderTop: `1px solid ${EDGE_SOFT}`,
+        borderLeft: `1px solid ${EDGE_SOFT}`,
+        borderRight: `1px solid ${EDGE_SOFT}`,
+        borderRadius: "10px 10px 0 0",
+      }}
+    >
+      <span className="ml-3 flex min-w-0 flex-1 items-center justify-between pb-[8px]">
+        <TabLabel label={label} count={count} active={false} />
       </span>
     </button>
   );
 }
+
 
 /* ══════════════════ document rows ══════════════════ */
 
@@ -270,6 +314,16 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
   const hotelDocs = useMemo(() => docs.filter((d) => d.uploadedBy === "Hotel"), [docs]);
   const yourDocs = useMemo(() => docs.filter((d) => d.uploadedBy === "You"), [docs]);
 
+  /* badges count only what the section actually shows right now */
+  const hotelVisible = useMemo(
+    () => (showAll ? hotelDocs : hotelDocs.filter((d) => !d.archived)).length,
+    [hotelDocs, showAll],
+  );
+  const yourVisible = useMemo(
+    () => (showAll ? yourDocs : yourDocs.filter((d) => !d.archived)).length,
+    [yourDocs, showAll],
+  );
+
   const list = useMemo(() => {
     const source = section === "hotel" ? hotelDocs : yourDocs;
     return showAll ? source : source.filter((d) => !d.archived);
@@ -341,49 +395,41 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
           }}
         />
 
-        <div className="grid min-w-0 items-start gap-[30px] lg:grid-cols-[36fr_64fr]">
+        <div className="grid min-w-0 items-start gap-[30px] lg:grid-cols-[34fr_66fr]">
           {/* ── LEFT: the physical folder ── */}
           <div className="min-w-0">
-            <div className="flex items-end">
+            <div className="relative" style={{ height: 42 }}>
               {section === "hotel" ? (
                 <>
-                  <FolderTab
-                    label="Booking documents"
-                    count={hotelDocs.length}
-                    active
-                    behind={false}
-                    onClick={() => setSection("hotel")}
-                  />
-                  <FolderTab
+                  <RearTab
                     label="Your documents"
-                    count={yourDocs.length}
-                    active={false}
-                    behind
+                    count={yourVisible}
                     onClick={() => setSection("you")}
+                  />
+                  <FrontTab
+                    label="Booking documents"
+                    count={hotelVisible}
+                    onClick={() => setSection("hotel")}
                   />
                 </>
               ) : (
                 <>
-                  <FolderTab
-                    label="Your documents"
-                    count={yourDocs.length}
-                    active
-                    behind={false}
-                    onClick={() => setSection("you")}
-                  />
-                  <FolderTab
+                  <RearTab
                     label="Booking documents"
-                    count={hotelDocs.length}
-                    active={false}
-                    behind
+                    count={hotelVisible}
                     onClick={() => setSection("hotel")}
+                  />
+                  <FrontTab
+                    label="Your documents"
+                    count={yourVisible}
+                    onClick={() => setSection("you")}
                   />
                 </>
               )}
             </div>
 
             {/* body + the second sheet behind it */}
-            <div className="relative">
+            <div className="relative z-[2]">
               <span
                 aria-hidden
                 className="absolute inset-x-[3px] bottom-[-4px] top-[8px]"
@@ -393,11 +439,12 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                 className="relative p-5"
                 style={{
                   background: PAPER,
-                  border: `1px solid ${EDGE}`,
+                  border: `1px solid ${EDGE_SOFT}`,
                   borderRadius: "0 10px 10px 10px",
-                  boxShadow: "0 1px 2px rgba(20,30,36,0.04)",
+                  boxShadow: "0 1px 3px rgba(20,30,36,0.05), 0 -1px 2px rgba(20,30,36,0.05)",
                 }}
               >
+
                 <div
                   className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-3 pb-2 text-[9.5px] uppercase tracking-[0.18em]"
                   style={{ color: INK_3 }}
@@ -471,12 +518,8 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                 )}
               </div>
             </div>
-
-            <p className="mt-4 flex items-center gap-2 text-[11.5px]" style={{ color: INK_3 }}>
-              <Lock size={12} style={{ color: GOLD }} />
-              Securely stored, visible only to authorized users.
-            </p>
           </div>
+
 
           {/* ── RIGHT: the reading area shell ── */}
           <div className="min-w-0">
