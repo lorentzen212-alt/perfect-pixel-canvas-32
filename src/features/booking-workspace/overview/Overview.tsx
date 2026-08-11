@@ -81,7 +81,7 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="relative flex h-full flex-col px-5 pb-4 pt-[15px] sm:px-6">
+    <Card className="relative flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
