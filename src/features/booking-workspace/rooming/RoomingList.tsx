@@ -424,16 +424,16 @@ function Actions({
             </span>
             {r.link ? (
               <Link to="/rooming/$bookingId" params={{ bookingId }} className="shrink-0">
-                <OutlineButton>
+                <GoldFillButton>
                   {r.label}
                   <ArrowRight size={13} />
-                </OutlineButton>
+                </GoldFillButton>
               </Link>
             ) : (
-              <OutlineButton className="shrink-0" onClick={r.onClick}>
+              <GoldFillButton className="shrink-0" onClick={r.onClick}>
                 {r.label}
                 <ArrowRight size={13} />
-              </OutlineButton>
+              </GoldFillButton>
             )}
           </li>
         ))}
