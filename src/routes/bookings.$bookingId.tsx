@@ -59,11 +59,20 @@ import {
   GOLD_DEEP_MET as F_GOLD_DEEP,
 } from "@/features/booking-workspace/folder";
 import { OverviewFolder } from "@/features/booking-workspace/overview/Overview";
+import { RoomingFolder } from "@/features/booking-workspace/rooming/RoomingList";
 import { FOLDER_TOP_SURFACE, PAGE_UNDER } from "@/features/booking-workspace/overview/materials";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 
 import { roomingProgress, type Booking } from "@/lib/bookings";
-import { distributionFor, statsOf } from "@/lib/rooming";
+import {
+  activeAllocations,
+  capacityOf,
+  distributionFor,
+  isNamed,
+  statsOf,
+  type RoomingList,
+  type RoomType,
+} from "@/lib/rooming";
 import { useAuth } from "@/lib/auth";
 import { fetchBooking, fetchRoomDistribution } from "@/lib/bookingsApi";
 import { loadRoomingListFromDb } from "@/lib/roomingApi";
@@ -454,6 +463,7 @@ function Workspace({ booking }: { booking: Booking }) {
   const [tab, setTab] = useState<WorkspaceTab>("Overview");
   /* rooming progress is derived from the live rooming list, never hardcoded */
   const [roomingStats, setRoomingStats] = useState<{ filled: number; total: number; percent: number } | null>(null);
+  const [roomingList, setRoomingList] = useState<RoomingList | null>(null);
   useEffect(() => {
     let active = true;
     (async () => {
@@ -464,12 +474,14 @@ function Workspace({ booking }: { booking: Booking }) {
       );
       if (!active) return;
       const s = statsOf(list);
+      setRoomingList(list);
       setRoomingStats({ filled: s.filled, total: s.totalSlots, percent: s.percent });
     })().catch(() => {});
     return () => {
       active = false;
     };
   }, [booking.id, booking.rooms]);
+
 
   const progress = roomingStats?.percent ?? roomingProgress(booking);
   const rooming = booking.rooming;
@@ -519,6 +531,9 @@ function Workspace({ booking }: { booking: Booking }) {
     return Math.max(0, Math.round((d - a) / 86400000));
   }, [stay]);
 
+
+
+
   /* dirty tracking */
   const [dirty, setDirty] = useState<Record<string, boolean>>({});
   const markDirty = (k: string) => setDirty((p) => ({ ...p, [k]: true }));
@@ -556,6 +571,55 @@ function Workspace({ booking }: { booking: Booking }) {
     return Number.isNaN(t.getTime()) ? "—" : t.toLocaleDateString("en-GB", opts);
   };
   const dateShort = (d: string) => fmtDate(d, { day: "numeric", month: "short" });
+
+  /* rooming list tab data — derived from the live list where available */
+  const roomingData = useMemo(() => {
+    const ORDER: { key: RoomType[]; label: string }[] = [
+      { key: ["twin"], label: "Twin rooms" },
+      { key: ["double"], label: "Double rooms" },
+      { key: ["single"], label: "Single rooms" },
+      { key: ["triple"], label: "Triple rooms" },
+      { key: ["family"], label: "Family / Accessible" },
+    ];
+    const allocs = roomingList ? activeAllocations(roomingList) : [];
+    const rows = ORDER.map((o) => {
+      const list = allocs.filter((a) => o.key.includes(a.type));
+      return {
+        label: o.label,
+        rooms: list.length,
+        guests: list.reduce((s, a) => s + capacityOf(a.type, a.occupancy), 0),
+      };
+    });
+    const guestsAdded =
+      roomingStats?.filled ?? allocs.reduce((s, a) => s + a.guests.filter(isNamed).length, 0);
+    const guestsTotal = roomingStats?.total ?? totalGuests;
+    const arrivalMs = new Date(stay.arrival).getTime();
+    let derivedDeadline: string | null = null;
+    try {
+      if (Number.isFinite(arrivalMs)) {
+        derivedDeadline = new Date(arrivalMs - 30 * 86400000).toISOString().slice(0, 10);
+      }
+    } catch {
+      derivedDeadline = null;
+    }
+    const deadlineIso = rooming?.due ?? derivedDeadline;
+    const deadlineMs = deadlineIso ? new Date(deadlineIso).getTime() : NaN;
+    const savedAt = roomingList?.savedAt ?? roomingList?.submittedAt ?? null;
+    return {
+      status: guestsAdded >= guestsTotal && guestsTotal > 0 ? "Complete" : "In progress",
+      lastUpdated:
+        savedAt && Number.isFinite(new Date(savedAt).getTime()) ? dateShort(savedAt) : "Not yet saved",
+      deadline: Number.isFinite(deadlineMs)
+        ? fmtDate(deadlineIso as string, { day: "numeric", month: "short", year: "numeric" })
+        : "To be confirmed",
+      deadlineNote: "(30 days before arrival)",
+      guestsAdded,
+      guestsTotal,
+      roomsAssigned: allocs.length || totalRooms,
+      version: (roomingList?.changeLog?.length ?? 0) + 1,
+      rows: rows.filter((r) => r.rooms > 0).length ? rows : rows,
+    };
+  }, [roomingList, roomingStats, rooming, stay.arrival, totalGuests, totalRooms]);
   const nightsLabel = Number.isFinite(nights) && nights > 0 ? `${nights} nights` : "Dates to confirm";
 
   const editor = panel && (
@@ -952,16 +1016,18 @@ function Workspace({ booking }: { booking: Booking }) {
     },
   ];
 
+  const isFolder = tab === "Overview" || tab === "Rooming List";
+
   return (
     <div
       className="flex min-h-screen flex-col"
-      style={{ backgroundColor: tab === "Overview" ? PAGE_UNDER : BG_ALT }}
+      style={{ backgroundColor: isFolder ? PAGE_UNDER : BG_ALT }}
     >
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
       <aside
         className="fixed inset-y-0 left-0 z-40 hidden w-[240px] lg:block"
-        style={tab === "Overview" ? { boxShadow: "16px 0 28px -16px rgba(6,12,20,0.18)" } : undefined}
+        style={isFolder ? { boxShadow: "16px 0 28px -16px rgba(6,12,20,0.18)" } : undefined}
       >
         <GlobalSidebar
           active="My Bookings"
@@ -1031,25 +1097,25 @@ function Workspace({ booking }: { booking: Booking }) {
           statusTone={confirmed ? "#1E5B39" : "#7A5A12"}
           active={tab as WorkspaceTab}
           onSelect={(t) => setTab(t)}
-          surface={tab === "Overview" ? FOLDER_TOP_SURFACE : undefined}
+          surface={isFolder ? FOLDER_TOP_SURFACE : undefined}
         />
 
 
         {/* ══ 2 · workspace plate — physical folder on Overview, ivory elsewhere ══ */}
         <div
           className={
-            tab === "Overview"
+            isFolder
               ? "relative flex flex-1 flex-col px-0 pb-0 pt-0"
               : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
           style={
-            tab === "Overview"
+            isFolder
               ? { backgroundColor: PAGE_UNDER }
               : { backgroundColor: PLATE }
           }
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
-          {tab === "Overview" ? null : (
+          {isFolder ? null : (
 
             <div className="flex flex-wrap items-center gap-y-5 py-6">
               {strip.map((s, i) => (
@@ -1075,8 +1141,17 @@ function Workspace({ booking }: { booking: Booking }) {
           )}
 
 
-          <div key={tab} className={`hgb-ws-panel${tab === "Overview" ? " flex flex-1 flex-col" : ""}`}>
-          {tab === "Changes" ? (
+          <div key={tab} className={`hgb-ws-panel${isFolder ? " flex flex-1 flex-col" : ""}`}>
+          {tab === "Rooming List" ? (
+            <RoomingFolder
+              bookingId={booking.id}
+              data={roomingData}
+              onHistory={() => setTab("Changes")}
+              onNewVersion={() => navigate({ to: "/rooming/$bookingId", params: { bookingId: booking.id } })}
+              onUpload={() => setTab("Documents")}
+              onMessage={() => setTab("Messages")}
+            />
+          ) : tab === "Changes" ? (
             <ChangesView
               rooms={rooms}
               baseRooms={BASE_ROOMS}
