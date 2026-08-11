@@ -112,7 +112,8 @@ function GoldFillButton({
       onClick={onClick}
       className={`inline-flex items-center justify-center gap-2 rounded-[5px] px-4 py-[8px] text-[12.5px] font-semibold ${className}`}
       style={{
-        background: "linear-gradient(180deg, #C9A23A 0%, #BC9530 50%, #B08628 100%)",
+        background:
+          "linear-gradient(135deg, #B8860B 0%, #DAA520 28%, #E2C868 50%, #DAA520 68%, #8B6914 100%)",
         color: "#1A0F00",
         boxShadow: "0 1px 3px rgba(139,105,20,0.22)",
       }}
