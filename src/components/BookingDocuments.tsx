@@ -315,6 +315,16 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
   const hotelDocs = useMemo(() => docs.filter((d) => d.uploadedBy === "Hotel"), [docs]);
   const yourDocs = useMemo(() => docs.filter((d) => d.uploadedBy === "You"), [docs]);
 
+  /* badges count only what the section actually shows right now */
+  const hotelVisible = useMemo(
+    () => (showAll ? hotelDocs : hotelDocs.filter((d) => !d.archived)).length,
+    [hotelDocs, showAll],
+  );
+  const yourVisible = useMemo(
+    () => (showAll ? yourDocs : yourDocs.filter((d) => !d.archived)).length,
+    [yourDocs, showAll],
+  );
+
   const list = useMemo(() => {
     const source = section === "hotel" ? hotelDocs : yourDocs;
     return showAll ? source : source.filter((d) => !d.archived);
