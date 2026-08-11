@@ -398,7 +398,7 @@ function BookingExtras({
         ))}
       </ul>
 
-      <div className="mt-[7px] flex justify-center pt-[6px]" style={{ borderTop: `1px solid ${HAIR}` }}>
+      <div className="mt-[6px] flex justify-center pt-[4px]" style={{ borderTop: `1px solid ${HAIR}` }}>
         <button
           type="button"
           onClick={onView}
@@ -420,7 +420,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
       {cells.map((c, i) => (
         <div
           key={c.label + i}
-          className="flex items-center gap-3.5 px-5 py-[7px]"
+          className="flex items-center gap-3.5 px-5 py-[5px]"
           style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
         >
           <Medallion size={40}>{c.icon}</Medallion>
@@ -480,7 +480,7 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="flex flex-1 flex-col space-y-[9px] px-5 pb-[6px] pt-2 sm:px-7">
+      <div className="flex flex-1 flex-col space-y-[9px] px-5 pb-[4px] pt-2 sm:px-7">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}
