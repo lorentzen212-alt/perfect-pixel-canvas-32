@@ -19,28 +19,22 @@ import {
   SLOT_SHADOW,
 } from "./materials";
 
-/* ── the folder itself: a rigid object with visible thickness ── */
+/* ── the folder surface — a plain grey plate that fills down to the
+   viewport bottom. No side/bottom frame strips, so no visible right or
+   bottom edge. The left edge carries a soft inset shadow so the plate
+   reads as recessed behind the sidebar; the sidebar's own drop shadow
+   reinforces the layering. ── */
 export function Plate({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="relative flex flex-col"
+      className="relative flex flex-1 flex-col"
       style={{
-        background: `linear-gradient(180deg, ${FOLDER_EDGE} 0%, ${FOLDER_EDGE_DEEP} 100%)`,
-        borderRadius: 16,
-        padding: `0 5px ${FOLDER_DEPTH}px`,
-        boxShadow: FOLDER_CONTACT,
+        background: FOLDER_TOP_SURFACE,
+        borderRadius: "16px 16px 0 0",
+        boxShadow: `inset 0 1px 0 ${FOLDER_RIM}, inset 9px 0 13px -6px rgba(6,14,22,0.22)`,
       }}
     >
-      <div
-        className="flex flex-col"
-        style={{
-          background: FOLDER_TOP_SURFACE,
-          borderRadius: "12px 12px 13px 13px",
-          boxShadow: `inset 0 1px 0 ${FOLDER_RIM}, inset 0 -1px 0 ${FOLDER_BREAK}, inset 1px 0 0 rgba(255,255,255,0.45), inset -1px 0 0 rgba(38,44,50,0.06)`,
-        }}
-      >
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
