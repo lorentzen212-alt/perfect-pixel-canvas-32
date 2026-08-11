@@ -64,7 +64,7 @@ export function GlobalSidebar({
 
   const renderItem = (
     item: { label: string; icon: typeof User },
-    opts: { to?: "/rooming/$bookingId" | "/account"; params?: { bookingId: string } },
+    opts: { to?: "/bookings/$bookingId" | "/account"; params?: { bookingId: string }; search?: { tab: string } },
   ) => {
     const isActive = item.label === active;
     const style: React.CSSProperties = {
@@ -124,9 +124,9 @@ export function GlobalSidebar({
         )}
       </>
     );
-    if (opts.to === "/rooming/$bookingId" && opts.params) {
+    if (opts.to === "/bookings/$bookingId" && opts.params) {
       return (
-        <Link key={item.label} to={opts.to} params={opts.params} className={row} style={style} title="">
+        <Link key={item.label} to={opts.to} params={opts.params} search={opts.search} className={row} style={style} title="">
           {inner}
         </Link>
       );
@@ -203,7 +203,7 @@ export function GlobalSidebar({
           renderItem(
             item,
             item.label === "Rooming Lists" && roomingBookingId
-              ? { to: "/rooming/$bookingId", params: { bookingId: roomingBookingId } }
+              ? { to: "/bookings/$bookingId", params: { bookingId: roomingBookingId }, search: { tab: "Rooming List" } }
               : {},
           ),
         )}
