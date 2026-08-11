@@ -50,7 +50,7 @@ function CurrentAction({
   description: string;
 }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:gap-5 sm:px-6">
+    <Card className="flex flex-col gap-3 px-5 py-[13px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
       <Medallion size={56}>
         <Users size={24} strokeWidth={1.5} />
       </Medallion>
@@ -58,7 +58,7 @@ function CurrentAction({
       <div className="min-w-0 flex-1">
         <Eyebrow>Current action</Eyebrow>
         <p
-          className="mt-1.5 text-[21px] leading-tight"
+          className="mt-1 text-[19.5px] leading-tight"
           style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
         >
           {title}
@@ -81,7 +81,7 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="relative flex h-full flex-col px-5 pb-5 pt-4 sm:px-6">
+    <Card className="relative flex h-full flex-col px-5 pb-4 pt-[13px] sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -89,14 +89,14 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
         What happens next
       </span>
 
-      <ol className="relative mt-1.5 flex min-h-0 flex-1 flex-col gap-[5px]">
+      <ol className="relative mt-2 flex min-h-0 flex-1 flex-col">
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
           const circle: React.CSSProperties = done
             ? {
-                height: 28,
-                width: 28,
+                height: 32,
+                width: 32,
                 background: "#2E7D55",
                 color: "#FFFFFF",
                 fontSize: 11,
@@ -104,16 +104,16 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
               }
             : active
               ? {
-                  height: 28,
-                  width: 28,
+                  height: 32,
+                  width: 32,
                   background: "linear-gradient(135deg, #B8860B, #DAA520)",
                   color: "#FFFFFF",
                   fontSize: 12,
                   boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
                 }
               : {
-                  height: 28,
-                  width: 28,
+                  height: 32,
+                  width: 32,
                   background: "#F7F7F7",
                   border: "1px solid #DADDE0",
                   color: "#6B7177",
@@ -123,12 +123,12 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
           return (
             <li
               key={s.label}
-              className="relative flex items-center gap-[14px] py-[7px]"
+              className="relative flex flex-1 items-center gap-[14px]"
             >
               {active && (
                 <span
                   aria-hidden
-                  className="absolute -inset-x-3 inset-y-0 overflow-hidden rounded-[9px]"
+                  className="absolute -inset-x-3 top-1/2 h-[52px] -translate-y-1/2 overflow-hidden rounded-[9px]"
                   style={{
                     background: "#F7F1E5",
                     border: "1px solid #E2CFB1",
@@ -143,9 +143,9 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[14px] top-1/2 w-[2px] -translate-x-1/2"
+                  className="absolute left-[16px] top-1/2 w-[2px] -translate-x-1/2"
                   style={{
-                    height: "calc(100% + 5px)",
+                    height: "100%",
                     background: done || active ? "#2E7D55" : "#D4D2CC",
                   }}
                 />
@@ -154,7 +154,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
                 className="relative z-[1] grid shrink-0 place-items-center rounded-full font-semibold"
                 style={circle}
               >
-                {done ? <Check size={13} strokeWidth={3} /> : i + 1}
+                {done ? <Check size={15} strokeWidth={3} /> : i + 1}
               </span>
 
               <span className="relative z-[1] flex min-w-0 flex-1 items-center justify-between gap-4">
@@ -197,7 +197,7 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
       <button
         type="button"
         onClick={onViewAll}
-        className="group relative inline-flex w-fit items-center gap-2.5 pt-[30px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
+        className="group relative inline-flex w-fit items-center gap-2.5 pt-[18px] text-[12.5px] font-medium transition-colors duration-200 hover:text-[#8C6A22]"
         style={{ color: "#A98232" }}
       >
         View full timeline
@@ -235,7 +235,7 @@ function DetailsCard({
           "0 2px 3px rgba(20,30,36,0.08), 0 7px 14px rgba(20,30,36,0.10), inset 0 1px 0 rgba(255,255,255,0.92), inset 0 0 0 1px rgba(255,255,255,0.50)",
       }}
     >
-      <div className="relative px-6 py-[13px]">
+      <div className="relative px-6 py-[11px]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
           {status && (
@@ -272,7 +272,7 @@ function DetailsCard({
                 </span>
 
                 <div
-                  className="grid min-h-[37px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[2px]"
+                  className="grid min-h-[34px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[2px]"
                   style={{
                     borderBottom:
                       i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
@@ -322,7 +322,7 @@ function DetailsCard({
         </dl>
 
         {footer && (
-          <div className="mt-[13px] flex justify-center pb-[1px]">{footer}</div>
+          <div className="mt-[10px] flex justify-center pb-[1px]">{footer}</div>
         )}
 
         {children}
@@ -354,7 +354,7 @@ function BookingExtras({
 }) {
   const includedCount = items.filter((i) => i.tone === "positive").length;
   return (
-    <Card className="px-5 py-[13px]">
+    <Card className="px-5 py-[11px]">
       <div className="flex items-center justify-between gap-3">
         <Eyebrow>Booking extras</Eyebrow>
         <span
@@ -365,7 +365,7 @@ function BookingExtras({
         </span>
       </div>
 
-      <ul className="mt-[11px] grid grid-cols-3">
+      <ul className="mt-[9px] grid grid-cols-3">
         {items.map((item, i) => (
           <li
             key={item.label}
@@ -398,7 +398,7 @@ function BookingExtras({
         ))}
       </ul>
 
-      <div className="mt-[11px] flex justify-center pt-[9px]" style={{ borderTop: `1px solid ${HAIR}` }}>
+      <div className="mt-[9px] flex justify-center pt-[8px]" style={{ borderTop: `1px solid ${HAIR}` }}>
         <button
           type="button"
           onClick={onView}
@@ -420,7 +420,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
       {cells.map((c, i) => (
         <div
           key={c.label + i}
-          className="flex items-center gap-3.5 px-5 py-[33px]"
+          className="flex items-center gap-3.5 px-5 py-[28px]"
           style={{ borderLeft: i === 0 ? undefined : `1px solid ${HAIR}` }}
         >
           <Medallion size={40}>{c.icon}</Medallion>
@@ -480,16 +480,16 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="flex flex-1 flex-col space-y-4 px-5 pb-[14px] pt-5 sm:px-7">
+      <div className="flex flex-1 flex-col space-y-[13px] px-5 pb-[12px] pt-4 sm:px-7">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}
           description={actionDescription}
         />
 
-        <div className="grid items-stretch gap-4 lg:grid-cols-[54fr_46fr]">
+        <div className="grid items-stretch gap-[13px] lg:grid-cols-[54fr_46fr]">
           <NextSteps steps={journey} onViewAll={onViewTimeline} />
-          <div className="space-y-4">
+          <div className="space-y-[13px]">
             <DetailsCard rows={detailRows} footer={detailsFooter} status={detailsStatus}>
               {detailsExtra}
             </DetailsCard>
