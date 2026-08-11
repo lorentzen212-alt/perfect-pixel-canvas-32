@@ -961,7 +961,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
       <aside
         className="fixed inset-y-0 left-0 z-40 hidden w-[240px] lg:block"
-        style={tab === "Overview" ? { boxShadow: "16px 0 28px -14px rgba(6,12,20,0.42)" } : undefined}
+        style={tab === "Overview" ? { boxShadow: "16px 0 28px -16px rgba(6,12,20,0.18)" } : undefined}
       >
         <GlobalSidebar
           active="My Bookings"
