@@ -1043,7 +1043,7 @@ function Workspace({ booking }: { booking: Booking }) {
     },
   ];
 
-  const isFolder = tab === "Overview" || tab === "Rooming List";
+  const isFolder = tab === "Overview" || tab === "Rooming List" || tab === "Documents";
 
   return (
     <div
