@@ -1170,7 +1170,7 @@ function Workspace({ booking }: { booking: Booking }) {
           }
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
-          {isFolder || tab === "Changes" ? null : (
+          {isFolder ? null : (
 
             <div className="flex flex-wrap items-center gap-y-5 py-6">
               {strip.map((s, i) => (
