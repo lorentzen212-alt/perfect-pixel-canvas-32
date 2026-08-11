@@ -50,7 +50,7 @@ function CurrentAction({
   description: string;
 }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[13px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
+    <Card className="flex flex-col gap-3 px-5 py-[11px] sm:flex-row sm:items-center sm:gap-5 sm:px-6">
       <Medallion size={48}>
         <Users size={24} strokeWidth={1.5} />
       </Medallion>
@@ -81,7 +81,7 @@ function CurrentAction({
 /* ── 2a · what happens next — numbered vertical timeline ───── */
 function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
   return (
-    <Card className="relative flex h-full flex-col px-5 pb-4 pt-[15px] sm:px-6">
+    <Card className="relative flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6">
       <span
         className="relative text-[11.5px] font-semibold uppercase"
         style={{ color: "#A98232", letterSpacing: "0.14em" }}
@@ -243,7 +243,7 @@ function DetailsCard({
           borderRadius: 10,
         }}
       >
-      <div className="relative px-6 py-[9px]">
+      <div className="relative px-6 py-[7px]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Eyebrow>Booking details</Eyebrow>
           {status && (
@@ -260,7 +260,7 @@ function DetailsCard({
             </span>
           )}
         </div>
-        <dl className="mt-[10px]">
+        <dl className="mt-[8px]">
           {rows.map((row, i) => {
             const isPaymentPill = row.k === "Payment terms" && /pending/i.test(row.v);
             return (
@@ -284,7 +284,7 @@ function DetailsCard({
                 </span>
 
                 <div
-                  className="grid min-h-[40px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[7px]"
+                  className="grid min-h-[38px] flex-1 grid-cols-[150px_minmax(0,1fr)] items-center gap-x-[10px] py-[6px]"
                   style={{
                     borderBottom:
                       i < rows.length - 1 ? "1px solid rgba(50,60,65,0.10)" : undefined,
@@ -334,7 +334,7 @@ function DetailsCard({
         </dl>
 
         {footer && (
-          <div className="mt-[8px] flex justify-center pb-[1px]">{footer}</div>
+          <div className="mt-[6px] flex justify-center pb-[1px]">{footer}</div>
         )}
 
         {children}
@@ -367,7 +367,7 @@ function BookingExtras({
 }) {
   const includedCount = items.filter((i) => i.tone === "positive").length;
   return (
-    <Card className="px-5 py-[11px]">
+    <Card className="px-5 py-[9px]">
       <div className="flex items-center justify-between gap-3">
         <Eyebrow>Booking extras</Eyebrow>
         <span
@@ -433,7 +433,7 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
       {cells.map((c, i) => (
         <div
           key={c.label + i}
-          className="flex items-center gap-3.5 px-5 py-[11px]"
+          className="flex items-center gap-3.5 px-5 py-[9px]"
           style={{ borderLeft: i === 0 ? undefined : "1px solid rgba(27,37,48,0.12)" }}
         >
           <span
@@ -503,7 +503,7 @@ export function OverviewFolder({
 }) {
   return (
     <Plate>
-      <div className="flex flex-1 flex-col space-y-[14px] px-5 pb-[8px] pt-5 sm:px-7">
+      <div className="flex flex-1 flex-col space-y-[12px] px-5 pb-[6px] pt-4 sm:px-7">
         <CurrentAction
           bookingId={bookingId}
           title={actionTitle}
