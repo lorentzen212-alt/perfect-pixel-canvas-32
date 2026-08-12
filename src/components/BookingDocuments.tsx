@@ -185,7 +185,7 @@ function FrontTab({
       onClick={onClick}
       className="absolute left-0 top-0 z-[3] flex items-center justify-between px-4 transition-colors duration-200"
       style={{
-        width: "52%",
+        width: "50%",
         height: TAB_H + 1,
         background: PAPER,
         borderTop: `1px solid ${EDGE_SOFT}`,
@@ -214,12 +214,10 @@ function RearTab({
     <button
       type="button"
       onClick={onClick}
-      className="absolute z-[1] flex items-center justify-between px-4 transition-colors duration-200"
+      className="absolute z-[1] flex items-center justify-between px-3 transition-colors duration-200"
       style={{
-        left: "calc(52% - 16px)",
-        width: "max-content",
-        minWidth: 152,
-        maxWidth: 172,
+        left: "calc(50% - 16px)",
+        width: 150,
         top: 7,
         height: TAB_H + 8,
         background: BEHIND,
