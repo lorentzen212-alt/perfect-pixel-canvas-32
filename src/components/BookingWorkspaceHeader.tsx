@@ -57,7 +57,6 @@ export function BookingWorkspaceHeader({
   image,
   destination,
   reference,
-  initials,
   stayDates,
   roomsLabel,
   guestsLabel,
@@ -72,7 +71,6 @@ export function BookingWorkspaceHeader({
   image: string;
   destination: string;
   reference: string;
-  initials: string;
   subtitle?: string;
   stayDates?: string;
   roomsLabel?: string;
@@ -106,16 +104,8 @@ export function BookingWorkspaceHeader({
       <div className="relative px-5 pt-4 sm:px-9 sm:pt-5">
         <div className="flex items-start justify-between gap-6">
           <div className="min-w-0">
-            <Link
-              to="/manage-bookings"
-              className="inline-flex items-center gap-2 text-[13px] font-medium transition-opacity hover:opacity-80"
-              style={{ color: GOLD_SOFT }}
-            >
-              <ArrowLeft size={15} />
-              Back to My Bookings
-            </Link>
             <h1
-              className="mt-1.5 truncate text-[26px] leading-[1.08] sm:text-[28px]"
+              className="truncate text-[26px] leading-[1.08] sm:text-[28px]"
               style={{ color: "#F7F4ED", fontFamily: SERIF, fontWeight: 400 }}
             >
               {bookingName}
