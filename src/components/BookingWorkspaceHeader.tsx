@@ -2,16 +2,13 @@ import * as React from "react";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
-  ArrowLeft,
   Bed,
-  Bell,
   CalendarDays,
   Check,
   Download,
   MapPin,
   Users,
   ClipboardList,
-  Copy,
   FileText,
   Home,
   MessageSquare,
@@ -47,7 +44,6 @@ const TAB_ICON: Record<WorkspaceTab, React.ReactNode> = {
 const HERO_TEXT = "rgba(226,233,239,0.88)";
 const HERO_MUTED = "rgba(214,224,232,0.62)";
 const GOLD_MET_MID = "#C5962D";
-const GOLD_SOFT = "#D9BE74";
 const GREEN = "#7FBE96";
 const TAB_INK = "#16293A";
 
