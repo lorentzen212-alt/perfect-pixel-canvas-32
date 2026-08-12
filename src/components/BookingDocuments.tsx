@@ -202,7 +202,7 @@ function Tab({
         borderBottom: active ? `2px solid ${GOLD}` : "none",
         borderRadius: "10px 10px 0 0",
         zIndex: active ? 2 : 1,
-        marginLeft: !active && !first ? -12 : 0,
+        marginLeft: first ? 0 : -12,
         paddingLeft: active ? undefined : 28,
         transform: active ? "none" : "skewX(-9deg)",
         transformOrigin: "bottom",
