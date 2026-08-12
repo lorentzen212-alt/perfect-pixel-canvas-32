@@ -53,6 +53,19 @@ function QuietButton({
   );
 }
 
+function AskButton({ onClick }: { onClick?: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex h-[40px] items-center gap-2 rounded-[8px] px-5 text-[12.5px] font-medium transition-opacity hover:opacity-80"
+      style={{ border: "1px solid rgba(27,37,48,0.16)", background: "#FFFFFF", color: INK }}
+    >
+      Ask a question <MessageCircle size={14} />
+    </button>
+  );
+}
+
 export function Reader({
   booking,
   doc,
