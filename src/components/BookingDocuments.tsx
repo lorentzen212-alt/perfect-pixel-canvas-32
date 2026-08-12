@@ -422,6 +422,15 @@ export function BookingDocumentsView({
           }}
         />
 
+        <div
+          className="p-5 sm:p-6"
+          style={{
+            background: "#E7E0D2",
+            borderRadius: 16,
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 0 0 1px rgba(27,37,48,0.055), inset 0 2px 6px -3px rgba(24,30,36,0.22)",
+          }}
+        >
         <div className="grid min-w-0 items-start gap-[30px] lg:grid-cols-[34fr_66fr]">
           {/* ── LEFT: the physical folder ── */}
           <div className="min-w-0">
