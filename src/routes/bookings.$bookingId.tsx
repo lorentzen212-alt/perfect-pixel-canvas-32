@@ -1191,7 +1191,7 @@ function Workspace({ booking }: { booking: Booking }) {
               editor={editor}
             />
           ) : tab === "Documents" ? (
-            <BookingDocumentsView reference={booking.reference} />
+            <BookingDocumentsView booking={booking} onAskQuestion={() => setTab("Messages")} />
           ) : tab === "Messages" ? (
             <BookingMessagesView
               bookingId={booking.id}
