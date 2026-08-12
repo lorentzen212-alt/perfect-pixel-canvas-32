@@ -395,15 +395,17 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
           <div className="min-w-0">
             <div
               role="tablist"
-              className="relative z-[3] flex items-end gap-[2px]"
+              className="relative z-[3] flex items-end"
               style={{ marginBottom: -1 }}
             >
               <Tab
                 label="Booking documents"
                 count={hotelVisible}
                 active={section === "hotel"}
+                first
                 onClick={() => selectSection("hotel")}
               />
+
               <Tab
                 label="Your documents"
                 count={yourVisible}
