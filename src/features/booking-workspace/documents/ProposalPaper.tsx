@@ -1,7 +1,7 @@
 import { BrandLogo } from "@/components/BrandLogo";
 import { INK, INK_2, INK_3, GOLD } from "@/features/booking-workspace/overview/materials";
 import type { Booking } from "@/lib/bookings";
-import { dinnerSubtotal, formatMoney, type Proposal } from "@/lib/proposals";
+import { dinnerSubtotal, formatMoney, resolveNights, type Proposal } from "@/lib/proposals";
 import { formatLongDay, formatLongRange, formatShortDay } from "./dates";
 
 function Fact({ k, v }: { k: string; v: string }) {
@@ -33,8 +33,16 @@ function Line({ label, detail, value }: { label: string; detail?: string; value:
   );
 }
 
-export function ProposalPaper({ booking, proposal }: { booking: Booking; proposal: Proposal }) {
-  const nights = booking.nights;
+export function ProposalPaper({
+  booking,
+  proposal,
+  isCurrent = false,
+}: {
+  booking: Booking;
+  proposal: Proposal;
+  isCurrent?: boolean;
+}) {
+  const nights = resolveNights(booking);
   const rooms = booking.rooms ?? 0;
 
   return (
@@ -49,6 +57,14 @@ export function ProposalPaper({ booking, proposal }: { booking: Booking; proposa
           <span className="mt-[2px] block text-[10px]" style={{ color: INK_3 }}>
             {formatShortDay(proposal.issueDate)}
           </span>
+          {isCurrent && (
+            <span
+              className="mt-2 inline-block rounded-full px-2 py-[3px] text-[9px] uppercase tracking-[0.16em]"
+              style={{ background: "#E8F1E7", color: "#4A7A56" }}
+            >
+              Current
+            </span>
+          )}
         </span>
       </div>
 

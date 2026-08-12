@@ -205,14 +205,10 @@ function Tab({
         marginLeft: first ? 0 : -12,
         paddingLeft: !active && !first ? 28 : undefined,
         paddingRight: !active && first ? 28 : undefined,
-        transform: "skewX(-9deg)",
-        transformOrigin: "bottom",
       }}
     >
       <span
         className="flex min-w-0 flex-1 items-center justify-between"
-        style={{ transform: "skewX(9deg)" }}
-
       >
         <TabLabel label={label} count={count} active={active} />
       </span>
@@ -390,7 +386,7 @@ export function BookingDocumentsView({
   }
 
   return (
-    <Plate>
+    <Plate tone="warm">
       <div className="flex flex-1 flex-col px-5 pb-[22px] pt-[18px] sm:px-7">
         <input
           ref={inputRef}

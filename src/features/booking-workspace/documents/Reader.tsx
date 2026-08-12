@@ -10,12 +10,10 @@ import {
   Plus,
   Search,
 } from "lucide-react";
-import { SERIF } from "@/components/DashboardChrome";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
+import { INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
 import type { BookingDoc } from "@/components/BookingDocuments";
 import type { Booking } from "@/lib/bookings";
-import { formatDay } from "@/lib/bookings";
 import { proposalForDocument, type ProposalStatus } from "@/lib/proposals";
 import { ProposalPaper } from "./ProposalPaper";
 import { GenericPaper } from "./GenericPaper";
@@ -89,12 +87,8 @@ export function Reader({
   const proposal = proposalForDocument(doc, booking);
   const canDownload = Boolean(doc.url);
 
-  const subtitle = proposal
-    ? `From ${proposal.hotelName} · ${formatDay(proposal.issueDate)}`
-    : `From ${doc.uploadedBy === "Hotel" ? (booking.hotel ?? "the hotel") : "you"} · ${doc.uploadedLabel}`;
-
   const paper = proposal ? (
-    <ProposalPaper booking={booking} proposal={proposal} />
+    <ProposalPaper booking={booking} proposal={proposal} isCurrent={!doc.archived} />
   ) : (
     <GenericPaper booking={booking} doc={doc} />
   );
@@ -103,52 +97,30 @@ export function Reader({
 
   return (
     <div className="min-w-0">
-      {/* ── HEADER ── */}
-      <div className="mb-3 flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <span className="flex min-w-0 items-center gap-2.5">
-            <h3
-              className="truncate text-[19px] leading-tight"
-              style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
-            >
-              {doc.name}
-            </h3>
-            <span
-              className="shrink-0 rounded-full px-2 py-[2px] text-[9px] uppercase tracking-[0.16em]"
-              style={{ border: `1px solid ${HAIR}`, color: GOLD }}
-            >
-              Current
-            </span>
-          </span>
-          <p className="mt-1 truncate text-[11.5px]" style={{ color: INK_3 }}>
-            {subtitle}
-          </p>
-        </div>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <button
-            type="button"
-            onClick={() => canDownload && onDownload?.(doc)}
-            disabled={!canDownload}
-            title={canDownload ? "Download PDF" : "No file available to download"}
-            className="inline-flex items-center gap-2 rounded-[7px] px-3.5 py-2 text-[12px] font-medium transition-opacity hover:opacity-90"
-            style={{
-              background: canDownload ? INK : "rgba(27,37,48,0.10)",
-              color: canDownload ? "#FAF8F3" : INK_3,
-              cursor: canDownload ? "pointer" : "not-allowed",
-            }}
-          >
-            <Download size={13} /> Download PDF
-          </button>
-          <button
-            type="button"
-            aria-label="More document options"
-            className="grid h-[32px] w-[30px] place-items-center rounded-[7px]"
-            style={{ border: `1px solid ${EDGE_SOFT}`, background: "#FFFFFF", color: INK_2 }}
-          >
-            <MoreVertical size={15} />
-          </button>
-        </div>
+      {/* ── HEADER — actions only; the document identity lives inside the paper ── */}
+      <div className="mb-3 flex items-center justify-end gap-2">
+        <button
+          type="button"
+          onClick={() => canDownload && onDownload?.(doc)}
+          disabled={!canDownload}
+          title={canDownload ? "Download PDF" : "No file available to download"}
+          className="inline-flex items-center gap-2 rounded-[7px] px-3.5 py-2 text-[12px] font-medium transition-opacity hover:opacity-90"
+          style={{
+            background: canDownload ? INK : "rgba(27,37,48,0.10)",
+            color: canDownload ? "#FAF8F3" : INK_3,
+            cursor: canDownload ? "pointer" : "not-allowed",
+          }}
+        >
+          <Download size={13} /> Download PDF
+        </button>
+        <button
+          type="button"
+          aria-label="More document options"
+          className="grid h-[32px] w-[30px] place-items-center rounded-[7px]"
+          style={{ border: `1px solid ${EDGE_SOFT}`, background: "#FFFFFF", color: INK_2 }}
+        >
+          <MoreVertical size={15} />
+        </button>
       </div>
 
       {/* ── PAPER ── */}
