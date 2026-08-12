@@ -169,72 +169,44 @@ function TabLabel({
   );
 }
 
-/** the wide raised index section on the left — physically continuous with the body */
-function FrontTab({
+/** one tab in the flat index strip — content-width, no overlap */
+function Tab({
   label,
   count,
+  active,
   onClick,
 }: {
   label: string;
   count: number;
+  active: boolean;
   onClick: () => void;
 }) {
+  const [hover, setHover] = useState(false);
   return (
     <button
       type="button"
+      role="tab"
+      aria-selected={active}
       onClick={onClick}
-      className="absolute left-0 top-0 z-[3] flex items-center justify-between px-4 transition-colors duration-200"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      className="relative flex items-center justify-between px-4 transition-colors duration-200"
       style={{
-        width: "50%",
-        height: TAB_H + 1,
-        background: PAPER,
+        height: active ? TAB_H : TAB_H - 2,
+        background: active ? PAPER : hover ? HOVER : BEHIND,
         borderTop: `1px solid ${EDGE_SOFT}`,
         borderLeft: `1px solid ${EDGE_SOFT}`,
         borderRight: `1px solid ${EDGE_SOFT}`,
+        borderBottom: active ? `2px solid ${GOLD}` : "none",
         borderRadius: "10px 10px 0 0",
-        boxShadow: "2px 0 4px -2px rgba(20,30,36,0.10)",
       }}
     >
-      <TabLabel label={label} count={count} active />
+      <TabLabel label={label} count={count} active={active} />
     </button>
   );
 }
 
-/** the layer behind — starts lower, tucks under the front tab, clipped by the body */
-function RearTab({
-  label,
-  count,
-  onClick,
-}: {
-  label: string;
-  count: number;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="absolute z-[1] flex items-center justify-between transition-colors duration-200"
-      style={{
-        left: "calc(50% - 14px)",
-        width: 171,
-        paddingLeft: 26,
-        paddingRight: 12,
-        top: 7,
-        height: TAB_H + 8,
-        background: BEHIND,
-        borderTop: `1px solid ${EDGE_SOFT}`,
-        borderLeft: `1px solid ${EDGE_SOFT}`,
-        borderRight: `1px solid ${EDGE_SOFT}`,
-        borderRadius: "10px 10px 0 0",
-      }}
-    >
-      <span className="flex min-w-0 flex-1 items-center justify-between pb-[8px]">
-        <TabLabel label={label} count={count} active={false} />
-      </span>
-    </button>
-  );
-}
+
 
 
 /* ══════════════════ document rows ══════════════════ */
@@ -408,35 +380,25 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
         <div className="grid min-w-0 items-start gap-[30px] lg:grid-cols-[34fr_66fr]">
           {/* ── LEFT: the physical folder ── */}
           <div className="min-w-0">
-            <div className="relative" style={{ height: 42 }}>
-              {section === "hotel" ? (
-                <>
-                  <RearTab
-                    label="Your documents"
-                    count={yourVisible}
-                    onClick={() => selectSection("you")}
-                  />
-                  <FrontTab
-                    label="Booking documents"
-                    count={hotelVisible}
-                    onClick={() => selectSection("hotel")}
-                  />
-                </>
-              ) : (
-                <>
-                  <RearTab
-                    label="Booking documents"
-                    count={hotelVisible}
-                    onClick={() => selectSection("hotel")}
-                  />
-                  <FrontTab
-                    label="Your documents"
-                    count={yourVisible}
-                    onClick={() => selectSection("you")}
-                  />
-                </>
-              )}
+            <div
+              role="tablist"
+              className="relative z-[3] flex items-end gap-[2px]"
+              style={{ marginBottom: -1 }}
+            >
+              <Tab
+                label="Booking documents"
+                count={hotelVisible}
+                active={section === "hotel"}
+                onClick={() => selectSection("hotel")}
+              />
+              <Tab
+                label="Your documents"
+                count={yourVisible}
+                active={section === "you"}
+                onClick={() => selectSection("you")}
+              />
             </div>
+
 
             {/* body + the second sheet behind it */}
             <div className="relative z-[2]">
