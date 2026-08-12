@@ -60,7 +60,8 @@ import {
 } from "@/features/booking-workspace/folder";
 import { OverviewFolder } from "@/features/booking-workspace/overview/Overview";
 import { RoomingFolder } from "@/features/booking-workspace/rooming/RoomingList";
-import { FOLDER_TOP_SURFACE, PAGE_UNDER } from "@/features/booking-workspace/overview/materials";
+import { FOLDER_TOP_SURFACE, FOLDER_TOP_SURFACE_WARM, PAGE_UNDER } from "@/features/booking-workspace/overview/materials";
+import { formatLongRange } from "@/features/booking-workspace/documents/dates";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 
 import { roomingProgress, type Booking } from "@/lib/bookings";
@@ -1116,15 +1117,14 @@ function Workspace({ booking }: { booking: Booking }) {
           image={booking.image}
           destination={booking.destination}
           reference={booking.reference}
-          initials={initials}
-          stayDates={`${dateShort(stay.arrival)} – ${fmtDate(stay.departure, { day: "numeric", month: "short", year: "numeric" })}`}
+          stayDates={formatLongRange(stay.arrival, stay.departure)}
           roomsLabel={`${totalRooms} rooms`}
           guestsLabel={`${totalGuests} guests`}
           statusLabel={confirmed ? "Confirmed" : "Pending"}
           statusTone={confirmed ? "#1E5B39" : "#7A5A12"}
           active={tab as WorkspaceTab}
           onSelect={(t) => setTab(t)}
-          surface={isFolder ? FOLDER_TOP_SURFACE : undefined}
+          surface={isFolder ? (tab === "Documents" ? FOLDER_TOP_SURFACE_WARM : FOLDER_TOP_SURFACE) : undefined}
         />
 
 

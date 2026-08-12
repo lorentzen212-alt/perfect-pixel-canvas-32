@@ -200,7 +200,7 @@ export const BOOKINGS: Booking[] = [
   },
   {
     id: "5",
-    reference: "HGB-2026-00151",
+    reference: "HGB-2026-00104",
     type: "leisure",
     name: "Bergen Group Stay",
     destination: "Bergen, Norway",

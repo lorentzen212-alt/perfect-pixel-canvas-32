@@ -100,7 +100,7 @@ export function seedDocuments(reference: string): BookingDoc[] {
     mk(2, "Booking Confirmation", "Confirmation", "Confirmation", "Hotel", "10 Aug 2026", d(10), 640 * 1024),
     mk(3, "Proforma invoice", "PDF", "Invoices", "Hotel", "11 Aug 2026", d(11), 856 * 1024),
     mk(4, "Terms & Conditions", "PDF", "Contracts", "Hotel", "10 Aug 2026", d(10), 480 * 1024),
-    mk(5, "Hotel information", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 520 * 1024),
+    mk(5, "Hotel Information", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 520 * 1024),
     mk(6, "Rate details", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 310 * 1024),
 
     /* ── your documents ── */
@@ -279,8 +279,18 @@ function DocRow({
           </span>
         </span>
       </span>
-      <span className="shrink-0 whitespace-nowrap text-[11.5px]" style={{ color: INK_2 }}>
+      <span
+        className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[11.5px]"
+        style={{ color: INK_2 }}
+      >
         {doc.uploadedLabel}
+        {selected && (
+          <span
+            aria-hidden
+            className="inline-block rounded-full"
+            style={{ width: 6, height: 6, background: GOLD }}
+          />
+        )}
       </span>
     </button>
   );
