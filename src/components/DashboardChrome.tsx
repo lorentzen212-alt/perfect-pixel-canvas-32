@@ -202,9 +202,19 @@ export function TopBar({
             className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full px-1 text-[10px] font-semibold"
             style={{ backgroundColor: GOLD, color: "#1B2A33" }}
           >
-            2
+            0
           </span>
         </button>
+
+        <button
+          type="button"
+          aria-label="Language"
+          className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11.5px] font-semibold"
+          style={{ border: `1px solid ${BORDER}`, color: TEXT_2 }}
+        >
+          EN
+        </button>
+
 
         <button type="button" className="flex items-center gap-2">
           <span
