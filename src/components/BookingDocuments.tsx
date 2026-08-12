@@ -205,13 +205,13 @@ function Tab({
         marginLeft: first ? 0 : -12,
         paddingLeft: !active && !first ? 28 : undefined,
         paddingRight: !active && first ? 28 : undefined,
-        transform: "skewX(-9deg)",
+        transform: "skewX(9deg)",
         transformOrigin: "bottom",
       }}
     >
       <span
         className="flex min-w-0 flex-1 items-center justify-between"
-        style={{ transform: "skewX(9deg)" }}
+        style={{ transform: "skewX(-9deg)" }}
 
       >
         <TabLabel label={label} count={count} active={active} />
