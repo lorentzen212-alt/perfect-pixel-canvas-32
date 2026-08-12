@@ -5,6 +5,7 @@ import {
   AMBER_DEEP,
   FOLDER_RIM,
   FOLDER_TOP_SURFACE,
+  FOLDER_TOP_SURFACE_WARM,
   GOLD,
   HAIR,
   INK,
@@ -24,12 +25,19 @@ import {
    bottom edge. The left edge carries a soft inset shadow so the plate
    reads as recessed behind the sidebar; the sidebar's own drop shadow
    reinforces the layering. ── */
-export function Plate({ children }: { children: React.ReactNode }) {
+export function Plate({
+  children,
+  tone = "grey",
+}: {
+  children: React.ReactNode;
+  /** "grey" keeps the shared cool folder surface; "warm" is the beige Documents plate. */
+  tone?: "grey" | "warm";
+}) {
   return (
     <div
       className="relative flex flex-1 flex-col"
       style={{
-        background: FOLDER_TOP_SURFACE,
+        background: tone === "warm" ? FOLDER_TOP_SURFACE_WARM : FOLDER_TOP_SURFACE,
         borderRadius: "16px 16px 0 0",
         boxShadow: `inset 0 1px 0 ${FOLDER_RIM}, inset 9px 0 13px -8px rgba(6,14,22,0.10)`,
       }}

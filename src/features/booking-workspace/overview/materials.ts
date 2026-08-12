@@ -6,6 +6,9 @@
 export const FOLDER_TOP = "#D1D4D4";
 export const FOLDER_TOP_SURFACE =
   "linear-gradient(180deg, #D7DADA 0%, #D1D4D4 55%, #CBCFD0 100%)";
+/** warm beige/cream variant of the plate surface — Documents workspace only */
+export const FOLDER_TOP_SURFACE_WARM =
+  "linear-gradient(180deg, #F6F2EB 0%, #F2EEE7 55%, #EDE8DF 100%)";
 /** exposed side / bottom face of the folder — darker than the top */
 export const FOLDER_EDGE = "#BBC1C4";
 export const FOLDER_EDGE_DEEP = "#AEB4B8";

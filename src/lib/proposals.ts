@@ -43,7 +43,7 @@ export const ROOM_NIGHT_RATE = 1500;
 export const DINNER_PRICE = 550;
 
 /** Nights from the booking field, falling back to the date range. Never trusted blindly. */
-function resolveNights(booking: Booking): number {
+export function resolveNights(booking: Booking): number {
   if (booking.nights && booking.nights > 0) return booking.nights;
   const start = Date.parse(booking.startDate ?? "");
   const end = Date.parse(booking.endDate ?? "");
