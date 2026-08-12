@@ -50,7 +50,7 @@ export function ProposalPaper({ booking, proposal }: { booking: Booking; proposa
         <span className="text-right text-[11px]" style={{ color: INK_3 }}>
           {booking.reference}
           <br />
-          Valid until {formatDay(proposal.validUntil)}
+          Valid until {formatLongDay(proposal.validUntil)}
         </span>
       </div>
 
