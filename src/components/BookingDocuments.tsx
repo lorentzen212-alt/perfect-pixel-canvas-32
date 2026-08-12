@@ -2,16 +2,13 @@ import * as React from "react";
 import { useMemo, useRef, useState } from "react";
 import {
   ClipboardList,
-  Download,
   FileSpreadsheet,
   FileText,
   Layers,
-  MoreVertical,
   Receipt,
   ScrollText,
   Ticket,
 } from "lucide-react";
-import { SERIF } from "@/components/DashboardChrome";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
 import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
 import { Reader } from "@/features/booking-workspace/documents/Reader";

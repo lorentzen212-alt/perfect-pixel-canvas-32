@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Download, Maximize2, Minus, MoreVertical, Plus } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { GoldLink, ShineGoldButton } from "@/features/booking-workspace/overview/primitives";
+import { ShineGoldButton } from "@/features/booking-workspace/overview/primitives";
 import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
 import type { BookingDoc } from "@/components/BookingDocuments";
 import type { Booking } from "@/lib/bookings";
@@ -64,7 +64,7 @@ export function Reader({
 
   if (!doc) return null;
 
-  const proposal = proposalForDocument(doc, booking.id);
+  const proposal = proposalForDocument(doc, booking);
   const canDownload = Boolean(doc.url);
 
   const subtitle = proposal
@@ -227,11 +227,6 @@ export function Reader({
             <QuietButton onClick={() => canDownload && onDownload?.(doc)} disabled={!canDownload}>
               <Download size={13} /> Download
             </QuietButton>
-          </div>
-        )}
-        {!proposal && (
-          <div className="mt-3 flex justify-end">
-            <GoldLink label="Open in Messages" onClick={onAskQuestion} />
           </div>
         )}
       </div>

@@ -1,9 +1,10 @@
 import { BrandLogo } from "@/components/BrandLogo";
 import { SERIF } from "@/components/DashboardChrome";
 import { Eyebrow, Hair } from "@/features/booking-workspace/overview/primitives";
-import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
-import { formatDay, formatRange, type Booking } from "@/lib/bookings";
+import { HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
+import type { Booking } from "@/lib/bookings";
 import { dinnerSubtotal, formatMoney, type Proposal } from "@/lib/proposals";
+import { formatLongDay, formatLongRange } from "./dates";
 
 function Fact({ k, v }: { k: string; v: string }) {
   return (
@@ -49,7 +50,7 @@ export function ProposalPaper({ booking, proposal }: { booking: Booking; proposa
         <span className="text-right text-[11px]" style={{ color: INK_3 }}>
           {booking.reference}
           <br />
-          Valid until {formatDay(proposal.validUntil)}
+          Valid until {formatLongDay(proposal.validUntil)}
         </span>
       </div>
 
@@ -69,12 +70,11 @@ export function ProposalPaper({ booking, proposal }: { booking: Booking; proposa
           </p>
 
           <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-5">
-            <Fact k="Stay period" v={formatRange(booking.startDate, booking.endDate)} />
-            <Fact k="Nights" v={`${nights}`} />
-            <Fact k="Rooms" v={`${rooms}`} />
-            <Fact k="Guests" v={`${booking.guests ?? 0}`} />
-            <Fact k="Check-in" v={formatDay(booking.startDate)} />
-            <Fact k="Check-out" v={formatDay(booking.endDate)} />
+            <Fact k="Stay period" v={formatLongRange(booking.startDate, booking.endDate)} />
+            <Fact k="Rooms" v={`${rooms} rooms`} />
+            <Fact k="Guests" v={`${booking.guests ?? 0} guests`} />
+            <Fact k="Check-in" v={formatLongDay(booking.startDate)} />
+            <Fact k="Check-out" v={formatLongDay(booking.endDate)} />
           </div>
         </div>
 
@@ -97,19 +97,17 @@ export function ProposalPaper({ booking, proposal }: { booking: Booking; proposa
         <Eyebrow>Offer summary</Eyebrow>
         <div className="mt-2">
           <Line
-            label="Accommodation"
-            sub={`${rooms} rooms × ${nights} nights`}
+            label={`${rooms} rooms × ${nights} nights`}
             value={formatMoney(proposal.currency, proposal.roomSubtotal)}
           />
           <Hair />
           <Line
-            label="Breakfast"
-            sub={proposal.breakfastIncluded ? "Included for all guests" : "Not included"}
+            label={proposal.breakfastIncluded ? "Breakfast included" : "Breakfast"}
             value={proposal.breakfastIncluded ? "Included" : "—"}
           />
           <Hair />
           <Line
-            label="Dinner"
+            label="Dinner (3-course)"
             sub={`${proposal.dinnerQty} guests × ${formatMoney(
               proposal.currency,
               proposal.dinnerUnitPrice,
@@ -138,9 +136,8 @@ export function ProposalPaper({ booking, proposal }: { booking: Booking; proposa
       </div>
 
       <p className="mt-6 text-[11px]" style={{ color: INK_3 }}>
-        Issued {formatDay(proposal.issueDate)} by {proposal.hotelName}.
-        <span style={{ color: GOLD }}> </span>
-        Rates are quoted in {proposal.currency} and include VAT.
+        Issued {formatLongDay(proposal.issueDate)} by {proposal.hotelName}. Rates are quoted in{" "}
+        {proposal.currency} and include VAT.
       </p>
     </div>
   );
