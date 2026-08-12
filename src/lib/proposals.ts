@@ -69,7 +69,6 @@ function derivedProposal(booking: Booking): Proposal | undefined {
     id: `prop-${booking.id}-derived`,
     number: "#01",
     bookingRef: booking.reference,
-    bookingId: booking.id,
     hotelName: booking.hotel ?? "the hotel",
     issueDate: "2026-08-11",
     validUntil: "2026-08-25",
