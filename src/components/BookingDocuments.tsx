@@ -504,42 +504,37 @@ export function BookingDocumentsView({
             </div>
 
 
-            {/* body + the second sheet behind it */}
+            {/* the floating list card */}
             <div className="relative z-[2]">
-              <span
-                aria-hidden
-                className="absolute inset-x-[3px] bottom-[-4px] top-[8px]"
-                style={{ background: BEHIND, borderRadius: "0 0 10px 10px" }}
-              />
               <div
-                className="relative p-5"
+                className="relative overflow-hidden py-5"
                 style={{
-                  background: PAPER,
-                  border: `1px solid ${EDGE_SOFT}`,
-                  borderRadius: "0 10px 10px 10px",
-                  boxShadow: "0 1px 3px rgba(20,30,36,0.05), 0 -1px 2px rgba(20,30,36,0.05)",
+                  background: CARD,
+                  borderRadius: "0 14px 14px 14px",
+                  boxShadow:
+                    "0 1px 2px rgba(24,30,36,0.05), 0 10px 26px -12px rgba(24,30,36,0.28)",
                 }}
               >
-
                 <div
-                  className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-3 pb-3 text-[9.5px] uppercase tracking-[0.18em]"
+                  className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-5 pb-4 text-[9.5px] uppercase tracking-[0.18em]"
                   style={{ color: INK_3 }}
                 >
-                  <span>Document name</span>
+                  <span>Document</span>
                   <span>Date</span>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  {list.map((d) => (
+                <div className="flex flex-col" style={{ borderTop: `1px solid ${HAIRLINE}` }}>
+                  {list.map((d, i) => (
                     <DocRow
                       key={d.id}
                       doc={d}
                       selected={d.id === selected?.id}
+                      last={i === list.length - 1}
                       onSelect={() => setSelectedId(d.id)}
                     />
                   ))}
                   {list.length === 0 && (
-                    <p className="px-3 py-8 text-center text-[12.5px]" style={{ color: INK_3 }}>
+                    <p className="px-5 py-8 text-center text-[12.5px]" style={{ color: INK_3 }}>
                       No documents here yet.
                     </p>
                   )}
@@ -561,7 +556,7 @@ export function BookingDocumentsView({
                     role="button"
                     tabIndex={0}
                     onKeyDown={(e) => e.key === "Enter" && inputRef.current?.click()}
-                    className="mt-3 cursor-pointer rounded-[8px] px-4 py-4 text-center transition-colors duration-200"
+                    className="mx-5 mt-4 cursor-pointer rounded-[8px] px-4 py-4 text-center transition-colors duration-200"
                     style={{
                       border: `1px dashed ${dragging ? GOLD : EDGE}`,
                       background: dragging ? SELECTED : "transparent",
@@ -576,7 +571,7 @@ export function BookingDocumentsView({
                 )}
 
                 {error && (
-                  <p className="mt-2 text-[11.5px]" style={{ color: "#A44A38" }}>
+                  <p className="mx-5 mt-2 text-[11.5px]" style={{ color: "#A44A38" }}>
                     {error}
                   </p>
                 )}
@@ -585,14 +580,16 @@ export function BookingDocumentsView({
                   <button
                     type="button"
                     onClick={() => setShowAll((v) => !v)}
-                    className="mt-3 text-[12px] transition-opacity hover:opacity-75"
-                    style={{ color: GOLD }}
+                    className="mt-4 flex items-center gap-1.5 px-5 text-[13px] transition-opacity hover:opacity-75"
+                    style={{ color: GOLD, fontWeight: 500 }}
                   >
                     {showAll ? "Show fewer documents" : "Show all documents"}
+                    <ArrowRight size={15} />
                   </button>
                 )}
               </div>
             </div>
+
           </div>
 
 
