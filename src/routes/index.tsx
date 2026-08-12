@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { LiquidCursorHover } from "@/components/LiquidCursorHover";
 
@@ -27,7 +28,7 @@ import {
   GroupPremium,
 } from "@/components/PremiumIcons";
 import heroAsset from "@/assets/hero-bg.png.asset.json";
-import homeHeroAsset from "@/assets/homepage-hero-bg.png.asset.json";
+
 import heroVideoAsset from "@/assets/hero-video.mp4.asset.json";
 import cardLeisureAsset from "@/assets/card-leisure-fjord.png.asset.json";
 import cardMeAsset from "@/assets/card-me-fjord.png.asset.json";
@@ -101,25 +102,55 @@ const HERO_LINKS = [
 
 const CARD_HEIGHT = "clamp(300px, 52vh, 540px)";
 
+/** Above-the-fold hero video. No poster image — the hero base colour shows
+ *  until the video has decoded a frame, then it fades in over 200ms. */
+function HeroVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    if (el.readyState >= 2) setReady(true);
+    void el.play().catch(() => undefined);
+    // Safety net: never leave the hero permanently on the base colour.
+    const t = setTimeout(() => setReady(true), 1500);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+      aria-hidden
+      onLoadedData={() => setReady(true)}
+      onCanPlay={() => setReady(true)}
+      className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+      style={{
+        objectPosition: "center center",
+        opacity: ready ? 1 : 0,
+        transition: "opacity 200ms ease",
+      }}
+    >
+      <source src={heroVideoAsset.url} type="video/mp4" />
+    </video>
+  );
+}
+
 function Home() {
   return (
     <>
       <main className="relative w-full bg-[#0A0B0D]">
         {/* ---------------------------- HERO ---------------------------- */}
-        <section className="relative h-screen min-h-[620px] w-full overflow-hidden lg:h-[calc(100vh-300px)] lg:min-h-[390px]">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster={homeHeroAsset.url}
-            aria-hidden
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "center center" }}
-          >
-            <source src={heroVideoAsset.url} type="video/mp4" />
-          </video>
+        <section
+          className="relative h-screen min-h-[620px] w-full overflow-hidden lg:h-[calc(100vh-300px)] lg:min-h-[390px]"
+          style={{ backgroundColor: "#0A0B0D" }}
+        >
+          <HeroVideo />
 
           {/* Cinematic overlay — soft navy gradient + gentle vignette */}
           <div
