@@ -229,11 +229,6 @@ export function Reader({
             </QuietButton>
           </div>
         )}
-        {!proposal && (
-          <div className="mt-3 flex justify-end">
-            <GoldLink label="Open in Messages" onClick={onAskQuestion} />
-          </div>
-        )}
       </div>
 
       <Dialog open={full} onOpenChange={setFull}>
