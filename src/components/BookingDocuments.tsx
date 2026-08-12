@@ -169,16 +169,18 @@ function TabLabel({
   );
 }
 
-/** one tab in the flat index strip — content-width, no overlap */
+/** one tab in the folder index strip — content-width, the inactive one tucks behind */
 function Tab({
   label,
   count,
   active,
+  first,
   onClick,
 }: {
   label: string;
   count: number;
   active: boolean;
+  first?: boolean;
   onClick: () => void;
 }) {
   const [hover, setHover] = useState(false);
@@ -199,12 +201,23 @@ function Tab({
         borderRight: `1px solid ${EDGE_SOFT}`,
         borderBottom: active ? `2px solid ${GOLD}` : "none",
         borderRadius: "10px 10px 0 0",
+        zIndex: active ? 2 : 1,
+        marginLeft: first ? 0 : -12,
+        paddingLeft: active ? undefined : 28,
+        transform: active ? "none" : "skewX(-9deg)",
+        transformOrigin: "bottom",
       }}
     >
-      <TabLabel label={label} count={count} active={active} />
+      <span
+        className="flex min-w-0 flex-1 items-center justify-between"
+        style={{ transform: active ? "none" : "skewX(9deg)" }}
+      >
+        <TabLabel label={label} count={count} active={active} />
+      </span>
     </button>
   );
 }
+
 
 
 
@@ -382,15 +395,17 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
           <div className="min-w-0">
             <div
               role="tablist"
-              className="relative z-[3] flex items-end gap-[2px]"
+              className="relative z-[3] flex items-end"
               style={{ marginBottom: -1 }}
             >
               <Tab
                 label="Booking documents"
                 count={hotelVisible}
                 active={section === "hotel"}
+                first
                 onClick={() => selectSection("hotel")}
               />
+
               <Tab
                 label="Your documents"
                 count={yourVisible}
