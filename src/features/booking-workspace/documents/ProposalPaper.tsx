@@ -99,7 +99,7 @@ export function ProposalPaper({
       </div>
 
       {/* ── offer summary ── */}
-      <div className="mt-10" style={{ background: "#F6F5F2", borderRadius: 12, padding: 20 }}>
+      <div className="mt-5" style={{ background: "#F6F5F2", borderRadius: 12, padding: 20 }}>
         <div className="flex items-start gap-0">
           <span
             className="shrink-0 pt-[7px] text-[9px] uppercase tracking-[0.16em]"
