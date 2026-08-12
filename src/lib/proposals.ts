@@ -1,4 +1,5 @@
 import type { BookingDoc } from "@/components/BookingDocuments";
+import { BOOKINGS, type Booking } from "@/lib/bookings";
 
 export type ProposalStatus = "awaiting_decision" | "accepted" | "declined";
 
