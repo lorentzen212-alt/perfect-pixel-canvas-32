@@ -136,58 +136,58 @@ export function Reader({
 
           {/* ── CONTROLS (inside the paper card, unaffected by zoom) ── */}
           <div style={{ borderTop: `1px solid ${EDGE_SOFT}` }} className="px-6 py-2.5">
-          <div className="flex items-center justify-center gap-1.5" style={{ color: INK_3 }}>
-            <Search size={13} />
-            <button
-              type="button"
-              aria-label="Zoom out"
-              disabled={zoomIndex <= 0}
-              onClick={() => setZoom(ZOOMS[Math.max(0, zoomIndex - 1)])}
-              className="grid h-[24px] w-[24px] place-items-center transition-opacity disabled:opacity-35"
-              style={{ color: INK_2 }}
-            >
-              <Minus size={13} />
-            </button>
-            <span className="relative inline-flex items-center">
-              <select
-                aria-label="Zoom level"
-                value={zoom}
-                onChange={(e) => setZoom(Number(e.target.value))}
-                className="appearance-none bg-transparent pr-4 text-[11.5px] tabular-nums outline-none"
+            <div className="flex items-center justify-center gap-1.5" style={{ color: INK_3 }}>
+              <Search size={13} />
+              <button
+                type="button"
+                aria-label="Zoom out"
+                disabled={zoomIndex <= 0}
+                onClick={() => setZoom(ZOOMS[Math.max(0, zoomIndex - 1)])}
+                className="grid h-[24px] w-[24px] place-items-center transition-opacity disabled:opacity-35"
                 style={{ color: INK_2 }}
               >
-                {ZOOMS.map((z) => (
-                  <option key={z} value={z}>
-                    {z}%
-                  </option>
-                ))}
-              </select>
-              <ChevronDown
-                size={11}
-                className="pointer-events-none absolute right-0"
-                style={{ color: INK_3 }}
-              />
-            </span>
-            <button
-              type="button"
-              aria-label="Zoom in"
-              disabled={zoomIndex >= ZOOMS.length - 1}
-              onClick={() => setZoom(ZOOMS[Math.min(ZOOMS.length - 1, zoomIndex + 1)])}
-              className="grid h-[24px] w-[24px] place-items-center transition-opacity disabled:opacity-35"
-              style={{ color: INK_2 }}
-            >
-              <Plus size={13} />
-            </button>
-            <button
-              type="button"
-              aria-label="View fullscreen"
-              onClick={() => setFull(true)}
-              className="grid h-[24px] w-[24px] place-items-center"
-              style={{ color: INK_2 }}
-            >
-              <Maximize2 size={13} />
-            </button>
-          </div>
+                <Minus size={13} />
+              </button>
+              <span className="relative inline-flex items-center">
+                <select
+                  aria-label="Zoom level"
+                  value={zoom}
+                  onChange={(e) => setZoom(Number(e.target.value))}
+                  className="appearance-none bg-transparent pr-4 text-[11.5px] tabular-nums outline-none"
+                  style={{ color: INK_2 }}
+                >
+                  {ZOOMS.map((z) => (
+                    <option key={z} value={z}>
+                      {z}%
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown
+                  size={11}
+                  className="pointer-events-none absolute right-0"
+                  style={{ color: INK_3 }}
+                />
+              </span>
+              <button
+                type="button"
+                aria-label="Zoom in"
+                disabled={zoomIndex >= ZOOMS.length - 1}
+                onClick={() => setZoom(ZOOMS[Math.min(ZOOMS.length - 1, zoomIndex + 1)])}
+                className="grid h-[24px] w-[24px] place-items-center transition-opacity disabled:opacity-35"
+                style={{ color: INK_2 }}
+              >
+                <Plus size={13} />
+              </button>
+              <button
+                type="button"
+                aria-label="View fullscreen"
+                onClick={() => setFull(true)}
+                className="grid h-[24px] w-[24px] place-items-center"
+                style={{ color: INK_2 }}
+              >
+                <Maximize2 size={13} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -238,7 +238,6 @@ export function Reader({
           </div>
         )}
       </div>
-
 
       <Dialog open={full} onOpenChange={setFull}>
         <DialogContent className="max-w-[900px] overflow-y-auto bg-transparent p-0 shadow-none sm:max-w-[900px]">

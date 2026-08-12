@@ -82,7 +82,6 @@ export function BookingWorkspaceHeader({
 }) {
   const [copied, setCopied] = useState(false);
 
-
   return (
     <header className="relative isolate">
       <img
@@ -171,8 +170,6 @@ export function BookingWorkspaceHeader({
           </div>
         </div>
 
-
-
         <nav className="mt-2 flex items-end gap-[6px] overflow-x-auto">
           {WORKSPACE_TABS.map((t) => {
             const isActive = t === active;
@@ -217,7 +214,13 @@ export function BookingWorkspaceHeader({
             }
             if (onSelect) {
               return (
-                <button key={t} type="button" onClick={() => onSelect(t)} className={cls} style={st}>
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => onSelect(t)}
+                  className={cls}
+                  style={st}
+                >
                   {inner}
                 </button>
               );

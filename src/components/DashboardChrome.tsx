@@ -68,7 +68,6 @@ export function SidebarContent({
         <BrandLogo size="md" tone="dark" />
       </Link>
 
-
       <p
         className="mt-9 text-[10.5px] font-semibold uppercase tracking-[0.22em]"
         style={{ color: GOLD_MID }}
@@ -129,7 +128,10 @@ export function SidebarContent({
           </div>
         </div>
 
-        <div className="mt-5 flex items-center gap-3 pt-5" style={{ borderTop: `1px solid ${BORDER}` }}>
+        <div
+          className="mt-5 flex items-center gap-3 pt-5"
+          style={{ borderTop: `1px solid ${BORDER}` }}
+        >
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold"
             style={{ backgroundColor: "rgba(197,162,75,0.16)", color: GOLD }}
@@ -151,13 +153,7 @@ export function SidebarContent({
   );
 }
 
-export function TopBar({
-  left,
-  onOpenNav,
-}: {
-  left?: React.ReactNode;
-  onOpenNav?: () => void;
-}) {
+export function TopBar({ left, onOpenNav }: { left?: React.ReactNode; onOpenNav?: () => void }) {
   const { TOPBAR, BORDER, TEXT, TEXT_2, MUTED, GOLD, GOLD_DEEP } = PAL;
   return (
     <header
@@ -365,7 +361,13 @@ function SidebarLight({ active, bookingId }: { active: string; bookingId?: strin
   );
 }
 
-export function TopBarLight({ left, onOpenNav }: { left?: React.ReactNode; onOpenNav?: () => void }) {
+export function TopBarLight({
+  left,
+  onOpenNav,
+}: {
+  left?: React.ReactNode;
+  onOpenNav?: () => void;
+}) {
   return (
     <header
       className="sticky top-0 z-30 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:px-8"
