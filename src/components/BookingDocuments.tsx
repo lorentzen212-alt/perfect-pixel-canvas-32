@@ -465,20 +465,19 @@ export function BookingDocumentsView({
               >
 
                 <div
-                  className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-3 pb-2 text-[9.5px] uppercase tracking-[0.18em]"
+                  className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-3 pb-3 text-[9.5px] uppercase tracking-[0.18em]"
                   style={{ color: INK_3 }}
                 >
                   <span>Document name</span>
                   <span>Date</span>
                 </div>
 
-                <div className="-mx-3">
-                  {list.map((d, i) => (
+                <div className="flex flex-col gap-2">
+                  {list.map((d) => (
                     <DocRow
                       key={d.id}
                       doc={d}
                       selected={d.id === selected?.id}
-                      last={i === list.length - 1}
                       onSelect={() => setSelectedId(d.id)}
                     />
                   ))}
