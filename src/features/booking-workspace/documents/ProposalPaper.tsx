@@ -70,12 +70,11 @@ export function ProposalPaper({ booking, proposal }: { booking: Booking; proposa
           </p>
 
           <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-5">
-            <Fact k="Stay period" v={formatRange(booking.startDate, booking.endDate)} />
-            <Fact k="Nights" v={`${nights}`} />
-            <Fact k="Rooms" v={`${rooms}`} />
-            <Fact k="Guests" v={`${booking.guests ?? 0}`} />
-            <Fact k="Check-in" v={formatDay(booking.startDate)} />
-            <Fact k="Check-out" v={formatDay(booking.endDate)} />
+            <Fact k="Stay period" v={formatLongRange(booking.startDate, booking.endDate)} />
+            <Fact k="Rooms" v={`${rooms} rooms`} />
+            <Fact k="Guests" v={`${booking.guests ?? 0} guests`} />
+            <Fact k="Check-in" v={formatLongDay(booking.startDate)} />
+            <Fact k="Check-out" v={formatLongDay(booking.endDate)} />
           </div>
         </div>
 
