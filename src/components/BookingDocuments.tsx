@@ -16,9 +16,9 @@ import type { Booking } from "@/lib/bookings";
 import { proposalForBooking, type ProposalStatus } from "@/lib/proposals";
 
 /* ── warm document-desk surfaces ── */
-const PAPER = "#FAF8F3";
-const HOVER = "#F1EFE9";
-const BEHIND = "#ECE8E0";
+const PAPER = "#F7F4EC";
+const HOVER = "#F3EFE4";
+const BEHIND = "#EFE9DD";
 const EDGE = "rgba(27,37,48,0.12)";
 const EDGE_SOFT = "rgba(27,37,48,0.08)";
 const SELECTED = "#FAF6EC";
@@ -225,12 +225,11 @@ function Tab({
 function DocRow({
   doc,
   selected,
-  last,
   onSelect,
 }: {
   doc: BookingDoc;
   selected: boolean;
-  last: boolean;
+  last?: boolean;
   onSelect: () => void;
 }) {
   const [hover, setHover] = useState(false);
@@ -240,21 +239,37 @@ function DocRow({
       onClick={onSelect}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="relative grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 py-[13px] text-left transition-colors duration-200"
+      className="relative grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 overflow-hidden px-3 py-[13px] text-left transition-colors duration-200"
       style={{
-        background: selected ? SELECTED : hover ? HOVER : "transparent",
-        borderBottom: last ? "none" : `1px solid ${HAIR}`,
+        borderRadius: 10,
+        background: selected ? SELECTED : hover ? HOVER : "#FDFCF8",
+        border: selected
+          ? "1px solid rgba(176,112,15,0.34)"
+          : `1px solid rgba(27,37,48,0.11)`,
+        boxShadow: selected
+          ? "0 1px 2px rgba(20,30,36,0.06)"
+          : "0 1px 1px rgba(20,30,36,0.035)",
       }}
     >
       {selected && (
         <span
           aria-hidden
-          className="absolute inset-y-[6px] left-0 w-[2px] rounded-full"
+          className="absolute inset-y-0 left-0 w-[3px]"
           style={{ background: GOLD }}
         />
       )}
       <span className="flex min-w-0 items-center gap-3">
-        <span className="shrink-0" style={{ color: selected ? GOLD : INK_3 }}>
+        <span
+          className="grid h-[34px] w-[34px] shrink-0 place-items-center"
+          style={{
+            borderRadius: 9,
+            background: "#FFFFFF",
+            border: selected
+              ? "1px solid rgba(176,112,15,0.40)"
+              : `1px solid ${EDGE_SOFT}`,
+            color: selected ? GOLD : INK_3,
+          }}
+        >
           {docIcon(doc)}
         </span>
         <span className="min-w-0">
@@ -267,8 +282,8 @@ function DocRow({
             </span>
             {selected && (
               <span
-                className="shrink-0 text-[9px] uppercase tracking-[0.16em]"
-                style={{ color: GOLD }}
+                className="shrink-0 rounded-full px-2 py-[2px] text-[8.5px] uppercase tracking-[0.16em]"
+                style={{ background: "#E7F1E9", color: "#3F7A55", fontWeight: 600 }}
               >
                 Current
               </span>
