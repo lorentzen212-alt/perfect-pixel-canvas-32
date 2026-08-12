@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ManageBookingsRouteImport } from './routes/manage-bookings'
+import { Route as DocmockRouteImport } from './routes/docmock'
 import { Route as BookMeetingsEventsRouteImport } from './routes/book-meetings-events'
 import { Route as BookLeisureRouteImport } from './routes/book-leisure'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -27,6 +28,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const ManageBookingsRoute = ManageBookingsRouteImport.update({
   id: '/manage-bookings',
   path: '/manage-bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocmockRoute = DocmockRouteImport.update({
+  id: '/docmock',
+  path: '/docmock',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookMeetingsEventsRoute = BookMeetingsEventsRouteImport.update({
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/book-leisure': typeof BookLeisureRoute
   '/book-meetings-events': typeof BookMeetingsEventsRoute
+  '/docmock': typeof DocmockRoute
   '/manage-bookings': typeof ManageBookingsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/bookings/$bookingId': typeof BookingsBookingIdRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/book-leisure': typeof BookLeisureRoute
   '/book-meetings-events': typeof BookMeetingsEventsRoute
+  '/docmock': typeof DocmockRoute
   '/manage-bookings': typeof ManageBookingsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/bookings/$bookingId': typeof BookingsBookingIdRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/book-leisure': typeof BookLeisureRoute
   '/book-meetings-events': typeof BookMeetingsEventsRoute
+  '/docmock': typeof DocmockRoute
   '/manage-bookings': typeof ManageBookingsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/bookings/$bookingId': typeof BookingsBookingIdRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/book-leisure'
     | '/book-meetings-events'
+    | '/docmock'
     | '/manage-bookings'
     | '/reset-password'
     | '/bookings/$bookingId'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/book-leisure'
     | '/book-meetings-events'
+    | '/docmock'
     | '/manage-bookings'
     | '/reset-password'
     | '/bookings/$bookingId'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/book-leisure'
     | '/book-meetings-events'
+    | '/docmock'
     | '/manage-bookings'
     | '/reset-password'
     | '/bookings/$bookingId'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BookLeisureRoute: typeof BookLeisureRoute
   BookMeetingsEventsRoute: typeof BookMeetingsEventsRoute
+  DocmockRoute: typeof DocmockRoute
   ManageBookingsRoute: typeof ManageBookingsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   BookingsBookingIdRoute: typeof BookingsBookingIdRoute
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/manage-bookings'
       fullPath: '/manage-bookings'
       preLoaderRoute: typeof ManageBookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docmock': {
+      id: '/docmock'
+      path: '/docmock'
+      fullPath: '/docmock'
+      preLoaderRoute: typeof DocmockRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/book-meetings-events': {
@@ -221,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BookLeisureRoute: BookLeisureRoute,
   BookMeetingsEventsRoute: BookMeetingsEventsRoute,
+  DocmockRoute: DocmockRoute,
   ManageBookingsRoute: ManageBookingsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   BookingsBookingIdRoute: BookingsBookingIdRoute,
