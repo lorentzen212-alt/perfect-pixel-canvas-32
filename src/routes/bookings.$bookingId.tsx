@@ -430,7 +430,6 @@ function BookingWorkspace() {
     enabled: Boolean(session),
   });
 
-
   /* warm the rooming list route + its data so navigating there feels instant */
   const queryClient = useQueryClient();
   const router = useRouter();
