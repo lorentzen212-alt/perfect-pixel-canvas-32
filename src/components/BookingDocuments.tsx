@@ -217,7 +217,7 @@ function RearTab({
       className="absolute z-[1] flex items-center justify-between px-3 transition-colors duration-200"
       style={{
         left: "calc(50% - 16px)",
-        width: 150,
+        width: 162,
         top: 7,
         height: TAB_H + 8,
         background: BEHIND,
