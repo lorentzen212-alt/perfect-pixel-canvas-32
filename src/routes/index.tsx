@@ -107,20 +107,11 @@ function Home() {
     <>
       <main className="relative w-full bg-[#0A0B0D]">
         {/* ---------------------------- HERO ---------------------------- */}
-        <section className="relative h-screen min-h-[620px] w-full overflow-hidden lg:h-[calc(100vh-300px)] lg:min-h-[390px]">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster={homeHeroAsset.url}
-            aria-hidden
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "center center" }}
-          >
-            <source src={heroVideoAsset.url} type="video/mp4" />
-          </video>
+        <section
+          className="relative h-screen min-h-[620px] w-full overflow-hidden lg:h-[calc(100vh-300px)] lg:min-h-[390px]"
+          style={{ backgroundColor: "#0A0B0D" }}
+        >
+          <HeroVideo />
 
           {/* Cinematic overlay — soft navy gradient + gentle vignette */}
           <div
