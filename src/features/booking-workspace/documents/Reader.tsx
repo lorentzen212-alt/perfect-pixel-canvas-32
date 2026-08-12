@@ -102,11 +102,12 @@ export function Reader({
         <button
           type="button"
           onClick={() => canDownload && onDownload?.(doc)}
+          disabled={!canDownload}
           title={canDownload ? "Download PDF" : "No file available to download"}
           className="inline-flex items-center gap-2 rounded-[7px] px-3.5 py-2 text-[12px] font-medium transition-opacity hover:opacity-90"
           style={{
-            background: INK,
-            color: "#FAF8F3",
+            background: canDownload ? INK : "rgba(27,37,48,0.10)",
+            color: canDownload ? "#FAF8F3" : INK_3,
             cursor: canDownload ? "pointer" : "not-allowed",
           }}
         >
@@ -130,66 +131,65 @@ export function Reader({
             border: `1px solid ${EDGE_SOFT}`,
             borderRadius: 6,
             boxShadow: PAPER_SHADOW,
+            zoom: `${zoom}%`,
           }}
         >
-          <div style={{ zoom: `${zoom}%` }}>{paper}</div>
-
-          {/* ── CONTROLS (inside the paper card, unaffected by zoom) ── */}
-          <div style={{ borderTop: `1px solid ${EDGE_SOFT}` }} className="px-6 py-2.5">
-            <div className="flex items-center justify-center gap-1.5" style={{ color: INK_3 }}>
-              <Search size={13} />
-              <button
-                type="button"
-                aria-label="Zoom out"
-                disabled={zoomIndex <= 0}
-                onClick={() => setZoom(ZOOMS[Math.max(0, zoomIndex - 1)])}
-                className="grid h-[24px] w-[24px] place-items-center transition-opacity disabled:opacity-35"
-                style={{ color: INK_2 }}
-              >
-                <Minus size={13} />
-              </button>
-              <span className="relative inline-flex items-center">
-                <select
-                  aria-label="Zoom level"
-                  value={zoom}
-                  onChange={(e) => setZoom(Number(e.target.value))}
-                  className="appearance-none bg-transparent pr-4 text-[11.5px] tabular-nums outline-none"
-                  style={{ color: INK_2 }}
-                >
-                  {ZOOMS.map((z) => (
-                    <option key={z} value={z}>
-                      {z}%
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown
-                  size={11}
-                  className="pointer-events-none absolute right-0"
-                  style={{ color: INK_3 }}
-                />
-              </span>
-              <button
-                type="button"
-                aria-label="Zoom in"
-                disabled={zoomIndex >= ZOOMS.length - 1}
-                onClick={() => setZoom(ZOOMS[Math.min(ZOOMS.length - 1, zoomIndex + 1)])}
-                className="grid h-[24px] w-[24px] place-items-center transition-opacity disabled:opacity-35"
-                style={{ color: INK_2 }}
-              >
-                <Plus size={13} />
-              </button>
-              <button
-                type="button"
-                aria-label="View fullscreen"
-                onClick={() => setFull(true)}
-                className="grid h-[24px] w-[24px] place-items-center"
-                style={{ color: INK_2 }}
-              >
-                <Maximize2 size={13} />
-              </button>
-            </div>
-          </div>
+          {paper}
         </div>
+      </div>
+
+      {/* ── CONTROLS (directly beneath the paper) ── */}
+      <div className="mt-3.5 flex items-center justify-center gap-1.5" style={{ color: INK_3 }}>
+        <Search size={13} />
+        <button
+          type="button"
+          aria-label="Zoom out"
+          disabled={zoomIndex <= 0}
+          onClick={() => setZoom(ZOOMS[Math.max(0, zoomIndex - 1)])}
+          className="grid h-[24px] w-[24px] place-items-center transition-opacity disabled:opacity-35"
+          style={{ color: INK_2 }}
+        >
+          <Minus size={13} />
+        </button>
+        <span className="relative inline-flex items-center">
+          <select
+            aria-label="Zoom level"
+            value={zoom}
+            onChange={(e) => setZoom(Number(e.target.value))}
+            className="appearance-none bg-transparent pr-4 text-[11.5px] tabular-nums outline-none"
+            style={{ color: INK_2 }}
+          >
+            {ZOOMS.map((z) => (
+              <option key={z} value={z}>
+                {z}%
+              </option>
+            ))}
+          </select>
+          <ChevronDown
+            size={11}
+            className="pointer-events-none absolute right-0"
+            style={{ color: INK_3 }}
+          />
+        </span>
+        <button
+          type="button"
+          aria-label="Zoom in"
+          disabled={zoomIndex >= ZOOMS.length - 1}
+          onClick={() => setZoom(ZOOMS[Math.min(ZOOMS.length - 1, zoomIndex + 1)])}
+          className="grid h-[24px] w-[24px] place-items-center transition-opacity disabled:opacity-35"
+          style={{ color: INK_2 }}
+        >
+          <Plus size={13} />
+        </button>
+        <button
+          type="button"
+          aria-label="View fullscreen"
+          onClick={() => setFull(true)}
+          className="grid h-[24px] w-[24px] place-items-center"
+          style={{ color: INK_2 }}
+        >
+          <Maximize2 size={13} />
+        </button>
       </div>
 
       {/* ── ACTIONS ── */}
@@ -238,6 +238,7 @@ export function Reader({
           </div>
         )}
       </div>
+
 
       <Dialog open={full} onOpenChange={setFull}>
         <DialogContent className="max-w-[900px] overflow-y-auto bg-transparent p-0 shadow-none sm:max-w-[900px]">

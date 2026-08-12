@@ -8,7 +8,7 @@ import roomImage from "@/assets/rooms/room-double.jpg";
 function Fact({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex items-baseline" style={{ minHeight: 22 }}>
-      <span className="shrink-0 text-[11px]" style={{ width: 180, color: INK_3 }}>
+      <span className="shrink-0 text-[11px]" style={{ width: 112, color: INK_3 }}>
         {k}
       </span>
       <span className="min-w-0 text-[12.5px] font-semibold" style={{ color: INK }}>
@@ -20,16 +20,12 @@ function Fact({ k, v }: { k: string; v: string }) {
 
 function Line({ label, detail, value }: { label: string; detail?: string; value: string }) {
   return (
-    <div className="flex items-start justify-between gap-4 py-[6px]">
-      <span className="min-w-0">
-        <span className="block text-[12px]" style={{ color: INK }}>
-          {label}
-        </span>
-        {detail && (
-          <span className="mt-[2px] block text-[11px]" style={{ color: INK_3 }}>
-            {detail}
-          </span>
-        )}
+    <div className="flex items-baseline gap-4 py-[6px]">
+      <span className="shrink-0 text-[12px]" style={{ color: INK }}>
+        {label}
+      </span>
+      <span className="min-w-0 flex-1 truncate text-[12px]" style={{ color: INK_3 }}>
+        {detail ?? ""}
       </span>
       <span className="shrink-0 text-[12px] tabular-nums" style={{ color: INK_2 }}>
         {value}
@@ -98,47 +94,52 @@ export function ProposalPaper({
           alt={`${proposal.hotelName} — guest room`}
           loading="lazy"
           className="hidden shrink-0 object-cover sm:block"
-          style={{ width: "45%", aspectRatio: "2.1 / 1", borderRadius: 8 }}
+          style={{ width: 190, height: 110, borderRadius: 8 }}
         />
       </div>
 
       {/* ── offer summary ── */}
-      <div className="mt-5" style={{ background: "#FAF6EC", borderRadius: 12, padding: 20 }}>
-        <span className="block text-[9px] uppercase tracking-[0.16em]" style={{ color: GOLD }}>
-          Offer summary
-        </span>
-
-        <div className="mt-3">
-          <Line
-            label={`${rooms} rooms • ${nights} nights`}
-            value={formatMoney(proposal.currency, proposal.roomSubtotal)}
-          />
-          <Line
-            label={proposal.breakfastIncluded ? "Breakfast included" : "Breakfast"}
-            value={proposal.breakfastIncluded ? "Included" : "—"}
-          />
-          <Line
-            label="Dinner (3-course)"
-            detail={`${proposal.dinnerQty} guests • ${formatMoney(
-              proposal.currency,
-              proposal.dinnerUnitPrice,
-            )}`}
-            value={formatMoney(proposal.currency, dinnerSubtotal(proposal))}
-          />
-
+      <div className="mt-5" style={{ background: "#F6F5F2", borderRadius: 12, padding: 20 }}>
+        <div className="flex items-start gap-0">
           <span
-            aria-hidden
-            className="mt-3 block h-px"
-            style={{ background: "rgba(27,37,48,0.14)" }}
-          />
+            className="shrink-0 pt-[7px] text-[9px] uppercase tracking-[0.16em]"
+            style={{ width: 110, color: GOLD }}
+          >
+            Offer summary
+          </span>
 
-          <div className="mt-3.5 flex items-baseline justify-between gap-6">
-            <span className="text-[12.5px] font-semibold" style={{ color: INK }}>
-              Total offer (incl. VAT)
-            </span>
-            <span className="text-[25px] font-bold tabular-nums" style={{ color: INK }}>
-              {formatMoney(proposal.currency, proposal.totalInclVat)}
-            </span>
+          <div className="min-w-0 flex-1">
+            <Line
+              label={`${rooms} rooms × ${nights} nights`}
+              value={formatMoney(proposal.currency, proposal.roomSubtotal)}
+            />
+            <Line
+              label={proposal.breakfastIncluded ? "Breakfast included" : "Breakfast"}
+              value={proposal.breakfastIncluded ? "Included" : "—"}
+            />
+            <Line
+              label="Dinner (3-course)"
+              detail={`${proposal.dinnerQty} guests × ${formatMoney(
+                proposal.currency,
+                proposal.dinnerUnitPrice,
+              )}`}
+              value={formatMoney(proposal.currency, dinnerSubtotal(proposal))}
+            />
+
+            <span
+              aria-hidden
+              className="mt-3 block h-px"
+              style={{ background: "rgba(27,37,48,0.14)" }}
+            />
+
+            <div className="mt-3.5 flex items-baseline justify-between gap-6">
+              <span className="text-[12.5px] font-semibold" style={{ color: INK }}>
+                Total offer (incl. VAT)
+              </span>
+              <span className="text-[19px] font-bold tabular-nums" style={{ color: INK }}>
+                {formatMoney(proposal.currency, proposal.totalInclVat)}
+              </span>
+            </div>
           </div>
         </div>
       </div>

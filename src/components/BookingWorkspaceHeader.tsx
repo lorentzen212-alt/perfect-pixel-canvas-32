@@ -2,7 +2,9 @@ import * as React from "react";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
+  ArrowLeft,
   Bed,
+  Bell,
   CalendarDays,
   Check,
   Download,
@@ -55,6 +57,7 @@ export function BookingWorkspaceHeader({
   image,
   destination,
   reference,
+  initials,
   stayDates,
   roomsLabel,
   guestsLabel,
@@ -69,6 +72,7 @@ export function BookingWorkspaceHeader({
   image: string;
   destination: string;
   reference: string;
+  initials: string;
   subtitle?: string;
   stayDates?: string;
   roomsLabel?: string;
@@ -81,6 +85,7 @@ export function BookingWorkspaceHeader({
   surface?: string;
 }) {
   const [copied, setCopied] = useState(false);
+
 
   return (
     <header className="relative isolate">
@@ -101,6 +106,14 @@ export function BookingWorkspaceHeader({
       <div className="relative px-5 pt-4 sm:px-9 sm:pt-5">
         <div className="flex items-start justify-between gap-6">
           <div className="min-w-0">
+            <Link
+              to="/manage-bookings"
+              className="inline-flex items-center gap-2 text-[13px] font-medium transition-opacity hover:opacity-80"
+              style={{ color: GOLD_SOFT }}
+            >
+              <ArrowLeft size={15} />
+              Back to My Bookings
+            </Link>
             <h1
               className="mt-1.5 truncate text-[26px] leading-[1.08] sm:text-[28px]"
               style={{ color: "#F7F4ED", fontFamily: SERIF, fontWeight: 400 }}
@@ -167,8 +180,23 @@ export function BookingWorkspaceHeader({
               {copied ? <Check size={14} /> : <Download size={14} />}
               {copied ? "Reference copied" : "Download summary"}
             </button>
+            <span className="relative grid h-[34px] w-[34px] place-items-center" style={{ color: "rgba(226,233,239,0.8)" }}>
+              <Bell size={17} />
+            </span>
+            <span
+              className="grid h-[34px] w-[34px] place-items-center rounded-full text-[11.5px] font-semibold"
+              style={{
+                border: `1px solid ${GOLD_MET_MID}`,
+                background: "rgba(10,22,31,0.4)",
+                color: GOLD_SOFT,
+              }}
+            >
+              {initials || "—"}
+            </span>
           </div>
         </div>
+
+
 
         <nav className="mt-2 flex items-end gap-[6px] overflow-x-auto">
           {WORKSPACE_TABS.map((t) => {
@@ -214,13 +242,7 @@ export function BookingWorkspaceHeader({
             }
             if (onSelect) {
               return (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => onSelect(t)}
-                  className={cls}
-                  style={st}
-                >
+                <button key={t} type="button" onClick={() => onSelect(t)} className={cls} style={st}>
                   {inner}
                 </button>
               );
