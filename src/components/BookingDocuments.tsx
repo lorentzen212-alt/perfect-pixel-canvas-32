@@ -1,12 +1,14 @@
 import * as React from "react";
 import { useMemo, useRef, useState } from "react";
 import {
-  ClipboardList,
+  ArrowRight,
+  BarChart3,
+  Building2,
+  ClipboardCheck,
+  FileDown,
+  FileSignature,
   FileSpreadsheet,
   FileText,
-  Layers,
-  Receipt,
-  ScrollText,
   Ticket,
 } from "lucide-react";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
@@ -16,12 +18,16 @@ import type { Booking } from "@/lib/bookings";
 import { proposalForBooking, type ProposalStatus } from "@/lib/proposals";
 
 /* ── warm document-desk surfaces ── */
-const PAPER = "#F7F4EC";
+const CARD = "#FBF8F2";
 const HOVER = "#F3EFE4";
 const BEHIND = "#EFE9DD";
 const EDGE = "rgba(27,37,48,0.12)";
 const EDGE_SOFT = "rgba(27,37,48,0.08)";
+const HAIRLINE = "rgba(27,37,48,0.07)";
 const SELECTED = "#FAF6EC";
+const SELECTED_ROW =
+  "linear-gradient(90deg, #FCF3E4 0%, #FDF7EC 55%, #FCF9F3 100%)";
+const BRONZE = "#C08A24";
 
 export type DocCategory =
   | "Contracts"
@@ -31,6 +37,18 @@ export type DocCategory =
   | "Vouchers"
   | "Rooming lists"
   | "Other";
+
+/** solid tile colours for the document list */
+export type DocTone = "bronze" | "blue" | "green" | "purple" | "orange" | "greyblue";
+export type DocGlyph =
+  | "FileText"
+  | "ClipboardCheck"
+  | "FileDown"
+  | "FileSignature"
+  | "Building2"
+  | "BarChart3"
+  | "Ticket"
+  | "FileSpreadsheet";
 
 export type BookingDoc = {
   id: string;
@@ -46,17 +64,49 @@ export type BookingDoc = {
   url?: string;
   /** kept out of the primary list until "Show all documents" */
   archived?: boolean;
+  /** explicit tile colour — falls back to the category default */
+  tone?: DocTone;
+  /** explicit tile glyph — falls back to the category default */
+  glyph?: DocGlyph;
 };
 
-const CAT_ICON: Record<DocCategory, React.ReactNode> = {
-  Contracts: <ScrollText size={15} />,
-  Proposals: <FileText size={15} />,
-  Confirmation: <FileText size={15} />,
-  Invoices: <Receipt size={15} />,
-  Vouchers: <Ticket size={15} />,
-  "Rooming lists": <ClipboardList size={15} />,
-  Other: <Layers size={15} />,
+const TONE_FILL: Record<DocTone, string> = {
+  bronze: "#C08A24",
+  blue: "#7C97B9",
+  green: "#7E9B6A",
+  purple: "#9C8AC4",
+  orange: "#CB7B55",
+  greyblue: "#9CACC0",
 };
+
+const GLYPHS: Record<DocGlyph, React.ComponentType<{ size?: number; strokeWidth?: number }>> = {
+  FileText,
+  ClipboardCheck,
+  FileDown,
+  FileSignature,
+  Building2,
+  BarChart3,
+  Ticket,
+  FileSpreadsheet,
+};
+
+const CAT_DEFAULT: Record<DocCategory, { tone: DocTone; glyph: DocGlyph }> = {
+  Proposals: { tone: "bronze", glyph: "FileText" },
+  Confirmation: { tone: "blue", glyph: "ClipboardCheck" },
+  Invoices: { tone: "green", glyph: "FileDown" },
+  Contracts: { tone: "purple", glyph: "FileSignature" },
+  Vouchers: { tone: "orange", glyph: "Ticket" },
+  "Rooming lists": { tone: "greyblue", glyph: "FileSpreadsheet" },
+  Other: { tone: "greyblue", glyph: "FileText" },
+};
+
+function resolveTile(d: BookingDoc): { fill: string; glyph: DocGlyph } {
+  const spreadsheet = /\.(xlsx|xls|csv)$/i.test(d.name) || d.kind === "Spreadsheet";
+  const base = CAT_DEFAULT[d.category] ?? CAT_DEFAULT.Other;
+  const tone = d.tone ?? base.tone;
+  const glyph = d.glyph ?? (spreadsheet ? "FileSpreadsheet" : base.glyph);
+  return { fill: TONE_FILL[tone], glyph };
+}
 
 export function formatSize(bytes: number) {
   if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
@@ -79,6 +129,7 @@ export function seedDocuments(reference: string): BookingDoc[] {
     at: number,
     size: number,
     archived = false,
+    extra?: Partial<Pick<BookingDoc, "tone" | "glyph">>,
   ): BookingDoc => ({
     id: `${reference}-doc-${i}`,
     name,
@@ -90,6 +141,7 @@ export function seedDocuments(reference: string): BookingDoc[] {
     uploadedAt: at,
     size,
     archived,
+    ...extra,
   });
 
   const d = (day: number, month = 7) => Date.UTC(2026, month, day);
@@ -100,8 +152,14 @@ export function seedDocuments(reference: string): BookingDoc[] {
     mk(2, "Booking Confirmation", "Confirmation", "Confirmation", "Hotel", "10 Aug 2026", d(10), 640 * 1024),
     mk(3, "Proforma invoice", "PDF", "Invoices", "Hotel", "11 Aug 2026", d(11), 856 * 1024),
     mk(4, "Terms & Conditions", "PDF", "Contracts", "Hotel", "10 Aug 2026", d(10), 480 * 1024),
-    mk(5, "Hotel Information", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 520 * 1024),
-    mk(6, "Rate details", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 310 * 1024),
+    mk(5, "Hotel Information", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 520 * 1024, false, {
+      tone: "orange",
+      glyph: "Building2",
+    }),
+    mk(6, "Rate details", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 310 * 1024, false, {
+      tone: "greyblue",
+      glyph: "BarChart3",
+    }),
 
     /* ── your documents ── */
     mk(20, "Rooming list v2", "Spreadsheet", "Rooming lists", "You", "8 Aug 2026", d(8), 45 * 1024),
@@ -128,10 +186,24 @@ function categorize(name: string): DocCategory {
   return "Other";
 }
 
-function docIcon(d: BookingDoc) {
-  const spreadsheet = /\.(xlsx|xls|csv)$/i.test(d.name) || d.kind === "Spreadsheet";
-  return spreadsheet ? <FileSpreadsheet size={15} /> : CAT_ICON[d.category];
+function DocTile({ doc }: { doc: BookingDoc }) {
+  const { fill, glyph } = resolveTile(doc);
+  const Icon = GLYPHS[glyph];
+  return (
+    <span
+      className="grid h-[38px] w-[38px] shrink-0 place-items-center text-white"
+      style={{
+        borderRadius: 10,
+        background: fill,
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.22), 0 1px 2px rgba(24,30,36,0.14)",
+      }}
+    >
+      <Icon size={18} strokeWidth={1.9} />
+    </span>
+  );
 }
+
 
 /* ══════════════════ folder index tabs ══════════════════ */
 
