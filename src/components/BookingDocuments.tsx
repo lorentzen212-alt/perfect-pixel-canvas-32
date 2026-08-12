@@ -96,11 +96,29 @@ export function seedDocuments(reference: string): BookingDoc[] {
 
   return [
     /* ── primary hotel documents ── */
-    mk(1, "Hotel proposal #01", "Proposal", "Proposals", "Hotel", "11 Aug 2026", d(11), 2.4 * 1024 * 1024),
-    mk(2, "Booking Confirmation", "Confirmation", "Confirmation", "Hotel", "10 Aug 2026", d(10), 640 * 1024),
+    mk(
+      1,
+      "Hotel proposal #01",
+      "Proposal",
+      "Proposals",
+      "Hotel",
+      "11 Aug 2026",
+      d(11),
+      2.4 * 1024 * 1024,
+    ),
+    mk(
+      2,
+      "Booking Confirmation",
+      "Confirmation",
+      "Confirmation",
+      "Hotel",
+      "10 Aug 2026",
+      d(10),
+      640 * 1024,
+    ),
     mk(3, "Proforma invoice", "PDF", "Invoices", "Hotel", "11 Aug 2026", d(11), 856 * 1024),
     mk(4, "Terms & Conditions", "PDF", "Contracts", "Hotel", "10 Aug 2026", d(10), 480 * 1024),
-    mk(5, "Hotel information", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 520 * 1024),
+    mk(5, "Hotel Information", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 520 * 1024),
     mk(6, "Rate details", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 310 * 1024),
 
     /* ── your documents ── */
@@ -109,11 +127,41 @@ export function seedDocuments(reference: string): BookingDoc[] {
     mk(22, "Signed contract", "PDF", "Contracts", "You", "6 Aug 2026", d(6), 990 * 1024),
 
     /* ── archive — hidden until "Show all documents" ── */
-    mk(40, "Hotel proposal draft", "Proposal", "Proposals", "Hotel", "4 Aug 2026", d(4), 1.8 * 1024 * 1024, true),
+    mk(
+      40,
+      "Hotel proposal draft",
+      "Proposal",
+      "Proposals",
+      "Hotel",
+      "4 Aug 2026",
+      d(4),
+      1.8 * 1024 * 1024,
+      true,
+    ),
     mk(41, "Deposit invoice", "PDF", "Invoices", "Hotel", "2 Aug 2026", d(2), 320 * 1024, true),
     mk(42, "Transfer schedule", "PDF", "Other", "Hotel", "28 Jul 2026", d(28, 6), 180 * 1024, true),
-    mk(43, "Rooming list v1", "Spreadsheet", "Rooming lists", "You", "27 Jul 2026", d(27, 6), 38 * 1024, true),
-    mk(44, "Allergy overview", "Spreadsheet", "Other", "You", "26 Jul 2026", d(26, 6), 30 * 1024, true),
+    mk(
+      43,
+      "Rooming list v1",
+      "Spreadsheet",
+      "Rooming lists",
+      "You",
+      "27 Jul 2026",
+      d(27, 6),
+      38 * 1024,
+      true,
+    ),
+    mk(
+      44,
+      "Allergy overview",
+      "Spreadsheet",
+      "Other",
+      "You",
+      "26 Jul 2026",
+      d(26, 6),
+      30 * 1024,
+      true,
+    ),
   ];
 }
 
@@ -139,15 +187,7 @@ type Section = "hotel" | "you";
 
 const TAB_H = 42;
 
-function TabLabel({
-  label,
-  count,
-  active,
-}: {
-  label: string;
-  count: number;
-  active: boolean;
-}) {
+function TabLabel({ label, count, active }: { label: string; count: number; active: boolean }) {
   return (
     <>
       <span
@@ -207,18 +247,12 @@ function Tab({
         paddingRight: !active && first ? 28 : undefined,
       }}
     >
-      <span
-        className="flex min-w-0 flex-1 items-center justify-between"
-      >
+      <span className="flex min-w-0 flex-1 items-center justify-between">
         <TabLabel label={label} count={count} active={active} />
       </span>
     </button>
   );
 }
-
-
-
-
 
 /* ══════════════════ document rows ══════════════════ */
 
@@ -279,8 +313,18 @@ function DocRow({
           </span>
         </span>
       </span>
-      <span className="shrink-0 whitespace-nowrap text-[11.5px]" style={{ color: INK_2 }}>
+      <span
+        className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[11.5px]"
+        style={{ color: INK_2 }}
+      >
         {doc.uploadedLabel}
+        {selected && (
+          <span
+            aria-hidden
+            className="inline-block rounded-full"
+            style={{ width: 6, height: 6, background: GOLD }}
+          />
+        )}
       </span>
     </button>
   );
@@ -424,7 +468,6 @@ export function BookingDocumentsView({
               />
             </div>
 
-
             {/* body + the second sheet behind it */}
             <div className="relative z-[2]">
               <span
@@ -441,7 +484,6 @@ export function BookingDocumentsView({
                   boxShadow: "0 1px 3px rgba(20,30,36,0.05), 0 -1px 2px rgba(20,30,36,0.05)",
                 }}
               >
-
                 <div
                   className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-3 pb-2 text-[9.5px] uppercase tracking-[0.18em]"
                   style={{ color: INK_3 }}
@@ -490,8 +532,7 @@ export function BookingDocumentsView({
                     }}
                   >
                     <p className="text-[12px]" style={{ color: INK_2 }}>
-                      Drop a file here or{" "}
-                      <span style={{ color: GOLD }}>browse</span>
+                      Drop a file here or <span style={{ color: GOLD }}>browse</span>
                       <span style={{ color: INK_3 }}> · max 25 MB</span>
                     </p>
                   </div>
@@ -517,7 +558,6 @@ export function BookingDocumentsView({
             </div>
           </div>
 
-
           {/* ── RIGHT: the document reader ── */}
           <Reader
             booking={booking}
@@ -527,7 +567,6 @@ export function BookingDocumentsView({
             onAskQuestion={onAskQuestion}
             onDownload={download}
           />
-
         </div>
       </div>
     </Plate>

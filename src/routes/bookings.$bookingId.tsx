@@ -33,7 +33,6 @@ import {
   Building2,
   Mail,
   Phone,
-
   X,
 } from "lucide-react";
 import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
@@ -60,7 +59,12 @@ import {
 } from "@/features/booking-workspace/folder";
 import { OverviewFolder } from "@/features/booking-workspace/overview/Overview";
 import { RoomingFolder } from "@/features/booking-workspace/rooming/RoomingList";
-import { FOLDER_TOP_SURFACE, PAGE_UNDER } from "@/features/booking-workspace/overview/materials";
+import {
+  FOLDER_TOP_SURFACE,
+  FOLDER_TOP_SURFACE_WARM,
+  PAGE_UNDER,
+} from "@/features/booking-workspace/overview/materials";
+import { formatLongRange } from "@/features/booking-workspace/documents/dates";
 import { GlobalSidebar } from "@/components/GlobalSidebar";
 
 import { roomingProgress, type Booking } from "@/lib/bookings";
@@ -144,7 +148,6 @@ const BASE_ROOMS: RoomLineUI[] = [
   { type: "Triple Rooms", note: "Three guests", qty: 7, perRoom: 3 },
 ];
 
-
 /* ───────────────────────── primitives ───────────────────────── */
 
 /* metallic gold ramp – used sparingly for decorative accents */
@@ -214,19 +217,20 @@ function GoldAction({
   );
 }
 
-
-
-
-
-
-
 function Ring({ value, size = 78 }: { value: number; size?: number }) {
   const r = size / 2 - 6;
   const c = 2 * Math.PI * r;
   const gid = `ringGold-${size}`;
   return (
-    <div className="relative grid shrink-0 place-items-center" style={{ height: size, width: size }}>
-      <svg viewBox={`0 0 ${size} ${size}`} className="-rotate-90" style={{ height: size, width: size }}>
+    <div
+      className="relative grid shrink-0 place-items-center"
+      style={{ height: size, width: size }}
+    >
+      <svg
+        viewBox={`0 0 ${size} ${size}`}
+        className="-rotate-90"
+        style={{ height: size, width: size }}
+      >
         <defs>
           <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor={GOLD_HI} />
@@ -235,7 +239,14 @@ function Ring({ value, size = 78 }: { value: number; size?: number }) {
             <stop offset="100%" stopColor={GOLD_MET_LOW} />
           </linearGradient>
         </defs>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="3" />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke="rgba(255,255,255,0.07)"
+          strokeWidth="3"
+        />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -247,15 +258,11 @@ function Ring({ value, size = 78 }: { value: number; size?: number }) {
           strokeDasharray={`${(value / 100) * c} ${c}`}
         />
       </svg>
-      <span
-        className="absolute text-[15px] font-medium tracking-[0.01em]"
-        style={{ color: TEXT }}
-      >
+      <span className="absolute text-[15px] font-medium tracking-[0.01em]" style={{ color: TEXT }}>
         {value}%
       </span>
     </div>
   );
-
 }
 
 function PanelShell({
@@ -286,7 +293,10 @@ function PanelShell({
       }}
     >
       <div className="flex items-center justify-between gap-4">
-        <h3 className="text-[12.5px] font-semibold uppercase tracking-[0.16em]" style={{ color: TEXT }}>
+        <h3
+          className="text-[12.5px] font-semibold uppercase tracking-[0.16em]"
+          style={{ color: TEXT }}
+        >
           {title}
         </h3>
         {saved && (
@@ -330,13 +340,7 @@ function PanelShell({
   );
 }
 
-function Stepper({
-  value,
-  onChange,
-}: {
-  value: number;
-  onChange: (n: number) => void;
-}) {
+function Stepper({ value, onChange }: { value: number; onChange: (n: number) => void }) {
   const [flash, setFlash] = useState(false);
   const first = useRef(true);
   useEffect(() => {
@@ -352,7 +356,10 @@ function Stepper({
   return (
     <div
       className="inline-flex items-center rounded-[8px]"
-      style={{ border: `1px solid ${NAVY_BORDER}`, background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1E2B38 0%, #17222D 100%)` }}
+      style={{
+        border: `1px solid ${NAVY_BORDER}`,
+        background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1E2B38 0%, #17222D 100%)`,
+      }}
     >
       <button
         type="button"
@@ -388,13 +395,7 @@ function Stepper({
   );
 }
 
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
       <span className="block text-[11px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
@@ -435,16 +436,20 @@ function BookingWorkspace() {
   const router = useRouter();
   useEffect(() => {
     if (!booking) return;
-    void router.preloadRoute({ to: "/bookings/$bookingId", params: { bookingId }, search: { tab: "Rooming List" } });
-    void queryClient
-      .prefetchQuery(roomingQueryOptions(bookingId, booking.rooms))
-      .catch(() => {});
+    void router.preloadRoute({
+      to: "/bookings/$bookingId",
+      params: { bookingId },
+      search: { tab: "Rooming List" },
+    });
+    void queryClient.prefetchQuery(roomingQueryOptions(bookingId, booking.rooms)).catch(() => {});
   }, [booking, bookingId, queryClient, router]);
-
 
   if (isLoading || authLoading || !session) {
     return (
-      <div className="grid min-h-screen place-items-center" style={{ backgroundColor: PAL.BG, color: MUTED }}>
+      <div
+        className="grid min-h-screen place-items-center"
+        style={{ backgroundColor: PAL.BG, color: MUTED }}
+      >
         <p className="text-[13.5px]">Loading booking…</p>
       </div>
     );
@@ -466,7 +471,11 @@ function Workspace({ booking }: { booking: Booking }) {
   const { tab: tabParam } = Route.useSearch();
   const [tab, setTab] = useState<WorkspaceTab>(tabParam ?? "Overview");
   /* rooming progress is derived from the live rooming list, never hardcoded */
-  const [roomingStats, setRoomingStats] = useState<{ filled: number; total: number; percent: number } | null>(null);
+  const [roomingStats, setRoomingStats] = useState<{
+    filled: number;
+    total: number;
+    percent: number;
+  } | null>(null);
   const [roomingList, setRoomingList] = useState<RoomingList | null>(null);
   useEffect(() => {
     let active = true;
@@ -474,7 +483,9 @@ function Workspace({ booking }: { booking: Booking }) {
       const dist = await fetchRoomDistribution(booking.id);
       const list = await loadRoomingListFromDb(
         booking.id,
-        Object.keys(dist).length ? (dist as never) : distributionFor(booking.id, booking.rooms ?? 12),
+        Object.keys(dist).length
+          ? (dist as never)
+          : distributionFor(booking.id, booking.rooms ?? 12),
       );
       if (!active) return;
       const s = statsOf(list);
@@ -485,7 +496,6 @@ function Workspace({ booking }: { booking: Booking }) {
       active = false;
     };
   }, [booking.id, booking.rooms]);
-
 
   const progress = roomingStats?.percent ?? roomingProgress(booking);
   const rooming = booking.rooming;
@@ -523,9 +533,7 @@ function Workspace({ booking }: { booking: Booking }) {
     { name: "Airport Transfer", detail: "2 coaches" },
     { name: "Late Checkout", detail: "10 rooms" },
   ]);
-  const [requests, setRequests] = useState([
-    "Early breakfast requested on departure day.",
-  ]);
+  const [requests, setRequests] = useState(["Early breakfast requested on departure day."]);
 
   const totalRooms = rooms.reduce((s, r) => s + r.qty, 0);
   const totalGuests = rooms.reduce((s, r) => s + r.qty * r.perRoom, 0);
@@ -534,9 +542,6 @@ function Workspace({ booking }: { booking: Booking }) {
     const d = new Date(stay.departure).getTime();
     return Math.max(0, Math.round((d - a) / 86400000));
   }, [stay]);
-
-
-
 
   /* dirty tracking */
   const [dirty, setDirty] = useState<Record<string, boolean>>({});
@@ -558,7 +563,9 @@ function Workspace({ booking }: { booking: Booking }) {
 
   const roomsMajor = Math.abs(totalRooms - (booking.rooms ?? totalRooms)) > 3;
   const stayMajor =
-    confirmed && (stay.arrival !== booking.startDate.slice(0, 10) || stay.departure !== booking.endDate.slice(0, 10));
+    confirmed &&
+    (stay.arrival !== booking.startDate.slice(0, 10) ||
+      stay.departure !== booking.endDate.slice(0, 10));
 
   const dim = (key: PanelKey) => panel !== null && panel !== key;
 
@@ -633,7 +640,9 @@ function Workspace({ booking }: { booking: Booking }) {
     return {
       status: guestsAdded >= guestsTotal && guestsTotal > 0 ? "Complete" : "In progress",
       lastUpdated:
-        savedAt && Number.isFinite(new Date(savedAt).getTime()) ? dateShort(savedAt) : "Not yet saved",
+        savedAt && Number.isFinite(new Date(savedAt).getTime())
+          ? dateShort(savedAt)
+          : "Not yet saved",
       deadline: Number.isFinite(deadlineMs)
         ? fmtDate(deadlineIso as string, { day: "numeric", month: "short", year: "numeric" })
         : "To be confirmed",
@@ -647,7 +656,8 @@ function Workspace({ booking }: { booking: Booking }) {
       rows: rows.filter((r) => r.rooms > 0).length ? rows : rows,
     };
   }, [roomingList, roomingStats, rooming, stay.arrival, totalGuests, totalRooms]);
-  const nightsLabel = Number.isFinite(nights) && nights > 0 ? `${nights} nights` : "Dates to confirm";
+  const nightsLabel =
+    Number.isFinite(nights) && nights > 0 ? `${nights} nights` : "Dates to confirm";
 
   const editor = panel && (
     <PanelShell
@@ -721,7 +731,10 @@ function Workspace({ booking }: { booking: Booking }) {
               <li
                 key={r.type}
                 className="flex items-center justify-between gap-4 rounded-[9px] px-3.5 py-2.5"
-                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1E2B38 0%, #17222D 100%)`, border: `1px solid ${NAVY_BORDER}` }}
+                style={{
+                  background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1E2B38 0%, #17222D 100%)`,
+                  border: `1px solid ${NAVY_BORDER}`,
+                }}
               >
                 <div className="min-w-0">
                   <p className="text-[13.5px]" style={{ color: TEXT }}>
@@ -773,7 +786,9 @@ function Workspace({ booking }: { booking: Booking }) {
                   style={{
                     color: on ? TEXT : MUTED,
                     border: `1px solid ${on ? "rgba(199,163,74,0.4)" : NAVY_BORDER}`,
-                    background: on ? "rgba(199,163,74,0.08)" : `${NAVY_TEXTURE}, linear-gradient(180deg, #1E2B38 0%, #17222D 100%)`,
+                    background: on
+                      ? "rgba(199,163,74,0.08)"
+                      : `${NAVY_TEXTURE}, linear-gradient(180deg, #1E2B38 0%, #17222D 100%)`,
                   }}
                 >
                   {on && <Check size={13} style={{ color: GOLD }} />}
@@ -844,12 +859,17 @@ function Workspace({ booking }: { booking: Booking }) {
               <li
                 key={`${s.name}-${i}`}
                 className="flex items-center gap-3 rounded-[9px] px-3.5 py-2.5"
-                style={{ background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1E2B38 0%, #17222D 100%)`, border: `1px solid ${NAVY_BORDER}` }}
+                style={{
+                  background: `${NAVY_TEXTURE}, linear-gradient(180deg, #1E2B38 0%, #17222D 100%)`,
+                  border: `1px solid ${NAVY_BORDER}`,
+                }}
               >
                 <input
                   value={s.name}
                   onChange={(e) => {
-                    setServices(services.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)));
+                    setServices(
+                      services.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)),
+                    );
                     markDirty("services");
                   }}
                   className="min-w-0 flex-1 bg-transparent text-[13.5px] outline-none"
@@ -858,7 +878,9 @@ function Workspace({ booking }: { booking: Booking }) {
                 <input
                   value={s.detail}
                   onChange={(e) => {
-                    setServices(services.map((x, j) => (j === i ? { ...x, detail: e.target.value } : x)));
+                    setServices(
+                      services.map((x, j) => (j === i ? { ...x, detail: e.target.value } : x)),
+                    );
                     markDirty("services");
                   }}
                   className="w-[150px] shrink-0 bg-transparent text-right text-[12.5px] outline-none"
@@ -985,7 +1007,8 @@ function Workspace({ booking }: { booking: Booking }) {
       icon: <ConciergeBell size={15} />,
       label: "Services",
       lead: services.length ? `${services.length} arranged` : "None yet",
-      detail: services.map((s) => s.name).join("  ·  ") || "Add porter service, transfers, amenities",
+      detail:
+        services.map((s) => s.name).join("  ·  ") || "Add porter service, transfers, amenities",
       action: "Manage",
     },
     {
@@ -1000,8 +1023,18 @@ function Workspace({ booking }: { booking: Booking }) {
 
   const journey = [
     { label: "Request sent", desc: "Sent to the hotel", sub: "28 Jul", state: "done" as const },
-    { label: "Hotel confirmed", desc: "Confirmed by the hotel", sub: "29 Jul", state: "done" as const },
-    { label: "Deposit received", desc: "Payment registered", sub: "29 Jul", state: "done" as const },
+    {
+      label: "Hotel confirmed",
+      desc: "Confirmed by the hotel",
+      sub: "29 Jul",
+      state: "done" as const,
+    },
+    {
+      label: "Deposit received",
+      desc: "Payment registered",
+      sub: "29 Jul",
+      state: "done" as const,
+    },
     {
       label: "Rooming list",
       desc: "Add guest names and room assignments",
@@ -1021,7 +1054,6 @@ function Workspace({ booking }: { booking: Booking }) {
       state: "todo" as const,
     },
   ];
-
 
   const strip: { icon: React.ReactNode; lead: string; sub: string }[] = [
     {
@@ -1116,17 +1148,21 @@ function Workspace({ booking }: { booking: Booking }) {
           image={booking.image}
           destination={booking.destination}
           reference={booking.reference}
-          initials={initials}
-          stayDates={`${dateShort(stay.arrival)} – ${fmtDate(stay.departure, { day: "numeric", month: "short", year: "numeric" })}`}
+          stayDates={formatLongRange(stay.arrival, stay.departure)}
           roomsLabel={`${totalRooms} rooms`}
           guestsLabel={`${totalGuests} guests`}
           statusLabel={confirmed ? "Confirmed" : "Pending"}
           statusTone={confirmed ? "#1E5B39" : "#7A5A12"}
           active={tab as WorkspaceTab}
           onSelect={(t) => setTab(t)}
-          surface={isFolder ? FOLDER_TOP_SURFACE : undefined}
+          surface={
+            isFolder
+              ? tab === "Documents"
+                ? FOLDER_TOP_SURFACE_WARM
+                : FOLDER_TOP_SURFACE
+              : undefined
+          }
         />
-
 
         {/* ══ 2 · workspace plate — physical folder on Overview, ivory elsewhere ══ */}
         <div
@@ -1135,15 +1171,10 @@ function Workspace({ booking }: { booking: Booking }) {
               ? "relative flex flex-1 flex-col px-0 pb-0 pt-0"
               : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
-          style={
-            isFolder
-              ? { backgroundColor: PAGE_UNDER }
-              : { backgroundColor: PLATE }
-          }
+          style={isFolder ? { backgroundColor: PAGE_UNDER } : { backgroundColor: PLATE }}
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
           {isFolder ? null : (
-
             <div className="flex flex-wrap items-center gap-y-5 py-6">
               {strip.map((s, i) => (
                 <div
@@ -1155,10 +1186,16 @@ function Workspace({ booking }: { booking: Booking }) {
                     {s.icon}
                   </span>
                   <span className="min-w-0">
-                    <span className="block truncate text-[14px] font-semibold" style={{ color: "#15202B" }}>
+                    <span
+                      className="block truncate text-[14px] font-semibold"
+                      style={{ color: "#15202B" }}
+                    >
                       {s.lead}
                     </span>
-                    <span className="block truncate text-[12px]" style={{ color: "rgba(21,32,43,0.6)" }}>
+                    <span
+                      className="block truncate text-[12px]"
+                      style={{ color: "rgba(21,32,43,0.6)" }}
+                    >
                       {s.sub}
                     </span>
                   </span>
@@ -1167,153 +1204,160 @@ function Workspace({ booking }: { booking: Booking }) {
             </div>
           )}
 
-
           <div key={tab} className={`hgb-ws-panel${isFolder ? " flex flex-1 flex-col" : ""}`}>
-          {tab === "Rooming List" ? (
-            <RoomingFolder
-              bookingId={booking.id}
-              data={roomingData}
-              onHistory={() => setTab("Changes")}
-              onNewVersion={() => navigate({ to: "/rooming-list/$bookingId", params: { bookingId: booking.id } })}
-              onUpload={() => setTab("Documents")}
-              onMessage={() => setTab("Messages")}
-            />
-          ) : tab === "Changes" ? (
-            <ChangesView
-              rooms={rooms}
-              baseRooms={BASE_ROOMS}
-              onRoomsChange={(next) => {
-                setRooms(next);
-                markDirty("rooms");
-              }}
-              panel={panel}
-              onPanel={(k) => setPanel((cur) => (cur === k ? null : k))}
-              editor={editor}
-            />
-          ) : tab === "Documents" ? (
-            <BookingDocumentsView booking={booking} onAskQuestion={() => setTab("Messages")} />
-          ) : tab === "Messages" ? (
-            <BookingMessagesView
-              bookingId={booking.id}
-              reference={booking.reference}
-              bookingName={booking.name}
-              stayDates={`${dateShort(stay.arrival)} – ${fmtDate(stay.departure, { day: "numeric", month: "short", year: "numeric" })}`}
-            />
-          ) : tab === "Notes" ? (
-            <BookingNotesView reference={booking.reference} bookingName={booking.name} />
-          ) : tab !== "Overview" ? (
-            <section
-              className="rounded-[16px] px-8 py-16 text-center"
-              style={{ background: INK, border: `1px solid ${NAVY_BORDER}` }}
-            >
-              <h3 className="text-[24px]" style={{ color: TEXT, fontFamily: SERIF }}>
-                {tab}
-              </h3>
-              <p className="mt-2 text-[13px]" style={{ color: MUTED }}>
-                {tab} for {booking.reference} will appear here.
-              </p>
-            </section>
-
-
-          ) : (
-            <OverviewFolder
-              bookingId={booking.id}
-              journey={journey}
-              onViewTimeline={() => setTab("Changes")}
-              onMessage={() => setTab("Messages")}
-              detailsStatus={{
-                label: confirmed ? "Confirmed" : "Awaiting hotel confirmation",
-                tone: confirmed ? "confirmed" : "pending",
-              }}
-              detailRows={[
-                {
-                  k: "Hotel",
-                  icon: <Building2 size={18} strokeWidth={1.6} />,
-                  v: booking.hotel ?? "Hotel to be assigned",
-                  stars: booking.hotel ? 5 : undefined,
-                },
-                { k: "Destination", icon: <MapPin size={18} strokeWidth={1.6} />, v: booking.destination },
-                {
-                  k: "Contact",
-                  icon: <UserCheck size={18} strokeWidth={1.6} />,
-                  v: displayName || "—",
-                  v2: "Group Sales Manager",
-                },
-                { k: "Email", icon: <Mail size={18} strokeWidth={1.6} />, v: session?.user.email ?? "—" },
-                { k: "Phone", icon: <Phone size={18} strokeWidth={1.6} />, v: "+47 55 33 44 55" },
-                { k: "Hotel reference", icon: <FileText size={18} strokeWidth={1.6} />, v: hotelRef || booking.reference },
-                {
-                  k: "Payment terms",
-                  icon: <CreditCard size={18} strokeWidth={1.6} />,
-                  v: confirmed ? "Deposit paid" : "Deposit pending",
-                },
-              ]}
-
-              detailsFooter={
-                <FolderAction
-                  label={detailsOpen ? "Hide details" : "Show more details"}
-                  arrow={detailsOpen ? "↑" : "↓"}
-                  onClick={() => setDetailsOpen((v) => !v)}
-                />
-              }
-              detailsExtra={
-                detailsOpen ? (
-                  <ul className="mt-1">
-                    {ledger.map((row) => {
-                      const open = panel === row.key;
-                      return (
-                        <li key={row.key} style={{ borderTop: `1px solid ${F_HAIR}` }}>
-                          <LedgerRow
-                            icon={row.icon}
-                            label={row.label}
-                            lead={row.lead}
-                            detail={row.detail}
-                            action={row.action}
-                            open={open}
-                            dimmed={panel !== null && !open}
-                            onOpen={() => setPanel(open ? null : row.key)}
-                            onIvory
-                          />
-                          {open && <div className="pb-4">{editor}</div>}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                ) : null
-              }
-              summary={[
-                {
-                  icon: <Users size={17} />,
-                  lead: `${totalGuests}`,
-                  label: "Guests",
-                  onAction: () => setPanel("rooms"),
-                },
-                {
-                  icon: <Bed size={17} />,
-                  lead: `${totalRooms}`,
-                  label: "Rooms",
-                  onAction: () => setPanel("rooms"),
-                },
-                {
-                  icon: <CalendarDays size={17} />,
-                  lead: `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
-                  label: "Stay dates",
-                  onAction: () => setPanel("stay"),
-                },
-                {
-                  icon: <FileText size={17} />,
-                  lead: "3",
-                  label: "Documents uploaded",
-                  actionLabel: "View documents",
-                  onAction: () => setTab("Documents"),
-                },
-              ]}
-            />
-
-          )}
-
+            {tab === "Rooming List" ? (
+              <RoomingFolder
+                bookingId={booking.id}
+                data={roomingData}
+                onHistory={() => setTab("Changes")}
+                onNewVersion={() =>
+                  navigate({ to: "/rooming-list/$bookingId", params: { bookingId: booking.id } })
+                }
+                onUpload={() => setTab("Documents")}
+                onMessage={() => setTab("Messages")}
+              />
+            ) : tab === "Changes" ? (
+              <ChangesView
+                rooms={rooms}
+                baseRooms={BASE_ROOMS}
+                onRoomsChange={(next) => {
+                  setRooms(next);
+                  markDirty("rooms");
+                }}
+                panel={panel}
+                onPanel={(k) => setPanel((cur) => (cur === k ? null : k))}
+                editor={editor}
+              />
+            ) : tab === "Documents" ? (
+              <BookingDocumentsView booking={booking} onAskQuestion={() => setTab("Messages")} />
+            ) : tab === "Messages" ? (
+              <BookingMessagesView
+                bookingId={booking.id}
+                reference={booking.reference}
+                bookingName={booking.name}
+                stayDates={`${dateShort(stay.arrival)} – ${fmtDate(stay.departure, { day: "numeric", month: "short", year: "numeric" })}`}
+              />
+            ) : tab === "Notes" ? (
+              <BookingNotesView reference={booking.reference} bookingName={booking.name} />
+            ) : tab !== "Overview" ? (
+              <section
+                className="rounded-[16px] px-8 py-16 text-center"
+                style={{ background: INK, border: `1px solid ${NAVY_BORDER}` }}
+              >
+                <h3 className="text-[24px]" style={{ color: TEXT, fontFamily: SERIF }}>
+                  {tab}
+                </h3>
+                <p className="mt-2 text-[13px]" style={{ color: MUTED }}>
+                  {tab} for {booking.reference} will appear here.
+                </p>
+              </section>
+            ) : (
+              <OverviewFolder
+                bookingId={booking.id}
+                journey={journey}
+                onViewTimeline={() => setTab("Changes")}
+                onMessage={() => setTab("Messages")}
+                detailsStatus={{
+                  label: confirmed ? "Confirmed" : "Awaiting hotel confirmation",
+                  tone: confirmed ? "confirmed" : "pending",
+                }}
+                detailRows={[
+                  {
+                    k: "Hotel",
+                    icon: <Building2 size={18} strokeWidth={1.6} />,
+                    v: booking.hotel ?? "Hotel to be assigned",
+                    stars: booking.hotel ? 5 : undefined,
+                  },
+                  {
+                    k: "Destination",
+                    icon: <MapPin size={18} strokeWidth={1.6} />,
+                    v: booking.destination,
+                  },
+                  {
+                    k: "Contact",
+                    icon: <UserCheck size={18} strokeWidth={1.6} />,
+                    v: displayName || "—",
+                    v2: "Group Sales Manager",
+                  },
+                  {
+                    k: "Email",
+                    icon: <Mail size={18} strokeWidth={1.6} />,
+                    v: session?.user.email ?? "—",
+                  },
+                  { k: "Phone", icon: <Phone size={18} strokeWidth={1.6} />, v: "+47 55 33 44 55" },
+                  {
+                    k: "Hotel reference",
+                    icon: <FileText size={18} strokeWidth={1.6} />,
+                    v: hotelRef || booking.reference,
+                  },
+                  {
+                    k: "Payment terms",
+                    icon: <CreditCard size={18} strokeWidth={1.6} />,
+                    v: confirmed ? "Deposit paid" : "Deposit pending",
+                  },
+                ]}
+                detailsFooter={
+                  <FolderAction
+                    label={detailsOpen ? "Hide details" : "Show more details"}
+                    arrow={detailsOpen ? "↑" : "↓"}
+                    onClick={() => setDetailsOpen((v) => !v)}
+                  />
+                }
+                detailsExtra={
+                  detailsOpen ? (
+                    <ul className="mt-1">
+                      {ledger.map((row) => {
+                        const open = panel === row.key;
+                        return (
+                          <li key={row.key} style={{ borderTop: `1px solid ${F_HAIR}` }}>
+                            <LedgerRow
+                              icon={row.icon}
+                              label={row.label}
+                              lead={row.lead}
+                              detail={row.detail}
+                              action={row.action}
+                              open={open}
+                              dimmed={panel !== null && !open}
+                              onOpen={() => setPanel(open ? null : row.key)}
+                              onIvory
+                            />
+                            {open && <div className="pb-4">{editor}</div>}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : null
+                }
+                summary={[
+                  {
+                    icon: <Users size={17} />,
+                    lead: `${totalGuests}`,
+                    label: "Guests",
+                    onAction: () => setPanel("rooms"),
+                  },
+                  {
+                    icon: <Bed size={17} />,
+                    lead: `${totalRooms}`,
+                    label: "Rooms",
+                    onAction: () => setPanel("rooms"),
+                  },
+                  {
+                    icon: <CalendarDays size={17} />,
+                    lead: `${dateShort(stay.arrival)} – ${dateShort(stay.departure)}`,
+                    label: "Stay dates",
+                    onAction: () => setPanel("stay"),
+                  },
+                  {
+                    icon: <FileText size={17} />,
+                    lead: "3",
+                    label: "Documents uploaded",
+                    actionLabel: "View documents",
+                    onAction: () => setTab("Documents"),
+                  },
+                ]}
+              />
+            )}
           </div>
-
         </div>
       </div>
     </div>
@@ -1327,7 +1371,6 @@ const CARD_BG = "#15202B";
 const CARD_BORDER_SOFT = "#2A3A4A";
 const INK = NAVY_PANEL;
 const INK_2 = `${NAVY_TEXTURE}, linear-gradient(180deg, #223040 0%, #1E2A38 55%, #1A2530 100%)`;
-
 
 function InkCard({
   title,
@@ -1350,10 +1393,18 @@ function InkCard({
       }}
     >
       <div className="flex items-baseline justify-between gap-5">
-        <h3 className="text-[16px]" style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}>
+        <h3
+          className="text-[16px]"
+          style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}
+        >
           {title}
         </h3>
-        {action ?? (right ? <span className="truncate text-[11.5px]" style={{ color: MUTED }}>{right}</span> : null)}
+        {action ??
+          (right ? (
+            <span className="truncate text-[11.5px]" style={{ color: MUTED }}>
+              {right}
+            </span>
+          ) : null)}
       </div>
       {children}
     </section>
@@ -1406,7 +1457,9 @@ function LedgerRow({
         }}
       >
         <span className="shrink-0">{icon}</span>
-        <span className="truncate text-[10.5px] font-semibold uppercase tracking-[0.18em]">{label}</span>
+        <span className="truncate text-[10.5px] font-semibold uppercase tracking-[0.18em]">
+          {label}
+        </span>
       </span>
       <span className="min-w-0">
         <span
@@ -1437,10 +1490,6 @@ function LedgerRow({
   );
 }
 
-
-
-
-
 /* ───────────────────────── Changes workspace ───────────────────────── */
 
 const STATUS_TONE = {
@@ -1460,9 +1509,19 @@ const QUICK_ACTIONS: {
   { key: "stay", label: "Stay", sub: "Change dates", icon: <CalendarDays size={17} /> },
   { key: "rooms", label: "Rooms", sub: "Add or remove", icon: <Bed size={17} /> },
   { key: "rooms", label: "Guests", sub: "Update details", icon: <Users size={17} /> },
-  { key: "dining", label: "Dining", sub: "Meals & preferences", icon: <UtensilsCrossed size={17} /> },
+  {
+    key: "dining",
+    label: "Dining",
+    sub: "Meals & preferences",
+    icon: <UtensilsCrossed size={17} />,
+  },
   { key: "services", label: "Services", sub: "Add or adjust", icon: <ConciergeBell size={17} /> },
-  { key: "requests", label: "Rooming List", sub: "Update guests", icon: <ClipboardList size={17} /> },
+  {
+    key: "requests",
+    label: "Rooming List",
+    sub: "Update guests",
+    icon: <ClipboardList size={17} />,
+  },
   { key: "requests", label: "Special Requests", sub: "Other requests", icon: <Star size={17} /> },
 ];
 
@@ -1526,17 +1585,45 @@ function ChangesView({
   const afterGuests = lines.reduce((s, l) => s + l.qty * l.perRoom, 0);
 
   const tracker = [
-    { n: 1, title: "Submitted", sub: "Waiting for hotel", tone: "submitted" as const, icon: <Upload size={16} /> },
-    { n: changed.length, title: "In Review", sub: "Hotel is reviewing", tone: "review" as const, icon: <Info size={16} /> },
-    { n: RECENT_REQUESTS.filter((r) => r.tone === "approved").length, title: "Approved", sub: "Changes confirmed", tone: "approved" as const, icon: <Check size={16} /> },
-    { n: RECENT_REQUESTS.filter((r) => r.tone === "declined").length, title: "Declined", sub: "View response", tone: "declined" as const, icon: <X size={16} /> },
-    { n: 0, title: "Expired", sub: "Request expired", tone: "expired" as const, icon: <MoreHorizontal size={16} /> },
+    {
+      n: 1,
+      title: "Submitted",
+      sub: "Waiting for hotel",
+      tone: "submitted" as const,
+      icon: <Upload size={16} />,
+    },
+    {
+      n: changed.length,
+      title: "In Review",
+      sub: "Hotel is reviewing",
+      tone: "review" as const,
+      icon: <Info size={16} />,
+    },
+    {
+      n: RECENT_REQUESTS.filter((r) => r.tone === "approved").length,
+      title: "Approved",
+      sub: "Changes confirmed",
+      tone: "approved" as const,
+      icon: <Check size={16} />,
+    },
+    {
+      n: RECENT_REQUESTS.filter((r) => r.tone === "declined").length,
+      title: "Declined",
+      sub: "View response",
+      tone: "declined" as const,
+      icon: <X size={16} />,
+    },
+    {
+      n: 0,
+      title: "Expired",
+      sub: "Request expired",
+      tone: "expired" as const,
+      icon: <MoreHorizontal size={16} />,
+    },
   ];
 
   const statusFor = (diff: number) =>
-    diff === 0
-      ? { label: "Approved", color: "#7FBE96" }
-      : { label: "In review", color: "#E0B75C" };
+    diff === 0 ? { label: "Approved", color: "#7FBE96" } : { label: "In review", color: "#E0B75C" };
 
   return (
     <div className="space-y-4">
@@ -1549,7 +1636,10 @@ function ChangesView({
           boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
         }}
       >
-        <h3 className="text-[16px]" style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}>
+        <h3
+          className="text-[16px]"
+          style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}
+        >
           Request Status Tracker
         </h3>
         <p className="mt-1 text-[12.5px]" style={{ color: MUTED }}>
@@ -1575,10 +1665,16 @@ function ChangesView({
                     {t.n}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[13px] font-medium" style={{ color: "#F3F1EB" }}>
+                    <span
+                      className="block truncate text-[13px] font-medium"
+                      style={{ color: "#F3F1EB" }}
+                    >
                       {t.title}
                     </span>
-                    <span className="block truncate text-[11.5px]" style={{ color: STATUS_TONE[t.tone].line }}>
+                    <span
+                      className="block truncate text-[11.5px]"
+                      style={{ color: STATUS_TONE[t.tone].line }}
+                    >
                       {t.sub}
                     </span>
                   </span>
@@ -1626,11 +1722,17 @@ function ChangesView({
                   boxShadow: open ? "inset 0 0 0 1px rgba(199,163,74,0.18)" : "none",
                 }}
               >
-                <span className="shrink-0" style={{ color: open ? GOLD_SOFT : "rgba(226,233,239,0.7)" }}>
+                <span
+                  className="shrink-0"
+                  style={{ color: open ? GOLD_SOFT : "rgba(226,233,239,0.7)" }}
+                >
                   {a.icon}
                 </span>
                 <span className="min-w-0">
-                  <span className="block truncate text-[12.5px] font-medium" style={{ color: "#F3F1EB" }}>
+                  <span
+                    className="block truncate text-[12.5px] font-medium"
+                    style={{ color: "#F3F1EB" }}
+                  >
                     {a.label}
                   </span>
                   <span className="block truncate text-[11px]" style={{ color: MUTED }}>
@@ -1658,7 +1760,10 @@ function ChangesView({
         >
           <div className="flex items-baseline justify-between gap-4">
             <div>
-              <h3 className="text-[16px]" style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}>
+              <h3
+                className="text-[16px]"
+                style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}
+              >
                 Rooms — Change request
               </h3>
               <p className="mt-1 text-[12.5px]" style={{ color: MUTED }}>
@@ -1697,18 +1802,25 @@ function ChangesView({
                         <Stepper
                           value={l.qty}
                           onChange={(n) =>
-                            onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)))
+                            onRoomsChange(
+                              rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)),
+                            )
                           }
                         />
                       </td>
                       <td
                         className="py-3 text-[13px]"
-                        style={{ color: l.diff === 0 ? TEXT_2 : l.diff > 0 ? "#7FBE96" : "#D98A8A" }}
+                        style={{
+                          color: l.diff === 0 ? TEXT_2 : l.diff > 0 ? "#7FBE96" : "#D98A8A",
+                        }}
                       >
                         {l.diff > 0 ? `+${l.diff}` : l.diff}
                       </td>
                       <td className="py-3">
-                        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: st.color }}>
+                        <span
+                          className="inline-flex items-center gap-2 text-[12.5px]"
+                          style={{ color: st.color }}
+                        >
                           <span
                             aria-hidden
                             className="inline-block h-[7px] w-[7px] rounded-full"
@@ -1746,7 +1858,11 @@ function ChangesView({
                 </p>
                 <p
                   className="mt-1 text-[22px] leading-none"
-                  style={{ color: m.gold ? GOLD_SOFT : "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}
+                  style={{
+                    color: m.gold ? GOLD_SOFT : "#F3F1EB",
+                    fontFamily: SERIF,
+                    fontWeight: 500,
+                  }}
                 >
                   {m.value}
                 </p>
@@ -1769,7 +1885,10 @@ function ChangesView({
             }}
           >
             <div className="flex items-baseline justify-between gap-4">
-              <h3 className="text-[16px]" style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}>
+              <h3
+                className="text-[16px]"
+                style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}
+              >
                 Change summary
               </h3>
               <span className="text-[11.5px]" style={{ color: GOLD_SOFT }}>
@@ -1871,7 +1990,10 @@ function ChangesView({
         }}
       >
         <div className="flex items-baseline justify-between gap-4">
-          <h3 className="text-[16px]" style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}>
+          <h3
+            className="text-[16px]"
+            style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}
+          >
             Recent change requests
           </h3>
           <span className="text-[12px]" style={{ color: GOLD_SOFT }}>
@@ -1896,7 +2018,10 @@ function ChangesView({
               <span className="hidden truncate text-[12px] sm:block" style={{ color: MUTED }}>
                 {r.category}
               </span>
-              <span className="hidden truncate text-[12px] sm:block" style={{ color: STATUS_TONE[r.tone].line }}>
+              <span
+                className="hidden truncate text-[12px] sm:block"
+                style={{ color: STATUS_TONE[r.tone].line }}
+              >
                 {r.status}
               </span>
               <span className="hidden truncate text-[12px] sm:block" style={{ color: MUTED }}>
