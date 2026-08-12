@@ -60,6 +60,7 @@ import {
 } from "@/features/booking-workspace/folder";
 import { OverviewFolder } from "@/features/booking-workspace/overview/Overview";
 import { RoomingFolder } from "@/features/booking-workspace/rooming/RoomingList";
+import { ChangesFolder } from "@/features/booking-workspace/changes/ChangesFolder";
 import {
   FOLDER_TOP_SURFACE,
   FOLDER_TOP_SURFACE_WARM,
@@ -144,9 +145,11 @@ export type RoomLineUI = { type: string; note: string; qty: number; perRoom: num
 
 /** Baseline (currently booked) room distribution — the "Current" column on Changes. */
 const BASE_ROOMS: RoomLineUI[] = [
-  { type: "Twin Rooms", note: "Two separate beds", qty: 17, perRoom: 2 },
-  { type: "Single Rooms", note: "One guest", qty: 8, perRoom: 1 },
-  { type: "Triple Rooms", note: "Three guests", qty: 7, perRoom: 3 },
+  { type: "Twin rooms", note: "2 single beds", qty: 17, perRoom: 2 },
+  { type: "Double rooms", note: "1 double bed", qty: 6, perRoom: 2 },
+  { type: "Single rooms", note: "1 single bed", qty: 5, perRoom: 1 },
+  { type: "Triple rooms", note: "3 single beds", qty: 4, perRoom: 3 },
+  { type: "Family / Accessible", note: "Accessible rooms", qty: 0, perRoom: 4 },
 ];
 
 
@@ -1048,7 +1051,8 @@ function Workspace({ booking }: { booking: Booking }) {
     },
   ];
 
-  const isFolder = tab === "Overview" || tab === "Rooming List" || tab === "Documents";
+  const isFolder =
+    tab === "Overview" || tab === "Rooming List" || tab === "Documents" || tab === "Changes";
 
   return (
     <div
@@ -1132,7 +1136,9 @@ function Workspace({ booking }: { booking: Booking }) {
             isFolder
               ? tab === "Documents"
                 ? FOLDER_TOP_SURFACE_WARM
-                : FOLDER_TOP_SURFACE
+                : tab === "Changes"
+                  ? "#FAF7F5"
+                  : FOLDER_TOP_SURFACE
               : undefined
           }
         />
@@ -1189,16 +1195,18 @@ function Workspace({ booking }: { booking: Booking }) {
               onMessage={() => setTab("Messages")}
             />
           ) : tab === "Changes" ? (
-            <ChangesView
+            <ChangesFolder
               rooms={rooms}
               baseRooms={BASE_ROOMS}
               onRoomsChange={(next) => {
                 setRooms(next);
                 markDirty("rooms");
               }}
-              panel={panel}
-              onPanel={(k) => setPanel((cur) => (cur === k ? null : k))}
-              editor={editor}
+              stayDates={formatLongRange(stay.arrival, stay.departure)}
+              reference={booking.reference}
+              paymentTerms={confirmed ? "Deposit paid" : "Deposit pending"}
+              onHistory={() => setTab("Messages")}
+              onMessage={() => setTab("Messages")}
             />
           ) : tab === "Documents" ? (
             <BookingDocumentsView booking={booking} onAskQuestion={() => setTab("Messages")} />
@@ -1451,475 +1459,3 @@ function LedgerRow({
 
 
 
-/* ───────────────────────── Changes workspace ───────────────────────── */
-
-const STATUS_TONE = {
-  submitted: { line: "#6FA8DC", bg: "linear-gradient(180deg, #27506F 0%, #22445F 100%)" },
-  review: { line: "#E0B75C", bg: "linear-gradient(180deg, #5B4A21 0%, #4C3D19 100%)" },
-  approved: { line: "#7FBE96", bg: "linear-gradient(180deg, #23503C 0%, #1D4433 100%)" },
-  declined: { line: "#D98A8A", bg: "linear-gradient(180deg, #59292C 0%, #4B2225 100%)" },
-  expired: { line: "rgba(200,211,220,0.72)", bg: INK_2 },
-} as const;
-
-const QUICK_ACTIONS: {
-  key: Exclude<PanelKey, null>;
-  label: string;
-  sub: string;
-  icon: React.ReactNode;
-}[] = [
-  { key: "stay", label: "Stay", sub: "Change dates", icon: <CalendarDays size={17} /> },
-  { key: "rooms", label: "Rooms", sub: "Add or remove", icon: <Bed size={17} /> },
-  { key: "rooms", label: "Guests", sub: "Update details", icon: <Users size={17} /> },
-  { key: "dining", label: "Dining", sub: "Meals & preferences", icon: <UtensilsCrossed size={17} /> },
-  { key: "services", label: "Services", sub: "Add or adjust", icon: <ConciergeBell size={17} /> },
-  { key: "requests", label: "Rooming List", sub: "Update guests", icon: <ClipboardList size={17} /> },
-  { key: "requests", label: "Special Requests", sub: "Other requests", icon: <Star size={17} /> },
-];
-
-const RECENT_REQUESTS = [
-  {
-    title: "Extra twin rooms",
-    category: "Rooms",
-    status: "In review" as const,
-    tone: "review" as const,
-    submitted: "Yesterday, 14:22",
-    updated: "Today",
-    icon: <Bed size={15} />,
-  },
-  {
-    title: "Breakfast for all guests",
-    category: "Dining",
-    status: "Approved" as const,
-    tone: "approved" as const,
-    submitted: "Today, 09:15",
-    updated: "Today, 09:15",
-    icon: <UtensilsCrossed size={15} />,
-  },
-  {
-    title: "Airport transfer added",
-    category: "Services",
-    status: "Declined" as const,
-    tone: "declined" as const,
-    submitted: "Yesterday, 10:30",
-    updated: "Yesterday, 16:40",
-    icon: <ConciergeBell size={15} />,
-  },
-];
-
-function ChangesView({
-  rooms,
-  baseRooms,
-  onRoomsChange,
-  panel,
-  onPanel,
-  editor,
-}: {
-  rooms: RoomLineUI[];
-  baseRooms: RoomLineUI[];
-  onRoomsChange: (next: RoomLineUI[]) => void;
-  panel: PanelKey;
-  onPanel: (k: Exclude<PanelKey, null>) => void;
-  editor: React.ReactNode;
-}) {
-  const [comment, setComment] = useState("");
-
-  const lines = rooms.map((r, i) => {
-    const base = baseRooms[i]?.qty ?? r.qty;
-    const diff = r.qty - base;
-    return { ...r, base, diff, index: i };
-  });
-
-  const changed = lines.filter((l) => l.diff !== 0);
-  const currentRooms = lines.reduce((s, l) => s + l.base, 0);
-  const afterRooms = lines.reduce((s, l) => s + l.qty, 0);
-  const currentGuests = lines.reduce((s, l) => s + l.base * l.perRoom, 0);
-  const afterGuests = lines.reduce((s, l) => s + l.qty * l.perRoom, 0);
-
-  const tracker = [
-    { n: 1, title: "Submitted", sub: "Waiting for hotel", tone: "submitted" as const, icon: <Upload size={16} /> },
-    { n: changed.length, title: "In Review", sub: "Hotel is reviewing", tone: "review" as const, icon: <Info size={16} /> },
-    { n: RECENT_REQUESTS.filter((r) => r.tone === "approved").length, title: "Approved", sub: "Changes confirmed", tone: "approved" as const, icon: <Check size={16} /> },
-    { n: RECENT_REQUESTS.filter((r) => r.tone === "declined").length, title: "Declined", sub: "View response", tone: "declined" as const, icon: <X size={16} /> },
-    { n: 0, title: "Expired", sub: "Request expired", tone: "expired" as const, icon: <MoreHorizontal size={16} /> },
-  ];
-
-  const statusFor = (diff: number) =>
-    diff === 0
-      ? { label: "Approved", color: "#7FBE96" }
-      : { label: "In review", color: "#E0B75C" };
-
-  return (
-    <div className="space-y-4">
-      {/* ── Request status tracker ── */}
-      <section
-        className="rounded-[16px] p-5 sm:p-6"
-        style={{
-          background: INK,
-          border: `1px solid ${NAVY_BORDER}`,
-          boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
-        }}
-      >
-        <h3 className="text-[16px]" style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}>
-          Request Status Tracker
-        </h3>
-        <p className="mt-1 text-[12.5px]" style={{ color: MUTED }}>
-          Track the status of your change requests.
-        </p>
-
-        <div className="mt-5 flex flex-col gap-3 lg:flex-row lg:items-stretch">
-          {tracker.map((t, i) => (
-            <div key={t.title} className="flex min-w-0 flex-1 items-center gap-3">
-              <div
-                className="min-w-0 flex-1 rounded-[12px] px-4 py-3.5"
-                style={{
-                  background: STATUS_TONE[t.tone].bg,
-                  border: `1px solid ${NAVY_BORDER}`,
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
-                }}
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    className="text-[26px] leading-none"
-                    style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}
-                  >
-                    {t.n}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[13px] font-medium" style={{ color: "#F3F1EB" }}>
-                      {t.title}
-                    </span>
-                    <span className="block truncate text-[11.5px]" style={{ color: STATUS_TONE[t.tone].line }}>
-                      {t.sub}
-                    </span>
-                  </span>
-                  <span className="shrink-0" style={{ color: STATUS_TONE[t.tone].line }}>
-                    {t.icon}
-                  </span>
-                </div>
-              </div>
-              {i < tracker.length - 1 && (
-                <span
-                  aria-hidden
-                  className="hidden h-px w-4 shrink-0 lg:block"
-                  style={{ background: "rgba(255,255,255,0.14)" }}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Quick actions ── */}
-      <section
-        className="rounded-[16px] p-5 sm:p-6"
-        style={{
-          background: INK,
-          border: `1px solid ${NAVY_BORDER}`,
-          boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
-        }}
-      >
-        <h3 className="text-[13px]" style={{ color: "#F3F1EB" }}>
-          Quick actions — What would you like to change?
-        </h3>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
-          {QUICK_ACTIONS.map((a) => {
-            const open = panel === a.key;
-            return (
-              <button
-                key={a.label}
-                type="button"
-                onClick={() => onPanel(a.key)}
-                className="flex items-center gap-3 rounded-[12px] px-3.5 py-3 text-left transition-all duration-200"
-                style={{
-                  background: INK_2,
-                  border: `1px solid ${open ? "rgba(199,163,74,0.55)" : NAVY_BORDER}`,
-                  boxShadow: open ? "inset 0 0 0 1px rgba(199,163,74,0.18)" : "none",
-                }}
-              >
-                <span className="shrink-0" style={{ color: open ? GOLD_SOFT : "rgba(226,233,239,0.7)" }}>
-                  {a.icon}
-                </span>
-                <span className="min-w-0">
-                  <span className="block truncate text-[12.5px] font-medium" style={{ color: "#F3F1EB" }}>
-                    {a.label}
-                  </span>
-                  <span className="block truncate text-[11px]" style={{ color: MUTED }}>
-                    {a.sub}
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ── revealed existing editor ── */}
-      {editor}
-
-      {/* ── room change request + summary ── */}
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_378px]">
-        <section
-          className="min-w-0 rounded-[16px] p-5 sm:p-6"
-          style={{
-            background: INK,
-            border: `1px solid ${NAVY_BORDER}`,
-            boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
-          }}
-        >
-          <div className="flex items-baseline justify-between gap-4">
-            <div>
-              <h3 className="text-[16px]" style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}>
-                Rooms — Change request
-              </h3>
-              <p className="mt-1 text-[12.5px]" style={{ color: MUTED }}>
-                Review and adjust the room quantities.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-5 overflow-x-auto">
-            <table className="w-full min-w-[560px] border-collapse">
-              <thead>
-                <tr>
-                  {["Room type", "Current booking", "Requested", "Change", "Status"].map((h) => (
-                    <th
-                      key={h}
-                      className="pb-3 text-left text-[10.5px] font-semibold uppercase tracking-[0.16em]"
-                      style={{ color: MUTED, borderBottom: "1px solid rgba(255,255,255,0.08)" }}
-                    >
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {lines.map((l) => {
-                  const st = statusFor(l.diff);
-                  return (
-                    <tr key={l.type} style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                      <td className="py-3 text-[13px]" style={{ color: "#F3F1EB" }}>
-                        {l.type}
-                      </td>
-                      <td className="py-3 text-[13px]" style={{ color: TEXT_2 }}>
-                        {l.base}
-                      </td>
-                      <td className="py-3">
-                        <Stepper
-                          value={l.qty}
-                          onChange={(n) =>
-                            onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)))
-                          }
-                        />
-                      </td>
-                      <td
-                        className="py-3 text-[13px]"
-                        style={{ color: l.diff === 0 ? TEXT_2 : l.diff > 0 ? "#7FBE96" : "#D98A8A" }}
-                      >
-                        {l.diff > 0 ? `+${l.diff}` : l.diff}
-                      </td>
-                      <td className="py-3">
-                        <span className="inline-flex items-center gap-2 text-[12.5px]" style={{ color: st.color }}>
-                          <span
-                            aria-hidden
-                            className="inline-block h-[7px] w-[7px] rounded-full"
-                            style={{ background: st.color }}
-                          />
-                          {st.label}
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          <div
-            className="mt-5 grid grid-cols-2 gap-4 rounded-[12px] px-4 py-4 sm:grid-cols-5"
-            style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
-          >
-            {[
-              { label: "Total rooms", value: `${currentRooms}`, sub: "Current" },
-              { label: "Total rooms", value: `${afterRooms}`, sub: "After change" },
-              { label: "Total guests", value: `${currentGuests}`, sub: "Current" },
-              { label: "Total guests", value: `${afterGuests}`, sub: "After change" },
-              {
-                label: "Change",
-                value: `${afterGuests - currentGuests > 0 ? "+" : ""}${afterGuests - currentGuests}`,
-                sub: "Guests",
-                gold: true,
-              },
-            ].map((m, i) => (
-              <div key={i} className="min-w-0">
-                <p className="truncate text-[11px]" style={{ color: MUTED }}>
-                  {m.label}
-                </p>
-                <p
-                  className="mt-1 text-[22px] leading-none"
-                  style={{ color: m.gold ? GOLD_SOFT : "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}
-                >
-                  {m.value}
-                </p>
-                <p className="mt-1 truncate text-[11px]" style={{ color: MUTED }}>
-                  {m.sub}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── sticky change summary ── */}
-        <aside className="min-w-0">
-          <section
-            className="sticky top-6 rounded-[16px] p-5 sm:p-6"
-            style={{
-              background: INK,
-              border: `1px solid ${NAVY_BORDER}`,
-              boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
-            }}
-          >
-            <div className="flex items-baseline justify-between gap-4">
-              <h3 className="text-[16px]" style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}>
-                Change summary
-              </h3>
-              <span className="text-[11.5px]" style={{ color: GOLD_SOFT }}>
-                {changed.length} {changed.length === 1 ? "change" : "changes"}
-              </span>
-            </div>
-
-            <ul className="mt-4 space-y-2">
-              {changed.length === 0 && (
-                <li className="text-[12.5px]" style={{ color: MUTED }}>
-                  No changes yet — adjust the room quantities to build a request.
-                </li>
-              )}
-              {changed.map((l) => (
-                <li
-                  key={l.type}
-                  className="flex items-center gap-3 rounded-[11px] px-3.5 py-3"
-                  style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}` }}
-                >
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[13px]" style={{ color: "#F3F1EB" }}>
-                      {l.type}
-                    </span>
-                    <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
-                      {l.diff > 0 ? `+${l.diff}` : l.diff} rooms
-                    </span>
-                  </span>
-                  <span className="shrink-0 text-[12.5px]" style={{ color: TEXT_2 }}>
-                    {l.base} <ArrowRight size={11} className="inline" /> {l.qty}
-                  </span>
-                  <span className="shrink-0 text-[11.5px]" style={{ color: "#E0B75C" }}>
-                    In review
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            <label className="mt-4 block">
-              <span className="block text-[11.5px]" style={{ color: MUTED }}>
-                Add a comment (optional)
-              </span>
-              <textarea
-                rows={3}
-                value={comment}
-                maxLength={250}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder="Add reason for your changes…"
-                className="mt-1.5 w-full resize-none rounded-[10px] px-3 py-2.5 text-[13px] outline-none"
-                style={inputStyle}
-              />
-              <span className="mt-1 block text-right text-[11px]" style={{ color: MUTED }}>
-                {comment.length}/250
-              </span>
-            </label>
-
-            <button
-              type="button"
-              disabled={changed.length === 0}
-              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-[10px] px-4 py-3 text-[13px] font-semibold transition-opacity"
-              style={{
-                background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${GOLD_MET} 45%, ${GOLD_MET_LOW} 100%)`,
-                color: "#22303C",
-                opacity: changed.length === 0 ? 0.45 : 1,
-                cursor: changed.length === 0 ? "not-allowed" : "pointer",
-              }}
-            >
-              <Upload size={15} /> Submit request
-            </button>
-            <button
-              type="button"
-              className="mt-2.5 w-full rounded-[10px] px-4 py-2.5 text-[13px] transition-opacity hover:opacity-85"
-              style={{ color: "#F3F1EB", border: `1px solid ${NAVY_BORDER}`, background: INK_2 }}
-            >
-              Save as draft
-            </button>
-
-            <div
-              className="mt-4 flex items-start gap-2.5 rounded-[11px] px-3.5 py-3 text-[11.5px]"
-              style={{ background: INK_2, border: `1px solid ${NAVY_BORDER}`, color: TEXT_2 }}
-            >
-              <Info size={14} className="mt-[1px] shrink-0" style={{ color: GOLD_SOFT }} />
-              <span>
-                Your request will be reviewed by the hotel.
-                <br />
-                We will notify you when a decision has been made.
-              </span>
-            </div>
-          </section>
-        </aside>
-      </div>
-
-      {/* ── recent change requests ── */}
-      <section
-        className="rounded-[16px] p-5 sm:p-6"
-        style={{
-          background: INK,
-          border: `1px solid ${NAVY_BORDER}`,
-          boxShadow: `${NAVY_INNER}, 0 14px 34px -26px rgba(9,20,29,0.45)`,
-        }}
-      >
-        <div className="flex items-baseline justify-between gap-4">
-          <h3 className="text-[16px]" style={{ color: "#F3F1EB", fontFamily: SERIF, fontWeight: 500 }}>
-            Recent change requests
-          </h3>
-          <span className="text-[12px]" style={{ color: GOLD_SOFT }}>
-            View all →
-          </span>
-        </div>
-        <ul className="mt-3">
-          {RECENT_REQUESTS.map((r, i) => (
-            <li
-              key={r.title}
-              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-3 sm:grid-cols-[minmax(0,1.6fr)_110px_110px_150px_130px_auto]"
-              style={i > 0 ? { borderTop: "1px solid rgba(255,255,255,0.06)" } : undefined}
-            >
-              <span className="flex min-w-0 items-center gap-3">
-                <span className="shrink-0" style={{ color: GOLD_SOFT }}>
-                  {r.icon}
-                </span>
-                <span className="truncate text-[13px]" style={{ color: "#F3F1EB" }}>
-                  {r.title}
-                </span>
-              </span>
-              <span className="hidden truncate text-[12px] sm:block" style={{ color: MUTED }}>
-                {r.category}
-              </span>
-              <span className="hidden truncate text-[12px] sm:block" style={{ color: STATUS_TONE[r.tone].line }}>
-                {r.status}
-              </span>
-              <span className="hidden truncate text-[12px] sm:block" style={{ color: MUTED }}>
-                {r.submitted}
-              </span>
-              <span className="hidden truncate text-[12px] sm:block" style={{ color: MUTED }}>
-                {r.updated}
-              </span>
-              <ChevronRight size={15} style={{ color: MUTED }} />
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
-  );
-}
