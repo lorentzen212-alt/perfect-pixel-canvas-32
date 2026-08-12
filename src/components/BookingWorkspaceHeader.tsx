@@ -170,19 +170,6 @@ export function BookingWorkspaceHeader({
               {copied ? <Check size={14} /> : <Download size={14} />}
               {copied ? "Reference copied" : "Download summary"}
             </button>
-            <span className="relative grid h-[34px] w-[34px] place-items-center" style={{ color: "rgba(226,233,239,0.8)" }}>
-              <Bell size={17} />
-            </span>
-            <span
-              className="grid h-[34px] w-[34px] place-items-center rounded-full text-[11.5px] font-semibold"
-              style={{
-                border: `1px solid ${GOLD_MET_MID}`,
-                background: "rgba(10,22,31,0.4)",
-                color: GOLD_SOFT,
-              }}
-            >
-              {initials || "—"}
-            </span>
           </div>
         </div>
 
