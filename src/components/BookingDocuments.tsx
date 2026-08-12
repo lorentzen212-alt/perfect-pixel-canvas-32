@@ -380,35 +380,25 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
         <div className="grid min-w-0 items-start gap-[30px] lg:grid-cols-[34fr_66fr]">
           {/* ── LEFT: the physical folder ── */}
           <div className="min-w-0">
-            <div className="relative" style={{ height: 42 }}>
-              {section === "hotel" ? (
-                <>
-                  <RearTab
-                    label="Your documents"
-                    count={yourVisible}
-                    onClick={() => selectSection("you")}
-                  />
-                  <FrontTab
-                    label="Booking documents"
-                    count={hotelVisible}
-                    onClick={() => selectSection("hotel")}
-                  />
-                </>
-              ) : (
-                <>
-                  <RearTab
-                    label="Booking documents"
-                    count={hotelVisible}
-                    onClick={() => selectSection("hotel")}
-                  />
-                  <FrontTab
-                    label="Your documents"
-                    count={yourVisible}
-                    onClick={() => selectSection("you")}
-                  />
-                </>
-              )}
+            <div
+              role="tablist"
+              className="relative z-[3] flex items-end gap-[2px]"
+              style={{ marginBottom: -1 }}
+            >
+              <Tab
+                label="Booking documents"
+                count={hotelVisible}
+                active={section === "hotel"}
+                onClick={() => selectSection("hotel")}
+              />
+              <Tab
+                label="Your documents"
+                count={yourVisible}
+                active={section === "you"}
+                onClick={() => selectSection("you")}
+              />
             </div>
+
 
             {/* body + the second sheet behind it */}
             <div className="relative z-[2]">
