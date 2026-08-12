@@ -292,7 +292,14 @@ function DocRow({
 
 /* ══════════════════ main view ══════════════════ */
 
-export function BookingDocumentsView({ reference }: { reference: string }) {
+export function BookingDocumentsView({
+  booking,
+  onAskQuestion,
+}: {
+  booking: Booking;
+  onAskQuestion?: () => void;
+}) {
+  const reference = booking.reference;
   const [docs, setDocs] = useState<BookingDoc[]>(() => seedDocuments(reference));
   const [section, setSection] = useState<Section>("hotel");
   const [showAll, setShowAll] = useState(false);
@@ -300,6 +307,11 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  /* Proposal decision lives here so it survives switching documents in a session.
+     BACKEND SEAM: persist this to the bookings backend when a proposals table exists. */
+  const [proposalStatus, setProposalStatus] = useState<ProposalStatus>(
+    () => proposalForBooking(booking.id)?.status ?? "awaiting_decision",
+  );
 
   const hotelDocs = useMemo(() => docs.filter((d) => d.uploadedBy === "Hotel"), [docs]);
   const yourDocs = useMemo(() => docs.filter((d) => d.uploadedBy === "You"), [docs]);
