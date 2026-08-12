@@ -203,14 +203,16 @@ function Tab({
         borderRadius: "10px 10px 0 0",
         zIndex: active ? 2 : 1,
         marginLeft: first ? 0 : -12,
-        paddingLeft: active ? undefined : 28,
-        transform: active ? "none" : "skewX(-9deg)",
+        paddingLeft: !active && !first ? 28 : undefined,
+        paddingRight: !active && first ? 28 : undefined,
+        transform: "skewX(-9deg)",
         transformOrigin: "bottom",
       }}
     >
       <span
         className="flex min-w-0 flex-1 items-center justify-between"
-        style={{ transform: active ? "none" : "skewX(9deg)" }}
+        style={{ transform: "skewX(9deg)" }}
+
       >
         <TabLabel label={label} count={count} active={active} />
       </span>
