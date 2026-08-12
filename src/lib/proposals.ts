@@ -6,7 +6,8 @@ export type ProposalStatus = "awaiting_decision" | "accepted" | "declined";
 export interface Proposal {
   id: string;
   number: string; // "#01"
-  bookingId: string;
+  /** Stable business key — matches Booking.reference. */
+  bookingRef: string;
   hotelName: string;
   issueDate: string; // ISO
   validUntil: string; // ISO
@@ -23,7 +24,7 @@ export const PROPOSALS: Proposal[] = [
   {
     id: "prop-5-01",
     number: "#01",
-    bookingId: "5",
+    bookingRef: "HGB-2026-00151",
     hotelName: "Radisson Blu Bergen",
     issueDate: "2026-08-11",
     validUntil: "2026-08-25",
@@ -41,14 +42,33 @@ export const PROPOSALS: Proposal[] = [
 export const ROOM_NIGHT_RATE = 1500;
 export const DINNER_PRICE = 550;
 
-function derivedProposal(booking: Booking): Proposal {
+/** Nights from the booking field, falling back to the date range. Never trusted blindly. */
+function resolveNights(booking: Booking): number {
+  if (booking.nights && booking.nights > 0) return booking.nights;
+  const start = Date.parse(booking.startDate ?? "");
+  const end = Date.parse(booking.endDate ?? "");
+  if (!Number.isFinite(start) || !Number.isFinite(end)) return 0;
+  const nights = Math.round((end - start) / 86400000);
+  return nights > 0 ? nights : 0;
+}
+
+/**
+ * A proposal derived from the booking itself. Returns undefined when the
+ * inputs are missing — a proposal with no nights, rooms or guests would only
+ * print NOK 0, so the reader falls through to the generic paper instead.
+ */
+function derivedProposal(booking: Booking): Proposal | undefined {
   const rooms = booking.rooms ?? 0;
   const guests = booking.guests ?? 0;
-  const roomSubtotal = rooms * booking.nights * ROOM_NIGHT_RATE;
+  const nights = resolveNights(booking);
+  if (nights <= 0 || rooms <= 0 || guests <= 0) return undefined;
+
+  const roomSubtotal = rooms * nights * ROOM_NIGHT_RATE;
   const dinner = guests * DINNER_PRICE;
   return {
     id: `prop-${booking.id}-derived`,
     number: "#01",
+    bookingRef: booking.reference,
     bookingId: booking.id,
     hotelName: booking.hotel ?? "the hotel",
     issueDate: "2026-08-11",
@@ -71,7 +91,7 @@ function derivedProposal(booking: Booking): Proposal {
 export function proposalForBooking(booking: Booking | string): Proposal | undefined {
   const b = typeof booking === "string" ? BOOKINGS.find((x) => x.id === booking) : booking;
   if (!b) return undefined;
-  return PROPOSALS.find((p) => p.bookingId === b.id) ?? derivedProposal(b);
+  return PROPOSALS.find((p) => p.bookingRef === b.reference) ?? derivedProposal(b);
 }
 
 /** Derived — never stored, so it cannot drift from the guest count. */
