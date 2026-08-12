@@ -559,6 +559,7 @@ export function BookingDocumentsView({
           />
 
         </div>
+        </div>
       </div>
     </Plate>
   );
