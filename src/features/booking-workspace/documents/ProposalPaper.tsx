@@ -8,7 +8,7 @@ import roomImage from "@/assets/rooms/room-double.jpg";
 function Fact({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex items-baseline" style={{ minHeight: 22 }}>
-      <span className="shrink-0 text-[11px]" style={{ width: 112, color: INK_3 }}>
+      <span className="shrink-0 text-[11px]" style={{ width: 180, color: INK_3 }}>
         {k}
       </span>
       <span className="min-w-0 text-[12.5px] font-semibold" style={{ color: INK }}>
@@ -20,12 +20,16 @@ function Fact({ k, v }: { k: string; v: string }) {
 
 function Line({ label, detail, value }: { label: string; detail?: string; value: string }) {
   return (
-    <div className="flex items-baseline gap-4 py-[6px]">
-      <span className="shrink-0 text-[12px]" style={{ color: INK }}>
-        {label}
-      </span>
-      <span className="min-w-0 flex-1 truncate text-[12px]" style={{ color: INK_3 }}>
-        {detail ?? ""}
+    <div className="flex items-start justify-between gap-6 py-[6px]">
+      <span className="min-w-0">
+        <span className="block text-[12px]" style={{ color: INK }}>
+          {label}
+        </span>
+        {detail && (
+          <span className="mt-[2px] block text-[11.5px]" style={{ color: INK_3 }}>
+            {detail}
+          </span>
+        )}
       </span>
       <span className="shrink-0 text-[12px] tabular-nums" style={{ color: INK_2 }}>
         {value}
