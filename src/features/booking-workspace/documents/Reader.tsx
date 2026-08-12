@@ -98,7 +98,7 @@ export function Reader({
   return (
     <div className="min-w-0">
       {/* ── HEADER — actions only; the document identity lives inside the paper ── */}
-      <div className="mb-3 flex items-center justify-end gap-2">
+      <div className="flex items-center justify-end gap-2" style={{ marginBottom: 18 }}>
         <button
           type="button"
           onClick={() => canDownload && onDownload?.(doc)}
@@ -123,70 +123,77 @@ export function Reader({
       </div>
 
       {/* ── PAPER ── */}
-      <div className="overflow-hidden">
-        <div
-          style={{
-            background: "#FFFFFF",
-            border: `1px solid ${EDGE_SOFT}`,
-            borderRadius: 6,
-            boxShadow: PAPER_SHADOW,
-          }}
-        >
-          <div style={{ zoom: `${zoom}%` }}>{paper}</div>
+      <div
+        className="overflow-hidden"
+        style={{
+          background: "#FFFFFF",
+          border: `1px solid ${EDGE_SOFT}`,
+          borderRadius: 14,
+          boxShadow: PAPER_SHADOW,
+        }}
+      >
+        <div style={{ zoom: `${zoom}%` }}>{paper}</div>
 
-      {/* ── CONTROLS (directly beneath the paper) ── */}
-      <div className="px-6 pb-5 pt-1 flex items-center justify-center gap-1.5" style={{ color: INK_3 }}>
-        <Search size={13} />
-        <button
-          type="button"
-          aria-label="Zoom out"
-          disabled={zoomIndex <= 0}
-          onClick={() => setZoom(ZOOMS[Math.max(0, zoomIndex - 1)])}
-          className="grid h-[24px] w-[24px] place-items-center transition-opacity disabled:opacity-35"
-          style={{ color: INK_2 }}
+        {/* ── CONTROLS (directly beneath the paper, unscaled) ── */}
+        <div
+          className="flex items-center justify-center gap-2 px-6 pb-5"
+          style={{ color: INK_3 }}
         >
-          <Minus size={13} />
-        </button>
-        <span className="relative inline-flex items-center">
-          <select
-            aria-label="Zoom level"
-            value={zoom}
-            onChange={(e) => setZoom(Number(e.target.value))}
-            className="appearance-none bg-transparent pr-4 text-[11.5px] tabular-nums outline-none"
-            style={{ color: INK_2 }}
+          <span className="grid place-items-center rounded-full" style={{ ...CHIP, width: 30, height: 30 }}>
+            <Search size={13} />
+          </span>
+          <button
+            type="button"
+            aria-label="Zoom out"
+            disabled={zoomIndex <= 0}
+            onClick={() => setZoom(ZOOMS[Math.max(0, zoomIndex - 1)])}
+            className="grid place-items-center rounded-full transition-opacity disabled:opacity-35"
+            style={{ ...CHIP, width: 30, height: 30, color: INK_2 }}
           >
-            {ZOOMS.map((z) => (
-              <option key={z} value={z}>
-                {z}%
-              </option>
-            ))}
-          </select>
-          <ChevronDown
-            size={11}
-            className="pointer-events-none absolute right-0"
-            style={{ color: INK_3 }}
-          />
-        </span>
-        <button
-          type="button"
-          aria-label="Zoom in"
-          disabled={zoomIndex >= ZOOMS.length - 1}
-          onClick={() => setZoom(ZOOMS[Math.min(ZOOMS.length - 1, zoomIndex + 1)])}
-          className="grid h-[24px] w-[24px] place-items-center transition-opacity disabled:opacity-35"
-          style={{ color: INK_2 }}
-        >
-          <Plus size={13} />
-        </button>
-        <button
-          type="button"
-          aria-label="View fullscreen"
-          onClick={() => setFull(true)}
-          className="grid h-[24px] w-[24px] place-items-center"
-          style={{ color: INK_2 }}
-        >
-          <Maximize2 size={13} />
-        </button>
-      </div>
+            <Minus size={13} />
+          </button>
+          <span
+            className="relative inline-flex items-center rounded-full px-3"
+            style={{ ...CHIP, height: 30 }}
+          >
+            <select
+              aria-label="Zoom level"
+              value={zoom}
+              onChange={(e) => setZoom(Number(e.target.value))}
+              className="appearance-none bg-transparent pr-4 text-[11.5px] tabular-nums outline-none"
+              style={{ color: INK_2 }}
+            >
+              {ZOOMS.map((z) => (
+                <option key={z} value={z}>
+                  {z}%
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              size={11}
+              className="pointer-events-none absolute right-3"
+              style={{ color: INK_3 }}
+            />
+          </span>
+          <button
+            type="button"
+            aria-label="Zoom in"
+            disabled={zoomIndex >= ZOOMS.length - 1}
+            onClick={() => setZoom(ZOOMS[Math.min(ZOOMS.length - 1, zoomIndex + 1)])}
+            className="grid place-items-center rounded-full transition-opacity disabled:opacity-35"
+            style={{ ...CHIP, width: 30, height: 30, color: INK_2 }}
+          >
+            <Plus size={13} />
+          </button>
+          <button
+            type="button"
+            aria-label="View fullscreen"
+            onClick={() => setFull(true)}
+            className="grid place-items-center rounded-full"
+            style={{ ...CHIP, width: 30, height: 30, color: INK_2 }}
+          >
+            <Maximize2 size={13} />
+          </button>
         </div>
       </div>
 
@@ -194,26 +201,33 @@ export function Reader({
       <div className="mt-5">
         {proposal && proposalStatus === "awaiting_decision" ? (
           <>
-            <div className="flex items-center justify-between gap-3">
-              <AskButton onClick={onAskQuestion} />
+            <div className="grid gap-4 sm:grid-cols-3">
+              <button
+                type="button"
+                onClick={onAskQuestion}
+                className="inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-[9px] px-4 text-[12.5px] font-medium transition-opacity hover:opacity-85"
+                style={{ border: "1px solid rgba(27,37,48,0.16)", background: "#FFFFFF", color: INK }}
+              >
+                Ask a question <MessageCircle size={14} />
+              </button>
               <button
                 type="button"
                 onClick={() => onProposalStatusChange("declined")}
-                className="inline-flex h-[40px] items-center justify-center rounded-[8px] px-5 text-[12.5px] font-medium transition-opacity hover:opacity-80"
-                style={{ border: "1px solid #D9694F", color: "#C2452C", background: "#FFFFFF" }}
+                className="inline-flex h-[46px] w-full items-center justify-center rounded-[9px] px-4 text-[12.5px] font-medium transition-opacity hover:opacity-85"
+                style={{ border: "1px solid rgba(194,69,44,0.42)", color: "#C2452C", background: "#FFFFFF" }}
               >
                 Decline proposal
               </button>
               <button
                 type="button"
                 onClick={() => onProposalStatusChange("accepted")}
-                className="inline-flex h-[40px] flex-1 items-center justify-center gap-2 rounded-[8px] px-6 text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
-                style={{ background: "#E08A2B", maxWidth: 300 }}
+                className="inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-[9px] px-4 text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
+                style={{ background: "#DB8A2A", boxShadow: "0 1px 3px rgba(20,30,36,0.16)" }}
               >
                 Accept proposal <ArrowRight size={14} />
               </button>
             </div>
-            <p className="mt-2 text-right text-[10px]" style={{ color: INK_3 }}>
+            <p className="mt-2 text-right text-[10.5px]" style={{ color: INK_3 }}>
               By accepting, you agree to the proposal terms and conditions.
             </p>
           </>
