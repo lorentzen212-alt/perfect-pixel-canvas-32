@@ -196,7 +196,7 @@ export function Reader({
       <div className="mt-5">
         {proposal && proposalStatus === "awaiting_decision" ? (
           <>
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-[14px]">
               <AskButton onClick={onAskQuestion} />
               <button
                 type="button"
@@ -209,8 +209,8 @@ export function Reader({
               <button
                 type="button"
                 onClick={() => onProposalStatusChange("accepted")}
-                className="inline-flex h-[40px] flex-1 items-center justify-center gap-2 rounded-[8px] px-6 text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
-                style={{ background: "#E08A2B", maxWidth: 300 }}
+                className="inline-flex h-[40px] items-center justify-center gap-2 rounded-[8px] px-6 text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
+                style={{ background: "#E08A2B" }}
               >
                 Accept proposal <ArrowRight size={14} />
               </button>
