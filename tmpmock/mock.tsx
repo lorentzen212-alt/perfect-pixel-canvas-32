@@ -1,0 +1,10 @@
+import { renderToStaticMarkup } from "react-dom/server";
+import { ProposalPaper } from "@/features/booking-workspace/documents/ProposalPaper";
+import { BOOKINGS } from "@/lib/bookings";
+import { proposalForBooking } from "@/lib/proposals";
+const b = BOOKINGS.find((x) => x.id === "5")!;
+const p = proposalForBooking(b)!;
+const html = renderToStaticMarkup(<ProposalPaper booking={b} proposal={p} />);
+console.log(`<html><head><script src="https://cdn.tailwindcss.com"></script></head><body style="margin:0;background:#AEB4B8;padding:24px"><div style="width:820px;background:#fff;border-radius:6px">${html}</div></body></html>`);
+const p3 = proposalForBooking("3")!;
+console.error(JSON.stringify({p, p3}, null, 1));
