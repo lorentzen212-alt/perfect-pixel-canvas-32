@@ -14,6 +14,9 @@ import {
 import { SERIF } from "@/components/DashboardChrome";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
 import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
+import { Reader } from "@/features/booking-workspace/documents/Reader";
+import type { Booking } from "@/lib/bookings";
+import { proposalForBooking, type ProposalStatus } from "@/lib/proposals";
 
 /* ── warm document-desk surfaces ── */
 const PAPER = "#FAF8F3";
