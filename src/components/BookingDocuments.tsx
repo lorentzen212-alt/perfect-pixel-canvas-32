@@ -185,7 +185,7 @@ function FrontTab({
       onClick={onClick}
       className="absolute left-0 top-0 z-[3] flex items-center justify-between px-4 transition-colors duration-200"
       style={{
-        width: "62%",
+        width: "50%",
         height: TAB_H + 1,
         background: PAPER,
         borderTop: `1px solid ${EDGE_SOFT}`,
@@ -214,10 +214,11 @@ function RearTab({
     <button
       type="button"
       onClick={onClick}
-      className="absolute right-0 z-[1] flex items-center justify-between px-4 transition-colors duration-200"
+      className="absolute z-[1] flex items-center justify-between px-3 transition-colors duration-200"
       style={{
-        left: "calc(62% - 16px)",
-        top: 5,
+        left: "calc(50% - 16px)",
+        width: 176,
+        top: 7,
         height: TAB_H + 8,
         background: BEHIND,
         borderTop: `1px solid ${EDGE_SOFT}`,
@@ -226,7 +227,7 @@ function RearTab({
         borderRadius: "10px 10px 0 0",
       }}
     >
-      <span className="ml-3 flex min-w-0 flex-1 items-center justify-between pb-[8px]">
+      <span className="flex min-w-0 flex-1 items-center justify-between pb-[8px]">
         <TabLabel label={label} count={count} active={false} />
       </span>
     </button>
@@ -339,6 +340,12 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
     [docs, selectedId],
   );
 
+  function selectSection(next: Section) {
+    setSection(next);
+    const source = (next === "hotel" ? hotelDocs : yourDocs).filter((d) => showAll || !d.archived);
+    if (source[0]) setSelectedId(source[0].id);
+  }
+
   function addFiles(files: FileList | null) {
     if (!files || files.length === 0) return;
     const accepted: BookingDoc[] = [];
@@ -369,6 +376,7 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
       setError(null);
       setDocs((d) => [...accepted, ...d]);
       setSection("you");
+      setSelectedId(accepted[0].id);
     }
   }
 
@@ -404,12 +412,12 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                   <RearTab
                     label="Your documents"
                     count={yourVisible}
-                    onClick={() => setSection("you")}
+                    onClick={() => selectSection("you")}
                   />
                   <FrontTab
                     label="Booking documents"
                     count={hotelVisible}
-                    onClick={() => setSection("hotel")}
+                    onClick={() => selectSection("hotel")}
                   />
                 </>
               ) : (
@@ -417,12 +425,12 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
                   <RearTab
                     label="Booking documents"
                     count={hotelVisible}
-                    onClick={() => setSection("hotel")}
+                    onClick={() => selectSection("hotel")}
                   />
                   <FrontTab
                     label="Your documents"
                     count={yourVisible}
-                    onClick={() => setSection("you")}
+                    onClick={() => selectSection("you")}
                   />
                 </>
               )}
