@@ -3,6 +3,7 @@ import { INK, INK_2, INK_3, GOLD } from "@/features/booking-workspace/overview/m
 import type { Booking } from "@/lib/bookings";
 import { dinnerSubtotal, formatMoney, resolveNights, type Proposal } from "@/lib/proposals";
 import { formatLongDay, formatLongRange, formatShortDay } from "./dates";
+import roomImage from "@/assets/rooms/room-double.jpg";
 
 function Fact({ k, v }: { k: string; v: string }) {
   return (
@@ -89,16 +90,16 @@ export function ProposalPaper({
         </div>
 
         <img
-          src={booking.image}
-          alt={`${proposal.hotelName}, ${booking.destination}`}
+          src={roomImage}
+          alt={`${proposal.hotelName} — guest room`}
           loading="lazy"
           className="hidden shrink-0 object-cover sm:block"
-          style={{ width: 190, height: 135, borderRadius: 8 }}
+          style={{ width: 190, height: 110, borderRadius: 8 }}
         />
       </div>
 
       {/* ── offer summary ── */}
-      <div className="mt-10" style={{ background: "#F6F5F2", borderRadius: 12, padding: 20 }}>
+      <div className="mt-5" style={{ background: "#F6F5F2", borderRadius: 12, padding: 20 }}>
         <div className="flex items-start gap-0">
           <span
             className="shrink-0 pt-[7px] text-[9px] uppercase tracking-[0.16em]"
