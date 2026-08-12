@@ -22,9 +22,9 @@ export interface Proposal {
 
 export const PROPOSALS: Proposal[] = [
   {
-    id: "prop-5-01",
+    id: "prop-hgb-00104-01",
     number: "#01",
-    bookingRef: "HGB-2026-00151",
+    bookingRef: "HGB-2026-00104",
     hotelName: "Radisson Blu Bergen",
     issueDate: "2026-08-11",
     validUntil: "2026-08-25",
