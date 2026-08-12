@@ -113,6 +113,9 @@ function HeroVideo() {
     if (!el) return;
     if (el.readyState >= 2) setReady(true);
     void el.play().catch(() => undefined);
+    // Safety net: never leave the hero permanently on the base colour.
+    const t = setTimeout(() => setReady(true), 1500);
+    return () => clearTimeout(t);
   }, []);
 
   return (
