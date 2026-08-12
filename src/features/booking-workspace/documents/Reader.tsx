@@ -136,7 +136,7 @@ export function Reader({
 
           {/* ── CONTROLS (inside the paper card, unaffected by zoom) ── */}
           <div style={{ borderTop: `1px solid ${EDGE_SOFT}` }} className="px-6 py-2.5">
-          <div className="mt-3.5 flex items-center justify-center gap-1.5" style={{ color: INK_3 }}>
+          <div className="flex items-center justify-center gap-1.5" style={{ color: INK_3 }}>
             <Search size={13} />
             <button
               type="button"
