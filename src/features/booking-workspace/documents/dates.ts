@@ -16,6 +16,12 @@ const MONTHS = [
   "December",
 ];
 
+export function formatShortDay(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return `${d.getDate()} ${MONTHS[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`;
+}
+
 export function formatLongDay(iso: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "—";
