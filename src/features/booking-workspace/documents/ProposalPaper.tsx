@@ -3,6 +3,7 @@ import { INK, INK_2, INK_3, GOLD } from "@/features/booking-workspace/overview/m
 import type { Booking } from "@/lib/bookings";
 import { dinnerSubtotal, formatMoney, resolveNights, type Proposal } from "@/lib/proposals";
 import { formatLongDay, formatLongRange, formatShortDay } from "./dates";
+import roomImage from "@/assets/rooms/room-double.jpg";
 
 function Fact({ k, v }: { k: string; v: string }) {
   return (
