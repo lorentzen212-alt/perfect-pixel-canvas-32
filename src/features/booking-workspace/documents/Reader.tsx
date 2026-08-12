@@ -23,6 +23,11 @@ const PAPER_SHADOW = "0 1px 2px rgba(20,30,36,0.06), 0 18px 40px -30px rgba(20,3
 
 const ZOOMS = [75, 100, 125, 150] as const;
 
+const CHIP: React.CSSProperties = {
+  background: "#FAF6EC",
+  border: `1px solid ${EDGE_SOFT}`,
+};
+
 function QuietButton({
   children,
   onClick,
