@@ -223,15 +223,15 @@ function TabLabel({
   return (
     <>
       <span
-        className="truncate text-[12.5px] transition-colors duration-200"
-        style={{ color: active ? INK : INK_3, fontWeight: active ? 500 : 400 }}
+        className="truncate text-[13px] transition-colors duration-200"
+        style={{ color: active ? INK : INK_3, fontWeight: active ? 600 : 450 }}
       >
         {label}
       </span>
       <span
-        className="ml-3 grid h-[19px] min-w-[19px] shrink-0 place-items-center rounded-full px-1 text-[10px] transition-colors duration-200"
+        className="ml-3 grid h-[21px] min-w-[21px] shrink-0 place-items-center rounded-full px-1 text-[10.5px] transition-colors duration-200"
         style={{
-          background: active ? "rgba(27,37,48,0.07)" : "rgba(27,37,48,0.06)",
+          background: active ? "#EFE7D9" : "rgba(27,37,48,0.055)",
           color: active ? INK_2 : INK_3,
         }}
       >
@@ -267,36 +267,29 @@ function Tab({
       className="relative flex items-center justify-between px-4 transition-colors duration-200"
       style={{
         height: active ? TAB_H : TAB_H - 2,
-        background: active ? PAPER : hover ? HOVER : BEHIND,
-        borderTop: `1px solid ${EDGE_SOFT}`,
-        borderLeft: `1px solid ${EDGE_SOFT}`,
-        borderRight: `1px solid ${EDGE_SOFT}`,
-        borderBottom: active ? `2px solid ${GOLD}` : "none",
-        borderRadius: "10px 10px 0 0",
+        background: active ? CARD : hover ? HOVER : BEHIND,
+        border: "none",
+        borderRadius: active ? "14px 14px 0 0" : "10px 10px 0 0",
+        boxShadow: active ? "0 -6px 16px -10px rgba(24,30,36,0.28)" : "none",
         zIndex: active ? 2 : 1,
         marginLeft: first ? 0 : -12,
         paddingLeft: !active && !first ? 28 : undefined,
         paddingRight: !active && first ? 28 : undefined,
       }}
     >
-      <span
-        className="flex min-w-0 flex-1 items-center justify-between"
-      >
+      <span className="flex min-w-0 flex-1 items-center justify-between">
         <TabLabel label={label} count={count} active={active} />
       </span>
     </button>
   );
 }
 
-
-
-
-
 /* ══════════════════ document rows ══════════════════ */
 
 function DocRow({
   doc,
   selected,
+  last,
   onSelect,
 }: {
   doc: BookingDoc;
@@ -311,44 +304,26 @@ function DocRow({
       onClick={onSelect}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="relative grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 overflow-hidden px-3 py-[13px] text-left transition-colors duration-200"
+      className="relative grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 py-[14px] text-left transition-colors duration-200"
       style={{
-        borderRadius: 10,
-        background: selected ? SELECTED : hover ? HOVER : "#FDFCF8",
-        border: selected
-          ? "1px solid rgba(176,112,15,0.34)"
-          : `1px solid rgba(27,37,48,0.11)`,
-        boxShadow: selected
-          ? "0 1px 2px rgba(20,30,36,0.06)"
-          : "0 1px 1px rgba(20,30,36,0.035)",
+        background: selected ? SELECTED_ROW : hover ? HOVER : "transparent",
+        borderBottom: last ? "none" : `1px solid ${HAIRLINE}`,
       }}
     >
       {selected && (
         <span
           aria-hidden
-          className="absolute inset-y-0 left-0 w-[3px]"
-          style={{ background: GOLD }}
+          className="absolute inset-y-0 left-0 w-[4px]"
+          style={{ background: BRONZE }}
         />
       )}
       <span className="flex min-w-0 items-center gap-3">
-        <span
-          className="grid h-[34px] w-[34px] shrink-0 place-items-center"
-          style={{
-            borderRadius: 9,
-            background: "#FFFFFF",
-            border: selected
-              ? "1px solid rgba(176,112,15,0.40)"
-              : `1px solid ${EDGE_SOFT}`,
-            color: selected ? GOLD : INK_3,
-          }}
-        >
-          {docIcon(doc)}
-        </span>
+        <DocTile doc={doc} />
         <span className="min-w-0">
           <span className="flex items-center gap-2">
             <span
-              className="truncate text-[13px]"
-              style={{ color: INK, fontWeight: selected ? 600 : 450 }}
+              className="truncate text-[13.5px]"
+              style={{ color: INK, fontWeight: selected ? 600 : 500 }}
             >
               {doc.name}
             </span>
@@ -361,12 +336,12 @@ function DocRow({
               </span>
             )}
           </span>
-          <span className="mt-[2px] block truncate text-[11.5px]" style={{ color: INK_3 }}>
+          <span className="mt-[2px] block truncate text-[12px]" style={{ color: INK_3 }}>
             {doc.kind}
           </span>
         </span>
       </span>
-      <span className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[11.5px]" style={{ color: INK_2 }}>
+      <span className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[12px]" style={{ color: INK_2 }}>
         {doc.uploadedLabel}
         {selected && (
           <span
@@ -379,6 +354,7 @@ function DocRow({
     </button>
   );
 }
+
 
 /* ══════════════════ main view ══════════════════ */
 
