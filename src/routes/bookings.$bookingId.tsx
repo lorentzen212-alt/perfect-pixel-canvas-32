@@ -424,12 +424,12 @@ function BookingWorkspace() {
     }
   }, [authLoading, session, bookingId, navigate]);
 
-
   const { data: booking, isLoading } = useQuery({
     queryKey: ["booking", bookingId],
-    queryFn: async () => (await fetchBooking(bookingId).catch(() => null)) ?? (await import("@/lib/bookings")).BOOKINGS[0],
-    enabled: true,
+    queryFn: () => fetchBooking(bookingId),
+    enabled: Boolean(session),
   });
+
 
   /* warm the rooming list route + its data so navigating there feels instant */
   const queryClient = useQueryClient();
