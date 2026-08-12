@@ -206,7 +206,7 @@ export function Reader({
               <ShineGoldButton onClick={() => onProposalStatusChange("accepted")}>
                 Accept proposal →
               </ShineGoldButton>
-              <span className="text-[10.5px]" style={{ color: INK_3 }}>
+              <span className="max-w-[260px] text-right text-[10.5px]" style={{ color: INK_3 }}>
                 By accepting, you agree to the proposal terms and conditions.
               </span>
             </div>
