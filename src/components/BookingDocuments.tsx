@@ -214,10 +214,12 @@ function RearTab({
     <button
       type="button"
       onClick={onClick}
-      className="absolute z-[1] flex items-center justify-between px-3 transition-colors duration-200"
+      className="absolute z-[1] flex items-center justify-between transition-colors duration-200"
       style={{
-        left: "calc(50% - 16px)",
-        width: 176,
+        left: "calc(50% - 14px)",
+        width: 171,
+        paddingLeft: 26,
+        paddingRight: 12,
         top: 7,
         height: TAB_H + 8,
         background: BEHIND,
