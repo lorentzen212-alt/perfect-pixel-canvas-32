@@ -138,9 +138,8 @@ export function ProposalPaper({ booking, proposal }: { booking: Booking; proposa
       </div>
 
       <p className="mt-6 text-[11px]" style={{ color: INK_3 }}>
-        Issued {formatDay(proposal.issueDate)} by {proposal.hotelName}.
-        <span style={{ color: GOLD }}> </span>
-        Rates are quoted in {proposal.currency} and include VAT.
+        Issued {formatLongDay(proposal.issueDate)} by {proposal.hotelName}. Rates are quoted in{" "}
+        {proposal.currency} and include VAT.
       </p>
     </div>
   );
