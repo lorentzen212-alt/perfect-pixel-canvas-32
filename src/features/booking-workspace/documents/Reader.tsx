@@ -1,8 +1,17 @@
 import { useState } from "react";
-import { Download, Maximize2, Minus, MoreVertical, Plus } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronDown,
+  Download,
+  Maximize2,
+  MessageCircle,
+  Minus,
+  MoreVertical,
+  Plus,
+  Search,
+} from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { ShineGoldButton } from "@/features/booking-workspace/overview/primitives";
 import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
 import type { BookingDoc } from "@/components/BookingDocuments";
 import type { Booking } from "@/lib/bookings";
