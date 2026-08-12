@@ -377,7 +377,8 @@ export function BookingDocumentsView({ reference }: { reference: string }) {
     if (accepted.length) {
       setError(null);
       setDocs((d) => [...accepted, ...d]);
-      selectSection("you");
+      setSection("you");
+      setSelectedId(accepted[0].id);
     }
   }
 
