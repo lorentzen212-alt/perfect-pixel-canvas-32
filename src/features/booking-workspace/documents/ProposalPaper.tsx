@@ -1,9 +1,10 @@
 import { BrandLogo } from "@/components/BrandLogo";
 import { SERIF } from "@/components/DashboardChrome";
 import { Eyebrow, Hair } from "@/features/booking-workspace/overview/primitives";
-import { GOLD, HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
-import { formatDay, formatRange, type Booking } from "@/lib/bookings";
+import { HAIR, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
+import type { Booking } from "@/lib/bookings";
 import { dinnerSubtotal, formatMoney, type Proposal } from "@/lib/proposals";
+import { formatLongDay, formatLongRange } from "./dates";
 
 function Fact({ k, v }: { k: string; v: string }) {
   return (
