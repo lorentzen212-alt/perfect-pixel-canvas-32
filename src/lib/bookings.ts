@@ -198,6 +198,28 @@ export const BOOKINGS: Booking[] = [
       buttonLabel: "View Details",
     },
   },
+  {
+    id: "5",
+    reference: "HGB-2026-00151",
+    type: "leisure",
+    name: "Bergen Group Stay",
+    destination: "Bergen, Norway",
+    hotel: "Radisson Blu Bergen",
+    startDate: "2026-09-14",
+    endDate: "2026-09-18",
+    nights: 4,
+    rooms: 32,
+    guests: 63,
+    status: "offers_ready",
+    statusNote: "Proposal awaiting your decision",
+    image: bergenImg.url,
+    action: {
+      kind: "review_offers",
+      title: "Hotel proposal ready",
+      lines: ["Review the proposal and", "accept or decline."],
+      buttonLabel: "Review Offers",
+    },
+  },
 ];
 
 export type DateFilter = "all" | "upcoming" | "past" | "next_90";
