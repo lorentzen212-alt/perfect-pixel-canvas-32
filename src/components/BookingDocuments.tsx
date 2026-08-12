@@ -522,56 +522,16 @@ export function BookingDocumentsView({
           </div>
 
 
-          {/* ── RIGHT: the reading area shell ── */}
-          <div className="min-w-0">
-            <div className="mb-3 flex items-start justify-between gap-4">
-              <div className="min-w-0">
-                <h3
-                  className="truncate text-[19px] leading-tight"
-                  style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
-                >
-                  {selected?.name}
-                </h3>
-                <p className="mt-1 text-[11.5px]" style={{ color: INK_3 }}>
-                  {selected?.uploadedLabel} · {selected?.kind}
-                </p>
-              </div>
-              <div className="flex shrink-0 items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => selected && download(selected)}
-                  className="inline-flex items-center gap-2 rounded-[7px] px-3.5 py-2 text-[12px] font-medium transition-opacity hover:opacity-90"
-                  style={{ background: INK, color: PAPER }}
-                >
-                  <Download size={13} /> Download PDF
-                </button>
-                <button
-                  type="button"
-                  aria-label="More document options"
-                  className="grid h-[32px] w-[30px] place-items-center rounded-[7px]"
-                  style={{ border: `1px solid ${EDGE}`, background: PAPER, color: INK_2 }}
-                >
-                  <MoreVertical size={15} />
-                </button>
-              </div>
-            </div>
+          {/* ── RIGHT: the document reader ── */}
+          <Reader
+            booking={booking}
+            doc={selected}
+            proposalStatus={proposalStatus}
+            onProposalStatusChange={setProposalStatus}
+            onAskQuestion={onAskQuestion}
+            onDownload={download}
+          />
 
-            <div
-              className="grid min-h-[620px] place-content-center rounded-[10px] px-8 py-16 text-center"
-              style={{
-                background: "#FDFCFA",
-                border: `1px solid ${EDGE_SOFT}`,
-                boxShadow: "0 1px 3px rgba(20,30,36,0.05)",
-              }}
-            >
-              <p className="text-[15px]" style={{ color: INK_2, fontFamily: SERIF }}>
-                {selected?.name}
-              </p>
-              <p className="mt-1 text-[12px]" style={{ color: INK_3 }}>
-                {selected?.kind}
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </Plate>
