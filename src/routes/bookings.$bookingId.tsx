@@ -416,15 +416,14 @@ const inputStyle: React.CSSProperties = {
 function BookingWorkspace() {
   const { bookingId } = Route.useParams();
   const navigate = useNavigate();
-  const { session: realSession, loading: authLoadingReal } = useAuth();
-  const session = realSession ?? ({ user: { email: "qa@preview.local" } } as any);
-  const authLoading = false;
+  const { session, loading: authLoading } = useAuth();
 
   useEffect(() => {
-    if (!authLoadingReal && !realSession && false) {
+    if (!authLoading && !session) {
       navigate({ to: "/auth", search: { next: `/bookings/${bookingId}` }, replace: true });
     }
   }, [authLoading, session, bookingId, navigate]);
+
 
   const { data: booking, isLoading } = useQuery({
     queryKey: ["booking", bookingId],
