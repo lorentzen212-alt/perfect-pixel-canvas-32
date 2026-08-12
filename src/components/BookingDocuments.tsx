@@ -217,7 +217,7 @@ function RearTab({
       className="absolute z-[1] flex items-center justify-between px-3 transition-colors duration-200"
       style={{
         left: "calc(50% - 16px)",
-        width: 162,
+        width: 176,
         top: 7,
         height: TAB_H + 8,
         background: BEHIND,
@@ -227,7 +227,7 @@ function RearTab({
         borderRadius: "10px 10px 0 0",
       }}
     >
-      <span className="ml-3 flex min-w-0 flex-1 items-center justify-between pb-[8px]">
+      <span className="flex min-w-0 flex-1 items-center justify-between pb-[8px]">
         <TabLabel label={label} count={count} active={false} />
       </span>
     </button>
