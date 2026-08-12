@@ -97,19 +97,17 @@ export function ProposalPaper({ booking, proposal }: { booking: Booking; proposa
         <Eyebrow>Offer summary</Eyebrow>
         <div className="mt-2">
           <Line
-            label="Accommodation"
-            sub={`${rooms} rooms × ${nights} nights`}
+            label={`${rooms} rooms × ${nights} nights`}
             value={formatMoney(proposal.currency, proposal.roomSubtotal)}
           />
           <Hair />
           <Line
-            label="Breakfast"
-            sub={proposal.breakfastIncluded ? "Included for all guests" : "Not included"}
+            label={proposal.breakfastIncluded ? "Breakfast included" : "Breakfast"}
             value={proposal.breakfastIncluded ? "Included" : "—"}
           />
           <Hair />
           <Line
-            label="Dinner"
+            label="Dinner (3-course)"
             sub={`${proposal.dinnerQty} guests × ${formatMoney(
               proposal.currency,
               proposal.dinnerUnitPrice,
