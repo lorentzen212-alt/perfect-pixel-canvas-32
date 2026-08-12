@@ -1,12 +1,14 @@
 import * as React from "react";
 import { useMemo, useRef, useState } from "react";
 import {
-  ClipboardList,
+  ArrowRight,
+  BarChart3,
+  Building2,
+  ClipboardCheck,
+  FileDown,
+  FileSignature,
   FileSpreadsheet,
   FileText,
-  Layers,
-  Receipt,
-  ScrollText,
   Ticket,
 } from "lucide-react";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
@@ -16,12 +18,16 @@ import type { Booking } from "@/lib/bookings";
 import { proposalForBooking, type ProposalStatus } from "@/lib/proposals";
 
 /* ── warm document-desk surfaces ── */
-const PAPER = "#F7F4EC";
+const CARD = "#FBF8F2";
 const HOVER = "#F3EFE4";
 const BEHIND = "#EFE9DD";
 const EDGE = "rgba(27,37,48,0.12)";
 const EDGE_SOFT = "rgba(27,37,48,0.08)";
+const HAIRLINE = "rgba(27,37,48,0.07)";
 const SELECTED = "#FAF6EC";
+const SELECTED_ROW =
+  "linear-gradient(90deg, #FCF3E4 0%, #FDF7EC 55%, #FCF9F3 100%)";
+const BRONZE = "#C08A24";
 
 export type DocCategory =
   | "Contracts"
@@ -31,6 +37,18 @@ export type DocCategory =
   | "Vouchers"
   | "Rooming lists"
   | "Other";
+
+/** solid tile colours for the document list */
+export type DocTone = "bronze" | "blue" | "green" | "purple" | "orange" | "greyblue";
+export type DocGlyph =
+  | "FileText"
+  | "ClipboardCheck"
+  | "FileDown"
+  | "FileSignature"
+  | "Building2"
+  | "BarChart3"
+  | "Ticket"
+  | "FileSpreadsheet";
 
 export type BookingDoc = {
   id: string;
@@ -46,17 +64,49 @@ export type BookingDoc = {
   url?: string;
   /** kept out of the primary list until "Show all documents" */
   archived?: boolean;
+  /** explicit tile colour — falls back to the category default */
+  tone?: DocTone;
+  /** explicit tile glyph — falls back to the category default */
+  glyph?: DocGlyph;
 };
 
-const CAT_ICON: Record<DocCategory, React.ReactNode> = {
-  Contracts: <ScrollText size={15} />,
-  Proposals: <FileText size={15} />,
-  Confirmation: <FileText size={15} />,
-  Invoices: <Receipt size={15} />,
-  Vouchers: <Ticket size={15} />,
-  "Rooming lists": <ClipboardList size={15} />,
-  Other: <Layers size={15} />,
+const TONE_FILL: Record<DocTone, string> = {
+  bronze: "#C08A24",
+  blue: "#7C97B9",
+  green: "#7E9B6A",
+  purple: "#9C8AC4",
+  orange: "#CB7B55",
+  greyblue: "#9CACC0",
 };
+
+const GLYPHS: Record<DocGlyph, React.ComponentType<{ size?: number; strokeWidth?: number }>> = {
+  FileText,
+  ClipboardCheck,
+  FileDown,
+  FileSignature,
+  Building2,
+  BarChart3,
+  Ticket,
+  FileSpreadsheet,
+};
+
+const CAT_DEFAULT: Record<DocCategory, { tone: DocTone; glyph: DocGlyph }> = {
+  Proposals: { tone: "bronze", glyph: "FileText" },
+  Confirmation: { tone: "blue", glyph: "ClipboardCheck" },
+  Invoices: { tone: "green", glyph: "FileDown" },
+  Contracts: { tone: "purple", glyph: "FileSignature" },
+  Vouchers: { tone: "orange", glyph: "Ticket" },
+  "Rooming lists": { tone: "greyblue", glyph: "FileSpreadsheet" },
+  Other: { tone: "greyblue", glyph: "FileText" },
+};
+
+function resolveTile(d: BookingDoc): { fill: string; glyph: DocGlyph } {
+  const spreadsheet = /\.(xlsx|xls|csv)$/i.test(d.name) || d.kind === "Spreadsheet";
+  const base = CAT_DEFAULT[d.category] ?? CAT_DEFAULT.Other;
+  const tone = d.tone ?? base.tone;
+  const glyph = d.glyph ?? (spreadsheet ? "FileSpreadsheet" : base.glyph);
+  return { fill: TONE_FILL[tone], glyph };
+}
 
 export function formatSize(bytes: number) {
   if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
@@ -79,6 +129,7 @@ export function seedDocuments(reference: string): BookingDoc[] {
     at: number,
     size: number,
     archived = false,
+    extra?: Partial<Pick<BookingDoc, "tone" | "glyph">>,
   ): BookingDoc => ({
     id: `${reference}-doc-${i}`,
     name,
@@ -90,6 +141,7 @@ export function seedDocuments(reference: string): BookingDoc[] {
     uploadedAt: at,
     size,
     archived,
+    ...extra,
   });
 
   const d = (day: number, month = 7) => Date.UTC(2026, month, day);
@@ -100,8 +152,14 @@ export function seedDocuments(reference: string): BookingDoc[] {
     mk(2, "Booking Confirmation", "Confirmation", "Confirmation", "Hotel", "10 Aug 2026", d(10), 640 * 1024),
     mk(3, "Proforma invoice", "PDF", "Invoices", "Hotel", "11 Aug 2026", d(11), 856 * 1024),
     mk(4, "Terms & Conditions", "PDF", "Contracts", "Hotel", "10 Aug 2026", d(10), 480 * 1024),
-    mk(5, "Hotel Information", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 520 * 1024),
-    mk(6, "Rate details", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 310 * 1024),
+    mk(5, "Hotel Information", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 520 * 1024, false, {
+      tone: "orange",
+      glyph: "Building2",
+    }),
+    mk(6, "Rate details", "PDF", "Other", "Hotel", "9 Aug 2026", d(9), 310 * 1024, false, {
+      tone: "greyblue",
+      glyph: "BarChart3",
+    }),
 
     /* ── your documents ── */
     mk(20, "Rooming list v2", "Spreadsheet", "Rooming lists", "You", "8 Aug 2026", d(8), 45 * 1024),
@@ -128,10 +186,24 @@ function categorize(name: string): DocCategory {
   return "Other";
 }
 
-function docIcon(d: BookingDoc) {
-  const spreadsheet = /\.(xlsx|xls|csv)$/i.test(d.name) || d.kind === "Spreadsheet";
-  return spreadsheet ? <FileSpreadsheet size={15} /> : CAT_ICON[d.category];
+function DocTile({ doc }: { doc: BookingDoc }) {
+  const { fill, glyph } = resolveTile(doc);
+  const Icon = GLYPHS[glyph];
+  return (
+    <span
+      className="grid h-[38px] w-[38px] shrink-0 place-items-center text-white"
+      style={{
+        borderRadius: 10,
+        background: fill,
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.22), 0 1px 2px rgba(24,30,36,0.14)",
+      }}
+    >
+      <Icon size={18} strokeWidth={1.9} />
+    </span>
+  );
 }
+
 
 /* ══════════════════ folder index tabs ══════════════════ */
 
@@ -151,15 +223,15 @@ function TabLabel({
   return (
     <>
       <span
-        className="truncate text-[12.5px] transition-colors duration-200"
-        style={{ color: active ? INK : INK_3, fontWeight: active ? 500 : 400 }}
+        className="truncate text-[13px] transition-colors duration-200"
+        style={{ color: active ? INK : INK_3, fontWeight: active ? 600 : 450 }}
       >
         {label}
       </span>
       <span
-        className="ml-3 grid h-[19px] min-w-[19px] shrink-0 place-items-center rounded-full px-1 text-[10px] transition-colors duration-200"
+        className="ml-3 grid h-[21px] min-w-[21px] shrink-0 place-items-center rounded-full px-1 text-[10.5px] transition-colors duration-200"
         style={{
-          background: active ? "rgba(27,37,48,0.07)" : "rgba(27,37,48,0.06)",
+          background: active ? "#EFE7D9" : "rgba(27,37,48,0.055)",
           color: active ? INK_2 : INK_3,
         }}
       >
@@ -195,36 +267,29 @@ function Tab({
       className="relative flex items-center justify-between px-4 transition-colors duration-200"
       style={{
         height: active ? TAB_H : TAB_H - 2,
-        background: active ? PAPER : hover ? HOVER : BEHIND,
-        borderTop: `1px solid ${EDGE_SOFT}`,
-        borderLeft: `1px solid ${EDGE_SOFT}`,
-        borderRight: `1px solid ${EDGE_SOFT}`,
-        borderBottom: active ? `2px solid ${GOLD}` : "none",
-        borderRadius: "10px 10px 0 0",
+        background: active ? CARD : hover ? HOVER : BEHIND,
+        border: "none",
+        borderRadius: active ? "14px 14px 0 0" : "10px 10px 0 0",
+        boxShadow: active ? "0 -6px 16px -10px rgba(24,30,36,0.28)" : "none",
         zIndex: active ? 2 : 1,
         marginLeft: first ? 0 : -12,
         paddingLeft: !active && !first ? 28 : undefined,
         paddingRight: !active && first ? 28 : undefined,
       }}
     >
-      <span
-        className="flex min-w-0 flex-1 items-center justify-between"
-      >
+      <span className="flex min-w-0 flex-1 items-center justify-between">
         <TabLabel label={label} count={count} active={active} />
       </span>
     </button>
   );
 }
 
-
-
-
-
 /* ══════════════════ document rows ══════════════════ */
 
 function DocRow({
   doc,
   selected,
+  last,
   onSelect,
 }: {
   doc: BookingDoc;
@@ -239,44 +304,26 @@ function DocRow({
       onClick={onSelect}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="relative grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 overflow-hidden px-3 py-[13px] text-left transition-colors duration-200"
+      className="relative grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 py-[14px] text-left transition-colors duration-200"
       style={{
-        borderRadius: 10,
-        background: selected ? SELECTED : hover ? HOVER : "#FDFCF8",
-        border: selected
-          ? "1px solid rgba(176,112,15,0.34)"
-          : `1px solid rgba(27,37,48,0.11)`,
-        boxShadow: selected
-          ? "0 1px 2px rgba(20,30,36,0.06)"
-          : "0 1px 1px rgba(20,30,36,0.035)",
+        background: selected ? SELECTED_ROW : hover ? HOVER : "transparent",
+        borderBottom: last ? "none" : `1px solid ${HAIRLINE}`,
       }}
     >
       {selected && (
         <span
           aria-hidden
-          className="absolute inset-y-0 left-0 w-[3px]"
-          style={{ background: GOLD }}
+          className="absolute inset-y-0 left-0 w-[4px]"
+          style={{ background: BRONZE }}
         />
       )}
       <span className="flex min-w-0 items-center gap-3">
-        <span
-          className="grid h-[34px] w-[34px] shrink-0 place-items-center"
-          style={{
-            borderRadius: 9,
-            background: "#FFFFFF",
-            border: selected
-              ? "1px solid rgba(176,112,15,0.40)"
-              : `1px solid ${EDGE_SOFT}`,
-            color: selected ? GOLD : INK_3,
-          }}
-        >
-          {docIcon(doc)}
-        </span>
+        <DocTile doc={doc} />
         <span className="min-w-0">
           <span className="flex items-center gap-2">
             <span
-              className="truncate text-[13px]"
-              style={{ color: INK, fontWeight: selected ? 600 : 450 }}
+              className="truncate text-[13.5px]"
+              style={{ color: INK, fontWeight: selected ? 600 : 500 }}
             >
               {doc.name}
             </span>
@@ -289,12 +336,12 @@ function DocRow({
               </span>
             )}
           </span>
-          <span className="mt-[2px] block truncate text-[11.5px]" style={{ color: INK_3 }}>
+          <span className="mt-[2px] block truncate text-[12px]" style={{ color: INK_3 }}>
             {doc.kind}
           </span>
         </span>
       </span>
-      <span className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[11.5px]" style={{ color: INK_2 }}>
+      <span className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[12px]" style={{ color: INK_2 }}>
         {doc.uploadedLabel}
         {selected && (
           <span
@@ -307,6 +354,7 @@ function DocRow({
     </button>
   );
 }
+
 
 /* ══════════════════ main view ══════════════════ */
 
@@ -456,42 +504,37 @@ export function BookingDocumentsView({
             </div>
 
 
-            {/* body + the second sheet behind it */}
+            {/* the floating list card */}
             <div className="relative z-[2]">
-              <span
-                aria-hidden
-                className="absolute inset-x-[3px] bottom-[-4px] top-[8px]"
-                style={{ background: BEHIND, borderRadius: "0 0 10px 10px" }}
-              />
               <div
-                className="relative p-5"
+                className="relative overflow-hidden py-5"
                 style={{
-                  background: PAPER,
-                  border: `1px solid ${EDGE_SOFT}`,
-                  borderRadius: "0 10px 10px 10px",
-                  boxShadow: "0 1px 3px rgba(20,30,36,0.05), 0 -1px 2px rgba(20,30,36,0.05)",
+                  background: CARD,
+                  borderRadius: "0 14px 14px 14px",
+                  boxShadow:
+                    "0 1px 2px rgba(24,30,36,0.05), 0 10px 26px -12px rgba(24,30,36,0.28)",
                 }}
               >
-
                 <div
-                  className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-3 pb-3 text-[9.5px] uppercase tracking-[0.18em]"
+                  className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-5 pb-4 text-[9.5px] uppercase tracking-[0.18em]"
                   style={{ color: INK_3 }}
                 >
-                  <span>Document name</span>
+                  <span>Document</span>
                   <span>Date</span>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  {list.map((d) => (
+                <div className="flex flex-col" style={{ borderTop: `1px solid ${HAIRLINE}` }}>
+                  {list.map((d, i) => (
                     <DocRow
                       key={d.id}
                       doc={d}
                       selected={d.id === selected?.id}
+                      last={i === list.length - 1}
                       onSelect={() => setSelectedId(d.id)}
                     />
                   ))}
                   {list.length === 0 && (
-                    <p className="px-3 py-8 text-center text-[12.5px]" style={{ color: INK_3 }}>
+                    <p className="px-5 py-8 text-center text-[12.5px]" style={{ color: INK_3 }}>
                       No documents here yet.
                     </p>
                   )}
@@ -513,7 +556,7 @@ export function BookingDocumentsView({
                     role="button"
                     tabIndex={0}
                     onKeyDown={(e) => e.key === "Enter" && inputRef.current?.click()}
-                    className="mt-3 cursor-pointer rounded-[8px] px-4 py-4 text-center transition-colors duration-200"
+                    className="mx-5 mt-4 cursor-pointer rounded-[8px] px-4 py-4 text-center transition-colors duration-200"
                     style={{
                       border: `1px dashed ${dragging ? GOLD : EDGE}`,
                       background: dragging ? SELECTED : "transparent",
@@ -528,7 +571,7 @@ export function BookingDocumentsView({
                 )}
 
                 {error && (
-                  <p className="mt-2 text-[11.5px]" style={{ color: "#A44A38" }}>
+                  <p className="mx-5 mt-2 text-[11.5px]" style={{ color: "#A44A38" }}>
                     {error}
                   </p>
                 )}
@@ -537,14 +580,16 @@ export function BookingDocumentsView({
                   <button
                     type="button"
                     onClick={() => setShowAll((v) => !v)}
-                    className="mt-3 text-[12px] transition-opacity hover:opacity-75"
-                    style={{ color: GOLD }}
+                    className="mt-4 flex items-center gap-1.5 px-5 text-[13px] transition-opacity hover:opacity-75"
+                    style={{ color: GOLD, fontWeight: 500 }}
                   >
                     {showAll ? "Show fewer documents" : "Show all documents"}
+                    <ArrowRight size={15} />
                   </button>
                 )}
               </div>
             </div>
+
           </div>
 
 
