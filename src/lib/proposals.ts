@@ -37,8 +37,41 @@ export const PROPOSALS: Proposal[] = [
   },
 ];
 
-export function proposalForBooking(bookingId: string): Proposal | undefined {
-  return PROPOSALS.find((p) => p.bookingId === bookingId);
+/** Commercial defaults used to derive a proposal for bookings with no seeded record. */
+export const ROOM_NIGHT_RATE = 1500;
+export const DINNER_PRICE = 550;
+
+function derivedProposal(booking: Booking): Proposal {
+  const rooms = booking.rooms ?? 0;
+  const guests = booking.guests ?? 0;
+  const roomSubtotal = rooms * booking.nights * ROOM_NIGHT_RATE;
+  const dinner = guests * DINNER_PRICE;
+  return {
+    id: `prop-${booking.id}-derived`,
+    number: "#01",
+    bookingId: booking.id,
+    hotelName: booking.hotel ?? "the hotel",
+    issueDate: "2026-08-11",
+    validUntil: "2026-08-25",
+    currency: "NOK",
+    roomSubtotal,
+    breakfastIncluded: true,
+    dinnerQty: guests,
+    dinnerUnitPrice: DINNER_PRICE,
+    totalInclVat: roomSubtotal + dinner,
+    status: "awaiting_decision",
+  };
+}
+
+/**
+ * The seeded record wins when it exists; otherwise a proposal is derived from
+ * the booking's own rooms / nights / guests so every booking's proposal
+ * document renders real numbers.
+ */
+export function proposalForBooking(booking: Booking | string): Proposal | undefined {
+  const b = typeof booking === "string" ? BOOKINGS.find((x) => x.id === booking) : booking;
+  if (!b) return undefined;
+  return PROPOSALS.find((p) => p.bookingId === b.id) ?? derivedProposal(b);
 }
 
 /** Derived — never stored, so it cannot drift from the guest count. */
@@ -52,13 +85,13 @@ export function formatMoney(currency: string, amount: number): string {
 
 /**
  * Links a document row to a proposal without adding fields to `BookingDoc`
- * or editing `seedDocuments` (both locked). Bookings with no proposal fall
- * through to the generic reader.
+ * or editing `seedDocuments` (both locked). Archived proposals and non-proposal
+ * categories fall through to the generic reader.
  */
 export function proposalForDocument(
   doc: BookingDoc | undefined,
-  bookingId: string,
+  booking: Booking | string,
 ): Proposal | undefined {
   if (!doc || doc.category !== "Proposals" || doc.archived) return undefined;
-  return proposalForBooking(bookingId);
+  return proposalForBooking(booking);
 }
