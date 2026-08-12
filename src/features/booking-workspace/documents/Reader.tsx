@@ -102,12 +102,11 @@ export function Reader({
         <button
           type="button"
           onClick={() => canDownload && onDownload?.(doc)}
-          disabled={!canDownload}
           title={canDownload ? "Download PDF" : "No file available to download"}
           className="inline-flex items-center gap-2 rounded-[7px] px-3.5 py-2 text-[12px] font-medium transition-opacity hover:opacity-90"
           style={{
-            background: canDownload ? INK : "rgba(27,37,48,0.10)",
-            color: canDownload ? "#FAF8F3" : INK_3,
+            background: INK,
+            color: "#FAF8F3",
             cursor: canDownload ? "pointer" : "not-allowed",
           }}
         >
@@ -131,15 +130,12 @@ export function Reader({
             border: `1px solid ${EDGE_SOFT}`,
             borderRadius: 6,
             boxShadow: PAPER_SHADOW,
-            zoom: `${zoom}%`,
           }}
         >
-          {paper}
-        </div>
-      </div>
+          <div style={{ zoom: `${zoom}%` }}>{paper}</div>
 
       {/* ── CONTROLS (directly beneath the paper) ── */}
-      <div className="mt-3.5 flex items-center justify-center gap-1.5" style={{ color: INK_3 }}>
+      <div className="px-6 pb-5 pt-1 flex items-center justify-center gap-1.5" style={{ color: INK_3 }}>
         <Search size={13} />
         <button
           type="button"
@@ -190,6 +186,8 @@ export function Reader({
         >
           <Maximize2 size={13} />
         </button>
+      </div>
+        </div>
       </div>
 
       {/* ── ACTIONS ── */}
