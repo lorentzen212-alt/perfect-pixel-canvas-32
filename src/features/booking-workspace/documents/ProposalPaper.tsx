@@ -18,15 +18,7 @@ function Fact({ k, v }: { k: string; v: string }) {
   );
 }
 
-function Line({
-  label,
-  sub,
-  value,
-}: {
-  label: string;
-  sub?: string;
-  value: string;
-}) {
+function Line({ label, sub, value }: { label: string; sub?: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-6 py-[11px]">
       <span className="min-w-0">
@@ -46,13 +38,7 @@ function Line({
   );
 }
 
-export function ProposalPaper({
-  booking,
-  proposal,
-}: {
-  booking: Booking;
-  proposal: Proposal;
-}) {
+export function ProposalPaper({ booking, proposal }: { booking: Booking; proposal: Proposal }) {
   const nights = booking.nights;
   const rooms = booking.rooms ?? 0;
 

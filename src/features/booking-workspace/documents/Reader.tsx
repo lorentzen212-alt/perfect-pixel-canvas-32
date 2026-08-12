@@ -69,7 +69,7 @@ export function Reader({
 
   const subtitle = proposal
     ? `From ${proposal.hotelName} · ${formatDay(proposal.issueDate)}`
-    : `From ${doc.uploadedBy === "Hotel" ? booking.hotel ?? "the hotel" : "you"} · ${doc.uploadedLabel}`;
+    : `From ${doc.uploadedBy === "Hotel" ? (booking.hotel ?? "the hotel") : "you"} · ${doc.uploadedLabel}`;
 
   const paper = proposal ? (
     <ProposalPaper booking={booking} proposal={proposal} />
