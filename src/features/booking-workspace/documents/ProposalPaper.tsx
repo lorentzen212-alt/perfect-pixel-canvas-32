@@ -1,4 +1,5 @@
 import { BrandLogo } from "@/components/BrandLogo";
+import { SERIF } from "@/components/DashboardChrome";
 import { INK, INK_2, INK_3, GOLD } from "@/features/booking-workspace/overview/materials";
 import type { Booking } from "@/lib/bookings";
 import { dinnerSubtotal, formatMoney, resolveNights, type Proposal } from "@/lib/proposals";
@@ -51,21 +52,21 @@ export function ProposalPaper({
   const rooms = booking.rooms ?? 0;
 
   return (
-    <div className="px-8 py-9 sm:px-12 sm:py-12">
+    <div className="px-8 pt-9 pb-7 sm:px-12 sm:pt-12 sm:pb-8">
       {/* ── header strip ── */}
       <div className="flex items-start justify-between gap-6">
         <BrandLogo variant="full" size="sm" tone="light" />
         <span className="text-right">
-          <span className="block text-[11px] font-semibold" style={{ color: INK }}>
+          <span className="block text-[13px] font-semibold" style={{ color: INK }}>
             Proposal {proposal.number}
           </span>
-          <span className="mt-[2px] block text-[10px]" style={{ color: INK_3 }}>
+          <span className="mt-[2px] block text-[11px]" style={{ color: INK_3 }}>
             {formatShortDay(proposal.issueDate)}
           </span>
           {isCurrent && (
             <span
-              className="mt-2 inline-block rounded-full px-2 py-[3px] text-[9px] uppercase tracking-[0.16em]"
-              style={{ background: "#E8F1E7", color: "#4A7A56" }}
+              className="mt-2 inline-block rounded-full px-2 py-[3px] text-[8.5px] uppercase tracking-[0.16em]"
+              style={{ background: "#E7F1E9", color: "#3F7A55", fontWeight: 600 }}
             >
               Current
             </span>
@@ -75,17 +76,23 @@ export function ProposalPaper({
 
       {/* ── title block ── */}
       <div className="mt-7">
-        <h4 className="text-[27px] font-semibold leading-[1.15]" style={{ color: INK }}>
+        <h4
+          className="text-[34px] leading-[1.1]"
+          style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}
+        >
           Proposal
         </h4>
-        <p className="mt-1.5 text-[15px] font-semibold" style={{ color: INK }}>
+        <p
+          className="mt-1.5 text-[19px]"
+          style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}
+        >
           {booking.name}
         </p>
       </div>
 
       {/* ── facts + image ── */}
       <div className="mt-7 flex items-start justify-between gap-8">
-        <div className="min-w-0" style={{ width: "55%" }}>
+        <div className="min-w-0" style={{ width: "56%" }}>
           <Fact k="Stay period" v={formatLongRange(booking.startDate, booking.endDate)} />
           <Fact k="Rooms" v={`${rooms} rooms`} />
           <Fact k="Guests" v={`${booking.guests ?? 0} guests`} />
@@ -98,7 +105,7 @@ export function ProposalPaper({
           alt={`${proposal.hotelName} — guest room`}
           loading="lazy"
           className="hidden shrink-0 object-cover sm:block"
-          style={{ width: "45%", aspectRatio: "2.1 / 1", borderRadius: 8 }}
+          style={{ width: "40%", aspectRatio: "2 / 1", borderRadius: 10 }}
         />
       </div>
 

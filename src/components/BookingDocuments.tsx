@@ -16,9 +16,9 @@ import type { Booking } from "@/lib/bookings";
 import { proposalForBooking, type ProposalStatus } from "@/lib/proposals";
 
 /* ── warm document-desk surfaces ── */
-const PAPER = "#FAF8F3";
-const HOVER = "#F1EFE9";
-const BEHIND = "#ECE8E0";
+const PAPER = "#F7F4EC";
+const HOVER = "#F3EFE4";
+const BEHIND = "#EFE9DD";
 const EDGE = "rgba(27,37,48,0.12)";
 const EDGE_SOFT = "rgba(27,37,48,0.08)";
 const SELECTED = "#FAF6EC";
@@ -225,12 +225,11 @@ function Tab({
 function DocRow({
   doc,
   selected,
-  last,
   onSelect,
 }: {
   doc: BookingDoc;
   selected: boolean;
-  last: boolean;
+  last?: boolean;
   onSelect: () => void;
 }) {
   const [hover, setHover] = useState(false);
@@ -240,21 +239,37 @@ function DocRow({
       onClick={onSelect}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="relative grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 py-[13px] text-left transition-colors duration-200"
+      className="relative grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 overflow-hidden px-3 py-[13px] text-left transition-colors duration-200"
       style={{
-        background: selected ? SELECTED : hover ? HOVER : "transparent",
-        borderBottom: last ? "none" : `1px solid ${HAIR}`,
+        borderRadius: 10,
+        background: selected ? SELECTED : hover ? HOVER : "#FDFCF8",
+        border: selected
+          ? "1px solid rgba(176,112,15,0.34)"
+          : `1px solid rgba(27,37,48,0.11)`,
+        boxShadow: selected
+          ? "0 1px 2px rgba(20,30,36,0.06)"
+          : "0 1px 1px rgba(20,30,36,0.035)",
       }}
     >
       {selected && (
         <span
           aria-hidden
-          className="absolute inset-y-[6px] left-0 w-[2px] rounded-full"
+          className="absolute inset-y-0 left-0 w-[3px]"
           style={{ background: GOLD }}
         />
       )}
       <span className="flex min-w-0 items-center gap-3">
-        <span className="shrink-0" style={{ color: selected ? GOLD : INK_3 }}>
+        <span
+          className="grid h-[34px] w-[34px] shrink-0 place-items-center"
+          style={{
+            borderRadius: 9,
+            background: "#FFFFFF",
+            border: selected
+              ? "1px solid rgba(176,112,15,0.40)"
+              : `1px solid ${EDGE_SOFT}`,
+            color: selected ? GOLD : INK_3,
+          }}
+        >
           {docIcon(doc)}
         </span>
         <span className="min-w-0">
@@ -267,8 +282,8 @@ function DocRow({
             </span>
             {selected && (
               <span
-                className="shrink-0 text-[9px] uppercase tracking-[0.16em]"
-                style={{ color: GOLD }}
+                className="shrink-0 rounded-full px-2 py-[2px] text-[8.5px] uppercase tracking-[0.16em]"
+                style={{ background: "#E7F1E9", color: "#3F7A55", fontWeight: 600 }}
               >
                 Current
               </span>
@@ -407,6 +422,15 @@ export function BookingDocumentsView({
           }}
         />
 
+        <div
+          className="p-5 sm:p-6"
+          style={{
+            background: "#E7E0D2",
+            borderRadius: 16,
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 0 0 1px rgba(27,37,48,0.055), inset 0 2px 6px -3px rgba(24,30,36,0.22)",
+          }}
+        >
         <div className="grid min-w-0 items-start gap-[30px] lg:grid-cols-[34fr_66fr]">
           {/* ── LEFT: the physical folder ── */}
           <div className="min-w-0">
@@ -450,20 +474,19 @@ export function BookingDocumentsView({
               >
 
                 <div
-                  className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-3 pb-2 text-[9.5px] uppercase tracking-[0.18em]"
+                  className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 px-3 pb-3 text-[9.5px] uppercase tracking-[0.18em]"
                   style={{ color: INK_3 }}
                 >
                   <span>Document name</span>
                   <span>Date</span>
                 </div>
 
-                <div className="-mx-3">
-                  {list.map((d, i) => (
+                <div className="flex flex-col gap-2">
+                  {list.map((d) => (
                     <DocRow
                       key={d.id}
                       doc={d}
                       selected={d.id === selected?.id}
-                      last={i === list.length - 1}
                       onSelect={() => setSelectedId(d.id)}
                     />
                   ))}
@@ -535,6 +558,7 @@ export function BookingDocumentsView({
             onDownload={download}
           />
 
+        </div>
         </div>
       </div>
     </Plate>
