@@ -102,6 +102,42 @@ const HERO_LINKS = [
 
 const CARD_HEIGHT = "clamp(300px, 52vh, 540px)";
 
+/** Above-the-fold hero video. No poster image — the hero base colour shows
+ *  until the video has decoded a frame, then it fades in over 200ms. */
+function HeroVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    if (el.readyState >= 2) setReady(true);
+    void el.play().catch(() => undefined);
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+      aria-hidden
+      onLoadedData={() => setReady(true)}
+      onCanPlay={() => setReady(true)}
+      className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+      style={{
+        objectPosition: "center center",
+        opacity: ready ? 1 : 0,
+        transition: "opacity 200ms ease",
+      }}
+    >
+      <source src={heroVideoAsset.url} type="video/mp4" />
+    </video>
+  );
+}
+
 function Home() {
   return (
     <>
