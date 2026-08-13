@@ -336,8 +336,8 @@ export function ChangesFolder({
             {sub === "rooms" ? (
               <>
                 <Eyebrow>Apply changes to</Eyebrow>
-                <div className="mt-4 flex flex-wrap items-end gap-x-10 gap-y-5">
-                  <div className="flex items-center gap-8 pb-[10px]">
+                <div className="mt-2 flex flex-wrap items-end gap-x-10 gap-y-5">
+                  <div className="flex items-center gap-8 pb-[11px]">
                     <Radio
                       checked={scope === "original"}
                       label="Original stay"
@@ -349,22 +349,37 @@ export function ChangesFolder({
                       onSelect={() => setScope("specific")}
                     />
                   </div>
-                  <label className="block min-w-[240px] flex-1">
+                  <label className="block min-w-[240px] max-w-[380px] flex-1">
                     <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
                       Select dates <span style={{ color: INK_FAINT }}>(optional)</span>
                     </span>
                     <span
-                      className="mt-2 flex h-[44px] items-center gap-2 rounded-[9px] px-3.5"
+                      className="mt-2 flex h-[46px] items-center gap-2 rounded-[10px] px-3.5"
                       style={{ background: WHITE, border: `1px solid ${HAIR}` }}
                     >
                       <input
-                        type="date"
+                        ref={dateRef}
+                        type={dateMode || when ? "date" : "text"}
                         value={when}
                         onChange={(e) => setWhen(e.target.value)}
-                        className="w-full bg-transparent text-[13.5px] outline-none"
+                        onFocus={() => setDateMode(true)}
+                        onBlur={() => {
+                          if (!when) setDateMode(false);
+                        }}
+                        placeholder="dd.mm.yyyy"
+                        className="w-full bg-transparent text-[13.5px] outline-none placeholder:text-[rgba(27,37,48,0.45)] [&::-webkit-calendar-picker-indicator]:hidden"
                         style={{ color: INK }}
                         aria-label="Select dates"
                       />
+                      <button
+                        type="button"
+                        onClick={openDatePicker}
+                        aria-label="Open date picker"
+                        className="shrink-0 transition-opacity hover:opacity-70"
+                        style={{ color: INK_FAINT }}
+                      >
+                        <Calendar size={16} strokeWidth={1.7} />
+                      </button>
                     </span>
                   </label>
                 </div>
