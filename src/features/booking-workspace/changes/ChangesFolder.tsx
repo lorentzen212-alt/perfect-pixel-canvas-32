@@ -18,6 +18,7 @@ import {
   Accessibility,
 } from "lucide-react";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
+import { AddonsServices } from "@/features/booking-workspace/changes/AddonsServices";
 
 /* ── local light palette ── */
 const IVORY = "#FAF7F5";
