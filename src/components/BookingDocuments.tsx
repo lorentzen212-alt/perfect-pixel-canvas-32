@@ -9,6 +9,7 @@ import {
   FileSignature,
   FileSpreadsheet,
   FileText,
+  Folder,
   Ticket,
 } from "lucide-react";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
@@ -28,6 +29,8 @@ const SELECTED = "#FAF6EC";
 const SELECTED_ROW =
   "linear-gradient(90deg, #FCF3E4 0%, #FDF7EC 55%, #FCF9F3 100%)";
 const BRONZE = "#C08A24";
+/** the gold hairline tracing the active folder tab */
+const TAB_GOLD = "rgba(192,138,36,0.75)";
 
 export type DocCategory =
   | "Contracts"
@@ -222,11 +225,19 @@ function TabLabel({
 }) {
   return (
     <>
-      <span
-        className="truncate text-[13px] transition-colors duration-200"
-        style={{ color: active ? INK : INK_3, fontWeight: active ? 600 : 450 }}
-      >
-        {label}
+      <span className="flex min-w-0 items-center gap-2">
+        <Folder
+          size={14}
+          strokeWidth={1.9}
+          className="shrink-0 transition-colors duration-200"
+          style={{ color: active ? BRONZE : INK_3 }}
+        />
+        <span
+          className="truncate text-[13px] transition-colors duration-200"
+          style={{ color: active ? INK : INK_3, fontWeight: active ? 600 : 450 }}
+        >
+          {label}
+        </span>
       </span>
       <span
         className="ml-3 grid h-[21px] min-w-[21px] shrink-0 place-items-center rounded-full px-1 text-[10.5px] transition-colors duration-200"
@@ -270,7 +281,11 @@ function Tab({
         background: active ? CARD : hover ? HOVER : BEHIND,
         border: "none",
         borderRadius: active ? "14px 14px 0 0" : "10px 10px 0 0",
-        boxShadow: active ? "0 -6px 16px -10px rgba(24,30,36,0.28)" : "none",
+        /* the active tab is traced in gold on its three exposed edges — the
+           bottom stays open so the tab reads as part of the card below */
+        boxShadow: active
+          ? `inset 0 1px 0 ${TAB_GOLD}, inset 1px 0 0 ${TAB_GOLD}, inset -1px 0 0 ${TAB_GOLD}, 0 -6px 16px -10px rgba(24,30,36,0.28)`
+          : "none",
         zIndex: active ? 2 : 1,
         marginLeft: first ? 0 : -12,
         paddingLeft: !active && !first ? 28 : undefined,
@@ -285,6 +300,27 @@ function Tab({
 }
 
 /* ══════════════════ document rows ══════════════════ */
+
+/** the bookmark that marks the current document — a gold ribbon carrying a
+    small white star. It hangs from the row's top edge and is taken out of
+    the flow so it never squeezes the document name. */
+function CurrentRibbon() {
+  return (
+    <svg
+      width={14}
+      height={19}
+      viewBox="0 0 16 22"
+      aria-hidden
+      className="absolute right-5 top-0"
+    >
+      <path d="M0 0 H16 V19 L8 14.4 L0 19 Z" fill={BRONZE} />
+      <path
+        d="M8 4.2 L8.88 6.39 L11.23 6.55 L9.43 8.06 L10 10.35 L8 9.1 L6 10.35 L6.57 8.06 L4.77 6.55 L7.12 6.39 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  );
+}
 
 function DocRow({
   doc,
@@ -311,11 +347,14 @@ function DocRow({
       }}
     >
       {selected && (
-        <span
-          aria-hidden
-          className="absolute inset-y-0 left-0 w-[4px]"
-          style={{ background: BRONZE }}
-        />
+        <>
+          <span
+            aria-hidden
+            className="absolute inset-y-0 left-0 w-[4px]"
+            style={{ background: BRONZE }}
+          />
+          <CurrentRibbon />
+        </>
       )}
       <span className="flex min-w-0 items-center gap-3">
         <DocTile doc={doc} />
@@ -343,13 +382,6 @@ function DocRow({
       </span>
       <span className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[12px]" style={{ color: INK_2 }}>
         {doc.uploadedLabel}
-        {selected && (
-          <span
-            aria-hidden
-            className="inline-block rounded-full"
-            style={{ width: 6, height: 6, background: GOLD }}
-          />
-        )}
       </span>
     </button>
   );
