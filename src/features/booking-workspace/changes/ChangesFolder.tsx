@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   ArrowRight,
   BedDouble,
+  Calendar,
   CalendarDays,
   ClipboardList,
   ConciergeBell,
@@ -28,6 +29,8 @@ const HAIR = "rgba(27,37,48,0.10)";
 const HAIR_SOFT = "rgba(27,37,48,0.07)";
 const BRONZE = "#C0801E";
 const BRONZE_DEEP = "#A96C12";
+/* top stop of the submit button's gold face */
+const GOLD_HI = "#CC8C1E";
 const GREEN_BG = "#E7F1E9";
 const GREEN_TX = "#3F7A55";
 const RED_BG = "#FBE9E6";
@@ -40,7 +43,11 @@ type SubTabKey = "rooms" | "addons" | "other";
 
 const SUB_TABS: { key: SubTabKey; label: string; icon: React.ReactNode }[] = [
   { key: "rooms", label: "Rooms & dates", icon: <CalendarDays size={17} strokeWidth={1.7} /> },
-  { key: "addons", label: "Add-ons & services", icon: <ConciergeBell size={17} strokeWidth={1.7} /> },
+  {
+    key: "addons",
+    label: "Add-ons & services",
+    icon: <ConciergeBell size={17} strokeWidth={1.7} />,
+  },
   { key: "other", label: "Other request", icon: <MessageSquare size={17} strokeWidth={1.7} /> },
 ];
 
@@ -136,11 +143,17 @@ function StatCard({
           {label}
         </span>
         <span className="mt-1 flex items-center gap-2.5">
-          <span className="text-[26px] font-semibold leading-none tabular-nums" style={{ color: INK }}>
+          <span
+            className="text-[28px] font-semibold leading-none tabular-nums"
+            style={{ color: INK }}
+          >
             {from}
           </span>
           <ArrowRight size={16} style={{ color: INK_FAINT }} />
-          <span className="text-[26px] font-semibold leading-none tabular-nums" style={{ color: INK }}>
+          <span
+            className="text-[28px] font-semibold leading-none tabular-nums"
+            style={{ color: INK }}
+          >
             {to}
           </span>
           {diff !== 0 && (
@@ -173,16 +186,16 @@ function SummaryRow({
 }) {
   return (
     <div
-      className="flex items-center gap-3 py-[13px]"
+      className="flex items-center gap-3 py-[15px]"
       style={last ? undefined : { borderBottom: `1px solid ${HAIR_SOFT}` }}
     >
       <span className="shrink-0" style={{ color: BRONZE }}>
         {icon}
       </span>
-      <span className="min-w-0 flex-1 truncate text-[13px]" style={{ color: INK_SOFT }}>
+      <span className="min-w-0 flex-1 truncate text-[13.5px]" style={{ color: INK_SOFT }}>
         {label}
       </span>
-      <span className="shrink-0 text-[13px] font-medium" style={{ color: INK }}>
+      <span className="shrink-0 text-[13.5px] font-medium" style={{ color: INK }}>
         {value}
       </span>
     </div>
@@ -255,6 +268,18 @@ export function ChangesFolder({
   const [when, setWhen] = React.useState("");
   const [note, setNote] = React.useState("");
 
+  /* the native date control renders the browser locale mask, so it stays a
+     plain text field showing "dd.mm.yyyy" until the picker is opened */
+  const [dateMode, setDateMode] = React.useState(false);
+  const dateRef = React.useRef<HTMLInputElement>(null);
+  const openDatePicker = () => {
+    setDateMode(true);
+    requestAnimationFrame(() => {
+      dateRef.current?.focus();
+      dateRef.current?.showPicker?.();
+    });
+  };
+
   const lines = rooms.map((r, i) => {
     const base = baseRooms[i]?.qty ?? r.qty;
     return { ...r, base, diff: r.qty - base, index: i };
@@ -274,29 +299,37 @@ export function ChangesFolder({
           className="flex flex-wrap items-center gap-x-2 gap-y-1 px-5 sm:px-8"
           style={{ borderBottom: `1px solid ${HAIR_SOFT}` }}
         >
-          {SUB_TABS.map((t) => {
+          {SUB_TABS.map((t, i) => {
             const active = sub === t.key;
             return (
-              <button
-                key={t.key}
-                type="button"
-                onClick={() => setSub(t.key)}
-                className="relative inline-flex items-center gap-2.5 px-3 py-[18px] text-[14px] transition-colors"
-                style={{
-                  color: active ? BRONZE_DEEP : INK_SOFT,
-                  fontWeight: active ? 600 : 500,
-                }}
-              >
-                <span style={{ color: active ? BRONZE : INK_FAINT }}>{t.icon}</span>
-                {t.label}
-                {active && (
+              <React.Fragment key={t.key}>
+                {i > 0 && (
                   <span
                     aria-hidden
-                    className="absolute inset-x-0 bottom-0 h-[3px] rounded-t-full"
-                    style={{ background: BRONZE }}
+                    className="hidden h-[26px] w-px shrink-0 sm:block"
+                    style={{ background: HAIR }}
                   />
                 )}
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setSub(t.key)}
+                  className="relative inline-flex items-center gap-2.5 px-4 py-[18px] text-[14.5px] transition-colors"
+                  style={{
+                    color: active ? BRONZE_DEEP : INK_SOFT,
+                    fontWeight: active ? 600 : 500,
+                  }}
+                >
+                  <span style={{ color: active ? BRONZE : INK_FAINT }}>{t.icon}</span>
+                  {t.label}
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-0 bottom-0 h-[3px] rounded-t-full"
+                      style={{ background: BRONZE }}
+                    />
+                  )}
+                </button>
+              </React.Fragment>
             );
           })}
           <button
@@ -311,14 +344,14 @@ export function ChangesFolder({
         </div>
 
         {/* ── grid ── */}
-        <div className="grid flex-1 grid-cols-1 gap-6 px-5 pb-12 pt-7 sm:px-8 xl:grid-cols-[minmax(0,1fr)_384px]">
+        <div className="grid flex-1 grid-cols-1 gap-7 px-5 pb-12 pt-7 sm:px-8 xl:grid-cols-[minmax(0,1fr)_452px]">
           {/* ─ left ─ */}
           <div className="min-w-0">
             {sub === "rooms" ? (
               <>
                 <Eyebrow>Apply changes to</Eyebrow>
-                <div className="mt-4 flex flex-wrap items-end gap-x-10 gap-y-5">
-                  <div className="flex items-center gap-8 pb-[10px]">
+                <div className="mt-2 flex flex-wrap items-end gap-x-10 gap-y-5">
+                  <div className="flex items-center gap-8 pb-[11px]">
                     <Radio
                       checked={scope === "original"}
                       label="Original stay"
@@ -330,22 +363,37 @@ export function ChangesFolder({
                       onSelect={() => setScope("specific")}
                     />
                   </div>
-                  <label className="block min-w-[240px] flex-1">
+                  <label className="block min-w-[240px] max-w-[380px] flex-1">
                     <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
                       Select dates <span style={{ color: INK_FAINT }}>(optional)</span>
                     </span>
                     <span
-                      className="mt-2 flex h-[44px] items-center gap-2 rounded-[9px] px-3.5"
+                      className="mt-2 flex h-[46px] items-center gap-2 rounded-[10px] px-3.5"
                       style={{ background: WHITE, border: `1px solid ${HAIR}` }}
                     >
                       <input
-                        type="date"
+                        ref={dateRef}
+                        type={dateMode || when ? "date" : "text"}
                         value={when}
                         onChange={(e) => setWhen(e.target.value)}
-                        className="w-full bg-transparent text-[13.5px] outline-none"
+                        onFocus={() => setDateMode(true)}
+                        onBlur={() => {
+                          if (!when) setDateMode(false);
+                        }}
+                        placeholder="dd.mm.yyyy"
+                        className="w-full bg-transparent text-[13.5px] outline-none placeholder:text-[rgba(27,37,48,0.45)] [&::-webkit-calendar-picker-indicator]:hidden"
                         style={{ color: INK }}
                         aria-label="Select dates"
                       />
+                      <button
+                        type="button"
+                        onClick={openDatePicker}
+                        aria-label="Open date picker"
+                        className="shrink-0 transition-opacity hover:opacity-70"
+                        style={{ color: INK_FAINT }}
+                      >
+                        <Calendar size={16} strokeWidth={1.7} />
+                      </button>
                     </span>
                   </label>
                 </div>
@@ -378,40 +426,57 @@ export function ChangesFolder({
 
                 <ul className="mt-3">
                   {lines.map((l, i) => (
-                    <li
-                      key={l.type}
-                      className="flex flex-wrap items-center gap-x-0 gap-y-3 py-[14px]"
-                      style={i > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
-                    >
-                      <span className="flex min-w-[210px] flex-1 items-center gap-3">
-                        <span className="shrink-0" style={{ color: BRONZE }}>
-                          {roomIcon(l.type)}
-                        </span>
-                        <span className="min-w-0">
-                          <span className="block truncate text-[14px] font-medium" style={{ color: INK }}>
-                            {l.type}
-                          </span>
-                          <span className="block truncate text-[12px]" style={{ color: INK_FAINT }}>
-                            {l.note}
-                          </span>
-                        </span>
-                      </span>
+                    <li key={l.type} className="flex flex-wrap items-stretch gap-y-3">
+                      {/* name + current share one ruled block; the hairline on its
+                          right edge separates them from the editable columns */}
                       <span
-                        className="w-[70px] text-center text-[14.5px] font-semibold tabular-nums sm:w-[110px]"
-                        style={{ color: INK }}
+                        className="flex min-w-[280px] flex-1 items-stretch sm:border-r"
+                        style={{
+                          borderRightColor: HAIR_SOFT,
+                          borderBottom:
+                            i < lines.length - 1
+                              ? `1px solid ${HAIR_SOFT}`
+                              : "1px solid transparent",
+                        }}
                       >
-                        {l.base}
+                        <span className="flex min-w-0 flex-1 items-center gap-3 py-[15px] pr-4">
+                          <span className="shrink-0" style={{ color: BRONZE }}>
+                            {roomIcon(l.type)}
+                          </span>
+                          <span className="min-w-0">
+                            <span
+                              className="block truncate text-[14.5px] font-medium"
+                              style={{ color: INK }}
+                            >
+                              {l.type}
+                            </span>
+                            <span
+                              className="block truncate text-[12px]"
+                              style={{ color: INK_FAINT }}
+                            >
+                              {l.note}
+                            </span>
+                          </span>
+                        </span>
+                        <span
+                          className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[110px]"
+                          style={{ color: INK }}
+                        >
+                          {l.base}
+                        </span>
                       </span>
-                      <span className="flex w-[150px] justify-center">
+                      <span className="flex w-[150px] items-center justify-center">
                         <Counter
                           value={l.qty}
                           label={l.type}
                           onChange={(n) =>
-                            onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)))
+                            onRoomsChange(
+                              rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)),
+                            )
                           }
                         />
                       </span>
-                      <span className="flex w-[96px] justify-center">
+                      <span className="flex w-[96px] items-center justify-center">
                         <DeltaBadge diff={l.diff} />
                       </span>
                     </li>
@@ -419,7 +484,7 @@ export function ChangesFolder({
                 </ul>
 
                 <div
-                  className="mt-7 flex flex-col divide-y sm:flex-row sm:divide-x sm:divide-y-0"
+                  className="mt-7 flex flex-col overflow-hidden [&>*+*]:border-t [&>*+*]:border-[rgba(27,37,48,0.10)] sm:flex-row sm:[&>*+*]:border-l sm:[&>*+*]:border-t-0"
                   style={{
                     background: WHITE,
                     border: `1px solid ${HAIR}`,
@@ -459,7 +524,10 @@ export function ChangesFolder({
                         className="w-full resize-none bg-transparent text-[13.5px] outline-none"
                         style={{ color: INK }}
                       />
-                      <span className="mt-2 block text-right text-[11.5px]" style={{ color: INK_FAINT }}>
+                      <span
+                        className="mt-2 block text-right text-[11.5px]"
+                        style={{ color: INK_FAINT }}
+                      >
                         {note.length}/1000
                       </span>
                     </span>
@@ -471,7 +539,10 @@ export function ChangesFolder({
                 className="rounded-[14px] px-8 py-16 text-center"
                 style={{ background: WHITE, border: `1px solid ${HAIR}` }}
               >
-                <span className="mx-auto grid h-[52px] w-[52px] place-items-center rounded-full" style={{ background: "rgba(192,128,30,0.10)", color: BRONZE }}>
+                <span
+                  className="mx-auto grid h-[52px] w-[52px] place-items-center rounded-full"
+                  style={{ background: "rgba(192,128,30,0.10)", color: BRONZE }}
+                >
                   {sub === "addons" ? <ConciergeBell size={22} /> : <ClipboardList size={22} />}
                 </span>
                 <h3 className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
@@ -549,9 +620,9 @@ export function ChangesFolder({
                 type="button"
                 onClick={onSubmit}
                 disabled={!changed}
-                className="mt-5 inline-flex h-[50px] w-full items-center justify-center gap-2.5 rounded-[9px] text-[14.5px] font-semibold transition-opacity"
+                className="mt-5 inline-flex h-[52px] w-full items-center justify-center gap-2.5 rounded-[10px] text-[15px] font-semibold transition-opacity"
                 style={{
-                  background: BRONZE_DEEP,
+                  background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${BRONZE_DEEP} 100%)`,
                   color: WHITE,
                   opacity: changed ? 1 : 0.5,
                   cursor: changed ? "pointer" : "not-allowed",
@@ -561,7 +632,10 @@ export function ChangesFolder({
                 Submit change request <ArrowRight size={17} />
               </button>
 
-              <div className="mt-3 flex items-center justify-center gap-2 text-[12px]" style={{ color: INK_FAINT }}>
+              <div
+                className="mt-3 flex items-center justify-center gap-2 text-[12px]"
+                style={{ color: INK_FAINT }}
+              >
                 <Lock size={13} />
                 Your request is sent securely
               </div>
