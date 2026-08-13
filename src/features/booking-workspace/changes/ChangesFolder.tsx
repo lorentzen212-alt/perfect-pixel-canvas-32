@@ -412,40 +412,57 @@ export function ChangesFolder({
 
                 <ul className="mt-3">
                   {lines.map((l, i) => (
-                    <li
-                      key={l.type}
-                      className="flex flex-wrap items-center gap-x-0 gap-y-3 py-[14px]"
-                      style={i > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
-                    >
-                      <span className="flex min-w-[210px] flex-1 items-center gap-3">
-                        <span className="shrink-0" style={{ color: BRONZE }}>
-                          {roomIcon(l.type)}
-                        </span>
-                        <span className="min-w-0">
-                          <span className="block truncate text-[14px] font-medium" style={{ color: INK }}>
-                            {l.type}
-                          </span>
-                          <span className="block truncate text-[12px]" style={{ color: INK_FAINT }}>
-                            {l.note}
-                          </span>
-                        </span>
-                      </span>
+                    <li key={l.type} className="flex flex-wrap items-stretch gap-y-3">
+                      {/* name + current share one ruled block; the hairline on its
+                          right edge separates them from the editable columns */}
                       <span
-                        className="w-[70px] text-center text-[14.5px] font-semibold tabular-nums sm:w-[110px]"
-                        style={{ color: INK }}
+                        className="flex min-w-[280px] flex-1 items-stretch sm:border-r"
+                        style={{
+                          borderRightColor: HAIR_SOFT,
+                          borderBottom:
+                            i < lines.length - 1
+                              ? `1px solid ${HAIR_SOFT}`
+                              : "1px solid transparent",
+                        }}
                       >
-                        {l.base}
+                        <span className="flex min-w-0 flex-1 items-center gap-3 py-[15px] pr-4">
+                          <span className="shrink-0" style={{ color: BRONZE }}>
+                            {roomIcon(l.type)}
+                          </span>
+                          <span className="min-w-0">
+                            <span
+                              className="block truncate text-[14.5px] font-medium"
+                              style={{ color: INK }}
+                            >
+                              {l.type}
+                            </span>
+                            <span
+                              className="block truncate text-[12px]"
+                              style={{ color: INK_FAINT }}
+                            >
+                              {l.note}
+                            </span>
+                          </span>
+                        </span>
+                        <span
+                          className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[110px]"
+                          style={{ color: INK }}
+                        >
+                          {l.base}
+                        </span>
                       </span>
-                      <span className="flex w-[150px] justify-center">
+                      <span className="flex w-[150px] items-center justify-center">
                         <Counter
                           value={l.qty}
                           label={l.type}
                           onChange={(n) =>
-                            onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)))
+                            onRoomsChange(
+                              rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)),
+                            )
                           }
                         />
                       </span>
-                      <span className="flex w-[96px] justify-center">
+                      <span className="flex w-[96px] items-center justify-center">
                         <DeltaBadge diff={l.diff} />
                       </span>
                     </li>
