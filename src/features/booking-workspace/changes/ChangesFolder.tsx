@@ -289,29 +289,33 @@ export function ChangesFolder({
           className="flex flex-wrap items-center gap-x-2 gap-y-1 px-5 sm:px-8"
           style={{ borderBottom: `1px solid ${HAIR_SOFT}` }}
         >
-          {SUB_TABS.map((t) => {
+          {SUB_TABS.map((t, i) => {
             const active = sub === t.key;
             return (
-              <button
-                key={t.key}
-                type="button"
-                onClick={() => setSub(t.key)}
-                className="relative inline-flex items-center gap-2.5 px-3 py-[18px] text-[14px] transition-colors"
-                style={{
-                  color: active ? BRONZE_DEEP : INK_SOFT,
-                  fontWeight: active ? 600 : 500,
-                }}
-              >
-                <span style={{ color: active ? BRONZE : INK_FAINT }}>{t.icon}</span>
-                {t.label}
-                {active && (
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-0 bottom-0 h-[3px] rounded-t-full"
-                    style={{ background: BRONZE }}
-                  />
+              <React.Fragment key={t.key}>
+                {i > 0 && (
+                  <span aria-hidden className="hidden h-[26px] w-px shrink-0 sm:block" style={{ background: HAIR }} />
                 )}
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setSub(t.key)}
+                  className="relative inline-flex items-center gap-2.5 px-4 py-[18px] text-[14.5px] transition-colors"
+                  style={{
+                    color: active ? BRONZE_DEEP : INK_SOFT,
+                    fontWeight: active ? 600 : 500,
+                  }}
+                >
+                  <span style={{ color: active ? BRONZE : INK_FAINT }}>{t.icon}</span>
+                  {t.label}
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-0 bottom-0 h-[3px] rounded-t-full"
+                      style={{ background: BRONZE }}
+                    />
+                  )}
+                </button>
+              </React.Fragment>
             );
           })}
           <button
