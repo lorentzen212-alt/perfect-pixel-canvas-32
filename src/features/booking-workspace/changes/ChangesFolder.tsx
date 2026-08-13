@@ -470,7 +470,7 @@ export function ChangesFolder({
                 </ul>
 
                 <div
-                  className="mt-7 flex flex-col divide-y sm:flex-row sm:divide-x sm:divide-y-0"
+                  className="mt-7 flex flex-col overflow-hidden [&>*+*]:border-t [&>*+*]:border-[rgba(27,37,48,0.10)] sm:flex-row sm:[&>*+*]:border-l sm:[&>*+*]:border-t-0"
                   style={{
                     background: WHITE,
                     border: `1px solid ${HAIR}`,
