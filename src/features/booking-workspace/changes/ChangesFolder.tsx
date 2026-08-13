@@ -20,7 +20,6 @@ import { Plate } from "@/features/booking-workspace/overview/primitives";
 import { AddonsServices } from "@/features/booking-workspace/changes/AddonsServices";
 import { RequestStatus } from "@/features/booking-workspace/changes/RequestStatus";
 
-
 /* ── local light palette ── */
 const IVORY = "#FAF7F5";
 const WHITE = "#FFFFFF";
@@ -52,7 +51,6 @@ const SUB_TABS: { key: SubTabKey; label: string; icon: React.ReactNode }[] = [
   },
   { key: "status", label: "Request status", icon: <MessageSquare size={17} strokeWidth={1.7} /> },
 ];
-
 
 function roomIcon(type: string) {
   const t = type.toLowerCase();
@@ -371,191 +369,183 @@ export function ChangesFolder({
             <div className="min-w-0">
               <Eyebrow>Apply changes to</Eyebrow>
 
-                  <div className="mt-2 flex flex-wrap items-end gap-x-10 gap-y-5">
-                    <div className="flex items-center gap-8 pb-[11px]">
-                      <Radio
-                        checked={scope === "original"}
-                        label="Original stay"
-                        onSelect={() => setScope("original")}
-                      />
-                      <Radio
-                        checked={scope === "specific"}
-                        label="Specific dates"
-                        onSelect={() => setScope("specific")}
-                      />
-                    </div>
-                    <label className="block min-w-[240px] max-w-[380px] flex-1">
-                      <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
-                        Select dates <span style={{ color: INK_FAINT }}>(optional)</span>
-                      </span>
-                      <span
-                        className="mt-2 flex h-[46px] items-center gap-2 rounded-[10px] px-3.5"
-                        style={{ background: WHITE, border: `1px solid ${HAIR}` }}
-                      >
-                        <input
-                          ref={dateRef}
-                          type={dateMode || when ? "date" : "text"}
-                          value={when}
-                          onChange={(e) => setWhen(e.target.value)}
-                          onFocus={() => setDateMode(true)}
-                          onBlur={() => {
-                            if (!when) setDateMode(false);
-                          }}
-                          placeholder="dd.mm.yyyy"
-                          className="w-full bg-transparent text-[13.5px] outline-none placeholder:text-[rgba(27,37,48,0.45)] [&::-webkit-calendar-picker-indicator]:hidden"
-                          style={{ color: INK }}
-                          aria-label="Select dates"
-                        />
-                        <button
-                          type="button"
-                          onClick={openDatePicker}
-                          aria-label="Open date picker"
-                          className="shrink-0 transition-opacity hover:opacity-70"
-                          style={{ color: INK_FAINT }}
-                        >
-                          <Calendar size={16} strokeWidth={1.7} />
-                        </button>
-                      </span>
-                    </label>
-                  </div>
+              <div className="mt-2 flex flex-wrap items-end gap-x-10 gap-y-5">
+                <div className="flex items-center gap-8 pb-[11px]">
+                  <Radio
+                    checked={scope === "original"}
+                    label="Original stay"
+                    onSelect={() => setScope("original")}
+                  />
+                  <Radio
+                    checked={scope === "specific"}
+                    label="Specific dates"
+                    onSelect={() => setScope("specific")}
+                  />
+                </div>
+                <label className="block min-w-[240px] max-w-[380px] flex-1">
+                  <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
+                    Select dates <span style={{ color: INK_FAINT }}>(optional)</span>
+                  </span>
+                  <span
+                    className="mt-2 flex h-[46px] items-center gap-2 rounded-[10px] px-3.5"
+                    style={{ background: WHITE, border: `1px solid ${HAIR}` }}
+                  >
+                    <input
+                      ref={dateRef}
+                      type={dateMode || when ? "date" : "text"}
+                      value={when}
+                      onChange={(e) => setWhen(e.target.value)}
+                      onFocus={() => setDateMode(true)}
+                      onBlur={() => {
+                        if (!when) setDateMode(false);
+                      }}
+                      placeholder="dd.mm.yyyy"
+                      className="w-full bg-transparent text-[13.5px] outline-none placeholder:text-[rgba(27,37,48,0.45)] [&::-webkit-calendar-picker-indicator]:hidden"
+                      style={{ color: INK }}
+                      aria-label="Select dates"
+                    />
+                    <button
+                      type="button"
+                      onClick={openDatePicker}
+                      aria-label="Open date picker"
+                      className="shrink-0 transition-opacity hover:opacity-70"
+                      style={{ color: INK_FAINT }}
+                    >
+                      <Calendar size={16} strokeWidth={1.7} />
+                    </button>
+                  </span>
+                </label>
+              </div>
 
-                  <div className="mt-8" style={{ borderTop: `1px solid ${HAIR_SOFT}` }} />
+              <div className="mt-8" style={{ borderTop: `1px solid ${HAIR_SOFT}` }} />
 
-                  <div className="mt-7 flex items-center gap-4">
-                    <Eyebrow>Room changes</Eyebrow>
-                    <span className="ml-auto hidden items-center gap-0 sm:flex">
-                      <span
-                        className="w-[110px] text-center text-[10.5px] font-semibold uppercase"
-                        style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
-                      >
-                        Current
-                      </span>
-                      <span
-                        className="w-[150px] text-center text-[10.5px] font-semibold uppercase"
-                        style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
-                      >
-                        Requested
-                      </span>
-                      <span
-                        className="w-[96px] text-center text-[10.5px] font-semibold uppercase"
-                        style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
-                      >
-                        Change
-                      </span>
-                    </span>
-                  </div>
+              <div className="mt-7 flex items-center gap-4">
+                <Eyebrow>Room changes</Eyebrow>
+                <span className="ml-auto hidden items-center gap-0 sm:flex">
+                  <span
+                    className="w-[110px] text-center text-[10.5px] font-semibold uppercase"
+                    style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
+                  >
+                    Current
+                  </span>
+                  <span
+                    className="w-[150px] text-center text-[10.5px] font-semibold uppercase"
+                    style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
+                  >
+                    Requested
+                  </span>
+                  <span
+                    className="w-[96px] text-center text-[10.5px] font-semibold uppercase"
+                    style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
+                  >
+                    Change
+                  </span>
+                </span>
+              </div>
 
-                  <ul className="mt-3">
-                    {lines.map((l, i) => (
-                      <li key={l.type} className="flex flex-wrap items-stretch gap-y-3">
-                        {/* name + current share one ruled block; the hairline on its
+              <ul className="mt-3">
+                {lines.map((l, i) => (
+                  <li key={l.type} className="flex flex-wrap items-stretch gap-y-3">
+                    {/* name + current share one ruled block; the hairline on its
                           right edge separates them from the editable columns */}
-                        <span
-                          className="flex min-w-[280px] flex-1 items-stretch sm:border-r"
-                          style={{
-                            borderRightColor: HAIR_SOFT,
-                            borderBottom:
-                              i < lines.length - 1
-                                ? `1px solid ${HAIR_SOFT}`
-                                : "1px solid transparent",
-                          }}
-                        >
-                          <span className="flex min-w-0 flex-1 items-center gap-3 py-[15px] pr-4">
-                            <span className="shrink-0" style={{ color: BRONZE }}>
-                              {roomIcon(l.type)}
-                            </span>
-                            <span className="min-w-0">
-                              <span
-                                className="block truncate text-[14.5px] font-medium"
-                                style={{ color: INK }}
-                              >
-                                {l.type}
-                              </span>
-                              <span
-                                className="block truncate text-[12px]"
-                                style={{ color: INK_FAINT }}
-                              >
-                                {l.note}
-                              </span>
-                            </span>
-                          </span>
+                    <span
+                      className="flex min-w-[280px] flex-1 items-stretch sm:border-r"
+                      style={{
+                        borderRightColor: HAIR_SOFT,
+                        borderBottom:
+                          i < lines.length - 1 ? `1px solid ${HAIR_SOFT}` : "1px solid transparent",
+                      }}
+                    >
+                      <span className="flex min-w-0 flex-1 items-center gap-3 py-[15px] pr-4">
+                        <span className="shrink-0" style={{ color: BRONZE }}>
+                          {roomIcon(l.type)}
+                        </span>
+                        <span className="min-w-0">
                           <span
-                            className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[110px]"
+                            className="block truncate text-[14.5px] font-medium"
                             style={{ color: INK }}
                           >
-                            {l.base}
+                            {l.type}
+                          </span>
+                          <span className="block truncate text-[12px]" style={{ color: INK_FAINT }}>
+                            {l.note}
                           </span>
                         </span>
-                        <span className="flex w-[150px] items-center justify-center">
-                          <Counter
-                            value={l.qty}
-                            label={l.type}
-                            onChange={(n) =>
-                              onRoomsChange(
-                                rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)),
-                              )
-                            }
-                          />
-                        </span>
-                        <span className="flex w-[96px] items-center justify-center">
-                          <DeltaBadge diff={l.diff} />
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div
-                    className="mt-7 flex flex-col overflow-hidden [&>*+*]:border-t [&>*+*]:border-[rgba(27,37,48,0.10)] sm:flex-row sm:[&>*+*]:border-l sm:[&>*+*]:border-t-0"
-                    style={{
-                      background: WHITE,
-                      border: `1px solid ${HAIR}`,
-                      borderRadius: 14,
-                      borderColor: HAIR,
-                      boxShadow: "0 1px 2px rgba(24,30,36,0.04)",
-                    }}
-                  >
-                    <StatCard
-                      icon={<BedDouble size={22} strokeWidth={1.7} />}
-                      label="Rooms"
-                      from={currentRooms}
-                      to={afterRooms}
-                    />
-                    <StatCard
-                      icon={<Users size={22} strokeWidth={1.7} />}
-                      label="Guests"
-                      from={currentGuests}
-                      to={afterGuests}
-                    />
-                  </div>
-
-                  <div className="mt-8">
-                    <Eyebrow>Other changes (optional)</Eyebrow>
-                    <label className="mt-3 block">
-                      <span className="sr-only">Add a note for the hotel</span>
-                      <span
-                        className="block rounded-[12px] p-4"
-                        style={{ background: WHITE, border: `1px solid ${HAIR}` }}
-                      >
-                        <textarea
-                          rows={3}
-                          value={note}
-                          maxLength={1000}
-                          onChange={(e) => setNote(e.target.value)}
-                          placeholder="Add a note for the hotel…"
-                          className="w-full resize-none bg-transparent text-[13.5px] outline-none"
-                          style={{ color: INK }}
-                        />
-                        <span
-                          className="mt-2 block text-right text-[11.5px]"
-                          style={{ color: INK_FAINT }}
-                        >
-                          {note.length}/1000
-                        </span>
                       </span>
-                    </label>
-                  </div>
-            </div>
+                      <span
+                        className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[110px]"
+                        style={{ color: INK }}
+                      >
+                        {l.base}
+                      </span>
+                    </span>
+                    <span className="flex w-[150px] items-center justify-center">
+                      <Counter
+                        value={l.qty}
+                        label={l.type}
+                        onChange={(n) =>
+                          onRoomsChange(rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)))
+                        }
+                      />
+                    </span>
+                    <span className="flex w-[96px] items-center justify-center">
+                      <DeltaBadge diff={l.diff} />
+                    </span>
+                  </li>
+                ))}
+              </ul>
 
+              <div
+                className="mt-7 flex flex-col overflow-hidden [&>*+*]:border-t [&>*+*]:border-[rgba(27,37,48,0.10)] sm:flex-row sm:[&>*+*]:border-l sm:[&>*+*]:border-t-0"
+                style={{
+                  background: WHITE,
+                  border: `1px solid ${HAIR}`,
+                  borderRadius: 14,
+                  borderColor: HAIR,
+                  boxShadow: "0 1px 2px rgba(24,30,36,0.04)",
+                }}
+              >
+                <StatCard
+                  icon={<BedDouble size={22} strokeWidth={1.7} />}
+                  label="Rooms"
+                  from={currentRooms}
+                  to={afterRooms}
+                />
+                <StatCard
+                  icon={<Users size={22} strokeWidth={1.7} />}
+                  label="Guests"
+                  from={currentGuests}
+                  to={afterGuests}
+                />
+              </div>
+
+              <div className="mt-8">
+                <Eyebrow>Other changes (optional)</Eyebrow>
+                <label className="mt-3 block">
+                  <span className="sr-only">Add a note for the hotel</span>
+                  <span
+                    className="block rounded-[12px] p-4"
+                    style={{ background: WHITE, border: `1px solid ${HAIR}` }}
+                  >
+                    <textarea
+                      rows={3}
+                      value={note}
+                      maxLength={1000}
+                      onChange={(e) => setNote(e.target.value)}
+                      placeholder="Add a note for the hotel…"
+                      className="w-full resize-none bg-transparent text-[13.5px] outline-none"
+                      style={{ color: INK }}
+                    />
+                    <span
+                      className="mt-2 block text-right text-[11.5px]"
+                      style={{ color: INK_FAINT }}
+                    >
+                      {note.length}/1000
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
 
             {/* ─ right — change summary ─ */}
             <aside className="min-w-0">
