@@ -600,9 +600,9 @@ export function ChangesFolder({
                 type="button"
                 onClick={onSubmit}
                 disabled={!changed}
-                className="mt-5 inline-flex h-[50px] w-full items-center justify-center gap-2.5 rounded-[9px] text-[14.5px] font-semibold transition-opacity"
+                className="mt-5 inline-flex h-[52px] w-full items-center justify-center gap-2.5 rounded-[10px] text-[15px] font-semibold transition-opacity"
                 style={{
-                  background: BRONZE_DEEP,
+                  background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${BRONZE_DEEP} 100%)`,
                   color: WHITE,
                   opacity: changed ? 1 : 0.5,
                   cursor: changed ? "pointer" : "not-allowed",
