@@ -5,15 +5,15 @@ import {
   Bed,
   CalendarDays,
   Check,
-  Download,
-  MapPin,
-  Users,
+  ClipboardCheck,
   ClipboardList,
+  Download,
   FileText,
   Home,
-  MessageSquare,
+  MapPin,
   Pencil,
   StickyNote,
+  Users,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 
@@ -26,18 +26,21 @@ export const WORKSPACE_TABS = [
   "Rooming List",
   "Changes",
   "Documents",
-  "Messages",
+  "Final Details",
   "Notes",
 ] as const;
 
-export type WorkspaceTab = (typeof WORKSPACE_TABS)[number];
+/** "Messages" no longer has a tab button — the hotel conversation is reached
+    from the "Message HotelGroupBook" actions across the workspace, so it stays
+    a valid tab value without appearing in the bar. */
+export type WorkspaceTab = (typeof WORKSPACE_TABS)[number] | "Messages";
 
-const TAB_ICON: Record<WorkspaceTab, React.ReactNode> = {
+const TAB_ICON: Record<(typeof WORKSPACE_TABS)[number], React.ReactNode> = {
   Overview: <Home size={14} />,
   "Rooming List": <ClipboardList size={14} />,
   Changes: <Pencil size={14} />,
   Documents: <FileText size={14} />,
-  Messages: <MessageSquare size={14} />,
+  "Final Details": <ClipboardCheck size={14} />,
   Notes: <StickyNote size={14} />,
 };
 
@@ -79,7 +82,6 @@ export function BookingWorkspaceHeader({
   surface?: string;
 }) {
   const [copied, setCopied] = useState(false);
-
 
   return (
     <header className="relative isolate">
@@ -169,8 +171,6 @@ export function BookingWorkspaceHeader({
           </div>
         </div>
 
-
-
         <nav className="mt-2 flex items-end gap-[6px] overflow-x-auto">
           {WORKSPACE_TABS.map((t) => {
             const isActive = t === active;
@@ -215,7 +215,13 @@ export function BookingWorkspaceHeader({
             }
             if (onSelect) {
               return (
-                <button key={t} type="button" onClick={() => onSelect(t)} className={cls} style={st}>
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => onSelect(t)}
+                  className={cls}
+                  style={st}
+                >
                   {inner}
                 </button>
               );

@@ -61,6 +61,7 @@ import {
 import { OverviewFolder } from "@/features/booking-workspace/overview/Overview";
 import { RoomingFolder } from "@/features/booking-workspace/rooming/RoomingList";
 import { ChangesFolder } from "@/features/booking-workspace/changes/ChangesFolder";
+import { FinalDetails } from "@/features/booking-workspace/final/FinalDetails";
 import {
   FOLDER_TOP_SURFACE,
   FOLDER_TOP_SURFACE_WARM,
@@ -1052,7 +1053,11 @@ function Workspace({ booking }: { booking: Booking }) {
   ];
 
   const isFolder =
-    tab === "Overview" || tab === "Rooming List" || tab === "Documents" || tab === "Changes";
+    tab === "Overview" ||
+    tab === "Rooming List" ||
+    tab === "Documents" ||
+    tab === "Changes" ||
+    tab === "Final Details";
 
   return (
     <div
@@ -1134,7 +1139,7 @@ function Workspace({ booking }: { booking: Booking }) {
           onSelect={(t) => setTab(t)}
           surface={
             isFolder
-              ? tab === "Documents"
+              ? tab === "Documents" || tab === "Final Details"
                 ? FOLDER_TOP_SURFACE_WARM
                 : tab === "Changes"
                   ? "#FAF7F5"
@@ -1211,6 +1216,16 @@ function Workspace({ booking }: { booking: Booking }) {
             />
           ) : tab === "Documents" ? (
             <BookingDocumentsView booking={booking} onAskQuestion={() => setTab("Messages")} />
+          ) : tab === "Final Details" ? (
+            <FinalDetails
+              stayStart={stay.arrival}
+              stayEnd={stay.departure}
+              contactRole="Tour Leader"
+              contactName="Emma Hansen"
+              contactPhone="+47 60 11 22 33"
+              onOpenDietary={() => setTab("Notes")}
+              onComplete={() => setTab("Overview")}
+            />
           ) : tab === "Messages" ? (
             <BookingMessagesView
               bookingId={booking.id}
