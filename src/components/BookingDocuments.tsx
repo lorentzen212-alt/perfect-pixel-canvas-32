@@ -261,6 +261,9 @@ function Tab({
 }) {
   const [hover, setHover] = useState(false);
   const height = active ? TAB_H : TAB_H - 2;
+  const slopeW = 26;
+  const extraRight = 28;
+  const extraLeft = 28;
   return (
     <button
       type="button"
@@ -269,29 +272,29 @@ function Tab({
       onClick={onClick}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="relative flex items-center transition-colors duration-200"
+      className="relative flex items-center justify-between px-4 transition-colors duration-200"
       style={{
         height,
         background: active ? CARD : hover ? HOVER : BEHIND,
         border: "none",
         borderRadius: "12px 0 0 0",
         zIndex: active ? 2 : 1,
-        marginLeft: first ? 0 : -14,
-        paddingLeft: first ? 16 : active ? 30 : 46,
-        paddingRight: 12,
+        marginLeft: first ? 0 : -12,
+        paddingLeft: !active && !first ? 28 + extraLeft : 16,
+        paddingRight: !active && first ? 28 + extraRight : 16 + extraRight,
       }}
     >
-      <TabLabel label={label} count={count} active={active} />
+      <span className="flex min-w-0 flex-1 items-center justify-between">
+        <TabLabel label={label} count={count} active={active} />
+      </span>
       <span
         aria-hidden="true"
+        className="absolute right-0 top-0"
         style={{
-          position: "absolute",
-          left: "100%",
-          top: 0,
-          width: 26,
+          width: slopeW,
           height,
           background: "inherit",
-          clipPath: `path('M 0 0 Q 26 0 26 ${height} L 0 ${height} Z')`,
+          clipPath: `path('M 0 0 Q ${slopeW} 0 ${slopeW} ${height} L 0 ${height} Z')`,
         }}
       />
     </button>
