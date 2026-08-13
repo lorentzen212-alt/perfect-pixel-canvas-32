@@ -564,12 +564,10 @@ export function ChangesFolder({
                   <ClipboardList size={22} />
                 </span>
                 <h3 className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
-                  {sub === "addons" ? "Add-ons & services" : "Other request"}
+                  Other request
                 </h3>
                 <p className="mx-auto mt-2 max-w-[380px] text-[13px]" style={{ color: INK_SOFT }}>
-                  {sub === "addons"
-                    ? "Request catering, transfers or extra services for this stay."
-                    : "Tell us anything else you would like us to change for this booking."}
+                  Tell us anything else you would like us to change for this booking.
                 </p>
                 <button
                   type="button"
