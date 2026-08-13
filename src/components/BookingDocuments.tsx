@@ -281,7 +281,11 @@ function Tab({
         background: active ? CARD : hover ? HOVER : BEHIND,
         border: "none",
         borderRadius: active ? "14px 14px 0 0" : "10px 10px 0 0",
-        boxShadow: active ? "0 -6px 16px -10px rgba(24,30,36,0.28)" : "none",
+        /* the active tab is traced in gold on its three exposed edges — the
+           bottom stays open so the tab reads as part of the card below */
+        boxShadow: active
+          ? `inset 0 1px 0 ${TAB_GOLD}, inset 1px 0 0 ${TAB_GOLD}, inset -1px 0 0 ${TAB_GOLD}, 0 -6px 16px -10px rgba(24,30,36,0.28)`
+          : "none",
         zIndex: active ? 2 : 1,
         marginLeft: first ? 0 : -12,
         paddingLeft: !active && !first ? 28 : undefined,
