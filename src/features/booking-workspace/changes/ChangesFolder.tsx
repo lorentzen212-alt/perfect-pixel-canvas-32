@@ -671,11 +671,11 @@ export function ChangesFolder({
                 >
                   Message HotelGroupBook <ArrowRight size={14} />
                 </button>
-        </div>
-      )}
-      </div>
+              </div>
+            </div>
           </aside>
         </div>
+      )}
       </div>
     </Plate>
   );
