@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Bus, Check, Clock, Coffee, ShieldCheck, Users, Utensils } from "lucide-react";
+import { ArrowRight, Bus, Check, Clock, Coffee, FileLock2, ShieldCheck, Users, Utensils } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import {
   Card,
@@ -473,6 +473,41 @@ function SummaryStrip({ cells }: { cells: SummaryCell[] }) {
   );
 }
 
+/* ── 4 · closing CTA — cream banner to the full booking overview ── */
+function CompleteBookingBanner({ onView }: { onView?: () => void }) {
+  return (
+    <div
+      className="flex w-full flex-col gap-4 rounded-[12px] px-5 py-4 sm:flex-row sm:items-center sm:gap-5 sm:px-6"
+      style={{ background: "#FDF9F0", border: "1px solid rgba(191,145,60,0.28)" }}
+    >
+      <span
+        className="grid h-[44px] w-[44px] shrink-0 place-items-center rounded-full"
+        style={{ background: "#F4EFE6", color: "#8A6A3A" }}
+      >
+        <FileLock2 size={21} strokeWidth={1.6} />
+      </span>
+
+      <div className="min-w-0 flex-1">
+        <p className="text-[17px] leading-tight" style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}>
+          Your complete booking
+        </p>
+        <p className="mt-1 text-[12.5px]" style={{ color: INK_2 }}>
+          See all confirmed details, rooms, services, requests and documents in one place.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        onClick={onView}
+        className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-[8px] px-5 py-[10px] text-[13.5px] font-semibold text-white transition-colors duration-200 bg-[#BF913C] hover:bg-[#A87C2E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BF913C] focus-visible:ring-offset-2"
+      >
+        View full booking overview
+        <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-[3px]" />
+      </button>
+    </div>
+  );
+}
+
 /* ── the folder composition ────────────────────────────────── */
 export function OverviewFolder({
   bookingId,
@@ -486,6 +521,7 @@ export function OverviewFolder({
   summary,
   onViewTimeline,
   onMessage,
+  onViewFullOverview,
   secondary,
 }: {
   bookingId: string;
@@ -499,6 +535,7 @@ export function OverviewFolder({
   summary: SummaryCell[];
   onViewTimeline?: () => void;
   onMessage?: () => void;
+  onViewFullOverview?: () => void;
   secondary?: React.ReactNode;
 }) {
   return (
@@ -521,6 +558,8 @@ export function OverviewFolder({
         </div>
 
         <SummaryStrip cells={summary} />
+
+        <CompleteBookingBanner onView={onViewFullOverview} />
 
         {secondary && (
           <div className="space-y-4 pt-4">
