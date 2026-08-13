@@ -264,6 +264,7 @@ function Tab({
   const slopeW = 30;
   const extraRight = 30;
   const extraLeft = 30;
+  const bg = active ? CARD : hover ? HOVER : BEHIND;
   /* fixed-pixel S-curve: concave off the flat top, convex into the strip */
   const slopePath = `path('M 0 0 C ${slopeW * 0.62} 0 ${slopeW * 0.4} ${height} ${slopeW} ${height} L 0 ${height} Z')`;
   return (
@@ -277,9 +278,8 @@ function Tab({
       className="relative flex items-center justify-between px-4 transition-colors duration-200"
       style={{
         height,
-        background: active ? CARD : hover ? HOVER : BEHIND,
+        background: "transparent",
         border: "none",
-        borderRadius: "16px 0 0 0",
         zIndex: active ? 2 : 1,
         marginLeft: first ? 0 : -14,
         paddingLeft: !active && !first ? 28 + extraLeft : 18,
@@ -289,22 +289,36 @@ function Tab({
           : undefined,
       }}
     >
-      <span className="flex min-w-0 flex-1 items-center justify-between">
-        <TabLabel label={label} count={count} active={active} />
-      </span>
+      {/* flat top-left panel */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-y-0 left-0"
+        style={{
+          right: slopeW,
+          background: bg,
+          borderRadius: "10px 0 0 0",
+          zIndex: -1,
+        }}
+      />
+      {/* S-curve trailing ramp */}
       <span
         aria-hidden="true"
         className="absolute right-0 top-0"
         style={{
           width: slopeW,
           height,
-          background: "inherit",
+          background: bg,
           clipPath: slopePath,
+          zIndex: -1,
         }}
       />
 
+      <span className="flex min-w-0 flex-1 items-center justify-between">
+        <TabLabel label={label} count={count} active={active} />
+      </span>
     </button>
   );
+
 }
 
 /* ══════════════════ document rows ══════════════════ */
