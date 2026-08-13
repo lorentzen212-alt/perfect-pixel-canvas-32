@@ -248,6 +248,7 @@ export function ChangesFolder({
   baseRooms,
   onRoomsChange,
   stayDates,
+  stayStart,
   reference,
   paymentTerms,
   onHistory,
@@ -258,6 +259,8 @@ export function ChangesFolder({
   baseRooms: RoomLine[];
   onRoomsChange: (next: RoomLine[]) => void;
   stayDates: string;
+  /** ISO arrival date — seeds the add-on configurator's date field */
+  stayStart: string;
   reference: string;
   paymentTerms: string;
   onHistory: () => void;
