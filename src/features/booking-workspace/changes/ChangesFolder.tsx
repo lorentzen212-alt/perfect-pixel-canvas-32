@@ -43,7 +43,11 @@ type SubTabKey = "rooms" | "addons" | "other";
 
 const SUB_TABS: { key: SubTabKey; label: string; icon: React.ReactNode }[] = [
   { key: "rooms", label: "Rooms & dates", icon: <CalendarDays size={17} strokeWidth={1.7} /> },
-  { key: "addons", label: "Add-ons & services", icon: <ConciergeBell size={17} strokeWidth={1.7} /> },
+  {
+    key: "addons",
+    label: "Add-ons & services",
+    icon: <ConciergeBell size={17} strokeWidth={1.7} />,
+  },
   { key: "other", label: "Other request", icon: <MessageSquare size={17} strokeWidth={1.7} /> },
 ];
 
@@ -139,11 +143,17 @@ function StatCard({
           {label}
         </span>
         <span className="mt-1 flex items-center gap-2.5">
-          <span className="text-[28px] font-semibold leading-none tabular-nums" style={{ color: INK }}>
+          <span
+            className="text-[28px] font-semibold leading-none tabular-nums"
+            style={{ color: INK }}
+          >
             {from}
           </span>
           <ArrowRight size={16} style={{ color: INK_FAINT }} />
-          <span className="text-[28px] font-semibold leading-none tabular-nums" style={{ color: INK }}>
+          <span
+            className="text-[28px] font-semibold leading-none tabular-nums"
+            style={{ color: INK }}
+          >
             {to}
           </span>
           {diff !== 0 && (
@@ -294,7 +304,11 @@ export function ChangesFolder({
             return (
               <React.Fragment key={t.key}>
                 {i > 0 && (
-                  <span aria-hidden className="hidden h-[26px] w-px shrink-0 sm:block" style={{ background: HAIR }} />
+                  <span
+                    aria-hidden
+                    className="hidden h-[26px] w-px shrink-0 sm:block"
+                    style={{ background: HAIR }}
+                  />
                 )}
                 <button
                   type="button"
@@ -510,7 +524,10 @@ export function ChangesFolder({
                         className="w-full resize-none bg-transparent text-[13.5px] outline-none"
                         style={{ color: INK }}
                       />
-                      <span className="mt-2 block text-right text-[11.5px]" style={{ color: INK_FAINT }}>
+                      <span
+                        className="mt-2 block text-right text-[11.5px]"
+                        style={{ color: INK_FAINT }}
+                      >
                         {note.length}/1000
                       </span>
                     </span>
@@ -522,7 +539,10 @@ export function ChangesFolder({
                 className="rounded-[14px] px-8 py-16 text-center"
                 style={{ background: WHITE, border: `1px solid ${HAIR}` }}
               >
-                <span className="mx-auto grid h-[52px] w-[52px] place-items-center rounded-full" style={{ background: "rgba(192,128,30,0.10)", color: BRONZE }}>
+                <span
+                  className="mx-auto grid h-[52px] w-[52px] place-items-center rounded-full"
+                  style={{ background: "rgba(192,128,30,0.10)", color: BRONZE }}
+                >
                   {sub === "addons" ? <ConciergeBell size={22} /> : <ClipboardList size={22} />}
                 </span>
                 <h3 className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
@@ -612,7 +632,10 @@ export function ChangesFolder({
                 Submit change request <ArrowRight size={17} />
               </button>
 
-              <div className="mt-3 flex items-center justify-center gap-2 text-[12px]" style={{ color: INK_FAINT }}>
+              <div
+                className="mt-3 flex items-center justify-center gap-2 text-[12px]"
+                style={{ color: INK_FAINT }}
+              >
                 <Lock size={13} />
                 Your request is sent securely
               </div>
