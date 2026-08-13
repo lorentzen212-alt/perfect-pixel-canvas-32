@@ -561,7 +561,7 @@ export function ChangesFolder({
                   className="mx-auto grid h-[52px] w-[52px] place-items-center rounded-full"
                   style={{ background: "rgba(192,128,30,0.10)", color: BRONZE }}
                 >
-                  {sub === "addons" ? <ConciergeBell size={22} /> : <ClipboardList size={22} />}
+                  <ClipboardList size={22} />
                 </span>
                 <h3 className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
                   {sub === "addons" ? "Add-ons & services" : "Other request"}
