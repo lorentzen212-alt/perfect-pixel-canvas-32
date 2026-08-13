@@ -176,16 +176,16 @@ function SummaryRow({
 }) {
   return (
     <div
-      className="flex items-center gap-3 py-[13px]"
+      className="flex items-center gap-3 py-[15px]"
       style={last ? undefined : { borderBottom: `1px solid ${HAIR_SOFT}` }}
     >
       <span className="shrink-0" style={{ color: BRONZE }}>
         {icon}
       </span>
-      <span className="min-w-0 flex-1 truncate text-[13px]" style={{ color: INK_SOFT }}>
+      <span className="min-w-0 flex-1 truncate text-[13.5px]" style={{ color: INK_SOFT }}>
         {label}
       </span>
-      <span className="shrink-0 text-[13px] font-medium" style={{ color: INK }}>
+      <span className="shrink-0 text-[13.5px] font-medium" style={{ color: INK }}>
         {value}
       </span>
     </div>
