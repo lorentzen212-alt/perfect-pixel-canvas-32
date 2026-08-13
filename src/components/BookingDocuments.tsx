@@ -276,8 +276,8 @@ function Tab({
         border: "none",
         borderRadius: "12px 0 0 0",
         zIndex: active ? 2 : 1,
-        marginLeft: active ? 0 : -14,
-        paddingLeft: active ? 16 : 46,
+        marginLeft: first ? 0 : -14,
+        paddingLeft: first ? 16 : active ? 30 : 46,
         paddingRight: 12,
       }}
     >
