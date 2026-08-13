@@ -382,13 +382,6 @@ function DocRow({
       </span>
       <span className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[12px]" style={{ color: INK_2 }}>
         {doc.uploadedLabel}
-        {selected && (
-          <span
-            aria-hidden
-            className="inline-block rounded-full"
-            style={{ width: 6, height: 6, background: GOLD }}
-          />
-        )}
       </span>
     </button>
   );
