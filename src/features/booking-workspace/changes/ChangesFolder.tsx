@@ -29,6 +29,8 @@ const HAIR = "rgba(27,37,48,0.10)";
 const HAIR_SOFT = "rgba(27,37,48,0.07)";
 const BRONZE = "#C0801E";
 const BRONZE_DEEP = "#A96C12";
+/* top stop of the submit button's gold face */
+const GOLD_HI = "#CC8C1E";
 const GREEN_BG = "#E7F1E9";
 const GREEN_TX = "#3F7A55";
 const RED_BG = "#FBE9E6";
