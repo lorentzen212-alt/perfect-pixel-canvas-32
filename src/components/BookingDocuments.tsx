@@ -261,9 +261,11 @@ function Tab({
 }) {
   const [hover, setHover] = useState(false);
   const height = active ? TAB_H : TAB_H - 2;
-  const slopeW = 26;
-  const extraRight = 28;
-  const extraLeft = 28;
+  const slopeW = 30;
+  const extraRight = 30;
+  const extraLeft = 30;
+  /* fixed-pixel S-curve: concave off the flat top, convex into the strip */
+  const slopePath = `path('M 0 0 C ${slopeW * 0.62} 0 ${slopeW * 0.4} ${height} ${slopeW} ${height} L 0 ${height} Z')`;
   return (
     <button
       type="button"
@@ -277,11 +279,14 @@ function Tab({
         height,
         background: active ? CARD : hover ? HOVER : BEHIND,
         border: "none",
-        borderRadius: "12px 0 0 0",
+        borderRadius: "16px 0 0 0",
         zIndex: active ? 2 : 1,
-        marginLeft: first ? 0 : -12,
-        paddingLeft: !active && !first ? 28 + extraLeft : 16,
+        marginLeft: first ? 0 : -14,
+        paddingLeft: !active && !first ? 28 + extraLeft : 18,
         paddingRight: !active && first ? 28 + extraRight : 16 + extraRight,
+        filter: active
+          ? "drop-shadow(0 -1px 1px rgba(24,30,36,0.05)) drop-shadow(3px 0 8px rgba(24,30,36,0.10))"
+          : undefined,
       }}
     >
       <span className="flex min-w-0 flex-1 items-center justify-between">
@@ -294,9 +299,10 @@ function Tab({
           width: slopeW,
           height,
           background: "inherit",
-          clipPath: `path('M 0 0 Q ${slopeW} 0 ${slopeW} ${height} L 0 ${height} Z')`,
+          clipPath: slopePath,
         }}
       />
+
     </button>
   );
 }
