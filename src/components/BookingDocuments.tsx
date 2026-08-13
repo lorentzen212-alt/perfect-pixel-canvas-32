@@ -225,11 +225,19 @@ function TabLabel({
 }) {
   return (
     <>
-      <span
-        className="truncate text-[13px] transition-colors duration-200"
-        style={{ color: active ? INK : INK_3, fontWeight: active ? 600 : 450 }}
-      >
-        {label}
+      <span className="flex min-w-0 items-center gap-2">
+        <Folder
+          size={14}
+          strokeWidth={1.9}
+          className="shrink-0 transition-colors duration-200"
+          style={{ color: active ? BRONZE : INK_3 }}
+        />
+        <span
+          className="truncate text-[13px] transition-colors duration-200"
+          style={{ color: active ? INK : INK_3, fontWeight: active ? 600 : 450 }}
+        >
+          {label}
+        </span>
       </span>
       <span
         className="ml-3 grid h-[21px] min-w-[21px] shrink-0 place-items-center rounded-full px-1 text-[10.5px] transition-colors duration-200"
