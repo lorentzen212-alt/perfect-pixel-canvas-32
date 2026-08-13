@@ -1203,6 +1203,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 markDirty("rooms");
               }}
               stayDates={formatLongRange(stay.arrival, stay.departure)}
+              stayStart={stay.arrival}
               reference={booking.reference}
               paymentTerms={confirmed ? "Deposit paid" : "Deposit pending"}
               onHistory={() => setTab("Messages")}

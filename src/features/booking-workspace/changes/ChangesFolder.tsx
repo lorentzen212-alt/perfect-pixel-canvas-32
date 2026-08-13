@@ -18,6 +18,7 @@ import {
   Accessibility,
 } from "lucide-react";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
+import { AddonsServices } from "@/features/booking-workspace/changes/AddonsServices";
 
 /* ── local light palette ── */
 const IVORY = "#FAF7F5";
@@ -247,6 +248,7 @@ export function ChangesFolder({
   baseRooms,
   onRoomsChange,
   stayDates,
+  stayStart,
   reference,
   paymentTerms,
   onHistory,
@@ -257,6 +259,8 @@ export function ChangesFolder({
   baseRooms: RoomLine[];
   onRoomsChange: (next: RoomLine[]) => void;
   stayDates: string;
+  /** ISO arrival date — seeds the add-on configurator's date field */
+  stayStart: string;
   reference: string;
   paymentTerms: string;
   onHistory: () => void;
@@ -343,320 +347,333 @@ export function ChangesFolder({
           </button>
         </div>
 
-        {/* ── grid ── */}
-        <div className="grid flex-1 grid-cols-1 gap-7 px-5 pb-12 pt-7 sm:px-8 xl:grid-cols-[minmax(0,1fr)_452px]">
-          {/* ─ left ─ */}
-          <div className="min-w-0">
-            {sub === "rooms" ? (
-              <>
-                <Eyebrow>Apply changes to</Eyebrow>
-                <div className="mt-2 flex flex-wrap items-end gap-x-10 gap-y-5">
-                  <div className="flex items-center gap-8 pb-[11px]">
-                    <Radio
-                      checked={scope === "original"}
-                      label="Original stay"
-                      onSelect={() => setScope("original")}
+        {/* ── add-ons carries its own two-column layout and sticky submit bar ── */}
+        {sub === "addons" ? (
+          <AddonsServices
+            stayStart={stayStart}
+            guests={currentGuests}
+            currentRooms={currentRooms}
+            afterRooms={afterRooms}
+            currentGuests={currentGuests}
+            afterGuests={afterGuests}
+            roomsChanged={changed}
+            onSubmit={onSubmit}
+            onCustomRequest={() => setSub("other")}
+          />
+        ) : (
+          /* ── grid ── */
+          <div className="grid flex-1 grid-cols-1 gap-7 px-5 pb-12 pt-7 sm:px-8 xl:grid-cols-[minmax(0,1fr)_452px]">
+            {/* ─ left ─ */}
+            <div className="min-w-0">
+              {sub === "rooms" ? (
+                <>
+                  <Eyebrow>Apply changes to</Eyebrow>
+                  <div className="mt-2 flex flex-wrap items-end gap-x-10 gap-y-5">
+                    <div className="flex items-center gap-8 pb-[11px]">
+                      <Radio
+                        checked={scope === "original"}
+                        label="Original stay"
+                        onSelect={() => setScope("original")}
+                      />
+                      <Radio
+                        checked={scope === "specific"}
+                        label="Specific dates"
+                        onSelect={() => setScope("specific")}
+                      />
+                    </div>
+                    <label className="block min-w-[240px] max-w-[380px] flex-1">
+                      <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
+                        Select dates <span style={{ color: INK_FAINT }}>(optional)</span>
+                      </span>
+                      <span
+                        className="mt-2 flex h-[46px] items-center gap-2 rounded-[10px] px-3.5"
+                        style={{ background: WHITE, border: `1px solid ${HAIR}` }}
+                      >
+                        <input
+                          ref={dateRef}
+                          type={dateMode || when ? "date" : "text"}
+                          value={when}
+                          onChange={(e) => setWhen(e.target.value)}
+                          onFocus={() => setDateMode(true)}
+                          onBlur={() => {
+                            if (!when) setDateMode(false);
+                          }}
+                          placeholder="dd.mm.yyyy"
+                          className="w-full bg-transparent text-[13.5px] outline-none placeholder:text-[rgba(27,37,48,0.45)] [&::-webkit-calendar-picker-indicator]:hidden"
+                          style={{ color: INK }}
+                          aria-label="Select dates"
+                        />
+                        <button
+                          type="button"
+                          onClick={openDatePicker}
+                          aria-label="Open date picker"
+                          className="shrink-0 transition-opacity hover:opacity-70"
+                          style={{ color: INK_FAINT }}
+                        >
+                          <Calendar size={16} strokeWidth={1.7} />
+                        </button>
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className="mt-8" style={{ borderTop: `1px solid ${HAIR_SOFT}` }} />
+
+                  <div className="mt-7 flex items-center gap-4">
+                    <Eyebrow>Room changes</Eyebrow>
+                    <span className="ml-auto hidden items-center gap-0 sm:flex">
+                      <span
+                        className="w-[110px] text-center text-[10.5px] font-semibold uppercase"
+                        style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
+                      >
+                        Current
+                      </span>
+                      <span
+                        className="w-[150px] text-center text-[10.5px] font-semibold uppercase"
+                        style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
+                      >
+                        Requested
+                      </span>
+                      <span
+                        className="w-[96px] text-center text-[10.5px] font-semibold uppercase"
+                        style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
+                      >
+                        Change
+                      </span>
+                    </span>
+                  </div>
+
+                  <ul className="mt-3">
+                    {lines.map((l, i) => (
+                      <li key={l.type} className="flex flex-wrap items-stretch gap-y-3">
+                        {/* name + current share one ruled block; the hairline on its
+                          right edge separates them from the editable columns */}
+                        <span
+                          className="flex min-w-[280px] flex-1 items-stretch sm:border-r"
+                          style={{
+                            borderRightColor: HAIR_SOFT,
+                            borderBottom:
+                              i < lines.length - 1
+                                ? `1px solid ${HAIR_SOFT}`
+                                : "1px solid transparent",
+                          }}
+                        >
+                          <span className="flex min-w-0 flex-1 items-center gap-3 py-[15px] pr-4">
+                            <span className="shrink-0" style={{ color: BRONZE }}>
+                              {roomIcon(l.type)}
+                            </span>
+                            <span className="min-w-0">
+                              <span
+                                className="block truncate text-[14.5px] font-medium"
+                                style={{ color: INK }}
+                              >
+                                {l.type}
+                              </span>
+                              <span
+                                className="block truncate text-[12px]"
+                                style={{ color: INK_FAINT }}
+                              >
+                                {l.note}
+                              </span>
+                            </span>
+                          </span>
+                          <span
+                            className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[110px]"
+                            style={{ color: INK }}
+                          >
+                            {l.base}
+                          </span>
+                        </span>
+                        <span className="flex w-[150px] items-center justify-center">
+                          <Counter
+                            value={l.qty}
+                            label={l.type}
+                            onChange={(n) =>
+                              onRoomsChange(
+                                rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)),
+                              )
+                            }
+                          />
+                        </span>
+                        <span className="flex w-[96px] items-center justify-center">
+                          <DeltaBadge diff={l.diff} />
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div
+                    className="mt-7 flex flex-col overflow-hidden [&>*+*]:border-t [&>*+*]:border-[rgba(27,37,48,0.10)] sm:flex-row sm:[&>*+*]:border-l sm:[&>*+*]:border-t-0"
+                    style={{
+                      background: WHITE,
+                      border: `1px solid ${HAIR}`,
+                      borderRadius: 14,
+                      borderColor: HAIR,
+                      boxShadow: "0 1px 2px rgba(24,30,36,0.04)",
+                    }}
+                  >
+                    <StatCard
+                      icon={<BedDouble size={22} strokeWidth={1.7} />}
+                      label="Rooms"
+                      from={currentRooms}
+                      to={afterRooms}
                     />
-                    <Radio
-                      checked={scope === "specific"}
-                      label="Specific dates"
-                      onSelect={() => setScope("specific")}
+                    <StatCard
+                      icon={<Users size={22} strokeWidth={1.7} />}
+                      label="Guests"
+                      from={currentGuests}
+                      to={afterGuests}
                     />
                   </div>
-                  <label className="block min-w-[240px] max-w-[380px] flex-1">
-                    <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
-                      Select dates <span style={{ color: INK_FAINT }}>(optional)</span>
-                    </span>
-                    <span
-                      className="mt-2 flex h-[46px] items-center gap-2 rounded-[10px] px-3.5"
-                      style={{ background: WHITE, border: `1px solid ${HAIR}` }}
-                    >
-                      <input
-                        ref={dateRef}
-                        type={dateMode || when ? "date" : "text"}
-                        value={when}
-                        onChange={(e) => setWhen(e.target.value)}
-                        onFocus={() => setDateMode(true)}
-                        onBlur={() => {
-                          if (!when) setDateMode(false);
-                        }}
-                        placeholder="dd.mm.yyyy"
-                        className="w-full bg-transparent text-[13.5px] outline-none placeholder:text-[rgba(27,37,48,0.45)] [&::-webkit-calendar-picker-indicator]:hidden"
-                        style={{ color: INK }}
-                        aria-label="Select dates"
-                      />
-                      <button
-                        type="button"
-                        onClick={openDatePicker}
-                        aria-label="Open date picker"
-                        className="shrink-0 transition-opacity hover:opacity-70"
-                        style={{ color: INK_FAINT }}
+
+                  <div className="mt-8">
+                    <Eyebrow>Other changes (optional)</Eyebrow>
+                    <label className="mt-3 block">
+                      <span className="sr-only">Add a note for the hotel</span>
+                      <span
+                        className="block rounded-[12px] p-4"
+                        style={{ background: WHITE, border: `1px solid ${HAIR}` }}
                       >
-                        <Calendar size={16} strokeWidth={1.7} />
-                      </button>
-                    </span>
-                  </label>
+                        <textarea
+                          rows={3}
+                          value={note}
+                          maxLength={1000}
+                          onChange={(e) => setNote(e.target.value)}
+                          placeholder="Add a note for the hotel…"
+                          className="w-full resize-none bg-transparent text-[13.5px] outline-none"
+                          style={{ color: INK }}
+                        />
+                        <span
+                          className="mt-2 block text-right text-[11.5px]"
+                          style={{ color: INK_FAINT }}
+                        >
+                          {note.length}/1000
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                </>
+              ) : (
+                <div
+                  className="rounded-[14px] px-8 py-16 text-center"
+                  style={{ background: WHITE, border: `1px solid ${HAIR}` }}
+                >
+                  <span
+                    className="mx-auto grid h-[52px] w-[52px] place-items-center rounded-full"
+                    style={{ background: "rgba(192,128,30,0.10)", color: BRONZE }}
+                  >
+                    <ClipboardList size={22} />
+                  </span>
+                  <h3 className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
+                    Other request
+                  </h3>
+                  <p className="mx-auto mt-2 max-w-[380px] text-[13px]" style={{ color: INK_SOFT }}>
+                    Tell us anything else you would like us to change for this booking.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={onMessage}
+                    className="mt-5 inline-flex h-[42px] items-center gap-2 rounded-[9px] px-5 text-[13.5px] font-semibold"
+                    style={{ background: BRONZE_DEEP, color: WHITE }}
+                  >
+                    Message HotelGroupBook <ArrowRight size={15} />
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* ─ right — change summary ─ */}
+            <aside className="min-w-0">
+              <div
+                className="rounded-[14px] p-5 sm:p-6"
+                style={{
+                  background: WHITE,
+                  border: `1px solid ${HAIR}`,
+                  boxShadow: "0 1px 2px rgba(24,30,36,0.04), 0 12px 28px -22px rgba(24,30,36,0.35)",
+                }}
+              >
+                <Eyebrow>Change summary</Eyebrow>
+
+                <div className="mt-3">
+                  <SummaryRow
+                    icon={<CalendarDays size={17} strokeWidth={1.7} />}
+                    label="Stay dates"
+                    value={stayDates}
+                  />
+                  <SummaryRow
+                    icon={<BedDouble size={17} strokeWidth={1.7} />}
+                    label="Rooms"
+                    value={`${currentRooms} → ${afterRooms} rooms`}
+                  />
+                  <SummaryRow
+                    icon={<Users size={17} strokeWidth={1.7} />}
+                    label="Guests"
+                    value={`${currentGuests} → ${afterGuests} guests`}
+                  />
+                  <SummaryRow
+                    icon={<FileText size={17} strokeWidth={1.7} />}
+                    label="Reference"
+                    value={reference}
+                  />
+                  <SummaryRow
+                    icon={<CreditCard size={17} strokeWidth={1.7} />}
+                    label="Payment terms"
+                    value={paymentTerms}
+                    last
+                  />
                 </div>
 
-                <div className="mt-8" style={{ borderTop: `1px solid ${HAIR_SOFT}` }} />
-
-                <div className="mt-7 flex items-center gap-4">
-                  <Eyebrow>Room changes</Eyebrow>
-                  <span className="ml-auto hidden items-center gap-0 sm:flex">
-                    <span
-                      className="w-[110px] text-center text-[10.5px] font-semibold uppercase"
-                      style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
-                    >
-                      Current
-                    </span>
-                    <span
-                      className="w-[150px] text-center text-[10.5px] font-semibold uppercase"
-                      style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
-                    >
-                      Requested
-                    </span>
-                    <span
-                      className="w-[96px] text-center text-[10.5px] font-semibold uppercase"
-                      style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
-                    >
-                      Change
-                    </span>
+                <div
+                  className="mt-5 flex items-start gap-3 rounded-[11px] px-4 py-3.5"
+                  style={{ background: CREAM }}
+                >
+                  <Info size={16} className="mt-[1px] shrink-0" style={{ color: INK_FAINT }} />
+                  <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
+                    We'll review your request and respond as soon as possible.
                   </span>
                 </div>
 
-                <ul className="mt-3">
-                  {lines.map((l, i) => (
-                    <li key={l.type} className="flex flex-wrap items-stretch gap-y-3">
-                      {/* name + current share one ruled block; the hairline on its
-                          right edge separates them from the editable columns */}
-                      <span
-                        className="flex min-w-[280px] flex-1 items-stretch sm:border-r"
-                        style={{
-                          borderRightColor: HAIR_SOFT,
-                          borderBottom:
-                            i < lines.length - 1
-                              ? `1px solid ${HAIR_SOFT}`
-                              : "1px solid transparent",
-                        }}
-                      >
-                        <span className="flex min-w-0 flex-1 items-center gap-3 py-[15px] pr-4">
-                          <span className="shrink-0" style={{ color: BRONZE }}>
-                            {roomIcon(l.type)}
-                          </span>
-                          <span className="min-w-0">
-                            <span
-                              className="block truncate text-[14.5px] font-medium"
-                              style={{ color: INK }}
-                            >
-                              {l.type}
-                            </span>
-                            <span
-                              className="block truncate text-[12px]"
-                              style={{ color: INK_FAINT }}
-                            >
-                              {l.note}
-                            </span>
-                          </span>
-                        </span>
-                        <span
-                          className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[110px]"
-                          style={{ color: INK }}
-                        >
-                          {l.base}
-                        </span>
-                      </span>
-                      <span className="flex w-[150px] items-center justify-center">
-                        <Counter
-                          value={l.qty}
-                          label={l.type}
-                          onChange={(n) =>
-                            onRoomsChange(
-                              rooms.map((x, j) => (j === l.index ? { ...x, qty: n } : x)),
-                            )
-                          }
-                        />
-                      </span>
-                      <span className="flex w-[96px] items-center justify-center">
-                        <DeltaBadge diff={l.diff} />
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div
-                  className="mt-7 flex flex-col overflow-hidden [&>*+*]:border-t [&>*+*]:border-[rgba(27,37,48,0.10)] sm:flex-row sm:[&>*+*]:border-l sm:[&>*+*]:border-t-0"
+                <button
+                  type="button"
+                  onClick={onSubmit}
+                  disabled={!changed}
+                  className="mt-5 inline-flex h-[52px] w-full items-center justify-center gap-2.5 rounded-[10px] text-[15px] font-semibold transition-opacity"
                   style={{
-                    background: WHITE,
-                    border: `1px solid ${HAIR}`,
-                    borderRadius: 14,
-                    borderColor: HAIR,
-                    boxShadow: "0 1px 2px rgba(24,30,36,0.04)",
+                    background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${BRONZE_DEEP} 100%)`,
+                    color: WHITE,
+                    opacity: changed ? 1 : 0.5,
+                    cursor: changed ? "pointer" : "not-allowed",
+                    boxShadow: "0 8px 18px -12px rgba(169,108,18,0.9)",
                   }}
                 >
-                  <StatCard
-                    icon={<BedDouble size={22} strokeWidth={1.7} />}
-                    label="Rooms"
-                    from={currentRooms}
-                    to={afterRooms}
-                  />
-                  <StatCard
-                    icon={<Users size={22} strokeWidth={1.7} />}
-                    label="Guests"
-                    from={currentGuests}
-                    to={afterGuests}
-                  />
+                  Submit change request <ArrowRight size={17} />
+                </button>
+
+                <div
+                  className="mt-3 flex items-center justify-center gap-2 text-[12px]"
+                  style={{ color: INK_FAINT }}
+                >
+                  <Lock size={13} />
+                  Your request is sent securely
                 </div>
 
-                <div className="mt-8">
-                  <Eyebrow>Other changes (optional)</Eyebrow>
-                  <label className="mt-3 block">
-                    <span className="sr-only">Add a note for the hotel</span>
-                    <span
-                      className="block rounded-[12px] p-4"
-                      style={{ background: WHITE, border: `1px solid ${HAIR}` }}
-                    >
-                      <textarea
-                        rows={3}
-                        value={note}
-                        maxLength={1000}
-                        onChange={(e) => setNote(e.target.value)}
-                        placeholder="Add a note for the hotel…"
-                        className="w-full resize-none bg-transparent text-[13.5px] outline-none"
-                        style={{ color: INK }}
-                      />
-                      <span
-                        className="mt-2 block text-right text-[11.5px]"
-                        style={{ color: INK_FAINT }}
-                      >
-                        {note.length}/1000
-                      </span>
-                    </span>
-                  </label>
+                <div
+                  className="mt-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 pt-5 text-[12.5px]"
+                  style={{ borderTop: `1px solid ${HAIR_SOFT}`, color: INK_SOFT }}
+                >
+                  Need help with your changes?
+                  <button
+                    type="button"
+                    onClick={onMessage}
+                    className="inline-flex items-center gap-1.5 font-medium transition-opacity hover:opacity-80"
+                    style={{ color: BRONZE_DEEP }}
+                  >
+                    Message HotelGroupBook <ArrowRight size={14} />
+                  </button>
                 </div>
-              </>
-            ) : (
-              <div
-                className="rounded-[14px] px-8 py-16 text-center"
-                style={{ background: WHITE, border: `1px solid ${HAIR}` }}
-              >
-                <span
-                  className="mx-auto grid h-[52px] w-[52px] place-items-center rounded-full"
-                  style={{ background: "rgba(192,128,30,0.10)", color: BRONZE }}
-                >
-                  {sub === "addons" ? <ConciergeBell size={22} /> : <ClipboardList size={22} />}
-                </span>
-                <h3 className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
-                  {sub === "addons" ? "Add-ons & services" : "Other request"}
-                </h3>
-                <p className="mx-auto mt-2 max-w-[380px] text-[13px]" style={{ color: INK_SOFT }}>
-                  {sub === "addons"
-                    ? "Request catering, transfers or extra services for this stay."
-                    : "Tell us anything else you would like us to change for this booking."}
-                </p>
-                <button
-                  type="button"
-                  onClick={onMessage}
-                  className="mt-5 inline-flex h-[42px] items-center gap-2 rounded-[9px] px-5 text-[13.5px] font-semibold"
-                  style={{ background: BRONZE_DEEP, color: WHITE }}
-                >
-                  Message HotelGroupBook <ArrowRight size={15} />
-                </button>
               </div>
-            )}
+            </aside>
           </div>
-
-          {/* ─ right — change summary ─ */}
-          <aside className="min-w-0">
-            <div
-              className="rounded-[14px] p-5 sm:p-6"
-              style={{
-                background: WHITE,
-                border: `1px solid ${HAIR}`,
-                boxShadow: "0 1px 2px rgba(24,30,36,0.04), 0 12px 28px -22px rgba(24,30,36,0.35)",
-              }}
-            >
-              <Eyebrow>Change summary</Eyebrow>
-
-              <div className="mt-3">
-                <SummaryRow
-                  icon={<CalendarDays size={17} strokeWidth={1.7} />}
-                  label="Stay dates"
-                  value={stayDates}
-                />
-                <SummaryRow
-                  icon={<BedDouble size={17} strokeWidth={1.7} />}
-                  label="Rooms"
-                  value={`${currentRooms} → ${afterRooms} rooms`}
-                />
-                <SummaryRow
-                  icon={<Users size={17} strokeWidth={1.7} />}
-                  label="Guests"
-                  value={`${currentGuests} → ${afterGuests} guests`}
-                />
-                <SummaryRow
-                  icon={<FileText size={17} strokeWidth={1.7} />}
-                  label="Reference"
-                  value={reference}
-                />
-                <SummaryRow
-                  icon={<CreditCard size={17} strokeWidth={1.7} />}
-                  label="Payment terms"
-                  value={paymentTerms}
-                  last
-                />
-              </div>
-
-              <div
-                className="mt-5 flex items-start gap-3 rounded-[11px] px-4 py-3.5"
-                style={{ background: CREAM }}
-              >
-                <Info size={16} className="mt-[1px] shrink-0" style={{ color: INK_FAINT }} />
-                <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
-                  We'll review your request and respond as soon as possible.
-                </span>
-              </div>
-
-              <button
-                type="button"
-                onClick={onSubmit}
-                disabled={!changed}
-                className="mt-5 inline-flex h-[52px] w-full items-center justify-center gap-2.5 rounded-[10px] text-[15px] font-semibold transition-opacity"
-                style={{
-                  background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${BRONZE_DEEP} 100%)`,
-                  color: WHITE,
-                  opacity: changed ? 1 : 0.5,
-                  cursor: changed ? "pointer" : "not-allowed",
-                  boxShadow: "0 8px 18px -12px rgba(169,108,18,0.9)",
-                }}
-              >
-                Submit change request <ArrowRight size={17} />
-              </button>
-
-              <div
-                className="mt-3 flex items-center justify-center gap-2 text-[12px]"
-                style={{ color: INK_FAINT }}
-              >
-                <Lock size={13} />
-                Your request is sent securely
-              </div>
-
-              <div
-                className="mt-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 pt-5 text-[12.5px]"
-                style={{ borderTop: `1px solid ${HAIR_SOFT}`, color: INK_SOFT }}
-              >
-                Need help with your changes?
-                <button
-                  type="button"
-                  onClick={onMessage}
-                  className="inline-flex items-center gap-1.5 font-medium transition-opacity hover:opacity-80"
-                  style={{ color: BRONZE_DEEP }}
-                >
-                  Message HotelGroupBook <ArrowRight size={14} />
-                </button>
-              </div>
-            </div>
-          </aside>
-        </div>
+        )}
       </div>
     </Plate>
   );
