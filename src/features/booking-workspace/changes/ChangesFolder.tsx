@@ -360,16 +360,17 @@ export function ChangesFolder({
             afterGuests={afterGuests}
             roomsChanged={changed}
             onSubmit={onSubmit}
-            onCustomRequest={() => setSub("other")}
+            onCustomRequest={onMessage}
           />
+        ) : sub === "status" ? (
+          <RequestStatus onMessage={onMessage} onNewRequest={() => setSub("addons")} />
         ) : (
           /* ── grid ── */
           <div className="grid flex-1 grid-cols-1 gap-7 px-5 pb-12 pt-7 sm:px-8 xl:grid-cols-[minmax(0,1fr)_452px]">
             {/* ─ left ─ */}
             <div className="min-w-0">
-              {sub === "rooms" ? (
-                <>
-                  <Eyebrow>Apply changes to</Eyebrow>
+              <Eyebrow>Apply changes to</Eyebrow>
+
                   <div className="mt-2 flex flex-wrap items-end gap-x-10 gap-y-5">
                     <div className="flex items-center gap-8 pb-[11px]">
                       <Radio
