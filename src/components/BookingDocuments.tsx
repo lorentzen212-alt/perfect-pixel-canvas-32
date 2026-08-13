@@ -301,6 +301,27 @@ function Tab({
 
 /* ══════════════════ document rows ══════════════════ */
 
+/** the bookmark that marks the current document — a gold ribbon carrying a
+    small white star. It hangs from the row's top edge and is taken out of
+    the flow so it never squeezes the document name. */
+function CurrentRibbon() {
+  return (
+    <svg
+      width={14}
+      height={19}
+      viewBox="0 0 16 22"
+      aria-hidden
+      className="absolute right-5 top-0"
+    >
+      <path d="M0 0 H16 V19 L8 14.4 L0 19 Z" fill={BRONZE} />
+      <path
+        d="M8 4.2 L8.88 6.39 L11.23 6.55 L9.43 8.06 L10 10.35 L8 9.1 L6 10.35 L6.57 8.06 L4.77 6.55 L7.12 6.39 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  );
+}
+
 function DocRow({
   doc,
   selected,
