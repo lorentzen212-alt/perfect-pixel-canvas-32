@@ -347,11 +347,14 @@ function DocRow({
       }}
     >
       {selected && (
-        <span
-          aria-hidden
-          className="absolute inset-y-0 left-0 w-[4px]"
-          style={{ background: BRONZE }}
-        />
+        <>
+          <span
+            aria-hidden
+            className="absolute inset-y-0 left-0 w-[4px]"
+            style={{ background: BRONZE }}
+          />
+          <CurrentRibbon />
+        </>
       )}
       <span className="flex min-w-0 items-center gap-3">
         <DocTile doc={doc} />
