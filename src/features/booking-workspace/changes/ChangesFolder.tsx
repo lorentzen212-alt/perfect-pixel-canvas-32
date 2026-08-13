@@ -554,35 +554,8 @@ export function ChangesFolder({
                       </span>
                     </label>
                   </div>
-                </>
-              ) : (
-                <div
-                  className="rounded-[14px] px-8 py-16 text-center"
-                  style={{ background: WHITE, border: `1px solid ${HAIR}` }}
-                >
-                  <span
-                    className="mx-auto grid h-[52px] w-[52px] place-items-center rounded-full"
-                    style={{ background: "rgba(192,128,30,0.10)", color: BRONZE }}
-                  >
-                    <ClipboardList size={22} />
-                  </span>
-                  <h3 className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
-                    Other request
-                  </h3>
-                  <p className="mx-auto mt-2 max-w-[380px] text-[13px]" style={{ color: INK_SOFT }}>
-                    Tell us anything else you would like us to change for this booking.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={onMessage}
-                    className="mt-5 inline-flex h-[42px] items-center gap-2 rounded-[9px] px-5 text-[13.5px] font-semibold"
-                    style={{ background: BRONZE_DEEP, color: WHITE }}
-                  >
-                    Message HotelGroupBook <ArrowRight size={15} />
-                  </button>
-                </div>
-              )}
             </div>
+
 
             {/* ─ right — change summary ─ */}
             <aside className="min-w-0">
