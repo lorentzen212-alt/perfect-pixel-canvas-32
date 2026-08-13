@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useRef, useState } from "react";
+import { useId, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BarChart3,
@@ -9,7 +9,6 @@ import {
   FileSignature,
   FileSpreadsheet,
   FileText,
-  Folder,
   Ticket,
 } from "lucide-react";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
@@ -226,12 +225,6 @@ function TabLabel({
   return (
     <>
       <span className="flex min-w-0 items-center gap-2">
-        <Folder
-          size={14}
-          strokeWidth={1.9}
-          className="shrink-0 transition-colors duration-200"
-          style={{ color: active ? BRONZE : INK_3 }}
-        />
         <span
           className="truncate text-[13px] transition-colors duration-200"
           style={{ color: active ? INK : INK_3, fontWeight: active ? 600 : 450 }}
@@ -267,6 +260,7 @@ function Tab({
   onClick: () => void;
 }) {
   const [hover, setHover] = useState(false);
+  const clipId = useId();
   return (
     <button
       type="button"
@@ -280,18 +274,26 @@ function Tab({
         height: active ? TAB_H : TAB_H - 2,
         background: active ? CARD : hover ? HOVER : BEHIND,
         border: "none",
-        borderRadius: active ? "14px 14px 0 0" : "10px 10px 0 0",
-        /* the active tab is traced in gold on its three exposed edges — the
-           bottom stays open so the tab reads as part of the card below */
-        boxShadow: active
-          ? `inset 0 1px 0 ${TAB_GOLD}, inset 1px 0 0 ${TAB_GOLD}, inset -1px 0 0 ${TAB_GOLD}, 0 -6px 16px -10px rgba(24,30,36,0.28)`
-          : "none",
+        borderRadius: 0,
+        clipPath: `url(#${clipId})`,
         zIndex: active ? 2 : 1,
         marginLeft: first ? 0 : -12,
         paddingLeft: !active && !first ? 28 : undefined,
         paddingRight: !active && first ? 28 : undefined,
       }}
     >
+      <svg
+        width="0"
+        height="0"
+        aria-hidden="true"
+        style={{ position: "absolute", overflow: "hidden" }}
+      >
+        <defs>
+          <clipPath id={clipId} clipPathUnits="objectBoundingBox">
+            <path d="M0,1 L0,0.28 C0,0.04 0.08,0 0.12,0 L0.48,0 C0.72,0 0.96,0.48 1,1 Z" />
+          </clipPath>
+        </defs>
+      </svg>
       <span className="flex min-w-0 flex-1 items-center justify-between">
         <TabLabel label={label} count={count} active={active} />
       </span>
