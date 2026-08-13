@@ -41,7 +41,7 @@ const CREAM = "#F7F2EA";
 
 export type RoomLine = { type: string; note: string; qty: number; perRoom: number };
 
-type SubTabKey = "rooms" | "addons" | "other";
+type SubTabKey = "rooms" | "addons" | "status";
 
 const SUB_TABS: { key: SubTabKey; label: string; icon: React.ReactNode }[] = [
   { key: "rooms", label: "Rooms & dates", icon: <CalendarDays size={17} strokeWidth={1.7} /> },
@@ -50,8 +50,9 @@ const SUB_TABS: { key: SubTabKey; label: string; icon: React.ReactNode }[] = [
     label: "Add-ons & services",
     icon: <ConciergeBell size={17} strokeWidth={1.7} />,
   },
-  { key: "other", label: "Other request", icon: <MessageSquare size={17} strokeWidth={1.7} /> },
+  { key: "status", label: "Request status", icon: <MessageSquare size={17} strokeWidth={1.7} /> },
 ];
+
 
 function roomIcon(type: string) {
   const t = type.toLowerCase();
