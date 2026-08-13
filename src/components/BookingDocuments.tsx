@@ -9,6 +9,7 @@ import {
   FileSignature,
   FileSpreadsheet,
   FileText,
+  Folder,
   Ticket,
 } from "lucide-react";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
