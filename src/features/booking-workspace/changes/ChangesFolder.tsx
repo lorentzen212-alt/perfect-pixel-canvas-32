@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   ArrowRight,
   BedDouble,
+  Calendar,
   CalendarDays,
   ClipboardList,
   ConciergeBell,
