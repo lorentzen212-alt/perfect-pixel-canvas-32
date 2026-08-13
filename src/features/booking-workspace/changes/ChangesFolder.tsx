@@ -139,11 +139,11 @@ function StatCard({
           {label}
         </span>
         <span className="mt-1 flex items-center gap-2.5">
-          <span className="text-[26px] font-semibold leading-none tabular-nums" style={{ color: INK }}>
+          <span className="text-[28px] font-semibold leading-none tabular-nums" style={{ color: INK }}>
             {from}
           </span>
           <ArrowRight size={16} style={{ color: INK_FAINT }} />
-          <span className="text-[26px] font-semibold leading-none tabular-nums" style={{ color: INK }}>
+          <span className="text-[28px] font-semibold leading-none tabular-nums" style={{ color: INK }}>
             {to}
           </span>
           {diff !== 0 && (
