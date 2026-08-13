@@ -4,7 +4,6 @@ import {
   BedDouble,
   Calendar,
   CalendarDays,
-  ClipboardList,
   ConciergeBell,
   History,
   Info,
@@ -19,6 +18,8 @@ import {
 } from "lucide-react";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
 import { AddonsServices } from "@/features/booking-workspace/changes/AddonsServices";
+import { RequestStatus } from "@/features/booking-workspace/changes/RequestStatus";
+
 
 /* ── local light palette ── */
 const IVORY = "#FAF7F5";
