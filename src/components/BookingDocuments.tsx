@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useId, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BarChart3,
