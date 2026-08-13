@@ -330,7 +330,7 @@ export function ChangesFolder({
         </div>
 
         {/* ── grid ── */}
-        <div className="grid flex-1 grid-cols-1 gap-6 px-5 pb-12 pt-7 sm:px-8 xl:grid-cols-[minmax(0,1fr)_384px]">
+        <div className="grid flex-1 grid-cols-1 gap-7 px-5 pb-12 pt-7 sm:px-8 xl:grid-cols-[minmax(0,1fr)_452px]">
           {/* ─ left ─ */}
           <div className="min-w-0">
             {sub === "rooms" ? (
