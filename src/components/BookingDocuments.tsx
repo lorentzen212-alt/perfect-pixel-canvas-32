@@ -29,6 +29,8 @@ const SELECTED = "#FAF6EC";
 const SELECTED_ROW =
   "linear-gradient(90deg, #FCF3E4 0%, #FDF7EC 55%, #FCF9F3 100%)";
 const BRONZE = "#C08A24";
+/** the gold hairline tracing the active folder tab */
+const TAB_GOLD = "rgba(192,138,36,0.75)";
 
 export type DocCategory =
   | "Contracts"
