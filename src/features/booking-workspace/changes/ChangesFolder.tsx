@@ -258,6 +258,18 @@ export function ChangesFolder({
   const [when, setWhen] = React.useState("");
   const [note, setNote] = React.useState("");
 
+  /* the native date control renders the browser locale mask, so it stays a
+     plain text field showing "dd.mm.yyyy" until the picker is opened */
+  const [dateMode, setDateMode] = React.useState(false);
+  const dateRef = React.useRef<HTMLInputElement>(null);
+  const openDatePicker = () => {
+    setDateMode(true);
+    requestAnimationFrame(() => {
+      dateRef.current?.focus();
+      dateRef.current?.showPicker?.();
+    });
+  };
+
   const lines = rooms.map((r, i) => {
     const base = baseRooms[i]?.qty ?? r.qty;
     return { ...r, base, diff: r.qty - base, index: i };
