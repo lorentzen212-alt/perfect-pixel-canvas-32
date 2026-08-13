@@ -290,7 +290,7 @@ function Tab({
       >
         <defs>
           <clipPath id={clipId} clipPathUnits="objectBoundingBox">
-            <path d="M0,1 L0,0.25 C0,0 0.08,0 0.08,0 L0.65,0 C0.9,0 1,0.5 1,1 Z" />
+            <path d="M0,1 L0,0.28 C0,0.04 0.08,0 0.12,0 L0.48,0 C0.72,0 0.96,0.48 1,1 Z" />
           </clipPath>
         </defs>
       </svg>
