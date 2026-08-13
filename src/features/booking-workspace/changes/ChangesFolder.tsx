@@ -347,8 +347,22 @@ export function ChangesFolder({
           </button>
         </div>
 
-        {/* ── grid ── */}
-        <div className="grid flex-1 grid-cols-1 gap-7 px-5 pb-12 pt-7 sm:px-8 xl:grid-cols-[minmax(0,1fr)_452px]">
+        {/* ── add-ons carries its own two-column layout and sticky submit bar ── */}
+        {sub === "addons" ? (
+          <AddonsServices
+            stayStart={stayStart}
+            guests={currentGuests}
+            currentRooms={currentRooms}
+            afterRooms={afterRooms}
+            currentGuests={currentGuests}
+            afterGuests={afterGuests}
+            roomsChanged={changed}
+            onSubmit={onSubmit}
+            onCustomRequest={() => setSub("other")}
+          />
+        ) : (
+          /* ── grid ── */
+          <div className="grid flex-1 grid-cols-1 gap-7 px-5 pb-12 pt-7 sm:px-8 xl:grid-cols-[minmax(0,1fr)_452px]">
           {/* ─ left ─ */}
           <div className="min-w-0">
             {sub === "rooms" ? (
