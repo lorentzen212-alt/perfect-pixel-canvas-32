@@ -911,9 +911,9 @@ export function GroupPlanView({
               </button>
             </div>
 
-            <PlannerSection title="Unscheduled" count={unscheduled.length}>
+            <PlannerSection title="Unscheduled" count={unscheduled.length} empty={unscheduled.length === 0}>
               {unscheduled.length === 0 ? (
-                <p className="px-3.5 py-3 text-[11.5px]" style={{ color: MUTED }}>
+                <p className="text-[11.5px]" style={{ color: MUTED }}>
                   Nothing waiting for a time.
                 </p>
               ) : (
