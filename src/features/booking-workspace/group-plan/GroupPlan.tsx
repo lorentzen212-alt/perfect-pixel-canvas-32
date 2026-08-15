@@ -811,18 +811,18 @@ export function GroupPlanView({
                   className="flex gap-4 sm:gap-5"
                   style={
                     gi > 0
-                      ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 16, paddingTop: 20 }
-                      : { paddingTop: 10 }
+                      ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 10, paddingTop: 14 }
+                      : { paddingTop: 6 }
                   }
                 >
-                  <div className="w-[44px] shrink-0 pt-[3px]">
-                    <div className="text-[27px] leading-none" style={{ color: GOLD, fontFamily: SERIF }}>
+                  <div className="w-[52px] shrink-0 pt-[2px]">
+                    <div className="text-[34px] leading-[0.9]" style={{ color: GOLD, fontFamily: SERIF }}>
                       {dayNum(day)}
                     </div>
-                    <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: TEXT_2 }}>
+                    <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
                       {monthShort(day)}
                     </div>
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: MUTED }}>
                       {weekday(day)}
                     </div>
                   </div>
