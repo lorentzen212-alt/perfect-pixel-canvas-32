@@ -938,9 +938,9 @@ export function GroupPlanView({
               )}
             </PlannerSection>
 
-            <PlannerSection title="My plan" count={mine.length}>
+            <PlannerSection title="My plan" count={mine.length} empty={mine.length === 0}>
               {mine.length === 0 ? (
-                <p className="px-3.5 py-3 text-[11.5px]" style={{ color: MUTED }}>
+                <p className="text-[11.5px]" style={{ color: MUTED }}>
                   You haven't added anything yet.
                 </p>
               ) : (
