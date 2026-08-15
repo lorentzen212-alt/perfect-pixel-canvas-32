@@ -893,8 +893,8 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[10px] text-[12.5px] font-medium"
-                style={{ color: GOLD_SOFT, border: "1px solid rgba(217,190,116,0.34)", background: "rgba(197,150,45,0.08)" }}
+                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[8px] text-[12.5px] font-medium"
+                style={{ color: GOLD_SOFT, border: "1px solid rgba(217,190,116,0.34)", background: "rgba(197,150,45,0.06)" }}
               >
                 <Plus size={14} strokeWidth={1.6} /> Add to plan
               </button>
@@ -904,8 +904,8 @@ export function GroupPlanView({
                   openEditor();
                   setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
                 }}
-                className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[10px] text-[12.5px]"
-                style={{ color: TEXT_2, border: `1px solid ${HAIR}` }}
+                className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[8px] text-[12.5px]"
+                style={{ color: TEXT_2, border: "1px solid rgba(140,168,190,0.20)" }}
               >
                 <Bell size={13} strokeWidth={1.6} /> Reminder
               </button>
