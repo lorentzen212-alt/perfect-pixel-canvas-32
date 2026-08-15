@@ -39,7 +39,9 @@ import {
 import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
 import { BookingDocumentsView } from "@/components/BookingDocuments";
 import { BookingMessagesView } from "@/components/BookingMessages";
-import { BookingNotesView } from "@/components/BookingNotes";
+import { STORED_NOTES } from "@/components/BookingNotes";
+import { GroupPlanView } from "@/features/booking-workspace/group-plan/GroupPlan";
+import { deriveBookingItems, dietaryFromRooming } from "@/features/booking-workspace/group-plan/derive";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
 import {
   RaisedCard,
@@ -1223,7 +1225,7 @@ function Workspace({ booking }: { booking: Booking }) {
               contactRole="Tour Leader"
               contactName="Emma Hansen"
               contactPhone="+47 60 11 22 33"
-              onOpenDietary={() => setTab("Notes")}
+              onOpenDietary={() => setTab("Group Plan")}
               onComplete={() => setTab("Overview")}
             />
           ) : tab === "Messages" ? (
@@ -1233,8 +1235,12 @@ function Workspace({ booking }: { booking: Booking }) {
               bookingName={booking.name}
               stayDates={`${dateShort(stay.arrival)} – ${fmtDate(stay.departure, { day: "numeric", month: "short", year: "numeric" })}`}
             />
-          ) : tab === "Notes" ? (
-            <BookingNotesView reference={booking.reference} bookingName={booking.name} />
+          ) : tab === "Group Plan" ? (
+            <GroupPlanView
+              bookingItems={groupPlanItems}
+              defaultDate={stay.arrival}
+              onRequestChange={() => setTab("Changes")}
+            />
           ) : tab !== "Overview" ? (
             <section
               className="rounded-[16px] px-8 py-16 text-center"

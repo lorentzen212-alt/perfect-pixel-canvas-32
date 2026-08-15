@@ -27,7 +27,7 @@ export const WORKSPACE_TABS = [
   "Changes",
   "Documents",
   "Final Details",
-  "Notes",
+  "Group Plan",
 ] as const;
 
 /** "Messages" no longer has a tab button — the hotel conversation is reached
@@ -41,7 +41,7 @@ const TAB_ICON: Record<(typeof WORKSPACE_TABS)[number], React.ReactNode> = {
   Changes: <Pencil size={14} />,
   Documents: <FileText size={14} />,
   "Final Details": <ClipboardCheck size={14} />,
-  Notes: <StickyNote size={14} />,
+  "Group Plan": <StickyNote size={14} />,
 };
 
 const HERO_TEXT = "rgba(226,233,239,0.88)";
