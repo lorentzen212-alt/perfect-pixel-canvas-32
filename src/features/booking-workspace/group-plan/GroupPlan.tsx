@@ -394,7 +394,7 @@ function Row({
           <span className="shrink-0 pt-[1px]" style={{ color: GOLD_SOFT }}>
             {TYPE_ICON[item.type]}
           </span>
-          <span className="min-w-0 max-w-[400px] flex-1">
+          <span className="min-w-0 flex-1">
             <span className="block truncate text-[14.5px] font-medium" style={{ color: TEXT }}>
               {item.title}
             </span>
@@ -812,7 +812,7 @@ export function GroupPlanView({
               {groups.map(([day, items], gi) => (
                 <div
                   key={day}
-                  className="flex gap-4 sm:gap-5"
+                  className="flex max-w-[880px] gap-4 sm:gap-5"
                   style={
                     gi > 0
                       ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 10, paddingTop: 14 }
@@ -847,7 +847,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[9px] py-[9px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
+                className="mt-5 flex w-full max-w-[880px] items-center justify-center gap-2 rounded-[9px] py-[9px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
                 style={{
                   color: GOLD_SOFT,
                   border: "1px dashed rgba(217,190,116,0.32)",
@@ -859,7 +859,7 @@ export function GroupPlanView({
 
               {/* legend */}
               <div
-                className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-2 pt-4"
+                className="mt-4 flex max-w-[880px] flex-wrap items-center gap-x-2.5 gap-y-2 pt-4"
                 style={{ borderTop: `1px solid ${HAIR_SOFT}` }}
               >
                 <Pill kind="booking" />
