@@ -1,47 +1,7 @@
-import * as React from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  ArrowRight,
-  Bus,
-  CalendarClock,
-  ChevronLeft,
-  ChevronRight,
-  ClipboardList,
-  CreditCard,
-  Grid2X2,
-  Hotel,
-  Link2,
-  List,
-  MessageSquare,
-  MoreHorizontal,
-  NotebookPen,
-  Paperclip,
-  Pin,
-  Plus,
-  Search,
-  Sparkles,
-  Star,
-  User,
-  Users,
-  UtensilsCrossed,
-  X,
-} from "lucide-react";
-import { SERIF } from "@/components/DashboardChrome";
-
-/* ── shared navy material (identical to Overview / Changes / Documents) ── */
-const NAVY_TEXTURE =
-  "radial-gradient(1100px 420px at 18% -10%, rgba(255,255,255,0.045), transparent 62%), radial-gradient(700px 360px at 88% 108%, rgba(120,160,195,0.05), transparent 60%)";
-const INK = `${NAVY_TEXTURE}, linear-gradient(180deg, #24445E 0%, #203D55 55%, #1C374D 100%)`;
-const INK_2 = `${NAVY_TEXTURE}, linear-gradient(180deg, #2A4B64 0%, #26455C 55%, #223F54 100%)`;
-const NAVY_INNER =
-  "inset 0 1px 0 rgba(255,255,255,0.03), inset 0 -1px 0 rgba(0,0,0,0.12), inset 0 8px 22px -18px rgba(0,0,0,0.35), 0 0 0 1px rgba(8,18,28,0.25)";
-const NAVY_BORDER = "rgba(255,255,255,0.06)";
-const TEXT = "#F3F1EB";
-const TEXT_2 = "rgba(233,238,243,0.78)";
-const MUTED = "rgba(206,218,228,0.55)";
-const GOLD_MET_MID = "#C5962D";
-const GOLD_SOFT = "#D9BE74";
-const GOLD_GRAD = "linear-gradient(180deg, #E7C877 0%, #C5962D 52%, #A87C21 100%)";
+/* Notes data model.
+   The global Notes dashboard has been retired — notes are now attached
+   contextually to Group Plan itinerary items. The model and the stored
+   notes below are preserved and consumed by the Group Plan. */
 
 export type NoteCategory =
   | "Guest information"
@@ -74,34 +34,6 @@ export type Note = {
   mentions?: string[];
   dueLabel?: string;
 };
-
-const CAT_COLOR: Record<NoteCategory, string> = {
-  "Guest information": "#7FA7D4",
-  "Rooming list": "#5FBFAE",
-  "Special requests": "#D9A441",
-  Dietary: "#D9705A",
-  "Hotel communication": "#9A8FD0",
-  "Meetings & Events": "#B08FD0",
-  Transport: "#E0B341",
-  Accommodation: "#6FA8DC",
-  Finance: "#8DA88A",
-  "Internal notes": "#9BA9B4",
-};
-
-const CAT_ICON: Record<NoteCategory, React.ReactNode> = {
-  "Guest information": <User size={16} />,
-  "Rooming list": <ClipboardList size={16} />,
-  "Special requests": <Sparkles size={16} />,
-  Dietary: <UtensilsCrossed size={16} />,
-  "Hotel communication": <MessageSquare size={16} />,
-  "Meetings & Events": <Users size={16} />,
-  Transport: <Bus size={16} />,
-  Accommodation: <Hotel size={16} />,
-  Finance: <CreditCard size={16} />,
-  "Internal notes": <NotebookPen size={16} />,
-};
-
-const CATEGORIES = Object.keys(CAT_COLOR) as NoteCategory[];
 
 const day = 86400000;
 const now = Date.now();
@@ -264,8 +196,5 @@ const SEED: Note[] = [
   },
 ];
 
-/* The global Notes dashboard has been retired — notes are now attached
-   contextually to Group Plan itinerary items. The data model and the stored
-   seed notes below are preserved and consumed by the Group Plan derivation. */
 
 export const STORED_NOTES: Note[] = SEED;
