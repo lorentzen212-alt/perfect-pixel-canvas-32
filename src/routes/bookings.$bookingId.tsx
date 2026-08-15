@@ -39,7 +39,9 @@ import {
 import { BookingWorkspaceHeader, type WorkspaceTab } from "@/components/BookingWorkspaceHeader";
 import { BookingDocumentsView } from "@/components/BookingDocuments";
 import { BookingMessagesView } from "@/components/BookingMessages";
-import { BookingNotesView } from "@/components/BookingNotes";
+import { STORED_NOTES } from "@/components/BookingNotes";
+import { GroupPlanView } from "@/features/booking-workspace/group-plan/GroupPlan";
+import { deriveBookingItems, dietaryFromRooming } from "@/features/booking-workspace/group-plan/derive";
 import { PAL, SERIF, TopBar } from "@/components/DashboardChrome";
 import {
   RaisedCard,
@@ -1007,6 +1009,41 @@ function Workspace({ booking }: { booking: Booking }) {
     },
   ];
 
+  /* Group Plan — the booking half of the itinerary, derived from live data */
+  const groupPlanItems = useMemo(
+    () =>
+      deriveBookingItems({
+        arrival: stay.arrival,
+        departure: stay.departure,
+        hotel: booking.hotel,
+        destination: booking.destination,
+        totalRooms,
+        totalGuests,
+        breakfastIncluded: dining.breakfast,
+        groupDinner: dining.groupDinner
+          ? { date: dining.date, time: dining.time, guests: dining.guests, details: dining.details }
+          : null,
+        services,
+        meeting:
+          booking.type === "me"
+            ? {
+                room: "Fjord Hall",
+                setup: "U-shape",
+                participants: booking.delegates ?? totalGuests,
+                date: stay.arrival,
+                time: "09:00",
+              }
+            : null,
+        dietary: dietaryFromRooming(roomingList),
+        notes: STORED_NOTES,
+        formatNoteDate: (ms) =>
+          new Date(ms).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
+      }),
+    [stay, booking, totalRooms, totalGuests, dining, services, roomingList],
+  );
+
+
+
   const journey = [
     { label: "Request sent", desc: "Sent to the hotel", sub: "28 Jul", state: "done" as const },
     { label: "Hotel confirmed", desc: "Confirmed by the hotel", sub: "29 Jul", state: "done" as const },
@@ -1223,7 +1260,7 @@ function Workspace({ booking }: { booking: Booking }) {
               contactRole="Tour Leader"
               contactName="Emma Hansen"
               contactPhone="+47 60 11 22 33"
-              onOpenDietary={() => setTab("Notes")}
+              onOpenDietary={() => setTab("Group Plan")}
               onComplete={() => setTab("Overview")}
             />
           ) : tab === "Messages" ? (
@@ -1233,8 +1270,12 @@ function Workspace({ booking }: { booking: Booking }) {
               bookingName={booking.name}
               stayDates={`${dateShort(stay.arrival)} – ${fmtDate(stay.departure, { day: "numeric", month: "short", year: "numeric" })}`}
             />
-          ) : tab === "Notes" ? (
-            <BookingNotesView reference={booking.reference} bookingName={booking.name} />
+          ) : tab === "Group Plan" ? (
+            <GroupPlanView
+              bookingItems={groupPlanItems}
+              defaultDate={stay.arrival}
+              onRequestChange={() => setTab("Changes")}
+            />
           ) : tab !== "Overview" ? (
             <section
               className="rounded-[16px] px-8 py-16 text-center"
