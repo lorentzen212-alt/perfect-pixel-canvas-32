@@ -1003,10 +1003,12 @@ export function GroupPlanView({
 function PlannerSection({
   title,
   count,
+  empty,
   children,
 }: {
   title: string;
   count: number;
+  empty?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -1017,9 +1019,13 @@ function PlannerSection({
         </span>
         <span className="text-[11px] tabular-nums" style={{ color: TEXT_2 }}>{count}</span>
       </div>
-      <div className="mt-2 overflow-hidden rounded-[9px]" style={{ border: `1px solid ${HAIR_SOFT}` }}>
-        {children}
-      </div>
+      {empty ? (
+        <div className="mt-1.5">{children}</div>
+      ) : (
+        <div className="mt-2 overflow-hidden rounded-[9px]" style={{ border: `1px solid ${HAIR_SOFT}` }}>
+          {children}
+        </div>
+      )}
     </div>
   );
 }
