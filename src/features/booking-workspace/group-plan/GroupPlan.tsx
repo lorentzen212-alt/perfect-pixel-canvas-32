@@ -847,7 +847,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-[9px] py-[11px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[9px] py-[9px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
                 style={{
                   color: GOLD_SOFT,
                   border: "1px dashed rgba(217,190,116,0.32)",
