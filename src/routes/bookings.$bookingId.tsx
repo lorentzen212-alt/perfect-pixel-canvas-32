@@ -1009,6 +1009,41 @@ function Workspace({ booking }: { booking: Booking }) {
     },
   ];
 
+  /* Group Plan — the booking half of the itinerary, derived from live data */
+  const groupPlanItems = useMemo(
+    () =>
+      deriveBookingItems({
+        arrival: stay.arrival,
+        departure: stay.departure,
+        hotel: booking.hotel,
+        destination: booking.destination,
+        totalRooms,
+        totalGuests,
+        breakfastIncluded: dining.breakfast,
+        groupDinner: dining.groupDinner
+          ? { date: dining.date, time: dining.time, guests: dining.guests, details: dining.details }
+          : null,
+        services,
+        meeting:
+          booking.type === "me"
+            ? {
+                room: "Fjord Hall",
+                setup: "U-shape",
+                participants: booking.delegates ?? totalGuests,
+                date: stay.arrival,
+                time: "09:00",
+              }
+            : null,
+        dietary: dietaryFromRooming(roomingList),
+        notes: STORED_NOTES,
+        formatNoteDate: (ms) =>
+          new Date(ms).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
+      }),
+    [stay, booking, totalRooms, totalGuests, dining, services, roomingList],
+  );
+
+
+
   const journey = [
     { label: "Request sent", desc: "Sent to the hotel", sub: "28 Jul", state: "done" as const },
     { label: "Hotel confirmed", desc: "Confirmed by the hotel", sub: "29 Jul", state: "done" as const },
