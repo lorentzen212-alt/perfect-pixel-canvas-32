@@ -5,11 +5,12 @@ import {
   Bus,
   CalendarDays,
   Check,
-  ChevronDown,
   Clock,
   Coffee,
   Gift,
+  GripVertical,
   LayoutGrid,
+  Lightbulb,
   Luggage,
   MapPin,
   MonitorPlay,
@@ -89,7 +90,7 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
   const booking = kind === "booking";
   return (
     <span
-      className="inline-flex shrink-0 items-center rounded-full px-2.5 py-[2px] text-[10px] font-semibold uppercase tracking-[0.10em]"
+      className="inline-flex shrink-0 items-center rounded-[4px] px-2 py-[2px] text-[9.5px] font-semibold uppercase tracking-[0.10em]"
       style={{
         color: booking ? "#9FC0DE" : GREEN,
         background: booking ? "rgba(78,120,160,0.16)" : "rgba(96,150,116,0.15)",
@@ -149,7 +150,7 @@ function Menu({ items }: { items: { label: string; icon?: React.ReactNode; onCli
 function Tile({ tile }: { tile: PlanTile }) {
   return (
     <div
-      className="min-w-0 flex-1 rounded-[9px] px-3.5 py-3"
+      className="min-w-0 rounded-[9px] px-3 py-2.5"
       style={{ background: PANEL_SOFT, border: `1px solid rgba(140,168,190,0.16)` }}
     >
       <div className="flex items-center gap-1.5">
@@ -209,9 +210,9 @@ function Expanded({
   ].filter(Boolean) as string[];
 
   return (
-    <div className="pb-6 pl-0 pr-1 pt-1 sm:pl-[42px]">
+    <div className="pb-6 pl-[26px] pr-2 pt-1 sm:pl-[68px]">
       {item.tiles?.length ? (
-        <div className="flex flex-wrap gap-2.5">
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
           {item.tiles.map((t) => (
             <Tile key={t.label} tile={t} />
           ))}
@@ -365,7 +366,14 @@ function Row({
   onEditNote: (item: PlanItem) => void;
 }) {
   return (
-    <li style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
+    <li className="relative">
+      {/* continuous gold timeline rail + marker */}
+      <span aria-hidden className="absolute bottom-0 left-0 top-0 w-px" style={{ background: "rgba(197,150,45,0.32)" }} />
+      <span
+        aria-hidden
+        className="absolute left-[-3.5px] top-[18px] h-[8px] w-[8px] rounded-full"
+        style={{ background: GOLD, boxShadow: `0 0 0 3px ${PANEL}` }}
+      />
       <div
         role="button"
         tabIndex={0}
@@ -377,30 +385,28 @@ function Row({
           }
         }}
         aria-expanded={open}
-        className="flex min-h-[52px] cursor-pointer items-center gap-3 py-2.5 pr-1"
+        className="flex cursor-pointer items-start gap-4 py-[11px] pl-[26px] pr-1"
       >
-        <span className="w-[46px] shrink-0 text-[12.5px] tabular-nums" style={{ color: TEXT_2 }}>
+        <span className="w-[86px] shrink-0 pt-[2px] text-[12.5px] tabular-nums" style={{ color: TEXT_2 }}>
           {item.time ?? "—"}
         </span>
-        <span className="shrink-0" style={{ color: GOLD }}>
+        <span className="shrink-0 pt-[2px]" style={{ color: GOLD_SOFT }}>
           {TYPE_ICON[item.type]}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[13.5px]" style={{ color: TEXT }}>
+          <span className="block truncate text-[13.5px] font-medium" style={{ color: TEXT }}>
             {item.title}
           </span>
           {(item.summary || item.secondary) && (
-            <span className="block truncate text-[11.5px]" style={{ color: MUTED }}>
+            <span className="mt-[1px] block truncate text-[11.5px]" style={{ color: MUTED }}>
               {item.summary ?? item.secondary}
             </span>
           )}
         </span>
-        <Pill kind={item.kind} />
-        <ChevronDown
-          size={15}
-          strokeWidth={1.5}
-          style={{ color: MUTED, transform: open ? "rotate(180deg)" : "none", transition: "transform 160ms ease-out" }}
-        />
+        <span className="shrink-0 pt-[3px]">
+          <Pill kind={item.kind} />
+        </span>
+
         {item.kind === "booking" ? (
           <Menu items={[{ label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange }]} />
         ) : (
@@ -745,10 +751,13 @@ export function GroupPlanView({
 
   return (
     <div className="pb-14" style={{ background: BG }}>
-      <div className="flex flex-col gap-6 lg:flex-row">
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
         {/* ── main timeline ── */}
-        <section className="min-w-0 flex-1 lg:w-[71%]">
-          <div className="flex flex-wrap items-end justify-between gap-4 pb-4" style={{ borderBottom: `1px solid ${HAIR}` }}>
+        <section
+          className="min-w-0 flex-1 rounded-[13px] px-6 py-5 lg:w-[71%]"
+          style={{ background: PANEL, border: `1px solid ${HAIR}` }}
+        >
+          <div className="flex flex-wrap items-start justify-between gap-4 pb-2">
             <div>
               <h2 className="text-[26px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
                 Group Plan
@@ -794,20 +803,28 @@ export function GroupPlanView({
             />
           ) : (
             <>
-              {groups.map(([day, items]) => (
-                <div key={day} className="flex gap-4 pt-6 sm:gap-6">
-                  <div className="w-[52px] shrink-0 pt-1 text-center">
-                    <div className="text-[26px] leading-none" style={{ color: GOLD, fontFamily: SERIF }}>
+              {groups.map(([day, items], gi) => (
+                <div
+                  key={day}
+                  className="flex gap-4 sm:gap-5"
+                  style={
+                    gi > 0
+                      ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 16, paddingTop: 20 }
+                      : { paddingTop: 10 }
+                  }
+                >
+                  <div className="w-[44px] shrink-0 pt-[3px]">
+                    <div className="text-[27px] leading-none" style={{ color: GOLD, fontFamily: SERIF }}>
                       {dayNum(day)}
                     </div>
-                    <div className="mt-1 text-[10.5px] uppercase tracking-[0.14em]" style={{ color: TEXT_2 }}>
+                    <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: TEXT_2 }}>
                       {monthShort(day)}
                     </div>
-                    <div className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
                       {weekday(day)}
                     </div>
                   </div>
-                  <ul className="min-w-0 flex-1">
+                  <ul className="relative min-w-0 flex-1">
                     {items.map((i) => (
                       <Row
                         key={i.id}
@@ -817,16 +834,6 @@ export function GroupPlanView({
                         {...rowProps}
                       />
                     ))}
-                    <li>
-                      <button
-                        type="button"
-                        onClick={() => openEditor(day)}
-                        className="mt-2 w-full rounded-[8px] py-2 text-[12px]"
-                        style={{ color: MUTED, border: `1px dashed ${HAIR}` }}
-                      >
-                        + Add time or activity
-                      </button>
-                    </li>
                   </ul>
                 </div>
               ))}
@@ -834,22 +841,38 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="mt-8 w-full rounded-[9px] py-3 text-[12.5px] transition-opacity hover:opacity-85"
-                style={{ color: GOLD_SOFT, border: `1px dashed rgba(217,190,116,0.30)` }}
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-[9px] py-[11px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
+                style={{
+                  color: GOLD_SOFT,
+                  border: "1px dashed rgba(217,190,116,0.32)",
+                  background: "rgba(197,150,45,0.04)",
+                }}
               >
-                + Add time or activity
+                <Plus size={14} strokeWidth={1.6} /> Add time or activity
               </button>
+
+              {/* legend */}
+              <div
+                className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-2 pt-4"
+                style={{ borderTop: `1px solid ${HAIR_SOFT}` }}
+              >
+                <Pill kind="booking" />
+                <span className="text-[11px]" style={{ color: MUTED }}>Part of your hotel booking</span>
+                <span className="text-[11px]" style={{ color: "rgba(190,205,217,0.28)" }}>·</span>
+                <Pill kind="myplan" />
+                <span className="text-[11px]" style={{ color: MUTED }}>Added by you</span>
+              </div>
             </>
           )}
         </section>
 
         {/* ── group planner ── */}
         <aside className="w-full shrink-0 lg:w-[29%]">
-          <div className="rounded-[12px] p-5" style={{ background: PANEL, border: `1px solid ${HAIR}` }}>
-            <h3 className="text-[18px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
+          <div className="rounded-[13px] px-5 py-5" style={{ background: PANEL, border: `1px solid ${HAIR}` }}>
+            <h3 className="text-[19px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
               Group Planner
             </h3>
-            <p className="mt-1.5 text-[11.5px]" style={{ color: MUTED }}>
+            <p className="mt-2 text-[11.5px]" style={{ color: MUTED }}>
               Add your own plans alongside the booking.
             </p>
 
@@ -857,10 +880,10 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[7px] px-3 py-2 text-[12px] font-medium"
-                style={{ color: GOLD_SOFT, border: "1px solid rgba(217,190,116,0.34)", background: "rgba(197,150,45,0.10)" }}
+                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[10px] text-[12.5px] font-medium"
+                style={{ color: GOLD_SOFT, border: "1px solid rgba(217,190,116,0.34)", background: "rgba(197,150,45,0.08)" }}
               >
-                <Plus size={13} strokeWidth={1.6} /> Add to plan
+                <Plus size={14} strokeWidth={1.6} /> Add to plan
               </button>
               <button
                 type="button"
@@ -868,7 +891,7 @@ export function GroupPlanView({
                   openEditor();
                   setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
                 }}
-                className="inline-flex items-center justify-center gap-1.5 rounded-[7px] px-3 py-2 text-[12px]"
+                className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[10px] text-[12.5px]"
                 style={{ color: TEXT_2, border: `1px solid ${HAIR}` }}
               >
                 <Bell size={13} strokeWidth={1.6} /> Reminder
@@ -877,27 +900,26 @@ export function GroupPlanView({
 
             <PlannerSection title="Unscheduled" count={unscheduled.length}>
               {unscheduled.length === 0 ? (
-                <p className="text-[11.5px]" style={{ color: MUTED }}>
+                <p className="px-3.5 py-3 text-[11.5px]" style={{ color: MUTED }}>
                   Nothing waiting for a time.
                 </p>
               ) : (
-                unscheduled.map((i) => (
-                  <div key={i.id} className="flex items-center gap-2 py-2" style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
+                unscheduled.map((i, ix) => (
+                  <div
+                    key={i.id}
+                    className="flex items-center gap-2 px-3 py-2.5"
+                    style={ix > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
+                  >
+                    <GripVertical size={13} strokeWidth={1.5} className="shrink-0" style={{ color: "rgba(190,205,217,0.28)" }} />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
-                        {i.title}
-                      </span>
-                      <span className="block text-[11px]" style={{ color: MUTED }}>
-                        No time set
-                      </span>
+                      <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>{i.title}</span>
+                      <span className="block text-[11px]" style={{ color: MUTED }}>No time set</span>
                     </span>
                     <GoldLink label="Add time" onClick={() => openEditor(undefined, i)} />
-                    <Menu
-                      items={[
-                        { label: "Edit", icon: <Pencil size={13} />, onClick: () => openEditor(undefined, i) },
-                        { label: "Delete", icon: <Trash2 size={13} />, onClick: () => remove(i.id) },
-                      ]}
-                    />
+                    <Menu items={[
+                      { label: "Edit", icon: <Pencil size={13} />, onClick: () => openEditor(undefined, i) },
+                      { label: "Delete", icon: <Trash2 size={13} />, onClick: () => remove(i.id) },
+                    ]} />
                   </div>
                 ))
               )}
@@ -905,49 +927,57 @@ export function GroupPlanView({
 
             <PlannerSection title="My plan" count={mine.length}>
               {mine.length === 0 ? (
-                <p className="text-[11.5px]" style={{ color: MUTED }}>
+                <p className="px-3.5 py-3 text-[11.5px]" style={{ color: MUTED }}>
                   You haven't added anything yet.
                 </p>
               ) : (
-                <>
-                  {mine.map((i) => (
-                    <div key={i.id} className="flex items-center gap-3 py-2" style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
-                      <span className="w-[52px] shrink-0">
-                        <span className="block text-[12px] tabular-nums" style={{ color: TEXT }}>
-                          {i.time ?? "—"}
-                        </span>
-                        <span className="block text-[10.5px]" style={{ color: MUTED }}>
-                          {i.date ? `${dayNum(i.date)} ${monthShort(i.date)}` : ""}
-                        </span>
+                mine.map((i, ix) => (
+                  <div
+                    key={i.id}
+                    className="flex items-stretch gap-3 px-3 py-2.5"
+                    style={ix > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
+                  >
+                    <span className="w-[46px] shrink-0 pr-3" style={{ borderRight: `1px solid ${HAIR_SOFT}` }}>
+                      <span className="block text-[12px] tabular-nums" style={{ color: TEXT }}>{i.time ?? "—"}</span>
+                      <span className="block text-[10.5px]" style={{ color: MUTED }}>
+                        {i.date ? `${dayNum(i.date)} ${monthShort(i.date)}` : ""}
                       </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>
-                          {i.title}
-                        </span>
-                        {i.secondary && (
-                          <span className="block truncate text-[11px]" style={{ color: MUTED }}>
-                            {i.secondary}
-                          </span>
-                        )}
-                      </span>
-                      <Menu
-                        items={[
-                          { label: "Edit", icon: <Pencil size={13} />, onClick: () => openEditor(undefined, i) },
-                          { label: "Delete", icon: <Trash2 size={13} />, onClick: () => remove(i.id) },
-                        ]}
-                      />
-                    </div>
-                  ))}
-                  <div className="pt-2">
-                    <GoldLink label="View all my plan items →" onClick={() => setView("Timeline")} />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>{i.title}</span>
+                      {i.secondary && (
+                        <span className="block truncate text-[11px]" style={{ color: MUTED }}>{i.secondary}</span>
+                      )}
+                    </span>
+                    <Menu items={[
+                      { label: "Edit", icon: <Pencil size={13} />, onClick: () => openEditor(undefined, i) },
+                      { label: "Delete", icon: <Trash2 size={13} />, onClick: () => remove(i.id) },
+                    ]} />
                   </div>
-                </>
+                ))
               )}
             </PlannerSection>
 
-            <p className="mt-6 text-[11px] leading-relaxed" style={{ color: "rgba(190,205,217,0.34)" }}>
-              Booking items are added automatically. Your plans can be changed anytime.
-            </p>
+            {mine.length > 0 && (
+              <div className="mt-2.5 text-right">
+                <GoldLink label="View all my plan items →" onClick={() => setView("Timeline")} />
+              </div>
+            )}
+
+            <div
+              className="mt-5 rounded-[9px] px-3.5 py-3"
+              style={{ border: `1px solid ${HAIR_SOFT}`, background: "rgba(255,255,255,0.02)" }}
+            >
+              <div className="flex items-center gap-1.5">
+                <Lightbulb size={12} strokeWidth={1.6} style={{ color: GOLD }} />
+                <span className="text-[9.5px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>Tip</span>
+              </div>
+              <p className="mt-1.5 text-[11px] leading-[1.65]" style={{ color: "rgba(190,205,217,0.40)" }}>
+                Booking items are added automatically.
+                <br />
+                Your plans can be changed anytime.
+              </p>
+            </div>
           </div>
         </aside>
       </div>
@@ -967,19 +997,16 @@ function PlannerSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mt-6">
-      <div className="flex items-center gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+    <div className="mt-5">
+      <div className="flex items-center justify-between">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
           {title}
         </span>
-        <span
-          className="inline-grid h-[17px] min-w-[17px] place-items-center rounded-full px-1 text-[10px]"
-          style={{ color: TEXT_2, background: "rgba(255,255,255,0.06)" }}
-        >
-          {count}
-        </span>
+        <span className="text-[11px] tabular-nums" style={{ color: TEXT_2 }}>{count}</span>
       </div>
-      <div className="mt-2">{children}</div>
+      <div className="mt-2 overflow-hidden rounded-[9px]" style={{ border: `1px solid ${HAIR_SOFT}` }}>
+        {children}
+      </div>
     </div>
   );
 }
