@@ -34,24 +34,25 @@ const PANEL_SOFT = "linear-gradient(180deg, #21303F 0%, #1B2A38 100%)";
 const HAIR = "rgba(255,255,255,0.08)";
 const HAIR_SOFT = "rgba(255,255,255,0.05)";
 const TEXT = "#F4F2EC";
-const TEXT_2 = "rgba(203,216,227,0.66)";
-const MUTED = "rgba(190,205,217,0.44)";
+const TEXT_2 = "rgba(206,219,230,0.74)";
+const MUTED = "rgba(193,208,220,0.56)";
+const PANEL_EDGE = "rgba(140,168,190,0.18)";
 const GOLD = "#C5962D";
 const GOLD_SOFT = "#D9BE74";
 const GREEN = "#8FC0A2";
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
-  transport: <Bus size={15} strokeWidth={1.5} />,
-  checkin: <UserCheck size={15} strokeWidth={1.5} />,
-  checkout: <Luggage size={15} strokeWidth={1.5} />,
-  breakfast: <Coffee size={15} strokeWidth={1.5} />,
-  lunch: <UtensilsCrossed size={15} strokeWidth={1.5} />,
-  dinner: <UtensilsCrossed size={15} strokeWidth={1.5} />,
-  meeting: <Presentation size={15} strokeWidth={1.5} />,
-  activity: <MapPin size={15} strokeWidth={1.5} />,
-  "meeting-point": <MapPin size={15} strokeWidth={1.5} />,
-  "free-time": <Clock size={15} strokeWidth={1.5} />,
-  reminder: <Bell size={15} strokeWidth={1.5} />,
+  transport: <Bus size={17} strokeWidth={1.5} />,
+  checkin: <UserCheck size={17} strokeWidth={1.5} />,
+  checkout: <Luggage size={17} strokeWidth={1.5} />,
+  breakfast: <Coffee size={17} strokeWidth={1.5} />,
+  lunch: <UtensilsCrossed size={17} strokeWidth={1.5} />,
+  dinner: <UtensilsCrossed size={17} strokeWidth={1.5} />,
+  meeting: <Presentation size={17} strokeWidth={1.5} />,
+  activity: <MapPin size={17} strokeWidth={1.5} />,
+  "meeting-point": <MapPin size={17} strokeWidth={1.5} />,
+  "free-time": <Clock size={17} strokeWidth={1.5} />,
+  reminder: <Bell size={17} strokeWidth={1.5} />,
 };
 
 const TILE_ICON: Record<TileIcon, React.ReactNode> = {
@@ -367,56 +368,57 @@ function Row({
 }) {
   return (
     <li className="relative">
-      {/* continuous gold timeline rail + marker */}
-      <span aria-hidden className="absolute bottom-0 left-0 top-0 w-px" style={{ background: "rgba(197,150,45,0.32)" }} />
-      <span
-        aria-hidden
-        className="absolute left-[-3.5px] top-[18px] h-[8px] w-[8px] rounded-full"
-        style={{ background: GOLD, boxShadow: `0 0 0 3px ${PANEL}` }}
-      />
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={onToggle}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onToggle();
-          }
-        }}
-        aria-expanded={open}
-        className="flex cursor-pointer items-start gap-4 py-[11px] pl-[26px] pr-1"
-      >
-        <span className="w-[86px] shrink-0 pt-[2px] text-[12.5px] tabular-nums" style={{ color: TEXT_2 }}>
-          {item.time ?? "—"}
-        </span>
-        <span className="shrink-0 pt-[2px]" style={{ color: GOLD_SOFT }}>
-          {TYPE_ICON[item.type]}
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block truncate text-[13.5px] font-medium" style={{ color: TEXT }}>
-            {item.title}
+      <span aria-hidden className="absolute bottom-0 left-0 top-0 w-px" style={{ background: "rgba(197,150,45,0.45)" }} />
+      <div className="relative">
+        <span
+          aria-hidden
+          className="absolute left-[-3.5px] top-1/2 h-[8px] w-[8px] -translate-y-1/2 rounded-full"
+          style={{ background: GOLD, boxShadow: `0 0 0 3px ${PANEL}` }}
+        />
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={onToggle}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onToggle();
+            }
+          }}
+          aria-expanded={open}
+          className="flex cursor-pointer items-start gap-3.5 py-[10px] pl-[26px] pr-1"
+        >
+          <span className="w-[82px] shrink-0 pt-[3px] text-[12.5px] tabular-nums" style={{ color: TEXT_2 }}>
+            {item.time ?? "—"}
           </span>
-          {(item.summary || item.secondary) && (
-            <span className="mt-[1px] block truncate text-[11.5px]" style={{ color: MUTED }}>
-              {item.summary ?? item.secondary}
+          <span className="shrink-0 pt-[1px]" style={{ color: GOLD_SOFT }}>
+            {TYPE_ICON[item.type]}
+          </span>
+          <span className="min-w-0 max-w-[400px] flex-1">
+            <span className="block truncate text-[14.5px] font-medium" style={{ color: TEXT }}>
+              {item.title}
             </span>
-          )}
-        </span>
-        <span className="shrink-0 pt-[3px]">
-          <Pill kind={item.kind} />
-        </span>
+            {(item.summary || item.secondary) && (
+              <span className="mt-[2px] block truncate text-[12px]" style={{ color: TEXT_2 }}>
+                {item.summary ?? item.secondary}
+              </span>
+            )}
+          </span>
+          <span className="shrink-0 pt-[5px]">
+            <Pill kind={item.kind} />
+          </span>
 
-        {item.kind === "booking" ? (
-          <Menu items={[{ label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange }]} />
-        ) : (
-          <Menu
-            items={[
-              { label: "Edit", icon: <Pencil size={13} />, onClick: () => onEdit(item) },
-              { label: "Delete", icon: <Trash2 size={13} />, onClick: () => onDelete(item.id) },
-            ]}
-          />
-        )}
+          {item.kind === "booking" ? (
+            <Menu items={[{ label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange }]} />
+          ) : (
+            <Menu
+              items={[
+                { label: "Edit", icon: <Pencil size={13} />, onClick: () => onEdit(item) },
+                { label: "Delete", icon: <Trash2 size={13} />, onClick: () => onDelete(item.id) },
+              ]}
+            />
+          )}
+        </div>
       </div>
       {open && <Expanded item={item} onRequestChange={onRequestChange} onEditNote={onEditNote} />}
     </li>
@@ -754,12 +756,16 @@ export function GroupPlanView({
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
         {/* ── main timeline ── */}
         <section
-          className="min-w-0 flex-1 rounded-[13px] px-6 py-5 lg:w-[71%]"
-          style={{ background: PANEL, border: `1px solid ${HAIR}` }}
+          className="min-w-0 flex-1 rounded-[15px] px-7 py-6 lg:w-[72%]"
+          style={{
+            background: PANEL,
+            border: `1px solid ${PANEL_EDGE}`,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+          }}
         >
           <div className="flex flex-wrap items-start justify-between gap-4 pb-2">
             <div>
-              <h2 className="text-[26px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
+              <h2 className="text-[29px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
                 Group Plan
               </h2>
               <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
@@ -809,18 +815,18 @@ export function GroupPlanView({
                   className="flex gap-4 sm:gap-5"
                   style={
                     gi > 0
-                      ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 16, paddingTop: 20 }
-                      : { paddingTop: 10 }
+                      ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 10, paddingTop: 14 }
+                      : { paddingTop: 6 }
                   }
                 >
-                  <div className="w-[44px] shrink-0 pt-[3px]">
-                    <div className="text-[27px] leading-none" style={{ color: GOLD, fontFamily: SERIF }}>
+                  <div className="w-[52px] shrink-0 pt-[2px]">
+                    <div className="text-[34px] leading-[0.9]" style={{ color: GOLD, fontFamily: SERIF }}>
                       {dayNum(day)}
                     </div>
-                    <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: TEXT_2 }}>
+                    <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
                       {monthShort(day)}
                     </div>
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: MUTED }}>
                       {weekday(day)}
                     </div>
                   </div>
@@ -841,7 +847,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-[9px] py-[11px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-[9px] py-[9px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
                 style={{
                   color: GOLD_SOFT,
                   border: "1px dashed rgba(217,190,116,0.32)",
@@ -867,8 +873,15 @@ export function GroupPlanView({
         </section>
 
         {/* ── group planner ── */}
-        <aside className="w-full shrink-0 lg:w-[29%]">
-          <div className="rounded-[13px] px-5 py-5" style={{ background: PANEL, border: `1px solid ${HAIR}` }}>
+        <aside className="w-full shrink-0 lg:w-[28%]">
+          <div
+            className="rounded-[15px] px-5 py-5"
+            style={{
+              background: PANEL,
+              border: `1px solid ${PANEL_EDGE}`,
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+            }}
+          >
             <h3 className="text-[19px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
               Group Planner
             </h3>
@@ -880,8 +893,8 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[10px] text-[12.5px] font-medium"
-                style={{ color: GOLD_SOFT, border: "1px solid rgba(217,190,116,0.34)", background: "rgba(197,150,45,0.08)" }}
+                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[8px] text-[12.5px] font-medium"
+                style={{ color: GOLD_SOFT, border: "1px solid rgba(217,190,116,0.34)", background: "rgba(197,150,45,0.06)" }}
               >
                 <Plus size={14} strokeWidth={1.6} /> Add to plan
               </button>
@@ -891,16 +904,16 @@ export function GroupPlanView({
                   openEditor();
                   setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
                 }}
-                className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[10px] text-[12.5px]"
-                style={{ color: TEXT_2, border: `1px solid ${HAIR}` }}
+                className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[8px] text-[12.5px]"
+                style={{ color: TEXT_2, border: "1px solid rgba(140,168,190,0.20)" }}
               >
                 <Bell size={13} strokeWidth={1.6} /> Reminder
               </button>
             </div>
 
-            <PlannerSection title="Unscheduled" count={unscheduled.length}>
+            <PlannerSection title="Unscheduled" count={unscheduled.length} empty={unscheduled.length === 0}>
               {unscheduled.length === 0 ? (
-                <p className="px-3.5 py-3 text-[11.5px]" style={{ color: MUTED }}>
+                <p className="text-[11.5px]" style={{ color: MUTED }}>
                   Nothing waiting for a time.
                 </p>
               ) : (
@@ -925,9 +938,9 @@ export function GroupPlanView({
               )}
             </PlannerSection>
 
-            <PlannerSection title="My plan" count={mine.length}>
+            <PlannerSection title="My plan" count={mine.length} empty={mine.length === 0}>
               {mine.length === 0 ? (
-                <p className="px-3.5 py-3 text-[11.5px]" style={{ color: MUTED }}>
+                <p className="text-[11.5px]" style={{ color: MUTED }}>
                   You haven't added anything yet.
                 </p>
               ) : (
@@ -990,10 +1003,12 @@ export function GroupPlanView({
 function PlannerSection({
   title,
   count,
+  empty,
   children,
 }: {
   title: string;
   count: number;
+  empty?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -1004,9 +1019,13 @@ function PlannerSection({
         </span>
         <span className="text-[11px] tabular-nums" style={{ color: TEXT_2 }}>{count}</span>
       </div>
-      <div className="mt-2 overflow-hidden rounded-[9px]" style={{ border: `1px solid ${HAIR_SOFT}` }}>
-        {children}
-      </div>
+      {empty ? (
+        <div className="mt-1.5">{children}</div>
+      ) : (
+        <div className="mt-2 overflow-hidden rounded-[9px]" style={{ border: `1px solid ${HAIR_SOFT}` }}>
+          {children}
+        </div>
+      )}
     </div>
   );
 }
