@@ -756,12 +756,16 @@ export function GroupPlanView({
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
         {/* ── main timeline ── */}
         <section
-          className="min-w-0 flex-1 rounded-[13px] px-6 py-5 lg:w-[71%]"
-          style={{ background: PANEL, border: `1px solid ${HAIR}` }}
+          className="min-w-0 flex-1 rounded-[15px] px-7 py-6 lg:w-[72%]"
+          style={{
+            background: PANEL,
+            border: `1px solid ${PANEL_EDGE}`,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+          }}
         >
           <div className="flex flex-wrap items-start justify-between gap-4 pb-2">
             <div>
-              <h2 className="text-[26px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
+              <h2 className="text-[29px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
                 Group Plan
               </h2>
               <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
