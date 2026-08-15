@@ -34,24 +34,25 @@ const PANEL_SOFT = "linear-gradient(180deg, #21303F 0%, #1B2A38 100%)";
 const HAIR = "rgba(255,255,255,0.08)";
 const HAIR_SOFT = "rgba(255,255,255,0.05)";
 const TEXT = "#F4F2EC";
-const TEXT_2 = "rgba(203,216,227,0.66)";
-const MUTED = "rgba(190,205,217,0.44)";
+const TEXT_2 = "rgba(206,219,230,0.74)";
+const MUTED = "rgba(193,208,220,0.56)";
+const PANEL_EDGE = "rgba(140,168,190,0.18)";
 const GOLD = "#C5962D";
 const GOLD_SOFT = "#D9BE74";
 const GREEN = "#8FC0A2";
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
-  transport: <Bus size={15} strokeWidth={1.5} />,
-  checkin: <UserCheck size={15} strokeWidth={1.5} />,
-  checkout: <Luggage size={15} strokeWidth={1.5} />,
-  breakfast: <Coffee size={15} strokeWidth={1.5} />,
-  lunch: <UtensilsCrossed size={15} strokeWidth={1.5} />,
-  dinner: <UtensilsCrossed size={15} strokeWidth={1.5} />,
-  meeting: <Presentation size={15} strokeWidth={1.5} />,
-  activity: <MapPin size={15} strokeWidth={1.5} />,
-  "meeting-point": <MapPin size={15} strokeWidth={1.5} />,
-  "free-time": <Clock size={15} strokeWidth={1.5} />,
-  reminder: <Bell size={15} strokeWidth={1.5} />,
+  transport: <Bus size={17} strokeWidth={1.5} />,
+  checkin: <UserCheck size={17} strokeWidth={1.5} />,
+  checkout: <Luggage size={17} strokeWidth={1.5} />,
+  breakfast: <Coffee size={17} strokeWidth={1.5} />,
+  lunch: <UtensilsCrossed size={17} strokeWidth={1.5} />,
+  dinner: <UtensilsCrossed size={17} strokeWidth={1.5} />,
+  meeting: <Presentation size={17} strokeWidth={1.5} />,
+  activity: <MapPin size={17} strokeWidth={1.5} />,
+  "meeting-point": <MapPin size={17} strokeWidth={1.5} />,
+  "free-time": <Clock size={17} strokeWidth={1.5} />,
+  reminder: <Bell size={17} strokeWidth={1.5} />,
 };
 
 const TILE_ICON: Record<TileIcon, React.ReactNode> = {
