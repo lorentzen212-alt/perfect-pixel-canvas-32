@@ -368,56 +368,57 @@ function Row({
 }) {
   return (
     <li className="relative">
-      {/* continuous gold timeline rail + marker */}
-      <span aria-hidden className="absolute bottom-0 left-0 top-0 w-px" style={{ background: "rgba(197,150,45,0.32)" }} />
-      <span
-        aria-hidden
-        className="absolute left-[-3.5px] top-[18px] h-[8px] w-[8px] rounded-full"
-        style={{ background: GOLD, boxShadow: `0 0 0 3px ${PANEL}` }}
-      />
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={onToggle}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onToggle();
-          }
-        }}
-        aria-expanded={open}
-        className="flex cursor-pointer items-start gap-4 py-[11px] pl-[26px] pr-1"
-      >
-        <span className="w-[86px] shrink-0 pt-[2px] text-[12.5px] tabular-nums" style={{ color: TEXT_2 }}>
-          {item.time ?? "—"}
-        </span>
-        <span className="shrink-0 pt-[2px]" style={{ color: GOLD_SOFT }}>
-          {TYPE_ICON[item.type]}
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block truncate text-[13.5px] font-medium" style={{ color: TEXT }}>
-            {item.title}
+      <span aria-hidden className="absolute bottom-0 left-0 top-0 w-px" style={{ background: "rgba(197,150,45,0.45)" }} />
+      <div className="relative">
+        <span
+          aria-hidden
+          className="absolute left-[-3.5px] top-1/2 h-[8px] w-[8px] -translate-y-1/2 rounded-full"
+          style={{ background: GOLD, boxShadow: `0 0 0 3px ${PANEL}` }}
+        />
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={onToggle}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onToggle();
+            }
+          }}
+          aria-expanded={open}
+          className="flex cursor-pointer items-start gap-3.5 py-[10px] pl-[26px] pr-1"
+        >
+          <span className="w-[82px] shrink-0 pt-[3px] text-[12.5px] tabular-nums" style={{ color: TEXT_2 }}>
+            {item.time ?? "—"}
           </span>
-          {(item.summary || item.secondary) && (
-            <span className="mt-[1px] block truncate text-[11.5px]" style={{ color: MUTED }}>
-              {item.summary ?? item.secondary}
+          <span className="shrink-0 pt-[1px]" style={{ color: GOLD_SOFT }}>
+            {TYPE_ICON[item.type]}
+          </span>
+          <span className="min-w-0 max-w-[400px] flex-1">
+            <span className="block truncate text-[14.5px] font-medium" style={{ color: TEXT }}>
+              {item.title}
             </span>
-          )}
-        </span>
-        <span className="shrink-0 pt-[3px]">
-          <Pill kind={item.kind} />
-        </span>
+            {(item.summary || item.secondary) && (
+              <span className="mt-[2px] block truncate text-[12px]" style={{ color: TEXT_2 }}>
+                {item.summary ?? item.secondary}
+              </span>
+            )}
+          </span>
+          <span className="shrink-0 pt-[5px]">
+            <Pill kind={item.kind} />
+          </span>
 
-        {item.kind === "booking" ? (
-          <Menu items={[{ label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange }]} />
-        ) : (
-          <Menu
-            items={[
-              { label: "Edit", icon: <Pencil size={13} />, onClick: () => onEdit(item) },
-              { label: "Delete", icon: <Trash2 size={13} />, onClick: () => onDelete(item.id) },
-            ]}
-          />
-        )}
+          {item.kind === "booking" ? (
+            <Menu items={[{ label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange }]} />
+          ) : (
+            <Menu
+              items={[
+                { label: "Edit", icon: <Pencil size={13} />, onClick: () => onEdit(item) },
+                { label: "Delete", icon: <Trash2 size={13} />, onClick: () => onDelete(item.id) },
+              ]}
+            />
+          )}
+        </div>
       </div>
       {open && <Expanded item={item} onRequestChange={onRequestChange} onEditNote={onEditNote} />}
     </li>
