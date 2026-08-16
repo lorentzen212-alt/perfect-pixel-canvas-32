@@ -30,26 +30,28 @@ import {
 import { SERIF } from "@/components/DashboardChrome";
 import type { PlanItem, PlanItemType, PlanTile, TileIcon } from "./types";
 
-/* ── material — warm ivory / Scandinavian hospitality ────────
-   Light surfaces, premium navy typography, restrained gold.   */
+/* ── material — Nordic fjord / Scandinavian hospitality ──────
+   Dusty fjord blue surfaces, deep slate planner, muted gold.  */
 const PAGE = "#F5F1E9";
-const CARD = "#23272D";
-const SURFACE_SOFT = "#2D3239";
+const CARD = "#385870";
+const PANEL = "#263A4B";
+const SURFACE_SOFT = "#304B5F";
 
-const NAVY = "#1F2328";
-const TEXT = "#E3E5E8";
-const TEXT_2 = "#9398A0";
-const MUTED = "#9398A0";
+const NAVY = "#263A4B";
+const TEXT = "#F5F2EC";
+const TIME = "#D6DEE4";
+const TEXT_2 = "#B5C1C9";
+const MUTED = "#879BAA";
 
-const EDGE = "#3A4048";
-const HAIR = "#3A4048";
-const HAIR_SOFT = "rgba(255,255,255,0.07)";
+const EDGE = "rgba(13,28,43,0.28)";
+const HAIR = "rgba(255,255,255,0.10)";
+const HAIR_SOFT = "rgba(255,255,255,0.08)";
 
-const GOLD = "#C2A366";
-const GOLD_DEEP = "#C2A366";
-const GOLD_LINE = "#3A4048";
-const GOLD_TINT = "rgba(194,163,102,0.14)";
-const GREEN = "#7BAE7F";
+const GOLD = "#D8B85D";
+const GOLD_DEEP = "#E8CC7A";
+const GOLD_LINE = "rgba(232,201,106,0.30)";
+const GOLD_TINT = "rgba(216,184,93,0.12)";
+const GREEN = "#A9CDAA";
 
 const CARD_SHADOW = "0 1px 2px rgba(0,0,0,0.10), 0 18px 40px -34px rgba(0,0,0,0.35)";
 
