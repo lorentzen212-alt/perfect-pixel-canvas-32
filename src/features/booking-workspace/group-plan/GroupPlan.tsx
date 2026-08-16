@@ -1114,7 +1114,7 @@ export function GroupPlanView({
                   <div
                     key={i.id}
                     className="flex items-stretch gap-4 py-3"
-                    style={ix > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
+                    style={ix > 0 ? { borderTop: `1px solid ${EDGE}` } : undefined}
                   >
                     <span className="w-[58px] shrink-0">
                       <span
