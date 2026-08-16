@@ -486,7 +486,7 @@ function Row({
           >
             {item.time ?? "—"}
           </span>
-          <span className="shrink-0 pt-[1px]" style={{ color: GOLD }}>
+          <span className="shrink-0 pt-[1px]" style={{ color: TEXT_2 }}>
             {TYPE_ICON[item.type]}
           </span>
           <span className="min-w-0 flex-1">
