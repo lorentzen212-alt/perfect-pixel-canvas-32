@@ -64,7 +64,6 @@ export function BookingWorkspaceHeader({
   active,
   onSelect,
   surface,
-  activeInk,
 }: {
   bookingId: string;
   bookingName: string;
@@ -81,8 +80,6 @@ export function BookingWorkspaceHeader({
   onSelect?: (tab: WorkspaceTab) => void;
   /** surface the active tab must merge into (folder plate below) */
   surface?: string;
-  /** ink for the active tab label when the surface is dark */
-  activeInk?: string;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -182,7 +179,7 @@ export function BookingWorkspaceHeader({
             const st: React.CSSProperties = isActive
               ? {
                   background: surface ?? "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
-                  color: activeInk ?? TAB_INK,
+                  color: TAB_INK,
                   fontWeight: 600,
                   marginBottom: -1,
                   paddingTop: 10,
