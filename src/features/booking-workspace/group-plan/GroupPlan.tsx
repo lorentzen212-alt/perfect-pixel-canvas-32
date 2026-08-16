@@ -1035,7 +1035,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[10px] px-4 text-[14px] font-medium transition-opacity hover:opacity-90"
+                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-opacity hover:opacity-90"
                 style={{ color: "#F6F2E9", background: NAVY, border: `1px solid ${NAVY}` }}
               >
                 <Plus size={16} strokeWidth={1.8} /> Add to plan
@@ -1046,7 +1046,7 @@ export function GroupPlanView({
                   openEditor();
                   setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
                 }}
-                className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[10px] bg-white px-3 text-[14px] transition-colors hover:bg-[rgba(11,25,44,0.03)]"
+                className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[9px] bg-white px-3 text-[14px] transition-colors hover:bg-[rgba(11,25,44,0.03)]"
                 style={{ color: NAVY_SOFT, border: `1px solid ${EDGE}` }}
               >
                 <Bell size={15} strokeWidth={1.6} /> Reminder
