@@ -881,15 +881,16 @@ export function GroupPlanView({
         </section>
 
         {/* ── group planner ── */}
-        <aside className="w-full shrink-0 lg:w-[28%]">
+        <aside className="w-full shrink-0 lg:w-[35%]">
           <div
-            className="rounded-[15px] px-5 py-5"
+            className="rounded-[24px] px-5 py-5"
             style={{
               background: PANEL,
               border: `1px solid ${PANEL_EDGE}`,
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.03), ${CARD_SHADOW}`,
             }}
           >
+
             <h3 className="text-[19px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
               Group Planner
             </h3>
