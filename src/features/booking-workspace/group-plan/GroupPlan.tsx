@@ -372,7 +372,13 @@ function Expanded({
       ) : null}
 
       {item.specialArrangement && (
-        <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
+        <div
+          className="mt-5 rounded-[10px] px-3 py-2.5"
+          style={{
+            background: "rgba(13,28,43,0.14)",
+            border: "1px solid rgba(255,255,255,0.08)",
+          }}
+        >
           <ColHead>Special arrangement</ColHead>
           <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
             {item.specialArrangement}
