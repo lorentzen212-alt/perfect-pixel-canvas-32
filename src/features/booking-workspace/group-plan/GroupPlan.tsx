@@ -793,8 +793,10 @@ export function GroupPlanView({
                       style={{
                         color: on ? GOLD_SOFT : TEXT_2,
                         background: on ? "rgba(212,175,55,0.12)" : "transparent",
+                        border: on ? "1px solid rgba(212,175,55,0.55)" : "1px solid transparent",
                       }}
                     >
+
                       {v === "Timeline" ? <Clock size={13} strokeWidth={1.5} /> : <CalendarDays size={13} strokeWidth={1.5} />}
                       {v}
                     </button>
