@@ -131,9 +131,9 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
     <span
       className="inline-flex w-[104px] shrink-0 items-center justify-center rounded-[5px] px-2 py-[4px] text-[9.5px] font-semibold uppercase tracking-[0.13em]"
       style={{
-        color: booking ? "#BFD3E8" : GOLD_DEEP,
-        background: booking ? "rgba(107,155,207,0.14)" : "rgba(201,168,95,0.10)",
-        border: booking ? "1px solid rgba(107,155,207,0.34)" : "1px solid rgba(201,168,95,0.32)",
+        color: booking ? TEXT_2 : GOLD_DEEP,
+        background: booking ? "transparent" : "rgba(201,168,95,0.10)",
+        border: booking ? `1px solid ${EDGE}` : "1px solid rgba(201,168,95,0.32)",
       }}
     >
       {booking ? "Booking" : "My plan"}
@@ -1035,10 +1035,10 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-opacity hover:opacity-90"
-                style={{ color: NAVY, background: GOLD, border: `1px solid ${GOLD}` }}
+                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(201,168,95,0.08)]"
+                style={{ color: GOLD, background: "transparent", border: `1px solid ${GOLD}` }}
               >
-                <Plus size={16} strokeWidth={1.8} /> Add to plan
+                <Plus size={16} strokeWidth={1.8} style={{ color: GOLD }} /> Add to plan
               </button>
               <button
                 type="button"
@@ -1059,46 +1059,48 @@ export function GroupPlanView({
                   Nothing waiting for a time.
                 </p>
               ) : (
-                unscheduled.map((i, ix) => (
-                  <div
-                    key={i.id}
-                    className="flex items-center gap-3 py-3"
-                    style={ix > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
-                  >
-                    <span
-                      className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[10px]"
-                      style={{ background: "rgba(255,255,255,0.05)", color: TEXT_2 }}
+                <div className="space-y-2">
+                  {unscheduled.map((i) => (
+                    <div
+                      key={i.id}
+                      className="flex items-center gap-3 rounded-[10px] py-[14px] px-3"
+                      style={{ background: "transparent", border: `1px solid ${EDGE}` }}
                     >
-                      {TYPE_ICON_SM[i.type]}
-                    </span>
-                    <span className="min-w-0 flex-1">
                       <span
-                        className="block truncate text-[13.5px] font-semibold"
-                        style={{ color: TEXT }}
+                        className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[10px]"
+                        style={{ background: "rgba(255,255,255,0.05)", color: TEXT_2 }}
                       >
-                        {i.title}
+                        {TYPE_ICON_SM[i.type]}
                       </span>
-                      <span className="block text-[12px]" style={{ color: MUTED }}>
-                        No time set
+                      <span className="min-w-0 flex-1">
+                        <span
+                          className="block truncate text-[13.5px] font-semibold"
+                          style={{ color: TEXT }}
+                        >
+                          {i.title}
+                        </span>
+                        <span className="block text-[12px]" style={{ color: MUTED }}>
+                          No time set
+                        </span>
                       </span>
-                    </span>
-                    <GoldLink label="Add time" onClick={() => openEditor(undefined, i)} />
-                    <Menu
-                      items={[
-                        {
-                          label: "Edit",
-                          icon: <Pencil size={13} />,
-                          onClick: () => openEditor(undefined, i),
-                        },
-                        {
-                          label: "Delete",
-                          icon: <Trash2 size={13} />,
-                          onClick: () => remove(i.id),
-                        },
-                      ]}
-                    />
-                  </div>
-                ))
+                      <GoldLink label="Add time" onClick={() => openEditor(undefined, i)} />
+                      <Menu
+                        items={[
+                          {
+                            label: "Edit",
+                            icon: <Pencil size={13} />,
+                            onClick: () => openEditor(undefined, i),
+                          },
+                          {
+                            label: "Delete",
+                            icon: <Trash2 size={13} />,
+                            onClick: () => remove(i.id),
+                          },
+                        ]}
+                      />
+                    </div>
+                  ))}
+                </div>
               )}
             </PlannerSection>
 
@@ -1112,7 +1114,7 @@ export function GroupPlanView({
                   <div
                     key={i.id}
                     className="flex items-stretch gap-4 py-3"
-                    style={ix > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
+                    style={ix > 0 ? { borderTop: `1px solid ${EDGE}` } : undefined}
                   >
                     <span className="w-[58px] shrink-0">
                       <span
@@ -1177,28 +1179,30 @@ export function GroupPlanView({
               </div>
             )}
 
-            <div
-              className="mt-5 flex gap-3 rounded-[13px] px-4 py-4"
-              style={{ border: "1px solid rgba(201,168,95,0.22)", background: "rgba(201,168,95,0.08)" }}
-            >
-              <Lightbulb
-                size={16}
-                strokeWidth={1.5}
-                className="mt-[2px] shrink-0"
-                style={{ color: GOLD_DEEP }}
-              />
-              <div className="min-w-0">
-                <span
-                  className="block text-[10px] font-semibold uppercase tracking-[0.18em]"
+            <div style={{ paddingTop: 20, borderTop: `1px solid ${EDGE}` }}>
+              <div
+                className="mt-6 flex gap-3 rounded-[13px] px-4 py-3"
+                style={{ border: "1px solid rgba(201,168,95,0.22)", background: "rgba(201,168,95,0.08)" }}
+              >
+                <Lightbulb
+                  size={16}
+                  strokeWidth={1.5}
+                  className="mt-[2px] shrink-0"
                   style={{ color: GOLD_DEEP }}
-                >
-                  Tip
-                </span>
-                <p className="mt-1.5 text-[12.5px] leading-[1.6]" style={{ color: TEXT_2 }}>
-                  Booking items are added automatically.
-                  <br />
-                  Your plans can be changed anytime.
-                </p>
+                />
+                <div className="min-w-0">
+                  <span
+                    className="block text-[10px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: GOLD_DEEP }}
+                  >
+                    Tip
+                  </span>
+                  <p className="mt-1.5 text-[12.5px] leading-[1.6]" style={{ color: TEXT_2 }}>
+                    Booking items are added automatically.
+                    <br />
+                    Your plans can be changed anytime.
+                  </p>
+                </div>
               </div>
             </div>
           </aside>
@@ -1222,7 +1226,7 @@ function PlannerSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mt-6">
+    <div className="mt-7" style={{ paddingTop: 20, borderTop: `1px solid ${EDGE}` }}>
       <div
         className="flex items-center justify-between pb-2"
         style={{ borderBottom: `1px solid ${HAIR}` }}
