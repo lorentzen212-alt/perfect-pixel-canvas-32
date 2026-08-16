@@ -1177,28 +1177,30 @@ export function GroupPlanView({
               </div>
             )}
 
-            <div
-              className="mt-5 flex gap-3 rounded-[13px] px-4 py-4"
-              style={{ border: "1px solid rgba(201,168,95,0.22)", background: "rgba(201,168,95,0.08)" }}
-            >
-              <Lightbulb
-                size={16}
-                strokeWidth={1.5}
-                className="mt-[2px] shrink-0"
-                style={{ color: GOLD_DEEP }}
-              />
-              <div className="min-w-0">
-                <span
-                  className="block text-[10px] font-semibold uppercase tracking-[0.18em]"
+            <div style={{ paddingTop: 20, borderTop: `1px solid ${EDGE}` }}>
+              <div
+                className="mt-6 flex gap-3 rounded-[13px] px-4 py-3"
+                style={{ border: "1px solid rgba(201,168,95,0.22)", background: "rgba(201,168,95,0.08)" }}
+              >
+                <Lightbulb
+                  size={16}
+                  strokeWidth={1.5}
+                  className="mt-[2px] shrink-0"
                   style={{ color: GOLD_DEEP }}
-                >
-                  Tip
-                </span>
-                <p className="mt-1.5 text-[12.5px] leading-[1.6]" style={{ color: TEXT_2 }}>
-                  Booking items are added automatically.
-                  <br />
-                  Your plans can be changed anytime.
-                </p>
+                />
+                <div className="min-w-0">
+                  <span
+                    className="block text-[10px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: GOLD_DEEP }}
+                  >
+                    Tip
+                  </span>
+                  <p className="mt-1.5 text-[12.5px] leading-[1.6]" style={{ color: TEXT_2 }}>
+                    Booking items are added automatically.
+                    <br />
+                    Your plans can be changed anytime.
+                  </p>
+                </div>
               </div>
             </div>
           </aside>
