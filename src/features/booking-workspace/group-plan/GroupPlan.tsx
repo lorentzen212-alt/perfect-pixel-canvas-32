@@ -458,8 +458,9 @@ function Row({
             }
           }}
           aria-expanded={open}
-          className="flex cursor-pointer items-start gap-4 py-[13px] pl-[26px] pr-1 transition-colors hover:bg-[rgba(255,255,255,0.03)]"
-          style={!open && !last ? { borderBottom: `1px solid ${HAIR_SOFT}` } : undefined}
+          className="ml-[26px] flex cursor-pointer items-start gap-4 rounded-xl px-3 py-[13px] transition-colors hover:bg-[#353B44]"
+          style={{ background: SURFACE_SOFT, border: `1px solid ${EDGE}` }}
+
         >
           <span
             className="w-[92px] shrink-0 pt-[4px] text-[14px] tabular-nums"
