@@ -37,10 +37,9 @@ const CARD = "#13283C";
 const SURFACE_SOFT = "#243746";
 
 const NAVY = "#0D1C2B";
-const NAVY_SOFT = "#9AA6B2";
 const TEXT = "#F1EEE8";
 const TEXT_2 = "#9AA6B2";
-const MUTED = "#7F8C99";
+const MUTED = "#9AA6B2";
 
 const EDGE = "#2A3B52";
 const HAIR = "#2A3B52";
@@ -202,7 +201,7 @@ function Tile({ tile }: { tile: PlanTile }) {
       style={{ background: SURFACE_SOFT, border: `1px solid ${HAIR}` }}
     >
       <div className="flex items-center gap-1.5">
-        <span style={{ color: GOLD }}>{TILE_ICON[tile.icon]}</span>
+        <span style={{ color: TEXT_2 }}>{TILE_ICON[tile.icon]}</span>
         <span
           className="truncate text-[9.5px] font-semibold uppercase tracking-[0.12em]"
           style={{ color: MUTED }}
@@ -277,9 +276,9 @@ function Expanded({
         <div
           className="mt-3 inline-flex items-center gap-2 rounded-[7px] px-3 py-1.5 text-[12px]"
           style={{
-            color: GOLD_DEEP,
-            background: GOLD_TINT,
-            border: "1px solid rgba(201,168,95,0.30)",
+            color: "#D4A03C",
+            background: "rgba(212,160,60,0.12)",
+            border: "1px solid rgba(212,160,60,0.30)",
           }}
         >
           {item.attention}
@@ -468,7 +467,7 @@ function Row({
           >
             {item.time ?? "—"}
           </span>
-          <span className="shrink-0 pt-[1px]" style={{ color: GOLD }}>
+          <span className="shrink-0 pt-[1px]" style={{ color: TEXT_2 }}>
             {TYPE_ICON[item.type]}
           </span>
           <span className="min-w-0 flex-1">
@@ -536,6 +535,7 @@ const inputStyle: React.CSSProperties = {
   background: SURFACE_SOFT,
   border: `1px solid ${EDGE}`,
   color: TEXT,
+  colorScheme: "dark",
 };
 
 function Editor({
@@ -651,7 +651,7 @@ function Editor({
           onClick={() => onSave(draft, false)}
           className="rounded-[9px] px-4 py-[10px] text-[12.5px] font-medium transition-opacity"
           style={{
-            color: draft.title.trim() ? "#0D1C2B" : MUTED,
+            color: draft.title.trim() ? NAVY : MUTED,
             background: draft.title.trim() ? GOLD : SURFACE_SOFT,
             border: `1px solid ${draft.title.trim() ? GOLD : EDGE}`,
             cursor: draft.title.trim() ? "pointer" : "not-allowed",
@@ -1036,7 +1036,7 @@ export function GroupPlanView({
                 type="button"
                 onClick={() => openEditor()}
                 className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-opacity hover:opacity-90"
-                style={{ color: "#0D1C2B", background: GOLD, border: `1px solid ${GOLD}` }}
+                style={{ color: NAVY, background: GOLD, border: `1px solid ${GOLD}` }}
               >
                 <Plus size={16} strokeWidth={1.8} /> Add to plan
               </button>
@@ -1067,7 +1067,7 @@ export function GroupPlanView({
                   >
                     <span
                       className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[10px]"
-                      style={{ background: "#2C4252", color: GOLD }}
+                      style={{ background: "rgba(255,255,255,0.05)", color: TEXT_2 }}
                     >
                       {TYPE_ICON_SM[i.type]}
                     </span>
@@ -1235,7 +1235,7 @@ function PlannerSection({
         </span>
         <span
           className="inline-grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-[11px] font-semibold leading-none tabular-nums"
-          style={{ color: "#0D1C2B", background: GOLD }}
+          style={{ color: "#E0BF75", background: "rgba(201,168,95,0.14)", border: "1px solid rgba(201,168,95,0.30)" }}
         >
           {count}
         </span>
