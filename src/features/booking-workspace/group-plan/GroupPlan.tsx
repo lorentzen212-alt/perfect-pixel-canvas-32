@@ -1184,7 +1184,7 @@ export function GroupPlanView({
             <div style={{ paddingTop: 20, borderTop: `1px solid ${EDGE}` }}>
               <div
                 className="mt-6 flex gap-3 rounded-[13px] px-4 py-2.5"
-                style={{ border: "1px solid rgba(194,163,102,0.22)", background: "rgba(194,163,102,0.08)" }}
+                style={{ border: "1px solid #3A4048", background: "transparent" }}
               >
                 <Lightbulb
                   size={16}
