@@ -851,166 +851,159 @@ export function GroupPlanView({
   };
 
   return (
+  return (
     <div className="pb-14" style={{ background: PAGE }}>
-      <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
-        {/* ══ left · itinerary timeline (≈65%) ══ */}
-        <section
-          className="min-w-0 flex-1 rounded-[22px] px-7 py-7 lg:w-[64%]"
-          style={{
-            background: CARD,
-            border: `1px solid ${EDGE}`,
-            boxShadow: CARD_SHADOW,
-          }}
-        >
-          <div className="flex flex-wrap items-start justify-between gap-4 pb-4">
-            <div>
-              <Eyebrow>Your booking</Eyebrow>
-              <h2
-                className="mt-1.5 text-[40px] leading-[1.02]"
-                style={{ color: NAVY, fontFamily: SERIF }}
-              >
-                Group Plan
-              </h2>
-              <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
-                Your itinerary for the group.
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-[12px]" style={{ color: TEXT_2 }}>
-                Display as
-              </span>
+      <div
+        className="rounded-[22px]"
+        style={{ background: CARD, border: `1px solid ${EDGE}`, boxShadow: CARD_SHADOW }}
+      >
+        <div className="flex flex-col lg:flex-row">
+          {/* ══ left · itinerary timeline (≈65%) ══ */}
+          <section className="min-w-0 flex-1 px-7 py-7 lg:w-[64%]">
+            <div className="flex flex-wrap items-start justify-between gap-4 pb-4">
+              <div>
+                <Eyebrow>Your booking</Eyebrow>
+                <h2
+                  className="mt-1.5 text-[40px] leading-[1.02]"
+                  style={{ color: NAVY, fontFamily: SERIF }}
+                >
+                  Group Plan
+                </h2>
+                <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
+                  Your itinerary for the group.
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-[12px]" style={{ color: TEXT_2 }}>
+                  Display as
+                </span>
 
-              <div
-                className="inline-flex rounded-[10px] p-[4px]"
-                style={{ border: `1px solid ${EDGE}`, background: "#FFFFFF" }}
-              >
-                {(["Timeline", "Calendar"] as const).map((v) => {
-                  const on = view === v;
-                  return (
-                    <button
-                      key={v}
-                      type="button"
-                      onClick={() => setView(v)}
-                      className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors"
-                      style={{
-                        color: on ? NAVY : TEXT_2,
-                        background: on ? GOLD_TINT : "transparent",
-                        border: on ? "1px solid rgba(192,154,62,0.45)" : "1px solid transparent",
-                      }}
-                    >
-                      {v === "Timeline" ? (
-                        <span
-                          aria-hidden
-                          className="h-[11px] w-[11px] rounded-full"
-                          style={{ border: `1.5px solid ${GOLD}` }}
-                        />
-                      ) : (
-                        <CalendarDays
-                          size={14}
-                          strokeWidth={1.5}
-                          style={{ color: on ? GOLD : MUTED }}
-                        />
-                      )}
-                      {v}
-                    </button>
-                  );
-                })}
+                <div
+                  className="inline-flex rounded-[10px] p-[4px]"
+                  style={{ border: `1px solid ${EDGE}`, background: "#FFFFFF" }}
+                >
+                  {(["Timeline", "Calendar"] as const).map((v) => {
+                    const on = view === v;
+                    return (
+                      <button
+                        key={v}
+                        type="button"
+                        onClick={() => setView(v)}
+                        className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors"
+                        style={{
+                          color: on ? NAVY : TEXT_2,
+                          background: on ? GOLD_TINT : "transparent",
+                          border: on ? "1px solid rgba(192,154,62,0.45)" : "1px solid transparent",
+                        }}
+                      >
+                        {v === "Timeline" ? (
+                          <span
+                            aria-hidden
+                            className="h-[11px] w-[11px] rounded-full"
+                            style={{ border: `1.5px solid ${GOLD}` }}
+                          />
+                        ) : (
+                          <CalendarDays
+                            size={14}
+                            strokeWidth={1.5}
+                            style={{ color: on ? GOLD : MUTED }}
+                          />
+                        )}
+                        {v}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
 
-          {view === "Calendar" ? (
-            <CalendarView
-              items={scheduled}
-              onSelect={(id) => {
-                setView("Timeline");
-                setOpenId(id);
-              }}
-            />
-          ) : (
-            <>
-              {groups.map(([day, items], gi) => (
-                <div
-                  key={day}
-                  className="flex gap-5 sm:gap-7"
-                  style={
-                    gi > 0
-                      ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 12, paddingTop: 20 }
-                      : { paddingTop: 6 }
-                  }
-                >
-                  <div className="w-[64px] shrink-0 pt-[2px]">
-                    <div
-                      className="text-[54px] leading-[0.82]"
-                      style={{ color: GOLD, fontFamily: SERIF }}
-                    >
-                      {dayNum(day)}
-                    </div>
-                    <div
-                      className="mt-2.5 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.14em]"
-                      style={{ color: TEXT_2 }}
-                    >
-                      {monthShort(day)} · {weekday(day)}
-                    </div>
-                  </div>
-                  <ul className="relative min-w-0 flex-1">
-                    {items.map((i, ix) => (
-                      <Row
-                        key={i.id}
-                        item={i}
-                        open={openId === i.id}
-                        last={ix === items.length - 1}
-                        onToggle={() => setOpenId((o) => (o === i.id ? null : i.id))}
-                        {...rowProps}
-                      />
-                    ))}
-                  </ul>
-                </div>
-              ))}
-
-              <button
-                type="button"
-                onClick={() => openEditor()}
-                className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(192,154,62,0.07)]"
-                style={{
-                  color: GOLD_DEEP,
-                  border: `1px solid rgba(192,154,62,0.40)`,
-                  background: "#FFFFFF",
+            {view === "Calendar" ? (
+              <CalendarView
+                items={scheduled}
+                onSelect={(id) => {
+                  setView("Timeline");
+                  setOpenId(id);
                 }}
-              >
-                <Plus size={16} strokeWidth={1.7} /> Add time or activity
-              </button>
-            </>
-          )}
+              />
+            ) : (
+              <>
+                {groups.map(([day, items], gi) => (
+                  <div
+                    key={day}
+                    className="flex gap-5 sm:gap-7"
+                    style={
+                      gi > 0
+                        ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 12, paddingTop: 20 }
+                        : { paddingTop: 6 }
+                    }
+                  >
+                    <div className="w-[64px] shrink-0 pt-[2px]">
+                      <div
+                        className="text-[54px] leading-[0.82]"
+                        style={{ color: GOLD, fontFamily: SERIF }}
+                      >
+                        {dayNum(day)}
+                      </div>
+                      <div
+                        className="mt-2.5 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.14em]"
+                        style={{ color: TEXT_2 }}
+                      >
+                        {monthShort(day)} · {weekday(day)}
+                      </div>
+                    </div>
+                    <ul className="relative min-w-0 flex-1">
+                      {items.map((i, ix) => (
+                        <Row
+                          key={i.id}
+                          item={i}
+                          open={openId === i.id}
+                          last={ix === items.length - 1}
+                          onToggle={() => setOpenId((o) => (o === i.id ? null : i.id))}
+                          {...rowProps}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                ))}
 
-          {/* legend */}
-          <div
-            className="mt-6 flex flex-wrap items-center gap-x-2.5 gap-y-2 pt-5"
-            style={{ borderTop: `1px solid ${HAIR_SOFT}` }}
-          >
-            <Pill kind="booking" />
-            <span className="text-[12px]" style={{ color: TEXT_2 }}>
-              Part of your hotel booking
-            </span>
-            <span className="text-[12px]" style={{ color: MUTED }}>
-              ·
-            </span>
-            <Pill kind="myplan" />
-            <span className="text-[12px]" style={{ color: TEXT_2 }}>
-              Added by you
-            </span>
-          </div>
-        </section>
+                <button
+                  type="button"
+                  onClick={() => openEditor()}
+                  className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(192,154,62,0.07)]"
+                  style={{
+                    color: GOLD_DEEP,
+                    border: `1px solid rgba(192,154,62,0.40)`,
+                    background: "#FFFFFF",
+                  }}
+                >
+                  <Plus size={16} strokeWidth={1.7} /> Add time or activity
+                </button>
+              </>
+            )}
 
-        {/* ══ right · group planner (≈35%) ══ */}
-        <aside className="w-full shrink-0 lg:w-[36%]">
-          <div
-            className="rounded-[22px] px-6 py-7"
-            style={{
-              background: PANEL,
-              border: `1px solid ${EDGE}`,
-              boxShadow: CARD_SHADOW,
-            }}
+            {/* legend */}
+            <div
+              className="mt-6 flex flex-wrap items-center gap-x-2.5 gap-y-2 pt-5"
+              style={{ borderTop: `1px solid ${HAIR_SOFT}` }}
+            >
+              <Pill kind="booking" />
+              <span className="text-[12px]" style={{ color: TEXT_2 }}>
+                Part of your hotel booking
+              </span>
+              <span className="text-[12px]" style={{ color: MUTED }}>
+                ·
+              </span>
+              <Pill kind="myplan" />
+              <span className="text-[12px]" style={{ color: TEXT_2 }}>
+                Added by you
+              </span>
+            </div>
+          </section>
+
+          {/* ══ right · group planner (≈35%) ══ */}
+          <aside
+            className="w-full shrink-0 border-t px-6 py-7 lg:w-[36%] lg:border-t-0 lg:border-l"
+            style={{ borderColor: HAIR }}
           >
             <Eyebrow>Your personal plan</Eyebrow>
             <h3
@@ -1193,8 +1186,8 @@ export function GroupPlanView({
                 </p>
               </div>
             </div>
-          </div>
-        </aside>
+          </aside>
+        </div>
       </div>
 
       {draft && (
