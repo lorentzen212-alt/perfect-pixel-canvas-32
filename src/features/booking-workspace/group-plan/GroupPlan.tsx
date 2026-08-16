@@ -854,10 +854,14 @@ export function GroupPlanView({
   return (
     <div className="pb-14" style={{ background: PAGE }}>
       <div
-        className="rounded-[22px]"
-        style={{ background: CARD, border: `1px solid ${EDGE}`, boxShadow: CARD_SHADOW }}
+        className="rounded-[20px]"
+        style={{
+          background: CARD,
+          border: "1px solid rgba(185,145,65,0.22)",
+          boxShadow: "0 1px 2px rgba(11,25,44,0.03), 0 30px 60px -45px rgba(11,25,44,0.22)",
+        }}
       >
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col p-2 lg:flex-row">
           {/* ══ left · itinerary timeline (≈65%) ══ */}
           <section className="min-w-0 flex-1 px-7 py-7 lg:w-[64%]">
             <div className="flex flex-wrap items-start justify-between gap-4 pb-4">
