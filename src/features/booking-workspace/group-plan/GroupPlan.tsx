@@ -227,7 +227,7 @@ function Expanded({
       {item.attention && (
         <div
           className="mt-3 inline-flex items-center gap-2 rounded-[7px] px-3 py-1.5 text-[12px]"
-          style={{ color: GOLD_SOFT, background: "rgba(197,150,45,0.10)", border: "1px solid rgba(217,190,116,0.26)" }}
+          style={{ color: GOLD_SOFT, background: "rgba(212,175,55,0.10)", border: "1px solid rgba(229,169,60,0.26)" }}
         >
           {item.attention}
         </div>
@@ -372,7 +372,7 @@ function Row({
 }) {
   return (
     <li className="relative">
-      <span aria-hidden className="absolute bottom-0 left-0 top-0 w-px" style={{ background: "rgba(197,150,45,0.45)" }} />
+      <span aria-hidden className="absolute bottom-0 left-0 top-0 w-px" style={{ background: "rgba(212,175,55,0.45)" }} />
       <div className="relative">
         <span
           aria-hidden
@@ -547,8 +547,8 @@ function Editor({
                   className="rounded-full px-3 py-[5px] text-[11.5px]"
                   style={{
                     color: on ? GOLD_SOFT : TEXT_2,
-                    background: on ? "rgba(197,150,45,0.12)" : "transparent",
-                    border: `1px solid ${on ? "rgba(217,190,116,0.30)" : HAIR}`,
+                    background: on ? "rgba(212,175,55,0.12)" : "transparent",
+                    border: `1px solid ${on ? "rgba(229,169,60,0.30)" : HAIR}`,
                   }}
                 >
                   {t.label}
@@ -567,8 +567,8 @@ function Editor({
           className="rounded-[7px] px-4 py-2 text-[12.5px] font-medium"
           style={{
             color: draft.title.trim() ? GOLD_SOFT : MUTED,
-            border: `1px solid ${draft.title.trim() ? "rgba(217,190,116,0.34)" : HAIR}`,
-            background: draft.title.trim() ? "rgba(197,150,45,0.10)" : "transparent",
+            border: `1px solid ${draft.title.trim() ? "rgba(229,169,60,0.34)" : HAIR}`,
+            background: draft.title.trim() ? "rgba(212,175,55,0.10)" : "transparent",
             cursor: draft.title.trim() ? "pointer" : "not-allowed",
           }}
         >
@@ -791,7 +791,7 @@ export function GroupPlanView({
                       className="inline-flex items-center gap-1.5 rounded-[6px] px-3 py-[5px] text-[12px]"
                       style={{
                         color: on ? GOLD_SOFT : TEXT_2,
-                        background: on ? "rgba(197,150,45,0.12)" : "transparent",
+                        background: on ? "rgba(212,175,55,0.12)" : "transparent",
                       }}
                     >
                       {v === "Timeline" ? <Clock size={13} strokeWidth={1.5} /> : <CalendarDays size={13} strokeWidth={1.5} />}
@@ -854,8 +854,8 @@ export function GroupPlanView({
                 className="mt-5 flex w-full max-w-[880px] items-center justify-center gap-2 rounded-[9px] py-[9px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
                 style={{
                   color: GOLD_SOFT,
-                  border: "1px dashed rgba(217,190,116,0.32)",
-                  background: "rgba(197,150,45,0.04)",
+                  border: "1px dashed rgba(229,169,60,0.32)",
+                  background: "rgba(212,175,55,0.04)",
                 }}
               >
                 <Plus size={14} strokeWidth={1.6} /> Add time or activity
@@ -898,7 +898,7 @@ export function GroupPlanView({
                 type="button"
                 onClick={() => openEditor()}
                 className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[8px] text-[12.5px] font-medium"
-                style={{ color: GOLD_SOFT, border: "1px solid rgba(217,190,116,0.34)", background: "rgba(197,150,45,0.06)" }}
+                style={{ color: GOLD_SOFT, border: "1px solid rgba(229,169,60,0.34)", background: "rgba(212,175,55,0.06)" }}
               >
                 <Plus size={14} strokeWidth={1.6} /> Add to plan
               </button>
