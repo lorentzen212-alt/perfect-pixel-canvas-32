@@ -652,7 +652,7 @@ function Editor({
                   style={{
                     color: on ? GOLD_DEEP : TEXT_2,
                     background: on ? GOLD_TINT : "transparent",
-                    border: `1px solid ${on ? "rgba(194,163,102,0.40)" : EDGE}`,
+                    border: `1px solid ${on ? "rgba(216,184,93,0.50)" : EDGE}`,
                   }}
                 >
                   {t.label}
@@ -741,7 +741,7 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
                     </span>
                     <span
                       className="h-[6px] w-[6px] shrink-0 rounded-full"
-                      style={{ background: i.kind === "booking" ? "#6B9BCF" : GOLD }}
+                      style={{ background: i.kind === "booking" ? MUTED : GOLD }}
                     />
 
                     <span className="truncate">{i.title}</span>
@@ -903,7 +903,7 @@ export function GroupPlanView({
 
                 <div
                   className="inline-flex rounded-[10px] p-[4px]"
-                  style={{ border: `1px solid ${EDGE}`, background: SURFACE_SOFT }}
+                  style={{ border: `1px solid rgba(255,255,255,0.10)`, background: "rgba(13,28,43,0.18)" }}
                 >
                   {(["Timeline", "Calendar"] as const).map((v) => {
                     const on = view === v;
@@ -916,7 +916,7 @@ export function GroupPlanView({
                         style={{
                           color: on ? GOLD_DEEP : TEXT_2,
                           background: on ? GOLD_TINT : "transparent",
-                          border: on ? "1px solid rgba(194,163,102,0.40)" : "1px solid transparent",
+                          border: on ? "1px solid rgba(216,184,93,0.50)" : "1px solid transparent",
                         }}
                       >
                         {v === "Timeline" ? (
@@ -992,10 +992,10 @@ export function GroupPlanView({
                 <button
                   type="button"
                   onClick={() => openEditor()}
-                  className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(194,163,102,0.08)]"
+                  className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(216,184,93,0.10)]"
                   style={{
                     color: GOLD_DEEP,
-                    border: `1px solid rgba(194,163,102,0.36)`,
+                    border: `1px solid rgba(216,184,93,0.45)`,
                     background: "transparent",
                   }}
                 >
@@ -1027,8 +1027,8 @@ export function GroupPlanView({
           <aside
             className="m-4 w-full shrink-0 rounded-[15px] px-6 py-6 lg:mt-4 lg:mr-4 lg:mb-4 lg:ml-4 lg:w-[calc(36%-32px)]"
             style={{
-              background: "#1F2328",
-              border: `1px solid #3A4048`,
+              background: PANEL,
+              border: `1px solid ${HAIR}`,
 
               boxShadow:
                 "inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.10), 0 10px 22px -16px rgba(0,0,0,0.28)",
@@ -1055,7 +1055,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(194,163,102,0.08)]"
+                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(216,184,93,0.10)]"
                 style={{ color: GOLD, background: "transparent", border: `1px solid ${GOLD}` }}
               >
                 <Plus size={16} strokeWidth={1.8} style={{ color: GOLD }} /> Add to plan
@@ -1202,7 +1202,7 @@ export function GroupPlanView({
             <div style={{ paddingTop: 20, borderTop: `1px solid ${EDGE}` }}>
               <div
                 className="mt-6 flex gap-3 rounded-[13px] px-4 py-2.5"
-                style={{ border: "1px solid #3A4048", background: "transparent" }}
+                style={{ border: "1px solid rgba(255,255,255,0.10)", background: "transparent" }}
               >
                 <Lightbulb
                   size={16}
@@ -1259,7 +1259,7 @@ function PlannerSection({
         </span>
         <span
           className="inline-grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-[11px] font-semibold leading-none tabular-nums"
-          style={{ color: "#C2A366", background: "rgba(194,163,102,0.14)", border: "1px solid rgba(194,163,102,0.30)" }}
+          style={{ color: GOLD_DEEP, background: "rgba(216,184,93,0.12)", border: "1px solid rgba(216,184,93,0.32)" }}
         >
           {count}
         </span>
