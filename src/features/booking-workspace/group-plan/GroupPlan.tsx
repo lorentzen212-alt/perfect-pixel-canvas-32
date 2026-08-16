@@ -202,10 +202,10 @@ function Tile({ tile }: { tile: PlanTile }) {
   return (
     <div
       className="min-w-0 rounded-[10px] px-3 py-2.5"
-      style={{ background: SURFACE_SOFT, border: `1px solid ${HAIR}` }}
+      style={{ background: "rgba(13,28,43,0.16)", border: "1px solid rgba(255,255,255,0.09)" }}
     >
       <div className="flex items-center gap-1.5">
-        <span style={{ color: TEXT_2 }}>{TILE_ICON[tile.icon]}</span>
+        <span style={{ color: GOLD }}>{TILE_ICON[tile.icon]}</span>
         <span
           className="truncate text-[9.5px] font-semibold uppercase tracking-[0.12em]"
           style={{ color: MUTED }}
