@@ -32,27 +32,27 @@ import type { PlanItem, PlanItemType, PlanTile, TileIcon } from "./types";
 
 /* ── material — warm ivory / Scandinavian hospitality ────────
    Light surfaces, premium navy typography, restrained gold.   */
-const PAGE = "#FAF6F0";
-const CARD = "#FDFBF7";
-const SURFACE_SOFT = "#F4F1EA";
+const PAGE = "#F5F1E9";
+const CARD = "#13283C";
+const SURFACE_SOFT = "#243746";
 
-const NAVY = "#0B192C";
-const NAVY_SOFT = "#1E2A38";
-const TEXT = NAVY;
-const TEXT_2 = "#55636F";
-const MUTED = "#8C97A2";
+const NAVY = "#0D1C2B";
+const NAVY_SOFT = "#9AA6B2";
+const TEXT = "#F1EEE8";
+const TEXT_2 = "#9AA6B2";
+const MUTED = "#7F8C99";
 
-const EDGE = "rgba(11,25,44,0.10)";
-const HAIR = "rgba(11,25,44,0.08)";
-const HAIR_SOFT = "rgba(11,25,44,0.055)";
+const EDGE = "#2A3B52";
+const HAIR = "#2A3B52";
+const HAIR_SOFT = "rgba(255,255,255,0.07)";
 
-const GOLD = "#C09A3E";
-const GOLD_DEEP = "#A87F2C";
-const GOLD_LINE = "rgba(192,154,62,0.45)";
-const GOLD_TINT = "rgba(192,154,62,0.10)";
-const GREEN = "#5E8B6E";
+const GOLD = "#C9A85F";
+const GOLD_DEEP = "#E0BF75";
+const GOLD_LINE = "#2A3B52";
+const GOLD_TINT = "rgba(201,168,95,0.14)";
+const GREEN = "#7BAE7F";
 
-const CARD_SHADOW = "0 1px 2px rgba(11,25,44,0.04), 0 24px 50px -38px rgba(11,25,44,0.30)";
+const CARD_SHADOW = "0 1px 2px rgba(0,0,0,0.10), 0 18px 40px -34px rgba(0,0,0,0.35)";
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   transport: <Bus size={22} strokeWidth={1.3} />,
@@ -132,9 +132,9 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
     <span
       className="inline-flex w-[104px] shrink-0 items-center justify-center rounded-[5px] px-2 py-[4px] text-[9.5px] font-semibold uppercase tracking-[0.13em]"
       style={{
-        color: booking ? "#F4F1E9" : GOLD_DEEP,
-        background: booking ? NAVY : "#FFFFFF",
-        border: booking ? `1px solid ${NAVY}` : "1px solid rgba(192,154,62,0.38)",
+        color: booking ? "#BFD3E8" : GOLD_DEEP,
+        background: booking ? "rgba(107,155,207,0.14)" : "rgba(201,168,95,0.10)",
+        border: booking ? "1px solid rgba(107,155,207,0.34)" : "1px solid rgba(201,168,95,0.32)",
       }}
     >
       {booking ? "Booking" : "My plan"}
@@ -158,7 +158,7 @@ function Menu({
           setOpen((o) => !o);
         }}
         onBlur={() => setTimeout(() => setOpen(false), 140)}
-        className="grid h-7 w-7 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(11,25,44,0.05)]"
+        className="grid h-7 w-7 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(255,255,255,0.06)]"
         style={{ color: MUTED }}
       >
         <MoreHorizontal size={16} strokeWidth={1.6} />
@@ -167,9 +167,9 @@ function Menu({
         <span
           className="absolute right-0 top-8 z-20 flex w-[190px] flex-col rounded-[9px] py-1 text-left"
           style={{
-            background: "#FFFFFF",
+            background: SURFACE_SOFT,
             border: `1px solid ${EDGE}`,
-            boxShadow: "0 18px 34px -18px rgba(11,25,44,0.35)",
+            boxShadow: "0 18px 34px -18px rgba(0,0,0,0.45)",
           }}
         >
           {items.map((it) => (
@@ -182,7 +182,7 @@ function Menu({
                 setOpen(false);
                 it.onClick();
               }}
-              className="flex items-center gap-2 px-3 py-2 text-[12.5px] transition-colors hover:bg-[rgba(11,25,44,0.04)]"
+              className="flex items-center gap-2 px-3 py-2 text-[12.5px] transition-colors hover:bg-[rgba(255,255,255,0.05)]"
               style={{ color: TEXT_2 }}
             >
               {it.icon}
@@ -279,7 +279,7 @@ function Expanded({
           style={{
             color: GOLD_DEEP,
             background: GOLD_TINT,
-            border: "1px solid rgba(192,154,62,0.30)",
+            border: "1px solid rgba(201,168,95,0.30)",
           }}
         >
           {item.attention}
@@ -401,7 +401,7 @@ function Expanded({
         <button
           type="button"
           onClick={onRequestChange}
-          className="rounded-[8px] bg-white px-3.5 py-[7px] text-[12px] font-medium transition-colors hover:bg-[rgba(11,25,44,0.03)]"
+          className="rounded-[8px] px-3.5 py-[7px] text-[12px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.04)]"
           style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
         >
           Request a change
@@ -459,7 +459,7 @@ function Row({
             }
           }}
           aria-expanded={open}
-          className="flex cursor-pointer items-start gap-4 py-[13px] pl-[26px] pr-1 transition-colors hover:bg-[rgba(11,25,44,0.02)]"
+          className="flex cursor-pointer items-start gap-4 py-[13px] pl-[26px] pr-1 transition-colors hover:bg-[rgba(255,255,255,0.03)]"
           style={!open && !last ? { borderBottom: `1px solid ${HAIR_SOFT}` } : undefined}
         >
           <span
@@ -533,7 +533,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 const inputStyle: React.CSSProperties = {
-  background: "#FFFFFF",
+  background: SURFACE_SOFT,
   border: `1px solid ${EDGE}`,
   color: TEXT,
 };
@@ -555,7 +555,7 @@ function Editor({
       style={{
         background: CARD,
         borderLeft: `1px solid ${EDGE}`,
-        boxShadow: "-24px 0 60px -40px rgba(11,25,44,0.55)",
+        boxShadow: "-24px 0 60px -40px rgba(0,0,0,0.55)",
       }}
     >
       <div className="flex items-start justify-between">
@@ -632,8 +632,8 @@ function Editor({
                   className="rounded-full px-3 py-[5px] text-[11.5px]"
                   style={{
                     color: on ? GOLD_DEEP : TEXT_2,
-                    background: on ? GOLD_TINT : "#FFFFFF",
-                    border: `1px solid ${on ? "rgba(192,154,62,0.40)" : EDGE}`,
+                    background: on ? GOLD_TINT : "transparent",
+                    border: `1px solid ${on ? "rgba(201,168,95,0.40)" : EDGE}`,
                   }}
                 >
                   {t.label}
@@ -651,9 +651,9 @@ function Editor({
           onClick={() => onSave(draft, false)}
           className="rounded-[9px] px-4 py-[10px] text-[12.5px] font-medium transition-opacity"
           style={{
-            color: draft.title.trim() ? "#F6F2E9" : MUTED,
-            background: draft.title.trim() ? NAVY : SURFACE_SOFT,
-            border: `1px solid ${draft.title.trim() ? NAVY : EDGE}`,
+            color: draft.title.trim() ? "#0D1C2B" : MUTED,
+            background: draft.title.trim() ? GOLD : SURFACE_SOFT,
+            border: `1px solid ${draft.title.trim() ? GOLD : EDGE}`,
             cursor: draft.title.trim() ? "pointer" : "not-allowed",
           }}
         >
@@ -663,7 +663,7 @@ function Editor({
           type="button"
           disabled={!draft.title.trim()}
           onClick={() => onSave(draft, true)}
-          className="rounded-[9px] bg-white px-4 py-[10px] text-[12px]"
+          className="rounded-[9px] px-4 py-[10px] text-[12px]"
           style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
         >
           Add without a time
@@ -722,7 +722,7 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
                     </span>
                     <span
                       className="h-[6px] w-[6px] shrink-0 rounded-full"
-                      style={{ background: i.kind === "booking" ? NAVY : GOLD }}
+                      style={{ background: i.kind === "booking" ? "#6B9BCF" : GOLD }}
                     />
 
                     <span className="truncate">{i.title}</span>
@@ -857,8 +857,8 @@ export function GroupPlanView({
         className="rounded-[20px]"
         style={{
           background: CARD,
-          border: "1px solid rgba(185,145,65,0.22)",
-          boxShadow: "0 1px 2px rgba(11,25,44,0.03), 0 30px 60px -45px rgba(11,25,44,0.22)",
+          border: `1px solid ${EDGE}`,
+          boxShadow: "0 1px 2px rgba(0,0,0,0.08), 0 30px 60px -45px rgba(0,0,0,0.30)",
         }}
       >
         <div className="flex flex-col p-2 lg:flex-row">
@@ -869,7 +869,7 @@ export function GroupPlanView({
                 <Eyebrow>Your booking</Eyebrow>
                 <h2
                   className="mt-1.5 text-[40px] leading-[1.02]"
-                  style={{ color: NAVY, fontFamily: SERIF }}
+                  style={{ color: TEXT, fontFamily: SERIF }}
                 >
                   Group Plan
                 </h2>
@@ -884,7 +884,7 @@ export function GroupPlanView({
 
                 <div
                   className="inline-flex rounded-[10px] p-[4px]"
-                  style={{ border: `1px solid ${EDGE}`, background: "#FFFFFF" }}
+                  style={{ border: `1px solid ${EDGE}`, background: SURFACE_SOFT }}
                 >
                   {(["Timeline", "Calendar"] as const).map((v) => {
                     const on = view === v;
@@ -895,9 +895,9 @@ export function GroupPlanView({
                         onClick={() => setView(v)}
                         className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors"
                         style={{
-                          color: on ? NAVY : TEXT_2,
+                          color: on ? GOLD_DEEP : TEXT_2,
                           background: on ? GOLD_TINT : "transparent",
-                          border: on ? "1px solid rgba(192,154,62,0.45)" : "1px solid transparent",
+                          border: on ? "1px solid rgba(201,168,95,0.40)" : "1px solid transparent",
                         }}
                       >
                         {v === "Timeline" ? (
@@ -973,11 +973,11 @@ export function GroupPlanView({
                 <button
                   type="button"
                   onClick={() => openEditor()}
-                  className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(192,154,62,0.07)]"
+                  className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(201,168,95,0.08)]"
                   style={{
                     color: GOLD_DEEP,
-                    border: `1px solid rgba(192,154,62,0.40)`,
-                    background: "#FFFFFF",
+                    border: `1px solid rgba(201,168,95,0.36)`,
+                    background: "transparent",
                   }}
                 >
                   <Plus size={16} strokeWidth={1.7} /> Add time or activity
@@ -1008,10 +1008,10 @@ export function GroupPlanView({
           <aside
             className="m-4 w-full shrink-0 rounded-[15px] px-6 py-6 lg:mt-4 lg:mr-4 lg:mb-4 lg:ml-4 lg:w-[calc(36%-32px)]"
             style={{
-              background: "#FBF8F1",
-              border: "1px solid rgba(190,150,70,0.24)",
+              background: SURFACE_SOFT,
+              border: `1px solid ${EDGE}`,
               boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(11,25,44,0.04), 0 10px 22px -16px rgba(11,25,44,0.22)",
+                "inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.10), 0 10px 22px -16px rgba(0,0,0,0.28)",
             }}
           >
             <span
@@ -1023,7 +1023,7 @@ export function GroupPlanView({
             </span>
             <h3
               className="mt-1.5 text-[32px] leading-none"
-              style={{ color: NAVY, fontFamily: SERIF }}
+              style={{ color: TEXT, fontFamily: SERIF }}
             >
               Group Planner
             </h3>
@@ -1036,7 +1036,7 @@ export function GroupPlanView({
                 type="button"
                 onClick={() => openEditor()}
                 className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-opacity hover:opacity-90"
-                style={{ color: "#F6F2E9", background: NAVY, border: `1px solid ${NAVY}` }}
+                style={{ color: "#0D1C2B", background: GOLD, border: `1px solid ${GOLD}` }}
               >
                 <Plus size={16} strokeWidth={1.8} /> Add to plan
               </button>
@@ -1046,8 +1046,8 @@ export function GroupPlanView({
                   openEditor();
                   setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
                 }}
-                className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[9px] bg-white px-3 text-[14px] transition-colors hover:bg-[rgba(11,25,44,0.03)]"
-                style={{ color: NAVY_SOFT, border: `1px solid ${EDGE}` }}
+                className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[9px] px-3 text-[14px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
+                style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
               >
                 <Bell size={15} strokeWidth={1.6} /> Reminder
               </button>
@@ -1067,7 +1067,7 @@ export function GroupPlanView({
                   >
                     <span
                       className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[10px]"
-                      style={{ background: "#E9EDF3", color: GOLD }}
+                      style={{ background: "#2C4252", color: GOLD }}
                     >
                       {TYPE_ICON_SM[i.type]}
                     </span>
@@ -1179,7 +1179,7 @@ export function GroupPlanView({
 
             <div
               className="mt-5 flex gap-3 rounded-[13px] px-4 py-4"
-              style={{ border: "1px solid rgba(190,150,70,0.18)", background: "#FCF7EC" }}
+              style={{ border: "1px solid rgba(201,168,95,0.22)", background: "rgba(201,168,95,0.08)" }}
             >
               <Lightbulb
                 size={16}
@@ -1235,7 +1235,7 @@ function PlannerSection({
         </span>
         <span
           className="inline-grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-[11px] font-semibold leading-none tabular-nums"
-          style={{ color: "#FFFFFF", background: "#C6A45C" }}
+          style={{ color: "#0D1C2B", background: GOLD }}
         >
           {count}
         </span>
