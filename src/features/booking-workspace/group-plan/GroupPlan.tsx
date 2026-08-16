@@ -33,22 +33,22 @@ import type { PlanItem, PlanItemType, PlanTile, TileIcon } from "./types";
 /* ── material — warm ivory / Scandinavian hospitality ────────
    Light surfaces, premium navy typography, restrained gold.   */
 const PAGE = "#F5F1E9";
-const CARD = "#13283C";
-const SURFACE_SOFT = "#243746";
+const CARD = "#23272D";
+const SURFACE_SOFT = "#2D3239";
 
-const NAVY = "#0D1C2B";
-const TEXT = "#F1EEE8";
-const TEXT_2 = "#9AA6B2";
-const MUTED = "#9AA6B2";
+const NAVY = "#1F2328";
+const TEXT = "#E3E5E8";
+const TEXT_2 = "#9398A0";
+const MUTED = "#9398A0";
 
-const EDGE = "#2A3B52";
-const HAIR = "#2A3B52";
+const EDGE = "#3A4048";
+const HAIR = "#3A4048";
 const HAIR_SOFT = "rgba(255,255,255,0.07)";
 
-const GOLD = "#C9A85F";
-const GOLD_DEEP = "#E0BF75";
-const GOLD_LINE = "#2A3B52";
-const GOLD_TINT = "rgba(201,168,95,0.14)";
+const GOLD = "#C2A366";
+const GOLD_DEEP = "#C2A366";
+const GOLD_LINE = "#3A4048";
+const GOLD_TINT = "rgba(194,163,102,0.14)";
 const GREEN = "#7BAE7F";
 
 const CARD_SHADOW = "0 1px 2px rgba(0,0,0,0.10), 0 18px 40px -34px rgba(0,0,0,0.35)";
@@ -132,8 +132,8 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
       className="inline-flex w-[104px] shrink-0 items-center justify-center rounded-[5px] px-2 py-[4px] text-[9.5px] font-semibold uppercase tracking-[0.13em]"
       style={{
         color: booking ? TEXT_2 : GOLD_DEEP,
-        background: booking ? "transparent" : "rgba(201,168,95,0.10)",
-        border: booking ? `1px solid ${EDGE}` : "1px solid rgba(201,168,95,0.32)",
+        background: booking ? "transparent" : "rgba(194,163,102,0.10)",
+        border: booking ? `1px solid ${EDGE}` : "1px solid rgba(194,163,102,0.32)",
       }}
     >
       {booking ? "Booking" : "My plan"}
@@ -633,7 +633,7 @@ function Editor({
                   style={{
                     color: on ? GOLD_DEEP : TEXT_2,
                     background: on ? GOLD_TINT : "transparent",
-                    border: `1px solid ${on ? "rgba(201,168,95,0.40)" : EDGE}`,
+                    border: `1px solid ${on ? "rgba(194,163,102,0.40)" : EDGE}`,
                   }}
                 >
                   {t.label}
@@ -897,7 +897,7 @@ export function GroupPlanView({
                         style={{
                           color: on ? GOLD_DEEP : TEXT_2,
                           background: on ? GOLD_TINT : "transparent",
-                          border: on ? "1px solid rgba(201,168,95,0.40)" : "1px solid transparent",
+                          border: on ? "1px solid rgba(194,163,102,0.40)" : "1px solid transparent",
                         }}
                       >
                         {v === "Timeline" ? (
@@ -973,10 +973,10 @@ export function GroupPlanView({
                 <button
                   type="button"
                   onClick={() => openEditor()}
-                  className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(201,168,95,0.08)]"
+                  className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(194,163,102,0.08)]"
                   style={{
                     color: GOLD_DEEP,
-                    border: `1px solid rgba(201,168,95,0.36)`,
+                    border: `1px solid rgba(194,163,102,0.36)`,
                     background: "transparent",
                   }}
                 >
@@ -1035,7 +1035,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(201,168,95,0.08)]"
+                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(194,163,102,0.08)]"
                 style={{ color: GOLD, background: "transparent", border: `1px solid ${GOLD}` }}
               >
                 <Plus size={16} strokeWidth={1.8} style={{ color: GOLD }} /> Add to plan
@@ -1182,7 +1182,7 @@ export function GroupPlanView({
             <div style={{ paddingTop: 20, borderTop: `1px solid ${EDGE}` }}>
               <div
                 className="mt-6 flex gap-3 rounded-[13px] px-4 py-2.5"
-                style={{ border: "1px solid rgba(201,168,95,0.22)", background: "rgba(201,168,95,0.08)" }}
+                style={{ border: "1px solid rgba(194,163,102,0.22)", background: "rgba(194,163,102,0.08)" }}
               >
                 <Lightbulb
                   size={16}
@@ -1239,7 +1239,7 @@ function PlannerSection({
         </span>
         <span
           className="inline-grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-[11px] font-semibold leading-none tabular-nums"
-          style={{ color: "#E0BF75", background: "rgba(201,168,95,0.14)", border: "1px solid rgba(201,168,95,0.30)" }}
+          style={{ color: "#C2A366", background: "rgba(194,163,102,0.14)", border: "1px solid rgba(194,163,102,0.30)" }}
         >
           {count}
         </span>
