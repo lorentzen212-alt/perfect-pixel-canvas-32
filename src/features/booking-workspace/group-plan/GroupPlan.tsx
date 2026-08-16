@@ -131,9 +131,9 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
     <span
       className="inline-flex w-[104px] shrink-0 items-center justify-center rounded-[5px] px-2 py-[4px] text-[9.5px] font-semibold uppercase tracking-[0.13em]"
       style={{
-        color: booking ? "#BFD3E8" : GOLD_DEEP,
-        background: booking ? "rgba(107,155,207,0.14)" : "rgba(201,168,95,0.10)",
-        border: booking ? "1px solid rgba(107,155,207,0.34)" : "1px solid rgba(201,168,95,0.32)",
+        color: booking ? TEXT_2 : GOLD_DEEP,
+        background: booking ? "transparent" : "rgba(201,168,95,0.10)",
+        border: booking ? `1px solid ${EDGE}` : "1px solid rgba(201,168,95,0.32)",
       }}
     >
       {booking ? "Booking" : "My plan"}
