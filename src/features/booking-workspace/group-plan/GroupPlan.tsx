@@ -1026,7 +1026,12 @@ function PlannerSection({
         <span className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
           {title}
         </span>
-        <span className="text-[11px] tabular-nums" style={{ color: TEXT_2 }}>{count}</span>
+        <span
+          className="inline-grid h-[19px] w-[19px] place-items-center rounded-full text-[10.5px] tabular-nums"
+          style={{ color: TEXT_2, border: `1px solid ${HAIR}`, background: "rgba(255,255,255,0.04)" }}
+        >
+          {count}
+        </span>
       </div>
       {empty ? (
         <div className="mt-1.5">{children}</div>
