@@ -1009,8 +1009,9 @@ export function GroupPlanView({
           <aside
             className="m-4 w-full shrink-0 rounded-[15px] px-6 py-6 lg:mt-4 lg:mr-4 lg:mb-4 lg:ml-4 lg:w-[calc(36%-32px)]"
             style={{
-              background: SURFACE_SOFT,
-              border: `1px solid ${EDGE}`,
+              background: "#1F2328",
+              border: `1px solid #3A4048`,
+
               boxShadow:
                 "inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.10), 0 10px 22px -16px rgba(0,0,0,0.28)",
             }}
