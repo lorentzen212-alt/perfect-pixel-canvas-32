@@ -956,7 +956,7 @@ export function GroupPlanView({
                         {monthShort(day)} · {weekday(day)}
                       </div>
                     </div>
-                    <ul className="relative min-w-0 flex-1">
+                    <ul className="relative min-w-0 flex-1 space-y-2">
                       {items.map((i, ix) => (
                         <Row
                           key={i.id}
