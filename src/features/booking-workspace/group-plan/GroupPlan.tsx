@@ -55,17 +55,17 @@ const GREEN = "#5E8B6E";
 const CARD_SHADOW = "0 1px 2px rgba(11,25,44,0.04), 0 24px 50px -38px rgba(11,25,44,0.30)";
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
-  transport: <Bus size={19} strokeWidth={1.3} />,
-  checkin: <KeyRound size={19} strokeWidth={1.3} />,
-  checkout: <Luggage size={19} strokeWidth={1.3} />,
-  breakfast: <Coffee size={19} strokeWidth={1.3} />,
-  lunch: <Coffee size={19} strokeWidth={1.3} />,
-  dinner: <Utensils size={19} strokeWidth={1.3} />,
-  meeting: <Presentation size={19} strokeWidth={1.3} />,
-  activity: <MapPin size={19} strokeWidth={1.3} />,
-  "meeting-point": <Users size={19} strokeWidth={1.3} />,
-  "free-time": <Star size={19} strokeWidth={1.3} />,
-  reminder: <Bell size={19} strokeWidth={1.3} />,
+  transport: <Bus size={22} strokeWidth={1.3} />,
+  checkin: <KeyRound size={22} strokeWidth={1.3} />,
+  checkout: <Luggage size={22} strokeWidth={1.3} />,
+  breakfast: <Coffee size={22} strokeWidth={1.3} />,
+  lunch: <Coffee size={22} strokeWidth={1.3} />,
+  dinner: <Utensils size={22} strokeWidth={1.3} />,
+  meeting: <Presentation size={22} strokeWidth={1.3} />,
+  activity: <MapPin size={22} strokeWidth={1.3} />,
+  "meeting-point": <Users size={22} strokeWidth={1.3} />,
+  "free-time": <Star size={22} strokeWidth={1.3} />,
+  reminder: <Bell size={22} strokeWidth={1.3} />,
 };
 
 /** Same icon family at panel scale. */
@@ -463,7 +463,7 @@ function Row({
           style={!open && !last ? { borderBottom: `1px solid ${HAIR_SOFT}` } : undefined}
         >
           <span
-            className="w-[92px] shrink-0 pt-[3px] text-[13px] tabular-nums"
+            className="w-[92px] shrink-0 pt-[4px] text-[14px] tabular-nums"
             style={{ color: TEXT_2 }}
           >
             {item.time ?? "—"}
@@ -942,7 +942,7 @@ export function GroupPlanView({
                 >
                   <div className="w-[64px] shrink-0 pt-[2px]">
                     <div
-                      className="text-[46px] leading-[0.85]"
+                      className="text-[54px] leading-[0.82]"
                       style={{ color: GOLD, fontFamily: SERIF }}
                     >
                       {dayNum(day)}
@@ -975,7 +975,7 @@ export function GroupPlanView({
                 className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(192,154,62,0.07)]"
                 style={{
                   color: GOLD_DEEP,
-                  border: `1px solid ${EDGE}`,
+                  border: `1px solid rgba(192,154,62,0.40)`,
                   background: "#FFFFFF",
                 }}
               >
