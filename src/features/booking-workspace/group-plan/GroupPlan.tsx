@@ -28,18 +28,22 @@ import { SERIF } from "@/components/DashboardChrome";
 import type { PlanItem, PlanItemType, PlanTile, TileIcon } from "./types";
 
 /* ── material ───────────────────────────────────────────── */
-const BG = "#16232F";
-const PANEL = "#1B2A38";
-const PANEL_SOFT = "linear-gradient(180deg, #21303F 0%, #1B2A38 100%)";
+const BG = "#FAF6F0";
+const PANEL = "#0F223A";
+const PANEL_DEEP = "#0B192C";
+const PANEL_SOFT = "linear-gradient(180deg, #142943 0%, #0F223A 100%)";
+const CARD_SHADOW =
+  "0 26px 60px -34px rgba(11,25,44,0.55), 0 4px 14px -8px rgba(11,25,44,0.22)";
 const HAIR = "rgba(255,255,255,0.08)";
 const HAIR_SOFT = "rgba(255,255,255,0.05)";
-const TEXT = "#F4F2EC";
+const TEXT = "#F6F1E7";
 const TEXT_2 = "rgba(206,219,230,0.74)";
 const MUTED = "rgba(193,208,220,0.56)";
 const PANEL_EDGE = "rgba(140,168,190,0.18)";
-const GOLD = "#C5962D";
-const GOLD_SOFT = "#D9BE74";
+const GOLD = "#D4AF37";
+const GOLD_SOFT = "#E5A93C";
 const GREEN = "#8FC0A2";
+
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   transport: <Bus size={17} strokeWidth={1.5} />,
@@ -91,15 +95,15 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
   const booking = kind === "booking";
   return (
     <span
-      className="inline-flex shrink-0 items-center rounded-[4px] px-2 py-[2px] text-[9.5px] font-semibold uppercase tracking-[0.10em]"
+      className="inline-flex shrink-0 items-center rounded-[5px] px-2 py-[3px] text-[9.5px] font-semibold uppercase tracking-[0.14em]"
       style={{
-        color: booking ? "#9FC0DE" : GREEN,
-        background: booking ? "rgba(78,120,160,0.16)" : "rgba(96,150,116,0.15)",
-        border: `1px solid ${booking ? "rgba(120,165,205,0.24)" : "rgba(120,180,144,0.24)"}`,
+        color: booking ? "#DCEAF8" : "#F3E4C0",
+        background: booking ? "#1D4470" : "#8A6A2C",
       }}
     >
       {booking ? "Booking" : "My plan"}
     </span>
+
   );
 }
 
@@ -223,7 +227,7 @@ function Expanded({
       {item.attention && (
         <div
           className="mt-3 inline-flex items-center gap-2 rounded-[7px] px-3 py-1.5 text-[12px]"
-          style={{ color: GOLD_SOFT, background: "rgba(197,150,45,0.10)", border: "1px solid rgba(217,190,116,0.26)" }}
+          style={{ color: GOLD_SOFT, background: "rgba(212,175,55,0.10)", border: "1px solid rgba(229,169,60,0.26)" }}
         >
           {item.attention}
         </div>
@@ -368,7 +372,7 @@ function Row({
 }) {
   return (
     <li className="relative">
-      <span aria-hidden className="absolute bottom-0 left-0 top-0 w-px" style={{ background: "rgba(197,150,45,0.45)" }} />
+      <span aria-hidden className="absolute bottom-0 left-0 top-0 w-px" style={{ background: "rgba(212,175,55,0.45)" }} />
       <div className="relative">
         <span
           aria-hidden
@@ -543,8 +547,8 @@ function Editor({
                   className="rounded-full px-3 py-[5px] text-[11.5px]"
                   style={{
                     color: on ? GOLD_SOFT : TEXT_2,
-                    background: on ? "rgba(197,150,45,0.12)" : "transparent",
-                    border: `1px solid ${on ? "rgba(217,190,116,0.30)" : HAIR}`,
+                    background: on ? "rgba(212,175,55,0.12)" : "transparent",
+                    border: `1px solid ${on ? "rgba(229,169,60,0.30)" : HAIR}`,
                   }}
                 >
                   {t.label}
@@ -563,8 +567,8 @@ function Editor({
           className="rounded-[7px] px-4 py-2 text-[12.5px] font-medium"
           style={{
             color: draft.title.trim() ? GOLD_SOFT : MUTED,
-            border: `1px solid ${draft.title.trim() ? "rgba(217,190,116,0.34)" : HAIR}`,
-            background: draft.title.trim() ? "rgba(197,150,45,0.10)" : "transparent",
+            border: `1px solid ${draft.title.trim() ? "rgba(229,169,60,0.34)" : HAIR}`,
+            background: draft.title.trim() ? "rgba(212,175,55,0.10)" : "transparent",
             cursor: draft.title.trim() ? "pointer" : "not-allowed",
           }}
         >
@@ -629,8 +633,9 @@ function CalendarView({
                     </span>
                     <span
                       className="h-[6px] w-[6px] shrink-0 rounded-full"
-                      style={{ background: i.kind === "booking" ? "#9FC0DE" : GREEN }}
+                      style={{ background: i.kind === "booking" ? "#9FC0DE" : "#C9962F" }}
                     />
+
                     <span className="truncate">{i.title}</span>
                   </button>
                 </li>
@@ -756,13 +761,14 @@ export function GroupPlanView({
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
         {/* ── main timeline ── */}
         <section
-          className="min-w-0 flex-1 rounded-[15px] px-7 py-6 lg:w-[72%]"
+          className="min-w-0 flex-1 rounded-[24px] px-7 py-6 lg:w-[65%]"
           style={{
             background: PANEL,
             border: `1px solid ${PANEL_EDGE}`,
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+            boxShadow: `inset 0 1px 0 rgba(255,255,255,0.03), ${CARD_SHADOW}`,
           }}
         >
+
           <div className="flex flex-wrap items-start justify-between gap-4 pb-2">
             <div>
               <h2 className="text-[29px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
@@ -787,9 +793,11 @@ export function GroupPlanView({
                       className="inline-flex items-center gap-1.5 rounded-[6px] px-3 py-[5px] text-[12px]"
                       style={{
                         color: on ? GOLD_SOFT : TEXT_2,
-                        background: on ? "rgba(197,150,45,0.12)" : "transparent",
+                        background: on ? "rgba(212,175,55,0.12)" : "transparent",
+                        border: on ? "1px solid rgba(212,175,55,0.55)" : "1px solid transparent",
                       }}
                     >
+
                       {v === "Timeline" ? <Clock size={13} strokeWidth={1.5} /> : <CalendarDays size={13} strokeWidth={1.5} />}
                       {v}
                     </button>
@@ -850,8 +858,8 @@ export function GroupPlanView({
                 className="mt-5 flex w-full max-w-[880px] items-center justify-center gap-2 rounded-[9px] py-[9px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
                 style={{
                   color: GOLD_SOFT,
-                  border: "1px dashed rgba(217,190,116,0.32)",
-                  background: "rgba(197,150,45,0.04)",
+                  border: "1px dashed rgba(229,169,60,0.32)",
+                  background: "rgba(212,175,55,0.04)",
                 }}
               >
                 <Plus size={14} strokeWidth={1.6} /> Add time or activity
@@ -873,15 +881,16 @@ export function GroupPlanView({
         </section>
 
         {/* ── group planner ── */}
-        <aside className="w-full shrink-0 lg:w-[28%]">
+        <aside className="w-full shrink-0 lg:w-[35%]">
           <div
-            className="rounded-[15px] px-5 py-5"
+            className="rounded-[24px] px-5 py-5"
             style={{
               background: PANEL,
               border: `1px solid ${PANEL_EDGE}`,
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.03), ${CARD_SHADOW}`,
             }}
           >
+
             <h3 className="text-[19px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
               Group Planner
             </h3>
@@ -894,7 +903,7 @@ export function GroupPlanView({
                 type="button"
                 onClick={() => openEditor()}
                 className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[8px] text-[12.5px] font-medium"
-                style={{ color: GOLD_SOFT, border: "1px solid rgba(217,190,116,0.34)", background: "rgba(197,150,45,0.06)" }}
+                style={{ color: GOLD_SOFT, border: "1px solid rgba(229,169,60,0.34)", background: "rgba(212,175,55,0.06)" }}
               >
                 <Plus size={14} strokeWidth={1.6} /> Add to plan
               </button>
@@ -978,8 +987,8 @@ export function GroupPlanView({
             )}
 
             <div
-              className="mt-5 rounded-[9px] px-3.5 py-3"
-              style={{ border: `1px solid ${HAIR_SOFT}`, background: "rgba(255,255,255,0.02)" }}
+              className="mt-5 rounded-[14px] px-3.5 py-3"
+              style={{ border: `1px solid ${HAIR_SOFT}`, background: PANEL_DEEP }}
             >
               <div className="flex items-center gap-1.5">
                 <Lightbulb size={12} strokeWidth={1.6} style={{ color: GOLD }} />
@@ -1017,7 +1026,12 @@ function PlannerSection({
         <span className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
           {title}
         </span>
-        <span className="text-[11px] tabular-nums" style={{ color: TEXT_2 }}>{count}</span>
+        <span
+          className="inline-grid h-[19px] w-[19px] place-items-center rounded-full text-[10.5px] tabular-nums"
+          style={{ color: TEXT_2, border: `1px solid ${HAIR}`, background: "rgba(255,255,255,0.04)" }}
+        >
+          {count}
+        </span>
       </div>
       {empty ? (
         <div className="mt-1.5">{children}</div>
