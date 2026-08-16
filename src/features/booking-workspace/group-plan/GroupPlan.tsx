@@ -22,6 +22,7 @@ import {
   Star,
   Trash2,
   Users,
+  Utensils,
   UtensilsCrossed,
   X,
 } from "lucide-react";
@@ -58,8 +59,8 @@ const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   checkin: <KeyRound size={19} strokeWidth={1.3} />,
   checkout: <Luggage size={19} strokeWidth={1.3} />,
   breakfast: <Coffee size={19} strokeWidth={1.3} />,
-  lunch: <UtensilsCrossed size={19} strokeWidth={1.3} />,
-  dinner: <UtensilsCrossed size={19} strokeWidth={1.3} />,
+  lunch: <Coffee size={19} strokeWidth={1.3} />,
+  dinner: <Utensils size={19} strokeWidth={1.3} />,
   meeting: <Presentation size={19} strokeWidth={1.3} />,
   activity: <MapPin size={19} strokeWidth={1.3} />,
   "meeting-point": <Users size={19} strokeWidth={1.3} />,
@@ -73,8 +74,8 @@ const TYPE_ICON_SM: Record<PlanItemType, React.ReactNode> = {
   checkin: <KeyRound size={16} strokeWidth={1.3} />,
   checkout: <Luggage size={16} strokeWidth={1.3} />,
   breakfast: <Coffee size={16} strokeWidth={1.3} />,
-  lunch: <UtensilsCrossed size={16} strokeWidth={1.3} />,
-  dinner: <UtensilsCrossed size={16} strokeWidth={1.3} />,
+  lunch: <Coffee size={16} strokeWidth={1.3} />,
+  dinner: <Utensils size={16} strokeWidth={1.3} />,
   meeting: <Presentation size={16} strokeWidth={1.3} />,
   activity: <Plane size={16} strokeWidth={1.3} />,
   "meeting-point": <Users size={16} strokeWidth={1.3} />,
@@ -129,7 +130,7 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
   const booking = kind === "booking";
   return (
     <span
-      className="inline-flex shrink-0 items-center rounded-[5px] px-2.5 py-[4px] text-[9.5px] font-semibold uppercase tracking-[0.13em]"
+      className="inline-flex w-[104px] shrink-0 items-center justify-center rounded-[5px] px-2 py-[4px] text-[9.5px] font-semibold uppercase tracking-[0.13em]"
       style={{
         color: booking ? "#F4F1E9" : GOLD_DEEP,
         background: booking ? NAVY : "#FAF2E2",
@@ -480,7 +481,7 @@ function Row({
               </span>
             )}
           </span>
-          <span className="w-[86px] shrink-0 pt-[5px]">
+          <span className="w-[104px] shrink-0 pt-[5px]">
             <Pill kind={item.kind} />
           </span>
 
@@ -855,7 +856,7 @@ export function GroupPlanView({
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
         {/* ══ left · itinerary timeline (≈65%) ══ */}
         <section
-          className="min-w-0 flex-1 rounded-[22px] px-7 py-7 lg:w-[65%]"
+          className="min-w-0 flex-1 rounded-[22px] px-7 py-7 lg:w-[64%]"
           style={{
             background: CARD,
             border: `1px solid ${EDGE}`,
@@ -866,7 +867,7 @@ export function GroupPlanView({
             <div>
               <Eyebrow>Your booking</Eyebrow>
               <h2
-                className="mt-1.5 text-[38px] leading-none"
+                className="mt-1.5 text-[40px] leading-[1.02]"
                 style={{ color: NAVY, fontFamily: SERIF }}
               >
                 Group Plan
@@ -971,7 +972,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-[12px] py-[15px] text-[14px] font-medium transition-colors hover:bg-[rgba(192,154,62,0.07)]"
+                className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(192,154,62,0.07)]"
                 style={{
                   color: GOLD_DEEP,
                   border: `1px solid ${EDGE}`,
@@ -1003,7 +1004,7 @@ export function GroupPlanView({
         </section>
 
         {/* ══ right · group planner (≈35%) ══ */}
-        <aside className="w-full shrink-0 lg:w-[35%]">
+        <aside className="w-full shrink-0 lg:w-[36%]">
           <div
             className="rounded-[22px] px-6 py-7"
             style={{
@@ -1027,7 +1028,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-[10px] px-4 py-[13px] text-[14px] font-medium transition-opacity hover:opacity-90"
+                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[10px] px-4 text-[14px] font-medium transition-opacity hover:opacity-90"
                 style={{ color: "#F6F2E9", background: NAVY, border: `1px solid ${NAVY}` }}
               >
                 <Plus size={16} strokeWidth={1.8} /> Add to plan
@@ -1038,7 +1039,7 @@ export function GroupPlanView({
                   openEditor();
                   setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
                 }}
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-[10px] bg-white px-4 py-[13px] text-[14px] transition-colors hover:bg-[rgba(11,25,44,0.03)]"
+                className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[10px] bg-white px-3 text-[14px] transition-colors hover:bg-[rgba(11,25,44,0.03)]"
                 style={{ color: NAVY_SOFT, border: `1px solid ${EDGE}` }}
               >
                 <Bell size={15} strokeWidth={1.6} /> Reminder
@@ -1058,8 +1059,8 @@ export function GroupPlanView({
                     style={ix > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
                   >
                     <span
-                      className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-[10px]"
-                      style={{ background: "rgba(11,25,44,0.05)", color: GOLD }}
+                      className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[10px]"
+                      style={{ background: "#E9EDF3", color: GOLD }}
                     >
                       {TYPE_ICON_SM[i.type]}
                     </span>
