@@ -95,15 +95,15 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
   const booking = kind === "booking";
   return (
     <span
-      className="inline-flex shrink-0 items-center rounded-[4px] px-2 py-[2px] text-[9.5px] font-semibold uppercase tracking-[0.10em]"
+      className="inline-flex shrink-0 items-center rounded-[5px] px-2 py-[3px] text-[9.5px] font-semibold uppercase tracking-[0.14em]"
       style={{
-        color: booking ? "#9FC0DE" : GREEN,
-        background: booking ? "rgba(78,120,160,0.16)" : "rgba(96,150,116,0.15)",
-        border: `1px solid ${booking ? "rgba(120,165,205,0.24)" : "rgba(120,180,144,0.24)"}`,
+        color: booking ? "#DCEAF8" : "#F3E4C0",
+        background: booking ? "#1D4470" : "#8A6A2C",
       }}
     >
       {booking ? "Booking" : "My plan"}
     </span>
+
   );
 }
 
