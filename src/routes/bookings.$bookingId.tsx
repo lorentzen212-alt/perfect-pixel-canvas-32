@@ -1179,6 +1179,7 @@ function Workspace({ booking }: { booking: Booking }) {
           guestsLabel={`${totalGuests} guests`}
           statusLabel={confirmed ? "Confirmed" : "Pending"}
           statusTone={confirmed ? "#1E5B39" : "#7A5A12"}
+          activeInk={tab === "Rooming List" ? "#F2F5F8" : undefined}
           active={tab as WorkspaceTab}
           onSelect={(t) => setTab(t)}
           surface={
