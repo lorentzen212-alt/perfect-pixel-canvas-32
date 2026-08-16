@@ -133,7 +133,7 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
       className="inline-flex w-[104px] shrink-0 items-center justify-center rounded-[5px] px-2 py-[4px] text-[9.5px] font-semibold uppercase tracking-[0.13em]"
       style={{
         color: booking ? "#F4F1E9" : GOLD_DEEP,
-        background: booking ? NAVY : "#FAF2E2",
+        background: booking ? NAVY : "#FFFFFF",
         border: booking ? `1px solid ${NAVY}` : "1px solid rgba(192,154,62,0.38)",
       }}
     >
