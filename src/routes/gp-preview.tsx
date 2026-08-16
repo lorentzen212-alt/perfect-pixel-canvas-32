@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { GroupPlanView } from "@/features/booking-workspace/group-plan/GroupPlan";
 import type { PlanItem } from "@/features/booking-workspace/group-plan/types";
 
-export const Route = createFileRoute("/__gp-preview")({
+export const Route = createFileRoute("/gp-preview")({
   head: () => ({
     meta: [
       { title: "Group Plan Preview — HotelGroupBook" },
