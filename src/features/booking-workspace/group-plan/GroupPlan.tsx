@@ -1035,10 +1035,10 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-opacity hover:opacity-90"
-                style={{ color: NAVY, background: GOLD, border: `1px solid ${GOLD}` }}
+                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(201,168,95,0.08)]"
+                style={{ color: GOLD, background: "transparent", border: `1px solid ${GOLD}` }}
               >
-                <Plus size={16} strokeWidth={1.8} /> Add to plan
+                <Plus size={16} strokeWidth={1.8} style={{ color: GOLD }} /> Add to plan
               </button>
               <button
                 type="button"
