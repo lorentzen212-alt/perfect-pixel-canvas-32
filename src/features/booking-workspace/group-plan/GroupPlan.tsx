@@ -1178,8 +1178,8 @@ export function GroupPlanView({
             )}
 
             <div
-              className="mt-5 flex gap-3 rounded-[14px] px-4 py-4"
-              style={{ border: "1px solid rgba(192,154,62,0.22)", background: "#FBF3E4" }}
+              className="mt-5 flex gap-3 rounded-[13px] px-4 py-4"
+              style={{ border: "1px solid rgba(190,150,70,0.18)", background: "#FCF7EC" }}
             >
               <Lightbulb
                 size={16}
