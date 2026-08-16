@@ -633,8 +633,9 @@ function CalendarView({
                     </span>
                     <span
                       className="h-[6px] w-[6px] shrink-0 rounded-full"
-                      style={{ background: i.kind === "booking" ? "#9FC0DE" : GREEN }}
+                      style={{ background: i.kind === "booking" ? "#9FC0DE" : "#C9962F" }}
                     />
+
                     <span className="truncate">{i.title}</span>
                   </button>
                 </li>
