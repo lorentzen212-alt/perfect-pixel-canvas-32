@@ -1196,14 +1196,13 @@ function Workspace({ booking }: { booking: Booking }) {
           className={
             isFolder
               ? "relative flex flex-1 flex-col px-0 pb-0 pt-0"
-              : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+              : isGroupPlan
+                ? "relative flex flex-1 flex-col rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+                : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
-          style={
-            isFolder
-              ? { backgroundColor: PAGE_UNDER }
-              : { backgroundColor: PLATE }
-          }
+          style={{ backgroundColor: PLATE_BG }}
         >
+
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
           {isFolder ? null : (
 
