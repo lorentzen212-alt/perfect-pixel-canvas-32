@@ -8,7 +8,6 @@ import {
   Clock,
   Coffee,
   Gift,
-  GripVertical,
   LayoutGrid,
   Lightbulb,
   Luggage,
@@ -16,10 +15,12 @@ import {
   MonitorPlay,
   MoreHorizontal,
   Pencil,
+  Plane,
   Plus,
   Presentation,
+  KeyRound,
+  Star,
   Trash2,
-  UserCheck,
   Users,
   UtensilsCrossed,
   X,
@@ -27,51 +28,73 @@ import {
 import { SERIF } from "@/components/DashboardChrome";
 import type { PlanItem, PlanItemType, PlanTile, TileIcon } from "./types";
 
-/* ── material ───────────────────────────────────────────── */
-const BG = "#FAF6F0";
-const PANEL = "#0F223A";
-const PANEL_DEEP = "#0B192C";
-const PANEL_SOFT = "linear-gradient(180deg, #142943 0%, #0F223A 100%)";
-const CARD_SHADOW =
-  "0 26px 60px -34px rgba(11,25,44,0.55), 0 4px 14px -8px rgba(11,25,44,0.22)";
-const HAIR = "rgba(255,255,255,0.08)";
-const HAIR_SOFT = "rgba(255,255,255,0.05)";
-const TEXT = "#F6F1E7";
-const TEXT_2 = "rgba(206,219,230,0.74)";
-const MUTED = "rgba(193,208,220,0.56)";
-const PANEL_EDGE = "rgba(140,168,190,0.18)";
-const GOLD = "#D4AF37";
-const GOLD_SOFT = "#E5A93C";
-const GREEN = "#8FC0A2";
+/* ── material — warm ivory / Scandinavian hospitality ────────
+   Light surfaces, premium navy typography, restrained gold.   */
+const PAGE = "#FAF6F0";
+const CARD = "#FDFBF7";
+const PANEL = "#F8F9FB";
+const SURFACE_SOFT = "#F4F1EA";
 
+const NAVY = "#0B192C";
+const NAVY_SOFT = "#1E2A38";
+const TEXT = NAVY;
+const TEXT_2 = "#55636F";
+const MUTED = "#8C97A2";
+
+const EDGE = "rgba(11,25,44,0.10)";
+const HAIR = "rgba(11,25,44,0.08)";
+const HAIR_SOFT = "rgba(11,25,44,0.055)";
+
+const GOLD = "#C09A3E";
+const GOLD_DEEP = "#A87F2C";
+const GOLD_LINE = "rgba(192,154,62,0.45)";
+const GOLD_TINT = "rgba(192,154,62,0.10)";
+const GREEN = "#5E8B6E";
+
+const CARD_SHADOW = "0 1px 2px rgba(11,25,44,0.04), 0 24px 50px -38px rgba(11,25,44,0.30)";
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
-  transport: <Bus size={17} strokeWidth={1.5} />,
-  checkin: <UserCheck size={17} strokeWidth={1.5} />,
-  checkout: <Luggage size={17} strokeWidth={1.5} />,
-  breakfast: <Coffee size={17} strokeWidth={1.5} />,
-  lunch: <UtensilsCrossed size={17} strokeWidth={1.5} />,
-  dinner: <UtensilsCrossed size={17} strokeWidth={1.5} />,
-  meeting: <Presentation size={17} strokeWidth={1.5} />,
-  activity: <MapPin size={17} strokeWidth={1.5} />,
-  "meeting-point": <MapPin size={17} strokeWidth={1.5} />,
-  "free-time": <Clock size={17} strokeWidth={1.5} />,
-  reminder: <Bell size={17} strokeWidth={1.5} />,
+  transport: <Bus size={19} strokeWidth={1.3} />,
+  checkin: <KeyRound size={19} strokeWidth={1.3} />,
+  checkout: <Luggage size={19} strokeWidth={1.3} />,
+  breakfast: <Coffee size={19} strokeWidth={1.3} />,
+  lunch: <UtensilsCrossed size={19} strokeWidth={1.3} />,
+  dinner: <UtensilsCrossed size={19} strokeWidth={1.3} />,
+  meeting: <Presentation size={19} strokeWidth={1.3} />,
+  activity: <MapPin size={19} strokeWidth={1.3} />,
+  "meeting-point": <Users size={19} strokeWidth={1.3} />,
+  "free-time": <Star size={19} strokeWidth={1.3} />,
+  reminder: <Bell size={19} strokeWidth={1.3} />,
+};
+
+/** Same icon family at panel scale. */
+const TYPE_ICON_SM: Record<PlanItemType, React.ReactNode> = {
+  transport: <Bus size={16} strokeWidth={1.3} />,
+  checkin: <KeyRound size={16} strokeWidth={1.3} />,
+  checkout: <Luggage size={16} strokeWidth={1.3} />,
+  breakfast: <Coffee size={16} strokeWidth={1.3} />,
+  lunch: <UtensilsCrossed size={16} strokeWidth={1.3} />,
+  dinner: <UtensilsCrossed size={16} strokeWidth={1.3} />,
+  meeting: <Presentation size={16} strokeWidth={1.3} />,
+  activity: <Plane size={16} strokeWidth={1.3} />,
+  "meeting-point": <Users size={16} strokeWidth={1.3} />,
+  "free-time": <Star size={16} strokeWidth={1.3} />,
+  reminder: <Bell size={16} strokeWidth={1.3} />,
 };
 
 const TILE_ICON: Record<TileIcon, React.ReactNode> = {
-  dining: <UtensilsCrossed size={14} strokeWidth={1.5} />,
-  guests: <Users size={14} strokeWidth={1.5} />,
-  dietary: <UtensilsCrossed size={14} strokeWidth={1.5} />,
-  extras: <Gift size={14} strokeWidth={1.5} />,
-  room: <Presentation size={14} strokeWidth={1.5} />,
-  setup: <LayoutGrid size={14} strokeWidth={1.5} />,
-  equipment: <MonitorPlay size={14} strokeWidth={1.5} />,
-  clock: <Clock size={14} strokeWidth={1.5} />,
-  bus: <Bus size={14} strokeWidth={1.5} />,
-  pin: <MapPin size={14} strokeWidth={1.5} />,
-  bed: <UserCheck size={14} strokeWidth={1.5} />,
-  luggage: <Luggage size={14} strokeWidth={1.5} />,
+  dining: <UtensilsCrossed size={14} strokeWidth={1.4} />,
+  guests: <Users size={14} strokeWidth={1.4} />,
+  dietary: <UtensilsCrossed size={14} strokeWidth={1.4} />,
+  extras: <Gift size={14} strokeWidth={1.4} />,
+  room: <Presentation size={14} strokeWidth={1.4} />,
+  setup: <LayoutGrid size={14} strokeWidth={1.4} />,
+  equipment: <MonitorPlay size={14} strokeWidth={1.4} />,
+  clock: <Clock size={14} strokeWidth={1.4} />,
+  bus: <Bus size={14} strokeWidth={1.4} />,
+  pin: <MapPin size={14} strokeWidth={1.4} />,
+  bed: <KeyRound size={14} strokeWidth={1.4} />,
+  luggage: <Luggage size={14} strokeWidth={1.4} />,
 };
 
 const MY_PLAN_TYPES: { value: PlanItemType; label: string }[] = [
@@ -91,17 +114,26 @@ const longDate = (iso: string) =>
 
 /* ── small parts ────────────────────────────────────────── */
 
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      className="block text-[10px] font-semibold uppercase tracking-[0.20em]"
+      style={{ color: GOLD_DEEP }}
+    >
+      {children}
+    </span>
+  );
+}
+
 function Pill({ kind }: { kind: "booking" | "myplan" }) {
   const booking = kind === "booking";
   return (
     <span
-      className="inline-flex shrink-0 items-center rounded-[5px] px-2.5 py-[3px] text-[9.5px] font-semibold uppercase tracking-[0.12em]"
+      className="inline-flex shrink-0 items-center rounded-[5px] px-2.5 py-[4px] text-[9.5px] font-semibold uppercase tracking-[0.13em]"
       style={{
-        color: booking ? "#DCEAF8" : "#F3E4C0",
-        background: booking ? "#1D4470" : "#8A6A2C",
-        border: booking
-          ? "1px solid rgba(150,190,225,0.28)"
-          : "1px solid rgba(229,169,60,0.34)",
+        color: booking ? "#F4F1E9" : GOLD_DEEP,
+        background: booking ? NAVY : "#FAF2E2",
+        border: booking ? `1px solid ${NAVY}` : "1px solid rgba(192,154,62,0.38)",
       }}
     >
       {booking ? "Booking" : "My plan"}
@@ -109,7 +141,11 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
   );
 }
 
-function Menu({ items }: { items: { label: string; icon?: React.ReactNode; onClick: () => void }[] }) {
+function Menu({
+  items,
+}: {
+  items: { label: string; icon?: React.ReactNode; onClick: () => void }[];
+}) {
   const [open, setOpen] = useState(false);
   return (
     <span className="relative">
@@ -121,15 +157,19 @@ function Menu({ items }: { items: { label: string; icon?: React.ReactNode; onCli
           setOpen((o) => !o);
         }}
         onBlur={() => setTimeout(() => setOpen(false), 140)}
-        className="grid h-7 w-7 place-items-center rounded-[6px] transition-colors"
+        className="grid h-7 w-7 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(11,25,44,0.05)]"
         style={{ color: MUTED }}
       >
-        <MoreHorizontal size={16} strokeWidth={1.5} />
+        <MoreHorizontal size={16} strokeWidth={1.6} />
       </button>
       {open && (
         <span
-          className="absolute right-0 top-8 z-20 flex w-[190px] flex-col rounded-[8px] py-1 text-left"
-          style={{ background: PANEL, border: `1px solid ${HAIR}`, boxShadow: "0 12px 28px -14px rgba(0,0,0,0.6)" }}
+          className="absolute right-0 top-8 z-20 flex w-[190px] flex-col rounded-[9px] py-1 text-left"
+          style={{
+            background: "#FFFFFF",
+            border: `1px solid ${EDGE}`,
+            boxShadow: "0 18px 34px -18px rgba(11,25,44,0.35)",
+          }}
         >
           {items.map((it) => (
             <button
@@ -141,7 +181,7 @@ function Menu({ items }: { items: { label: string; icon?: React.ReactNode; onCli
                 setOpen(false);
                 it.onClick();
               }}
-              className="flex items-center gap-2 px-3 py-2 text-[12.5px] hover:opacity-80"
+              className="flex items-center gap-2 px-3 py-2 text-[12.5px] transition-colors hover:bg-[rgba(11,25,44,0.04)]"
               style={{ color: TEXT_2 }}
             >
               {it.icon}
@@ -157,12 +197,15 @@ function Menu({ items }: { items: { label: string; icon?: React.ReactNode; onCli
 function Tile({ tile }: { tile: PlanTile }) {
   return (
     <div
-      className="min-w-0 rounded-[9px] px-3 py-2.5"
-      style={{ background: PANEL_SOFT, border: `1px solid rgba(140,168,190,0.16)` }}
+      className="min-w-0 rounded-[10px] px-3 py-2.5"
+      style={{ background: SURFACE_SOFT, border: `1px solid ${HAIR}` }}
     >
       <div className="flex items-center gap-1.5">
         <span style={{ color: GOLD }}>{TILE_ICON[tile.icon]}</span>
-        <span className="truncate text-[9.5px] font-semibold uppercase tracking-[0.12em]" style={{ color: MUTED }}>
+        <span
+          className="truncate text-[9.5px] font-semibold uppercase tracking-[0.12em]"
+          style={{ color: MUTED }}
+        >
           {tile.label}
         </span>
       </div>
@@ -180,7 +223,10 @@ function Tile({ tile }: { tile: PlanTile }) {
 
 function ColHead({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-[9.5px] font-semibold uppercase tracking-[0.14em]" style={{ color: MUTED }}>
+    <div
+      className="text-[9.5px] font-semibold uppercase tracking-[0.14em]"
+      style={{ color: MUTED }}
+    >
       {children}
     </div>
   );
@@ -191,8 +237,8 @@ function GoldLink({ label, onClick }: { label: string; onClick?: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="text-[12px] font-medium transition-opacity hover:opacity-80"
-      style={{ color: GOLD_SOFT }}
+      className="shrink-0 text-[12px] font-medium transition-opacity hover:opacity-70"
+      style={{ color: GOLD_DEEP }}
     >
       {label}
     </button>
@@ -229,7 +275,11 @@ function Expanded({
       {item.attention && (
         <div
           className="mt-3 inline-flex items-center gap-2 rounded-[7px] px-3 py-1.5 text-[12px]"
-          style={{ color: GOLD_SOFT, background: "rgba(212,175,55,0.10)", border: "1px solid rgba(229,169,60,0.26)" }}
+          style={{
+            color: GOLD_DEEP,
+            background: GOLD_TINT,
+            border: "1px solid rgba(192,154,62,0.30)",
+          }}
         >
           {item.attention}
         </div>
@@ -242,7 +292,11 @@ function Expanded({
               <ColHead>Dietary requirements</ColHead>
               <ul className="mt-2.5 space-y-1.5">
                 {item.dietary.map((r, i) => (
-                  <li key={`${r.name}-${i}`} className="truncate text-[12.5px]" style={{ color: TEXT_2 }}>
+                  <li
+                    key={`${r.name}-${i}`}
+                    className="truncate text-[12.5px]"
+                    style={{ color: TEXT_2 }}
+                  >
                     <span style={{ color: TEXT }}>{r.name}</span> · {r.room} · {r.restriction}
                   </li>
                 ))}
@@ -261,8 +315,12 @@ function Expanded({
               <ColHead>Included</ColHead>
               <ul className="mt-2.5 space-y-1.5">
                 {item.included.map((x) => (
-                  <li key={x} className="flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
-                    <Check size={13} strokeWidth={1.6} style={{ color: GREEN }} />
+                  <li
+                    key={x}
+                    className="flex items-center gap-2 text-[12.5px]"
+                    style={{ color: TEXT_2 }}
+                  >
+                    <Check size={13} strokeWidth={1.7} style={{ color: GREEN }} />
                     {x}
                   </li>
                 ))}
@@ -330,7 +388,7 @@ function Expanded({
           <button
             type="button"
             onClick={() => onEditNote(item)}
-            className="mt-1.5 text-[12.5px] transition-opacity hover:opacity-80"
+            className="mt-1.5 text-[12.5px] transition-opacity hover:opacity-70"
             style={{ color: MUTED }}
           >
             + Add note
@@ -342,8 +400,8 @@ function Expanded({
         <button
           type="button"
           onClick={onRequestChange}
-          className="rounded-[7px] px-3.5 py-[7px] text-[12px] font-medium transition-colors"
-          style={{ color: TEXT_2, border: `1px solid ${HAIR}` }}
+          className="rounded-[8px] bg-white px-3.5 py-[7px] text-[12px] font-medium transition-colors hover:bg-[rgba(11,25,44,0.03)]"
+          style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
         >
           Request a change
         </button>
@@ -358,6 +416,7 @@ function Expanded({
 function Row({
   item,
   open,
+  last,
   onToggle,
   onRequestChange,
   onEdit,
@@ -366,6 +425,7 @@ function Row({
 }: {
   item: PlanItem;
   open: boolean;
+  last: boolean;
   onToggle: () => void;
   onRequestChange: () => void;
   onEdit: (item: PlanItem) => void;
@@ -374,12 +434,18 @@ function Row({
 }) {
   return (
     <li className="relative">
-      <span aria-hidden className="absolute bottom-0 left-0 top-0 w-px" style={{ background: "rgba(212,175,55,0.45)" }} />
+      {/* continuous gold spine */}
+      <span
+        aria-hidden
+        className="absolute bottom-0 left-0 top-0 w-px"
+        style={{ background: GOLD_LINE }}
+      />
       <div className="relative">
+        {/* open circular node */}
         <span
           aria-hidden
-          className="absolute left-[-3.5px] top-1/2 h-[8px] w-[8px] -translate-y-1/2 rounded-full"
-          style={{ background: GOLD, boxShadow: `0 0 0 3px ${PANEL}` }}
+          className="absolute left-[-4.5px] top-1/2 h-[9px] w-[9px] -translate-y-1/2 rounded-full"
+          style={{ background: CARD, border: `1px solid ${GOLD}` }}
         />
         <div
           role="button"
@@ -392,30 +458,38 @@ function Row({
             }
           }}
           aria-expanded={open}
-          className="flex cursor-pointer items-start gap-3.5 py-[10px] pl-[26px] pr-1"
+          className="flex cursor-pointer items-start gap-4 py-[13px] pl-[26px] pr-1 transition-colors hover:bg-[rgba(11,25,44,0.02)]"
+          style={!open && !last ? { borderBottom: `1px solid ${HAIR_SOFT}` } : undefined}
         >
-          <span className="w-[82px] shrink-0 pt-[3px] text-[12.5px] tabular-nums" style={{ color: TEXT_2 }}>
+          <span
+            className="w-[92px] shrink-0 pt-[3px] text-[13px] tabular-nums"
+            style={{ color: TEXT_2 }}
+          >
             {item.time ?? "—"}
           </span>
-          <span className="shrink-0 pt-[1px]" style={{ color: GOLD_SOFT }}>
+          <span className="shrink-0 pt-[1px]" style={{ color: GOLD }}>
             {TYPE_ICON[item.type]}
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-[14.5px] font-medium" style={{ color: TEXT }}>
+            <span className="block truncate text-[14.5px] font-semibold" style={{ color: TEXT }}>
               {item.title}
             </span>
             {(item.summary || item.secondary) && (
-              <span className="mt-[2px] block truncate text-[12px]" style={{ color: TEXT_2 }}>
+              <span className="mt-[2px] block truncate text-[12.5px]" style={{ color: TEXT_2 }}>
                 {item.summary ?? item.secondary}
               </span>
             )}
           </span>
-          <span className="shrink-0 pt-[5px]">
+          <span className="w-[86px] shrink-0 pt-[5px]">
             <Pill kind={item.kind} />
           </span>
 
           {item.kind === "booking" ? (
-            <Menu items={[{ label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange }]} />
+            <Menu
+              items={[
+                { label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange },
+              ]}
+            />
           ) : (
             <Menu
               items={[
@@ -446,7 +520,10 @@ export interface DraftItem {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.13em]" style={{ color: MUTED }}>
+      <span
+        className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.13em]"
+        style={{ color: MUTED }}
+      >
         {label}
       </span>
       {children}
@@ -455,8 +532,8 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 const inputStyle: React.CSSProperties = {
-  background: "rgba(10,18,26,0.35)",
-  border: `1px solid ${HAIR}`,
+  background: "#FFFFFF",
+  border: `1px solid ${EDGE}`,
   color: TEXT,
 };
 
@@ -474,19 +551,24 @@ function Editor({
   return (
     <div
       className="fixed inset-y-0 right-0 z-50 flex w-full max-w-[380px] flex-col overflow-y-auto px-6 py-6"
-      style={{ background: PANEL, borderLeft: `1px solid ${HAIR}`, boxShadow: "-18px 0 48px -30px rgba(0,0,0,0.8)" }}
+      style={{
+        background: CARD,
+        borderLeft: `1px solid ${EDGE}`,
+        boxShadow: "-24px 0 60px -40px rgba(11,25,44,0.55)",
+      }}
     >
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="text-[19px]" style={{ color: TEXT, fontFamily: SERIF }}>
+          <Eyebrow>Your personal plan</Eyebrow>
+          <h3 className="mt-1 text-[24px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
             {draft.id ? "Edit plan item" : "Add to plan"}
           </h3>
-          <p className="mt-0.5 text-[11.5px]" style={{ color: MUTED }}>
+          <p className="mt-1.5 text-[11.5px]" style={{ color: MUTED }}>
             Only a title is required.
           </p>
         </div>
         <button type="button" onClick={onClose} aria-label="Close" style={{ color: MUTED }}>
-          <X size={17} strokeWidth={1.5} />
+          <X size={17} strokeWidth={1.6} />
         </button>
       </div>
 
@@ -497,7 +579,7 @@ function Editor({
               type="date"
               value={draft.date}
               onChange={(e) => onChange({ ...draft, date: e.target.value })}
-              className="w-full rounded-[7px] px-2.5 py-2 text-[12.5px] outline-none"
+              className="w-full rounded-[8px] px-2.5 py-2 text-[12.5px] outline-none"
               style={inputStyle}
             />
           </Field>
@@ -506,7 +588,7 @@ function Editor({
               type="time"
               value={draft.time}
               onChange={(e) => onChange({ ...draft, time: e.target.value })}
-              className="w-full rounded-[7px] px-2.5 py-2 text-[12.5px] outline-none"
+              className="w-full rounded-[8px] px-2.5 py-2 text-[12.5px] outline-none"
               style={inputStyle}
             />
           </Field>
@@ -516,7 +598,7 @@ function Editor({
             value={draft.title}
             onChange={(e) => onChange({ ...draft, title: e.target.value })}
             placeholder="Guided city walk"
-            className="w-full rounded-[7px] px-2.5 py-2 text-[12.5px] outline-none"
+            className="w-full rounded-[8px] px-2.5 py-2 text-[12.5px] outline-none"
             style={inputStyle}
           />
         </Field>
@@ -524,7 +606,7 @@ function Editor({
           <input
             value={draft.location}
             onChange={(e) => onChange({ ...draft, location: e.target.value })}
-            className="w-full rounded-[7px] px-2.5 py-2 text-[12.5px] outline-none"
+            className="w-full rounded-[8px] px-2.5 py-2 text-[12.5px] outline-none"
             style={inputStyle}
           />
         </Field>
@@ -533,7 +615,7 @@ function Editor({
             value={draft.notes}
             rows={3}
             onChange={(e) => onChange({ ...draft, notes: e.target.value })}
-            className="w-full resize-none rounded-[7px] px-2.5 py-2 text-[12.5px] outline-none"
+            className="w-full resize-none rounded-[8px] px-2.5 py-2 text-[12.5px] outline-none"
             style={inputStyle}
           />
         </Field>
@@ -548,9 +630,9 @@ function Editor({
                   onClick={() => onChange({ ...draft, type: t.value })}
                   className="rounded-full px-3 py-[5px] text-[11.5px]"
                   style={{
-                    color: on ? GOLD_SOFT : TEXT_2,
-                    background: on ? "rgba(212,175,55,0.12)" : "transparent",
-                    border: `1px solid ${on ? "rgba(229,169,60,0.30)" : HAIR}`,
+                    color: on ? GOLD_DEEP : TEXT_2,
+                    background: on ? GOLD_TINT : "#FFFFFF",
+                    border: `1px solid ${on ? "rgba(192,154,62,0.40)" : EDGE}`,
                   }}
                 >
                   {t.label}
@@ -566,11 +648,11 @@ function Editor({
           type="button"
           disabled={!draft.title.trim()}
           onClick={() => onSave(draft, false)}
-          className="rounded-[7px] px-4 py-2 text-[12.5px] font-medium"
+          className="rounded-[9px] px-4 py-[10px] text-[12.5px] font-medium transition-opacity"
           style={{
-            color: draft.title.trim() ? GOLD_SOFT : MUTED,
-            border: `1px solid ${draft.title.trim() ? "rgba(229,169,60,0.34)" : HAIR}`,
-            background: draft.title.trim() ? "rgba(212,175,55,0.10)" : "transparent",
+            color: draft.title.trim() ? "#F6F2E9" : MUTED,
+            background: draft.title.trim() ? NAVY : SURFACE_SOFT,
+            border: `1px solid ${draft.title.trim() ? NAVY : EDGE}`,
             cursor: draft.title.trim() ? "pointer" : "not-allowed",
           }}
         >
@@ -580,8 +662,8 @@ function Editor({
           type="button"
           disabled={!draft.title.trim()}
           onClick={() => onSave(draft, true)}
-          className="rounded-[7px] px-4 py-2 text-[12px]"
-          style={{ color: TEXT_2, border: `1px solid ${HAIR}` }}
+          className="rounded-[9px] bg-white px-4 py-[10px] text-[12px]"
+          style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
         >
           Add without a time
         </button>
@@ -592,13 +674,7 @@ function Editor({
 
 /* ── calendar rendering of the same data ────────────────── */
 
-function CalendarView({
-  items,
-  onSelect,
-}: {
-  items: PlanItem[];
-  onSelect: (id: string) => void;
-}) {
+function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: string) => void }) {
   const days = Array.from(new Set(items.filter((i) => i.date).map((i) => i.date as string))).sort();
   if (days.length === 0) {
     return (
@@ -610,12 +686,22 @@ function CalendarView({
   return (
     <div className="grid gap-3 pt-4 sm:grid-cols-2 lg:grid-cols-3">
       {days.map((day) => (
-        <div key={day} className="rounded-[10px] p-3.5" style={{ background: PANEL_SOFT, border: `1px solid ${HAIR}` }}>
+        <div
+          key={day}
+          className="rounded-[12px] p-3.5"
+          style={{ background: SURFACE_SOFT, border: `1px solid ${HAIR}` }}
+        >
           <div className="flex items-baseline gap-2">
-            <span className="text-[20px] leading-none" style={{ color: GOLD, fontFamily: SERIF }}>
+            <span
+              className="text-[22px] leading-none"
+              style={{ color: GOLD_DEEP, fontFamily: SERIF }}
+            >
               {dayNum(day)}
             </span>
-            <span className="text-[11px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
+            <span
+              className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+              style={{ color: MUTED }}
+            >
               {monthShort(day)} · {weekday(day)}
             </span>
           </div>
@@ -627,7 +713,7 @@ function CalendarView({
                   <button
                     type="button"
                     onClick={() => onSelect(i.id)}
-                    className="flex w-full items-center gap-2 text-left text-[12px]"
+                    className="flex w-full items-center gap-2 text-left text-[12px] transition-opacity hover:opacity-70"
                     style={{ color: TEXT_2 }}
                   >
                     <span className="w-[38px] shrink-0 tabular-nums" style={{ color: MUTED }}>
@@ -635,7 +721,7 @@ function CalendarView({
                     </span>
                     <span
                       className="h-[6px] w-[6px] shrink-0 rounded-full"
-                      style={{ background: i.kind === "booking" ? "#9FC0DE" : "#C9962F" }}
+                      style={{ background: i.kind === "booking" ? NAVY : GOLD }}
                     />
 
                     <span className="truncate">{i.title}</span>
@@ -685,7 +771,9 @@ export function GroupPlanView({
 
   const scheduled = all
     .filter((i) => i.date)
-    .sort((a, b) => `${a.date} ${a.time ?? "99:99"}`.localeCompare(`${b.date} ${b.time ?? "99:99"}`));
+    .sort((a, b) =>
+      `${a.date} ${a.time ?? "99:99"}`.localeCompare(`${b.date} ${b.time ?? "99:99"}`),
+    );
   const unscheduled = all.filter((i) => !i.date);
   const mine = all.filter((i) => i.kind === "myplan" && i.date);
 
@@ -733,7 +821,11 @@ export function GroupPlanView({
       summary: dr.location || undefined,
       location: dr.location || undefined,
       note: dr.notes.trim()
-        ? { text: dr.notes.trim(), author: "you", date: longDate(new Date().toISOString().slice(0, 10)) }
+        ? {
+            text: dr.notes.trim(),
+            author: "you",
+            date: longDate(new Date().toISOString().slice(0, 10)),
+          }
         : null,
     };
     setMyItems((prev) => (dr.id ? prev.map((p) => (p.id === dr.id ? item : p)) : [...prev, item]));
@@ -759,33 +851,39 @@ export function GroupPlanView({
   };
 
   return (
-    <div className="pb-14" style={{ background: BG }}>
+    <div className="pb-14" style={{ background: PAGE }}>
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
-        {/* ── main timeline ── */}
+        {/* ══ left · itinerary timeline (≈65%) ══ */}
         <section
-          className="min-w-0 flex-1 rounded-[24px] px-7 py-6 lg:w-[65%]"
+          className="min-w-0 flex-1 rounded-[22px] px-7 py-7 lg:w-[65%]"
           style={{
-            background: PANEL,
-            border: `1px solid ${PANEL_EDGE}`,
-            boxShadow: `inset 0 1px 0 rgba(255,255,255,0.03), ${CARD_SHADOW}`,
+            background: CARD,
+            border: `1px solid ${EDGE}`,
+            boxShadow: CARD_SHADOW,
           }}
         >
-
-          <div className="flex flex-wrap items-start justify-between gap-4 pb-2">
+          <div className="flex flex-wrap items-start justify-between gap-4 pb-4">
             <div>
-              <h2 className="text-[29px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
+              <Eyebrow>Your booking</Eyebrow>
+              <h2
+                className="mt-1.5 text-[38px] leading-none"
+                style={{ color: NAVY, fontFamily: SERIF }}
+              >
                 Group Plan
               </h2>
-              <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
+              <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
                 Your itinerary for the group.
               </p>
             </div>
-            <div className="flex items-center gap-2.5">
-              <span className="text-[11.5px]" style={{ color: MUTED }}>
+            <div className="flex items-center gap-3">
+              <span className="text-[12px]" style={{ color: TEXT_2 }}>
                 Display as
               </span>
 
-              <div className="inline-flex rounded-[8px] p-[3px]" style={{ border: `1px solid ${HAIR}` }}>
+              <div
+                className="inline-flex rounded-[10px] p-[4px]"
+                style={{ border: `1px solid ${EDGE}`, background: "#FFFFFF" }}
+              >
                 {(["Timeline", "Calendar"] as const).map((v) => {
                   const on = view === v;
                   return (
@@ -793,15 +891,26 @@ export function GroupPlanView({
                       key={v}
                       type="button"
                       onClick={() => setView(v)}
-                      className="inline-flex items-center gap-1.5 rounded-[6px] px-3 py-[5px] text-[12px]"
+                      className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors"
                       style={{
-                        color: on ? GOLD_SOFT : TEXT_2,
-                        background: on ? "rgba(212,175,55,0.12)" : "transparent",
-                        border: on ? "1px solid rgba(212,175,55,0.55)" : "1px solid transparent",
+                        color: on ? NAVY : TEXT_2,
+                        background: on ? GOLD_TINT : "transparent",
+                        border: on ? "1px solid rgba(192,154,62,0.45)" : "1px solid transparent",
                       }}
                     >
-
-                      {v === "Timeline" ? <Clock size={13} strokeWidth={1.5} /> : <CalendarDays size={13} strokeWidth={1.5} />}
+                      {v === "Timeline" ? (
+                        <span
+                          aria-hidden
+                          className="h-[11px] w-[11px] rounded-full"
+                          style={{ border: `1.5px solid ${GOLD}` }}
+                        />
+                      ) : (
+                        <CalendarDays
+                          size={14}
+                          strokeWidth={1.5}
+                          style={{ color: on ? GOLD : MUTED }}
+                        />
+                      )}
                       {v}
                     </button>
                   );
@@ -823,30 +932,34 @@ export function GroupPlanView({
               {groups.map(([day, items], gi) => (
                 <div
                   key={day}
-                  className="flex max-w-[880px] gap-4 sm:gap-5"
+                  className="flex gap-5 sm:gap-7"
                   style={
                     gi > 0
-                      ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 10, paddingTop: 14 }
+                      ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 12, paddingTop: 20 }
                       : { paddingTop: 6 }
                   }
                 >
-                  <div className="w-[52px] shrink-0 pt-[2px]">
-                    <div className="text-[34px] leading-[0.9]" style={{ color: GOLD, fontFamily: SERIF }}>
+                  <div className="w-[64px] shrink-0 pt-[2px]">
+                    <div
+                      className="text-[46px] leading-[0.85]"
+                      style={{ color: GOLD, fontFamily: SERIF }}
+                    >
                       {dayNum(day)}
                     </div>
-                    <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: TEXT_2 }}>
-                      {monthShort(day)}
-                    </div>
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: MUTED }}>
-                      {weekday(day)}
+                    <div
+                      className="mt-2.5 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.14em]"
+                      style={{ color: TEXT_2 }}
+                    >
+                      {monthShort(day)} · {weekday(day)}
                     </div>
                   </div>
                   <ul className="relative min-w-0 flex-1">
-                    {items.map((i) => (
+                    {items.map((i, ix) => (
                       <Row
                         key={i.id}
                         item={i}
                         open={openId === i.id}
+                        last={ix === items.length - 1}
                         onToggle={() => setOpenId((o) => (o === i.id ? null : i.id))}
                         {...rowProps}
                       />
@@ -858,57 +971,66 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="mt-5 flex w-full max-w-[880px] items-center justify-center gap-2 rounded-[9px] py-[9px] text-[12.5px] font-medium transition-opacity hover:opacity-85"
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-[12px] py-[15px] text-[14px] font-medium transition-colors hover:bg-[rgba(192,154,62,0.07)]"
                 style={{
-                  color: GOLD_SOFT,
-                  border: "1px dashed rgba(229,169,60,0.32)",
-                  background: "rgba(212,175,55,0.04)",
+                  color: GOLD_DEEP,
+                  border: `1px solid ${EDGE}`,
+                  background: "#FFFFFF",
                 }}
               >
-                <Plus size={14} strokeWidth={1.6} /> Add time or activity
+                <Plus size={16} strokeWidth={1.7} /> Add time or activity
               </button>
-
-              {/* legend */}
-              <div
-                className="mt-4 flex max-w-[880px] flex-wrap items-center gap-x-2.5 gap-y-2 pt-4"
-                style={{ borderTop: `1px solid ${HAIR_SOFT}` }}
-              >
-                <Pill kind="booking" />
-                <span className="text-[11px]" style={{ color: MUTED }}>Part of your hotel booking</span>
-                <span className="text-[11px]" style={{ color: "rgba(190,205,217,0.28)" }}>·</span>
-                <Pill kind="myplan" />
-                <span className="text-[11px]" style={{ color: MUTED }}>Added by you</span>
-              </div>
             </>
           )}
+
+          {/* legend */}
+          <div
+            className="mt-6 flex flex-wrap items-center gap-x-2.5 gap-y-2 pt-5"
+            style={{ borderTop: `1px solid ${HAIR_SOFT}` }}
+          >
+            <Pill kind="booking" />
+            <span className="text-[12px]" style={{ color: TEXT_2 }}>
+              Part of your hotel booking
+            </span>
+            <span className="text-[12px]" style={{ color: MUTED }}>
+              ·
+            </span>
+            <Pill kind="myplan" />
+            <span className="text-[12px]" style={{ color: TEXT_2 }}>
+              Added by you
+            </span>
+          </div>
         </section>
 
-        {/* ── group planner ── */}
+        {/* ══ right · group planner (≈35%) ══ */}
         <aside className="w-full shrink-0 lg:w-[35%]">
           <div
-            className="rounded-[24px] px-5 py-5"
+            className="rounded-[22px] px-6 py-7"
             style={{
               background: PANEL,
-              border: `1px solid ${PANEL_EDGE}`,
-              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.03), ${CARD_SHADOW}`,
+              border: `1px solid ${EDGE}`,
+              boxShadow: CARD_SHADOW,
             }}
           >
-
-            <h3 className="text-[19px] leading-none" style={{ color: TEXT, fontFamily: SERIF }}>
+            <Eyebrow>Your personal plan</Eyebrow>
+            <h3
+              className="mt-1.5 text-[32px] leading-none"
+              style={{ color: NAVY, fontFamily: SERIF }}
+            >
               Group Planner
             </h3>
-            <p className="mt-2 text-[11.5px]" style={{ color: MUTED }}>
+            <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
               Add your own plans alongside the booking.
             </p>
 
-            <div className="mt-4 flex gap-2">
+            <div className="mt-5 flex gap-3">
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[8px] text-[12.5px] font-medium"
-                style={{ color: GOLD_SOFT, border: "1px solid rgba(229,169,60,0.34)", background: "rgba(212,175,55,0.06)" }}
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-[10px] px-4 py-[13px] text-[14px] font-medium transition-opacity hover:opacity-90"
+                style={{ color: "#F6F2E9", background: NAVY, border: `1px solid ${NAVY}` }}
               >
-                <Plus size={14} strokeWidth={1.6} /> Add to plan
+                <Plus size={16} strokeWidth={1.8} /> Add to plan
               </button>
               <button
                 type="button"
@@ -916,98 +1038,168 @@ export function GroupPlanView({
                   openEditor();
                   setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
                 }}
-                className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-3 py-[8px] text-[12.5px]"
-                style={{ color: TEXT_2, border: "1px solid rgba(140,168,190,0.20)" }}
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-[10px] bg-white px-4 py-[13px] text-[14px] transition-colors hover:bg-[rgba(11,25,44,0.03)]"
+                style={{ color: NAVY_SOFT, border: `1px solid ${EDGE}` }}
               >
-                <Bell size={13} strokeWidth={1.6} /> Reminder
+                <Bell size={15} strokeWidth={1.6} /> Reminder
               </button>
             </div>
 
-            <PlannerSection title="Unscheduled" count={unscheduled.length} empty={unscheduled.length === 0}>
+            <PlannerSection title="Unscheduled" count={unscheduled.length}>
               {unscheduled.length === 0 ? (
-                <p className="text-[11.5px]" style={{ color: MUTED }}>
+                <p className="py-1 text-[12px]" style={{ color: MUTED }}>
                   Nothing waiting for a time.
                 </p>
               ) : (
                 unscheduled.map((i, ix) => (
                   <div
                     key={i.id}
-                    className="flex items-center gap-2 px-3 py-2.5"
+                    className="flex items-center gap-3 py-3"
                     style={ix > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
                   >
-                    <GripVertical size={13} strokeWidth={1.5} className="shrink-0" style={{ color: "rgba(190,205,217,0.28)" }} />
+                    <span
+                      className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-[10px]"
+                      style={{ background: "rgba(11,25,44,0.05)", color: GOLD }}
+                    >
+                      {TYPE_ICON_SM[i.type]}
+                    </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>{i.title}</span>
-                      <span className="block text-[11px]" style={{ color: MUTED }}>No time set</span>
+                      <span
+                        className="block truncate text-[13.5px] font-semibold"
+                        style={{ color: TEXT }}
+                      >
+                        {i.title}
+                      </span>
+                      <span className="block text-[12px]" style={{ color: MUTED }}>
+                        No time set
+                      </span>
                     </span>
                     <GoldLink label="Add time" onClick={() => openEditor(undefined, i)} />
-                    <Menu items={[
-                      { label: "Edit", icon: <Pencil size={13} />, onClick: () => openEditor(undefined, i) },
-                      { label: "Delete", icon: <Trash2 size={13} />, onClick: () => remove(i.id) },
-                    ]} />
+                    <Menu
+                      items={[
+                        {
+                          label: "Edit",
+                          icon: <Pencil size={13} />,
+                          onClick: () => openEditor(undefined, i),
+                        },
+                        {
+                          label: "Delete",
+                          icon: <Trash2 size={13} />,
+                          onClick: () => remove(i.id),
+                        },
+                      ]}
+                    />
                   </div>
                 ))
               )}
             </PlannerSection>
 
-            <PlannerSection title="My plan" count={mine.length} empty={mine.length === 0}>
+            <PlannerSection title="My plan" count={mine.length}>
               {mine.length === 0 ? (
-                <p className="text-[11.5px]" style={{ color: MUTED }}>
+                <p className="py-1 text-[12px]" style={{ color: MUTED }}>
                   You haven't added anything yet.
                 </p>
               ) : (
                 mine.map((i, ix) => (
                   <div
                     key={i.id}
-                    className="flex items-stretch gap-3 px-3 py-2.5"
+                    className="flex items-stretch gap-4 py-3"
                     style={ix > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
                   >
-                    <span className="w-[46px] shrink-0 pr-3" style={{ borderRight: `1px solid ${HAIR_SOFT}` }}>
-                      <span className="block text-[12px] tabular-nums" style={{ color: TEXT }}>{i.time ?? "—"}</span>
-                      <span className="block text-[10.5px]" style={{ color: MUTED }}>
+                    <span className="w-[58px] shrink-0">
+                      <span
+                        className="block text-[15px] font-semibold tabular-nums"
+                        style={{ color: TEXT }}
+                      >
+                        {i.time ?? "—"}
+                      </span>
+                      <span
+                        className="block text-[11px] uppercase tracking-[0.06em]"
+                        style={{ color: MUTED }}
+                      >
                         {i.date ? `${dayNum(i.date)} ${monthShort(i.date)}` : ""}
                       </span>
                     </span>
+                    <span
+                      className="shrink-0 self-stretch"
+                      style={{ borderLeft: `1px solid ${HAIR}` }}
+                    />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[12.5px]" style={{ color: TEXT }}>{i.title}</span>
+                      <span
+                        className="block truncate text-[13.5px] font-semibold"
+                        style={{ color: TEXT }}
+                      >
+                        {i.title}
+                      </span>
                       {i.secondary && (
-                        <span className="block truncate text-[11px]" style={{ color: MUTED }}>{i.secondary}</span>
+                        <span className="block truncate text-[12px]" style={{ color: TEXT_2 }}>
+                          {i.secondary}
+                        </span>
                       )}
                     </span>
-                    <Menu items={[
-                      { label: "Edit", icon: <Pencil size={13} />, onClick: () => openEditor(undefined, i) },
-                      { label: "Delete", icon: <Trash2 size={13} />, onClick: () => remove(i.id) },
-                    ]} />
+                    <Menu
+                      items={[
+                        {
+                          label: "Edit",
+                          icon: <Pencil size={13} />,
+                          onClick: () => openEditor(undefined, i),
+                        },
+                        {
+                          label: "Delete",
+                          icon: <Trash2 size={13} />,
+                          onClick: () => remove(i.id),
+                        },
+                      ]}
+                    />
                   </div>
                 ))
               )}
             </PlannerSection>
 
             {mine.length > 0 && (
-              <div className="mt-2.5 text-right">
-                <GoldLink label="View all my plan items →" onClick={() => setView("Timeline")} />
+              <div className="mt-4 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setView("Timeline")}
+                  className="inline-flex items-center gap-2 text-[13px] font-medium transition-opacity hover:opacity-70"
+                  style={{ color: GOLD_DEEP }}
+                >
+                  View all my plan items <span aria-hidden>→</span>
+                </button>
               </div>
             )}
 
             <div
-              className="mt-5 rounded-[14px] px-3.5 py-3"
-              style={{ border: `1px solid ${HAIR_SOFT}`, background: PANEL_DEEP }}
+              className="mt-5 flex gap-3 rounded-[14px] px-4 py-4"
+              style={{ border: "1px solid rgba(192,154,62,0.22)", background: "#FBF3E4" }}
             >
-              <div className="flex items-center gap-1.5">
-                <Lightbulb size={12} strokeWidth={1.6} style={{ color: GOLD }} />
-                <span className="text-[9.5px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>Tip</span>
+              <Lightbulb
+                size={16}
+                strokeWidth={1.5}
+                className="mt-[2px] shrink-0"
+                style={{ color: GOLD_DEEP }}
+              />
+              <div className="min-w-0">
+                <span
+                  className="block text-[10px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: GOLD_DEEP }}
+                >
+                  Tip
+                </span>
+                <p className="mt-1.5 text-[12.5px] leading-[1.6]" style={{ color: TEXT_2 }}>
+                  Booking items are added automatically.
+                  <br />
+                  Your plans can be changed anytime.
+                </p>
               </div>
-              <p className="mt-1.5 text-[11px] leading-[1.65]" style={{ color: "rgba(190,205,217,0.40)" }}>
-                Booking items are added automatically.
-                <br />
-                Your plans can be changed anytime.
-              </p>
             </div>
           </div>
         </aside>
       </div>
 
-      {draft && <Editor draft={draft} onChange={setDraft} onSave={save} onClose={() => setDraft(null)} />}
+      {draft && (
+        <Editor draft={draft} onChange={setDraft} onSave={save} onClose={() => setDraft(null)} />
+      )}
     </div>
   );
 }
@@ -1015,39 +1207,32 @@ export function GroupPlanView({
 function PlannerSection({
   title,
   count,
-  empty,
   children,
 }: {
   title: string;
   count: number;
-  empty?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <div className="mt-5">
-      <div className="flex items-center justify-between">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: MUTED }}>
+    <div className="mt-6">
+      <div
+        className="flex items-center justify-between pb-2"
+        style={{ borderBottom: `1px solid ${HAIR}` }}
+      >
+        <span
+          className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+          style={{ color: TEXT_2 }}
+        >
           {title}
         </span>
         <span
-          className="inline-grid h-[19px] w-[19px] shrink-0 place-items-center rounded-full text-[10.5px] leading-none tabular-nums"
-          style={{
-            color: TEXT_2,
-            border: "1px solid rgba(190,205,217,0.34)",
-            background: "rgba(255,255,255,0.06)",
-          }}
+          className="inline-grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-[11px] font-semibold leading-none tabular-nums"
+          style={{ color: "#FFFFFF", background: "#C6A45C" }}
         >
           {count}
         </span>
-
       </div>
-      {empty ? (
-        <div className="mt-1.5">{children}</div>
-      ) : (
-        <div className="mt-2 overflow-hidden rounded-[9px]" style={{ border: `1px solid ${HAIR_SOFT}` }}>
-          {children}
-        </div>
-      )}
+      <div>{children}</div>
     </div>
   );
 }
