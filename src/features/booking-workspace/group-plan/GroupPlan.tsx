@@ -37,7 +37,6 @@ const CARD = "#385870";
 const PANEL = "#263A4B";
 const SURFACE_SOFT = "#304B5F";
 
-const NAVY = "#263A4B";
 const TEXT = "#F5F2EC";
 const TIME = "#D6DEE4";
 const TEXT_2 = "#B5C1C9";
@@ -52,8 +51,6 @@ const GOLD_DEEP = "#E8CC7A";
 const GOLD_LINE = "rgba(232,201,106,0.30)";
 const GOLD_TINT = "rgba(216,184,93,0.12)";
 const GREEN = "#A9CDAA";
-
-const CARD_SHADOW = "0 1px 2px rgba(0,0,0,0.10), 0 18px 40px -34px rgba(0,0,0,0.35)";
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   transport: <Bus size={22} strokeWidth={1.3} />,
@@ -875,7 +872,7 @@ export function GroupPlanView({
       <div
         className="rounded-[20px]"
         style={{
-          background: CARD,
+          background: `linear-gradient(180deg, #3B5C74 0%, ${CARD} 50%, #35536A 100%)`,
           border: `1px solid ${EDGE}`,
           boxShadow: "0 1px 2px rgba(0,0,0,0.08), 0 30px 60px -45px rgba(0,0,0,0.30)",
         }}
