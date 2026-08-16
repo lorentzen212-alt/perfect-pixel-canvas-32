@@ -28,18 +28,22 @@ import { SERIF } from "@/components/DashboardChrome";
 import type { PlanItem, PlanItemType, PlanTile, TileIcon } from "./types";
 
 /* ── material ───────────────────────────────────────────── */
-const BG = "#16232F";
-const PANEL = "#1B2A38";
-const PANEL_SOFT = "linear-gradient(180deg, #21303F 0%, #1B2A38 100%)";
+const BG = "#FAF6F0";
+const PANEL = "#0F223A";
+const PANEL_DEEP = "#0B192C";
+const PANEL_SOFT = "linear-gradient(180deg, #142943 0%, #0F223A 100%)";
+const CARD_SHADOW =
+  "0 26px 60px -34px rgba(11,25,44,0.55), 0 4px 14px -8px rgba(11,25,44,0.22)";
 const HAIR = "rgba(255,255,255,0.08)";
 const HAIR_SOFT = "rgba(255,255,255,0.05)";
-const TEXT = "#F4F2EC";
+const TEXT = "#F6F1E7";
 const TEXT_2 = "rgba(206,219,230,0.74)";
 const MUTED = "rgba(193,208,220,0.56)";
 const PANEL_EDGE = "rgba(140,168,190,0.18)";
-const GOLD = "#C5962D";
-const GOLD_SOFT = "#D9BE74";
+const GOLD = "#D4AF37";
+const GOLD_SOFT = "#E5A93C";
 const GREEN = "#8FC0A2";
+
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   transport: <Bus size={17} strokeWidth={1.5} />,
