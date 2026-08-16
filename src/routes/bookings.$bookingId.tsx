@@ -1209,7 +1209,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
                   style={i > 0 ? { borderLeft: "1px solid rgba(21,32,43,0.13)" } : undefined}
                 >
-                  <span className="shrink-0" style={{ color: GOLD_MET_MID }}>
+                  <span className="shrink-0" style={{ color: "#D4AF37" }}>
                     {s.icon}
                   </span>
                   <span className="min-w-0">
