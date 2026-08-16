@@ -1006,7 +1006,7 @@ export function GroupPlanView({
 
           {/* ══ right · group planner (≈35%) ══ */}
           <aside
-            className="m-4 w-full shrink-0 rounded-[15px] px-6 py-6 lg:my-4 lg:mr-4 lg:ml-4 lg:w-[36%]"
+            className="m-4 w-full shrink-0 rounded-[15px] px-6 py-6 lg:mt-4 lg:mr-4 lg:mb-4 lg:ml-4 lg:w-[calc(36%-32px)]"
             style={{
               background: "#FBF8F1",
               border: "1px solid rgba(190,150,70,0.24)",
