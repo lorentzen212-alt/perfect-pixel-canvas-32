@@ -1183,7 +1183,9 @@ function Workspace({ booking }: { booking: Booking }) {
           onSelect={(t) => setTab(t)}
           surface={
             isFolder
-              ? tab === "Documents" || tab === "Final Details"
+              ? tab === "Rooming List"
+                ? ROOMING_NAVY
+                : tab === "Documents" || tab === "Final Details"
                 ? FOLDER_TOP_SURFACE_WARM
                 : tab === "Changes"
                   ? "#FAF7F5"
