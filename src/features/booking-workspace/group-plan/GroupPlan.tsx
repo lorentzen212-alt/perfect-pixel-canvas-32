@@ -33,7 +33,6 @@ import type { PlanItem, PlanItemType, PlanTile, TileIcon } from "./types";
    Light surfaces, premium navy typography, restrained gold.   */
 const PAGE = "#FAF6F0";
 const CARD = "#FDFBF7";
-const PANEL = "#F8F9FB";
 const SURFACE_SOFT = "#F4F1EA";
 
 const NAVY = "#0B192C";
