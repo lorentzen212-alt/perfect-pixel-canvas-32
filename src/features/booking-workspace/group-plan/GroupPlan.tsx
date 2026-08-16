@@ -668,11 +668,11 @@ function Editor({
           type="button"
           disabled={!draft.title.trim()}
           onClick={() => onSave(draft, false)}
-          className="rounded-[9px] px-4 py-[10px] text-[12.5px] font-medium transition-opacity"
+          className="rounded-[9px] px-4 py-[10px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(216,184,93,0.10)]"
           style={{
-            color: draft.title.trim() ? NAVY : MUTED,
-            background: draft.title.trim() ? GOLD : SURFACE_SOFT,
-            border: `1px solid ${draft.title.trim() ? GOLD : EDGE}`,
+            color: draft.title.trim() ? GOLD_DEEP : MUTED,
+            background: "transparent",
+            border: `1px solid ${draft.title.trim() ? GOLD : "rgba(255,255,255,0.10)"}`,
             cursor: draft.title.trim() ? "pointer" : "not-allowed",
           }}
         >
