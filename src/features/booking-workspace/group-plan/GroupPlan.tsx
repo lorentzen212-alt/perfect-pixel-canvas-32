@@ -781,9 +781,10 @@ export function GroupPlanView({
               </p>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="text-[11px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
+              <span className="text-[11.5px]" style={{ color: MUTED }}>
                 Display as
               </span>
+
               <div className="inline-flex rounded-[8px] p-[3px]" style={{ border: `1px solid ${HAIR}` }}>
                 {(["Timeline", "Calendar"] as const).map((v) => {
                   const on = view === v;
