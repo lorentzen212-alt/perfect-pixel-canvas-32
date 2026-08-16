@@ -2,6 +2,7 @@ import * as React from "react";
 import { useMemo, useState } from "react";
 import {
   Bell,
+  Bookmark,
   Bus,
   CalendarDays,
   Check,
@@ -853,10 +854,14 @@ export function GroupPlanView({
   return (
     <div className="pb-14" style={{ background: PAGE }}>
       <div
-        className="rounded-[22px]"
-        style={{ background: CARD, border: `1px solid ${EDGE}`, boxShadow: CARD_SHADOW }}
+        className="rounded-[20px]"
+        style={{
+          background: CARD,
+          border: "1px solid rgba(185,145,65,0.22)",
+          boxShadow: "0 1px 2px rgba(11,25,44,0.03), 0 30px 60px -45px rgba(11,25,44,0.22)",
+        }}
       >
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col p-2 lg:flex-row">
           {/* ══ left · itinerary timeline (≈65%) ══ */}
           <section className="min-w-0 flex-1 px-7 py-7 lg:w-[64%]">
             <div className="flex flex-wrap items-start justify-between gap-4 pb-4">
@@ -1001,10 +1006,21 @@ export function GroupPlanView({
 
           {/* ══ right · group planner (≈35%) ══ */}
           <aside
-            className="w-full shrink-0 border-t px-6 py-7 lg:w-[36%] lg:border-t-0 lg:border-l"
-            style={{ borderColor: HAIR }}
+            className="m-4 w-full shrink-0 rounded-[15px] px-6 py-6 lg:mt-4 lg:mr-4 lg:mb-4 lg:ml-4 lg:w-[calc(36%-32px)]"
+            style={{
+              background: "#FBF8F1",
+              border: "1px solid rgba(190,150,70,0.24)",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(11,25,44,0.04), 0 10px 22px -16px rgba(11,25,44,0.22)",
+            }}
           >
-            <Eyebrow>Your personal plan</Eyebrow>
+            <span
+              className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.24em]"
+              style={{ color: GOLD_DEEP }}
+            >
+              <Bookmark size={11} strokeWidth={1.5} style={{ color: GOLD_DEEP }} />
+              Your personal plan
+            </span>
             <h3
               className="mt-1.5 text-[32px] leading-none"
               style={{ color: NAVY, fontFamily: SERIF }}
@@ -1019,7 +1035,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[10px] px-4 text-[14px] font-medium transition-opacity hover:opacity-90"
+                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-opacity hover:opacity-90"
                 style={{ color: "#F6F2E9", background: NAVY, border: `1px solid ${NAVY}` }}
               >
                 <Plus size={16} strokeWidth={1.8} /> Add to plan
@@ -1030,7 +1046,7 @@ export function GroupPlanView({
                   openEditor();
                   setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
                 }}
-                className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[10px] bg-white px-3 text-[14px] transition-colors hover:bg-[rgba(11,25,44,0.03)]"
+                className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[9px] bg-white px-3 text-[14px] transition-colors hover:bg-[rgba(11,25,44,0.03)]"
                 style={{ color: NAVY_SOFT, border: `1px solid ${EDGE}` }}
               >
                 <Bell size={15} strokeWidth={1.6} /> Reminder
@@ -1162,8 +1178,8 @@ export function GroupPlanView({
             )}
 
             <div
-              className="mt-5 flex gap-3 rounded-[14px] px-4 py-4"
-              style={{ border: "1px solid rgba(192,154,62,0.22)", background: "#FBF3E4" }}
+              className="mt-5 flex gap-3 rounded-[13px] px-4 py-4"
+              style={{ border: "1px solid rgba(190,150,70,0.18)", background: "#FCF7EC" }}
             >
               <Lightbulb
                 size={16}
