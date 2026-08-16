@@ -1222,7 +1222,7 @@ function PlannerSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mt-6">
+    <div className="mt-7" style={{ paddingTop: 20, borderTop: `1px solid ${EDGE}` }}>
       <div
         className="flex items-center justify-between pb-2"
         style={{ borderBottom: `1px solid ${HAIR}` }}
