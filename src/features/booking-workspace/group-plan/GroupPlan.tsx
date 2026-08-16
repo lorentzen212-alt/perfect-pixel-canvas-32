@@ -987,8 +987,8 @@ export function GroupPlanView({
             )}
 
             <div
-              className="mt-5 rounded-[9px] px-3.5 py-3"
-              style={{ border: `1px solid ${HAIR_SOFT}`, background: "rgba(255,255,255,0.02)" }}
+              className="mt-5 rounded-[14px] px-3.5 py-3"
+              style={{ border: `1px solid ${HAIR_SOFT}`, background: PANEL_DEEP }}
             >
               <div className="flex items-center gap-1.5">
                 <Lightbulb size={12} strokeWidth={1.6} style={{ color: GOLD }} />
