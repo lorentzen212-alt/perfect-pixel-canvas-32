@@ -1006,10 +1006,21 @@ export function GroupPlanView({
 
           {/* ══ right · group planner (≈35%) ══ */}
           <aside
-            className="w-full shrink-0 border-t px-6 py-7 lg:w-[36%] lg:border-t-0 lg:border-l"
-            style={{ borderColor: HAIR }}
+            className="m-4 w-full shrink-0 rounded-[15px] px-6 py-6 lg:my-4 lg:mr-4 lg:ml-4 lg:w-[36%]"
+            style={{
+              background: "#FBF8F1",
+              border: "1px solid rgba(190,150,70,0.24)",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(11,25,44,0.04), 0 10px 22px -16px rgba(11,25,44,0.22)",
+            }}
           >
-            <Eyebrow>Your personal plan</Eyebrow>
+            <span
+              className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.24em]"
+              style={{ color: GOLD_DEEP }}
+            >
+              <Bookmark size={11} strokeWidth={1.5} style={{ color: GOLD_DEEP }} />
+              Your personal plan
+            </span>
             <h3
               className="mt-1.5 text-[32px] leading-none"
               style={{ color: NAVY, fontFamily: SERIF }}
