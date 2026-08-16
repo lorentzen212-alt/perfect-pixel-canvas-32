@@ -1053,9 +1053,9 @@ export function GroupPlanView({
                 type="button"
                 onClick={() => openEditor()}
                 className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(216,184,93,0.10)]"
-                style={{ color: GOLD, background: "transparent", border: `1px solid ${GOLD}` }}
+                style={{ color: GOLD_DEEP, background: "transparent", border: `1px solid ${GOLD}` }}
               >
-                <Plus size={16} strokeWidth={1.8} style={{ color: GOLD }} /> Add to plan
+                <Plus size={16} strokeWidth={1.8} style={{ color: GOLD_DEEP }} /> Add to plan
               </button>
               <button
                 type="button"
@@ -1196,7 +1196,7 @@ export function GroupPlanView({
               </div>
             )}
 
-            <div style={{ paddingTop: 20, borderTop: `1px solid ${EDGE}` }}>
+            <div style={{ paddingTop: 20, borderTop: `1px solid ${HAIR_SOFT}` }}>
               <div
                 className="mt-6 flex gap-3 rounded-[13px] px-4 py-2.5"
                 style={{ border: "1px solid rgba(255,255,255,0.10)", background: "transparent" }}
@@ -1243,14 +1243,14 @@ function PlannerSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mt-8" style={{ paddingTop: 20, borderTop: `1px solid ${EDGE}` }}>
+    <div className="mt-8" style={{ paddingTop: 20, borderTop: `1px solid ${HAIR_SOFT}` }}>
       <div
         className="flex items-center justify-between pb-2"
         style={{ borderBottom: `1px solid ${HAIR}` }}
       >
         <span
           className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-          style={{ color: TEXT_2 }}
+          style={{ color: MUTED }}
         >
           {title}
         </span>
