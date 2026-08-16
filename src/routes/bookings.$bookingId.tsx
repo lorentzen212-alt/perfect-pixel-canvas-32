@@ -1096,11 +1096,16 @@ function Workspace({ booking }: { booking: Booking }) {
     tab === "Changes" ||
     tab === "Final Details";
 
+  /** warm ivory plate for the Group Plan tab (navy cards sit on ivory) */
+  const isGroupPlan = tab === "Group Plan";
+  const PLATE_BG = isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : PLATE;
+
   return (
     <div
       className="flex min-h-screen flex-col"
-      style={{ backgroundColor: isFolder ? PAGE_UNDER : BG_ALT }}
+      style={{ backgroundColor: isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : BG_ALT }}
     >
+
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
       <aside
@@ -1191,14 +1196,13 @@ function Workspace({ booking }: { booking: Booking }) {
           className={
             isFolder
               ? "relative flex flex-1 flex-col px-0 pb-0 pt-0"
-              : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+              : isGroupPlan
+                ? "relative flex flex-1 flex-col rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
+                : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
-          style={
-            isFolder
-              ? { backgroundColor: PAGE_UNDER }
-              : { backgroundColor: PLATE }
-          }
+          style={{ backgroundColor: PLATE_BG }}
         >
+
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
           {isFolder ? null : (
 
@@ -1398,6 +1402,9 @@ function Workspace({ booking }: { booking: Booking }) {
 /* ───────────────────────── workspace primitives ───────────────────────── */
 
 const PLATE = "#F6F4EB";
+/** warm ivory used by the Group Plan tab plate (matches BG in GroupPlan.tsx) */
+const GROUP_PLAN_IVORY = "#FAF6F0";
+
 const CARD_BG = "#15202B";
 const CARD_BORDER_SOFT = "#2A3A4A";
 const INK = NAVY_PANEL;

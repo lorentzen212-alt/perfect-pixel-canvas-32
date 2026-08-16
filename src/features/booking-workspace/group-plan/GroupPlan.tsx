@@ -781,9 +781,10 @@ export function GroupPlanView({
               </p>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="text-[11px] uppercase tracking-[0.12em]" style={{ color: MUTED }}>
+              <span className="text-[11.5px]" style={{ color: MUTED }}>
                 Display as
               </span>
+
               <div className="inline-flex rounded-[8px] p-[3px]" style={{ border: `1px solid ${HAIR}` }}>
                 {(["Timeline", "Calendar"] as const).map((v) => {
                   const on = view === v;
@@ -1029,11 +1030,16 @@ function PlannerSection({
           {title}
         </span>
         <span
-          className="inline-grid h-[19px] w-[19px] place-items-center rounded-full text-[10.5px] tabular-nums"
-          style={{ color: TEXT_2, border: `1px solid ${HAIR}`, background: "rgba(255,255,255,0.04)" }}
+          className="inline-grid h-[19px] w-[19px] shrink-0 place-items-center rounded-full text-[10.5px] leading-none tabular-nums"
+          style={{
+            color: TEXT_2,
+            border: "1px solid rgba(190,205,217,0.34)",
+            background: "rgba(255,255,255,0.06)",
+          }}
         >
           {count}
         </span>
+
       </div>
       {empty ? (
         <div className="mt-1.5">{children}</div>
