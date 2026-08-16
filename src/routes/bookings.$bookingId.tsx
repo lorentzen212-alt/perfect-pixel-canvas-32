@@ -1098,7 +1098,9 @@ function Workspace({ booking }: { booking: Booking }) {
 
   /** warm ivory plate for the Group Plan tab (navy cards sit on ivory) */
   const isGroupPlan = tab === "Group Plan";
-  const PLATE_BG = isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : PLATE;
+  const ROOMING_NAVY = "#1B2632";
+  const PLATE_BG =
+    tab === "Rooming List" ? ROOMING_NAVY : isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : PLATE;
 
   return (
     <div
