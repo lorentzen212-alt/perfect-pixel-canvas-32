@@ -851,7 +851,6 @@ export function GroupPlanView({
   };
 
   return (
-  return (
     <div className="pb-14" style={{ background: PAGE }}>
       <div
         className="rounded-[22px]"
