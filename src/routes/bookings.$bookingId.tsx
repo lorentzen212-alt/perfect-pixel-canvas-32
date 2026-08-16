@@ -1098,7 +1098,9 @@ function Workspace({ booking }: { booking: Booking }) {
 
   /** warm ivory plate for the Group Plan tab (navy cards sit on ivory) */
   const isGroupPlan = tab === "Group Plan";
-  const PLATE_BG = isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : PLATE;
+  const ROOMING_NAVY = "#1B2632";
+  const PLATE_BG =
+    tab === "Rooming List" ? ROOMING_NAVY : isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : PLATE;
 
   return (
     <div
@@ -1177,11 +1179,14 @@ function Workspace({ booking }: { booking: Booking }) {
           guestsLabel={`${totalGuests} guests`}
           statusLabel={confirmed ? "Confirmed" : "Pending"}
           statusTone={confirmed ? "#1E5B39" : "#7A5A12"}
+          activeInk={tab === "Rooming List" ? "#F2F5F8" : undefined}
           active={tab as WorkspaceTab}
           onSelect={(t) => setTab(t)}
           surface={
             isFolder
-              ? tab === "Documents" || tab === "Final Details"
+              ? tab === "Rooming List"
+                ? ROOMING_NAVY
+                : tab === "Documents" || tab === "Final Details"
                 ? FOLDER_TOP_SURFACE_WARM
                 : tab === "Changes"
                   ? "#FAF7F5"
