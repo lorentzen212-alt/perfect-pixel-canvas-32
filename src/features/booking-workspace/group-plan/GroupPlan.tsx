@@ -460,8 +460,8 @@ function Row({
         {/* open circular node */}
         <span
           aria-hidden
-          className="absolute left-[-4.5px] top-1/2 h-[9px] w-[9px] -translate-y-1/2 rounded-full"
-          style={{ background: CARD, border: `1px solid ${GOLD}` }}
+          className="absolute left-[-3px] top-1/2 h-[7px] w-[7px] -translate-y-1/2 rounded-full"
+          style={{ background: GOLD }}
         />
         <div
           role="button"
@@ -474,17 +474,19 @@ function Row({
             }
           }}
           aria-expanded={open}
-          className="ml-[26px] flex cursor-pointer items-start gap-4 rounded-xl px-3 py-[13px] transition-colors hover:bg-[#353B44]"
-          style={{ background: SURFACE_SOFT, border: `1px solid ${EDGE}` }}
-
+          className="ml-[26px] flex cursor-pointer items-start gap-4 rounded-[8px] px-3 py-[13px] transition-colors hover:bg-[rgba(255,255,255,0.045)]"
+          style={{
+            background: "transparent",
+            borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.08)",
+          }}
         >
           <span
             className="w-[92px] shrink-0 pt-[4px] text-[14px] tabular-nums"
-            style={{ color: TEXT_2 }}
+            style={{ color: TIME }}
           >
             {item.time ?? "—"}
           </span>
-          <span className="shrink-0 pt-[1px]" style={{ color: TEXT_2 }}>
+          <span className="shrink-0 pt-[1px]" style={{ color: GOLD }}>
             {TYPE_ICON[item.type]}
           </span>
           <span className="min-w-0 flex-1">
