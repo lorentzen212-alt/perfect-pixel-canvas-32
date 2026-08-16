@@ -52,20 +52,27 @@ const GOLD_LINE = "rgba(192,154,62,0.45)";
 const GOLD_TINT = "rgba(192,154,62,0.10)";
 const GREEN = "#5E8B6E";
 
+const TL_LINE = "#C7A04A";
+const TL_RING = "#D4AF37";
+const TL_DOT = "#0B1726";
+const TL_TIME = "#5A6678";
+const TL_DESC = "#7A8699";
+const TL_SEP = "#ECE7DF";
+
 const CARD_SHADOW = "0 1px 2px rgba(11,25,44,0.04), 0 24px 50px -38px rgba(11,25,44,0.30)";
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
-  transport: <Bus size={22} strokeWidth={1.3} />,
-  checkin: <KeyRound size={22} strokeWidth={1.3} />,
-  checkout: <Luggage size={22} strokeWidth={1.3} />,
-  breakfast: <Coffee size={22} strokeWidth={1.3} />,
-  lunch: <Coffee size={22} strokeWidth={1.3} />,
-  dinner: <Utensils size={22} strokeWidth={1.3} />,
-  meeting: <Presentation size={22} strokeWidth={1.3} />,
-  activity: <MapPin size={22} strokeWidth={1.3} />,
-  "meeting-point": <Users size={22} strokeWidth={1.3} />,
-  "free-time": <Star size={22} strokeWidth={1.3} />,
-  reminder: <Bell size={22} strokeWidth={1.3} />,
+  transport: <Bus size={20} strokeWidth={1.3} />,
+  checkin: <KeyRound size={20} strokeWidth={1.3} />,
+  checkout: <Luggage size={20} strokeWidth={1.3} />,
+  breakfast: <Coffee size={20} strokeWidth={1.3} />,
+  lunch: <Coffee size={20} strokeWidth={1.3} />,
+  dinner: <Utensils size={20} strokeWidth={1.3} />,
+  meeting: <Presentation size={20} strokeWidth={1.3} />,
+  activity: <MapPin size={20} strokeWidth={1.3} />,
+  "meeting-point": <Users size={20} strokeWidth={1.3} />,
+  "free-time": <Star size={20} strokeWidth={1.3} />,
+  reminder: <Bell size={20} strokeWidth={1.3} />,
 };
 
 /** Same icon family at panel scale. */
@@ -438,15 +445,26 @@ function Row({
       {/* continuous gold spine */}
       <span
         aria-hidden
-        className="absolute bottom-0 left-0 top-0 w-px"
-        style={{ background: GOLD_LINE }}
+        className="absolute bottom-0 left-0 top-0 w-[1.5px]"
+        style={{ background: TL_LINE }}
       />
       <div className="relative">
-        {/* open circular node */}
+        {/* glitter-gold ring node with dark navy centre dot */}
         <span
           aria-hidden
-          className="absolute left-[-4.5px] top-1/2 h-[9px] w-[9px] -translate-y-1/2 rounded-full"
-          style={{ background: CARD, border: `1px solid ${GOLD}` }}
+          className="absolute left-[-5px] top-1/2 flex h-[10px] w-[10px] -translate-y-1/2 items-center justify-center rounded-full"
+          style={{
+            border: `1.5px solid ${TL_RING}`,
+            boxShadow: "0 0 8px rgba(212,175,55,0.35)",
+          }}
+        >
+          <span className="h-[4px] w-[4px] rounded-full" style={{ background: TL_DOT }} />
+        </span>
+        {/* 16px horizontal connector from node to time text */}
+        <span
+          aria-hidden
+          className="absolute left-[5px] top-1/2 h-[1.5px] w-[16px] -translate-y-1/2"
+          style={{ background: TL_LINE }}
         />
         <div
           role="button"
@@ -459,24 +477,24 @@ function Row({
             }
           }}
           aria-expanded={open}
-          className="flex cursor-pointer items-start gap-4 py-[13px] pl-[26px] pr-1 transition-colors hover:bg-[rgba(11,25,44,0.02)]"
-          style={!open && !last ? { borderBottom: `1px solid ${HAIR_SOFT}` } : undefined}
+          className="flex cursor-pointer items-start gap-4 py-[13px] pl-[28px] pr-1 transition-colors hover:bg-[rgba(11,25,44,0.02)]"
+          style={!open && !last ? { borderBottom: `1px solid ${TL_SEP}` } : undefined}
         >
           <span
-            className="w-[92px] shrink-0 pt-[4px] text-[14px] tabular-nums"
-            style={{ color: TEXT_2 }}
+            className="w-[92px] shrink-0 pt-[3px] text-[15px] font-semibold tabular-nums"
+            style={{ color: TL_TIME }}
           >
             {item.time ?? "—"}
           </span>
-          <span className="shrink-0 pt-[1px]" style={{ color: GOLD }}>
+          <span className="shrink-0 pt-[1px]" style={{ color: TL_RING }}>
             {TYPE_ICON[item.type]}
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-[14.5px] font-semibold" style={{ color: TEXT }}>
+            <span className="block truncate text-[17px] font-bold" style={{ color: TL_DOT }}>
               {item.title}
             </span>
             {(item.summary || item.secondary) && (
-              <span className="mt-[2px] block truncate text-[12.5px]" style={{ color: TEXT_2 }}>
+              <span className="mt-[2px] block truncate text-[13px]" style={{ color: TL_DESC }}>
                 {item.summary ?? item.secondary}
               </span>
             )}
