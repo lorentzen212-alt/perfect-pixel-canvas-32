@@ -1059,46 +1059,48 @@ export function GroupPlanView({
                   Nothing waiting for a time.
                 </p>
               ) : (
-                unscheduled.map((i, ix) => (
-                  <div
-                    key={i.id}
-                    className="flex items-center gap-3 py-3"
-                    style={ix > 0 ? { borderTop: `1px solid ${HAIR_SOFT}` } : undefined}
-                  >
-                    <span
-                      className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[10px]"
-                      style={{ background: "rgba(255,255,255,0.05)", color: TEXT_2 }}
+                <div className="space-y-2">
+                  {unscheduled.map((i) => (
+                    <div
+                      key={i.id}
+                      className="flex items-center gap-3 rounded-[10px] py-[14px] px-3"
+                      style={{ background: "transparent", border: `1px solid ${EDGE}` }}
                     >
-                      {TYPE_ICON_SM[i.type]}
-                    </span>
-                    <span className="min-w-0 flex-1">
                       <span
-                        className="block truncate text-[13.5px] font-semibold"
-                        style={{ color: TEXT }}
+                        className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[10px]"
+                        style={{ background: "rgba(255,255,255,0.05)", color: TEXT_2 }}
                       >
-                        {i.title}
+                        {TYPE_ICON_SM[i.type]}
                       </span>
-                      <span className="block text-[12px]" style={{ color: MUTED }}>
-                        No time set
+                      <span className="min-w-0 flex-1">
+                        <span
+                          className="block truncate text-[13.5px] font-semibold"
+                          style={{ color: TEXT }}
+                        >
+                          {i.title}
+                        </span>
+                        <span className="block text-[12px]" style={{ color: MUTED }}>
+                          No time set
+                        </span>
                       </span>
-                    </span>
-                    <GoldLink label="Add time" onClick={() => openEditor(undefined, i)} />
-                    <Menu
-                      items={[
-                        {
-                          label: "Edit",
-                          icon: <Pencil size={13} />,
-                          onClick: () => openEditor(undefined, i),
-                        },
-                        {
-                          label: "Delete",
-                          icon: <Trash2 size={13} />,
-                          onClick: () => remove(i.id),
-                        },
-                      ]}
-                    />
-                  </div>
-                ))
+                      <GoldLink label="Add time" onClick={() => openEditor(undefined, i)} />
+                      <Menu
+                        items={[
+                          {
+                            label: "Edit",
+                            icon: <Pencil size={13} />,
+                            onClick: () => openEditor(undefined, i),
+                          },
+                          {
+                            label: "Delete",
+                            icon: <Trash2 size={13} />,
+                            onClick: () => remove(i.id),
+                          },
+                        ]}
+                      />
+                    </div>
+                  ))}
+                </div>
               )}
             </PlannerSection>
 
