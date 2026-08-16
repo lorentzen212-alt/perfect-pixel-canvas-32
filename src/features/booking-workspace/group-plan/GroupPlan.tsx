@@ -267,7 +267,13 @@ function Expanded({
   ].filter(Boolean) as string[];
 
   return (
-    <div className="pb-6 pl-[26px] pr-2 pt-1 sm:pl-[68px]">
+    <div
+      className="ml-[26px] mt-2 rounded-[12px] p-4"
+      style={{
+        background: SURFACE_SOFT,
+        border: "1px solid rgba(232,201,106,0.28)",
+      }}
+    >
       {item.tiles?.length ? (
         <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
           {item.tiles.map((t) => (
