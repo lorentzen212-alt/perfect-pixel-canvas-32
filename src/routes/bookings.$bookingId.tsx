@@ -1405,7 +1405,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
 const PLATE = "#F6F4EB";
 /** warm ivory used by the Group Plan tab plate (matches BG in GroupPlan.tsx) */
-const GROUP_PLAN_IVORY = "#FAF6F0";
+const GROUP_PLAN_IVORY = "#F5F1E9";
 
 const CARD_BG = "#15202B";
 const CARD_BORDER_SOFT = "#2A3A4A";
