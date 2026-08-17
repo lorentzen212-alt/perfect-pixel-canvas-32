@@ -251,28 +251,32 @@ function Menu({
 function Tile({ tile }: { tile: PlanTile }) {
   return (
     <div
-      className="min-w-0 rounded-[12px] px-3 py-2"
+      className="min-w-0 rounded-[12px] px-4 py-[14px]"
       style={{
-        background: "rgba(255,255,255,0.06)",
-        border: "1px solid rgba(255,255,255,0.12)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
+        minHeight: 64,
+        background: INFO_CARD_BG,
+        border: `1px solid ${INFO_CARD_BORDER}`,
       }}
     >
-      <div className="flex items-center gap-1.5">
-        <span style={{ color: GOLD }}>{TILE_ICON[tile.icon]}</span>
+      <div className="flex items-center gap-2">
+        <span className="shrink-0" style={{ color: INFO_GOLD }}>
+          {TILE_ICON[tile.icon]}
+        </span>
         <span
-          className="truncate text-[9px] font-semibold uppercase tracking-[0.12em]"
-          style={{ color: GOLD }}
+          className="truncate text-[12px] font-semibold uppercase tracking-[0.05em]"
+          style={{ color: INFO_GOLD }}
         >
           {tile.label}
         </span>
       </div>
-      <div className="mt-1 truncate text-[15px] font-medium" style={{ color: "#F5F7FA" }}>
+      <div
+        className="mt-1.5 truncate text-[16px] font-semibold sm:text-[16px]"
+        style={{ color: INFO_TEXT }}
+      >
         {tile.value}
       </div>
       {tile.sub && (
-        <div className="truncate text-[10.5px]" style={{ color: "#A7B3C2" }}>
+        <div className="mt-0.5 truncate text-[12px]" style={{ color: INFO_TEXT_2 }}>
           {tile.sub}
         </div>
       )}
