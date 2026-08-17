@@ -1694,6 +1694,8 @@ export function GroupPlanView({
                 Added by you
               </span>
             </div>
+            </div>
+            </div>
           </section>
 
           {/* ══ right · group planner (≈35%) ══ */}
