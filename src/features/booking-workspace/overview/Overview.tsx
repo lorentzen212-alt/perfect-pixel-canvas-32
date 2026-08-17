@@ -78,8 +78,117 @@ function CurrentAction({
   );
 }
 
-/* ── 2a · what happens next — numbered vertical timeline ───── */
-function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () => void }) {
+/* ── 2a · what happens next — cancellation banner + timeline ─ */
+export interface CancellationPolicy {
+  /** ISO timestamp of the free-cancellation deadline */
+  deadline: string;
+}
+
+type CancelTone = "green" | "amber" | "grey";
+
+function cancellationView(deadlineISO: string) {
+  const d = new Date(deadlineISO);
+  if (Number.isNaN(d.getTime())) return null;
+  const now = new Date();
+  const ms = d.getTime() - now.getTime();
+  const dateLabel = d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  const timeLabel = d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false });
+
+  if (ms <= 0) {
+    return {
+      tone: "grey" as CancelTone,
+      title: `Free cancellation period ended ${dateLabel}, ${timeLabel}`,
+      trailing: "",
+    };
+  }
+
+  const hours = ms / 3_600_000;
+  const sameDay = d.toDateString() === now.toDateString();
+  if (sameDay) {
+    return {
+      tone: "amber" as CancelTone,
+      title: `Free cancellation ends today at ${timeLabel}`,
+      trailing: `${Math.max(1, Math.round(hours))} hours remaining`,
+    };
+  }
+  if (hours < 48) {
+    return {
+      tone: "amber" as CancelTone,
+      title: `Free cancellation until ${dateLabel}, ${timeLabel}`,
+      trailing: `${Math.max(1, Math.round(hours))} hours remaining`,
+    };
+  }
+  const days = Math.floor(hours / 24);
+  return {
+    tone: "green" as CancelTone,
+    title: `Free cancellation until ${dateLabel}, ${timeLabel}`,
+    trailing: `${days} ${days === 1 ? "day" : "days"} remaining`,
+  };
+}
+
+const CANCEL_TONES: Record<CancelTone, { bg: string; border: string; ink: string; eyebrow: string; muted: string }> = {
+  green: {
+    bg: "#F3F8F3",
+    border: "rgba(46,107,69,0.28)",
+    ink: "#1F4B33",
+    eyebrow: "#2E6B45",
+    muted: "#5C7A67",
+  },
+  amber: {
+    bg: "#FBF6EC",
+    border: "rgba(169,120,36,0.30)",
+    ink: "#7A5518",
+    eyebrow: "#A97824",
+    muted: "#8A7550",
+  },
+  grey: {
+    bg: "#F6F6F5",
+    border: "rgba(90,100,105,0.22)",
+    ink: "#4B565C",
+    eyebrow: "#6B7177",
+    muted: "#8A9195",
+  },
+};
+
+function CancellationBanner({ deadline }: { deadline: string }) {
+  const view = cancellationView(deadline);
+  if (!view) return null;
+  const t = CANCEL_TONES[view.tone];
+  return (
+    <div
+      className="mt-[9px] flex items-center gap-3 rounded-[9px] px-3.5 py-[9px]"
+      style={{ background: t.bg, border: `1px solid ${t.border}` }}
+    >
+      <ShieldCheck size={19} strokeWidth={1.7} style={{ color: t.eyebrow }} className="shrink-0" />
+      <span className="min-w-0 flex-1">
+        <span
+          className="block text-[10.5px] font-semibold uppercase"
+          style={{ color: t.eyebrow, letterSpacing: "0.1em" }}
+        >
+          Free cancellation
+        </span>
+        <span className="mt-[1px] block truncate text-[13px] font-semibold" style={{ color: t.ink }}>
+          {view.title}
+        </span>
+      </span>
+      {view.trailing && (
+        <span className="shrink-0 whitespace-nowrap text-[12px]" style={{ color: t.muted }}>
+          {view.trailing}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function NextSteps({
+  steps,
+  onViewAll,
+  cancellation,
+}: {
+  steps: JourneyStep[];
+  onViewAll?: () => void;
+  cancellation?: CancellationPolicy;
+}) {
   return (
     <Card className="relative flex h-full flex-col px-5 pb-3 pt-[13px] sm:px-6">
       <span
@@ -89,7 +198,10 @@ function NextSteps({ steps, onViewAll }: { steps: JourneyStep[]; onViewAll?: () 
         What happens next
       </span>
 
-      <ol className="relative mt-2 flex min-h-0 flex-1 flex-col">
+      {cancellation && <CancellationBanner deadline={cancellation.deadline} />}
+
+      <ol className="relative mt-3 flex min-h-0 flex-1 flex-col">
+
         {steps.map((s, i) => {
           const done = s.state === "done";
           const active = s.state === "active";
