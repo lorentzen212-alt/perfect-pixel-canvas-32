@@ -78,11 +78,12 @@ const GOLD_STUD_SHADOW =
 const GOLD_STUD_SHADOW_ACTIVE =
   "0 0 0 1px rgba(240,216,138,0.30), 0 0 6px rgba(224,191,117,0.28)";
 const GOLD_LINE_GRADIENT = "rgba(201,168,95,0.70)";
+const GOLD_PATH = "#C9A85F";
+const GOLD_PATH_OPACITY = 0.7;
 
 const DATE_SERIF = '"DM Serif Display", serif';
 const TIME_TEXT = "#DCE4E8";
 const DAY_META = "#B7CAD5";
-const DISPLAY_AS = "#C2D0D7";
 const INACTIVE_TEXT = "#9FB1BC";
 const CALENDAR_ICON_INACTIVE = "#879CA8";
 const ACTIVE_TEXT = "#E5C76F";
@@ -443,6 +444,104 @@ const monthShort = (iso: string) => d(iso).toLocaleDateString("en-GB", { month: 
 const weekday = (iso: string) => d(iso).toLocaleDateString("en-GB", { weekday: "short" });
 const longDate = (iso: string) =>
   d(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const monthLong = (iso: string) => d(iso).toLocaleDateString("en-GB", { month: "long" });
+
+/* ── journey ribbon geometry ────────────────────────────── */
+interface RibbonMetrics {
+  w: number;
+  h: number;
+  yEdge: number;
+  xSpine: number | null;
+  ySpineEnd: number;
+  xTitleRight: number;
+  xDateLeft: number;
+}
+
+const EMPTY_METRICS: RibbonMetrics = {
+  w: 0,
+  h: 0,
+  yEdge: 0,
+  xSpine: null,
+  ySpineEnd: 0,
+  xTitleRight: 0,
+  xDateLeft: 0,
+};
+
+const HOOK_R = 16;
+const SWEEP_TOP = 12;
+const SWEEP_RUN = 210;
+const SWEEP_MIN_RUN = 72;
+const SWEEP_MIN_WIDTH = 560;
+
+const r2 = (n: number) => Math.round(n * 100) / 100;
+
+function journeyPaths(m: RibbonMetrics) {
+  const yEdge = r2(m.yEdge);
+
+  let path = `M 0 ${yEdge} H ${r2(m.w)}`;
+  if (m.xSpine !== null && m.ySpineEnd > m.yEdge + HOOK_R) {
+    const x = r2(m.xSpine);
+    path += ` M ${r2(m.xSpine - HOOK_R)} ${yEdge} Q ${x} ${yEdge} ${x} ${r2(m.yEdge + HOOK_R)} V ${r2(m.ySpineEnd)}`;
+  }
+
+  const xEnd = m.xDateLeft - 22;
+  const xStart = Math.max(m.xTitleRight + 16, xEnd - SWEEP_RUN);
+  const raised =
+    m.w >= SWEEP_MIN_WIDTH && m.xDateLeft > 0 && xEnd - xStart >= SWEEP_MIN_RUN && m.yEdge > SWEEP_TOP;
+
+  if (!raised) return { path, sweep: "", wedge: "" };
+
+  const k = (xEnd - xStart) * 0.55;
+  const curve = `C ${r2(xStart + k)} ${yEdge} ${r2(xEnd - k)} ${SWEEP_TOP} ${r2(xEnd)} ${SWEEP_TOP}`;
+  const rise = `M ${r2(xStart)} ${yEdge} ${curve} H ${r2(m.w)}`;
+  return { path, sweep: rise, wedge: `${rise} V ${yEdge} Z` };
+}
+
+function ViewSwitch({
+  view,
+  onChange,
+}: {
+  view: "Timeline" | "Calendar";
+  onChange: (v: "Timeline" | "Calendar") => void;
+}) {
+  return (
+    <div className="flex items-center gap-7">
+      {(["Timeline", "Calendar"] as const).map((v) => {
+        const on = view === v;
+        return (
+          <button
+            key={v}
+            type="button"
+            onClick={() => onChange(v)}
+            className="inline-flex items-center gap-2 text-[12px] font-medium transition-opacity hover:opacity-80"
+            style={{ color: on ? ACTIVE_TEXT : INACTIVE_TEXT }}
+          >
+            {v === "Timeline" ? (
+              <span
+                aria-hidden
+                className="h-[5px] w-[5px] shrink-0 rounded-full"
+                style={{ background: on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE }}
+              />
+            ) : (
+              <CalendarDays
+                size={13}
+                strokeWidth={1.5}
+                style={{ color: on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE }}
+              />
+            )}
+            <span
+              className="pb-[5px]"
+              style={{ borderBottom: `1px solid ${on ? GOLD_LINE_GRADIENT : "transparent"}` }}
+            >
+              {v}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 
 /* ── small parts ────────────────────────────────────────── */
 
@@ -1160,18 +1259,23 @@ export function GroupPlanView({
   bookingItems,
   defaultDate,
   onRequestChange,
+  destination,
 }: {
   bookingItems: PlanItem[];
   defaultDate?: string;
   onRequestChange: () => void;
+  destination?: string;
 }) {
   const [myItems, setMyItems] = useState<PlanItem[]>(() => seedMyItems(defaultDate));
   const [notesById, setNotesById] = useState<Record<string, string>>({});
   const [openId, setOpenId] = useState<string | null>(null);
   const [view, setView] = useState<"Timeline" | "Calendar">("Timeline");
   const [draft, setDraft] = useState<DraftItem | null>(null);
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const [spine, setSpine] = useState({ left: 0, top: 0, height: 0 });
+  const columnRef = useRef<HTMLDivElement>(null);
+  const ribbonRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const dateRef = useRef<HTMLDivElement>(null);
+  const [metrics, setMetrics] = useState<RibbonMetrics>(EMPTY_METRICS);
 
   const withNotes = (item: PlanItem): PlanItem => {
     const local = notesById[item.id];
@@ -1302,48 +1406,82 @@ export function GroupPlanView({
   };
 
   useLayoutEffect(() => {
-    const timeline = timelineRef.current;
-    if (!timeline || view !== "Timeline") return;
+    const column = columnRef.current;
+    const ribbon = ribbonRef.current;
+    if (!column || !ribbon) return;
 
-    const positionSpine = () => {
-      const dots = timeline.querySelectorAll<HTMLElement>("[data-timeline-dot]");
+    const measure = () => {
+      const columnBox = column.getBoundingClientRect();
+      const yEdge = ribbon.getBoundingClientRect().height - 1;
+
+      const dots = column.querySelectorAll<HTMLElement>("[data-timeline-dot]");
       const first = dots.item(0);
       const last = dots.item(dots.length - 1);
-      let next = { left: 0, top: 0, height: 0 };
-
+      let xSpine: number | null = null;
+      let ySpineEnd = yEdge;
       if (first && last) {
-        const timelineBox = timeline.getBoundingClientRect();
         const firstBox = first.getBoundingClientRect();
         const lastBox = last.getBoundingClientRect();
-        const firstCenter = firstBox.top + firstBox.height / 2 - timelineBox.top;
-        const lastCenter = lastBox.top + lastBox.height / 2 - timelineBox.top;
-        const top = firstCenter - 20;
-        const bottom = lastCenter + 15;
-        next = {
-          left: firstBox.left + firstBox.width / 2 - timelineBox.left - 1,
-          top,
-          height: Math.max(0, bottom - top),
-        };
+        xSpine = firstBox.left + firstBox.width / 2 - columnBox.left;
+        ySpineEnd = lastBox.top + lastBox.height / 2 - columnBox.top + 15;
       }
 
-      setSpine((prev) =>
-        Math.abs(prev.left - next.left) < 0.5 &&
-        Math.abs(prev.top - next.top) < 0.5 &&
-        Math.abs(prev.height - next.height) < 0.5
+      const titleBox = titleRef.current?.getBoundingClientRect();
+      const dateBox = dateRef.current?.getBoundingClientRect();
+
+      const next: RibbonMetrics = {
+        w: columnBox.width,
+        h: columnBox.height,
+        yEdge,
+        xSpine,
+        ySpineEnd,
+        xTitleRight: titleBox ? titleBox.right - columnBox.left : 0,
+        xDateLeft: dateBox ? dateBox.left - columnBox.left : 0,
+      };
+
+      setMetrics((prev) => {
+        const near = (a: number, b: number) => Math.abs(a - b) < 0.5;
+        return (prev.xSpine === null) === (next.xSpine === null) &&
+          near(prev.xSpine ?? 0, next.xSpine ?? 0) &&
+          near(prev.w, next.w) &&
+          near(prev.h, next.h) &&
+          near(prev.yEdge, next.yEdge) &&
+          near(prev.ySpineEnd, next.ySpineEnd) &&
+          near(prev.xTitleRight, next.xTitleRight) &&
+          near(prev.xDateLeft, next.xDateLeft)
           ? prev
-          : next,
-      );
+          : next;
+      });
     };
 
-    positionSpine();
-    const observer = new ResizeObserver(positionSpine);
-    observer.observe(timeline);
-    window.addEventListener("resize", positionSpine);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(column);
+    observer.observe(ribbon);
+    window.addEventListener("resize", measure);
     return () => {
       observer.disconnect();
-      window.removeEventListener("resize", positionSpine);
+      window.removeEventListener("resize", measure);
     };
   }, [groups, openId, view]);
+
+  const paths = journeyPaths(metrics);
+
+  const firstDate = scheduled[0]?.date ?? null;
+  const lastDate = scheduled[scheduled.length - 1]?.date ?? null;
+  const dateBig =
+    firstDate && lastDate
+      ? firstDate === lastDate
+        ? dayNum(firstDate)
+        : `${dayNum(firstDate)} – ${dayNum(lastDate)}`
+      : "";
+  const dateMeta =
+    firstDate && lastDate
+      ? firstDate.slice(0, 7) === lastDate.slice(0, 7)
+        ? `${monthLong(firstDate)} ${d(firstDate).getFullYear()}`
+        : `${monthShort(firstDate)} – ${monthShort(lastDate)} ${d(lastDate).getFullYear()}`
+      : "";
+  const country = destination?.split(",").pop()?.trim() ?? "";
 
   return (
     <div className="pb-14" style={{ background: PAGE }}>
@@ -1357,66 +1495,110 @@ export function GroupPlanView({
       >
         <div className="flex flex-col p-2 lg:flex-row">
           {/* ══ left · itinerary timeline (≈65%) ══ */}
-          <section className="min-w-0 flex-1 px-7 py-7 lg:w-[64%]">
-            <div className="flex flex-wrap items-start justify-between gap-4 pb-4">
-              <div>
-                <Eyebrow>Your booking</Eyebrow>
-                <h2
-                  className="mt-[7px] text-[40px] leading-[1.02]"
-                  style={{ color: TEXT, fontFamily: SERIF }}
-                >
-                  Group Plan
-                </h2>
-                <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
-                  Your itinerary for the group.
-                </p>
-              </div>
+          <section className="min-w-0 flex-1 lg:w-[64%]">
+            <div ref={columnRef} className="relative">
+            <div ref={ribbonRef} className="relative px-7 pt-7 pb-8">
+              <div
+                aria-hidden
+                className="absolute inset-0 rounded-t-[13px]"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(255,255,255,0.022) 0%, rgba(6,18,32,0.18) 100%)",
+                  borderTop: "1px solid rgba(255,255,255,0.06)",
+                  borderLeft: "1px solid rgba(255,255,255,0.06)",
+                  borderRight: "1px solid rgba(255,255,255,0.06)",
+                }}
+              />
 
-              <div className="flex items-center gap-3">
-                <span className="text-[12px] font-normal" style={{ color: DISPLAY_AS }}>
-                  Display as
-                </span>
+              <div className="relative z-[2] flex flex-wrap items-end justify-between gap-x-10 gap-y-7">
+                <div ref={titleRef} className="min-w-0">
+                  <Eyebrow>Your booking</Eyebrow>
+                  <h2
+                    className="mt-[7px] text-[40px] leading-[1.02]"
+                    style={{ color: TEXT, fontFamily: SERIF }}
+                  >
+                    Group Plan
+                  </h2>
+                  <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
+                    Your itinerary for the group.
+                  </p>
+                </div>
 
-                <div
-                  className="inline-flex rounded-[10px] p-[3px]"
-                  style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(13,28,43,0.18)" }}
-                >
-                  {(["Timeline", "Calendar"] as const).map((v) => {
-                    const on = view === v;
-                    return (
-                      <button
-                        key={v}
-                        type="button"
-                        onClick={() => setView(v)}
-                        className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[6px] text-[12px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.035)]"
+                <div className="flex flex-wrap items-center gap-x-14 gap-y-6">
+                  {dateBig && (
+                    <div ref={dateRef} className="min-w-0">
+                      <div
+                        className="text-[38px] leading-[0.95] tracking-[-0.015em]"
                         style={{
-                          color: on ? ACTIVE_TEXT : INACTIVE_TEXT,
-                          background: on ? "rgba(13,28,43,0.26)" : "transparent",
-                          border: on ? "1px solid rgba(224,191,117,0.70)" : "1px solid transparent",
-                          boxShadow: on ? "inset 0 0 12px rgba(201,168,95,0.035)" : "none",
+                          background: GOLD_TEXT_GRADIENT,
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          backgroundClip: "text",
+                          color: "transparent",
+                          filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.16))",
+                          fontFamily: DATE_SERIF,
+                          fontWeight: 400,
                         }}
                       >
-                        {v === "Timeline" ? (
-                          <span
-                            aria-hidden
-                            className="h-[11px] w-[11px] rounded-full"
-                            style={{ border: `1.5px solid ${on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE}` }}
-                          />
-                        ) : (
-                          <CalendarDays
-                            size={14}
-                            strokeWidth={1.5}
-                            style={{ color: on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE }}
-                          />
-                        )}
-                        {v}
-                      </button>
-                    );
-                  })}
+                        {dateBig}
+                      </div>
+                      <div
+                        className="mt-[9px] text-[10px] font-semibold uppercase tracking-[0.16em]"
+                        style={{ color: INFO_GOLD }}
+                      >
+                        {dateMeta}
+                      </div>
+                      {country && (
+                        <div
+                          className="mt-2 text-[9px] font-medium uppercase"
+                          style={{ color: DAY_META, letterSpacing: "0.42em" }}
+                        >
+                          {country}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  <ViewSwitch view={view} onChange={setView} />
                 </div>
               </div>
             </div>
 
+            {metrics.w > 0 && metrics.h > 0 && (
+              <svg
+                aria-hidden
+                className="pointer-events-none absolute left-0 top-0 z-[1]"
+                width={metrics.w}
+                height={metrics.h}
+                viewBox={`0 0 ${metrics.w} ${metrics.h}`}
+                fill="none"
+              >
+                <defs>
+                  <linearGradient id="gp-sweep" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
+                    <stop offset="45%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
+                    <stop offset="100%" stopColor={GOLD_PATH} stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="gp-wedge" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#FFFFFF" stopOpacity={0.05} />
+                    <stop offset="100%" stopColor="#FFFFFF" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                {paths.wedge && <path d={paths.wedge} fill="url(#gp-wedge)" />}
+                {paths.sweep && (
+                  <path d={paths.sweep} stroke="url(#gp-sweep)" strokeWidth={2} strokeLinecap="round" />
+                )}
+                <path
+                  d={paths.path}
+                  stroke={GOLD_PATH}
+                  strokeOpacity={GOLD_PATH_OPACITY}
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  style={{ filter: "drop-shadow(0 0 1px rgba(216,184,93,0.22))" }}
+                />
+              </svg>
+            )}
+
+            <div className="px-7 pt-5 pb-7">
             {view === "Calendar" ? (
               <CalendarView
                 items={scheduled}
@@ -1427,19 +1609,7 @@ export function GroupPlanView({
               />
             ) : (
               <>
-                <div ref={timelineRef} className="relative">
-                  {/* single continuous timeline spine */}
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute w-[2px]"
-                    style={{
-                      background: GOLD_LINE_GRADIENT,
-                      left: spine.left,
-                      top: spine.top,
-                      height: spine.height,
-                      zIndex: 1,
-                    }}
-                  />
+                <div className="relative">
                   {groups.map(([day, items], gi) => (
                     <div
                       key={day}
@@ -1523,6 +1693,8 @@ export function GroupPlanView({
               <span className="text-[12px]" style={{ color: TEXT_2 }}>
                 Added by you
               </span>
+            </div>
+            </div>
             </div>
           </section>
 
