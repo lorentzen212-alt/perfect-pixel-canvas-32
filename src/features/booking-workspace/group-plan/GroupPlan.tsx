@@ -151,6 +151,209 @@ const TYPE_ICON_SM: Record<PlanItemType, React.ReactNode> = {
   reminder: <Bell size={16} strokeWidth={1.3} />,
 };
 
+/* assumed durations so we can detect genuinely free time —
+   PlanItem has a start time only, no end time. */
+const DEFAULT_DURATION_MIN: Record<PlanItemType, number> = {
+  transport: 90,
+  checkin: 0,
+  checkout: 0,
+  breakfast: 180,
+  lunch: 90,
+  dinner: 120,
+  meeting: 120,
+  activity: 90,
+  "meeting-point": 30,
+  "free-time": 0,
+  reminder: 0,
+};
+
+const FREE_MIN_GAP = 45;
+
+const toMin = (hhmm: string) => {
+  const [h, m] = hhmm.split(":").map(Number);
+  return h * 60 + m;
+};
+const toHHMM = (min: number) =>
+  `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
+const fmtDur = (min: number) => {
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  return h && m ? `${h}h ${m}m` : h ? `${h}h` : `${m}m`;
+};
+
+function seedMyItems(date?: string): PlanItem[] {
+  const dd = date ?? null;
+  return [
+    {
+      id: "my-seed-lunch",
+      kind: "myplan",
+      type: "activity",
+      date: dd,
+      time: "13:00",
+      title: "Lunch at Olivia",
+      secondary: "Aker Brygge",
+      location: "Aker Brygge",
+      note: null,
+    },
+    {
+      id: "my-seed-docs",
+      kind: "myplan",
+      type: "reminder",
+      date: dd,
+      time: "14:00",
+      title: "Pick up documents",
+      secondary: "Hotel reception",
+      location: "Hotel reception",
+      note: null,
+    },
+    {
+      id: "my-seed-tickets",
+      kind: "myplan",
+      type: "reminder",
+      date: null,
+      time: null,
+      title: "Buy train tickets to Oslo",
+      note: null,
+    },
+    {
+      id: "my-seed-latecheckout",
+      kind: "myplan",
+      type: "reminder",
+      date: null,
+      time: null,
+      title: "Call hotel about late check-out",
+      note: null,
+    },
+  ];
+}
+
+function PlanMedallion({ type, mine }: { type: PlanItemType; mine?: boolean }) {
+  return (
+    <span
+      className="grid h-[32px] w-[32px] shrink-0 place-items-center rounded-full"
+      style={{
+        border: `1px solid ${mine ? "rgba(216,184,93,0.38)" : "rgba(255,255,255,0.14)"}`,
+        background: mine ? "rgba(216,184,93,0.10)" : "rgba(255,255,255,0.03)",
+        color: mine ? GOLD_DEEP : TEXT_2,
+      }}
+    >
+      {TYPE_ICON_SM[type]}
+    </span>
+  );
+}
+
+function StatusCard({
+  icon,
+  label,
+  value,
+  sub,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  sub: string;
+}) {
+  return (
+    <div
+      className="min-w-0 flex-1 rounded-[12px] px-3 py-2.5"
+      style={{ background: SURFACE_SOFT, border: `1px solid ${HAIR_SOFT}` }}
+    >
+      <div className="flex items-center gap-1.5">
+        <span style={{ color: GOLD }}>{icon}</span>
+        <span
+          className="truncate text-[9px] font-semibold uppercase tracking-[0.12em]"
+          style={{ color: GOLD }}
+        >
+          {label}
+        </span>
+      </div>
+      <div className="mt-1.5 truncate text-[18px] leading-none" style={{ color: TEXT }}>
+        {value}
+      </div>
+      <div className="mt-1 truncate text-[11px]" style={{ color: MUTED }}>
+        {sub}
+      </div>
+    </div>
+  );
+}
+
+function TimelineRow({
+  time,
+  timeEnd,
+  dotColor,
+  accent,
+  variant = "solid",
+  children,
+}: {
+  time: string;
+  timeEnd?: string;
+  dotColor: string;
+  accent?: boolean;
+  variant?: "solid" | "outline";
+  children: React.ReactNode;
+}) {
+  return (
+    <li className="relative flex items-stretch gap-2.5">
+      <span
+        className="w-[46px] shrink-0 pt-3 text-right text-[12px] tabular-nums leading-tight"
+        style={{ color: TIME }}
+      >
+        {time}
+        {timeEnd && (
+          <span className="block" style={{ color: MUTED }}>
+            {timeEnd}
+          </span>
+        )}
+      </span>
+      <span className="relative w-[10px] shrink-0" aria-hidden>
+        <span
+          className="absolute bottom-0 left-1/2 top-0 w-px -translate-x-1/2"
+          style={{ background: HAIR_SOFT }}
+        />
+        <span
+          className="absolute left-1/2 top-[16px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
+          style={{ background: dotColor }}
+        />
+      </span>
+      <div
+        className="relative min-w-0 flex-1 overflow-hidden rounded-[10px]"
+        style={
+          variant === "outline"
+            ? { background: "transparent", border: `1px solid ${GOLD_LINE}` }
+            : { background: "rgba(255,255,255,0.03)", border: `1px solid ${HAIR_SOFT}` }
+        }
+      >
+        {accent && (
+          <span aria-hidden className="absolute inset-y-0 left-0 w-[2px]" style={{ background: GOLD }} />
+        )}
+        <div className="flex items-center gap-3 py-2.5 pl-3.5 pr-2.5">{children}</div>
+      </div>
+    </li>
+  );
+}
+
+function QuickAction({
+  icon,
+  label,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-[9px] px-2 py-2 text-[11.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
+      style={{ color: TEXT, border: `1px solid ${EDGE}`, background: "transparent" }}
+    >
+      <span style={{ color: GOLD }}>{icon}</span>
+      <span className="truncate">{label}</span>
+    </button>
+  );
+}
+
 const MY_PLAN_TYPES: { value: PlanItemType; label: string }[] = [
   { value: "activity", label: "Activity" },
   { value: "meeting-point", label: "Meeting point" },
