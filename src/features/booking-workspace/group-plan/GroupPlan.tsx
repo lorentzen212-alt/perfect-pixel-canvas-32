@@ -58,9 +58,6 @@ const GREEN = "#A9CDAA";
 const GOLD_TEXT_GRADIENT =
   "linear-gradient(105deg, #A87928 0%, #C99C3F 22%, #E8C96A 42%, #F2DC8B 54%, #D2A84C 70%, #B88630 86%, #E4C66D 100%)";
 
-const EYEBROW_GRADIENT =
-  "linear-gradient(105deg, #A67E30 0%, #C69B42 22%, #F0D986 44%, #D3AA50 62%, #EBCF78 80%, #B98B35 100%)";
-
 const GOLD_SOFT = "#D8B85D";
 const GOLD_STUD_BG = "#D8B85D";
 const GOLD_STUD_SHADOW =
@@ -69,13 +66,14 @@ const GOLD_STUD_SHADOW_ACTIVE =
   "0 0 0 1px rgba(240,216,138,0.30), 0 0 6px rgba(224,191,117,0.28)";
 const GOLD_LINE_GRADIENT = "rgba(201,168,95,0.45)";
 
-const DATE_SERIF = '"DM Serif Display", "Cormorant Garamond", Georgia, serif';
+const DATE_SERIF = '"DM Serif Display", serif';
 const TIME_TEXT = "#DCE4E8";
 const DAY_META = "#B7CAD5";
 const DISPLAY_AS = "#C2D0D7";
 const INACTIVE_TEXT = "#9FB1BC";
 const CALENDAR_ICON_INACTIVE = "#879CA8";
 const ACTIVE_TEXT = "#E5C76F";
+
 
 
 
@@ -143,19 +141,14 @@ const longDate = (iso: string) =>
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="block text-[10.5px] font-semibold uppercase tracking-[0.15em]"
-      style={{
-        background: EYEBROW_GRADIENT,
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-        backgroundClip: "text",
-        color: "transparent",
-      }}
+      className="block text-[10px] font-semibold uppercase tracking-[0.16em]"
+      style={{ color: "#E8C96A" }}
     >
       {children}
     </span>
   );
 }
+
 
 function Pill({ kind }: { kind: "booking" | "myplan" }) {
   const booking = kind === "booking";
@@ -772,11 +765,13 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
               {dayNum(day)}
             </span>
             <span
-              className="text-[10.5px] font-semibold uppercase tracking-[0.10em]"
+              className="text-[10px] font-semibold uppercase tracking-[0.10em]"
               style={{ color: DAY_META }}
             >
               {monthShort(day)} · {weekday(day)}
             </span>
+
+
           </div>
 
           <ul className="mt-3 space-y-1.5">
@@ -942,7 +937,7 @@ export function GroupPlanView({
               <div>
                 <Eyebrow>Your booking</Eyebrow>
                 <h2
-                  className="mt-[5px] text-[40px] leading-[1.02]"
+                  className="mt-[7px] text-[40px] leading-[1.02]"
                   style={{ color: TEXT, fontFamily: SERIF }}
                 >
                   Group Plan
@@ -951,6 +946,7 @@ export function GroupPlanView({
                   Your itinerary for the group.
                 </p>
               </div>
+
               <div className="flex items-center gap-3">
                 <span className="text-[12px] font-normal" style={{ color: DISPLAY_AS }}>
                   Display as
@@ -1018,7 +1014,7 @@ export function GroupPlanView({
                   >
                     <div className="w-[64px] shrink-0 pt-[2px]">
                       <div
-                        className="text-[35px] leading-none tracking-[-0.02em]"
+                        className="text-[38px] leading-[0.95] tracking-[-0.025em]"
                         style={{
                           background: GOLD_TEXT_GRADIENT,
                           WebkitBackgroundClip: "text",
@@ -1030,15 +1026,17 @@ export function GroupPlanView({
                           fontWeight: 400,
                         }}
                       >
+
                         {dayNum(day)}
                       </div>
 
                       <div
-                        className="mt-2 whitespace-nowrap text-[10.5px] font-semibold uppercase tracking-[0.10em]"
+                        className="mt-2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.10em]"
                         style={{ color: DAY_META }}
                       >
                         {monthShort(day)} · {weekday(day)}
                       </div>
+
                     </div>
                     <ul className="relative min-w-0 flex-1 space-y-2">
                       {items.map((i, ix) => (
