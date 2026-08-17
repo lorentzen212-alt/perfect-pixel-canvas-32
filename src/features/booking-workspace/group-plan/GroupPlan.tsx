@@ -62,6 +62,22 @@ const GOLD_STUD_SHADOW = "0 0 6px rgba(201, 168, 76, 0.4), inset 0 1px 1px rgba(
 const GOLD_STUD_SHADOW_ACTIVE = "0 0 12px rgba(201, 168, 76, 0.6), inset 0 1px 1px rgba(255,255,255,0.3)";
 const GOLD_LINE_GRADIENT = "linear-gradient(180deg, rgba(201,168,76,0.4) 0%, rgba(201,168,76,0.1) 100%)";
 
+/* brushed metallic gold material — sampled, never scaled per element */
+const GOLD_TEX_URL = goldTexture.url;
+const goldTexBg = (size = "420px 420px", pos = "center"): React.CSSProperties => ({
+  backgroundImage: `url(${GOLD_TEX_URL})`,
+  backgroundSize: size,
+  backgroundPosition: pos,
+  backgroundRepeat: "repeat",
+});
+const goldTexText = (size = "420px 420px", pos = "center"): React.CSSProperties => ({
+  ...goldTexBg(size, pos),
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  color: "transparent",
+});
+
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   transport: <Bus size={22} strokeWidth={1.3} />,
   checkin: <KeyRound size={22} strokeWidth={1.3} />,
