@@ -316,18 +316,19 @@ function Expanded({
 
   return (
     <div
-      className="ml-[26px] mt-2 rounded-[12px] p-4"
+      className="ml-[26px] mt-2 rounded-[12px] p-6"
       style={{
-        background: SURFACE_SOFT,
-        border: "1px solid rgba(232,201,106,0.28)",
+        background: "#0D1C29",
+        border: "1px solid #223042",
       }}
     >
       {item.tiles?.length ? (
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {item.tiles.map((t) => (
             <Tile key={t.label} tile={t} />
           ))}
         </div>
+
       ) : null}
 
       {item.attention && (
