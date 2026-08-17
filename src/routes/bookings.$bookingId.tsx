@@ -1046,7 +1046,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
   const journey = [
     { label: "Request sent", desc: "Sent to the hotel", sub: "28 Jul", state: "done" as const },
-    { label: "Hotel confirmed", desc: "Confirmed by the hotel", sub: "29 Jul", state: "done" as const },
+    { label: "Booking confirmed", desc: "Confirmed by the hotel", sub: "29 Jul", state: "done" as const },
     { label: "Deposit received", desc: "Payment registered", sub: "29 Jul", state: "done" as const },
     {
       label: "Rooming list",
@@ -1055,7 +1055,8 @@ function Workspace({ booking }: { booking: Booking }) {
       state: "active" as const,
     },
     {
-      label: "Final confirmation",
+      label: "Final details",
+
       desc: "Confirm arrival details and special requests",
       sub: "Due in 10 days",
       state: "todo" as const,
@@ -1067,6 +1068,19 @@ function Workspace({ booking }: { booking: Booking }) {
       state: "todo" as const,
     },
   ];
+
+  /* free-cancellation deadline derived from the booking's own stay dates:
+     18:00 local, 7 days before arrival */
+  const cancellationDeadline = useMemo(() => {
+    const arrival = new Date(stay.arrival);
+    if (Number.isNaN(arrival.getTime())) return null;
+    const d = new Date(arrival);
+    d.setDate(d.getDate() - 7);
+    d.setHours(18, 0, 0, 0);
+    return d.toISOString();
+  }, [stay.arrival]);
+
+
 
 
   const strip: { icon: React.ReactNode; lead: string; sub: string }[] = [
@@ -1302,6 +1316,8 @@ function Workspace({ booking }: { booking: Booking }) {
               bookingId={booking.id}
               journey={journey}
               onViewTimeline={() => setTab("Changes")}
+              cancellation={cancellationDeadline ? { deadline: cancellationDeadline } : undefined}
+
               onMessage={() => setTab("Messages")}
               detailsStatus={{
                 label: confirmed ? "Confirmed" : "Awaiting hotel confirmation",
