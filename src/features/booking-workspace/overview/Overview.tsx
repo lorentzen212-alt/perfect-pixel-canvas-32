@@ -632,6 +632,8 @@ export function OverviewFolder({
   detailsStatus,
   summary,
   onViewTimeline,
+  cancellation,
+
   onMessage,
   onViewFullOverview,
   secondary,
