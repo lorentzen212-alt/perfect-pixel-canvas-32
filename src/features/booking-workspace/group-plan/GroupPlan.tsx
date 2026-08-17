@@ -1089,7 +1089,7 @@ export function GroupPlanView({
   defaultDate?: string;
   onRequestChange: () => void;
 }) {
-  const [myItems, setMyItems] = useState<PlanItem[]>([]);
+  const [myItems, setMyItems] = useState<PlanItem[]>(() => seedMyItems(defaultDate));
   const [notesById, setNotesById] = useState<Record<string, string>>({});
   const [openId, setOpenId] = useState<string | null>(null);
   const [view, setView] = useState<"Timeline" | "Calendar">("Timeline");
