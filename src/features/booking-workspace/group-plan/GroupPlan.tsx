@@ -55,6 +55,15 @@ const GOLD_LINE = "rgba(216,184,93,0.55)";
 const GOLD_TINT = "rgba(216,184,93,0.12)";
 const GREEN = "#A9CDAA";
 
+/* expanded activity info panel */
+const INFO_BG = "#363B4E";
+const INFO_BORDER = "rgba(255,255,255,0.08)";
+const INFO_CARD_BG = "rgba(255,255,255,0.04)";
+const INFO_CARD_BORDER = "rgba(255,255,255,0.10)";
+const INFO_TEXT = "#F2F4F7";
+const INFO_TEXT_2 = "#B6BDC8";
+const INFO_GOLD = "#E8C96A";
+
 /* premium metallic champagne-gold text — inside the glyphs only */
 const GOLD_TEXT_GRADIENT =
   "linear-gradient(105deg, #A87928 0%, #C99C3F 22%, #E8C96A 42%, #F2DC8B 54%, #D2A84C 70%, #B88630 86%, #E4C66D 100%)";
