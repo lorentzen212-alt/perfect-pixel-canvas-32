@@ -1664,12 +1664,11 @@ export function GroupPlanView({
               </p>
             ) : (
               <ul className="mt-3 space-y-1.5">
-                {stream.map((entry, ix) =>
+                {stream.map((entry) =>
                   entry.kind === "free" ? (
                     <TimelineRow
-                      key={`free-${entry.startMin}-${ix}`}
-                      time={toHHMM(entry.startMin)}
-                      timeEnd={toHHMM(entry.endMin)}
+                      key={entry.key}
+                      time={toHHMM(entry.start)}
                       dotColor={GOLD}
                       variant="outline"
                     >
@@ -1682,7 +1681,9 @@ export function GroupPlanView({
                           Free time
                         </span>
                         <span className="block text-[11px]" style={{ color: MUTED }}>
-                          {`${fmtDur(entry.endMin - entry.startMin)} available`}
+                          {entry.end === null || entry.minutes === null
+                            ? "Rest of the day free"
+                            : `until ${toHHMM(entry.end)} · ${fmtDur(entry.minutes)} available`}
                         </span>
                       </span>
                       <GoldLink
@@ -1690,7 +1691,7 @@ export function GroupPlanView({
                         onClick={() => {
                           openEditor(activeDay ?? undefined);
                           setDraft((prev) =>
-                            prev ? { ...prev, time: toHHMM(entry.startMin) } : prev,
+                            prev ? { ...prev, time: toHHMM(entry.start) } : prev,
                           );
                         }}
                       />
