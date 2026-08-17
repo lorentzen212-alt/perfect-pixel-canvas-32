@@ -1120,8 +1120,6 @@ export function GroupPlanView({
       `${a.date} ${a.time ?? "99:99"}`.localeCompare(`${b.date} ${b.time ?? "99:99"}`),
     );
   const unscheduled = all.filter((i) => !i.date);
-  const mine = all.filter((i) => i.kind === "myplan" && i.date);
-
   const groups = useMemo(() => {
     const map = new Map<string, PlanItem[]>();
     for (const i of scheduled) {
@@ -1130,6 +1128,60 @@ export function GroupPlanView({
     }
     return [...map.entries()];
   }, [scheduled]);
+
+  /* selectable days = the days the booking actually spans */
+  const dayKeys = useMemo(
+    () => [...new Set(scheduled.map((i) => i.date as string))].sort(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [scheduled],
+  );
+
+  const [focusDay, setFocusDay] = useState<string | null>(null);
+  const [unscheduledOpen, setUnscheduledOpen] = useState(true);
+  const activeDay = focusDay ?? defaultDate ?? dayKeys[0] ?? null;
+
+  const dayBookings = useMemo(
+    () => scheduled.filter((i) => i.date === activeDay && i.kind === "booking" && i.time),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [scheduled, activeDay],
+  );
+  const dayMine = useMemo(
+    () => scheduled.filter((i) => i.date === activeDay && i.kind === "myplan"),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [scheduled, activeDay],
+  );
+
+  const freeWindows = useMemo(() => {
+    const out: { startMin: number; endMin: number }[] = [];
+    for (let n = 0; n < dayBookings.length - 1; n++) {
+      const cur = dayBookings[n];
+      const next = dayBookings[n + 1];
+      const end = toMin(cur.time as string) + DEFAULT_DURATION_MIN[cur.type];
+      const start = toMin(next.time as string);
+      if (start - end >= FREE_MIN_GAP) out.push({ startMin: end, endMin: start });
+    }
+    return out;
+  }, [dayBookings]);
+
+  const stream = useMemo<PlannerEntry[]>(() => {
+    const entries: PlannerEntry[] = [
+      ...dayBookings.map((item) => ({ kind: "item" as const, at: toMin(item.time as string), item })),
+      ...dayMine.map((item) => ({
+        kind: "item" as const,
+        at: item.time ? toMin(item.time) : 24 * 60 + 1,
+        item,
+      })),
+      ...freeWindows.map((w) => ({ kind: "free" as const, at: w.startMin, ...w })),
+    ];
+    return entries.sort((a, b) => a.at - b.at);
+  }, [dayBookings, dayMine, freeWindows]);
+
+  const nextBooking = dayBookings[0] ?? null;
+  const firstFree = freeWindows[0] ?? null;
+
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const dayIdx = activeDay ? dayKeys.indexOf(activeDay) : -1;
+  const dayLabel = activeDay === todayISO ? "TODAY" : `DAY ${dayIdx + 1}`;
 
   const openEditor = (date?: string, item?: PlanItem) => {
     setDraft(
