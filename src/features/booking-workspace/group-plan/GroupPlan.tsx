@@ -27,6 +27,7 @@ import {
   Presentation,
   KeyRound,
   Star,
+  Moon,
   Trash2,
   Users,
   Utensils,
