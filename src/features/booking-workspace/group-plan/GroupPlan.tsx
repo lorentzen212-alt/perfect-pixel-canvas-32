@@ -281,19 +281,20 @@ function GoldLink({ label, onClick }: { label: string; onClick?: () => void }) {
 function CheckRow({ entries }: { entries: string[] }) {
   if (!entries.length) return null;
   return (
-    <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2">
+    <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
       {entries.map((e, i) => (
         <React.Fragment key={`${e}-${i}`}>
           {i > 0 && (
-            <span className="h-[14px] w-px" style={{ background: HAIR_SOFT }} />
+            <span className="h-[16px] w-px" style={{ background: "#223042" }} />
           )}
-          <span className="flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
-            <CheckCircle2 size={14} strokeWidth={1.6} style={{ color: GOLD }} />
+          <span className="flex items-center gap-2 text-[12.5px]" style={{ color: "#D6DEEB" }}>
+            <CheckCircle2 size={15} strokeWidth={1.5} style={{ color: "#C5A24B" }} />
             {e}
           </span>
         </React.Fragment>
       ))}
     </div>
+
   );
 }
 
