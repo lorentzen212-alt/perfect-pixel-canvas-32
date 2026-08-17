@@ -772,7 +772,7 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
               {dayNum(day)}
             </span>
             <span
-              className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+              className="text-[10.5px] font-semibold uppercase tracking-[0.10em]"
               style={{ color: DAY_META }}
             >
               {monthShort(day)} · {weekday(day)}
