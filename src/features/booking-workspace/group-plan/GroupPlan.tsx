@@ -931,10 +931,12 @@ export function GroupPlanView({
         const timelineBox = timeline.getBoundingClientRect();
         const firstBox = first.getBoundingClientRect();
         const lastBox = last.getBoundingClientRect();
-        const top = firstBox.top + firstBox.height / 2 - timelineBox.top;
-        const bottom = lastBox.top + lastBox.height / 2 - timelineBox.top;
+        const firstCenter = firstBox.top + firstBox.height / 2 - timelineBox.top;
+        const lastCenter = lastBox.top + lastBox.height / 2 - timelineBox.top;
+        const top = firstCenter - 20;
+        const bottom = lastCenter + 15;
         next = {
-          left: firstBox.left + firstBox.width / 2 - timelineBox.left - 0.5,
+          left: firstBox.left + firstBox.width / 2 - timelineBox.left - 1,
           top,
           height: Math.max(0, bottom - top),
         };
@@ -948,7 +950,6 @@ export function GroupPlanView({
           : next,
       );
     };
-
 
     positionSpine();
     const observer = new ResizeObserver(positionSpine);
@@ -1046,7 +1047,7 @@ export function GroupPlanView({
                   {/* single continuous timeline spine */}
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute w-px"
+                    className="pointer-events-none absolute w-[2px]"
                     style={{
                       background: GOLD_LINE_GRADIENT,
                       left: spine.left,
