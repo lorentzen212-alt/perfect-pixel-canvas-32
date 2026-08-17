@@ -1583,7 +1583,7 @@ export function GroupPlanView({
                 <defs>
                   <linearGradient id="gp-sweep" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
-                    <stop offset="45%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
+                    <stop offset="86%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
                     <stop offset="100%" stopColor={GOLD_PATH} stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="gp-wedge" x1="0" y1="0" x2="0" y2="1">
