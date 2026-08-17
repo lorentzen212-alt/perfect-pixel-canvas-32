@@ -54,13 +54,28 @@ const GOLD_LINE = "rgba(216,184,93,0.55)";
 const GOLD_TINT = "rgba(216,184,93,0.12)";
 const GREEN = "#A9CDAA";
 
-const GOLD_TEXT_GRADIENT = "linear-gradient(180deg, #C9A84C 0%, #E8D5A3 100%)";
+/* brushed champagne-gold material — multi-band, never flat */
+const GOLD_TEXT_GRADIENT =
+  "linear-gradient(160deg, #A8843C 0%, #D9BE73 12%, #F4E7C4 26%, #C9A84C 40%, #EBDCAC 54%, #B99A४6 68%, #E8D5A3 82%, #A88A44 100%)".replace(
+    "४",
+    "4",
+  );
+const GOLD_SOFT = "#D8BE7C";
 const GOLD_TIME_GRADIENT = "linear-gradient(180deg, #D4B76A 0%, #C9A84C 100%)";
-const GOLD_STUD_BG = "radial-gradient(circle at 30% 30%, #E8D5A3 0%, #C9A84C 100%)";
-const GOLD_STUD_BORDER = "#B8954A";
-const GOLD_STUD_SHADOW = "0 0 6px rgba(201, 168, 76, 0.4), inset 0 1px 1px rgba(255,255,255,0.3)";
-const GOLD_STUD_SHADOW_ACTIVE = "0 0 12px rgba(201, 168, 76, 0.6), inset 0 1px 1px rgba(255,255,255,0.3)";
-const GOLD_LINE_GRADIENT = "linear-gradient(180deg, rgba(201,168,76,0.4) 0%, rgba(201,168,76,0.1) 100%)";
+const GOLD_STUD_BG =
+  "radial-gradient(circle at 32% 28%, #F6EBCB 0%, #E3CB8B 42%, #C9A84C 72%, #A8873E 100%)";
+const GOLD_STUD_BORDER = "rgba(197,163,80,0.85)";
+const GOLD_STUD_SHADOW =
+  "0 0 3px rgba(226,201,132,0.35), inset 0 1px 1px rgba(255,255,255,0.45)";
+const GOLD_STUD_SHADOW_ACTIVE =
+  "0 0 4px rgba(232,213,163,0.50), inset 0 1px 1px rgba(255,255,255,0.5)";
+const GOLD_LINE_GRADIENT =
+  "linear-gradient(180deg, rgba(216,184,93,0.42) 0%, rgba(216,184,93,0.34) 50%, rgba(216,184,93,0.22) 100%)";
+
+const DATE_SERIF = '"Playfair Display", "Cormorant Garamond", Georgia, serif';
+const TIME_TEXT = "#E6E8E5";
+const DAY_META = "#B7CAD5";
+
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   transport: <Bus size={22} strokeWidth={1.3} />,
