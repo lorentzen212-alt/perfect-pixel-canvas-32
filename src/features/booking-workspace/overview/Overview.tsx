@@ -135,25 +135,25 @@ function cancellationView(deadlineISO: string) {
 
 const CANCEL_TONES: Record<CancelTone, { bg: string; border: string; ink: string; eyebrow: string; muted: string }> = {
   green: {
-    bg: "#F3F8F3",
-    border: "rgba(46,107,69,0.28)",
-    ink: "#1F4B33",
-    eyebrow: "#2E6B45",
-    muted: "#5C7A67",
+    bg: "#F3F8F4",
+    border: "#A9CDB7",
+    ink: "#287A52",
+    eyebrow: "#287A52",
+    muted: "#5F806D",
   },
   amber: {
     bg: "#FBF6EC",
-    border: "rgba(169,120,36,0.30)",
-    ink: "#7A5518",
+    border: "#D4B87A",
+    ink: "#1A2330",
     eyebrow: "#A97824",
     muted: "#8A7550",
   },
   grey: {
-    bg: "#F6F6F5",
-    border: "rgba(90,100,105,0.22)",
-    ink: "#4B565C",
+    bg: "#F5F4F2",
+    border: "#B8BAB6",
+    ink: "#1A2330",
     eyebrow: "#6B7177",
-    muted: "#8A9195",
+    muted: "#7A8286",
   },
 };
 
@@ -172,7 +172,7 @@ function CancellationBanner({ deadline }: { deadline: string }) {
           className="block text-[10.5px] font-semibold uppercase"
           style={{ color: t.eyebrow, letterSpacing: "0.1em" }}
         >
-          Free cancellation
+          {view.label}
         </span>
         <span className="mt-[1px] block truncate text-[13px] font-semibold" style={{ color: t.ink }}>
           {view.title}
