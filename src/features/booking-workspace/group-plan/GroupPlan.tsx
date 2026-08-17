@@ -588,6 +588,11 @@ function Row({
         >
           {item.time ?? "—"}
         </span>
+        <span
+          className="h-[36px] w-px shrink-0"
+          style={{ background: "rgba(235, 238, 240, 0.32)" }}
+          aria-hidden
+        />
         <ActivityIcon type={item.type} />
         <span className="min-w-0 flex-1">
           <span className="block truncate text-[14.5px] font-semibold" style={{ color: TEXT }}>
