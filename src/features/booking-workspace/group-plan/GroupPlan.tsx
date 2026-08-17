@@ -961,17 +961,39 @@ export function GroupPlanView({
                         type="button"
                         onClick={() => setView(v)}
                         className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors"
-                        style={{
-                          color: on ? GOLD : TEXT_2,
-                          background: on ? GOLD_TINT : "transparent",
-                          border: on ? "1px solid rgba(216,184,93,0.50)" : "1px solid transparent",
-                        }}
+                        style={
+                          on
+                            ? {
+                                ...goldTexText("380px 380px", "60% 30%"),
+                                backgroundColor: GOLD_TINT,
+                                border: "1px solid transparent",
+                                borderImageSource: `url(${GOLD_TEX_URL})`,
+                                borderImageSlice: 40,
+                                borderImageWidth: "1px",
+                                borderImageRepeat: "stretch",
+                              }
+                            : {
+                                color: TEXT_2,
+                                background: "transparent",
+                                border: "1px solid transparent",
+                              }
+                        }
                       >
                         {v === "Timeline" ? (
                           <span
                             aria-hidden
                             className="h-[11px] w-[11px] rounded-full"
-                            style={{ border: `1.5px solid ${GOLD}` }}
+                            style={
+                              on
+                                ? {
+                                    ...goldTexBg("300px 300px", "40% 60%"),
+                                    WebkitMaskImage:
+                                      "radial-gradient(circle, transparent 0 4px, #000 4px)",
+                                    maskImage:
+                                      "radial-gradient(circle, transparent 0 4px, #000 4px)",
+                                  }
+                                : { border: `1.5px solid ${MUTED}` }
+                            }
                           />
                         ) : (
                           <CalendarDays
