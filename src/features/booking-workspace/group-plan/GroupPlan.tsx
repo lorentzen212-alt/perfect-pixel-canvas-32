@@ -141,19 +141,14 @@ const longDate = (iso: string) =>
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="block text-[10.5px] font-semibold uppercase tracking-[0.15em]"
-      style={{
-        background: EYEBROW_GRADIENT,
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-        backgroundClip: "text",
-        color: "transparent",
-      }}
+      className="block text-[10px] font-semibold uppercase tracking-[0.16em]"
+      style={{ color: "#E8C96A" }}
     >
       {children}
     </span>
   );
 }
+
 
 function Pill({ kind }: { kind: "booking" | "myplan" }) {
   const booking = kind === "booking";
