@@ -1495,66 +1495,110 @@ export function GroupPlanView({
       >
         <div className="flex flex-col p-2 lg:flex-row">
           {/* ══ left · itinerary timeline (≈65%) ══ */}
-          <section className="min-w-0 flex-1 px-7 py-7 lg:w-[64%]">
-            <div className="flex flex-wrap items-start justify-between gap-4 pb-4">
-              <div>
-                <Eyebrow>Your booking</Eyebrow>
-                <h2
-                  className="mt-[7px] text-[40px] leading-[1.02]"
-                  style={{ color: TEXT, fontFamily: SERIF }}
-                >
-                  Group Plan
-                </h2>
-                <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
-                  Your itinerary for the group.
-                </p>
-              </div>
+          <section className="min-w-0 flex-1 lg:w-[64%]">
+            <div ref={columnRef} className="relative">
+            <div ref={ribbonRef} className="relative px-7 pt-7 pb-8">
+              <div
+                aria-hidden
+                className="absolute inset-0 rounded-t-[13px]"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(255,255,255,0.022) 0%, rgba(6,18,32,0.18) 100%)",
+                  borderTop: "1px solid rgba(255,255,255,0.06)",
+                  borderLeft: "1px solid rgba(255,255,255,0.06)",
+                  borderRight: "1px solid rgba(255,255,255,0.06)",
+                }}
+              />
 
-              <div className="flex items-center gap-3">
-                <span className="text-[12px] font-normal" style={{ color: DISPLAY_AS }}>
-                  Display as
-                </span>
+              <div className="relative z-[2] flex flex-wrap items-end justify-between gap-x-10 gap-y-7">
+                <div ref={titleRef} className="min-w-0">
+                  <Eyebrow>Your booking</Eyebrow>
+                  <h2
+                    className="mt-[7px] text-[40px] leading-[1.02]"
+                    style={{ color: TEXT, fontFamily: SERIF }}
+                  >
+                    Group Plan
+                  </h2>
+                  <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
+                    Your itinerary for the group.
+                  </p>
+                </div>
 
-                <div
-                  className="inline-flex rounded-[10px] p-[3px]"
-                  style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(13,28,43,0.18)" }}
-                >
-                  {(["Timeline", "Calendar"] as const).map((v) => {
-                    const on = view === v;
-                    return (
-                      <button
-                        key={v}
-                        type="button"
-                        onClick={() => setView(v)}
-                        className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[6px] text-[12px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.035)]"
+                <div className="flex flex-wrap items-center gap-x-14 gap-y-6">
+                  {dateBig && (
+                    <div ref={dateRef} className="min-w-0">
+                      <div
+                        className="text-[38px] leading-[0.95] tracking-[-0.015em]"
                         style={{
-                          color: on ? ACTIVE_TEXT : INACTIVE_TEXT,
-                          background: on ? "rgba(13,28,43,0.26)" : "transparent",
-                          border: on ? "1px solid rgba(224,191,117,0.70)" : "1px solid transparent",
-                          boxShadow: on ? "inset 0 0 12px rgba(201,168,95,0.035)" : "none",
+                          background: GOLD_TEXT_GRADIENT,
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          backgroundClip: "text",
+                          color: "transparent",
+                          filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.16))",
+                          fontFamily: DATE_SERIF,
+                          fontWeight: 400,
                         }}
                       >
-                        {v === "Timeline" ? (
-                          <span
-                            aria-hidden
-                            className="h-[11px] w-[11px] rounded-full"
-                            style={{ border: `1.5px solid ${on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE}` }}
-                          />
-                        ) : (
-                          <CalendarDays
-                            size={14}
-                            strokeWidth={1.5}
-                            style={{ color: on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE }}
-                          />
-                        )}
-                        {v}
-                      </button>
-                    );
-                  })}
+                        {dateBig}
+                      </div>
+                      <div
+                        className="mt-[9px] text-[10px] font-semibold uppercase tracking-[0.16em]"
+                        style={{ color: INFO_GOLD }}
+                      >
+                        {dateMeta}
+                      </div>
+                      {country && (
+                        <div
+                          className="mt-2 text-[9px] font-medium uppercase"
+                          style={{ color: DAY_META, letterSpacing: "0.42em" }}
+                        >
+                          {country}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  <ViewSwitch view={view} onChange={setView} />
                 </div>
               </div>
             </div>
 
+            {metrics.w > 0 && metrics.h > 0 && (
+              <svg
+                aria-hidden
+                className="pointer-events-none absolute left-0 top-0 z-[1]"
+                width={metrics.w}
+                height={metrics.h}
+                viewBox={`0 0 ${metrics.w} ${metrics.h}`}
+                fill="none"
+              >
+                <defs>
+                  <linearGradient id="gp-sweep" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
+                    <stop offset="45%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
+                    <stop offset="100%" stopColor={GOLD_PATH} stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="gp-wedge" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#FFFFFF" stopOpacity={0.05} />
+                    <stop offset="100%" stopColor="#FFFFFF" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                {paths.wedge && <path d={paths.wedge} fill="url(#gp-wedge)" />}
+                {paths.sweep && (
+                  <path d={paths.sweep} stroke="url(#gp-sweep)" strokeWidth={2} strokeLinecap="round" />
+                )}
+                <path
+                  d={paths.path}
+                  stroke={GOLD_PATH}
+                  strokeOpacity={GOLD_PATH_OPACITY}
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  style={{ filter: "drop-shadow(0 0 1px rgba(216,184,93,0.22))" }}
+                />
+              </svg>
+            )}
+
+            <div className="px-7 pt-5 pb-7">
             {view === "Calendar" ? (
               <CalendarView
                 items={scheduled}
@@ -1565,19 +1609,7 @@ export function GroupPlanView({
               />
             ) : (
               <>
-                <div ref={timelineRef} className="relative">
-                  {/* single continuous timeline spine */}
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute w-[2px]"
-                    style={{
-                      background: GOLD_LINE_GRADIENT,
-                      left: spine.left,
-                      top: spine.top,
-                      height: spine.height,
-                      zIndex: 1,
-                    }}
-                  />
+                <div className="relative">
                   {groups.map(([day, items], gi) => (
                     <div
                       key={day}
