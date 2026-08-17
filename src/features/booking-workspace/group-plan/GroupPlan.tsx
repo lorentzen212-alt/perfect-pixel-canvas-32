@@ -30,6 +30,7 @@ import {
   X,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
+import goldTexture from "@/assets/brushed-gold.png.asset.json";
 import type { PlanItem, PlanItemType, PlanTile, TileIcon } from "./types";
 
 /* ── material — Nordic fjord / Scandinavian hospitality ──────
