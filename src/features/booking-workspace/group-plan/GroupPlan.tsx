@@ -1005,13 +1005,15 @@ export function GroupPlanView({
                           WebkitBackgroundClip: "text",
                           WebkitTextFillColor: "transparent",
                           backgroundClip: "text",
-                          textShadow: "0 1px 2px rgba(0,0,0,0.32)",
+                          color: "transparent",
+                          filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.18))",
                           fontFamily: DATE_SERIF,
                           fontWeight: 400,
                         }}
                       >
                         {dayNum(day)}
                       </div>
+
                       <div
                         className="mt-2.5 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.12em]"
                         style={{ color: DAY_META }}
