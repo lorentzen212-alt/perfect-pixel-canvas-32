@@ -6,6 +6,8 @@ import {
   Bus,
   CalendarDays,
   Check,
+  CheckCircle2,
+  FileText,
   Clock,
   Coffee,
   Gift,
@@ -246,6 +248,25 @@ function GoldLink({ label, onClick }: { label: string; onClick?: () => void }) {
   );
 }
 
+function CheckRow({ entries }: { entries: string[] }) {
+  if (!entries.length) return null;
+  return (
+    <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2">
+      {entries.map((e, i) => (
+        <React.Fragment key={`${e}-${i}`}>
+          {i > 0 && (
+            <span className="h-[14px] w-px" style={{ background: HAIR_SOFT }} />
+          )}
+          <span className="flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
+            <CheckCircle2 size={14} strokeWidth={1.6} style={{ color: GOLD }} />
+            {e}
+          </span>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
 /* ── expanded content ───────────────────────────────────── */
 
 function Expanded({
@@ -259,7 +280,7 @@ function Expanded({
 }) {
   const cols = [
     item.dietary?.length ? "dietary" : null,
-    item.included?.length ? "included" : null,
+    
     item.extras?.length ? "extras" : null,
   ].filter(Boolean) as string[];
 
@@ -314,26 +335,6 @@ function Expanded({
             </div>
           ) : null}
 
-          {item.included?.length ? (
-            <div
-              className="min-w-0 sm:pl-6"
-              style={cols.length > 1 ? { borderLeft: `1px solid ${HAIR_SOFT}` } : undefined}
-            >
-              <ColHead>Included</ColHead>
-              <ul className="mt-2.5 space-y-1.5">
-                {item.included.map((x) => (
-                  <li
-                    key={x}
-                    className="flex items-center gap-2 text-[12.5px]"
-                    style={{ color: TEXT_2 }}
-                  >
-                    <Check size={13} strokeWidth={1.7} style={{ color: GREEN }} />
-                    {x}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
 
           {item.extras?.length ? (
             <div
@@ -353,20 +354,13 @@ function Expanded({
         </div>
       )}
 
-      {item.facts?.length ? (
-        <dl className="mt-5 grid gap-x-8 gap-y-2 sm:grid-cols-2">
-          {item.facts.map((f) => (
-            <div key={f.label} className="flex min-w-0 gap-3 text-[12.5px]">
-              <dt className="w-[132px] shrink-0" style={{ color: MUTED }}>
-                {f.label}
-              </dt>
-              <dd className="min-w-0 flex-1" style={{ color: TEXT_2 }}>
-                {f.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      ) : null}
+      <CheckRow
+        entries={[
+          ...(item.included ?? []),
+          ...(item.facts ?? []).flatMap((f) => [f.label, f.value]),
+        ]}
+      />
+
 
       {item.specialArrangement && (
         <div
@@ -383,16 +377,34 @@ function Expanded({
         </div>
       )}
 
-      <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
-        <ColHead>Notes</ColHead>
+      <div className="relative mt-4 pt-4" style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
+        <div className="flex items-center gap-1.5">
+          <FileText size={13} strokeWidth={1.5} style={{ color: GOLD }} />
+          <ColHead>Notes</ColHead>
+        </div>
         {item.note ? (
           <>
-            <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
+            <button
+              type="button"
+              aria-label="Edit note"
+              onClick={() => onEditNote(item)}
+              className="absolute right-0 top-3 grid h-7 w-7 place-items-center rounded-full transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+              style={{ border: `1px solid ${GOLD_LINE}`, color: GOLD }}
+            >
+              <Pencil size={12} strokeWidth={1.6} />
+            </button>
+            <p
+              className="mt-1.5 whitespace-pre-line text-[12.5px]"
+              style={{ color: TEXT_2 }}
+            >
               {item.note.text}
             </p>
-            <div className="mt-1.5 flex items-center gap-3">
+            <div className="mt-1.5 flex items-center gap-2">
               <span className="text-[11px]" style={{ color: MUTED }}>
-                Added by {item.note.author} · {item.note.date}
+                Added by {item.note.author} | {item.note.date}
+              </span>
+              <span className="text-[11px]" style={{ color: MUTED }}>
+                •
               </span>
               <GoldLink label="Edit" onClick={() => onEditNote(item)} />
             </div>
@@ -408,6 +420,7 @@ function Expanded({
           </button>
         )}
       </div>
+
 
       <div className="mt-5 flex items-center justify-end gap-4">
         <button
@@ -471,7 +484,7 @@ function Row({
             }
           }}
           aria-expanded={open}
-          className="ml-[26px] flex cursor-pointer items-start gap-4 rounded-[8px] px-3 py-[13px] transition-colors hover:bg-[rgba(255,255,255,0.045)]"
+          className="ml-[26px] flex cursor-pointer items-start gap-4 rounded-[8px] px-3 py-[13px] transition-all hover:bg-[rgba(255,255,255,0.07)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)]"
           style={{
             background: "transparent",
             borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.08)",
