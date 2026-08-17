@@ -93,11 +93,14 @@ function cancellationView(deadlineISO: string) {
   const ms = d.getTime() - now.getTime();
   const dateLabel = d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
   const timeLabel = d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false });
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
   if (ms <= 0) {
     return {
       tone: "grey" as CancelTone,
-      title: `Free cancellation period ended ${dateLabel}, ${timeLabel}`,
+      label: "Cancellation period ended",
+      title: `Free cancellation ended ${dateLabel}, ${timeLabel}`,
       trailing: "",
     };
   }
@@ -107,20 +110,24 @@ function cancellationView(deadlineISO: string) {
   if (sameDay) {
     return {
       tone: "amber" as CancelTone,
-      title: `Free cancellation ends today at ${timeLabel}`,
+      label: "Free cancellation",
+      title: `Ends today at ${timeLabel}`,
       trailing: `${Math.max(1, Math.round(hours))} hours remaining`,
     };
   }
   if (hours < 48) {
+    const isTomorrow = d.toDateString() === tomorrow.toDateString();
     return {
       tone: "amber" as CancelTone,
-      title: `Free cancellation until ${dateLabel}, ${timeLabel}`,
+      label: "Free cancellation",
+      title: isTomorrow ? `Ends tomorrow at ${timeLabel}` : `Free cancellation until ${dateLabel}, ${timeLabel}`,
       trailing: `${Math.max(1, Math.round(hours))} hours remaining`,
     };
   }
   const days = Math.floor(hours / 24);
   return {
     tone: "green" as CancelTone,
+    label: "Free cancellation",
     title: `Free cancellation until ${dateLabel}, ${timeLabel}`,
     trailing: `${days} ${days === 1 ? "day" : "days"} remaining`,
   };
