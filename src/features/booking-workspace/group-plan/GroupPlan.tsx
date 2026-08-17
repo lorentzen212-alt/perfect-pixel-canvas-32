@@ -1495,25 +1495,3 @@ function PlannerSection({
     </div>
   );
 }
-
-function LegacyPlannerHeader() {
-  return (
-    <div>
-      <div>
-        <span
-          className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-          style={{ color: MUTED }}
-        >
-          {title}
-        </span>
-        <span
-          className="inline-grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-[11px] font-semibold leading-none tabular-nums"
-          style={{ color: GOLD_DEEP, background: "transparent", border: "1px solid rgba(255,255,255,0.15)" }}
-        >
-          {count}
-        </span>
-      </div>
-      <div>{children}</div>
-    </div>
-  );
-}
