@@ -1000,7 +1000,7 @@ export function GroupPlanView({
                   {/* single continuous timeline spine */}
                   <span
                     aria-hidden
-                    className="absolute top-3 bottom-3 left-[1px] w-px"
+                    className="absolute top-3 bottom-4 left-[1px] w-px"
                     style={{ background: GOLD_LINE_GRADIENT, zIndex: 1 }}
                   />
                   {groups.map(([day, items], gi) => (
