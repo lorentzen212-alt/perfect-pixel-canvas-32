@@ -319,7 +319,7 @@ function Expanded({
     <div
       className="ml-[26px] mt-2 rounded-[12px] p-6"
       style={{
-        background: "#0D1C29",
+        background: SURFACE_SOFT,
         border: "1px solid #223042",
       }}
     >
