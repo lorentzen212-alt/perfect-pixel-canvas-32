@@ -64,7 +64,7 @@ const GOLD_STUD_SHADOW =
   "0 0 0 1px rgba(240,216,138,0.25), 0 0 5px rgba(224,191,117,0.22)";
 const GOLD_STUD_SHADOW_ACTIVE =
   "0 0 0 1px rgba(240,216,138,0.30), 0 0 6px rgba(224,191,117,0.28)";
-const GOLD_LINE_GRADIENT = "rgba(201,168,95,0.45)";
+const GOLD_LINE_GRADIENT = "rgba(201,168,95,0.70)";
 
 const DATE_SERIF = '"DM Serif Display", serif';
 const TIME_TEXT = "#DCE4E8";
