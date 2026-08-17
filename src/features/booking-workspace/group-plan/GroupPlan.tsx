@@ -1406,48 +1406,82 @@ export function GroupPlanView({
   };
 
   useLayoutEffect(() => {
-    const timeline = timelineRef.current;
-    if (!timeline || view !== "Timeline") return;
+    const column = columnRef.current;
+    const ribbon = ribbonRef.current;
+    if (!column || !ribbon) return;
 
-    const positionSpine = () => {
-      const dots = timeline.querySelectorAll<HTMLElement>("[data-timeline-dot]");
+    const measure = () => {
+      const columnBox = column.getBoundingClientRect();
+      const yEdge = ribbon.getBoundingClientRect().height - 1;
+
+      const dots = column.querySelectorAll<HTMLElement>("[data-timeline-dot]");
       const first = dots.item(0);
       const last = dots.item(dots.length - 1);
-      let next = { left: 0, top: 0, height: 0 };
-
+      let xSpine: number | null = null;
+      let ySpineEnd = yEdge;
       if (first && last) {
-        const timelineBox = timeline.getBoundingClientRect();
         const firstBox = first.getBoundingClientRect();
         const lastBox = last.getBoundingClientRect();
-        const firstCenter = firstBox.top + firstBox.height / 2 - timelineBox.top;
-        const lastCenter = lastBox.top + lastBox.height / 2 - timelineBox.top;
-        const top = firstCenter - 20;
-        const bottom = lastCenter + 15;
-        next = {
-          left: firstBox.left + firstBox.width / 2 - timelineBox.left - 1,
-          top,
-          height: Math.max(0, bottom - top),
-        };
+        xSpine = firstBox.left + firstBox.width / 2 - columnBox.left;
+        ySpineEnd = lastBox.top + lastBox.height / 2 - columnBox.top + 15;
       }
 
-      setSpine((prev) =>
-        Math.abs(prev.left - next.left) < 0.5 &&
-        Math.abs(prev.top - next.top) < 0.5 &&
-        Math.abs(prev.height - next.height) < 0.5
+      const titleBox = titleRef.current?.getBoundingClientRect();
+      const dateBox = dateRef.current?.getBoundingClientRect();
+
+      const next: RibbonMetrics = {
+        w: columnBox.width,
+        h: columnBox.height,
+        yEdge,
+        xSpine,
+        ySpineEnd,
+        xTitleRight: titleBox ? titleBox.right - columnBox.left : 0,
+        xDateLeft: dateBox ? dateBox.left - columnBox.left : 0,
+      };
+
+      setMetrics((prev) => {
+        const near = (a: number, b: number) => Math.abs(a - b) < 0.5;
+        return (prev.xSpine === null) === (next.xSpine === null) &&
+          near(prev.xSpine ?? 0, next.xSpine ?? 0) &&
+          near(prev.w, next.w) &&
+          near(prev.h, next.h) &&
+          near(prev.yEdge, next.yEdge) &&
+          near(prev.ySpineEnd, next.ySpineEnd) &&
+          near(prev.xTitleRight, next.xTitleRight) &&
+          near(prev.xDateLeft, next.xDateLeft)
           ? prev
-          : next,
-      );
+          : next;
+      });
     };
 
-    positionSpine();
-    const observer = new ResizeObserver(positionSpine);
-    observer.observe(timeline);
-    window.addEventListener("resize", positionSpine);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(column);
+    observer.observe(ribbon);
+    window.addEventListener("resize", measure);
     return () => {
       observer.disconnect();
-      window.removeEventListener("resize", positionSpine);
+      window.removeEventListener("resize", measure);
     };
   }, [groups, openId, view]);
+
+  const paths = journeyPaths(metrics);
+
+  const firstDate = scheduled[0]?.date ?? null;
+  const lastDate = scheduled[scheduled.length - 1]?.date ?? null;
+  const dateBig =
+    firstDate && lastDate
+      ? firstDate === lastDate
+        ? dayNum(firstDate)
+        : `${dayNum(firstDate)} – ${dayNum(lastDate)}`
+      : "";
+  const dateMeta =
+    firstDate && lastDate
+      ? firstDate.slice(0, 7) === lastDate.slice(0, 7)
+        ? `${monthLong(firstDate)} ${d(firstDate).getFullYear()}`
+        : `${monthShort(firstDate)} – ${monthShort(lastDate)} ${d(lastDate).getFullYear()}`
+      : "";
+  const country = destination?.split(",").pop()?.trim() ?? "";
 
   return (
     <div className="pb-14" style={{ background: PAGE }}>
