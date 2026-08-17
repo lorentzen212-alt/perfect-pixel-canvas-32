@@ -444,6 +444,104 @@ const monthShort = (iso: string) => d(iso).toLocaleDateString("en-GB", { month: 
 const weekday = (iso: string) => d(iso).toLocaleDateString("en-GB", { weekday: "short" });
 const longDate = (iso: string) =>
   d(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const monthLong = (iso: string) => d(iso).toLocaleDateString("en-GB", { month: "long" });
+
+/* ── journey ribbon geometry ────────────────────────────── */
+interface RibbonMetrics {
+  w: number;
+  h: number;
+  yEdge: number;
+  xSpine: number | null;
+  ySpineEnd: number;
+  xTitleRight: number;
+  xDateLeft: number;
+}
+
+const EMPTY_METRICS: RibbonMetrics = {
+  w: 0,
+  h: 0,
+  yEdge: 0,
+  xSpine: null,
+  ySpineEnd: 0,
+  xTitleRight: 0,
+  xDateLeft: 0,
+};
+
+const HOOK_R = 16;
+const SWEEP_TOP = 12;
+const SWEEP_RUN = 210;
+const SWEEP_MIN_RUN = 72;
+const SWEEP_MIN_WIDTH = 560;
+
+const r2 = (n: number) => Math.round(n * 100) / 100;
+
+function journeyPaths(m: RibbonMetrics) {
+  const yEdge = r2(m.yEdge);
+
+  let path = `M 0 ${yEdge} H ${r2(m.w)}`;
+  if (m.xSpine !== null && m.ySpineEnd > m.yEdge + HOOK_R) {
+    const x = r2(m.xSpine);
+    path += ` M ${r2(m.xSpine - HOOK_R)} ${yEdge} Q ${x} ${yEdge} ${x} ${r2(m.yEdge + HOOK_R)} V ${r2(m.ySpineEnd)}`;
+  }
+
+  const xEnd = m.xDateLeft - 22;
+  const xStart = Math.max(m.xTitleRight + 16, xEnd - SWEEP_RUN);
+  const raised =
+    m.w >= SWEEP_MIN_WIDTH && m.xDateLeft > 0 && xEnd - xStart >= SWEEP_MIN_RUN && m.yEdge > SWEEP_TOP;
+
+  if (!raised) return { path, sweep: "", wedge: "" };
+
+  const k = (xEnd - xStart) * 0.55;
+  const curve = `C ${r2(xStart + k)} ${yEdge} ${r2(xEnd - k)} ${SWEEP_TOP} ${r2(xEnd)} ${SWEEP_TOP}`;
+  const rise = `M ${r2(xStart)} ${yEdge} ${curve} H ${r2(m.w)}`;
+  return { path, sweep: rise, wedge: `${rise} V ${yEdge} Z` };
+}
+
+function ViewSwitch({
+  view,
+  onChange,
+}: {
+  view: "Timeline" | "Calendar";
+  onChange: (v: "Timeline" | "Calendar") => void;
+}) {
+  return (
+    <div className="flex items-center gap-7">
+      {(["Timeline", "Calendar"] as const).map((v) => {
+        const on = view === v;
+        return (
+          <button
+            key={v}
+            type="button"
+            onClick={() => onChange(v)}
+            className="inline-flex items-center gap-2 text-[12px] font-medium transition-opacity hover:opacity-80"
+            style={{ color: on ? ACTIVE_TEXT : INACTIVE_TEXT }}
+          >
+            {v === "Timeline" ? (
+              <span
+                aria-hidden
+                className="h-[5px] w-[5px] shrink-0 rounded-full"
+                style={{ background: on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE }}
+              />
+            ) : (
+              <CalendarDays
+                size={13}
+                strokeWidth={1.5}
+                style={{ color: on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE }}
+              />
+            )}
+            <span
+              className="pb-[5px]"
+              style={{ borderBottom: `1px solid ${on ? GOLD_LINE_GRADIENT : "transparent"}` }}
+            >
+              {v}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 
 /* ── small parts ────────────────────────────────────────── */
 
