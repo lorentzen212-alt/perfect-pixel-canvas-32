@@ -1012,10 +1012,7 @@ export function GroupPlanView({
                       <div
                         className="text-[54px] leading-[0.82]"
                         style={{
-                          background: GOLD_TEXT_GRADIENT,
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          backgroundClip: "text",
+                          ...goldTexText("420px 420px", `50% ${-(gi * 76)}px`),
                           textShadow: "0 1px 2px rgba(0,0,0,0.3)",
                           fontFamily: SERIF,
                         }}
