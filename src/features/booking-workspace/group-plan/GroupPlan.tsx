@@ -125,6 +125,20 @@ const TILE_ICON: Record<TileIcon, React.ReactNode> = {
   luggage: <Luggage size={14} strokeWidth={1.4} />,
 };
 
+const TYPE_ICON_SM: Record<PlanItemType, React.ReactNode> = {
+  transport: <Bus size={16} strokeWidth={1.3} />,
+  checkin: <KeyRound size={16} strokeWidth={1.3} />,
+  checkout: <Luggage size={16} strokeWidth={1.3} />,
+  breakfast: <Coffee size={16} strokeWidth={1.3} />,
+  lunch: <Coffee size={16} strokeWidth={1.3} />,
+  dinner: <Utensils size={16} strokeWidth={1.3} />,
+  meeting: <Presentation size={16} strokeWidth={1.3} />,
+  activity: <Plane size={16} strokeWidth={1.3} />,
+  "meeting-point": <Users size={16} strokeWidth={1.3} />,
+  "free-time": <Star size={16} strokeWidth={1.3} />,
+  reminder: <Bell size={16} strokeWidth={1.3} />,
+};
+
 const MY_PLAN_TYPES: { value: PlanItemType; label: string }[] = [
   { value: "activity", label: "Activity" },
   { value: "meeting-point", label: "Meeting point" },
