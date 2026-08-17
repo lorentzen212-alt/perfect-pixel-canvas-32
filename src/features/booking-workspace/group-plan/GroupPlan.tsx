@@ -493,13 +493,13 @@ function Row({
         {/* open circular node */}
         <span
           aria-hidden
-          className="absolute left-[-3px] top-1/2 h-[7px] w-[7px] -translate-y-1/2 rounded-full"
+          className="absolute left-[-2px] top-1/2 h-[6px] w-[6px] -translate-y-1/2 rounded-full"
           style={{
             background: GOLD_STUD_BG,
-            border: `2px solid ${GOLD_STUD_BORDER}`,
             boxShadow: open ? GOLD_STUD_SHADOW_ACTIVE : GOLD_STUD_SHADOW,
           }}
         />
+
         <div
           role="button"
           tabIndex={0}
