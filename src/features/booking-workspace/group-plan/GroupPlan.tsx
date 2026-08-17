@@ -54,13 +54,25 @@ const GOLD_LINE = "rgba(216,184,93,0.55)";
 const GOLD_TINT = "rgba(216,184,93,0.12)";
 const GREEN = "#A9CDAA";
 
-const GOLD_TEXT_GRADIENT = "linear-gradient(180deg, #C9A84C 0%, #E8D5A3 100%)";
-const GOLD_TIME_GRADIENT = "linear-gradient(180deg, #D4B76A 0%, #C9A84C 100%)";
-const GOLD_STUD_BG = "radial-gradient(circle at 30% 30%, #E8D5A3 0%, #C9A84C 100%)";
-const GOLD_STUD_BORDER = "#B8954A";
-const GOLD_STUD_SHADOW = "0 0 6px rgba(201, 168, 76, 0.4), inset 0 1px 1px rgba(255,255,255,0.3)";
-const GOLD_STUD_SHADOW_ACTIVE = "0 0 12px rgba(201, 168, 76, 0.6), inset 0 1px 1px rgba(255,255,255,0.3)";
-const GOLD_LINE_GRADIENT = "linear-gradient(180deg, rgba(201,168,76,0.4) 0%, rgba(201,168,76,0.1) 100%)";
+/* brushed champagne-gold material — multi-band, never flat */
+const GOLD_TEXT_GRADIENT =
+  "linear-gradient(160deg, #A8843C 0%, #D9BE73 12%, #F4E7C4 26%, #C9A84C 40%, #EBDCAC 54%, #B99A46 68%, #E8D5A3 82%, #A88A44 100%)";
+
+const GOLD_SOFT = "#D8BE7C";
+const GOLD_STUD_BG =
+  "radial-gradient(circle at 32% 28%, #F6EBCB 0%, #E3CB8B 42%, #C9A84C 72%, #A8873E 100%)";
+const GOLD_STUD_BORDER = "rgba(197,163,80,0.85)";
+const GOLD_STUD_SHADOW =
+  "0 0 3px rgba(226,201,132,0.35), inset 0 1px 1px rgba(255,255,255,0.45)";
+const GOLD_STUD_SHADOW_ACTIVE =
+  "0 0 4px rgba(232,213,163,0.50), inset 0 1px 1px rgba(255,255,255,0.5)";
+const GOLD_LINE_GRADIENT =
+  "linear-gradient(180deg, rgba(216,184,93,0.42) 0%, rgba(216,184,93,0.34) 50%, rgba(216,184,93,0.22) 100%)";
+
+const DATE_SERIF = '"Playfair Display", "Cormorant Garamond", Georgia, serif';
+const TIME_TEXT = "#E6E8E5";
+const DAY_META = "#B7CAD5";
+
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   transport: <Bus size={22} strokeWidth={1.3} />,
@@ -127,7 +139,12 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
       className="block text-[10px] font-semibold uppercase tracking-[0.20em]"
-      style={{ color: GOLD }}
+      style={{
+        background: GOLD_TEXT_GRADIENT,
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+      }}
     >
       {children}
     </span>
@@ -471,7 +488,7 @@ function Row({
       {/* continuous gold spine */}
       <span
         aria-hidden
-        className="absolute bottom-0 left-0 top-0 w-[1.5px]"
+        className="absolute bottom-0 left-0 top-0 w-px"
         style={{ background: GOLD_LINE_GRADIENT }}
       />
       <div className="relative">
@@ -504,16 +521,11 @@ function Row({
         >
           <span
             className="w-[92px] shrink-0 pt-[4px] text-[14px] tabular-nums"
-            style={{
-              background: GOLD_TIME_GRADIENT,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
+            style={{ color: TIME_TEXT }}
           >
             {item.time ?? "—"}
           </span>
-          <span className="shrink-0 pt-[1px]" style={{ color: TEXT_2 }}>
+          <span className="shrink-0 pt-[1px]" style={{ color: GOLD_SOFT }}>
             {TYPE_ICON[item.type]}
           </span>
           <span className="min-w-0 flex-1">
@@ -939,24 +951,24 @@ export function GroupPlanView({
                         key={v}
                         type="button"
                         onClick={() => setView(v)}
-                        className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors"
+                        className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(232,201,106,0.06)]"
                         style={{
-                          color: on ? GOLD : TEXT_2,
-                          background: on ? GOLD_TINT : "transparent",
-                          border: on ? "1px solid rgba(216,184,93,0.50)" : "1px solid transparent",
+                          color: on ? GOLD_SOFT : TEXT_2,
+                          background: "transparent",
+                          border: on ? "1px solid rgba(216,184,93,0.55)" : "1px solid transparent",
                         }}
                       >
                         {v === "Timeline" ? (
                           <span
                             aria-hidden
                             className="h-[11px] w-[11px] rounded-full"
-                            style={{ border: `1.5px solid ${GOLD}` }}
+                            style={{ border: `1.5px solid ${on ? GOLD_SOFT : MUTED}` }}
                           />
                         ) : (
                           <CalendarDays
                             size={14}
                             strokeWidth={1.5}
-                            style={{ color: on ? GOLD : MUTED }}
+                            style={{ color: on ? GOLD_SOFT : MUTED }}
                           />
                         )}
                         {v}
@@ -989,21 +1001,22 @@ export function GroupPlanView({
                   >
                     <div className="w-[64px] shrink-0 pt-[2px]">
                       <div
-                        className="text-[54px] leading-[0.82]"
+                        className="text-[54px] leading-[0.82] tracking-[-0.01em]"
                         style={{
                           background: GOLD_TEXT_GRADIENT,
                           WebkitBackgroundClip: "text",
                           WebkitTextFillColor: "transparent",
                           backgroundClip: "text",
-                          textShadow: "0 1px 2px rgba(0,0,0,0.3)",
-                          fontFamily: SERIF,
+                          textShadow: "0 1px 2px rgba(0,0,0,0.32)",
+                          fontFamily: DATE_SERIF,
+                          fontWeight: 400,
                         }}
                       >
                         {dayNum(day)}
                       </div>
                       <div
-                        className="mt-2.5 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.14em]"
-                        style={{ color: TEXT_2 }}
+                        className="mt-2.5 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.12em]"
+                        style={{ color: DAY_META }}
                       >
                         {monthShort(day)} · {weekday(day)}
                       </div>
