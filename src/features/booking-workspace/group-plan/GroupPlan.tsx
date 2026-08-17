@@ -54,6 +54,14 @@ const GOLD_LINE = "rgba(216,184,93,0.55)";
 const GOLD_TINT = "rgba(216,184,93,0.12)";
 const GREEN = "#A9CDAA";
 
+const GOLD_TEXT_GRADIENT = "linear-gradient(180deg, #C9A84C 0%, #E8D5A3 100%)";
+const GOLD_TIME_GRADIENT = "linear-gradient(180deg, #D4B76A 0%, #C9A84C 100%)";
+const GOLD_STUD_BG = "radial-gradient(circle at 30% 30%, #E8D5A3 0%, #C9A84C 100%)";
+const GOLD_STUD_BORDER = "#B8954A";
+const GOLD_STUD_SHADOW = "0 0 6px rgba(201, 168, 76, 0.4), inset 0 1px 1px rgba(255,255,255,0.3)";
+const GOLD_STUD_SHADOW_ACTIVE = "0 0 12px rgba(201, 168, 76, 0.6), inset 0 1px 1px rgba(255,255,255,0.3)";
+const GOLD_LINE_GRADIENT = "linear-gradient(180deg, rgba(201,168,76,0.4) 0%, rgba(201,168,76,0.1) 100%)";
+
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   transport: <Bus size={22} strokeWidth={1.3} />,
   checkin: <KeyRound size={22} strokeWidth={1.3} />,
@@ -463,15 +471,19 @@ function Row({
       {/* continuous gold spine */}
       <span
         aria-hidden
-        className="absolute bottom-0 left-0 top-0 w-px"
-        style={{ background: GOLD_LINE }}
+        className="absolute bottom-0 left-0 top-0 w-[1.5px]"
+        style={{ background: GOLD_LINE_GRADIENT }}
       />
       <div className="relative">
         {/* open circular node */}
         <span
           aria-hidden
           className="absolute left-[-3px] top-1/2 h-[7px] w-[7px] -translate-y-1/2 rounded-full"
-          style={{ background: GOLD }}
+          style={{
+            background: GOLD_STUD_BG,
+            border: `2px solid ${GOLD_STUD_BORDER}`,
+            boxShadow: open ? GOLD_STUD_SHADOW_ACTIVE : GOLD_STUD_SHADOW,
+          }}
         />
         <div
           role="button"
@@ -492,7 +504,12 @@ function Row({
         >
           <span
             className="w-[92px] shrink-0 pt-[4px] text-[14px] tabular-nums"
-            style={{ color: TIME }}
+            style={{
+              background: GOLD_TIME_GRADIENT,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
           >
             {item.time ?? "—"}
           </span>
@@ -973,7 +990,14 @@ export function GroupPlanView({
                     <div className="w-[64px] shrink-0 pt-[2px]">
                       <div
                         className="text-[54px] leading-[0.82]"
-                        style={{ color: GOLD, fontFamily: SERIF }}
+                        style={{
+                          background: GOLD_TEXT_GRADIENT,
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          backgroundClip: "text",
+                          textShadow: "0 1px 2px rgba(0,0,0,0.3)",
+                          fontFamily: SERIF,
+                        }}
                       >
                         {dayNum(day)}
                       </div>
