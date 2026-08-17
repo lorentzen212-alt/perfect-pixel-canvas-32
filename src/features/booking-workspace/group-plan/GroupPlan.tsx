@@ -1629,7 +1629,7 @@ export function GroupPlanView({
                     className="truncate text-[11px] font-medium uppercase tracking-[0.10em]"
                     style={{ color: TEXT_2 }}
                   >
-                    {`• ${weekday(activeDay)} ${dayNum(activeDay)} ${monthShort(activeDay)}`.toUpperCase()}
+                    {`• ${weekday(activeDay)} ${dayNum(activeDay)} ${monthShort(activeDay).slice(0, 3)}`.toUpperCase()}
                   </span>
                 )}
               </span>
