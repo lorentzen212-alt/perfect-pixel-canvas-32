@@ -56,19 +56,26 @@ const GREEN = "#A9CDAA";
 
 /* premium metallic champagne-gold text — inside the glyphs only */
 const GOLD_TEXT_GRADIENT =
-  "linear-gradient(105deg, #9B7428 0%, #C79B3D 18%, #F3DB8B 38%, #D6AC4E 55%, #FFF0B0 68%, #B8872F 84%, #E4C66D 100%)";
+  "linear-gradient(105deg, #A87928 0%, #C99C3F 22%, #E8C96A 42%, #F2DC8B 54%, #D2A84C 70%, #B88630 86%, #E4C66D 100%)";
 
-const GOLD_SOFT = "#D8BE7C";
-const GOLD_STUD_BG = "#D7B45A";
+const EYEBROW_GRADIENT =
+  "linear-gradient(105deg, #A67E30 0%, #C69B42 22%, #F0D986 44%, #D3AA50 62%, #EBCF78 80%, #B98B35 100%)";
+
+const GOLD_SOFT = "#D8B85D";
+const GOLD_STUD_BG = "#D8B85D";
 const GOLD_STUD_SHADOW =
-  "0 0 5px rgba(224,191,117,0.30), inset 0 1px 1px rgba(255,255,255,0.45)";
+  "0 0 0 1px rgba(240,216,138,0.25), 0 0 5px rgba(224,191,117,0.22)";
 const GOLD_STUD_SHADOW_ACTIVE =
-  "0 0 7px rgba(224,191,117,0.40), inset 0 1px 1px rgba(255,255,255,0.5)";
-const GOLD_LINE_GRADIENT = "rgba(185,151,78,0.75)";
+  "0 0 0 1px rgba(240,216,138,0.30), 0 0 6px rgba(224,191,117,0.28)";
+const GOLD_LINE_GRADIENT = "rgba(201,168,95,0.45)";
 
-const DATE_SERIF = '"Cormorant Garamond", Georgia, serif';
-const TIME_TEXT = "#D8E0E5";
-const DAY_META = "#B8CBD6";
+const DATE_SERIF = '"DM Serif Display", "Cormorant Garamond", Georgia, serif';
+const TIME_TEXT = "#DCE4E8";
+const DAY_META = "#B7CAD5";
+const DISPLAY_AS = "#C2D0D7";
+const INACTIVE_TEXT = "#9FB1BC";
+const CALENDAR_ICON_INACTIVE = "#879CA8";
+const ACTIVE_TEXT = "#E5C76F";
 
 
 
@@ -136,12 +143,13 @@ const longDate = (iso: string) =>
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="block text-[10px] font-semibold uppercase tracking-[0.20em]"
+      className="block text-[10.5px] font-semibold uppercase tracking-[0.15em]"
       style={{
-        background: GOLD_TEXT_GRADIENT,
+        background: EYEBROW_GRADIENT,
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
         backgroundClip: "text",
+        color: "transparent",
       }}
     >
       {children}
@@ -764,7 +772,7 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
               {dayNum(day)}
             </span>
             <span
-              className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+              className="text-[10.5px] font-semibold uppercase tracking-[0.10em]"
               style={{ color: DAY_META }}
             >
               {monthShort(day)} · {weekday(day)}
@@ -934,7 +942,7 @@ export function GroupPlanView({
               <div>
                 <Eyebrow>Your booking</Eyebrow>
                 <h2
-                  className="mt-1.5 text-[40px] leading-[1.02]"
+                  className="mt-[5px] text-[40px] leading-[1.02]"
                   style={{ color: TEXT, fontFamily: SERIF }}
                 >
                   Group Plan
@@ -944,13 +952,13 @@ export function GroupPlanView({
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-[12px]" style={{ color: TEXT_2 }}>
+                <span className="text-[12px] font-normal" style={{ color: DISPLAY_AS }}>
                   Display as
                 </span>
 
                 <div
-                  className="inline-flex rounded-[10px] p-[4px]"
-                  style={{ border: `1px solid rgba(255,255,255,0.10)`, background: "rgba(13,28,43,0.18)" }}
+                  className="inline-flex rounded-[10px] p-[3px]"
+                  style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(13,28,43,0.18)" }}
                 >
                   {(["Timeline", "Calendar"] as const).map((v) => {
                     const on = view === v;
@@ -959,24 +967,25 @@ export function GroupPlanView({
                         key={v}
                         type="button"
                         onClick={() => setView(v)}
-                        className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(232,201,106,0.06)]"
+                        className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[6px] text-[12px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.035)]"
                         style={{
-                          color: on ? GOLD_SOFT : TEXT_2,
-                          background: "transparent",
-                          border: on ? "1px solid rgba(216,184,93,0.55)" : "1px solid transparent",
+                          color: on ? ACTIVE_TEXT : INACTIVE_TEXT,
+                          background: on ? "rgba(13,28,43,0.26)" : "transparent",
+                          border: on ? "1px solid rgba(224,191,117,0.70)" : "1px solid transparent",
+                          boxShadow: on ? "inset 0 0 12px rgba(201,168,95,0.035)" : "none",
                         }}
                       >
                         {v === "Timeline" ? (
                           <span
                             aria-hidden
                             className="h-[11px] w-[11px] rounded-full"
-                            style={{ border: `1.5px solid ${on ? GOLD_SOFT : MUTED}` }}
+                            style={{ border: `1.5px solid ${on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE}` }}
                           />
                         ) : (
                           <CalendarDays
                             size={14}
                             strokeWidth={1.5}
-                            style={{ color: on ? GOLD_SOFT : MUTED }}
+                            style={{ color: on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE }}
                           />
                         )}
                         {v}
@@ -1009,14 +1018,14 @@ export function GroupPlanView({
                   >
                     <div className="w-[64px] shrink-0 pt-[2px]">
                       <div
-                        className="text-[54px] leading-[0.82] tracking-[-0.01em]"
+                        className="text-[35px] leading-none tracking-[-0.02em]"
                         style={{
                           background: GOLD_TEXT_GRADIENT,
                           WebkitBackgroundClip: "text",
                           WebkitTextFillColor: "transparent",
                           backgroundClip: "text",
                           color: "transparent",
-                          filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.18))",
+                          filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.16))",
                           fontFamily: DATE_SERIF,
                           fontWeight: 400,
                         }}
@@ -1025,7 +1034,7 @@ export function GroupPlanView({
                       </div>
 
                       <div
-                        className="mt-2.5 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.12em]"
+                        className="mt-2 whitespace-nowrap text-[10.5px] font-semibold uppercase tracking-[0.10em]"
                         style={{ color: DAY_META }}
                       >
                         {monthShort(day)} · {weekday(day)}
