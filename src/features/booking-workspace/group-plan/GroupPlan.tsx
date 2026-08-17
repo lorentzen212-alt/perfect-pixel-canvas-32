@@ -942,7 +942,7 @@ export function GroupPlanView({
               <div>
                 <Eyebrow>Your booking</Eyebrow>
                 <h2
-                  className="mt-1.5 text-[40px] leading-[1.02]"
+                  className="mt-[5px] text-[40px] leading-[1.02]"
                   style={{ color: TEXT, fontFamily: SERIF }}
                 >
                   Group Plan
@@ -952,13 +952,13 @@ export function GroupPlanView({
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-[12px]" style={{ color: TEXT_2 }}>
+                <span className="text-[12px] font-normal" style={{ color: DISPLAY_AS }}>
                   Display as
                 </span>
 
                 <div
-                  className="inline-flex rounded-[10px] p-[4px]"
-                  style={{ border: `1px solid rgba(255,255,255,0.10)`, background: "rgba(13,28,43,0.18)" }}
+                  className="inline-flex rounded-[10px] p-[3px]"
+                  style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(13,28,43,0.18)" }}
                 >
                   {(["Timeline", "Calendar"] as const).map((v) => {
                     const on = view === v;
@@ -967,24 +967,25 @@ export function GroupPlanView({
                         key={v}
                         type="button"
                         onClick={() => setView(v)}
-                        className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(232,201,106,0.06)]"
+                        className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[6px] text-[12px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.035)]"
                         style={{
-                          color: on ? GOLD_SOFT : TEXT_2,
-                          background: "transparent",
-                          border: on ? "1px solid rgba(216,184,93,0.55)" : "1px solid transparent",
+                          color: on ? ACTIVE_TEXT : INACTIVE_TEXT,
+                          background: on ? "rgba(13,28,43,0.26)" : "transparent",
+                          border: on ? "1px solid rgba(224,191,117,0.70)" : "1px solid transparent",
+                          boxShadow: on ? "inset 0 0 12px rgba(201,168,95,0.035)" : "none",
                         }}
                       >
                         {v === "Timeline" ? (
                           <span
                             aria-hidden
                             className="h-[11px] w-[11px] rounded-full"
-                            style={{ border: `1.5px solid ${on ? GOLD_SOFT : MUTED}` }}
+                            style={{ border: `1.5px solid ${on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE}` }}
                           />
                         ) : (
                           <CalendarDays
                             size={14}
                             strokeWidth={1.5}
-                            style={{ color: on ? GOLD_SOFT : MUTED }}
+                            style={{ color: on ? GOLD_SOFT : CALENDAR_ICON_INACTIVE }}
                           />
                         )}
                         {v}
