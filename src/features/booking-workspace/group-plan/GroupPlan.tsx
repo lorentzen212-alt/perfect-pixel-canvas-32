@@ -59,6 +59,25 @@ const GOLD_LINE = "rgba(216,184,93,0.55)";
 const GOLD_TINT = "rgba(216,184,93,0.12)";
 const GREEN = "#A9CDAA";
 
+/* ── Group Planner (dark, simplified) ── */
+const PLANNER_BG = "#0B1E32";
+const PLANNER_SURFACE = "#13283C";
+const PLANNER_LINE = "rgba(255,255,255,0.09)";
+const PLANNER_TEXT = "#EDF1F4";
+const PLANNER_MUTED = "#8FA3B3";
+const PLANNER_GOLD = "#D8B85D";
+
+function PlannerLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="mt-7 text-[10px] font-semibold uppercase tracking-[0.15em]"
+      style={{ color: PLANNER_MUTED }}
+    >
+      {children}
+    </div>
+  );
+}
+
 /* expanded activity info panel */
 const INFO_BG = "#363B4E";
 const INFO_BORDER = "rgba(255,255,255,0.08)";
