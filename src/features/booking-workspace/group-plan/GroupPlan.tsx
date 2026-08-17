@@ -30,6 +30,7 @@ import {
   X,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
+import goldTexture from "@/assets/brushed-gold.png.asset.json";
 import type { PlanItem, PlanItemType, PlanTile, TileIcon } from "./types";
 
 /* ── material — Nordic fjord / Scandinavian hospitality ──────
@@ -61,6 +62,22 @@ const GOLD_STUD_BORDER = "#B8954A";
 const GOLD_STUD_SHADOW = "0 0 6px rgba(201, 168, 76, 0.4), inset 0 1px 1px rgba(255,255,255,0.3)";
 const GOLD_STUD_SHADOW_ACTIVE = "0 0 12px rgba(201, 168, 76, 0.6), inset 0 1px 1px rgba(255,255,255,0.3)";
 const GOLD_LINE_GRADIENT = "linear-gradient(180deg, rgba(201,168,76,0.4) 0%, rgba(201,168,76,0.1) 100%)";
+
+/* brushed metallic gold material — sampled, never scaled per element */
+const GOLD_TEX_URL = goldTexture.url;
+const goldTexBg = (size = "420px 420px", pos = "center"): React.CSSProperties => ({
+  backgroundImage: `url(${GOLD_TEX_URL})`,
+  backgroundSize: size,
+  backgroundPosition: pos,
+  backgroundRepeat: "repeat",
+});
+const goldTexText = (size = "420px 420px", pos = "center"): React.CSSProperties => ({
+  ...goldTexBg(size, pos),
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  color: "transparent",
+});
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   transport: <Bus size={22} strokeWidth={1.3} />,
@@ -123,11 +140,11 @@ const longDate = (iso: string) =>
 
 /* ── small parts ────────────────────────────────────────── */
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
+function Eyebrow({ children, texture }: { children: React.ReactNode; texture?: boolean }) {
   return (
     <span
       className="block text-[10px] font-semibold uppercase tracking-[0.20em]"
-      style={{ color: GOLD }}
+      style={texture ? goldTexText("380px 380px", "20% 40%") : { color: GOLD }}
     >
       {children}
     </span>
@@ -472,7 +489,10 @@ function Row({
       <span
         aria-hidden
         className="absolute bottom-0 left-0 top-0 w-[1.5px]"
-        style={{ background: GOLD_LINE_GRADIENT }}
+        style={{
+          ...goldTexBg("420px 620px", "left center"),
+          opacity: 0.75,
+        }}
       />
       <div className="relative">
         {/* open circular node */}
@@ -480,11 +500,12 @@ function Row({
           aria-hidden
           className="absolute left-[-3px] top-1/2 h-[7px] w-[7px] -translate-y-1/2 rounded-full"
           style={{
-            background: GOLD_STUD_BG,
+            ...goldTexBg("300px 300px", "30% 30%"),
             border: `2px solid ${GOLD_STUD_BORDER}`,
             boxShadow: open ? GOLD_STUD_SHADOW_ACTIVE : GOLD_STUD_SHADOW,
           }}
         />
+
         <div
           role="button"
           tabIndex={0}
@@ -912,7 +933,7 @@ export function GroupPlanView({
           <section className="min-w-0 flex-1 px-7 py-7 lg:w-[64%]">
             <div className="flex flex-wrap items-start justify-between gap-4 pb-4">
               <div>
-                <Eyebrow>Your booking</Eyebrow>
+                <Eyebrow texture>Your booking</Eyebrow>
                 <h2
                   className="mt-1.5 text-[40px] leading-[1.02]"
                   style={{ color: TEXT, fontFamily: SERIF }}
@@ -940,17 +961,39 @@ export function GroupPlanView({
                         type="button"
                         onClick={() => setView(v)}
                         className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors"
-                        style={{
-                          color: on ? GOLD : TEXT_2,
-                          background: on ? GOLD_TINT : "transparent",
-                          border: on ? "1px solid rgba(216,184,93,0.50)" : "1px solid transparent",
-                        }}
+                        style={
+                          on
+                            ? {
+                                color: GOLD,
+                                background: GOLD_TINT,
+                                border: "1px solid transparent",
+                                borderImageSource: `url(${GOLD_TEX_URL})`,
+                                borderImageSlice: 40,
+                                borderImageWidth: "1px",
+                                borderImageRepeat: "stretch",
+                              }
+                            : {
+                                color: TEXT_2,
+                                background: "transparent",
+                                border: "1px solid transparent",
+                              }
+                        }
                       >
                         {v === "Timeline" ? (
                           <span
                             aria-hidden
                             className="h-[11px] w-[11px] rounded-full"
-                            style={{ border: `1.5px solid ${GOLD}` }}
+                            style={
+                              on
+                                ? {
+                                    ...goldTexBg("300px 300px", "40% 60%"),
+                                    WebkitMaskImage:
+                                      "radial-gradient(circle, transparent 0 4px, #000 4px)",
+                                    maskImage:
+                                      "radial-gradient(circle, transparent 0 4px, #000 4px)",
+                                  }
+                                : { border: `1.5px solid ${MUTED}` }
+                            }
                           />
                         ) : (
                           <CalendarDays
@@ -959,7 +1002,11 @@ export function GroupPlanView({
                             style={{ color: on ? GOLD : MUTED }}
                           />
                         )}
-                        {v}
+                        {on && v === "Timeline" ? (
+                          <span style={goldTexText("380px 380px", "60% 30%")}>{v}</span>
+                        ) : (
+                          v
+                        )}
                       </button>
                     );
                   })}
@@ -991,10 +1038,7 @@ export function GroupPlanView({
                       <div
                         className="text-[54px] leading-[0.82]"
                         style={{
-                          background: GOLD_TEXT_GRADIENT,
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          backgroundClip: "text",
+                          ...goldTexText("420px 420px", `50% ${-(gi * 76)}px`),
                           textShadow: "0 1px 2px rgba(0,0,0,0.3)",
                           fontFamily: SERIF,
                         }}
