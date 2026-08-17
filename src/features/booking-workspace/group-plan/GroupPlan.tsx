@@ -711,7 +711,7 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
           <div className="flex items-baseline gap-2">
             <span
               className="text-[22px] leading-none"
-              style={{ color: GOLD_DEEP, fontFamily: SERIF }}
+              style={{ color: GOLD, fontFamily: SERIF }}
             >
               {dayNum(day)}
             </span>
