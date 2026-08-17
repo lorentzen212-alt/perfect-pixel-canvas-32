@@ -48,7 +48,7 @@ const HAIR_SOFT = "rgba(255,255,255,0.08)";
 
 const GOLD = "#D8B85D";
 const GOLD_DEEP = "#E8CC7A";
-const GOLD_LINE = "rgba(232,201,106,0.30)";
+const GOLD_LINE = "rgba(216,184,93,0.55)";
 const GOLD_TINT = "rgba(216,184,93,0.12)";
 const GREEN = "#A9CDAA";
 
