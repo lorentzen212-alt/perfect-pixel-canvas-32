@@ -1560,14 +1560,31 @@ export function GroupPlanView({
                 icon={<Clock size={12} strokeWidth={1.6} />}
                 label="Next booking"
                 value={nextBooking?.time ?? "—"}
-                sub={nextBooking?.title ?? "Nothing scheduled"}
+                sub={
+                  nextBooking
+                    ? SHORT_LABEL[nextBooking.type] ?? nextBooking.title
+                    : "Nothing scheduled"
+                }
               />
               <StatusCard
                 icon={<Clock size={12} strokeWidth={1.6} />}
                 label="Free until"
-                value={firstFree ? toHHMM(firstFree.endMin) : "—"}
-                sub={firstFree ? fmtDur(firstFree.endMin - firstFree.startMin) : "No open window"}
+                value={
+                  !firstFree || firstFree.kind !== "free"
+                    ? "—"
+                    : firstFree.end === null
+                      ? "Late"
+                      : toHHMM(firstFree.end)
+                }
+                sub={
+                  !firstFree || firstFree.kind !== "free"
+                    ? "No open window"
+                    : firstFree.minutes === null
+                      ? "Rest of the day"
+                      : `${fmtDur(firstFree.minutes)} available`
+                }
               />
+
               <StatusCard
                 icon={<Users size={12} strokeWidth={1.6} />}
                 label="My plans"
