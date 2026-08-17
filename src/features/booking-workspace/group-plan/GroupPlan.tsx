@@ -964,8 +964,8 @@ export function GroupPlanView({
                         style={
                           on
                             ? {
-                                ...goldTexText("380px 380px", "60% 30%"),
-                                backgroundColor: GOLD_TINT,
+                                color: GOLD,
+                                background: GOLD_TINT,
                                 border: "1px solid transparent",
                                 borderImageSource: `url(${GOLD_TEX_URL})`,
                                 borderImageSlice: 40,
@@ -1002,7 +1002,11 @@ export function GroupPlanView({
                             style={{ color: on ? GOLD : MUTED }}
                           />
                         )}
-                        {v}
+                        {on && v === "Timeline" ? (
+                          <span style={goldTexText("380px 380px", "60% 30%")}>{v}</span>
+                        ) : (
+                          v
+                        )}
                       </button>
                     );
                   })}
