@@ -1038,7 +1038,7 @@ export function GroupPlanView({
       <div
         className="rounded-[20px]"
         style={{
-          background: `linear-gradient(180deg, #3B5C74 0%, ${CARD} 50%, #35536A 100%)`,
+          background: "#192F43",
           border: `1px solid ${EDGE}`,
           boxShadow: "0 1px 2px rgba(0,0,0,0.08), 0 30px 60px -45px rgba(0,0,0,0.30)",
         }}
@@ -1216,17 +1216,15 @@ export function GroupPlanView({
 
           {/* ══ right · group planner (≈35%) ══ */}
           <aside
-            className="m-4 w-full shrink-0 rounded-[15px] px-6 py-6 lg:mt-4 lg:mr-4 lg:mb-4 lg:ml-4 lg:w-[calc(36%-32px)]"
+            className="m-4 w-full shrink-0 rounded-[18px] px-6 py-6 lg:mt-4 lg:mr-4 lg:mb-4 lg:ml-4 lg:w-[calc(36%-32px)]"
             style={{
-              background: PANEL,
-              border: `1px solid ${HAIR}`,
-
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.10), 0 10px 22px -16px rgba(0,0,0,0.28)",
+              background: "#061631",
+              border: "1px solid rgba(255,255,255,0.07)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.035), 0 8px 24px rgba(0,0,0,0.10)",
             }}
           >
             <span
-              className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.24em]"
+              className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.10em]"
               style={{ color: GOLD_DEEP }}
             >
               <Bookmark size={11} strokeWidth={1.5} style={{ color: GOLD_DEEP }} />
@@ -1246,7 +1244,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => openEditor()}
-                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(216,184,93,0.10)]"
+                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(232,201,106,0.06)]"
                 style={{ color: GOLD_DEEP, background: "transparent", border: `1px solid ${GOLD}` }}
               >
                 <Plus size={16} strokeWidth={1.8} style={{ color: GOLD_DEEP }} /> Add to plan
@@ -1257,8 +1255,8 @@ export function GroupPlanView({
                   openEditor();
                   setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
                 }}
-                className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[9px] px-3 text-[14px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-                style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
+                className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[9px] bg-[rgba(255,255,255,0.02)] px-3 text-[14px] transition-colors hover:bg-[rgba(255,255,255,0.03)]"
+                style={{ color: TEXT_2, border: "1px solid rgba(255,255,255,0.06)" }}
               >
                 <Bell size={15} strokeWidth={1.6} /> Reminder
               </button>
@@ -1275,7 +1273,7 @@ export function GroupPlanView({
                     <div
                       key={i.id}
                       className="flex items-center gap-3 rounded-[10px] py-[14px] px-3"
-                      style={{ background: "transparent", border: `1px solid ${EDGE}` }}
+                      style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.09)" }}
                     >
                       <span
                         className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[10px]"
@@ -1325,7 +1323,7 @@ export function GroupPlanView({
                   <div
                     key={i.id}
                     className="flex items-stretch gap-4 py-3"
-                    style={ix > 0 ? { borderTop: `1px solid ${EDGE}` } : undefined}
+                    style={ix > 0 ? { borderTop: "1px solid rgba(255,255,255,0.09)" } : undefined}
                   >
                     <span className="w-[58px] shrink-0">
                       <span
@@ -1343,7 +1341,7 @@ export function GroupPlanView({
                     </span>
                     <span
                       className="shrink-0 self-stretch"
-                      style={{ borderLeft: `1px solid ${HAIR}` }}
+                      style={{ borderLeft: "1px solid rgba(255,255,255,0.09)" }}
                     />
                     <span className="min-w-0 flex-1">
                       <span
@@ -1390,10 +1388,10 @@ export function GroupPlanView({
               </div>
             )}
 
-            <div style={{ paddingTop: 20, borderTop: `1px solid ${HAIR_SOFT}` }}>
+            <div style={{ paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.09)" }}>
               <div
-                className="mt-6 flex gap-3 rounded-[13px] px-4 py-2.5"
-                style={{ border: "1px solid rgba(255,255,255,0.10)", background: "transparent" }}
+                className="mt-6 flex gap-3 rounded-[12px] px-4 py-2.5"
+                style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.018)" }}
               >
                 <Lightbulb
                   size={16}
@@ -1437,10 +1435,10 @@ function PlannerSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mt-8" style={{ paddingTop: 20, borderTop: `1px solid ${HAIR_SOFT}` }}>
+    <div className="mt-8" style={{ paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.09)" }}>
       <div
         className="flex items-center justify-between pb-2"
-        style={{ borderBottom: `1px solid ${HAIR}` }}
+        style={{ borderBottom: "1px solid rgba(255,255,255,0.09)" }}
       >
         <span
           className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
@@ -1450,7 +1448,7 @@ function PlannerSection({
         </span>
         <span
           className="inline-grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-[11px] font-semibold leading-none tabular-nums"
-          style={{ color: GOLD_DEEP, background: "rgba(216,184,93,0.12)", border: "1px solid rgba(216,184,93,0.32)" }}
+          style={{ color: GOLD_DEEP, background: "transparent", border: "1px solid rgba(255,255,255,0.15)" }}
         >
           {count}
         </span>
