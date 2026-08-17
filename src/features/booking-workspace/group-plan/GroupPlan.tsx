@@ -140,11 +140,11 @@ const longDate = (iso: string) =>
 
 /* ── small parts ────────────────────────────────────────── */
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
+function Eyebrow({ children, texture }: { children: React.ReactNode; texture?: boolean }) {
   return (
     <span
       className="block text-[10px] font-semibold uppercase tracking-[0.20em]"
-      style={{ color: GOLD }}
+      style={texture ? goldTexText("380px 380px", "20% 40%") : { color: GOLD }}
     >
       {children}
     </span>
