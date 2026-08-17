@@ -59,7 +59,6 @@ const GOLD_TEXT_GRADIENT =
   "linear-gradient(160deg, #A8843C 0%, #D9BE73 12%, #F4E7C4 26%, #C9A84C 40%, #EBDCAC 54%, #B99A46 68%, #E8D5A3 82%, #A88A44 100%)";
 
 const GOLD_SOFT = "#D8BE7C";
-const GOLD_TIME_GRADIENT = "linear-gradient(180deg, #D4B76A 0%, #C9A84C 100%)";
 const GOLD_STUD_BG =
   "radial-gradient(circle at 32% 28%, #F6EBCB 0%, #E3CB8B 42%, #C9A84C 72%, #A8873E 100%)";
 const GOLD_STUD_BORDER = "rgba(197,163,80,0.85)";
