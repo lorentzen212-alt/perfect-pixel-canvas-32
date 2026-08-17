@@ -1366,6 +1366,14 @@ export function GroupPlanView({
   );
 
   const nextBooking = dayBookings[0] ?? null;
+  /* PlanItem carries a start time only — the end is the assumed duration */
+  const nextActivityTime = (() => {
+    if (!nextBooking?.time) return "—";
+    const dur = ASSUMED_MIN[nextBooking.type];
+    return dur > 0
+      ? `${nextBooking.time} – ${toHHMM(toMin(nextBooking.time) + dur)}`
+      : nextBooking.time;
+  })();
   const firstFree = stream.find((e) => e.kind === "free") ?? null;
 
   const todayISO = new Date().toISOString().slice(0, 10);
