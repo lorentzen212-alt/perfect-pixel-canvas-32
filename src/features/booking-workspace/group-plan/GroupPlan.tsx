@@ -1153,9 +1153,6 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
   );
 }
 
-type PlannerEntry =
-  | { kind: "item"; at: number; item: PlanItem }
-  | { kind: "free"; at: number; startMin: number; endMin: number };
 
 /* ── main view ──────────────────────────────────────────── */
 
