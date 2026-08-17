@@ -79,33 +79,36 @@ const ACTIVE_TEXT = "#E5C76F";
 
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
-  transport: <Bus size={22} strokeWidth={1.3} />,
-  checkin: <KeyRound size={22} strokeWidth={1.3} />,
-  checkout: <Luggage size={22} strokeWidth={1.3} />,
-  breakfast: <Coffee size={22} strokeWidth={1.3} />,
-  lunch: <Coffee size={22} strokeWidth={1.3} />,
-  dinner: <Utensils size={22} strokeWidth={1.3} />,
-  meeting: <Presentation size={22} strokeWidth={1.3} />,
-  activity: <MapPin size={22} strokeWidth={1.3} />,
-  "meeting-point": <Users size={22} strokeWidth={1.3} />,
-  "free-time": <Star size={22} strokeWidth={1.3} />,
-  reminder: <Bell size={22} strokeWidth={1.3} />,
+  transport: <Bus size={16} strokeWidth={1.5} />,
+  checkin: <KeyRound size={16} strokeWidth={1.5} />,
+  checkout: <Luggage size={16} strokeWidth={1.5} />,
+  breakfast: <Coffee size={16} strokeWidth={1.5} />,
+  lunch: <Coffee size={16} strokeWidth={1.5} />,
+  dinner: <ConciergeBell size={16} strokeWidth={1.5} />,
+  meeting: <Presentation size={16} strokeWidth={1.5} />,
+  activity: <MapPin size={16} strokeWidth={1.5} />,
+  "meeting-point": <Users size={16} strokeWidth={1.5} />,
+  "free-time": <Star size={16} strokeWidth={1.5} />,
+  reminder: <Bell size={16} strokeWidth={1.5} />,
 };
 
-/** Same icon family at panel scale. */
-const TYPE_ICON_SM: Record<PlanItemType, React.ReactNode> = {
-  transport: <Bus size={16} strokeWidth={1.3} />,
-  checkin: <KeyRound size={16} strokeWidth={1.3} />,
-  checkout: <Luggage size={16} strokeWidth={1.3} />,
-  breakfast: <Coffee size={16} strokeWidth={1.3} />,
-  lunch: <Coffee size={16} strokeWidth={1.3} />,
-  dinner: <Utensils size={16} strokeWidth={1.3} />,
-  meeting: <Presentation size={16} strokeWidth={1.3} />,
-  activity: <Plane size={16} strokeWidth={1.3} />,
-  "meeting-point": <Users size={16} strokeWidth={1.3} />,
-  "free-time": <Star size={16} strokeWidth={1.3} />,
-  reminder: <Bell size={16} strokeWidth={1.3} />,
-};
+const ICON_CIRCLE_BORDER = "rgba(225, 229, 230, 0.38)";
+const ICON_CIRCLE_BG = "rgba(8, 24, 38, 0.10)";
+const ICON_GOLD = "#E8C96A";
+const ICON_GOLD_HOVER = "#F2DC8B";
+
+function ActivityIcon({ type }: { type: PlanItemType }) {
+  return (
+    <span
+      className="inline-flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border border-[rgba(225,229,230,0.38)] bg-[rgba(8,24,38,0.10)] transition-colors group-hover:border-[rgba(232,201,106,0.65)]"
+      aria-hidden
+    >
+      <span className="text-[#E8C96A] transition-colors group-hover:text-[#F2DC8B]">
+        {TYPE_ICON[type]}
+      </span>
+    </span>
+  );
+}
 
 const TILE_ICON: Record<TileIcon, React.ReactNode> = {
   dining: <UtensilsCrossed size={14} strokeWidth={1.4} />,
