@@ -1018,14 +1018,14 @@ export function GroupPlanView({
                   >
                     <div className="w-[64px] shrink-0 pt-[2px]">
                       <div
-                        className="text-[54px] leading-[0.82] tracking-[-0.01em]"
+                        className="text-[35px] leading-none tracking-[-0.02em]"
                         style={{
                           background: GOLD_TEXT_GRADIENT,
                           WebkitBackgroundClip: "text",
                           WebkitTextFillColor: "transparent",
                           backgroundClip: "text",
                           color: "transparent",
-                          filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.18))",
+                          filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.16))",
                           fontFamily: DATE_SERIF,
                           fontWeight: 400,
                         }}
@@ -1034,7 +1034,7 @@ export function GroupPlanView({
                       </div>
 
                       <div
-                        className="mt-2.5 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.12em]"
+                        className="mt-2 whitespace-nowrap text-[10.5px] font-semibold uppercase tracking-[0.10em]"
                         style={{ color: DAY_META }}
                       >
                         {monthShort(day)} · {weekday(day)}
