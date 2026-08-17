@@ -770,6 +770,7 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
             >
               {monthShort(day)} · {weekday(day)}
             </span>
+
           </div>
 
           <ul className="mt-3 space-y-1.5">
