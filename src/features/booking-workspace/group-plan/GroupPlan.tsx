@@ -153,10 +153,10 @@ const TYPE_ICON_SM: Record<PlanItemType, React.ReactNode> = {
 
 /* assumed durations so we can detect genuinely free time —
    PlanItem has a start time only, no end time. */
-const DEFAULT_DURATION_MIN: Record<PlanItemType, number> = {
+const ASSUMED_MIN: Record<PlanItemType, number> = {
   transport: 90,
-  checkin: 0,
-  checkout: 0,
+  checkin: 30,
+  checkout: 30,
   breakfast: 180,
   lunch: 90,
   dinner: 120,
@@ -167,7 +167,23 @@ const DEFAULT_DURATION_MIN: Record<PlanItemType, number> = {
   reminder: 0,
 };
 
-const FREE_MIN_GAP = 45;
+/** Slack left before the next commitment. */
+const BUFFER_MIN = 15;
+/** Windows shorter than this are noise. */
+const MIN_FREE_MIN = 60;
+/** Nothing open-ended is proposed past this hour. */
+const DAY_END_MIN = 21 * 60;
+
+/** Short nouns for the narrow status card. */
+const SHORT_LABEL: Partial<Record<PlanItemType, string>> = {
+  transport: "Transfer",
+  checkin: "Check-in",
+  checkout: "Check-out",
+  breakfast: "Breakfast",
+  lunch: "Lunch",
+  dinner: "Dinner",
+  meeting: "Meeting",
+};
 
 const toMin = (hhmm: string) => {
   const [h, m] = hhmm.split(":").map(Number);
