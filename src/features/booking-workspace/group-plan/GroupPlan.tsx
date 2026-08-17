@@ -7,6 +7,7 @@ import {
   CalendarDays,
   Check,
   CheckCircle2,
+  ConciergeBell,
   FileText,
   Clock,
   Coffee,
@@ -78,33 +79,36 @@ const ACTIVE_TEXT = "#E5C76F";
 
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
-  transport: <Bus size={22} strokeWidth={1.3} />,
-  checkin: <KeyRound size={22} strokeWidth={1.3} />,
-  checkout: <Luggage size={22} strokeWidth={1.3} />,
-  breakfast: <Coffee size={22} strokeWidth={1.3} />,
-  lunch: <Coffee size={22} strokeWidth={1.3} />,
-  dinner: <Utensils size={22} strokeWidth={1.3} />,
-  meeting: <Presentation size={22} strokeWidth={1.3} />,
-  activity: <MapPin size={22} strokeWidth={1.3} />,
-  "meeting-point": <Users size={22} strokeWidth={1.3} />,
-  "free-time": <Star size={22} strokeWidth={1.3} />,
-  reminder: <Bell size={22} strokeWidth={1.3} />,
+  transport: <Bus size={16} strokeWidth={1.5} />,
+  checkin: <KeyRound size={16} strokeWidth={1.5} />,
+  checkout: <Luggage size={16} strokeWidth={1.5} />,
+  breakfast: <Coffee size={16} strokeWidth={1.5} />,
+  lunch: <Coffee size={16} strokeWidth={1.5} />,
+  dinner: <ConciergeBell size={16} strokeWidth={1.5} />,
+  meeting: <Presentation size={16} strokeWidth={1.5} />,
+  activity: <MapPin size={16} strokeWidth={1.5} />,
+  "meeting-point": <Users size={16} strokeWidth={1.5} />,
+  "free-time": <Star size={16} strokeWidth={1.5} />,
+  reminder: <Bell size={16} strokeWidth={1.5} />,
 };
 
-/** Same icon family at panel scale. */
-const TYPE_ICON_SM: Record<PlanItemType, React.ReactNode> = {
-  transport: <Bus size={16} strokeWidth={1.3} />,
-  checkin: <KeyRound size={16} strokeWidth={1.3} />,
-  checkout: <Luggage size={16} strokeWidth={1.3} />,
-  breakfast: <Coffee size={16} strokeWidth={1.3} />,
-  lunch: <Coffee size={16} strokeWidth={1.3} />,
-  dinner: <Utensils size={16} strokeWidth={1.3} />,
-  meeting: <Presentation size={16} strokeWidth={1.3} />,
-  activity: <Plane size={16} strokeWidth={1.3} />,
-  "meeting-point": <Users size={16} strokeWidth={1.3} />,
-  "free-time": <Star size={16} strokeWidth={1.3} />,
-  reminder: <Bell size={16} strokeWidth={1.3} />,
-};
+const ICON_CIRCLE_BORDER = "rgba(225, 229, 230, 0.38)";
+const ICON_CIRCLE_BG = "rgba(8, 24, 38, 0.10)";
+const ICON_GOLD = "#E8C96A";
+const ICON_GOLD_HOVER = "#F2DC8B";
+
+function ActivityIcon({ type }: { type: PlanItemType }) {
+  return (
+    <span
+      className="inline-flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border border-[rgba(225,229,230,0.38)] bg-[rgba(8,24,38,0.10)] transition-colors group-hover:border-[rgba(232,201,106,0.65)]"
+      aria-hidden
+    >
+      <span className="text-[#E8C96A] transition-colors group-hover:text-[#F2DC8B]">
+        {TYPE_ICON[type]}
+      </span>
+    </span>
+  );
+}
 
 const TILE_ICON: Record<TileIcon, React.ReactNode> = {
   dining: <UtensilsCrossed size={14} strokeWidth={1.4} />,
@@ -119,6 +123,20 @@ const TILE_ICON: Record<TileIcon, React.ReactNode> = {
   pin: <MapPin size={14} strokeWidth={1.4} />,
   bed: <KeyRound size={14} strokeWidth={1.4} />,
   luggage: <Luggage size={14} strokeWidth={1.4} />,
+};
+
+const TYPE_ICON_SM: Record<PlanItemType, React.ReactNode> = {
+  transport: <Bus size={16} strokeWidth={1.3} />,
+  checkin: <KeyRound size={16} strokeWidth={1.3} />,
+  checkout: <Luggage size={16} strokeWidth={1.3} />,
+  breakfast: <Coffee size={16} strokeWidth={1.3} />,
+  lunch: <Coffee size={16} strokeWidth={1.3} />,
+  dinner: <Utensils size={16} strokeWidth={1.3} />,
+  meeting: <Presentation size={16} strokeWidth={1.3} />,
+  activity: <Plane size={16} strokeWidth={1.3} />,
+  "meeting-point": <Users size={16} strokeWidth={1.3} />,
+  "free-time": <Star size={16} strokeWidth={1.3} />,
+  reminder: <Bell size={16} strokeWidth={1.3} />,
 };
 
 const MY_PLAN_TYPES: { value: PlanItemType; label: string }[] = [
@@ -516,61 +534,59 @@ function Row({
           }}
         />
 
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={onToggle}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              onToggle();
-            }
-          }}
-          aria-expanded={open}
-          className="ml-[26px] flex cursor-pointer items-start gap-4 rounded-[8px] px-3 py-[13px] transition-all hover:bg-[rgba(255,255,255,0.07)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)]"
-          style={{
-            background: "transparent",
-            borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.08)",
-          }}
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={onToggle}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onToggle();
+          }
+        }}
+        aria-expanded={open}
+        className="group ml-[26px] flex cursor-pointer items-center gap-4 rounded-[8px] px-3 py-[13px] transition-all hover:bg-[rgba(255,255,255,0.07)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)]"
+        style={{
+          background: "transparent",
+          borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.08)",
+        }}
+      >
+        <span
+          className="w-[92px] shrink-0 text-[14px] tabular-nums"
+          style={{ color: TIME_TEXT }}
         >
-          <span
-            className="w-[92px] shrink-0 pt-[4px] text-[14px] tabular-nums"
-            style={{ color: TIME_TEXT }}
-          >
-            {item.time ?? "—"}
+          {item.time ?? "—"}
+        </span>
+        <ActivityIcon type={item.type} />
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-[14.5px] font-semibold" style={{ color: TEXT }}>
+            {item.title}
           </span>
-          <span className="shrink-0 pt-[1px]" style={{ color: GOLD_SOFT }}>
-            {TYPE_ICON[item.type]}
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block truncate text-[14.5px] font-semibold" style={{ color: TEXT }}>
-              {item.title}
+          {(item.summary || item.secondary) && (
+            <span className="mt-[2px] block truncate text-[12.5px]" style={{ color: TEXT_2 }}>
+              {item.summary ?? item.secondary}
             </span>
-            {(item.summary || item.secondary) && (
-              <span className="mt-[2px] block truncate text-[12.5px]" style={{ color: TEXT_2 }}>
-                {item.summary ?? item.secondary}
-              </span>
-            )}
-          </span>
-          <span className="w-[104px] shrink-0 pt-[5px]">
-            <Pill kind={item.kind} />
-          </span>
-
-          {item.kind === "booking" ? (
-            <Menu
-              items={[
-                { label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange },
-              ]}
-            />
-          ) : (
-            <Menu
-              items={[
-                { label: "Edit", icon: <Pencil size={13} />, onClick: () => onEdit(item) },
-                { label: "Delete", icon: <Trash2 size={13} />, onClick: () => onDelete(item.id) },
-              ]}
-            />
           )}
-        </div>
+        </span>
+        <span className="w-[104px] shrink-0">
+          <Pill kind={item.kind} />
+        </span>
+
+        {item.kind === "booking" ? (
+          <Menu
+            items={[
+              { label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange },
+            ]}
+          />
+        ) : (
+          <Menu
+            items={[
+              { label: "Edit", icon: <Pencil size={13} />, onClick: () => onEdit(item) },
+              { label: "Delete", icon: <Trash2 size={13} />, onClick: () => onDelete(item.id) },
+            ]}
+          />
+        )}
+      </div>
       </div>
       {open && <Expanded item={item} onRequestChange={onRequestChange} onEditNote={onEditNote} />}
     </li>
