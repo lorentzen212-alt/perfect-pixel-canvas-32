@@ -925,23 +925,30 @@ export function GroupPlanView({
       const dots = timeline.querySelectorAll<HTMLElement>("[data-timeline-dot]");
       const first = dots.item(0);
       const last = dots.item(dots.length - 1);
-      if (!first || !last) {
-        setSpine({ left: 0, top: 0, height: 0 });
-        return;
+      let next = { left: 0, top: 0, height: 0 };
+
+      if (first && last) {
+        const timelineBox = timeline.getBoundingClientRect();
+        const firstBox = first.getBoundingClientRect();
+        const lastBox = last.getBoundingClientRect();
+        const top = firstBox.top + firstBox.height / 2 - timelineBox.top;
+        const bottom = lastBox.top + lastBox.height / 2 - timelineBox.top;
+        next = {
+          left: firstBox.left + firstBox.width / 2 - timelineBox.left - 0.5,
+          top,
+          height: Math.max(0, bottom - top),
+        };
       }
 
-      const timelineBox = timeline.getBoundingClientRect();
-      const firstBox = first.getBoundingClientRect();
-      const lastBox = last.getBoundingClientRect();
-      const top = firstBox.top + firstBox.height / 2 - timelineBox.top;
-      const bottom = lastBox.top + lastBox.height / 2 - timelineBox.top;
-
-      setSpine({
-        left: firstBox.left + firstBox.width / 2 - timelineBox.left - 0.5,
-        top,
-        height: Math.max(0, bottom - top),
-      });
+      setSpine((prev) =>
+        Math.abs(prev.left - next.left) < 0.5 &&
+        Math.abs(prev.top - next.top) < 0.5 &&
+        Math.abs(prev.height - next.height) < 0.5
+          ? prev
+          : next,
+      );
     };
+
 
     positionSpine();
     const observer = new ResizeObserver(positionSpine);
