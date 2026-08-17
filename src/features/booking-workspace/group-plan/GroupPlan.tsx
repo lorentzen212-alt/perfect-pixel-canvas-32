@@ -483,13 +483,7 @@ function Row({
   onEditNote: (item: PlanItem) => void;
 }) {
   return (
-    <li className="relative">
-      {/* continuous gold spine */}
-      <span
-        aria-hidden
-        className="absolute bottom-0 left-0 top-0 w-px"
-        style={{ background: GOLD_LINE_GRADIENT }}
-      />
+    <li className="relative" style={{ zIndex: 2 }}>
       <div className="relative">
         {/* open circular node */}
         <span
