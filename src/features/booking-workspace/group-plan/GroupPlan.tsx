@@ -1259,18 +1259,23 @@ export function GroupPlanView({
   bookingItems,
   defaultDate,
   onRequestChange,
+  destination,
 }: {
   bookingItems: PlanItem[];
   defaultDate?: string;
   onRequestChange: () => void;
+  destination?: string;
 }) {
   const [myItems, setMyItems] = useState<PlanItem[]>(() => seedMyItems(defaultDate));
   const [notesById, setNotesById] = useState<Record<string, string>>({});
   const [openId, setOpenId] = useState<string | null>(null);
   const [view, setView] = useState<"Timeline" | "Calendar">("Timeline");
   const [draft, setDraft] = useState<DraftItem | null>(null);
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const [spine, setSpine] = useState({ left: 0, top: 0, height: 0 });
+  const columnRef = useRef<HTMLDivElement>(null);
+  const ribbonRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const dateRef = useRef<HTMLDivElement>(null);
+  const [metrics, setMetrics] = useState<RibbonMetrics>(EMPTY_METRICS);
 
   const withNotes = (item: PlanItem): PlanItem => {
     const local = notesById[item.id];
