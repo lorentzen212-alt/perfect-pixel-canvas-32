@@ -224,29 +224,35 @@ function Menu({
 function Tile({ tile }: { tile: PlanTile }) {
   return (
     <div
-      className="min-w-0 rounded-[10px] px-3 py-2.5"
-      style={{ background: "rgba(13,28,43,0.16)", border: "1px solid rgba(255,255,255,0.09)" }}
+      className="min-w-0 rounded-[12px] px-3 py-2"
+      style={{
+        background: "rgba(255,255,255,0.06)",
+        border: "1px solid rgba(255,255,255,0.12)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+      }}
     >
       <div className="flex items-center gap-1.5">
         <span style={{ color: GOLD }}>{TILE_ICON[tile.icon]}</span>
         <span
-          className="truncate text-[9.5px] font-semibold uppercase tracking-[0.12em]"
-          style={{ color: MUTED }}
+          className="truncate text-[9px] font-semibold uppercase tracking-[0.12em]"
+          style={{ color: GOLD }}
         >
           {tile.label}
         </span>
       </div>
-      <div className="mt-1.5 truncate text-[14px]" style={{ color: TEXT }}>
+      <div className="mt-1 truncate text-[15px] font-medium" style={{ color: "#F5F7FA" }}>
         {tile.value}
       </div>
       {tile.sub && (
-        <div className="truncate text-[11.5px]" style={{ color: TEXT_2 }}>
+        <div className="truncate text-[10.5px]" style={{ color: "#A7B3C2" }}>
           {tile.sub}
         </div>
       )}
     </div>
   );
 }
+
 
 function ColHead({ children }: { children: React.ReactNode }) {
   return (
@@ -275,19 +281,20 @@ function GoldLink({ label, onClick }: { label: string; onClick?: () => void }) {
 function CheckRow({ entries }: { entries: string[] }) {
   if (!entries.length) return null;
   return (
-    <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2">
+    <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
       {entries.map((e, i) => (
         <React.Fragment key={`${e}-${i}`}>
           {i > 0 && (
-            <span className="h-[14px] w-px" style={{ background: HAIR_SOFT }} />
+            <span className="h-[16px] w-px" style={{ background: "#223042" }} />
           )}
-          <span className="flex items-center gap-2 text-[12.5px]" style={{ color: TEXT_2 }}>
-            <CheckCircle2 size={14} strokeWidth={1.6} style={{ color: GOLD }} />
+          <span className="flex items-center gap-2 text-[12.5px]" style={{ color: "#D6DEEB" }}>
+            <CheckCircle2 size={15} strokeWidth={1.5} style={{ color: "#C5A24B" }} />
             {e}
           </span>
         </React.Fragment>
       ))}
     </div>
+
   );
 }
 
@@ -310,18 +317,19 @@ function Expanded({
 
   return (
     <div
-      className="ml-[26px] mt-2 rounded-[12px] p-4"
+      className="ml-[26px] mt-2 rounded-[12px] p-6"
       style={{
-        background: SURFACE_SOFT,
-        border: "1px solid rgba(232,201,106,0.28)",
+        background: "#0D1C29",
+        border: "1px solid #223042",
       }}
     >
       {item.tiles?.length ? (
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {item.tiles.map((t) => (
             <Tile key={t.label} tile={t} />
           ))}
         </div>
+
       ) : null}
 
       {item.attention && (
@@ -401,10 +409,15 @@ function Expanded({
         </div>
       )}
 
-      <div className="relative mt-4 pt-4" style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
-        <div className="flex items-center gap-1.5">
-          <FileText size={13} strokeWidth={1.5} style={{ color: GOLD }} />
-          <ColHead>Notes</ColHead>
+      <div className="relative mt-6 pt-6" style={{ borderTop: "1px solid #223042" }}>
+        <div className="flex items-center gap-2">
+          <FileText size={15} strokeWidth={1.5} style={{ color: "#C5A24B" }} />
+          <span
+            className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+            style={{ color: "#C5A24B" }}
+          >
+            Notes
+          </span>
         </div>
         {item.note ? (
           <>
@@ -412,51 +425,58 @@ function Expanded({
               type="button"
               aria-label="Edit note"
               onClick={() => onEditNote(item)}
-              className="absolute right-0 top-3 grid h-7 w-7 place-items-center rounded-full transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-              style={{ border: `1px solid ${GOLD_LINE}`, color: GOLD }}
+              className="absolute right-0 top-5 grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+              style={{ border: "1px solid #223042", color: "#C5A24B" }}
             >
-              <Pencil size={12} strokeWidth={1.6} />
+              <Pencil size={14} strokeWidth={1.6} />
             </button>
             <p
-              className="mt-1.5 whitespace-pre-line text-[12.5px]"
-              style={{ color: TEXT_2 }}
+              className="mt-3 max-w-[70ch] whitespace-pre-line text-[13.5px] leading-[1.7]"
+              style={{ color: "#F5F7FA" }}
             >
               {item.note.text}
             </p>
-            <div className="mt-1.5 flex items-center gap-2">
-              <span className="text-[11px]" style={{ color: MUTED }}>
-                Added by {item.note.author} | {item.note.date}
-              </span>
-              <span className="text-[11px]" style={{ color: MUTED }}>
-                •
-              </span>
-              <GoldLink label="Edit" onClick={() => onEditNote(item)} />
-            </div>
           </>
         ) : (
           <button
             type="button"
             onClick={() => onEditNote(item)}
-            className="mt-1.5 text-[12.5px] transition-opacity hover:opacity-70"
-            style={{ color: MUTED }}
+            className="mt-3 text-[13px] transition-opacity hover:opacity-70"
+            style={{ color: "#A7B3C2" }}
           >
             + Add note
           </button>
         )}
       </div>
 
-
-      <div className="mt-5 flex items-center justify-end gap-4">
-        <button
-          type="button"
-          onClick={onRequestChange}
-          className="rounded-[8px] px-3.5 py-[7px] text-[12px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-          style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
-        >
-          Request a change
-        </button>
-        <GoldLink label="View full details →" onClick={onRequestChange} />
+      <div
+        className="mt-6 flex flex-wrap items-center justify-between gap-4 pt-6"
+        style={{ borderTop: "1px solid #223042" }}
+      >
+        <div className="flex items-center gap-2 text-[12px]" style={{ color: "#A7B3C2" }}>
+          {item.note && (
+            <>
+              <span>Added by {item.note.author}</span>
+              <span>•</span>
+              <span>{item.note.date}</span>
+              <span>•</span>
+            </>
+          )}
+          <GoldLink label="Edit" onClick={() => onEditNote(item)} />
+        </div>
+        <div className="flex items-center gap-5">
+          <button
+            type="button"
+            onClick={onRequestChange}
+            className="rounded-[8px] px-4 py-[9px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(197,162,75,0.08)]"
+            style={{ color: "#C5A24B", border: "1px solid #C5A24B" }}
+          >
+            Request a change
+          </button>
+          <GoldLink label="View full details →" onClick={onRequestChange} />
+        </div>
       </div>
+
     </div>
   );
 }
