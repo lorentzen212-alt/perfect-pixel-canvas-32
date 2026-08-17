@@ -1281,6 +1281,7 @@ function Workspace({ booking }: { booking: Booking }) {
               bookingItems={groupPlanItems}
               defaultDate={stay.arrival}
               onRequestChange={() => setTab("Changes")}
+              destination={booking.destination}
             />
           ) : tab !== "Overview" ? (
             <section
