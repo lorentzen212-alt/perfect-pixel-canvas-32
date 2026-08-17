@@ -996,56 +996,64 @@ export function GroupPlanView({
               />
             ) : (
               <>
-                {groups.map(([day, items], gi) => (
-                  <div
-                    key={day}
-                    className="flex gap-5 sm:gap-7"
-                    style={
-                      gi > 0
-                        ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 12, paddingTop: 20 }
-                        : { paddingTop: 6 }
-                    }
-                  >
-                    <div className="w-[64px] shrink-0 pt-[2px]">
-                      <div
-                        className="text-[38px] leading-[0.95] tracking-[-0.025em]"
-                        style={{
-                          background: GOLD_TEXT_GRADIENT,
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          backgroundClip: "text",
-                          color: "transparent",
-                          filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.16))",
-                          fontFamily: DATE_SERIF,
-                          fontWeight: 400,
-                        }}
-                      >
+                <div className="relative">
+                  {/* single continuous timeline spine */}
+                  <span
+                    aria-hidden
+                    className="absolute top-3 bottom-3 left-[1px] w-px"
+                    style={{ background: GOLD_LINE_GRADIENT, zIndex: 1 }}
+                  />
+                  {groups.map(([day, items], gi) => (
+                    <div
+                      key={day}
+                      className="flex gap-5 sm:gap-7"
+                      style={
+                        gi > 0
+                          ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 12, paddingTop: 20 }
+                          : { paddingTop: 6 }
+                      }
+                    >
+                      <div className="w-[64px] shrink-0 pt-[2px]">
+                        <div
+                          className="text-[38px] leading-[0.95] tracking-[-0.025em]"
+                          style={{
+                            background: GOLD_TEXT_GRADIENT,
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent",
+                            filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.16))",
+                            fontFamily: DATE_SERIF,
+                            fontWeight: 400,
+                          }}
+                        >
 
-                        {dayNum(day)}
+                          {dayNum(day)}
+                        </div>
+
+                        <div
+                          className="mt-2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.10em]"
+                          style={{ color: DAY_META }}
+                        >
+                          {monthShort(day)} · {weekday(day)}
+                        </div>
+
                       </div>
-
-                      <div
-                        className="mt-2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.10em]"
-                        style={{ color: DAY_META }}
-                      >
-                        {monthShort(day)} · {weekday(day)}
-                      </div>
-
+                      <ul className="relative min-w-0 flex-1 space-y-2">
+                        {items.map((i, ix) => (
+                          <Row
+                            key={i.id}
+                            item={i}
+                            open={openId === i.id}
+                            last={ix === items.length - 1}
+                            onToggle={() => setOpenId((o) => (o === i.id ? null : i.id))}
+                            {...rowProps}
+                          />
+                        ))}
+                      </ul>
                     </div>
-                    <ul className="relative min-w-0 flex-1 space-y-2">
-                      {items.map((i, ix) => (
-                        <Row
-                          key={i.id}
-                          item={i}
-                          open={openId === i.id}
-                          last={ix === items.length - 1}
-                          onToggle={() => setOpenId((o) => (o === i.id ? null : i.id))}
-                          {...rowProps}
-                        />
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                  ))}
+                </div>
 
                 <button
                   type="button"
