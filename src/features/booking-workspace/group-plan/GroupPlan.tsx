@@ -534,61 +534,59 @@ function Row({
           }}
         />
 
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={onToggle}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              onToggle();
-            }
-          }}
-          aria-expanded={open}
-          className="ml-[26px] flex cursor-pointer items-start gap-4 rounded-[8px] px-3 py-[13px] transition-all hover:bg-[rgba(255,255,255,0.07)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)]"
-          style={{
-            background: "transparent",
-            borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.08)",
-          }}
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={onToggle}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onToggle();
+          }
+        }}
+        aria-expanded={open}
+        className="group ml-[26px] flex cursor-pointer items-center gap-4 rounded-[8px] px-3 py-[13px] transition-all hover:bg-[rgba(255,255,255,0.07)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)]"
+        style={{
+          background: "transparent",
+          borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.08)",
+        }}
+      >
+        <span
+          className="w-[92px] shrink-0 text-[14px] tabular-nums"
+          style={{ color: TIME_TEXT }}
         >
-          <span
-            className="w-[92px] shrink-0 pt-[4px] text-[14px] tabular-nums"
-            style={{ color: TIME_TEXT }}
-          >
-            {item.time ?? "—"}
+          {item.time ?? "—"}
+        </span>
+        <ActivityIcon type={item.type} />
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-[14.5px] font-semibold" style={{ color: TEXT }}>
+            {item.title}
           </span>
-          <span className="shrink-0 pt-[1px]" style={{ color: GOLD_SOFT }}>
-            {TYPE_ICON[item.type]}
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block truncate text-[14.5px] font-semibold" style={{ color: TEXT }}>
-              {item.title}
+          {(item.summary || item.secondary) && (
+            <span className="mt-[2px] block truncate text-[12.5px]" style={{ color: TEXT_2 }}>
+              {item.summary ?? item.secondary}
             </span>
-            {(item.summary || item.secondary) && (
-              <span className="mt-[2px] block truncate text-[12.5px]" style={{ color: TEXT_2 }}>
-                {item.summary ?? item.secondary}
-              </span>
-            )}
-          </span>
-          <span className="w-[104px] shrink-0 pt-[5px]">
-            <Pill kind={item.kind} />
-          </span>
-
-          {item.kind === "booking" ? (
-            <Menu
-              items={[
-                { label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange },
-              ]}
-            />
-          ) : (
-            <Menu
-              items={[
-                { label: "Edit", icon: <Pencil size={13} />, onClick: () => onEdit(item) },
-                { label: "Delete", icon: <Trash2 size={13} />, onClick: () => onDelete(item.id) },
-              ]}
-            />
           )}
-        </div>
+        </span>
+        <span className="w-[104px] shrink-0">
+          <Pill kind={item.kind} />
+        </span>
+
+        {item.kind === "booking" ? (
+          <Menu
+            items={[
+              { label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange },
+            ]}
+          />
+        ) : (
+          <Menu
+            items={[
+              { label: "Edit", icon: <Pencil size={13} />, onClick: () => onEdit(item) },
+              { label: "Delete", icon: <Trash2 size={13} />, onClick: () => onDelete(item.id) },
+            ]}
+          />
+        )}
+      </div>
       </div>
       {open && <Expanded item={item} onRequestChange={onRequestChange} onEditNote={onEditNote} />}
     </li>
