@@ -1210,50 +1210,28 @@ export function GroupPlanView({
 
   /* selectable days = the days the booking actually spans */
   const dayKeys = useMemo(
-    () => [...new Set(scheduled.map((i) => i.date as string))].sort(),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [scheduled],
+    () => [...new Set(all.filter((i) => i.date).map((i) => i.date as string))].sort(),
+    [all],
   );
 
   const [focusDay, setFocusDay] = useState<string | null>(null);
   const [unscheduledOpen, setUnscheduledOpen] = useState(true);
   const activeDay = focusDay ?? defaultDate ?? dayKeys[0] ?? null;
 
+  const dayItems = useMemo(
+    () => (activeDay ? all.filter((i) => i.date === activeDay) : []),
+    [all, activeDay],
+  );
+  const dayMine = useMemo(() => dayItems.filter((i) => i.kind === "myplan"), [dayItems]);
   const dayBookings = useMemo(
-    () => scheduled.filter((i) => i.date === activeDay && i.kind === "booking" && i.time),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [scheduled, activeDay],
-  );
-  const dayMine = useMemo(
-    () => scheduled.filter((i) => i.date === activeDay && i.kind === "myplan"),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [scheduled, activeDay],
+    () => dayItems.filter((i) => i.kind === "booking" && i.time),
+    [dayItems],
   );
 
-  const freeWindows = useMemo(() => {
-    const out: { startMin: number; endMin: number }[] = [];
-    for (let n = 0; n < dayBookings.length - 1; n++) {
-      const cur = dayBookings[n];
-      const next = dayBookings[n + 1];
-      const end = toMin(cur.time as string) + DEFAULT_DURATION_MIN[cur.type];
-      const start = toMin(next.time as string);
-      if (start - end >= FREE_MIN_GAP) out.push({ startMin: end, endMin: start });
-    }
-    return out;
-  }, [dayBookings]);
-
-  const stream = useMemo<PlannerEntry[]>(() => {
-    const entries: PlannerEntry[] = [
-      ...dayBookings.map((item) => ({ kind: "item" as const, at: toMin(item.time as string), item })),
-      ...dayMine.map((item) => ({
-        kind: "item" as const,
-        at: item.time ? toMin(item.time) : 24 * 60 + 1,
-        item,
-      })),
-      ...freeWindows.map((w) => ({ kind: "free" as const, at: w.startMin, ...w })),
-    ];
-    return entries.sort((a, b) => a.at - b.at);
-  }, [dayBookings, dayMine, freeWindows]);
+  const stream = useMemo(
+    () => buildDayStream(dayItems, activeDay !== dayKeys[dayKeys.length - 1]),
+    [dayItems, activeDay, dayKeys],
+  );
 
   const nextBooking = dayBookings[0] ?? null;
   const firstFree = freeWindows[0] ?? null;
