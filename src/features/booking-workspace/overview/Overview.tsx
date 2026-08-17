@@ -664,7 +664,7 @@ export function OverviewFolder({
         />
 
         <div className="grid items-stretch gap-[9px] lg:grid-cols-[54fr_46fr]">
-          <NextSteps steps={journey} onViewAll={onViewTimeline} />
+          <NextSteps steps={journey} onViewAll={onViewTimeline} cancellation={cancellation} />
           <div className="space-y-[9px]">
             <DetailsCard rows={detailRows} footer={detailsFooter} status={detailsStatus}>
               {detailsExtra}
