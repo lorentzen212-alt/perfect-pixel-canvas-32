@@ -489,7 +489,10 @@ function Row({
       <span
         aria-hidden
         className="absolute bottom-0 left-0 top-0 w-[1.5px]"
-        style={{ background: GOLD_LINE_GRADIENT }}
+        style={{
+          ...goldTexBg("420px 620px", "left center"),
+          opacity: 0.75,
+        }}
       />
       <div className="relative">
         {/* open circular node */}
@@ -497,11 +500,12 @@ function Row({
           aria-hidden
           className="absolute left-[-3px] top-1/2 h-[7px] w-[7px] -translate-y-1/2 rounded-full"
           style={{
-            background: GOLD_STUD_BG,
+            ...goldTexBg("300px 300px", "30% 30%"),
             border: `2px solid ${GOLD_STUD_BORDER}`,
             boxShadow: open ? GOLD_STUD_SHADOW_ACTIVE : GOLD_STUD_SHADOW,
           }}
         />
+
         <div
           role="button"
           tabIndex={0}
