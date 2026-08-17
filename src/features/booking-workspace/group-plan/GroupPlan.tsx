@@ -224,29 +224,35 @@ function Menu({
 function Tile({ tile }: { tile: PlanTile }) {
   return (
     <div
-      className="min-w-0 rounded-[10px] px-3 py-2.5"
-      style={{ background: "rgba(13,28,43,0.16)", border: "1px solid rgba(255,255,255,0.09)" }}
+      className="min-w-0 rounded-[12px] px-3 py-2"
+      style={{
+        background: "rgba(255,255,255,0.06)",
+        border: "1px solid rgba(255,255,255,0.12)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+      }}
     >
       <div className="flex items-center gap-1.5">
         <span style={{ color: GOLD }}>{TILE_ICON[tile.icon]}</span>
         <span
-          className="truncate text-[9.5px] font-semibold uppercase tracking-[0.12em]"
-          style={{ color: MUTED }}
+          className="truncate text-[9px] font-semibold uppercase tracking-[0.12em]"
+          style={{ color: GOLD }}
         >
           {tile.label}
         </span>
       </div>
-      <div className="mt-1.5 truncate text-[14px]" style={{ color: TEXT }}>
+      <div className="mt-1 truncate text-[15px] font-medium" style={{ color: "#F5F7FA" }}>
         {tile.value}
       </div>
       {tile.sub && (
-        <div className="truncate text-[11.5px]" style={{ color: TEXT_2 }}>
+        <div className="truncate text-[10.5px]" style={{ color: "#A7B3C2" }}>
           {tile.sub}
         </div>
       )}
     </div>
   );
 }
+
 
 function ColHead({ children }: { children: React.ReactNode }) {
   return (
