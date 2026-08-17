@@ -197,6 +197,65 @@ const fmtDur = (min: number) => {
   return h && m ? `${h}h ${m}m` : h ? `${h}h` : `${m}m`;
 };
 
+/** One entry in the panel's chronological day stream. */
+type DayEntry =
+  | { kind: "item"; key: string; at: number; item: PlanItem }
+  | {
+      kind: "free";
+      key: string;
+      at: number;
+      start: number;
+      end: number | null;
+      minutes: number | null;
+    };
+
+function buildDayStream(items: PlanItem[], openEndedTail: boolean): DayEntry[] {
+  const timed = items
+    .filter((i) => i.time)
+    .sort((a, b) => (a.time as string).localeCompare(b.time as string));
+
+  const out: DayEntry[] = [];
+  let cursor: number | null = null;
+
+  for (const it of timed) {
+    const start = toMin(it.time as string);
+    if (cursor !== null) {
+      const gapStart = cursor;
+      const gapEnd = start - BUFFER_MIN;
+      if (gapEnd - gapStart >= MIN_FREE_MIN) {
+        out.push({
+          kind: "free",
+          key: `free-${gapStart}`,
+          at: gapStart,
+          start: gapStart,
+          end: gapEnd,
+          minutes: gapEnd - gapStart,
+        });
+      }
+    }
+    out.push({ kind: "item", key: it.id, at: start, item: it });
+    cursor = Math.max(cursor ?? 0, start + ASSUMED_MIN[it.type]);
+  }
+
+  if (openEndedTail && cursor !== null && DAY_END_MIN - cursor >= MIN_FREE_MIN) {
+    out.push({
+      kind: "free",
+      key: "free-tail",
+      at: cursor,
+      start: cursor,
+      end: null,
+      minutes: null,
+    });
+  }
+
+  for (const it of items.filter((i) => !i.time)) {
+    out.push({ kind: "item", key: it.id, at: 24 * 60 + 1, item: it });
+  }
+  return out;
+}
+
+
+
 function seedMyItems(date?: string): PlanItem[] {
   const dd = date ?? null;
   return [
