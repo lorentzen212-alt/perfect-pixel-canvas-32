@@ -782,9 +782,10 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
                     className="flex w-full items-center gap-2 text-left text-[12px] transition-opacity hover:opacity-70"
                     style={{ color: TEXT_2 }}
                   >
-                    <span className="w-[38px] shrink-0 tabular-nums" style={{ color: MUTED }}>
+                    <span className="w-[38px] shrink-0 tabular-nums" style={{ color: TIME_TEXT }}>
                       {i.time ?? "—"}
                     </span>
+
                     <span
                       className="h-[6px] w-[6px] shrink-0 rounded-full"
                       style={{ background: i.kind === "booking" ? MUTED : GOLD }}
