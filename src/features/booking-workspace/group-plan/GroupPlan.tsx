@@ -576,10 +576,10 @@ function Row({
           }
         }}
         aria-expanded={open}
-        className="group ml-[26px] flex cursor-pointer items-center gap-4 rounded-[8px] px-3 py-[13px] transition-all hover:bg-[rgba(255,255,255,0.07)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)]"
+        className="group ml-[26px] flex cursor-pointer items-center gap-4 rounded-[8px] px-3 py-[17px] transition-all hover:bg-[rgba(255,255,255,0.02)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
         style={{
           background: "transparent",
-          borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.08)",
+          borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.06)",
         }}
       >
         <span
