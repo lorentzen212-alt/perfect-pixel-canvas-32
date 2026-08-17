@@ -54,24 +54,22 @@ const GOLD_LINE = "rgba(216,184,93,0.55)";
 const GOLD_TINT = "rgba(216,184,93,0.12)";
 const GREEN = "#A9CDAA";
 
-/* brushed champagne-gold material — multi-band, never flat */
+/* premium metallic champagne-gold text — inside the glyphs only */
 const GOLD_TEXT_GRADIENT =
-  "linear-gradient(160deg, #A8843C 0%, #D9BE73 12%, #F4E7C4 26%, #C9A84C 40%, #EBDCAC 54%, #B99A46 68%, #E8D5A3 82%, #A88A44 100%)";
+  "linear-gradient(105deg, #9B7428 0%, #C79B3D 18%, #F3DB8B 38%, #D6AC4E 55%, #FFF0B0 68%, #B8872F 84%, #E4C66D 100%)";
 
 const GOLD_SOFT = "#D8BE7C";
-const GOLD_STUD_BG =
-  "radial-gradient(circle at 32% 28%, #F6EBCB 0%, #E3CB8B 42%, #C9A84C 72%, #A8873E 100%)";
-const GOLD_STUD_BORDER = "rgba(197,163,80,0.85)";
+const GOLD_STUD_BG = "#D7B45A";
 const GOLD_STUD_SHADOW =
-  "0 0 3px rgba(226,201,132,0.35), inset 0 1px 1px rgba(255,255,255,0.45)";
+  "0 0 5px rgba(224,191,117,0.30), inset 0 1px 1px rgba(255,255,255,0.45)";
 const GOLD_STUD_SHADOW_ACTIVE =
-  "0 0 4px rgba(232,213,163,0.50), inset 0 1px 1px rgba(255,255,255,0.5)";
-const GOLD_LINE_GRADIENT =
-  "linear-gradient(180deg, rgba(216,184,93,0.42) 0%, rgba(216,184,93,0.34) 50%, rgba(216,184,93,0.22) 100%)";
+  "0 0 7px rgba(224,191,117,0.40), inset 0 1px 1px rgba(255,255,255,0.5)";
+const GOLD_LINE_GRADIENT = "rgba(185,151,78,0.75)";
 
-const DATE_SERIF = '"Playfair Display", "Cormorant Garamond", Georgia, serif';
-const TIME_TEXT = "#E6E8E5";
-const DAY_META = "#B7CAD5";
+const DATE_SERIF = '"Cormorant Garamond", Georgia, serif';
+const TIME_TEXT = "#D8E0E5";
+const DAY_META = "#B8CBD6";
+
 
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
@@ -495,13 +493,13 @@ function Row({
         {/* open circular node */}
         <span
           aria-hidden
-          className="absolute left-[-3px] top-1/2 h-[7px] w-[7px] -translate-y-1/2 rounded-full"
+          className="absolute left-[-2px] top-1/2 h-[6px] w-[6px] -translate-y-1/2 rounded-full"
           style={{
             background: GOLD_STUD_BG,
-            border: `2px solid ${GOLD_STUD_BORDER}`,
             boxShadow: open ? GOLD_STUD_SHADOW_ACTIVE : GOLD_STUD_SHADOW,
           }}
         />
+
         <div
           role="button"
           tabIndex={0}
@@ -753,17 +751,26 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
           <div className="flex items-baseline gap-2">
             <span
               className="text-[22px] leading-none"
-              style={{ color: GOLD, fontFamily: SERIF }}
+              style={{
+                background: GOLD_TEXT_GRADIENT,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                color: "transparent",
+                fontFamily: DATE_SERIF,
+                fontWeight: 400,
+              }}
             >
               {dayNum(day)}
             </span>
             <span
               className="text-[10px] font-semibold uppercase tracking-[0.16em]"
-              style={{ color: MUTED }}
+              style={{ color: DAY_META }}
             >
               {monthShort(day)} · {weekday(day)}
             </span>
           </div>
+
           <ul className="mt-3 space-y-1.5">
             {items
               .filter((i) => i.date === day)
@@ -775,9 +782,10 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
                     className="flex w-full items-center gap-2 text-left text-[12px] transition-opacity hover:opacity-70"
                     style={{ color: TEXT_2 }}
                   >
-                    <span className="w-[38px] shrink-0 tabular-nums" style={{ color: MUTED }}>
+                    <span className="w-[38px] shrink-0 tabular-nums" style={{ color: TIME_TEXT }}>
                       {i.time ?? "—"}
                     </span>
+
                     <span
                       className="h-[6px] w-[6px] shrink-0 rounded-full"
                       style={{ background: i.kind === "booking" ? MUTED : GOLD }}
@@ -1007,13 +1015,15 @@ export function GroupPlanView({
                           WebkitBackgroundClip: "text",
                           WebkitTextFillColor: "transparent",
                           backgroundClip: "text",
-                          textShadow: "0 1px 2px rgba(0,0,0,0.32)",
+                          color: "transparent",
+                          filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.18))",
                           fontFamily: DATE_SERIF,
                           fontWeight: 400,
                         }}
                       >
                         {dayNum(day)}
                       </div>
+
                       <div
                         className="mt-2.5 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.12em]"
                         style={{ color: DAY_META }}
