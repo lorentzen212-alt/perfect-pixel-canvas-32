@@ -409,10 +409,15 @@ function Expanded({
         </div>
       )}
 
-      <div className="relative mt-4 pt-4" style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
-        <div className="flex items-center gap-1.5">
-          <FileText size={13} strokeWidth={1.5} style={{ color: GOLD }} />
-          <ColHead>Notes</ColHead>
+      <div className="relative mt-6 pt-6" style={{ borderTop: "1px solid #223042" }}>
+        <div className="flex items-center gap-2">
+          <FileText size={15} strokeWidth={1.5} style={{ color: "#C5A24B" }} />
+          <span
+            className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+            style={{ color: "#C5A24B" }}
+          >
+            Notes
+          </span>
         </div>
         {item.note ? (
           <>
@@ -420,51 +425,58 @@ function Expanded({
               type="button"
               aria-label="Edit note"
               onClick={() => onEditNote(item)}
-              className="absolute right-0 top-3 grid h-7 w-7 place-items-center rounded-full transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-              style={{ border: `1px solid ${GOLD_LINE}`, color: GOLD }}
+              className="absolute right-0 top-5 grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+              style={{ border: "1px solid #223042", color: "#C5A24B" }}
             >
-              <Pencil size={12} strokeWidth={1.6} />
+              <Pencil size={14} strokeWidth={1.6} />
             </button>
             <p
-              className="mt-1.5 whitespace-pre-line text-[12.5px]"
-              style={{ color: TEXT_2 }}
+              className="mt-3 max-w-[70ch] whitespace-pre-line text-[13.5px] leading-[1.7]"
+              style={{ color: "#F5F7FA" }}
             >
               {item.note.text}
             </p>
-            <div className="mt-1.5 flex items-center gap-2">
-              <span className="text-[11px]" style={{ color: MUTED }}>
-                Added by {item.note.author} | {item.note.date}
-              </span>
-              <span className="text-[11px]" style={{ color: MUTED }}>
-                •
-              </span>
-              <GoldLink label="Edit" onClick={() => onEditNote(item)} />
-            </div>
           </>
         ) : (
           <button
             type="button"
             onClick={() => onEditNote(item)}
-            className="mt-1.5 text-[12.5px] transition-opacity hover:opacity-70"
-            style={{ color: MUTED }}
+            className="mt-3 text-[13px] transition-opacity hover:opacity-70"
+            style={{ color: "#A7B3C2" }}
           >
             + Add note
           </button>
         )}
       </div>
 
-
-      <div className="mt-5 flex items-center justify-end gap-4">
-        <button
-          type="button"
-          onClick={onRequestChange}
-          className="rounded-[8px] px-3.5 py-[7px] text-[12px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-          style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
-        >
-          Request a change
-        </button>
-        <GoldLink label="View full details →" onClick={onRequestChange} />
+      <div
+        className="mt-6 flex flex-wrap items-center justify-between gap-4 pt-6"
+        style={{ borderTop: "1px solid #223042" }}
+      >
+        <div className="flex items-center gap-2 text-[12px]" style={{ color: "#A7B3C2" }}>
+          {item.note && (
+            <>
+              <span>Added by {item.note.author}</span>
+              <span>•</span>
+              <span>{item.note.date}</span>
+              <span>•</span>
+            </>
+          )}
+          <GoldLink label="Edit" onClick={() => onEditNote(item)} />
+        </div>
+        <div className="flex items-center gap-5">
+          <button
+            type="button"
+            onClick={onRequestChange}
+            className="rounded-[8px] px-4 py-[9px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(197,162,75,0.08)]"
+            style={{ color: "#C5A24B", border: "1px solid #C5A24B" }}
+          >
+            Request a change
+          </button>
+          <GoldLink label="View full details →" onClick={onRequestChange} />
+        </div>
       </div>
+
     </div>
   );
 }
