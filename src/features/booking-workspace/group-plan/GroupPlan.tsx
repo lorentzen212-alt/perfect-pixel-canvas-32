@@ -143,12 +143,13 @@ const longDate = (iso: string) =>
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="block text-[10px] font-semibold uppercase tracking-[0.20em]"
+      className="block text-[10.5px] font-semibold uppercase tracking-[0.15em]"
       style={{
-        background: GOLD_TEXT_GRADIENT,
+        background: EYEBROW_GRADIENT,
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
         backgroundClip: "text",
+        color: "transparent",
       }}
     >
       {children}
