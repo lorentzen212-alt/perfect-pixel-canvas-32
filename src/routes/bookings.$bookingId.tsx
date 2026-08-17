@@ -1071,7 +1071,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
   /* free-cancellation deadline derived from the booking's own stay dates:
      18:00 local, 7 days before arrival */
-  const cancellationDeadline = React.useMemo(() => {
+  const cancellationDeadline = useMemo(() => {
     const arrival = new Date(stay.arrival);
     if (Number.isNaN(arrival.getTime())) return null;
     const d = new Date(arrival);
