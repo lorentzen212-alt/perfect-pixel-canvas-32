@@ -483,13 +483,13 @@ function Row({
   onEditNote: (item: PlanItem) => void;
 }) {
   return (
-    <li className="relative" style={{ zIndex: 2 }}>
+    <li className="relative">
       <div className="relative">
         {/* open circular node */}
         <span
           aria-hidden
           data-timeline-dot
-          className="absolute left-[-2px] top-1/2 h-[6px] w-[6px] -translate-y-1/2 rounded-full"
+          className="absolute left-[-2px] top-1/2 z-[2] h-[6px] w-[6px] -translate-y-1/2 rounded-full"
           style={{
             background: GOLD_STUD_BG,
             boxShadow: open ? GOLD_STUD_SHADOW_ACTIVE : GOLD_STUD_SHADOW,
@@ -937,7 +937,7 @@ export function GroupPlanView({
       const bottom = lastBox.top + lastBox.height / 2 - timelineBox.top;
 
       setSpine({
-        left: firstBox.left + firstBox.width / 2 - timelineBox.left,
+        left: firstBox.left + firstBox.width / 2 - timelineBox.left - 0.5,
         top,
         height: Math.max(0, bottom - top),
       });
