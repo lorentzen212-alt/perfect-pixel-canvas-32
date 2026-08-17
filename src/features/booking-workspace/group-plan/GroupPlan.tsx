@@ -751,17 +751,26 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
           <div className="flex items-baseline gap-2">
             <span
               className="text-[22px] leading-none"
-              style={{ color: GOLD, fontFamily: SERIF }}
+              style={{
+                background: GOLD_TEXT_GRADIENT,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                color: "transparent",
+                fontFamily: DATE_SERIF,
+                fontWeight: 400,
+              }}
             >
               {dayNum(day)}
             </span>
             <span
               className="text-[10px] font-semibold uppercase tracking-[0.16em]"
-              style={{ color: MUTED }}
+              style={{ color: DAY_META }}
             >
               {monthShort(day)} · {weekday(day)}
             </span>
           </div>
+
           <ul className="mt-3 space-y-1.5">
             {items
               .filter((i) => i.date === day)
