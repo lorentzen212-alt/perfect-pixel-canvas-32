@@ -1595,7 +1595,7 @@ export function GroupPlanView({
               </svg>
             )}
 
-            <div className="px-7 pt-5 pb-7">
+            <div className="pl-9 pr-9 pt-5 pb-7 lg:pr-11">
             {view === "Calendar" ? (
               <CalendarView
                 items={scheduled}
