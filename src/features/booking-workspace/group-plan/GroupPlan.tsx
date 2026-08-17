@@ -933,7 +933,7 @@ export function GroupPlanView({
           <section className="min-w-0 flex-1 px-7 py-7 lg:w-[64%]">
             <div className="flex flex-wrap items-start justify-between gap-4 pb-4">
               <div>
-                <Eyebrow>Your booking</Eyebrow>
+                <Eyebrow texture>Your booking</Eyebrow>
                 <h2
                   className="mt-1.5 text-[40px] leading-[1.02]"
                   style={{ color: TEXT, fontFamily: SERIF }}
