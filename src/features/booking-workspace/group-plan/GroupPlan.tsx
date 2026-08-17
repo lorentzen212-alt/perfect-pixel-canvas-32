@@ -1234,7 +1234,7 @@ export function GroupPlanView({
   );
 
   const nextBooking = dayBookings[0] ?? null;
-  const firstFree = freeWindows[0] ?? null;
+  const firstFree = stream.find((e) => e.kind === "free") ?? null;
 
   const todayISO = new Date().toISOString().slice(0, 10);
   const dayIdx = activeDay ? dayKeys.indexOf(activeDay) : -1;
