@@ -478,11 +478,20 @@ const r2 = (n: number) => Math.round(n * 100) / 100;
 function journeyPaths(m: RibbonMetrics) {
   const yEdge = r2(m.yEdge);
 
-  let path = `M 0 ${yEdge} H ${r2(m.w)}`;
+  /* The bottom edge does not run flat over the timeline — both arms
+     bend down into it, so the spine reads as the edge itself turning
+     the corner rather than a separate line touching it. */
+  let path: string;
   if (m.xSpine !== null && m.ySpineEnd > m.yEdge + HOOK_R) {
     const x = r2(m.xSpine);
-    path += ` M ${r2(m.xSpine - HOOK_R)} ${yEdge} Q ${x} ${yEdge} ${x} ${r2(m.yEdge + HOOK_R)} V ${r2(m.ySpineEnd)}`;
+    const yTurn = r2(m.yEdge + HOOK_R);
+    path =
+      `M 0 ${yEdge} H ${r2(m.xSpine - HOOK_R)} Q ${x} ${yEdge} ${x} ${yTurn} V ${r2(m.ySpineEnd)}` +
+      ` M ${r2(m.w)} ${yEdge} H ${r2(m.xSpine + HOOK_R)} Q ${x} ${yEdge} ${x} ${yTurn}`;
+  } else {
+    path = `M 0 ${yEdge} H ${r2(m.w)}`;
   }
+
 
   const xEnd = m.xDateLeft - 22;
   const xStart = Math.max(m.xTitleRight + 16, xEnd - SWEEP_RUN);
