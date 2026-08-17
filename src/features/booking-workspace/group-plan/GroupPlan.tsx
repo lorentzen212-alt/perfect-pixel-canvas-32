@@ -1505,8 +1505,8 @@ export function GroupPlanView({
         <div className="flex flex-col p-2 lg:flex-row">
           {/* ══ left · itinerary timeline (≈65%) ══ */}
           <section className="min-w-0 flex-1 lg:w-[64%]">
-            <div ref={columnRef} className="relative -ml-2 -mt-2 -mr-2 lg:-mr-4">
-            <div ref={ribbonRef} className="relative pl-9 pr-9 pt-9 pb-8 lg:pr-11">
+            <div ref={columnRef} className="relative -ml-2 -mt-2 -mr-2 lg:mr-0">
+            <div ref={ribbonRef} className="relative pl-9 pr-9 pt-9 pb-8 lg:pr-7">
               <div
                 aria-hidden
                 className="absolute inset-0 rounded-tl-[19px] rounded-tr-[19px] lg:rounded-tr-none"
@@ -1604,7 +1604,7 @@ export function GroupPlanView({
               </svg>
             )}
 
-            <div className="pl-9 pr-9 pt-5 pb-7 lg:pr-11">
+            <div className="pl-9 pr-9 pt-5 pb-7 lg:pr-7">
             {view === "Calendar" ? (
               <CalendarView
                 items={scheduled}
