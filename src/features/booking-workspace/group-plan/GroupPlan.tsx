@@ -7,6 +7,7 @@ import {
   CalendarDays,
   Check,
   CheckCircle2,
+  ConciergeBell,
   FileText,
   Clock,
   Coffee,
