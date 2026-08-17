@@ -1159,7 +1159,7 @@ export function GroupPlanView({
       id: dr.id ?? `my-${Date.now()}`,
       kind: "myplan",
       type: dr.type,
-      date: withoutTime && !dr.date ? null : dr.date || null,
+      date: withoutTime ? null : dr.date || null,
       time: withoutTime ? null : dr.time || null,
       title: dr.title.trim(),
       secondary: dr.location || undefined,
