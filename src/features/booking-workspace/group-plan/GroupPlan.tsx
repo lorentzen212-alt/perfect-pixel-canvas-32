@@ -1011,7 +1011,7 @@ export function GroupPlanView({
                   >
                     <div className="w-[64px] shrink-0 pt-[2px]">
                       <div
-                        className="text-[35px] leading-none tracking-[-0.02em]"
+                        className="text-[38px] leading-[0.95] tracking-[-0.025em]"
                         style={{
                           background: GOLD_TEXT_GRADIENT,
                           WebkitBackgroundClip: "text",
@@ -1023,6 +1023,7 @@ export function GroupPlanView({
                           fontWeight: 400,
                         }}
                       >
+
                         {dayNum(day)}
                       </div>
 
