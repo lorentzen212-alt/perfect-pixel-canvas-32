@@ -71,7 +71,7 @@ function PlannerLabel({ children }: { children: React.ReactNode }) {
   return (
     <div
       className="mt-7 text-[10px] font-semibold uppercase tracking-[0.15em]"
-      style={{ color: PLANNER_MUTED }}
+      style={{ color: PLANNER_GOLD }}
     >
       {children}
     </div>
