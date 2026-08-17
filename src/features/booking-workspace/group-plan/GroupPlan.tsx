@@ -56,10 +56,8 @@ const GREEN = "#A9CDAA";
 
 /* brushed champagne-gold material — multi-band, never flat */
 const GOLD_TEXT_GRADIENT =
-  "linear-gradient(160deg, #A8843C 0%, #D9BE73 12%, #F4E7C4 26%, #C9A84C 40%, #EBDCAC 54%, #B99A४6 68%, #E8D5A3 82%, #A88A44 100%)".replace(
-    "४",
-    "4",
-  );
+  "linear-gradient(160deg, #A8843C 0%, #D9BE73 12%, #F4E7C4 26%, #C9A84C 40%, #EBDCAC 54%, #B99A46 68%, #E8D5A3 82%, #A88A44 100%)";
+
 const GOLD_SOFT = "#D8BE7C";
 const GOLD_TIME_GRADIENT = "linear-gradient(180deg, #D4B76A 0%, #C9A84C 100%)";
 const GOLD_STUD_BG =
