@@ -911,7 +911,7 @@ export function GroupPlanView({
                         onClick={() => setView(v)}
                         className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors"
                         style={{
-                          color: on ? GOLD_DEEP : TEXT_2,
+                          color: on ? GOLD : TEXT_2,
                           background: on ? GOLD_TINT : "transparent",
                           border: on ? "1px solid rgba(216,184,93,0.50)" : "1px solid transparent",
                         }}
