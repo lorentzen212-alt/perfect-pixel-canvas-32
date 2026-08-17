@@ -648,6 +648,8 @@ export function OverviewFolder({
   detailsStatus?: { label: string; tone: "pending" | "confirmed" };
   summary: SummaryCell[];
   onViewTimeline?: () => void;
+  cancellation?: CancellationPolicy;
+
   onMessage?: () => void;
   onViewFullOverview?: () => void;
   secondary?: React.ReactNode;
