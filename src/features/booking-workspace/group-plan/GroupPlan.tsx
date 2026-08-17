@@ -1495,13 +1495,34 @@ export function GroupPlanView({
               Group Planner
             </h3>
             <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
-              Add your own plans alongside the booking.
+              Plan your day around the group itinerary.
             </p>
+
+            <div className="mt-5 flex gap-2.5">
+              <StatusCard
+                icon={<Clock size={12} strokeWidth={1.6} />}
+                label="Next booking"
+                value={nextBooking?.time ?? "—"}
+                sub={nextBooking?.title ?? "Nothing scheduled"}
+              />
+              <StatusCard
+                icon={<Clock size={12} strokeWidth={1.6} />}
+                label="Free until"
+                value={firstFree ? toHHMM(firstFree.endMin) : "—"}
+                sub={firstFree ? fmtDur(firstFree.endMin - firstFree.startMin) : "No open window"}
+              />
+              <StatusCard
+                icon={<Users size={12} strokeWidth={1.6} />}
+                label="My plans"
+                value={String(dayMine.length)}
+                sub="activities"
+              />
+            </div>
 
             <div className="mt-5 flex gap-3">
               <button
                 type="button"
-                onClick={() => openEditor()}
+                onClick={() => openEditor(activeDay ?? undefined)}
                 className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(232,201,106,0.06)]"
                 style={{ color: GOLD_DEEP, background: "transparent", border: `1px solid ${GOLD}` }}
               >
@@ -1510,7 +1531,7 @@ export function GroupPlanView({
               <button
                 type="button"
                 onClick={() => {
-                  openEditor();
+                  openEditor(activeDay ?? undefined);
                   setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
                 }}
                 className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[9px] bg-[rgba(255,255,255,0.02)] px-3 text-[14px] transition-colors hover:bg-[rgba(255,255,255,0.03)]"
@@ -1520,99 +1541,170 @@ export function GroupPlanView({
               </button>
             </div>
 
-            <PlannerSection title="Unscheduled" count={unscheduled.length}>
-              {unscheduled.length === 0 ? (
-                <p className="py-1 text-[12px]" style={{ color: MUTED }}>
-                  Nothing waiting for a time.
-                </p>
-              ) : (
-                <div className="space-y-2">
-                  {unscheduled.map((i) => (
-                    <div
-                      key={i.id}
-                      className="flex items-center gap-3 rounded-[10px] py-[14px] px-3"
-                      style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.09)" }}
+            <div className="mt-6 flex items-center justify-between gap-2">
+              <span className="flex min-w-0 items-center gap-2">
+                <CalendarDays size={13} strokeWidth={1.6} style={{ color: GOLD }} />
+                <span
+                  className="text-[10px] font-semibold uppercase tracking-[0.14em]"
+                  style={{ color: GOLD }}
+                >
+                  {dayLabel}
+                </span>
+                {activeDay && (
+                  <span
+                    className="truncate text-[11px] font-medium uppercase tracking-[0.10em]"
+                    style={{ color: TEXT_2 }}
+                  >
+                    {`• ${weekday(activeDay)} ${dayNum(activeDay)} ${monthShort(activeDay)}`.toUpperCase()}
+                  </span>
+                )}
+              </span>
+              <span className="flex shrink-0 items-center gap-1.5">
+                <GoldLink label="View day" onClick={() => setView("Timeline")} />
+                <button
+                  type="button"
+                  aria-label="Previous day"
+                  disabled={dayIdx <= 0}
+                  onClick={() => setFocusDay(dayKeys[dayIdx - 1] ?? null)}
+                  className="grid h-[22px] w-[22px] place-items-center rounded-[6px] transition-colors hover:bg-[rgba(255,255,255,0.05)] disabled:opacity-30"
+                  style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
+                >
+                  <ChevronLeft size={13} strokeWidth={1.7} />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Next day"
+                  disabled={dayIdx < 0 || dayIdx >= dayKeys.length - 1}
+                  onClick={() => setFocusDay(dayKeys[dayIdx + 1] ?? null)}
+                  className="grid h-[22px] w-[22px] place-items-center rounded-[6px] transition-colors hover:bg-[rgba(255,255,255,0.05)] disabled:opacity-30"
+                  style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
+                >
+                  <ChevronRight size={13} strokeWidth={1.7} />
+                </button>
+              </span>
+            </div>
+
+            {stream.length === 0 ? (
+              <p className="mt-3 text-[12px]" style={{ color: MUTED }}>
+                Nothing scheduled for this day.
+              </p>
+            ) : (
+              <ul className="mt-3 space-y-1.5">
+                {stream.map((entry, ix) =>
+                  entry.kind === "free" ? (
+                    <TimelineRow
+                      key={`free-${entry.startMin}-${ix}`}
+                      time={toHHMM(entry.startMin)}
+                      timeEnd={toHHMM(entry.endMin)}
+                      dotColor={GOLD}
+                      variant="outline"
                     >
-                      <span
-                        className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-[10px]"
-                        style={{ background: "rgba(255,255,255,0.05)", color: TEXT_2 }}
-                      >
-                        {TYPE_ICON_SM[i.type]}
-                      </span>
+                      <Clock size={14} strokeWidth={1.6} className="shrink-0" style={{ color: GOLD }} />
                       <span className="min-w-0 flex-1">
                         <span
-                          className="block truncate text-[13.5px] font-semibold"
-                          style={{ color: TEXT }}
+                          className="block text-[11px] font-semibold uppercase tracking-[0.14em]"
+                          style={{ color: GOLD_DEEP }}
                         >
-                          {i.title}
+                          Free time
                         </span>
-                        <span className="block text-[12px]" style={{ color: MUTED }}>
-                          No time set
+                        <span className="block text-[11px]" style={{ color: MUTED }}>
+                          {`${fmtDur(entry.endMin - entry.startMin)} available`}
                         </span>
                       </span>
-                      <GoldLink label="Add time" onClick={() => openEditor(undefined, i)} />
+                      <GoldLink
+                        label="+ Make a plan"
+                        onClick={() => {
+                          openEditor(activeDay ?? undefined);
+                          setDraft((prev) =>
+                            prev ? { ...prev, time: toHHMM(entry.startMin) } : prev,
+                          );
+                        }}
+                      />
+                    </TimelineRow>
+                  ) : entry.item.kind === "booking" ? (
+                    <TimelineRow
+                      key={entry.item.id}
+                      time={entry.item.time ?? "—"}
+                      dotColor={MUTED}
+                    >
+                      <PlanMedallion type={entry.item.type} />
+                      <span className="min-w-0 flex-1">
+                        <span
+                          className="block truncate text-[13px] font-semibold"
+                          style={{ color: TEXT }}
+                        >
+                          {entry.item.title}
+                        </span>
+                        <span className="block text-[11px]" style={{ color: MUTED }}>
+                          Group itinerary
+                        </span>
+                      </span>
+                      <Pill kind="booking" />
+                    </TimelineRow>
+                  ) : (
+                    <TimelineRow
+                      key={entry.item.id}
+                      time={entry.item.time ?? "—"}
+                      dotColor={GOLD}
+                      accent
+                    >
+                      <PlanMedallion type={entry.item.type} mine />
+                      <span className="min-w-0 flex-1">
+                        <span
+                          className="block truncate text-[13px] font-semibold"
+                          style={{ color: TEXT }}
+                        >
+                          {entry.item.title}
+                        </span>
+                        <span className="block text-[11px]" style={{ color: GOLD_DEEP }}>
+                          My plan
+                        </span>
+                      </span>
                       <Menu
                         items={[
                           {
                             label: "Edit",
                             icon: <Pencil size={13} />,
-                            onClick: () => openEditor(undefined, i),
+                            onClick: () => openEditor(undefined, entry.item),
                           },
                           {
                             label: "Delete",
                             icon: <Trash2 size={13} />,
-                            onClick: () => remove(i.id),
+                            onClick: () => remove(entry.item.id),
                           },
                         ]}
                       />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </PlannerSection>
+                    </TimelineRow>
+                  ),
+                )}
+              </ul>
+            )}
 
-            <PlannerSection title="My plan" count={mine.length}>
-              {mine.length === 0 ? (
-                <p className="py-1 text-[12px]" style={{ color: MUTED }}>
-                  You haven't added anything yet.
-                </p>
-              ) : (
-                mine.map((i, ix) => (
-                  <div
-                    key={i.id}
-                    className="flex items-stretch gap-4 py-3"
-                    style={ix > 0 ? { borderTop: "1px solid rgba(255,255,255,0.09)" } : undefined}
-                  >
-                    <span className="w-[58px] shrink-0">
-                      <span
-                        className="block text-[15px] font-semibold tabular-nums"
-                        style={{ color: TEXT }}
-                      >
-                        {i.time ?? "—"}
-                      </span>
-                      <span
-                        className="block text-[11px] uppercase tracking-[0.06em]"
-                        style={{ color: MUTED }}
-                      >
-                        {i.date ? `${dayNum(i.date)} ${monthShort(i.date)}` : ""}
-                      </span>
-                    </span>
-                    <span
-                      className="shrink-0 self-stretch"
-                      style={{ borderLeft: "1px solid rgba(255,255,255,0.09)" }}
+            {dayMine.length === 0 && (
+              <p className="mt-2 text-[12px]" style={{ color: MUTED }}>
+                No personal plans yet.
+              </p>
+            )}
+
+            <PlannerSection
+              title="Unscheduled"
+              count={unscheduled.length}
+              collapsible
+              open={unscheduled.length > 0 && unscheduledOpen}
+              onToggle={() => setUnscheduledOpen((o) => !o)}
+            >
+              <div className="mt-1">
+                {unscheduled.map((i) => (
+                  <div key={i.id} className="flex items-center gap-2.5 py-[7px]">
+                    <button
+                      type="button"
+                      aria-label={`Mark "${i.title}" done`}
+                      onClick={() => remove(i.id)}
+                      className="h-[15px] w-[15px] shrink-0 rounded-full transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+                      style={{ border: "1px solid rgba(255,255,255,0.28)", background: "transparent" }}
                     />
-                    <span className="min-w-0 flex-1">
-                      <span
-                        className="block truncate text-[13.5px] font-semibold"
-                        style={{ color: TEXT }}
-                      >
-                        {i.title}
-                      </span>
-                      {i.secondary && (
-                        <span className="block truncate text-[12px]" style={{ color: TEXT_2 }}>
-                          {i.secondary}
-                        </span>
-                      )}
+                    <span className="min-w-0 flex-1 truncate text-[12.5px]" style={{ color: TEXT }}>
+                      {i.title}
                     </span>
                     <Menu
                       items={[
@@ -1629,48 +1721,32 @@ export function GroupPlanView({
                       ]}
                     />
                   </div>
-                ))
-              )}
+                ))}
+              </div>
             </PlannerSection>
 
-            {mine.length > 0 && (
-              <div className="mt-4 flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setView("Timeline")}
-                  className="inline-flex items-center gap-2 text-[13px] font-medium transition-opacity hover:opacity-70"
-                  style={{ color: GOLD_DEEP }}
-                >
-                  View all my plan items <span aria-hidden>→</span>
-                </button>
-              </div>
-            )}
-
-            <div style={{ paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.09)" }}>
-              <div
-                className="mt-6 flex gap-3 rounded-[12px] px-4 py-2.5"
-                style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.018)" }}
-              >
-                <Lightbulb
-                  size={16}
-                  strokeWidth={1.5}
-                  className="mt-[2px] shrink-0"
-                  style={{ color: GOLD_DEEP }}
-                />
-                <div className="min-w-0">
-                  <span
-                    className="block text-[10px] font-semibold uppercase tracking-[0.18em]"
-                    style={{ color: GOLD_DEEP }}
-                  >
-                    Tip
-                  </span>
-                  <p className="mt-1.5 text-[12.5px] leading-[1.6]" style={{ color: TEXT_2 }}>
-                    Booking items are added automatically.
-                    <br />
-                    Your plans can be changed anytime.
-                  </p>
-                </div>
-              </div>
+            <div className="mt-5 flex gap-2">
+              <QuickAction
+                icon={<Pencil size={13} strokeWidth={1.6} />}
+                label="Quick note"
+                onClick={() => openEditor(activeDay ?? undefined)}
+              />
+              <QuickAction
+                icon={<Bell size={13} strokeWidth={1.6} />}
+                label="Add reminder"
+                onClick={() => {
+                  openEditor(activeDay ?? undefined);
+                  setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
+                }}
+              />
+              <QuickAction
+                icon={<CalendarDays size={13} strokeWidth={1.6} />}
+                label="Add activity"
+                onClick={() => {
+                  openEditor(activeDay ?? undefined);
+                  setDraft((prev) => (prev ? { ...prev, type: "activity" } : prev));
+                }}
+              />
             </div>
           </aside>
         </div>
