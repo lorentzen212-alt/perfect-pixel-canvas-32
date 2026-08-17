@@ -1047,7 +1047,7 @@ export function GroupPlanView({
                   {/* single continuous timeline spine */}
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute w-px"
+                    className="pointer-events-none absolute w-[2px]"
                     style={{
                       background: GOLD_LINE_GRADIENT,
                       left: spine.left,
