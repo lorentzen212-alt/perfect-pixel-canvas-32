@@ -1029,11 +1029,12 @@ export function GroupPlanView({
                       </div>
 
                       <div
-                        className="mt-2 whitespace-nowrap text-[10.5px] font-semibold uppercase tracking-[0.10em]"
+                        className="mt-2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.10em]"
                         style={{ color: DAY_META }}
                       >
                         {monthShort(day)} · {weekday(day)}
                       </div>
+
                     </div>
                     <ul className="relative min-w-0 flex-1 space-y-2">
                       {items.map((i, ix) => (
