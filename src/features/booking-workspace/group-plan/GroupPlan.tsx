@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   Bell,
   Bookmark,
@@ -483,12 +483,13 @@ function Row({
   onEditNote: (item: PlanItem) => void;
 }) {
   return (
-    <li className="relative" style={{ zIndex: 2 }}>
+    <li className="relative">
       <div className="relative">
         {/* open circular node */}
         <span
           aria-hidden
-          className="absolute left-[-2px] top-1/2 h-[6px] w-[6px] -translate-y-1/2 rounded-full"
+          data-timeline-dot
+          className="absolute left-[-2px] top-1/2 z-[2] h-[6px] w-[6px] -translate-y-1/2 rounded-full"
           style={{
             background: GOLD_STUD_BG,
             boxShadow: open ? GOLD_STUD_SHADOW_ACTIVE : GOLD_STUD_SHADOW,
@@ -815,6 +816,8 @@ export function GroupPlanView({
   const [openId, setOpenId] = useState<string | null>(null);
   const [view, setView] = useState<"Timeline" | "Calendar">("Timeline");
   const [draft, setDraft] = useState<DraftItem | null>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [spine, setSpine] = useState({ left: 0, top: 0, height: 0 });
 
   const withNotes = (item: PlanItem): PlanItem => {
     const local = notesById[item.id];
@@ -914,6 +917,42 @@ export function GroupPlanView({
     onEditNote: editNote,
   };
 
+  useLayoutEffect(() => {
+    const timeline = timelineRef.current;
+    if (!timeline || view !== "Timeline") return;
+
+    const positionSpine = () => {
+      const dots = timeline.querySelectorAll<HTMLElement>("[data-timeline-dot]");
+      const first = dots.item(0);
+      const last = dots.item(dots.length - 1);
+      if (!first || !last) {
+        setSpine({ left: 0, top: 0, height: 0 });
+        return;
+      }
+
+      const timelineBox = timeline.getBoundingClientRect();
+      const firstBox = first.getBoundingClientRect();
+      const lastBox = last.getBoundingClientRect();
+      const top = firstBox.top + firstBox.height / 2 - timelineBox.top;
+      const bottom = lastBox.top + lastBox.height / 2 - timelineBox.top;
+
+      setSpine({
+        left: firstBox.left + firstBox.width / 2 - timelineBox.left - 0.5,
+        top,
+        height: Math.max(0, bottom - top),
+      });
+    };
+
+    positionSpine();
+    const observer = new ResizeObserver(positionSpine);
+    observer.observe(timeline);
+    window.addEventListener("resize", positionSpine);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", positionSpine);
+    };
+  }, [groups, openId, view]);
+
   return (
     <div className="pb-14" style={{ background: PAGE }}>
       <div
@@ -996,12 +1035,18 @@ export function GroupPlanView({
               />
             ) : (
               <>
-                <div className="relative">
+                <div ref={timelineRef} className="relative">
                   {/* single continuous timeline spine */}
                   <span
                     aria-hidden
-                    className="absolute top-3 bottom-4 left-[1px] w-px"
-                    style={{ background: GOLD_LINE_GRADIENT, zIndex: 1 }}
+                    className="pointer-events-none absolute w-px"
+                    style={{
+                      background: GOLD_LINE_GRADIENT,
+                      left: spine.left,
+                      top: spine.top,
+                      height: spine.height,
+                      zIndex: 1,
+                    }}
                   />
                   {groups.map(([day, items], gi) => (
                     <div
