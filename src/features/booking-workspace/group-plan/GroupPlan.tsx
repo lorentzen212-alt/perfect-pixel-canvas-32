@@ -935,7 +935,7 @@ export function GroupPlanView({
               <div>
                 <Eyebrow>Your booking</Eyebrow>
                 <h2
-                  className="mt-[5px] text-[40px] leading-[1.02]"
+                  className="mt-[7px] text-[40px] leading-[1.02]"
                   style={{ color: TEXT, fontFamily: SERIF }}
                 >
                   Group Plan
@@ -944,6 +944,7 @@ export function GroupPlanView({
                   Your itinerary for the group.
                 </p>
               </div>
+
               <div className="flex items-center gap-3">
                 <span className="text-[12px] font-normal" style={{ color: DISPLAY_AS }}>
                   Display as
