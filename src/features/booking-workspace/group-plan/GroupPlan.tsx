@@ -153,10 +153,10 @@ const TYPE_ICON_SM: Record<PlanItemType, React.ReactNode> = {
 
 /* assumed durations so we can detect genuinely free time —
    PlanItem has a start time only, no end time. */
-const DEFAULT_DURATION_MIN: Record<PlanItemType, number> = {
+const ASSUMED_MIN: Record<PlanItemType, number> = {
   transport: 90,
-  checkin: 0,
-  checkout: 0,
+  checkin: 30,
+  checkout: 30,
   breakfast: 180,
   lunch: 90,
   dinner: 120,
@@ -167,7 +167,23 @@ const DEFAULT_DURATION_MIN: Record<PlanItemType, number> = {
   reminder: 0,
 };
 
-const FREE_MIN_GAP = 45;
+/** Slack left before the next commitment. */
+const BUFFER_MIN = 15;
+/** Windows shorter than this are noise. */
+const MIN_FREE_MIN = 60;
+/** Nothing open-ended is proposed past this hour. */
+const DAY_END_MIN = 21 * 60;
+
+/** Short nouns for the narrow status card. */
+const SHORT_LABEL: Partial<Record<PlanItemType, string>> = {
+  transport: "Transfer",
+  checkin: "Check-in",
+  checkout: "Check-out",
+  breakfast: "Breakfast",
+  lunch: "Lunch",
+  dinner: "Dinner",
+  meeting: "Meeting",
+};
 
 const toMin = (hhmm: string) => {
   const [h, m] = hhmm.split(":").map(Number);
@@ -180,6 +196,65 @@ const fmtDur = (min: number) => {
   const m = min % 60;
   return h && m ? `${h}h ${m}m` : h ? `${h}h` : `${m}m`;
 };
+
+/** One entry in the panel's chronological day stream. */
+type DayEntry =
+  | { kind: "item"; key: string; at: number; item: PlanItem }
+  | {
+      kind: "free";
+      key: string;
+      at: number;
+      start: number;
+      end: number | null;
+      minutes: number | null;
+    };
+
+function buildDayStream(items: PlanItem[], openEndedTail: boolean): DayEntry[] {
+  const timed = items
+    .filter((i) => i.time)
+    .sort((a, b) => (a.time as string).localeCompare(b.time as string));
+
+  const out: DayEntry[] = [];
+  let cursor: number | null = null;
+
+  for (const it of timed) {
+    const start = toMin(it.time as string);
+    if (cursor !== null) {
+      const gapStart = cursor;
+      const gapEnd = start - BUFFER_MIN;
+      if (gapEnd - gapStart >= MIN_FREE_MIN) {
+        out.push({
+          kind: "free",
+          key: `free-${gapStart}`,
+          at: gapStart,
+          start: gapStart,
+          end: gapEnd,
+          minutes: gapEnd - gapStart,
+        });
+      }
+    }
+    out.push({ kind: "item", key: it.id, at: start, item: it });
+    cursor = Math.max(cursor ?? 0, start + ASSUMED_MIN[it.type]);
+  }
+
+  if (openEndedTail && cursor !== null && DAY_END_MIN - cursor >= MIN_FREE_MIN) {
+    out.push({
+      kind: "free",
+      key: "free-tail",
+      at: cursor,
+      start: cursor,
+      end: null,
+      minutes: null,
+    });
+  }
+
+  for (const it of items.filter((i) => !i.time)) {
+    out.push({ kind: "item", key: it.id, at: 24 * 60 + 1, item: it });
+  }
+  return out;
+}
+
+
 
 function seedMyItems(date?: string): PlanItem[] {
   const dd = date ?? null;
@@ -1078,9 +1153,6 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
   );
 }
 
-type PlannerEntry =
-  | { kind: "item"; at: number; item: PlanItem }
-  | { kind: "free"; at: number; startMin: number; endMin: number };
 
 /* ── main view ──────────────────────────────────────────── */
 
@@ -1135,53 +1207,31 @@ export function GroupPlanView({
 
   /* selectable days = the days the booking actually spans */
   const dayKeys = useMemo(
-    () => [...new Set(scheduled.map((i) => i.date as string))].sort(),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [scheduled],
+    () => [...new Set(all.filter((i) => i.date).map((i) => i.date as string))].sort(),
+    [all],
   );
 
   const [focusDay, setFocusDay] = useState<string | null>(null);
   const [unscheduledOpen, setUnscheduledOpen] = useState(true);
   const activeDay = focusDay ?? defaultDate ?? dayKeys[0] ?? null;
 
+  const dayItems = useMemo(
+    () => (activeDay ? all.filter((i) => i.date === activeDay) : []),
+    [all, activeDay],
+  );
+  const dayMine = useMemo(() => dayItems.filter((i) => i.kind === "myplan"), [dayItems]);
   const dayBookings = useMemo(
-    () => scheduled.filter((i) => i.date === activeDay && i.kind === "booking" && i.time),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [scheduled, activeDay],
-  );
-  const dayMine = useMemo(
-    () => scheduled.filter((i) => i.date === activeDay && i.kind === "myplan"),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [scheduled, activeDay],
+    () => dayItems.filter((i) => i.kind === "booking" && i.time),
+    [dayItems],
   );
 
-  const freeWindows = useMemo(() => {
-    const out: { startMin: number; endMin: number }[] = [];
-    for (let n = 0; n < dayBookings.length - 1; n++) {
-      const cur = dayBookings[n];
-      const next = dayBookings[n + 1];
-      const end = toMin(cur.time as string) + DEFAULT_DURATION_MIN[cur.type];
-      const start = toMin(next.time as string);
-      if (start - end >= FREE_MIN_GAP) out.push({ startMin: end, endMin: start });
-    }
-    return out;
-  }, [dayBookings]);
-
-  const stream = useMemo<PlannerEntry[]>(() => {
-    const entries: PlannerEntry[] = [
-      ...dayBookings.map((item) => ({ kind: "item" as const, at: toMin(item.time as string), item })),
-      ...dayMine.map((item) => ({
-        kind: "item" as const,
-        at: item.time ? toMin(item.time) : 24 * 60 + 1,
-        item,
-      })),
-      ...freeWindows.map((w) => ({ kind: "free" as const, at: w.startMin, ...w })),
-    ];
-    return entries.sort((a, b) => a.at - b.at);
-  }, [dayBookings, dayMine, freeWindows]);
+  const stream = useMemo(
+    () => buildDayStream(dayItems, activeDay !== dayKeys[dayKeys.length - 1]),
+    [dayItems, activeDay, dayKeys],
+  );
 
   const nextBooking = dayBookings[0] ?? null;
-  const firstFree = freeWindows[0] ?? null;
+  const firstFree = stream.find((e) => e.kind === "free") ?? null;
 
   const todayISO = new Date().toISOString().slice(0, 10);
   const dayIdx = activeDay ? dayKeys.indexOf(activeDay) : -1;
@@ -1507,14 +1557,31 @@ export function GroupPlanView({
                 icon={<Clock size={12} strokeWidth={1.6} />}
                 label="Next booking"
                 value={nextBooking?.time ?? "—"}
-                sub={nextBooking?.title ?? "Nothing scheduled"}
+                sub={
+                  nextBooking
+                    ? SHORT_LABEL[nextBooking.type] ?? nextBooking.title
+                    : "Nothing scheduled"
+                }
               />
               <StatusCard
                 icon={<Clock size={12} strokeWidth={1.6} />}
                 label="Free until"
-                value={firstFree ? toHHMM(firstFree.endMin) : "—"}
-                sub={firstFree ? fmtDur(firstFree.endMin - firstFree.startMin) : "No open window"}
+                value={
+                  !firstFree || firstFree.kind !== "free"
+                    ? "—"
+                    : firstFree.end === null
+                      ? "Late"
+                      : toHHMM(firstFree.end)
+                }
+                sub={
+                  !firstFree || firstFree.kind !== "free"
+                    ? "No open window"
+                    : firstFree.minutes === null
+                      ? "Rest of the day"
+                      : `${fmtDur(firstFree.minutes)} available`
+                }
               />
+
               <StatusCard
                 icon={<Users size={12} strokeWidth={1.6} />}
                 label="My plans"
@@ -1559,7 +1626,7 @@ export function GroupPlanView({
                     className="truncate text-[11px] font-medium uppercase tracking-[0.10em]"
                     style={{ color: TEXT_2 }}
                   >
-                    {`• ${weekday(activeDay)} ${dayNum(activeDay)} ${monthShort(activeDay)}`.toUpperCase()}
+                    {`• ${weekday(activeDay)} ${dayNum(activeDay)} ${monthShort(activeDay).slice(0, 3)}`.toUpperCase()}
                   </span>
                 )}
               </span>
@@ -1594,12 +1661,11 @@ export function GroupPlanView({
               </p>
             ) : (
               <ul className="mt-3 space-y-1.5">
-                {stream.map((entry, ix) =>
+                {stream.map((entry) =>
                   entry.kind === "free" ? (
                     <TimelineRow
-                      key={`free-${entry.startMin}-${ix}`}
-                      time={toHHMM(entry.startMin)}
-                      timeEnd={toHHMM(entry.endMin)}
+                      key={entry.key}
+                      time={toHHMM(entry.start)}
                       dotColor={GOLD}
                       variant="outline"
                     >
@@ -1612,7 +1678,9 @@ export function GroupPlanView({
                           Free time
                         </span>
                         <span className="block text-[11px]" style={{ color: MUTED }}>
-                          {`${fmtDur(entry.endMin - entry.startMin)} available`}
+                          {entry.end === null || entry.minutes === null
+                            ? "Rest of the day free"
+                            : `until ${toHHMM(entry.end)} · ${fmtDur(entry.minutes)} available`}
                         </span>
                       </span>
                       <GoldLink
@@ -1620,7 +1688,7 @@ export function GroupPlanView({
                         onClick={() => {
                           openEditor(activeDay ?? undefined);
                           setDraft((prev) =>
-                            prev ? { ...prev, time: toHHMM(entry.startMin) } : prev,
+                            prev ? { ...prev, time: toHHMM(entry.start) } : prev,
                           );
                         }}
                       />
