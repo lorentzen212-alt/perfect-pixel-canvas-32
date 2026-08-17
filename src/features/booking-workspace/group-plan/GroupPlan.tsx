@@ -1496,7 +1496,7 @@ export function GroupPlanView({
         <div className="flex flex-col p-2 lg:flex-row">
           {/* ══ left · itinerary timeline (≈65%) ══ */}
           <section className="min-w-0 flex-1 lg:w-[64%]">
-            <div ref={columnRef} className="relative">
+            <div ref={columnRef} className="relative -ml-2 -mt-2 -mr-2 lg:-mr-4">
             <div ref={ribbonRef} className="relative px-7 pt-7 pb-8">
               <div
                 aria-hidden
