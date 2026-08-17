@@ -1046,7 +1046,7 @@ function Workspace({ booking }: { booking: Booking }) {
 
   const journey = [
     { label: "Request sent", desc: "Sent to the hotel", sub: "28 Jul", state: "done" as const },
-    { label: "Hotel confirmed", desc: "Confirmed by the hotel", sub: "29 Jul", state: "done" as const },
+    { label: "Booking confirmed", desc: "Confirmed by the hotel", sub: "29 Jul", state: "done" as const },
     { label: "Deposit received", desc: "Payment registered", sub: "29 Jul", state: "done" as const },
     {
       label: "Rooming list",
@@ -1055,7 +1055,8 @@ function Workspace({ booking }: { booking: Booking }) {
       state: "active" as const,
     },
     {
-      label: "Final confirmation",
+      label: "Final details",
+
       desc: "Confirm arrival details and special requests",
       sub: "Due in 10 days",
       state: "todo" as const,
