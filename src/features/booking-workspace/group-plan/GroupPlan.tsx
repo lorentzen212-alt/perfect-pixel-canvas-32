@@ -1428,18 +1428,78 @@ export function GroupPlanView({
 function PlannerSection({
   title,
   count,
+  collapsible,
+  open,
+  onToggle,
   children,
 }: {
   title: string;
   count: number;
+  collapsible?: boolean;
+  open?: boolean;
+  onToggle?: () => void;
   children: React.ReactNode;
 }) {
+  const header = (
+    <>
+      <span
+        className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
+        style={{ color: MUTED }}
+      >
+        {title}
+      </span>
+      <span className="flex items-center gap-2">
+        <span
+          className="inline-grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-[11px] font-semibold leading-none tabular-nums"
+          style={{
+            color: GOLD_DEEP,
+            background: "transparent",
+            border: "1px solid rgba(255,255,255,0.15)",
+          }}
+        >
+          {count}
+        </span>
+        {collapsible && (
+          <ChevronDown
+            size={14}
+            strokeWidth={1.6}
+            className="transition-transform"
+            style={{ color: MUTED, transform: open ? "rotate(180deg)" : "none" }}
+          />
+        )}
+      </span>
+    </>
+  );
+
   return (
     <div className="mt-8" style={{ paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.09)" }}>
-      <div
-        className="flex items-center justify-between pb-2"
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.09)" }}
-      >
+      {collapsible ? (
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={!!open}
+          className="flex w-full items-center justify-between pb-2 text-left"
+          style={{ borderBottom: "1px solid rgba(255,255,255,0.09)" }}
+        >
+          {header}
+        </button>
+      ) : (
+        <div
+          className="flex items-center justify-between pb-2"
+          style={{ borderBottom: "1px solid rgba(255,255,255,0.09)" }}
+        >
+          {header}
+        </div>
+      )}
+      {(!collapsible || open) && <div>{children}</div>}
+    </div>
+  );
+}
+
+function LegacyPlannerHeader() {
+  return (
+    <div>
+      <div>
         <span
           className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
           style={{ color: MUTED }}
