@@ -48,7 +48,7 @@ const HAIR_SOFT = "rgba(255,255,255,0.08)";
 
 const GOLD = "#D8B85D";
 const GOLD_DEEP = "#E8CC7A";
-const GOLD_LINE = "rgba(232,201,106,0.30)";
+const GOLD_LINE = "rgba(216,184,93,0.55)";
 const GOLD_TINT = "rgba(216,184,93,0.12)";
 const GREEN = "#A9CDAA";
 
@@ -117,7 +117,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
       className="block text-[10px] font-semibold uppercase tracking-[0.20em]"
-      style={{ color: GOLD_DEEP }}
+      style={{ color: GOLD }}
     >
       {children}
     </span>
@@ -711,7 +711,7 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
           <div className="flex items-baseline gap-2">
             <span
               className="text-[22px] leading-none"
-              style={{ color: GOLD_DEEP, fontFamily: SERIF }}
+              style={{ color: GOLD, fontFamily: SERIF }}
             >
               {dayNum(day)}
             </span>
@@ -911,7 +911,7 @@ export function GroupPlanView({
                         onClick={() => setView(v)}
                         className="inline-flex items-center gap-1.5 rounded-[7px] px-3.5 py-[7px] text-[12.5px] font-medium transition-colors"
                         style={{
-                          color: on ? GOLD_DEEP : TEXT_2,
+                          color: on ? GOLD : TEXT_2,
                           background: on ? GOLD_TINT : "transparent",
                           border: on ? "1px solid rgba(216,184,93,0.50)" : "1px solid transparent",
                         }}
