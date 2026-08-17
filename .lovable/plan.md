@@ -1,31 +1,55 @@
-# Redesign the Group Planner panel
+# Redesign the Group Planner panel (dark, simplified)
 
-Only the right-side Group Planner aside changes. The left Group Plan column, journey ribbon, itinerary timeline, page background, navigation and column widths stay exactly as they are.
+Only the right-side Group Planner aside changes. The left Group Plan column, journey ribbon, itinerary, page background, navigation, column widths and all booking/plan data logic stay exactly as they are.
 
-## The panel becomes a light cream card
+## Panel
 
-- Background `#F6F2EC`, radius 20px, 28px top/bottom and 24px left/right padding. Keeps its current `m-4` gutter and ~36% width.
-- Text primary `#0B1624`, muted `#767168`, gold accent `#C9A85F`, hairlines `#E7E1D7`.
-- Header: small uppercase gold "YOUR PERSONAL PLAN" (12px, 1.5px tracking), serif "Group Planner" (28px), subtitle "Plan your free time." (15px, muted), then a 1px `#E7E1D7` divider with 18px margins.
+- Background becomes `#0B1E32`, keeping the current rounded corners, width and `m-4` gutter.
+- Palette: secondary surface `#13283C`, champagne gold `#C9A85F`, primary text `#F5F1E9`, muted `#9AA6B2`, borders a low-opacity light slate.
+- Only three primary levels: Next group activity, My plans, Available time. Everything else is removed or folded in.
 
-## Sections
+## Header
 
-1. **NEXT GROUP ACTIVITY** — gold section label, then one white card (`#FFFFFF`, 1px `#E7E1D7`, radius 12, 18px padding): time range 22px/700, title "Meeting — Fjord Hall" 16px/600, location line 13px muted, and a 36px `#F1ECE4` circle with an outline calendar icon on the right. Populated from the next booking in the current day's stream (falls back to a calm "Nothing scheduled" state).
-2. **MY PLANS** — vertical 1px `#E7E1D7` line with 8px gold dots. Each row: 48px time column (14px/600), title 15px/600, subtitle 13px muted, three-dot menu on the right keeping today's Edit/Delete actions. 1px `#EFE9E0` divider between rows.
-3. **Add personal plan** — full-width 48px navy button (`#0B1624`, white text, gold "+" icon, radius 12) opening the existing plan editor.
-4. **AFTER <time>** — free-time card (white, 1px `#E7E1D7`, radius 12): 36px `#F1ECE4` circle with moon icon, "Your evening is free" 15px/600, and a gold "+ Add something" link that opens the editor pre-filled with that start time. The label and copy come from the computed free-time window, so open-ended and mid-day cases still read correctly.
-5. **Footer note** — clock icon plus "All times are local time at the destination." in muted grey.
+Gold uppercase "YOUR PERSONAL PLAN", ivory serif "Group Planner", muted subtitle "Plan your free time." — no card around it, generous spacing, then a hairline divider.
 
-## Existing behaviour that is kept
+## 1. Next group activity
 
-- Day navigation (previous/next day, "View day") moves into the header row beside the divider, restyled for the light surface.
-- Unscheduled items keep their collapsible section, placed under "My plans" in the same light styling.
-- The three quick-action buttons and the separate "Reminder" button are folded into the single "Add personal plan" button plus the editor's own type selector, matching the reference. The reminder type stays available inside the editor.
-- Free-time computation, the day stream, seeding, saving, editing and deleting are untouched.
+Gold section label, then one `#13283C` card (1px subtle border, 12px radius, compact but generous padding):
+
+- Large time range showing start and end whenever available ("09:00 – 11:00"), falling back to the start time alone.
+- Activity title, then a small muted detail line (location / setup).
+- Small champagne-gold calendar icon on the right.
+
+Sourced from the next upcoming booking in the current day's stream; a calm muted line replaces the card when nothing is scheduled.
+
+## 2. My plans
+
+Clean rows directly on the panel — no cards. A very thin vertical line with small gold dots, a fixed time column, ivory title, muted sub-line, and the existing three-dot Edit/Delete menu. Optional hairline dividers between rows only.
+
+Unscheduled personal items keep their existing collapsible list, restyled as the same plain rows.
+
+## 3. Add personal plan
+
+One full-width primary button directly under My plans: `#13283C` surface, thin gold border, gold "+" icon, light text, 46–48px tall, 10–12px radius. Opens the existing editor unchanged.
+
+## 4. Available time
+
+Shown only when there is a meaningful gap:
+
+- Trailing open-ended window → "AFTER 15:30" label with one very subtle dark navy card: small moon icon, "Your evening is free", gold "Add something".
+- Gap between two group activities → "FREE 11:30 – 13:00", "1h 30m available", gold "Add plan".
+- No meaningful gap → nothing is rendered.
+
+Visually secondary to the two sections above.
+
+## Removed
+
+The three statistic cards (Next booking / Free until / My plans), the separate Reminder button, the three quick-action buttons, and the duplicated full-day itinerary stream inside the planner. Reminder and activity types remain selectable inside the plan editor, so no capability is lost.
 
 ## Technical notes
 
-- All edits stay in the `<aside>` and its planner-only helpers in `src/features/booking-workspace/group-plan/GroupPlan.tsx` (`StatusCard`, `TimelineRow`, `PlanMedallion`, `QuickAction`, `PlannerSection`, `Pill`, `Menu` usage inside the aside).
-- A small light-surface token block is added next to the existing dark tokens so the planner can use cream values without touching the shared dark palette used by the left column.
-- The plan editor popover is restyled to sit on the light panel; its fields and logic stay as they are.
+- All edits stay inside the `<aside>` and its planner-only helpers in `src/features/booking-workspace/group-plan/GroupPlan.tsx` (`StatusCard`, `TimelineRow`, `PlanMedallion`, `QuickAction`, `Pill`); unused helpers are deleted.
+- A small planner-scoped token block is added next to the existing dark tokens; the shared palette used by the left column is untouched.
+- Free-time and day-stream computation is reused as-is; the panel just renders less of it — the next booking, the user's own plans, and at most one free-time card.
+- Day navigation (prev/next day, "View day") stays, reduced to a quiet row beside the section labels.
 - Verified at 1440 / 1217 / 1024 / 768 with screenshots before finishing.
