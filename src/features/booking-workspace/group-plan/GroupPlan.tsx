@@ -55,6 +55,15 @@ const GOLD_LINE = "rgba(216,184,93,0.55)";
 const GOLD_TINT = "rgba(216,184,93,0.12)";
 const GREEN = "#A9CDAA";
 
+/* expanded activity info panel */
+const INFO_BG = "#363B4E";
+const INFO_BORDER = "rgba(255,255,255,0.08)";
+const INFO_CARD_BG = "rgba(255,255,255,0.04)";
+const INFO_CARD_BORDER = "rgba(255,255,255,0.10)";
+const INFO_TEXT = "#F2F4F7";
+const INFO_TEXT_2 = "#B6BDC8";
+const INFO_GOLD = "#E8C96A";
+
 /* premium metallic champagne-gold text — inside the glyphs only */
 const GOLD_TEXT_GRADIENT =
   "linear-gradient(105deg, #A87928 0%, #C99C3F 22%, #E8C96A 42%, #F2DC8B 54%, #D2A84C 70%, #B88630 86%, #E4C66D 100%)";
@@ -242,28 +251,32 @@ function Menu({
 function Tile({ tile }: { tile: PlanTile }) {
   return (
     <div
-      className="min-w-0 rounded-[12px] px-3 py-2"
+      className="min-w-0 rounded-[12px] px-4 py-[14px]"
       style={{
-        background: "rgba(255,255,255,0.06)",
-        border: "1px solid rgba(255,255,255,0.12)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
+        minHeight: 64,
+        background: INFO_CARD_BG,
+        border: `1px solid ${INFO_CARD_BORDER}`,
       }}
     >
-      <div className="flex items-center gap-1.5">
-        <span style={{ color: GOLD }}>{TILE_ICON[tile.icon]}</span>
+      <div className="flex items-center gap-2">
+        <span className="shrink-0" style={{ color: INFO_GOLD }}>
+          {TILE_ICON[tile.icon]}
+        </span>
         <span
-          className="truncate text-[9px] font-semibold uppercase tracking-[0.12em]"
-          style={{ color: GOLD }}
+          className="truncate text-[12px] font-semibold uppercase tracking-[0.05em]"
+          style={{ color: INFO_GOLD }}
         >
           {tile.label}
         </span>
       </div>
-      <div className="mt-1 truncate text-[15px] font-medium" style={{ color: "#F5F7FA" }}>
+      <div
+        className="mt-1.5 truncate text-[16px] font-semibold sm:text-[16px]"
+        style={{ color: INFO_TEXT }}
+      >
         {tile.value}
       </div>
       {tile.sub && (
-        <div className="truncate text-[10.5px]" style={{ color: "#A7B3C2" }}>
+        <div className="mt-0.5 truncate text-[12px]" style={{ color: INFO_TEXT_2 }}>
           {tile.sub}
         </div>
       )}
@@ -299,20 +312,24 @@ function GoldLink({ label, onClick }: { label: string; onClick?: () => void }) {
 function CheckRow({ entries }: { entries: string[] }) {
   if (!entries.length) return null;
   return (
-    <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+    <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2.5 py-[10px]">
       {entries.map((e, i) => (
         <React.Fragment key={`${e}-${i}`}>
           {i > 0 && (
-            <span className="h-[16px] w-px" style={{ background: "#223042" }} />
+            <span className="h-[16px] w-px" style={{ background: INFO_BORDER }} />
           )}
-          <span className="flex items-center gap-2 text-[12.5px]" style={{ color: "#D6DEEB" }}>
-            <CheckCircle2 size={15} strokeWidth={1.5} style={{ color: "#C5A24B" }} />
+          <span className="flex items-center gap-2 text-[14px]" style={{ color: INFO_TEXT }}>
+            <CheckCircle2
+              size={16}
+              strokeWidth={1.5}
+              className="shrink-0"
+              style={{ color: INFO_GOLD }}
+            />
             {e}
           </span>
         </React.Fragment>
       ))}
     </div>
-
   );
 }
 
@@ -335,10 +352,11 @@ function Expanded({
 
   return (
     <div
-      className="ml-[26px] mt-2 rounded-[12px] p-6"
+      className="ml-[26px] mt-2 rounded-[14px] p-4 sm:px-6 sm:py-5"
       style={{
-        background: SURFACE_SOFT,
-        border: "1px solid #223042",
+        background: INFO_BG,
+        border: `1px solid ${INFO_BORDER}`,
+        boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
       }}
     >
       {item.tiles?.length ? (
@@ -347,16 +365,15 @@ function Expanded({
             <Tile key={t.label} tile={t} />
           ))}
         </div>
-
       ) : null}
 
       {item.attention && (
         <div
-          className="mt-3 inline-flex items-center gap-2 rounded-[7px] px-3 py-1.5 text-[12px]"
+          className="mt-4 inline-flex items-center gap-2 rounded-[8px] px-3 py-1.5 text-[12.5px]"
           style={{
-            color: "#D4A03C",
-            background: "rgba(212,160,60,0.12)",
-            border: "1px solid rgba(212,160,60,0.30)",
+            color: INFO_GOLD,
+            background: "rgba(232,201,106,0.10)",
+            border: "1px solid rgba(232,201,106,0.28)",
           }}
         >
           {item.attention}
@@ -372,10 +389,10 @@ function Expanded({
                 {item.dietary.map((r, i) => (
                   <li
                     key={`${r.name}-${i}`}
-                    className="truncate text-[12.5px]"
-                    style={{ color: TEXT_2 }}
+                    className="truncate text-[13px]"
+                    style={{ color: INFO_TEXT_2 }}
                   >
-                    <span style={{ color: TEXT }}>{r.name}</span> · {r.room} · {r.restriction}
+                    <span style={{ color: INFO_TEXT }}>{r.name}</span> · {r.room} · {r.restriction}
                   </li>
                 ))}
               </ul>
@@ -389,13 +406,13 @@ function Expanded({
           {item.extras?.length ? (
             <div
               className="min-w-0 sm:pl-6"
-              style={cols.length > 1 ? { borderLeft: `1px solid ${HAIR_SOFT}` } : undefined}
+              style={cols.length > 1 ? { borderLeft: `1px solid ${INFO_BORDER}` } : undefined}
             >
               <ColHead>Extras</ColHead>
               <ul className="mt-2.5 space-y-1.5">
                 {item.extras.map((x) => (
-                  <li key={x.label} className="truncate text-[12.5px]" style={{ color: TEXT_2 }}>
-                    <span style={{ color: TEXT }}>{x.label}</span> · {x.count}
+                  <li key={x.label} className="truncate text-[13px]" style={{ color: INFO_TEXT_2 }}>
+                    <span style={{ color: INFO_TEXT }}>{x.label}</span> · {x.count}
                   </li>
                 ))}
               </ul>
@@ -414,25 +431,25 @@ function Expanded({
 
       {item.specialArrangement && (
         <div
-          className="mt-5 rounded-[10px] px-3 py-2.5"
+          className="mt-5 rounded-[10px] px-3.5 py-3"
           style={{
-            background: "rgba(13,28,43,0.14)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: INFO_CARD_BG,
+            border: `1px solid ${INFO_BORDER}`,
           }}
         >
           <ColHead>Special arrangement</ColHead>
-          <p className="mt-1.5 text-[12.5px]" style={{ color: TEXT_2 }}>
+          <p className="mt-1.5 text-[13px]" style={{ color: INFO_TEXT_2 }}>
             {item.specialArrangement}
           </p>
         </div>
       )}
 
-      <div className="relative mt-6 pt-6" style={{ borderTop: "1px solid #223042" }}>
+      <div className="relative mt-5 pt-5" style={{ borderTop: `1px solid ${INFO_BORDER}` }}>
         <div className="flex items-center gap-2">
-          <FileText size={15} strokeWidth={1.5} style={{ color: "#C5A24B" }} />
+          <FileText size={16} strokeWidth={1.5} style={{ color: INFO_GOLD }} />
           <span
-            className="text-[10px] font-semibold uppercase tracking-[0.16em]"
-            style={{ color: "#C5A24B" }}
+            className="text-[12px] font-semibold uppercase tracking-[0.14em]"
+            style={{ color: INFO_GOLD }}
           >
             Notes
           </span>
@@ -443,14 +460,14 @@ function Expanded({
               type="button"
               aria-label="Edit note"
               onClick={() => onEditNote(item)}
-              className="absolute right-0 top-5 grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-              style={{ border: "1px solid #223042", color: "#C5A24B" }}
+              className="absolute right-0 top-4 grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-[rgba(255,255,255,0.06)]"
+              style={{ border: `1px solid ${INFO_CARD_BORDER}`, color: INFO_GOLD }}
             >
-              <Pencil size={14} strokeWidth={1.6} />
+              <Pencil size={16} strokeWidth={1.6} />
             </button>
             <p
-              className="mt-3 max-w-[70ch] whitespace-pre-line text-[13.5px] leading-[1.7]"
-              style={{ color: "#F5F7FA" }}
+              className="mt-3 max-w-[70ch] whitespace-pre-line text-[15px] leading-normal"
+              style={{ color: INFO_TEXT }}
             >
               {item.note.text}
             </p>
@@ -459,8 +476,8 @@ function Expanded({
           <button
             type="button"
             onClick={() => onEditNote(item)}
-            className="mt-3 text-[13px] transition-opacity hover:opacity-70"
-            style={{ color: "#A7B3C2" }}
+            className="mt-3 text-[14px] transition-opacity hover:opacity-70"
+            style={{ color: INFO_TEXT_2 }}
           >
             + Add note
           </button>
@@ -468,10 +485,10 @@ function Expanded({
       </div>
 
       <div
-        className="mt-6 flex flex-wrap items-center justify-between gap-4 pt-6"
-        style={{ borderTop: "1px solid #223042" }}
+        className="mt-5 flex flex-wrap items-center justify-between gap-4 pt-5"
+        style={{ borderTop: `1px solid ${INFO_BORDER}` }}
       >
-        <div className="flex items-center gap-2 text-[12px]" style={{ color: "#A7B3C2" }}>
+        <div className="flex items-center gap-2 text-[12.5px]" style={{ color: INFO_TEXT_2 }}>
           {item.note && (
             <>
               <span>Added by {item.note.author}</span>
@@ -480,18 +497,32 @@ function Expanded({
               <span>•</span>
             </>
           )}
-          <GoldLink label="Edit" onClick={() => onEditNote(item)} />
+          <button
+            type="button"
+            onClick={() => onEditNote(item)}
+            className="text-[12.5px] font-medium transition-opacity hover:opacity-70"
+            style={{ color: INFO_GOLD }}
+          >
+            Edit
+          </button>
         </div>
         <div className="flex items-center gap-5">
           <button
             type="button"
             onClick={onRequestChange}
-            className="rounded-[8px] px-4 py-[9px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(197,162,75,0.08)]"
-            style={{ color: "#C5A24B", border: "1px solid #C5A24B" }}
+            className="rounded-[8px] px-[18px] py-[10px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(232,201,106,0.08)]"
+            style={{ color: INFO_GOLD, background: "transparent", border: `1px solid ${INFO_GOLD}` }}
           >
             Request a change
           </button>
-          <GoldLink label="View full details →" onClick={onRequestChange} />
+          <button
+            type="button"
+            onClick={onRequestChange}
+            className="text-[12.5px] font-medium transition-opacity hover:opacity-70"
+            style={{ color: INFO_GOLD }}
+          >
+            View full details →
+          </button>
         </div>
       </div>
 
@@ -545,10 +576,10 @@ function Row({
           }
         }}
         aria-expanded={open}
-        className="group ml-[26px] flex cursor-pointer items-center gap-4 rounded-[8px] px-3 py-[13px] transition-all hover:bg-[rgba(255,255,255,0.07)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)]"
+        className="group ml-[26px] flex cursor-pointer items-center gap-4 rounded-[8px] px-3 py-[17px] transition-all hover:bg-[rgba(255,255,255,0.02)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
         style={{
           background: "transparent",
-          borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.08)",
+          borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.06)",
         }}
       >
         <span
