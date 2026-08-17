@@ -468,7 +468,9 @@ const EMPTY_METRICS: RibbonMetrics = {
 };
 
 const HOOK_R = 16;
-const SWEEP_TOP = 12;
+/** the raised plateau rides the card's top edge — 1, not 0, so the
+    2px stroke stays fully inside the SVG instead of being half-clipped */
+const SWEEP_TOP = 1;
 const SWEEP_RUN = 210;
 const SWEEP_MIN_RUN = 72;
 const SWEEP_MIN_WIDTH = 560;
