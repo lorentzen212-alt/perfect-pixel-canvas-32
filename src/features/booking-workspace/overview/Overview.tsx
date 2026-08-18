@@ -99,8 +99,8 @@ function cancellationView(deadlineISO: string) {
   if (ms <= 0) {
     return {
       tone: "grey" as CancelTone,
-      label: "Cancellation period ended",
-      title: `Free cancellation ended ${dateLabel}, ${timeLabel}`,
+      label: "Free cancellation",
+      title: `Free cancellation period ended ${dateLabel}, ${timeLabel}`,
       trailing: "",
     };
   }
@@ -121,7 +121,9 @@ function cancellationView(deadlineISO: string) {
       tone: "amber" as CancelTone,
       label: "Free cancellation",
       title: isTomorrow ? `Ends tomorrow at ${timeLabel}` : `Free cancellation until ${dateLabel}, ${timeLabel}`,
-      trailing: `${Math.max(1, Math.round(hours))} hours remaining`,
+      trailing: hours < 24
+        ? `${Math.max(1, Math.round(hours))} hours remaining`
+        : `${Math.floor(hours / 24)} ${Math.floor(hours / 24) === 1 ? "day" : "days"} remaining`,
     };
   }
   const days = Math.floor(hours / 24);
@@ -216,7 +218,7 @@ function NextSteps({
             ? {
                 height: 28,
                 width: 28,
-                background: "#2E7D55",
+                background: "#2E6B45",
                 color: "#FFFFFF",
                 fontSize: 11,
                 boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
@@ -225,7 +227,7 @@ function NextSteps({
               ? {
                   height: 28,
                   width: 28,
-                  background: "linear-gradient(135deg, #B8860B, #DAA520)",
+                  background: "#C38A20",
                   color: "#FFFFFF",
                   fontSize: 12,
                   boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
@@ -262,10 +264,10 @@ function NextSteps({
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[14px] top-1/2 w-[2px] -translate-x-1/2"
+                  className="absolute left-[14px] top-1/2 z-[1] w-[1.5px] -translate-x-1/2"
                   style={{
                     height: "100%",
-                    background: done || active ? "#2E7D55" : "#D4D2CC",
+                    background: done ? "#2E6B45" : "#DCDAD4",
                   }}
                 />
               )}

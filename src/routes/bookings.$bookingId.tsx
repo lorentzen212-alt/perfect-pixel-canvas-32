@@ -1069,16 +1069,6 @@ function Workspace({ booking }: { booking: Booking }) {
     },
   ];
 
-  /* free-cancellation deadline derived from the booking's own stay dates:
-     18:00 local, 7 days before arrival */
-  const cancellationDeadline = useMemo(() => {
-    const arrival = new Date(stay.arrival);
-    if (Number.isNaN(arrival.getTime())) return null;
-    const d = new Date(arrival);
-    d.setDate(d.getDate() - 7);
-    d.setHours(18, 0, 0, 0);
-    return d.toISOString();
-  }, [stay.arrival]);
 
 
 
@@ -1316,7 +1306,7 @@ function Workspace({ booking }: { booking: Booking }) {
               bookingId={booking.id}
               journey={journey}
               onViewTimeline={() => setTab("Changes")}
-              cancellation={cancellationDeadline ? { deadline: cancellationDeadline } : undefined}
+              cancellation={booking.freeCancellationUntil ? { deadline: booking.freeCancellationUntil } : undefined}
 
               onMessage={() => setTab("Messages")}
               detailsStatus={{

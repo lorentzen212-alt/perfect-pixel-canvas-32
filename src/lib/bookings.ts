@@ -81,6 +81,8 @@ export interface Booking {
   meetingSpaces?: number;
   status: BookingStatus;
   statusNote?: string;
+  /** Free-cancellation deadline (ISO datetime). Absent when the rate has none. */
+  freeCancellationUntil?: string;
   image: string;
   /** Rooming list progress — dynamic. */
   rooming?: { complete: number; total: number; due: string };
@@ -123,6 +125,7 @@ export const BOOKINGS: Booking[] = [
     hotelReferenceSource: "auto",
     startDate: "2026-09-14",
     endDate: "2026-09-17",
+    freeCancellationUntil: "2026-09-06T18:00:00",
     nights: 3,
     rooms: 32,
     guests: 58,
@@ -143,6 +146,7 @@ export const BOOKINGS: Booking[] = [
     destination: "Copenhagen, Denmark",
     startDate: "2026-10-06",
     endDate: "2026-10-08",
+    freeCancellationUntil: "2026-09-28T18:00:00",
     nights: 2,
     delegates: 70,
     meetingSpaces: 3,
@@ -164,6 +168,7 @@ export const BOOKINGS: Booking[] = [
     destination: "Stockholm, Sweden",
     startDate: "2026-09-22",
     endDate: "2026-09-25",
+    freeCancellationUntil: "2026-09-14T18:00:00",
     nights: 3,
     rooms: 24,
     guests: 43,
@@ -207,6 +212,7 @@ export const BOOKINGS: Booking[] = [
     hotel: "Radisson Blu Bergen",
     startDate: "2026-09-14",
     endDate: "2026-09-18",
+    freeCancellationUntil: "2026-09-06T18:00:00",
     nights: 4,
     rooms: 32,
     guests: 63,
