@@ -619,7 +619,8 @@ export function FinalDetails({
                   style={{ color: INK_SOFT }}
                 >
                   <Info size={13} strokeWidth={1.7} className="mt-[2px] shrink-0" />
-                  Select &apos;Mixed times&apos; if your group arrives or departs at different times.
+                  Select &apos;Mixed times&apos; if your group arrives or departs at different
+                  times.
                 </p>
               </div>
             </Card>
@@ -750,7 +751,10 @@ export function FinalDetails({
                         onChange={(e) =>
                           setContact({
                             ...contact,
-                            secondary: { name: contact.secondary?.name ?? "", phone: e.target.value },
+                            secondary: {
+                              name: contact.secondary?.name ?? "",
+                              phone: e.target.value,
+                            },
                           })
                         }
                         aria-label="Secondary contact mobile number"
