@@ -284,10 +284,26 @@ export function ChangesFolder({
     });
   };
 
-  const lines = rooms.map((r, i) => {
-    const base = baseRooms[i]?.qty ?? r.qty;
-    return { ...r, base, diff: r.qty - base, index: i };
-  });
+  const lines = rooms
+    .map((r, i) => {
+      const base = baseRooms[i]?.qty ?? r.qty;
+      return { ...r, base, diff: r.qty - base, index: i };
+    })
+    .sort((a, b) => {
+      const order = [
+        "Single rooms",
+        "Double rooms",
+        "Twin rooms",
+        "Triple rooms",
+        "Family / Accessible",
+      ];
+      const ai = order.indexOf(a.type);
+      const bi = order.indexOf(b.type);
+      if (ai !== -1 && bi !== -1) return ai - bi;
+      if (ai !== -1) return -1;
+      if (bi !== -1) return 1;
+      return 0;
+    });
 
   const currentRooms = lines.reduce((s, l) => s + l.base, 0);
   const afterRooms = lines.reduce((s, l) => s + l.qty, 0);
