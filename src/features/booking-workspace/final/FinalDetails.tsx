@@ -599,205 +599,210 @@ export function FinalDetails({
           </button>
         </Card>
 
-        {/* ── primary inputs ── */}
-        <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
-          <Card className="pb-4 xl:col-span-2" style={{ scrollMarginTop: 24 }}>
-            <div ref={timesRef}>
-              <CardHead
-                icon={<CalendarDays size={19} strokeWidth={1.7} />}
-                title="Arrival & Departure"
-                subtitle="Let us know your expected arrival and departure"
-              />
-              <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
-                <TimeSide label="Arrival" state={arrival} onState={setArrival} />
-                <TimeSide label="Departure" state={departure} onState={setDeparture} />
-              </div>
-              <p
-                className="mt-2.5 flex items-start gap-2 text-[12.5px]"
-                style={{ color: INK_SOFT }}
-              >
-                <Info size={13} strokeWidth={1.7} className="mt-[2px] shrink-0" />
-                Select &apos;Mixed times&apos; if your group arrives or departs at different times.
-              </p>
-            </div>
-          </Card>
-
-          <Card>
-            <CardHead
-              icon={<User size={19} strokeWidth={1.7} />}
-              title="On-site contact"
-              subtitle="Who can the hotel contact during the stay?"
-            />
-            <div className="mt-3.5 flex flex-col gap-2.5">
-              <Field label="Role">
-                <div className="relative mt-1">
-                  <select
-                    value={contact.role}
-                    onChange={(e) => setContact({ ...contact, role: e.target.value })}
-                    aria-label="On-site contact role"
-                    className="h-[40px] w-full appearance-none rounded-[9px] px-3 pr-8 text-[13.5px] outline-none"
-                    style={fieldStyle}
-                  >
-                    {ROLES.map((r) => (
-                      <option key={r} value={r}>
-                        {r}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown
-                    size={13}
-                    aria-hidden
-                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
-                    style={{ color: INK_FAINT }}
-                  />
+        {/* ── two independent columns ── */}
+        <div className="flex flex-col gap-5 xl:grid xl:grid-cols-3 xl:items-start">
+          {/* left column */}
+          <div className="contents xl:col-span-2 xl:flex xl:flex-col xl:gap-5">
+            <Card className="order-1 xl:order-none pb-4" style={{ scrollMarginTop: 24 }}>
+              <div ref={timesRef}>
+                <CardHead
+                  icon={<CalendarDays size={19} strokeWidth={1.7} />}
+                  title="Arrival & Departure"
+                  subtitle="Let us know your expected arrival and departure"
+                />
+                <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
+                  <TimeSide label="Arrival" state={arrival} onState={setArrival} />
+                  <TimeSide label="Departure" state={departure} onState={setDeparture} />
                 </div>
-              </Field>
-
-              <Field label="Name">
-                <input
-                  type="text"
-                  value={contact.name}
-                  onChange={(e) => setContact({ ...contact, name: e.target.value })}
-                  aria-label="On-site contact name"
-                  className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
-                  style={fieldStyle}
-                />
-              </Field>
-
-              <Field label="Mobile number">
-                <input
-                  type="tel"
-                  value={contact.phone}
-                  onChange={(e) => setContact({ ...contact, phone: e.target.value })}
-                  aria-label="On-site contact mobile number"
-                  className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
-                  style={fieldStyle}
-                />
-              </Field>
-
-              {contact.secondary ? (
-                <>
-                  <Field label="Secondary name">
-                    <input
-                      type="text"
-                      value={contact.secondary.name}
-                      onChange={(e) =>
-                        setContact({
-                          ...contact,
-                          secondary: {
-                            name: e.target.value,
-                            phone: contact.secondary?.phone ?? "",
-                          },
-                        })
-                      }
-                      aria-label="Secondary contact name"
-                      className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
-                      style={fieldStyle}
-                    />
-                  </Field>
-                  <Field label="Secondary mobile number">
-                    <input
-                      type="tel"
-                      value={contact.secondary.phone}
-                      onChange={(e) =>
-                        setContact({
-                          ...contact,
-                          secondary: { name: contact.secondary?.name ?? "", phone: e.target.value },
-                        })
-                      }
-                      aria-label="Secondary contact mobile number"
-                      className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
-                      style={fieldStyle}
-                    />
-                  </Field>
-                  <button
-                    type="button"
-                    onClick={() => setContact({ ...contact, secondary: null })}
-                    className="self-start text-[12.5px] transition-opacity hover:opacity-70"
-                    style={{ color: INK_FAINT }}
-                  >
-                    Remove secondary contact
-                  </button>
-                </>
-              ) : (
-                <TextAction
-                  label="+ Add secondary contact"
-                  className="self-start"
-                  onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
-                />
-              )}
-            </div>
-          </Card>
-        </div>
-
-        {/* ── review cards ── */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-          <Card>
-            <CardHead
-              icon={<Utensils size={19} strokeWidth={1.7} />}
-              title="Meals"
-              action={
-                <TextAction
-                  label="Request change"
-                  arrow
-                  onClick={() => onRequestChange?.("meals")}
-                />
-              }
-            />
-            <div className="mt-3">
-              {meals.length === 0 ? (
-                <p className="text-[13px]" style={{ color: INK_FAINT }}>
-                  No group meals booked
+                <p
+                  className="mt-2.5 flex items-start gap-2 text-[12.5px]"
+                  style={{ color: INK_SOFT }}
+                >
+                  <Info size={13} strokeWidth={1.7} className="mt-[2px] shrink-0" />
+                  Select &apos;Mixed times&apos; if your group arrives or departs at different times.
                 </p>
-              ) : (
-                meals.map((m) => <Row key={m.label} label={m.label} value={m.value} />)
-              )}
-            </div>
-          </Card>
+              </div>
+            </Card>
 
-          <Card>
-            <CardHead
-              icon={<Star size={19} strokeWidth={1.7} />}
-              title="Special arrangements"
-              action={
-                <TextAction
-                  label="Request change"
-                  arrow
-                  onClick={() => onRequestChange?.("services")}
+            <div className="contents xl:grid xl:grid-cols-2 xl:gap-5">
+              <Card className="order-3 xl:order-none">
+                <CardHead
+                  icon={<Utensils size={19} strokeWidth={1.7} />}
+                  title="Meals"
+                  action={
+                    <TextAction
+                      label="Request change"
+                      arrow
+                      onClick={() => onRequestChange?.("meals")}
+                    />
+                  }
                 />
-              }
-            />
-            <div className="mt-3">
-              <Row label="Coach parking" value="Confirmed" tone="green" />
-              <Row label="Extra luggage room" value="Confirmed" tone="green" />
-            </div>
-          </Card>
+                <div className="mt-2.5">
+                  {meals.length === 0 ? (
+                    <p className="text-[13px]" style={{ color: INK_FAINT }}>
+                      No group meals booked
+                    </p>
+                  ) : (
+                    meals.map((m) => <Row key={m.label} label={m.label} value={m.value} />)
+                  )}
+                </div>
+              </Card>
 
-          <Card>
-            <CardHead
-              icon={<Leaf size={19} strokeWidth={1.7} />}
-              title="Allergies & dietary"
-              action={<TextAction label="+ Add more" onClick={onOpenDietary} />}
-            />
-            <button
-              type="button"
-              onClick={onOpenDietary}
-              className="mt-4 flex w-full flex-col items-center gap-2 rounded-[10px] py-3 text-center transition-colors hover:bg-[rgba(27,37,48,0.02)]"
-            >
-              <span
-                className="grid h-[38px] w-[38px] place-items-center rounded-full"
-                style={{ background: BANNER, color: BRONZE_DEEP }}
+              <Card className="order-4 xl:order-none">
+                <CardHead
+                  icon={<Star size={19} strokeWidth={1.7} />}
+                  title="Special arrangements"
+                  action={
+                    <TextAction
+                      label="Request change"
+                      arrow
+                      onClick={() => onRequestChange?.("services")}
+                    />
+                  }
+                />
+                <div className="mt-2.5">
+                  <Row label="Coach parking" value="Confirmed" tone="green" />
+                  <Row label="Extra luggage room" value="Confirmed" tone="green" />
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* right column */}
+          <div className="contents xl:flex xl:flex-col xl:gap-5">
+            <Card className="order-2 xl:order-none">
+              <CardHead
+                icon={<User size={19} strokeWidth={1.7} />}
+                title="On-site contact"
+                subtitle="Who can the hotel contact during the stay?"
+              />
+              <div className="mt-3 flex flex-col gap-2.5">
+                <Field label="Role">
+                  <div className="relative mt-1">
+                    <select
+                      value={contact.role}
+                      onChange={(e) => setContact({ ...contact, role: e.target.value })}
+                      aria-label="On-site contact role"
+                      className="h-[40px] w-full appearance-none rounded-[9px] px-3 pr-8 text-[13.5px] outline-none"
+                      style={fieldStyle}
+                    >
+                      {ROLES.map((r) => (
+                        <option key={r} value={r}>
+                          {r}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown
+                      size={13}
+                      aria-hidden
+                      className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+                      style={{ color: INK_FAINT }}
+                    />
+                  </div>
+                </Field>
+
+                <Field label="Name">
+                  <input
+                    type="text"
+                    value={contact.name}
+                    onChange={(e) => setContact({ ...contact, name: e.target.value })}
+                    aria-label="On-site contact name"
+                    className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
+                    style={fieldStyle}
+                  />
+                </Field>
+
+                <Field label="Mobile number">
+                  <input
+                    type="tel"
+                    value={contact.phone}
+                    onChange={(e) => setContact({ ...contact, phone: e.target.value })}
+                    aria-label="On-site contact mobile number"
+                    className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
+                    style={fieldStyle}
+                  />
+                </Field>
+
+                {contact.secondary ? (
+                  <>
+                    <Field label="Secondary name">
+                      <input
+                        type="text"
+                        value={contact.secondary.name}
+                        onChange={(e) =>
+                          setContact({
+                            ...contact,
+                            secondary: {
+                              name: e.target.value,
+                              phone: contact.secondary?.phone ?? "",
+                            },
+                          })
+                        }
+                        aria-label="Secondary contact name"
+                        className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
+                        style={fieldStyle}
+                      />
+                    </Field>
+                    <Field label="Secondary mobile number">
+                      <input
+                        type="tel"
+                        value={contact.secondary.phone}
+                        onChange={(e) =>
+                          setContact({
+                            ...contact,
+                            secondary: { name: contact.secondary?.name ?? "", phone: e.target.value },
+                          })
+                        }
+                        aria-label="Secondary contact mobile number"
+                        className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
+                        style={fieldStyle}
+                      />
+                    </Field>
+                    <button
+                      type="button"
+                      onClick={() => setContact({ ...contact, secondary: null })}
+                      className="self-start text-[12.5px] transition-opacity hover:opacity-70"
+                      style={{ color: INK_FAINT }}
+                    >
+                      Remove secondary contact
+                    </button>
+                  </>
+                ) : (
+                  <TextAction
+                    label="+ Add secondary contact"
+                    className="self-start"
+                    onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
+                  />
+                )}
+              </div>
+            </Card>
+
+            <Card className="order-5 xl:order-none">
+              <CardHead
+                icon={<Leaf size={19} strokeWidth={1.7} />}
+                title="Allergies & dietary"
+                action={<TextAction label="+ Add more" onClick={onOpenDietary} />}
+              />
+              <button
+                type="button"
+                onClick={onOpenDietary}
+                className="mt-2.5 flex w-full flex-col items-center gap-1.5 rounded-[10px] py-2 text-center transition-colors hover:bg-[rgba(27,37,48,0.02)]"
               >
-                <Leaf size={18} strokeWidth={1.7} />
-              </span>
-              <span className="text-[14px] font-semibold" style={{ color: INK }}>
-                {allergyCount} allergies added
-              </span>
-              <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
-                We&apos;ll make sure the hotel is informed.
-              </span>
-            </button>
-          </Card>
+                <span
+                  className="grid h-[34px] w-[34px] place-items-center rounded-full"
+                  style={{ background: BANNER, color: BRONZE_DEEP }}
+                >
+                  <Leaf size={16} strokeWidth={1.7} />
+                </span>
+                <span className="text-[14px] font-semibold" style={{ color: INK }}>
+                  {allergyCount} allergies added
+                </span>
+                <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
+                  We&apos;ll make sure the hotel is informed.
+                </span>
+              </button>
+            </Card>
+          </div>
         </div>
 
         {/* ── optional note ── */}
