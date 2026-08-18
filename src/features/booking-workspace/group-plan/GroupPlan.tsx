@@ -311,11 +311,11 @@ const PL_BORDER = "rgba(217,209,198,0.75)";
 const PL_NAVY = "#0D1C2B";
 const PL_NAVY_HOVER = "#13283C";
 
-function PlannerLabel({ children }: { children: React.ReactNode }) {
+function PlannerLabel({ children, color }: { children: React.ReactNode; color?: string }) {
   return (
     <span
       className="text-[10px] font-semibold uppercase tracking-[0.16em]"
-      style={{ color: PL_GOLD_DEEP }}
+      style={{ color: color ?? PL_GOLD_DEEP }}
     >
       {children}
     </span>
@@ -1775,7 +1775,7 @@ export function GroupPlanView({
                       style={{
                         color: GOLD_DEEP,
                         border: `1px solid rgba(216,184,93,0.45)`,
-                        background: "transparent",
+                        background: "#1B2A38",
                       }}
                     >
                       <Plus size={16} strokeWidth={1.7} /> Add time or activity
@@ -1819,7 +1819,7 @@ export function GroupPlanView({
                 <div className="min-w-0">
                   <span
                     className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em]"
-                    style={{ color: PL_GOLD }}
+                    style={{ color: "#8B7B41" }}
                   >
                     <Bookmark size={11} strokeWidth={1.6} />
                     Your personal plan
@@ -1840,7 +1840,7 @@ export function GroupPlanView({
                     type="button"
                     onClick={() => setView("Timeline")}
                     className="truncate text-[10px] font-semibold uppercase tracking-[0.14em] transition-opacity hover:opacity-70"
-                    style={{ color: PL_TEXT }}
+                    style={{ color: "#3E3C3C" }}
                   >
                     {dayLabel}
                     {activeDay
@@ -1874,7 +1874,7 @@ export function GroupPlanView({
 
               {/* next group activity */}
               <div className="mt-5">
-                <PlannerLabel>Next group activity</PlannerLabel>
+                <PlannerLabel color="#8C8878">Next group activity</PlannerLabel>
                 {nextBooking ? (
                   <div
                     className="mt-2.5 flex items-center gap-4 rounded-[15px] px-4 py-4"
@@ -1949,12 +1949,12 @@ export function GroupPlanView({
                   onClick={() => openEditor(activeDay ?? undefined)}
                   className="mt-4 flex h-[46px] w-full items-center justify-center gap-2 rounded-[9px] text-[14px] font-medium transition-colors"
                   style={{
-                    background: PL_NAVY,
+                    background: "#213756",
                     color: PL_BG_TOP,
                     boxShadow: "0 6px 16px rgba(13,28,43,0.14)",
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = PL_NAVY_HOVER)}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = PL_NAVY)}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#213756")}
                 >
                   <Plus size={16} strokeWidth={2} style={{ color: PL_GOLD }} /> Add personal plan
                 </button>
@@ -1964,7 +1964,7 @@ export function GroupPlanView({
 
               {/* my plan */}
               <div className="mt-5 pb-6">
-                <PlannerLabel>My plan</PlannerLabel>
+                <PlannerLabel color="#A0845A">My plan</PlannerLabel>
                 {stream.length === 0 ? (
                   <p className="mt-3 text-[12.5px]" style={{ color: PL_TEXT_2 }}>
                     Nothing scheduled for this day.
