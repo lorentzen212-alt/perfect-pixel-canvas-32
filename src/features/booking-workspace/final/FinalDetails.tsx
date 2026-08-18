@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
-import { IVORY_SHADOW } from "@/features/booking-workspace/overview/materials";
 import {
   DropdownMenu,
   DropdownMenuContent,
