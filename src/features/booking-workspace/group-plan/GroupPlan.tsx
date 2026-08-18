@@ -1602,7 +1602,7 @@ export function GroupPlanView({
             <div ref={ribbonRef} className="relative pl-9 pr-9 pt-9 pb-8 lg:pr-7">
               <div
                 aria-hidden
-                className="absolute inset-0 rounded-tl-[19px] rounded-tr-[19px] lg:rounded-tr-none"
+                className="absolute inset-0 rounded-tr-[19px] lg:rounded-tr-none"
                 style={{
                   background:
                     "linear-gradient(180deg, rgba(255,255,255,0.022) 0%, rgba(6,18,32,0.18) 100%)",
