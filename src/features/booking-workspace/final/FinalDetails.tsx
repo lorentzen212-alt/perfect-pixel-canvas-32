@@ -475,7 +475,7 @@ function TimeSide({
 
 function Row({ label, value, tone }: { label: string; value: string; tone?: "green" }) {
   return (
-    <div className="flex items-center justify-between gap-4 py-[7px]">
+    <div className="flex items-center justify-between gap-4 py-[6px]">
       <span className="min-w-0 truncate text-[13.5px]" style={{ color: INK }}>
         {label}
       </span>
