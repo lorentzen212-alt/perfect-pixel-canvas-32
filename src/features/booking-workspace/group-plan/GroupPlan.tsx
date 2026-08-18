@@ -420,7 +420,7 @@ function PlannerRow({
   return (
     <li className="relative flex items-stretch gap-3">
       <span
-        className="w-[42px] shrink-0 pt-[19px] text-[12px] tabular-nums"
+        className="w-[42px] shrink-0 pt-[14px] text-[12px] tabular-nums"
         style={{ color: ghost ? PL_TEXT_2 : PL_TEXT }}
       >
         {time}
@@ -431,7 +431,7 @@ function PlannerRow({
           style={{ background: "rgba(13,28,43,0.10)" }}
         />
         <span
-          className="absolute left-1/2 top-[22px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
+          className="absolute left-1/2 top-[18px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
           style={{
             background: ghost ? "rgba(13,28,43,0.18)" : mine ? PL_GOLD : PL_TEXT,
           }}
@@ -439,11 +439,11 @@ function PlannerRow({
       </span>
       <div className="min-w-0 flex-1">
         <div
-          className="flex min-h-[58px] items-center gap-3 py-2"
+          className="flex min-h-[44px] items-center gap-3 py-1.5"
           style={{ borderBottom: last ? "none" : `1px solid rgba(217,209,198,0.55)` }}
         >
           <span
-            className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
+            className="grid h-[32px] w-[32px] shrink-0 place-items-center rounded-full"
             style={{
               background: mine ? "rgba(201,168,95,0.12)" : "rgba(13,28,43,0.05)",
               color: ghost ? PL_TEXT_2 : mine ? PL_GOLD_DEEP : PL_TEXT,
@@ -485,7 +485,7 @@ function PlannerTool({
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 px-2 py-2.5 text-[11.5px] transition-colors hover:bg-[rgba(13,28,43,0.03)]"
+      className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 px-2 py-2 text-[11.5px] transition-colors hover:bg-[rgba(13,28,43,0.03)]"
       style={{ color: PL_TEXT }}
     >
       <span style={{ color: PL_GOLD }}>{icon}</span>
@@ -1586,7 +1586,16 @@ export function GroupPlanView({
   const country = destination?.split(",").pop()?.trim() ?? "";
 
   return (
-    <div className="pb-14" style={{ background: PAGE }}>
+    <div
+      className="pb-14"
+      style={{
+        background: PAGE,
+        padding: 8,
+        borderRadius: 30,
+        boxShadow:
+          "inset 0 1px 2px rgba(13,28,43,0.10), inset 0 -1px 0 rgba(255,255,255,0.75)",
+      }}
+    >
       <div
         className="rounded-[22px]"
         style={{
