@@ -218,7 +218,7 @@ function NextSteps({
             ? {
                 height: 28,
                 width: 28,
-                background: "#2E7D55",
+                background: "#2E6B45",
                 color: "#FFFFFF",
                 fontSize: 11,
                 boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
@@ -227,7 +227,7 @@ function NextSteps({
               ? {
                   height: 28,
                   width: 28,
-                  background: "linear-gradient(135deg, #B8860B, #DAA520)",
+                  background: "#C38A20",
                   color: "#FFFFFF",
                   fontSize: 12,
                   boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
