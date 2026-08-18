@@ -102,7 +102,7 @@ function Card({
   return (
     <div
       className={`rounded-[14px] p-5 ${className}`}
-      style={{ background: WHITE, border: `1px solid ${HAIR}`, boxShadow: IVORY_SHADOW, ...style }}
+      style={{ background: WHITE, border: `1px solid ${HAIR}`, boxShadow: CARD_SHADOW, ...style }}
     >
       {children}
     </div>
@@ -831,7 +831,7 @@ export function FinalDetails({
         {/* ── footer action banner ── */}
         <div
           className="flex flex-wrap items-center gap-x-6 gap-y-5 rounded-[14px] px-6 py-5"
-          style={{ background: BANNER, border: `1px solid ${HAIR_SOFT}`, boxShadow: IVORY_SHADOW }}
+          style={{ background: BANNER, border: `1px solid ${HAIR_SOFT}`, boxShadow: CARD_SHADOW }}
         >
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
           <p
