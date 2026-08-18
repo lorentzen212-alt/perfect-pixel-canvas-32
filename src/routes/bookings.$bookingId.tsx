@@ -149,6 +149,15 @@ type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 export type RoomLineUI = { type: string; note: string; qty: number; perRoom: number };
 
 /** Baseline (currently booked) room distribution — the "Current" column on Changes. */
+/** Booked group meal arrangements shown on the Final Details tab (read-only). */
+const FINAL_MEALS: { label: string; value: string }[] = [
+  { label: "Dinner", value: "18:30" },
+  { label: "Lunch", value: "13:00" },
+  { label: "Lunch packages", value: "63 pcs" },
+  { label: "Breakfast packages", value: "12 pcs" },
+  { label: "Additional dinner", value: "23 Aug · 19:30" },
+];
+
 const BASE_ROOMS: RoomLineUI[] = [
   { type: "Twin rooms", note: "2 single beds", qty: 17, perRoom: 2 },
   { type: "Double rooms", note: "1 double bed", qty: 6, perRoom: 2 },
