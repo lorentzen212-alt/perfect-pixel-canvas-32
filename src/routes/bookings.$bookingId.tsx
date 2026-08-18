@@ -1203,7 +1203,7 @@ function Workspace({ booking }: { booking: Booking }) {
             isFolder
               ? "relative flex flex-1 flex-col px-0 pb-0 pt-0"
               : isGroupPlan
-                ? "relative flex flex-1 flex-col px-5 pb-14 pt-0 sm:px-9"
+                ? "relative flex flex-1 flex-col px-0 pb-14 pt-0"
                 : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
           style={{ backgroundColor: PLATE_BG }}
