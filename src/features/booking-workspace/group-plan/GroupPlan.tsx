@@ -1416,16 +1416,16 @@ export function GroupPlanView({
   );
 
   const nextBooking = dayBookings[0] ?? null;
-  const firstFree = stream.find((e) => e.kind === "free") ?? null;
+  
 
   /* planner: next group activity time range + the free window before it */
   const nextStart = nextBooking?.time ? toMin(nextBooking.time) : null;
-  const nextRange =
-    nextBooking && nextStart !== null
-      ? ASSUMED_MIN[nextBooking.type] > 0
-        ? `${toHHMM(nextStart)} – ${toHHMM(nextStart + ASSUMED_MIN[nextBooking.type])}`
-        : toHHMM(nextStart)
-      : (nextBooking?.time ?? "—");
+  const nextStartLabel =
+    nextStart !== null ? toHHMM(nextStart) : (nextBooking?.time ?? "\u2014");
+  const nextEnd =
+    nextBooking && nextStart !== null && ASSUMED_MIN[nextBooking.type] > 0
+      ? toHHMM(nextStart + ASSUMED_MIN[nextBooking.type])
+      : null;
   const nextSub = nextBooking
     ? nextBooking.summary ?? nextBooking.secondary ?? nextBooking.location ?? null
     : null;
@@ -1433,13 +1433,11 @@ export function GroupPlanView({
     const idx = nextBooking
       ? stream.findIndex((e) => e.kind === "item" && e.item.id === nextBooking.id)
       : -1;
-    for (let i = idx - 1; i >= 0; i--) {
-      const e = stream[i];
-      if (e.kind === "free") return e;
-      break;
-    }
-    return firstFree && firstFree.kind === "free" ? firstFree : null;
-  }, [stream, nextBooking, firstFree]);
+    if (idx <= 0) return null;
+    const prev = stream[idx - 1];
+    return prev && prev.kind === "free" && prev.minutes !== null ? prev : null;
+  }, [stream, nextBooking]);
+
 
   const todayISO = new Date().toISOString().slice(0, 10);
   const dayIdx = activeDay ? dayKeys.indexOf(activeDay) : -1;
@@ -1820,7 +1818,7 @@ export function GroupPlanView({
           >
             <div className="px-6 pt-6 sm:px-7 sm:pt-7">
               {/* header */}
-              <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
+              <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
                 <div className="min-w-0">
                   <span
                     className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em]"
@@ -1840,7 +1838,7 @@ export function GroupPlanView({
                   </p>
                 </div>
 
-                <div className="flex shrink-0 items-center gap-2 pt-1">
+                <div className="flex shrink-0 items-center gap-2 pb-[2px]">
                   <button
                     type="button"
                     onClick={() => setView("Timeline")}
@@ -1891,10 +1889,25 @@ export function GroupPlanView({
                   >
                     <span className="min-w-0 flex-1">
                       <span
-                        className="block text-[20px] leading-none tabular-nums"
-                        style={{ color: PL_TEXT, fontFamily: SERIF }}
+                        className="block text-[20px] leading-none"
+                        style={{
+                          color: PL_TEXT,
+                          fontFamily: SERIF,
+                          fontVariantNumeric: "lining-nums",
+                          textDecoration: "none",
+                        }}
                       >
-                        {nextRange}
+                        {nextEnd ? (
+                          <>
+                            {nextStartLabel}
+                            <span className="px-[0.32em]" style={{ opacity: 0.55 }}>
+                              &ndash;
+                            </span>
+                            {nextEnd}
+                          </>
+                        ) : (
+                          nextStartLabel
+                        )}
                       </span>
                       <span
                         className="mt-2 block truncate text-[14px] font-semibold"
@@ -1924,9 +1937,7 @@ export function GroupPlanView({
                 {freeBefore && (
                   <div className="mt-3 flex items-center gap-2 text-[12.5px]" style={{ color: PL_TEXT }}>
                     <Clock size={14} strokeWidth={1.4} style={{ color: PL_TEXT_2 }} />
-                    {freeBefore.minutes === null
-                      ? "Rest of the day free before this"
-                      : `${fmtDur(freeBefore.minutes)} free before this`}
+                    {`${fmtDur(freeBefore.minutes as number)} free before this`}
                   </div>
                 )}
 
