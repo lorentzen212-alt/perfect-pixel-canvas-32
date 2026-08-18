@@ -1817,15 +1817,15 @@ export function GroupPlanView({
 
           {/* ══ right · group planner (≈35%) ══ */}
           <aside
-            className="m-4 w-full shrink-0 overflow-hidden rounded-[21px] lg:mt-1 lg:mr-1 lg:mb-1 lg:ml-4 lg:w-[calc(36%-20px)]"
+            className="m-4 w-full shrink-0 overflow-hidden rounded-[21px] lg:m-1 lg:w-[calc(36%-8px)]"
             style={{
               background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
               border: `1px solid ${GOLD_PATH}`,
-              boxShadow: "0 10px 30px rgba(4,12,22,0.16), 0 2px 6px rgba(4,12,22,0.10)",
-
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.60), 0 3px 4px -2px rgba(4,12,22,0.20), 0 12px 20px -8px rgba(4,12,22,0.24), 0 30px 56px -18px rgba(4,12,22,0.34)",
             }}
           >
-            <div className="px-6 pt-6 sm:px-7 sm:pt-7">
+            <div className="px-5 pt-5 sm:px-5 sm:pt-5">
               {/* header */}
               <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
                 <div className="min-w-0">
