@@ -264,10 +264,10 @@ function NextSteps({
               {i < steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[14px] top-1/2 w-[2px] -translate-x-1/2"
+                  className="absolute left-[14px] top-1/2 z-[1] w-[1.5px] -translate-x-1/2"
                   style={{
                     height: "100%",
-                    background: done || active ? "#2E7D55" : "#D4D2CC",
+                    background: done ? "#2E6B45" : "#DCDAD4",
                   }}
                 />
               )}
