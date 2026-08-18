@@ -303,112 +303,176 @@ function seedMyItems(date?: string): PlanItem[] {
   ];
 }
 
-function PlanMedallion({ type, mine }: { type: PlanItemType; mine?: boolean }) {
+/* ── planner-scoped palette (right aside only) ──────────── */
+const PL_BG = "#F5F1E9";
+const PL_BG_TOP = "#FBF8F3";
+const PL_BG_BOTTOM = "#F1ECE4";
+const PL_CARD = "#FCFBF8";
+const PL_TRAY = "#F2EEE7";
+const PL_TEXT = "#0D1C2B";
+const PL_TEXT_2 = "#767168";
+const PL_GOLD = "#C9A85F";
+const PL_GOLD_DEEP = "#A8873C";
+const PL_HAIR = "rgba(217,209,198,0.7)";
+const PL_BORDER = "rgba(217,209,198,0.75)";
+const PL_NAVY = "#0D1C2B";
+const PL_NAVY_HOVER = "#13283C";
+
+function PlannerLabel({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="grid h-[32px] w-[32px] shrink-0 place-items-center rounded-full"
-      style={{
-        border: `1px solid ${mine ? "rgba(216,184,93,0.38)" : "rgba(255,255,255,0.14)"}`,
-        background: mine ? "rgba(216,184,93,0.10)" : "rgba(255,255,255,0.03)",
-        color: mine ? GOLD_DEEP : TEXT_2,
-      }}
+      className="text-[10px] font-semibold uppercase tracking-[0.16em]"
+      style={{ color: PL_GOLD_DEEP }}
     >
-      {TYPE_ICON_SM[type]}
+      {children}
     </span>
   );
 }
 
-function StatusCard({
-  icon,
-  label,
-  value,
-  sub,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  sub: string;
-}) {
+function PlannerPill({ kind }: { kind: "booking" | "myplan" }) {
+  const booking = kind === "booking";
   return (
-    <div
-      className="min-w-0 flex-1 rounded-[12px] px-3 py-2.5"
-      style={{ background: SURFACE_SOFT, border: `1px solid ${HAIR_SOFT}` }}
+    <span
+      className="inline-flex h-[30px] shrink-0 items-center justify-center rounded-[7px] px-2.5 text-[9.5px] font-semibold uppercase tracking-[0.12em]"
+      style={{
+        color: booking ? PL_TEXT : PL_GOLD_DEEP,
+        background: booking ? "rgba(13,28,43,0.06)" : "rgba(201,168,95,0.14)",
+        border: booking ? "1px solid rgba(13,28,43,0.08)" : "1px solid rgba(201,168,95,0.18)",
+      }}
     >
-      <div className="flex items-center gap-1.5">
-        <span style={{ color: GOLD }}>{icon}</span>
-        <span
-          className="truncate text-[9px] font-semibold uppercase tracking-[0.12em]"
-          style={{ color: GOLD }}
-        >
-          {label}
-        </span>
-      </div>
-      <div className="mt-1.5 truncate text-[18px] leading-none" style={{ color: TEXT }}>
-        {value}
-      </div>
-      <div className="mt-1 truncate text-[11px]" style={{ color: MUTED }}>
-        {sub}
-      </div>
-    </div>
+      {booking ? "Booking" : "My plan"}
+    </span>
   );
 }
 
-function TimelineRow({
+function PlannerMenu({
+  items,
+}: {
+  items: { label: string; icon?: React.ReactNode; onClick: () => void }[];
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <span className="relative">
+      <button
+        type="button"
+        aria-label="Item actions"
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((o) => !o);
+        }}
+        onBlur={() => setTimeout(() => setOpen(false), 140)}
+        className="grid h-7 w-7 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+        style={{ color: PL_TEXT_2 }}
+      >
+        <MoreHorizontal size={16} strokeWidth={1.6} />
+      </button>
+      {open && (
+        <span
+          className="absolute right-0 top-8 z-20 flex w-[180px] flex-col rounded-[9px] py-1 text-left"
+          style={{
+            background: PL_CARD,
+            border: `1px solid ${PL_BORDER}`,
+            boxShadow: "0 18px 34px -18px rgba(13,28,43,0.30)",
+          }}
+        >
+          {items.map((it) => (
+            <button
+              key={it.label}
+              type="button"
+              onMouseDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setOpen(false);
+                it.onClick();
+              }}
+              className="flex items-center gap-2 px-3 py-2 text-[12.5px] transition-colors hover:bg-[rgba(13,28,43,0.04)]"
+              style={{ color: PL_TEXT }}
+            >
+              {it.icon}
+              {it.label}
+            </button>
+          ))}
+        </span>
+      )}
+    </span>
+  );
+}
+
+function PlannerRow({
   time,
-  timeEnd,
-  dotColor,
-  accent,
-  variant = "solid",
-  children,
+  tone,
+  icon,
+  title,
+  sub,
+  right,
+  last,
 }: {
   time: string;
-  timeEnd?: string;
-  dotColor: string;
-  accent?: boolean;
-  variant?: "solid" | "outline";
-  children: React.ReactNode;
+  tone: "booking" | "mine" | "ghost";
+  icon: React.ReactNode;
+  title: string;
+  sub?: string;
+  right?: React.ReactNode;
+  last?: boolean;
 }) {
+  const mine = tone === "mine";
+  const ghost = tone === "ghost";
   return (
-    <li className="relative flex items-stretch gap-2.5">
+    <li className="relative flex items-stretch gap-3">
       <span
-        className="w-[46px] shrink-0 pt-3 text-right text-[12px] tabular-nums leading-tight"
-        style={{ color: TIME }}
+        className="w-[42px] shrink-0 pt-[19px] text-[12px] tabular-nums"
+        style={{ color: ghost ? PL_TEXT_2 : PL_TEXT }}
       >
         {time}
-        {timeEnd && (
-          <span className="block" style={{ color: MUTED }}>
-            {timeEnd}
-          </span>
-        )}
       </span>
-      <span className="relative w-[10px] shrink-0" aria-hidden>
+      <span className="relative w-[8px] shrink-0" aria-hidden>
         <span
           className="absolute bottom-0 left-1/2 top-0 w-px -translate-x-1/2"
-          style={{ background: HAIR_SOFT }}
+          style={{ background: "rgba(13,28,43,0.10)" }}
         />
         <span
-          className="absolute left-1/2 top-[16px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
-          style={{ background: dotColor }}
+          className="absolute left-1/2 top-[22px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
+          style={{
+            background: ghost ? "rgba(13,28,43,0.18)" : mine ? PL_GOLD : PL_TEXT,
+          }}
         />
       </span>
-      <div
-        className="relative min-w-0 flex-1 overflow-hidden rounded-[10px]"
-        style={
-          variant === "outline"
-            ? { background: "transparent", border: `1px solid ${GOLD_LINE}` }
-            : { background: "rgba(255,255,255,0.03)", border: `1px solid ${HAIR_SOFT}` }
-        }
-      >
-        {accent && (
-          <span aria-hidden className="absolute inset-y-0 left-0 w-[2px]" style={{ background: GOLD }} />
-        )}
-        <div className="flex items-center gap-3 py-2.5 pl-3.5 pr-2.5">{children}</div>
+      <div className="min-w-0 flex-1">
+        <div
+          className="flex min-h-[58px] items-center gap-3 py-2"
+          style={{ borderBottom: last ? "none" : `1px solid rgba(217,209,198,0.55)` }}
+        >
+          <span
+            className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
+            style={{
+              background: mine ? "rgba(201,168,95,0.12)" : "rgba(13,28,43,0.05)",
+              color: ghost ? PL_TEXT_2 : mine ? PL_GOLD_DEEP : PL_TEXT,
+              opacity: ghost ? 0.8 : 1,
+            }}
+          >
+            {icon}
+          </span>
+          <span className="min-w-0 flex-1">
+            <span
+              className="block truncate text-[13.5px] font-semibold"
+              style={{ color: ghost ? PL_TEXT_2 : PL_TEXT }}
+            >
+              {title}
+            </span>
+            {sub && (
+              <span className="mt-[2px] block truncate text-[11.5px]" style={{ color: PL_TEXT_2 }}>
+                {sub}
+              </span>
+            )}
+          </span>
+          {right && <span className="flex shrink-0 items-center gap-1">{right}</span>}
+        </div>
       </div>
     </li>
   );
 }
 
-function QuickAction({
+function PlannerTool({
   icon,
   label,
   onClick,
@@ -421,10 +485,10 @@ function QuickAction({
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-[9px] px-2 py-2 text-[11.5px] transition-colors hover:bg-[rgba(255,255,255,0.04)]"
-      style={{ color: TEXT, border: `1px solid ${EDGE}`, background: "transparent" }}
+      className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 px-2 py-2.5 text-[11.5px] transition-colors hover:bg-[rgba(13,28,43,0.03)]"
+      style={{ color: PL_TEXT }}
     >
-      <span style={{ color: GOLD }}>{icon}</span>
+      <span style={{ color: PL_GOLD }}>{icon}</span>
       <span className="truncate">{label}</span>
     </button>
   );
