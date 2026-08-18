@@ -489,6 +489,10 @@ function Workspace({ booking }: { booking: Booking }) {
   const { tab: tabParam } = Route.useSearch();
   const [tab, setTab] = useState<WorkspaceTab>(tabParam ?? "Overview");
   const [changesSub, setChangesSub] = useState<"rooms" | "addons" | "status">("rooms");
+  const goToTab = (next: WorkspaceTab) => {
+    setChangesSub("rooms");
+    setTab(next);
+  };
   /* rooming progress is derived from the live rooming list, never hardcoded */
   const [roomingStats, setRoomingStats] = useState<{
     filled: number;
@@ -1220,7 +1224,7 @@ function Workspace({ booking }: { booking: Booking }) {
           statusLabel={confirmed ? "Confirmed" : "Pending"}
           statusTone={confirmed ? "#1E5B39" : "#7A5A12"}
           active={tab as WorkspaceTab}
-          onSelect={(t) => setTab(t)}
+          onSelect={goToTab}
           surface={
             isFolder
               ? tab === "Documents" || tab === "Final Details"
@@ -1281,7 +1285,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <RoomingFolder
                 bookingId={booking.id}
                 data={roomingData}
-                onHistory={() => setTab("Changes")}
+                onHistory={() => goToTab("Changes")}
                 onNewVersion={() =>
                   navigate({ to: "/rooming-list/$bookingId", params: { bookingId: booking.id } })
                 }
@@ -1333,7 +1337,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <GroupPlanView
                 bookingItems={groupPlanItems}
                 defaultDate={stay.arrival}
-                onRequestChange={() => setTab("Changes")}
+                onRequestChange={() => goToTab("Changes")}
                 destination={booking.destination}
               />
             ) : tab !== "Overview" ? (
@@ -1352,7 +1356,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <OverviewFolder
                 bookingId={booking.id}
                 journey={journey}
-                onViewTimeline={() => setTab("Changes")}
+                onViewTimeline={() => goToTab("Changes")}
                 cancellation={
                   booking.freeCancellationUntil
                     ? { deadline: booking.freeCancellationUntil }
