@@ -568,9 +568,14 @@ function journeyPaths(m: RibbonMetrics) {
 
   const k = (xEnd - xStart) * 0.55;
   const curve = `C ${r2(xStart + k)} ${yEdge} ${r2(xEnd - k)} ${SWEEP_TOP} ${r2(xEnd)} ${SWEEP_TOP}`;
-  const rise = `M ${r2(xStart)} ${yEdge} ${curve} H ${r2(m.w)}`;
-  return { path, sweep: rise, wedge: `${rise} V ${yEdge} Z` };
+  /* the plateau stops short of the perimeter; a 1px tip carries it the last
+     stretch so it merges with the outer frame's hairline instead of dying */
+  const xTip = r2(Math.max(xEnd, m.w - SWEEP_TIP));
+  const rise = `M ${r2(xStart)} ${yEdge} ${curve} H ${xTip}`;
+  const tip = `M ${xTip} ${SWEEP_TOP} H ${r2(m.w)}`;
+  return { path, sweep: rise, sweepTip: tip, wedge: `${rise} H ${r2(m.w)} V ${yEdge} Z` };
 }
+
 
 function ViewSwitch({
   view,
