@@ -1589,7 +1589,7 @@ export function GroupPlanView({
               <div ref={ribbonRef} className="relative pl-9 pr-9 pt-9 pb-8 lg:pr-7">
                 <div
                   aria-hidden
-                className="absolute inset-0 rounded-tl-[19px] rounded-tr-[19px] lg:rounded-tr-none"
+                  className="absolute inset-0 rounded-tl-[19px] rounded-tr-[19px] lg:rounded-tr-none"
                   style={{
                     background:
                       "linear-gradient(180deg, rgba(255,255,255,0.022) 0%, rgba(6,18,32,0.18) 100%)",
@@ -1805,14 +1805,14 @@ export function GroupPlanView({
           </section>
 
           {/* ══ right · group planner (≈35%) ══ */}
-        <aside
-          className="m-4 w-full shrink-0 overflow-hidden rounded-[21px] lg:mt-1 lg:mr-1 lg:mb-1 lg:ml-4 lg:w-[calc(36%-20px)]"
-          style={{
-            background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
-            border: `1px solid ${GOLD_PATH}`,
-            boxShadow: "0 10px 30px rgba(4,12,22,0.16), 0 2px 6px rgba(4,12,22,0.10)",
-          }}
-        >
+          <aside
+            className="m-4 w-full shrink-0 overflow-hidden rounded-[21px] lg:mt-1 lg:mr-1 lg:mb-1 lg:ml-4 lg:w-[calc(36%-20px)]"
+            style={{
+              background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
+              border: `1px solid ${GOLD_PATH}`,
+              boxShadow: "0 10px 30px rgba(4,12,22,0.16), 0 2px 6px rgba(4,12,22,0.10)",
+            }}
+          >
             <div className="px-6 pt-6 sm:px-7 sm:pt-7">
               {/* header */}
               <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
