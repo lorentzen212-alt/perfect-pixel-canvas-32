@@ -1812,7 +1812,7 @@ export function GroupPlanView({
             style={{
               background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
               border: `1px solid ${GOLD_PATH}`,
-              boxShadow: "0 16px 34px -8px rgba(4,12,22,0.16), 0 6px 12px -7px rgba(4,12,22,0.08)",
+              boxShadow: "0 10px 30px rgba(4,12,22,0.16), 0 2px 6px rgba(4,12,22,0.10)",
 
             }}
           >
