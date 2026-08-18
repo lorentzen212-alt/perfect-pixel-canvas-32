@@ -1264,6 +1264,81 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
 }
 
 
+/* ── cream planner surface — the personal companion panel ──
+   Warm off-white against the dark group itinerary on the left. */
+const P_BG = "#F7F4EE";
+const P_SURFACE = "#FCFAF7";
+const P_INK = "#0B1E32";
+const P_INK_2 = "#6F7780";
+const P_GOLD = "#C9A85F";
+const P_LINE = "#E5DED3";
+
+function PLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      className="block text-[10.5px] font-semibold uppercase tracking-[0.16em]"
+      style={{ color: P_GOLD }}
+    >
+      {children}
+    </span>
+  );
+}
+
+/** three-dot menu tuned for the cream panel */
+function PlanMenu({
+  items,
+}: {
+  items: { label: string; icon?: React.ReactNode; onClick: () => void }[];
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <span className="relative">
+      <button
+        type="button"
+        aria-label="Plan actions"
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((o) => !o);
+        }}
+        onBlur={() => setTimeout(() => setOpen(false), 140)}
+        className="grid h-7 w-7 place-items-center rounded-[6px] transition-colors hover:bg-[rgba(11,30,50,0.06)]"
+        style={{ color: P_INK_2 }}
+      >
+        <MoreHorizontal size={16} strokeWidth={1.6} />
+      </button>
+      {open && (
+        <span
+          className="absolute right-0 top-8 z-20 flex w-[170px] flex-col rounded-[9px] py-1 text-left"
+          style={{
+            background: "#FFFFFF",
+            border: `1px solid ${P_LINE}`,
+            boxShadow: "0 16px 30px -20px rgba(11,30,50,0.35)",
+          }}
+        >
+          {items.map((it) => (
+            <button
+              key={it.label}
+              type="button"
+              onMouseDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setOpen(false);
+                it.onClick();
+              }}
+              className="flex items-center gap-2 px-3 py-2 text-[12.5px] transition-colors hover:bg-[rgba(11,30,50,0.04)]"
+              style={{ color: P_INK }}
+            >
+              {it.icon}
+              {it.label}
+            </button>
+          ))}
+        </span>
+      )}
+    </span>
+  );
+}
+
+
 /* ── main view ──────────────────────────────────────────── */
 
 export function GroupPlanView({
