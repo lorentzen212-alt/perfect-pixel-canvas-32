@@ -1420,12 +1420,12 @@ export function GroupPlanView({
 
   /* planner: next group activity time range + the free window before it */
   const nextStart = nextBooking?.time ? toMin(nextBooking.time) : null;
-  const nextRange =
-    nextBooking && nextStart !== null
-      ? ASSUMED_MIN[nextBooking.type] > 0
-        ? `${toHHMM(nextStart)} – ${toHHMM(nextStart + ASSUMED_MIN[nextBooking.type])}`
-        : toHHMM(nextStart)
-      : (nextBooking?.time ?? "—");
+  const nextStartLabel =
+    nextStart !== null ? toHHMM(nextStart) : (nextBooking?.time ?? "\u2014");
+  const nextEnd =
+    nextBooking && nextStart !== null && ASSUMED_MIN[nextBooking.type] > 0
+      ? toHHMM(nextStart + ASSUMED_MIN[nextBooking.type])
+      : null;
   const nextSub = nextBooking
     ? nextBooking.summary ?? nextBooking.secondary ?? nextBooking.location ?? null
     : null;
@@ -1889,10 +1889,25 @@ export function GroupPlanView({
                   >
                     <span className="min-w-0 flex-1">
                       <span
-                        className="block text-[20px] leading-none tabular-nums"
-                        style={{ color: PL_TEXT, fontFamily: SERIF }}
+                        className="block text-[20px] leading-none"
+                        style={{
+                          color: PL_TEXT,
+                          fontFamily: SERIF,
+                          fontVariantNumeric: "lining-nums",
+                          textDecoration: "none",
+                        }}
                       >
-                        {nextRange}
+                        {nextEnd ? (
+                          <>
+                            {nextStartLabel}
+                            <span className="px-[0.32em]" style={{ opacity: 0.55 }}>
+                              &ndash;
+                            </span>
+                            {nextEnd}
+                          </>
+                        ) : (
+                          nextStartLabel
+                        )}
                       </span>
                       <span
                         className="mt-2 block truncate text-[14px] font-semibold"
