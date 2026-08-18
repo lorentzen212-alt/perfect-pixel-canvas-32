@@ -1433,13 +1433,11 @@ export function GroupPlanView({
     const idx = nextBooking
       ? stream.findIndex((e) => e.kind === "item" && e.item.id === nextBooking.id)
       : -1;
-    for (let i = idx - 1; i >= 0; i--) {
-      const e = stream[i];
-      if (e.kind === "free") return e;
-      break;
-    }
-    return firstFree && firstFree.kind === "free" ? firstFree : null;
-  }, [stream, nextBooking, firstFree]);
+    if (idx <= 0) return null;
+    const prev = stream[idx - 1];
+    return prev && prev.kind === "free" && prev.minutes !== null ? prev : null;
+  }, [stream, nextBooking]);
+
 
   const todayISO = new Date().toISOString().slice(0, 10);
   const dayIdx = activeDay ? dayKeys.indexOf(activeDay) : -1;
