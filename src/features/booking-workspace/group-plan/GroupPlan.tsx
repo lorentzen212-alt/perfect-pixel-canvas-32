@@ -1421,7 +1421,6 @@ export function GroupPlanView({
   );
 
   const nextBooking = dayBookings[0] ?? null;
-  const firstFree = stream.find((e) => e.kind === "free") ?? null;
 
   /* the next group activity, with an end time derived from the same
      assumed-duration table the free-time logic already uses */
