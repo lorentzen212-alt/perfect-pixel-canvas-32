@@ -423,19 +423,19 @@ export function ChangesFolder({
                 <Eyebrow>Room changes</Eyebrow>
                 <span className="ml-auto hidden items-center gap-0 sm:flex">
                   <span
-                    className="w-[110px] text-center text-[10.5px] font-semibold uppercase"
+                    className="w-[160px] text-center text-[10.5px] font-semibold uppercase"
                     style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
                   >
                     Current
                   </span>
                   <span
-                    className="w-[150px] text-center text-[10.5px] font-semibold uppercase"
+                    className="w-[200px] text-center text-[10.5px] font-semibold uppercase"
                     style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
                   >
                     Requested
                   </span>
                   <span
-                    className="w-[96px] text-center text-[10.5px] font-semibold uppercase"
+                    className="w-[140px] text-center text-[10.5px] font-semibold uppercase"
                     style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
                   >
                     Change
@@ -445,17 +445,17 @@ export function ChangesFolder({
 
               <ul className="mt-3">
                 {lines.map((l, i) => (
-                  <li key={l.type} className="flex flex-wrap items-stretch gap-y-3">
-                    {/* name + current share one ruled block; the hairline on its
-                          right edge separates them from the editable columns */}
-                    <span
-                      className="flex min-w-[280px] flex-1 items-stretch sm:border-r"
-                      style={{
-                        borderRightColor: HAIR_SOFT,
-                        borderBottom:
-                          i < lines.length - 1 ? `1px solid ${HAIR_SOFT}` : "1px solid transparent",
-                      }}
-                    >
+                  <li
+                    key={l.type}
+                    className="flex flex-wrap items-stretch gap-y-3"
+                    style={{
+                      borderBottom:
+                        i < lines.length - 1 ? `1px solid ${HAIR_SOFT}` : "1px solid transparent",
+                    }}
+                  >
+                    {/* the row rule spans every column, so name, current, requested and
+                        change read as one table */}
+                    <span className="flex min-w-[280px] flex-1 items-stretch">
                       <span className="flex min-w-0 flex-1 items-center gap-3 py-[15px] pr-4">
                         <span className="shrink-0" style={{ color: BRONZE }}>
                           {roomIcon(l.type)}
@@ -473,13 +473,13 @@ export function ChangesFolder({
                         </span>
                       </span>
                       <span
-                        className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[110px]"
+                        className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[160px]"
                         style={{ color: INK }}
                       >
                         {l.base}
                       </span>
                     </span>
-                    <span className="flex w-[150px] items-center justify-center">
+                    <span className="flex w-[200px] items-center justify-center">
                       <Counter
                         value={l.qty}
                         label={l.type}
@@ -488,7 +488,7 @@ export function ChangesFolder({
                         }
                       />
                     </span>
-                    <span className="flex w-[96px] items-center justify-center">
+                    <span className="flex w-[140px] items-center justify-center">
                       <DeltaBadge diff={l.diff} />
                     </span>
                   </li>
