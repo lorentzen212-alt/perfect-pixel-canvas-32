@@ -1311,7 +1311,7 @@ function Workspace({ booking }: { booking: Booking }) {
                   setTab("Changes");
                 }}
                 onComplete={() => setTab("Overview")}
-              />feat
+              />
             ) : tab === "Messages" ? (
               <BookingMessagesView
                 bookingId={booking.id}
