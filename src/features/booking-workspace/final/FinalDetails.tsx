@@ -806,7 +806,7 @@ export function FinalDetails({
         </div>
 
         {/* ── optional note ── */}
-        <Card>
+        <Card className="p-4">
           <div className="flex items-center gap-2.5">
             <MessageSquare size={17} strokeWidth={1.7} style={{ color: INK }} />
             <span className="text-[15px] font-semibold" style={{ color: INK }}>
@@ -825,7 +825,7 @@ export function FinalDetails({
             maxLength={500}
             aria-label="Final note to hotel"
             placeholder="Add an important note for the hotel..."
-            className="mt-3 h-[76px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+            className="mt-2.5 h-[68px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
             style={fieldStyle}
           />
           <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_FAINT }}>
