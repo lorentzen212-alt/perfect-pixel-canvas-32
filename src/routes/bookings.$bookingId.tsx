@@ -1212,7 +1212,7 @@ function Workspace({ booking }: { booking: Booking }) {
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
           {isFolder ? null : (
 
-            <div className="flex flex-wrap items-center gap-y-5 py-6">
+            <div className={`flex flex-wrap items-center gap-y-5 py-6${isGroupPlan ? " px-5 sm:px-9" : ""}`}>
               {strip.map((s, i) => (
                 <div
                   key={s.lead + i}
