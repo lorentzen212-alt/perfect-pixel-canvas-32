@@ -2,14 +2,16 @@ import * as React from "react";
 import {
   ArrowRight,
   CalendarDays,
-  ChevronRight,
   ChevronDown,
   Clock,
+  Info,
   Leaf,
+  MessageSquare,
   ShieldCheck,
   Star,
   User,
   Utensils,
+  X,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
@@ -46,6 +48,24 @@ const TIME_OPTIONS = (() => {
   return out;
 })();
 
+export type TimeMode = "exact" | "mixed" | "unknown";
+
+const MODE_LABEL: Record<TimeMode, string> = {
+  exact: "Exact time",
+  mixed: "Mixed times",
+  unknown: "Not known yet",
+};
+
+export type MealLine = { label: string; value: string };
+export type RequestSection = "meals" | "services";
+
+export type ContactState = {
+  role: string;
+  name: string;
+  phone: string;
+  secondary?: { name: string; phone: string } | null;
+};
+
 /* ── shared card shell ── */
 
 function Card({
@@ -71,17 +91,19 @@ function CardHead({
   icon,
   title,
   subtitle,
+  action,
 }: {
   icon: React.ReactNode;
   title: string;
   subtitle?: string;
+  action?: React.ReactNode;
 }) {
   return (
     <div className="flex items-start gap-3">
       <span className="mt-[1px] shrink-0" style={{ color: INK }}>
         {icon}
       </span>
-      <span className="min-w-0">
+      <span className="min-w-0 flex-1">
         <span className="block text-[15px] font-semibold" style={{ color: INK }}>
           {title}
         </span>
@@ -91,7 +113,33 @@ function CardHead({
           </span>
         )}
       </span>
+      {action && <span className="shrink-0">{action}</span>}
     </div>
+  );
+}
+
+/** quiet text-only action used in card headers and card footers */
+function TextAction({
+  label,
+  onClick,
+  arrow,
+  className = "",
+}: {
+  label: string;
+  onClick?: () => void;
+  arrow?: boolean;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`inline-flex items-center gap-1 text-[13px] font-medium transition-opacity hover:opacity-70 ${className}`}
+      style={{ color: BRONZE_DEEP }}
+    >
+      {label}
+      {arrow && <ArrowRight size={13} />}
+    </button>
   );
 }
 
@@ -149,7 +197,7 @@ function DateValue({ value, onChange }: { value: string; onChange: (v: string) =
   };
 
   return (
-    <span className="flex min-w-0 flex-1 items-center gap-2.5 px-3">
+    <span className="flex min-w-0 flex-1 items-center gap-2.5">
       <CalendarDays size={15} strokeWidth={1.7} className="shrink-0" style={{ color: INK_FAINT }} />
       {editing ? (
         <input
@@ -187,7 +235,7 @@ function TimeValue({
 }) {
   return (
     <span
-      className="relative flex shrink-0 items-center gap-2.5 px-3"
+      className="relative flex shrink-0 items-center gap-2.5 pl-3"
       style={{ borderLeft: `1px solid ${HAIR}` }}
     >
       <Clock size={15} strokeWidth={1.7} className="shrink-0" style={{ color: INK_FAINT }} />
@@ -210,37 +258,177 @@ function TimeValue({
       <ChevronDown
         size={13}
         aria-hidden
-        className="pointer-events-none absolute right-2"
+        className="pointer-events-none absolute right-0"
         style={{ color: INK_FAINT }}
       />
     </span>
   );
 }
 
-function TimeField({
+/** borderless caption-level status dropdown */
+function GhostModeSelect({
+  value,
+  onChange,
   label,
-  date,
-  time,
-  onDate,
-  onTime,
 }: {
+  value: TimeMode;
+  onChange: (v: TimeMode) => void;
   label: string;
-  date: string;
-  time: string;
-  onDate: (v: string) => void;
-  onTime: (v: string) => void;
 }) {
   return (
-    <div className="min-w-0 flex-1 rounded-[12px] p-3" style={{ border: `1px solid ${HAIR}` }}>
-      <span className="block text-[12.5px]" style={{ color: INK_SOFT }}>
+    <span className="relative inline-flex items-center">
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value as TimeMode)}
+        aria-label={label}
+        className="appearance-none bg-transparent pr-4 text-[12.5px] outline-none"
+        style={{ color: INK_SOFT }}
+      >
+        <option value="exact">{MODE_LABEL.exact}</option>
+        <option value="mixed">{MODE_LABEL.mixed}</option>
+        <option value="unknown">{MODE_LABEL.unknown}</option>
+      </select>
+      <ChevronDown
+        size={12}
+        aria-hidden
+        className="pointer-events-none absolute right-0"
+        style={{ color: INK_FAINT }}
+      />
+    </span>
+  );
+}
+
+type SideState = {
+  date: string;
+  time: string;
+  mode: TimeMode;
+  times: string[];
+};
+
+function TimeSide({
+  label,
+  state,
+  onState,
+}: {
+  label: "Arrival" | "Departure";
+  state: SideState;
+  onState: (next: SideState) => void;
+}) {
+  const [adding, setAdding] = React.useState(false);
+  const lower = label.toLowerCase();
+
+  return (
+    <div className="min-w-0 flex-1">
+      <span
+        className="block text-[12.5px] uppercase tracking-[0.08em]"
+        style={{ color: INK_SOFT }}
+      >
         {label}
       </span>
-      <div
-        className="mt-2.5 flex h-[38px] items-center rounded-[9px]"
-        style={{ border: `1px solid ${HAIR}`, background: WHITE }}
-      >
-        <DateValue value={date} onChange={onDate} />
-        <TimeValue value={time} onChange={onTime} label={`${label} time`} />
+
+      <div className="mt-2 rounded-[10px] px-3 py-2.5" style={{ border: `1px solid ${HAIR}` }}>
+        <div className="flex min-h-[26px] items-center gap-3">
+          <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
+
+          {state.mode === "exact" && (
+            <TimeValue
+              value={state.time}
+              onChange={(time) => onState({ ...state, time })}
+              label={`${label} time`}
+            />
+          )}
+
+          {state.mode === "mixed" && (
+            <span
+              className="flex shrink-0 items-center gap-2 pl-3 text-[12.5px]"
+              style={{ borderLeft: `1px solid ${HAIR}`, color: INK_SOFT }}
+            >
+              Multiple {lower} times
+            </span>
+          )}
+
+          {state.mode === "unknown" && (
+            <span
+              className="flex shrink-0 items-center pl-3 text-[12.5px]"
+              style={{ borderLeft: `1px solid ${HAIR}`, color: INK_FAINT }}
+            >
+              {label} time not confirmed yet
+            </span>
+          )}
+        </div>
+
+        {state.mode === "mixed" && (
+          <div className="mt-2">
+            {state.times.length > 0 && (
+              <ul className="mb-1 flex flex-wrap gap-x-4 gap-y-1">
+                {state.times.map((t) => (
+                  <li
+                    key={t}
+                    className="inline-flex items-center gap-1.5 text-[12.5px] tabular-nums"
+                    style={{ color: INK }}
+                  >
+                    {t}
+                    <button
+                      type="button"
+                      aria-label={`Remove ${lower} time ${t}`}
+                      onClick={() =>
+                        onState({ ...state, times: state.times.filter((x) => x !== t) })
+                      }
+                      className="transition-opacity hover:opacity-70"
+                      style={{ color: INK_FAINT }}
+                    >
+                      <X size={11} />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {adding ? (
+              <span className="relative inline-flex items-center">
+                <select
+                  autoFocus
+                  defaultValue=""
+                  aria-label={`Add ${lower} time`}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    if (v && !state.times.includes(v)) {
+                      onState({ ...state, times: [...state.times, v].sort() });
+                    }
+                    setAdding(false);
+                  }}
+                  onBlur={() => setAdding(false)}
+                  className="appearance-none bg-transparent pr-4 text-[12.5px] tabular-nums outline-none"
+                  style={{ color: INK }}
+                >
+                  <option value="" disabled>
+                    Select time
+                  </option>
+                  {TIME_OPTIONS.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown
+                  size={12}
+                  aria-hidden
+                  className="pointer-events-none absolute right-0"
+                  style={{ color: INK_FAINT }}
+                />
+              </span>
+            ) : (
+              <TextAction label="+ Add times" onClick={() => setAdding(true)} />
+            )}
+          </div>
+        )}
+
+        <div className="mt-2 pt-2" style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
+          <GhostModeSelect
+            value={state.mode}
+            onChange={(mode) => onState({ ...state, mode })}
+            label={`${label} time type`}
+          />
+        </div>
       </div>
     </div>
   );
@@ -264,6 +452,33 @@ function Row({ label, value, tone }: { label: string; value: string; tone?: "gre
   );
 }
 
+/* ── contact inputs ── */
+
+const ROLES = ["Tour leader", "Group leader", "Teacher", "Coordinator", "Driver", "Other"];
+
+const fieldStyle: React.CSSProperties = {
+  border: `1px solid ${HAIR}`,
+  background: WHITE,
+  color: INK,
+};
+
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="block text-[12.5px]" style={{ color: INK_SOFT }}>
+        {label}
+      </span>
+      {children}
+    </label>
+  );
+}
+
 /* ── the tab body ── */
 
 export function FinalDetails({
@@ -272,7 +487,11 @@ export function FinalDetails({
   contactRole,
   contactName,
   contactPhone,
+  meals = [],
+  allergyCount = 3,
   onOpenDietary,
+  onRequestChange,
+  onContactChange,
   onComplete,
 }: {
   stayStart: string;
@@ -280,12 +499,45 @@ export function FinalDetails({
   contactRole: string;
   contactName: string;
   contactPhone: string;
+  meals?: MealLine[];
+  allergyCount?: number;
   onOpenDietary: () => void;
+  onRequestChange?: (section: RequestSection) => void;
+  onContactChange?: (next: ContactState) => void;
   onComplete?: () => void;
 }) {
-  const [arrival, setArrival] = React.useState({ date: stayStart, time: "12:00" });
-  const [departure, setDeparture] = React.useState({ date: stayEnd, time: "11:00" });
+  const [arrival, setArrival] = React.useState<SideState>({
+    date: stayStart,
+    time: "12:00",
+    mode: "exact",
+    times: [],
+  });
+  const [departure, setDeparture] = React.useState<SideState>({
+    date: stayEnd,
+    time: "11:00",
+    mode: "exact",
+    times: [],
+  });
   const timesRef = React.useRef<HTMLDivElement>(null);
+
+  const seededRole = React.useMemo(() => {
+    const match = ROLES.find((r) => r.toLowerCase() === contactRole.toLowerCase());
+    return match ?? ROLES[0];
+  }, [contactRole]);
+
+  const [contact, setContactState] = React.useState<ContactState>({
+    role: seededRole,
+    name: contactName,
+    phone: contactPhone,
+    secondary: null,
+  });
+
+  const setContact = (next: ContactState) => {
+    setContactState(next);
+    onContactChange?.(next);
+  };
+
+  const [note, setNote] = React.useState("");
 
   return (
     <Plate tone="warm">
@@ -316,82 +568,234 @@ export function FinalDetails({
           </button>
         </Card>
 
-        {/* ── detail cards ── */}
+        {/* ── primary inputs ── */}
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-          <Card className="md:col-span-2" style={{ scrollMarginTop: 24 }}>
+          <Card className="xl:col-span-2" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
                 icon={<CalendarDays size={19} strokeWidth={1.7} />}
                 title="Arrival & Departure"
-                subtitle="Please add your expected times"
+                subtitle="Let us know your expected arrival and departure"
               />
-              <div className="mt-4 flex flex-wrap gap-4">
-                <TimeField
-                  label="Arrival time"
-                  date={arrival.date}
-                  time={arrival.time}
-                  onDate={(date) => setArrival((a) => ({ ...a, date }))}
-                  onTime={(time) => setArrival((a) => ({ ...a, time }))}
-                />
-                <TimeField
-                  label="Departure time"
-                  date={departure.date}
-                  time={departure.time}
-                  onDate={(date) => setDeparture((d) => ({ ...d, date }))}
-                  onTime={(time) => setDeparture((d) => ({ ...d, time }))}
-                />
+              <div className="mt-4 flex flex-col gap-4 sm:flex-row">
+                <TimeSide label="Arrival" state={arrival} onState={setArrival} />
+                <TimeSide label="Departure" state={departure} onState={setDeparture} />
               </div>
-            </div>
-          </Card>
-
-          <Card>
-            <CardHead icon={<User size={19} strokeWidth={1.7} />} title="Group contact" />
-            <div className="mt-4">
-              <p className="text-[12.5px]" style={{ color: INK_SOFT }}>
-                {contactRole}
-              </p>
-              <p className="mt-1 text-[15px] font-semibold" style={{ color: INK }}>
-                {contactName}
-              </p>
-              <p className="mt-1.5 text-[13.5px]" style={{ color: INK_SOFT }}>
-                {contactPhone}
+              <p
+                className="mt-3 flex items-start gap-2 text-[12.5px]"
+                style={{ color: INK_SOFT }}
+              >
+                <Info size={13} strokeWidth={1.7} className="mt-[2px] shrink-0" />
+                Select &apos;Mixed times&apos; if your group arrives or departs at different times.
               </p>
             </div>
           </Card>
 
           <Card>
-            <CardHead icon={<Utensils size={19} strokeWidth={1.7} />} title="Meals" />
+            <CardHead
+              icon={<User size={19} strokeWidth={1.7} />}
+              title="On-site contact"
+              subtitle="Who can the hotel contact during the stay?"
+            />
+            <div className="mt-4 flex flex-col gap-3">
+              <Field label="Role">
+                <div className="relative mt-1">
+                  <select
+                    value={contact.role}
+                    onChange={(e) => setContact({ ...contact, role: e.target.value })}
+                    aria-label="On-site contact role"
+                    className="h-[40px] w-full appearance-none rounded-[9px] px-3 pr-8 text-[13.5px] outline-none"
+                    style={fieldStyle}
+                  >
+                    {ROLES.map((r) => (
+                      <option key={r} value={r}>
+                        {r}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown
+                    size={13}
+                    aria-hidden
+                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+                    style={{ color: INK_FAINT }}
+                  />
+                </div>
+              </Field>
+
+              <Field label="Name">
+                <input
+                  type="text"
+                  value={contact.name}
+                  onChange={(e) => setContact({ ...contact, name: e.target.value })}
+                  aria-label="On-site contact name"
+                  className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
+                  style={fieldStyle}
+                />
+              </Field>
+
+              <Field label="Mobile number">
+                <input
+                  type="tel"
+                  value={contact.phone}
+                  onChange={(e) => setContact({ ...contact, phone: e.target.value })}
+                  aria-label="On-site contact mobile number"
+                  className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
+                  style={fieldStyle}
+                />
+              </Field>
+
+              {contact.secondary ? (
+                <>
+                  <Field label="Secondary name">
+                    <input
+                      type="text"
+                      value={contact.secondary.name}
+                      onChange={(e) =>
+                        setContact({
+                          ...contact,
+                          secondary: { name: e.target.value, phone: contact.secondary?.phone ?? "" },
+                        })
+                      }
+                      aria-label="Secondary contact name"
+                      className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
+                      style={fieldStyle}
+                    />
+                  </Field>
+                  <Field label="Secondary mobile number">
+                    <input
+                      type="tel"
+                      value={contact.secondary.phone}
+                      onChange={(e) =>
+                        setContact({
+                          ...contact,
+                          secondary: { name: contact.secondary?.name ?? "", phone: e.target.value },
+                        })
+                      }
+                      aria-label="Secondary contact mobile number"
+                      className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
+                      style={fieldStyle}
+                    />
+                  </Field>
+                  <button
+                    type="button"
+                    onClick={() => setContact({ ...contact, secondary: null })}
+                    className="self-start text-[12.5px] transition-opacity hover:opacity-70"
+                    style={{ color: INK_FAINT }}
+                  >
+                    Remove secondary contact
+                  </button>
+                </>
+              ) : (
+                <TextAction
+                  label="+ Add secondary contact"
+                  className="self-start"
+                  onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
+                />
+              )}
+            </div>
+          </Card>
+        </div>
+
+        {/* ── review cards ── */}
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <Card>
+            <CardHead
+              icon={<Utensils size={19} strokeWidth={1.7} />}
+              title="Meals"
+              action={
+                <TextAction
+                  label="Request change"
+                  arrow
+                  onClick={() => onRequestChange?.("meals")}
+                />
+              }
+            />
             <div className="mt-3">
-              <Row label="Breakfast" value="07:00 – 10:00" />
-              <Row label="Dinner" value="18:30" />
+              {meals.length === 0 ? (
+                <p className="text-[13px]" style={{ color: INK_FAINT }}>
+                  No group meals booked
+                </p>
+              ) : (
+                meals.map((m) => <Row key={m.label} label={m.label} value={m.value} />)
+              )}
             </div>
           </Card>
 
           <Card>
-            <CardHead icon={<Star size={19} strokeWidth={1.7} />} title="Special arrangements" />
+            <CardHead
+              icon={<Star size={19} strokeWidth={1.7} />}
+              title="Special arrangements"
+              action={
+                <TextAction
+                  label="Request change"
+                  arrow
+                  onClick={() => onRequestChange?.("services")}
+                />
+              }
+            />
             <div className="mt-3">
               <Row label="Coach parking" value="Confirmed" tone="green" />
               <Row label="Extra luggage room" value="Confirmed" tone="green" />
             </div>
           </Card>
 
-          <Card className="p-0">
+          <Card>
+            <CardHead
+              icon={<Leaf size={19} strokeWidth={1.7} />}
+              title="Allergies & dietary"
+              action={<TextAction label="+ Add more" onClick={onOpenDietary} />}
+            />
             <button
               type="button"
               onClick={onOpenDietary}
-              className="flex w-full items-center gap-3 rounded-[14px] p-5 text-left transition-colors hover:bg-[rgba(27,37,48,0.02)]"
+              className="mt-4 flex w-full flex-col items-center gap-2 rounded-[10px] py-3 text-center transition-colors hover:bg-[rgba(27,37,48,0.02)]"
             >
-              <span className="min-w-0 flex-1">
-                <CardHead
-                  icon={<Leaf size={19} strokeWidth={1.7} />}
-                  title="Allergies & dietary"
-                  subtitle="3 notes"
-                />
+              <span
+                className="grid h-[38px] w-[38px] place-items-center rounded-full"
+                style={{ background: BANNER, color: BRONZE_DEEP }}
+              >
+                <Leaf size={18} strokeWidth={1.7} />
               </span>
-              <ChevronRight size={18} className="shrink-0" style={{ color: INK_FAINT }} />
+              <span className="text-[14px] font-semibold" style={{ color: INK }}>
+                {allergyCount} allergies added
+              </span>
+              <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
+                We&apos;ll make sure the hotel is informed.
+              </span>
             </button>
           </Card>
         </div>
+
+        {/* ── optional note ── */}
+        <Card>
+          <div className="flex items-center gap-2.5">
+            <MessageSquare size={17} strokeWidth={1.7} style={{ color: INK }} />
+            <span className="text-[15px] font-semibold" style={{ color: INK }}>
+              Final note to hotel
+            </span>
+            <span
+              className="text-[11px] uppercase tracking-[0.1em]"
+              style={{ color: INK_FAINT }}
+            >
+              Optional
+            </span>
+          </div>
+          <p className="mt-1 text-[12.5px]" style={{ color: INK_SOFT }}>
+            Anything else the hotel should know before arrival?
+          </p>
+          <textarea
+            value={note}
+            onChange={(e) => setNote(e.target.value.slice(0, 500))}
+            maxLength={500}
+            aria-label="Final note to hotel"
+            placeholder="Add an important note for the hotel..."
+            className="mt-3 h-[76px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+            style={fieldStyle}
+          />
+          <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_FAINT }}>
+            {note.length} / 500
+          </p>
+        </Card>
 
         {/* ── footer action banner ── */}
         <div
@@ -403,7 +807,7 @@ export function FinalDetails({
             className="min-w-[260px] flex-1 text-[13px] leading-relaxed"
             style={{ color: INK_SOFT }}
           >
-            All information is securely shared with the hotel through HotelGroupBook.
+            Your information is securely shared with the hotel.
             <br className="hidden sm:block" /> You will receive an update as soon as we have a
             response.
           </p>
@@ -416,10 +820,10 @@ export function FinalDetails({
 
           <div className="min-w-[220px] max-w-[240px]">
             <p className="text-[13px] font-semibold" style={{ color: INK }}>
-              All details ready?
+              Everything ready?
             </p>
             <p className="mt-1 text-[12.5px] leading-relaxed" style={{ color: INK_SOFT }}>
-              Review the information above before completing your final details.
+              Review your arrival information and final details before confirming.
             </p>
           </div>
 
@@ -433,7 +837,7 @@ export function FinalDetails({
               boxShadow: "0 8px 18px -12px rgba(169,108,18,0.9)",
             }}
           >
-            Complete final details <ArrowRight size={16} />
+            Confirm final details <ArrowRight size={16} />
           </button>
         </div>
       </div>

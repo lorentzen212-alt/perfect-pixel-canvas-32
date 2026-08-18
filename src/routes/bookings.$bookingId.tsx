@@ -149,6 +149,15 @@ type PanelKey = "stay" | "rooms" | "dining" | "services" | "requests" | null;
 export type RoomLineUI = { type: string; note: string; qty: number; perRoom: number };
 
 /** Baseline (currently booked) room distribution — the "Current" column on Changes. */
+/** Booked group meal arrangements shown on the Final Details tab (read-only). */
+const FINAL_MEALS: { label: string; value: string }[] = [
+  { label: "Dinner", value: "18:30" },
+  { label: "Lunch", value: "13:00" },
+  { label: "Lunch packages", value: "63 pcs" },
+  { label: "Breakfast packages", value: "12 pcs" },
+  { label: "Additional dinner", value: "23 Aug · 19:30" },
+];
+
 const BASE_ROOMS: RoomLineUI[] = [
   { type: "Twin rooms", note: "2 single beds", qty: 17, perRoom: 2 },
   { type: "Double rooms", note: "1 double bed", qty: 6, perRoom: 2 },
@@ -479,6 +488,7 @@ function Workspace({ booking }: { booking: Booking }) {
   const [navOpen, setNavOpen] = useState(false);
   const { tab: tabParam } = Route.useSearch();
   const [tab, setTab] = useState<WorkspaceTab>(tabParam ?? "Overview");
+  const [changesSub, setChangesSub] = useState<"rooms" | "addons" | "status">("rooms");
   /* rooming progress is derived from the live rooming list, never hardcoded */
   const [roomingStats, setRoomingStats] = useState<{
     filled: number;
@@ -1292,6 +1302,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 paymentTerms={confirmed ? "Deposit paid" : "Deposit pending"}
                 onHistory={() => setTab("Messages")}
                 onMessage={() => setTab("Messages")}
+                initialSub={changesSub}
               />
             ) : tab === "Documents" ? (
               <BookingDocumentsView booking={booking} onAskQuestion={() => setTab("Messages")} />
@@ -1299,10 +1310,16 @@ function Workspace({ booking }: { booking: Booking }) {
               <FinalDetails
                 stayStart={stay.arrival}
                 stayEnd={stay.departure}
-                contactRole="Tour Leader"
+                contactRole="Tour leader"
                 contactName="Emma Hansen"
                 contactPhone="+47 60 11 22 33"
+                meals={FINAL_MEALS}
+                allergyCount={3}
                 onOpenDietary={() => setTab("Group Plan")}
+                onRequestChange={() => {
+                  setChangesSub("addons");
+                  setTab("Changes");
+                }}
                 onComplete={() => setTab("Overview")}
               />
             ) : tab === "Messages" ? (

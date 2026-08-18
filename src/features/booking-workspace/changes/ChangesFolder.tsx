@@ -254,6 +254,7 @@ export function ChangesFolder({
   onHistory,
   onMessage,
   onSubmit,
+  initialSub = "rooms",
 }: {
   rooms: RoomLine[];
   baseRooms: RoomLine[];
@@ -266,8 +267,10 @@ export function ChangesFolder({
   onHistory: () => void;
   onMessage: () => void;
   onSubmit?: () => void;
+  /** seeds which sub-tab opens first */
+  initialSub?: SubTabKey;
 }) {
-  const [sub, setSub] = React.useState<SubTabKey>("rooms");
+  const [sub, setSub] = React.useState<SubTabKey>(initialSub);
   const [scope, setScope] = React.useState<"original" | "specific">("original");
   const [when, setWhen] = React.useState("");
   const [note, setNote] = React.useState("");
