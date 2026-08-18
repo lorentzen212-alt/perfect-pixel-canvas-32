@@ -1,0 +1,1 @@
+UPDATE public.bookings SET free_cancellation_until = '2026-08-20T18:00:00+00' WHERE id = 'c36f0343-b356-4ee8-bba0-2385f74feda5';
