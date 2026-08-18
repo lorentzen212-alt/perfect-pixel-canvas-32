@@ -73,10 +73,8 @@ const GOLD_TEXT_GRADIENT =
 
 const GOLD_SOFT = "#D8B85D";
 const GOLD_STUD_BG = "#D8B85D";
-const GOLD_STUD_SHADOW =
-  "0 0 0 1px rgba(240,216,138,0.25), 0 0 5px rgba(224,191,117,0.22)";
-const GOLD_STUD_SHADOW_ACTIVE =
-  "0 0 0 1px rgba(240,216,138,0.30), 0 0 6px rgba(224,191,117,0.28)";
+const GOLD_STUD_SHADOW = "0 0 0 1px rgba(240,216,138,0.25), 0 0 5px rgba(224,191,117,0.22)";
+const GOLD_STUD_SHADOW_ACTIVE = "0 0 0 1px rgba(240,216,138,0.30), 0 0 6px rgba(224,191,117,0.28)";
 const GOLD_LINE_GRADIENT = "rgba(201,168,95,0.70)";
 const GOLD_PATH = "#C9A85F";
 const GOLD_PATH_OPACITY = 0.7;
@@ -87,9 +85,6 @@ const DAY_META = "#B7CAD5";
 const INACTIVE_TEXT = "#9FB1BC";
 const CALENDAR_ICON_INACTIVE = "#879CA8";
 const ACTIVE_TEXT = "#E5C76F";
-
-
-
 
 const TYPE_ICON: Record<PlanItemType, React.ReactNode> = {
   transport: <Bus size={16} strokeWidth={1.5} />,
@@ -254,8 +249,6 @@ function buildDayStream(items: PlanItem[], openEndedTail: boolean): DayEntry[] {
   }
   return out;
 }
-
-
 
 function seedMyItems(date?: string): PlanItem[] {
   const dd = date ?? null;
@@ -559,11 +552,13 @@ function journeyPaths(m: RibbonMetrics) {
     path = `M 0 ${yEdge} H ${r2(m.w)}`;
   }
 
-
   const xEnd = m.xDateLeft - 22;
   const xStart = Math.max(m.xTitleRight + 16, xEnd - SWEEP_RUN);
   const raised =
-    m.w >= SWEEP_MIN_WIDTH && m.xDateLeft > 0 && xEnd - xStart >= SWEEP_MIN_RUN && m.yEdge > SWEEP_TOP;
+    m.w >= SWEEP_MIN_WIDTH &&
+    m.xDateLeft > 0 &&
+    xEnd - xStart >= SWEEP_MIN_RUN &&
+    m.yEdge > SWEEP_TOP;
 
   if (!raised) return { path, sweep: "", sweepTip: "", wedge: "" };
 
@@ -576,7 +571,6 @@ function journeyPaths(m: RibbonMetrics) {
   const tip = `M ${xTip} ${SWEEP_TOP} H ${r2(m.w)}`;
   return { path, sweep: rise, sweepTip: tip, wedge: `${rise} H ${r2(m.w)} V ${yEdge} Z` };
 }
-
 
 function ViewSwitch({
   view,
@@ -623,7 +617,6 @@ function ViewSwitch({
   );
 }
 
-
 /* ── small parts ────────────────────────────────────────── */
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -637,7 +630,6 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-
 function Pill({ kind }: { kind: "booking" | "myplan" }) {
   const booking = kind === "booking";
   return (
@@ -646,9 +638,7 @@ function Pill({ kind }: { kind: "booking" | "myplan" }) {
       style={{
         color: booking ? TEXT_2 : "#A9CDAA",
         background: booking ? "rgba(13,28,43,0.18)" : "rgba(123,174,127,0.12)",
-        border: booking
-          ? "1px solid rgba(255,255,255,0.12)"
-          : "1px solid rgba(123,174,127,0.25)",
+        border: booking ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(123,174,127,0.25)",
       }}
     >
       {booking ? "Booking" : "My plan"}
@@ -745,7 +735,6 @@ function Tile({ tile }: { tile: PlanTile }) {
   );
 }
 
-
 function ColHead({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -777,9 +766,15 @@ function CheckRow({ entries }: { entries: string[] }) {
       {entries.map((e, i) => (
         <React.Fragment key={`${e}-${i}`}>
           {i > 0 && (
-            <span className="h-[16px] w-px shrink-0" style={{ background: "rgba(255,255,255,0.10)" }} />
+            <span
+              className="h-[16px] w-px shrink-0"
+              style={{ background: "rgba(255,255,255,0.10)" }}
+            />
           )}
-          <span className="flex items-center gap-2 whitespace-nowrap text-[14px]" style={{ color: INFO_TEXT }}>
+          <span
+            className="flex items-center gap-2 whitespace-nowrap text-[14px]"
+            style={{ color: INFO_TEXT }}
+          >
             <CheckCircle2
               size={16}
               strokeWidth={1.5}
@@ -807,7 +802,7 @@ function Expanded({
 }) {
   const cols = [
     item.dietary?.length ? "dietary" : null,
-    
+
     item.extras?.length ? "extras" : null,
   ].filter(Boolean) as string[];
 
@@ -863,7 +858,6 @@ function Expanded({
             </div>
           ) : null}
 
-
           {item.extras?.length ? (
             <div
               className="min-w-0 sm:pl-6"
@@ -888,7 +882,6 @@ function Expanded({
           ...(item.facts ?? []).flatMap((f) => [f.label, f.value]),
         ]}
       />
-
 
       {item.specialArrangement && (
         <div
@@ -972,7 +965,11 @@ function Expanded({
             type="button"
             onClick={onRequestChange}
             className="rounded-[8px] px-[18px] py-[10px] text-[12.5px] font-medium transition-colors hover:bg-[rgba(232,201,106,0.08)]"
-            style={{ color: INFO_GOLD, background: "transparent", border: `1px solid ${INFO_GOLD}` }}
+            style={{
+              color: INFO_GOLD,
+              background: "transparent",
+              border: `1px solid ${INFO_GOLD}`,
+            }}
           >
             Request a change
           </button>
@@ -986,7 +983,6 @@ function Expanded({
           </button>
         </div>
       </div>
-
     </div>
   );
 }
@@ -1026,64 +1022,61 @@ function Row({
           }}
         />
 
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={onToggle}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onToggle();
-          }
-        }}
-        aria-expanded={open}
-        className="group ml-[26px] flex cursor-pointer items-center gap-4 rounded-[8px] px-3 py-[17px] transition-all hover:bg-[rgba(255,255,255,0.02)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
-        style={{
-          background: "transparent",
-          borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.06)",
-        }}
-      >
-        <span
-          className="w-[92px] shrink-0 text-[14px] tabular-nums"
-          style={{ color: TIME_TEXT }}
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={onToggle}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onToggle();
+            }
+          }}
+          aria-expanded={open}
+          className="group ml-[26px] flex cursor-pointer items-center gap-4 rounded-[8px] px-3 py-[17px] transition-all hover:bg-[rgba(255,255,255,0.02)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
+          style={{
+            background: "transparent",
+            borderBottom: last ? "1px solid transparent" : "1px solid rgba(255,255,255,0.06)",
+          }}
         >
-          {item.time ?? "—"}
-        </span>
-        <span
-          className="h-[36px] w-px shrink-0"
-          style={{ background: "rgba(235, 238, 240, 0.32)" }}
-          aria-hidden
-        />
-        <ActivityIcon type={item.type} />
-        <span className="min-w-0 flex-1">
-          <span className="block truncate text-[14.5px] font-semibold" style={{ color: TEXT }}>
-            {item.title}
+          <span className="w-[92px] shrink-0 text-[14px] tabular-nums" style={{ color: TIME_TEXT }}>
+            {item.time ?? "—"}
           </span>
-          {(item.summary || item.secondary) && (
-            <span className="mt-[2px] block truncate text-[12.5px]" style={{ color: TEXT_2 }}>
-              {item.summary ?? item.secondary}
+          <span
+            className="h-[36px] w-px shrink-0"
+            style={{ background: "rgba(235, 238, 240, 0.32)" }}
+            aria-hidden
+          />
+          <ActivityIcon type={item.type} />
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-[14.5px] font-semibold" style={{ color: TEXT }}>
+              {item.title}
             </span>
-          )}
-        </span>
-        <span className="w-[104px] shrink-0">
-          <Pill kind={item.kind} />
-        </span>
+            {(item.summary || item.secondary) && (
+              <span className="mt-[2px] block truncate text-[12.5px]" style={{ color: TEXT_2 }}>
+                {item.summary ?? item.secondary}
+              </span>
+            )}
+          </span>
+          <span className="w-[104px] shrink-0">
+            <Pill kind={item.kind} />
+          </span>
 
-        {item.kind === "booking" ? (
-          <Menu
-            items={[
-              { label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange },
-            ]}
-          />
-        ) : (
-          <Menu
-            items={[
-              { label: "Edit", icon: <Pencil size={13} />, onClick: () => onEdit(item) },
-              { label: "Delete", icon: <Trash2 size={13} />, onClick: () => onDelete(item.id) },
-            ]}
-          />
-        )}
-      </div>
+          {item.kind === "booking" ? (
+            <Menu
+              items={[
+                { label: "Request a change", icon: <Pencil size={13} />, onClick: onRequestChange },
+              ]}
+            />
+          ) : (
+            <Menu
+              items={[
+                { label: "Edit", icon: <Pencil size={13} />, onClick: () => onEdit(item) },
+                { label: "Delete", icon: <Trash2 size={13} />, onClick: () => onDelete(item.id) },
+              ]}
+            />
+          )}
+        </div>
       </div>
       {open && <Expanded item={item} onRequestChange={onRequestChange} onEditNote={onEditNote} />}
     </li>
@@ -1298,8 +1291,6 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
             >
               {monthShort(day)} · {weekday(day)}
             </span>
-
-
           </div>
 
           <ul className="mt-3 space-y-1.5">
@@ -1332,7 +1323,6 @@ function CalendarView({ items, onSelect }: { items: PlanItem[]; onSelect: (id: s
     </div>
   );
 }
-
 
 /* ── main view ──────────────────────────────────────────── */
 
@@ -1416,18 +1406,16 @@ export function GroupPlanView({
   );
 
   const nextBooking = dayBookings[0] ?? null;
-  
 
   /* planner: next group activity time range + the free window before it */
   const nextStart = nextBooking?.time ? toMin(nextBooking.time) : null;
-  const nextStartLabel =
-    nextStart !== null ? toHHMM(nextStart) : (nextBooking?.time ?? "\u2014");
+  const nextStartLabel = nextStart !== null ? toHHMM(nextStart) : (nextBooking?.time ?? "\u2014");
   const nextEnd =
     nextBooking && nextStart !== null && ASSUMED_MIN[nextBooking.type] > 0
       ? toHHMM(nextStart + ASSUMED_MIN[nextBooking.type])
       : null;
   const nextSub = nextBooking
-    ? nextBooking.summary ?? nextBooking.secondary ?? nextBooking.location ?? null
+    ? (nextBooking.summary ?? nextBooking.secondary ?? nextBooking.location ?? null)
     : null;
   const freeBefore = useMemo(() => {
     const idx = nextBooking
@@ -1437,7 +1425,6 @@ export function GroupPlanView({
     const prev = stream[idx - 1];
     return prev && prev.kind === "free" && prev.minutes !== null ? prev : null;
   }, [stream, nextBooking]);
-
 
   const todayISO = new Date().toISOString().slice(0, 10);
   const dayIdx = activeDay ? dayKeys.indexOf(activeDay) : -1;
@@ -1599,138 +1586,35 @@ export function GroupPlanView({
           {/* ══ left · itinerary timeline (≈65%) ══ */}
           <section className="min-w-0 flex-1 lg:w-[64%]">
             <div ref={columnRef} className="relative -ml-2 -mt-2 -mr-2 lg:mr-0">
-            <div ref={ribbonRef} className="relative pl-9 pr-9 pt-9 pb-8 lg:pr-7">
-              <div
-                aria-hidden
-                className="absolute inset-0 rounded-tr-[19px] lg:rounded-tr-none"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.022) 0%, rgba(6,18,32,0.18) 100%)",
-                }}
-              />
-
-              <div className="relative z-[2] flex flex-wrap items-end justify-between gap-x-10 gap-y-7">
-                <div ref={titleRef} className="min-w-0">
-                  <Eyebrow>Your booking</Eyebrow>
-                  <h2
-                    className="mt-[7px] text-[40px] leading-[1.02]"
-                    style={{ color: TEXT, fontFamily: SERIF }}
-                  >
-                    Group Plan
-                  </h2>
-                  <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
-                    Your itinerary for the group.
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-x-14 gap-y-6">
-                  {dateBig && (
-                    <div ref={dateRef} className="min-w-0">
-                      <div
-                        className="text-[38px] leading-[0.95] tracking-[-0.015em]"
-                        style={{
-                          background: GOLD_TEXT_GRADIENT,
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          backgroundClip: "text",
-                          color: "transparent",
-                          filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.16))",
-                          fontFamily: DATE_SERIF,
-                          fontWeight: 400,
-                        }}
-                      >
-                        {dateBig}
-                      </div>
-                      <div
-                        className="mt-[9px] text-[10px] font-semibold uppercase tracking-[0.16em]"
-                        style={{ color: INFO_GOLD }}
-                      >
-                        {dateMeta}
-                      </div>
-                      {country && (
-                        <div
-                          className="mt-2 text-[9px] font-medium uppercase"
-                          style={{ color: DAY_META, letterSpacing: "0.42em" }}
-                        >
-                          {country}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  <ViewSwitch view={view} onChange={setView} />
-                </div>
-              </div>
-            </div>
-
-            {metrics.w > 0 && metrics.h > 0 && (
-              <svg
-                aria-hidden
-                className="pointer-events-none absolute left-0 top-0 z-[1]"
-                width={metrics.w}
-                height={metrics.h}
-                viewBox={`0 0 ${metrics.w} ${metrics.h}`}
-                fill="none"
-              >
-                <defs>
-                  <linearGradient id="gp-sweep" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
-                    <stop offset="94%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
-                    <stop offset="100%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY * 0.55} />
-                  </linearGradient>
-                  <linearGradient id="gp-wedge" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#FFFFFF" stopOpacity={0.05} />
-                    <stop offset="100%" stopColor="#FFFFFF" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                {paths.wedge && <path d={paths.wedge} fill="url(#gp-wedge)" />}
-                {paths.sweep && (
-                  <>
-                    <path d={paths.sweep} stroke="url(#gp-sweep)" strokeWidth={2} strokeLinecap="round" />
-                    <path
-                      d={paths.sweepTip}
-                      stroke={GOLD_PATH}
-                      strokeOpacity={GOLD_PATH_OPACITY}
-                      strokeWidth={1}
-                      strokeLinecap="butt"
-                    />
-                  </>
-                )}
-                <path
-                  d={paths.path}
-                  stroke={GOLD_PATH}
-                  strokeOpacity={GOLD_PATH_OPACITY}
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  style={{ filter: "drop-shadow(0 0 1px rgba(216,184,93,0.22))" }}
+              <div ref={ribbonRef} className="relative pl-9 pr-9 pt-9 pb-8 lg:pr-7">
+                <div
+                  aria-hidden
+                  className="absolute inset-0 rounded-tr-[19px] lg:rounded-tr-none"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(255,255,255,0.022) 0%, rgba(6,18,32,0.18) 100%)",
+                  }}
                 />
-              </svg>
-            )}
 
-            <div className="pl-9 pr-9 pt-5 pb-7 lg:pr-7">
-            {view === "Calendar" ? (
-              <CalendarView
-                items={scheduled}
-                onSelect={(id) => {
-                  setView("Timeline");
-                  setOpenId(id);
-                }}
-              />
-            ) : (
-              <>
-                <div className="relative">
-                  {groups.map(([day, items], gi) => (
-                    <div
-                      key={day}
-                      className="flex gap-5 sm:gap-7"
-                      style={
-                        gi > 0
-                          ? { borderTop: `1px solid ${HAIR_SOFT}`, marginTop: 12, paddingTop: 20 }
-                          : { paddingTop: 6 }
-                      }
+                <div className="relative z-[2] flex flex-wrap items-end justify-between gap-x-10 gap-y-7">
+                  <div ref={titleRef} className="min-w-0">
+                    <Eyebrow>Your booking</Eyebrow>
+                    <h2
+                      className="mt-[7px] text-[40px] leading-[1.02]"
+                      style={{ color: TEXT, fontFamily: SERIF }}
                     >
-                      <div className="w-[64px] shrink-0 pt-[2px]">
+                      Group Plan
+                    </h2>
+                    <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
+                      Your itinerary for the group.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-x-14 gap-y-6">
+                    {dateBig && (
+                      <div ref={dateRef} className="min-w-0">
                         <div
-                          className="text-[38px] leading-[0.95] tracking-[-0.025em]"
+                          className="text-[38px] leading-[0.95] tracking-[-0.015em]"
                           style={{
                             background: GOLD_TEXT_GRADIENT,
                             WebkitBackgroundClip: "text",
@@ -1742,80 +1626,195 @@ export function GroupPlanView({
                             fontWeight: 400,
                           }}
                         >
-
-                          {dayNum(day)}
+                          {dateBig}
                         </div>
-
                         <div
-                          className="mt-2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.10em]"
-                          style={{ color: DAY_META }}
+                          className="mt-[9px] text-[10px] font-semibold uppercase tracking-[0.16em]"
+                          style={{ color: INFO_GOLD }}
                         >
-                          {monthShort(day)} · {weekday(day)}
+                          {dateMeta}
                         </div>
-
+                        {country && (
+                          <div
+                            className="mt-2 text-[9px] font-medium uppercase"
+                            style={{ color: DAY_META, letterSpacing: "0.42em" }}
+                          >
+                            {country}
+                          </div>
+                        )}
                       </div>
-                      <ul className="relative min-w-0 flex-1 space-y-2">
-                        {items.map((i, ix) => (
-                          <Row
-                            key={i.id}
-                            item={i}
-                            open={openId === i.id}
-                            last={ix === items.length - 1}
-                            onToggle={() => setOpenId((o) => (o === i.id ? null : i.id))}
-                            {...rowProps}
-                          />
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                    )}
+                    <ViewSwitch view={view} onChange={setView} />
+                  </div>
                 </div>
+              </div>
 
-                <button
-                  type="button"
-                  onClick={() => openEditor()}
-                  className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(216,184,93,0.10)]"
-                  style={{
-                    color: GOLD_DEEP,
-                    border: `1px solid rgba(216,184,93,0.45)`,
-                    background: "transparent",
-                  }}
+              {metrics.w > 0 && metrics.h > 0 && (
+                <svg
+                  aria-hidden
+                  className="pointer-events-none absolute left-0 top-0 z-[1]"
+                  width={metrics.w}
+                  height={metrics.h}
+                  viewBox={`0 0 ${metrics.w} ${metrics.h}`}
+                  fill="none"
                 >
-                  <Plus size={16} strokeWidth={1.7} /> Add time or activity
-                </button>
-              </>
-            )}
+                  <defs>
+                    <linearGradient id="gp-sweep" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
+                      <stop offset="94%" stopColor={GOLD_PATH} stopOpacity={GOLD_PATH_OPACITY} />
+                      <stop
+                        offset="100%"
+                        stopColor={GOLD_PATH}
+                        stopOpacity={GOLD_PATH_OPACITY * 0.55}
+                      />
+                    </linearGradient>
+                    <linearGradient id="gp-wedge" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#FFFFFF" stopOpacity={0.05} />
+                      <stop offset="100%" stopColor="#FFFFFF" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  {paths.wedge && <path d={paths.wedge} fill="url(#gp-wedge)" />}
+                  {paths.sweep && (
+                    <>
+                      <path
+                        d={paths.sweep}
+                        stroke="url(#gp-sweep)"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d={paths.sweepTip}
+                        stroke={GOLD_PATH}
+                        strokeOpacity={GOLD_PATH_OPACITY}
+                        strokeWidth={1}
+                        strokeLinecap="butt"
+                      />
+                    </>
+                  )}
+                  <path
+                    d={paths.path}
+                    stroke={GOLD_PATH}
+                    strokeOpacity={GOLD_PATH_OPACITY}
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    style={{ filter: "drop-shadow(0 0 1px rgba(216,184,93,0.22))" }}
+                  />
+                </svg>
+              )}
 
-            {/* legend */}
-            <div
-              className="mt-6 flex flex-wrap items-center gap-x-2.5 gap-y-2 pt-5"
-              style={{ borderTop: `1px solid ${HAIR_SOFT}` }}
-            >
-              <Pill kind="booking" />
-              <span className="text-[12px]" style={{ color: TEXT_2 }}>
-                Part of your hotel booking
-              </span>
-              <span className="text-[12px]" style={{ color: MUTED }}>
-                ·
-              </span>
-              <Pill kind="myplan" />
-              <span className="text-[12px]" style={{ color: TEXT_2 }}>
-                Added by you
-              </span>
-            </div>
-            </div>
+              <div className="pl-9 pr-9 pt-5 pb-7 lg:pr-7">
+                {view === "Calendar" ? (
+                  <CalendarView
+                    items={scheduled}
+                    onSelect={(id) => {
+                      setView("Timeline");
+                      setOpenId(id);
+                    }}
+                  />
+                ) : (
+                  <>
+                    <div className="relative">
+                      {groups.map(([day, items], gi) => (
+                        <div
+                          key={day}
+                          className="flex gap-5 sm:gap-7"
+                          style={
+                            gi > 0
+                              ? {
+                                  borderTop: `1px solid ${HAIR_SOFT}`,
+                                  marginTop: 12,
+                                  paddingTop: 20,
+                                }
+                              : { paddingTop: 6 }
+                          }
+                        >
+                          <div className="w-[64px] shrink-0 pt-[2px]">
+                            <div
+                              className="text-[38px] leading-[0.95] tracking-[-0.025em]"
+                              style={{
+                                background: GOLD_TEXT_GRADIENT,
+                                WebkitBackgroundClip: "text",
+                                WebkitTextFillColor: "transparent",
+                                backgroundClip: "text",
+                                color: "transparent",
+                                filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.16))",
+                                fontFamily: DATE_SERIF,
+                                fontWeight: 400,
+                              }}
+                            >
+                              {dayNum(day)}
+                            </div>
+
+                            <div
+                              className="mt-2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.10em]"
+                              style={{ color: DAY_META }}
+                            >
+                              {monthShort(day)} · {weekday(day)}
+                            </div>
+                          </div>
+                          <ul className="relative min-w-0 flex-1 space-y-2">
+                            {items.map((i, ix) => (
+                              <Row
+                                key={i.id}
+                                item={i}
+                                open={openId === i.id}
+                                last={ix === items.length - 1}
+                                onToggle={() => setOpenId((o) => (o === i.id ? null : i.id))}
+                                {...rowProps}
+                              />
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => openEditor()}
+                      className="mt-6 flex h-[62px] w-full items-center justify-center gap-2 rounded-[12px] text-[16px] font-medium transition-colors hover:bg-[rgba(216,184,93,0.10)]"
+                      style={{
+                        color: GOLD_DEEP,
+                        border: `1px solid rgba(216,184,93,0.45)`,
+                        background: "transparent",
+                      }}
+                    >
+                      <Plus size={16} strokeWidth={1.7} /> Add time or activity
+                    </button>
+                  </>
+                )}
+
+                {/* legend */}
+                <div
+                  className="mt-6 flex flex-wrap items-center gap-x-2.5 gap-y-2 pt-5"
+                  style={{ borderTop: `1px solid ${HAIR_SOFT}` }}
+                >
+                  <Pill kind="booking" />
+                  <span className="text-[12px]" style={{ color: TEXT_2 }}>
+                    Part of your hotel booking
+                  </span>
+                  <span className="text-[12px]" style={{ color: MUTED }}>
+                    ·
+                  </span>
+                  <Pill kind="myplan" />
+                  <span className="text-[12px]" style={{ color: TEXT_2 }}>
+                    Added by you
+                  </span>
+                </div>
+              </div>
             </div>
           </section>
 
           {/* ══ right · group planner (≈35%) ══ */}
-        <aside
-          className="m-4 w-full shrink-0 overflow-hidden rounded-r-[30px] lg:mt-1 lg:mr-1 lg:mb-1 lg:ml-4 lg:w-[calc(36%-20px)]"
-          style={{
-            background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
-            border: `1px solid ${GOLD_PATH}`,
-            boxShadow: "inset 0 4px 6px -2px rgba(13,28,43,0.18), inset 4px 0 6px -4px rgba(13,28,43,0.12), inset 0 -1px 0 rgba(255,255,255,0.75)",
-            padding: 8,
-          }}
-        >
+          <aside
+            className="m-4 w-full shrink-0 overflow-hidden rounded-r-[30px] lg:mt-1 lg:mr-1 lg:mb-1 lg:ml-4 lg:w-[calc(36%-20px)]"
+            style={{
+              background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
+              border: `1px solid ${GOLD_PATH}`,
+              boxShadow:
+                "inset 0 4px 6px -2px rgba(13,28,43,0.18), inset 4px 0 6px -4px rgba(13,28,43,0.12), inset 0 -1px 0 rgba(255,255,255,0.75)",
+              padding: 8,
+            }}
+          >
             <div className="px-6 pt-6 sm:px-7 sm:pt-7">
               {/* header */}
               <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
@@ -1916,7 +1915,10 @@ export function GroupPlanView({
                         {nextBooking.title}
                       </span>
                       {nextSub && (
-                        <span className="mt-1 block truncate text-[12.5px]" style={{ color: PL_TEXT_2 }}>
+                        <span
+                          className="mt-1 block truncate text-[12.5px]"
+                          style={{ color: PL_TEXT_2 }}
+                        >
                           {nextSub}
                         </span>
                       )}
@@ -1935,7 +1937,10 @@ export function GroupPlanView({
                 )}
 
                 {freeBefore && (
-                  <div className="mt-3 flex items-center gap-2 text-[12.5px]" style={{ color: PL_TEXT }}>
+                  <div
+                    className="mt-3 flex items-center gap-2 text-[12.5px]"
+                    style={{ color: PL_TEXT }}
+                  >
                     <Clock size={14} strokeWidth={1.4} style={{ color: PL_TEXT_2 }} />
                     {`${fmtDur(freeBefore.minutes as number)} free before this`}
                   </div>
@@ -2089,9 +2094,15 @@ export function GroupPlanView({
                         aria-label={`Mark "${i.title}" done`}
                         onClick={() => remove(i.id)}
                         className="h-[15px] w-[15px] shrink-0 rounded-full transition-colors hover:bg-[rgba(201,168,95,0.18)]"
-                        style={{ border: `1px solid rgba(13,28,43,0.22)`, background: "transparent" }}
+                        style={{
+                          border: `1px solid rgba(13,28,43,0.22)`,
+                          background: "transparent",
+                        }}
                       />
-                      <span className="min-w-0 flex-1 truncate text-[12.5px]" style={{ color: PL_TEXT }}>
+                      <span
+                        className="min-w-0 flex-1 truncate text-[12.5px]"
+                        style={{ color: PL_TEXT }}
+                      >
                         {i.title}
                       </span>
                       <PlannerMenu
@@ -2157,4 +2168,3 @@ export function GroupPlanView({
     </div>
   );
 }
-
