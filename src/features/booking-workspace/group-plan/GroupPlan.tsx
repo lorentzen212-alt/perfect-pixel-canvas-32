@@ -1441,7 +1441,7 @@ export function GroupPlanView({
   }, [stream, nextBooking]);
 
   /* only the single most relevant open window is surfaced */
-  const window = useMemo(() => {
+  const freeWindow = useMemo(() => {
     const frees = stream.filter((e): e is Extract<DayEntry, { kind: "free" }> => e.kind === "free");
     const tail = frees.find((f) => f.end === null);
     if (tail) return tail;
