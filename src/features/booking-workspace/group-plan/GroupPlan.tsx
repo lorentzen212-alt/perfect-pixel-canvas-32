@@ -1416,7 +1416,7 @@ export function GroupPlanView({
   );
 
   const nextBooking = dayBookings[0] ?? null;
-  const firstFree = stream.find((e) => e.kind === "free") ?? null;
+  
 
   /* planner: next group activity time range + the free window before it */
   const nextStart = nextBooking?.time ? toMin(nextBooking.time) : null;
