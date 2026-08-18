@@ -479,6 +479,7 @@ function Workspace({ booking }: { booking: Booking }) {
   const [navOpen, setNavOpen] = useState(false);
   const { tab: tabParam } = Route.useSearch();
   const [tab, setTab] = useState<WorkspaceTab>(tabParam ?? "Overview");
+  const [changesSub, setChangesSub] = useState<"rooms" | "addons" | "status">("rooms");
   /* rooming progress is derived from the live rooming list, never hardcoded */
   const [roomingStats, setRoomingStats] = useState<{
     filled: number;
