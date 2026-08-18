@@ -1412,6 +1412,29 @@ export function GroupPlanView({
   const nextBooking = dayBookings[0] ?? null;
   const firstFree = stream.find((e) => e.kind === "free") ?? null;
 
+  /* planner: next group activity time range + the free window before it */
+  const nextStart = nextBooking?.time ? toMin(nextBooking.time) : null;
+  const nextRange =
+    nextBooking && nextStart !== null
+      ? ASSUMED_MIN[nextBooking.type] > 0
+        ? `${toHHMM(nextStart)} – ${toHHMM(nextStart + ASSUMED_MIN[nextBooking.type])}`
+        : toHHMM(nextStart)
+      : (nextBooking?.time ?? "—");
+  const nextSub = nextBooking
+    ? nextBooking.summary ?? nextBooking.secondary ?? nextBooking.location ?? null
+    : null;
+  const freeBefore = useMemo(() => {
+    const idx = nextBooking
+      ? stream.findIndex((e) => e.kind === "item" && e.item.id === nextBooking.id)
+      : -1;
+    for (let i = idx - 1; i >= 0; i--) {
+      const e = stream[i];
+      if (e.kind === "free") return e;
+      break;
+    }
+    return firstFree && firstFree.kind === "free" ? firstFree : null;
+  }, [stream, nextBooking, firstFree]);
+
   const todayISO = new Date().toISOString().slice(0, 10);
   const dayIdx = activeDay ? dayKeys.indexOf(activeDay) : -1;
   const dayLabel = activeDay === todayISO ? "TODAY" : `DAY ${dayIdx + 1}`;
