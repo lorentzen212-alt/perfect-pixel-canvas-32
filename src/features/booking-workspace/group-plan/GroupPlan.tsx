@@ -1837,12 +1837,12 @@ export function GroupPlanView({
                     Your personal plan
                   </span>
                   <h3
-                    className="mt-2 text-[30px] leading-none"
+                    className="mt-1.5 text-[24px] leading-none"
                     style={{ color: PL_TEXT, fontFamily: SERIF }}
                   >
                     Group Planner
                   </h3>
-                  <p className="mt-2 text-[13px]" style={{ color: PL_TEXT_2 }}>
+                  <p className="mt-1 text-[13px]" style={{ color: PL_TEXT_2 }}>
                     Plan your free time.
                   </p>
                 </div>
@@ -1882,14 +1882,14 @@ export function GroupPlanView({
                 </div>
               </div>
 
-              <div className="mt-5 h-px w-full" style={{ background: PL_HAIR }} />
+              <div className="mt-3.5 h-px w-full" style={{ background: PL_HAIR }} />
 
               {/* next group activity */}
-              <div className="mt-5">
+              <div className="mt-3.5">
                 <PlannerLabel>Next group activity</PlannerLabel>
                 {nextBooking ? (
                   <div
-                    className="mt-2.5 flex items-center gap-4 rounded-[15px] px-4 py-4"
+                    className="mt-2.5 flex items-center gap-4 rounded-[15px] px-3.5 py-3"
                     style={{
                       background: PL_CARD,
                       border: `1px solid ${PL_BORDER}`,
@@ -1898,7 +1898,7 @@ export function GroupPlanView({
                   >
                     <span className="min-w-0 flex-1">
                       <span
-                        className="block text-[20px] leading-none"
+                        className="block text-[17px] leading-none"
                         style={{
                           color: PL_TEXT,
                           fontFamily: SERIF,
@@ -1931,7 +1931,7 @@ export function GroupPlanView({
                       )}
                     </span>
                     <span
-                      className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
+                      className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-full"
                       style={{ background: PL_TRAY, color: PL_TEXT }}
                     >
                       <CalendarDays size={20} strokeWidth={1.3} />
@@ -1944,7 +1944,7 @@ export function GroupPlanView({
                 )}
 
                 {freeBefore && (
-                  <div className="mt-3 flex items-center gap-2 text-[12.5px]" style={{ color: PL_TEXT }}>
+                  <div className="mt-2 flex items-center gap-2 text-[12.5px]" style={{ color: PL_TEXT }}>
                     <Clock size={14} strokeWidth={1.4} style={{ color: PL_TEXT_2 }} />
                     {`${fmtDur(freeBefore.minutes as number)} free before this`}
                   </div>
@@ -1953,7 +1953,7 @@ export function GroupPlanView({
                 <button
                   type="button"
                   onClick={() => openEditor(activeDay ?? undefined)}
-                  className="mt-4 flex h-[46px] w-full items-center justify-center gap-2 rounded-[9px] text-[14px] font-medium transition-colors"
+                  className="mt-3 flex h-[40px] w-full items-center justify-center gap-2 rounded-[9px] text-[14px] font-medium transition-colors"
                   style={{
                     background: PL_NAVY,
                     color: PL_BG_TOP,
@@ -1966,10 +1966,10 @@ export function GroupPlanView({
                 </button>
               </div>
 
-              <div className="mt-6 h-px w-full" style={{ background: PL_HAIR }} />
+              <div className="mt-4 h-px w-full" style={{ background: PL_HAIR }} />
 
               {/* my plan */}
-              <div className="mt-5 pb-6">
+              <div className="mt-3.5 pb-4">
                 <PlannerLabel>My plan</PlannerLabel>
                 {stream.length === 0 ? (
                   <p className="mt-3 text-[12.5px]" style={{ color: PL_TEXT_2 }}>
@@ -2062,7 +2062,7 @@ export function GroupPlanView({
 
             {/* recessed tray */}
             <div
-              className="px-6 pb-6 pt-5 sm:px-7"
+              className="px-5 pb-4 pt-3.5 sm:px-5"
               style={{ background: PL_TRAY, borderTop: `1px solid ${PL_HAIR}` }}
             >
               <button
@@ -2124,7 +2124,7 @@ export function GroupPlanView({
 
               {/* utility bar */}
               <div
-                className="mt-5 flex items-stretch overflow-hidden rounded-[11px]"
+                className="mt-3.5 flex items-stretch overflow-hidden rounded-[11px]"
                 style={{
                   background: PL_CARD,
                   border: `1px solid ${PL_BORDER}`,
