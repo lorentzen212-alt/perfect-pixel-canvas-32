@@ -1306,7 +1306,7 @@ function Workspace({ booking }: { booking: Booking }) {
               bookingId={booking.id}
               journey={journey}
               onViewTimeline={() => setTab("Changes")}
-              cancellation={cancellationDeadline ? { deadline: cancellationDeadline } : undefined}
+              cancellation={booking.freeCancellationUntil ? { deadline: booking.freeCancellationUntil } : undefined}
 
               onMessage={() => setTab("Messages")}
               detailsStatus={{
