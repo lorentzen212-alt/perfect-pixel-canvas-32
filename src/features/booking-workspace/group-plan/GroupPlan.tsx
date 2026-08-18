@@ -1423,6 +1423,33 @@ export function GroupPlanView({
   const nextBooking = dayBookings[0] ?? null;
   const firstFree = stream.find((e) => e.kind === "free") ?? null;
 
+  /* the next group activity, with an end time derived from the same
+     assumed-duration table the free-time logic already uses */
+  const nextRange = useMemo(() => {
+    if (!nextBooking?.time) return null;
+    const start = nextBooking.time;
+    const mins = ASSUMED_MIN[nextBooking.type];
+    return mins > 0 ? `${start} – ${toHHMM(toMin(start) + mins)}` : start;
+  }, [nextBooking]);
+
+  /* a meaningful gap sitting directly before that activity */
+  const freeBefore = useMemo(() => {
+    if (!nextBooking) return null;
+    const idx = stream.findIndex((e) => e.kind === "item" && e.item.id === nextBooking.id);
+    const prev = idx > 0 ? stream[idx - 1] : null;
+    return prev && prev.kind === "free" && prev.minutes ? prev.minutes : null;
+  }, [stream, nextBooking]);
+
+  /* only the single most relevant open window is surfaced */
+  const window = useMemo(() => {
+    const frees = stream.filter((e): e is Extract<DayEntry, { kind: "free" }> => e.kind === "free");
+    const tail = frees.find((f) => f.end === null);
+    if (tail) return tail;
+    const rest = frees.filter((f) => f.minutes !== freeBefore);
+    return rest[rest.length - 1] ?? null;
+  }, [stream, freeBefore]);
+
+
   const todayISO = new Date().toISOString().slice(0, 10);
   const dayIdx = activeDay ? dayKeys.indexOf(activeDay) : -1;
   const dayLabel = activeDay === todayISO ? "TODAY" : `DAY ${dayIdx + 1}`;
