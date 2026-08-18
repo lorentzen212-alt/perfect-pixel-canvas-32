@@ -457,31 +457,29 @@ export function ChangesFolder({
                   >
                     {/* the row rule spans every column, so name, current, requested and
                         change read as one table */}
-                    <span className="flex min-w-[280px] flex-1 items-stretch">
-                      <span className="flex min-w-0 flex-1 items-center gap-3 py-[15px] pr-4">
-                        <span className="shrink-0" style={{ color: BRONZE }}>
-                          {roomIcon(l.type)}
-                        </span>
-                        <span className="min-w-0">
-                          <span
-                            className="block truncate text-[14.5px] font-medium"
-                            style={{ color: INK }}
-                          >
-                            {l.type}
-                          </span>
-                          <span className="block truncate text-[12px]" style={{ color: INK_FAINT }}>
-                            {l.note}
-                          </span>
-                        </span>
+                    <span className="flex min-w-[200px] flex-1 items-center gap-3 py-[15px] pr-4 sm:w-[40%] sm:min-w-0 sm:flex-none">
+                      <span className="shrink-0" style={{ color: BRONZE }}>
+                        {roomIcon(l.type)}
                       </span>
-                      <span
-                        className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[160px]"
-                        style={{ color: INK }}
-                      >
-                        {l.base}
+                      <span className="min-w-0">
+                        <span
+                          className="block truncate text-[14.5px] font-medium"
+                          style={{ color: INK }}
+                        >
+                          {l.type}
+                        </span>
+                        <span className="block truncate text-[12px]" style={{ color: INK_FAINT }}>
+                          {l.note}
+                        </span>
                       </span>
                     </span>
-                    <span className="flex w-[200px] items-center justify-center">
+                    <span
+                      className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[15%]"
+                      style={{ color: INK }}
+                    >
+                      {l.base}
+                    </span>
+                    <span className="flex w-[200px] shrink-0 items-center justify-center sm:w-[25%]">
                       <Counter
                         value={l.qty}
                         label={l.type}
@@ -490,7 +488,7 @@ export function ChangesFolder({
                         }
                       />
                     </span>
-                    <span className="flex w-[140px] items-center justify-center">
+                    <span className="flex w-[140px] shrink-0 items-center justify-center sm:w-[20%]">
                       <DeltaBadge diff={l.diff} />
                     </span>
                   </li>
