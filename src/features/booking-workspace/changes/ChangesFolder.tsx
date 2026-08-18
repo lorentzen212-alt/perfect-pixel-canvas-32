@@ -423,19 +423,19 @@ export function ChangesFolder({
                 <Eyebrow>Room changes</Eyebrow>
                 <span className="ml-auto hidden items-center gap-0 sm:flex">
                   <span
-                    className="w-[110px] text-center text-[10.5px] font-semibold uppercase"
+                    className="w-[160px] text-center text-[10.5px] font-semibold uppercase"
                     style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
                   >
                     Current
                   </span>
                   <span
-                    className="w-[150px] text-center text-[10.5px] font-semibold uppercase"
+                    className="w-[200px] text-center text-[10.5px] font-semibold uppercase"
                     style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
                   >
                     Requested
                   </span>
                   <span
-                    className="w-[96px] text-center text-[10.5px] font-semibold uppercase"
+                    className="w-[140px] text-center text-[10.5px] font-semibold uppercase"
                     style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
                   >
                     Change
