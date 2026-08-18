@@ -1230,16 +1230,14 @@ function Workspace({ booking }: { booking: Booking }) {
             isFolder
               ? "relative flex flex-1 flex-col px-0 pb-0 pt-0"
               : isGroupPlan
-                ? "relative flex flex-1 flex-col px-0 pb-14 pt-0"
+                ? "relative flex flex-1 flex-col px-5 pb-14 pt-0 sm:px-9"
                 : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
           style={{ backgroundColor: PLATE_BG }}
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
           {isFolder ? null : (
-            <div
-              className={`flex flex-wrap items-center gap-y-5 py-6${isGroupPlan ? " px-5 sm:px-9" : ""}`}
-            >
+            <div className="flex flex-wrap items-center gap-y-5 py-6">
               {strip.map((s, i) => (
                 <div
                   key={s.lead + i}
