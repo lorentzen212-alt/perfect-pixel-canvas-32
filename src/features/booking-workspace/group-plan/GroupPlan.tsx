@@ -1818,7 +1818,7 @@ export function GroupPlanView({
           >
             <div className="px-6 pt-6 sm:px-7 sm:pt-7">
               {/* header */}
-              <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
+              <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
                 <div className="min-w-0">
                   <span
                     className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em]"
@@ -1838,7 +1838,7 @@ export function GroupPlanView({
                   </p>
                 </div>
 
-                <div className="flex shrink-0 items-center gap-2 pt-1">
+                <div className="flex shrink-0 items-center gap-2 pb-[2px]">
                   <button
                     type="button"
                     onClick={() => setView("Timeline")}
@@ -1922,9 +1922,7 @@ export function GroupPlanView({
                 {freeBefore && (
                   <div className="mt-3 flex items-center gap-2 text-[12.5px]" style={{ color: PL_TEXT }}>
                     <Clock size={14} strokeWidth={1.4} style={{ color: PL_TEXT_2 }} />
-                    {freeBefore.minutes === null
-                      ? "Rest of the day free before this"
-                      : `${fmtDur(freeBefore.minutes)} free before this`}
+                    {`${fmtDur(freeBefore.minutes as number)} free before this`}
                   </div>
                 )}
 
