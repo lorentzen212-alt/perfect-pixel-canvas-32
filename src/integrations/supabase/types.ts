@@ -248,6 +248,7 @@ export type Database = {
           delegates: number | null
           destination: string
           end_date: string | null
+          free_cancellation_until: string | null
           guests: number | null
           hotel_name: string | null
           hotel_reference: string | null
@@ -277,6 +278,7 @@ export type Database = {
           delegates?: number | null
           destination?: string
           end_date?: string | null
+          free_cancellation_until?: string | null
           guests?: number | null
           hotel_name?: string | null
           hotel_reference?: string | null
@@ -306,6 +308,7 @@ export type Database = {
           delegates?: number | null
           destination?: string
           end_date?: string | null
+          free_cancellation_until?: string | null
           guests?: number | null
           hotel_name?: string | null
           hotel_reference?: string | null
