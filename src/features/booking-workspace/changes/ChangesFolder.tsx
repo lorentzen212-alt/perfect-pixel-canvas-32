@@ -419,27 +419,29 @@ export function ChangesFolder({
 
               <div className="mt-8" style={{ borderTop: `1px solid ${HAIR_SOFT}` }} />
 
-              <div className="mt-7 flex items-center gap-4">
-                <Eyebrow>Room changes</Eyebrow>
-                <span className="ml-auto hidden items-center gap-0 sm:flex">
-                  <span
-                    className="w-[160px] text-center text-[10.5px] font-semibold uppercase"
-                    style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
-                  >
-                    Current
-                  </span>
-                  <span
-                    className="w-[200px] text-center text-[10.5px] font-semibold uppercase"
-                    style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
-                  >
-                    Requested
-                  </span>
-                  <span
-                    className="w-[140px] text-center text-[10.5px] font-semibold uppercase"
-                    style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
-                  >
-                    Change
-                  </span>
+              {/* the header uses the same 40 / 15 / 25 / 20 column track as the rows
+                  below, so every label sits directly above its values */}
+              <div className="mt-7 flex items-center">
+                <span className="min-w-0 flex-1 sm:w-[40%] sm:flex-none">
+                  <Eyebrow>Room changes</Eyebrow>
+                </span>
+                <span
+                  className="hidden w-[15%] text-center text-[10.5px] font-semibold uppercase sm:block"
+                  style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
+                >
+                  Current
+                </span>
+                <span
+                  className="hidden w-[25%] text-center text-[10.5px] font-semibold uppercase sm:block"
+                  style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
+                >
+                  Requested
+                </span>
+                <span
+                  className="hidden w-[20%] text-center text-[10.5px] font-semibold uppercase sm:block"
+                  style={{ color: INK_FAINT, letterSpacing: "0.16em" }}
+                >
+                  Change
                 </span>
               </div>
 
