@@ -121,7 +121,9 @@ function cancellationView(deadlineISO: string) {
       tone: "amber" as CancelTone,
       label: "Free cancellation",
       title: isTomorrow ? `Ends tomorrow at ${timeLabel}` : `Free cancellation until ${dateLabel}, ${timeLabel}`,
-      trailing: `${Math.max(1, Math.round(hours))} hours remaining`,
+      trailing: hours < 24
+        ? `${Math.max(1, Math.round(hours))} hours remaining`
+        : `${Math.floor(hours / 24)} ${Math.floor(hours / 24) === 1 ? "day" : "days"} remaining`,
     };
   }
   const days = Math.floor(hours / 24);
