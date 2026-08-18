@@ -420,7 +420,7 @@ function PlannerRow({
   return (
     <li className="relative flex items-stretch gap-3">
       <span
-        className="w-[42px] shrink-0 pt-[19px] text-[12px] tabular-nums"
+        className="w-[42px] shrink-0 pt-[14px] text-[12px] tabular-nums"
         style={{ color: ghost ? PL_TEXT_2 : PL_TEXT }}
       >
         {time}
@@ -431,7 +431,7 @@ function PlannerRow({
           style={{ background: "rgba(13,28,43,0.10)" }}
         />
         <span
-          className="absolute left-1/2 top-[22px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
+          className="absolute left-1/2 top-[18px] h-[7px] w-[7px] -translate-x-1/2 rounded-full"
           style={{
             background: ghost ? "rgba(13,28,43,0.18)" : mine ? PL_GOLD : PL_TEXT,
           }}
@@ -439,11 +439,11 @@ function PlannerRow({
       </span>
       <div className="min-w-0 flex-1">
         <div
-          className="flex min-h-[58px] items-center gap-3 py-2"
+          className="flex min-h-[44px] items-center gap-3 py-1.5"
           style={{ borderBottom: last ? "none" : `1px solid rgba(217,209,198,0.55)` }}
         >
           <span
-            className="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-full"
+            className="grid h-[32px] w-[32px] shrink-0 place-items-center rounded-full"
             style={{
               background: mine ? "rgba(201,168,95,0.12)" : "rgba(13,28,43,0.05)",
               color: ghost ? PL_TEXT_2 : mine ? PL_GOLD_DEEP : PL_TEXT,
@@ -485,7 +485,7 @@ function PlannerTool({
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 px-2 py-2.5 text-[11.5px] transition-colors hover:bg-[rgba(13,28,43,0.03)]"
+      className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 px-2 py-2 text-[11.5px] transition-colors hover:bg-[rgba(13,28,43,0.03)]"
       style={{ color: PL_TEXT }}
     >
       <span style={{ color: PL_GOLD }}>{icon}</span>
@@ -1825,7 +1825,7 @@ export function GroupPlanView({
                 "inset 0 1px 0 rgba(255,255,255,0.60), 0 3px 4px -2px rgba(4,12,22,0.20), 0 12px 20px -8px rgba(4,12,22,0.24), 0 30px 56px -18px rgba(4,12,22,0.34)",
             }}
           >
-            <div className="px-6 pt-6 sm:px-7 sm:pt-7">
+            <div className="px-5 pt-5 sm:px-5 sm:pt-5">
               {/* header */}
               <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
                 <div className="min-w-0">
@@ -1837,12 +1837,12 @@ export function GroupPlanView({
                     Your personal plan
                   </span>
                   <h3
-                    className="mt-2 text-[30px] leading-none"
+                    className="mt-1.5 text-[24px] leading-none"
                     style={{ color: PL_TEXT, fontFamily: SERIF }}
                   >
                     Group Planner
                   </h3>
-                  <p className="mt-2 text-[13px]" style={{ color: PL_TEXT_2 }}>
+                  <p className="mt-1 text-[13px]" style={{ color: PL_TEXT_2 }}>
                     Plan your free time.
                   </p>
                 </div>
@@ -1882,14 +1882,14 @@ export function GroupPlanView({
                 </div>
               </div>
 
-              <div className="mt-5 h-px w-full" style={{ background: PL_HAIR }} />
+              <div className="mt-3.5 h-px w-full" style={{ background: PL_HAIR }} />
 
               {/* next group activity */}
-              <div className="mt-5">
+              <div className="mt-3.5">
                 <PlannerLabel>Next group activity</PlannerLabel>
                 {nextBooking ? (
                   <div
-                    className="mt-2.5 flex items-center gap-4 rounded-[15px] px-4 py-4"
+                    className="mt-2.5 flex items-center gap-4 rounded-[15px] px-3.5 py-3"
                     style={{
                       background: PL_CARD,
                       border: `1px solid ${PL_BORDER}`,
@@ -1898,7 +1898,7 @@ export function GroupPlanView({
                   >
                     <span className="min-w-0 flex-1">
                       <span
-                        className="block text-[20px] leading-none"
+                        className="block text-[17px] leading-none"
                         style={{
                           color: PL_TEXT,
                           fontFamily: SERIF,
@@ -1931,7 +1931,7 @@ export function GroupPlanView({
                       )}
                     </span>
                     <span
-                      className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
+                      className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-full"
                       style={{ background: PL_TRAY, color: PL_TEXT }}
                     >
                       <CalendarDays size={20} strokeWidth={1.3} />
@@ -1944,7 +1944,7 @@ export function GroupPlanView({
                 )}
 
                 {freeBefore && (
-                  <div className="mt-3 flex items-center gap-2 text-[12.5px]" style={{ color: PL_TEXT }}>
+                  <div className="mt-2 flex items-center gap-2 text-[12.5px]" style={{ color: PL_TEXT }}>
                     <Clock size={14} strokeWidth={1.4} style={{ color: PL_TEXT_2 }} />
                     {`${fmtDur(freeBefore.minutes as number)} free before this`}
                   </div>
@@ -1953,7 +1953,7 @@ export function GroupPlanView({
                 <button
                   type="button"
                   onClick={() => openEditor(activeDay ?? undefined)}
-                  className="mt-4 flex h-[46px] w-full items-center justify-center gap-2 rounded-[9px] text-[14px] font-medium transition-colors"
+                  className="mt-3 flex h-[40px] w-full items-center justify-center gap-2 rounded-[9px] text-[14px] font-medium transition-colors"
                   style={{
                     background: PL_NAVY,
                     color: PL_BG_TOP,
@@ -1966,10 +1966,10 @@ export function GroupPlanView({
                 </button>
               </div>
 
-              <div className="mt-6 h-px w-full" style={{ background: PL_HAIR }} />
+              <div className="mt-4 h-px w-full" style={{ background: PL_HAIR }} />
 
               {/* my plan */}
-              <div className="mt-5 pb-6">
+              <div className="mt-3.5 pb-4">
                 <PlannerLabel>My plan</PlannerLabel>
                 {stream.length === 0 ? (
                   <p className="mt-3 text-[12.5px]" style={{ color: PL_TEXT_2 }}>
@@ -2062,7 +2062,7 @@ export function GroupPlanView({
 
             {/* recessed tray */}
             <div
-              className="px-6 pb-6 pt-5 sm:px-7"
+              className="px-5 pb-4 pt-3.5 sm:px-5"
               style={{ background: PL_TRAY, borderTop: `1px solid ${PL_HAIR}` }}
             >
               <button
@@ -2124,7 +2124,7 @@ export function GroupPlanView({
 
               {/* utility bar */}
               <div
-                className="mt-5 flex items-stretch overflow-hidden rounded-[11px]"
+                className="mt-3.5 flex items-stretch overflow-hidden rounded-[11px]"
                 style={{
                   background: PL_CARD,
                   border: `1px solid ${PL_BORDER}`,
