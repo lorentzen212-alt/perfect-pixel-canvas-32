@@ -99,8 +99,8 @@ function cancellationView(deadlineISO: string) {
   if (ms <= 0) {
     return {
       tone: "grey" as CancelTone,
-      label: "Cancellation period ended",
-      title: `Free cancellation ended ${dateLabel}, ${timeLabel}`,
+      label: "Free cancellation",
+      title: `Free cancellation period ended ${dateLabel}, ${timeLabel}`,
       trailing: "",
     };
   }
