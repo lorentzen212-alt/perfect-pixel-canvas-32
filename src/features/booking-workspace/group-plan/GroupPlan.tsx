@@ -1806,11 +1806,11 @@ export function GroupPlanView({
 
           {/* ══ right · group planner (≈35%) ══ */}
           <aside
-            className="m-4 w-full shrink-0 overflow-hidden rounded-[21px] lg:mt-1 lg:mr-1 lg:mb-1 lg:ml-4 lg:w-[calc(36%-20px)]"
+            className="m-4 w-full shrink-0 overflow-hidden rounded-[21px] lg:-mt-2 lg:-mr-2 lg:-mb-2 lg:ml-0 lg:w-[calc(36%+8px)] lg:rounded-l-none"
             style={{
               background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
               border: `1px solid ${GOLD_PATH}`,
-              boxShadow: "0 10px 30px rgba(4,12,22,0.16), 0 2px 6px rgba(4,12,22,0.10)",
+              boxShadow: "inset 4px 0 8px -4px rgba(4,12,22,0.30), inset 0 4px 8px -4px rgba(4,12,22,0.24), 0 10px 30px rgba(4,12,22,0.16), 0 2px 6px rgba(4,12,22,0.10)",
             }}
           >
             <div className="px-6 pt-6 sm:px-7 sm:pt-7">
