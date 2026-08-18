@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   ArrowRight,
   CalendarDays,
+  Check,
   ChevronDown,
   Clock,
   Info,
@@ -15,6 +16,13 @@ import {
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import { Plate } from "@/features/booking-workspace/overview/primitives";
+import { IVORY_SHADOW } from "@/features/booking-workspace/overview/materials";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 /* ── local light palette — mirrors the other workspace folders ── */
 const WHITE = "#FFFFFF";
@@ -28,7 +36,6 @@ const BRONZE_DEEP = "#A96C12";
 const GOLD_HI = "#CC8C1E";
 const GREEN_TX = "#3F7A55";
 const BANNER = "#F5EFE5";
-const CARD_SHADOW = "0 1px 2px rgba(24,30,36,0.04)";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -50,11 +57,20 @@ const TIME_OPTIONS = (() => {
 
 export type TimeMode = "exact" | "mixed" | "unknown";
 
-const MODE_LABEL: Record<TimeMode, string> = {
-  exact: "Exact time",
-  mixed: "Mixed times",
-  unknown: "Not known yet",
+const MODE_LABEL: Record<"Arrival" | "Departure", Record<TimeMode, string>> = {
+  Arrival: {
+    exact: "Exact arrival time",
+    mixed: "Mixed arrival times",
+    unknown: "Arrival time not known yet",
+  },
+  Departure: {
+    exact: "Exact departure time",
+    mixed: "Mixed departure times",
+    unknown: "Departure time not known yet",
+  },
 };
+
+const MODES: TimeMode[] = ["exact", "mixed", "unknown"];
 
 export type MealLine = { label: string; value: string };
 export type RequestSection = "meals" | "services";
@@ -80,7 +96,7 @@ function Card({
   return (
     <div
       className={`rounded-[14px] p-5 ${className}`}
-      style={{ background: WHITE, border: `1px solid ${HAIR}`, boxShadow: CARD_SHADOW, ...style }}
+      style={{ background: WHITE, border: `1px solid ${HAIR}`, boxShadow: IVORY_SHADOW, ...style }}
     >
       {children}
     </div>
@@ -265,36 +281,54 @@ function TimeValue({
   );
 }
 
-/** borderless caption-level status dropdown */
-function GhostModeSelect({
+/** second-level status control, flush inside the field container */
+function StatusMenu({
+  side,
   value,
   onChange,
-  label,
 }: {
+  side: "Arrival" | "Departure";
   value: TimeMode;
   onChange: (v: TimeMode) => void;
-  label: string;
 }) {
   return (
-    <span className="relative inline-flex items-center">
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value as TimeMode)}
-        aria-label={label}
-        className="appearance-none bg-transparent pr-4 text-[12.5px] outline-none"
-        style={{ color: INK_SOFT }}
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          aria-label={`${side} time type`}
+          className="flex h-[40px] w-full items-center gap-2 rounded-b-[10px] px-3 text-left text-[12.5px] outline-none transition-colors hover:bg-[rgba(27,37,48,0.03)]"
+          style={{ background: "rgba(197,163,94,0.055)", color: INK_SOFT }}
+        >
+          <Clock size={13} strokeWidth={1.7} className="shrink-0" style={{ color: BRONZE }} />
+          <span className="truncate">{MODE_LABEL[side][value]}</span>
+          <ChevronDown size={12} aria-hidden className="shrink-0" style={{ color: INK_FAINT }} />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align="start"
+        sideOffset={4}
+        className="min-w-[var(--radix-dropdown-menu-trigger-width)] rounded-[11px] p-1"
+        style={{
+          background: "#FDFBF7",
+          border: `1px solid ${HAIR}`,
+          boxShadow: "0 10px 24px -12px rgba(15,25,35,0.28)",
+        }}
       >
-        <option value="exact">{MODE_LABEL.exact}</option>
-        <option value="mixed">{MODE_LABEL.mixed}</option>
-        <option value="unknown">{MODE_LABEL.unknown}</option>
-      </select>
-      <ChevronDown
-        size={12}
-        aria-hidden
-        className="pointer-events-none absolute right-0"
-        style={{ color: INK_FAINT }}
-      />
-    </span>
+        {MODES.map((m) => (
+          <DropdownMenuItem
+            key={m}
+            onSelect={() => onChange(m)}
+            className="flex h-[38px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(27,37,48,0.04)]"
+            style={{ color: INK }}
+          >
+            <Clock size={13} strokeWidth={1.7} className="shrink-0" style={{ color: BRONZE }} />
+            <span className="flex-1 truncate">{MODE_LABEL[side][m]}</span>
+            {value === m && <Check size={13} strokeWidth={2} style={{ color: BRONZE_DEEP }} />}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
@@ -319,15 +353,12 @@ function TimeSide({
 
   return (
     <div className="min-w-0 flex-1">
-      <span
-        className="block text-[12.5px] uppercase tracking-[0.08em]"
-        style={{ color: INK_SOFT }}
-      >
+      <span className="block text-[12.5px] uppercase tracking-[0.08em]" style={{ color: INK_SOFT }}>
         {label}
       </span>
 
-      <div className="mt-2 rounded-[10px] px-3 py-2.5" style={{ border: `1px solid ${HAIR}` }}>
-        <div className="flex min-h-[26px] items-center gap-3">
+      <div className="mt-1.5 rounded-[10px]" style={{ border: `1px solid ${HAIR}` }}>
+        <div className="flex min-h-[26px] items-center gap-3 px-3 py-2.5">
           <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
           {state.mode === "exact" && (
@@ -358,7 +389,7 @@ function TimeSide({
         </div>
 
         {state.mode === "mixed" && (
-          <div className="mt-2">
+          <div className="px-3 pb-2.5">
             {state.times.length > 0 && (
               <ul className="mb-1 flex flex-wrap gap-x-4 gap-y-1">
                 {state.times.map((t) => (
@@ -422,11 +453,11 @@ function TimeSide({
           </div>
         )}
 
-        <div className="mt-2 pt-2" style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
-          <GhostModeSelect
+        <div style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
+          <StatusMenu
+            side={label}
             value={state.mode}
             onChange={(mode) => onState({ ...state, mode })}
-            label={`${label} time type`}
           />
         </div>
       </div>
@@ -462,13 +493,7 @@ const fieldStyle: React.CSSProperties = {
   color: INK,
 };
 
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
       <span className="block text-[12.5px]" style={{ color: INK_SOFT }}>
@@ -569,20 +594,20 @@ export function FinalDetails({
         </Card>
 
         {/* ── primary inputs ── */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-          <Card className="xl:col-span-2" style={{ scrollMarginTop: 24 }}>
+        <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <Card className="pb-4 xl:col-span-2" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
                 icon={<CalendarDays size={19} strokeWidth={1.7} />}
                 title="Arrival & Departure"
                 subtitle="Let us know your expected arrival and departure"
               />
-              <div className="mt-4 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
                 <TimeSide label="Arrival" state={arrival} onState={setArrival} />
                 <TimeSide label="Departure" state={departure} onState={setDeparture} />
               </div>
               <p
-                className="mt-3 flex items-start gap-2 text-[12.5px]"
+                className="mt-2.5 flex items-start gap-2 text-[12.5px]"
                 style={{ color: INK_SOFT }}
               >
                 <Info size={13} strokeWidth={1.7} className="mt-[2px] shrink-0" />
@@ -597,7 +622,7 @@ export function FinalDetails({
               title="On-site contact"
               subtitle="Who can the hotel contact during the stay?"
             />
-            <div className="mt-4 flex flex-col gap-3">
+            <div className="mt-3.5 flex flex-col gap-2.5">
               <Field label="Role">
                 <div className="relative mt-1">
                   <select
@@ -653,7 +678,10 @@ export function FinalDetails({
                       onChange={(e) =>
                         setContact({
                           ...contact,
-                          secondary: { name: e.target.value, phone: contact.secondary?.phone ?? "" },
+                          secondary: {
+                            name: e.target.value,
+                            phone: contact.secondary?.phone ?? "",
+                          },
                         })
                       }
                       aria-label="Secondary contact name"
@@ -773,10 +801,7 @@ export function FinalDetails({
             <span className="text-[15px] font-semibold" style={{ color: INK }}>
               Final note to hotel
             </span>
-            <span
-              className="text-[11px] uppercase tracking-[0.1em]"
-              style={{ color: INK_FAINT }}
-            >
+            <span className="text-[11px] uppercase tracking-[0.1em]" style={{ color: INK_FAINT }}>
               Optional
             </span>
           </div>
@@ -800,7 +825,7 @@ export function FinalDetails({
         {/* ── footer action banner ── */}
         <div
           className="flex flex-wrap items-center gap-x-6 gap-y-5 rounded-[14px] px-6 py-5"
-          style={{ background: BANNER, border: `1px solid ${HAIR_SOFT}` }}
+          style={{ background: BANNER, border: `1px solid ${HAIR_SOFT}`, boxShadow: IVORY_SHADOW }}
         >
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
           <p
