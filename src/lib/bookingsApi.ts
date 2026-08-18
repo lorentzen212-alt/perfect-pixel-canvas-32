@@ -94,6 +94,7 @@ type BookingRow = {
   image_key: string | null;
   city: string | null;
   request: unknown;
+  free_cancellation_until: string | null;
 };
 
 export function toBooking(row: BookingRow): Booking {
@@ -116,13 +117,14 @@ export function toBooking(row: BookingRow): Booking {
     meetingSpaces: row.meeting_spaces ?? undefined,
     status,
     statusNote: row.status_note ?? undefined,
+    freeCancellationUntil: row.free_cancellation_until ?? undefined,
     image: imageUrlFor(row.image_key ?? imageKeyFor(row.city)),
     action: actionFor(status),
   };
 }
 
 const SELECT =
-  "id, reference, booking_type, status, status_note, name, destination, hotel_name, hotel_reference, hotel_reference_source, start_date, end_date, nights, rooms, guests, delegates, meeting_spaces, image_key, city, request";
+  "id, reference, booking_type, status, status_note, name, destination, hotel_name, hotel_reference, hotel_reference_source, start_date, end_date, nights, rooms, guests, delegates, meeting_spaces, image_key, city, request, free_cancellation_until";
 
 export async function fetchBookings(): Promise<Booking[]> {
   const { data, error } = await supabase
