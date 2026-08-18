@@ -353,10 +353,7 @@ function TimeSide({
 
   return (
     <div className="min-w-0 flex-1">
-      <span
-        className="block text-[12.5px] uppercase tracking-[0.08em]"
-        style={{ color: INK_SOFT }}
-      >
+      <span className="block text-[12.5px] uppercase tracking-[0.08em]" style={{ color: INK_SOFT }}>
         {label}
       </span>
 
@@ -496,13 +493,7 @@ const fieldStyle: React.CSSProperties = {
   color: INK,
 };
 
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
       <span className="block text-[12.5px]" style={{ color: INK_SOFT }}>
@@ -687,7 +678,10 @@ export function FinalDetails({
                       onChange={(e) =>
                         setContact({
                           ...contact,
-                          secondary: { name: e.target.value, phone: contact.secondary?.phone ?? "" },
+                          secondary: {
+                            name: e.target.value,
+                            phone: contact.secondary?.phone ?? "",
+                          },
                         })
                       }
                       aria-label="Secondary contact name"
@@ -807,10 +801,7 @@ export function FinalDetails({
             <span className="text-[15px] font-semibold" style={{ color: INK }}>
               Final note to hotel
             </span>
-            <span
-              className="text-[11px] uppercase tracking-[0.1em]"
-              style={{ color: INK_FAINT }}
-            >
+            <span className="text-[11px] uppercase tracking-[0.1em]" style={{ color: INK_FAINT }}>
               Optional
             </span>
           </div>
@@ -834,7 +825,7 @@ export function FinalDetails({
         {/* ── footer action banner ── */}
         <div
           className="flex flex-wrap items-center gap-x-6 gap-y-5 rounded-[14px] px-6 py-5"
-          style={{ background: BANNER, border: `1px solid ${HAIR_SOFT}` }}
+          style={{ background: BANNER, border: `1px solid ${HAIR_SOFT}`, boxShadow: IVORY_SHADOW }}
         >
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
           <p
