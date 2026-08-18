@@ -36,6 +36,13 @@ const GOLD_HI = "#CC8C1E";
 const GREEN_TX = "#3F7A55";
 const BANNER = "#F5EFE5";
 
+const CARD_SHADOW = [
+  "inset 0 1px 0 rgba(255,255,255,0.85)",
+  "inset 0 -1px 0 rgba(31,44,56,0.08)",
+  "0 1px 1px rgba(15,25,35,0.09)",
+  "0 3px 6px -3px rgba(15,25,35,0.16)",
+].join(", ");
+
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function formatDay(iso: string) {
