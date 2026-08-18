@@ -1813,8 +1813,9 @@ export function GroupPlanView({
             className="m-4 w-full shrink-0 overflow-hidden rounded-[21px] lg:mt-1 lg:mr-1 lg:mb-1 lg:ml-4 lg:w-[calc(36%-20px)]"
             style={{
               background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
-              border: `1px solid ${PL_BORDER}`,
-              boxShadow: "0 10px 30px rgba(13,28,43,0.06)",
+              border: `1px solid ${GOLD_LINE_GRADIENT}`,
+              boxShadow: "0 10px 30px rgba(4,12,22,0.16), 0 2px 6px rgba(4,12,22,0.10)",
+
             }}
           >
             <div className="px-6 pt-6 sm:px-7 sm:pt-7">
