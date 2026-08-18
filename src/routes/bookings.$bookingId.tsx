@@ -1292,6 +1292,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 paymentTerms={confirmed ? "Deposit paid" : "Deposit pending"}
                 onHistory={() => setTab("Messages")}
                 onMessage={() => setTab("Messages")}
+                initialSub={changesSub}
               />
             ) : tab === "Documents" ? (
               <BookingDocumentsView booking={booking} onAskQuestion={() => setTab("Messages")} />
@@ -1299,12 +1300,18 @@ function Workspace({ booking }: { booking: Booking }) {
               <FinalDetails
                 stayStart={stay.arrival}
                 stayEnd={stay.departure}
-                contactRole="Tour Leader"
+                contactRole="Tour leader"
                 contactName="Emma Hansen"
                 contactPhone="+47 60 11 22 33"
+                meals={FINAL_MEALS}
+                allergyCount={3}
                 onOpenDietary={() => setTab("Group Plan")}
+                onRequestChange={() => {
+                  setChangesSub("addons");
+                  setTab("Changes");
+                }}
                 onComplete={() => setTab("Overview")}
-              />
+              />feat
             ) : tab === "Messages" ? (
               <BookingMessagesView
                 bookingId={booking.id}
