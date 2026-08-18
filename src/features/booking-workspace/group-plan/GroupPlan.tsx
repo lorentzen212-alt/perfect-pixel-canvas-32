@@ -1817,7 +1817,7 @@ export function GroupPlanView({
 
           {/* ══ right · group planner (≈35%) ══ */}
           <aside
-            className="m-4 w-full shrink-0 overflow-hidden rounded-[21px] lg:m-1 lg:w-[calc(36%-8px)]"
+            className="m-4 w-full shrink-0 overflow-hidden rounded-[21px] lg:sticky lg:top-[75px] lg:m-1 lg:max-h-[calc(100vh-91px)] lg:w-[calc(36%-8px)] lg:self-start lg:overflow-y-auto lg:overflow-x-hidden"
             style={{
               background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
               border: `1px solid ${GOLD_PATH}`,
