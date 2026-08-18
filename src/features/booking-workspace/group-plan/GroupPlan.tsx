@@ -1591,7 +1591,7 @@ export function GroupPlanView({
         className="rounded-[22px]"
         style={{
           background: "#192F43",
-          border: `1px solid ${GOLD_LINE_GRADIENT}`,
+          border: `1px solid ${GOLD_PATH}`,
           boxShadow: "0 1px 2px rgba(0,0,0,0.08), 0 30px 60px -45px rgba(0,0,0,0.30)",
         }}
       >
@@ -1811,7 +1811,7 @@ export function GroupPlanView({
             className="m-4 w-full shrink-0 overflow-hidden rounded-[21px] lg:mt-1 lg:mr-1 lg:mb-1 lg:ml-4 lg:w-[calc(36%-20px)]"
             style={{
               background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
-              border: `1px solid ${GOLD_LINE_GRADIENT}`,
+              border: `1px solid ${GOLD_PATH}`,
               boxShadow: "0 10px 30px rgba(4,12,22,0.16), 0 2px 6px rgba(4,12,22,0.10)",
 
             }}
