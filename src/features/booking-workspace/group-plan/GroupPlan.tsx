@@ -1708,297 +1708,330 @@ export function GroupPlanView({
 
           {/* ══ right · group planner (≈35%) ══ */}
           <aside
-            className="m-4 w-full shrink-0 rounded-[18px] px-6 py-6 lg:mt-4 lg:mr-4 lg:mb-4 lg:ml-4 lg:w-[calc(36%-32px)]"
+            className="m-4 w-full shrink-0 overflow-hidden rounded-[23px] lg:mt-4 lg:mr-4 lg:mb-4 lg:ml-4 lg:w-[calc(36%-32px)]"
             style={{
-              background: "#061631",
-              border: "1px solid rgba(255,255,255,0.07)",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.035), 0 8px 24px rgba(0,0,0,0.10)",
+              background: `linear-gradient(180deg, ${PL_BG_TOP} 0%, ${PL_BG} 52%, ${PL_BG_BOTTOM} 100%)`,
+              border: `1px solid ${PL_BORDER}`,
+              boxShadow: "0 10px 30px rgba(13,28,43,0.06)",
             }}
           >
-            <span
-              className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.10em]"
-              style={{ color: GOLD_DEEP }}
-            >
-              <Bookmark size={11} strokeWidth={1.5} style={{ color: GOLD_DEEP }} />
-              Your personal plan
-            </span>
-            <h3
-              className="mt-1.5 text-[32px] leading-none"
-              style={{ color: TEXT, fontFamily: SERIF }}
-            >
-              Group Planner
-            </h3>
-            <p className="mt-2 text-[13px]" style={{ color: TEXT_2 }}>
-              Plan your day around the group itinerary.
-            </p>
-
-            <div className="mt-5 flex gap-2.5">
-              <StatusCard
-                icon={<Clock size={12} strokeWidth={1.6} />}
-                label="Next booking"
-                value={nextBooking?.time ?? "—"}
-                sub={
-                  nextBooking
-                    ? SHORT_LABEL[nextBooking.type] ?? nextBooking.title
-                    : "Nothing scheduled"
-                }
-              />
-              <StatusCard
-                icon={<Clock size={12} strokeWidth={1.6} />}
-                label="Free until"
-                value={
-                  !firstFree || firstFree.kind !== "free"
-                    ? "—"
-                    : firstFree.end === null
-                      ? "Late"
-                      : toHHMM(firstFree.end)
-                }
-                sub={
-                  !firstFree || firstFree.kind !== "free"
-                    ? "No open window"
-                    : firstFree.minutes === null
-                      ? "Rest of the day"
-                      : `${fmtDur(firstFree.minutes)} available`
-                }
-              />
-
-              <StatusCard
-                icon={<Users size={12} strokeWidth={1.6} />}
-                label="My plans"
-                value={String(dayMine.length)}
-                sub="activities"
-              />
-            </div>
-
-            <div className="mt-5 flex gap-3">
-              <button
-                type="button"
-                onClick={() => openEditor(activeDay ?? undefined)}
-                className="inline-flex h-[48px] flex-[2] items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors hover:bg-[rgba(232,201,106,0.06)]"
-                style={{ color: GOLD_DEEP, background: "transparent", border: `1px solid ${GOLD}` }}
-              >
-                <Plus size={16} strokeWidth={1.8} style={{ color: GOLD_DEEP }} /> Add to plan
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  openEditor(activeDay ?? undefined);
-                  setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
-                }}
-                className="inline-flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[9px] bg-[rgba(255,255,255,0.02)] px-3 text-[14px] transition-colors hover:bg-[rgba(255,255,255,0.03)]"
-                style={{ color: TEXT_2, border: "1px solid rgba(255,255,255,0.06)" }}
-              >
-                <Bell size={15} strokeWidth={1.6} /> Reminder
-              </button>
-            </div>
-
-            <div className="mt-6 flex items-center justify-between gap-2">
-              <span className="flex min-w-0 items-center gap-2">
-                <CalendarDays size={13} strokeWidth={1.6} style={{ color: GOLD }} />
-                <span
-                  className="text-[10px] font-semibold uppercase tracking-[0.14em]"
-                  style={{ color: GOLD }}
-                >
-                  {dayLabel}
-                </span>
-                {activeDay && (
+            <div className="px-6 pt-6 sm:px-7 sm:pt-7">
+              {/* header */}
+              <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
+                <div className="min-w-0">
                   <span
-                    className="truncate text-[11px] font-medium uppercase tracking-[0.10em]"
-                    style={{ color: TEXT_2 }}
+                    className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em]"
+                    style={{ color: PL_GOLD }}
                   >
-                    {`• ${weekday(activeDay)} ${dayNum(activeDay)} ${monthShort(activeDay).slice(0, 3)}`.toUpperCase()}
+                    <Bookmark size={11} strokeWidth={1.6} />
+                    Your personal plan
                   </span>
+                  <h3
+                    className="mt-2 text-[30px] leading-none"
+                    style={{ color: PL_TEXT, fontFamily: SERIF }}
+                  >
+                    Group Planner
+                  </h3>
+                  <p className="mt-2 text-[13px]" style={{ color: PL_TEXT_2 }}>
+                    Plan your free time.
+                  </p>
+                </div>
+
+                <div className="flex shrink-0 items-center gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setView("Timeline")}
+                    className="truncate text-[10px] font-semibold uppercase tracking-[0.14em] transition-opacity hover:opacity-70"
+                    style={{ color: PL_TEXT }}
+                  >
+                    {dayLabel}
+                    {activeDay
+                      ? ` • ${`${weekday(activeDay)} ${dayNum(activeDay)} ${monthShort(activeDay).slice(0, 3)}`.toUpperCase()}`
+                      : ""}
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Previous day"
+                    disabled={dayIdx <= 0}
+                    onClick={() => setFocusDay(dayKeys[dayIdx - 1] ?? null)}
+                    className="grid h-[24px] w-[24px] place-items-center rounded-[7px] transition-colors hover:bg-[rgba(13,28,43,0.05)] disabled:opacity-30"
+                    style={{ color: PL_TEXT, border: `1px solid ${PL_HAIR}`, background: PL_CARD }}
+                  >
+                    <ChevronLeft size={13} strokeWidth={1.7} />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Next day"
+                    disabled={dayIdx < 0 || dayIdx >= dayKeys.length - 1}
+                    onClick={() => setFocusDay(dayKeys[dayIdx + 1] ?? null)}
+                    className="grid h-[24px] w-[24px] place-items-center rounded-[7px] transition-colors hover:bg-[rgba(13,28,43,0.05)] disabled:opacity-30"
+                    style={{ color: PL_TEXT, border: `1px solid ${PL_HAIR}`, background: PL_CARD }}
+                  >
+                    <ChevronRight size={13} strokeWidth={1.7} />
+                  </button>
+                </div>
+              </div>
+
+              <div className="mt-5 h-px w-full" style={{ background: PL_HAIR }} />
+
+              {/* next group activity */}
+              <div className="mt-5">
+                <PlannerLabel>Next group activity</PlannerLabel>
+                {nextBooking ? (
+                  <div
+                    className="mt-2.5 flex items-center gap-4 rounded-[15px] px-4 py-4"
+                    style={{
+                      background: PL_CARD,
+                      border: `1px solid ${PL_BORDER}`,
+                      boxShadow: "0 8px 24px rgba(13,28,43,0.08)",
+                    }}
+                  >
+                    <span className="min-w-0 flex-1">
+                      <span
+                        className="block text-[20px] leading-none tabular-nums"
+                        style={{ color: PL_TEXT, fontFamily: SERIF }}
+                      >
+                        {nextRange}
+                      </span>
+                      <span
+                        className="mt-2 block truncate text-[14px] font-semibold"
+                        style={{ color: PL_TEXT }}
+                      >
+                        {nextBooking.title}
+                      </span>
+                      {nextSub && (
+                        <span className="mt-1 block truncate text-[12.5px]" style={{ color: PL_TEXT_2 }}>
+                          {nextSub}
+                        </span>
+                      )}
+                    </span>
+                    <span
+                      className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full"
+                      style={{ background: PL_TRAY, color: PL_TEXT }}
+                    >
+                      <CalendarDays size={20} strokeWidth={1.3} />
+                    </span>
+                  </div>
+                ) : (
+                  <p className="mt-2.5 text-[12.5px]" style={{ color: PL_TEXT_2 }}>
+                    Nothing scheduled for this day.
+                  </p>
                 )}
-              </span>
-              <span className="flex shrink-0 items-center gap-1.5">
-                <GoldLink label="View day" onClick={() => setView("Timeline")} />
+
+                {freeBefore && (
+                  <div className="mt-3 flex items-center gap-2 text-[12.5px]" style={{ color: PL_TEXT }}>
+                    <Clock size={14} strokeWidth={1.4} style={{ color: PL_TEXT_2 }} />
+                    {freeBefore.minutes === null
+                      ? "Rest of the day free before this"
+                      : `${fmtDur(freeBefore.minutes)} free before this`}
+                  </div>
+                )}
+
                 <button
                   type="button"
-                  aria-label="Previous day"
-                  disabled={dayIdx <= 0}
-                  onClick={() => setFocusDay(dayKeys[dayIdx - 1] ?? null)}
-                  className="grid h-[22px] w-[22px] place-items-center rounded-[6px] transition-colors hover:bg-[rgba(255,255,255,0.05)] disabled:opacity-30"
-                  style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
+                  onClick={() => openEditor(activeDay ?? undefined)}
+                  className="mt-4 flex h-[46px] w-full items-center justify-center gap-2 rounded-[9px] text-[14px] font-medium transition-colors"
+                  style={{
+                    background: PL_NAVY,
+                    color: PL_BG_TOP,
+                    boxShadow: "0 6px 16px rgba(13,28,43,0.14)",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = PL_NAVY_HOVER)}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = PL_NAVY)}
                 >
-                  <ChevronLeft size={13} strokeWidth={1.7} />
+                  <Plus size={16} strokeWidth={2} style={{ color: PL_GOLD }} /> Add personal plan
                 </button>
-                <button
-                  type="button"
-                  aria-label="Next day"
-                  disabled={dayIdx < 0 || dayIdx >= dayKeys.length - 1}
-                  onClick={() => setFocusDay(dayKeys[dayIdx + 1] ?? null)}
-                  className="grid h-[22px] w-[22px] place-items-center rounded-[6px] transition-colors hover:bg-[rgba(255,255,255,0.05)] disabled:opacity-30"
-                  style={{ color: TEXT_2, border: `1px solid ${EDGE}` }}
-                >
-                  <ChevronRight size={13} strokeWidth={1.7} />
-                </button>
-              </span>
+              </div>
+
+              <div className="mt-6 h-px w-full" style={{ background: PL_HAIR }} />
+
+              {/* my plan */}
+              <div className="mt-5 pb-6">
+                <PlannerLabel>My plan</PlannerLabel>
+                {stream.length === 0 ? (
+                  <p className="mt-3 text-[12.5px]" style={{ color: PL_TEXT_2 }}>
+                    Nothing scheduled for this day.
+                  </p>
+                ) : (
+                  <ul className="mt-2">
+                    {stream.map((entry, idx) =>
+                      entry.kind === "free" ? (
+                        <PlannerRow
+                          key={entry.key}
+                          time={toHHMM(entry.start)}
+                          tone="ghost"
+                          last={idx === stream.length - 1}
+                          icon={<Clock size={16} strokeWidth={1.4} />}
+                          title="Free time"
+                          sub={
+                            entry.end === null || entry.minutes === null
+                              ? "Rest of the day free"
+                              : `until ${toHHMM(entry.end)} · ${fmtDur(entry.minutes)} available`
+                          }
+                          right={
+                            <button
+                              type="button"
+                              onClick={() => {
+                                openEditor(activeDay ?? undefined);
+                                setDraft((prev) =>
+                                  prev ? { ...prev, time: toHHMM(entry.start) } : prev,
+                                );
+                              }}
+                              className="shrink-0 text-[12px] font-medium transition-opacity hover:opacity-70"
+                              style={{ color: PL_GOLD_DEEP }}
+                            >
+                              + Make a plan
+                            </button>
+                          }
+                        />
+                      ) : entry.item.kind === "booking" ? (
+                        <PlannerRow
+                          key={entry.item.id}
+                          time={entry.item.time ?? "—"}
+                          tone="booking"
+                          last={idx === stream.length - 1}
+                          icon={TYPE_ICON_SM[entry.item.type]}
+                          title={entry.item.title}
+                          sub="Group itinerary"
+                          right={<PlannerPill kind="booking" />}
+                        />
+                      ) : (
+                        <PlannerRow
+                          key={entry.item.id}
+                          time={entry.item.time ?? "—"}
+                          tone="mine"
+                          last={idx === stream.length - 1}
+                          icon={TYPE_ICON_SM[entry.item.type]}
+                          title={entry.item.title}
+                          sub={entry.item.summary ?? entry.item.secondary ?? "Personal plan"}
+                          right={
+                            <>
+                              <PlannerPill kind="myplan" />
+                              <PlannerMenu
+                                items={[
+                                  {
+                                    label: "Edit",
+                                    icon: <Pencil size={13} />,
+                                    onClick: () => openEditor(undefined, entry.item),
+                                  },
+                                  {
+                                    label: "Delete",
+                                    icon: <Trash2 size={13} />,
+                                    onClick: () => remove(entry.item.id),
+                                  },
+                                ]}
+                              />
+                            </>
+                          }
+                        />
+                      ),
+                    )}
+                  </ul>
+                )}
+
+                {dayMine.length === 0 && (
+                  <p className="mt-3 text-[12.5px]" style={{ color: PL_TEXT_2 }}>
+                    No personal plans yet.
+                  </p>
+                )}
+              </div>
             </div>
 
-            {stream.length === 0 ? (
-              <p className="mt-3 text-[12px]" style={{ color: MUTED }}>
-                Nothing scheduled for this day.
-              </p>
-            ) : (
-              <ul className="mt-3 space-y-1.5">
-                {stream.map((entry) =>
-                  entry.kind === "free" ? (
-                    <TimelineRow
-                      key={entry.key}
-                      time={toHHMM(entry.start)}
-                      dotColor={GOLD}
-                      variant="outline"
-                    >
-                      <Clock size={14} strokeWidth={1.6} className="shrink-0" style={{ color: GOLD }} />
-                      <span className="min-w-0 flex-1">
-                        <span
-                          className="block text-[11px] font-semibold uppercase tracking-[0.14em]"
-                          style={{ color: GOLD_DEEP }}
-                        >
-                          Free time
-                        </span>
-                        <span className="block text-[11px]" style={{ color: MUTED }}>
-                          {entry.end === null || entry.minutes === null
-                            ? "Rest of the day free"
-                            : `until ${toHHMM(entry.end)} · ${fmtDur(entry.minutes)} available`}
-                        </span>
-                      </span>
-                      <GoldLink
-                        label="+ Make a plan"
-                        onClick={() => {
-                          openEditor(activeDay ?? undefined);
-                          setDraft((prev) =>
-                            prev ? { ...prev, time: toHHMM(entry.start) } : prev,
-                          );
-                        }}
+            {/* recessed tray */}
+            <div
+              className="px-6 pb-6 pt-5 sm:px-7"
+              style={{ background: PL_TRAY, borderTop: `1px solid ${PL_HAIR}` }}
+            >
+              <button
+                type="button"
+                onClick={() => setUnscheduledOpen((o) => !o)}
+                aria-expanded={unscheduledOpen}
+                className="flex w-full items-center gap-2 text-left"
+              >
+                <PlannerLabel>Unscheduled</PlannerLabel>
+                <span
+                  className="inline-grid h-[19px] w-[19px] place-items-center rounded-full text-[10.5px] font-semibold leading-none tabular-nums"
+                  style={{ background: "rgba(201,168,95,0.18)", color: PL_GOLD_DEEP }}
+                >
+                  {unscheduled.length}
+                </span>
+                <ChevronDown
+                  size={14}
+                  strokeWidth={1.6}
+                  className="ml-auto transition-transform"
+                  style={{
+                    color: PL_TEXT_2,
+                    transform: unscheduledOpen ? "rotate(180deg)" : "none",
+                  }}
+                />
+              </button>
+
+              {unscheduledOpen && unscheduled.length > 0 && (
+                <div className="mt-2">
+                  {unscheduled.map((i) => (
+                    <div key={i.id} className="flex items-center gap-3 py-[9px]">
+                      <button
+                        type="button"
+                        aria-label={`Mark "${i.title}" done`}
+                        onClick={() => remove(i.id)}
+                        className="h-[15px] w-[15px] shrink-0 rounded-full transition-colors hover:bg-[rgba(201,168,95,0.18)]"
+                        style={{ border: `1px solid rgba(13,28,43,0.22)`, background: "transparent" }}
                       />
-                    </TimelineRow>
-                  ) : entry.item.kind === "booking" ? (
-                    <TimelineRow
-                      key={entry.item.id}
-                      time={entry.item.time ?? "—"}
-                      dotColor={MUTED}
-                    >
-                      <PlanMedallion type={entry.item.type} />
-                      <span className="min-w-0 flex-1">
-                        <span
-                          className="block truncate text-[13px] font-semibold"
-                          style={{ color: TEXT }}
-                        >
-                          {entry.item.title}
-                        </span>
-                        <span className="block text-[11px]" style={{ color: MUTED }}>
-                          Group itinerary
-                        </span>
+                      <span className="min-w-0 flex-1 truncate text-[12.5px]" style={{ color: PL_TEXT }}>
+                        {i.title}
                       </span>
-                      <Pill kind="booking" />
-                    </TimelineRow>
-                  ) : (
-                    <TimelineRow
-                      key={entry.item.id}
-                      time={entry.item.time ?? "—"}
-                      dotColor={GOLD}
-                      accent
-                    >
-                      <PlanMedallion type={entry.item.type} mine />
-                      <span className="min-w-0 flex-1">
-                        <span
-                          className="block truncate text-[13px] font-semibold"
-                          style={{ color: TEXT }}
-                        >
-                          {entry.item.title}
-                        </span>
-                        <span className="block text-[11px]" style={{ color: GOLD_DEEP }}>
-                          My plan
-                        </span>
-                      </span>
-                      <Menu
+                      <PlannerMenu
                         items={[
                           {
                             label: "Edit",
                             icon: <Pencil size={13} />,
-                            onClick: () => openEditor(undefined, entry.item),
+                            onClick: () => openEditor(undefined, i),
                           },
                           {
                             label: "Delete",
                             icon: <Trash2 size={13} />,
-                            onClick: () => remove(entry.item.id),
+                            onClick: () => remove(i.id),
                           },
                         ]}
                       />
-                    </TimelineRow>
-                  ),
-                )}
-              </ul>
-            )}
+                    </div>
+                  ))}
+                </div>
+              )}
 
-            {dayMine.length === 0 && (
-              <p className="mt-2 text-[12px]" style={{ color: MUTED }}>
-                No personal plans yet.
-              </p>
-            )}
-
-            <PlannerSection
-              title="Unscheduled"
-              count={unscheduled.length}
-              collapsible
-              open={unscheduled.length > 0 && unscheduledOpen}
-              onToggle={() => setUnscheduledOpen((o) => !o)}
-            >
-              <div className="mt-1">
-                {unscheduled.map((i) => (
-                  <div key={i.id} className="flex items-center gap-2.5 py-[7px]">
-                    <button
-                      type="button"
-                      aria-label={`Mark "${i.title}" done`}
-                      onClick={() => remove(i.id)}
-                      className="h-[15px] w-[15px] shrink-0 rounded-full transition-colors hover:bg-[rgba(255,255,255,0.06)]"
-                      style={{ border: "1px solid rgba(255,255,255,0.28)", background: "transparent" }}
-                    />
-                    <span className="min-w-0 flex-1 truncate text-[12.5px]" style={{ color: TEXT }}>
-                      {i.title}
-                    </span>
-                    <Menu
-                      items={[
-                        {
-                          label: "Edit",
-                          icon: <Pencil size={13} />,
-                          onClick: () => openEditor(undefined, i),
-                        },
-                        {
-                          label: "Delete",
-                          icon: <Trash2 size={13} />,
-                          onClick: () => remove(i.id),
-                        },
-                      ]}
-                    />
-                  </div>
-                ))}
+              {/* utility bar */}
+              <div
+                className="mt-5 flex items-stretch overflow-hidden rounded-[11px]"
+                style={{
+                  background: PL_CARD,
+                  border: `1px solid ${PL_BORDER}`,
+                  boxShadow: "0 4px 14px rgba(13,28,43,0.05)",
+                }}
+              >
+                <PlannerTool
+                  icon={<Pencil size={13} strokeWidth={1.6} />}
+                  label="Quick note"
+                  onClick={() => openEditor(activeDay ?? undefined)}
+                />
+                <span className="w-px shrink-0" style={{ background: PL_HAIR }} />
+                <PlannerTool
+                  icon={<Bell size={13} strokeWidth={1.6} />}
+                  label="Add reminder"
+                  onClick={() => {
+                    openEditor(activeDay ?? undefined);
+                    setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
+                  }}
+                />
+                <span className="w-px shrink-0" style={{ background: PL_HAIR }} />
+                <PlannerTool
+                  icon={<CalendarDays size={13} strokeWidth={1.6} />}
+                  label="Add activity"
+                  onClick={() => {
+                    openEditor(activeDay ?? undefined);
+                    setDraft((prev) => (prev ? { ...prev, type: "activity" } : prev));
+                  }}
+                />
               </div>
-            </PlannerSection>
-
-            <div className="mt-5 flex gap-2">
-              <QuickAction
-                icon={<Pencil size={13} strokeWidth={1.6} />}
-                label="Quick note"
-                onClick={() => openEditor(activeDay ?? undefined)}
-              />
-              <QuickAction
-                icon={<Bell size={13} strokeWidth={1.6} />}
-                label="Add reminder"
-                onClick={() => {
-                  openEditor(activeDay ?? undefined);
-                  setDraft((prev) => (prev ? { ...prev, type: "reminder" } : prev));
-                }}
-              />
-              <QuickAction
-                icon={<CalendarDays size={13} strokeWidth={1.6} />}
-                label="Add activity"
-                onClick={() => {
-                  openEditor(activeDay ?? undefined);
-                  setDraft((prev) => (prev ? { ...prev, type: "activity" } : prev));
-                }}
-              />
             </div>
           </aside>
         </div>
@@ -2011,73 +2044,3 @@ export function GroupPlanView({
   );
 }
 
-function PlannerSection({
-  title,
-  count,
-  collapsible,
-  open,
-  onToggle,
-  children,
-}: {
-  title: string;
-  count: number;
-  collapsible?: boolean;
-  open?: boolean;
-  onToggle?: () => void;
-  children: React.ReactNode;
-}) {
-  const header = (
-    <>
-      <span
-        className="text-[10.5px] font-semibold uppercase tracking-[0.18em]"
-        style={{ color: MUTED }}
-      >
-        {title}
-      </span>
-      <span className="flex items-center gap-2">
-        <span
-          className="inline-grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-[11px] font-semibold leading-none tabular-nums"
-          style={{
-            color: GOLD_DEEP,
-            background: "transparent",
-            border: "1px solid rgba(255,255,255,0.15)",
-          }}
-        >
-          {count}
-        </span>
-        {collapsible && (
-          <ChevronDown
-            size={14}
-            strokeWidth={1.6}
-            className="transition-transform"
-            style={{ color: MUTED, transform: open ? "rotate(180deg)" : "none" }}
-          />
-        )}
-      </span>
-    </>
-  );
-
-  return (
-    <div className="mt-8" style={{ paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.09)" }}>
-      {collapsible ? (
-        <button
-          type="button"
-          onClick={onToggle}
-          aria-expanded={!!open}
-          className="flex w-full items-center justify-between pb-2 text-left"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.09)" }}
-        >
-          {header}
-        </button>
-      ) : (
-        <div
-          className="flex items-center justify-between pb-2"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.09)" }}
-        >
-          {header}
-        </div>
-      )}
-      {(!collapsible || open) && <div>{children}</div>}
-    </div>
-  );
-}
