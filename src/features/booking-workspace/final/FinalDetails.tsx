@@ -599,9 +599,9 @@ export function FinalDetails({
           </button>
         </FlatCard>
 
-        {/* ── ROW 2 · arrival & departure + group contact ── */}
-        <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[1.6fr_1fr] lg:items-stretch">
-          <FlatCard className="flex flex-col p-6" style={{ scrollMarginTop: 24 }}>
+        {/* ── 2 · arrival & departure | group contact ── */}
+        <div className="grid lg:grid-cols-[1.55fr_1fr]">
+          <div className="flex flex-col px-7 py-7 sm:px-9" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
                 icon={<CalendarDays size={19} strokeWidth={1.7} />}
@@ -613,9 +613,10 @@ export function FinalDetails({
                 <TimeSide label="Departure" state={departure} onState={setDeparture} />
               </div>
             </div>
-          </FlatCard>
+          </div>
 
-          <FlatCard className="flex flex-col p-6">
+          <div className="flex flex-col border-t border-[rgba(90,74,52,0.13)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
+
             <CardHead
               icon={<User size={19} strokeWidth={1.7} />}
               title="Group contact"
