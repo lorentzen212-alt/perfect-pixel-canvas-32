@@ -180,21 +180,22 @@ function CardHead({
   title: string;
   subtitle?: string;
 }) {
+  const tone = useSurface();
   return (
     <div className="flex items-start gap-2.5">
-      <span className="mt-[1px] shrink-0" style={{ color: INK }}>
+      <span className="mt-[1px] shrink-0" style={{ color: tone.ink }}>
         {icon}
       </span>
       <span className="min-w-0 flex-1">
         <span
           className="block text-[18px] leading-tight"
-          style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
+          style={{ color: tone.ink, fontFamily: SERIF, fontWeight: 500 }}
         >
           {title}
         </span>
 
         {subtitle && (
-          <span className="mt-1 block text-[12.5px]" style={{ color: INK_2 }}>
+          <span className="mt-1 block text-[12.5px]" style={{ color: tone.ink2 }}>
             {subtitle}
           </span>
         )}
