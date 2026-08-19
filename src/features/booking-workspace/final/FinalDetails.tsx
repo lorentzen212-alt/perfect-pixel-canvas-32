@@ -716,8 +716,10 @@ export function FinalDetails({
           </FlatCard>
         </div>
 
-        {/* ── ROW 3 · three symmetrical cards ── */}
-        <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+        {/* ── 3 · three tiles ── */}
+        <div className="px-7 py-7 sm:px-9">
+          <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
             <div className="mt-2.5">
