@@ -15,7 +15,6 @@ import {
   X,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
-import { Plate } from "@/features/booking-workspace/overview/primitives";
 import {
   GOLD,
   GREEN,
@@ -34,17 +33,25 @@ import {
 const GOLD_HI = "#CC8C1E";
 const GOLD_DEEP = "#A96C12";
 const CHEVRON = "rgba(27,37,48,0.55)";
-/** ivory-compatible field surface — never pure white */
-const FIELD_BG = "#FFFFFF";
-const FIELD_BORDER = "1px solid rgba(16,24,40,0.10)";
-/** cool hairline used for dividers inside white cards on this page */
-const HAIR = "rgba(16,24,40,0.08)";
-/** flat architectural ivory surface — local to this page */
-const FLAT_BG = "#FFFFFF";
-const FLAT_BORDER = "1px solid rgba(16,24,40,0.06)";
-const FLAT_SHADOW = "0 1px 2px rgba(16,24,40,0.05)";
 
-/** same API as the shared overview Card, but flat instead of raised */
+/* ── warm document canvas material ── */
+const CANVAS = "#FAF8F5";
+const CANVAS_BORDER = "1px solid rgba(120,100,74,0.14)";
+const CANVAS_SHADOW = "0 1px 2px rgba(6,14,22,0.20), 0 30px 60px -35px rgba(6,14,22,0.55)";
+/** warm hairline used for every divider on this page */
+const RULE = "rgba(90,74,52,0.13)";
+const TILE_BG = "#FFFDFA";
+const TILE_BORDER = "1px solid rgba(90,74,52,0.14)";
+const TILE_SHADOW = "0 1px 2px rgba(90,74,52,0.06)";
+const FIELD_BG = "#FFFDFA";
+const FIELD_BORDER = "1px solid rgba(90,74,52,0.18)";
+
+/** ultra-thin warm divider between canvas sections */
+function Rule() {
+  return <span aria-hidden className="block h-px w-full" style={{ background: RULE }} />;
+}
+
+/** the three small tiles in the middle row */
 function FlatCard({
   children,
   className = "",
@@ -58,10 +65,10 @@ function FlatCard({
     <div
       className={className}
       style={{
-        background: FLAT_BG,
-        border: FLAT_BORDER,
-        borderRadius: 16,
-        boxShadow: FLAT_SHADOW,
+        background: TILE_BG,
+        border: TILE_BORDER,
+        borderRadius: 14,
+        boxShadow: TILE_SHADOW,
         ...style,
       }}
     >
@@ -69,6 +76,7 @@ function FlatCard({
     </div>
   );
 }
+
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -125,9 +133,13 @@ function CardHead({
         {icon}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-[15px] font-semibold" style={{ color: INK }}>
+        <span
+          className="block text-[18px] leading-tight"
+          style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
+        >
           {title}
         </span>
+
         {subtitle && (
           <span className="mt-1 block text-[12.5px]" style={{ color: INK_2 }}>
             {subtitle}
@@ -167,7 +179,7 @@ function TextAction({
 function CardFooter({ label, onClick }: { label: string; onClick?: () => void }) {
   return (
     <div className="mt-auto pt-3">
-      <span aria-hidden className="mb-2 block h-px" style={{ background: HAIR }} />
+      <span aria-hidden className="mb-2 block h-px" style={{ background: RULE }} />
       <button
         type="button"
         onClick={onClick}
@@ -321,8 +333,8 @@ function ModeMenu({
         sideOffset={6}
         className="min-w-[190px] rounded-[10px] p-1"
         style={{
-          background: FLAT_BG,
-          border: `1px solid ${HAIR}`,
+          background: CANVAS,
+          border: `1px solid ${RULE}`,
           boxShadow: "0 4px 12px rgba(15,28,40,0.08)",
         }}
       >
@@ -373,7 +385,7 @@ function TimeSide({
       >
         <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
-        <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: HAIR }} />
+        <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: RULE }} />
 
         {state.mode === "exact" && (
           <TimeValue
@@ -559,13 +571,16 @@ export function FinalDetails({
   const noteExpanded = noteOpen || note.length > 0;
 
   return (
-    <Plate tone="canvas">
-      <div className="flex flex-1 flex-col gap-4 px-5 pb-12 pt-6 sm:px-8">
-        {/* ── ROW 1 · progress ── */}
-        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-3 px-6 py-5">
+    <div className="px-5 pb-14 pt-6 sm:px-14 sm:pt-14">
+      <div
+        className="overflow-hidden rounded-[18px]"
+        style={{ background: CANVAS, border: CANVAS_BORDER, boxShadow: CANVAS_SHADOW }}
+      >
+        {/* ── 1 · header ── */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 px-7 py-6 sm:px-9">
           <ProgressRing value={80} />
           <div className="min-w-0 flex-1">
-            <h2 className="text-[21px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}>
+            <h2 className="text-[22px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}>
               Final details
             </h2>
             <p className="mt-0.5 text-[13px]" style={{ color: INK_2 }}>
@@ -580,16 +595,19 @@ export function FinalDetails({
             onClick={() =>
               timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
-            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(27,37,48,0.04)]"
-            style={{ border: "1px solid rgba(16,24,40,0.12)", color: INK }}
+            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(90,74,52,0.05)]"
+            style={{ border: "1px solid rgba(90,74,52,0.22)", color: INK }}
           >
             View missing items
           </button>
-        </FlatCard>
+        </div>
+        <Rule />
 
-        {/* ── ROW 2 · arrival & departure + group contact ── */}
-        <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[1.6fr_1fr] lg:items-stretch">
-          <FlatCard className="flex flex-col p-6" style={{ scrollMarginTop: 24 }}>
+
+
+        {/* ── 2 · arrival & departure | group contact ── */}
+        <div className="grid lg:grid-cols-[1.55fr_1fr]">
+          <div className="flex flex-col px-7 py-7 sm:px-9" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
                 icon={<CalendarDays size={19} strokeWidth={1.7} />}
@@ -601,12 +619,13 @@ export function FinalDetails({
                 <TimeSide label="Departure" state={departure} onState={setDeparture} />
               </div>
             </div>
-          </FlatCard>
+          </div>
 
-          <FlatCard className="flex flex-col p-6">
+          <div className="flex flex-col border-t border-[rgba(90,74,52,0.13)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
+
             <CardHead
               icon={<User size={19} strokeWidth={1.7} />}
-              title="Group contact"
+              title="Group Contact"
               subtitle="Who can we contact during the stay?"
             />
             <div className="mt-3.5 flex flex-wrap gap-2">
@@ -701,11 +720,16 @@ export function FinalDetails({
                 onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
               />
             )}
-          </FlatCard>
+          </div>
         </div>
+        <Rule />
 
-        {/* ── ROW 3 · three symmetrical cards ── */}
-        <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+
+
+        {/* ── 3 · three tiles ── */}
+        <div className="px-7 py-7 sm:px-9">
+          <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
             <div className="mt-2.5">
@@ -724,7 +748,7 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special arrangements" />
+            <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special Arrangements" />
             <div className="mt-2.5">
               <Row label="Coach parking" value="Confirmed" tone="green" />
               <Row label="Extra luggage room" value="Confirmed" tone="green" />
@@ -733,7 +757,7 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & dietary" />
+            <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & Dietary" />
             <div className="mt-2.5">
               <p className="text-[13px]" style={{ color: INK_2 }}>
                 {allergyCount} notes
@@ -741,10 +765,14 @@ export function FinalDetails({
             </div>
             <CardFooter label="View & edit" onClick={onOpenDietary} />
           </FlatCard>
+          </div>
         </div>
+        <Rule />
 
-        {/* ── ROW 4 · final note ── */}
-        <FlatCard className="px-6 py-5">
+
+        {/* ── 4 · final note ── */}
+        <div className="px-7 py-5 sm:px-9">
+
           {noteExpanded ? (
             <>
               <div className="flex items-center gap-2.5">
@@ -805,10 +833,13 @@ export function FinalDetails({
               </span>
             </button>
           )}
-        </FlatCard>
+        </div>
+        <Rule />
 
-        {/* ── ROW 5 · confirmation ── */}
-        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-4 px-6 py-5">
+
+        {/* ── 5 · confirmation ── */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-4 px-7 py-6 sm:px-9">
+
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
@@ -819,7 +850,7 @@ export function FinalDetails({
           <span
             aria-hidden
             className="hidden h-[48px] w-px shrink-0 lg:block"
-            style={{ background: HAIR }}
+            style={{ background: RULE }}
           />
 
           <div className="min-w-[210px] max-w-[240px]">
@@ -843,8 +874,9 @@ export function FinalDetails({
           >
             Confirm final details <ArrowRight size={16} />
           </button>
-        </FlatCard>
+        </div>
       </div>
-    </Plate>
+    </div>
   );
+
 }
