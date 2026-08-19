@@ -753,7 +753,10 @@ export function FinalDetails({
             </div>
             <CardFooter label="View & edit" onClick={onOpenDietary} />
           </FlatCard>
+          </div>
         </div>
+        <Rule />
+
 
         {/* ── 4 · final note ── */}
         <div className="px-7 py-5 sm:px-9">
