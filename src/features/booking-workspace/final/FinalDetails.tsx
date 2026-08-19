@@ -770,7 +770,6 @@ export function FinalDetails({
                 <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
               </span>
             </button>
-
           )}
         </Card>
 
