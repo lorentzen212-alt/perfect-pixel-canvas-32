@@ -15,7 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
-import { Card, Plate } from "@/features/booking-workspace/overview/primitives";
+import { Plate } from "@/features/booking-workspace/overview/primitives";
 import {
   GOLD,
   GREEN,
@@ -23,7 +23,6 @@ import {
   INK,
   INK_2,
   INK_3,
-  IVORY,
 } from "@/features/booking-workspace/overview/materials";
 import {
   DropdownMenu,
@@ -37,7 +36,40 @@ const GOLD_HI = "#CC8C1E";
 const GOLD_DEEP = "#A96C12";
 const CHEVRON = "rgba(27,37,48,0.55)";
 /** ivory-compatible field surface — never pure white */
-const FIELD_BG = "rgba(255,255,255,0.55)";
+const FIELD_BG = "#FAF9F5";
+/** flat architectural ivory surface — local to this page */
+const FLAT_BG = "#F3F1EB";
+const FLAT_BORDER = "1px solid rgba(255,255,255,0.60)";
+const FLAT_SHADOW = "0 2px 8px rgba(15, 28, 40, 0.05)";
+const FLAT_SHADOW_FRAME = "0 2px 10px rgba(15, 28, 40, 0.07)";
+
+/** same API as the shared overview Card, but flat instead of raised */
+function FlatCard({
+  children,
+  className = "",
+  style,
+  frame = false,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  frame?: boolean;
+}) {
+  return (
+    <div
+      className={className}
+      style={{
+        background: FLAT_BG,
+        border: FLAT_BORDER,
+        borderRadius: 12,
+        boxShadow: frame ? FLAT_SHADOW_FRAME : FLAT_SHADOW,
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -290,9 +322,9 @@ function ModeMenu({
         sideOffset={6}
         className="min-w-[190px] rounded-[10px] p-1"
         style={{
-          background: IVORY,
+          background: FLAT_BG,
           border: `1px solid ${HAIR}`,
-          boxShadow: "0 6px 16px -10px rgba(15,25,35,0.28)",
+          boxShadow: "0 4px 12px rgba(15,28,40,0.08)",
         }}
       >
         {MODES.map((m) => (
@@ -531,7 +563,7 @@ export function FinalDetails({
     <Plate>
       <div className="flex flex-1 flex-col gap-4 px-5 pb-12 pt-6 sm:px-8">
         {/* ── ROW 1 · progress ── */}
-        <Card className="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3.5">
+        <FlatCard frame className="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3.5">
           <ProgressRing value={80} />
           <div className="min-w-0 flex-1">
             <h2 className="text-[21px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}>
@@ -554,11 +586,11 @@ export function FinalDetails({
           >
             View missing items
           </button>
-        </Card>
+        </FlatCard>
 
         {/* ── ROW 2 · arrival & departure + group contact ── */}
         <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[1.6fr_1fr] lg:items-stretch">
-          <Card className="flex flex-col p-5" style={{ scrollMarginTop: 24 }}>
+          <FlatCard className="flex flex-col p-5" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
                 icon={<CalendarDays size={19} strokeWidth={1.7} />}
@@ -570,9 +602,9 @@ export function FinalDetails({
                 <TimeSide label="Departure" state={departure} onState={setDeparture} />
               </div>
             </div>
-          </Card>
+          </FlatCard>
 
-          <Card className="flex flex-col p-5">
+          <FlatCard className="flex flex-col p-5">
             <CardHead
               icon={<User size={19} strokeWidth={1.7} />}
               title="Group contact"
@@ -670,12 +702,12 @@ export function FinalDetails({
                 onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
               />
             )}
-          </Card>
+          </FlatCard>
         </div>
 
         {/* ── ROW 3 · three symmetrical cards ── */}
         <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
-          <Card className="flex h-full flex-col p-5">
+          <FlatCard className="flex h-full flex-col p-5">
             <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
             <div className="mt-2.5">
               {meals.length === 0 ? (
@@ -690,18 +722,18 @@ export function FinalDetails({
               label={`${meals.length} details`}
               onClick={() => onRequestChange?.("meals")}
             />
-          </Card>
+          </FlatCard>
 
-          <Card className="flex h-full flex-col p-5">
+          <FlatCard className="flex h-full flex-col p-5">
             <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special arrangements" />
             <div className="mt-2.5">
               <Row label="Coach parking" value="Confirmed" tone="green" />
               <Row label="Extra luggage room" value="Confirmed" tone="green" />
             </div>
             <CardFooter label="2 arrangements" onClick={() => onRequestChange?.("services")} />
-          </Card>
+          </FlatCard>
 
-          <Card className="flex h-full flex-col p-5">
+          <FlatCard className="flex h-full flex-col p-5">
             <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & dietary" />
             <div className="mt-2.5">
               <p className="text-[13px]" style={{ color: INK_2 }}>
@@ -709,11 +741,11 @@ export function FinalDetails({
               </p>
             </div>
             <CardFooter label="View & edit" onClick={onOpenDietary} />
-          </Card>
+          </FlatCard>
         </div>
 
         {/* ── ROW 4 · final note ── */}
-        <Card className="p-4">
+        <FlatCard className="p-4">
           {noteExpanded ? (
             <>
               <div className="flex items-center gap-2.5">
@@ -751,7 +783,7 @@ export function FinalDetails({
             >
               <span
                 className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
-                style={{ border: `1px solid ${HAIR}`, background: "rgba(255,255,255,0.5)" }}
+                style={{ border: `1px solid ${HAIR}`, background: FIELD_BG }}
               >
                 <MessageSquare size={15} strokeWidth={1.7} style={{ color: INK_2 }} />
               </span>
@@ -774,10 +806,10 @@ export function FinalDetails({
               </span>
             </button>
           )}
-        </Card>
+        </FlatCard>
 
         {/* ── ROW 5 · confirmation ── */}
-        <Card className="flex flex-wrap items-center gap-x-6 gap-y-4 px-5 py-3.5">
+        <FlatCard frame className="flex flex-wrap items-center gap-x-6 gap-y-4 px-5 py-3.5">
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
@@ -812,7 +844,7 @@ export function FinalDetails({
           >
             Confirm final details <ArrowRight size={16} />
           </button>
-        </Card>
+        </FlatCard>
       </div>
     </Plate>
   );
