@@ -610,22 +610,22 @@ export function FinalDetails({
         </Card>
 
         {/* ── two independent columns ── */}
-        <div className="flex flex-col gap-5 xl:grid xl:grid-cols-3 xl:items-start">
+        <div className="flex flex-col gap-4 xl:grid xl:grid-cols-3 xl:items-start">
           {/* left column */}
-          <div className="contents xl:col-span-2 xl:flex xl:flex-col xl:gap-5">
-            <Card className="order-1 xl:order-none pb-4" style={{ scrollMarginTop: 24 }}>
+          <div className="contents xl:col-span-2 xl:flex xl:flex-col xl:gap-4">
+            <Card className="order-1 xl:order-none pb-3" style={{ scrollMarginTop: 24 }}>
               <div ref={timesRef}>
                 <CardHead
                   icon={<CalendarDays size={19} strokeWidth={1.7} />}
                   title="Arrival & Departure"
                   subtitle="Let us know your expected arrival and departure"
                 />
-                <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
+                <div className="mt-3 flex flex-col gap-4 sm:flex-row">
                   <TimeSide label="Arrival" state={arrival} onState={setArrival} />
                   <TimeSide label="Departure" state={departure} onState={setDeparture} />
                 </div>
                 <p
-                  className="mt-2.5 flex items-start gap-2 text-[12.5px]"
+                  className="mt-2 flex items-start gap-2 text-[12.5px]"
                   style={{ color: INK_SOFT }}
                 >
                   <Info size={13} strokeWidth={1.7} className="mt-[2px] shrink-0" />
@@ -635,7 +635,7 @@ export function FinalDetails({
               </div>
             </Card>
 
-            <div className="contents xl:grid xl:grid-cols-2 xl:gap-5">
+            <div className="contents xl:grid xl:grid-cols-2 xl:gap-4">
               <Card className="order-3 xl:order-none">
                 <CardHead
                   icon={<Utensils size={19} strokeWidth={1.7} />}
