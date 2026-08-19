@@ -38,9 +38,9 @@ const BANNER = "#F5EFE5";
 
 const CARD_SHADOW = [
   "inset 0 1px 0 rgba(255,255,255,0.85)",
-  "inset 0 -1px 0 rgba(31,44,56,0.08)",
-  "0 1px 1px rgba(15,25,35,0.09)",
-  "0 3px 6px -3px rgba(15,25,35,0.16)",
+  "inset 0 -1px 0 rgba(31,44,56,0.07)",
+  "0 1px 1px rgba(15,25,35,0.07)",
+  "0 2px 4px -2px rgba(15,25,35,0.12)",
 ].join(", ");
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -297,38 +297,48 @@ function StatusMenu({
   value: TimeMode;
   onChange: (v: TimeMode) => void;
 }) {
+  const STATUS_BG = "#F4F5F6";
+  const ICON_GREY = "#7C8792";
+  const CHEVRON_GREY = "#4D5963";
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
           type="button"
           aria-label={`${side} time type`}
-          className="flex h-[40px] w-full items-center gap-2 rounded-b-[10px] px-3 text-left text-[12.5px] outline-none transition-colors hover:bg-[rgba(27,37,48,0.03)]"
-          style={{ background: "rgba(197,163,94,0.055)", color: INK_SOFT }}
+          className="flex h-[38px] w-full items-center gap-2 rounded-b-[10px] px-3 text-left text-[12.5px] outline-none transition-colors hover:bg-[rgba(27,37,48,0.035)]"
+          style={{ background: STATUS_BG, color: INK }}
         >
-          <Clock size={13} strokeWidth={1.7} className="shrink-0" style={{ color: BRONZE }} />
+          <Clock size={14} strokeWidth={1.6} className="shrink-0" style={{ color: ICON_GREY }} />
           <span className="truncate">{MODE_LABEL[side][value]}</span>
-          <ChevronDown size={12} aria-hidden className="shrink-0" style={{ color: INK_FAINT }} />
+          <ChevronDown
+            size={15}
+            strokeWidth={1.6}
+            aria-hidden
+            className="shrink-0"
+            style={{ color: CHEVRON_GREY }}
+          />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
         sideOffset={4}
-        className="min-w-[var(--radix-dropdown-menu-trigger-width)] rounded-[11px] p-1"
+        className="min-w-[var(--radix-dropdown-menu-trigger-width)] rounded-[10px] p-1"
         style={{
-          background: "#FDFBF7",
+          background: "#FCFCFD",
           border: `1px solid ${HAIR}`,
-          boxShadow: "0 10px 24px -12px rgba(15,25,35,0.28)",
+          boxShadow: "0 6px 16px -10px rgba(15,25,35,0.25)",
         }}
       >
         {MODES.map((m) => (
           <DropdownMenuItem
             key={m}
             onSelect={() => onChange(m)}
-            className="flex h-[38px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(27,37,48,0.04)]"
+            className="flex h-[36px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(27,37,48,0.04)]"
             style={{ color: INK }}
           >
-            <Clock size={13} strokeWidth={1.7} className="shrink-0" style={{ color: BRONZE }} />
+            <Clock size={14} strokeWidth={1.6} className="shrink-0" style={{ color: ICON_GREY }} />
             <span className="flex-1 truncate">{MODE_LABEL[side][m]}</span>
             {value === m && <Check size={13} strokeWidth={2} style={{ color: BRONZE_DEEP }} />}
           </DropdownMenuItem>
@@ -572,7 +582,7 @@ export function FinalDetails({
 
   return (
     <Plate tone="warm">
-      <div className="flex flex-1 flex-col gap-5 px-5 pb-12 pt-6 sm:px-8">
+      <div className="flex flex-1 flex-col gap-4 px-5 pb-12 pt-6 sm:px-8">
         {/* ── progress banner ── */}
         <Card className="flex flex-wrap items-center gap-x-6 gap-y-4">
           <ProgressRing value={80} />
@@ -600,22 +610,22 @@ export function FinalDetails({
         </Card>
 
         {/* ── two independent columns ── */}
-        <div className="flex flex-col gap-5 xl:grid xl:grid-cols-3 xl:items-start">
+        <div className="flex flex-col gap-4 xl:grid xl:grid-cols-3 xl:items-start">
           {/* left column */}
-          <div className="contents xl:col-span-2 xl:flex xl:flex-col xl:gap-5">
-            <Card className="order-1 xl:order-none pb-4" style={{ scrollMarginTop: 24 }}>
+          <div className="contents xl:col-span-2 xl:flex xl:flex-col xl:gap-4">
+            <Card className="order-1 xl:order-none pb-3" style={{ scrollMarginTop: 24 }}>
               <div ref={timesRef}>
                 <CardHead
                   icon={<CalendarDays size={19} strokeWidth={1.7} />}
                   title="Arrival & Departure"
                   subtitle="Let us know your expected arrival and departure"
                 />
-                <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
+                <div className="mt-3 flex flex-col gap-4 sm:flex-row">
                   <TimeSide label="Arrival" state={arrival} onState={setArrival} />
                   <TimeSide label="Departure" state={departure} onState={setDeparture} />
                 </div>
                 <p
-                  className="mt-2.5 flex items-start gap-2 text-[12.5px]"
+                  className="mt-2 flex items-start gap-2 text-[12.5px]"
                   style={{ color: INK_SOFT }}
                 >
                   <Info size={13} strokeWidth={1.7} className="mt-[2px] shrink-0" />
@@ -625,7 +635,7 @@ export function FinalDetails({
               </div>
             </Card>
 
-            <div className="contents xl:grid xl:grid-cols-2 xl:gap-5">
+            <div className="contents xl:grid xl:grid-cols-2 xl:gap-4">
               <Card className="order-3 xl:order-none">
                 <CardHead
                   icon={<Utensils size={19} strokeWidth={1.7} />}
@@ -670,14 +680,14 @@ export function FinalDetails({
           </div>
 
           {/* right column */}
-          <div className="contents xl:flex xl:flex-col xl:gap-5">
-            <Card className="order-2 xl:order-none">
+          <div className="contents xl:flex xl:flex-col xl:gap-4">
+            <Card className="order-2 xl:order-none p-4">
               <CardHead
                 icon={<User size={19} strokeWidth={1.7} />}
                 title="On-site contact"
                 subtitle="Who can the hotel contact during the stay?"
               />
-              <div className="mt-3 flex flex-col gap-2.5">
+              <div className="mt-2.5 flex flex-col gap-2">
                 <Field label="Role">
                   <div className="relative mt-1">
                     <select
@@ -781,7 +791,7 @@ export function FinalDetails({
               </div>
             </Card>
 
-            <Card className="order-5 xl:order-none">
+            <Card className="order-5 xl:order-none p-4">
               <CardHead
                 icon={<Leaf size={19} strokeWidth={1.7} />}
                 title="Allergies & dietary"
@@ -790,7 +800,7 @@ export function FinalDetails({
               <button
                 type="button"
                 onClick={onOpenDietary}
-                className="mt-2.5 flex w-full flex-col items-center gap-1.5 rounded-[10px] py-2 text-center transition-colors hover:bg-[rgba(27,37,48,0.02)]"
+                className="mt-2 flex flex-col items-center gap-1 rounded-[10px] py-1.5 text-center transition-colors hover:bg-[rgba(27,37,48,0.02)]"
               >
                 <span
                   className="grid h-[34px] w-[34px] place-items-center rounded-full"
@@ -829,7 +839,7 @@ export function FinalDetails({
             maxLength={500}
             aria-label="Final note to hotel"
             placeholder="Add an important note for the hotel..."
-            className="mt-2.5 h-[68px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+            className="mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
             style={fieldStyle}
           />
           <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_FAINT }}>
@@ -839,7 +849,7 @@ export function FinalDetails({
 
         {/* ── footer action banner ── */}
         <div
-          className="flex flex-wrap items-center gap-x-6 gap-y-5 rounded-[14px] px-6 py-4"
+          className="flex flex-wrap items-center gap-x-6 gap-y-5 rounded-[14px] px-6 py-3"
           style={{ background: BANNER, border: `1px solid ${HAIR_SOFT}`, boxShadow: CARD_SHADOW }}
         >
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
