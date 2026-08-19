@@ -438,8 +438,8 @@ export function ChangesFolder({
 
               <div className="mt-8" style={{ borderTop: `1px solid ${HAIR_SOFT}` }} />
 
-              {/* the header uses the same 40 / 15 / 25 / 20 column track as the rows
-                  below, so every label sits directly above its values */}
+              {/* the header uses the same fixed grid track as the rows below
+                  so every label sits directly above its values */}
               <div className="mt-7 flex items-center sm:grid sm:grid-cols-[minmax(300px,1fr)_130px_180px_130px] sm:items-center">
                 <span className="min-w-0 flex-1">
                   <Eyebrow>Room changes</Eyebrow>
