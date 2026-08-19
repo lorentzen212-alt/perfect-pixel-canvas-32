@@ -493,7 +493,6 @@ const fieldStyle: React.CSSProperties = {
 /* ── the tab body ── */
 
 export function FinalDetails({
-  strip,
   stayStart,
   stayEnd,
   contactRole,
@@ -506,7 +505,6 @@ export function FinalDetails({
   onContactChange,
   onComplete,
 }: {
-  strip?: InfoCell[];
   stayStart: string;
   stayEnd: string;
   contactRole: string;
