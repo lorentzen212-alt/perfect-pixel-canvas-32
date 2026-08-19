@@ -175,7 +175,7 @@ function TextAction({
 function CardFooter({ label, onClick }: { label: string; onClick?: () => void }) {
   return (
     <div className="mt-auto pt-3">
-      <span aria-hidden className="mb-2 block h-px" style={{ background: HAIR }} />
+      <span aria-hidden className="mb-2 block h-px" style={{ background: RULE }} />
       <button
         type="button"
         onClick={onClick}
@@ -329,8 +329,8 @@ function ModeMenu({
         sideOffset={6}
         className="min-w-[190px] rounded-[10px] p-1"
         style={{
-          background: FLAT_BG,
-          border: `1px solid ${HAIR}`,
+          background: CANVAS,
+          border: `1px solid ${RULE}`,
           boxShadow: "0 4px 12px rgba(15,28,40,0.08)",
         }}
       >
@@ -381,7 +381,7 @@ function TimeSide({
       >
         <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
-        <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: HAIR }} />
+        <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: RULE }} />
 
         {state.mode === "exact" && (
           <TimeValue
@@ -827,7 +827,7 @@ export function FinalDetails({
           <span
             aria-hidden
             className="hidden h-[48px] w-px shrink-0 lg:block"
-            style={{ background: HAIR }}
+            style={{ background: RULE }}
           />
 
           <div className="min-w-[210px] max-w-[240px]">
