@@ -43,15 +43,52 @@ const CHEVRON = "rgba(244,241,234,0.55)";
 const GOLD = "#DCAE62";
 const GREEN = "#8FC7A6";
 
-/* the three tiles — one step lighter than the document */
-const TILE_BG = "#27405F";
-const TILE_BORDER = "1px solid rgba(255,255,255,0.10)";
-const TILE_SHADOW = "0 1px 2px rgba(0,0,0,0.30), 0 10px 24px -10px rgba(0,0,0,0.50)";
-const TILE_SHADOW_HOVER = "0 1px 2px rgba(0,0,0,0.30), 0 16px 32px -12px rgba(0,0,0,0.60)";
+/* the three tiles — warm ivory paper raised off the navy document */
+const TILE_BG = "#F5F3EE";
+const TILE_BORDER = "1px solid rgba(255,255,255,0.70)";
+const TILE_SHADOW =
+  "inset 0 1px 0 rgba(255,255,255,0.85), 0 1px 2px rgba(15,25,35,0.20), 0 12px 26px -12px rgba(10,18,28,0.55)";
+const TILE_SHADOW_HOVER =
+  "inset 0 1px 0 rgba(255,255,255,0.85), 0 2px 4px rgba(15,25,35,0.22), 0 18px 34px -14px rgba(10,18,28,0.62)";
+
+/* ink set used inside the ivory tiles */
+const PAPER_INK = "#1B2530";
+const PAPER_INK_2 = "#5F6B75";
+const PAPER_GREEN = "#2E6B45";
+const PAPER_CHEVRON = "rgba(27,37,48,0.46)";
+const PAPER_RULE = "rgba(27,37,48,0.12)";
 
 /* fields */
 const FIELD_BG = "rgba(255,255,255,0.06)";
 const FIELD_BORDER = "1px solid rgba(255,255,255,0.18)";
+
+/** surface-aware colours so shared bits keep cream-on-navy outside the tiles */
+type SurfaceTone = {
+  ink: string;
+  ink2: string;
+  green: string;
+  chevron: string;
+  rule: string;
+};
+
+const NAVY_TONE: SurfaceTone = {
+  ink: INK,
+  ink2: INK_2,
+  green: GREEN,
+  chevron: CHEVRON,
+  rule: RULE,
+};
+
+const PAPER_TONE: SurfaceTone = {
+  ink: PAPER_INK,
+  ink2: PAPER_INK_2,
+  green: PAPER_GREEN,
+  chevron: PAPER_CHEVRON,
+  rule: PAPER_RULE,
+};
+
+const SurfaceContext = React.createContext<SurfaceTone>(NAVY_TONE);
+const useSurface = () => React.useContext(SurfaceContext);
 
 /** ultra-thin warm divider between canvas sections */
 function Rule() {
@@ -69,26 +106,29 @@ function FlatCard({
   style?: React.CSSProperties;
 }) {
   return (
-    <div
-      className={`transition-all duration-200 hover:-translate-y-px ${className}`}
-      style={{
-        background: TILE_BG,
-        border: TILE_BORDER,
-        borderRadius: 14,
-        boxShadow: TILE_SHADOW,
-        ...style,
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = TILE_SHADOW_HOVER;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = TILE_SHADOW;
-      }}
-    >
-      {children}
-    </div>
+    <SurfaceContext.Provider value={PAPER_TONE}>
+      <div
+        className={`transition-all duration-200 hover:-translate-y-px ${className}`}
+        style={{
+          background: TILE_BG,
+          border: TILE_BORDER,
+          borderRadius: 14,
+          boxShadow: TILE_SHADOW,
+          ...style,
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = TILE_SHADOW_HOVER;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = TILE_SHADOW;
+        }}
+      >
+        {children}
+      </div>
+    </SurfaceContext.Provider>
   );
 }
+
 
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -140,21 +180,22 @@ function CardHead({
   title: string;
   subtitle?: string;
 }) {
+  const tone = useSurface();
   return (
     <div className="flex items-start gap-2.5">
-      <span className="mt-[1px] shrink-0" style={{ color: INK }}>
+      <span className="mt-[1px] shrink-0" style={{ color: tone.ink }}>
         {icon}
       </span>
       <span className="min-w-0 flex-1">
         <span
           className="block text-[18px] leading-tight"
-          style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
+          style={{ color: tone.ink, fontFamily: SERIF, fontWeight: 500 }}
         >
           {title}
         </span>
 
         {subtitle && (
-          <span className="mt-1 block text-[12.5px]" style={{ color: INK_2 }}>
+          <span className="mt-1 block text-[12.5px]" style={{ color: tone.ink2 }}>
             {subtitle}
           </span>
         )}
@@ -190,18 +231,19 @@ function TextAction({
 
 /** footer row pinned to the bottom of the three symmetrical cards */
 function CardFooter({ label, onClick }: { label: string; onClick?: () => void }) {
+  const tone = useSurface();
   return (
     <div className="mt-auto pt-3">
-      <span aria-hidden className="mb-2 block h-px" style={{ background: RULE }} />
+      <span aria-hidden className="mb-2 block h-px" style={{ background: tone.rule }} />
       <button
         type="button"
         onClick={onClick}
         className="flex w-full items-center justify-between gap-3 text-left transition-opacity hover:opacity-70"
       >
-        <span className="text-[12.5px]" style={{ color: INK_2 }}>
+        <span className="text-[12.5px]" style={{ color: tone.ink2 }}>
           {label}
         </span>
-        <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
+        <ChevronRight size={15} strokeWidth={1.8} style={{ color: tone.chevron }} />
       </button>
     </div>
   );
@@ -496,14 +538,15 @@ function TimeSide({
 /* ── simple label / value row ── */
 
 function Row({ label, value, tone }: { label: string; value: string; tone?: "green" }) {
+  const surface = useSurface();
   return (
     <div className="flex items-center justify-between gap-4 py-[5px]">
-      <span className="min-w-0 truncate text-[13px]" style={{ color: INK }}>
+      <span className="min-w-0 truncate text-[13px]" style={{ color: surface.ink }}>
         {label}
       </span>
       <span
         className="shrink-0 text-[13px] font-medium tabular-nums"
-        style={{ color: tone === "green" ? GREEN : INK }}
+        style={{ color: tone === "green" ? surface.green : surface.ink }}
       >
         {value}
       </span>
@@ -747,7 +790,7 @@ export function FinalDetails({
             <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
             <div className="mt-2.5">
               {meals.length === 0 ? (
-                <p className="text-[13px]" style={{ color: INK_3 }}>
+                <p className="text-[13px]" style={{ color: PAPER_INK_2 }}>
                   No group meals booked
                 </p>
               ) : (
@@ -772,7 +815,7 @@ export function FinalDetails({
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & Dietary" />
             <div className="mt-2.5">
-              <p className="text-[13px]" style={{ color: INK_2 }}>
+              <p className="text-[13px]" style={{ color: PAPER_INK_2 }}>
                 {allergyCount} notes
               </p>
             </div>
