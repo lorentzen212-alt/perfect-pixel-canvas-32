@@ -36,24 +36,21 @@ const GOLD_HI = "#CC8C1E";
 const GOLD_DEEP = "#A96C12";
 const CHEVRON = "rgba(27,37,48,0.55)";
 /** ivory-compatible field surface — never pure white */
-const FIELD_BG = "#FAF9F5";
+const FIELD_BG = "#FCFBF8";
 /** flat architectural ivory surface — local to this page */
-const FLAT_BG = "#F3F1EB";
-const FLAT_BORDER = "1px solid rgba(255,255,255,0.60)";
-const FLAT_SHADOW = "0 2px 8px rgba(15, 28, 40, 0.05)";
-const FLAT_SHADOW_FRAME = "0 2px 10px rgba(15, 28, 40, 0.07)";
+const FLAT_BG = "#F7F4ED";
+const FLAT_BORDER = "1px solid rgba(255,255,255,0.75)";
+const FLAT_SHADOW = "0 1px 3px rgba(15, 28, 40, 0.035)";
 
 /** same API as the shared overview Card, but flat instead of raised */
 function FlatCard({
   children,
   className = "",
   style,
-  frame = false,
 }: {
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
-  frame?: boolean;
 }) {
   return (
     <div
@@ -62,7 +59,7 @@ function FlatCard({
         background: FLAT_BG,
         border: FLAT_BORDER,
         borderRadius: 12,
-        boxShadow: frame ? FLAT_SHADOW_FRAME : FLAT_SHADOW,
+        boxShadow: FLAT_SHADOW,
         ...style,
       }}
     >
@@ -563,7 +560,7 @@ export function FinalDetails({
     <Plate>
       <div className="flex flex-1 flex-col gap-4 px-5 pb-12 pt-6 sm:px-8">
         {/* ── ROW 1 · progress ── */}
-        <FlatCard frame className="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3.5">
+        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3.5">
           <ProgressRing value={80} />
           <div className="min-w-0 flex-1">
             <h2 className="text-[21px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}>
@@ -809,7 +806,7 @@ export function FinalDetails({
         </FlatCard>
 
         {/* ── ROW 5 · confirmation ── */}
-        <FlatCard frame className="flex flex-wrap items-center gap-x-6 gap-y-4 px-5 py-3.5">
+        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-4 px-5 py-3.5">
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
