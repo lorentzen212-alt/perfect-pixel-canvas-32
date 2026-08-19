@@ -680,14 +680,14 @@ export function FinalDetails({
           </div>
 
           {/* right column */}
-          <div className="contents xl:flex xl:flex-col xl:gap-5">
-            <Card className="order-2 xl:order-none">
+          <div className="contents xl:flex xl:flex-col xl:gap-4">
+            <Card className="order-2 xl:order-none p-4">
               <CardHead
                 icon={<User size={19} strokeWidth={1.7} />}
                 title="On-site contact"
                 subtitle="Who can the hotel contact during the stay?"
               />
-              <div className="mt-3 flex flex-col gap-2.5">
+              <div className="mt-2.5 flex flex-col gap-2">
                 <Field label="Role">
                   <div className="relative mt-1">
                     <select
