@@ -1138,10 +1138,7 @@ function Workspace({ booking }: { booking: Booking }) {
   ];
 
   const isFolder =
-    tab === "Overview" ||
-    tab === "Rooming List" ||
-    tab === "Documents" ||
-    tab === "Changes";
+    tab === "Overview" || tab === "Rooming List" || tab === "Documents" || tab === "Changes";
 
   const isFinalDetails = tab === "Final Details";
 
