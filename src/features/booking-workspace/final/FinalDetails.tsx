@@ -800,7 +800,7 @@ export function FinalDetails({
               <button
                 type="button"
                 onClick={onOpenDietary}
-                className="mt-2 flex flex-col items-center gap-1 rounded-[10px] py-1.5 text-center transition-colors hover:bg-[rgba(27,37,48,0.02)]"
+                className="mt-2 flex w-full flex-col items-center gap-1 rounded-[10px] py-1.5 text-center transition-colors hover:bg-[rgba(27,37,48,0.02)]"
               >
                 <span
                   className="grid h-[34px] w-[34px] place-items-center rounded-full"
