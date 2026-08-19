@@ -843,20 +843,29 @@ export function FinalDetails({
 
 
         {/* ── 4 · final note ── */}
-        <div className="px-7 py-5 sm:px-9">
-
+        <div
+          className="px-7 py-5 sm:px-9"
+          style={{ background: METAL_BG, boxShadow: METAL_EDGE }}
+        >
           {noteExpanded ? (
             <>
               <div className="flex items-center gap-2.5">
-                <MessageSquare size={17} strokeWidth={1.7} style={{ color: INK }} />
-                <span className="text-[14.5px] font-semibold" style={{ color: INK }}>
+                <MessageSquare
+                  size={17}
+                  strokeWidth={1.7}
+                  style={{ color: METAL_INK, filter: `drop-shadow(${METAL_EMBOSS})` }}
+                />
+                <span
+                  className="text-[14.5px] font-semibold"
+                  style={{ color: METAL_INK, textShadow: METAL_EMBOSS }}
+                >
                   Final note to hotel
                 </span>
                 <button
                   type="button"
                   onClick={() => setNoteOpen(false)}
                   className="ml-auto text-[12.5px] font-medium transition-opacity hover:opacity-70"
-                  style={{ color: GOLD }}
+                  style={{ color: METAL_GOLD }}
                 >
                   Done
                 </button>
@@ -867,10 +876,18 @@ export function FinalDetails({
                 maxLength={500}
                 aria-label="Final note to hotel"
                 placeholder="Add an important note for the hotel..."
-                className="mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
-                style={fieldStyle}
+                className="placeholder:text-[rgba(26,34,44,0.45)] mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+                style={{
+                  background: "#F7F7F5",
+                  border: "1px solid rgba(18,26,36,0.22)",
+                  color: METAL_INK,
+                  boxShadow: "inset 0 1px 2px rgba(18,26,36,0.12)",
+                }}
               />
-              <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_3 }}>
+              <p
+                className="mt-1 text-right text-[12px] tabular-nums"
+                style={{ color: METAL_INK_3 }}
+              >
                 {note.length} / 500
               </p>
             </>
@@ -878,35 +895,48 @@ export function FinalDetails({
             <button
               type="button"
               onClick={() => setNoteOpen(true)}
-              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(255,255,255,0.04)]"
+              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(255,255,255,0.20)]"
             >
               <span
                 className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
-                style={{ border: FIELD_BORDER, background: FIELD_BG }}
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(146,149,152,0.45) 0%, rgba(208,210,212,0.55) 100%)",
+                  border: "1px solid rgba(255,255,255,0.60)",
+                  boxShadow:
+                    "inset 0 1px 2px rgba(18,26,36,0.22), 0 1px 0 rgba(255,255,255,0.55)",
+                }}
               >
-                <MessageSquare size={15} strokeWidth={1.7} style={{ color: INK_2 }} />
+                <MessageSquare size={15} strokeWidth={1.7} style={{ color: "#2A3644" }} />
               </span>
               <span className="min-w-0 flex-1">
                 <span
                   className="block text-[13px] font-semibold leading-none"
-                  style={{ color: INK }}
+                  style={{ color: METAL_INK, textShadow: METAL_EMBOSS }}
                 >
                   Final note to hotel
                 </span>
-                <span className="mt-[2px] block text-[12px] leading-none" style={{ color: INK_2 }}>
+                <span
+                  className="mt-[2px] block text-[12px] leading-none"
+                  style={{
+                    color: METAL_INK_2,
+                    textShadow: "0 1px 0 rgba(255,255,255,0.45)",
+                  }}
+                >
                   Anything else the hotel should know?
                 </span>
               </span>
               <span className="inline-flex shrink-0 items-center gap-2 transition-opacity group-hover:opacity-70">
-                <span className="text-[12.5px] font-medium" style={{ color: INK_2 }}>
+                <span className="text-[12.5px] font-medium" style={{ color: METAL_GOLD }}>
                   Add note
                 </span>
-                <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
+                <ChevronRight size={15} strokeWidth={1.8} style={{ color: METAL_GOLD }} />
               </span>
             </button>
           )}
         </div>
         <Rule />
+
 
 
         {/* ── 5 · confirmation ── */}
