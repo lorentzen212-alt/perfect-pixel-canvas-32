@@ -625,7 +625,7 @@ export function FinalDetails({
 
             <CardHead
               icon={<User size={19} strokeWidth={1.7} />}
-              title="Group contact"
+              title="Group Contact"
               subtitle="Who can we contact during the stay?"
             />
             <div className="mt-3.5 flex flex-wrap gap-2">
@@ -748,7 +748,7 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special arrangements" />
+            <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special Arrangements" />
             <div className="mt-2.5">
               <Row label="Coach parking" value="Confirmed" tone="green" />
               <Row label="Extra luggage room" value="Confirmed" tone="green" />
@@ -757,7 +757,7 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & dietary" />
+            <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & Dietary" />
             <div className="mt-2.5">
               <p className="text-[13px]" style={{ color: INK_2 }}>
                 {allergyCount} notes
