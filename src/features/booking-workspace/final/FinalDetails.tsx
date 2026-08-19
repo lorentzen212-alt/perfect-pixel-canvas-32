@@ -62,6 +62,22 @@ const PAPER_RULE = "rgba(27,37,48,0.12)";
 const FIELD_BG = "rgba(255,255,255,0.06)";
 const FIELD_BORDER = "1px solid rgba(255,255,255,0.18)";
 
+/* the final-note band — polished aluminium, base #BABABA, light at 155° */
+const METAL_BG =
+  "linear-gradient(155deg, #A6A8AA 0%, #BEC0C2 10%, #DCDEDF 24%, #EFF0F1 34%, #CDCFD1 46%, #ACAEB0 58%, #C6C8CA 72%, #DDDEDF 86%, #ADAFB1 100%)";
+const METAL_EDGE =
+  "inset 0 1px 0 rgba(255,255,255,0.78), inset 0 -1px 0 rgba(18,26,36,0.30)";
+
+/* ink that reads on brushed metal */
+const METAL_INK = "#1A222C";
+const METAL_INK_2 = "rgba(26,34,44,0.64)";
+const METAL_INK_3 = "rgba(26,34,44,0.52)";
+/** the tiny embossed lift that makes type look engraved into metal */
+const METAL_EMBOSS = "0 1px 0 rgba(255,255,255,0.60)";
+/** deep gold — the only accent that stays luxe against silver */
+const METAL_GOLD = "#8A5A0B";
+
+
 /** surface-aware colours so shared bits keep cream-on-navy outside the tiles */
 type SurfaceTone = {
   ink: string;
