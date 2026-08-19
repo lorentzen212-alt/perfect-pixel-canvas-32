@@ -41,9 +41,10 @@ const CANVAS_SHADOW = "0 1px 2px rgba(6,14,22,0.20), 0 30px 60px -35px rgba(6,14
 /** warm hairline used for every divider on this page */
 const RULE = "rgba(90,74,52,0.13)";
 const TILE_BG = "#FFFDFA";
-const TILE_BORDER = "1px solid rgba(90,74,52,0.14)";
-const TILE_SHADOW = "0 1px 2px rgba(90,74,52,0.06)";
-const FIELD_BG = "#FFFDFA";
+const TILE_BORDER = "1px solid rgba(90,74,52,0.10)";
+const TILE_SHADOW = "0 1px 2px rgba(90,74,52,0.05), 0 10px 24px -10px rgba(60,45,25,0.20)";
+const TILE_SHADOW_HOVER = "0 1px 2px rgba(90,74,52,0.05), 0 16px 32px -12px rgba(60,45,25,0.26)";
+const FIELD_BG = "#FCFBF8";
 const FIELD_BORDER = "1px solid rgba(90,74,52,0.18)";
 
 /** ultra-thin warm divider between canvas sections */
@@ -63,13 +64,19 @@ function FlatCard({
 }) {
   return (
     <div
-      className={className}
+      className={`transition-all duration-200 hover:-translate-y-px ${className}`}
       style={{
         background: TILE_BG,
         border: TILE_BORDER,
         borderRadius: 14,
         boxShadow: TILE_SHADOW,
         ...style,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = TILE_SHADOW_HOVER;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = TILE_SHADOW;
       }}
     >
       {children}
