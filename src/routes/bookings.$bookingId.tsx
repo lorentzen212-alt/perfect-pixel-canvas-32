@@ -1242,14 +1242,16 @@ function Workspace({ booking }: { booking: Booking }) {
           onSelect={goToTab}
           surface={
             isFolder
-              ? tab === "Documents" || tab === "Final Details"
+              ? tab === "Documents"
                 ? FOLDER_TOP_SURFACE_WARM
                 : tab === "Changes"
                   ? "#FAF7F5"
                   : FOLDER_TOP_SURFACE
-              : isGroupPlan
-                ? GROUP_PLAN_IVORY
-                : undefined
+              : isFinalDetails
+                ? FINAL_PLATE
+                : isGroupPlan
+                  ? GROUP_PLAN_IVORY
+                  : undefined
           }
         />
 
@@ -1258,42 +1260,14 @@ function Workspace({ booking }: { booking: Booking }) {
           className={
             isFolder
               ? "relative flex flex-1 flex-col px-0 pb-0 pt-0"
-              : isGroupPlan
+              : isGroupPlan || isFinalDetails
                 ? "relative flex flex-1 flex-col px-5 pb-14 pt-0 sm:px-9"
                 : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
           style={{ backgroundColor: PLATE_BG }}
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
-          {isFolder ? null : (
-            <div className="flex flex-wrap items-center gap-y-5 py-6">
-              {strip.map((s, i) => (
-                <div
-                  key={s.lead + i}
-                  className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
-                  style={i > 0 ? { borderLeft: "1px solid rgba(21,32,43,0.13)" } : undefined}
-                >
-                  <span className="shrink-0" style={{ color: "#D4AF37" }}>
-                    {s.icon}
-                  </span>
-                  <span className="min-w-0">
-                    <span
-                      className="block truncate text-[14px] font-semibold"
-                      style={{ color: "#15202B" }}
-                    >
-                      {s.lead}
-                    </span>
-                    <span
-                      className="block truncate text-[12px]"
-                      style={{ color: "rgba(21,32,43,0.6)" }}
-                    >
-                      {s.sub}
-                    </span>
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
+          {isFolder || isFinalDetails ? null : <InfoStrip cells={strip} />}
 
           <div key={tab} className={`hgb-ws-panel${isFolder ? " flex flex-1 flex-col" : ""}`}>
             {tab === "Rooming List" ? (
