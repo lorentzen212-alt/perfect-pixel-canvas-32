@@ -4,8 +4,8 @@ import {
   CalendarDays,
   Check,
   ChevronDown,
+  ChevronRight,
   Clock,
-  Info,
   Leaf,
   MessageSquare,
   ShieldCheck,
@@ -15,7 +15,16 @@ import {
   X,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
-import { Plate } from "@/features/booking-workspace/overview/primitives";
+import { Card, Plate } from "@/features/booking-workspace/overview/primitives";
+import {
+  GOLD,
+  GREEN,
+  HAIR,
+  INK,
+  INK_2,
+  INK_3,
+  IVORY,
+} from "@/features/booking-workspace/overview/materials";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,25 +32,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-/* ── local light palette — mirrors the other workspace folders ── */
-const WHITE = "#FFFFFF";
-const INK = "#1B2530";
-const INK_SOFT = "rgba(27,37,48,0.62)";
-const INK_FAINT = "rgba(27,37,48,0.45)";
-const HAIR = "rgba(27,37,48,0.10)";
-const HAIR_SOFT = "rgba(27,37,48,0.07)";
-const BRONZE = "#C0801E";
-const BRONZE_DEEP = "#A96C12";
+/* ── local constants materials.ts has no equivalent for ── */
 const GOLD_HI = "#CC8C1E";
-const GREEN_TX = "#3F7A55";
-const BANNER = "#F5EFE5";
-
-const CARD_SHADOW = [
-  "inset 0 1px 0 rgba(255,255,255,0.85)",
-  "inset 0 -1px 0 rgba(31,44,56,0.07)",
-  "0 1px 1px rgba(15,25,35,0.07)",
-  "0 2px 4px -2px rgba(15,25,35,0.12)",
-].join(", ");
+const GOLD_DEEP = "#A96C12";
+const CHEVRON = "rgba(27,37,48,0.55)";
+/** ivory-compatible field surface — never pure white */
+const FIELD_BG = "rgba(255,255,255,0.55)";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -63,20 +59,13 @@ const TIME_OPTIONS = (() => {
 
 export type TimeMode = "exact" | "mixed" | "unknown";
 
-const MODE_LABEL: Record<"Arrival" | "Departure", Record<TimeMode, string>> = {
-  Arrival: {
-    exact: "Exact arrival time",
-    mixed: "Mixed arrival times",
-    unknown: "Arrival time not known yet",
-  },
-  Departure: {
-    exact: "Exact departure time",
-    mixed: "Mixed departure times",
-    unknown: "Departure time not known yet",
-  },
+const MODE_LABEL: Record<TimeMode, string> = {
+  exact: "Exact time",
+  unknown: "Approximate time",
+  mixed: "Mixed times",
 };
 
-const MODES: TimeMode[] = ["exact", "mixed", "unknown"];
+const MODES: TimeMode[] = ["exact", "unknown", "mixed"];
 
 export type MealLine = { label: string; value: string };
 export type RequestSection = "meals" | "services";
@@ -88,40 +77,19 @@ export type ContactState = {
   secondary?: { name: string; phone: string } | null;
 };
 
-/* ── shared card shell ── */
-
-function Card({
-  children,
-  className = "",
-  style,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-}) {
-  return (
-    <div
-      className={`rounded-[14px] p-5 ${className}`}
-      style={{ background: WHITE, border: `1px solid ${HAIR}`, boxShadow: CARD_SHADOW, ...style }}
-    >
-      {children}
-    </div>
-  );
-}
+/* ── shared bits ── */
 
 function CardHead({
   icon,
   title,
   subtitle,
-  action,
 }: {
   icon: React.ReactNode;
   title: string;
   subtitle?: string;
-  action?: React.ReactNode;
 }) {
   return (
-    <div className="flex items-start gap-3">
+    <div className="flex items-start gap-2.5">
       <span className="mt-[1px] shrink-0" style={{ color: INK }}>
         {icon}
       </span>
@@ -130,17 +98,16 @@ function CardHead({
           {title}
         </span>
         {subtitle && (
-          <span className="mt-1 block text-[12.5px]" style={{ color: INK_SOFT }}>
+          <span className="mt-1 block text-[12.5px]" style={{ color: INK_2 }}>
             {subtitle}
           </span>
         )}
       </span>
-      {action && <span className="shrink-0">{action}</span>}
     </div>
   );
 }
 
-/** quiet text-only action used in card headers and card footers */
+/** quiet text-only action */
 function TextAction({
   label,
   onClick,
@@ -156,8 +123,8 @@ function TextAction({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-1 text-[13px] font-medium transition-opacity hover:opacity-70 ${className}`}
-      style={{ color: BRONZE_DEEP }}
+      className={`inline-flex items-center gap-1 text-[12.5px] font-medium transition-opacity hover:opacity-70 ${className}`}
+      style={{ color: GOLD }}
     >
       {label}
       {arrow && <ArrowRight size={13} />}
@@ -165,11 +132,30 @@ function TextAction({
   );
 }
 
-/* ── the 80% ring ── */
+/** footer row pinned to the bottom of the three symmetrical cards */
+function CardFooter({ label, onClick }: { label: string; onClick?: () => void }) {
+  return (
+    <div className="mt-auto pt-3">
+      <span aria-hidden className="mb-2 block h-px" style={{ background: HAIR }} />
+      <button
+        type="button"
+        onClick={onClick}
+        className="flex w-full items-center justify-between gap-3 text-left transition-opacity hover:opacity-70"
+      >
+        <span className="text-[12.5px]" style={{ color: INK_2 }}>
+          {label}
+        </span>
+        <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
+      </button>
+    </div>
+  );
+}
+
+/* ── the progress ring ── */
 
 function ProgressRing({ value }: { value: number }) {
-  const size = 72;
-  const stroke = 6;
+  const size = 64;
+  const stroke = 5;
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   return (
@@ -191,13 +177,13 @@ function ProgressRing({ value }: { value: number }) {
           cy={size / 2}
           r={r}
           fill="none"
-          stroke={BRONZE}
+          stroke={GOLD}
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={`${(c * value) / 100} ${c}`}
         />
       </svg>
-      <span className="absolute text-[15px] font-semibold tabular-nums" style={{ color: INK }}>
+      <span className="absolute text-[14px] font-semibold tabular-nums" style={{ color: INK }}>
         {value}%
       </span>
     </span>
@@ -220,7 +206,7 @@ function DateValue({ value, onChange }: { value: string; onChange: (v: string) =
 
   return (
     <span className="flex min-w-0 flex-1 items-center gap-2.5">
-      <CalendarDays size={15} strokeWidth={1.7} className="shrink-0" style={{ color: INK_FAINT }} />
+      <CalendarDays size={15} strokeWidth={1.7} className="shrink-0" style={{ color: INK_3 }} />
       {editing ? (
         <input
           ref={ref}
@@ -237,7 +223,7 @@ function DateValue({ value, onChange }: { value: string; onChange: (v: string) =
           type="button"
           onClick={open}
           className="min-w-0 flex-1 truncate text-left text-[13.5px] font-medium"
-          style={{ color: value ? INK : INK_FAINT }}
+          style={{ color: value ? INK : INK_3 }}
         >
           {value ? formatDay(value) : "Add date"}
         </button>
@@ -256,17 +242,14 @@ function TimeValue({
   label: string;
 }) {
   return (
-    <span
-      className="relative flex shrink-0 items-center gap-2.5 pl-3"
-      style={{ borderLeft: `1px solid ${HAIR}` }}
-    >
-      <Clock size={15} strokeWidth={1.7} className="shrink-0" style={{ color: INK_FAINT }} />
+    <span className="flex shrink-0 items-center gap-2.5">
+      <Clock size={15} strokeWidth={1.7} className="shrink-0" style={{ color: INK_3 }} />
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
         aria-label={label}
-        className="appearance-none bg-transparent pr-4 text-[13.5px] font-medium tabular-nums outline-none"
-        style={{ color: value ? INK : INK_FAINT }}
+        className="appearance-none bg-transparent text-[13.5px] font-medium tabular-nums outline-none"
+        style={{ color: value ? INK : INK_3 }}
       >
         <option value="" disabled>
           --:--
@@ -277,18 +260,12 @@ function TimeValue({
           </option>
         ))}
       </select>
-      <ChevronDown
-        size={13}
-        aria-hidden
-        className="pointer-events-none absolute right-0"
-        style={{ color: INK_FAINT }}
-      />
     </span>
   );
 }
 
-/** second-level status control, flush inside the field container */
-function StatusMenu({
+/** time-type popover, triggered by the chevron at the end of the control */
+function ModeMenu({
   side,
   value,
   onChange,
@@ -297,50 +274,36 @@ function StatusMenu({
   value: TimeMode;
   onChange: (v: TimeMode) => void;
 }) {
-  const STATUS_BG = "#F4F5F6";
-  const ICON_GREY = "#7C8792";
-  const CHEVRON_GREY = "#4D5963";
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
           type="button"
           aria-label={`${side} time type`}
-          className="flex h-[38px] w-full items-center gap-2 rounded-b-[10px] px-3 text-left text-[12.5px] outline-none transition-colors hover:bg-[rgba(27,37,48,0.035)]"
-          style={{ background: STATUS_BG, color: INK }}
+          className="grid h-[26px] w-[22px] shrink-0 place-items-center rounded-[6px] outline-none transition-colors hover:bg-[rgba(27,37,48,0.05)]"
         >
-          <Clock size={14} strokeWidth={1.6} className="shrink-0" style={{ color: ICON_GREY }} />
-          <span className="truncate">{MODE_LABEL[side][value]}</span>
-          <ChevronDown
-            size={15}
-            strokeWidth={1.6}
-            aria-hidden
-            className="shrink-0"
-            style={{ color: CHEVRON_GREY }}
-          />
+          <ChevronDown size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        align="start"
-        sideOffset={4}
-        className="min-w-[var(--radix-dropdown-menu-trigger-width)] rounded-[10px] p-1"
+        align="end"
+        sideOffset={6}
+        className="min-w-[190px] rounded-[10px] p-1"
         style={{
-          background: "#FCFCFD",
+          background: IVORY,
           border: `1px solid ${HAIR}`,
-          boxShadow: "0 6px 16px -10px rgba(15,25,35,0.25)",
+          boxShadow: "0 6px 16px -10px rgba(15,25,35,0.28)",
         }}
       >
         {MODES.map((m) => (
           <DropdownMenuItem
             key={m}
             onSelect={() => onChange(m)}
-            className="flex h-[36px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(27,37,48,0.04)]"
+            className="flex h-[35px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(27,37,48,0.04)]"
             style={{ color: INK }}
           >
-            <Clock size={14} strokeWidth={1.6} className="shrink-0" style={{ color: ICON_GREY }} />
-            <span className="flex-1 truncate">{MODE_LABEL[side][m]}</span>
-            {value === m && <Check size={13} strokeWidth={2} style={{ color: BRONZE_DEEP }} />}
+            <span className="flex-1 truncate">{MODE_LABEL[m]}</span>
+            {value === m && <Check size={13} strokeWidth={2} style={{ color: GOLD }} />}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
@@ -369,114 +332,103 @@ function TimeSide({
 
   return (
     <div className="min-w-0 flex-1">
-      <span className="block text-[12.5px] uppercase tracking-[0.08em]" style={{ color: INK_SOFT }}>
+      <span className="block text-[11px] uppercase tracking-[0.12em]" style={{ color: INK_3 }}>
         {label}
       </span>
 
-      <div className="mt-1.5 rounded-[10px]" style={{ border: `1px solid ${HAIR}` }}>
-        <div className="flex min-h-[26px] items-center gap-3 px-3 py-2.5">
-          <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
+      <div
+        className="mt-1.5 flex h-[46px] items-center gap-3 rounded-[10px] px-3"
+        style={{ border: `1px solid ${HAIR}`, background: FIELD_BG }}
+      >
+        <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
-          {state.mode === "exact" && (
-            <TimeValue
-              value={state.time}
-              onChange={(time) => onState({ ...state, time })}
-              label={`${label} time`}
-            />
-          )}
+        <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: HAIR }} />
 
-          {state.mode === "mixed" && (
-            <span
-              className="flex shrink-0 items-center gap-2 pl-3 text-[12.5px]"
-              style={{ borderLeft: `1px solid ${HAIR}`, color: INK_SOFT }}
-            >
-              Multiple {lower} times
-            </span>
-          )}
-
-          {state.mode === "unknown" && (
-            <span
-              className="flex shrink-0 items-center pl-3 text-[12.5px]"
-              style={{ borderLeft: `1px solid ${HAIR}`, color: INK_FAINT }}
-            >
-              {label} time not confirmed yet
-            </span>
-          )}
-        </div>
-
-        {state.mode === "mixed" && (
-          <div className="px-3 pb-2.5">
-            {state.times.length > 0 && (
-              <ul className="mb-1 flex flex-wrap gap-x-4 gap-y-1">
-                {state.times.map((t) => (
-                  <li
-                    key={t}
-                    className="inline-flex items-center gap-1.5 text-[12.5px] tabular-nums"
-                    style={{ color: INK }}
-                  >
-                    {t}
-                    <button
-                      type="button"
-                      aria-label={`Remove ${lower} time ${t}`}
-                      onClick={() =>
-                        onState({ ...state, times: state.times.filter((x) => x !== t) })
-                      }
-                      className="transition-opacity hover:opacity-70"
-                      style={{ color: INK_FAINT }}
-                    >
-                      <X size={11} />
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {adding ? (
-              <span className="relative inline-flex items-center">
-                <select
-                  autoFocus
-                  defaultValue=""
-                  aria-label={`Add ${lower} time`}
-                  onChange={(e) => {
-                    const v = e.target.value;
-                    if (v && !state.times.includes(v)) {
-                      onState({ ...state, times: [...state.times, v].sort() });
-                    }
-                    setAdding(false);
-                  }}
-                  onBlur={() => setAdding(false)}
-                  className="appearance-none bg-transparent pr-4 text-[12.5px] tabular-nums outline-none"
-                  style={{ color: INK }}
-                >
-                  <option value="" disabled>
-                    Select time
-                  </option>
-                  {TIME_OPTIONS.map((t) => (
-                    <option key={t} value={t}>
-                      {t}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown
-                  size={12}
-                  aria-hidden
-                  className="pointer-events-none absolute right-0"
-                  style={{ color: INK_FAINT }}
-                />
-              </span>
-            ) : (
-              <TextAction label="+ Add times" onClick={() => setAdding(true)} />
-            )}
-          </div>
+        {state.mode === "exact" && (
+          <TimeValue
+            value={state.time}
+            onChange={(time) => onState({ ...state, time })}
+            label={`${label} time`}
+          />
         )}
 
-        <div style={{ borderTop: `1px solid ${HAIR_SOFT}` }}>
-          <StatusMenu
-            side={label}
-            value={state.mode}
-            onChange={(mode) => onState({ ...state, mode })}
-          />
-        </div>
+        {state.mode === "mixed" && (
+          <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
+            Multiple {lower} times
+          </span>
+        )}
+
+        {state.mode === "unknown" && (
+          <span className="shrink-0 text-[12.5px]" style={{ color: INK_3 }}>
+            Time not confirmed
+          </span>
+        )}
+
+        <ModeMenu side={label} value={state.mode} onChange={(mode) => onState({ ...state, mode })} />
       </div>
+
+      {state.mode === "mixed" && (
+        <div className="mt-2">
+          {state.times.length > 0 && (
+            <ul className="mb-1 flex flex-wrap gap-x-4 gap-y-1">
+              {state.times.map((t) => (
+                <li
+                  key={t}
+                  className="inline-flex items-center gap-1.5 text-[12.5px] tabular-nums"
+                  style={{ color: INK }}
+                >
+                  {t}
+                  <button
+                    type="button"
+                    aria-label={`Remove ${lower} time ${t}`}
+                    onClick={() => onState({ ...state, times: state.times.filter((x) => x !== t) })}
+                    className="transition-opacity hover:opacity-70"
+                    style={{ color: INK_3 }}
+                  >
+                    <X size={11} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+          {adding ? (
+            <span className="relative inline-flex items-center">
+              <select
+                autoFocus
+                defaultValue=""
+                aria-label={`Add ${lower} time`}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  if (v && !state.times.includes(v)) {
+                    onState({ ...state, times: [...state.times, v].sort() });
+                  }
+                  setAdding(false);
+                }}
+                onBlur={() => setAdding(false)}
+                className="appearance-none bg-transparent pr-4 text-[12.5px] tabular-nums outline-none"
+                style={{ color: INK }}
+              >
+                <option value="" disabled>
+                  Select time
+                </option>
+                {TIME_OPTIONS.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                size={12}
+                aria-hidden
+                className="pointer-events-none absolute right-0"
+                style={{ color: INK_3 }}
+              />
+            </span>
+          ) : (
+            <TextAction label="+ Add times" onClick={() => setAdding(true)} />
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -485,13 +437,13 @@ function TimeSide({
 
 function Row({ label, value, tone }: { label: string; value: string; tone?: "green" }) {
   return (
-    <div className="flex items-center justify-between gap-4 py-[6px]">
-      <span className="min-w-0 truncate text-[13.5px]" style={{ color: INK }}>
+    <div className="flex items-center justify-between gap-4 py-[5px]">
+      <span className="min-w-0 truncate text-[13px]" style={{ color: INK }}>
         {label}
       </span>
       <span
-        className="shrink-0 text-[13.5px] font-medium tabular-nums"
-        style={{ color: tone === "green" ? GREEN_TX : INK }}
+        className="shrink-0 text-[13px] font-medium tabular-nums"
+        style={{ color: tone === "green" ? GREEN : INK }}
       >
         {value}
       </span>
@@ -505,20 +457,9 @@ const ROLES = ["Tour leader", "Group leader", "Teacher", "Coordinator", "Driver"
 
 const fieldStyle: React.CSSProperties = {
   border: `1px solid ${HAIR}`,
-  background: WHITE,
+  background: FIELD_BG,
   color: INK,
 };
-
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <label className="block">
-      <span className="block text-[12.5px]" style={{ color: INK_SOFT }}>
-        {label}
-      </span>
-      {children}
-    </label>
-  );
-}
 
 /* ── the tab body ── */
 
@@ -579,317 +520,292 @@ export function FinalDetails({
   };
 
   const [note, setNote] = React.useState("");
+  const [noteOpen, setNoteOpen] = React.useState(false);
+  const noteExpanded = noteOpen || note.length > 0;
 
   return (
-    <Plate tone="warm">
+    <Plate>
       <div className="flex flex-1 flex-col gap-4 px-5 pb-12 pt-6 sm:px-8">
-        {/* ── progress banner ── */}
-        <Card className="flex flex-wrap items-center gap-x-6 gap-y-4">
+        {/* ── ROW 1 · progress ── */}
+        <Card className="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3.5">
           <ProgressRing value={80} />
           <div className="min-w-0 flex-1">
-            <h2 className="text-[22px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}>
+            <h2 className="text-[21px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}>
               Final details
             </h2>
-            <p className="mt-0.5 text-[13px]" style={{ color: INK_SOFT }}>
+            <p className="mt-0.5 text-[13px]" style={{ color: INK_2 }}>
               A few last details before arrival
             </p>
           </div>
-          <span className="text-[13px]" style={{ color: INK_SOFT }}>
+          <span className="text-[13px]" style={{ color: INK_2 }}>
             2 items need your attention
           </span>
           <button
             type="button"
-            onClick={() =>
-              timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
-            className="inline-flex h-[44px] shrink-0 items-center rounded-[10px] px-5 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(27,37,48,0.03)]"
-            style={{ background: WHITE, border: `1px solid ${HAIR}`, color: INK }}
+            onClick={() => timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
+            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(27,37,48,0.04)]"
+            style={{ border: `1px solid ${HAIR}`, color: INK }}
           >
             View missing items
           </button>
         </Card>
 
-        {/* ── two independent columns ── */}
-        <div className="flex flex-col gap-4 xl:grid xl:grid-cols-3 xl:items-start">
-          {/* left column */}
-          <div className="contents xl:col-span-2 xl:flex xl:flex-col xl:gap-4">
-            <Card className="order-1 xl:order-none pb-3" style={{ scrollMarginTop: 24 }}>
-              <div ref={timesRef}>
-                <CardHead
-                  icon={<CalendarDays size={19} strokeWidth={1.7} />}
-                  title="Arrival & Departure"
-                  subtitle="Let us know your expected arrival and departure"
-                />
-                <div className="mt-3 flex flex-col gap-4 sm:flex-row">
-                  <TimeSide label="Arrival" state={arrival} onState={setArrival} />
-                  <TimeSide label="Departure" state={departure} onState={setDeparture} />
-                </div>
-                <p
-                  className="mt-2 flex items-start gap-2 text-[12.5px]"
-                  style={{ color: INK_SOFT }}
-                >
-                  <Info size={13} strokeWidth={1.7} className="mt-[2px] shrink-0" />
-                  Select &apos;Mixed times&apos; if your group arrives or departs at different
-                  times.
-                </p>
-              </div>
-            </Card>
-
-            <div className="contents xl:grid xl:grid-cols-2 xl:gap-4">
-              <Card className="order-3 xl:order-none">
-                <CardHead
-                  icon={<Utensils size={19} strokeWidth={1.7} />}
-                  title="Meals"
-                  action={
-                    <TextAction
-                      label="Request change"
-                      arrow
-                      onClick={() => onRequestChange?.("meals")}
-                    />
-                  }
-                />
-                <div className="mt-2.5">
-                  {meals.length === 0 ? (
-                    <p className="text-[13px]" style={{ color: INK_FAINT }}>
-                      No group meals booked
-                    </p>
-                  ) : (
-                    meals.map((m) => <Row key={m.label} label={m.label} value={m.value} />)
-                  )}
-                </div>
-              </Card>
-
-              <Card className="order-4 xl:order-none">
-                <CardHead
-                  icon={<Star size={19} strokeWidth={1.7} />}
-                  title="Special arrangements"
-                  action={
-                    <TextAction
-                      label="Request change"
-                      arrow
-                      onClick={() => onRequestChange?.("services")}
-                    />
-                  }
-                />
-                <div className="mt-2.5">
-                  <Row label="Coach parking" value="Confirmed" tone="green" />
-                  <Row label="Extra luggage room" value="Confirmed" tone="green" />
-                </div>
-              </Card>
-            </div>
-          </div>
-
-          {/* right column */}
-          <div className="contents xl:flex xl:flex-col xl:gap-4">
-            <Card className="order-2 xl:order-none p-4">
+        {/* ── ROW 2 · arrival & departure + group contact ── */}
+        <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[1.6fr_1fr] lg:items-stretch">
+          <Card className="flex flex-col p-5" style={{ scrollMarginTop: 24 }}>
+            <div ref={timesRef}>
               <CardHead
-                icon={<User size={19} strokeWidth={1.7} />}
-                title="On-site contact"
-                subtitle="Who can the hotel contact during the stay?"
+                icon={<CalendarDays size={19} strokeWidth={1.7} />}
+                title="Arrival & Departure"
+                subtitle="Please add your expected times"
               />
-              <div className="mt-2.5 flex flex-col gap-2">
-                <Field label="Role">
-                  <div className="relative mt-1">
-                    <select
-                      value={contact.role}
-                      onChange={(e) => setContact({ ...contact, role: e.target.value })}
-                      aria-label="On-site contact role"
-                      className="h-[40px] w-full appearance-none rounded-[9px] px-3 pr-8 text-[13.5px] outline-none"
-                      style={fieldStyle}
-                    >
-                      {ROLES.map((r) => (
-                        <option key={r} value={r}>
-                          {r}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown
-                      size={13}
-                      aria-hidden
-                      className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
-                      style={{ color: INK_FAINT }}
-                    />
-                  </div>
-                </Field>
+              <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
+                <TimeSide label="Arrival" state={arrival} onState={setArrival} />
+                <TimeSide label="Departure" state={departure} onState={setDeparture} />
+              </div>
+            </div>
+          </Card>
 
-                <Field label="Name">
+          <Card className="flex flex-col p-5">
+            <CardHead
+              icon={<User size={19} strokeWidth={1.7} />}
+              title="Group contact"
+              subtitle="Who can we contact during the stay?"
+            />
+            <div className="mt-3.5 flex flex-wrap gap-2">
+              <div className="relative min-w-[130px] flex-1">
+                <select
+                  value={contact.role}
+                  onChange={(e) => setContact({ ...contact, role: e.target.value })}
+                  aria-label="Group contact role"
+                  className="h-[42px] w-full appearance-none rounded-[9px] px-3 pr-8 text-[13px] outline-none"
+                  style={fieldStyle}
+                >
+                  {ROLES.map((r) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown
+                  size={14}
+                  aria-hidden
+                  className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+                  style={{ color: CHEVRON }}
+                />
+              </div>
+
+              <input
+                type="text"
+                value={contact.name}
+                onChange={(e) => setContact({ ...contact, name: e.target.value })}
+                aria-label="Group contact name"
+                placeholder="Name"
+                className="h-[42px] min-w-[120px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                style={fieldStyle}
+              />
+
+              <input
+                type="tel"
+                value={contact.phone}
+                onChange={(e) => setContact({ ...contact, phone: e.target.value })}
+                aria-label="Group contact mobile number"
+                placeholder="Mobile number"
+                className="h-[42px] min-w-[140px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                style={fieldStyle}
+              />
+            </div>
+
+            {contact.secondary ? (
+              <>
+                <div className="mt-2 flex flex-wrap gap-2">
                   <input
                     type="text"
-                    value={contact.name}
-                    onChange={(e) => setContact({ ...contact, name: e.target.value })}
-                    aria-label="On-site contact name"
-                    className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
+                    value={contact.secondary.name}
+                    onChange={(e) =>
+                      setContact({
+                        ...contact,
+                        secondary: { name: e.target.value, phone: contact.secondary?.phone ?? "" },
+                      })
+                    }
+                    aria-label="Secondary contact name"
+                    placeholder="Secondary name"
+                    className="h-[42px] min-w-[120px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
                     style={fieldStyle}
                   />
-                </Field>
-
-                <Field label="Mobile number">
                   <input
                     type="tel"
-                    value={contact.phone}
-                    onChange={(e) => setContact({ ...contact, phone: e.target.value })}
-                    aria-label="On-site contact mobile number"
-                    className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
+                    value={contact.secondary.phone}
+                    onChange={(e) =>
+                      setContact({
+                        ...contact,
+                        secondary: { name: contact.secondary?.name ?? "", phone: e.target.value },
+                      })
+                    }
+                    aria-label="Secondary contact mobile number"
+                    placeholder="Secondary mobile number"
+                    className="h-[42px] min-w-[140px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
                     style={fieldStyle}
                   />
-                </Field>
-
-                {contact.secondary ? (
-                  <>
-                    <Field label="Secondary name">
-                      <input
-                        type="text"
-                        value={contact.secondary.name}
-                        onChange={(e) =>
-                          setContact({
-                            ...contact,
-                            secondary: {
-                              name: e.target.value,
-                              phone: contact.secondary?.phone ?? "",
-                            },
-                          })
-                        }
-                        aria-label="Secondary contact name"
-                        className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
-                        style={fieldStyle}
-                      />
-                    </Field>
-                    <Field label="Secondary mobile number">
-                      <input
-                        type="tel"
-                        value={contact.secondary.phone}
-                        onChange={(e) =>
-                          setContact({
-                            ...contact,
-                            secondary: {
-                              name: contact.secondary?.name ?? "",
-                              phone: e.target.value,
-                            },
-                          })
-                        }
-                        aria-label="Secondary contact mobile number"
-                        className="mt-1 h-[40px] w-full rounded-[9px] px-3 text-[13.5px] outline-none"
-                        style={fieldStyle}
-                      />
-                    </Field>
-                    <button
-                      type="button"
-                      onClick={() => setContact({ ...contact, secondary: null })}
-                      className="self-start text-[12.5px] transition-opacity hover:opacity-70"
-                      style={{ color: INK_FAINT }}
-                    >
-                      Remove secondary contact
-                    </button>
-                  </>
-                ) : (
-                  <TextAction
-                    label="+ Add secondary contact"
-                    className="self-start"
-                    onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
-                  />
-                )}
-              </div>
-            </Card>
-
-            <Card className="order-5 xl:order-none p-4">
-              <CardHead
-                icon={<Leaf size={19} strokeWidth={1.7} />}
-                title="Allergies & dietary"
-                action={<TextAction label="+ Add more" onClick={onOpenDietary} />}
-              />
-              <button
-                type="button"
-                onClick={onOpenDietary}
-                className="mt-2 flex w-full flex-col items-center gap-1 rounded-[10px] py-1.5 text-center transition-colors hover:bg-[rgba(27,37,48,0.02)]"
-              >
-                <span
-                  className="grid h-[34px] w-[34px] place-items-center rounded-full"
-                  style={{ background: BANNER, color: BRONZE_DEEP }}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setContact({ ...contact, secondary: null })}
+                  className="mt-2 self-start text-[12.5px] transition-opacity hover:opacity-70"
+                  style={{ color: INK_3 }}
                 >
-                  <Leaf size={16} strokeWidth={1.7} />
-                </span>
-                <span className="text-[14px] font-semibold" style={{ color: INK }}>
-                  {allergyCount} allergies added
-                </span>
-                <span className="text-[12.5px]" style={{ color: INK_SOFT }}>
-                  We&apos;ll make sure the hotel is informed.
-                </span>
-              </button>
-            </Card>
-          </div>
+                  Remove secondary contact
+                </button>
+              </>
+            ) : (
+              <TextAction
+                label="+ Add secondary contact"
+                className="mt-2 self-start"
+                onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
+              />
+            )}
+          </Card>
         </div>
 
-        {/* ── optional note ── */}
+        {/* ── ROW 3 · three symmetrical cards ── */}
+        <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+          <Card className="flex h-full flex-col p-5">
+            <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
+            <div className="mt-2.5">
+              {meals.length === 0 ? (
+                <p className="text-[13px]" style={{ color: INK_3 }}>
+                  No group meals booked
+                </p>
+              ) : (
+                meals.slice(0, 2).map((m) => <Row key={m.label} label={m.label} value={m.value} />)
+              )}
+            </div>
+            <CardFooter
+              label={`${meals.length} details`}
+              onClick={() => onRequestChange?.("meals")}
+            />
+          </Card>
+
+          <Card className="flex h-full flex-col p-5">
+            <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special arrangements" />
+            <div className="mt-2.5">
+              <Row label="Coach parking" value="Confirmed" tone="green" />
+              <Row label="Extra luggage room" value="Confirmed" tone="green" />
+            </div>
+            <CardFooter label="2 arrangements" onClick={() => onRequestChange?.("services")} />
+          </Card>
+
+          <Card className="flex h-full flex-col p-5">
+            <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & dietary" />
+            <div className="mt-2.5">
+              <p className="text-[13px]" style={{ color: INK_2 }}>
+                {allergyCount} notes
+              </p>
+            </div>
+            <CardFooter label="View & edit" onClick={onOpenDietary} />
+          </Card>
+        </div>
+
+        {/* ── ROW 4 · final note ── */}
         <Card className="p-4">
-          <div className="flex items-center gap-2.5">
-            <MessageSquare size={17} strokeWidth={1.7} style={{ color: INK }} />
-            <span className="text-[15px] font-semibold" style={{ color: INK }}>
-              Final note to hotel
-            </span>
-            <span className="text-[11px] uppercase tracking-[0.1em]" style={{ color: INK_FAINT }}>
-              Optional
-            </span>
-          </div>
-          <p className="mt-1 text-[12.5px]" style={{ color: INK_SOFT }}>
-            Anything else the hotel should know before arrival?
-          </p>
-          <textarea
-            value={note}
-            onChange={(e) => setNote(e.target.value.slice(0, 500))}
-            maxLength={500}
-            aria-label="Final note to hotel"
-            placeholder="Add an important note for the hotel..."
-            className="mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
-            style={fieldStyle}
-          />
-          <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_FAINT }}>
-            {note.length} / 500
-          </p>
+          {noteExpanded ? (
+            <>
+              <div className="flex items-center gap-2.5">
+                <MessageSquare size={17} strokeWidth={1.7} style={{ color: INK }} />
+                <span className="text-[14.5px] font-semibold" style={{ color: INK }}>
+                  Final note to hotel
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setNoteOpen(false)}
+                  className="ml-auto text-[12.5px] font-medium transition-opacity hover:opacity-70"
+                  style={{ color: GOLD }}
+                >
+                  Done
+                </button>
+              </div>
+              <textarea
+                value={note}
+                onChange={(e) => setNote(e.target.value.slice(0, 500))}
+                maxLength={500}
+                aria-label="Final note to hotel"
+                placeholder="Add an important note for the hotel..."
+                className="mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+                style={fieldStyle}
+              />
+              <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_3 }}>
+                {note.length} / 500
+              </p>
+            </>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setNoteOpen(true)}
+              className="flex w-full items-center gap-3 text-left transition-opacity hover:opacity-80"
+            >
+              <MessageSquare size={17} strokeWidth={1.7} className="shrink-0" style={{ color: INK }} />
+              <span className="min-w-0 flex-1">
+                <span className="block text-[14px] font-semibold" style={{ color: INK }}>
+                  Final note to hotel
+                  <span
+                    className="ml-2 text-[10px] uppercase tracking-[0.12em]"
+                    style={{ color: INK_3 }}
+                  >
+                    Optional
+                  </span>
+                </span>
+                <span className="mt-0.5 block text-[12.5px]" style={{ color: INK_2 }}>
+                  Anything else the hotel should know?
+                </span>
+              </span>
+              <span
+                className="inline-flex shrink-0 items-center gap-1 text-[12.5px] font-medium"
+                style={{ color: GOLD }}
+              >
+                Add note
+                <ChevronRight size={14} />
+              </span>
+            </button>
+          )}
         </Card>
 
-        {/* ── footer action banner ── */}
-        <div
-          className="flex flex-wrap items-center gap-x-6 gap-y-5 rounded-[14px] px-6 py-3"
-          style={{ background: BANNER, border: `1px solid ${HAIR_SOFT}`, boxShadow: CARD_SHADOW }}
-        >
+        {/* ── ROW 5 · confirmation ── */}
+        <Card className="flex flex-wrap items-center gap-x-6 gap-y-4 px-5 py-3.5">
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
-          <p
-            className="min-w-[260px] flex-1 text-[13px] leading-relaxed"
-            style={{ color: INK_SOFT }}
-          >
-            Your information is securely shared with the hotel.
+          <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
+            All information is securely shared with the hotel.
             <br className="hidden sm:block" /> You will receive an update as soon as we have a
             response.
           </p>
 
           <span
             aria-hidden
-            className="hidden h-[52px] w-px shrink-0 lg:block"
+            className="hidden h-[48px] w-px shrink-0 lg:block"
             style={{ background: HAIR }}
           />
 
-          <div className="min-w-[220px] max-w-[240px]">
+          <div className="min-w-[210px] max-w-[240px]">
             <p className="text-[13px] font-semibold" style={{ color: INK }}>
-              Everything ready?
+              All details ready?
             </p>
-            <p className="mt-1 text-[12.5px] leading-relaxed" style={{ color: INK_SOFT }}>
-              Review your arrival information and final details before confirming.
+            <p className="mt-1 text-[12.5px] leading-relaxed" style={{ color: INK_2 }}>
+              Review the information above before confirming your final details.
             </p>
           </div>
 
           <button
             type="button"
             onClick={onComplete}
-            className="inline-flex h-[48px] shrink-0 items-center justify-center gap-2.5 rounded-[10px] px-6 text-[14.5px] font-semibold transition-opacity hover:opacity-90"
+            className="inline-flex h-[46px] shrink-0 items-center justify-center gap-2.5 rounded-[10px] px-6 text-[14px] font-semibold transition-opacity hover:opacity-90"
             style={{
-              background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${BRONZE_DEEP} 100%)`,
-              color: WHITE,
+              background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${GOLD_DEEP} 100%)`,
+              color: "#FFF9EE",
               boxShadow: "0 8px 18px -12px rgba(169,108,18,0.9)",
             }}
           >
             Confirm final details <ArrowRight size={16} />
           </button>
-        </div>
+        </Card>
       </div>
     </Plate>
   );
