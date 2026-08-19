@@ -47,12 +47,10 @@ function FlatCard({
   children,
   className = "",
   style,
-  frame = false,
 }: {
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
-  frame?: boolean;
 }) {
   return (
     <div
@@ -61,7 +59,7 @@ function FlatCard({
         background: FLAT_BG,
         border: FLAT_BORDER,
         borderRadius: 12,
-        boxShadow: frame ? FLAT_SHADOW_FRAME : FLAT_SHADOW,
+        boxShadow: FLAT_SHADOW,
         ...style,
       }}
     >
