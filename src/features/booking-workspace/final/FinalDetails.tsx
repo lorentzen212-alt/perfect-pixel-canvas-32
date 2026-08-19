@@ -133,9 +133,13 @@ function CardHead({
         {icon}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-[15px] font-semibold" style={{ color: INK }}>
+        <span
+          className="block text-[18px] leading-tight"
+          style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
+        >
           {title}
         </span>
+
         {subtitle && (
           <span className="mt-1 block text-[12.5px]" style={{ color: INK_2 }}>
             {subtitle}
