@@ -818,7 +818,9 @@ export function FinalDetails({
               </span>
             </button>
           )}
-        </FlatCard>
+        </div>
+        <Rule />
+
 
         {/* ── 5 · confirmation ── */}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-4 px-7 py-6 sm:px-9">
