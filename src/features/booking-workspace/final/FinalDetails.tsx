@@ -57,17 +57,10 @@ const PAPER_INK_2 = "#5F6B75";
 const PAPER_GREEN = "#2E6B45";
 const PAPER_CHEVRON = "rgba(27,37,48,0.46)";
 const PAPER_RULE = "rgba(27,37,48,0.12)";
-const PAPER_INK_3 = "rgba(27,37,48,0.46)";
-const PAPER_GOLD = "#8A5A0B";
-
-/* section 2 — the same ivory paper as the tiles, run full-bleed */
-const PANEL_BG = "#F5F3EE";
-const PANEL_EDGE = "inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(18,26,36,0.14)";
 
 /* fields */
-const FIELD_BG = "#2E4360";
+const FIELD_BG = "rgba(255,255,255,0.06)";
 const FIELD_BORDER = "1px solid rgba(255,255,255,0.18)";
-const FIELD_SHADOW = "0 1px 2px rgba(18,26,36,0.16)";
 
 /* the final-note band — polished aluminium, base #BABABA, light at 155° */
 const METAL_BG =
@@ -92,8 +85,6 @@ type SurfaceTone = {
   green: string;
   chevron: string;
   rule: string;
-  ink3: string;
-  gold: string;
 };
 
 const NAVY_TONE: SurfaceTone = {
@@ -102,8 +93,6 @@ const NAVY_TONE: SurfaceTone = {
   green: GREEN,
   chevron: CHEVRON,
   rule: RULE,
-  ink3: INK_3,
-  gold: GOLD,
 };
 
 const PAPER_TONE: SurfaceTone = {
@@ -112,8 +101,6 @@ const PAPER_TONE: SurfaceTone = {
   green: PAPER_GREEN,
   chevron: PAPER_CHEVRON,
   rule: PAPER_RULE,
-  ink3: PAPER_INK_3,
-  gold: PAPER_GOLD,
 };
 
 const SurfaceContext = React.createContext<SurfaceTone>(NAVY_TONE);
@@ -245,13 +232,12 @@ function TextAction({
   arrow?: boolean;
   className?: string;
 }) {
-  const tone = useSurface();
   return (
     <button
       type="button"
       onClick={onClick}
       className={`inline-flex items-center gap-1 text-[12.5px] font-medium transition-opacity hover:opacity-70 ${className}`}
-      style={{ color: tone.gold }}
+      style={{ color: GOLD }}
     >
       {label}
       {arrow && <ArrowRight size={13} />}
@@ -457,17 +443,16 @@ function TimeSide({
 }) {
   const [adding, setAdding] = React.useState(false);
   const lower = label.toLowerCase();
-  const tone = useSurface();
 
   return (
     <div className="min-w-0 flex-1">
-      <span className="block text-[11px] uppercase tracking-[0.12em]" style={{ color: tone.ink3 }}>
+      <span className="block text-[11px] uppercase tracking-[0.12em]" style={{ color: INK_3 }}>
         {label}
       </span>
 
       <div
         className="mt-1.5 flex h-[46px] items-center gap-3 rounded-[10px] px-3"
-        style={{ border: FIELD_BORDER, background: FIELD_BG, boxShadow: FIELD_SHADOW }}
+        style={{ border: FIELD_BORDER, background: FIELD_BG }}
       >
         <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
@@ -508,7 +493,7 @@ function TimeSide({
                 <li
                   key={t}
                   className="inline-flex items-center gap-1.5 text-[12.5px] tabular-nums"
-                  style={{ color: tone.ink }}
+                  style={{ color: INK }}
                 >
                   {t}
                   <button
@@ -516,7 +501,7 @@ function TimeSide({
                     aria-label={`Remove ${lower} time ${t}`}
                     onClick={() => onState({ ...state, times: state.times.filter((x) => x !== t) })}
                     className="transition-opacity hover:opacity-70"
-                    style={{ color: tone.ink3 }}
+                    style={{ color: INK_3 }}
                   >
                     <X size={11} />
                   </button>
@@ -539,7 +524,7 @@ function TimeSide({
                 }}
                 onBlur={() => setAdding(false)}
                 className="appearance-none bg-transparent pr-4 text-[12.5px] tabular-nums outline-none"
-                style={{ color: tone.ink }}
+                style={{ color: INK }}
               >
                 <option value="" disabled style={{ background: "#213756", color: "#F4F1EA" }}>
                   Select time
@@ -554,7 +539,7 @@ function TimeSide({
                 size={12}
                 aria-hidden
                 className="pointer-events-none absolute right-0"
-                style={{ color: tone.ink3 }}
+                style={{ color: INK_3 }}
               />
             </span>
           ) : (
@@ -593,7 +578,6 @@ const fieldStyle: React.CSSProperties = {
   border: FIELD_BORDER,
   background: FIELD_BG,
   color: INK,
-  boxShadow: FIELD_SHADOW,
 };
 
 /* ── the tab body ── */
@@ -694,11 +678,7 @@ export function FinalDetails({
 
 
         {/* ── 2 · arrival & departure | group contact ── */}
-        <div
-          className="grid lg:grid-cols-[1.55fr_1fr]"
-          style={{ background: PANEL_BG, boxShadow: PANEL_EDGE }}
-        >
-          <SurfaceContext.Provider value={PAPER_TONE}>
+        <div className="grid lg:grid-cols-[1.55fr_1fr]">
           <div className="flex flex-col px-7 py-7 sm:px-9" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
@@ -713,7 +693,7 @@ export function FinalDetails({
             </div>
           </div>
 
-          <div className="flex flex-col border-t border-[rgba(27,37,48,0.12)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
+          <div className="flex flex-col border-t border-[rgba(255,255,255,0.12)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
 
             <CardHead
               icon={<User size={19} strokeWidth={1.7} />}
@@ -800,7 +780,7 @@ export function FinalDetails({
                   type="button"
                   onClick={() => setContact({ ...contact, secondary: null })}
                   className="mt-2 self-start text-[12.5px] transition-opacity hover:opacity-70"
-                  style={{ color: PAPER_INK_3 }}
+                  style={{ color: INK_3 }}
                 >
                   Remove secondary contact
                 </button>
@@ -813,7 +793,6 @@ export function FinalDetails({
               />
             )}
           </div>
-          </SurfaceContext.Provider>
         </div>
         <Rule />
 
