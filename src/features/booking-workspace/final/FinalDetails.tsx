@@ -36,12 +36,11 @@ const GOLD_HI = "#CC8C1E";
 const GOLD_DEEP = "#A96C12";
 const CHEVRON = "rgba(27,37,48,0.55)";
 /** ivory-compatible field surface — never pure white */
-const FIELD_BG = "#FAF9F5";
+const FIELD_BG = "#FCFBF8";
 /** flat architectural ivory surface — local to this page */
-const FLAT_BG = "#F3F1EB";
-const FLAT_BORDER = "1px solid rgba(255,255,255,0.60)";
-const FLAT_SHADOW = "0 2px 8px rgba(15, 28, 40, 0.05)";
-const FLAT_SHADOW_FRAME = "0 2px 10px rgba(15, 28, 40, 0.07)";
+const FLAT_BG = "#F7F4ED";
+const FLAT_BORDER = "1px solid rgba(255,255,255,0.75)";
+const FLAT_SHADOW = "0 1px 3px rgba(15, 28, 40, 0.035)";
 
 /** same API as the shared overview Card, but flat instead of raised */
 function FlatCard({
