@@ -1299,7 +1299,6 @@ function Workspace({ booking }: { booking: Booking }) {
               <BookingDocumentsView booking={booking} onAskQuestion={() => setTab("Messages")} />
             ) : tab === "Final Details" ? (
               <FinalDetails
-                strip={strip}
                 stayStart={stay.arrival}
                 stayEnd={stay.departure}
                 contactRole="Tour leader"
