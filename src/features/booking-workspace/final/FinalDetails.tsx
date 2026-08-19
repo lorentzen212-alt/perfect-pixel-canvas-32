@@ -571,13 +571,16 @@ export function FinalDetails({
   const noteExpanded = noteOpen || note.length > 0;
 
   return (
-    <Plate tone="canvas">
-      <div className="flex flex-1 flex-col gap-4 px-5 pb-12 pt-6 sm:px-8">
-        {/* ── ROW 1 · progress ── */}
-        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-3 px-6 py-5">
+    <div className="px-5 pb-14 pt-6 sm:px-14 sm:pt-14">
+      <div
+        className="overflow-hidden rounded-[18px]"
+        style={{ background: CANVAS, border: CANVAS_BORDER, boxShadow: CANVAS_SHADOW }}
+      >
+        {/* ── 1 · header ── */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 px-7 py-6 sm:px-9">
           <ProgressRing value={80} />
           <div className="min-w-0 flex-1">
-            <h2 className="text-[21px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}>
+            <h2 className="text-[22px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}>
               Final details
             </h2>
             <p className="mt-0.5 text-[13px]" style={{ color: INK_2 }}>
@@ -592,12 +595,15 @@ export function FinalDetails({
             onClick={() =>
               timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
-            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(27,37,48,0.04)]"
-            style={{ border: "1px solid rgba(16,24,40,0.12)", color: INK }}
+            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(90,74,52,0.05)]"
+            style={{ border: "1px solid rgba(90,74,52,0.22)", color: INK }}
           >
             View missing items
           </button>
-        </FlatCard>
+        </div>
+        <Rule />
+
+
 
         {/* ── 2 · arrival & departure | group contact ── */}
         <div className="grid lg:grid-cols-[1.55fr_1fr]">
