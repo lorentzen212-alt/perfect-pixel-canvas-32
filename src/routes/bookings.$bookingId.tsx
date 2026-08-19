@@ -66,6 +66,7 @@ import { OverviewFolder } from "@/features/booking-workspace/overview/Overview";
 import { RoomingFolder } from "@/features/booking-workspace/rooming/RoomingList";
 import { ChangesFolder } from "@/features/booking-workspace/changes/ChangesFolder";
 import { FinalDetails } from "@/features/booking-workspace/final/FinalDetails";
+import { InfoStrip } from "@/features/booking-workspace/InfoStrip";
 import {
   FOLDER_TOP_SURFACE,
   FOLDER_TOP_SURFACE_WARM,
@@ -1137,20 +1138,32 @@ function Workspace({ booking }: { booking: Booking }) {
   ];
 
   const isFolder =
-    tab === "Overview" ||
-    tab === "Rooming List" ||
-    tab === "Documents" ||
-    tab === "Changes" ||
-    tab === "Final Details";
+    tab === "Overview" || tab === "Rooming List" || tab === "Documents" || tab === "Changes";
+
+  const isFinalDetails = tab === "Final Details";
 
   /** warm ivory plate for the Group Plan tab (navy cards sit on ivory) */
   const isGroupPlan = tab === "Group Plan";
-  const PLATE_BG = isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : PLATE;
+  const PLATE_BG = isFolder
+    ? PAGE_UNDER
+    : isFinalDetails
+      ? FINAL_PLATE
+      : isGroupPlan
+        ? GROUP_PLAN_IVORY
+        : PLATE;
 
   return (
     <div
       className="flex min-h-screen flex-col"
-      style={{ backgroundColor: isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : BG_ALT }}
+      style={{
+        backgroundColor: isFolder
+          ? PAGE_UNDER
+          : isFinalDetails
+            ? FINAL_PLATE
+            : isGroupPlan
+              ? GROUP_PLAN_IVORY
+              : BG_ALT,
+      }}
     >
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
@@ -1227,14 +1240,16 @@ function Workspace({ booking }: { booking: Booking }) {
           onSelect={goToTab}
           surface={
             isFolder
-              ? tab === "Documents" || tab === "Final Details"
+              ? tab === "Documents"
                 ? FOLDER_TOP_SURFACE_WARM
                 : tab === "Changes"
                   ? "#FAF7F5"
                   : FOLDER_TOP_SURFACE
-              : isGroupPlan
-                ? GROUP_PLAN_IVORY
-                : undefined
+              : isFinalDetails
+                ? FINAL_PLATE
+                : isGroupPlan
+                  ? GROUP_PLAN_IVORY
+                  : undefined
           }
         />
 
@@ -1243,42 +1258,14 @@ function Workspace({ booking }: { booking: Booking }) {
           className={
             isFolder
               ? "relative flex flex-1 flex-col px-0 pb-0 pt-0"
-              : isGroupPlan
+              : isGroupPlan || isFinalDetails
                 ? "relative flex flex-1 flex-col px-5 pb-14 pt-0 sm:px-9"
                 : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
           style={{ backgroundColor: PLATE_BG }}
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
-          {isFolder ? null : (
-            <div className="flex flex-wrap items-center gap-y-5 py-6">
-              {strip.map((s, i) => (
-                <div
-                  key={s.lead + i}
-                  className="flex min-w-[190px] flex-1 items-center gap-3 px-4 first:pl-0"
-                  style={i > 0 ? { borderLeft: "1px solid rgba(21,32,43,0.13)" } : undefined}
-                >
-                  <span className="shrink-0" style={{ color: "#D4AF37" }}>
-                    {s.icon}
-                  </span>
-                  <span className="min-w-0">
-                    <span
-                      className="block truncate text-[14px] font-semibold"
-                      style={{ color: "#15202B" }}
-                    >
-                      {s.lead}
-                    </span>
-                    <span
-                      className="block truncate text-[12px]"
-                      style={{ color: "rgba(21,32,43,0.6)" }}
-                    >
-                      {s.sub}
-                    </span>
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
+          {isFolder || isFinalDetails ? null : <InfoStrip cells={strip} />}
 
           <div key={tab} className={`hgb-ws-panel${isFolder ? " flex flex-1 flex-col" : ""}`}>
             {tab === "Rooming List" ? (
@@ -1312,6 +1299,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <BookingDocumentsView booking={booking} onAskQuestion={() => setTab("Messages")} />
             ) : tab === "Final Details" ? (
               <FinalDetails
+                strip={strip}
                 stayStart={stay.arrival}
                 stayEnd={stay.departure}
                 contactRole="Tour leader"
@@ -1475,6 +1463,8 @@ function Workspace({ booking }: { booking: Booking }) {
 const PLATE = "#F6F4EB";
 /** warm ivory used by the Group Plan tab plate (matches BG in GroupPlan.tsx) */
 const GROUP_PLAN_IVORY = "#F5F1E9";
+/** cool grey plate behind the raised Final Details board */
+const FINAL_PLATE = "#EDEEF1";
 
 const CARD_BG = "#15202B";
 const CARD_BORDER_SOFT = "#2A3A4A";

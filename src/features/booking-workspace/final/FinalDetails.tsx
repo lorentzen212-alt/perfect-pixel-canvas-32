@@ -15,14 +15,8 @@ import {
   X,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
-import { Plate } from "@/features/booking-workspace/overview/primitives";
-import {
-  GOLD,
-  GREEN,
-  INK,
-  INK_2,
-  INK_3,
-} from "@/features/booking-workspace/overview/materials";
+import { InfoStrip, type InfoCell } from "@/features/booking-workspace/InfoStrip";
+import { GOLD, GREEN, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,12 +28,12 @@ import {
 const GOLD_HI = "#CC8C1E";
 const GOLD_DEEP = "#A96C12";
 const CHEVRON = "rgba(27,37,48,0.55)";
-/** ivory-compatible field surface — never pure white */
+/** field surface inside the white cards */
 const FIELD_BG = "#FFFFFF";
 const FIELD_BORDER = "1px solid rgba(16,24,40,0.10)";
 /** cool hairline used for dividers inside white cards on this page */
 const HAIR = "rgba(16,24,40,0.08)";
-/** flat architectural ivory surface — local to this page */
+/** flat white card surface — local to this page */
 const FLAT_BG = "#FFFFFF";
 const FLAT_BORDER = "1px solid rgba(16,24,40,0.06)";
 const FLAT_SHADOW = "0 1px 2px rgba(16,24,40,0.05)";
@@ -499,6 +493,7 @@ const fieldStyle: React.CSSProperties = {
 /* ── the tab body ── */
 
 export function FinalDetails({
+  strip,
   stayStart,
   stayEnd,
   contactRole,
@@ -511,6 +506,7 @@ export function FinalDetails({
   onContactChange,
   onComplete,
 }: {
+  strip?: InfoCell[];
   stayStart: string;
   stayEnd: string;
   contactRole: string;
@@ -559,292 +555,316 @@ export function FinalDetails({
   const noteExpanded = noteOpen || note.length > 0;
 
   return (
-    <Plate tone="canvas">
-      <div className="flex flex-1 flex-col gap-4 px-5 pb-12 pt-6 sm:px-8">
-        {/* ── ROW 1 · progress ── */}
-        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-3 px-6 py-5">
-          <ProgressRing value={80} />
-          <div className="min-w-0 flex-1">
-            <h2 className="text-[21px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}>
-              Final details
-            </h2>
-            <p className="mt-0.5 text-[13px]" style={{ color: INK_2 }}>
-              A few last details before arrival
-            </p>
-          </div>
-          <span className="text-[13px]" style={{ color: INK_2 }}>
-            2 items need your attention
-          </span>
-          <button
-            type="button"
-            onClick={() =>
-              timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
-            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(27,37,48,0.04)]"
-            style={{ border: "1px solid rgba(16,24,40,0.12)", color: INK }}
-          >
-            View missing items
-          </button>
-        </FlatCard>
-
-        {/* ── ROW 2 · arrival & departure + group contact ── */}
-        <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[1.6fr_1fr] lg:items-stretch">
-          <FlatCard className="flex flex-col p-6" style={{ scrollMarginTop: 24 }}>
-            <div ref={timesRef}>
-              <CardHead
-                icon={<CalendarDays size={19} strokeWidth={1.7} />}
-                title="Arrival & Departure"
-                subtitle="Please add your expected times"
-              />
-              <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
-                <TimeSide label="Arrival" state={arrival} onState={setArrival} />
-                <TimeSide label="Departure" state={departure} onState={setDeparture} />
-              </div>
+    <div className="pb-14">
+      <div
+        className="overflow-hidden rounded-[22px]"
+        style={{
+          background: "#F6F6F8",
+          border: "1px solid rgba(16,24,40,0.08)",
+          boxShadow: "0 1px 2px rgba(0,0,0,0.08), 0 30px 60px -45px rgba(0,0,0,0.30)",
+        }}
+      >
+        {strip?.length ? <InfoStrip cells={strip} tone="framed" /> : null}
+        <div className="flex flex-col gap-4 p-5 sm:p-7">
+          {/* ── ROW 1 · progress ── */}
+          <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-3 px-6 py-5">
+            <ProgressRing value={80} />
+            <div className="min-w-0 flex-1">
+              <h2
+                className="text-[21px]"
+                style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}
+              >
+                Final details
+              </h2>
+              <p className="mt-0.5 text-[13px]" style={{ color: INK_2 }}>
+                A few last details before arrival
+              </p>
             </div>
+            <span className="text-[13px]" style={{ color: INK_2 }}>
+              2 items need your attention
+            </span>
+            <button
+              type="button"
+              onClick={() =>
+                timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+              }
+              className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(27,37,48,0.04)]"
+              style={{ border: "1px solid rgba(16,24,40,0.12)", color: INK }}
+            >
+              View missing items
+            </button>
           </FlatCard>
 
-          <FlatCard className="flex flex-col p-6">
-            <CardHead
-              icon={<User size={19} strokeWidth={1.7} />}
-              title="Group contact"
-              subtitle="Who can we contact during the stay?"
-            />
-            <div className="mt-3.5 flex flex-wrap gap-2">
-              <div className="relative min-w-[130px] flex-1">
-                <select
-                  value={contact.role}
-                  onChange={(e) => setContact({ ...contact, role: e.target.value })}
-                  aria-label="Group contact role"
-                  className="h-[42px] w-full appearance-none rounded-[9px] px-3 pr-8 text-[13px] outline-none"
+          {/* ── ROW 2 · arrival & departure + group contact ── */}
+          <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[1.6fr_1fr] lg:items-stretch">
+            <FlatCard className="flex flex-col p-6" style={{ scrollMarginTop: 24 }}>
+              <div ref={timesRef}>
+                <CardHead
+                  icon={<CalendarDays size={19} strokeWidth={1.7} />}
+                  title="Arrival & Departure"
+                  subtitle="Please add your expected times"
+                />
+                <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
+                  <TimeSide label="Arrival" state={arrival} onState={setArrival} />
+                  <TimeSide label="Departure" state={departure} onState={setDeparture} />
+                </div>
+              </div>
+            </FlatCard>
+
+            <FlatCard className="flex flex-col p-6">
+              <CardHead
+                icon={<User size={19} strokeWidth={1.7} />}
+                title="Group contact"
+                subtitle="Who can we contact during the stay?"
+              />
+              <div className="mt-3.5 flex flex-wrap gap-2">
+                <div className="relative min-w-[130px] flex-1">
+                  <select
+                    value={contact.role}
+                    onChange={(e) => setContact({ ...contact, role: e.target.value })}
+                    aria-label="Group contact role"
+                    className="h-[42px] w-full appearance-none rounded-[9px] px-3 pr-8 text-[13px] outline-none"
+                    style={fieldStyle}
+                  >
+                    {ROLES.map((r) => (
+                      <option key={r} value={r}>
+                        {r}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown
+                    size={14}
+                    aria-hidden
+                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+                    style={{ color: CHEVRON }}
+                  />
+                </div>
+
+                <input
+                  type="text"
+                  value={contact.name}
+                  onChange={(e) => setContact({ ...contact, name: e.target.value })}
+                  aria-label="Group contact name"
+                  placeholder="Name"
+                  className="h-[42px] min-w-[120px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
                   style={fieldStyle}
-                >
-                  {ROLES.map((r) => (
-                    <option key={r} value={r}>
-                      {r}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown
-                  size={14}
-                  aria-hidden
-                  className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
-                  style={{ color: CHEVRON }}
+                />
+
+                <input
+                  type="tel"
+                  value={contact.phone}
+                  onChange={(e) => setContact({ ...contact, phone: e.target.value })}
+                  aria-label="Group contact mobile number"
+                  placeholder="Mobile number"
+                  className="h-[42px] min-w-[140px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                  style={fieldStyle}
                 />
               </div>
 
-              <input
-                type="text"
-                value={contact.name}
-                onChange={(e) => setContact({ ...contact, name: e.target.value })}
-                aria-label="Group contact name"
-                placeholder="Name"
-                className="h-[42px] min-w-[120px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
-                style={fieldStyle}
-              />
-
-              <input
-                type="tel"
-                value={contact.phone}
-                onChange={(e) => setContact({ ...contact, phone: e.target.value })}
-                aria-label="Group contact mobile number"
-                placeholder="Mobile number"
-                className="h-[42px] min-w-[140px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
-                style={fieldStyle}
-              />
-            </div>
-
-            {contact.secondary ? (
-              <>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  <input
-                    type="text"
-                    value={contact.secondary.name}
-                    onChange={(e) =>
-                      setContact({
-                        ...contact,
-                        secondary: { name: e.target.value, phone: contact.secondary?.phone ?? "" },
-                      })
-                    }
-                    aria-label="Secondary contact name"
-                    placeholder="Secondary name"
-                    className="h-[42px] min-w-[120px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
-                    style={fieldStyle}
-                  />
-                  <input
-                    type="tel"
-                    value={contact.secondary.phone}
-                    onChange={(e) =>
-                      setContact({
-                        ...contact,
-                        secondary: { name: contact.secondary?.name ?? "", phone: e.target.value },
-                      })
-                    }
-                    aria-label="Secondary contact mobile number"
-                    placeholder="Secondary mobile number"
-                    className="h-[42px] min-w-[140px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
-                    style={fieldStyle}
-                  />
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setContact({ ...contact, secondary: null })}
-                  className="mt-2 self-start text-[12.5px] transition-opacity hover:opacity-70"
-                  style={{ color: INK_3 }}
-                >
-                  Remove secondary contact
-                </button>
-              </>
-            ) : (
-              <TextAction
-                label="+ Add secondary contact"
-                className="mt-2 self-start"
-                onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
-              />
-            )}
-          </FlatCard>
-        </div>
-
-        {/* ── ROW 3 · three symmetrical cards ── */}
-        <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
-          <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
-            <div className="mt-2.5">
-              {meals.length === 0 ? (
-                <p className="text-[13px]" style={{ color: INK_3 }}>
-                  No group meals booked
-                </p>
+              {contact.secondary ? (
+                <>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <input
+                      type="text"
+                      value={contact.secondary.name}
+                      onChange={(e) =>
+                        setContact({
+                          ...contact,
+                          secondary: {
+                            name: e.target.value,
+                            phone: contact.secondary?.phone ?? "",
+                          },
+                        })
+                      }
+                      aria-label="Secondary contact name"
+                      placeholder="Secondary name"
+                      className="h-[42px] min-w-[120px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                      style={fieldStyle}
+                    />
+                    <input
+                      type="tel"
+                      value={contact.secondary.phone}
+                      onChange={(e) =>
+                        setContact({
+                          ...contact,
+                          secondary: { name: contact.secondary?.name ?? "", phone: e.target.value },
+                        })
+                      }
+                      aria-label="Secondary contact mobile number"
+                      placeholder="Secondary mobile number"
+                      className="h-[42px] min-w-[140px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                      style={fieldStyle}
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setContact({ ...contact, secondary: null })}
+                    className="mt-2 self-start text-[12.5px] transition-opacity hover:opacity-70"
+                    style={{ color: INK_3 }}
+                  >
+                    Remove secondary contact
+                  </button>
+                </>
               ) : (
-                meals.slice(0, 2).map((m) => <Row key={m.label} label={m.label} value={m.value} />)
+                <TextAction
+                  label="+ Add secondary contact"
+                  className="mt-2 self-start"
+                  onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
+                />
               )}
-            </div>
-            <CardFooter
-              label={`${meals.length} details`}
-              onClick={() => onRequestChange?.("meals")}
-            />
-          </FlatCard>
-
-          <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special arrangements" />
-            <div className="mt-2.5">
-              <Row label="Coach parking" value="Confirmed" tone="green" />
-              <Row label="Extra luggage room" value="Confirmed" tone="green" />
-            </div>
-            <CardFooter label="2 arrangements" onClick={() => onRequestChange?.("services")} />
-          </FlatCard>
-
-          <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & dietary" />
-            <div className="mt-2.5">
-              <p className="text-[13px]" style={{ color: INK_2 }}>
-                {allergyCount} notes
-              </p>
-            </div>
-            <CardFooter label="View & edit" onClick={onOpenDietary} />
-          </FlatCard>
-        </div>
-
-        {/* ── ROW 4 · final note ── */}
-        <FlatCard className="px-6 py-5">
-          {noteExpanded ? (
-            <>
-              <div className="flex items-center gap-2.5">
-                <MessageSquare size={17} strokeWidth={1.7} style={{ color: INK }} />
-                <span className="text-[14.5px] font-semibold" style={{ color: INK }}>
-                  Final note to hotel
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setNoteOpen(false)}
-                  className="ml-auto text-[12.5px] font-medium transition-opacity hover:opacity-70"
-                  style={{ color: GOLD }}
-                >
-                  Done
-                </button>
-              </div>
-              <textarea
-                value={note}
-                onChange={(e) => setNote(e.target.value.slice(0, 500))}
-                maxLength={500}
-                aria-label="Final note to hotel"
-                placeholder="Add an important note for the hotel..."
-                className="mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
-                style={fieldStyle}
-              />
-              <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_3 }}>
-                {note.length} / 500
-              </p>
-            </>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setNoteOpen(true)}
-              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(27,37,48,0.02)]"
-            >
-              <span
-                className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
-                style={{ border: FIELD_BORDER, background: FIELD_BG }}
-              >
-                <MessageSquare size={15} strokeWidth={1.7} style={{ color: INK_2 }} />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span
-                  className="block text-[13px] font-semibold leading-none"
-                  style={{ color: INK }}
-                >
-                  Final note to hotel
-                </span>
-                <span className="mt-[2px] block text-[12px] leading-none" style={{ color: INK_2 }}>
-                  Anything else the hotel should know?
-                </span>
-              </span>
-              <span className="inline-flex shrink-0 items-center gap-2 transition-opacity group-hover:opacity-70">
-                <span className="text-[12.5px] font-medium" style={{ color: INK_2 }}>
-                  Add note
-                </span>
-                <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
-              </span>
-            </button>
-          )}
-        </FlatCard>
-
-        {/* ── ROW 5 · confirmation ── */}
-        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-4 px-6 py-5">
-          <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
-          <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
-            All information is securely shared with the hotel.
-            <br className="hidden sm:block" /> You will receive an update as soon as we have a
-            response.
-          </p>
-
-          <span
-            aria-hidden
-            className="hidden h-[48px] w-px shrink-0 lg:block"
-            style={{ background: HAIR }}
-          />
-
-          <div className="min-w-[210px] max-w-[240px]">
-            <p className="text-[13px] font-semibold" style={{ color: INK }}>
-              All details ready?
-            </p>
-            <p className="mt-1 text-[12.5px] leading-relaxed" style={{ color: INK_2 }}>
-              Review the information above before confirming your final details.
-            </p>
+            </FlatCard>
           </div>
 
-          <button
-            type="button"
-            onClick={onComplete}
-            className="inline-flex h-[46px] shrink-0 items-center justify-center gap-2.5 rounded-[10px] px-6 text-[14px] font-semibold transition-opacity hover:opacity-90"
-            style={{
-              background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${GOLD_DEEP} 100%)`,
-              color: "#FFF9EE",
-              boxShadow: "0 8px 18px -12px rgba(169,108,18,0.9)",
-            }}
-          >
-            Confirm final details <ArrowRight size={16} />
-          </button>
-        </FlatCard>
+          {/* ── ROW 3 · three symmetrical cards ── */}
+          <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+            <FlatCard className="flex h-full flex-col p-6">
+              <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
+              <div className="mt-2.5">
+                {meals.length === 0 ? (
+                  <p className="text-[13px]" style={{ color: INK_3 }}>
+                    No group meals booked
+                  </p>
+                ) : (
+                  meals
+                    .slice(0, 2)
+                    .map((m) => <Row key={m.label} label={m.label} value={m.value} />)
+                )}
+              </div>
+              <CardFooter
+                label={`${meals.length} details`}
+                onClick={() => onRequestChange?.("meals")}
+              />
+            </FlatCard>
+
+            <FlatCard className="flex h-full flex-col p-6">
+              <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special arrangements" />
+              <div className="mt-2.5">
+                <Row label="Coach parking" value="Confirmed" tone="green" />
+                <Row label="Extra luggage room" value="Confirmed" tone="green" />
+              </div>
+              <CardFooter label="2 arrangements" onClick={() => onRequestChange?.("services")} />
+            </FlatCard>
+
+            <FlatCard className="flex h-full flex-col p-6">
+              <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & dietary" />
+              <div className="mt-2.5">
+                <p className="text-[13px]" style={{ color: INK_2 }}>
+                  {allergyCount} notes
+                </p>
+              </div>
+              <CardFooter label="View & edit" onClick={onOpenDietary} />
+            </FlatCard>
+          </div>
+
+          {/* ── ROW 4 · final note ── */}
+          <FlatCard className="px-6 py-5">
+            {noteExpanded ? (
+              <>
+                <div className="flex items-center gap-2.5">
+                  <MessageSquare size={17} strokeWidth={1.7} style={{ color: INK }} />
+                  <span className="text-[14.5px] font-semibold" style={{ color: INK }}>
+                    Final note to hotel
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setNoteOpen(false)}
+                    className="ml-auto text-[12.5px] font-medium transition-opacity hover:opacity-70"
+                    style={{ color: GOLD }}
+                  >
+                    Done
+                  </button>
+                </div>
+                <textarea
+                  value={note}
+                  onChange={(e) => setNote(e.target.value.slice(0, 500))}
+                  maxLength={500}
+                  aria-label="Final note to hotel"
+                  placeholder="Add an important note for the hotel..."
+                  className="mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+                  style={fieldStyle}
+                />
+                <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_3 }}>
+                  {note.length} / 500
+                </p>
+              </>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setNoteOpen(true)}
+                className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(27,37,48,0.02)]"
+              >
+                <span
+                  className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
+                  style={{ border: FIELD_BORDER, background: FIELD_BG }}
+                >
+                  <MessageSquare size={15} strokeWidth={1.7} style={{ color: INK_2 }} />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span
+                    className="block text-[13px] font-semibold leading-none"
+                    style={{ color: INK }}
+                  >
+                    Final note to hotel
+                  </span>
+                  <span
+                    className="mt-[2px] block text-[12px] leading-none"
+                    style={{ color: INK_2 }}
+                  >
+                    Anything else the hotel should know?
+                  </span>
+                </span>
+                <span className="inline-flex shrink-0 items-center gap-2 transition-opacity group-hover:opacity-70">
+                  <span className="text-[12.5px] font-medium" style={{ color: INK_2 }}>
+                    Add note
+                  </span>
+                  <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
+                </span>
+              </button>
+            )}
+          </FlatCard>
+
+          {/* ── ROW 5 · confirmation ── */}
+          <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-4 px-6 py-5">
+            <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
+            <p
+              className="min-w-[240px] flex-1 text-[13px] leading-relaxed"
+              style={{ color: INK_2 }}
+            >
+              All information is securely shared with the hotel.
+              <br className="hidden sm:block" /> You will receive an update as soon as we have a
+              response.
+            </p>
+
+            <span
+              aria-hidden
+              className="hidden h-[48px] w-px shrink-0 lg:block"
+              style={{ background: HAIR }}
+            />
+
+            <div className="min-w-[210px] max-w-[240px]">
+              <p className="text-[13px] font-semibold" style={{ color: INK }}>
+                All details ready?
+              </p>
+              <p className="mt-1 text-[12.5px] leading-relaxed" style={{ color: INK_2 }}>
+                Review the information above before confirming your final details.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={onComplete}
+              className="inline-flex h-[46px] shrink-0 items-center justify-center gap-2.5 rounded-[10px] px-6 text-[14px] font-semibold transition-opacity hover:opacity-90"
+              style={{
+                background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${GOLD_DEEP} 100%)`,
+                color: "#FFF9EE",
+                boxShadow: "0 8px 18px -12px rgba(169,108,18,0.9)",
+              }}
+            >
+              Confirm final details <ArrowRight size={16} />
+            </button>
+          </FlatCard>
+        </div>
       </div>
-    </Plate>
+    </div>
   );
 }
