@@ -30,23 +30,29 @@ export function Plate({
   tone = "grey",
 }: {
   children: React.ReactNode;
-  /** "grey" keeps the shared cool folder surface; "warm" is the beige Documents plate; "light" is the ivory Changes plate. */
-  tone?: "grey" | "warm" | "light";
+  /** "grey" keeps the shared cool folder surface; "warm" is the beige Documents plate; "light" is the ivory Changes plate; "canvas" is the flat light-grey SaaS canvas. */
+  tone?: "grey" | "warm" | "light" | "canvas";
 }) {
+  const canvas = tone === "canvas";
   return (
     <div
       className="relative flex flex-1 flex-col"
       style={{
-        background:
-          tone === "warm"
+        background: canvas
+          ? "#F6F6F8"
+          : tone === "warm"
             ? FOLDER_TOP_SURFACE_WARM
             : tone === "light"
               ? "#FAF7F5"
               : FOLDER_TOP_SURFACE,
         borderRadius: "16px 16px 0 0",
-        boxShadow: `inset 0 1px 0 ${FOLDER_RIM}, inset 9px 0 13px -8px rgba(6,14,22,0.10)`,
+        boxShadow: canvas
+          ? undefined
+          : `inset 0 1px 0 ${FOLDER_RIM}, inset 9px 0 13px -8px rgba(6,14,22,0.10)`,
       }}
     >
+
+
       {children}
     </div>
   );
@@ -111,7 +117,13 @@ export function Slot({
 }
 
 /* ── soft sand medallion ── */
-export function Medallion({ children, size = 48 }: { children: React.ReactNode; size?: number }) {
+export function Medallion({
+  children,
+  size = 48,
+}: {
+  children: React.ReactNode;
+  size?: number;
+}) {
   return (
     <span
       className="grid shrink-0 place-items-center rounded-full"
