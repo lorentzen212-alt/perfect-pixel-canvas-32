@@ -16,13 +16,6 @@ import {
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import {
-  GOLD,
-  GREEN,
-  INK,
-  INK_2,
-  INK_3,
-} from "@/features/booking-workspace/overview/materials";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -32,20 +25,33 @@ import {
 /* ── local constants materials.ts has no equivalent for ── */
 const GOLD_HI = "#CC8C1E";
 const GOLD_DEEP = "#A96C12";
-const CHEVRON = "rgba(27,37,48,0.55)";
 
-/* ── warm document canvas material ── */
-const CANVAS = "#FAF8F5";
-const CANVAS_BORDER = "1px solid rgba(120,100,74,0.14)";
-const CANVAS_SHADOW = "0 1px 2px rgba(6,14,22,0.20), 0 30px 60px -35px rgba(6,14,22,0.55)";
-/** warm hairline used for every divider on this page */
-const RULE = "rgba(90,74,52,0.13)";
-const TILE_BG = "#FFFDFA";
-const TILE_BORDER = "1px solid rgba(90,74,52,0.10)";
-const TILE_SHADOW = "0 1px 2px rgba(90,74,52,0.05), 0 10px 24px -10px rgba(60,45,25,0.20)";
-const TILE_SHADOW_HOVER = "0 1px 2px rgba(90,74,52,0.05), 0 16px 32px -12px rgba(60,45,25,0.26)";
-const FIELD_BG = "#FCFBF8";
-const FIELD_BORDER = "1px solid rgba(90,74,52,0.18)";
+/* the document */
+const CANVAS = "#213756";
+const CANVAS_BORDER = "1px solid rgba(16,28,45,0.55)";
+const CANVAS_SHADOW = "0 1px 2px rgba(20,32,50,0.12), 0 26px 50px -30px rgba(20,32,50,0.45)";
+/** hairline used for every divider on this page */
+const RULE = "rgba(255,255,255,0.12)";
+
+/* text on navy */
+const INK = "#F4F1EA";
+const INK_2 = "rgba(244,241,234,0.70)";
+const INK_3 = "rgba(244,241,234,0.55)";
+const CHEVRON = "rgba(244,241,234,0.55)";
+
+/* accents that survive a dark background */
+const GOLD = "#DCAE62";
+const GREEN = "#8FC7A6";
+
+/* the three tiles — one step lighter than the document */
+const TILE_BG = "#27405F";
+const TILE_BORDER = "1px solid rgba(255,255,255,0.10)";
+const TILE_SHADOW = "0 1px 2px rgba(0,0,0,0.30), 0 10px 24px -10px rgba(0,0,0,0.50)";
+const TILE_SHADOW_HOVER = "0 1px 2px rgba(0,0,0,0.30), 0 16px 32px -12px rgba(0,0,0,0.60)";
+
+/* fields */
+const FIELD_BG = "rgba(255,255,255,0.06)";
+const FIELD_BORDER = "1px solid rgba(255,255,255,0.18)";
 
 /** ultra-thin warm divider between canvas sections */
 function Rule() {
@@ -219,7 +225,7 @@ function ProgressRing({ value }: { value: number }) {
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="rgba(27,37,48,0.09)"
+          stroke="rgba(255,255,255,0.16)"
           strokeWidth={stroke}
         />
         <circle
@@ -301,11 +307,11 @@ function TimeValue({
         className="appearance-none bg-transparent text-[13.5px] font-medium tabular-nums outline-none"
         style={{ color: value ? INK : INK_3 }}
       >
-        <option value="" disabled>
+        <option value="" disabled style={{ background: "#213756", color: "#F4F1EA" }}>
           --:--
         </option>
         {TIME_OPTIONS.map((t) => (
-          <option key={t} value={t}>
+          <option key={t} value={t} style={{ background: "#213756", color: "#F4F1EA" }}>
             {t}
           </option>
         ))}
@@ -330,7 +336,7 @@ function ModeMenu({
         <button
           type="button"
           aria-label={`${side} time type`}
-          className="grid h-[26px] w-[22px] shrink-0 place-items-center rounded-[6px] outline-none transition-colors hover:bg-[rgba(27,37,48,0.05)]"
+          className="grid h-[26px] w-[22px] shrink-0 place-items-center rounded-[6px] outline-none transition-colors hover:bg-[rgba(255,255,255,0.07)]"
         >
           <ChevronDown size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
         </button>
@@ -349,7 +355,7 @@ function ModeMenu({
           <DropdownMenuItem
             key={m}
             onSelect={() => onChange(m)}
-            className="flex h-[35px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(27,37,48,0.04)]"
+            className="flex h-[35px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(255,255,255,0.07)]"
             style={{ color: INK }}
           >
             <span className="flex-1 truncate">{MODE_LABEL[m]}</span>
@@ -462,11 +468,11 @@ function TimeSide({
                 className="appearance-none bg-transparent pr-4 text-[12.5px] tabular-nums outline-none"
                 style={{ color: INK }}
               >
-                <option value="" disabled>
+                <option value="" disabled style={{ background: "#213756", color: "#F4F1EA" }}>
                   Select time
                 </option>
                 {TIME_OPTIONS.map((t) => (
-                  <option key={t} value={t}>
+                  <option key={t} value={t} style={{ background: "#213756", color: "#F4F1EA" }}>
                     {t}
                   </option>
                 ))}
@@ -602,8 +608,8 @@ export function FinalDetails({
             onClick={() =>
               timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
-            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(90,74,52,0.05)]"
-            style={{ border: "1px solid rgba(90,74,52,0.22)", color: INK }}
+            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+            style={{ border: "1px solid rgba(255,255,255,0.22)", color: INK }}
           >
             View missing items
           </button>
@@ -628,7 +634,7 @@ export function FinalDetails({
             </div>
           </div>
 
-          <div className="flex flex-col border-t border-[rgba(90,74,52,0.13)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
+          <div className="flex flex-col border-t border-[rgba(255,255,255,0.12)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
 
             <CardHead
               icon={<User size={19} strokeWidth={1.7} />}
@@ -645,7 +651,7 @@ export function FinalDetails({
                   style={fieldStyle}
                 >
                   {ROLES.map((r) => (
-                    <option key={r} value={r}>
+                    <option key={r} value={r} style={{ background: "#213756", color: "#F4F1EA" }}>
                       {r}
                     </option>
                   ))}
@@ -813,7 +819,7 @@ export function FinalDetails({
             <button
               type="button"
               onClick={() => setNoteOpen(true)}
-              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(27,37,48,0.02)]"
+              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(255,255,255,0.04)]"
             >
               <span
                 className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
