@@ -560,7 +560,7 @@ export function FinalDetails({
     <Plate>
       <div className="flex flex-1 flex-col gap-4 px-5 pb-12 pt-6 sm:px-8">
         {/* ── ROW 1 · progress ── */}
-        <FlatCard frame className="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3.5">
+        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3.5">
           <ProgressRing value={80} />
           <div className="min-w-0 flex-1">
             <h2 className="text-[21px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}>
@@ -806,7 +806,7 @@ export function FinalDetails({
         </FlatCard>
 
         {/* ── ROW 5 · confirmation ── */}
-        <FlatCard frame className="flex flex-wrap items-center gap-x-6 gap-y-4 px-5 py-3.5">
+        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-4 px-5 py-3.5">
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
