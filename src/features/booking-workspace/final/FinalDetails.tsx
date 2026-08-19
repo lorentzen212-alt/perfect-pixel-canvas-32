@@ -756,7 +756,10 @@ export function FinalDetails({
                 <MessageSquare size={15} strokeWidth={1.7} style={{ color: INK_2 }} />
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-[13px] font-semibold leading-none" style={{ color: INK }}>
+                <span
+                  className="block text-[13px] font-semibold leading-none"
+                  style={{ color: INK }}
+                >
                   Final note to hotel
                 </span>
                 <span className="mt-[2px] block text-[12px] leading-none" style={{ color: INK_2 }}>
