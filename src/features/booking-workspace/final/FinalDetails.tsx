@@ -747,34 +747,30 @@ export function FinalDetails({
             <button
               type="button"
               onClick={() => setNoteOpen(true)}
-              className="flex w-full items-center gap-3 text-left transition-opacity hover:opacity-80"
+              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(27,37,48,0.02)]"
             >
-              <MessageSquare
-                size={17}
-                strokeWidth={1.7}
-                className="shrink-0"
-                style={{ color: INK }}
-              />
+              <span
+                className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
+                style={{ border: `1px solid ${HAIR}`, background: "rgba(255,255,255,0.5)" }}
+              >
+                <MessageSquare size={15} strokeWidth={1.7} style={{ color: INK_2 }} />
+              </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-[14px] font-semibold" style={{ color: INK }}>
+                <span
+                  className="block text-[13px] font-semibold leading-none"
+                  style={{ color: INK }}
+                >
                   Final note to hotel
-                  <span
-                    className="ml-2 text-[10px] uppercase tracking-[0.12em]"
-                    style={{ color: INK_3 }}
-                  >
-                    Optional
-                  </span>
                 </span>
-                <span className="mt-0.5 block text-[12.5px]" style={{ color: INK_2 }}>
+                <span className="mt-[2px] block text-[12px] leading-none" style={{ color: INK_2 }}>
                   Anything else the hotel should know?
                 </span>
               </span>
-              <span
-                className="inline-flex shrink-0 items-center gap-1 text-[12.5px] font-medium"
-                style={{ color: GOLD }}
-              >
-                Add note
-                <ChevronRight size={14} />
+              <span className="inline-flex shrink-0 items-center gap-2 transition-opacity group-hover:opacity-70">
+                <span className="text-[12.5px] font-medium" style={{ color: INK_2 }}>
+                  Add note
+                </span>
+                <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
               </span>
             </button>
           )}
