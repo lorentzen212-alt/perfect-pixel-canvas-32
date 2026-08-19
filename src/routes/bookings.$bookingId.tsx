@@ -1140,17 +1140,32 @@ function Workspace({ booking }: { booking: Booking }) {
     tab === "Overview" ||
     tab === "Rooming List" ||
     tab === "Documents" ||
-    tab === "Changes" ||
-    tab === "Final Details";
+    tab === "Changes";
+
+  const isFinalDetails = tab === "Final Details";
 
   /** warm ivory plate for the Group Plan tab (navy cards sit on ivory) */
   const isGroupPlan = tab === "Group Plan";
-  const PLATE_BG = isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : PLATE;
+  const PLATE_BG = isFolder
+    ? PAGE_UNDER
+    : isFinalDetails
+      ? FINAL_PLATE
+      : isGroupPlan
+        ? GROUP_PLAN_IVORY
+        : PLATE;
 
   return (
     <div
       className="flex min-h-screen flex-col"
-      style={{ backgroundColor: isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : BG_ALT }}
+      style={{
+        backgroundColor: isFolder
+          ? PAGE_UNDER
+          : isFinalDetails
+            ? FINAL_PLATE
+            : isGroupPlan
+              ? GROUP_PLAN_IVORY
+              : BG_ALT,
+      }}
     >
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
