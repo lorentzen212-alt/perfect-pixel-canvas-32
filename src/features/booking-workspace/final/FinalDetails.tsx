@@ -790,7 +790,7 @@ export function FinalDetails({
             <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
             <div className="mt-2.5">
               {meals.length === 0 ? (
-                <p className="text-[13px]" style={{ color: INK_3 }}>
+                <p className="text-[13px]" style={{ color: PAPER_INK_2 }}>
                   No group meals booked
                 </p>
               ) : (
@@ -815,7 +815,7 @@ export function FinalDetails({
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & Dietary" />
             <div className="mt-2.5">
-              <p className="text-[13px]" style={{ color: INK_2 }}>
+              <p className="text-[13px]" style={{ color: PAPER_INK_2 }}>
                 {allergyCount} notes
               </p>
             </div>
