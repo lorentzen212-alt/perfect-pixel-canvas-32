@@ -1227,15 +1227,18 @@ function Workspace({ booking }: { booking: Booking }) {
           onSelect={goToTab}
           surface={
             isFolder
-              ? tab === "Documents" || tab === "Final Details"
-                ? FOLDER_TOP_SURFACE_WARM
-                : tab === "Changes"
-                  ? "#FAF7F5"
-                  : FOLDER_TOP_SURFACE
+              ? tab === "Final Details"
+                ? "#FAF8F5"
+                : tab === "Documents"
+                  ? FOLDER_TOP_SURFACE_WARM
+                  : tab === "Changes"
+                    ? "#FAF7F5"
+                    : FOLDER_TOP_SURFACE
               : isGroupPlan
                 ? GROUP_PLAN_IVORY
                 : undefined
           }
+
         />
 
         {/* ══ 2 · workspace plate — physical folder on Overview, ivory elsewhere ══ */}
