@@ -23,7 +23,6 @@ import {
   INK,
   INK_2,
   INK_3,
-  IVORY,
 } from "@/features/booking-workspace/overview/materials";
 import {
   DropdownMenu,
