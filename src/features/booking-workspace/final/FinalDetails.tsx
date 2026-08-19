@@ -819,8 +819,9 @@ export function FinalDetails({
           )}
         </FlatCard>
 
-        {/* ── ROW 5 · confirmation ── */}
-        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-4 px-6 py-5">
+        {/* ── 5 · confirmation ── */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-4 px-7 py-6 sm:px-9">
+
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
