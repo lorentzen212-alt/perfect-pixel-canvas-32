@@ -755,8 +755,9 @@ export function FinalDetails({
           </FlatCard>
         </div>
 
-        {/* ── ROW 4 · final note ── */}
-        <FlatCard className="px-6 py-5">
+        {/* ── 4 · final note ── */}
+        <div className="px-7 py-5 sm:px-9">
+
           {noteExpanded ? (
             <>
               <div className="flex items-center gap-2.5">
