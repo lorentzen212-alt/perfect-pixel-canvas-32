@@ -855,8 +855,9 @@ export function FinalDetails({
           >
             Confirm final details <ArrowRight size={16} />
           </button>
-        </FlatCard>
+        </div>
       </div>
-    </Plate>
+    </div>
   );
+
 }
