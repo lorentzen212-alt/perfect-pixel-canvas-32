@@ -225,7 +225,7 @@ function ProgressRing({ value }: { value: number }) {
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="rgba(27,37,48,0.09)"
+          stroke="rgba(255,255,255,0.16)"
           strokeWidth={stroke}
         />
         <circle
@@ -336,7 +336,7 @@ function ModeMenu({
         <button
           type="button"
           aria-label={`${side} time type`}
-          className="grid h-[26px] w-[22px] shrink-0 place-items-center rounded-[6px] outline-none transition-colors hover:bg-[rgba(27,37,48,0.05)]"
+          className="grid h-[26px] w-[22px] shrink-0 place-items-center rounded-[6px] outline-none transition-colors hover:bg-[rgba(255,255,255,0.07)]"
         >
           <ChevronDown size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
         </button>
@@ -355,7 +355,7 @@ function ModeMenu({
           <DropdownMenuItem
             key={m}
             onSelect={() => onChange(m)}
-            className="flex h-[35px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(27,37,48,0.04)]"
+            className="flex h-[35px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(255,255,255,0.07)]"
             style={{ color: INK }}
           >
             <span className="flex-1 truncate">{MODE_LABEL[m]}</span>
@@ -608,8 +608,8 @@ export function FinalDetails({
             onClick={() =>
               timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
-            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(90,74,52,0.05)]"
-            style={{ border: "1px solid rgba(90,74,52,0.22)", color: INK }}
+            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+            style={{ border: "1px solid rgba(255,255,255,0.22)", color: INK }}
           >
             View missing items
           </button>
@@ -634,7 +634,7 @@ export function FinalDetails({
             </div>
           </div>
 
-          <div className="flex flex-col border-t border-[rgba(90,74,52,0.13)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
+          <div className="flex flex-col border-t border-[rgba(255,255,255,0.12)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
 
             <CardHead
               icon={<User size={19} strokeWidth={1.7} />}
@@ -819,7 +819,7 @@ export function FinalDetails({
             <button
               type="button"
               onClick={() => setNoteOpen(true)}
-              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(27,37,48,0.02)]"
+              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(255,255,255,0.04)]"
             >
               <span
                 className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
