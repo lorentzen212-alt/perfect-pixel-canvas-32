@@ -468,7 +468,7 @@ export function ChangesFolder({
                 {lines.map((l, i) => (
                   <li
                     key={l.type}
-                    className="flex flex-wrap items-stretch gap-y-3"
+                    className="flex flex-wrap items-stretch gap-y-3 sm:grid sm:grid-cols-[minmax(300px,1fr)_130px_180px_130px]"
                     style={{
                       borderBottom:
                         i < lines.length - 1 ? `1px solid ${HAIR_SOFT}` : "1px solid transparent",
@@ -476,7 +476,7 @@ export function ChangesFolder({
                   >
                     {/* the row rule spans every column, so name, current, requested and
                         change read as one table */}
-                    <span className="flex min-w-[200px] flex-1 items-center gap-3 py-[15px] pr-4 sm:w-[40%] sm:min-w-0 sm:flex-none">
+                    <span className="flex min-w-[200px] flex-1 items-center gap-3 py-[15px] pr-4 sm:min-w-0 sm:flex-none sm:w-auto">
                       <span className="shrink-0" style={{ color: BRONZE }}>
                         {roomIcon(l.type)}
                       </span>
@@ -493,12 +493,12 @@ export function ChangesFolder({
                       </span>
                     </span>
                     <span
-                      className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-[15%]"
+                      className="flex w-[70px] shrink-0 items-center justify-center text-[15px] font-semibold tabular-nums sm:w-auto"
                       style={{ color: INK }}
                     >
                       {l.base}
                     </span>
-                    <span className="flex w-[200px] shrink-0 items-center justify-center sm:w-[25%]">
+                    <span className="flex w-[200px] shrink-0 items-center justify-center sm:w-auto">
                       <Counter
                         value={l.qty}
                         label={l.type}
@@ -507,7 +507,7 @@ export function ChangesFolder({
                         }
                       />
                     </span>
-                    <span className="flex w-[140px] shrink-0 items-center justify-center sm:w-[20%]">
+                    <span className="flex w-[140px] shrink-0 items-center justify-center sm:w-auto">
                       <DeltaBadge diff={l.diff} />
                     </span>
                   </li>
