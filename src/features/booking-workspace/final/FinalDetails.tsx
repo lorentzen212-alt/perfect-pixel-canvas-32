@@ -16,13 +16,6 @@ import {
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import {
-  GOLD,
-  GREEN,
-  INK,
-  INK_2,
-  INK_3,
-} from "@/features/booking-workspace/overview/materials";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -32,20 +25,33 @@ import {
 /* ── local constants materials.ts has no equivalent for ── */
 const GOLD_HI = "#CC8C1E";
 const GOLD_DEEP = "#A96C12";
-const CHEVRON = "rgba(27,37,48,0.55)";
 
-/* ── warm document canvas material ── */
-const CANVAS = "#FAF8F5";
-const CANVAS_BORDER = "1px solid rgba(120,100,74,0.14)";
-const CANVAS_SHADOW = "0 1px 2px rgba(6,14,22,0.20), 0 30px 60px -35px rgba(6,14,22,0.55)";
-/** warm hairline used for every divider on this page */
-const RULE = "rgba(90,74,52,0.13)";
-const TILE_BG = "#FFFDFA";
-const TILE_BORDER = "1px solid rgba(90,74,52,0.10)";
-const TILE_SHADOW = "0 1px 2px rgba(90,74,52,0.05), 0 10px 24px -10px rgba(60,45,25,0.20)";
-const TILE_SHADOW_HOVER = "0 1px 2px rgba(90,74,52,0.05), 0 16px 32px -12px rgba(60,45,25,0.26)";
-const FIELD_BG = "#FCFBF8";
-const FIELD_BORDER = "1px solid rgba(90,74,52,0.18)";
+/* the document */
+const CANVAS = "#213756";
+const CANVAS_BORDER = "1px solid rgba(16,28,45,0.55)";
+const CANVAS_SHADOW = "0 1px 2px rgba(20,32,50,0.12), 0 26px 50px -30px rgba(20,32,50,0.45)";
+/** hairline used for every divider on this page */
+const RULE = "rgba(255,255,255,0.12)";
+
+/* text on navy */
+const INK = "#F4F1EA";
+const INK_2 = "rgba(244,241,234,0.70)";
+const INK_3 = "rgba(244,241,234,0.55)";
+const CHEVRON = "rgba(244,241,234,0.55)";
+
+/* accents that survive a dark background */
+const GOLD = "#DCAE62";
+const GREEN = "#8FC7A6";
+
+/* the three tiles — one step lighter than the document */
+const TILE_BG = "#27405F";
+const TILE_BORDER = "1px solid rgba(255,255,255,0.10)";
+const TILE_SHADOW = "0 1px 2px rgba(0,0,0,0.30), 0 10px 24px -10px rgba(0,0,0,0.50)";
+const TILE_SHADOW_HOVER = "0 1px 2px rgba(0,0,0,0.30), 0 16px 32px -12px rgba(0,0,0,0.60)";
+
+/* fields */
+const FIELD_BG = "rgba(255,255,255,0.06)";
+const FIELD_BORDER = "1px solid rgba(255,255,255,0.18)";
 
 /** ultra-thin warm divider between canvas sections */
 function Rule() {
