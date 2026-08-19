@@ -839,7 +839,7 @@ export function FinalDetails({
             maxLength={500}
             aria-label="Final note to hotel"
             placeholder="Add an important note for the hotel..."
-            className="mt-2.5 h-[68px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+            className="mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
             style={fieldStyle}
           />
           <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_FAINT }}>
@@ -849,7 +849,7 @@ export function FinalDetails({
 
         {/* ── footer action banner ── */}
         <div
-          className="flex flex-wrap items-center gap-x-6 gap-y-5 rounded-[14px] px-6 py-4"
+          className="flex flex-wrap items-center gap-x-6 gap-y-5 rounded-[14px] px-6 py-3"
           style={{ background: BANNER, border: `1px solid ${HAIR_SOFT}`, boxShadow: CARD_SHADOW }}
         >
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
