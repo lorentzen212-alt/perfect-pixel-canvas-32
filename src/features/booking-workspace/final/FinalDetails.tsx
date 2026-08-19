@@ -364,7 +364,11 @@ function TimeSide({
           </span>
         )}
 
-        <ModeMenu side={label} value={state.mode} onChange={(mode) => onState({ ...state, mode })} />
+        <ModeMenu
+          side={label}
+          value={state.mode}
+          onChange={(mode) => onState({ ...state, mode })}
+        />
       </div>
 
       {state.mode === "mixed" && (
@@ -542,7 +546,9 @@ export function FinalDetails({
           </span>
           <button
             type="button"
-            onClick={() => timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
+            onClick={() =>
+              timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+            }
             className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(27,37,48,0.04)]"
             style={{ border: `1px solid ${HAIR}`, color: INK }}
           >
@@ -743,7 +749,12 @@ export function FinalDetails({
               onClick={() => setNoteOpen(true)}
               className="flex w-full items-center gap-3 text-left transition-opacity hover:opacity-80"
             >
-              <MessageSquare size={17} strokeWidth={1.7} className="shrink-0" style={{ color: INK }} />
+              <MessageSquare
+                size={17}
+                strokeWidth={1.7}
+                className="shrink-0"
+                style={{ color: INK }}
+              />
               <span className="min-w-0 flex-1">
                 <span className="block text-[14px] font-semibold" style={{ color: INK }}>
                   Final note to hotel
