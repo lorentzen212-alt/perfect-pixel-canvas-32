@@ -231,18 +231,19 @@ function TextAction({
 
 /** footer row pinned to the bottom of the three symmetrical cards */
 function CardFooter({ label, onClick }: { label: string; onClick?: () => void }) {
+  const tone = useSurface();
   return (
     <div className="mt-auto pt-3">
-      <span aria-hidden className="mb-2 block h-px" style={{ background: RULE }} />
+      <span aria-hidden className="mb-2 block h-px" style={{ background: tone.rule }} />
       <button
         type="button"
         onClick={onClick}
         className="flex w-full items-center justify-between gap-3 text-left transition-opacity hover:opacity-70"
       >
-        <span className="text-[12.5px]" style={{ color: INK_2 }}>
+        <span className="text-[12.5px]" style={{ color: tone.ink2 }}>
           {label}
         </span>
-        <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
+        <ChevronRight size={15} strokeWidth={1.8} style={{ color: tone.chevron }} />
       </button>
     </div>
   );
