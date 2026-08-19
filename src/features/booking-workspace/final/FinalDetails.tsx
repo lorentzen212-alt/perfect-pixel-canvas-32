@@ -557,43 +557,41 @@ export function FinalDetails({
       <div
         className="overflow-hidden rounded-[22px]"
         style={{
-          background: "#F6F6F8",
+          background: "#F3F4F7",
           border: "1px solid rgba(16,24,40,0.08)",
           boxShadow: "0 1px 2px rgba(0,0,0,0.08), 0 30px 60px -45px rgba(0,0,0,0.30)",
         }}
       >
-        <div
-          className="flex flex-wrap items-center gap-x-6 gap-y-3 px-6 py-5"
-          style={{ borderBottom: "1px solid rgba(16,24,40,0.08)" }}
-        >
-          <ProgressRing value={80} />
-          <div className="min-w-0 flex-1">
-            <h2
-              className="text-[21px]"
-              style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}
-            >
-              Final details
-            </h2>
-            <p className="mt-0.5 text-[13px]" style={{ color: INK_2 }}>
-              A few last details before arrival
-            </p>
-          </div>
-          <span className="text-[13px]" style={{ color: INK_2 }}>
-            2 items need your attention
-          </span>
-          <button
-            type="button"
-            onClick={() =>
-              timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
-            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(27,37,48,0.04)]"
-            style={{ border: "1px solid rgba(16,24,40,0.12)", color: INK }}
-          >
-            View missing items
-          </button>
-        </div>
         <div className="flex flex-col gap-4 p-5 sm:p-7">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mb-1">
+            <ProgressRing value={80} />
+            <div className="min-w-0 flex-1">
+              <h2
+                className="text-[21px]"
+                style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}
+              >
+                Final details
+              </h2>
+              <p className="mt-0.5 text-[13px]" style={{ color: INK_2 }}>
+                A few last details before arrival
+              </p>
+            </div>
+            <span className="text-[13px]" style={{ color: INK_2 }}>
+              2 items need your attention
+            </span>
+            <button
+              type="button"
+              onClick={() =>
+                timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+              }
+              className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(27,37,48,0.04)]"
+              style={{ border: "1px solid rgba(16,24,40,0.12)", color: INK }}
+            >
+              View missing items
+            </button>
+          </div>
           {/* ── ROW 1 · arrival & departure + group contact ── */}
+
           <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[1.6fr_1fr] lg:items-stretch">
             <FlatCard className="flex flex-col p-6" style={{ scrollMarginTop: 24 }}>
               <div ref={timesRef}>
