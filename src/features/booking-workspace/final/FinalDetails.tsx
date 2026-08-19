@@ -297,38 +297,48 @@ function StatusMenu({
   value: TimeMode;
   onChange: (v: TimeMode) => void;
 }) {
+  const STATUS_BG = "#F4F5F6";
+  const ICON_GREY = "#7C8792";
+  const CHEVRON_GREY = "#4D5963";
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
           type="button"
           aria-label={`${side} time type`}
-          className="flex h-[40px] w-full items-center gap-2 rounded-b-[10px] px-3 text-left text-[12.5px] outline-none transition-colors hover:bg-[rgba(27,37,48,0.03)]"
-          style={{ background: "rgba(197,163,94,0.055)", color: INK_SOFT }}
+          className="flex h-[38px] w-full items-center gap-2 rounded-b-[10px] px-3 text-left text-[12.5px] outline-none transition-colors hover:bg-[rgba(27,37,48,0.035)]"
+          style={{ background: STATUS_BG, color: INK }}
         >
-          <Clock size={13} strokeWidth={1.7} className="shrink-0" style={{ color: BRONZE }} />
+          <Clock size={14} strokeWidth={1.6} className="shrink-0" style={{ color: ICON_GREY }} />
           <span className="truncate">{MODE_LABEL[side][value]}</span>
-          <ChevronDown size={12} aria-hidden className="shrink-0" style={{ color: INK_FAINT }} />
+          <ChevronDown
+            size={15}
+            strokeWidth={1.6}
+            aria-hidden
+            className="shrink-0"
+            style={{ color: CHEVRON_GREY }}
+          />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
         sideOffset={4}
-        className="min-w-[var(--radix-dropdown-menu-trigger-width)] rounded-[11px] p-1"
+        className="min-w-[var(--radix-dropdown-menu-trigger-width)] rounded-[10px] p-1"
         style={{
-          background: "#FDFBF7",
+          background: "#FCFCFD",
           border: `1px solid ${HAIR}`,
-          boxShadow: "0 10px 24px -12px rgba(15,25,35,0.28)",
+          boxShadow: "0 6px 16px -10px rgba(15,25,35,0.25)",
         }}
       >
         {MODES.map((m) => (
           <DropdownMenuItem
             key={m}
             onSelect={() => onChange(m)}
-            className="flex h-[38px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(27,37,48,0.04)]"
+            className="flex h-[36px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(27,37,48,0.04)]"
             style={{ color: INK }}
           >
-            <Clock size={13} strokeWidth={1.7} className="shrink-0" style={{ color: BRONZE }} />
+            <Clock size={14} strokeWidth={1.6} className="shrink-0" style={{ color: ICON_GREY }} />
             <span className="flex-1 truncate">{MODE_LABEL[side][m]}</span>
             {value === m && <Check size={13} strokeWidth={2} style={{ color: BRONZE_DEEP }} />}
           </DropdownMenuItem>
