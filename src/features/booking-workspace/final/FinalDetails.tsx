@@ -19,7 +19,6 @@ import { Plate } from "@/features/booking-workspace/overview/primitives";
 import {
   GOLD,
   GREEN,
-  HAIR,
   INK,
   INK_2,
   INK_3,
@@ -36,11 +35,14 @@ const GOLD_HI = "#CC8C1E";
 const GOLD_DEEP = "#A96C12";
 const CHEVRON = "rgba(27,37,48,0.55)";
 /** ivory-compatible field surface — never pure white */
-const FIELD_BG = "#FCFBF8";
+const FIELD_BG = "#FFFFFF";
+const FIELD_BORDER = "1px solid rgba(16,24,40,0.10)";
+/** cool hairline used for dividers inside white cards on this page */
+const HAIR = "rgba(16,24,40,0.08)";
 /** flat architectural ivory surface — local to this page */
-const FLAT_BG = "#F7F4ED";
-const FLAT_BORDER = "1px solid rgba(255,255,255,0.75)";
-const FLAT_SHADOW = "0 1px 3px rgba(15, 28, 40, 0.035)";
+const FLAT_BG = "#FFFFFF";
+const FLAT_BORDER = "1px solid rgba(16,24,40,0.06)";
+const FLAT_SHADOW = "0 1px 2px rgba(16,24,40,0.05)";
 
 /** same API as the shared overview Card, but flat instead of raised */
 function FlatCard({
@@ -58,7 +60,7 @@ function FlatCard({
       style={{
         background: FLAT_BG,
         border: FLAT_BORDER,
-        borderRadius: 12,
+        borderRadius: 16,
         boxShadow: FLAT_SHADOW,
         ...style,
       }}
@@ -367,7 +369,7 @@ function TimeSide({
 
       <div
         className="mt-1.5 flex h-[46px] items-center gap-3 rounded-[10px] px-3"
-        style={{ border: `1px solid ${HAIR}`, background: FIELD_BG }}
+        style={{ border: FIELD_BORDER, background: FIELD_BG }}
       >
         <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
@@ -489,7 +491,7 @@ function Row({ label, value, tone }: { label: string; value: string; tone?: "gre
 const ROLES = ["Tour leader", "Group leader", "Teacher", "Coordinator", "Driver", "Other"];
 
 const fieldStyle: React.CSSProperties = {
-  border: `1px solid ${HAIR}`,
+  border: FIELD_BORDER,
   background: FIELD_BG,
   color: INK,
 };
@@ -557,10 +559,10 @@ export function FinalDetails({
   const noteExpanded = noteOpen || note.length > 0;
 
   return (
-    <Plate>
+    <Plate tone="canvas">
       <div className="flex flex-1 flex-col gap-4 px-5 pb-12 pt-6 sm:px-8">
         {/* ── ROW 1 · progress ── */}
-        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3.5">
+        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-3 px-6 py-5">
           <ProgressRing value={80} />
           <div className="min-w-0 flex-1">
             <h2 className="text-[21px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 600 }}>
@@ -579,7 +581,7 @@ export function FinalDetails({
               timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
             className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(27,37,48,0.04)]"
-            style={{ border: `1px solid ${HAIR}`, color: INK }}
+            style={{ border: "1px solid rgba(16,24,40,0.12)", color: INK }}
           >
             View missing items
           </button>
@@ -587,7 +589,7 @@ export function FinalDetails({
 
         {/* ── ROW 2 · arrival & departure + group contact ── */}
         <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[1.6fr_1fr] lg:items-stretch">
-          <FlatCard className="flex flex-col p-5" style={{ scrollMarginTop: 24 }}>
+          <FlatCard className="flex flex-col p-6" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
                 icon={<CalendarDays size={19} strokeWidth={1.7} />}
@@ -601,7 +603,7 @@ export function FinalDetails({
             </div>
           </FlatCard>
 
-          <FlatCard className="flex flex-col p-5">
+          <FlatCard className="flex flex-col p-6">
             <CardHead
               icon={<User size={19} strokeWidth={1.7} />}
               title="Group contact"
@@ -704,7 +706,7 @@ export function FinalDetails({
 
         {/* ── ROW 3 · three symmetrical cards ── */}
         <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
-          <FlatCard className="flex h-full flex-col p-5">
+          <FlatCard className="flex h-full flex-col p-6">
             <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
             <div className="mt-2.5">
               {meals.length === 0 ? (
@@ -721,7 +723,7 @@ export function FinalDetails({
             />
           </FlatCard>
 
-          <FlatCard className="flex h-full flex-col p-5">
+          <FlatCard className="flex h-full flex-col p-6">
             <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special arrangements" />
             <div className="mt-2.5">
               <Row label="Coach parking" value="Confirmed" tone="green" />
@@ -730,7 +732,7 @@ export function FinalDetails({
             <CardFooter label="2 arrangements" onClick={() => onRequestChange?.("services")} />
           </FlatCard>
 
-          <FlatCard className="flex h-full flex-col p-5">
+          <FlatCard className="flex h-full flex-col p-6">
             <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & dietary" />
             <div className="mt-2.5">
               <p className="text-[13px]" style={{ color: INK_2 }}>
@@ -742,7 +744,7 @@ export function FinalDetails({
         </div>
 
         {/* ── ROW 4 · final note ── */}
-        <FlatCard className="p-4">
+        <FlatCard className="px-6 py-5">
           {noteExpanded ? (
             <>
               <div className="flex items-center gap-2.5">
@@ -780,7 +782,7 @@ export function FinalDetails({
             >
               <span
                 className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
-                style={{ border: `1px solid ${HAIR}`, background: FIELD_BG }}
+                style={{ border: FIELD_BORDER, background: FIELD_BG }}
               >
                 <MessageSquare size={15} strokeWidth={1.7} style={{ color: INK_2 }} />
               </span>
@@ -806,7 +808,7 @@ export function FinalDetails({
         </FlatCard>
 
         {/* ── ROW 5 · confirmation ── */}
-        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-4 px-5 py-3.5">
+        <FlatCard className="flex flex-wrap items-center gap-x-6 gap-y-4 px-6 py-5">
           <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
