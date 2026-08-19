@@ -66,6 +66,7 @@ import { OverviewFolder } from "@/features/booking-workspace/overview/Overview";
 import { RoomingFolder } from "@/features/booking-workspace/rooming/RoomingList";
 import { ChangesFolder } from "@/features/booking-workspace/changes/ChangesFolder";
 import { FinalDetails } from "@/features/booking-workspace/final/FinalDetails";
+import { InfoStrip } from "@/features/booking-workspace/InfoStrip";
 import {
   FOLDER_TOP_SURFACE,
   FOLDER_TOP_SURFACE_WARM,
@@ -1301,6 +1302,7 @@ function Workspace({ booking }: { booking: Booking }) {
               <BookingDocumentsView booking={booking} onAskQuestion={() => setTab("Messages")} />
             ) : tab === "Final Details" ? (
               <FinalDetails
+                strip={strip}
                 stayStart={stay.arrival}
                 stayEnd={stay.departure}
                 contactRole="Tour leader"
@@ -1464,6 +1466,8 @@ function Workspace({ booking }: { booking: Booking }) {
 const PLATE = "#F6F4EB";
 /** warm ivory used by the Group Plan tab plate (matches BG in GroupPlan.tsx) */
 const GROUP_PLAN_IVORY = "#F5F1E9";
+/** cool grey plate behind the raised Final Details board */
+const FINAL_PLATE = "#EDEEF1";
 
 const CARD_BG = "#15202B";
 const CARD_BORDER_SOFT = "#2A3A4A";
