@@ -538,14 +538,15 @@ function TimeSide({
 /* ── simple label / value row ── */
 
 function Row({ label, value, tone }: { label: string; value: string; tone?: "green" }) {
+  const surface = useSurface();
   return (
     <div className="flex items-center justify-between gap-4 py-[5px]">
-      <span className="min-w-0 truncate text-[13px]" style={{ color: INK }}>
+      <span className="min-w-0 truncate text-[13px]" style={{ color: surface.ink }}>
         {label}
       </span>
       <span
         className="shrink-0 text-[13px] font-medium tabular-nums"
-        style={{ color: tone === "green" ? GREEN : INK }}
+        style={{ color: tone === "green" ? surface.green : surface.ink }}
       >
         {value}
       </span>
