@@ -307,11 +307,11 @@ function TimeValue({
         className="appearance-none bg-transparent text-[13.5px] font-medium tabular-nums outline-none"
         style={{ color: value ? INK : INK_3 }}
       >
-        <option value="" disabled>
+        <option value={{VAL}} disabled style={{ background: "#213756", color: "#F4F1EA" }}>
           --:--
         </option>
         {TIME_OPTIONS.map((t) => (
-          <option key={t} value={t}>
+          <option key={t} value={{VAL}} style={{ background: "#213756", color: "#F4F1EA" }}>
             {t}
           </option>
         ))}
@@ -468,11 +468,11 @@ function TimeSide({
                 className="appearance-none bg-transparent pr-4 text-[12.5px] tabular-nums outline-none"
                 style={{ color: INK }}
               >
-                <option value="" disabled>
+                <option value={{VAL}} disabled style={{ background: "#213756", color: "#F4F1EA" }}>
                   Select time
                 </option>
                 {TIME_OPTIONS.map((t) => (
-                  <option key={t} value={t}>
+                  <option key={t} value={{VAL}} style={{ background: "#213756", color: "#F4F1EA" }}>
                     {t}
                   </option>
                 ))}
@@ -651,7 +651,7 @@ export function FinalDetails({
                   style={fieldStyle}
                 >
                   {ROLES.map((r) => (
-                    <option key={r} value={r}>
+                    <option key={r} value={{VAL}} style={{ background: "#213756", color: "#F4F1EA" }}>
                       {r}
                     </option>
                   ))}
