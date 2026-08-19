@@ -582,7 +582,7 @@ export function FinalDetails({
 
   return (
     <Plate tone="warm">
-      <div className="flex flex-1 flex-col gap-5 px-5 pb-12 pt-6 sm:px-8">
+      <div className="flex flex-1 flex-col gap-4 px-5 pb-12 pt-6 sm:px-8">
         {/* ── progress banner ── */}
         <Card className="flex flex-wrap items-center gap-x-6 gap-y-4">
           <ProgressRing value={80} />
