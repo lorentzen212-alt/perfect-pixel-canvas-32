@@ -713,8 +713,11 @@ export function FinalDetails({
                 onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
               />
             )}
-          </FlatCard>
+          </div>
         </div>
+        <Rule />
+
+
 
         {/* ── 3 · three tiles ── */}
         <div className="px-7 py-7 sm:px-9">
