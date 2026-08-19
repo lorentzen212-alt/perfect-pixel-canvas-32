@@ -15,7 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
-import { InfoStrip, type InfoCell } from "@/features/booking-workspace/InfoStrip";
+
 import { GOLD, GREEN, INK, INK_2, INK_3 } from "@/features/booking-workspace/overview/materials";
 import {
   DropdownMenu,
