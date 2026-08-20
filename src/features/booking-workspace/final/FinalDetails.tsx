@@ -46,17 +46,28 @@ const TILE_BG = "#FFFDFA";
 const TILE_BORDER = "1px solid rgba(90,74,52,0.10)";
 const TILE_SHADOW = "0 1px 2px rgba(90,74,52,0.05), 0 10px 24px -10px rgba(60,45,25,0.20)";
 const TILE_SHADOW_HOVER = "0 1px 2px rgba(90,74,52,0.05), 0 16px 32px -12px rgba(60,45,25,0.26)";
-const FIELD_BG = "#FCFBF8";
-const FIELD_BORDER = "1px solid rgba(90,74,52,0.18)";
+const FIELD_BG = "#FFFFFF";
+const FIELD_BORDER = "1px solid rgba(90,74,52,0.14)";
+/** the soft lift shared by every field, pill and control on this page */
+const FIELD_SHADOW =
+  "inset 0 1px 0 rgba(255,255,255,0.95), 0 1px 2px rgba(60,50,35,0.06), 0 2px 6px -3px rgba(60,50,35,0.12)";
+
+/* the rounded chip each section icon sits in — polished silver, lit from the
+   top-left, raised a hair off the paper so it catches the light like metal */
+const CHIP_BG =
+  "linear-gradient(150deg, #FFFFFF 0%, #F7F7F6 30%, #E9E9E7 58%, #DEDEDB 80%, #F0F0EF 100%)";
+const CHIP_BORDER = "1px solid rgba(118,115,110,0.32)";
+const CHIP_SHADOW =
+  "inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(116,113,107,0.24), 0 1px 2px rgba(58,54,48,0.16), 0 5px 12px -6px rgba(48,44,38,0.30)";
+
+/** the same plate, lifted a touch further on hover */
+const FIELD_SHADOW_HOVER =
+  "inset 0 1px 0 rgba(255,255,255,0.95), 0 1px 2px rgba(60,50,35,0.07), 0 5px 12px -4px rgba(60,50,35,0.18)";
 
 /* the final-note band — the same warm paper, a touch deeper than the canvas
    so the row reads as its own strip without introducing a new material */
 const BAND_BG = "#F4F1EA";
 const BAND_EDGE = "inset 0 1px 0 rgba(255,255,255,0.75), inset 0 -1px 0 rgba(90,74,52,0.10)";
-
-/* the rounded chip each section icon sits in — a shade off the canvas */
-const CHIP_BG = "rgba(90,74,52,0.07)";
-const CHIP_BORDER = "1px solid rgba(90,74,52,0.16)";
 
 /** ultra-thin warm divider between canvas sections */
 function Rule() {
@@ -125,6 +136,7 @@ function IconTile({
         borderRadius: radius,
         background: CHIP_BG,
         border: CHIP_BORDER,
+        boxShadow: CHIP_SHADOW,
         color: INK,
       }}
     >
@@ -139,13 +151,13 @@ function PillAction({ label, onClick }: { label: string; onClick?: () => void })
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex h-[30px] shrink-0 items-center gap-1.5 rounded-full px-3 text-[12.5px] font-medium transition-colors"
-      style={{ border: CHIP_BORDER, color: INK }}
+      className="inline-flex h-[40px] shrink-0 items-center gap-1.5 rounded-[11px] px-4 text-[13px] font-medium transition-shadow"
+      style={{ border: FIELD_BORDER, background: FIELD_BG, color: INK, boxShadow: FIELD_SHADOW }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = CHIP_BG;
+        e.currentTarget.style.boxShadow = FIELD_SHADOW_HOVER;
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.background = "transparent";
+        e.currentTarget.style.boxShadow = FIELD_SHADOW;
       }}
     >
       <Plus size={14} strokeWidth={2} />
@@ -460,8 +472,8 @@ function TimeSide({
       </span>
 
       <div
-        className="mt-1.5 flex h-[46px] items-center gap-3 rounded-[10px] px-3"
-        style={{ border: FIELD_BORDER, background: FIELD_BG }}
+        className="mt-1.5 flex h-[46px] items-center gap-3 rounded-[11px] px-3.5"
+        style={{ border: FIELD_BORDER, background: FIELD_BG, boxShadow: FIELD_SHADOW }}
       >
         <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
@@ -586,6 +598,7 @@ const fieldStyle: React.CSSProperties = {
   border: FIELD_BORDER,
   background: FIELD_BG,
   color: INK,
+  boxShadow: FIELD_SHADOW,
 };
 
 /* ── the tab body ── */
@@ -680,15 +693,21 @@ export function FinalDetails({
             onClick={() =>
               timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
-            className="inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium transition-opacity hover:opacity-70"
-            style={{ color: INK }}
+            className="inline-flex h-[40px] shrink-0 items-center gap-1.5 rounded-full px-5 text-[13px] font-medium transition-shadow"
+            style={{
+              border: FIELD_BORDER,
+              background: FIELD_BG,
+              color: INK,
+              boxShadow: FIELD_SHADOW,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = FIELD_SHADOW_HOVER;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = FIELD_SHADOW;
+            }}
           >
-            <span
-              className="pb-[3px]"
-              style={{ borderBottom: "1px solid rgba(90,74,52,0.28)" }}
-            >
-              View missing items
-            </span>
+            View missing items
             <ChevronRight size={15} strokeWidth={1.8} />
           </button>
         </div>
@@ -701,7 +720,7 @@ export function FinalDetails({
           <div className="flex flex-col px-7 py-7 sm:px-9" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
-                icon={<CalendarCheck size={22} strokeWidth={1.6} />}
+                icon={<CalendarCheck size={22} strokeWidth={1.75} />}
                 title="Arrival & Departure"
                 subtitle="Please add your expected times"
               />
@@ -715,7 +734,7 @@ export function FinalDetails({
           <div className="flex flex-col border-t border-[rgba(90,74,52,0.13)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
 
             <CardHead
-              icon={<UserRound size={22} strokeWidth={1.6} />}
+              icon={<UserRound size={22} strokeWidth={1.75} />}
               title="Group Contact"
               subtitle="Who can we contact during the stay?"
               action={
@@ -727,13 +746,19 @@ export function FinalDetails({
                 )
               }
             />
-            <div className="mt-3.5 flex flex-wrap gap-2">
+            <span
+              aria-hidden
+              className="mt-3.5 block select-none text-[11px] uppercase tracking-[0.12em] text-transparent"
+            >
+              Contact
+            </span>
+            <div className="mt-1.5 flex flex-wrap gap-2">
               <div className="relative min-w-[130px] flex-1">
                 <select
                   value={contact.role}
                   onChange={(e) => setContact({ ...contact, role: e.target.value })}
                   aria-label="Group contact role"
-                  className="h-[42px] w-full appearance-none rounded-[9px] px-3 pr-8 text-[13px] outline-none"
+                  className="h-[46px] w-full appearance-none rounded-[11px] px-3.5 pr-8 text-[13px] outline-none"
                   style={fieldStyle}
                 >
                   {ROLES.map((r) => (
@@ -756,7 +781,7 @@ export function FinalDetails({
                 onChange={(e) => setContact({ ...contact, name: e.target.value })}
                 aria-label="Group contact name"
                 placeholder="Name"
-                className="h-[42px] min-w-[120px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                className="h-[46px] min-w-[120px] flex-1 rounded-[11px] px-3.5 text-[13px] outline-none"
                 style={fieldStyle}
               />
 
@@ -766,7 +791,7 @@ export function FinalDetails({
                 onChange={(e) => setContact({ ...contact, phone: e.target.value })}
                 aria-label="Group contact mobile number"
                 placeholder="Mobile number"
-                className="h-[42px] min-w-[140px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                className="h-[46px] min-w-[140px] flex-1 rounded-[11px] px-3.5 text-[13px] outline-none"
                 style={fieldStyle}
               />
             </div>
@@ -785,7 +810,7 @@ export function FinalDetails({
                     }
                     aria-label="Secondary contact name"
                     placeholder="Secondary name"
-                    className="h-[42px] min-w-[120px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                    className="h-[46px] min-w-[120px] flex-1 rounded-[11px] px-3.5 text-[13px] outline-none"
                     style={fieldStyle}
                   />
                   <input
@@ -799,7 +824,7 @@ export function FinalDetails({
                     }
                     aria-label="Secondary contact mobile number"
                     placeholder="Secondary mobile number"
-                    className="h-[42px] min-w-[140px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                    className="h-[46px] min-w-[140px] flex-1 rounded-[11px] px-3.5 text-[13px] outline-none"
                     style={fieldStyle}
                   />
                 </div>
@@ -826,7 +851,7 @@ export function FinalDetails({
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead
               size="md"
-              icon={<Utensils size={21} strokeWidth={1.6} />}
+              icon={<Utensils size={21} strokeWidth={1.75} />}
               title="Meals"
               subtitle="Set meal times and preferences"
             />
@@ -848,7 +873,7 @@ export function FinalDetails({
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead
               size="md"
-              icon={<Star size={21} strokeWidth={1.6} />}
+              icon={<Star size={21} strokeWidth={1.75} />}
               title="Special Arrangements"
               subtitle="Any special requests or arrangements"
             />
@@ -862,7 +887,7 @@ export function FinalDetails({
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead
               size="md"
-              icon={<Sprout size={21} strokeWidth={1.6} />}
+              icon={<Sprout size={21} strokeWidth={1.75} />}
               title="Allergies & Dietary"
               subtitle="View or add guest allergies"
             />
@@ -949,7 +974,7 @@ export function FinalDetails({
         <div className="flex flex-wrap items-center gap-x-6 gap-y-4 px-7 py-6 sm:px-9">
 
           <IconTile>
-            <ShieldCheck size={22} strokeWidth={1.6} />
+            <ShieldCheck size={22} strokeWidth={1.75} />
           </IconTile>
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
