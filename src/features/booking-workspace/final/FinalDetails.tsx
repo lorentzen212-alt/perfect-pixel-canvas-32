@@ -693,15 +693,21 @@ export function FinalDetails({
             onClick={() =>
               timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
-            className="inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium transition-opacity hover:opacity-70"
-            style={{ color: INK }}
+            className="inline-flex h-[40px] shrink-0 items-center gap-1.5 rounded-full px-5 text-[13px] font-medium transition-shadow"
+            style={{
+              border: FIELD_BORDER,
+              background: FIELD_BG,
+              color: INK,
+              boxShadow: FIELD_SHADOW,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = FIELD_SHADOW_HOVER;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = FIELD_SHADOW;
+            }}
           >
-            <span
-              className="pb-[3px]"
-              style={{ borderBottom: "1px solid rgba(90,74,52,0.28)" }}
-            >
-              View missing items
-            </span>
+            View missing items
             <ChevronRight size={15} strokeWidth={1.8} />
           </button>
         </div>
@@ -714,7 +720,7 @@ export function FinalDetails({
           <div className="flex flex-col px-7 py-7 sm:px-9" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
-                icon={<CalendarCheck size={22} strokeWidth={1.6} />}
+                icon={<CalendarCheck size={22} strokeWidth={1.75} />}
                 title="Arrival & Departure"
                 subtitle="Please add your expected times"
               />
@@ -728,7 +734,7 @@ export function FinalDetails({
           <div className="flex flex-col border-t border-[rgba(90,74,52,0.13)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
 
             <CardHead
-              icon={<UserRound size={22} strokeWidth={1.6} />}
+              icon={<UserRound size={22} strokeWidth={1.75} />}
               title="Group Contact"
               subtitle="Who can we contact during the stay?"
               action={
