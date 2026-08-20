@@ -628,8 +628,29 @@ export function FinalDetails({
     times: [],
   });
   const timesRef = React.useRef<HTMLDivElement>(null);
-  /** the toggle is the arrival mode — no duplicate state to keep in sync */
-  const mixedArrival = arrival.mode === "mixed";
+  /** declares that the group travels at mixed times; each leg's chevron says which one */
+  const [mixedTravel, setMixedTravel] = React.useState(false);
+
+  /** switching off returns both legs to one shared time — a date-only field has no
+   *  chevron left to click, so this is the only way back out of a mixed leg */
+  const setMixedTravelState = (next: boolean) => {
+    setMixedTravel(next);
+    if (!next) {
+      if (arrival.mode === "mixed") setArrival({ ...arrival, mode: "exact" });
+      if (departure.mode === "mixed") setDeparture({ ...departure, mode: "exact" });
+    }
+  };
+
+  /** choosing "Mixed times" on a leg turns the header control on, so the two never
+   *  contradict each other */
+  const setSideMode = (
+    side: SideState,
+    onSide: (next: SideState) => void,
+    mode: TimeMode,
+  ) => {
+    onSide({ ...side, mode });
+    if (mode === "mixed") setMixedTravel(true);
+  };
 
   const seededRole = React.useMemo(() => {
     const match = ROLES.find((r) => r.toLowerCase() === contactRole.toLowerCase());
@@ -713,12 +734,7 @@ export function FinalDetails({
                 title="Arrival & Departure"
                 subtitle="Please add your expected times"
                 action={
-                  <MixedArrivalToggle
-                    on={mixedArrival}
-                    onChange={(next) =>
-                      setArrival({ ...arrival, mode: next ? "mixed" : "exact" })
-                    }
-                  />
+                  <MixedTravelToggle on={mixedTravel} onChange={setMixedTravelState} />
                 }
               />
               <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
@@ -726,9 +742,16 @@ export function FinalDetails({
                   label="Arrival"
                   state={arrival}
                   onState={setArrival}
-                  dateOnly={mixedArrival}
+                  onMode={(mode) => setSideMode(arrival, setArrival, mode)}
+                  dateOnly={mixedTravel && arrival.mode === "mixed"}
                 />
-                <TimeSide label="Departure" state={departure} onState={setDeparture} />
+                <TimeSide
+                  label="Departure"
+                  state={departure}
+                  onState={setDeparture}
+                  onMode={(mode) => setSideMode(departure, setDeparture, mode)}
+                  dateOnly={mixedTravel && departure.mode === "mixed"}
+                />
               </div>
             </div>
           </div>
