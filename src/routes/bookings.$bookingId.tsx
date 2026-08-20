@@ -1145,6 +1145,8 @@ function Workspace({ booking }: { booking: Booking }) {
 
   /** Final Details sits on polished metal rather than the navy under-plate */
   const isFinal = tab === "Final Details";
+  /** warm ivory plate for the Group Plan tab (navy cards sit on ivory) */
+  const isGroupPlan = tab === "Group Plan";
   const PLATE_BG = isFinal
     ? FINAL_METAL
     : isFolder
@@ -1152,6 +1154,7 @@ function Workspace({ booking }: { booking: Booking }) {
       : isGroupPlan
         ? GROUP_PLAN_IVORY
         : PLATE;
+
 
 
   return (
