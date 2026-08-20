@@ -1247,7 +1247,7 @@ function Workspace({ booking }: { booking: Booking }) {
           surface={
             isFolder
               ? tab === "Final Details"
-                ? "#FAF8F5"
+                ? FINAL_TAB_SURFACE
                 : tab === "Documents"
                   ? FOLDER_TOP_SURFACE_WARM
                   : tab === "Changes"
@@ -1501,6 +1501,13 @@ const FINAL_METAL =
   "linear-gradient(360deg, rgb(120, 120, 120) 0%, rgb(157, 157, 157) 10%, rgb(199, 199, 199) 24%, rgb(221, 221, 221) 38%, rgb(232, 232, 232) 50%, rgb(221, 221, 221) 62%, rgb(199, 199, 199) 72%, rgb(216, 216, 216) 82%, rgb(157, 157, 157) 92%, rgb(120, 120, 120) 100%)";
 /** flat mid-tone from the same ramp, so no seam shows behind the plate */
 const FINAL_METAL_BASE = "rgb(199, 199, 199)";
+
+/* the active Final Details tab merges into the TOP of the metal plate, which is
+   the rgb(120,120,120) end of FINAL_METAL because that gradient runs at 360deg.
+   Starting lighter keeps the tab reading as a raised tab and keeps TAB_INK legible. */
+const FINAL_TAB_SURFACE =
+  "linear-gradient(180deg, rgb(214, 214, 214) 0%, rgb(150, 150, 150) 72%, rgb(120, 120, 120) 100%)";
+
 
 const PLATE = "#F6F4EB";
 /** warm ivory used by the Group Plan tab plate (matches BG in GroupPlan.tsx) */
