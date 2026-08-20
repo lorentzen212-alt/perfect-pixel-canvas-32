@@ -1247,7 +1247,7 @@ function Workspace({ booking }: { booking: Booking }) {
           surface={
             isFolder
               ? tab === "Final Details"
-                ? "#FAF8F5"
+                ? FINAL_TAB_SURFACE
                 : tab === "Documents"
                   ? FOLDER_TOP_SURFACE_WARM
                   : tab === "Changes"
