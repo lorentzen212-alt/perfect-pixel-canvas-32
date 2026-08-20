@@ -13,6 +13,7 @@ import {
   Sprout,
   Star,
   UserRound,
+  UsersRound,
   Utensils,
   X,
 } from "lucide-react";
@@ -465,6 +466,47 @@ function ModeMenu({
   );
 }
 
+/** compact secondary control in the Arrival & Departure head — no card, no container */
+function MixedArrivalToggle({ on, onChange }: { on: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={on}
+      onClick={() => onChange(!on)}
+      className="flex shrink-0 items-center gap-2.5 text-left transition-opacity hover:opacity-80"
+    >
+      <UsersRound size={17} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
+      <span className="min-w-0">
+        <span className="block text-[13px] font-medium leading-tight" style={{ color: INK }}>
+          Mixed arrival times
+        </span>
+        <span className="mt-[3px] block text-[11.5px] leading-tight" style={{ color: INK_2 }}>
+          Guests arrive at different times
+        </span>
+      </span>
+      <span
+        aria-hidden
+        className="relative ml-1 inline-flex h-[22px] w-[38px] shrink-0 rounded-full transition-colors"
+        style={{
+          background: on ? GOLD_METAL_BUTTON : "rgba(90,74,52,0.16)",
+          border: on ? "1px solid rgba(168,121,40,0.45)" : "1px solid rgba(90,74,52,0.14)",
+          boxShadow: "inset 0 1px 2px rgba(60,50,35,0.10)",
+        }}
+      >
+        <span
+          className="absolute top-1/2 h-[16px] w-[16px] -translate-y-1/2 rounded-full transition-all"
+          style={{
+            left: on ? 19 : 3,
+            background: "#FFFFFF",
+            boxShadow: "0 1px 2px rgba(40,34,20,0.30)",
+          }}
+        />
+      </span>
+    </button>
+  );
+}
+
 type SideState = {
   date: string;
   time: string;
@@ -476,10 +518,13 @@ function TimeSide({
   label,
   state,
   onState,
+  dateOnly = false,
 }: {
   label: "Arrival" | "Departure";
   state: SideState;
   onState: (next: SideState) => void;
+  /** show the date alone — the mixed-arrival toggle already says the time varies */
+  dateOnly?: boolean;
 }) {
   const [adding, setAdding] = React.useState(false);
   const lower = label.toLowerCase();
@@ -496,36 +541,40 @@ function TimeSide({
       >
         <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
-        <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: RULE }} />
+        {!dateOnly && (
+          <>
+            <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: RULE }} />
 
-        {state.mode === "exact" && (
-          <TimeValue
-            value={state.time}
-            onChange={(time) => onState({ ...state, time })}
-            label={`${label} time`}
-          />
+            {state.mode === "exact" && (
+              <TimeValue
+                value={state.time}
+                onChange={(time) => onState({ ...state, time })}
+                label={`${label} time`}
+              />
+            )}
+
+            {state.mode === "mixed" && (
+              <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
+                Multiple {lower} times
+              </span>
+            )}
+
+            {state.mode === "unknown" && (
+              <span className="shrink-0 text-[12.5px]" style={{ color: INK_3 }}>
+                Time not confirmed
+              </span>
+            )}
+
+            <ModeMenu
+              side={label}
+              value={state.mode}
+              onChange={(mode) => onState({ ...state, mode })}
+            />
+          </>
         )}
-
-        {state.mode === "mixed" && (
-          <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
-            Multiple {lower} times
-          </span>
-        )}
-
-        {state.mode === "unknown" && (
-          <span className="shrink-0 text-[12.5px]" style={{ color: INK_3 }}>
-            Time not confirmed
-          </span>
-        )}
-
-        <ModeMenu
-          side={label}
-          value={state.mode}
-          onChange={(mode) => onState({ ...state, mode })}
-        />
       </div>
 
-      {state.mode === "mixed" && (
+      {!dateOnly && state.mode === "mixed" && (
         <div className="mt-2">
           {state.times.length > 0 && (
             <ul className="mb-1 flex flex-wrap gap-x-4 gap-y-1">
@@ -660,6 +709,8 @@ export function FinalDetails({
     times: [],
   });
   const timesRef = React.useRef<HTMLDivElement>(null);
+  /** the toggle is the arrival mode — no duplicate state to keep in sync */
+  const mixedArrival = arrival.mode === "mixed";
 
   const seededRole = React.useMemo(() => {
     const match = ROLES.find((r) => r.toLowerCase() === contactRole.toLowerCase());
@@ -742,9 +793,22 @@ export function FinalDetails({
                 icon={<CalendarCheck size={24} strokeWidth={1.6} />}
                 title="Arrival & Departure"
                 subtitle="Please add your expected times"
+                action={
+                  <MixedArrivalToggle
+                    on={mixedArrival}
+                    onChange={(next) =>
+                      setArrival({ ...arrival, mode: next ? "mixed" : "exact" })
+                    }
+                  />
+                }
               />
               <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
-                <TimeSide label="Arrival" state={arrival} onState={setArrival} />
+                <TimeSide
+                  label="Arrival"
+                  state={arrival}
+                  onState={setArrival}
+                  dateOnly={mixedArrival}
+                />
                 <TimeSide label="Departure" state={departure} onState={setDeparture} />
               </div>
             </div>
