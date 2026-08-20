@@ -860,13 +860,14 @@ export function FinalDetails({
 
         {/* ── 4 · final note ── */}
         <div className="px-7 py-5 sm:px-9">
-
           {noteExpanded ? (
             <>
-              <div className="flex items-center gap-2.5">
-                <MessageSquare size={17} strokeWidth={1.7} style={{ color: INK }} />
-                <span className="text-[14.5px] font-semibold" style={{ color: INK }}>
-                  Final note to hotel
+              <div className="flex items-center gap-3">
+                <IconTile size="sm">
+                  <MessageSquare size={16} strokeWidth={1.7} />
+                </IconTile>
+                <span className="text-[13.5px] font-semibold" style={{ color: INK }}>
+                  Anything else the hotel should know?
                 </span>
                 <button
                   type="button"
@@ -883,43 +884,42 @@ export function FinalDetails({
                 maxLength={500}
                 aria-label="Final note to hotel"
                 placeholder="Add an important note for the hotel..."
-                className="mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
-                style={fieldStyle}
+                className="placeholder:text-[rgba(27,37,48,0.42)] mt-3 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid rgba(27,37,48,0.16)",
+                  color: INK,
+                  boxShadow: "inset 0 1px 2px rgba(27,37,48,0.08)",
+                }}
               />
-              <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_3 }}>
+              <p
+                className="mt-1 text-right text-[12px] tabular-nums"
+                style={{ color: INK_3 }}
+              >
                 {note.length} / 500
               </p>
             </>
           ) : (
-            <button
-              type="button"
-              onClick={() => setNoteOpen(true)}
-              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(27,37,48,0.02)]"
-            >
-              <span
-                className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
-                style={{ border: FIELD_BORDER, background: FIELD_BG }}
-              >
-                <MessageSquare size={15} strokeWidth={1.7} style={{ color: INK_2 }} />
-              </span>
+            <div className="flex items-center gap-3">
+              <IconTile size="sm">
+                <MessageSquare size={16} strokeWidth={1.7} />
+              </IconTile>
               <span className="min-w-0 flex-1">
                 <span
-                  className="block text-[13px] font-semibold leading-none"
+                  className="block text-[13.5px] font-semibold leading-tight"
                   style={{ color: INK }}
                 >
-                  Final note to hotel
-                </span>
-                <span className="mt-[2px] block text-[12px] leading-none" style={{ color: INK_2 }}>
                   Anything else the hotel should know?
                 </span>
-              </span>
-              <span className="inline-flex shrink-0 items-center gap-2 transition-opacity group-hover:opacity-70">
-                <span className="text-[12.5px] font-medium" style={{ color: INK_2 }}>
-                  Add note
+                <span
+                  className="mt-1 block text-[12.5px] leading-tight"
+                  style={{ color: INK_2 }}
+                >
+                  Add a final note or special instruction for the hotel.
                 </span>
-                <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
               </span>
-            </button>
+              <PillAction label="Add note" onClick={() => setNoteOpen(true)} />
+            </div>
           )}
         </div>
         <Rule />
