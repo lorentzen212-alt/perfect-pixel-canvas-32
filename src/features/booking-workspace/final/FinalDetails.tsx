@@ -709,6 +709,8 @@ export function FinalDetails({
     times: [],
   });
   const timesRef = React.useRef<HTMLDivElement>(null);
+  /** the toggle is the arrival mode — no duplicate state to keep in sync */
+  const mixedArrival = arrival.mode === "mixed";
 
   const seededRole = React.useMemo(() => {
     const match = ROLES.find((r) => r.toLowerCase() === contactRole.toLowerCase());
