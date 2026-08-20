@@ -31,9 +31,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-/* ── local constants materials.ts has no equivalent for ── */
-const GOLD_HI = "#CC8C1E";
-const GOLD_DEEP = "#A96C12";
+/* the champagne metal used for the Group Plan date numerals — same ramp, so the
+   ring and the confirm button read as the one gold across the workspace */
+const GOLD_METAL_STOPS: Array<[string, string]> = [
+  ["0%", "#A87928"],
+  ["22%", "#C99C3F"],
+  ["42%", "#E8C96A"],
+  ["54%", "#F2DC8B"],
+  ["70%", "#D2A84C"],
+  ["86%", "#B88630"],
+  ["100%", "#E4C66D"],
+];
+
+/* the button keeps to the brighter half of that ramp so its label stays legible */
+const GOLD_METAL_BUTTON =
+  "linear-gradient(105deg, #C99C3F 0%, #E8C96A 30%, #F2DC8B 52%, #E0BE60 74%, #D2A84C 100%)";
+/** deep warm brown — the only ink that holds contrast across the champagne ramp */
+const GOLD_ON_METAL = "#3B2C08";
 const CHEVRON = "rgba(27,37,48,0.55)";
 
 /* ── warm document canvas material ── */
@@ -294,12 +308,20 @@ function ProgressRing({ value }: { value: number }) {
   const stroke = 5;
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
+  const gradientId = React.useId();
   return (
     <span
       className="relative grid shrink-0 place-items-center"
       style={{ height: size, width: size }}
     >
       <svg width={size} height={size} className="-rotate-90" aria-hidden>
+        <defs>
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="28%">
+            {GOLD_METAL_STOPS.map(([offset, color]) => (
+              <stop key={offset} offset={offset} stopColor={color} />
+            ))}
+          </linearGradient>
+        </defs>
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -313,7 +335,7 @@ function ProgressRing({ value }: { value: number }) {
           cy={size / 2}
           r={r}
           fill="none"
-          stroke={GOLD}
+          stroke={`url(#${gradientId})`}
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={`${(c * value) / 100} ${c}`}
@@ -1003,9 +1025,9 @@ export function FinalDetails({
             onClick={onComplete}
             className="inline-flex h-[46px] shrink-0 items-center justify-center gap-2.5 rounded-[10px] px-6 text-[14px] font-semibold transition-opacity hover:opacity-90"
             style={{
-              background: `linear-gradient(180deg, ${GOLD_HI} 0%, ${GOLD_DEEP} 100%)`,
-              color: "#FFF9EE",
-              boxShadow: "0 8px 18px -12px rgba(169,108,18,0.9)",
+              background: GOLD_METAL_BUTTON,
+              color: GOLD_ON_METAL,
+              boxShadow: "0 8px 18px -12px rgba(168,121,40,0.85)",
             }}
           >
             Confirm final details <ArrowRight size={16} />
