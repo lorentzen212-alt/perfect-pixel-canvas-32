@@ -851,7 +851,7 @@ export function FinalDetails({
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead
               size="md"
-              icon={<Utensils size={21} strokeWidth={1.6} />}
+              icon={<Utensils size={21} strokeWidth={1.75} />}
               title="Meals"
               subtitle="Set meal times and preferences"
             />
@@ -873,7 +873,7 @@ export function FinalDetails({
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead
               size="md"
-              icon={<Star size={21} strokeWidth={1.6} />}
+              icon={<Star size={21} strokeWidth={1.75} />}
               title="Special Arrangements"
               subtitle="Any special requests or arrangements"
             />
@@ -887,7 +887,7 @@ export function FinalDetails({
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead
               size="md"
-              icon={<Sprout size={21} strokeWidth={1.6} />}
+              icon={<Sprout size={21} strokeWidth={1.75} />}
               title="Allergies & Dietary"
               subtitle="View or add guest allergies"
             />
@@ -974,7 +974,7 @@ export function FinalDetails({
         <div className="flex flex-wrap items-center gap-x-6 gap-y-4 px-7 py-6 sm:px-9">
 
           <IconTile>
-            <ShieldCheck size={22} strokeWidth={1.6} />
+            <ShieldCheck size={22} strokeWidth={1.75} />
           </IconTile>
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
