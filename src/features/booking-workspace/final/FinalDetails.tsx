@@ -13,6 +13,7 @@ import {
   Sprout,
   Star,
   UserRound,
+  UsersRound,
   Utensils,
   X,
 } from "lucide-react";
