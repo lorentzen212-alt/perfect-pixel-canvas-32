@@ -52,13 +52,13 @@ const FIELD_BORDER = "1px solid rgba(90,74,52,0.14)";
 const FIELD_SHADOW =
   "inset 0 1px 0 rgba(255,255,255,0.95), 0 1px 2px rgba(60,50,35,0.06), 0 2px 6px -3px rgba(60,50,35,0.12)";
 
-/* the rounded chip each section icon sits in — polished silver, lit from the
-   top-left, raised a hair off the paper so it catches the light like metal */
+/* the rounded chip each section icon sits in — a white tile floating just off
+   the paper; the soft diffuse shadow does the work, not the border */
 const CHIP_BG =
-  "linear-gradient(150deg, #FFFFFF 0%, #F7F7F6 30%, #E9E9E7 58%, #DEDEDB 80%, #F0F0EF 100%)";
-const CHIP_BORDER = "1px solid rgba(118,115,110,0.32)";
+  "linear-gradient(145deg, #FFFFFF 0%, #FAFBFC 42%, #F1F2F5 78%, #ECEDF1 100%)";
+const CHIP_BORDER = "1px solid rgba(120,126,138,0.13)";
 const CHIP_SHADOW =
-  "inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(116,113,107,0.24), 0 1px 2px rgba(58,54,48,0.16), 0 5px 12px -6px rgba(48,44,38,0.30)";
+  "inset 0 1px 0 rgba(255,255,255,1), 0 1px 1.5px rgba(28,34,45,0.05), 0 4px 9px -2px rgba(28,34,45,0.10), 0 12px 26px -10px rgba(28,34,45,0.18)";
 
 /** the same plate, lifted a touch further on hover */
 const FIELD_SHADOW_HOVER =
@@ -113,9 +113,9 @@ type HeadSize = "lg" | "md" | "sm";
 
 /** chip box / corner radius / title size for each head scale */
 const HEAD_SCALE: Record<HeadSize, { box: number; radius: number; title: number }> = {
-  lg: { box: 44, radius: 13, title: 25 },
-  md: { box: 44, radius: 13, title: 22 },
-  sm: { box: 34, radius: 10, title: 18 },
+  lg: { box: 44, radius: 14, title: 25 },
+  md: { box: 44, radius: 14, title: 22 },
+  sm: { box: 34, radius: 11, title: 18 },
 };
 
 function IconTile({
@@ -720,7 +720,7 @@ export function FinalDetails({
           <div className="flex flex-col px-7 py-7 sm:px-9" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
-                icon={<CalendarCheck size={22} strokeWidth={1.75} />}
+                icon={<CalendarCheck size={22} strokeWidth={1.6} />}
                 title="Arrival & Departure"
                 subtitle="Please add your expected times"
               />
@@ -733,11 +733,11 @@ export function FinalDetails({
 
           <div className="flex flex-col border-t border-[rgba(90,74,52,0.13)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
 
-            <CardHead
-              icon={<UserRound size={22} strokeWidth={1.75} />}
-              title="Group Contact"
-              subtitle="Who can we contact during the stay?"
-              action={
+              <CardHead
+                icon={<UserRound size={22} strokeWidth={1.6} />}
+                title="Group Contact"
+                subtitle="Who can we contact during the stay?"
+                action={
                 contact.secondary ? undefined : (
                   <PillAction
                     label="Add"
@@ -849,12 +849,12 @@ export function FinalDetails({
           <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead
-              size="md"
-              icon={<Utensils size={21} strokeWidth={1.75} />}
-              title="Meals"
-              subtitle="Set meal times and preferences"
-            />
+              <CardHead
+                size="md"
+                icon={<Utensils size={21} strokeWidth={1.6} />}
+                title="Meals"
+                subtitle="Set meal times and preferences"
+              />
             <div className="mt-4">
               {meals.length === 0 ? (
                 <p className="text-[13px]" style={{ color: INK_3 }}>
@@ -871,12 +871,12 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead
-              size="md"
-              icon={<Star size={21} strokeWidth={1.75} />}
-              title="Special Arrangements"
-              subtitle="Any special requests or arrangements"
-            />
+              <CardHead
+                size="md"
+                icon={<Star size={21} strokeWidth={1.6} />}
+                title="Special Arrangements"
+                subtitle="Any special requests or arrangements"
+              />
             <div className="mt-4">
               <Row label="Coach parking" value="Confirmed" tone="green" />
               <Row label="Extra luggage room" value="Confirmed" tone="green" />
@@ -885,12 +885,12 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead
-              size="md"
-              icon={<Sprout size={21} strokeWidth={1.75} />}
-              title="Allergies & Dietary"
-              subtitle="View or add guest allergies"
-            />
+              <CardHead
+                size="md"
+                icon={<Sprout size={21} strokeWidth={1.6} />}
+                title="Allergies & Dietary"
+                subtitle="View or add guest allergies"
+              />
             <div className="mt-4">
               <p className="text-[13px]" style={{ color: INK_2 }}>
                 {allergyCount} notes
@@ -974,7 +974,7 @@ export function FinalDetails({
         <div className="flex flex-wrap items-center gap-x-6 gap-y-4 px-7 py-6 sm:px-9">
 
           <IconTile>
-            <ShieldCheck size={22} strokeWidth={1.75} />
+            <ShieldCheck size={22} strokeWidth={1.6} />
           </IconTile>
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
