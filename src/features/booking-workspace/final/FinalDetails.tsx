@@ -15,7 +15,6 @@ import {
   UserRound,
   UsersRound,
   Utensils,
-  X,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import {
@@ -251,31 +250,6 @@ function CardHead({
       </span>
       {action}
     </div>
-  );
-}
-
-/** quiet text-only action */
-function TextAction({
-  label,
-  onClick,
-  arrow,
-  className = "",
-}: {
-  label: string;
-  onClick?: () => void;
-  arrow?: boolean;
-  className?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`inline-flex items-center gap-1 text-[12.5px] font-medium transition-opacity hover:opacity-70 ${className}`}
-      style={{ color: GOLD }}
-    >
-      {label}
-      {arrow && <ArrowRight size={13} />}
-    </button>
   );
 }
 
