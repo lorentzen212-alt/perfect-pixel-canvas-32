@@ -179,17 +179,19 @@ function CardHead({
   icon,
   title,
   subtitle,
+  action,
+  size = "lg",
 }: {
   icon: React.ReactNode;
   title: string;
   subtitle?: string;
+  action?: React.ReactNode;
+  size?: "lg" | "sm";
 }) {
   return (
-    <div className="flex items-start gap-2.5">
-      <span className="mt-[1px] shrink-0" style={{ color: INK }}>
-        {icon}
-      </span>
-      <span className="min-w-0 flex-1">
+    <div className="flex items-start gap-3">
+      <IconTile size={size}>{icon}</IconTile>
+      <span className="min-w-0 flex-1 pt-[3px]">
         <span
           className="block text-[18px] leading-tight"
           style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
@@ -203,6 +205,7 @@ function CardHead({
           </span>
         )}
       </span>
+      {action}
     </div>
   );
 }
