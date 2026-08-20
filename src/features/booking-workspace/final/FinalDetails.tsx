@@ -466,6 +466,47 @@ function ModeMenu({
   );
 }
 
+/** compact secondary control in the Arrival & Departure head — no card, no container */
+function MixedArrivalToggle({ on, onChange }: { on: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={on}
+      onClick={() => onChange(!on)}
+      className="flex shrink-0 items-center gap-2.5 text-left transition-opacity hover:opacity-80"
+    >
+      <UsersRound size={17} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
+      <span className="min-w-0">
+        <span className="block text-[13px] font-medium leading-tight" style={{ color: INK }}>
+          Mixed arrival times
+        </span>
+        <span className="mt-[3px] block text-[11.5px] leading-tight" style={{ color: INK_2 }}>
+          Guests arrive at different times
+        </span>
+      </span>
+      <span
+        aria-hidden
+        className="relative ml-1 inline-flex h-[22px] w-[38px] shrink-0 rounded-full transition-colors"
+        style={{
+          background: on ? GOLD_METAL_BUTTON : "rgba(90,74,52,0.16)",
+          border: on ? "1px solid rgba(168,121,40,0.45)" : "1px solid rgba(90,74,52,0.14)",
+          boxShadow: "inset 0 1px 2px rgba(60,50,35,0.10)",
+        }}
+      >
+        <span
+          className="absolute top-1/2 h-[16px] w-[16px] -translate-y-1/2 rounded-full transition-all"
+          style={{
+            left: on ? 19 : 3,
+            background: "#FFFFFF",
+            boxShadow: "0 1px 2px rgba(40,34,20,0.30)",
+          }}
+        />
+      </span>
+    </button>
+  );
+}
+
 type SideState = {
   date: string;
   time: string;
