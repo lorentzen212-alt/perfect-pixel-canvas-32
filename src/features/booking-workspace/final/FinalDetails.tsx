@@ -644,21 +644,32 @@ export function FinalDetails({
               Final details
             </h2>
             <p className="mt-0.5 text-[13px]" style={{ color: INK_2 }}>
-              A few last details before arrival
+              Everything the hotel needs before arrival
             </p>
           </div>
-          <span className="text-[13px]" style={{ color: INK_2 }}>
-            2 items need your attention
+          <span className="inline-flex items-center gap-2 text-[13px]" style={{ color: INK_2 }}>
+            <span
+              aria-hidden
+              className="h-[5px] w-[5px] shrink-0 rounded-full"
+              style={{ background: GOLD }}
+            />
+            2 details remaining
           </span>
           <button
             type="button"
             onClick={() =>
               timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
-            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(90,74,52,0.05)]"
-            style={{ border: "1px solid rgba(90,74,52,0.22)", color: INK }}
+            className="inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium transition-opacity hover:opacity-70"
+            style={{ color: INK }}
           >
-            View missing items
+            <span
+              className="pb-[3px]"
+              style={{ borderBottom: "1px solid rgba(90,74,52,0.28)" }}
+            >
+              View missing items
+            </span>
+            <ChevronRight size={15} strokeWidth={1.8} />
           </button>
         </div>
         <Rule />
