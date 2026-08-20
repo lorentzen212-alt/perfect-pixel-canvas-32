@@ -928,7 +928,9 @@ export function FinalDetails({
         {/* ── 5 · confirmation ── */}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-4 px-7 py-6 sm:px-9">
 
-          <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
+          <IconTile>
+            <ShieldCheck size={20} strokeWidth={1.6} />
+          </IconTile>
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
             <br className="hidden sm:block" /> You will receive an update as soon as we have a
