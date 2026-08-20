@@ -518,10 +518,13 @@ function TimeSide({
   label,
   state,
   onState,
+  dateOnly = false,
 }: {
   label: "Arrival" | "Departure";
   state: SideState;
   onState: (next: SideState) => void;
+  /** show the date alone — the mixed-arrival toggle already says the time varies */
+  dateOnly?: boolean;
 }) {
   const [adding, setAdding] = React.useState(false);
   const lower = label.toLowerCase();
