@@ -64,6 +64,11 @@ const CHIP_SHADOW =
 const FIELD_SHADOW_HOVER =
   "inset 0 1px 0 rgba(255,255,255,0.95), 0 1px 2px rgba(60,50,35,0.07), 0 5px 12px -4px rgba(60,50,35,0.18)";
 
+/* the final-note band — the same warm paper, a touch deeper than the canvas
+   so the row reads as its own strip without introducing a new material */
+const BAND_BG = "#F4F1EA";
+const BAND_EDGE = "inset 0 1px 0 rgba(255,255,255,0.75), inset 0 -1px 0 rgba(90,74,52,0.10)";
+
 /** ultra-thin warm divider between canvas sections */
 function Rule() {
   return <span aria-hidden className="block h-px w-full" style={{ background: RULE }} />;
