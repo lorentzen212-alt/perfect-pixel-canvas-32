@@ -826,8 +826,13 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special Arrangements" />
-            <div className="mt-2.5">
+            <CardHead
+              size="sm"
+              icon={<Star size={17} strokeWidth={1.7} />}
+              title="Special Arrangements"
+              subtitle="Any special requests or arrangements"
+            />
+            <div className="mt-4">
               <Row label="Coach parking" value="Confirmed" tone="green" />
               <Row label="Extra luggage room" value="Confirmed" tone="green" />
             </div>
