@@ -698,6 +698,14 @@ export function FinalDetails({
               icon={<User size={19} strokeWidth={1.7} />}
               title="Group Contact"
               subtitle="Who can we contact during the stay?"
+              action={
+                contact.secondary ? undefined : (
+                  <PillAction
+                    label="Add"
+                    onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
+                  />
+                )
+              }
             />
             <div className="mt-3.5 flex flex-wrap gap-2">
               <div className="relative min-w-[130px] flex-1">
