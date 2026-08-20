@@ -52,13 +52,14 @@ const FIELD_BORDER = "1px solid rgba(90,74,52,0.14)";
 const FIELD_SHADOW =
   "inset 0 1px 0 rgba(255,255,255,0.95), 0 1px 2px rgba(60,50,35,0.06), 0 2px 6px -3px rgba(60,50,35,0.12)";
 
-/* the rounded chip each section icon sits in — a white tile floating just off
-   the paper; the soft diffuse shadow does the work, not the border */
+/* the rounded chip each section icon sits in — a light silver tile that sits
+   flat on the paper. Its own fill is what separates it from the background; the
+   only depth is a thin bevel, so it never reads as if it were hovering. */
 const CHIP_BG =
-  "linear-gradient(145deg, #FFFFFF 0%, #FAFBFC 42%, #F1F2F5 78%, #ECEDF1 100%)";
-const CHIP_BORDER = "1px solid rgba(120,126,138,0.13)";
+  "linear-gradient(160deg, #FBFBFC 0%, #F2F3F5 52%, #EBECEF 100%)";
+const CHIP_BORDER = "1px solid rgba(120,126,138,0.18)";
 const CHIP_SHADOW =
-  "inset 0 1px 0 rgba(255,255,255,1), 0 1px 1.5px rgba(28,34,45,0.05), 0 4px 9px -2px rgba(28,34,45,0.10), 0 12px 26px -10px rgba(28,34,45,0.18)";
+  "inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(120,126,138,0.12)";
 
 /** the same plate, lifted a touch further on hover */
 const FIELD_SHADOW_HOVER =
@@ -113,9 +114,9 @@ type HeadSize = "lg" | "md" | "sm";
 
 /** chip box / corner radius / title size for each head scale */
 const HEAD_SCALE: Record<HeadSize, { box: number; radius: number; title: number }> = {
-  lg: { box: 44, radius: 14, title: 25 },
-  md: { box: 44, radius: 14, title: 22 },
-  sm: { box: 34, radius: 11, title: 18 },
+  lg: { box: 52, radius: 17, title: 25 },
+  md: { box: 50, radius: 16, title: 22 },
+  sm: { box: 36, radius: 12, title: 18 },
 };
 
 function IconTile({
