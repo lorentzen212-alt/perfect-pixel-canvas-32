@@ -541,36 +541,40 @@ function TimeSide({
       >
         <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
-        <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: RULE }} />
+        {!dateOnly && (
+          <>
+            <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: RULE }} />
 
-        {state.mode === "exact" && (
-          <TimeValue
-            value={state.time}
-            onChange={(time) => onState({ ...state, time })}
-            label={`${label} time`}
-          />
+            {state.mode === "exact" && (
+              <TimeValue
+                value={state.time}
+                onChange={(time) => onState({ ...state, time })}
+                label={`${label} time`}
+              />
+            )}
+
+            {state.mode === "mixed" && (
+              <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
+                Multiple {lower} times
+              </span>
+            )}
+
+            {state.mode === "unknown" && (
+              <span className="shrink-0 text-[12.5px]" style={{ color: INK_3 }}>
+                Time not confirmed
+              </span>
+            )}
+
+            <ModeMenu
+              side={label}
+              value={state.mode}
+              onChange={(mode) => onState({ ...state, mode })}
+            />
+          </>
         )}
-
-        {state.mode === "mixed" && (
-          <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
-            Multiple {lower} times
-          </span>
-        )}
-
-        {state.mode === "unknown" && (
-          <span className="shrink-0 text-[12.5px]" style={{ color: INK_3 }}>
-            Time not confirmed
-          </span>
-        )}
-
-        <ModeMenu
-          side={label}
-          value={state.mode}
-          onChange={(mode) => onState({ ...state, mode })}
-        />
       </div>
 
-      {state.mode === "mixed" && (
+      {!dateOnly && state.mode === "mixed" && (
         <div className="mt-2">
           {state.times.length > 0 && (
             <ul className="mb-1 flex flex-wrap gap-x-4 gap-y-1">
