@@ -840,8 +840,13 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & Dietary" />
-            <div className="mt-2.5">
+            <CardHead
+              size="sm"
+              icon={<Leaf size={17} strokeWidth={1.7} />}
+              title="Allergies & Dietary"
+              subtitle="View or add guest allergies"
+            />
+            <div className="mt-4">
               <p className="text-[13px]" style={{ color: INK_2 }}>
                 {allergyCount} notes
               </p>
