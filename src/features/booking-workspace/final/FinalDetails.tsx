@@ -15,7 +15,6 @@ import {
   UserRound,
   UsersRound,
   Utensils,
-  X,
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import {
@@ -254,31 +253,6 @@ function CardHead({
   );
 }
 
-/** quiet text-only action */
-function TextAction({
-  label,
-  onClick,
-  arrow,
-  className = "",
-}: {
-  label: string;
-  onClick?: () => void;
-  arrow?: boolean;
-  className?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`inline-flex items-center gap-1 text-[12.5px] font-medium transition-opacity hover:opacity-70 ${className}`}
-      style={{ color: GOLD }}
-    >
-      {label}
-      {arrow && <ArrowRight size={13} />}
-    </button>
-  );
-}
-
 /** footer row pinned to the bottom of the three symmetrical cards */
 function CardFooter({ label, onClick }: { label: string; onClick?: () => void }) {
   return (
@@ -467,7 +441,7 @@ function ModeMenu({
 }
 
 /** compact secondary control in the Arrival & Departure head — no card, no container */
-function MixedArrivalToggle({ on, onChange }: { on: boolean; onChange: (v: boolean) => void }) {
+function MixedTravelToggle({ on, onChange }: { on: boolean; onChange: (v: boolean) => void }) {
   return (
     <button
       type="button"
@@ -479,10 +453,13 @@ function MixedArrivalToggle({ on, onChange }: { on: boolean; onChange: (v: boole
       <UsersRound size={17} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
       <span className="min-w-0">
         <span className="block text-[13px] font-medium leading-tight" style={{ color: INK }}>
-          Mixed arrival times
+          Mixed travel times
         </span>
-        <span className="mt-[3px] block text-[11.5px] leading-tight" style={{ color: INK_2 }}>
-          Guests arrive at different times
+        <span
+          className="mt-[3px] block whitespace-nowrap text-[11.5px] leading-tight"
+          style={{ color: INK_2 }}
+        >
+          Guests arrive or depart at different times
         </span>
       </span>
       <span
@@ -518,15 +495,18 @@ function TimeSide({
   label,
   state,
   onState,
+  onMode,
   dateOnly = false,
 }: {
   label: "Arrival" | "Departure";
   state: SideState;
   onState: (next: SideState) => void;
-  /** show the date alone — the mixed-arrival toggle already says the time varies */
+  /** mode changes route through the parent so picking "Mixed times" can turn the
+   *  header toggle on; falls back to a plain state update when omitted */
+  onMode?: (mode: TimeMode) => void;
+  /** show the date alone — the mixed-travel toggle already says the time varies */
   dateOnly?: boolean;
 }) {
-  const [adding, setAdding] = React.useState(false);
   const lower = label.toLowerCase();
 
   return (
@@ -568,74 +548,13 @@ function TimeSide({
             <ModeMenu
               side={label}
               value={state.mode}
-              onChange={(mode) => onState({ ...state, mode })}
+              onChange={(mode) =>
+                onMode ? onMode(mode) : onState({ ...state, mode })
+              }
             />
           </>
         )}
       </div>
-
-      {!dateOnly && state.mode === "mixed" && (
-        <div className="mt-2">
-          {state.times.length > 0 && (
-            <ul className="mb-1 flex flex-wrap gap-x-4 gap-y-1">
-              {state.times.map((t) => (
-                <li
-                  key={t}
-                  className="inline-flex items-center gap-1.5 text-[12.5px] tabular-nums"
-                  style={{ color: INK }}
-                >
-                  {t}
-                  <button
-                    type="button"
-                    aria-label={`Remove ${lower} time ${t}`}
-                    onClick={() => onState({ ...state, times: state.times.filter((x) => x !== t) })}
-                    className="transition-opacity hover:opacity-70"
-                    style={{ color: INK_3 }}
-                  >
-                    <X size={11} />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-          {adding ? (
-            <span className="relative inline-flex items-center">
-              <select
-                autoFocus
-                defaultValue=""
-                aria-label={`Add ${lower} time`}
-                onChange={(e) => {
-                  const v = e.target.value;
-                  if (v && !state.times.includes(v)) {
-                    onState({ ...state, times: [...state.times, v].sort() });
-                  }
-                  setAdding(false);
-                }}
-                onBlur={() => setAdding(false)}
-                className="appearance-none bg-transparent pr-4 text-[12.5px] tabular-nums outline-none"
-                style={{ color: INK }}
-              >
-                <option value="" disabled>
-                  Select time
-                </option>
-                {TIME_OPTIONS.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown
-                size={12}
-                aria-hidden
-                className="pointer-events-none absolute right-0"
-                style={{ color: INK_3 }}
-              />
-            </span>
-          ) : (
-            <TextAction label="+ Add times" onClick={() => setAdding(true)} />
-          )}
-        </div>
-      )}
     </div>
   );
 }
@@ -709,8 +628,29 @@ export function FinalDetails({
     times: [],
   });
   const timesRef = React.useRef<HTMLDivElement>(null);
-  /** the toggle is the arrival mode — no duplicate state to keep in sync */
-  const mixedArrival = arrival.mode === "mixed";
+  /** declares that the group travels at mixed times; each leg's chevron says which one */
+  const [mixedTravel, setMixedTravel] = React.useState(false);
+
+  /** switching off returns both legs to one shared time — a date-only field has no
+   *  chevron left to click, so this is the only way back out of a mixed leg */
+  const setMixedTravelState = (next: boolean) => {
+    setMixedTravel(next);
+    if (!next) {
+      if (arrival.mode === "mixed") setArrival({ ...arrival, mode: "exact" });
+      if (departure.mode === "mixed") setDeparture({ ...departure, mode: "exact" });
+    }
+  };
+
+  /** choosing "Mixed times" on a leg turns the header control on, so the two never
+   *  contradict each other */
+  const setSideMode = (
+    side: SideState,
+    onSide: (next: SideState) => void,
+    mode: TimeMode,
+  ) => {
+    onSide({ ...side, mode });
+    if (mode === "mixed") setMixedTravel(true);
+  };
 
   const seededRole = React.useMemo(() => {
     const match = ROLES.find((r) => r.toLowerCase() === contactRole.toLowerCase());
@@ -794,12 +734,7 @@ export function FinalDetails({
                 title="Arrival & Departure"
                 subtitle="Please add your expected times"
                 action={
-                  <MixedArrivalToggle
-                    on={mixedArrival}
-                    onChange={(next) =>
-                      setArrival({ ...arrival, mode: next ? "mixed" : "exact" })
-                    }
-                  />
+                  <MixedTravelToggle on={mixedTravel} onChange={setMixedTravelState} />
                 }
               />
               <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
@@ -807,9 +742,16 @@ export function FinalDetails({
                   label="Arrival"
                   state={arrival}
                   onState={setArrival}
-                  dateOnly={mixedArrival}
+                  onMode={(mode) => setSideMode(arrival, setArrival, mode)}
+                  dateOnly={mixedTravel && arrival.mode === "mixed"}
                 />
-                <TimeSide label="Departure" state={departure} onState={setDeparture} />
+                <TimeSide
+                  label="Departure"
+                  state={departure}
+                  onState={setDeparture}
+                  onMode={(mode) => setSideMode(departure, setDeparture, mode)}
+                  dateOnly={mixedTravel && departure.mode === "mixed"}
+                />
               </div>
             </div>
           </div>
