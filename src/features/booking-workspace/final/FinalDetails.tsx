@@ -8,6 +8,7 @@ import {
   Clock,
   Leaf,
   MessageSquare,
+  Plus,
   ShieldCheck,
   Star,
   User,
@@ -85,6 +86,55 @@ function FlatCard({
 }
 
 
+
+/** the rounded chip every section icon sits in */
+function IconTile({
+  children,
+  size = "lg",
+}: {
+  children: React.ReactNode;
+  size?: "lg" | "sm";
+}) {
+  const box = size === "lg" ? 40 : 34;
+  return (
+    <span
+      aria-hidden
+      className="grid shrink-0 place-items-center"
+      style={{
+        height: box,
+        width: box,
+        borderRadius: size === "lg" ? 12 : 10,
+        background: "rgba(255,255,255,0.55)",
+        border: "1px solid rgba(90,74,52,0.13)",
+        color: INK,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+/** small outlined pill — the "+ Add" affordance that sits beside a section title */
+function PillAction({ label, onClick }: { label: string; onClick?: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex h-[30px] shrink-0 items-center gap-1.5 rounded-full px-3 text-[12.5px] font-medium transition-colors"
+      style={{ border: "1px solid rgba(90,74,52,0.13)", color: INK }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "rgba(255,255,255,0.55)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "transparent";
+      }}
+    >
+      <Plus size={14} strokeWidth={2} />
+      {label}
+    </button>
+  );
+}
+
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function formatDay(iso: string) {
@@ -129,17 +179,19 @@ function CardHead({
   icon,
   title,
   subtitle,
+  action,
+  size = "lg",
 }: {
   icon: React.ReactNode;
   title: string;
   subtitle?: string;
+  action?: React.ReactNode;
+  size?: "lg" | "sm";
 }) {
   return (
-    <div className="flex items-start gap-2.5">
-      <span className="mt-[1px] shrink-0" style={{ color: INK }}>
-        {icon}
-      </span>
-      <span className="min-w-0 flex-1">
+    <div className="flex items-start gap-3">
+      <IconTile size={size}>{icon}</IconTile>
+      <span className="min-w-0 flex-1 pt-[3px]">
         <span
           className="block text-[18px] leading-tight"
           style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
@@ -153,6 +205,7 @@ function CardHead({
           </span>
         )}
       </span>
+      {action}
     </div>
   );
 }
@@ -591,21 +644,32 @@ export function FinalDetails({
               Final details
             </h2>
             <p className="mt-0.5 text-[13px]" style={{ color: INK_2 }}>
-              A few last details before arrival
+              Everything the hotel needs before arrival
             </p>
           </div>
-          <span className="text-[13px]" style={{ color: INK_2 }}>
-            2 items need your attention
+          <span className="inline-flex items-center gap-2 text-[13px]" style={{ color: INK_2 }}>
+            <span
+              aria-hidden
+              className="h-[5px] w-[5px] shrink-0 rounded-full"
+              style={{ background: GOLD }}
+            />
+            2 details remaining
           </span>
           <button
             type="button"
             onClick={() =>
               timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
-            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(90,74,52,0.05)]"
-            style={{ border: "1px solid rgba(90,74,52,0.22)", color: INK }}
+            className="inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium transition-opacity hover:opacity-70"
+            style={{ color: INK }}
           >
-            View missing items
+            <span
+              className="pb-[3px]"
+              style={{ borderBottom: "1px solid rgba(90,74,52,0.28)" }}
+            >
+              View missing items
+            </span>
+            <ChevronRight size={15} strokeWidth={1.8} />
           </button>
         </div>
         <Rule />
@@ -634,6 +698,14 @@ export function FinalDetails({
               icon={<User size={19} strokeWidth={1.7} />}
               title="Group Contact"
               subtitle="Who can we contact during the stay?"
+              action={
+                contact.secondary ? undefined : (
+                  <PillAction
+                    label="Add"
+                    onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
+                  />
+                )
+              }
             />
             <div className="mt-3.5 flex flex-wrap gap-2">
               <div className="relative min-w-[130px] flex-1">
@@ -720,13 +792,7 @@ export function FinalDetails({
                   Remove secondary contact
                 </button>
               </>
-            ) : (
-              <TextAction
-                label="+ Add secondary contact"
-                className="mt-2 self-start"
-                onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
-              />
-            )}
+            ) : null}
           </div>
         </div>
         <Rule />
@@ -738,8 +804,13 @@ export function FinalDetails({
           <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
-            <div className="mt-2.5">
+            <CardHead
+              size="sm"
+              icon={<Utensils size={17} strokeWidth={1.7} />}
+              title="Meals"
+              subtitle="Set meal times and preferences"
+            />
+            <div className="mt-4">
               {meals.length === 0 ? (
                 <p className="text-[13px]" style={{ color: INK_3 }}>
                   No group meals booked
@@ -755,8 +826,13 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Star size={18} strokeWidth={1.7} />} title="Special Arrangements" />
-            <div className="mt-2.5">
+            <CardHead
+              size="sm"
+              icon={<Star size={17} strokeWidth={1.7} />}
+              title="Special Arrangements"
+              subtitle="Any special requests or arrangements"
+            />
+            <div className="mt-4">
               <Row label="Coach parking" value="Confirmed" tone="green" />
               <Row label="Extra luggage room" value="Confirmed" tone="green" />
             </div>
@@ -764,8 +840,13 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & Dietary" />
-            <div className="mt-2.5">
+            <CardHead
+              size="sm"
+              icon={<Leaf size={17} strokeWidth={1.7} />}
+              title="Allergies & Dietary"
+              subtitle="View or add guest allergies"
+            />
+            <div className="mt-4">
               <p className="text-[13px]" style={{ color: INK_2 }}>
                 {allergyCount} notes
               </p>
@@ -779,13 +860,14 @@ export function FinalDetails({
 
         {/* ── 4 · final note ── */}
         <div className="px-7 py-5 sm:px-9">
-
           {noteExpanded ? (
             <>
-              <div className="flex items-center gap-2.5">
-                <MessageSquare size={17} strokeWidth={1.7} style={{ color: INK }} />
-                <span className="text-[14.5px] font-semibold" style={{ color: INK }}>
-                  Final note to hotel
+              <div className="flex items-center gap-3">
+                <IconTile size="sm">
+                  <MessageSquare size={16} strokeWidth={1.7} />
+                </IconTile>
+                <span className="text-[13.5px] font-semibold" style={{ color: INK }}>
+                  Anything else the hotel should know?
                 </span>
                 <button
                   type="button"
@@ -802,43 +884,42 @@ export function FinalDetails({
                 maxLength={500}
                 aria-label="Final note to hotel"
                 placeholder="Add an important note for the hotel..."
-                className="mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
-                style={fieldStyle}
+                className="placeholder:text-[rgba(27,37,48,0.42)] mt-3 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid rgba(27,37,48,0.16)",
+                  color: INK,
+                  boxShadow: "inset 0 1px 2px rgba(27,37,48,0.08)",
+                }}
               />
-              <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_3 }}>
+              <p
+                className="mt-1 text-right text-[12px] tabular-nums"
+                style={{ color: INK_3 }}
+              >
                 {note.length} / 500
               </p>
             </>
           ) : (
-            <button
-              type="button"
-              onClick={() => setNoteOpen(true)}
-              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(27,37,48,0.02)]"
-            >
-              <span
-                className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
-                style={{ border: FIELD_BORDER, background: FIELD_BG }}
-              >
-                <MessageSquare size={15} strokeWidth={1.7} style={{ color: INK_2 }} />
-              </span>
+            <div className="flex items-center gap-3">
+              <IconTile size="sm">
+                <MessageSquare size={16} strokeWidth={1.7} />
+              </IconTile>
               <span className="min-w-0 flex-1">
                 <span
-                  className="block text-[13px] font-semibold leading-none"
+                  className="block text-[13.5px] font-semibold leading-tight"
                   style={{ color: INK }}
                 >
-                  Final note to hotel
-                </span>
-                <span className="mt-[2px] block text-[12px] leading-none" style={{ color: INK_2 }}>
                   Anything else the hotel should know?
                 </span>
-              </span>
-              <span className="inline-flex shrink-0 items-center gap-2 transition-opacity group-hover:opacity-70">
-                <span className="text-[12.5px] font-medium" style={{ color: INK_2 }}>
-                  Add note
+                <span
+                  className="mt-1 block text-[12.5px] leading-tight"
+                  style={{ color: INK_2 }}
+                >
+                  Add a final note or special instruction for the hotel.
                 </span>
-                <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
               </span>
-            </button>
+              <PillAction label="Add note" onClick={() => setNoteOpen(true)} />
+            </div>
           )}
         </div>
         <Rule />
@@ -847,7 +928,9 @@ export function FinalDetails({
         {/* ── 5 · confirmation ── */}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-4 px-7 py-6 sm:px-9">
 
-          <ShieldCheck size={22} strokeWidth={1.6} className="shrink-0" style={{ color: INK }} />
+          <IconTile>
+            <ShieldCheck size={20} strokeWidth={1.6} />
+          </IconTile>
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
             <br className="hidden sm:block" /> You will receive an update as soon as we have a
