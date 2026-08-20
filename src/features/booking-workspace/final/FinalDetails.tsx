@@ -48,6 +48,15 @@ const TILE_SHADOW_HOVER = "0 1px 2px rgba(90,74,52,0.05), 0 16px 32px -12px rgba
 const FIELD_BG = "#FCFBF8";
 const FIELD_BORDER = "1px solid rgba(90,74,52,0.18)";
 
+/* the final-note band — the same warm paper, a touch deeper than the canvas
+   so the row reads as its own strip without introducing a new material */
+const BAND_BG = "#F4F1EA";
+const BAND_EDGE = "inset 0 1px 0 rgba(255,255,255,0.75), inset 0 -1px 0 rgba(90,74,52,0.10)";
+
+/* the rounded chip each section icon sits in — a shade off the canvas */
+const CHIP_BG = "rgba(90,74,52,0.055)";
+const CHIP_BORDER = "1px solid rgba(90,74,52,0.16)";
+
 /** ultra-thin warm divider between canvas sections */
 function Rule() {
   return <span aria-hidden className="block h-px w-full" style={{ background: RULE }} />;
@@ -104,8 +113,8 @@ function IconTile({
         height: box,
         width: box,
         borderRadius: size === "lg" ? 12 : 10,
-        background: "rgba(255,255,255,0.55)",
-        border: "1px solid rgba(90,74,52,0.13)",
+        background: CHIP_BG,
+        border: CHIP_BORDER,
         color: INK,
       }}
     >
@@ -121,9 +130,9 @@ function PillAction({ label, onClick }: { label: string; onClick?: () => void })
       type="button"
       onClick={onClick}
       className="inline-flex h-[30px] shrink-0 items-center gap-1.5 rounded-full px-3 text-[12.5px] font-medium transition-colors"
-      style={{ border: "1px solid rgba(90,74,52,0.13)", color: INK }}
+      style={{ border: CHIP_BORDER, color: INK }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = "rgba(255,255,255,0.55)";
+        e.currentTarget.style.background = CHIP_BG;
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.background = "transparent";
@@ -859,7 +868,7 @@ export function FinalDetails({
 
 
         {/* ── 4 · final note ── */}
-        <div className="px-7 py-5 sm:px-9">
+        <div className="px-7 py-5 sm:px-9" style={{ background: BAND_BG, boxShadow: BAND_EDGE }}>
           {noteExpanded ? (
             <>
               <div className="flex items-center gap-3">
@@ -884,12 +893,12 @@ export function FinalDetails({
                 maxLength={500}
                 aria-label="Final note to hotel"
                 placeholder="Add an important note for the hotel..."
-                className="placeholder:text-[rgba(27,37,48,0.42)] mt-3 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+                className="mt-3 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
                 style={{
                   background: "#FFFFFF",
-                  border: "1px solid rgba(27,37,48,0.16)",
+                  border: FIELD_BORDER,
                   color: INK,
-                  boxShadow: "inset 0 1px 2px rgba(27,37,48,0.08)",
+                  boxShadow: "inset 0 1px 2px rgba(90,74,52,0.08)",
                 }}
               />
               <p
