@@ -79,10 +79,6 @@ const CHIP_SHADOW =
 const FIELD_SHADOW_HOVER =
   "inset 0 1px 0 rgba(255,255,255,0.95), 0 1px 2px rgba(60,50,35,0.07), 0 5px 12px -4px rgba(60,50,35,0.18)";
 
-/* the final-note band — the same warm paper, a touch deeper than the canvas
-   so the row reads as its own strip without introducing a new material */
-const BAND_BG = "#F4F1EA";
-const BAND_EDGE = "inset 0 1px 0 rgba(255,255,255,0.75), inset 0 -1px 0 rgba(90,74,52,0.10)";
 
 /** ultra-thin warm divider between canvas sections */
 function Rule() {
@@ -927,7 +923,7 @@ export function FinalDetails({
 
 
         {/* ── 4 · final note ── */}
-        <div className="px-7 py-5 sm:px-9" style={{ background: BAND_BG, boxShadow: BAND_EDGE }}>
+        <div className="px-7 py-5 sm:px-9">
           {noteExpanded ? (
             <>
               <div className="flex items-center gap-3">
