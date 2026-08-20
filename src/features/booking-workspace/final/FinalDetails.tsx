@@ -135,6 +135,8 @@ function PillAction({ label, onClick }: { label: string; onClick?: () => void })
   );
 }
 
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 function formatDay(iso: string) {
   const [y, m, d] = iso.split("-").map(Number);
   if (!y || !m || !d) return "";
