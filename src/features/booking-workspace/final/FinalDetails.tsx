@@ -792,13 +792,7 @@ export function FinalDetails({
                   Remove secondary contact
                 </button>
               </>
-            ) : (
-              <TextAction
-                label="+ Add secondary contact"
-                className="mt-2 self-start"
-                onClick={() => setContact({ ...contact, secondary: { name: "", phone: "" } })}
-              />
-            )}
+            ) : null}
           </div>
         </div>
         <Rule />
