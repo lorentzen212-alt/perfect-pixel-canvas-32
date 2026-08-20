@@ -151,13 +151,13 @@ function PillAction({ label, onClick }: { label: string; onClick?: () => void })
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex h-[30px] shrink-0 items-center gap-1.5 rounded-full px-3 text-[12.5px] font-medium transition-colors"
-      style={{ border: CHIP_BORDER, color: INK }}
+      className="inline-flex h-[40px] shrink-0 items-center gap-1.5 rounded-[11px] px-4 text-[13px] font-medium transition-shadow"
+      style={{ border: FIELD_BORDER, background: FIELD_BG, color: INK, boxShadow: FIELD_SHADOW }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = CHIP_BG;
+        e.currentTarget.style.boxShadow = FIELD_SHADOW_HOVER;
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.background = "transparent";
+        e.currentTarget.style.boxShadow = FIELD_SHADOW;
       }}
     >
       <Plus size={14} strokeWidth={2} />
@@ -472,8 +472,8 @@ function TimeSide({
       </span>
 
       <div
-        className="mt-1.5 flex h-[46px] items-center gap-3 rounded-[10px] px-3"
-        style={{ border: FIELD_BORDER, background: FIELD_BG }}
+        className="mt-1.5 flex h-[46px] items-center gap-3 rounded-[11px] px-3.5"
+        style={{ border: FIELD_BORDER, background: FIELD_BG, boxShadow: FIELD_SHADOW }}
       >
         <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
@@ -598,6 +598,7 @@ const fieldStyle: React.CSSProperties = {
   border: FIELD_BORDER,
   background: FIELD_BG,
   color: INK,
+  boxShadow: FIELD_SHADOW,
 };
 
 /* ── the tab body ── */
