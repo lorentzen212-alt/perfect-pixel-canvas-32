@@ -284,9 +284,7 @@ function Tab({
         marginLeft: first ? 0 : -14,
         paddingLeft: !active && !first ? 28 + extraLeft : 18,
         paddingRight: !active && first ? 28 + extraRight : 16 + extraRight,
-        filter: active
-          ? "drop-shadow(0 -1px 1px rgba(24,30,36,0.05)) drop-shadow(3px 0 8px rgba(24,30,36,0.10))"
-          : undefined,
+        filter: active ? "drop-shadow(0 -1px 1px rgba(24,30,36,0.05))" : undefined,
       }}
     >
       {/* flat top-left panel */}

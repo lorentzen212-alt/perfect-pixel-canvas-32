@@ -1502,6 +1502,13 @@ const FINAL_METAL =
 /** flat mid-tone from the same ramp, so no seam shows behind the plate */
 const FINAL_METAL_BASE = "rgb(199, 199, 199)";
 
+/* the active Final Details tab merges into the TOP of the metal plate, which is
+   the rgb(120,120,120) end of FINAL_METAL because that gradient runs at 360deg.
+   Starting lighter keeps the tab reading as a raised tab and keeps TAB_INK legible. */
+const FINAL_TAB_SURFACE =
+  "linear-gradient(180deg, rgb(214, 214, 214) 0%, rgb(150, 150, 150) 72%, rgb(120, 120, 120) 100%)";
+
+
 const PLATE = "#F6F4EB";
 /** warm ivory used by the Group Plan tab plate (matches BG in GroupPlan.tsx) */
 const GROUP_PLAN_IVORY = "#F5F1E9";
