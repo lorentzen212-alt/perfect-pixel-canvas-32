@@ -8,6 +8,7 @@ import {
   Clock,
   Leaf,
   MessageSquare,
+  Plus,
   ShieldCheck,
   Star,
   User,
