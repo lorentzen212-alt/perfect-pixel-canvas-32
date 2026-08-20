@@ -46,17 +46,23 @@ const TILE_BG = "#FFFDFA";
 const TILE_BORDER = "1px solid rgba(90,74,52,0.10)";
 const TILE_SHADOW = "0 1px 2px rgba(90,74,52,0.05), 0 10px 24px -10px rgba(60,45,25,0.20)";
 const TILE_SHADOW_HOVER = "0 1px 2px rgba(90,74,52,0.05), 0 16px 32px -12px rgba(60,45,25,0.26)";
-const FIELD_BG = "#FCFBF8";
-const FIELD_BORDER = "1px solid rgba(90,74,52,0.18)";
+const FIELD_BG = "#FFFFFF";
+const FIELD_BORDER = "1px solid rgba(90,74,52,0.14)";
+/** the soft lift shared by every field, pill and control on this page */
+const FIELD_SHADOW =
+  "inset 0 1px 0 rgba(255,255,255,0.95), 0 1px 2px rgba(60,50,35,0.06), 0 2px 6px -3px rgba(60,50,35,0.12)";
 
-/* the final-note band — the same warm paper, a touch deeper than the canvas
-   so the row reads as its own strip without introducing a new material */
-const BAND_BG = "#F4F1EA";
-const BAND_EDGE = "inset 0 1px 0 rgba(255,255,255,0.75), inset 0 -1px 0 rgba(90,74,52,0.10)";
+/* the rounded chip each section icon sits in — polished silver, lit from the
+   top-left, raised a hair off the paper so it catches the light like metal */
+const CHIP_BG =
+  "linear-gradient(150deg, #FFFFFF 0%, #F7F7F6 30%, #E9E9E7 58%, #DEDEDB 80%, #F0F0EF 100%)";
+const CHIP_BORDER = "1px solid rgba(118,115,110,0.32)";
+const CHIP_SHADOW =
+  "inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(116,113,107,0.24), 0 1px 2px rgba(58,54,48,0.16), 0 5px 12px -6px rgba(48,44,38,0.30)";
 
-/* the rounded chip each section icon sits in — a shade off the canvas */
-const CHIP_BG = "rgba(90,74,52,0.07)";
-const CHIP_BORDER = "1px solid rgba(90,74,52,0.16)";
+/** the same plate, lifted a touch further on hover */
+const FIELD_SHADOW_HOVER =
+  "inset 0 1px 0 rgba(255,255,255,0.95), 0 1px 2px rgba(60,50,35,0.07), 0 5px 12px -4px rgba(60,50,35,0.18)";
 
 /** ultra-thin warm divider between canvas sections */
 function Rule() {
@@ -125,6 +131,7 @@ function IconTile({
         borderRadius: radius,
         background: CHIP_BG,
         border: CHIP_BORDER,
+        boxShadow: CHIP_SHADOW,
         color: INK,
       }}
     >
