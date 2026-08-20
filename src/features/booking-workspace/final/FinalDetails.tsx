@@ -746,13 +746,19 @@ export function FinalDetails({
                 )
               }
             />
-            <div className="mt-3.5 flex flex-wrap gap-2">
+            <span
+              aria-hidden
+              className="mt-3.5 block select-none text-[11px] uppercase tracking-[0.12em] text-transparent"
+            >
+              Contact
+            </span>
+            <div className="mt-1.5 flex flex-wrap gap-2">
               <div className="relative min-w-[130px] flex-1">
                 <select
                   value={contact.role}
                   onChange={(e) => setContact({ ...contact, role: e.target.value })}
                   aria-label="Group contact role"
-                  className="h-[42px] w-full appearance-none rounded-[9px] px-3 pr-8 text-[13px] outline-none"
+                  className="h-[46px] w-full appearance-none rounded-[11px] px-3.5 pr-8 text-[13px] outline-none"
                   style={fieldStyle}
                 >
                   {ROLES.map((r) => (
@@ -775,7 +781,7 @@ export function FinalDetails({
                 onChange={(e) => setContact({ ...contact, name: e.target.value })}
                 aria-label="Group contact name"
                 placeholder="Name"
-                className="h-[42px] min-w-[120px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                className="h-[46px] min-w-[120px] flex-1 rounded-[11px] px-3.5 text-[13px] outline-none"
                 style={fieldStyle}
               />
 
@@ -785,7 +791,7 @@ export function FinalDetails({
                 onChange={(e) => setContact({ ...contact, phone: e.target.value })}
                 aria-label="Group contact mobile number"
                 placeholder="Mobile number"
-                className="h-[42px] min-w-[140px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                className="h-[46px] min-w-[140px] flex-1 rounded-[11px] px-3.5 text-[13px] outline-none"
                 style={fieldStyle}
               />
             </div>
@@ -804,7 +810,7 @@ export function FinalDetails({
                     }
                     aria-label="Secondary contact name"
                     placeholder="Secondary name"
-                    className="h-[42px] min-w-[120px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                    className="h-[46px] min-w-[120px] flex-1 rounded-[11px] px-3.5 text-[13px] outline-none"
                     style={fieldStyle}
                   />
                   <input
@@ -818,7 +824,7 @@ export function FinalDetails({
                     }
                     aria-label="Secondary contact mobile number"
                     placeholder="Secondary mobile number"
-                    className="h-[42px] min-w-[140px] flex-1 rounded-[9px] px-3 text-[13px] outline-none"
+                    className="h-[46px] min-w-[140px] flex-1 rounded-[11px] px-3.5 text-[13px] outline-none"
                     style={fieldStyle}
                   />
                 </div>
