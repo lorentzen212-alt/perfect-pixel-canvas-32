@@ -1145,27 +1145,12 @@ function Workspace({ booking }: { booking: Booking }) {
 
   /** warm ivory plate for the Group Plan tab (navy cards sit on ivory) */
   const isGroupPlan = tab === "Group Plan";
-  const isFinal = tab === "Final Details";
-  const PLATE_BG = isFinal
-    ? FINAL_SURROUND
-    : isFolder
-      ? PAGE_UNDER
-      : isGroupPlan
-        ? GROUP_PLAN_IVORY
-        : PLATE;
+  const PLATE_BG = isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : PLATE;
 
   return (
     <div
       className="flex min-h-screen flex-col"
-      style={{
-        backgroundColor: isFinal
-          ? FINAL_SURROUND
-          : isFolder
-            ? PAGE_UNDER
-            : isGroupPlan
-              ? GROUP_PLAN_IVORY
-              : BG_ALT,
-      }}
+      style={{ backgroundColor: isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : BG_ALT }}
     >
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
@@ -1243,7 +1228,7 @@ function Workspace({ booking }: { booking: Booking }) {
           surface={
             isFolder
               ? tab === "Final Details"
-                ? FINAL_SURROUND
+                ? "#FAF8F5"
                 : tab === "Documents"
                   ? FOLDER_TOP_SURFACE_WARM
                   : tab === "Changes"
@@ -1493,7 +1478,6 @@ function Workspace({ booking }: { booking: Booking }) {
 const PLATE = "#F6F4EB";
 /** warm ivory used by the Group Plan tab plate (matches BG in GroupPlan.tsx) */
 const GROUP_PLAN_IVORY = "#F5F1E9";
-const FINAL_SURROUND = "#F5F1E9";
 
 const CARD_BG = "#15202B";
 const CARD_BORDER_SOFT = "#2A3A4A";

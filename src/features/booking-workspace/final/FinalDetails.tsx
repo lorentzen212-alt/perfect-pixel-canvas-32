@@ -16,6 +16,13 @@ import {
 } from "lucide-react";
 import { SERIF } from "@/components/DashboardChrome";
 import {
+  GOLD,
+  GREEN,
+  INK,
+  INK_2,
+  INK_3,
+} from "@/features/booking-workspace/overview/materials";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -25,86 +32,20 @@ import {
 /* ── local constants materials.ts has no equivalent for ── */
 const GOLD_HI = "#CC8C1E";
 const GOLD_DEEP = "#A96C12";
+const CHEVRON = "rgba(27,37,48,0.55)";
 
-/* the document */
-const CANVAS = "#213756";
-const CANVAS_BORDER = "1px solid rgba(16,28,45,0.55)";
-const CANVAS_SHADOW = "0 1px 2px rgba(20,32,50,0.12), 0 26px 50px -30px rgba(20,32,50,0.45)";
-/** hairline used for every divider on this page */
-const RULE = "rgba(255,255,255,0.12)";
-
-/* text on navy */
-const INK = "#F4F1EA";
-const INK_2 = "rgba(244,241,234,0.70)";
-const INK_3 = "rgba(244,241,234,0.55)";
-const CHEVRON = "rgba(244,241,234,0.55)";
-
-/* accents that survive a dark background */
-const GOLD = "#DCAE62";
-const GREEN = "#8FC7A6";
-
-/* the three tiles — warm ivory paper raised off the navy document */
-const TILE_BG = "#F5F3EE";
-const TILE_BORDER = "1px solid rgba(255,255,255,0.70)";
-const TILE_SHADOW =
-  "inset 0 1px 0 rgba(255,255,255,0.85), 0 1px 2px rgba(15,25,35,0.20), 0 12px 26px -12px rgba(10,18,28,0.55)";
-const TILE_SHADOW_HOVER =
-  "inset 0 1px 0 rgba(255,255,255,0.85), 0 2px 4px rgba(15,25,35,0.22), 0 18px 34px -14px rgba(10,18,28,0.62)";
-
-/* ink set used inside the ivory tiles */
-const PAPER_INK = "#1B2530";
-const PAPER_INK_2 = "#5F6B75";
-const PAPER_GREEN = "#2E6B45";
-const PAPER_CHEVRON = "rgba(27,37,48,0.46)";
-const PAPER_RULE = "rgba(27,37,48,0.12)";
-
-/* fields */
-const FIELD_BG = "rgba(255,255,255,0.06)";
-const FIELD_BORDER = "1px solid rgba(255,255,255,0.18)";
-
-/* the final-note band — polished aluminium, base #BABABA, light at 155° */
-const METAL_BG =
-  "linear-gradient(155deg, #A6A8AA 0%, #BEC0C2 10%, #DCDEDF 24%, #EFF0F1 34%, #CDCFD1 46%, #ACAEB0 58%, #C6C8CA 72%, #DDDEDF 86%, #ADAFB1 100%)";
-const METAL_EDGE =
-  "inset 0 1px 0 rgba(255,255,255,0.78), inset 0 -1px 0 rgba(18,26,36,0.30)";
-
-/* ink that reads on brushed metal */
-const METAL_INK = "#1A222C";
-const METAL_INK_2 = "rgba(26,34,44,0.64)";
-const METAL_INK_3 = "rgba(26,34,44,0.52)";
-/** the tiny embossed lift that makes type look engraved into metal */
-const METAL_EMBOSS = "0 1px 0 rgba(255,255,255,0.60)";
-/** deep gold — the only accent that stays luxe against silver */
-const METAL_GOLD = "#8A5A0B";
-
-
-/** surface-aware colours so shared bits keep cream-on-navy outside the tiles */
-type SurfaceTone = {
-  ink: string;
-  ink2: string;
-  green: string;
-  chevron: string;
-  rule: string;
-};
-
-const NAVY_TONE: SurfaceTone = {
-  ink: INK,
-  ink2: INK_2,
-  green: GREEN,
-  chevron: CHEVRON,
-  rule: RULE,
-};
-
-const PAPER_TONE: SurfaceTone = {
-  ink: PAPER_INK,
-  ink2: PAPER_INK_2,
-  green: PAPER_GREEN,
-  chevron: PAPER_CHEVRON,
-  rule: PAPER_RULE,
-};
-
-const SurfaceContext = React.createContext<SurfaceTone>(NAVY_TONE);
-const useSurface = () => React.useContext(SurfaceContext);
+/* ── warm document canvas material ── */
+const CANVAS = "#FAF8F5";
+const CANVAS_BORDER = "1px solid rgba(120,100,74,0.14)";
+const CANVAS_SHADOW = "0 1px 2px rgba(6,14,22,0.20), 0 30px 60px -35px rgba(6,14,22,0.55)";
+/** warm hairline used for every divider on this page */
+const RULE = "rgba(90,74,52,0.13)";
+const TILE_BG = "#FFFDFA";
+const TILE_BORDER = "1px solid rgba(90,74,52,0.10)";
+const TILE_SHADOW = "0 1px 2px rgba(90,74,52,0.05), 0 10px 24px -10px rgba(60,45,25,0.20)";
+const TILE_SHADOW_HOVER = "0 1px 2px rgba(90,74,52,0.05), 0 16px 32px -12px rgba(60,45,25,0.26)";
+const FIELD_BG = "#FCFBF8";
+const FIELD_BORDER = "1px solid rgba(90,74,52,0.18)";
 
 /** ultra-thin warm divider between canvas sections */
 function Rule() {
@@ -122,29 +63,26 @@ function FlatCard({
   style?: React.CSSProperties;
 }) {
   return (
-    <SurfaceContext.Provider value={PAPER_TONE}>
-      <div
-        className={`transition-all duration-200 hover:-translate-y-px ${className}`}
-        style={{
-          background: TILE_BG,
-          border: TILE_BORDER,
-          borderRadius: 14,
-          boxShadow: TILE_SHADOW,
-          ...style,
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = TILE_SHADOW_HOVER;
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = TILE_SHADOW;
-        }}
-      >
-        {children}
-      </div>
-    </SurfaceContext.Provider>
+    <div
+      className={`transition-all duration-200 hover:-translate-y-px ${className}`}
+      style={{
+        background: TILE_BG,
+        border: TILE_BORDER,
+        borderRadius: 14,
+        boxShadow: TILE_SHADOW,
+        ...style,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = TILE_SHADOW_HOVER;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = TILE_SHADOW;
+      }}
+    >
+      {children}
+    </div>
   );
 }
-
 
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -196,22 +134,21 @@ function CardHead({
   title: string;
   subtitle?: string;
 }) {
-  const tone = useSurface();
   return (
     <div className="flex items-start gap-2.5">
-      <span className="mt-[1px] shrink-0" style={{ color: tone.ink }}>
+      <span className="mt-[1px] shrink-0" style={{ color: INK }}>
         {icon}
       </span>
       <span className="min-w-0 flex-1">
         <span
           className="block text-[18px] leading-tight"
-          style={{ color: tone.ink, fontFamily: SERIF, fontWeight: 500 }}
+          style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
         >
           {title}
         </span>
 
         {subtitle && (
-          <span className="mt-1 block text-[12.5px]" style={{ color: tone.ink2 }}>
+          <span className="mt-1 block text-[12.5px]" style={{ color: INK_2 }}>
             {subtitle}
           </span>
         )}
@@ -247,19 +184,18 @@ function TextAction({
 
 /** footer row pinned to the bottom of the three symmetrical cards */
 function CardFooter({ label, onClick }: { label: string; onClick?: () => void }) {
-  const tone = useSurface();
   return (
     <div className="mt-auto pt-3">
-      <span aria-hidden className="mb-2 block h-px" style={{ background: tone.rule }} />
+      <span aria-hidden className="mb-2 block h-px" style={{ background: RULE }} />
       <button
         type="button"
         onClick={onClick}
         className="flex w-full items-center justify-between gap-3 text-left transition-opacity hover:opacity-70"
       >
-        <span className="text-[12.5px]" style={{ color: tone.ink2 }}>
+        <span className="text-[12.5px]" style={{ color: INK_2 }}>
           {label}
         </span>
-        <ChevronRight size={15} strokeWidth={1.8} style={{ color: tone.chevron }} />
+        <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
       </button>
     </div>
   );
@@ -283,7 +219,7 @@ function ProgressRing({ value }: { value: number }) {
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="rgba(255,255,255,0.16)"
+          stroke="rgba(27,37,48,0.09)"
           strokeWidth={stroke}
         />
         <circle
@@ -365,11 +301,11 @@ function TimeValue({
         className="appearance-none bg-transparent text-[13.5px] font-medium tabular-nums outline-none"
         style={{ color: value ? INK : INK_3 }}
       >
-        <option value="" disabled style={{ background: "#213756", color: "#F4F1EA" }}>
+        <option value="" disabled>
           --:--
         </option>
         {TIME_OPTIONS.map((t) => (
-          <option key={t} value={t} style={{ background: "#213756", color: "#F4F1EA" }}>
+          <option key={t} value={t}>
             {t}
           </option>
         ))}
@@ -394,7 +330,7 @@ function ModeMenu({
         <button
           type="button"
           aria-label={`${side} time type`}
-          className="grid h-[26px] w-[22px] shrink-0 place-items-center rounded-[6px] outline-none transition-colors hover:bg-[rgba(255,255,255,0.07)]"
+          className="grid h-[26px] w-[22px] shrink-0 place-items-center rounded-[6px] outline-none transition-colors hover:bg-[rgba(27,37,48,0.05)]"
         >
           <ChevronDown size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
         </button>
@@ -413,7 +349,7 @@ function ModeMenu({
           <DropdownMenuItem
             key={m}
             onSelect={() => onChange(m)}
-            className="flex h-[35px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(255,255,255,0.07)]"
+            className="flex h-[35px] items-center gap-2 rounded-[8px] px-2.5 text-[12.5px] focus:bg-[rgba(27,37,48,0.04)]"
             style={{ color: INK }}
           >
             <span className="flex-1 truncate">{MODE_LABEL[m]}</span>
@@ -526,11 +462,11 @@ function TimeSide({
                 className="appearance-none bg-transparent pr-4 text-[12.5px] tabular-nums outline-none"
                 style={{ color: INK }}
               >
-                <option value="" disabled style={{ background: "#213756", color: "#F4F1EA" }}>
+                <option value="" disabled>
                   Select time
                 </option>
                 {TIME_OPTIONS.map((t) => (
-                  <option key={t} value={t} style={{ background: "#213756", color: "#F4F1EA" }}>
+                  <option key={t} value={t}>
                     {t}
                   </option>
                 ))}
@@ -554,15 +490,14 @@ function TimeSide({
 /* ── simple label / value row ── */
 
 function Row({ label, value, tone }: { label: string; value: string; tone?: "green" }) {
-  const surface = useSurface();
   return (
     <div className="flex items-center justify-between gap-4 py-[5px]">
-      <span className="min-w-0 truncate text-[13px]" style={{ color: surface.ink }}>
+      <span className="min-w-0 truncate text-[13px]" style={{ color: INK }}>
         {label}
       </span>
       <span
         className="shrink-0 text-[13px] font-medium tabular-nums"
-        style={{ color: tone === "green" ? surface.green : surface.ink }}
+        style={{ color: tone === "green" ? GREEN : INK }}
       >
         {value}
       </span>
@@ -667,8 +602,8 @@ export function FinalDetails({
             onClick={() =>
               timesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
             }
-            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(255,255,255,0.07)]"
-            style={{ border: "1px solid rgba(255,255,255,0.22)", color: INK }}
+            className="inline-flex h-[38px] shrink-0 items-center rounded-full px-5 text-[13px] font-medium transition-colors hover:bg-[rgba(90,74,52,0.05)]"
+            style={{ border: "1px solid rgba(90,74,52,0.22)", color: INK }}
           >
             View missing items
           </button>
@@ -693,7 +628,7 @@ export function FinalDetails({
             </div>
           </div>
 
-          <div className="flex flex-col border-t border-[rgba(255,255,255,0.12)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
+          <div className="flex flex-col border-t border-[rgba(90,74,52,0.13)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
 
             <CardHead
               icon={<User size={19} strokeWidth={1.7} />}
@@ -710,7 +645,7 @@ export function FinalDetails({
                   style={fieldStyle}
                 >
                   {ROLES.map((r) => (
-                    <option key={r} value={r} style={{ background: "#213756", color: "#F4F1EA" }}>
+                    <option key={r} value={r}>
                       {r}
                     </option>
                   ))}
@@ -806,7 +741,7 @@ export function FinalDetails({
             <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
             <div className="mt-2.5">
               {meals.length === 0 ? (
-                <p className="text-[13px]" style={{ color: PAPER_INK_2 }}>
+                <p className="text-[13px]" style={{ color: INK_3 }}>
                   No group meals booked
                 </p>
               ) : (
@@ -831,7 +766,7 @@ export function FinalDetails({
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead icon={<Leaf size={18} strokeWidth={1.7} />} title="Allergies & Dietary" />
             <div className="mt-2.5">
-              <p className="text-[13px]" style={{ color: PAPER_INK_2 }}>
+              <p className="text-[13px]" style={{ color: INK_2 }}>
                 {allergyCount} notes
               </p>
             </div>
@@ -843,29 +778,20 @@ export function FinalDetails({
 
 
         {/* ── 4 · final note ── */}
-        <div
-          className="px-7 py-5 sm:px-9"
-          style={{ background: METAL_BG, boxShadow: METAL_EDGE }}
-        >
+        <div className="px-7 py-5 sm:px-9">
+
           {noteExpanded ? (
             <>
               <div className="flex items-center gap-2.5">
-                <MessageSquare
-                  size={17}
-                  strokeWidth={1.7}
-                  style={{ color: METAL_INK, filter: `drop-shadow(${METAL_EMBOSS})` }}
-                />
-                <span
-                  className="text-[14.5px] font-semibold"
-                  style={{ color: METAL_INK, textShadow: METAL_EMBOSS }}
-                >
+                <MessageSquare size={17} strokeWidth={1.7} style={{ color: INK }} />
+                <span className="text-[14.5px] font-semibold" style={{ color: INK }}>
                   Final note to hotel
                 </span>
                 <button
                   type="button"
                   onClick={() => setNoteOpen(false)}
                   className="ml-auto text-[12.5px] font-medium transition-opacity hover:opacity-70"
-                  style={{ color: METAL_GOLD }}
+                  style={{ color: GOLD }}
                 >
                   Done
                 </button>
@@ -876,18 +802,10 @@ export function FinalDetails({
                 maxLength={500}
                 aria-label="Final note to hotel"
                 placeholder="Add an important note for the hotel..."
-                className="placeholder:text-[rgba(26,34,44,0.45)] mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
-                style={{
-                  background: "#F7F7F5",
-                  border: "1px solid rgba(18,26,36,0.22)",
-                  color: METAL_INK,
-                  boxShadow: "inset 0 1px 2px rgba(18,26,36,0.12)",
-                }}
+                className="mt-2 h-[60px] w-full resize-none rounded-[10px] px-3 py-2.5 text-[13.5px] outline-none"
+                style={fieldStyle}
               />
-              <p
-                className="mt-1 text-right text-[12px] tabular-nums"
-                style={{ color: METAL_INK_3 }}
-              >
+              <p className="mt-1 text-right text-[12px] tabular-nums" style={{ color: INK_3 }}>
                 {note.length} / 500
               </p>
             </>
@@ -895,48 +813,35 @@ export function FinalDetails({
             <button
               type="button"
               onClick={() => setNoteOpen(true)}
-              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(255,255,255,0.20)]"
+              className="group flex w-full items-center gap-3.5 text-left transition-colors hover:bg-[rgba(27,37,48,0.02)]"
             >
               <span
                 className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[9px]"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(146,149,152,0.45) 0%, rgba(208,210,212,0.55) 100%)",
-                  border: "1px solid rgba(255,255,255,0.60)",
-                  boxShadow:
-                    "inset 0 1px 2px rgba(18,26,36,0.22), 0 1px 0 rgba(255,255,255,0.55)",
-                }}
+                style={{ border: FIELD_BORDER, background: FIELD_BG }}
               >
-                <MessageSquare size={15} strokeWidth={1.7} style={{ color: "#2A3644" }} />
+                <MessageSquare size={15} strokeWidth={1.7} style={{ color: INK_2 }} />
               </span>
               <span className="min-w-0 flex-1">
                 <span
                   className="block text-[13px] font-semibold leading-none"
-                  style={{ color: METAL_INK, textShadow: METAL_EMBOSS }}
+                  style={{ color: INK }}
                 >
                   Final note to hotel
                 </span>
-                <span
-                  className="mt-[2px] block text-[12px] leading-none"
-                  style={{
-                    color: METAL_INK_2,
-                    textShadow: "0 1px 0 rgba(255,255,255,0.45)",
-                  }}
-                >
+                <span className="mt-[2px] block text-[12px] leading-none" style={{ color: INK_2 }}>
                   Anything else the hotel should know?
                 </span>
               </span>
               <span className="inline-flex shrink-0 items-center gap-2 transition-opacity group-hover:opacity-70">
-                <span className="text-[12.5px] font-medium" style={{ color: METAL_GOLD }}>
+                <span className="text-[12.5px] font-medium" style={{ color: INK_2 }}>
                   Add note
                 </span>
-                <ChevronRight size={15} strokeWidth={1.8} style={{ color: METAL_GOLD }} />
+                <ChevronRight size={15} strokeWidth={1.8} style={{ color: CHEVRON }} />
               </span>
             </button>
           )}
         </div>
         <Rule />
-
 
 
         {/* ── 5 · confirmation ── */}
