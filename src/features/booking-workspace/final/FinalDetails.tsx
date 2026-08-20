@@ -1,17 +1,18 @@
 import * as React from "react";
 import {
   ArrowRight,
+  CalendarCheck,
   CalendarDays,
   Check,
   ChevronDown,
   ChevronRight,
   Clock,
-  Leaf,
   MessageSquare,
   Plus,
   ShieldCheck,
+  Sprout,
   Star,
-  User,
+  UserRound,
   Utensils,
   X,
 } from "lucide-react";
@@ -54,7 +55,7 @@ const BAND_BG = "#F4F1EA";
 const BAND_EDGE = "inset 0 1px 0 rgba(255,255,255,0.75), inset 0 -1px 0 rgba(90,74,52,0.10)";
 
 /* the rounded chip each section icon sits in — a shade off the canvas */
-const CHIP_BG = "rgba(90,74,52,0.055)";
+const CHIP_BG = "rgba(90,74,52,0.07)";
 const CHIP_BORDER = "1px solid rgba(90,74,52,0.16)";
 
 /** ultra-thin warm divider between canvas sections */
@@ -97,14 +98,23 @@ function FlatCard({
 
 
 /** the rounded chip every section icon sits in */
+type HeadSize = "lg" | "md" | "sm";
+
+/** chip box / corner radius / title size for each head scale */
+const HEAD_SCALE: Record<HeadSize, { box: number; radius: number; title: number }> = {
+  lg: { box: 44, radius: 13, title: 25 },
+  md: { box: 44, radius: 13, title: 22 },
+  sm: { box: 34, radius: 10, title: 18 },
+};
+
 function IconTile({
   children,
   size = "lg",
 }: {
   children: React.ReactNode;
-  size?: "lg" | "sm";
+  size?: HeadSize;
 }) {
-  const box = size === "lg" ? 40 : 34;
+  const { box, radius } = HEAD_SCALE[size];
   return (
     <span
       aria-hidden
@@ -112,7 +122,7 @@ function IconTile({
       style={{
         height: box,
         width: box,
-        borderRadius: size === "lg" ? 12 : 10,
+        borderRadius: radius,
         background: CHIP_BG,
         border: CHIP_BORDER,
         color: INK,
@@ -195,21 +205,22 @@ function CardHead({
   title: string;
   subtitle?: string;
   action?: React.ReactNode;
-  size?: "lg" | "sm";
+  size?: HeadSize;
 }) {
+  const { title: titleSize } = HEAD_SCALE[size];
   return (
-    <div className="flex items-start gap-3">
+    <div className="flex items-center gap-3.5">
       <IconTile size={size}>{icon}</IconTile>
-      <span className="min-w-0 flex-1 pt-[3px]">
+      <span className="min-w-0 flex-1">
         <span
-          className="block text-[18px] leading-tight"
-          style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}
+          className="block leading-[1.15]"
+          style={{ color: INK, fontFamily: SERIF, fontWeight: 500, fontSize: titleSize }}
         >
           {title}
         </span>
 
         {subtitle && (
-          <span className="mt-1 block text-[12.5px]" style={{ color: INK_2 }}>
+          <span className="mt-1 block text-[12.5px] leading-tight" style={{ color: INK_2 }}>
             {subtitle}
           </span>
         )}
@@ -649,7 +660,7 @@ export function FinalDetails({
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 px-7 py-6 sm:px-9">
           <ProgressRing value={80} />
           <div className="min-w-0 flex-1">
-            <h2 className="text-[22px]" style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}>
+            <h2 className="text-[28px] leading-[1.15]" style={{ color: INK, fontFamily: SERIF, fontWeight: 500 }}>
               Final details
             </h2>
             <p className="mt-0.5 text-[13px]" style={{ color: INK_2 }}>
@@ -690,7 +701,7 @@ export function FinalDetails({
           <div className="flex flex-col px-7 py-7 sm:px-9" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
-                icon={<CalendarDays size={19} strokeWidth={1.7} />}
+                icon={<CalendarCheck size={22} strokeWidth={1.6} />}
                 title="Arrival & Departure"
                 subtitle="Please add your expected times"
               />
@@ -704,7 +715,7 @@ export function FinalDetails({
           <div className="flex flex-col border-t border-[rgba(90,74,52,0.13)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
 
             <CardHead
-              icon={<User size={19} strokeWidth={1.7} />}
+              icon={<UserRound size={22} strokeWidth={1.6} />}
               title="Group Contact"
               subtitle="Who can we contact during the stay?"
               action={
@@ -814,8 +825,8 @@ export function FinalDetails({
 
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead
-              size="sm"
-              icon={<Utensils size={17} strokeWidth={1.7} />}
+              size="md"
+              icon={<Utensils size={21} strokeWidth={1.6} />}
               title="Meals"
               subtitle="Set meal times and preferences"
             />
@@ -836,8 +847,8 @@ export function FinalDetails({
 
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead
-              size="sm"
-              icon={<Star size={17} strokeWidth={1.7} />}
+              size="md"
+              icon={<Star size={21} strokeWidth={1.6} />}
               title="Special Arrangements"
               subtitle="Any special requests or arrangements"
             />
@@ -850,8 +861,8 @@ export function FinalDetails({
 
           <FlatCard className="flex h-full flex-col p-6">
             <CardHead
-              size="sm"
-              icon={<Leaf size={17} strokeWidth={1.7} />}
+              size="md"
+              icon={<Sprout size={21} strokeWidth={1.6} />}
               title="Allergies & Dietary"
               subtitle="View or add guest allergies"
             />
@@ -938,7 +949,7 @@ export function FinalDetails({
         <div className="flex flex-wrap items-center gap-x-6 gap-y-4 px-7 py-6 sm:px-9">
 
           <IconTile>
-            <ShieldCheck size={20} strokeWidth={1.6} />
+            <ShieldCheck size={22} strokeWidth={1.6} />
           </IconTile>
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
