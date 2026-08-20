@@ -793,9 +793,22 @@ export function FinalDetails({
                 icon={<CalendarCheck size={24} strokeWidth={1.6} />}
                 title="Arrival & Departure"
                 subtitle="Please add your expected times"
+                action={
+                  <MixedArrivalToggle
+                    on={mixedArrival}
+                    onChange={(next) =>
+                      setArrival({ ...arrival, mode: next ? "mixed" : "exact" })
+                    }
+                  />
+                }
               />
               <div className="mt-3.5 flex flex-col gap-4 sm:flex-row">
-                <TimeSide label="Arrival" state={arrival} onState={setArrival} />
+                <TimeSide
+                  label="Arrival"
+                  state={arrival}
+                  onState={setArrival}
+                  dateOnly={mixedArrival}
+                />
                 <TimeSide label="Departure" state={departure} onState={setDeparture} />
               </div>
             </div>
