@@ -86,7 +86,54 @@ function FlatCard({
 }
 
 
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/** the rounded chip every section icon sits in */
+function IconTile({
+  children,
+  size = "lg",
+}: {
+  children: React.ReactNode;
+  size?: "lg" | "sm";
+}) {
+  const box = size === "lg" ? 40 : 34;
+  return (
+    <span
+      aria-hidden
+      className="grid shrink-0 place-items-center"
+      style={{
+        height: box,
+        width: box,
+        borderRadius: size === "lg" ? 12 : 10,
+        background: "rgba(255,255,255,0.55)",
+        border: "1px solid rgba(90,74,52,0.13)",
+        color: INK,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+/** small outlined pill — the "+ Add" affordance that sits beside a section title */
+function PillAction({ label, onClick }: { label: string; onClick?: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex h-[30px] shrink-0 items-center gap-1.5 rounded-full px-3 text-[12.5px] font-medium transition-colors"
+      style={{ border: "1px solid rgba(90,74,52,0.13)", color: INK }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "rgba(255,255,255,0.55)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "transparent";
+      }}
+    >
+      <Plus size={14} strokeWidth={2} />
+      {label}
+    </button>
+  );
+}
 
 function formatDay(iso: string) {
   const [y, m, d] = iso.split("-").map(Number);
