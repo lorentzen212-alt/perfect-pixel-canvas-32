@@ -56,7 +56,7 @@ const CANVAS_BORDER = "1px solid rgba(120,100,74,0.14)";
 const CANVAS_SHADOW = "0 1px 2px rgba(6,14,22,0.20), 0 30px 60px -35px rgba(6,14,22,0.55)";
 /** warm hairline used for every divider on this page */
 const RULE = "rgba(90,74,52,0.13)";
-const TILE_BG = "#FFFDFA";
+const TILE_BG = "#FFFFFF";
 const TILE_BORDER = "1px solid rgba(90,74,52,0.10)";
 const TILE_SHADOW = "0 1px 2px rgba(90,74,52,0.05), 0 10px 24px -10px rgba(60,45,25,0.20)";
 const TILE_SHADOW_HOVER = "0 1px 2px rgba(90,74,52,0.05), 0 16px 32px -12px rgba(60,45,25,0.26)";
