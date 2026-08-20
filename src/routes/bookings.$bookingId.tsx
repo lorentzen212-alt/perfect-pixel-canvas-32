@@ -1498,15 +1498,16 @@ function Workspace({ booking }: { booking: Booking }) {
    metallicGradient() from src/lib/instantEdits/metal.ts for base #CFCFCF at
    strength 100, angle 360 — the values set in Instant Edits. */
 const FINAL_METAL =
-  "linear-gradient(360deg, rgb(120, 120, 120) 0%, rgb(157, 157, 157) 10%, rgb(199, 199, 199) 24%, rgb(221, 221, 221) 38%, rgb(232, 232, 232) 50%, rgb(221, 221, 221) 62%, rgb(199, 199, 199) 72%, rgb(216, 216, 216) 82%, rgb(157, 157, 157) 92%, rgb(120, 120, 120) 100%)";
+  "linear-gradient(360deg, rgb(120, 120, 120) 0%, rgb(157, 157, 157) 10%, rgb(199, 199, 199) 24%, rgb(221, 221, 221) 38%, rgb(232, 232, 232) 50%, rgb(221, 221, 221) 62%, rgb(199, 199, 199) 72%, rgb(216, 216, 216) 82%, rgb(211, 211, 211) 93%, rgb(205, 205, 205) 100%)";
 /** flat mid-tone from the same ramp, so no seam shows behind the plate */
 const FINAL_METAL_BASE = "rgb(199, 199, 199)";
 
-/* the active Final Details tab merges into the TOP of the metal plate, which is
-   the rgb(120,120,120) end of FINAL_METAL because that gradient runs at 360deg.
-   Starting lighter keeps the tab reading as a raised tab and keeps TAB_INK legible. */
+/* the active Final Details tab merges into the TOP of the metal plate. FINAL_METAL
+   runs at 360deg, so its last stops are the plate's top edge — now rgb(205,205,205).
+   This ramp ends on exactly that value, so tab and plate form one continuous surface
+   while the tab stays light enough for TAB_INK to read at roughly 9:1. */
 const FINAL_TAB_SURFACE =
-  "linear-gradient(180deg, rgb(214, 214, 214) 0%, rgb(150, 150, 150) 72%, rgb(120, 120, 120) 100%)";
+  "linear-gradient(180deg, rgb(226, 226, 226) 0%, rgb(214, 214, 214) 60%, rgb(205, 205, 205) 100%)";
 
 
 const PLATE = "#F6F4EB";
