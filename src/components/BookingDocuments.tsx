@@ -563,8 +563,10 @@ export function BookingDocumentsView({
                 style={{
                   background: CARD,
                   borderRadius: "0 14px 14px 14px",
-                  boxShadow:
-                    "0 1px 2px rgba(24,30,36,0.05), 0 10px 26px -12px rgba(24,30,36,0.28)",
+                  /* no tight contact shadow: its 2px blur painted a 1px dark hairline
+                     down the folder's left and right edges. The ambient lift alone
+                     seats the folder without drawing an edge. */
+                  boxShadow: "0 10px 26px -12px rgba(24,30,36,0.28)",
                 }}
               >
                 <div
