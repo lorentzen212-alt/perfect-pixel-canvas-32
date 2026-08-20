@@ -804,8 +804,13 @@ export function FinalDetails({
           <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead icon={<Utensils size={18} strokeWidth={1.7} />} title="Meals" />
-            <div className="mt-2.5">
+            <CardHead
+              size="sm"
+              icon={<Utensils size={17} strokeWidth={1.7} />}
+              title="Meals"
+              subtitle="Set meal times and preferences"
+            />
+            <div className="mt-4">
               {meals.length === 0 ? (
                 <p className="text-[13px]" style={{ color: INK_3 }}>
                   No group meals booked
