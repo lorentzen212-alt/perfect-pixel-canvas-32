@@ -720,7 +720,7 @@ export function FinalDetails({
           <div className="flex flex-col px-7 py-7 sm:px-9" style={{ scrollMarginTop: 24 }}>
             <div ref={timesRef}>
               <CardHead
-                icon={<CalendarCheck size={22} strokeWidth={1.75} />}
+                icon={<CalendarCheck size={22} strokeWidth={1.6} />}
                 title="Arrival & Departure"
                 subtitle="Please add your expected times"
               />
@@ -733,11 +733,11 @@ export function FinalDetails({
 
           <div className="flex flex-col border-t border-[rgba(90,74,52,0.13)] px-7 py-7 sm:px-9 lg:border-l lg:border-t-0">
 
-            <CardHead
-              icon={<UserRound size={22} strokeWidth={1.75} />}
-              title="Group Contact"
-              subtitle="Who can we contact during the stay?"
-              action={
+              <CardHead
+                icon={<UserRound size={22} strokeWidth={1.6} />}
+                title="Group Contact"
+                subtitle="Who can we contact during the stay?"
+                action={
                 contact.secondary ? undefined : (
                   <PillAction
                     label="Add"
@@ -849,12 +849,12 @@ export function FinalDetails({
           <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead
-              size="md"
-              icon={<Utensils size={21} strokeWidth={1.75} />}
-              title="Meals"
-              subtitle="Set meal times and preferences"
-            />
+              <CardHead
+                size="md"
+                icon={<Utensils size={21} strokeWidth={1.6} />}
+                title="Meals"
+                subtitle="Set meal times and preferences"
+              />
             <div className="mt-4">
               {meals.length === 0 ? (
                 <p className="text-[13px]" style={{ color: INK_3 }}>
@@ -871,12 +871,12 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead
-              size="md"
-              icon={<Star size={21} strokeWidth={1.75} />}
-              title="Special Arrangements"
-              subtitle="Any special requests or arrangements"
-            />
+              <CardHead
+                size="md"
+                icon={<Star size={21} strokeWidth={1.6} />}
+                title="Special Arrangements"
+                subtitle="Any special requests or arrangements"
+              />
             <div className="mt-4">
               <Row label="Coach parking" value="Confirmed" tone="green" />
               <Row label="Extra luggage room" value="Confirmed" tone="green" />
@@ -885,12 +885,12 @@ export function FinalDetails({
           </FlatCard>
 
           <FlatCard className="flex h-full flex-col p-6">
-            <CardHead
-              size="md"
-              icon={<Sprout size={21} strokeWidth={1.75} />}
-              title="Allergies & Dietary"
-              subtitle="View or add guest allergies"
-            />
+              <CardHead
+                size="md"
+                icon={<Sprout size={21} strokeWidth={1.6} />}
+                title="Allergies & Dietary"
+                subtitle="View or add guest allergies"
+              />
             <div className="mt-4">
               <p className="text-[13px]" style={{ color: INK_2 }}>
                 {allergyCount} notes
@@ -974,7 +974,7 @@ export function FinalDetails({
         <div className="flex flex-wrap items-center gap-x-6 gap-y-4 px-7 py-6 sm:px-9">
 
           <IconTile>
-            <ShieldCheck size={22} strokeWidth={1.75} />
+            <ShieldCheck size={22} strokeWidth={1.6} />
           </IconTile>
           <p className="min-w-[240px] flex-1 text-[13px] leading-relaxed" style={{ color: INK_2 }}>
             All information is securely shared with the hotel.
