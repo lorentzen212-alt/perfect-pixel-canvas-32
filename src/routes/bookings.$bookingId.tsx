@@ -1143,15 +1143,34 @@ function Workspace({ booking }: { booking: Booking }) {
     tab === "Changes" ||
     tab === "Final Details";
 
+  /** Final Details sits on polished metal rather than the navy under-plate */
+  const isFinal = tab === "Final Details";
   /** warm ivory plate for the Group Plan tab (navy cards sit on ivory) */
   const isGroupPlan = tab === "Group Plan";
-  const PLATE_BG = isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : PLATE;
+  const PLATE_BG = isFinal
+    ? FINAL_METAL
+    : isFolder
+      ? PAGE_UNDER
+      : isGroupPlan
+        ? GROUP_PLAN_IVORY
+        : PLATE;
+
+
 
   return (
     <div
       className="flex min-h-screen flex-col"
-      style={{ backgroundColor: isFolder ? PAGE_UNDER : isGroupPlan ? GROUP_PLAN_IVORY : BG_ALT }}
+      style={{
+        background: isFinal
+          ? FINAL_METAL_BASE
+          : isFolder
+            ? PAGE_UNDER
+            : isGroupPlan
+              ? GROUP_PLAN_IVORY
+              : BG_ALT,
+      }}
     >
+
       <style>{`@keyframes hgbPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}`}</style>
 
       <aside
@@ -1250,7 +1269,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 ? "relative flex flex-1 flex-col px-5 pb-14 pt-0 sm:px-9"
                 : "relative min-h-[80vh] rounded-tl-[22px] px-5 pb-14 pt-0 sm:px-9"
           }
-          style={{ backgroundColor: PLATE_BG }}
+          style={{ background: PLATE_BG }}
         >
           {/* ══ 3 · information strip (secondary tabs keep the original strip) ══ */}
           {isFolder ? null : (
@@ -1475,9 +1494,18 @@ function Workspace({ booking }: { booking: Booking }) {
 
 /* ───────────────────────── workspace primitives ───────────────────────── */
 
+/* Final Details sits on polished metal. This is the literal output of
+   metallicGradient() from src/lib/instantEdits/metal.ts for base #CFCFCF at
+   strength 100, angle 360 — the values set in Instant Edits. */
+const FINAL_METAL =
+  "linear-gradient(360deg, rgb(120, 120, 120) 0%, rgb(157, 157, 157) 10%, rgb(199, 199, 199) 24%, rgb(221, 221, 221) 38%, rgb(232, 232, 232) 50%, rgb(221, 221, 221) 62%, rgb(199, 199, 199) 72%, rgb(216, 216, 216) 82%, rgb(157, 157, 157) 92%, rgb(120, 120, 120) 100%)";
+/** flat mid-tone from the same ramp, so no seam shows behind the plate */
+const FINAL_METAL_BASE = "rgb(199, 199, 199)";
+
 const PLATE = "#F6F4EB";
 /** warm ivory used by the Group Plan tab plate (matches BG in GroupPlan.tsx) */
 const GROUP_PLAN_IVORY = "#F5F1E9";
+
 
 const CARD_BG = "#15202B";
 const CARD_BORDER_SOFT = "#2A3A4A";
