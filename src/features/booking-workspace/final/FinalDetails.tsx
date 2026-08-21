@@ -496,7 +496,6 @@ function TimeSide({
   state,
   onState,
   onMode,
-  dateOnly = false,
 }: {
   label: "Arrival" | "Departure";
   state: SideState;
@@ -504,10 +503,7 @@ function TimeSide({
   /** mode changes route through the parent so picking "Mixed times" can turn the
    *  header toggle on; falls back to a plain state update when omitted */
   onMode?: (mode: TimeMode) => void;
-  /** show the date alone — the mixed-travel toggle already says the time varies */
-  dateOnly?: boolean;
 }) {
-  const lower = label.toLowerCase();
 
   return (
     <div className="min-w-0 flex-1">
@@ -521,39 +517,33 @@ function TimeSide({
       >
         <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
-        {!dateOnly && (
-          <>
-            <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: RULE }} />
+        <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: RULE }} />
 
-            {state.mode === "exact" && (
-              <TimeValue
-                value={state.time}
-                onChange={(time) => onState({ ...state, time })}
-                label={`${label} time`}
-              />
-            )}
-
-            {state.mode === "mixed" && (
-              <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
-                Multiple {lower} times
-              </span>
-            )}
-
-            {state.mode === "unknown" && (
-              <span className="shrink-0 text-[12.5px]" style={{ color: INK_3 }}>
-                Time not confirmed
-              </span>
-            )}
-
-            <ModeMenu
-              side={label}
-              value={state.mode}
-              onChange={(mode) =>
-                onMode ? onMode(mode) : onState({ ...state, mode })
-              }
-            />
-          </>
+        {state.mode === "exact" && (
+          <TimeValue
+            value={state.time}
+            onChange={(time) => onState({ ...state, time })}
+            label={`${label} time`}
+          />
         )}
+
+        {state.mode === "mixed" && (
+          <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
+            Mixed
+          </span>
+        )}
+
+        {state.mode === "unknown" && (
+          <span className="shrink-0 text-[12.5px]" style={{ color: INK_3 }}>
+            Time not confirmed
+          </span>
+        )}
+
+        <ModeMenu
+          side={label}
+          value={state.mode}
+          onChange={(mode) => (onMode ? onMode(mode) : onState({ ...state, mode }))}
+        />
       </div>
     </div>
   );
