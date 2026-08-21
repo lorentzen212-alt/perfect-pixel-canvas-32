@@ -496,7 +496,6 @@ function TimeSide({
   state,
   onState,
   onMode,
-  dateOnly = false,
 }: {
   label: "Arrival" | "Departure";
   state: SideState;
@@ -504,10 +503,7 @@ function TimeSide({
   /** mode changes route through the parent so picking "Mixed times" can turn the
    *  header toggle on; falls back to a plain state update when omitted */
   onMode?: (mode: TimeMode) => void;
-  /** show the date alone — the mixed-travel toggle already says the time varies */
-  dateOnly?: boolean;
 }) {
-  const lower = label.toLowerCase();
 
   return (
     <div className="min-w-0 flex-1">
@@ -521,39 +517,33 @@ function TimeSide({
       >
         <DateValue value={state.date} onChange={(date) => onState({ ...state, date })} />
 
-        {!dateOnly && (
-          <>
-            <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: RULE }} />
+        <span aria-hidden className="h-[20px] w-px shrink-0" style={{ background: RULE }} />
 
-            {state.mode === "exact" && (
-              <TimeValue
-                value={state.time}
-                onChange={(time) => onState({ ...state, time })}
-                label={`${label} time`}
-              />
-            )}
-
-            {state.mode === "mixed" && (
-              <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
-                Multiple {lower} times
-              </span>
-            )}
-
-            {state.mode === "unknown" && (
-              <span className="shrink-0 text-[12.5px]" style={{ color: INK_3 }}>
-                Time not confirmed
-              </span>
-            )}
-
-            <ModeMenu
-              side={label}
-              value={state.mode}
-              onChange={(mode) =>
-                onMode ? onMode(mode) : onState({ ...state, mode })
-              }
-            />
-          </>
+        {state.mode === "exact" && (
+          <TimeValue
+            value={state.time}
+            onChange={(time) => onState({ ...state, time })}
+            label={`${label} time`}
+          />
         )}
+
+        {state.mode === "mixed" && (
+          <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
+            Mixed
+          </span>
+        )}
+
+        {state.mode === "unknown" && (
+          <span className="shrink-0 text-[12.5px]" style={{ color: INK_3 }}>
+            Time not confirmed
+          </span>
+        )}
+
+        <ModeMenu
+          side={label}
+          value={state.mode}
+          onChange={(mode) => (onMode ? onMode(mode) : onState({ ...state, mode }))}
+        />
       </div>
     </div>
   );
@@ -617,13 +607,13 @@ export function FinalDetails({
 }) {
   const [arrival, setArrival] = React.useState<SideState>({
     date: stayStart,
-    time: "12:00",
+    time: "16:00",
     mode: "exact",
     times: [],
   });
   const [departure, setDeparture] = React.useState<SideState>({
     date: stayEnd,
-    time: "11:00",
+    time: "12:00",
     mode: "exact",
     times: [],
   });
@@ -743,14 +733,12 @@ export function FinalDetails({
                   state={arrival}
                   onState={setArrival}
                   onMode={(mode) => setSideMode(arrival, setArrival, mode)}
-                  dateOnly={mixedTravel && arrival.mode === "mixed"}
                 />
                 <TimeSide
                   label="Departure"
                   state={departure}
                   onState={setDeparture}
                   onMode={(mode) => setSideMode(departure, setDeparture, mode)}
-                  dateOnly={mixedTravel && departure.mode === "mixed"}
                 />
               </div>
             </div>
