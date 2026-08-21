@@ -736,13 +736,13 @@ export function FinalDetails({
                   label="Arrival"
                   state={arrival}
                   onState={setArrival}
-                  onMode={(mode) => setSideMode(arrival, setArrival, mode)}
+                  onMode={setArrivalMode}
                 />
                 <TimeSide
                   label="Departure"
                   state={departure}
                   onState={setDeparture}
-                  onMode={(mode) => setSideMode(departure, setDeparture, mode)}
+                  onMode={setDepartureMode}
                 />
               </div>
             </div>
