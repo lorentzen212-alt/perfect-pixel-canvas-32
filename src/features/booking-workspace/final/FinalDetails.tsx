@@ -733,14 +733,12 @@ export function FinalDetails({
                   state={arrival}
                   onState={setArrival}
                   onMode={(mode) => setSideMode(arrival, setArrival, mode)}
-                  dateOnly={mixedTravel && arrival.mode === "mixed"}
                 />
                 <TimeSide
                   label="Departure"
                   state={departure}
                   onState={setDeparture}
                   onMode={(mode) => setSideMode(departure, setDeparture, mode)}
-                  dateOnly={mixedTravel && departure.mode === "mixed"}
                 />
               </div>
             </div>
