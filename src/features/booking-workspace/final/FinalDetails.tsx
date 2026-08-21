@@ -621,25 +621,29 @@ export function FinalDetails({
   /** declares that the group travels at mixed times; each leg's chevron says which one */
   const [mixedTravel, setMixedTravel] = React.useState(false);
 
-  /** switching off returns both legs to one shared time — a date-only field has no
-   *  chevron left to click, so this is the only way back out of a mixed leg */
+  /** the toggle is a shortcut for "both legs are mixed"; a leg that does have one
+   *  shared time is set back to Exact from its own chevron */
   const setMixedTravelState = (next: boolean) => {
     setMixedTravel(next);
-    if (!next) {
+    if (next) {
+      setArrival({ ...arrival, mode: "mixed" });
+      setDeparture({ ...departure, mode: "mixed" });
+    } else {
       if (arrival.mode === "mixed") setArrival({ ...arrival, mode: "exact" });
       if (departure.mode === "mixed") setDeparture({ ...departure, mode: "exact" });
     }
   };
 
-  /** choosing "Mixed times" on a leg turns the header control on, so the two never
-   *  contradict each other */
-  const setSideMode = (
-    side: SideState,
-    onSide: (next: SideState) => void,
-    mode: TimeMode,
-  ) => {
-    onSide({ ...side, mode });
-    if (mode === "mixed") setMixedTravel(true);
+  /* Per-leg overrides keep the header honest in both directions: the toggle means
+     "at least one leg is mixed", so it follows the fields up and back down again. */
+  const setArrivalMode = (mode: TimeMode) => {
+    setArrival({ ...arrival, mode });
+    setMixedTravel(mode === "mixed" || departure.mode === "mixed");
+  };
+
+  const setDepartureMode = (mode: TimeMode) => {
+    setDeparture({ ...departure, mode });
+    setMixedTravel(mode === "mixed" || arrival.mode === "mixed");
   };
 
   const seededRole = React.useMemo(() => {
