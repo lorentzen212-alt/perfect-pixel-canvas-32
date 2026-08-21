@@ -607,13 +607,13 @@ export function FinalDetails({
 }) {
   const [arrival, setArrival] = React.useState<SideState>({
     date: stayStart,
-    time: "12:00",
+    time: "16:00",
     mode: "exact",
     times: [],
   });
   const [departure, setDeparture] = React.useState<SideState>({
     date: stayEnd,
-    time: "11:00",
+    time: "12:00",
     mode: "exact",
     times: [],
   });
