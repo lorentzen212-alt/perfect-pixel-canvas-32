@@ -465,10 +465,11 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
               className="shrink-0 rounded-[4px] px-1.5 py-[1px] text-[9px] font-bold uppercase"
               style={{
                 letterSpacing: "0.12em",
-                color: "#8C6115",
-                background: "rgba(199,154,46,0.18)",
-                border: "1px solid rgba(169,120,36,0.35)",
+                color: NAVY,
+                background: "rgba(13,28,43,0.06)",
+                border: "1px solid rgba(50,60,65,0.12)",
               }}
+
             >
               Current
             </span>
