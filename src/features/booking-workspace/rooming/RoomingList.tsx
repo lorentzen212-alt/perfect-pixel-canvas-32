@@ -702,10 +702,10 @@ function SmallOutline({
 function VersionRow({ v }: { v: RoomingVersionRow }) {
   return (
     <li
-      className="relative flex items-center gap-4 py-[18px] pl-[14px] pr-[10px]"
+      className="relative flex items-center gap-4 py-[20px] pl-[14px] pr-[10px]"
       style={{
         borderRadius: 13,
-        minHeight: 110,
+        minHeight: 118,
         background: v.current ? "#FBFAF7" : "#FFFFFF",
         border: v.current ? "1px solid rgba(13,28,43,0.22)" : "1px solid rgba(50,60,65,0.10)",
         overflow: "hidden",
@@ -720,9 +720,9 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
       ) : null}
 
       <span
-        className="grid h-[52px] w-[52px] shrink-0 place-items-center text-[15px] font-bold tabular-nums"
+        className="grid h-[56px] w-[56px] shrink-0 place-items-center text-[15.5px] font-bold tabular-nums"
         style={{
-          borderRadius: 15,
+          borderRadius: 16,
           background: v.current ? NAVY : "#FBFAF7",
           border: v.current ? `1px solid ${NAVY}` : "1px solid rgba(50,60,65,0.12)",
           color: v.current ? GOLD_ICON : INK_2,
@@ -733,7 +733,7 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
 
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-2">
-          <span className="truncate text-[15.5px] font-semibold" style={{ color: INK }}>
+          <span className="truncate text-[16px] font-semibold" style={{ color: INK }}>
             {v.name}
           </span>
           {v.current ? (
@@ -750,10 +750,10 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
             </span>
           ) : null}
         </span>
-        <span className="mt-[6px] block truncate text-[11.5px]" style={{ color: INK_2 }}>
+        <span className="mt-[7px] block truncate text-[11.5px]" style={{ color: INK_2 }}>
           {v.timestamp}
         </span>
-        <span className="mt-[6px] flex items-center gap-2 text-[11.5px]" style={{ color: "rgba(27,37,48,0.55)" }}>
+        <span className="mt-[7px] flex items-center gap-2 text-[11.5px]" style={{ color: "rgba(27,37,48,0.55)" }}>
           <span className="inline-flex items-center gap-1 tabular-nums">
             <Users size={12} strokeWidth={1.6} />
             {v.guests} / {v.guestsTotal} guests
@@ -812,7 +812,7 @@ function Versions({
 }) {
   if (!versions.length) return null;
   return (
-    <div className="mt-[22px] pt-[18px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
+    <div className="mt-[26px] pt-[18px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
           Versions
