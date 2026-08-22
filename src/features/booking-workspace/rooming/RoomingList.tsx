@@ -621,11 +621,26 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         />
       </div>
 
-      <ul className="mt-[8px] flex flex-col gap-[3px]">
-        {rows.map((r) => (
-          <TypeRow key={r.label} label={r.label} rooms={r.rooms} guests={r.guests} />
+      <ul
+        className="mt-[8px] flex flex-col"
+        style={{
+          background: CARD_SURFACE,
+          border: HAIRLINE,
+          borderRadius: 8,
+          boxShadow: SOFT_SHADOW,
+          overflow: "hidden",
+        }}
+      >
+        {rows.map((r, i) => (
+          <TypeRow
+            key={r.label}
+            label={r.label}
+            rooms={r.rooms}
+            guests={r.guests}
+            isFirst={i === 0}
+          />
         ))}
-        <OtherTypesRow />
+        <OtherTypesRow isFirst={rows.length === 0} />
       </ul>
 
       <Link
