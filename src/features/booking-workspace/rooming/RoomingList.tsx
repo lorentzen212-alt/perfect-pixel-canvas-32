@@ -859,43 +859,40 @@ function Actions({
 }) {
   return (
     <Card className="flex h-full flex-col px-5 pb-4 pt-[15px] sm:px-6" style={SOFT_CARD}>
-      <span
-        className="text-[11.5px] font-semibold uppercase"
-        style={EYEBROW_STYLE}
-      >
+      <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
         Rooming list actions
       </span>
 
       <ul
         className="mt-[13px] flex-1 grid grid-cols-1 gap-[16px] grid-rows-1 md:grid-cols-3"
-        style={{ minHeight: 240, height: "100%" }}
+        style={{ minHeight: 200, maxHeight: 236 }}
       >
         <li
-          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] border border-[rgba(160,120,55,0.18)] text-center shadow-[0_3px_5px_rgba(15,35,55,0.05),0_8px_18px_rgba(15,35,55,0.06),inset_0_1px_0_rgba(255,255,255,0.65)] transition-[transform,box-shadow,border-color] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[rgba(160,120,55,0.28)] hover:shadow-[0_6px_10px_rgba(15,35,55,0.07),0_14px_26px_rgba(15,35,55,0.08),inset_0_1px_0_rgba(255,255,255,0.7)]"
           style={{
-            padding: "22px 18px",
-            height: "100%",
+            padding: "18px 18px",
             background: "rgba(247,236,214,0.55)",
-            border: "1px solid rgba(198,160,92,0.28)",
-            boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
           }}
         >
-          <NavyTile size={56} radius={15}>
+          <NavyTile size={66} radius={17}>
             <span style={{ color: GOLD_ICON }}>
-              <ClipboardList size={26} strokeWidth={1.5} />
+              <ClipboardList size={30} strokeWidth={1.5} />
             </span>
           </NavyTile>
-          <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
+          <span className="mt-[14px] text-[17px] font-semibold" style={{ color: INK }}>
             Continue editing
           </span>
-          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
+          <span
+            className="mt-[6px] min-h-[41px] max-w-[230px] text-balance text-[14px] leading-[1.45]"
+            style={{ color: INK_2 }}
+          >
             Add more guests or adjust room assignments.
           </span>
           <Link
             to="/bookings/$bookingId"
             search={{ tab: "Rooming List" }}
             params={{ bookingId }}
-            className="mt-auto w-full pt-5"
+            className="mt-[18px] w-full"
           >
             <NavyButton className="w-full" style={{ height: 46, borderRadius: 10, fontSize: 13.5 }}>
               Continue
@@ -905,31 +902,31 @@ function Actions({
         </li>
 
         <li
-          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] border border-[rgba(15,35,55,0.08)] text-center shadow-[0_3px_5px_rgba(15,35,55,0.05),0_8px_18px_rgba(15,35,55,0.06),inset_0_1px_0_rgba(255,255,255,0.65)] transition-[transform,box-shadow,border-color] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[rgba(15,35,55,0.15)] hover:shadow-[0_6px_10px_rgba(15,35,55,0.07),0_14px_26px_rgba(15,35,55,0.08),inset_0_1px_0_rgba(255,255,255,0.7)]"
           style={{
-            padding: "22px 18px",
-            height: "100%",
+            padding: "18px 18px",
             background: "#F4F7F8",
-            border: "1px solid rgba(50,70,85,0.12)",
-            boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
           }}
         >
-          <NavyTile size={56} radius={15}>
+          <NavyTile size={66} radius={17}>
             <span style={{ color: GOLD_ICON }}>
-              <Layers size={26} strokeWidth={1.5} />
+              <Layers size={30} strokeWidth={1.5} />
             </span>
           </NavyTile>
-          <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
+          <span className="mt-[14px] text-[17px] font-semibold" style={{ color: INK }}>
             Create new version
           </span>
-          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
+          <span
+            className="mt-[6px] min-h-[41px] max-w-[230px] text-balance text-[14px] leading-[1.45]"
+            style={{ color: INK_2 }}
+          >
             Save a new version of the rooming list.
           </span>
-          <div className="mt-auto w-full pt-5">
+          <div className="mt-[18px] w-full">
             <button
               type="button"
               onClick={onNewVersion}
-              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors duration-150 hover:bg-[rgba(13,28,43,0.05)] hover:border-[rgba(50,60,65,0.30)]"
               style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
             >
               Create new version
@@ -939,31 +936,31 @@ function Actions({
         </li>
 
         <li
-          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] border border-[rgba(15,35,55,0.08)] text-center shadow-[0_3px_5px_rgba(15,35,55,0.05),0_8px_18px_rgba(15,35,55,0.06),inset_0_1px_0_rgba(255,255,255,0.65)] transition-[transform,box-shadow,border-color] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[rgba(15,35,55,0.15)] hover:shadow-[0_6px_10px_rgba(15,35,55,0.07),0_14px_26px_rgba(15,35,55,0.08),inset_0_1px_0_rgba(255,255,255,0.7)]"
           style={{
-            padding: "22px 18px",
-            height: "100%",
+            padding: "18px 18px",
             background: "#F4F7F3",
-            border: "1px solid rgba(72,90,68,0.13)",
-            boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
           }}
         >
-          <NavyTile size={56} radius={15}>
+          <NavyTile size={66} radius={17}>
             <span style={{ color: GOLD_ICON }}>
-              <Upload size={26} strokeWidth={1.5} />
+              <Upload size={30} strokeWidth={1.5} />
             </span>
           </NavyTile>
-          <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
+          <span className="mt-[14px] text-[17px] font-semibold" style={{ color: INK }}>
             Upload rooming list
           </span>
-          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
+          <span
+            className="mt-[6px] min-h-[41px] max-w-[230px] text-balance text-[14px] leading-[1.45]"
+            style={{ color: INK_2 }}
+          >
             Upload a file (Excel or PDF) and we'll help you.
           </span>
-          <div className="mt-auto w-full pt-5">
+          <div className="mt-[18px] w-full">
             <button
               type="button"
               onClick={onUpload}
-              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors duration-150 hover:bg-[rgba(13,28,43,0.05)] hover:border-[rgba(50,60,65,0.30)]"
               style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
             >
               Upload file
@@ -972,8 +969,6 @@ function Actions({
           </div>
         </li>
       </ul>
-
-
 
       <Versions versions={versions} onNewVersion={onNewVersion} onHistory={onHistory} />
     </Card>
