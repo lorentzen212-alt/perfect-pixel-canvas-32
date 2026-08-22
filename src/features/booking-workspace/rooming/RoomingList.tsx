@@ -397,7 +397,7 @@ function TextLink({
       type="button"
       onClick={onClick}
       className="inline-flex items-center gap-1 text-[11.5px] font-semibold transition-opacity hover:opacity-70"
-      style={{ color: "#A97824" }}
+      style={{ color: "rgba(13,28,43,0.72)" }}
     >
       {children}
     </button>
