@@ -373,16 +373,16 @@ function TypeRow({
       className="grid items-center gap-3"
       style={{
         gridTemplateColumns: ROW_GRID,
-        minHeight: 56,
-        padding: "10px 16px",
+        minHeight: 60,
+        padding: "10px 18px",
         background: muted ? "#FAFAF9" : CARD_SURFACE,
         border: HAIRLINE,
-        borderRadius: 13,
+        borderRadius: 9,
         boxShadow: muted ? "none" : SOFT_SHADOW,
       }}
     >
       <span className="flex min-w-0 items-center gap-3">
-        <NavyTile size={38} radius={10} background={muted ? "#C9CDD2" : undefined}>
+        <NavyTile size={38} radius={8} background={muted ? "#C9CDD2" : undefined}>
           <Users
             size={18}
             strokeWidth={1.5}
