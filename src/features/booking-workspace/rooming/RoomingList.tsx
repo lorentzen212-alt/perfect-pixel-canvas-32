@@ -653,9 +653,7 @@ function Actions({
         ))}
       </ul>
 
-          </li>
-        ))}
-      </ul>
+
 
       <Versions versions={versions} onNewVersion={onNewVersion} onHistory={onHistory} />
     </Card>
