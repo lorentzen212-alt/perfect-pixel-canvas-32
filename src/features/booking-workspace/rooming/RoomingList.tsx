@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Bed,
   CalendarClock,
-  ChevronDown,
   ClipboardList,
   Eye,
   History,
@@ -16,9 +15,9 @@ import {
   Upload,
   Users,
 } from "lucide-react";
-import { SERIF } from "@/components/DashboardChrome";
-import { Card, Eyebrow, Medallion, Plate } from "../overview/primitives";
-import { GOLD, INK, INK_2 } from "../overview/materials";
+import { Card, Eyebrow, Plate } from "../overview/primitives";
+import { INK, INK_2 } from "../overview/materials";
+
 
 export interface RoomingTypeRow {
   label: string;
