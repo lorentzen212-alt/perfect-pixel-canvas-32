@@ -894,7 +894,7 @@ function Actions({
           <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
             Continue editing
           </span>
-          <span className="mt-2 max-w-[230px] text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
+          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
             Add more guests or adjust room assignments.
           </span>
           <Link
@@ -927,7 +927,7 @@ function Actions({
           <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
             Create new version
           </span>
-          <span className="mt-2 max-w-[230px] text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
+          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
             Save a new version of the rooming list.
           </span>
           <button
@@ -958,7 +958,7 @@ function Actions({
           <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
             Upload rooming list
           </span>
-          <span className="mt-2 max-w-[230px] text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
+          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
             Upload a file (Excel or PDF) and we'll help you.
           </span>
           <button
