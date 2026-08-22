@@ -157,8 +157,6 @@ function OutlineButton({
   );
 }
 
-/* shared card radius override for the Rooming tab */
-const CARD_RADIUS = 6;
 
 function IconTile({ children }: { children: React.ReactNode }) {
   return <NavyTile size={34} radius={9}>{children}</NavyTile>;
