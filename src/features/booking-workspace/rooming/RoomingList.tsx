@@ -702,7 +702,7 @@ function SmallOutline({
 function VersionRow({ v }: { v: RoomingVersionRow }) {
   return (
     <li
-      className="relative flex items-center gap-3 py-[11px] pl-[14px] pr-[10px]"
+      className="relative flex items-center gap-3.5 py-[15px] pl-[14px] pr-[10px]"
       style={{
         borderRadius: 13,
         background: v.current ? "#FBFAF7" : "#FFFFFF",
@@ -719,9 +719,9 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
       ) : null}
 
       <span
-        className="grid h-[34px] w-[34px] shrink-0 place-items-center text-[12px] font-bold tabular-nums"
+        className="grid h-[45px] w-[45px] shrink-0 place-items-center text-[13.5px] font-bold tabular-nums"
         style={{
-          borderRadius: 11,
+          borderRadius: 13,
           background: v.current ? NAVY : "#FBFAF7",
           border: v.current ? `1px solid ${NAVY}` : "1px solid rgba(50,60,65,0.12)",
           color: v.current ? GOLD_ICON : INK_2,
@@ -730,10 +730,9 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
         {v.short}
       </span>
 
-
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-2">
-          <span className="truncate text-[13.5px] font-semibold" style={{ color: INK }}>
+          <span className="truncate text-[14.5px] font-semibold" style={{ color: INK }}>
             {v.name}
           </span>
           {v.current ? (
@@ -745,16 +744,15 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
                 background: "rgba(13,28,43,0.06)",
                 border: "1px solid rgba(50,60,65,0.12)",
               }}
-
             >
               Current
             </span>
           ) : null}
         </span>
-        <span className="mt-[2px] block truncate text-[11.5px]" style={{ color: INK_2 }}>
+        <span className="mt-[5px] block truncate text-[11.5px]" style={{ color: INK_2 }}>
           {v.timestamp}
         </span>
-        <span className="mt-[3px] flex items-center gap-2 text-[11.5px]" style={{ color: "rgba(27,37,48,0.55)" }}>
+        <span className="mt-[5px] flex items-center gap-2 text-[11.5px]" style={{ color: "rgba(27,37,48,0.55)" }}>
           <span className="inline-flex items-center gap-1 tabular-nums">
             <Users size={12} strokeWidth={1.6} />
             {v.guests} / {v.guestsTotal} guests
@@ -773,7 +771,6 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
             className="inline-flex items-center rounded-full px-3 py-[5px] text-[11.5px] font-semibold"
             style={{ color: INK_NAVY, border: "1px solid rgba(50,60,65,0.16)", background: "rgba(13,28,43,0.04)" }}
           >
-
             Current
           </span>
         ) : (
@@ -814,13 +811,9 @@ function Versions({
 }) {
   if (!versions.length) return null;
   return (
-    <div className="mt-[22px] pt-[18px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
+    <div className="mt-[16px] pt-[15px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span
-          className="text-[11.5px] font-semibold uppercase"
-          style={EYEBROW_STYLE}
-
-        >
+        <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
           Versions
         </span>
         <span className="flex items-center gap-2.5">
@@ -842,7 +835,7 @@ function Versions({
         ))}
       </ul>
 
-      <p className="mt-[10px] flex items-center gap-1.5 text-[11px]" style={{ color: "rgba(27,37,48,0.50)" }}>
+      <p className="mt-[9px] flex items-center gap-1.5 text-[11px]" style={{ color: "rgba(27,37,48,0.50)" }}>
         <Info size={12} />
         Restoring a version will create a new version based on it.
       </p>
@@ -866,43 +859,40 @@ function Actions({
 }) {
   return (
     <Card className="flex h-full flex-col px-5 pb-4 pt-[15px] sm:px-6" style={SOFT_CARD}>
-      <span
-        className="text-[11.5px] font-semibold uppercase"
-        style={EYEBROW_STYLE}
-      >
+      <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
         Rooming list actions
       </span>
 
       <ul
         className="mt-[13px] flex-1 grid grid-cols-1 gap-[16px] grid-rows-1 md:grid-cols-3"
-        style={{ minHeight: 240, height: "100%" }}
+        style={{ minHeight: 200, maxHeight: 236 }}
       >
         <li
-          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] border border-[rgba(160,120,55,0.18)] text-center shadow-[0_3px_5px_rgba(15,35,55,0.05),0_8px_18px_rgba(15,35,55,0.06),inset_0_1px_0_rgba(255,255,255,0.65)] transition-[transform,box-shadow,border-color] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[rgba(160,120,55,0.28)] hover:shadow-[0_6px_10px_rgba(15,35,55,0.07),0_14px_26px_rgba(15,35,55,0.08),inset_0_1px_0_rgba(255,255,255,0.7)]"
           style={{
-            padding: "22px 18px",
-            height: "100%",
+            padding: "18px 18px",
             background: "rgba(247,236,214,0.55)",
-            border: "1px solid rgba(198,160,92,0.28)",
-            boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
           }}
         >
-          <NavyTile size={56} radius={15}>
+          <NavyTile size={66} radius={17}>
             <span style={{ color: GOLD_ICON }}>
-              <ClipboardList size={26} strokeWidth={1.5} />
+              <ClipboardList size={30} strokeWidth={1.5} />
             </span>
           </NavyTile>
-          <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
+          <span className="mt-[14px] text-[17px] font-semibold" style={{ color: INK }}>
             Continue editing
           </span>
-          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
+          <span
+            className="mt-[6px] min-h-[41px] max-w-[230px] text-balance text-[14px] leading-[1.45]"
+            style={{ color: INK_2 }}
+          >
             Add more guests or adjust room assignments.
           </span>
           <Link
             to="/bookings/$bookingId"
             search={{ tab: "Rooming List" }}
             params={{ bookingId }}
-            className="mt-auto w-full pt-5"
+            className="mt-[18px] w-full"
           >
             <NavyButton className="w-full" style={{ height: 46, borderRadius: 10, fontSize: 13.5 }}>
               Continue
@@ -912,31 +902,31 @@ function Actions({
         </li>
 
         <li
-          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] border border-[rgba(15,35,55,0.08)] text-center shadow-[0_3px_5px_rgba(15,35,55,0.05),0_8px_18px_rgba(15,35,55,0.06),inset_0_1px_0_rgba(255,255,255,0.65)] transition-[transform,box-shadow,border-color] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[rgba(15,35,55,0.15)] hover:shadow-[0_6px_10px_rgba(15,35,55,0.07),0_14px_26px_rgba(15,35,55,0.08),inset_0_1px_0_rgba(255,255,255,0.7)]"
           style={{
-            padding: "22px 18px",
-            height: "100%",
+            padding: "18px 18px",
             background: "#F4F7F8",
-            border: "1px solid rgba(50,70,85,0.12)",
-            boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
           }}
         >
-          <NavyTile size={56} radius={15}>
+          <NavyTile size={66} radius={17}>
             <span style={{ color: GOLD_ICON }}>
-              <Layers size={26} strokeWidth={1.5} />
+              <Layers size={30} strokeWidth={1.5} />
             </span>
           </NavyTile>
-          <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
+          <span className="mt-[14px] text-[17px] font-semibold" style={{ color: INK }}>
             Create new version
           </span>
-          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
+          <span
+            className="mt-[6px] min-h-[41px] max-w-[230px] text-balance text-[14px] leading-[1.45]"
+            style={{ color: INK_2 }}
+          >
             Save a new version of the rooming list.
           </span>
-          <div className="mt-auto w-full pt-5">
+          <div className="mt-[18px] w-full">
             <button
               type="button"
               onClick={onNewVersion}
-              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors duration-150 hover:bg-[rgba(13,28,43,0.05)] hover:border-[rgba(50,60,65,0.30)]"
               style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
             >
               Create new version
@@ -946,31 +936,31 @@ function Actions({
         </li>
 
         <li
-          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] border border-[rgba(15,35,55,0.08)] text-center shadow-[0_3px_5px_rgba(15,35,55,0.05),0_8px_18px_rgba(15,35,55,0.06),inset_0_1px_0_rgba(255,255,255,0.65)] transition-[transform,box-shadow,border-color] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[rgba(15,35,55,0.15)] hover:shadow-[0_6px_10px_rgba(15,35,55,0.07),0_14px_26px_rgba(15,35,55,0.08),inset_0_1px_0_rgba(255,255,255,0.7)]"
           style={{
-            padding: "22px 18px",
-            height: "100%",
+            padding: "18px 18px",
             background: "#F4F7F3",
-            border: "1px solid rgba(72,90,68,0.13)",
-            boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
           }}
         >
-          <NavyTile size={56} radius={15}>
+          <NavyTile size={66} radius={17}>
             <span style={{ color: GOLD_ICON }}>
-              <Upload size={26} strokeWidth={1.5} />
+              <Upload size={30} strokeWidth={1.5} />
             </span>
           </NavyTile>
-          <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
+          <span className="mt-[14px] text-[17px] font-semibold" style={{ color: INK }}>
             Upload rooming list
           </span>
-          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
+          <span
+            className="mt-[6px] min-h-[41px] max-w-[230px] text-balance text-[14px] leading-[1.45]"
+            style={{ color: INK_2 }}
+          >
             Upload a file (Excel or PDF) and we'll help you.
           </span>
-          <div className="mt-auto w-full pt-5">
+          <div className="mt-[18px] w-full">
             <button
               type="button"
               onClick={onUpload}
-              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors duration-150 hover:bg-[rgba(13,28,43,0.05)] hover:border-[rgba(50,60,65,0.30)]"
               style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
             >
               Upload file
@@ -979,8 +969,6 @@ function Actions({
           </div>
         </li>
       </ul>
-
-
 
       <Versions versions={versions} onNewVersion={onNewVersion} onHistory={onHistory} />
     </Card>
