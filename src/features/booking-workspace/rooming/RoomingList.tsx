@@ -702,7 +702,7 @@ function SmallOutline({
 function VersionRow({ v }: { v: RoomingVersionRow }) {
   return (
     <li
-      className="relative flex items-center gap-3 py-[11px] pl-[14px] pr-[10px]"
+      className="relative flex items-center gap-3.5 py-[15px] pl-[14px] pr-[10px]"
       style={{
         borderRadius: 13,
         background: v.current ? "#FBFAF7" : "#FFFFFF",
@@ -719,9 +719,9 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
       ) : null}
 
       <span
-        className="grid h-[34px] w-[34px] shrink-0 place-items-center text-[12px] font-bold tabular-nums"
+        className="grid h-[45px] w-[45px] shrink-0 place-items-center text-[13.5px] font-bold tabular-nums"
         style={{
-          borderRadius: 11,
+          borderRadius: 13,
           background: v.current ? NAVY : "#FBFAF7",
           border: v.current ? `1px solid ${NAVY}` : "1px solid rgba(50,60,65,0.12)",
           color: v.current ? GOLD_ICON : INK_2,
@@ -730,10 +730,9 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
         {v.short}
       </span>
 
-
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-2">
-          <span className="truncate text-[13.5px] font-semibold" style={{ color: INK }}>
+          <span className="truncate text-[14.5px] font-semibold" style={{ color: INK }}>
             {v.name}
           </span>
           {v.current ? (
@@ -745,16 +744,15 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
                 background: "rgba(13,28,43,0.06)",
                 border: "1px solid rgba(50,60,65,0.12)",
               }}
-
             >
               Current
             </span>
           ) : null}
         </span>
-        <span className="mt-[2px] block truncate text-[11.5px]" style={{ color: INK_2 }}>
+        <span className="mt-[5px] block truncate text-[11.5px]" style={{ color: INK_2 }}>
           {v.timestamp}
         </span>
-        <span className="mt-[3px] flex items-center gap-2 text-[11.5px]" style={{ color: "rgba(27,37,48,0.55)" }}>
+        <span className="mt-[5px] flex items-center gap-2 text-[11.5px]" style={{ color: "rgba(27,37,48,0.55)" }}>
           <span className="inline-flex items-center gap-1 tabular-nums">
             <Users size={12} strokeWidth={1.6} />
             {v.guests} / {v.guestsTotal} guests
@@ -773,7 +771,6 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
             className="inline-flex items-center rounded-full px-3 py-[5px] text-[11.5px] font-semibold"
             style={{ color: INK_NAVY, border: "1px solid rgba(50,60,65,0.16)", background: "rgba(13,28,43,0.04)" }}
           >
-
             Current
           </span>
         ) : (
