@@ -415,8 +415,9 @@ function SmallOutline({
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 rounded-[5px] px-2.5 py-[5px] text-[11.5px] font-semibold transition-colors hover:bg-[rgba(176,112,15,0.06)]"
-      style={{ color: "#A97824", border: "1px solid rgba(169,120,36,0.55)", background: "transparent" }}
+      className="inline-flex items-center gap-1.5 rounded-[5px] px-2.5 py-[5px] text-[11.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+      style={{ color: "rgba(13,28,43,0.72)", border: "1px solid rgba(50,60,65,0.14)", background: "transparent" }}
+
     >
       {children}
     </button>
