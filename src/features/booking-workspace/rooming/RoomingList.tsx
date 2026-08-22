@@ -510,12 +510,12 @@ function OtherTypesRow({ isFirst }: { isFirst?: boolean }) {
         style={{
           gridTemplateColumns: ROW_GRID,
           minHeight: 66,
-          padding: "6px 18px",
+          padding: "6px 18px 6px 10px",
           background: "transparent",
           border: "none",
         }}
       >
-        <span className="flex min-w-0 items-center gap-3">
+        <span className="flex min-w-0 items-center gap-2.5">
           <NavyTile size={54} radius={12} background="#C9CDD2">
             <span style={{ color: "#FFFFFF", display: "flex" }}>
               <BedIcon variant="other" size={28} />
