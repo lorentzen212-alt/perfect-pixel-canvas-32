@@ -205,7 +205,7 @@ function StatusStrip({
             <span
               aria-hidden
               className="h-[7px] w-[7px] shrink-0 rounded-full"
-              style={{ background: "#C79A2E" }}
+              style={{ background: GOLD_ICON }}
             />
             <span className="truncate text-[14.5px] font-semibold" style={{ color: INK }}>
               {data.status}
@@ -231,7 +231,7 @@ function StatusStrip({
               className="block h-full rounded-full"
               style={{
                 width: `${pct}%`,
-                background: "linear-gradient(90deg, #C79A2E 0%, #E0BE63 100%)",
+                background: NAVY,
               }}
             />
           </span>
@@ -278,7 +278,7 @@ function StatusStrip({
             type="button"
             onClick={onHistory}
             className="inline-flex items-center gap-1.5 text-[11.5px] font-medium transition-opacity hover:opacity-70"
-            style={{ color: GOLD }}
+            style={{ color: "rgba(13,28,43,0.72)" }}
           >
             View history
             <ArrowRight size={12} />
