@@ -493,14 +493,13 @@ function TypeRow({
   );
 }
 
-function OtherTypesRow() {
+function OtherTypesRow({ isFirst }: { isFirst?: boolean }) {
   const [open, setOpen] = React.useState(false);
   return (
     <li
       style={{
         background: "#FAFAF9",
-        border: HAIRLINE,
-        borderRadius: 5,
+        borderTop: isFirst ? undefined : "1px solid rgba(13,28,43,0.08)",
       }}
     >
       <button
@@ -514,13 +513,12 @@ function OtherTypesRow() {
           padding: "10px 18px",
           background: "transparent",
           border: "none",
-          borderRadius: 5,
         }}
       >
         <span className="flex min-w-0 items-center gap-3">
           <NavyTile size={38} radius={9} background="#C9CDD2">
             <span style={{ color: "#FFFFFF", display: "flex" }}>
-              <PeopleIcon count={1} size={18} />
+              <BedIcon variant="other" size={17} />
             </span>
           </NavyTile>
           <span className="flex min-w-0 items-center gap-1.5">
