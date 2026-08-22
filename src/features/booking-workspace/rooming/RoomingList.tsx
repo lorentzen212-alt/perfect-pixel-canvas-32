@@ -466,15 +466,15 @@ function TypeRow({
       style={{
         gridTemplateColumns: ROW_GRID,
         minHeight: 66,
-        padding: "10px 18px",
+        padding: "6px 18px",
         background: muted ? "#FAFAF9" : "transparent",
         borderTop: isFirst ? undefined : "1px solid rgba(13,28,43,0.08)",
       }}
     >
       <span className="flex min-w-0 items-center gap-3">
-        <NavyTile size={46} radius={11} background={muted ? "#C9CDD2" : undefined}>
+        <NavyTile size={54} radius={12} background={muted ? "#C9CDD2" : undefined}>
           <span style={{ color: "#FFFFFF", display: "flex" }}>
-            <BedIcon variant={bedVariantFor(label)} size={24} />
+            <BedIcon variant={bedVariantFor(label)} size={28} />
           </span>
         </NavyTile>
         <span
@@ -510,15 +510,15 @@ function OtherTypesRow({ isFirst }: { isFirst?: boolean }) {
         style={{
           gridTemplateColumns: ROW_GRID,
           minHeight: 66,
-          padding: "10px 18px",
+          padding: "6px 18px",
           background: "transparent",
           border: "none",
         }}
       >
         <span className="flex min-w-0 items-center gap-3">
-          <NavyTile size={46} radius={11} background="#C9CDD2">
+          <NavyTile size={54} radius={12} background="#C9CDD2">
             <span style={{ color: "#FFFFFF", display: "flex" }}>
-              <BedIcon variant="other" size={24} />
+              <BedIcon variant="other" size={28} />
             </span>
           </NavyTile>
           <span className="flex min-w-0 items-center gap-1.5">
