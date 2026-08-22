@@ -864,30 +864,6 @@ function Actions({
   onUpload?: () => void;
   onHistory?: () => void;
 }) {
-  const rows = [
-    {
-      icon: <ClipboardList size={20} strokeWidth={1.5} />,
-      title: "Continue editing",
-      desc: "Add more guests or adjust room assignments.",
-      label: "Continue",
-      link: true,
-    },
-    {
-      icon: <Layers size={20} strokeWidth={1.5} />,
-      title: "Create new version",
-      desc: "Save a new version of the rooming list.",
-      label: "Create new version",
-      onClick: onNewVersion,
-    },
-    {
-      icon: <Upload size={20} strokeWidth={1.5} />,
-      title: "Upload rooming list",
-      desc: "Upload a file (Excel or PDF) and we'll help you.",
-      label: "Upload file",
-      onClick: onUpload,
-    },
-  ];
-
   return (
     <Card className="flex h-full flex-col px-5 pb-4 pt-[15px] sm:px-6" style={SOFT_CARD}>
       <span
@@ -897,40 +873,98 @@ function Actions({
         Rooming list actions
       </span>
 
-      <ul className="mt-2 flex flex-1 flex-col justify-around">
-        {rows.map((r, i) => (
-          <li
-            key={r.title}
-            className="flex items-center gap-3.5 py-[18px]"
-            style={{ borderTop: i === 0 ? undefined : "1px solid rgba(50,60,65,0.10)" }}
-          >
-            <NavyTile size={38} radius={11}>
-              <span style={{ color: GOLD_ICON }}>{r.icon}</span>
-            </NavyTile>
-            <span className="min-w-0 flex-1">
-              <span className="block text-[14px] font-semibold leading-snug" style={{ color: INK }}>
-                {r.title}
-              </span>
-              <span className="mt-[2px] block text-[12.5px] leading-snug" style={{ color: INK_2 }}>
-                {r.desc}
-              </span>
+      <ul className="mt-[11px] grid grid-cols-1 gap-[13px] md:grid-cols-3">
+        <li
+          className="flex flex-col items-center rounded-[11px] p-[18px] text-center"
+          style={{
+            background: "rgba(247,236,214,0.55)",
+            border: "1px solid rgba(198,160,92,0.28)",
+            boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
+          }}
+        >
+          <NavyTile size={44} radius={13}>
+            <span style={{ color: GOLD_ICON }}>
+              <ClipboardList size={20} strokeWidth={1.5} />
             </span>
-            {r.link ? (
-              <Link to="/bookings/$bookingId"
-              search={{ tab: "Rooming List" }} params={{ bookingId }} className="shrink-0">
-                <NavyButton className="w-[176px] py-[9px]">
-                  {r.label}
-                  <ArrowRight size={13} />
-                </NavyButton>
-              </Link>
-            ) : (
-              <NavyButton className="w-[176px] shrink-0 py-[9px]" onClick={r.onClick}>
-                {r.label}
-                <ArrowRight size={13} />
-              </NavyButton>
-            )}
-          </li>
-        ))}
+          </NavyTile>
+          <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
+            Continue editing
+          </span>
+          <span className="mt-[5px] max-w-[160px] text-[12.5px] leading-snug" style={{ color: INK_2 }}>
+            Add more guests or adjust room assignments.
+          </span>
+          <Link
+            to="/bookings/$bookingId"
+            search={{ tab: "Rooming List" }}
+            params={{ bookingId }}
+            className="mt-auto w-full"
+          >
+            <NavyButton className="w-full" style={{ height: 40, borderRadius: 9 }}>
+              Continue
+              <ArrowRight size={13} />
+            </NavyButton>
+          </Link>
+        </li>
+
+        <li
+          className="flex flex-col items-center rounded-[11px] p-[18px] text-center"
+          style={{
+            background: "#F4F7F8",
+            border: "1px solid rgba(50,70,85,0.12)",
+            boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
+          }}
+        >
+          <NavyTile size={44} radius={13}>
+            <span style={{ color: GOLD_ICON }}>
+              <Layers size={20} strokeWidth={1.5} />
+            </span>
+          </NavyTile>
+          <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
+            Create new version
+          </span>
+          <span className="mt-[5px] max-w-[160px] text-[12.5px] leading-snug" style={{ color: INK_2 }}>
+            Save a new version of the rooming list.
+          </span>
+          <button
+            type="button"
+            onClick={onNewVersion}
+            className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-[9px] px-4 text-[12.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+            style={{ height: 40, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
+          >
+            Create new version
+            <ArrowRight size={13} />
+          </button>
+        </li>
+
+        <li
+          className="flex flex-col items-center rounded-[11px] p-[18px] text-center"
+          style={{
+            background: "#F4F7F3",
+            border: "1px solid rgba(72,90,68,0.13)",
+            boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
+          }}
+        >
+          <NavyTile size={44} radius={13}>
+            <span style={{ color: GOLD_ICON }}>
+              <Upload size={20} strokeWidth={1.5} />
+            </span>
+          </NavyTile>
+          <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
+            Upload rooming list
+          </span>
+          <span className="mt-[5px] max-w-[160px] text-[12.5px] leading-snug" style={{ color: INK_2 }}>
+            Upload a file (Excel or PDF) and we'll help you.
+          </span>
+          <button
+            type="button"
+            onClick={onUpload}
+            className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-[9px] px-4 text-[12.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+            style={{ height: 40, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
+          >
+            Upload file
+            <ArrowRight size={13} />
+          </button>
+        </li>
       </ul>
 
 
