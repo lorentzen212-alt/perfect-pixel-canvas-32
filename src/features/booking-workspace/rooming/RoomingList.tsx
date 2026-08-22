@@ -411,7 +411,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
   const totalGuests = rows.reduce((s, r) => s + r.guests, 0);
 
   return (
-    <Card className="flex flex-col px-5 pb-4 pt-[15px] sm:px-6" style={SOFT_CARD}>
+    <Card className="flex flex-col px-4 pb-3 pt-[12px] sm:px-5" style={SOFT_CARD}>
       <div className="flex items-center justify-between gap-3">
         <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
           Rooming overview
@@ -428,20 +428,20 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         </span>
       </div>
 
-      <div className="mt-[12px] grid grid-cols-2 gap-[10px]">
+      <div className="mt-[10px] grid grid-cols-2 gap-[8px]">
         <SummaryCard
-          icon={<Bed size={20} strokeWidth={1.5} />}
+          icon={<Bed size={18} strokeWidth={1.5} />}
           value={totalRooms}
           label="Total rooms"
         />
         <SummaryCard
-          icon={<Users size={20} strokeWidth={1.5} />}
+          icon={<Users size={18} strokeWidth={1.5} />}
           value={totalGuests}
           label="Total guests"
         />
       </div>
 
-      <ul className="mt-[12px] flex flex-col gap-[10px]">
+      <ul className="mt-[10px] flex flex-col gap-[6px]">
         {rows.map((r) => (
           <TypeRow key={r.label} label={r.label} rooms={r.rooms} guests={r.guests} />
         ))}
@@ -452,9 +452,9 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         to="/bookings/$bookingId"
         search={{ tab: "Rooming List" }}
         params={{ bookingId }}
-        className="mt-[12px] block"
+        className="mt-[10px] block"
       >
-        <NavyButton className="w-full text-[14.5px]" style={{ height: 54, borderRadius: 11 }}>
+        <NavyButton className="w-full text-[13.5px]" style={{ height: 44, borderRadius: 10 }}>
           View full rooming list
           <ArrowRight size={15} />
         </NavyButton>
