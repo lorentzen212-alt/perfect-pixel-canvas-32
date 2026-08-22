@@ -302,7 +302,7 @@ function SummaryCard({
 }) {
   return (
     <div
-      className="flex items-center gap-3 p-[14px]"
+      className="flex items-center gap-3 p-[10px]"
       style={{
         background: CARD_SURFACE,
         border: HAIRLINE,
@@ -310,18 +310,18 @@ function SummaryCard({
         boxShadow: SOFT_SHADOW,
       }}
     >
-      <NavyTile size={44} radius={12}>
+      <NavyTile size={38} radius={11}>
         <span style={{ color: GOLD_ICON }}>{icon}</span>
       </NavyTile>
       <span className="min-w-0">
         <span
           className="block leading-none tabular-nums"
-          style={{ color: NAVY, fontSize: 36, fontWeight: 700 }}
+          style={{ color: INK_NAVY, fontSize: 30, fontWeight: 700 }}
         >
           {value}
         </span>
         <span
-          className="mt-[6px] block text-[9.5px] font-semibold uppercase"
+          className="mt-[3px] block text-[9.5px] font-semibold uppercase"
           style={{ color: "rgba(13,28,43,0.48)", letterSpacing: "0.16em" }}
         >
           {label}
