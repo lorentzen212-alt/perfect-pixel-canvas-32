@@ -302,7 +302,7 @@ function SummaryCard({
 }) {
   return (
     <div
-      className="flex items-center gap-3 p-[10px]"
+      className="flex items-center gap-3 p-[12px]"
       style={{
         background: CARD_SURFACE,
         border: HAIRLINE,
@@ -310,13 +310,13 @@ function SummaryCard({
         boxShadow: SOFT_SHADOW,
       }}
     >
-      <NavyTile size={38} radius={11}>
+      <NavyTile size={42} radius={12}>
         <span style={{ color: GOLD_ICON }}>{icon}</span>
       </NavyTile>
       <span className="min-w-0">
         <span
           className="block leading-none tabular-nums"
-          style={{ color: INK_NAVY, fontSize: 30, fontWeight: 700 }}
+          style={{ color: INK_NAVY, fontSize: 33, fontWeight: 700 }}
         >
           {value}
         </span>
@@ -332,7 +332,7 @@ function SummaryCard({
 }
 
 /* ── room-type row ────────────────────────────────────────────── */
-const ROW_GRID = "1fr 1px 66px 1px 66px";
+const ROW_GRID = "1fr 1px 72px 1px 72px";
 
 function NumberCell({ value, label, muted }: { value: number; label: string; muted?: boolean }) {
   return (
@@ -340,7 +340,7 @@ function NumberCell({ value, label, muted }: { value: number; label: string; mut
       <span
         className="tabular-nums leading-none"
         style={{
-          fontSize: 20,
+          fontSize: 23,
           fontWeight: 650,
           color: muted ? "rgba(13,28,43,0.38)" : INK_NAVY,
         }}
@@ -348,7 +348,7 @@ function NumberCell({ value, label, muted }: { value: number; label: string; mut
         {value}
       </span>
       <span
-        className="mt-[2px] text-[10.5px] leading-none"
+        className="mt-[3px] text-[11px] leading-none"
         style={{ color: muted ? "rgba(13,28,43,0.38)" : "rgba(13,28,43,0.50)" }}
       >
         {label}
@@ -373,8 +373,8 @@ function TypeRow({
       className="grid items-center gap-3"
       style={{
         gridTemplateColumns: ROW_GRID,
-        minHeight: 44,
-        padding: "6px 14px",
+        minHeight: 56,
+        padding: "10px 16px",
         background: muted ? "#FAFAF9" : CARD_SURFACE,
         border: HAIRLINE,
         borderRadius: 13,
@@ -382,24 +382,24 @@ function TypeRow({
       }}
     >
       <span className="flex min-w-0 items-center gap-3">
-        <NavyTile size={32} radius={9} background={muted ? "#C9CDD2" : undefined}>
+        <NavyTile size={38} radius={10} background={muted ? "#C9CDD2" : undefined}>
           <Users
-            size={16}
+            size={18}
             strokeWidth={1.5}
             style={{ color: muted ? "#FFFFFF" : GOLD_ICON }}
           />
         </NavyTile>
         <span
-          className="min-w-0 truncate text-[14px] font-semibold"
+          className="min-w-0 truncate text-[15px] font-semibold"
           style={{ color: muted ? "rgba(13,28,43,0.42)" : INK_NAVY }}
         >
           {label}
         </span>
       </span>
 
-      <span aria-hidden style={{ width: 1, height: 26, background: "rgba(13,28,43,0.10)" }} />
+      <span aria-hidden style={{ width: 1, height: 30, background: "rgba(13,28,43,0.10)" }} />
       <NumberCell value={rooms} label="rooms" muted={muted} />
-      <span aria-hidden style={{ width: 1, height: 26, background: "rgba(13,28,43,0.10)" }} />
+      <span aria-hidden style={{ width: 1, height: 30, background: "rgba(13,28,43,0.10)" }} />
       <NumberCell value={guests} label="guests" muted={muted} />
     </li>
   );
@@ -411,7 +411,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
   const totalGuests = rows.reduce((s, r) => s + r.guests, 0);
 
   return (
-    <Card className="flex flex-col px-4 pb-3 pt-[12px] sm:px-5" style={SOFT_CARD}>
+    <Card className="flex flex-col px-5 pb-3.5 pt-[14px] sm:px-6" style={SOFT_CARD}>
       <div className="flex items-center justify-between gap-3">
         <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
           Rooming overview
@@ -430,18 +430,18 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
 
       <div className="mt-[10px] grid grid-cols-2 gap-[8px]">
         <SummaryCard
-          icon={<Bed size={18} strokeWidth={1.5} />}
+          icon={<Bed size={19} strokeWidth={1.5} />}
           value={totalRooms}
           label="Total rooms"
         />
         <SummaryCard
-          icon={<Users size={18} strokeWidth={1.5} />}
+          icon={<Users size={19} strokeWidth={1.5} />}
           value={totalGuests}
           label="Total guests"
         />
       </div>
 
-      <ul className="mt-[10px] flex flex-col gap-[6px]">
+      <ul className="mt-[10px] flex flex-col gap-[8px]">
         {rows.map((r) => (
           <TypeRow key={r.label} label={r.label} rooms={r.rooms} guests={r.guests} />
         ))}
@@ -454,7 +454,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         params={{ bookingId }}
         className="mt-[10px] block"
       >
-        <NavyButton className="w-full text-[13.5px]" style={{ height: 44, borderRadius: 10 }}>
+        <NavyButton className="w-full text-[14px]" style={{ height: 50, borderRadius: 11 }}>
           View full rooming list
           <ArrowRight size={15} />
         </NavyButton>
