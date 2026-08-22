@@ -874,11 +874,11 @@ function Actions({
       </span>
 
       <ul
-        className="mt-[13px] flex-1 grid grid-cols-1 gap-[16px] md:grid-cols-3"
+        className="mt-[13px] flex-1 grid grid-cols-1 gap-[16px] grid-rows-1 md:grid-cols-3"
         style={{ minHeight: 240 }}
       >
         <li
-          className="flex flex-col items-center justify-center rounded-[11px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
           style={{
             padding: "22px 18px",
             background: "rgba(247,236,214,0.55)",
@@ -911,7 +911,7 @@ function Actions({
         </li>
 
         <li
-          className="flex flex-col items-center justify-center rounded-[11px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
           style={{
             padding: "22px 18px",
             background: "#F4F7F8",
@@ -942,7 +942,7 @@ function Actions({
         </li>
 
         <li
-          className="flex flex-col items-center justify-center rounded-[11px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
           style={{
             padding: "22px 18px",
             background: "#F4F7F3",
