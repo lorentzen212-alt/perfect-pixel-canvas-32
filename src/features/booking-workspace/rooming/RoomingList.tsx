@@ -866,7 +866,7 @@ function Actions({
 
       <ul
         className="mt-[13px] flex-1 grid grid-cols-1 gap-[16px] grid-rows-1 md:grid-cols-3"
-        style={{ minHeight: 210, maxHeight: 252 }}
+        style={{ minHeight: 210, maxHeight: 268 }}
       >
         <li
           className="flex h-full flex-col items-center justify-center rounded-[11px] border border-[rgba(160,120,55,0.18)] text-center shadow-[0_3px_5px_rgba(15,35,55,0.05),0_8px_18px_rgba(15,35,55,0.06),inset_0_1px_0_rgba(255,255,255,0.65)] transition-[transform,box-shadow,border-color] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[rgba(160,120,55,0.28)] hover:shadow-[0_6px_10px_rgba(15,35,55,0.07),0_14px_26px_rgba(15,35,55,0.08),inset_0_1px_0_rgba(255,255,255,0.7)]"
