@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Bed,
   CalendarClock,
-  ChevronDown,
   ClipboardList,
   Eye,
   History,
@@ -16,9 +15,9 @@ import {
   Upload,
   Users,
 } from "lucide-react";
-import { SERIF } from "@/components/DashboardChrome";
-import { Card, Eyebrow, Medallion, Plate } from "../overview/primitives";
-import { GOLD, INK, INK_2 } from "../overview/materials";
+import { Card, Eyebrow, Plate } from "../overview/primitives";
+import { INK, INK_2 } from "../overview/materials";
+
 
 export interface RoomingTypeRow {
   label: string;
@@ -54,6 +53,85 @@ export interface RoomingSummaryData {
   versions?: RoomingVersionRow[];
 }
 
+/* ── palette ──────────────────────────────────────────────────── */
+const NAVY = "#0D1C2B";
+const NAVY_HOVER = "#13283C";
+const GOLD_ICON = "#E8C96A";
+const SURFACE = "#F7F5F1";
+const CARD_SURFACE = "#FBFAF7";
+const HAIRLINE = "1px solid rgba(50,60,65,0.10)";
+const SOFT_SHADOW = "0 1px 2px rgba(13,28,43,0.05)";
+
+const SOFT_CARD: React.CSSProperties = {
+  borderRadius: 16,
+  background: CARD_SURFACE,
+};
+
+const EYEBROW_STYLE: React.CSSProperties = {
+  color: "rgba(13,28,43,0.55)",
+  letterSpacing: "0.14em",
+};
+
+/* ── navy icon tile ───────────────────────────────────────────── */
+function NavyTile({
+  children,
+  size = 42,
+  radius = 11,
+  background,
+}: {
+  children: React.ReactNode;
+  size?: number;
+  radius?: number;
+  background?: string;
+}) {
+  return (
+    <span
+      className="grid shrink-0 place-items-center"
+      style={{
+        width: size,
+        height: size,
+        borderRadius: radius,
+        background: background ?? NAVY,
+        color: GOLD_ICON,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+/* ── primary navy button ──────────────────────────────────────── */
+function NavyButton({
+  children,
+  className = "",
+  onClick,
+  style,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+}) {
+  const [hover, setHover] = React.useState(false);
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      className={`inline-flex items-center justify-center gap-2 px-4 text-[12.5px] font-semibold transition-colors ${className}`}
+      style={{
+        height: 42,
+        borderRadius: 10,
+        background: hover ? NAVY_HOVER : NAVY,
+        color: "#FFFFFF",
+        ...style,
+      }}
+    >
+      {children}
+    </button>
+  );
+}
 
 /* ── shared outlined action ───────────────────────────────────── */
 function OutlineButton({
@@ -69,80 +147,30 @@ function OutlineButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center justify-center gap-2 rounded-[5px] px-4 py-[8px] text-[12.5px] font-semibold transition-colors hover:bg-[rgba(176,112,15,0.06)] ${className}`}
-      style={{ color: "#A97824", border: "1px solid rgba(169,120,36,0.70)", background: "transparent" }}
+      className={`inline-flex items-center justify-center gap-2 rounded-[10px] px-4 py-[8px] text-[12.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)] ${className}`}
+      style={{ color: NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
     >
       {children}
     </button>
   );
 }
 
-/* shared square-ish card radius override for the Rooming tab */
+/* shared card radius override for the Rooming tab */
 const CARD_RADIUS = 6;
 
 function IconTile({ children }: { children: React.ReactNode }) {
-  return (
-    <span
-      className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[6px]"
-      style={{
-        background: "#FFFFFF",
-        border: "1px solid rgba(125,125,115,0.14)",
-        boxShadow: "0 1px 2px rgba(25,35,40,0.06), inset 0 1px 0 rgba(255,255,255,0.95)",
-        color: INK,
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
-/* ── filled gold action (same size/shape as OutlineButton) ────── */
-function GoldFillButton({
-  children,
-  className = "",
-  onClick,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`inline-flex items-center justify-center gap-2 rounded-[5px] px-4 py-[8px] text-[12.5px] font-semibold ${className}`}
-      style={{
-        background:
-          "linear-gradient(135deg, #B8860B 0%, #DAA520 28%, #E2C868 50%, #DAA520 68%, #8B6914 100%)",
-        color: "#1A0F00",
-        boxShadow: "0 1px 3px rgba(139,105,20,0.22)",
-      }}
-    >
-      {children}
-    </button>
-  );
+  return <NavyTile size={34} radius={9}>{children}</NavyTile>;
 }
 
 function GoldIconTile({ children }: { children: React.ReactNode }) {
-  return (
-    <span
-      className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[6px]"
-      style={{
-        background: "linear-gradient(180deg, #FBF3E1 0%, #F5E9CE 100%)",
-        border: "1px solid rgba(169,120,36,0.32)",
-        boxShadow: "0 1px 2px rgba(25,35,40,0.06), inset 0 1px 0 rgba(255,255,255,0.9)",
-        color: "#A97824",
-      }}
-    >
-      {children}
-    </span>
-  );
+  return <NavyTile size={34} radius={9}>{children}</NavyTile>;
 }
 
 const CELL_LABEL: React.CSSProperties = {
   color: "rgba(27,37,48,0.46)",
   letterSpacing: "0.14em",
 };
+
 
 /* ── 1 · status strip ─────────────────────────────────────────── */
 function StatusStrip({
@@ -177,7 +205,7 @@ function StatusStrip({
             <span
               aria-hidden
               className="h-[7px] w-[7px] shrink-0 rounded-full"
-              style={{ background: "#C79A2E" }}
+              style={{ background: GOLD_ICON }}
             />
             <span className="truncate text-[14.5px] font-semibold" style={{ color: INK }}>
               {data.status}
@@ -203,7 +231,7 @@ function StatusStrip({
               className="block h-full rounded-full"
               style={{
                 width: `${pct}%`,
-                background: "linear-gradient(90deg, #C79A2E 0%, #E0BE63 100%)",
+                background: NAVY,
               }}
             />
           </span>
@@ -250,7 +278,7 @@ function StatusStrip({
             type="button"
             onClick={onHistory}
             className="inline-flex items-center gap-1.5 text-[11.5px] font-medium transition-opacity hover:opacity-70"
-            style={{ color: GOLD }}
+            style={{ color: "rgba(13,28,43,0.72)" }}
           >
             View history
             <ArrowRight size={12} />
@@ -261,27 +289,8 @@ function StatusStrip({
   );
 }
 
-/* ── total medallion (light rounded, gold icon) ───────────────── */
-function TotalMedallion({ children, size = 40 }: { children: React.ReactNode; size?: number }) {
-  return (
-    <span
-      className="grid shrink-0 place-items-center rounded-full"
-      style={{
-        height: size,
-        width: size,
-        background: "linear-gradient(180deg, #FAF8F3 0%, #F2EEE6 100%)",
-        border: "1px solid rgba(169,120,36,0.22)",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(24,30,36,0.05)",
-        color: "#A97824",
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
-/* ── total tile ───────────────────────────────────────────────── */
-function TotalTile({
+/* ── summary card (rooms / guests) ────────────────────────────── */
+function SummaryCard({
   icon,
   value,
   label,
@@ -292,25 +301,27 @@ function TotalTile({
 }) {
   return (
     <div
-      className="flex items-center gap-3 px-4 py-[12px]"
+      className="flex items-center gap-3 p-[14px]"
       style={{
-        background: "#FBFAF7",
-        border: "1px solid rgba(50,60,65,0.10)",
-        borderRadius: CARD_RADIUS,
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8)",
+        background: SURFACE,
+        border: HAIRLINE,
+        borderRadius: 15,
+        boxShadow: SOFT_SHADOW,
       }}
     >
-      <TotalMedallion>{icon}</TotalMedallion>
+      <NavyTile size={44} radius={12}>
+        <span style={{ color: GOLD_ICON }}>{icon}</span>
+      </NavyTile>
       <span className="min-w-0">
         <span
           className="block leading-none tabular-nums"
-          style={{ color: "#1B2530", fontSize: 34, fontWeight: 700, fontFamily: SERIF }}
+          style={{ color: NAVY, fontSize: 36, fontWeight: 700 }}
         >
           {value}
         </span>
         <span
-          className="mt-1 block text-[9.5px] font-semibold uppercase"
-          style={{ color: "rgba(27,37,48,0.46)", letterSpacing: "0.16em" }}
+          className="mt-[6px] block text-[9.5px] font-semibold uppercase"
+          style={{ color: "rgba(13,28,43,0.48)", letterSpacing: "0.16em" }}
         >
           {label}
         </span>
@@ -319,71 +330,137 @@ function TotalTile({
   );
 }
 
-/* ── 3a · preview ─────────────────────────────────────────────── */
+/* ── room-type row ────────────────────────────────────────────── */
+const ROW_GRID = "1fr 78px 1px 78px";
+
+function NumberCell({ value, label, muted }: { value: number; label: string; muted?: boolean }) {
+  return (
+    <span className="flex flex-col items-center justify-center">
+      <span
+        className="tabular-nums leading-none"
+        style={{
+          fontSize: 27,
+          fontWeight: 650,
+          color: muted ? "rgba(13,28,43,0.38)" : NAVY,
+        }}
+      >
+        {value}
+      </span>
+      <span
+        className="mt-[4px] text-[11.5px] leading-none"
+        style={{ color: muted ? "rgba(13,28,43,0.38)" : "rgba(13,28,43,0.50)" }}
+      >
+        {label}
+      </span>
+    </span>
+  );
+}
+
+function TypeRow({
+  label,
+  rooms,
+  guests,
+  muted,
+}: {
+  label: string;
+  rooms: number;
+  guests: number;
+  muted?: boolean;
+}) {
+  return (
+    <li
+      className="grid items-center gap-3"
+      style={{
+        gridTemplateColumns: ROW_GRID,
+        minHeight: 76,
+        padding: "14px 16px",
+        background: muted ? "#FAFAF9" : SURFACE,
+        border: HAIRLINE,
+        borderRadius: 13,
+        boxShadow: muted ? "none" : SOFT_SHADOW,
+      }}
+    >
+      <span className="flex min-w-0 items-center gap-3">
+        <NavyTile size={42} radius={11} background={muted ? "#C9CDD2" : undefined}>
+          <Users
+            size={19}
+            strokeWidth={1.5}
+            style={{ color: muted ? "#FFFFFF" : GOLD_ICON }}
+          />
+        </NavyTile>
+        <span
+          className="min-w-0 truncate text-[15.5px] font-semibold"
+          style={{ color: muted ? "rgba(13,28,43,0.42)" : NAVY }}
+        >
+          {label}
+        </span>
+      </span>
+
+      <NumberCell value={rooms} label="rooms" muted={muted} />
+      <span aria-hidden style={{ width: 1, height: 34, background: "rgba(13,28,43,0.10)" }} />
+      <NumberCell value={guests} label="guests" muted={muted} />
+    </li>
+  );
+}
+
+/* ── 3a · rooming overview ────────────────────────────────────── */
 function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: string }) {
   const totalRooms = rows.reduce((s, r) => s + r.rooms, 0);
   const totalGuests = rows.reduce((s, r) => s + r.guests, 0);
 
   return (
-    <Card className="flex flex-col px-5 pb-4 pt-[15px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
-      <span
-        className="text-[11.5px] font-semibold uppercase"
-        style={{ color: "#A98232", letterSpacing: "0.14em" }}
-      >
-        Rooming list preview
-      </span>
-
-      <ul className="mt-2">
-        {rows.map((r, i) => (
-          <li
-            key={r.label}
-            className="grid items-center gap-2 px-2 py-[13px]"
-            style={{
-              gridTemplateColumns: "48fr 22fr 22fr 16px",
-              background: i % 2 === 1 ? "#FAF8F5" : undefined,
-              borderBottom: "1px solid rgba(50,60,65,0.10)",
-            }}
-          >
-            <span className="min-w-0 truncate text-[15.5px] font-medium" style={{ color: INK }}>
-              {r.label}
-            </span>
-            <span
-              className="text-[12.5px] tabular-nums"
-              style={{ color: INK_2, textAlign: "left" }}
-            >
-              {r.rooms} rooms
-            </span>
-            <span
-              className="text-[12.5px] tabular-nums"
-              style={{ color: INK_2, textAlign: "left" }}
-            >
-              {r.guests} guests
-            </span>
-            <ChevronDown size={15} style={{ color: "rgba(27,37,48,0.35)", justifySelf: "end" }} />
-          </li>
-        ))}
-      </ul>
-
-      {/* totals section */}
-      <div className="mt-[12px] grid grid-cols-2 gap-[10px]">
-        <TotalTile icon={<Bed size={20} strokeWidth={1.5} />} value={totalRooms} label="Total rooms" />
-        <TotalTile icon={<Users size={20} strokeWidth={1.5} />} value={totalGuests} label="Total guests" />
+    <Card className="flex flex-col px-5 pb-4 pt-[15px] sm:px-6" style={SOFT_CARD}>
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
+          Rooming overview
+        </span>
+        <span
+          className="shrink-0 rounded-full px-2.5 py-[3px] text-[10.5px] font-medium"
+          style={{
+            color: "rgba(13,28,43,0.62)",
+            background: "rgba(13,28,43,0.05)",
+            border: "1px solid rgba(50,60,65,0.10)",
+          }}
+        >
+          Current
+        </span>
       </div>
+
+      <div className="mt-[12px] grid grid-cols-2 gap-[10px]">
+        <SummaryCard
+          icon={<Bed size={20} strokeWidth={1.5} />}
+          value={totalRooms}
+          label="Total rooms"
+        />
+        <SummaryCard
+          icon={<Users size={20} strokeWidth={1.5} />}
+          value={totalGuests}
+          label="Total guests"
+        />
+      </div>
+
+      <ul className="mt-[12px] flex flex-col gap-[10px]">
+        {rows.map((r) => (
+          <TypeRow key={r.label} label={r.label} rooms={r.rooms} guests={r.guests} />
+        ))}
+        <TypeRow label="Other room types (0)" rooms={0} guests={0} muted />
+      </ul>
 
       <Link
         to="/bookings/$bookingId"
-              search={{ tab: "Rooming List" }}
+        search={{ tab: "Rooming List" }}
         params={{ bookingId }}
         className="mt-[12px] block"
       >
-        <OutlineButton className="w-full !py-[12px]">
+        <NavyButton className="w-full text-[14.5px]" style={{ height: 54, borderRadius: 11 }}>
           View full rooming list
-          <ArrowRight size={13} />
-        </OutlineButton>
+          <ArrowRight size={15} />
+        </NavyButton>
       </Link>
     </Card>
   );
 }
+
 
 /* ── 3b-2 · versions ──────────────────────────────────────────── */
 function TextLink({
@@ -398,7 +475,7 @@ function TextLink({
       type="button"
       onClick={onClick}
       className="inline-flex items-center gap-1 text-[11.5px] font-semibold transition-opacity hover:opacity-70"
-      style={{ color: "#A97824" }}
+      style={{ color: "rgba(13,28,43,0.72)" }}
     >
       {children}
     </button>
@@ -416,8 +493,9 @@ function SmallOutline({
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 rounded-[5px] px-2.5 py-[5px] text-[11.5px] font-semibold transition-colors hover:bg-[rgba(176,112,15,0.06)]"
-      style={{ color: "#A97824", border: "1px solid rgba(169,120,36,0.55)", background: "transparent" }}
+      className="inline-flex items-center gap-1.5 rounded-[5px] px-2.5 py-[5px] text-[11.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+      style={{ color: "rgba(13,28,43,0.72)", border: "1px solid rgba(50,60,65,0.14)", background: "transparent" }}
+
     >
       {children}
     </button>
@@ -429,9 +507,9 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
     <li
       className="relative flex items-center gap-3 py-[11px] pl-[14px] pr-[10px]"
       style={{
-        borderRadius: CARD_RADIUS,
-        background: v.current ? "#FBF5E9" : "#FFFFFF",
-        border: v.current ? "1px solid rgba(169,120,36,0.45)" : "1px solid rgba(50,60,65,0.12)",
+        borderRadius: 13,
+        background: v.current ? "#FBFAF7" : "#FFFFFF",
+        border: v.current ? "1px solid rgba(13,28,43,0.22)" : "1px solid rgba(50,60,65,0.10)",
         overflow: "hidden",
       }}
     >
@@ -439,21 +517,22 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
         <span
           aria-hidden
           className="absolute inset-y-0 left-0"
-          style={{ width: 4, background: "linear-gradient(180deg, #C79A2E 0%, #A97824 100%)" }}
+          style={{ width: 3, background: NAVY }}
         />
       ) : null}
 
       <span
         className="grid h-[34px] w-[34px] shrink-0 place-items-center text-[12px] font-bold tabular-nums"
         style={{
-          borderRadius: CARD_RADIUS,
-          background: v.current ? "linear-gradient(180deg, #FBF3E1 0%, #F3E6C9 100%)" : "#FBFAF7",
-          border: v.current ? "1px solid rgba(169,120,36,0.35)" : "1px solid rgba(50,60,65,0.12)",
-          color: v.current ? "#A97824" : INK_2,
+          borderRadius: 11,
+          background: v.current ? NAVY : "#FBFAF7",
+          border: v.current ? `1px solid ${NAVY}` : "1px solid rgba(50,60,65,0.12)",
+          color: v.current ? GOLD_ICON : INK_2,
         }}
       >
         {v.short}
       </span>
+
 
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-2">
@@ -465,10 +544,11 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
               className="shrink-0 rounded-[4px] px-1.5 py-[1px] text-[9px] font-bold uppercase"
               style={{
                 letterSpacing: "0.12em",
-                color: "#8C6115",
-                background: "rgba(199,154,46,0.18)",
-                border: "1px solid rgba(169,120,36,0.35)",
+                color: NAVY,
+                background: "rgba(13,28,43,0.06)",
+                border: "1px solid rgba(50,60,65,0.12)",
               }}
+
             >
               Current
             </span>
@@ -494,8 +574,9 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
         {v.current ? (
           <span
             className="inline-flex items-center rounded-full px-3 py-[5px] text-[11.5px] font-semibold"
-            style={{ color: "#A97824", border: "1px solid rgba(169,120,36,0.55)" }}
+            style={{ color: NAVY, border: "1px solid rgba(50,60,65,0.16)", background: "rgba(13,28,43,0.04)" }}
           >
+
             Current
           </span>
         ) : (
@@ -540,7 +621,8 @@ function Versions({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span
           className="text-[11.5px] font-semibold uppercase"
-          style={{ color: "#A98232", letterSpacing: "0.14em" }}
+          style={EYEBROW_STYLE}
+
         >
           Versions
         </span>
@@ -610,10 +692,10 @@ function Actions({
   ];
 
   return (
-    <Card className="flex h-full flex-col px-5 pb-4 pt-[15px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
+    <Card className="flex h-full flex-col px-5 pb-4 pt-[15px] sm:px-6" style={SOFT_CARD}>
       <span
         className="text-[11.5px] font-semibold uppercase"
-        style={{ color: "#A98232", letterSpacing: "0.14em" }}
+        style={EYEBROW_STYLE}
       >
         Rooming list actions
       </span>
@@ -625,7 +707,9 @@ function Actions({
             className="flex items-center gap-3.5 py-[18px]"
             style={{ borderTop: i === 0 ? undefined : "1px solid rgba(50,60,65,0.10)" }}
           >
-            <Medallion size={38}>{r.icon}</Medallion>
+            <NavyTile size={38} radius={11}>
+              <span style={{ color: GOLD_ICON }}>{r.icon}</span>
+            </NavyTile>
             <span className="min-w-0 flex-1">
               <span className="block text-[14px] font-semibold leading-snug" style={{ color: INK }}>
                 {r.title}
@@ -637,20 +721,22 @@ function Actions({
             {r.link ? (
               <Link to="/bookings/$bookingId"
               search={{ tab: "Rooming List" }} params={{ bookingId }} className="shrink-0">
-                <GoldFillButton className="w-[176px]">
+                <NavyButton className="w-[176px] py-[9px]">
                   {r.label}
                   <ArrowRight size={13} />
-                </GoldFillButton>
+                </NavyButton>
               </Link>
             ) : (
-              <GoldFillButton className="w-[176px] shrink-0" onClick={r.onClick}>
+              <NavyButton className="w-[176px] shrink-0 py-[9px]" onClick={r.onClick}>
                 {r.label}
                 <ArrowRight size={13} />
-              </GoldFillButton>
+              </NavyButton>
             )}
           </li>
         ))}
       </ul>
+
+
 
       <Versions versions={versions} onNewVersion={onNewVersion} onHistory={onHistory} />
     </Card>
@@ -660,21 +746,24 @@ function Actions({
 /* ── 4 · need help ────────────────────────────────────────────── */
 function NeedHelp({ onMessage }: { onMessage?: () => void }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[13px] sm:flex-row sm:items-center sm:gap-5 sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
-      <Medallion size={40}>
-        <LifeBuoy size={20} strokeWidth={1.5} />
-      </Medallion>
+    <Card className="flex flex-col gap-3 px-5 py-[13px] sm:flex-row sm:items-center sm:gap-5 sm:px-6" style={SOFT_CARD}>
+      <NavyTile size={40} radius={12}>
+        <LifeBuoy size={20} strokeWidth={1.5} style={{ color: GOLD_ICON }} />
+      </NavyTile>
       <div className="min-w-0 flex-1">
-        <Eyebrow>Need help?</Eyebrow>
+        <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
+          Need help?
+        </span>
         <p className="mt-1 text-[13px]" style={{ color: INK_2 }}>
           Questions or changes to your booking?
         </p>
       </div>
-      <OutlineButton className="shrink-0" onClick={onMessage}>
+      <NavyButton className="shrink-0 px-4 py-[9px]" onClick={onMessage}>
         Message HotelGroupBook
         <ArrowRight size={13} />
-      </OutlineButton>
+      </NavyButton>
     </Card>
+
   );
 }
 
