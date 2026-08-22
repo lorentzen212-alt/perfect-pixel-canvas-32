@@ -890,7 +890,7 @@ function Actions({
           <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
             Continue editing
           </span>
-          <span className="mt-[5px] max-w-[160px] text-[12.5px] leading-snug" style={{ color: INK_2 }}>
+          <span className="mt-[5px] max-w-[160px] text-[11.5px] leading-snug" style={{ color: INK_2 }}>
             Add more guests or adjust room assignments.
           </span>
           <Link
