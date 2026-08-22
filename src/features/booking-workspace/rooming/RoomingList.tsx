@@ -539,7 +539,8 @@ function Versions({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span
           className="text-[11.5px] font-semibold uppercase"
-          style={{ color: "#A98232", letterSpacing: "0.14em" }}
+          style={EYEBROW_STYLE}
+
         >
           Versions
         </span>
