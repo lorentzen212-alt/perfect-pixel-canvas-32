@@ -811,13 +811,9 @@ function Versions({
 }) {
   if (!versions.length) return null;
   return (
-    <div className="mt-[22px] pt-[18px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
+    <div className="mt-[16px] pt-[15px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span
-          className="text-[11.5px] font-semibold uppercase"
-          style={EYEBROW_STYLE}
-
-        >
+        <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
           Versions
         </span>
         <span className="flex items-center gap-2.5">
@@ -839,7 +835,7 @@ function Versions({
         ))}
       </ul>
 
-      <p className="mt-[10px] flex items-center gap-1.5 text-[11px]" style={{ color: "rgba(27,37,48,0.50)" }}>
+      <p className="mt-[9px] flex items-center gap-1.5 text-[11px]" style={{ color: "rgba(27,37,48,0.50)" }}>
         <Info size={12} />
         Restoring a version will create a new version based on it.
       </p>
