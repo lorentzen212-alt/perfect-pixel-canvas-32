@@ -932,15 +932,17 @@ function Actions({
           <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
             Save a new version of the rooming list.
           </span>
-          <button
-            type="button"
-            onClick={onNewVersion}
-            className="mt-auto inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)] pt-5"
-            style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
-          >
-            Create new version
-            <ArrowRight size={14} />
-          </button>
+          <div className="mt-auto w-full pt-5">
+            <button
+              type="button"
+              onClick={onNewVersion}
+              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+              style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
+            >
+              Create new version
+              <ArrowRight size={14} />
+            </button>
+          </div>
         </li>
 
         <li
@@ -964,15 +966,17 @@ function Actions({
           <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
             Upload a file (Excel or PDF) and we'll help you.
           </span>
-          <button
-            type="button"
-            onClick={onUpload}
-            className="mt-auto inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)] pt-5"
-            style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
-          >
-            Upload file
-            <ArrowRight size={14} />
-          </button>
+          <div className="mt-auto w-full pt-5">
+            <button
+              type="button"
+              onClick={onUpload}
+              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+              style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
+            >
+              Upload file
+              <ArrowRight size={14} />
+            </button>
+          </div>
         </li>
       </ul>
 
