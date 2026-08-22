@@ -337,45 +337,91 @@ const ROW_GRID = "1fr 1px 72px 1px 72px";
 
 const OTHER_TYPES = ["Junior Suite", "Suite", "Accessible rooms", "Apartment"];
 
-function PeopleIcon({ count, size }: { count: number; size: number }) {
-  const w = 20 + (count - 1) * 12;
+type BedVariant = "single" | "double" | "twin" | "triple" | "family" | "other";
+
+function bedPaths(x: number, w: number, key: string) {
+  return (
+    <g key={key}>
+      {/* mattress / frame */}
+      <path d={`M${x} 20v-6a2 2 0 0 1 2-2h${w - 4}a2 2 0 0 1 2 2v6`} />
+      {/* headboard */}
+      <path d={`M${x + 2} 12V8a2 2 0 0 1 2-2h${w - 8}a2 2 0 0 1 2 2v4`} />
+      {/* mattress line */}
+      <path d={`M${x} 18h${w}`} />
+    </g>
+  );
+}
+
+function bedVariantFor(label: string): BedVariant {
+  const l = label.toLowerCase();
+  if (l.includes("single")) return "single";
+  if (l.includes("double")) return "double";
+  if (l.includes("twin")) return "twin";
+  if (l.includes("triple")) return "triple";
+  if (l.includes("family")) return "family";
+  if (l.includes("other")) return "other";
+  return "single";
+}
+
+function BedIcon({ variant, size }: { variant: BedVariant; size: number }) {
+  let vbWidth = 16;
+  let beds: React.ReactNode = bedPaths(1, 14, "single");
+
+  if (variant === "double") {
+    vbWidth = 22;
+    beds = bedPaths(1, 20, "double");
+  } else if (variant === "twin") {
+    vbWidth = 24;
+    beds = (
+      <>
+        {bedPaths(1, 10, "twin-1")}
+        {bedPaths(13, 10, "twin-2")}
+      </>
+    );
+  } else if (variant === "triple") {
+    vbWidth = 30;
+    beds = (
+      <>
+        {bedPaths(1, 8, "triple-1")}
+        {bedPaths(11, 8, "triple-2")}
+        {bedPaths(21, 8, "triple-3")}
+      </>
+    );
+  } else if (variant === "family") {
+    vbWidth = 26;
+    beds = (
+      <>
+        {bedPaths(1, 14, "family-bed")}
+        <g transform="translate(17,5) scale(0.75)">{bedPaths(0, 10, "cot")}</g>
+      </>
+    );
+  } else if (variant === "other") {
+    vbWidth = 27;
+    beds = (
+      <>
+        {bedPaths(1, 12, "other-bed")}
+        <circle r="1.2" cy="17" cx="16" fill="currentColor" />
+        <circle r="1.2" cy="17" cx="20" fill="currentColor" />
+        <circle r="1.2" cy="17" cx="24" fill="currentColor" />
+      </>
+    );
+  }
+
   return (
     <svg
-      viewBox={`0 0 ${w} 24`}
+      viewBox={`0 0 ${vbWidth} 24`}
       height={size}
-      width={(size * w) / 24}
+      width={(size * vbWidth) / 24}
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.6}
+      strokeWidth={1.7}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
     >
-      {Array.from({ length: count }, (_, i) => (
-        <g key={i} transform={`translate(${i * 12}, 0)`}>
-          <circle cx="10" cy="8" r="3.4" />
-          <path d="M3.8 20.4c0-3.4 2.8-6.2 6.2-6.2s6.2 2.8 6.2 6.2" />
-        </g>
-      ))}
+      {beds}
     </svg>
   );
-}
-
-function peopleCountFor(label: string) {
-  const l = label.toLowerCase();
-  if (l.includes("single")) return 1;
-  if (l.includes("double")) return 2;
-  if (l.includes("twin")) return 2;
-  if (l.includes("triple")) return 3;
-  if (l.includes("family")) return 4;
-  if (l.includes("other")) return 1;
-  return 2;
-}
-
-function peopleIconSize(count: number) {
-  if (count >= 4) return 14;
-  if (count === 3) return 16;
-  return 18;
 }
 
 function NumberCell({ value, label, muted }: { value: number; label: string; muted?: boolean }) {
@@ -401,34 +447,34 @@ function NumberCell({ value, label, muted }: { value: number; label: string; mut
   );
 }
 
-const ROW_STYLE = (muted?: boolean): React.CSSProperties => ({
-  gridTemplateColumns: ROW_GRID,
-  minHeight: 60,
-  padding: "10px 18px",
-  background: muted ? "#FAFAF9" : CARD_SURFACE,
-  border: HAIRLINE,
-  borderRadius: 5,
-  boxShadow: muted ? "none" : SOFT_SHADOW,
-});
-
 function TypeRow({
   label,
   rooms,
   guests,
   muted,
+  isFirst,
 }: {
   label: string;
   rooms: number;
   guests: number;
   muted?: boolean;
+  isFirst?: boolean;
 }) {
-  const count = peopleCountFor(label);
   return (
-    <li className="grid items-center gap-3" style={ROW_STYLE(muted)}>
+    <li
+      className="grid items-center gap-3"
+      style={{
+        gridTemplateColumns: ROW_GRID,
+        minHeight: 60,
+        padding: "10px 18px",
+        background: muted ? "#FAFAF9" : "transparent",
+        borderTop: isFirst ? undefined : "1px solid rgba(13,28,43,0.08)",
+      }}
+    >
       <span className="flex min-w-0 items-center gap-3">
         <NavyTile size={38} radius={9} background={muted ? "#C9CDD2" : undefined}>
           <span style={{ color: "#FFFFFF", display: "flex" }}>
-            <PeopleIcon count={count} size={peopleIconSize(count)} />
+            <BedIcon variant={bedVariantFor(label)} size={17} />
           </span>
         </NavyTile>
         <span
@@ -447,14 +493,13 @@ function TypeRow({
   );
 }
 
-function OtherTypesRow() {
+function OtherTypesRow({ isFirst }: { isFirst?: boolean }) {
   const [open, setOpen] = React.useState(false);
   return (
     <li
       style={{
         background: "#FAFAF9",
-        border: HAIRLINE,
-        borderRadius: 5,
+        borderTop: isFirst ? undefined : "1px solid rgba(13,28,43,0.08)",
       }}
     >
       <button
@@ -468,13 +513,12 @@ function OtherTypesRow() {
           padding: "10px 18px",
           background: "transparent",
           border: "none",
-          borderRadius: 5,
         }}
       >
         <span className="flex min-w-0 items-center gap-3">
           <NavyTile size={38} radius={9} background="#C9CDD2">
             <span style={{ color: "#FFFFFF", display: "flex" }}>
-              <PeopleIcon count={1} size={18} />
+              <BedIcon variant="other" size={17} />
             </span>
           </NavyTile>
           <span className="flex min-w-0 items-center gap-1.5">
@@ -577,11 +621,26 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         />
       </div>
 
-      <ul className="mt-[8px] flex flex-col gap-[3px]">
-        {rows.map((r) => (
-          <TypeRow key={r.label} label={r.label} rooms={r.rooms} guests={r.guests} />
+      <ul
+        className="mt-[8px] flex flex-col"
+        style={{
+          background: CARD_SURFACE,
+          border: HAIRLINE,
+          borderRadius: 8,
+          boxShadow: SOFT_SHADOW,
+          overflow: "hidden",
+        }}
+      >
+        {rows.map((r, i) => (
+          <TypeRow
+            key={r.label}
+            label={r.label}
+            rooms={r.rooms}
+            guests={r.guests}
+            isFirst={i === 0}
+          />
         ))}
-        <OtherTypesRow />
+        <OtherTypesRow isFirst={rows.length === 0} />
       </ul>
 
       <Link
