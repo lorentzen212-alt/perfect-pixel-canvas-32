@@ -702,10 +702,10 @@ function SmallOutline({
 function VersionRow({ v }: { v: RoomingVersionRow }) {
   return (
     <li
-      className="relative flex items-center gap-4 py-[20px] pl-[14px] pr-[10px]"
+      className="relative flex items-center gap-4 py-[22px] pl-[14px] pr-[10px]"
       style={{
         borderRadius: 13,
-        minHeight: 118,
+        minHeight: 126,
         background: v.current ? "#FBFAF7" : "#FFFFFF",
         border: v.current ? "1px solid rgba(13,28,43,0.22)" : "1px solid rgba(50,60,65,0.10)",
         overflow: "hidden",
@@ -720,9 +720,9 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
       ) : null}
 
       <span
-        className="grid h-[56px] w-[56px] shrink-0 place-items-center text-[15.5px] font-bold tabular-nums"
+        className="grid h-[60px] w-[60px] shrink-0 place-items-center text-[15.5px] font-bold tabular-nums"
         style={{
-          borderRadius: 16,
+          borderRadius: 17,
           background: v.current ? NAVY : "#FBFAF7",
           border: v.current ? `1px solid ${NAVY}` : "1px solid rgba(50,60,65,0.12)",
           color: v.current ? GOLD_ICON : INK_2,
@@ -812,7 +812,7 @@ function Versions({
 }) {
   if (!versions.length) return null;
   return (
-    <div className="mt-[26px] pt-[18px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
+    <div className="mt-[34px] pt-[18px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
           Versions
@@ -866,7 +866,7 @@ function Actions({
 
       <ul
         className="mt-[13px] flex-1 grid grid-cols-1 gap-[16px] grid-rows-1 md:grid-cols-3"
-        style={{ minHeight: 210, maxHeight: 268 }}
+        style={{ minHeight: 256, maxHeight: 268 }}
       >
         <li
           className="flex h-full flex-col items-center justify-center rounded-[11px] border border-[rgba(160,120,55,0.18)] text-center shadow-[0_3px_5px_rgba(15,35,55,0.05),0_8px_18px_rgba(15,35,55,0.06),inset_0_1px_0_rgba(255,255,255,0.65)] transition-[transform,box-shadow,border-color] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[rgba(160,120,55,0.28)] hover:shadow-[0_6px_10px_rgba(15,35,55,0.07),0_14px_26px_rgba(15,35,55,0.08),inset_0_1px_0_rgba(255,255,255,0.7)]"
