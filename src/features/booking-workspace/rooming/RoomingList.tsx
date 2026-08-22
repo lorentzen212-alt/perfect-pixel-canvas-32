@@ -926,8 +926,8 @@ function Actions({
             <button
               type="button"
               onClick={onNewVersion}
-              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors duration-150 hover:bg-[rgba(13,28,43,0.05)] hover:border-[rgba(50,60,65,0.30)]"
-              style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
+              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap border border-[rgba(50,60,65,0.18)] px-2 text-[13.5px] font-semibold transition-colors duration-150 hover:bg-[rgba(13,28,43,0.05)] hover:border-[rgba(50,60,65,0.30)]"
+              style={{ height: 46, borderRadius: 10, color: INK_NAVY, background: "transparent" }}
             >
               Create new version
               <ArrowRight size={14} />
@@ -960,8 +960,8 @@ function Actions({
             <button
               type="button"
               onClick={onUpload}
-              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors duration-150 hover:bg-[rgba(13,28,43,0.05)] hover:border-[rgba(50,60,65,0.30)]"
-              style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
+              className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap border border-[rgba(50,60,65,0.18)] px-2 text-[13.5px] font-semibold transition-colors duration-150 hover:bg-[rgba(13,28,43,0.05)] hover:border-[rgba(50,60,65,0.30)]"
+              style={{ height: 46, borderRadius: 10, color: INK_NAVY, background: "transparent" }}
             >
               Upload file
               <ArrowRight size={14} />
