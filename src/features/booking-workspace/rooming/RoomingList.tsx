@@ -922,13 +922,13 @@ function Actions({
           <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
             Create new version
           </span>
-          <span className="mt-[5px] max-w-[160px] text-[12.5px] leading-snug" style={{ color: INK_2 }}>
+          <span className="mt-[5px] max-w-[160px] text-[11.5px] leading-snug" style={{ color: INK_2 }}>
             Save a new version of the rooming list.
           </span>
           <button
             type="button"
             onClick={onNewVersion}
-            className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-[9px] px-4 text-[12.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+            className="mt-auto inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-[9px] px-2 text-[11px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
             style={{ height: 40, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
           >
             Create new version
@@ -952,13 +952,13 @@ function Actions({
           <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
             Upload rooming list
           </span>
-          <span className="mt-[5px] max-w-[160px] text-[12.5px] leading-snug" style={{ color: INK_2 }}>
+          <span className="mt-[5px] max-w-[160px] text-[11.5px] leading-snug" style={{ color: INK_2 }}>
             Upload a file (Excel or PDF) and we'll help you.
           </span>
           <button
             type="button"
             onClick={onUpload}
-            className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-[9px] px-4 text-[12.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
+            className="mt-auto inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-[9px] px-2 text-[11px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
             style={{ height: 40, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
           >
             Upload file
