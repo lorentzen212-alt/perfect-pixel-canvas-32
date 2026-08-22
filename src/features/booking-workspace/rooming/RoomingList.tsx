@@ -15,7 +15,7 @@ import {
   Upload,
   Users,
 } from "lucide-react";
-import { Card, Eyebrow, Plate } from "../overview/primitives";
+import { Card, Plate } from "../overview/primitives";
 import { INK, INK_2 } from "../overview/materials";
 
 
@@ -64,7 +64,9 @@ const SOFT_SHADOW = "0 1px 2px rgba(13,28,43,0.05)";
 
 const SOFT_CARD: React.CSSProperties = {
   borderRadius: 16,
-  background: CARD_SURFACE,
+  background: SURFACE,
+  border: HAIRLINE,
+  boxShadow: "0 1px 2px rgba(15,25,35,0.05), 0 4px 10px -6px rgba(15,25,35,0.10)",
 };
 
 const EYEBROW_STYLE: React.CSSProperties = {
@@ -155,8 +157,6 @@ function OutlineButton({
   );
 }
 
-/* shared card radius override for the Rooming tab */
-const CARD_RADIUS = 6;
 
 function IconTile({ children }: { children: React.ReactNode }) {
   return <NavyTile size={34} radius={9}>{children}</NavyTile>;
@@ -190,7 +190,7 @@ function StatusStrip({
   return (
     <Card
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_1.6fr_1fr_1fr]"
-      style={{ borderRadius: CARD_RADIUS }}
+      style={SOFT_CARD}
     >
       {/* 1 · status */}
       <div className="flex items-center gap-3.5 px-5 py-[16px]">
@@ -205,7 +205,7 @@ function StatusStrip({
             <span
               aria-hidden
               className="h-[7px] w-[7px] shrink-0 rounded-full"
-              style={{ background: GOLD_ICON }}
+              style={{ background: NAVY }}
             />
             <span className="truncate text-[14.5px] font-semibold" style={{ color: INK }}>
               {data.status}
@@ -303,7 +303,7 @@ function SummaryCard({
     <div
       className="flex items-center gap-3 p-[14px]"
       style={{
-        background: SURFACE,
+        background: CARD_SURFACE,
         border: HAIRLINE,
         borderRadius: 15,
         boxShadow: SOFT_SHADOW,
@@ -331,7 +331,7 @@ function SummaryCard({
 }
 
 /* ── room-type row ────────────────────────────────────────────── */
-const ROW_GRID = "1fr 78px 1px 78px";
+const ROW_GRID = "1fr 1px 78px 1px 78px";
 
 function NumberCell({ value, label, muted }: { value: number; label: string; muted?: boolean }) {
   return (
@@ -374,7 +374,7 @@ function TypeRow({
         gridTemplateColumns: ROW_GRID,
         minHeight: 76,
         padding: "14px 16px",
-        background: muted ? "#FAFAF9" : SURFACE,
+        background: muted ? "#FAFAF9" : CARD_SURFACE,
         border: HAIRLINE,
         borderRadius: 13,
         boxShadow: muted ? "none" : SOFT_SHADOW,
@@ -396,6 +396,7 @@ function TypeRow({
         </span>
       </span>
 
+      <span aria-hidden style={{ width: 1, height: 34, background: "rgba(13,28,43,0.10)" }} />
       <NumberCell value={rooms} label="rooms" muted={muted} />
       <span aria-hidden style={{ width: 1, height: 34, background: "rgba(13,28,43,0.10)" }} />
       <NumberCell value={guests} label="guests" muted={muted} />
