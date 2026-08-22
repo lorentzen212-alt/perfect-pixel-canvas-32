@@ -802,7 +802,7 @@ export function RoomingFolder({
   onMessage?: () => void;
 }) {
   return (
-    <Plate>
+    <NavyPlate>
       <div className="flex flex-1 flex-col space-y-[13px] px-5 pb-[18px] pt-[18px] sm:px-7">
         <StatusStrip data={data} onHistory={onHistory} />
         <div className="grid items-start gap-[10px] lg:grid-cols-[54fr_46fr]">
@@ -817,7 +817,6 @@ export function RoomingFolder({
         </div>
         <NeedHelp onMessage={onMessage} />
       </div>
-
-    </Plate>
+    </NavyPlate>
   );
 }
