@@ -195,15 +195,14 @@ const TIME_OPTIONS = (() => {
   return out;
 })();
 
-export type TimeMode = "exact" | "mixed" | "unknown";
+export type TimeMode = "exact" | "mixed";
 
 const MODE_LABEL: Record<TimeMode, string> = {
   exact: "Exact time",
-  unknown: "Approximate time",
   mixed: "Mixed times",
 };
 
-const MODES: TimeMode[] = ["exact", "unknown", "mixed"];
+const MODES: TimeMode[] = ["exact", "mixed"];
 
 export type MealLine = { label: string; value: string };
 export type RequestSection = "meals" | "services";
@@ -530,12 +529,6 @@ function TimeSide({
         {state.mode === "mixed" && (
           <span className="shrink-0 text-[12.5px]" style={{ color: INK_2 }}>
             Mixed
-          </span>
-        )}
-
-        {state.mode === "unknown" && (
-          <span className="shrink-0 text-[12.5px]" style={{ color: INK_3 }}>
-            Time not confirmed
           </span>
         )}
 
