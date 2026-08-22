@@ -493,8 +493,9 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
         {v.current ? (
           <span
             className="inline-flex items-center rounded-full px-3 py-[5px] text-[11.5px] font-semibold"
-            style={{ color: "#A97824", border: "1px solid rgba(169,120,36,0.55)" }}
+            style={{ color: NAVY, border: "1px solid rgba(50,60,65,0.16)", background: "rgba(13,28,43,0.04)" }}
           >
+
             Current
           </span>
         ) : (
