@@ -873,96 +873,105 @@ function Actions({
         Rooming list actions
       </span>
 
-      <ul className="mt-[11px] grid grid-cols-1 gap-[13px] md:grid-cols-3">
+      <ul
+        className="mt-[13px] flex-1 grid grid-cols-1 gap-[16px] grid-rows-1 md:grid-cols-3"
+        style={{ minHeight: 240, height: "100%" }}
+      >
         <li
-          className="flex flex-col items-center rounded-[11px] p-[10px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
           style={{
+            padding: "22px 18px",
+            height: "100%",
             background: "rgba(247,236,214,0.55)",
             border: "1px solid rgba(198,160,92,0.28)",
             boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
           }}
         >
-          <NavyTile size={44} radius={13}>
+          <NavyTile size={56} radius={15}>
             <span style={{ color: GOLD_ICON }}>
-              <ClipboardList size={20} strokeWidth={1.5} />
+              <ClipboardList size={26} strokeWidth={1.5} />
             </span>
           </NavyTile>
-          <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
+          <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
             Continue editing
           </span>
-          <span className="mt-[5px] max-w-[160px] text-balance text-[10px] leading-snug" style={{ color: INK_2 }}>
+          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
             Add more guests or adjust room assignments.
           </span>
           <Link
             to="/bookings/$bookingId"
             search={{ tab: "Rooming List" }}
             params={{ bookingId }}
-            className="mt-auto w-full"
+            className="mt-auto w-full pt-5"
           >
-            <NavyButton className="w-full" style={{ height: 40, borderRadius: 9 }}>
+            <NavyButton className="w-full" style={{ height: 46, borderRadius: 10, fontSize: 13.5 }}>
               Continue
-              <ArrowRight size={13} />
+              <ArrowRight size={14} />
             </NavyButton>
           </Link>
         </li>
 
         <li
-          className="flex flex-col items-center rounded-[11px] p-[10px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
           style={{
+            padding: "22px 18px",
+            height: "100%",
             background: "#F4F7F8",
             border: "1px solid rgba(50,70,85,0.12)",
             boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
           }}
         >
-          <NavyTile size={44} radius={13}>
+          <NavyTile size={56} radius={15}>
             <span style={{ color: GOLD_ICON }}>
-              <Layers size={20} strokeWidth={1.5} />
+              <Layers size={26} strokeWidth={1.5} />
             </span>
           </NavyTile>
-          <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
+          <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
             Create new version
           </span>
-          <span className="mt-[5px] max-w-[160px] text-balance text-[10px] leading-snug" style={{ color: INK_2 }}>
+          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
             Save a new version of the rooming list.
           </span>
           <button
             type="button"
             onClick={onNewVersion}
-            className="mt-auto inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-[9px] px-2 text-[11px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
-            style={{ height: 40, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
+            className="mt-auto inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)] pt-5"
+            style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
           >
             Create new version
-            <ArrowRight size={13} />
+            <ArrowRight size={14} />
           </button>
         </li>
 
         <li
-          className="flex flex-col items-center rounded-[11px] p-[10px] text-center"
+          className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
           style={{
+            padding: "22px 18px",
+            height: "100%",
             background: "#F4F7F3",
             border: "1px solid rgba(72,90,68,0.13)",
             boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
           }}
         >
-          <NavyTile size={44} radius={13}>
+          <NavyTile size={56} radius={15}>
             <span style={{ color: GOLD_ICON }}>
-              <Upload size={20} strokeWidth={1.5} />
+              <Upload size={26} strokeWidth={1.5} />
             </span>
           </NavyTile>
-          <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
+          <span className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>
             Upload rooming list
           </span>
-          <span className="mt-[5px] max-w-[160px] text-balance text-[10px] leading-snug" style={{ color: INK_2 }}>
+          <span className="mt-2 max-w-[230px] text-balance text-[14px] leading-[1.45]" style={{ color: INK_2 }}>
             Upload a file (Excel or PDF) and we'll help you.
           </span>
           <button
             type="button"
             onClick={onUpload}
-            className="mt-auto inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-[9px] px-2 text-[11px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)]"
-            style={{ height: 40, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
+            className="mt-auto inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 text-[13.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)] pt-5"
+            style={{ height: 46, borderRadius: 10, color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
           >
             Upload file
-            <ArrowRight size={13} />
+            <ArrowRight size={14} />
           </button>
         </li>
       </ul>
