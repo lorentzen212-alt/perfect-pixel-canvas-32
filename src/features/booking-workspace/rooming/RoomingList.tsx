@@ -305,25 +305,25 @@ function SummaryCard({
     <div
       className="flex items-center gap-3 p-[13px]"
       style={{
-        background: CARD_SURFACE,
-        border: HAIRLINE,
+        background: NAVY,
+        border: "1px solid rgba(255,255,255,0.10)",
         borderRadius: 6,
-        boxShadow: SOFT_SHADOW,
+        boxShadow: "0 1px 2px rgba(8,20,34,0.20)",
       }}
     >
-      <NavyTile size={42} radius={9}>
+      <NavyTile size={42} radius={9} background="rgba(255,255,255,0.10)">
         <span style={{ color: "#FFFFFF", display: "flex" }}>{icon}</span>
       </NavyTile>
       <span className="min-w-0">
         <span
           className="block leading-none tabular-nums"
-          style={{ color: INK_NAVY, fontSize: 33, fontWeight: 700 }}
+          style={{ color: "#FFFFFF", fontSize: 33, fontWeight: 700 }}
         >
           {value}
         </span>
         <span
           className="mt-[3px] block text-[9.5px] font-semibold uppercase"
-          style={{ color: "rgba(13,28,43,0.48)", letterSpacing: "0.16em" }}
+          style={{ color: "rgba(255,255,255,0.58)", letterSpacing: "0.16em" }}
         >
           {label}
         </span>
