@@ -332,7 +332,7 @@ function SummaryCard({
 }
 
 /* ── room-type row ────────────────────────────────────────────── */
-const ROW_GRID = "1fr 1px 66px 1px 66px";
+const ROW_GRID = "1fr 1px 72px 1px 72px";
 
 function NumberCell({ value, label, muted }: { value: number; label: string; muted?: boolean }) {
   return (
@@ -340,7 +340,7 @@ function NumberCell({ value, label, muted }: { value: number; label: string; mut
       <span
         className="tabular-nums leading-none"
         style={{
-          fontSize: 20,
+          fontSize: 23,
           fontWeight: 650,
           color: muted ? "rgba(13,28,43,0.38)" : INK_NAVY,
         }}
@@ -348,7 +348,7 @@ function NumberCell({ value, label, muted }: { value: number; label: string; mut
         {value}
       </span>
       <span
-        className="mt-[2px] text-[10.5px] leading-none"
+        className="mt-[3px] text-[11px] leading-none"
         style={{ color: muted ? "rgba(13,28,43,0.38)" : "rgba(13,28,43,0.50)" }}
       >
         {label}
@@ -373,8 +373,8 @@ function TypeRow({
       className="grid items-center gap-3"
       style={{
         gridTemplateColumns: ROW_GRID,
-        minHeight: 44,
-        padding: "6px 14px",
+        minHeight: 56,
+        padding: "10px 16px",
         background: muted ? "#FAFAF9" : CARD_SURFACE,
         border: HAIRLINE,
         borderRadius: 13,
@@ -382,24 +382,24 @@ function TypeRow({
       }}
     >
       <span className="flex min-w-0 items-center gap-3">
-        <NavyTile size={32} radius={9} background={muted ? "#C9CDD2" : undefined}>
+        <NavyTile size={38} radius={10} background={muted ? "#C9CDD2" : undefined}>
           <Users
-            size={16}
+            size={18}
             strokeWidth={1.5}
             style={{ color: muted ? "#FFFFFF" : GOLD_ICON }}
           />
         </NavyTile>
         <span
-          className="min-w-0 truncate text-[14px] font-semibold"
+          className="min-w-0 truncate text-[15px] font-semibold"
           style={{ color: muted ? "rgba(13,28,43,0.42)" : INK_NAVY }}
         >
           {label}
         </span>
       </span>
 
-      <span aria-hidden style={{ width: 1, height: 26, background: "rgba(13,28,43,0.10)" }} />
+      <span aria-hidden style={{ width: 1, height: 30, background: "rgba(13,28,43,0.10)" }} />
       <NumberCell value={rooms} label="rooms" muted={muted} />
-      <span aria-hidden style={{ width: 1, height: 26, background: "rgba(13,28,43,0.10)" }} />
+      <span aria-hidden style={{ width: 1, height: 30, background: "rgba(13,28,43,0.10)" }} />
       <NumberCell value={guests} label="guests" muted={muted} />
     </li>
   );
