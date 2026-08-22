@@ -812,7 +812,7 @@ function Versions({
 }) {
   if (!versions.length) return null;
   return (
-    <div className="mt-[22px] pt-[18px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
+    <div className="mt-[26px] pt-[18px]" style={{ borderTop: "1px solid rgba(50,60,65,0.14)" }}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
           Versions
