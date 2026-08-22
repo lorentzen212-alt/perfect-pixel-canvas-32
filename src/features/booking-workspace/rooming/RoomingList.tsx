@@ -64,7 +64,9 @@ const SOFT_SHADOW = "0 1px 2px rgba(13,28,43,0.05)";
 
 const SOFT_CARD: React.CSSProperties = {
   borderRadius: 16,
-  background: CARD_SURFACE,
+  background: SURFACE,
+  border: HAIRLINE,
+  boxShadow: "0 1px 2px rgba(15,25,35,0.05), 0 4px 10px -6px rgba(15,25,35,0.10)",
 };
 
 const EYEBROW_STYLE: React.CSSProperties = {
