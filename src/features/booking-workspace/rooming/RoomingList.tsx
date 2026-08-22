@@ -151,7 +151,7 @@ function OutlineButton({
       type="button"
       onClick={onClick}
       className={`inline-flex items-center justify-center gap-2 rounded-[10px] px-4 py-[8px] text-[12.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)] ${className}`}
-      style={{ color: NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
+      style={{ color: INK_NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
     >
       {children}
     </button>
