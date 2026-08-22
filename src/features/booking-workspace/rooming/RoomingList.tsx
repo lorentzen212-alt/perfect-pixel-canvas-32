@@ -333,7 +333,7 @@ function SummaryCard({
 }
 
 /* ── room-type row ────────────────────────────────────────────── */
-const ROW_GRID = "1fr 78px 1px 78px";
+const ROW_GRID = "1fr 1px 78px 1px 78px";
 
 function NumberCell({ value, label, muted }: { value: number; label: string; muted?: boolean }) {
   return (
@@ -376,7 +376,7 @@ function TypeRow({
         gridTemplateColumns: ROW_GRID,
         minHeight: 76,
         padding: "14px 16px",
-        background: muted ? "#FAFAF9" : SURFACE,
+        background: muted ? "#FAFAF9" : CARD_SURFACE,
         border: HAIRLINE,
         borderRadius: 13,
         boxShadow: muted ? "none" : SOFT_SHADOW,
@@ -398,6 +398,7 @@ function TypeRow({
         </span>
       </span>
 
+      <span aria-hidden style={{ width: 1, height: 34, background: "rgba(13,28,43,0.10)" }} />
       <NumberCell value={rooms} label="rooms" muted={muted} />
       <span aria-hidden style={{ width: 1, height: 34, background: "rgba(13,28,43,0.10)" }} />
       <NumberCell value={guests} label="guests" muted={muted} />
