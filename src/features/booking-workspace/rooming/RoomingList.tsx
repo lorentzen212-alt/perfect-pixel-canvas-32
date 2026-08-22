@@ -875,12 +875,13 @@ function Actions({
 
       <ul
         className="mt-[13px] flex-1 grid grid-cols-1 gap-[16px] grid-rows-1 md:grid-cols-3"
-        style={{ minHeight: 240 }}
+        style={{ minHeight: 240, height: "100%" }}
       >
         <li
           className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
           style={{
             padding: "22px 18px",
+            height: "100%",
             background: "rgba(247,236,214,0.55)",
             border: "1px solid rgba(198,160,92,0.28)",
             boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
@@ -914,6 +915,7 @@ function Actions({
           className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
           style={{
             padding: "22px 18px",
+            height: "100%",
             background: "#F4F7F8",
             border: "1px solid rgba(50,70,85,0.12)",
             boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
@@ -945,6 +947,7 @@ function Actions({
           className="flex h-full flex-col items-center justify-center rounded-[11px] text-center"
           style={{
             padding: "22px 18px",
+            height: "100%",
             background: "#F4F7F3",
             border: "1px solid rgba(72,90,68,0.13)",
             boxShadow: "0 1px 2px rgba(16,32,48,0.05)",
