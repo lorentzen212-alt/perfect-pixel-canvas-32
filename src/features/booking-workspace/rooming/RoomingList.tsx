@@ -428,9 +428,9 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
     <li
       className="relative flex items-center gap-3 py-[11px] pl-[14px] pr-[10px]"
       style={{
-        borderRadius: CARD_RADIUS,
-        background: v.current ? "#FBF5E9" : "#FFFFFF",
-        border: v.current ? "1px solid rgba(169,120,36,0.45)" : "1px solid rgba(50,60,65,0.12)",
+        borderRadius: 13,
+        background: v.current ? "#FBFAF7" : "#FFFFFF",
+        border: v.current ? "1px solid rgba(13,28,43,0.22)" : "1px solid rgba(50,60,65,0.10)",
         overflow: "hidden",
       }}
     >
@@ -438,21 +438,22 @@ function VersionRow({ v }: { v: RoomingVersionRow }) {
         <span
           aria-hidden
           className="absolute inset-y-0 left-0"
-          style={{ width: 4, background: "linear-gradient(180deg, #C79A2E 0%, #A97824 100%)" }}
+          style={{ width: 3, background: NAVY }}
         />
       ) : null}
 
       <span
         className="grid h-[34px] w-[34px] shrink-0 place-items-center text-[12px] font-bold tabular-nums"
         style={{
-          borderRadius: CARD_RADIUS,
-          background: v.current ? "linear-gradient(180deg, #FBF3E1 0%, #F3E6C9 100%)" : "#FBFAF7",
-          border: v.current ? "1px solid rgba(169,120,36,0.35)" : "1px solid rgba(50,60,65,0.12)",
-          color: v.current ? "#A97824" : INK_2,
+          borderRadius: 11,
+          background: v.current ? NAVY : "#FBFAF7",
+          border: v.current ? `1px solid ${NAVY}` : "1px solid rgba(50,60,65,0.12)",
+          color: v.current ? GOLD_ICON : INK_2,
         }}
       >
         {v.short}
       </span>
+
 
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-2">
