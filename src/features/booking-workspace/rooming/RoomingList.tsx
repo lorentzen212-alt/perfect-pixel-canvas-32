@@ -609,10 +609,10 @@ function Actions({
   ];
 
   return (
-    <Card className="flex h-full flex-col px-5 pb-4 pt-[15px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
+    <Card className="flex h-full flex-col px-5 pb-4 pt-[15px] sm:px-6" style={SOFT_CARD}>
       <span
         className="text-[11.5px] font-semibold uppercase"
-        style={{ color: "#A98232", letterSpacing: "0.14em" }}
+        style={EYEBROW_STYLE}
       >
         Rooming list actions
       </span>
@@ -624,7 +624,9 @@ function Actions({
             className="flex items-center gap-3.5 py-[18px]"
             style={{ borderTop: i === 0 ? undefined : "1px solid rgba(50,60,65,0.10)" }}
           >
-            <Medallion size={38}>{r.icon}</Medallion>
+            <NavyTile size={38} radius={11}>
+              <span style={{ color: GOLD_ICON }}>{r.icon}</span>
+            </NavyTile>
             <span className="min-w-0 flex-1">
               <span className="block text-[14px] font-semibold leading-snug" style={{ color: INK }}>
                 {r.title}
@@ -636,17 +638,21 @@ function Actions({
             {r.link ? (
               <Link to="/bookings/$bookingId"
               search={{ tab: "Rooming List" }} params={{ bookingId }} className="shrink-0">
-                <GoldFillButton className="w-[176px]">
+                <NavyButton className="w-[176px] py-[9px]">
                   {r.label}
                   <ArrowRight size={13} />
-                </GoldFillButton>
+                </NavyButton>
               </Link>
             ) : (
-              <GoldFillButton className="w-[176px] shrink-0" onClick={r.onClick}>
+              <NavyButton className="w-[176px] shrink-0 py-[9px]" onClick={r.onClick}>
                 {r.label}
                 <ArrowRight size={13} />
-              </GoldFillButton>
+              </NavyButton>
             )}
+          </li>
+        ))}
+      </ul>
+
           </li>
         ))}
       </ul>
