@@ -311,7 +311,7 @@ function SummaryCard({
         boxShadow: "0 1px 2px rgba(8,20,34,0.20)",
       }}
     >
-      <NavyTile size={42} radius={9} background="rgba(255,255,255,0.10)">
+      <NavyTile size={50} radius={12} background="rgba(255,255,255,0.10)">
         <span style={{ color: "#FFFFFF", display: "flex" }}>{icon}</span>
       </NavyTile>
       <span className="min-w-0">
@@ -465,16 +465,16 @@ function TypeRow({
       className="grid items-center gap-3"
       style={{
         gridTemplateColumns: ROW_GRID,
-        minHeight: 60,
+        minHeight: 66,
         padding: "10px 18px",
         background: muted ? "#FAFAF9" : "transparent",
         borderTop: isFirst ? undefined : "1px solid rgba(13,28,43,0.08)",
       }}
     >
       <span className="flex min-w-0 items-center gap-3">
-        <NavyTile size={38} radius={9} background={muted ? "#C9CDD2" : undefined}>
+        <NavyTile size={46} radius={11} background={muted ? "#C9CDD2" : undefined}>
           <span style={{ color: "#FFFFFF", display: "flex" }}>
-            <BedIcon variant={bedVariantFor(label)} size={17} />
+            <BedIcon variant={bedVariantFor(label)} size={24} />
           </span>
         </NavyTile>
         <span
@@ -509,16 +509,16 @@ function OtherTypesRow({ isFirst }: { isFirst?: boolean }) {
         className="grid w-full items-center gap-3 text-left"
         style={{
           gridTemplateColumns: ROW_GRID,
-          minHeight: 60,
+          minHeight: 66,
           padding: "10px 18px",
           background: "transparent",
           border: "none",
         }}
       >
         <span className="flex min-w-0 items-center gap-3">
-          <NavyTile size={38} radius={9} background="#C9CDD2">
+          <NavyTile size={46} radius={11} background="#C9CDD2">
             <span style={{ color: "#FFFFFF", display: "flex" }}>
-              <BedIcon variant="other" size={17} />
+              <BedIcon variant="other" size={24} />
             </span>
           </NavyTile>
           <span className="flex min-w-0 items-center gap-1.5">
@@ -610,12 +610,12 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
 
       <div className="mt-[8px] grid grid-cols-2 gap-[4px]">
         <SummaryCard
-          icon={<Bed size={19} strokeWidth={1.6} />}
+          icon={<Bed size={26} strokeWidth={1.5} />}
           value={totalRooms}
           label="Total rooms"
         />
         <SummaryCard
-          icon={<Users size={19} strokeWidth={1.6} />}
+          icon={<Users size={26} strokeWidth={1.5} />}
           value={totalGuests}
           label="Total guests"
         />
