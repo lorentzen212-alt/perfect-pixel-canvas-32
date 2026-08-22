@@ -661,7 +661,7 @@ export function FinalDetails({
   const noteExpanded = noteOpen || note.length > 0;
 
   return (
-    <div className="px-5 pb-14 pt-6 sm:px-14 sm:pt-14">
+    <div className="px-4 pb-[45px] pt-[19px] sm:px-[45px] sm:pt-[45px]">
       <div
         className="overflow-hidden rounded-[18px]"
         style={{ background: CANVAS, border: CANVAS_BORDER, boxShadow: CANVAS_SHADOW }}
