@@ -875,7 +875,7 @@ function Actions({
 
       <ul className="mt-[11px] grid grid-cols-1 gap-[13px] md:grid-cols-3">
         <li
-          className="flex flex-col items-center rounded-[11px] p-[12px] text-center"
+          className="flex flex-col items-center rounded-[11px] p-[10px] text-center"
           style={{
             background: "rgba(247,236,214,0.55)",
             border: "1px solid rgba(198,160,92,0.28)",
@@ -890,7 +890,7 @@ function Actions({
           <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
             Continue editing
           </span>
-          <span className="mt-[5px] max-w-[160px] text-balance text-[10.5px] leading-snug" style={{ color: INK_2 }}>
+          <span className="mt-[5px] max-w-[160px] text-balance text-[10px] leading-snug" style={{ color: INK_2 }}>
             Add more guests or adjust room assignments.
           </span>
           <Link
@@ -907,7 +907,7 @@ function Actions({
         </li>
 
         <li
-          className="flex flex-col items-center rounded-[11px] p-[12px] text-center"
+          className="flex flex-col items-center rounded-[11px] p-[10px] text-center"
           style={{
             background: "#F4F7F8",
             border: "1px solid rgba(50,70,85,0.12)",
@@ -922,7 +922,7 @@ function Actions({
           <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
             Create new version
           </span>
-          <span className="mt-[5px] max-w-[160px] text-balance text-[10.5px] leading-snug" style={{ color: INK_2 }}>
+          <span className="mt-[5px] max-w-[160px] text-balance text-[10px] leading-snug" style={{ color: INK_2 }}>
             Save a new version of the rooming list.
           </span>
           <button
@@ -937,7 +937,7 @@ function Actions({
         </li>
 
         <li
-          className="flex flex-col items-center rounded-[11px] p-[12px] text-center"
+          className="flex flex-col items-center rounded-[11px] p-[10px] text-center"
           style={{
             background: "#F4F7F3",
             border: "1px solid rgba(72,90,68,0.13)",
@@ -952,7 +952,7 @@ function Actions({
           <span className="mt-3 text-[14px] font-semibold" style={{ color: INK }}>
             Upload rooming list
           </span>
-          <span className="mt-[5px] max-w-[160px] text-balance text-[10.5px] leading-snug" style={{ color: INK_2 }}>
+          <span className="mt-[5px] max-w-[160px] text-balance text-[10px] leading-snug" style={{ color: INK_2 }}>
             Upload a file (Excel or PDF) and we'll help you.
           </span>
           <button
