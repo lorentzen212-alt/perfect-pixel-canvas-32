@@ -4,6 +4,7 @@ import {
   ArrowRight,
   Bed,
   CalendarClock,
+  ChevronDown,
   ClipboardList,
   Eye,
   History,
@@ -64,7 +65,7 @@ const HAIRLINE = "1px solid rgba(50,60,65,0.10)";
 const SOFT_SHADOW = "0 1px 2px rgba(13,28,43,0.05)";
 
 const SOFT_CARD: React.CSSProperties = {
-  borderRadius: 12,
+  borderRadius: 8,
   background: SURFACE,
   border: HAIRLINE,
   boxShadow: "0 1px 2px rgba(15,25,35,0.05), 0 4px 10px -6px rgba(15,25,35,0.10)",
@@ -306,12 +307,12 @@ function SummaryCard({
       style={{
         background: CARD_SURFACE,
         border: HAIRLINE,
-        borderRadius: 10,
+        borderRadius: 6,
         boxShadow: SOFT_SHADOW,
       }}
     >
       <NavyTile size={42} radius={9}>
-        <span style={{ color: GOLD_ICON }}>{icon}</span>
+        <span style={{ color: "#FFFFFF", display: "flex" }}>{icon}</span>
       </NavyTile>
       <span className="min-w-0">
         <span
@@ -509,11 +510,13 @@ function OtherTypesRow() {
               style={{
                 gridTemplateColumns: ROW_GRID,
                 height: 30,
-                paddingLeft: 50,
                 borderTop: i === 0 ? "none" : "1px solid rgba(13,28,43,0.07)",
               }}
             >
-              <span className="truncate text-[12.5px]" style={{ color: "rgba(13,28,43,0.55)" }}>
+              <span
+                className="truncate text-[12.5px]"
+                style={{ color: "rgba(13,28,43,0.55)", paddingLeft: 50 }}
+              >
                 {t}
               </span>
               <span aria-hidden />
@@ -561,24 +564,24 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         </span>
       </div>
 
-      <div className="mt-[8px] grid grid-cols-2 gap-[6px]">
+      <div className="mt-[8px] grid grid-cols-2 gap-[4px]">
         <SummaryCard
-          icon={<Bed size={19} strokeWidth={1.5} />}
+          icon={<Bed size={19} strokeWidth={1.6} />}
           value={totalRooms}
           label="Total rooms"
         />
         <SummaryCard
-          icon={<Users size={19} strokeWidth={1.5} />}
+          icon={<Users size={19} strokeWidth={1.6} />}
           value={totalGuests}
           label="Total guests"
         />
       </div>
 
-      <ul className="mt-[8px] flex flex-col gap-[5px]">
+      <ul className="mt-[8px] flex flex-col gap-[3px]">
         {rows.map((r) => (
           <TypeRow key={r.label} label={r.label} rooms={r.rooms} guests={r.guests} />
         ))}
-        <TypeRow label="Other room types (0)" rooms={0} guests={0} muted />
+        <OtherTypesRow />
       </ul>
 
       <Link
@@ -587,7 +590,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         params={{ bookingId }}
         className="mt-[8px] block"
       >
-        <NavyButton className="w-full text-[14px]" style={{ height: 50, borderRadius: 8 }}>
+        <NavyButton className="w-full text-[14px]" style={{ height: 50, borderRadius: 5 }}>
           View full rooming list
           <ArrowRight size={15} />
         </NavyButton>
