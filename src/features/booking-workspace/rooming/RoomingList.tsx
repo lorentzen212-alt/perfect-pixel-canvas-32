@@ -192,7 +192,7 @@ function StatusStrip({
   return (
     <Card
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_1.6fr_1fr_1fr]"
-      style={{ borderRadius: CARD_RADIUS }}
+      style={SOFT_CARD}
     >
       {/* 1 · status */}
       <div className="flex items-center gap-3.5 px-5 py-[16px]">
@@ -207,7 +207,7 @@ function StatusStrip({
             <span
               aria-hidden
               className="h-[7px] w-[7px] shrink-0 rounded-full"
-              style={{ background: GOLD_ICON }}
+              style={{ background: NAVY }}
             />
             <span className="truncate text-[14.5px] font-semibold" style={{ color: INK }}>
               {data.status}
