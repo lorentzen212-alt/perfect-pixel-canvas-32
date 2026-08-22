@@ -769,6 +769,22 @@ function NeedHelp({ onMessage }: { onMessage?: () => void }) {
   );
 }
 
+/* ── local navy plate (Rooming List only) ─────────────────────── */
+function NavyPlate({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="relative flex flex-1 flex-col"
+      style={{
+        background: "#253B50",
+        borderRadius: "16px 16px 0 0",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 /* ── composition ──────────────────────────────────────────────── */
 export function RoomingFolder({
   bookingId,
