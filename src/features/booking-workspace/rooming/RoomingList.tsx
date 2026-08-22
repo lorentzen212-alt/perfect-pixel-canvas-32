@@ -302,15 +302,15 @@ function SummaryCard({
 }) {
   return (
     <div
-      className="flex items-center gap-3 p-[12px]"
+      className="flex items-center gap-3 p-[13px]"
       style={{
         background: CARD_SURFACE,
         border: HAIRLINE,
-        borderRadius: 15,
+        borderRadius: 10,
         boxShadow: SOFT_SHADOW,
       }}
     >
-      <NavyTile size={42} radius={12}>
+      <NavyTile size={42} radius={9}>
         <span style={{ color: GOLD_ICON }}>{icon}</span>
       </NavyTile>
       <span className="min-w-0">
