@@ -659,21 +659,24 @@ function Actions({
 /* ── 4 · need help ────────────────────────────────────────────── */
 function NeedHelp({ onMessage }: { onMessage?: () => void }) {
   return (
-    <Card className="flex flex-col gap-3 px-5 py-[13px] sm:flex-row sm:items-center sm:gap-5 sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
-      <Medallion size={40}>
-        <LifeBuoy size={20} strokeWidth={1.5} />
-      </Medallion>
+    <Card className="flex flex-col gap-3 px-5 py-[13px] sm:flex-row sm:items-center sm:gap-5 sm:px-6" style={SOFT_CARD}>
+      <NavyTile size={40} radius={12}>
+        <LifeBuoy size={20} strokeWidth={1.5} style={{ color: GOLD_ICON }} />
+      </NavyTile>
       <div className="min-w-0 flex-1">
-        <Eyebrow>Need help?</Eyebrow>
+        <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
+          Need help?
+        </span>
         <p className="mt-1 text-[13px]" style={{ color: INK_2 }}>
           Questions or changes to your booking?
         </p>
       </div>
-      <OutlineButton className="shrink-0" onClick={onMessage}>
+      <NavyButton className="shrink-0 px-4 py-[9px]" onClick={onMessage}>
         Message HotelGroupBook
         <ArrowRight size={13} />
-      </OutlineButton>
+      </NavyButton>
     </Card>
+
   );
 }
 
