@@ -428,7 +428,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         </span>
       </div>
 
-      <div className="mt-[10px] grid grid-cols-2 gap-[8px]">
+      <div className="mt-[8px] grid grid-cols-2 gap-[6px]">
         <SummaryCard
           icon={<Bed size={19} strokeWidth={1.5} />}
           value={totalRooms}
@@ -441,7 +441,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         />
       </div>
 
-      <ul className="mt-[10px] flex flex-col gap-[8px]">
+      <ul className="mt-[8px] flex flex-col gap-[5px]">
         {rows.map((r) => (
           <TypeRow key={r.label} label={r.label} rooms={r.rooms} guests={r.guests} />
         ))}
@@ -452,9 +452,9 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         to="/bookings/$bookingId"
         search={{ tab: "Rooming List" }}
         params={{ bookingId }}
-        className="mt-[10px] block"
+        className="mt-[8px] block"
       >
-        <NavyButton className="w-full text-[14px]" style={{ height: 50, borderRadius: 11 }}>
+        <NavyButton className="w-full text-[14px]" style={{ height: 50, borderRadius: 8 }}>
           View full rooming list
           <ArrowRight size={15} />
         </NavyButton>
