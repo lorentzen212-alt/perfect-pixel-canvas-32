@@ -260,27 +260,8 @@ function StatusStrip({
   );
 }
 
-/* ── total medallion (light rounded, gold icon) ───────────────── */
-function TotalMedallion({ children, size = 40 }: { children: React.ReactNode; size?: number }) {
-  return (
-    <span
-      className="grid shrink-0 place-items-center rounded-full"
-      style={{
-        height: size,
-        width: size,
-        background: "linear-gradient(180deg, #FAF8F3 0%, #F2EEE6 100%)",
-        border: "1px solid rgba(169,120,36,0.22)",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(24,30,36,0.05)",
-        color: "#A97824",
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
-/* ── total tile ───────────────────────────────────────────────── */
-function TotalTile({
+/* ── summary card (rooms / guests) ────────────────────────────── */
+function SummaryCard({
   icon,
   value,
   label,
@@ -291,25 +272,27 @@ function TotalTile({
 }) {
   return (
     <div
-      className="flex items-center gap-3 px-4 py-[12px]"
+      className="flex items-center gap-3 p-[14px]"
       style={{
-        background: "#FBFAF7",
-        border: "1px solid rgba(50,60,65,0.10)",
-        borderRadius: CARD_RADIUS,
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8)",
+        background: SURFACE,
+        border: HAIRLINE,
+        borderRadius: 15,
+        boxShadow: SOFT_SHADOW,
       }}
     >
-      <TotalMedallion>{icon}</TotalMedallion>
+      <NavyTile size={44} radius={12}>
+        <span style={{ color: GOLD_ICON }}>{icon}</span>
+      </NavyTile>
       <span className="min-w-0">
         <span
           className="block leading-none tabular-nums"
-          style={{ color: "#1B2530", fontSize: 34, fontWeight: 700, fontFamily: SERIF }}
+          style={{ color: NAVY, fontSize: 36, fontWeight: 700 }}
         >
           {value}
         </span>
         <span
-          className="mt-1 block text-[9.5px] font-semibold uppercase"
-          style={{ color: "rgba(27,37,48,0.46)", letterSpacing: "0.16em" }}
+          className="mt-[6px] block text-[9.5px] font-semibold uppercase"
+          style={{ color: "rgba(13,28,43,0.48)", letterSpacing: "0.16em" }}
         >
           {label}
         </span>
@@ -318,71 +301,137 @@ function TotalTile({
   );
 }
 
-/* ── 3a · preview ─────────────────────────────────────────────── */
+/* ── room-type row ────────────────────────────────────────────── */
+const ROW_GRID = "1fr 78px 1px 78px";
+
+function NumberCell({ value, label, muted }: { value: number; label: string; muted?: boolean }) {
+  return (
+    <span className="flex flex-col items-center justify-center">
+      <span
+        className="tabular-nums leading-none"
+        style={{
+          fontSize: 27,
+          fontWeight: 650,
+          color: muted ? "rgba(13,28,43,0.38)" : NAVY,
+        }}
+      >
+        {value}
+      </span>
+      <span
+        className="mt-[4px] text-[11.5px] leading-none"
+        style={{ color: muted ? "rgba(13,28,43,0.38)" : "rgba(13,28,43,0.50)" }}
+      >
+        {label}
+      </span>
+    </span>
+  );
+}
+
+function TypeRow({
+  label,
+  rooms,
+  guests,
+  muted,
+}: {
+  label: string;
+  rooms: number;
+  guests: number;
+  muted?: boolean;
+}) {
+  return (
+    <li
+      className="grid items-center gap-3"
+      style={{
+        gridTemplateColumns: ROW_GRID,
+        minHeight: 76,
+        padding: "14px 16px",
+        background: muted ? "#FAFAF9" : SURFACE,
+        border: HAIRLINE,
+        borderRadius: 13,
+        boxShadow: muted ? "none" : SOFT_SHADOW,
+      }}
+    >
+      <span className="flex min-w-0 items-center gap-3">
+        <NavyTile size={42} radius={11} background={muted ? "#C9CDD2" : undefined}>
+          <Users
+            size={19}
+            strokeWidth={1.5}
+            style={{ color: muted ? "#FFFFFF" : GOLD_ICON }}
+          />
+        </NavyTile>
+        <span
+          className="min-w-0 truncate text-[15.5px] font-semibold"
+          style={{ color: muted ? "rgba(13,28,43,0.42)" : NAVY }}
+        >
+          {label}
+        </span>
+      </span>
+
+      <NumberCell value={rooms} label="rooms" muted={muted} />
+      <span aria-hidden style={{ width: 1, height: 34, background: "rgba(13,28,43,0.10)" }} />
+      <NumberCell value={guests} label="guests" muted={muted} />
+    </li>
+  );
+}
+
+/* ── 3a · rooming overview ────────────────────────────────────── */
 function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: string }) {
   const totalRooms = rows.reduce((s, r) => s + r.rooms, 0);
   const totalGuests = rows.reduce((s, r) => s + r.guests, 0);
 
   return (
-    <Card className="flex flex-col px-5 pb-4 pt-[15px] sm:px-6" style={{ borderRadius: CARD_RADIUS }}>
-      <span
-        className="text-[11.5px] font-semibold uppercase"
-        style={{ color: "#A98232", letterSpacing: "0.14em" }}
-      >
-        Rooming list preview
-      </span>
-
-      <ul className="mt-2">
-        {rows.map((r, i) => (
-          <li
-            key={r.label}
-            className="grid items-center gap-2 px-2 py-[13px]"
-            style={{
-              gridTemplateColumns: "48fr 22fr 22fr 16px",
-              background: i % 2 === 1 ? "#FAF8F5" : undefined,
-              borderBottom: "1px solid rgba(50,60,65,0.10)",
-            }}
-          >
-            <span className="min-w-0 truncate text-[15.5px] font-medium" style={{ color: INK }}>
-              {r.label}
-            </span>
-            <span
-              className="text-[12.5px] tabular-nums"
-              style={{ color: INK_2, textAlign: "left" }}
-            >
-              {r.rooms} rooms
-            </span>
-            <span
-              className="text-[12.5px] tabular-nums"
-              style={{ color: INK_2, textAlign: "left" }}
-            >
-              {r.guests} guests
-            </span>
-            <ChevronDown size={15} style={{ color: "rgba(27,37,48,0.35)", justifySelf: "end" }} />
-          </li>
-        ))}
-      </ul>
-
-      {/* totals section */}
-      <div className="mt-[12px] grid grid-cols-2 gap-[10px]">
-        <TotalTile icon={<Bed size={20} strokeWidth={1.5} />} value={totalRooms} label="Total rooms" />
-        <TotalTile icon={<Users size={20} strokeWidth={1.5} />} value={totalGuests} label="Total guests" />
+    <Card className="flex flex-col px-5 pb-4 pt-[15px] sm:px-6" style={SOFT_CARD}>
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-[11.5px] font-semibold uppercase" style={EYEBROW_STYLE}>
+          Rooming overview
+        </span>
+        <span
+          className="shrink-0 rounded-full px-2.5 py-[3px] text-[10.5px] font-medium"
+          style={{
+            color: "rgba(13,28,43,0.62)",
+            background: "rgba(13,28,43,0.05)",
+            border: "1px solid rgba(50,60,65,0.10)",
+          }}
+        >
+          Current
+        </span>
       </div>
+
+      <div className="mt-[12px] grid grid-cols-2 gap-[10px]">
+        <SummaryCard
+          icon={<Bed size={20} strokeWidth={1.5} />}
+          value={totalRooms}
+          label="Total rooms"
+        />
+        <SummaryCard
+          icon={<Users size={20} strokeWidth={1.5} />}
+          value={totalGuests}
+          label="Total guests"
+        />
+      </div>
+
+      <ul className="mt-[12px] flex flex-col gap-[10px]">
+        {rows.map((r) => (
+          <TypeRow key={r.label} label={r.label} rooms={r.rooms} guests={r.guests} />
+        ))}
+        <TypeRow label="Other room types (0)" rooms={0} guests={0} muted />
+      </ul>
 
       <Link
         to="/bookings/$bookingId"
-              search={{ tab: "Rooming List" }}
+        search={{ tab: "Rooming List" }}
         params={{ bookingId }}
         className="mt-[12px] block"
       >
-        <OutlineButton className="w-full !py-[12px]">
+        <NavyButton className="w-full text-[14.5px]" style={{ height: 54, borderRadius: 11 }}>
           View full rooming list
-          <ArrowRight size={13} />
-        </OutlineButton>
+          <ArrowRight size={15} />
+        </NavyButton>
       </Link>
     </Card>
   );
 }
+
 
 /* ── 3b-2 · versions ──────────────────────────────────────────── */
 function TextLink({
