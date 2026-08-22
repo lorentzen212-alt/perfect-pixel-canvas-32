@@ -53,6 +53,85 @@ export interface RoomingSummaryData {
   versions?: RoomingVersionRow[];
 }
 
+/* ── palette ──────────────────────────────────────────────────── */
+const NAVY = "#0D1C2B";
+const NAVY_HOVER = "#13283C";
+const GOLD_ICON = "#E8C96A";
+const SURFACE = "#F7F5F1";
+const CARD_SURFACE = "#FBFAF7";
+const HAIRLINE = "1px solid rgba(50,60,65,0.10)";
+const SOFT_SHADOW = "0 1px 2px rgba(13,28,43,0.05)";
+
+const SOFT_CARD: React.CSSProperties = {
+  borderRadius: 16,
+  background: CARD_SURFACE,
+};
+
+const EYEBROW_STYLE: React.CSSProperties = {
+  color: "rgba(13,28,43,0.55)",
+  letterSpacing: "0.14em",
+};
+
+/* ── navy icon tile ───────────────────────────────────────────── */
+function NavyTile({
+  children,
+  size = 42,
+  radius = 11,
+  background,
+}: {
+  children: React.ReactNode;
+  size?: number;
+  radius?: number;
+  background?: string;
+}) {
+  return (
+    <span
+      className="grid shrink-0 place-items-center"
+      style={{
+        width: size,
+        height: size,
+        borderRadius: radius,
+        background: background ?? NAVY,
+        color: GOLD_ICON,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+/* ── primary navy button ──────────────────────────────────────── */
+function NavyButton({
+  children,
+  className = "",
+  onClick,
+  style,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+}) {
+  const [hover, setHover] = React.useState(false);
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      className={`inline-flex items-center justify-center gap-2 px-4 text-[12.5px] font-semibold transition-colors ${className}`}
+      style={{
+        height: 42,
+        borderRadius: 10,
+        background: hover ? NAVY_HOVER : NAVY,
+        color: "#FFFFFF",
+        ...style,
+      }}
+    >
+      {children}
+    </button>
+  );
+}
 
 /* ── shared outlined action ───────────────────────────────────── */
 function OutlineButton({
@@ -68,80 +147,30 @@ function OutlineButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center justify-center gap-2 rounded-[5px] px-4 py-[8px] text-[12.5px] font-semibold transition-colors hover:bg-[rgba(176,112,15,0.06)] ${className}`}
-      style={{ color: "#A97824", border: "1px solid rgba(169,120,36,0.70)", background: "transparent" }}
+      className={`inline-flex items-center justify-center gap-2 rounded-[10px] px-4 py-[8px] text-[12.5px] font-semibold transition-colors hover:bg-[rgba(13,28,43,0.05)] ${className}`}
+      style={{ color: NAVY, border: "1px solid rgba(50,60,65,0.18)", background: "transparent" }}
     >
       {children}
     </button>
   );
 }
 
-/* shared square-ish card radius override for the Rooming tab */
+/* shared card radius override for the Rooming tab */
 const CARD_RADIUS = 6;
 
 function IconTile({ children }: { children: React.ReactNode }) {
-  return (
-    <span
-      className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[6px]"
-      style={{
-        background: "#FFFFFF",
-        border: "1px solid rgba(125,125,115,0.14)",
-        boxShadow: "0 1px 2px rgba(25,35,40,0.06), inset 0 1px 0 rgba(255,255,255,0.95)",
-        color: INK,
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
-/* ── filled gold action (same size/shape as OutlineButton) ────── */
-function GoldFillButton({
-  children,
-  className = "",
-  onClick,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`inline-flex items-center justify-center gap-2 rounded-[5px] px-4 py-[8px] text-[12.5px] font-semibold ${className}`}
-      style={{
-        background:
-          "linear-gradient(135deg, #B8860B 0%, #DAA520 28%, #E2C868 50%, #DAA520 68%, #8B6914 100%)",
-        color: "#1A0F00",
-        boxShadow: "0 1px 3px rgba(139,105,20,0.22)",
-      }}
-    >
-      {children}
-    </button>
-  );
+  return <NavyTile size={34} radius={9}>{children}</NavyTile>;
 }
 
 function GoldIconTile({ children }: { children: React.ReactNode }) {
-  return (
-    <span
-      className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-[6px]"
-      style={{
-        background: "linear-gradient(180deg, #FBF3E1 0%, #F5E9CE 100%)",
-        border: "1px solid rgba(169,120,36,0.32)",
-        boxShadow: "0 1px 2px rgba(25,35,40,0.06), inset 0 1px 0 rgba(255,255,255,0.9)",
-        color: "#A97824",
-      }}
-    >
-      {children}
-    </span>
-  );
+  return <NavyTile size={34} radius={9}>{children}</NavyTile>;
 }
 
 const CELL_LABEL: React.CSSProperties = {
   color: "rgba(27,37,48,0.46)",
   letterSpacing: "0.14em",
 };
+
 
 /* ── 1 · status strip ─────────────────────────────────────────── */
 function StatusStrip({
