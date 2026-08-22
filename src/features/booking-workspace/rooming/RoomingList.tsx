@@ -54,8 +54,9 @@ export interface RoomingSummaryData {
 }
 
 /* ── palette ──────────────────────────────────────────────────── */
-const NAVY = "#0D1C2B";
-const NAVY_HOVER = "#13283C";
+const NAVY = "#304B5F";
+const NAVY_HOVER = "#385870";
+const INK_NAVY = "#0D1C2B";
 const GOLD_ICON = "#E8C96A";
 const SURFACE = "#F7F5F1";
 const CARD_SURFACE = "#FBFAF7";
