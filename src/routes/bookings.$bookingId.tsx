@@ -1257,7 +1257,7 @@ function Workspace({ booking }: { booking: Booking }) {
                 ? GROUP_PLAN_IVORY
                 : undefined
           }
-
+          activeInk={tab === "Final Details" ? "#EAF1F7" : undefined}
         />
 
         {/* ══ 2 · workspace plate — physical folder on Overview, ivory elsewhere ══ */}
@@ -1494,19 +1494,19 @@ function Workspace({ booking }: { booking: Booking }) {
 
 /* ───────────────────────── workspace primitives ───────────────────────── */
 
-/* Final Details sits on polished metal. This is the literal output of
-   metallicGradient() from src/lib/instantEdits/metal.ts for base #CFCFCF at
-   strength 100, angle 360 — the values set in Instant Edits. */
+/* Final Details sits on polished navy. This is the literal output of
+   metallicGradient() from src/lib/instantEdits/metal.ts for base #273B4E at
+   strength 52, angle 138 — the values set in Instant Edits. */
 const FINAL_METAL =
-  "linear-gradient(360deg, rgb(120, 120, 120) 0%, rgb(157, 157, 157) 10%, rgb(199, 199, 199) 24%, rgb(221, 221, 221) 38%, rgb(232, 232, 232) 50%, rgb(221, 221, 221) 62%, rgb(199, 199, 199) 72%, rgb(216, 216, 216) 82%, rgb(157, 157, 157) 92%, rgb(120, 120, 120) 100%)";
+  "linear-gradient(138deg, rgb(30, 46, 61) 0%, rgb(34, 52, 68) 10%, rgb(38, 58, 76) 24%, rgb(73, 90, 106) 38%, rgb(97, 112, 126) 50%, rgb(73, 90, 106) 62%, rgb(38, 58, 76) 72%, rgb(59, 77, 95) 82%, rgb(34, 52, 68) 92%, rgb(30, 46, 61) 100%)";
 /** flat mid-tone from the same ramp, so no seam shows behind the plate */
-const FINAL_METAL_BASE = "rgb(199, 199, 199)";
+const FINAL_METAL_BASE = "rgb(38, 58, 76)";
 
-/* the active Final Details tab merges into the TOP of the metal plate, which is
-   the rgb(120,120,120) end of FINAL_METAL because that gradient runs at 360deg.
-   Starting lighter keeps the tab reading as a raised tab and keeps TAB_INK legible. */
+/* the active Final Details tab merges into the TOP of the navy plate. Starting
+   lighter keeps the tab reading as a raised tab, then it darkens to the plate's
+   own deep tone so the seam disappears. */
 const FINAL_TAB_SURFACE =
-  "linear-gradient(180deg, rgb(214, 214, 214) 0%, rgb(150, 150, 150) 72%, rgb(120, 120, 120) 100%)";
+  "linear-gradient(180deg, rgb(52, 72, 92) 0%, rgb(38, 58, 76) 72%, rgb(30, 46, 61) 100%)";
 
 
 const PLATE = "#F6F4EB";

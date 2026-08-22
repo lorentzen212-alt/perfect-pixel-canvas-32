@@ -64,6 +64,7 @@ export function BookingWorkspaceHeader({
   active,
   onSelect,
   surface,
+  activeInk,
 }: {
   bookingId: string;
   bookingName: string;
@@ -80,6 +81,8 @@ export function BookingWorkspaceHeader({
   onSelect?: (tab: WorkspaceTab) => void;
   /** surface the active tab must merge into (folder plate below) */
   surface?: string;
+  /** ink colour for the active tab label + icon (defaults to dark navy) */
+  activeInk?: string;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -176,10 +179,11 @@ export function BookingWorkspaceHeader({
             const isActive = t === active;
             const cls =
               "hgb-ws-tab relative whitespace-nowrap rounded-t-[10px] px-[22px] pb-[12px] pt-[11px] text-[13px] transition-colors duration-200 flex items-center gap-2.5";
+            const tabInk = isActive ? activeInk ?? TAB_INK : "rgba(226,233,239,0.74)";
             const st: React.CSSProperties = isActive
               ? {
                   background: surface ?? "linear-gradient(180deg, #FFFDF8 0%, #F7F3EC 100%)",
-                  color: TAB_INK,
+                  color: tabInk,
                   fontWeight: 600,
                   marginBottom: -1,
                   paddingTop: 10,
@@ -191,7 +195,7 @@ export function BookingWorkspaceHeader({
                 }
               : {
                   backgroundColor: "rgba(12,26,36,0.62)",
-                  color: "rgba(226,233,239,0.74)",
+                  color: tabInk,
                   border: "1px solid rgba(255,255,255,0.08)",
                   borderBottom: "none",
                   boxShadow:
@@ -199,7 +203,7 @@ export function BookingWorkspaceHeader({
                 };
             const inner = (
               <>
-                <span style={{ color: isActive ? GOLD_MET_MID : "rgba(226,233,239,0.62)" }}>
+                <span style={{ color: isActive ? activeInk ?? GOLD_MET_MID : "rgba(226,233,239,0.62)" }}>
                   {TAB_ICON[t]}
                 </span>
                 {t}
