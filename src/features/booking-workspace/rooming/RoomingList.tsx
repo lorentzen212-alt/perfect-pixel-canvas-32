@@ -4,6 +4,7 @@ import {
   ArrowRight,
   Bed,
   CalendarClock,
+  ChevronDown,
   ClipboardList,
   Eye,
   History,
@@ -64,7 +65,7 @@ const HAIRLINE = "1px solid rgba(50,60,65,0.10)";
 const SOFT_SHADOW = "0 1px 2px rgba(13,28,43,0.05)";
 
 const SOFT_CARD: React.CSSProperties = {
-  borderRadius: 12,
+  borderRadius: 8,
   background: SURFACE,
   border: HAIRLINE,
   boxShadow: "0 1px 2px rgba(15,25,35,0.05), 0 4px 10px -6px rgba(15,25,35,0.10)",
@@ -306,12 +307,12 @@ function SummaryCard({
       style={{
         background: CARD_SURFACE,
         border: HAIRLINE,
-        borderRadius: 10,
+        borderRadius: 6,
         boxShadow: SOFT_SHADOW,
       }}
     >
       <NavyTile size={42} radius={9}>
-        <span style={{ color: GOLD_ICON }}>{icon}</span>
+        <span style={{ color: "#FFFFFF", display: "flex" }}>{icon}</span>
       </NavyTile>
       <span className="min-w-0">
         <span
@@ -333,6 +334,49 @@ function SummaryCard({
 
 /* ── room-type row ────────────────────────────────────────────── */
 const ROW_GRID = "1fr 1px 72px 1px 72px";
+
+const OTHER_TYPES = ["Junior Suite", "Suite", "Accessible rooms", "Apartment"];
+
+function PeopleIcon({ count, size }: { count: number; size: number }) {
+  const w = 20 + (count - 1) * 12;
+  return (
+    <svg
+      viewBox={`0 0 ${w} 24`}
+      height={size}
+      width={(size * w) / 24}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      {Array.from({ length: count }, (_, i) => (
+        <g key={i} transform={`translate(${i * 12}, 0)`}>
+          <circle cx="10" cy="8" r="3.4" />
+          <path d="M3.8 20.4c0-3.4 2.8-6.2 6.2-6.2s6.2 2.8 6.2 6.2" />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function peopleCountFor(label: string) {
+  const l = label.toLowerCase();
+  if (l.includes("single")) return 1;
+  if (l.includes("double")) return 2;
+  if (l.includes("twin")) return 2;
+  if (l.includes("triple")) return 3;
+  if (l.includes("family")) return 4;
+  if (l.includes("other")) return 1;
+  return 2;
+}
+
+function peopleIconSize(count: number) {
+  if (count >= 4) return 14;
+  if (count === 3) return 16;
+  return 18;
+}
 
 function NumberCell({ value, label, muted }: { value: number; label: string; muted?: boolean }) {
   return (
@@ -357,6 +401,16 @@ function NumberCell({ value, label, muted }: { value: number; label: string; mut
   );
 }
 
+const ROW_STYLE = (muted?: boolean): React.CSSProperties => ({
+  gridTemplateColumns: ROW_GRID,
+  minHeight: 60,
+  padding: "10px 18px",
+  background: muted ? "#FAFAF9" : CARD_SURFACE,
+  border: HAIRLINE,
+  borderRadius: 5,
+  boxShadow: muted ? "none" : SOFT_SHADOW,
+});
+
 function TypeRow({
   label,
   rooms,
@@ -368,26 +422,14 @@ function TypeRow({
   guests: number;
   muted?: boolean;
 }) {
+  const count = peopleCountFor(label);
   return (
-    <li
-      className="grid items-center gap-3"
-      style={{
-        gridTemplateColumns: ROW_GRID,
-        minHeight: 60,
-        padding: "10px 18px",
-        background: muted ? "#FAFAF9" : CARD_SURFACE,
-        border: HAIRLINE,
-        borderRadius: 9,
-        boxShadow: muted ? "none" : SOFT_SHADOW,
-      }}
-    >
+    <li className="grid items-center gap-3" style={ROW_STYLE(muted)}>
       <span className="flex min-w-0 items-center gap-3">
-        <NavyTile size={38} radius={8} background={muted ? "#C9CDD2" : undefined}>
-          <Users
-            size={18}
-            strokeWidth={1.5}
-            style={{ color: muted ? "#FFFFFF" : GOLD_ICON }}
-          />
+        <NavyTile size={38} radius={9} background={muted ? "#C9CDD2" : undefined}>
+          <span style={{ color: "#FFFFFF", display: "flex" }}>
+            <PeopleIcon count={count} size={peopleIconSize(count)} />
+          </span>
         </NavyTile>
         <span
           className="min-w-0 truncate text-[15px] font-semibold"
@@ -401,6 +443,100 @@ function TypeRow({
       <NumberCell value={rooms} label="rooms" muted={muted} />
       <span aria-hidden style={{ width: 1, height: 30, background: "rgba(13,28,43,0.10)" }} />
       <NumberCell value={guests} label="guests" muted={muted} />
+    </li>
+  );
+}
+
+function OtherTypesRow() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <li
+      style={{
+        background: "#FAFAF9",
+        border: HAIRLINE,
+        borderRadius: 5,
+      }}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="grid w-full items-center gap-3 text-left"
+        style={{
+          gridTemplateColumns: ROW_GRID,
+          minHeight: 60,
+          padding: "10px 18px",
+          background: "transparent",
+          border: "none",
+          borderRadius: 5,
+        }}
+      >
+        <span className="flex min-w-0 items-center gap-3">
+          <NavyTile size={38} radius={9} background="#C9CDD2">
+            <span style={{ color: "#FFFFFF", display: "flex" }}>
+              <PeopleIcon count={1} size={18} />
+            </span>
+          </NavyTile>
+          <span className="flex min-w-0 items-center gap-1.5">
+            <span
+              className="min-w-0 truncate text-[15px] font-semibold"
+              style={{ color: "rgba(13,28,43,0.42)" }}
+            >
+              Other room types (0)
+            </span>
+            <ChevronDown
+              size={15}
+              style={{
+                color: "rgba(13,28,43,0.42)",
+                transition: "transform 160ms ease",
+                transform: open ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            />
+          </span>
+        </span>
+
+        <span aria-hidden style={{ width: 1, height: 30, background: "rgba(13,28,43,0.10)" }} />
+        <NumberCell value={0} label="rooms" muted />
+        <span aria-hidden style={{ width: 1, height: 30, background: "rgba(13,28,43,0.10)" }} />
+        <NumberCell value={0} label="guests" muted />
+      </button>
+
+      {open && (
+        <ul style={{ padding: "0 18px 8px 18px" }}>
+          {OTHER_TYPES.map((t, i) => (
+            <li
+              key={t}
+              className="grid items-center gap-3"
+              style={{
+                gridTemplateColumns: ROW_GRID,
+                height: 30,
+                borderTop: i === 0 ? "none" : "1px solid rgba(13,28,43,0.07)",
+              }}
+            >
+              <span
+                className="truncate text-[12.5px]"
+                style={{ color: "rgba(13,28,43,0.55)", paddingLeft: 50 }}
+              >
+                {t}
+              </span>
+              <span aria-hidden />
+              <span
+                className="text-center text-[13px] tabular-nums"
+                style={{ color: "rgba(13,28,43,0.45)" }}
+              >
+                0
+              </span>
+              <span aria-hidden />
+              <span
+                className="text-center text-[13px] tabular-nums"
+                style={{ color: "rgba(13,28,43,0.45)" }}
+              >
+                0
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </li>
   );
 }
@@ -428,24 +564,24 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         </span>
       </div>
 
-      <div className="mt-[8px] grid grid-cols-2 gap-[6px]">
+      <div className="mt-[8px] grid grid-cols-2 gap-[4px]">
         <SummaryCard
-          icon={<Bed size={19} strokeWidth={1.5} />}
+          icon={<Bed size={19} strokeWidth={1.6} />}
           value={totalRooms}
           label="Total rooms"
         />
         <SummaryCard
-          icon={<Users size={19} strokeWidth={1.5} />}
+          icon={<Users size={19} strokeWidth={1.6} />}
           value={totalGuests}
           label="Total guests"
         />
       </div>
 
-      <ul className="mt-[8px] flex flex-col gap-[5px]">
+      <ul className="mt-[8px] flex flex-col gap-[3px]">
         {rows.map((r) => (
           <TypeRow key={r.label} label={r.label} rooms={r.rooms} guests={r.guests} />
         ))}
-        <TypeRow label="Other room types (0)" rooms={0} guests={0} muted />
+        <OtherTypesRow />
       </ul>
 
       <Link
@@ -454,7 +590,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         params={{ bookingId }}
         className="mt-[8px] block"
       >
-        <NavyButton className="w-full text-[14px]" style={{ height: 50, borderRadius: 8 }}>
+        <NavyButton className="w-full text-[14px]" style={{ height: 50, borderRadius: 5 }}>
           View full rooming list
           <ArrowRight size={15} />
         </NavyButton>

@@ -163,7 +163,7 @@ const BASE_ROOMS: RoomLineUI[] = [
   { type: "Double rooms", note: "1 double bed", qty: 6, perRoom: 2 },
   { type: "Single rooms", note: "1 single bed", qty: 5, perRoom: 1 },
   { type: "Triple rooms", note: "3 single beds", qty: 4, perRoom: 3 },
-  { type: "Family / Accessible", note: "Accessible rooms", qty: 0, perRoom: 4 },
+  { type: "Family rooms", note: "Accessible rooms", qty: 0, perRoom: 4 },
 ];
 
 /* ───────────────────────── primitives ───────────────────────── */
@@ -613,7 +613,7 @@ function Workspace({ booking }: { booking: Booking }) {
       { key: ["double"], label: "Double rooms" },
       { key: ["twin"], label: "Twin rooms" },
       { key: ["triple"], label: "Triple rooms" },
-      { key: ["family"], label: "Family / Accessible" },
+      { key: ["family"], label: "Family rooms" },
     ];
     const allocs = roomingList ? activeAllocations(roomingList) : [];
     const rows = ORDER.map((o) => {
