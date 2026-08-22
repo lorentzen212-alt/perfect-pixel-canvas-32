@@ -466,12 +466,12 @@ function TypeRow({
       style={{
         gridTemplateColumns: ROW_GRID,
         minHeight: 66,
-        padding: "6px 18px",
+        padding: "6px 18px 6px 10px",
         background: muted ? "#FAFAF9" : "transparent",
         borderTop: isFirst ? undefined : "1px solid rgba(13,28,43,0.08)",
       }}
     >
-      <span className="flex min-w-0 items-center gap-3">
+      <span className="flex min-w-0 items-center gap-2.5">
         <NavyTile size={54} radius={12} background={muted ? "#C9CDD2" : undefined}>
           <span style={{ color: "#FFFFFF", display: "flex" }}>
             <BedIcon variant={bedVariantFor(label)} size={28} />
