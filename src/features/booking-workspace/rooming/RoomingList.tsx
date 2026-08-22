@@ -15,7 +15,7 @@ import {
   Upload,
   Users,
 } from "lucide-react";
-import { Card, Plate } from "../overview/primitives";
+import { Card } from "../overview/primitives";
 import { INK, INK_2 } from "../overview/materials";
 
 
