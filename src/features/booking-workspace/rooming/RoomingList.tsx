@@ -305,7 +305,7 @@ function SummaryCard({
     <div
       className="flex items-center gap-3 p-[14px]"
       style={{
-        background: SURFACE,
+        background: CARD_SURFACE,
         border: HAIRLINE,
         borderRadius: 15,
         boxShadow: SOFT_SHADOW,
