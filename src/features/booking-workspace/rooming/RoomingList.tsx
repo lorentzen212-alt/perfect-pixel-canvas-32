@@ -15,7 +15,7 @@ import {
   Upload,
   Users,
 } from "lucide-react";
-import { Card, Plate } from "../overview/primitives";
+import { Card } from "../overview/primitives";
 import { INK, INK_2 } from "../overview/materials";
 
 
@@ -64,7 +64,7 @@ const HAIRLINE = "1px solid rgba(50,60,65,0.10)";
 const SOFT_SHADOW = "0 1px 2px rgba(13,28,43,0.05)";
 
 const SOFT_CARD: React.CSSProperties = {
-  borderRadius: 16,
+  borderRadius: 12,
   background: SURFACE,
   border: HAIRLINE,
   boxShadow: "0 1px 2px rgba(15,25,35,0.05), 0 4px 10px -6px rgba(15,25,35,0.10)",
@@ -302,15 +302,15 @@ function SummaryCard({
 }) {
   return (
     <div
-      className="flex items-center gap-3 p-[12px]"
+      className="flex items-center gap-3 p-[13px]"
       style={{
         background: CARD_SURFACE,
         border: HAIRLINE,
-        borderRadius: 15,
+        borderRadius: 10,
         boxShadow: SOFT_SHADOW,
       }}
     >
-      <NavyTile size={42} radius={12}>
+      <NavyTile size={42} radius={9}>
         <span style={{ color: GOLD_ICON }}>{icon}</span>
       </NavyTile>
       <span className="min-w-0">
@@ -373,16 +373,16 @@ function TypeRow({
       className="grid items-center gap-3"
       style={{
         gridTemplateColumns: ROW_GRID,
-        minHeight: 56,
-        padding: "10px 16px",
+        minHeight: 60,
+        padding: "10px 18px",
         background: muted ? "#FAFAF9" : CARD_SURFACE,
         border: HAIRLINE,
-        borderRadius: 13,
+        borderRadius: 9,
         boxShadow: muted ? "none" : SOFT_SHADOW,
       }}
     >
       <span className="flex min-w-0 items-center gap-3">
-        <NavyTile size={38} radius={10} background={muted ? "#C9CDD2" : undefined}>
+        <NavyTile size={38} radius={8} background={muted ? "#C9CDD2" : undefined}>
           <Users
             size={18}
             strokeWidth={1.5}
@@ -428,7 +428,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         </span>
       </div>
 
-      <div className="mt-[10px] grid grid-cols-2 gap-[8px]">
+      <div className="mt-[8px] grid grid-cols-2 gap-[6px]">
         <SummaryCard
           icon={<Bed size={19} strokeWidth={1.5} />}
           value={totalRooms}
@@ -441,7 +441,7 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         />
       </div>
 
-      <ul className="mt-[10px] flex flex-col gap-[8px]">
+      <ul className="mt-[8px] flex flex-col gap-[5px]">
         {rows.map((r) => (
           <TypeRow key={r.label} label={r.label} rooms={r.rooms} guests={r.guests} />
         ))}
@@ -452,9 +452,9 @@ function Preview({ rows, bookingId }: { rows: RoomingTypeRow[]; bookingId: strin
         to="/bookings/$bookingId"
         search={{ tab: "Rooming List" }}
         params={{ bookingId }}
-        className="mt-[10px] block"
+        className="mt-[8px] block"
       >
-        <NavyButton className="w-full text-[14px]" style={{ height: 50, borderRadius: 11 }}>
+        <NavyButton className="w-full text-[14px]" style={{ height: 50, borderRadius: 8 }}>
           View full rooming list
           <ArrowRight size={15} />
         </NavyButton>
@@ -769,6 +769,22 @@ function NeedHelp({ onMessage }: { onMessage?: () => void }) {
   );
 }
 
+/* ── local navy plate (Rooming List only) ─────────────────────── */
+function NavyPlate({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="relative flex flex-1 flex-col"
+      style={{
+        background: "#253B50",
+        borderRadius: "16px 16px 0 0",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 /* ── composition ──────────────────────────────────────────────── */
 export function RoomingFolder({
   bookingId,
@@ -786,7 +802,7 @@ export function RoomingFolder({
   onMessage?: () => void;
 }) {
   return (
-    <Plate>
+    <NavyPlate>
       <div className="flex flex-1 flex-col space-y-[13px] px-5 pb-[18px] pt-[18px] sm:px-7">
         <StatusStrip data={data} onHistory={onHistory} />
         <div className="grid items-start gap-[10px] lg:grid-cols-[54fr_46fr]">
@@ -801,7 +817,6 @@ export function RoomingFolder({
         </div>
         <NeedHelp onMessage={onMessage} />
       </div>
-
-    </Plate>
+    </NavyPlate>
   );
 }

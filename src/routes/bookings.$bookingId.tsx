@@ -609,9 +609,9 @@ function Workspace({ booking }: { booking: Booking }) {
   /* rooming list tab data — derived from the live list where available */
   const roomingData = useMemo(() => {
     const ORDER: { key: RoomType[]; label: string }[] = [
-      { key: ["twin"], label: "Twin rooms" },
-      { key: ["double"], label: "Double rooms" },
       { key: ["single"], label: "Single rooms" },
+      { key: ["double"], label: "Double rooms" },
+      { key: ["twin"], label: "Twin rooms" },
       { key: ["triple"], label: "Triple rooms" },
       { key: ["family"], label: "Family / Accessible" },
     ];
