@@ -970,7 +970,16 @@ function NavyPlate({ children }: { children: React.ReactNode }) {
     <div
       className="relative flex flex-1 flex-col"
       style={{
-        background: "#253B50",
+        background: `
+          linear-gradient(269deg,
+            rgba(255,255,255,0.10) 0%,
+            rgba(255,255,255,0.025) 17%,
+            rgba(0,0,0,0.10) 37%,
+            rgba(255,255,255,0.07) 54%,
+            rgba(0,0,0,0.12) 76%,
+            rgba(255,255,255,0.045) 100%),
+          #0E3458
+        `,
         borderRadius: "16px 16px 0 0",
         boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
       }}
